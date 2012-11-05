@@ -435,7 +435,7 @@ void ChaserEditor::slotLowerClicked()
 
 void ChaserEditor::slotItemSelectionChanged()
 {
-    if (m_doc->mode() == Doc::Design)
+    if (m_chaser->isRunning() == false)
     {
         updateClipboardButtons();
         updateSpeedDials();
