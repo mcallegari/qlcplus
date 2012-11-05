@@ -1,0 +1,11 @@
+This TODO list is not a complete roadmap for QLC. It just contains random
+notes and issues found while doing something else. Kind of like a notepad or
+something.
+
+* Sanity check for functions and fixtures:
+  * After loading, check if all fixtures, channels and member functions
+    are present and usable. If not, remove them.
+  * When a fixture def is changed for an existing fixture, functions should
+    check if their channel & fixture bindings are still valid.
+  * After loading and changing fixture def, VC widgets should check if
+    their functions, fixtures and channels are still valid.
