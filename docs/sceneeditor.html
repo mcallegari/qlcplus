@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller - Scene Editor</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>Scene Editor</H1>
+<P>
+The scene editor, as its name suggests, is used to edit
+<A HREF="concept.html#Scene">scene</A> functions. The editor is divided into
+tabs; with the first, <B>General</B> tab, you control the list of fixtures that take
+part in the scene, the scene's name and the scene's fade speeds.
+All subsequent tabs are used to control the individual channel values for each fixture.
+</P>
+
+<H2>General Tab Controls</H2>
+
+<P>
+<B>Note:</B> The toolbar on top of the window is disabled completely while the
+<B>General</B> tab is visible.
+</P>
+
+<TABLE BORDER="1">
+ <TR>
+  <TD>
+   <B>Scene name</B>
+  </TD>
+  <TD>
+   Change the name of the scene.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/edit_add.png">
+  </TD>
+  <TD>
+   Add an existing <A HREF="concept.html#Fixtures">Fixture</A> to the scene.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/edit_remove.png">
+  </TD>
+  <TD>
+   Remove the selected <A HREF="concept.html#Fixtures">Fixture(s)</A> from the
+   scene.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Enable all</B> / <B>Disable all</B>
+  </TD>
+  <TD>
+   Enable all channels of all selected fixtures.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Speed</B>
+  </TD>
+  <TD>
+   Change the scene's <A HREF="concept.html#Scene">speed settings</A>.
+  </TD>
+ </TR>
+</TABLE>
+
+<H2>Fixture Tabs</H2>
+
+<P>
+Each fixture is represented by its own tab that contains sliders for each of
+the fixture's channels. Each channel can be enabled or disabled with a check
+box on top of the channel unit. The value of each channel can be set either by
+typing the value to the edit box on top of the slider or by moving the slider.
+Channels that provide multiple functions such as gobos, colors, etc. have also
+a button above the channel slider; this button can be used to directly select
+a specific function or capability provided by that channel.
+</P>
+
+<H3>Channel enabled/disabled status</H3>
+
+<P>
+If a channel has not been enabled, the scene will not touch that particular
+channel's value ever.
+</P>
+
+<P>
+If a channel has been enabled, the scene will change that channel's value to a
+value defined in the scene. This is useful, for example, when you wish to
+control only the dimmer channel of a scanner fixture; you wouldn't want the
+scene to touch the scanner's pan, tilt, colour or gobo channels when you just
+want to fade in or fade out with the dimmer channel.
+</P>
+
+<H3>Controls</H3>
+
+<TABLE BORDER="1">
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/check.png">
+  </TD>
+  <TD>
+   Enable all channels from the current fixture.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/uncheck.png">
+  </TD>
+  <TD>
+   Disable all channels from the current fixture.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/editcopy.png">
+  </TD>
+  <TD>
+   Copy the values (and enabled/disabled states) of all channels in the current
+   fixture to the clipboard.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/editpaste.png">
+  </TD>
+  <TD>
+   Paste values (and enabled/disabled states) from clipboard to the current
+   fixture.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/editcopyall.png">
+  </TD>
+  <TD>
+   Copy all values (and enabled/disabled states) of all channels to all other
+   fixtures taking part in the scene.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/color.png">
+  </TD>
+  <TD>
+   Launch a colour tool to select a specific colour and set that colour to the
+   current fixture; This feature is enabled only for fixtures that are
+   capable of CMY/RGB colour mixing.
+  </TD>
+ </TR>
+</TABLE>
+
+</BODY>
+</HTML> 

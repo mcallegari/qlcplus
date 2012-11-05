@@ -1,0 +1,31 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.0.7</Version>
+  <Author>eklynx</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Mega Flash DMX</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Strobe Speed">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">Slow -> Fast</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Low -> High</Capability>
+ </Channel>
+ <Mode Name="DMX">
+  <Physical>
+   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
+   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Strobe Speed</Channel>
+  <Channel Number="1">Dimmer</Channel>
+ </Mode>
+</FixtureDefinition>
+

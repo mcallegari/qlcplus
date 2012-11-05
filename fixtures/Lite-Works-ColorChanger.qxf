@@ -1,0 +1,36 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>2.6.1</Version>
+  <Author>hjunnila</Author>
+ </Creator>
+ <Manufacturer>Lite-Works</Manufacturer>
+ <Model>ColorChanger</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimming" >
+  <Group Byte="0" >Intensity</Group>
+  <Capability Min="0" Max="255" >Channel Level</Capability>
+ </Channel>
+ <Channel Name="Color" >
+  <Group Byte="0" >Colour</Group>
+  <Capability Min="0" Max="20" >Red</Capability>
+  <Capability Min="21" Max="40" >Yellow</Capability>
+ </Channel>
+ <Channel Name="Fade time" >
+  <Group Byte="0" >Speed</Group>
+  <Capability Min="0" Max="255" >Fade time</Capability>
+ </Channel>
+ <Mode Name="Mode 1" >
+  <Physical>
+   <Bulb ColourTemperature="0" Lumens="0" Type="" />
+   <Dimensions Width="0" Height="0" Weight="0" Depth="0" />
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0" />
+   <Focus TiltMax="0" PanMax="0" Type="Fixed" />
+  </Physical>
+  <Channel Number="0" >Dimming</Channel>
+  <Channel Number="1" >Color</Channel>
+  <Channel Number="2" >Fade time</Channel>
+ </Mode>
+</FixtureDefinition>
+

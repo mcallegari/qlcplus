@@ -1,0 +1,120 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.1.0</Version>
+  <Author>Heikki Junnila</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>KLS200</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Internal programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Manual Control</Capability>
+  <Capability Min="10" Max="29">Program 1</Capability>
+  <Capability Min="30" Max="49">Program 2</Capability>
+  <Capability Min="50" Max="69">Program 3</Capability>
+  <Capability Min="70" Max="89">Program 4</Capability>
+  <Capability Min="90" Max="109">Program 5</Capability>
+  <Capability Min="110" Max="129">Program 6</Capability>
+  <Capability Min="130" Max="149">Program 7</Capability>
+  <Capability Min="150" Max="169">Program 8</Capability>
+  <Capability Min="170" Max="189">Program 9</Capability>
+  <Capability Min="190" Max="209">Program 10</Capability>
+  <Capability Min="210" Max="229">Program 11</Capability>
+  <Capability Min="230" Max="249">Automatic Control</Capability>
+  <Capability Min="250" Max="255">Music Control</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Dimmer</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">Strobe Speed</Capability>
+ </Channel>
+ <Channel Name="Spot 1: Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Spot 1: Red</Capability>
+ </Channel>
+ <Channel Name="Spot 1: Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Spot 1: Green</Capability>
+ </Channel>
+ <Channel Name="Spot 1: Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Spot 1: Green</Capability>
+ </Channel>
+ <Channel Name="Spot 2: Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Spot 2: Red</Capability>
+ </Channel>
+ <Channel Name="Spot 2: Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Spot 2: Green</Capability>
+ </Channel>
+ <Channel Name="Spot 2: Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Spot 2: Blue</Capability>
+ </Channel>
+ <Channel Name="Spot 3: Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Spot 3: Red</Capability>
+ </Channel>
+ <Channel Name="Spot 3: Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Spot 3: Green</Capability>
+ </Channel>
+ <Channel Name="Spot 3: Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Spot 3: Blue</Capability>
+ </Channel>
+ <Channel Name="Spot 4: Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Spot 4: Red</Capability>
+ </Channel>
+ <Channel Name="Spot 4: Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Spot 4: Green</Capability>
+ </Channel>
+ <Channel Name="Spot 4: Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Spot 4: Blue</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="0" Height="0" Weight="3" Depth="0"/>
+   <Lens DegreesMax="0" Name="PC" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="70" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Internal programs</Channel>
+  <Channel Number="1">Master Dimmer</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Spot 1: Red</Channel>
+  <Channel Number="4">Spot 1: Green</Channel>
+  <Channel Number="5">Spot 1: Blue</Channel>
+  <Channel Number="6">Spot 2: Red</Channel>
+  <Channel Number="7">Spot 2: Green</Channel>
+  <Channel Number="8">Spot 2: Blue</Channel>
+  <Channel Number="9">Spot 3: Red</Channel>
+  <Channel Number="10">Spot 3: Green</Channel>
+  <Channel Number="11">Spot 3: Blue</Channel>
+  <Channel Number="12">Spot 4: Red</Channel>
+  <Channel Number="13">Spot 4: Green</Channel>
+  <Channel Number="14">Spot 4: Blue</Channel>
+ </Mode>
+</FixtureDefinition>

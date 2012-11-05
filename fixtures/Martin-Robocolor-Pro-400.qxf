@@ -1,0 +1,109 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.0.0</Version>
+  <Author></Author>
+ </Creator>
+ <Manufacturer>Martin</Manufacturer>
+ <Model>Robocolor Pro 400</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Strobe" >
+  <Group Byte="0" >Shutter</Group>
+  <Capability Min="0" Max="3" >Strobe off</Capability>
+  <Capability Min="4" Max="7" >Strobe off / Fan low</Capability>
+  <Capability Min="8" Max="199" >Strobe fast to slow</Capability>
+  <Capability Min="200" Max="218" >Remote music trigger</Capability>
+  <Capability Min="219" Max="238" >Remote auto trigger</Capability>
+  <Capability Min="239" Max="248" >RESET</Capability>
+  <Capability Min="249" Max="252" >Lamp ON</Capability>
+  <Capability Min="253" Max="255" >Lamp OFF (mode 3)</Capability>
+ </Channel>
+ <Channel Name="Dimmer" >
+  <Group Byte="0" >Intensity</Group>
+  <Capability Min="0" Max="10" >Light off</Capability>
+  <Capability Min="11" Max="237" >Dimmer intensity</Capability>
+  <Capability Min="238" Max="255" >Light ON</Capability>
+ </Channel>
+ <Channel Name="Colour 1" >
+  <Group Byte="0" >Colour</Group>
+  <Capability Min="0" Max="25" >White (scroll)</Capability>
+  <Capability Min="26" Max="51" >Yellow (scroll)</Capability>
+  <Capability Min="52" Max="77" >Fern green (scroll)</Capability>
+  <Capability Min="78" Max="103" >Flame red (scroll)</Capability>
+  <Capability Min="104" Max="129" >Cyan (scroll)</Capability>
+  <Capability Min="130" Max="155" >Turquoise (scroll)</Capability>
+  <Capability Min="156" Max="156" >Purple (scroll)</Capability>
+  <Capability Min="157" Max="171" >Purple (fixed)</Capability>
+  <Capability Min="172" Max="185" >Turquoise (fixed)</Capability>
+  <Capability Min="186" Max="199" >Cyan (fixed)</Capability>
+  <Capability Min="200" Max="214" >Flame red (fixed)</Capability>
+  <Capability Min="215" Max="227" >Fern green (fixed)</Capability>
+  <Capability Min="228" Max="241" >Yellow (fixed)</Capability>
+  <Capability Min="242" Max="255" >White (fixed)</Capability>
+ </Channel>
+ <Channel Name="Colour 2" >
+  <Group Byte="0" >Colour</Group>
+  <Capability Min="0" Max="25" >White (scroll)</Capability>
+  <Capability Min="26" Max="51" >Pink  (scroll)</Capability>
+  <Capability Min="52" Max="77" >Light green (scroll)</Capability>
+  <Capability Min="78" Max="103" >Magenta (scroll)</Capability>
+  <Capability Min="104" Max="129" >Dark lavender (scroll)</Capability>
+  <Capability Min="130" Max="155" >CC 5500-3400 (scroll)</Capability>
+  <Capability Min="156" Max="156" >CC 3500-5600 (scroll)</Capability>
+  <Capability Min="157" Max="171" >CC 3500-5600 (fixed)</Capability>
+  <Capability Min="172" Max="185" >CC 5500-3400 (fixed)</Capability>
+  <Capability Min="186" Max="199" >Dark lavender (fixed)</Capability>
+  <Capability Min="200" Max="214" >Magenta (fixed)</Capability>
+  <Capability Min="215" Max="227" >Light green (fixed)</Capability>
+  <Capability Min="228" Max="241" >Pink (fixed)</Capability>
+  <Capability Min="242" Max="255" >White (fixed)</Capability>
+ </Channel>
+ <Channel Name="Gobo" >
+  <Group Byte="0" >Beam</Group>
+  <Capability Min="0" Max="50" >Wash</Capability>
+  <Capability Min="51" Max="101" >Wide beam</Capability>
+  <Capability Min="102" Max="152" >Medium beam</Capability>
+  <Capability Min="153" Max="203" >Narrow beam</Capability>
+  <Capability Min="204" Max="255" >Blackout</Capability>
+ </Channel>
+ <Channel Name="Color speed" >
+  <Group Byte="0" >Speed</Group>
+  <Capability Min="0" Max="255" >Fast to slow</Capability>
+ </Channel>
+ <Channel Name="Dimmer speed" >
+  <Group Byte="0" >Speed</Group>
+  <Capability Min="0" Max="255" >Fast to slow</Capability>
+ </Channel>
+ <Mode Name="Mode 1 (Tracking)" >
+  <Physical>
+   <Bulb Lumens="0" Type="MSD 200W" ColourTemperature="0" />
+   <Dimensions Width="337" Height="282" Weight="11" Depth="306" />
+   <Lens DegreesMax="33" Name="PC" DegreesMin="15" />
+   <Focus PanMax="0" Type="Fixed" TiltMax="0" />
+   <Technical PowerConsumption="270" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0" >Strobe</Channel>
+  <Channel Number="1" >Dimmer</Channel>
+  <Channel Number="2" >Colour 1</Channel>
+  <Channel Number="3" >Colour 2</Channel>
+  <Channel Number="4" >Gobo</Channel>
+ </Mode>
+ <Mode Name="Mode 2 (Vector)" >
+  <Physical>
+   <Bulb Lumens="0" Type="MSD 200W" ColourTemperature="0" />
+   <Dimensions Width="337" Height="282" Weight="11" Depth="306" />
+   <Lens DegreesMax="33" Name="PC" DegreesMin="15" />
+   <Focus PanMax="0" Type="Fixed" TiltMax="0" />
+   <Technical PowerConsumption="270" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0" >Strobe</Channel>
+  <Channel Number="1" >Dimmer</Channel>
+  <Channel Number="2" >Colour 1</Channel>
+  <Channel Number="3" >Colour 2</Channel>
+  <Channel Number="4" >Gobo</Channel>
+  <Channel Number="5" >Color speed</Channel>
+  <Channel Number="6" >Dimmer speed</Channel>
+ </Mode>
+</FixtureDefinition>
+

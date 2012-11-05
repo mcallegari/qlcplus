@@ -1,0 +1,47 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.0.0</Version>
+  <Author></Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>TC-300</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Colour" >
+  <Group Byte="0" >Colour</Group>
+  <Capability Min="0" Max="16" >White</Capability>
+  <Capability Min="17" Max="33" >Red</Capability>
+  <Capability Min="34" Max="50" >Yellow</Capability>
+  <Capability Min="51" Max="67" >Magenta</Capability>
+  <Capability Min="68" Max="84" >Green</Capability>
+  <Capability Min="85" Max="101" >Orange</Capability>
+  <Capability Min="102" Max="118" >Blue</Capability>
+  <Capability Min="119" Max="135" >Pink</Capability>
+  <Capability Min="136" Max="255" >Rainbow slow to fast</Capability>
+ </Channel>
+ <Channel Name="Dimmer" >
+  <Group Byte="0" >Intensity</Group>
+  <Capability Min="0" Max="255" >Dimmer intensity</Capability>
+ </Channel>
+ <Channel Name="Shutter, strobe" >
+  <Group Byte="0" >Shutter</Group>
+  <Capability Min="0" Max="14" >Closed</Capability>
+  <Capability Min="15" Max="29" >Open</Capability>
+  <Capability Min="30" Max="250" >Strobe slow to fast</Capability>
+  <Capability Min="251" Max="255" >Open</Capability>
+ </Channel>
+ <Mode Name="Normal" >
+  <Physical>
+   <Bulb Lumens="18000" Type="MSD 250W" ColourTemperature="6500" />
+   <Dimensions Width="280" Height="300" Weight="7" Depth="290" />
+   <Lens DegreesMax="18" Name="Other" DegreesMin="18" />
+   <Focus PanMax="0" Type="Fixed" TiltMax="0" />
+   <Technical PowerConsumption="400" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0" >Colour</Channel>
+  <Channel Number="1" >Dimmer</Channel>
+  <Channel Number="2" >Shutter, strobe</Channel>
+ </Mode>
+</FixtureDefinition>
+

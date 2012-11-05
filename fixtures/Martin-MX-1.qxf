@@ -1,0 +1,83 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>2.6.1</Version>
+  <Author>hjunnila</Author>
+ </Creator>
+ <Manufacturer>Martin</Manufacturer>
+ <Model>MX-1</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Dimmer, strobe, reset" >
+  <Group Byte="0" >Intensity</Group>
+  <Capability Min="0" Max="4" >Light off</Capability>
+  <Capability Min="5" Max="154" >Dimmer intensity</Capability>
+  <Capability Min="155" Max="169" >Dimmer full open</Capability>
+  <Capability Min="170" Max="229" >Strobe speed fast to slow</Capability>
+  <Capability Min="230" Max="239" >Stand-alone, music trigger</Capability>
+  <Capability Min="240" Max="249" >Stand-alone, auto trigger</Capability>
+  <Capability Min="250" Max="255" >Reset</Capability>
+ </Channel>
+ <Channel Name="Not used" >
+  <Group Byte="0" >Nothing</Group>
+  <Capability Min="0" Max="255" >Not used</Capability>
+ </Channel>
+ <Channel Name="Colour / gobo wheel" >
+  <Group Byte="0" >Colour</Group>
+  <Capability Min="0" Max="11" >Open</Capability>
+  <Capability Min="12" Max="23" >Position 2</Capability>
+  <Capability Min="24" Max="35" >Position 3</Capability>
+  <Capability Min="36" Max="47" >Position 4</Capability>
+  <Capability Min="48" Max="59" >Position 5</Capability>
+  <Capability Min="60" Max="71" >Position 6</Capability>
+  <Capability Min="72" Max="83" >Position 7</Capability>
+  <Capability Min="84" Max="95" >Position 8</Capability>
+  <Capability Min="96" Max="107" >Position 9</Capability>
+  <Capability Min="108" Max="119" >Position 10</Capability>
+  <Capability Min="120" Max="131" >Position 11</Capability>
+  <Capability Min="132" Max="143" >Position 12</Capability>
+  <Capability Min="144" Max="155" >Position 13</Capability>
+  <Capability Min="156" Max="167" >Position 14</Capability>
+  <Capability Min="168" Max="179" >Position 15</Capability>
+  <Capability Min="180" Max="191" >Position 16</Capability>
+  <Capability Min="192" Max="203" >Position 17</Capability>
+  <Capability Min="204" Max="215" >Position 18</Capability>
+  <Capability Min="216" Max="227" >Position 19</Capability>
+  <Capability Min="228" Max="239" >Closed</Capability>
+  <Capability Min="240" Max="255" >Random, stand-alone</Capability>
+ </Channel>
+ <Channel Name="Pan" >
+  <Group Byte="0" >Pan</Group>
+  <Capability Min="0" Max="255" >Pan</Capability>
+ </Channel>
+ <Channel Name="Tilt" >
+  <Group Byte="0" >Tilt</Group>
+  <Capability Min="0" Max="255" >Tilt</Capability>
+ </Channel>
+ <Channel Name="Pan/tilt speed" >
+  <Group Byte="0" >Speed</Group>
+  <Capability Min="0" Max="2" >Tracking mode</Capability>
+  <Capability Min="3" Max="255" >Vector mode speed fast to slow</Capability>
+ </Channel>
+ <Channel Name="Colour / gobo speed" >
+  <Group Byte="0" >Speed</Group>
+  <Capability Min="0" Max="255" >Fast to slow</Capability>
+ </Channel>
+ <Mode Name="Mode 1" >
+  <Physical>
+   <Bulb ColourTemperature="3200" Lumens="0" Type="ELC 250W" />
+   <Dimensions Width="269" Height="537" Weight="6" Depth="263" />
+   <Lens DegreesMax="16" Name="Other" DegreesMin="16" />
+   <Focus TiltMax="77" PanMax="230" Type="Mirror" />
+   <Technical PowerConsumption="265" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0" >Dimmer, strobe, reset</Channel>
+  <Channel Number="1" >Not used</Channel>
+  <Channel Number="2" >Colour / gobo wheel</Channel>
+  <Channel Number="3" >Pan</Channel>
+  <Channel Number="4" >Tilt</Channel>
+  <Channel Number="5" >Pan/tilt speed</Channel>
+  <Channel Number="6" >Colour / gobo speed</Channel>
+ </Mode>
+</FixtureDefinition>
+

@@ -1,0 +1,204 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller - Command-Line Parameters</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>Command-Line Parameters</H1>
+
+<TABLE BORDER="0">
+ <TR>
+  <TD STYLE="background-color: #eeeeee;">
+   <H2>-c or --closebutton</H2>
+   <P>
+    <B>Description:</B>Define a place for a close button in virtual console. The button
+    can be used to close QLC. Has effect only in kiosk mode (see -k) and is most useful
+    when in fullscreen mode without a window manager.
+   </P>
+
+   <P>
+    <B>Parameters:</B> x,y,w,h
+   </P>
+
+   <P>
+    <B>Examples:</B><BR>
+    Create a button at (x400, y500) whose size is (w70, h50):<BR>
+    qlc -c 400,500,70,50<BR>
+    qlc --closebutton 400,500,70,50<BR>
+   </P>
+  </TD>
+ </TR>
+
+ <TR>
+  <TD STYLE="background-color: #ffffff;">
+   <H2>-d or --debug</H2>
+   <P>
+    <B>Description:</B> Enable debug mode and optionally set the output level.
+   </P>
+
+   <P>
+    <B>Parameters:</B> Level (see <A HREF="http://developer.qt.nokia.com/doc/qt-4.8/qtglobal.html#QtMsgType-enum">QtMsgType</A>)
+   </P>
+
+   <P>
+    <B>Examples:</B><BR>
+    Enable debug mode and set debug level to 0:<BR>
+    qlc -d<BR>
+    qlc --debug<BR>
+    <BR>
+    Enable debug mode and set debug level to 3:<BR>
+    qlc -d 3<BR>
+   </P>
+  </TD>
+ </TR>
+
+ <TR>
+  <TD STYLE="background-color: #eeeeee;">
+   <H2>-f or --fullscreen</H2>
+   <P>
+    <B>Description:</B> Start the application in fullscreen mode
+   </P>
+
+   <P>
+    <B>Parameters:</B> Method (either 'normal' or 'resize')
+   </P>
+
+   <P>
+    <B>Examples:</B><BR>
+    Tell the window manager to give the whole screen space to QLC:<BR>
+    qlc -f<BR>
+    qlc --fullscreen<BR>
+    qlc -f normal<BR>
+    qlc --fullscreen normal<BR>
+    <BR>
+    Resize QLC to take up the whole screen space (useful in custom X11 sessions without a window manager):<BR>
+    qlc -f resize<BR>
+    qlc --fullscreen resize<BR>
+   </P>
+  </TD>
+ </TR>
+
+ <TR>
+  <TD STYLE="background-color: #ffffff;">
+   <H2>-h or --help</H2>
+   <P>
+    <B>Description:</B> Display command-line help (only in Linux & OS X)
+   </P>
+
+   <P>
+    <B>Parameters:</B> None
+   </P>
+
+   <P>
+    <B>Examples:</B><BR>
+    Display the command-line help:<BR>
+    qlc -h<BR>
+    qlc --help<BR>
+   </P>
+  </TD>
+ </TR>
+
+ <TR>
+  <TD STYLE="background-color: #eeeeee;">
+   <H2>-k or --kiosk</H2>
+   <P>
+    <B>Description:</B> Enable kiosk-mode (only <A HREF="virtualconsole.html">virtual console</A> is visible and the application is locked in <A HREF="concept.html#Modes">operate mode</A>)
+   </P>
+
+   <P>
+    <B>Parameters:</B> None
+   </P>
+
+   <P>
+    <B>Examples:</B><BR>
+    Start the application in kiosk mode:<BR>
+    qlc -k<BR>
+    qlc --kiosk<BR>
+   </P>
+  </TD>
+ </TR>
+
+ <TR>
+  <TD STYLE="background-color: #ffffff;">
+   <H2>-l or --locale</H2>
+   <P>
+    <B>Description:</B> Use the given locale for translation
+   </P>
+
+   <P>
+    <B>Parameters:</B> Locale name (currently supported: en_GB, fi_FI, fr_FR, es_ES)
+   </P>
+
+   <P>
+    <B>Examples:</B><BR>
+    Use finnish language:<BR>
+    qlc -l fi_FI<BR>
+    qlc --locale fi_FI<BR>
+   </P>
+  </TD>
+ </TR>
+
+ <TR>
+  <TD STYLE="background-color: #eeeeee;">
+   <H2>-o or --open</H2>
+   <P>
+    <B>Description:</B> Open the given workspace file
+   </P>
+
+   <P>
+    <B>Parameters:</B> File name
+   </P>
+
+   <P>
+    <B>Examples:</B><BR>
+    Open mydesk.qxw:<BR>
+    qlc -o mydesk.qxw<BR>
+    qlc --open mydesk.qxw<BR>
+   </P>
+  </TD>
+ </TR>
+
+ <TR>
+  <TD STYLE="background-color: #ffffff;">
+   <H2>-p or --operate</H2>
+   <P>
+    <B>Description:</B> Start the application in <A HREF="file:///home/hjunnila/Source/qlc/docs/concept.html#Modes">Operate</A> mode.
+   </P>
+
+   <P>
+    <B>Parameters:</B> None
+   </P>
+
+   <P>
+    <B>Examples:</B><BR>
+    Start QLC in operate mode:<BR>
+    qlc -p<BR>
+    qlc --operate<BR>
+   </P>
+  </TD>
+ </TR>
+
+ <TR>
+  <TD STYLE="background-color: #eeeeee;">
+   <H2>-v or --version</H2>
+   <P>
+    <B>Description:</B> Display the current application version number
+   </P>
+
+   <P>
+    <B>Parameters:</B> None
+   </P>
+
+   <P>
+    <B>Examples:</B><BR>
+    qlc -v<BR>
+    qlc --version<BR>
+   </P>
+  </TD>
+ </TR>
+</TABLE>
+
+</BODY>
+</HTML>

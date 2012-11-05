@@ -1,0 +1,112 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.0.0</Version>
+  <Author>hjunnila</Author>
+ </Creator>
+ <Manufacturer>Robe</Manufacturer>
+ <Model>ClubWash 250 CT</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" >
+  <Group Byte="0" >Pan</Group>
+  <Capability Min="0" Max="255" >Pan</Capability>
+ </Channel>
+ <Channel Name="Pan fine" >
+  <Group Byte="1" >Pan</Group>
+  <Capability Min="0" Max="255" >Pan fine</Capability>
+ </Channel>
+ <Channel Name="Tilt" >
+  <Group Byte="0" >Tilt</Group>
+  <Capability Min="0" Max="255" >Tilt</Capability>
+ </Channel>
+ <Channel Name="Tilt fine" >
+  <Group Byte="1" >Tilt</Group>
+  <Capability Min="0" Max="255" >Tilt fine</Capability>
+ </Channel>
+ <Channel Name="Pan/Tilt Speed" >
+  <Group Byte="0" >Speed</Group>
+  <Capability Min="0" Max="0" >Tracking</Capability>
+  <Capability Min="1" Max="249" >Vect Mode</Capability>
+  <Capability Min="250" Max="252" >BO during Col</Capability>
+  <Capability Min="253" Max="255" >BO during Pan/Tilt/Col</Capability>
+ </Channel>
+ <Channel Name="Control" >
+  <Group Byte="0" >Speed</Group>
+  <Capability Min="0" Max="0" >Safe</Capability>
+  <Capability Min="128" Max="129" >Lamp On, Reset</Capability>
+  <Capability Min="230" Max="239" >Lamp Off</Capability>
+ </Channel>
+ <Channel Name="Colour" >
+  <Group Byte="0" >Colour</Group>
+  <Capability Min="0" Max="0" >Open</Capability>
+  <Capability Min="10" Max="10" >Turquoise</Capability>
+  <Capability Min="21" Max="21" >Deep Red</Capability>
+  <Capability Min="32" Max="32" >Cyan</Capability>
+  <Capability Min="42" Max="42" >UV</Capability>
+  <Capability Min="53" Max="53" >Magenta</Capability>
+  <Capability Min="64" Max="64" >Light Blue</Capability>
+  <Capability Min="74" Max="74" >Yellow</Capability>
+  <Capability Min="85" Max="85" >Green</Capability>
+  <Capability Min="96" Max="96" >Pink</Capability>
+  <Capability Min="106" Max="106" >Blue</Capability>
+  <Capability Min="117" Max="117" >Red</Capability>
+  <Capability Min="190" Max="193" >No Scroll</Capability>
+  <Capability Min="128" Max="189" >Scroll CW</Capability>
+  <Capability Min="194" Max="255" >Scroll CCW</Capability>
+ </Channel>
+ <Channel Name="No Func" >
+  <Group Byte="0" >Speed</Group>
+  <Capability Min="0" Max="255" >Raw DMX</Capability>
+ </Channel>
+ <Channel Name="Shutter" >
+  <Group Byte="0" >Shutter</Group>
+  <Capability Min="0" Max="31" >Closed</Capability>
+  <Capability Min="32" Max="63" >Open</Capability>
+  <Capability Min="64" Max="95" >Strobe Speed</Capability>
+  <Capability Min="128" Max="143" >Close Pulse</Capability>
+  <Capability Min="144" Max="159" >Open Pulse</Capability>
+  <Capability Min="192" Max="223" >Random Strobe</Capability>
+ </Channel>
+ <Channel Name="Dimmer" >
+  <Group Byte="0" >Intensity</Group>
+  <Capability Min="0" Max="255" >Dimmer</Capability>
+ </Channel>
+ <Mode Name="16bit" >
+  <Physical>
+   <Bulb Lumens="0" Type="" ColourTemperature="0" />
+   <Dimensions Width="0" Height="0" Weight="0" Depth="0" />
+   <Lens DegreesMax="0" Name="" DegreesMin="0" />
+   <Focus PanMax="0" Type="Head" TiltMax="0" />
+   <Technical PowerConsumption="410" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0" >Pan</Channel>
+  <Channel Number="1" >Pan fine</Channel>
+  <Channel Number="2" >Tilt</Channel>
+  <Channel Number="3" >Tilt fine</Channel>
+  <Channel Number="4" >Pan/Tilt Speed</Channel>
+  <Channel Number="5" >Control</Channel>
+  <Channel Number="6" >Colour</Channel>
+  <Channel Number="7" >No Func</Channel>
+  <Channel Number="8" >Shutter</Channel>
+  <Channel Number="9" >Dimmer</Channel>
+ </Mode>
+ <Mode Name="8bit" >
+  <Physical>
+   <Bulb Lumens="0" Type="" ColourTemperature="0" />
+   <Dimensions Width="0" Height="0" Weight="0" Depth="0" />
+   <Lens DegreesMax="0" Name="" DegreesMin="0" />
+   <Focus PanMax="0" Type="Head" TiltMax="0" />
+   <Technical PowerConsumption="410" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0" >Pan</Channel>
+  <Channel Number="1" >Tilt</Channel>
+  <Channel Number="2" >Pan/Tilt Speed</Channel>
+  <Channel Number="3" >Control</Channel>
+  <Channel Number="4" >Colour</Channel>
+  <Channel Number="5" >No Func</Channel>
+  <Channel Number="6" >Shutter</Channel>
+  <Channel Number="7" >Dimmer</Channel>
+ </Mode>
+</FixtureDefinition>
+

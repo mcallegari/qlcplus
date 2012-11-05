@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Documentation</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>Input Mapping Howto</H1>
+
+This howto document tells you how to patch input plugins and their input lines
+(physical input devices) to QLC's internal input universes.
+
+<H1>Input Manager</H1>
+
+<P>
+<B>Click the <u>Inputs</u> item from the main window's <u>Manager</u> menu.</B>
+</P>
+
+<P>
+A window is opened with the title <u>"Output Manager"</u>. There's a list of
+internal input universes, plugins and input lines, with a toolbar on top of
+the list with just one button: 
+</P>
+
+<HR>
+<P>
+<IMG SRC="qrc:/edit.png" ALIGN="absmiddle"> Edit Mapping
+</P>
+<HR>
+
+<P>
+Each of these internal universes can have one input plugin and one input line
+from that plugin assigned to them. In other words, the input control data
+that you create with an external input device (like a slider board) is first
+caught thru some plugin's input line, which is then sent thru the plugin to
+the main QLC application. This data is then made available thru an input
+universe that you can use to connect to from various virtual console elements
+and editors. The flow of data is basically just the opposite compared to 
+<A HREF="howto-output-mapping.html">Output Mapping</A>.
+</P>
+
+<P>
+Each universe can also have a special <u>Input Device</u>, which basically
+tells you, what kinds of controls your input hardware contains. For example,
+the <u>Behringer BCF 2000</u> slider board contains multiple sliders, knobs
+and buttons that are seen just dumb channels by QLC. An <u>Input Device</u>
+can tell you, which channel is which slider, button and knob so you don't
+have to memorize them. You could think of an input device as an input-side
+equivalent to an output-side
+<A HREF="file:///home/hjunnila/source/qlc/docs/concept.html#Fixtures">fixture
+definition</A>.
+</P>
+
+<P>
+One of these universes is also set to act as the <u>Default editor universe</u>.
+This ability is used by scene editor and fixture console to get direct input
+from your slider board and ease channel value setting.
+</P>
+
+<H2>Mapping Properties</H2>
+
+<P>
+<B>Select <u>universe 1</u> and then click the
+<IMG SRC="qrc:/edit.png" ALIGN="absmiddle"> edit button to edit the first
+universe's mapping properties.</B>
+</P>
+
+<P>
+A dialog opens with a list of available plugins. If you open these plugin
+nodes (click the little "+" sign) you can see a list of physical input lines
+that each plugin provides.
+</P>
+
+<P>
+Below the list is a text field that displays some information on the selected
+plugin and/or input line that you have currently selected.
+</P>
+
+<P>
+Right next to the text field is a
+<IMG SRC="qrc:/configure.png"> configuration button that
+lets you access a dialog with which you can configure the selected plugin.
+Each plugin's configuration window differs slightly from one another because
+different plugins require different kinds of options and it has been left to
+the plugin developers to decide the configuration dialog layout. Note that not
+all plugins necessarily provide this option.
+</P>
+
+<P>
+Some plugins might require configuration before they can be used so you might
+not be able to see all inputs at first.
+</P>
+
+<P>
+You can also set the currently selected universe to act as the <u>Default
+editor universe</u>. Since one of the universes is always the editor, you
+cannot uncheck the option.
+</P>
+
+<H2>Patching</H2>
+
+<P>
+To patch a plugin's input line to the selected universe, you need to place
+a checkmark on that particular plugin's input line. You can have only one
+line assigned to a universe at a time, so when you check another line, the
+checkmark will <u>move</u> from its previous position to the one you checked.
+If you can't see any input lines, you don't have any input devices that QLC
+understands and you're left with the one and only choice: <u>None</u>.
+</P>
+
+<P>
+<B>Place the checkmark on one of the available input options and click OK
+to close the dialog and accept the mapping.</B>
+</P>
+
+<H2>Back in the Input Manager</H2>
+
+<P>
+Now you should see the input device mapping in the <u>Input Manager</u>. If
+you assigned a valid input device to the universe, wiggling its controls will
+now flash a small icon <IMG SRC="qrc:/input.png" height="14"> in the universe
+column to show that QLC receives input data from that device.
+</P>
+
+<H2>Input Devices</H2>
+
+<P>
+There is another <A HREF="howto-input-devices.html">howto for input devices</A>.
+</P>
+
+</BODY>
+</HTML>

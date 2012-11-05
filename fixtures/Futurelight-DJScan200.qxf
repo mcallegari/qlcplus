@@ -1,0 +1,74 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>2.6.1</Version>
+  <Author>hjunnila</Author>
+ </Creator>
+ <Manufacturer>Futurelight</Manufacturer>
+ <Model>DJScan200</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Pan" >
+  <Group Byte="0" >Pan</Group>
+  <Capability Min="0" Max="255" >Left to Right</Capability>
+ </Channel>
+ <Channel Name="Tilt" >
+  <Group Byte="0" >Tilt</Group>
+  <Capability Min="0" Max="255" >Down to Up</Capability>
+ </Channel>
+ <Channel Name="Color" >
+  <Group Byte="0" >Colour</Group>
+  <Capability Min="0" Max="10" >White</Capability>
+  <Capability Min="11" Max="21" >Cherry Red</Capability>
+  <Capability Min="22" Max="32" >Yellow</Capability>
+  <Capability Min="33" Max="43" >Dark Blue</Capability>
+  <Capability Min="44" Max="54" >Light Green</Capability>
+  <Capability Min="55" Max="65" >Pink</Capability>
+  <Capability Min="66" Max="76" >Purple Blue</Capability>
+  <Capability Min="77" Max="87" >Red</Capability>
+  <Capability Min="88" Max="98" >Pale Yellow</Capability>
+  <Capability Min="99" Max="109" >Light Blue</Capability>
+  <Capability Min="110" Max="120" >Orange</Capability>
+  <Capability Min="121" Max="127" >Dark Green</Capability>
+  <Capability Min="128" Max="191" >Forward Rainbow Speed</Capability>
+  <Capability Min="192" Max="255" >Backward Rainbow Speed</Capability>
+ </Channel>
+ <Channel Name="Gobo" >
+  <Group Byte="0" >Gobo</Group>
+  <Capability Min="0" Max="7" >Closed</Capability>
+  <Capability Min="8" Max="15" >Open</Capability>
+  <Capability Min="16" Max="23" >Gobo 1</Capability>
+  <Capability Min="24" Max="31" >Gobo 2</Capability>
+  <Capability Min="32" Max="39" >Gobo 3</Capability>
+  <Capability Min="40" Max="47" >Gobo 4</Capability>
+  <Capability Min="48" Max="55" >Gobo 5</Capability>
+  <Capability Min="56" Max="63" >Gobo 6</Capability>
+  <Capability Min="64" Max="71" >Gobo 7</Capability>
+  <Capability Min="72" Max="79" >Gobo 8</Capability>
+  <Capability Min="80" Max="87" >Gobo 9</Capability>
+  <Capability Min="88" Max="95" >Gobo 10</Capability>
+  <Capability Min="96" Max="103" >Gobo 11</Capability>
+  <Capability Min="104" Max="111" >Gobo 12</Capability>
+  <Capability Min="112" Max="119" >Gobo 13</Capability>
+  <Capability Min="120" Max="127" >Gobo 14</Capability>
+  <Capability Min="133" Max="137" >Reset after 3-5 seconds</Capability>
+  <Capability Min="138" Max="159" >Forward Gobo Change Speed</Capability>
+  <Capability Min="160" Max="200" >Strobe Speed</Capability>
+  <Capability Min="201" Max="250" >Random Strobe Speed</Capability>
+  <Capability Min="251" Max="255" >Open</Capability>
+ </Channel>
+ <Mode Name="Mode 1" >
+  <Physical>
+   <Bulb ColourTemperature="8500" Lumens="0" Type="MSD 250W" />
+   <Dimensions Width="260" Height="665" Weight="10" Depth="290" />
+   <Lens DegreesMax="16" Name="Other" DegreesMin="16" />
+   <Focus TiltMax="75" PanMax="180" Type="Mirror" />
+   <Technical PowerConsumption="500" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0" >Pan</Channel>
+  <Channel Number="1" >Tilt</Channel>
+  <Channel Number="2" >Color</Channel>
+  <Channel Number="3" >Gobo</Channel>
+ </Mode>
+</FixtureDefinition>
+

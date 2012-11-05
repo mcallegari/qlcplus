@@ -1,0 +1,51 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.0.7</Version>
+  <Author>eklynx</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>DMX Mega Strobe III</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Speed / Mode (DMX)">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="211">Slow -> Fast</Capability>
+  <Capability Min="212" Max="255">Sound Triggered</Capability>
+ </Channel>
+ <Channel Name="Dimmer (DMX)">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Low -> High</Capability>
+ </Channel>
+ <Channel Name="Speed / Mode (Blinder)">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="43" Max="211">Blinder</Capability>
+ </Channel>
+ <Channel Name="Dimmer (Blinder)">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="0">MUST be 0 for Blinder</Capability>
+ </Channel>
+ <Mode Name="Standard DMX">
+  <Physical>
+   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
+   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Speed / Mode (DMX)</Channel>
+  <Channel Number="1">Dimmer (DMX)</Channel>
+ </Mode>
+ <Mode Name="Blinder Mode">
+  <Physical>
+   <Bulb Lumens="0" Type="CH-750B 750W" ColourTemperature="0"/>
+   <Dimensions Width="330" Height="211" Weight="5" Depth="147"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="0" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Speed / Mode (Blinder)</Channel>
+  <Channel Number="1">Dimmer (Blinder)</Channel>
+ </Mode>
+</FixtureDefinition>
+

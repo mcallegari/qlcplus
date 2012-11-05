@@ -1,0 +1,82 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.0.0</Version>
+  <Author></Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>TS-7B</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Pan" >
+  <Group Byte="0" >Pan</Group>
+  <Capability Min="0" Max="255" >Pan</Capability>
+ </Channel>
+ <Channel Name="Tilt" >
+  <Group Byte="0" >Tilt</Group>
+  <Capability Min="0" Max="255" >Tilt</Capability>
+ </Channel>
+ <Channel Name="Gobo" >
+  <Group Byte="0" >Gobo</Group>
+  <Capability Min="0" Max="17" >Open</Capability>
+  <Capability Min="18" Max="35" >Gobo 1</Capability>
+  <Capability Min="36" Max="53" >Gobo 2</Capability>
+  <Capability Min="54" Max="71" >Gobo 3</Capability>
+  <Capability Min="72" Max="89" >Gobo 4</Capability>
+  <Capability Min="90" Max="107" >Gobo 5</Capability>
+  <Capability Min="108" Max="125" >Gobo 6</Capability>
+  <Capability Min="126" Max="143" >Gobo 7</Capability>
+  <Capability Min="144" Max="161" >Gobo 8</Capability>
+  <Capability Min="162" Max="179" >Gobo 9</Capability>
+  <Capability Min="180" Max="197" >Gobo 10</Capability>
+  <Capability Min="198" Max="215" >Gobo 11</Capability>
+  <Capability Min="216" Max="233" >Gobo 12</Capability>
+  <Capability Min="234" Max="251" >Gobo 13</Capability>
+  <Capability Min="252" Max="255" >Gobo 14</Capability>
+ </Channel>
+ <Channel Name="Colour" >
+  <Group Byte="0" >Colour</Group>
+  <Capability Min="0" Max="17" >White</Capability>
+  <Capability Min="18" Max="35" >Yellow</Capability>
+  <Capability Min="36" Max="53" >Pink</Capability>
+  <Capability Min="54" Max="71" >Green</Capability>
+  <Capability Min="72" Max="89" >Dark orange</Capability>
+  <Capability Min="90" Max="107" >Magenta</Capability>
+  <Capability Min="108" Max="125" >Light green</Capability>
+  <Capability Min="126" Max="143" >Blue</Capability>
+  <Capability Min="144" Max="161" >Red</Capability>
+  <Capability Min="162" Max="179" >Dark pink</Capability>
+  <Capability Min="180" Max="197" >Light orange</Capability>
+  <Capability Min="198" Max="215" >Orange</Capability>
+  <Capability Min="216" Max="233" >Turquoise</Capability>
+  <Capability Min="234" Max="251" >Blue/yellow</Capability>
+  <Capability Min="252" Max="255" >Green/red</Capability>
+ </Channel>
+ <Channel Name="Shutter, strobe" >
+  <Group Byte="0" >Shutter</Group>
+  <Capability Min="0" Max="14" >Closed</Capability>
+  <Capability Min="15" Max="29" >Open</Capability>
+  <Capability Min="30" Max="250" >Strobe slow to fast</Capability>
+  <Capability Min="251" Max="255" >Shutter open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" >
+  <Group Byte="0" >Intensity</Group>
+  <Capability Min="0" Max="255" >Dimmer intensity</Capability>
+ </Channel>
+ <Mode Name="Normal" >
+  <Physical>
+   <Bulb Lumens="5000" Type="ELC 250W" ColourTemperature="3200" />
+   <Dimensions Width="285" Height="555" Weight="8" Depth="270" />
+   <Lens DegreesMax="18" Name="Other" DegreesMin="18" />
+   <Focus PanMax="180" Type="Mirror" TiltMax="90" />
+   <Technical PowerConsumption="250" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0" >Pan</Channel>
+  <Channel Number="1" >Tilt</Channel>
+  <Channel Number="2" >Gobo</Channel>
+  <Channel Number="3" >Colour</Channel>
+  <Channel Number="4" >Shutter, strobe</Channel>
+  <Channel Number="5" >Dimmer</Channel>
+ </Mode>
+</FixtureDefinition>
+

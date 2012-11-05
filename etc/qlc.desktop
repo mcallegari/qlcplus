@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Q Light Controller
+GenericName=Lighting control
+GenericName[de]=Lichtsteuerung
+GenericName[fi]=Valojen ohjaus
+GenericName[fr]=Controlleur d'éclairages
+Exec=qlc --open %f
+Icon=qlc
+MimeType=application/x-qlc-workspace;
+Categories=Lighting;Art;Qt;AudioVideo;

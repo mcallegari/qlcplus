@@ -1,0 +1,195 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.0.4</Version>
+  <Author></Author>
+ </Creator>
+ <Manufacturer>JB-Lighting</Manufacturer>
+ <Model>Varyscan P2</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan coarse" >
+  <Group Byte="0" >Pan</Group>
+  <Capability Min="0" Max="255" >Pan coarse</Capability>
+ </Channel>
+ <Channel Name="Pan fine" >
+  <Group Byte="1" >Pan</Group>
+  <Capability Min="0" Max="255" >Pan fine</Capability>
+ </Channel>
+ <Channel Name="Tilt coarse" >
+  <Group Byte="0" >Tilt</Group>
+  <Capability Min="0" Max="255" >Tilt coarse</Capability>
+ </Channel>
+ <Channel Name="Tilt fine" >
+  <Group Byte="1" >Tilt</Group>
+  <Capability Min="0" Max="255" >Tilt fine</Capability>
+ </Channel>
+ <Channel Name="Lamp/Reset" >
+  <Group Byte="0" >Maintenance</Group>
+  <Capability Min="0" Max="231" >Safe</Capability>
+  <Capability Min="232" Max="239" >Lamp off after 3 seconds</Capability>
+  <Capability Min="240" Max="247" >Reset after 1 second</Capability>
+  <Capability Min="248" Max="255" >Lamp on</Capability>
+ </Channel>
+ <Channel Name="Shutter" >
+  <Group Byte="0" >Shutter</Group>
+  <Capability Min="0" Max="15" >Closed</Capability>
+  <Capability Min="16" Max="111" >Open</Capability>
+  <Capability Min="112" Max="125" >Periodic strobe slow to fast</Capability>
+  <Capability Min="126" Max="126" >Open</Capability>
+  <Capability Min="127" Max="127" >Closed</Capability>
+  <Capability Min="128" Max="142" >Periodic pulse open fast to slow</Capability>
+  <Capability Min="143" Max="143" >Open</Capability>
+  <Capability Min="144" Max="158" >Periodic pulse close fast to slow</Capability>
+  <Capability Min="159" Max="159" >Closed</Capability>
+  <Capability Min="160" Max="174" >Close fade fast to slow</Capability>
+  <Capability Min="175" Max="175" >Open</Capability>
+  <Capability Min="176" Max="190" >Open fade fast to slow</Capability>
+  <Capability Min="191" Max="191" >Closed</Capability>
+  <Capability Min="192" Max="206" >Random open fast to slow</Capability>
+  <Capability Min="207" Max="207" >Open</Capability>
+  <Capability Min="208" Max="222" >Random close fast to slow</Capability>
+  <Capability Min="223" Max="223" >Closed</Capability>
+  <Capability Min="224" Max="238" >Random close fast to slow</Capability>
+  <Capability Min="239" Max="239" >Open</Capability>
+  <Capability Min="240" Max="254" >Random open fast to slow</Capability>
+  <Capability Min="255" Max="255" >Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" >
+  <Group Byte="0" >Intensity</Group>
+  <Capability Min="0" Max="255" >Dimmer intensity</Capability>
+ </Channel>
+ <Channel Name="No function 6" >
+  <Group Byte="0" >Intensity</Group>
+  <Capability Min="0" Max="255" >No function</Capability>
+ </Channel>
+ <Channel Name="Focus" >
+  <Group Byte="0" >Beam</Group>
+  <Capability Min="0" Max="255" >Focus</Capability>
+ </Channel>
+ <Channel Name="No function 10" >
+  <Group Byte="0" >Intensity</Group>
+  <Capability Min="0" Max="255" >No function</Capability>
+ </Channel>
+ <Channel Name="No function 11" >
+  <Group Byte="0" >Intensity</Group>
+  <Capability Min="0" Max="255" >No function</Capability>
+ </Channel>
+ <Channel Name="Gobo" >
+  <Group Byte="0" >Gobo</Group>
+  <Capability Min="0" Max="15" >Open</Capability>
+  <Capability Min="16" Max="31" >Gobo 1</Capability>
+  <Capability Min="32" Max="47" >Gobo 2</Capability>
+  <Capability Min="48" Max="63" >Gobo 3</Capability>
+  <Capability Min="64" Max="79" >Gobo 4</Capability>
+  <Capability Min="80" Max="127" >Gobo 5</Capability>
+  <Capability Min="128" Max="135" >Open shake</Capability>
+  <Capability Min="136" Max="143" >Gobo 1 shake</Capability>
+  <Capability Min="144" Max="151" >Gobo 2 shake</Capability>
+  <Capability Min="152" Max="159" >Gobo 3 shake</Capability>
+  <Capability Min="160" Max="175" >Gobo 4 shake</Capability>
+  <Capability Min="176" Max="191" >Gobo 5 shake</Capability>
+  <Capability Min="192" Max="255" >Safe</Capability>
+ </Channel>
+ <Channel Name="Gobo rotation" >
+  <Group Byte="0" >Gobo</Group>
+  <Capability Min="0" Max="191" >Gobo positioning</Capability>
+  <Capability Min="192" Max="222" >Rotation CCW fast to slow</Capability>
+  <Capability Min="223" Max="224" >No rotation</Capability>
+  <Capability Min="225" Max="255" >Rotation CW slow to fast</Capability>
+ </Channel>
+ <Channel Name="Colour" >
+  <Group Byte="0" >Colour</Group>
+  <Capability Min="0" Max="3" >White</Capability>
+  <Capability Min="4" Max="7" >White/Red</Capability>
+  <Capability Min="8" Max="11" >Red</Capability>
+  <Capability Min="12" Max="15" >Red/Yellow</Capability>
+  <Capability Min="16" Max="19" >Yellow</Capability>
+  <Capability Min="20" Max="23" >Yellow/Magenta</Capability>
+  <Capability Min="24" Max="27" >Magenta</Capability>
+  <Capability Min="28" Max="31" >Magenta/Green</Capability>
+  <Capability Min="32" Max="35" >Green</Capability>
+  <Capability Min="36" Max="39" >Green/Orange</Capability>
+  <Capability Min="40" Max="43" >Orange</Capability>
+  <Capability Min="44" Max="47" >Orange/Blue</Capability>
+  <Capability Min="48" Max="51" >Blue</Capability>
+  <Capability Min="52" Max="55" >Blue/Cyan</Capability>
+  <Capability Min="56" Max="59" >Cyan</Capability>
+  <Capability Min="60" Max="63" >Cyan/White</Capability>
+  <Capability Min="64" Max="191" >Colour positioning</Capability>
+  <Capability Min="192" Max="222" >Rainbow CW fast to slow</Capability>
+  <Capability Min="223" Max="224" >No rotation</Capability>
+  <Capability Min="225" Max="255" >Rainbow CCW slow to fast</Capability>
+ </Channel>
+ <Channel Name="Effect" >
+  <Group Byte="0" >Effect</Group>
+  <Capability Min="0" Max="15" >Open</Capability>
+  <Capability Min="16" Max="31" >CTB daylight filter</Capability>
+  <Capability Min="32" Max="47" >CTO artificial light filter</Capability>
+  <Capability Min="48" Max="63" >Pink</Capability>
+  <Capability Min="64" Max="79" >Cyan</Capability>
+  <Capability Min="80" Max="127" >Frost</Capability>
+  <Capability Min="128" Max="255" >Colour macros with colour wheel 1</Capability>
+ </Channel>
+ <Channel Name="No function 16" >
+  <Group Byte="0" >Intensity</Group>
+  <Capability Min="0" Max="255" >No function</Capability>
+ </Channel>
+ <Channel Name="Prism" >
+  <Group Byte="0" >Prism</Group>
+  <Capability Min="0" Max="15" >Inactive, colour wheel 2 active</Capability>
+  <Capability Min="16" Max="255" >Active, colour wheel 2 inactive</Capability>
+ </Channel>
+ <Channel Name="Prism positioning" >
+  <Group Byte="0" >Prism</Group>
+  <Capability Min="0" Max="191" >Positioning</Capability>
+  <Capability Min="192" Max="222" >Rotation CW fast to slow</Capability>
+  <Capability Min="223" Max="224" >No rotation</Capability>
+  <Capability Min="225" Max="255" >Rotation CCW slow to fast</Capability>
+ </Channel>
+ <Channel Name="No function 19" >
+  <Group Byte="0" >Intensity</Group>
+  <Capability Min="0" Max="255" >No function</Capability>
+ </Channel>
+ <Channel Name="Movement speed" >
+  <Group Byte="0" >Speed</Group>
+  <Capability Min="0" Max="3" >Tracking</Capability>
+  <Capability Min="4" Max="255" >Vector speed</Capability>
+ </Channel>
+ <Channel Name="Effect speed" >
+  <Group Byte="0" >Speed</Group>
+  <Capability Min="0" Max="3" >Tracking</Capability>
+  <Capability Min="4" Max="255" >Vector speed</Capability>
+ </Channel>
+ <Mode Name="16bit" >
+  <Physical>
+   <Bulb Lumens="0" Type="HTI 250W" ColourTemperature="0" />
+   <Dimensions Width="389" Height="559" Weight="21" Depth="320" />
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0" />
+   <Focus PanMax="540" Type="Head" TiltMax="270" />
+   <Technical PowerConsumption="480" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
+  <Channel Number="0" >Pan coarse</Channel>
+  <Channel Number="1" >Pan fine</Channel>
+  <Channel Number="2" >Tilt coarse</Channel>
+  <Channel Number="3" >Tilt fine</Channel>
+  <Channel Number="4" >Lamp/Reset</Channel>
+  <Channel Number="5" >Shutter</Channel>
+  <Channel Number="6" >Dimmer</Channel>
+  <Channel Number="7" >No function 6</Channel>
+  <Channel Number="8" >Focus</Channel>
+  <Channel Number="9" >No function 10</Channel>
+  <Channel Number="10" >No function 11</Channel>
+  <Channel Number="11" >Gobo</Channel>
+  <Channel Number="12" >Gobo rotation</Channel>
+  <Channel Number="13" >Colour</Channel>
+  <Channel Number="14" >Effect</Channel>
+  <Channel Number="15" >No function 16</Channel>
+  <Channel Number="16" >Prism</Channel>
+  <Channel Number="17" >Prism positioning</Channel>
+  <Channel Number="18" >No function 19</Channel>
+  <Channel Number="19" >Movement speed</Channel>
+  <Channel Number="20" >Effect speed</Channel>
+ </Mode>
+</FixtureDefinition>
+

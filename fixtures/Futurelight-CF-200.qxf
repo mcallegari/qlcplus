@@ -1,0 +1,78 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>2.6.1</Version>
+  <Author>hjunnila</Author>
+ </Creator>
+ <Manufacturer>Futurelight</Manufacturer>
+ <Model>CF-200</Model>
+ <Type>Flower</Type>
+ <Channel Name="Rotation" >
+  <Group Byte="0" >Speed</Group>
+  <Capability Min="0" Max="19" >No rotation</Capability>
+  <Capability Min="20" Max="135" >Clockwise rotation speed</Capability>
+  <Capability Min="136" Max="139" >No rotation</Capability>
+  <Capability Min="140" Max="255" >Anti-clockwise rotation speed</Capability>
+ </Channel>
+ <Channel Name="No function" >
+  <Group Byte="0" >Nothing</Group>
+  <Capability Min="0" Max="255" >No function</Capability>
+ </Channel>
+ <Channel Name="Colour" >
+  <Group Byte="0" >Colour</Group>
+  <Capability Min="0" Max="10" >White</Capability>
+  <Capability Min="11" Max="21" >Magenta</Capability>
+  <Capability Min="22" Max="32" >Yellow</Capability>
+  <Capability Min="33" Max="43" >Dark blue</Capability>
+  <Capability Min="44" Max="54" >Light green</Capability>
+  <Capability Min="55" Max="65" >Pink</Capability>
+  <Capability Min="66" Max="76" >Purple blue</Capability>
+  <Capability Min="77" Max="87" >Dark orange</Capability>
+  <Capability Min="88" Max="98" >Pale yellow</Capability>
+  <Capability Min="99" Max="109" >Light blue</Capability>
+  <Capability Min="110" Max="120" >Light orange</Capability>
+  <Capability Min="121" Max="127" >Dark green</Capability>
+  <Capability Min="128" Max="191" >Forward rainbow speed</Capability>
+  <Capability Min="192" Max="255" >Backward rainbow speed</Capability>
+ </Channel>
+ <Channel Name="Gobo, Reset, Strobe" >
+  <Group Byte="0" >Gobo</Group>
+  <Capability Min="0" Max="7" >Closed</Capability>
+  <Capability Min="8" Max="15" >Open</Capability>
+  <Capability Min="16" Max="23" >Gobo 1</Capability>
+  <Capability Min="24" Max="31" >Gobo 2</Capability>
+  <Capability Min="32" Max="39" >Gobo 3</Capability>
+  <Capability Min="40" Max="47" >Gobo 4</Capability>
+  <Capability Min="48" Max="55" >Gobo 5</Capability>
+  <Capability Min="56" Max="63" >Gobo 6</Capability>
+  <Capability Min="64" Max="71" >Gobo 7</Capability>
+  <Capability Min="72" Max="79" >Gobo 8</Capability>
+  <Capability Min="80" Max="87" >Gobo 9</Capability>
+  <Capability Min="88" Max="95" >Gobo 10</Capability>
+  <Capability Min="96" Max="103" >Gobo 11</Capability>
+  <Capability Min="104" Max="111" >Gobo 12</Capability>
+  <Capability Min="112" Max="119" >Gobo 13</Capability>
+  <Capability Min="120" Max="127" >Gobo 14</Capability>
+  <Capability Min="128" Max="132" >Closed</Capability>
+  <Capability Min="133" Max="137" >Reset after 3 seconds</Capability>
+  <Capability Min="138" Max="159" >Gobo rainbow speed</Capability>
+  <Capability Min="160" Max="200" >Strobe speed</Capability>
+  <Capability Min="201" Max="250" >Random strobe speed</Capability>
+  <Capability Min="251" Max="255" >Open</Capability>
+ </Channel>
+ <Mode Name="Mode 1" >
+  <Physical>
+   <Bulb ColourTemperature="0" Lumens="0" Type="" />
+   <Dimensions Width="0" Height="0" Weight="0" Depth="0" />
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0" />
+   <Focus TiltMax="0" PanMax="0" Type="Fixed" />
+   <Technical PowerConsumption="440" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0" >Rotation</Channel>
+  <Channel Number="1" >No function</Channel>
+  <Channel Number="2" >Colour</Channel>
+  <Channel Number="3" >Gobo, Reset, Strobe</Channel>
+ </Mode>
+</FixtureDefinition>
+

@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller - Virtual Console Speed Dial</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>Virtual Console Speed Dial</H1>
+<IMG SRC="qrc:/knob.png" ALIGN="absmiddle">
+<P>
+Speed dials are meant for adjusting the speed of a set of functions from virtual console,
+much like bus-mode sliders in the previous versions of QLC. While the bus concept relied on
+assigning functions and a slider to the same bus, the speed dial's method is a simpler and
+more straightforward one: User directly selects a set of functions whose speed properties are
+controlled with the dial, thus removing the need for buses in the middle.
+</P>
+
+<H3>Operation</H3>
+
+<P>
+The speed dial itself looks and works just the same as the speed dials in various function
+editors: There is a <B>big dial</B> in the middle that increases the time when rotated clockwise
+and respectively, decreases it when rotated counter-clockwise. The plus
+<IMG SRC="qrc:/edit_add.png" HEIGHT="16"/> and minus
+<IMG SRC="qrc:/edit_remove.png" HEIGHT="16"/> buttons perform the same thing.
+</P>
+
+<P>
+The <B>current time</B> value is displayed in four parts. When any of these fields is clicked,
+the dial and the plus/minus buttons will increase/decrease that part of the time. The mouse
+wheel can also be used in place of the dial/buttons and the fields accept also values written
+on the numeric keypad.
+<LI><B>h</B>: Hours</LI>
+<LI><B>m</B>: Minutes</LI>
+<LI><B>s</B>: Seconds</LI>
+<LI><B>.xx</B>: Centiseconds (100ths of a second)</LI>
+</P>
+
+<P>
+Clicking the <B>infinite</B> button disables all of the dial's controls and sets the
+currently adjusted functions' speed to infinity. For example, to a 
+<A HREF="concept.html#Chaser">Chaser</A>, an infinite duration means that it will never
+switch to the next step unless manually instructed to (see <A HREF="vccuelist.html">Cue List</A>).
+</P>
+
+<P>
+The <B>tap</B> button can be used to adjust the time to a beat. Practically the dial measures
+the elapsed time between clicks and sets this time to the controlled functions as if the dial
+was adjusted accordingly.
+</P>
+
+<H3>Configuration</H3>
+<P>
+Speed dials can be configured with the properties
+<IMG SRC="qrc:/configure.png" HEIGHT="16"> button found in the toolbar or
+with the <B>Edit &gt; Properties</B> menu item.
+</P>
+
+<TABLE BORDER="1">
+ <TR>
+  <TD>
+   <B>Speed Dial Name</B>
+  </TD>
+  <TD>
+   Change the dial's name.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Function list</B>
+  </TD>
+  <TD>
+   Displays the list of functions, whose speed value(s) are being controlled by the dial.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/edit_add.png"/>
+  </TD>
+  <TD>
+   Add function(s) to be controlled by the speed dial.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/edit_remove.png"/>
+  </TD>
+  <TD>
+   Remove the selected functions from the speed dial's list of controlled functions.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Speeds to Adjust</B>
+  </TD>
+  <TD>
+   <UL>
+    <LI><B>Fade In:</B> Adjust the functions' <A HREF="concept.html#Functions">fade in speed</A></LI>
+    <LI><B>Fade Out:</B> Adjust the functions' <A HREF="concept.html#Functions">fade out speed</A></LI>
+    <LI><B>Duration:</B> Adjust the functions' <A HREF="concept.html#Functions">duration</A></LI>
+   </UL>
+  </TD>
+ </TR>
+</TABLE>
+
+</BODY>
+</HTML>

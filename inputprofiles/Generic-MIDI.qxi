@@ -1,0 +1,1034 @@
+<!DOCTYPE InputProfile>
+<InputProfile>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.0</Version>
+  <Author>hjunnila</Author>
+ </Creator>
+ <Manufacturer>Generic</Manufacturer>
+ <Model>MIDI</Model>
+ <Channel Number="0">
+  <Name>Bank select MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="1">
+  <Name>Modulation wheel MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="2">
+  <Name>Breath control MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="3">
+  <Name>Undefined MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="4">
+  <Name>Foot controller MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="5">
+  <Name>Portamento MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="6">
+  <Name>Data entry MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="7">
+  <Name>Channel volume MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="8">
+  <Name>Balance MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="9">
+  <Name>Undefined MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="10">
+  <Name>Pan MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="11">
+  <Name>Expression controller MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="12">
+  <Name>Effect 1 MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="13">
+  <Name>Effect 2 MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="14">
+  <Name>Undefined MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="15">
+  <Name>Undefined 16 MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="16">
+  <Name>General Purpose #1 MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="17">
+  <Name>General Purpose #2 MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="18">
+  <Name>General Purpose #3 MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="19">
+  <Name>General Purpose #4 MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="20">
+  <Name>Undefined 21 MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="21">
+  <Name>Undefined MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="22">
+  <Name>Undefined MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="23">
+  <Name>Undefined MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="24">
+  <Name>Undefined MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="25">
+  <Name>Undefined MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="26">
+  <Name>Undefined MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="27">
+  <Name>Undefined MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="28">
+  <Name>Undefined MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="29">
+  <Name>Undefined MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="30">
+  <Name>Undefined MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="31">
+  <Name>Undefined MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="32">
+  <Name>Bank select LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="33">
+  <Name>Modulation wheel LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="34">
+  <Name>Breath control LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="35">
+  <Name>Undefined LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="36">
+  <Name>Foot controller LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="37">
+  <Name>Portamento LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="38">
+  <Name>Data entry LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="39">
+  <Name>Channel volume LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="40">
+  <Name>Balance LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="41">
+  <Name>Undefined LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="42">
+  <Name>Pan LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="43">
+  <Name>Expression controller LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="44">
+  <Name>Effect 1 LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="45">
+  <Name>Effect 2 LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="46">
+  <Name>Undefined LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="47">
+  <Name>Undefined LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="48">
+  <Name>General Purpose #1 LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="49">
+  <Name>General Purpose #2 LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="50">
+  <Name>General Purpose #3 LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="51">
+  <Name>General Purpose #4 LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="52">
+  <Name>Undefined LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="53">
+  <Name>Undefined LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="54">
+  <Name>Undefined LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="55">
+  <Name>Undefined LSB </Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="56">
+  <Name>Undefined LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="57">
+  <Name>Undefined LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="58">
+  <Name>Undefined LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="59">
+  <Name>Undefined LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="60">
+  <Name>Undefined LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="61">
+  <Name>Undefined LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="62">
+  <Name>Undefined LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="63">
+  <Name>Undefined LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="64">
+  <Name>Sustain pedal</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="65">
+  <Name>Portamento control</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="66">
+  <Name>Sostenuto pedal</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="67">
+  <Name>Soft pedal</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="68">
+  <Name>Legato pedal</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="69">
+  <Name>Hold 2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="70">
+  <Name>Sound control 1 (Sound variation) LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="71">
+  <Name>Sound control 2 (Timbre) LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="72">
+  <Name>Sound control 3 (Release time) LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="73">
+  <Name>Sound control 4 (Attack time) LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="74">
+  <Name>Sound control 5 (Brightness) LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="75">
+  <Name>Sound control 6 LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="76">
+  <Name>Sound control 7 LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="77">
+  <Name>Sound control 8 LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="78">
+  <Name>Sound control 9 LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="79">
+  <Name>Sound control 10 LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="80">
+  <Name>General purpose control #5 LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="81">
+  <Name>General purpose control #6 LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="82">
+  <Name>General purpose control #7 LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="83">
+  <Name>General purpose control #8 Source</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="84">
+  <Name>Portamento control Note</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="85">
+  <Name>Undefined LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="86">
+  <Name>Undefined LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="87">
+  <Name>Undefined LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="88">
+  <Name>Undefined LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="89">
+  <Name>Undefined LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="90">
+  <Name>Undefined LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="91">
+  <Name>Effects 1 (Reverb) Depth LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="92">
+  <Name>Effects 2 (Tremolo) Depth LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="93">
+  <Name>Effects 3 (Chorus) Depth LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="94">
+  <Name>Effects 4 (Detune) Depth LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="95">
+  <Name>Effects 5 (Phaser) Depth LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="96">
+  <Name>Data entry +1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="97">
+  <Name>Data entry -1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="98">
+  <Name>NRPN LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="99">
+  <Name>NRPN MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="100">
+  <Name>RPN LSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="101">
+  <Name>RPN MSB</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="102">
+  <Name>Undefined</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="103">
+  <Name>Undefined</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="104">
+  <Name>Undefined</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="105">
+  <Name>Undefined</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="106">
+  <Name>Undefined</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="107">
+  <Name>Undefined</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="108">
+  <Name>Undefined</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="109">
+  <Name>Undefined</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="110">
+  <Name>Undefined</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="111">
+  <Name>Undefined</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="112">
+  <Name>Undefined</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="113">
+  <Name>Undefined</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="114">
+  <Name>Undefined</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="115">
+  <Name>Undefined</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="116">
+  <Name>Undefined</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="117">
+  <Name>Undefined</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="118">
+  <Name>Undefined</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="119">
+  <Name>Undefined</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="120">
+  <Name>All sound off</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="121">
+  <Name>Reset all controllers</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="122">
+  <Name>Local control</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="123">
+  <Name>All notes off</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="124">
+  <Name>Omni mode off</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="125">
+  <Name>Omni mode on</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="126">
+  <Name>Poly mode on/off</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="127">
+  <Name>Poly mode on</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="128">
+  <Name>C-1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="129">
+  <Name>C#-1</Name>
+  <Type>Slider</Type>
+ </Channel>
+  <Channel Number="130">
+  <Name>D-1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="131">
+  <Name>D#-1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="132">
+  <Name>E-1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="133">
+  <Name>F-1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="134">
+  <Name>F#-1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="135">
+  <Name>G-1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="136">
+  <Name>G#-1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="137">
+  <Name>A-1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="138">
+  <Name>A#-1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="139">
+  <Name>B-1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="140">
+  <Name>C0</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="141">
+  <Name>C#0</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="142">
+  <Name>D0</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="143">
+  <Name>D#0</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="144">
+  <Name>E0</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="145">
+  <Name>F0</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="146">
+  <Name>F#0</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="147">
+  <Name>G0</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="148">
+  <Name>G#0</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="149">
+  <Name>A0</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="150">
+  <Name>A#0</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="151">
+  <Name>B0</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="152">
+  <Name>C1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="153">
+  <Name>C#1</Name>
+  <Type>Slider</Type>
+ </Channel>
+  <Channel Number="154">
+  <Name>D1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="155">
+  <Name>D#1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="156">
+  <Name>E1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="157">
+  <Name>F1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="158">
+  <Name>F#1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="159">
+  <Name>G1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="160">
+  <Name>G#1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="161">
+  <Name>A1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="162">
+  <Name>A#1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="163">
+  <Name>B1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="164">
+  <Name>C2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="165">
+  <Name>C#2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="166">
+  <Name>D2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="167">
+  <Name>D#2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="168">
+  <Name>E2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="169">
+  <Name>F2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="170">
+  <Name>F#2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="171">
+  <Name>G2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="172">
+  <Name>G#2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="173">
+  <Name>A2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="174">
+  <Name>A#2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="175">
+  <Name>B2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="176">
+  <Name>C3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="177">
+  <Name>C#3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="178">
+  <Name>D3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="179">
+  <Name>D#3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="180">
+  <Name>E3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="181">
+  <Name>F3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="182">
+  <Name>F#3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="183">
+  <Name>G3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="184">
+  <Name>G#3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="185">
+  <Name>A3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="186">
+  <Name>A#3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="187">
+  <Name>B3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="188">
+  <Name>C4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="189">
+  <Name>C#4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="190">
+  <Name>D4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="191">
+  <Name>D#4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="192">
+  <Name>E4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="193">
+  <Name>F4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="194">
+  <Name>F#4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="195">
+  <Name>G4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="196">
+  <Name>G#4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="197">
+  <Name>A4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="198">
+  <Name>A#4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="199">
+  <Name>B4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="200">
+  <Name>C5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="201">
+  <Name>C#5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="202">
+  <Name>D5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="203">
+  <Name>D#5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="204">
+  <Name>E5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="205">
+  <Name>F5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="206">
+  <Name>F#5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="207">
+  <Name>G5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="208">
+  <Name>G#5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="209">
+  <Name>A5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="210">
+  <Name>A#5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="211">
+  <Name>B5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="212">
+  <Name>C6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="213">
+  <Name>C#6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="214">
+  <Name>D6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="215">
+  <Name>D#6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="216">
+  <Name>E6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="217">
+  <Name>F6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="218">
+  <Name>F#6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="219">
+  <Name>G6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="220">
+  <Name>G#6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="221">
+  <Name>A6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="222">
+  <Name>A#6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="223">
+  <Name>B6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="224">
+  <Name>C7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="225">
+  <Name>C#7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="226">
+  <Name>D7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="227">
+  <Name>D#7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="228">
+  <Name>E7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="229">
+  <Name>F7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="230">
+  <Name>F#7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="231">
+  <Name>G7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="232">
+  <Name>G#7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="233">
+  <Name>A7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="234">
+  <Name>A#7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="235">
+  <Name>B7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="236">
+  <Name>C8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="237">
+  <Name>C#8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="238">
+  <Name>D8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="239">
+  <Name>D#8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="240">
+  <Name>E8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="241">
+  <Name>F8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="242">
+  <Name>F#8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="243">
+  <Name>G8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="244">
+  <Name>G#8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="245">
+  <Name>A8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="246">
+  <Name>A#8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="247">
+  <Name>B8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="248">
+  <Name>C9</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="249">
+  <Name>C#9</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="250">
+  <Name>D9</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="251">
+  <Name>D#9</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="252">
+  <Name>E9</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="253">
+  <Name>F9</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="254">
+  <Name>F#9</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="255">
+  <Name>G9</Name>
+  <Type>Slider</Type>
+ </Channel>
+</InputProfile>

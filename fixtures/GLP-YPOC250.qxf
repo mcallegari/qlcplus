@@ -1,0 +1,205 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.0.0</Version>
+  <Author></Author>
+ </Creator>
+ <Manufacturer>GLP</Manufacturer>
+ <Model>YPOC 250</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan coarse" >
+  <Group Byte="0" >Pan</Group>
+  <Capability Min="0" Max="255" >Pan coarse</Capability>
+ </Channel>
+ <Channel Name="Pan fine" >
+  <Group Byte="1" >Pan</Group>
+  <Capability Min="0" Max="255" >Pan fine</Capability>
+ </Channel>
+ <Channel Name="Tilt coarse" >
+  <Group Byte="0" >Tilt</Group>
+  <Capability Min="0" Max="255" >Tilt coarse</Capability>
+ </Channel>
+ <Channel Name="Tilt fine" >
+  <Group Byte="1" >Tilt</Group>
+  <Capability Min="0" Max="255" >Tilt fine</Capability>
+ </Channel>
+ <Channel Name="Colour" >
+  <Group Byte="0" >Colour</Group>
+  <Capability Min="0" Max="1" >White (fast)</Capability>
+  <Capability Min="2" Max="3" >White / Color 1 (fast)</Capability>
+  <Capability Min="4" Max="5" >Brilliant blue (fast)</Capability>
+  <Capability Min="6" Max="7" >Brilliant blue / Blue (fast)</Capability>
+  <Capability Min="8" Max="9" >Blue (fast)</Capability>
+  <Capability Min="10" Max="11" >Blue / Purple (fast)</Capability>
+  <Capability Min="12" Max="13" >Purple (fast)</Capability>
+  <Capability Min="14" Max="15" >Purple / Magenta (fast)</Capability>
+  <Capability Min="16" Max="17" >Magenta (fast)</Capability>
+  <Capability Min="18" Max="19" >Magenta / Pink (fast)</Capability>
+  <Capability Min="20" Max="21" >Pink (fast)</Capability>
+  <Capability Min="22" Max="23" >Pink / Orange (fast)</Capability>
+  <Capability Min="24" Max="25" >Orange (fast)</Capability>
+  <Capability Min="26" Max="27" >Orange / Canary (fast)</Capability>
+  <Capability Min="28" Max="29" >Canary (fast)</Capability>
+  <Capability Min="30" Max="31" >Canary / Italian blue (fast)</Capability>
+  <Capability Min="32" Max="33" >Italian blue (fast)</Capability>
+  <Capability Min="34" Max="35" >Italian blue / Turquoise (fast)</Capability>
+  <Capability Min="36" Max="37" >Turquoise (fast)</Capability>
+  <Capability Min="38" Max="39" >Turquoise / Jade (fast)</Capability>
+  <Capability Min="40" Max="41" >Jade (fast)</Capability>
+  <Capability Min="42" Max="43" >Jade / Red (fast)</Capability>
+  <Capability Min="44" Max="45" >Red (fast)</Capability>
+  <Capability Min="46" Max="47" >Red / White (fast)</Capability>
+  <Capability Min="48" Max="63" >White (fast)</Capability>
+  <Capability Min="64" Max="65" >White (slow)</Capability>
+  <Capability Min="66" Max="67" >White / Brilliant blue (slow)</Capability>
+  <Capability Min="68" Max="69" >Brilliant blue (slow)</Capability>
+  <Capability Min="70" Max="71" >Brilliant blue / Blue (slow)</Capability>
+  <Capability Min="72" Max="73" >Blue (slow)</Capability>
+  <Capability Min="74" Max="75" >Blue / Purple (slow)</Capability>
+  <Capability Min="76" Max="77" >Purple (slow)</Capability>
+  <Capability Min="78" Max="79" >Purple / Magenta (slow)</Capability>
+  <Capability Min="80" Max="81" >Magenta (slow)</Capability>
+  <Capability Min="82" Max="83" >Magenta / Pink (slow)</Capability>
+  <Capability Min="84" Max="85" >Pink (slow)</Capability>
+  <Capability Min="86" Max="87" >Pink / Orange (slow)</Capability>
+  <Capability Min="88" Max="89" >Orange (slow)</Capability>
+  <Capability Min="90" Max="91" >Orange / Canary (slow)</Capability>
+  <Capability Min="92" Max="93" >Canary (slow)</Capability>
+  <Capability Min="94" Max="95" >Canary / Italian blue (slow)</Capability>
+  <Capability Min="96" Max="97" >Italian blue (slow)</Capability>
+  <Capability Min="98" Max="99" >Italian blue / Turquoise (slow)</Capability>
+  <Capability Min="100" Max="101" >Turquoise (slow)</Capability>
+  <Capability Min="102" Max="103" >Turquoise / Jade (slow)</Capability>
+  <Capability Min="104" Max="105" >Jade (slow)</Capability>
+  <Capability Min="106" Max="107" >Jade / Red (slow)</Capability>
+  <Capability Min="108" Max="109" >Red (slow)</Capability>
+  <Capability Min="110" Max="111" >Red / White (slow)</Capability>
+  <Capability Min="112" Max="127" >White (slow)</Capability>
+  <Capability Min="128" Max="191" >CW rotation slow to fast</Capability>
+  <Capability Min="192" Max="253" >CCW rotation fast to slow</Capability>
+  <Capability Min="254" Max="254" >Audio chase slow</Capability>
+  <Capability Min="255" Max="255" >Audio chase fast</Capability>
+ </Channel>
+ <Channel Name="Shutter" >
+  <Group Byte="0" >Shutter</Group>
+  <Capability Min="0" Max="15" >Closed</Capability>
+  <Capability Min="16" Max="31" >Random strobe</Capability>
+  <Capability Min="32" Max="47" >Strobe pulse slow to fast</Capability>
+  <Capability Min="48" Max="239" >Strobe slow to fast</Capability>
+  <Capability Min="240" Max="255" >Open (lamp ON)</Capability>
+ </Channel>
+ <Channel Name="Dimmer" >
+  <Group Byte="0" >Intensity</Group>
+  <Capability Min="0" Max="255" >Intensity</Capability>
+ </Channel>
+ <Channel Name="Special" >
+  <Group Byte="0" >Maintenance</Group>
+  <Capability Min="0" Max="15" >No function</Capability>
+  <Capability Min="32" Max="47" >Gobo see-saw 20deg slow to fast</Capability>
+  <Capability Min="64" Max="79" >Color chaser C/C+1 slow to fast</Capability>
+  <Capability Min="80" Max="95" >Color chaser C/C+2 slow to fast</Capability>
+  <Capability Min="96" Max="111" >Audio pan/tilt slow</Capability>
+  <Capability Min="112" Max="127" >Audio pan/tilt fast</Capability>
+  <Capability Min="128" Max="229" >No function</Capability>
+  <Capability Min="230" Max="249" >Lamp OFF (3sec when shutter closed)</Capability>
+  <Capability Min="250" Max="255" >Reset</Capability>
+  <Capability Min="16" Max="31" >Gobo see-saw 10deg slow to fast</Capability>
+  <Capability Min="48" Max="63" >Gobo see-saw 30deg slow to fast</Capability>
+ </Channel>
+ <Channel Name="Movement" >
+  <Group Byte="0" >Effect</Group>
+  <Capability Min="0" Max="0" >No movement</Capability>
+  <Capability Min="1" Max="31" >Pan effects</Capability>
+  <Capability Min="32" Max="63" >Tilt effects</Capability>
+  <Capability Min="64" Max="95" >Pan/Tilt effects</Capability>
+  <Capability Min="96" Max="127" >Inverse pan/tilt effects</Capability>
+  <Capability Min="128" Max="159" >Circle effects</Capability>
+  <Capability Min="160" Max="191" >Inverse circle effects</Capability>
+  <Capability Min="192" Max="223" >Lying eight effects</Capability>
+  <Capability Min="224" Max="255" >Random movement effects</Capability>
+ </Channel>
+ <Channel Name="Movement speed" >
+  <Group Byte="0" >Speed</Group>
+  <Capability Min="0" Max="15" >Relative movement</Capability>
+  <Capability Min="16" Max="255" >Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Gobo" >
+  <Group Byte="0" >Gobo</Group>
+  <Capability Min="0" Max="7" >Gobo 1 open (fast)</Capability>
+  <Capability Min="8" Max="15" >Gobo 2 (fast)</Capability>
+  <Capability Min="16" Max="23" >Gobo 3 (fast)</Capability>
+  <Capability Min="24" Max="31" >Gobo 4 (fast)</Capability>
+  <Capability Min="32" Max="39" >Gobo 5 (fast)</Capability>
+  <Capability Min="40" Max="47" >Gobo 6 (fast)</Capability>
+  <Capability Min="48" Max="55" >Gobo 7 (fast)</Capability>
+  <Capability Min="56" Max="63" >Gobo 1 open (fast)</Capability>
+  <Capability Min="64" Max="71" >Gobo 1 open (slow)</Capability>
+  <Capability Min="72" Max="79" >Gobo 2 (slow)</Capability>
+  <Capability Min="80" Max="87" >Gobo 3 (slow)</Capability>
+  <Capability Min="88" Max="95" >Gobo 4 (slow)</Capability>
+  <Capability Min="96" Max="103" >Gobo 5 (slow)</Capability>
+  <Capability Min="104" Max="111" >Gobo 6 (slow)</Capability>
+  <Capability Min="112" Max="119" >Gobo 7 (slow)</Capability>
+  <Capability Min="120" Max="127" >Gobo 1 open (slow)</Capability>
+  <Capability Min="128" Max="191" >CW rotation slow to fast</Capability>
+  <Capability Min="192" Max="253" >CCW rotation fast to slow</Capability>
+  <Capability Min="254" Max="254" >Audio chase slow</Capability>
+  <Capability Min="255" Max="255" >Audio chase fast</Capability>
+ </Channel>
+ <Channel Name="Laser" >
+  <Group Byte="0" >Effect</Group>
+  <Capability Min="0" Max="15" >Laser OFF</Capability>
+  <Capability Min="16" Max="31" >Random flash</Capability>
+  <Capability Min="32" Max="47" >Audio laser</Capability>
+  <Capability Min="48" Max="127" >Blinking slow to fast</Capability>
+  <Capability Min="128" Max="239" >Flashing slow to fast</Capability>
+  <Capability Min="240" Max="255" >Laser ON</Capability>
+ </Channel>
+ <Channel Name="Gobo rotation" >
+  <Group Byte="0" >Gobo</Group>
+  <Capability Min="0" Max="131" >Gobo position 0 to 540 deg</Capability>
+  <Capability Min="132" Max="191" >CW rotation slow to fast</Capability>
+  <Capability Min="192" Max="253" >CCW rotation fast to slow</Capability>
+  <Capability Min="254" Max="254" >Audio rotation slow</Capability>
+  <Capability Min="255" Max="255" >Audio rotation fast</Capability>
+ </Channel>
+ <Channel Name="Prism" >
+  <Group Byte="0" >Prism</Group>
+  <Capability Min="0" Max="5" >Swing out</Capability>
+  <Capability Min="6" Max="129" >Position 0 to 540 deg</Capability>
+  <Capability Min="130" Max="191" >CW rotation slow to fast</Capability>
+  <Capability Min="192" Max="253" >CCW rotation fast to slow</Capability>
+  <Capability Min="254" Max="254" >Audio rotation slow</Capability>
+  <Capability Min="255" Max="255" >Audio rotation fast</Capability>
+ </Channel>
+ <Channel Name="Focus" >
+  <Group Byte="0" >Beam</Group>
+  <Capability Min="0" Max="255" >Focus in - out</Capability>
+ </Channel>
+ <Mode Name="Mode 1" >
+  <Physical>
+   <Bulb Lumens="18000" Type="MSD 250W" ColourTemperature="8500" />
+   <Dimensions Width="380" Height="500" Weight="23" Depth="380" />
+   <Lens DegreesMax="18" Name="Other" DegreesMin="12" />
+   <Focus PanMax="530" Type="Head" TiltMax="280" />
+   <Technical PowerConsumption="500" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0" >Pan coarse</Channel>
+  <Channel Number="1" >Pan fine</Channel>
+  <Channel Number="2" >Tilt coarse</Channel>
+  <Channel Number="3" >Tilt fine</Channel>
+  <Channel Number="4" >Colour</Channel>
+  <Channel Number="5" >Gobo</Channel>
+  <Channel Number="6" >Gobo rotation</Channel>
+  <Channel Number="7" >Prism</Channel>
+  <Channel Number="8" >Shutter</Channel>
+  <Channel Number="9" >Dimmer</Channel>
+  <Channel Number="10" >Focus</Channel>
+  <Channel Number="11" >Special</Channel>
+  <Channel Number="12" >Movement</Channel>
+  <Channel Number="13" >Movement speed</Channel>
+  <Channel Number="14" >Laser</Channel>
+ </Mode>
+</FixtureDefinition>
+

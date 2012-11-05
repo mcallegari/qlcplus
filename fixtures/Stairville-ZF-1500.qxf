@@ -1,0 +1,41 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.0.1</Version>
+  <Author>Kevin Deldycke</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>ZF-1500</Model>
+ <Type>Smoke</Type>
+ <Channel Name="On-Off" >
+  <Group Byte="0" >Shutter</Group>
+  <Capability Min="0" Max="255" >On-off</Capability>
+ </Channel>
+ <Channel Name="Intensity" >
+  <Group Byte="0" >Maintenance</Group>
+  <Capability Min="0" Max="255" >Intensity (0% to 100%)</Capability>
+ </Channel>
+ <Channel Name="Sleep interval" >
+  <Group Byte="0" >Speed</Group>
+  <Capability Min="0" Max="255" >Sleep interval (1s to 200s)</Capability>
+ </Channel>
+ <Channel Name="Spraying duration" >
+  <Group Byte="0" >Speed</Group>
+  <Capability Min="0" Max="255" >Spraying duration (1s to 200s)</Capability>
+ </Channel>
+ <Mode Name="Normal" >
+  <Physical>
+   <Bulb Lumens="0" Type="" ColourTemperature="0" />
+   <Dimensions Width="300" Height="210" Weight="15" Depth="620" />
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0" />
+   <Focus PanMax="0" Type="Fixed" TiltMax="0" />
+   <Technical PowerConsumption="1500" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0" >On-Off</Channel>
+  <Channel Number="1" >Intensity</Channel>
+  <Channel Number="2" >Sleep interval</Channel>
+  <Channel Number="3" >Spraying duration</Channel>
+ </Mode>
+</FixtureDefinition>
+

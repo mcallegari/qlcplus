@@ -1,0 +1,183 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.1.0</Version>
+  <Author>hjunnila</Author>
+ </Creator>
+ <Manufacturer>Robe</Manufacturer>
+ <Model>ClubSpot 500 CT</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan</Capability>
+ </Channel>
+ <Channel Name="Pan fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Pan fine</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt</Capability>
+ </Channel>
+ <Channel Name="Tilt fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt fine</Capability>
+ </Channel>
+ <Channel Name="Pan/Tilt Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="0">Tracking</Capability>
+  <Capability Min="1" Max="249">Vect Mode</Capability>
+  <Capability Min="250" Max="252">BO during Col</Capability>
+  <Capability Min="253" Max="255">BO during Pan/Tilt/Col</Capability>
+ </Channel>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="127">Fan speed max to min</Capability>
+  <Capability Min="128" Max="139">Lamp on, reset</Capability>
+  <Capability Min="140" Max="229">No function</Capability>
+  <Capability Min="230" Max="239">Lamp off after 3 secs</Capability>
+  <Capability Min="240" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Colours">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">White</Capability>
+  <Capability Min="13" Max="13">Light blue</Capability>
+  <Capability Min="26" Max="26">Red</Capability>
+  <Capability Min="38" Max="38">Blue</Capability>
+  <Capability Min="51" Max="51">Light green</Capability>
+  <Capability Min="64" Max="64">Yellow</Capability>
+  <Capability Min="77" Max="77">Magenta</Capability>
+  <Capability Min="90" Max="90">Cyan</Capability>
+  <Capability Min="102" Max="102">Green</Capability>
+  <Capability Min="115" Max="115">Orange</Capability>
+  <Capability Min="128" Max="189">Forwards rainbow fast to slow</Capability>
+  <Capability Min="190" Max="193">No rotation</Capability>
+  <Capability Min="194" Max="255">Backwards rainbow slow to fast</Capability>
+ </Channel>
+ <Channel Name="Prism">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="0">Open</Capability>
+  <Capability Min="1" Max="63">Forwards rotation fast to slow</Capability>
+  <Capability Min="64" Max="64">No rotation</Capability>
+  <Capability Min="65" Max="127">Backwards rotation slow to fast</Capability>
+  <Capability Min="128" Max="135">Macro 1</Capability>
+  <Capability Min="136" Max="143">Macro 2</Capability>
+  <Capability Min="144" Max="151">Macro 3</Capability>
+  <Capability Min="152" Max="159">Macro 4</Capability>
+  <Capability Min="160" Max="167">Macro 5</Capability>
+  <Capability Min="168" Max="175">Macro 6</Capability>
+  <Capability Min="176" Max="183">Macro 7</Capability>
+  <Capability Min="184" Max="191">Macro 8</Capability>
+  <Capability Min="192" Max="199">Macro 9</Capability>
+  <Capability Min="200" Max="207">Macro 10</Capability>
+  <Capability Min="208" Max="215">Macro 11</Capability>
+  <Capability Min="216" Max="223">Macro 12</Capability>
+  <Capability Min="224" Max="231">Macro 13</Capability>
+  <Capability Min="232" Max="239">Macro 14</Capability>
+  <Capability Min="240" Max="247">Macro 15</Capability>
+  <Capability Min="248" Max="255">Macro 16</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="31">Open</Capability>
+  <Capability Min="32" Max="63">Gobo 1 (multicolour)</Capability>
+  <Capability Min="64" Max="95">Gobo 2</Capability>
+  <Capability Min="96" Max="127">Gobo 3</Capability>
+  <Capability Min="128" Max="159">Gobo 4</Capability>
+  <Capability Min="160" Max="191">Gobo 5 (dichroic)</Capability>
+  <Capability Min="192" Max="223">Gobo 6</Capability>
+  <Capability Min="224" Max="255">Rotation slow to fast</Capability>
+ </Channel>
+ <Channel Name="Gobo index">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="127">Gobo indexing</Capability>
+  <Capability Min="128" Max="190">Forwards gobo rotation fast to slow</Capability>
+  <Capability Min="191" Max="192">No rotation</Capability>
+  <Capability Min="193" Max="255">Backwards rotation slow to fast</Capability>
+ </Channel>
+ <Channel Name="Focus">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Focus adjustment far to near</Capability>
+ </Channel>
+ <Channel Name="Shutter, strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31">Shutter closed</Capability>
+  <Capability Min="32" Max="63">Shutter open</Capability>
+  <Capability Min="64" Max="95">Strobe slow to fast</Capability>
+  <Capability Min="96" Max="127">Shutter open</Capability>
+  <Capability Min="128" Max="143">Closing pulse slow to fast</Capability>
+  <Capability Min="144" Max="159">Opening pulse fast to slow</Capability>
+  <Capability Min="160" Max="191">No function</Capability>
+  <Capability Min="192" Max="223">Random strobe slow to fast</Capability>
+  <Capability Min="224" Max="255">Shutter open</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Dimmer intensity</Capability>
+ </Channel>
+ <Mode Name="Mode 1 (16bit)">
+  <Physical>
+   <Bulb Lumens="0" Type="MSD 575W" ColourTemperature="0"/>
+   <Dimensions Width="467" Height="564" Weight="32" Depth="491"/>
+   <Lens DegreesMax="22" Name="Other" DegreesMin="15"/>
+   <Focus PanMax="530" Type="Head" TiltMax="280"/>
+   <Technical PowerConsumption="740" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan fine</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Control</Channel>
+  <Channel Number="6">Colours</Channel>
+  <Channel Number="7">Prism</Channel>
+  <Channel Number="8">Gobo</Channel>
+  <Channel Number="9">Gobo index</Channel>
+  <Channel Number="10">Focus</Channel>
+  <Channel Number="11">Shutter, strobe</Channel>
+  <Channel Number="12">Dimmer</Channel>
+ </Mode>
+ <Mode Name="Mode 2 (16bit)">
+  <Physical>
+   <Bulb Lumens="0" Type="MSD 575W" ColourTemperature="0"/>
+   <Dimensions Width="467" Height="564" Weight="32" Depth="491"/>
+   <Lens DegreesMax="22" Name="Other" DegreesMin="15"/>
+   <Focus PanMax="530" Type="Head" TiltMax="280"/>
+   <Technical PowerConsumption="740" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Control</Channel>
+  <Channel Number="6">Colours</Channel>
+  <Channel Number="7">Prism</Channel>
+  <Channel Number="8">Gobo</Channel>
+  <Channel Number="9">Gobo index</Channel>
+  <Channel Number="10">Focus</Channel>
+  <Channel Number="11">Shutter, strobe</Channel>
+  <Channel Number="12">Dimmer</Channel>
+ </Mode>
+ <Mode Name="Mode 3 (8bit)">
+  <Physical>
+   <Bulb Lumens="0" Type="MSD 575W" ColourTemperature="0"/>
+   <Dimensions Width="467" Height="564" Weight="32" Depth="491"/>
+   <Lens DegreesMax="22" Name="Other" DegreesMin="15"/>
+   <Focus PanMax="530" Type="Head" TiltMax="280"/>
+   <Technical PowerConsumption="740" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan/Tilt Speed</Channel>
+  <Channel Number="3">Control</Channel>
+  <Channel Number="4">Colours</Channel>
+  <Channel Number="5">Prism</Channel>
+  <Channel Number="6">Gobo</Channel>
+  <Channel Number="7">Gobo index</Channel>
+  <Channel Number="8">Focus</Channel>
+  <Channel Number="9">Shutter, strobe</Channel>
+  <Channel Number="10">Dimmer</Channel>
+ </Mode>
+</FixtureDefinition>

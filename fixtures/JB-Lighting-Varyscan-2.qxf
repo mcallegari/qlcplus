@@ -1,0 +1,45 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.0.4</Version>
+  <Author></Author>
+ </Creator>
+ <Manufacturer>JB-Lighting</Manufacturer>
+ <Model>Varyscan 2</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Pan" >
+  <Group Byte="0" >Pan</Group>
+  <Capability Min="0" Max="255" >Channel Level</Capability>
+ </Channel>
+ <Channel Name="Tilt" >
+  <Group Byte="0" >Tilt</Group>
+  <Capability Min="0" Max="255" >Channel Level</Capability>
+ </Channel>
+ <Channel Name="Gobo" >
+  <Group Byte="0" >Gobo</Group>
+  <Capability Min="0" Max="255" >Channel Level</Capability>
+ </Channel>
+ <Channel Name="Color" >
+  <Group Byte="0" >Colour</Group>
+  <Capability Min="0" Max="255" >Channel Level</Capability>
+ </Channel>
+ <Channel Name="Dimmer" >
+  <Group Byte="0" >Intensity</Group>
+  <Capability Min="0" Max="255" >Channel Level</Capability>
+ </Channel>
+ <Mode Name="Mode 1" >
+  <Physical>
+   <Bulb Lumens="0" Type="" ColourTemperature="0" />
+   <Dimensions Width="0" Height="0" Weight="0" Depth="0" />
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0" />
+   <Focus PanMax="0" Type="Fixed" TiltMax="0" />
+  </Physical>
+  <Channel Number="0" >Pan</Channel>
+  <Channel Number="1" >Tilt</Channel>
+  <Channel Number="2" >Gobo</Channel>
+  <Channel Number="3" >Color</Channel>
+  <Channel Number="4" >Dimmer</Channel>
+ </Mode>
+</FixtureDefinition>
+

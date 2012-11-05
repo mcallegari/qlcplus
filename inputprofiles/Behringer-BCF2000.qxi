@@ -1,0 +1,251 @@
+<!DOCTYPE InputProfile>
+<InputProfile>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.0.0</Version>
+  <Author>hjunnila</Author>
+ </Creator>
+ <Manufacturer>Behringer</Manufacturer>
+ <Model>BCF2000</Model>
+ <Channel Number="1" >
+  <Name>Knob 1</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="2" >
+  <Name>Knob 2</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="3" >
+  <Name>Knob 3</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4" >
+  <Name>Knob 4</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="5" >
+  <Name>Knob 5</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="6" >
+  <Name>Knob 6</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="7" >
+  <Name>Knob 7</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8" >
+  <Name>Knob 8</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="9" >
+  <Name>Knob 9</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="10" >
+  <Name>Knob 10</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="11" >
+  <Name>Knob 11</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12" >
+  <Name>Knob 12</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="13" >
+  <Name>Knob 13</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="14" >
+  <Name>Knob 14</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="15" >
+  <Name>Knob 15</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16" >
+  <Name>Knob 16</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="17" >
+  <Name>Knob 17</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="18" >
+  <Name>Knob 18</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="19" >
+  <Name>Knob 19</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="20" >
+  <Name>Knob 20</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="21" >
+  <Name>Knob 21</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="22" >
+  <Name>Knob 22</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="23" >
+  <Name>Knob 23</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="24" >
+  <Name>Knob 24</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="25" >
+  <Name>Knob 25</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="26" >
+  <Name>Knob 26</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="27" >
+  <Name>Knob 27</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="28" >
+  <Name>Knob 28</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="29" >
+  <Name>Knob 29</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="30" >
+  <Name>Knob 30</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="31" >
+  <Name>Knob 31</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32" >
+  <Name>Knob 32</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="65" >
+  <Name>Button 1 Top</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="66" >
+  <Name>Button 2 Top</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="67" >
+  <Name>Button 3 Top</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="68" >
+  <Name>Button 4 Top</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="69" >
+  <Name>Button 5 Top</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="70" >
+  <Name>Button 6 Top</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="71" >
+  <Name>Button 7 Top</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="72" >
+  <Name>Button 8 Top</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="73" >
+  <Name>Button 1 Bottom</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="74" >
+  <Name>Button 2 Bottom</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="75" >
+  <Name>Button 3 Bottom</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="76" >
+  <Name>Button 4 Bottom</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="77" >
+  <Name>Button 5 Bottom</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="78" >
+  <Name>Button 6 Bottom</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="79" >
+  <Name>Button 7 Bottom</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="80" >
+  <Name>Button 8 Bottom</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="81" >
+  <Name>Slider 1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="82" >
+  <Name>Slider 2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="83" >
+  <Name>Slider 3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="84" >
+  <Name>Slider 4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="85" >
+  <Name>Slider 5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="86" >
+  <Name>Slider 6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="87" >
+  <Name>Slider 7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="88" >
+  <Name>Slider 8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="89" >
+  <Name>Button 9 Top</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="90" >
+  <Name>Button 10 Top</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="91" >
+  <Name>Button 9 Bottom</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="92" >
+  <Name>Button 10 Bottom</Name>
+  <Type>Button</Type>
+ </Channel>
+</InputProfile>
+

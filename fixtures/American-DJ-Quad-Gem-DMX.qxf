@@ -1,0 +1,568 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.0.4</Version>
+  <Author>hjunnila</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Quad Gem DMX</Model>
+ <Type>Flower</Type>
+ <Channel Name="Mode">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="119">Pattern</Capability>
+  <Capability Min="120" Max="239">Chase</Capability>
+  <Capability Min="240" Max="255">Stand-alone</Capability>
+ </Channel>
+ <Channel Name="Mode Pattern">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="119">Pattern</Capability>
+  <Capability Min="240" Max="255">Stand-alone</Capability>
+ </Channel>
+ <Channel Name="Mode Chase">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="120" Max="239">Pattern</Capability>
+  <Capability Min="240" Max="255">Stand-alone</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="9">Blackout (Pattern only)</Capability>
+  <Capability Min="10" Max="255">Speed</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Intensity</Capability>
+ </Channel>
+ <Channel Name="Pattern">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19">Pattern 1</Capability>
+  <Capability Min="20" Max="29">Pattern 2</Capability>
+  <Capability Min="30" Max="39">Pattern 3</Capability>
+  <Capability Min="40" Max="49">Pattern 4</Capability>
+  <Capability Min="50" Max="59">Pattern 5</Capability>
+  <Capability Min="60" Max="69">Pattern 6</Capability>
+  <Capability Min="70" Max="79">Pattern 7</Capability>
+  <Capability Min="80" Max="89">Pattern 8</Capability>
+  <Capability Min="90" Max="99">Pattern 9</Capability>
+  <Capability Min="100" Max="109">Pattern 10</Capability>
+  <Capability Min="110" Max="119">Pattern 11</Capability>
+  <Capability Min="120" Max="129">Pattern 12</Capability>
+  <Capability Min="130" Max="139">Pattern 13</Capability>
+  <Capability Min="140" Max="149">Pattern 14</Capability>
+  <Capability Min="150" Max="159">Pattern 15</Capability>
+  <Capability Min="160" Max="169">Pattern 16</Capability>
+  <Capability Min="170" Max="179">Pattern 17</Capability>
+  <Capability Min="180" Max="189">Pattern 18</Capability>
+  <Capability Min="190" Max="199">Pattern 19</Capability>
+  <Capability Min="200" Max="209">Pattern 20</Capability>
+  <Capability Min="210" Max="219">Pattern 21</Capability>
+  <Capability Min="220" Max="229">Pattern 22</Capability>
+  <Capability Min="230" Max="239">Pattern 23</Capability>
+  <Capability Min="240" Max="249">Pattern 24</Capability>
+  <Capability Min="250" Max="255">Pattern 25</Capability>
+ </Channel>
+ <Channel Name="Chase">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19">Chase 1</Capability>
+  <Capability Min="20" Max="29">Chase 2</Capability>
+  <Capability Min="30" Max="39">Chase 3</Capability>
+  <Capability Min="40" Max="49">Chase 4</Capability>
+  <Capability Min="50" Max="59">Chase 5</Capability>
+  <Capability Min="60" Max="69">Chase 6</Capability>
+  <Capability Min="70" Max="79">Chase 7</Capability>
+  <Capability Min="80" Max="89">Chase 8</Capability>
+  <Capability Min="90" Max="99">Chase 9</Capability>
+  <Capability Min="100" Max="109">Chase 10</Capability>
+  <Capability Min="110" Max="119">Chase 11</Capability>
+  <Capability Min="120" Max="129">Chase 12</Capability>
+  <Capability Min="130" Max="139">Chase 13</Capability>
+  <Capability Min="140" Max="149">Chase 14</Capability>
+  <Capability Min="150" Max="159">Chase 15</Capability>
+  <Capability Min="160" Max="169">Chase 16</Capability>
+  <Capability Min="170" Max="179">Chase 17</Capability>
+  <Capability Min="180" Max="189">Chase 18</Capability>
+  <Capability Min="190" Max="199">Chase 19</Capability>
+  <Capability Min="200" Max="209">Chase 20</Capability>
+  <Capability Min="210" Max="219">Chase 21</Capability>
+  <Capability Min="220" Max="229">Chase 22</Capability>
+  <Capability Min="230" Max="239">Chase 23</Capability>
+  <Capability Min="240" Max="249">Chase 24</Capability>
+  <Capability Min="250" Max="255">Chase 25</Capability>
+ </Channel>
+ <Channel Name="Pattern Strobe">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="255">Slow to Fast Strobe</Capability>
+ </Channel>
+ <Channel Name="Chase Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Slow to Fast Speed</Capability>
+ </Channel>
+ <Channel Name="Pattern Lens 1">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19">Pattern 1</Capability>
+  <Capability Min="20" Max="29">Pattern 2</Capability>
+  <Capability Min="30" Max="39">Pattern 3</Capability>
+  <Capability Min="40" Max="49">Pattern 4</Capability>
+  <Capability Min="50" Max="59">Pattern 5</Capability>
+  <Capability Min="60" Max="69">Pattern 6</Capability>
+  <Capability Min="70" Max="79">Pattern 7</Capability>
+  <Capability Min="80" Max="89">Pattern 8</Capability>
+  <Capability Min="90" Max="99">Pattern 9</Capability>
+  <Capability Min="100" Max="109">Pattern 10</Capability>
+  <Capability Min="110" Max="119">Pattern 11</Capability>
+  <Capability Min="120" Max="129">Pattern 12</Capability>
+  <Capability Min="130" Max="139">Pattern 13</Capability>
+  <Capability Min="140" Max="149">Pattern 14</Capability>
+  <Capability Min="150" Max="159">Pattern 15</Capability>
+  <Capability Min="160" Max="169">Pattern 16</Capability>
+  <Capability Min="170" Max="179">Pattern 17</Capability>
+  <Capability Min="180" Max="189">Pattern 18</Capability>
+  <Capability Min="190" Max="199">Pattern 19</Capability>
+  <Capability Min="200" Max="209">Pattern 20</Capability>
+  <Capability Min="210" Max="219">Pattern 21</Capability>
+  <Capability Min="220" Max="229">Pattern 22</Capability>
+  <Capability Min="230" Max="239">Pattern 23</Capability>
+  <Capability Min="240" Max="249">Pattern 24</Capability>
+  <Capability Min="250" Max="255">Pattern 25</Capability>
+ </Channel>
+ <Channel Name="Pattern Lens 2">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19">Pattern 1</Capability>
+  <Capability Min="20" Max="29">Pattern 2</Capability>
+  <Capability Min="30" Max="39">Pattern 3</Capability>
+  <Capability Min="40" Max="49">Pattern 4</Capability>
+  <Capability Min="50" Max="59">Pattern 5</Capability>
+  <Capability Min="60" Max="69">Pattern 6</Capability>
+  <Capability Min="70" Max="79">Pattern 7</Capability>
+  <Capability Min="80" Max="89">Pattern 8</Capability>
+  <Capability Min="90" Max="99">Pattern 9</Capability>
+  <Capability Min="100" Max="109">Pattern 10</Capability>
+  <Capability Min="110" Max="119">Pattern 11</Capability>
+  <Capability Min="120" Max="129">Pattern 12</Capability>
+  <Capability Min="130" Max="139">Pattern 13</Capability>
+  <Capability Min="140" Max="149">Pattern 14</Capability>
+  <Capability Min="150" Max="159">Pattern 15</Capability>
+  <Capability Min="160" Max="169">Pattern 16</Capability>
+  <Capability Min="170" Max="179">Pattern 17</Capability>
+  <Capability Min="180" Max="189">Pattern 18</Capability>
+  <Capability Min="190" Max="199">Pattern 19</Capability>
+  <Capability Min="200" Max="209">Pattern 20</Capability>
+  <Capability Min="210" Max="219">Pattern 21</Capability>
+  <Capability Min="220" Max="229">Pattern 22</Capability>
+  <Capability Min="230" Max="239">Pattern 23</Capability>
+  <Capability Min="240" Max="249">Pattern 24</Capability>
+  <Capability Min="250" Max="255">Pattern 25</Capability>
+ </Channel>
+ <Channel Name="Pattern Lens 3">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19">Pattern 1</Capability>
+  <Capability Min="20" Max="29">Pattern 2</Capability>
+  <Capability Min="30" Max="39">Pattern 3</Capability>
+  <Capability Min="40" Max="49">Pattern 4</Capability>
+  <Capability Min="50" Max="59">Pattern 5</Capability>
+  <Capability Min="60" Max="69">Pattern 6</Capability>
+  <Capability Min="70" Max="79">Pattern 7</Capability>
+  <Capability Min="80" Max="89">Pattern 8</Capability>
+  <Capability Min="90" Max="99">Pattern 9</Capability>
+  <Capability Min="100" Max="109">Pattern 10</Capability>
+  <Capability Min="110" Max="119">Pattern 11</Capability>
+  <Capability Min="120" Max="129">Pattern 12</Capability>
+  <Capability Min="130" Max="139">Pattern 13</Capability>
+  <Capability Min="140" Max="149">Pattern 14</Capability>
+  <Capability Min="150" Max="159">Pattern 15</Capability>
+  <Capability Min="160" Max="169">Pattern 16</Capability>
+  <Capability Min="170" Max="179">Pattern 17</Capability>
+  <Capability Min="180" Max="189">Pattern 18</Capability>
+  <Capability Min="190" Max="199">Pattern 19</Capability>
+  <Capability Min="200" Max="209">Pattern 20</Capability>
+  <Capability Min="210" Max="219">Pattern 21</Capability>
+  <Capability Min="220" Max="229">Pattern 22</Capability>
+  <Capability Min="230" Max="239">Pattern 23</Capability>
+  <Capability Min="240" Max="249">Pattern 24</Capability>
+  <Capability Min="250" Max="255">Pattern 25</Capability>
+ </Channel>
+ <Channel Name="Pattern Lens 4">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19">Pattern 1</Capability>
+  <Capability Min="20" Max="29">Pattern 2</Capability>
+  <Capability Min="30" Max="39">Pattern 3</Capability>
+  <Capability Min="40" Max="49">Pattern 4</Capability>
+  <Capability Min="50" Max="59">Pattern 5</Capability>
+  <Capability Min="60" Max="69">Pattern 6</Capability>
+  <Capability Min="70" Max="79">Pattern 7</Capability>
+  <Capability Min="80" Max="89">Pattern 8</Capability>
+  <Capability Min="90" Max="99">Pattern 9</Capability>
+  <Capability Min="100" Max="109">Pattern 10</Capability>
+  <Capability Min="110" Max="119">Pattern 11</Capability>
+  <Capability Min="120" Max="129">Pattern 12</Capability>
+  <Capability Min="130" Max="139">Pattern 13</Capability>
+  <Capability Min="140" Max="149">Pattern 14</Capability>
+  <Capability Min="150" Max="159">Pattern 15</Capability>
+  <Capability Min="160" Max="169">Pattern 16</Capability>
+  <Capability Min="170" Max="179">Pattern 17</Capability>
+  <Capability Min="180" Max="189">Pattern 18</Capability>
+  <Capability Min="190" Max="199">Pattern 19</Capability>
+  <Capability Min="200" Max="209">Pattern 20</Capability>
+  <Capability Min="210" Max="219">Pattern 21</Capability>
+  <Capability Min="220" Max="229">Pattern 22</Capability>
+  <Capability Min="230" Max="239">Pattern 23</Capability>
+  <Capability Min="240" Max="249">Pattern 24</Capability>
+  <Capability Min="250" Max="255">Pattern 25</Capability>
+ </Channel>
+ <Channel Name="Chase Lens 1">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19">Chase 1</Capability>
+  <Capability Min="20" Max="29">Chase 2</Capability>
+  <Capability Min="30" Max="39">Chase 3</Capability>
+  <Capability Min="40" Max="49">Chase 4</Capability>
+  <Capability Min="50" Max="59">Chase 5</Capability>
+  <Capability Min="60" Max="69">Chase 6</Capability>
+  <Capability Min="70" Max="79">Chase 7</Capability>
+  <Capability Min="80" Max="89">Chase 8</Capability>
+  <Capability Min="90" Max="99">Chase 9</Capability>
+  <Capability Min="100" Max="109">Chase 10</Capability>
+  <Capability Min="110" Max="119">Chase 11</Capability>
+  <Capability Min="120" Max="129">Chase 12</Capability>
+  <Capability Min="130" Max="139">Chase 13</Capability>
+  <Capability Min="140" Max="149">Chase 14</Capability>
+  <Capability Min="150" Max="159">Chase 15</Capability>
+  <Capability Min="160" Max="169">Chase 16</Capability>
+  <Capability Min="170" Max="179">Chase 17</Capability>
+  <Capability Min="180" Max="189">Chase 18</Capability>
+  <Capability Min="190" Max="199">Chase 19</Capability>
+  <Capability Min="200" Max="209">Chase 20</Capability>
+  <Capability Min="210" Max="219">Chase 21</Capability>
+  <Capability Min="220" Max="229">Chase 22</Capability>
+  <Capability Min="230" Max="239">Chase 23</Capability>
+  <Capability Min="240" Max="249">Chase 24</Capability>
+  <Capability Min="250" Max="255">Chase 25</Capability>
+ </Channel>
+ <Channel Name="Chase Lens 2">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19">Chase 1</Capability>
+  <Capability Min="20" Max="29">Chase 2</Capability>
+  <Capability Min="30" Max="39">Chase 3</Capability>
+  <Capability Min="40" Max="49">Chase 4</Capability>
+  <Capability Min="50" Max="59">Chase 5</Capability>
+  <Capability Min="60" Max="69">Chase 6</Capability>
+  <Capability Min="70" Max="79">Chase 7</Capability>
+  <Capability Min="80" Max="89">Chase 8</Capability>
+  <Capability Min="90" Max="99">Chase 9</Capability>
+  <Capability Min="100" Max="109">Chase 10</Capability>
+  <Capability Min="110" Max="119">Chase 11</Capability>
+  <Capability Min="120" Max="129">Chase 12</Capability>
+  <Capability Min="130" Max="139">Chase 13</Capability>
+  <Capability Min="140" Max="149">Chase 14</Capability>
+  <Capability Min="150" Max="159">Chase 15</Capability>
+  <Capability Min="160" Max="169">Chase 16</Capability>
+  <Capability Min="170" Max="179">Chase 17</Capability>
+  <Capability Min="180" Max="189">Chase 18</Capability>
+  <Capability Min="190" Max="199">Chase 19</Capability>
+  <Capability Min="200" Max="209">Chase 20</Capability>
+  <Capability Min="210" Max="219">Chase 21</Capability>
+  <Capability Min="220" Max="229">Chase 22</Capability>
+  <Capability Min="230" Max="239">Chase 23</Capability>
+  <Capability Min="240" Max="249">Chase 24</Capability>
+  <Capability Min="250" Max="255">Chase 25</Capability>
+ </Channel>
+ <Channel Name="Chase Lens 3">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19">Chase 1</Capability>
+  <Capability Min="20" Max="29">Chase 2</Capability>
+  <Capability Min="30" Max="39">Chase 3</Capability>
+  <Capability Min="40" Max="49">Chase 4</Capability>
+  <Capability Min="50" Max="59">Chase 5</Capability>
+  <Capability Min="60" Max="69">Chase 6</Capability>
+  <Capability Min="70" Max="79">Chase 7</Capability>
+  <Capability Min="80" Max="89">Chase 8</Capability>
+  <Capability Min="90" Max="99">Chase 9</Capability>
+  <Capability Min="100" Max="109">Chase 10</Capability>
+  <Capability Min="110" Max="119">Chase 11</Capability>
+  <Capability Min="120" Max="129">Chase 12</Capability>
+  <Capability Min="130" Max="139">Chase 13</Capability>
+  <Capability Min="140" Max="149">Chase 14</Capability>
+  <Capability Min="150" Max="159">Chase 15</Capability>
+  <Capability Min="160" Max="169">Chase 16</Capability>
+  <Capability Min="170" Max="179">Chase 17</Capability>
+  <Capability Min="180" Max="189">Chase 18</Capability>
+  <Capability Min="190" Max="199">Chase 19</Capability>
+  <Capability Min="200" Max="209">Chase 20</Capability>
+  <Capability Min="210" Max="219">Chase 21</Capability>
+  <Capability Min="220" Max="229">Chase 22</Capability>
+  <Capability Min="230" Max="239">Chase 23</Capability>
+  <Capability Min="240" Max="249">Chase 24</Capability>
+  <Capability Min="250" Max="255">Chase 25</Capability>
+ </Channel>
+ <Channel Name="Chase Lens 4">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19">Chase 1</Capability>
+  <Capability Min="20" Max="29">Chase 2</Capability>
+  <Capability Min="30" Max="39">Chase 3</Capability>
+  <Capability Min="40" Max="49">Chase 4</Capability>
+  <Capability Min="50" Max="59">Chase 5</Capability>
+  <Capability Min="60" Max="69">Chase 6</Capability>
+  <Capability Min="70" Max="79">Chase 7</Capability>
+  <Capability Min="80" Max="89">Chase 8</Capability>
+  <Capability Min="90" Max="99">Chase 9</Capability>
+  <Capability Min="100" Max="109">Chase 10</Capability>
+  <Capability Min="110" Max="119">Chase 11</Capability>
+  <Capability Min="120" Max="129">Chase 12</Capability>
+  <Capability Min="130" Max="139">Chase 13</Capability>
+  <Capability Min="140" Max="149">Chase 14</Capability>
+  <Capability Min="150" Max="159">Chase 15</Capability>
+  <Capability Min="160" Max="169">Chase 16</Capability>
+  <Capability Min="170" Max="179">Chase 17</Capability>
+  <Capability Min="180" Max="189">Chase 18</Capability>
+  <Capability Min="190" Max="199">Chase 19</Capability>
+  <Capability Min="200" Max="209">Chase 20</Capability>
+  <Capability Min="210" Max="219">Chase 21</Capability>
+  <Capability Min="220" Max="229">Chase 22</Capability>
+  <Capability Min="230" Max="239">Chase 23</Capability>
+  <Capability Min="240" Max="249">Chase 24</Capability>
+  <Capability Min="250" Max="255">Chase 25</Capability>
+ </Channel>
+ <Channel Name="Pattern/Chase">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19">Pattern/Chase 1</Capability>
+  <Capability Min="20" Max="29">Pattern/Chase 2</Capability>
+  <Capability Min="30" Max="39">Pattern/Chase 3</Capability>
+  <Capability Min="40" Max="49">Pattern/Chase 4</Capability>
+  <Capability Min="50" Max="59">Pattern/Chase 5</Capability>
+  <Capability Min="60" Max="69">Pattern/Chase 6</Capability>
+  <Capability Min="70" Max="79">Pattern/Chase 7</Capability>
+  <Capability Min="80" Max="89">Pattern/Chase 8</Capability>
+  <Capability Min="90" Max="99">Pattern/Chase 9</Capability>
+  <Capability Min="100" Max="109">Pattern/Chase 10</Capability>
+  <Capability Min="110" Max="119">Pattern/Chase 11</Capability>
+  <Capability Min="120" Max="129">Pattern/Chase 12</Capability>
+  <Capability Min="130" Max="139">Pattern/Chase 13</Capability>
+  <Capability Min="140" Max="149">Pattern/Chase 14</Capability>
+  <Capability Min="150" Max="159">Pattern/Chase 15</Capability>
+  <Capability Min="160" Max="169">Pattern/Chase 16</Capability>
+  <Capability Min="170" Max="179">Pattern/Chase 17</Capability>
+  <Capability Min="180" Max="189">Pattern/Chase 18</Capability>
+  <Capability Min="190" Max="199">Pattern/Chase 19</Capability>
+  <Capability Min="200" Max="209">Pattern/Chase 20</Capability>
+  <Capability Min="210" Max="219">Pattern/Chase 21</Capability>
+  <Capability Min="220" Max="229">Pattern/Chase 22</Capability>
+  <Capability Min="230" Max="239">Pattern/Chase 23</Capability>
+  <Capability Min="240" Max="249">Pattern/Chase 24</Capability>
+  <Capability Min="250" Max="255">Pattern/Chase 25</Capability>
+ </Channel>
+ <Channel Name="Pattern/Chase Lens 1">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19">Pattern/Chase 1</Capability>
+  <Capability Min="20" Max="29">Pattern/Chase 2</Capability>
+  <Capability Min="30" Max="39">Pattern/Chase 3</Capability>
+  <Capability Min="40" Max="49">Pattern/Chase 4</Capability>
+  <Capability Min="50" Max="59">Pattern/Chase 5</Capability>
+  <Capability Min="60" Max="69">Pattern/Chase 6</Capability>
+  <Capability Min="70" Max="79">Pattern/Chase 7</Capability>
+  <Capability Min="80" Max="89">Pattern/Chase 8</Capability>
+  <Capability Min="90" Max="99">Pattern/Chase 9</Capability>
+  <Capability Min="100" Max="109">Pattern/Chase 10</Capability>
+  <Capability Min="110" Max="119">Pattern/Chase 11</Capability>
+  <Capability Min="120" Max="129">Pattern/Chase 12</Capability>
+  <Capability Min="130" Max="139">Pattern/Chase 13</Capability>
+  <Capability Min="140" Max="149">Pattern/Chase 14</Capability>
+  <Capability Min="150" Max="159">Pattern/Chase 15</Capability>
+  <Capability Min="160" Max="169">Pattern/Chase 16</Capability>
+  <Capability Min="170" Max="179">Pattern/Chase 17</Capability>
+  <Capability Min="180" Max="189">Pattern/Chase 18</Capability>
+  <Capability Min="190" Max="199">Pattern/Chase 19</Capability>
+  <Capability Min="200" Max="209">Pattern/Chase 20</Capability>
+  <Capability Min="210" Max="219">Pattern/Chase 21</Capability>
+  <Capability Min="220" Max="229">Pattern/Chase 22</Capability>
+  <Capability Min="230" Max="239">Pattern/Chase 23</Capability>
+  <Capability Min="240" Max="249">Pattern/Chase 24</Capability>
+  <Capability Min="250" Max="255">Pattern/Chase 25</Capability>
+ </Channel>
+ <Channel Name="Pattern/Chase Lens 2">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19">Pattern/Chase 1</Capability>
+  <Capability Min="20" Max="29">Pattern/Chase 2</Capability>
+  <Capability Min="30" Max="39">Pattern/Chase 3</Capability>
+  <Capability Min="40" Max="49">Pattern/Chase 4</Capability>
+  <Capability Min="50" Max="59">Pattern/Chase 5</Capability>
+  <Capability Min="60" Max="69">Pattern/Chase 6</Capability>
+  <Capability Min="70" Max="79">Pattern/Chase 7</Capability>
+  <Capability Min="80" Max="89">Pattern/Chase 8</Capability>
+  <Capability Min="90" Max="99">Pattern/Chase 9</Capability>
+  <Capability Min="100" Max="109">Pattern/Chase 10</Capability>
+  <Capability Min="110" Max="119">Pattern/Chase 11</Capability>
+  <Capability Min="120" Max="129">Pattern/Chase 12</Capability>
+  <Capability Min="130" Max="139">Pattern/Chase 13</Capability>
+  <Capability Min="140" Max="149">Pattern/Chase 14</Capability>
+  <Capability Min="150" Max="159">Pattern/Chase 15</Capability>
+  <Capability Min="160" Max="169">Pattern/Chase 16</Capability>
+  <Capability Min="170" Max="179">Pattern/Chase 17</Capability>
+  <Capability Min="180" Max="189">Pattern/Chase 18</Capability>
+  <Capability Min="190" Max="199">Pattern/Chase 19</Capability>
+  <Capability Min="200" Max="209">Pattern/Chase 20</Capability>
+  <Capability Min="210" Max="219">Pattern/Chase 21</Capability>
+  <Capability Min="220" Max="229">Pattern/Chase 22</Capability>
+  <Capability Min="230" Max="239">Pattern/Chase 23</Capability>
+  <Capability Min="240" Max="249">Pattern/Chase 24</Capability>
+  <Capability Min="250" Max="255">Pattern/Chase 25</Capability>
+ </Channel>
+ <Channel Name="Pattern/Chase Lens 3">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19">Pattern/Chase 1</Capability>
+  <Capability Min="20" Max="29">Pattern/Chase 2</Capability>
+  <Capability Min="30" Max="39">Pattern/Chase 3</Capability>
+  <Capability Min="40" Max="49">Pattern/Chase 4</Capability>
+  <Capability Min="50" Max="59">Pattern/Chase 5</Capability>
+  <Capability Min="60" Max="69">Pattern/Chase 6</Capability>
+  <Capability Min="70" Max="79">Pattern/Chase 7</Capability>
+  <Capability Min="80" Max="89">Pattern/Chase 8</Capability>
+  <Capability Min="90" Max="99">Pattern/Chase 9</Capability>
+  <Capability Min="100" Max="109">Pattern/Chase 10</Capability>
+  <Capability Min="110" Max="119">Pattern/Chase 11</Capability>
+  <Capability Min="120" Max="129">Pattern/Chase 12</Capability>
+  <Capability Min="130" Max="139">Pattern/Chase 13</Capability>
+  <Capability Min="140" Max="149">Pattern/Chase 14</Capability>
+  <Capability Min="150" Max="159">Pattern/Chase 15</Capability>
+  <Capability Min="160" Max="169">Pattern/Chase 16</Capability>
+  <Capability Min="170" Max="179">Pattern/Chase 17</Capability>
+  <Capability Min="180" Max="189">Pattern/Chase 18</Capability>
+  <Capability Min="190" Max="199">Pattern/Chase 19</Capability>
+  <Capability Min="200" Max="209">Pattern/Chase 20</Capability>
+  <Capability Min="210" Max="219">Pattern/Chase 21</Capability>
+  <Capability Min="220" Max="229">Pattern/Chase 22</Capability>
+  <Capability Min="230" Max="239">Pattern/Chase 23</Capability>
+  <Capability Min="240" Max="249">Pattern/Chase 24</Capability>
+  <Capability Min="250" Max="255">Pattern/Chase 25</Capability>
+ </Channel>
+ <Channel Name="Pattern/Chase Lens 4">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19">Pattern/Chase 1</Capability>
+  <Capability Min="20" Max="29">Pattern/Chase 2</Capability>
+  <Capability Min="30" Max="39">Pattern/Chase 3</Capability>
+  <Capability Min="40" Max="49">Pattern/Chase 4</Capability>
+  <Capability Min="50" Max="59">Pattern/Chase 5</Capability>
+  <Capability Min="60" Max="69">Pattern/Chase 6</Capability>
+  <Capability Min="70" Max="79">Pattern/Chase 7</Capability>
+  <Capability Min="80" Max="89">Pattern/Chase 8</Capability>
+  <Capability Min="90" Max="99">Pattern/Chase 9</Capability>
+  <Capability Min="100" Max="109">Pattern/Chase 10</Capability>
+  <Capability Min="110" Max="119">Pattern/Chase 11</Capability>
+  <Capability Min="120" Max="129">Pattern/Chase 12</Capability>
+  <Capability Min="130" Max="139">Pattern/Chase 13</Capability>
+  <Capability Min="140" Max="149">Pattern/Chase 14</Capability>
+  <Capability Min="150" Max="159">Pattern/Chase 15</Capability>
+  <Capability Min="160" Max="169">Pattern/Chase 16</Capability>
+  <Capability Min="170" Max="179">Pattern/Chase 17</Capability>
+  <Capability Min="180" Max="189">Pattern/Chase 18</Capability>
+  <Capability Min="190" Max="199">Pattern/Chase 19</Capability>
+  <Capability Min="200" Max="209">Pattern/Chase 20</Capability>
+  <Capability Min="210" Max="219">Pattern/Chase 21</Capability>
+  <Capability Min="220" Max="229">Pattern/Chase 22</Capability>
+  <Capability Min="230" Max="239">Pattern/Chase 23</Capability>
+  <Capability Min="240" Max="249">Pattern/Chase 24</Capability>
+  <Capability Min="250" Max="255">Pattern/Chase 25</Capability>
+ </Channel>
+ <Mode Name="Standard">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="304" Height="165" Weight="5" Depth="491"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Pattern/Chase</Channel>
+  <Channel Number="2">Speed</Channel>
+  <Channel Number="3">Dimmer</Channel>
+ </Mode>
+ <Mode Name="Extended">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="304" Height="165" Weight="5" Depth="491"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Pattern/Chase Lens 1</Channel>
+  <Channel Number="2">Pattern/Chase Lens 2</Channel>
+  <Channel Number="3">Pattern/Chase Lens 3</Channel>
+  <Channel Number="4">Pattern/Chase Lens 4</Channel>
+  <Channel Number="5">Speed</Channel>
+  <Channel Number="6">Dimmer</Channel>
+ </Mode>
+ <Mode Name="Standard Pattern">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="304" Height="165" Weight="5" Depth="491"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Pattern</Channel>
+  <Channel Number="2">Pattern Strobe</Channel>
+  <Channel Number="3">Dimmer</Channel>
+ </Mode>
+ <Mode Name="Standard Chase">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="304" Height="165" Weight="5" Depth="491"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Chase</Channel>
+  <Channel Number="2">Chase Speed</Channel>
+  <Channel Number="3">Dimmer</Channel>
+ </Mode>
+ <Mode Name="Extended Pattern">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="304" Height="165" Weight="5" Depth="491"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Mode Pattern</Channel>
+  <Channel Number="1">Pattern Lens 1</Channel>
+  <Channel Number="2">Pattern Lens 2</Channel>
+  <Channel Number="3">Pattern Lens 3</Channel>
+  <Channel Number="4">Pattern Lens 4</Channel>
+  <Channel Number="5">Pattern Strobe</Channel>
+  <Channel Number="6">Dimmer</Channel>
+ </Mode>
+ <Mode Name="Extended Chase">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="304" Height="165" Weight="5" Depth="491"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Mode Chase</Channel>
+  <Channel Number="1">Chase Lens 1</Channel>
+  <Channel Number="2">Chase Lens 2</Channel>
+  <Channel Number="3">Chase Lens 3</Channel>
+  <Channel Number="4">Chase Lens 4</Channel>
+  <Channel Number="5">Chase Speed</Channel>
+  <Channel Number="6">Dimmer</Channel>
+ </Mode>
+</FixtureDefinition>
+

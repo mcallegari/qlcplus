@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller - Virtual Console Button</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>Virtual Console Button</H1>
+<IMG SRC="qrc:/button.png" ALIGN="absmiddle">
+<P>
+A Button is the simplest and at the same time the most powerful widget in QLC;
+with it, you can start, stop and flash your functions.
+</P>
+
+<H3>Configuration</H3>
+
+<P>
+Buttons can be configured with the properties
+<IMG SRC="qrc:/configure.png" ALIGN="bottom"> button found in the toolbar or
+with the <B>Edit -&gt; Properties</B> menu item.
+</P>
+
+<TABLE BORDER="1">
+ <TR>
+  <TD>
+   <B>Button label</B>
+  </TD>
+  <TD>
+   Set the friendly name of the button. The name appears on the button in
+   Virtual Console. <B>NOTE:</B> If you set an icon to a button with the
+   <B>Edit -&gt; Icon -&gt; Choose</B> menu, the icon overrides this label.
+   second column title.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Function</B>
+  </TD>
+  <TD>
+   Shows you the name of the <A HREF="concept.html#Function">Function</A> that
+   has been currently assigned to the button.
+   <P>
+    <IMG SRC="qrc:/attach.png" ALIGN="absmiddle"> Attach a function to the button<BR>
+    <IMG SRC="qrc:/detach.png" ALIGN="absmiddle"> Detach the current function from the button
+   </P>
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Key combination</B>
+  </TD>
+  <TD>
+   You can attach a keyboard key (combination) to the button, which then acts
+   as if you clicked the button directly with your mouse.
+   <P>
+    <IMG SRC="qrc:/key_combination.png" ALIGN="absmiddle"> Attach a keyboard key
+    to the button<BR/>
+    <IMG SRC="qrc:/fileclose.png" ALIGN="absmiddle"> Detach the current key
+    combination from the button
+   </P>
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>External input</B>
+  </TD>
+  <TD>
+   You can attach an external input channel from an input device (like a slider
+   board) to buttons so that you don't always have to use the mouse, touch or
+   keyboard to access the buttons.
+   <UL>
+    <LI>Input universe: The input universe that you wish to provide input data to
+    the button.</LI>
+    <LI>Input channel: The individual input channel within the selected input
+    universe that you wish to use for controlling the button.</LI>
+    <LI>Auto Detect: When toggled, you can just press a button on your external
+    input hardware and it will be automatically assigned to the button. The
+    latest combination is shown on the text boxes when QLC receives input data.
+    If you don't see anything in the boxes, your input connection might have a
+    problem that you need to fix first.</LI>
+    <LI>Choose...: Shows the <A HREF="selectinputchannel.html">Select Input Channel</A>
+    dialog that you can use to select an input channel manually.</LI>
+   </UL>
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>On button press...</B>
+  </TD>
+  <TD>
+   <UL>
+    <LI>Toggle function on/off: When you click the button, the attached function
+    is started. When you click the button a second time, the function is stopped,
+    unless it has already stopped by itself.</LI>
+    <LI>Flash function: You can "flash" the attached
+    <A HREF="concept.html#Scene">Scene</A> when you keep the button pressed. If
+    another type of function is attached to the button, nothing happens when you
+    click it.</LI>
+   </UL>
+  </TD>
+ </TR>
+</TABLE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,103 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.0.0</Version>
+  <Author>hjunnila</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>TMH-250</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan coarse" >
+  <Group Byte="0" >Pan</Group>
+  <Capability Min="0" Max="255" >Pan coarse</Capability>
+ </Channel>
+ <Channel Name="Tilt coarse" >
+  <Group Byte="0" >Tilt</Group>
+  <Capability Min="0" Max="255" >Tilt coarse</Capability>
+ </Channel>
+ <Channel Name="Colour" >
+  <Group Byte="0" >Colour</Group>
+  <Capability Min="0" Max="16" >White</Capability>
+  <Capability Min="17" Max="33" >Pink</Capability>
+  <Capability Min="34" Max="50" >Blue</Capability>
+  <Capability Min="51" Max="67" >Orange</Capability>
+  <Capability Min="68" Max="84" >Green</Capability>
+  <Capability Min="85" Max="101" >Violet</Capability>
+  <Capability Min="102" Max="118" >Yellow</Capability>
+  <Capability Min="119" Max="135" >Red</Capability>
+  <Capability Min="136" Max="255" >Rainbow slow to fast</Capability>
+ </Channel>
+ <Channel Name="Gobo rotation" >
+  <Group Byte="0" >Speed</Group>
+  <Capability Min="0" Max="4" >No rotation</Capability>
+  <Capability Min="5" Max="120" >CW rotation slow to fast</Capability>
+  <Capability Min="121" Max="139" >No rotation</Capability>
+  <Capability Min="140" Max="255" >CCW rotation slow to fast</Capability>
+ </Channel>
+ <Channel Name="Gobo" >
+  <Group Byte="0" >Gobo</Group>
+  <Capability Min="0" Max="31" >Gobo 1</Capability>
+  <Capability Min="32" Max="63" >Gobo 2</Capability>
+  <Capability Min="64" Max="95" >Gobo 3</Capability>
+  <Capability Min="96" Max="127" >Gobo 4</Capability>
+  <Capability Min="128" Max="159" >Gobo 5</Capability>
+  <Capability Min="160" Max="191" >Gobo 6</Capability>
+  <Capability Min="192" Max="223" >Gobo 7</Capability>
+  <Capability Min="224" Max="255" >Gobo 8</Capability>
+ </Channel>
+ <Channel Name="Shutter" >
+  <Group Byte="0" >Shutter</Group>
+  <Capability Min="0" Max="2" >Shutter closed</Capability>
+  <Capability Min="3" Max="29" >Dimmer control (shutter open)</Capability>
+  <Capability Min="30" Max="250" >Strobe slow to fast</Capability>
+  <Capability Min="251" Max="255" >Shutter open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" >
+  <Group Byte="0" >Intensity</Group>
+  <Capability Min="0" Max="255" >Dimmer intensity</Capability>
+ </Channel>
+ <Channel Name="Pan fine" >
+  <Group Byte="1" >Pan</Group>
+  <Capability Min="0" Max="255" >Pan fine</Capability>
+ </Channel>
+ <Channel Name="Tilt fine" >
+  <Group Byte="1" >Tilt</Group>
+  <Capability Min="0" Max="255" >Tilt fine</Capability>
+ </Channel>
+ <Mode Name="8bit" >
+  <Physical>
+   <Bulb Lumens="0" Type="ELC 250W" ColourTemperature="3200" />
+   <Dimensions Width="300" Height="420" Weight="13" Depth="300" />
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0" />
+   <Focus PanMax="360" Type="Head" TiltMax="250" />
+   <Technical PowerConsumption="335" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0" >Pan coarse</Channel>
+  <Channel Number="1" >Tilt coarse</Channel>
+  <Channel Number="2" >Colour</Channel>
+  <Channel Number="3" >Gobo rotation</Channel>
+  <Channel Number="4" >Gobo</Channel>
+  <Channel Number="5" >Shutter</Channel>
+  <Channel Number="6" >Dimmer</Channel>
+ </Mode>
+ <Mode Name="16bit" >
+  <Physical>
+   <Bulb Lumens="0" Type="ELC 250W" ColourTemperature="3200" />
+   <Dimensions Width="300" Height="420" Weight="13" Depth="300" />
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0" />
+   <Focus PanMax="360" Type="Head" TiltMax="250" />
+   <Technical PowerConsumption="335" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0" >Pan coarse</Channel>
+  <Channel Number="1" >Tilt coarse</Channel>
+  <Channel Number="2" >Colour</Channel>
+  <Channel Number="3" >Gobo rotation</Channel>
+  <Channel Number="4" >Gobo</Channel>
+  <Channel Number="5" >Shutter</Channel>
+  <Channel Number="6" >Dimmer</Channel>
+  <Channel Number="7" >Pan fine</Channel>
+  <Channel Number="8" >Tilt fine</Channel>
+ </Mode>
+</FixtureDefinition>
+

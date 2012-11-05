@@ -1,0 +1,236 @@
+/*
+  Q Light Controller
+  monitorfixture_test.cpp
+
+  Copyright (C) Heikki Junnila
+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU General Public License
+  Version 2 as published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details. The license is
+  in the file "COPYING".
+
+  You should have received a copy of the GNU General Public License
+  along with this program; if not, write to the Free Software
+  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+*/
+
+#include <QLabel>
+#include <QtTest>
+
+#define protected public
+#define private public
+#include "monitorfixture.h"
+#undef protected
+#undef private
+
+#include "monitorfixture_test.h"
+#include "qlcfixturedefcache.h"
+#include "outputmap.h"
+#include "qlcmacros.h"
+#include "doc.h"
+
+void MonitorFixture_Test::initTestCase()
+{
+    m_doc = new Doc(this);
+}
+
+void MonitorFixture_Test::cleanupTestCase()
+{
+    delete m_doc;
+    m_doc = NULL;
+}
+
+void MonitorFixture_Test::initial()
+{
+    QWidget w;
+
+    MonitorFixture mof(&w, m_doc);
+    QCOMPARE(mof.fixture(), Fixture::invalidId());
+    QVERIFY(mof.m_fixtureLabel == NULL);
+    QCOMPARE(mof.m_channelStyle, Monitor::DMXChannels);
+    QCOMPARE(mof.m_valueStyle, Monitor::DMXValues);
+    QCOMPARE(mof.frameStyle(), QFrame::StyledPanel | QFrame::Sunken);
+    QVERIFY(mof.layout() != NULL);
+    QCOMPARE(mof.m_channelLabels.size(), 0);
+    QCOMPARE(mof.m_valueLabels.size(), 0);
+    QCOMPARE(mof.autoFillBackground(), true);
+    QCOMPARE(mof.backgroundRole(), QPalette::Window);
+}
+
+void MonitorFixture_Test::fixture()
+{
+    QWidget w;
+
+    Fixture* fxi = new Fixture(m_doc);
+    fxi->setChannels(6);
+    fxi->setAddress(10);
+    fxi->setName("Foobar");
+    m_doc->addFixture(fxi);
+    QVERIFY(fxi->id() != Fixture::invalidId());
+
+    MonitorFixture mof(&w, m_doc);
+    mof.setFixture(fxi->id());
+    QCOMPARE(mof.fixture(), fxi->id());
+    QVERIFY(mof.m_fixtureLabel != NULL);
+    QCOMPARE(mof.m_fixtureLabel->text(), QString("<B>Foobar</B>"));
+    QCOMPARE(mof.m_channelLabels.size(), 6);
+    QCOMPARE(mof.m_valueLabels.size(), 6);
+    for (int i = 0; i < mof.m_channelLabels.size(); i++)
+    {
+        QVERIFY(mof.m_channelLabels[i] != NULL);
+        QCOMPARE(mof.m_channelLabels[i]->text(), QString());
+
+        QVERIFY(mof.m_valueLabels[i] != NULL);
+        QCOMPARE(mof.m_valueLabels[i]->text(), QString());
+    }
+}
+
+void MonitorFixture_Test::lessThan()
+{
+    QWidget w;
+
+    Fixture* fxi1 = new Fixture(m_doc);
+    fxi1->setChannels(6);
+    fxi1->setName("Foo");
+    fxi1->setAddress(0);
+    m_doc->addFixture(fxi1);
+    QVERIFY(fxi1->id() != Fixture::invalidId());
+
+    MonitorFixture mof1(&w, m_doc);
+    mof1.setFixture(fxi1->id());
+
+    Fixture* fxi2 = new Fixture(m_doc);
+    fxi2->setChannels(4);
+    fxi2->setName("Bar");
+    fxi2->setAddress(10);
+    m_doc->addFixture(fxi2);
+    QVERIFY(fxi2->id() != Fixture::invalidId());
+
+    MonitorFixture mof2(&w, m_doc);
+    mof2.setFixture(fxi2->id());
+
+    QVERIFY(mof1 < mof2);
+    QVERIFY(!(mof2 < mof1));
+
+    fxi1->setAddress(1000);
+    fxi2->setAddress(500);
+
+    QVERIFY(mof1 < mof2);
+    QVERIFY(!(mof2 < mof1));
+
+    fxi1->setAddress(507);
+    fxi2->setAddress(500);
+
+    QVERIFY(mof2 < mof1);
+    QVERIFY(!(mof1 < mof2));
+}
+
+void MonitorFixture_Test::channelValueStyles()
+{
+    QWidget w;
+
+    Fixture* fxi = new Fixture(m_doc);
+    fxi->setChannels(6);
+    fxi->setAddress(10);
+    fxi->setName("Foobar");
+    m_doc->addFixture(fxi);
+    QVERIFY(fxi->id() != Fixture::invalidId());
+
+    MonitorFixture mof(&w, m_doc);
+    mof.setFixture(fxi->id());
+
+    mof.updateLabelStyles();
+    for (int i = 0; i < mof.m_channelLabels.size(); i++)
+    {
+        QString str;
+        QVERIFY(mof.m_channelLabels[i] != NULL);
+        QCOMPARE(mof.m_channelLabels[i]->text(), str.sprintf("<B>%.3d</B>", i + fxi->address() + 1));
+
+        QVERIFY(mof.m_valueLabels[i] != NULL);
+        QCOMPARE(mof.m_valueLabels[i]->text(), QString("000"));
+    }
+
+    mof.slotChannelStyleChanged(Monitor::RelativeChannels);
+    mof.updateLabelStyles();
+    for (int i = 0; i < mof.m_channelLabels.size(); i++)
+    {
+        QString str;
+        QVERIFY(mof.m_channelLabels[i] != NULL);
+        QCOMPARE(mof.m_channelLabels[i]->text(), str.sprintf("<B>%.3d</B>", i + 1));
+
+        QVERIFY(mof.m_valueLabels[i] != NULL);
+        QCOMPARE(mof.m_valueLabels[i]->text(), QString("000"));
+    }
+
+    mof.slotChannelStyleChanged(Monitor::DMXChannels);
+    for (int i = 0; i < mof.m_channelLabels.size(); i++)
+    {
+        QString str;
+        QVERIFY(mof.m_channelLabels[i] != NULL);
+        QCOMPARE(mof.m_channelLabels[i]->text(), str.sprintf("<B>%.3d</B>", i + fxi->address() + 1));
+
+        QVERIFY(mof.m_valueLabels[i] != NULL);
+        QCOMPARE(mof.m_valueLabels[i]->text(), QString("000"));
+    }
+
+    for (int i = 0; i < mof.m_valueLabels.size(); i++)
+    {
+        QString str;
+        mof.m_valueLabels[i]->setText(str.sprintf("%.3d", (i + 1) * 10));
+    }
+
+    mof.slotValueStyleChanged(Monitor::PercentageValues);
+    for (int i = 0; i < mof.m_channelLabels.size(); i++)
+    {
+        QString str;
+        QVERIFY(mof.m_channelLabels[i] != NULL);
+        QCOMPARE(mof.m_channelLabels[i]->text(), str.sprintf("<B>%.3d</B>", i + fxi->address() + 1));
+
+        QVERIFY(mof.m_valueLabels[i] != NULL);
+        QCOMPARE(mof.m_valueLabels[i]->text(), str.sprintf("%.3d", (int) ceil(SCALE(qreal((i + 1) * 10), 
+                                                                                    qreal(0), qreal(UCHAR_MAX), 
+                                                                                    qreal(0), qreal(100)))));
+    }
+}
+
+void MonitorFixture_Test::updateValues()
+{
+    QWidget w;
+
+    Fixture* fxi = new Fixture(m_doc);
+    fxi->setChannels(6);
+    fxi->setAddress(0);
+    fxi->setName("Foobar");
+    m_doc->addFixture(fxi);
+    QVERIFY(fxi->id() != Fixture::invalidId());
+
+    MonitorFixture mof(&w, m_doc);
+    mof.setFixture(fxi->id());
+
+    QByteArray ba(10, 0);
+    for (int i = 0; i < 10; i++)
+        ba[i] = 127 + i;
+
+    mof.updateValues(ba);
+    for (int i = 0; i < mof.m_valueLabels.size(); i++)
+    {
+        QString str;
+        QCOMPARE(mof.m_valueLabels[i]->text(), str.sprintf("%.3d", 127 + i));
+    }
+
+    mof.slotValueStyleChanged(Monitor::PercentageValues);
+    mof.updateValues(ba);
+    for (int i = 0; i < mof.m_valueLabels.size(); i++)
+    {
+        QString str;
+        QCOMPARE(mof.m_valueLabels[i]->text(), str.sprintf("%.3d",
+            int(ceil(SCALE(qreal(127 + i), qreal(0), qreal(UCHAR_MAX), qreal(0), qreal(100))))));
+    }
+}
+
+QTEST_MAIN(MonitorFixture_Test)

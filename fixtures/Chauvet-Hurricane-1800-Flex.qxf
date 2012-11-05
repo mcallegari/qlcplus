@@ -1,0 +1,27 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.0.7</Version>
+  <Author>eklynx</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Hurricane 1800 Flex</Model>
+ <Type>Smoke</Type>
+ <Channel Name="Fog Output">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="5">Off</Capability>
+  <Capability Min="6" Max="255">Fog Output 0% -> 100%</Capability>
+ </Channel>
+ <Mode Name="DMX Mode">
+  <Physical>
+   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
+   <Dimensions Width="347" Height="374" Weight="13" Depth="585"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="1364" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
+  <Channel Number="0">Fog Output</Channel>
+ </Mode>
+</FixtureDefinition>
+

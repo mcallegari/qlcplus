@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller - EFX Editor</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>EFX Editor</H1>
+<P>
+The EFX editor, as its name suggests, is used to edit
+<A HREF="concept.html#EFX">EFX</A> functions. The view is split into two tabs:
+</P>
+<UL>
+ <LI><B>General</B> tab is for selecting <A HREF="concept.html#Fixtures">Fixtures</A>, speed and fixture order.</LI>
+ <LI><B>Movement</B> tab is for selecting details on how the fixtures should move their beams.</LI>
+</UL>
+
+<H3>General Tab Controls</H3>
+
+<TABLE BORDER="1">
+ <TR>
+  <TD>
+   <B>EFX name</B>
+  </TD>
+  <TD>
+   Change the name of the EFX.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Fixture list</B>
+  </TD>
+  <TD>
+   <UL>
+    <LI>Step: Shows the order in which the fixtures start their movement in serial/asymmetric order</LI>
+    <LI>Fixture: The name of each fixture that has been added to the EFX</LI>
+    <LI>Reverse: When checked, the fixture reverses its movement as opposed to non-reversed fixtures</LI>
+    <LI>Intensity: The value set to the fixture's intensity/dimmer channel when the fixture starts to move</LI>
+   </UL>
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/edit_add.png">
+  </TD>
+  <TD>
+   Add a <A HREF="concept.html#Fixtures">Fixture</A> to the EFX, after the
+   currently selected position. Since EFX is used for moving the head or mirror
+   of an intelligent fixture, only fixtures with <B>pan and tilt</B> capability
+   (8bit or 16bit) can be added to an EFX.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/edit_remove.png">
+  </TD>
+  <TD>
+   Remove the selected fixtures from the EFX.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/up.png">
+  </TD>
+  <TD>
+   Raise the selected fixture upwards (earlier) in serial order.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/down.png">
+  </TD>
+  <TD>
+   Lower the selected fixture downwards (later) in serial order.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Fixture order</B>
+  </TD>
+  <TD>
+   Change the EFX's <A HREF="concept.html#EFX">fixture order</A>.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Speed</B>
+  </TD>
+  <TD>
+   Change the EFX's <A HREF="concept.html#EFX">speed settings</A>.
+  </TD>
+ </TR>
+</TABLE>
+
+<H3>Movement Tab Controls</H3>
+
+<TABLE BORDER="1">
+ <TR>
+  <TD>
+   <B>Pattern area</B>
+  </TD>
+  <TD>
+   Shows a 2D-projection of the fixtures' head/mirror movement. Every time you
+   change a parameter on this page, a small dot travels the complete path in the
+   direction selected with the <B>Direction</B> buttons.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Direction</B>
+  </TD>
+  <TD>
+   <UL>
+    <LI>Forward: The fixtures move forwards along the pattern path</LI>
+    <LI>Backward: The fixtures move backwards along the pattern path</LI>
+   </UL>
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Run order</B>
+  </TD>
+  <TD>
+   <UL>
+    <LI>Loop: Run thru the steps over and over again.</LI>
+    <LI>Single Shot: Run thru the steps once and then stop.</LI>
+    <LI>Ping Pong: Run thru the steps over and over again, reversing direction at both ends.</LI>
+   </UL>
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Pattern</B>
+  </TD>
+  <TD>
+   Select the movement pattern algorithm.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Parameters</B>
+  </TD>
+  <TD>
+   <UL>
+    <LI>Width: Choose the pan width (0-255)</LI>
+    <LI>Height: Choose the tilt height (0-255)</LI>
+    <LI>X Offset: Move the pattern's horizontal (pan) centerpoint (0-255)</LI>
+    <LI>Y Offset: Move the pattern's vertical (tilt) centerpoint (0-255)</LI>
+    <LI>Rotation: Rotate the pattern along its axis (0-360 degrees)</LI>
+    <LI>X Frequency: Change the <B>Lissajous</B> pattern's X (horizontal) frequency (0-5)</LI>
+    <LI>Y Frequency: Change the <B>Lissajous</B> pattern's Y (vertical) frequency (0-5)</LI>
+    <LI>X Phase: Change the <B>Lissajous</B> pattern's X (horizontal) phase (0-360 degrees)</LI>
+    <LI>Y Phase: Change the <B>Lissajous</B> pattern's Y (vertical) phase (0-360 degrees)</LI>
+   </UL>
+  </TD>
+ </TR>
+</TABLE>
+
+</BODY>
+</HTML>

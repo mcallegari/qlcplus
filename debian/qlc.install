@@ -1,0 +1,24 @@
+usr/bin/*
+usr/lib/libqlcui*
+usr/lib/libqlcengine*
+usr/share/qlc/documents/*
+usr/share/applications/*
+usr/share/pixmaps/*
+usr/share/qlc/fixtures/*
+usr/share/qlc/inputprofiles/*
+usr/share/qlc/translations/*
+usr/share/mime/packages/qlc.xml
+
+# Plugins
+usr/lib/qt4/plugins/qlc/libenttecwing.so
+usr/lib/qt4/plugins/qlc/libhid.so
+usr/lib/qt4/plugins/qlc/libdmx4linux.so
+usr/lib/qt4/plugins/qlc/libmidiplugin.so
+usr/lib/qt4/plugins/qlc/libenttecdmxusb.so
+usr/lib/qt4/plugins/qlc/libpeperoni.so
+usr/lib/qt4/plugins/qlc/libudmx.so
+
+# UDev rules
+etc/udev/rules.d/z65-enttec-dmxusb.rules
+etc/udev/rules.d/z65-peperoni.rules
+etc/udev/rules.d/z65-anyma-udmx.rules

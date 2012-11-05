@@ -1,0 +1,152 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>2.6.1</Version>
+  <Author>hjunnila</Author>
+ </Creator>
+ <Manufacturer>Martin</Manufacturer>
+ <Model>MiniMAC Maestro</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Shutter, strobe, reset, lamp" >
+  <Group Byte="0" >Shutter</Group>
+  <Capability Min="0" Max="19" >Shutter closed</Capability>
+  <Capability Min="20" Max="49" >Shutter open</Capability>
+  <Capability Min="50" Max="112" >Strobe, fast to slow</Capability>
+  <Capability Min="113" Max="127" >Shutter open</Capability>
+  <Capability Min="128" Max="157" >Random strobe speed</Capability>
+  <Capability Min="158" Max="207" >Shutter open</Capability>
+  <Capability Min="208" Max="217" >Reset</Capability>
+  <Capability Min="218" Max="227" >Shutter open</Capability>
+  <Capability Min="228" Max="237" >Lamp on</Capability>
+  <Capability Min="238" Max="247" >Shutter open</Capability>
+  <Capability Min="248" Max="255" >Lamp off</Capability>
+ </Channel>
+ <Channel Name="Image selection" >
+  <Group Byte="0" >Gobo</Group>
+  <Capability Min="0" Max="19" >Image 1, indexed rotation</Capability>
+  <Capability Min="20" Max="39" >Image 2, indexed rotation</Capability>
+  <Capability Min="40" Max="59" >Image 3, indexed rotation</Capability>
+  <Capability Min="60" Max="79" >Image 4, indexed rotation</Capability>
+  <Capability Min="80" Max="99" >Image 1, continuous rotation</Capability>
+  <Capability Min="100" Max="119" >Image 2, continuous rotation</Capability>
+  <Capability Min="120" Max="139" >Image 3, continuous rotation</Capability>
+  <Capability Min="140" Max="159" >Image 4, continuous rotation</Capability>
+  <Capability Min="160" Max="198" >Clockwise rainbow speed</Capability>
+  <Capability Min="199" Max="255" >Counterclockwise rainbow speed</Capability>
+ </Channel>
+ <Channel Name="Image rotation" >
+  <Group Byte="0" >Speed</Group>
+  <Capability Min="0" Max="2" >No rotation</Capability>
+  <Capability Min="3" Max="127" >Clockwise rotation speed</Capability>
+  <Capability Min="128" Max="252" >Counterclockwise rotation speed</Capability>
+  <Capability Min="253" Max="255" >No rotation</Capability>
+ </Channel>
+ <Channel Name="Focus" >
+  <Group Byte="0" >Beam</Group>
+  <Capability Min="0" Max="255" >Infinity -> near</Capability>
+ </Channel>
+ <Channel Name="Pan" >
+  <Group Byte="0" >Pan</Group>
+  <Capability Min="0" Max="255" >Pan</Capability>
+ </Channel>
+ <Channel Name="Tilt" >
+  <Group Byte="0" >Tilt</Group>
+  <Capability Min="0" Max="255" >Tilt</Capability>
+ </Channel>
+ <Channel Name="Image rotation fine" >
+  <Group Byte="0" >Gobo</Group>
+  <Capability Min="0" Max="255" >Fine position index</Capability>
+ </Channel>
+ <Channel Name="Pan fine" >
+  <Group Byte="1" >Pan</Group>
+  <Capability Min="0" Max="255" >Pan fine</Capability>
+ </Channel>
+ <Channel Name="Tilt fine" >
+  <Group Byte="1" >Tilt</Group>
+  <Capability Min="0" Max="255" >Tilt fine</Capability>
+ </Channel>
+ <Channel Name="Image and focus speed" >
+  <Group Byte="0" >Speed</Group>
+  <Capability Min="0" Max="2" >Tracking mode</Capability>
+  <Capability Min="3" Max="251" >Fast to slow</Capability>
+  <Capability Min="252" Max="255" >Blackout while moving</Capability>
+ </Channel>
+ <Channel Name="Pan/tilt speed" >
+  <Group Byte="0" >Speed</Group>
+  <Capability Min="0" Max="2" >Tracking mode</Capability>
+  <Capability Min="3" Max="245" >Fast to slow</Capability>
+  <Capability Min="246" Max="248" >Tracking mode, slow</Capability>
+  <Capability Min="249" Max="251" >Tracking mode, fast</Capability>
+  <Capability Min="252" Max="255" >Blackout while moving</Capability>
+ </Channel>
+ <Mode Name="Mode 1" >
+  <Physical>
+   <Bulb ColourTemperature="0" Lumens="1000" Type="CDM 150W" />
+   <Dimensions Width="316" Height="390" Weight="14" Depth="415" />
+   <Lens DegreesMax="18" Name="Other" DegreesMin="18" />
+   <Focus TiltMax="270" PanMax="540" Type="Head" />
+  </Physical>
+  <Channel Number="0" >Shutter, strobe, reset, lamp</Channel>
+  <Channel Number="1" >Image selection</Channel>
+  <Channel Number="2" >Image rotation</Channel>
+  <Channel Number="3" >Focus</Channel>
+  <Channel Number="4" >Pan</Channel>
+  <Channel Number="5" >Tilt</Channel>
+ </Mode>
+ <Mode Name="Mode 2" >
+  <Physical>
+   <Bulb ColourTemperature="0" Lumens="1000" Type="CDM 150W" />
+   <Dimensions Width="316" Height="390" Weight="14" Depth="415" />
+   <Lens DegreesMax="18" Name="Other" DegreesMin="18" />
+   <Focus TiltMax="270" PanMax="540" Type="Head" />
+  </Physical>
+  <Channel Number="0" >Shutter, strobe, reset, lamp</Channel>
+  <Channel Number="1" >Image selection</Channel>
+  <Channel Number="2" >Image rotation</Channel>
+  <Channel Number="3" >Image rotation fine</Channel>
+  <Channel Number="4" >Focus</Channel>
+  <Channel Number="5" >Pan</Channel>
+  <Channel Number="6" >Pan fine</Channel>
+  <Channel Number="7" >Tilt</Channel>
+  <Channel Number="8" >Tilt fine</Channel>
+ </Mode>
+ <Mode Name="Mode 3" >
+  <Physical>
+   <Bulb ColourTemperature="0" Lumens="1000" Type="CDM 150W" />
+   <Dimensions Width="316" Height="390" Weight="14" Depth="415" />
+   <Lens DegreesMax="18" Name="Other" DegreesMin="18" />
+   <Focus TiltMax="270" PanMax="540" Type="Head" />
+   <Technical PowerConsumption="255" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0" >Shutter, strobe, reset, lamp</Channel>
+  <Channel Number="1" >Image selection</Channel>
+  <Channel Number="2" >Image rotation</Channel>
+  <Channel Number="3" >Focus</Channel>
+  <Channel Number="4" >Pan</Channel>
+  <Channel Number="5" >Tilt</Channel>
+  <Channel Number="6" >Pan/tilt speed</Channel>
+  <Channel Number="7" >Image and focus speed</Channel>
+ </Mode>
+ <Mode Name="Mode 4" >
+  <Physical>
+   <Bulb ColourTemperature="0" Lumens="1000" Type="CDM 150W" />
+   <Dimensions Width="316" Height="390" Weight="14" Depth="415" />
+   <Lens DegreesMax="18" Name="Other" DegreesMin="18" />
+   <Focus TiltMax="270" PanMax="540" Type="Head" />
+   <Technical PowerConsumption="255" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0" >Shutter, strobe, reset, lamp</Channel>
+  <Channel Number="1" >Image selection</Channel>
+  <Channel Number="2" >Image rotation</Channel>
+  <Channel Number="3" >Image rotation fine</Channel>
+  <Channel Number="4" >Focus</Channel>
+  <Channel Number="5" >Pan</Channel>
+  <Channel Number="6" >Pan fine</Channel>
+  <Channel Number="7" >Tilt</Channel>
+  <Channel Number="8" >Tilt fine</Channel>
+  <Channel Number="9" >Pan/tilt speed</Channel>
+  <Channel Number="10" >Image and focus speed</Channel>
+ </Mode>
+</FixtureDefinition>
+

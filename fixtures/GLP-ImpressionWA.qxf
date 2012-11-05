@@ -1,0 +1,143 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.0.0</Version>
+  <Author></Author>
+ </Creator>
+ <Manufacturer>GLP</Manufacturer>
+ <Model>Impression WA</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan coarse" >
+  <Group Byte="0" >Pan</Group>
+  <Capability Min="0" Max="255" >Pan coarse</Capability>
+ </Channel>
+ <Channel Name="Pan fine" >
+  <Group Byte="1" >Pan</Group>
+  <Capability Min="0" Max="255" >Pan fine</Capability>
+ </Channel>
+ <Channel Name="Tilt coarse" >
+  <Group Byte="0" >Tilt</Group>
+  <Capability Min="0" Max="255" >Tilt coarse</Capability>
+ </Channel>
+ <Channel Name="Tilt fine" >
+  <Group Byte="1" >Tilt</Group>
+  <Capability Min="0" Max="255" >Tilt fine</Capability>
+ </Channel>
+ <Channel Name="White coarse" >
+  <Group Byte="0" >Colour</Group>
+  <Capability Min="0" Max="255" >White mix</Capability>
+ </Channel>
+ <Channel Name="White fine" >
+  <Group Byte="1" >Colour</Group>
+  <Capability Min="0" Max="255" >White fine mix</Capability>
+ </Channel>
+ <Channel Name="Amber coarse" >
+  <Group Byte="0" >Colour</Group>
+  <Capability Min="0" Max="255" >Amber mix</Capability>
+ </Channel>
+ <Channel Name="Amber fine" >
+  <Group Byte="1" >Colour</Group>
+  <Capability Min="0" Max="255" >Amber fine mix</Capability>
+ </Channel>
+ <Channel Name="Shutter" >
+  <Group Byte="0" >Shutter</Group>
+  <Capability Min="0" Max="15" >Closed</Capability>
+  <Capability Min="16" Max="31" >Random strobe</Capability>
+  <Capability Min="32" Max="47" >Strobe pulse slow to fast</Capability>
+  <Capability Min="48" Max="239" >Strobe slow to fast</Capability>
+  <Capability Min="240" Max="253" >Open</Capability>
+  <Capability Min="254" Max="255" >Lamp ON</Capability>
+ </Channel>
+ <Channel Name="Dimmer coarse" >
+  <Group Byte="0" >Intensity</Group>
+  <Capability Min="0" Max="255" >Intensity</Capability>
+ </Channel>
+ <Channel Name="Dimmer fine" >
+  <Group Byte="1" >Intensity</Group>
+  <Capability Min="0" Max="255" >Intensity fine</Capability>
+ </Channel>
+ <Channel Name="Movement" >
+  <Group Byte="0" >Effect</Group>
+  <Capability Min="0" Max="0" >No movement</Capability>
+  <Capability Min="1" Max="31" >Pan effects</Capability>
+  <Capability Min="32" Max="63" >Tilt effects</Capability>
+  <Capability Min="64" Max="95" >Pan/Tilt effects</Capability>
+  <Capability Min="96" Max="127" >Inverse pan/tilt effects</Capability>
+  <Capability Min="128" Max="159" >Circle effects</Capability>
+  <Capability Min="160" Max="191" >Inverse circle effects</Capability>
+  <Capability Min="192" Max="223" >Lying eight effects</Capability>
+  <Capability Min="224" Max="255" >Random movement effects</Capability>
+ </Channel>
+ <Channel Name="Movement speed" >
+  <Group Byte="0" >Speed</Group>
+  <Capability Min="0" Max="15" >Relative movement</Capability>
+  <Capability Min="16" Max="255" >Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Shutter extended" >
+  <Group Byte="0" >Shutter</Group>
+  <Capability Min="0" Max="15" >Closed</Capability>
+  <Capability Min="16" Max="47" >Random pulse speed</Capability>
+  <Capability Min="48" Max="79" >Up-dimming then shutter closing (random)</Capability>
+  <Capability Min="80" Max="111" >Shutter open then down-dimming (random)</Capability>
+  <Capability Min="112" Max="143" >Up-dimming then down-dimming (random)</Capability>
+  <Capability Min="144" Max="239" >Strobe 0.2Hz to 10Hz</Capability>
+  <Capability Min="240" Max="249" >Open</Capability>
+  <Capability Min="250" Max="250" >RESET (3sec)</Capability>
+  <Capability Min="251" Max="255" >Open</Capability>
+ </Channel>
+ <Mode Name="Normal" >
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0" />
+   <Dimensions Width="340" Height="370" Weight="8" Depth="145" />
+   <Lens DegreesMax="25" Name="Other" DegreesMin="10" />
+   <Focus PanMax="660" Type="Head" TiltMax="300" />
+  </Physical>
+  <Channel Number="0" >Pan coarse</Channel>
+  <Channel Number="1" >Pan fine</Channel>
+  <Channel Number="2" >Tilt coarse</Channel>
+  <Channel Number="3" >Tilt fine</Channel>
+  <Channel Number="4" >White coarse</Channel>
+  <Channel Number="5" >Amber coarse</Channel>
+  <Channel Number="6" >Shutter</Channel>
+  <Channel Number="7" >Dimmer coarse</Channel>
+  <Channel Number="8" >Movement</Channel>
+  <Channel Number="9" >Movement speed</Channel>
+ </Mode>
+ <Mode Name="Compressed" >
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0" />
+   <Dimensions Width="340" Height="370" Weight="8" Depth="145" />
+   <Lens DegreesMax="25" Name="Other" DegreesMin="10" />
+   <Focus PanMax="660" Type="Head" TiltMax="300" />
+  </Physical>
+  <Channel Number="0" >Pan coarse</Channel>
+  <Channel Number="1" >Pan fine</Channel>
+  <Channel Number="2" >Tilt coarse</Channel>
+  <Channel Number="3" >Tilt fine</Channel>
+  <Channel Number="4" >White coarse</Channel>
+  <Channel Number="5" >Amber coarse</Channel>
+  <Channel Number="6" >Shutter</Channel>
+  <Channel Number="7" >Dimmer coarse</Channel>
+ </Mode>
+ <Mode Name="Extended" >
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0" />
+   <Dimensions Width="340" Height="370" Weight="8" Depth="145" />
+   <Lens DegreesMax="25" Name="Other" DegreesMin="10" />
+   <Focus PanMax="660" Type="Fixed" TiltMax="300" />
+  </Physical>
+  <Channel Number="0" >Pan coarse</Channel>
+  <Channel Number="1" >Pan fine</Channel>
+  <Channel Number="2" >Tilt coarse</Channel>
+  <Channel Number="3" >Tilt fine</Channel>
+  <Channel Number="4" >White coarse</Channel>
+  <Channel Number="5" >White fine</Channel>
+  <Channel Number="6" >Amber coarse</Channel>
+  <Channel Number="7" >Amber fine</Channel>
+  <Channel Number="8" >Shutter extended</Channel>
+  <Channel Number="9" >Dimmer coarse</Channel>
+  <Channel Number="10" >Dimmer fine</Channel>
+ </Mode>
+</FixtureDefinition>
+

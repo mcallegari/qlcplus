@@ -1,0 +1,84 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>2.6.1</Version>
+  <Author>hjunnila</Author>
+ </Creator>
+ <Manufacturer>Futurelight</Manufacturer>
+ <Model>PCC-250</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Colour" >
+  <Group Byte="0" >Colour</Group>
+  <Capability Min="0" Max="15" >White</Capability>
+  <Capability Min="16" Max="31" >Deep red</Capability>
+  <Capability Min="32" Max="47" >Deep blue</Capability>
+  <Capability Min="48" Max="63" >Primary green</Capability>
+  <Capability Min="64" Max="79" >Orange</Capability>
+  <Capability Min="80" Max="95" >3200K correction filter</Capability>
+  <Capability Min="96" Max="111" >6500K correction filter</Capability>
+  <Capability Min="112" Max="127" >UV filter</Capability>
+  <Capability Min="128" Max="189" >Forwards rainbow speed</Capability>
+  <Capability Min="190" Max="191" >No rotation</Capability>
+  <Capability Min="192" Max="255" >Backwards rainbow speed</Capability>
+ </Channel>
+ <Channel Name="Effect" >
+  <Group Byte="0" >Effect</Group>
+  <Capability Min="0" Max="70" >Full beam</Capability>
+  <Capability Min="71" Max="230" >Beam shaper</Capability>
+  <Capability Min="231" Max="255" >Frost filter</Capability>
+ </Channel>
+ <Channel Name="Zoom" >
+  <Group Byte="0" >Beam</Group>
+  <Capability Min="0" Max="255" >28 to 7 degrees</Capability>
+ </Channel>
+ <Channel Name="Shutter, strobe" >
+  <Group Byte="0" >Shutter</Group>
+  <Capability Min="0" Max="31" >Shutter closed</Capability>
+  <Capability Min="32" Max="63" >Dimmer activation</Capability>
+  <Capability Min="64" Max="95" >Strobe speed</Capability>
+  <Capability Min="96" Max="127" >Shutter open</Capability>
+  <Capability Min="128" Max="159" >Pulse sequence</Capability>
+  <Capability Min="160" Max="191" >Shutter open</Capability>
+  <Capability Min="192" Max="223" >Random strobe speed</Capability>
+  <Capability Min="224" Max="255" >Shutter open, dimmer deactivation</Capability>
+ </Channel>
+ <Channel Name="Dimmer intensity" >
+  <Group Byte="0" >Intensity</Group>
+  <Capability Min="0" Max="255" >Dimmer intensity</Capability>
+ </Channel>
+ <Channel Name="Lamp switch, reset, programs" >
+  <Group Byte="0" >Maintenance</Group>
+  <Capability Min="0" Max="15" >Normal color change</Capability>
+  <Capability Min="16" Max="31" >Normal colour change, search clockwise</Capability>
+  <Capability Min="32" Max="47" >Colour change at every position, shortest distance</Capability>
+  <Capability Min="48" Max="63" >Colour change at every position, search clockwise</Capability>
+  <Capability Min="64" Max="79" >Lamp on</Capability>
+  <Capability Min="80" Max="95" >Reset</Capability>
+  <Capability Min="96" Max="111" >Internal program 1</Capability>
+  <Capability Min="112" Max="127" >Internal program 2</Capability>
+  <Capability Min="128" Max="143" >Internal program 3</Capability>
+  <Capability Min="144" Max="159" >Internal program 4</Capability>
+  <Capability Min="160" Max="175" >Internal program 5</Capability>
+  <Capability Min="176" Max="191" >Internal program 6</Capability>
+  <Capability Min="192" Max="207" >Internal program 7</Capability>
+  <Capability Min="208" Max="223" >Internal program 8</Capability>
+  <Capability Min="224" Max="239" >Lamp off</Capability>
+ </Channel>
+ <Mode Name="Mode 1" >
+  <Physical>
+   <Bulb ColourTemperature="0" Lumens="0" Type="" />
+   <Dimensions Width="0" Height="0" Weight="0" Depth="0" />
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0" />
+   <Focus TiltMax="0" PanMax="0" Type="Fixed" />
+   <Technical PowerConsumption="440" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0" >Colour</Channel>
+  <Channel Number="1" >Effect</Channel>
+  <Channel Number="2" >Zoom</Channel>
+  <Channel Number="3" >Shutter, strobe</Channel>
+  <Channel Number="4" >Dimmer intensity</Channel>
+  <Channel Number="5" >Lamp switch, reset, programs</Channel>
+ </Mode>
+</FixtureDefinition>
+

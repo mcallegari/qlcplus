@@ -1,0 +1,86 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>2.6.1</Version>
+  <Author>hjunnila</Author>
+ </Creator>
+ <Manufacturer>Futurelight</Manufacturer>
+ <Model>MH-440</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" >
+  <Group Byte="0" >Pan</Group>
+  <Capability Min="0" Max="255" >Pan</Capability>
+ </Channel>
+ <Channel Name="Tilt" >
+  <Group Byte="0" >Tilt</Group>
+  <Capability Min="0" Max="255" >Tilt</Capability>
+ </Channel>
+ <Channel Name="Pan Fine" >
+  <Group Byte="1" >Pan</Group>
+  <Capability Min="0" Max="255" >Pan Fine</Capability>
+ </Channel>
+ <Channel Name="Tilt Fine" >
+  <Group Byte="1" >Tilt</Group>
+  <Capability Min="0" Max="255" >Tilt Fine</Capability>
+ </Channel>
+ <Channel Name="Pan/Tilt Speed" >
+  <Group Byte="0" >Speed</Group>
+  <Capability Min="0" Max="0" >Tracking Mode</Capability>
+  <Capability Min="1" Max="249" >Vector Mode Speed</Capability>
+  <Capability Min="250" Max="252" >Tracking Mode, BO color changes</Capability>
+  <Capability Min="253" Max="255" >Max. Vector speed, BO pan/tilt/color change</Capability>
+ </Channel>
+ <Channel Name="Colour" >
+  <Group Byte="0" >Colour</Group>
+  <Capability Min="0" Max="0" >White</Capability>
+  <Capability Min="10" Max="10" >Turquoise</Capability>
+  <Capability Min="21" Max="21" >Red</Capability>
+  <Capability Min="32" Max="32" >Cyan</Capability>
+  <Capability Min="42" Max="42" >Light green</Capability>
+  <Capability Min="53" Max="53" >Magenta</Capability>
+  <Capability Min="64" Max="64" >Light blue</Capability>
+  <Capability Min="74" Max="74" >Yellow</Capability>
+  <Capability Min="85" Max="85" >Green</Capability>
+  <Capability Min="96" Max="96" >Pink</Capability>
+  <Capability Min="106" Max="106" >Blue</Capability>
+  <Capability Min="117" Max="117" >Orange</Capability>
+  <Capability Min="128" Max="189" >Rainbow forward</Capability>
+  <Capability Min="190" Max="193" >No Rotation</Capability>
+  <Capability Min="194" Max="255" >Rainbow backward</Capability>
+ </Channel>
+ <Channel Name="Dimmer" >
+  <Group Byte="0" >Intensity</Group>
+  <Capability Min="0" Max="255" >Dimmer intensity</Capability>
+ </Channel>
+ <Channel Name="Shutter, Strobe, Reset" >
+  <Group Byte="0" >Shutter</Group>
+  <Capability Min="0" Max="31" >Shutter closed</Capability>
+  <Capability Min="64" Max="95" >Shutter open</Capability>
+  <Capability Min="96" Max="127" >Strobe speed</Capability>
+  <Capability Min="128" Max="139" >Reset</Capability>
+  <Capability Min="140" Max="159" >Shutter closed</Capability>
+  <Capability Min="160" Max="175" >Pulse sequence speed slow to fast</Capability>
+  <Capability Min="176" Max="191" >Pulse sequence fast to slow</Capability>
+  <Capability Min="192" Max="223" >Random strobe slow to fast</Capability>
+  <Capability Min="224" Max="255" >Shutter open</Capability>
+ </Channel>
+ <Mode Name="Mode 1" >
+  <Physical>
+   <Bulb ColourTemperature="0" Lumens="0" Type="" />
+   <Dimensions Width="0" Height="0" Weight="0" Depth="0" />
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0" />
+   <Focus TiltMax="0" PanMax="0" Type="Fixed" />
+   <Technical PowerConsumption="150" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0" >Pan</Channel>
+  <Channel Number="1" >Tilt</Channel>
+  <Channel Number="2" >Pan Fine</Channel>
+  <Channel Number="3" >Tilt Fine</Channel>
+  <Channel Number="4" >Pan/Tilt Speed</Channel>
+  <Channel Number="5" >Colour</Channel>
+  <Channel Number="6" >Dimmer</Channel>
+  <Channel Number="7" >Shutter, Strobe, Reset</Channel>
+ </Mode>
+</FixtureDefinition>
+

@@ -1,0 +1,89 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.1.0</Version>
+  <Author>david</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>SC250H</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt</Capability>
+ </Channel>
+ <Channel Name="Shutter/Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7">Shutter on</Capability>
+  <Capability Min="8" Max="15">Shutter off</Capability>
+  <Capability Min="16" Max="131">Strobe</Capability>
+  <Capability Min="132" Max="247">Shake</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="8">Open</Capability>
+  <Capability Min="9" Max="17">Gobo 01</Capability>
+  <Capability Min="18" Max="25">Gobo 02</Capability>
+  <Capability Min="26" Max="34">Gobo 03</Capability>
+  <Capability Min="35" Max="43">Gobo 04</Capability>
+  <Capability Min="44" Max="51">Gobo 05</Capability>
+  <Capability Min="52" Max="59">Gobo 06</Capability>
+  <Capability Min="60" Max="68">Gobo 07</Capability>
+  <Capability Min="69" Max="76">Gobo 08</Capability>
+  <Capability Min="77" Max="85">Gobo 09</Capability>
+  <Capability Min="86" Max="93">Gobo 10</Capability>
+  <Capability Min="94" Max="102">Gobo 11</Capability>
+  <Capability Min="103" Max="110">Gobo 12</Capability>
+  <Capability Min="111" Max="119">Gobo 13</Capability>
+  <Capability Min="120" Max="127">Gobo 14</Capability>
+  <Capability Min="128" Max="255">Rotate</Capability>
+ </Channel>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">White</Capability>
+  <Capability Min="8" Max="15">Green</Capability>
+  <Capability Min="16" Max="22">Green/Magenta</Capability>
+  <Capability Min="23" Max="30">Magenta</Capability>
+  <Capability Min="31" Max="37">Light blue</Capability>
+  <Capability Min="38" Max="45">Amber</Capability>
+  <Capability Min="46" Max="52">Red</Capability>
+  <Capability Min="53" Max="60">Red/Blue</Capability>
+  <Capability Min="61" Max="67">Blue</Capability>
+  <Capability Min="68" Max="75">UV</Capability>
+  <Capability Min="76" Max="82">Light green</Capability>
+  <Capability Min="83" Max="90">Light green/Orange</Capability>
+  <Capability Min="91" Max="97">Orange</Capability>
+  <Capability Min="98" Max="105">Orange/Yellow</Capability>
+  <Capability Min="106" Max="112">Yellow</Capability>
+  <Capability Min="113" Max="120">Yellow/Pink</Capability>
+  <Capability Min="121" Max="127">Pink</Capability>
+  <Capability Min="128" Max="255">Rainbow</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Dimmer</Capability>
+ </Channel>
+ <Channel Name="No function">
+  <Group Byte="0">Nothing</Group>
+ </Channel>
+ <Mode Name="7ch colour split">
+  <Physical>
+   <Bulb Lumens="800" Type="ELC 250W" ColourTemperature="3200"/>
+   <Dimensions Width="270" Height="555" Weight="10" Depth="285"/>
+   <Lens DegreesMax="18" Name="Other" DegreesMin="18"/>
+   <Focus PanMax="180" Type="Mirror" TiltMax="90"/>
+   <Technical PowerConsumption="300" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Shutter/Strobe</Channel>
+  <Channel Number="3">Gobo</Channel>
+  <Channel Number="4">Colour</Channel>
+  <Channel Number="5">No function</Channel>
+  <Channel Number="6">Dimmer</Channel>
+ </Mode>
+</FixtureDefinition>

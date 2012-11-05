@@ -1,0 +1,31 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.0.0</Version>
+  <Author></Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>DMX Superstrobe 2700</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Flash rate" >
+  <Group Byte="0" >Speed</Group>
+  <Capability Min="0" Max="255" >Flash rate slow to fast</Capability>
+ </Channel>
+ <Channel Name="Dimmer" >
+  <Group Byte="0" >Intensity</Group>
+  <Capability Min="0" Max="255" >Dimmer intensity</Capability>
+ </Channel>
+ <Mode Name="Normal" >
+  <Physical>
+   <Bulb Lumens="645" Type="XOP 1500W" ColourTemperature="5600" />
+   <Dimensions Width="460" Height="130" Weight="3.5" Depth="210" />
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0" />
+   <Focus PanMax="0" Type="Fixed" TiltMax="0" />
+   <Technical PowerConsumption="3600" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0" >Flash rate</Channel>
+  <Channel Number="1" >Dimmer</Channel>
+ </Mode>
+</FixtureDefinition>
+

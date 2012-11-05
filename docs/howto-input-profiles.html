@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Documentation</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>Input Profiles Howto</H1>
+
+This howto document tells you how to associate input profiles to input universes
+and how to edit these profiles. You should first read the
+<A HREF="howto-input-mapping.html">howto on input mapping</A> so that you
+can access the input manager and know how to edit input universes.
+
+<H1>Input Manager</H1>
+
+<P>
+<B>Click the <u>Inputs</u> item from the main window's <u>Manager</u> menu.</B>
+</P>
+
+<H2>Mapping Properties</H2>
+
+<P>
+<B>Select <u>universe 1</u> and then click the
+<IMG SRC="qrc:/edit.png" ALIGN="absmiddle"> edit button to edit the first
+universe's mapping properties.</B>
+</P>
+
+<P>
+The dialog that opens is the same that has been covered in the 
+<A HREF="howto-input-mapping.html">input mapping howto.</A> However, the
+dialog contains two pages: <u>Mapping</u> and <u>Profile</u> that are accessed
+thru the little tabs at the top of the dialog.
+</P>
+
+<H2>Profile assignment</H2>
+
+<P>
+<B>Click the <u>Profile</u> tab to access the input profile tab.</B>
+</P>
+
+<P>
+You'll see a list of available input profile definitions, with a check mark
+on <u>None</u>. This means that the current universe doesn't have a profile
+assigned yet. To assign a profile to the universe, simply place a check mark
+on one of the available profiles by clicking on the empty check box. Only one
+profile can be assigned to one universe at a time, so the check mark will
+actually <u>move</u> from its previous position to the item that you have
+selected.
+</P>
+
+<P>
+<B>Click the white box beside <u>Behringer - BCF2000</u> to assign it to
+the current universe. If you're happy with this, click OK to close the dialog
+and accept these mappings.</B>
+</P>
+
+<H2>Add/Edit a Profile</H2>
+
+<P>
+It is probable that your input profile is not on the list and you need to create
+one of your own.
+</P>
+
+<P>
+<B>Click the <IMG SRC="qrc:/edit_add.png"> create new input profile button
+to start making a profile definition for your input profile. Alternatively, you
+can edit any existing profile by selecting the appropriate item and clicking
+the <IMG SRC="qrc:/edit.png"> edit button. The procedure is exactly the
+same in both cases from now on.</B>
+</P>
+
+<H2>Input Profile Editor</H2>
+
+<P>
+A dialog is opened with entry fields for <u>Manufacturer</u> and <u>Model</u>.
+</P>
+
+<P>
+<B>Enter the profile's manufacturer and model to these fields and then click
+the <u>Channels</u> tab to edit the profile's channels.</B>
+</P>
+
+<P>
+Now you have two choices for adding channel definitions: <u>Manual</u> and
+<u>Automatic</u>:
+</P>
+<HR>
+<P>
+<IMG SRC="qrc:/edit_add.png" ALIGN="absmiddle"> Click the add button to
+enter individual channel information by hand for each channel.<BR>
+
+<IMG SRC="qrc:/wizard.png" ALIGN="absmiddle"> Click the automatic wizard
+button to attempt automatic channel detection. You'll receive further
+instructions from QLC. You must have an input profile assigned to the current
+universe for this feature to work. Also, you must first stop the wizard to
+be able to navigate away from this dialog page.
+</P>
+<HR>
+
+<P>
+You can edit the existing channels by selecting them and clicking the
+<IMG SRC="qrc:/edit.png"> edit button. To remove selected channels, click
+the <IMG SRC="qrc:/edit_remove.png"> remove button.
+</P>
+
+<P>
+When you <u>add</u> or <u>edit</u> a channel, you must enter the channel number,
+name and type (Slider, Knob or Button). Note that you cannot add the same
+channel multiple times to one profile.
+</P>
+
+<P>
+<B>When you're ready, click the OK button to accept changes and save the
+input profile. If you didn't enter a manufacturer/model for the profile,
+you'll be prompted to enter them before you can continue.</B>
+</P>
+
+<H2>Back in the mapping properties dialog</H2>
+
+<P>
+Now you should see the profile you just defined in the list of available input
+profiles. Remember how to assign it to the current universe? Scroll up to
+<u>Profile assignment</u> if you don't.
+</P>
+
+<P>
+To remove any existing input profiles, click the
+<IMG SRC="qrc:/edit_remove.png"> remove button. Note that some profiles are
+so-called <u>system profiles</u> and cannot be removed unless you're the
+administrator.
+</P>
+
+<P>
+<B>Click OK to accept these mappings and close the dialog.</B>
+</P>
+
+</BODY>
+</HTML>

@@ -1,0 +1,77 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.0.7</Version>
+  <Author>Anders Thomsen</Author>
+ </Creator>
+ <Manufacturer>JB Systems</Manufacturer>
+ <Model>The Winner II</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9">Stopped</Capability>
+  <Capability Min="10" Max="91">Cycle Gobo+Color - slow to fast</Capability>
+  <Capability Min="92" Max="173">Cycle Color - slow to fast</Capability>
+  <Capability Min="174" Max="255">Cycle Gobo - slow to fast</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="0">Blackout</Capability>
+  <Capability Min="8" Max="8">Open</Capability>
+  <Capability Min="16" Max="16">1 - Circle</Capability>
+  <Capability Min="24" Max="24">2 - Square outline</Capability>
+  <Capability Min="32" Max="32">3 - Circle outline</Capability>
+  <Capability Min="40" Max="40">4 - Circle dotted outline</Capability>
+  <Capability Min="48" Max="48">5 - Sunrise</Capability>
+  <Capability Min="56" Max="56">6 - Circle zoom</Capability>
+  <Capability Min="64" Max="64">7 - Four circles</Capability>
+  <Capability Min="72" Max="72">8 - Hand</Capability>
+  <Capability Min="80" Max="80">10 - Circle Woods texture</Capability>
+  <Capability Min="88" Max="88">11 - Circle stripes</Capability>
+  <Capability Min="96" Max="96">11 - Circle tilted</Capability>
+  <Capability Min="104" Max="104">12 - Dots</Capability>
+  <Capability Min="112" Max="112">13 - Pinwheel</Capability>
+  <Capability Min="120" Max="120">14 - Twirl</Capability>
+  <Capability Min="128" Max="255">Cycle slow-fast</Capability>
+ </Channel>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">White</Capability>
+  <Capability Min="11" Max="11">Green</Capability>
+  <Capability Min="22" Max="22">Orange</Capability>
+  <Capability Min="33" Max="33">Light blue</Capability>
+  <Capability Min="44" Max="44">Amber</Capability>
+  <Capability Min="55" Max="55">Red</Capability>
+  <Capability Min="66" Max="66">Purple</Capability>
+  <Capability Min="77" Max="77">Pink</Capability>
+  <Capability Min="88" Max="88">Light green</Capability>
+  <Capability Min="99" Max="99">Blue</Capability>
+  <Capability Min="110" Max="110">Yellow</Capability>
+  <Capability Min="121" Max="121">Magenta</Capability>
+  <Capability Min="128" Max="255">Cycle slow to fast</Capability>
+ </Channel>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Physical>
+   <Bulb Lumens="0" Type="ELC 250W" ColourTemperature="0"/>
+   <Dimensions Width="200" Height="155" Weight="10" Depth="500"/>
+   <Lens DegreesMax="13" Name="Other" DegreesMin="13"/>
+   <Focus PanMax="0" Type="Mirror" TiltMax="0"/>
+   <Technical PowerConsumption="350" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Shutter</Channel>
+  <Channel Number="1">Gobo</Channel>
+  <Channel Number="2">Color</Channel>
+  <Channel Number="3">Pan</Channel>
+  <Channel Number="4">Tilt</Channel>
+ </Mode>
+</FixtureDefinition>
+

@@ -1,0 +1,234 @@
+<ui version="4.0" >
+ <class>CapabilityWizard</class>
+ <widget class="QDialog" name="CapabilityWizard" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>404</width>
+    <height>406</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Capability Wizard</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_3" >
+   <item>
+    <widget class="QGroupBox" name="groupBox" >
+     <property name="title" >
+      <string>Values</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout" >
+      <item>
+       <widget class="QLabel" name="label" >
+        <property name="text" >
+         <string>Start</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="m_startSpin" >
+        <property name="toolTip" >
+         <string>The starting DMX value</string>
+        </property>
+        <property name="maximum" >
+         <number>255</number>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_2" >
+        <property name="text" >
+         <string>Gap</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="m_gapSpin" >
+        <property name="toolTip" >
+         <string>Number of values per capability</string>
+        </property>
+        <property name="minimum" >
+         <number>0</number>
+        </property>
+        <property name="maximum" >
+         <number>255</number>
+        </property>
+        <property name="value" >
+         <number>0</number>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_3" >
+        <property name="text" >
+         <string>Amount</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="m_amountSpin" >
+        <property name="toolTip" >
+         <string>Number of capabilities to create</string>
+        </property>
+        <property name="minimum" >
+         <number>1</number>
+        </property>
+        <property name="maximum" >
+         <number>255</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_2" >
+     <property name="title" >
+      <string>Name</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout" >
+      <item>
+       <widget class="QLineEdit" name="m_nameEdit" >
+        <property name="toolTip" >
+         <string>The common base name for all capabilities. Use hash '#' to create a running number.</string>
+        </property>
+        <property name="text" >
+         <string>Capability #</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_3" >
+     <property name="title" >
+      <string>Sample</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2" >
+      <item>
+       <widget class="QListWidget" name="m_list" >
+        <property name="toolTip" >
+         <string>A list of capabilities that would be created with these settings</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox" >
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons" >
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>CapabilityWizard</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>227</x>
+     <y>386</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>CapabilityWizard</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>295</x>
+     <y>392</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_startSpin</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>CapabilityWizard</receiver>
+   <slot>slotCreateCapabilities()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>112</x>
+     <y>42</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>5</x>
+     <y>43</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_gapSpin</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>CapabilityWizard</receiver>
+   <slot>slotCreateCapabilities()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>235</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>219</x>
+     <y>2</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_amountSpin</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>CapabilityWizard</receiver>
+   <slot>slotCreateCapabilities()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>352</x>
+     <y>41</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>399</x>
+     <y>40</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_nameEdit</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>CapabilityWizard</receiver>
+   <slot>slotCreateCapabilities()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>278</x>
+     <y>107</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>399</x>
+     <y>103</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>slotCreateCapabilities()</slot>
+ </slots>
+</ui>

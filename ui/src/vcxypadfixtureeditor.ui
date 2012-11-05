@@ -1,0 +1,245 @@
+<ui version="4.0" >
+ <class>VCXYPadFixtureEditor</class>
+ <widget class="QDialog" name="VCXYPadFixtureEditor" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>347</width>
+    <height>190</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>XY Pad Fixture</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_3" >
+   <item row="0" column="0" >
+    <widget class="QGroupBox" name="m_xGroup" >
+     <property name="title" >
+      <string>Horizontal X-Axis</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2" >
+      <item row="0" column="0" >
+       <widget class="QLabel" name="label" >
+        <property name="text" >
+         <string>Minimum</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <widget class="QSpinBox" name="m_xMin" >
+        <property name="suffix" >
+         <string>%</string>
+        </property>
+        <property name="maximum" >
+         <number>99</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" >
+       <widget class="QLabel" name="label_2" >
+        <property name="text" >
+         <string>Maximum</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" >
+       <widget class="QSpinBox" name="m_xMax" >
+        <property name="suffix" >
+         <string>%</string>
+        </property>
+        <property name="minimum" >
+         <number>1</number>
+        </property>
+        <property name="maximum" >
+         <number>100</number>
+        </property>
+        <property name="value" >
+         <number>100</number>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="2" >
+       <widget class="QCheckBox" name="m_xReverse" >
+        <property name="text" >
+         <string>Reverse</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="1" >
+    <widget class="QGroupBox" name="m_yGroup" >
+     <property name="title" >
+      <string>Vertical Y-Axis</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout" >
+      <item row="0" column="0" >
+       <widget class="QLabel" name="label_3" >
+        <property name="text" >
+         <string>Minimum</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <widget class="QSpinBox" name="m_yMin" >
+        <property name="suffix" >
+         <string>%</string>
+        </property>
+        <property name="maximum" >
+         <number>99</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" >
+       <widget class="QLabel" name="label_4" >
+        <property name="text" >
+         <string>Maximum</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" >
+       <widget class="QSpinBox" name="m_yMax" >
+        <property name="suffix" >
+         <string>%</string>
+        </property>
+        <property name="minimum" >
+         <number>1</number>
+        </property>
+        <property name="maximum" >
+         <number>100</number>
+        </property>
+        <property name="value" >
+         <number>100</number>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="2" >
+       <widget class="QCheckBox" name="m_yReverse" >
+        <property name="text" >
+         <string>Reverse</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="2" >
+    <widget class="QDialogButtonBox" name="m_buttonBox" >
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons" >
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>m_buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>VCXYPadFixtureEditor</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>257</x>
+     <y>143</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>VCXYPadFixtureEditor</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>325</x>
+     <y>143</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_xMin</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>VCXYPadFixtureEditor</receiver>
+   <slot>slotXMinChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>116</x>
+     <y>44</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>5</x>
+     <y>41</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_xMax</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>VCXYPadFixtureEditor</receiver>
+   <slot>slotXMaxChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>113</x>
+     <y>68</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>5</x>
+     <y>75</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_yMin</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>VCXYPadFixtureEditor</receiver>
+   <slot>slotYMinChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>289</x>
+     <y>36</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>342</x>
+     <y>39</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_yMax</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>VCXYPadFixtureEditor</receiver>
+   <slot>slotYMaxChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>301</x>
+     <y>67</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>343</x>
+     <y>72</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>slotXMinChanged(int)</slot>
+  <slot>slotXMaxChanged(int)</slot>
+  <slot>slotYMinChanged(int)</slot>
+  <slot>slotYMaxChanged(int)</slot>
+ </slots>
+</ui>

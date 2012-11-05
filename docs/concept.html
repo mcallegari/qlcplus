@@ -1,0 +1,437 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Documentation - Basic Concepts</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>Basic Concepts &amp; Glossary</H1>
+
+<P>
+Q Light Controller (QLC for short) is meant to control lighting equipment used
+in various performances, like live concerts and theatres etc. The main purpose
+is that QLC could outperform commercial lighting desks with an intuitive and
+flexible user interface, without the need for a 500+ page manual.
+</P>
+
+<P>
+This page has been arranged in alphabetical order to ease searching for a
+specific topic.
+</P>
+
+<A NAME="Blackout" HREF="#Blackout"><H3>Blackout</H3></A>
+
+<P>
+Blackout is used to set all channels in all universes to zero and keep them
+that way, regardless of what functions are currently being run or what values
+have been set to them manually. When blackout is turned off, <U>current
+values</U> of all channels are set to each universe.
+</P>
+
+<A NAME="Capabilities" HREF="#Capabilities"><H3>Capabilities</H3></A>
+
+<P>
+Some channels in intelligent fixtures provide many kinds of functions, or
+<I>capabilities</I> like switching the lamp on when the channel value is [240-255],
+setting a red color on a color wheel when the value is exactly [15], or simply
+controlling the fixture's dimmer intensity with values [0-255]. Each of these
+individual function is called a <U>capability</U> and each of them has these
+three properties:
+</P>
+
+<UL>
+ <LI>Minimum value: The minimum channel value that provides a capability.</LI>
+ <LI>Maximum value: The maximum channel value that provides a capability.</LI>
+ <LI>Name: The friendly name of a capability.</LI>
+</UL>
+
+<A NAME="Chaser" HREF="#Chaser"><H3>Chaser</H3></A>
+
+<P>
+A chaser <A HREF="#Functions">function</A> encapsulates multiple scenes that are
+run in serial, one after the other, when the chaser function is started. The
+next function is run only after the previous has finished. Any number of
+<A HREF="#Functions">functions</A> can be inserted to a chaser.
+</P>
+
+<P>
+Chaser functions' direction can be reversed. The function can also be set to do
+an infinite loop, an infinite ping-pong-loop (direction is reversed after
+each pass) or it can run thru just once, in a single-shot mode, after which it
+terminates by itself. If the function is set to do an infinite loop, it must
+be stopped manually.
+</P>
+
+<P>
+As of version 3.3.0, each chaser has their own speed settings:
+<LI><B>Fade In:</B> Overrides the fade in speed of all steps</LI>
+<LI><B>Fade Out:</B> Overrides the fade out speed of all steps</LI>
+<LI><B>Duration:</B> The duration of the current step</LI>
+</P>
+
+<P>
+Copies of chaser functions can be created with the <A HREF="functionmanager.html">
+Function Manager</A>. The scenes inside a chaser are not duplicated when a chaser
+is copied. Only the order and direction are copied to the new one.
+</P>
+
+<A NAME="Collection" HREF="#Collection"><H3>Collection</H3></A>
+
+<P>
+A collection <A HREF="#Functions">function</A> encapsulates multiple functions
+that are run simultaneously when the collection function is executed. Any number
+of functions can be inserted to a collection, but each function can be inserted
+only once and a collection cannot be a direct member of itself.
+</P>
+
+<P>
+Collections have no speed settings. Each member function's speed is set individually
+thru their own editors.
+</P>
+
+<P>
+Copies of collection functions can be created with the <A HREF="functionmanager.html">
+Function Manager</A>. The functions inside a collection are not duplicated; only the
+list of functions is copied.
+</P>
+
+<A NAME="DMX" HREF="#DMX"><H3>DMX</H3></A>
+
+<P>
+DMX is short for <B>D</B>igital <B>M</B>ultiple<B>X</B>. It basically defines
+a whole bunch of properties, protocol, wiring etc. but in the case of a lighting
+software, it defines the maximum number of channels (512) per universe and the
+channels' value range (0-255).
+</P>
+
+<P>
+QLC supports 4 individual universes, that need not be necessarily connected to
+DMX hardware; rather, DMX has just been selected as the de facto lighting
+standard. Actual hardware abstraction (whether it's analog 0-10V, DMX or some
+other method) is achieved thru <A HREF="#OutputPlugins">output plugins</A>.
+</P>
+
+<A NAME="EFX" HREF="#EFX"><H3>EFX</H3></A>
+
+<P>
+An EFX <A HREF="#Functions">function</A> is mainly used to automate moving
+lights (e.g. scanners &amp; moving heads). The EFX can create complex mathematical
+paths on an X-Y plane that are converted to DMX values for the fixture's pan and
+tilt channels. <B>Only fixtures that contain valid pan &amp; tilt channels can take
+part in an EFX function.</B>
+</P>
+
+<P>
+As of version 3.3.0, each EFX has their own speed settings:
+<LI><B>Fade In:</B> The time it takes for the fixtures in the EFX to fade their intensity channels up</LI>
+<LI><B>Fade Out:</B> The time it takes for the fixtures in the EFX to fade their intensity channels back to zero</LI>
+<LI><B>Duration:</B> The duration of one full round using the selected pattern</LI>
+</P>
+
+<P>
+Fixtures taking part in an EFX function can be set to follow the algorithm in certain order:
+</P>
+<LI><B>Parallel:</B> all fixtures follow the same pattern synchronously</LI>
+<LI><B>Serial:</B> fixtures start following the pattern one after the other, with a
+little delay between each of them.</LI>
+<LI><B>Asymmetric:</B> all fixtures start moving simultaneously, but with similar offset as
+in the Serial mode.</LI>
+
+<P>
+EFX functions' direction can be reversed for all fixtures at once or on a
+per-fixture basis. The function can also be set to do an infinte loop, an
+infinite ping-pong-loop (direction is reversed after each pass) or it can run
+thru just once, in a single-shot mode, after which it terminates by itself.
+If the function is set to do an infinite loop, it must be stopped manually.
+</P>
+
+<P>
+Copies of EFX functions can be created with the <A HREF="functionmanager.html">
+Function Manager</A>. All of the EFX's contents are copied to the duplicate.
+</P>
+
+<A NAME="Fixtures" HREF="#Fixtures"><H3>Fixtures</H3></A>
+
+<P>
+A fixture is essentially one lighting device. It can be, for example, one
+moving head, one scanner, one laser etc.. However, for simplicity, individual
+PAR cans (and the like) that are usually controlled thru one dimmer channel per
+can, can be grouped together to form one single fixture.
+</P>
+
+<P>
+With the Fixture Definition Editor, users can edit shared fixture information stored
+in a fixture library that contains the following properties for each fixture:
+</P>
+<UL>
+<LI>Manufacturer (e.g. Martin)</LI>
+<LI>Model (e.g. MAC250)</LI>
+<LI>Type (Color Changer, Scanner, Moving Head, Smoke, Haze, Fan...)</LI>
+<LI>Physical properties (bulb type, beam angle, dimensions...)</LI>
+<LI>Channels:
+<UL>
+ <LI>Channel group (Intensity, Pan, Tilt, Gobo, Color, Speed etc.)</LI>
+ <LI>8bit and 16bit channel bindings for pan &amp; tilt groups</LI>
+ <LI>Optional primary colour for intensity channels (RGB/CMY)
+ <LI>Value ranges for channel features (e.g. 0-5:Lamp on, 6-15:Strobe etc..)</LI>
+</UL>
+</LI>
+</UL>
+
+<P>
+These fixture definitions can then be used to create actual fixtures, that will
+in the Q Light Controller application, have additional properties defined by users:
+</P>
+<UL>
+<LI>DMX Universe</LI>
+<LI>DMX Address</LI>
+<LI>Name</LI>
+</UL>
+
+<P>
+Several instances of a fixture can be created (i.e. users must be able to
+have several instances of a MAC250 in use). Each fixture can be named, but the
+name is not used internally to identify individual fixture instances. The same
+goes for the DMX address. Nevertheless users are encouraged to name their
+fixtures in some systematic way to help identify each of them -- if necessary.
+</P>
+
+<P>
+Generic dimmer devices don't need their own fixture definitions, because usually
+multiple dimmers are patched into a common address space, employing one or more
+dimmer racks. Users can create instances of these generic dimmer entities just by
+defining the number of channels each one of them should have.
+</P>
+
+<A NAME="FixtureGroup" HREF="#FixtureGroup"><H3>Fixture Group</H3></A>
+
+<P>
+A fixture group is, as the name says, a group of <A HREF="concept.html#Fixtures">fixtures</A>.
+They also define (in a rather basic level) the actual physical, real world arrangement of
+these fixtures. This knowledge can be used for example in the RGB Matrix to produce a
+wall of RGB-mixable lights that can act as individual pixels in a graphic pattern or
+scrolling text.
+</P>
+
+<A NAME="FixtureMode" HREF="#FixtureMode"><H3>Fixture Mode</H3></A>
+
+<P>
+Many manufacturers design their intelligent lights in such a way that they can
+be configured to understand different sets of channels. For example, a scanner
+might have two configuration options: one for only 8bit movement channels
+(1x pan, 1x tilt) and another one for 16bit movement channels (2x pan, 2x tilt).
+Instead of creating a completely new fixture definition for each variation,
+they have been bundled together in QLC's fixture definitions into fixture modes.
+</P>
+
+<A NAME="Functions" HREF="#Functions"><H3>Functions</H3></A>
+
+<P>
+The number of functions is practically unlimited. Functions are used to
+automate the setting of values to DMX channels. Each function type has its own
+way of automating lights.
+</P>
+
+<P>
+The function types are:
+</P>
+<UL>
+<LI><A HREF="#Scene">Scene</A></LI>
+<LI><A HREF="#Chaser">Chaser</A></LI>
+<LI><A HREF="#EFX">EFX</A></LI>
+<LI><A HREF="#RGBMatrix">RGB Matrix</A></LI>
+<LI><A HREF="#Collection">Collection</A></LI>
+</UL>
+
+<P>
+Each function can be named and although the name is not used to uniquely identify
+individual functions, users are encouraged to name their functions in some systematic
+and concise way to help identify each of them. For your own comfort.
+</P>
+
+<P>
+As of version 3.3.0, each function has their own speed settings:
+<LI><B>Fade In:</B> The time used to fade HTP (in Scenes also LTP) channels to their target value</LI>
+<LI><B>Fade Out:</B> The time used to fade HTP/intensity channels back to zero</LI>
+<LI><B>Duration:</B> The duration of the current step (not applicable on Scenes)</LI>
+</P>
+
+<A NAME="GrandMaster" HREF="#GrandMaster"><H3>Grand Master</H3></A>
+
+<P>
+The Grand Master is used as the final master slider before values are written
+to the actual physical DMX hardware. Usually, the Grand Master affects only
+<B>Intensity</B> channels, but can be also changed to have effect on the values
+of <B>all</B> channels.
+</P>
+
+<P>
+The Grand Master has also two <B>Value Modes</B> that control the way <I>how</I>
+the Grand Master affects channel values passing through:
+</P>
+<UL>
+<LI><U>Reduce:</U> Affected channels' values are reduced by a percentage set with the
+Grand Master slider. For example, Grand Master at 50% will result in all
+affected channels being reduced to 50% of their <B>current</B> values.</LI>
+<LI><U>Limit:</U> Affected channels cannot get larger values than directly set with
+the Grand Master slider. For example, Grand Master at 127 will result in all
+affected channel's maximum values being limited at exactly 127.</LI>
+</UL>
+
+<A NAME="Head" HREF="#Head"><H3>Head</H3></A>
+
+<P>
+A head represents an individual light output device in a fixture. Usually, a single fixture
+contains exactly one output, like the lens, the bulb, or a set of LEDs. There is, however,
+an increasing amount of fixtures in the market that are treated as a single fixture, but
+they have multiple light output devices, i.e. heads.
+</P>
+
+<P>
+For example, you might have a RGB LED bar fixture that is packed into a single chassis, and
+as such it appears as a single fixture with one DMX input and one DMX output, but that
+actually comprises of four separate RGB LED "fixtures". These separate fixtures are treated
+in QLC as heads; they share some common properties with their sibling heads, they
+can be controlled individually, but they might also have a master intensity control that
+controls the light output of all the heads together.
+</P>
+
+<P>
+Each head belongs to a <A HREF="concept.html#FixtureMode">Fixture Mode</A> because in one
+mode, a fixture might provide enough channels to control each of its heads individually
+while in another mode, only a handful of channels might be provided for controlling all
+heads simultaneously.
+</P>
+
+<A NAME="HTP" HREF="#HTP"><H3>HTP (Highest Takes Precedence)</H3></A>
+
+<P>
+All channels that have been assigned to the <B>Intensity</B> group obey the very simple
+HTP rule: The highest value (nearer 100%) that is currently set to the channel is the one
+that gets sent out to the DMX universe. This is particularly useful for dimmer channels
+that namely control the <I>light intensity</I>. Let's say you have two sliders that control
+the same intensity channel. First, you set slider 1 to 50% and then slider 2 to 75%; as long
+as slider 2 is below 50%, nothing happens but after crossing the 50% value set by slider 1,
+the light intensity increased all the way to 75%. If you drag slider 2 again to 0%, the light
+intensity diminishes until it reaches the 50% set by slider 1 and stays there until slider 1
+is dragged down. See also <A HREF="concept.html#LTP">LTP</A>.
+</P>
+
+<A NAME="InputPlugins" HREF="#InputPlugins"><H3>Input plugins</H3></A>
+
+<P>
+Primary input methods for QLC are naturally the keyboard and mouse. Users can
+attach keyboard keys to virtual console buttons and drag sliders and do pretty
+much everything with a mouse. It is possible to attach additional input devices
+to one's computer to alleviate the rather clumsy and slow user experience that
+is achieved with a regular mouse and a keyboard. Special input plugins provide
+capabilities for getting external devices (mainly slider boards) to produce
+input data to various QLC elements.
+</P>
+
+<A NAME="Input" HREF="#Input"><H3>Input (line)</H3></A>
+
+<P>
+An input is a physical input line provided by some hardware which is accessed
+thru an input plugin. It can be, for example, a MIDI IN connector in the user's
+computer (or peripheral) to which users can connect MIDI-capable input devices
+like slider boards etc.
+</P>
+
+<A NAME="InputProfiles" HREF="#InputProfiles"><H3>Input profiles</H3></A>
+
+<P>
+Input profiles can be thought of as <A HREF="#Fixtures">fixtures'</A> cousins;
+they contain information on specific devices that produce input data.
+An input device can be, for example, a slider board like the Behringer BCF-2000,
+Korg nanoKONTROL, an Enttec Playback Wing...
+</P>
+
+<A NAME="LTP" HREF="#LTP"><H3>LTP (Latest Takes Precedence)</H3></A>
+
+<P>
+All channels that have been assigned to the <B>Intensity</B> group obey the very simple
+LTP rule: The latest value that was set by a function or a slider gets sent out to the DMX
+universe. This scheme is useful for <I>intelligent fixture parameters</I> not related to
+<I>intensity</I>. For example, a gobo change is expected to happen immediately, regardless
+of what some other control has done to it. See also <A HREF="concept.html#HTP">HTP</A>.
+</P>
+
+<A NAME="Modes" HREF="#Modes"><H3>Modes</H3></A>
+
+<P>
+Q Light Controller is based on the common concept of having two distinct
+operational modes to prevent accidental or otherwise harmful changes during
+operation:
+</P>
+<UL>
+<LI><U>Design mode</U> is meant to edit the behaviour of the program;
+create and edit <A HREF="#Functions">functions</A> and
+<A HREF="#Fixtures">fixtures</A> and how they work.</LI>
+<LI><U>Operate mode</U> is meant to execute the created functions that
+eventually control the user's lighting fixtures.</LI>
+</UL>
+
+<A NAME="Output" HREF="#OutputPlugins"><H3>Output plugins</H3></A>
+
+<P>
+DMX output is achieved thru output plugins that can support one or more
+output lines. It is also possible to run QLC without actual DMX
+hardware.
+</P>
+
+<A NAME="Output" HREF="#Output"><H3>Output (line)</H3></A>
+
+<P>
+An output is a physical output line provided by a hardware device which is accessed
+thru an output plugin. In other words, it is a real DMX universe, but has been
+dubbed <u>output</u> to separate it from QLC's internal universes. You could
+think of them as individual XLR output connectors in your DMX hardware.
+</P>
+
+<A NAME="RGBMatrix" HREF="#RGBMatrix"><H3>RGB Matrix</H3></A>
+
+<P>
+An RGB matrix <A HREF="#Functions">function</A> can be used to impose simple graphics
+and text on a matrix (a grid or a wall) of RGB and/or monochrome fixture <A HREF="#Head">heads</A>.
+The RGB matrix function has been designed to be extendable with <A HREF="concept.html#RGBScript">scripts</A>
+that can be written by users.
+</P>
+
+<P>
+Each RGB matrix has its own speed settings:
+<LI><B>Fade In:</B> Time to fade each pixel ON</LI>
+<LI><B>Fade Out:</B> Time to fade each pixel OFF</LI>
+<LI><B>Duration:</B> The duration of the current step/frame</LI>
+</P>
+
+<A NAME="RGBScript" HREF="#RGBScript"><H3>RGB Script</H3></A>
+
+<P>
+An RGB script is a program written in <A HREF="http://www.ecmascript.org/">ECMAScript</A>
+(also known as JavaScript) that produces the necessary image data for <A HREF="#RGBMatrix">RGB Matrix</A>
+functions. Learn more from the <A HREF="rgbscriptapi.html">RGB Script API</A> page.
+</P>
+
+<A NAME="Scene" HREF="#Scene"><H3>Scene</H3></A>
+
+<P>
+A scene <A HREF="#Functions">function</A> encapsulates the values of selected
+channels owned by one or more fixture instances. When a scene is started, the
+time it takes for its channels to reach their target values depends on the
+function's speed settings:
+
+<P>
+As of version 3.3.0, each function has their own speed settings:
+<LI><B>Fade In:</B> The time used to fade all channels to their target values, from whatever value they had</LI>
+<LI><B>Fade Out:</B> The time used to fade HTP/intensity channels back to zero. Note that ONLY <A HREF="#HTP">HTP</A> channels are affected by this setting.</LI>
+</P>
+
+<P>
+Copies of scene functions can be created with the <A HREF="functionmanager.html">
+Function Manager</A>. All of the scene's contents are copied to the duplicate.
+</P>
+
+</BODY>
+</HTML>

@@ -1,0 +1,3874 @@
+<!DOCTYPE Workspace>
+<Workspace>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.0.7</Version>
+  <Author>hjunnila</Author>
+ </Creator>
+ <Engine>
+  <Fixture>
+   <Manufacturer>Stairville</Manufacturer>
+   <Model>LED PAR56</Model>
+   <Mode>Mode 1</Mode>
+   <ID>0</ID>
+   <Name>Stairville Led Par Group 1</Name>
+   <Universe>0</Universe>
+   <Address>0</Address>
+   <Channels>5</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Stairville</Manufacturer>
+   <Model>LED PAR56</Model>
+   <Mode>Mode 1</Mode>
+   <ID>1</ID>
+   <Name>Stairville Led Par Group 2</Name>
+   <Universe>0</Universe>
+   <Address>5</Address>
+   <Channels>5</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Eurolite</Manufacturer>
+   <Model>LED PAR56</Model>
+   <Mode>Mode 1</Mode>
+   <ID>2</ID>
+   <Name>Eurolite Led par Group 1</Name>
+   <Universe>0</Universe>
+   <Address>10</Address>
+   <Channels>6</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Eurolite</Manufacturer>
+   <Model>LED PAR56</Model>
+   <Mode>Mode 1</Mode>
+   <ID>3</ID>
+   <Name>Eurolite Led par Group 2</Name>
+   <Universe>0</Universe>
+   <Address>16</Address>
+   <Channels>6</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Futurelight</Manufacturer>
+   <Model>DJScan250</Model>
+   <Mode>Mode 1</Mode>
+   <ID>4</ID>
+   <Name>DJScan250 #1</Name>
+   <Universe>0</Universe>
+   <Address>22</Address>
+   <Channels>6</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Futurelight</Manufacturer>
+   <Model>DJScan250</Model>
+   <Mode>Mode 1</Mode>
+   <ID>5</ID>
+   <Name>DJScan250 #2</Name>
+   <Universe>0</Universe>
+   <Address>28</Address>
+   <Channels>6</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Futurelight</Manufacturer>
+   <Model>DJScan250</Model>
+   <Mode>Mode 1</Mode>
+   <ID>6</ID>
+   <Name>DJScan250 #3</Name>
+   <Universe>0</Universe>
+   <Address>34</Address>
+   <Channels>6</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Futurelight</Manufacturer>
+   <Model>DJScan250</Model>
+   <Mode>Mode 1</Mode>
+   <ID>7</ID>
+   <Name>DJScan250 #4</Name>
+   <Universe>0</Universe>
+   <Address>40</Address>
+   <Channels>6</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Futurelight</Manufacturer>
+   <Model>DJScan250</Model>
+   <Mode>Mode 1</Mode>
+   <ID>8</ID>
+   <Name>DJScan250 #5</Name>
+   <Universe>0</Universe>
+   <Address>46</Address>
+   <Channels>6</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Futurelight</Manufacturer>
+   <Model>DJScan250</Model>
+   <Mode>Mode 1</Mode>
+   <ID>9</ID>
+   <Name>DJScan250 #6</Name>
+   <Universe>0</Universe>
+   <Address>52</Address>
+   <Channels>6</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Generic</Manufacturer>
+   <Model>Generic</Model>
+   <Mode>Generic</Mode>
+   <ID>10</ID>
+   <Name>6 ch Dimmer #1</Name>
+   <Universe>0</Universe>
+   <Address>58</Address>
+   <Channels>6</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Generic</Manufacturer>
+   <Model>Generic</Model>
+   <Mode>Generic</Mode>
+   <ID>11</ID>
+   <Name>6 ch dimmer #2</Name>
+   <Universe>0</Universe>
+   <Address>64</Address>
+   <Channels>6</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Generic</Manufacturer>
+   <Model>Generic</Model>
+   <Mode>Generic</Mode>
+   <ID>12</ID>
+   <Name>4 ch dimmer</Name>
+   <Universe>0</Universe>
+   <Address>70</Address>
+   <Channels>4</Channels>
+  </Fixture>
+  <Function Type="Scene" Name="Led All Red" ID="0">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">255</Value>
+   <Value Fixture="2" Channel="1">0</Value>
+   <Value Fixture="2" Channel="2">0</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">255</Value>
+   <Value Fixture="3" Channel="1">0</Value>
+   <Value Fixture="3" Channel="2">0</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">255</Value>
+   <Value Fixture="0" Channel="2">0</Value>
+   <Value Fixture="0" Channel="3">0</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">255</Value>
+   <Value Fixture="1" Channel="2">0</Value>
+   <Value Fixture="1" Channel="3">0</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led All White" ID="1">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">255</Value>
+   <Value Fixture="2" Channel="1">255</Value>
+   <Value Fixture="2" Channel="2">255</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">255</Value>
+   <Value Fixture="3" Channel="1">255</Value>
+   <Value Fixture="3" Channel="2">255</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">255</Value>
+   <Value Fixture="0" Channel="2">255</Value>
+   <Value Fixture="0" Channel="3">255</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">255</Value>
+   <Value Fixture="1" Channel="2">255</Value>
+   <Value Fixture="1" Channel="3">255</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led All Violet" ID="2">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">80</Value>
+   <Value Fixture="2" Channel="1">0</Value>
+   <Value Fixture="2" Channel="2">255</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">80</Value>
+   <Value Fixture="3" Channel="1">0</Value>
+   <Value Fixture="3" Channel="2">255</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">80</Value>
+   <Value Fixture="0" Channel="2">0</Value>
+   <Value Fixture="0" Channel="3">255</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">80</Value>
+   <Value Fixture="1" Channel="2">0</Value>
+   <Value Fixture="1" Channel="3">255</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led All Pink" ID="3">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">255</Value>
+   <Value Fixture="2" Channel="1">0</Value>
+   <Value Fixture="2" Channel="2">255</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">255</Value>
+   <Value Fixture="3" Channel="1">0</Value>
+   <Value Fixture="3" Channel="2">255</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">255</Value>
+   <Value Fixture="0" Channel="2">0</Value>
+   <Value Fixture="0" Channel="3">255</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">255</Value>
+   <Value Fixture="1" Channel="2">0</Value>
+   <Value Fixture="1" Channel="3">255</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led All Yellow" ID="4">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">255</Value>
+   <Value Fixture="2" Channel="1">255</Value>
+   <Value Fixture="2" Channel="2">0</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">255</Value>
+   <Value Fixture="3" Channel="1">255</Value>
+   <Value Fixture="3" Channel="2">0</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">255</Value>
+   <Value Fixture="0" Channel="2">255</Value>
+   <Value Fixture="0" Channel="3">0</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">255</Value>
+   <Value Fixture="1" Channel="2">255</Value>
+   <Value Fixture="1" Channel="3">0</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led All L Blue" ID="5">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">0</Value>
+   <Value Fixture="2" Channel="1">255</Value>
+   <Value Fixture="2" Channel="2">255</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">0</Value>
+   <Value Fixture="3" Channel="1">255</Value>
+   <Value Fixture="3" Channel="2">255</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">0</Value>
+   <Value Fixture="0" Channel="2">255</Value>
+   <Value Fixture="0" Channel="3">255</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">0</Value>
+   <Value Fixture="1" Channel="2">255</Value>
+   <Value Fixture="1" Channel="3">255</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led All Green" ID="6">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">0</Value>
+   <Value Fixture="2" Channel="1">255</Value>
+   <Value Fixture="2" Channel="2">0</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">0</Value>
+   <Value Fixture="3" Channel="1">255</Value>
+   <Value Fixture="3" Channel="2">0</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">0</Value>
+   <Value Fixture="0" Channel="2">255</Value>
+   <Value Fixture="0" Channel="3">0</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">0</Value>
+   <Value Fixture="1" Channel="2">255</Value>
+   <Value Fixture="1" Channel="3">0</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led All Blue" ID="7">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">0</Value>
+   <Value Fixture="2" Channel="1">0</Value>
+   <Value Fixture="2" Channel="2">255</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">0</Value>
+   <Value Fixture="3" Channel="1">0</Value>
+   <Value Fixture="3" Channel="2">255</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">0</Value>
+   <Value Fixture="0" Channel="2">0</Value>
+   <Value Fixture="0" Channel="3">255</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">0</Value>
+   <Value Fixture="1" Channel="2">0</Value>
+   <Value Fixture="1" Channel="3">255</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led All Black out" ID="8">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">0</Value>
+   <Value Fixture="2" Channel="1">0</Value>
+   <Value Fixture="2" Channel="2">0</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">0</Value>
+   <Value Fixture="3" Channel="1">0</Value>
+   <Value Fixture="3" Channel="2">0</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">0</Value>
+   <Value Fixture="0" Channel="2">0</Value>
+   <Value Fixture="0" Channel="3">0</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">0</Value>
+   <Value Fixture="1" Channel="2">0</Value>
+   <Value Fixture="1" Channel="3">0</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led Red/Green" ID="9">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">255</Value>
+   <Value Fixture="2" Channel="1">0</Value>
+   <Value Fixture="2" Channel="2">0</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">0</Value>
+   <Value Fixture="3" Channel="1">255</Value>
+   <Value Fixture="3" Channel="2">0</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">255</Value>
+   <Value Fixture="0" Channel="2">0</Value>
+   <Value Fixture="0" Channel="3">0</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">0</Value>
+   <Value Fixture="1" Channel="2">255</Value>
+   <Value Fixture="1" Channel="3">0</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led Red/Blue" ID="10">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">255</Value>
+   <Value Fixture="2" Channel="1">0</Value>
+   <Value Fixture="2" Channel="2">0</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">0</Value>
+   <Value Fixture="3" Channel="1">0</Value>
+   <Value Fixture="3" Channel="2">255</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">255</Value>
+   <Value Fixture="0" Channel="2">0</Value>
+   <Value Fixture="0" Channel="3">0</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">0</Value>
+   <Value Fixture="1" Channel="2">0</Value>
+   <Value Fixture="1" Channel="3">255</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led Blue/Pink" ID="11">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">0</Value>
+   <Value Fixture="2" Channel="1">0</Value>
+   <Value Fixture="2" Channel="2">255</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">255</Value>
+   <Value Fixture="3" Channel="1">0</Value>
+   <Value Fixture="3" Channel="2">255</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">0</Value>
+   <Value Fixture="0" Channel="2">0</Value>
+   <Value Fixture="0" Channel="3">255</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">255</Value>
+   <Value Fixture="1" Channel="2">0</Value>
+   <Value Fixture="1" Channel="3">255</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led Blue/Green" ID="12">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">0</Value>
+   <Value Fixture="2" Channel="1">0</Value>
+   <Value Fixture="2" Channel="2">255</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">0</Value>
+   <Value Fixture="3" Channel="1">255</Value>
+   <Value Fixture="3" Channel="2">0</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">0</Value>
+   <Value Fixture="0" Channel="2">0</Value>
+   <Value Fixture="0" Channel="3">255</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">0</Value>
+   <Value Fixture="1" Channel="2">255</Value>
+   <Value Fixture="1" Channel="3">0</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led Green/Red" ID="13">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">0</Value>
+   <Value Fixture="2" Channel="1">255</Value>
+   <Value Fixture="2" Channel="2">0</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">255</Value>
+   <Value Fixture="3" Channel="1">0</Value>
+   <Value Fixture="3" Channel="2">0</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">0</Value>
+   <Value Fixture="0" Channel="2">255</Value>
+   <Value Fixture="0" Channel="3">0</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">255</Value>
+   <Value Fixture="1" Channel="2">0</Value>
+   <Value Fixture="1" Channel="3">0</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led Green/Yellow" ID="14">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">0</Value>
+   <Value Fixture="2" Channel="1">255</Value>
+   <Value Fixture="2" Channel="2">0</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">255</Value>
+   <Value Fixture="3" Channel="1">255</Value>
+   <Value Fixture="3" Channel="2">0</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">0</Value>
+   <Value Fixture="0" Channel="2">255</Value>
+   <Value Fixture="0" Channel="3">0</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">255</Value>
+   <Value Fixture="1" Channel="2">255</Value>
+   <Value Fixture="1" Channel="3">0</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led L Blue/White" ID="15">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">0</Value>
+   <Value Fixture="2" Channel="1">255</Value>
+   <Value Fixture="2" Channel="2">255</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">255</Value>
+   <Value Fixture="3" Channel="1">255</Value>
+   <Value Fixture="3" Channel="2">255</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">0</Value>
+   <Value Fixture="0" Channel="2">255</Value>
+   <Value Fixture="0" Channel="3">255</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">255</Value>
+   <Value Fixture="1" Channel="2">255</Value>
+   <Value Fixture="1" Channel="3">255</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led L Blue/Pink" ID="16">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">0</Value>
+   <Value Fixture="2" Channel="1">255</Value>
+   <Value Fixture="2" Channel="2">255</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">255</Value>
+   <Value Fixture="3" Channel="1">0</Value>
+   <Value Fixture="3" Channel="2">255</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">0</Value>
+   <Value Fixture="0" Channel="2">255</Value>
+   <Value Fixture="0" Channel="3">255</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">255</Value>
+   <Value Fixture="1" Channel="2">0</Value>
+   <Value Fixture="1" Channel="3">255</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="LST White On" ID="17">
+   <Bus Role="Fade">6</Bus>
+   <Value Fixture="2" Channel="0">255</Value>
+   <Value Fixture="2" Channel="1">255</Value>
+   <Value Fixture="2" Channel="2">255</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">255</Value>
+   <Value Fixture="3" Channel="1">255</Value>
+   <Value Fixture="3" Channel="2">255</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">255</Value>
+   <Value Fixture="0" Channel="2">255</Value>
+   <Value Fixture="0" Channel="3">255</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">255</Value>
+   <Value Fixture="1" Channel="2">255</Value>
+   <Value Fixture="1" Channel="3">255</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="LST Off" ID="18">
+   <Bus Role="Fade">6</Bus>
+   <Value Fixture="2" Channel="0">0</Value>
+   <Value Fixture="2" Channel="1">0</Value>
+   <Value Fixture="2" Channel="2">0</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">0</Value>
+   <Value Fixture="3" Channel="1">0</Value>
+   <Value Fixture="3" Channel="2">0</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">0</Value>
+   <Value Fixture="0" Channel="2">0</Value>
+   <Value Fixture="0" Channel="3">0</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">0</Value>
+   <Value Fixture="1" Channel="2">0</Value>
+   <Value Fixture="1" Channel="3">0</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Chaser" Name="LST White strobo" ID="19">
+   <Bus Role="Hold">7</Bus>
+   <Direction>Forward</Direction>
+   <RunOrder>Loop</RunOrder>
+   <Step Number="0">18</Step>
+   <Step Number="1">17</Step>
+  </Function>
+  <Function Type="Scene" Name="LST Red On" ID="20">
+   <Bus Role="Fade">6</Bus>
+   <Value Fixture="2" Channel="0">255</Value>
+   <Value Fixture="2" Channel="1">0</Value>
+   <Value Fixture="2" Channel="2">0</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">255</Value>
+   <Value Fixture="3" Channel="1">0</Value>
+   <Value Fixture="3" Channel="2">0</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">255</Value>
+   <Value Fixture="0" Channel="2">0</Value>
+   <Value Fixture="0" Channel="3">0</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">255</Value>
+   <Value Fixture="1" Channel="2">0</Value>
+   <Value Fixture="1" Channel="3">0</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Chaser" Name="LST Red Strobo" ID="21">
+   <Bus Role="Hold">7</Bus>
+   <Direction>Forward</Direction>
+   <RunOrder>Loop</RunOrder>
+   <Step Number="0">20</Step>
+   <Step Number="1">18</Step>
+  </Function>
+  <Function Type="Scene" Name="Led 2 Blue" ID="22">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">0</Value>
+   <Value Fixture="2" Channel="1">0</Value>
+   <Value Fixture="2" Channel="2">0</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">0</Value>
+   <Value Fixture="3" Channel="1">0</Value>
+   <Value Fixture="3" Channel="2">255</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">0</Value>
+   <Value Fixture="0" Channel="2">0</Value>
+   <Value Fixture="0" Channel="3">0</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">0</Value>
+   <Value Fixture="1" Channel="2">0</Value>
+   <Value Fixture="1" Channel="3">255</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led 1 Blue" ID="23">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">0</Value>
+   <Value Fixture="2" Channel="1">0</Value>
+   <Value Fixture="2" Channel="2">255</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">0</Value>
+   <Value Fixture="3" Channel="1">0</Value>
+   <Value Fixture="3" Channel="2">0</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">0</Value>
+   <Value Fixture="0" Channel="2">0</Value>
+   <Value Fixture="0" Channel="3">255</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">0</Value>
+   <Value Fixture="1" Channel="2">0</Value>
+   <Value Fixture="1" Channel="3">0</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led 1 Green" ID="24">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">0</Value>
+   <Value Fixture="2" Channel="1">255</Value>
+   <Value Fixture="2" Channel="2">0</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">0</Value>
+   <Value Fixture="3" Channel="1">0</Value>
+   <Value Fixture="3" Channel="2">0</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">0</Value>
+   <Value Fixture="0" Channel="2">255</Value>
+   <Value Fixture="0" Channel="3">0</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">0</Value>
+   <Value Fixture="1" Channel="2">0</Value>
+   <Value Fixture="1" Channel="3">0</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led 1 L Blue" ID="25">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">0</Value>
+   <Value Fixture="2" Channel="1">255</Value>
+   <Value Fixture="2" Channel="2">255</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">0</Value>
+   <Value Fixture="3" Channel="1">0</Value>
+   <Value Fixture="3" Channel="2">0</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">0</Value>
+   <Value Fixture="0" Channel="2">255</Value>
+   <Value Fixture="0" Channel="3">255</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">0</Value>
+   <Value Fixture="1" Channel="2">0</Value>
+   <Value Fixture="1" Channel="3">0</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led 1 Pink" ID="26">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">255</Value>
+   <Value Fixture="2" Channel="1">0</Value>
+   <Value Fixture="2" Channel="2">255</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">0</Value>
+   <Value Fixture="3" Channel="1">0</Value>
+   <Value Fixture="3" Channel="2">0</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">255</Value>
+   <Value Fixture="0" Channel="2">0</Value>
+   <Value Fixture="0" Channel="3">255</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">0</Value>
+   <Value Fixture="1" Channel="2">0</Value>
+   <Value Fixture="1" Channel="3">0</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led 1 Red" ID="27">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">255</Value>
+   <Value Fixture="2" Channel="1">0</Value>
+   <Value Fixture="2" Channel="2">0</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">0</Value>
+   <Value Fixture="3" Channel="1">0</Value>
+   <Value Fixture="3" Channel="2">0</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">255</Value>
+   <Value Fixture="0" Channel="2">0</Value>
+   <Value Fixture="0" Channel="3">0</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">0</Value>
+   <Value Fixture="1" Channel="2">0</Value>
+   <Value Fixture="1" Channel="3">0</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led 1 Violet" ID="28">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">80</Value>
+   <Value Fixture="2" Channel="1">0</Value>
+   <Value Fixture="2" Channel="2">255</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">0</Value>
+   <Value Fixture="3" Channel="1">0</Value>
+   <Value Fixture="3" Channel="2">0</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">80</Value>
+   <Value Fixture="0" Channel="2">0</Value>
+   <Value Fixture="0" Channel="3">255</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">0</Value>
+   <Value Fixture="1" Channel="2">0</Value>
+   <Value Fixture="1" Channel="3">0</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led 1 White" ID="29">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">255</Value>
+   <Value Fixture="2" Channel="1">255</Value>
+   <Value Fixture="2" Channel="2">255</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">0</Value>
+   <Value Fixture="3" Channel="1">0</Value>
+   <Value Fixture="3" Channel="2">0</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">255</Value>
+   <Value Fixture="0" Channel="2">255</Value>
+   <Value Fixture="0" Channel="3">255</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">0</Value>
+   <Value Fixture="1" Channel="2">0</Value>
+   <Value Fixture="1" Channel="3">0</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led 1 Yellow" ID="30">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">255</Value>
+   <Value Fixture="2" Channel="1">255</Value>
+   <Value Fixture="2" Channel="2">0</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">0</Value>
+   <Value Fixture="3" Channel="1">0</Value>
+   <Value Fixture="3" Channel="2">0</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">255</Value>
+   <Value Fixture="0" Channel="2">255</Value>
+   <Value Fixture="0" Channel="3">0</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">0</Value>
+   <Value Fixture="1" Channel="2">0</Value>
+   <Value Fixture="1" Channel="3">0</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led 2 Green" ID="31">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">0</Value>
+   <Value Fixture="2" Channel="1">0</Value>
+   <Value Fixture="2" Channel="2">0</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">0</Value>
+   <Value Fixture="3" Channel="1">255</Value>
+   <Value Fixture="3" Channel="2">0</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">0</Value>
+   <Value Fixture="0" Channel="2">0</Value>
+   <Value Fixture="0" Channel="3">0</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">0</Value>
+   <Value Fixture="1" Channel="2">255</Value>
+   <Value Fixture="1" Channel="3">0</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led 2 L Blue" ID="32">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">0</Value>
+   <Value Fixture="2" Channel="1">0</Value>
+   <Value Fixture="2" Channel="2">0</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">0</Value>
+   <Value Fixture="3" Channel="1">255</Value>
+   <Value Fixture="3" Channel="2">255</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">0</Value>
+   <Value Fixture="0" Channel="2">0</Value>
+   <Value Fixture="0" Channel="3">0</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">0</Value>
+   <Value Fixture="1" Channel="2">255</Value>
+   <Value Fixture="1" Channel="3">255</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led 2 Pink" ID="33">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">0</Value>
+   <Value Fixture="2" Channel="1">0</Value>
+   <Value Fixture="2" Channel="2">0</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">255</Value>
+   <Value Fixture="3" Channel="1">0</Value>
+   <Value Fixture="3" Channel="2">255</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">0</Value>
+   <Value Fixture="0" Channel="2">0</Value>
+   <Value Fixture="0" Channel="3">0</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">255</Value>
+   <Value Fixture="1" Channel="2">0</Value>
+   <Value Fixture="1" Channel="3">255</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led 2 Red" ID="34">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">0</Value>
+   <Value Fixture="2" Channel="1">0</Value>
+   <Value Fixture="2" Channel="2">0</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">255</Value>
+   <Value Fixture="3" Channel="1">0</Value>
+   <Value Fixture="3" Channel="2">0</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">0</Value>
+   <Value Fixture="0" Channel="2">0</Value>
+   <Value Fixture="0" Channel="3">0</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">255</Value>
+   <Value Fixture="1" Channel="2">0</Value>
+   <Value Fixture="1" Channel="3">0</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led 2 Violet" ID="35">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">0</Value>
+   <Value Fixture="2" Channel="1">0</Value>
+   <Value Fixture="2" Channel="2">0</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">80</Value>
+   <Value Fixture="3" Channel="1">0</Value>
+   <Value Fixture="3" Channel="2">255</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">0</Value>
+   <Value Fixture="0" Channel="2">0</Value>
+   <Value Fixture="0" Channel="3">0</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">80</Value>
+   <Value Fixture="1" Channel="2">0</Value>
+   <Value Fixture="1" Channel="3">255</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led 2 White" ID="36">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">0</Value>
+   <Value Fixture="2" Channel="1">0</Value>
+   <Value Fixture="2" Channel="2">0</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">255</Value>
+   <Value Fixture="3" Channel="1">255</Value>
+   <Value Fixture="3" Channel="2">255</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">0</Value>
+   <Value Fixture="0" Channel="2">0</Value>
+   <Value Fixture="0" Channel="3">0</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">255</Value>
+   <Value Fixture="1" Channel="2">255</Value>
+   <Value Fixture="1" Channel="3">255</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Led 2 Yellow" ID="37">
+   <Bus Role="Fade">2</Bus>
+   <Value Fixture="2" Channel="0">0</Value>
+   <Value Fixture="2" Channel="1">0</Value>
+   <Value Fixture="2" Channel="2">0</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="3" Channel="0">255</Value>
+   <Value Fixture="3" Channel="1">255</Value>
+   <Value Fixture="3" Channel="2">0</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">0</Value>
+   <Value Fixture="0" Channel="2">0</Value>
+   <Value Fixture="0" Channel="3">0</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">255</Value>
+   <Value Fixture="1" Channel="2">255</Value>
+   <Value Fixture="1" Channel="3">0</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Col White" ID="38">
+   <Bus Role="Fade">8</Bus>
+   <Value Fixture="4" Channel="2">0</Value>
+   <Value Fixture="5" Channel="2">0</Value>
+   <Value Fixture="6" Channel="2">0</Value>
+   <Value Fixture="7" Channel="2">0</Value>
+   <Value Fixture="8" Channel="2">0</Value>
+   <Value Fixture="9" Channel="2">0</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Col C Red" ID="39">
+   <Bus Role="Fade">8</Bus>
+   <Value Fixture="4" Channel="2">127</Value>
+   <Value Fixture="5" Channel="2">127</Value>
+   <Value Fixture="6" Channel="2">127</Value>
+   <Value Fixture="7" Channel="2">127</Value>
+   <Value Fixture="8" Channel="2">127</Value>
+   <Value Fixture="9" Channel="2">127</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Col Yellow" ID="40">
+   <Bus Role="Fade">8</Bus>
+   <Value Fixture="4" Channel="2">108</Value>
+   <Value Fixture="5" Channel="2">108</Value>
+   <Value Fixture="6" Channel="2">108</Value>
+   <Value Fixture="7" Channel="2">108</Value>
+   <Value Fixture="8" Channel="2">108</Value>
+   <Value Fixture="9" Channel="2">108</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Col L Blue" ID="41">
+   <Bus Role="Fade">8</Bus>
+   <Value Fixture="4" Channel="2">90</Value>
+   <Value Fixture="5" Channel="2">90</Value>
+   <Value Fixture="6" Channel="2">90</Value>
+   <Value Fixture="7" Channel="2">90</Value>
+   <Value Fixture="8" Channel="2">90</Value>
+   <Value Fixture="9" Channel="2">90</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Col Orange" ID="42">
+   <Bus Role="Fade">8</Bus>
+   <Value Fixture="4" Channel="2">72</Value>
+   <Value Fixture="5" Channel="2">72</Value>
+   <Value Fixture="6" Channel="2">72</Value>
+   <Value Fixture="7" Channel="2">72</Value>
+   <Value Fixture="8" Channel="2">72</Value>
+   <Value Fixture="9" Channel="2">72</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Col L Green" ID="43">
+   <Bus Role="Fade">8</Bus>
+   <Value Fixture="4" Channel="2">54</Value>
+   <Value Fixture="5" Channel="2">54</Value>
+   <Value Fixture="6" Channel="2">54</Value>
+   <Value Fixture="7" Channel="2">54</Value>
+   <Value Fixture="8" Channel="2">54</Value>
+   <Value Fixture="9" Channel="2">54</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Col Pink" ID="44">
+   <Bus Role="Fade">8</Bus>
+   <Value Fixture="4" Channel="2">36</Value>
+   <Value Fixture="5" Channel="2">36</Value>
+   <Value Fixture="6" Channel="2">36</Value>
+   <Value Fixture="7" Channel="2">36</Value>
+   <Value Fixture="8" Channel="2">36</Value>
+   <Value Fixture="9" Channel="2">36</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Col D Blue" ID="45">
+   <Bus Role="Fade">8</Bus>
+   <Value Fixture="4" Channel="2">19</Value>
+   <Value Fixture="5" Channel="2">19</Value>
+   <Value Fixture="6" Channel="2">19</Value>
+   <Value Fixture="7" Channel="2">19</Value>
+   <Value Fixture="8" Channel="2">19</Value>
+   <Value Fixture="9" Channel="2">19</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Gobo Open" ID="46">
+   <Bus Role="Fade">8</Bus>
+   <Value Fixture="4" Channel="3">0</Value>
+   <Value Fixture="5" Channel="3">0</Value>
+   <Value Fixture="6" Channel="3">0</Value>
+   <Value Fixture="7" Channel="3">0</Value>
+   <Value Fixture="8" Channel="3">0</Value>
+   <Value Fixture="9" Channel="3">0</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Col RAN Fast" ID="47">
+   <Bus Role="Fade">8</Bus>
+   <Value Fixture="4" Channel="2">191</Value>
+   <Value Fixture="5" Channel="2">127</Value>
+   <Value Fixture="6" Channel="2">127</Value>
+   <Value Fixture="7" Channel="2">127</Value>
+   <Value Fixture="8" Channel="2">127</Value>
+   <Value Fixture="9" Channel="2">127</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Col RAN Slow" ID="48">
+   <Bus Role="Fade">8</Bus>
+   <Value Fixture="4" Channel="2">128</Value>
+   <Value Fixture="5" Channel="2">128</Value>
+   <Value Fixture="6" Channel="2">128</Value>
+   <Value Fixture="7" Channel="2">128</Value>
+   <Value Fixture="8" Channel="2">128</Value>
+   <Value Fixture="9" Channel="2">128</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Gobo Ran Slow" ID="49">
+   <Bus Role="Fade">8</Bus>
+   <Value Fixture="4" Channel="3">132</Value>
+   <Value Fixture="5" Channel="3">132</Value>
+   <Value Fixture="6" Channel="3">132</Value>
+   <Value Fixture="7" Channel="3">132</Value>
+   <Value Fixture="8" Channel="3">132</Value>
+   <Value Fixture="9" Channel="3">132</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Gobo 7" ID="50">
+   <Bus Role="Fade">8</Bus>
+   <Value Fixture="4" Channel="3">112</Value>
+   <Value Fixture="5" Channel="3">112</Value>
+   <Value Fixture="6" Channel="3">112</Value>
+   <Value Fixture="7" Channel="3">112</Value>
+   <Value Fixture="8" Channel="3">112</Value>
+   <Value Fixture="9" Channel="3">112</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Gobo 6" ID="51">
+   <Bus Role="Fade">8</Bus>
+   <Value Fixture="4" Channel="3">96</Value>
+   <Value Fixture="5" Channel="3">96</Value>
+   <Value Fixture="6" Channel="3">96</Value>
+   <Value Fixture="7" Channel="3">96</Value>
+   <Value Fixture="8" Channel="3">96</Value>
+   <Value Fixture="9" Channel="3">96</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Gobo 5" ID="52">
+   <Bus Role="Fade">8</Bus>
+   <Value Fixture="4" Channel="3">80</Value>
+   <Value Fixture="5" Channel="3">80</Value>
+   <Value Fixture="6" Channel="3">80</Value>
+   <Value Fixture="7" Channel="3">80</Value>
+   <Value Fixture="8" Channel="3">80</Value>
+   <Value Fixture="9" Channel="3">80</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Gobo 4" ID="53">
+   <Bus Role="Fade">8</Bus>
+   <Value Fixture="4" Channel="3">64</Value>
+   <Value Fixture="5" Channel="3">64</Value>
+   <Value Fixture="6" Channel="3">64</Value>
+   <Value Fixture="7" Channel="3">64</Value>
+   <Value Fixture="8" Channel="3">64</Value>
+   <Value Fixture="9" Channel="3">64</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Gobo 3" ID="54">
+   <Bus Role="Fade">8</Bus>
+   <Value Fixture="4" Channel="3">48</Value>
+   <Value Fixture="5" Channel="3">48</Value>
+   <Value Fixture="6" Channel="3">48</Value>
+   <Value Fixture="7" Channel="3">48</Value>
+   <Value Fixture="8" Channel="3">48</Value>
+   <Value Fixture="9" Channel="3">48</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Gobo 2" ID="55">
+   <Bus Role="Fade">8</Bus>
+   <Value Fixture="4" Channel="3">32</Value>
+   <Value Fixture="5" Channel="3">32</Value>
+   <Value Fixture="6" Channel="3">32</Value>
+   <Value Fixture="7" Channel="3">32</Value>
+   <Value Fixture="8" Channel="3">32</Value>
+   <Value Fixture="9" Channel="3">32</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Gobo 1" ID="56">
+   <Bus Role="Fade">8</Bus>
+   <Value Fixture="4" Channel="3">16</Value>
+   <Value Fixture="5" Channel="3">16</Value>
+   <Value Fixture="6" Channel="3">16</Value>
+   <Value Fixture="7" Channel="3">16</Value>
+   <Value Fixture="8" Channel="3">16</Value>
+   <Value Fixture="9" Channel="3">16</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Gobo Ran Fast" ID="57">
+   <Bus Role="Fade">8</Bus>
+   <Value Fixture="4" Channel="3">191</Value>
+   <Value Fixture="5" Channel="3">191</Value>
+   <Value Fixture="6" Channel="3">191</Value>
+   <Value Fixture="7" Channel="3">191</Value>
+   <Value Fixture="8" Channel="3">191</Value>
+   <Value Fixture="9" Channel="3">191</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Rot Stop" ID="58">
+   <Bus Role="Fade">8</Bus>
+   <Value Fixture="4" Channel="4">0</Value>
+   <Value Fixture="5" Channel="4">0</Value>
+   <Value Fixture="6" Channel="4">0</Value>
+   <Value Fixture="7" Channel="4">0</Value>
+   <Value Fixture="8" Channel="4">0</Value>
+   <Value Fixture="9" Channel="4">0</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Rot Fast" ID="59">
+   <Bus Role="Fade">8</Bus>
+   <Value Fixture="4" Channel="4">112</Value>
+   <Value Fixture="5" Channel="4">112</Value>
+   <Value Fixture="6" Channel="4">112</Value>
+   <Value Fixture="7" Channel="4">112</Value>
+   <Value Fixture="8" Channel="4">112</Value>
+   <Value Fixture="9" Channel="4">112</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Rot Medium" ID="60">
+   <Bus Role="Fade">8</Bus>
+   <Value Fixture="4" Channel="4">35</Value>
+   <Value Fixture="5" Channel="4">35</Value>
+   <Value Fixture="6" Channel="4">35</Value>
+   <Value Fixture="7" Channel="4">35</Value>
+   <Value Fixture="8" Channel="4">35</Value>
+   <Value Fixture="9" Channel="4">35</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Rot Slow" ID="61">
+   <Bus Role="Fade">8</Bus>
+   <Value Fixture="4" Channel="4">18</Value>
+   <Value Fixture="5" Channel="4">18</Value>
+   <Value Fixture="6" Channel="4">18</Value>
+   <Value Fixture="7" Channel="4">18</Value>
+   <Value Fixture="8" Channel="4">18</Value>
+   <Value Fixture="9" Channel="4">18</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Strobo" ID="62">
+   <Bus Role="Fade">8</Bus>
+   <Value Fixture="4" Channel="5">199</Value>
+   <Value Fixture="5" Channel="5">199</Value>
+   <Value Fixture="6" Channel="5">199</Value>
+   <Value Fixture="7" Channel="5">199</Value>
+   <Value Fixture="8" Channel="5">199</Value>
+   <Value Fixture="9" Channel="5">199</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Random Strobo" ID="63">
+   <Bus Role="Fade">8</Bus>
+   <Value Fixture="4" Channel="5">249</Value>
+   <Value Fixture="5" Channel="5">249</Value>
+   <Value Fixture="6" Channel="5">249</Value>
+   <Value Fixture="7" Channel="5">249</Value>
+   <Value Fixture="8" Channel="5">249</Value>
+   <Value Fixture="9" Channel="5">249</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Pulse 1" ID="64">
+   <Bus Role="Fade">4</Bus>
+   <Value Fixture="4" Channel="5">128</Value>
+   <Value Fixture="5" Channel="5">0</Value>
+   <Value Fixture="6" Channel="5">128</Value>
+   <Value Fixture="7" Channel="5">0</Value>
+   <Value Fixture="8" Channel="5">128</Value>
+   <Value Fixture="9" Channel="5">0</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Pulse 2" ID="65">
+   <Bus Role="Fade">4</Bus>
+   <Value Fixture="4" Channel="5">0</Value>
+   <Value Fixture="5" Channel="5">128</Value>
+   <Value Fixture="6" Channel="5">0</Value>
+   <Value Fixture="7" Channel="5">128</Value>
+   <Value Fixture="8" Channel="5">0</Value>
+   <Value Fixture="9" Channel="5">128</Value>
+  </Function>
+  <Function Type="Chaser" Name="SC Pulse Chaser" ID="66">
+   <Bus Role="Hold">5</Bus>
+   <Direction>Forward</Direction>
+   <RunOrder>Loop</RunOrder>
+   <Step Number="0">64</Step>
+   <Step Number="1">65</Step>
+  </Function>
+  <Function Type="EFX" Name="SC Circle 1" ID="67">
+   <Fixture>
+    <ID>4</ID>
+    <Direction>Forward</Direction>
+   </Fixture>
+   <Fixture>
+    <ID>5</ID>
+    <Direction>Forward</Direction>
+   </Fixture>
+   <Fixture>
+    <ID>6</ID>
+    <Direction>Forward</Direction>
+   </Fixture>
+   <Fixture>
+    <ID>7</ID>
+    <Direction>Forward</Direction>
+   </Fixture>
+   <Fixture>
+    <ID>8</ID>
+    <Direction>Forward</Direction>
+   </Fixture>
+   <Fixture>
+    <ID>9</ID>
+    <Direction>Forward</Direction>
+   </Fixture>
+   <PropagationMode>Parallel</PropagationMode>
+   <Bus Role="Fade">5</Bus>
+   <Direction>Forward</Direction>
+   <RunOrder>Loop</RunOrder>
+   <Algorithm>Circle</Algorithm>
+   <Width>50</Width>
+   <Height>50</Height>
+   <Rotation>0</Rotation>
+   <StartScene Enabled="False">-1</StartScene>
+   <StopScene Enabled="False">-1</StopScene>
+   <Axis Name="X">
+    <Offset>127</Offset>
+    <Frequency>2</Frequency>
+    <Phase>90</Phase>
+   </Axis>
+   <Axis Name="Y">
+    <Offset>127</Offset>
+    <Frequency>3</Frequency>
+    <Phase>0</Phase>
+   </Axis>
+  </Function>
+  <Function Type="EFX" Name="SC Lissajous" ID="68">
+   <Fixture>
+    <ID>4</ID>
+    <Direction>Forward</Direction>
+   </Fixture>
+   <Fixture>
+    <ID>5</ID>
+    <Direction>Backward</Direction>
+   </Fixture>
+   <Fixture>
+    <ID>6</ID>
+    <Direction>Forward</Direction>
+   </Fixture>
+   <Fixture>
+    <ID>7</ID>
+    <Direction>Backward</Direction>
+   </Fixture>
+   <Fixture>
+    <ID>8</ID>
+    <Direction>Forward</Direction>
+   </Fixture>
+   <Fixture>
+    <ID>9</ID>
+    <Direction>Backward</Direction>
+   </Fixture>
+   <PropagationMode>Parallel</PropagationMode>
+   <Bus Role="Fade">5</Bus>
+   <Direction>Forward</Direction>
+   <RunOrder>Loop</RunOrder>
+   <Algorithm>Lissajous</Algorithm>
+   <Width>50</Width>
+   <Height>50</Height>
+   <Rotation>0</Rotation>
+   <StartScene Enabled="False">-1</StartScene>
+   <StopScene Enabled="False">-1</StopScene>
+   <Axis Name="X">
+    <Offset>127</Offset>
+    <Frequency>2</Frequency>
+    <Phase>90</Phase>
+   </Axis>
+   <Axis Name="Y">
+    <Offset>127</Offset>
+    <Frequency>3</Frequency>
+    <Phase>0</Phase>
+   </Axis>
+  </Function>
+  <Function Type="EFX" Name="SC Diamond" ID="69">
+   <Fixture>
+    <ID>4</ID>
+    <Direction>Forward</Direction>
+   </Fixture>
+   <Fixture>
+    <ID>5</ID>
+    <Direction>Backward</Direction>
+   </Fixture>
+   <Fixture>
+    <ID>6</ID>
+    <Direction>Forward</Direction>
+   </Fixture>
+   <Fixture>
+    <ID>7</ID>
+    <Direction>Backward</Direction>
+   </Fixture>
+   <Fixture>
+    <ID>8</ID>
+    <Direction>Forward</Direction>
+   </Fixture>
+   <Fixture>
+    <ID>9</ID>
+    <Direction>Backward</Direction>
+   </Fixture>
+   <PropagationMode>Parallel</PropagationMode>
+   <Bus Role="Fade">5</Bus>
+   <Direction>Forward</Direction>
+   <RunOrder>Loop</RunOrder>
+   <Algorithm>Diamond</Algorithm>
+   <Width>50</Width>
+   <Height>50</Height>
+   <Rotation>0</Rotation>
+   <StartScene Enabled="False">-1</StartScene>
+   <StopScene Enabled="False">-1</StopScene>
+   <Axis Name="X">
+    <Offset>127</Offset>
+    <Frequency>2</Frequency>
+    <Phase>90</Phase>
+   </Axis>
+   <Axis Name="Y">
+    <Offset>127</Offset>
+    <Frequency>3</Frequency>
+    <Phase>0</Phase>
+   </Axis>
+  </Function>
+  <Function Type="EFX" Name="SC Circle 3" ID="70">
+   <Fixture>
+    <ID>4</ID>
+    <Direction>Backward</Direction>
+   </Fixture>
+   <Fixture>
+    <ID>5</ID>
+    <Direction>Forward</Direction>
+   </Fixture>
+   <Fixture>
+    <ID>6</ID>
+    <Direction>Backward</Direction>
+   </Fixture>
+   <Fixture>
+    <ID>7</ID>
+    <Direction>Backward</Direction>
+   </Fixture>
+   <Fixture>
+    <ID>8</ID>
+    <Direction>Forward</Direction>
+   </Fixture>
+   <Fixture>
+    <ID>9</ID>
+    <Direction>Backward</Direction>
+   </Fixture>
+   <PropagationMode>Parallel</PropagationMode>
+   <Bus Role="Fade">5</Bus>
+   <Direction>Forward</Direction>
+   <RunOrder>Loop</RunOrder>
+   <Algorithm>Circle</Algorithm>
+   <Width>50</Width>
+   <Height>50</Height>
+   <Rotation>0</Rotation>
+   <StartScene Enabled="False">-1</StartScene>
+   <StopScene Enabled="False">-1</StopScene>
+   <Axis Name="X">
+    <Offset>127</Offset>
+    <Frequency>2</Frequency>
+    <Phase>90</Phase>
+   </Axis>
+   <Axis Name="Y">
+    <Offset>127</Offset>
+    <Frequency>3</Frequency>
+    <Phase>0</Phase>
+   </Axis>
+  </Function>
+  <Function Type="EFX" Name="SC Circle 2" ID="71">
+   <Fixture>
+    <ID>4</ID>
+    <Direction>Forward</Direction>
+   </Fixture>
+   <Fixture>
+    <ID>5</ID>
+    <Direction>Backward</Direction>
+   </Fixture>
+   <Fixture>
+    <ID>6</ID>
+    <Direction>Forward</Direction>
+   </Fixture>
+   <Fixture>
+    <ID>7</ID>
+    <Direction>Backward</Direction>
+   </Fixture>
+   <Fixture>
+    <ID>8</ID>
+    <Direction>Forward</Direction>
+   </Fixture>
+   <Fixture>
+    <ID>9</ID>
+    <Direction>Backward</Direction>
+   </Fixture>
+   <PropagationMode>Parallel</PropagationMode>
+   <Bus Role="Fade">5</Bus>
+   <Direction>Forward</Direction>
+   <RunOrder>Loop</RunOrder>
+   <Algorithm>Circle</Algorithm>
+   <Width>50</Width>
+   <Height>50</Height>
+   <Rotation>0</Rotation>
+   <StartScene Enabled="False">-1</StartScene>
+   <StopScene Enabled="False">-1</StopScene>
+   <Axis Name="X">
+    <Offset>127</Offset>
+    <Frequency>2</Frequency>
+    <Phase>90</Phase>
+   </Axis>
+   <Axis Name="Y">
+    <Offset>127</Offset>
+    <Frequency>3</Frequency>
+    <Phase>0</Phase>
+   </Axis>
+  </Function>
+  <Function Type="Scene" Name="SC Pos Down" ID="72">
+   <Bus Role="Fade">4</Bus>
+   <Value Fixture="4" Channel="0">0</Value>
+   <Value Fixture="4" Channel="1">0</Value>
+   <Value Fixture="5" Channel="0">0</Value>
+   <Value Fixture="5" Channel="1">0</Value>
+   <Value Fixture="6" Channel="0">0</Value>
+   <Value Fixture="6" Channel="1">0</Value>
+   <Value Fixture="7" Channel="0">0</Value>
+   <Value Fixture="7" Channel="1">0</Value>
+   <Value Fixture="8" Channel="0">0</Value>
+   <Value Fixture="8" Channel="1">0</Value>
+   <Value Fixture="9" Channel="0">0</Value>
+   <Value Fixture="9" Channel="1">0</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Pos Random 1" ID="73">
+   <Bus Role="Fade">4</Bus>
+   <Value Fixture="4" Channel="0">0</Value>
+   <Value Fixture="4" Channel="1">0</Value>
+   <Value Fixture="5" Channel="0">0</Value>
+   <Value Fixture="5" Channel="1">0</Value>
+   <Value Fixture="6" Channel="0">0</Value>
+   <Value Fixture="6" Channel="1">0</Value>
+   <Value Fixture="7" Channel="0">0</Value>
+   <Value Fixture="7" Channel="1">0</Value>
+   <Value Fixture="8" Channel="0">0</Value>
+   <Value Fixture="8" Channel="1">0</Value>
+   <Value Fixture="9" Channel="0">0</Value>
+   <Value Fixture="9" Channel="1">0</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Pos Cros Down" ID="74">
+   <Bus Role="Fade">4</Bus>
+   <Value Fixture="4" Channel="0">0</Value>
+   <Value Fixture="4" Channel="1">0</Value>
+   <Value Fixture="5" Channel="0">0</Value>
+   <Value Fixture="5" Channel="1">0</Value>
+   <Value Fixture="6" Channel="0">0</Value>
+   <Value Fixture="6" Channel="1">0</Value>
+   <Value Fixture="7" Channel="0">0</Value>
+   <Value Fixture="7" Channel="1">0</Value>
+   <Value Fixture="8" Channel="0">0</Value>
+   <Value Fixture="8" Channel="1">0</Value>
+   <Value Fixture="9" Channel="0">0</Value>
+   <Value Fixture="9" Channel="1">0</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Pos Cross Up" ID="75">
+   <Bus Role="Fade">4</Bus>
+   <Value Fixture="4" Channel="0">0</Value>
+   <Value Fixture="4" Channel="1">0</Value>
+   <Value Fixture="5" Channel="0">0</Value>
+   <Value Fixture="5" Channel="1">0</Value>
+   <Value Fixture="6" Channel="0">0</Value>
+   <Value Fixture="6" Channel="1">0</Value>
+   <Value Fixture="7" Channel="0">0</Value>
+   <Value Fixture="7" Channel="1">0</Value>
+   <Value Fixture="8" Channel="0">0</Value>
+   <Value Fixture="8" Channel="1">0</Value>
+   <Value Fixture="9" Channel="0">0</Value>
+   <Value Fixture="9" Channel="1">0</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Pos Center" ID="76">
+   <Bus Role="Fade">4</Bus>
+   <Value Fixture="4" Channel="0">0</Value>
+   <Value Fixture="4" Channel="1">0</Value>
+   <Value Fixture="5" Channel="0">0</Value>
+   <Value Fixture="5" Channel="1">0</Value>
+   <Value Fixture="6" Channel="0">0</Value>
+   <Value Fixture="6" Channel="1">0</Value>
+   <Value Fixture="7" Channel="0">0</Value>
+   <Value Fixture="7" Channel="1">0</Value>
+   <Value Fixture="8" Channel="0">0</Value>
+   <Value Fixture="8" Channel="1">0</Value>
+   <Value Fixture="9" Channel="0">0</Value>
+   <Value Fixture="9" Channel="1">0</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Pos Up" ID="77">
+   <Bus Role="Fade">4</Bus>
+   <Value Fixture="4" Channel="0">0</Value>
+   <Value Fixture="4" Channel="1">0</Value>
+   <Value Fixture="5" Channel="0">0</Value>
+   <Value Fixture="5" Channel="1">0</Value>
+   <Value Fixture="6" Channel="0">0</Value>
+   <Value Fixture="6" Channel="1">0</Value>
+   <Value Fixture="7" Channel="0">0</Value>
+   <Value Fixture="7" Channel="1">0</Value>
+   <Value Fixture="8" Channel="0">0</Value>
+   <Value Fixture="8" Channel="1">0</Value>
+   <Value Fixture="9" Channel="0">0</Value>
+   <Value Fixture="9" Channel="1">0</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Pos Vox 2" ID="78">
+   <Bus Role="Fade">4</Bus>
+   <Value Fixture="4" Channel="0">0</Value>
+   <Value Fixture="4" Channel="1">0</Value>
+   <Value Fixture="5" Channel="0">0</Value>
+   <Value Fixture="5" Channel="1">0</Value>
+   <Value Fixture="6" Channel="0">0</Value>
+   <Value Fixture="6" Channel="1">0</Value>
+   <Value Fixture="7" Channel="0">0</Value>
+   <Value Fixture="7" Channel="1">0</Value>
+   <Value Fixture="8" Channel="0">0</Value>
+   <Value Fixture="8" Channel="1">0</Value>
+   <Value Fixture="9" Channel="0">0</Value>
+   <Value Fixture="9" Channel="1">0</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Pos Vox" ID="79">
+   <Bus Role="Fade">4</Bus>
+   <Value Fixture="4" Channel="0">0</Value>
+   <Value Fixture="4" Channel="1">0</Value>
+   <Value Fixture="5" Channel="0">0</Value>
+   <Value Fixture="5" Channel="1">0</Value>
+   <Value Fixture="6" Channel="0">0</Value>
+   <Value Fixture="6" Channel="1">0</Value>
+   <Value Fixture="7" Channel="0">0</Value>
+   <Value Fixture="7" Channel="1">0</Value>
+   <Value Fixture="8" Channel="0">0</Value>
+   <Value Fixture="8" Channel="1">0</Value>
+   <Value Fixture="9" Channel="0">0</Value>
+   <Value Fixture="9" Channel="1">0</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Pos Random 2" ID="80">
+   <Bus Role="Fade">4</Bus>
+   <Value Fixture="4" Channel="0">0</Value>
+   <Value Fixture="4" Channel="1">0</Value>
+   <Value Fixture="5" Channel="0">0</Value>
+   <Value Fixture="5" Channel="1">0</Value>
+   <Value Fixture="6" Channel="0">0</Value>
+   <Value Fixture="6" Channel="1">0</Value>
+   <Value Fixture="7" Channel="0">0</Value>
+   <Value Fixture="7" Channel="1">0</Value>
+   <Value Fixture="8" Channel="0">0</Value>
+   <Value Fixture="8" Channel="1">0</Value>
+   <Value Fixture="9" Channel="0">0</Value>
+   <Value Fixture="9" Channel="1">0</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Pan 1" ID="81">
+   <Bus Role="Fade">4</Bus>
+   <Value Fixture="4" Channel="0">30</Value>
+   <Value Fixture="4" Channel="1">134</Value>
+   <Value Fixture="5" Channel="0">127</Value>
+   <Value Fixture="5" Channel="1">134</Value>
+   <Value Fixture="6" Channel="0">225</Value>
+   <Value Fixture="6" Channel="1">134</Value>
+   <Value Fixture="7" Channel="0">127</Value>
+   <Value Fixture="7" Channel="1">134</Value>
+   <Value Fixture="8" Channel="0">30</Value>
+   <Value Fixture="8" Channel="1">134</Value>
+   <Value Fixture="9" Channel="0">127</Value>
+   <Value Fixture="9" Channel="1">134</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Pan 3" ID="82">
+   <Bus Role="Fade">4</Bus>
+   <Value Fixture="4" Channel="0">225</Value>
+   <Value Fixture="4" Channel="1">134</Value>
+   <Value Fixture="5" Channel="0">127</Value>
+   <Value Fixture="5" Channel="1">134</Value>
+   <Value Fixture="6" Channel="0">30</Value>
+   <Value Fixture="6" Channel="1">134</Value>
+   <Value Fixture="7" Channel="0">127</Value>
+   <Value Fixture="7" Channel="1">134</Value>
+   <Value Fixture="8" Channel="0">225</Value>
+   <Value Fixture="8" Channel="1">134</Value>
+   <Value Fixture="9" Channel="0">127</Value>
+   <Value Fixture="9" Channel="1">134</Value>
+  </Function>
+  <Function Type="Chaser" Name="SC Pan" ID="83">
+   <Bus Role="Hold">5</Bus>
+   <Direction>Forward</Direction>
+   <RunOrder>Loop</RunOrder>
+   <Step Number="0">81</Step>
+   <Step Number="1">85</Step>
+   <Step Number="2">82</Step>
+  </Function>
+  <Function Type="Scene" Name="SC Tilt 1" ID="84">
+   <Bus Role="Fade">4</Bus>
+   <Value Fixture="4" Channel="0">127</Value>
+   <Value Fixture="4" Channel="1">0</Value>
+   <Value Fixture="5" Channel="0">127</Value>
+   <Value Fixture="5" Channel="1">127</Value>
+   <Value Fixture="6" Channel="0">127</Value>
+   <Value Fixture="6" Channel="1">255</Value>
+   <Value Fixture="7" Channel="0">127</Value>
+   <Value Fixture="7" Channel="1">127</Value>
+   <Value Fixture="8" Channel="0">127</Value>
+   <Value Fixture="8" Channel="1">0</Value>
+   <Value Fixture="9" Channel="0">127</Value>
+   <Value Fixture="9" Channel="1">127</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Pan 2" ID="85">
+   <Bus Role="Fade">4</Bus>
+   <Value Fixture="4" Channel="0">127</Value>
+   <Value Fixture="4" Channel="1">134</Value>
+   <Value Fixture="5" Channel="0">225</Value>
+   <Value Fixture="5" Channel="1">134</Value>
+   <Value Fixture="6" Channel="0">127</Value>
+   <Value Fixture="6" Channel="1">134</Value>
+   <Value Fixture="7" Channel="0">30</Value>
+   <Value Fixture="7" Channel="1">134</Value>
+   <Value Fixture="8" Channel="0">127</Value>
+   <Value Fixture="8" Channel="1">134</Value>
+   <Value Fixture="9" Channel="0">225</Value>
+   <Value Fixture="9" Channel="1">134</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Tilt 3" ID="86">
+   <Bus Role="Fade">4</Bus>
+   <Value Fixture="4" Channel="0">127</Value>
+   <Value Fixture="4" Channel="1">255</Value>
+   <Value Fixture="5" Channel="0">127</Value>
+   <Value Fixture="5" Channel="1">127</Value>
+   <Value Fixture="6" Channel="0">127</Value>
+   <Value Fixture="6" Channel="1">0</Value>
+   <Value Fixture="7" Channel="0">127</Value>
+   <Value Fixture="7" Channel="1">127</Value>
+   <Value Fixture="8" Channel="0">127</Value>
+   <Value Fixture="8" Channel="1">255</Value>
+   <Value Fixture="9" Channel="0">127</Value>
+   <Value Fixture="9" Channel="1">127</Value>
+  </Function>
+  <Function Type="Scene" Name="SC Tilt 2" ID="87">
+   <Bus Role="Fade">4</Bus>
+   <Value Fixture="4" Channel="0">127</Value>
+   <Value Fixture="4" Channel="1">127</Value>
+   <Value Fixture="5" Channel="0">127</Value>
+   <Value Fixture="5" Channel="1">255</Value>
+   <Value Fixture="6" Channel="0">127</Value>
+   <Value Fixture="6" Channel="1">127</Value>
+   <Value Fixture="7" Channel="0">127</Value>
+   <Value Fixture="7" Channel="1">0</Value>
+   <Value Fixture="8" Channel="0">127</Value>
+   <Value Fixture="8" Channel="1">127</Value>
+   <Value Fixture="9" Channel="0">127</Value>
+   <Value Fixture="9" Channel="1">255</Value>
+  </Function>
+  <Function Type="Chaser" Name="SC Tilt" ID="88">
+   <Bus Role="Hold">5</Bus>
+   <Direction>Forward</Direction>
+   <RunOrder>Loop</RunOrder>
+   <Step Number="0">84</Step>
+   <Step Number="1">87</Step>
+   <Step Number="2">86</Step>
+  </Function>
+  <Function Type="Scene" Name="par 1" ID="89">
+   <Bus Role="Fade">0</Bus>
+   <Value Fixture="10" Channel="0">255</Value>
+   <Value Fixture="10" Channel="1">0</Value>
+   <Value Fixture="10" Channel="2">0</Value>
+   <Value Fixture="10" Channel="3">0</Value>
+   <Value Fixture="10" Channel="4">0</Value>
+   <Value Fixture="10" Channel="5">0</Value>
+  </Function>
+  <Function Type="Scene" Name="par 6" ID="90">
+   <Bus Role="Fade">0</Bus>
+   <Value Fixture="10" Channel="0">0</Value>
+   <Value Fixture="10" Channel="1">0</Value>
+   <Value Fixture="10" Channel="2">0</Value>
+   <Value Fixture="10" Channel="3">0</Value>
+   <Value Fixture="10" Channel="4">0</Value>
+   <Value Fixture="10" Channel="5">255</Value>
+  </Function>
+  <Function Type="Scene" Name="par 5" ID="91">
+   <Bus Role="Fade">0</Bus>
+   <Value Fixture="10" Channel="0">0</Value>
+   <Value Fixture="10" Channel="1">0</Value>
+   <Value Fixture="10" Channel="2">0</Value>
+   <Value Fixture="10" Channel="3">0</Value>
+   <Value Fixture="10" Channel="4">255</Value>
+   <Value Fixture="10" Channel="5">0</Value>
+  </Function>
+  <Function Type="Scene" Name="par 4" ID="92">
+   <Bus Role="Fade">0</Bus>
+   <Value Fixture="10" Channel="0">0</Value>
+   <Value Fixture="10" Channel="1">0</Value>
+   <Value Fixture="10" Channel="2">0</Value>
+   <Value Fixture="10" Channel="3">255</Value>
+   <Value Fixture="10" Channel="4">0</Value>
+   <Value Fixture="10" Channel="5">0</Value>
+  </Function>
+  <Function Type="Scene" Name="par 3" ID="93">
+   <Bus Role="Fade">0</Bus>
+   <Value Fixture="10" Channel="0">0</Value>
+   <Value Fixture="10" Channel="1">0</Value>
+   <Value Fixture="10" Channel="2">255</Value>
+   <Value Fixture="10" Channel="3">0</Value>
+   <Value Fixture="10" Channel="4">0</Value>
+   <Value Fixture="10" Channel="5">0</Value>
+  </Function>
+  <Function Type="Scene" Name="par 2" ID="94">
+   <Bus Role="Fade">0</Bus>
+   <Value Fixture="10" Channel="0">0</Value>
+   <Value Fixture="10" Channel="1">255</Value>
+   <Value Fixture="10" Channel="2">0</Value>
+   <Value Fixture="10" Channel="3">0</Value>
+   <Value Fixture="10" Channel="4">0</Value>
+   <Value Fixture="10" Channel="5">0</Value>
+  </Function>
+  <Function Type="Scene" Name="par g1" ID="95">
+   <Bus Role="Fade">0</Bus>
+   <Value Fixture="10" Channel="0">255</Value>
+   <Value Fixture="10" Channel="1">0</Value>
+   <Value Fixture="10" Channel="2">0</Value>
+   <Value Fixture="10" Channel="3">0</Value>
+   <Value Fixture="10" Channel="4">0</Value>
+   <Value Fixture="10" Channel="5">255</Value>
+  </Function>
+  <Function Type="Scene" Name="par g5" ID="96">
+   <Bus Role="Fade">0</Bus>
+   <Value Fixture="10" Channel="0">255</Value>
+   <Value Fixture="10" Channel="1">255</Value>
+   <Value Fixture="10" Channel="2">255</Value>
+   <Value Fixture="10" Channel="3">0</Value>
+   <Value Fixture="10" Channel="4">0</Value>
+   <Value Fixture="10" Channel="5">255</Value>
+  </Function>
+  <Function Type="Scene" Name="par g3" ID="97">
+   <Bus Role="Fade">0</Bus>
+   <Value Fixture="10" Channel="0">255</Value>
+   <Value Fixture="10" Channel="1">255</Value>
+   <Value Fixture="10" Channel="2">0</Value>
+   <Value Fixture="10" Channel="3">0</Value>
+   <Value Fixture="10" Channel="4">0</Value>
+   <Value Fixture="10" Channel="5">0</Value>
+  </Function>
+  <Function Type="Scene" Name="par g4" ID="98">
+   <Bus Role="Fade">0</Bus>
+   <Value Fixture="10" Channel="0">0</Value>
+   <Value Fixture="10" Channel="1">0</Value>
+   <Value Fixture="10" Channel="2">255</Value>
+   <Value Fixture="10" Channel="3">255</Value>
+   <Value Fixture="10" Channel="4">0</Value>
+   <Value Fixture="10" Channel="5">0</Value>
+  </Function>
+  <Function Type="Scene" Name="par g2" ID="99">
+   <Bus Role="Fade">0</Bus>
+   <Value Fixture="10" Channel="0">0</Value>
+   <Value Fixture="10" Channel="1">255</Value>
+   <Value Fixture="10" Channel="2">0</Value>
+   <Value Fixture="10" Channel="3">0</Value>
+   <Value Fixture="10" Channel="4">255</Value>
+   <Value Fixture="10" Channel="5">0</Value>
+  </Function>
+  <Function Type="Scene" Name="par all" ID="100">
+   <Bus Role="Fade">0</Bus>
+   <Value Fixture="10" Channel="0">255</Value>
+   <Value Fixture="10" Channel="1">255</Value>
+   <Value Fixture="10" Channel="2">255</Value>
+   <Value Fixture="10" Channel="3">255</Value>
+   <Value Fixture="10" Channel="4">255</Value>
+   <Value Fixture="10" Channel="5">255</Value>
+  </Function>
+  <Function Type="Scene" Name="par g9" ID="101">
+   <Bus Role="Fade">0</Bus>
+   <Value Fixture="10" Channel="0">255</Value>
+   <Value Fixture="10" Channel="1">0</Value>
+   <Value Fixture="10" Channel="2">255</Value>
+   <Value Fixture="10" Channel="3">255</Value>
+   <Value Fixture="10" Channel="4">255</Value>
+   <Value Fixture="10" Channel="5">255</Value>
+  </Function>
+  <Function Type="Scene" Name="par g8" ID="102">
+   <Bus Role="Fade">0</Bus>
+   <Value Fixture="10" Channel="0">255</Value>
+   <Value Fixture="10" Channel="1">0</Value>
+   <Value Fixture="10" Channel="2">255</Value>
+   <Value Fixture="10" Channel="3">0</Value>
+   <Value Fixture="10" Channel="4">255</Value>
+   <Value Fixture="10" Channel="5">255</Value>
+  </Function>
+  <Function Type="Scene" Name="par g7" ID="103">
+   <Bus Role="Fade">0</Bus>
+   <Value Fixture="10" Channel="0">0</Value>
+   <Value Fixture="10" Channel="1">255</Value>
+   <Value Fixture="10" Channel="2">255</Value>
+   <Value Fixture="10" Channel="3">255</Value>
+   <Value Fixture="10" Channel="4">255</Value>
+   <Value Fixture="10" Channel="5">0</Value>
+  </Function>
+  <Function Type="Scene" Name="par g6" ID="104">
+   <Bus Role="Fade">0</Bus>
+   <Value Fixture="10" Channel="0">255</Value>
+   <Value Fixture="10" Channel="1">0</Value>
+   <Value Fixture="10" Channel="2">255</Value>
+   <Value Fixture="10" Channel="3">255</Value>
+   <Value Fixture="10" Channel="4">0</Value>
+   <Value Fixture="10" Channel="5">255</Value>
+  </Function>
+  <Function Type="Scene" Name="par off" ID="105">
+   <Bus Role="Fade">0</Bus>
+   <Value Fixture="10" Channel="0">0</Value>
+   <Value Fixture="10" Channel="1">0</Value>
+   <Value Fixture="10" Channel="2">0</Value>
+   <Value Fixture="10" Channel="3">0</Value>
+   <Value Fixture="10" Channel="4">0</Value>
+   <Value Fixture="10" Channel="5">0</Value>
+  </Function>
+  <Function Type="Chaser" Name="Group chaser 1" ID="106">
+   <Bus Role="Hold">1</Bus>
+   <Direction>Forward</Direction>
+   <RunOrder>Loop</RunOrder>
+   <Step Number="0">95</Step>
+   <Step Number="1">99</Step>
+   <Step Number="2">97</Step>
+   <Step Number="3">98</Step>
+  </Function>
+  <Function Type="Chaser" Name="Group chaser 2" ID="107">
+   <Bus Role="Hold">1</Bus>
+   <Direction>Forward</Direction>
+   <RunOrder>Loop</RunOrder>
+   <Step Number="0">101</Step>
+   <Step Number="1">102</Step>
+   <Step Number="2">103</Step>
+   <Step Number="3">104</Step>
+  </Function>
+  <Function Type="Chaser" Name="Group chaser 3" ID="108">
+   <Bus Role="Hold">1</Bus>
+   <Direction>Forward</Direction>
+   <RunOrder>Loop</RunOrder>
+   <Step Number="0">101</Step>
+   <Step Number="1">95</Step>
+   <Step Number="2">98</Step>
+   <Step Number="3">103</Step>
+  </Function>
+  <Function Type="Chaser" Name="Par chaser 1" ID="109">
+   <Bus Role="Hold">1</Bus>
+   <Direction>Forward</Direction>
+   <RunOrder>Loop</RunOrder>
+   <Step Number="0">89</Step>
+   <Step Number="1">93</Step>
+   <Step Number="2">90</Step>
+   <Step Number="3">92</Step>
+   <Step Number="4">94</Step>
+   <Step Number="5">91</Step>
+  </Function>
+  <Function Type="Chaser" Name="Par Chaser 2" ID="110">
+   <Bus Role="Hold">1</Bus>
+   <Direction>Forward</Direction>
+   <RunOrder>PingPong</RunOrder>
+   <Step Number="0">89</Step>
+   <Step Number="1">94</Step>
+   <Step Number="2">93</Step>
+   <Step Number="3">92</Step>
+   <Step Number="4">91</Step>
+   <Step Number="5">90</Step>
+  </Function>
+  <Function Type="Chaser" Name="Par Chaser 3" ID="111">
+   <Bus Role="Hold">1</Bus>
+   <Direction>Forward</Direction>
+   <RunOrder>Loop</RunOrder>
+   <Step Number="0">89</Step>
+   <Step Number="1">93</Step>
+   <Step Number="2">91</Step>
+  </Function>
+  <Function Type="Chaser" Name="Par Chaser 4" ID="112">
+   <Bus Role="Hold">1</Bus>
+   <Direction>Forward</Direction>
+   <RunOrder>Loop</RunOrder>
+   <Step Number="0">90</Step>
+   <Step Number="1">91</Step>
+   <Step Number="2">92</Step>
+   <Step Number="3">93</Step>
+   <Step Number="4">94</Step>
+   <Step Number="5">89</Step>
+  </Function>
+  <Function Type="Chaser" Name="Par all chaser" ID="113">
+   <Bus Role="Hold">1</Bus>
+   <Direction>Forward</Direction>
+   <RunOrder>Loop</RunOrder>
+   <Step Number="0">100</Step>
+   <Step Number="1">105</Step>
+  </Function>
+  <Bus ID="0">
+   <Name>Par Fade</Name>
+   <Value>53</Value>
+  </Bus>
+  <Bus ID="1">
+   <Name>Par Hold</Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="2">
+   <Name>Led Fade</Name>
+   <Value>23</Value>
+  </Bus>
+  <Bus ID="3">
+   <Name>Led Hold</Name>
+   <Value>231</Value>
+  </Bus>
+  <Bus ID="4">
+   <Name>Sc Fade</Name>
+   <Value>53</Value>
+  </Bus>
+  <Bus ID="5">
+   <Name>Sc Hold</Name>
+   <Value>97</Value>
+  </Bus>
+  <Bus ID="6">
+   <Name>LST Fade</Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="7">
+   <Name>LST Hold</Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="8">
+   <Name>Others</Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="9">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="10">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="11">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="12">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="13">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="14">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="15">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="16">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="17">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="18">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="19">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="20">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="21">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="22">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="23">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="24">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="25">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="26">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="27">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="28">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="29">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="30">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="31">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+ </Engine>
+ <VirtualConsole>
+  <Frame Caption="">
+   <Appearance>
+    <FrameStyle>Sunken</FrameStyle>
+    <ForegroundColor>Default</ForegroundColor>
+    <BackgroundColor>Default</BackgroundColor>
+    <BackgroundImage>None</BackgroundImage>
+    <Font>Default</Font>
+   </Appearance>
+   <Frame Caption="">
+    <Appearance>
+     <FrameStyle>Sunken</FrameStyle>
+     <ForegroundColor>Default</ForegroundColor>
+     <BackgroundColor>Default</BackgroundColor>
+     <BackgroundImage>None</BackgroundImage>
+     <Font>Default</Font>
+    </Appearance>
+    <WindowState Width="800" X="10" Y="10" Height="280" Visible="True"/>
+    <Button Icon="" Caption="Black">
+     <Function ID="8"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="10" Y="10" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>4294967295</ForegroundColor>
+      <BackgroundColor>4278190080</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Q White">
+     <Function ID="1"/>
+     <Action>Toggle</Action>
+     <Key>Q</Key>
+     <WindowState Width="70" X="10" Y="60" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4294967295</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="T Yellow">
+     <Function ID="4"/>
+     <Action>Toggle</Action>
+     <Key>T</Key>
+     <WindowState Width="70" X="290" Y="60" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4294967040</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Red/Blue">
+     <Function ID="10"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="80" Y="110" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="L Blue/White">
+     <Function ID="15"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="150" Y="110" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Red/Green">
+     <Function ID="9"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="10" Y="110" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Label Caption="LED PAR">
+     <WindowState Width="490" X="80" Y="10" Height="40" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>4278190080</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Arial,20,-1,5,75,0,0,0,0,0</Font>
+     </Appearance>
+    </Label>
+    <Button Icon="" Caption="E Violet">
+     <Function ID="2"/>
+     <Action>Toggle</Action>
+     <Key>E</Key>
+     <WindowState Width="70" X="150" Y="60" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4289331455</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="R Red">
+     <Function ID="0"/>
+     <Action>Toggle</Action>
+     <Key>R</Key>
+     <WindowState Width="70" X="220" Y="60" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4294901760</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="I Green">
+     <Function ID="6"/>
+     <Action>Toggle</Action>
+     <Key>I</Key>
+     <WindowState Width="70" X="500" Y="60" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4278255360</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Y Pink">
+     <Function ID="3"/>
+     <Action>Toggle</Action>
+     <Key>Y</Key>
+     <WindowState Width="70" X="360" Y="60" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4294902015</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="U L Blue">
+     <Function ID="5"/>
+     <Action>Toggle</Action>
+     <Key>U</Key>
+     <WindowState Width="70" X="430" Y="60" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4278233855</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="W Blue">
+     <Function ID="7"/>
+     <Action>Toggle</Action>
+     <Key>W</Key>
+     <WindowState Width="70" X="80" Y="60" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4278190335</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="L Blue/Pink">
+     <Function ID="16"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="220" Y="110" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Green/Yellow">
+     <Function ID="14"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="290" Y="110" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Blue/Pink">
+     <Function ID="11"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="430" Y="110" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Blue/Green">
+     <Function ID="12"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="500" Y="110" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="X 2 White">
+     <Function ID="36"/>
+     <Action>Toggle</Action>
+     <Key>X</Key>
+     <WindowState Width="70" X="80" Y="210" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4294967295</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="A 1 Yellow">
+     <Function ID="30"/>
+     <Action>Toggle</Action>
+     <Key>A</Key>
+     <WindowState Width="70" X="10" Y="160" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4294967040</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="S 1 White">
+     <Function ID="29"/>
+     <Action>Toggle</Action>
+     <Key>S</Key>
+     <WindowState Width="70" X="80" Y="160" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4294967295</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="D 1 Violet">
+     <Function ID="28"/>
+     <Action>Toggle</Action>
+     <Key>D</Key>
+     <WindowState Width="70" X="150" Y="160" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4289331455</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="F 1 Red">
+     <Function ID="27"/>
+     <Action>Toggle</Action>
+     <Key>F</Key>
+     <WindowState Width="70" X="220" Y="160" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4294901760</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="G 1 Pink">
+     <Function ID="26"/>
+     <Action>Toggle</Action>
+     <Key>G</Key>
+     <WindowState Width="70" X="290" Y="160" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4294902015</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="H 1 L Blue">
+     <Function ID="25"/>
+     <Action>Toggle</Action>
+     <Key>H</Key>
+     <WindowState Width="70" X="360" Y="160" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4278233855</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="J 1 Green">
+     <Function ID="24"/>
+     <Action>Toggle</Action>
+     <Key>J</Key>
+     <WindowState Width="70" X="430" Y="160" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4278255360</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="K 1 Blue">
+     <Function ID="23"/>
+     <Action>Toggle</Action>
+     <Key>K</Key>
+     <WindowState Width="70" X="500" Y="160" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4278190335</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Z 2 Yellow">
+     <Function ID="37"/>
+     <Action>Toggle</Action>
+     <Key>Z</Key>
+     <WindowState Width="70" X="10" Y="210" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4294967040</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="V 2 Red">
+     <Function ID="34"/>
+     <Action>Toggle</Action>
+     <Key>V</Key>
+     <WindowState Width="70" X="220" Y="210" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4294901760</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="B 2 Pink">
+     <Function ID="33"/>
+     <Action>Toggle</Action>
+     <Key>B</Key>
+     <WindowState Width="70" X="290" Y="210" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4294902015</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="M 2 Green">
+     <Function ID="31"/>
+     <Action>Toggle</Action>
+     <Key>M</Key>
+     <WindowState Width="70" X="430" Y="210" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4278255360</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="; 2 Blue">
+     <Function ID="22"/>
+     <Action>Toggle</Action>
+     <Key>,</Key>
+     <WindowState Width="70" X="500" Y="210" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4278190335</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Frame Caption="">
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <WindowState Width="210" X="580" Y="10" Height="260" Visible="True"/>
+     <Slider Caption="Par Fade" InvertedAppearance="true">
+      <WindowState Width="60" X="10" Y="10" Height="240" Visible="True"/>
+      <Appearance>
+       <FrameStyle>Sunken</FrameStyle>
+       <ForegroundColor>Default</ForegroundColor>
+       <BackgroundColor>Default</BackgroundColor>
+       <BackgroundImage>None</BackgroundImage>
+       <Font>Default</Font>
+      </Appearance>
+      <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+      <Bus HighLimit="5" LowLimit="0">0</Bus>
+      <Level HighLimit="255" LowLimit="0" Value="0"/>
+     </Slider>
+     <Button Icon="" Caption="White Strobe">
+      <Function ID="19"/>
+      <Action>Toggle</Action>
+      <WindowState Width="120" X="80" Y="50" Height="50" Visible="True"/>
+      <Appearance>
+       <FrameStyle>None</FrameStyle>
+       <ForegroundColor>Default</ForegroundColor>
+       <BackgroundColor>Default</BackgroundColor>
+       <BackgroundImage>None</BackgroundImage>
+       <Font>Default</Font>
+      </Appearance>
+     </Button>
+     <Button Icon="" Caption="Red Strobe">
+      <Function ID="21"/>
+      <Action>Toggle</Action>
+      <WindowState Width="120" X="80" Y="100" Height="50" Visible="True"/>
+      <Appearance>
+       <FrameStyle>None</FrameStyle>
+       <ForegroundColor>Default</ForegroundColor>
+       <BackgroundColor>Default</BackgroundColor>
+       <BackgroundImage>None</BackgroundImage>
+       <Font>Default</Font>
+      </Appearance>
+     </Button>
+     <Button Icon="" Caption="">
+      <Function ID="-1"/>
+      <Action>Toggle</Action>
+      <WindowState Width="120" X="80" Y="150" Height="50" Visible="True"/>
+      <Appearance>
+       <FrameStyle>None</FrameStyle>
+       <ForegroundColor>Default</ForegroundColor>
+       <BackgroundColor>Default</BackgroundColor>
+       <BackgroundImage>None</BackgroundImage>
+       <Font>Default</Font>
+      </Appearance>
+     </Button>
+     <Button Icon="" Caption="">
+      <Function ID="-1"/>
+      <Action>Toggle</Action>
+      <WindowState Width="120" X="80" Y="200" Height="50" Visible="True"/>
+      <Appearance>
+       <FrameStyle>None</FrameStyle>
+       <ForegroundColor>Default</ForegroundColor>
+       <BackgroundColor>Default</BackgroundColor>
+       <BackgroundImage>None</BackgroundImage>
+       <Font>Default</Font>
+      </Appearance>
+     </Button>
+     <Label Caption="Strobe">
+      <WindowState Width="120" X="80" Y="10" Height="40" Visible="True"/>
+      <Appearance>
+       <FrameStyle>None</FrameStyle>
+       <ForegroundColor>Default</ForegroundColor>
+       <BackgroundColor>Default</BackgroundColor>
+       <BackgroundImage>None</BackgroundImage>
+       <Font>Arial,20,-1,5,75,0,0,0,0,0</Font>
+      </Appearance>
+     </Label>
+    </Frame>
+    <Button Icon="" Caption="C 2 Violet">
+     <Function ID="35"/>
+     <Action>Toggle</Action>
+     <Key>C</Key>
+     <WindowState Width="70" X="150" Y="210" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4289331455</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="N 2 L Blue">
+     <Function ID="32"/>
+     <Action>Toggle</Action>
+     <Key>N</Key>
+     <WindowState Width="70" X="360" Y="210" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4278233855</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Green/Red">
+     <Function ID="13"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="360" Y="110" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+   </Frame>
+   <Frame Caption="">
+    <Appearance>
+     <FrameStyle>Sunken</FrameStyle>
+     <ForegroundColor>Default</ForegroundColor>
+     <BackgroundColor>Default</BackgroundColor>
+     <BackgroundImage>None</BackgroundImage>
+     <Font>Default</Font>
+    </Appearance>
+    <WindowState Width="800" X="10" Y="300" Height="370" Visible="True"/>
+    <Label Caption="Scanners">
+     <WindowState Width="140" X="290" Y="10" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Arial,20,-1,5,75,0,0,0,0,0</Font>
+     </Appearance>
+    </Label>
+    <Button Icon="" Caption="White">
+     <Function ID="38"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="80" Y="110" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4294967295</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Yellow">
+     <Function ID="40"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="150" Y="110" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4294967040</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Pink">
+     <Function ID="44"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="220" Y="110" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4294902015</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Orange">
+     <Function ID="42"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="220" Y="60" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4294923520</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="L Green">
+     <Function ID="43"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="290" Y="60" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4278255360</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="L Blue">
+     <Function ID="41"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="360" Y="60" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4278212095</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="D Blue">
+     <Function ID="45"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="80" Y="60" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4278190207</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="C Red">
+     <Function ID="39"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="150" Y="60" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>4294901887</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Random Slow">
+     <Function ID="48"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="290" Y="110" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Random Fast">
+     <Function ID="47"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="360" Y="110" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Strobo">
+     <Function ID="62"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="80" Y="10" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Ran Strobo">
+     <Function ID="63"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="150" Y="10" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Gobo Open">
+     <Function ID="46"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="80" Y="160" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Gobo 4">
+     <Function ID="53"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="360" Y="160" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Gobo 1">
+     <Function ID="56"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="150" Y="160" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Gobo 5">
+     <Function ID="52"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="80" Y="210" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Gobo 2">
+     <Function ID="55"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="220" Y="160" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Gobo 6">
+     <Function ID="51"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="150" Y="210" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Gobo 3">
+     <Function ID="54"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="290" Y="160" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Gobo 7">
+     <Function ID="50"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="220" Y="210" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Slider Caption="Dim" InvertedAppearance="false">
+     <WindowState Width="70" X="10" Y="10" Height="350" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Level</SliderMode>
+     <Bus HighLimit="5" LowLimit="0">0</Bus>
+     <Level HighLimit="128" LowLimit="0" Value="0">
+      <Channel Fixture="4">5</Channel>
+      <Channel Fixture="5">5</Channel>
+      <Channel Fixture="6">5</Channel>
+      <Channel Fixture="7">5</Channel>
+      <Channel Fixture="8">5</Channel>
+      <Channel Fixture="9">5</Channel>
+     </Level>
+    </Slider>
+    <Button Icon="" Caption="SC Pulse">
+     <Function ID="66"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="220" Y="10" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Gobo Ran Slow">
+     <Function ID="49"/>
+     <Action>Toggle</Action>
+     <WindowState Width="140" X="290" Y="210" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Gobo Ran Fast">
+     <Function ID="57"/>
+     <Action>Toggle</Action>
+     <WindowState Width="140" X="290" Y="260" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Gobo Ran Fast &lt;">
+     <Function ID="57"/>
+     <Action>Flash</Action>
+     <Key>&lt;</Key>
+     <WindowState Width="140" X="290" Y="310" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Rot Medium">
+     <Function ID="60"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="220" Y="260" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Rot Fast">
+     <Function ID="59"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="80" Y="260" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Rot Stop">
+     <Function ID="58"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="80" Y="310" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Rot Slow">
+     <Function ID="61"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="150" Y="260" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Circle 1">
+     <Function ID="67"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="440" Y="10" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Pos Up">
+     <Function ID="77"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="440" Y="70" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Pos Down">
+     <Function ID="72"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="440" Y="120" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Vox 2">
+     <Function ID="78"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="720" Y="120" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Circle 2">
+     <Function ID="71"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="510" Y="10" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Cross Up">
+     <Function ID="75"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="510" Y="70" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Cross Down">
+     <Function ID="74"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="510" Y="120" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Pan">
+     <Function ID="83"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="650" Y="70" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Circle 3">
+     <Function ID="70"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="580" Y="10" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Pos Center">
+     <Function ID="76"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="580" Y="70" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Random 1">
+     <Function ID="73"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="580" Y="120" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Diamond">
+     <Function ID="69"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="650" Y="10" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Vox">
+     <Function ID="79"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="650" Y="120" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Random 2">
+     <Function ID="80"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="440" Y="170" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Lissajous">
+     <Function ID="68"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="720" Y="10" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Tilt">
+     <Function ID="88"/>
+     <Action>Toggle</Action>
+     <WindowState Width="70" X="720" Y="70" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+   </Frame>
+   <Frame Caption="">
+    <Appearance>
+     <FrameStyle>Sunken</FrameStyle>
+     <ForegroundColor>Default</ForegroundColor>
+     <BackgroundColor>Default</BackgroundColor>
+     <BackgroundImage>None</BackgroundImage>
+     <Font>Default</Font>
+    </Appearance>
+    <WindowState Width="500" X="820" Y="10" Height="480" Visible="True"/>
+    <Button Icon="" Caption="">
+     <Function ID="-1"/>
+     <Action>Flash</Action>
+     <WindowState Width="60" X="70" Y="210" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="-1"/>
+     <Action>Flash</Action>
+     <WindowState Width="60" X="10" Y="210" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="-1"/>
+     <Action>Flash</Action>
+     <WindowState Width="60" X="430" Y="210" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="-1"/>
+     <Action>Flash</Action>
+     <WindowState Width="60" X="250" Y="210" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="-1"/>
+     <Action>Flash</Action>
+     <WindowState Width="60" X="130" Y="210" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="-1"/>
+     <Action>Toggle</Action>
+     <WindowState Width="60" X="370" Y="170" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="-1"/>
+     <Action>Flash</Action>
+     <WindowState Width="60" X="370" Y="210" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="-1"/>
+     <Action>Flash</Action>
+     <WindowState Width="60" X="190" Y="210" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="-1"/>
+     <Action>Flash</Action>
+     <WindowState Width="60" X="310" Y="210" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Slider Caption="1" InvertedAppearance="false">
+     <WindowState Width="60" X="10" Y="260" Height="210" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Level</SliderMode>
+     <Bus HighLimit="5" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+    </Slider>
+    <Slider Caption="2" InvertedAppearance="false">
+     <WindowState Width="60" X="70" Y="260" Height="210" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Level</SliderMode>
+     <Bus HighLimit="5" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+    </Slider>
+    <Slider Caption="3" InvertedAppearance="false">
+     <WindowState Width="60" X="130" Y="260" Height="210" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Level</SliderMode>
+     <Bus HighLimit="5" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+    </Slider>
+    <Slider Caption="4" InvertedAppearance="false">
+     <WindowState Width="60" X="190" Y="260" Height="210" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Level</SliderMode>
+     <Bus HighLimit="5" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+    </Slider>
+    <Slider Caption="5" InvertedAppearance="false">
+     <WindowState Width="60" X="250" Y="260" Height="210" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Level</SliderMode>
+     <Bus HighLimit="5" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+    </Slider>
+    <Slider Caption="6" InvertedAppearance="false">
+     <WindowState Width="60" X="310" Y="260" Height="210" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Level</SliderMode>
+     <Bus HighLimit="5" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+    </Slider>
+    <Slider Caption="7" InvertedAppearance="false">
+     <WindowState Width="60" X="370" Y="260" Height="210" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Level</SliderMode>
+     <Bus HighLimit="5" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+    </Slider>
+    <Slider Caption="8" InvertedAppearance="false">
+     <WindowState Width="60" X="430" Y="260" Height="210" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Level</SliderMode>
+     <Bus HighLimit="5" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+    </Slider>
+    <Slider Caption="Par Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="10" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="30" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+    </Slider>
+    <Slider Caption="Par Hold" InvertedAppearance="true">
+     <WindowState Width="60" X="70" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="30" LowLimit="0">1</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+    </Slider>
+    <Slider Caption="Led Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="130" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="30" LowLimit="0">2</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+    </Slider>
+    <Slider Caption="Led Hold" InvertedAppearance="true">
+     <WindowState Width="60" X="190" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="30" LowLimit="0">3</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+    </Slider>
+    <Slider Caption="Sc Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="250" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="30" LowLimit="0">4</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+    </Slider>
+    <Slider Caption="Sc Hold" InvertedAppearance="true">
+     <WindowState Width="60" X="310" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="30" LowLimit="0">5</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+    </Slider>
+    <Slider Caption="" InvertedAppearance="false">
+     <WindowState Width="60" X="370" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Level</SliderMode>
+     <Bus HighLimit="5" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+    </Slider>
+    <Slider Caption="" InvertedAppearance="false">
+     <WindowState Width="60" X="430" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Level</SliderMode>
+     <Bus HighLimit="5" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+    </Slider>
+   </Frame>
+   <Frame Caption="">
+    <Appearance>
+     <FrameStyle>Sunken</FrameStyle>
+     <ForegroundColor>Default</ForegroundColor>
+     <BackgroundColor>Default</BackgroundColor>
+     <BackgroundImage>None</BackgroundImage>
+     <Font>Default</Font>
+    </Appearance>
+    <WindowState Width="500" X="820" Y="500" Height="170" Visible="True"/>
+    <Button Icon="" Caption="Chaser 1">
+     <Function ID="109"/>
+     <Action>Toggle</Action>
+     <WindowState Width="60" X="10" Y="110" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="8 Off">
+     <Function ID="105"/>
+     <Action>Toggle</Action>
+     <Key>8</Key>
+     <WindowState Width="60" X="70" Y="60" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Group 1">
+     <Function ID="95"/>
+     <Action>Toggle</Action>
+     <WindowState Width="60" X="130" Y="60" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Group 2">
+     <Function ID="99"/>
+     <Action>Toggle</Action>
+     <WindowState Width="60" X="190" Y="60" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Group 3">
+     <Function ID="97"/>
+     <Action>Toggle</Action>
+     <WindowState Width="60" X="250" Y="60" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Group 4">
+     <Function ID="98"/>
+     <Action>Toggle</Action>
+     <WindowState Width="60" X="310" Y="60" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Group 5">
+     <Function ID="96"/>
+     <Action>Toggle</Action>
+     <WindowState Width="60" X="370" Y="60" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Group 6">
+     <Function ID="104"/>
+     <Action>Toggle</Action>
+     <WindowState Width="60" X="430" Y="60" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="7 ALL">
+     <Function ID="100"/>
+     <Action>Toggle</Action>
+     <Key>7</Key>
+     <WindowState Width="60" X="10" Y="60" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Chaser 2">
+     <Function ID="110"/>
+     <Action>Toggle</Action>
+     <WindowState Width="60" X="70" Y="110" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Chaser 3">
+     <Function ID="111"/>
+     <Action>Toggle</Action>
+     <WindowState Width="60" X="130" Y="110" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Chaser 4">
+     <Function ID="112"/>
+     <Action>Toggle</Action>
+     <WindowState Width="60" X="190" Y="110" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Chaser 5">
+     <Function ID="106"/>
+     <Action>Toggle</Action>
+     <WindowState Width="60" X="250" Y="110" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Chaser 6">
+     <Function ID="107"/>
+     <Action>Toggle</Action>
+     <WindowState Width="60" X="310" Y="110" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="Chaser 7">
+     <Function ID="108"/>
+     <Action>Toggle</Action>
+     <WindowState Width="60" X="370" Y="110" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="ALL Chaser">
+     <Function ID="113"/>
+     <Action>Toggle</Action>
+     <WindowState Width="60" X="430" Y="110" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Label Caption="PAR">
+     <WindowState Width="120" X="190" Y="10" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Arial,20,-1,5,75,0,0,0,0,0</Font>
+     </Appearance>
+    </Label>
+    <Button Icon="" Caption="1 Par">
+     <Function ID="89"/>
+     <Action>Toggle</Action>
+     <Key>1</Key>
+     <WindowState Width="60" X="10" Y="10" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="2 Par">
+     <Function ID="94"/>
+     <Action>Toggle</Action>
+     <Key>2</Key>
+     <WindowState Width="60" X="70" Y="10" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="3 Par">
+     <Function ID="93"/>
+     <Action>Toggle</Action>
+     <Key>3</Key>
+     <WindowState Width="60" X="130" Y="10" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="4 Par">
+     <Function ID="92"/>
+     <Action>Toggle</Action>
+     <Key>4</Key>
+     <WindowState Width="60" X="310" Y="10" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="5 Par">
+     <Function ID="91"/>
+     <Action>Toggle</Action>
+     <Key>5</Key>
+     <WindowState Width="60" X="370" Y="10" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="6 Par">
+     <Function ID="90"/>
+     <Action>Toggle</Action>
+     <Key>6</Key>
+     <WindowState Width="60" X="430" Y="10" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+   </Frame>
+  </Frame>
+  <Properties>
+   <Grid Enabled="True" YResolution="10" XResolution="10"/>
+   <Keyboard RepeatOff="True" Grab="True"/>
+   <DefaultSlider High="10" Role="Fade" Visible="True" Low="0"/>
+   <DefaultSlider High="10" Role="Hold" Low="0"/>
+   <WidgetProperties>
+    <X>14</X>
+    <Y>10</Y>
+    <Width>1508</Width>
+    <Height>824</Height>
+    <State>8</State>
+    <Visible>1</Visible>
+   </WidgetProperties>
+  </Properties>
+ </VirtualConsole>
+</Workspace>
+

@@ -1,0 +1,6 @@
+﻿<RCC>
+    <qresource>
+	<file alias="qlc.png">../gfx/qlc.png</file>
+	<file alias="qlc-fixtureeditor.png">../gfx/qlc-fixtureeditor.png</file>
+    </qresource>
+</RCC>

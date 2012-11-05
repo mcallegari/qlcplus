@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller - Virtual Console XY Pad</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>Virtual Console XY Pad</H1>
+<IMG SRC="qrc:/xypad.png" ALIGN="absmiddle">
+<P>
+An XY Pad is for manually controlling the <B>pan</B> and <B>tilt</B> channels
+of intelligent lighting fixtures, namely scanners and moving heads. The pad is
+a resizable canvas with a handle that you can grab to obtain direct access to
+the attached fixtures' mirror/head position.
+</P>
+
+<H3>Configuration</H3>
+
+<P>
+XY Pads can be configured with the properties
+<IMG SRC="qrc:/configure.png" ALIGN="bottom"> button found in the toolbar or
+with the <B>Edit -&gt; Properties</B> menu item.
+</P>
+
+<TABLE BORDER="1">
+ <TR>
+  <TD>
+   <B>XY Pad name</B>
+  </TD>
+  <TD>
+   Set the name of the XY Pad. The name is shown in the upper-left corner of the
+   widget on Virtual Console.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Fixture list</B>
+  </TD>
+  <TD>
+   Shows the fixtures that are currently controlled with the XY Pad.
+   <UL>
+    <LI>Fixture: The names of each fixture</LI>
+    <LI>X-Axis: Shows the value range (and reversal if applicable) of the
+    horizontal (pan) axis for each fixture</LI>
+    <LI>Y-Axis: Shows the value range (and reversal if applicable) of the
+    vertical (tilt) axis for each fixture</LI>
+   </UL>
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/edit_add.png">
+  </TD>
+  <TD>
+   Add <A HREF="concept.html#Fixture">Fixtures</A> to be controlled by the XY Pad,
+   using the <A HREF="selectfixture.html">Select Fixture</A> dialog. <B>NOTE:</B>
+   only such fixtures that have <U>pan and tilt</U> capabilities are shown in the
+   dialog.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/edit_remove.png">
+  </TD>
+  <TD>
+   Remove the selected fixtures from the XY Pad's control list.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/edit.png">
+  </TD>
+  <TD>
+   Edit the selected fixture's behaviour with the XY Pad.
+  </TD>
+ </TR>
+</TABLE>
+
+<H3>XY Pad Fixture Configuration</H3>
+
+<P>
+You can change the extent of movement and reverse fixtures' movement with the
+XY Pad Fixture Configuration dialog.
+</P>
+
+<TABLE BORDER="1">
+ <TR>
+  <TD>
+   <B>Horizontal X-Axis</B>
+  </TD>
+  <TD>
+   <UL>
+    <LI>Minimum: Set the minimum pan limit for the fixture</LI>
+    <LI>Maximum: Set the maximum pan limit for the fixture</LI>
+    <LI>Reverse: Reverse fixture's movement on the horizontal (pan) axis</LI>
+   </UL>
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Vertical Y-Axis</B>
+  </TD>
+  <TD>
+   <UL>
+    <LI>Minimum: Set the minimum tilt limit for the fixture</LI>
+    <LI>Maximum: Set the maximum tilt limit for the fixture</LI>
+    <LI>Reverse: Reverse fixture's movement on the vertical (tilt) axis</LI>
+   </UL>
+  </TD>
+ </TR>
+</TABLE>
+
+</BODY>
+</HTML>

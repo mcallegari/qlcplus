@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+	<mime-type type="application/x-qlc-workspace">
+		<sub-class-of type="application/xml"/>
+		<magic priority="80">
+			<match type="string" offset="0:100" value="&lt;!DOCTYPE Workspace&gt;"/>
+		</magic>
+		<glob pattern="*.qxw"/>
+		<comment xml:lang="de">QLC Arbeitsbereich</comment>
+		<comment xml:lang="en">QLC workspace</comment>
+		<comment xml:lang="fr">Espace de travail QLC</comment>
+		<comment xml:lang="fi">QLC työtila</comment>
+	</mime-type>
+	<mime-type type="application/x-qlc-fixture">
+		<sub-class-of type="application/xml"/>
+		<magic priority="80">
+			<match type="string" offset="0:100" value="&lt;!DOCTYPE FixtureDefinition&gt;"/>
+		</magic>
+		<glob pattern="*.qxf"/>
+		<comment xml:lang="de">QLC Gerätedefinition</comment>
+		<comment xml:lang="en">QLC fixture definition</comment>
+		<comment xml:lang="fr">QLC définitions des projecteurs</comment>
+		<comment xml:lang="fi">QLC valaisinmääritys</comment>
+	</mime-type>
+	<mime-type type="application/x-qlc-inputprofile">
+		<sub-class-of type="application/xml"/>
+		<magic priority="80">
+			<match type="string" offset="0:100" value="&lt;!DOCTYPE InputProfile&gt;"/>
+		</magic>
+		<glob pattern="*.qxi"/>
+		<comment xml:lang="de">QLC Eingangsprofil</comment>
+		<comment xml:lang="en">QLC input profile</comment>
+		<comment xml:lang="fr">QLC profil d'entrée</comment>
+		<comment xml:lang="fi">QLC syöttölaiteprofiili</comment>
+	</mime-type>
+</mime-info>

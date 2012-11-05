@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller - Fixture Monitor</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>Fixture Monitor</H1>
+<P>
+The Fixture Monitor displays the current values that are being sent to the
+output universes. Only those channels are displayed that have actual fixtures
+behind them. The monitor's display options have no effect on actual fixture
+addressing, after all, it is just a <B>monitor</B>.
+</P>
+
+<H3>Controls</H3>
+
+<TABLE BORDER="1">
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/fonts.png">
+  </TD>
+  <TD>
+   Change the monitor font. To prevent the numbers from flickering and jumping,
+   you should choose a proportional (i.e. fixed width) font; for example
+   Monaco, Andale or Courier.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>DMX Channels</B>
+  </TD>
+  <TD>
+   Display fixtures' channel numbers as absolute DMX channels; channel numbers
+   go from 1 to 512 as they are assigned to each fixture.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Relative Channels</B>
+  </TD>
+  <TD>
+   Display fixtures' channel numbers relative to fixtures i.e. every fixture's
+   channel numbers always start from 1.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>DMX Values</B>
+  </TD>
+  <TD>
+   Display channel values as absolute DMX values (0-255).
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Percent Values</B>
+  </TD>
+  <TD>
+   Display channel values as percentages of 255 (0-100%).
+  </TD>
+ </TR>
+</TABLE>
+
+</BODY>
+</HTML>

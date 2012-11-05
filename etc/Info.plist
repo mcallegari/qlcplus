@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleIconFile</key>
+	<string>qlc.icns</string>
+
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+
+	<key>CFBundleGetInfoString</key>
+	<string>QLC http://qlc.sf.net</string>
+
+	<key>CFBundleSignature</key>
+	<string>????</string>
+
+	<key>CFBundleExecutable</key>
+	<string>qlc-launcher</string>
+
+	<key>CFBundleName</key>
+	<string>Q Light Controller</string>
+
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeIconFile</key>
+			<string>qlc.icns</string>
+			<key>CFBundleTypeName</key>
+			<string>QLC Workspace</string>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>qxw</string>
+			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeIconFile</key>
+			<string>qlc.icns</string>
+			<key>CFBundleTypeName</key>
+			<string>QLC Fixture Definition</string>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>qxf</string>
+			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+		</dict>
+	</array>
+</dict>
+</plist>

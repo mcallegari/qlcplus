@@ -1,0 +1,108 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>2.6.1</Version>
+  <Author>hjunnila</Author>
+ </Creator>
+ <Manufacturer>Futurelight</Manufacturer>
+ <Model>PHS-200</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" >
+  <Group Byte="0" >Pan</Group>
+  <Capability Min="0" Max="255" >Pan</Capability>
+ </Channel>
+ <Channel Name="Tilt" >
+  <Group Byte="0" >Tilt</Group>
+  <Capability Min="0" Max="255" >Tilt</Capability>
+ </Channel>
+ <Channel Name="Pan/tilt speed" >
+  <Group Byte="0" >Speed</Group>
+  <Capability Min="0" Max="0" >Tracking mode</Capability>
+  <Capability Min="1" Max="225" >Vector mode speed</Capability>
+  <Capability Min="226" Max="235" >BO with pan/tilt</Capability>
+  <Capability Min="236" Max="245" >BO with colour/gobo change</Capability>
+ </Channel>
+ <Channel Name="Colour" >
+  <Group Byte="0" >Colour</Group>
+  <Capability Min="0" Max="19" >White</Capability>
+  <Capability Min="20" Max="39" >Red</Capability>
+  <Capability Min="40" Max="59" >Dark blue</Capability>
+  <Capability Min="60" Max="79" >Dark green</Capability>
+  <Capability Min="80" Max="99" >Turquoise</Capability>
+  <Capability Min="100" Max="119" >Salmon pink</Capability>
+  <Capability Min="120" Max="139" >Yellow</Capability>
+  <Capability Min="140" Max="159" >Green</Capability>
+  <Capability Min="160" Max="179" >Pink</Capability>
+  <Capability Min="200" Max="255" >Forwards rainbow speed</Capability>
+  <Capability Min="180" Max="199" >Light blue</Capability>
+ </Channel>
+ <Channel Name="Gobo" >
+  <Group Byte="0" >Gobo</Group>
+  <Capability Min="0" Max="13" >Open</Capability>
+  <Capability Min="14" Max="27" >Gobo 1</Capability>
+  <Capability Min="28" Max="41" >Gobo 2</Capability>
+  <Capability Min="42" Max="55" >Gobo 3</Capability>
+  <Capability Min="56" Max="69" >Gobo 4</Capability>
+  <Capability Min="70" Max="83" >Gobo 5</Capability>
+  <Capability Min="84" Max="97" >Gobo 6</Capability>
+  <Capability Min="98" Max="115" >Gobo 7</Capability>
+  <Capability Min="116" Max="135" >Gobo 1 shake speed</Capability>
+  <Capability Min="136" Max="155" >Gobo 2 shake speed</Capability>
+  <Capability Min="156" Max="175" >Gobo 3 shake speed</Capability>
+  <Capability Min="176" Max="195" >Gobo 4 shake speed</Capability>
+  <Capability Min="196" Max="215" >Gobo 5 shake speed</Capability>
+  <Capability Min="216" Max="235" >Gobo 6 shake speed</Capability>
+  <Capability Min="236" Max="255" >Gobo 7 shake speed</Capability>
+ </Channel>
+ <Channel Name="Gobo rotation" >
+  <Group Byte="0" >Gobo</Group>
+  <Capability Min="0" Max="7" >No rotation</Capability>
+  <Capability Min="8" Max="127" >Forwards rotation speed fast to slow</Capability>
+  <Capability Min="128" Max="135" >No rotation</Capability>
+  <Capability Min="136" Max="255" >Backwards rotation slow to fast</Capability>
+ </Channel>
+ <Channel Name="Shutter" >
+  <Group Byte="0" >Intensity</Group>
+  <Capability Min="0" Max="31" >Shutter closed</Capability>
+  <Capability Min="32" Max="63" >Dimmer control</Capability>
+  <Capability Min="64" Max="159" >Strobe speed</Capability>
+  <Capability Min="160" Max="191" >Shutter open</Capability>
+  <Capability Min="192" Max="223" >Random strobe speed</Capability>
+  <Capability Min="224" Max="255" >Shutter open</Capability>
+ </Channel>
+ <Channel Name="Lamp switch, reset, programs" >
+  <Group Byte="0" >Maintenance</Group>
+  <Capability Min="0" Max="31" >Normal colour change</Capability>
+  <Capability Min="32" Max="63" >Colour change at every position</Capability>
+  <Capability Min="64" Max="79" >Lamp on</Capability>
+  <Capability Min="80" Max="95" >Reset</Capability>
+  <Capability Min="96" Max="111" >Internal program 1</Capability>
+  <Capability Min="112" Max="127" >Internal program 2</Capability>
+  <Capability Min="128" Max="143" >Internal program 3</Capability>
+  <Capability Min="144" Max="159" >Internal program 4</Capability>
+  <Capability Min="160" Max="175" >Internal program 5</Capability>
+  <Capability Min="176" Max="191" >Internal program 6</Capability>
+  <Capability Min="192" Max="207" >Internal program 7</Capability>
+  <Capability Min="208" Max="223" >Internal program 8</Capability>
+  <Capability Min="224" Max="239" >Lamp off</Capability>
+ </Channel>
+ <Mode Name="Mode 1" >
+  <Physical>
+   <Bulb ColourTemperature="0" Lumens="0" Type="" />
+   <Dimensions Width="0" Height="0" Weight="0" Depth="0" />
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0" />
+   <Focus TiltMax="0" PanMax="0" Type="Fixed" />
+   <Technical PowerConsumption="400" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0" >Pan</Channel>
+  <Channel Number="1" >Tilt</Channel>
+  <Channel Number="2" >Pan/tilt speed</Channel>
+  <Channel Number="3" >Colour</Channel>
+  <Channel Number="4" >Gobo</Channel>
+  <Channel Number="5" >Gobo rotation</Channel>
+  <Channel Number="6" >Shutter</Channel>
+  <Channel Number="7" >Lamp switch, reset, programs</Channel>
+ </Mode>
+</FixtureDefinition>
+

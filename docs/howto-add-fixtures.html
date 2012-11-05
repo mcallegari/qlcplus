@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller - Adding Fixtures Howto</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>Adding Fixtures</H1>
+
+<H2>Fixture Manager</H2>
+
+<P>
+<B>Open the fixture manager by clicking its <IMG SRC="qrc:/fixture.png">
+button on the main toolbar. Alternatively you can select <u>Fixtures</u> from
+the <u>Manager</u> menu.</B>
+</P>
+
+<P>
+The fixture manager is the heart of QLC's fixture-oriented architecture. As its
+name already says, you can manage (add, remove and edit) your lighting fixtures
+from the fixture manager. On the left side of the manager there is a list that
+contains all of the fixtures in the current workspace (currently it's empty).
+On the right side you can see some common information related to the currently
+selected fixture. On top of the fixture manager there is again another toolbar,
+containing the following buttons (from left to right):
+</P>
+
+<HR>
+<P>
+<IMG SRC="qrc:/edit_add.png" align="absmiddle"> Add new fixtures<BR>
+<IMG SRC="qrc:/edit_remove.png" align="absmiddle"> Remove selected fixtures<BR>
+<IMG SRC="qrc:/configure.png" align="absmiddle"> Configure the selected fixture<BR>
+<IMG SRC="qrc:/console.png" align="absmiddle"> View fixture console
+</P>
+<HR>
+
+<H2>Adding a fixture</H2>
+
+<P>
+<B>Add a fixture to the workspace by clicking the
+<IMG SRC="qrc:/edit_add.png" align="absmiddle"> add button.</B>
+</P>
+
+<P>
+On the left side of the dialog you can see a list of available fixture
+manufacturers. Each manufacturer item is actually a folder containing a number
+of fixture models produced by the manufacturer. You can find for example a
+"DJScan250" under the "Futurelight" folder. As you click a fixture from the
+list, you can see the <u>Channels</u> field on the right side change to
+display the number of DMX channels required by the selected fixture. There's
+also a list of the fixture's channels just under the <u>Channels</u> box.
+</P>
+
+<P>
+You can edit the new fixture's name in the <u>Name</u> field or you can stick
+to the default that the application suggests. If the fixture has different
+operational modes (different sets of channels), you can select one from the
+<u>Mode</u> box.  The fixture's DMX address can be set in the <u>Address</u>
+field and should be the same as the actual physical fixture's DMX address.
+The <u>Universe</u> field is used to assign the fixture to a physical DMX
+output universe. Usually each universe has its own cable coming from the
+computer.
+</P>
+
+<P>
+If you wish to add multiple fixtures of the same type, you can increase the
+value in the <u>Amount</u> box. If you wish to leave some gap between each
+fixture's address space, you can change the value in the <u>Address gap</u>
+box.
+</P>
+
+<P>
+If you don't understand the DMX addressing principles, please consult your
+lighting equipment manuals for more information. In short, a DMX address is
+the first DMX channel of one fixture. In the case of a DJScan250 (which uses
+6 channels), assigning for example 1 as its DMX address, reserves channels
+1, 2, 3, 4, 5, and 6 to the fixture. The next fixture must then be assigned
+to DMX address 7 to prevent channel overlapping.
+</P>
+
+<H3>Adding a generic dimmer</H3>
+
+<P>
+Dimmers are a bit special devices, since all they can usually do is just adjust
+the intensities of their channels (that usually drive PAR cans and the like).
+If you wish to add such a device, select the <u>Generic dimmer</u> fixture
+from the list and specify the number of channels you wish the device to employ
+into the <u>Channels</u> box. Note that you cannot adjust the mode for dimmers
+and the channel list stays empty all the time.
+</P>
+
+<H2>Back to the fixture manager</H2>
+
+<P>
+<B>Click OK to close the dialog and add the selected fixture(s) to the
+workspace.</B>
+</P>
+
+<P>
+On the left side of the fixture manager you can now see the fixture(s) that you
+just added. On the right side, you can see information on the currently selected
+fixture. You can edit the fixture's name, address and universe by clicking the
+Configure button. You can also change the fixture definition thru the
+configuration dialog.
+</P>
+
+</BODY>
+</HTML>

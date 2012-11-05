@@ -1,0 +1,32 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.0.0</Version>
+  <Author></Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED PAR64 White</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" >
+  <Group Byte="0" >Intensity</Group>
+  <Capability Min="0" Max="255" >Dimmer intensity</Capability>
+ </Channel>
+ <Channel Name="Strobe" >
+  <Group Byte="0" >Shutter</Group>
+  <Capability Min="0" Max="10" >Blackout</Capability>
+  <Capability Min="11" Max="20" >Open</Capability>
+  <Capability Min="21" Max="255" >Strobe slow to fast</Capability>
+ </Channel>
+ <Mode Name="Normal" >
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="6000" />
+   <Dimensions Width="240" Height="340" Weight="3" Depth="265" />
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0" />
+   <Focus PanMax="0" Type="Fixed" TiltMax="0" />
+  </Physical>
+  <Channel Number="0" >Dimmer</Channel>
+  <Channel Number="1" >Strobe</Channel>
+ </Mode>
+</FixtureDefinition>
+

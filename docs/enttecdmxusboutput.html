@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller - Enttec DMXUSB Output Plugin</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>1 Introduction</H1>
+<P>
+The Enttec DMXUSB Output plugin supports a variety of FTDI-based USB-to-DMX devices:
+<UL>
+ <LI><A HREF="http://dmxking.com/index.php?option=com_virtuemart&page=shop.browse&category_id=1&Itemid=2&vmcchk=1&Itemid=2">DMXKing USB DMX512-A</A></LI>
+ <LI><A HREF="http://dmxking.com/index.php?page=shop.product_details&flypage=flypage.tpl&product_id=7&category_id=1&option=com_virtuemart&Itemid=2">DMXKing ultraDMX</A></LI>
+ <LI><A HREF="http://www.enttec.com/index.php?main_menu=Products&pn=70304&show=description&name=dmxusbpro">Enttec DMXUSB Pro</A></LI>
+ <LI><A HREF="http://www.enttec.com/index.php?main_menu=Products&pn=70303&show=description&name=opendmxusb">Enttec DMXUSB Open</A></LI>
+ <LI><A HREF="http://sourceforge.net/apps/trac/qlc/wiki/FTDI-USB-COM485-Plus1">FTDI USBCOM 485+</A></LI>
+</UL>
+</P>
+
+<H1>2 Requirements</H1>
+
+<H2>2.1 Linux</H2>
+<P>
+On all Linux distributions, you need to install libftdi. If you install QLC with the Ubuntu
+Software Center or some other automatic installer tool, this library will be installed
+automatically for you.
+</P>
+
+<H2>2.2 Mac OS X</H2>
+<P>
+On the Apple Mac OS X, you don't need any drivers at all since QLC uses the OS X native USB
+interface. Installing the D2XX drivers should cause no harm, but <B>DO NOT INSTALL VCP drivers</B> as they will definitely interfere
+with QLC. If you have previously installed the VCP drivers, consult the
+<A HREF="http://www.ftdichip.com/Support/Documents/InstallGuides.htm">FTDI installation guides</A> on how to uninstall them.
+</P>
+
+<H2>2.3 Windows</H2>
+<P>
+On Microsoft Windows, the plugin needs the <A HREF="http://www.ftdichip.com/Drivers/D2XX.htm">latest D2XX drivers from FTDI</A>.
+Consult the <A HREF="http://www.ftdichip.com/Support/Documents/InstallGuides.htm">FTDI installation guides</A> on how to install the drivers.
+<B>DO NOT INSTALL VCP drivers</B> as they will probably interfere with the D2XX interface.
+</P>
+
+<H1>3 Tuning</H1>
+<P>
+It is possible to change the DMX frame frequency for Enttec Open (and like) devices with a
+hidden settings key on each platform. The key tells QLC how many times each DMX frame (512 channels)
+should be sent to the universe per second. A value of "30" means 30 times per second (30Hz).
+</P>
+
+<H2>3.1 Linux</H2>
+<UL>
+ <LI>Open gedit, kedit, nano, vim or some other PLAIN text editor</LI>
+ <LI>Open the following file from your home directory: ".config/qlc/Q Light Controller.conf"
+ <LI>Place the following text to the very end of the file (and replace 30 with the value you want):</LI>
+</UL>
+<PRE>
+    [enttecdmxusbopen]
+    frequency=30
+</PRE>
+
+<H2>3.2 Mac OS X</H2>
+<UL>
+ <LI>Install <B>TextWrangler</B> from Mac App Store, it's completely free.</LI>
+ <LI>Open the following file with TextWrangler from your home directory: "Library/Preferences/net.sf.Q Light Controller.plist".</LI>
+ <LI>Scroll to the very bottom of the file, just above the last "&lt;/dict&gt;" row and put the following text there (replace 30 with the frequency you want):</LI>
+</UL>
+<PRE>
+    &lt;key&gt;enttecdmxusbopen/frequency&lt;/key&gt;
+    &lt;string&gt;30&lt;/string&gt;
+</PRE>
+
+<H2>3.3 Windows</H2>
+<UL>
+ <LI>Open the Windows Registry Editor</LI>
+ <LI>Navigate to HKEY_CURRENT_USER/Software/qlc.sf.net/Q Light Controller</LI>
+ <LI>Create a new group and name it "enttecdmxusbopen"</LI>
+ <LI>Create a new decimal integer key "frequency" and set its value to the desired DMX frame frequency</LI>
+</UL>
+
+</BODY>
+</HTML>

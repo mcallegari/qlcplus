@@ -1,0 +1,23 @@
+LIBQTSCRIPT_DIR      = QtScript.framework/Versions/4
+LIBQTSCRIPT_FILE     = QtScript
+LIBQTSCRIPT_FILEPATH = $$LIBQTSCRIPT_DIR/$$LIBQTSCRIPT_FILE
+
+LIBQTSCRIPT_INSTALL_NAME_TOOL = install_name_tool -change $$LIBQTSCRIPT_FILEPATH \
+            @executable_path/../$$LIBSDIR/$$LIBQTSCRIPT_DIR/$$LIBQTSCRIPT_FILE
+
+contains(QT, script) {
+    !isEmpty(nametool.commands) {
+        nametool.commands += "&&"
+    }
+
+    nametool.commands += $$LIBQTSCRIPT_INSTALL_NAME_TOOL $$OUTFILE
+}
+
+LIBQTSCRIPT.path   = $$INSTALLROOT/$$LIBSDIR/$$LIBQTSCRIPT_DIR
+LIBQTSCRIPT.files += /Library/$$LIBSDIR/$$LIBQTSCRIPT_FILEPATH
+
+LIBQTSCRIPT_INSTALL_NAME_TOOL_ID = install_name_tool -id @executable_path/../$$LIBSDIR/$$LIBQTSCRIPT_DIR/$$LIBQTSCRIPT_FILE \
+                        $$INSTALLROOT/$$LIBSDIR/$$LIBQTSCRIPT_DIR/$$LIBQTSCRIPT_FILE
+LIBQTSCRIPT_ID.path     = $$INSTALLROOT/$$LIBSDIR/$$LIBQTSCRIPT_DIR
+LIBQTSCRIPT_ID.commands = $$LIBQTSCRIPT_INSTALL_NAME_TOOL_ID
+
