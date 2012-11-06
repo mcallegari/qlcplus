@@ -23,21 +23,11 @@
 #ifndef SCENEITEMS_H
 #define SCENEITEMS_H
 
-#include <QGraphicsScene>
 #include <QGraphicsItem>
+#include <QFont>
 #include <QObject>
 
 #include "chaser.h"
-
-class SceneView : public QGraphicsScene
-{
-public:
-    SceneView(QObject * parent = 0);
-private:
-    void dragEnterEvent(QGraphicsSceneDragDropEvent * event);
-    void dragMoveEvent(QGraphicsSceneDragDropEvent * event);
-    void dropEvent(QGraphicsSceneDragDropEvent * event);
-};
 
 /*********************************************************************
  * Scene Header class. Clickable time line header
@@ -45,6 +35,7 @@ private:
 class SceneHeaderItem :  public QObject, public QGraphicsItem
 {
     Q_OBJECT
+    Q_INTERFACES(QGraphicsItem)
 
 public:
     SceneHeaderItem(int);
@@ -69,7 +60,7 @@ private:
 };
 
 /***************************************************************************
- * Scene Cursor class. Cursor which defines the time position in a scene
+ * Scene Cursor class. Cursor which marks the time position in a scene
  ***************************************************************************/
 class SceneCursorItem : public QGraphicsItem
 {
@@ -78,16 +69,21 @@ public:
 
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
+    void setTime(quint32 t);
+    quint32 getTime();
 private:
     int height;
+    quint32 m_time;
 };
 
 /****************************************************************************
- * Track Item. This is only a visual item to fullfill the multi track view
+ * Track class. This is only a visual item to fullfill the multi track view
  ****************************************************************************/
 class TrackItem : public QObject, public QGraphicsItem
 {
     Q_OBJECT
+    Q_INTERFACES(QGraphicsItem)
 
 public:
     TrackItem(int number);
@@ -100,7 +96,7 @@ public:
 private:
     QString trackName;
     int trackNumber;
-    QFont appFont;
+    QFont m_font;
 };
 
 /*********************************************************************
@@ -109,6 +105,7 @@ private:
 class SequenceItem : public QObject, public QGraphicsItem
 {
     Q_OBJECT
+    Q_INTERFACES(QGraphicsItem)
 
 public:
     SequenceItem(Chaser *seq);
@@ -127,7 +124,6 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     //void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-    //void focusOutEvent ( QFocusEvent * event );
 
 protected slots:
     void slotSequenceChanged(quint32);

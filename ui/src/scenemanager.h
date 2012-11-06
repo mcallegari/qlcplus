@@ -35,6 +35,7 @@ class QComboBox;
 class QSplitter;
 class QToolBar;
 class QAction;
+class QLabel;
 class Doc;
 
 class SceneManager : public QWidget
@@ -88,6 +89,7 @@ protected:
 
     QToolBar* m_toolbar;
     QComboBox* m_scenesCombo;
+    QLabel* m_timeLabel;
     QAction* m_addSceneAction;
     QAction* m_addSequenceAction;
     QAction* m_cloneAction;
@@ -108,6 +110,7 @@ protected slots:
 
     void slotViewClicked(QMouseEvent *event);
     void slotSequenceMoved(SequenceItem *);
+    void slotUpdateTime(quint32 msec_time);
 };
 
 #endif

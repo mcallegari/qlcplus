@@ -46,6 +46,10 @@ public:
     void rewindCursor();
 
 private:
+    quint32 getTimeFromPosition();
+    quint32 getPositionFromTime();
+
+private:
     QGraphicsScene *m_scene;
     SceneHeaderItem *m_header;
     SceneCursorItem *m_cursor;
@@ -55,6 +59,7 @@ private:
 signals:
     void sequenceMoved(SequenceItem *item);
     void viewClicked(QMouseEvent * e);
+    void timeChanged(quint32 msec);
 
 public slots:
     void mouseReleaseEvent(QMouseEvent * e);

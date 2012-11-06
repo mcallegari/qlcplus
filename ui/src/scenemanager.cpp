@@ -21,10 +21,11 @@
 
 #include <QVBoxLayout>
 #include <QMouseEvent>
+#include <QScrollBar>
 #include <QComboBox>
 #include <QSplitter>
 #include <QToolBar>
-#include <QSlider>
+#include <QLabel>
 #include <QDebug>
 
 #include "multitrackview.h"
@@ -85,6 +86,8 @@ SceneManager::SceneManager(QWidget* parent, Doc* doc)
             this, SLOT(slotViewClicked( QMouseEvent * )));
     connect(m_showview, SIGNAL(sequenceMoved(SequenceItem *)),
             this, SLOT(slotSequenceMoved(SequenceItem*)));
+    connect(m_showview, SIGNAL(timeChanged(quint32)),
+            this, SLOT(slotUpdateTime(quint32)));
 
     // split the multitrack view into two (left: tracks, right: chaser editor)
     m_vsplitter = new QSplitter(Qt::Horizontal, this);
@@ -164,22 +167,35 @@ void SceneManager::initActions()
 
 void SceneManager::initToolbar()
 {
-    m_scenesCombo = new QComboBox();
-    m_scenesCombo->setFixedWidth(150);
-    connect(m_scenesCombo, SIGNAL(currentIndexChanged(int)),this, SLOT(slotSceneComboChanged(int)));
     // Add a toolbar to the dock area
     m_toolbar = new QToolBar("Show Manager", this);
     m_toolbar->setFloatable(false);
     m_toolbar->setMovable(false);
     layout()->addWidget(m_toolbar);
     m_toolbar->addAction(m_addSceneAction);
+    m_scenesCombo = new QComboBox();
+    m_scenesCombo->setFixedWidth(150);
+    connect(m_scenesCombo, SIGNAL(currentIndexChanged(int)),this, SLOT(slotSceneComboChanged(int)));
     m_toolbar->addWidget(m_scenesCombo);
     m_toolbar->addSeparator();
+
     m_toolbar->addAction(m_addSequenceAction);
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_cloneAction);
     m_toolbar->addAction(m_deleteAction);
     m_toolbar->addSeparator();
+
+    // Time label and playback buttons
+    m_timeLabel = new QLabel("00:00:000");
+    m_timeLabel->setFixedWidth(150);
+    m_timeLabel->setAlignment(Qt::AlignRight | Qt::AlignBottom);
+    QFont timeFont = QApplication::font();
+    timeFont.setBold(true);
+    timeFont.setPixelSize(20);
+    m_timeLabel->setFont(timeFont);
+    m_toolbar->addWidget(m_timeLabel);
+    m_toolbar->addSeparator();
+
     m_toolbar->addAction(m_stopAction);
     m_toolbar->addAction(m_playAction);
 }
@@ -278,6 +294,13 @@ void SceneManager::slotSequenceMoved(SequenceItem *item)
     m_sequence_editor->show();
 }
 
+void SceneManager::slotUpdateTime(quint32 msec_time)
+{
+    QTime tmpTime = QTime(0, 0, 0, 0).addMSecs(msec_time);
+
+    m_timeLabel->setText(tmpTime.toString("mm:ss.zzz"));
+}
+
 void SceneManager::updateMultiTrackView()
 {
     m_showview->resetView();
@@ -320,6 +343,7 @@ void SceneManager::showEvent(QShowEvent* ev)
     emit functionManagerActive(true);
     QWidget::showEvent(ev);
     m_showview->show();
+    m_showview->horizontalScrollBar()->setSliderPosition(0);
     updateScenesCombo();
 }
 

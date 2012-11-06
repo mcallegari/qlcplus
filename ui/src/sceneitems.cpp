@@ -26,29 +26,6 @@
 
 /* *************************************************************************************** */
 
-SceneView::SceneView(QObject * parent)
-    : QGraphicsScene(parent)
-{
-}
-
-void SceneView::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
-{
-    event->accept();
-}
-
-void SceneView::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
-{
-    QGraphicsScene::dragMoveEvent(event);
-    event->accept();
-}
-
-void SceneView::dropEvent(QGraphicsSceneDragDropEvent *event)
-{
-    event->accept();
-}
-
-/* *************************************************************************************** */
-
 SceneHeaderItem::SceneHeaderItem(int w)
     : width(w)
 {
@@ -123,8 +100,20 @@ int SceneHeaderItem::getTimeStep()
 
 SceneCursorItem::SceneCursorItem(int h)
     : height(h)
+    , m_time(0)
 {
 }
+
+void SceneCursorItem::setTime(quint32 t)
+{
+    m_time = t;
+}
+
+quint32 SceneCursorItem::getTime()
+{
+    return m_time;
+}
+
 
 QRectF SceneCursorItem::boundingRect() const
 {
@@ -155,9 +144,9 @@ void SceneCursorItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 TrackItem::TrackItem(int number)
     : trackNumber(number)
 {
-    appFont = QApplication::font();
-    appFont.setBold(true);
-    appFont.setPixelSize(18);
+    m_font = QApplication::font();
+    m_font.setBold(true);
+    m_font.setPixelSize(18);
     trackName = QString("Track %1").arg(trackNumber);
 }
 
@@ -184,7 +173,7 @@ void TrackItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     painter->drawRect(0, 0, 146, 80);
     painter->setPen(QPen(QColor(200, 200, 200, 255), 2));
 
-    painter->setFont(appFont);
+    painter->setFont(m_font);
     painter->drawText(5, 70, trackName);
 }
 
