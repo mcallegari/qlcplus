@@ -186,7 +186,7 @@ void SceneManager::initToolbar()
     m_toolbar->addSeparator();
 
     // Time label and playback buttons
-    m_timeLabel = new QLabel("00:00:000");
+    m_timeLabel = new QLabel("00:00:00:000");
     m_timeLabel->setFixedWidth(150);
     m_timeLabel->setAlignment(Qt::AlignRight | Qt::AlignBottom);
     QFont timeFont = QApplication::font();
@@ -202,12 +202,18 @@ void SceneManager::initToolbar()
 
 void SceneManager::updateScenesCombo()
 {
+    int newIndex = 0;
     m_scenesCombo->clear();
     foreach (Function* function, m_doc->functions())
     {
         if (function->type() == Function::Scene)
+        {
             m_scenesCombo->addItem(function->name(), QVariant(function->id()));
+            if (m_scene != NULL && m_scene->id() != function->id())
+                newIndex++;
+        }
     }
+    m_scenesCombo->setCurrentIndex(newIndex);
 }
 
 void SceneManager::slotSceneComboChanged(int idx)
@@ -218,21 +224,23 @@ void SceneManager::slotSceneComboChanged(int idx)
 
 void SceneManager::slotAddScene()
 {
-    if (m_scene != NULL)
-        delete m_scene;
     m_scene = new Scene(m_doc);
-    m_doc->addFunction(qobject_cast<Function*>(m_scene));
-    if (m_scene_editor != NULL)
-        m_scene_editor->deleteLater();
-    m_scene_editor = NULL;
-    m_scene_editor = new SceneEditor(m_splitter->widget(1), m_scene, m_doc, false);
-    connect(this, SIGNAL(functionManagerActive(bool)),
-                m_scene_editor, SLOT(slotFunctionManagerActive(bool)));
+    Function *f = qobject_cast<Function*>(m_scene);
+    if (m_doc->addFunction(f) == true)
+    {
+        f->setName(QString("%1 %2").arg(tr("New Scene")).arg(f->id()));
+        if (m_scene_editor != NULL)
+            m_scene_editor->deleteLater();
+        m_scene_editor = NULL;
+        m_scene_editor = new SceneEditor(m_splitter->widget(1), m_scene, m_doc, false);
+        connect(this, SIGNAL(functionManagerActive(bool)),
+                    m_scene_editor, SLOT(slotFunctionManagerActive(bool)));
 
-    if (m_scene_editor != NULL)
-        m_splitter->widget(1)->layout()->addWidget(m_scene_editor);
-    
-    updateScenesCombo();
+        if (m_scene_editor != NULL)
+            m_splitter->widget(1)->layout()->addWidget(m_scene_editor);
+
+        updateScenesCombo();
+    }
 }
 
 void SceneManager::slotAddSequence()
@@ -264,7 +272,10 @@ void SceneManager::slotDelete()
 void SceneManager::slotStopPlayback()
 {
     if (is_playing == false)
+    {
         m_showview->rewindCursor();
+        m_timeLabel->setText("00:00:00.000");
+    }
 }
 
 void SceneManager::slotStartPlayback()
@@ -298,7 +309,7 @@ void SceneManager::slotUpdateTime(quint32 msec_time)
 {
     QTime tmpTime = QTime(0, 0, 0, 0).addMSecs(msec_time);
 
-    m_timeLabel->setText(tmpTime.toString("mm:ss.zzz"));
+    m_timeLabel->setText(tmpTime.toString("hh:mm:ss.zzz"));
 }
 
 void SceneManager::updateMultiTrackView()

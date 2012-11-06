@@ -24,8 +24,9 @@
 #include "sceneitems.h"
 #include "chaserstep.h"
 
-/* *************************************************************************************** */
-
+/****************************************************************************
+ * Header item
+ ****************************************************************************/
 SceneHeaderItem::SceneHeaderItem(int w)
     : width(w)
 {
@@ -96,8 +97,9 @@ int SceneHeaderItem::getTimeStep()
     return timeStep;
 }
 
-/**********************************************************************************************************/
-
+/****************************************************************************
+ * Cursor item
+ ****************************************************************************/
 SceneCursorItem::SceneCursorItem(int h)
     : height(h)
     , m_time(0)
@@ -139,8 +141,9 @@ void SceneCursorItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
     painter->drawRect(0, 35, 1, height - 35);
 }
 
-/**********************************************************************************************************/
-
+/****************************************************************************
+ * Track item
+ ****************************************************************************/
 TrackItem::TrackItem(int number)
     : trackNumber(number)
 {
@@ -178,7 +181,9 @@ void TrackItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 }
 
 
-/**********************************************************************************************************/
+/*********************************************************************
+ * Sequence item
+ *********************************************************************/
 
 SequenceItem::SequenceItem(Chaser *seq)
     : color(qrand() % 256, qrand() % 256, qrand() % 256)
@@ -233,7 +238,7 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
 void SequenceItem::setTimeScale(int val)
 {
     timeScale = val;
-    update();
+    //update();
 }
 
 Chaser *SequenceItem::getChaser()
@@ -244,7 +249,7 @@ Chaser *SequenceItem::getChaser()
 void SequenceItem::slotSequenceChanged(quint32)
 {
     //qDebug() << Q_FUNC_INFO << " step added !!!";
-    update();
+    //update();
 }
 
 void SequenceItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -260,56 +265,4 @@ void SequenceItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     setCursor(Qt::OpenHandCursor);
     emit itemDropped(event, this);
 }
-/*
-void SequenceItem::focusOutEvent ( QFocusEvent * event )
-{
-    emit itemSelected(false);
-}
-*/
-#if 0
-void SequenceItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
-{
-    if (event->button() != Qt::LeftButton) {
-        event->ignore();
-        return;
-    }
-
-    setCursor(Qt::ClosedHandCursor);
-}
-
-void SequenceItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
-{
-    if (QLineF(event->screenPos(), event->buttonDownScreenPos(Qt::LeftButton))
-        .length() < QApplication::startDragDistance()) {
-        return;
-    }
-
-    QDrag *drag = new QDrag(event->widget());
-    QMimeData *mime = new QMimeData;
-    drag->setMimeData(mime);
-/*
-    mime->setColorData(color);
-    mime->setText(QString("#%1%2%3")
-                    .arg(color.red(), 2, 16, QLatin1Char('0'))
-                    .arg(color.green(), 2, 16, QLatin1Char('0'))
-                    .arg(color.blue(), 2, 16, QLatin1Char('0')));
-
-    QPixmap pixmap(34, 34);
-    pixmap.fill(Qt::white);
-
-    QPainter painter(&pixmap);
-    painter.translate(15, 15);
-    painter.setRenderHint(QPainter::Antialiasing);
-    paint(&painter, 0, 0);
-    painter.end();
-
-    pixmap.setMask(pixmap.createHeuristicMask());
-
-    drag->setPixmap(pixmap);
-    drag->setHotSpot(QPoint(15, 20));
-*/
-    drag->exec( Qt::CopyAction );
-    setCursor(Qt::OpenHandCursor);
-}
-#endif
 

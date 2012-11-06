@@ -98,6 +98,7 @@ void MultiTrackView::resetView()
 
     m_cursor->setPos(150, 0);
     this->horizontalScrollBar()->setSliderPosition(0);
+    m_scene->update();
 }
 
 void MultiTrackView::addSequence(Chaser *chaser)
@@ -109,9 +110,12 @@ void MultiTrackView::addSequence(Chaser *chaser)
 
     SequenceItem *item = new SequenceItem(chaser);
     item->setPos(m_cursor->x() + 2, 36);
-    connect(item, SIGNAL(itemDropped(QGraphicsSceneMouseEvent *, SequenceItem *)), this, SLOT(slotSequenceMoved(QGraphicsSceneMouseEvent *, SequenceItem *)));
+    connect(item, SIGNAL(itemDropped(QGraphicsSceneMouseEvent *, SequenceItem *)),
+            this, SLOT(slotSequenceMoved(QGraphicsSceneMouseEvent *, SequenceItem *)));
     m_scene->addItem(item);
     m_sequences.append(item);
+    m_scene->update();
+    this->update();
 }
 
 void MultiTrackView::deleteSelectedSequence()
@@ -203,5 +207,6 @@ void MultiTrackView::slotSequenceMoved(QGraphicsSceneMouseEvent *, SequenceItem 
         m_scene->addItem(track);
     }
 
+    m_scene->update();
     emit sequenceMoved(item);
 }

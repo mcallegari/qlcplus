@@ -68,6 +68,7 @@ protected:
     static SceneManager* s_instance;
     
     Doc* m_doc;
+    /* Currently selected scene */
     Scene* m_scene;
     QWidget* m_scene_editor;
     QWidget* m_sequence_editor;
