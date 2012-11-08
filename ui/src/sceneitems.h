@@ -54,9 +54,9 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
 private:
-    int width;
-    int timeStep;
-    int timeScale;
+    int m_width;
+    int m_timeStep;
+    int m_timeScale;
 };
 
 /***************************************************************************
@@ -73,7 +73,7 @@ public:
     void setTime(quint32 t);
     quint32 getTime();
 private:
-    int height;
+    int m_height;
     quint32 m_time;
 };
 
@@ -94,8 +94,8 @@ public:
     int getTrackNumber();
 
 private:
-    QString trackName;
-    int trackNumber;
+    QString m_trackName;
+    int m_trackNumber;
     QFont m_font;
 };
 
@@ -129,13 +129,17 @@ protected slots:
     void slotSequenceChanged(quint32);
 
 private:
+    /** Calculate sequence width for paint() and boundingRect() */
+    void calculateWidth();
+
+private:
     QColor color;
     /* Reference to the actual Chaser object which holds the sequence steps */
-    Chaser *chaser;
+    Chaser *m_chaser;
     /* width of the graphics object. Recalculated every time a chaser step  changes */
-    int seq_width;
+    int m_width;
     /* horizontal scale to adapt width to the current time line */
-    int timeScale;
+    int m_timeScale;
 };
 
 #endif
