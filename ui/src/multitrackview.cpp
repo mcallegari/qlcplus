@@ -132,6 +132,12 @@ void MultiTrackView::deleteSelectedSequence()
     }
 }
 
+void MultiTrackView::moveCursor(quint32 timePos)
+{
+    int newPos = getPositionFromTime(timePos);
+    m_cursor->setPos(newPos, 0);
+}
+
 void MultiTrackView::rewindCursor()
 {
     m_cursor->setPos(TRACK_WIDTH, 0);
@@ -143,9 +149,12 @@ quint32 MultiTrackView::getTimeFromPosition()
     return s_time;
 }
 
-quint32 MultiTrackView::getPositionFromTime()
+quint32 MultiTrackView::getPositionFromTime(quint32 time)
 {
-    return 0;
+    if (time == 0)
+        return TRACK_WIDTH;
+    int xPos = (time * (m_header->getTimeStep() / m_header->getTimeScale())) / 500;
+    return TRACK_WIDTH + xPos;
 }
 
 void MultiTrackView::mouseReleaseEvent(QMouseEvent * e)
@@ -170,12 +179,12 @@ void MultiTrackView::slotTimeScaleChanged(int val)
     m_header->setTimeScale(val);
     foreach(SequenceItem *item, m_sequences)
     {
-        int newXpos = (item->getChaser()->getStartTime() * (m_header->getTimeStep() * 2)) / (val * 1000);
-        item->setPos(newXpos + m_header->x() + 2, item->y());
+        int newXpos = getPositionFromTime(item->getChaser()->getStartTime());
+        item->setPos(newXpos + 2, item->y());
         item->setTimeScale(val);
     }
-    int newCursorPos = (m_cursor->getTime() * (m_header->getTimeStep() * 2)) / (val * 1000);
-    m_cursor->setPos(newCursorPos + m_header->x() + 2, m_cursor->y());
+    int newCursorPos = getPositionFromTime(m_cursor->getTime());
+    m_cursor->setPos(newCursorPos + 2, m_cursor->y());
 }
     
 void MultiTrackView::slotSequenceMoved(QGraphicsSceneMouseEvent *, SequenceItem *item)

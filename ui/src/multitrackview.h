@@ -43,11 +43,12 @@ public:
 
     void deleteSelectedSequence();
 
+    void moveCursor(quint32 timePos);
     void rewindCursor();
 
 private:
     quint32 getTimeFromPosition();
-    quint32 getPositionFromTime();
+    quint32 getPositionFromTime(quint32 time);
 
 private:
     QGraphicsScene *m_scene;

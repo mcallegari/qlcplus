@@ -31,6 +31,7 @@
 #include "multitrackview.h"
 #include "scenemanager.h"
 #include "chasereditor.h"
+#include "scenerunner.h"
 #include "sceneeditor.h"
 #include "sceneitems.h"
 #include "chaser.h"
@@ -46,6 +47,7 @@ SceneManager::SceneManager(QWidget* parent, Doc* doc)
     , m_splitter(NULL)
     , m_vsplitter(NULL)
     , m_showview(NULL)
+    , m_runner(NULL)
     , is_playing(false)
     , m_toolbar(NULL)
     , m_scenesCombo(NULL)
@@ -271,15 +273,29 @@ void SceneManager::slotDelete()
 
 void SceneManager::slotStopPlayback()
 {
-    if (is_playing == false)
+    if (m_runner != NULL)
     {
-        m_showview->rewindCursor();
-        m_timeLabel->setText("00:00:00.000");
+        m_runner->stop();
+        delete m_runner;
+        m_runner = NULL;
     }
+    m_showview->rewindCursor();
+    m_timeLabel->setText("00:00:00.000");
 }
 
 void SceneManager::slotStartPlayback()
 {
+    if (m_scenesCombo->count() == 0)
+        return;
+    if (m_runner != NULL)
+    {
+        m_runner->stop();
+        delete m_runner;
+    }
+
+    m_runner = new SceneRunner(m_doc, m_scenesCombo->itemData(m_scenesCombo->currentIndex()).toUInt());
+    connect(m_runner, SIGNAL(timeChanged(quint32)), this, SLOT(slotupdateTimeAndCursor(quint32)));
+    m_runner->start();
 }
 
 void SceneManager::slotViewClicked(QMouseEvent *event)
@@ -303,6 +319,13 @@ void SceneManager::slotSequenceMoved(SequenceItem *item)
     m_vsplitter->widget(1)->layout()->addWidget(m_sequence_editor);
     m_vsplitter->widget(1)->show();
     m_sequence_editor->show();
+}
+
+void SceneManager::slotupdateTimeAndCursor(quint32 msec_time)
+{
+    qDebug() << Q_FUNC_INFO << "time: " << msec_time;
+    slotUpdateTime(msec_time);
+    m_showview->moveCursor(msec_time);
 }
 
 void SceneManager::slotUpdateTime(quint32 msec_time)

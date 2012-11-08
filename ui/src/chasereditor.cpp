@@ -68,7 +68,8 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc)
     if (m_chaser->isSequence() == true)
     {
         m_tree->header()->setSectionHidden(COL_NAME, true);
-        groupBox->hide();
+        //groupBox->hide();
+        m_pingPong->hide();
         groupBox_2->hide();
     }
 

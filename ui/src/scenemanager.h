@@ -31,6 +31,7 @@
 #include "scene.h"
 #include "doc.h"
 
+class SceneRunner;
 class QComboBox;
 class QSplitter;
 class QToolBar;
@@ -57,6 +58,7 @@ signals:
     /** Emitted when the FunctionManager's tab is de/activated */
     void functionManagerActive(bool active);
 
+
 protected:
     /** @reimp */
     void showEvent(QShowEvent* ev);
@@ -77,6 +79,11 @@ private:
     QSplitter* m_splitter; // main view splitter (horizontal)
     QSplitter* m_vsplitter; // multitrack view splitter (vertical)
     MultiTrackView *m_showview;
+
+    /*********************************************************************
+     * Playback
+     *********************************************************************/
+    SceneRunner *m_runner;
     bool is_playing;
 
     /*********************************************************************
@@ -112,6 +119,7 @@ protected slots:
     void slotViewClicked(QMouseEvent *event);
     void slotSequenceMoved(SequenceItem *);
     void slotUpdateTime(quint32 msec_time);
+    void slotupdateTimeAndCursor(quint32 msec_time);
 };
 
 #endif

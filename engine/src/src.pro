@@ -84,6 +84,7 @@ HEADERS += bus.h \
            rgbscript.h \
            rgbtext.h \
            scene.h \
+           scenerunner.h \
            scenevalue.h \
            script.h
 
@@ -139,6 +140,7 @@ SOURCES += bus.cpp \
            rgbscript.cpp \
            rgbtext.cpp \
            scene.cpp \
+           scenerunner.cpp \
            scenevalue.cpp \
            script.cpp
 

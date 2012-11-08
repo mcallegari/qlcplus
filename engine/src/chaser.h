@@ -69,6 +69,12 @@ public:
     /** Copy the contents for this function from another function */
     bool copyFrom(const Function* function);
 
+    /*****************************************************************************
+     * Sorting
+     *****************************************************************************/
+    /** Comparator function for qSort() */
+    bool operator< (const Chaser& chs) const;
+
     /*********************************************************************
      * Chaser contents
      *********************************************************************/

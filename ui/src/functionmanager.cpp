@@ -306,8 +306,9 @@ void FunctionManager::slotAddSequence()
     QList <QTreeWidgetItem*> selection(m_tree->selectedItems());
     if (selection.size() == 1)
     {
-        //Function* function = m_doc->function(itemFunctionId(selection.first()));
-        qobject_cast<Chaser*>(f)->enableSequenceMode(itemFunctionId(selection.first()));
+        Chaser *chs = qobject_cast<Chaser*>(f);
+        chs->enableSequenceMode(itemFunctionId(selection.first()));
+        chs->setRunOrder(Function::SingleShot);
     }
 
     if (m_doc->addFunction(f) == true)
