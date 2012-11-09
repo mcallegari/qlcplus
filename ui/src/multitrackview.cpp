@@ -23,6 +23,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QMouseEvent>
+#include <QMessageBox>
 #include <QScrollBar>
 #include <QSlider>
 #include <QDebug>
@@ -105,11 +106,13 @@ void MultiTrackView::addSequence(Chaser *chaser)
 {
     SequenceItem *item = new SequenceItem(chaser);
 
-    if (chaser->getStartTime() == Chaser::invalidId())
+    if (chaser->getStartTime() == UINT_MAX)
     {
         quint32 s_time = getTimeFromPosition();
         chaser->setStartTime(s_time);
         item->setPos(m_cursor->x() + 2, 36);
+        item->setToolTip(QString(tr("Start time: %1msec\n%2"))
+                         .arg(s_time).arg(tr("Click to move this sequence across the timeline")));
     }
     else
     {
@@ -125,18 +128,36 @@ void MultiTrackView::addSequence(Chaser *chaser)
     this->update();
 }
 
-void MultiTrackView::deleteSelectedSequence()
+quint32 MultiTrackView::deleteSelectedSequence()
 {
     int i = 0;
+    SequenceItem *selItem = NULL;
     foreach(SequenceItem *item, m_sequences)
     {
         if (item->isSelected() == true)
         {
-           m_scene->removeItem(item);
-           m_sequences.removeAt(i);
+           selItem = item;
+           break;
         }
         i++;
     }
+
+    if (selItem != NULL)
+    {
+        QString msg = tr("Do you want to DELETE sequence:") + QString("\n\n") + selItem->getChaser()->name();
+
+        // Ask for user's confirmation
+        if (QMessageBox::question(this, tr("Delete Functions"), msg,
+                                  QMessageBox::Yes, QMessageBox::No)
+                                  == QMessageBox::Yes)
+        {
+            quint32 fID = selItem->getChaser()->id();
+            m_scene->removeItem(selItem);
+            m_sequences.removeAt(i);
+            return fID;
+        }
+    }
+    return Function::invalidId();
 }
 
 void MultiTrackView::moveCursor(quint32 timePos)

@@ -276,7 +276,16 @@ void SceneManager::slotClone()
 
 void SceneManager::slotDelete()
 {
-    m_showview->deleteSelectedSequence();
+    quint32 deleteID = m_showview->deleteSelectedSequence();
+    if (deleteID != Function::invalidId())
+    {
+        m_doc->deleteFunction(deleteID);
+        if (m_sequence_editor != NULL)
+            m_sequence_editor->deleteLater();
+        m_sequence_editor = NULL;
+        m_vsplitter->widget(1)->hide();
+        m_deleteAction->setEnabled(false);
+    }
 }
 
 void SceneManager::slotStopPlayback()
@@ -313,6 +322,7 @@ void SceneManager::slotViewClicked(QMouseEvent *event)
         m_sequence_editor->deleteLater();
     m_sequence_editor = NULL;
     m_vsplitter->widget(1)->hide();
+    m_deleteAction->setEnabled(false);
 }
 
 void SceneManager::slotSequenceMoved(SequenceItem *item)
@@ -327,6 +337,7 @@ void SceneManager::slotSequenceMoved(SequenceItem *item)
     m_vsplitter->widget(1)->layout()->addWidget(m_sequence_editor);
     m_vsplitter->widget(1)->show();
     m_sequence_editor->show();
+    m_deleteAction->setEnabled(true);
 }
 
 void SceneManager::slotupdateTimeAndCursor(quint32 msec_time)

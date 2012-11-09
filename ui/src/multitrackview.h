@@ -41,7 +41,8 @@ public:
 
     void addSequence(Chaser *chaser);
 
-    void deleteSelectedSequence();
+    /** Delete the currently selected sequence */
+    quint32 deleteSelectedSequence();
 
     void moveCursor(quint32 timePos);
     void rewindCursor();
