@@ -215,7 +215,13 @@ void SceneManager::updateScenesCombo()
                 newIndex++;
         }
     }
-    m_scenesCombo->setCurrentIndex(newIndex);
+    if (m_scenesCombo->count() > 0)
+    {
+        m_scenesCombo->setCurrentIndex(newIndex);
+        m_addSequenceAction->setEnabled(true);
+    }
+    else
+        m_addSequenceAction->setEnabled(false);
 }
 
 void SceneManager::slotSceneComboChanged(int idx)
@@ -248,13 +254,15 @@ void SceneManager::slotAddScene()
 void SceneManager::slotAddSequence()
 {
     Function* f = new Chaser(m_doc);
-    //qobject_cast<Chaser*>(f)->enableSequenceMode(itemFunctionId(selection.first()));
+    Chaser *chaser = qobject_cast<Chaser*> (f);
+    chaser->enableSequenceMode(m_scenesCombo->itemData(m_scenesCombo->currentIndex()).toUInt());
+    chaser->setRunOrder(Function::SingleShot);
     if (m_doc->addFunction(f) == true)
     {
+        f->setName(QString("%1 %2").arg(tr("New Sequence")).arg(f->id()));
         if (m_sequence_editor != NULL)
             m_sequence_editor->deleteLater();
         m_sequence_editor = NULL;
-        Chaser *chaser = qobject_cast<Chaser*> (f);
         m_sequence_editor = new ChaserEditor(m_vsplitter->widget(1), chaser, m_doc);
         m_vsplitter->widget(1)->layout()->addWidget(m_sequence_editor);
 
@@ -338,7 +346,6 @@ void SceneManager::slotUpdateTime(quint32 msec_time)
 void SceneManager::updateMultiTrackView()
 {
     m_showview->resetView();
-    //quint32 s_time = 0;
     /* first of all get the ID of the selected scene */
     int idx = m_scenesCombo->currentIndex();
     if (idx == -1)

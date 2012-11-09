@@ -103,13 +103,20 @@ void MultiTrackView::resetView()
 
 void MultiTrackView::addSequence(Chaser *chaser)
 {
-    quint32 s_time = getTimeFromPosition();
-
-    qDebug() << Q_FUNC_INFO << "sequence start time: " << s_time << "msec";
-    chaser->setStartTime(s_time);
-
     SequenceItem *item = new SequenceItem(chaser);
-    item->setPos(m_cursor->x() + 2, 36);
+
+    if (chaser->getStartTime() == Chaser::invalidId())
+    {
+        quint32 s_time = getTimeFromPosition();
+        chaser->setStartTime(s_time);
+        item->setPos(m_cursor->x() + 2, 36);
+    }
+    else
+    {
+        item->setPos(getPositionFromTime(chaser->getStartTime()) + 2, 36);
+    }
+    qDebug() << Q_FUNC_INFO << "sequence start time: " << chaser->getStartTime() << "msec";
+
     connect(item, SIGNAL(itemDropped(QGraphicsSceneMouseEvent *, SequenceItem *)),
             this, SLOT(slotSequenceMoved(QGraphicsSceneMouseEvent *, SequenceItem *)));
     m_scene->addItem(item);
@@ -194,7 +201,10 @@ void MultiTrackView::slotSequenceMoved(QGraphicsSceneMouseEvent *, SequenceItem 
     int ypos = item->y() - 36;
     ypos = (int)(ypos / (TRACK_HEIGHT + 1)) * (TRACK_HEIGHT + 1);
     int trackNum = (int)(ypos / (TRACK_HEIGHT + 1)) + 1;
-    item->setPos(item->x(), ypos + 36);
+    if (item->x() < TRACK_WIDTH + 2)
+        item->setPos(TRACK_WIDTH + 2, ypos + 36); // avoid moving a sequence too early...
+    else
+        item->setPos(item->x(), ypos + 36);
     quint32 s_time = (item->x() - TRACK_WIDTH) * (m_header->getTimeScale() * 1000) / (m_header->getTimeStep() * 2);
     item->getChaser()->setStartTime(s_time);
     item->setToolTip(QString(tr("Start time: %1msec\n%2"))

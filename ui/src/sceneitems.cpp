@@ -210,11 +210,10 @@ void SequenceItem::calculateWidth()
         seq_duration += step.duration;
 
     if (seq_duration != 0)
-    {
         newWidth = ((50/m_timeScale) * seq_duration) / 1000;
-        if (newWidth < (50 / m_timeScale))
-            newWidth = 50 / m_timeScale;
-    }
+
+    if (newWidth < (50 / m_timeScale))
+        newWidth = 50 / m_timeScale;
     m_width = newWidth;
 }
 
@@ -260,6 +259,8 @@ Chaser *SequenceItem::getChaser()
 void SequenceItem::slotSequenceChanged(quint32)
 {
     //qDebug() << Q_FUNC_INFO << " step added !!!";
+    prepareGeometryChange();
+    calculateWidth();
     //update();
 }
 
