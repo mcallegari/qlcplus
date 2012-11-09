@@ -153,6 +153,7 @@ void SceneManager::initActions()
     m_deleteAction->setShortcut(QKeySequence("Delete"));
     connect(m_deleteAction, SIGNAL(triggered(bool)),
             this, SLOT(slotDelete()));
+    m_deleteAction->setEnabled(false);
 
     m_stopAction = new QAction(QIcon(":/design.png"),  /* @todo re-used icon...to be changed */
                                  tr("S&top"), this);
@@ -224,6 +225,25 @@ void SceneManager::updateScenesCombo()
         m_addSequenceAction->setEnabled(false);
 }
 
+void SceneManager::showSequenceEditor(Chaser *chaser)
+{
+    m_vsplitter->widget(1)->layout()->removeWidget(m_sequence_editor);
+    if (m_sequence_editor != NULL)
+        m_sequence_editor->deleteLater();
+    m_sequence_editor = NULL;
+
+    m_sequence_editor = new ChaserEditor(m_vsplitter->widget(1), chaser, m_doc);
+    m_vsplitter->widget(1)->layout()->addWidget(m_sequence_editor);
+    /** Signal from chaser editor to scene editor. When a step is clicked apply values immediately */
+    connect(m_sequence_editor, SIGNAL(applyValues(QList<SceneValue>&)),
+            m_scene_editor, SLOT(slotSetSceneValues(QList <SceneValue>&)));
+    /** Signal from scene editor to chaser editor. When a fixture value is changed, update the selected chaser step */
+    connect(m_scene_editor, SIGNAL(fixtureValueChanged(SceneValue)),
+            m_sequence_editor, SLOT(slotUpdateCurrentStep(SceneValue)));
+    m_vsplitter->widget(1)->show();
+    m_sequence_editor->show();
+}
+
 void SceneManager::slotSceneComboChanged(int idx)
 {
     qDebug() << Q_FUNC_INFO << "Idx: " << idx;
@@ -260,12 +280,7 @@ void SceneManager::slotAddSequence()
     if (m_doc->addFunction(f) == true)
     {
         f->setName(QString("%1 %2").arg(tr("New Sequence")).arg(f->id()));
-        if (m_sequence_editor != NULL)
-            m_sequence_editor->deleteLater();
-        m_sequence_editor = NULL;
-        m_sequence_editor = new ChaserEditor(m_vsplitter->widget(1), chaser, m_doc);
-        m_vsplitter->widget(1)->layout()->addWidget(m_sequence_editor);
-
+        showSequenceEditor(chaser);
         m_showview->addSequence(chaser);
     }
 }
@@ -328,21 +343,13 @@ void SceneManager::slotViewClicked(QMouseEvent *event)
 void SceneManager::slotSequenceMoved(SequenceItem *item)
 {
     qDebug() << Q_FUNC_INFO << "Sequence moved.........";
-    if (m_sequence_editor != NULL)
-        m_sequence_editor->deleteLater();
-    m_sequence_editor = NULL;
-    m_vsplitter->widget(1)->hide();
-
-    m_sequence_editor = new ChaserEditor(m_vsplitter->widget(1), qobject_cast<Chaser*> (item->getChaser()), m_doc);
-    m_vsplitter->widget(1)->layout()->addWidget(m_sequence_editor);
-    m_vsplitter->widget(1)->show();
-    m_sequence_editor->show();
+    showSequenceEditor(item->getChaser());
     m_deleteAction->setEnabled(true);
 }
 
 void SceneManager::slotupdateTimeAndCursor(quint32 msec_time)
 {
-    qDebug() << Q_FUNC_INFO << "time: " << msec_time;
+    //qDebug() << Q_FUNC_INFO << "time: " << msec_time;
     slotUpdateTime(msec_time);
     m_showview->moveCursor(msec_time);
 }
@@ -372,9 +379,7 @@ void SceneManager::updateMultiTrackView()
         {
             Chaser *chaser = qobject_cast<Chaser*> (f);
             if (chaser->isSequence() && chaser->getBoundedSceneID() == sceneID)
-            {
                 m_showview->addSequence(chaser);
-            }
         }
     }
     if (m_scene_editor != NULL)

@@ -58,7 +58,6 @@ signals:
     /** Emitted when the FunctionManager's tab is de/activated */
     void functionManagerActive(bool active);
 
-
 protected:
     /** @reimp */
     void showEvent(QShowEvent* ev);
@@ -75,6 +74,8 @@ protected:
     QWidget* m_scene_editor;
     QWidget* m_sequence_editor;
 
+private:
+    void showSequenceEditor(Chaser *chaser);
 private:
     QSplitter* m_splitter; // main view splitter (horizontal)
     QSplitter* m_vsplitter; // multitrack view splitter (vertical)

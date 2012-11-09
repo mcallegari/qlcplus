@@ -44,10 +44,18 @@ public:
 
 private:
     const Doc* m_doc;
+    /** The ID of the scene to play */
     quint32 m_sceneID;
+    /** The list of Chasers bounded to the scene to play */
     QList <Chaser*> m_chasers;
+    /** List of duration of each chaser */
+    QList <quint32> m_durations;
+    /** The timer to check when a Chaser needs to be played */
     QTimer *m_timer;
+    /** Elapsed time since runner start. Used also to move the cursor in MultiTrackView */
     quint32 m_elapsedTime;
+    /** Current step being played */
+    int m_currentStepIndex;
 
 private slots:
     void timerTimeout();

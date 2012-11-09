@@ -167,6 +167,7 @@ void FunctionManager::showEvent(QShowEvent* ev)
     qDebug() << Q_FUNC_INFO;
     emit functionManagerActive(true);
     QWidget::showEvent(ev);
+    updateTree();
 }
 
 void FunctionManager::hideEvent(QHideEvent* ev)

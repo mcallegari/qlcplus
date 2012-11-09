@@ -22,6 +22,7 @@
 #include <QDebug>
 
 #include "scenerunner.h"
+#include "chaserstep.h"
 #include "function.h"
 #include "chaser.h"
 #include "scene.h"
@@ -34,6 +35,7 @@ SceneRunner::SceneRunner(const Doc* doc, quint32 sceneID)
     , m_sceneID(sceneID)
     , m_timer(NULL)
     , m_elapsedTime(0)
+    , m_currentStepIndex(0)
 {
     Q_ASSERT(m_doc != NULL);
     Q_ASSERT(sceneID != Scene::invalidId());
@@ -44,7 +46,14 @@ SceneRunner::SceneRunner(const Doc* doc, quint32 sceneID)
         {
             Chaser *chaser = qobject_cast<Chaser*> (f);
             if (chaser->getBoundedSceneID() == sceneID)
+            {
                 m_chasers.append(chaser);
+                /** offline calculation of the chaser duration */
+                quint32 seq_duration = 0;
+                foreach (ChaserStep step, chaser->steps())
+                    seq_duration += step.duration;
+                m_durations.append(seq_duration);
+            }
         }
     }
     qSort(m_chasers.begin(), m_chasers.end());
@@ -80,6 +89,15 @@ void SceneRunner::stop()
 
 void SceneRunner::timerTimeout()
 {
+    if (m_elapsedTime >= m_chasers.at(m_currentStepIndex)->getStartTime())
+    {
+        m_chasers.at(m_currentStepIndex)->start(m_doc->masterTimer());
+        m_currentStepIndex++;
+        if (m_currentStepIndex == m_chasers.count())
+            //&& m_elapsedTime >= m_chasers.at(m_currentStepIndex - 1)->getStartTime() + m_durations.at(m_currentStepIndex - 1))
+            stop();
+    }
+
     m_elapsedTime += TIMER_INTERVAL;
     emit timeChanged(m_elapsedTime);
 }
