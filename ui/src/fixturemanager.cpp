@@ -288,6 +288,7 @@ void FixtureManager::initDataView()
     connect(m_tree, SIGNAL(customContextMenuRequested(const QPoint&)),
             this, SLOT(slotContextMenuRequested(const QPoint&)));
 
+
     tabs->addTab(m_tree, tr("Fixtures Groups"));
 
     m_channels_tree = new QTreeWidget(this);
@@ -295,11 +296,13 @@ void FixtureManager::initDataView()
     chan_labels << tr("Name") << tr("Channels");
     m_channels_tree->setHeaderLabels(chan_labels);
     m_channels_tree->setRootIsDecorated(true);
-    m_channels_tree->setSelectionMode(QAbstractItemView::SingleSelection);
+    m_channels_tree->setSelectionMode(QAbstractItemView::ExtendedSelection);
     m_channels_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
 
     connect(m_channels_tree, SIGNAL(itemSelectionChanged()),
             this, SLOT(slotChannelsGroupSelectionChanged()));
+    connect(m_channels_tree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),
+            this, SLOT(slotChannelsGroupDoubleClicked(QTreeWidgetItem*)));
 
     tabs->addTab(m_channels_tree, tr("Channels Groups"));
 
@@ -608,6 +611,7 @@ void FixtureManager::slotChannelsGroupSelectionChanged()
                             .arg(chGroup->status(m_doc)));
         }
         m_removeAction->setEnabled(true);
+        m_addAction->setToolTip(tr("Edit group..."));
     }
     else
     {
@@ -617,6 +621,7 @@ void FixtureManager::slotChannelsGroupSelectionChanged()
                   " to add a new channels group.</P></BODY></HTML>");
         m_info->setText(info);
         m_removeAction->setEnabled(false);
+        m_addAction->setToolTip(tr("Add group..."));
     }
 }
 
@@ -624,6 +629,12 @@ void FixtureManager::slotDoubleClicked(QTreeWidgetItem* item)
 {
     if (item != NULL && m_doc->mode() != Doc::Operate)
         slotProperties();
+}
+
+void FixtureManager::slotChannelsGroupDoubleClicked(QTreeWidgetItem*)
+{
+    slotChannelsGroupSelectionChanged();
+    addChannelsGroup();
 }
 
 void FixtureManager::slotTabChanged(int index)

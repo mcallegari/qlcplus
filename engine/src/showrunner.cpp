@@ -25,37 +25,50 @@
 #include "chaserstep.h"
 #include "function.h"
 #include "chaser.h"
+#include "track.h"
 #include "scene.h"
+#include "show.h"
 
 #define TIMER_INTERVAL 50
 
-ShowRunner::ShowRunner(const Doc* doc, quint32 sceneID)
+ShowRunner::ShowRunner(const Doc* doc, quint32 showID)
     : QObject(NULL)
     , m_doc(doc)
-    , m_sceneID(sceneID)
+    , m_showID(showID)
     , m_timer(NULL)
     , m_elapsedTime(0)
     , m_currentStepIndex(0)
 {
     Q_ASSERT(m_doc != NULL);
-    Q_ASSERT(sceneID != Scene::invalidId());
+    Q_ASSERT(m_showID != Show::invalidId());
 
-    foreach(Function *f, m_doc->functions())
+    Show *show = qobject_cast<Show*>(m_doc->function(m_showID));
+    if (show == NULL)
+        return;
+
+    foreach(Track *track, show->tracks())
     {
-        if (f->type() == Function::Chaser)
+        // some sanity checks
+        if (track == NULL ||
+            track->id() == Track::invalidId() ||
+            track->getSceneID() == Scene::invalidId())
+                continue;
+
+        // get all the sequences of the track and append them to the runner queue
+        foreach (quint32 chsID, track->sequences())
         {
-            Chaser *chaser = qobject_cast<Chaser*> (f);
-            if (chaser->getBoundedSceneID() == sceneID)
-            {
-                m_chasers.append(chaser);
-                /** offline calculation of the chaser duration */
-                quint32 seq_duration = 0;
-                foreach (ChaserStep step, chaser->steps())
-                    seq_duration += step.duration;
-                m_durations.append(seq_duration);
-            }
+            Chaser *chaser = qobject_cast<Chaser*> (m_doc->function(chsID));
+            if (chaser == NULL)
+                continue;
+             m_chasers.append(chaser);
+             // offline calculation of the chaser duration
+             quint32 seq_duration = 0;
+             foreach (ChaserStep step, chaser->steps())
+                 seq_duration += step.duration;
+             m_durations.append(seq_duration);
         }
     }
+
     qSort(m_chasers.begin(), m_chasers.end());
 
     qDebug() << "ShowRunner created";

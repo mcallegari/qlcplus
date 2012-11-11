@@ -476,6 +476,8 @@ void ShowManager::slotTrackClicked(Track *track)
 
 void ShowManager::slotDocClearing()
 {
+    m_showsCombo->clear();
+
     if (m_showview != NULL)
         m_showview->resetView();
 
@@ -555,11 +557,13 @@ void ShowManager::updateMultiTrackView()
         }
     }
     /** Set first track active */
-    Track *firstTrack = m_show->getTrackFromSceneID(firstScene->id());
-    m_scene = firstScene;
-    m_showview->activateTrack(firstTrack);
-    showSceneEditor(m_scene);
-
+    if (firstScene != NULL)
+    {
+        Track *firstTrack = m_show->getTrackFromSceneID(firstScene->id());
+        m_scene = firstScene;
+        m_showview->activateTrack(firstTrack);
+        showSceneEditor(m_scene);
+    }
 }
 
 void ShowManager::showEvent(QShowEvent* ev)

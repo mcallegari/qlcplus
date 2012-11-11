@@ -137,6 +137,9 @@ private slots:
     /** Callback for mouse double clicks */
     void slotDoubleClicked(QTreeWidgetItem* item);
 
+    /** Callback for channels group mouse double clicks */
+    void slotChannelsGroupDoubleClicked(QTreeWidgetItem*);
+
     /** Callback for tab selection changes */
     void slotTabChanged(int index);
 

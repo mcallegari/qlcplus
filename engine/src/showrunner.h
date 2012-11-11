@@ -33,7 +33,7 @@ class ShowRunner : public QObject
     Q_OBJECT
 
 public:
-    ShowRunner(const Doc* doc, quint32 sceneID);
+    ShowRunner(const Doc* doc, quint32 showID);
     ~ShowRunner();
 
     /** Start the runner */
@@ -44,8 +44,8 @@ public:
 
 private:
     const Doc* m_doc;
-    /** The ID of the scene to play */
-    quint32 m_sceneID;
+    /** The ID of the show to play */
+    quint32 m_showID;
     /** The list of Chasers bounded to the scene to play */
     QList <Chaser*> m_chasers;
     /** List of duration of each chaser */

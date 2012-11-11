@@ -185,7 +185,7 @@ void App::init()
     w = new FunctionManager(m_tab, m_doc);
     m_tab->addTab(w, tr("Functions"));
     w = new ShowManager(m_tab, m_doc);
-    m_tab->addTab(w, tr("Scenes"));
+    m_tab->addTab(w, tr("Shows"));
     w = new VirtualConsole(m_tab, m_doc);
     m_tab->addTab(w, tr("Virtual Console"));
     w = new SimpleDesk(m_tab, m_doc);
