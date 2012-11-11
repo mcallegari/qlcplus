@@ -42,15 +42,4 @@
         <translation>Kann nicht mit dem USB-Gerät verbinden.</translation>
     </message>
 </context>
-<context>
-    <name>PeperoniOut</name>
-    <message>
-        <source>This plugin provides DMX output support for Peperoni DMX devices.</source>
-        <translation type="obsolete">Dieses Plugin bietet DMX-Output für Peperoni DMX-Geräte.</translation>
-    </message>
-    <message>
-        <source>Do you wish to re-scan your hardware?</source>
-        <translation type="obsolete">Nach neuer Hardware suchen?</translation>
-    </message>
-</context>
 </TS>

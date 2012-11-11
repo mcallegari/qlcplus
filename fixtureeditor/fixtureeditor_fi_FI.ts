@@ -144,10 +144,6 @@ p, li { white-space: pre-wrap; }
         <translation></translation>
     </message>
     <message>
-        <source>Save &amp;As</source>
-        <translation type="obsolete">Tallenna &amp;Nimellä</translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="266"/>
         <source>&amp;Quit</source>
         <translation>&amp;Poistu</translation>
@@ -407,10 +403,6 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>...</source>
-        <translation type="obsolete">...</translation>
-    </message>
-    <message>
         <location filename="editchannel.ui" line="195"/>
         <source>Capability wizard</source>
         <translation>Toimintovelho</translation>
@@ -560,10 +552,6 @@ p, li { white-space: pre-wrap; }
         <location filename="editmode.ui" line="484"/>
         <source>Lumens</source>
         <translation>Lumenit</translation>
-    </message>
-    <message>
-        <source>Color Temperature (K)</source>
-        <translation type="obsolete">Värilämpötila (K)</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="504"/>
@@ -718,10 +706,6 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Technical</source>
-        <translation type="obsolete">Tekniset</translation>
-    </message>
-    <message>
         <location filename="editmode.ui" line="840"/>
         <source>Power Consumption</source>
         <translation>Virrankulutus</translation>
@@ -831,10 +815,6 @@ p, li { white-space: pre-wrap; }
         <location filename="fixtureeditor.ui" line="219"/>
         <source>Add a channel</source>
         <translation>Lisää kanava</translation>
-    </message>
-    <message>
-        <source>...</source>
-        <translation type="obsolete">...</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="239"/>

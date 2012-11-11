@@ -2,53 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="fi_FI">
 <context>
-    <name>EPlaybackWing</name>
-    <message>
-        <source>at</source>
-        <translation type="obsolete">osoitteessa</translation>
-    </message>
-</context>
-<context>
-    <name>EProgramWing</name>
-    <message>
-        <source>at</source>
-        <translation type="obsolete">osoitteessa</translation>
-    </message>
-</context>
-<context>
-    <name>EShortcutWing</name>
-    <message>
-        <source>at</source>
-        <translation type="obsolete">osoitteessa</translation>
-    </message>
-</context>
-<context>
-    <name>EWing</name>
-    <message>
-        <source>Firmware version %1</source>
-        <translation type="obsolete">Laitteen ohjelmistoversio %1</translation>
-    </message>
-    <message>
-        <source>Device is operating correctly.</source>
-        <translation type="obsolete">Laite toimii oikein.</translation>
-    </message>
-</context>
-<context>
-    <name>EWingInput</name>
-    <message>
-        <source>This plugin provides input support for Enttec Playback and Enttec Shortcut Wings.</source>
-        <translation type="obsolete">Tämä liitännäinen tuottaa sisääntulotuen Enttec Playback ja Enttec Shortcut Wing-tuotteille.</translation>
-    </message>
-    <message>
-        <source>Unable to bind to UDP port %1:</source>
-        <translation type="obsolete">UDP-porttiin %1: ei voida kytkeytyä:</translation>
-    </message>
-    <message>
-        <source>Listening to UDP port %1.</source>
-        <translation type="obsolete">Kuunnellaan UDP-porttia %1.</translation>
-    </message>
-</context>
-<context>
     <name>EnttecWing</name>
     <message>
         <location filename="enttecwing.cpp" line="118"/>

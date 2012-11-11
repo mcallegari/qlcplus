@@ -42,15 +42,4 @@
         <translation>Non posso connettere l&apos;interfaccia USB.</translation>
     </message>
 </context>
-<context>
-    <name>PeperoniOut</name>
-    <message>
-        <source>This plugin provides DMX output support for Peperoni DMX devices.</source>
-        <translation type="obsolete">Questo plugin permette l&apos;inizializzazione di interfaccie Peperoni per l&apos;uscita di segnale DMX.</translation>
-    </message>
-    <message>
-        <source>Do you wish to re-scan your hardware?</source>
-        <translation type="obsolete">Vuoi rifare la scansione delle tue interfaccie?</translation>
-    </message>
-</context>
 </TS>

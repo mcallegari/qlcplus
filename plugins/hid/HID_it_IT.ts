@@ -25,25 +25,6 @@
     </message>
 </context>
 <context>
-    <name>ConfigureHIDInput</name>
-    <message>
-        <source>Configure HID Input Plugin</source>
-        <translation type="obsolete">Configura il pluginn per le interfacce HID in ingresso</translation>
-    </message>
-    <message>
-        <source>Input Line</source>
-        <translation type="obsolete">Input Line</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation type="obsolete">Nome</translation>
-    </message>
-    <message>
-        <source>Refresh</source>
-        <translation type="obsolete">Ricontrolla</translation>
-    </message>
-</context>
-<context>
     <name>HID</name>
     <message>
         <location filename="hid.cpp" line="148"/>
@@ -57,13 +38,6 @@
         <location filename="hideventdevice.cpp" line="323"/>
         <source>N/A</source>
         <translation>N/A</translation>
-    </message>
-</context>
-<context>
-    <name>HIDInput</name>
-    <message>
-        <source>This plugin provides input support for HID-based joysticks.</source>
-        <translation type="obsolete">Questo Plugin accetta segnale in ingresso da Joysticks HID.</translation>
     </message>
 </context>
 <context>

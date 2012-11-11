@@ -1,6 +1,6 @@
 /*
   Q Light Controller
-  functionselection.cpp
+  showrunner.cpp
 
   Copyright (c) Massimo Callegari
 
@@ -21,7 +21,7 @@
 
 #include <QDebug>
 
-#include "scenerunner.h"
+#include "showrunner.h"
 #include "chaserstep.h"
 #include "function.h"
 #include "chaser.h"
@@ -29,7 +29,7 @@
 
 #define TIMER_INTERVAL 50
 
-SceneRunner::SceneRunner(const Doc* doc, quint32 sceneID)
+ShowRunner::ShowRunner(const Doc* doc, quint32 sceneID)
     : QObject(NULL)
     , m_doc(doc)
     , m_sceneID(sceneID)
@@ -58,24 +58,24 @@ SceneRunner::SceneRunner(const Doc* doc, quint32 sceneID)
     }
     qSort(m_chasers.begin(), m_chasers.end());
 
-    qDebug() << "SceneRunner created";
+    qDebug() << "ShowRunner created";
 }
 
-SceneRunner::~SceneRunner()
+ShowRunner::~ShowRunner()
 {
 }
 
-void SceneRunner::start()
+void ShowRunner::start()
 {
     stop();
     m_timer = new QTimer(this);
     m_timer->setInterval(TIMER_INTERVAL);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(timerTimeout()));
     m_timer->start();
-    qDebug() << "SceneRunner started";
+    qDebug() << "ShowRunner started";
 }
 
-void SceneRunner::stop()
+void ShowRunner::stop()
 {
     if (m_timer != NULL)
     {
@@ -84,10 +84,10 @@ void SceneRunner::stop()
         m_timer = NULL;
     }
     m_elapsedTime = 0;
-    qDebug() << "SceneRunner stopped";
+    qDebug() << "ShowRunner stopped";
 }
 
-void SceneRunner::timerTimeout()
+void ShowRunner::timerTimeout()
 {
     if (m_elapsedTime >= m_chasers.at(m_currentStepIndex)->getStartTime())
     {

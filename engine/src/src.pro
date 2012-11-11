@@ -84,10 +84,10 @@ HEADERS += bus.h \
            rgbscript.h \
            rgbtext.h \
            scene.h \
-           scenerunner.h \
            scenevalue.h \
            script.h \
            show.h \
+           showrunner.h \
            track.h
 
 win32:HEADERS += mastertimer-win32.h
@@ -142,10 +142,10 @@ SOURCES += bus.cpp \
            rgbscript.cpp \
            rgbtext.cpp \
            scene.cpp \
-           scenerunner.cpp \
            scenevalue.cpp \
            script.cpp \
            show.cpp \
+           showrunner.cpp \
            track.cpp
 
 win32:SOURCES += mastertimer-win32.cpp

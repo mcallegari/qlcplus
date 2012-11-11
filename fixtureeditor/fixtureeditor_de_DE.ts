@@ -558,10 +558,6 @@ p, li { white-space: pre-wrap; }
         <translation>Lumen</translation>
     </message>
     <message>
-        <source>Color Temperature (K)</source>
-        <translation type="obsolete">Farbtemperatur (K)</translation>
-    </message>
-    <message>
         <location filename="editmode.ui" line="504"/>
         <source>Colour Temp (K)</source>
         <translation type="unfinished"></translation>
@@ -712,10 +708,6 @@ p, li { white-space: pre-wrap; }
         <location filename="editmode.ui" line="834"/>
         <source>Electrical</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Technical</source>
-        <translation type="obsolete">Technisches</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="840"/>

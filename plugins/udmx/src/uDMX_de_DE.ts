@@ -22,10 +22,6 @@
         <translation>Unbekannt</translation>
     </message>
     <message>
-        <source>Device is working correctly.</source>
-        <translation type="obsolete">Gerät ist funktionsbereit.</translation>
-    </message>
-    <message>
         <location filename="udmxdevice.cpp" line="137"/>
         <source>DMX Frame Frequency</source>
         <translation type="unfinished"></translation>
@@ -59,17 +55,6 @@
         <location filename="udmxdevice.cpp" line="152"/>
         <source>Cannot connect to USB device.</source>
         <translation>Kann nicht mit dem USB-Gerät verbinden.</translation>
-    </message>
-</context>
-<context>
-    <name>UDMXOut</name>
-    <message>
-        <source>This plugin provides DMX output support for Anyma uDMX devices.</source>
-        <translation type="obsolete">Dieses Plugin bietet DMX-Output für Anyma uDMX Geräte.</translation>
-    </message>
-    <message>
-        <source>Do you wish to re-scan your hardware?</source>
-        <translation type="obsolete">Nach neuer Hardware suchen?</translation>
     </message>
 </context>
 </TS>

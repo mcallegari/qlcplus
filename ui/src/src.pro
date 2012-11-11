@@ -65,10 +65,10 @@ HEADERS += aboutbox.h \
            rgbitem.h \
            sceneeditor.h \
            sceneitems.h \
-           scenemanager.h \
            sceneselection.h \
            scripteditor.h \
            selectinputchannel.h \
+           showmanager.h \
            simpledesk.h \
            simpledeskengine.h \
            speeddial.h \
@@ -170,10 +170,10 @@ SOURCES += aboutbox.cpp \
            rgbitem.cpp \
            sceneeditor.cpp \
            sceneitems.cpp \
-           scenemanager.cpp \
            sceneselection.cpp \
            scripteditor.cpp \
            selectinputchannel.cpp \
+           showmanager.cpp \
            simpledesk.cpp \
            simpledeskengine.cpp \
            speeddial.cpp \

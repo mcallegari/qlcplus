@@ -2,39 +2,39 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="it_IT">
 <context>
-    <name>ConfigureOLAOut</name>
+    <name>ConfigureOlaIO</name>
     <message>
-        <location filename="configureolaout.ui" line="14"/>
-        <source>Configure OLA Output</source>
-        <translation>Configura Uscita OLA</translation>
+        <location filename="configureolaio.ui" line="14"/>
+        <source>Configure OLA I/O</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configureolaout.ui" line="21"/>
+        <location filename="configureolaio.ui" line="21"/>
         <source>Output</source>
-        <translation>Uscita</translation>
+        <translation type="unfinished">Uscita</translation>
     </message>
     <message>
-        <location filename="configureolaout.ui" line="26"/>
+        <location filename="configureolaio.ui" line="26"/>
         <source>OLA Universe</source>
-        <translation>Universo OLA</translation>
+        <translation type="unfinished">Universo OLA</translation>
     </message>
     <message>
-        <location filename="configureolaout.ui" line="44"/>
+        <location filename="configureolaio.ui" line="34"/>
         <source>Run standalone OLA daemon</source>
-        <translation>Esegui l&apos; OLA daemon</translation>
+        <translation type="unfinished">Esegui l&apos; OLA daemon</translation>
     </message>
 </context>
 <context>
-    <name>OLAOut</name>
+    <name>OlaIO</name>
     <message>
-        <location filename="olaout.cpp" line="188"/>
+        <location filename="olaio.cpp" line="156"/>
         <source>This plugin provides DMX output support for the Open Lighting Architecture (OLA).</source>
-        <translation>Questo plugin permette uscita di segnale DMX per tutte le interfaccie supportate dalla Open Lighting Architecture (OLA).</translation>
+        <translation type="unfinished">Questo plugin permette uscita di segnale DMX per tutte le interfaccie supportate dalla Open Lighting Architecture (OLA).</translation>
     </message>
     <message>
-        <location filename="olaout.cpp" line="195"/>
+        <location filename="olaio.cpp" line="163"/>
         <source>This is the output for OLA universe %1</source>
-        <translation>Questa è l&apos;uscita per l&apos;universo OLA %1</translation>
+        <translation type="unfinished">Questa è l&apos;uscita per l&apos;universo OLA %1</translation>
     </message>
 </context>
 </TS>

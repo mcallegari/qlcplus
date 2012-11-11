@@ -91,33 +91,6 @@
     </message>
 </context>
 <context>
-    <name>EnttecDMXUSBOut</name>
-    <message>
-        <source>No devices available.</source>
-        <translation type="obsolete">Non ci sono Interfacce Disponibili.</translation>
-    </message>
-    <message>
-        <source>Make sure that you have your hardware firmly plugged in. NOTE: FTDI VCP interface is not supported by this plugin.</source>
-        <translation type="obsolete">Controlla che la tua interfaccia sia connessa correttamente. ATTENZIONE: le interfacce FTDI VCP non sono supportate da questo dispositivo.</translation>
-    </message>
-    <message>
-        <source>This plugin provides DMX output support for</source>
-        <translation type="obsolete">Questo Plugin dà segnale DMX in uscita per</translation>
-    </message>
-    <message>
-        <source>and compatible devices.</source>
-        <translation type="obsolete">ed interfacce compatibili.</translation>
-    </message>
-    <message>
-        <source>Device is operating correctly.</source>
-        <translation type="obsolete">Interfaccia connessa e attiva.</translation>
-    </message>
-    <message>
-        <source>Do you wish to re-scan your hardware?</source>
-        <translation type="obsolete">Vuoi un Re-scan delle tue interfacce?</translation>
-    </message>
-</context>
-<context>
     <name>QObject</name>
     <message>
         <location filename="enttecdmxusbprorx.cpp" line="78"/>

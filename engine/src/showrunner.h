@@ -1,6 +1,6 @@
 /*
   Q Light Controller
-  functionselection.cpp
+  showrunner.h
 
   Copyright (c) Massimo Callegari
 
@@ -19,8 +19,8 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef SCENERUNNER_H
-#define SCENERUNNER_H
+#ifndef SHOWRUNNER_H
+#define SHOWRUNNER_H
 
 #include <QObject>
 #include <QTimer>
@@ -28,13 +28,13 @@
 class Chaser;
 class Doc;
 
-class SceneRunner : public QObject
+class ShowRunner : public QObject
 {
     Q_OBJECT
 
 public:
-    SceneRunner(const Doc* doc, quint32 sceneID);
-    ~SceneRunner();
+    ShowRunner(const Doc* doc, quint32 sceneID);
+    ~ShowRunner();
 
     /** Start the runner */
     void start();

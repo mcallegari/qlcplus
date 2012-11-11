@@ -144,10 +144,6 @@ p, li { white-space: pre-wrap; }
         <translation></translation>
     </message>
     <message>
-        <source>Save &amp;As</source>
-        <translation type="obsolete">S&amp;auvegarder sous</translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="266"/>
         <source>&amp;Quit</source>
         <translation>&amp;Quitter</translation>
@@ -407,10 +403,6 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>...</source>
-        <translation type="obsolete">...</translation>
-    </message>
-    <message>
         <location filename="editchannel.ui" line="195"/>
         <source>Capability wizard</source>
         <translation>Editeur de Plages DMX</translation>
@@ -560,10 +552,6 @@ p, li { white-space: pre-wrap; }
         <location filename="editmode.ui" line="484"/>
         <source>Lumens</source>
         <translation></translation>
-    </message>
-    <message>
-        <source>Color Temperature (K)</source>
-        <translation type="obsolete">Température de Couleur (°K)</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="504"/>
@@ -716,10 +704,6 @@ p, li { white-space: pre-wrap; }
         <location filename="editmode.ui" line="834"/>
         <source>Electrical</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Technical</source>
-        <translation type="obsolete">Données Techniques</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="840"/>

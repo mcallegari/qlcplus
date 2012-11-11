@@ -9,11 +9,4 @@
         <translation type="unfinished">Tämä liitännäinen tuottaa DMX-ulostulotuen Velleman K8062D-laitteelle sen mukana toimitettavan DLL-kirjaston kautta.</translation>
     </message>
 </context>
-<context>
-    <name>VellemanOut</name>
-    <message>
-        <source>This plugin provides DMX output support for the Velleman K8062D using the DLL supplied with the product.</source>
-        <translation type="obsolete">Tämä liitännäinen tuottaa DMX-ulostulotuen Velleman K8062D-laitteelle sen mukana toimitettavan DLL-kirjaston kautta.</translation>
-    </message>
-</context>
 </TS>

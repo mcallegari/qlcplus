@@ -1,6 +1,6 @@
 /*
   Q Light Controller
-  scenemanager.h
+  showmanager.h
 
   Copyright (C) Massimo Callegari
 
@@ -19,8 +19,8 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef SCENEMANAGER_H
-#define SCENEMANAGER_H
+#ifndef SHOWMANAGER_H
+#define SHOWMANAGER_H
 
 #include <QGraphicsView>
 #include <QWidget>
@@ -32,7 +32,7 @@
 #include "show.h"
 #include "doc.h"
 
-class SceneRunner;
+class ShowRunner;
 class QComboBox;
 class QSplitter;
 class QToolBar;
@@ -40,20 +40,20 @@ class QAction;
 class QLabel;
 class Doc;
 
-class SceneManager : public QWidget
+class ShowManager : public QWidget
 {
     Q_OBJECT
-    Q_DISABLE_COPY(SceneManager)
+    Q_DISABLE_COPY(ShowManager)
 
     /*********************************************************************
      * Initialization
      *********************************************************************/
 public:
-    SceneManager(QWidget* parent, Doc* doc);
-    ~SceneManager();
+    ShowManager(QWidget* parent, Doc* doc);
+    ~ShowManager();
     
     /** Get the singleton instance */
-    static SceneManager* instance();
+    static ShowManager* instance();
     
 signals:
     /** Emitted when the FunctionManager's tab is de/activated */
@@ -67,7 +67,7 @@ protected:
     void hideEvent(QHideEvent* ev);
 
 protected:
-    static SceneManager* s_instance;
+    static ShowManager* s_instance;
     
     Doc* m_doc;
     /* Currently selected show */
@@ -89,7 +89,7 @@ private:
     /*********************************************************************
      * Playback
      *********************************************************************/
-    SceneRunner *m_runner;
+    ShowRunner *m_runner;
     bool is_playing;
 
     /*********************************************************************

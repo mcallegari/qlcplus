@@ -25,25 +25,6 @@
     </message>
 </context>
 <context>
-    <name>ConfigureHIDInput</name>
-    <message>
-        <source>Configure HID Input Plugin</source>
-        <translation type="obsolete">Muokkaa HID Input-liitännäisen asetuksia</translation>
-    </message>
-    <message>
-        <source>Input Line</source>
-        <translation type="obsolete">Sisääntulo</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation type="obsolete">Nimi</translation>
-    </message>
-    <message>
-        <source>Refresh</source>
-        <translation type="obsolete">Päivitä</translation>
-    </message>
-</context>
-<context>
     <name>HID</name>
     <message>
         <location filename="hid.cpp" line="148"/>
@@ -57,13 +38,6 @@
         <location filename="hideventdevice.cpp" line="323"/>
         <source>N/A</source>
         <translation>Ei saatavilla</translation>
-    </message>
-</context>
-<context>
-    <name>HIDInput</name>
-    <message>
-        <source>This plugin provides input support for HID-based joysticks.</source>
-        <translation type="obsolete">Tämä liitännäinen tukee HID-pohjaisia joystick-ohjaimia.</translation>
     </message>
 </context>
 <context>

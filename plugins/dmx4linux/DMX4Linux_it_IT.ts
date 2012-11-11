@@ -9,11 +9,4 @@
         <translation type="unfinished">Questo Plugin permette l&apos;uscita di segnale DMX da tutte le interfacce supportate dalla suite DMX4Linux.</translation>
     </message>
 </context>
-<context>
-    <name>DMX4LinuxOut</name>
-    <message>
-        <source>This plugin provides DMX output for devices supported by the DMX4Linux driver suite.</source>
-        <translation type="obsolete">Questo Plugin permette l&apos;uscita di segnale DMX da tutte le interfacce supportate dalla suite DMX4Linux.</translation>
-    </message>
-</context>
 </TS>

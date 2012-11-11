@@ -1,6 +1,6 @@
 /*
   Q Light Controller
-  scenemanager.cpp
+  showmanager.cpp
 
   Copyright (C) Massimo Callegari
 
@@ -31,16 +31,16 @@
 
 #include "multitrackview.h"
 #include "sceneselection.h"
-#include "scenemanager.h"
 #include "chasereditor.h"
-#include "scenerunner.h"
+#include "showmanager.h"
 #include "sceneeditor.h"
+#include "showrunner.h"
 #include "sceneitems.h"
 #include "chaser.h"
 
-SceneManager* SceneManager::s_instance = NULL;
+ShowManager* ShowManager::s_instance = NULL;
 
-SceneManager::SceneManager(QWidget* parent, Doc* doc)
+ShowManager::ShowManager(QWidget* parent, Doc* doc)
     : QWidget(parent)
     , m_doc(doc)
     , m_show(NULL)
@@ -123,17 +123,17 @@ SceneManager::SceneManager(QWidget* parent, Doc* doc)
     connect(m_doc, SIGNAL(functionChanged(quint32)), this, SLOT(slotFunctionChanged(quint32)));
 }
 
-SceneManager::~SceneManager()
+ShowManager::~ShowManager()
 {
-    SceneManager::s_instance = NULL;
+    ShowManager::s_instance = NULL;
 }
 
-SceneManager* SceneManager::instance()
+ShowManager* ShowManager::instance()
 {
     return s_instance;
 }
 
-void SceneManager::initActions()
+void ShowManager::initActions()
 {
     /* Manage actions */
     m_addShowAction = new QAction(QIcon(":/show.png"),
@@ -181,7 +181,7 @@ void SceneManager::initActions()
             this, SLOT(slotStartPlayback()));
 }
 
-void SceneManager::initToolbar()
+void ShowManager::initToolbar()
 {
     // Add a toolbar to the dock area
     m_toolbar = new QToolBar("Show Manager", this);
@@ -220,7 +220,7 @@ void SceneManager::initToolbar()
 /*********************************************************************
  * Shows combo
  *********************************************************************/
-void SceneManager::updateShowsCombo()
+void ShowManager::updateShowsCombo()
 {
     int newIndex = 0;
     m_showsCombo->clear();
@@ -245,13 +245,13 @@ void SceneManager::updateShowsCombo()
     }
 }
 
-void SceneManager::slotShowsComboChanged(int idx)
+void ShowManager::slotShowsComboChanged(int idx)
 {
     qDebug() << Q_FUNC_INFO << "Idx: " << idx;
     updateMultiTrackView();
 }
 
-void SceneManager::showSceneEditor(Scene *scene)
+void ShowManager::showSceneEditor(Scene *scene)
 {
     if (m_scene_editor != NULL)
     {
@@ -271,7 +271,7 @@ void SceneManager::showSceneEditor(Scene *scene)
     }
 }
 
-void SceneManager::showSequenceEditor(Chaser *chaser)
+void ShowManager::showSequenceEditor(Chaser *chaser)
 {
     if (m_sequence_editor != NULL)
     {
@@ -295,7 +295,7 @@ void SceneManager::showSequenceEditor(Chaser *chaser)
     }
 }
 
-void SceneManager::slotAddShow()
+void ShowManager::slotAddShow()
 {
     m_show = new Show(m_doc);
     Function *f = qobject_cast<Function*>(m_show);
@@ -312,7 +312,7 @@ void SceneManager::slotAddShow()
     }
 }
 
-void SceneManager::slotAddTrack()
+void ShowManager::slotAddTrack()
 {
     if (m_show == NULL)
         return;
@@ -350,7 +350,7 @@ void SceneManager::slotAddTrack()
     }
 }
 
-void SceneManager::slotAddSequence()
+void ShowManager::slotAddSequence()
 {
     Function* f = new Chaser(m_doc);
     Chaser *chaser = qobject_cast<Chaser*> (f);
@@ -369,11 +369,11 @@ void SceneManager::slotAddSequence()
     }
 }
 
-void SceneManager::slotClone()
+void ShowManager::slotClone()
 {
 }
 
-void SceneManager::slotDelete()
+void ShowManager::slotDelete()
 {
     quint32 deleteID = m_showview->deleteSelectedSequence();
     if (deleteID != Function::invalidId())
@@ -389,7 +389,7 @@ void SceneManager::slotDelete()
     }
 }
 
-void SceneManager::slotStopPlayback()
+void ShowManager::slotStopPlayback()
 {
     if (m_runner != NULL)
     {
@@ -401,7 +401,7 @@ void SceneManager::slotStopPlayback()
     m_timeLabel->setText("00:00:00.000");
 }
 
-void SceneManager::slotStartPlayback()
+void ShowManager::slotStartPlayback()
 {
     if (m_showsCombo->count() == 0)
         return;
@@ -411,12 +411,12 @@ void SceneManager::slotStartPlayback()
         delete m_runner;
     }
 
-    m_runner = new SceneRunner(m_doc, m_showsCombo->itemData(m_showsCombo->currentIndex()).toUInt());
+    m_runner = new ShowRunner(m_doc, m_showsCombo->itemData(m_showsCombo->currentIndex()).toUInt());
     connect(m_runner, SIGNAL(timeChanged(quint32)), this, SLOT(slotupdateTimeAndCursor(quint32)));
     m_runner->start();
 }
 
-void SceneManager::slotViewClicked(QMouseEvent *event)
+void ShowManager::slotViewClicked(QMouseEvent *event)
 {
     qDebug() << Q_FUNC_INFO << "View clicked at pos: " << event->pos().x() << event->pos().y();
     if (m_sequence_editor != NULL)
@@ -428,7 +428,7 @@ void SceneManager::slotViewClicked(QMouseEvent *event)
     m_deleteAction->setEnabled(false);
 }
 
-void SceneManager::slotSequenceMoved(SequenceItem *item)
+void ShowManager::slotSequenceMoved(SequenceItem *item)
 {
     qDebug() << Q_FUNC_INFO << "Sequence moved.........";
     Chaser *chaser = item->getChaser();
@@ -451,21 +451,21 @@ void SceneManager::slotSequenceMoved(SequenceItem *item)
     m_deleteAction->setEnabled(true);
 }
 
-void SceneManager::slotupdateTimeAndCursor(quint32 msec_time)
+void ShowManager::slotupdateTimeAndCursor(quint32 msec_time)
 {
     //qDebug() << Q_FUNC_INFO << "time: " << msec_time;
     slotUpdateTime(msec_time);
     m_showview->moveCursor(msec_time);
 }
 
-void SceneManager::slotUpdateTime(quint32 msec_time)
+void ShowManager::slotUpdateTime(quint32 msec_time)
 {
     QTime tmpTime = QTime(0, 0, 0, 0).addMSecs(msec_time);
 
     m_timeLabel->setText(tmpTime.toString("hh:mm:ss.zzz"));
 }
 
-void SceneManager::slotTrackClicked(Track *track)
+void ShowManager::slotTrackClicked(Track *track)
 {
     Function *f = m_doc->function(track->getSceneID());
     if (f == NULL)
@@ -474,7 +474,7 @@ void SceneManager::slotTrackClicked(Track *track)
     showSceneEditor(m_scene);
 }
 
-void SceneManager::slotDocClearing()
+void ShowManager::slotDocClearing()
 {
     if (m_showview != NULL)
         m_showview->resetView();
@@ -498,7 +498,7 @@ void SceneManager::slotDocClearing()
     m_deleteAction->setEnabled(false);
 }
 
-void SceneManager::slotFunctionChanged(quint32 id)
+void ShowManager::slotFunctionChanged(quint32 id)
 {
     Function* function = m_doc->function(id);
     if (function == NULL)
@@ -512,7 +512,7 @@ void SceneManager::slotFunctionChanged(quint32 id)
     }
 }
 
-void SceneManager::updateMultiTrackView()
+void ShowManager::updateMultiTrackView()
 {
     m_showview->resetView();
     /* first of all get the ID of the selected scene */
@@ -562,7 +562,7 @@ void SceneManager::updateMultiTrackView()
 
 }
 
-void SceneManager::showEvent(QShowEvent* ev)
+void ShowManager::showEvent(QShowEvent* ev)
 {
     qDebug() << Q_FUNC_INFO;
     emit functionManagerActive(true);
@@ -572,7 +572,7 @@ void SceneManager::showEvent(QShowEvent* ev)
     updateShowsCombo();
 }
 
-void SceneManager::hideEvent(QHideEvent* ev)
+void ShowManager::hideEvent(QHideEvent* ev)
 {
     qDebug() << Q_FUNC_INFO;
     emit functionManagerActive(false);

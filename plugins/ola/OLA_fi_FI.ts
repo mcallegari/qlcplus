@@ -2,39 +2,39 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="fi_FI">
 <context>
-    <name>ConfigureOLAOut</name>
+    <name>ConfigureOlaIO</name>
     <message>
-        <location filename="configureolaout.ui" line="14"/>
-        <source>Configure OLA Output</source>
-        <translation>Muokkaa OLA Output-liitännäisen asetuksia</translation>
+        <location filename="configureolaio.ui" line="14"/>
+        <source>Configure OLA I/O</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configureolaout.ui" line="21"/>
+        <location filename="configureolaio.ui" line="21"/>
         <source>Output</source>
-        <translation>Ulostulo</translation>
+        <translation type="unfinished">Ulostulo</translation>
     </message>
     <message>
-        <location filename="configureolaout.ui" line="26"/>
+        <location filename="configureolaio.ui" line="26"/>
         <source>OLA Universe</source>
-        <translation>OLA-universumi</translation>
+        <translation type="unfinished">OLA-universumi</translation>
     </message>
     <message>
-        <location filename="configureolaout.ui" line="44"/>
+        <location filename="configureolaio.ui" line="34"/>
         <source>Run standalone OLA daemon</source>
-        <translation>Käynnistä OLA-daemon</translation>
+        <translation type="unfinished">Käynnistä OLA-daemon</translation>
     </message>
 </context>
 <context>
-    <name>OLAOut</name>
+    <name>OlaIO</name>
     <message>
-        <location filename="olaout.cpp" line="188"/>
+        <location filename="olaio.cpp" line="156"/>
         <source>This plugin provides DMX output support for the Open Lighting Architecture (OLA).</source>
-        <translation>Tämä liitännäinen tuottaa DMX-ulostulotuen Open Lighting Architecturen (OLA) kautta.</translation>
+        <translation type="unfinished">Tämä liitännäinen tuottaa DMX-ulostulotuen Open Lighting Architecturen (OLA) kautta.</translation>
     </message>
     <message>
-        <location filename="olaout.cpp" line="195"/>
+        <location filename="olaio.cpp" line="163"/>
         <source>This is the output for OLA universe %1</source>
-        <translation>Tämä on OLA-universumin %1 ulostulo</translation>
+        <translation type="unfinished">Tämä on OLA-universumin %1 ulostulo</translation>
     </message>
 </context>
 </TS>

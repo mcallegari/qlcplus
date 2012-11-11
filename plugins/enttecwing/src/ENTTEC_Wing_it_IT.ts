@@ -2,53 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="it_IT">
 <context>
-    <name>EPlaybackWing</name>
-    <message>
-        <source>at</source>
-        <translation type="obsolete">a</translation>
-    </message>
-</context>
-<context>
-    <name>EProgramWing</name>
-    <message>
-        <source>at</source>
-        <translation type="obsolete">a</translation>
-    </message>
-</context>
-<context>
-    <name>EShortcutWing</name>
-    <message>
-        <source>at</source>
-        <translation type="obsolete">a</translation>
-    </message>
-</context>
-<context>
-    <name>EWing</name>
-    <message>
-        <source>Firmware version %1</source>
-        <translation type="obsolete">Firmware version %1</translation>
-    </message>
-    <message>
-        <source>Device is operating correctly.</source>
-        <translation type="obsolete">L&apos;Interfaccia funziona correttamente.</translation>
-    </message>
-</context>
-<context>
-    <name>EWingInput</name>
-    <message>
-        <source>This plugin provides input support for Enttec Playback and Enttec Shortcut Wings.</source>
-        <translation type="obsolete">Questo Plugin permette l&apos;interfacciamento in ingresso per le interfacce Enttec Playback e Enttec Shortcut Wings.</translation>
-    </message>
-    <message>
-        <source>Unable to bind to UDP port %1:</source>
-        <translation type="obsolete">Impossibilitato ad ascoltare la porta UDP %1:</translation>
-    </message>
-    <message>
-        <source>Listening to UDP port %1.</source>
-        <translation type="obsolete">Resto in ascolto sulla porta UDP %1.</translation>
-    </message>
-</context>
-<context>
     <name>EnttecWing</name>
     <message>
         <location filename="enttecwing.cpp" line="118"/>

@@ -42,19 +42,4 @@
         <translation>Tuntematon</translation>
     </message>
 </context>
-<context>
-    <name>PeperoniOut</name>
-    <message>
-        <source>The shared library usbdmx.dll could not be found or is too old to be used with QLC.</source>
-        <translation type="obsolete">Jaettua kirjastoa usbdmx.dll ei löytynyt tai nykyinen versio on liian vanha QLC:n kanssa käytetäväksi.</translation>
-    </message>
-    <message>
-        <source>This plugin provides DMX output support for Peperoni DMX devices.</source>
-        <translation type="obsolete">Tämä liitännäinen tuottaa DMX-ulostulotuen Peperoni DMX-laitteille.</translation>
-    </message>
-    <message>
-        <source>Do you wish to re-scan your hardware?</source>
-        <translation type="obsolete">Etsitäänkö lisää laitteita?</translation>
-    </message>
-</context>
 </TS>

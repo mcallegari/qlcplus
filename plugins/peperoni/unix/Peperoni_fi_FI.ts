@@ -42,15 +42,4 @@
         <translation>USB-laitteeseen ei saada yhteyttä.</translation>
     </message>
 </context>
-<context>
-    <name>PeperoniOut</name>
-    <message>
-        <source>This plugin provides DMX output support for Peperoni DMX devices.</source>
-        <translation type="obsolete">Tämä liitännäinen tuottaa DMX-ulostulotuen Peperoni DMX-laitteille.</translation>
-    </message>
-    <message>
-        <source>Do you wish to re-scan your hardware?</source>
-        <translation type="obsolete">Etsitäänkö lisää laitteita?</translation>
-    </message>
-</context>
 </TS>

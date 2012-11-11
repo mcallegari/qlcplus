@@ -144,10 +144,6 @@ p, li { white-space: pre-wrap; }
         <translation></translation>
     </message>
     <message>
-        <source>Save &amp;As</source>
-        <translation type="obsolete">Salvar &amp;Todo</translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="266"/>
         <source>&amp;Quit</source>
         <translation>&amp;Quit</translation>
@@ -407,10 +403,6 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>...</source>
-        <translation type="obsolete">...</translation>
-    </message>
-    <message>
         <location filename="editchannel.ui" line="195"/>
         <source>Capability wizard</source>
         <translation>Assistente per le proprietà</translation>
@@ -560,10 +552,6 @@ p, li { white-space: pre-wrap; }
         <location filename="editmode.ui" line="484"/>
         <source>Lumens</source>
         <translation>Lumenes</translation>
-    </message>
-    <message>
-        <source>Color Temperature (K)</source>
-        <translation type="obsolete">Temperatura Colore (K)</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="504"/>
@@ -718,10 +706,6 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Technical</source>
-        <translation type="obsolete">Caratteristiche Tecniche</translation>
-    </message>
-    <message>
         <location filename="editmode.ui" line="840"/>
         <source>Power Consumption</source>
         <translation>Consumo</translation>
@@ -831,10 +815,6 @@ p, li { white-space: pre-wrap; }
         <location filename="fixtureeditor.ui" line="219"/>
         <source>Add a channel</source>
         <translation>Aggiungi un canale</translation>
-    </message>
-    <message>
-        <source>...</source>
-        <translation type="obsolete">...</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="239"/>

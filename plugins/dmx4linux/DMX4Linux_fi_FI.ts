@@ -9,11 +9,4 @@
         <translation type="unfinished">Tämä liitännäinen tuottaa DMX-ulostulon DMX4Linux-ajurin tukemille laitteille.</translation>
     </message>
 </context>
-<context>
-    <name>DMX4LinuxOut</name>
-    <message>
-        <source>This plugin provides DMX output for devices supported by the DMX4Linux driver suite.</source>
-        <translation type="obsolete">Tämä liitännäinen tuottaa DMX-ulostulon DMX4Linux-ajurin tukemille laitteille.</translation>
-    </message>
-</context>
 </TS>

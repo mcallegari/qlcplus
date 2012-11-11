@@ -91,33 +91,6 @@
     </message>
 </context>
 <context>
-    <name>EnttecDMXUSBOut</name>
-    <message>
-        <source>No devices available.</source>
-        <translation type="obsolete">Ei tunnistettuja laitteita.</translation>
-    </message>
-    <message>
-        <source>Make sure that you have your hardware firmly plugged in. NOTE: FTDI VCP interface is not supported by this plugin.</source>
-        <translation type="obsolete">Varmista, että laitteisto on kytkettynä. Huomaa: Tämä liitännäinen ei tue FTDI VCP-interfacea.</translation>
-    </message>
-    <message>
-        <source>This plugin provides DMX output support for</source>
-        <translation type="obsolete">Tämä liitännäinen tukee</translation>
-    </message>
-    <message>
-        <source>and compatible devices.</source>
-        <translation type="obsolete">ja yhteensopivia laitteita.</translation>
-    </message>
-    <message>
-        <source>Device is operating correctly.</source>
-        <translation type="obsolete">Laite toimii oikein.</translation>
-    </message>
-    <message>
-        <source>Do you wish to re-scan your hardware?</source>
-        <translation type="obsolete">Etsitäänkö uusia laitteita?</translation>
-    </message>
-</context>
-<context>
     <name>QObject</name>
     <message>
         <location filename="enttecdmxusbprorx.cpp" line="78"/>

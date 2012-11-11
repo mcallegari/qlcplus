@@ -2,65 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="de_DE">
 <context>
-    <name>EPlaybackWing</name>
-    <message>
-        <source>at</source>
-        <translation type="obsolete">bei</translation>
-    </message>
-</context>
-<context>
-    <name>EProgramWing</name>
-    <message>
-        <source>at</source>
-        <translation type="obsolete">bei</translation>
-    </message>
-</context>
-<context>
-    <name>EShortcutWing</name>
-    <message>
-        <source>at</source>
-        <translation type="obsolete">bei</translation>
-    </message>
-</context>
-<context>
-    <name>EWing</name>
-    <message>
-        <source>Firmware version %1</source>
-        <translation type="obsolete">Firmware Version %1</translation>
-    </message>
-    <message>
-        <source>Device is operating correctly.</source>
-        <translation type="obsolete">Gerät ist funktionsfähig.</translation>
-    </message>
-</context>
-<context>
-    <name>EWingInput</name>
-    <message>
-        <source>This plugin provides input support for Enttec Playback and Enttec Shortcut Wings.</source>
-        <translation type="obsolete">Dieses Plugin bietet Eingangsunterstützung für Enttec Playback und Enttec Shortcut Wings.</translation>
-    </message>
-    <message>
-        <source>Unable to bind to UDP port %1:</source>
-        <translation type="obsolete">Kann nicht mit dem UDP-Port %1: verbinden:</translation>
-    </message>
-    <message>
-        <source>Listening to UDP port %1.</source>
-        <translation type="obsolete">Höre auf UDP-Port %1.</translation>
-    </message>
-    <message>
-        <source>Unable to bind to UDP port %1</source>
-        <translation type="obsolete">Kann nicht mit dem UDP-Port %1 verbinden</translation>
-    </message>
-    <message>
-        <source>Listening to UDP port %1</source>
-        <translation type="obsolete">Höre auf UDP-Port %1</translation>
-    </message>
-    <message>
-        <source>Do you wish to re-scan your hardware?</source>
-        <translation type="obsolete">Nach neuer Hardware suchen?</translation>
-    </message>
-</context>
-<context>
     <name>EnttecWing</name>
     <message>
         <location filename="enttecwing.cpp" line="118"/>

@@ -9,11 +9,4 @@
         <translation type="unfinished">Dieses Plugin bietet DMX-Output für Geräte welche von dem DMX4Linux Treiber unterstützt werden.</translation>
     </message>
 </context>
-<context>
-    <name>DMX4LinuxOut</name>
-    <message>
-        <source>This plugin provides DMX output for devices supported by the DMX4Linux driver suite.</source>
-        <translation type="obsolete">Dieses Plugin bietet DMX-Output für Geräte welche von dem DMX4Linux Treiber unterstützt werden.</translation>
-    </message>
-</context>
 </TS>

@@ -29,7 +29,7 @@
 #include "fixturemanager.h"
 #include "outputmanager.h"
 #include "inputmanager.h"
-#include "scenemanager.h"
+#include "showmanager.h"
 #include "mastertimer.h"
 #include "simpledesk.h"
 #include "docbrowser.h"
@@ -123,8 +123,8 @@ App::~App()
     if (FunctionManager::instance() != NULL)
         delete FunctionManager::instance();
 
-    if (SceneManager::instance() != NULL)
-        delete SceneManager::instance();
+    if (ShowManager::instance() != NULL)
+        delete ShowManager::instance();
 
     if (InputManager::instance() != NULL)
         delete InputManager::instance();
@@ -184,7 +184,7 @@ void App::init()
     m_tab->addTab(w, tr("Fixtures"));
     w = new FunctionManager(m_tab, m_doc);
     m_tab->addTab(w, tr("Functions"));
-    w = new SceneManager(m_tab, m_doc);
+    w = new ShowManager(m_tab, m_doc);
     m_tab->addTab(w, tr("Scenes"));
     w = new VirtualConsole(m_tab, m_doc);
     m_tab->addTab(w, tr("Virtual Console"));
