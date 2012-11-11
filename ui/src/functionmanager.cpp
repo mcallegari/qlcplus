@@ -308,6 +308,8 @@ void FunctionManager::slotAddSequence()
     if (selection.size() == 1)
     {
         Chaser *chs = qobject_cast<Chaser*>(f);
+        Scene *boundScene = qobject_cast<Scene*>(m_doc->function(itemFunctionId(selection.first())));
+        boundScene->setChildrenFlag(true);
         chs->enableSequenceMode(itemFunctionId(selection.first()));
         chs->setRunOrder(Function::SingleShot);
     }
@@ -502,6 +504,24 @@ void FunctionManager::updateTree()
     m_tree->clear();
     foreach (Function* function, m_doc->functions())
         updateFunctionItem(new QTreeWidgetItem(parentItem(function)), function);
+    /** Set hasChildren flag for scenes with children */
+    for (int t = 0; t < m_tree->topLevelItemCount(); t++)
+    {
+        QTreeWidgetItem *topLevelItem = m_tree->topLevelItem(t);
+        for (int f = 0; f < topLevelItem->childCount(); f++)
+        {
+            QTreeWidgetItem *item = topLevelItem->child(f);
+            Function *function = m_doc->function(itemFunctionId(item));
+
+            if (function != NULL && function->type() == Function::Scene &&
+                item->childCount() > 0)
+            {
+                Scene *scene = qobject_cast<Scene*>(function);
+                scene->setChildrenFlag(true);
+                qDebug() << Q_FUNC_INFO << "Scene -" << function->name() << "has children !";
+            }
+        }
+    }
 }
 
 void FunctionManager::selectFunction(quint32 id)
@@ -615,6 +635,8 @@ QIcon FunctionManager::functionIcon(const Function* function) const
         return QIcon(":/rgbmatrix.png");
     case Function::Script:
         return QIcon(":/script.png");
+    case Function::Show:
+        return QIcon(":/show.png");
     default:
         return QIcon(":/function.png");
     }

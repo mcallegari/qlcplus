@@ -58,7 +58,7 @@
 #define KColumnID           3
 
 #define KTabGeneral         0
-#define KTabFirstFixture    1
+//#define KTabFirstFixture    1
 
 #define CYAN "cyan"
 #define MAGENTA "magenta"
@@ -77,6 +77,7 @@ SceneEditor::SceneEditor(QWidget* parent, Scene* scene, Doc* doc, bool applyValu
     , m_initFinished(false)
     , m_speedDials(NULL)
     , m_currentTab(KTabGeneral)
+    , m_fixtureFirstTabIndex(1)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -85,14 +86,16 @@ SceneEditor::SceneEditor(QWidget* parent, Scene* scene, Doc* doc, bool applyValu
 
     setupUi(this);
 
+    qDebug() << "-------> before init: " << m_fixtureFirstTabIndex;
     init(applyValues);
+    qDebug() << "-------> after init: " << m_fixtureFirstTabIndex;
 
     // Start new (==empty) scenes from the first tab and ones with something in them
     // on the first fixture page.
     if (m_tab->count() == 0)
         slotTabChanged(KTabGeneral);
     else
-        m_tab->setCurrentIndex(KTabFirstFixture);
+        m_tab->setCurrentIndex(m_fixtureFirstTabIndex);
 
     m_initFinished = true;
 
@@ -264,6 +267,18 @@ void SceneEditor::init(bool applyValues)
     connect(m_nameEdit, SIGNAL(textEdited(const QString&)),
             this, SLOT(slotNameEdited(const QString&)));
 
+    // Channels groups tab
+    QListIterator <ChannelsGroup*> scg(m_doc->channelsGroups());
+    while (scg.hasNext() == true)
+    {
+        QTreeWidgetItem* item = new QTreeWidgetItem(m_channel_groups);
+        ChannelsGroup *grp = scg.next();
+        item->setText(KColumnName, grp->name());
+        item->setData(KColumnName, Qt::UserRole, grp->id());
+        item->setSelected(true);
+    }
+    addChannelsGroupsTab();
+
     // Fixtures & tabs
     QListIterator <SceneValue> it(m_scene->values());
     while (it.hasNext() == true)
@@ -284,18 +299,6 @@ void SceneEditor::init(bool applyValues)
             scv.value = 0;
         setSceneValue(scv);
     }
-
-    QListIterator <ChannelsGroup*> scg(m_doc->channelsGroups());
-    while (scg.hasNext() == true)
-    {
-        QTreeWidgetItem* item = new QTreeWidgetItem(m_channel_groups);
-        ChannelsGroup *grp = scg.next();
-        item->setText(KColumnName, grp->name());
-        item->setData(KColumnName, Qt::UserRole, grp->id());
-        item->setSelected(true);
-    }
-
-    addChannelsGroupsTab();
 
     createSpeedDials();
 }
@@ -385,7 +388,7 @@ void SceneEditor::slotCopyToAll()
 {
     slotCopy();
 
-    for (int i = KTabFirstFixture; i < m_tab->count(); i++)
+    for (int i = m_fixtureFirstTabIndex; i < m_tab->count(); i++)
     {
         FixtureConsole* fc = consoleTab(i);
         if (fc != NULL)
@@ -723,7 +726,7 @@ void SceneEditor::slotRemoveFixtureClicked()
 
 void SceneEditor::slotEnableAll()
 {
-    for (int i = KTabFirstFixture; i < m_tab->count(); i++)
+    for (int i = m_fixtureFirstTabIndex; i < m_tab->count(); i++)
     {
         FixtureConsole* fc = consoleTab(i);
         if (fc != NULL)
@@ -733,7 +736,7 @@ void SceneEditor::slotEnableAll()
 
 void SceneEditor::slotDisableAll()
 {
-    for (int i = KTabFirstFixture; i < m_tab->count(); i++)
+    for (int i = m_fixtureFirstTabIndex; i < m_tab->count(); i++)
     {
         FixtureConsole* fc = consoleTab(i);
         if (fc != NULL)
@@ -756,6 +759,13 @@ void SceneEditor::slotFadeOutChanged(int ms)
  *********************************************************************/
 void SceneEditor::addChannelsGroupsTab()
 {
+    if (m_channel_groups->topLevelItemCount() == 0 ||
+        m_channel_groups->selectedItems().count() == 0)
+    {
+        m_fixtureFirstTabIndex = 1;
+        return;
+    }
+
     /* Put the console inside a scroll area */
     QScrollArea* scrollArea = new QScrollArea(m_tab);
 
@@ -766,11 +776,11 @@ void SceneEditor::addChannelsGroupsTab()
     GroupsConsole* console = new GroupsConsole(scrollArea, m_doc, ids);
     scrollArea->setWidget(console);
     scrollArea->setWidgetResizable(true);
-    m_tab->addTab(scrollArea, tr("Channels Groups"));
+    m_tab->insertTab(1, scrollArea, tr("Channels Groups"));
+    m_fixtureFirstTabIndex = 2;
 
     connect(console, SIGNAL(groupValueChanged(quint32,uchar)),
             this, SLOT(slotGroupValueChanged(quint32,uchar)));
-
 }
 
 void SceneEditor::slotGroupValueChanged(quint32 groupID, uchar value)
@@ -804,7 +814,7 @@ FixtureConsole* SceneEditor::fixtureConsole(Fixture* fixture)
     Q_ASSERT(fixture != NULL);
 
     /* Start from the first fixture tab */
-    for (int i = KTabFirstFixture; i < m_tab->count(); i++)
+    for (int i = m_fixtureFirstTabIndex; i < m_tab->count(); i++)
     {
         FixtureConsole* fc = consoleTab(i);
         if (fc != NULL && fc->fixture() == fixture->id())
@@ -841,7 +851,7 @@ void SceneEditor::removeFixtureTab(Fixture* fixture)
     Q_ASSERT(fixture != NULL);
 
     /* Start searching from the first fixture tab */
-    for (int i = KTabFirstFixture; i < m_tab->count(); i++)
+    for (int i = m_fixtureFirstTabIndex; i < m_tab->count(); i++)
     {
         FixtureConsole* fc = consoleTab(i);
         if (fc != NULL && fc->fixture() == fixture->id())

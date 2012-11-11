@@ -86,7 +86,9 @@ HEADERS += bus.h \
            scene.h \
            scenerunner.h \
            scenevalue.h \
-           script.h
+           script.h \
+           show.h \
+           track.h
 
 win32:HEADERS += mastertimer-win32.h
 unix:HEADERS  += mastertimer-unix.h
@@ -142,7 +144,9 @@ SOURCES += bus.cpp \
            scene.cpp \
            scenerunner.cpp \
            scenevalue.cpp \
-           script.cpp
+           script.cpp \
+           show.cpp \
+           track.cpp
 
 win32:SOURCES += mastertimer-win32.cpp
 unix:SOURCES  += mastertimer-unix.cpp

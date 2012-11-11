@@ -37,6 +37,7 @@
 #include "fixture.h"
 #include "chaser.h"
 #include "scene.h"
+#include "show.h"
 #include "efx.h"
 #include "doc.h"
 #include "bus.h"

@@ -77,6 +77,7 @@
         <file alias="scene.png">../../gfx/scene.png</file>
         <file alias="script.png">../../gfx/script.png</file>
         <file alias="sequence.png">../../gfx/sequence.png</file>
+        <file alias="show.png">../../gfx/show.png</file>
         <file alias="shutter.png">../../gfx/shutter.png</file>
         <file alias="slider.png">../../gfx/slider.png</file>
         <file alias="slidermatrix.png">../../gfx/slidermatrix.png</file>
@@ -85,6 +86,7 @@
         <file alias="star.png">../../gfx/star.png</file>
         <file alias="stop.png">../../gfx/stop.png</file>
         <file alias="tilt.png">../../gfx/tilt.png</file>
+        <file alias="track.png">../../gfx/track.png</file>
         <file alias="uncheck.png">../../gfx/uncheck.png</file>
         <file alias="undo.png">../../gfx/undo.png</file>
         <file alias="ungroup.png">../../gfx/ungroup.png</file>

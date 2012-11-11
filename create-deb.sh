@@ -7,4 +7,4 @@
 ./translate.sh
 
 # Build package
-dpkg-buildpackage -rfakeroot -I.svn
+dpkg-buildpackage -rfakeroot -I.git

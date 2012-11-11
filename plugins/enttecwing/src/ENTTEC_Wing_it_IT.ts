@@ -4,56 +4,103 @@
 <context>
     <name>EPlaybackWing</name>
     <message>
-        <location filename="eplaybackwing.cpp" line="171"/>
         <source>at</source>
-        <translation>a</translation>
+        <translation type="obsolete">a</translation>
     </message>
 </context>
 <context>
     <name>EProgramWing</name>
     <message>
-        <location filename="eprogramwing.cpp" line="155"/>
         <source>at</source>
-        <translation>a</translation>
+        <translation type="obsolete">a</translation>
     </message>
 </context>
 <context>
     <name>EShortcutWing</name>
     <message>
-        <location filename="eshortcutwing.cpp" line="104"/>
         <source>at</source>
-        <translation>a</translation>
+        <translation type="obsolete">a</translation>
     </message>
 </context>
 <context>
     <name>EWing</name>
     <message>
-        <location filename="ewing.cpp" line="64"/>
         <source>Firmware version %1</source>
-        <translation>Firmware version %1</translation>
+        <translation type="obsolete">Firmware version %1</translation>
     </message>
     <message>
-        <location filename="ewing.cpp" line="66"/>
         <source>Device is operating correctly.</source>
-        <translation>L&apos;Interfaccia funziona correttamente.</translation>
+        <translation type="obsolete">L&apos;Interfaccia funziona correttamente.</translation>
     </message>
 </context>
 <context>
     <name>EWingInput</name>
     <message>
-        <location filename="ewinginput.cpp" line="115"/>
         <source>This plugin provides input support for Enttec Playback and Enttec Shortcut Wings.</source>
-        <translation>Questo Plugin permette l&apos;interfacciamento in ingresso per le interfacce Enttec Playback e Enttec Shortcut Wings.</translation>
+        <translation type="obsolete">Questo Plugin permette l&apos;interfacciamento in ingresso per le interfacce Enttec Playback e Enttec Shortcut Wings.</translation>
     </message>
     <message>
-        <location filename="ewinginput.cpp" line="122"/>
         <source>Unable to bind to UDP port %1:</source>
-        <translation>Impossibilitato ad ascoltare la porta UDP %1:</translation>
+        <translation type="obsolete">Impossibilitato ad ascoltare la porta UDP %1:</translation>
     </message>
     <message>
-        <location filename="ewinginput.cpp" line="129"/>
         <source>Listening to UDP port %1.</source>
-        <translation>Resto in ascolto sulla porta UDP %1.</translation>
+        <translation type="obsolete">Resto in ascolto sulla porta UDP %1.</translation>
+    </message>
+</context>
+<context>
+    <name>EnttecWing</name>
+    <message>
+        <location filename="enttecwing.cpp" line="118"/>
+        <source>This plugin provides input support for Enttec Playback and Enttec Shortcut Wings.</source>
+        <translation type="unfinished">Questo Plugin permette l&apos;interfacciamento in ingresso per le interfacce Enttec Playback e Enttec Shortcut Wings.</translation>
+    </message>
+    <message>
+        <location filename="enttecwing.cpp" line="125"/>
+        <source>Unable to bind to UDP port %1:</source>
+        <translation type="unfinished">Impossibilitato ad ascoltare la porta UDP %1:</translation>
+    </message>
+    <message>
+        <location filename="enttecwing.cpp" line="132"/>
+        <source>Listening to UDP port %1.</source>
+        <translation type="unfinished">Resto in ascolto sulla porta UDP %1.</translation>
+    </message>
+</context>
+<context>
+    <name>PlaybackWing</name>
+    <message>
+        <location filename="playbackwing.cpp" line="172"/>
+        <source>at</source>
+        <translation type="unfinished">a</translation>
+    </message>
+</context>
+<context>
+    <name>ProgramWing</name>
+    <message>
+        <location filename="programwing.cpp" line="155"/>
+        <source>at</source>
+        <translation type="unfinished">a</translation>
+    </message>
+</context>
+<context>
+    <name>ShortcutWing</name>
+    <message>
+        <location filename="shortcutwing.cpp" line="104"/>
+        <source>at</source>
+        <translation type="unfinished">a</translation>
+    </message>
+</context>
+<context>
+    <name>Wing</name>
+    <message>
+        <location filename="wing.cpp" line="64"/>
+        <source>Firmware version %1</source>
+        <translation type="unfinished">Firmware version %1</translation>
+    </message>
+    <message>
+        <location filename="wing.cpp" line="66"/>
+        <source>Device is operating correctly.</source>
+        <translation type="unfinished">L&apos;Interfaccia funziona correttamente.</translation>
     </message>
 </context>
 </TS>

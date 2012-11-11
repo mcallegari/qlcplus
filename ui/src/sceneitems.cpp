@@ -144,18 +144,56 @@ void SceneCursorItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 /****************************************************************************
  * Track item
  ****************************************************************************/
-TrackItem::TrackItem(int number)
-    : m_trackNumber(number)
+TrackItem::TrackItem(Track *track, int number)
+    : m_number(number)
+    , m_isActive(false)
+    , m_track(track)
 {
     m_font = QApplication::font();
     m_font.setBold(true);
-    m_font.setPixelSize(18);
-    m_trackName = QString("Track %1").arg(m_trackNumber);
+    m_font.setPixelSize(12);
+    if (track != NULL)
+    {
+        m_name = m_track->name();
+        connect(m_track, SIGNAL(changed(quint32)), this, SLOT(slotTrackChanged(quint32)));
+    }
+    else
+        m_name = QString("Track %1").arg(m_number);
+}
+
+Track *TrackItem::getTrack()
+{
+    return m_track;
 }
 
 int TrackItem::getTrackNumber()
 {
-    return m_trackNumber;
+    return m_number;
+}
+
+void TrackItem::setName(QString name)
+{
+    if (!name.isEmpty())
+        m_name = name;
+    update();
+}
+
+void TrackItem::setActive(bool flag)
+{
+    m_isActive = flag;
+    update();
+}
+
+bool TrackItem::isActive()
+{
+    return m_isActive;
+}
+
+void TrackItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    m_isActive = true;
+    QGraphicsItem::mousePressEvent(event);
+    emit itemClicked(this);
 }
 
 QRectF TrackItem::boundingRect() const
@@ -168,16 +206,36 @@ void TrackItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
+    /* draw background gradient */
     QLinearGradient linearGrad(QPointF(0, 0), QPointF(0, 80));
     linearGrad.setColorAt(0, QColor(200, 200, 200, 255));
-    linearGrad.setColorAt(1, QColor(100, 100, 100, 255));
-
+    linearGrad.setColorAt(1, QColor(120, 120, 120, 255));
     painter->setBrush(linearGrad);
-    painter->drawRect(0, 0, 146, 80);
-    painter->setPen(QPen(QColor(200, 200, 200, 255), 2));
+    painter->drawRect(0, 0, 146, 79);
+
+    /* Draw left bar that shows if the track is active or not */
+    painter->setPen(QPen(QColor(10, 10, 10, 150), 1));
+    if (m_isActive == true)
+        painter->setBrush(QBrush(QColor(0, 255, 0, 255)));
+    else
+        painter->setBrush(QBrush(QColor(180, 180, 180, 255)));
+    painter->drawRect(1, 1, 7, 40);
 
     painter->setFont(m_font);
-    painter->drawText(5, 70, m_trackName);
+    /* draw shadow */
+    painter->setPen(QPen(QColor(10, 10, 10, 150), 2));
+    painter->drawText(6, 71, m_name);
+    /* draw track name */
+    painter->setPen(QPen(QColor(200, 200, 200, 255), 2));
+    painter->drawText(5, 70, m_name);
+}
+
+void TrackItem::slotTrackChanged(quint32 id)
+{
+    Q_UNUSED(id);
+
+    m_name = m_track->name();
+    update();
 }
 
 
@@ -190,6 +248,7 @@ SequenceItem::SequenceItem(Chaser *seq)
     , m_chaser(seq)
     , m_width(50)
     , m_timeScale(1)
+    , m_trackIdx(-1)
 {
     Q_ASSERT(seq != NULL);
     setToolTip(QString("Start time: %1msec\n%2")
@@ -251,6 +310,16 @@ void SequenceItem::setTimeScale(int val)
     calculateWidth();
 }
 
+void SequenceItem::setTrackIndex(int idx)
+{
+    m_trackIdx = idx;
+}
+
+int SequenceItem::getTrackIndex()
+{
+    return m_trackIdx;
+}
+
 Chaser *SequenceItem::getChaser()
 {
     return m_chaser;
@@ -258,10 +327,8 @@ Chaser *SequenceItem::getChaser()
 
 void SequenceItem::slotSequenceChanged(quint32)
 {
-    //qDebug() << Q_FUNC_INFO << " step added !!!";
     prepareGeometryChange();
     calculateWidth();
-    //update();
 }
 
 void SequenceItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -277,4 +344,5 @@ void SequenceItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     setCursor(Qt::OpenHandCursor);
     emit itemDropped(event, this);
 }
+
 

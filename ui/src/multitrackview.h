@@ -1,6 +1,6 @@
 /*
   Q Light Controller
-  scenemanager.h
+  multitrackview.h
 
   Copyright (C) Massimo Callegari
 
@@ -28,6 +28,7 @@
 
 #include "sceneitems.h"
 #include "chaser.h"
+#include "track.h"
 
 class MultiTrackView : public QGraphicsView
 {
@@ -39,17 +40,32 @@ public:
     /** Update the multitrack view with the scene elements */
     void resetView();
 
+    /** Add a new track to the view */
+    void addTrack(Track *track);
+
+    /** Add a new sequence to the given track */
     void addSequence(Chaser *chaser);
 
     /** Delete the currently selected sequence */
     quint32 deleteSelectedSequence();
 
+    /** Move cursor to a given time */
     void moveCursor(quint32 timePos);
+
+    /** Reset cursor to initial position */
     void rewindCursor();
 
+    void activateTrack(Track *track);
+
 private:
+    /** Get time of current cursor position */
     quint32 getTimeFromPosition();
+
+    /** Return position in pixel of a given time (in msec) */
     quint32 getPositionFromTime(quint32 time);
+
+    /** Get the index of the currently selected track */
+    int getActiveTrack();
 
 private:
     QGraphicsScene *m_scene;
@@ -62,6 +78,7 @@ signals:
     void sequenceMoved(SequenceItem *item);
     void viewClicked(QMouseEvent * e);
     void timeChanged(quint32 msec);
+    void trackClicked(Track *track);
 
 public slots:
     void mouseReleaseEvent(QMouseEvent * e);
@@ -69,6 +86,7 @@ public slots:
 protected slots:
     void slotMoveCursor(QGraphicsSceneMouseEvent *event);
     void slotTimeScaleChanged(int val);
+    void slotTrackClicked(TrackItem*);
 
     void slotSequenceMoved(QGraphicsSceneMouseEvent *, SequenceItem *);
 };

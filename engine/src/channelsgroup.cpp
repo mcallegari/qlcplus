@@ -1,6 +1,6 @@
 /*
   Q Light Controller
-  fadechannel.h
+  channelsgroup.cpp
 
   Copyright (c) Massimo Callegari
 
@@ -215,7 +215,7 @@ bool ChannelsGroup::loadXML(const QDomElement& root)
 {
     if (root.tagName() != KXMLQLCChannelsGroup)
     {
-        qWarning() << Q_FUNC_INFO << "Fixture group node not found";
+        qWarning() << Q_FUNC_INFO << "Channels group node not found";
         return false;
     }
 

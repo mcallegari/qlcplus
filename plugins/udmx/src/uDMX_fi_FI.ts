@@ -2,24 +2,61 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="fi_FI">
 <context>
+    <name>UDMX</name>
+    <message>
+        <location filename="udmx.cpp" line="98"/>
+        <source>This plugin provides DMX output support for Anyma uDMX devices.</source>
+        <translation type="unfinished">Tämä liitännäinen tuottaa DMX-ulostulotuen Anyma uDMX-laitteille.</translation>
+    </message>
+    <message>
+        <location filename="udmx.cpp" line="183"/>
+        <source>Do you wish to re-scan your hardware?</source>
+        <translation type="unfinished">Etsitäänkö lisää laitteita?</translation>
+    </message>
+</context>
+<context>
     <name>UDMXDevice</name>
     <message>
-        <location filename="udmxdevice.cpp" line="102"/>
+        <location filename="udmxdevice.cpp" line="116"/>
         <source>Unknown</source>
         <translation>Tuntematon</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="122"/>
         <source>Device is working correctly.</source>
-        <translation>Laite toimii oikein.</translation>
+        <translation type="obsolete">Laite toimii oikein.</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="127"/>
+        <location filename="udmxdevice.cpp" line="137"/>
+        <source>DMX Frame Frequency</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="udmxdevice.cpp" line="140"/>
+        <source>Bad</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="udmxdevice.cpp" line="142"/>
+        <source>Good</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="udmxdevice.cpp" line="144"/>
+        <source>Patch this device to a universe to find out.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="udmxdevice.cpp" line="145"/>
+        <source>System Timer Accuracy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="udmxdevice.cpp" line="150"/>
         <source>Unknown device</source>
         <translation>Tuntematon laite</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="129"/>
+        <location filename="udmxdevice.cpp" line="152"/>
         <source>Cannot connect to USB device.</source>
         <translation>USB-laitteeseen ei saada yhteyttä.</translation>
     </message>
@@ -27,14 +64,12 @@
 <context>
     <name>UDMXOut</name>
     <message>
-        <location filename="udmxout.cpp" line="98"/>
         <source>This plugin provides DMX output support for Anyma uDMX devices.</source>
-        <translation>Tämä liitännäinen tuottaa DMX-ulostulotuen Anyma uDMX-laitteille.</translation>
+        <translation type="obsolete">Tämä liitännäinen tuottaa DMX-ulostulotuen Anyma uDMX-laitteille.</translation>
     </message>
     <message>
-        <location filename="udmxout.cpp" line="185"/>
         <source>Do you wish to re-scan your hardware?</source>
-        <translation>Etsitäänkö lisää laitteita?</translation>
+        <translation type="obsolete">Etsitäänkö lisää laitteita?</translation>
     </message>
 </context>
 </TS>

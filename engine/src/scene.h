@@ -69,8 +69,13 @@ public:
      */
     ~Scene();
 
+    void setChildrenFlag(bool flag);
+
 private:
     quint32 m_legacyFadeBus;
+
+    /** flag that says if a scene is used by some Chaser in sequence mode */
+    bool m_hasChildren;
 
     /*********************************************************************
      * Copying

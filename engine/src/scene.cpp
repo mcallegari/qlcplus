@@ -42,6 +42,7 @@
 
 Scene::Scene(Doc* doc) : Function(doc, Function::Scene)
     , m_legacyFadeBus(Bus::invalid())
+    , m_hasChildren(false)
     , m_fader(NULL)
 {
     setName(tr("New Scene"));
@@ -50,6 +51,11 @@ Scene::Scene(Doc* doc) : Function(doc, Function::Scene)
 Scene::~Scene()
 {
     m_values.clear();
+}
+
+void Scene::setChildrenFlag(bool flag)
+{
+    m_hasChildren = flag;
 }
 
 /*****************************************************************************
@@ -201,7 +207,7 @@ bool Scene::saveXML(QDomDocument* doc, QDomElement* wksp_root)
             }
         }
         chanCount++;
-        if (sv.value != 0)
+        if (sv.value != 0 && m_hasChildren == false)
         {
             if (fixValues.isEmpty() == false)
                 fixValues.append(QString(","));

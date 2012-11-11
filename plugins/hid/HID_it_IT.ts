@@ -2,26 +2,53 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="it_IT">
 <context>
+    <name>ConfigureHID</name>
+    <message>
+        <location filename="configurehid.ui" line="14"/>
+        <source>Configure HID Plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configurehid.ui" line="33"/>
+        <source>Input Line</source>
+        <translation type="unfinished">Input Line</translation>
+    </message>
+    <message>
+        <location filename="configurehid.ui" line="38"/>
+        <source>Name</source>
+        <translation type="unfinished">Nome</translation>
+    </message>
+    <message>
+        <location filename="configurehid.ui" line="46"/>
+        <source>Refresh</source>
+        <translation type="unfinished">Ricontrolla</translation>
+    </message>
+</context>
+<context>
     <name>ConfigureHIDInput</name>
     <message>
-        <location filename="configurehidinput.ui" line="14"/>
         <source>Configure HID Input Plugin</source>
-        <translation>Configura il pluginn per le interfacce HID in ingresso</translation>
+        <translation type="obsolete">Configura il pluginn per le interfacce HID in ingresso</translation>
     </message>
     <message>
-        <location filename="configurehidinput.ui" line="33"/>
         <source>Input Line</source>
-        <translation>Input Line</translation>
+        <translation type="obsolete">Input Line</translation>
     </message>
     <message>
-        <location filename="configurehidinput.ui" line="38"/>
         <source>Name</source>
-        <translation>Nome</translation>
+        <translation type="obsolete">Nome</translation>
     </message>
     <message>
-        <location filename="configurehidinput.ui" line="48"/>
         <source>Refresh</source>
-        <translation>Ricontrolla</translation>
+        <translation type="obsolete">Ricontrolla</translation>
+    </message>
+</context>
+<context>
+    <name>HID</name>
+    <message>
+        <location filename="hid.cpp" line="148"/>
+        <source>This plugin provides input support for HID-based joysticks.</source>
+        <translation type="unfinished">Questo Plugin accetta segnale in ingresso da Joysticks HID.</translation>
     </message>
 </context>
 <context>
@@ -35,9 +62,8 @@
 <context>
     <name>HIDInput</name>
     <message>
-        <location filename="hidinput.cpp" line="143"/>
         <source>This plugin provides input support for HID-based joysticks.</source>
-        <translation>Questo Plugin accetta segnale in ingresso da Joysticks HID.</translation>
+        <translation type="obsolete">Questo Plugin accetta segnale in ingresso da Joysticks HID.</translation>
     </message>
 </context>
 <context>

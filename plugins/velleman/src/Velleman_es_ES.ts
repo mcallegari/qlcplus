@@ -2,9 +2,9 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="es_ES">
 <context>
-    <name>VellemanOut</name>
+    <name>Velleman</name>
     <message>
-        <location filename="vellemanout.cpp" line="120"/>
+        <location filename="velleman.cpp" line="125"/>
         <source>This plugin provides DMX output support for the Velleman K8062D using the DLL supplied with the product.</source>
         <translation type="unfinished"></translation>
     </message>

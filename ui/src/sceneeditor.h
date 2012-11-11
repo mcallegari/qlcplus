@@ -156,6 +156,7 @@ private slots:
 
 private:
     int m_currentTab;
+    int m_fixtureFirstTabIndex;
 
     /** Values from a copied console (i.e. clipboard) */
     QList <SceneValue> m_copy;

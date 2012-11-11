@@ -28,6 +28,7 @@
 #include <QObject>
 
 #include "chaser.h"
+#include "track.h"
 
 /*********************************************************************
  * Scene Header class. Clickable time line header
@@ -86,17 +87,40 @@ class TrackItem : public QObject, public QGraphicsItem
     Q_INTERFACES(QGraphicsItem)
 
 public:
-    TrackItem(int number);
+    TrackItem(Track *track, int number);
 
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
+    /** Return pointer to the Track class associated to this item */
+    Track *getTrack();
+
+    /** Return the track number */
     int getTrackNumber();
 
+    /** Set the track name */
+    void setName(QString name);
+
+    /** Enable/disable active state which higlight the left bar */
+    void setActive(bool flag);
+
+    /** Return if this track is active or not */
+    bool isActive();
+
+protected:
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+
+protected slots:
+    void slotTrackChanged(quint32 id);
+signals:
+    void itemClicked(TrackItem *);
+
 private:
-    QString m_trackName;
-    int m_trackNumber;
+    QString m_name;
+    int m_number;
     QFont m_font;
+    bool m_isActive;
+    Track *m_track;
 };
 
 /*********************************************************************
@@ -114,15 +138,18 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     void setTimeScale(int val);
+
+    void setTrackIndex(int idx);
+    int getTrackIndex();
+
+    /** Return a pointer to a Chaser associated to this item */
     Chaser *getChaser();
 
 signals:
     void itemDropped(QGraphicsSceneMouseEvent *, SequenceItem *);
-    //void itemSelected(bool status);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    //void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
 protected slots:
@@ -134,12 +161,14 @@ private:
 
 private:
     QColor color;
-    /* Reference to the actual Chaser object which holds the sequence steps */
+    /** Reference to the actual Chaser object which holds the sequence steps */
     Chaser *m_chaser;
-    /* width of the graphics object. Recalculated every time a chaser step  changes */
+    /** width of the graphics object. Recalculated every time a chaser step  changes */
     int m_width;
-    /* horizontal scale to adapt width to the current time line */
+    /** horizontal scale to adapt width to the current time line */
     int m_timeScale;
+    /** track index this sequence belongs to */
+    int m_trackIdx;
 };
 
 #endif

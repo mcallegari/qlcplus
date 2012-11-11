@@ -8,8 +8,8 @@ TESTDIR=engine/test
 TESTS=`find ${TESTDIR} -maxdepth 1 -mindepth 1 -type d`
 for test in ${TESTS}
 do
-    # Ignore .svn
-    if [ `echo ${test} | grep ".svn"` ]; then
+    # Ignore .git
+    if [ `echo ${test} | grep ".git"` ]; then
         continue
     fi
 
@@ -36,8 +36,8 @@ TESTDIR=ui/test
 TESTS=`find ${TESTDIR} -maxdepth 1 -mindepth 1 -type d`
 for test in ${TESTS}
 do
-    # Ignore .svn
-    if [ `echo ${test} | grep ".svn"` ]; then
+    # Ignore .git
+    if [ `echo ${test} | grep ".git"` ]; then
         continue
     fi
 

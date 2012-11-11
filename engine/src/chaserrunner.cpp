@@ -410,8 +410,22 @@ void ChaserRunner::switchFunctions(MasterTimer* timer)
         if (m_chaser->isSequence())
         {
             Scene *s = qobject_cast<Scene*>(m_currentFunction);
-            for (int i = 0; i < step.values.count(); i++)
-                s->setValue(step.values.at(i));
+            if (m_currentStep == 0)
+            {
+                for (int i = 0; i < step.values.count(); i++)
+                    s->setValue(step.values.at(i));
+            }
+            else
+            {
+                ChaserStep prevStep(m_chaser->steps().at(m_currentStep - 1));
+                for (int i = 0; i < step.values.count(); i++)
+                {
+                    SceneValue stepValue = step.values.at(i);
+                    SceneValue prevStepValue = prevStep.values.at(i);
+                    if (stepValue == prevStepValue && stepValue.value != prevStepValue.value)
+                        s->setValue(step.values.at(i));
+                }
+            }
         }
 
         // Set intensity before starting the function. Otherwise the intensity

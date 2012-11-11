@@ -29,6 +29,7 @@
 #include "multitrackview.h"
 #include "sceneitems.h"
 #include "scene.h"
+#include "show.h"
 #include "doc.h"
 
 class SceneRunner;
@@ -69,13 +70,17 @@ protected:
     static SceneManager* s_instance;
     
     Doc* m_doc;
+    /* Currently selected show */
+    Show* m_show;
     /* Currently selected scene */
     Scene* m_scene;
     QWidget* m_scene_editor;
     QWidget* m_sequence_editor;
 
 private:
+    void showSceneEditor(Scene *scene);
     void showSequenceEditor(Chaser *chaser);
+
 private:
     QSplitter* m_splitter; // main view splitter (horizontal)
     QSplitter* m_vsplitter; // multitrack view splitter (vertical)
@@ -93,13 +98,14 @@ private:
 protected:
     void initActions();
     void initToolbar();
-    void updateScenesCombo();
+    void updateShowsCombo();
     void updateMultiTrackView();
 
     QToolBar* m_toolbar;
-    QComboBox* m_scenesCombo;
+    QComboBox* m_showsCombo;
     QLabel* m_timeLabel;
-    QAction* m_addSceneAction;
+    QAction* m_addShowAction;
+    QAction* m_addTrackAction;
     QAction* m_addSequenceAction;
     QAction* m_cloneAction;
     QAction* m_deleteAction;
@@ -107,8 +113,9 @@ protected:
     QAction* m_playAction;
 
 protected slots:
-    void slotSceneComboChanged(int idx);
-    void slotAddScene();
+    void slotShowsComboChanged(int idx);
+    void slotAddShow();
+    void slotAddTrack();
     void slotAddSequence();
 
     void slotClone();
@@ -121,6 +128,10 @@ protected slots:
     void slotSequenceMoved(SequenceItem *);
     void slotUpdateTime(quint32 msec_time);
     void slotupdateTimeAndCursor(quint32 msec_time);
+    void slotTrackClicked(Track *track);
+
+    void slotDocClearing();
+    void slotFunctionChanged(quint32 id);
 };
 
 #endif

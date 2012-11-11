@@ -210,7 +210,7 @@ void FunctionSelection::slotItemSelectionChanged()
     QListIterator <QTreeWidgetItem*> it(m_tree->selectedItems());
     while (it.hasNext() == true)
     {
-        quint32 id = it.next()->text(KColumnID).toInt();
+        quint32 id = it.next()->text(KColumnID).toUInt();
         if (m_selection.contains(id) == false)
             m_selection.append(id);
 

@@ -1,6 +1,6 @@
 /*
   Q Light Controller
-  sceneitems.cpp
+  multitrackview.cpp
 
   Copyright (C) Massimo Callegari
 
@@ -30,9 +30,11 @@
 
 #include "multitrackview.h"
 #include "sceneitems.h"
+#include "track.h"
 
-#define TRACK_HEIGHT 80
-#define TRACK_WIDTH 150
+#define HEADER_HEIGHT 35
+#define TRACK_HEIGHT  80
+#define TRACK_WIDTH   150
 
 MultiTrackView::MultiTrackView(QWidget *parent) :
         QGraphicsView(parent)
@@ -45,7 +47,7 @@ MultiTrackView::MultiTrackView(QWidget *parent) :
     QSlider *slider = new QSlider(Qt::Horizontal);
     slider->setRange(1, 15);
     slider->setSingleStep(1);
-    slider->setFixedSize(TRACK_WIDTH - 4, 35);
+    slider->setFixedSize(TRACK_WIDTH - 4, HEADER_HEIGHT);
 
     slider->setStyleSheet("QSlider { background-color: #969696; }"
                           "QSlider::groove:horizontal {"
@@ -84,17 +86,16 @@ MultiTrackView::MultiTrackView(QWidget *parent) :
     m_cursor->setPos(TRACK_WIDTH, 0);
     m_cursor->setZValue(99); // make sure the cursor is always on top of everything else
     m_scene->addItem(m_cursor);
-
-    TrackItem *track = new TrackItem(1);
-    track->setPos(0, 35);
-    m_scene->addItem(track);
 }
 
 void MultiTrackView::resetView()
 {
-    if (m_sequences.count() > 0)
-        for (int i = 0; i < m_sequences.count(); i++)
-            m_scene->removeItem(m_sequences.at(i));
+    for (int t = 0; t < m_tracks.count(); t++)
+        m_scene->removeItem(m_tracks.at(t));
+    m_tracks.clear();
+
+    for (int i = 0; i < m_sequences.count(); i++)
+        m_scene->removeItem(m_sequences.at(i));
     m_sequences.clear();
 
     m_cursor->setPos(150, 0);
@@ -102,21 +103,36 @@ void MultiTrackView::resetView()
     m_scene->update();
 }
 
+void MultiTrackView::addTrack(Track *track)
+{
+    TrackItem *trackItem = new TrackItem(track, m_tracks.count() + 1);
+    trackItem->setName(track->name());
+    trackItem->setPos(0, HEADER_HEIGHT + (TRACK_HEIGHT * m_tracks.count()));
+    m_scene->addItem(trackItem);
+    m_tracks.append(trackItem);
+    activateTrack(track);
+    connect(trackItem, SIGNAL(itemClicked(TrackItem*)), this, SLOT(slotTrackClicked(TrackItem*)));
+}
+
 void MultiTrackView::addSequence(Chaser *chaser)
 {
     SequenceItem *item = new SequenceItem(chaser);
+    int trackNum = getActiveTrack();
+    if (trackNum < 0)
+        trackNum = 0;
+    item->setTrackIndex(trackNum);
 
     if (chaser->getStartTime() == UINT_MAX)
     {
         quint32 s_time = getTimeFromPosition();
         chaser->setStartTime(s_time);
-        item->setPos(m_cursor->x() + 2, 36);
+        item->setPos(m_cursor->x() + 2, 36 + (trackNum * TRACK_HEIGHT));
         item->setToolTip(QString(tr("Start time: %1msec\n%2"))
                          .arg(s_time).arg(tr("Click to move this sequence across the timeline")));
     }
     else
     {
-        item->setPos(getPositionFromTime(chaser->getStartTime()) + 2, 36);
+        item->setPos(getPositionFromTime(chaser->getStartTime()) + 2, 36 + (trackNum * TRACK_HEIGHT));
     }
     qDebug() << Q_FUNC_INFO << "sequence start time: " << chaser->getStartTime() << "msec";
 
@@ -171,6 +187,17 @@ void MultiTrackView::rewindCursor()
     m_cursor->setPos(TRACK_WIDTH, 0);
 }
 
+void MultiTrackView::activateTrack(Track *track)
+{
+    foreach(TrackItem *item, m_tracks)
+    {
+        if (item->getTrack()->id() == track->id())
+            item->setActive(true);
+        else
+            item->setActive(false);
+    }
+}
+
 quint32 MultiTrackView::getTimeFromPosition()
 {
     quint32 s_time = (m_cursor->x() - TRACK_WIDTH) * (m_header->getTimeScale() * 1000) / (m_header->getTimeStep() * 2);
@@ -183,6 +210,19 @@ quint32 MultiTrackView::getPositionFromTime(quint32 time)
         return TRACK_WIDTH;
     int xPos = (time * (m_header->getTimeStep() / m_header->getTimeScale())) / 500;
     return TRACK_WIDTH + xPos;
+}
+
+int MultiTrackView::getActiveTrack()
+{
+    int index = 0;
+    foreach (TrackItem *track, m_tracks)
+    {
+        if (track->isActive())
+            return index;
+        index++;
+    }
+
+    return -1;
 }
 
 void MultiTrackView::mouseReleaseEvent(QMouseEvent * e)
@@ -214,38 +254,35 @@ void MultiTrackView::slotTimeScaleChanged(int val)
     int newCursorPos = getPositionFromTime(m_cursor->getTime());
     m_cursor->setPos(newCursorPos + 2, m_cursor->y());
 }
+
+void MultiTrackView::slotTrackClicked(TrackItem *track)
+{
+    foreach(TrackItem *item, m_tracks)
+    {
+        if (item == track)
+            item->setActive(true);
+        else
+            item->setActive(false);
+    }
+    emit trackClicked(track->getTrack());
+}
     
 void MultiTrackView::slotSequenceMoved(QGraphicsSceneMouseEvent *, SequenceItem *item)
 {
     //qDebug() << Q_FUNC_INFO << "event - <" << event->pos().toPoint().x() << "> - <" << event->pos().toPoint().y() << ">";
-    // align to the closest track
-    int ypos = item->y() - 36;
-    ypos = (int)(ypos / (TRACK_HEIGHT + 1)) * (TRACK_HEIGHT + 1);
-    int trackNum = (int)(ypos / (TRACK_HEIGHT + 1)) + 1;
+    // align to the appropriate track
+    //int trackNum = getActiveTrack();
+    int trackNum = item->getTrackIndex();
+    int ypos = HEADER_HEIGHT + 1 + (trackNum * TRACK_HEIGHT);
+
     if (item->x() < TRACK_WIDTH + 2)
-        item->setPos(TRACK_WIDTH + 2, ypos + 36); // avoid moving a sequence too early...
+        item->setPos(TRACK_WIDTH + 2, ypos); // avoid moving a sequence too early...
     else
-        item->setPos(item->x(), ypos + 36);
+        item->setPos(item->x(), ypos);
     quint32 s_time = (item->x() - TRACK_WIDTH) * (m_header->getTimeScale() * 1000) / (m_header->getTimeStep() * 2);
     item->getChaser()->setStartTime(s_time);
     item->setToolTip(QString(tr("Start time: %1msec\n%2"))
                      .arg(s_time).arg(tr("Click to move this sequence across the timeline")));
-
-    bool trackFound = false;
-    foreach(TrackItem *trk, m_tracks)
-    {
-        if (trk->getTrackNumber() == trackNum)
-        {
-            trackFound = true;
-            break;
-        }
-    }
-    if (trackFound == false)
-    {
-        TrackItem *track = new TrackItem(trackNum);
-        track->setPos(0, ypos + 36);
-        m_scene->addItem(track);
-    }
 
     m_scene->update();
     emit sequenceMoved(item);

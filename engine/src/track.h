@@ -1,6 +1,6 @@
 /*
   Q Light Controller
-  channelsgroup.h
+  fadechannel.h
 
   Copyright (c) Massimo Callegari
 
@@ -19,19 +19,20 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef CHANNELSGROUP_H
-#define CHANNELSGROUP_H
+#ifndef TRACK_H
+#define TRACK_H
 
 #include <QObject>
 
-#include "scenevalue.h"
+#include "chaser.h"
+#include "scene.h"
 
 class QDomDocument;
 class QDomElement;
 
-#define KXMLQLCChannelsGroup "ChannelsGroup"
+#define KXMLQLCTrack "Track"
 
-class ChannelsGroup : public QObject
+class Track : public QObject
 {
     Q_OBJECT
 
@@ -39,28 +40,21 @@ class ChannelsGroup : public QObject
      * Initialization
      ************************************************************************/
 public:
-    /** Create a new ChannelsGroup with empty/invalid values */
-    ChannelsGroup(Doc* parent);
+    /** Create a new Track and associate it to a Scene  */
+    Track(quint32 sceneID = Scene::invalidId());
 
-    /** Copy constructor */
-    ChannelsGroup(Doc* parent, const ChannelsGroup* chg);
+    /** destroy this Track */
+    ~Track();
 
-    /** destroy this ChannelsGroup */
-    ~ChannelsGroup();
+private:
+    /** Pointer to a Scene which this track represents */
+    quint32 m_sceneID;
+    /** Flag to mute/unmute this track */
+    bool m_isMute;
 
 signals:
-    /** Emitted whenever a channels group's properties are changed */
+    /** Emitted whenever some property is changed */
     void changed(quint32 id);
-
-    /*********************************************************************
-     * Load & Save
-     *********************************************************************/
-public:
-    static bool loader(const QDomElement& root, Doc* doc);
-
-    bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
-
-    bool loadXML(const QDomElement& root);
 
     /************************************************************************
      * ID
@@ -88,33 +82,35 @@ public:
     /** Get the name of a channels group */
     QString name() const;
 
-    /************************************************************************
-     * Channels
-     ************************************************************************/
-    /** Empty the current values of this channels group */
-    void resetList();
-
-    /** Add a channel to this channels group */
-    bool addChannel(quint32 fxid, quint32 channel);
-
-    /** Returns the current list of channels of this group */
-    QList <SceneValue> getChannels() const;
-    /*********************************************************************
-     * Status
-     *********************************************************************/
-public:
-    /**
-     * Get the channels group instance's status info for Fixture Manager
-     *
-     * @return A sort-of HTML-RTF-gibberish for Fixture Manager
-     */
-    QString status(Doc *doc) const;
-
 private:
     QString m_name;
 
-    uchar m_masterValue;
-    QList <SceneValue> m_channels;
+    /*********************************************************************
+     * Scene
+     *********************************************************************/
+public:
+    quint32 getSceneID();
+
+    /*********************************************************************
+     * Sequences
+     *********************************************************************/
+public:
+    bool addSequence(Chaser *seq);
+
+    QList <quint32> sequences();
+
+private:
+    /** List of Chaser IDs (in sequence mode) present in this track */
+    QList <quint32> m_sequences;
+
+    /*********************************************************************
+     * Load & Save
+     *********************************************************************/
+public:
+    bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
+
+    bool loadXML(const QDomElement& root);
+
 };
 
 #endif

@@ -21,8 +21,8 @@ CONFIG         -= release # Enable this when making a release
 CONFIG         += debug   # Disable this when making a release
 
 # Disable these if you don't want to see SVN revision in the About Box
-unix:REVISION = $$system(svn info | grep "Revision" | sed 's/Revision://')
-unix:APPVERSION = $$APPVERSION-r$$REVISION
+#unix:REVISION = $$system(svn info | grep "Revision" | sed 's/Revision://')
+#unix:APPVERSION = $$APPVERSION-r$$REVISION
 
 unix:OLA_GIT    = /usr/src/ola    # OLA directories
 

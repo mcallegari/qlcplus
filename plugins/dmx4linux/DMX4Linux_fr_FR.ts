@@ -2,9 +2,9 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="fr_FR">
 <context>
-    <name>DMX4LinuxOut</name>
+    <name>DMX4Linux</name>
     <message>
-        <location filename="dmx4linuxout.cpp" line="97"/>
+        <location filename="dmx4linux.cpp" line="102"/>
         <source>This plugin provides DMX output for devices supported by the DMX4Linux driver suite.</source>
         <translation type="unfinished"></translation>
     </message>
