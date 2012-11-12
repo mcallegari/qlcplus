@@ -410,6 +410,7 @@ void ChaserRunner::switchFunctions(MasterTimer* timer)
         if (m_chaser->isSequence())
         {
             Scene *s = qobject_cast<Scene*>(m_currentFunction);
+            qDebug() << Q_FUNC_INFO << "Current step #" << m_currentStep << " has values: " << step.values.count();
             if (m_currentStep == 0)
             {
                 for (int i = 0; i < step.values.count(); i++)
@@ -418,6 +419,7 @@ void ChaserRunner::switchFunctions(MasterTimer* timer)
             else
             {
                 ChaserStep prevStep(m_chaser->steps().at(m_currentStep - 1));
+                qDebug() << Q_FUNC_INFO << "Previous step has values: " << prevStep.values.count();
                 for (int i = 0; i < step.values.count(); i++)
                 {
                     SceneValue stepValue = step.values.at(i);

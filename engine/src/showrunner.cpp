@@ -107,7 +107,10 @@ void ShowRunner::timerTimeout()
 {
     if (m_elapsedTime >= m_chasers.at(m_currentStepIndex)->getStartTime())
     {
-        m_chasers.at(m_currentStepIndex)->start(m_doc->masterTimer());
+        bool startAsChild = false;
+        if (m_currentStepIndex > 0)
+            startAsChild = true;
+        m_chasers.at(m_currentStepIndex)->start(m_doc->masterTimer(), startAsChild);
         m_currentStepIndex++;
         if (m_currentStepIndex == m_chasers.count())
             //&& m_elapsedTime >= m_chasers.at(m_currentStepIndex - 1)->getStartTime() + m_durations.at(m_currentStepIndex - 1))

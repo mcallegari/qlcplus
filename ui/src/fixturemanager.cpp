@@ -934,20 +934,19 @@ void FixtureManager::addFixture()
 
 void FixtureManager::addChannelsGroup()
 {
-    ChannelsGroup *group = new ChannelsGroup(m_doc);
+    ChannelsGroup *group = NULL;
 
-    int index = m_channels_tree->indexOfTopLevelItem(m_channels_tree->currentItem());
+    int selectedCount = m_channels_tree->selectedItems().size();
 
-    if (index >= 0)
+    if (selectedCount > 0)
     {
-        QVariant var = m_channels_tree->currentItem()->data(KColumnName, PROP_FIXTURE);
+        QTreeWidgetItem* current = m_channels_tree->selectedItems().first();
+        QVariant var = current->data(KColumnName, PROP_FIXTURE);
         if (var.isValid() == true)
-        {
-            ChannelsGroup* grp = m_doc->channelsGroup(var.toUInt());
-            Q_ASSERT(grp != NULL);
-            group = new ChannelsGroup(m_doc, grp);
-        }
+            group = m_doc->channelsGroup(var.toUInt());
     }
+    else
+        group = new ChannelsGroup(m_doc);
 
     ChannelSelection cs(this, m_doc, group);
     if (cs.exec() == QDialog::Accepted)

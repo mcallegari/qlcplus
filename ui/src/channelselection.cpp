@@ -39,6 +39,7 @@ ChannelSelection::ChannelSelection(QWidget* parent, Doc* doc, ChannelsGroup *gro
     , m_chansGroup(group)
 {
     Q_ASSERT(doc != NULL);
+    Q_ASSERT(m_chansGroup != NULL);
 
     setupUi(this);
 

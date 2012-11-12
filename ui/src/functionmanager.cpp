@@ -44,6 +44,7 @@
 #include "chasereditor.h"
 #include "scripteditor.h"
 #include "sceneeditor.h"
+#include "chaserstep.h"
 #include "collection.h"
 #include "efxeditor.h"
 #include "rgbmatrix.h"
@@ -106,6 +107,7 @@ FunctionManager::FunctionManager(QWidget* parent, Doc* doc)
     m_tree->sortItems(COL_NAME, Qt::AscendingOrder);
 
     connect(m_doc, SIGNAL(clearing()), this, SLOT(slotDocClearing()));
+    connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
     connect(m_doc, SIGNAL(functionChanged(quint32)), this, SLOT(slotFunctionChanged(quint32)));
     connect(m_doc, SIGNAL(functionAdded(quint32)), this, SLOT(slotFunctionAdded(quint32)));
 
@@ -139,6 +141,55 @@ void FunctionManager::slotDocClearing()
 {
     deleteCurrentEditor();
     m_tree->clear();
+}
+
+void FunctionManager::slotDocLoaded()
+{
+    // Once the doc is completely loaded, update all the steps of Chasers acting like sequences
+    foreach (Function *f, m_doc->functions())
+    {
+        if (f->type() == Function::Chaser)
+        {
+            Chaser *chaser = qobject_cast<Chaser *>(f);
+            if (chaser->isSequence() && chaser->getBoundedSceneID() != Scene::invalidId())
+            {
+                Function *f = m_doc->function(chaser->getBoundedSceneID());
+                Scene *s = qobject_cast<Scene*>(f);
+                int i = 0;
+                foreach(ChaserStep step, chaser->steps())
+                {
+                    if (step.values.count() > 0)
+                    {
+                        // Since I saved only the non-zero values in the XML files, at the first chance I need
+                        // to fix the values against the bounded scene, and restore all the zero values previously there
+                        qDebug() << Q_FUNC_INFO << "Scene values: " << s->values().count() << ", step values: " <<  step.values.count();
+                        if (s->values().count() != step.values.count())
+                        {
+                            int j = 0;
+                            // 1- copy the list
+                            QList <SceneValue> tmpList = step.values;
+                            // 2- clear it
+                            step.values.clear();
+                            // 3- fix it
+                            QListIterator <SceneValue> it(s->values());
+                            while (it.hasNext() == true)
+                            {
+                                SceneValue scv(it.next());
+                                scv.value = 0;
+                                if (j < tmpList.count() && tmpList.at(j) == scv)
+                                    step.values.append(tmpList.at(j++));
+                                else
+                                    step.values.append(scv);
+                            }
+                            chaser->replaceStep(step, i);
+                            qDebug() << "************ STEP FIXED *********** total values: " << step.values.count();
+                            i++;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 void FunctionManager::slotFunctionChanged(quint32 id)

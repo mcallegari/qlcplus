@@ -889,34 +889,6 @@ void ChaserEditor::updateTree(bool clear)
 
         ChaserStep step(m_chaser->steps().at(i));
         updateItem(item, step);
-        if (step.values.count() > 0)
-        {
-            /* Since I saved only the non-zero values in the XML files, at the first chance I need
-               to fix the values against the bounded scene, and restore all the zero values previously there */
-            Function *f = m_doc->function(m_chaser->getBoundedSceneID());
-            Scene *s = qobject_cast<Scene*>(f);
-            qDebug() << Q_FUNC_INFO << "Scene values: " << s->values().count() << ", step values: " <<  step.values.count();
-            if (s->values().count() != step.values.count())
-            {
-                int j = 0;
-                QList <SceneValue> tmpList = step.values; // 1- copy the list
-                step.values.clear(); // 2- clear it
-                QListIterator <SceneValue> it(s->values());
-                // 3- fix it
-                while (it.hasNext() == true)
-                {
-                    SceneValue scv(it.next());
-                    scv.value = 0;
-                    if (j < tmpList.count() && tmpList.at(j) == scv)
-                        step.values.append(tmpList.at(j++));
-                    else
-                        step.values.append(scv);
-                }
-                m_chaser->replaceStep(step, i);
-                qDebug() << "************ STEP FIXED *********** total values: " << step.values.count();
-
-            }
-        }
     }
 }
 

@@ -460,14 +460,9 @@ bool Doc::addChannelsGroup(ChannelsGroup *grp, quint32 id)
 
      grp->setId(id);
      m_channelsGroups[id] = grp;
-
-        /* Patch fixture group change signals thru Doc */
- /*
-        connect(grp, SIGNAL(changed(quint32)),
-                this, SLOT(slotChannelsGroupChanged(quint32)));
-
-        emit channelsGroupAdded(id);
- */
+/*
+     emit channelsGroupAdded(id);
+*/
      setModified();
 
      return true;

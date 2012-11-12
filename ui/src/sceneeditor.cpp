@@ -86,9 +86,7 @@ SceneEditor::SceneEditor(QWidget* parent, Scene* scene, Doc* doc, bool applyValu
 
     setupUi(this);
 
-    qDebug() << "-------> before init: " << m_fixtureFirstTabIndex;
     init(applyValues);
-    qDebug() << "-------> after init: " << m_fixtureFirstTabIndex;
 
     // Start new (==empty) scenes from the first tab and ones with something in them
     // on the first fixture page.
