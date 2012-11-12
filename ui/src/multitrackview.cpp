@@ -112,6 +112,8 @@ void MultiTrackView::addTrack(Track *track)
     m_tracks.append(trackItem);
     activateTrack(track);
     connect(trackItem, SIGNAL(itemClicked(TrackItem*)), this, SLOT(slotTrackClicked(TrackItem*)));
+    connect(trackItem, SIGNAL(itemSoloFlagChanged(TrackItem*,bool)), this, SLOT(slotTrackSoloFlagChanged(TrackItem*,bool)));
+    connect(trackItem, SIGNAL(itemMuteFlagChanged(TrackItem*,bool)), this, SLOT(slotTrackMuteFlagChanged(TrackItem*,bool)));
 }
 
 void MultiTrackView::addSequence(Chaser *chaser)
@@ -266,12 +268,30 @@ void MultiTrackView::slotTrackClicked(TrackItem *track)
     }
     emit trackClicked(track->getTrack());
 }
-    
+
+void MultiTrackView::slotTrackSoloFlagChanged(TrackItem* track, bool solo)
+{
+    foreach(TrackItem *item, m_tracks)
+    {
+        if (item != track)
+            item->setFlags(false, solo);
+        Track *trk = item->getTrack();
+        if (trk != NULL)
+            trk->setMute(item->isMute());
+    }
+}
+
+void MultiTrackView::slotTrackMuteFlagChanged(TrackItem* item, bool mute)
+{
+    Track *trk = item->getTrack();
+    if (trk != NULL)
+        trk->setMute(mute);
+}
+
 void MultiTrackView::slotSequenceMoved(QGraphicsSceneMouseEvent *, SequenceItem *item)
 {
     //qDebug() << Q_FUNC_INFO << "event - <" << event->pos().toPoint().x() << "> - <" << event->pos().toPoint().y() << ">";
     // align to the appropriate track
-    //int trackNum = getActiveTrack();
     int trackNum = item->getTrackIndex();
     int ypos = HEADER_HEIGHT + 1 + (trackNum * TRACK_HEIGHT);
 

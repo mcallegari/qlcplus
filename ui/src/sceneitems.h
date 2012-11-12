@@ -24,14 +24,16 @@
 #define SCENEITEMS_H
 
 #include <QGraphicsItem>
-#include <QFont>
 #include <QObject>
+#include <QFont>
 
 #include "chaser.h"
 #include "track.h"
 
 /*********************************************************************
+ *
  * Scene Header class. Clickable time line header
+ *
  *********************************************************************/
 class SceneHeaderItem :  public QObject, public QGraphicsItem
 {
@@ -61,7 +63,9 @@ private:
 };
 
 /***************************************************************************
+ *
  * Scene Cursor class. Cursor which marks the time position in a scene
+ *
  ***************************************************************************/
 class SceneCursorItem : public QGraphicsItem
 {
@@ -79,7 +83,9 @@ private:
 };
 
 /****************************************************************************
- * Track class. This is only a visual item to fullfill the multi track view
+ *
+ * Track class. Clickable item which informs the view the track properties change
+ *
  ****************************************************************************/
 class TrackItem : public QObject, public QGraphicsItem
 {
@@ -107,24 +113,40 @@ public:
     /** Return if this track is active or not */
     bool isActive();
 
+    /** Set mute and solo flags on/off */
+    void setFlags(bool solo, bool mute);
+
+    /** Return the mute state of the item */
+    bool isMute();
+
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
 protected slots:
     void slotTrackChanged(quint32 id);
+
 signals:
     void itemClicked(TrackItem *);
+    void itemSoloFlagChanged(TrackItem *, bool);
+    void itemMuteFlagChanged(TrackItem *, bool);
 
 private:
     QString m_name;
     int m_number;
     QFont m_font;
+    QFont m_btnFont;
     bool m_isActive;
     Track *m_track;
+    QRectF *m_muteRegion;
+    bool m_isMute;
+    QRectF *m_soloRegion;
+    bool m_isSolo;
 };
 
 /*********************************************************************
+ *
  * Sequence Item. Clickable and draggable object identifying a chaser
+ *
  *********************************************************************/
 class SequenceItem : public QObject, public QGraphicsItem
 {

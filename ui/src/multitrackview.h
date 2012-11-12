@@ -87,6 +87,8 @@ protected slots:
     void slotMoveCursor(QGraphicsSceneMouseEvent *event);
     void slotTimeScaleChanged(int val);
     void slotTrackClicked(TrackItem*);
+    void slotTrackSoloFlagChanged(TrackItem*, bool);
+    void slotTrackMuteFlagChanged(TrackItem*, bool);
 
     void slotSequenceMoved(QGraphicsSceneMouseEvent *, SequenceItem *);
 };

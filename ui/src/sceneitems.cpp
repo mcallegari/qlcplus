@@ -148,17 +148,28 @@ TrackItem::TrackItem(Track *track, int number)
     : m_number(number)
     , m_isActive(false)
     , m_track(track)
+    , m_isMute(false)
+    , m_isSolo(false)
 {
     m_font = QApplication::font();
     m_font.setBold(true);
     m_font.setPixelSize(12);
+
+    m_btnFont = QApplication::font();
+    m_btnFont.setBold(true);
+    m_btnFont.setPixelSize(12);
+
     if (track != NULL)
     {
         m_name = m_track->name();
+        m_isMute = m_track->isMute();
         connect(m_track, SIGNAL(changed(quint32)), this, SLOT(slotTrackChanged(quint32)));
     }
     else
         m_name = QString("Track %1").arg(m_number);
+
+    m_soloRegion = new QRectF(15.0, 10.0, 20.0, 20.0);
+    m_muteRegion = new QRectF(40.0, 10.0, 20.0, 20.0);
 }
 
 Track *TrackItem::getTrack()
@@ -189,10 +200,32 @@ bool TrackItem::isActive()
     return m_isActive;
 }
 
+void TrackItem::setFlags(bool solo, bool mute)
+{
+    m_isSolo = solo;
+    m_isMute = mute;
+    update();
+}
+
+bool TrackItem::isMute()
+{
+    return m_isMute;
+}
+
 void TrackItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     m_isActive = true;
     QGraphicsItem::mousePressEvent(event);
+    if (m_soloRegion->contains(event->pos().toPoint()))
+    {
+        m_isSolo = !m_isSolo;
+        emit itemSoloFlagChanged(this, m_isSolo);
+    }
+    if (m_muteRegion->contains(event->pos().toPoint()))
+    {
+        m_isMute = !m_isMute;
+        emit itemMuteFlagChanged(this, m_isMute);
+    }
     emit itemClicked(this);
 }
 
@@ -206,14 +239,14 @@ void TrackItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    /* draw background gradient */
+    // draw background gradient
     QLinearGradient linearGrad(QPointF(0, 0), QPointF(0, 80));
     linearGrad.setColorAt(0, QColor(200, 200, 200, 255));
     linearGrad.setColorAt(1, QColor(120, 120, 120, 255));
     painter->setBrush(linearGrad);
     painter->drawRect(0, 0, 146, 79);
 
-    /* Draw left bar that shows if the track is active or not */
+    // Draw left bar that shows if the track is active or not
     painter->setPen(QPen(QColor(10, 10, 10, 150), 1));
     if (m_isActive == true)
         painter->setBrush(QBrush(QColor(0, 255, 0, 255)));
@@ -221,11 +254,29 @@ void TrackItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         painter->setBrush(QBrush(QColor(180, 180, 180, 255)));
     painter->drawRect(1, 1, 7, 40);
 
+    // draw solo button
+    painter->setPen(QPen(QColor(200, 200, 200, 255), 2));
+    if (m_isSolo)
+        painter->setBrush(QBrush(QColor(255, 255, 0, 255)));
+    else
+        painter->setBrush(QBrush(QColor(128, 128, 0, 255)));
+    painter->drawRoundedRect(m_soloRegion->toRect(), 5.0, 5.0);
+    painter->setFont(m_btnFont);
+    painter->drawText(21, 25, "S");
+
+    // draw mute button
+    if (m_isMute)
+        painter->setBrush(QBrush(QColor(255, 0, 0, 255)));
+    else
+        painter->setBrush(QBrush(QColor(128, 0, 0, 255)));
+    painter->drawRoundedRect(m_muteRegion->toRect(), 5.0, 5.0);
+    painter->drawText(44, 25, "M");
+
     painter->setFont(m_font);
-    /* draw shadow */
+    // draw shadow
     painter->setPen(QPen(QColor(10, 10, 10, 150), 2));
     painter->drawText(6, 71, m_name);
-    /* draw track name */
+    // draw track name
     painter->setPen(QPen(QColor(200, 200, 200, 255), 2));
     painter->drawText(5, 70, m_name);
 }

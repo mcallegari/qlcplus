@@ -46,12 +46,6 @@ public:
     /** destroy this Track */
     ~Track();
 
-private:
-    /** Pointer to a Scene which this track represents */
-    quint32 m_sceneID;
-    /** Flag to mute/unmute this track */
-    bool m_isMute;
-
 signals:
     /** Emitted whenever some property is changed */
     void changed(quint32 id);
@@ -76,10 +70,10 @@ private:
      * Name
      ************************************************************************/
 public:
-    /** Set the name of a channels group */
+    /** Set the name of the track */
     void setName(const QString& name);
 
-    /** Get the name of a channels group */
+    /** Get the name of this track */
     QString name() const;
 
 private:
@@ -89,7 +83,26 @@ private:
      * Scene
      *********************************************************************/
 public:
+    /** Return the Scene ID associated to this track */
     quint32 getSceneID();
+
+private:
+    /** Pointer to a Scene which this track represents */
+    quint32 m_sceneID;
+
+    /*********************************************************************
+     * Mute state
+     *********************************************************************/
+public:
+    /** Set the mute state of this track */
+    void setMute(bool);
+
+    /** Return the mute state of the track */
+    bool isMute();
+
+private:
+    /** Flag to mute/unmute this track */
+    bool m_isMute;
 
     /*********************************************************************
      * Sequences

@@ -35,9 +35,9 @@
 #define KXMLQLCTrackSequences "Sequences"
 
 Track::Track(quint32 sceneID)
-    : m_sceneID(sceneID)
+    : m_id(Track::invalidId())
+    , m_sceneID(sceneID)
     , m_isMute(false)
-    , m_id(Track::invalidId())
 
 {
     setName(tr("New Track"));
@@ -88,6 +88,19 @@ QString Track::name() const
 quint32 Track::getSceneID()
 {
     return m_sceneID;
+}
+
+/*********************************************************************
+ * Mute state
+ *********************************************************************/
+void Track::setMute(bool state)
+{
+    m_isMute = state;
+}
+
+bool Track::isMute()
+{
+    return m_isMute;
 }
 
 /*********************************************************************
@@ -177,6 +190,15 @@ bool Track::loadXML(const QDomElement& root)
         return false;
     }
     m_sceneID = id;
+
+    ok = false;
+    bool mute = root.attribute(KXMLQLCTrackIsMute).toInt(&ok);
+    if (ok == false)
+    {
+        qWarning() << "Invalid Mute flag:" << root.attribute(KXMLQLCTrackIsMute);
+        return false;
+    }
+    m_isMute = mute;
 
     /* look for chaser IDs */
     if (root.hasChildNodes())

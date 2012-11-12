@@ -54,6 +54,9 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID)
             track->getSceneID() == Scene::invalidId())
                 continue;
 
+        if (track->isMute())
+            continue;
+
         // get all the sequences of the track and append them to the runner queue
         foreach (quint32 chsID, track->sequences())
         {
