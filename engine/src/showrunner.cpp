@@ -58,7 +58,7 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID)
             continue;
 
         // get all the sequences of the track and append them to the runner queue
-        foreach (quint32 chsID, track->sequences())
+        foreach (quint32 chsID, track->sequencesID())
         {
             Chaser *chaser = qobject_cast<Chaser*> (m_doc->function(chsID));
             if (chaser == NULL)

@@ -420,6 +420,10 @@ private:
      * to do post-load cleanup & mappings.
      */
     void postLoad();
+
+signals:
+    /** Signals that a document has been completely loaded */
+    void loaded();
 };
 
 #endif

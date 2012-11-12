@@ -654,6 +654,8 @@ bool Doc::loadXML(const QDomElement& root)
 
     postLoad();
 
+    emit loaded();
+
     return true;
 }
 

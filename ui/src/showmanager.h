@@ -109,6 +109,7 @@ protected:
     QAction* m_addSequenceAction;
     QAction* m_cloneAction;
     QAction* m_deleteAction;
+    QAction* m_colorAction;
     QAction* m_stopAction;
     QAction* m_playAction;
 
@@ -120,6 +121,8 @@ protected slots:
 
     void slotClone();
     void slotDelete();
+
+    void slotChangeColor();
     
     void slotStopPlayback();
     void slotStartPlayback();
@@ -131,6 +134,7 @@ protected slots:
     void slotTrackClicked(Track *track);
 
     void slotDocClearing();
+    void slotDocLoaded();
     void slotFunctionChanged(quint32 id);
 };
 

@@ -164,6 +164,9 @@ public:
     void setTrackIndex(int idx);
     int getTrackIndex();
 
+    void setColor(QColor col);
+    QColor getColor();
+
     /** Return a pointer to a Chaser associated to this item */
     Chaser *getChaser();
 
@@ -182,7 +185,7 @@ private:
     void calculateWidth();
 
 private:
-    QColor color;
+    QColor m_color;
     /** Reference to the actual Chaser object which holds the sequence steps */
     Chaser *m_chaser;
     /** width of the graphics object. Recalculated every time a chaser step  changes */

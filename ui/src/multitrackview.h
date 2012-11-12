@@ -24,6 +24,7 @@
 
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include <QSlider>
 #include <QWidget>
 
 #include "sceneitems.h"
@@ -57,6 +58,9 @@ public:
 
     void activateTrack(Track *track);
 
+    /** get the selected sequence item. If none, returns NULL */
+    SequenceItem *getSelectedSequence();
+
 private:
     /** Get time of current cursor position */
     quint32 getTimeFromPosition();
@@ -69,6 +73,7 @@ private:
 
 private:
     QGraphicsScene *m_scene;
+    QSlider *m_timeSlider;
     SceneHeaderItem *m_header;
     SceneCursorItem *m_cursor;
     QList <TrackItem *> m_tracks;

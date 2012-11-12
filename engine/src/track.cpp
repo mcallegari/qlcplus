@@ -107,16 +107,28 @@ bool Track::isMute()
  * Sequences
  *********************************************************************/
 
-bool Track::addSequence(Chaser *seq)
+bool Track::addSequenceID(quint32 id)
 {
-    if (m_sequences.count() > 0 && m_sequences.contains(seq->id()))
+    if (m_sequences.count() > 0 && m_sequences.contains(id))
         return false;
-    m_sequences.append(seq->id());
+    m_sequences.append(id);
 
     return true;
 }
 
-QList <quint32> Track::sequences()
+bool Track::removeSequenceID(quint32 id)
+{
+    if (m_sequences.count() > 0 && m_sequences.contains(id) == false)
+        return false;
+    int idx = m_sequences.indexOf(id);
+    if (idx < 0)
+        return false;
+    m_sequences.takeAt(idx);
+
+    return true;
+}
+
+QList <quint32> Track::sequencesID()
 {
     return m_sequences;
 }

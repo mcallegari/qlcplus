@@ -168,8 +168,8 @@ TrackItem::TrackItem(Track *track, int number)
     else
         m_name = QString("Track %1").arg(m_number);
 
-    m_soloRegion = new QRectF(15.0, 10.0, 20.0, 20.0);
-    m_muteRegion = new QRectF(40.0, 10.0, 20.0, 20.0);
+    m_soloRegion = new QRectF(15.0, 10.0, 25.0, 16.0);
+    m_muteRegion = new QRectF(42.0, 10.0, 25.0, 16.0);
 }
 
 Track *TrackItem::getTrack()
@@ -241,36 +241,36 @@ void TrackItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
     // draw background gradient
     QLinearGradient linearGrad(QPointF(0, 0), QPointF(0, 80));
-    linearGrad.setColorAt(0, QColor(200, 200, 200, 255));
-    linearGrad.setColorAt(1, QColor(120, 120, 120, 255));
+    linearGrad.setColorAt(0, QColor(50, 64, 75, 255));
+    //linearGrad.setColorAt(1, QColor(99, 127, 148, 255));
+    linearGrad.setColorAt(1, QColor(76, 98, 115, 255));
     painter->setBrush(linearGrad);
     painter->drawRect(0, 0, 146, 79);
 
     // Draw left bar that shows if the track is active or not
-    painter->setPen(QPen(QColor(10, 10, 10, 150), 1));
+    painter->setPen(QPen(QColor(48, 61, 72, 255), 1));
     if (m_isActive == true)
         painter->setBrush(QBrush(QColor(0, 255, 0, 255)));
     else
-        painter->setBrush(QBrush(QColor(180, 180, 180, 255)));
+        painter->setBrush(QBrush(QColor(129, 145, 160, 255)));
     painter->drawRect(1, 1, 7, 40);
 
     // draw solo button
-    painter->setPen(QPen(QColor(200, 200, 200, 255), 2));
     if (m_isSolo)
         painter->setBrush(QBrush(QColor(255, 255, 0, 255)));
     else
-        painter->setBrush(QBrush(QColor(128, 128, 0, 255)));
-    painter->drawRoundedRect(m_soloRegion->toRect(), 5.0, 5.0);
+        painter->setBrush(QBrush(QColor(129, 145, 160, 255)));
+    painter->drawRoundedRect(m_soloRegion->toRect(), 3.0, 3.0);
     painter->setFont(m_btnFont);
-    painter->drawText(21, 25, "S");
+    painter->drawText(23, 23, "S");
 
     // draw mute button
     if (m_isMute)
         painter->setBrush(QBrush(QColor(255, 0, 0, 255)));
     else
-        painter->setBrush(QBrush(QColor(128, 0, 0, 255)));
-    painter->drawRoundedRect(m_muteRegion->toRect(), 5.0, 5.0);
-    painter->drawText(44, 25, "M");
+        painter->setBrush(QBrush(QColor(129, 145, 160, 255)));
+    painter->drawRoundedRect(m_muteRegion->toRect(), 3.0, 3.0);
+    painter->drawText(48, 23, "M");
 
     painter->setFont(m_font);
     // draw shadow
@@ -295,7 +295,7 @@ void TrackItem::slotTrackChanged(quint32 id)
  *********************************************************************/
 
 SequenceItem::SequenceItem(Chaser *seq)
-    : color(qrand() % 256, qrand() % 256, qrand() % 256)
+    : m_color(qrand() % 256, qrand() % 256, qrand() % 256)
     , m_chaser(seq)
     , m_width(50)
     , m_timeScale(1)
@@ -341,7 +341,7 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
         painter->setPen(QPen(Qt::white, 3));
     else
         painter->setPen(QPen(Qt::white, 1));
-    painter->setBrush(QBrush(color));
+    painter->setBrush(QBrush(m_color));
 
     painter->drawRect(0, 0, m_width, 77);
     /* draw vertical lines to show the chaser's steps */
@@ -369,6 +369,17 @@ void SequenceItem::setTrackIndex(int idx)
 int SequenceItem::getTrackIndex()
 {
     return m_trackIdx;
+}
+
+void SequenceItem::setColor(QColor col)
+{
+    m_color = col;
+    update();
+}
+
+QColor SequenceItem::getColor()
+{
+    return m_color;
 }
 
 Chaser *SequenceItem::getChaser()

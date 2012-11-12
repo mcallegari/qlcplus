@@ -44,12 +44,12 @@ MultiTrackView::MultiTrackView(QWidget *parent) :
     setSceneRect(0, 0, 2000, 600);
     setScene(m_scene);
 	
-    QSlider *slider = new QSlider(Qt::Horizontal);
-    slider->setRange(1, 15);
-    slider->setSingleStep(1);
-    slider->setFixedSize(TRACK_WIDTH - 4, HEADER_HEIGHT);
+    m_timeSlider = new QSlider(Qt::Horizontal);
+    m_timeSlider->setRange(1, 15);
+    m_timeSlider->setSingleStep(1);
+    m_timeSlider->setFixedSize(TRACK_WIDTH - 4, HEADER_HEIGHT);
 
-    slider->setStyleSheet("QSlider { background-color: #969696; }"
+    m_timeSlider->setStyleSheet("QSlider { background-color: #969696; }"
                           "QSlider::groove:horizontal {"
                           "border: 1px solid #999999;"
                           "height: 10px;"
@@ -62,8 +62,8 @@ MultiTrackView::MultiTrackView(QWidget *parent) :
                           "margin: -2px 0; /* handle is placed by default on the contents rect of the groove. Expand outside the groove */"
                           "border-radius: 4px;"
                           "}");
-    connect(slider, SIGNAL(valueChanged(int)), this, SLOT(slotTimeScaleChanged(int)));
-    m_scene->addWidget(slider);
+    connect(m_timeSlider, SIGNAL(valueChanged(int)), this, SLOT(slotTimeScaleChanged(int)));
+    m_scene->addWidget(m_timeSlider);
 
     // draw vertical "splitter" between tracks and sequences
     m_scene->addRect(TRACK_WIDTH - 3, 0, 3, m_scene->height(),
@@ -124,6 +124,9 @@ void MultiTrackView::addSequence(Chaser *chaser)
         trackNum = 0;
     item->setTrackIndex(trackNum);
 
+    int timeScale = m_timeSlider->value();
+    m_header->setTimeScale(timeScale);
+
     if (chaser->getStartTime() == UINT_MAX)
     {
         quint32 s_time = getTimeFromPosition();
@@ -136,6 +139,7 @@ void MultiTrackView::addSequence(Chaser *chaser)
     {
         item->setPos(getPositionFromTime(chaser->getStartTime()) + 2, 36 + (trackNum * TRACK_HEIGHT));
     }
+    item->setTimeScale(timeScale);
     qDebug() << Q_FUNC_INFO << "sequence start time: " << chaser->getStartTime() << "msec";
 
     connect(item, SIGNAL(itemDropped(QGraphicsSceneMouseEvent *, SequenceItem *)),
@@ -198,6 +202,16 @@ void MultiTrackView::activateTrack(Track *track)
         else
             item->setActive(false);
     }
+}
+
+SequenceItem *MultiTrackView::getSelectedSequence()
+{
+    foreach(SequenceItem *item, m_sequences)
+    {
+        if (item->isSelected() == true)
+            return item;
+    }
+    return NULL;
 }
 
 quint32 MultiTrackView::getTimeFromPosition()

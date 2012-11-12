@@ -108,9 +108,13 @@ private:
      * Sequences
      *********************************************************************/
 public:
-    bool addSequence(Chaser *seq);
+    /** associate a sequence ID to this track */
+    bool addSequenceID(quint32 id);
 
-    QList <quint32> sequences();
+    /** remove a sequence ID association from this track */
+    bool removeSequenceID(quint32 id);
+
+    QList <quint32> sequencesID();
 
 private:
     /** List of Chaser IDs (in sequence mode) present in this track */

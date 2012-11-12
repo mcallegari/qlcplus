@@ -20,6 +20,7 @@
 */
 
 #include <QInputDialog>
+#include <QColorDialog>
 #include <QVBoxLayout>
 #include <QMouseEvent>
 #include <QScrollBar>
@@ -121,6 +122,7 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
     //connect(m_doc, SIGNAL(modeChanged(Doc::Mode)), this, SLOT(slotModeChanged()));
     connect(m_doc, SIGNAL(clearing()), this, SLOT(slotDocClearing()));
     connect(m_doc, SIGNAL(functionChanged(quint32)), this, SLOT(slotFunctionChanged(quint32)));
+    connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
 }
 
 ShowManager::~ShowManager()
@@ -142,7 +144,7 @@ void ShowManager::initActions()
     connect(m_addShowAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddShow()));
 
-    m_addTrackAction = new QAction(QIcon(":/track.png"),
+    m_addTrackAction = new QAction(QIcon(":/scene.png"),
                                    tr("New &track"), this);
     m_addTrackAction->setShortcut(QKeySequence("CTRL+T"));
     connect(m_addTrackAction, SIGNAL(triggered(bool)),
@@ -167,6 +169,13 @@ void ShowManager::initActions()
     connect(m_deleteAction, SIGNAL(triggered(bool)),
             this, SLOT(slotDelete()));
     m_deleteAction->setEnabled(false);
+
+    m_colorAction = new QAction(QIcon(":/color.png"),
+                                tr("Change Co&lor"), this);
+    m_colorAction->setShortcut(QKeySequence("CTRL+L"));
+    connect(m_colorAction, SIGNAL(triggered(bool)),
+           this, SLOT(slotChangeColor()));
+    m_colorAction->setEnabled(false);
 
     m_stopAction = new QAction(QIcon(":/design.png"),  /* @todo re-used icon...to be changed */
                                  tr("St&op"), this);
@@ -200,6 +209,9 @@ void ShowManager::initToolbar()
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_cloneAction);
     m_toolbar->addAction(m_deleteAction);
+    m_toolbar->addSeparator();
+
+    m_toolbar->addAction(m_colorAction);
     m_toolbar->addSeparator();
 
     // Time label and playback buttons
@@ -364,7 +376,7 @@ void ShowManager::slotAddSequence()
         f->setName(QString("%1 %2").arg(tr("New Sequence")).arg(f->id()));
         showSequenceEditor(chaser);
         Track *track = m_show->getTrackFromSceneID(m_scene->id());
-        track->addSequence(chaser);
+        track->addSequenceID(chaser->id());
         m_showview->addSequence(chaser);
     }
 }
@@ -386,7 +398,21 @@ void ShowManager::slotDelete()
             m_sequence_editor = NULL;
         }
         m_deleteAction->setEnabled(false);
+        Track *currTrack = m_show->getTrackFromSceneID(m_scene->id());
+        if (currTrack != NULL)
+            currTrack->removeSequenceID(deleteID);
     }
+}
+
+void ShowManager::slotChangeColor()
+{
+    SequenceItem *item = m_showview->getSelectedSequence();
+    if (item == NULL)
+        return;
+    QColor color = item->getColor();
+
+    color = QColorDialog::getColor(color);
+    item->setColor(color);
 }
 
 void ShowManager::slotStopPlayback()
@@ -449,6 +475,7 @@ void ShowManager::slotSequenceMoved(SequenceItem *item)
         m_showview->activateTrack(track);
     }
     m_deleteAction->setEnabled(true);
+    m_colorAction->setEnabled(true);
 }
 
 void ShowManager::slotupdateTimeAndCursor(quint32 msec_time)
@@ -500,14 +527,24 @@ void ShowManager::slotDocClearing()
     m_deleteAction->setEnabled(false);
 }
 
+void ShowManager::slotDocLoaded()
+{
+    updateShowsCombo();
+}
+
 void ShowManager::slotFunctionChanged(quint32 id)
 {
+    if (this->isVisible() == false)
+        return;
+
     Function* function = m_doc->function(id);
     if (function == NULL)
         return;
 
     if (function->type() == Function::Scene)
     {
+        if (m_show == NULL)
+            return;
         Track *trk = m_show->getTrackFromSceneID(id);
         if (trk != NULL)
             trk->setName(function->name());
@@ -550,7 +587,7 @@ void ShowManager::updateMultiTrackView()
         m_showview->addTrack(track);
         m_addSequenceAction->setEnabled(true);
 
-        foreach(quint32 id, track->sequences())
+        foreach(quint32 id, track->sequencesID())
         {
             Chaser *chaser = qobject_cast<Chaser*>(m_doc->function(id));
             m_showview->addSequence(chaser);
