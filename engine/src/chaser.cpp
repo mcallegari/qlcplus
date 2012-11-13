@@ -20,6 +20,7 @@
 */
 
 #include <QDebug>
+#include <QColor>
 #include <QFile>
 #include <QtXml>
 
@@ -44,6 +45,7 @@
 #define KXMLQLCChaserSequenceTag "Sequence"
 #define KXMLQLCChaserSequenceBoundScene "BoundScene"
 #define KXMLQLCChaserSequenceStartTime "StartTime"
+#define KXMLQLCChaserSequenceColor "Color"
 
 /*****************************************************************************
  * Initialization
@@ -55,6 +57,7 @@ Chaser::Chaser(Doc* doc)
     , m_isSequence(false)
     , m_boundedSceneID(-1)
     , m_startTime(UINT_MAX)
+    , m_color(qrand() % 256, qrand() % 256, qrand() % 256)
     , m_fadeInMode(Default)
     , m_fadeOutMode(Default)
     , m_durationMode(Common)
@@ -204,6 +207,19 @@ QList <ChaserStep> Chaser::steps() const
     return m_steps;
 }
 
+void Chaser::slotFunctionRemoved(quint32 fid)
+{
+    m_stepListMutex.lock();
+    int count = m_steps.removeAll(ChaserStep(fid));
+    m_stepListMutex.unlock();
+
+    if (count > 0)
+        emit changed(this->id());
+}
+
+/*********************************************************************
+ * Sequence mode
+ *********************************************************************/
 void Chaser::enableSequenceMode(quint32 sceneID)
 {
     m_isSequence = true;
@@ -231,14 +247,14 @@ quint32 Chaser::getStartTime() const
     return m_startTime;
 }
 
-void Chaser::slotFunctionRemoved(quint32 fid)
+void Chaser::setColor(QColor color)
 {
-    m_stepListMutex.lock();
-    int count = m_steps.removeAll(ChaserStep(fid));
-    m_stepListMutex.unlock();
+    m_color = color;
+}
 
-    if (count > 0)
-        emit changed(this->id());
+QColor Chaser::getColor()
+{
+    return m_color;
 }
 
 /*****************************************************************************
@@ -340,6 +356,7 @@ bool Chaser::saveXML(QDomDocument* doc, QDomElement* wksp_root)
         QDomElement seq = doc->createElement(KXMLQLCChaserSequenceTag);
         seq.setAttribute(KXMLQLCChaserSequenceBoundScene, m_boundedSceneID);
         seq.setAttribute(KXMLQLCChaserSequenceStartTime, m_startTime);
+        seq.setAttribute(KXMLQLCChaserSequenceColor, m_color.name());
         root.appendChild(seq);
     }
 
@@ -409,7 +426,10 @@ bool Chaser::loadXML(const QDomElement& root)
         {
             QString str = tag.attribute(KXMLQLCChaserSequenceBoundScene);
             enableSequenceMode(str.toUInt());
-            m_startTime = tag.attribute(KXMLQLCChaserSequenceStartTime).toUInt();
+            if (tag.hasAttribute(KXMLQLCChaserSequenceStartTime))
+                m_startTime = tag.attribute(KXMLQLCChaserSequenceStartTime).toUInt();
+            if (tag.hasAttribute(KXMLQLCChaserSequenceColor))
+                m_color = QColor(tag.attribute(KXMLQLCChaserSequenceColor));
         }
         else if (tag.tagName() == KXMLQLCFunctionStep)
         {

@@ -406,9 +406,10 @@ void ShowManager::slotChangeColor()
     SequenceItem *item = m_showview->getSelectedSequence();
     if (item == NULL)
         return;
-    QColor color = item->getColor();
+    QColor color = item->getChaser()->getColor();
 
     color = QColorDialog::getColor(color);
+    item->getChaser()->setColor(color);
     item->setColor(color);
 }
 

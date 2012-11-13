@@ -295,7 +295,7 @@ void TrackItem::slotTrackChanged(quint32 id)
  *********************************************************************/
 
 SequenceItem::SequenceItem(Chaser *seq)
-    : m_color(qrand() % 256, qrand() % 256, qrand() % 256)
+    : m_color(100, 100, 100)
     , m_chaser(seq)
     , m_width(50)
     , m_timeScale(1)
@@ -307,6 +307,7 @@ SequenceItem::SequenceItem(Chaser *seq)
     setCursor(Qt::OpenHandCursor);
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
+    m_color = m_chaser->getColor();
     calculateWidth();
     connect(m_chaser, SIGNAL(changed(quint32)), this, SLOT(slotSequenceChanged(quint32)));
 }

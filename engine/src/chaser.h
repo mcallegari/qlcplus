@@ -23,6 +23,7 @@
 #define CHASER_H
 
 #include <QMutex>
+#include <QColor>
 #include <QList>
 
 #include "function.h"
@@ -130,6 +131,25 @@ public:
      */
     QList <ChaserStep> steps() const;
 
+public slots:
+    /**
+     * Catches Doc::functionRemoved() so that destroyed members can be
+     * removed immediately. This method removes all occurrences of the
+     * given function ID, while removeStep() only removes one function ID
+     * at the given index.
+     *
+     * @param fid The ID of the function that was removed
+     */
+    void slotFunctionRemoved(quint32 fid);
+
+private:
+    QList <ChaserStep> m_steps;
+    QMutex m_stepListMutex;
+
+    /*********************************************************************
+     * Sequence mode
+     *********************************************************************/
+public:
     /**
      * Set this chaser to behave like a sequence and be a child of a scene
      * @param sceneID The ID of the scene to bound
@@ -165,26 +185,25 @@ public:
      */
     quint32 getStartTime() const;
 
-public slots:
     /**
-     * Catches Doc::functionRemoved() so that destroyed members can be
-     * removed immediately. This method removes all occurrences of the
-     * given function ID, while removeStep() only removes one function ID
-     * at the given index.
-     *
-     * @param fid The ID of the function that was removed
+     * Set the color to be used by a SequenceItem
      */
-    void slotFunctionRemoved(quint32 fid);
+    void setColor(QColor color);
+
+    /**
+     * Get the color of this sequence
+     */
+    QColor getColor();
 
 private:
-    QList <ChaserStep> m_steps;
-    QMutex m_stepListMutex;
     /** This Chaser is a Sequence that uses always the same Scene for each step */
     bool m_isSequence;
     /** The associated Scene of this Chaser when acting like a Sequence */
     quint32 m_boundedSceneID;
     /** Absolute start time of this Chaser over a timeline (in milliseconds) */
     quint32 m_startTime;
+    /** Color to use when displaying the sequence in the Show manager */
+    QColor m_color;
 
     /*********************************************************************
      * Speed modes
