@@ -36,7 +36,6 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID)
     : QObject(NULL)
     , m_doc(doc)
     , m_showID(showID)
-    , m_timer(NULL)
     , m_elapsedTime(0)
     , m_totalRunTime(0)
     , m_currentStepIndex(0)
@@ -92,22 +91,13 @@ ShowRunner::~ShowRunner()
 void ShowRunner::start()
 {
     stop();
-    m_timer = new QTimer(this);
-    m_timer->setInterval(TIMER_INTERVAL);
-    connect(m_timer, SIGNAL(timeout()), this, SLOT(slotTimerTimeout()));
-    m_timer->start();
     qDebug() << "ShowRunner started";
 }
 
 void ShowRunner::stop()
 {
-    if (m_timer != NULL)
-    {
-        m_timer->stop();
-        delete m_timer;
-        m_timer = NULL;
-    }
     m_elapsedTime = 0;
+    m_currentStepIndex = 0;
     m_runningQueue.clear();
     qDebug() << "ShowRunner stopped";
 }
@@ -121,14 +111,14 @@ void ShowRunner::slotSequenceStopped(quint32 id)
     m_runningQueueMutex.unlock();
 }
 
-void ShowRunner::slotTimerTimeout()
+void ShowRunner::write()
 {
     if (m_currentStepIndex < m_chasers.count())
     {
         Chaser *chaser = m_chasers.at(m_currentStepIndex);
         if (m_elapsedTime >= chaser->getStartTime())
         {
-            bool startAsChild = false;
+            bool startAsChild = true;
             if (m_currentStepIndex > 0 && m_runningQueue.count() > 0)
                 startAsChild = true;
             chaser->start(m_doc->masterTimer(), startAsChild);
@@ -139,6 +129,6 @@ void ShowRunner::slotTimerTimeout()
     if (m_elapsedTime >= m_totalRunTime)
         stop();
 
-    m_elapsedTime += TIMER_INTERVAL;
+    m_elapsedTime += MasterTimer::tick();
     emit timeChanged(m_elapsedTime);
 }

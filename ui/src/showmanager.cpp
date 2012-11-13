@@ -35,7 +35,6 @@
 #include "chasereditor.h"
 #include "showmanager.h"
 #include "sceneeditor.h"
-#include "showrunner.h"
 #include "sceneitems.h"
 #include "chaser.h"
 
@@ -51,8 +50,6 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
     , m_splitter(NULL)
     , m_vsplitter(NULL)
     , m_showview(NULL)
-    , m_runner(NULL)
-    , is_playing(false)
     , m_toolbar(NULL)
     , m_showsCombo(NULL)
     , m_addShowAction(NULL)
@@ -417,29 +414,17 @@ void ShowManager::slotChangeColor()
 
 void ShowManager::slotStopPlayback()
 {
-    if (m_runner != NULL)
-    {
-        m_runner->stop();
-        delete m_runner;
-        m_runner = NULL;
-    }
+    if (m_show != NULL && m_show->isRunning())
+        m_show->stop();
     m_showview->rewindCursor();
     m_timeLabel->setText("00:00:00.000");
 }
 
 void ShowManager::slotStartPlayback()
 {
-    if (m_showsCombo->count() == 0)
+    if (m_showsCombo->count() == 0 || m_show == NULL)
         return;
-    if (m_runner != NULL)
-    {
-        m_runner->stop();
-        delete m_runner;
-    }
-
-    m_runner = new ShowRunner(m_doc, m_showsCombo->itemData(m_showsCombo->currentIndex()).toUInt());
-    connect(m_runner, SIGNAL(timeChanged(quint32)), this, SLOT(slotupdateTimeAndCursor(quint32)));
-    m_runner->start();
+    m_show->start(m_doc->masterTimer());
 }
 
 void ShowManager::slotViewClicked(QMouseEvent *event)
@@ -568,6 +553,8 @@ void ShowManager::updateMultiTrackView()
         qDebug() << Q_FUNC_INFO << "Invalid show !";
         return;
     }
+
+    connect(m_show, SIGNAL(timeChanged(quint32)), this, SLOT(slotupdateTimeAndCursor(quint32)));
 
     Scene *firstScene = NULL;
 

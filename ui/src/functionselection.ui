@@ -49,13 +49,23 @@
       <string>Filter</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
-       <widget class="QCheckBox" name="m_sceneCheck">
+      <item row="1" column="1">
+       <widget class="QCheckBox" name="m_collectionCheck">
         <property name="toolTip">
-         <string>Display scenes in the list</string>
+         <string>Display collections in the list</string>
         </property>
         <property name="text">
-         <string>Scenes</string>
+         <string>Collections</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QCheckBox" name="m_scriptCheck">
+        <property name="toolTip">
+         <string>Display scripts in the list</string>
+        </property>
+        <property name="text">
+         <string>Scripts</string>
         </property>
        </widget>
       </item>
@@ -89,23 +99,20 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QCheckBox" name="m_collectionCheck">
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="m_sceneCheck">
         <property name="toolTip">
-         <string>Display collections in the list</string>
+         <string>Display scenes in the list</string>
         </property>
         <property name="text">
-         <string>Collections</string>
+         <string>Scenes</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="2">
-       <widget class="QCheckBox" name="m_scriptCheck">
-        <property name="toolTip">
-         <string>Display scripts in the list</string>
-        </property>
+      <item row="0" column="3">
+       <widget class="QCheckBox" name="m_showCheck">
         <property name="text">
-         <string>Scripts</string>
+         <string>Shows</string>
         </property>
        </widget>
       </item>

@@ -59,7 +59,7 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
     , m_doc(doc)
     , m_multiSelection(true)
     , m_filter(Function::Scene | Function::Chaser | Function::Collection |
-               Function::EFX | Function::Script | Function::RGBMatrix)
+               Function::EFX | Function::Script | Function::RGBMatrix | Function::Show)
     , m_constFilter(false)
 {
     Q_ASSERT(doc != NULL);
@@ -88,6 +88,9 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
 
     connect(m_rgbMatrixCheck, SIGNAL(toggled(bool)),
             this, SLOT(slotRGBMatrixChecked(bool)));
+
+    connect(m_showCheck, SIGNAL(toggled(bool)),
+            this, SLOT(slotShowChecked(bool)));
 }
 
 int FunctionSelection::exec()
@@ -98,6 +101,7 @@ int FunctionSelection::exec()
     m_collectionCheck->setChecked(m_filter & Function::Collection);
     m_scriptCheck->setChecked(m_filter & Function::Script);
     m_rgbMatrixCheck->setChecked(m_filter & Function::RGBMatrix);
+    m_showCheck->setChecked(m_filter & Function::Show);
 
     if (m_constFilter == true)
     {
@@ -107,6 +111,7 @@ int FunctionSelection::exec()
         m_collectionCheck->setEnabled(false);
         m_scriptCheck->setEnabled(false);
         m_rgbMatrixCheck->setEnabled(false);
+        m_showCheck->setEnabled(false);
     }
 
     /* Multiple/single selection */
@@ -285,5 +290,14 @@ void FunctionSelection::slotRGBMatrixChecked(bool state)
         m_filter = (m_filter | Function::RGBMatrix);
     else
         m_filter = (m_filter & ~Function::RGBMatrix);
+    refillTree();
+}
+
+void FunctionSelection::slotShowChecked(bool state)
+{
+    if (state == true)
+        m_filter = (m_filter | Function::Show);
+    else
+        m_filter = (m_filter & ~Function::Show);
     refillTree();
 }

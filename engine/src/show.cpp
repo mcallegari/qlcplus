@@ -27,6 +27,7 @@
 
 #include "qlcfile.h"
 
+#include "showrunner.h"
 #include "function.h"
 #include "show.h"
 #include "doc.h"
@@ -37,6 +38,7 @@
 
 Show::Show(Doc* doc) : Function(doc, Function::Show)
   , m_latestTrackId(0)
+  , m_runner(NULL)
 {
     setName(tr("New Show"));
 
@@ -224,20 +226,35 @@ void Show::postLoad()
 
 void Show::preRun(MasterTimer* timer)
 {
-    m_runningChildren.clear();
     Function::preRun(timer);
+    m_runningChildren.clear();
+    if (m_runner != NULL)
+    {
+        m_runner->stop();
+        delete m_runner;
+    }
+
+    m_runner = new ShowRunner(doc(), this->id());
+    connect(m_runner, SIGNAL(timeChanged(quint32)), this, SIGNAL(timeChanged(quint32)));
+    m_runner->start();
 }
 
 void Show::write(MasterTimer* timer, UniverseArray* universes)
 {
     Q_UNUSED(universes);
     Q_UNUSED(timer);
+    m_runner->write();
 }
 
 void Show::postRun(MasterTimer* timer, UniverseArray* universes)
 {
-    Q_UNUSED(universes);
-    Q_UNUSED(timer);
+    if (m_runner != NULL)
+    {
+        m_runner->stop();
+        delete m_runner;
+        m_runner = NULL;
+    }
+    Function::postRun(timer, universes);
 }
 
 void Show::slotChildStopped(quint32 fid)

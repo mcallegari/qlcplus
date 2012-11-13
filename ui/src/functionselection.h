@@ -136,6 +136,7 @@ protected slots:
     void slotSceneChecked(bool state);
     void slotScriptChecked(bool state);
     void slotRGBMatrixChecked(bool state);
+    void slotShowChecked(bool state);
 };
 
 #endif

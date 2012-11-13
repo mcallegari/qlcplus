@@ -24,7 +24,6 @@
 
 #include <QObject>
 #include <QMutex>
-#include <QTimer>
 
 class Chaser;
 class Doc;
@@ -43,6 +42,8 @@ public:
     /** Stop the runner */
     void stop();
 
+    void write();
+
 private:
     const Doc* m_doc;
 
@@ -54,9 +55,6 @@ private:
 
     /** List of duration of each chaser */
     QList <quint32> m_durations;
-
-    /** The timer to check when a Chaser needs to be played */
-    QTimer *m_timer;
 
     /** Elapsed time since runner start. Used also to move the cursor in MultiTrackView */
     quint32 m_elapsedTime;
@@ -72,7 +70,6 @@ private:
     int m_currentStepIndex;
 
 private slots:
-    void slotTimerTimeout();
     void slotSequenceStopped(quint32);
 
 signals:

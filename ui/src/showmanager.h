@@ -32,7 +32,6 @@
 #include "show.h"
 #include "doc.h"
 
-class ShowRunner;
 class QComboBox;
 class QSplitter;
 class QToolBar;
@@ -87,12 +86,6 @@ private:
     MultiTrackView *m_showview;
 
     /*********************************************************************
-     * Playback
-     *********************************************************************/
-    ShowRunner *m_runner;
-    bool is_playing;
-
-    /*********************************************************************
      * Menus, toolbar & actions
      *********************************************************************/
 protected:
@@ -124,6 +117,9 @@ protected slots:
 
     void slotChangeColor();
     
+    /*********************************************************************
+     * Playback
+     *********************************************************************/
     void slotStopPlayback();
     void slotStartPlayback();
 

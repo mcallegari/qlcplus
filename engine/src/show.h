@@ -30,6 +30,7 @@
 #include "track.h"
 
 class QDomDocument;
+class ShowRunner;
 
 class Show : public Function
 {
@@ -129,7 +130,11 @@ protected slots:
     /** Called whenever one of this function's child functions stops */
     void slotChildStopped(quint32 fid);
 
+signals:
+    void timeChanged(quint32);
+
 protected:
+    ShowRunner *m_runner;
     /** Number of currently running children */
     QSet <quint32> m_runningChildren;
 };
