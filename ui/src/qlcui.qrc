@@ -67,6 +67,8 @@
         <file alias="output.png">../../gfx/output.png</file>
         <file alias="pan.png">../../gfx/pan.png</file>
         <file alias="panic.png">../../gfx/panic.png</file>
+        <file alias="player_play.png">../../gfx/player_play.png</file>
+        <file alias="player_stop.png">../../gfx/player_stop.png</file>
         <file alias="prism.png">../../gfx/prism.png</file>
         <file alias="qlc.png">../../gfx/qlc.png</file>
         <file alias="qt.png">../../gfx/qt.png</file>
@@ -86,7 +88,6 @@
         <file alias="star.png">../../gfx/star.png</file>
         <file alias="stop.png">../../gfx/stop.png</file>
         <file alias="tilt.png">../../gfx/tilt.png</file>
-        <file alias="track.png">../../gfx/track.png</file>
         <file alias="uncheck.png">../../gfx/uncheck.png</file>
         <file alias="undo.png">../../gfx/undo.png</file>
         <file alias="ungroup.png">../../gfx/ungroup.png</file>

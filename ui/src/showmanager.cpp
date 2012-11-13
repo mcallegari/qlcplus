@@ -177,13 +177,13 @@ void ShowManager::initActions()
            this, SLOT(slotChangeColor()));
     m_colorAction->setEnabled(false);
 
-    m_stopAction = new QAction(QIcon(":/design.png"),  /* @todo re-used icon...to be changed */
+    m_stopAction = new QAction(QIcon(":/player_stop.png"),
                                  tr("St&op"), this);
     m_stopAction->setShortcut(QKeySequence("CTRL+O"));
     connect(m_stopAction, SIGNAL(triggered(bool)),
             this, SLOT(slotStopPlayback()));
 
-    m_playAction = new QAction(QIcon(":/operate.png"), /* @todo re-used icon...to be changed */
+    m_playAction = new QAction(QIcon(":/player_play.png"),
                                  tr("&Play"), this);
     m_playAction->setShortcut(QKeySequence("SPACE"));
     connect(m_playAction, SIGNAL(triggered(bool)),
@@ -610,6 +610,7 @@ void ShowManager::showEvent(QShowEvent* ev)
     QWidget::showEvent(ev);
     m_showview->show();
     m_showview->horizontalScrollBar()->setSliderPosition(0);
+    m_showview->verticalScrollBar()->setSliderPosition(0);
     updateShowsCombo();
 }
 

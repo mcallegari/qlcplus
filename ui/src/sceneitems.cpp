@@ -346,9 +346,17 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     painter->drawRect(0, 0, m_width, 77);
     /* draw vertical lines to show the chaser's steps */
     int xpos = 0;
-    painter->setPen(QPen(Qt::white, 1));
+
     foreach (ChaserStep step, m_chaser->steps())
     {
+
+        if (step.fadeIn > 0)
+        {
+            int fadeXpos = xpos + (((50/m_timeScale) * step.fadeIn) / 1000);
+            painter->setPen(QPen(Qt::gray, 1));
+            painter->drawLine(xpos, 76, fadeXpos, 1);
+        }
+        painter->setPen(QPen(Qt::white, 1));
         xpos += (((50/m_timeScale) * step.duration) / 1000);
         painter->drawLine(xpos, 1, xpos, 75);
     }

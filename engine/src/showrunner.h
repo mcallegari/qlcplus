@@ -23,6 +23,7 @@
 #define SHOWRUNNER_H
 
 #include <QObject>
+#include <QMutex>
 #include <QTimer>
 
 class Chaser;
@@ -44,21 +45,35 @@ public:
 
 private:
     const Doc* m_doc;
+
     /** The ID of the show to play */
     quint32 m_showID;
+
     /** The list of Chasers bounded to the scene to play */
     QList <Chaser*> m_chasers;
+
     /** List of duration of each chaser */
     QList <quint32> m_durations;
+
     /** The timer to check when a Chaser needs to be played */
     QTimer *m_timer;
+
     /** Elapsed time since runner start. Used also to move the cursor in MultiTrackView */
     quint32 m_elapsedTime;
+
+    /** Total time the runner has to run */
+    quint32 m_totalRunTime;
+
+    /** List of running Chasers and its mutex */
+    QList <quint32> m_runningQueue;
+    QMutex m_runningQueueMutex;
+
     /** Current step being played */
     int m_currentStepIndex;
 
 private slots:
-    void timerTimeout();
+    void slotTimerTimeout();
+    void slotSequenceStopped(quint32);
 
 signals:
     void timeChanged(quint32 time);

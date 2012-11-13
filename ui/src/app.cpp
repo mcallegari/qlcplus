@@ -180,20 +180,21 @@ void App::init()
     initToolBar();
 
     // Create primary views.
+    m_tab->setIconSize(QSize(24, 24));
     QWidget* w = new FixtureManager(m_tab, m_doc);
-    m_tab->addTab(w, tr("Fixtures"));
+    m_tab->addTab(w, QIcon(":/fixture.png"), tr("Fixtures"));
     w = new FunctionManager(m_tab, m_doc);
-    m_tab->addTab(w, tr("Functions"));
+    m_tab->addTab(w, QIcon(":/function.png"), tr("Functions"));
     w = new ShowManager(m_tab, m_doc);
-    m_tab->addTab(w, tr("Shows"));
+    m_tab->addTab(w, QIcon(":/show.png"), tr("Shows"));
     w = new VirtualConsole(m_tab, m_doc);
-    m_tab->addTab(w, tr("Virtual Console"));
+    m_tab->addTab(w, QIcon(":/virtualconsole.png"), tr("Virtual Console"));
     w = new SimpleDesk(m_tab, m_doc);
-    m_tab->addTab(w, tr("Simple Desk"));
+    m_tab->addTab(w, QIcon(":/slidermatrix.png"), tr("Simple Desk"));
     w = new OutputManager(m_tab, m_doc->outputMap());
-    m_tab->addTab(w, tr("Outputs"));
+    m_tab->addTab(w, QIcon(":/output.png"), tr("Outputs"));
     w = new InputManager(m_tab, m_doc->inputMap());
-    m_tab->addTab(w, tr("Inputs"));
+    m_tab->addTab(w, QIcon(":/input.png"), tr("Inputs"));
 
     // Listen to blackout changes and toggle m_controlBlackoutAction
     connect(m_doc->outputMap(), SIGNAL(blackoutChanged(bool)), this, SLOT(slotBlackoutChanged(bool)));
