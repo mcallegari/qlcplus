@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ShowEditor</class>
+ <widget class="QWidget" name="ShowEditor">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>449</width>
+    <height>351</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Show editor</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="m_nameLabel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>Show name</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLineEdit" name="m_nameEdit">
+     <property name="toolTip">
+      <string>Name of the function being edited</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" rowspan="3" colspan="2">
+    <widget class="QTreeWidget" name="m_tree">
+     <property name="rootIsDecorated">
+      <bool>false</bool>
+     </property>
+     <property name="itemsExpandable">
+      <bool>false</bool>
+     </property>
+     <property name="sortingEnabled">
+      <bool>true</bool>
+     </property>
+     <property name="allColumnsShowFocus">
+      <bool>true</bool>
+     </property>
+     <column>
+      <property name="text">
+       <string>Function</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Steps</string>
+      </property>
+      <property name="textAlignment">
+       <set>AlignLeft|AlignVCenter</set>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Start Time</string>
+      </property>
+      <property name="textAlignment">
+       <set>AlignLeft|AlignVCenter</set>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Duration</string>
+      </property>
+      <property name="textAlignment">
+       <set>AlignLeft|AlignVCenter</set>
+      </property>
+     </column>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <widget class="QToolButton" name="m_add">
+     <property name="toolTip">
+      <string>Add function(s) to the collection</string>
+     </property>
+     <property name="text">
+      <string notr="true">...</string>
+     </property>
+     <property name="icon">
+      <iconset resource="qlcui.qrc">
+       <normaloff>:/edit_add.png</normaloff>:/edit_add.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="2">
+    <widget class="QToolButton" name="m_remove">
+     <property name="toolTip">
+      <string>Remove the selected function</string>
+     </property>
+     <property name="text">
+      <string notr="true">...</string>
+     </property>
+     <property name="icon">
+      <iconset resource="qlcui.qrc">
+       <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="2">
+    <spacer>
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="qlcui.qrc"/>
+  <include location="qlcui.qrc"/>
+ </resources>
+ <connections/>
+</ui>

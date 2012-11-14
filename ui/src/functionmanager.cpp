@@ -44,6 +44,7 @@
 #include "chasereditor.h"
 #include "scripteditor.h"
 #include "sceneeditor.h"
+#include "showeditor.h"
 #include "chaserstep.h"
 #include "collection.h"
 #include "efxeditor.h"
@@ -53,6 +54,7 @@
 #include "chaser.h"
 #include "script.h"
 #include "scene.h"
+#include "show.h"
 #include "doc.h"
 #include "efx.h"
 
@@ -823,6 +825,10 @@ void FunctionManager::editFunction(Function* function)
     else if (function->type() == Function::Script)
     {
         m_editor = new ScriptEditor(m_hsplitter->widget(1), qobject_cast<Script*> (function), m_doc);
+    }
+    else if (function->type() == Function::Show)
+    {
+        m_editor = new ShowEditor(m_hsplitter->widget(1), qobject_cast<Show*> (function), m_doc);
     }
     else
     {

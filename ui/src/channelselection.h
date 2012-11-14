@@ -1,6 +1,6 @@
 /*
   Q Light Controller
-  functionselection.cpp
+  channelselection.h
 
   Copyright (c) Massimo Callegari
 

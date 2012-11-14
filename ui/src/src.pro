@@ -68,6 +68,7 @@ HEADERS += aboutbox.h \
            sceneselection.h \
            scripteditor.h \
            selectinputchannel.h \
+           showeditor.h \
            showmanager.h \
            simpledesk.h \
            simpledeskengine.h \
@@ -120,6 +121,7 @@ FORMS += aboutbox.ui \
          sceneselection.ui \
          scripteditor.ui \
          selectinputchannel.ui \
+         showeditor.ui \
          vcbuttonproperties.ui \
          vccuelistproperties.ui \
          vcframeproperties.ui \
@@ -173,6 +175,7 @@ SOURCES += aboutbox.cpp \
            sceneselection.cpp \
            scripteditor.cpp \
            selectinputchannel.cpp \
+           showeditor.cpp \
            showmanager.cpp \
            simpledesk.cpp \
            simpledeskengine.cpp \
