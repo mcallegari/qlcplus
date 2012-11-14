@@ -301,8 +301,10 @@ void Scene_Test::save()
     s.setFadeInSpeed(100);
     s.setFadeOutSpeed(1000);
     s.setDuration(10000);
-    s.setValue(1, 2, 3);
-    s.setValue(4, 5, 6);
+    s.setValue(0, 0, 100);
+    s.setValue(3, 0, 150);
+    s.setValue(3, 3, 10);
+    s.setValue(3, 5, 100);
 
     QDomDocument doc;
     QDomElement root = doc.createElement("TestRoot");
@@ -316,15 +318,15 @@ void Scene_Test::save()
     QVERIFY(root.firstChild().firstChild().toElement().attribute("FadeOut") == "1000");
     QVERIFY(root.firstChild().firstChild().toElement().attribute("Duration") == "10000");
 
-    QVERIFY(root.firstChild().firstChild().nextSibling().toElement().tagName() == "Value");
-    QVERIFY(root.firstChild().firstChild().nextSibling().toElement().attribute("Fixture") == "1");
-    QVERIFY(root.firstChild().firstChild().nextSibling().toElement().attribute("Channel") == "2");
-    QVERIFY(root.firstChild().firstChild().nextSibling().toElement().text() == "3");
+    QVERIFY(root.firstChild().firstChild().nextSibling().toElement().tagName() == "FixtureVal");
+    QVERIFY(root.firstChild().firstChild().nextSibling().toElement().attribute("ID") == "0");
+    QVERIFY(root.firstChild().firstChild().nextSibling().toElement().attribute("Channels") == "1");
+    QVERIFY(root.firstChild().firstChild().nextSibling().toElement().text() == "0,100");
 
-    QVERIFY(root.firstChild().firstChild().nextSibling().nextSibling().toElement().tagName() == "Value");
-    QVERIFY(root.firstChild().firstChild().nextSibling().nextSibling().toElement().attribute("Fixture") == "4");
-    QVERIFY(root.firstChild().firstChild().nextSibling().nextSibling().toElement().attribute("Channel") == "5");
-    QVERIFY(root.firstChild().firstChild().nextSibling().nextSibling().toElement().text() == "6");
+    QVERIFY(root.firstChild().firstChild().nextSibling().nextSibling().toElement().tagName() == "FixtureVal");
+    QVERIFY(root.firstChild().firstChild().nextSibling().nextSibling().toElement().attribute("ID") == "3");
+    QVERIFY(root.firstChild().firstChild().nextSibling().nextSibling().toElement().attribute("Channels") == "3");
+    QVERIFY(root.firstChild().firstChild().nextSibling().nextSibling().toElement().text() == "0,150,3,10,5,100");
 }
 
 void Scene_Test::copyFrom()
