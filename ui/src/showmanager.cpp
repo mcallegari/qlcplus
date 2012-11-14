@@ -556,6 +556,7 @@ void ShowManager::updateMultiTrackView()
     }
 
     connect(m_show, SIGNAL(timeChanged(quint32)), this, SLOT(slotupdateTimeAndCursor(quint32)));
+    connect(m_show, SIGNAL(showFinished()), this, SLOT(slotStopPlayback()));
 
     Scene *firstScene = NULL;
 

@@ -118,16 +118,22 @@ void ShowRunner::write()
         Chaser *chaser = m_chasers.at(m_currentStepIndex);
         if (m_elapsedTime >= chaser->getStartTime())
         {
+            /*
             bool startAsChild = true;
             if (m_currentStepIndex > 0 && m_runningQueue.count() > 0)
                 startAsChild = true;
-            chaser->start(m_doc->masterTimer(), startAsChild);
+            */
+            chaser->start(m_doc->masterTimer(), true);
             m_runningQueue.append(chaser->id());
             m_currentStepIndex++;
         }
     }
     if (m_elapsedTime >= m_totalRunTime)
-        stop();
+    {
+        //stop();
+        emit showFinished();
+        return;
+    }
 
     m_elapsedTime += MasterTimer::tick();
     emit timeChanged(m_elapsedTime);

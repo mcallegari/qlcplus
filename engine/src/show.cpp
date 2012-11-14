@@ -236,6 +236,7 @@ void Show::preRun(MasterTimer* timer)
 
     m_runner = new ShowRunner(doc(), this->id());
     connect(m_runner, SIGNAL(timeChanged(quint32)), this, SIGNAL(timeChanged(quint32)));
+    connect(m_runner, SIGNAL(showFinished()), this, SIGNAL(showFinished()));
     m_runner->start();
 }
 

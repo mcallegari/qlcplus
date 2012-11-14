@@ -132,6 +132,7 @@ protected slots:
 
 signals:
     void timeChanged(quint32);
+    void showFinished();
 
 protected:
     ShowRunner *m_runner;

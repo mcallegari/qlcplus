@@ -74,6 +74,7 @@ private slots:
 
 signals:
     void timeChanged(quint32 time);
+    void showFinished();
 
 };
 
