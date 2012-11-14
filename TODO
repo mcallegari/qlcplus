@@ -1,6 +1,14 @@
-This TODO list is not a complete roadmap for QLC. It just contains random
+This TODO list is not a complete roadmap for QLC+. It just contains random
 notes and issues found while doing something else. Kind of like a notepad or
 something.
+
+Massimo's notes:
+
+* should be possible to resize multitrack view to display a longer time
+* should be possible to pause/resume a show
+* insert EFX on sequences ??
+
+Heikki's notes:
 
 * Sanity check for functions and fixtures:
   * After loading, check if all fixtures, channels and member functions

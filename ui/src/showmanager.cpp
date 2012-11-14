@@ -109,12 +109,14 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
     m_vsplitter->addWidget(ccontainer);
     ccontainer->setLayout(new QVBoxLayout);
     ccontainer->layout()->setContentsMargins(0, 0, 0, 0);
+    m_vsplitter->widget(1)->hide();
 
     // add container for scene editor
     QWidget* container = new QWidget(this);
     m_splitter->addWidget(container);
     container->setLayout(new QVBoxLayout);
     container->layout()->setContentsMargins(0, 0, 0, 0);
+    m_splitter->widget(1)->hide();
     
     //connect(m_doc, SIGNAL(modeChanged(Doc::Mode)), this, SLOT(slotModeChanged()));
     connect(m_doc, SIGNAL(clearing()), this, SLOT(slotDocClearing()));
@@ -437,6 +439,7 @@ void ShowManager::slotViewClicked(QMouseEvent *event)
         m_sequence_editor->deleteLater();
         m_sequence_editor = NULL;
     }
+    m_vsplitter->widget(1)->hide();
     m_deleteAction->setEnabled(false);
 }
 
@@ -500,6 +503,7 @@ void ShowManager::slotDocClearing()
         m_sequence_editor->deleteLater();
         m_sequence_editor = NULL;
     }
+    m_vsplitter->widget(1)->hide();
 
     if (m_scene_editor != NULL)
     {
@@ -507,6 +511,7 @@ void ShowManager::slotDocClearing()
         m_scene_editor->deleteLater();
         m_scene_editor = NULL;
     }
+    m_splitter->widget(1)->hide();
 
     m_addTrackAction->setEnabled(false);
     m_addSequenceAction->setEnabled(false);

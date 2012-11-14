@@ -3,6 +3,8 @@ qlcplus (4.0.0) stable; urgency=low
   * Added offline desk capability. A brand new multitrack view has 
     been added to allow disposition of scenes and sequences very easily
   * Added channels groups
-  * Improved UI look & feel
+  * Scene editor will be displayed always on screen bottom. Should be easier to find a Fixture now.
+  * Improved UI look & feel mostly with KDE's Humanity icon package
+  * QLC forked on November 5th 2012
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Wed, 14 Nov 2012 10:44:42 +0200
