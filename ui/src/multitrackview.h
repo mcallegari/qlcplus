@@ -22,6 +22,7 @@
 #ifndef MULTITRACKVIEW_H
 #define MULTITRACKVIEW_H
 
+#include <QGraphicsItem>
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QSlider>
@@ -37,6 +38,12 @@ class MultiTrackView : public QGraphicsView
     
 public:
     MultiTrackView(QWidget *parent = 0);
+    
+    /** Update tracks horizontal dividers when the view changes */
+    void updateTracksDividers();
+
+    /** Set the multitrack view size in pixels */
+    void setViewSize(int width, int height);
 
     /** Update the multitrack view with the scene elements */
     void resetView();
@@ -76,6 +83,7 @@ private:
     QSlider *m_timeSlider;
     SceneHeaderItem *m_header;
     SceneCursorItem *m_cursor;
+    QList <QGraphicsItem *> m_hdividers;
     QList <TrackItem *> m_tracks;
     QList <SequenceItem *> m_sequences;
 
@@ -94,6 +102,7 @@ protected slots:
     void slotTrackClicked(TrackItem*);
     void slotTrackSoloFlagChanged(TrackItem*, bool);
     void slotTrackMuteFlagChanged(TrackItem*, bool);
+    void slotViewScrolled(int);
 
     void slotSequenceMoved(QGraphicsSceneMouseEvent *, SequenceItem *);
 };

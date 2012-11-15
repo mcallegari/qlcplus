@@ -403,18 +403,6 @@ void ShowManager::slotDelete()
     }
 }
 
-void ShowManager::slotChangeColor()
-{
-    SequenceItem *item = m_showview->getSelectedSequence();
-    if (item == NULL)
-        return;
-    QColor color = item->getChaser()->getColor();
-
-    color = QColorDialog::getColor(color);
-    item->getChaser()->setColor(color);
-    item->setColor(color);
-}
-
 void ShowManager::slotStopPlayback()
 {
     if (m_show != NULL && m_show->isRunning())
@@ -488,6 +476,24 @@ void ShowManager::slotTrackClicked(Track *track)
         return;
     m_scene = qobject_cast<Scene*>(f);
     showSceneEditor(m_scene);
+}
+
+void ShowManager::slotChangeColor()
+{
+    SequenceItem *item = m_showview->getSelectedSequence();
+    if (item == NULL)
+        return;
+    QColor color = item->getChaser()->getColor();
+
+    color = QColorDialog::getColor(color);
+    item->getChaser()->setColor(color);
+    item->setColor(color);
+}
+
+void ShowManager::slotChangeSize(int width, int height)
+{
+    if (m_showview != NULL)
+        m_showview->setViewSize(width, height);
 }
 
 void ShowManager::slotDocClearing()

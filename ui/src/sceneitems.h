@@ -49,6 +49,7 @@ public:
     void setTimeScale(int val);
     int getTimeScale();
     int getTimeStep();
+    void setWidth(int);
 
 signals:
     void itemClicked(QGraphicsSceneMouseEvent *);
@@ -160,6 +161,7 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     void setTimeScale(int val);
+    int getWidth();
 
     void setTrackIndex(int idx);
     int getTrackIndex();

@@ -115,20 +115,26 @@ protected slots:
     void slotClone();
     void slotDelete();
 
-    void slotChangeColor();
-    
     /*********************************************************************
      * Playback
      *********************************************************************/
     void slotStopPlayback();
     void slotStartPlayback();
 
+    /*********************************************************************
+     * UI events
+     *********************************************************************/
     void slotViewClicked(QMouseEvent *event);
     void slotSequenceMoved(SequenceItem *);
     void slotUpdateTime(quint32 msec_time);
     void slotupdateTimeAndCursor(quint32 msec_time);
     void slotTrackClicked(Track *track);
+    void slotChangeColor();
+    void slotChangeSize(int width, int height);
 
+    /*********************************************************************
+     * DOC events
+     *********************************************************************/
     void slotDocClearing();
     void slotDocLoaded();
     void slotFunctionChanged(quint32 id);

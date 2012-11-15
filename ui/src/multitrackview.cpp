@@ -20,6 +20,7 @@
 */
 
 #include <QGraphicsSceneMouseEvent>
+#include <QGraphicsItem>
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QMouseEvent>
@@ -32,20 +33,22 @@
 #include "sceneitems.h"
 #include "track.h"
 
-#define HEADER_HEIGHT 35
-#define TRACK_HEIGHT  80
-#define TRACK_WIDTH   150
+#define HEADER_HEIGHT       35
+#define TRACK_HEIGHT        80
+#define TRACK_WIDTH         150
+#define DEFAULT_VIEW_WIDTH  2100
 
 MultiTrackView::MultiTrackView(QWidget *parent) :
         QGraphicsView(parent)
 {
     m_scene = new QGraphicsScene();
-    m_scene->setSceneRect(0, 0, 2000, 600);
-    setSceneRect(0, 0, 2000, 600);
+    m_scene->setSceneRect(0, 0, DEFAULT_VIEW_WIDTH, 600);
+    setSceneRect(0, 0, DEFAULT_VIEW_WIDTH, 600);
     setScene(m_scene);
 	
     m_timeSlider = new QSlider(Qt::Horizontal);
     m_timeSlider->setRange(1, 15);
+    m_timeSlider->setValue(3);
     m_timeSlider->setSingleStep(1);
     m_timeSlider->setFixedSize(TRACK_WIDTH - 4, HEADER_HEIGHT);
 
@@ -70,11 +73,7 @@ MultiTrackView::MultiTrackView(QWidget *parent) :
                         QPen( QColor(150, 150, 150, 255) ),
                         QBrush( QColor(190, 190, 190, 255) ) );
     // draw horizontal lines for tracks
-    int ypos = 35 + TRACK_HEIGHT;
-    for (int j = 0; j < 5; j++)
-    m_scene->addRect(0, ypos + (j * TRACK_HEIGHT), m_scene->width(), 3,
-                         QPen( QColor(150, 150, 150, 255) ),
-                         QBrush( QColor(190, 190, 190, 255) ) );
+    updateTracksDividers();
 
     m_header = new SceneHeaderItem(m_scene->width());
     m_header->setPos(TRACK_WIDTH, 0);
@@ -86,6 +85,34 @@ MultiTrackView::MultiTrackView(QWidget *parent) :
     m_cursor->setPos(TRACK_WIDTH, 0);
     m_cursor->setZValue(99); // make sure the cursor is always on top of everything else
     m_scene->addItem(m_cursor);
+    connect(horizontalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotViewScrolled(int)));
+}
+
+void MultiTrackView::updateTracksDividers()
+{
+    if (m_hdividers.count() > 0)
+    {
+        for (int c = 0; c < m_hdividers.count(); c++)
+            m_scene->removeItem(m_hdividers.at(c));
+        m_hdividers.clear();
+    }
+    int ypos = 35 + TRACK_HEIGHT;
+    for (int j = 0; j < 5; j++)
+    {
+        QGraphicsItem *item = m_scene->addRect(0, ypos + (j * TRACK_HEIGHT),
+                                               m_scene->width(), 2,
+                                               QPen( QColor(150, 150, 150, 255) ),
+                                               QBrush( QColor(190, 190, 190, 255) ) );
+        m_hdividers.append(item);
+    }
+}
+
+void MultiTrackView::setViewSize(int width, int height)
+{
+    m_scene->setSceneRect(0, 0, width, height);
+    setSceneRect(0, 0, width, height);
+    m_header->setWidth(width);
+    updateTracksDividers();
 }
 
 void MultiTrackView::resetView()
@@ -100,6 +127,7 @@ void MultiTrackView::resetView()
 
     m_cursor->setPos(150, 0);
     this->horizontalScrollBar()->setSliderPosition(0);
+    this->verticalScrollBar()->setSliderPosition(0);
     m_scene->update();
 }
 
@@ -146,8 +174,11 @@ void MultiTrackView::addSequence(Chaser *chaser)
             this, SLOT(slotSequenceMoved(QGraphicsSceneMouseEvent *, SequenceItem *)));
     m_scene->addItem(item);
     m_sequences.append(item);
-    m_scene->update();
-    this->update();
+    int new_scene_width = item->x() + item->getWidth();
+    if (new_scene_width > DEFAULT_VIEW_WIDTH && new_scene_width > m_scene->width())
+        setViewSize(new_scene_width + 500, 600);
+    //m_scene->update();
+    //this->update();
 }
 
 quint32 MultiTrackView::deleteSelectedSequence()
@@ -224,7 +255,7 @@ quint32 MultiTrackView::getPositionFromTime(quint32 time)
 {
     if (time == 0)
         return TRACK_WIDTH;
-    int xPos = (time * (m_header->getTimeStep() / m_header->getTimeScale())) / 500;
+    quint32 xPos = (time * (m_header->getTimeStep() / m_header->getTimeScale())) / 500;
     return TRACK_WIDTH + xPos;
 }
 
@@ -260,15 +291,21 @@ void MultiTrackView::slotMoveCursor(QGraphicsSceneMouseEvent *event)
 
 void MultiTrackView::slotTimeScaleChanged(int val)
 {
+    //int oldScale = m_header->getTimeScale();
     m_header->setTimeScale(val);
     foreach(SequenceItem *item, m_sequences)
     {
-        int newXpos = getPositionFromTime(item->getChaser()->getStartTime());
+        quint32 newXpos = getPositionFromTime(item->getChaser()->getStartTime());
         item->setPos(newXpos + 2, item->y());
         item->setTimeScale(val);
     }
     int newCursorPos = getPositionFromTime(m_cursor->getTime());
     m_cursor->setPos(newCursorPos + 2, m_cursor->y());
+    /*
+    quint32 new_scene_width = (float)(m_scene->width() / oldScale) * (15 - val);
+    if (new_scene_width > DEFAULT_VIEW_WIDTH)
+        setViewSize(new_scene_width + 500, 600);
+    */
 }
 
 void MultiTrackView::slotTrackClicked(TrackItem *track)
@@ -302,6 +339,11 @@ void MultiTrackView::slotTrackMuteFlagChanged(TrackItem* item, bool mute)
         trk->setMute(mute);
 }
 
+void MultiTrackView::slotViewScrolled(int value)
+{
+    qDebug() << Q_FUNC_INFO << "Percentage: " << value;
+}
+
 void MultiTrackView::slotSequenceMoved(QGraphicsSceneMouseEvent *, SequenceItem *item)
 {
     //qDebug() << Q_FUNC_INFO << "event - <" << event->pos().toPoint().x() << "> - <" << event->pos().toPoint().y() << ">";
@@ -315,8 +357,8 @@ void MultiTrackView::slotSequenceMoved(QGraphicsSceneMouseEvent *, SequenceItem 
         item->setPos(item->x(), ypos);
     quint32 s_time = (item->x() - TRACK_WIDTH) * (m_header->getTimeScale() * 1000) / (m_header->getTimeStep() * 2);
     item->getChaser()->setStartTime(s_time);
-    item->setToolTip(QString(tr("Start time: %1msec\n%2"))
-                     .arg(s_time).arg(tr("Click to move this sequence across the timeline")));
+    item->setToolTip(QString(tr("Start time: %1\n%2"))
+                     .arg(Function::speedToString(s_time)).arg(tr("Click to move this sequence across the timeline")));
 
     m_scene->update();
     emit sequenceMoved(item);

@@ -30,7 +30,7 @@
 SceneHeaderItem::SceneHeaderItem(int w)
     : m_width(w)
     , m_timeStep(25)
-    , m_timeScale(1)
+    , m_timeScale(3)
 {
 }
 
@@ -95,6 +95,12 @@ int SceneHeaderItem::getTimeScale()
 int SceneHeaderItem::getTimeStep()
 {
     return m_timeStep;
+}
+
+void SceneHeaderItem::setWidth(int w)
+{
+    prepareGeometryChange();
+    m_width = w;
 }
 
 /****************************************************************************
@@ -298,12 +304,12 @@ SequenceItem::SequenceItem(Chaser *seq)
     : m_color(100, 100, 100)
     , m_chaser(seq)
     , m_width(50)
-    , m_timeScale(1)
+    , m_timeScale(3)
     , m_trackIdx(-1)
 {
     Q_ASSERT(seq != NULL);
-    setToolTip(QString("Start time: %1msec\n%2")
-              .arg(seq->getStartTime()).arg("Click to move this sequence across the timeline"));
+    setToolTip(QString("Start time: %1\n%2")
+              .arg(Function::speedToString(seq->getStartTime())).arg("Click to move this sequence across the timeline"));
     setCursor(Qt::OpenHandCursor);
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
@@ -326,6 +332,11 @@ void SequenceItem::calculateWidth()
     if (newWidth < (50 / m_timeScale))
         newWidth = 50 / m_timeScale;
     m_width = newWidth;
+}
+
+int SequenceItem::getWidth()
+{
+    return m_width;
 }
 
 QRectF SequenceItem::boundingRect() const
