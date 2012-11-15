@@ -45,6 +45,9 @@ public:
     /** Set the multitrack view size in pixels */
     void setViewSize(int width, int height);
 
+    /** Auto calculation of view size based on items */
+    void updateViewSize();
+
     /** Update the multitrack view with the scene elements */
     void resetView();
 

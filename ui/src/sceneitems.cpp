@@ -365,12 +365,26 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
         if (step.fadeIn > 0)
         {
             int fadeXpos = xpos + (((50/m_timeScale) * step.fadeIn) / 1000);
-            painter->setPen(QPen(Qt::gray, 1));
-            painter->drawLine(xpos, 76, fadeXpos, 1);
+            // doesn't even draw it if too small
+            if (fadeXpos - xpos > 5)
+            {
+                painter->setPen(QPen(Qt::gray, 1));
+                painter->drawLine(xpos, 76, fadeXpos, 1);
+            }
         }
         painter->setPen(QPen(Qt::white, 1));
         xpos += (((50/m_timeScale) * step.duration) / 1000);
         painter->drawLine(xpos, 1, xpos, 75);
+        if (step.fadeOut > 0)
+        {
+            int fadeXpos = xpos - (((50/m_timeScale) * step.fadeOut) / 1000);
+            // doesn't even draw it if too small
+            if (xpos - fadeXpos > 5)
+            {
+                painter->setPen(QPen(Qt::gray, 1));
+                painter->drawLine(fadeXpos, 1, xpos, 76);
+            }
+        }
     }
 }
 

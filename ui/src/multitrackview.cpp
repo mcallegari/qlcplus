@@ -36,14 +36,15 @@
 #define HEADER_HEIGHT       35
 #define TRACK_HEIGHT        80
 #define TRACK_WIDTH         150
-#define DEFAULT_VIEW_WIDTH  2100
+#define VIEW_DEFAULT_WIDTH  2000
+#define VIEW_DEFAULT_HEIGHT 600
 
 MultiTrackView::MultiTrackView(QWidget *parent) :
         QGraphicsView(parent)
 {
     m_scene = new QGraphicsScene();
-    m_scene->setSceneRect(0, 0, DEFAULT_VIEW_WIDTH, 600);
-    setSceneRect(0, 0, DEFAULT_VIEW_WIDTH, 600);
+    m_scene->setSceneRect(0, 0, VIEW_DEFAULT_WIDTH, VIEW_DEFAULT_HEIGHT);
+    setSceneRect(0, 0, VIEW_DEFAULT_WIDTH, VIEW_DEFAULT_HEIGHT);
     setScene(m_scene);
 	
     m_timeSlider = new QSlider(Qt::Horizontal);
@@ -115,6 +116,18 @@ void MultiTrackView::setViewSize(int width, int height)
     updateTracksDividers();
 }
 
+void MultiTrackView::updateViewSize()
+{
+    quint32 gWidth = 0;
+    foreach (SequenceItem *item, m_sequences)
+    {
+        if (item->x() + item->getWidth() > gWidth)
+            gWidth = item->x() + item->getWidth();
+    }
+    if (gWidth > VIEW_DEFAULT_WIDTH)
+        setViewSize(gWidth + 1000, VIEW_DEFAULT_HEIGHT);
+}
+
 void MultiTrackView::resetView()
 {
     for (int t = 0; t < m_tracks.count(); t++)
@@ -175,8 +188,8 @@ void MultiTrackView::addSequence(Chaser *chaser)
     m_scene->addItem(item);
     m_sequences.append(item);
     int new_scene_width = item->x() + item->getWidth();
-    if (new_scene_width > DEFAULT_VIEW_WIDTH && new_scene_width > m_scene->width())
-        setViewSize(new_scene_width + 500, 600);
+    if (new_scene_width > VIEW_DEFAULT_WIDTH && new_scene_width > m_scene->width())
+        setViewSize(new_scene_width + 500, VIEW_DEFAULT_HEIGHT);
     //m_scene->update();
     //this->update();
 }
@@ -255,7 +268,7 @@ quint32 MultiTrackView::getPositionFromTime(quint32 time)
 {
     if (time == 0)
         return TRACK_WIDTH;
-    quint32 xPos = (time * (m_header->getTimeStep() / m_header->getTimeScale())) / 500;
+    quint32 xPos = (float)(time / 500) * ((float)m_header->getTimeStep() / (float)m_header->getTimeScale());
     return TRACK_WIDTH + xPos;
 }
 
@@ -301,11 +314,7 @@ void MultiTrackView::slotTimeScaleChanged(int val)
     }
     int newCursorPos = getPositionFromTime(m_cursor->getTime());
     m_cursor->setPos(newCursorPos + 2, m_cursor->y());
-    /*
-    quint32 new_scene_width = (float)(m_scene->width() / oldScale) * (15 - val);
-    if (new_scene_width > DEFAULT_VIEW_WIDTH)
-        setViewSize(new_scene_width + 500, 600);
-    */
+    updateViewSize();
 }
 
 void MultiTrackView::slotTrackClicked(TrackItem *track)
