@@ -29,6 +29,8 @@ static void CALLBACK MidiInProc(HMIDIIN hMidiIn, UINT wMsg,
                                 DWORD_PTR dwInstance, DWORD_PTR dwParam1,
                                 DWORD_PTR dwParam2)
 {
+    Q_UNUSED(hMidiIn)
+    Q_UNUSED(dwParam2)
     Win32MidiInputDevice* self = (Win32MidiInputDevice*) dwInstance;
     Q_ASSERT(self != NULL);
 

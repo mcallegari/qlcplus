@@ -119,6 +119,7 @@ bool HPMPrivate::extractVidPid(const QString& dbccName, uint* vid, uint* pid)
 
 bool HPMPrivate::winEvent(MSG* message, long* RESULT)
 {
+    Q_UNUSED(RESULT)
     Q_ASSERT(message != NULL);
 
     UINT msg = message->message;
