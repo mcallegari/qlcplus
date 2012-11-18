@@ -272,12 +272,16 @@ void FixtureManager::initDataView()
     labels << tr("Name") << tr("Universe") << tr("Address");
     m_tree->setHeaderLabels(labels);
     m_tree->setRootIsDecorated(true);
+    m_tree->setIconSize(QSize(32, 32));
     m_tree->setSortingEnabled(true);
     m_tree->setAllColumnsShowFocus(true);
     m_tree->sortByColumn(KColumnAddress, Qt::AscendingOrder);
     m_tree->setContextMenuPolicy(Qt::CustomContextMenu);
     m_tree->setSelectionMode(QAbstractItemView::ExtendedSelection);
     m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
+    QFont m_font = QApplication::font();
+    m_font.setPixelSize(13);
+    m_tree->setFont(m_font);
 
     connect(m_tree, SIGNAL(itemSelectionChanged()),
             this, SLOT(slotSelectionChanged()));
@@ -296,8 +300,10 @@ void FixtureManager::initDataView()
     chan_labels << tr("Name") << tr("Channels");
     m_channels_tree->setHeaderLabels(chan_labels);
     m_channels_tree->setRootIsDecorated(true);
+    m_channels_tree->setIconSize(QSize(32, 32));
     m_channels_tree->setSelectionMode(QAbstractItemView::ExtendedSelection);
     m_channels_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
+    m_channels_tree->setFont(m_font);
 
     connect(m_channels_tree, SIGNAL(itemSelectionChanged()),
             this, SLOT(slotChannelsGroupSelectionChanged()));
@@ -332,11 +338,13 @@ void FixtureManager::updateView()
     foreach (FixtureGroup* grp, m_doc->fixtureGroups())
     {
         QTreeWidgetItem* grpItem = new QTreeWidgetItem(m_tree);
+        grpItem->setIcon(KColumnName, QIcon(":/group.png"));
         updateGroupItem(grpItem, grp);
     }
 
     // Insert the "All fixtures group"
     QTreeWidgetItem* grpItem = new QTreeWidgetItem(m_tree);
+    grpItem->setIcon(KColumnName, QIcon(":/group.png"));
     grpItem->setText(KColumnName, tr("All fixtures"));
 
     // Add all fixtures under "All fixture group"
@@ -363,6 +371,59 @@ void FixtureManager::updateView()
     slotModeChanged(m_doc->mode());
 }
 
+QIcon FixtureManager::getIntensityIcon(const QLCChannel* channel)
+{
+    QPixmap pm(32, 32);
+    if (channel->colour() == QLCChannel::Red ||
+        channel->name().contains("red", Qt::CaseInsensitive) == true)
+    {
+        QColor color(255, 0, 0);
+        pm.fill(color);
+        return QIcon(pm);
+    }
+    else if (channel->colour() == QLCChannel::Green ||
+             channel->name().contains("green", Qt::CaseInsensitive) == true)
+    {
+        QColor color(0, 255, 0);
+        pm.fill(color);
+        return QIcon(pm);
+    }
+    else if (channel->colour() == QLCChannel::Blue ||
+             channel->name().contains("blue", Qt::CaseInsensitive) == true)
+    {
+        QColor color(0, 0, 255);
+        pm.fill(color);
+        return QIcon(pm);
+    }
+    else if (channel->colour() == QLCChannel::Cyan ||
+             channel->name().contains("cyan", Qt::CaseInsensitive) == true)
+    {
+        QColor color(0, 255, 255);
+        pm.fill(color);
+        return QIcon(pm);
+    }
+    else if (channel->colour() == QLCChannel::Magenta ||
+             channel->name().contains("magenta", Qt::CaseInsensitive) == true)
+    {
+        QColor color(255, 0, 255);
+        pm.fill(color);
+        return QIcon(pm);
+    }
+    else if (channel->colour() == QLCChannel::Yellow ||
+             channel->name().contains("yellow", Qt::CaseInsensitive) == true)
+    {
+        QColor color(255, 255, 0);
+        pm.fill(color);
+        return QIcon(pm);
+    }
+    else
+    {
+        // None of the primary colours matched and since this is an
+        // intensity channel, it must be controlling a plain dimmer OSLT.
+        return QIcon(":/intensity.png");
+    }
+}
+
 void FixtureManager::updateChannelsGroupView()
 {
     m_channels_tree->clear();
@@ -372,6 +433,28 @@ void FixtureManager::updateChannelsGroupView()
         grpItem->setText(KColumnName, grp->name());
         grpItem->setData(KColumnName, PROP_FIXTURE, grp->id());
         grpItem->setText(KColumnChannels, QString("%1").arg(grp->getChannels().count()));
+        if (grp->getChannels().count() > 0)
+        {
+            SceneValue scv = grp->getChannels().at(0);
+            Fixture *fxi = m_doc->fixture(scv.fxi);
+            const QLCChannel* ch = fxi->channel(scv.channel);
+            switch(ch->group())
+            {
+            case QLCChannel::Pan: grpItem->setIcon(KColumnName, QIcon(":/pan.png")); break;
+            case QLCChannel::Tilt: grpItem->setIcon(KColumnName, QIcon(":/tilt.png")); break;
+            case QLCChannel::Colour: grpItem->setIcon(KColumnName, QIcon(":/color.png")); break;
+            case QLCChannel::Effect: grpItem->setIcon(KColumnName, QIcon(":/star.png")); break;
+            case QLCChannel::Gobo: grpItem->setIcon(KColumnName, QIcon(":/gobo.png")); break;
+            case QLCChannel::Shutter: grpItem->setIcon(KColumnName, QIcon(":/shutter.png")); break;
+            case QLCChannel::Speed: grpItem->setIcon(KColumnName, QIcon(":/speed.png")); break;
+            case QLCChannel::Prism: grpItem->setIcon(KColumnName, QIcon(":/prism.png")); break;
+            case QLCChannel::Maintenance: grpItem->setIcon(KColumnName, QIcon(":/maintenance.png")); break;
+            case QLCChannel::Intensity: grpItem->setIcon(KColumnName, getIntensityIcon(ch)); break;
+            case QLCChannel::Beam: grpItem->setIcon(KColumnName, QIcon(":/beam.png")); break;
+            default:
+            break;
+            }
+        }
     }
 }
 
@@ -425,6 +508,32 @@ void FixtureManager::updateFixtureItem(QTreeWidgetItem* item, const Fixture* fxi
 
     // ID column
     item->setData(KColumnName, PROP_FIXTURE, fxi->id());
+
+    QString ftype = fxi->type();
+    if (ftype == "Color Changer")
+        item->setIcon(KColumnName, QIcon(":/fixture.png"));
+    else if (ftype == "Dimmer")
+        item->setIcon(KColumnName, QIcon(":/dimmer.png"));
+    else if (ftype == "Effect")
+        item->setIcon(KColumnName, QIcon(":/effect.png"));
+    else if (ftype == "Fan")
+        item->setIcon(KColumnName, QIcon(":/fan.png"));
+    else if (ftype == "Flower")
+        item->setIcon(KColumnName, QIcon(":/flower.png"));
+    else if (ftype == "Hazer")
+        item->setIcon(KColumnName, QIcon(":/hazer.png"));
+    else if (ftype == "Laser")
+        item->setIcon(KColumnName, QIcon(":/laser.png"));
+    else if (ftype == "Moving Head")
+        item->setIcon(KColumnName, QIcon(":/movinghead.png"));
+    else if (ftype == "Scanner")
+        item->setIcon(KColumnName, QIcon(":/scanner.png"));
+    else if (ftype == "Smoke")
+        item->setIcon(KColumnName, QIcon(":/smoke.png"));
+    else if (ftype == "Strobe")
+        item->setIcon(KColumnName, QIcon(":/strobe.png"));
+    else if (ftype == "Other")
+        item->setIcon(KColumnName, QIcon(":/other.png"));
 }
 
 void FixtureManager::updateGroupItem(QTreeWidgetItem* item, const FixtureGroup* grp)

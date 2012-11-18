@@ -1,6 +1,6 @@
 /*
   Q Light Controller
-  functionselection.cpp
+  groupsconsole.cpp
 
   Copyright (c) Massimo Callegari
 

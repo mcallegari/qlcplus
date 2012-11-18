@@ -25,7 +25,9 @@
 #include "chaserstep.h"
 
 /****************************************************************************
+ *
  * Header item
+ *
  ****************************************************************************/
 SceneHeaderItem::SceneHeaderItem(int w)
     : m_width(w)
@@ -103,8 +105,11 @@ void SceneHeaderItem::setWidth(int w)
     m_width = w;
 }
 
+
 /****************************************************************************
+ *
  * Cursor item
+ *
  ****************************************************************************/
 SceneCursorItem::SceneCursorItem(int h)
     : m_height(h)
@@ -147,8 +152,11 @@ void SceneCursorItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
     painter->drawRect(0, 35, 1, m_height - 35);
 }
 
+
 /****************************************************************************
+ *
  * Track item
+ *
  ****************************************************************************/
 TrackItem::TrackItem(Track *track, int number)
     : m_number(number)
@@ -297,7 +305,9 @@ void TrackItem::slotTrackChanged(quint32 id)
 
 
 /*********************************************************************
+ *
  * Sequence item
+ *
  *********************************************************************/
 
 SequenceItem::SequenceItem(Chaser *seq)

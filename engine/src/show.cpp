@@ -72,8 +72,8 @@ Function* Show::createCopy(Doc* doc)
 
 bool Show::copyFrom(const Function* function)
 {
-    const Show* coll = qobject_cast<const Show*> (function);
-    if (coll == NULL)
+    const Show* shw = qobject_cast<const Show*> (function);
+    if (shw == NULL)
         return false;
 
     return Function::copyFrom(function);

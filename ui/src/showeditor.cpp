@@ -119,7 +119,9 @@ void ShowEditor::updateFunctionList()
         sceneItem->setData(NAME_COL, PROP_ID, m_scene->id());
         sceneItem->setIcon(NAME_COL, QIcon(":/scene.png"));
 
-        foreach(quint32 id, track->sequencesID())
+        foreach(quint32 id, track->functionsID())
+        {
+            if (m_doc->function(id)->type() == Function::Chaser)
         {
             Chaser *chaser = qobject_cast<Chaser*>(m_doc->function(id));
             QTreeWidgetItem *chItem = new QTreeWidgetItem(sceneItem);
@@ -132,6 +134,7 @@ void ShowEditor::updateFunctionList()
             foreach (ChaserStep step, chaser->steps())
                 seq_duration += step.duration;
             chItem->setText(DUR_COL, Function::speedToString(seq_duration));
+            }
         }
     }
     m_tree->expandAll();

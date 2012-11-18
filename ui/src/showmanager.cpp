@@ -375,7 +375,7 @@ void ShowManager::slotAddSequence()
         f->setName(QString("%1 %2").arg(tr("New Sequence")).arg(f->id()));
         showSequenceEditor(chaser);
         Track *track = m_show->getTrackFromSceneID(m_scene->id());
-        track->addSequenceID(chaser->id());
+        track->addFunctionID(chaser->id());
         m_showview->addSequence(chaser);
     }
 }
@@ -399,7 +399,7 @@ void ShowManager::slotDelete()
         m_deleteAction->setEnabled(false);
         Track *currTrack = m_show->getTrackFromSceneID(m_scene->id());
         if (currTrack != NULL)
-            currTrack->removeSequenceID(deleteID);
+            currTrack->removeFunctionID(deleteID);
     }
 }
 
@@ -587,10 +587,13 @@ void ShowManager::updateMultiTrackView()
         m_showview->addTrack(track);
         m_addSequenceAction->setEnabled(true);
 
-        foreach(quint32 id, track->sequencesID())
+        foreach(quint32 id, track->functionsID())
+        {
+            if (m_doc->function(id)->type() == Function::Chaser)
         {
             Chaser *chaser = qobject_cast<Chaser*>(m_doc->function(id));
             m_showview->addSequence(chaser);
+            }
         }
     }
     /** Set first track active */

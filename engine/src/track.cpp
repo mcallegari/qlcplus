@@ -32,7 +32,7 @@
 #define KXMLQLCTrackSceneID   "SceneID"
 #define KXMLQLCTrackIsMute    "isMute"
 
-#define KXMLQLCTrackSequences "Sequences"
+#define KXMLQLCTrackFunctions "Functions"
 
 Track::Track(quint32 sceneID)
     : m_id(Track::invalidId())
@@ -107,30 +107,30 @@ bool Track::isMute()
  * Sequences
  *********************************************************************/
 
-bool Track::addSequenceID(quint32 id)
+bool Track::addFunctionID(quint32 id)
 {
-    if (m_sequences.count() > 0 && m_sequences.contains(id))
+    if (m_functions.count() > 0 && m_functions.contains(id))
         return false;
-    m_sequences.append(id);
+    m_functions.append(id);
 
     return true;
 }
 
-bool Track::removeSequenceID(quint32 id)
+bool Track::removeFunctionID(quint32 id)
 {
-    if (m_sequences.count() > 0 && m_sequences.contains(id) == false)
+    if (m_functions.count() > 0 && m_functions.contains(id) == false)
         return false;
-    int idx = m_sequences.indexOf(id);
+    int idx = m_functions.indexOf(id);
     if (idx < 0)
         return false;
-    m_sequences.takeAt(idx);
+    m_functions.takeAt(idx);
 
     return true;
 }
 
-QList <quint32> Track::sequencesID()
+QList <quint32> Track::functionsID()
 {
-    return m_sequences;
+    return m_functions;
 }
 
 /*****************************************************************************
@@ -154,10 +154,10 @@ bool Track::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     tag.setAttribute(KXMLQLCTrackIsMute, m_isMute);
 
     /* Save the list of Chasers IDs if present */
-    if (m_sequences.count() > 0)
+    if (m_functions.count() > 0)
     {
-        ids = doc->createElement(KXMLQLCTrackSequences);
-        foreach(quint32 id, m_sequences)
+        ids = doc->createElement(KXMLQLCTrackFunctions);
+        foreach(quint32 id, m_functions)
         {
             if (str.isEmpty() == false)
                 str.append(QString(","));
@@ -219,14 +219,14 @@ bool Track::loadXML(const QDomElement& root)
         if (node.isNull() == false)
         {
             QDomElement tag = node.toElement();
-            if (tag.tagName() == KXMLQLCTrackSequences)
+            if (tag.tagName() == KXMLQLCTrackFunctions)
             {
                 QString strvals = tag.text();
                 if (strvals.isEmpty() == false)
                 {
                     QStringList varray = strvals.split(",");
                     for (int i = 0; i < varray.count(); i++)
-                        m_sequences.append(QString(varray.at(i)).toUInt());
+                        m_functions.append(QString(varray.at(i)).toUInt());
                 }
             }
         }

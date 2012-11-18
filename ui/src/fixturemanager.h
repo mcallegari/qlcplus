@@ -87,6 +87,9 @@ public:
     /** Update the list of fixtures */
     void updateView();
 
+    /** Get the icon for intensity groups */
+    QIcon getIntensityIcon(const QLCChannel* channel);
+
     /** Update the list of channels group */
     void updateChannelsGroupView();
 

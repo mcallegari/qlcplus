@@ -108,17 +108,17 @@ private:
      * Sequences
      *********************************************************************/
 public:
-    /** associate a sequence ID to this track */
-    bool addSequenceID(quint32 id);
+    /** associate a function ID to this track */
+    bool addFunctionID(quint32 id);
 
-    /** remove a sequence ID association from this track */
-    bool removeSequenceID(quint32 id);
+    /** remove a function ID association from this track */
+    bool removeFunctionID(quint32 id);
 
-    QList <quint32> sequencesID();
+    QList <quint32> functionsID();
 
 private:
-    /** List of Chaser IDs (in sequence mode) present in this track */
-    QList <quint32> m_sequences;
+    /** List of Function IDs present in this track */
+    QList <quint32> m_functions;
 
     /*********************************************************************
      * Load & Save
