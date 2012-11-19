@@ -1,15 +1,15 @@
-Q Light Controller Plus 3
+Q Light Controller Plus 4
 
 Copyright (c) Heikki Junnila
 	      Massimo Callegari
 
 EMail: massimocallegari@yahoo.it
-QLC+ at SourceForge: http://qlc.sourceforge.net/
+QLC+ at SourceForge: http://qlcplus.sourceforge.net/
 
 DEVELOPERS AT WORK
 ------------------
 
-If you're compiling QLC from sources and you regularly do "git pull" (or
+If you're compiling QLC+ from sources and you regularly do "git pull" (or
 something similar) to get the latest sources, you probably end up seeing some
 compiler warnings and errors from time to time. Since the whole source package
 is under development, you might even encounter unresolved symbols etc. that
