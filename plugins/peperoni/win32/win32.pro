@@ -8,6 +8,7 @@ INCLUDEPATH += peperoni
 INCLUDEPATH += ../../interfaces
 DEPENDPATH  += peperoni
 CONFIG      += plugin
+QMAKE_LFLAGS += -shared
 
 # Headers
 HEADERS += peperoni/usbdmx-dynamic.h \

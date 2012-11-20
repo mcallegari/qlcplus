@@ -9,6 +9,7 @@ INCLUDEPATH += ../../interfaces
 DEPENDPATH  += ../../interfaces
 unix:CONFIG      += link_pkgconfig
 unix:PKGCONFIG   += libusb
+win32:QMAKE_LFLAGS += -shared
 
 HEADERS += udmxdevice.h \
            udmx.h

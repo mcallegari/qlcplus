@@ -17,6 +17,7 @@ win32 {
     CONFIG(release, debug|release) qtnetwork.files = $$(QTDIR)/bin/QtNetwork4.dll
     CONFIG(debug, debug|release) qtnetwork.files = $$(QTDIR)/bin/QtNetworkd4.dll
     INSTALLS    += qtnetwork
+	QMAKE_LFLAGS += -shared
 }
 
 # Input

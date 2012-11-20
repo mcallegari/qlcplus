@@ -14,8 +14,10 @@ win32: {
     # 100% FLOSS codebase of QLC if distributed along with QLC sources. Download
     # the package from http://www.box.net/shared/2l0b2tk8e1 and
     # extract its contents under K8062DDIR below to compile this plugin.
-    K8062DDIR    = C:/K8062D
-    LIBS        += -L$$K8062DDIR -lK8062D
+    K8062DDIR    = C:/Qt/K8062D
+    LIBS        += -L$$K8062DDIR -lK8062D.dll
+	INCLUDE	    += -I$$K8062DDIR
+	QMAKE_LFLAGS += -shared
 } else {
     SOURCES += velleman_mock.cpp
 }

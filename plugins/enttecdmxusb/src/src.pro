@@ -25,9 +25,10 @@ win32 {
 CONFIG(ftd2xx) {
     win32 {
         # Windows target
-        FTD2XXDIR    = C:/CDM20814
+        FTD2XXDIR    = C:/Qt/CDM20824
         LIBS        += -L$$FTD2XXDIR/i386 -lftd2xx
         INCLUDEPATH += $$FTD2XXDIR
+		QMAKE_LFLAGS += -shared
     } else {
         # Unix target
         INCLUDEPATH += /usr/local/include

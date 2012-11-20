@@ -7,6 +7,7 @@ TARGET   = midiplugin
 CONFIG      += plugin
 INCLUDEPATH += ../common
 LIBS        += -lwinmm
+QMAKE_LFLAGS += -shared
 
 include(../common/common.pri)
 

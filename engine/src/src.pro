@@ -12,6 +12,7 @@ QTPLUGIN =
 
 INCLUDEPATH += ../../plugins/interfaces
 win32:LIBS  += -lwinmm
+win32:QMAKE_LFLAGS += -shared
 
 DEPENDPATH  += ../../hotplugmonitor/src
 INCLUDEPATH += ../../hotplugmonitor/src

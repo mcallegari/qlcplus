@@ -13,6 +13,7 @@ INCLUDEPATH     += ../../engine/src
 DEPENDPATH      += ../../engine/src
 QMAKE_LIBDIR    += ../../engine/src
 LIBS            += -lqlcengine
+win32:QMAKE_LFLAGS += -shared
 
 # X
 unix:!macx:LIBS += -lX11
