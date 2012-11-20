@@ -513,7 +513,7 @@ void App::initActions()
     m_helpIndexAction->setShortcut(QKeySequence(tr("SHIFT+F1", "Help|Index")));
     connect(m_helpIndexAction, SIGNAL(triggered(bool)), this, SLOT(slotHelpIndex()));
 
-    m_helpAboutAction = new QAction(QIcon(":/qlc.png"), tr("&About QLC"), this);
+    m_helpAboutAction = new QAction(QIcon(":/qlc.png"), tr("&About QLC+"), this);
     connect(m_helpAboutAction, SIGNAL(triggered(bool)), this, SLOT(slotHelpAbout()));
 }
 

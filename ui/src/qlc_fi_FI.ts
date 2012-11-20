@@ -601,8 +601,9 @@ Haluatko varmasti pysäyttää ne ja vaihtaa takaisin Suunnittelutilaan?</transl
     </message>
     <message>
         <location filename="app.cpp" line="516"/>
-        <source>&amp;About QLC</source>
-        <translation>Ti&amp;etoja QLC:stä</translation>
+        <source>&amp;About QLC+</source>
+        <oldsource>&amp;About QLC</oldsource>
+        <translation type="unfinished">Ti&amp;etoja QLC:stä</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -1582,6 +1583,11 @@ Muuten menetät tekemäsi muutokset.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="efxeditor.ui" line="619"/>
+        <source>&amp;Test Run</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Initialization</source>
         <translation type="obsolete">Alustus</translation>
     </message>
@@ -1686,120 +1692,120 @@ Muuten menetät tekemäsi muutokset.</translation>
         <translation type="obsolete">Konsoli</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="292"/>
+        <location filename="fixturemanager.cpp" line="296"/>
         <source>Fixtures Groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="296"/>
+        <location filename="fixturemanager.cpp" line="300"/>
         <source>Channels</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="307"/>
+        <location filename="fixturemanager.cpp" line="313"/>
         <source>Channels Groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="340"/>
-        <location filename="fixturemanager.cpp" line="543"/>
+        <location filename="fixturemanager.cpp" line="348"/>
+        <location filename="fixturemanager.cpp" line="652"/>
         <source>All fixtures</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="543"/>
+        <location filename="fixturemanager.cpp" line="652"/>
         <source>This group contains all fixtures.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="555"/>
+        <location filename="fixturemanager.cpp" line="664"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple fixtures selected&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; to remove the selected fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Useita valaisimia valittuna&lt;/H1&gt;&lt;P&gt;Klikkaa &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; poistaaksesi valitut valaisimet.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="561"/>
+        <location filename="fixturemanager.cpp" line="670"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple fixtures selected&lt;/H1&gt;&lt;P&gt;Fixture list modification is not permitted in operate mode.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Useita valaisimia valittuna&lt;/H1&gt;&lt;P&gt;Valaisinlistan muokkaus käyttötilassa ei ole sallittua.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="570"/>
+        <location filename="fixturemanager.cpp" line="679"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;No fixtures&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Ei valaisimia&lt;/H1&gt;&lt;P&gt;Klikkaa &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; lisätäksesi valaisimia.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="576"/>
+        <location filename="fixturemanager.cpp" line="685"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a fixture from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Ei valintaa&lt;/H1&gt;&lt;P&gt;Valitse valaisin listasta tai klikkaa &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; lisätäksesi valaisimia.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="614"/>
+        <location filename="fixturemanager.cpp" line="723"/>
         <source>Edit group...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="618"/>
+        <location filename="fixturemanager.cpp" line="727"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a channel group from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add a new channels group.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="624"/>
-        <location filename="fixturemanager.cpp" line="644"/>
+        <location filename="fixturemanager.cpp" line="733"/>
+        <location filename="fixturemanager.cpp" line="753"/>
         <source>Add group...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="650"/>
-        <location filename="fixturemanager.cpp" line="751"/>
+        <location filename="fixturemanager.cpp" line="759"/>
+        <location filename="fixturemanager.cpp" line="860"/>
         <source>Add fixture...</source>
         <translation>Lisää valaisin...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="756"/>
+        <location filename="fixturemanager.cpp" line="865"/>
         <source>Delete items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="761"/>
+        <location filename="fixturemanager.cpp" line="870"/>
         <source>Properties...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="767"/>
+        <location filename="fixturemanager.cpp" line="876"/>
         <source>Add fixture to group...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="770"/>
+        <location filename="fixturemanager.cpp" line="879"/>
         <source>Remove fixture from group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="774"/>
+        <location filename="fixturemanager.cpp" line="883"/>
         <source>New Group...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="973"/>
+        <location filename="fixturemanager.cpp" line="1082"/>
         <source>Do you want to delete the selected items?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1016"/>
+        <location filename="fixturemanager.cpp" line="1125"/>
         <source>Delete Channels Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1017"/>
+        <location filename="fixturemanager.cpp" line="1126"/>
         <source>Do you want to delete the selected group?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1135"/>
+        <location filename="fixturemanager.cpp" line="1244"/>
         <source>Ungroup fixtures?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1136"/>
+        <location filename="fixturemanager.cpp" line="1245"/>
         <source>Do you want to ungroup the selected fixtures?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1812,12 +1818,12 @@ Muuten menetät tekemäsi muutokset.</translation>
         <translation type="obsolete">Muokkaa valaisinta...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="805"/>
+        <location filename="fixturemanager.cpp" line="914"/>
         <source>Fixture manager</source>
         <translation>Valaisinten hallinta</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="866"/>
+        <location filename="fixturemanager.cpp" line="975"/>
         <source>Generic Dimmer</source>
         <translation>Yleinen himmennin</translation>
     </message>
@@ -1838,7 +1844,7 @@ Muuten menetät tekemäsi muutokset.</translation>
         <translation type="obsolete">Uutta valaisinta ei voida luoda.</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="972"/>
+        <location filename="fixturemanager.cpp" line="1081"/>
         <source>Delete Fixtures</source>
         <translation>Poista valaisimia</translation>
     </message>
@@ -1847,7 +1853,7 @@ Muuten menetät tekemäsi muutokset.</translation>
         <translation type="obsolete">Haluatko POISTAA valitut valaisimet?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1071"/>
+        <location filename="fixturemanager.cpp" line="1180"/>
         <source>Change fixture properties</source>
         <translation>Muokkaa valaisimen ominaisuuksia</translation>
     </message>
@@ -1863,7 +1869,7 @@ Muuten menetät tekemäsi muutokset.</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="272"/>
-        <location filename="fixturemanager.cpp" line="296"/>
+        <location filename="fixturemanager.cpp" line="300"/>
         <source>Name</source>
         <translation>Nimi</translation>
     </message>
@@ -1928,62 +1934,62 @@ Muuten menetät tekemäsi muutokset.</translation>
         <translation type="obsolete">Funktioiden hallinta</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="239"/>
+        <location filename="functionmanager.cpp" line="241"/>
         <source>New &amp;scene</source>
         <translation>Uusi &amp;tilanne</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="245"/>
+        <location filename="functionmanager.cpp" line="247"/>
         <source>New c&amp;haser</source>
         <translation>Uusi &amp;juoksutus</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="251"/>
+        <location filename="functionmanager.cpp" line="253"/>
         <source>New se&amp;quence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="258"/>
+        <location filename="functionmanager.cpp" line="260"/>
         <source>New c&amp;ollection</source>
         <translation>Uusi &amp;kokoelma</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="264"/>
+        <location filename="functionmanager.cpp" line="266"/>
         <source>New E&amp;FX</source>
         <translation>Uusi &amp;EFX</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="270"/>
+        <location filename="functionmanager.cpp" line="272"/>
         <source>New &amp;RGB Matrix</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="276"/>
+        <location filename="functionmanager.cpp" line="278"/>
         <source>New scrip&amp;t</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="282"/>
+        <location filename="functionmanager.cpp" line="284"/>
         <source>Function Wizard</source>
         <translation>Funktiovelho</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="336"/>
+        <location filename="functionmanager.cpp" line="338"/>
         <source>New Scene</source>
         <translation type="unfinished">Uusi tilanne</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="349"/>
+        <location filename="functionmanager.cpp" line="351"/>
         <source>New Chaser</source>
         <translation type="unfinished">Uusi juoksutus</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="372"/>
+        <location filename="functionmanager.cpp" line="374"/>
         <source>New Sequence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="764"/>
+        <location filename="functionmanager.cpp" line="766"/>
         <source>Copy of %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1992,17 +1998,17 @@ Muuten menetät tekemäsi muutokset.</translation>
         <translation type="obsolete">&amp;Muokkaa</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="289"/>
+        <location filename="functionmanager.cpp" line="291"/>
         <source>&amp;Clone</source>
         <translation>K&amp;loonaa</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="295"/>
+        <location filename="functionmanager.cpp" line="297"/>
         <source>&amp;Delete</source>
         <translation>&amp;Poista</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="301"/>
+        <location filename="functionmanager.cpp" line="303"/>
         <source>Select &amp;all</source>
         <translation>Valitse k&amp;aikki</translation>
     </message>
@@ -2025,17 +2031,17 @@ Muuten menetät tekemäsi muutokset.</translation>
         <translation type="obsolete">Funktiota ei voida luoda.</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="446"/>
+        <location filename="functionmanager.cpp" line="448"/>
         <source>Do you want to DELETE functions:</source>
         <translation>Haluatko POISTAA funktiot:</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="453"/>
+        <location filename="functionmanager.cpp" line="455"/>
         <source>Delete Functions</source>
         <translation>Poista funktioita</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="534"/>
+        <location filename="functionmanager.cpp" line="536"/>
         <source>Function</source>
         <translation>Funktio</translation>
     </message>
@@ -2737,27 +2743,32 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
 <context>
     <name>MultiTrackView</name>
     <message>
-        <location filename="multitrackview.cpp" line="135"/>
-        <location filename="multitrackview.cpp" line="318"/>
+        <location filename="multitrackview.cpp" line="176"/>
         <source>Start time: %1msec
 %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="136"/>
-        <location filename="multitrackview.cpp" line="319"/>
+        <location filename="multitrackview.cpp" line="177"/>
+        <location filename="multitrackview.cpp" line="370"/>
         <source>Click to move this sequence across the timeline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="169"/>
+        <location filename="multitrackview.cpp" line="213"/>
         <source>Do you want to DELETE sequence:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="172"/>
+        <location filename="multitrackview.cpp" line="216"/>
         <source>Delete Functions</source>
         <translation type="unfinished">Poista funktioita</translation>
+    </message>
+    <message>
+        <location filename="multitrackview.cpp" line="369"/>
+        <source>Start time: %1
+%2</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3322,69 +3333,117 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
     </message>
 </context>
 <context>
+    <name>ShowEditor</name>
+    <message>
+        <location filename="showeditor.ui" line="14"/>
+        <source>Show editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showeditor.ui" line="26"/>
+        <source>Show name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showeditor.ui" line="33"/>
+        <source>Name of the function being edited</source>
+        <translation type="unfinished">Muokattavan funktion nimi</translation>
+    </message>
+    <message>
+        <location filename="showeditor.ui" line="53"/>
+        <source>Function</source>
+        <translation type="unfinished">Funktio</translation>
+    </message>
+    <message>
+        <location filename="showeditor.ui" line="58"/>
+        <source>Steps</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showeditor.ui" line="66"/>
+        <source>Start Time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showeditor.ui" line="74"/>
+        <source>Duration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showeditor.ui" line="85"/>
+        <source>Add function(s) to the collection</source>
+        <translation type="unfinished">Lisää funktioita kokoelmaan</translation>
+    </message>
+    <message>
+        <location filename="showeditor.ui" line="105"/>
+        <source>Remove the selected function</source>
+        <translation type="unfinished">Poista valitut funktiot kokoelmasta</translation>
+    </message>
+</context>
+<context>
     <name>ShowManager</name>
     <message>
-        <location filename="showmanager.cpp" line="139"/>
+        <location filename="showmanager.cpp" line="141"/>
         <source>New s&amp;how</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="145"/>
+        <location filename="showmanager.cpp" line="147"/>
         <source>New &amp;track</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="151"/>
+        <location filename="showmanager.cpp" line="153"/>
         <source>New s&amp;equence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="158"/>
+        <location filename="showmanager.cpp" line="160"/>
         <source>&amp;Clone</source>
         <translation type="unfinished">K&amp;loonaa</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="164"/>
+        <location filename="showmanager.cpp" line="166"/>
         <source>&amp;Delete</source>
         <translation type="unfinished">&amp;Poista</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="171"/>
+        <location filename="showmanager.cpp" line="173"/>
         <source>Change Co&amp;lor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="178"/>
+        <location filename="showmanager.cpp" line="180"/>
         <source>St&amp;op</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="184"/>
+        <location filename="showmanager.cpp" line="186"/>
         <source>&amp;Play</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="313"/>
+        <location filename="showmanager.cpp" line="315"/>
         <source>New Show</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="315"/>
+        <location filename="showmanager.cpp" line="317"/>
         <source>Show name setup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="316"/>
+        <location filename="showmanager.cpp" line="318"/>
         <source>Show name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="347"/>
+        <location filename="showmanager.cpp" line="349"/>
         <source>New Scene</source>
         <translation type="unfinished">Uusi tilanne</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="373"/>
+        <location filename="showmanager.cpp" line="375"/>
         <source>New Sequence</source>
         <translation type="unfinished"></translation>
     </message>

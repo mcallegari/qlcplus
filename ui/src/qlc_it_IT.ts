@@ -592,8 +592,9 @@ Vuoi veramente fermarle e ritornare in modalità Design?</translation>
     </message>
     <message>
         <location filename="app.cpp" line="516"/>
-        <source>&amp;About QLC</source>
-        <translation>&amp;A proposito di QLC</translation>
+        <source>&amp;About QLC+</source>
+        <oldsource>&amp;About QLC</oldsource>
+        <translation>&amp;A proposito di QLC+</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -1692,7 +1693,7 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="272"/>
-        <location filename="fixturemanager.cpp" line="296"/>
+        <location filename="fixturemanager.cpp" line="300"/>
         <source>Name</source>
         <translation>Nome</translation>
     </message>
@@ -1705,120 +1706,120 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
         <translation type="obsolete">Console</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="292"/>
+        <location filename="fixturemanager.cpp" line="296"/>
         <source>Fixtures Groups</source>
         <translation>Gruppi di Proiettori</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="296"/>
+        <location filename="fixturemanager.cpp" line="300"/>
         <source>Channels</source>
         <translation>Canali</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="307"/>
+        <location filename="fixturemanager.cpp" line="313"/>
         <source>Channels Groups</source>
         <translation>Gruppi di Canali</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="340"/>
-        <location filename="fixturemanager.cpp" line="543"/>
+        <location filename="fixturemanager.cpp" line="348"/>
+        <location filename="fixturemanager.cpp" line="652"/>
         <source>All fixtures</source>
         <translation>Tutti i proiettori</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="543"/>
+        <location filename="fixturemanager.cpp" line="652"/>
         <source>This group contains all fixtures.</source>
         <translation>Questo gruppo contiene tutti i proiettori.</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="555"/>
+        <location filename="fixturemanager.cpp" line="664"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple fixtures selected&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; to remove the selected fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Piu di un proiettore selezionato&lt;/H1&gt;&lt;P&gt;Clicca &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt;per eliminare i proiettori selezionati.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="561"/>
+        <location filename="fixturemanager.cpp" line="670"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple fixtures selected&lt;/H1&gt;&lt;P&gt;Fixture list modification is not permitted in operate mode.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Piu di un proiettore selezionato&lt;/H1&gt;&lt;P&gt;La modifica della lista dei proiettori non è permessa in modalità Operate.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="570"/>
+        <location filename="fixturemanager.cpp" line="679"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;No fixtures&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nessun Proiettore&lt;/H1&gt;&lt;P&gt;Clicca &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; per aggiungere proiettori.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="576"/>
+        <location filename="fixturemanager.cpp" line="685"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a fixture from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Non è stato selezionato nulla&lt;/H1&gt;&lt;P&gt;Seleziona un proiettore dalla lista o clicca &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; per aggiungere proiettori.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="614"/>
+        <location filename="fixturemanager.cpp" line="723"/>
         <source>Edit group...</source>
         <translation>Modifica gruppo...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="618"/>
+        <location filename="fixturemanager.cpp" line="727"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a channel group from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add a new channels group.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nessuna selezione&lt;/H1&gt;&lt;P&gt;Seleziona un gruppo di canali dalla lista o clicca &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; per aggiungere un nuovo gruppo di canali.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="624"/>
-        <location filename="fixturemanager.cpp" line="644"/>
+        <location filename="fixturemanager.cpp" line="733"/>
+        <location filename="fixturemanager.cpp" line="753"/>
         <source>Add group...</source>
         <translation>Aggiungi gruppo...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="650"/>
-        <location filename="fixturemanager.cpp" line="751"/>
+        <location filename="fixturemanager.cpp" line="759"/>
+        <location filename="fixturemanager.cpp" line="860"/>
         <source>Add fixture...</source>
         <translation>Aggiungi Proiettori...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="756"/>
+        <location filename="fixturemanager.cpp" line="865"/>
         <source>Delete items</source>
         <translation>Elimina elementi</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="761"/>
+        <location filename="fixturemanager.cpp" line="870"/>
         <source>Properties...</source>
         <translation>Proprietà...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="767"/>
+        <location filename="fixturemanager.cpp" line="876"/>
         <source>Add fixture to group...</source>
         <translation>Aggiungi proiettore al gruppo...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="770"/>
+        <location filename="fixturemanager.cpp" line="879"/>
         <source>Remove fixture from group</source>
         <translation>Rimuovi proiettore dal gruppo</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="774"/>
+        <location filename="fixturemanager.cpp" line="883"/>
         <source>New Group...</source>
         <translation>Nuovo gruppo...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="973"/>
+        <location filename="fixturemanager.cpp" line="1082"/>
         <source>Do you want to delete the selected items?</source>
         <translation>Vuoi eliminare gli elementi selezionati ?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1016"/>
+        <location filename="fixturemanager.cpp" line="1125"/>
         <source>Delete Channels Group</source>
         <translation>Elimina Gruppo di Canali</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1017"/>
+        <location filename="fixturemanager.cpp" line="1126"/>
         <source>Do you want to delete the selected group?</source>
         <translation>Vuoi eliminare il gruppo selezionato?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1135"/>
+        <location filename="fixturemanager.cpp" line="1244"/>
         <source>Ungroup fixtures?</source>
         <translation>Libera proiettori?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1136"/>
+        <location filename="fixturemanager.cpp" line="1245"/>
         <source>Do you want to ungroup the selected fixtures?</source>
         <translation>Vuoi liberare i proiettori selezionati ?</translation>
     </message>
@@ -1831,12 +1832,12 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
         <translation type="obsolete">Configura un proiettore...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="805"/>
+        <location filename="fixturemanager.cpp" line="914"/>
         <source>Fixture manager</source>
         <translation>Gestione dei proiettori</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="866"/>
+        <location filename="fixturemanager.cpp" line="975"/>
         <source>Generic Dimmer</source>
         <translation>Dimmer generico</translation>
     </message>
@@ -1857,7 +1858,7 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
         <translation type="obsolete">Impossibile creare un nuovo proiettore.</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="972"/>
+        <location filename="fixturemanager.cpp" line="1081"/>
         <source>Delete Fixtures</source>
         <translation>Elimina proiettori</translation>
     </message>
@@ -1866,7 +1867,7 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
         <translation type="obsolete">Vuoi eliminare i proiettori selezionati?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1071"/>
+        <location filename="fixturemanager.cpp" line="1180"/>
         <source>Change fixture properties</source>
         <translation>Cambia le proprietà del proiettore</translation>
     </message>
@@ -2635,7 +2636,7 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
     <message>
         <location filename="inputprofileeditor.cpp" line="189"/>
         <source>Manufacturer and/or model name is missing.</source>
-        <translation>Produttore e/o nome modello mancante</translation>
+        <translation>Produttore e/o nome modello mancante.</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="219"/>
@@ -2987,7 +2988,7 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="rgbmatrixeditor.ui" line="239"/>
         <source>Run through over and over again</source>
-        <translation type="unfinished"></translation>
+        <translation>Esecuzione continua</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="242"/>
@@ -3234,7 +3235,7 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="scripteditor.ui" line="46"/>
         <source>Add new command to cursor position</source>
-        <translation type="unfinished"></translation>
+        <translation>Aggiungi un nuovo comando alla posizione del cursore</translation>
     </message>
     <message>
         <location filename="scripteditor.ui" line="49"/>
@@ -3248,17 +3249,17 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="scripteditor.ui" line="79"/>
         <source>Cut selected text to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Taglia il testo selezionato nella clipboard</translation>
     </message>
     <message>
         <location filename="scripteditor.ui" line="99"/>
         <source>Copy selected text to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Copia il testo selezionato nella clipboard</translation>
     </message>
     <message>
         <location filename="scripteditor.ui" line="119"/>
         <source>Paste text from clipboard at cursor</source>
-        <translation type="unfinished"></translation>
+        <translation>Incolla il testo dalla clipboard al cursore</translation>
     </message>
     <message>
         <location filename="scripteditor.ui" line="146"/>
@@ -3268,12 +3269,12 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="scripteditor.cpp" line="78"/>
         <source>Start Function</source>
-        <translation type="unfinished"></translation>
+        <translation>Avvia Funzione</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="82"/>
         <source>Stop Function</source>
-        <translation type="unfinished"></translation>
+        <translation>Interrompi Funzione</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="86"/>
@@ -4041,17 +4042,17 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="vccuelistproperties.ui" line="444"/>
         <source>Bind a key combination to stop the cue list</source>
-        <translation type="unfinished"></translation>
+        <translation>Imposta una combinazione di tasti per interrompere la lista di azioni</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="500"/>
         <source>Input universe for stopping the cue list</source>
-        <translation type="unfinished"></translation>
+        <translation>Universo di Ingresso per interrompere la lista di azioni</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="514"/>
         <source>Input channel for stopping the cue list</source>
-        <translation type="unfinished"></translation>
+        <translation>Canale di ingresso per interrompere la lista di azioni</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="534"/>
@@ -4407,7 +4408,7 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="vcproperties.ui" line="222"/>
         <source>Input channel for Grand Master slider.</source>
-        <translation>Canale d&apos;Ingresso per il Grand Master</translation>
+        <translation>Canale d&apos;Ingresso per il Grand Master.</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="245"/>
@@ -4822,17 +4823,17 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="vcspeeddialproperties.ui" line="14"/>
         <source>Speed Dial Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Proprietà dello Speed Dial</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="20"/>
         <source>Speed Dial Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome Speed Dial</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="27"/>
         <source>Title of the dial</source>
-        <translation type="unfinished"></translation>
+        <translation>Titolo dello Speed Dial</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="38"/>
@@ -4842,7 +4843,7 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="vcspeeddialproperties.ui" line="44"/>
         <source>Functions whose speed is controlled by the dial</source>
-        <translation type="unfinished"></translation>
+        <translation>Funzioni la cui velocità è controllata dallo Speed Dial</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="72"/>
@@ -4852,53 +4853,53 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="vcspeeddialproperties.ui" line="80"/>
         <source>Add functions to be controlled</source>
-        <translation type="unfinished"></translation>
+        <translation>Aggiungi funzioni da controllare</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="83"/>
         <location filename="vcspeeddialproperties.ui" line="103"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="100"/>
         <source>Remove selected functions</source>
-        <translation type="unfinished"></translation>
+        <translation>Rimuovi le funzioni selezionate</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="133"/>
         <source>Speeds to Adjust</source>
-        <translation type="unfinished"></translation>
+        <translation>Velocità da regolare</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="139"/>
         <source>Adjust selected functions&apos; fade in speed</source>
-        <translation type="unfinished"></translation>
+        <translation>Regola la velocità di fade in delle funzioni selezionate</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="142"/>
         <source>Fade In</source>
-        <translation type="unfinished">Fade In</translation>
+        <translation>Fade In</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="149"/>
         <source>Adjust selected functions&apos; fade out speed</source>
-        <translation type="unfinished"></translation>
+        <translation>Regola la velocità di fade out delle funzioni selezionate</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="152"/>
         <source>Fade Out</source>
-        <translation type="unfinished">Fade Out</translation>
+        <translation>Fade Out</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="159"/>
         <source>Adjust selected functions&apos; duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Regola la durata delle funzioni selezionate</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="162"/>
         <source>Duration (+ tap)</source>
-        <translation type="unfinished"></translation>
+        <translation>Durata (+ tap)</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="186"/>
@@ -5058,25 +5059,25 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="vcxypadproperties.ui" line="167"/>
         <source>Pan / Horizontal Axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Pan / Asse orizzontale</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="173"/>
         <location filename="vcxypadproperties.ui" line="240"/>
         <source>Input universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Universo di ingresso</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="187"/>
         <location filename="vcxypadproperties.ui" line="254"/>
         <source>Input channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Canale di ingresso</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="214"/>
         <location filename="vcxypadproperties.ui" line="281"/>
         <source>Auto Detect</source>
-        <translation type="unfinished"></translation>
+        <translation>Auto Rileva</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="224"/>
@@ -5279,12 +5280,12 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="virtualconsole.cpp" line="294"/>
         <source>New Speed Dial</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuovo Speed Dial</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="297"/>
         <source>New XY pad</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuovo pad XY</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="300"/>
@@ -5299,7 +5300,7 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="virtualconsole.cpp" line="306"/>
         <source>New Solo frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuovo frame Solo</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="309"/>
