@@ -268,7 +268,7 @@ quint32 MultiTrackView::getPositionFromTime(quint32 time)
 {
     if (time == 0)
         return TRACK_WIDTH;
-    quint32 xPos = (float)(time / 500) * ((float)m_header->getTimeStep() / (float)m_header->getTimeScale());
+    quint32 xPos = ((double)time / 500) * ((double)m_header->getTimeStep() / m_header->getTimeScale());
     return TRACK_WIDTH + xPos;
 }
 
