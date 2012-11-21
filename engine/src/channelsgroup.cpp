@@ -143,8 +143,16 @@ QString ChannelsGroup::status(Doc *doc) const
         Fixture *fixture = doc->fixture(value.fxi);
         const QLCFixtureDef *def = fixture->fixtureDef();
         QString chInfo("<TR><TD>%1</TD><TD>%2</TD><TD>%3</TD></TR>");
-        info += chInfo.arg(fixture->name()).arg(value.channel + 1)
+        if (def != NULL)
+        {
+            info += chInfo.arg(fixture->name()).arg(value.channel + 1)
                 .arg(def->channels().at(value.channel)->name());
+        }
+        else
+        {
+            info += chInfo.arg(fixture->name()).arg(value.channel + 1)
+                .arg(QString(tr("Channel %1")).arg(value.channel));
+        }
     }
 
     // HTML document & table closure

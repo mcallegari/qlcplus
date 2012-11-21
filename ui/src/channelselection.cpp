@@ -61,8 +61,12 @@ ChannelSelection::ChannelSelection(QWidget* parent, Doc* doc, ChannelsGroup *gro
             item->setText(KColumnName, fixture->name());
             item->setText(KColumnID, QString("%1").arg(fixture->id()));
             item->setText(KColumnChannel, QString("%1").arg(i + 1));
-            const QLCFixtureDef *def = fixture->fixtureDef();
-            item->setText(KColumnType, def->channels().at(i)->name());
+            const QLCFixtureDef *def = fixture->fixtureDef(); 
+            if (def == NULL)
+                item->setText(KColumnType, QString(tr("Channel %1").arg(i + 1)));
+            else
+                item->setText(KColumnType, def->channels().at(i)->name());
+
             if (chans.count() > c &&
                 chans.at(c).fxi == fixture->id() && chans.at(c).channel == i)
             {
