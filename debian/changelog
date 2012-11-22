@@ -1,3 +1,10 @@
+qlcplus (4.0.1) beta; urgency=low
+
+  * Fixed channels groups for generic dimmers
+  * Fixed multitrack view cursor accuracy. Now smoother as it should be.
+  
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Wed, 22 Nov 2012 22:39:42 +0200
+
 qlcplus (4.0.0) beta; urgency=low
 
   * Added offline desk capability. A brand new multitrack view has 
