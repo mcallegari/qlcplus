@@ -6,12 +6,12 @@
     <message>
         <location filename="udmx.cpp" line="98"/>
         <source>This plugin provides DMX output support for Anyma uDMX devices.</source>
-        <translation type="unfinished">Questo Plugin permette l&apos;interfacciamento di periferche DMX-out Anyma uDMX.</translation>
+        <translation>Questa plugin permette la trasmissione di segnale DMX su interfacce Anyma uDMX.</translation>
     </message>
     <message>
         <location filename="udmx.cpp" line="183"/>
         <source>Do you wish to re-scan your hardware?</source>
-        <translation type="unfinished">Vuoi riscansionare i tuoi dispositivi?</translation>
+        <translation>Vuoi rifare la scansione dei tuoi dispositivi?</translation>
     </message>
 </context>
 <context>
@@ -24,27 +24,27 @@
     <message>
         <location filename="udmxdevice.cpp" line="137"/>
         <source>DMX Frame Frequency</source>
-        <translation type="unfinished"></translation>
+        <translation>Frequenza pacchetti DMX</translation>
     </message>
     <message>
         <location filename="udmxdevice.cpp" line="140"/>
         <source>Bad</source>
-        <translation type="unfinished"></translation>
+        <translation>Scarsa</translation>
     </message>
     <message>
         <location filename="udmxdevice.cpp" line="142"/>
         <source>Good</source>
-        <translation type="unfinished"></translation>
+        <translation>Buona</translation>
     </message>
     <message>
         <location filename="udmxdevice.cpp" line="144"/>
         <source>Patch this device to a universe to find out.</source>
-        <translation type="unfinished"></translation>
+        <translation>Collega questo dispositivo ad un universo per rilevarla.</translation>
     </message>
     <message>
         <location filename="udmxdevice.cpp" line="145"/>
         <source>System Timer Accuracy</source>
-        <translation type="unfinished"></translation>
+        <translation>Precisione timer di sistema</translation>
     </message>
     <message>
         <location filename="udmxdevice.cpp" line="150"/>

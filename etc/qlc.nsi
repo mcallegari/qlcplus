@@ -1,6 +1,6 @@
-Name "Q Light Controller"
-OutFile "qlc-3.3.0.exe"
-InstallDir C:\QLC
+Name "Q Light Controller Plus"
+OutFile "qlc+_4.0.1_preview.exe"
+InstallDir C:\QLC+
 RequestExecutionLevel user
 ;--------------------------------
 ; Pages
@@ -11,14 +11,14 @@ Page instfiles
 Function StartMenuGroupSelect
 	Push $R1
 
-	StartMenu::Select /checknoshortcuts "Don't create a start menu folder" /autoadd /lastused $R0 "Q Light Controller"
+	StartMenu::Select /checknoshortcuts "Don't create a start menu folder" /autoadd /lastused $R0 "Q Light Controller Plus"
 	Pop $R1
 
 	StrCmp $R1 "success" success
 	StrCmp $R1 "cancel" done
 		; error
 		MessageBox MB_OK $R1
-		StrCpy $R0 "Q Light Controller" # use default
+		StrCpy $R0 "Q Light Controller Plus" # use default
 		Return
 	success:
 	Pop $R0
@@ -34,7 +34,7 @@ Section
 	StrCpy $R1 $R0 1
 	StrCmp $R1 ">" skip
 		CreateDirectory $SMPROGRAMS\$R0
-		CreateShortCut '$SMPROGRAMS\$R0\Q Light Controller.lnk' $INSTDIR\qlc.exe
+		CreateShortCut '$SMPROGRAMS\$R0\Q Light Controller Plus.lnk' $INSTDIR\qlc.exe
 
 		CreateDirectory $SMPROGRAMS\$R0
 		CreateShortCut '$SMPROGRAMS\$R0\Fixture Definition Editor.lnk' $INSTDIR\qlc-fixtureeditor.exe
@@ -50,8 +50,8 @@ Section
 	File libgcc_s_dw2-1.dll
 	File qlc.exe
 	File qlc-fixtureeditor.exe
-    File qlcengine.dll
-    File qlcui.dll
+    File libqlcengine.a
+    File libqlcui.a
 	File QtCore4.dll
 	File QtGui4.dll
 	File QtXml4.dll
@@ -86,8 +86,8 @@ Section "Uninstall"
 	Delete $INSTDIR\uninstall.exe
 	Delete $INSTDIR\qlc.exe
 	Delete $INSTDIR\qlc-fixtureeditor.exe
-    Delete $INSTDIR\qlcengine.dll
-    Delete $INSTDIR\qlcui.dll
+    Delete $INSTDIR\libqlcengine.a
+    Delete $INSTDIR\libqlcui.a
 	Delete $INSTDIR\mingwm10.dll
 	Delete $INSTDIR\libgcc_s_dw2-1.dll
 	Delete $INSTDIR\QtCore4.dll

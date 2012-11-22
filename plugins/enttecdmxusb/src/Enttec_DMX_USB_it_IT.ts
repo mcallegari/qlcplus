@@ -7,31 +7,31 @@
         <location filename="enttecdmxusb.cpp" line="139"/>
         <location filename="enttecdmxusb.cpp" line="218"/>
         <source>No devices available.</source>
-        <translation type="unfinished">Non ci sono Interfacce Disponibili.</translation>
+        <translation>Nessun dispositivo disponibile.</translation>
     </message>
     <message>
         <location filename="enttecdmxusb.cpp" line="141"/>
         <location filename="enttecdmxusb.cpp" line="220"/>
         <source>Make sure that you have your hardware firmly plugged in. NOTE: FTDI VCP interface is not supported by this plugin.</source>
-        <translation type="unfinished">Controlla che la tua interfaccia sia connessa correttamente. ATTENZIONE: le interfacce FTDI VCP non sono supportate da questo dispositivo.</translation>
+        <translation>Controlla che la tua interfaccia sia connessa correttamente. ATTENZIONE: le interfacce FTDI VCP non sono supportate da questa plugin.</translation>
     </message>
     <message>
         <location filename="enttecdmxusb.cpp" line="147"/>
         <location filename="enttecdmxusb.cpp" line="226"/>
         <source>This plugin provides DMX output support for</source>
-        <translation type="unfinished">Questo Plugin dà segnale DMX in uscita per</translation>
+        <translation>Questa plugin permette la trasmissione di segnale DMX in uscita per</translation>
     </message>
     <message>
         <location filename="enttecdmxusb.cpp" line="150"/>
         <location filename="enttecdmxusb.cpp" line="229"/>
         <source>and compatible devices.</source>
-        <translation type="unfinished">ed interfacce compatibili.</translation>
+        <translation>ed interfacce compatibili.</translation>
     </message>
     <message>
         <location filename="enttecdmxusb.cpp" line="157"/>
         <location filename="enttecdmxusb.cpp" line="236"/>
         <source>Device is operating correctly.</source>
-        <translation type="unfinished">Interfaccia connessa e attiva.</translation>
+        <translation>Interfaccia connessa ed attiva.</translation>
     </message>
 </context>
 <context>
@@ -39,22 +39,22 @@
     <message>
         <location filename="enttecdmxusbconfig.cpp" line="46"/>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Aggiorna</translation>
     </message>
     <message>
         <location filename="enttecdmxusbconfig.cpp" line="47"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Chiudi</translation>
     </message>
     <message>
         <location filename="enttecdmxusbconfig.cpp" line="55"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome</translation>
     </message>
     <message>
         <location filename="enttecdmxusbconfig.cpp" line="55"/>
         <source>Serial</source>
-        <translation type="unfinished"></translation>
+        <translation>Seriale</translation>
     </message>
 </context>
 <context>
@@ -62,7 +62,7 @@
     <message>
         <location filename="enttecdmxusbopen.cpp" line="98"/>
         <source>Protocol</source>
-        <translation type="unfinished"></translation>
+        <translation>Protocollo</translation>
     </message>
     <message>
         <location filename="enttecdmxusbopen.cpp" line="100"/>
@@ -96,17 +96,17 @@
         <location filename="enttecdmxusbprorx.cpp" line="78"/>
         <location filename="enttecdmxusbprotx.cpp" line="69"/>
         <source>Protocol</source>
-        <translation type="unfinished"></translation>
+        <translation>Protocollo</translation>
     </message>
     <message>
         <location filename="enttecdmxusbprorx.cpp" line="80"/>
         <source>Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingresso</translation>
     </message>
     <message>
         <location filename="enttecdmxusbprotx.cpp" line="71"/>
         <source>Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Uscita</translation>
     </message>
 </context>
 </TS>

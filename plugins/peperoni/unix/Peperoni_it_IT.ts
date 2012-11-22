@@ -6,12 +6,12 @@
     <message>
         <location filename="peperoni.cpp" line="95"/>
         <source>This plugin provides DMX output support for Peperoni DMX devices.</source>
-        <translation type="unfinished">Questo plugin permette l&apos;inizializzazione di interfaccie Peperoni per l&apos;uscita di segnale DMX.</translation>
+        <translation>Questa plugin permette la trasmissione di segnale DMX su interfacce Peperoni.</translation>
     </message>
     <message>
         <location filename="peperoni.cpp" line="122"/>
         <source>Do you wish to re-scan your hardware?</source>
-        <translation type="unfinished">Vuoi rifare la scansione delle tue interfaccie?</translation>
+        <translation>Vuoi rifare la scansione delle tue interfacce?</translation>
     </message>
 </context>
 <context>

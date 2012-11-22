@@ -6,22 +6,22 @@
     <message>
         <location filename="configureolaio.ui" line="14"/>
         <source>Configure OLA I/O</source>
-        <translation type="unfinished"></translation>
+        <translation>Configura I/O OLA</translation>
     </message>
     <message>
         <location filename="configureolaio.ui" line="21"/>
         <source>Output</source>
-        <translation type="unfinished">Uscita</translation>
+        <translation>Uscita</translation>
     </message>
     <message>
         <location filename="configureolaio.ui" line="26"/>
         <source>OLA Universe</source>
-        <translation type="unfinished">Universo OLA</translation>
+        <translation>Universo OLA</translation>
     </message>
     <message>
         <location filename="configureolaio.ui" line="34"/>
         <source>Run standalone OLA daemon</source>
-        <translation type="unfinished">Esegui l&apos; OLA daemon</translation>
+        <translation>Avvia il demone OLA in QLC+</translation>
     </message>
 </context>
 <context>
@@ -29,12 +29,12 @@
     <message>
         <location filename="olaio.cpp" line="156"/>
         <source>This plugin provides DMX output support for the Open Lighting Architecture (OLA).</source>
-        <translation type="unfinished">Questo plugin permette uscita di segnale DMX per tutte le interfaccie supportate dalla Open Lighting Architecture (OLA).</translation>
+        <translation>Questa plugin permette uscita di segnale DMX per tutte le interfacce supportate dalla Open Lighting Architecture (OLA).</translation>
     </message>
     <message>
         <location filename="olaio.cpp" line="163"/>
         <source>This is the output for OLA universe %1</source>
-        <translation type="unfinished">Questa è l&apos;uscita per l&apos;universo OLA %1</translation>
+        <translation>Questa è l&apos;uscita per l&apos;universo OLA %1</translation>
     </message>
 </context>
 </TS>
