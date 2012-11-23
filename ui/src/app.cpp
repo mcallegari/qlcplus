@@ -41,10 +41,6 @@
 #include "app.h"
 #include "doc.h"
 
-#ifndef WIN32
-#include <X11/Xlib.h>
-#endif
-
 #include "qlcfixturedefcache.h"
 #include "qlcfixturedef.h"
 #include "qlcconfig.h"

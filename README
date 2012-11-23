@@ -57,15 +57,14 @@ Requirements - Linux
 
 Requirements - Windows
 ----------------------
-* MinGW environment (ftp://ftp.qt.nokia.com/misc/MinGW-3.4.2.exe)
-* Qt >= 4.6 (http://qt.nokia.com/downloads/windows-cpp)
+* MinGW environment (ftp://ftp.trolltech.com/misc/MinGW-gcc440_1.zip)
+* Qt >= 4.6 (http://releases.qt-project.org/qt4/source/)
 
 * Enttec DMX USB Output plugin: No additional requirements
 * HID Input plugin: Not available
-* MIDI Input plugin: No additional requirements
+* MIDI Input/Output plugin: No additional requirements
 * ENTTEC Wing Input plugin: D2XX driver & development package (http://www.ftdichip.com/Drivers/D2XX.htm)
-* MIDI Output plugin: No additional requirements
-* LLA Output plugin: Not available for Windows
+* OLA Output plugin: Not available for Windows
 * uDMX Output plugin: No additional requirements
 * Peperoni Output plugin: No additional requirements
 * Velleman Output: K8062 SDK from www.velleman.eu

@@ -21,6 +21,9 @@
 
 #include <linux/input.h>
 #include <errno.h>
+#ifndef WIN32
+  #include <unistd.h>
+#endif
 
 #include <QApplication>
 #include <QObject>

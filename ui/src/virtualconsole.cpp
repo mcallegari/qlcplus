@@ -58,10 +58,6 @@
 #include "vcxypad.h"
 #include "doc.h"
 
-#ifndef WIN32
-#include <X11/Xlib.h>
-#endif
-
 #define SETTINGS_VC_SIZE "virtualconsole/size"
 
 VirtualConsole* VirtualConsole::s_instance = NULL;

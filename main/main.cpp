@@ -38,10 +38,6 @@
 #include "app.h"
 #include "doc.h"
 
-#ifndef WIN32
-#include <X11/Xlib.h>
-#endif
-
 /* Use this namespace for command-line arguments so that we don't pollute
    the global namespace. */
 namespace QLCArgs
