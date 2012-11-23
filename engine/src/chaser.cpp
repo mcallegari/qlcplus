@@ -322,8 +322,8 @@ Chaser::SpeedMode Chaser::stringToSpeedMode(const QString& str)
 bool Chaser::saveXML(QDomDocument* doc, QDomElement* wksp_root)
 {
     QDomElement root;
-    QDomText text;
-    QString str;
+    //QDomText text;
+    //QString str;
 
     Q_ASSERT(doc != NULL);
     Q_ASSERT(wksp_root != NULL);

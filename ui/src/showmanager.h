@@ -100,6 +100,7 @@ protected:
     QAction* m_addShowAction;
     QAction* m_addTrackAction;
     QAction* m_addSequenceAction;
+    QAction* m_addAudioAction;
     QAction* m_cloneAction;
     QAction* m_deleteAction;
     QAction* m_colorAction;
@@ -111,6 +112,7 @@ protected slots:
     void slotAddShow();
     void slotAddTrack();
     void slotAddSequence();
+    void slotAddAudio();
 
     void slotClone();
     void slotDelete();
@@ -126,6 +128,7 @@ protected slots:
      *********************************************************************/
     void slotViewClicked(QMouseEvent *event);
     void slotSequenceMoved(SequenceItem *);
+    void slotAudioMoved(AudioItem *);
     void slotUpdateTime(quint32 msec_time);
     void slotupdateTimeAndCursor(quint32 msec_time);
     void slotTrackClicked(Track *track);

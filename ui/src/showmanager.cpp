@@ -21,6 +21,8 @@
 
 #include <QInputDialog>
 #include <QColorDialog>
+#include <QMessageBox>
+#include <QFileDialog>
 #include <QVBoxLayout>
 #include <QMouseEvent>
 #include <QScrollBar>
@@ -29,6 +31,7 @@
 #include <QToolBar>
 #include <QLabel>
 #include <QDebug>
+#include <QUrl>
 
 #include "multitrackview.h"
 #include "sceneselection.h"
@@ -55,6 +58,7 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
     , m_addShowAction(NULL)
     , m_addTrackAction(NULL)
     , m_addSequenceAction(NULL)
+    , m_addAudioAction(NULL)
     , m_cloneAction(NULL)
     , m_deleteAction(NULL)
     , m_stopAction(NULL)
@@ -90,8 +94,10 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
             this, SLOT(slotViewClicked( QMouseEvent * )));
     connect(m_showview, SIGNAL(sequenceMoved(SequenceItem *)),
             this, SLOT(slotSequenceMoved(SequenceItem*)));
-    connect(m_showview, SIGNAL(timeChanged(quint32)),
-            this, SLOT(slotUpdateTime(quint32)));
+    connect(m_showview, SIGNAL(audioMoved(AudioItem *)),
+            this, SLOT(slotAudioMoved(AudioItem*)));
+    //connect(m_showview, SIGNAL(timeChanged(quint32)),
+    //        this, SLOT(slotUpdateTime(quint32)));
     connect(m_showview, SIGNAL(trackClicked(Track*)),
             this, SLOT(slotTrackClicked(Track*)));
 
@@ -155,6 +161,11 @@ void ShowManager::initActions()
     connect(m_addSequenceAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddSequence()));
 
+    m_addAudioAction = new QAction(QIcon(":/audio.png"),
+                                    tr("New &audio"), this);
+    m_addAudioAction->setShortcut(QKeySequence("CTRL+A"));
+    connect(m_addAudioAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotAddAudio()));
     /* Edit actions */
     m_cloneAction = new QAction(QIcon(":/editcopy.png"),
                                 tr("&Clone"), this);
@@ -205,6 +216,7 @@ void ShowManager::initToolbar()
 
     m_toolbar->addAction(m_addTrackAction);
     m_toolbar->addAction(m_addSequenceAction);
+    //m_toolbar->addAction(m_addAudioAction);
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_cloneAction);
     m_toolbar->addAction(m_deleteAction);
@@ -253,6 +265,7 @@ void ShowManager::updateShowsCombo()
     {
         m_addTrackAction->setEnabled(false);
         m_addSequenceAction->setEnabled(false);
+        m_addAudioAction->setEnabled(false);
     }
 }
 
@@ -290,6 +303,9 @@ void ShowManager::showSequenceEditor(Chaser *chaser)
         m_sequence_editor->deleteLater();
         m_sequence_editor = NULL;
     }
+
+    if (chaser == NULL)
+        return;
 
     m_sequence_editor = new ChaserEditor(m_vsplitter->widget(1), chaser, m_doc);
     if (m_sequence_editor != NULL)
@@ -358,6 +374,8 @@ void ShowManager::slotAddTrack()
         showSceneEditor(m_scene);
         m_showview->addTrack(newTrack);
         m_addSequenceAction->setEnabled(true);
+        m_addAudioAction->setEnabled(true);
+        m_showview->activateTrack(newTrack);
     }
 }
 
@@ -380,13 +398,82 @@ void ShowManager::slotAddSequence()
     }
 }
 
+void ShowManager::slotAddAudio()
+{
+    QString fn;
+
+    /* Create a file open dialog */
+    QFileDialog dialog(this);
+    dialog.setWindowTitle(tr("Open Audio File"));
+    dialog.setAcceptMode(QFileDialog::AcceptOpen);
+    //dialog.selectFile(fileName());
+
+    /* Append file filters to the dialog */
+    QStringList systemCaps = Audio::getCapabilities();
+    QStringList filters;
+    QStringList extList;
+    if (systemCaps.contains("audio/ogg") || systemCaps.contains("audio/x-ogg"))
+        extList << "*.ogg";
+    if (systemCaps.contains("audio/x-m4a"))
+        extList << "*.m4a";
+    if (systemCaps.contains("audio/flac") || systemCaps.contains("audio/x-flac"))
+        extList << "*.flac";
+    if (systemCaps.contains("audio/x-ms-wma"))
+        extList << "*.wma";
+    if (systemCaps.contains("audio/wav") || systemCaps.contains("audio/x-wav"))
+        extList << "*.wav";
+    if (systemCaps.contains("audio/mp3") || systemCaps.contains("audio/x-mp3") ||
+        systemCaps.contains("audio/mpeg3") || systemCaps.contains("audio/x-mpeg3"))
+        extList << "*.mp3";
+
+    QString extensions;
+    for (int f = 0; f < extList.count(); f++)
+    {
+        if (f > 0) extensions += " ";
+        extensions += extList.at(f);
+    }
+    qDebug() << Q_FUNC_INFO << "Extensions: " << extensions;
+    filters << tr("Audio Files (%1)").arg(extensions);
+    filters << tr("All files (*.*)");
+    dialog.setNameFilters(filters);
+
+    /* Append useful URLs to the dialog */
+    QList <QUrl> sidebar;
+    sidebar.append(QUrl::fromLocalFile(QDir::homePath()));
+    sidebar.append(QUrl::fromLocalFile(QDir::rootPath()));
+    dialog.setSidebarUrls(sidebar);
+
+    /* Get file name */
+    if (dialog.exec() != QDialog::Accepted)
+        return;
+
+    fn = dialog.selectedFiles().first();
+    if (fn.isEmpty() == true)
+        return;
+
+    Function* f = new Audio(m_doc);
+    Audio *audio = qobject_cast<Audio*> (f);
+    if (audio->setSourceFileName(fn) == false)
+    {
+        QMessageBox::warning(this, tr("Unsupported audio file"), tr("This audio file cannot be played with QLC+. Sorry."));
+        return;
+    }
+    if (m_doc->addFunction(f) == true)
+    {
+        Track *track = m_show->getTrackFromSceneID(m_scene->id());
+        track->addFunctionID(audio->id());
+        m_showview->addAudio(audio);
+    }
+
+}
+
 void ShowManager::slotClone()
 {
 }
 
 void ShowManager::slotDelete()
 {
-    quint32 deleteID = m_showview->deleteSelectedSequence();
+    quint32 deleteID = m_showview->deleteSelectedFunction();
     if (deleteID != Function::invalidId())
     {
         m_doc->deleteFunction(deleteID);
@@ -455,6 +542,17 @@ void ShowManager::slotSequenceMoved(SequenceItem *item)
     m_colorAction->setEnabled(true);
 }
 
+void ShowManager::slotAudioMoved(AudioItem *item)
+{
+    qDebug() << Q_FUNC_INFO << "Audio moved.........";
+    Audio *audio = item->getAudio();
+    if (audio == NULL)
+        return;
+    showSequenceEditor(NULL);
+    m_deleteAction->setEnabled(true);
+    m_colorAction->setEnabled(true);
+}
+
 void ShowManager::slotupdateTimeAndCursor(quint32 msec_time)
 {
     //qDebug() << Q_FUNC_INFO << "time: " << msec_time;
@@ -480,14 +578,26 @@ void ShowManager::slotTrackClicked(Track *track)
 
 void ShowManager::slotChangeColor()
 {
-    SequenceItem *item = m_showview->getSelectedSequence();
-    if (item == NULL)
+    SequenceItem *seqItem = m_showview->getSelectedSequence();
+    if (seqItem != NULL)
+    {
+        QColor color = seqItem->getChaser()->getColor();
+
+        color = QColorDialog::getColor(color);
+        seqItem->getChaser()->setColor(color);
+        seqItem->setColor(color);
         return;
-    QColor color = item->getChaser()->getColor();
+    }
+    AudioItem *audItem = m_showview->getSelectedAudio();
+    if (audItem != NULL)
+    {
+        QColor color = audItem->getAudio()->getColor();
 
     color = QColorDialog::getColor(color);
-    item->getChaser()->setColor(color);
-    item->setColor(color);
+        audItem->getAudio()->setColor(color);
+        audItem->setColor(color);
+        return;
+    }
 }
 
 void ShowManager::slotChangeSize(int width, int height)
@@ -521,6 +631,7 @@ void ShowManager::slotDocClearing()
 
     m_addTrackAction->setEnabled(false);
     m_addSequenceAction->setEnabled(false);
+    m_addAudioAction->setEnabled(false);
     m_deleteAction->setEnabled(false);
 }
 
@@ -586,6 +697,7 @@ void ShowManager::updateMultiTrackView()
         }
         m_showview->addTrack(track);
         m_addSequenceAction->setEnabled(true);
+        m_addAudioAction->setEnabled(true);
 
         foreach(quint32 id, track->functionsID())
         {
@@ -593,6 +705,11 @@ void ShowManager::updateMultiTrackView()
         {
             Chaser *chaser = qobject_cast<Chaser*>(m_doc->function(id));
             m_showview->addSequence(chaser);
+            }
+            else if (m_doc->function(id)->type() == Function::Audio)
+            {
+                Audio *audio = qobject_cast<Audio*>(m_doc->function(id));
+                m_showview->addAudio(audio);
             }
         }
     }

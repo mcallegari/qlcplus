@@ -25,7 +25,7 @@
 #include <QObject>
 #include <QMutex>
 
-class Chaser;
+class Function;
 class Doc;
 
 class ShowRunner : public QObject
@@ -50,10 +50,10 @@ private:
     /** The ID of the show to play */
     quint32 m_showID;
 
-    /** The list of Chasers bounded to the scene to play */
-    QList <Chaser*> m_chasers;
+    /** The list of Functions of the show to play */
+    QList <Function *> m_functions;
 
-    /** List of duration of each chaser */
+    /** List of duration of each function */
     QList <quint32> m_durations;
 
     /** Elapsed time since runner start. Used also to move the cursor in MultiTrackView */
@@ -62,7 +62,7 @@ private:
     /** Total time the runner has to run */
     quint32 m_totalRunTime;
 
-    /** List of running Chasers and its mutex */
+    /** List of running Functions and its mutex */
     QList <quint32> m_runningQueue;
     QMutex m_runningQueueMutex;
 

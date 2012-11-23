@@ -127,7 +127,6 @@ quint32 SceneCursorItem::getTime()
     return m_time;
 }
 
-
 QRectF SceneCursorItem::boundingRect() const
 {
     return QRectF(-5, 0, 10, m_height);
@@ -452,3 +451,137 @@ void SequenceItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 }
 
 
+/*********************************************************************
+ *
+ * Audio item
+ *
+ *********************************************************************/
+
+AudioItem::AudioItem(Audio *aud)
+    : m_color(100, 100, 100)
+    , m_audio(aud)
+    , m_width(50)
+    , m_timeScale(3)
+    , m_trackIdx(-1)
+{
+    Q_ASSERT(aud != NULL);
+    setToolTip(QString("Start time: %1\n%2")
+              .arg(Function::speedToString(m_audio->getStartTime())).arg("Click to move this object across the timeline"));
+    setCursor(Qt::OpenHandCursor);
+    setFlag(QGraphicsItem::ItemIsMovable, true);
+    setFlag(QGraphicsItem::ItemIsSelectable, true);
+    m_color = m_audio->getColor();
+
+    m_font = QApplication::font();
+    m_font.setBold(true);
+    m_font.setPixelSize(12);
+
+    calculateWidth();
+    connect(m_audio, SIGNAL(changed(quint32)), this, SLOT(slotAudioChanged(quint32)));
+
+}
+
+void AudioItem::calculateWidth()
+{
+    int newWidth = 0;
+    qint64 audio_duration = m_audio->getDuration();
+
+    if (audio_duration != 0)
+        newWidth = ((50/m_timeScale) * audio_duration) / 1000;
+
+    if (newWidth < (50 / m_timeScale))
+        newWidth = 50 / m_timeScale;
+    m_width = newWidth;
+}
+
+int AudioItem::getWidth()
+{
+    return m_width;
+}
+
+QRectF AudioItem::boundingRect() const
+{
+    return QRectF(0, 0, m_width, 77);
+}
+
+void AudioItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+    Q_UNUSED(option);
+    Q_UNUSED(widget);
+
+    if (this->isSelected() == true)
+        painter->setPen(QPen(Qt::white, 3));
+    else
+        painter->setPen(QPen(Qt::white, 1));
+    painter->setBrush(QBrush(m_color));
+
+    painter->drawRect(0, 0, m_width, 77);
+
+    painter->setFont(m_font);
+    // draw shadow
+    painter->setPen(QPen(QColor(10, 10, 10, 150), 2));
+    painter->drawText(6, 16, m_audio->name());
+    // draw track name
+    painter->setPen(QPen(QColor(220, 220, 220, 255), 2));
+    painter->drawText(5, 15, m_audio->name());
+
+}
+
+void AudioItem::updateDuration()
+{
+    prepareGeometryChange();
+    calculateWidth();
+}
+
+void AudioItem::setTimeScale(int val)
+{
+    prepareGeometryChange();
+    m_timeScale = val;
+    calculateWidth();
+}
+
+void AudioItem::setTrackIndex(int idx)
+{
+    m_trackIdx = idx;
+}
+
+int AudioItem::getTrackIndex()
+{
+    return m_trackIdx;
+}
+
+void AudioItem::setColor(QColor col)
+{
+    m_color = col;
+    update();
+}
+
+QColor AudioItem::getColor()
+{
+    return m_color;
+}
+
+Audio *AudioItem::getAudio()
+{
+    return m_audio;
+}
+
+void AudioItem::slotAudioChanged(quint32)
+{
+    prepareGeometryChange();
+    calculateWidth();
+}
+
+void AudioItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    QGraphicsItem::mousePressEvent(event);
+    this->setSelected(true);
+}
+
+void AudioItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+    QGraphicsItem::mouseReleaseEvent(event);
+    qDebug() << Q_FUNC_INFO << "mouse RELEASE event - <" << event->pos().toPoint().x() << "> - <" << event->pos().toPoint().y() << ">";
+    setCursor(Qt::OpenHandCursor);
+    emit itemDropped(event, this);
+}

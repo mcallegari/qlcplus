@@ -8,6 +8,9 @@ TARGET   = qlcengine
 
 CONFIG  += qt
 QT      += core xml script gui
+# Uncomment to enable audio support
+#QT += phonon
+
 QTPLUGIN =
 
 INCLUDEPATH += ../../plugins/interfaces
@@ -52,7 +55,8 @@ HEADERS += avolitesd4parser.h \
            qlccapability.h
 
 # Engine
-HEADERS += bus.h \
+HEADERS += audio.h \
+           bus.h \
            channelsgroup.h \
            chaser.h \
            chaserrunner.h \
@@ -110,7 +114,8 @@ SOURCES += avolitesd4parser.cpp \
            qlcphysical.cpp
 
 # Engine
-SOURCES += bus.cpp \
+SOURCES += audio.cpp \
+           bus.cpp \
            channelsgroup.cpp \
            chaser.cpp \
            chaserrunner.cpp \

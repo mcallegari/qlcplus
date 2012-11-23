@@ -28,6 +28,7 @@
 #include <QFont>
 
 #include "chaser.h"
+#include "audio.h"
 #include "track.h"
 
 /*********************************************************************
@@ -195,6 +196,64 @@ private:
     /** horizontal scale to adapt width to the current time line */
     int m_timeScale;
     /** track index this sequence belongs to */
+    int m_trackIdx;
+};
+
+/**************************************************************************
+ *
+ * Audio Item. Clickable and draggable object identifying an Audio object
+ *
+ **************************************************************************/
+class AudioItem : public QObject, public QGraphicsItem
+{
+    Q_OBJECT
+    Q_INTERFACES(QGraphicsItem)
+
+public:
+    AudioItem(Audio *aud);
+
+    QRectF boundingRect() const;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
+    void setTimeScale(int val);
+    int getWidth();
+
+    void setTrackIndex(int idx);
+    int getTrackIndex();
+
+    void setColor(QColor col);
+    QColor getColor();
+
+    /** Return a pointer to a Audio object associated to this item */
+    Audio *getAudio();
+
+public slots:
+    void updateDuration();
+
+signals:
+    void itemDropped(QGraphicsSceneMouseEvent *, AudioItem *);
+
+protected:
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+
+protected slots:
+    void slotAudioChanged(quint32);
+
+private:
+    /** Calculate sequence width for paint() and boundingRect() */
+    void calculateWidth();
+
+private:
+    QFont m_font;
+    QColor m_color;
+    /** Reference to the actual Chaser object which holds the sequence steps */
+    Audio *m_audio;
+    /** width of the graphics object */
+    int m_width;
+    /** horizontal scale to adapt width to the current time line */
+    int m_timeScale;
+    /** track index this Audio object belongs to */
     int m_trackIdx;
 };
 

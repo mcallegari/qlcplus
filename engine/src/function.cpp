@@ -32,6 +32,7 @@
 #include "function.h"
 #include "chaser.h"
 #include "script.h"
+#include "audio.h"
 #include "scene.h"
 #include "show.h"
 #include "efx.h"
@@ -44,6 +45,7 @@ const QString KCollectionString ( "Collection" );
 const QString KScriptString     (     "Script" );
 const QString KRGBMatrixString  (  "RGBMatrix" );
 const QString KShowString       (       "Show" );
+const QString KAudioString      (      "Audio" );
 const QString KUndefinedString  (  "Undefined" );
 
 const QString KLoopString       (       "Loop" );
@@ -179,6 +181,8 @@ QString Function::typeToString(Type type)
         return KRGBMatrixString;
     case Show:
         return KShowString;
+    case Audio:
+        return KAudioString;
     case Undefined:
     default:
         return KUndefinedString;
@@ -201,6 +205,8 @@ Function::Type Function::stringToType(const QString& string)
         return RGBMatrix;
     else if (string == KShowString)
         return Show;
+    else if (string == KAudioString)
+        return Audio;
     else
         return Undefined;
 }
@@ -533,6 +539,8 @@ bool Function::loader(const QDomElement& root, Doc* doc)
         function = new class RGBMatrix(doc);
     else if (type == Function::Show)
         function = new class Show(doc);
+    else if (type == Function::Audio)
+        function = new class Audio(doc);
     else
         return false;
 

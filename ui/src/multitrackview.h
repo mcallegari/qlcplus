@@ -54,11 +54,14 @@ public:
     /** Add a new track to the view */
     void addTrack(Track *track);
 
-    /** Add a new sequence to the given track */
+    /** Add a new sequence item to the given track */
     void addSequence(Chaser *chaser);
 
+    /** Add a new audio item to the given track */
+    void addAudio(Audio *audio);
+
     /** Delete the currently selected sequence */
-    quint32 deleteSelectedSequence();
+    quint32 deleteSelectedFunction();
 
     /** Move cursor to a given time */
     void moveCursor(quint32 timePos);
@@ -70,6 +73,9 @@ public:
 
     /** get the selected sequence item. If none, returns NULL */
     SequenceItem *getSelectedSequence();
+
+    /** get the selected audio item. If none, returns NULL */
+    AudioItem *getSelectedAudio();
 
 private:
     /** Get time of current cursor position */
@@ -89,9 +95,11 @@ private:
     QList <QGraphicsItem *> m_hdividers;
     QList <TrackItem *> m_tracks;
     QList <SequenceItem *> m_sequences;
+    QList <AudioItem *> m_audio;
 
 signals:
     void sequenceMoved(SequenceItem *item);
+    void audioMoved(AudioItem *item);
     void viewClicked(QMouseEvent * e);
     void timeChanged(quint32 msec);
     void trackClicked(Track *track);
@@ -108,6 +116,7 @@ protected slots:
     void slotViewScrolled(int);
 
     void slotSequenceMoved(QGraphicsSceneMouseEvent *, SequenceItem *);
+    void slotSequenceMoved(QGraphicsSceneMouseEvent *, AudioItem *);
 };
 
 #endif

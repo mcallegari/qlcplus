@@ -138,6 +138,10 @@ void MultiTrackView::resetView()
         m_scene->removeItem(m_sequences.at(i));
     m_sequences.clear();
 
+    for (int i = 0; i < m_audio.count(); i++)
+        m_scene->removeItem(m_audio.at(i));
+    m_audio.clear();
+
     m_cursor->setPos(150, 0);
     this->horizontalScrollBar()->setSliderPosition(0);
     this->verticalScrollBar()->setSliderPosition(0);
@@ -166,7 +170,7 @@ void MultiTrackView::addSequence(Chaser *chaser)
     item->setTrackIndex(trackNum);
 
     int timeScale = m_timeSlider->value();
-    m_header->setTimeScale(timeScale);
+    //m_header->setTimeScale(timeScale);
 
     if (chaser->getStartTime() == UINT_MAX)
     {
@@ -190,39 +194,88 @@ void MultiTrackView::addSequence(Chaser *chaser)
     int new_scene_width = item->x() + item->getWidth();
     if (new_scene_width > VIEW_DEFAULT_WIDTH && new_scene_width > m_scene->width())
         setViewSize(new_scene_width + 500, VIEW_DEFAULT_HEIGHT);
-    //m_scene->update();
-    //this->update();
 }
 
-quint32 MultiTrackView::deleteSelectedSequence()
+void MultiTrackView::addAudio(Audio *audio)
+{
+    AudioItem *item = new AudioItem(audio);
+    int trackNum = getActiveTrack();
+    if (trackNum < 0)
+        trackNum = 0;
+    item->setTrackIndex(trackNum);
+    int timeScale = m_timeSlider->value();
+    //m_header->setTimeScale(timeScale);
+
+    if (audio->getStartTime() == UINT_MAX)
+    {
+        quint32 s_time = getTimeFromPosition();
+        audio->setStartTime(s_time);
+        item->setPos(m_cursor->x() + 2, 36 + (trackNum * TRACK_HEIGHT));
+        item->setToolTip(QString(tr("Start time: %1msec\n%2"))
+                         .arg(s_time).arg(tr("Click to move this audio across the timeline")));
+    }
+    else
+    {
+        item->setPos(getPositionFromTime(audio->getStartTime()) + 2, 36 + (trackNum * TRACK_HEIGHT));
+    }
+    item->setTimeScale(timeScale);
+    qDebug() << Q_FUNC_INFO << "audio start time: " << audio->getStartTime() << "msec";
+
+    connect(item, SIGNAL(itemDropped(QGraphicsSceneMouseEvent *, AudioItem *)),
+            this, SLOT(slotSequenceMoved(QGraphicsSceneMouseEvent *, AudioItem *)));
+    connect(audio, SIGNAL(totalTimeChanged(qint64)), item, SLOT(updateDuration()));
+    m_scene->addItem(item);
+    m_audio.append(item);
+    int new_scene_width = item->x() + item->getWidth();
+    if (new_scene_width > VIEW_DEFAULT_WIDTH && new_scene_width > m_scene->width())
+        setViewSize(new_scene_width + 500, VIEW_DEFAULT_HEIGHT);
+}
+
+quint32 MultiTrackView::deleteSelectedFunction()
 {
     int i = 0;
-    SequenceItem *selItem = NULL;
+
     foreach(SequenceItem *item, m_sequences)
     {
         if (item->isSelected() == true)
         {
-           selItem = item;
-           break;
+            QString msg = tr("Do you want to DELETE sequence:") + QString("\n\n") + item->getChaser()->name();
+
+            // Ask for user's confirmation
+            if (QMessageBox::question(this, tr("Delete Functions"), msg,
+                                      QMessageBox::Yes, QMessageBox::No)
+                                      == QMessageBox::Yes)
+            {
+                quint32 fID = item->getChaser()->id();
+                m_scene->removeItem(item);
+                m_sequences.removeAt(i);
+                return fID;
+            }
         }
         i++;
     }
-
-    if (selItem != NULL)
+    i = 0;
+    foreach(AudioItem *item, m_audio)
     {
-        QString msg = tr("Do you want to DELETE sequence:") + QString("\n\n") + selItem->getChaser()->name();
+        if (item->isSelected() == true)
+        {
+            QString msg = tr("Do you want to DELETE audio (the source file will NOT be removed):") +
+                          QString("\n\n") + item->getAudio()->name();
 
         // Ask for user's confirmation
         if (QMessageBox::question(this, tr("Delete Functions"), msg,
                                   QMessageBox::Yes, QMessageBox::No)
                                   == QMessageBox::Yes)
         {
-            quint32 fID = selItem->getChaser()->id();
-            m_scene->removeItem(selItem);
-            m_sequences.removeAt(i);
+                quint32 fID = item->getAudio()->id();
+                m_scene->removeItem(item);
+                m_audio.removeAt(i);
             return fID;
         }
     }
+        i++;
+    }
+
     return Function::invalidId();
 }
 
@@ -257,6 +310,17 @@ SequenceItem *MultiTrackView::getSelectedSequence()
     }
     return NULL;
 }
+
+AudioItem *MultiTrackView::getSelectedAudio()
+{
+    foreach(AudioItem *item, m_audio)
+    {
+        if (item->isSelected() == true)
+            return item;
+    }
+    return NULL;
+}
+
 
 quint32 MultiTrackView::getTimeFromPosition()
 {
@@ -371,4 +435,24 @@ void MultiTrackView::slotSequenceMoved(QGraphicsSceneMouseEvent *, SequenceItem 
 
     m_scene->update();
     emit sequenceMoved(item);
+}
+
+void MultiTrackView::slotSequenceMoved(QGraphicsSceneMouseEvent *, AudioItem *item)
+{
+    //qDebug() << Q_FUNC_INFO << "event - <" << event->pos().toPoint().x() << "> - <" << event->pos().toPoint().y() << ">";
+    // align to the appropriate track
+    int trackNum = item->getTrackIndex();
+    int ypos = HEADER_HEIGHT + 1 + (trackNum * TRACK_HEIGHT);
+
+    if (item->x() < TRACK_WIDTH + 2)
+        item->setPos(TRACK_WIDTH + 2, ypos); // avoid moving a sequence too early...
+    else
+        item->setPos(item->x(), ypos);
+    quint32 s_time = (item->x() - TRACK_WIDTH) * (m_header->getTimeScale() * 1000) / (m_header->getTimeStep() * 2);
+    item->getAudio()->setStartTime(s_time);
+    item->setToolTip(QString(tr("Start time: %1\n%2"))
+                     .arg(Function::speedToString(s_time)).arg(tr("Click to move this sequence across the timeline")));
+
+    m_scene->update();
+    emit audioMoved(item);
 }
