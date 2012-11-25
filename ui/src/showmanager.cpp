@@ -209,7 +209,7 @@ void ShowManager::initToolbar()
     layout()->addWidget(m_toolbar);
     m_toolbar->addAction(m_addShowAction);
     m_showsCombo = new QComboBox();
-    m_showsCombo->setFixedWidth(180);
+    m_showsCombo->setFixedWidth(200);
     connect(m_showsCombo, SIGNAL(currentIndexChanged(int)),this, SLOT(slotShowsComboChanged(int)));
     m_toolbar->addWidget(m_showsCombo);
     m_toolbar->addSeparator();
@@ -425,15 +425,16 @@ void ShowManager::slotAddAudio()
     if (systemCaps.contains("audio/mp3") || systemCaps.contains("audio/x-mp3") ||
         systemCaps.contains("audio/mpeg3") || systemCaps.contains("audio/x-mpeg3"))
         extList << "*.mp3";
-
-    QString extensions;
+/*
+    QString extensions = extList.join(" ");
     for (int f = 0; f < extList.count(); f++)
     {
         if (f > 0) extensions += " ";
         extensions += extList.at(f);
     }
-    qDebug() << Q_FUNC_INFO << "Extensions: " << extensions;
-    filters << tr("Audio Files (%1)").arg(extensions);
+*/
+    qDebug() << Q_FUNC_INFO << "Extensions: " << extList.join(" ");
+    filters << tr("Audio Files (%1)").arg(extList.join(" "));
     filters << tr("All files (*.*)");
     dialog.setNameFilters(filters);
 
@@ -524,7 +525,6 @@ void ShowManager::slotSequenceMoved(SequenceItem *item)
     Chaser *chaser = item->getChaser();
     if (chaser == NULL)
         return;
-    showSequenceEditor(chaser);
     /* Check if scene has changed */
     quint32 newSceneID = chaser->getBoundedSceneID();
     if (newSceneID != m_scene->id())
@@ -538,6 +538,7 @@ void ShowManager::slotSequenceMoved(SequenceItem *item)
         Track *track = m_show->getTrackFromSceneID(newSceneID);
         m_showview->activateTrack(track);
     }
+    showSequenceEditor(chaser);
     m_deleteAction->setEnabled(true);
     m_colorAction->setEnabled(true);
 }

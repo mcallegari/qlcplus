@@ -19,6 +19,7 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
+#include <QMessageBox>
 #include <QString>
 #include <QDebug>
 #include <QHash>
@@ -103,10 +104,6 @@ void FunctionWizard::addFixture(quint32 fxi_id)
     Fixture* fxi = m_doc->fixture(fxi_id);
     Q_ASSERT(fxi != NULL);
 
-    QTreeWidgetItem* item = new QTreeWidgetItem(m_fixtureTree);
-    item->setText(KColumnName, fxi->name());
-    item->setData(KColumnName, Qt::UserRole, fxi_id);
-
     QStringList caps;
     if (!PaletteGenerator::findChannels(fxi, QLCChannel::Colour).isEmpty())
         caps << QLCChannel::groupToString(QLCChannel::Colour);
@@ -116,8 +113,28 @@ void FunctionWizard::addFixture(quint32 fxi_id)
 
     if (!PaletteGenerator::findChannels(fxi, QLCChannel::Shutter).isEmpty())
         caps << QLCChannel::groupToString(QLCChannel::Shutter);
+/*
+    if (!PaletteGenerator::findChannels(fxi, QLCChannel::Pan).isEmpty())
+        caps << QLCChannel::groupToString(QLCChannel::Pan);
 
-    item->setText(KColumnCaps, caps.join(", "));
+    if (!PaletteGenerator::findChannels(fxi, QLCChannel::Tilt).isEmpty())
+        caps << QLCChannel::groupToString(QLCChannel::Tilt);
+
+    if (!PaletteGenerator::findChannels(fxi, QLCChannel::Intensity).isEmpty())
+        caps << QLCChannel::groupToString(QLCChannel::Intensity);
+*/
+    if (caps.join(", ").isEmpty())
+    {
+        QMessageBox::warning(this, tr("Error"), tr("%1 has no capability supported by this wizard.").arg(fxi->name()));
+        return;
+    }
+    else
+    {
+        QTreeWidgetItem* item = new QTreeWidgetItem(m_fixtureTree);
+        item->setText(KColumnName, fxi->name());
+        item->setData(KColumnName, Qt::UserRole, fxi_id);
+        item->setText(KColumnCaps, caps.join(", "));
+    }
 }
 
 QList <Fixture*> FunctionWizard::fixtures() const

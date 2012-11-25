@@ -1,3 +1,9 @@
+qlcplus (4.0.2) beta; urgency=low
+
+  * improved Scene channels save/load (please review your QLC+ projects)
+  * fixed signals connections between Chaser Editor and Scene Editor in multitrack view
+  * Function wizard show an error popup on unsupported capabilities
+
 qlcplus (4.0.1) beta; urgency=low
 
   * Fixed channels groups for generic dimmers

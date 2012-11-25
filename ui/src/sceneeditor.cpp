@@ -296,6 +296,7 @@ void SceneEditor::init(bool applyValues)
         if (applyValues == false)
             scv.value = 0;
         setSceneValue(scv);
+        qDebug() << "Applying fixture :" << scv.fxi << ", channel: " << scv.channel << ", value: " << scv.value;
     }
 
     createSpeedDials();

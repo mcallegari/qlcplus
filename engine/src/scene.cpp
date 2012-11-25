@@ -195,7 +195,6 @@ bool Scene::saveXML(QDomDocument* doc, QDomElement* wksp_root)
         {
             tag = doc->createElement(KXMLQLCFixtureValues);
             tag.setAttribute(KXMLQLCFixtureID, currFixID);
-            tag.setAttribute(KXMLQLCFixtureChansNum, chanCount);
             root.appendChild(tag);
             currFixID = sv.fxi;
             chanCount = 0;
@@ -207,18 +206,16 @@ bool Scene::saveXML(QDomDocument* doc, QDomElement* wksp_root)
             }
         }
         chanCount++;
-        if (sv.value != 0 && m_hasChildren == false)
-        {
-            if (fixValues.isEmpty() == false)
-                fixValues.append(QString(","));
+        if (fixValues.isEmpty() == false)
+            fixValues.append(QString(","));
+        if (m_hasChildren == true)
+            fixValues.append(QString("%1,0").arg(sv.channel));
+        else
             fixValues.append(QString("%1,%2").arg(sv.channel).arg(sv.value));
-        }
-        //it.next().saveXML(doc, &root);
     }
     /* write last element */
     tag = doc->createElement(KXMLQLCFixtureValues);
     tag.setAttribute(KXMLQLCFixtureID, currFixID);
-    tag.setAttribute(KXMLQLCFixtureChansNum, chanCount);
     root.appendChild(tag);
     chanCount = 0;
     if (fixValues.isEmpty() == false)
@@ -271,17 +268,6 @@ bool Scene::loadXML(const QDomElement& root)
         else if (tag.tagName() == KXMLQLCFixtureValues)
         {
             quint32 fxi = tag.attribute(KXMLQLCFixtureID).toUInt();
-            int chans = tag.attribute(KXMLQLCFixtureChansNum).toUInt();
-            /* first reset all channels to setup fixtures */
-            for (int c = 0; c < chans; c++)
-            {
-                SceneValue scv;
-                scv.fxi = fxi;
-                scv.channel = c;
-                scv.value = 0;
-                setValue(scv);
-            }
-            /* now set only the non-zero channels */
             QString strvals = tag.text();
             if (strvals.isEmpty() == false)
             {

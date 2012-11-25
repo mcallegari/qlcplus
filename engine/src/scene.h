@@ -33,7 +33,6 @@
 #include "fixture.h"
 
 #define KXMLQLCFixtureValues "FixtureVal"
-#define KXMLQLCFixtureChansNum "Channels"
 
 class QDomDocument;
 class QDomElement;
