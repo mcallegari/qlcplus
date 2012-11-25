@@ -36,6 +36,8 @@ docs.files = \
              selectfunction.html \
              selectfixture.html \
              selectinputchannel.html \
+             showeditor.html \
+             showmanager.html \
              simpledesk.html \
              tutorial.html \
              tutorial.png \

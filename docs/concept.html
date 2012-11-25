@@ -20,7 +20,7 @@ This page has been arranged in alphabetical order to ease searching for a
 specific topic.
 </P>
 
-<A NAME="Blackout" HREF="#Blackout"><H3>Blackout</H3></A>
+<H3><IMG SRC="qrc:/blackout.png"> <A NAME="Blackout" HREF="#Blackout">Blackout</A></H3>
 
 <P>
 Blackout is used to set all channels in all universes to zero and keep them
@@ -46,7 +46,7 @@ three properties:
  <LI>Name: The friendly name of a capability.</LI>
 </UL>
 
-<A NAME="Chaser" HREF="#Chaser"><H3>Chaser</H3></A>
+<H3><IMG SRC="qrc:/chaser.png"> <A NAME="Chaser" HREF="#Chaser">Chaser</A></H3>
 
 <P>
 A chaser <A HREF="#Functions">function</A> encapsulates multiple scenes that are
@@ -76,7 +76,7 @@ Function Manager</A>. The scenes inside a chaser are not duplicated when a chase
 is copied. Only the order and direction are copied to the new one.
 </P>
 
-<A NAME="Collection" HREF="#Collection"><H3>Collection</H3></A>
+<H3><IMG SRC="qrc:/collection.png"> <A NAME="Collection" HREF="#Collection">Collection</A></H3>
 
 <P>
 A collection <A HREF="#Functions">function</A> encapsulates multiple functions
@@ -112,7 +112,7 @@ standard. Actual hardware abstraction (whether it's analog 0-10V, DMX or some
 other method) is achieved thru <A HREF="#OutputPlugins">output plugins</A>.
 </P>
 
-<A NAME="EFX" HREF="#EFX"><H3>EFX</H3></A>
+<H3><IMG SRC="qrc:/efx.png"> <A NAME="EFX" HREF="#EFX">EFX</A></H3>
 
 <P>
 An EFX <A HREF="#Functions">function</A> is mainly used to automate moving
@@ -151,7 +151,7 @@ Copies of EFX functions can be created with the <A HREF="functionmanager.html">
 Function Manager</A>. All of the EFX's contents are copied to the duplicate.
 </P>
 
-<A NAME="Fixtures" HREF="#Fixtures"><H3>Fixtures</H3></A>
+<H3><IMG SRC="qrc:/fixture.png"> <A NAME="Fixtures" HREF="#Fixtures">Fixtures</A></H3>
 
 <P>
 A fixture is essentially one lighting device. It can be, for example, one
@@ -204,7 +204,7 @@ dimmer racks. Users can create instances of these generic dimmer entities just b
 defining the number of channels each one of them should have.
 </P>
 
-<A NAME="FixtureGroup" HREF="#FixtureGroup"><H3>Fixture Group</H3></A>
+<H3><IMG SRC="qrc:/group.png"> <A NAME="FixtureGroup" HREF="#FixtureGroup">Fixture Group</A></H3>
 
 <P>
 A fixture group is, as the name says, a group of <A HREF="concept.html#Fixtures">fixtures</A>.
@@ -225,7 +225,7 @@ Instead of creating a completely new fixture definition for each variation,
 they have been bundled together in QLC's fixture definitions into fixture modes.
 </P>
 
-<A NAME="Functions" HREF="#Functions"><H3>Functions</H3></A>
+<H3><IMG SRC="qrc:/function.png"> <A NAME="Functions" HREF="#Functions">Functions</A></H3>
 
 <P>
 The number of functions is practically unlimited. Functions are used to
@@ -239,9 +239,11 @@ The function types are:
 <UL>
 <LI><A HREF="#Scene">Scene</A></LI>
 <LI><A HREF="#Chaser">Chaser</A></LI>
+<LI><A HREF="#Sequence">Sequence</A></LI>
 <LI><A HREF="#EFX">EFX</A></LI>
 <LI><A HREF="#RGBMatrix">RGB Matrix</A></LI>
 <LI><A HREF="#Collection">Collection</A></LI>
+<LI><A HREF="#Show">Show</A></LI>
 </UL>
 
 <P>
@@ -318,7 +320,7 @@ intensity diminishes until it reaches the 50% set by slider 1 and stays there un
 is dragged down. See also <A HREF="concept.html#LTP">LTP</A>.
 </P>
 
-<A NAME="InputPlugins" HREF="#InputPlugins"><H3>Input plugins</H3></A>
+<H3><IMG SRC="qrc:/input.png"> <A NAME="InputPlugins" HREF="#InputPlugins">Input plugins</A></H3>
 
 <P>
 Primary input methods for QLC are naturally the keyboard and mouse. Users can
@@ -373,7 +375,7 @@ create and edit <A HREF="#Functions">functions</A> and
 eventually control the user's lighting fixtures.</LI>
 </UL>
 
-<A NAME="Output" HREF="#OutputPlugins"><H3>Output plugins</H3></A>
+<H3><IMG SRC="qrc:/output.png"> <A NAME="Output" HREF="#OutputPlugins">Output plugins</A></H3>
 
 <P>
 DMX output is achieved thru output plugins that can support one or more
@@ -390,7 +392,7 @@ dubbed <u>output</u> to separate it from QLC's internal universes. You could
 think of them as individual XLR output connectors in your DMX hardware.
 </P>
 
-<A NAME="RGBMatrix" HREF="#RGBMatrix"><H3>RGB Matrix</H3></A>
+<H3><IMG SRC="qrc:/rgbmatrix.png"> <A NAME="RGBMatrix" HREF="#RGBMatrix">RGB Matrix</A></H3>
 
 <P>
 An RGB matrix <A HREF="#Functions">function</A> can be used to impose simple graphics
@@ -406,7 +408,7 @@ Each RGB matrix has its own speed settings:
 <LI><B>Duration:</B> The duration of the current step/frame</LI>
 </P>
 
-<A NAME="RGBScript" HREF="#RGBScript"><H3>RGB Script</H3></A>
+<H3><IMG SRC="qrc:/script.png"> <A NAME="RGBScript" HREF="#RGBScript">RGB Script</A></H3>
 
 <P>
 An RGB script is a program written in <A HREF="http://www.ecmascript.org/">ECMAScript</A>
@@ -414,7 +416,7 @@ An RGB script is a program written in <A HREF="http://www.ecmascript.org/">ECMAS
 functions. Learn more from the <A HREF="rgbscriptapi.html">RGB Script API</A> page.
 </P>
 
-<A NAME="Scene" HREF="#Scene"><H3>Scene</H3></A>
+<H3><IMG SRC="qrc:/scene.png"> <A NAME="Scene" HREF="#Scene">Scene</A></H3>
 
 <P>
 A scene <A HREF="#Functions">function</A> encapsulates the values of selected
@@ -431,6 +433,20 @@ As of version 3.3.0, each function has their own speed settings:
 <P>
 Copies of scene functions can be created with the <A HREF="functionmanager.html">
 Function Manager</A>. All of the scene's contents are copied to the duplicate.
+</P>
+
+<H3><IMG SRC="qrc:/sequence.png"> <A NAME="Sequence" HREF="#Sequence">Sequence</A></H3>
+<P>
+A sequence is a special <A HREF="#Chaser">Chaser</A> which is bounded to a specific <A HREF="#Scene">Scene</A>. It means all the created steps will
+control channels of the same scene. When creating new steps in a sequence, no Function selection popup will appear, since a Sequence is a child of a Scene.<br>
+A sequence will appear in the <A HREF="functionmanager.html">Function Manager</A> with a different icon than a Chaser.
+</P>
+
+<H3><IMG SRC="qrc:/show.png"> <A NAME="Show" HREF="#Show">Show</A></H3>
+<P>
+A Show is an advanced <A HREF="#Functions">function</A> which encapsulates <A HREF="#Scene">scenes</A> and <A HREF="#Sequence">sequences</A> to create
+a time driven light sequence. A Show can be created only with the <A HREF="showmanager.html">Show Manager</A> and can be inspected and renamed with the 
+<A HREF="functionmanager.html">Function Manager</A>.
 </P>
 
 </BODY>
