@@ -172,6 +172,7 @@ void ShowManager::initActions()
     m_cloneAction->setShortcut(QKeySequence("CTRL+C"));
     connect(m_cloneAction, SIGNAL(triggered(bool)),
             this, SLOT(slotClone()));
+    m_cloneAction->setEnabled(false);
 
     m_deleteAction = new QAction(QIcon(":/editdelete.png"),
                                  tr("&Delete"), this);
@@ -470,6 +471,49 @@ void ShowManager::slotAddAudio()
 
 void ShowManager::slotClone()
 {
+    quint32 fid = Function::invalidId();
+    AudioItem *audItem = NULL;
+
+    SequenceItem *seqItem = m_showview->getSelectedSequence();
+    if (seqItem != NULL)
+        fid = seqItem->getChaser()->id();
+    else
+    {
+        audItem = m_showview->getSelectedAudio();
+        if (audItem != NULL)
+            fid = audItem->getAudio()->id();
+    }
+
+    if (fid != Function::invalidId())
+    {
+        Function* function = m_doc->function(fid);
+        Q_ASSERT(function != NULL);
+
+        /* Attempt to create a copy of the function to Doc */
+        Function* copy = function->createCopy(m_doc);
+        if (copy != NULL)
+        {
+            copy->setName(tr("Copy of %1").arg(function->name()));
+            Track *track = m_show->getTrackFromSceneID(m_scene->id());
+            if (seqItem != NULL)
+            {
+                Chaser *chaser = qobject_cast<Chaser*>(copy);
+                // Invalidate start time so the sequence will be cloned at the cursor position
+                chaser->setStartTime(UINT_MAX);
+                track->addFunctionID(chaser->id());
+                m_showview->addSequence(chaser);
+            }
+
+            if (audItem != NULL)
+            {
+                Audio *audio = qobject_cast<Audio*>(copy);
+                // Invalidate start time so the sequence will be cloned at the cursor position
+                audio->setStartTime(UINT_MAX);
+                track->addFunctionID(audio->id());
+                m_showview->addAudio(audio);
+            }
+        }
+    }
 }
 
 void ShowManager::slotDelete()
@@ -516,6 +560,7 @@ void ShowManager::slotViewClicked(QMouseEvent *event)
         m_sequence_editor = NULL;
     }
     m_vsplitter->widget(1)->hide();
+    m_cloneAction->setEnabled(false);
     m_deleteAction->setEnabled(false);
 }
 
@@ -539,6 +584,7 @@ void ShowManager::slotSequenceMoved(SequenceItem *item)
         m_showview->activateTrack(track);
     }
     showSequenceEditor(chaser);
+    m_cloneAction->setEnabled(true);
     m_deleteAction->setEnabled(true);
     m_colorAction->setEnabled(true);
 }
@@ -550,6 +596,7 @@ void ShowManager::slotAudioMoved(AudioItem *item)
     if (audio == NULL)
         return;
     showSequenceEditor(NULL);
+    m_cloneAction->setEnabled(true);
     m_deleteAction->setEnabled(true);
     m_colorAction->setEnabled(true);
 }

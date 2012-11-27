@@ -105,6 +105,10 @@ bool Chaser::copyFrom(const Function* function)
     m_fadeInMode = chaser->m_fadeInMode;
     m_fadeOutMode = chaser->m_fadeOutMode;
     m_durationMode = chaser->m_durationMode;
+    m_isSequence = chaser->m_isSequence;
+    m_boundedSceneID = chaser->m_boundedSceneID;
+    m_startTime = chaser->m_startTime;
+    m_color = chaser->m_color;
 
     // Copy common function stuff
     return Function::copyFrom(function);
