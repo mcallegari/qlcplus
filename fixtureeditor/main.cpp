@@ -127,7 +127,7 @@ void loadTranslation(const QString& locale, QApplication& app)
         lc = locale;
     else
         lc = FXEDArgs::locale;
-    QString file(QString("fixtureeditor_%1").arg(lc));
+    QString file(QString("qlc_%1").arg(lc));
 
 #ifdef __APPLE__
     QString path(QString("%1/../%2").arg(QApplication::applicationDirPath())
