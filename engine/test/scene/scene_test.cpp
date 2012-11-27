@@ -320,12 +320,10 @@ void Scene_Test::save()
 
     QVERIFY(root.firstChild().firstChild().nextSibling().toElement().tagName() == "FixtureVal");
     QVERIFY(root.firstChild().firstChild().nextSibling().toElement().attribute("ID") == "0");
-    QVERIFY(root.firstChild().firstChild().nextSibling().toElement().attribute("Channels") == "1");
     QVERIFY(root.firstChild().firstChild().nextSibling().toElement().text() == "0,100");
 
     QVERIFY(root.firstChild().firstChild().nextSibling().nextSibling().toElement().tagName() == "FixtureVal");
     QVERIFY(root.firstChild().firstChild().nextSibling().nextSibling().toElement().attribute("ID") == "3");
-    QVERIFY(root.firstChild().firstChild().nextSibling().nextSibling().toElement().attribute("Channels") == "3");
     QVERIFY(root.firstChild().firstChild().nextSibling().nextSibling().toElement().text() == "0,150,3,10,5,100");
 }
 

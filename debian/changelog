@@ -7,6 +7,9 @@ qlcplus (4.0.2) beta; urgency=low
   * enabled clone function in the Show Manager
   * Function wizard show an error popup on unsupported capabilities
   * cosmetic improvements of Channels Groups view
+  * started to update Help docs
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 27 Nov 2012 15:31:42 +0200
 
 qlcplus (4.0.1) beta; urgency=low
 

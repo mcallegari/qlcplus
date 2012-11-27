@@ -6,7 +6,7 @@
     <message>
         <location filename="../ui/src/aboutbox.ui" line="14"/>
         <source>About Q Light Controller</source>
-        <translation>About Q Light Controller</translation>
+        <translation>A proposito di Q Light Controller Plus</translation>
     </message>
     <message>
         <location filename="../ui/src/aboutbox.ui" line="69"/>
@@ -87,7 +87,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="app.cpp" line="115"/>
         <source>Unrecognized file extension: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Estensione non riconosciuta: %1</translation>
     </message>
     <message>
         <location filename="app.cpp" line="139"/>
@@ -97,7 +97,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="app.cpp" line="140"/>
         <source>Unable to load fixture definition: </source>
-        <translation>impossibile caricare la definizione del fixture:</translation>
+        <translation>impossibile caricare la definizione della fixture:</translation>
     </message>
     <message>
         <location filename="app.cpp" line="243"/>
@@ -168,12 +168,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="app.cpp" line="279"/>
         <source>About Fixture Definition Editor...</source>
-        <translation>a proposito dell&apos;editor di fixture...</translation>
+        <translation>Informazioni sull&apos;Editor di Fixture...</translation>
     </message>
     <message>
         <location filename="app.cpp" line="284"/>
         <source>About Qt...</source>
-        <translation>A Proposito di QT...</translation>
+        <translation>Informazioni su QT...</translation>
     </message>
     <message>
         <location filename="app.cpp" line="304"/>
@@ -216,7 +216,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="capabilitywizard.ui" line="42"/>
         <source>Gap</source>
-        <translation>Montaggio</translation>
+        <translation>Spazio</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="49"/>
@@ -284,7 +284,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../ui/src/docbrowser.cpp" line="119"/>
         <source>About Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>Informazioni su Qt</translation>
     </message>
 </context>
 <context>
@@ -330,7 +330,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editchannel.ui" line="27"/>
         <source>The name of this channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Il nome di questo canale</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="34"/>
@@ -340,7 +340,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editchannel.ui" line="41"/>
         <source>The group this channel belongs to</source>
-        <translation type="unfinished"></translation>
+        <translation>Il gruppo a cui appartiene questo canale</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="48"/>
@@ -390,17 +390,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editchannel.ui" line="122"/>
         <source>Add a new capability</source>
-        <translation type="unfinished"></translation>
+        <translation>Aggiunge una nuova funzionalità</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="142"/>
         <source>Remove the selected capability</source>
-        <translation type="unfinished"></translation>
+        <translation>Rimuove la funzionalità selezionata</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="162"/>
         <source>Edit the selected capability</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifica la funzionalità selezionata</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="195"/>
@@ -431,17 +431,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="edithead.ui" line="14"/>
         <source>Edit Head</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifica Testa</translation>
     </message>
     <message>
         <location filename="edithead.ui" line="33"/>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Canale</translation>
     </message>
     <message>
         <location filename="edithead.ui" line="38"/>
         <source>Name</source>
-        <translation type="unfinished">Nome</translation>
+        <translation>Nome</translation>
     </message>
 </context>
 <context>
@@ -475,62 +475,62 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editmode.ui" line="66"/>
         <source>Add channel(s) to this mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Aggiungi canali a questa modalità</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="86"/>
         <source>Remove the selected channel</source>
-        <translation type="unfinished">Rimuovere il canale selezionato</translation>
+        <translation>Rimuove il canale selezionato</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="106"/>
         <source>Raise the selected channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Sposta su il canale selezionato</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="126"/>
         <source>Lower the selected channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Sposta in giù il canale selezionato</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="160"/>
         <source>Heads</source>
-        <translation type="unfinished"></translation>
+        <translation>Teste</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="173"/>
         <source>Head</source>
-        <translation type="unfinished"></translation>
+        <translation>Testa</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="181"/>
         <source>Compose a new head</source>
-        <translation type="unfinished"></translation>
+        <translation>Componi una nuova testa</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="201"/>
         <source>Remove the selected head</source>
-        <translation type="unfinished"></translation>
+        <translation>Rimuovi la testa selezionata</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="221"/>
         <source>Edit the channels that belong to the selected head</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifica il canale che appartiene alla testa selezionata</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="224"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="241"/>
         <source>Raise the selected head</source>
-        <translation type="unfinished"></translation>
+        <translation>Sposta su la testa selezionata</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="261"/>
         <source>Lower the selected head</source>
-        <translation type="unfinished"></translation>
+        <translation>Sposta in giù la testa selezionata</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="295"/>
@@ -556,7 +556,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editmode.ui" line="504"/>
         <source>Colour Temp (K)</source>
-        <translation type="unfinished"></translation>
+        <translation>Temperatura Colore (K)</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="518"/>
@@ -703,7 +703,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editmode.ui" line="834"/>
         <source>Electrical</source>
-        <translation type="unfinished"></translation>
+        <translation>Elettrico</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="840"/>
@@ -792,7 +792,7 @@ p, li { white-space: pre-wrap; }
         <location filename="fixtureeditor.ui" line="163"/>
         <source>The name of the author of this fixture definition</source>
         <oldsource>The author name of this fixture definition</oldsource>
-        <translation type="unfinished">Nome di chi compila questa definizione di Fixture</translation>
+        <translation>Nome dell&apos;autore di questa definizione di Fixture</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="184"/>
@@ -849,7 +849,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="fixtureeditor.ui" line="389"/>
         <source>Heads</source>
-        <translation type="unfinished"></translation>
+        <translation>Teste</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="397"/>
