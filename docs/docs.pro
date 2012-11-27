@@ -9,6 +9,7 @@ docs.files = \
              capabilityeditor.html \
              capabilitywizard.html \
              channeleditor.html \
+             channelsgroupeditor.html \
              chasereditor.html \
              collectioneditor.html \
              commandlineparameters.html \

@@ -456,13 +456,15 @@ void ChaserEditor::slotCutClicked()
     {
         QTreeWidgetItem* item(it.next());
         m_clipboard << stepAtItem(item);
+        int index = m_tree->indexOfTopLevelItem(item);
+        m_chaser->removeStep(index);
         delete item;
     }
 
     m_tree->setCurrentItem(NULL);
 
     updateStepNumbers();
-    updateChaserContents();
+    //updateChaserContents();
     updateClipboardButtons();
 }
 
@@ -501,10 +503,11 @@ void ChaserEditor::slotPasteClicked()
         m_tree->insertTopLevelItem(insertionPoint, item);
         item->setSelected(true);
         insertionPoint = CLAMP(m_tree->indexOfTopLevelItem(item) + 1, 0, m_tree->topLevelItemCount() - 1);
+        m_chaser->addStep(step, insertionPoint);
     }
 
     updateStepNumbers();
-    updateChaserContents();
+    //updateChaserContents();
     updateClipboardButtons();
 }
 
@@ -990,6 +993,7 @@ ChaserStep ChaserEditor::stepAtIndex(int index) const
     return m_chaser->steps().at(index);
 }
 
+/*
 void ChaserEditor::updateChaserContents()
 {
     Q_ASSERT(m_chaser != NULL);
@@ -1008,6 +1012,7 @@ void ChaserEditor::updateChaserContents()
     // Continue running if appropriate
     continueRunning(running);
 }
+*/
 
 void ChaserEditor::updateClipboardButtons()
 {
@@ -1036,42 +1041,14 @@ void ChaserEditor::applyStepValues()
     {
         QTreeWidgetItem* item(selected.first());
         int idx = m_tree->indexOfTopLevelItem(item);
-        ChaserStep step = m_chaser->steps().at(idx);
+        qDebug() << "Idx: " << idx << ", steps: " << m_chaser->steps().count();
+        if (m_chaser != NULL && idx < m_chaser->steps().count())
+        {
+            ChaserStep step = m_chaser->steps().at(idx);
 
-        if (step.values.count() > 0)
-            emit applyValues(step.values);
-/*
-        ChaserStep step = m_chaser->steps().at(0);
-        QList <SceneValue> finalValues = step.values;
-        if (idx > 0)
-        {
-            for (int i = 1; i < idx; i++) // cycle from the first step to the one selected
-            {
-                ChaserStep step = m_chaser->steps().at(i);
-                for (int j = 0; j < step.values.count(); j++) // cycle on the step values
-                {
-                    for (int k = 0; k < finalValues.count(); k++) // cycle on the final values and check if update/add values
-                    {
-                        if (step.values[j] == finalValues[k])
-                        {
-                            finalValues[k].value = step.values[j].value;
-                            continue;
-                        }
-                    }
-                    // if we're here then a new value needs to be added
-                    finalValues.append(step.values[j]);
-                }
-            }
+            if (step.values.count() > 0)
+                emit applyValues(step.values);
         }
-        if (finalValues.count() > 0)
-        {
-            qDebug() << Q_FUNC_INFO << "applying " << finalValues.count() << " values...";
-            for (int v = 0; v < finalValues.count(); v++)
-                qDebug() << "value: " << finalValues[v].channel << finalValues[v].value;
-            emit applyValues(finalValues);
-            qDebug() << Q_FUNC_INFO << "...values applied";
-        }
-*/
     }
 }
 

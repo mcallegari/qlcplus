@@ -2,9 +2,11 @@ qlcplus (4.0.2) beta; urgency=low
 
   * improved Scene channels save/load (please review your QLC+ projects)
   * fixed signals connections between Chaser Editor and Scene Editor in multitrack view
+  * fixed cut/copy/paste for chaser steps
   * fixed clone function for a Sequence
   * enabled clone function in the Show Manager
   * Function wizard show an error popup on unsupported capabilities
+  * cosmetic improvements of Channels Groups view
 
 qlcplus (4.0.1) beta; urgency=low
 

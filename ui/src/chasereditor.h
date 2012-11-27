@@ -154,7 +154,7 @@ private:
     void updateStepNumbers();
 
     /** Update the contents of m_chaser */
-    void updateChaserContents();
+    //void updateChaserContents();
 
     /** Set cut,copy,paste buttons enabled/disabled */
     void updateClipboardButtons();

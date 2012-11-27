@@ -300,6 +300,7 @@ void FixtureManager::initDataView()
     chan_labels << tr("Name") << tr("Channels");
     m_channels_tree->setHeaderLabels(chan_labels);
     m_channels_tree->setRootIsDecorated(true);
+    m_channels_tree->setAllColumnsShowFocus(true);
     m_channels_tree->setIconSize(QSize(32, 32));
     m_channels_tree->setSelectionMode(QAbstractItemView::ExtendedSelection);
     m_channels_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
@@ -456,6 +457,9 @@ void FixtureManager::updateChannelsGroupView()
             }
         }
     }
+    m_propertiesAction->setEnabled(false);
+    m_groupAction->setEnabled(false);
+    m_unGroupAction->setEnabled(false);
 }
 
 QTreeWidgetItem* FixtureManager::fixtureItem(quint32 id) const
