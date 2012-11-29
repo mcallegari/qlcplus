@@ -55,6 +55,8 @@ Audio::Audio(Doc* doc)
 #ifdef QT_PHONON_LIB
   , m_object(NULL)
 #endif
+  , m_decoder(NULL)
+  , m_audio_out(NULL)
   , m_startTime(UINT_MAX)
   , m_color(96, 128, 83)
   , m_sourceFileName("")
@@ -147,6 +149,8 @@ bool Audio::setSourceFileName(QString filename)
     if (m_sourceFileName.isEmpty() == false)
     {
         // unload previous source
+        if (m_decoder != NULL)
+            delete m_decoder;
     }
 #ifdef QT_PHONON_LIB
     m_object = Phonon::createPlayer(Phonon::MusicCategory,
@@ -182,6 +186,11 @@ bool Audio::setSourceFileName(QString filename)
     }
 #endif
     return false;
+}
+
+QString Audio::getSourceFileName()
+{
+    return m_sourceFileName;
 }
 
 void Audio::slotTotalTimeChanged(qint64)
@@ -249,7 +258,9 @@ bool Audio::loadXML(const QDomElement& root)
             if (tag.hasAttribute(KXMLQLCAudioColor))
                 m_color = QColor(tag.attribute(KXMLQLCAudioColor));
             m_sourceFileName = tag.text();
+            setSourceFileName(m_sourceFileName);
         }
+        node = node.nextSibling();
     }
 
     return true;
@@ -277,15 +288,6 @@ void Audio::preRun(MasterTimer* timer)
         m_audio_out = new AudioRendererAlsa();
         m_audio_out->setDecoder(m_decoder);
         m_audio_out->initialize(ap.sampleRate(), ap.channels(), ap.format());
-        /*
-        for (int i = 0; i < 5000; i++)
-        {
-            unsigned char data[128];
-            qint64 bytes_read = m_decoder->read((char *)data, 128);
-            qint64 bytes_written = m_audio_out->writeAudio(data, bytes_read);
-            qDebug() << "[Cycle] read: " << bytes_read << ", written: " << bytes_written;
-        }
-        */
         m_audio_out->start();
     }
     Function::preRun(timer);

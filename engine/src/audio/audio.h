@@ -103,11 +103,15 @@ public:
      */
     QColor getColor();
 
-
     /**
      * Set the source file name used by this Audio object
      */
     bool setSourceFileName(QString filename);
+
+    /**
+     * Retrieve the source file name used by this Audio object
+     */
+    QString getSourceFileName();
 
 private:
 #ifdef QT_PHONON_LIB
