@@ -14,7 +14,7 @@ if [ ! $? -eq 0 ]; then
     exit $?
 fi
 
-# Install to ~/QLC.app/
+# Install to ~/QLC+.app/
 make install
 if [ ! $? -eq 0 ]; then
     echo Installation error. Aborting package creation.
@@ -23,10 +23,10 @@ fi
 
 # Create Apple Disk iMaGe from ~/QLC.app/
 cd dmg
-./create-dmg --volname "Q Light Controller $VERSION" \
+./create-dmg --volname "Q Light Controller Plus $VERSION" \
 	     --background background.png \
 	     --window-size 300 225 \
 	     --icon-size 128 --icon "qlc" 150 16 \
-	     QLC-$VERSION.dmg \
-	     ~/QLC.app
+	     QLC+-$VERSION.dmg \
+	     ~/QLC+.app
 cd ..
