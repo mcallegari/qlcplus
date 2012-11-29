@@ -1,13 +1,6 @@
 #!/bin/bash
 VERSION=`head -1 debian/changelog | sed 's/.*(\(.*\)).*/\1/'`
 
-if [ -e "/var/db/receipts/com.apple.pkg.Rosetta.plist" ]; then
-    echo Rosetta installed. OK to continue.
-else
-    echo You need to install Rosetta from your Snow Leopard Install DVD!
-    exit 1
-fi
-
 # Compile translations
 ./translate.sh
 
