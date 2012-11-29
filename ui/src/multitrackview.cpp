@@ -376,6 +376,12 @@ void MultiTrackView::slotTimeScaleChanged(int val)
         item->setPos(newXpos + 2, item->y());
         item->setTimeScale(val);
     }
+    foreach(AudioItem *item, m_audio)
+    {
+        quint32 newXpos = getPositionFromTime(item->getAudio()->getStartTime());
+        item->setPos(newXpos + 2, item->y());
+        item->setTimeScale(val);
+    }
     int newCursorPos = getPositionFromTime(m_cursor->getTime());
     m_cursor->setPos(newCursorPos + 2, m_cursor->y());
     updateViewSize();
@@ -412,9 +418,9 @@ void MultiTrackView::slotTrackMuteFlagChanged(TrackItem* item, bool mute)
         trk->setMute(mute);
 }
 
-void MultiTrackView::slotViewScrolled(int value)
+void MultiTrackView::slotViewScrolled(int)
 {
-    qDebug() << Q_FUNC_INFO << "Percentage: " << value;
+    //qDebug() << Q_FUNC_INFO << "Percentage: " << value;
 }
 
 void MultiTrackView::slotSequenceMoved(QGraphicsSceneMouseEvent *, SequenceItem *item)

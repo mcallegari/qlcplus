@@ -21,12 +21,24 @@
 
 #include <QDomDocument>
 #include <QDomElement>
+#include <QDebug>
+#include <QFile>
 
 #ifdef QT_PHONON_LIB
 #include <phonon/mediaobject.h>
 #include <phonon/backendcapabilities.h>
 #endif
 
+#include "audiodecoder.h"
+#ifdef HAS_LIBSNDFILE
+  #include "audiodecoder_sndfile.h"
+#endif
+#ifdef HAS_LIBMAD
+  #include "audiodecoder_mad.h"
+#endif
+
+#include "audiorenderer.h"
+#include "audiorenderer_alsa.h"
 #include "audio.h"
 #include "doc.h"
 
@@ -40,7 +52,9 @@
 
 Audio::Audio(Doc* doc)
   : Function(doc, Function::Audio)
+#ifdef QT_PHONON_LIB
   , m_object(NULL)
+#endif
   , m_startTime(UINT_MAX)
   , m_color(96, 128, 83)
   , m_sourceFileName("")
@@ -87,11 +101,17 @@ bool Audio::copyFrom(const Function* function)
 
 QStringList Audio::getCapabilities()
 {
+    QStringList cap;
 #ifdef QT_PHONON_LIB
     return Phonon::BackendCapabilities::availableMimeTypes();
-#else
-    return QStringList();
 #endif
+#ifdef HAS_LIBSNDFILE
+    cap << AudioDecoderSndFile::getSupportedFormats();
+#endif
+#ifdef HAS_LIBMAD
+    cap << AudioDecoderMAD::getSupportedFormats();
+#endif
+    return cap;
 }
 
 /*********************************************************************
@@ -139,10 +159,29 @@ bool Audio::setSourceFileName(QString filename)
     setName(ai.completeBaseName());
 #ifdef QT_PHONON_LIB
     connect(m_object, SIGNAL(totalTimeChanged(qint64)), this, SLOT(slotTotalTimeChanged(qint64)));
-    //music->play();
 #endif
 
-    return true;
+#ifdef HAS_LIBSNDFILE
+    m_decoder = new AudioDecoderSndFile(m_sourceFileName);
+    if (m_decoder->initialize() == false)
+        delete m_decoder;
+    else
+    {
+        m_audioDuration = m_decoder->totalTime();
+        return true;
+    }
+#endif
+#ifdef HAS_LIBMAD
+    m_decoder = new AudioDecoderMAD(m_sourceFileName);
+    if (m_decoder->initialize() == false)
+        delete m_decoder;
+    else
+    {
+        m_audioDuration = m_decoder->totalTime();
+        return true;
+    }
+#endif
+    return false;
 }
 
 void Audio::slotTotalTimeChanged(qint64)
@@ -225,11 +264,31 @@ void Audio::postLoad()
  *********************************************************************/
 void Audio::preRun(MasterTimer* timer)
 {
-    Q_UNUSED(timer)
 #ifdef QT_PHONON_LIB
     if (m_object != NULL)
+    {
         m_object->play();
+        return;
+    }
 #endif
+    if (m_decoder != NULL)
+    {
+        AudioParameters ap = m_decoder->audioParameters();
+        m_audio_out = new AudioRendererAlsa();
+        m_audio_out->setDecoder(m_decoder);
+        m_audio_out->initialize(ap.sampleRate(), ap.channels(), ap.format());
+        /*
+        for (int i = 0; i < 5000; i++)
+        {
+            unsigned char data[128];
+            qint64 bytes_read = m_decoder->read((char *)data, 128);
+            qint64 bytes_written = m_audio_out->writeAudio(data, bytes_read);
+            qDebug() << "[Cycle] read: " << bytes_read << ", written: " << bytes_written;
+        }
+        */
+        m_audio_out->start();
+    }
+    Function::preRun(timer);
 }
 
 void Audio::write(MasterTimer* timer, UniverseArray* universes)
@@ -246,5 +305,6 @@ void Audio::postRun(MasterTimer* timer, UniverseArray* universes)
     if (m_object != NULL)
         m_object->stop();
 #endif
+    if (m_audio_out != NULL)
+        m_audio_out->stop();
 }
-

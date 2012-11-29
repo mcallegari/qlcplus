@@ -17,8 +17,8 @@ CONFIG         += warn_on
 # Build everything in the order specified in .pro files
 CONFIG         += ordered
 
-CONFIG         += release # Enable this when making a release
-CONFIG         -= debug   # Disable this when making a release
+CONFIG         -= release # Enable this when making a release
+CONFIG         += debug   # Disable this when making a release
 
 # Disable these if you don't want to see SVN revision in the About Box
 #unix:REVISION = $$system(svn info | grep "Revision" | sed 's/Revision://')

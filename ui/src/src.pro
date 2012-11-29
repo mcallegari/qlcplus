@@ -9,7 +9,7 @@ CONFIG += qt
 QT     += core xml gui script
 
 # Engine
-INCLUDEPATH     += ../../engine/src
+INCLUDEPATH     += ../../engine/src ../../engine/src/audio
 DEPENDPATH      += ../../engine/src
 QMAKE_LIBDIR    += ../../engine/src
 LIBS            += -lqlcengine

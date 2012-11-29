@@ -24,9 +24,13 @@
 
 #include <QColor>
 
+#ifdef QT_PHONON_LIB
 #include <phonon/mediaobject.h>
 #include <phonon/backendcapabilities.h>
+#endif
 
+#include "audiorenderer.h"
+#include "audiodecoder.h"
 #include "function.h"
 
 class QDomDocument;
@@ -106,7 +110,13 @@ public:
     bool setSourceFileName(QString filename);
 
 private:
+#ifdef QT_PHONON_LIB
     Phonon::MediaObject *m_object;
+#endif
+    /** Instance of an AudioDecoder to perform actual audio decoding */
+    AudioDecoder *m_decoder;
+    /** output interface to render audio data got from m_decoder */
+    AudioRenderer *m_audio_out;
     /** Absolute start time of Audio over a timeline (in milliseconds) */
     quint32 m_startTime;
     /** Color to use when displaying the audio object in the Show manager */

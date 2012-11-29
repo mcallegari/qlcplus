@@ -8,12 +8,13 @@ TARGET   = qlcengine
 
 CONFIG  += qt
 QT      += core xml script gui
-# Uncomment to enable audio support
+# Uncomment to enable Phonon audio support
 #QT += phonon
+CONFIG += link_pkgconfig
 
 QTPLUGIN =
 
-INCLUDEPATH += ../../plugins/interfaces
+INCLUDEPATH += ./audio ../../plugins/interfaces
 win32:LIBS  += -lwinmm
 win32:QMAKE_LFLAGS += -shared
 
@@ -53,10 +54,16 @@ HEADERS += avolitesd4parser.h \
            qlcinputsource.h \
            qlcphysical.h \
            qlccapability.h
+# Audio
+HEADERS += audio/audio.h \
+           audio/audiodecoder.h \
+           audio/audiorenderer.h \
+           audio/audioparameters.h
+
+unix:HEADERS += audio/audiorenderer_alsa.h
 
 # Engine
-HEADERS += audio.h \
-           bus.h \
+HEADERS += bus.h \
            channelsgroup.h \
            chaser.h \
            chaserrunner.h \
@@ -112,10 +119,16 @@ SOURCES += avolitesd4parser.cpp \
            qlcinputprofile.cpp \
            qlcinputsource.cpp \
            qlcphysical.cpp
+# Audio
+SOURCES += audio/audio.cpp \
+           audio/audiodecoder.cpp \
+           audio/audiorenderer.cpp \
+           audio/audioparameters.cpp
+
+unix:SOURCES += audio/audiorenderer_alsa.cpp
 
 # Engine
-SOURCES += audio.cpp \
-           bus.cpp \
+SOURCES += bus.cpp \
            channelsgroup.cpp \
            chaser.cpp \
            chaserrunner.cpp \
@@ -156,6 +169,21 @@ SOURCES += audio.cpp \
 
 win32:SOURCES += mastertimer-win32.cpp
 unix:SOURCES  += mastertimer-unix.cpp
+system(pkg-config --exists mad) {
+    DEFINES += HAS_LIBMAD
+    PKGCONFIG += mad
+    HEADERS += audio/audiodecoder_mad.h
+    SOURCES += audio/audiodecoder_mad.cpp
+}
+
+system(pkg-config --exists sndfile) {
+    DEFINES += HAS_LIBSNDFILE
+    PKGCONFIG += sndfile
+    HEADERS += audio/audiodecoder_sndfile.h
+    SOURCES += audio/audiodecoder_sndfile.cpp
+}
+
+unix:LIBS += -lasound
 
 # Interfaces
 HEADERS += ../../plugins/interfaces/qlcioplugin.h

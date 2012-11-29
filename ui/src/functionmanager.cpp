@@ -690,6 +690,8 @@ QIcon FunctionManager::functionIcon(const Function* function) const
         return QIcon(":/script.png");
     case Function::Show:
         return QIcon(":/show.png");
+    case Function::Audio:
+        return QIcon(":/audio.png");
     default:
         return QIcon(":/function.png");
     }

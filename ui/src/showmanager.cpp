@@ -410,9 +410,9 @@ void ShowManager::slotAddAudio()
     //dialog.selectFile(fileName());
 
     /* Append file filters to the dialog */
-    QStringList systemCaps = Audio::getCapabilities();
-    QStringList filters;
     QStringList extList;
+#ifdef QT_PHONON_LIB
+    QStringList systemCaps = Audio::getCapabilities();
     if (systemCaps.contains("audio/ogg") || systemCaps.contains("audio/x-ogg"))
         extList << "*.ogg";
     if (systemCaps.contains("audio/x-m4a"))
@@ -426,14 +426,10 @@ void ShowManager::slotAddAudio()
     if (systemCaps.contains("audio/mp3") || systemCaps.contains("audio/x-mp3") ||
         systemCaps.contains("audio/mpeg3") || systemCaps.contains("audio/x-mpeg3"))
         extList << "*.mp3";
-/*
-    QString extensions = extList.join(" ");
-    for (int f = 0; f < extList.count(); f++)
-    {
-        if (f > 0) extensions += " ";
-        extensions += extList.at(f);
-    }
-*/
+#else
+    extList = Audio::getCapabilities();
+#endif
+    QStringList filters;
     qDebug() << Q_FUNC_INFO << "Extensions: " << extList.join(" ");
     filters << tr("Audio Files (%1)").arg(extList.join(" "));
     filters << tr("All files (*.*)");
