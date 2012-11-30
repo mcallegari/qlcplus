@@ -38,7 +38,14 @@
 #endif
 
 #include "audiorenderer.h"
+
+#if defined(__APPLE__)
+  #include "audiorenderer_null.h"
+#elif defined(WIN32)
+  #include "audiorenderer_waveout.h"
+#else
 #include "audiorenderer_alsa.h"
+#endif
 #include "audio.h"
 #include "doc.h"
 
@@ -285,7 +292,13 @@ void Audio::preRun(MasterTimer* timer)
     if (m_decoder != NULL)
     {
         AudioParameters ap = m_decoder->audioParameters();
+#if defined(__APPLE__)
+        m_audio_out = new AudioRendererNull();
+#elif defined(WIN32)
+        m_audio_out = new AudioRendererWaveOut();
+#else
         m_audio_out = new AudioRendererAlsa();
+#endif
         m_audio_out->setDecoder(m_decoder);
         m_audio_out->initialize(ap.sampleRate(), ap.channels(), ap.format());
         m_audio_out->start();

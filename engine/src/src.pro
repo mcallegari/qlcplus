@@ -17,6 +17,7 @@ QTPLUGIN =
 INCLUDEPATH += ./audio ../../plugins/interfaces
 win32:LIBS  += -lwinmm
 win32:QMAKE_LFLAGS += -shared
+win32:INCLUDEPATH += ./
 
 DEPENDPATH  += ../../hotplugmonitor/src
 INCLUDEPATH += ../../hotplugmonitor/src
@@ -60,7 +61,9 @@ HEADERS += audio/audio.h \
            audio/audiorenderer.h \
            audio/audioparameters.h
 
-unix:HEADERS += audio/audiorenderer_alsa.h
+unix:!macx:HEADERS += audio/audiorenderer_alsa.h
+win32:HEADERS += audio/audiorenderer_waveout.h
+macx:HEADERS += audio/audiorenderer_null.h
 
 # Engine
 HEADERS += bus.h \
@@ -125,7 +128,9 @@ SOURCES += audio/audio.cpp \
            audio/audiorenderer.cpp \
            audio/audioparameters.cpp
 
-unix:SOURCES += audio/audiorenderer_alsa.cpp
+unix:!macx:SOURCES += audio/audiorenderer_alsa.cpp
+win32:SOURCES += audio/audiorenderer_waveout.cpp
+macx:SOURCES += audio/audiorenderer_null.cpp
 
 # Engine
 SOURCES += bus.cpp \
@@ -183,7 +188,7 @@ system(pkg-config --exists sndfile) {
     SOURCES += audio/audiodecoder_sndfile.cpp
 }
 
-unix:LIBS += -lasound
+unix:!macx:LIBS += -lasound
 
 # Interfaces
 HEADERS += ../../plugins/interfaces/qlcioplugin.h
