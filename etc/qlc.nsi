@@ -1,5 +1,5 @@
 Name "Q Light Controller Plus"
-OutFile "qlc+_4.0.1_preview.exe"
+OutFile "qlc+_4.1.0.exe"
 InstallDir C:\QLC+
 RequestExecutionLevel user
 ;--------------------------------

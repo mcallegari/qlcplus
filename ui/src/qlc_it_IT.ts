@@ -1729,12 +1729,12 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
         <location filename="fixturemanager.cpp" line="349"/>
         <location filename="fixturemanager.cpp" line="656"/>
         <source>All fixtures</source>
-        <translation>Tutti le fixture</translation>
+        <translation>Tutte le fixture</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="656"/>
         <source>This group contains all fixtures.</source>
-        <translation>Questo gruppo contiene tutti le fixture.</translation>
+        <translation>Questo gruppo contiene tutte le fixture.</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="668"/>
@@ -3150,7 +3150,7 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="sceneeditor.ui" line="152"/>
         <source>Disable all fixtures&apos; channels</source>
-        <translation>Disattiva tutti i canali di tutti le fixture</translation>
+        <translation>Disattiva tutti i canali di tutte le fixture</translation>
     </message>
     <message>
         <source>Disable all</source>
