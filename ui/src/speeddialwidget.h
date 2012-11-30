@@ -29,8 +29,8 @@ class QGroupBox;
 class QLineEdit;
 
 #define SPEED_DIAL_FLAGS Qt::WindowFlags( \
-    (Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::Window | Qt::WindowStaysOnTopHint) \
-    & (~Qt::WindowCloseButtonHint))
+    (Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::Window | Qt::WindowStaysOnTopHint | \
+     Qt::WindowMinimizeButtonHint) & (~Qt::WindowCloseButtonHint))
 
 class SpeedDialWidget : public QWidget
 {
