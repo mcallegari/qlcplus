@@ -65,18 +65,18 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID)
             if (m_doc->function(funcID)->type() == Function::Chaser)
             {
                 Chaser *chaser = qobject_cast<Chaser*> (m_doc->function(funcID));
-            if (chaser == NULL)
-                continue;
+                if (chaser == NULL)
+                    continue;
                 m_functions.append(m_doc->function(funcID));
-            connect(chaser, SIGNAL(stopped(quint32)), this, SLOT(slotSequenceStopped(quint32)));
+                connect(chaser, SIGNAL(stopped(quint32)), this, SLOT(slotSequenceStopped(quint32)));
 
-            // offline calculation of the chaser duration
-            quint32 seq_duration = 0;
-            foreach (ChaserStep step, chaser->steps())
-                seq_duration += step.duration;
-            m_durations.append(seq_duration);
-            if (chaser->getStartTime() + seq_duration > m_totalRunTime)
-                m_totalRunTime = chaser->getStartTime() + seq_duration;
+                // offline calculation of the chaser duration
+                quint32 seq_duration = 0;
+                foreach (ChaserStep step, chaser->steps())
+                    seq_duration += step.duration;
+                m_durations.append(seq_duration);
+                if (chaser->getStartTime() + seq_duration > m_totalRunTime)
+                    m_totalRunTime = chaser->getStartTime() + seq_duration;
             }
             else if (m_doc->function(funcID)->type() == Function::Audio)
             {

@@ -40,6 +40,8 @@ void AudioRenderer::setDecoder(AudioDecoder *adec)
 void AudioRenderer::stop()
 {
     m_userStop = true;
+    while (this->isRunning())
+        usleep(10000);
 }
 
 void AudioRenderer::run()
@@ -49,6 +51,7 @@ void AudioRenderer::run()
 
     while (!m_userStop)
     {
+        m_mutex.lock();
         qint64 audioDataWritten = 0;
         if (m_pause == false)
         {
@@ -57,7 +60,10 @@ void AudioRenderer::run()
           {
             audioDataRead = m_adec->read((char *)audioData, 8192);
             if (audioDataRead == 0)
+            {
+                m_mutex.unlock();
                 return;
+            }
             audioDataWritten = writeAudio(audioData, audioDataRead);
             if (audioDataWritten < audioDataRead)
             {
@@ -72,5 +78,10 @@ void AudioRenderer::run()
           }
           //qDebug() << "[Cycle] read: " << audioDataRead << ", written: " << audioDataWritten;
         }
+        else
+            usleep(15000);
+        m_mutex.unlock();
     }
+
+    reset();
 }

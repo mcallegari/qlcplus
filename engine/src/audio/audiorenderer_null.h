@@ -33,11 +33,27 @@ public:
 
     ~AudioRendererNull() { }
 
+    /** @reimpl */
     bool initialize(quint32, int, AudioFormat) { return true; }
+
+    /** @reimpl */
     qint64 latency() { return 0; } // not bad for a null device huh ? ;)
 
-    //output api
+protected:
+    /** @reimpl */
     qint64 writeAudio(unsigned char *, qint64 maxSize) { return maxSize; }
+
+    /** @reimpl */
+    void drain() { }
+
+    /** @reimpl */
+    void reset() { }
+
+    /** @reimpl */
+    void suspend() { }
+
+    /** @reimpl */
+    void resume() { }
 
 };
 

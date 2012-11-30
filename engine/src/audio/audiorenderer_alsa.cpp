@@ -287,6 +287,49 @@ long AudioRendererAlsa::alsa_write(unsigned char *data, long size)
     return snd_pcm_prepare (pcm_handle);
 }
 
+void AudioRendererAlsa::drain()
+{
+    long m = 0;
+    snd_pcm_uframes_t l = snd_pcm_bytes_to_frames(pcm_handle, m_prebuf_fill);
+    while (l > 0)
+    {
+        if ((m = alsa_write(m_prebuf, l)) >= 0)
+        {
+            l -= m;
+            m = snd_pcm_frames_to_bytes(pcm_handle, m); // convert frames to bytes
+            m_prebuf_fill -= m;
+            memmove(m_prebuf, m_prebuf + m, m_prebuf_fill);
+        }
+        else
+            break;
+    }
+    snd_pcm_nonblock(pcm_handle, 0);
+    snd_pcm_drain(pcm_handle);
+    snd_pcm_nonblock(pcm_handle, 1);
+}
+
+void AudioRendererAlsa::reset()
+{
+    m_prebuf_fill = 0;
+    snd_pcm_drop(pcm_handle);
+    snd_pcm_prepare(pcm_handle);
+}
+
+void AudioRendererAlsa::suspend()
+{
+    if (m_can_pause)
+        snd_pcm_pause(pcm_handle, 1);
+    snd_pcm_prepare(pcm_handle);
+}
+
+void AudioRendererAlsa::resume()
+{
+    if (m_can_pause)
+        snd_pcm_pause(pcm_handle, 0);
+    snd_pcm_prepare(pcm_handle);
+}
+
+
 void AudioRendererAlsa::uninitialize()
 {
     if (!m_inited)

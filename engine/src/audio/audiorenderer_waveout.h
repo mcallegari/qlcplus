@@ -43,18 +43,29 @@ public:
     AudioRendererWaveOut(QObject * parent = 0);
     ~AudioRendererWaveOut();
 
+    /** @reimpl */
     bool initialize(quint32, int, AudioFormat format);
+
+    /** @reimpl */
     qint64 latency();
 
-    //output api
+protected:
+    /** @reimpl */
     qint64 writeAudio(unsigned char *data, qint64 maxSize);
 
-private:
+    /** @reimpl */
     void drain();
+
+    /** @reimpl */
     void suspend();
+
+    /** @reimpl */
     void resume();
+
+    /** @reimpl */
     void reset(); 
 
+private:
     // helper functions
     void status();
     void uninitialize();

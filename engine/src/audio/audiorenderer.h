@@ -23,6 +23,7 @@
 #define AUDIORENDERER_H
 
 #include <QThread>
+#include <QMutex>
 
 #include "audiodecoder.h"
 
@@ -48,10 +49,33 @@ public:
      * @return initialization result (\b true - success, \b false - failure)
      */
     virtual bool initialize(quint32 freq, int chan, AudioFormat format) = 0;
+
     /*!
      * Returns output interface latency in milliseconds.
      */
     virtual qint64 latency() = 0;
+
+    /*!
+     * Writes all remaining plugin's internal data to audio output device.
+     * Subclass should reimplement this function.
+     */
+    virtual void drain() = 0;
+
+    /*!
+     * Drops all plugin's internal data, resets audio device
+     * Subclass should reimplement this function.
+     */
+    virtual void reset() = 0;
+
+    /*!
+     * Stops processing audio data, preserving buffered audio data.
+     */
+    virtual void suspend() = 0;
+
+    /*!
+     * Resumes processing audio data.
+     */
+    virtual void resume() = 0;
 
     /*********************************************************************
      * Thread functions
@@ -76,6 +100,7 @@ protected:
 private:
     /** Reference to the decoder to be used as data source */
     AudioDecoder *m_adec;
+    QMutex m_mutex;
 
     /** Data buffer for audio */
     unsigned char audioData[8 * 1024];

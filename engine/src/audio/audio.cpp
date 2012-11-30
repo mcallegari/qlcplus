@@ -105,6 +105,9 @@ bool Audio::copyFrom(const Function* function)
     if (aud == NULL)
         return false;
 
+    m_audioDuration = aud->m_audioDuration;
+    m_color = aud->m_color;
+
     return Function::copyFrom(function);
 }
 
@@ -321,5 +324,11 @@ void Audio::postRun(MasterTimer* timer, UniverseArray* universes)
         m_object->stop();
 #endif
     if (m_audio_out != NULL)
+    {
         m_audio_out->stop();
+        delete m_audio_out;
+        m_audio_out = NULL;
+        m_decoder->seek(0);
+    }
+    Function::postRun(timer, universes);
 }

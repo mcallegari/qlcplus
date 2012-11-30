@@ -28,6 +28,7 @@
 #include "chaserstep.h"
 #include "showeditor.h"
 #include "chaser.h"
+#include "audio.h"
 #include "track.h"
 #include "scene.h"
 #include "show.h"
@@ -122,18 +123,28 @@ void ShowEditor::updateFunctionList()
         foreach(quint32 id, track->functionsID())
         {
             if (m_doc->function(id)->type() == Function::Chaser)
-        {
-            Chaser *chaser = qobject_cast<Chaser*>(m_doc->function(id));
-            QTreeWidgetItem *chItem = new QTreeWidgetItem(sceneItem);
-            chItem->setText(NAME_COL, chaser->name());
-            chItem->setData(NAME_COL, PROP_ID, chaser->id());
-            chItem->setIcon(NAME_COL, QIcon(":/sequence.png"));
-            chItem->setText(STEPS_COL, QString("%1").arg(chaser->steps().count()));
-            chItem->setText(TIME_COL, Function::speedToString(chaser->getStartTime()));
-            quint32 seq_duration = 0;
-            foreach (ChaserStep step, chaser->steps())
-                seq_duration += step.duration;
-            chItem->setText(DUR_COL, Function::speedToString(seq_duration));
+            {
+                Chaser *chaser = qobject_cast<Chaser*>(m_doc->function(id));
+                QTreeWidgetItem *chItem = new QTreeWidgetItem(sceneItem);
+                chItem->setText(NAME_COL, chaser->name());
+                chItem->setData(NAME_COL, PROP_ID, chaser->id());
+                chItem->setIcon(NAME_COL, QIcon(":/sequence.png"));
+                chItem->setText(STEPS_COL, QString("%1").arg(chaser->steps().count()));
+                chItem->setText(TIME_COL, Function::speedToString(chaser->getStartTime()));
+                quint32 seq_duration = 0;
+                foreach (ChaserStep step, chaser->steps())
+                    seq_duration += step.duration;
+                chItem->setText(DUR_COL, Function::speedToString(seq_duration));
+            }
+            else if (m_doc->function(id)->type() == Function::Audio)
+            {
+                Audio *audio = qobject_cast<Audio*>(m_doc->function(id));
+                QTreeWidgetItem *chItem = new QTreeWidgetItem(sceneItem);
+                chItem->setText(NAME_COL, audio->name());
+                chItem->setData(NAME_COL, PROP_ID, audio->id());
+                chItem->setIcon(NAME_COL, QIcon(":/audio.png"));
+                chItem->setText(TIME_COL, Function::speedToString(audio->getStartTime()));
+                chItem->setText(DUR_COL, Function::speedToString(audio->getDuration()));
             }
         }
     }

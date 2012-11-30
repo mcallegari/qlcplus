@@ -44,15 +44,32 @@ public:
     AudioRendererAlsa(QObject * parent = 0);
     ~AudioRendererAlsa();
 
+    /** @reimpl */
     bool initialize(quint32, int, AudioFormat format);
+
+    /** @reimpl */
     qint64 latency();
 
-    //output api
+protected:
+    /** @reimpl */
     qint64 writeAudio(unsigned char *data, qint64 maxSize);
+
+    /** @reimpl */
+    void drain();
+
+    /** @reimpl */
+    void reset();
+
+    /** @reimpl */
+    void suspend();
+
+    /** @reimpl */
+    void resume();
 
 private:
     // helper functions
     long alsa_write(unsigned char *data, long size);
+
     void uninitialize();
 
     bool m_inited;
