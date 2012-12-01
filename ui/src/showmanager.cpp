@@ -434,7 +434,11 @@ void ShowManager::slotAddAudio()
     QStringList filters;
     qDebug() << Q_FUNC_INFO << "Extensions: " << extList.join(" ");
     filters << tr("Audio Files (%1)").arg(extList.join(" "));
-    filters << tr("All files (*.*)");
+#ifdef WIN32
+    filters << tr("All Files (*.*)");
+#else
+    filters << tr("All Files (*)");
+#endif
     dialog.setNameFilters(filters);
 
     /* Append useful URLs to the dialog */

@@ -687,6 +687,10 @@ QFile::FileError App::slotFileOpen()
     /* Clear existing document data */
     clearDocument();
 
+    /* Set the workspace path before loading the new XML. In this way local files
+       can be loaded even if the workspace file has been moved */
+    m_doc->setWorkspacePath(QFileInfo(fn).absolutePath());
+
     /* Load the file */
     QFile::FileError error = loadXML(fn);
     if (handleFileError(error) == true)
@@ -757,6 +761,10 @@ QFile::FileError App::slotFileSaveAs()
     /* Always use the workspace suffix */
     if (fn.right(4) != KExtWorkspace)
         fn += KExtWorkspace;
+
+    /* Set the workspace path before saving the new XML. In this way local files
+       can be loaded even if the workspace file will be moved */
+    m_doc->setWorkspacePath(QFileInfo(fn).absolutePath());
 
     /* Save the document and set workspace name */
     QFile::FileError error = saveXML(fn);

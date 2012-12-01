@@ -488,6 +488,8 @@ void AudioItem::calculateWidth()
 
     if (audio_duration != 0)
         newWidth = ((50/m_timeScale) * audio_duration) / 1000;
+    else
+        newWidth = 100;
 
     if (newWidth < (50 / m_timeScale))
         newWidth = 50 / m_timeScale;

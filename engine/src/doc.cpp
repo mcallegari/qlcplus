@@ -44,6 +44,7 @@
 
 Doc::Doc(QObject* parent, int outputUniverses, int inputUniverses)
     : QObject(parent)
+    , m_wsPath("")
     , m_fixtureDefCache(new QLCFixtureDefCache)
     , m_ioPluginCache(new IOPluginCache(this))
     , m_outputMap(new OutputMap(this, outputUniverses))
@@ -132,6 +133,16 @@ void Doc::clearContents()
     m_addresses.clear();
 
     emit cleared();
+}
+
+void Doc::setWorkspacePath(QString path)
+{
+    m_wsPath = path;
+}
+
+QString Doc::getWorkspacePath()
+{
+    return m_wsPath;
 }
 
 /*****************************************************************************

@@ -66,12 +66,27 @@ public:
     /** Remove all functions and fixtures from the doc, signalling each removal. */
     void clearContents();
 
+    /**
+     * Set the current workspace absolute path. To be used when local files need
+     * to be loaded even if the workspace file has been moved
+     */
+    void setWorkspacePath(QString path);
+
+    /** Retieve the current workspace absolute path */
+    QString getWorkspacePath();
+
+private:
+    QString m_wsPath;
+
 signals:
     /** Emitted when clearContents() is called, before actually doing anything. */
     void clearing();
 
     /** Emitted when clearContents() has finished. */
     void cleared();
+
+    /** Emitted the document has been completely loaded */
+    void loaded();
 
     /*********************************************************************
      * Engine components
@@ -420,10 +435,6 @@ private:
      * to do post-load cleanup & mappings.
      */
     void postLoad();
-
-signals:
-    /** Signals that a document has been completely loaded */
-    void loaded();
 };
 
 #endif

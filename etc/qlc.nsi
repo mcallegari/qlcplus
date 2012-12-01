@@ -1,7 +1,36 @@
+;--------------------------------
+;Include Modern UI
+  !include "MUI2.nsh"
+
+;--------------------------------
+;Defines
+!define QLCPLUS_HOME "c:\Qt\qlcplus-code"
+!define MUI_ICON "${QLCPLUS_HOME}\gfx\qlc.ico"  
+!define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico"
+!define MUI_HEADERIMAGE
+!define MUI_HEADERIMAGE_BITMAP "${NSISDIR}\Contrib\Graphics\Header\win.bmp"
+!define MUI_HEADERIMAGE_LEFT
+!define MUI_PAGE_HEADER_TEXT "Q Light Controller Plus"
+
+;--------------------------------
+;General
 Name "Q Light Controller Plus"
 OutFile "qlc+_4.1.0.exe"
 InstallDir C:\QLC+
 RequestExecutionLevel user
+
+;--------------------------------
+;Languages
+!insertmacro MUI_LANGUAGE "English"
+!insertmacro MUI_LANGUAGE "Italian"
+!insertmacro MUI_LANGUAGE "German"
+!insertmacro MUI_LANGUAGE "Spanish"
+!insertmacro MUI_LANGUAGE "SpanishInternational"
+
+!define MUI_LICENSEPAGE_TEXT_TOP "Do you accept the following statement of the GNU GPLv2 license ?"
+
+!insertmacro MUI_PAGE_LICENSE "${QLCPLUS_HOME}\etc\License-gpl-2.txt"
+
 ;--------------------------------
 ; Pages
 Page directory
@@ -48,6 +77,12 @@ SectionEnd
 Section
 	File mingwm10.dll
 	File libgcc_s_dw2-1.dll
+	File libmad-0.dll
+	File libogg-0.dll
+	File libFLAC-8.dll
+	File libvorbis-0.dll
+	File libvorbisenc-2.dll
+	File libsndfile-1.dll
 	File qlc.exe
 	File qlc-fixtureeditor.exe
     File libqlcengine.a
@@ -90,6 +125,12 @@ Section "Uninstall"
     Delete $INSTDIR\libqlcui.a
 	Delete $INSTDIR\mingwm10.dll
 	Delete $INSTDIR\libgcc_s_dw2-1.dll
+	Delete $INSTDIR\libmad-0.dll
+	Delete $INSTDIR\libogg-0.dll
+	Delete $INSTDIR\libFLAC-8.dll
+	Delete $INSTDIR\libvorbis-0.dll
+	Delete $INSTDIR\libvorbisenc-2.dll
+	Delete $INSTDIR\libsndfile-1.dll
 	Delete $INSTDIR\QtCore4.dll
 	Delete $INSTDIR\QtGui4.dll
 	Delete $INSTDIR\QtXml4.dll

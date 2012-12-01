@@ -24,6 +24,8 @@
 #include <QDebug>
 #include <QFile>
 
+#include <QMessageBox>
+
 #ifdef QT_PHONON_LIB
 #include <phonon/mediaobject.h>
 #include <phonon/backendcapabilities.h>
@@ -59,6 +61,7 @@
 
 Audio::Audio(Doc* doc)
   : Function(doc, Function::Audio)
+  , m_doc(doc)
 #ifdef QT_PHONON_LIB
   , m_object(NULL)
 #endif
@@ -162,15 +165,31 @@ bool Audio::setSourceFileName(QString filename)
         if (m_decoder != NULL)
             delete m_decoder;
     }
+
 #ifdef QT_PHONON_LIB
     m_object = Phonon::createPlayer(Phonon::MusicCategory,
                                     Phonon::MediaSource(filename));
     if (m_object == NULL)
         return false;
 #endif
-    m_sourceFileName = filename;
-    QFileInfo ai(m_sourceFileName);
-    setName(ai.completeBaseName());
+    QString workPath = doc()->getWorkspacePath();
+    QFileInfo ai(filename);
+    //QMessageBox::warning(0,"Warning", QString("Project path: %1   ---  %2").arg(workPath).arg(ai.canonicalPath()));
+    if (ai.isRelative())
+        m_sourceFileName = workPath + QDir::separator() + filename;
+    else
+        m_sourceFileName = filename;
+
+    //QMessageBox::warning(0,"Warning", QString("File complete path: %1").arg(m_sourceFileName));
+
+    if (QFile(m_sourceFileName).exists())
+        setName(ai.baseName() + "." + ai.completeSuffix());
+    else
+    {
+        setName(tr("File not found"));
+        return true;
+    }
+
 #ifdef QT_PHONON_LIB
     connect(m_object, SIGNAL(totalTimeChanged(qint64)), this, SLOT(slotTotalTimeChanged(qint64)));
 #endif
@@ -220,6 +239,7 @@ void Audio::slotFunctionRemoved(quint32 fid)
 bool Audio::saveXML(QDomDocument* doc, QDomElement* wksp_root)
 {
     QDomElement root;
+    QDomText text;
 
     Q_ASSERT(doc != NULL);
     Q_ASSERT(wksp_root != NULL);
@@ -235,7 +255,13 @@ bool Audio::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     QDomElement source = doc->createElement(KXMLQLCAudioSource);
     source.setAttribute(KXMLQLCAudioStartTime, m_startTime);
     source.setAttribute(KXMLQLCAudioColor, m_color.name());
-    QDomText text = doc->createTextNode(m_sourceFileName);
+
+    QFileInfo ai(m_sourceFileName);
+    if (ai.absolutePath() == m_doc->getWorkspacePath())
+        text = doc->createTextNode(ai.baseName() + "." + ai.completeSuffix());
+    else
+        text = doc->createTextNode(m_sourceFileName);
+
     source.appendChild(text);
     root.appendChild(source);
 
@@ -267,8 +293,7 @@ bool Audio::loadXML(const QDomElement& root)
                 m_startTime = tag.attribute(KXMLQLCAudioStartTime).toUInt();
             if (tag.hasAttribute(KXMLQLCAudioColor))
                 m_color = QColor(tag.attribute(KXMLQLCAudioColor));
-            m_sourceFileName = tag.text();
-            setSourceFileName(m_sourceFileName);
+            setSourceFileName(tag.text());
         }
         node = node.nextSibling();
     }
