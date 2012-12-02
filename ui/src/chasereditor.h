@@ -75,6 +75,7 @@ private slots:
     void slotRaiseClicked();
     void slotLowerClicked();
     void slotItemSelectionChanged();
+    void slotItemChanged(QTreeWidgetItem*,int);
 
     /************************************************************************
      * Clipboard
@@ -164,6 +165,9 @@ private:
 
     /** helper routine to display the current steps of a chaser */
     void printSteps();
+
+private:
+    bool m_itemIsUpdating;
 };
 
 #endif

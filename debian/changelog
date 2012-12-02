@@ -1,3 +1,13 @@
+qlcplus (4.1.0) beta; urgency=low
+
+  * MAJOR: added audio tracks support in the Show Manager
+  * chaser steps can now be edited by double clicking on them in the Chaser Editor panel
+  * OLA plugin is back to work
+  * Windows installer refurbished for a modern look
+  * improved docs
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 27 Nov 2012 15:31:42 +0200
+
 qlcplus (4.0.2) beta; urgency=low
 
   * improved Scene channels save/load (please review your QLC+ projects)

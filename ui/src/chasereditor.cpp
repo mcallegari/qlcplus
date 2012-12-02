@@ -68,7 +68,7 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc)
     if (m_chaser->isSequence() == true)
     {
         m_tree->header()->setSectionHidden(COL_NAME, true);
-        //groupBox->hide();
+        groupBox->hide();
         m_pingPong->hide();
         groupBox_2->hide();
     }
@@ -210,6 +210,8 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc)
 
     connect(m_tree, SIGNAL(itemSelectionChanged()),
             this, SLOT(slotItemSelectionChanged()));
+    connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
+            this, SLOT(slotItemChanged(QTreeWidgetItem*,int)));
 
     connect(m_testButton, SIGNAL(toggled(bool)), this, SLOT(slotTestToggled(bool)));
     connect(m_testPreviousButton, SIGNAL(clicked()), this, SLOT(slotTestPreviousClicked()));
@@ -442,6 +444,30 @@ void ChaserEditor::slotItemSelectionChanged()
         updateSpeedDials();
         applyStepValues();
     }
+}
+
+void ChaserEditor::slotItemChanged(QTreeWidgetItem *item, int column)
+{
+    if (m_itemIsUpdating == true)
+        return;
+
+    QString itemText = item->text(column);
+    quint32 newValue = 0;
+    int idx = m_tree->indexOfTopLevelItem(item);
+
+    if (itemText.contains("."))
+        newValue = Function::stringToSpeed(itemText);
+    else
+        newValue = (itemText.toDouble() * 1000);
+    ChaserStep step = m_chaser->steps().at(idx);
+    if (column == COL_FADEIN)
+        step.fadeIn = newValue;
+    else if (column == COL_FADEOUT)
+        step.fadeOut = newValue;
+    else if (column == COL_DURATION)
+        step.duration = newValue;
+    m_chaser->replaceStep(step, idx);
+    updateItem(item, step);
 }
 
 /****************************************************************************
@@ -901,6 +927,9 @@ void ChaserEditor::updateItem(QTreeWidgetItem* item, ChaserStep& step)
     Q_ASSERT(function != NULL);
     Q_ASSERT(item != NULL);
 
+    m_itemIsUpdating = true;
+
+    item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
     //item->setData(COL_NUM, PROP_STEP, step.toVariant());
     /*item->setText(COL_FADEIN, QString("%1").arg(step.fadeIn));
     item->setText(COL_FADEOUT, QString("%1").arg(step.fadeOut));
@@ -948,6 +977,8 @@ void ChaserEditor::updateItem(QTreeWidgetItem* item, ChaserStep& step)
         item->setText(COL_DURATION, Function::speedToString(step.duration));
         break;
     }
+
+    m_itemIsUpdating = false;
 }
 
 void ChaserEditor::updateStepNumbers()

@@ -339,6 +339,9 @@ public:
     /** Pretty-print the given speed into a QString */
     static QString speedToString(uint ms);
 
+    /** returns value in msec of a string created by speedToString */
+    static uint stringToSpeed(QString speed);
+
 protected:
     /** Load the contents of a speed node */
     bool loadXMLSpeed(const QDomElement& speedRoot);
