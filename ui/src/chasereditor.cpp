@@ -278,13 +278,6 @@ void ChaserEditor::slotUpdateCurrentStep(SceneValue sv)
                 return;
             }
         }
-/*
-        // here ? means a new value needs to be added
-        step.values.append(sv);
-        m_chaser->replaceStep(step, idx);
-        qDebug() << Q_FUNC_INFO << "New value appended";
-        printSteps();
-*/
     }
 }
 
@@ -347,7 +340,6 @@ void ChaserEditor::slotAddClicked()
     {
         m_tree->setCurrentItem(item);
         updateStepNumbers();
-        //updateChaserContents();
         updateClipboardButtons();
         printSteps();
     }
@@ -387,7 +379,6 @@ void ChaserEditor::slotRaiseClicked()
     }
 
     updateStepNumbers();
-    //updateChaserContents();
 
     // Select the moved items
     it.toFront();
@@ -425,7 +416,6 @@ void ChaserEditor::slotLowerClicked()
     }
 
     updateStepNumbers();
-    //updateChaserContents();
 
     // Select the items
     it.toFront();
@@ -490,7 +480,6 @@ void ChaserEditor::slotCutClicked()
     m_tree->setCurrentItem(NULL);
 
     updateStepNumbers();
-    //updateChaserContents();
     updateClipboardButtons();
 }
 
@@ -533,7 +522,6 @@ void ChaserEditor::slotPasteClicked()
     }
 
     updateStepNumbers();
-    //updateChaserContents();
     updateClipboardButtons();
 }
 
@@ -869,7 +857,6 @@ void ChaserEditor::slotStepChanged(int stepNumber)
     if (m_tree->selectedItems().count() > 0)
         m_tree->selectedItems().first()->setSelected(false);
     m_tree->topLevelItem(stepNumber)->setSelected(true);
-    //m_tree->itemAt(stepNumber)->setSelected(true);
 }
 
 bool ChaserEditor::interruptRunning()
@@ -930,10 +917,6 @@ void ChaserEditor::updateItem(QTreeWidgetItem* item, ChaserStep& step)
     m_itemIsUpdating = true;
 
     item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
-    //item->setData(COL_NUM, PROP_STEP, step.toVariant());
-    /*item->setText(COL_FADEIN, QString("%1").arg(step.fadeIn));
-    item->setText(COL_FADEOUT, QString("%1").arg(step.fadeOut));
-    item->setText(COL_DURATION, QString("%1").arg(step.duration));*/
     item->setText(COL_NUM, QString("%1").arg(m_tree->indexOfTopLevelItem(item) + 1));
     item->setText(COL_NAME, function->name());
     step.fid = function->id();
@@ -994,13 +977,6 @@ void ChaserEditor::updateStepNumbers()
 ChaserStep ChaserEditor::stepAtItem(const QTreeWidgetItem* item) const
 {
     Q_ASSERT(item != NULL);
-/*
-    QVariant var = item->data(COL_NUM, PROP_STEP);
-    if (var.isValid() == true)
-        return ChaserStep::fromVariant(var);
-    else
-        return ChaserStep();
-*/
 
     int idx = item->text(COL_NUM).toInt() - 1;
     if (idx < 0)
@@ -1011,39 +987,11 @@ ChaserStep ChaserEditor::stepAtItem(const QTreeWidgetItem* item) const
 
 ChaserStep ChaserEditor::stepAtIndex(int index) const
 {
-/*
-    if (index < 0 || index >= m_tree->topLevelItemCount())
-        return ChaserStep();
-
-    QTreeWidgetItem* item = m_tree->topLevelItem(index);
-    return stepAtItem(item);
-*/
     if (index < 0 || index > m_chaser->steps().count())
         return ChaserStep();
 
     return m_chaser->steps().at(index);
 }
-
-/*
-void ChaserEditor::updateChaserContents()
-{
-    Q_ASSERT(m_chaser != NULL);
-    qDebug() << "******************************* EVIL CLEAR *************************";
-
-    // Stop running while modifying chaser contents
-    bool running = interruptRunning();
-
-    m_chaser->clear();
-    for (int i = 0; i < m_tree->topLevelItemCount(); i++)
-    {
-        ChaserStep step = stepAtIndex(i);
-        m_chaser->addStep(step);
-    }
-
-    // Continue running if appropriate
-    continueRunning(running);
-}
-*/
 
 void ChaserEditor::updateClipboardButtons()
 {

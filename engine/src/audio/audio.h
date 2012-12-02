@@ -115,6 +115,11 @@ public:
      */
     QString getSourceFileName();
 
+    /**
+     * Retrieve the currently associated audio decoder
+     */
+    AudioDecoder* getAudioDecoder();
+
 private:
 #ifdef QT_PHONON_LIB
     Phonon::MediaObject *m_object;

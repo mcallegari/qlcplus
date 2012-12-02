@@ -154,7 +154,6 @@ void ShowRunner::write()
     }
     if (m_elapsedTime >= m_totalRunTime)
     {
-        //stop();
         emit showFinished();
         return;
     }

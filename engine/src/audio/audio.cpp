@@ -222,6 +222,11 @@ QString Audio::getSourceFileName()
     return m_sourceFileName;
 }
 
+AudioDecoder* Audio::getAudioDecoder()
+{
+    return m_decoder;
+}
+
 void Audio::slotTotalTimeChanged(qint64)
 {
 #ifdef QT_PHONON_LIB

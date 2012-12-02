@@ -25,6 +25,7 @@
 
 #include <QGraphicsItem>
 #include <QObject>
+#include <QAction>
 #include <QFont>
 
 #include "chaser.h"
@@ -236,13 +237,17 @@ signals:
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
 
 protected slots:
     void slotAudioChanged(quint32);
+    void slotAudioPreview(bool active);
 
 private:
     /** Calculate sequence width for paint() and boundingRect() */
     void calculateWidth();
+    /** Retrieve a sample value from an audio buffer, given the sample size */
+    qint32 getSample(unsigned char *data, int *idx, int sampleSize);
 
 private:
     QFont m_font;
@@ -255,6 +260,11 @@ private:
     int m_timeScale;
     /** track index this Audio object belongs to */
     int m_trackIdx;
+
+    /** Context menu actions */
+    QAction *m_previewAction;
+    /** Pixmap holding the waveform (if enabled) */
+    QPixmap *m_preview;
 };
 
 #endif

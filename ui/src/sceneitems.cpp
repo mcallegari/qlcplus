@@ -20,7 +20,9 @@
 */
 
 #include <QtGui>
+#include <QMenu>
 
+#include "audiodecoder.h"
 #include "sceneitems.h"
 #include "chaserstep.h"
 
@@ -463,6 +465,8 @@ AudioItem::AudioItem(Audio *aud)
     , m_width(50)
     , m_timeScale(3)
     , m_trackIdx(-1)
+    , m_previewAction(NULL)
+    , m_preview(NULL)
 {
     Q_ASSERT(aud != NULL);
     setToolTip(QString("Start time: %1\n%2")
@@ -479,6 +483,11 @@ AudioItem::AudioItem(Audio *aud)
     calculateWidth();
     connect(m_audio, SIGNAL(changed(quint32)), this, SLOT(slotAudioChanged(quint32)));
 
+    /* Edit actions */
+    m_previewAction = new QAction(tr("&Preview"), this);
+    m_previewAction->setCheckable(true);
+    connect(m_previewAction, SIGNAL(toggled(bool)),
+            this, SLOT(slotAudioPreview(bool)));
 }
 
 void AudioItem::calculateWidth()
@@ -526,7 +535,12 @@ void AudioItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     // draw track name
     painter->setPen(QPen(QColor(220, 220, 220, 255), 2));
     painter->drawText(5, 15, m_audio->name());
-
+    if (m_previewAction->isChecked() && m_preview != NULL)
+    {
+        // show preview here
+        QPixmap waveform = m_preview->scaled(m_width, 76);
+        painter->drawPixmap(0, 0, waveform);
+    }
 }
 
 void AudioItem::updateDuration()
@@ -574,6 +588,97 @@ void AudioItem::slotAudioChanged(quint32)
     calculateWidth();
 }
 
+qint32 AudioItem::getSample(unsigned char *data, int *idx, int sampleSize)
+{
+    qint32 value = data[*idx];
+    *idx+=1;
+    if (sampleSize == 2)
+    {
+        value = (((value << 8) & 0xFF00) + (qint32)data[*idx]);
+        *idx+=1;
+    }
+    else if (sampleSize == 4)
+    {
+        value = (value + ((qint32)data[*idx] << 24) + ((qint32)data[*idx + 1] << 16) + ((qint32)data[*idx + 2] << 8));
+        *idx+=3;
+    }
+    return value;
+}
+
+void AudioItem::slotAudioPreview(bool active)
+{
+    qDebug() << Q_FUNC_INFO << "Toggled: " << active;
+    if (active == true && m_audio->getAudioDecoder() != NULL)
+    {
+        AudioDecoder *ad = m_audio->getAudioDecoder();
+        AudioParameters ap = ad->audioParameters();
+        // 1- find out how many samples have to be represented on a single pixel on a 1:1 time scale
+        int sampleSize = ap.sampleSize();
+        int channels = ap.channels();
+        int oneSecondSamples = ap.sampleRate() * sampleSize * channels;
+        int onePixelSamples = oneSecondSamples / 50;
+        qint32 maxValue = qPow(0xFF, sampleSize);
+
+        // 2- decode the whole file and fill a QPixmap with a sample block RMS value for each pixel
+        qint64 dataRead = 1;
+        unsigned char audioData[onePixelSamples];
+        m_preview = new QPixmap((50 * m_audio->getDuration()) / 1000, 76);
+        m_preview->fill(Qt::transparent);
+        QPainter p(m_preview);
+        int xpos = 0;
+
+        qDebug() << "Samples per second: " << oneSecondSamples << ", for one pixel: " << onePixelSamples;
+
+        while (dataRead)
+        {
+            dataRead = ad->read((char *)audioData, onePixelSamples);
+            if (dataRead > 0)
+            {
+                int i = 0;
+/*
+                quint32 sampleVal = getSample(audioData, &i, sampleSize);
+                if (sampleSize == 2)
+                {
+                    quint32 evenSampleVal = getSample(audioData, &i, sampleSize);
+                    sampleVal = (sampleVal + evenSampleVal) / 2;
+                }
+                qint32 lineHeight = (76 * sampleVal) / maxValue;
+*/
+                // calculate the RMS value (peak) for this data block
+                double rms = 0;
+                bool done = false;
+                while (!done)
+                {
+                    qint32 sampleVal = getSample(audioData, &i, sampleSize);
+                    if (channels == 2)
+                    {
+                        //qint32 evenSampleVal = getSample(audioData, &i, sampleSize);
+                        getSample(audioData, &i, sampleSize);
+                        //sampleVal = (sampleVal + evenSampleVal) / 2;
+                    }
+                    rms += (sampleVal * sampleVal);
+
+                    if (i >= dataRead)
+                        done = true;
+                }
+                rms = sqrt(rms/((dataRead / sampleSize) / channels));
+
+                qint32 lineHeight = (76 * rms) / maxValue;
+                if (lineHeight > 0)
+                    p.drawLine(xpos, 38 - (lineHeight / 2), xpos, 38 + (lineHeight / 2));
+                else
+                    p.drawLine(xpos, 38, xpos + 1, 38);
+                //qDebug() << "Data read: " << dataRead << ", rms: " << sampleVal << ", line height: " << lineHeight << ", xpos = " << xpos;
+                xpos++;
+            }
+        }
+
+
+        ad->seek(0);
+    }
+    update();
+}
+
 void AudioItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mousePressEvent(event);
@@ -586,4 +691,14 @@ void AudioItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     qDebug() << Q_FUNC_INFO << "mouse RELEASE event - <" << event->pos().toPoint().x() << "> - <" << event->pos().toPoint().y() << ">";
     setCursor(Qt::OpenHandCursor);
     emit itemDropped(event, this);
+}
+
+void AudioItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
+{
+    /*
+    QMenu menu;
+    menu.addAction(m_previewAction);
+
+    menu.exec(QCursor::pos());
+    */
 }
