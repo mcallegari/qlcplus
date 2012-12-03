@@ -241,13 +241,18 @@ protected:
 
 protected slots:
     void slotAudioChanged(quint32);
-    void slotAudioPreview(bool active);
+
+    void slotAudioPreviewLeft(bool active);
+    void slotAudioPreviewRight(bool active);
+    void slotAudioPreviewStero(bool active);
 
 private:
     /** Calculate sequence width for paint() and boundingRect() */
     void calculateWidth();
     /** Retrieve a sample value from an audio buffer, given the sample size */
     qint32 getSample(unsigned char *data, quint32 *idx, int sampleSize);
+    /** Routine that decode the whole and create the waveform QPixmap */
+    void createWaveform(bool left, bool right);
 
 private:
     QFont m_font;
@@ -262,7 +267,9 @@ private:
     int m_trackIdx;
 
     /** Context menu actions */
-    QAction *m_previewAction;
+    QAction *m_previewLeftAction;
+    QAction *m_previewRightAction;
+    QAction *m_previewStereoAction;
     /** Pixmap holding the waveform (if enabled) */
     QPixmap *m_preview;
 };

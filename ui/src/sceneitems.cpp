@@ -465,7 +465,9 @@ AudioItem::AudioItem(Audio *aud)
     , m_width(50)
     , m_timeScale(3)
     , m_trackIdx(-1)
-    , m_previewAction(NULL)
+    , m_previewLeftAction(NULL)
+    , m_previewRightAction(NULL)
+    , m_previewStereoAction(NULL)
     , m_preview(NULL)
 {
     Q_ASSERT(aud != NULL);
@@ -483,11 +485,19 @@ AudioItem::AudioItem(Audio *aud)
     calculateWidth();
     connect(m_audio, SIGNAL(changed(quint32)), this, SLOT(slotAudioChanged(quint32)));
 
-    /* Edit actions */
-    m_previewAction = new QAction(tr("&Preview"), this);
-    m_previewAction->setCheckable(true);
-    connect(m_previewAction, SIGNAL(toggled(bool)),
-            this, SLOT(slotAudioPreview(bool)));
+    /* Preview actions */
+    m_previewLeftAction = new QAction(tr("Preview Left Channel"), this);
+    m_previewLeftAction->setCheckable(true);
+    connect(m_previewLeftAction, SIGNAL(toggled(bool)),
+            this, SLOT(slotAudioPreviewLeft(bool)));
+    m_previewRightAction = new QAction(tr("Preview Right Channel"), this);
+    m_previewRightAction->setCheckable(true);
+    connect(m_previewRightAction, SIGNAL(toggled(bool)),
+            this, SLOT(slotAudioPreviewRight(bool)));
+    m_previewStereoAction = new QAction(tr("Preview Stereo Channels"), this);
+    m_previewStereoAction->setCheckable(true);
+    connect(m_previewStereoAction, SIGNAL(toggled(bool)),
+            this, SLOT(slotAudioPreviewStero(bool)));
 }
 
 void AudioItem::calculateWidth()
@@ -529,7 +539,7 @@ void AudioItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     painter->drawRect(0, 0, m_width, 77);
 
     painter->setFont(m_font);
-    if (m_previewAction->isChecked() && m_preview != NULL)
+    if (m_preview != NULL)
     {
         // show preview here
         QPixmap waveform = m_preview->scaled(m_width, 76);
@@ -608,10 +618,30 @@ qint32 AudioItem::getSample(unsigned char *data, quint32 *idx, int sampleSize)
     return value;
 }
 
-void AudioItem::slotAudioPreview(bool active)
+void AudioItem::slotAudioPreviewLeft(bool active)
 {
-    qDebug() << Q_FUNC_INFO << "Toggled: " << active;
-    if (active == true && m_audio->getAudioDecoder() != NULL)
+    m_previewRightAction->setChecked(false);
+    m_previewStereoAction->setChecked(false);
+    createWaveform(active, false);
+}
+
+void AudioItem::slotAudioPreviewRight(bool active)
+{
+    m_previewLeftAction->setChecked(false);
+    m_previewStereoAction->setChecked(false);
+    createWaveform(false, active);
+}
+
+void AudioItem::slotAudioPreviewStero(bool active)
+{
+    m_previewLeftAction->setChecked(false);
+    m_previewRightAction->setChecked(false);
+    createWaveform(active, active);
+}
+
+void AudioItem::createWaveform(bool left, bool right)
+{
+    if ((left == true || right == true) && m_audio->getAudioDecoder() != NULL)
     {
         AudioDecoder *ad = m_audio->getAudioDecoder();
         AudioParameters ap = ad->audioParameters();
@@ -621,12 +651,17 @@ void AudioItem::slotAudioPreview(bool active)
         int oneSecondSamples = ap.sampleRate() * channels;
         int onePixelSamples = oneSecondSamples / 50;
         //qint32 maxValue = qPow(0xFF, sampleSize);
-        qint32 maxValue = 0x7F << (8 * (sampleSize - 1));
+        qint32 maxValue = 0;
+        if (left == true && right == true)
+            maxValue = 0x7F << (8 * (sampleSize - 1));
+        else
+            maxValue = 0x3F << (8 * (sampleSize - 1));
+        quint32 defaultDataLen = onePixelSamples * sampleSize;
 
         // 2- decode the whole file and fill a QPixmap with a sample block RMS value for each pixel
         qint64 dataRead = 1;
-        unsigned char audioData[onePixelSamples * sampleSize * 2];
-        quint32 audioDataRead = 0;
+        unsigned char audioData[defaultDataLen * 4];
+        quint32 audioDataOffset = 0;
         m_preview = new QPixmap((50 * m_audio->getDuration()) / 1000, 76);
         m_preview->fill(Qt::transparent);
         QPainter p(m_preview);
@@ -640,59 +675,117 @@ void AudioItem::slotAudioPreview(bool active)
         while (dataRead)
         {
             quint32 tmpExceedData = 0;
-            dataRead = ad->read((char *)audioData + audioDataRead, onePixelSamples * sampleSize);
+            if (audioDataOffset < defaultDataLen)
+            {
+                dataRead = ad->read((char *)audioData + audioDataOffset, defaultDataLen * 2);
+                if (dataRead > 0)
+                {
+                    if(dataRead + audioDataOffset >= defaultDataLen)
+                    {
+                        tmpExceedData = dataRead + audioDataOffset - defaultDataLen;
+                        dataRead = defaultDataLen;
+                    }
+                    else
+                    {
+                        audioDataOffset = dataRead;
+                        continue;
+                    }
+                }
+            }
+            else
+            {
+                dataRead = defaultDataLen;
+                tmpExceedData = audioDataOffset - defaultDataLen;
+            }
+
             if (dataRead > 0)
             {
-                // check if returned data is less than needed (compressed formats case)
-                if((dataRead + audioDataRead) < (onePixelSamples * sampleSize))
-                {
-                    qDebug() << "Not enough data. Wanted: " << (onePixelSamples * sampleSize) << ", got: " << dataRead;
-                    audioDataRead = dataRead;
-                    continue;
-                }
-                else
-                    tmpExceedData = (dataRead + audioDataRead) - (onePixelSamples * sampleSize);
-
                 quint32 i = 0;
                 // calculate the RMS value (peak) for this data block
-                double rms = 0;
+                double rmsLeft = 0;
+                double rmsRight = 0;
                 bool done = false;
                 while (!done)
                 {
-                    qint32 sampleVal = getSample(audioData, &i, sampleSize);
-                    //qDebug() << "sample #" << i << ": " << sampleVal;
+                    if (left == true)
+                    {
+                        qint32 sampleVal = getSample(audioData, &i, sampleSize);
+                        rmsLeft += (sampleVal * sampleVal);
+                    }
                     if (channels == 2)
                     {
-                        //qint32 evenSampleVal = getSample(audioData, &i, sampleSize);
-                        getSample(audioData, &i, sampleSize);
-                        //sampleVal = (sampleVal + evenSampleVal) / 2;
+                        if (right == true)
+                        {
+                            qint32 sampleVal = getSample(audioData, &i, sampleSize);
+                            rmsRight += (sampleVal * sampleVal);
+                        }
+                        else
+                            getSample(audioData, &i, sampleSize); // got to read it anyway and discard data
                     }
-                    rms += (sampleVal * sampleVal);
 
                     if (i >= dataRead / sampleSize)
                         done = true;
                 }
-                rms = sqrt(rms/((dataRead / sampleSize) / channels));
+                quint32 divisor = (dataRead / sampleSize) / channels;
+                if (left == true)
+                    rmsLeft = sqrt(rmsLeft / divisor);
+                if (right == true)
+                    rmsRight = sqrt(rmsRight / divisor);
 
-                qint32 lineHeight = (76 * rms) / maxValue;
-                if (lineHeight > 0)
-                    p.drawLine(xpos, 38 - (lineHeight / 2), xpos, 38 + (lineHeight / 2));
+                // 3- Draw the actual waveform
+                unsigned short lineHeightLeft = 0, lineHeightRight = 0;
+
+                if (left == true)
+                    lineHeightLeft = (76 * rmsLeft) / maxValue;
+                if (right == true)
+                    lineHeightRight = (76 * rmsRight) / maxValue;
+
+                if (left == true && right == true)
+                {
+                    if (lineHeightLeft > 1)
+                        p.drawLine(xpos, 19 - (lineHeightLeft / 2), xpos, 19 + (lineHeightLeft / 2));
+                    else
+                        p.drawLine(xpos, 19, xpos + 1, 19);
+
+                    if (lineHeightRight > 1)
+                        p.drawLine(xpos, 51 - (lineHeightRight / 2), xpos, 51 + (lineHeightRight / 2));
+                    else
+                        p.drawLine(xpos, 51, xpos + 1, 51);
+                }
                 else
-                    p.drawLine(xpos, 38, xpos + 1, 38);
-                //qDebug() << "Data read: " << dataRead << ", rms: " << rms << ", line height: " << lineHeight << ", xpos = " << xpos;
+                {
+                    unsigned short lineHeight = 0;
+                    if (left == true)
+                        lineHeight = lineHeightLeft;
+                    else
+                        lineHeight = lineHeightRight;
+                    if (lineHeight > 1)
+                        p.drawLine(xpos, 38 - (lineHeight / 2), xpos, 38 + (lineHeight / 2));
+                    else
+                        p.drawLine(xpos, 38, xpos + 1, 38);
+                    //qDebug() << "Data read: " << dataRead << ", rms: " << rms << ", line height: " << lineHeight << ", xpos = " << xpos;
+                }
                 xpos++;
 
                 if (tmpExceedData > 0)
                 {
-                    qDebug() << "Exceed data found: " << tmpExceedData;
-                    memmove(audioData, audioData + (onePixelSamples * sampleSize), tmpExceedData);
-                    audioDataRead = tmpExceedData;
+                    //qDebug() << "Exceed data found: " << tmpExceedData;
+                    memmove(audioData, audioData + defaultDataLen, tmpExceedData);
+                    audioDataOffset = tmpExceedData;
                 }
+                else
+                    audioDataOffset = 0;
             }
         }
-        qDebug() << "Iterations done: " << xpos;
+        //qDebug() << "Iterations done: " << xpos;
         ad->seek(0);
     }
+    else // no preview selected. Delete pixmap
+    {
+        delete m_preview;
+        m_preview = NULL;
+    }
+
     update();
 }
 
@@ -712,10 +805,22 @@ void AudioItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 void AudioItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
 {
-#if 0
-    QMenu menu;
-    menu.addAction(m_previewAction);
+    if (m_audio->getAudioDecoder() != NULL)
+    {
+        AudioDecoder *ad = m_audio->getAudioDecoder();
+        AudioParameters ap = ad->audioParameters();
 
-    menu.exec(QCursor::pos());
-#endif
+        QMenu menu;
+        if (ap.channels() == 1)
+            m_previewLeftAction->setText(tr("Preview Mono"));
+        menu.addAction(m_previewLeftAction);
+        if (ap.channels() == 2)
+        {
+            m_previewLeftAction->setText(tr("Preview Left Channel"));
+            menu.addAction(m_previewRightAction);
+            menu.addAction(m_previewStereoAction);
+        }
+
+        menu.exec(QCursor::pos());
+    }
 }
