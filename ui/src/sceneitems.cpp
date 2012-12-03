@@ -529,18 +529,18 @@ void AudioItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     painter->drawRect(0, 0, m_width, 77);
 
     painter->setFont(m_font);
-    // draw shadow
-    painter->setPen(QPen(QColor(10, 10, 10, 150), 2));
-    painter->drawText(6, 16, m_audio->name());
-    // draw track name
-    painter->setPen(QPen(QColor(220, 220, 220, 255), 2));
-    painter->drawText(5, 15, m_audio->name());
     if (m_previewAction->isChecked() && m_preview != NULL)
     {
         // show preview here
         QPixmap waveform = m_preview->scaled(m_width, 76);
         painter->drawPixmap(0, 0, waveform);
     }
+    // draw shadow
+    painter->setPen(QPen(QColor(10, 10, 10, 150), 2));
+    painter->drawText(6, 16, m_audio->name());
+    // draw track name
+    painter->setPen(QPen(QColor(220, 220, 220, 255), 2));
+    painter->drawText(5, 15, m_audio->name());
 }
 
 void AudioItem::updateDuration()
@@ -618,26 +618,41 @@ void AudioItem::slotAudioPreview(bool active)
         // 1- find out how many samples have to be represented on a single pixel on a 1:1 time scale
         int sampleSize = ap.sampleSize();
         int channels = ap.channels();
-        int oneSecondSamples = ap.sampleRate() * sampleSize * channels;
+        int oneSecondSamples = ap.sampleRate() * channels;
         int onePixelSamples = oneSecondSamples / 50;
         //qint32 maxValue = qPow(0xFF, sampleSize);
         qint32 maxValue = 0x7F << (8 * (sampleSize - 1));
 
         // 2- decode the whole file and fill a QPixmap with a sample block RMS value for each pixel
         qint64 dataRead = 1;
-        unsigned char audioData[onePixelSamples * sampleSize];
+        unsigned char audioData[onePixelSamples * sampleSize * 2];
+        quint32 audioDataRead = 0;
         m_preview = new QPixmap((50 * m_audio->getDuration()) / 1000, 76);
         m_preview->fill(Qt::transparent);
         QPainter p(m_preview);
         int xpos = 0;
 
+        qDebug() << "Audio duration: " << m_audio->getDuration() <<
+                    ", pixmap width: " << ((50 * m_audio->getDuration()) / 1000) <<
+                    ", maxValue: " << maxValue;
         qDebug() << "Samples per second: " << oneSecondSamples << ", for one pixel: " << onePixelSamples;
 
         while (dataRead)
         {
-            dataRead = ad->read((char *)audioData, onePixelSamples * sampleSize);
+            quint32 tmpExceedData = 0;
+            dataRead = ad->read((char *)audioData + audioDataRead, onePixelSamples * sampleSize);
             if (dataRead > 0)
             {
+                // check if returned data is less than needed (compressed formats case)
+                if((dataRead + audioDataRead) < (onePixelSamples * sampleSize))
+                {
+                    qDebug() << "Not enough data. Wanted: " << (onePixelSamples * sampleSize) << ", got: " << dataRead;
+                    audioDataRead = dataRead;
+                    continue;
+                }
+                else
+                    tmpExceedData = (dataRead + audioDataRead) - (onePixelSamples * sampleSize);
+
                 quint32 i = 0;
                 // calculate the RMS value (peak) for this data block
                 double rms = 0;
@@ -666,10 +681,16 @@ void AudioItem::slotAudioPreview(bool active)
                     p.drawLine(xpos, 38, xpos + 1, 38);
                 //qDebug() << "Data read: " << dataRead << ", rms: " << rms << ", line height: " << lineHeight << ", xpos = " << xpos;
                 xpos++;
+
+                if (tmpExceedData > 0)
+                {
+                    qDebug() << "Exceed data found: " << tmpExceedData;
+                    memmove(audioData, audioData + (onePixelSamples * sampleSize), tmpExceedData);
+                    audioDataRead = tmpExceedData;
+                }
             }
         }
-
-
+        qDebug() << "Iterations done: " << xpos;
         ad->seek(0);
     }
     update();
@@ -691,10 +712,10 @@ void AudioItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 void AudioItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
 {
-    /*
+#if 0
     QMenu menu;
     menu.addAction(m_previewAction);
 
     menu.exec(QCursor::pos());
-    */
+#endif
 }
