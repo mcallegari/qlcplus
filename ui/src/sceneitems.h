@@ -247,7 +247,7 @@ private:
     /** Calculate sequence width for paint() and boundingRect() */
     void calculateWidth();
     /** Retrieve a sample value from an audio buffer, given the sample size */
-    qint32 getSample(unsigned char *data, int *idx, int sampleSize);
+    qint32 getSample(unsigned char *data, quint32 *idx, int sampleSize);
 
 private:
     QFont m_font;

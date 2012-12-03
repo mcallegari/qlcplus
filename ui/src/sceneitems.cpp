@@ -588,14 +588,17 @@ void AudioItem::slotAudioChanged(quint32)
     calculateWidth();
 }
 
-qint32 AudioItem::getSample(unsigned char *data, int *idx, int sampleSize)
+qint32 AudioItem::getSample(unsigned char *data, quint32 *idx, int sampleSize)
 {
-    qint32 value = data[*idx];
-    *idx+=1;
+    qint32 value = 0;
+    if (sampleSize == 1)
+        value = (qint32)data[(*idx)++];
     if (sampleSize == 2)
     {
-        value = (((value << 8) & 0xFF00) + (qint32)data[*idx]);
-        *idx+=1;
+        qint16 *tmpdata = (qint16 *)data;
+        qint16 twobytes = tmpdata[*idx];
+        value = twobytes;
+        *idx+=2;
     }
     else if (sampleSize == 4)
     {
@@ -617,11 +620,12 @@ void AudioItem::slotAudioPreview(bool active)
         int channels = ap.channels();
         int oneSecondSamples = ap.sampleRate() * sampleSize * channels;
         int onePixelSamples = oneSecondSamples / 50;
-        qint32 maxValue = qPow(0xFF, sampleSize);
+        //qint32 maxValue = qPow(0xFF, sampleSize);
+        qint32 maxValue = 0x7F << (8 * (sampleSize - 1));
 
         // 2- decode the whole file and fill a QPixmap with a sample block RMS value for each pixel
         qint64 dataRead = 1;
-        unsigned char audioData[onePixelSamples];
+        unsigned char audioData[onePixelSamples * sampleSize];
         m_preview = new QPixmap((50 * m_audio->getDuration()) / 1000, 76);
         m_preview->fill(Qt::transparent);
         QPainter p(m_preview);
@@ -631,25 +635,17 @@ void AudioItem::slotAudioPreview(bool active)
 
         while (dataRead)
         {
-            dataRead = ad->read((char *)audioData, onePixelSamples);
+            dataRead = ad->read((char *)audioData, onePixelSamples * sampleSize);
             if (dataRead > 0)
             {
-                int i = 0;
-/*
-                quint32 sampleVal = getSample(audioData, &i, sampleSize);
-                if (sampleSize == 2)
-                {
-                    quint32 evenSampleVal = getSample(audioData, &i, sampleSize);
-                    sampleVal = (sampleVal + evenSampleVal) / 2;
-                }
-                qint32 lineHeight = (76 * sampleVal) / maxValue;
-*/
+                quint32 i = 0;
                 // calculate the RMS value (peak) for this data block
                 double rms = 0;
                 bool done = false;
                 while (!done)
                 {
                     qint32 sampleVal = getSample(audioData, &i, sampleSize);
+                    //qDebug() << "sample #" << i << ": " << sampleVal;
                     if (channels == 2)
                     {
                         //qint32 evenSampleVal = getSample(audioData, &i, sampleSize);
@@ -658,7 +654,7 @@ void AudioItem::slotAudioPreview(bool active)
                     }
                     rms += (sampleVal * sampleVal);
 
-                    if (i >= dataRead)
+                    if (i >= dataRead / sampleSize)
                         done = true;
                 }
                 rms = sqrt(rms/((dataRead / sampleSize) / channels));
@@ -668,7 +664,7 @@ void AudioItem::slotAudioPreview(bool active)
                     p.drawLine(xpos, 38 - (lineHeight / 2), xpos, 38 + (lineHeight / 2));
                 else
                     p.drawLine(xpos, 38, xpos + 1, 38);
-                //qDebug() << "Data read: " << dataRead << ", rms: " << sampleVal << ", line height: " << lineHeight << ", xpos = " << xpos;
+                //qDebug() << "Data read: " << dataRead << ", rms: " << rms << ", line height: " << lineHeight << ", xpos = " << xpos;
                 xpos++;
             }
         }
