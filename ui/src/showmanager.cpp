@@ -217,9 +217,8 @@ void ShowManager::initToolbar()
 
     m_toolbar->addAction(m_addTrackAction);
     m_toolbar->addAction(m_addSequenceAction);
-#ifndef __APPLE__
     m_toolbar->addAction(m_addAudioAction);
-#endif
+
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_cloneAction);
     m_toolbar->addAction(m_deleteAction);

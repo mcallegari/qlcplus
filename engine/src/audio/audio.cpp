@@ -42,7 +42,7 @@
 #include "audiorenderer.h"
 
 #if defined(__APPLE__)
-  #include "audiorenderer_null.h"
+  #include "audiorenderer_coreaudio.h"
 #elif defined(WIN32)
   #include "audiorenderer_waveout.h"
 #else
@@ -326,7 +326,7 @@ void Audio::preRun(MasterTimer* timer)
     {
         AudioParameters ap = m_decoder->audioParameters();
 #if defined(__APPLE__)
-        m_audio_out = new AudioRendererNull();
+        m_audio_out = new AudioRendererCoreAudio();
 #elif defined(WIN32)
         m_audio_out = new AudioRendererWaveOut();
 #else
