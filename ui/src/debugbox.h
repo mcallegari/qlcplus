@@ -1,8 +1,8 @@
 /*
   Q Light Controller
-  velleman_mock.cpp
+  debugbox.h
 
-  Copyright (c) Heikki Junnila
+  Copyright (c) Massimo Callegari
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License
@@ -19,34 +19,24 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#include <stdlib.h>
-#ifdef WIN32
-#       include <stdint.h> // int32_t
-#endif
+#ifndef DEBUGBOX_H
+#define DEBUGBOX_H
 
-extern "C"
+#include <QDialog>
+#include "ui_debugbox.h"
+
+#define DEBUGBOX_FLAGS Qt::WindowFlags(Qt::Window)
+
+class DebugBox : public QDialog, public Ui_DebugBox
 {
-    int _StartDeviceCalled = 0;
-    void StartDevice()
-    {
-        _StartDeviceCalled++;
-    }
+    Q_OBJECT
+    Q_DISABLE_COPY(DebugBox)
 
-    int _StopDeviceCalled = 0;
-    void StopDevice()
-    {
-        _StopDeviceCalled++;
-    }
+public:
+    DebugBox(QWidget* parent = 0, Qt::WindowFlags flags = DEBUGBOX_FLAGS);
+    ~DebugBox();
 
-    int _ChannelCount = 0;
-    void SetChannelCount(int32_t Count)
-    {
-        _ChannelCount = Count;
-    }
+    void addText(QString text);
+};
 
-    int* _SetAllData = NULL;
-    void SetAllData(int32_t Data[])
-    {
-        _SetAllData = Data;
-    }
-}
+#endif

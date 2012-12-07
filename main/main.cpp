@@ -33,6 +33,7 @@
 #include <QDir>
 
 #include "qlcconfig.h"
+#include "debugbox.h"
 #include "qlci18n.h"
 
 #include "app.h"
@@ -67,6 +68,11 @@ namespace QLCArgs
 
     /** Debug output level */
     QtMsgType debugLevel = QtSystemMsg;
+
+#if defined(WIN32) || defined(__APPLE__)
+    /** The debug windows for Windows and OSX */
+    DebugBox *dbgBox = NULL;
+#endif
 }
 
 /**
@@ -76,9 +82,13 @@ void qlcMessageHandler(QtMsgType type, const char* msg)
 {
     if (type >= QLCArgs::debugLevel)
     {
-        fprintf(stderr, "%s", msg);
-        fprintf(stderr, "\n");
+#if defined(WIN32) || defined(__APPLE__)
+        if (QLCArgs::dbgBox != NULL)
+            QLCArgs::dbgBox->addText(msg);
+#else
+        fprintf(stderr, "%s\n", msg);
         fflush(stderr);
+#endif
     }
 }
 
@@ -234,6 +244,14 @@ int main(int argc, char** argv)
     /* Create and initialize the QLC application object */
     App app;
     app.show();
+
+#if defined(WIN32) || defined(__APPLE__)
+    if (QLCArgs::debugLevel < QtSystemMsg)
+    {
+        QLCArgs::dbgBox = new DebugBox(&app);
+        QLCArgs::dbgBox->show();
+    }
+#endif
 
     if (QLCArgs::workspace.isEmpty() == false)
         app.loadXML(QLCArgs::workspace);

@@ -15,7 +15,7 @@ win32: {
     # the package from http://www.box.net/shared/2l0b2tk8e1 and
     # extract its contents under K8062DDIR below to compile this plugin.
     K8062DDIR    = C:/Qt/K8062D
-    LIBS        += -L$$K8062DDIR -lK8062D.dll
+    LIBS        += -L$$K8062DDIR -lK8062D
 	INCLUDE	    += -I$$K8062DDIR
 	QMAKE_LFLAGS += -shared
 } else {
