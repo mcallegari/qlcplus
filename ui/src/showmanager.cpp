@@ -751,16 +751,20 @@ void ShowManager::updateMultiTrackView()
 
         foreach(quint32 id, track->functionsID())
         {
-            if (m_doc->function(id)->type() == Function::Chaser)
+            Function *fn = m_doc->function(id);
+            if (fn != NULL)
             {
-                Chaser *chaser = qobject_cast<Chaser*>(m_doc->function(id));
-                m_showview->addSequence(chaser);
-            }
-            else if (m_doc->function(id)->type() == Function::Audio)
-            {
-                Audio *audio = qobject_cast<Audio*>(m_doc->function(id));
-                //audio->setSourceFileName(audio->getSourceFileName()); // kind of a dirty hack
-                m_showview->addAudio(audio);
+                if (fn->type() == Function::Chaser)
+                {
+                    Chaser *chaser = qobject_cast<Chaser*>(m_doc->function(id));
+                    m_showview->addSequence(chaser);
+                }
+                else if (fn->type() == Function::Audio)
+                {
+                    Audio *audio = qobject_cast<Audio*>(m_doc->function(id));
+                    //audio->setSourceFileName(audio->getSourceFileName()); // kind of a dirty hack
+                    m_showview->addAudio(audio);
+                }
             }
         }
     }
