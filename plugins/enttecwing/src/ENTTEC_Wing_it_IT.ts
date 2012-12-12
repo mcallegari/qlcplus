@@ -4,17 +4,17 @@
 <context>
     <name>EnttecWing</name>
     <message>
-        <location filename="enttecwing.cpp" line="118"/>
+        <location filename="enttecwing.cpp" line="113"/>
         <source>This plugin provides input support for Enttec Playback and Enttec Shortcut Wings.</source>
         <translation>Questa plugin permette l&apos;interfacciamento in ingresso per le interfacce Enttec Playback e Enttec Shortcut Wings.</translation>
     </message>
     <message>
-        <location filename="enttecwing.cpp" line="125"/>
+        <location filename="enttecwing.cpp" line="130"/>
         <source>Unable to bind to UDP port %1:</source>
         <translation>Impossibilitato ad ascoltare la porta UDP %1:</translation>
     </message>
     <message>
-        <location filename="enttecwing.cpp" line="132"/>
+        <location filename="enttecwing.cpp" line="137"/>
         <source>Listening to UDP port %1.</source>
         <translation>In ascolto sulla porta UDP %1.</translation>
     </message>

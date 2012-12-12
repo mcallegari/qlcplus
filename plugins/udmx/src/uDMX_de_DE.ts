@@ -4,12 +4,12 @@
 <context>
     <name>UDMX</name>
     <message>
-        <location filename="udmx.cpp" line="98"/>
+        <location filename="udmx.cpp" line="96"/>
         <source>This plugin provides DMX output support for Anyma uDMX devices.</source>
         <translation type="unfinished">Dieses Plugin bietet DMX-Output für Anyma uDMX Geräte.</translation>
     </message>
     <message>
-        <location filename="udmx.cpp" line="183"/>
+        <location filename="udmx.cpp" line="188"/>
         <source>Do you wish to re-scan your hardware?</source>
         <translation type="unfinished">Nach neuer Hardware suchen?</translation>
     </message>

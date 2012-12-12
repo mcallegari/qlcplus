@@ -4,12 +4,12 @@
 <context>
     <name>Peperoni</name>
     <message>
-        <location filename="peperoni.cpp" line="95"/>
+        <location filename="peperoni.cpp" line="93"/>
         <source>This plugin provides DMX output support for Peperoni DMX devices.</source>
         <translation type="unfinished">Tämä liitännäinen tuottaa DMX-ulostulotuen Peperoni DMX-laitteille.</translation>
     </message>
     <message>
-        <location filename="peperoni.cpp" line="122"/>
+        <location filename="peperoni.cpp" line="127"/>
         <source>Do you wish to re-scan your hardware?</source>
         <translation type="unfinished">Etsitäänkö lisää laitteita?</translation>
     </message>

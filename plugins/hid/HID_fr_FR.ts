@@ -27,7 +27,7 @@
 <context>
     <name>HID</name>
     <message>
-        <location filename="hid.cpp" line="148"/>
+        <location filename="hid.cpp" line="143"/>
         <source>This plugin provides input support for HID-based joysticks.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -35,7 +35,7 @@
 <context>
     <name>HIDEventDevice</name>
     <message>
-        <location filename="hideventdevice.cpp" line="323"/>
+        <location filename="hideventdevice.cpp" line="326"/>
         <source>N/A</source>
         <translation type="unfinished"></translation>
     </message>
@@ -43,12 +43,12 @@
 <context>
     <name>HIDJsDevice</name>
     <message>
-        <location filename="hidjsdevice.cpp" line="185"/>
+        <location filename="hidjsdevice.cpp" line="188"/>
         <source>Axes: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="hidjsdevice.cpp" line="187"/>
+        <location filename="hidjsdevice.cpp" line="190"/>
         <source>Buttons: %1</source>
         <translation type="unfinished"></translation>
     </message>

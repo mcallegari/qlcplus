@@ -5,31 +5,33 @@
     <name>EnttecDMXUSB</name>
     <message>
         <location filename="enttecdmxusb.cpp" line="139"/>
-        <location filename="enttecdmxusb.cpp" line="218"/>
-        <source>No devices available.</source>
+        <source>and compatible devices.</source>
+        <oldsource>No devices available.</oldsource>
         <translation type="unfinished">Keine Geräte verfügbar.</translation>
     </message>
     <message>
-        <location filename="enttecdmxusb.cpp" line="141"/>
-        <location filename="enttecdmxusb.cpp" line="220"/>
+        <location filename="enttecdmxusb.cpp" line="155"/>
         <source>Make sure that you have your hardware firmly plugged in. NOTE: FTDI VCP interface is not supported by this plugin.</source>
         <translation type="unfinished">Stellen Sie sicher, dass Sie Ihre Hardware fest eingesteckt haben. FTDI VCP Schnittstelle ist nicht durch dieses Plugin unterstützt.</translation>
     </message>
     <message>
-        <location filename="enttecdmxusb.cpp" line="147"/>
-        <location filename="enttecdmxusb.cpp" line="226"/>
+        <location filename="enttecdmxusb.cpp" line="136"/>
         <source>This plugin provides DMX output support for</source>
         <translation type="unfinished">Dieses Plugin bietet DMX-Ausgabesupport für</translation>
     </message>
     <message>
-        <location filename="enttecdmxusb.cpp" line="150"/>
-        <location filename="enttecdmxusb.cpp" line="229"/>
+        <location filename="enttecdmxusb.cpp" line="139"/>
         <source>and compatible devices.</source>
         <translation type="unfinished">und kompatibel Geräte.</translation>
     </message>
     <message>
-        <location filename="enttecdmxusb.cpp" line="157"/>
-        <location filename="enttecdmxusb.cpp" line="236"/>
+        <location filename="enttecdmxusb.cpp" line="153"/>
+        <source>No output support available.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="enttecdmxusb.cpp" line="164"/>
+        <location filename="enttecdmxusb.cpp" line="231"/>
         <source>Device is operating correctly.</source>
         <translation type="unfinished">Gerät ist funktionsfähig.</translation>
     </message>
