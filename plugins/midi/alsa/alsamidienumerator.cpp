@@ -160,7 +160,7 @@ void MidiEnumeratorPrivate::rescan()
                 if (dev == NULL)
                 {
                     AlsaMidiOutputDevice* dev = new AlsaMidiOutputDevice(
-                                    uid, name, address, m_alsa, this);
+                                    uid, name, address, m_alsa, m_address, this);
                     m_outputDevices << dev;
                     changed = true;
                 }

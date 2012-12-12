@@ -47,7 +47,7 @@ bool AlsaMidiUtil::variantToAddress(const QVariant& var, snd_seq_addr_t* addr)
 
 QString AlsaMidiUtil::extractName(snd_seq_t* alsa, const snd_seq_addr_t* address)
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     Q_ASSERT(alsa != NULL);
     Q_ASSERT(address != NULL);
 
@@ -55,7 +55,10 @@ QString AlsaMidiUtil::extractName(snd_seq_t* alsa, const snd_seq_addr_t* address
     snd_seq_port_info_alloca(&portInfo);
     int r = snd_seq_get_any_port_info(alsa, address->client, address->port, portInfo);
     if (r == 0)
+    {
+        qDebug() << "ALSA Port name: " << QString(snd_seq_port_info_get_name(portInfo));
         return QString(snd_seq_port_info_get_name(portInfo));
+    }
     else
         return QString();
 }

@@ -1,8 +1,8 @@
 /*
   Q Light Controller
-  inputpatcheditor.h
+  inputoutputpatcheditor.h
 
-  Copyright (C) Heikki Junnila
+  Copyright (C) Massimo Callegari
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License
@@ -19,36 +19,37 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef INPUTPATCHEDITOR_H
-#define INPUTPATCHEDITOR_H
+#ifndef INPUTOUTPUTPATCHEDITOR_H
+#define INPUTOUTPUTPATCHEDITOR_H
 
 #include <QWidget>
 
-#include "ui_inputpatcheditor.h"
-#include "qlcinputprofile.h"
-#include "inputpatch.h"
+#include "ui_inputoutputpatcheditor.h"
 
 class QStringList;
+class OutputPatch;
+class InputPatch;
 class InputMap;
+class OutputMap;
 
-class InputPatchEditor : public QWidget, public Ui_InputPatchEditor
+class InputOutputPatchEditor : public QWidget, public Ui_InputOutputPatchEditor
 {
     Q_OBJECT
-    Q_DISABLE_COPY(InputPatchEditor)
+    Q_DISABLE_COPY(InputOutputPatchEditor)
 
-    /************************************************************************
+    /********************************************************************
      * Initialization
-     ************************************************************************/
+     ********************************************************************/
 public:
     /**
-     * Create a new input patch editor for the given universe.
+     * Create a new output patch editor for the given universe.
      *
-     * @param widget Parent widget
-     * @param universe The universe whose settings are being edited
-     * @param inputMap The input map object that manages input plugin data
+     * @param parent The owning parent widget
+     * @param universe The universe whose settings to edit
+     * @param outputMap The output map object that handles DMX output
      */
-    InputPatchEditor(QWidget* parent, quint32 universe, InputMap* inputMap);
-    ~InputPatchEditor();
+    InputOutputPatchEditor(QWidget* parent, quint32 universe, InputMap* inputMap, OutputMap* outputMap);
+    ~InputOutputPatchEditor();
 
 signals:
     /** Tells that the mapping settings have changed */
@@ -56,13 +57,17 @@ signals:
 
 private:
     InputMap* m_inputMap;
+    OutputMap* m_outputMap;
 
     quint32 m_universe; //! The input universe that is being edited
 
-    QString m_currentPluginName;
+    QString m_currentInputPluginName;
     quint32 m_currentInput;
+    QString m_currentOutputPluginName;
+    quint32 m_currentOutput;
     QString m_currentProfileName;
-    bool m_currentFeedbackEnabled;
+    QString m_currentFeedbackPluginName;
+    quint32 m_currentFeedback;
 
     /************************************************************************
      * Mapping page
@@ -71,15 +76,14 @@ private:
     InputPatch* patch() const;
     QTreeWidgetItem* currentlyMappedItem() const;
     void setupMappingPage();
+    QTreeWidgetItem *itemLookup(QString pluginName, QString devName);
     void fillMappingTree();
-    void fillPluginItem(const QString& pluginName, QTreeWidgetItem* item);
     QTreeWidgetItem* pluginItem(const QString& pluginName);
 
 private slots:
     void slotMapCurrentItemChanged(QTreeWidgetItem* item);
-    void slotMapItemChanged(QTreeWidgetItem* item);
+    void slotMapItemChanged(QTreeWidgetItem* item, int col);
     void slotConfigureInputClicked();
-    void slotFeedbackToggled(bool enable);
     void slotPluginConfigurationChanged(const QString& pluginName);
 
     /************************************************************************
@@ -98,4 +102,4 @@ private slots:
     void slotEditProfileClicked();
 };
 
-#endif /* INPUTPATCHEDITOR_H */
+#endif /* INPUTOUTPUTPATCHEDITOR_H */

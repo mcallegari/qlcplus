@@ -24,11 +24,10 @@
 #include <QtGui>
 #include <QtXml>
 
+#include "inputoutputmanager.h"
 #include "functionmanager.h"
 #include "virtualconsole.h"
 #include "fixturemanager.h"
-#include "outputmanager.h"
-#include "inputmanager.h"
 #include "showmanager.h"
 #include "mastertimer.h"
 #include "simpledesk.h"
@@ -122,11 +121,8 @@ App::~App()
     if (ShowManager::instance() != NULL)
         delete ShowManager::instance();
 
-    if (InputManager::instance() != NULL)
-        delete InputManager::instance();
-
-    if (OutputManager::instance() != NULL)
-        delete OutputManager::instance();
+    if (InputOutputManager::instance() != NULL)
+        delete InputOutputManager::instance();
 
     if (VirtualConsole::instance() != NULL)
         delete VirtualConsole::instance();
@@ -187,10 +183,8 @@ void App::init()
     m_tab->addTab(w, QIcon(":/virtualconsole.png"), tr("Virtual Console"));
     w = new SimpleDesk(m_tab, m_doc);
     m_tab->addTab(w, QIcon(":/slidermatrix.png"), tr("Simple Desk"));
-    w = new OutputManager(m_tab, m_doc->outputMap());
-    m_tab->addTab(w, QIcon(":/output.png"), tr("Outputs"));
-    w = new InputManager(m_tab, m_doc->inputMap());
-    m_tab->addTab(w, QIcon(":/input.png"), tr("Inputs"));
+    w = new InputOutputManager(m_tab, m_doc);
+    m_tab->addTab(w, QIcon(":/input_output.png"), tr("Inputs/Outputs"));
 
     // Listen to blackout changes and toggle m_controlBlackoutAction
     connect(m_doc->outputMap(), SIGNAL(blackoutChanged(bool)), this, SLOT(slotBlackoutChanged(bool)));
@@ -380,9 +374,9 @@ void App::enableKioskMode()
     // No need for these
     m_tab->removeTab(m_tab->indexOf(FixtureManager::instance()));
     m_tab->removeTab(m_tab->indexOf(FunctionManager::instance()));
+    m_tab->removeTab(m_tab->indexOf(ShowManager::instance()));
     m_tab->removeTab(m_tab->indexOf(SimpleDesk::instance()));
-    m_tab->removeTab(m_tab->indexOf(OutputManager::instance()));
-    m_tab->removeTab(m_tab->indexOf(InputManager::instance()));
+    m_tab->removeTab(m_tab->indexOf(InputOutputManager::instance()));
 
     // No need for the toolbar
     delete m_toolbar;
@@ -702,10 +696,8 @@ QFile::FileError App::slotFileOpen()
         FunctionManager::instance()->updateTree();
     if (FixtureManager::instance() != NULL)
         FixtureManager::instance()->updateView();
-    if (OutputManager::instance() != NULL)
-        OutputManager::instance()->updateTree();
-    if (InputManager::instance() != NULL)
-        InputManager::instance()->updateTree();
+    if (InputOutputManager::instance() != NULL)
+        InputOutputManager::instance()->updateTree();
 
     return error;
 }

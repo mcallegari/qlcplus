@@ -706,7 +706,7 @@ void VCSlider::sendFeedBack(int value)
                          float(m_slider->maximum()), float(0),
                          float(UCHAR_MAX));
 
-        m_doc->inputMap()->feedBack(src.universe(), src.channel(), int(fb));
+        m_doc->outputMap()->feedBack(src.universe(), src.channel(), int(fb));
     }
 }
 

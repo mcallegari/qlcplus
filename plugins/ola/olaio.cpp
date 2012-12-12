@@ -139,7 +139,7 @@ QStringList OlaIO::outputs()
     return list;
 }
 
-QString OlaIO::outputInfo(quint32 output)
+QString OlaIO::pluginInfo()
 {
     QString str;
 
@@ -149,14 +149,19 @@ QString OlaIO::outputInfo(quint32 output)
     str += QString("</HEAD>");
     str += QString("<BODY>");
 
-    if (output == QLCIOPlugin::invalidLine())
-    {
-        str += QString("<H3>%1</H3>").arg(name());
-        str += QString("<P>");
-        str += tr("This plugin provides DMX output support for the Open Lighting Architecture (OLA).");
-        str += QString("</P>");
-    }
-    else
+    str += QString("<P>");
+    str += QString("<H3>%1</H3>").arg(name());
+    str += tr("This plugin provides DMX output support for the Open Lighting Architecture (OLA).");
+    str += QString("</P>");
+
+    return str;
+}
+
+QString OlaIO::outputInfo(quint32 output)
+{
+    QString str;
+
+    if (output != QLCIOPlugin::invalidLine())
     {
         str += QString("<H3>%1</H3>").arg(outputs()[output]);
         str += QString("<P>");

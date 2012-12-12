@@ -65,7 +65,7 @@ int MidiPlugin::capabilities() const
 
 void MidiPlugin::openOutput(quint32 output)
 {
-    qDebug() << Q_FUNC_INFO;
+    qDebug() << "MIDI plugin open output: " << output;
 
     MidiOutputDevice* dev = outputDevice(output);
     if (dev != NULL)
@@ -83,7 +83,7 @@ void MidiPlugin::closeOutput(quint32 output)
 
 QStringList MidiPlugin::outputs()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 
     QStringList list;
     int i = 1;
@@ -95,10 +95,8 @@ QStringList MidiPlugin::outputs()
     return list;
 }
 
-QString MidiPlugin::outputInfo(quint32 output)
+QString MidiPlugin::pluginInfo()
 {
-    qDebug() << Q_FUNC_INFO;
-
     QString str;
 
     str += QString("<HTML>");
@@ -106,6 +104,20 @@ QString MidiPlugin::outputInfo(quint32 output)
     str += QString("<TITLE>%1</TITLE>").arg(name());
     str += QString("</HEAD>");
     str += QString("<BODY>");
+
+    str += QString("<P>");
+    str += QString("<H3>%1</H3>").arg(name());
+    str += tr("This plugin provides input/output support for MIDI devices.");
+    str += QString("</P>");
+
+    return str;
+}
+
+QString MidiPlugin::outputInfo(quint32 output)
+{
+    qDebug() << Q_FUNC_INFO;
+
+    QString str;
 
     MidiOutputDevice* dev = outputDevice(output);
     if (dev != NULL)
@@ -152,7 +164,7 @@ MidiOutputDevice* MidiPlugin::outputDevice(quint32 output) const
 
 void MidiPlugin::openInput(quint32 input)
 {
-    qDebug() << Q_FUNC_INFO;
+    qDebug() << "MIDI Plugin open Input: " << input;
 
     MidiInputDevice* dev = inputDevice(input);
     if (dev != NULL && dev->isOpen() == false)
@@ -178,7 +190,7 @@ void MidiPlugin::closeInput(quint32 input)
 
 QStringList MidiPlugin::inputs()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 
     QStringList list;
     int i = 1;
@@ -226,6 +238,16 @@ QString MidiPlugin::inputInfo(quint32 input)
     return str;
 }
 
+void MidiPlugin::sendFeedBack(quint32 output, quint32 channel, uchar value)
+{
+    MidiOutputDevice* dev = outputDevice(output);
+    if (dev != NULL)
+    {
+        qDebug() << "[sendFeedBack] Channel: " << channel << ", value: " << value;
+        dev->writeChannel(channel, value);
+    }
+}
+
 MidiInputDevice* MidiPlugin::inputDevice(quint32 input) const
 {
     if (input < quint32(m_enumerator->inputDevices().size()))
@@ -241,7 +263,7 @@ void MidiPlugin::slotValueChanged(const QVariant& uid, ushort channel, uchar val
         MidiInputDevice* dev = m_enumerator->inputDevices().at(i);
         if (dev->uid() == uid)
         {
-            qDebug() << i << channel << value;
+            qDebug() << "MIDI device: " << i << ", channel: " << channel << ", value: " << value;
             emit valueChanged(i, channel, value);
             break;
         }

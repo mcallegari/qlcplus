@@ -78,7 +78,7 @@ QStringList Peperoni::outputs()
     return list;
 }
 
-QString Peperoni::outputInfo(quint32 output)
+QString Peperoni::pluginInfo()
 {
     QString str;
 
@@ -88,14 +88,19 @@ QString Peperoni::outputInfo(quint32 output)
     str += QString("</HEAD>");
     str += QString("<BODY>");
 
-    if (output == QLCIOPlugin::invalidLine())
-    {
-        str += QString("<H3>%1</H3>").arg(name());
-        str += QString("<P>");
-        str += tr("This plugin provides DMX output support for Peperoni DMX devices.");
-        str += QString("</P>");
-    }
-    else if (output < quint32(m_devices.size()))
+    str += QString("<H3>%1</H3>").arg(name());
+    str += QString("<P>");
+    str += tr("This plugin provides DMX output support for Peperoni DMX devices.");
+    str += QString("</P>");
+
+    return str;
+}
+
+QString Peperoni::outputInfo(quint32 output)
+{
+    QString str;
+
+    if (output == QLCIOPlugin::invalidLine() && output < quint32(m_devices.size()))
     {
         str += m_devices.at(output)->infoText();
     }

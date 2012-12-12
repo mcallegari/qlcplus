@@ -49,15 +49,13 @@ HEADERS += aboutbox.h \
            grandmasterslider.h \
            groupsconsole.h \
            inputchanneleditor.h \
+           inputoutputmanager.h \
+           inputoutputpatcheditor.h \
            inputprofileeditor.h \
-           inputmanager.h \
-           inputpatcheditor.h \
            monitor.h \
            monitorfixture.h \
            monitorlayout.h \
            multitrackview.h \
-           outputmanager.h \
-           outputpatcheditor.h \
            playbackslider.h \
            rgbmatrixeditor.h \
            rgbitem.h \
@@ -111,9 +109,8 @@ FORMS += aboutbox.ui \
          functionselection.ui \
          functionwizard.ui \
          inputchanneleditor.ui \
+         inputoutputpatcheditor.ui \
          inputprofileeditor.ui \
-         inputpatcheditor.ui \
-         outputpatcheditor.ui \
          rgbmatrixeditor.ui \
          sceneeditor.ui \
          sceneselection.ui \
@@ -156,15 +153,13 @@ SOURCES += aboutbox.cpp \
            grandmasterslider.cpp \
            groupsconsole.cpp \
            inputchanneleditor.cpp \
+           inputoutputmanager.cpp \
+           inputoutputpatcheditor.cpp \
            inputprofileeditor.cpp \
-           inputmanager.cpp \
-           inputpatcheditor.cpp \
            monitor.cpp \
            monitorfixture.cpp \
            monitorlayout.cpp \
            multitrackview.cpp \
-           outputmanager.cpp \
-           outputpatcheditor.cpp \
            playbackslider.cpp \
            rgbmatrixeditor.cpp \
            rgbitem.cpp \

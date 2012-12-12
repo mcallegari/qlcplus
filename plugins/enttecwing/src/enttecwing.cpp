@@ -98,7 +98,7 @@ QStringList EnttecWing::inputs()
     return list;
 }
 
-QString EnttecWing::inputInfo(quint32 input)
+QString EnttecWing::pluginInfo()
 {
     QString str;
 
@@ -108,17 +108,22 @@ QString EnttecWing::inputInfo(quint32 input)
     str += QString("</HEAD>");
     str += QString("<BODY>");
 
+    str += QString("<P>");
     str += QString("<H3>%1</H3>").arg(name());
+    str += tr("This plugin provides input support for Enttec Playback "
+              "and Enttec Shortcut Wings.");
+    str += QString("</P>");
+
+    return str;
+}
+
+QString EnttecWing::inputInfo(quint32 input)
+{
+    QString str;
 
     if (input == QLCIOPlugin::invalidLine())
     {
-        /* Plugin or just an invalid input selected. Display generic
-           information. */
-        str += QString("<P>");
-        str += tr("This plugin provides input support for Enttec Playback "
-                  "and Enttec Shortcut Wings.");
-        str += QString("</P>");
-
+        /* Plugin or just an invalid input selected. Display the error. */
         if (m_socket->state() != QAbstractSocket::BoundState)
         {
             str += QString("<P>");

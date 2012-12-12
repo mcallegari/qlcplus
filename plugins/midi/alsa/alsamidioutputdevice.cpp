@@ -31,20 +31,23 @@
 
 AlsaMidiOutputDevice::AlsaMidiOutputDevice(const QVariant& uid,
                                            const QString& name,
-                                           const snd_seq_addr_t* address,
+                                           const snd_seq_addr_t* recv_address,
                                            snd_seq_t* alsa,
+                                           snd_seq_addr_t* send_address,
                                            QObject* parent)
     : MidiOutputDevice(uid, name, parent)
     , m_alsa(alsa)
-    , m_address(new snd_seq_addr_t)
+    , m_receiver_address(new snd_seq_addr_t)
     , m_open(false)
     , m_universe(MAX_MIDI_DMX_CHANNELS, char(0))
 {
-    qDebug() << Q_FUNC_INFO;
     Q_ASSERT(alsa != NULL);
-    Q_ASSERT(address != NULL);
-    m_address->client = address->client;
-    m_address->port = address->port;
+    Q_ASSERT(recv_address != NULL);
+    m_receiver_address->client = recv_address->client;
+    m_receiver_address->port = recv_address->port;
+    m_sender_address = send_address;
+    qDebug() << "[AlsaMidiOutputDevice] receiver client: " << m_receiver_address->client << ", port: " << m_receiver_address->port;
+    qDebug() << "[AlsaMidiOutputDevice] sender client (QLC+): " << m_sender_address->client << ", port: " << m_sender_address->port;
 }
 
 AlsaMidiOutputDevice::~AlsaMidiOutputDevice()
@@ -52,20 +55,40 @@ AlsaMidiOutputDevice::~AlsaMidiOutputDevice()
     qDebug() << Q_FUNC_INFO;
     close();
 
-    delete m_address;
-    m_address = NULL;
+    delete m_receiver_address;
+    m_receiver_address = NULL;
 }
 
 void AlsaMidiOutputDevice::open()
 {
     qDebug() << Q_FUNC_INFO;
     m_open = true;
+
+    Q_ASSERT(m_sender_address != NULL);
+    Q_ASSERT(m_receiver_address != NULL);
+
+    /* Subscribe QLC+ ALSA client to the MIDI device */
+    snd_seq_port_subscribe_t* sub = NULL;
+    snd_seq_port_subscribe_alloca(&sub);
+    snd_seq_port_subscribe_set_sender(sub, m_sender_address);
+    snd_seq_port_subscribe_set_dest(sub, m_receiver_address);
+    snd_seq_subscribe_port(m_alsa, sub);
 }
 
 void AlsaMidiOutputDevice::close()
 {
     qDebug() << Q_FUNC_INFO;
     m_open = false;
+
+    Q_ASSERT(m_sender_address != NULL);
+    Q_ASSERT(m_receiver_address != NULL);
+
+    /* Unsubscribe QLC+ ALSA client to the MIDI device */
+    snd_seq_port_subscribe_t* sub = NULL;
+    snd_seq_port_subscribe_alloca(&sub);
+    snd_seq_port_subscribe_set_sender(sub, m_sender_address);
+    snd_seq_port_subscribe_set_dest(sub, m_receiver_address);
+    snd_seq_unsubscribe_port(m_alsa, sub);
 }
 
 bool AlsaMidiOutputDevice::isOpen() const
@@ -91,7 +114,7 @@ void AlsaMidiOutputDevice::writeUniverse(const QByteArray& universe)
     // Setup a common event structure for all values
     snd_seq_event_t ev;
     snd_seq_ev_clear(&ev);
-    snd_seq_ev_set_dest(&ev, m_address->client, m_address->port);
+    snd_seq_ev_set_dest(&ev, m_receiver_address->client, m_receiver_address->port);
     snd_seq_ev_set_subs(&ev);
     snd_seq_ev_set_direct(&ev);
 
@@ -112,6 +135,7 @@ void AlsaMidiOutputDevice::writeUniverse(const QByteArray& universe)
 
         if (mode() == Note)
         {
+            qDebug() << "Send out NOTE";
             // 0 is sent as a note off
             // 1-127 is sent as note on
             if (scaled == 0)
@@ -122,9 +146,14 @@ void AlsaMidiOutputDevice::writeUniverse(const QByteArray& universe)
         }
         else
         {
+            qDebug() << "Send out CC. Channel: " << midiChannel() << ", CC: " << channel << ", val: " << scaled;
+
             // Control change
             snd_seq_ev_set_controller(&ev, midiChannel(), channel, scaled);
-            snd_seq_event_output_buffer(m_alsa, &ev);
+            //if (snd_seq_event_output_buffer(m_alsa, &ev) < 0)
+
+            if (snd_seq_event_output(m_alsa, &ev) < 0)
+                qDebug() << "snd_seq_event_output ERROR";
         }
     }
 

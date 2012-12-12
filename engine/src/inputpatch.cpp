@@ -45,7 +45,6 @@ InputPatch::InputPatch(quint32 inputUniverse, QObject* parent)
     , m_plugin(NULL)
     , m_input(QLCIOPlugin::invalidLine())
     , m_profile(NULL)
-    , m_feedbackEnabled(true)
 {
     Q_ASSERT(parent != NULL);
 }
@@ -60,8 +59,7 @@ InputPatch::~InputPatch()
  * Properties
  *****************************************************************************/
 
-void InputPatch::set(QLCIOPlugin* plugin, quint32 input, bool enableFeedback,
-                     QLCInputProfile* profile)
+void InputPatch::set(QLCIOPlugin* plugin, quint32 input, QLCInputProfile* profile)
 {
     if (m_plugin != NULL && m_input != QLCIOPlugin::invalidLine())
     {
@@ -73,7 +71,6 @@ void InputPatch::set(QLCIOPlugin* plugin, quint32 input, bool enableFeedback,
     m_plugin = plugin;
     m_input = input;
     m_profile = profile;
-    m_feedbackEnabled = enableFeedback;
 
     /* Open the assigned plugin input */
     if (m_plugin != NULL && m_input != QLCIOPlugin::invalidLine())
@@ -139,11 +136,6 @@ QString InputPatch::profileName() const
         return m_profile->name();
     else
         return KInputNone;
-}
-
-bool InputPatch::feedbackEnabled() const
-{
-    return m_feedbackEnabled;
 }
 
 void InputPatch::slotValueChanged(quint32 input, quint32 channel, uchar value)

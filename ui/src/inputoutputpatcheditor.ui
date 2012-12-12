@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>InputPatchEditor</class>
- <widget class="QWidget" name="InputPatchEditor">
+ <class>InputOutputPatchEditor</class>
+ <widget class="QWidget" name="InputOutputPatchEditor">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Input patch editor</string>
+   <string>Input/Output patch editor</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
    <property name="margin">
@@ -38,9 +38,47 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="alternatingRowColors">
+          <bool>true</bool>
+         </property>
+         <property name="rootIsDecorated">
+          <bool>false</bool>
+         </property>
+         <property name="itemsExpandable">
+          <bool>false</bool>
+         </property>
+         <property name="expandsOnDoubleClick">
+          <bool>false</bool>
+         </property>
          <column>
           <property name="text">
-           <string notr="true">1</string>
+           <string>Plugin</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Device</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Input</string>
+          </property>
+          <property name="textAlignment">
+           <set>AlignLeft|AlignVCenter</set>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Output</string>
+          </property>
+          <property name="textAlignment">
+           <set>AlignLeft|AlignVCenter</set>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Feedback</string>
           </property>
          </column>
         </widget>
@@ -84,16 +122,6 @@
           </size>
          </property>
         </spacer>
-       </item>
-       <item row="3" column="0">
-        <widget class="QCheckBox" name="m_feedbackEnabledCheck">
-         <property name="toolTip">
-          <string>Send feedback data to the input universe for moving e.g. motorized sliders.</string>
-         </property>
-         <property name="text">
-          <string>Feedback enabled</string>
-         </property>
-        </widget>
        </item>
       </layout>
      </widget>
@@ -201,25 +229,9 @@
  </widget>
  <resources>
   <include location="qlcui.qrc"/>
+  <include location="qlcui.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>m_feedbackEnabledCheck</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>InputPatchEditor</receiver>
-   <slot>slotFeedbackToggled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>82</x>
-     <y>389</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>162</x>
-     <y>424</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
  <slots>
   <slot>slotFeedbackToggled(bool)</slot>
  </slots>

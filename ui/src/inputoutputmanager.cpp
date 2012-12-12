@@ -1,8 +1,8 @@
 /*
   Q Light Controller
-  inputmanager.cpp
+  inputoutputmanager.cpp
 
-  Copyright (c) Heikki Junnila
+  Copyright (c) Massimo Callegari
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License
@@ -32,35 +32,37 @@
 #include <QDebug>
 #include <QIcon>
 
-#include "inputpatcheditor.h"
-#include "inputmanager.h"
+#include "inputoutputpatcheditor.h"
+#include "inputoutputmanager.h"
+#include "outputpatch.h"
 #include "inputpatch.h"
 #include "inputmap.h"
 #include "apputil.h"
 #include "doc.h"
 
-#define KColumnUniverse 0
-#define KColumnPlugin   1
-#define KColumnInput    2
-#define KColumnProfile  3
-#define KColumnInputNum 4
+#define KColumnUniverse     0
+#define KColumnInputPlugin  1
+#define KColumnInput        2
+#define KColumnOutputPlugin 3
+#define KColumnOutput       4
+#define KColumnProfile      5
+#define KColumnInputNum     6
+#define KColumnOutputNum    7
 
 #define SETTINGS_SPLITTER "inputmanager/splitter"
 
-InputManager* InputManager::s_instance = NULL;
+InputOutputManager* InputOutputManager::s_instance = NULL;
 
-/****************************************************************************
- * Initialization
- ****************************************************************************/
-
-InputManager::InputManager(QWidget* parent, InputMap* inputMap)
+InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
     : QWidget(parent)
-    , m_inputMap(inputMap)
 {
     Q_ASSERT(s_instance == NULL);
     s_instance = this;
 
-    Q_ASSERT(inputMap != NULL);
+    Q_ASSERT(doc != NULL);
+    
+    m_inputMap = doc->inputMap();
+    m_outputMap = doc->outputMap();
 
     /* Create a new layout for this widget */
     new QVBoxLayout(this);
@@ -80,7 +82,7 @@ InputManager::InputManager(QWidget* parent, InputMap* inputMap)
     m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
 
     QStringList columns;
-    columns << tr("Universe") << tr("Plugin") << tr("Input") << tr("Profile");
+    columns << tr("Universe") << tr("Input Plugin") << tr("Input Device") << tr("Output Plugin") << tr("Ouput Device") << tr("Profile");
     m_tree->setHeaderLabels(columns);
 
     connect(m_tree, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),
@@ -109,7 +111,7 @@ InputManager::InputManager(QWidget* parent, InputMap* inputMap)
         m_splitter->restoreState(var.toByteArray());
 }
 
-InputManager::~InputManager()
+InputOutputManager::~InputOutputManager()
 {
     QSettings settings;
     settings.setValue(SETTINGS_SPLITTER, m_splitter->saveState());
@@ -117,7 +119,7 @@ InputManager::~InputManager()
     s_instance = NULL;
 }
 
-InputManager* InputManager::instance()
+InputOutputManager* InputOutputManager::instance()
 {
     return s_instance;
 }
@@ -126,7 +128,7 @@ InputManager* InputManager::instance()
  * Tree widget
  *****************************************************************************/
 
-void InputManager::updateTree()
+void InputOutputManager::updateTree()
 {
     m_tree->clear();
     for (quint32 uni = 0; uni < m_inputMap->universes(); uni++)
@@ -134,21 +136,24 @@ void InputManager::updateTree()
     m_tree->setCurrentItem(m_tree->topLevelItem(0));
 }
 
-void InputManager::updateItem(QTreeWidgetItem* item, quint32 universe)
+void InputOutputManager::updateItem(QTreeWidgetItem* item, quint32 universe)
 {
     Q_ASSERT(item != NULL);
 
     InputPatch* ip = m_inputMap->patch(universe);
+    OutputPatch* op = m_outputMap->patch(universe);
     Q_ASSERT(ip != NULL);
 
     item->setText(KColumnUniverse, QString::number(universe + 1));
-    item->setText(KColumnPlugin, ip->pluginName());
+    item->setText(KColumnInputPlugin, ip->pluginName());
     item->setText(KColumnInput, ip->inputName());
+    item->setText(KColumnOutputPlugin, op->pluginName());
+    item->setText(KColumnOutput, op->outputName());
     item->setText(KColumnProfile, ip->profileName());
     item->setText(KColumnInputNum, QString::number(ip->input() + 1));
 }
 
-QWidget* InputManager::currentEditor() const
+QWidget* InputOutputManager::currentEditor() const
 {
     Q_ASSERT(m_splitter != NULL);
     if (m_splitter->count() < 2)
@@ -157,7 +162,7 @@ QWidget* InputManager::currentEditor() const
         return m_splitter->widget(1);
 }
 
-void InputManager::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
+void InputOutputManager::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
     Q_UNUSED(channel);
     Q_UNUSED(value);
@@ -174,7 +179,7 @@ void InputManager::slotInputValueChanged(quint32 universe, quint32 channel, ucha
     m_timer->start(250);
 }
 
-void InputManager::slotTimerTimeout()
+void InputOutputManager::slotTimerTimeout()
 {
     QTreeWidgetItemIterator it(m_tree);
     while (*it != NULL)
@@ -184,7 +189,7 @@ void InputManager::slotTimerTimeout()
     }
 }
 
-void InputManager::slotCurrentItemChanged()
+void InputOutputManager::slotCurrentItemChanged()
 {
     QTreeWidgetItem* item = m_tree->currentItem();
     if (item == NULL)
@@ -198,13 +203,13 @@ void InputManager::slotCurrentItemChanged()
         delete currentEditor();
 
     quint32 universe = item->text(KColumnUniverse).toInt() - 1;
-    QWidget* editor = new InputPatchEditor(this, universe, m_inputMap);
+    QWidget* editor = new InputOutputPatchEditor(this, universe, m_inputMap, m_outputMap);
     m_splitter->addWidget(editor);
     connect(editor, SIGNAL(mappingChanged()), this, SLOT(slotMappingChanged()));
     editor->show();
 }
 
-void InputManager::slotMappingChanged()
+void InputOutputManager::slotMappingChanged()
 {
     QTreeWidgetItem* item = m_tree->currentItem();
     if (item != NULL)
@@ -213,3 +218,6 @@ void InputManager::slotMappingChanged()
         updateItem(item, universe);
     }
 }
+
+
+

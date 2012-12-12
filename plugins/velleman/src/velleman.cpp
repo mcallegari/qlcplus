@@ -108,7 +108,7 @@ QStringList Velleman::outputs()
     return list;
 }
 
-QString Velleman::outputInfo(quint32 output)
+QString Velleman::pluginInfo()
 {
     QString str;
 
@@ -118,15 +118,20 @@ QString Velleman::outputInfo(quint32 output)
     str += QString("</HEAD>");
     str += QString("<BODY>");
 
-    if (output == QLCIOPlugin::invalidLine())
-    {
-        str += QString("<H3>%1</H3>").arg(name());
-        str += QString("<P>");
-        str += tr("This plugin provides DMX output support for the Velleman "
-                  "K8062D using the DLL supplied with the product.");
-        str += QString("</P>");
-    }
-    else if (output == 0)
+    str += QString("<P>");
+    str += QString("<H3>%1</H3>").arg(name());
+    str += tr("This plugin provides DMX output support for the Velleman "
+              "K8062D using the DLL supplied with the product.");
+    str += QString("</P>");
+
+    return str;
+}
+
+QString Velleman::outputInfo(quint32 output)
+{
+    QString str;
+
+    if (output == QLCIOPlugin::invalidLine() && output == 0)
     {
         str += QString("<H3>%1</H3>").arg(outputs()[output]);
     }

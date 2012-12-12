@@ -51,6 +51,9 @@ public:
     /** @reimp */
     int capabilities() const;
 
+    /** @reimp */
+    QString pluginInfo();
+
     /*********************************************************************
      * Outputs
      *********************************************************************/
@@ -96,6 +99,10 @@ public:
 
     /** @reimp */
     QString inputInfo(quint32 input) { Q_UNUSED(input); return QString(); }
+
+    /** @reimp */
+    void sendFeedBack(quint32 input, quint32 channel, uchar value)
+        { Q_UNUSED(input); Q_UNUSED(channel); Q_UNUSED(value); }
 
     /*********************************************************************
      * Configuration

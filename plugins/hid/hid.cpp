@@ -128,7 +128,7 @@ void HID::customEvent(QEvent* event)
     }
 }
 
-QString HID::inputInfo(quint32 input)
+QString HID::pluginInfo()
 {
     QString str;
 
@@ -138,17 +138,19 @@ QString HID::inputInfo(quint32 input)
     str += QString("</HEAD>");
     str += QString("<BODY>");
 
+    str += QString("<P>");
     str += QString("<H3>%1</H3>").arg(name());
+    str += tr("This plugin provides input support for HID-based joysticks.");
+    str += QString("</P>");
 
-    if (input == QLCIOPlugin::invalidLine())
-    {
-        /* Plugin or just an invalid input selected. Display generic
-           information. */
-        str += QString("<P>");
-        str += tr("This plugin provides input support for HID-based joysticks.");
-        str += QString("</P>");
-    }
-    else
+    return str;
+}
+
+QString HID::inputInfo(quint32 input)
+{
+    QString str;
+
+    if (input != QLCIOPlugin::invalidLine())
     {
         /* A specific input line selected. Display its information if
            available. */

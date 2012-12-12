@@ -95,6 +95,13 @@ public:
      */
     virtual int capabilities() const = 0;
 
+    /**
+     * Get the plugin's description info.
+     *
+     * This is a pure virtual method that must be implemented by all plugins.
+     */
+    virtual QString pluginInfo() = 0;
+
     /** Invalid input/output number */
     static quint32 invalidLine() { return UINT_MAX; }
 
@@ -197,6 +204,8 @@ public:
      *              expected. Otherwise provides information for the plugin
      */
     virtual QString inputInfo(quint32 input) = 0;
+
+    virtual void sendFeedBack(quint32 inputLine, quint32 channel, uchar value) = 0;
 
 signals:
     /**

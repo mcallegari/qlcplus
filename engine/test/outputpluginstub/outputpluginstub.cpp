@@ -70,6 +70,12 @@ QStringList OutputPluginStub::outputs()
     return list;
 }
 
+
+QString OutputPluginStub::pluginInfo()
+{
+    return QString("This is a plugin stub for testing.");
+}
+
 QString OutputPluginStub::outputInfo(quint32 output)
 {
     Q_UNUSED(output);
@@ -108,6 +114,10 @@ QString OutputPluginStub::inputInfo(quint32 input)
 {
     Q_UNUSED(input);
     return QString("This is a plugin stub for testing.");
+}
+
+void OutputPluginStub::sendFeedBack(quint32 , quint32 , uchar )
+{
 }
 
 /*****************************************************************************

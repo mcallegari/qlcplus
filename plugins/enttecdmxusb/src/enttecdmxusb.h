@@ -47,6 +47,9 @@ public:
     /** @reimp */
     int capabilities() const;
 
+    /** @reimp */
+    QString pluginInfo();
+
     /** Find out what kinds of widgets there are currently connected */
     bool rescanWidgets();
 

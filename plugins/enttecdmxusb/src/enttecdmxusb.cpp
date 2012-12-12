@@ -121,7 +121,7 @@ QStringList EnttecDMXUSB::outputs()
     return list;
 }
 
-QString EnttecDMXUSB::outputInfo(quint32 output)
+QString EnttecDMXUSB::pluginInfo()
 {
     QString str;
 
@@ -131,24 +131,31 @@ QString EnttecDMXUSB::outputInfo(quint32 output)
     str += QString("</HEAD>");
     str += QString("<BODY>");
 
+    str += QString("<P>");
+    str += QString("<H3>%1</H3>").arg(name());
+    str += tr("This plugin provides DMX output support for");
+    str += QString(" DMXKing USB DMX512-A, Enttec DMX USB Pro, "
+                   "Enttec Open DMX USB, FTDI USB COM485 Plus1 ");
+    str += tr("and compatible devices.");
+    str += QString("</P>");
+
+    return str;
+}
+
+QString EnttecDMXUSB::outputInfo(quint32 output)
+{
+    QString str;
+
     if (output == QLCIOPlugin::invalidLine())
     {
-        str += QString("<H3>%1</H3>").arg(name());
         if (m_outputs.size() == 0)
         {
-            str += QString("<B>%1</B>").arg(tr("No devices available."));
+            str += QString("<BR><B>%1</B>").arg(tr("No output support available."));
             str += QString("<P>");
             str += tr("Make sure that you have your hardware firmly plugged in. "
                       "NOTE: FTDI VCP interface is not supported by this plugin.");
             str += QString("</P>");
         }
-
-        str += QString("<P>");
-        str += tr("This plugin provides DMX output support for");
-        str += QString(" DMXKing USB DMX512-A, Enttec DMX USB Pro, "
-                       "Enttec Open DMX USB, FTDI USB COM485 Plus1 ");
-        str += tr("and compatible devices.");
-        str += QString("</P>");
     }
     else if (output < quint32(m_outputs.size()))
     {
@@ -204,30 +211,18 @@ QString EnttecDMXUSB::inputInfo(quint32 input)
 {
     QString str;
 
-    str += QString("<HTML>");
-    str += QString("<HEAD>");
-    str += QString("<TITLE>%1</TITLE>").arg(name());
-    str += QString("</HEAD>");
-    str += QString("<BODY>");
-
     if (input == QLCIOPlugin::invalidLine())
     {
-        str += QString("<H3>%1</H3>").arg(name());
         if (m_inputs.size() == 0)
         {
-            str += QString("<B>%1</B>").arg(tr("No devices available."));
+            str += QString("<BR><B>%1</B>").arg(tr("No input support available."));
+            /*
             str += QString("<P>");
             str += tr("Make sure that you have your hardware firmly plugged in. "
                       "NOTE: FTDI VCP interface is not supported by this plugin.");
             str += QString("</P>");
+            */
         }
-
-        str += QString("<P>");
-        str += tr("This plugin provides DMX output support for");
-        str += QString(" DMXKing USB DMX512-A, Enttec DMX USB Pro, "
-                       "Enttec Open DMX USB, FTDI USB COM485 Plus1 ");
-        str += tr("and compatible devices.");
-        str += QString("</P>");
     }
     else if (input < quint32(m_inputs.size()))
     {

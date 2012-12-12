@@ -42,13 +42,13 @@ AlsaMidiInputDevice::AlsaMidiInputDevice(const QVariant& uid,
     , m_thread(thread)
     , m_open(false)
 {
-    qDebug() << Q_FUNC_INFO;
     Q_ASSERT(alsa != NULL);
     Q_ASSERT(thread != NULL);
 
     Q_ASSERT(address != NULL);
     m_address->client = address->client;
     m_address->port = address->port;
+    qDebug() << "[AlsaMidiInputDevice] client: " << m_address->client << ", port: " << m_address->port;
 }
 
 AlsaMidiInputDevice::~AlsaMidiInputDevice()

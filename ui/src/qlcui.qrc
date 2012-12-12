@@ -61,6 +61,7 @@
         <file alias="help.png">../../gfx/help.png</file>
         <file alias="image.png">../../gfx/image.png</file>
         <file alias="input.png">../../gfx/input.png</file>
+        <file alias="input_output.png">../../gfx/input_output.png</file>
         <file alias="intensity.png">../../gfx/intensity.png</file>
         <file alias="laser.png">../../gfx/laser.png</file>
         <file alias="keyboard.png">../../gfx/keyboard.png</file>

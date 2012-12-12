@@ -239,6 +239,8 @@ void OutputMap::initPatch()
 {
     for (quint32 i = 0; i < m_universes; i++)
         m_patch.insert(i, new OutputPatch(this));
+    for (quint32 i = 0; i < m_universes; i++)
+        m_fb_patch.insert(i, new OutputPatch(this));
 }
 
 quint32 OutputMap::invalidUniverse()
@@ -252,7 +254,7 @@ quint32 OutputMap::universes() const
 }
 
 bool OutputMap::setPatch(quint32 universe, const QString& pluginName,
-                         quint32 output)
+                         quint32 output, bool isFeedback)
 {
     if (universe >= universes())
     {
@@ -261,7 +263,10 @@ bool OutputMap::setPatch(quint32 universe, const QString& pluginName,
     }
 
     m_universeMutex.lock();
+    if (isFeedback == false)
     m_patch[universe]->set(doc()->ioPluginCache()->plugin(pluginName), output);
+    else
+        m_fb_patch[universe]->set(doc()->ioPluginCache()->plugin(pluginName), output);
     m_universeMutex.unlock();
 
     return true;
@@ -274,6 +279,15 @@ OutputPatch* OutputMap::patch(quint32 universe) const
     else
         return NULL;
 }
+
+OutputPatch* OutputMap::feedbackPatch(quint32 universe) const
+{
+    if (universe < universes())
+        return m_fb_patch[universe];
+    else
+        return NULL;
+}
+
 
 QStringList OutputMap::universeNames() const
 {
@@ -361,6 +375,25 @@ QString OutputMap::pluginStatus(const QString& pluginName, quint32 output)
     }
 }
 
+bool OutputMap::feedBack(quint32 universe, quint32 channel, uchar value)
+{
+    if (universe >= quint32(m_fb_patch.size()))
+        return false;
+
+    OutputPatch* patch = m_fb_patch[universe];
+    Q_ASSERT(patch != NULL);
+
+    if (patch->plugin() != NULL && patch->output() != QLCIOPlugin::invalidLine())
+    {
+        patch->plugin()->sendFeedBack(patch->output(), channel, value);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 void OutputMap::slotPluginConfigurationChanged(QLCIOPlugin* plugin)
 {
     for (quint32 i = 0; i < universes(); i++)
@@ -387,6 +420,8 @@ void OutputMap::loadDefaults()
     QSettings settings;
     QString plugin;
     QString output;
+    QString fb_plugin;
+    QString feedback;
     QString key;
 
     for (quint32 i = 0; i < universes(); i++)
@@ -399,6 +434,14 @@ void OutputMap::loadDefaults()
         key = QString("/outputmap/universe%2/output/").arg(i);
         output = settings.value(key).toString();
 
+        /* Feedback plugin name */
+        key = QString("/outputmap/universe%2/feedbackplugin/").arg(i);
+        fb_plugin = settings.value(key).toString();
+
+        /* Feedback line */
+        key = QString("/outputmap/universe%2/feedback/").arg(i);
+        feedback = settings.value(key).toString();
+
         if (plugin.length() > 0 && output.length() > 0)
         {
             /* Check that the same plugin & output are not mapped
@@ -406,6 +449,12 @@ void OutputMap::loadDefaults()
             quint32 m = mapping(plugin, output.toInt());
             if (m == QLCChannel::invalid() || m == i)
                 setPatch(i, plugin, output.toInt());
+        }
+        if (fb_plugin.length() > 0 && feedback.length() > 0)
+        {
+            quint32 m = mapping(feedback, fb_plugin.toInt());
+            if (m == QLCChannel::invalid() || m == i)
+                setPatch(i, fb_plugin, feedback.toInt(), true);
         }
     }
 }
@@ -419,7 +468,9 @@ void OutputMap::saveDefaults()
     for (quint32 i = 0; i < universes(); i++)
     {
         OutputPatch* outputPatch = patch(i);
+        OutputPatch* fbPatch = feedbackPatch(i);
         Q_ASSERT(outputPatch != NULL);
+        Q_ASSERT(fbPatch != NULL);
 
         /* Plugin name */
         key = QString("/outputmap/universe%2/plugin/").arg(i);
@@ -428,5 +479,13 @@ void OutputMap::saveDefaults()
         /* Plugin output */
         key = QString("/outputmap/universe%2/output/").arg(i);
         settings.setValue(key, str.setNum(outputPatch->output()));
+
+        /* Plugin name */
+        key = QString("/outputmap/universe%2/feedbackplugin/").arg(i);
+        settings.setValue(key, fbPatch->pluginName());
+
+        /* Plugin output */
+        key = QString("/outputmap/universe%2/feedback/").arg(i);
+        settings.setValue(key, str.setNum(fbPatch->output()));
     }
 }

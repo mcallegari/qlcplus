@@ -85,7 +85,7 @@ QStringList DMX4Linux::outputs()
     return list;
 }
 
-QString DMX4Linux::outputInfo(quint32 output)
+QString DMX4Linux::pluginInfo()
 {
     QString str;
 
@@ -95,15 +95,20 @@ QString DMX4Linux::outputInfo(quint32 output)
     str += QString("</HEAD>");
     str += QString("<BODY>");
 
-    if (output == QLCIOPlugin::invalidLine())
-    {
+    str += QString("<P>");
         str += QString("<H3>%1</H3>").arg(name());
-        str += QString("<P>");
         str += tr("This plugin provides DMX output for devices supported by "
                   "the DMX4Linux driver suite.");
         str += QString("</P>");
+
+    return str;
     }
-    else if (output == 0)
+
+QString DMX4Linux::outputInfo(quint32 output)
+{
+    QString str;
+
+    if (output != QLCIOPlugin::invalidLine() && output == 0)
     {
         str += QString("<H3>%1</H3>").arg(outputs()[output]);
     }

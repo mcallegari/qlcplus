@@ -56,6 +56,9 @@ public:
     /** @reimp */
     int capabilities() const;
 
+    /** @reimp */
+    QString pluginInfo();
+
 private:
     MidiEnumerator* m_enumerator;
 
@@ -97,6 +100,9 @@ public:
 
     /** @reimp */
     QString inputInfo(quint32 input);
+
+    /** @reimp */
+    void sendFeedBack(quint32 output, quint32 channel, uchar value);
 
 private:
     /** Get an output device by its output index */

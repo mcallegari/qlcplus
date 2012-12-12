@@ -193,104 +193,88 @@ void InputMap_Test::setPatch()
     QVERIFY(im.patch(0)->plugin() == NULL);
     QVERIFY(im.patch(0)->input() == QLCIOPlugin::invalidLine());
     QVERIFY(im.patch(0)->profile() == NULL);
-    QVERIFY(im.patch(0)->feedbackEnabled() == true);
     QVERIFY(im.mapping(stub->name(), 0) == InputMap::invalidUniverse());
 
     QVERIFY(im.patch(1)->plugin() == NULL);
     QVERIFY(im.patch(1)->input() == QLCIOPlugin::invalidLine());
     QVERIFY(im.patch(1)->profile() == NULL);
-    QVERIFY(im.patch(1)->feedbackEnabled() == true);
     QVERIFY(im.mapping(stub->name(), 1) == InputMap::invalidUniverse());
 
     QVERIFY(im.patch(2)->plugin() == NULL);
     QVERIFY(im.patch(2)->input() == QLCIOPlugin::invalidLine());
     QVERIFY(im.patch(2)->profile() == NULL);
-    QVERIFY(im.patch(2)->feedbackEnabled() == true);
     QVERIFY(im.mapping(stub->name(), 2) == InputMap::invalidUniverse());
 
     QVERIFY(im.patch(3)->plugin() == NULL);
     QVERIFY(im.patch(3)->input() == QLCIOPlugin::invalidLine());
     QVERIFY(im.patch(3)->profile() == NULL);
-    QVERIFY(im.patch(3)->feedbackEnabled() == true);
     QVERIFY(im.mapping(stub->name(), 3) == InputMap::invalidUniverse());
 
-    QVERIFY(im.setPatch(0, "Foobar", 0, false, prof->name()) == true);
+    QVERIFY(im.setPatch(0, "Foobar", 0, prof->name()) == true);
     QVERIFY(im.patch(0)->plugin() == NULL);
     QVERIFY(im.patch(0)->input() == QLCIOPlugin::invalidLine());
     QVERIFY(im.patch(0)->profile() == prof);
-    QVERIFY(im.patch(0)->feedbackEnabled() == false);
     QVERIFY(im.mapping(stub->name(), 0) == InputMap::invalidUniverse());
 
     QVERIFY(im.patch(1)->plugin() == NULL);
     QVERIFY(im.patch(1)->input() == QLCIOPlugin::invalidLine());
     QVERIFY(im.patch(1)->profile() == NULL);
-    QVERIFY(im.patch(1)->feedbackEnabled() == true);
     QVERIFY(im.mapping(stub->name(), 1) == InputMap::invalidUniverse());
 
     QVERIFY(im.patch(2)->plugin() == NULL);
     QVERIFY(im.patch(2)->input() == QLCIOPlugin::invalidLine());
     QVERIFY(im.patch(2)->profile() == NULL);
-    QVERIFY(im.patch(2)->feedbackEnabled() == true);
     QVERIFY(im.mapping(stub->name(), 2) == InputMap::invalidUniverse());
 
     QVERIFY(im.patch(3)->plugin() == NULL);
     QVERIFY(im.patch(3)->input() == QLCIOPlugin::invalidLine());
     QVERIFY(im.patch(3)->profile() == NULL);
-    QVERIFY(im.patch(3)->feedbackEnabled() == true);
     QVERIFY(im.mapping(stub->name(), 3) == InputMap::invalidUniverse());
 
-    QVERIFY(im.setPatch(0, stub->name(), 0, true) == true);
+    QVERIFY(im.setPatch(0, stub->name(), 0) == true);
     QVERIFY(im.patch(0)->plugin() == stub);
     QVERIFY(im.patch(0)->input() == 0);
     QVERIFY(im.patch(0)->profile() == NULL);
-    QVERIFY(im.patch(0)->feedbackEnabled() == true);
     QVERIFY(im.mapping(stub->name(), 0) == 0);
 
     QVERIFY(im.patch(1)->plugin() == NULL);
     QVERIFY(im.patch(1)->input() == QLCIOPlugin::invalidLine());
     QVERIFY(im.patch(1)->profile() == NULL);
-    QVERIFY(im.patch(1)->feedbackEnabled() == true);
     QVERIFY(im.mapping(stub->name(), 1) == InputMap::invalidUniverse());
 
     QVERIFY(im.patch(2)->plugin() == NULL);
     QVERIFY(im.patch(2)->input() == QLCIOPlugin::invalidLine());
     QVERIFY(im.patch(2)->profile() == NULL);
-    QVERIFY(im.patch(2)->feedbackEnabled() == true);
     QVERIFY(im.mapping(stub->name(), 2) == InputMap::invalidUniverse());
 
     QVERIFY(im.patch(3)->plugin() == NULL);
     QVERIFY(im.patch(3)->input() == QLCIOPlugin::invalidLine());
     QVERIFY(im.patch(3)->profile() == NULL);
-    QVERIFY(im.patch(3)->feedbackEnabled() == true);
     QVERIFY(im.mapping(stub->name(), 3) == InputMap::invalidUniverse());
 
-    QVERIFY(im.setPatch(2, stub->name(), 3, false, prof->name()) == true);
+    QVERIFY(im.setPatch(2, stub->name(), 3, prof->name()) == true);
     QVERIFY(im.patch(0)->plugin() == stub);
     QVERIFY(im.patch(0)->input() == 0);
     QVERIFY(im.patch(0)->profile() == NULL);
-    QVERIFY(im.patch(0)->feedbackEnabled() == true);
     QVERIFY(im.mapping(stub->name(), 0) == 0);
 
     QVERIFY(im.patch(1)->plugin() == NULL);
     QVERIFY(im.patch(1)->input() == QLCIOPlugin::invalidLine());
     QVERIFY(im.patch(1)->profile() == NULL);
-    QVERIFY(im.patch(1)->feedbackEnabled() == true);
     QVERIFY(im.mapping(stub->name(), 1) == InputMap::invalidUniverse());
 
     QVERIFY(im.patch(2)->plugin() == stub);
     QVERIFY(im.patch(2)->input() == 3);
     QVERIFY(im.patch(2)->profile() == prof);
-    QVERIFY(im.patch(2)->feedbackEnabled() == false);
     QVERIFY(im.mapping(stub->name(), 2) == InputMap::invalidUniverse());
 
     QVERIFY(im.patch(3)->plugin() == NULL);
     QVERIFY(im.patch(3)->input() == QLCIOPlugin::invalidLine());
     QVERIFY(im.patch(3)->profile() == NULL);
-    QVERIFY(im.patch(3)->feedbackEnabled() == true);
     QVERIFY(im.mapping(stub->name(), 3) == 2);
 
     // Universe out of bounds
-    QVERIFY(im.setPatch(im.universes(), stub->name(), 0, true) == false);
+    QVERIFY(im.setPatch(im.universes(), stub->name(), 0) == false);
 }
 
 void InputMap_Test::slotValueChanged()
@@ -301,7 +285,7 @@ void InputMap_Test::slotValueChanged()
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
-    QVERIFY(im.setPatch(0, stub->name(), 0, false) == true);
+    QVERIFY(im.setPatch(0, stub->name(), 0) == true);
     QVERIFY(im.patch(0)->plugin() == stub);
     QVERIFY(im.patch(0)->input() == 0);
 
@@ -397,7 +381,7 @@ void InputMap_Test::inputSourceNames()
     QCOMPARE(uni, QString());
     QCOMPARE(ch, QString());
 
-    QVERIFY(im.setPatch(0, stub->name(), 0, true, QString("Generic MIDI")) == true);
+    QVERIFY(im.setPatch(0, stub->name(), 0, QString("Generic MIDI")) == true);
     QVERIFY(im.inputSourceNames(QLCInputSource(0, 0), uni, ch) == true);
     QCOMPARE(uni, tr("%1: Generic MIDI").arg(1));
     QCOMPARE(ch, tr("%1: Bank select MSB").arg(1));
@@ -408,7 +392,7 @@ void InputMap_Test::inputSourceNames()
     QCOMPARE(uni, tr("%1: Generic MIDI").arg(1));
     QCOMPARE(ch, tr("%1: ?").arg(50001));
 
-    QVERIFY(im.setPatch(0, stub->name(), 0, true, QString()) == true);
+    QVERIFY(im.setPatch(0, stub->name(), 0, QString()) == true);
 
     uni.clear();
     ch.clear();

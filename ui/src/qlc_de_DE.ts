@@ -329,62 +329,67 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>App</name>
     <message>
-        <location filename="app.cpp" line="362"/>
+        <location filename="app.cpp" line="368"/>
         <source> - New Workspace</source>
         <translation> - Neue Arbeitsfläche</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="229"/>
+        <location filename="app.cpp" line="235"/>
         <source>Cannot exit in Operate mode</source>
         <translation>Im Betriebsmodus kann das Programm nicht beendet werden</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="181"/>
+        <location filename="app.cpp" line="185"/>
         <source>Fixtures</source>
         <translation type="unfinished">Geräte</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="183"/>
+        <location filename="app.cpp" line="187"/>
         <source>Functions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="185"/>
+        <location filename="app.cpp" line="189"/>
         <source>Shows</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="187"/>
+        <location filename="app.cpp" line="191"/>
         <source>Virtual Console</source>
         <translation type="unfinished">Virtuelle Konsole</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="189"/>
+        <location filename="app.cpp" line="193"/>
         <source>Simple Desk</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="191"/>
+        <location filename="app.cpp" line="195"/>
         <source>Outputs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="193"/>
+        <location filename="app.cpp" line="197"/>
         <source>Inputs</source>
         <translation type="unfinished">Eingänge</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="230"/>
+        <location filename="app.cpp" line="199"/>
+        <source>Inputs/Outputs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="app.cpp" line="236"/>
         <source>You must switch back to Design mode to close the application.</source>
         <translation>Du musst in den Designmodus wechseln um das Programm zu schliessen.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="238"/>
+        <location filename="app.cpp" line="244"/>
         <source>Close</source>
         <translation>Schliessen</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="239"/>
+        <location filename="app.cpp" line="245"/>
         <source>Do you wish to save the current workspace before closing the application?</source>
         <translation>Willst du die aktuelle Arbeitsfläsche vor dem Schliessen speichern?</translation>
     </message>
@@ -396,12 +401,12 @@ p, li { white-space: pre-wrap; }
         </translation>
     </message>
     <message>
-        <location filename="app.cpp" line="413"/>
+        <location filename="app.cpp" line="421"/>
         <source>Switch to Design Mode</source>
         <translation>In den Entwurfsmodus wechseln</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="414"/>
+        <location filename="app.cpp" line="422"/>
         <source>There are still running functions.
 Really stop them and switch back to Design mode?</source>
         <translation>Es gibt noch ablaufende Funktionen.
@@ -412,12 +417,12 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
         <translation type="obsolete">Betriebsmodus ist aktiv. Bearbeiten von Elementen ist deaktiviert.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="446"/>
+        <location filename="app.cpp" line="454"/>
         <source>Design</source>
         <translation>Entwurf</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="447"/>
+        <location filename="app.cpp" line="455"/>
         <source>Switch to design mode</source>
         <translation>In den Entwurfsmodus wechseln</translation>
     </message>
@@ -426,13 +431,13 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
         <translation type="obsolete">Designmodus ist aktiv. Bearbeiten von Elementen ist möglich.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="456"/>
+        <location filename="app.cpp" line="464"/>
         <source>Operate</source>
         <translation>Betrieb</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="457"/>
-        <location filename="app.cpp" line="485"/>
+        <location filename="app.cpp" line="465"/>
+        <location filename="app.cpp" line="493"/>
         <source>Switch to operate mode</source>
         <translation>In den Betriebsmodus wechseln</translation>
     </message>
@@ -441,40 +446,40 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
         <translation type="obsolete">Blackout ist aktiv. Alle Ausgaben sind deaktiviert.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="468"/>
+        <location filename="app.cpp" line="476"/>
         <source>&amp;New</source>
         <translation>&amp;Neu</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="469"/>
+        <location filename="app.cpp" line="477"/>
         <source>CTRL+N</source>
         <comment>File|New</comment>
         <translation>CTRL+N</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="472"/>
+        <location filename="app.cpp" line="480"/>
         <source>&amp;Open</source>
         <translation>Ö&amp;ffnen</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="473"/>
+        <location filename="app.cpp" line="481"/>
         <source>CTRL+O</source>
         <comment>File|Open</comment>
         <translation>CTRL+O</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="476"/>
+        <location filename="app.cpp" line="484"/>
         <source>&amp;Save</source>
         <translation>&amp;Speichern</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="477"/>
+        <location filename="app.cpp" line="485"/>
         <source>CTRL+S</source>
         <comment>File|Save</comment>
         <translation>CTRL+S</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="480"/>
+        <location filename="app.cpp" line="488"/>
         <source>Save &amp;As...</source>
         <translation>Speichern &amp;unter ...</translation>
     </message>
@@ -495,12 +500,12 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
         <translation type="obsolete">Ausgänge</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="484"/>
+        <location filename="app.cpp" line="492"/>
         <source>&amp;Operate</source>
         <translation>Betrieb</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="486"/>
+        <location filename="app.cpp" line="494"/>
         <source>CTRL+F12</source>
         <comment>Control|Toggle operate/design mode</comment>
         <translation>CTRL+F12</translation>
@@ -515,7 +520,7 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
         <translation type="obsolete">CTRL+Q</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="306"/>
+        <location filename="app.cpp" line="312"/>
         <source>Starting Q Light Controller</source>
         <translation>Starte Q Light Controller</translation>
     </message>
@@ -554,23 +559,23 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
         <translation type="obsolete">ALT+B</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="489"/>
+        <location filename="app.cpp" line="497"/>
         <source>&amp;Monitor</source>
         <translation>&amp;Monitor</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="490"/>
+        <location filename="app.cpp" line="498"/>
         <source>CTRL+M</source>
         <comment>Control|Monitor</comment>
         <translation>CTRL+M</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="502"/>
+        <location filename="app.cpp" line="510"/>
         <source>Toggle Full Screen</source>
         <translation>Vollbildmodus umschalten</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="504"/>
+        <location filename="app.cpp" line="512"/>
         <source>CTRL+F11</source>
         <comment>Control|Toggle Full Screen</comment>
         <translation>CTRL+F11</translation>
@@ -589,18 +594,18 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
         <translation type="obsolete">Alles in den Vordergrund holen</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="508"/>
+        <location filename="app.cpp" line="516"/>
         <source>&amp;Index</source>
         <translation>Handbuch</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="509"/>
+        <location filename="app.cpp" line="517"/>
         <source>SHIFT+F1</source>
         <comment>Help|Index</comment>
         <translation>SHIFT+F1</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="512"/>
+        <location filename="app.cpp" line="520"/>
         <source>&amp;About QLC+</source>
         <oldsource>&amp;About QLC</oldsource>
         <translation type="unfinished">Über QLC</translation>
@@ -630,119 +635,119 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
         <translation type="obsolete">&amp;Hilfe</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="263"/>
+        <location filename="app.cpp" line="269"/>
         <source>Close the application?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="264"/>
+        <location filename="app.cpp" line="270"/>
         <source>Do you wish to close the application?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="396"/>
+        <location filename="app.cpp" line="404"/>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="493"/>
+        <location filename="app.cpp" line="501"/>
         <source>Toggle &amp;Blackout</source>
         <translation type="unfinished">&amp;Blackout umschalten</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="498"/>
+        <location filename="app.cpp" line="506"/>
         <source>Stop ALL functions!</source>
         <translation type="unfinished">ALLE funktionen stoppen!</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="518"/>
+        <location filename="app.cpp" line="526"/>
         <source>Workspace</source>
         <translation>Arbeitsfläche</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="560"/>
+        <location filename="app.cpp" line="568"/>
         <source>Unable to read from file</source>
         <translation>Kann von Datei nicht lesen</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="563"/>
+        <location filename="app.cpp" line="571"/>
         <source>Unable to write to file</source>
         <translation>Kann in Datei nicht schreiben</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="566"/>
+        <location filename="app.cpp" line="574"/>
         <source>A fatal error occurred</source>
         <translation>Ein schwerer Fehler ist aufgetreten</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="569"/>
+        <location filename="app.cpp" line="577"/>
         <source>Unable to access resource</source>
         <translation>Ressource nicht erreichbar</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="572"/>
+        <location filename="app.cpp" line="580"/>
         <source>Unable to open file for reading or writing</source>
         <translation>Datei kann nicht um lesen oder schreiben geöffnet werden</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="575"/>
+        <location filename="app.cpp" line="583"/>
         <source>Operation was aborted</source>
         <translation>Vorgang wurde abgebrochen</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="578"/>
+        <location filename="app.cpp" line="586"/>
         <source>Operation timed out</source>
         <translation>Vorgang hatte eine Zeitüberschreitung</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="582"/>
+        <location filename="app.cpp" line="590"/>
         <source>An unspecified error has occurred. Nice.</source>
         <translation>Ein unkategorisierter Fehler ist aufgetreten. Nicht schlecht.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="586"/>
+        <location filename="app.cpp" line="594"/>
         <source>File error</source>
         <translation>Dateifehler</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="597"/>
-        <location filename="app.cpp" line="636"/>
+        <location filename="app.cpp" line="605"/>
+        <location filename="app.cpp" line="644"/>
         <source>Do you wish to save the current workspace?
 Changes will be lost if you don&apos;t save them.</source>
         <translation>Willst du die aktuelle Arbeitsfläche speichern?
 Änderungen gehen sonst verloren.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="599"/>
+        <location filename="app.cpp" line="607"/>
         <source>New Workspace</source>
         <translation>Neue Arbeitsfläche</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="638"/>
-        <location filename="app.cpp" line="659"/>
+        <location filename="app.cpp" line="646"/>
+        <location filename="app.cpp" line="667"/>
         <source>Open Workspace</source>
         <translation>Arbeitsfläche öffnen</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="665"/>
-        <location filename="app.cpp" line="735"/>
+        <location filename="app.cpp" line="673"/>
+        <location filename="app.cpp" line="749"/>
         <source>Workspaces (*%1)</source>
         <translation>Arbeitsflächen (*%1)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="667"/>
-        <location filename="app.cpp" line="737"/>
+        <location filename="app.cpp" line="675"/>
+        <location filename="app.cpp" line="751"/>
         <source>All Files (*.*)</source>
         <translation>Alle Dateien (*.*)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="669"/>
-        <location filename="app.cpp" line="739"/>
+        <location filename="app.cpp" line="677"/>
+        <location filename="app.cpp" line="753"/>
         <source>All Files (*)</source>
         <translation>Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="729"/>
+        <location filename="app.cpp" line="743"/>
         <source>Save Workspace As</source>
         <translation>Arbeitsfläche speichern unter</translation>
     </message>
@@ -793,6 +798,30 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <source>Hit the key combination that you wish to assign. You may hit either a single key or a combination using %1, %2, %3 and %4.</source>
         <translation type="obsolete">Presse die Tastenkombination, welche du zuweisen möchtest. Du kannst eine einzelne Taste drücken, oder eine Kombination mit %1, %2, %3 und %4.</translation>
+    </message>
+</context>
+<context>
+    <name>AudioItem</name>
+    <message>
+        <location filename="sceneitems.cpp" line="489"/>
+        <location filename="sceneitems.cpp" line="819"/>
+        <source>Preview Left Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sceneitems.cpp" line="493"/>
+        <source>Preview Right Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sceneitems.cpp" line="497"/>
+        <source>Preview Stereo Channels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sceneitems.cpp" line="815"/>
+        <source>Preview Mono</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -893,19 +922,19 @@ Changes will be lost if you don&apos;t save them.</source>
     </message>
     <message>
         <location filename="chasereditor.ui" line="81"/>
-        <location filename="chasereditor.cpp" line="676"/>
+        <location filename="chasereditor.cpp" line="690"/>
         <source>Fade In</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="86"/>
-        <location filename="chasereditor.cpp" line="677"/>
+        <location filename="chasereditor.cpp" line="691"/>
         <source>Fade Out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="91"/>
-        <location filename="chasereditor.cpp" line="678"/>
+        <location filename="chasereditor.cpp" line="692"/>
         <source>Duration</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1118,22 +1147,22 @@ Changes will be lost if you don&apos;t save them.</source>
         <translation>Einfügen</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="679"/>
+        <location filename="chasereditor.cpp" line="693"/>
         <source>Common Fade In</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="680"/>
+        <location filename="chasereditor.cpp" line="694"/>
         <source>Common Fade Out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="681"/>
+        <location filename="chasereditor.cpp" line="695"/>
         <source>Common Duration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="697"/>
+        <location filename="chasereditor.cpp" line="711"/>
         <source>Multiple Steps</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1906,7 +1935,7 @@ Changes will be lost if you don&apos;t save them.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="766"/>
+        <location filename="functionmanager.cpp" line="768"/>
         <source>Copy of %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2324,6 +2353,168 @@ Changes will be lost if you don&apos;t save them.</source>
     </message>
 </context>
 <context>
+    <name>InputOutputManager</name>
+    <message>
+        <location filename="inputoutputmanager.cpp" line="85"/>
+        <source>Universe</source>
+        <translation type="unfinished">Universum</translation>
+    </message>
+    <message>
+        <location filename="inputoutputmanager.cpp" line="85"/>
+        <source>Input Plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputoutputmanager.cpp" line="85"/>
+        <source>Input Device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputoutputmanager.cpp" line="85"/>
+        <source>Output Plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputoutputmanager.cpp" line="85"/>
+        <source>Ouput Device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputoutputmanager.cpp" line="85"/>
+        <source>Profile</source>
+        <translation type="unfinished">Profil</translation>
+    </message>
+</context>
+<context>
+    <name>InputOutputPatchEditor</name>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="14"/>
+        <source>Input/Output patch editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="30"/>
+        <source>Mapping</source>
+        <translation type="unfinished">Zuweisung</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="55"/>
+        <source>Plugin</source>
+        <translation type="unfinished">Plugin</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="60"/>
+        <source>Device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="65"/>
+        <source>Input</source>
+        <translation type="unfinished">Eingang</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="73"/>
+        <source>Output</source>
+        <translation type="unfinished">Ausgang</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="81"/>
+        <source>Feedback</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="129"/>
+        <source>Send feedback data to the input universe for moving e.g. motorized sliders.</source>
+        <translation type="unfinished">Sende Feedbackdata zum Eingangsuniversum, zum Beispiel für motorisierte Schieberegler</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="132"/>
+        <source>Feedback enabled</source>
+        <translation type="unfinished">Feedback aktiviert</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="140"/>
+        <location filename="inputoutputpatcheditor.ui" line="156"/>
+        <source>Profile</source>
+        <translation type="unfinished">Profil</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="164"/>
+        <source>Create a new input profile</source>
+        <translation type="unfinished">Neues Eingangsprofil erstellen</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="184"/>
+        <source>Delete the selected input profile</source>
+        <translation type="unfinished">Das ausgewählte Eingangsprofil löschen</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="204"/>
+        <source>Edit the selected input profile</source>
+        <translation type="unfinished">Das ausgewählte Eingangsprofil bearbeiten</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.cpp" line="552"/>
+        <location filename="inputoutputpatcheditor.cpp" line="686"/>
+        <source>Existing Input Profile</source>
+        <translation type="unfinished">Existierendes Eingangsprofil</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.cpp" line="553"/>
+        <location filename="inputoutputpatcheditor.cpp" line="687"/>
+        <source>An input profile at %1 already exists. Do you wish to overwrite it?</source>
+        <translation type="unfinished">Es existiert bereits ein Eingangsprofil in %1. Willst du es überschreiben?</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.cpp" line="562"/>
+        <location filename="inputoutputpatcheditor.cpp" line="696"/>
+        <source>Save Input Profile</source>
+        <translation type="unfinished">Eingangsprofil speichern</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.cpp" line="563"/>
+        <location filename="inputoutputpatcheditor.cpp" line="697"/>
+        <source>Input Profiles (*.qxi)</source>
+        <translation type="unfinished">Eingangsprofile (*.qxi)</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.cpp" line="576"/>
+        <location filename="inputoutputpatcheditor.cpp" line="713"/>
+        <source>Saving failed</source>
+        <translation type="unfinished">Speichern fehlgeschlagen</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.cpp" line="577"/>
+        <source>Unable to save the profile to %1</source>
+        <translation type="unfinished">Kann das Profil nicht nach %1 speichern.</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.cpp" line="614"/>
+        <source>Delete profile</source>
+        <translation type="unfinished">Profil löschen</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.cpp" line="615"/>
+        <source>Do you wish to permanently delete profile &quot;%1&quot;?</source>
+        <translation type="unfinished">Willst du das Profil &quot;%1&quot; permanent löschen?</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.cpp" line="643"/>
+        <source>File deletion failed</source>
+        <translation type="unfinished">Löschen fehlgeschlagen</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.cpp" line="644"/>
+        <source>Unable to delete file %1</source>
+        <translation type="unfinished">Kann Datei %1 nicht löschen</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.cpp" line="714"/>
+        <source>Unable to save %1 to %2</source>
+        <translation type="unfinished">Kan %1 nicht nach %2 speichern</translation>
+    </message>
+</context>
+<context>
     <name>InputPatchEditor</name>
     <message>
         <location filename="inputpatcheditor.ui" line="14"/>
@@ -2653,8 +2844,8 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     </message>
     <message>
         <location filename="multitrackview.cpp" line="181"/>
-        <location filename="multitrackview.cpp" line="434"/>
-        <location filename="multitrackview.cpp" line="454"/>
+        <location filename="multitrackview.cpp" line="440"/>
+        <location filename="multitrackview.cpp" line="460"/>
         <source>Click to move this sequence across the timeline</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2680,8 +2871,8 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="433"/>
-        <location filename="multitrackview.cpp" line="453"/>
+        <location filename="multitrackview.cpp" line="439"/>
+        <location filename="multitrackview.cpp" line="459"/>
         <source>Start time: %1
 %2</source>
         <translation type="unfinished"></translation>
@@ -2780,12 +2971,12 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
 <context>
     <name>QObject</name>
     <message>
-        <location filename="app.cpp" line="52"/>
+        <location filename="app.cpp" line="53"/>
         <source>Operate</source>
         <translation>Betrieb</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="53"/>
+        <location filename="app.cpp" line="54"/>
         <source>Design</source>
         <translation>Entwurf</translation>
     </message>
@@ -3340,57 +3531,62 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="332"/>
+        <location filename="showmanager.cpp" line="334"/>
         <source>New Show</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="334"/>
+        <location filename="showmanager.cpp" line="336"/>
         <source>Show name setup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="335"/>
+        <location filename="showmanager.cpp" line="337"/>
         <source>Show name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="366"/>
+        <location filename="showmanager.cpp" line="368"/>
         <source>New Scene</source>
         <translation type="unfinished">Neue Szene</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="394"/>
+        <location filename="showmanager.cpp" line="396"/>
         <source>New Sequence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="408"/>
+        <location filename="showmanager.cpp" line="410"/>
         <source>Open Audio File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="438"/>
+        <location filename="showmanager.cpp" line="436"/>
         <source>Audio Files (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="439"/>
-        <source>All files (*.*)</source>
-        <translation type="unfinished"></translation>
+        <location filename="showmanager.cpp" line="438"/>
+        <source>All Files (*.*)</source>
+        <translation type="unfinished">Alle Dateien (*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="460"/>
+        <location filename="showmanager.cpp" line="440"/>
+        <source>All Files (*)</source>
+        <translation type="unfinished">Alle Dateien (*)</translation>
+    </message>
+    <message>
+        <location filename="showmanager.cpp" line="462"/>
         <source>Unsupported audio file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="460"/>
+        <location filename="showmanager.cpp" line="462"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="496"/>
+        <location filename="showmanager.cpp" line="498"/>
         <source>Copy of %1</source>
         <translation type="unfinished"></translation>
     </message>

@@ -56,6 +56,9 @@ public:
     /** @reimp */
     int capabilities() const;
 
+    /** @reimp */
+    QString pluginInfo();
+
     /** Attempt to bind the socket to listen to EWing::UDPPort */
     void reBindSocket();
 

@@ -33,10 +33,11 @@
 #include <QDir>
 
 #include "qlcconfig.h"
+#include "qlci18n.h"
+
 #if defined(WIN32) || defined(__APPLE__)
   #include "debugbox.h"
 #endif
-#include "qlci18n.h"
 
 #include "app.h"
 #include "doc.h"

@@ -332,32 +332,32 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>App</name>
     <message>
-        <location filename="app.cpp" line="229"/>
+        <location filename="app.cpp" line="235"/>
         <source>Cannot exit in Operate mode</source>
         <translation>Ei voida sulkea Käyttötilassa</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="230"/>
+        <location filename="app.cpp" line="236"/>
         <source>You must switch back to Design mode to close the application.</source>
         <translation>Sinun täytyy vaihtaa takaisin Suunnittelu-tilaan sulkeaksesi sovelluksen.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="238"/>
+        <location filename="app.cpp" line="244"/>
         <source>Close</source>
         <translation>Sulje</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="239"/>
+        <location filename="app.cpp" line="245"/>
         <source>Do you wish to save the current workspace before closing the application?</source>
         <translation>Haluatko tallentaa nykyisen työtilan ennen sovelluksen sulkemista?</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="306"/>
+        <location filename="app.cpp" line="312"/>
         <source>Starting Q Light Controller</source>
         <translation>Käynnistetään Q Light Controller</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="362"/>
+        <location filename="app.cpp" line="368"/>
         <source> - New Workspace</source>
         <translation> - Uusi työtila</translation>
     </message>
@@ -404,12 +404,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Tilaa jäljellä vielä %1:lle funktiolle</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="413"/>
+        <location filename="app.cpp" line="421"/>
         <source>Switch to Design Mode</source>
         <translation>Vaihda Suunnittelutilaan</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="414"/>
+        <location filename="app.cpp" line="422"/>
         <source>There are still running functions.
 Really stop them and switch back to Design mode?</source>
         <translation>Joitain funktioita on vielä ajossa.
@@ -420,12 +420,12 @@ Haluatko varmasti pysäyttää ne ja vaihtaa takaisin Suunnittelutilaan?</transl
         <translation type="obsolete">Käyttötila valittu; muokkaustoiminnot eivät ole käytössä</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="446"/>
+        <location filename="app.cpp" line="454"/>
         <source>Design</source>
         <translation>Suunnittelu</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="447"/>
+        <location filename="app.cpp" line="455"/>
         <source>Switch to design mode</source>
         <translation>Vaihda Suunnittelutilaan</translation>
     </message>
@@ -434,13 +434,13 @@ Haluatko varmasti pysäyttää ne ja vaihtaa takaisin Suunnittelutilaan?</transl
         <translation type="obsolete">Suunnittelutila valittu; muokkaustoiminnot ovat käytettävissä</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="456"/>
+        <location filename="app.cpp" line="464"/>
         <source>Operate</source>
         <translation>Käyttötila</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="457"/>
-        <location filename="app.cpp" line="485"/>
+        <location filename="app.cpp" line="465"/>
+        <location filename="app.cpp" line="493"/>
         <source>Switch to operate mode</source>
         <translation>Vaihda Käyttötilaan</translation>
     </message>
@@ -453,40 +453,40 @@ Haluatko varmasti pysäyttää ne ja vaihtaa takaisin Suunnittelutilaan?</transl
         <translation type="obsolete">Pimennys on aktiivisena; mikään ulostulo ei ole käytössä</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="468"/>
+        <location filename="app.cpp" line="476"/>
         <source>&amp;New</source>
         <translation>&amp;Uusi</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="469"/>
+        <location filename="app.cpp" line="477"/>
         <source>CTRL+N</source>
         <comment>File|New</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="472"/>
+        <location filename="app.cpp" line="480"/>
         <source>&amp;Open</source>
         <translation>&amp;Avaa</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="473"/>
+        <location filename="app.cpp" line="481"/>
         <source>CTRL+O</source>
         <comment>File|Open</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="476"/>
+        <location filename="app.cpp" line="484"/>
         <source>&amp;Save</source>
         <translation>&amp;Tallenna</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="477"/>
+        <location filename="app.cpp" line="485"/>
         <source>CTRL+S</source>
         <comment>File|Save</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="480"/>
+        <location filename="app.cpp" line="488"/>
         <source>Save &amp;As...</source>
         <translation>Tallenna &amp;nimellä...</translation>
     </message>
@@ -515,7 +515,7 @@ Haluatko varmasti pysäyttää ne ja vaihtaa takaisin Suunnittelutilaan?</transl
         <translation type="obsolete">&amp;Ulostulot</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="484"/>
+        <location filename="app.cpp" line="492"/>
         <source>&amp;Operate</source>
         <translation>&amp;Käyttötila</translation>
     </message>
@@ -524,12 +524,12 @@ Haluatko varmasti pysäyttää ne ja vaihtaa takaisin Suunnittelutilaan?</transl
         <translation type="obsolete">Virtuaali&amp;konsoli</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="489"/>
+        <location filename="app.cpp" line="497"/>
         <source>&amp;Monitor</source>
         <translation>&amp;Monitorointi</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="493"/>
+        <location filename="app.cpp" line="501"/>
         <source>Toggle &amp;Blackout</source>
         <translation type="unfinished">Kytke &amp;Pimennys</translation>
     </message>
@@ -558,24 +558,24 @@ Haluatko varmasti pysäyttää ne ja vaihtaa takaisin Suunnittelutilaan?</transl
         <translation type="obsolete">&amp;Funktiot</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="486"/>
+        <location filename="app.cpp" line="494"/>
         <source>CTRL+F12</source>
         <comment>Control|Toggle operate/design mode</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="490"/>
+        <location filename="app.cpp" line="498"/>
         <source>CTRL+M</source>
         <comment>Control|Monitor</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="502"/>
+        <location filename="app.cpp" line="510"/>
         <source>Toggle Full Screen</source>
         <translation>Kytke koko näyttö</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="504"/>
+        <location filename="app.cpp" line="512"/>
         <source>CTRL+F11</source>
         <comment>Control|Toggle Full Screen</comment>
         <translation></translation>
@@ -589,18 +589,18 @@ Haluatko varmasti pysäyttää ne ja vaihtaa takaisin Suunnittelutilaan?</transl
         <translation type="obsolete">Tuo kaikki edustalle</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="508"/>
+        <location filename="app.cpp" line="516"/>
         <source>&amp;Index</source>
         <translation>&amp;Hakemisto</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="509"/>
+        <location filename="app.cpp" line="517"/>
         <source>SHIFT+F1</source>
         <comment>Help|Index</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="512"/>
+        <location filename="app.cpp" line="520"/>
         <source>&amp;About QLC+</source>
         <oldsource>&amp;About QLC</oldsource>
         <translation type="unfinished">Ti&amp;etoja QLC:stä</translation>
@@ -630,120 +630,125 @@ Haluatko varmasti pysäyttää ne ja vaihtaa takaisin Suunnittelutilaan?</transl
         <translation type="obsolete">&amp;Apua</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="181"/>
+        <location filename="app.cpp" line="185"/>
         <source>Fixtures</source>
         <translation type="unfinished">Valaisimet</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="183"/>
+        <location filename="app.cpp" line="187"/>
         <source>Functions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="185"/>
+        <location filename="app.cpp" line="189"/>
         <source>Shows</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="187"/>
+        <location filename="app.cpp" line="191"/>
         <source>Virtual Console</source>
         <translation type="unfinished">Virtuaalikonsoli</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="189"/>
+        <location filename="app.cpp" line="193"/>
         <source>Simple Desk</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="191"/>
+        <location filename="app.cpp" line="195"/>
         <source>Outputs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="193"/>
+        <location filename="app.cpp" line="197"/>
         <source>Inputs</source>
         <translation type="unfinished">Sisääntulot</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="263"/>
+        <location filename="app.cpp" line="199"/>
+        <source>Inputs/Outputs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="app.cpp" line="269"/>
         <source>Close the application?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="264"/>
+        <location filename="app.cpp" line="270"/>
         <source>Do you wish to close the application?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="396"/>
+        <location filename="app.cpp" line="404"/>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="498"/>
+        <location filename="app.cpp" line="506"/>
         <source>Stop ALL functions!</source>
         <translation type="unfinished">Pysäytä KAIKKI funktiot!</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="518"/>
+        <location filename="app.cpp" line="526"/>
         <source>Workspace</source>
         <translation>Työtila</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="560"/>
+        <location filename="app.cpp" line="568"/>
         <source>Unable to read from file</source>
         <translation>Tiedostoa ei voida lukea</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="563"/>
+        <location filename="app.cpp" line="571"/>
         <source>Unable to write to file</source>
         <translation>Tiedostoon ei voida kirjoittaa</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="566"/>
+        <location filename="app.cpp" line="574"/>
         <source>A fatal error occurred</source>
         <translation>Peruuttamaton virhe on tapahtunut</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="569"/>
+        <location filename="app.cpp" line="577"/>
         <source>Unable to access resource</source>
         <translation>Resurssiin ei voida käsitellä</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="572"/>
+        <location filename="app.cpp" line="580"/>
         <source>Unable to open file for reading or writing</source>
         <translation>Tiedostoa ei voida avata lukemista tai kirjoittamista varten</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="575"/>
+        <location filename="app.cpp" line="583"/>
         <source>Operation was aborted</source>
         <translation>Toiminto peruutettiin</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="578"/>
+        <location filename="app.cpp" line="586"/>
         <source>Operation timed out</source>
         <translation>Toiminto aikakatkaistiin</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="582"/>
+        <location filename="app.cpp" line="590"/>
         <source>An unspecified error has occurred. Nice.</source>
         <translation>Määrittelemätön virhe on tapahtunut. Siistiä.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="586"/>
+        <location filename="app.cpp" line="594"/>
         <source>File error</source>
         <translation>Tiedostovirhe</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="597"/>
-        <location filename="app.cpp" line="636"/>
+        <location filename="app.cpp" line="605"/>
+        <location filename="app.cpp" line="644"/>
         <source>Do you wish to save the current workspace?
 Changes will be lost if you don&apos;t save them.</source>
         <translation>Haluatko tallentaa nykyisen työtilan?
 Menetät muutokset jos et tallenna niitä.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="599"/>
+        <location filename="app.cpp" line="607"/>
         <source>New Workspace</source>
         <translation>Uusi työtila</translation>
     </message>
@@ -754,31 +759,31 @@ Otherwise you will lose changes.</source>
 Muuten menetät tekemäsi muutokset.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="638"/>
-        <location filename="app.cpp" line="659"/>
+        <location filename="app.cpp" line="646"/>
+        <location filename="app.cpp" line="667"/>
         <source>Open Workspace</source>
         <translation>Avaa työtila</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="665"/>
-        <location filename="app.cpp" line="735"/>
+        <location filename="app.cpp" line="673"/>
+        <location filename="app.cpp" line="749"/>
         <source>Workspaces (*%1)</source>
         <translation>Työtilat (*%1)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="667"/>
-        <location filename="app.cpp" line="737"/>
+        <location filename="app.cpp" line="675"/>
+        <location filename="app.cpp" line="751"/>
         <source>All Files (*.*)</source>
         <translation>Kaikki tiedostot (*.*)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="669"/>
-        <location filename="app.cpp" line="739"/>
+        <location filename="app.cpp" line="677"/>
+        <location filename="app.cpp" line="753"/>
         <source>All Files (*)</source>
         <translation>Kaikki tiedostot (*)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="729"/>
+        <location filename="app.cpp" line="743"/>
         <source>Save Workspace As</source>
         <translation>Tallenna työtila nimellä</translation>
     </message>
@@ -833,6 +838,30 @@ Muuten menetät tekemäsi muutokset.</translation>
     <message>
         <source>Hit the key combination that you wish to assign. You may hit either a single key or a combination using CTRL, ALT, and SHIFT.</source>
         <translation type="obsolete">Paina näppäimistöltä sellaista näppäinyhdistelmää, jonka haluat asettaa. Voit painaa yhtä nappia tai tehdä yhdistelmiä CTRL, ALT ja SHIFT-näppäimillä.</translation>
+    </message>
+</context>
+<context>
+    <name>AudioItem</name>
+    <message>
+        <location filename="sceneitems.cpp" line="489"/>
+        <location filename="sceneitems.cpp" line="819"/>
+        <source>Preview Left Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sceneitems.cpp" line="493"/>
+        <source>Preview Right Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sceneitems.cpp" line="497"/>
+        <source>Preview Stereo Channels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sceneitems.cpp" line="815"/>
+        <source>Preview Mono</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -937,19 +966,19 @@ Muuten menetät tekemäsi muutokset.</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="81"/>
-        <location filename="chasereditor.cpp" line="676"/>
+        <location filename="chasereditor.cpp" line="690"/>
         <source>Fade In</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="86"/>
-        <location filename="chasereditor.cpp" line="677"/>
+        <location filename="chasereditor.cpp" line="691"/>
         <source>Fade Out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="91"/>
-        <location filename="chasereditor.cpp" line="678"/>
+        <location filename="chasereditor.cpp" line="692"/>
         <source>Duration</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1166,22 +1195,22 @@ Muuten menetät tekemäsi muutokset.</translation>
         <translation>Liitä</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="679"/>
+        <location filename="chasereditor.cpp" line="693"/>
         <source>Common Fade In</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="680"/>
+        <location filename="chasereditor.cpp" line="694"/>
         <source>Common Fade Out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="681"/>
+        <location filename="chasereditor.cpp" line="695"/>
         <source>Common Duration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="697"/>
+        <location filename="chasereditor.cpp" line="711"/>
         <source>Multiple Steps</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1994,7 +2023,7 @@ Muuten menetät tekemäsi muutokset.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="766"/>
+        <location filename="functionmanager.cpp" line="768"/>
         <source>Copy of %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2431,6 +2460,168 @@ Muuten menetät tekemäsi muutokset.</translation>
     </message>
 </context>
 <context>
+    <name>InputOutputManager</name>
+    <message>
+        <location filename="inputoutputmanager.cpp" line="85"/>
+        <source>Universe</source>
+        <translation type="unfinished">Universumi</translation>
+    </message>
+    <message>
+        <location filename="inputoutputmanager.cpp" line="85"/>
+        <source>Input Plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputoutputmanager.cpp" line="85"/>
+        <source>Input Device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputoutputmanager.cpp" line="85"/>
+        <source>Output Plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputoutputmanager.cpp" line="85"/>
+        <source>Ouput Device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputoutputmanager.cpp" line="85"/>
+        <source>Profile</source>
+        <translation type="unfinished">Profiili</translation>
+    </message>
+</context>
+<context>
+    <name>InputOutputPatchEditor</name>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="14"/>
+        <source>Input/Output patch editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="30"/>
+        <source>Mapping</source>
+        <translation type="unfinished">Ohjaus</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="55"/>
+        <source>Plugin</source>
+        <translation type="unfinished">Liitännäinen</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="60"/>
+        <source>Device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="65"/>
+        <source>Input</source>
+        <translation type="unfinished">Sisääntulo</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="73"/>
+        <source>Output</source>
+        <translation type="unfinished">Ulostulo</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="81"/>
+        <source>Feedback</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="129"/>
+        <source>Send feedback data to the input universe for moving e.g. motorized sliders.</source>
+        <translation type="unfinished">Lähetä palautearvoja sisääntulouniversumiin esim. motorisoitujen liukujen liikuttamiseksi.</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="132"/>
+        <source>Feedback enabled</source>
+        <translation type="unfinished">Palaute käytössä</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="140"/>
+        <location filename="inputoutputpatcheditor.ui" line="156"/>
+        <source>Profile</source>
+        <translation type="unfinished">Profiili</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="164"/>
+        <source>Create a new input profile</source>
+        <translation type="unfinished">Luo uusi profiili</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="184"/>
+        <source>Delete the selected input profile</source>
+        <translation type="unfinished">Poista valittu profiili</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="204"/>
+        <source>Edit the selected input profile</source>
+        <translation type="unfinished">Muokkaa valittua profiilia</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.cpp" line="552"/>
+        <location filename="inputoutputpatcheditor.cpp" line="686"/>
+        <source>Existing Input Profile</source>
+        <translation type="unfinished">Olemassaoleva sisääntuloprofiili</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.cpp" line="553"/>
+        <location filename="inputoutputpatcheditor.cpp" line="687"/>
+        <source>An input profile at %1 already exists. Do you wish to overwrite it?</source>
+        <translation type="unfinished">Sisääntuloprofiili %1 on jo olemassa. Haluatko ylikirjoittaa sen?</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.cpp" line="562"/>
+        <location filename="inputoutputpatcheditor.cpp" line="696"/>
+        <source>Save Input Profile</source>
+        <translation type="unfinished">Tallenna sisääntuloprofiili</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.cpp" line="563"/>
+        <location filename="inputoutputpatcheditor.cpp" line="697"/>
+        <source>Input Profiles (*.qxi)</source>
+        <translation type="unfinished">Sisääntuloprofiilit (*.qxi)</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.cpp" line="576"/>
+        <location filename="inputoutputpatcheditor.cpp" line="713"/>
+        <source>Saving failed</source>
+        <translation type="unfinished">Tallennus epäonnistui</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.cpp" line="577"/>
+        <source>Unable to save the profile to %1</source>
+        <translation type="unfinished">Profiilia ei voida tallentaa tiedostoon %1</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.cpp" line="614"/>
+        <source>Delete profile</source>
+        <translation type="unfinished">Poista profiili</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.cpp" line="615"/>
+        <source>Do you wish to permanently delete profile &quot;%1&quot;?</source>
+        <translation type="unfinished">Haluat poistaa profiilin %1 pysyvästi?</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.cpp" line="643"/>
+        <source>File deletion failed</source>
+        <translation type="unfinished">Tiedoston poisto epäonnistui</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.cpp" line="644"/>
+        <source>Unable to delete file %1</source>
+        <translation type="unfinished">Tiedostoa %1 ei voida poistaa</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.cpp" line="714"/>
+        <source>Unable to save %1 to %2</source>
+        <translation type="unfinished">Profiilia %1 ei voida tallentaa tiedostoon %2</translation>
+    </message>
+</context>
+<context>
     <name>InputPatchEditor</name>
     <message>
         <location filename="inputpatcheditor.ui" line="14"/>
@@ -2766,8 +2957,8 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
     </message>
     <message>
         <location filename="multitrackview.cpp" line="181"/>
-        <location filename="multitrackview.cpp" line="434"/>
-        <location filename="multitrackview.cpp" line="454"/>
+        <location filename="multitrackview.cpp" line="440"/>
+        <location filename="multitrackview.cpp" line="460"/>
         <source>Click to move this sequence across the timeline</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2793,8 +2984,8 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="433"/>
-        <location filename="multitrackview.cpp" line="453"/>
+        <location filename="multitrackview.cpp" line="439"/>
+        <location filename="multitrackview.cpp" line="459"/>
         <source>Start time: %1
 %2</source>
         <translation type="unfinished"></translation>
@@ -2897,12 +3088,12 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
 <context>
     <name>QObject</name>
     <message>
-        <location filename="app.cpp" line="52"/>
+        <location filename="app.cpp" line="53"/>
         <source>Operate</source>
         <translation>Käyttötila</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="53"/>
+        <location filename="app.cpp" line="54"/>
         <source>Design</source>
         <translation>Suunnittelu</translation>
     </message>
@@ -3457,57 +3648,62 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="332"/>
+        <location filename="showmanager.cpp" line="334"/>
         <source>New Show</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="334"/>
+        <location filename="showmanager.cpp" line="336"/>
         <source>Show name setup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="335"/>
+        <location filename="showmanager.cpp" line="337"/>
         <source>Show name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="366"/>
+        <location filename="showmanager.cpp" line="368"/>
         <source>New Scene</source>
         <translation type="unfinished">Uusi tilanne</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="394"/>
+        <location filename="showmanager.cpp" line="396"/>
         <source>New Sequence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="408"/>
+        <location filename="showmanager.cpp" line="410"/>
         <source>Open Audio File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="438"/>
+        <location filename="showmanager.cpp" line="436"/>
         <source>Audio Files (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="439"/>
-        <source>All files (*.*)</source>
-        <translation type="unfinished"></translation>
+        <location filename="showmanager.cpp" line="438"/>
+        <source>All Files (*.*)</source>
+        <translation type="unfinished">Kaikki tiedostot (*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="460"/>
+        <location filename="showmanager.cpp" line="440"/>
+        <source>All Files (*)</source>
+        <translation type="unfinished">Kaikki tiedostot (*)</translation>
+    </message>
+    <message>
+        <location filename="showmanager.cpp" line="462"/>
         <source>Unsupported audio file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="460"/>
+        <location filename="showmanager.cpp" line="462"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="496"/>
+        <location filename="showmanager.cpp" line="498"/>
         <source>Copy of %1</source>
         <translation type="unfinished"></translation>
     </message>

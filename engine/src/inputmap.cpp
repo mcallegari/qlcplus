@@ -115,7 +115,7 @@ quint32 InputMap::invalidChannel()
 /*****************************************************************************
  * Input data
  *****************************************************************************/
-
+/*
 bool InputMap::feedBack(quint32 universe, quint32 channel, uchar value)
 {
     if (universe >= quint32(m_patch.size()))
@@ -137,7 +137,7 @@ bool InputMap::feedBack(quint32 universe, quint32 channel, uchar value)
         return false;
     }
 }
-
+*/
 void InputMap::slotPluginConfigurationChanged(QLCIOPlugin* plugin)
 {
     for (quint32 i = 0; i < universes(); i++)
@@ -167,8 +167,7 @@ void InputMap::initPatch()
 }
 
 bool InputMap::setPatch(quint32 universe, const QString& pluginName,
-                        quint32 input, bool enableFeedback,
-                        const QString& profileName)
+                        quint32 input, const QString& profileName)
 {
     /* Check that the universe that we're doing mapping for is valid */
     if (universe >= m_universes)
@@ -180,7 +179,7 @@ bool InputMap::setPatch(quint32 universe, const QString& pluginName,
     /* Don't care if plugin or profile is NULL. It must be possible to
        clear the patch completely. */
     m_patch[universe]->set(doc()->ioPluginCache()->plugin(pluginName), input,
-                           enableFeedback, profile(profileName));
+                           profile(profileName));
 
     return true;
 }
@@ -245,6 +244,21 @@ bool InputMap::canConfigurePlugin(const QString& pluginName)
         return inputPlugin->canConfigure();
     else
         return false;
+}
+
+QString InputMap::pluginDescription(const QString& pluginName)
+{
+    QLCIOPlugin* plugin = NULL;
+
+    if (pluginName.isEmpty() == false)
+        plugin = doc()->ioPluginCache()->plugin(pluginName);
+
+    if (plugin != NULL)
+    {
+        return plugin->pluginInfo();
+    }
+    else
+        return "";
 }
 
 QString InputMap::pluginStatus(const QString& pluginName, quint32 input)
@@ -458,7 +472,6 @@ QDir InputMap::userProfileDirectory()
 
 void InputMap::loadDefaults()
 {
-    bool feedbackEnabled;
     QString profileName;
     QSettings settings;
     QString plugin;
@@ -486,13 +499,6 @@ void InputMap::loadDefaults()
         key = QString("/inputmap/universe%2/profile/").arg(i);
         profileName = settings.value(key).toString();
 
-        /* Feedback enable */
-        key = QString("/inputmap/universe%2/feedbackEnabled/").arg(i);
-        if (settings.value(key).isValid() == true)
-            feedbackEnabled = settings.value(key).toBool();
-        else
-            feedbackEnabled = true;
-
         /* Do the mapping */
         if (plugin.length() > 0 && input.length() > 0)
         {
@@ -502,7 +508,7 @@ void InputMap::loadDefaults()
             if (m == InputMap::invalidUniverse() || m == i)
             {
                 setPatch(i, plugin, input.toInt(),
-                         feedbackEnabled, profileName);
+                         profileName);
             }
         }
     }
@@ -536,10 +542,6 @@ void InputMap::saveDefaults()
             /* Input profile */
             key = QString("/inputmap/universe%2/profile/").arg(i);
             settings.setValue(key, pat->profileName());
-
-            /* Feedback enable */
-            key = QString("/inputmap/universe%2/feedbackEnabled/").arg(i);
-            settings.setValue(key, pat->feedbackEnabled());
         }
         else
         {
@@ -554,10 +556,6 @@ void InputMap::saveDefaults()
             /* Input profile */
             key = QString("/inputmap/universe%2/profile/").arg(i);
             settings.setValue(key, "");
-
-            /* Feedback enable */
-            key = QString("/inputmap/universe%2/feedbackEnabled/").arg(i);
-            settings.setValue(key, true);
         }
     }
 }

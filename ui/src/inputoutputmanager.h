@@ -1,8 +1,8 @@
 /*
   Q Light Controller
-  inputmanager.h
+  inputoutputmanager.h
 
-  Copyright (c) Heikki Junnila
+  Copyright (c) Massimo Callegari
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License
@@ -19,8 +19,8 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef INPUTMANAGER_H
-#define INPUTMANAGER_H
+#ifndef INPUTOUTPUTMANAGER_H
+#define INPUTOUTPUTMANAGER_H
 
 #include <QWidget>
 
@@ -31,25 +31,29 @@ class QTimer;
 
 class InputPatch;
 class InputMap;
+class OutputPatch;
+class OutputMap;
+class Doc;
 
-class InputManager : public QWidget
+class InputOutputManager : public QWidget
 {
     Q_OBJECT
-    Q_DISABLE_COPY(InputManager)
+    Q_DISABLE_COPY(InputOutputManager)
 
     /*************************************************************************
      * Initialization
      *************************************************************************/
 public:
-    InputManager(QWidget* parent, InputMap* inputMap);
-    virtual ~InputManager();
+    InputOutputManager(QWidget* parent, Doc* doc);
+    virtual ~InputOutputManager();
 
     /** Get the singleton instance */
-    static InputManager* instance();
+    static InputOutputManager* instance();
 
 private:
-    static InputManager* s_instance;
+    static InputOutputManager* s_instance;
     InputMap* m_inputMap;
+    OutputMap* m_outputMap;
 
     /*************************************************************************
      * Tree widget

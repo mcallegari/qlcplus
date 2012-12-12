@@ -107,7 +107,7 @@ QStringList Peperoni::outputs()
     return list;
 }
 
-QString Peperoni::outputInfo(quint32 output)
+QString Peperoni::pluginInfo()
 {
     QString str;
 
@@ -117,6 +117,18 @@ QString Peperoni::outputInfo(quint32 output)
     str += QString("</HEAD>");
     str += QString("<BODY>");
 
+    str += QString("<H3>%1</H3>").arg(name());
+    str += QString("<P>");
+    str += tr("This plugin provides DMX output support for Peperoni DMX devices.");
+    str += QString("</P>");
+
+    return str;
+}
+
+QString Peperoni::outputInfo(quint32 output)
+{
+    QString str;
+
     if (m_usbdmx == NULL)
     {
         str += QString("<H3>%1</H3>").arg(name());
@@ -124,14 +136,7 @@ QString Peperoni::outputInfo(quint32 output)
         str += tr("The shared library usbdmx.dll could not be found or is too old to be used with QLC.");
         str += QString("</P>");
     }
-    else if (output == QLCIOPlugin::invalidLine())
-    {
-        str += QString("<H3>%1</H3>").arg(name());
-        str += QString("<P>");
-        str += tr("This plugin provides DMX output support for Peperoni DMX devices.");
-        str += QString("</P>");
-    }
-    else if (output < quint32(m_devices.size()))
+    else if (output == QLCIOPlugin::invalidLine() && output < quint32(m_devices.size()))
     {
         str += m_devices.at(output)->infoText();
     }

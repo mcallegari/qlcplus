@@ -364,9 +364,9 @@ void VCButton::setOn(bool on)
     if (src.isValid() == true)
     {
         if (on == true)
-            m_doc->inputMap()->feedBack(src.universe(), src.channel(), UCHAR_MAX);
+            m_doc->outputMap()->feedBack(src.universe(), src.channel(), UCHAR_MAX);
         else
-            m_doc->inputMap()->feedBack(src.universe(), src.channel(), 0);
+            m_doc->outputMap()->feedBack(src.universe(), src.channel(), 0);
     }
 
     update();

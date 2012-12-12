@@ -49,6 +49,9 @@ public:
     /** @reimp */
     int capabilities() const;
 
+    /** @reimp */
+    QString pluginInfo();
+
     /*********************************************************************
      * Outputs
      *********************************************************************/
@@ -67,6 +70,9 @@ public:
 
     /** @reimp */
     void writeUniverse(quint32 output, const QByteArray& universe);
+    
+    /** @reimp */
+    void sendFeedBack(quint32 inputLine, quint32 channel, uchar value);
 
 public:
     /** List of outputs that have been opened */

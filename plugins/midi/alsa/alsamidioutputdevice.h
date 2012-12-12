@@ -34,8 +34,8 @@ class AlsaMidiOutputDevice : public MidiOutputDevice
 {
 public:
     AlsaMidiOutputDevice(const QVariant& uid, const QString& name,
-                         const snd_seq_addr_t* address, snd_seq_t* alsa,
-                         QObject* parent);
+                         const snd_seq_addr_t* recv_address, snd_seq_t* alsa,
+                         snd_seq_addr_t* send_address, QObject* parent);
     virtual ~AlsaMidiOutputDevice();
 
     void open();
@@ -47,7 +47,8 @@ public:
 
 private:
     snd_seq_t* m_alsa;
-    snd_seq_addr_t* m_address;
+    snd_seq_addr_t* m_receiver_address;
+    snd_seq_addr_t* m_sender_address;
     bool m_open;
     QByteArray m_universe;
 };

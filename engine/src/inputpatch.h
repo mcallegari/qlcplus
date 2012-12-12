@@ -69,11 +69,9 @@ public:
      *
      * @param plugin A plugin to assign
      * @param input An input line within that plugin to assign
-     * @param enableFeedback Enable or disable feedback thru a patch
      * @param profile An input profile for a patch (NULL for none)
      */
-    void set(QLCIOPlugin* plugin, quint32 input, bool enableFeedback,
-             QLCInputProfile* profile);
+    void set(QLCIOPlugin* plugin, quint32 input, QLCInputProfile* profile);
 
     /** Close & open the current plugin-input combination (if any) */
     void reconnect();
@@ -96,9 +94,6 @@ public:
     /** Name of the assigned input profile (empty if none) */
     QString profileName() const;
 
-    /** Check if feedback data should be sent back to the plugin */
-    bool feedbackEnabled() const;
-
 signals:
     void inputValueChanged(quint32 inputUniverse, quint32 channel, uchar value);
 
@@ -109,7 +104,6 @@ private:
     QLCIOPlugin* m_plugin;
     quint32 m_input;
     QLCInputProfile* m_profile;
-    bool m_feedbackEnabled;
 };
 
 #endif

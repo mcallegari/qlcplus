@@ -1,9 +1,14 @@
 qlcplus (4.1.0) beta; urgency=low
 
-  * MAJOR: added audio tracks support in the Show Manager
+  * MAJOR: added audio tracks support in the Show Manager. It is also possible to preview the waveform by right clicking on an audio track
+  * MIDI output and feedbacks now work again
+  * unified Input/Output panels to have a complete view of devices/profiles and feedbacks
   * chaser steps can now be edited by double clicking on them in the Chaser Editor panel
+  * fixed crash when opening a project with empty shows and/or empty tracks
   * OLA plugin is back to work
   * Windows installer refurbished for a modern look
+  * Velleman support back to work on Windows
+  * added a useful debug window for OSX and Windows
   * improved docs
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 27 Nov 2012 15:31:42 +0200

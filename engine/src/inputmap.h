@@ -69,7 +69,7 @@ public slots:
 public:
     /** Send feedback value to the input profile e.g. to move a motorized
         sliders & knobs, set indicator leds etc. */
-    bool feedBack(quint32 universe, quint32 channel, uchar value);
+    //bool feedBack(quint32 universe, quint32 channel, uchar value);
 
 signals:
     /** Everyone interested in input data should connect to this signal */
@@ -124,13 +124,11 @@ public:
      * @param universe The input universe to patch
      * @param pluginName The name of the plugin to patch to the universe
      * @param input An input universe provided by the plugin to patch to
-     * @param enableFeedback enable/disable feedback data sending
      * @param profileName The name of an input profile
      * @return true if successful, otherwise false
      */
     bool setPatch(quint32 universe, const QString& pluginName,
-                  quint32 input, bool enableFeedback,
-                  const QString& profileName = QString());
+                  quint32 input, const QString& profileName = QString());
 
     /**
      * Get mapping for an input universe.
@@ -202,6 +200,11 @@ public:
      * @param input A specific input identifier
      */
     QString pluginStatus(const QString& pluginName, quint32 input);
+
+    /**
+     * Get a description text for the given plugin.
+     */
+    QString pluginDescription(const QString& pluginName);
 
 signals:
     /** Notifies of a newly-added plugin */

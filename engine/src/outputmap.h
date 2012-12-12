@@ -220,9 +220,10 @@ public:
      * @param universe The universe to patch
      * @param pluginName The name of the plugin to patch to the universe
      * @param output A universe provided by the plugin to patch to
+     * @param isFeedback Determine if this line is a feedback output
      * @return true if successful, otherwise false
      */
-    bool setPatch(quint32 universe, const QString& pluginName, quint32 output = 0);
+    bool setPatch(quint32 universe, const QString& pluginName, quint32 output = 0, bool isFeedback = false);
 
     /**
      * Get the output mapping for a QLC universe.
@@ -230,6 +231,13 @@ public:
      * @param universe The internal universe to get mapping for
      */
     OutputPatch* patch(quint32 universe) const;
+
+    /**
+     * Get the feedback mapping for a QLC universe.
+     *
+     * @param universe The internal universe to get mapping for
+     */
+    OutputPatch* feedbackPatch(quint32 universe) const;
 
     /**
      * Get a list of available universes.
@@ -248,8 +256,11 @@ public:
     quint32 mapping(const QString& pluginName, quint32 output) const;
 
 private:
-    /** Vector containing all active plugins */
+    /** Vector containing ouput plugins for each universe */
     QVector <OutputPatch*> m_patch;
+
+    /** Vector containing feedback plugins for each universe */
+    QVector <OutputPatch*> m_fb_patch;
 
     /*********************************************************************
      * Plugins
@@ -294,6 +305,10 @@ public:
      * @param output Plugin's output line for getting more specific info
      */
     QString pluginStatus(const QString& pluginName, quint32 output);
+
+    /** Send feedback value to the input profile e.g. to move a motorized
+        sliders & knobs, set indicator leds etc. */
+    bool feedBack(quint32 universe, quint32 channel, uchar value);
 
 private slots:
    /** Slot that catches plugin configuration change notifications from UIPluginCache */

@@ -64,8 +64,6 @@ void InputPatch_Test::defaults()
     QVERIFY(ip.pluginName() == KInputNone);
     QVERIFY(ip.inputName() == KInputNone);
     QVERIFY(ip.profileName() == KInputNone);
-    QVERIFY(ip.m_feedbackEnabled == true);
-    QVERIFY(ip.feedbackEnabled() == true);
 }
 
 void InputPatch_Test::patch()
@@ -81,7 +79,7 @@ void InputPatch_Test::patch()
     prof1.setManufacturer("Bar");
 
     InputPatch* ip = new InputPatch(0, this);
-    ip->set(stub, 0, false, &prof1);
+    ip->set(stub, 0, &prof1);
     QVERIFY(ip->m_plugin == stub);
     QVERIFY(ip->m_input == 0);
     QVERIFY(ip->m_profile == &prof1);
@@ -90,14 +88,12 @@ void InputPatch_Test::patch()
     QVERIFY(ip->profileName() == prof1.name());
     QVERIFY(stub->m_openInputs.size() == 1);
     QVERIFY(stub->m_openInputs.at(0) == 0);
-    QVERIFY(ip->m_feedbackEnabled == false);
-    QVERIFY(ip->feedbackEnabled() == false);
 
     QLCInputProfile prof2;
     prof2.setManufacturer("Xyzzy");
     prof2.setManufacturer("Foobar");
 
-    ip->set(stub, 3, true, &prof2);
+    ip->set(stub, 3, &prof2);
     QVERIFY(ip->m_plugin == stub);
     QVERIFY(ip->m_input == 3);
     QVERIFY(ip->m_profile == &prof2);
@@ -106,8 +102,6 @@ void InputPatch_Test::patch()
     QVERIFY(ip->profileName() == prof2.name());
     QVERIFY(stub->m_openInputs.size() == 1);
     QVERIFY(stub->m_openInputs.at(0) == 3);
-    QVERIFY(ip->m_feedbackEnabled == true);
-    QVERIFY(ip->feedbackEnabled() == true);
 
     ip->reconnect();
     QVERIFY(ip->m_plugin == stub);
@@ -118,8 +112,6 @@ void InputPatch_Test::patch()
     QVERIFY(ip->profileName() == prof2.name());
     QVERIFY(stub->m_openInputs.size() == 1);
     QVERIFY(stub->m_openInputs.at(0) == 3);
-    QVERIFY(ip->m_feedbackEnabled == true);
-    QVERIFY(ip->feedbackEnabled() == true);
 
     delete ip;
     QVERIFY(stub->m_openInputs.size() == 0);
