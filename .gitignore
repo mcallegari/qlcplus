@@ -7,6 +7,7 @@
 *.la
 *.lai
 *.so
+*.so*
 *.dll
 *.dylib
 
@@ -21,6 +22,11 @@ Makefile.*
 *-build-*
 ui_*
 object_*
+engine/src/qlcconfig.h
 
 # Binaries
 *.exe
+*_test
+main/qlc
+fixtureeditor/qlc-fixtureeditor
+hotplugmonitor/test/test
