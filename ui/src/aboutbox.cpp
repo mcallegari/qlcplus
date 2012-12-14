@@ -37,17 +37,21 @@ AboutBox::AboutBox(QWidget* parent) : QDialog (parent)
 
     m_titleLabel->setText(APPNAME);
     m_versionLabel->setText(APPVERSION);
-    m_copyrightLabel->setText(QString("Copyright &copy; <B>Heikki Junnila</B> %1")
+    m_copyrightLabel->setText(QString("Copyright &copy; <B>Heikki Junnila, Massimo Callegari</B> %1")
                               .arg(tr("and contributors:")));
-    m_websiteLabel->setText(tr("Website: %1").arg("<A HREF=\"http://qlc.sourceforge.net\">http://qlc.sourceforge.net</A>"));
+    m_websiteLabel->setText(tr("Website: %1").arg("<A HREF=\"http://sourceforge.net/projects/qlcplus/\">http://sourceforge.net/projects/qlcplus/</A>"));
 
     connect(m_contributors, SIGNAL(itemClicked(QListWidgetItem*)),
             this, SLOT(slotItemClicked()));
     m_contributors->clear();
+    m_contributors->addItem("QLC+ contributors:");
+    m_contributors->addItem(QString::fromUtf8("Daniel Nyström"));
+    m_contributors->addItem("");
+    m_contributors->addItem("QLC contributors:");
     m_contributors->addItem("janek3");
     m_contributors->addItem("Klaus Weidenbach");
     m_contributors->addItem("Stefan Krumm");
-    m_contributors->addItem(QByteArray::fromPercentEncoding("Christian S%fchs"));
+    m_contributors->addItem(QString::fromUtf8("Christian Sühs"));
     m_contributors->addItem("Simon Newton");
     m_contributors->addItem("Christopher Staite");
     m_contributors->addItem("Lutz Hillebrand");

@@ -111,6 +111,10 @@ http://sourceforge.net/apps/trac/qlc/ (->View Tickets)
 
 Contributors
 ------------
+QLC+:
+Daniel Nyström (OSX test & support)
+
+QLC:
 Stefan Krumm <stefankrumm@users.sf.net> (Bugfixes, new features)
 Christian Suehs <dance-or-die@users.sf.net> (Bugfixes, new features)
 Christopher Staite <chris_staite@users.sf.net> (Bugfixes)

@@ -44,7 +44,7 @@ win32:QMAKE_LFLAGS += -enable-auto-import
 
 # Install root
 win32:INSTALLROOT       = $$(SystemDrive)/QLC
-macx:INSTALLROOT        = ~/QLC.app/Contents
+macx:INSTALLROOT        = ~/QLC+.app/Contents
 unix:!macx:INSTALLROOT += /usr
 
 # Binaries
@@ -93,7 +93,7 @@ unix:!macx:PLUGINDIR = $$LIBSDIR/qt4/plugins/qlc
 macx:PLUGINDIR       = Plugins
 
 # Translations
-win32:TRANSLATIONDIR      =
+win32:TRANSLATIONDIR      = $$DATADIR/
 unix:!macx:TRANSLATIONDIR = $$DATADIR/translations
 macx:TRANSLATIONDIR       = $$DATADIR/Translations
 
