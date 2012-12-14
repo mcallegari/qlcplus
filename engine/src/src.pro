@@ -28,6 +28,7 @@ LIBS        += -L../../hotplugmonitor/src -lhotplugmonitor
 #############################################################################
 
 macx {
+    LIBS += -framework CoreFoundation -framework CoreAudio -framework AudioToolbox
     # This must be after "TARGET = " and before target installation so that
     # install_name_tool can be run before target installation
     include(../../macx/nametool.pri)
@@ -63,7 +64,6 @@ HEADERS += audio/audio.h \
 
 unix:!macx:HEADERS += audio/audiorenderer_alsa.h
 win32:HEADERS += audio/audiorenderer_waveout.h
-macx:HEADERS += audio/audiorenderer_null.h
 
 # Engine
 HEADERS += bus.h \
@@ -130,7 +130,11 @@ SOURCES += audio/audio.cpp \
 
 unix:!macx:SOURCES += audio/audiorenderer_alsa.cpp
 win32:SOURCES += audio/audiorenderer_waveout.cpp
-macx:SOURCES += audio/audiorenderer_null.cpp
+
+macx {
+     HEADERS += audio/audiorenderer_coreaudio.h
+     SOURCES += audio/audiorenderer_coreaudio.cpp
+}
 
 # Engine
 SOURCES += bus.cpp \
