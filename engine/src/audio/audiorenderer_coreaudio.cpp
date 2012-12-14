@@ -74,7 +74,7 @@ bool AudioRendererCoreAudio::initialize(quint32 freq, int chan, AudioFormat form
     fmt.mBytesPerFrame = fmt.mChannelsPerFrame * fmt.mBitsPerChannel/8;
     fmt.mBytesPerPacket = fmt.mBytesPerFrame * fmt.mFramesPerPacket;
 
-    status = AudioQueueNewOutput(&fmt, AudioRendererCoreAudio::inCallback, this, CFRunLoopGetCurrent(),
+    status = AudioQueueNewOutput(&fmt, AudioRendererCoreAudio::inCallback, this, CFRunLoopGetMain(),
                     kCFRunLoopCommonModes, 0, &m_queue);
 
     if (status == kAudioFormatUnsupportedDataFormatError)
