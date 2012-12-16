@@ -338,7 +338,7 @@ void SequenceItem::calculateWidth()
         seq_duration += step.duration;
 
     if (seq_duration != 0)
-        newWidth = ((50/m_timeScale) * seq_duration) / 1000;
+        newWidth = ((50/(float)m_timeScale) * (float)seq_duration) / 1000;
 
     if (newWidth < (50 / m_timeScale))
         newWidth = 50 / m_timeScale;
@@ -369,13 +369,14 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     painter->drawRect(0, 0, m_width, 77);
     /* draw vertical lines to show the chaser's steps */
     int xpos = 0;
+    float timeScale = 50/(float)m_timeScale;
 
     foreach (ChaserStep step, m_chaser->steps())
     {
 
         if (step.fadeIn > 0)
         {
-            int fadeXpos = xpos + (((50/m_timeScale) * step.fadeIn) / 1000);
+            int fadeXpos = xpos + ((timeScale * (float)step.fadeIn) / 1000);
             // doesn't even draw it if too small
             if (fadeXpos - xpos > 5)
             {
@@ -384,11 +385,11 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
             }
         }
         painter->setPen(QPen(Qt::white, 1));
-        xpos += (((50/m_timeScale) * step.duration) / 1000);
+        xpos += ((timeScale * (float)step.duration) / 1000);
         painter->drawLine(xpos, 1, xpos, 75);
         if (step.fadeOut > 0)
         {
-            int fadeXpos = xpos - (((50/m_timeScale) * step.fadeOut) / 1000);
+            int fadeXpos = xpos - ((timeScale * (float)step.fadeOut) / 1000);
             // doesn't even draw it if too small
             if (xpos - fadeXpos > 5)
             {
@@ -506,7 +507,7 @@ void AudioItem::calculateWidth()
     qint64 audio_duration = m_audio->getDuration();
 
     if (audio_duration != 0)
-        newWidth = ((50/m_timeScale) * audio_duration) / 1000;
+        newWidth = ((50/(float)m_timeScale) * (float)audio_duration) / 1000;
     else
         newWidth = 100;
 
