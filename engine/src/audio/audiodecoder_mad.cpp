@@ -409,6 +409,7 @@ void AudioDecoderMAD::seek(qint64 pos)
         m_input_bytes = 0;
         m_stream.next_frame = 0;
         m_skip_frames = 2;
+        m_eof = 0;
     }
 }
 
