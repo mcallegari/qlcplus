@@ -89,6 +89,9 @@ void Win32MidiOutputDevice::writeChannel(ushort channel, uchar value)
 
 void Win32MidiOutputDevice::writeUniverse(const QByteArray& universe)
 {
+    if (isOpen() == false)
+        return;
+
     for (BYTE channel = 0; channel < MAX_MIDI_DMX_CHANNELS &&
                            channel < universe.size(); channel++)
     {
