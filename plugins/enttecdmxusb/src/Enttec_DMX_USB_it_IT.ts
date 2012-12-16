@@ -7,7 +7,7 @@
         <location filename="enttecdmxusb.cpp" line="139"/>
         <source>and compatible devices.</source>
         <oldsource>No devices available.</oldsource>
-        <translation type="unfinished">Nessun dispositivo disponibile.</translation>
+        <translation>e dispositivi compatibili.</translation>
     </message>
     <message>
         <location filename="enttecdmxusb.cpp" line="155"/>
@@ -20,20 +20,20 @@
         <translation>Questa plugin permette la trasmissione di segnale DMX in uscita per</translation>
     </message>
     <message>
-        <location filename="enttecdmxusb.cpp" line="139"/>
-        <source>and compatible devices.</source>
-        <translation>ed interfacce compatibili.</translation>
-    </message>
-    <message>
         <location filename="enttecdmxusb.cpp" line="153"/>
         <source>No output support available.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nessuna uscita disponibile.</translation>
     </message>
     <message>
         <location filename="enttecdmxusb.cpp" line="164"/>
         <location filename="enttecdmxusb.cpp" line="231"/>
         <source>Device is operating correctly.</source>
         <translation>Interfaccia connessa ed attiva.</translation>
+    </message>
+    <message>
+        <location filename="enttecdmxusb.cpp" line="218"/>
+        <source>No input support available.</source>
+        <translation>Nessun ingresso disponibile.</translation>
     </message>
 </context>
 <context>

@@ -20,11 +20,6 @@
         <translation type="unfinished">Dieses Plugin bietet DMX-Ausgabesupport für</translation>
     </message>
     <message>
-        <location filename="enttecdmxusb.cpp" line="139"/>
-        <source>and compatible devices.</source>
-        <translation type="unfinished">und kompatibel Geräte.</translation>
-    </message>
-    <message>
         <location filename="enttecdmxusb.cpp" line="153"/>
         <source>No output support available.</source>
         <translation type="unfinished"></translation>
@@ -34,6 +29,11 @@
         <location filename="enttecdmxusb.cpp" line="231"/>
         <source>Device is operating correctly.</source>
         <translation type="unfinished">Gerät ist funktionsfähig.</translation>
+    </message>
+    <message>
+        <location filename="enttecdmxusb.cpp" line="218"/>
+        <source>No input support available.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

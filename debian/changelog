@@ -10,8 +10,10 @@ qlcplus (4.1.0) beta; urgency=low
   * Velleman support back to work on Windows
   * added a useful debug window for OSX and Windows
   * improved docs
+  * added KORG nanoKONTROL 2 input profile (thanks to Jannis Achstetter)
+  * added 9 new fixtures thanks to the QLC forum users: American-DJ-Par-38-Pro, Chauvet-COLORpalette, Chauvet-Slim-Par-Pro-RGBA, Chauvet-Slim-Par-Pro-VW,  Clay-Paky-Mini-Scan-HPE, Eurolite-LED-Bar-RGB-252_10_40__Indoor, HQ-Power-Power-Space-250, Litecraft-PowerBar-4, Showtec-Indigo-6500
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 27 Nov 2012 15:31:42 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 16 Dec 2012 17:07:42 +0200
 
 qlcplus (4.0.2) beta; urgency=low
 

@@ -119,11 +119,17 @@ QString MidiPlugin::outputInfo(quint32 output)
 
     QString str;
 
+    if (output == QLCIOPlugin::invalidLine())
+    {
+        str += QString("<BR><B>%1</B>").arg(tr("No output support available."));
+        return str;
+    }
+
     MidiOutputDevice* dev = outputDevice(output);
     if (dev != NULL)
     {
         QString status;
-        str += QString("<H3>%1 %2</H3>").arg(tr("Output")).arg(output);
+        str += QString("<H3>%1 %2</H3>").arg(tr("Output")).arg(outputs()[output]);
         str += QString("<P>");
         if (dev->isOpen() == true)
             status = tr("Open");
@@ -134,7 +140,7 @@ QString MidiPlugin::outputInfo(quint32 output)
     }
     else
     {
-        str += QString("<H3>%1 %2</H3>").arg(tr("Invalid Output")).arg(output);
+        str += QString("<H3>%1 %2</H3>").arg(tr("Invalid Output")).arg(outputs()[output]);
     }
 
     str += QString("</BODY>");
@@ -207,18 +213,24 @@ QString MidiPlugin::inputInfo(quint32 input)
     qDebug() << Q_FUNC_INFO;
 
     QString str;
-
+/*
     str += QString("<HTML>");
     str += QString("<HEAD>");
     str += QString("<TITLE>%1</TITLE>").arg(name());
     str += QString("</HEAD>");
     str += QString("<BODY>");
+*/
+    if (input == QLCIOPlugin::invalidLine())
+    {
+        str += QString("<BR><B>%1</B>").arg(tr("No input support available."));
+        return str;
+    }
 
     MidiInputDevice* dev = inputDevice(input);
     if (dev != NULL)
     {
         QString status;
-        str += QString("<H3>%1 %2</H3>").arg(tr("Input")).arg(input);
+        str += QString("<H3>%1 %2</H3>").arg(tr("Input")).arg(inputs()[input]);
         str += QString("<P>");
         if (dev->isOpen() == true)
             status = tr("Open");
@@ -229,7 +241,7 @@ QString MidiPlugin::inputInfo(quint32 input)
     }
     else
     {
-        str += QString("<H3>%1 %2</H3>").arg(tr("Invalid Input")).arg(input);
+        str += QString("<H3>%1 %2</H3>").arg(tr("Invalid Input")).arg(inputs()[input]);
     }
 
     str += QString("</BODY>");
