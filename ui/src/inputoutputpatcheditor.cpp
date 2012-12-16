@@ -244,6 +244,14 @@ void InputOutputPatchEditor::fillMappingTree()
                     pitem->setCheckState(KMapColumnHasOutput, Qt::Unchecked);
                 pitem->setText(KMapColumnOutputLine, QString("%1").arg(i));
                 pitem->setText(KMapColumnInputLine, QString("%1").arg(QLCIOPlugin::invalidLine()));
+                /* If a device has both input and output, it means it can send feedbacks */
+                if (pluginName == "MIDI")
+                {
+                    if (m_currentFeedbackPluginName == pluginName && m_currentFeedback == i)
+                        pitem->setCheckState(KMapColumnHasFeedback, Qt::Checked);
+                    else
+                        pitem->setCheckState(KMapColumnHasFeedback, Qt::Unchecked);
+                }
                 i++;
             }
             if (i == 0)
@@ -266,15 +274,15 @@ void InputOutputPatchEditor::fillMappingTree()
                 /* 2nd case: add new output-only device to an existing plugin */
                 if (item == NULL)
                 {
-                    QTreeWidgetItem* pitem = new QTreeWidgetItem(m_mapTree);
-                    pitem->setText(KMapColumnPluginName, pluginName);
-                    pitem->setText(KMapColumnDeviceName, devName);
-                    pitem->setFlags(pitem->flags() | Qt::ItemIsUserCheckable);
+                    item = new QTreeWidgetItem(m_mapTree);
+                    item->setText(KMapColumnPluginName, pluginName);
+                    item->setText(KMapColumnDeviceName, devName);
+                    item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
                     if (m_currentOutputPluginName == pluginName && m_currentOutput == i)
-                        pitem->setCheckState(KMapColumnHasOutput, Qt::Checked);
+                        item->setCheckState(KMapColumnHasOutput, Qt::Checked);
                     else
-                        pitem->setCheckState(KMapColumnHasOutput, Qt::Unchecked);
-                    pitem->setText(KMapColumnOutputLine, QString("%1").arg(i));
+                        item->setCheckState(KMapColumnHasOutput, Qt::Unchecked);
+                    item->setText(KMapColumnOutputLine, QString("%1").arg(i));
                 }
                 else
                 {
@@ -285,7 +293,10 @@ void InputOutputPatchEditor::fillMappingTree()
                     else
                         item->setCheckState(KMapColumnHasOutput, Qt::Unchecked);
                     item->setText(KMapColumnOutputLine, QString("%1").arg(i));
-                    /* If a device has both input and output, it means it can send feedbacks */
+                }
+                /* If a device has both input and output, it means it can send feedbacks */
+                if (pluginName == "MIDI")
+                {
                     if (m_currentFeedbackPluginName == pluginName && m_currentFeedback == i)
                         item->setCheckState(KMapColumnHasFeedback, Qt::Checked);
                     else

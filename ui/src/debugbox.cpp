@@ -37,6 +37,8 @@ DebugBox::~DebugBox()
 
 void DebugBox::addText(QString text)
 {
+    m_mutex.lock();
     m_debugBrowser->append(text);
+    m_mutex.unlock();
 }
 

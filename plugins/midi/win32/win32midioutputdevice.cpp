@@ -93,11 +93,11 @@ void Win32MidiOutputDevice::writeUniverse(const QByteArray& universe)
                            channel < universe.size(); channel++)
     {
         /* Scale 0-255 to 0-127 */
-        BYTE scaled = DMX2MIDI(universe[channel]);
+        char scaled = DMX2MIDI(uchar(universe[channel]));
 
         /* Since MIDI is so slow, we only send values that are
            actually changed. */
-        if (m_universe[channel] == (char) scaled)
+        if (m_universe[channel] == scaled)
             continue;
 
         /* Store the changed MIDI value */
@@ -118,8 +118,9 @@ void Win32MidiOutputDevice::writeUniverse(const QByteArray& universe)
         }
         else
         {
+            //qDebug() << "[writeUniverse] MIDI: " << midiChannel() << ", channel: " << channel << ", value: " << scaled;
             /* Control change */
-            sendData(MIDI_CONTROL_CHANGE | (BYTE) midiChannel(), channel, scaled);
+            sendData(MIDI_CONTROL_CHANGE | (BYTE) midiChannel(), channel, (BYTE)scaled);
         }
     }
 }

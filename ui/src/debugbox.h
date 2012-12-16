@@ -23,6 +23,7 @@
 #define DEBUGBOX_H
 
 #include <QDialog>
+#include <QMutex>
 #include "ui_debugbox.h"
 
 #define DEBUGBOX_FLAGS Qt::WindowFlags(Qt::Window)
@@ -37,6 +38,8 @@ public:
     ~DebugBox();
 
     void addText(QString text);
+private:
+    QMutex m_mutex;
 };
 
 #endif
