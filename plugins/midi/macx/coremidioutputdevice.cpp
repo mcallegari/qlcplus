@@ -116,7 +116,7 @@ void CoreMidiOutputDevice::writeUniverse(const QByteArray& universe)
     {
         Byte cmd[3];
         cmd[1] = channel;
-        cmd[2] = DMX2MIDI(uchar(universe[channel]);
+        cmd[2] = DMX2MIDI(uchar(universe[channel]));
 
         /* Since MIDI is so slow, we only send values that are
            actually changed. */
