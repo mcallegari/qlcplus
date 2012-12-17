@@ -5,6 +5,7 @@ qlcplus (4.1.0) beta; urgency=low
   * unified Input/Output panels to have a complete view of devices/profiles and feedbacks
   * chaser steps can now be edited by double clicking on them in the Chaser Editor panel
   * fixed crash when opening a project with empty shows and/or empty tracks
+  * improved rendering accuracy of Sequences and Audio items
   * OLA plugin is back to work
   * Windows installer refurbished for a modern look
   * Velleman support back to work on Windows
