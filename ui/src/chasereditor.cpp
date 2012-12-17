@@ -979,7 +979,7 @@ ChaserStep ChaserEditor::stepAtItem(const QTreeWidgetItem* item) const
     Q_ASSERT(item != NULL);
 
     int idx = item->text(COL_NUM).toInt() - 1;
-    if (idx < 0 || index >= m_chaser->steps().count())
+    if (idx < 0 || idx >= m_chaser->steps().count())
         return ChaserStep();
 
     return m_chaser->steps().at(idx);
