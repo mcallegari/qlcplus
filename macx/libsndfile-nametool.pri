@@ -1,4 +1,4 @@
-LIBSNDFILE_DIR      = $$system("pkg-config --variable libdir libsndfile")
+LIBSNDFILE_DIR      = $$system("pkg-config --variable libdir sndfile")
 LIBSNDFILE_FILE     = libsndfile.1.dylib
 LIBSNDFILE_FILEPATH = $$LIBSNDFILE_DIR/$$LIBSNDFILE_FILE
 
@@ -18,7 +18,7 @@ LIBVORBISFILE_FILEPATH = $$LIBSNDFILE_DIR/$$LIBVORBISFILE_FILE
 LIBSNDFILE_INSTALL_NAME_TOOL = install_name_tool -change $$LIBSNDFILE_FILEPATH \
                 @executable_path/../$$LIBSDIR/$$LIBSNDFILE_FILE
 
-contains(PKGCONFIG, libsndfile) {
+contains(PKGCONFIG, sndfile) {
     !isEmpty(nametool.commands) {
         nametool.commands += "&&" 
     }

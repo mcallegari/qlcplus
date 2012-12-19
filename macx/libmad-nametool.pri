@@ -1,11 +1,11 @@
-LIBMAD_DIR      = $$system("pkg-config --variable libdir libmad")
+LIBMAD_DIR      = $$system("pkg-config --variable libdir mad")
 LIBMAD_FILE     = libmad.0.dylib
 LIBMAD_FILEPATH = $$LIBMAD_DIR/$$LIBMAD_FILE
 
 LIBMAD_INSTALL_NAME_TOOL = install_name_tool -change $$LIBMAD_FILEPATH \
                 @executable_path/../$$LIBSDIR/$$LIBMAD_FILE
 
-contains(PKGCONFIG, libmad) {
+contains(PKGCONFIG, mad) {
     !isEmpty(nametool.commands) {
         nametool.commands += "&&" 
     }
