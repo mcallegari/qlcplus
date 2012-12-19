@@ -114,6 +114,10 @@ public:
     /** @reimp */
     bool canConfigure();
 
+    QString getPort();
+
+    void setPort(QString port);
+
 private:
     quint16 getHash(QString path);
 

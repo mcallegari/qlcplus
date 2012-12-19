@@ -68,7 +68,7 @@ public slots:
 
 signals:
     /** Everyone interested in input data should connect to this signal */
-    void inputValueChanged(quint32 universe, quint32 channel, uchar value, QString key = 0);
+    void inputValueChanged(quint32 universe, quint32 channel, uchar value, const QString& key = 0);
 
     /** Notifies (InputManager) of plugin configuration changes */
     void pluginConfigurationChanged(const QString& pluginName);

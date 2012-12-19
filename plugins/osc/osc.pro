@@ -12,6 +12,10 @@ DEPENDPATH  += ../interfaces
 PKGCONFIG += liblo
 win32:QMAKE_LFLAGS += -shared
 
+# This must be after "TARGET = " and before target installation so that
+# install_name_tool can be run before target installation
+macx:include(../../macx/nametool.pri)
+
 target.path = $$INSTALLROOT/$$PLUGINDIR
 INSTALLS   += target
 
@@ -21,6 +25,12 @@ INSTALLS   += target
 #TRANSLATIONS += OSC_fr_FR.ts
 #TRANSLATIONS += OSC_it_IT.ts
 
-HEADERS += oscplugin.h
-SOURCES += oscplugin.cpp
 HEADERS += ../interfaces/qlcioplugin.h
+HEADERS += oscplugin.h \
+           configureosc.h
+
+FORMS += configureosc.ui
+
+SOURCES += oscplugin.cpp \
+           configureosc.cpp
+

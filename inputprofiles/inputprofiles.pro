@@ -12,6 +12,7 @@ profiles.files += KORG-nanoKONTROL2.qxi
 profiles.files += Logitech-WingManAttack2.qxi
 profiles.files += Generic-MIDI.qxi
 profiles.files += ShowTec-ShowMaster24.qxi
+profiles.files += TouchOSC-Mix16.qxi
 
 profiles.path = $$INSTALLROOT/$$INPUTPROFILEDIR
 INSTALLS += profiles

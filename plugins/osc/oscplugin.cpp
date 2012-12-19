@@ -20,6 +20,7 @@
 */
 
 #include "oscplugin.h"
+#include "configureosc.h"
 
 #include <QSettings>
 #include <QDebug>
@@ -130,7 +131,15 @@ void OSCPlugin::openInput(quint32 input)
 
 void OSCPlugin::closeInput(quint32 input)
 {
-    Q_UNUSED(input);
+    if (input != 0)
+        return;
+
+    if (m_serv_thread != NULL)
+    {
+        lo_server_thread_stop(m_serv_thread);
+        lo_server_thread_free(m_serv_thread);
+        m_serv_thread = NULL;
+    }
 }
 
 QStringList OSCPlugin::inputs()
@@ -183,11 +192,29 @@ void OSCPlugin::sendValueChanged(quint32 input, QString path, uchar value)
  *********************************************************************/
 void OSCPlugin::configure()
 {
+    ConfigureOSC conf(this);
+    conf.exec();
 }
 
 bool OSCPlugin::canConfigure()
 {
     return true;
+}
+
+QString OSCPlugin::getPort()
+{
+    return m_port;
+}
+
+void OSCPlugin::setPort(QString port)
+{
+    QSettings settings;
+
+    settings.setValue(SETTINGS_OSC_PORT, QVariant(port));
+
+    m_port = port;
+
+    openInput(0);
 }
 
 /*****************************************************************************

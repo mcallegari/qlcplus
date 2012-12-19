@@ -289,7 +289,7 @@ void InputMap_Test::slotValueChanged()
     QVERIFY(im.patch(0)->plugin() == stub);
     QVERIFY(im.patch(0)->input() == 0);
 
-    QSignalSpy spy(&im, SIGNAL(inputValueChanged(quint32, quint32, uchar)));
+    QSignalSpy spy(&im, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString&)));
     stub->emitValueChanged(0, 15, UCHAR_MAX);
     QVERIFY(spy.size() == 1);
     QVERIFY(spy.at(0).at(0) == 0);

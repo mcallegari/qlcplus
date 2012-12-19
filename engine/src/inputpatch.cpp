@@ -138,7 +138,7 @@ QString InputPatch::profileName() const
         return KInputNone;
 }
 
-void InputPatch::slotValueChanged(quint32 input, quint32 channel, uchar value, QString key)
+void InputPatch::slotValueChanged(quint32 input, quint32 channel, uchar value, const QString& key)
 {
     // In case we have several lines connected from the same plugin, emit only
     // such values that belong to this particular patch.

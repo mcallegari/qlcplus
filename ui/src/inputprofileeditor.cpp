@@ -76,8 +76,8 @@ InputProfileEditor::InputProfileEditor(QWidget* parent, QLCInputProfile* profile
             this, SLOT(slotEditClicked()));
 
     /* Listen to input data */
-    connect(inputMap, SIGNAL(inputValueChanged(quint32, quint32, uchar, QString)),
-            this, SLOT(slotInputValueChanged(quint32, quint32, uchar, QString)));
+    connect(inputMap, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString&)),
+            this, SLOT(slotInputValueChanged(quint32, quint32, uchar, const QString&)));
 
     if (profile == NULL)
     {
@@ -380,7 +380,7 @@ void InputProfileEditor::slotWizardClicked(bool checked)
 void InputProfileEditor::slotInputValueChanged(quint32 universe,
                                                quint32 channel,
                                                uchar value,
-                                               QString key)
+                                               const QString& key)
 {
     QTreeWidgetItem* latestItem = NULL;
 
@@ -390,10 +390,9 @@ void InputProfileEditor::slotInputValueChanged(quint32 universe,
        the list should always contain just one item. */
     QList <QTreeWidgetItem*> list;
     if (channel == UINT_MAX && key.isEmpty() == false)
-        list = m_tree->findItems(key, Qt::MatchExactly,
-                             KColumnName);
+        list = m_tree->findItems(key, Qt::MatchExactly, KColumnName);
     else
-    list = m_tree->findItems(QString("%1").arg(channel + 1), Qt::MatchExactly,
+        list = m_tree->findItems(QString("%1").arg(channel + 1), Qt::MatchExactly,
                              KColumnNumber);
     if (list.size() != 0)
         latestItem = list.first();
@@ -403,7 +402,10 @@ void InputProfileEditor::slotInputValueChanged(quint32 universe,
         /* No channel items found. Create a new channel to the
            profile and display it also in the tree widget */
         QLCInputChannel* ch = new QLCInputChannel();
-        ch->setName(tr("Button %1").arg(channel + 1));
+        if(key.isEmpty())
+            ch->setName(tr("Button %1").arg(channel + 1));
+        else
+            ch->setName(key);
         ch->setType(QLCInputChannel::Button);
         m_profile->insertChannel(channel, ch);
 
@@ -441,7 +443,7 @@ void InputProfileEditor::slotInputValueChanged(quint32 universe,
             {
                 ch->setType(QLCInputChannel::Slider);
                 if(key.isEmpty())
-                ch->setName(tr("Slider %1").arg(channel + 1));
+                    ch->setName(tr("Slider %1").arg(channel + 1));
                 else
                     ch->setName(key);
                 updateChannelItem(latestItem, ch);

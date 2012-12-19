@@ -138,8 +138,8 @@ void InputMap::initPatch()
     {
         InputPatch* patch = new InputPatch(i, this);
         m_patch.insert(i, patch);
-        connect(patch, SIGNAL(inputValueChanged(quint32,quint32,uchar,QString)),
-                this, SIGNAL(inputValueChanged(quint32,quint32,uchar,QString)));
+        connect(patch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
+                this, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)));
     }
 }
 

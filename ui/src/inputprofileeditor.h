@@ -66,7 +66,7 @@ protected slots:
     void slotEditClicked();
     void slotWizardClicked(bool checked);
 
-    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value, QString key = 0);
+    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value, const QString& key = 0);
     void slotTimerTimeout();
 
 protected:
