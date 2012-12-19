@@ -7,6 +7,7 @@ include(libusb-nametool.pri)
 include(libftdi-nametool.pri)
 include(libmad-nametool.pri)
 include(libsndfile-nametool.pri)
+include(liblo-nametool.pri)
 include(libqtgui-nametool.pri)
 include(libqtxml-nametool.pri)
 include(libqtcore-nametool.pri)
@@ -20,6 +21,7 @@ INSTALLS += LIBUSB LIBUSB_ID
 INSTALLS += LIBFTDI LIBFTDI_ID
 INSTALLS += LIBMAD LIBMAD_ID
 INSTALLS += LIBSNDFILE LIBSNDFILE_ID
+INSTALLS += LIBLO LIBLO_ID
 INSTALLS += LIBQTGUI QTMENU LIBQTGUI_ID
 INSTALLS += LIBQTXML LIBQTXML_ID
 INSTALLS += LIBQTCORE LIBQTCORE_ID
