@@ -217,7 +217,7 @@ signals:
      * @param channel The channel that has changed its value
      * @param value The newly-changed channel value
      */
-    void valueChanged(quint32 input, quint32 channel, uchar value);
+    void valueChanged(quint32 input, quint32 channel, uchar value, QString key = 0);
 
     /*************************************************************************
      * Configure

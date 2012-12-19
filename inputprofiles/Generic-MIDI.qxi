@@ -7,6 +7,7 @@
  </Creator>
  <Manufacturer>Generic</Manufacturer>
  <Model>MIDI</Model>
+ <Type>MIDI</Type>
  <Channel Number="0">
   <Name>Bank select MSB</Name>
   <Type>Slider</Type>

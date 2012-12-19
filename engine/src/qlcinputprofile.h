@@ -36,6 +36,7 @@ class QDomElement;
 #define KXMLQLCInputProfile "InputProfile"
 #define KXMLQLCInputProfileManufacturer "Manufacturer"
 #define KXMLQLCInputProfileModel "Model"
+#define KXMLQLCInputProfileType "Type"
 
 class QLCInputProfile
 {
@@ -72,10 +73,15 @@ public:
         this as a unique ID since this varies between platforms. */
     QString path() const;
 
+    void setType(const QString& type);
+
+    QString type() const;
+
 protected:
     QString m_manufacturer;
     QString m_model;
     QString m_path;
+    QString m_type;
 
     /********************************************************************
      * Channels

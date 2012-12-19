@@ -7,6 +7,7 @@
  </Creator>
  <Manufacturer>Behringer</Manufacturer>
  <Model>LC2412</Model>
+ <Type>MIDI</Type>
  <Channel Number="0">
   <Name>A Preset Fader 1</Name>
   <Type>Slider</Type>

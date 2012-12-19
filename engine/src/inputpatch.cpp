@@ -63,8 +63,8 @@ void InputPatch::set(QLCIOPlugin* plugin, quint32 input, QLCInputProfile* profil
 {
     if (m_plugin != NULL && m_input != QLCIOPlugin::invalidLine())
     {
-        disconnect(m_plugin, SIGNAL(valueChanged(quint32,quint32,uchar)),
-                   this, SLOT(slotValueChanged(quint32,quint32,uchar)));
+        disconnect(m_plugin, SIGNAL(valueChanged(quint32,quint32,uchar,QString)),
+                   this, SLOT(slotValueChanged(quint32,quint32,uchar,QString)));
         m_plugin->closeInput(m_input);
     }
 
@@ -75,8 +75,8 @@ void InputPatch::set(QLCIOPlugin* plugin, quint32 input, QLCInputProfile* profil
     /* Open the assigned plugin input */
     if (m_plugin != NULL && m_input != QLCIOPlugin::invalidLine())
     {
-        connect(m_plugin, SIGNAL(valueChanged(quint32,quint32,uchar)),
-                this, SLOT(slotValueChanged(quint32,quint32,uchar)));
+        connect(m_plugin, SIGNAL(valueChanged(quint32,quint32,uchar,QString)),
+                this, SLOT(slotValueChanged(quint32,quint32,uchar,QString)));
         m_plugin->openInput(m_input);
     }
 }
@@ -138,10 +138,10 @@ QString InputPatch::profileName() const
         return KInputNone;
 }
 
-void InputPatch::slotValueChanged(quint32 input, quint32 channel, uchar value)
+void InputPatch::slotValueChanged(quint32 input, quint32 channel, uchar value, QString key)
 {
     // In case we have several lines connected from the same plugin, emit only
     // such values that belong to this particular patch.
     if (input == m_input)
-        emit inputValueChanged(m_inputUniverse, channel, value);
+        emit inputValueChanged(m_inputUniverse, channel, value, key);
 }

@@ -66,14 +66,9 @@ public slots:
     /** Slot that catches plugin configuration change notifications */
     void slotPluginConfigurationChanged(QLCIOPlugin* plugin);
 
-public:
-    /** Send feedback value to the input profile e.g. to move a motorized
-        sliders & knobs, set indicator leds etc. */
-    //bool feedBack(quint32 universe, quint32 channel, uchar value);
-
 signals:
     /** Everyone interested in input data should connect to this signal */
-    void inputValueChanged(quint32 universe, quint32 channel, uchar value);
+    void inputValueChanged(quint32 universe, quint32 channel, uchar value, QString key = 0);
 
     /** Notifies (InputManager) of plugin configuration changes */
     void pluginConfigurationChanged(const QString& pluginName);

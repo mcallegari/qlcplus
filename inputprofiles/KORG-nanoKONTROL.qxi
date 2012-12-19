@@ -5,8 +5,9 @@
   <Version>3.0.7</Version>
   <Author>hjunnila</Author>
  </Creator>
- <Manufacturer>Korg</Manufacturer>
+ <Manufacturer>KORG</Manufacturer>
  <Model>nanoKONTROL</Model>
+ <Type>MIDI</Type>
  <Channel Number="2">
   <Name>Slider 1</Name>
   <Type>Slider</Type>

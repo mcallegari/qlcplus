@@ -7,6 +7,7 @@
  </Creator>
  <Manufacturer>ShowTec</Manufacturer>
  <Model>ShowMaster 24</Model>
+ <Type>MIDI</Type>
  <Channel Number="22" >
   <Name>Scene 1</Name>
   <Type>Button</Type>

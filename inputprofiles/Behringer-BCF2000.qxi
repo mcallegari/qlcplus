@@ -7,6 +7,7 @@
  </Creator>
  <Manufacturer>Behringer</Manufacturer>
  <Model>BCF2000</Model>
+ <Type>MIDI</Type>
  <Channel Number="1" >
   <Name>Knob 1</Name>
   <Type>Knob</Type>

@@ -115,29 +115,6 @@ quint32 InputMap::invalidChannel()
 /*****************************************************************************
  * Input data
  *****************************************************************************/
-/*
-bool InputMap::feedBack(quint32 universe, quint32 channel, uchar value)
-{
-    if (universe >= quint32(m_patch.size()))
-        return false;
-
-    InputPatch* patch = m_patch[universe];
-    Q_ASSERT(patch != NULL);
-
-    if (patch->plugin() != NULL && patch->feedbackEnabled() == true)
-    {
-        //! @todo Feedback
-        //patch->plugin()->sendFeedBack(patch->input(), channel, value);
-        Q_UNUSED(channel);
-        Q_UNUSED(value);
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-*/
 void InputMap::slotPluginConfigurationChanged(QLCIOPlugin* plugin)
 {
     for (quint32 i = 0; i < universes(); i++)
@@ -161,8 +138,8 @@ void InputMap::initPatch()
     {
         InputPatch* patch = new InputPatch(i, this);
         m_patch.insert(i, patch);
-        connect(patch, SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                this, SIGNAL(inputValueChanged(quint32,quint32,uchar)));
+        connect(patch, SIGNAL(inputValueChanged(quint32,quint32,uchar,QString)),
+                this, SIGNAL(inputValueChanged(quint32,quint32,uchar,QString)));
     }
 }
 

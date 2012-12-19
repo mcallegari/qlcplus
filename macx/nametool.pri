@@ -17,6 +17,8 @@ contains(TEMPLATE, app) {
 
 include(libusb-nametool.pri)
 include(libftdi-nametool.pri)
+include(libmad-nametool.pri)
+include(libsndfile-nametool.pri)
 include(libqtgui-nametool.pri)
 include(libqtxml-nametool.pri)
 include(libqtcore-nametool.pri)

@@ -5,6 +5,8 @@ CONFIG  += ordered
 
 include(libusb-nametool.pri)
 include(libftdi-nametool.pri)
+include(libmad-nametool.pri)
+include(libsndfile-nametool.pri)
 include(libqtgui-nametool.pri)
 include(libqtxml-nametool.pri)
 include(libqtcore-nametool.pri)
@@ -16,6 +18,8 @@ include(libqlcui-nametool.pri)
 INSTALLS += LIBQLCENGINE_ID LIBQLCUI_ID
 INSTALLS += LIBUSB LIBUSB_ID
 INSTALLS += LIBFTDI LIBFTDI_ID
+INSTALLS += LIBMAD LIBMAD_ID
+INSTALLS += LIBSNDFILE LIBSNDFILE_ID
 INSTALLS += LIBQTGUI QTMENU LIBQTGUI_ID
 INSTALLS += LIBQTXML LIBQTXML_ID
 INSTALLS += LIBQTCORE LIBQTCORE_ID

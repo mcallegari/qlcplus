@@ -95,10 +95,10 @@ public:
     QString profileName() const;
 
 signals:
-    void inputValueChanged(quint32 inputUniverse, quint32 channel, uchar value);
+    void inputValueChanged(quint32 inputUniverse, quint32 channel, uchar value, QString key = 0);
 
 private slots:
-    void slotValueChanged(quint32 input, quint32 channel, uchar value);
+    void slotValueChanged(quint32 input, quint32 channel, uchar value, QString key = 0);
 
 private:
     QLCIOPlugin* m_plugin;
