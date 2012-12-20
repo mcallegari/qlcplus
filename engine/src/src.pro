@@ -23,19 +23,7 @@ DEPENDPATH  += ../../hotplugmonitor/src
 INCLUDEPATH += ../../hotplugmonitor/src
 LIBS        += -L../../hotplugmonitor/src -lhotplugmonitor
 
-#############################################################################
-# Installation
-#############################################################################
 
-macx {
-    LIBS += -framework CoreFoundation -framework CoreAudio -framework AudioToolbox
-    # This must be after "TARGET = " and before target installation so that
-    # install_name_tool can be run before target installation
-    include(../../macx/nametool.pri)
-}
-
-target.path = $$INSTALLROOT/$$LIBSDIR
-INSTALLS   += target
 
 #############################################################################
 # Sources
@@ -196,6 +184,20 @@ unix:!macx:LIBS += -lasound
 
 # Interfaces
 HEADERS += ../../plugins/interfaces/qlcioplugin.h
+
+#############################################################################
+# Installation
+#############################################################################
+
+macx {
+    LIBS += -framework CoreFoundation -framework CoreAudio -framework AudioToolbox
+    # This must be after "TARGET = " and before target installation so that
+    # install_name_tool can be run before target installation
+    include(../../macx/nametool.pri)
+}
+
+target.path = $$INSTALLROOT/$$LIBSDIR
+INSTALLS   += target
 
 #############################################################################
 # qlcconfig.h generation

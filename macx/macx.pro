@@ -50,6 +50,37 @@ qtnametool.commands += && $$LIBUSB1_INSTALL_NAME_TOOL \
 qtnametool.commands += && $$LIBUSB1_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBUSB0_FILE
 
+# libqlcengine depends on libmad and sndfile
+qtnametool.commands += && $$LIBMAD_INSTALL_NAME_TOOL \
+    $$INSTALLROOT/$$LIBSDIR/$$LIBQLCENGINE_FILE
+qtnametool.commands += && $$LIBSNDFILE_INSTALL_NAME_TOOL \
+    $$INSTALLROOT/$$LIBSDIR/$$LIBQLCENGINE_FILE
+
+# libsndfile depends on flac, libvorbis, libvorbisenc and libogg
+qtnametool.commands += && $$LIBOGG_INSTALL_NAME_TOOL \
+    $$INSTALLROOT/$$LIBSDIR/$$LIBSNDFILE_FILE
+qtnametool.commands += && $$LIBFLAC_INSTALL_NAME_TOOL \
+    $$INSTALLROOT/$$LIBSDIR/$$LIBSNDFILE_FILE
+qtnametool.commands += && $$LIBVORBIS_INSTALL_NAME_TOOL \
+    $$INSTALLROOT/$$LIBSDIR/$$LIBSNDFILE_FILE
+qtnametool.commands += && $$LIBVORBISENC_INSTALL_NAME_TOOL \
+    $$INSTALLROOT/$$LIBSDIR/$$LIBSNDFILE_FILE
+
+# libFLAC depends on libogg
+qtnametool.commands += && $$LIBOGG_INSTALL_NAME_TOOL \
+    $$INSTALLROOT/$$LIBSDIR/$$LIBFLAC_FILE
+
+# libvorbis depends on libogg
+qtnametool.commands += && $$LIBOGG_INSTALL_NAME_TOOL \
+    $$INSTALLROOT/$$LIBSDIR/$$LIBVORBIS_FILE
+
+# libvorbisenc depends on libvorbis and libogg
+qtnametool.commands += && $$LIBVORBIS_INSTALL_NAME_TOOL \
+    $$INSTALLROOT/$$LIBSDIR/$$LIBVORBISENC_FILE
+qtnametool.commands += && $$LIBOGG_INSTALL_NAME_TOOL \
+    $$INSTALLROOT/$$LIBSDIR/$$LIBVORBISENC_FILE
+
+
 # These never had any difference anyway...
 # include(imageformats-nametool.pri)
 # INSTALLS += imageformats
