@@ -83,8 +83,7 @@ int messageCallback(const char *path, const char *types, lo_arg **argv,
 
     OSCPlugin *plugin = static_cast<OSCPlugin*>(user_data);
     int i;
-    uchar value;
-
+    uchar value = 0;
 
     //qDebug() << "path: " << path;
     for (i = 0; i < argc; i++)
