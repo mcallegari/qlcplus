@@ -108,10 +108,11 @@ void errorCallback(int num, const char *msg, const char *path)
 
 void OSCPlugin::openInput(quint32 input)
 {
+	qDebug() << Q_FUNC_INFO << "port: " << m_port;
     if (input != 0)
         return;
 
-    /** Since only one input is available right now, let's go straight to open it */
+	/** Cleanup a previous server instance if started */
     if (m_serv_thread != NULL)
     {
         lo_server_thread_stop(m_serv_thread);
@@ -119,13 +120,18 @@ void OSCPlugin::openInput(quint32 input)
         m_serv_thread = NULL;
     }
     /* start a new server on the defined port */
-    const char *c_port = m_port.toAscii().data();
+	QByteArray p_bytes  = m_port.toLatin1();
+    const char *c_port = p_bytes.data();
+	
     m_serv_thread = lo_server_thread_new(c_port, errorCallback);
 
-    /* add method that will match any path and args */
-    lo_server_thread_add_method(m_serv_thread, NULL, NULL, messageCallback, this);
+	if (m_serv_thread != NULL)
+	{
+		/* add method that will match any path and args */
+		lo_server_thread_add_method(m_serv_thread, NULL, NULL, messageCallback, this);
 
-    lo_server_thread_start(m_serv_thread);
+		lo_server_thread_start(m_serv_thread);
+	}
 }
 
 void OSCPlugin::closeInput(quint32 input)
@@ -207,13 +213,16 @@ QString OSCPlugin::getPort()
 
 void OSCPlugin::setPort(QString port)
 {
+	qDebug() << Q_FUNC_INFO;
     QSettings settings;
 
     settings.setValue(SETTINGS_OSC_PORT, QVariant(port));
 
-    m_port = port;
-
-    openInput(0);
+	if (port != m_port)
+	{
+		m_port = port;
+		openInput(0);
+	}
 }
 
 /*****************************************************************************
