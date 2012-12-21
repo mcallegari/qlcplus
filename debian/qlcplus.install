@@ -17,6 +17,7 @@ usr/lib/qt4/plugins/qlc/libmidiplugin.so
 usr/lib/qt4/plugins/qlc/libenttecdmxusb.so
 usr/lib/qt4/plugins/qlc/libpeperoni.so
 usr/lib/qt4/plugins/qlc/libudmx.so
+usr/lib/qt4/plugins/qlc/libosc.so
 
 # UDev rules
 etc/udev/rules.d/z65-enttec-dmxusb.rules
