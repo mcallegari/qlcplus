@@ -4,7 +4,7 @@
 
 ;--------------------------------
 ;Defines
-!define QLCPLUS_HOME "c:\Qt\qlcplus-code"
+!define QLCPLUS_HOME "c:\Qt\qlcplus"
 !define MUI_ICON "${QLCPLUS_HOME}\gfx\qlc.ico"  
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico"
 !define MUI_HEADERIMAGE
