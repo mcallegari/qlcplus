@@ -93,7 +93,7 @@ unix:!macx:PLUGINDIR = $$LIBSDIR/qt4/plugins/qlc
 macx:PLUGINDIR       = Plugins
 
 # Translations
-win32:TRANSLATIONDIR      = $$DATADIR/
+win32:TRANSLATIONDIR      =
 unix:!macx:TRANSLATIONDIR = $$DATADIR/translations
 macx:TRANSLATIONDIR       = $$DATADIR/Translations
 
