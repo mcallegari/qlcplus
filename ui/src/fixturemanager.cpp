@@ -417,6 +417,13 @@ QIcon FixtureManager::getIntensityIcon(const QLCChannel* channel)
         pm.fill(color);
         return QIcon(pm);
     }
+    else if (channel->colour() == QLCChannel::White ||
+             channel->name().contains("white", Qt::CaseInsensitive) == true)
+    {
+        QColor color(255, 255, 255);
+        pm.fill(color);
+        return QIcon(pm);
+    }
     else
     {
         // None of the primary colours matched and since this is an

@@ -327,6 +327,14 @@ void ConsoleChannel::setIntensityButton(const QLCChannel* channel)
         m_presetButton->setPalette(pal);
         m_presetButton->setText("Y"); // Don't localize
     }
+    else if (channel->colour() == QLCChannel::White ||
+             channel->name().contains("white", Qt::CaseInsensitive) == true)
+    {
+        QPalette pal = m_presetButton->palette();
+        pal.setColor(QPalette::Button, QColor("white"));
+        m_presetButton->setPalette(pal);
+        m_presetButton->setText("W"); // Don't localize
+    }
     else
     {
         // None of the primary colours matched and since this is an

@@ -48,6 +48,7 @@
 #define KXMLQLCChannelColourCyan       QString("Cyan")
 #define KXMLQLCChannelColourMagenta    QString("Magenta")
 #define KXMLQLCChannelColourYellow     QString("Yellow")
+#define KXMLQLCChannelColourWhite      QString("White")
 
 QLCChannel::QLCChannel()
 {
@@ -232,6 +233,7 @@ QStringList QLCChannel::colourList()
     list << KXMLQLCChannelColourCyan;
     list << KXMLQLCChannelColourMagenta;
     list << KXMLQLCChannelColourYellow;
+    list << KXMLQLCChannelColourWhite;
     return list;
 }
 
@@ -251,6 +253,8 @@ QString QLCChannel::colourToString(PrimaryColour colour)
         return KXMLQLCChannelColourMagenta;
     case Yellow:
         return KXMLQLCChannelColourYellow;
+    case White:
+        return KXMLQLCChannelColourWhite;
     case NoColour:
     default:
         return KXMLQLCChannelColourGeneric;
@@ -271,6 +275,8 @@ QLCChannel::PrimaryColour QLCChannel::stringToColour(const QString& str)
         return Magenta;
     else if (str == KXMLQLCChannelColourYellow)
         return Yellow;
+    else if (str == KXMLQLCChannelColourWhite)
+        return White;
     else
         return NoColour;
 }

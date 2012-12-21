@@ -152,7 +152,8 @@ public:
         Blue        = 0x0000FF,
         Cyan        = 0x00FFFF,
         Magenta     = 0xFF00FF,
-        Yellow      = 0xFFFF00
+        Yellow      = 0xFFFF00,
+        White       = 0xFFFFFF
     };
 
     /** Get a list of possible channel groups */

@@ -4,7 +4,7 @@
 
 APPNAME    = Q Light Controller Plus
 FXEDNAME   = Fixture Definition Editor
-APPVERSION = 4.1.1
+APPVERSION = 4.1.2
 
 #############################################################################
 # Compiler & linker configuration
