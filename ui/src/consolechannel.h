@@ -82,6 +82,9 @@ public:
     /** Set the group ID this channel controls */
     void setChannelsGroup(quint32 grpid);
 
+private slots:
+    void slotInputValueChanged(quint32 channel, uchar value);
+
 signals:
     void groupValueChanged(quint32 group, uchar value);
 

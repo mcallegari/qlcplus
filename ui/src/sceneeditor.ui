@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>571</width>
+    <width>627</width>
     <height>536</height>
    </rect>
   </property>
@@ -30,50 +30,51 @@
        <string>General</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="6" column="2" rowspan="6">
-        <widget class="QTreeWidget" name="m_channel_groups">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>1</horstretch>
-           <verstretch>1</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="alternatingRowColors">
-          <bool>true</bool>
-         </property>
-         <property name="selectionMode">
-          <enum>QAbstractItemView::ExtendedSelection</enum>
-         </property>
-         <property name="rootIsDecorated">
-          <bool>false</bool>
-         </property>
-         <property name="itemsExpandable">
-          <bool>false</bool>
-         </property>
-         <property name="allColumnsShowFocus">
-          <bool>true</bool>
-         </property>
-         <column>
-          <property name="text">
-           <string>Channel groups used in this scene</string>
-          </property>
-         </column>
-        </widget>
+       <item row="1" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QLabel" name="m_nameLabel">
+           <property name="text">
+            <string>Scene name</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="m_nameEdit">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>1</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="toolTip">
+            <string>Name of this scene</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
-       <item row="1" column="2">
-        <widget class="QLineEdit" name="m_nameEdit">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-           <horstretch>1</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
+       <item row="9" column="4">
+        <widget class="QToolButton" name="m_removeFixtureButton">
          <property name="toolTip">
-          <string>Name of this scene</string>
+          <string>Remove the selected fixture(s) from this scene</string>
+         </property>
+         <property name="text">
+          <string notr="true">...</string>
+         </property>
+         <property name="icon">
+          <iconset resource="qlcui.qrc">
+           <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
          </property>
         </widget>
        </item>
-       <item row="6" column="0" rowspan="6">
+       <item row="8" column="1" rowspan="6">
         <widget class="QTreeWidget" name="m_tree">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -106,17 +107,67 @@
          </column>
         </widget>
        </item>
-       <item row="7" column="3">
-        <widget class="QToolButton" name="m_removeFixtureButton">
+       <item row="8" column="3" rowspan="6">
+        <widget class="QTreeWidget" name="m_channel_groups">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>1</horstretch>
+           <verstretch>1</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="alternatingRowColors">
+          <bool>true</bool>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::ExtendedSelection</enum>
+         </property>
+         <property name="rootIsDecorated">
+          <bool>false</bool>
+         </property>
+         <property name="itemsExpandable">
+          <bool>false</bool>
+         </property>
+         <property name="allColumnsShowFocus">
+          <bool>true</bool>
+         </property>
+         <column>
+          <property name="text">
+           <string>Channel groups used in this scene</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+       <item row="13" column="4">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="10" column="4">
+        <widget class="Line" name="line">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="4">
+        <widget class="QToolButton" name="m_enableChannelsButton">
          <property name="toolTip">
-          <string>Remove the selected fixture(s) from this scene</string>
+          <string>Enable all fixtures' channels</string>
          </property>
          <property name="text">
-          <string notr="true">...</string>
+          <string>...</string>
          </property>
          <property name="icon">
           <iconset resource="qlcui.qrc">
-           <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
+           <normaloff>:/check.png</normaloff>:/check.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -126,7 +177,7 @@
          </property>
         </widget>
        </item>
-       <item row="6" column="3">
+       <item row="8" column="4">
         <widget class="QToolButton" name="m_addFixtureButton">
          <property name="toolTip">
           <string>Add a new fixture to this scene</string>
@@ -146,7 +197,7 @@
          </property>
         </widget>
        </item>
-       <item row="10" column="3">
+       <item row="12" column="4">
         <widget class="QToolButton" name="m_disableChannelsButton">
          <property name="toolTip">
           <string>Disable all fixtures' channels</string>
@@ -157,53 +208,6 @@
          <property name="icon">
           <iconset resource="qlcui.qrc">
            <normaloff>:/uncheck.png</normaloff>:/uncheck.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>32</width>
-           <height>32</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="11" column="3">
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="m_nameLabel">
-         <property name="text">
-          <string>Scene name</string>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="3">
-        <widget class="Line" name="line">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="9" column="3">
-        <widget class="QToolButton" name="m_enableChannelsButton">
-         <property name="toolTip">
-          <string>Enable all fixtures' channels</string>
-         </property>
-         <property name="text">
-          <string>...</string>
-         </property>
-         <property name="icon">
-          <iconset resource="qlcui.qrc">
-           <normaloff>:/check.png</normaloff>:/check.png</iconset>
          </property>
          <property name="iconSize">
           <size>

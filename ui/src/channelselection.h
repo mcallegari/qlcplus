@@ -25,6 +25,7 @@
 #include <QDialog>
 
 #include "ui_channelselection.h"
+#include "qlcinputsource.h"
 
 class ChannelsGroup;
 class Doc;
@@ -57,8 +58,16 @@ private:
     Doc* m_doc;
     ChannelsGroup* m_chansGroup;
 
+protected:
+    QLCInputSource m_inputSource;
+
+    void updateInputSource();
+
 protected slots:
     void slotItemSelectionChanged();
+    void slotAutoDetectInputToggled(bool checked);
+    void slotInputValueChanged(quint32 universe, quint32 channel);
+    void slotChooseInputClicked();
 };
 
 #endif

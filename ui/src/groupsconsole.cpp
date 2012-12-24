@@ -58,8 +58,6 @@ void GroupsConsole::init()
     {
         ChannelsGroup *grp = m_doc->channelsGroup(id);
         SceneValue scv = grp->getChannels().at(0);
-        //Fixture *fxi = m_doc->fixture(scv.fxi);
-        //Q_ASSERT(fxi != NULL);
 
         ConsoleChannel* cc = new ConsoleChannel(this, m_doc, scv.fxi, scv.channel);
         cc->setLabel(grp->name());

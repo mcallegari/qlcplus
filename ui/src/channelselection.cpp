@@ -22,6 +22,7 @@
 #include <QPushButton>
 #include <QDebug>
 
+#include "selectinputchannel.h"
 #include "channelselection.h"
 #include "qlcfixturedef.h"
 #include "channelsgroup.h"
@@ -76,11 +77,19 @@ ChannelSelection::ChannelSelection(QWidget* parent, Doc* doc, ChannelsGroup *gro
         }
     }
 
+    m_inputSource = group->inputSource();
+    updateInputSource();
+
     if (chans.count() == 0)
         m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 
     connect(m_tree, SIGNAL(itemSelectionChanged()),
             this, SLOT(slotItemSelectionChanged()));
+
+    connect(m_autoDetectInputButton, SIGNAL(toggled(bool)),
+            this, SLOT(slotAutoDetectInputToggled(bool)));
+    connect(m_chooseInputButton, SIGNAL(clicked()),
+            this, SLOT(slotChooseInputClicked()));
 }
 
 ChannelSelection::~ChannelSelection()
@@ -106,6 +115,7 @@ void ChannelSelection::accept()
     }
 
     m_chansGroup->setName(m_groupNameEdit->text());
+    m_chansGroup->setInputSource(m_inputSource);
     QDialog::accept();
 }
 
@@ -115,5 +125,50 @@ void ChannelSelection::slotItemSelectionChanged()
         m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
     else
         m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+}
+
+void ChannelSelection::slotAutoDetectInputToggled(bool checked)
+{
+    if (checked == true)
+    {
+        connect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+                this, SLOT(slotInputValueChanged(quint32,quint32)));
+    }
+    else
+    {
+        disconnect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+                   this, SLOT(slotInputValueChanged(quint32,quint32)));
+    }
+}
+
+void ChannelSelection::slotInputValueChanged(quint32 universe, quint32 channel)
+{
+    m_inputSource = QLCInputSource(universe, channel);
+    updateInputSource();
+}
+
+void ChannelSelection::slotChooseInputClicked()
+{
+    SelectInputChannel sic(this, m_doc->inputMap());
+    if (sic.exec() == QDialog::Accepted)
+    {
+        m_inputSource = QLCInputSource(sic.universe(), sic.channel());
+        updateInputSource();
+    }
+}
+
+void ChannelSelection::updateInputSource()
+{
+    QString uniName;
+    QString chName;
+
+    if (m_doc->inputMap()->inputSourceNames(m_inputSource, uniName, chName) == false)
+    {
+        uniName = KInputNone;
+        chName = KInputNone;
+    }
+
+    m_inputUniverseEdit->setText(uniName);
+    m_inputChannelEdit->setText(chName);
 }
 

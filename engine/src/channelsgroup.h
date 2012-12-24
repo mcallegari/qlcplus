@@ -24,10 +24,12 @@
 
 #include <QObject>
 
+#include "qlcinputsource.h"
 #include "scenevalue.h"
 
 class QDomDocument;
 class QDomElement;
+class Doc;
 
 #define KXMLQLCChannelsGroup "ChannelsGroup"
 
@@ -40,13 +42,16 @@ class ChannelsGroup : public QObject
      ************************************************************************/
 public:
     /** Create a new ChannelsGroup with empty/invalid values */
-    ChannelsGroup(Doc* parent);
+    ChannelsGroup(Doc *doc);
 
     /** Copy constructor */
-    ChannelsGroup(Doc* parent, const ChannelsGroup* chg);
+    ChannelsGroup(Doc* doc, const ChannelsGroup* chg);
 
     /** destroy this ChannelsGroup */
     ~ChannelsGroup();
+
+protected:
+    Doc * m_doc;
 
 signals:
     /** Emitted whenever a channels group's properties are changed */
@@ -99,6 +104,7 @@ public:
 
     /** Returns the current list of channels of this group */
     QList <SceneValue> getChannels() const;
+
     /*********************************************************************
      * Status
      *********************************************************************/
@@ -110,11 +116,44 @@ public:
      */
     QString status(Doc *doc) const;
 
+    /*********************************************************************
+     * External input
+     *********************************************************************/
+public:
+    /**
+     * Set external input $source to listen to.
+     *
+     * @param source The input source to set
+     */
+    void setInputSource(const QLCInputSource& source);
+
+    /**
+     * Get an assigned external input source
+     *
+     * @param id The id of the source to get
+     */
+    QLCInputSource inputSource() const;
+
+protected slots:
+    /**
+     * Slot that receives external input data
+     *
+     * @param universe Input universe
+     * @param channel Input channel
+     * @param value New value for universe & value
+     */
+    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
+
+signals:
+    void valueChanged(quint32 channel, uchar value);
+
 private:
     QString m_name;
 
     uchar m_masterValue;
     QList <SceneValue> m_channels;
+
+    QLCInputSource m_input;
 };
 
 #endif

@@ -160,6 +160,15 @@ void ConsoleChannel::setLabel(QString label)
 void ConsoleChannel::setChannelsGroup(quint32 grpid)
 {
     m_group = grpid;
+    ChannelsGroup *grp = m_doc->channelsGroup(grpid);
+    connect(grp, SIGNAL(valueChanged(quint32,uchar)),
+            this, SLOT(slotInputValueChanged(quint32,uchar)));
+}
+
+void ConsoleChannel::slotInputValueChanged(quint32 channel, uchar value)
+{
+    Q_UNUSED(channel)
+    setValue(value);
 }
 
 /*****************************************************************************
