@@ -45,9 +45,11 @@
 #define KColumnInput        2
 #define KColumnOutputPlugin 3
 #define KColumnOutput       4
-#define KColumnProfile      5
-#define KColumnInputNum     6
-#define KColumnOutputNum    7
+#define KColumnFeedbackPlugin 5
+#define KColumnFeedback     6
+#define KColumnProfile      7
+#define KColumnInputNum     8
+#define KColumnOutputNum    9
 
 #define SETTINGS_SPLITTER "inputmanager/splitter"
 
@@ -82,7 +84,7 @@ InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
     m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
 
     QStringList columns;
-    columns << tr("Universe") << tr("Input Plugin") << tr("Input Device") << tr("Output Plugin") << tr("Ouput Device") << tr("Profile");
+    columns << tr("Universe") << tr("Input Plugin") << tr("Input Device") << tr("Output Plugin") << tr("Ouput Device") << tr("Feedback Plugin") << tr("Feedback") << tr("Profile");
     m_tree->setHeaderLabels(columns);
 
     connect(m_tree, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),
@@ -142,6 +144,7 @@ void InputOutputManager::updateItem(QTreeWidgetItem* item, quint32 universe)
 
     InputPatch* ip = m_inputMap->patch(universe);
     OutputPatch* op = m_outputMap->patch(universe);
+    OutputPatch* fp = m_outputMap->feedbackPatch(universe);
     Q_ASSERT(ip != NULL);
 
     item->setText(KColumnUniverse, QString::number(universe + 1));
@@ -149,6 +152,8 @@ void InputOutputManager::updateItem(QTreeWidgetItem* item, quint32 universe)
     item->setText(KColumnInput, ip->inputName());
     item->setText(KColumnOutputPlugin, op->pluginName());
     item->setText(KColumnOutput, op->outputName());
+    item->setText(KColumnFeedbackPlugin, fp->pluginName());
+    item->setText(KColumnFeedback, fp->outputName());
     item->setText(KColumnProfile, ip->profileName());
     item->setText(KColumnInputNum, QString::number(ip->input() + 1));
 }

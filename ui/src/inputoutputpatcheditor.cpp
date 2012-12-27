@@ -404,6 +404,50 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
             m_outputMap->setPatch(m_universe, m_currentFeedbackPluginName, m_currentFeedback, true);
         }
     }
+    else
+    {
+        /* If all items are unchecked, reset patching... */
+        
+        bool anyChecked = false;
+        QTreeWidgetItemIterator it(m_mapTree);
+        while ((*it) != NULL)
+        {
+            /* Don't touch the item that was just checked */
+            if ((*it)->checkState(col) == Qt::Checked)
+            {
+                anyChecked = true;
+                break;
+            }
+            ++it;
+        }
+        
+        if (!anyChecked)
+        {
+            if (col == KMapColumnHasInput)
+            {
+                m_currentInputPluginName = KInputNone;
+                m_currentInput = QLCIOPlugin::invalidLine();
+
+                m_inputMap->setPatch(m_universe, m_currentInputPluginName, m_currentInput);
+            }
+            else if (col == KMapColumnHasOutput)
+            {
+                m_currentOutputPluginName = KInputNone;
+                m_currentOutput = QLCIOPlugin::invalidLine();
+
+                /* Apply the patch immediately */
+                m_outputMap->setPatch(m_universe, m_currentOutputPluginName, m_currentOutput, false);
+            }
+            else if (col == KMapColumnHasFeedback)
+            {
+                m_currentFeedbackPluginName = KInputNone;
+                m_currentFeedback = QLCIOPlugin::invalidLine();
+
+                /* Apply the patch immediately */
+                m_outputMap->setPatch(m_universe, m_currentFeedbackPluginName, m_currentFeedback, true);
+            }
+        } 
+    }
 
     /* Start listening to this signal once again */
     connect(m_mapTree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
