@@ -6,12 +6,12 @@
     <message>
         <location filename="udmx.cpp" line="96"/>
         <source>This plugin provides DMX output support for Anyma uDMX devices.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce greffon active la sortie DMX pour les périphériques Anyma uDMX.</translation>
     </message>
     <message>
         <location filename="udmx.cpp" line="188"/>
         <source>Do you wish to re-scan your hardware?</source>
-        <translation type="unfinished"></translation>
+        <translation>Souhaitez vous rechercher les périphériques ?</translation>
     </message>
 </context>
 <context>
@@ -19,22 +19,22 @@
     <message>
         <location filename="udmxdevice.cpp" line="116"/>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Inconnu</translation>
     </message>
     <message>
         <location filename="udmxdevice.cpp" line="137"/>
         <source>DMX Frame Frequency</source>
-        <translation type="unfinished"></translation>
+        <translation>Fréquence de la trame DMX</translation>
     </message>
     <message>
         <location filename="udmxdevice.cpp" line="140"/>
         <source>Bad</source>
-        <translation type="unfinished"></translation>
+        <translation>Mauvaise</translation>
     </message>
     <message>
         <location filename="udmxdevice.cpp" line="142"/>
         <source>Good</source>
-        <translation type="unfinished"></translation>
+        <translation>Bonne</translation>
     </message>
     <message>
         <location filename="udmxdevice.cpp" line="144"/>
@@ -44,17 +44,17 @@
     <message>
         <location filename="udmxdevice.cpp" line="145"/>
         <source>System Timer Accuracy</source>
-        <translation type="unfinished"></translation>
+        <translation>Précision de l&apos;Horloge Système</translation>
     </message>
     <message>
         <location filename="udmxdevice.cpp" line="150"/>
         <source>Unknown device</source>
-        <translation type="unfinished"></translation>
+        <translation>Périphérique Inconnu</translation>
     </message>
     <message>
         <location filename="udmxdevice.cpp" line="152"/>
         <source>Cannot connect to USB device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible de se connecter au périphérique USB.</translation>
     </message>
 </context>
 </TS>

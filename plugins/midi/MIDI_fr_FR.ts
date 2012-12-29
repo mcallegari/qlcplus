@@ -6,37 +6,37 @@
     <message>
         <location filename="common/configuremidiplugin.ui" line="14"/>
         <source>Configure MIDI Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Configurer le greffon MIDI</translation>
     </message>
     <message>
         <location filename="common/configuremidiplugin.ui" line="30"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <location filename="common/configuremidiplugin.ui" line="35"/>
         <source>MIDI Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Canal MIDI</translation>
     </message>
     <message>
         <location filename="common/configuremidiplugin.ui" line="40"/>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode</translation>
     </message>
     <message>
         <location filename="common/configuremidiplugin.ui" line="48"/>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Rafraichir</translation>
     </message>
     <message>
         <location filename="common/configuremidiplugin.cpp" line="99"/>
         <source>Outputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Sorties</translation>
     </message>
     <message>
         <location filename="common/configuremidiplugin.cpp" line="118"/>
         <source>Inputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrées</translation>
     </message>
 </context>
 <context>
@@ -44,17 +44,17 @@
     <message>
         <location filename="common/midiplugin.cpp" line="110"/>
         <source>This plugin provides input/output support for MIDI devices.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce plugin fournit les fonctions d&apos;entrée/sortie des périphériques MIDI.</translation>
     </message>
     <message>
         <location filename="common/midiplugin.cpp" line="124"/>
         <source>No output support available.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas de sorties MIDI.</translation>
     </message>
     <message>
         <location filename="common/midiplugin.cpp" line="132"/>
         <source>Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Sorties</translation>
     </message>
     <message>
         <location filename="common/midiplugin.cpp" line="135"/>
@@ -72,27 +72,27 @@
         <location filename="common/midiplugin.cpp" line="138"/>
         <location filename="common/midiplugin.cpp" line="239"/>
         <source>Status</source>
-        <translation type="unfinished"></translation>
+        <translation>État</translation>
     </message>
     <message>
         <location filename="common/midiplugin.cpp" line="143"/>
         <source>Invalid Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortie Invalide</translation>
     </message>
     <message>
         <location filename="common/midiplugin.cpp" line="225"/>
         <source>No input support available.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas d&apos;entrées MIDI.</translation>
     </message>
     <message>
         <location filename="common/midiplugin.cpp" line="233"/>
         <source>Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrée</translation>
     </message>
     <message>
         <location filename="common/midiplugin.cpp" line="244"/>
         <source>Invalid Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrée Invalide</translation>
     </message>
 </context>
 </TS>

@@ -87,12 +87,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="app.cpp" line="115"/>
         <source>Unrecognized file extension: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Extension de fichier inconnue : %1</translation>
     </message>
     <message>
         <location filename="app.cpp" line="139"/>
         <source>Fixture loading failed</source>
-        <translation>Echec du chargement du projecteur</translation>
+        <translation>Echec de chargement du projecteur</translation>
     </message>
     <message>
         <location filename="app.cpp" line="140"/>
@@ -196,7 +196,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="capabilitywizard.ui" line="13"/>
         <source>Capability Wizard</source>
-        <translation>Editeur de plages DMX</translation>
+        <translation>Assistant de plages DMX</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="19"/>
@@ -284,7 +284,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../ui/src/docbrowser.cpp" line="119"/>
         <source>About Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>À Propos de QT</translation>
     </message>
 </context>
 <context>
@@ -330,7 +330,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editchannel.ui" line="27"/>
         <source>The name of this channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom du Canal DMX</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="34"/>
@@ -340,7 +340,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editchannel.ui" line="41"/>
         <source>The group this channel belongs to</source>
-        <translation type="unfinished"></translation>
+        <translation>Groupe auquel appartient ce canal DMX</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="48"/>
@@ -350,7 +350,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editchannel.ui" line="55"/>
         <source>Primary colour level controlled by this channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur Primaire gérée par ce Canal d&apos;Intensité</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="62"/>
@@ -390,29 +390,29 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editchannel.ui" line="122"/>
         <source>Add a new capability</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter une nouvelle plage</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="142"/>
         <source>Remove the selected capability</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer cette plage</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="162"/>
         <source>Edit the selected capability</source>
-        <translation type="unfinished"></translation>
+        <translation>Editer cette plage</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="195"/>
         <source>Capability wizard</source>
-        <translation>Editeur de Plages DMX</translation>
+        <translation>Assistant de Plages DMX</translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="238"/>
         <location filename="editchannel.cpp" line="304"/>
         <location filename="editchannel.cpp" line="348"/>
         <source>Overlapping values</source>
-        <translation>Chevauchement</translation>
+        <translation>Chevauchement de valeurs</translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="239"/>
@@ -431,17 +431,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="edithead.ui" line="14"/>
         <source>Edit Head</source>
-        <translation type="unfinished"></translation>
+        <translation>Editer la Source</translation>
     </message>
     <message>
         <location filename="edithead.ui" line="33"/>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Canal</translation>
     </message>
     <message>
         <location filename="edithead.ui" line="38"/>
         <source>Name</source>
-        <translation type="unfinished">Nom</translation>
+        <translation>Nom</translation>
     </message>
 </context>
 <context>
@@ -475,62 +475,62 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editmode.ui" line="66"/>
         <source>Add channel(s) to this mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter des canaux à ce mode</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="86"/>
         <source>Remove the selected channel</source>
-        <translation type="unfinished">Supprimer ce canal</translation>
+        <translation>Supprimer ce canal</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="106"/>
         <source>Raise the selected channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Remonter ce canal</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="126"/>
         <source>Lower the selected channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Redescendre ce canal</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="160"/>
         <source>Heads</source>
-        <translation type="unfinished"></translation>
+        <translation>Sources</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="173"/>
         <source>Head</source>
-        <translation type="unfinished"></translation>
+        <translation>Source</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="181"/>
         <source>Compose a new head</source>
-        <translation type="unfinished"></translation>
+        <translation>Définir une nouvelle Source</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="201"/>
         <source>Remove the selected head</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer la Source</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="221"/>
         <source>Edit the channels that belong to the selected head</source>
-        <translation type="unfinished"></translation>
+        <translation>Éditer les canaux qui appartiennent à la Source sélectionnée</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="224"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="241"/>
         <source>Raise the selected head</source>
-        <translation type="unfinished"></translation>
+        <translation>Remonter la source sélectionnée</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="261"/>
         <source>Lower the selected head</source>
-        <translation type="unfinished"></translation>
+        <translation>Redescendre ka source sélectionnée</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="295"/>
@@ -556,7 +556,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editmode.ui" line="504"/>
         <source>Colour Temp (K)</source>
-        <translation type="unfinished"></translation>
+        <translation>Température de Blanc (°K)</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="518"/>
@@ -646,7 +646,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editmode.ui" line="612"/>
         <source>kg</source>
-        <translation></translation>
+        <translation> kg</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="622"/>
@@ -658,7 +658,7 @@ p, li { white-space: pre-wrap; }
         <location filename="editmode.ui" line="652"/>
         <location filename="editmode.ui" line="672"/>
         <source>mm</source>
-        <translation></translation>
+        <translation> mm</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="642"/>
@@ -703,7 +703,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editmode.ui" line="834"/>
         <source>Electrical</source>
-        <translation type="unfinished"></translation>
+        <translation>Électrique</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="840"/>
@@ -713,12 +713,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editmode.ui" line="850"/>
         <source>W</source>
-        <translation></translation>
+        <translation> W</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="860"/>
         <source>DMX Connector</source>
-        <translation>Prise DMX</translation>
+        <translation>Connection DMX</translation>
     </message>
     <message>
         <location filename="editmode.cpp" line="172"/>
@@ -792,7 +792,7 @@ p, li { white-space: pre-wrap; }
         <location filename="fixtureeditor.ui" line="163"/>
         <source>The name of the author of this fixture definition</source>
         <oldsource>The author name of this fixture definition</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Le nom de l&apos;auteur du fichier de définition</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="184"/>
@@ -849,7 +849,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="fixtureeditor.ui" line="389"/>
         <source>Heads</source>
-        <translation type="unfinished"></translation>
+        <translation>Sources</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="397"/>
