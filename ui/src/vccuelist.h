@@ -125,6 +125,11 @@ private slots:
         pressing the key binding or clicking an item with mouse) */
     void slotItemActivated(QTreeWidgetItem* item);
 
+    /** Record current dmx output into a new Scene and append it to the cuelist.
+        If an the cuelist is running the active Scene in the cuelist will be updated with
+        the current dmx output **/
+    void slotRecord();
+
 private:
     /** Create the runner that writes cue values to universes */
     void createRunner(int startIndex = -1);
@@ -133,6 +138,7 @@ private:
     quint32 m_chaser;
     QTreeWidget* m_tree;
     QPushButton* m_stopButton;
+    QPushButton* m_recordButton;
 
     ChaserRunner* m_runner;
     QMutex m_mutex; // Guards m_runner
