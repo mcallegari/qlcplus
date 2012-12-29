@@ -3,6 +3,8 @@ qlcplus (4.1.2) beta; urgency=low
   * Tracks can now be deleted from the Show editor
   * added white colour intensity
   * Implemented external input control for channels groups. Available in Design mode only
+  * Improved Input/Ouput configuration display for lower screen resolutions
+  * Input and Outputs can now be reset to "none" (thanks to Jano Svitok)
   * fixed a little typo on Fixture author name
   * updated UI german translation (thanks to Heiko Fanieng)
   * updated french translation (thanks to NiKoyes)
