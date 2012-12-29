@@ -141,6 +141,7 @@ protected slots:
     void slotDocClearing();
     void slotDocLoaded();
     void slotFunctionChanged(quint32 id);
+    void slotFunctionRemoved(quint32 id);
 };
 
 #endif

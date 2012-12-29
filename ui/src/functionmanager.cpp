@@ -704,6 +704,34 @@ void FunctionManager::deleteSelectedFunctions()
     {
         QTreeWidgetItem* item(it.next());
         quint32 fid = itemFunctionId(item);
+
+        Function *f = m_doc->function(fid);
+        if (f != NULL && f->type() == Function::Scene)
+        {
+            foreach (Function* function, m_doc->functions())
+            {
+                /** Search for Show tracks associated to Scenes */
+                if (function->type() == Function::Show)
+                {
+                    Show *show = qobject_cast<Show*>(function);
+                    foreach (Track *track, show->tracks())
+                    {
+                        if (track->getSceneID() == fid)
+                            show->removeTrack(track->id());
+                    }
+                }
+                /** Search for Sequences associated to Scenes */
+                if (function->type() == Function::Chaser)
+                {
+                    Chaser *chaser = qobject_cast<Chaser*>(function);
+                    if (chaser->isSequence() && chaser->getBoundedSceneID() == fid)
+                    {
+                        m_doc->deleteFunction(chaser->id());
+                    }
+                }
+            }
+        }
+
         m_doc->deleteFunction(fid);
 
         QTreeWidgetItem* parent = item->parent();

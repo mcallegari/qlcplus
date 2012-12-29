@@ -127,6 +127,7 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
     //connect(m_doc, SIGNAL(modeChanged(Doc::Mode)), this, SLOT(slotModeChanged()));
     connect(m_doc, SIGNAL(clearing()), this, SLOT(slotDocClearing()));
     connect(m_doc, SIGNAL(functionChanged(quint32)), this, SLOT(slotFunctionChanged(quint32)));
+    connect(m_doc, SIGNAL(functionRemoved(quint32)), this, SLOT(slotFunctionRemoved(quint32)));
     connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
 }
 
@@ -269,6 +270,10 @@ void ShowManager::updateShowsCombo()
         m_addSequenceAction->setEnabled(false);
         m_addAudioAction->setEnabled(false);
     }
+    if (m_show == NULL || m_show->getTracksCount() == 0)
+        m_deleteAction->setEnabled(false);
+    else
+        m_deleteAction->setEnabled(true);
 }
 
 void ShowManager::slotShowsComboChanged(int idx)
@@ -378,6 +383,7 @@ void ShowManager::slotAddTrack()
         m_addSequenceAction->setEnabled(true);
         m_addAudioAction->setEnabled(true);
         m_showview->activateTrack(newTrack);
+        m_deleteAction->setEnabled(true);
     }
 }
 
@@ -519,20 +525,49 @@ void ShowManager::slotClone()
 
 void ShowManager::slotDelete()
 {
+    // find out if we're deleting a sequence/audio or a track
+    bool isTrack = true;
+    if (m_showview->getSelectedSequence() != NULL ||
+        m_showview->getSelectedAudio() != NULL)
+            isTrack = false;
+    // get the ID of the function to delete (invalidId if nothing was selected)
     quint32 deleteID = m_showview->deleteSelectedFunction();
     if (deleteID != Function::invalidId())
     {
+        if (isTrack == false)
+        {
+            Track *currTrack = m_show->getTrackFromSceneID(m_scene->id());
+            if (currTrack != NULL)
+                currTrack->removeFunctionID(deleteID);
+        }
+
         m_doc->deleteFunction(deleteID);
+/*
         if (m_sequence_editor != NULL)
         {
             m_vsplitter->widget(1)->layout()->removeWidget(m_sequence_editor);
             m_sequence_editor->deleteLater();
             m_sequence_editor = NULL;
         }
-        m_deleteAction->setEnabled(false);
-        Track *currTrack = m_show->getTrackFromSceneID(m_scene->id());
-        if (currTrack != NULL)
-            currTrack->removeFunctionID(deleteID);
+
+        else
+        {
+            foreach(Track *track, m_show->tracks())
+            {
+                m_scene = qobject_cast<Scene*>(m_doc->function(track->getSceneID()));
+                if (m_scene == NULL)
+                {
+                    qDebug() << Q_FUNC_INFO << "Invalid scene !";
+                    continue;
+                }
+                Track *firstTrack = m_show->getTrackFromSceneID(m_scene->id());
+                m_showview->activateTrack(firstTrack);
+                showSceneEditor(m_scene);
+                m_deleteAction->setEnabled(true);
+                break;
+            }
+        }
+*/
     }
 }
 
@@ -562,7 +597,8 @@ void ShowManager::slotViewClicked(QMouseEvent *event)
     }
     m_vsplitter->widget(1)->hide();
     m_cloneAction->setEnabled(false);
-    m_deleteAction->setEnabled(false);
+    if (m_show != NULL && m_show->getTracksCount() == 0)
+        m_deleteAction->setEnabled(false);
 }
 
 void ShowManager::slotSequenceMoved(SequenceItem *item)
@@ -706,6 +742,25 @@ void ShowManager::slotFunctionChanged(quint32 id)
         if (trk != NULL)
             trk->setName(function->name());
     }
+}
+
+void ShowManager::slotFunctionRemoved(quint32 id)
+{
+    /** If the deleted function was a Scene, find and delete all the
+     *  associated Sequences */
+    foreach (Function* function, m_doc->functions())
+    {
+        if (function->type() == Function::Chaser)
+        {
+            Chaser *chaser = qobject_cast<Chaser*>(function);
+            if (chaser->isSequence() && chaser->getBoundedSceneID() == id)
+            {
+                m_doc->deleteFunction(chaser->id());
+            }
+        }
+    }
+
+    updateMultiTrackView();
 }
 
 void ShowManager::updateMultiTrackView()
