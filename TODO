@@ -30,3 +30,4 @@ offtool's notes:
   ** Behaviour: if button is pushed, channel snaps to the current value,
     a captured channel overrides scene value of a running scene or values other faders.
     Further features: T-Bar like widget fader to manipulate a bunch of captures channels
+* add progressbar for up and downfades in Cuelist

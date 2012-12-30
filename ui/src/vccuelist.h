@@ -19,6 +19,12 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
+/* TODO: use signal to refresh cuelist
+         add up/downfade times and hold to Cuelist
+         add option to show time per transition (theatre) instead of sequence steps
+         add progressbar for fade times
+*/
+
 #ifndef VCCUELIST_H
 #define VCCUELIST_H
 

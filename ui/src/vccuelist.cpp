@@ -41,6 +41,10 @@
 
 #define COL_NUM  0
 #define COL_NAME 1
+#define COL_FADEIN   2
+#define COL_FADEOUT  3
+#define COL_DURATION 4
+
 #define PROP_ID  Qt::UserRole
 #define HYSTERESIS 3 // Hysteresis for next/previous external input
 
@@ -68,6 +72,7 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_tree->setAllColumnsShowFocus(true);
     m_tree->setRootIsDecorated(false);
     m_tree->setItemsExpandable(false);
+    m_tree->setColumnCount (COL_DURATION + 1);
     m_tree->header()->setSortIndicatorShown(false);
     m_tree->header()->setClickable(false);
     m_tree->header()->setMovable(false);
@@ -205,6 +210,46 @@ void VCCueList::updateStepList()
         item->setText(COL_NUM, QString("%1").arg(index));
         item->setText(COL_NAME, function->name());
         item->setData(COL_NUM, PROP_ID, function->id());
+
+        switch (chaser->fadeInMode())
+        {
+        case Chaser::Common:
+            item->setText(COL_FADEIN, Function::speedToString(chaser->fadeInSpeed()));
+            break;
+        case Chaser::PerStep:
+            item->setText(COL_FADEIN, Function::speedToString(step.fadeIn));
+            break;
+        default:
+        case Chaser::Default:
+            item->setText(COL_FADEIN, QString());
+        }
+
+        switch (chaser->fadeOutMode())
+        {
+        case Chaser::Common:
+            item->setText(COL_FADEOUT, Function::speedToString(chaser->fadeOutSpeed()));
+            break;
+        case Chaser::PerStep:
+            item->setText(COL_FADEOUT, Function::speedToString(step.fadeIn));
+            break;
+        default:
+        case Chaser::Default:
+            item->setText(COL_FADEOUT, QString());
+        }
+
+
+        switch (chaser->durationMode())
+        {
+        case Chaser::Common:
+            item->setText(COL_DURATION, Function::speedToString(chaser->duration()));
+            break;
+        case Chaser::PerStep:
+            item->setText(COL_DURATION, Function::speedToString(step.fadeIn));
+            break;
+        default:
+        case Chaser::Default:
+            item->setText(COL_DURATION, QString());
+        }
     }
 }
 
@@ -284,8 +329,8 @@ void VCCueList::slotRecord()
     /* cuelist is active, get chaser step and overwrite values of the current step*/
     if (m_tree->currentItem() != NULL)
     {
-        int currentStep = m_runner->currentStep();
-        ChaserStep step = chaser->steps()[currentStep];
+        int currentid = m_runner->currentStep();
+        ChaserStep step = chaser->steps()[currentid];
 
         Function* function = m_doc->function(step.fid);
         Q_ASSERT(function != NULL);
@@ -551,7 +596,7 @@ void VCCueList::setCaption(const QString& text)
     VCWidget::setCaption(text);
 
     QStringList list;
-    list << tr("Number") << text;
+    list << tr("Number") << text << tr("In") << tr("Out") << tr("Hold");
     m_tree->setHeaderLabels(list);
 }
 
