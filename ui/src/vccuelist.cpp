@@ -75,22 +75,29 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     connect(m_tree, SIGNAL(itemActivated(QTreeWidgetItem*,int)),
             this, SLOT(slotItemActivated(QTreeWidgetItem*)));
 
-    /* Create a layout for this widget */
+    /* Create a horizontal layout the buttons */
     QHBoxLayout *hbox = new QHBoxLayout(this);
     hbox->setSpacing(2);
 
     /* Create a stop button */
     m_stopButton = new QPushButton(this);
+    m_stopButton->setIcon(QIcon(":/stop.png"));
     m_stopButton->setText(tr("Stop"));
-    hbox->addWidget(m_stopButton);
+    m_stopButton->setToolTip(tr("Stop Cuelist"));
     connect(m_stopButton, SIGNAL(clicked()), this, SLOT(slotStop()));
 
     /* Create a stop button */
     m_recordButton = new QPushButton(this);
+    m_recordButton->setIcon(QIcon(":/record.png"));
     m_recordButton->setText(tr("Record"));
-    hbox->addWidget(m_recordButton);
+    m_recordButton->setToolTip(tr("Record new Scene and append it to the Cuelist"));
     connect(m_recordButton, SIGNAL(clicked()), this, SLOT(slotRecord()));
 
+    /* Add buttons to the horizontal layout */
+    hbox->addWidget(m_recordButton);
+    hbox->addWidget(m_stopButton);
+
+    /* add horizontal box to this layout */
     layout()->addItem(hbox);
 
     setFrameStyle(KVCFrameStyleSunken);
@@ -249,6 +256,7 @@ void VCCueList::slotStop()
     /* Start from the beginning */
     m_tree->setCurrentItem(NULL);
     m_recordButton->setText(tr("Record"));
+    m_recordButton->setToolTip(tr("Record new Scene and append it to the Cuelist"));
 }
 
 void VCCueList::slotRecord()
@@ -343,6 +351,18 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
     Q_ASSERT(item != NULL);
     m_tree->scrollToItem(item, QAbstractItemView::PositionAtCenter);
     m_tree->setCurrentItem(item);
+
+    /* enable record button if chaserstep is a scene */
+    Chaser* chaser = qobject_cast<Chaser*> (m_doc->function(m_chaser));
+    int currentid = m_runner->currentStep();
+    QList <ChaserStep> steps = chaser->steps();
+    ChaserStep step = steps[currentid];
+
+    Function* function = m_doc->function(step.fid);
+    if (function->type() == Function::Scene)
+        m_recordButton->setEnabled(true);
+    else
+        m_recordButton->setEnabled(false);
 }
 
 void VCCueList::slotItemActivated(QTreeWidgetItem* item)
@@ -370,6 +390,7 @@ void VCCueList::createRunner(int startIndex)
         connect(m_runner, SIGNAL(currentStepChanged(int)),
                 this, SLOT(slotCurrentStepChanged(int)));
         m_recordButton->setText(tr("Update"));
+        m_recordButton->setToolTip(tr("Update current Scene in the Cuelist"));
     }
 }
 
