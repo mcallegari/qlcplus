@@ -39,8 +39,8 @@
 #include "chaser.h"
 #include "doc.h"
 
-#define COL_NUM  0
-#define COL_NAME 1
+#define COL_NUM      0
+#define COL_NAME     1
 #define COL_FADEIN   2
 #define COL_FADEOUT  3
 #define COL_DURATION 4
@@ -596,7 +596,7 @@ void VCCueList::setCaption(const QString& text)
     VCWidget::setCaption(text);
 
     QStringList list;
-    list << tr("Number") << text << tr("In") << tr("Out") << tr("Hold");
+    list << tr("Number") << text << tr("infade") << tr("outfade") << tr("duration");
     m_tree->setHeaderLabels(list);
 }
 
