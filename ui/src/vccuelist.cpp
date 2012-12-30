@@ -563,6 +563,8 @@ void VCCueList::slotModeChanged(Doc::Mode mode)
         m_doc->masterTimer()->registerDMXSource(this);
         m_tree->setEnabled(true);
         m_recordButton->setEnabled(true);
+        m_recordButton->setText(tr("Record"));
+        m_recordButton->setToolTip(tr("Record new Scene and append it to the Cuelist"));
         m_stopButton->setEnabled(true);
         m_refreshButton->setEnabled(true);
     }

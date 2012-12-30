@@ -19,3 +19,14 @@ Heikki's notes:
   check if their channel & fixture bindings are still valid.
 * After loading and changing fixture def, VC widgets should check if
   their functions, fixtures and channels are still valid.
+
+offtool's notes:
+
+* add possiblity to capture channels 
+  Capture a channel through togglebutton in a channelfader widget.
+  ** Use: set a channel permanent to zero if a gel is burned,
+     adjust values of a scene (lower some values) and update scene in cuelist via
+     the new record/update button
+  ** Behaviour: if button is pushed, channel snaps to the current value,
+    a captured channel overrides scene value of a running scene or values other faders.
+    Further features: T-Bar like widget fader to manipulate a bunch of captures channels
