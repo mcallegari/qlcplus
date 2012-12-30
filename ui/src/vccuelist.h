@@ -130,6 +130,9 @@ private slots:
         the current dmx output **/
     void slotRecord();
 
+    /** Refresh Cuelist View, if name is changed Sceneeditor **/
+    void slotRefresh();
+
 private:
     /** Create the runner that writes cue values to universes */
     void createRunner(int startIndex = -1);
@@ -139,6 +142,7 @@ private:
     QTreeWidget* m_tree;
     QPushButton* m_stopButton;
     QPushButton* m_recordButton;
+    QPushButton* m_refreshButton;
 
     ChaserRunner* m_runner;
     QMutex m_mutex; // Guards m_runner

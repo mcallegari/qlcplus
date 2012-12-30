@@ -86,16 +86,24 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_stopButton->setToolTip(tr("Stop Cuelist"));
     connect(m_stopButton, SIGNAL(clicked()), this, SLOT(slotStop()));
 
-    /* Create a stop button */
+    /* Create a record button */
     m_recordButton = new QPushButton(this);
     m_recordButton->setIcon(QIcon(":/record.png"));
     m_recordButton->setText(tr("Record"));
     m_recordButton->setToolTip(tr("Record new Scene and append it to the Cuelist"));
     connect(m_recordButton, SIGNAL(clicked()), this, SLOT(slotRecord()));
 
+    /* Create a refresh button */
+    m_refreshButton = new QPushButton(this);
+    m_refreshButton->setIcon(QIcon(":/up.png"));
+    m_refreshButton->setText(tr("Refresh"));
+    m_refreshButton->setToolTip(tr("Refresh Cuelist View"));
+    connect(m_refreshButton, SIGNAL(clicked()), this, SLOT(slotRefresh()));
+
     /* Add buttons to the horizontal layout */
     hbox->addWidget(m_recordButton);
     hbox->addWidget(m_stopButton);
+    hbox->addWidget(m_refreshButton);
 
     /* add horizontal box to this layout */
     layout()->addItem(hbox);
@@ -344,6 +352,11 @@ void VCCueList::slotRecord()
     }
 }
 
+void VCCueList::slotRefresh()
+{
+    updateStepList();
+}
+
 void VCCueList::slotCurrentStepChanged(int stepNumber)
 {
     Q_ASSERT(stepNumber < m_tree->topLevelItemCount() && stepNumber >= 0);
@@ -551,6 +564,7 @@ void VCCueList::slotModeChanged(Doc::Mode mode)
         m_tree->setEnabled(true);
         m_recordButton->setEnabled(true);
         m_stopButton->setEnabled(true);
+        m_refreshButton->setEnabled(true);
     }
     else
     {
@@ -563,6 +577,7 @@ void VCCueList::slotModeChanged(Doc::Mode mode)
         m_tree->setEnabled(false);
         m_recordButton->setEnabled(false);
         m_stopButton->setEnabled(false);
+        m_refreshButton->setEnabled(false);
     }
 
     /* Always start from the beginning */
