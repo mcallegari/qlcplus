@@ -29,6 +29,16 @@
 #include <lo/lo.h>
 #include "qlcioplugin.h"
 
+#define OSC_INPUTS   4
+
+class OSCPlugin;
+
+typedef struct
+{
+    int input;
+    OSCPlugin *plugin;
+} OSC_cbk_info;
+
 class OSCPlugin : public QLCIOPlugin
 {
     Q_OBJECT
@@ -114,19 +124,21 @@ public:
     /** @reimp */
     bool canConfigure();
 
-    QString getPort();
+    QString getPort(int num);
 
-    void setPort(QString port);
+    void setPort(int num, QString port);
 
 private:
     quint16 getHash(QString path);
 
 private:
     /** The port the OSC server is listening */
-    QString m_port;
+    QString m_ports[OSC_INPUTS];
 
     /** The actual OSC server thread */
-    lo_server_thread m_serv_thread;
+    lo_server_thread m_serv_threads[OSC_INPUTS];
+
+    OSC_cbk_info m_callbackInfo[OSC_INPUTS];
 
     /** This is fundamental for OSC plugin. Every time a OSC signal is received,
       * QLC+ will calculate a 16 bit checksum of the OSC path and add it to

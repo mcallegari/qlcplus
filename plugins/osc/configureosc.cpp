@@ -41,7 +41,10 @@ ConfigureOSC::ConfigureOSC(OSCPlugin* plugin, QWidget* parent)
     /* Setup UI controls */
     setupUi(this);
 
-    m_portSpin->setValue(plugin->getPort().toUInt());
+    m_port1Spin->setValue(plugin->getPort(0).toUInt());
+    m_port2Spin->setValue(plugin->getPort(1).toUInt());
+    m_port3Spin->setValue(plugin->getPort(2).toUInt());
+    m_port4Spin->setValue(plugin->getPort(3).toUInt());
 }
 
 ConfigureOSC::~ConfigureOSC()
@@ -55,7 +58,10 @@ ConfigureOSC::~ConfigureOSC()
 void ConfigureOSC::accept()
 {
     qDebug() << Q_FUNC_INFO;
-    m_plugin->setPort(QString("%1").arg(m_portSpin->value()));
+    m_plugin->setPort(0, QString("%1").arg(m_port1Spin->value()));
+    m_plugin->setPort(1, QString("%1").arg(m_port2Spin->value()));
+    m_plugin->setPort(2, QString("%1").arg(m_port3Spin->value()));
+    m_plugin->setPort(3, QString("%1").arg(m_port4Spin->value()));
     QDialog::accept();
 }
 
