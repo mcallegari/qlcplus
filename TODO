@@ -31,3 +31,6 @@ offtool's notes:
     a captured channel overrides scene value of a running scene or values other faders.
     Further features: T-Bar like widget fader to manipulate a bunch of captures channels
 * add progressbar for up and downfades in Cuelist
+* add solo channels capility
+  a Solo Intensity Channel value is not affected by the Grandmaster
+  ** Use: Shutter of a projector which uses no specfific fixture definition
