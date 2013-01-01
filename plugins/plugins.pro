@@ -10,3 +10,4 @@ SUBDIRS              += velleman
 SUBDIRS              += enttecwing
 !macx:!win32:SUBDIRS += hid
 SUBDIRS              += osc
+#SUBDIRS              += artnet

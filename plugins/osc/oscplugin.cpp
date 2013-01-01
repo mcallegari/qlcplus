@@ -85,7 +85,6 @@ int messageCallback(const char *path, const char *types, lo_arg **argv,
                      int argc, void *data, void *user_data)
 {
     Q_UNUSED(data);
-    Q_UNUSED(user_data);
 
     OSC_cbk_info *info = (OSC_cbk_info *)user_data;
     int input = info->input;

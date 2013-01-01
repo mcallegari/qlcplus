@@ -1,6 +1,6 @@
 /*
   Q Light Controller
-  oscplugin.h
+  artnetplugin.h
 
   Copyright (c) Massimo Callegari
 
@@ -19,27 +19,37 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef OSCPLUGIN_H
-#define OSCPLUGIN_H
+#ifndef ARTNETPLUGIN_H
+#define ARTNETPLUGIN_H
 
 #include <QString>
 #include <QHash>
 #include <QFile>
 
-#include <lo/lo.h>
+#include <artnet/artnet.h>
 #include "qlcioplugin.h"
 
-#define OSC_INPUTS   4
+#define ARTNET_OUTPUTS  4
 
-class OSCPlugin;
+class ArtNetPlugin;
 
+/*
 typedef struct
 {
-    int input;
-    OSCPlugin *plugin;
-} OSC_cbk_info;
+    int output;
+    ArtNetPlugin *plugin;
+} ArtNet_poll_info;
 
-class OSCPlugin : public QLCIOPlugin
+class ArtNetThread : public QThread
+{
+    Q_OBJECT
+
+protected:
+    void run();
+};
+*/
+
+class ArtNetPlugin : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)
@@ -49,7 +59,7 @@ class OSCPlugin : public QLCIOPlugin
      *********************************************************************/
 public:
     /** @reimp */
-    virtual ~OSCPlugin();
+    virtual ~ArtNetPlugin();
 
     /** @reimp */
     void init();
@@ -68,20 +78,19 @@ public:
      *********************************************************************/
 public:
     /** @reimp */
-    void openOutput(quint32 output) { Q_UNUSED(output); }
+    void openOutput(quint32 output);
 
     /** @reimp */
-    void closeOutput(quint32 output) { Q_UNUSED(output); }
+    void closeOutput(quint32 output);
 
     /** @reimp */
-    QStringList outputs()  { return QStringList(); }
+    QStringList outputs();
 
     /** @reimp */
-    QString outputInfo(quint32 output) { Q_UNUSED(output); return QString(); }
+    QString outputInfo(quint32 output);
 
     /** @reimp */
-    void writeUniverse(quint32 output, const QByteArray& universe)
-        { Q_UNUSED(output); Q_UNUSED(universe); }
+    void writeUniverse(quint32 output, const QByteArray& universe);
 
     /*************************************************************************
      * Inputs
@@ -116,28 +125,15 @@ public:
     /** @reimp */
     bool canConfigure();
 
-    QString getPort(int num);
-
-    void setPort(int num, QString port);
-
-private:
-    quint16 getHash(QString path);
+//public:
+//    int m_nodesFound[ARTNET_OUTPUTS];
 
 private:
-    /** The port the OSC server is listening */
-    QString m_ports[OSC_INPUTS];
+    //ArtNetThread m_nodeThread;
 
-    /** The actual OSC server thread */
-    lo_server_thread m_serv_threads[OSC_INPUTS];
+    artnet_node m_nodes[ARTNET_OUTPUTS];
 
-    OSC_cbk_info m_callbackInfo[OSC_INPUTS];
-
-    /** This is fundamental for OSC plugin. Every time a OSC signal is received,
-      * QLC+ will calculate a 16 bit checksum of the OSC path and add it to
-      * this hash table if new, otherwise QLC+ will use the hash table
-      * to quickly retrieve a unique channel number
-      */
-    QHash<QString, quint16> m_hash;
+//    ArtNet_poll_info m_pollCbkInfo[ARTNET_OUTPUTS];
 };
 
 #endif

@@ -25,10 +25,10 @@
 MidiOutputDevice::MidiOutputDevice(const QVariant& uid, const QString& name, QObject* parent)
     : MidiDevice(uid, name, parent)
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 }
 
 MidiOutputDevice::~MidiOutputDevice()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 }

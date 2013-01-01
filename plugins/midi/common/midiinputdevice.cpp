@@ -25,12 +25,12 @@
 MidiInputDevice::MidiInputDevice(const QVariant& uid, const QString& name, QObject* parent)
     : MidiDevice(uid, name, parent)
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 }
 
 MidiInputDevice::~MidiInputDevice()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 }
 
 void MidiInputDevice::emitValueChanged(uint channel, uchar value)
