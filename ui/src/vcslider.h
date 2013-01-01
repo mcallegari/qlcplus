@@ -430,6 +430,21 @@ protected:
     QTime* m_time;
 
     /*********************************************************************
+     * Capture Button
+     *********************************************************************/
+public:
+    /**
+     * capture channel
+     */
+    void captureChannel(bool state);
+
+private slots:
+    void slotCaptureChannelToggled();
+
+private:
+    QPushButton* m_captureChannelButton;
+
+    /*********************************************************************
      * External input
      *********************************************************************/
 protected:

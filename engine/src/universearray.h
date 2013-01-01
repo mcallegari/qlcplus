@@ -179,6 +179,15 @@ protected:
     QSet <int> m_gMNonIntensityChannels;
     QByteArray* m_preGMValues;
     QByteArray* m_postGMValues;
+    QSet <int> m_capturedChannels;
+    QByteArray* m_capturedValues;
+
+    /************************************************************************
+     * Capture Channels
+     ************************************************************************/
+public:
+    void capture(int channel);
+    void release(int channel);
 
     /************************************************************************
      * Writing
@@ -191,10 +200,11 @@ public:
      * @param channel The channel number to write to
      * @param value The value to write
      * @param group The channel's channel group
+     * @param captured The channel is captured (by e.g. Level Fader) and overwrite changes by functions
      * @return true if successful, otherwise false
      */
     bool write(int channel, uchar value,
-               QLCChannel::Group group = QLCChannel::NoGroup);
+               QLCChannel::Group group = QLCChannel::NoGroup, bool captured = false);
 };
 
 #endif

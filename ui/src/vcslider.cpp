@@ -128,6 +128,15 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_bottomLabel->setAlignment(Qt::AlignCenter);
     m_bottomLabel->hide();
 
+    /* Channel capture Button */
+    m_captureChannelButton = new QPushButton(this);
+    layout()->addWidget(m_captureChannelButton);
+    m_captureChannelButton->setIcon(QIcon(":/stop.png"));
+    m_captureChannelButton->setToolTip(tr("capture Channel"));
+    m_captureChannelButton->setCheckable(true);
+    m_captureChannelButton->setChecked(false);
+    connect(m_captureChannelButton, SIGNAL(toggled (bool)), this, SLOT(slotCaptureChannelToggled()));
+
     setMinimumSize(20, 20);
     resize(VCSlider::defaultSize);
 
@@ -238,6 +247,7 @@ void VCSlider::slotModeChanged(Doc::Mode mode)
         m_slider->setEnabled(true);
         m_bottomLabel->setEnabled(true);
         m_tapButton->setEnabled(true);
+        m_captureChannelButton->setEnabled(true);
 
         if (sliderMode() == Playback)
         {
@@ -261,6 +271,7 @@ void VCSlider::slotModeChanged(Doc::Mode mode)
         m_slider->setEnabled(false);
         m_bottomLabel->setEnabled(false);
         m_tapButton->setEnabled(false);
+        m_captureChannelButton->setEnabled(false);
 
         if (sliderMode() == Playback)
         {
@@ -394,6 +405,7 @@ void VCSlider::setSliderMode(SliderMode mode)
 
         m_bottomLabel->show();
         m_tapButton->hide();
+        m_captureChannelButton->show();
 
         m_doc->masterTimer()->registerDMXSource(this);
     }
@@ -401,6 +413,7 @@ void VCSlider::setSliderMode(SliderMode mode)
     {
         m_bottomLabel->show();
         m_tapButton->hide();
+        m_captureChannelButton->hide();
 
         uchar level = playbackValue();
         m_slider->setRange(0, UCHAR_MAX);
@@ -485,6 +498,55 @@ void VCSlider::slotFixtureRemoved(quint32 fxi_id)
             it.remove();
     }
 }
+
+void VCSlider::slotCaptureChannelToggled()
+{
+    UniverseArray* universes = m_doc->outputMap()->claimUniverses();
+    const QByteArray* postvals = universes->postGMValues();
+
+    if (m_captureChannelButton->isChecked())
+    {
+
+        uchar lastval = 0;
+        QListIterator <LevelChannel> it(m_levelChannels);
+        while (it.hasNext() == true)
+        {
+            LevelChannel lch(it.next());
+
+            /* get current dmx output value */
+            Fixture* fxi = m_doc->fixture(lch.fixture);
+            uchar curval = uchar(postvals->at(fxi->channelAddress(lch.channel)));
+
+            /* store higher dmx value */
+            if (curval > lastval)
+                lastval = curval;
+
+            /* mark channel as captured */
+            universes->capture(fxi->channelAddress(lch.channel));
+        }
+
+        m_captureChannelButton->setIcon(QIcon(":/record.png"));
+
+        /* snap slider to highest level channel value */
+        m_slider->setValue(lastval);
+    }
+    else
+    {
+        m_captureChannelButton->setIcon(QIcon(":/stop.png"));
+
+        QListIterator <LevelChannel> it(m_levelChannels);
+        while (it.hasNext() == true)
+        {
+            LevelChannel lch(it.next());
+
+            /* release captured channel */
+            Fixture* fxi = m_doc->fixture(lch.fixture);
+            universes->release(fxi->channelAddress(lch.channel));
+        }
+    }
+    m_doc->outputMap()->releaseUniverses(false);
+}
+
 
 /*****************************************************************************
  * Playback
@@ -572,9 +634,8 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, UniverseArray* universes)
                    LTP in effect. */
                 continue;
             }
-
             quint32 dmx_ch = fxi->channelAddress(lch.channel);
-            universes->write(dmx_ch, m_levelValue, qlcch->group());
+            universes->write(dmx_ch, m_levelValue, qlcch->group(), m_captureChannelButton->isChecked());
         }
     }
     m_levelValueChanged = false;
