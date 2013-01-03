@@ -218,7 +218,7 @@ void InputOutputPatchEditor::fillMappingTree()
             pitem->setText(KMapColumnOutputLine, QString("%1").arg(QLCIOPlugin::invalidLine()));
         }
     }
-    /* Go through available ouput plugins and create/update tree nodes. */
+    /* Go through available output plugins and create/update tree nodes. */
     QStringListIterator outputIt(m_outputMap->pluginNames());
     while (outputIt.hasNext() == true)
     {
@@ -232,7 +232,7 @@ void InputOutputPatchEditor::fillMappingTree()
             QStringListIterator iit(m_outputMap->pluginOutputs(pluginName));
             while (iit.hasNext() == true)
             {
-                /* Output only device */
+                /* Output capable device */
                 QString devName = iit.next();
                 QTreeWidgetItem* pitem = new QTreeWidgetItem(m_mapTree);
                 pitem->setText(KMapColumnPluginName, pluginName);
@@ -244,7 +244,7 @@ void InputOutputPatchEditor::fillMappingTree()
                     pitem->setCheckState(KMapColumnHasOutput, Qt::Unchecked);
                 pitem->setText(KMapColumnOutputLine, QString("%1").arg(i));
                 pitem->setText(KMapColumnInputLine, QString("%1").arg(QLCIOPlugin::invalidLine()));
-                /* If a device has both input and output, it means it can send feedbacks */
+                /* If a device has an output, it means it can send feedbacks */
                 if (pluginName == "MIDI")
                 {
                     if (m_currentFeedbackPluginName == pluginName && m_currentFeedback == i)
@@ -282,6 +282,7 @@ void InputOutputPatchEditor::fillMappingTree()
                         item->setCheckState(KMapColumnHasOutput, Qt::Checked);
                     else
                         item->setCheckState(KMapColumnHasOutput, Qt::Unchecked);
+
                     item->setText(KMapColumnOutputLine, QString("%1").arg(i));
                     item->setText(KMapColumnInputLine, QString("%1").arg(QLCIOPlugin::invalidLine()));
                 }
@@ -388,65 +389,66 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
         }
         else if (col == KMapColumnHasOutput)
         {
-            /* Store the selected plugin name & line */
-            m_currentOutputPluginName = item->text(KMapColumnPluginName);
-            m_currentOutput = item->text(KMapColumnOutputLine).toInt();
+            if (item->checkState(KMapColumnHasFeedback) == Qt::Checked)
+            {
+                item->setCheckState(KMapColumnHasOutput, Qt::Unchecked);
+                QMessageBox::warning(this, tr("Error"),
+                                     tr("Output line already assigned"));
+            }
+            else
+            {
+                /* Store the selected plugin name & line */
+                m_currentOutputPluginName = item->text(KMapColumnPluginName);
+                m_currentOutput = item->text(KMapColumnOutputLine).toInt();
+
+                /* Apply the patch immediately */
+                m_outputMap->setPatch(m_universe, m_currentOutputPluginName, m_currentOutput, false);
+            }
+        }
+        else if (col == KMapColumnHasFeedback)
+        {
+            if (item->checkState(KMapColumnHasOutput) == Qt::Checked)
+            {
+                item->setCheckState(KMapColumnHasFeedback, Qt::Unchecked);
+                QMessageBox::warning(this, tr("Error"),
+                                     tr("Output line already assigned"));
+            }
+            else
+            {
+                m_currentFeedbackPluginName = item->text(KMapColumnPluginName);
+                m_currentFeedback = item->text(KMapColumnOutputLine).toInt();
+
+                /* Apply the patch immediately */
+                m_outputMap->setPatch(m_universe, m_currentFeedbackPluginName, m_currentFeedback, true);
+            }
+        }
+    }
+    else
+    {
+        /* Unchecked action. Set the patch to none */
+        if (col == KMapColumnHasInput)
+        {
+            m_currentInputPluginName = KInputNone;
+            m_currentInput = QLCIOPlugin::invalidLine();
+
+            m_inputMap->setPatch(m_universe, m_currentInputPluginName, m_currentInput);
+        }
+        else if (col == KMapColumnHasOutput)
+        {
+            m_currentOutputPluginName = KInputNone;
+            m_currentOutput = QLCIOPlugin::invalidLine();
 
             /* Apply the patch immediately */
             m_outputMap->setPatch(m_universe, m_currentOutputPluginName, m_currentOutput, false);
         }
         else if (col == KMapColumnHasFeedback)
         {
-            m_currentFeedbackPluginName = item->text(KMapColumnPluginName);
-            m_currentFeedback = item->text(KMapColumnOutputLine).toInt();
+            m_currentFeedbackPluginName = KInputNone;
+            m_currentFeedback = QLCIOPlugin::invalidLine();
 
             /* Apply the patch immediately */
             m_outputMap->setPatch(m_universe, m_currentFeedbackPluginName, m_currentFeedback, true);
         }
-    }
-    else
-    {
-        /* If all items are unchecked, reset patching... */
-        
-        bool anyChecked = false;
-        QTreeWidgetItemIterator it(m_mapTree);
-        while ((*it) != NULL)
-        {
-            /* Don't touch the item that was just checked */
-            if ((*it)->checkState(col) == Qt::Checked)
-            {
-                anyChecked = true;
-                break;
-            }
-            ++it;
-        }
-        
-        if (!anyChecked)
-        {
-            if (col == KMapColumnHasInput)
-            {
-                m_currentInputPluginName = KInputNone;
-                m_currentInput = QLCIOPlugin::invalidLine();
-
-                m_inputMap->setPatch(m_universe, m_currentInputPluginName, m_currentInput);
-            }
-            else if (col == KMapColumnHasOutput)
-            {
-                m_currentOutputPluginName = KInputNone;
-                m_currentOutput = QLCIOPlugin::invalidLine();
-
-                /* Apply the patch immediately */
-                m_outputMap->setPatch(m_universe, m_currentOutputPluginName, m_currentOutput, false);
-            }
-            else if (col == KMapColumnHasFeedback)
-            {
-                m_currentFeedbackPluginName = KInputNone;
-                m_currentFeedback = QLCIOPlugin::invalidLine();
-
-                /* Apply the patch immediately */
-                m_outputMap->setPatch(m_universe, m_currentFeedbackPluginName, m_currentFeedback, true);
-            }
-        } 
     }
 
     /* Start listening to this signal once again */
@@ -483,9 +485,7 @@ void InputOutputPatchEditor::slotPluginConfigurationChanged(const QString& plugi
     disconnect(m_mapTree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
                this, SLOT(slotMapItemChanged(QTreeWidgetItem*, int)));
 
-    /* Re-fill the children for the plugin that's been changed */
-    //fillPluginItem(pluginName, pluginItem(pluginName));
-
+    /* Update the IO map */
     slotMapCurrentItemChanged(item);
 
     /* Enable check state tracking after the item has been filled */

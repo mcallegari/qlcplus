@@ -262,17 +262,50 @@ quint32 MultiTrackView::deleteSelectedFunction()
             QString msg = tr("Do you want to DELETE audio (the source file will NOT be removed):") +
                           QString("\n\n") + item->getAudio()->name();
 
-        // Ask for user's confirmation
-        if (QMessageBox::question(this, tr("Delete Functions"), msg,
+            // Ask for user's confirmation
+            if (QMessageBox::question(this, tr("Delete Functions"), msg,
                                   QMessageBox::Yes, QMessageBox::No)
                                   == QMessageBox::Yes)
-        {
+            {
                 quint32 fID = item->getAudio()->id();
                 m_scene->removeItem(item);
                 m_audio.removeAt(i);
-            return fID;
+                return fID;
+            }
         }
+        i++;
     }
+
+    i = 0;
+    foreach(TrackItem *item, m_tracks)
+    {
+        if (item->isActive() == true)
+        {
+            Track *track = item->getTrack();
+            quint32 fID = track->getSceneID();
+            QList <quint32> ids = track->functionsID();
+            QString msg = tr("Do you want to DELETE scene:") + QString("\n\n") + track->name();
+            if (ids.count() > 0)
+            {
+                msg += QString("\n\n") + tr("This operation will also DELETE:" ) + QString("\n\n");
+                foreach (SequenceItem *item, m_sequences)
+                {
+                    Chaser *chaser = item->getChaser();
+                    if (chaser->getBoundedSceneID() == fID)
+                        msg += chaser->name() + QString("\n");
+                }
+            }
+
+            // Ask for user's confirmation
+            if (QMessageBox::question(this, tr("Delete Functions"), msg,
+                                  QMessageBox::Yes, QMessageBox::No)
+                                  == QMessageBox::Yes)
+            {
+                m_scene->removeItem(item);
+                m_tracks.removeAt(i);
+                return fID;
+            }
+        }
         i++;
     }
 

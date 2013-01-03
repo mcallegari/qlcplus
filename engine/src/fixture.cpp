@@ -834,7 +834,7 @@ QString Fixture::status() const
     {
         info += "<HR>";
         info += "<DIV CLASS='author' ALIGN='right'>";
-        info += tr("Fixture definition author:") + fixtureDef()->author();
+        info += tr("Fixture definition author: ") + fixtureDef()->author();
         info += "</DIV>";
     }
 

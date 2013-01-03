@@ -41,15 +41,12 @@
 #include "doc.h"
 
 #define KColumnUniverse     0
-#define KColumnInputPlugin  1
-#define KColumnInput        2
-#define KColumnOutputPlugin 3
-#define KColumnOutput       4
-#define KColumnFeedbackPlugin 5
-#define KColumnFeedback     6
-#define KColumnProfile      7
-#define KColumnInputNum     8
-#define KColumnOutputNum    9
+#define KColumnInput        1
+#define KColumnOutput       2
+#define KColumnFeedback     3
+#define KColumnProfile      4
+#define KColumnInputNum     5
+#define KColumnOutputNum    6
 
 #define SETTINGS_SPLITTER "inputmanager/splitter"
 
@@ -84,7 +81,7 @@ InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
     m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
 
     QStringList columns;
-    columns << tr("Universe") << tr("Input Plugin") << tr("Input Device") << tr("Output Plugin") << tr("Ouput Device") << tr("Feedback Plugin") << tr("Feedback") << tr("Profile");
+    columns << tr("Universe") << tr("Input") << tr("Output") << tr("Feedback") << tr("Profile");
     m_tree->setHeaderLabels(columns);
 
     connect(m_tree, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),
@@ -148,14 +145,12 @@ void InputOutputManager::updateItem(QTreeWidgetItem* item, quint32 universe)
     Q_ASSERT(ip != NULL);
 
     item->setText(KColumnUniverse, QString::number(universe + 1));
-    item->setText(KColumnInputPlugin, ip->pluginName());
-    item->setText(KColumnInput, ip->inputName());
-    item->setText(KColumnOutputPlugin, op->pluginName());
-    item->setText(KColumnOutput, op->outputName());
-    item->setText(KColumnFeedbackPlugin, fp->pluginName());
-    item->setText(KColumnFeedback, fp->outputName());
+    item->setText(KColumnInput, QString("[%1] %2").arg(ip->pluginName()).arg(ip->inputName()));
+    item->setText(KColumnOutput, QString("[%1] %2").arg(op->pluginName()).arg(op->outputName()));
+    item->setText(KColumnFeedback, QString("[%1] %2").arg(fp->pluginName()).arg(fp->outputName()));
     item->setText(KColumnProfile, ip->profileName());
     item->setText(KColumnInputNum, QString::number(ip->input() + 1));
+    item->setText(KColumnOutputNum, QString::number(op->output() + 1));
 }
 
 QWidget* InputOutputManager::currentEditor() const

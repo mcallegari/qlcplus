@@ -82,6 +82,9 @@ public:
     /** Get pointer to a Track from a Scene ID */
     Track* getTrackFromSceneID(quint32 id);
 
+    /** Get the number of tracks in the Show */
+    int getTracksCount();
+
     /** Get a list of available tracks */
     QList <Track*> tracks() const;
 

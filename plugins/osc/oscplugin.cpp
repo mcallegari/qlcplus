@@ -25,8 +25,6 @@
 #include <QSettings>
 #include <QDebug>
 
-#define SETTINGS_OSC_PORT "OSCplugin/server_port"
-
 OSCPlugin::~OSCPlugin()
 {
 }
@@ -34,14 +32,22 @@ OSCPlugin::~OSCPlugin()
 void OSCPlugin::init()
 {
     QSettings settings;
+    QStringList defaults;
+    defaults << "7770" << "8000" << "9000" << "9990";
 
-    QString key = QString(SETTINGS_OSC_PORT);
-    QVariant value = settings.value(key);
-    if (value.isValid() == true)
-        m_port = value.toString();
-    else
-        m_port = "7770";
-    m_serv_thread = NULL;
+    for (int i = 0; i < OSC_INPUTS; i++)
+    {
+        QString key = QString("OSCplugin/Input%1/server_port").arg(i);
+        QVariant value = settings.value(key);
+        if (value.isValid() == true)
+            m_ports[i] = value.toString();
+        else
+            m_ports[i] = defaults.at(i);
+        m_serv_threads[i] = NULL;
+        /** Initialize the structure to be passed to the OSC callback */
+        m_callbackInfo[i].input = i;
+        m_callbackInfo[i].plugin = this;
+    }
 }
 
 QString OSCPlugin::name()
@@ -79,9 +85,10 @@ int messageCallback(const char *path, const char *types, lo_arg **argv,
                      int argc, void *data, void *user_data)
 {
     Q_UNUSED(data);
-    Q_UNUSED(user_data);
 
-    OSCPlugin *plugin = static_cast<OSCPlugin*>(user_data);
+    OSC_cbk_info *info = (OSC_cbk_info *)user_data;
+    int input = info->input;
+    OSCPlugin *plugin = info->plugin;
     int i;
     uchar value = 0;
 
@@ -93,10 +100,16 @@ int messageCallback(const char *path, const char *types, lo_arg **argv,
             float f_val = argv[i]->f;
             //qDebug() << "arg: " << i << ", type: '" << types[i] << "'', val: " << f_val;
             value = 255 * f_val;
+            if (argc > 1)
+            {
+                QString newPath = QString("%1_%2").arg(path).arg(i);
+                plugin->sendValueChanged(input, newPath, value);
+            }
         }
         //lo_arg_pp((lo_type)types[i], argv[i]);
     }
-    plugin->sendValueChanged(0, path, value);
+    if (argc == 1)
+        plugin->sendValueChanged(input, path, value);
 
     return 1;
 }
@@ -108,49 +121,51 @@ void errorCallback(int num, const char *msg, const char *path)
 
 void OSCPlugin::openInput(quint32 input)
 {
-	qDebug() << Q_FUNC_INFO << "port: " << m_port;
-    if (input != 0)
+    if (input >= OSC_INPUTS)
         return;
 
+    qDebug() << Q_FUNC_INFO << "Input " << input << " port: " << m_ports[input];
+
 	/** Cleanup a previous server instance if started */
-    if (m_serv_thread != NULL)
+    if (m_serv_threads[input] != NULL)
     {
-        lo_server_thread_stop(m_serv_thread);
-        lo_server_thread_free(m_serv_thread);
-        m_serv_thread = NULL;
+        lo_server_thread_stop(m_serv_threads[input]);
+        lo_server_thread_free(m_serv_threads[input]);
+        m_serv_threads[input] = NULL;
     }
     /* start a new server on the defined port */
-	QByteArray p_bytes  = m_port.toLatin1();
+    QByteArray p_bytes  = m_ports[input].toLatin1();
     const char *c_port = p_bytes.data();
-	
-    m_serv_thread = lo_server_thread_new(c_port, errorCallback);
 
-	if (m_serv_thread != NULL)
+    m_serv_threads[input] = lo_server_thread_new(c_port, errorCallback);
+
+    if (m_serv_threads[input] != NULL)
 	{
 		/* add method that will match any path and args */
-		lo_server_thread_add_method(m_serv_thread, NULL, NULL, messageCallback, this);
+        lo_server_thread_add_method(m_serv_threads[input], NULL, NULL, messageCallback, &m_callbackInfo[input]);
 
-		lo_server_thread_start(m_serv_thread);
+        lo_server_thread_start(m_serv_threads[input]);
 	}
 }
 
 void OSCPlugin::closeInput(quint32 input)
 {
-    if (input != 0)
+    if (input >= OSC_INPUTS)
         return;
 
-    if (m_serv_thread != NULL)
+    if (m_serv_threads[input] != NULL)
     {
-        lo_server_thread_stop(m_serv_thread);
-        lo_server_thread_free(m_serv_thread);
-        m_serv_thread = NULL;
+        lo_server_thread_stop(m_serv_threads[input]);
+        lo_server_thread_free(m_serv_threads[input]);
+        m_serv_threads[input] = NULL;
     }
 }
 
 QStringList OSCPlugin::inputs()
 {
     QStringList list;
-    list << QString("1: OSC network");
+    for (int i = 0; i < OSC_INPUTS; i++)
+        list << QString("1: OSC Network %1").arg(i + 1);
     return list;
 }
 
@@ -191,7 +206,6 @@ void OSCPlugin::sendValueChanged(quint32 input, QString path, uchar value)
     emit valueChanged(input, getHash(path), value, path);
 }
 
-
 /*********************************************************************
  * Configuration
  *********************************************************************/
@@ -206,22 +220,29 @@ bool OSCPlugin::canConfigure()
     return true;
 }
 
-QString OSCPlugin::getPort()
+QString OSCPlugin::getPort(int num)
 {
-    return m_port;
+    if (num >= OSC_INPUTS)
+        return QString("7770");
+
+    return m_ports[num];
 }
 
-void OSCPlugin::setPort(QString port)
+void OSCPlugin::setPort(int num, QString port)
 {
 	qDebug() << Q_FUNC_INFO;
+    if (num >= OSC_INPUTS)
+        return;
+
     QSettings settings;
+    QString key = QString("OSCplugin/Input%1/server_port").arg(num);
 
-    settings.setValue(SETTINGS_OSC_PORT, QVariant(port));
+    settings.setValue(key, QVariant(port));
 
-	if (port != m_port)
+    if (port != m_ports[num])
 	{
-		m_port = port;
-		openInput(0);
+        m_ports[num] = port;
+        openInput(num);
 	}
 }
 

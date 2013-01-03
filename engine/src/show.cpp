@@ -134,6 +134,17 @@ Track* Show::getTrackFromSceneID(quint32 id)
     return NULL;
 }
 
+int Show::getTracksCount()
+{
+    int i = 0;
+    foreach(Track *t, m_tracks)
+    {
+        Q_UNUSED(t)
+        i++;
+    }
+    return i;
+}
+
 QList <Track*> Show::tracks() const
 {
     return m_tracks.values();
@@ -162,10 +173,6 @@ quint32 Show::createTrackId()
 bool Show::saveXML(QDomDocument* doc, QDomElement* wksp_root)
 {
     QDomElement root;
-    QDomElement tag;
-    /*QDomText text;
-    QString str;
-    int i = 0;*/
 
     Q_ASSERT(doc != NULL);
     Q_ASSERT(wksp_root != NULL);
