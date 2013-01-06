@@ -155,7 +155,11 @@ void ArtNetPlugin::openOutput(quint32 output)
 
 void ArtNetPlugin::closeOutput(quint32 output)
 {
-    Q_UNUSED(output);
+    if (output >= ARTNET_OUTPUTS)
+        return;
+	artnet_stop(m_nodes[output]);
+	artnet_destroy(m_nodes[output]);
+	m_nodes[output] = NULL;
 }
 
 QStringList ArtNetPlugin::outputs()
