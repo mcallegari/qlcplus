@@ -3,6 +3,7 @@ qlcplus (4.1.2) beta; urgency=low
   * Tracks can now be deleted from the Show editor
   * OSC plugin now supports multiple universes (up to 4)
   * added white colour intensity
+  * fixed channels group display for partial fixtures modes
   * Implemented external input control for channels groups. Available in Design mode only
   * Improved Input/Output configuration display for lower screen resolutions
   * Inputs and Outputs can now be reset to "none" (thanks to Jano Svitok)
