@@ -101,10 +101,6 @@ public:
     /** @reimp */
     void sendFeedBack(quint32 input, quint32 channel, uchar value);
 
-signals:
-    /** @reimp */
-    void valueChanged(quint32 input, quint32 channel, uchar value);
-
     /*************************************************************************
      * Configuration
      *************************************************************************/
