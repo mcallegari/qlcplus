@@ -7,11 +7,12 @@ qlcplus (4.1.2) beta; urgency=low
   * Implemented external input control for channels groups. Available in Design mode only
   * Improved Input/Output configuration display for lower screen resolutions
   * Inputs and Outputs can now be reset to "none" (thanks to Jano Svitok)
+  * fixed Enttec Playback Wing input line connection (thanks to offtools for reporting)
   * fixed a little typo on Fixture author name
   * updated UI german translation (thanks to Heiko Fanieng)
   * updated french translation (thanks to NiKoyes)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Thu, 25 Dec 2012 11:35:42 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 8 Jan 2013 22:12:42 +0200
 
 qlcplus (4.1.1) beta; urgency=low
 
