@@ -24,6 +24,7 @@
 
 #include "selectinputchannel.h"
 #include "channelselection.h"
+#include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
 #include "channelsgroup.h"
 #include "fixture.h"
@@ -56,17 +57,20 @@ ChannelSelection::ChannelSelection(QWidget* parent, Doc* doc, ChannelsGroup *gro
 
     foreach (Fixture* fixture, m_doc->fixtures())
     {
+        const QLCFixtureMode *mode = fixture->fixtureMode();
+        //const QLCFixtureDef *def = fixture->fixtureDef();
+
         for (quint32 i = 0; i < fixture->channels(); i++)
         {
             QTreeWidgetItem* item = new QTreeWidgetItem(m_tree);
             item->setText(KColumnName, fixture->name());
             item->setText(KColumnID, QString("%1").arg(fixture->id()));
             item->setText(KColumnChannel, QString("%1").arg(i + 1));
-            const QLCFixtureDef *def = fixture->fixtureDef(); 
-            if (def == NULL)
+
+            if (mode == NULL)
                 item->setText(KColumnType, QString(tr("Channel %1").arg(i + 1)));
             else
-                item->setText(KColumnType, def->channels().at(i)->name());
+                item->setText(KColumnType, mode->channels().at(i)->name());
 
             if (chans.count() > c &&
                 chans.at(c).fxi == fixture->id() && chans.at(c).channel == i)

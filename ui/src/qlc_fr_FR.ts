@@ -196,7 +196,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="addfixture.ui" line="139"/>
         <source>List of channels in the selected fixture mode</source>
-        <translation>List des canaux dans le mode sélectionné</translation>
+        <translation>Liste des canaux dans le mode sélectionné</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="152"/>
@@ -945,7 +945,7 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
     <message>
         <location filename="channelselection.ui" line="58"/>
         <source>Channel</source>
-        <translation>Nb de Canaux</translation>
+        <translation>N° de Canal</translation>
     </message>
     <message>
         <location filename="channelselection.ui" line="63"/>

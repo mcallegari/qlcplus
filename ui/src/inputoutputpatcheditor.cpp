@@ -282,6 +282,7 @@ void InputOutputPatchEditor::fillMappingTree()
                         item->setCheckState(KMapColumnHasOutput, Qt::Checked);
                     else
                         item->setCheckState(KMapColumnHasOutput, Qt::Unchecked);
+
                     item->setText(KMapColumnOutputLine, QString("%1").arg(i));
                     item->setText(KMapColumnInputLine, QString("%1").arg(QLCIOPlugin::invalidLine()));
                 }
