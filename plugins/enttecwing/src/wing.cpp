@@ -157,8 +157,6 @@ uchar Wing::cacheValue(int channel)
 
 void Wing::setCacheValue(int channel, uchar value)
 {
-    QTextStream out(stdout);
-    out << "channel: " << channel << " m_values.size(): " << m_values.size() << endl;
     if (channel >= m_values.size())
         return;
 
