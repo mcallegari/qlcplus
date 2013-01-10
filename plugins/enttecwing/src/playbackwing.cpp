@@ -85,9 +85,18 @@ WING_PLAYBACK_BYTE_SLIDER + 9: Slider 10 (0-255)
 #define WING_PLAYBACK_BIT_BACK     (1 << 5)
 #define WING_PLAYBACK_BIT_GO       (1 << 4)
 
-/** Should constitute up to 50 channels */
+/** Should constitute up to 50 channels **/
 #define WING_PLAYBACK_CHANNEL_COUNT 8 * WING_PLAYBACK_BUTTON_SIZE \
-					+ WING_PLAYBACK_SLIDER_SIZE
+                    + WING_PLAYBACK_SLIDER_SIZE
+
+/** number of extra buttons (go,back) **/
+#define WING_PLAYBACK_EXTRA_BUTTONS_COUNT 2
+
+/** total number of pages **/
+#define WING_PLAYBACK_PAGE_COUNT WING_PAGE_MAX + 1
+
+/** number of channels of all pages **/
+#define WING_PLAYBACK_CONTROLS_COUNT (WING_PLAYBACK_CHANNEL_COUNT) * (WING_PLAYBACK_PAGE_COUNT)
 
 #define WING_PLAYBACK_INPUT_VERSION 1
 #define WING_PLAYBACK_INPUT_BYTE_VERSION 4
@@ -101,7 +110,7 @@ PlaybackWing::PlaybackWing(QObject* parent, const QHostAddress& address,
                            const QByteArray& data)
     : Wing(parent, address, data)
 {
-    m_values = QByteArray(WING_PLAYBACK_CHANNEL_COUNT, 0);
+    m_values = QByteArray((WING_PLAYBACK_CONTROLS_COUNT) + (WING_PLAYBACK_EXTRA_BUTTONS_COUNT), 0);
 
     /* Playback wing keys seem to be in a somewhat weird order */
     m_channelMap[0] = 7 + WING_PLAYBACK_SLIDER_SIZE;
@@ -226,8 +235,11 @@ void PlaybackWing::parseData(const QByteArray& data)
     {
         char value = data[WING_PLAYBACK_BYTE_SLIDER + slider];
 
+        /* get page offset for channel*/
+        quint32 offset = (WING_PLAYBACK_CHANNEL_COUNT) * page();
+
         /* Slider channels start from zero */
-        setCacheValue(slider, value);
+        setCacheValue(slider+offset, value);
     }
 }
 
