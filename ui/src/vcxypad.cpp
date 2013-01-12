@@ -265,6 +265,39 @@ void VCXYPad::slotSliderValueChanged()
 }
 
 /*****************************************************************************
+ * External input
+ *****************************************************************************/
+
+void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
+                                     uchar value)
+{
+    /* Don't let input data thru in design mode */
+    if (mode() == Doc::Design)
+        return;
+
+    int x = 0, y = 0;
+
+    QLCInputSource src(universe, channel);
+    if (src == inputSource(panInputSourceId))
+    {
+        x = int(SCALE(qreal(value), qreal(0), qreal(255),
+                      qreal(0), qreal(m_area->width())));
+        y = m_area->position().y();
+    }
+    else if (src == inputSource(tiltInputSourceId))
+    {
+        x = m_area->position().x();
+        y = int(SCALE(qreal(value), qreal(0), qreal(255),
+                      qreal(0), qreal(m_area->height())));
+    }
+    else
+        return;
+
+    m_area->setPosition(QPoint(x, y));
+    m_area->update();
+}
+
+/*****************************************************************************
  * QLC mode
  *****************************************************************************/
 

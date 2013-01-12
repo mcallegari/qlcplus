@@ -314,6 +314,17 @@ void VCXYPadProperties::slotPanChooseClicked()
 
 void VCXYPadProperties::slotPanInputValueChanged(quint32 uni, quint32 ch)
 {
+    QLCInputSource tmpSource = QLCInputSource(uni, ch);
+    // if both Pan and Tilt come from the same external control, here's
+    // where I will discover it
+    if (m_panInputSource.channel() != UINT_MAX &&
+        tmpSource.channel() != m_panInputSource.channel())
+    {
+        m_tiltInputSource = QLCInputSource(uni, ch);
+        updateTiltInputSource();
+        return;
+    }
+
     m_panInputSource = QLCInputSource(uni, ch);
     updatePanInputSource();
 }
@@ -348,6 +359,16 @@ void VCXYPadProperties::slotTiltChooseClicked()
 
 void VCXYPadProperties::slotTiltInputValueChanged(quint32 uni, quint32 ch)
 {
+    QLCInputSource tmpSource = QLCInputSource(uni, ch);
+    // if both Pan and Tilt come from the same external control, here's
+    // where I will discover it
+    if (m_tiltInputSource.channel() != UINT_MAX &&
+        tmpSource.channel() != m_tiltInputSource.channel())
+    {
+        m_panInputSource = QLCInputSource(uni, ch);
+        updatePanInputSource();
+        return;
+    }
     m_tiltInputSource = QLCInputSource(uni, ch);
     updateTiltInputSource();
 }
