@@ -66,10 +66,12 @@ private:
     void updateInputSources();
 
 private slots:
-    void slotAutoDetectAbsoluteInputSourceToggled();
+    void slotAutoDetectAbsoluteInputSourceToggled(bool checked);
     void slotChooseAbsoluteInputSourceClicked();
-    void slotAutoDetectTapInputSourceToggled();
+    void slotAutoDetectTapInputSourceToggled(bool checked);
     void slotChooseTapInputSourceClicked();
+    void slotAbsoluteInputValueChanged(quint32 universe, quint32 channel);
+    void slotTapInputValueChanged(quint32 universe, quint32 channel);
 
 private:
     QLCInputSource m_absoluteInputSource;

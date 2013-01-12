@@ -63,6 +63,11 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
     m_tapInputSource = m_dial->inputSource(VCSpeedDial::tapInputSourceId);
 
     updateInputSources();
+
+    connect(m_autoDetectAbsoluteInputButton, SIGNAL(toggled(bool)),
+            this, SLOT(slotAutoDetectAbsoluteInputSourceToggled(bool)));
+    connect(m_autoDetectTapInputButton, SIGNAL(toggled(bool)),
+            this, SLOT(slotAutoDetectTapInputSourceToggled(bool)));
 }
 
 VCSpeedDialProperties::~VCSpeedDialProperties()
@@ -175,8 +180,31 @@ void VCSpeedDialProperties::updateInputSources()
     m_tapInputChannelEdit->setText(chName);
 }
 
-void VCSpeedDialProperties::slotAutoDetectAbsoluteInputSourceToggled()
+void VCSpeedDialProperties::slotAbsoluteInputValueChanged(quint32 universe, quint32 channel)
 {
+    qDebug() << "Signal received !";
+    m_absoluteInputSource = QLCInputSource(universe, channel);
+    updateInputSources();
+}
+
+void VCSpeedDialProperties::slotTapInputValueChanged(quint32 universe, quint32 channel)
+{
+    m_tapInputSource = QLCInputSource(universe, channel);
+    updateInputSources();
+}
+
+void VCSpeedDialProperties::slotAutoDetectAbsoluteInputSourceToggled(bool checked)
+{
+    if (checked == true)
+    {
+        connect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+                this, SLOT(slotAbsoluteInputValueChanged(quint32,quint32)));
+    }
+    else
+    {
+        disconnect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+                   this, SLOT(slotAbsoluteInputValueChanged(quint32,quint32)));
+    }
 }
 
 void VCSpeedDialProperties::slotChooseAbsoluteInputSourceClicked()
@@ -189,8 +217,18 @@ void VCSpeedDialProperties::slotChooseAbsoluteInputSourceClicked()
     }
 }
 
-void VCSpeedDialProperties::slotAutoDetectTapInputSourceToggled()
+void VCSpeedDialProperties::slotAutoDetectTapInputSourceToggled(bool checked)
 {
+    if (checked == true)
+    {
+        connect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+                this, SLOT(slotTapInputValueChanged(quint32,quint32)));
+    }
+    else
+    {
+        disconnect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+                   this, SLOT(slotTapInputValueChanged(quint32,quint32)));
+    }
 }
 
 void VCSpeedDialProperties::slotChooseTapInputSourceClicked()
