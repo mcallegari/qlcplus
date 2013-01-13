@@ -34,6 +34,7 @@ class GrandMasterSlider;
 class SimpleDeskEngine;
 class SpeedDialWidget;
 class PlaybackSlider;
+class ConsoleChannel;
 class QDomDocument;
 class QDomElement;
 class QToolButton;
@@ -41,7 +42,6 @@ class SimpleDesk;
 class QGroupBox;
 class QTreeView;
 class QSplitter;
-class DMXSlider;
 class QSpinBox;
 class CueStack;
 class Doc;
@@ -88,14 +88,13 @@ private:
     void initUniverseSliders();
     void initUniversePager();
     void resetUniverseSliders();
-    void setChannelName(DMXSlider* slider, uint absch);
 
 private slots:
     void slotUniversePageUpClicked();
     void slotUniversePageDownClicked();
     void slotUniversePageChanged(int page);
     void slotUniverseResetClicked();
-    void slotUniverseSliderValueChanged(uchar value);
+    void slotUniverseSliderValueChanged(quint32, quint32, uchar value);
     void slotUpdateUniverseSliders();
 
 private:
@@ -106,7 +105,7 @@ private:
     QToolButton* m_universeResetButton;
     GrandMasterSlider* m_grandMasterSlider;
 
-    QList <DMXSlider*> m_universeSliders;
+    QList <ConsoleChannel*> m_universeSliders;
     uint m_channelsPerPage;
     bool m_showChannelNames;
 

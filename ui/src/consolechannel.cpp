@@ -45,7 +45,7 @@
  * Initialization
  *****************************************************************************/
 
-ConsoleChannel::ConsoleChannel(QWidget* parent, Doc* doc, quint32 fixture, quint32 channel)
+ConsoleChannel::ConsoleChannel(QWidget* parent, Doc* doc, quint32 fixture, quint32 channel, bool isCheckable)
     : QGroupBox(parent)
     , m_doc(doc)
     , m_fixture(fixture)
@@ -58,11 +58,16 @@ ConsoleChannel::ConsoleChannel(QWidget* parent, Doc* doc, quint32 fixture, quint
     , m_menu(NULL)
 {
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(fixture != Fixture::invalidId());
-    Q_ASSERT(channel != QLCChannel::invalid());
+    //Q_ASSERT(fixture != Fixture::invalidId());
+    //Q_ASSERT(channel != QLCChannel::invalid());
 
+    if (isCheckable == true)
+        setCheckable(true);
     init();
     setStyle(AppUtil::saneStyle());
+
+    connect(m_doc, SIGNAL(fixtureValueChanged(quint32,quint32,uchar)),
+            this, SLOT(slotDocFixtureValueChanged(quint32,quint32,uchar)));
 }
 
 ConsoleChannel::~ConsoleChannel()
@@ -71,27 +76,28 @@ ConsoleChannel::~ConsoleChannel()
 
 void ConsoleChannel::init()
 {
-    setCheckable(true);
-
     Fixture* fxi = m_doc->fixture(m_fixture);
-    Q_ASSERT(fxi != NULL);
+    //Q_ASSERT(fxi != NULL);
 
     new QVBoxLayout(this);
     layout()->setSpacing(2);
     layout()->setContentsMargins(2, 2, 2, 2);
 
-    /* Create a preset button only if its menu has sophisticated contents */
-    if (fxi->fixtureDef() != NULL && fxi->fixtureMode() != NULL)
+    m_presetButton = new QToolButton(this);
+    m_presetButton->setStyle(AppUtil::saneStyle());
+    layout()->addWidget(m_presetButton);
+    layout()->setAlignment(m_presetButton, Qt::AlignHCenter);
+    m_presetButton->setIconSize(QSize(32, 32));
+    m_presetButton->setMinimumSize(QSize(32, 32));
+    m_presetButton->setMaximumSize(QSize(32, 32));
+
+    /* Create a menu only if channel has sophisticated contents */
+    if (fxi != NULL && fxi->fixtureDef() != NULL && fxi->fixtureMode() != NULL)
     {
-        m_presetButton = new QToolButton(this);
-        m_presetButton->setStyle(AppUtil::saneStyle());
-        layout()->addWidget(m_presetButton);
-        layout()->setAlignment(m_presetButton, Qt::AlignHCenter);
-        m_presetButton->setIconSize(QSize(32, 32));
-        m_presetButton->setMinimumSize(QSize(32, 32));
-        m_presetButton->setMaximumSize(QSize(32, 32));
         initMenu();
     }
+    else
+        m_presetButton->setIcon(QIcon(":/intensity.png"));
 
     /* Value edit */
     m_spin = new QSpinBox(this);
@@ -119,7 +125,7 @@ void ConsoleChannel::init()
     m_label->setText(QString::number(m_channel + 1));
 
     /* Set tooltip */
-    if (fxi->isDimmer() == true)
+    if (fxi == NULL || fxi->isDimmer() == true)
     {
         setToolTip(tr("Intensity"));
     }
@@ -191,7 +197,10 @@ void ConsoleChannel::slotSpinChanged(int value)
         m_slider->setValue(value);
 
     if (m_group == Fixture::invalidId())
+    {
+        m_doc->setFixtureChannelValue(m_fixture, m_channel, value);
         emit valueChanged(m_fixture, m_channel, value);
+    }
     else
         emit groupValueChanged(m_group, value);
 }
@@ -209,6 +218,12 @@ void ConsoleChannel::slotChecked(bool state)
     // Emit the current value also when turning the channel back on
     if (state == true)
         emit valueChanged(m_fixture, m_channel, m_slider->value());
+}
+
+void ConsoleChannel::slotDocFixtureValueChanged(quint32 fxi, quint32 channel, uchar value)
+{
+    if (fxi == m_fixture && channel == m_channel && value != m_slider->value())
+        setValue(value);
 }
 
 /*****************************************************************************

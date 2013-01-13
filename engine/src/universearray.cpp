@@ -91,7 +91,11 @@ void UniverseArray::zeroIntensityChannels()
 
 bool UniverseArray::checkHTP(int channel, uchar value, QLCChannel::Group group) const
 {
-    if (group == QLCChannel::Intensity && value < uchar(preGMValues()[channel]))
+    QByteArray pGM = preGMValues();
+    if (pGM.isNull() || channel < 0 || channel >= pGM.size())
+        return false;
+
+    if (group == QLCChannel::Intensity && value < uchar(pGM[channel]))
     {
         /* Current value is higher than new value and HTP applies: reject. */
         return false;
@@ -228,6 +232,8 @@ const QByteArray* UniverseArray::postGMValues() const
 
 const QByteArray UniverseArray::preGMValues() const
 {
+    if (m_preGMValues->isNull())
+        return QByteArray();
     return *m_preGMValues;
 }
 
@@ -271,7 +277,8 @@ bool UniverseArray::write(int channel, uchar value, QLCChannel::Group group)
     if (checkHTP(channel, value, group) == false)
         return false;
 
-    m_preGMValues->data()[channel] = char(value);
+    if (m_preGMValues != NULL)
+        m_preGMValues->data()[channel] = char(value);
     value = applyGM(channel, value, group);
     m_postGMValues->data()[channel] = char(value);
 

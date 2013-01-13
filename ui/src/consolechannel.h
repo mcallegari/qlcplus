@@ -49,7 +49,8 @@ class ConsoleChannel : public QGroupBox
      * Initialization
      *************************************************************************/
 public:
-    ConsoleChannel(QWidget *parent, Doc* doc, quint32 fixture, quint32 channel);
+    ConsoleChannel(QWidget *parent, Doc* doc, quint32 fixture, quint32 channel, bool isCheckable = true);
+
     ~ConsoleChannel();
 
 private:
@@ -102,6 +103,7 @@ private slots:
     void slotSpinChanged(int value);
     void slotSliderChanged(int value);
     void slotChecked(bool state);
+    void slotDocFixtureValueChanged(quint32 fxi, quint32 channel, uchar value);
 
 signals:
     void valueChanged(quint32 fxi, quint32 channel, uchar value);

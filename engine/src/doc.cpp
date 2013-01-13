@@ -94,6 +94,8 @@ void Doc::clearContents()
     while (funcit.hasNext() == true)
     {
         Function* func = m_functions.take(funcit.next());
+        if (func == NULL)
+            continue;
         emit functionRemoved(func->id());
         delete func;
     }
@@ -357,6 +359,11 @@ int Doc::totalPowerConsumption(int& fuzzy) const
     }
 
     return totalPowerConsumption;
+}
+
+void Doc::setFixtureChannelValue(quint32 fxi, quint32 channel, uchar value)
+{
+    emit fixtureValueChanged(fxi, channel, value);
 }
 
 void Doc::slotFixtureChanged(quint32 id)

@@ -231,6 +231,17 @@ public:
      */
     int totalPowerConsumption(int& fuzzy) const;
 
+    /**
+     * This is a convenience function to exchange fixture values between
+     * managers. In this way all the faders in different context will be
+     * instantly notified and so get updated
+     *
+     * @param fxi The ID of the fixture that changed
+     * @param channel The channel of the fixture that changed
+     * @param value The value of the channel that changed
+     */
+    void setFixtureChannelValue(quint32 fxi, quint32 channel, uchar value);
+
 protected:
     /**
      * Create a new fixture ID
@@ -246,6 +257,9 @@ signals:
 
     /** Signal that a fixture's properties have changed */
     void fixtureChanged(quint32 fxi_id);
+
+    /** Signal that a fixture channel/value have changed */
+    void fixtureValueChanged(quint32 fxi, quint32 channel, uchar value);
 
 private slots:
     /** Catch fixture property changes */
