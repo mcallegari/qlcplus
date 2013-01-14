@@ -22,6 +22,7 @@
 #include <QTreeWidgetItem>
 #include <QTreeWidget>
 #include <QHeaderView>
+#include <QInputDialog>
 #include <QVBoxLayout>
 #include <QString>
 #include <QDebug>
@@ -373,7 +374,14 @@ void VCCueList::slotRecord()
         /* add new function and append it to the Cuelist */
         m_doc->addFunction(scene);
         quint32 fid = scene->id();
-        scene->setName(QString("Output Snapshot %1").arg(fid));
+
+        bool ok = false;
+        QString text = QInputDialog::getText(this, tr("Record"), tr("Scene Name"), QLineEdit::Normal, QString(), &ok);
+
+        if (ok == false || !text.size())
+            scene->setName(QString("Output Snapshot %1").arg(fid));
+        else
+            scene->setName(text);
 
         /* fill scene with current values from Outputmap (Dimmers only) */
         QListIterator <Fixture*> it(m_doc->fixtures ());
