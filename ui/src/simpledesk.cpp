@@ -98,6 +98,9 @@ SimpleDesk::SimpleDesk(QWidget* parent, Doc* doc)
     initCueStack();
 
     slotSelectPlayback(0);
+
+    connect(m_doc, SIGNAL(fixtureValueChanged(quint32,quint32,uchar)),
+            this, SLOT(slotDocFixtureValueChanged(quint32,quint32,uchar)));
 }
 
 SimpleDesk::~SimpleDesk()
@@ -298,7 +301,8 @@ void SimpleDesk::initUniverseSliders()
         }
         m_universeGroup->layout()->addWidget(slider);
         m_universeSliders << slider;
-        connect(slider, SIGNAL(valueChanged(quint32,quint32,uchar)), this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
+        connect(slider, SIGNAL(valueChanged(quint32,quint32,uchar)),
+                this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
     }
 
     connect(m_doc, SIGNAL(fixtureAdded(quint32)), this, SLOT(slotUpdateUniverseSliders()));
@@ -348,7 +352,8 @@ void SimpleDesk::slotUniversePageChanged(int page)
         ConsoleChannel* slider = m_universeSliders[i];
         Q_ASSERT(slider != NULL);
         m_universeGroup->layout()->removeWidget(slider);
-        disconnect(slider, SIGNAL(valueChanged(quint32,quint32,uchar)), this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
+        disconnect(slider, SIGNAL(valueChanged(quint32,quint32,uchar)),
+                   this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
         delete slider;
         const Fixture* fx = m_doc->fixture(m_doc->fixtureForAddress(start + i));
         if (fx == NULL)
@@ -365,7 +370,8 @@ void SimpleDesk::slotUniversePageChanged(int page)
             slider->setProperty(PROP_ADDRESS, start + i);
             slider->setLabel(QString::number(start + i + 1));
             slider->setValue(m_engine->value(start + i));
-            connect(slider, SIGNAL(valueChanged(quint32,quint32,uchar)), this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
+            connect(slider, SIGNAL(valueChanged(quint32,quint32,uchar)),
+                    this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
         }
         else
         {
@@ -397,6 +403,16 @@ void SimpleDesk::slotUniverseSliderValueChanged(quint32,quint32,uchar value)
 
         if (m_editCueStackButton->isChecked() == true)
             replaceCurrentCue();
+    }
+}
+
+void SimpleDesk::slotDocFixtureValueChanged(quint32 fxi, quint32 channel, uchar value)
+{
+    Fixture *fixture = m_doc->fixture(fxi);
+    if (fixture != NULL)
+    {
+        uint absch = fixture->universeAddress() + channel;
+        m_engine->setValue(absch, value);
     }
 }
 
