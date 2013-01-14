@@ -59,7 +59,7 @@ ConsoleChannel::ConsoleChannel(QWidget* parent, Doc* doc, quint32 fixture, quint
 {
     Q_ASSERT(doc != NULL);
     //Q_ASSERT(fixture != Fixture::invalidId());
-    //Q_ASSERT(channel != QLCChannel::invalid());
+    Q_ASSERT(channel != QLCChannel::invalid());
 
     if (isCheckable == true)
         setCheckable(true);
@@ -80,8 +80,8 @@ void ConsoleChannel::init()
     //Q_ASSERT(fxi != NULL);
 
     new QVBoxLayout(this);
-    layout()->setSpacing(2);
-    layout()->setContentsMargins(2, 2, 2, 2);
+    layout()->setSpacing(0);
+    layout()->setContentsMargins(0, 2, 0, 2);
 
     m_presetButton = new QToolButton(this);
     m_presetButton->setStyle(AppUtil::saneStyle());
@@ -103,6 +103,7 @@ void ConsoleChannel::init()
     m_spin = new QSpinBox(this);
     m_spin->setRange(0, UCHAR_MAX);
     m_spin->setValue(0);
+    m_spin->setMinimumWidth(38);
     m_spin->setButtonSymbols(QAbstractSpinBox::NoButtons);
     layout()->addWidget(m_spin);
     m_spin->setAlignment(Qt::AlignCenter);
@@ -120,6 +121,7 @@ void ConsoleChannel::init()
 
     /* Channel number label */
     m_label = new QLabel(this);
+    m_label->setMinimumWidth(38);
     layout()->addWidget(m_label);
     m_label->setAlignment(Qt::AlignCenter);
     m_label->setText(QString::number(m_channel + 1));

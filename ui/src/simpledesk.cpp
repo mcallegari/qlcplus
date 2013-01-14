@@ -284,13 +284,13 @@ void SimpleDesk::initRightSide()
 void SimpleDesk::initUniverseSliders()
 {
     qDebug() << Q_FUNC_INFO;
-    uint start = (m_universePageSpin->value() - 1) * m_channelsPerPage;
-    for (uint i = 0; i < m_channelsPerPage; i++)
+    quint32 start = (m_universePageSpin->value() - 1) * m_channelsPerPage;
+    for (quint32 i = 0; i < m_channelsPerPage; i++)
     {
         ConsoleChannel* slider = NULL;
         const Fixture* fxi = m_doc->fixture(m_doc->fixtureForAddress(start + i));
         if (fxi == NULL)
-            slider = new ConsoleChannel(this, m_doc, Fixture::invalidId(), QLCChannel::invalid(), false);
+            slider = new ConsoleChannel(this, m_doc, Fixture::invalidId(), i, false);
         else
         {
             uint ch = (start + i) - fxi->universeAddress();
@@ -342,8 +342,8 @@ void SimpleDesk::slotUniversePageDownClicked()
 void SimpleDesk::slotUniversePageChanged(int page)
 {
     qDebug() << Q_FUNC_INFO;
-    uint start = (page - 1) * m_channelsPerPage;
-    for (uint i = 0; i < m_channelsPerPage; i++)
+    quint32 start = (page - 1) * m_channelsPerPage;
+    for (quint32 i = 0; i < m_channelsPerPage; i++)
     {
         ConsoleChannel* slider = m_universeSliders[i];
         Q_ASSERT(slider != NULL);
@@ -352,7 +352,7 @@ void SimpleDesk::slotUniversePageChanged(int page)
         delete slider;
         const Fixture* fx = m_doc->fixture(m_doc->fixtureForAddress(start + i));
         if (fx == NULL)
-            slider = new ConsoleChannel(this, m_doc, Fixture::invalidId(), QLCChannel::invalid(), false);
+            slider = new ConsoleChannel(this, m_doc, Fixture::invalidId(), start + i, false);
         else
         {
             uint ch = (start + i) - fx->universeAddress();
