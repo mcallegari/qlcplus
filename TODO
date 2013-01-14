@@ -16,13 +16,13 @@ Heikki's notes:
 * After loading, check if all fixtures, channels and member functions
   are present and usable. If not, remove them.
 * When a fixture def is changed for an existing fixture, functions should
-  check if their channel & fixture bindings are still valid.
+  check if their channel & fixture bindings are still valid. 
 * After loading and changing fixture def, VC widgets should check if
   their functions, fixtures and channels are still valid.
 
 offtool's notes:
 
-* add possiblity to capture channels 
+* add possiblity to capture channels (done)
   Capture a channel through togglebutton in a channelfader widget.
   ** Use: set a channel permanent to zero if a gel is burned,
      adjust values of a scene (lower some values) and update scene in cuelist via
@@ -31,6 +31,11 @@ offtool's notes:
     a captured channel overrides scene value of a running scene or values other faders.
     Further features: T-Bar like widget fader to manipulate a bunch of captures channels
 * add progressbar for up and downfades in Cuelist
-* add solo channels capility
+* add solo channels capility / fixture ignores grandmaster (for non LTP fiytures)
   a Solo Intensity Channel value is not affected by the Grandmaster
   ** Use: Shutter of a projector which uses no specfific fixture definition
+*add possiblity to patch one fixture to multiple channels
+  ** Use: you have a set and play in another venue, where you have 4 Fresnel as Front instead of 3.
+     Instead of adding one fixture to all cues in your Cuelist, you can simply patch one more channel
+     to one of your exisiting frontlight fixture.
+* add festures for the Enttec Wing (Go/Back Button, page changes). Page changes should ignore channels, which are set on a diffent page until they are newly touched and reach their actual level

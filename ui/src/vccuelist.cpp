@@ -244,7 +244,7 @@ void VCCueList::updateStepList()
             item->setText(COL_DURATION, Function::speedToString(chaser->duration()));
             break;
         case Chaser::PerStep:
-            item->setText(COL_DURATION, Function::speedToString(step.fadeIn));
+            item->setText(COL_DURATION, Function::speedToString(step.duration));
             break;
         default:
         case Chaser::Default:
