@@ -83,21 +83,18 @@ void ConsoleChannel::init()
     layout()->setSpacing(0);
     layout()->setContentsMargins(0, 2, 0, 2);
 
-    m_presetButton = new QToolButton(this);
-    m_presetButton->setStyle(AppUtil::saneStyle());
-    layout()->addWidget(m_presetButton);
-    layout()->setAlignment(m_presetButton, Qt::AlignHCenter);
-    m_presetButton->setIconSize(QSize(32, 32));
-    m_presetButton->setMinimumSize(QSize(32, 32));
-    m_presetButton->setMaximumSize(QSize(32, 32));
-
     /* Create a menu only if channel has sophisticated contents */
     if (fxi != NULL && fxi->fixtureDef() != NULL && fxi->fixtureMode() != NULL)
     {
+        m_presetButton = new QToolButton(this);
+        m_presetButton->setStyle(AppUtil::saneStyle());
+        layout()->addWidget(m_presetButton);
+        layout()->setAlignment(m_presetButton, Qt::AlignHCenter);
+        m_presetButton->setIconSize(QSize(32, 32));
+        m_presetButton->setMinimumSize(QSize(32, 32));
+        m_presetButton->setMaximumSize(QSize(32, 32));
         initMenu();
     }
-    else
-        m_presetButton->setIcon(QIcon(":/intensity.png"));
 
     /* Value edit */
     m_spin = new QSpinBox(this);

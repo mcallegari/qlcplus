@@ -286,6 +286,7 @@ void ShowManager::showSceneEditor(Scene *scene)
 {
     if (m_scene_editor != NULL)
     {
+        emit functionManagerActive(false);
         m_splitter->widget(1)->layout()->removeWidget(m_scene_editor);
         m_scene_editor->deleteLater();
         m_scene_editor = NULL;
@@ -294,11 +295,11 @@ void ShowManager::showSceneEditor(Scene *scene)
     m_scene_editor = new SceneEditor(m_splitter->widget(1), scene, m_doc, false);
     if (m_scene_editor != NULL)
     {
-        connect(this, SIGNAL(functionManagerActive(bool)),
-                    m_scene_editor, SLOT(slotFunctionManagerActive(bool)));
         m_splitter->widget(1)->layout()->addWidget(m_scene_editor);
         m_splitter->widget(1)->show();
-        m_scene_editor->show();
+        //m_scene_editor->show();
+        connect(this, SIGNAL(functionManagerActive(bool)),
+                    m_scene_editor, SLOT(slotFunctionManagerActive(bool)));
     }
 }
 
@@ -708,6 +709,7 @@ void ShowManager::slotDocClearing()
 
     if (m_scene_editor != NULL)
     {
+        emit functionManagerActive(false);
         m_splitter->widget(1)->layout()->removeWidget(m_scene_editor);
         m_scene_editor->deleteLater();
         m_scene_editor = NULL;
@@ -850,6 +852,9 @@ void ShowManager::hideEvent(QHideEvent* ev)
     QWidget::hideEvent(ev);
     
     if (m_scene_editor != NULL)
+    {
+        m_splitter->widget(1)->layout()->removeWidget(m_scene_editor);
         m_scene_editor->deleteLater();
-    m_scene_editor = NULL;
+        m_scene_editor = NULL;
+    }
 }

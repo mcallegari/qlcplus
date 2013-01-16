@@ -347,21 +347,38 @@ void SimpleDesk::slotUniversePageChanged(int page)
 {
     qDebug() << Q_FUNC_INFO;
     quint32 start = (page - 1) * m_channelsPerPage;
+    QString ssEven =  "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #C3D1C9, stop: 1 #AFBBB4); "
+                     " border: 1px solid gray; border-radius: 4px; }";
+    QString ssOdd = "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D2D0, stop: 1 #AFACAB); "
+                     " border: 1px solid gray; border-radius: 4px; }";
+    QString ssNone = "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D5E0, stop: 1 #A7A6AF); "
+                     " border: 1px solid gray; border-radius: 4px; }";
+
+
     for (quint32 i = 0; i < m_channelsPerPage; i++)
     {
         ConsoleChannel* slider = m_universeSliders[i];
-        Q_ASSERT(slider != NULL);
-        m_universeGroup->layout()->removeWidget(slider);
-        disconnect(slider, SIGNAL(valueChanged(quint32,quint32,uchar)),
+        if (slider != NULL)
+        {
+            m_universeGroup->layout()->removeWidget(slider);
+            disconnect(slider, SIGNAL(valueChanged(quint32,quint32,uchar)),
                    this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
-        delete slider;
+            delete slider;
+        }
         const Fixture* fx = m_doc->fixture(m_doc->fixtureForAddress(start + i));
         if (fx == NULL)
+        {
             slider = new ConsoleChannel(this, m_doc, Fixture::invalidId(), start + i, false);
+            slider->setStyleSheet(ssNone);
+        }
         else
         {
             uint ch = (start + i) - fx->universeAddress();
             slider = new ConsoleChannel(this, m_doc, fx->id(), ch, false);
+            if (fx->id() % 2 == 0)
+                slider->setStyleSheet(ssOdd);
+            else
+                slider->setStyleSheet(ssEven);
         }
 
         if ((start + i) < 512)
@@ -381,6 +398,7 @@ void SimpleDesk::slotUniversePageChanged(int page)
             slider->setLabel("---");
             slider->setPalette(this->palette());
         }
+
         m_universeGroup->layout()->addWidget(slider);
         m_universeSliders[i] = slider;
     }
