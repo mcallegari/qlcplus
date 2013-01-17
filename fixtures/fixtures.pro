@@ -177,6 +177,7 @@ fixtures.files += SGM-Giotto-Wash-400.qxf
 fixtures.files += SGM-Victory-250.qxf
 fixtures.files += SGM-Victory-II-250.qxf
 fixtures.files += SGM-Victory-II-Pro150.qxf
+fixtures.files += Showtec-Atmos-F350.qxf
 fixtures.files += Showtec-Indigo-6500.qxf
 fixtures.files += Showtec-MiniMax-250.qxf
 fixtures.files += Showtec-Spectral-CYC650.qxf
