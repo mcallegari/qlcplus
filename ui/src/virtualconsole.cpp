@@ -828,7 +828,7 @@ void VirtualConsole::slotAddFrame()
     if (parent == NULL)
         return;
 
-    VCFrame* frame = new VCFrame(parent, m_doc);
+    VCFrame* frame = new VCFrame(parent, m_doc, true);
     Q_ASSERT(frame != NULL);
     frame->show();
     frame->move(parent->lastClickPoint());

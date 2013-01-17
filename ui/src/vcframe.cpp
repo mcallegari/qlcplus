@@ -29,6 +29,7 @@
 #include <QPoint>
 #include <QSize>
 #include <QMenu>
+#include <QFont>
 #include <QList>
 #include <QtXml>
 
@@ -43,16 +44,55 @@
 #include "vcframe.h"
 #include "vclabel.h"
 #include "vcxypad.h"
+#include "apputil.h"
 #include "doc.h"
 
 const QSize VCFrame::defaultSize(QSize(200, 200));
 
-VCFrame::VCFrame(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
+VCFrame::VCFrame(QWidget* parent, Doc* doc, bool canResize) : VCWidget(parent, doc)
+    , m_hbox(NULL)
+    , m_button(NULL)
+    , m_label(NULL)
 {
     /* Set the class name "VCFrame" as the object name as well */
     setObjectName(VCFrame::staticMetaObject.className());
     setFrameStyle(KVCFrameStyleSunken);
     setAllowChildren(true);
+
+    if (canResize == true)
+    {
+        QVBoxLayout *vbox = new QVBoxLayout(this);
+        /* Main HBox */
+        m_hbox = new QHBoxLayout();
+        m_hbox->setGeometry(QRect(0, 0, 200, 40));
+
+        layout()->addItem(m_hbox);
+        vbox->addStretch();
+
+        m_button = new QToolButton(this);
+        m_button->setStyle(AppUtil::saneStyle());
+        m_button->setIconSize(QSize(32, 32));
+        m_button->setMinimumSize(QSize(32, 32));
+        m_button->setMaximumSize(QSize(32, 32));
+        m_button->setIcon(QIcon(":/expand.png"));
+        m_button->setCheckable(true);
+        QString btnSS = "QToolButton { background-color: #E0DFDF; border: 1px solid gray; border-radius: 3px; padding: 3px; } ";
+        btnSS += "QToolButton:pressed { background-color: #919090; border: 1px solid gray; border-radius: 3px; padding: 3px; } ";
+        m_button->setStyleSheet(btnSS);
+
+        m_hbox->addWidget(m_button);
+        connect(m_button, SIGNAL(toggled(bool)), this, SLOT(slotCollapseButtonToggled(bool)));
+
+        m_label = new QLabel(this);
+        m_label->setText(this->caption());
+        m_label->setStyleSheet("QLabel { background-color: gray; color: white; border-radius: 3px; padding: 3px; margin-left: 2px }");
+
+        QFont m_font = QApplication::font();
+        m_font.setBold(true);
+        m_font.setPixelSize(14);
+        m_label->setFont(m_font);
+        m_hbox->addWidget(m_label);
+    }
     resize(defaultSize);
 }
 
@@ -63,6 +103,26 @@ VCFrame::~VCFrame()
 bool VCFrame::isBottomFrame()
 {
     return (parentWidget() != NULL && qobject_cast<VCFrame*>(parentWidget()) == NULL);
+}
+
+void VCFrame::setCaption(const QString& text)
+{
+    if (m_label != NULL)
+        m_label->setText(text);
+
+    VCWidget::setCaption(text);
+}
+
+void VCFrame::slotCollapseButtonToggled(bool toggle)
+{
+    if (toggle == true)
+    {
+        m_width = this->width();
+        m_height = this->height();
+        resize(QSize(200, 40));
+    }
+    else
+        resize(QSize(m_width, m_height));
 }
 
 /*****************************************************************************
@@ -181,7 +241,7 @@ bool VCFrame::loadXML(const QDomElement* root)
         else if (tag.tagName() == KXMLQLCVCFrame)
         {
             /* Create a new frame into its parent */
-            VCFrame* frame = new VCFrame(this, m_doc);
+            VCFrame* frame = new VCFrame(this, m_doc, true);
             if (frame->loadXML(&tag) == false)
                 delete frame;
             else
