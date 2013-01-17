@@ -66,6 +66,8 @@ VCFrame::VCFrame(QWidget* parent, Doc* doc, bool canResize) : VCWidget(parent, d
         m_hbox = new QHBoxLayout();
         m_hbox->setGeometry(QRect(0, 0, 200, 40));
 
+        layout()->setSpacing(2);
+        layout()->setContentsMargins(4, 4, 4, 4);
         layout()->addItem(m_hbox);
         vbox->addStretch();
 
