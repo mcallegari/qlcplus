@@ -114,6 +114,7 @@ private:
     QSpinBox* m_spin;
     QSlider* m_slider;
     QLabel* m_label;
+    bool m_externalValueChange;
 
     /*************************************************************************
      * Menu

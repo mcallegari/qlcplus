@@ -292,14 +292,17 @@ void ShowManager::showSceneEditor(Scene *scene)
         m_scene_editor = NULL;
     }
 
-    m_scene_editor = new SceneEditor(m_splitter->widget(1), scene, m_doc, false);
-    if (m_scene_editor != NULL)
+    if (this->isVisible())
     {
-        m_splitter->widget(1)->layout()->addWidget(m_scene_editor);
-        m_splitter->widget(1)->show();
-        //m_scene_editor->show();
-        connect(this, SIGNAL(functionManagerActive(bool)),
+        m_scene_editor = new SceneEditor(m_splitter->widget(1), scene, m_doc, false);
+        if (m_scene_editor != NULL)
+        {
+            m_splitter->widget(1)->layout()->addWidget(m_scene_editor);
+            m_splitter->widget(1)->show();
+            //m_scene_editor->show();
+            connect(this, SIGNAL(functionManagerActive(bool)),
                     m_scene_editor, SLOT(slotFunctionManagerActive(bool)));
+        }
     }
 }
 

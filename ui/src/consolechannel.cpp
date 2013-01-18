@@ -197,8 +197,11 @@ void ConsoleChannel::slotSpinChanged(int value)
 
     if (m_group == Fixture::invalidId())
     {
-        m_doc->setFixtureChannelValue(m_fixture, m_channel, value);
-        emit valueChanged(m_fixture, m_channel, value);
+        if (m_externalValueChange == false)
+        {
+            m_doc->setFixtureChannelValue(m_fixture, m_channel, value);
+            emit valueChanged(m_fixture, m_channel, value);
+        }
     }
     else
         emit groupValueChanged(m_group, value);
@@ -222,7 +225,11 @@ void ConsoleChannel::slotChecked(bool state)
 void ConsoleChannel::slotDocFixtureValueChanged(quint32 fxi, quint32 channel, uchar value)
 {
     if (fxi == m_fixture && channel == m_channel && value != m_slider->value())
+    {
+        m_externalValueChange = true;
         setValue(value);
+        m_externalValueChange = false;
+    }
 }
 
 /*****************************************************************************
