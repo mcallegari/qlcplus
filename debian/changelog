@@ -2,7 +2,7 @@ qlcplus (4.1.3) stable; urgency=low
 
   * fixed speed dial input source auto detection
   * added XY pad external input control (including OSC detection)
-  * Simple Desk sliders style improved and synchronized with Scene sliders
+  * Simple Desk sliders style improved and synchronized with QLC+ DMX values
   * Virtual Console Frames can now be collapsed/expanded and entitled
   * improved stability of projects loading
   * added Showtec Atmos F350 (thanks to Jano Svitok)

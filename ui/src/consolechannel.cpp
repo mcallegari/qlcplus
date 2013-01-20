@@ -65,9 +65,6 @@ ConsoleChannel::ConsoleChannel(QWidget* parent, Doc* doc, quint32 fixture, quint
         setCheckable(true);
     init();
     setStyle(AppUtil::saneStyle());
-
-    connect(m_doc, SIGNAL(fixtureValueChanged(quint32,quint32,uchar)),
-            this, SLOT(slotDocFixtureValueChanged(quint32,quint32,uchar)));
 }
 
 ConsoleChannel::~ConsoleChannel()
@@ -196,13 +193,7 @@ void ConsoleChannel::slotSpinChanged(int value)
         m_slider->setValue(value);
 
     if (m_group == Fixture::invalidId())
-    {
-        if (m_externalValueChange == false)
-        {
-            m_doc->setFixtureChannelValue(m_fixture, m_channel, value);
-            emit valueChanged(m_fixture, m_channel, value);
-        }
-    }
+        emit valueChanged(m_fixture, m_channel, value);
     else
         emit groupValueChanged(m_group, value);
 }
@@ -220,16 +211,6 @@ void ConsoleChannel::slotChecked(bool state)
     // Emit the current value also when turning the channel back on
     if (state == true)
         emit valueChanged(m_fixture, m_channel, m_slider->value());
-}
-
-void ConsoleChannel::slotDocFixtureValueChanged(quint32 fxi, quint32 channel, uchar value)
-{
-    if (fxi == m_fixture && channel == m_channel && value != m_slider->value())
-    {
-        m_externalValueChange = true;
-        setValue(value);
-        m_externalValueChange = false;
-    }
 }
 
 /*****************************************************************************

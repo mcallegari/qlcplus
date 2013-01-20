@@ -575,11 +575,6 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, UniverseArray* universes)
 
             quint32 dmx_ch = fxi->channelAddress(lch.channel);
             universes->write(dmx_ch, m_levelValue, qlcch->group());
-            if (m_levelValueChanged == true)
-            {
-                //qDebug() << "[VCSlider::writeDMXLevel] fix: " << lch.fixture << ", ch: " << lch.channel << ", val: " << m_levelValue;
-                m_doc->setFixtureChannelValue(lch.fixture, lch.channel, m_levelValue);
-            }
         }
     }
     m_levelValueChanged = false;

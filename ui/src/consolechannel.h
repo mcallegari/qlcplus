@@ -103,7 +103,6 @@ private slots:
     void slotSpinChanged(int value);
     void slotSliderChanged(int value);
     void slotChecked(bool state);
-    void slotDocFixtureValueChanged(quint32 fxi, quint32 channel, uchar value);
 
 signals:
     void valueChanged(quint32 fxi, quint32 channel, uchar value);
@@ -114,7 +113,6 @@ private:
     QSpinBox* m_spin;
     QSlider* m_slider;
     QLabel* m_label;
-    bool m_externalValueChange;
 
     /*************************************************************************
      * Menu

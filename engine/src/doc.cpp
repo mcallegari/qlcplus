@@ -361,11 +361,6 @@ int Doc::totalPowerConsumption(int& fuzzy) const
     return totalPowerConsumption;
 }
 
-void Doc::setFixtureChannelValue(quint32 fxi, quint32 channel, uchar value)
-{
-    emit fixtureValueChanged(fxi, channel, value);
-}
-
 void Doc::slotFixtureChanged(quint32 id)
 {
     /* Keep track of fixture addresses */

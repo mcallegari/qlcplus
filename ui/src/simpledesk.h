@@ -95,8 +95,8 @@ private slots:
     void slotUniversePageChanged(int page);
     void slotUniverseResetClicked();
     void slotUniverseSliderValueChanged(quint32, quint32, uchar value);
-    void slotDocFixtureValueChanged(quint32 fxi, quint32 channel, uchar value);
     void slotUpdateUniverseSliders();
+    void slotUniversesWritten(const QByteArray& ua);
 
 private:
     QGroupBox* m_universeGroup;

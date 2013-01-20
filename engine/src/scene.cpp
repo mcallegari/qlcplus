@@ -103,8 +103,6 @@ void Scene::setValue(const SceneValue& scv)
     qSort(m_values.begin(), m_values.end());
     m_valueListMutex.unlock();
 
-    Doc *m_doc = doc();
-    m_doc->setFixtureChannelValue(scv.fxi, scv.channel, scv.value);
     emit changed(this->id());
 }
 

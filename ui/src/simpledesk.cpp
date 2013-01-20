@@ -99,8 +99,8 @@ SimpleDesk::SimpleDesk(QWidget* parent, Doc* doc)
 
     slotSelectPlayback(0);
 
-    connect(m_doc, SIGNAL(fixtureValueChanged(quint32,quint32,uchar)),
-            this, SLOT(slotDocFixtureValueChanged(quint32,quint32,uchar)));
+    connect(m_doc->outputMap(), SIGNAL(universesWritten(const QByteArray&)),
+            this, SLOT(slotUniversesWritten(const QByteArray&)));
 }
 
 SimpleDesk::~SimpleDesk()
@@ -424,13 +424,22 @@ void SimpleDesk::slotUniverseSliderValueChanged(quint32,quint32,uchar value)
     }
 }
 
-void SimpleDesk::slotDocFixtureValueChanged(quint32 fxi, quint32 channel, uchar value)
+void SimpleDesk::slotUniversesWritten(const QByteArray& ua)
 {
-    Fixture *fixture = m_doc->fixture(fxi);
-    if (fixture != NULL)
+    int start = (m_universePageSpin->value() - 1) * m_channelsPerPage;
+    for (int i = 0; i < ua.length(); i++)
     {
-        uint absch = fixture->universeAddress() + channel;
-        m_engine->setValue(absch, value);
+        m_engine->setValue(i, ua.at(i));
+        // update current page sliders
+        if (i >= start && i < start + (int)m_channelsPerPage)
+        {
+            const Fixture* fx = m_doc->fixture(m_doc->fixtureForAddress(i));
+            if (fx != NULL)
+            {
+                ConsoleChannel *cc = m_universeSliders[i - start];
+                cc->setValue(ua.at(i));
+            }
+        }
     }
 }
 
