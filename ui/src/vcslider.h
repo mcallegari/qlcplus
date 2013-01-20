@@ -19,6 +19,15 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
+/*
+ * TODO: Input
+ * add a method for value query to class universe
+ * page in slider callback implementieren
+ * query: control has Input (from active page)
+ * check current slider value
+ * if slider value != fader value: do nothing
+ */
+
 #ifndef VCSLIDER_H
 #define VCSLIDER_H
 
@@ -460,6 +469,16 @@ protected:
 protected slots:
     /** Called when an external input device produces input data */
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
+
+    /** Called when an external input device does a page change**/
+    void slotInputPageChanged(quint32 universe, quint32 pagesize, quint32 page);
+
+private:
+    /** true if input fader value and slider value differ after page change **/
+    bool m_catchlevel;
+
+    /** level difference between input fader and slider **/
+    qint32 m_leveldiff;
 
     /*********************************************************************
      * Load & Save

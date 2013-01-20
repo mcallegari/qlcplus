@@ -219,6 +219,8 @@ signals:
      */
     void valueChanged(quint32 input, quint32 channel, uchar value, const QString& key = 0);
 
+    void pageChanged(quint32 input, quint32 pagesize, quint32 page);
+
     /*************************************************************************
      * Configure
      *************************************************************************/

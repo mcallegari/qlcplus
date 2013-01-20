@@ -151,6 +151,9 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
        they no longer point to an existing fixture->channel */
     connect(m_doc, SIGNAL(fixtureRemoved(quint32)),
             this, SLOT(slotFixtureRemoved(quint32)));
+
+    m_catchlevel = false;
+    m_leveldiff = 0;
 }
 
 VCSlider::~VCSlider()
@@ -849,18 +852,61 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel,
         }
         else
         {
-            /* Scale from input value range to this slider's range */
-            float val;
-            val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
-                        (float) m_slider->minimum(),
-                        (float) m_slider->maximum());
+            if (m_catchlevel)
+            {
+                /* level difference between external input fader and slider */
+                m_leveldiff = value - m_slider->value();
 
-            if (m_slider->invertedAppearance() == true)
-                m_slider->setValue(m_slider->maximum() - (int) val);
+                /* reset catchlevel */
+                m_catchlevel = false;
+            }
+
+            /* slider value and input value are the same */
+            if (value - m_slider->value() == 0)
+                m_leveldiff = 0;
             else
-                m_slider->setValue((int) val);
+            {
+                /* input fader crossed (catched) slider value */
+                if (m_leveldiff < 0 && value - m_slider->value() > 0)
+                    m_leveldiff = 0;
+                else
+                {
+                    if (m_leveldiff > 0 && value - m_slider->value() < 0)
+                        m_leveldiff = 0;
+                    else
+                        /* workaround if slider is 0 or 255 */
+                        if (m_slider->value() == 0 || m_slider->value() == 255)
+                        {
+                            if (abs(value-m_slider->value()) < 10)
+                                m_leveldiff = 0;
+                        }
+                }
+            }
+
+            if (m_leveldiff == 0)
+            {
+                /* Scale from input value range to this slider's range */
+                float val;
+                val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
+                            (float) m_slider->minimum(),
+                            (float) m_slider->maximum());
+
+                if (m_slider->invertedAppearance() == true)
+                    m_slider->setValue(m_slider->maximum() - (int) val);
+                else
+                    m_slider->setValue((int) val);
+            }
         }
     }
+}
+
+void VCSlider::slotInputPageChanged(quint32 universe, quint32 pagesize, quint32 page)
+{
+    /** add little icons that show the status of the slider (on active page, input is valid) **/
+    Q_UNUSED(universe);
+    Q_UNUSED(pagesize);
+    Q_UNUSED(page);
+    m_catchlevel = true;
 }
 
 /*****************************************************************************

@@ -73,6 +73,9 @@ public:
     /** Send current page number back to the wing */
     void sendPageData();
 
+    /** @reimp */
+    quint32 pageSize() const;
+
 protected:
     /**
      * Since some of the channels in a playback wing seem to be in a weird

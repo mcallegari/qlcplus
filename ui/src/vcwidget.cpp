@@ -384,8 +384,12 @@ void VCWidget::setInputSource(const QLCInputSource& source, quint8 id)
 {
     // Connect when the first valid input source is set
     if (m_inputs.isEmpty() == true && source.isValid() == true)
+    {
         connect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                 this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
+        connect(m_doc->inputMap(), SIGNAL(inputPageChanged(quint32,quint32,quint32)),
+                this, SLOT(slotInputPageChanged(quint32,quint32,quint32)));
+    }
 
     // Assign or clear
     if (source.isValid() == true)
@@ -395,8 +399,12 @@ void VCWidget::setInputSource(const QLCInputSource& source, quint8 id)
 
     // Disconnect when there are no more input sources present
     if (m_inputs.isEmpty() == true)
+    {
         disconnect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                    this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
+        disconnect(m_doc->inputMap(), SIGNAL(inputPageChanged(quint32,quint32,quint32)),
+                   this, SLOT(slotInputPageChanged(quint32,quint32,quint32)));
+    }
 }
 
 QLCInputSource VCWidget::inputSource(quint8 id) const
@@ -412,6 +420,13 @@ void VCWidget::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
     Q_UNUSED(universe);
     Q_UNUSED(channel);
     Q_UNUSED(value);
+}
+
+void VCWidget::slotInputPageChanged(quint32 universe, quint32 pagesize, quint32 page)
+{
+    Q_UNUSED(universe);
+    Q_UNUSED(pagesize);
+    Q_UNUSED(page);
 }
 
 /*****************************************************************************

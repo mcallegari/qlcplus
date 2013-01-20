@@ -77,6 +77,8 @@ void InputPatch::set(QLCIOPlugin* plugin, quint32 input, QLCInputProfile* profil
     {
         connect(m_plugin, SIGNAL(valueChanged(quint32,quint32,uchar,QString)),
                 this, SLOT(slotValueChanged(quint32,quint32,uchar,QString)));
+        connect(m_plugin, SIGNAL(pageChanged(quint32,quint32,quint32)),
+                this, SLOT(slotPageChanged(quint32,quint32,quint32)));
         m_plugin->openInput(m_input);
     }
 }
@@ -144,4 +146,10 @@ void InputPatch::slotValueChanged(quint32 input, quint32 channel, uchar value, c
     // such values that belong to this particular patch.
     if (input == m_input)
         emit inputValueChanged(m_inputUniverse, channel, value, key);
+}
+
+void InputPatch::slotPageChanged(quint32 input, quint32 pagesize, quint32 page)
+{
+    if (input == m_input)
+        emit inputPageChanged(m_inputUniverse, pagesize, page);
 }

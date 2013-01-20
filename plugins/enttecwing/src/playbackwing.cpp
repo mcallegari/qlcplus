@@ -279,3 +279,8 @@ void PlaybackWing::sendPageData()
     QUdpSocket sock(this);
     sock.writeDatagram(sendData, address(), Wing::UDPPort);
 }
+
+quint32 PlaybackWing::pageSize() const
+{
+    return WING_PLAYBACK_CHANNEL_COUNT;
+}
