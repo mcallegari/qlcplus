@@ -44,6 +44,7 @@ fixtures.files += Electroconcept-PAR-56-LED-Full-RGB-18x3W.qxf
 fixtures.files += Eurolite-DMXSuperstrobe-2700.qxf
 fixtures.files += Eurolite-LED-Bar-RGB-252_10_40__Indoor.qxf
 fixtures.files += Eurolite-LED-PAR56.qxf
+fixtures.files += Eurolite-LED-PAR64-RGBA.qxf
 fixtures.files += Eurolite-LED-PAR64-RGB.qxf
 fixtures.files += Eurolite-LED-PAR64-White.qxf
 fixtures.files += Eurolite-KLS200.qxf
