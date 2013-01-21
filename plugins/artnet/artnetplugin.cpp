@@ -21,6 +21,7 @@
 
 #include "artnetplugin.h"
 
+#include <QNetworkInterface>
 #include <QSettings>
 #include <QDebug>
 
@@ -30,7 +31,8 @@ ArtNetPlugin::~ArtNetPlugin()
 
 void ArtNetPlugin::init()
 {
-
+    QNetworkInterface interface;
+    m_IPList = interface.allAddresses();
 }
 
 QString ArtNetPlugin::name()
@@ -116,9 +118,28 @@ int pollReplyHandler(artnet_node n, void *pp, void *user_data)
 /*********************************************************************
  * Outputs
  *********************************************************************/
+QStringList ArtNetPlugin::outputs()
+{
+    int idx = 0;
+    QStringList list;
+    for (int i = 0; i < m_IPList.length(); i++)
+    {
+        QHostAddress addr = m_IPList.at(i);
+        if (addr.protocol() != QAbstractSocket::IPv6Protocol && addr != QHostAddress::LocalHost)
+            list << QString(tr("%1: ArtNet network (%2)")).arg(idx++).arg(addr.toString());
+    }
+    return list;
+}
+
+QString ArtNetPlugin::outputInfo(quint32 output)
+{
+    Q_UNUSED(output);
+    return QString();
+}
+
 void ArtNetPlugin::openOutput(quint32 output)
 {
-    if (output >= ARTNET_OUTPUTS)
+    if (output >= (quint32)m_IPList.length())
         return;
 
     int verbose = 0;
@@ -155,24 +176,11 @@ void ArtNetPlugin::openOutput(quint32 output)
 
 void ArtNetPlugin::closeOutput(quint32 output)
 {
-    if (output >= ARTNET_OUTPUTS)
+    if (output >= (quint32)m_IPList.length())
         return;
 	artnet_stop(m_nodes[output]);
 	artnet_destroy(m_nodes[output]);
 	m_nodes[output] = NULL;
-}
-
-QStringList ArtNetPlugin::outputs()
-{
-    QStringList list;
-    list << QString("1: ArtNet universe");
-    return list;
-}
-
-QString ArtNetPlugin::outputInfo(quint32 output)
-{
-    Q_UNUSED(output);
-    return QString();
 }
 
 void ArtNetPlugin::writeUniverse(quint32 output, const QByteArray& universe)

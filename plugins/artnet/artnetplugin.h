@@ -22,14 +22,13 @@
 #ifndef ARTNETPLUGIN_H
 #define ARTNETPLUGIN_H
 
+#include <QHostAddress>
 #include <QString>
 #include <QHash>
 #include <QFile>
 
 #include <artnet/artnet.h>
 #include "qlcioplugin.h"
-
-#define ARTNET_OUTPUTS  4
 
 class ArtNetPlugin;
 
@@ -130,8 +129,9 @@ public:
 
 private:
     //ArtNetThread m_nodeThread;
+    QList<QHostAddress> m_IPList;
 
-    artnet_node m_nodes[ARTNET_OUTPUTS];
+    QHash <uint, artnet_node> m_nodes;
 
 //    ArtNet_poll_info m_pollCbkInfo[ARTNET_OUTPUTS];
 };

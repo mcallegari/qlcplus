@@ -4,6 +4,9 @@ TEMPLATE = lib
 LANGUAGE = C++
 TARGET   = artnet
 
+CONFIG  += qt
+QT      += network
+
 CONFIG      += plugin
 CONFIG      += link_pkgconfig
 INCLUDEPATH += ../interfaces
