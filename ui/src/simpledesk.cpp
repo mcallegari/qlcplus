@@ -429,7 +429,7 @@ void SimpleDesk::slotUniversesWritten(const QByteArray& ua)
     int start = (m_universePageSpin->value() - 1) * m_channelsPerPage;
     for (int i = 0; i < ua.length(); i++)
     {
-        m_engine->setValue(i, ua.at(i));
+        //m_engine->setValue(i, ua.at(i));
         // update current page sliders
         if (i >= start && i < start + (int)m_channelsPerPage)
         {
@@ -437,7 +437,7 @@ void SimpleDesk::slotUniversesWritten(const QByteArray& ua)
             if (fx != NULL)
             {
                 ConsoleChannel *cc = m_universeSliders[i - start];
-                cc->setValue(ua.at(i));
+                cc->setValue(ua.at(i), false);
             }
         }
     }
@@ -960,6 +960,7 @@ void SimpleDesk::slotCueNameEdited(const QString& name)
 
 void SimpleDesk::showEvent(QShowEvent* ev)
 {
+    //m_engine->registerSourceAgain();
     if (m_editCueStackButton->isChecked() == true)
         slotEditCueStackClicked();
     QWidget::showEvent(ev);

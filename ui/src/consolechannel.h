@@ -94,7 +94,7 @@ signals:
      *************************************************************************/
 public:
     /** Set the channel's current value */
-    void setValue(uchar value);
+    void setValue(uchar value, bool apply = true);
 
     /** Get the channel's current value */
     uchar value() const;

@@ -177,9 +177,13 @@ void ConsoleChannel::slotInputValueChanged(quint32 channel, uchar value)
  * Value
  *****************************************************************************/
 
-void ConsoleChannel::setValue(uchar value)
+void ConsoleChannel::setValue(uchar value, bool apply)
 {
+    if (apply == false)
+        disconnect(m_slider, SIGNAL(valueChanged(int)), this, SLOT(slotSliderChanged(int)));
     m_slider->setValue(int(value));
+    if (apply == false)
+        connect(m_slider, SIGNAL(valueChanged(int)), this, SLOT(slotSliderChanged(int)));
 }
 
 uchar ConsoleChannel::value() const
