@@ -81,6 +81,7 @@ fixtures.files += Futurelight-EYE-18.qxf
 fixtures.files += Futurelight-EYE-36.qxf
 fixtures.files += Futurelight-MCF-200.qxf
 fixtures.files += Futurelight-MH-440.qxf
+fixtures.files += Futurelight-MH-660.qxf
 fixtures.files += Futurelight-MH-840.qxf
 fixtures.files += Futurelight-PCC-1200.qxf
 fixtures.files += Futurelight-PCC-250CMY.qxf
