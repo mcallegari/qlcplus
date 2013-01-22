@@ -44,11 +44,11 @@ AboutBox::AboutBox(QWidget* parent) : QDialog (parent)
     connect(m_contributors, SIGNAL(itemClicked(QListWidgetItem*)),
             this, SLOT(slotItemClicked()));
     m_contributors->clear();
-    m_contributors->addItem("QLC+ contributors:");
+    m_contributors->addItem("Contributors:");
+    m_contributors->addItem("Oliver Ruempelein");
+    m_contributors->addItem("Jannis Achstetter");
     m_contributors->addItem(QString::fromUtf8("Daniel Nyström"));
-    m_contributors->addItem("");
-    m_contributors->addItem("QLC contributors:");
-    m_contributors->addItem("janek3");
+    m_contributors->addItem("Jano Svitok");
     m_contributors->addItem("Klaus Weidenbach");
     m_contributors->addItem("Stefan Krumm");
     m_contributors->addItem(QString::fromUtf8("Christian Sühs"));
