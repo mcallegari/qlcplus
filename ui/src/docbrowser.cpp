@@ -115,7 +115,7 @@ DocBrowser::DocBrowser(QWidget* parent)
     /* Actions */
     m_backwardAction = new QAction(QIcon(":/back.png"), tr("Backward"), this);
     m_forwardAction = new QAction(QIcon(":/forward.png"), tr("Forward"), this);
-    m_homeAction = new QAction(QIcon(":/qlc.png"), tr("Index"), this);
+    m_homeAction = new QAction(QIcon(":/qlcplus.png"), tr("Index"), this);
     m_aboutQtAction = new QAction(QIcon(":/qt.png"), tr("About Qt"), this);
 
     m_backwardAction->setEnabled(false);

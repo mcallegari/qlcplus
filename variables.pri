@@ -27,7 +27,7 @@ CONFIG         += debug   # Disable this when making a release
 unix:OLA_GIT    = /usr/src/ola    # OLA directories
 
 #macx:CONFIG   += x86 ppc  # Build universal binaries (Leopard only)
-macx:CONFIG    -= app_bundle # Let QLC construct the .app bundle
+macx:CONFIG    -= app_bundle # Let QLC+ construct the .app bundle
 
 # Produce build targets to the source directory
 win32:DESTDIR  = ./
@@ -43,7 +43,7 @@ win32:QMAKE_LFLAGS += -Wl,--enable-auto-import
 #############################################################################
 
 # Install root
-win32:INSTALLROOT       = $$(SystemDrive)/QLC
+win32:INSTALLROOT       = $$(SystemDrive)/QLC+
 macx:INSTALLROOT        = ~/QLC+.app/Contents
 unix:!macx:INSTALLROOT += /usr
 
@@ -59,7 +59,7 @@ macx:LIBSDIR       = Frameworks
 
 # Data
 win32:DATADIR      =
-unix:!macx:DATADIR = share/qlc
+unix:!macx:DATADIR = share/qlcplus
 macx:DATADIR       = Resources
 
 # Documentation
@@ -73,9 +73,9 @@ unix:!macx:INPUTPROFILEDIR     = $$DATADIR/inputprofiles
 macx:INPUTPROFILEDIR           = $$DATADIR/InputProfiles
 
 # User input profiles
-win32:USERINPUTPROFILEDIR      = QLC/InputProfiles
-unix:!macx:USERINPUTPROFILEDIR = .qlc/inputprofiles
-macx:USERINPUTPROFILEDIR       = "Library/Application Support/QLC/InputProfiles"
+win32:USERINPUTPROFILEDIR      = QLC+/InputProfiles
+unix:!macx:USERINPUTPROFILEDIR = .qlcplus/inputprofiles
+macx:USERINPUTPROFILEDIR       = "Library/Application Support/QLC+/InputProfiles"
 
 # Fixtures
 win32:FIXTUREDIR          = Fixtures
@@ -83,13 +83,13 @@ unix:!macx:FIXTUREDIR     = $$DATADIR/fixtures
 macx:FIXTUREDIR           = $$DATADIR/Fixtures
 
 # User fixtures
-win32:USERFIXTUREDIR      = QLC/Fixtures
-unix:!macx:USERFIXTUREDIR = .qlc/fixtures
-macx:USERFIXTUREDIR       = "Library/Application Support/QLC/Fixtures"
+win32:USERFIXTUREDIR      = QLC+/Fixtures
+unix:!macx:USERFIXTUREDIR = .qlcplus/fixtures
+macx:USERFIXTUREDIR       = "Library/Application Support/QLC+/Fixtures"
 
 # Plugins
 win32:PLUGINDIR      = Plugins
-unix:!macx:PLUGINDIR = $$LIBSDIR/qt4/plugins/qlc
+unix:!macx:PLUGINDIR = $$LIBSDIR/qt4/plugins/qlcplus
 macx:PLUGINDIR       = Plugins
 
 # Translations
@@ -104,5 +104,5 @@ macx:RGBSCRIPTDIR       = $$DATADIR/RGBScripts
 
 # User RGB Scripts
 win32:USERRGBSCRIPTDIR      = RGBScripts
-unix:!macx:USERRGBSCRIPTDIR = .qlc/rgbscripts
-macx:USERRGBSCRIPTDIR       = "Library/Application Support/QLC/RGBScripts"
+unix:!macx:USERRGBSCRIPTDIR = .qlcplus/rgbscripts
+macx:USERRGBSCRIPTDIR       = "Library/Application Support/QLC+/RGBScripts"

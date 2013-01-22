@@ -8,12 +8,12 @@ if [ -f Makefile ]; then
 fi
 
 if [ ! -d rpm ]; then
-	echo ERROR: This script must be run from the top-level qlc source directory
+	echo ERROR: This script must be run from the top-level QLC+ source directory
 	exit 1;
 fi
 
 VERSION=`head -1 debian/changelog | sed 's/.*(\(.*\)).*/\1/'`
-SOURCES=qlc
+SOURCES=qlcplus
 RPMBUILD=~/rpmbuild
 
 # Prepare RPM build directory hierarchy
@@ -25,21 +25,21 @@ if [ ! -f $RPMBUILD ]; then
 fi
 
 # Copy the RPM spec file so that rpmbuild finds it
-cp -f rpm/qlc.spec $RPMBUILD/SPECS
+cp -f rpm/qlcplus.spec $RPMBUILD/SPECS
 
 # Prepare a source tarball and move it under $RPMBUILD/SOURCES
-echo "Packing sources into qlc-$VERSION.tar.gz..."
-if [ -d /tmp/qlc-$VERSION ]; then
-	rm -rf /tmp/qlc-$VERSION
+echo "Packing sources into qlcplus-$VERSION.tar.gz..."
+if [ -d /tmp/qlcplus-$VERSION ]; then
+	rm -rf /tmp/qlcplus-$VERSION
 fi
 
-mkdir /tmp/qlc-$VERSION
-rsync -aC . /tmp/qlc-$VERSION
-tar --directory=/tmp -czf /tmp/qlc-$VERSION.tar.gz qlc-$VERSION
-mv /tmp/qlc-$VERSION.tar.gz $RPMBUILD/SOURCES
+mkdir /tmp/qlcplus-$VERSION
+rsync -aC . /tmp/qlcplus-$VERSION
+tar --directory=/tmp -czf /tmp/qlcplus-$VERSION.tar.gz qlcplus-$VERSION
+mv /tmp/qlcplus-$VERSION.tar.gz $RPMBUILD/SOURCES
 
 cd $RPMBUILD/SPECS
-QLC_VERSION=$VERSION rpmbuild -bb qlc.spec
+QLCPLUS_VERSION=$VERSION rpmbuild -bb qlcplus.spec
 if [ $? == 0 ]; then
 	echo Packages created in $RPMBUILD/RPMS
 fi

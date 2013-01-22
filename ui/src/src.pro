@@ -3,7 +3,7 @@ include(../../coverage.pri)
 
 TEMPLATE = lib
 LANGUAGE = C++
-TARGET   = qlcui
+TARGET   = qlcplusui
 
 CONFIG += qt
 QT     += core xml gui script
@@ -12,7 +12,7 @@ QT     += core xml gui script
 INCLUDEPATH     += ../../engine/src ../../engine/src/audio
 DEPENDPATH      += ../../engine/src
 QMAKE_LIBDIR    += ../../engine/src
-LIBS            += -lqlcengine
+LIBS            += -lqlcplusengine
 win32:QMAKE_LFLAGS += -shared
 
 # Types
@@ -198,11 +198,11 @@ SOURCES += aboutbox.cpp \
            vcxypadproperties.cpp \
            virtualconsole.cpp
 
-TRANSLATIONS += qlc_fi_FI.ts
-TRANSLATIONS += qlc_fr_FR.ts
-TRANSLATIONS += qlc_es_ES.ts
-TRANSLATIONS += qlc_de_DE.ts
-TRANSLATIONS += qlc_it_IT.ts
+TRANSLATIONS += qlcplus_fi_FI.ts
+TRANSLATIONS += qlcplus_fr_FR.ts
+TRANSLATIONS += qlcplus_es_ES.ts
+TRANSLATIONS += qlcplus_de_DE.ts
+TRANSLATIONS += qlcplus_it_IT.ts
 
 macx {
     # This must be after "TARGET = " and before target installation so that

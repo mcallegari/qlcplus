@@ -79,7 +79,7 @@ App::App()
 
     , m_toolbar(NULL)
 {
-    QCoreApplication::setOrganizationName("qlc");
+    QCoreApplication::setOrganizationName("qlcplus");
     QCoreApplication::setOrganizationDomain("sf.net");
     QCoreApplication::setApplicationName(APPNAME);
 
@@ -139,7 +139,7 @@ void App::init()
 {
     QSettings settings;
 
-    setWindowIcon(QIcon(":/qlc.png"));
+    setWindowIcon(QIcon(":/qlcplus.png"));
 
     m_tab = new QTabWidget(this);
     m_tab->setTabPosition(QTabWidget::South);
@@ -503,7 +503,7 @@ void App::initActions()
     m_helpIndexAction->setShortcut(QKeySequence(tr("SHIFT+F1", "Help|Index")));
     connect(m_helpIndexAction, SIGNAL(triggered(bool)), this, SLOT(slotHelpIndex()));
 
-    m_helpAboutAction = new QAction(QIcon(":/qlc.png"), tr("&About QLC+"), this);
+    m_helpAboutAction = new QAction(QIcon(":/qlcplus.png"), tr("&About QLC+"), this);
     connect(m_helpAboutAction, SIGNAL(triggered(bool)), this, SLOT(slotHelpAbout()));
 }
 

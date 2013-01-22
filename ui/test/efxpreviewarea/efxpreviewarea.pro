@@ -12,7 +12,7 @@ DEPENDPATH  += ../../src
 
 QMAKE_LIBDIR += ../../src
 QMAKE_LIBDIR += ../../../engine/src
-LIBS         += -lqlcui -lqlcengine
+LIBS         += -lqlcplusui -lqlcplusengine
 
 # Test sources
 SOURCES += efxpreviewarea_test.cpp

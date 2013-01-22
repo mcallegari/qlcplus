@@ -2,15 +2,15 @@ include(../variables.pri)
 
 TEMPLATE = app
 LANGUAGE = C++
-TARGET   = qlc
+TARGET   = qlcplus
 
 INCLUDEPATH  += ../ui/src
 INCLUDEPATH  += ../engine/src
 
 QMAKE_LIBDIR += ../ui/src
 QMAKE_LIBDIR += ../engine/src
-LIBS         += -lqlcengine
-LIBS         += -lqlcui
+LIBS         += -lqlcplusengine
+LIBS         += -lqlcplusui
 
 win32:HEADERS += ../ui/src/debugbox.h
 macx:HEADERS += ../ui/src/debugbox.h

@@ -70,7 +70,7 @@ void printUsage()
     QTextStream cout(stdout, QIODevice::WriteOnly);
 
     cout << "Usage:";
-    cout << "  qlc-fixtureeditor [options]" << endl;
+    cout << "  qlcplus-fixtureeditor [options]" << endl;
     cout << "Options:" << endl;
     cout << "  -o or --open <file>\t\tOpen the specified fixture definition file" << endl;
     cout << "  -l or --locale <locale>\tForce a locale for translation" << endl;
@@ -127,7 +127,7 @@ void loadTranslation(const QString& locale, QApplication& app)
         lc = locale;
     else
         lc = FXEDArgs::locale;
-    QString file(QString("qlc_%1").arg(lc));
+    QString file(QString("qlcplus_%1").arg(lc));
 
 #ifdef __APPLE__
     QString path(QString("%1/../%2").arg(QApplication::applicationDirPath())

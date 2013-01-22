@@ -4,7 +4,7 @@ include(../../hotplugmonitor/hotplugmonitor.pri)
 
 TEMPLATE = lib
 LANGUAGE = C++
-TARGET   = qlcengine
+TARGET   = qlcplusengine
 
 CONFIG  += qt
 QT      += core xml script gui

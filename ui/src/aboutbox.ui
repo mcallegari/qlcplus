@@ -11,11 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>About Q Light Controller</string>
+   <string>About Q Light Controller Plus</string>
   </property>
   <property name="windowIcon">
    <iconset resource="qlcui.qrc">
-    <normaloff>:/qlc.png</normaloff>:/qlc.png</iconset>
+    <normaloff>:/qlcplus.png</normaloff>:/qlcplus.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0" rowspan="4">
@@ -30,7 +30,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="qlcui.qrc">:/qlc.png</pixmap>
+      <pixmap resource="qlcui.qrc">:/qlcplus.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>false</bool>

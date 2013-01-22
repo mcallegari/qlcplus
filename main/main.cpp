@@ -119,7 +119,7 @@ void printUsage()
     QTextStream cout(stdout, QIODevice::WriteOnly);
 
     cout << "Usage:";
-    cout << "  qlc [options]" << endl;
+    cout << "  qlcplus [options]" << endl;
     cout << "Options:" << endl;
     cout << "  -c or --closebutton <x,y,w,h>\tPlace a close button in virtual console (only when -k is specified)" << endl;
     cout << "  -d or --debug <level>\t\tSet debug output level (0-3, see QtMsgType)" << endl;
@@ -240,7 +240,7 @@ int main(int argc, char** argv)
         return 0;
 
     /* Load translation for main application */
-    QLCi18n::loadTranslation("qlc");
+    QLCi18n::loadTranslation("qlcplus");
 
     /* Handle debug messages */
     qInstallMsgHandler(qlcMessageHandler);

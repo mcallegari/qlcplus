@@ -13,7 +13,7 @@ DEPENDPATH  += ../../src
 
 QMAKE_LIBDIR += ../../../engine/src
 QMAKE_LIBDIR += ../../src
-LIBS        += -lqlcengine -lqlcui
+LIBS        += -lqlcplusengine -lqlcplusui
 
 # Test sources
 SOURCES += vcbutton_test.cpp

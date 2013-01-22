@@ -67,10 +67,10 @@ App::App(QWidget* parent) : QMainWindow(parent)
     m_copyChannel = NULL;
 
     setWindowTitle(App::longName());
-    setWindowIcon(QIcon(":/qlc-fixtureeditor.png"));
+    setWindowIcon(QIcon(":/qlcplus-fixtureeditor.png"));
     setCentralWidget(new QMdiArea(this));
 
-    QCoreApplication::setOrganizationName("qlc");
+    QCoreApplication::setOrganizationName("qlcplus");
     QCoreApplication::setOrganizationDomain("sf.net");
     QCoreApplication::setApplicationName(FXEDNAME);
 
@@ -275,7 +275,7 @@ void App::initActions()
     connect(m_helpIndexAction, SIGNAL(triggered(bool)),
             this, SLOT(slotHelpIndex()));
 
-    m_helpAboutAction = new QAction(QIcon(":/qlc.png"),
+    m_helpAboutAction = new QAction(QIcon(":/qlcplus.png"),
                                     tr("About Fixture Definition Editor..."), this);
     connect(m_helpAboutAction, SIGNAL(triggered(bool)),
             this, SLOT(slotHelpAbout()));

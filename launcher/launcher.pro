@@ -1,7 +1,7 @@
 include(../variables.pri)
 
 TEMPLATE = app
-TARGET = qlc-launcher
+TARGET = qlcplus-launcher
 
 QT += core gui
 
