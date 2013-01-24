@@ -20,8 +20,8 @@
 */
 
 #include "artnetplugin.h"
+#include "configureartnet.h"
 
-#include <QNetworkInterface>
 #include <QSettings>
 #include <QDebug>
 
@@ -31,8 +31,45 @@ ArtNetPlugin::~ArtNetPlugin()
 
 void ArtNetPlugin::init()
 {
-    QNetworkInterface interface;
-    m_IPList = interface.allAddresses();
+    QSettings settings;
+
+    QList<QHostAddress> tmpList = QNetworkInterface::allAddresses();
+
+    for (int i = 0; i < tmpList.length(); i++)
+    {
+        QHostAddress addr = tmpList.at(i);
+        if (addr.protocol() != QAbstractSocket::IPv6Protocol && addr != QHostAddress::LocalHost)
+            m_interfacesIPList.append(addr);
+    }
+    QString key = QString("ArtNetPlugin/outputs");
+    QVariant outNum = settings.value(key);
+    if (outNum.isValid() == true)
+    {
+        for (int o = 0; o < outNum.toInt(); o++)
+        {
+            QString outKey = QString("ArtNetPlugin/Output%1").arg(o);
+            QVariant value = settings.value(outKey);
+            if (value.isValid() == true)
+            {
+                // values are stored as: IP#port
+                QString outMapStr = value.toString();
+                QStringList outMapList = outMapStr.split("#");
+                if (outMapList.length() == 2)
+                {
+                    m_outputIPlist.append(outMapList.at(0));
+                    m_outputPortList.append(outMapList.at(1).toInt());
+                }
+            }
+        }
+    }
+    else // default mapping: port 0 for each IP found
+    {
+        for (int j = 0; j < m_interfacesIPList.length(); j++)
+        {
+            m_outputIPlist.append(m_interfacesIPList.at(j).toString());
+            m_outputPortList.append(0);
+        }
+    }
 }
 
 QString ArtNetPlugin::name()
@@ -73,7 +110,7 @@ void print_node_config(artnet_node_entry ne)
   qDebug() << QString().sprintf("Short Name:   %s", ne->shortname);
   qDebug() << QString().sprintf("Long Name:    %s", ne->longname);
   qDebug() << QString().sprintf("Node Report:  %s", ne->nodereport);
-  qDebug() << QString().sprintf("Subnet:       0x%hhx", ne->sub);
+  qDebug() << QString().sprintf("Subnet:       0x%02x", ne->sub);
   qDebug() << QString().sprintf("Numb Ports:   %d", ne->numbports);
   //qDebug() << QString("Input Addrs:  0x%hhx, 0x%hhx, 0x%hhx, 0x%hhx\n", ne->swin[0], ne->swin[1], ne->swin[2], ne->swin[3] );
   //qDebug() << QString("Output Addrs: 0x%hhx, 0x%hhx, 0x%hhx, 0x%hhx\n", ne->swout[0], ne->swout[1], ne->swout[2], ne->swout[3] );
@@ -83,6 +120,7 @@ void print_node_config(artnet_node_entry ne)
 int pollReplyHandler(artnet_node n, void *pp, void *user_data)
 {
     Q_UNUSED(pp)
+    qDebug() << Q_FUNC_INFO;
 
     if (user_data != NULL)
     {
@@ -120,13 +158,10 @@ int pollReplyHandler(artnet_node n, void *pp, void *user_data)
  *********************************************************************/
 QStringList ArtNetPlugin::outputs()
 {
-    int idx = 0;
     QStringList list;
-    for (int i = 0; i < m_IPList.length(); i++)
+    for (int i = 0; i < m_outputIPlist.length(); i++)
     {
-        QHostAddress addr = m_IPList.at(i);
-        if (addr.protocol() != QAbstractSocket::IPv6Protocol && addr != QHostAddress::LocalHost)
-            list << QString(tr("%1: ArtNet network (%2)")).arg(idx++).arg(addr.toString());
+        list << QString(tr("%1: [%2] Address: %3")).arg(i).arg(m_outputIPlist.at(i)).arg(m_outputPortList.at(i));
     }
     return list;
 }
@@ -139,20 +174,24 @@ QString ArtNetPlugin::outputInfo(quint32 output)
 
 void ArtNetPlugin::openOutput(quint32 output)
 {
-    if (output >= (quint32)m_IPList.length())
+    if (output >= (quint32)m_outputIPlist.length())
         return;
 
     int verbose = 0;
-    char *ip_addr = NULL;
+    QByteArray bytes  = m_outputIPlist.at(output).toAscii();
+    char *ip_addr = bytes.data();
 
-    if ((m_nodes[output] = artnet_new(ip_addr, verbose)) == NULL) {
+    qDebug() << "Open output with address :" << m_outputIPlist.at(output);
+
+    if ((m_nodes[output] = artnet_new(ip_addr, verbose)) == NULL)
+    {
       qDebug() << "artnet_new failed " << artnet_strerror();
       return;
     }
 
     artnet_set_short_name(m_nodes[output], "QLC+");
     artnet_set_long_name(m_nodes[output], "QLC+ ArtNet Controller");
-    artnet_set_node_type(m_nodes[output], ARTNET_RAW);
+    artnet_set_node_type(m_nodes[output], ARTNET_SRV);
 
     //artnet_set_handler(m_nodes[output], ARTNET_REPLY_HANDLER, pollReplyHandler, &m_pollCbkInfo[output]);
     artnet_set_port_type(m_nodes[output], 0, ARTNET_ENABLE_INPUT, ARTNET_PORT_DMX);
@@ -176,11 +215,11 @@ void ArtNetPlugin::openOutput(quint32 output)
 
 void ArtNetPlugin::closeOutput(quint32 output)
 {
-    if (output >= (quint32)m_IPList.length())
+    if (output >= (quint32)m_outputIPlist.length())
         return;
-	artnet_stop(m_nodes[output]);
-	artnet_destroy(m_nodes[output]);
-	m_nodes[output] = NULL;
+    artnet_stop(m_nodes[output]);
+    artnet_destroy(m_nodes[output]);
+    m_nodes[output] = NULL;
 }
 
 void ArtNetPlugin::writeUniverse(quint32 output, const QByteArray& universe)
@@ -217,13 +256,52 @@ QString ArtNetPlugin::inputInfo(quint32 input)
  *********************************************************************/
 void ArtNetPlugin::configure()
 {
-//    ConfigureArtNet conf(this);
-//    conf.exec();
+    ConfigureArtNet conf(this);
+    conf.exec();
 }
 
 bool ArtNetPlugin::canConfigure()
 {
     return true;
+}
+
+QList<QHostAddress> ArtNetPlugin::interfaces()
+{
+    return m_interfacesIPList;
+}
+
+QList<QString> ArtNetPlugin::mappedOutputs()
+{
+    return m_outputIPlist;
+}
+
+QList<int> ArtNetPlugin::mappedPorts()
+{
+    return m_outputPortList;
+}
+
+void ArtNetPlugin::remapOutputs(QList<QString> IPs, QList<int> ports)
+{
+    if (IPs.length() > 0 && ports.length() > 0)
+    {
+        m_outputIPlist.clear();
+        m_outputPortList.clear();
+        m_outputIPlist = IPs;
+        m_outputPortList = ports;
+
+        QSettings settings;
+        QString countKey = QString("ArtNetPlugin/outputs");
+        settings.setValue(countKey, QVariant(m_outputIPlist.length()));
+
+        for (int i = 0; i < m_outputIPlist.length(); i++)
+        {
+            QString key = QString("ArtNetPlugin/Output%1").arg(i);
+            QString value = m_outputIPlist.at(i) + "#" + QString("%1").arg(m_outputPortList.at(i));
+            settings.setValue(key, QVariant(value));
+        }
+
+        emit configurationChanged();
+    }
 }
 
 /*****************************************************************************

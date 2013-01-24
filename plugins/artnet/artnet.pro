@@ -4,7 +4,6 @@ TEMPLATE = lib
 LANGUAGE = C++
 TARGET   = artnet
 
-CONFIG  += qt
 QT      += network
 
 CONFIG      += plugin
@@ -28,9 +27,15 @@ TRANSLATIONS += ArtNet_fi_FI.ts
 TRANSLATIONS += ArtNet_fr_FR.ts
 TRANSLATIONS += ArtNet_it_IT.ts
 
+#system(pkg-config --exists libartnet) {
+#    DEFINES += HAS_LIBARTNET
+#}
+
 HEADERS += ../interfaces/qlcioplugin.h
-HEADERS += artnetplugin.h
+HEADERS += artnetplugin.h \
+           configureartnet.h
 
-#FORMS += configureartnet.ui
+FORMS += configureartnet.ui
 
-SOURCES += artnetplugin.cpp
+SOURCES += artnetplugin.cpp \
+           configureartnet.cpp

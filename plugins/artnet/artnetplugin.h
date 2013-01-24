@@ -22,6 +22,7 @@
 #ifndef ARTNETPLUGIN_H
 #define ARTNETPLUGIN_H
 
+#include <QNetworkInterface>
 #include <QHostAddress>
 #include <QString>
 #include <QHash>
@@ -30,9 +31,9 @@
 #include <artnet/artnet.h>
 #include "qlcioplugin.h"
 
+/*
 class ArtNetPlugin;
 
-/*
 typedef struct
 {
     int output;
@@ -124,16 +125,38 @@ public:
     /** @reimp */
     bool canConfigure();
 
+    QList<QHostAddress> interfaces();
+
+    /** Get a list of the available outputs mapped from the detect network interfaces */
+    QList<QString> mappedOutputs();
+
+    /** Get a list of the available outputs ports */
+    QList<int> mappedPorts();
+
+    void remapOutputs(QList<QString> IPs, QList<int> ports);
+
 //public:
-//    int m_nodesFound[ARTNET_OUTPUTS];
+//    QHash <uint, int> m_nodesFound;
 
 private:
     //ArtNetThread m_nodeThread;
-    QList<QHostAddress> m_IPList;
+
+    /** List holding the detected system network interfaces IPs */
+    QList<QHostAddress> m_interfacesIPList;
+
+    /** Map of the IPs associated to each plugin output */
+    QList<QString> m_outputIPlist;
+
+    /** Map of the ports associated to each plugin output */
+    /** (not to be confused with network ports !!) */
+    QList<int> m_outputPortList;
+
+    /** Map of the ArtNet nodes associated to each plugin output */
+    //QList<ArtNetNode*> m_outputNodeList;
 
     QHash <uint, artnet_node> m_nodes;
 
-//    ArtNet_poll_info m_pollCbkInfo[ARTNET_OUTPUTS];
+    //QHash <uint, ArtNet_poll_info> m_pollCbkInfo;
 };
 
 #endif

@@ -71,6 +71,7 @@ InputOutputPatchEditor::InputOutputPatchEditor(QWidget* parent, quint32 universe
     setupUi(this);
 
     m_infoBrowser->setOpenExternalLinks(true);
+    m_infoBrowser->setFixedHeight(250);
 
     InputPatch* inputPatch = m_inputMap->patch(universe);
     OutputPatch* outputPatch = m_outputMap->patch(universe);
