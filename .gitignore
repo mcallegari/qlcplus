@@ -28,7 +28,7 @@ engine/src/qlcconfig.h
 # Binaries
 *.exe
 *_test
-main/qlc
-fixtureeditor/qlc-fixtureeditor
+main/qlcplus
+fixtureeditor/qlcplus-fixtureeditor
 hotplugmonitor/test/test
 *.qm

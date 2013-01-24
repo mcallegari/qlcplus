@@ -7,11 +7,9 @@ TARGET   = artnet
 QT      += network
 
 CONFIG      += plugin
-CONFIG      += link_pkgconfig
 INCLUDEPATH += ../interfaces
 DEPENDPATH  += ../interfaces
 
-PKGCONFIG += libartnet
 win32:QMAKE_LFLAGS += -shared
 
 # This must be after "TARGET = " and before target installation so that
@@ -27,15 +25,15 @@ TRANSLATIONS += ArtNet_fi_FI.ts
 TRANSLATIONS += ArtNet_fr_FR.ts
 TRANSLATIONS += ArtNet_it_IT.ts
 
-#system(pkg-config --exists libartnet) {
-#    DEFINES += HAS_LIBARTNET
-#}
-
 HEADERS += ../interfaces/qlcioplugin.h
-HEADERS += artnetplugin.h \
+HEADERS += artnetpacketizer.h \
+           artnetnode.h \
+           artnetplugin.h \
            configureartnet.h
 
 FORMS += configureartnet.ui
 
-SOURCES += artnetplugin.cpp \
+SOURCES += artnetpacketizer.cpp \
+           artnetnode.cpp \
+           artnetplugin.cpp \
            configureartnet.cpp

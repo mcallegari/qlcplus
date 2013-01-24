@@ -28,26 +28,10 @@
 #include <QHash>
 #include <QFile>
 
-#include <artnet/artnet.h>
+//#include <artnet/artnet.h>
+
 #include "qlcioplugin.h"
-
-/*
-class ArtNetPlugin;
-
-typedef struct
-{
-    int output;
-    ArtNetPlugin *plugin;
-} ArtNet_poll_info;
-
-class ArtNetThread : public QThread
-{
-    Q_OBJECT
-
-protected:
-    void run();
-};
-*/
+#include "artnetnode.h"
 
 class ArtNetPlugin : public QLCIOPlugin
 {
@@ -135,12 +119,7 @@ public:
 
     void remapOutputs(QList<QString> IPs, QList<int> ports);
 
-//public:
-//    QHash <uint, int> m_nodesFound;
-
 private:
-    //ArtNetThread m_nodeThread;
-
     /** List holding the detected system network interfaces IPs */
     QList<QHostAddress> m_interfacesIPList;
 
@@ -152,11 +131,7 @@ private:
     QList<int> m_outputPortList;
 
     /** Map of the ArtNet nodes associated to each plugin output */
-    //QList<ArtNetNode*> m_outputNodeList;
-
-    QHash <uint, artnet_node> m_nodes;
-
-    //QHash <uint, ArtNet_poll_info> m_pollCbkInfo;
+    QHash<quint32, ArtNetNode*> m_outputNodeList;
 };
 
 #endif
