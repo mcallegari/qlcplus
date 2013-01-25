@@ -53,6 +53,7 @@ VCFrame::VCFrame(QWidget* parent, Doc* doc, bool canResize) : VCWidget(parent, d
     , m_hbox(NULL)
     , m_button(NULL)
     , m_label(NULL)
+    , m_collapsed(false)
 {
     /* Set the class name "VCFrame" as the object name as well */
     setObjectName(VCFrame::staticMetaObject.className());
@@ -115,6 +116,11 @@ void VCFrame::setCaption(const QString& text)
     VCWidget::setCaption(text);
 }
 
+bool VCFrame::isCollapsed()
+{
+    return m_collapsed;
+}
+
 void VCFrame::slotCollapseButtonToggled(bool toggle)
 {
     if (toggle == true)
@@ -122,9 +128,13 @@ void VCFrame::slotCollapseButtonToggled(bool toggle)
         m_width = this->width();
         m_height = this->height();
         resize(QSize(200, 40));
+        m_collapsed = true;
     }
     else
+    {
         resize(QSize(m_width, m_height));
+        m_collapsed = false;
+    }
 }
 
 /*****************************************************************************
@@ -240,6 +250,12 @@ bool VCFrame::loadXML(const QDomElement* root)
             else
                 setAllowResize(false);
         }
+        else if (tag.tagName() == KXMLQLCVCFrameIsCollapsed)
+        {
+            /* Collapsed */
+            if (tag.text() == KXMLQLCTrue && m_button != NULL)
+                m_button->toggle();
+        }
         else if (tag.tagName() == KXMLQLCVCFrame)
         {
             /* Create a new frame into its parent */
@@ -346,7 +362,14 @@ bool VCFrame::saveXML(QDomDocument* doc, QDomElement* vc_root)
     if (isBottomFrame() == false)
     {
         /* Save widget proportions only for child frames */
-        saveXMLWindowState(doc, &root);
+        if (isCollapsed())
+        {
+            resize(QSize(m_width, m_height));
+            saveXMLWindowState(doc, &root);
+            resize(QSize(200, 40));
+        }
+        else
+            saveXMLWindowState(doc, &root);
 
         /* Allow children */
         tag = doc->createElement(KXMLQLCVCFrameAllowChildren);
@@ -360,6 +383,15 @@ bool VCFrame::saveXML(QDomDocument* doc, QDomElement* vc_root)
         /* Allow resize */
         tag = doc->createElement(KXMLQLCVCFrameAllowResize);
         if (allowResize() == true)
+            text = doc->createTextNode(KXMLQLCTrue);
+        else
+            text = doc->createTextNode(KXMLQLCFalse);
+        tag.appendChild(text);
+        root.appendChild(tag);
+
+        /* Collapsed */
+        tag = doc->createElement(KXMLQLCVCFrameIsCollapsed);
+        if (isCollapsed())
             text = doc->createTextNode(KXMLQLCTrue);
         else
             text = doc->createTextNode(KXMLQLCFalse);

@@ -15,7 +15,7 @@
 ;--------------------------------
 ;General
 Name "Q Light Controller Plus"
-OutFile "QLC+_4.1.3.exe"
+OutFile "QLC+_4.2.0.exe"
 InstallDir C:\QLC+
 RequestExecutionLevel user
 
