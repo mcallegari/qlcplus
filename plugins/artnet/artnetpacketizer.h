@@ -20,12 +20,13 @@
 */
 
 #include <QByteArray>
+#include <QString>
 
 #ifndef ARTNETPACKETIZER_H
 #define ARTNETPACKETIZER_H
 
 #define ARTNET_POLL           0x2000
-#define ARTNET_REPLY          0x2100
+#define ARTNET_POLLREPLY      0x2100
 #define ARTNET_DIAGDATA       0x2300
 #define ARTNET_COMMAND        0x2400
 #define ARTNET_DMX            0x5000
@@ -61,6 +62,13 @@
 
 #define ARTNET_CODE_STR "Art-Net"
 
+typedef struct
+{
+    QString shortName;
+    QString longName;
+    // ... can be extended with more info to be added by fillArtPollReplyInfo
+} ArtNetNodeInfo;
+
 class ArtNetPacketizer
 {
     /*********************************************************************
@@ -71,11 +79,27 @@ public:
     ~ArtNetPacketizer();
 
 public:
+    /*********************************************************************
+     * Sender functions
+     *********************************************************************/
+    /** Prepare an ArtNetPoll packet */
     void setupArtNetPoll(QByteArray& data);
+
+    /** Prepare an ArtNetDmx packet */
     void setupArtNetDmx(QByteArray& data, const int& universe, const QByteArray &values);
+
+    /*********************************************************************
+     * Receiver functions
+     *********************************************************************/
+
+    /** Verify the validity of an ArtNet packet and store the opCode in 'code' */
+    bool checkPacketAndCode(QByteArray& data, int &code);
+
+    bool fillArtPollReplyInfo(QByteArray& data, ArtNetNodeInfo &info);
 
 private:
     QByteArray m_commonHeader;
+    uchar m_sequence;
 };
 
 #endif

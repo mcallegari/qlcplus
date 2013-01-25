@@ -28,8 +28,12 @@
 
 #define UNIVERSES_PER_ADDRESS   4
 
-#define KColumnNetwork   0
-#define KColumnUniverse  1
+#define KOutputColumnNetwork   0
+#define KOutputColumnUniverse  1
+
+#define KNodesColumnIP          0
+#define KNodesColumnShortName   1
+#define KNodesColumnLongName    2
 
 /*****************************************************************************
  * Initialization
@@ -44,6 +48,12 @@ ConfigureArtNet::ConfigureArtNet(ArtNetPlugin* plugin, QWidget* parent)
     /* Setup UI controls */
     setupUi(this);
 
+    fillOutputTree();
+    fillNodesTree();
+}
+
+void ConfigureArtNet::fillOutputTree()
+{
     m_outputTree->header()->setResizeMode(QHeaderView::ResizeToContents);
 
     QList<QHostAddress> ifaces = m_plugin->interfaces();
@@ -61,16 +71,33 @@ ConfigureArtNet::ConfigureArtNet(ArtNetPlugin* plugin, QWidget* parent)
             pitem->setFlags(pitem->flags() | Qt::ItemIsUserCheckable);
             if (idx < outputMap.length() && outputMap.at(idx) == ifaceStr && outputPorts.at(idx) == u)
             {
-                pitem->setCheckState(KColumnNetwork, Qt::Checked);
+                pitem->setCheckState(KOutputColumnNetwork, Qt::Checked);
                 idx++;
             }
             else
-                pitem->setCheckState(KColumnNetwork, Qt::Unchecked);
-            pitem->setText(KColumnNetwork, ifaceStr);
-            pitem->setText(KColumnUniverse, tr("Universe %1").arg(u + 1));
-            pitem->setData(KColumnUniverse, Qt::UserRole, u);
+                pitem->setCheckState(KOutputColumnNetwork, Qt::Unchecked);
+            pitem->setText(KOutputColumnNetwork, ifaceStr);
+            pitem->setText(KOutputColumnUniverse, tr("Universe %1").arg(u + 1));
+            pitem->setData(KOutputColumnUniverse, Qt::UserRole, u);
         }
     }
+}
+
+void ConfigureArtNet::fillNodesTree()
+{
+    m_nodesTree->header()->setResizeMode(QHeaderView::ResizeToContents);
+
+    QHash<quint32, ArtNetNode*> nList = m_plugin->mappedNodes();
+
+    QHashIterator<quint32, ArtNetNode*> it(nList);
+     while (it.hasNext())
+    {
+         it.next();
+         //cout << i.key() << ": " << i.value() << endl;
+         QTreeWidgetItem* pitem = new QTreeWidgetItem(m_nodesTree);
+         ArtNetNode *node = it.value();
+         pitem->setText(KNodesColumnIP, node->getNetworkIP());
+     }
 }
 
 ConfigureArtNet::~ConfigureArtNet()
@@ -91,10 +118,10 @@ void ConfigureArtNet::accept()
     for (int i = 0; i < m_outputTree->topLevelItemCount(); i++)
     {
         QTreeWidgetItem* item = m_outputTree->topLevelItem(i);
-        if (item->checkState(KColumnNetwork) == Qt::Checked)
+        if (item->checkState(KOutputColumnNetwork) == Qt::Checked)
         {
-            newMappedIPs.append(item->text(KColumnNetwork));
-            newMappedPorts.append(item->data(KColumnUniverse, Qt::UserRole).toInt());
+            newMappedIPs.append(item->text(KOutputColumnNetwork));
+            newMappedPorts.append(item->data(KOutputColumnUniverse, Qt::UserRole).toInt());
         }
     }
     m_plugin->remapOutputs(newMappedIPs, newMappedPorts);

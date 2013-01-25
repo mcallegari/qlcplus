@@ -165,7 +165,7 @@ QStringList OSCPlugin::inputs()
 {
     QStringList list;
     for (int i = 0; i < OSC_INPUTS; i++)
-        list << QString("1: OSC Network %1").arg(i + 1);
+        list << QString("%1: OSC Network %1").arg(i + 1);
     return list;
 }
 

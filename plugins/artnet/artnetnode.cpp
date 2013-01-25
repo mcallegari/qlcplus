@@ -25,7 +25,6 @@
 
 ArtNetNode::ArtNetNode(QString ipaddr, int port, QObject *parent)
     : QObject(parent)
-    , m_ipAddr(ipaddr)
 {
     // calculate the broadcast address
     /*
@@ -34,8 +33,9 @@ ArtNetNode::ArtNetNode(QString ipaddr, int port, QObject *parent)
     tmpBcast->setNetmask(QHostAddress("255.255.255.0"));
     m_broadcastAddr = tmpBcast->broadcast();
     */
-    quint32 ip = QHostAddress(ipaddr).toIPv4Address();
-    quint32 mask = QHostAddress("255.255.255.0").toIPv4Address();
+    m_ipAddr = QHostAddress(ipaddr);
+    quint32 ip = m_ipAddr.toIPv4Address();
+    quint32 mask = QHostAddress("255.255.255.0").toIPv4Address(); // will it work in all cases ?
     quint32 broadcast = (ip & mask) | (0xFFFFFFFFU & ~mask);
     m_broadcastAddr = QHostAddress(broadcast);
 
@@ -59,7 +59,7 @@ ArtNetNode::ArtNetNode(QString ipaddr, int port, QObject *parent)
 
 ArtNetNode::~ArtNetNode()
 {
-
+    m_UdpSocket->close();
 }
 
 void ArtNetNode::sendDmx(const int &universe, const QByteArray &data)
@@ -76,13 +76,43 @@ void ArtNetNode::addPort(int port)
         m_ports.append(port);
 }
 
+QString ArtNetNode::getNetworkIP()
+{
+    return m_ipAddr.toString();
+}
+
 void ArtNetNode::processPendingPackets()
 {
     while (m_UdpSocket->hasPendingDatagrams())
     {
-         QByteArray datagram;
-         datagram.resize(m_UdpSocket->pendingDatagramSize());
-         m_UdpSocket->readDatagram(datagram.data(), datagram.size());
-         qDebug() << "Received datagram of size: " << datagram.size();
+        QByteArray datagram;
+        QHostAddress senderAddress;
+        datagram.resize(m_UdpSocket->pendingDatagramSize());
+        m_UdpSocket->readDatagram(datagram.data(), datagram.size(), &senderAddress);
+        if (senderAddress != m_ipAddr)
+        {
+            qDebug() << "Received packet with size: " << datagram.size() << ", host: " << senderAddress.toString();
+            int opCode = -1;
+            if (m_packetizer->checkPacketAndCode(datagram, opCode) == true)
+            {
+                switch (opCode)
+                {
+                    case ARTNET_POLLREPLY:
+                    {
+                        qDebug() << "Received and ArtPollReply";
+                        ArtNetNodeInfo newNode;
+                        if (m_packetizer->fillArtPollReplyInfo(datagram, newNode) == true)
+                        {
+                            if (m_nodesList.contains(senderAddress) == false)
+                                m_nodesList[senderAddress] = newNode;
+                        }
+                    }
+                    break;
+                    default:
+                        qDebug() << "opCode not supported yet (" << opCode << ")";
+                    break;
+                }
+            }
+        }
      }
 }

@@ -44,6 +44,10 @@ public slots:
     int exec();
 
 private:
+    void fillOutputTree();
+    void fillNodesTree();
+
+private:
     ArtNetPlugin* m_plugin;
 
 };

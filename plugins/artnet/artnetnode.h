@@ -42,15 +42,18 @@ public:
 
     void sendDmx(const int& universe, const QByteArray& data);
 
+    QString getNetworkIP();
+
 private:
     void addPort(int port);
 
 private:
-    QString m_ipAddr;
+    QHostAddress m_ipAddr;
+    QHostAddress m_broadcastAddr;
     QList<int> m_ports;
     QUdpSocket *m_UdpSocket;
-    QHostAddress m_broadcastAddr;
     ArtNetPacketizer *m_packetizer;
+    QHash<QHostAddress, ArtNetNodeInfo> m_nodesList;
 
 private slots:
     void processPendingPackets();

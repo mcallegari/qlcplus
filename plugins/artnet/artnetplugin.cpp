@@ -108,7 +108,7 @@ QStringList ArtNetPlugin::outputs()
     QStringList list;
     for (int i = 0; i < m_outputIPlist.length(); i++)
     {
-        list << QString(tr("%1: [%2] Address: %3")).arg(i).arg(m_outputIPlist.at(i)).arg(m_outputPortList.at(i));
+        list << QString(tr("%1: [%2] Address: %3")).arg(i + 1).arg(m_outputIPlist.at(i)).arg(m_outputPortList.at(i));
     }
     return list;
 }
@@ -193,6 +193,11 @@ QList<QString> ArtNetPlugin::mappedOutputs()
 QList<int> ArtNetPlugin::mappedPorts()
 {
     return m_outputPortList;
+}
+
+QHash<quint32, ArtNetNode*> ArtNetPlugin::mappedNodes()
+{
+    return m_outputNodeList;
 }
 
 void ArtNetPlugin::remapOutputs(QList<QString> IPs, QList<int> ports)

@@ -38,7 +38,13 @@ ArtNetPacketizer::ArtNetPacketizer()
     // version 14 by default
     m_commonHeader.append('\0');
     m_commonHeader.append((char)0x0e);
+
+    m_sequence = 1;
 }
+
+/*********************************************************************
+ * Sender functions
+ *********************************************************************/
 
 void ArtNetPacketizer::setupArtNetPoll(QByteArray& data)
 {
@@ -56,7 +62,7 @@ void ArtNetPacketizer::setupArtNetDmx(QByteArray& data, const int &universe, con
     data.append(m_commonHeader);
     const char opCodeMSB = (ARTNET_DMX >> 8);
     data[9] = opCodeMSB;
-    data.append('\0'); // Sequence (do I need this ?)
+    data.append(m_sequence); // Sequence
     data.append('\0'); // Physical
     data.append((char)(universe >> 8));
     data.append((char)(universe & 0x00FF));
@@ -64,4 +70,48 @@ void ArtNetPacketizer::setupArtNetDmx(QByteArray& data, const int &universe, con
     data.append((char)(len >> 8));
     data.append((char)(len & 0x00FF));
     data.append(values);
+
+    if (m_sequence == 0xff)
+        m_sequence = 1;
+    else
+        m_sequence++;
 }
+
+/*********************************************************************
+ * Receiver functions
+ *********************************************************************/
+
+bool ArtNetPacketizer::checkPacketAndCode(QByteArray& data, int &code)
+{
+    /* An ArtNet header must be at least 12 bytes long */
+    if (data.length() < 12)
+        return false;
+
+    /* Check "Art-Net" keyword presence */
+    if (data.indexOf(ARTNET_CODE_STR) != 0)
+        return false;
+
+    if (data.at(7) != 0x00)
+        return false;
+
+    code = ((int)data.at(9) << 8) + data.at(8);
+
+    return true;
+}
+
+bool ArtNetPacketizer::fillArtPollReplyInfo(QByteArray& data, ArtNetNodeInfo &info)
+{
+    if (data.isNull())
+        return false;
+
+    QByteArray shortName = data.mid(26, 18);
+    QByteArray longName = data.mid(44, 64);
+    info.shortName = QString(shortName.data());
+    info.longName = QString(longName.data());
+
+    qDebug() << "getArtPollReplyInfo shortName: " << info.shortName;
+    qDebug() << "getArtPollReplyInfo longName: " << info.longName;
+
+    return true;
+}
+

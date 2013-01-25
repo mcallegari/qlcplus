@@ -119,6 +119,9 @@ public:
 
     void remapOutputs(QList<QString> IPs, QList<int> ports);
 
+    /** Returns the mapped nodes created on openOutput */
+    QHash<quint32, ArtNetNode*> mappedNodes();
+
 private:
     /** List holding the detected system network interfaces IPs */
     QList<QHostAddress> m_interfacesIPList;
