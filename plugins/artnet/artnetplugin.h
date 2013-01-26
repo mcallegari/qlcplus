@@ -31,7 +31,7 @@
 //#include <artnet/artnet.h>
 
 #include "qlcioplugin.h"
-#include "artnetnode.h"
+#include "artnetcontroller.h"
 
 class ArtNetPlugin : public QLCIOPlugin
 {
@@ -119,22 +119,23 @@ public:
 
     void remapOutputs(QList<QString> IPs, QList<int> ports);
 
-    /** Returns the mapped nodes created on openOutput */
-    QHash<quint32, ArtNetNode*> mappedNodes();
+    /** Returns the mapped controllers created on openOutput */
+    QList<ArtNetController *> mappedControllers();
 
 private:
     /** List holding the detected system network interfaces IPs */
     QList<QHostAddress> m_interfacesIPList;
 
     /** Map of the IPs associated to each plugin output */
+    /** Basically these are those selected in the config panel */
     QList<QString> m_outputIPlist;
 
     /** Map of the ports associated to each plugin output */
     /** (not to be confused with network ports !!) */
     QList<int> m_outputPortList;
 
-    /** Map of the ArtNet nodes associated to each plugin output */
-    QHash<quint32, ArtNetNode*> m_outputNodeList;
+    /** Map of the ArtNet controllers associated to each plugin output */
+    QList<ArtNetController*> m_controllersList;
 };
 
 #endif

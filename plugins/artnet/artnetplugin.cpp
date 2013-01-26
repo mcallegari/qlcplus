@@ -58,6 +58,7 @@ void ArtNetPlugin::init()
                 {
                     m_outputIPlist.append(outMapList.at(0));
                     m_outputPortList.append(outMapList.at(1).toInt());
+                    m_controllersList.append(NULL);
                 }
             }
         }
@@ -68,6 +69,7 @@ void ArtNetPlugin::init()
         {
             m_outputIPlist.append(m_interfacesIPList.at(j).toString());
             m_outputPortList.append(0);
+            m_controllersList.append(NULL);
         }
     }
 }
@@ -121,25 +123,62 @@ QString ArtNetPlugin::outputInfo(quint32 output)
 
 void ArtNetPlugin::openOutput(quint32 output)
 {
+    int i = 0;
     if (output >= (quint32)m_outputIPlist.length())
         return;
 
     qDebug() << "Open output with address :" << m_outputIPlist.at(output);
 
-    m_outputNodeList[output] = new ArtNetNode(m_outputIPlist.at(output), m_outputPortList.at(output), this);
+    // scan for an already open ArtNetController over the same network
+    for (i = 0; i < m_controllersList.length(); i++)
+    {
+        if ((quint32)i != output && m_controllersList.at(i) != NULL)
+        {
+            ArtNetController *controller = m_controllersList.at(i);
+            if (controller->getNetworkIP() == m_outputIPlist.at(output))
+            {
+                m_controllersList.replace(output, controller);
+                controller->addUniverse(m_outputPortList.at(output));
+                return;
+            }
+        }
+    }
+
+    // not found ? Create a new ArtNetController
+    if (i == m_controllersList.length())
+    {
+        ArtNetController *controller = new ArtNetController(m_outputIPlist.at(output), m_outputPortList.at(output), this);
+        m_controllersList.replace(output, controller);
+    }
 }
 
 void ArtNetPlugin::closeOutput(quint32 output)
 {
     if (output >= (quint32)m_outputIPlist.length())
         return;
+    ArtNetController *controller = m_controllersList[output];
+    if (controller != NULL)
+    {
+        // if a ArtNetController is managing more than one universe
+        // then just remove an output interface
+        if (controller->getUniversesNumber() > 1)
+        {
+            controller->removeUniverse(m_outputPortList.at(output));
+            m_controllersList[output] = NULL;
+        }
+        else // otherwiase destroy it
+        {
+            delete m_controllersList[output];
+            m_controllersList[output] = NULL;
+        }
+    }
 }
 
 void ArtNetPlugin::writeUniverse(quint32 output, const QByteArray& universe)
 {
-    ArtNetNode *node = m_outputNodeList[output];
-    if (node != NULL)
-        node->sendDmx(m_outputPortList.at(output), universe);
+    ArtNetController *controller = m_controllersList[output];
+    if (controller != NULL)
+        controller->sendDmx(m_outputPortList.at(output), universe);
 }
 
 /*************************************************************************
@@ -195,9 +234,9 @@ QList<int> ArtNetPlugin::mappedPorts()
     return m_outputPortList;
 }
 
-QHash<quint32, ArtNetNode*> ArtNetPlugin::mappedNodes()
+QList<ArtNetController*> ArtNetPlugin::mappedControllers()
 {
-    return m_outputNodeList;
+    return m_controllersList;
 }
 
 void ArtNetPlugin::remapOutputs(QList<QString> IPs, QList<int> ports)

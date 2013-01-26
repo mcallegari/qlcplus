@@ -48,6 +48,8 @@ ConfigureArtNet::ConfigureArtNet(ArtNetPlugin* plugin, QWidget* parent)
     /* Setup UI controls */
     setupUi(this);
 
+    this->resize(400, 300);
+
     fillOutputTree();
     fillNodesTree();
 }
@@ -87,16 +89,30 @@ void ConfigureArtNet::fillNodesTree()
 {
     m_nodesTree->header()->setResizeMode(QHeaderView::ResizeToContents);
 
-    QHash<quint32, ArtNetNode*> nList = m_plugin->mappedNodes();
+    ArtNetController *prevController = NULL;
 
-    QHashIterator<quint32, ArtNetNode*> it(nList);
-     while (it.hasNext())
+    QList<ArtNetController*> nList = m_plugin->mappedControllers();
+
+    for (int i = 0; i < nList.length(); i++)
     {
-         it.next();
-         //cout << i.key() << ": " << i.value() << endl;
-         QTreeWidgetItem* pitem = new QTreeWidgetItem(m_nodesTree);
-         ArtNetNode *node = it.value();
-         pitem->setText(KNodesColumnIP, node->getNetworkIP());
+        ArtNetController *controller = nList.at(i);
+        if (controller != NULL && controller != prevController)
+        {
+            QTreeWidgetItem* pitem = new QTreeWidgetItem(m_nodesTree);
+            pitem->setText(KNodesColumnIP, controller->getNetworkIP() + " nodes");
+            QHash<QHostAddress, ArtNetNodeInfo> nodesList = controller->getNodesList();
+            QHashIterator<QHostAddress, ArtNetNodeInfo> it(nodesList);
+            while (it.hasNext())
+            {
+                it.next();
+                QTreeWidgetItem* nitem = new QTreeWidgetItem(pitem);
+                ArtNetNodeInfo nInfo = it.value();
+                nitem->setText(KNodesColumnIP, it.key().toString());
+                nitem->setText(KNodesColumnShortName, nInfo.shortName);
+                nitem->setText(KNodesColumnLongName, nInfo.longName);
+            }
+            prevController = controller;
+        }
      }
 }
 

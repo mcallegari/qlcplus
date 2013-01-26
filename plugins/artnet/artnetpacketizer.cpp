@@ -39,7 +39,10 @@ ArtNetPacketizer::ArtNetPacketizer()
     m_commonHeader.append('\0');
     m_commonHeader.append((char)0x0e);
 
-    m_sequence = 1;
+    m_sequence[0] = 1;
+    m_sequence[1] = 1;
+    m_sequence[2] = 1;
+    m_sequence[3] = 1;
 }
 
 /*********************************************************************
@@ -62,19 +65,19 @@ void ArtNetPacketizer::setupArtNetDmx(QByteArray& data, const int &universe, con
     data.append(m_commonHeader);
     const char opCodeMSB = (ARTNET_DMX >> 8);
     data[9] = opCodeMSB;
-    data.append(m_sequence); // Sequence
+    data.append(m_sequence[universe]); // Sequence
     data.append('\0'); // Physical
-    data.append((char)(universe >> 8));
     data.append((char)(universe & 0x00FF));
+    data.append((char)(universe >> 8));
     int len = values.length();
     data.append((char)(len >> 8));
     data.append((char)(len & 0x00FF));
     data.append(values);
 
-    if (m_sequence == 0xff)
-        m_sequence = 1;
+    if (m_sequence[universe] == 0xff)
+        m_sequence[universe] = 1;
     else
-        m_sequence++;
+        m_sequence[universe]++;
 }
 
 /*********************************************************************
@@ -106,8 +109,8 @@ bool ArtNetPacketizer::fillArtPollReplyInfo(QByteArray& data, ArtNetNodeInfo &in
 
     QByteArray shortName = data.mid(26, 18);
     QByteArray longName = data.mid(44, 64);
-    info.shortName = QString(shortName.data());
-    info.longName = QString(longName.data());
+    info.shortName = QString(shortName.data()).simplified();
+    info.longName = QString(longName.data()).simplified();
 
     qDebug() << "getArtPollReplyInfo shortName: " << info.shortName;
     qDebug() << "getArtPollReplyInfo longName: " << info.longName;

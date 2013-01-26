@@ -29,7 +29,7 @@
 
 #define ARTNET_DEFAULT_PORT     6454
 
-class ArtNetNode : public QObject
+class ArtNetController : public QObject
 {
     Q_OBJECT
 
@@ -37,25 +37,49 @@ class ArtNetNode : public QObject
      * Initialization
      *********************************************************************/
 public:
-    ArtNetNode(QString ipaddr, int port, QObject *parent = 0);
-    ~ArtNetNode();
+    ArtNetController(QString ipaddr, int universe, QObject *parent = 0);
+    ~ArtNetController();
 
+    /** Send DMX data to a specific port/universe */
     void sendDmx(const int& universe, const QByteArray& data);
 
+    /** Return the controller IP address */
     QString getNetworkIP();
 
-private:
-    void addPort(int port);
+    /** Returns the map of Nodes discovered by ArtPoll */
+    QHash<QHostAddress, ArtNetNodeInfo> getNodesList();
+
+    /** add an output port to this controller (in DMX words, a universe */
+    void addUniverse(int uni);
+
+    /** Returns the number of universes managed by this controller */
+    int getUniversesNumber();
+
+    /** Remove a universe managed by this controller */
+    bool removeUniverse(int uni);
 
 private:
+    /** The controller IP address as QHostAddress */
     QHostAddress m_ipAddr;
+
+    /** The controller broadcast address as QHostAddress */
+    /** This is where all ArtNet packets are sent to */
     QHostAddress m_broadcastAddr;
-    QList<int> m_ports;
+
+    /** List of universes managed by this controller */
+    QList<int> m_universes;
+
+    /** The UDP socket used to send/receive ArtNet packets */
     QUdpSocket *m_UdpSocket;
+
+    /** Helper class used to create or parse ArtNet packets */
     ArtNetPacketizer *m_packetizer;
+
+    /** Map of the ArtNet nodes discovered with ArtPoll */
     QHash<QHostAddress, ArtNetNodeInfo> m_nodesList;
 
 private slots:
+    /** Async event raised when new packets have been received */
     void processPendingPackets();
 };
 

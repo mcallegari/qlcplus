@@ -27,13 +27,13 @@ TRANSLATIONS += ArtNet_it_IT.ts
 
 HEADERS += ../interfaces/qlcioplugin.h
 HEADERS += artnetpacketizer.h \
-           artnetnode.h \
+           artnetcontroller.h \
            artnetplugin.h \
            configureartnet.h
 
 FORMS += configureartnet.ui
 
 SOURCES += artnetpacketizer.cpp \
-           artnetnode.cpp \
+           artnetcontroller.cpp \
            artnetplugin.cpp \
            configureartnet.cpp

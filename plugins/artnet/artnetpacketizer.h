@@ -21,6 +21,7 @@
 
 #include <QByteArray>
 #include <QString>
+#include <QHash>
 
 #ifndef ARTNETPACKETIZER_H
 #define ARTNETPACKETIZER_H
@@ -99,7 +100,7 @@ public:
 
 private:
     QByteArray m_commonHeader;
-    uchar m_sequence;
+    QHash<int, uchar> m_sequence;
 };
 
 #endif

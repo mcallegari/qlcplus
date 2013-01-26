@@ -19,20 +19,14 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#include "artnetnode.h"
+#include "artnetcontroller.h"
 
 #include <QDebug>
 
-ArtNetNode::ArtNetNode(QString ipaddr, int port, QObject *parent)
+ArtNetController::ArtNetController(QString ipaddr, int universe, QObject *parent)
     : QObject(parent)
 {
     // calculate the broadcast address
-    /*
-    QNetworkAddressEntry *tmpBcast = new QNetworkAddressEntry();
-    tmpBcast->setIp(QHostAddress(m_ipAddr));
-    tmpBcast->setNetmask(QHostAddress("255.255.255.0"));
-    m_broadcastAddr = tmpBcast->broadcast();
-    */
     m_ipAddr = QHostAddress(ipaddr);
     quint32 ip = m_ipAddr.toIPv4Address();
     quint32 mask = QHostAddress("255.255.255.0").toIPv4Address(); // will it work in all cases ?
@@ -54,15 +48,18 @@ ArtNetNode::ArtNetNode(QString ipaddr, int port, QObject *parent)
     m_UdpSocket->writeDatagram(pollPacket.data(), pollPacket.size(),
                                m_broadcastAddr, ARTNET_DEFAULT_PORT);
 
-    addPort(port);
+    addUniverse(universe);
 }
 
-ArtNetNode::~ArtNetNode()
+ArtNetController::~ArtNetController()
 {
+    qDebug() << Q_FUNC_INFO;
+    disconnect(m_UdpSocket, SIGNAL(readyRead()),
+            this, SLOT(processPendingPackets()));
     m_UdpSocket->close();
 }
 
-void ArtNetNode::sendDmx(const int &universe, const QByteArray &data)
+void ArtNetController::sendDmx(const int &universe, const QByteArray &data)
 {
     QByteArray dmxPacket;
     m_packetizer->setupArtNetDmx(dmxPacket, universe, data);
@@ -70,18 +67,41 @@ void ArtNetNode::sendDmx(const int &universe, const QByteArray &data)
                                m_broadcastAddr, ARTNET_DEFAULT_PORT);
 }
 
-void ArtNetNode::addPort(int port)
+void ArtNetController::addUniverse(int uni)
 {
-    if (m_ports.contains(port) == false)
-        m_ports.append(port);
+    if (m_universes.contains(uni) == false)
+    {
+        m_universes.append(uni);
+        qDebug() << "[ArtNetController::addUniverse] Added new universe: " << uni;
+    }
 }
 
-QString ArtNetNode::getNetworkIP()
+int ArtNetController::getUniversesNumber()
+{
+    return m_universes.length();
+}
+
+bool ArtNetController::removeUniverse(int uni)
+{
+    if (m_universes.contains(uni))
+    {
+        qDebug() << Q_FUNC_INFO << "Removing universe " << uni;
+        return m_universes.removeOne(uni);
+    }
+    return false;
+}
+
+QString ArtNetController::getNetworkIP()
 {
     return m_ipAddr.toString();
 }
 
-void ArtNetNode::processPendingPackets()
+QHash<QHostAddress, ArtNetNodeInfo> ArtNetController::getNodesList()
+{
+    return m_nodesList;
+}
+
+void ArtNetController::processPendingPackets()
 {
     while (m_UdpSocket->hasPendingDatagrams())
     {
@@ -99,7 +119,7 @@ void ArtNetNode::processPendingPackets()
                 {
                     case ARTNET_POLLREPLY:
                     {
-                        qDebug() << "Received and ArtPollReply";
+                        qDebug() << "ArtPollReply received";
                         ArtNetNodeInfo newNode;
                         if (m_packetizer->fillArtPollReplyInfo(datagram, newNode) == true)
                         {
