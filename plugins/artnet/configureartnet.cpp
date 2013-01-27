@@ -58,15 +58,15 @@ void ConfigureArtNet::fillOutputTree()
 {
     m_outputTree->header()->setResizeMode(QHeaderView::ResizeToContents);
 
-    QList<QHostAddress> ifaces = m_plugin->interfaces();
+    QList<QNetworkAddressEntry> ifaces = m_plugin->interfaces();
     QList<QString> outputMap = m_plugin->mappedOutputs();
     QList<int> outputPorts = m_plugin->mappedPorts();
 
     int idx = 0;
 
-    for (int i = 0; i < ifaces.length(); i++)
+    foreach (QNetworkAddressEntry entry, ifaces)
     {
-        QString ifaceStr = ifaces.at(i).toString();
+        QString ifaceStr = entry.ip().toString();
         for (int u = 0; u < UNIVERSES_PER_ADDRESS; u++)
         {
             QTreeWidgetItem* pitem = new QTreeWidgetItem(m_outputTree);

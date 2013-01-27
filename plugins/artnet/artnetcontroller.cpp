@@ -23,15 +23,27 @@
 
 #include <QDebug>
 
-ArtNetController::ArtNetController(QString ipaddr, int universe, QObject *parent)
+ArtNetController::ArtNetController(QString ipaddr, int universe, QList<QNetworkAddressEntry> interfaces, QObject *parent)
     : QObject(parent)
 {
-    // calculate the broadcast address
     m_ipAddr = QHostAddress(ipaddr);
+
+    foreach(QNetworkAddressEntry iface, interfaces)
+    {
+        if (iface.ip() == m_ipAddr)
+        {
+            m_broadcastAddr = iface.broadcast();
+            break;
+        }
+    }
+
+    /*
+    // calculate the broadcast address
     quint32 ip = m_ipAddr.toIPv4Address();
     quint32 mask = QHostAddress("255.255.255.0").toIPv4Address(); // will it work in all cases ?
     quint32 broadcast = (ip & mask) | (0xFFFFFFFFU & ~mask);
     m_broadcastAddr = QHostAddress(broadcast);
+    */
 
     qDebug() << Q_FUNC_INFO << "Broadcast address: " << m_broadcastAddr.toString();
     m_packetizer = new ArtNetPacketizer();

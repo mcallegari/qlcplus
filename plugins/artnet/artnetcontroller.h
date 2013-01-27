@@ -37,7 +37,7 @@ class ArtNetController : public QObject
      * Initialization
      *********************************************************************/
 public:
-    ArtNetController(QString ipaddr, int universe, QObject *parent = 0);
+    ArtNetController(QString ipaddr, int universe, QList<QNetworkAddressEntry> interfaces, QObject *parent = 0);
     ~ArtNetController();
 
     /** Send DMX data to a specific port/universe */

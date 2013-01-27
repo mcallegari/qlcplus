@@ -22,6 +22,7 @@
 #ifndef ARTNETPLUGIN_H
 #define ARTNETPLUGIN_H
 
+#include <QNetworkAddressEntry>
 #include <QNetworkInterface>
 #include <QHostAddress>
 #include <QString>
@@ -109,7 +110,7 @@ public:
     /** @reimp */
     bool canConfigure();
 
-    QList<QHostAddress> interfaces();
+    QList<QNetworkAddressEntry> interfaces();
 
     /** Get a list of the available outputs mapped from the detect network interfaces */
     QList<QString> mappedOutputs();
@@ -123,8 +124,8 @@ public:
     QList<ArtNetController *> mappedControllers();
 
 private:
-    /** List holding the detected system network interfaces IPs */
-    QList<QHostAddress> m_interfacesIPList;
+    /** List holding the detected system network interfaces */
+    QList<QNetworkAddressEntry> m_netInterfaces;
 
     /** Map of the IPs associated to each plugin output */
     /** Basically these are those selected in the config panel */

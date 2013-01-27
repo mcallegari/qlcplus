@@ -33,13 +33,16 @@ void ArtNetPlugin::init()
 {
     QSettings settings;
 
-    QList<QHostAddress> tmpList = QNetworkInterface::allAddresses();
-
-    for (int i = 0; i < tmpList.length(); i++)
+    foreach(QNetworkInterface interface, QNetworkInterface::allInterfaces())
     {
-        QHostAddress addr = tmpList.at(i);
-        if (addr.protocol() != QAbstractSocket::IPv6Protocol && addr != QHostAddress::LocalHost)
-            m_interfacesIPList.append(addr);
+        foreach (QNetworkAddressEntry entry, interface.addressEntries())
+        {
+            QHostAddress addr = entry.ip();
+            if (addr.protocol() != QAbstractSocket::IPv6Protocol && addr != QHostAddress::LocalHost)
+            {
+                m_netInterfaces.append(entry);
+            }
+        }
     }
     QString key = QString("ArtNetPlugin/outputs");
     QVariant outNum = settings.value(key);
@@ -65,9 +68,9 @@ void ArtNetPlugin::init()
     }
     else // default mapping: port 0 for each IP found
     {
-        for (int j = 0; j < m_interfacesIPList.length(); j++)
+        foreach (QNetworkAddressEntry entry, m_netInterfaces)
         {
-            m_outputIPlist.append(m_interfacesIPList.at(j).toString());
+            m_outputIPlist.append(entry.ip().toString());
             m_outputPortList.append(0);
             m_controllersList.append(NULL);
         }
@@ -147,7 +150,7 @@ void ArtNetPlugin::openOutput(quint32 output)
     // not found ? Create a new ArtNetController
     if (i == m_controllersList.length())
     {
-        ArtNetController *controller = new ArtNetController(m_outputIPlist.at(output), m_outputPortList.at(output), this);
+        ArtNetController *controller = new ArtNetController(m_outputIPlist.at(output), m_outputPortList.at(output), m_netInterfaces, this);
         m_controllersList.replace(output, controller);
     }
 }
@@ -219,9 +222,9 @@ bool ArtNetPlugin::canConfigure()
     return true;
 }
 
-QList<QHostAddress> ArtNetPlugin::interfaces()
+QList<QNetworkAddressEntry> ArtNetPlugin::interfaces()
 {
-    return m_interfacesIPList;
+    return m_netInterfaces;
 }
 
 QList<QString> ArtNetPlugin::mappedOutputs()
