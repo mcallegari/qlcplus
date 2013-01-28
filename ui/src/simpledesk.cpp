@@ -29,8 +29,10 @@
 #include <QSplitter>
 #include <QGroupBox>
 #include <QTreeView>
+#include <QComboBox>
 #include <QSpinBox>
 #include <QLayout>
+#include <QLabel>
 #include <QDebug>
 
 #include "grandmasterslider.h"
@@ -65,8 +67,8 @@ SimpleDesk::SimpleDesk(QWidget* parent, Doc* doc)
     : QWidget(parent)
     , m_engine(new SimpleDeskEngine(doc))
     , m_doc(doc)
+    , m_currentUniverse(0)
     , m_channelsPerPage(DEFAULT_PAGE_CHANNELS)
-    , m_showChannelNames(true)
     , m_selectedPlayback(UINT_MAX)
     , m_playbacksPerPage(DEFAULT_PAGE_PLAYBACKS)
     , m_speedDials(NULL)
@@ -86,9 +88,9 @@ SimpleDesk::SimpleDesk(QWidget* parent, Doc* doc)
     if (var.isValid() == true)
         m_playbacksPerPage = var.toUInt();
 
-    var = settings.value(SETTINGS_CHANNEL_NAMES);
-    if (var.isValid() == true)
-        m_showChannelNames = var.toBool();
+    // default all the universes pages to 1
+    for (quint32 i = 0; i < m_doc->outputMap()->universes(); i++)
+        m_universesPage.append(1);
 
     initEngine();
     initView();
@@ -167,8 +169,20 @@ void SimpleDesk::initLeftSide()
     lay->setContentsMargins(1, 1, 1, 1);
     m_splitter->addWidget(leftSide);
 
+    QHBoxLayout* uniLay = new QHBoxLayout;
+    QLabel *label = new QLabel(tr("Universe"));
+    label->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
+    uniLay->addWidget(label);
+    m_universesCombo = new QComboBox(this);
+    m_universesCombo->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    uniLay->addWidget(m_universesCombo);
+    lay->addLayout(uniLay);
+
+    initUniversesCombo();
+    connect(m_universesCombo, SIGNAL(currentIndexChanged(int)),this, SLOT(slotUniversesComboChanged(int)));
+
     m_universeGroup = new QGroupBox(this);
-    m_universeGroup->setTitle(tr("Universe"));
+    //m_universeGroup->setTitle(tr("Universe"));
     QHBoxLayout* grpLay = new QHBoxLayout(m_universeGroup);
     grpLay->setContentsMargins(0, 6, 0, 0);
     grpLay->setSpacing(1);
@@ -284,6 +298,12 @@ void SimpleDesk::initRightSide()
  * Universe controls
  ****************************************************************************/
 
+void SimpleDesk::initUniversesCombo()
+{
+    m_universesCombo->clear();
+    m_universesCombo->addItems(m_doc->outputMap()->universeNames());
+}
+
 void SimpleDesk::initUniverseSliders()
 {
     qDebug() << Q_FUNC_INFO;
@@ -331,6 +351,14 @@ void SimpleDesk::resetUniverseSliders()
         it.next()->setValue(0);
 }
 
+void SimpleDesk::slotUniversesComboChanged(int index)
+{
+    m_currentUniverse = index;
+    int page = m_universesPage.at(index);
+    m_universePageSpin->setValue(page);
+    slotUniversePageChanged(page);
+}
+
 void SimpleDesk::slotUniversePageUpClicked()
 {
     qDebug() << Q_FUNC_INFO;
@@ -354,6 +382,13 @@ void SimpleDesk::slotUniversePageChanged(int page)
     QString ssNone = "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D5E0, stop: 1 #A7A6AF); "
                      " border: 1px solid gray; border-radius: 4px; }";
 
+    /* now, calculate the absolute address including current universe (0 - 2048) */
+    quint32 absoluteAddr = start | (m_currentUniverse << 9);
+
+    /* Set the new page for this universe */
+    m_universesPage.replace(m_currentUniverse, page);
+
+    //qDebug() << "[slotUniversePageChanged] start: " << start << ", absoluteAddr: " << absoluteAddr;
 
     for (quint32 i = 0; i < m_channelsPerPage; i++)
     {
@@ -365,7 +400,7 @@ void SimpleDesk::slotUniversePageChanged(int page)
                    this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
             delete slider;
         }
-        const Fixture* fx = m_doc->fixture(m_doc->fixtureForAddress(start + i));
+        const Fixture* fx = m_doc->fixture(m_doc->fixtureForAddress(absoluteAddr + i));
         if (fx == NULL)
         {
             slider = new ConsoleChannel(this, m_doc, Fixture::invalidId(), start + i, false);
@@ -373,7 +408,7 @@ void SimpleDesk::slotUniversePageChanged(int page)
         }
         else
         {
-            uint ch = (start + i) - fx->universeAddress();
+            uint ch = (absoluteAddr + i) - fx->universeAddress();
             slider = new ConsoleChannel(this, m_doc, fx->id(), ch, false);
             if (fx->id() % 2 == 0)
                 slider->setStyleSheet(ssOdd);
@@ -384,9 +419,10 @@ void SimpleDesk::slotUniversePageChanged(int page)
         if ((start + i) < 512)
         {
             slider->setEnabled(true);
-            slider->setProperty(PROP_ADDRESS, start + i);
+            slider->setProperty(PROP_ADDRESS, absoluteAddr + i);
             slider->setLabel(QString::number(start + i + 1));
-            slider->setValue(m_engine->value(start + i));
+            //qDebug() << "Set slider value[" << (absoluteAddr + i) << "] = " << m_engine->value(absoluteAddr + i);
+            slider->setValue(m_engine->value(absoluteAddr + i), false);
             connect(slider, SIGNAL(valueChanged(quint32,quint32,uchar)),
                     this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
         }
@@ -408,7 +444,7 @@ void SimpleDesk::slotUniverseResetClicked()
 {
     qDebug() << Q_FUNC_INFO;
     resetUniverseSliders();
-    m_engine->resetUniverse();
+    m_engine->resetUniverse(m_currentUniverse);
     slotUniversePageChanged(1);
 }
 
@@ -426,12 +462,15 @@ void SimpleDesk::slotUniverseSliderValueChanged(quint32,quint32,uchar value)
 
 void SimpleDesk::slotUniversesWritten(const QByteArray& ua)
 {
-    int start = (m_universePageSpin->value() - 1) * m_channelsPerPage;
-    for (int i = 0; i < ua.length(); i++)
+    quint32 start = (m_universePageSpin->value() - 1) * m_channelsPerPage;
+    // add the universe bits to retrieve the absolute address (0 - 2048)
+    start = start | (m_currentUniverse << 9);
+
+    for (quint32 i = 0; i < (quint32)ua.length(); i++)
     {
         //m_engine->setValue(i, ua.at(i));
         // update current page sliders
-        if (i >= start && i < start + (int)m_channelsPerPage)
+        if (i >= start && i < start + (quint32)m_channelsPerPage)
         {
             const Fixture* fx = m_doc->fixture(m_doc->fixtureForAddress(i));
             if (fx != NULL)
