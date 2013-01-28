@@ -5,6 +5,7 @@ qlcplus (4.2.0) stable; urgency=low
   * Fixed OSC input names
   * Fixed fixture address suggestion when adding a new fixture, especially for universes other than 1
   * Improved Chaser Editor UI. Now more compact and suitable for lower resolutions
+  * Added fixture: Chauvet Intimidator Spot 250 (thanks to Henning Borgen)
 
 qlcplus (4.1.3) stable; urgency=low
 
