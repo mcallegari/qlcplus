@@ -8,6 +8,7 @@ qlcplus (4.2.0) stable; urgency=low
   * Improved Chaser Editor UI. Now more compact and suitable for lower resolutions
   * Improved Fixture Add UI. Values can now be expanded
   * Added fixture: Chauvet Intimidator Spot 250 (thanks to Henning Borgen)
+  * Added fixture: Stairville Matrixx FL 110 DMX (thanks to Heiko Fanieng)
   
  -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 29 Jan 2013 18:17:42 +0200
 
