@@ -99,7 +99,7 @@ QString ArtNetPlugin::pluginInfo()
 
     str += QString("<P>");
     str += QString("<H3>%1</H3>").arg(name());
-    str += tr("This plugin provides input for devices supporting the ArtNet communication protocol.");
+    str += tr("This plugin provides DMX output for devices supporting the ArtNet communication protocol.");
     str += QString("</P>");
 
     return str;
@@ -113,7 +113,7 @@ QStringList ArtNetPlugin::outputs()
     QStringList list;
     for (int i = 0; i < m_outputIPlist.length(); i++)
     {
-        list << QString(tr("%1: [%2] Address: %3")).arg(i + 1).arg(m_outputIPlist.at(i)).arg(m_outputPortList.at(i));
+        list << QString(tr("%1: [%2] Output: %3")).arg(i + 1).arg(m_outputIPlist.at(i)).arg(m_outputPortList.at(i));
     }
     return list;
 }
