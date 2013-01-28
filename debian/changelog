@@ -3,6 +3,8 @@ qlcplus (4.2.0) stable; urgency=low
   * NEW: added ArtNet plugin. No extra software needed. And it works on Windows.
   * Fixed Virtual Console Frame collapsed state XML saving
   * Fixed OSC input names
+  * Fixed fixture address suggestion when adding a new fixture, especially for universes other than 1
+  * Improved Chaser Editor UI. Now more compact and suitable for lower resolutions
 
 qlcplus (4.1.3) stable; urgency=low
 
