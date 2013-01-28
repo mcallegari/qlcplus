@@ -113,7 +113,7 @@ QStringList ArtNetPlugin::outputs()
     QStringList list;
     for (int i = 0; i < m_outputIPlist.length(); i++)
     {
-        list << QString(tr("%1: [%2] Output: %3")).arg(i + 1).arg(m_outputIPlist.at(i)).arg(m_outputPortList.at(i));
+        list << QString(tr("%1: [%2] Output: %3")).arg(i + 1).arg(m_outputIPlist.at(i)).arg(m_outputPortList.at(i) + 1);
     }
     return list;
 }
