@@ -1002,6 +1002,7 @@ void SimpleDesk::showEvent(QShowEvent* ev)
     //m_engine->registerSourceAgain();
     if (m_editCueStackButton->isChecked() == true)
         slotEditCueStackClicked();
+    initUniversesCombo();
     QWidget::showEvent(ev);
 }
 
