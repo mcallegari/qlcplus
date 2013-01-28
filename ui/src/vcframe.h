@@ -52,7 +52,7 @@ public:
      * Initialization
      *********************************************************************/
 public:
-    VCFrame(QWidget* parent, Doc* doc, bool canResize = false);
+    VCFrame(QWidget* parent, Doc* doc, bool canCollapse = false);
     virtual ~VCFrame();
 
     void init(bool bottomFrame = false);

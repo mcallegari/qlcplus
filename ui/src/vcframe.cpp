@@ -49,7 +49,7 @@
 
 const QSize VCFrame::defaultSize(QSize(200, 200));
 
-VCFrame::VCFrame(QWidget* parent, Doc* doc, bool canResize) : VCWidget(parent, doc)
+VCFrame::VCFrame(QWidget* parent, Doc* doc, bool canCollapse) : VCWidget(parent, doc)
     , m_hbox(NULL)
     , m_button(NULL)
     , m_label(NULL)
@@ -60,7 +60,7 @@ VCFrame::VCFrame(QWidget* parent, Doc* doc, bool canResize) : VCWidget(parent, d
     setFrameStyle(KVCFrameStyleSunken);
     setAllowChildren(true);
 
-    if (canResize == true)
+    if (canCollapse == true)
     {
         QVBoxLayout *vbox = new QVBoxLayout(this);
         /* Main HBox */
@@ -145,7 +145,7 @@ VCWidget* VCFrame::createCopy(VCWidget* parent)
 {
     Q_ASSERT(parent != NULL);
 
-    VCFrame* frame = new VCFrame(parent, m_doc);
+    VCFrame* frame = new VCFrame(parent, m_doc, true);
     if (frame->copyFrom(this) == false)
     {
         delete frame;
@@ -304,7 +304,7 @@ bool VCFrame::loadXML(const QDomElement* root)
         else if (tag.tagName() == KXMLQLCVCSoloFrame)
         {
             /* Create a new frame into its parent */
-            VCSoloFrame* soloframe = new VCSoloFrame(this, m_doc);
+            VCSoloFrame* soloframe = new VCSoloFrame(this, m_doc, true);
             if (soloframe->loadXML(&tag) == false)
                 delete soloframe;
             else

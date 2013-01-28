@@ -2,7 +2,8 @@ qlcplus (4.2.0) stable; urgency=low
 
   * NEW: added ArtNet plugin. No extra software needed. And it works on Windows.
   * NEW: Simple Desk can now control all the universes
-  * Fixed Virtual Console Frame collapsed state XML saving
+  * Virtual Console Frame collapsed state is now saved on project XML
+  * Virtual Console Solo Frames can now be collapsed/expanded too
   * Fixed OSC input names
   * Fixed fixture address calculation when adding a new fixture, especially for universes other than 1
   * Improved Chaser Editor UI. Now more compact and suitable for lower resolutions

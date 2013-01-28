@@ -843,7 +843,7 @@ void VirtualConsole::slotAddSoloFrame()
     if (parent == NULL)
         return;
 
-    VCSoloFrame* soloframe = new VCSoloFrame(parent, m_doc);
+    VCSoloFrame* soloframe = new VCSoloFrame(parent, m_doc, true);
     Q_ASSERT(soloframe != NULL);
     soloframe->show();
     soloframe->move(parent->lastClickPoint());
