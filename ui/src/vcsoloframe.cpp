@@ -194,8 +194,6 @@ void VCSoloFrame::paintEvent(QPaintEvent* e)
     painter.setPen(pen);
     painter.drawRect(0, 0, rect().width()-1, rect().height()-1);
 
-    //m_button->paintEvent(e);
-
     if (drawSelectionFrame)
     {
         /* Draw a resize handle */
