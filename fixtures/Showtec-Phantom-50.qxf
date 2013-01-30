@@ -6,7 +6,7 @@
   <Author>Petja Touru</Author>
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
- <Model>Phantom 25/50</Model>
+ <Model>Phantom 50</Model>
  <Type>Moving Head</Type>
  <Channel Name="Pan">
   <Group Byte="0">Pan</Group>
@@ -138,7 +138,7 @@
    <Bulb Lumens="18500" Type="LED" ColourTemperature="0"/>
    <Dimensions Width="204" Height="340" Weight="5.64" Depth="210"/>
    <Lens DegreesMax="17" Name="" DegreesMin="17"/>
-   <Focus PanMax="540" Type="" TiltMax="270"/>
+   <Focus PanMax="540" Type="Head" TiltMax="270"/>
    <Technical PowerConsumption="50" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -160,7 +160,7 @@
    <Bulb Lumens="18500" Type="LED" ColourTemperature="0"/>
    <Dimensions Width="204" Height="340" Weight="5.64" Depth="210"/>
    <Lens DegreesMax="17" Name="" DegreesMin="17"/>
-   <Focus PanMax="540" Type="" TiltMax="270"/>
+   <Focus PanMax="540" Type="Head" TiltMax="270"/>
    <Technical PowerConsumption="50" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
