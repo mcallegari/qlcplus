@@ -38,6 +38,8 @@
         <file alias="expand.png">../../gfx/expand.png</file>
         <file alias="fan.png">../../gfx/fan.png</file>
         <file alias="fileclose.png">../../gfx/fileclose.png</file>
+        <file alias="fileexport.png">../../gfx/fileexport.png</file>
+        <file alias="fileimport.png">../../gfx/fileimport.png</file>
         <file alias="filenew.png">../../gfx/filenew.png</file>
         <file alias="fileopen.png">../../gfx/fileopen.png</file>
         <file alias="filesave.png">../../gfx/filesave.png</file>

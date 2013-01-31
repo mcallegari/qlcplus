@@ -34,6 +34,7 @@
 #include <QDebug>
 #include <QIcon>
 #include <QMenu>
+#include <QtGui>
 #include <QtXml>
 
 #include "qlcfixturemode.h"
@@ -68,6 +69,8 @@
 #define KColumnChannels 1
 #define KColumnAddress  2
 
+#define KXMLQLCFixturesList "FixtureList"
+
 FixtureManager* FixtureManager::s_instance = NULL;
 
 /*****************************************************************************
@@ -89,6 +92,8 @@ FixtureManager::FixtureManager(QWidget* parent, Doc* doc)
     , m_groupAction(NULL)
     , m_unGroupAction(NULL)
     , m_newGroupAction(NULL)
+    , m_importAction(NULL)
+    , m_exportAction(NULL)
     , m_groupMenu(NULL)
 {
     Q_ASSERT(s_instance == NULL);
@@ -105,6 +110,10 @@ FixtureManager::FixtureManager(QWidget* parent, Doc* doc)
     initDataView();
     updateView();
     updateChannelsGroupView();
+
+    QTreeWidgetItem* grpItem = m_tree->topLevelItem(0);
+    if (grpItem != NULL)
+        grpItem->setExpanded(true);
 
     /* Connect fixture list change signals from the new document object */
     connect(m_doc, SIGNAL(fixtureRemoved(quint32)),
@@ -178,6 +187,7 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
             m_propertiesAction->setEnabled(false);
             m_groupAction->setEnabled(false);
             m_unGroupAction->setEnabled(false);
+            m_importAction->setEnabled(true);
         }
         else if (item->data(KColumnName, PROP_FIXTURE).isValid() == true)
         {
@@ -334,6 +344,7 @@ void FixtureManager::updateView()
 
     // Clear the view
     m_tree->clear();
+    m_exportAction->setEnabled(false);
 
     // Insert known fixture groups and their children
     foreach (FixtureGroup* grp, m_doc->fixtureGroups())
@@ -354,6 +365,7 @@ void FixtureManager::updateView()
         Q_ASSERT(fixture != NULL);
         QTreeWidgetItem* item = new QTreeWidgetItem(grpItem);
         updateFixtureItem(item, fixture);
+        m_exportAction->setEnabled(true);
     }
 
     // Reopen groups that were open before update
@@ -892,6 +904,18 @@ void FixtureManager::initActions()
             this, SLOT(slotUnGroup()));
 
     m_newGroupAction = new QAction(tr("New Group..."), this);
+
+    m_importAction = new QAction(QIcon(":/fileimport.png"),
+                                 tr("Import fixtures..."), this);
+    connect(m_importAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotImport()));
+
+    m_exportAction = new QAction(QIcon(":/fileexport.png"),
+                                 tr("Export fixtures..."), this);
+
+    connect(m_exportAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotExport()));
+
 }
 
 void FixtureManager::updateGroupMenu()
@@ -932,6 +956,9 @@ void FixtureManager::initToolBar()
     toolbar->addSeparator();
     toolbar->addAction(m_groupAction);
     toolbar->addAction(m_unGroupAction);
+    toolbar->addSeparator();
+    toolbar->addAction(m_importAction);
+    toolbar->addAction(m_exportAction);
 
     QToolButton* btn = qobject_cast<QToolButton*> (toolbar->widgetForAction(m_groupAction));
     Q_ASSERT(btn != NULL);
@@ -1336,6 +1363,144 @@ void FixtureManager::slotGroupSelected(QAction* action)
     }
 
     updateView();
+}
+
+QString FixtureManager::createDialog(bool import)
+{
+    QString fileName;
+
+    /* Create a file save dialog */
+    QFileDialog dialog(this);
+    if (import == true)
+    {
+        dialog.setWindowTitle(tr("Import Fixture Definition"));
+        dialog.setAcceptMode(QFileDialog::AcceptOpen);
+    }
+    else
+    {
+        dialog.setWindowTitle(tr("Export Fixture Definition As"));
+        dialog.setAcceptMode(QFileDialog::AcceptSave);
+    }
+
+    /* Append file filters to the dialog */
+    QStringList filters;
+    filters << tr("Fixture Definitions (*%1)").arg(KExtFixtureList);
+#ifdef WIN32
+    filters << tr("All Files (*.*)");
+#else
+    filters << tr("All Files (*)");
+#endif
+    dialog.setNameFilters(filters);
+
+    /* Append useful URLs to the dialog */
+    QList <QUrl> sidebar;
+    sidebar.append(QUrl::fromLocalFile(QDir::homePath()));
+    sidebar.append(QUrl::fromLocalFile(QDir::rootPath()));
+    dialog.setSidebarUrls(sidebar);
+
+    /* Get file name */
+    if (dialog.exec() != QDialog::Accepted)
+        return "";
+
+    fileName = dialog.selectedFiles().first();
+    if (fileName.isEmpty() == true)
+        return "";
+
+    /* Always use the fixture definition suffix */
+    if (import == false && fileName.right(5) != KExtFixtureList)
+        fileName += KExtFixtureList;
+
+    return fileName;
+}
+
+void FixtureManager::slotImport()
+{
+    QString fileName = createDialog(true);
+
+    QDomDocument doc(QLCFile::readXML(fileName));
+    if (doc.isNull() == false)
+    {
+        if (doc.doctype().name() == KXMLQLCFixturesList)
+        {
+            QDomElement root = doc.documentElement();
+            if (root.tagName() != KXMLQLCFixturesList)
+            {
+                qWarning() << Q_FUNC_INFO << "Fixture Definition node not found";
+                return;
+            }
+            QDomNode node = root.firstChild();
+            while (node.isNull() == false)
+            {
+                QDomElement tag = node.toElement();
+
+                if (tag.tagName() == KXMLFixture)
+                {
+                    Fixture* fxi = new Fixture(m_doc);
+                    Q_ASSERT(fxi != NULL);
+
+                    if (fxi->loadXML(tag, m_doc->fixtureDefCache()) == true)
+                    {
+                        if (m_doc->addFixture(fxi /*, fxi->id()*/) == true)
+                        {
+                            /* Success */
+                            qWarning() << Q_FUNC_INFO << "Fixture" << fxi->name() << "successfully created.";
+                        }
+                        else
+                        {
+                            /* Doc is full */
+                            qWarning() << Q_FUNC_INFO << "Fixture" << fxi->name() << "cannot be created.";
+                            delete fxi;
+                        }
+                    }
+                    else
+                    {
+                        qWarning() << Q_FUNC_INFO << "Fixture" << fxi->name() << "cannot be loaded.";
+                        delete fxi;
+                    }
+                }
+
+                node = node.nextSibling();
+            }
+            updateView();
+        }
+    }
+}
+
+void FixtureManager::slotExport()
+{
+    QString fileName = createDialog(false);
+
+    QFile file(fileName);
+    if (file.open(QIODevice::WriteOnly) == false)
+        return;
+
+    QDomDocument doc(QLCFile::getXMLHeader(KXMLQLCFixturesList));
+
+    if (doc.isNull() == false)
+    {
+        QDomElement root;
+        QDomElement tag;
+        QDomText text;
+
+        /* Create a text stream for the file */
+        QTextStream stream(&file);
+
+        /* THE MASTER XML ROOT NODE */
+        root = doc.documentElement();
+
+        QListIterator <Fixture*> fxit(m_doc->fixtures());
+        while (fxit.hasNext() == true)
+        {
+            Fixture* fxi(fxit.next());
+            Q_ASSERT(fxi != NULL);
+            fxi->saveXML(&doc, &root);
+        }
+
+        /* Write the XML document to the stream (=file) */
+        stream << doc.toString() << "\n";
+    }
+
+    file.close();
 }
 
 void FixtureManager::slotContextMenuRequested(const QPoint&)

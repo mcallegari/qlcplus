@@ -29,9 +29,10 @@ class QDomElement;
 class QString;
 
 // File extensions
-#define KExtFixture      ".qxf" // 'Q'lc 'X'ml 'F'ixture
-#define KExtWorkspace    ".qxw" // 'Q'lc 'X'ml 'W'orkspace
-#define KExtInputProfile ".qxi" // 'Q'lc 'X'ml 'I'nput profile
+#define KExtFixture      ".qxf" // 'Q'LC+ 'X'ml 'F'ixture
+#define KExtFixtureList  ".qxfl" // 'Q'LC+ 'X'ml 'F'ixture 'L'ist
+#define KExtWorkspace    ".qxw" // 'Q'LC+ 'X'ml 'W'orkspace
+#define KExtInputProfile ".qxi" // 'Q'LC+ 'X'ml 'I'nput profile
 #ifdef WIN32
 #   define KExtPlugin    ".dll" // Dynamic-Link Library
 #elif __APPLE__

@@ -184,12 +184,16 @@ private:
     /** Count the number of heads in the list of fixture items */
     int headCount(const QList <QTreeWidgetItem*>& items) const;
 
+    QString createDialog(bool import);
+
 private slots:
     void slotAdd();
     void slotRemove();
     void slotProperties();
     void slotUnGroup();
     void slotGroupSelected(QAction* action);
+    void slotImport();
+    void slotExport();
 
     /** Callback for right mouse button clicks over a fixture item */
     void slotContextMenuRequested(const QPoint& pos);
@@ -201,6 +205,8 @@ private:
     QAction* m_groupAction;
     QAction* m_unGroupAction;
     QAction* m_newGroupAction;
+    QAction* m_importAction;
+    QAction* m_exportAction;
     QMenu* m_groupMenu;
 };
 
