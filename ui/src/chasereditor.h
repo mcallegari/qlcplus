@@ -74,6 +74,7 @@ private slots:
     void slotRemoveClicked();
     void slotRaiseClicked();
     void slotLowerClicked();
+    void slotSpeedDialToggle(bool state);
     void slotItemSelectionChanged();
     void slotItemChanged(QTreeWidgetItem*,int);
 

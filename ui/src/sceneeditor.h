@@ -82,6 +82,7 @@ private slots:
     void slotPaste();
     void slotCopyToAll();
     void slotColorTool();
+    void slotSpeedDialToggle(bool state);
     void slotBlindToggled(bool state);
     void slotRecord();
     void slotChaserComboActivated(int index);
@@ -101,6 +102,7 @@ private:
     QAction* m_colorToolAction;
     QAction* m_blindAction;
     QAction* m_recordAction;
+    QAction* m_speedDialAction;
 
     QComboBox* m_chaserCombo;
 

@@ -172,7 +172,8 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc)
             this, SLOT(slotRaiseClicked()));
     connect(m_lower, SIGNAL(clicked()),
             this, SLOT(slotLowerClicked()));
-
+    connect(m_speeddial, SIGNAL(toggled(bool)),
+            this, SLOT(slotSpeedDialToggle(bool)));
     connect(m_fadeInCommonRadio, SIGNAL(toggled(bool)),
             this, SLOT(slotFadeInToggled()));
     connect(m_fadeInPerStepRadio, SIGNAL(toggled(bool)),
@@ -221,7 +222,7 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc)
 
     updateTree(true);
     updateClipboardButtons();
-    updateSpeedDials();
+    //updateSpeedDials();
 
     slotModeChanged(m_doc->mode());
 
@@ -424,6 +425,18 @@ void ChaserEditor::slotLowerClicked()
 
     updateClipboardButtons();
     printSteps();
+}
+
+void ChaserEditor::slotSpeedDialToggle(bool state)
+{
+    if (state == true)
+        updateSpeedDials();
+    else
+    {
+        if (m_speedDials != NULL)
+            delete m_speedDials;
+        m_speedDials = NULL;
+    }
 }
 
 void ChaserEditor::slotItemSelectionChanged()

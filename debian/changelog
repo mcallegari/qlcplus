@@ -1,6 +1,7 @@
 qlcplus (4.2.1) stable; urgency=low
 
   * Added fixtures list import/export feature to shorten the project creation
+  * Added toolbar icon to Scene Editor and Chaser Editor to Show/Hide Speed Dials window (default: hidden)
   * Added fixture: Showtec Phantom 50 (thanks to Petja Touru)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 31 Jan 2013 18:17:42 +0200

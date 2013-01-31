@@ -168,8 +168,13 @@ void SceneEditor::init(bool applyValues)
                                     tr("Color tool for CMY/RGB-capable fixtures"), this);
     m_blindAction = new QAction(QIcon(":/blind.png"),
                                 tr("Toggle blind mode"), this);
+    m_speedDialAction = new QAction(QIcon(":/speed.png"),
+                                    tr("Show/Hide speed dial window"), this);
     m_recordAction = new QAction(QIcon(":/record.png"),
                                  tr("Clone this scene and append as a new step to the selected chaser"), this);
+
+    // Speed Dial initial state
+    m_speedDialAction->setCheckable(true);
 
     // Blind initial state
     m_blindAction->setCheckable(true);
@@ -224,6 +229,8 @@ void SceneEditor::init(bool applyValues)
             this, SLOT(slotCopyToAll()));
     connect(m_colorToolAction, SIGNAL(triggered(bool)),
             this, SLOT(slotColorTool()));
+    connect(m_speedDialAction, SIGNAL(toggled(bool)),
+            this, SLOT(slotSpeedDialToggle(bool)));
     connect(m_blindAction, SIGNAL(toggled(bool)),
             this, SLOT(slotBlindToggled(bool)));
     connect(m_recordAction, SIGNAL(triggered(bool)),
@@ -244,6 +251,8 @@ void SceneEditor::init(bool applyValues)
     toolBar->addAction(m_copyToAllAction);
     toolBar->addSeparator();
     toolBar->addAction(m_colorToolAction);
+    toolBar->addSeparator();
+    toolBar->addAction(m_speedDialAction);
     toolBar->addSeparator();
     toolBar->addAction(m_blindAction);
     toolBar->addSeparator();
@@ -299,7 +308,7 @@ void SceneEditor::init(bool applyValues)
         qDebug() << "Applying fixture :" << scv.fxi << ", channel: " << scv.channel << ", value: " << scv.value;
     }
 
-    createSpeedDials();
+    //createSpeedDials();
 }
 
 void SceneEditor::setSceneValue(const SceneValue& scv)
@@ -475,6 +484,19 @@ void SceneEditor::slotColorTool()
             }
         }
     }
+}
+
+void SceneEditor::slotSpeedDialToggle(bool state)
+{
+    if (state == true)
+        createSpeedDials();
+    else
+    {
+        if (m_speedDials != NULL)
+            delete m_speedDials;
+        m_speedDials = NULL;
+    }
+
 }
 
 void SceneEditor::slotBlindToggled(bool state)
