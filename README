@@ -4,21 +4,22 @@ Copyright (c) Heikki Junnila
 	      Massimo Callegari
 
 EMail: massimocallegari@yahoo.it
-QLC+ at SourceForge: http://qlcplus.sourceforge.net/
+QLC+ on SourceForge: http://qlcplus.sourceforge.net/
+QLC+ on GitHub: https://github.com/mcallegari/qlcplus
 
 DEVELOPERS AT WORK
 ------------------
 
-If you're compiling QLC+ from sources and you regularly do "git pull" (or
-something similar) to get the latest sources, you probably end up seeing some
+If you're compiling QLC+ from sources and you regularly do "git pull" 
+to get the latest sources, you probably end up seeing some
 compiler warnings and errors from time to time. Since the whole source package
 is under development, you might even encounter unresolved symbols etc. that
 halt the compiler immediately. If such a thing occurs, you should do a "make
-distclean" in trunk (top-most source directory) and then "qmake" and "make"
-again. We attempt to keep the SVN head free of fatal errors and it should
+distclean" on qlcplus (top-most source directory) and then "qmake" and "make"
+again. We attempt to keep the GIT master free of fatal errors and it should
 compile all the time. However, some inter-object dependencies do get mixed up
 sometimes and you need to compile the whole package instead of just the latest
-changes. Sometimes even that doesn't work, because QLC installs its common
+changes. Sometimes even that doesn't work, because QLC+ installs its common
 libraries to system directories, where (at least unixes) fetch them instead
 of the source directory. In those cases, you might try going to the libs
 directory, compile it with "make" and install with "make install" and then
@@ -45,45 +46,48 @@ Requirements - Linux
 --------------------
 * Qt >= 4.6 development libraries & tools
 
-* Enttec DMX USB Output plugin: libftdi-dev, pkg-config
-* HID Input plugin: No additional requirements
-* MIDI Input plugin: libasound, libasound-dev, pkg-config
-* ENTTEC Wing Input plugin: No additional requirements
-* MIDI Output plugin: libasound, libasound-dev, pkg-config
-* OLA Output plugin: libola, ola-dev, pkg-config (see libs/olaout/README)
-* uDMX Output plugin: libusb, libusb-dev, pkg-config
-* Peperoni Output plugin: libusb, libusb-dev, pkg-config
-* Velleman Output: Not available for Linux
+* Enttec DMX USB plugin: libftdi-dev, pkg-config
+* HID plugin: No additional requirements
+* MIDI plugin: libasound, libasound-dev, pkg-config
+* ENTTEC Wing plugin: No additional requirements
+* OLA plugin: libola, ola-dev, pkg-config (see libs/olaout/README)
+* uDMX plugin: libusb, libusb-dev, pkg-config
+* Peperoni plugin: libusb, libusb-dev, pkg-config
+* Velleman plugin: Not available for Linux
+* OSC plugin: liblo-dev, pkg-config
+* ArtNet plugin: No additional requirements
 
 Requirements - Windows
 ----------------------
-* MinGW environment (ftp://ftp.trolltech.com/misc/MinGW-gcc440_1.zip)
+* MinGW / MSYS environment (http://sourceforge.net/projects/mingw/files/Installer/mingw-get-inst/)
 * Qt >= 4.6 (http://releases.qt-project.org/qt4/source/)
 
-* Enttec DMX USB Output plugin: No additional requirements
-* HID Input plugin: Not available
-* MIDI Input/Output plugin: No additional requirements
-* ENTTEC Wing Input plugin: D2XX driver & development package (http://www.ftdichip.com/Drivers/D2XX.htm)
-* OLA Output plugin: Not available for Windows
-* uDMX Output plugin: No additional requirements
-* Peperoni Output plugin: No additional requirements
-* Velleman Output: K8062 SDK from www.velleman.eu
+* Enttec DMX USB plugin: No additional requirements
+* HID plugin: Not available
+* MIDI plugin: No additional requirements
+* ENTTEC Wing plugin: D2XX driver & development package (http://www.ftdichip.com/Drivers/D2XX.htm)
+* OLA plugin: Not available for Windows
+* uDMX plugin: No additional requirements
+* Peperoni plugin: No additional requirements
+* Velleman plugin: K8062 SDK from www.velleman.eu
+* OSC plugin: liblo, pkg-config
+* ArtNet plugin: No additional requirements
 
 Requirements - Mac OS X
 -----------------------
 * XCode (http://developer.apple.com/technologies/tools/xcode.html)
 * Qt SDK >= 4.6 (http://qt.nokia.com/downloads/qt-for-open-source-cpp-development-on-mac-os-x)
 
-* Enttec DMX USB Output plugin: macports, libftdi-dev, pkg-config
-* HID Input plugin: Not available
-* MIDI Input plugin: No additional requirements
-* ENTTEC Wing Input plugin: No additional requirements
-* MIDI Output plugin: No additional requirements
-* OLA Output plugin: libola, ola-dev, pkg-config (see libs/olaout/README)
-* uDMX Output plugin: macports, libusb-compat, pkg-config
-* Peperoni Output plugin: macports, libusb-compat, pkg-config
-* Velleman Output: Not available for OSX
-
+* Enttec DMX USB plugin: macports, libftdi-dev, pkg-config
+* HID plugin: Not available
+* MIDI plugin: No additional requirements
+* ENTTEC Wing plugin: No additional requirements
+* OLA plugin: libola, ola-dev, pkg-config (see libs/olaout/README)
+* uDMX plugin: macports, libusb-compat, pkg-config
+* Peperoni plugin: macports, libusb-compat, pkg-config
+* Velleman plugin: Not available for OSX
+* OSC plugin: liblo, pkg-config
+* ArtNet plugin: No additional requirements
 
 Compiling & Installation
 ------------------------
@@ -102,16 +106,16 @@ and then (as administrator/root):
 
 Support & Bug Reports
 ---------------------
-In general, support requests and bug reports should be sent to 
-qlc-devel@lists.sf.net.
-
-For Wiki, bugs and other related information, go to
-http://sourceforge.net/apps/trac/qlc/ (->View Tickets)
-
+For Wiki, code and bugs, go to:
+https://github.com/mcallegari/qlcplus
+For discussions, feedbacks, ideas and new fixtures, go to:
+http://sourceforge.net/p/qlcplus/discussion/
 
 Contributors
 ------------
 QLC+:
+Jano Svitok (Bugfixes)
+Heiko Fanieng (German translation)
 Daniel Nyström (OSX test & support)
 
 QLC:

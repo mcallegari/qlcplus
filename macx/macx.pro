@@ -13,8 +13,8 @@ include(libqtxml-nametool.pri)
 include(libqtcore-nametool.pri)
 include(libqtnetwork-nametool.pri)
 include(libqtscript-nametool.pri)
-include(libqlcengine-nametool.pri)
-include(libqlcui-nametool.pri)
+include(libqlcplusengine-nametool.pri)
+include(libqlcplusui-nametool.pri)
 
 INSTALLS += LIBQLCENGINE_ID LIBQLCUI_ID
 INSTALLS += LIBUSB LIBUSB_ID
@@ -50,7 +50,7 @@ qtnametool.commands += && $$LIBUSB1_INSTALL_NAME_TOOL \
 qtnametool.commands += && $$LIBUSB1_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBUSB0_FILE
 
-# libqlcengine depends on libmad and sndfile
+# libqlcplusengine depends on libmad and sndfile
 qtnametool.commands += && $$LIBMAD_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBQLCENGINE_FILE
 qtnametool.commands += && $$LIBSNDFILE_INSTALL_NAME_TOOL \

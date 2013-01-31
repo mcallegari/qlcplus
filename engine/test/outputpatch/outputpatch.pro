@@ -12,7 +12,7 @@ INCLUDEPATH  += ../../../plugins/interfaces
 INCLUDEPATH  += ../../src
 INCLUDEPATH  += ../outputpluginstub
 QMAKE_LIBDIR += ../../src
-LIBS         += -lqlcengine
+LIBS         += -lqlcplusengine
 
 SOURCES += outputpatch_test.cpp
 HEADERS += outputpatch_test.h

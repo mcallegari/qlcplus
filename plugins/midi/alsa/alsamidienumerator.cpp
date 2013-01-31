@@ -74,7 +74,7 @@ void MidiEnumeratorPrivate::initAlsa()
     /* Set current client information */
     snd_seq_client_info_t* client = NULL;
     snd_seq_client_info_alloca(&client);
-    snd_seq_set_client_name(m_alsa, "qlc");
+    snd_seq_set_client_name(m_alsa, "qlcplus");
     snd_seq_get_client_info(m_alsa, client);
 
     /* Create an application-level port */

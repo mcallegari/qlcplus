@@ -4,8 +4,8 @@
         hints="QT,QLC+"\
         title="Q Light Controller Plus"\
         longtitle="Q Light Controller Plus"\
-        icon="/usr/share/pixmaps/qlc.png"\
-        command="/usr/bin/qlc"
+        icon="/usr/share/pixmaps/qlcplus.png"\
+        command="/usr/bin/qlcplus"
 
 ?package(qlcplus):\
         needs="x11"\
@@ -13,5 +13,5 @@
         hints="QT,QLC+"\
         title="QLC Plus Fixture Editor"\
         longtitle="QLC Plus Device Class Editor"\
-        icon="/usr/share/pixmaps/qlc-fixtureeditor.png"\
-        command="/usr/bin/qlc-fixtureeditor"
+        icon="/usr/share/pixmaps/qlcplus-fixtureeditor.png"\
+        command="/usr/bin/qlcplus-fixtureeditor"

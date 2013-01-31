@@ -27,21 +27,21 @@ features.
 
 <P>
 Script files should be named after the script's name and must have a <B>.js</B> extension.
-Depending on platform, the files should be placed either in the QLC system script directory
+Depending on platform, the files should be placed either in the QLC+ system script directory
 or, preferably, the user script directory:
 <UL>
- <LI><B>Linux user dir:</B> ~/.qlc/rgbscripts/</LI>
- <LI><B>Linux system dir:</B> /usr/share/qlc/rgbscripts/</LI>
+ <LI><B>Linux user dir:</B> ~/.qlcplus/rgbscripts/</LI>
+ <LI><B>Linux system dir:</B> /usr/share/qlcplus/rgbscripts/</LI>
 </UL>
 
 <UL>
- <LI><B>OSX user dir:</B> ~/Library/Application Support/QLC/RGBScripts</LI>
- <LI><B>OSX system dir:</B> /Applications/QLC.app/Contents/Resources/RGBScripts</LI>
+ <LI><B>OSX user dir:</B> ~/Library/Application Support/QLC+/RGBScripts</LI>
+ <LI><B>OSX system dir:</B> /Applications/QLC+.app/Contents/Resources/RGBScripts</LI>
 </UL>
 
 <UL>
  <LI><B>Windows user dir:</B> Not applicable</LI>
- <LI><B>Windows system dir:</B> C:\QLC\RGBScripts</LI>
+ <LI><B>Windows system dir:</B> C:\QLC+\RGBScripts</LI>
 </UL>
 
 <H1>RGB Script API</H1>
@@ -71,7 +71,7 @@ the required API functions:
 <P>
 However, a script with nothing more than an empty object does nothing, no matter how
 self-executing it might be. You must also declare some <B>properties</B> for the returned
-object so that QLC knows how to use the script and to show it to the user (you). So, you need
+object so that QLC+ knows how to use the script and to show it to the user (you). So, you need
 to declare the following properties for the returned script object:
 </P>
 <UL>
@@ -116,7 +116,7 @@ color or direction) thus invalidating any cached values.
 
 <H3>rgbMapStepCount(width, height)</H3>
 <P>
-When QLC calls this function, it wants to know the number of different RGB maps returned
+When QLC+ calls this function, it wants to know the number of different RGB maps returned
 by the rgbMap() function, when the RGB matrix size is <B>width</B> times <B>height</B>
 pixels. It must always return the same result when called with the same <B>width</B> and
 <B>height</B> parameters again and the result must not change over time.
@@ -217,13 +217,13 @@ full and ready template for any RGB script for your indulgence.
 <H2>Development Tool</H2>
 
 <P>
-There is a development tool available in the QLC source repository that makes it easier
+There is a development tool available in the QLC+ source repository that makes it easier
 to debug & test your custom scripts with a web browser. To use the tool, you must download
 the following two files to a directory on your hard disk, open the <B>devtool.html</B>
 file with your browser and follow its instructions:
 <UL>
- <LI><A HREF="http://qlc.svn.sourceforge.net/viewvc/qlc/trunk/rgbscripts/devtool.html">devtool.html</A></LI>
- <LI><A HREF="http://qlc.svn.sourceforge.net/viewvc/qlc/trunk/rgbscripts/devtool.js">devtool.js</A></LI>
+ <LI><A HREF="https://raw.github.com/mcallegari/qlcplus/master/rgbscripts/devtool.html">devtool.html</A></LI>
+ <LI><A HREF="https://raw.github.com/mcallegari/qlcplus/master/rgbscripts/devtool.js">devtool.js</A></LI>
 </UL>
 (Right-click and "Copy Link Location" works probably best)
 </P>

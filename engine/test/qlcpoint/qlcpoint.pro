@@ -11,7 +11,7 @@ DEPENDPATH   += ../../src
 INCLUDEPATH  += ../../../plugins/interfaces
 INCLUDEPATH  += ../../src
 QMAKE_LIBDIR += ../../src
-LIBS         += -lqlcengine
+LIBS         += -lqlcplusengine
 
 SOURCES += qlcpoint_test.cpp
 HEADERS += qlcpoint_test.h

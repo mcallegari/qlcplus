@@ -165,7 +165,7 @@ QStringList OSCPlugin::inputs()
 {
     QStringList list;
     for (int i = 0; i < OSC_INPUTS; i++)
-        list << QString("1: OSC Network %1").arg(i + 1);
+        list << QString("%1: OSC Network %1").arg(i + 1);
     return list;
 }
 
@@ -230,7 +230,8 @@ QString OSCPlugin::getPort(int num)
 
 void OSCPlugin::setPort(int num, QString port)
 {
-	qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO;
+
     if (num >= OSC_INPUTS)
         return;
 
@@ -240,10 +241,10 @@ void OSCPlugin::setPort(int num, QString port)
     settings.setValue(key, QVariant(port));
 
     if (port != m_ports[num])
-	{
+    {
         m_ports[num] = port;
         openInput(num);
-	}
+    }
 }
 
 /*****************************************************************************

@@ -94,6 +94,8 @@ void Doc::clearContents()
     while (funcit.hasNext() == true)
     {
         Function* func = m_functions.take(funcit.next());
+        if (func == NULL)
+            continue;
         emit functionRemoved(func->id());
         delete func;
     }

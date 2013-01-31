@@ -12,7 +12,7 @@ INCLUDEPATH  += ../../../plugins/interfaces
 INCLUDEPATH  += ../../src
 INCLUDEPATH  += ../mastertimer
 QMAKE_LIBDIR += ../../src
-LIBS         += -lqlcengine
+LIBS         += -lqlcplusengine
 
 SOURCES += collection_test.cpp ../mastertimer/mastertimer_stub.cpp
 HEADERS += collection_test.h ../mastertimer/mastertimer_stub.h

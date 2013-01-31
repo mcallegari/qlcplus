@@ -6,22 +6,22 @@
     <message>
         <location filename="configurehid.ui" line="14"/>
         <source>Configure HID Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>HID-Plugin konfigurieren</translation>
     </message>
     <message>
         <location filename="configurehid.ui" line="33"/>
         <source>Input Line</source>
-        <translation type="unfinished">Eingangslinie</translation>
+        <translation>Eingangslinie</translation>
     </message>
     <message>
         <location filename="configurehid.ui" line="38"/>
         <source>Name</source>
-        <translation type="unfinished">Name</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="configurehid.ui" line="46"/>
         <source>Refresh</source>
-        <translation type="unfinished">Aktualisieren</translation>
+        <translation>Aktualisieren</translation>
     </message>
 </context>
 <context>
@@ -29,7 +29,7 @@
     <message>
         <location filename="hid.cpp" line="143"/>
         <source>This plugin provides input support for HID-based joysticks.</source>
-        <translation type="unfinished">Dieses Plugin bietet Eingangsunterstützung für HID-basiernde Joysticks.</translation>
+        <translation>Dieses Plugin bietet Eingangsunterstützung für HID-basiernde Joysticks.</translation>
     </message>
 </context>
 <context>

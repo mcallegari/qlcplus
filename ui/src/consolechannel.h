@@ -49,7 +49,8 @@ class ConsoleChannel : public QGroupBox
      * Initialization
      *************************************************************************/
 public:
-    ConsoleChannel(QWidget *parent, Doc* doc, quint32 fixture, quint32 channel);
+    ConsoleChannel(QWidget *parent, Doc* doc, quint32 fixture, quint32 channel, bool isCheckable = true);
+
     ~ConsoleChannel();
 
 private:
@@ -93,7 +94,7 @@ signals:
      *************************************************************************/
 public:
     /** Set the channel's current value */
-    void setValue(uchar value);
+    void setValue(uchar value, bool apply = true);
 
     /** Get the channel's current value */
     uchar value() const;

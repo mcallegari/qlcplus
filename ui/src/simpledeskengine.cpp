@@ -114,9 +114,17 @@ Cue SimpleDeskEngine::cue() const
     return Cue(m_values);
 }
 
-void SimpleDeskEngine::resetUniverse()
+void SimpleDeskEngine::resetUniverse(int universe)
 {
+    Q_UNUSED(universe)
     qDebug() << Q_FUNC_INFO;
+
+    /*
+    // for some reason this doesn't work. Probably there are too many
+    //   asynchronous events that will write the "old" values back
+    for (int i = 0; i < 512; i++)
+        m_values.remove((universe * 512) + i)
+    */
     m_values.clear();
 }
 

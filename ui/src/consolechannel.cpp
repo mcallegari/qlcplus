@@ -45,7 +45,7 @@
  * Initialization
  *****************************************************************************/
 
-ConsoleChannel::ConsoleChannel(QWidget* parent, Doc* doc, quint32 fixture, quint32 channel)
+ConsoleChannel::ConsoleChannel(QWidget* parent, Doc* doc, quint32 fixture, quint32 channel, bool isCheckable)
     : QGroupBox(parent)
     , m_doc(doc)
     , m_fixture(fixture)
@@ -58,9 +58,11 @@ ConsoleChannel::ConsoleChannel(QWidget* parent, Doc* doc, quint32 fixture, quint
     , m_menu(NULL)
 {
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(fixture != Fixture::invalidId());
+    //Q_ASSERT(fixture != Fixture::invalidId());
     Q_ASSERT(channel != QLCChannel::invalid());
 
+    if (isCheckable == true)
+        setCheckable(true);
     init();
     setStyle(AppUtil::saneStyle());
 }
@@ -71,17 +73,15 @@ ConsoleChannel::~ConsoleChannel()
 
 void ConsoleChannel::init()
 {
-    setCheckable(true);
-
     Fixture* fxi = m_doc->fixture(m_fixture);
-    Q_ASSERT(fxi != NULL);
+    //Q_ASSERT(fxi != NULL);
 
     new QVBoxLayout(this);
-    layout()->setSpacing(2);
-    layout()->setContentsMargins(2, 2, 2, 2);
+    layout()->setSpacing(0);
+    layout()->setContentsMargins(0, 2, 0, 2);
 
-    /* Create a preset button only if its menu has sophisticated contents */
-    if (fxi->fixtureDef() != NULL && fxi->fixtureMode() != NULL)
+    /* Create a menu only if channel has sophisticated contents */
+    if (fxi != NULL && fxi->fixtureDef() != NULL && fxi->fixtureMode() != NULL)
     {
         m_presetButton = new QToolButton(this);
         m_presetButton->setStyle(AppUtil::saneStyle());
@@ -97,6 +97,7 @@ void ConsoleChannel::init()
     m_spin = new QSpinBox(this);
     m_spin->setRange(0, UCHAR_MAX);
     m_spin->setValue(0);
+    m_spin->setMinimumWidth(38);
     m_spin->setButtonSymbols(QAbstractSpinBox::NoButtons);
     layout()->addWidget(m_spin);
     m_spin->setAlignment(Qt::AlignCenter);
@@ -114,12 +115,13 @@ void ConsoleChannel::init()
 
     /* Channel number label */
     m_label = new QLabel(this);
+    m_label->setMinimumWidth(38);
     layout()->addWidget(m_label);
     m_label->setAlignment(Qt::AlignCenter);
     m_label->setText(QString::number(m_channel + 1));
 
     /* Set tooltip */
-    if (fxi->isDimmer() == true)
+    if (fxi == NULL || fxi->isDimmer() == true)
     {
         setToolTip(tr("Intensity"));
     }
@@ -175,9 +177,13 @@ void ConsoleChannel::slotInputValueChanged(quint32 channel, uchar value)
  * Value
  *****************************************************************************/
 
-void ConsoleChannel::setValue(uchar value)
+void ConsoleChannel::setValue(uchar value, bool apply)
 {
+    if (apply == false)
+        disconnect(m_slider, SIGNAL(valueChanged(int)), this, SLOT(slotSliderChanged(int)));
     m_slider->setValue(int(value));
+    if (apply == false)
+        connect(m_slider, SIGNAL(valueChanged(int)), this, SLOT(slotSliderChanged(int)));
 }
 
 uchar ConsoleChannel::value() const

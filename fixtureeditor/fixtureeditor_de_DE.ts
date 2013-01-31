@@ -16,7 +16,7 @@
     <message>
         <location filename="../ui/src/aboutbox.ui" line="116"/>
         <source>This application is licensed under the terms of GNU GPL version 2.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese Applikation ist under den Bedingungen der GNU GPL Version 2 lizensiert.</translation>
     </message>
     <message>
         <location filename="../ui/src/aboutbox.ui" line="126"/>
@@ -87,7 +87,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="app.cpp" line="115"/>
         <source>Unrecognized file extension: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Unbekannte Dateinamenerweiterung: %1</translation>
     </message>
     <message>
         <location filename="app.cpp" line="139"/>
@@ -285,7 +285,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../ui/src/docbrowser.cpp" line="119"/>
         <source>About Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>Über Qt</translation>
     </message>
 </context>
 <context>
@@ -331,7 +331,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editchannel.ui" line="27"/>
         <source>The name of this channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanalname</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="34"/>
@@ -341,7 +341,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editchannel.ui" line="41"/>
         <source>The group this channel belongs to</source>
-        <translation type="unfinished"></translation>
+        <translation>Gruppenzugehörigkeit dieses Kanals</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="48"/>
@@ -393,17 +393,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editchannel.ui" line="122"/>
         <source>Add a new capability</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Eigenschaft hinzufügen</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="142"/>
         <source>Remove the selected capability</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewählte Eigenschaft entfernen</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="162"/>
         <source>Edit the selected capability</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewählte Eigenschaft bearbeiten</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="195"/>
@@ -434,17 +434,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="edithead.ui" line="14"/>
         <source>Edit Head</source>
-        <translation type="unfinished"></translation>
+        <translation>Head bearbeiten</translation>
     </message>
     <message>
         <location filename="edithead.ui" line="33"/>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal</translation>
     </message>
     <message>
         <location filename="edithead.ui" line="38"/>
         <source>Name</source>
-        <translation type="unfinished">Name</translation>
+        <translation>Name</translation>
     </message>
 </context>
 <context>
@@ -479,62 +479,62 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editmode.ui" line="66"/>
         <source>Add channel(s) to this mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal/Kanäle zum Modus hinzufügen</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="86"/>
         <source>Remove the selected channel</source>
-        <translation type="unfinished">Ausgewählten Kanal entfernen</translation>
+        <translation>Ausgewählten Kanal entfernen</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="106"/>
         <source>Raise the selected channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewählten Kanal nach oben verschieben</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="126"/>
         <source>Lower the selected channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewählten Kanal nach unten verschieben</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="160"/>
         <source>Heads</source>
-        <translation type="unfinished"></translation>
+        <translation>Heads</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="173"/>
         <source>Head</source>
-        <translation type="unfinished"></translation>
+        <translation>Head</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="181"/>
         <source>Compose a new head</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuen Head erstellen</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="201"/>
         <source>Remove the selected head</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewählten Head entfernen</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="221"/>
         <source>Edit the channels that belong to the selected head</source>
-        <translation type="unfinished"></translation>
+        <translation>Zugewiesene Kanäle des ausgewählten Heads bearbeiten</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="224"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="241"/>
         <source>Raise the selected head</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewählten Head nach oben verschieben</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="261"/>
         <source>Lower the selected head</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewählten Head nach unten verschieben</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="295"/>
@@ -560,7 +560,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editmode.ui" line="504"/>
         <source>Colour Temp (K)</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbtemperatur</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="518"/>
@@ -707,7 +707,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editmode.ui" line="834"/>
         <source>Electrical</source>
-        <translation type="unfinished"></translation>
+        <translation>Anschlussdaten</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="840"/>
@@ -796,7 +796,7 @@ p, li { white-space: pre-wrap; }
         <location filename="fixtureeditor.ui" line="163"/>
         <source>The name of the author of this fixture definition</source>
         <oldsource>The author name of this fixture definition</oldsource>
-        <translation type="unfinished">Der Name des Autors dieser Gerätedefinition</translation>
+        <translation>Der Name des Autors dieser Gerätedefinition</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="184"/>
@@ -853,7 +853,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="fixtureeditor.ui" line="389"/>
         <source>Heads</source>
-        <translation type="unfinished"></translation>
+        <translation>Heads</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="397"/>
@@ -965,7 +965,7 @@ Kann Gerät nicht speichern.</translation>
     <message>
         <location filename="fixtureeditor.cpp" line="455"/>
         <source>Are you sure you wish to remove channel: %1</source>
-        <translation>Bist du dir sicher, dass du den Kanal %1 entfernen möchtest?</translation>
+        <translation>Bist du dir sicher, dass du den Kanal %1 entfernen möchtest</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="584"/>
@@ -1022,7 +1022,7 @@ Kann Gerät nicht speichern.</translation>
     <message>
         <location filename="fixtureeditor.cpp" line="730"/>
         <source>Are you sure you wish to remove mode: %1</source>
-        <translation>Bist du dir sicher, dass du den Modus %1 entfernen möchtest?</translation>
+        <translation>Bist du dir sicher, dass du den Modus %1 entfernen möchtest</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="770"/>

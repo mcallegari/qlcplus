@@ -2997,7 +2997,7 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="monitor.cpp" line="225"/>
         <source>Font</source>
-        <translation>Fonte</translation>
+        <translation>Font</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="234"/>

@@ -286,19 +286,23 @@ void ShowManager::showSceneEditor(Scene *scene)
 {
     if (m_scene_editor != NULL)
     {
+        emit functionManagerActive(false);
         m_splitter->widget(1)->layout()->removeWidget(m_scene_editor);
         m_scene_editor->deleteLater();
         m_scene_editor = NULL;
     }
 
-    m_scene_editor = new SceneEditor(m_splitter->widget(1), scene, m_doc, false);
-    if (m_scene_editor != NULL)
+    if (this->isVisible())
     {
-        connect(this, SIGNAL(functionManagerActive(bool)),
+        m_scene_editor = new SceneEditor(m_splitter->widget(1), scene, m_doc, false);
+        if (m_scene_editor != NULL)
+        {
+            m_splitter->widget(1)->layout()->addWidget(m_scene_editor);
+            m_splitter->widget(1)->show();
+            //m_scene_editor->show();
+            connect(this, SIGNAL(functionManagerActive(bool)),
                     m_scene_editor, SLOT(slotFunctionManagerActive(bool)));
-        m_splitter->widget(1)->layout()->addWidget(m_scene_editor);
-        m_splitter->widget(1)->show();
-        m_scene_editor->show();
+        }
     }
 }
 
@@ -314,18 +318,21 @@ void ShowManager::showSequenceEditor(Chaser *chaser)
     if (chaser == NULL)
         return;
 
-    m_sequence_editor = new ChaserEditor(m_vsplitter->widget(1), chaser, m_doc);
-    if (m_sequence_editor != NULL)
+    if (this->isVisible())
     {
-        m_vsplitter->widget(1)->layout()->addWidget(m_sequence_editor);
-        /** Signal from chaser editor to scene editor. When a step is clicked apply values immediately */
-        connect(m_sequence_editor, SIGNAL(applyValues(QList<SceneValue>&)),
-                m_scene_editor, SLOT(slotSetSceneValues(QList <SceneValue>&)));
-        /** Signal from scene editor to chaser editor. When a fixture value is changed, update the selected chaser step */
-        connect(m_scene_editor, SIGNAL(fixtureValueChanged(SceneValue)),
-                m_sequence_editor, SLOT(slotUpdateCurrentStep(SceneValue)));
-        m_vsplitter->widget(1)->show();
-        m_sequence_editor->show();
+        m_sequence_editor = new ChaserEditor(m_vsplitter->widget(1), chaser, m_doc);
+        if (m_sequence_editor != NULL)
+        {
+            m_vsplitter->widget(1)->layout()->addWidget(m_sequence_editor);
+            /** Signal from chaser editor to scene editor. When a step is clicked apply values immediately */
+            connect(m_sequence_editor, SIGNAL(applyValues(QList<SceneValue>&)),
+                    m_scene_editor, SLOT(slotSetSceneValues(QList <SceneValue>&)));
+            /** Signal from scene editor to chaser editor. When a fixture value is changed, update the selected chaser step */
+            connect(m_scene_editor, SIGNAL(fixtureValueChanged(SceneValue)),
+                    m_sequence_editor, SLOT(slotUpdateCurrentStep(SceneValue)));
+            m_vsplitter->widget(1)->show();
+            m_sequence_editor->show();
+        }
     }
 }
 
@@ -708,6 +715,7 @@ void ShowManager::slotDocClearing()
 
     if (m_scene_editor != NULL)
     {
+        emit functionManagerActive(false);
         m_splitter->widget(1)->layout()->removeWidget(m_scene_editor);
         m_scene_editor->deleteLater();
         m_scene_editor = NULL;
@@ -849,7 +857,19 @@ void ShowManager::hideEvent(QHideEvent* ev)
     emit functionManagerActive(false);
     QWidget::hideEvent(ev);
     
+    if (m_sequence_editor != NULL)
+    {
+        m_vsplitter->widget(1)->layout()->removeWidget(m_sequence_editor);
+        m_vsplitter->widget(1)->hide();
+        m_sequence_editor->deleteLater();
+        m_sequence_editor = NULL;
+    }
+
     if (m_scene_editor != NULL)
+    {
+        m_splitter->widget(1)->layout()->removeWidget(m_scene_editor);
+        m_splitter->widget(1)->hide();
         m_scene_editor->deleteLater();
-    m_scene_editor = NULL;
+        m_scene_editor = NULL;
+    }
 }

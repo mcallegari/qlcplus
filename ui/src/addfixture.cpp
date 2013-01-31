@@ -336,19 +336,19 @@ quint32 AddFixture::findAddress(quint32 universe, quint32 numChannels,
             continue;
 
         for (quint32 ch = 0; ch < fxi->channels(); ch++)
-            map[fxi->universeAddress() + ch] = 1;
+            map[(fxi->universeAddress() & 0x01FF) + ch] = 1;
     }
 
     /* Try to find the next contiguous free address space */
-    for (quint32 ch = 0; ch < maxChannels; ch++)
+    for (quint32 addr = 0; addr < maxChannels; addr++)
     {
-        if (map[ch] == 0)
+        if (map[addr] == 0)
             freeSpace++;
         else
             freeSpace = 0;
 
         if (freeSpace == numChannels)
-            return (ch - freeSpace + 1) | (universe << 9);
+            return (addr - freeSpace + 1) | (universe << 9);
     }
 
     return QLCChannel::invalid();
@@ -398,6 +398,12 @@ void AddFixture::slotUniverseActivated(int universe)
 
     /* Adjust the available address range */
     slotChannelsChanged(m_channelsValue);
+
+    quint32 addr = findAddress(universe, m_channelsSpin->value(), m_doc->fixtures());
+    if (addr != QLCChannel::invalid())
+        m_addressSpin->setValue((addr & 0x01FF) + 1);
+    else
+        m_addressSpin->setValue(1);
 }
 
 void AddFixture::slotAddressChanged(int value)
@@ -540,6 +546,13 @@ void AddFixture::slotSelectionChanged()
     m_multipleGroup->setEnabled(true);
     m_amountSpin->setEnabled(true);
     m_gapSpin->setEnabled(true);
+
+    /* Recalculate the first available address for the newly selected fixture */
+    quint32 addr = findAddress(m_universeValue, m_channelsSpin->value(), m_doc->fixtures());
+    if (addr != QLCChannel::invalid())
+        m_addressSpin->setValue((addr & 0x01FF) + 1);
+    else
+        m_addressSpin->setValue(1);
 
     /* OK is again possible */
     m_buttonBox->setStandardButtons(QDialogButtonBox::Ok |

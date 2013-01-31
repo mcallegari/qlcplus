@@ -34,14 +34,15 @@ class GrandMasterSlider;
 class SimpleDeskEngine;
 class SpeedDialWidget;
 class PlaybackSlider;
+class ConsoleChannel;
 class QDomDocument;
 class QDomElement;
 class QToolButton;
 class SimpleDesk;
+class QComboBox;
 class QGroupBox;
 class QTreeView;
 class QSplitter;
-class DMXSlider;
 class QSpinBox;
 class CueStack;
 class Doc;
@@ -85,30 +86,40 @@ private:
      * Universe controls
      *********************************************************************/
 private:
+    void initUniversesCombo();
     void initUniverseSliders();
     void initUniversePager();
     void resetUniverseSliders();
-    void setChannelName(DMXSlider* slider, uint absch);
 
 private slots:
+    void slotUniversesComboChanged(int index);
     void slotUniversePageUpClicked();
     void slotUniversePageDownClicked();
     void slotUniversePageChanged(int page);
     void slotUniverseResetClicked();
-    void slotUniverseSliderValueChanged(uchar value);
+    void slotUniverseSliderValueChanged(quint32, quint32, uchar value);
     void slotUpdateUniverseSliders();
+    void slotUniversesWritten(const QByteArray& ua);
 
 private:
     QGroupBox* m_universeGroup;
+    QComboBox* m_universesCombo;
     QToolButton* m_universePageUpButton;
     QSpinBox* m_universePageSpin;
     QToolButton* m_universePageDownButton;
     QToolButton* m_universeResetButton;
     GrandMasterSlider* m_grandMasterSlider;
 
-    QList <DMXSlider*> m_universeSliders;
+    QList <ConsoleChannel*> m_universeSliders;
+
+    /** Currently selected universe. Basically the index of m_universesCombo */
+    int m_currentUniverse;
+
+    /** Define how many sliders will be displayed for each page */
     uint m_channelsPerPage;
-    bool m_showChannelNames;
+
+    /** A list to remember the selected page of each universe */
+    QList<int> m_universesPage;
 
     /*********************************************************************
      * Playback sliders

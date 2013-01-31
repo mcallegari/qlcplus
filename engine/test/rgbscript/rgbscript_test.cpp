@@ -49,18 +49,18 @@ void RGBScript_Test::directories()
 #elif WIN32
     QVERIFY(dir.path().endsWith("RGBScripts"));
 #else
-    QVERIFY(dir.path().endsWith("qlc/rgbscripts"));
+    QVERIFY(dir.path().endsWith("qlcplus/rgbscripts"));
 #endif
 
     dir = RGBScript::userScriptDirectory();
     QCOMPARE(dir.filter(), QDir::Files);
     QCOMPARE(dir.nameFilters(), QStringList() << QString("*.js"));
 #ifdef __APPLE__
-    QVERIFY(dir.path().endsWith("Library/Application Support/QLC/RGBScripts"));
+    QVERIFY(dir.path().endsWith("Library/Application Support/QLC+/RGBScripts"));
 #elif WIN32
     QVERIFY(dir.path().endsWith("RGBScripts"));
 #else
-    QVERIFY(dir.path().endsWith(".qlc/rgbscripts"));
+    QVERIFY(dir.path().endsWith(".qlcplus/rgbscripts"));
 #endif
 
     dir = RGBScript::customScriptDirectory();

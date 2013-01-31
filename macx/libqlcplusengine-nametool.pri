@@ -1,8 +1,8 @@
-LIBQLCENGINE_FILE = libqlcengine.1.dylib
+LIBQLCENGINE_FILE = libqlcplusengine.1.dylib
 LIBQLCENGINE_INSTALL_NAME_TOOL = install_name_tool -change $$LIBQLCENGINE_FILE \
             @executable_path/../$$LIBSDIR/$$LIBQLCENGINE_FILE
 
-contains(LIBS, -lqlcengine) {
+contains(LIBS, -lqlcplusengine) {
     !isEmpty(nametool.commands) {
         nametool.commands += "&&"
     }

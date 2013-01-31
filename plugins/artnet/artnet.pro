@@ -4,12 +4,12 @@ TEMPLATE = lib
 LANGUAGE = C++
 TARGET   = artnet
 
+QT      += network
+
 CONFIG      += plugin
-CONFIG      += link_pkgconfig
 INCLUDEPATH += ../interfaces
 DEPENDPATH  += ../interfaces
 
-PKGCONFIG += libartnet
 win32:QMAKE_LFLAGS += -shared
 
 # This must be after "TARGET = " and before target installation so that
@@ -26,8 +26,14 @@ TRANSLATIONS += ArtNet_fr_FR.ts
 TRANSLATIONS += ArtNet_it_IT.ts
 
 HEADERS += ../interfaces/qlcioplugin.h
-HEADERS += artnetplugin.h
+HEADERS += artnetpacketizer.h \
+           artnetcontroller.h \
+           artnetplugin.h \
+           configureartnet.h
 
-#FORMS += configureartnet.ui
+FORMS += configureartnet.ui
 
-SOURCES += artnetplugin.cpp
+SOURCES += artnetpacketizer.cpp \
+           artnetcontroller.cpp \
+           artnetplugin.cpp \
+           configureartnet.cpp

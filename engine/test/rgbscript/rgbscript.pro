@@ -12,7 +12,7 @@ INCLUDEPATH  += ../../../plugins/interfaces
 INCLUDEPATH  += ../mastertimer
 INCLUDEPATH  += ../../src
 QMAKE_LIBDIR += ../../src
-LIBS         += -lqlcengine
+LIBS         += -lqlcplusengine
 
 SOURCES += rgbscript_test.cpp
 HEADERS += rgbscript_test.h

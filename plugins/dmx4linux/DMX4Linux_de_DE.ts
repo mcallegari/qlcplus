@@ -6,7 +6,7 @@
     <message>
         <location filename="dmx4linux.cpp" line="100"/>
         <source>This plugin provides DMX output for devices supported by the DMX4Linux driver suite.</source>
-        <translation type="unfinished">Dieses Plugin bietet DMX-Output für Geräte welche von dem DMX4Linux Treiber unterstützt werden.</translation>
+        <translation>Dieses Plugin bietet DMX-Output für Geräte welche von dem DMX4Linux Treiber unterstützt werden.</translation>
     </message>
 </context>
 </TS>

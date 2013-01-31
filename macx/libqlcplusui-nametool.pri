@@ -1,8 +1,8 @@
-LIBQLCUI_FILE = libqlcui.1.dylib
+LIBQLCUI_FILE = libqlcplusui.1.dylib
 LIBQLCUI_INSTALL_NAME_TOOL = install_name_tool -change $$LIBQLCUI_FILE \
             @executable_path/../$$LIBSDIR/$$LIBQLCUI_FILE
 
-contains(LIBS, -lqlcui) {
+contains(LIBS, -lqlcplusui) {
     !isEmpty(nametool.commands) {
         nametool.commands += "&&"
     }

@@ -6,15 +6,15 @@ TARGET   = icons
 # Linux
 unix:!macx {
     desktop.path   = $$INSTALLROOT/share/applications/
-    desktop.files += qlc.desktop qlc-fixtureeditor.desktop
+    desktop.files += qlcplus.desktop qlcplus-fixtureeditor.desktop
     INSTALLS      += desktop
 
     icons.path   = $$INSTALLROOT/share/pixmaps/
-    icons.files += ../gfx/qlc.png ../gfx/qlc-fixtureeditor.png
+    icons.files += ../gfx/qlcplus.png ../gfx/qlcplus-fixtureeditor.png
     INSTALLS    += icons
 
     mime.path   = $$INSTALLROOT/share/mime/packages
-    mime.files += qlc.xml
+    mime.files += qlcplus.xml
     INSTALLS   += mime
 
     # This is nowadays run by dpkg (TODO: rpm)
@@ -27,7 +27,7 @@ unix:!macx {
 # Mac OSX
 macx {
     icons.path   = $$INSTALLROOT/$$DATADIR
-    icons.files += ../gfx/qlc.icns
+    icons.files += ../gfx/qlcplus.icns
 
     plist.path   = $$INSTALLROOT
     plist.files += Info.plist
@@ -71,7 +71,7 @@ win32 {
 
     # NullSoft installer files
     nsis.path  = $$INSTALLROOT/$$DATADIR
-    nsis.files = qlc.nsi
+    nsis.files = qlcplus.nsi
     INSTALLS  += nsis
 }
 

@@ -90,7 +90,7 @@ void QLCChannel_Test::colourList()
 {
     QStringList list(QLCChannel::colourList());
 
-    QVERIFY(list.size() == 7);
+    QVERIFY(list.size() == 8);
     QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::NoColour)));
     QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::Red)));
     QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::Green)));
@@ -98,6 +98,7 @@ void QLCChannel_Test::colourList()
     QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::Cyan)));
     QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::Magenta)));
     QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::Yellow)));
+    QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::White)));
 }
 
 void QLCChannel_Test::colour()

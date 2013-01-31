@@ -7,33 +7,33 @@
         <location filename="enttecdmxusb.cpp" line="139"/>
         <source>and compatible devices.</source>
         <oldsource>No devices available.</oldsource>
-        <translation type="unfinished">Keine Geräte verfügbar.</translation>
+        <translation>Keine Geräte verfügbar.</translation>
     </message>
     <message>
         <location filename="enttecdmxusb.cpp" line="155"/>
         <source>Make sure that you have your hardware firmly plugged in. NOTE: FTDI VCP interface is not supported by this plugin.</source>
-        <translation type="unfinished">Stellen Sie sicher, dass Sie Ihre Hardware fest eingesteckt haben. FTDI VCP Schnittstelle ist nicht durch dieses Plugin unterstützt.</translation>
+        <translation>Stellen Sie sicher, dass Sie Ihre Hardware fest eingesteckt haben. FTDI VCP Schnittstelle ist nicht durch dieses Plugin unterstützt.</translation>
     </message>
     <message>
         <location filename="enttecdmxusb.cpp" line="136"/>
         <source>This plugin provides DMX output support for</source>
-        <translation type="unfinished">Dieses Plugin bietet DMX-Ausgabesupport für</translation>
+        <translation>Dieses Plugin bietet DMX-Ausgabesupport für</translation>
     </message>
     <message>
         <location filename="enttecdmxusb.cpp" line="153"/>
         <source>No output support available.</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Ausgabeunterstützung verfügbar.</translation>
     </message>
     <message>
         <location filename="enttecdmxusb.cpp" line="164"/>
         <location filename="enttecdmxusb.cpp" line="231"/>
         <source>Device is operating correctly.</source>
-        <translation type="unfinished">Gerät ist funktionsfähig.</translation>
+        <translation>Gerät ist funktionsfähig.</translation>
     </message>
     <message>
         <location filename="enttecdmxusb.cpp" line="218"/>
         <source>No input support available.</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Eingabeunterstützung verfügbar.</translation>
     </message>
 </context>
 <context>
@@ -41,22 +41,22 @@
     <message>
         <location filename="enttecdmxusbconfig.cpp" line="46"/>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualisieren</translation>
     </message>
     <message>
         <location filename="enttecdmxusbconfig.cpp" line="47"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Schliessen</translation>
     </message>
     <message>
         <location filename="enttecdmxusbconfig.cpp" line="55"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="enttecdmxusbconfig.cpp" line="55"/>
         <source>Serial</source>
-        <translation type="unfinished"></translation>
+        <translation>Seriennummer</translation>
     </message>
 </context>
 <context>
@@ -64,7 +64,7 @@
     <message>
         <location filename="enttecdmxusbopen.cpp" line="98"/>
         <source>Protocol</source>
-        <translation type="unfinished"></translation>
+        <translation>Protokoll</translation>
     </message>
     <message>
         <location filename="enttecdmxusbopen.cpp" line="100"/>
@@ -98,17 +98,17 @@
         <location filename="enttecdmxusbprorx.cpp" line="78"/>
         <location filename="enttecdmxusbprotx.cpp" line="69"/>
         <source>Protocol</source>
-        <translation type="unfinished"></translation>
+        <translation>Protokoll</translation>
     </message>
     <message>
         <location filename="enttecdmxusbprorx.cpp" line="80"/>
         <source>Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Eingabe</translation>
     </message>
     <message>
         <location filename="enttecdmxusbprotx.cpp" line="71"/>
         <source>Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgabe</translation>
     </message>
 </context>
 </TS>

@@ -143,6 +143,14 @@ private:
     bool m_padInteraction;
     bool m_sliderInteraction;
 
+    /*********************************************************************
+     * External input
+     *********************************************************************/
+
+protected slots:
+    /** Called when an external input device produces input data */
+    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
+
     /*************************************************************************
      * QLC mode
      *************************************************************************/

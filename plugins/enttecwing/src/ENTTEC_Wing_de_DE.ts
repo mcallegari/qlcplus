@@ -6,17 +6,17 @@
     <message>
         <location filename="enttecwing.cpp" line="113"/>
         <source>This plugin provides input support for Enttec Playback and Enttec Shortcut Wings.</source>
-        <translation type="unfinished">Dieses Plugin bietet Eingangsunterstützung für Enttec Playback und Enttec Shortcut Wings.</translation>
+        <translation>Dieses Plugin bietet Eingangsunterstützung für Enttec Playback und Enttec Shortcut Wings.</translation>
     </message>
     <message>
         <location filename="enttecwing.cpp" line="130"/>
         <source>Unable to bind to UDP port %1:</source>
-        <translation type="unfinished">Kann nicht mit dem UDP-Port %1: verbinden:</translation>
+        <translation>Kann nicht mit dem UDP-Port %1: verbinden:</translation>
     </message>
     <message>
         <location filename="enttecwing.cpp" line="137"/>
         <source>Listening to UDP port %1.</source>
-        <translation type="unfinished">Höre auf UDP-Port %1.</translation>
+        <translation>Höre auf UDP-Port %1.</translation>
     </message>
 </context>
 <context>
@@ -24,7 +24,7 @@
     <message>
         <location filename="playbackwing.cpp" line="172"/>
         <source>at</source>
-        <translation type="unfinished">bei</translation>
+        <translation>bei</translation>
     </message>
 </context>
 <context>
@@ -32,7 +32,7 @@
     <message>
         <location filename="programwing.cpp" line="155"/>
         <source>at</source>
-        <translation type="unfinished">bei</translation>
+        <translation>bei</translation>
     </message>
 </context>
 <context>
@@ -40,7 +40,7 @@
     <message>
         <location filename="shortcutwing.cpp" line="104"/>
         <source>at</source>
-        <translation type="unfinished">bei</translation>
+        <translation>bei</translation>
     </message>
 </context>
 <context>
@@ -48,12 +48,12 @@
     <message>
         <location filename="wing.cpp" line="64"/>
         <source>Firmware version %1</source>
-        <translation type="unfinished">Firmware Version %1</translation>
+        <translation>Firmware Version %1</translation>
     </message>
     <message>
         <location filename="wing.cpp" line="66"/>
         <source>Device is operating correctly.</source>
-        <translation type="unfinished">Gerät ist funktionsfähig.</translation>
+        <translation>Gerät ist funktionsfähig.</translation>
     </message>
 </context>
 </TS>

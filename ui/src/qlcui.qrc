@@ -35,6 +35,7 @@
         <file alias="efx.png">../../gfx/efx.png</file>
         <file alias="empty.png">../../gfx/empty.png</file>
         <file alias="exit.png">../../gfx/exit.png</file>
+        <file alias="expand.png">../../gfx/expand.png</file>
         <file alias="fan.png">../../gfx/fan.png</file>
         <file alias="fileclose.png">../../gfx/fileclose.png</file>
         <file alias="filenew.png">../../gfx/filenew.png</file>
@@ -79,7 +80,7 @@
         <file alias="player_play.png">../../gfx/player_play.png</file>
         <file alias="player_stop.png">../../gfx/player_stop.png</file>
         <file alias="prism.png">../../gfx/prism.png</file>
-        <file alias="qlc.png">../../gfx/qlc.png</file>
+        <file alias="qlcplus.png">../../gfx/qlcplus.png</file>
         <file alias="qt.png">../../gfx/qt.png</file>
         <file alias="rainbow.png">../../gfx/rainbow.png</file>
         <file alias="record.png">../../gfx/record.png</file>

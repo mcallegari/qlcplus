@@ -425,7 +425,7 @@ void ChaserRunner::switchFunctions(MasterTimer* timer)
                     SceneValue stepValue = step.values.at(i);
                     SceneValue prevStepValue = prevStep.values.at(i);
                     if (stepValue == prevStepValue && stepValue.value != prevStepValue.value)
-                        s->setValue(step.values.at(i));
+                        s->setValue(stepValue);
                 }
             }
         }

@@ -5,7 +5,7 @@
 ;--------------------------------
 ;Defines
 !define QLCPLUS_HOME "c:\Qt\qlcplus"
-!define MUI_ICON "${QLCPLUS_HOME}\gfx\qlc.ico"  
+!define MUI_ICON "${QLCPLUS_HOME}\gfx\qlcplus.ico"
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico"
 !define MUI_HEADERIMAGE
 !define MUI_HEADERIMAGE_BITMAP "${NSISDIR}\Contrib\Graphics\Header\win.bmp"
@@ -15,7 +15,7 @@
 ;--------------------------------
 ;General
 Name "Q Light Controller Plus"
-OutFile "qlc+_4.1.2.exe"
+OutFile "QLC+_4.2.0.exe"
 InstallDir C:\QLC+
 RequestExecutionLevel user
 
@@ -63,10 +63,10 @@ Section
 	StrCpy $R1 $R0 1
 	StrCmp $R1 ">" skip
 		CreateDirectory $SMPROGRAMS\$R0
-		CreateShortCut '$SMPROGRAMS\$R0\Q Light Controller Plus.lnk' $INSTDIR\qlc.exe
+		CreateShortCut '$SMPROGRAMS\$R0\Q Light Controller Plus.lnk' $INSTDIR\qlcplus.exe
 
 		CreateDirectory $SMPROGRAMS\$R0
-		CreateShortCut '$SMPROGRAMS\$R0\Fixture Definition Editor.lnk' $INSTDIR\qlc-fixtureeditor.exe
+		CreateShortCut '$SMPROGRAMS\$R0\Fixture Definition Editor.lnk' $INSTDIR\qlcplus-fixtureeditor.exe
 
 		CreateDirectory $SMPROGRAMS\$R0
 		CreateShortCut '$SMPROGRAMS\$R0\Uninstall.lnk' $INSTDIR\uninstall.exe
@@ -85,15 +85,15 @@ Section
 	File libsndfile-1.dll
 	File libstdc++-6.dll
 	File pthreadGC2.dll
-	File qlc.exe
-	File qlc-fixtureeditor.exe
-    File libqlcengine.a
-    File libqlcui.a
+	File qlcplus.exe
+	File qlcplus-fixtureeditor.exe
+     File libqlcplusengine.a
+     File libqlcplusui.a
 	File QtCore4.dll
 	File QtGui4.dll
 	File QtXml4.dll
 	File QtNetwork4.dll
-    File QtScript4.dll
+     File QtScript4.dll
 	File Sample.qxw
 	File *.qm
 	File /r Documents
@@ -101,15 +101,15 @@ Section
 	File /r InputProfiles
 	File /r Plugins
 
-	WriteRegStr HKCR ".qxw" "" "QLightController.Document"
-	WriteRegStr HKCR "QLightController.Document" "" "Q Light Controller Workspace"
-	WriteRegStr HKCR "QLightController.Document\DefaultIcon" "" "$INSTDIR\qlc.exe,0"
-	WriteRegStr HKCR "QLightController.Document\shell\open\command" "" '"$INSTDIR\qlc.exe" "--open %1"'
+	WriteRegStr HKCR ".qxw" "" "QLightControllerPlus.Document"
+	WriteRegStr HKCR "QLightControllerPlus.Document" "" "Q Light Controller Plus Workspace"
+	WriteRegStr HKCR "QLightControllerPlus.Document\DefaultIcon" "" "$INSTDIR\qlcplus.exe,0"
+	WriteRegStr HKCR "QLightControllerPlus.Document\shell\open\command" "" '"$INSTDIR\qlcplus.exe" "--open %1"'
 
-	WriteRegStr HKCR ".qxf" "" "QLightControllerFixture.Document"
-	WriteRegStr HKCR "QLightControllerFixture.Document" "" "Q Light Controller Fixture"
-	WriteRegStr HKCR "QLightControllerFixture.Document\DefaultIcon" "" "$INSTDIR\qlc-fixtureeditor.exe,0"
-	WriteRegStr HKCR "QLightControllerFixture.Document\shell\open\command" "" '"$INSTDIR\qlc-fixtureeditor.exe" "--open %1"'
+	WriteRegStr HKCR ".qxf" "" "QLightControllerPlusFixture.Document"
+	WriteRegStr HKCR "QLightControllerFixturePlus.Document" "" "Q Light Controller Plus Fixture"
+	WriteRegStr HKCR "QLightControllerFixturePlus.Document\DefaultIcon" "" "$INSTDIR\qlcplus-fixtureeditor.exe,0"
+	WriteRegStr HKCR "QLightControllerFixturePlus.Document\shell\open\command" "" '"$INSTDIR\qlcplus-fixtureeditor.exe" "--open %1"'
 
 	WriteUninstaller $INSTDIR\uninstall.exe
 SectionEnd
@@ -121,10 +121,10 @@ UninstPage uninstConfirm
 UninstPage instfiles
 Section "Uninstall"
 	Delete $INSTDIR\uninstall.exe
-	Delete $INSTDIR\qlc.exe
-	Delete $INSTDIR\qlc-fixtureeditor.exe
-    Delete $INSTDIR\libqlcengine.a
-    Delete $INSTDIR\libqlcui.a
+	Delete $INSTDIR\qlcplus.exe
+	Delete $INSTDIR\qlcplus-fixtureeditor.exe
+    Delete $INSTDIR\libqlcplusengine.a
+    Delete $INSTDIR\libqlcplusui.a
 	Delete $INSTDIR\mingwm10.dll
 	Delete $INSTDIR\libgcc_s_dw2-1.dll
 	Delete $INSTDIR\libmad-0.dll
@@ -150,8 +150,8 @@ Section "Uninstall"
 	RMDir $INSTDIR
 
 	DeleteRegKey HKCR ".qxw"
-	DeleteRegKey HKCR "QLightController.Document"
+	DeleteRegKey HKCR "QLightControllerPlus.Document"
 
 	DeleteRegKey HKCR ".qxf"
-	DeleteRegKey HKCR "QLightControllerFixture.Document"
+	DeleteRegKey HKCR "QLightControllerPlusFixture.Document"
 SectionEnd

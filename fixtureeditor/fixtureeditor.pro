@@ -2,7 +2,7 @@ include(../variables.pri)
 
 TEMPLATE = app
 LANGUAGE = C++
-TARGET   = qlc-fixtureeditor
+TARGET   = qlcplus-fixtureeditor
 
 CONFIG += qt
 QT     += xml script
@@ -14,8 +14,8 @@ DEPENDPATH  += ../engine/src
 
 INCLUDEPATH += ../ui/src
 DEPENDPATH  += ../ui/src
-QMAKE_LIBDIR += ../engine/src 
-LIBS    += -lqlcengine
+QMAKE_LIBDIR += ../engine/src
+LIBS    += -lqlcplusengine
 
 # Sources
 RESOURCES    += ../ui/src/qlcui.qrc

@@ -82,7 +82,8 @@ void GenericDMXSource::writeDMX(MasterTimer* timer, UniverseArray* ua)
         QLCChannel::Group grp = fc.group(m_doc);
         quint32 address = fc.address(m_doc);
 
-        ua->write(address, it.value(), grp);
+        if (address != QLCChannel::invalid())
+            ua->write(address, it.value(), grp);
         if (grp != QLCChannel::Intensity)
             it.remove();
     }

@@ -22,6 +22,11 @@
 #ifndef VCFRAME_H
 #define VCFRAME_H
 
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QToolButton>
+#include <QLabel>
+
 #include "vcwidget.h"
 
 class QDomDocument;
@@ -32,6 +37,7 @@ class QString;
 #define KXMLQLCVCFrame "Frame"
 #define KXMLQLCVCFrameAllowChildren "AllowChildren"
 #define KXMLQLCVCFrameAllowResize "AllowResize"
+#define KXMLQLCVCFrameIsCollapsed "Collapsed"
 
 class VCFrame : public VCWidget
 {
@@ -46,13 +52,33 @@ public:
      * Initialization
      *********************************************************************/
 public:
-    VCFrame(QWidget* parent, Doc* doc);
+    VCFrame(QWidget* parent, Doc* doc, bool canResize = false);
     virtual ~VCFrame();
 
     void init(bool bottomFrame = false);
 
     /* Check if this is the virtual console's draw area */
     bool isBottomFrame();
+
+
+    /*********************************************************************
+     * GUI
+     *********************************************************************/
+public:
+    /** @reimp */
+    void setCaption(const QString& text);
+
+    bool isCollapsed();
+
+protected slots:
+    void slotCollapseButtonToggled(bool toggle);
+
+protected:
+    QHBoxLayout *m_hbox;
+    QToolButton *m_button;
+    QLabel *m_label;
+    bool m_collapsed;
+    int m_width, m_height;
 
     /*********************************************************************
      * Clipboard

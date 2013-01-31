@@ -40,3 +40,4 @@ offtool's notes:
      to one of your exisiting frontlight fixture.
 * add festures for the Enttec Wing (Go/Back Button, page changes). Page changes should ignore channels, which are set on a diffent page until they are newly touched and reach their actual level
 * Tabular overview of the all channels and chasersteps used in a chaser (possibility to edit blind)
+* Cuelist Record (Overwrite, Record New, per Step Times)

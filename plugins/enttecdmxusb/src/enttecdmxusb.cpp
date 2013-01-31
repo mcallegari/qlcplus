@@ -50,7 +50,7 @@ void EnttecDMXUSB::init()
 
 QString EnttecDMXUSB::name()
 {
-    return QString("Enttec DMX USB");
+    return QString("DMX USB");
 }
 
 int EnttecDMXUSB::capabilities() const
@@ -134,7 +134,7 @@ QString EnttecDMXUSB::pluginInfo()
     str += QString("<P>");
     str += QString("<H3>%1</H3>").arg(name());
     str += tr("This plugin provides DMX output support for");
-    str += QString(" DMXKing USB DMX512-A, Enttec DMX USB Pro, "
+    str += QString(" DMXKing ultraDMX range, Enttec DMX USB Pro, "
                    "Enttec Open DMX USB, FTDI USB COM485 Plus1 ");
     str += tr("and compatible devices.");
     str += QString("</P>");
