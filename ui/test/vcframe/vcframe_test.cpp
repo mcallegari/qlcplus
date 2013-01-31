@@ -189,7 +189,7 @@ void VCFrame_Test::saveXML()
     QVERIFY(node.firstChild().isNull() == false);
 
     QDomNode subFrame;
-    int appearance = 0, windowstate = 0, frame = 0, allowChildren = 0, allowResize = 0;
+    int appearance = 0, windowstate = 0, frame = 0, allowChildren = 0, allowResize = 0, collapsed = 0;
 
     // Parent
     node = node.firstChild();
@@ -210,6 +210,10 @@ void VCFrame_Test::saveXML()
             QVERIFY(subFrame.isNull() == true);
             subFrame = node;
         }
+        else if (tag.tagName() == QString("Collapsed"))
+        {
+            collapsed++;
+        }        
         else
         {
             QFAIL(QString("Unexpected tag: %1").arg(tag.tagName()).toUtf8().constData());
@@ -219,6 +223,7 @@ void VCFrame_Test::saveXML()
 
     QCOMPARE(appearance, 1);
     QCOMPARE(windowstate, 0);
+    QCOMPARE(collapsed, 0);
     QCOMPARE(frame, 1);
     QVERIFY(subFrame.isNull() == false);
 
@@ -246,6 +251,11 @@ void VCFrame_Test::saveXML()
             allowResize++;
             QCOMPARE(tag.text(), QString("False"));
         }
+        else if (tag.tagName() == QString("Collapsed"))
+        {
+            collapsed++;
+	    QCOMPARE(tag.text(), QString("False"));
+        }
         else if (tag.tagName() == QString("Frame"))
         {
             frame++;
@@ -259,6 +269,7 @@ void VCFrame_Test::saveXML()
     QCOMPARE(windowstate, 1);
     QCOMPARE(allowChildren, 1);
     QCOMPARE(allowResize, 1);
+    QCOMPARE(collapsed, 1);
     QCOMPARE(frame, 2);
     QVERIFY(subFrame.isNull() == false);
 
@@ -286,6 +297,11 @@ void VCFrame_Test::saveXML()
             allowResize++;
             QCOMPARE(tag.text(), QString("True"));
         }
+        else if (tag.tagName() == QString("Collapsed"))
+        {
+            collapsed++;
+	    QCOMPARE(tag.text(), QString("False"));
+        }
         else
         {
             QFAIL(QString("Unexpected tag: %1").arg(tag.tagName()).toUtf8().constData());
@@ -295,6 +311,7 @@ void VCFrame_Test::saveXML()
 
     QCOMPARE(appearance, 3);
     QCOMPARE(windowstate, 2);
+    QCOMPARE(collapsed, 2);
     QCOMPARE(frame, 2);
     QVERIFY(subFrame.isNull() == true);
 }

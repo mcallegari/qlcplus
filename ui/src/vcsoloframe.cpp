@@ -39,7 +39,7 @@
 #include "function.h"
 #include "doc.h"
 
-VCSoloFrame::VCSoloFrame(QWidget* parent, Doc* doc) : VCFrame(parent, doc)
+VCSoloFrame::VCSoloFrame(QWidget* parent, Doc* doc, bool canCollapse) : VCFrame(parent, doc, canCollapse)
 {
     /* Set the class name "VCSoloFrame" as the object name as well */
     setObjectName(VCSoloFrame::staticMetaObject.className());
@@ -59,7 +59,7 @@ VCWidget* VCSoloFrame::createCopy(VCWidget* parent)
 {
     Q_ASSERT(parent != NULL);
 
-    VCSoloFrame* frame = new VCSoloFrame(parent, m_doc);
+    VCSoloFrame* frame = new VCSoloFrame(parent, m_doc, true);
     if (frame->copyFrom(this) == false)
     {
         delete frame;
@@ -193,6 +193,7 @@ void VCSoloFrame::paintEvent(QPaintEvent* e)
 
     painter.setPen(pen);
     painter.drawRect(0, 0, rect().width()-1, rect().height()-1);
+
     if (drawSelectionFrame)
     {
         /* Draw a resize handle */

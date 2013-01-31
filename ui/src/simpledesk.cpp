@@ -179,7 +179,8 @@ void SimpleDesk::initLeftSide()
     lay->addLayout(uniLay);
 
     initUniversesCombo();
-    connect(m_universesCombo, SIGNAL(currentIndexChanged(int)),this, SLOT(slotUniversesComboChanged(int)));
+    connect(m_universesCombo, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(slotUniversesComboChanged(int)));
 
     m_universeGroup = new QGroupBox(this);
     //m_universeGroup->setTitle(tr("Universe"));
@@ -300,8 +301,12 @@ void SimpleDesk::initRightSide()
 
 void SimpleDesk::initUniversesCombo()
 {
+    disconnect(m_universesCombo, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(slotUniversesComboChanged(int)));
     m_universesCombo->clear();
     m_universesCombo->addItems(m_doc->outputMap()->universeNames());
+    connect(m_universesCombo, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(slotUniversesComboChanged(int)));
 }
 
 void SimpleDesk::initUniverseSliders()
@@ -1002,6 +1007,7 @@ void SimpleDesk::showEvent(QShowEvent* ev)
     //m_engine->registerSourceAgain();
     if (m_editCueStackButton->isChecked() == true)
         slotEditCueStackClicked();
+    initUniversesCombo();
     QWidget::showEvent(ev);
 }
 

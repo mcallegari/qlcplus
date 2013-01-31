@@ -18,6 +18,7 @@ usr/lib/qt4/plugins/qlcplus/libenttecdmxusb.so
 usr/lib/qt4/plugins/qlcplus/libpeperoni.so
 usr/lib/qt4/plugins/qlcplus/libudmx.so
 usr/lib/qt4/plugins/qlcplus/libosc.so
+usr/lib/qt4/plugins/qlcplus/libartnet.so
 
 # UDev rules
 etc/udev/rules.d/z65-enttec-dmxusb.rules
