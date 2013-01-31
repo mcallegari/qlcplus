@@ -877,7 +877,7 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel,
                         /* workaround if slider is 0 or 255 */
                         if (m_slider->value() == 0 || m_slider->value() == 255)
                         {
-                            if (abs(value-m_slider->value()) < 10)
+                            if (abs(value-m_slider->value()) < 25)
                                 m_leveldiff = 0;
                         }
                 }
