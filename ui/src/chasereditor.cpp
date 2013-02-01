@@ -222,7 +222,7 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc)
 
     updateTree(true);
     updateClipboardButtons();
-    //updateSpeedDials();
+    updateSpeedDials();
 
     slotModeChanged(m_doc->mode());
 
@@ -700,6 +700,9 @@ void ChaserEditor::createSpeedDials()
 
 void ChaserEditor::updateSpeedDials()
 {
+    if (m_speeddial->isChecked() == false)
+        return;
+
     static const QString fadeIn(tr("Fade In"));
     static const QString fadeOut(tr("Fade Out"));
     static const QString duration(tr("Duration"));

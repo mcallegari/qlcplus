@@ -1373,18 +1373,18 @@ QString FixtureManager::createDialog(bool import)
     QFileDialog dialog(this);
     if (import == true)
     {
-        dialog.setWindowTitle(tr("Import Fixture Definition"));
+        dialog.setWindowTitle(tr("Import Fixtures List"));
         dialog.setAcceptMode(QFileDialog::AcceptOpen);
     }
     else
     {
-        dialog.setWindowTitle(tr("Export Fixture Definition As"));
+        dialog.setWindowTitle(tr("Export Fixtures List As"));
         dialog.setAcceptMode(QFileDialog::AcceptSave);
     }
 
     /* Append file filters to the dialog */
     QStringList filters;
-    filters << tr("Fixture Definitions (*%1)").arg(KExtFixtureList);
+    filters << tr("Fixtures List (*%1)").arg(KExtFixtureList);
 #ifdef WIN32
     filters << tr("All Files (*.*)");
 #else
