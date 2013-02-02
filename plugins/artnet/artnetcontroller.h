@@ -37,7 +37,11 @@ class ArtNetController : public QObject
      * Initialization
      *********************************************************************/
 public:
-    ArtNetController(QString ipaddr, int universe, QList<QNetworkAddressEntry> interfaces, QObject *parent = 0);
+    enum ControllerType { Input = 0x01, Output = 0x02 };
+
+    ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> interfaces,
+                     QList<QString>macAddrList, ControllerType type, QObject *parent = 0);
+
     ~ArtNetController();
 
     /** Send DMX data to a specific port/universe */
@@ -50,13 +54,16 @@ public:
     QHash<QHostAddress, ArtNetNodeInfo> getNodesList();
 
     /** add an output port to this controller (in DMX words, a universe */
-    void addUniverse(int uni);
+    void addUniverse(quint32 line, int uni);
 
     /** Returns the number of universes managed by this controller */
     int getUniversesNumber();
 
     /** Remove a universe managed by this controller */
     bool removeUniverse(int uni);
+
+    /** Get the type of this controller */
+    int getType();
 
 private:
     /** The controller IP address as QHostAddress */
@@ -66,8 +73,16 @@ private:
     /** This is where all ArtNet packets are sent to */
     QHostAddress m_broadcastAddr;
 
+    /** The controller interface MAC address. Used only for ArtPollReply */
+    QString m_MACAddress;
+
     /** List of universes managed by this controller */
-    QList<int> m_universes;
+    /** Coupled as universe/QLC+ line */
+    QHash<int, quint32> m_universes;
+
+    /** Type of this controller */
+    /** A controller can be only output or only input */
+    ControllerType m_type;
 
     /** The UDP socket used to send/receive ArtNet packets */
     QUdpSocket *m_UdpSocket;
@@ -78,9 +93,16 @@ private:
     /** Map of the ArtNet nodes discovered with ArtPoll */
     QHash<QHostAddress, ArtNetNodeInfo> m_nodesList;
 
+    /** Keeps the current dmx values to send only the ones that changed */
+    /** It holds values for a whole 4 universes address (512 * 4) */
+    QByteArray m_dmxValues;
+
 private slots:
     /** Async event raised when new packets have been received */
     void processPendingPackets();
+
+signals:
+    void valueChanged(quint32 input, int channel, uchar value);
 };
 
 #endif

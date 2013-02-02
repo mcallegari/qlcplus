@@ -23,18 +23,22 @@
 
 #include <QDebug>
 
-ArtNetController::ArtNetController(QString ipaddr, int universe, QList<QNetworkAddressEntry> interfaces, QObject *parent)
+ArtNetController::ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> interfaces,
+                                   QList<QString> macAddrList, ControllerType type, QObject *parent)
     : QObject(parent)
 {
     m_ipAddr = QHostAddress(ipaddr);
 
+    int i = 0;
     foreach(QNetworkAddressEntry iface, interfaces)
     {
         if (iface.ip() == m_ipAddr)
         {
             m_broadcastAddr = iface.broadcast();
+            m_MACAddress = macAddrList.at(i);
             break;
         }
+        i++;
     }
 
     /*
@@ -45,7 +49,8 @@ ArtNetController::ArtNetController(QString ipaddr, int universe, QList<QNetworkA
     m_broadcastAddr = QHostAddress(broadcast);
     */
 
-    qDebug() << Q_FUNC_INFO << "Broadcast address: " << m_broadcastAddr.toString();
+    qDebug() << "[ArtNetController] Broadcast address:" << m_broadcastAddr.toString() << "(MAC:" << m_MACAddress << ")";
+    qDebug() << "[ArtNetController] type: " << type;
     m_packetizer = new ArtNetPacketizer();
 
     m_UdpSocket = new QUdpSocket(this);
@@ -55,12 +60,21 @@ ArtNetController::ArtNetController(QString ipaddr, int universe, QList<QNetworkA
     connect(m_UdpSocket, SIGNAL(readyRead()),
             this, SLOT(processPendingPackets()));
 
-    QByteArray pollPacket;
-    m_packetizer->setupArtNetPoll(pollPacket);
-    m_UdpSocket->writeDatagram(pollPacket.data(), pollPacket.size(),
-                               m_broadcastAddr, ARTNET_DEFAULT_PORT);
+    // don't send a Poll if we're an input
+    if (type == Output)
+    {
+        QByteArray pollPacket;
+        m_packetizer->setupArtNetPoll(pollPacket);
+        m_UdpSocket->writeDatagram(pollPacket.data(), pollPacket.size(),
+                                   m_broadcastAddr, ARTNET_DEFAULT_PORT);
+    }
+    else
+    {
+        for (int i = 0; i < 2048; i++)
+            m_dmxValues.append((char)0x00);
+    }
 
-    addUniverse(universe);
+    m_type = type;
 }
 
 ArtNetController::~ArtNetController()
@@ -71,36 +85,34 @@ ArtNetController::~ArtNetController()
     m_UdpSocket->close();
 }
 
-void ArtNetController::sendDmx(const int &universe, const QByteArray &data)
-{
-    QByteArray dmxPacket;
-    m_packetizer->setupArtNetDmx(dmxPacket, universe, data);
-    m_UdpSocket->writeDatagram(dmxPacket.data(), dmxPacket.size(),
-                               m_broadcastAddr, ARTNET_DEFAULT_PORT);
-}
-
-void ArtNetController::addUniverse(int uni)
+void ArtNetController::addUniverse(quint32 line, int uni)
 {
     if (m_universes.contains(uni) == false)
     {
-        m_universes.append(uni);
+        m_universes[uni] = line;
         qDebug() << "[ArtNetController::addUniverse] Added new universe: " << uni;
     }
 }
 
 int ArtNetController::getUniversesNumber()
 {
-    return m_universes.length();
+    return m_universes.size();
 }
 
 bool ArtNetController::removeUniverse(int uni)
 {
     if (m_universes.contains(uni))
     {
+
         qDebug() << Q_FUNC_INFO << "Removing universe " << uni;
-        return m_universes.removeOne(uni);
+        return m_universes.remove(uni);
     }
     return false;
+}
+
+int ArtNetController::getType()
+{
+    return m_type;
 }
 
 QString ArtNetController::getNetworkIP()
@@ -111,6 +123,14 @@ QString ArtNetController::getNetworkIP()
 QHash<QHostAddress, ArtNetNodeInfo> ArtNetController::getNodesList()
 {
     return m_nodesList;
+}
+
+void ArtNetController::sendDmx(const int &universe, const QByteArray &data)
+{
+    QByteArray dmxPacket;
+    m_packetizer->setupArtNetDmx(dmxPacket, universe, data);
+    m_UdpSocket->writeDatagram(dmxPacket.data(), dmxPacket.size(),
+                               m_broadcastAddr, ARTNET_DEFAULT_PORT);
 }
 
 void ArtNetController::processPendingPackets()
@@ -138,6 +158,39 @@ void ArtNetController::processPendingPackets()
                             if (m_nodesList.contains(senderAddress) == false)
                                 m_nodesList[senderAddress] = newNode;
                         }
+                        QByteArray pollReplyPacket;
+                        m_packetizer->setupArtNetPollReply(pollReplyPacket, m_ipAddr, m_MACAddress);
+                        m_UdpSocket->writeDatagram(pollReplyPacket.data(), pollReplyPacket.size(),
+                                                   senderAddress, ARTNET_DEFAULT_PORT);
+                    }
+                    break;
+                    case ARTNET_POLL:
+                    {
+                        qDebug() << "ArtPoll received";
+                        QByteArray pollReplyPacket;
+                        m_packetizer->setupArtNetPollReply(pollReplyPacket, m_ipAddr, m_MACAddress);
+                        m_UdpSocket->writeDatagram(pollReplyPacket.data(), pollReplyPacket.size(),
+                                                   senderAddress, ARTNET_DEFAULT_PORT);
+                    }
+                    break;
+                    case ARTNET_DMX:
+                    {
+                        qDebug() << "DMX data received";
+                        QByteArray dmxData;
+                        int universe;
+                        if (m_packetizer->fillDMXdata(datagram, dmxData, universe) == true)
+                        {
+                            if ((universe * 512) > m_dmxValues.length() || m_universes.contains(universe) == false)
+                            {
+                                qDebug() << "Universe " << universe << "not supported !";
+                                break;
+                            }
+                            for (int i = 0; i < dmxData.length(); i++)
+                            {
+                                if (m_dmxValues.at(i + (universe * 512)) != dmxData.at(i))
+                                    emit valueChanged(m_universes[universe], i, (uchar)dmxData.at(i));
+                            }
+                        }
                     }
                     break;
                     default:
@@ -145,6 +198,8 @@ void ArtNetController::processPendingPackets()
                     break;
                 }
             }
+            else
+                qDebug() << "Malformed packet received";
         }
      }
 }

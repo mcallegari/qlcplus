@@ -19,6 +19,7 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
+#include <QHostAddress>
 #include <QByteArray>
 #include <QString>
 #include <QHash>
@@ -86,6 +87,9 @@ public:
     /** Prepare an ArtNetPoll packet */
     void setupArtNetPoll(QByteArray& data);
 
+    /** Prepare an ArtNetPollReply packet */
+    void setupArtNetPollReply(QByteArray &data, QHostAddress ipAddr, QString MACaddr);
+
     /** Prepare an ArtNetDmx packet */
     void setupArtNetDmx(QByteArray& data, const int& universe, const QByteArray &values);
 
@@ -97,6 +101,8 @@ public:
     bool checkPacketAndCode(QByteArray& data, int &code);
 
     bool fillArtPollReplyInfo(QByteArray& data, ArtNetNodeInfo &info);
+
+    bool fillDMXdata(QByteArray& data, QByteArray& dmx, int& universe);
 
 private:
     QByteArray m_commonHeader;

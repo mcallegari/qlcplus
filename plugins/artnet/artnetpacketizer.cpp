@@ -21,6 +21,7 @@
 
 #include "artnetpacketizer.h"
 
+#include <QStringList>
 #include <QDebug>
 
 ArtNetPacketizer::ArtNetPacketizer()
@@ -57,6 +58,65 @@ void ArtNetPacketizer::setupArtNetPoll(QByteArray& data)
     data[9] = opCodeMSB;
     data.append((char)0x02); // TalkToMe
     data.append('\0'); // Priority
+}
+
+void ArtNetPacketizer::setupArtNetPollReply(QByteArray &data, QHostAddress ipAddr, QString MACaddr)
+{
+    int i = 0;
+    data.clear();
+    data.append(m_commonHeader);
+    data.remove(9, 2);
+    const char opCodeMSB = (ARTNET_POLLREPLY >> 8);
+    data[9] = opCodeMSB;
+    QString ipStr = ipAddr.toString();
+    QStringList ipAddrList = ipStr.split(".");
+    foreach (QString val, ipAddrList)
+        data.append((char)val.toInt()); // IP address[4]
+    data.append((char)0x36);     // Port LSB
+    data.append((char)0x19);     // Port MSB
+    data.append((char)0x04);     // Version MSB
+    data.append((char)0x20);     // Version LSB
+    data.append((char)0x00);     // Sub Switch MSB
+    data.append((char)0x00);     // Sub Switch LSB
+    data.append((char)0xFF);     // OEM Value MSB
+    data.append((char)0xFF);     // OEM Value LSB
+    data.append((char)0x00);     // UBEA version
+    data.append((char)0xF0);     // Status1 - Ready and booted
+    data.append((char)0xFF);     // ESTA Manufacturer MSB
+    data.append((char)0xFF);     // ESTA Manufacturer LSB
+    data.append("QLC+");   // Short Name
+    for (i = 0; i < 14; i++)
+        data.append((char)0x00); // 14 bytes of stuffing
+    data.resize(data.length() + 14);
+    data.append("Q Light Controller Plus - ArtNet interface"); // Long Name
+    for (i = 0; i < 22; i++) // 64-42 bytes of stuffing. 42 is the lenght of the long name
+        data.append((char)0x00);
+    for (i = 0; i < 64; i++)
+        data.append((char)0x00); // Node report
+    data.append((char)0x00);     // NumPort MSB
+    // FIXME: this should reflect the actual state of QLC+ output ports !
+    data.append((char)0x01);     // NumPort LSB
+    data.append((char)0x80);     // Port 1 type: can output DMX512 data
+    data.append((char)0x80);     // Port 2 type: can output DMX512 data
+    data.append((char)0x80);     // Port 3 type: can output DMX512 data
+    data.append((char)0x80);     // Port 4 type: can output DMX512 data
+    // FIXME: this should reflect the actual state of QLC+ output ports !
+    for (i = 0; i < 12; i++)
+        data.append((char)0x00); // Set GoodInput[4], GoodOutput[4] and SwIn[4] all to unknown state
+    data.append((char)0x00);     // SwOut0 - output 0
+    data.append((char)0x01);     // SwOut1 - output 1
+    data.append((char)0x02);     // SwOut2 - output 2
+    data.append((char)0x03);     // SwOut3 - output 3
+    for (i = 0; i < 7; i++)
+        data.append((char)0x00);  // SwVideo, SwMacro, SwRemote and 4 spare bytes
+    QStringList MAC = MACaddr.split(":");
+    foreach (QString couple, MAC)
+    {
+        bool ok;
+        data.append((char)couple.toInt(&ok, 16));
+    }
+    for (i = 0; i < 32; i++)
+        data.append((char)0x00); // bindIp[4], BindIndex, Status2 and filler
 }
 
 void ArtNetPacketizer::setupArtNetDmx(QByteArray& data, const int &universe, const QByteArray &values)
@@ -115,6 +175,23 @@ bool ArtNetPacketizer::fillArtPollReplyInfo(QByteArray& data, ArtNetNodeInfo &in
     qDebug() << "getArtPollReplyInfo shortName: " << info.shortName;
     qDebug() << "getArtPollReplyInfo longName: " << info.longName;
 
+    return true;
+}
+
+bool ArtNetPacketizer::fillDMXdata(QByteArray& data, QByteArray &dmx, int &universe)
+{
+    if (data.isNull())
+        return false;
+    dmx.clear();
+    //char sequence = data.at(12);
+    //qDebug() << "Sequence: " << sequence;
+    // phisycal skipped
+    universe = data.at(14);
+    // net skipped
+    int lenght = ((int)data.at(16) << 8) + (int)data.at(17);
+    qDebug() << "lenght: " << lenght;
+    for (int i = 18; i < 18 + lenght; i++)
+        dmx.append(data.at(i));
     return true;
 }
 
