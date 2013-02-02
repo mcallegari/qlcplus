@@ -2,6 +2,8 @@ qlcplus (4.2.1) stable; urgency=low
 
   * Added ArtNet input support (tested on Android with Art-Net controller LITE and Controlador Artnet-DMX)
   * Since QLC+ is polite, it now responds to ArtNet Poll requests
+  * Improved ArtNet configuration panel when an interface is no longer available
+  * Show only available Inputs/Outputs on Input/Output Manager
   * Added fixtures list import/export feature to shorten the project creation
   * Added toolbar icon to Scene Editor and Chaser Editor to Show/Hide Speed Dials window (default: hidden)
   * Added fixture: Showtec Phantom 50 (thanks to Petja Touru)

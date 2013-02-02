@@ -155,8 +155,6 @@ void InputOutputPatchEditor::setupMappingPage()
     /* Configure button */
     connect(m_configureButton, SIGNAL(clicked()),
             this, SLOT(slotConfigureInputClicked()));
-
-    //m_feedbackEnabledCheck->setChecked(m_currentFeedbackEnabled);
 }
 
 QTreeWidgetItem *InputOutputPatchEditor::itemLookup(QString pluginName, QString devName)
@@ -187,6 +185,8 @@ void InputOutputPatchEditor::fillMappingTree()
 
     m_mapTree->clear();
 
+    qDebug() << "[InputOutputPatchEditor] Fill tree for universe: " << m_universe;
+
     /* Go through available input plugins and create tree nodes. */
     QStringListIterator inputIt(m_inputMap->pluginNames());
     while (inputIt.hasNext() == true)
@@ -196,17 +196,23 @@ void InputOutputPatchEditor::fillMappingTree()
         QStringListIterator iit(m_inputMap->pluginInputs(pluginName));
         while (iit.hasNext() == true)
         {
-            QTreeWidgetItem* pitem = new QTreeWidgetItem(m_mapTree);
-            pitem->setText(KMapColumnPluginName, pluginName);
-            pitem->setText(KMapColumnDeviceName, iit.next());
-            pitem->setFlags(pitem->flags() | Qt::ItemIsUserCheckable);
-            if (m_currentInputPluginName == pluginName && m_currentInput == i)
-                pitem->setCheckState(KMapColumnHasInput, Qt::Checked);
-            else
-                pitem->setCheckState(KMapColumnHasInput, Qt::Unchecked);
-            pitem->setTextAlignment(KMapColumnHasInput, Qt::AlignHCenter);
-            pitem->setText(KMapColumnInputLine, QString("%1").arg(i));
-            pitem->setText(KMapColumnOutputLine, QString("%1").arg(QLCIOPlugin::invalidLine()));
+            quint32 uni = m_inputMap->mapping(pluginName, i);
+            //qDebug() << "Plugin: " << pluginName << ", input: " << i << ", universe:" << uni;
+            if (uni == InputMap::invalidUniverse() || uni == m_universe)
+            {
+                QTreeWidgetItem* pitem = new QTreeWidgetItem(m_mapTree);
+                pitem->setText(KMapColumnPluginName, pluginName);
+                pitem->setText(KMapColumnDeviceName, iit.next());
+                pitem->setFlags(pitem->flags() | Qt::ItemIsUserCheckable);
+                if (m_currentInputPluginName == pluginName && m_currentInput == i)
+                    pitem->setCheckState(KMapColumnHasInput, Qt::Checked);
+                else
+                    pitem->setCheckState(KMapColumnHasInput, Qt::Unchecked);
+                pitem->setTextAlignment(KMapColumnHasInput, Qt::AlignHCenter);
+                pitem->setText(KMapColumnInputLine, QString("%1").arg(i));
+                pitem->setText(KMapColumnOutputLine, QString("%1").arg(QLCIOPlugin::invalidLine()));
+            }
+            else iit.next();
             i++;
         }
 
@@ -219,6 +225,7 @@ void InputOutputPatchEditor::fillMappingTree()
             pitem->setText(KMapColumnOutputLine, QString("%1").arg(QLCIOPlugin::invalidLine()));
         }
     }
+
     /* Go through available output plugins and create/update tree nodes. */
     QStringListIterator outputIt(m_outputMap->pluginNames());
     while (outputIt.hasNext() == true)
@@ -233,26 +240,32 @@ void InputOutputPatchEditor::fillMappingTree()
             QStringListIterator iit(m_outputMap->pluginOutputs(pluginName));
             while (iit.hasNext() == true)
             {
-                /* Output capable device */
-                QString devName = iit.next();
-                QTreeWidgetItem* pitem = new QTreeWidgetItem(m_mapTree);
-                pitem->setText(KMapColumnPluginName, pluginName);
-                pitem->setText(KMapColumnDeviceName, devName);
-                pitem->setFlags(pitem->flags() | Qt::ItemIsUserCheckable);
-                if (m_currentOutputPluginName == pluginName && m_currentOutput == i)
-                    pitem->setCheckState(KMapColumnHasOutput, Qt::Checked);
-                else
-                    pitem->setCheckState(KMapColumnHasOutput, Qt::Unchecked);
-                pitem->setText(KMapColumnOutputLine, QString("%1").arg(i));
-                pitem->setText(KMapColumnInputLine, QString("%1").arg(QLCIOPlugin::invalidLine()));
-                /* If a device has an output, it means it can send feedbacks */
-                if (pluginName == "MIDI")
+                quint32 uni = m_outputMap->mapping(pluginName, i);
+                //qDebug() << "Plugin: " << pluginName << ", output: " << i << ", universe:" << uni;
+                if (uni == OutputMap::invalidUniverse() || uni == m_universe)
                 {
-                    if (m_currentFeedbackPluginName == pluginName && m_currentFeedback == i)
-                        pitem->setCheckState(KMapColumnHasFeedback, Qt::Checked);
+                    /* Output capable device */
+                    QString devName = iit.next();
+                    QTreeWidgetItem* pitem = new QTreeWidgetItem(m_mapTree);
+                    pitem->setText(KMapColumnPluginName, pluginName);
+                    pitem->setText(KMapColumnDeviceName, devName);
+                    pitem->setFlags(pitem->flags() | Qt::ItemIsUserCheckable);
+                    if (m_currentOutputPluginName == pluginName && m_currentOutput == i)
+                        pitem->setCheckState(KMapColumnHasOutput, Qt::Checked);
                     else
-                        pitem->setCheckState(KMapColumnHasFeedback, Qt::Unchecked);
+                        pitem->setCheckState(KMapColumnHasOutput, Qt::Unchecked);
+                    pitem->setText(KMapColumnOutputLine, QString("%1").arg(i));
+                    pitem->setText(KMapColumnInputLine, QString("%1").arg(QLCIOPlugin::invalidLine()));
+                    /* If a device has an output, it means it can send feedbacks */
+                    if (pluginName == "MIDI")
+                    {
+                        if (m_currentFeedbackPluginName == pluginName && m_currentFeedback == i)
+                            pitem->setCheckState(KMapColumnHasFeedback, Qt::Checked);
+                        else
+                            pitem->setCheckState(KMapColumnHasFeedback, Qt::Unchecked);
+                    }
                 }
+                else iit.next();
                 i++;
             }
             if (i == 0)
@@ -273,29 +286,38 @@ void InputOutputPatchEditor::fillMappingTree()
                 QString devName = iit.next();
                 QTreeWidgetItem *item = itemLookup(pluginName, devName);
                 /* 2nd case: add new output-only device to an existing plugin */
+                quint32 uni = m_outputMap->mapping(pluginName, i);
+                //qDebug() << "Plugin: " << pluginName << ", output: " << i << ", universe:" << uni;
                 if (item == NULL)
                 {
-                    item = new QTreeWidgetItem(m_mapTree);
-                    item->setText(KMapColumnPluginName, pluginName);
-                    item->setText(KMapColumnDeviceName, devName);
-                    item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
-                    if (m_currentOutputPluginName == pluginName && m_currentOutput == i)
-                        item->setCheckState(KMapColumnHasOutput, Qt::Checked);
-                    else
-                        item->setCheckState(KMapColumnHasOutput, Qt::Unchecked);
+                    if (uni == OutputMap::invalidUniverse() || uni == m_universe)
+                    {
+                        item = new QTreeWidgetItem(m_mapTree);
+                        item->setText(KMapColumnPluginName, pluginName);
+                        item->setText(KMapColumnDeviceName, devName);
+                        item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+                        if (m_currentOutputPluginName == pluginName && m_currentOutput == i)
+                            item->setCheckState(KMapColumnHasOutput, Qt::Checked);
+                        else
+                            item->setCheckState(KMapColumnHasOutput, Qt::Unchecked);
 
-                    item->setText(KMapColumnOutputLine, QString("%1").arg(i));
-                    item->setText(KMapColumnInputLine, QString("%1").arg(QLCIOPlugin::invalidLine()));
+                        item->setText(KMapColumnOutputLine, QString("%1").arg(i));
+                        item->setText(KMapColumnInputLine, QString("%1").arg(QLCIOPlugin::invalidLine()));
+                    }
+                    else iit.next();
                 }
                 else
                 {
                     /* 3rd case: add an output line to an existing device with an input line */
-                    item->setText(KMapColumnDeviceName, devName);
-                    if (m_currentOutputPluginName == pluginName && m_currentOutput == i)
-                        item->setCheckState(KMapColumnHasOutput, Qt::Checked);
-                    else
-                        item->setCheckState(KMapColumnHasOutput, Qt::Unchecked);
-                    item->setText(KMapColumnOutputLine, QString("%1").arg(i));
+                    if (uni == OutputMap::invalidUniverse() || uni == m_universe)
+                    {
+                        item->setText(KMapColumnDeviceName, devName);
+                        if (m_currentOutputPluginName == pluginName && m_currentOutput == i)
+                            item->setCheckState(KMapColumnHasOutput, Qt::Checked);
+                        else
+                            item->setCheckState(KMapColumnHasOutput, Qt::Unchecked);
+                        item->setText(KMapColumnOutputLine, QString("%1").arg(i));
+                    }
                 }
                 /* If a device has both input and output, it means it can send feedbacks */
                 if (pluginName == "MIDI")
@@ -361,7 +383,6 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
     /* Temporarily disable this signal to prevent an endless loop */
     disconnect(m_mapTree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
                this, SLOT(slotMapItemChanged(QTreeWidgetItem*, int)));
-
 
     if (item->checkState(col) == Qt::Checked)
     {

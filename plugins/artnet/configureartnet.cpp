@@ -62,8 +62,6 @@ void ConfigureArtNet::fillOutputTree()
     QList<QString> outputMap = m_plugin->mappedOutputs();
     QList<int> outputPorts = m_plugin->mappedPorts();
 
-    int idx = 0;
-
     foreach (QNetworkAddressEntry entry, ifaces)
     {
         QString ifaceStr = entry.ip().toString();
@@ -71,13 +69,15 @@ void ConfigureArtNet::fillOutputTree()
         {
             QTreeWidgetItem* pitem = new QTreeWidgetItem(m_outputTree);
             pitem->setFlags(pitem->flags() | Qt::ItemIsUserCheckable);
-            if (idx < outputMap.length() && outputMap.at(idx) == ifaceStr && outputPorts.at(idx) == u)
+            pitem->setCheckState(KOutputColumnNetwork, Qt::Unchecked);
+            for (int idx = 0; idx < outputMap.length(); idx++)
             {
-                pitem->setCheckState(KOutputColumnNetwork, Qt::Checked);
-                idx++;
+                if (outputMap.at(idx) == ifaceStr && outputPorts.at(idx) == u)
+                {
+                    pitem->setCheckState(KOutputColumnNetwork, Qt::Checked);
+                    break;
+                }
             }
-            else
-                pitem->setCheckState(KOutputColumnNetwork, Qt::Unchecked);
             pitem->setText(KOutputColumnNetwork, ifaceStr);
             pitem->setText(KOutputColumnUniverse, tr("Universe %1").arg(u + 1));
             pitem->setData(KOutputColumnUniverse, Qt::UserRole, u);

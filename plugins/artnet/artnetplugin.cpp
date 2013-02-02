@@ -358,6 +358,8 @@ void ArtNetPlugin::remapOutputs(QList<QString> IPs, QList<int> ports)
         m_controllersList = newControllersList;
 
         QSettings settings;
+        // reset the previous state first
+        settings.remove("ArtNetPlugin");
         QString countKey = QString("ArtNetPlugin/outputs");
         settings.setValue(countKey, QVariant(m_IPAddressMap.length()));
 
