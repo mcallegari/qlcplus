@@ -59,8 +59,7 @@ void ConfigureArtNet::fillOutputTree()
     m_outputTree->header()->setResizeMode(QHeaderView::ResizeToContents);
 
     QList<QNetworkAddressEntry> ifaces = m_plugin->interfaces();
-    QList<QString> outputMap = m_plugin->mappedOutputs();
-    QList<int> outputPorts = m_plugin->mappedPorts();
+    QList<ArtNetIO> IOmap = m_plugin->getIOMapping();
 
     foreach (QNetworkAddressEntry entry, ifaces)
     {
@@ -70,9 +69,9 @@ void ConfigureArtNet::fillOutputTree()
             QTreeWidgetItem* pitem = new QTreeWidgetItem(m_outputTree);
             pitem->setFlags(pitem->flags() | Qt::ItemIsUserCheckable);
             pitem->setCheckState(KOutputColumnNetwork, Qt::Unchecked);
-            for (int idx = 0; idx < outputMap.length(); idx++)
+            for (int idx = 0; idx < IOmap.length(); idx++)
             {
-                if (outputMap.at(idx) == ifaceStr && outputPorts.at(idx) == u)
+                if (IOmap.at(idx).IPAddress == ifaceStr && IOmap.at(idx).port == u)
                 {
                     pitem->setCheckState(KOutputColumnNetwork, Qt::Checked);
                     break;
@@ -91,11 +90,12 @@ void ConfigureArtNet::fillNodesTree()
 
     ArtNetController *prevController = NULL;
 
-    QList<ArtNetController*> nList = m_plugin->mappedControllers();
+    QList<ArtNetIO> IOmap = m_plugin->getIOMapping();
 
-    for (int i = 0; i < nList.length(); i++)
+    for (int i = 0; i < IOmap.length(); i++)
     {
-        ArtNetController *controller = nList.at(i);
+        ArtNetController *controller = IOmap.at(i).controller;
+
         if (controller != NULL && controller != prevController)
         {
             QTreeWidgetItem* pitem = new QTreeWidgetItem(m_nodesTree);

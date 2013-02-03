@@ -37,7 +37,7 @@ class ArtNetController : public QObject
      * Initialization
      *********************************************************************/
 public:
-    enum ControllerType { Input = 0x01, Output = 0x02 };
+    enum ControllerType { Unknown = 0x0, Input = 0x01, Output = 0x02 };
 
     ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> interfaces,
                      QList<QString>macAddrList, ControllerType type, QObject *parent = 0);
