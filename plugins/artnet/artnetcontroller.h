@@ -37,10 +37,10 @@ class ArtNetController : public QObject
      * Initialization
      *********************************************************************/
 public:
-    enum ControllerType { Unknown = 0x0, Input = 0x01, Output = 0x02 };
+    enum Type { Unknown = 0x0, Input = 0x01, Output = 0x02 };
 
     ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> interfaces,
-                     QList<QString>macAddrList, ControllerType type, QObject *parent = 0);
+                     QList<QString>macAddrList, Type type, QObject *parent = 0);
 
     ~ArtNetController();
 
@@ -82,7 +82,7 @@ private:
 
     /** Type of this controller */
     /** A controller can be only output or only input */
-    ControllerType m_type;
+    Type m_type;
 
     /** The UDP socket used to send/receive ArtNet packets */
     QUdpSocket *m_UdpSocket;

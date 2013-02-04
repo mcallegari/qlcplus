@@ -24,7 +24,7 @@
 #include <QDebug>
 
 ArtNetController::ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> interfaces,
-                                   QList<QString> macAddrList, ControllerType type, QObject *parent)
+                                   QList<QString> macAddrList, Type type, QObject *parent)
     : QObject(parent)
 {
     m_ipAddr = QHostAddress(ipaddr);

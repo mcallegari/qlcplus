@@ -39,7 +39,7 @@ typedef struct
     QString IPAddress;
     int port;
     ArtNetController* controller;
-    ArtNetController::ControllerType type;
+    ArtNetController::Type type;
 } ArtNetIO;
 
 class ArtNetPlugin : public QLCIOPlugin
@@ -65,9 +65,6 @@ public:
 
     /** @reimp */
     QString pluginInfo();
-
-private:
-    int getMappedIndex(quint32 line,  ArtNetController::ControllerType type);
 
     /*********************************************************************
      * Outputs
@@ -122,16 +119,7 @@ public:
     bool canConfigure();
 
     QList<QNetworkAddressEntry> interfaces();
-#if 0
-    /** Get a list of the available outputs mapped from the detect network interfaces */
-    QList<QString> mappedOutputs();
 
-    /** Get a list of the available outputs ports */
-    QList<int> mappedPorts();
-
-    /** Returns the mapped controllers created on openOutput */
-    QList<ArtNetController *> mappedControllers();
-#endif
     /** Get a list of the available Input/Output lines */
     QList<ArtNetIO> getIOMapping();
 
@@ -143,18 +131,7 @@ private:
 
     /** List holding the detected system network interfaces MAC Address */
     QList<QString>m_netMACAddresses;
-#if 0
-    /** Map of the IPs associated to each plugin input/output */
-    /** Basically these are those selected in the config panel */
-    QList<QString> m_IPAddressMap;
 
-    /** Map of the ports associated to each plugin input/output */
-    /** (not to be confused with network ports !!) */
-    QList<int> m_IOPortMap;
-
-    /** Map of the ArtNet controllers associated to each plugin input/output */
-    QList<ArtNetController*> m_controllersList;
-#endif
     /** Map of the ArtNet plugin Input/Output lines */
     QList<ArtNetIO>m_IOmapping;
 

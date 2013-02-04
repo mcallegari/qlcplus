@@ -112,42 +112,12 @@ QString ArtNetPlugin::pluginInfo()
     return str;
 }
 
-int ArtNetPlugin::getMappedIndex(quint32 line,  ArtNetController::ControllerType type)
-{
-    quint32 mappedIndex = 0;
-    for (int i = 0; i < m_IOmapping.length(); i++)
-    {
-        if (m_IOmapping.at(line).type == type)
-            mappedIndex++;
-    }
-    return mappedIndex;
-}
-
 /*********************************************************************
  * Outputs
  *********************************************************************/
 QStringList ArtNetPlugin::outputs()
 {
     QStringList list;
-/*
-    QStringList busyAddress;
-    // first find out if there are Controllers used as input
-    // and mark their IP address as busy
-    for (int i = 0; i < m_IPAddressMap.length(); i++)
-    {
-        ArtNetController *contr = m_controllersList.at(i);
-        if (contr != NULL && contr->getType() == ArtNetController::Input &&
-            busyAddress.contains(m_IPAddressMap.at(i)) == false)
-                busyAddress.append(m_IPAddressMap.at(i));
-    }
-
-    for (int j = 0; j < m_IPAddressMap.length(); j++)
-    {
-        // if the controller is not marked as busy then it's a valid line
-        if (busyAddress.contains(m_IPAddressMap.at(j)) == false)
-            list << QString(tr("%1: [%2] Universe: %3")).arg(j + 1).arg(m_IPAddressMap.at(j)).arg(m_IOPortMap.at(j) + 1);
-    }
-*/
     int j = 0;
     foreach (ArtNetIO line, m_IOmapping)
     {
@@ -195,8 +165,15 @@ void ArtNetPlugin::openOutput(quint32 output)
                                                             ArtNetController::Output, this);
         controller->addUniverse(output, m_IOmapping.at(output).port);
         m_IOmapping[output].controller = controller;
+        // mark all the outputs with this IP address as output lines
+        /*
+        for (i = 0; i < m_IOmapping.length(); i++)
+        {
+            if (m_IOmapping.at(i).IPAddress == m_IOmapping.at(output).IPAddress)
+                m_IOmapping[i].type = ArtNetController::Output;
+        }
+        */
     }
-    //emit configurationChanged(); // why this doesn't work ??
 }
 
 void ArtNetPlugin::closeOutput(quint32 output)
@@ -213,8 +190,14 @@ void ArtNetPlugin::closeOutput(quint32 output)
             controller->removeUniverse(m_IOmapping.at(output).port);
             m_IOmapping[output].controller = NULL;
         }
-        else // otherwiase destroy it
+        else // otherwise destroy it
         {
+            // reset all the outputs with this IP address as Unknown (Input/Output allowed)
+            for (int i = 0; i < m_IOmapping.length(); i++)
+            {
+                if (m_IOmapping.at(i).IPAddress == m_IOmapping.at(output).IPAddress)
+                    m_IOmapping[i].type = ArtNetController::Unknown;
+            }
             delete m_IOmapping[output].controller;
             m_IOmapping[output].controller = NULL;
         }
@@ -234,24 +217,6 @@ void ArtNetPlugin::writeUniverse(quint32 output, const QByteArray& universe)
 QStringList ArtNetPlugin::inputs()
 {
     QStringList list;
-/*
-    QStringList busyAddress;
-    // first find out if there are Controllers used as output
-    // and mark their IP address as busy
-    for (int i = 0; i < m_IPAddressMap.length(); i++)
-    {
-        ArtNetController *contr = m_controllersList.at(i);
-        if (contr != NULL && contr->getType() == ArtNetController::Output &&
-            busyAddress.contains(m_IPAddressMap.at(i)) == false)
-                busyAddress.append(m_IPAddressMap.at(i));
-    }
-    for (int i = 0; i < m_IPAddressMap.length(); i++)
-    {
-        // if the controller is not marked as busy then it's a valid line
-        if (busyAddress.contains(m_IPAddressMap.at(i)) == false)
-            list << QString(tr("%1: [%2] Universe: %3")).arg(i + 1).arg(m_IPAddressMap.at(i)).arg(m_IOPortMap.at(i) + 1);
-    }
-*/
     int j = 0;
     foreach (ArtNetIO line, m_IOmapping)
     {
@@ -295,8 +260,16 @@ void ArtNetPlugin::openInput(quint32 input)
         connect(controller, SIGNAL(valueChanged(quint32,int,uchar)),
                 this, SLOT(slotInputValueChanged(quint32,int,uchar)));
         m_IOmapping[input].controller = controller;
+        // mark all the inputs with this IP address as input lines
+        /*
+        for (i = 0; i < m_IOmapping.length(); i++)
+        {
+            if (m_IOmapping.at(i).IPAddress == m_IOmapping.at(input).IPAddress)
+                m_IOmapping[i].type = ArtNetController::Input;
+        }
+        */
     }
-    //emit configurationChanged(); // why this doesn't work ??
+
 }
 
 void ArtNetPlugin::closeInput(quint32 input)
@@ -313,8 +286,14 @@ void ArtNetPlugin::closeInput(quint32 input)
             controller->removeUniverse(m_IOmapping.at(input).port);
             m_IOmapping[input].controller = NULL;
         }
-        else // otherwiase destroy it
+        else // otherwise destroy it
         {
+            // reset all the outputs with this IP address as Unknown (Input/Output allowed)
+            for (int i = 0; i < m_IOmapping.length(); i++)
+            {
+                if (m_IOmapping.at(i).IPAddress == m_IOmapping.at(input).IPAddress)
+                    m_IOmapping[i].type = ArtNetController::Unknown;
+            }
             delete m_IOmapping[input].controller;
             m_IOmapping[input].controller = NULL;
         }
@@ -373,7 +352,7 @@ void ArtNetPlugin::remapOutputs(QList<QString> IPs, QList<int> ports)
                 m_IOmapping.at(oldIdx).port == ports.at(i))
             {
                 tmpIO.controller = m_IOmapping.at(oldIdx).controller;
-                tmpIO.type = (ArtNetController::ControllerType)tmpIO.controller->getType();
+                tmpIO.type = (ArtNetController::Type)tmpIO.controller->getType();
                 oldIdx++;
             }
             else
