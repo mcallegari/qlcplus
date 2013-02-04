@@ -505,6 +505,7 @@ void VirtualConsole::initMenuBar()
 
     /* Toolbar */
     m_toolbar = new QToolBar(this);
+    m_toolbar->setIconSize(QSize(26,26));
     m_contentsLayout->addWidget(m_toolbar);
 
     m_toolbar->addAction(m_addButtonAction);
