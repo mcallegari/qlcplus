@@ -21,6 +21,7 @@ fixtures.files += Coemar-Stage-Lite-LED.qxf
 fixtures.files += Chauvet-200b.qxf
 fixtures.files += Chauvet-4Bar-Tri.qxf
 fixtures.files += Chauvet-6-Spot.qxf
+fixtures.files += Chauvet-ColorBand-Pix-IP.qxf
 fixtures.files += Chauvet-ColorStrip-Mini.qxf
 fixtures.files += Chauvet-COLORado-1-Tour.qxf
 fixtures.files += Chauvet-COLORpalette.qxf
