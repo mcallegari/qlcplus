@@ -253,11 +253,36 @@ void PlaybackWing::applyExtraButtons(const QByteArray& data)
     {
         nextPage();
         sendPageData();
+        /* Read the state of each slider. Each value takes all 8 bits. */
+        for (int slider = 0; slider < WING_PLAYBACK_SLIDER_SIZE; slider++)
+        {
+            char value = data[WING_PLAYBACK_BYTE_SLIDER + slider];
+
+            /* get page offset for channel*/
+            quint32 offset = (WING_PLAYBACK_CHANNEL_COUNT) * page();
+
+            /* Slider channels start from zero */
+//            setCacheValue(slider+offset, value);
+            emit valueChanged(slider+offset, value);
+
+        }
     }
     else if (!(data[WING_PLAYBACK_BYTE_EXTRA_BUTTONS] & WING_PLAYBACK_BIT_PAGEDOWN))
     {
         previousPage();
         sendPageData();
+        /* Read the state of each slider. Each value takes all 8 bits. */
+        for (int slider = 0; slider < WING_PLAYBACK_SLIDER_SIZE; slider++)
+        {
+            char value = data[WING_PLAYBACK_BYTE_SLIDER + slider];
+
+            /* get page offset for channel*/
+            quint32 offset = (WING_PLAYBACK_CHANNEL_COUNT) * page();
+
+            /* Slider channels start from zero */
+//            setCacheValue(slider+offset, value);
+            emit valueChanged(slider+offset, value);
+        }
     }
     else if (!(data[WING_PLAYBACK_BYTE_EXTRA_BUTTONS] & WING_PLAYBACK_BIT_BACK))
     {
