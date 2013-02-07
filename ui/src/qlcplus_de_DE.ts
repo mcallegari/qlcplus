@@ -157,7 +157,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="addfixture.ui" line="54"/>
         <source>A friendly name for the new fixture</source>
-        <translation>Ein sprechender Name für dieses Gerät</translation>
+        <translation>Eine Bezeichung für das neue Gerät</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="61"/>
@@ -358,7 +358,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="addvcslidermatrix.ui" line="33"/>
         <source>Number of sliders to create</source>
-        <translation>Anzahl der anzulegenden Schieberegler</translation>
+        <translation>Anzahl der zu erstellenden Schieberegler</translation>
     </message>
     <message>
         <location filename="addvcslidermatrix.ui" line="43"/>
@@ -453,7 +453,7 @@ p, li { white-space: pre-wrap; }
         <location filename="app.cpp" line="408"/>
         <source>There are still running functions.
 Really stop them and switch back to Design mode?</source>
-        <translation>Es gibt noch ablaufende Funktionen.
+        <translation>Es gibt noch laufende Funktionen.
 Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translation>
     </message>
     <message>
@@ -498,7 +498,7 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
         <location filename="app.cpp" line="463"/>
         <source>CTRL+N</source>
         <comment>File|New</comment>
-        <translation>CTRL+N</translation>
+        <translation>STRG+N</translation>
     </message>
     <message>
         <location filename="app.cpp" line="466"/>
@@ -509,7 +509,7 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
         <location filename="app.cpp" line="467"/>
         <source>CTRL+O</source>
         <comment>File|Open</comment>
-        <translation>CTRL+O</translation>
+        <translation>STRG+O</translation>
     </message>
     <message>
         <location filename="app.cpp" line="470"/>
@@ -520,7 +520,7 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
         <location filename="app.cpp" line="471"/>
         <source>CTRL+S</source>
         <comment>File|Save</comment>
-        <translation>CTRL+S</translation>
+        <translation>STRG+S</translation>
     </message>
     <message>
         <location filename="app.cpp" line="474"/>
@@ -552,7 +552,7 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
         <location filename="app.cpp" line="480"/>
         <source>CTRL+F12</source>
         <comment>Control|Toggle operate/design mode</comment>
-        <translation>CTRL+F12</translation>
+        <translation>STRG+F12</translation>
     </message>
     <message>
         <source>&amp;Virtual Console</source>
@@ -561,7 +561,7 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
     <message>
         <source>CTRL+Q</source>
         <comment>File|Quit</comment>
-        <translation type="obsolete">CTRL+Q</translation>
+        <translation type="obsolete">STRG+Q</translation>
     </message>
     <message>
         <location filename="app.cpp" line="300"/>
@@ -586,7 +586,7 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
     </message>
     <message>
         <source>Fi&amp;xtures</source>
-        <translation type="obsolete">Geräte</translation>
+        <translation type="obsolete">Ger&amp;äte</translation>
     </message>
     <message>
         <source>F&amp;unctions</source>
@@ -611,7 +611,7 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
         <location filename="app.cpp" line="484"/>
         <source>CTRL+M</source>
         <comment>Control|Monitor</comment>
-        <translation>CTRL+M</translation>
+        <translation>STRG+M</translation>
     </message>
     <message>
         <location filename="app.cpp" line="496"/>
@@ -622,7 +622,7 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
         <location filename="app.cpp" line="498"/>
         <source>CTRL+F11</source>
         <comment>Control|Toggle Full Screen</comment>
-        <translation>CTRL+F11</translation>
+        <translation>STRG+F11</translation>
     </message>
     <message>
         <source>Minimize</source>
@@ -631,7 +631,7 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
     <message>
         <source>CTRL+M</source>
         <comment>Apple Window Action|Minimize</comment>
-        <translation type="obsolete">CTRL+M</translation>
+        <translation type="obsolete">STRG+M</translation>
     </message>
     <message>
         <source>Bring All to Front</source>
@@ -731,7 +731,7 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
     <message>
         <location filename="app.cpp" line="566"/>
         <source>Unable to open file for reading or writing</source>
-        <translation>Datei kann nicht um lesen oder schreiben geöffnet werden</translation>
+        <translation>Datei kann nicht zum Lesen oder Schreiben geöffnet werden</translation>
     </message>
     <message>
         <location filename="app.cpp" line="569"/>
@@ -741,7 +741,7 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
     <message>
         <location filename="app.cpp" line="572"/>
         <source>Operation timed out</source>
-        <translation>Vorgang hatte eine Zeitüberschreitung</translation>
+        <translation>Zeitüberschreitung bei Vorgang</translation>
     </message>
     <message>
         <location filename="app.cpp" line="576"/>
@@ -841,7 +841,7 @@ Changes will be lost if you don&apos;t save them.</source>
     </message>
     <message>
         <source>Hit the key combination that you wish to assign. You may hit either a single key or a combination using %1, %2, %3 and %4.</source>
-        <translation type="obsolete">Presse die Tastenkombination, welche du zuweisen möchtest. Du kannst eine einzelne Taste drücken, oder eine Kombination mit %1, %2, %3 und %4.</translation>
+        <translation type="obsolete">Drücke die Tastenkombination die du zuweisen möchtest. Du kannst eine einzelne Taste drücken, oder eine Kombination mit %1, %2, %3 und %4.</translation>
     </message>
 </context>
 <context>
@@ -955,12 +955,12 @@ Changes will be lost if you don&apos;t save them.</source>
         <location filename="channelselection.ui" line="117"/>
         <source>Choose an external input universe and channel that this group should listen to</source>
         <oldsource>Choose an external input and universe and channel that this group should listen to</oldsource>
-        <translation type="unfinished">Wähle ein externes Universum &amp; einen Kanal auf den dieser Schieberegler hören soll</translation>
+        <translation type="unfinished">Wähle ein externes Universum und einen Kanal auf den dieser Schieberegler hören soll</translation>
     </message>
     <message>
         <location filename="channelselection.ui" line="120"/>
         <source>Choose...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Auswählen...</translation>
     </message>
     <message>
         <location filename="channelselection.ui" line="127"/>
@@ -971,7 +971,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="channelselection.ui" line="130"/>
         <source>Auto Detect</source>
-        <translation type="unfinished">Automatische Erkennung</translation>
+        <translation type="unfinished">Automatisch erkennen</translation>
     </message>
     <message>
         <location filename="channelselection.ui" line="140"/>
@@ -1052,7 +1052,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="chasereditor.ui" line="184"/>
         <source>Show/Hide speed dial window</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Anzeigen/Ausblenden des schnellwahl Fenter</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="187"/>
@@ -1087,7 +1087,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="chasereditor.ui" line="358"/>
         <source>Switch direction at both ends</source>
-        <translation>Schaltrichtung an beiden Enden</translation>
+        <translation>Richtung an beiden Enden wechseln</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="419"/>
@@ -1250,7 +1250,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="chasereditor.cpp" line="709"/>
         <source>Common Fade In</source>
-        <translation>Gemeinsame Einlendung</translation>
+        <translation>Gemeinsame Einblendung</translation>
     </message>
     <message>
         <location filename="chasereditor.cpp" line="710"/>
@@ -1406,7 +1406,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="efxeditor.ui" line="14"/>
         <source>EFX Editor</source>
-        <translation>Effekte Editor</translation>
+        <translation>Effekt Editor</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="27"/>
@@ -1421,7 +1421,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="efxeditor.ui" line="46"/>
         <source>The name of the function being edited</source>
-        <translation>Der Funktionsname der bearbeitet wird</translation>
+        <translation>Der Name der Funktion die bearbeitet wird</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="78"/>
@@ -5288,7 +5288,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="vcxypadproperties.ui" line="167"/>
         <source>Pan / Horizontal Axis</source>
-        <translation>Pan / Horizontale Axen</translation>
+        <translation>Pan / Horizontale Achsen</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="173"/>
@@ -5317,7 +5317,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="vcxypadproperties.ui" line="234"/>
         <source>Tilt / Vertical Axis</source>
-        <translation>Tilt / Vertikale Axe</translation>
+        <translation>Tilt / Vertikale Achse</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.cpp" line="237"/>
@@ -5386,7 +5386,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     </message>
     <message>
         <source>Stop ALL functions!</source>
-        <translation type="obsolete">ALLE funktionen stoppen!</translation>
+        <translation type="obsolete">ALLE Funktionen stoppen!</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="330"/>
@@ -5414,7 +5414,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     </message>
     <message>
         <source>Rename</source>
-        <translation type="obsolete">Umbennen</translation>
+        <translation type="obsolete">Umbenennen</translation>
     </message>
     <message>
         <source>Color</source>
@@ -5480,7 +5480,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="virtualconsole.cpp" line="281"/>
         <source>New Button Matrix</source>
-        <translation>Neue Schaltflächen Matrix</translation>
+        <translation>Neue Schaltflächen-Matrix</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="284"/>
@@ -5490,7 +5490,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="virtualconsole.cpp" line="287"/>
         <source>New Slider Matrix</source>
-        <translation>Neue Regler Matrix</translation>
+        <translation>Neue Regler-Matrix</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="290"/>
@@ -5545,7 +5545,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="virtualconsole.cpp" line="363"/>
         <source>Background Image</source>
-        <translation>Hintergrundsbild</translation>
+        <translation>Hintergrundbild</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="377"/>
