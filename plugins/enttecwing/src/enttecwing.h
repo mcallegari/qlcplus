@@ -148,6 +148,7 @@ protected:
 protected slots:
     void slotReadSocket();
     void slotValueChanged(quint32 channel, uchar value);
+    void slotPageChanged(quint32 pagesize, quint32 page);
 
 protected:
     QList <Wing*> m_devices;

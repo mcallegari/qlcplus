@@ -20,7 +20,7 @@
 */
 
 #include <math.h>
-
+#include <QTextStream> //remove this later
 #include "universearray.h"
 #include "qlcmacros.h"
 
@@ -37,6 +37,7 @@ UniverseArray::UniverseArray(int size)
     : m_size(size)
     , m_preGMValues(new QByteArray(size, char(0)))
     , m_postGMValues(new QByteArray(size, char(0)))
+    , m_capturedValues(new QByteArray(size, char(0)))
 {
     m_gMChannelMode = GMIntensity;
     m_gMValueMode = GMReduce;
@@ -48,6 +49,7 @@ UniverseArray::~UniverseArray()
 {
     delete m_preGMValues;
     delete m_postGMValues;
+    delete m_capturedValues;
 }
 
 int UniverseArray::size() const
@@ -59,8 +61,10 @@ void UniverseArray::reset()
 {
     m_preGMValues->fill(0);
     m_postGMValues->fill(0);
+    m_capturedValues->fill(0);
     m_gMIntensityChannels.clear();
     m_gMNonIntensityChannels.clear();
+    m_capturedChannels.clear();
 }
 
 void UniverseArray::reset(int address, int range)
@@ -69,8 +73,10 @@ void UniverseArray::reset(int address, int range)
     {
         m_preGMValues->data()[i] = 0;
         m_postGMValues->data()[i] = 0;
+        m_capturedValues->data()[i] = 0;
         m_gMIntensityChannels.remove(i);
         m_gMNonIntensityChannels.remove(i);
+        m_capturedChannels.remove(i);
     }
 }
 
@@ -265,21 +271,55 @@ uchar UniverseArray::applyGM(int channel, uchar value, QLCChannel::Group group)
     return value;
 }
 
+/************************************************************************
+ * Capture Channels
+ ************************************************************************/
+
+void UniverseArray::capture(int channel)
+{
+    m_capturedChannels << channel;
+}
+
+void UniverseArray::release(int channel)
+{
+    m_capturedChannels.remove(channel);
+}
+
 /****************************************************************************
  * Writing
  ****************************************************************************/
 
-bool UniverseArray::write(int channel, uchar value, QLCChannel::Group group)
+bool UniverseArray::write(int channel, uchar value, QLCChannel::Group group, bool captured)
 {
     if (channel >= size())
         return false;
 
-    if (checkHTP(channel, value, group) == false)
-        return false;
+    /* captured channel from level slider */
+    if (captured)
+    {
+        /* store last value of a captured write */
+        if (m_capturedChannels.contains(channel))
+            m_capturedValues->data()[channel] = char(value);
+    }
 
-    if (m_preGMValues != NULL)
-        m_preGMValues->data()[channel] = char(value);
-    value = applyGM(channel, value, group);
+    /* channel is captured */
+    if (m_capturedChannels.contains(channel))
+    {
+        /* use value from captured channels */
+        if (m_preGMValues != NULL)
+            m_preGMValues->data()[channel] = char(m_capturedValues->data()[channel]);
+        value = applyGM(channel, m_capturedValues->data()[channel], group);
+    }
+    else
+    {
+        if (checkHTP(channel, value, group) == false)
+            return false;
+
+        if (m_preGMValues != NULL)
+            m_preGMValues->data()[channel] = char(value);
+        value = applyGM(channel, value, group);
+    }
+
     m_postGMValues->data()[channel] = char(value);
 
     return true;

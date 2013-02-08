@@ -272,6 +272,15 @@ protected slots:
      */
     virtual void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
 
+    /**
+     * Slot that receives page change request from an external input
+     *
+     * @param universe Input universe
+     * @param pagesize Number of channels per page
+     * @param page Current page
+     */
+    virtual void slotInputPageChanged(quint32 universe, quint32 pagesize, quint32 page);
+
 protected:
     QHash <quint8,QLCInputSource> m_inputs;
 

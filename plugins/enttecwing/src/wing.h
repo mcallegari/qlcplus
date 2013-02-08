@@ -174,6 +174,7 @@ public:
     void previousPage();
 
     uchar page() const;
+    virtual quint32 pageSize() const;
 
 private:
     uchar m_page;
@@ -234,6 +235,14 @@ signals:
      * @param value The new value for the channel
      */
     void valueChanged(quint32 channel, uchar value);
+
+    /**
+     * page changes are signalled with this signal.
+     *
+     * @param pagesize The number of channels per page
+     * @param page The current page
+     */
+    void pageChanged(quint32 pagesize, quint32 page);
 
 protected:
     QByteArray m_values;

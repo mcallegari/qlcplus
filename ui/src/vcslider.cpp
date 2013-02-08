@@ -128,6 +128,15 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_bottomLabel->setAlignment(Qt::AlignCenter);
     m_bottomLabel->hide();
 
+    /* Channel capture Button */
+    m_captureChannelButton = new QPushButton(this);
+    layout()->addWidget(m_captureChannelButton);
+    m_captureChannelButton->setIcon(QIcon(":/stop.png"));
+    m_captureChannelButton->setToolTip(tr("capture Channel"));
+    m_captureChannelButton->setCheckable(true);
+    m_captureChannelButton->setChecked(false);
+    connect(m_captureChannelButton, SIGNAL(toggled (bool)), this, SLOT(slotCaptureChannelToggled()));
+
     setMinimumSize(20, 20);
     resize(VCSlider::defaultSize);
 
@@ -142,6 +151,9 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
        they no longer point to an existing fixture->channel */
     connect(m_doc, SIGNAL(fixtureRemoved(quint32)),
             this, SLOT(slotFixtureRemoved(quint32)));
+
+    m_catchlevel = false;
+    m_leveldiff = 0;
 }
 
 VCSlider::~VCSlider()
@@ -238,6 +250,7 @@ void VCSlider::slotModeChanged(Doc::Mode mode)
         m_slider->setEnabled(true);
         m_bottomLabel->setEnabled(true);
         m_tapButton->setEnabled(true);
+        m_captureChannelButton->setEnabled(true);
 
         if (sliderMode() == Playback)
         {
@@ -261,6 +274,7 @@ void VCSlider::slotModeChanged(Doc::Mode mode)
         m_slider->setEnabled(false);
         m_bottomLabel->setEnabled(false);
         m_tapButton->setEnabled(false);
+        m_captureChannelButton->setEnabled(false);
 
         if (sliderMode() == Playback)
         {
@@ -394,6 +408,7 @@ void VCSlider::setSliderMode(SliderMode mode)
 
         m_bottomLabel->show();
         m_tapButton->hide();
+        m_captureChannelButton->show();
 
         m_doc->masterTimer()->registerDMXSource(this);
     }
@@ -401,6 +416,7 @@ void VCSlider::setSliderMode(SliderMode mode)
     {
         m_bottomLabel->show();
         m_tapButton->hide();
+        m_captureChannelButton->hide();
 
         uchar level = playbackValue();
         m_slider->setRange(0, UCHAR_MAX);
@@ -485,6 +501,55 @@ void VCSlider::slotFixtureRemoved(quint32 fxi_id)
             it.remove();
     }
 }
+
+void VCSlider::slotCaptureChannelToggled()
+{
+    UniverseArray* universes = m_doc->outputMap()->claimUniverses();
+    const QByteArray* postvals = universes->postGMValues();
+
+    if (m_captureChannelButton->isChecked())
+    {
+
+        uchar lastval = 0;
+        QListIterator <LevelChannel> it(m_levelChannels);
+        while (it.hasNext() == true)
+        {
+            LevelChannel lch(it.next());
+
+            /* get current dmx output value */
+            Fixture* fxi = m_doc->fixture(lch.fixture);
+            uchar curval = uchar(postvals->at(fxi->channelAddress(lch.channel)));
+
+            /* store higher dmx value */
+            if (curval > lastval)
+                lastval = curval;
+
+            /* mark channel as captured */
+            universes->capture(fxi->channelAddress(lch.channel));
+        }
+
+        m_captureChannelButton->setIcon(QIcon(":/record.png"));
+
+        /* snap slider to highest level channel value */
+        m_slider->setValue(lastval);
+    }
+    else
+    {
+        m_captureChannelButton->setIcon(QIcon(":/stop.png"));
+
+        QListIterator <LevelChannel> it(m_levelChannels);
+        while (it.hasNext() == true)
+        {
+            LevelChannel lch(it.next());
+
+            /* release captured channel */
+            Fixture* fxi = m_doc->fixture(lch.fixture);
+            universes->release(fxi->channelAddress(lch.channel));
+        }
+    }
+    m_doc->outputMap()->releaseUniverses(false);
+}
+
 
 /*****************************************************************************
  * Playback
@@ -572,9 +637,8 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, UniverseArray* universes)
                    LTP in effect. */
                 continue;
             }
-
             quint32 dmx_ch = fxi->channelAddress(lch.channel);
-            universes->write(dmx_ch, m_levelValue, qlcch->group());
+            universes->write(dmx_ch, m_levelValue, qlcch->group(), m_captureChannelButton->isChecked());
         }
     }
     m_levelValueChanged = false;
@@ -788,18 +852,61 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel,
         }
         else
         {
-            /* Scale from input value range to this slider's range */
-            float val;
-            val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
-                        (float) m_slider->minimum(),
-                        (float) m_slider->maximum());
+            if (m_catchlevel)
+            {
+                /* level difference between external input fader and slider */
+                m_leveldiff = value - m_slider->value();
 
-            if (m_slider->invertedAppearance() == true)
-                m_slider->setValue(m_slider->maximum() - (int) val);
+                /* reset catchlevel */
+                m_catchlevel = false;
+            }
+
+            /* slider value and input value are the same */
+            if (value - m_slider->value() == 0)
+                m_leveldiff = 0;
             else
-                m_slider->setValue((int) val);
+            {
+                /* input fader crossed (catched) slider value */
+                if (m_leveldiff < 0 && value - m_slider->value() > 0)
+                    m_leveldiff = 0;
+                else
+                {
+                    if (m_leveldiff > 0 && value - m_slider->value() < 0)
+                        m_leveldiff = 0;
+//                    else
+//                        /* workaround if slider is 0 or 255 */
+//                        if (m_slider->value() == 0 || m_slider->value() == 255)
+//                        {
+//                            if (abs(value-m_slider->value()) < 25)
+//                                m_leveldiff = 0;
+//                        }
+                }
+            }
+
+            if (m_leveldiff == 0)
+            {
+                /* Scale from input value range to this slider's range */
+                float val;
+                val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
+                            (float) m_slider->minimum(),
+                            (float) m_slider->maximum());
+
+                if (m_slider->invertedAppearance() == true)
+                    m_slider->setValue(m_slider->maximum() - (int) val);
+                else
+                    m_slider->setValue((int) val);
+            }
         }
     }
+}
+
+void VCSlider::slotInputPageChanged(quint32 universe, quint32 pagesize, quint32 page)
+{
+    /** add little icons that show the status of the slider (on active page, input is valid) **/
+    Q_UNUSED(universe);
+    Q_UNUSED(pagesize);
+    Q_UNUSED(page);
+    m_catchlevel = true;
 }
 
 /*****************************************************************************

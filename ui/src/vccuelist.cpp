@@ -22,6 +22,7 @@
 #include <QTreeWidgetItem>
 #include <QTreeWidget>
 #include <QHeaderView>
+#include <QInputDialog>
 #include <QVBoxLayout>
 #include <QString>
 #include <QDebug>
@@ -39,8 +40,12 @@
 #include "chaser.h"
 #include "doc.h"
 
-#define COL_NUM  0
-#define COL_NAME 1
+#define COL_NUM      0
+#define COL_NAME     1
+#define COL_FADEIN   2
+#define COL_FADEOUT  3
+#define COL_DURATION 4
+
 #define PROP_ID  Qt::UserRole
 #define HYSTERESIS 3 // Hysteresis for next/previous external input
 
@@ -68,6 +73,7 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_tree->setAllColumnsShowFocus(true);
     m_tree->setRootIsDecorated(false);
     m_tree->setItemsExpandable(false);
+    m_tree->setColumnCount (COL_DURATION + 1);
     m_tree->header()->setSortIndicatorShown(false);
     m_tree->header()->setClickable(false);
     m_tree->header()->setMovable(false);
@@ -75,11 +81,38 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     connect(m_tree, SIGNAL(itemActivated(QTreeWidgetItem*,int)),
             this, SLOT(slotItemActivated(QTreeWidgetItem*)));
 
+    /* Create a horizontal layout the buttons */
+    QHBoxLayout *hbox = new QHBoxLayout(this);
+    hbox->setSpacing(2);
+
     /* Create a stop button */
     m_stopButton = new QPushButton(this);
+    m_stopButton->setIcon(QIcon(":/stop.png"));
     m_stopButton->setText(tr("Stop"));
-    layout()->addWidget(m_stopButton);
+    m_stopButton->setToolTip(tr("Stop Cuelist"));
     connect(m_stopButton, SIGNAL(clicked()), this, SLOT(slotStop()));
+
+    /* Create a record button */
+    m_recordButton = new QPushButton(this);
+    m_recordButton->setIcon(QIcon(":/record.png"));
+    m_recordButton->setText(tr("Record"));
+    m_recordButton->setToolTip(tr("Record new Scene and append it to the Cuelist"));
+    connect(m_recordButton, SIGNAL(clicked()), this, SLOT(slotRecord()));
+
+    /* Create a refresh button */
+    m_refreshButton = new QPushButton(this);
+    m_refreshButton->setIcon(QIcon(":/up.png"));
+    m_refreshButton->setText(tr("Refresh"));
+    m_refreshButton->setToolTip(tr("Refresh Cuelist View"));
+    connect(m_refreshButton, SIGNAL(clicked()), this, SLOT(slotRefresh()));
+
+    /* Add buttons to the horizontal layout */
+    hbox->addWidget(m_recordButton);
+    hbox->addWidget(m_stopButton);
+    hbox->addWidget(m_refreshButton);
+
+    /* add horizontal box to this layout */
+    layout()->addItem(hbox);
 
     setFrameStyle(KVCFrameStyleSunken);
     setCaption(tr("Cue list"));
@@ -178,6 +211,46 @@ void VCCueList::updateStepList()
         item->setText(COL_NUM, QString("%1").arg(index));
         item->setText(COL_NAME, function->name());
         item->setData(COL_NUM, PROP_ID, function->id());
+
+        switch (chaser->fadeInMode())
+        {
+        case Chaser::Common:
+            item->setText(COL_FADEIN, Function::speedToString(chaser->fadeInSpeed()));
+            break;
+        case Chaser::PerStep:
+            item->setText(COL_FADEIN, Function::speedToString(step.fadeIn));
+            break;
+        default:
+        case Chaser::Default:
+            item->setText(COL_FADEIN, QString());
+        }
+
+        switch (chaser->fadeOutMode())
+        {
+        case Chaser::Common:
+            item->setText(COL_FADEOUT, Function::speedToString(chaser->fadeOutSpeed()));
+            break;
+        case Chaser::PerStep:
+            item->setText(COL_FADEOUT, Function::speedToString(step.fadeOut));
+            break;
+        default:
+        case Chaser::Default:
+            item->setText(COL_FADEOUT, QString());
+        }
+
+
+        switch (chaser->durationMode())
+        {
+        case Chaser::Common:
+            item->setText(COL_DURATION, Function::speedToString(chaser->duration()));
+            break;
+        case Chaser::PerStep:
+            item->setText(COL_DURATION, Function::speedToString(step.duration));
+            break;
+        default:
+        case Chaser::Default:
+            item->setText(COL_DURATION, QString());
+        }
     }
 }
 
@@ -236,6 +309,105 @@ void VCCueList::slotStop()
 
     /* Start from the beginning */
     m_tree->setCurrentItem(NULL);
+    m_recordButton->setText(tr("Record"));
+    m_recordButton->setToolTip(tr("Record new Scene and append it to the Cuelist"));
+}
+
+void VCCueList::slotRecord()
+{
+    if (mode() != Doc::Operate)
+        return;
+
+    Chaser* chaser = qobject_cast<Chaser*> (m_doc->function(m_chaser));
+    /* a chaser has to attached to the cuelist */
+    if (chaser == NULL)
+        return;
+
+    const UniverseArray* universes = m_doc->outputMap()->claimUniverses();
+    const QByteArray* postvals = universes->postGMValues();
+    m_doc->outputMap()->releaseUniverses(false);
+
+    /* cuelist is active, get chaser step and overwrite values of the current step*/
+    if (m_tree->currentItem() != NULL)
+    {
+        int currentid = m_runner->currentStep();
+        ChaserStep step = chaser->steps()[currentid];
+
+        Function* function = m_doc->function(step.fid);
+        Q_ASSERT(function != NULL);
+
+        if (function->type() == Function::Scene)
+        {
+            Scene* scene = qobject_cast<Scene*> (m_doc->function(function->id()));
+
+            QListIterator <Fixture*> it(m_doc->fixtures ());
+
+            while (it.hasNext())
+            {
+                //SceneValue scenevalue = ??
+                Fixture* fxi = it.next();
+
+                if ( fxi->isDimmer() )
+                {
+                    for ( quint32 i = 0; i < fxi->channels(); i++ )
+                    {
+                        uchar curval = uchar(postvals->at(fxi->channelAddress(i)));
+                        if (curval > 0)
+                        {
+                            if (curval != scene->value(fxi->id(), i))
+                                scene->setValue(fxi->id(), i, curval);
+                        }
+                        else
+                        {
+                            if (scene->value(fxi->id(), i) > 0)
+                                scene->unsetValue(fxi->id(), i);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    else //cuelist not active, add a new scene and append it to the cuelist
+    {
+        Scene* scene = new Scene(m_doc);
+
+        /* add new function and append it to the Cuelist */
+        m_doc->addFunction(scene);
+        quint32 fid = scene->id();
+
+        bool ok = false;
+        QString text = QInputDialog::getText(this, tr("Record"), tr("Scene Name"), QLineEdit::Normal, QString(), &ok);
+
+        if (ok == false || !text.size())
+            scene->setName(QString("Output Snapshot %1").arg(fid));
+        else
+            scene->setName(text);
+
+        /* fill scene with current values from Outputmap (Dimmers only) */
+        QListIterator <Fixture*> it(m_doc->fixtures ());
+
+        while (it.hasNext())
+        {
+            Fixture* fxi = it.next();
+
+            if ( fxi->isDimmer() )
+            {
+                for ( quint32 i = 0; i < fxi->channels(); i++ )
+                {
+                    uchar value = uchar(postvals->at(fxi->channelAddress(i)));
+                    if (value)
+                       scene->setValue(fxi->id(), i, value);
+                }
+            }
+        }
+        ChaserStep step(scene->id());
+        chaser->addStep(step);
+    }
+}
+
+void VCCueList::slotRefresh()
+{
+    updateStepList();
 }
 
 void VCCueList::slotCurrentStepChanged(int stepNumber)
@@ -245,6 +417,18 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
     Q_ASSERT(item != NULL);
     m_tree->scrollToItem(item, QAbstractItemView::PositionAtCenter);
     m_tree->setCurrentItem(item);
+
+    /* enable record button if chaserstep is a scene */
+    Chaser* chaser = qobject_cast<Chaser*> (m_doc->function(m_chaser));
+    int currentid = m_runner->currentStep();
+    QList <ChaserStep> steps = chaser->steps();
+    ChaserStep step = steps[currentid];
+
+    Function* function = m_doc->function(step.fid);
+    if (function->type() == Function::Scene)
+        m_recordButton->setEnabled(true);
+    else
+        m_recordButton->setEnabled(false);
 }
 
 void VCCueList::slotItemActivated(QTreeWidgetItem* item)
@@ -271,6 +455,8 @@ void VCCueList::createRunner(int startIndex)
         m_runner->setCurrentStep(startIndex);
         connect(m_runner, SIGNAL(currentStepChanged(int)),
                 this, SLOT(slotCurrentStepChanged(int)));
+        m_recordButton->setText(tr("Update"));
+        m_recordButton->setToolTip(tr("Update current Scene in the Cuelist"));
     }
 }
 
@@ -418,7 +604,7 @@ void VCCueList::setCaption(const QString& text)
     VCWidget::setCaption(text);
 
     QStringList list;
-    list << tr("Number") << text;
+    list << tr("Number") << text << tr("infade") << tr("outfade") << tr("duration");
     m_tree->setHeaderLabels(list);
 }
 
@@ -429,6 +615,11 @@ void VCCueList::slotModeChanged(Doc::Mode mode)
         Q_ASSERT(m_runner == NULL);
         m_doc->masterTimer()->registerDMXSource(this);
         m_tree->setEnabled(true);
+        m_recordButton->setEnabled(true);
+        m_recordButton->setText(tr("Record"));
+        m_recordButton->setToolTip(tr("Record new Scene and append it to the Cuelist"));
+        m_stopButton->setEnabled(true);
+        m_refreshButton->setEnabled(true);
     }
     else
     {
@@ -439,6 +630,9 @@ void VCCueList::slotModeChanged(Doc::Mode mode)
         m_runner = NULL;
         m_mutex.unlock();
         m_tree->setEnabled(false);
+        m_recordButton->setEnabled(false);
+        m_stopButton->setEnabled(false);
+        m_refreshButton->setEnabled(false);
     }
 
     /* Always start from the beginning */

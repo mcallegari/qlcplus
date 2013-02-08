@@ -128,6 +128,7 @@ void Wing::nextPage()
         m_page = WING_PAGE_MIN;
     else
         m_page++;
+    emit pageChanged(pageSize(), m_page);
 }
 
 void Wing::previousPage()
@@ -136,11 +137,17 @@ void Wing::previousPage()
         m_page = WING_PAGE_MAX;
     else
         m_page--;
+    emit pageChanged(pageSize(), m_page);
 }
 
 uchar Wing::page() const
 {
     return m_page;
+}
+
+quint32 Wing::pageSize() const
+{
+    return 0;
 }
 
 /****************************************************************************
