@@ -5183,12 +5183,12 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="vcsliderproperties.ui" line="353"/>
         <source>Choose channels by channel group</source>
-        <translation>Scegli i canali per il gruppo di canali</translation>
+        <translation>Scegli i canali per gruppo di canali</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="356"/>
         <source>By group...</source>
-        <translation>Per il Gruppo...</translation>
+        <translation>Per gruppo...</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="378"/>

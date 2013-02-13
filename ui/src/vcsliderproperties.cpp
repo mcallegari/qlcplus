@@ -354,7 +354,11 @@ void VCSliderProperties::levelUpdateChannelNode(QTreeWidgetItem* parent,
 
     item->setText(KColumnName, QString("%1:%2").arg(ch + 1)
                   .arg(channel->name()));
-    item->setText(KColumnType, QLCChannel::groupToString(channel->group()));
+    if (channel->group() == QLCChannel::Intensity &&
+        channel->colour() != QLCChannel::NoColour)
+        item->setText(KColumnType, QLCChannel::colourToString(channel->colour()));
+    else
+        item->setText(KColumnType, QLCChannel::groupToString(channel->group()));
 
     levelUpdateCapabilities(item, channel);
 }
@@ -558,11 +562,33 @@ void VCSliderProperties::slotLevelByGroupClicked()
 {
     bool ok = false;
     QString group;
+    QStringList groups;
+
+    foreach(Fixture* fixture, m_doc->fixtures())
+    {
+        Q_ASSERT(fixture != NULL);
+
+        for(quint32 i = 0; i < fixture->channels(); i++)
+        {
+            QLCChannel channel = fixture->channel(i);
+
+            QString property = QLCChannel::groupToString(channel.group());
+
+            if (channel.group() == QLCChannel::Intensity &&
+                channel.colour() != QLCChannel::NoColour)
+            {
+                property = QLCChannel::colourToString(channel.colour());
+            }
+
+            if (groups.contains(property) == false)
+                groups.append(property);
+        }
+    }
 
     group = QInputDialog::getItem(this,
                                   "Select channels by group",
                                   "Select a channel group",
-                                  QLCChannel::groupList(), 0,
+                                  groups/*QLCChannel::groupList()*/, 0,
                                   false, &ok);
 
     if (ok == true)
