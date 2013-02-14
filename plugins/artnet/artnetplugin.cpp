@@ -122,7 +122,7 @@ QStringList ArtNetPlugin::outputs()
     foreach (ArtNetIO line, m_IOmapping)
     {
         if(line.type != ArtNetController::Input)
-            list << QString(tr("%1: [%2] Universe: %3")).arg(j + 1).arg(line.IPAddress).arg(line.port + 1);
+            list << QString(tr("%1: [%2] Universe: %3")).arg(j + 1).arg(line.IPAddress).arg(line.port);
         j++;
     }
     return list;
@@ -221,7 +221,7 @@ QStringList ArtNetPlugin::inputs()
     foreach (ArtNetIO line, m_IOmapping)
     {
         if(line.type != ArtNetController::Output)
-            list << QString(tr("%1: [%2] Universe: %3")).arg(j + 1).arg(line.IPAddress).arg(line.port + 1);
+            list << QString(tr("%1: [%2] Universe: %3")).arg(j + 1).arg(line.IPAddress).arg(line.port);
         j++;
     }
     return list;
