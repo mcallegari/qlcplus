@@ -84,6 +84,8 @@ bool Scene::copyFrom(const Function* function)
 
     m_values.clear();
     m_values = scene->m_values;
+    m_channelGroups.clear();
+    m_channelGroups = scene->m_channelGroups;
 
     return Function::copyFrom(function);
 }
@@ -140,6 +142,29 @@ void Scene::clear()
     m_values.clear();
 }
 
+
+/*********************************************************************
+ * Channel Groups
+ *********************************************************************/
+
+void Scene::addChannelGroup(quint32 id)
+{
+    if (m_channelGroups.contains(id) == false)
+        m_channelGroups.append(id);
+}
+
+void Scene::removeChannelGroup(quint32 id)
+{
+    int idx = m_channelGroups.indexOf(id);
+    if (idx != -1)
+        m_channelGroups.removeAt(idx);
+}
+
+QList<quint32> Scene::getChannelGroups()
+{
+    return m_channelGroups;
+}
+
 /*****************************************************************************
  * Fixtures
  *****************************************************************************/
@@ -181,6 +206,22 @@ bool Scene::saveXML(QDomDocument* doc, QDomElement* wksp_root)
 
     /* Speed */
     saveXMLSpeed(doc, &root);
+
+    /* Channel groups */
+    if (m_channelGroups.count() > 0)
+    {
+        tag = doc->createElement(KXMLQLCSceneChannelGroups);
+        root.appendChild(tag);
+        QString chanGroupsIDs;
+        foreach(quint32 id, m_channelGroups)
+        {
+            if (chanGroupsIDs.isEmpty() == false)
+                chanGroupsIDs.append(QString(","));
+            chanGroupsIDs.append(QString("%1").arg(id));
+        }
+        text = doc->createTextNode(chanGroupsIDs);
+        tag.appendChild(text);
+    }
 
     /* Scene contents */
     QListIterator <SceneValue> it(m_values);
@@ -255,6 +296,16 @@ bool Scene::loadXML(const QDomElement& root)
         else if (tag.tagName() == KXMLQLCFunctionSpeed)
         {
             loadXMLSpeed(tag);
+        }
+        else if (tag.tagName() == KXMLQLCSceneChannelGroups)
+        {
+            QString chGrpIDs = tag.text();
+            if (chGrpIDs.isEmpty() == false)
+            {
+                QStringList grpArray = chGrpIDs.split(",");
+                foreach(QString grp, grpArray)
+                    m_channelGroups.append(grp.toUInt());
+            }
         }
         /* "old" style XML */
         else if (tag.tagName() == KXMLQLCFunctionValue)

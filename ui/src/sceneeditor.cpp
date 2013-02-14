@@ -58,7 +58,6 @@
 #define KColumnID           3
 
 #define KTabGeneral         0
-//#define KTabFirstFixture    1
 
 #define CYAN "cyan"
 #define MAGENTA "magenta"
@@ -76,6 +75,7 @@ SceneEditor::SceneEditor(QWidget* parent, Scene* scene, Doc* doc, bool applyValu
     , m_source(new GenericDMXSource(doc))
     , m_initFinished(false)
     , m_speedDials(NULL)
+    , m_channelGroupsTab(-1)
     , m_currentTab(KTabGeneral)
     , m_fixtureFirstTabIndex(1)
 {
@@ -275,16 +275,24 @@ void SceneEditor::init(bool applyValues)
             this, SLOT(slotNameEdited(const QString&)));
 
     // Channels groups tab
+    QList<quint32> chGrpIds = m_scene->getChannelGroups();
     QListIterator <ChannelsGroup*> scg(m_doc->channelsGroups());
     while (scg.hasNext() == true)
     {
-        QTreeWidgetItem* item = new QTreeWidgetItem(m_channel_groups);
+        QTreeWidgetItem* item = new QTreeWidgetItem(m_channelGroupsTree);
         ChannelsGroup *grp = scg.next();
         item->setText(KColumnName, grp->name());
         item->setData(KColumnName, Qt::UserRole, grp->id());
-        item->setSelected(true);
+        //item->setSelected(true);
+        item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+        if (chGrpIds.contains(grp->id()))
+            item->setCheckState(KColumnName, Qt::Checked);
+        else
+            item->setCheckState(KColumnName, Qt::Unchecked);
     }
-    addChannelsGroupsTab();
+    connect(m_channelGroupsTree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
+            this, SLOT(slotChannelGroupsChanged(QTreeWidgetItem*,int)));
+    updateChannelsGroupsTab();
 
     // Fixtures & tabs
     QListIterator <SceneValue> it(m_scene->values());
@@ -775,31 +783,85 @@ void SceneEditor::slotFadeOutChanged(int ms)
     m_scene->setFadeOutSpeed(ms);
 }
 
+void SceneEditor::slotEnableAllChannelGroups()
+{
+    for (int i = 0; i < m_channelGroupsTree->topLevelItemCount(); i++)
+    {
+        QTreeWidgetItem *item = m_channelGroupsTree->topLevelItem(i);
+        item->setCheckState(KColumnName, Qt::Checked);
+    }
+}
+
+void SceneEditor::slotDisableAllChannelGroups()
+{
+    for (int i = 0; i < m_channelGroupsTree->topLevelItemCount(); i++)
+    {
+        QTreeWidgetItem *item = m_channelGroupsTree->topLevelItem(i);
+        item->setCheckState(KColumnName, Qt::Unchecked);
+    }
+}
+
+void SceneEditor::slotChannelGroupsChanged(QTreeWidgetItem *item, int column)
+{
+    if (item == NULL)
+        return;
+
+    quint32 grpID = item->data(column, Qt::UserRole).toUInt();
+    if (item->checkState(column) == Qt::Checked)
+        m_scene->addChannelGroup(grpID);
+    else
+        m_scene->removeChannelGroup(grpID);
+
+    qDebug() << Q_FUNC_INFO << "Groups in list: " << m_scene->getChannelGroups().count();
+
+    updateChannelsGroupsTab();
+}
+
 /*********************************************************************
  * Channels groups tabs
  *********************************************************************/
-void SceneEditor::addChannelsGroupsTab()
+void SceneEditor::updateChannelsGroupsTab()
 {
-    if (m_channel_groups->topLevelItemCount() == 0 ||
-        m_channel_groups->selectedItems().count() == 0)
+    QScrollArea* scrollArea = NULL;
+    QList <quint32> ids = m_scene->getChannelGroups();
+
+    if (m_channelGroupsTree->topLevelItemCount() == 0)
     {
         m_fixtureFirstTabIndex = 1;
         return;
     }
 
-    /* Put the console inside a scroll area */
-    QScrollArea* scrollArea = new QScrollArea(m_tab);
-
-    QList <quint32> ids;
-    foreach(QTreeWidgetItem* item, m_channel_groups->selectedItems())
-        ids.append(item->data(KColumnName, Qt::UserRole).toUInt());
+    /* Get a scroll area for the console */
+    if (m_channelGroupsTab != -1)
+    {
+        scrollArea = qobject_cast<QScrollArea*> (m_tab->widget(m_channelGroupsTab));
+        Q_ASSERT(scrollArea != NULL);
+        GroupsConsole *tmpGrpConsole = qobject_cast<GroupsConsole*> (scrollArea->widget());
+        Q_ASSERT(tmpGrpConsole != NULL);
+        delete tmpGrpConsole;
+        if (ids.count() == 0)
+        {
+            m_tab->removeTab(1);
+            m_channelGroupsTab = -1;
+            m_fixtureFirstTabIndex = 1;
+            return;
+        }
+    }
+    else
+    {
+        if (ids.count() == 0)
+            return;
+        scrollArea = new QScrollArea(m_tab);
+    }
 
     GroupsConsole* console = new GroupsConsole(scrollArea, m_doc, ids);
     scrollArea->setWidget(console);
     scrollArea->setWidgetResizable(true);
-    m_tab->insertTab(1, scrollArea, tr("Channels Groups"));
-    m_fixtureFirstTabIndex = 2;
+    if (m_channelGroupsTab == -1)
+        m_tab->insertTab(1, scrollArea, tr("Channels Groups"));
 
+    m_channelGroupsTab = 1;
+    m_fixtureFirstTabIndex = 2;
     connect(console, SIGNAL(groupValueChanged(quint32,uchar)),
             this, SLOT(slotGroupValueChanged(quint32,uchar)));
 }

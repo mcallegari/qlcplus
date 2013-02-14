@@ -33,6 +33,7 @@
 #include "fixture.h"
 
 #define KXMLQLCFixtureValues "FixtureVal"
+#define KXMLQLCSceneChannelGroups "ChannelGroups"
 
 class QDomDocument;
 class QDomElement;
@@ -123,6 +124,28 @@ public:
 protected:
     QList <SceneValue> m_values;
     QMutex m_valueListMutex;
+
+    /*********************************************************************
+     * Channel Groups
+     *********************************************************************/
+public:
+    /**
+     * Associate a channel group to this Scene
+     */
+    void addChannelGroup(quint32 id);
+
+    /**
+     * Remove a previously associated channel group from this Scene
+     */
+    void removeChannelGroup(quint32 id);
+
+    /**
+     * Returns the list Channel Groups associated to this Scene
+     */
+    QList<quint32> getChannelGroups();
+
+protected:
+    QList <quint32> m_channelGroups;
 
     /*********************************************************************
      * Fixtures

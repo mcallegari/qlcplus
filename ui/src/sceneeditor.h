@@ -131,12 +131,25 @@ private:
     SpeedDialWidget* m_speedDials;
 
     /*********************************************************************
-     * Channels groups tabs
+     * Channels groups
      *********************************************************************/
 private:
-    void addChannelsGroupsTab();
+    void updateChannelsGroupsTab();
+
+private:
+    /** Index of the Channel Groups tab. Equal to -1
+        means the tab has not been created */
+    int m_channelGroupsTab;
 
 private slots:
+    void slotEnableAllChannelGroups();
+
+    void slotDisableAllChannelGroups();
+
+    /** called when the user check/uncheck a group of m_channelGroupsTree */
+    void slotChannelGroupsChanged(QTreeWidgetItem*item, int column);
+
+    /** Called when the user moves a fader of the ChannelGroup console */
     void slotGroupValueChanged(quint32 groupID, uchar value);
 
     /*********************************************************************

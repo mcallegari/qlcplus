@@ -635,6 +635,14 @@ bool Doc::loadXML(const QDomElement& root)
         {
             Fixture::loader(tag, this);
         }
+        else if (tag.tagName() == KXMLQLCFixtureGroup)
+        {
+            FixtureGroup::loader(tag, this);
+        }
+        else if (tag.tagName() == KXMLQLCChannelsGroup)
+        {
+            ChannelsGroup::loader(tag, this);
+        }
         else if (tag.tagName() == KXMLQLCFunction)
         {
             Function::loader(tag, this);
@@ -643,14 +651,6 @@ bool Doc::loadXML(const QDomElement& root)
         {
             /* LEGACY */
             Bus::instance()->loadXML(tag);
-        }
-        else if (tag.tagName() == KXMLQLCFixtureGroup)
-        {
-            FixtureGroup::loader(tag, this);
-        }
-        else if (tag.tagName() == KXMLQLCChannelsGroup)
-        {
-            ChannelsGroup::loader(tag, this);
         }
         else
         {
@@ -687,15 +687,7 @@ bool Doc::saveXML(QDomDocument* doc, QDomElement* wksp_root)
         fxi->saveXML(doc, &root);
     }
 
-    /* Write functions into an XML document */
-    QListIterator <Function*> funcit(functions());
-    while (funcit.hasNext() == true)
-    {
-        Function* func(funcit.next());
-        Q_ASSERT(func != NULL);
-        func->saveXML(doc, &root);
-    }
-
+    /* Write fixture groups into an XML document */
     QListIterator <FixtureGroup*> grpit(fixtureGroups());
     while (grpit.hasNext() == true)
     {
@@ -704,12 +696,22 @@ bool Doc::saveXML(QDomDocument* doc, QDomElement* wksp_root)
         grp->saveXML(doc, &root);
     }
 
+    /* Write channel groups into an XML document */
     QListIterator <ChannelsGroup*> chanGroups(channelsGroups());
     while (chanGroups.hasNext() == true)
     {
         ChannelsGroup* grp(chanGroups.next());
         Q_ASSERT(grp != NULL);
         grp->saveXML(doc, &root);
+    }
+
+    /* Write functions into an XML document */
+    QListIterator <Function*> funcit(functions());
+    while (funcit.hasNext() == true)
+    {
+        Function* func(funcit.next());
+        Q_ASSERT(func != NULL);
+        func->saveXML(doc, &root);
     }
 
     return true;

@@ -3,6 +3,7 @@ qlcplus (4.2.1) stable; urgency=low
   * NEW: Added ArtNet input support (tested on Android with Art-Net controller LITE and Controlador Artnet-DMX)
   * NEW: It is now possible to import/export fixtures to a separate file (.qlfl) to shorten the project creation
   * NEW: Added page change feature for Enttec Wing (thanks to Thomas Achtner)
+  * NEW: Channel Groups can be associated to a Scene and saved into the project
   * Added Fade In/Fade Out/Duration columns to Virtual Console Cue List widget (thanks to Thomas Achtner)
   * Fixed outbound limits of Cue Lists steps. Now Previous/Next operations will always stay in the list
   * Improved Virtual Console Cue List with more manual controls (Play/Stop/Previous/Next)
@@ -12,6 +13,7 @@ qlcplus (4.2.1) stable; urgency=low
   * Improved Virtual Console Slider groups selection (level mode) by adding colours channels
   * Added toolbar icon to Scene Editor and Chaser Editor to Show/Hide Speed Dials window (default: hidden)
   * Iconified Play/Stop/Previous/Next buttons to test a Chaser
+  * Some more UI look & feel improvements (icons, layout, usability)
   * Added fixture: Showtec Phantom 50 (thanks to Petja Touru)
   * Added fixture: Chauvet ColorBand Pix IP (thanks to George Qualley)
   * Added fixture: American DJ Mega Tri Bar (thanks to CShark)
