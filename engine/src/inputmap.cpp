@@ -140,6 +140,8 @@ void InputMap::initPatch()
         m_patch.insert(i, patch);
         connect(patch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
                 this, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)));
+        connect(patch, SIGNAL(inputPageChanged(quint32,quint32,quint32)),
+                this, SIGNAL(inputPageChanged(quint32,quint32,quint32)));
     }
 }
 
