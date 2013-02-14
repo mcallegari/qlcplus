@@ -145,10 +145,6 @@ p, li { white-space: pre-wrap; }
         <translation>Modello di fixture</translation>
     </message>
     <message>
-        <source>Fixture Type</source>
-        <translation type="obsolete">Tipo di fixture</translation>
-    </message>
-    <message>
         <location filename="addfixture.ui" line="35"/>
         <source>Fixture Properties</source>
         <translation>Proprietà della fixture</translation>
@@ -212,10 +208,6 @@ p, li { white-space: pre-wrap; }
         <location filename="addfixture.ui" line="185"/>
         <source>Quantity</source>
         <translation>Quantità</translation>
-    </message>
-    <message>
-        <source>Amount</source>
-        <translation type="obsolete">Quantità</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="198"/>
@@ -411,35 +403,6 @@ p, li { white-space: pre-wrap; }
         <source> - New Workspace</source>
         <translation> - Nuovo Spazio di Lavoro</translation>
     </message>
-    <message numerus="yes">
-        <source>(%n fixture(s) have no power consumption defined)</source>
-        <translation type="obsolete">
-            <numerusform>(%n fixture non hanno il consumo definito)</numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Fixtures: %1/%2 (%3W)</source>
-        <translation type="obsolete">Fixture: %1/%2 (%3W)</translation>
-    </message>
-    <message numerus="yes">
-        <source>Space left for %n fixtures. Currently consuming %1 watts total.</source>
-        <translation type="obsolete">
-            <numerusform>Spazio rimanente per %n fixture. Consumo attuale %1 Watt totali.</numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Functions: %1/%2</source>
-        <translation type="obsolete">Funzioni: %1/%2</translation>
-    </message>
-    <message numerus="yes">
-        <source>Space left for %n functions</source>
-        <translation type="obsolete">
-            <numerusform>Spazio rimanente per %n funzioni</numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
     <message>
         <location filename="app.cpp" line="407"/>
         <source>Switch to Design Mode</source>
@@ -453,10 +416,6 @@ Really stop them and switch back to Design mode?</source>
 Vuoi veramente fermarle e ritornare in modalità Design?</translation>
     </message>
     <message>
-        <source>Operate mode is active; editing facilities are disabled</source>
-        <translation type="obsolete">Modalità Operate attiva; l&apos;editing è disabilitato</translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="440"/>
         <source>Design</source>
         <translation>Design</translation>
@@ -465,10 +424,6 @@ Vuoi veramente fermarle e ritornare in modalità Design?</translation>
         <location filename="app.cpp" line="441"/>
         <source>Switch to design mode</source>
         <translation>Vai in modalità Design</translation>
-    </message>
-    <message>
-        <source>Design mode is active; editing facilities are enabled</source>
-        <translation type="obsolete">Modalità Design Attiva; editing attivo</translation>
     </message>
     <message>
         <location filename="app.cpp" line="450"/>
@@ -480,18 +435,6 @@ Vuoi veramente fermarle e ritornare in modalità Design?</translation>
         <location filename="app.cpp" line="479"/>
         <source>Switch to operate mode</source>
         <translation>Vai in modalità Operate</translation>
-    </message>
-    <message>
-        <source>Fixtures: %1/%2</source>
-        <translation type="obsolete">Fixture: %1/%2</translation>
-    </message>
-    <message>
-        <source>Blackout</source>
-        <translation type="obsolete">Blackout</translation>
-    </message>
-    <message>
-        <source>Blackout is active; all outputs are disabled</source>
-        <translation type="obsolete">Blackout Attivo; tutte le uscite sono disabilitate</translation>
     </message>
     <message>
         <location filename="app.cpp" line="462"/>
@@ -532,37 +475,9 @@ Vuoi veramente fermarle e ritornare in modalità Design?</translation>
         <translation>Salva &amp;Con Nome...</translation>
     </message>
     <message>
-        <source>&amp;Quit</source>
-        <translation type="obsolete">&amp;Esci</translation>
-    </message>
-    <message>
-        <source>&amp;Fixtures</source>
-        <translation type="obsolete">&amp;Fixture</translation>
-    </message>
-    <message>
-        <source>&amp;Functions</source>
-        <translation type="obsolete">&amp;Funzioni</translation>
-    </message>
-    <message>
-        <source>&amp;Buses</source>
-        <translation type="obsolete">&amp;Buses</translation>
-    </message>
-    <message>
-        <source>&amp;Inputs</source>
-        <translation type="obsolete">&amp;Ingressi</translation>
-    </message>
-    <message>
-        <source>&amp;Outputs</source>
-        <translation type="obsolete">&amp;Uscite</translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="478"/>
         <source>&amp;Operate</source>
         <translation>&amp;Operativo</translation>
-    </message>
-    <message>
-        <source>&amp;Virtual Console</source>
-        <translation type="obsolete">&amp;Console Virtuale</translation>
     </message>
     <message>
         <location filename="app.cpp" line="483"/>
@@ -573,30 +488,6 @@ Vuoi veramente fermarle e ritornare in modalità Design?</translation>
         <location filename="app.cpp" line="487"/>
         <source>Toggle &amp;Blackout</source>
         <translation>&amp;Blackout On/Off</translation>
-    </message>
-    <message>
-        <source>Fixtures: %1 (%2W)</source>
-        <translation type="obsolete">Fixture: %1(%2W)</translation>
-    </message>
-    <message>
-        <source>%1 fixtures currently consuming %2 watts of power in total.</source>
-        <translation type="obsolete">%1 fixture stanno consumando %2 Watt in totale.</translation>
-    </message>
-    <message>
-        <source>Functions: %1</source>
-        <translation type="obsolete">Funzioni: %1</translation>
-    </message>
-    <message>
-        <source>Fixtures: %1</source>
-        <translation type="obsolete">Fixture: %1</translation>
-    </message>
-    <message>
-        <source>Fi&amp;xtures</source>
-        <translation type="obsolete">Fi&amp;xture</translation>
-    </message>
-    <message>
-        <source>F&amp;unctions</source>
-        <translation type="obsolete">F&amp;unzioni</translation>
     </message>
     <message>
         <location filename="app.cpp" line="480"/>
@@ -622,14 +513,6 @@ Vuoi veramente fermarle e ritornare in modalità Design?</translation>
         <translation></translation>
     </message>
     <message>
-        <source>Minimize</source>
-        <translation type="obsolete">Minimizza</translation>
-    </message>
-    <message>
-        <source>Bring All to Front</source>
-        <translation type="obsolete">Porta tutto in primo piano</translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="502"/>
         <source>&amp;Index</source>
         <translation>&amp;Indice</translation>
@@ -645,30 +528,6 @@ Vuoi veramente fermarle e ritornare in modalità Design?</translation>
         <source>&amp;About QLC+</source>
         <oldsource>&amp;About QLC</oldsource>
         <translation>&amp;A proposito di QLC+</translation>
-    </message>
-    <message>
-        <source>About &amp;Qt</source>
-        <translation type="obsolete">A Proposito di &amp;Qt</translation>
-    </message>
-    <message>
-        <source>&amp;File</source>
-        <translation type="obsolete">&amp;File</translation>
-    </message>
-    <message>
-        <source>&amp;Manager</source>
-        <translation type="obsolete">&amp;Manager</translation>
-    </message>
-    <message>
-        <source>&amp;Control</source>
-        <translation type="obsolete">&amp;Controllo</translation>
-    </message>
-    <message>
-        <source>&amp;Window</source>
-        <translation type="obsolete">&amp;Finestra</translation>
-    </message>
-    <message>
-        <source>&amp;Help</source>
-        <translation type="obsolete">&amp;Aiuto</translation>
     </message>
     <message>
         <location filename="app.cpp" line="177"/>
@@ -694,14 +553,6 @@ Vuoi veramente fermarle e ritornare in modalità Design?</translation>
         <location filename="app.cpp" line="185"/>
         <source>Simple Desk</source>
         <translation>Banco Semplice</translation>
-    </message>
-    <message>
-        <source>Outputs</source>
-        <translation type="obsolete">Uscite</translation>
-    </message>
-    <message>
-        <source>Inputs</source>
-        <translation type="obsolete">Ingressi</translation>
     </message>
     <message>
         <location filename="app.cpp" line="187"/>
@@ -820,22 +671,6 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
         <source>Save Workspace As</source>
         <translation>Salva lo Spazio di Lavoro come</translation>
     </message>
-    <message>
-        <source>Set background image...</source>
-        <translation type="obsolete">Inserisci un&apos;immagine di sfondo...</translation>
-    </message>
-    <message>
-        <source>Clear background image</source>
-        <translation type="obsolete">Rimuovi l&apos;immagine di sfondo</translation>
-    </message>
-    <message>
-        <source>Open an image file</source>
-        <translation type="obsolete">Apri un&apos;immagine</translation>
-    </message>
-    <message>
-        <source>Images (%1)</source>
-        <translation type="obsolete">Immagini (%1)</translation>
-    </message>
 </context>
 <context>
     <name>AssignHotKey</name>
@@ -864,14 +699,6 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
         <source>Hit the key combination that you wish to assign. You may hit either a single key or a combination using %1, %2, and %3.</source>
         <translation>Premi la combinazione di tasti che vuoi assegnare. Puoi premere anche un solo tasto o una combinazione usando %1, %2 e %3.</translation>
     </message>
-    <message>
-        <source>Hit the key combination that you wish to assign. You may hit either a single key or a combination using %1, %2, %3 and %4.</source>
-        <translation type="obsolete">Premi la combinazione di tasti che vuoi assegnare. Puoi usare un singolo tasto o una combinazione usando %1, %2, %3 e %4.</translation>
-    </message>
-    <message>
-        <source>Hit the key combination that you wish to assign. You may hit either a single key or a combination using CTRL, ALT, and SHIFT.</source>
-        <translation type="obsolete">Pulsa la tecla que desees asignar. Puedes usar solo una tecla o una combinacion usando CTRL, ALT o SHIFT.</translation>
-    </message>
 </context>
 <context>
     <name>AudioItem</name>
@@ -895,41 +722,6 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
         <location filename="sceneitems.cpp" line="816"/>
         <source>Preview Mono</source>
         <translation>Anteprima Mono</translation>
-    </message>
-</context>
-<context>
-    <name>BusManager</name>
-    <message>
-        <source>Bus Manager</source>
-        <translation type="obsolete">Bus Manager</translation>
-    </message>
-    <message>
-        <source>Edit bus name</source>
-        <translation type="obsolete">Nome del Bus</translation>
-    </message>
-    <message>
-        <source>Bus ID</source>
-        <translation type="obsolete">Bus ID</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation type="obsolete">Nome</translation>
-    </message>
-    <message>
-        <source>Bus</source>
-        <translation type="obsolete">Bus</translation>
-    </message>
-    <message>
-        <source>Time</source>
-        <translation type="obsolete">Tempo</translation>
-    </message>
-    <message>
-        <source>Bus #%1 name:</source>
-        <translation type="obsolete">Nome del Bus #%1:</translation>
-    </message>
-    <message>
-        <source>Rename bus</source>
-        <translation type="obsolete">Rinomina il Bus</translation>
     </message>
 </context>
 <context>
@@ -1025,249 +817,231 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
         <translation>Editor dei Chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="84"/>
+        <location filename="chasereditor.ui" line="41"/>
         <source>Chaser name</source>
         <translation>Nome del Chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="97"/>
+        <location filename="chasereditor.ui" line="54"/>
         <source>Name of the chaser being edited</source>
         <translation>Edita il nome del chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="272"/>
+        <location filename="chasereditor.ui" line="155"/>
         <source>Step</source>
         <translation>Passo</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="277"/>
+        <location filename="chasereditor.ui" line="160"/>
         <source>Function</source>
         <translation>Funzione</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="282"/>
-        <location filename="chasereditor.cpp" line="706"/>
+        <location filename="chasereditor.ui" line="165"/>
+        <location filename="chasereditor.cpp" line="711"/>
         <source>Fade In</source>
         <translation>Fade In</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="287"/>
-        <location filename="chasereditor.cpp" line="707"/>
+        <location filename="chasereditor.ui" line="170"/>
+        <location filename="chasereditor.cpp" line="712"/>
         <source>Fade Out</source>
         <translation>Fade Out</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="292"/>
-        <location filename="chasereditor.cpp" line="708"/>
+        <location filename="chasereditor.ui" line="175"/>
+        <location filename="chasereditor.cpp" line="713"/>
         <source>Duration</source>
         <translation>Durata</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="227"/>
+        <location filename="chasereditor.ui" line="110"/>
         <source>Add step(s) to the current position</source>
         <translation>Aggiungi passi alla posizione corrente</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="184"/>
+        <location filename="chasereditor.ui" line="438"/>
         <source>Show/Hide speed dial window</source>
         <translation>Mostra/Nascondi finestra speed dial</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="358"/>
+        <location filename="chasereditor.ui" line="241"/>
         <source>Switch direction at both ends</source>
         <translation>Cambia direzione alle estremità</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="419"/>
+        <location filename="chasereditor.ui" line="302"/>
         <source>Fade In Speed</source>
         <translation>Velocità Fade In</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="425"/>
+        <location filename="chasereditor.ui" line="308"/>
         <source>All steps have common fade in speed set by the chaser</source>
         <translation>Tutti i passi hanno una velocità comune di fade in impostata dal chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="428"/>
-        <location filename="chasereditor.ui" line="470"/>
-        <location filename="chasereditor.ui" line="512"/>
+        <location filename="chasereditor.ui" line="311"/>
+        <location filename="chasereditor.ui" line="353"/>
+        <location filename="chasereditor.ui" line="395"/>
         <source>Common</source>
         <translation>Comune</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="435"/>
+        <location filename="chasereditor.ui" line="318"/>
         <source>Each step has its own fade in speed set by the chaser</source>
         <translation>Ogni passo ha la propria velocità di fade in impostata dal chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="438"/>
-        <location filename="chasereditor.ui" line="480"/>
-        <location filename="chasereditor.ui" line="525"/>
+        <location filename="chasereditor.ui" line="321"/>
+        <location filename="chasereditor.ui" line="363"/>
+        <location filename="chasereditor.ui" line="408"/>
         <source>Per Step</source>
         <translation>Per passo</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="445"/>
+        <location filename="chasereditor.ui" line="328"/>
         <source>Use each function&apos;s own fade in speed</source>
         <translation>Ogni funzione ha la propria velocità di fade in</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="448"/>
-        <location filename="chasereditor.ui" line="490"/>
+        <location filename="chasereditor.ui" line="331"/>
+        <location filename="chasereditor.ui" line="373"/>
         <source>Default</source>
         <translation>Default</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="461"/>
+        <location filename="chasereditor.ui" line="344"/>
         <source>Fade Out Speed</source>
         <translation>Velocità Fade Out</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="467"/>
+        <location filename="chasereditor.ui" line="350"/>
         <source>All steps have common fade out speed set by the chaser</source>
         <translation>Tutti i passi hanno una velocità comune di fade out impostata dal chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="477"/>
+        <location filename="chasereditor.ui" line="360"/>
         <source>Each step has its own fade out speed set by the chaser</source>
         <translation>Ogni passo ha la propria velocità di fade out impostata dal chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="487"/>
+        <location filename="chasereditor.ui" line="370"/>
         <source>Use each function&apos;s own fade out speed</source>
         <translation>Ogni funzione ha la propria velocità di fade out</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="503"/>
+        <location filename="chasereditor.ui" line="386"/>
         <source>Step Duration</source>
         <translation>Durata Passo</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="509"/>
+        <location filename="chasereditor.ui" line="392"/>
         <source>All steps have common step duration set by the chaser</source>
         <translation>Tutti i passi hanno una durata comune impostata dal chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="522"/>
+        <location filename="chasereditor.ui" line="405"/>
         <source>Each step has its own duration set by the chaser</source>
         <translation>Ogni passo ha la propria durata impostata dal chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="22"/>
+        <location filename="chasereditor.ui" line="461"/>
         <source>See what the chaser does when it is run</source>
         <translation>Guarda cosa fa il chaser quando è in esecuzione</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="25"/>
-        <source>Test Run</source>
-        <translation>Prova esecuzione</translation>
+        <location filename="chasereditor.ui" line="481"/>
+        <source>Stop the chaser if running</source>
+        <translation>Interrompe il chaser se in esecuzione</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="51"/>
+        <location filename="chasereditor.ui" line="521"/>
         <source>Skip to the next step</source>
         <translation>Salta al prossimo passo</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="54"/>
-        <source>Next</source>
-        <translation>Successivo</translation>
-    </message>
-    <message>
-        <location filename="chasereditor.ui" line="38"/>
+        <location filename="chasereditor.ui" line="501"/>
         <source>Skip to the previous step</source>
         <translation>Salta al passo precedente</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="41"/>
-        <source>Previous</source>
-        <translation>Precedente</translation>
-    </message>
-    <message>
-        <location filename="chasereditor.ui" line="187"/>
+        <location filename="chasereditor.ui" line="441"/>
+        <location filename="chasereditor.ui" line="464"/>
+        <location filename="chasereditor.ui" line="484"/>
+        <location filename="chasereditor.ui" line="504"/>
+        <location filename="chasereditor.ui" line="524"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="300"/>
+        <location filename="chasereditor.ui" line="183"/>
         <source>Remove the selected step</source>
         <translation>Elimina il passo selezionato</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="207"/>
+        <location filename="chasereditor.ui" line="90"/>
         <source>Raise the selected step once</source>
         <translation>Aumentare il passo selezionato</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="157"/>
+        <location filename="chasereditor.ui" line="63"/>
         <source>Lower the selected step once</source>
         <translation>Abbassare il passo selezionato</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="329"/>
+        <location filename="chasereditor.ui" line="212"/>
         <source>Run Order</source>
         <translation>Ordine</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="335"/>
+        <location filename="chasereditor.ui" line="218"/>
         <source>Run through over and over again</source>
         <translation>Esecuzione continua</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="338"/>
+        <location filename="chasereditor.ui" line="221"/>
         <source>Loop</source>
         <translation>Loop</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="348"/>
+        <location filename="chasereditor.ui" line="231"/>
         <source>Run through once and stop</source>
         <translation>Esecuzione singola e poi Stop</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="351"/>
+        <location filename="chasereditor.ui" line="234"/>
         <source>Single Shot</source>
         <translation>Singolo</translation>
     </message>
     <message>
-        <source>First run forwards, then backwards, again forwards, etc.</source>
-        <translation type="obsolete">Esecuzione in avanti, poi dietro e loop.</translation>
-    </message>
-    <message>
-        <location filename="chasereditor.ui" line="361"/>
+        <location filename="chasereditor.ui" line="244"/>
         <source>Ping Pong</source>
         <translation>Ping Pong</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="371"/>
+        <location filename="chasereditor.ui" line="254"/>
         <source>Direction</source>
         <translation>Direzione</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="377"/>
+        <location filename="chasereditor.ui" line="260"/>
         <source>Start from the first step</source>
         <translation>Partire dal primo passo</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="380"/>
+        <location filename="chasereditor.ui" line="263"/>
         <source>Forward</source>
         <translation>Avanti</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="390"/>
+        <location filename="chasereditor.ui" line="273"/>
         <source>Start from the last step</source>
         <translation>Partire dall&apos;ultimo passo</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="393"/>
+        <location filename="chasereditor.ui" line="276"/>
         <source>Backward</source>
         <translation>Indietro</translation>
-    </message>
-    <message>
-        <source>Speed bus</source>
-        <translation type="obsolete">Velocità del Bus</translation>
-    </message>
-    <message>
-        <source>Chaser - %1</source>
-        <translation type="obsolete">Chaser - %1</translation>
     </message>
     <message>
         <location filename="chasereditor.cpp" line="76"/>
@@ -1285,28 +1059,24 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
         <translation>Incolla</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="709"/>
+        <location filename="chasereditor.cpp" line="714"/>
         <source>Common Fade In</source>
         <translation>Fade In Comune</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="710"/>
+        <location filename="chasereditor.cpp" line="715"/>
         <source>Common Fade Out</source>
         <translation>Fade Out Comune</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="711"/>
+        <location filename="chasereditor.cpp" line="716"/>
         <source>Common Duration</source>
         <translation>Durata Comune</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="727"/>
+        <location filename="chasereditor.cpp" line="732"/>
         <source>Multiple Steps</source>
         <translation>Passi Multipli</translation>
-    </message>
-    <message>
-        <source>Chaser editor - %1</source>
-        <translation type="obsolete">Editor del Chaser - %1</translation>
     </message>
 </context>
 <context>
@@ -1337,25 +1107,13 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
         <translation>Aggiungi funzioni alla collezione</translation>
     </message>
     <message>
-        <source>...</source>
-        <translation type="obsolete">...</translation>
-    </message>
-    <message>
         <location filename="collectioneditor.ui" line="81"/>
         <source>Remove the selected function</source>
         <translation>Rimuovi la funzione selezionata</translation>
     </message>
-    <message>
-        <source>Collection - %1</source>
-        <translation type="obsolete">Collezione - %1</translation>
-    </message>
 </context>
 <context>
     <name>ConsoleChannel</name>
-    <message>
-        <source>Level</source>
-        <translation type="obsolete">Livello</translation>
-    </message>
     <message>
         <location filename="consolechannel.cpp" line="126"/>
         <source>Intensity</source>
@@ -1484,10 +1242,6 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
         <translation>Invertire</translation>
     </message>
     <message>
-        <source>...</source>
-        <translation type="obsolete">...</translation>
-    </message>
-    <message>
         <location filename="efxeditor.ui" line="189"/>
         <source>Fixture order</source>
         <translation>Ordine delle fixture</translation>
@@ -1513,14 +1267,6 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
         <translation>Serie</translation>
     </message>
     <message>
-        <source>Speed bus</source>
-        <translation type="obsolete">Velocidad del Bus</translation>
-    </message>
-    <message>
-        <source>Bus that controls the speed of the pattern</source>
-        <translation type="obsolete">Il Bus che controlla la velocità del modello</translation>
-    </message>
-    <message>
         <location filename="efxeditor.ui" line="232"/>
         <source>Movement</source>
         <translation>Movimento</translation>
@@ -1540,10 +1286,6 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
         <location filename="efxeditor.ui" line="221"/>
         <source>Asymmetric</source>
         <translation>Asimmetrico</translation>
-    </message>
-    <message>
-        <source>Speed buses</source>
-        <translation type="obsolete">Velocità dei Bus</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="260"/>
@@ -1721,34 +1463,6 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
         <translation>&amp;Prova esecuzione</translation>
     </message>
     <message>
-        <source>Initialization</source>
-        <translation type="obsolete">Inizializzazione</translation>
-    </message>
-    <message>
-        <source>Initialize the fixture with the given scene values when the EFX starts</source>
-        <translation type="obsolete">inicializar el proyector con las escenas cuando EFX empieza</translation>
-    </message>
-    <message>
-        <source>Initialize fixtures</source>
-        <translation type="obsolete">Inizializar Proyector</translation>
-    </message>
-    <message>
-        <source>Scene</source>
-        <translation type="obsolete">Scena</translation>
-    </message>
-    <message>
-        <source>De-initialize the fixture with the given scene values when the EFX stops</source>
-        <translation type="obsolete">No iniciar el proyector cuando las escenas EFX paran</translation>
-    </message>
-    <message>
-        <source>De-initialize fixtures</source>
-        <translation type="obsolete">No Iniciar el proyector</translation>
-    </message>
-    <message>
-        <source>EFX - %1</source>
-        <translation type="obsolete">EFX - %1</translation>
-    </message>
-    <message>
         <location filename="efxeditor.cpp" line="575"/>
         <source>Remove fixtures</source>
         <translation>Rimuovi fixture</translation>
@@ -1813,10 +1527,6 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
 <context>
     <name>FixtureManager</name>
     <message>
-        <source>Fixture Manager</source>
-        <translation type="obsolete">Gestione delle fixture</translation>
-    </message>
-    <message>
         <location filename="fixturemanager.cpp" line="282"/>
         <source>Universe</source>
         <translation>Universo</translation>
@@ -1831,14 +1541,6 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
         <location filename="fixturemanager.cpp" line="310"/>
         <source>Name</source>
         <translation>Nome</translation>
-    </message>
-    <message>
-        <source>Information</source>
-        <translation type="obsolete">Informazioni</translation>
-    </message>
-    <message>
-        <source>Console</source>
-        <translation type="obsolete">Console</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="306"/>
@@ -1997,14 +1699,6 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
         <translation>Tutti i file (*)</translation>
     </message>
     <message>
-        <source>Delete fixture</source>
-        <translation type="obsolete">Elimina una fixture</translation>
-    </message>
-    <message>
-        <source>Configure fixture...</source>
-        <translation type="obsolete">Configura una fixture...</translation>
-    </message>
-    <message>
         <location filename="fixturemanager.cpp" line="949"/>
         <source>Fixture manager</source>
         <translation>Gestione delle fixture</translation>
@@ -2015,29 +1709,9 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
         <translation>Dimmer generico</translation>
     </message>
     <message>
-        <source>Too many fixtures</source>
-        <translation type="obsolete">Demasiados proyetores</translation>
-    </message>
-    <message>
-        <source>You can&apos;t create more than %1 fixtures.</source>
-        <translation type="obsolete">No puedes crear mas de %1 proyector.</translation>
-    </message>
-    <message>
-        <source>Fixture creation failed</source>
-        <translation type="obsolete">Creazione delle fixture fallita</translation>
-    </message>
-    <message>
-        <source>Unable to create new fixture.</source>
-        <translation type="obsolete">Impossibile creare una nuova fixture.</translation>
-    </message>
-    <message>
         <location filename="fixturemanager.cpp" line="1119"/>
         <source>Delete Fixtures</source>
         <translation>Elimina fixture</translation>
-    </message>
-    <message>
-        <source>Do you want to DELETE the selected fixtures?</source>
-        <translation type="obsolete">Vuoi eliminare le fixture selezionate?</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1218"/>
@@ -2093,17 +1767,9 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
         <source>Go to the Fixture Manager and add some fixtures first.</source>
         <translation>Vai alla Gestione Fixture e aggiungi delle fixture prima.</translation>
     </message>
-    <message>
-        <source>Go to Fixture Manager to add some fixtures first.</source>
-        <translation type="obsolete">Vai alla Gestione Fixture e aggiungi delle fixture prima.</translation>
-    </message>
 </context>
 <context>
     <name>FunctionManager</name>
-    <message>
-        <source>Function Manager</source>
-        <translation type="obsolete">Gestore delle Funzioni</translation>
-    </message>
     <message>
         <location filename="functionmanager.cpp" line="241"/>
         <source>New &amp;scene</source>
@@ -2165,10 +1831,6 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
         <translation>Copia di %1</translation>
     </message>
     <message>
-        <source>&amp;Edit</source>
-        <translation type="obsolete">&amp;Édita</translation>
-    </message>
-    <message>
         <location filename="functionmanager.cpp" line="291"/>
         <source>&amp;Clone</source>
         <translation>&amp;Clona</translation>
@@ -2184,24 +1846,6 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
         <translation>Seleziona &amp;Tutto</translation>
     </message>
     <message>
-        <source>&amp;Add</source>
-        <translation type="obsolete">&amp;Aggiungi</translation>
-    </message>
-    <message>
-        <source>Assign &amp;bus</source>
-        <translation type="obsolete">Assegna &amp;bus</translation>
-    </message>
-    <message>
-        <source>Function creation failed</source>
-        <oldsource>Too many functions</oldsource>
-        <translation type="obsolete">Creazione della Funzione Fallita</translation>
-    </message>
-    <message>
-        <source>Unable to create new function.</source>
-        <oldsource>You can&apos;t create more than %1 functions.</oldsource>
-        <translation type="obsolete">Impossibile creare una nuova funzione.</translation>
-    </message>
-    <message>
         <location filename="functionmanager.cpp" line="448"/>
         <source>Do you want to DELETE functions:</source>
         <translation>Vuoi CANCELLARE le funzioni:</translation>
@@ -2215,14 +1859,6 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
         <location filename="functionmanager.cpp" line="536"/>
         <source>Function</source>
         <translation>Funzione</translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation type="obsolete">Tipo</translation>
-    </message>
-    <message>
-        <source>Bus</source>
-        <translation type="obsolete">Bus</translation>
     </message>
 </context>
 <context>
@@ -2312,38 +1948,6 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
         <source>Collections</source>
         <translation>Collezione</translation>
     </message>
-    <message>
-        <source>New Scene</source>
-        <translation type="obsolete">Nuova Scena</translation>
-    </message>
-    <message>
-        <source>New Chaser</source>
-        <translation type="obsolete">Nuovo Chaser</translation>
-    </message>
-    <message>
-        <source>New EFX</source>
-        <translation type="obsolete">Nuovo EFX</translation>
-    </message>
-    <message>
-        <source>New Collection</source>
-        <translation type="obsolete">Nuova Collezione</translation>
-    </message>
-    <message>
-        <source>Too many functions</source>
-        <translation type="obsolete">Demasiadas funciones</translation>
-    </message>
-    <message>
-        <source>You can&apos;t create more than %1 functions.</source>
-        <translation type="obsolete">No puedes crear mas de %1 funcion.</translation>
-    </message>
-    <message>
-        <source>Function creation failed</source>
-        <translation type="obsolete">Creazione della Funzione Fallita</translation>
-    </message>
-    <message>
-        <source>Unable to create new function.</source>
-        <translation type="obsolete">Impossibile creare una nuova funzione.</translation>
-    </message>
 </context>
 <context>
     <name>FunctionWizard</name>
@@ -2423,62 +2027,6 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
         <translation>Elimina</translation>
     </message>
     <message>
-        <source>Chasers</source>
-        <translation type="obsolete">Chasers</translation>
-    </message>
-    <message>
-        <source>Intensity</source>
-        <translation type="obsolete">Intensità</translation>
-    </message>
-    <message>
-        <source>Random Multi</source>
-        <translation type="obsolete">Multipasso Casuale</translation>
-    </message>
-    <message>
-        <source>Random Step %1</source>
-        <translation type="obsolete">Passo Casuale %1</translation>
-    </message>
-    <message>
-        <source>Sequence Forward</source>
-        <translation type="obsolete">Sequenza Avanti</translation>
-    </message>
-    <message>
-        <source>Sequence Backward</source>
-        <translation type="obsolete">Sequenza indietro</translation>
-    </message>
-    <message>
-        <source>Sequence Step %1</source>
-        <translation type="obsolete">Passo %1 della sequenza</translation>
-    </message>
-    <message>
-        <source>Random Single</source>
-        <translation type="obsolete">Singolo Casuale</translation>
-    </message>
-    <message>
-        <source>Even/Odd</source>
-        <translation type="obsolete">Pari / Dispari</translation>
-    </message>
-    <message>
-        <source>Odd</source>
-        <translation type="obsolete">Dispari</translation>
-    </message>
-    <message>
-        <source>Even</source>
-        <translation type="obsolete">Pari</translation>
-    </message>
-    <message>
-        <source>Full/Zero</source>
-        <translation type="obsolete">Pieno/Vuoto</translation>
-    </message>
-    <message>
-        <source>Full</source>
-        <translation type="obsolete">Pieno</translation>
-    </message>
-    <message>
-        <source>Zero</source>
-        <translation type="obsolete">Zero</translation>
-    </message>
-    <message>
         <location filename="functionwizard.cpp" line="128"/>
         <source>Error</source>
         <translation>Errore</translation>
@@ -2491,18 +2039,6 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
 </context>
 <context>
     <name>GrandMasterSlider</name>
-    <message>
-        <source>Grand&lt;BR&gt;Master</source>
-        <translation type="obsolete">Grand&lt;BR&gt;Master</translation>
-    </message>
-    <message>
-        <source>Limits the maximum value of</source>
-        <translation type="obsolete">Limita il massimo valore di</translation>
-    </message>
-    <message>
-        <source>Reduces the current value of</source>
-        <translation type="obsolete">Riduce il valore di</translation>
-    </message>
     <message>
         <location filename="grandmasterslider.cpp" line="71"/>
         <source>GM</source>
@@ -2558,37 +2094,6 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
     </message>
 </context>
 <context>
-    <name>InputManager</name>
-    <message>
-        <source>Input Manager</source>
-        <translation type="obsolete">Manager Periferiche di Ingresso</translation>
-    </message>
-    <message>
-        <source>Edit Mapping</source>
-        <translation type="obsolete">Edita Mappa</translation>
-    </message>
-    <message>
-        <source>Universe</source>
-        <translation type="obsolete">Universo</translation>
-    </message>
-    <message>
-        <source>Plugin</source>
-        <translation type="obsolete">Plugin</translation>
-    </message>
-    <message>
-        <source>Input</source>
-        <translation type="obsolete">Entrata</translation>
-    </message>
-    <message>
-        <source>Profile</source>
-        <translation type="obsolete">Profilo</translation>
-    </message>
-    <message>
-        <source>Editor universe</source>
-        <translation type="obsolete">Editor dell&apos; universo</translation>
-    </message>
-</context>
-<context>
     <name>InputOutputManager</name>
     <message>
         <location filename="inputoutputmanager.cpp" line="84"/>
@@ -2609,22 +2114,6 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
         <location filename="inputoutputmanager.cpp" line="84"/>
         <source>Feedback</source>
         <translation>Feedback</translation>
-    </message>
-    <message>
-        <source>Input Plugin</source>
-        <translation type="obsolete">Plugin di Ingresso</translation>
-    </message>
-    <message>
-        <source>Input Device</source>
-        <translation type="obsolete">Dispositivo di Ingresso</translation>
-    </message>
-    <message>
-        <source>Output Plugin</source>
-        <translation type="obsolete">Plugin di Uscita</translation>
-    </message>
-    <message>
-        <source>Ouput Device</source>
-        <translation type="obsolete">Dispositivo di uscita</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="84"/>
@@ -2670,14 +2159,6 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
         <translation>Feedback</translation>
     </message>
     <message>
-        <source>Send feedback data to the input universe for moving e.g. motorized sliders.</source>
-        <translation type="obsolete">Invia dati di feedback all&apos;universo in ingresso per muovere slider motorizzati.</translation>
-    </message>
-    <message>
-        <source>Feedback enabled</source>
-        <translation type="obsolete">Feedback attivo</translation>
-    </message>
-    <message>
         <location filename="inputoutputpatcheditor.ui" line="117"/>
         <location filename="inputoutputpatcheditor.ui" line="133"/>
         <source>Profile</source>
@@ -2699,183 +2180,76 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
         <translation>Modifica il profilo di ingresso selezionato</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="396"/>
-        <location filename="inputoutputpatcheditor.cpp" line="414"/>
+        <location filename="inputoutputpatcheditor.cpp" line="351"/>
+        <location filename="inputoutputpatcheditor.cpp" line="369"/>
         <source>Error</source>
         <translation>Errore</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="397"/>
-        <location filename="inputoutputpatcheditor.cpp" line="415"/>
+        <location filename="inputoutputpatcheditor.cpp" line="352"/>
+        <location filename="inputoutputpatcheditor.cpp" line="370"/>
         <source>Output line already assigned</source>
         <translation>La linea di uscita è già assegnata</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="635"/>
-        <location filename="inputoutputpatcheditor.cpp" line="769"/>
+        <location filename="inputoutputpatcheditor.cpp" line="590"/>
+        <location filename="inputoutputpatcheditor.cpp" line="724"/>
         <source>Existing Input Profile</source>
         <translation>Profilo di ingresso esistente</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="636"/>
-        <location filename="inputoutputpatcheditor.cpp" line="770"/>
+        <location filename="inputoutputpatcheditor.cpp" line="591"/>
+        <location filename="inputoutputpatcheditor.cpp" line="725"/>
         <source>An input profile at %1 already exists. Do you wish to overwrite it?</source>
         <translation>Un profilo d&apos;Ingresso al %1 già esiste. Lo vuoi sovrascrivere?</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="645"/>
-        <location filename="inputoutputpatcheditor.cpp" line="779"/>
+        <location filename="inputoutputpatcheditor.cpp" line="600"/>
+        <location filename="inputoutputpatcheditor.cpp" line="734"/>
         <source>Save Input Profile</source>
         <translation>Salva il profilo di ingresso</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="646"/>
-        <location filename="inputoutputpatcheditor.cpp" line="780"/>
+        <location filename="inputoutputpatcheditor.cpp" line="601"/>
+        <location filename="inputoutputpatcheditor.cpp" line="735"/>
         <source>Input Profiles (*.qxi)</source>
         <translation>Profilo D&apos;ingresso (*.qxi)</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="659"/>
-        <location filename="inputoutputpatcheditor.cpp" line="796"/>
+        <location filename="inputoutputpatcheditor.cpp" line="614"/>
+        <location filename="inputoutputpatcheditor.cpp" line="751"/>
         <source>Saving failed</source>
         <translation>Salvataggio Fallito</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="660"/>
+        <location filename="inputoutputpatcheditor.cpp" line="615"/>
         <source>Unable to save the profile to %1</source>
         <translation>Impossibile salvare il profilo in %1</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="697"/>
+        <location filename="inputoutputpatcheditor.cpp" line="652"/>
         <source>Delete profile</source>
         <translation>Elimina Profilo</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="698"/>
+        <location filename="inputoutputpatcheditor.cpp" line="653"/>
         <source>Do you wish to permanently delete profile &quot;%1&quot;?</source>
         <translation>Vuoi cancellare definitivamente il profilo &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="726"/>
+        <location filename="inputoutputpatcheditor.cpp" line="681"/>
         <source>File deletion failed</source>
         <translation>Cancellazione Fallita</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="727"/>
+        <location filename="inputoutputpatcheditor.cpp" line="682"/>
         <source>Unable to delete file %1</source>
         <translation>Impossibile eliminare il file%1</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="797"/>
+        <location filename="inputoutputpatcheditor.cpp" line="752"/>
         <source>Unable to save %1 to %2</source>
         <translation>Impossibile salvare %1 in %2</translation>
-    </message>
-</context>
-<context>
-    <name>InputPatchEditor</name>
-    <message>
-        <source>Input patch editor</source>
-        <translation type="obsolete">Editor del patch di ingresso</translation>
-    </message>
-    <message>
-        <source>Mapping</source>
-        <translation type="obsolete">Mappa</translation>
-    </message>
-    <message>
-        <source>Inputs</source>
-        <translation type="obsolete">Ingresso</translation>
-    </message>
-    <message>
-        <source>...</source>
-        <translation type="obsolete">...</translation>
-    </message>
-    <message>
-        <source>Send feedback data to the input universe for moving e.g. motorized sliders.</source>
-        <translation type="obsolete">Invia dati di feedback all&apos;universo in ingresso per muovere Sliders motorizzati.</translation>
-    </message>
-    <message>
-        <source>Feedback enabled</source>
-        <translation type="obsolete">Feedback attivo</translation>
-    </message>
-    <message>
-        <source>Attempt to re-connect the current plugin</source>
-        <translation type="obsolete">Attendo di riconnettere il presente plugin</translation>
-    </message>
-    <message>
-        <source>Profile</source>
-        <translation type="obsolete">Profilo</translation>
-    </message>
-    <message>
-        <source>Create a new input profile</source>
-        <translation type="obsolete">Creare un nuovo profilo di Ingresso</translation>
-    </message>
-    <message>
-        <source>Delete the selected input profile</source>
-        <translation type="obsolete">Elimina il profilo di ingresso selezionato</translation>
-    </message>
-    <message>
-        <source>Edit the selected input profile</source>
-        <translation type="obsolete">Edita il profilo di ingresso selezionato</translation>
-    </message>
-    <message>
-        <source>Use this universe for e.g. scene channel value setting in scene editor</source>
-        <translation type="obsolete">Utilizzare questo universo per esempio: scena valore impostazione canale in editor di scenari</translation>
-    </message>
-    <message>
-        <source>Default editor universe</source>
-        <translation type="obsolete">Editor di universo di Default</translation>
-    </message>
-    <message>
-        <source>Mapping properties for input universe %1</source>
-        <translation type="obsolete">Mappa delle proprietà per l&apos;universo%1</translation>
-    </message>
-    <message>
-        <source>Mapping for input universe %1</source>
-        <translation type="obsolete">Mappa dell&apos;universo di ingresso %1</translation>
-    </message>
-    <message>
-        <source>Existing Input Profile</source>
-        <translation type="obsolete">Profilo di Ingresso Esistente</translation>
-    </message>
-    <message>
-        <source>An input profile at %1 already exists. Do you wish to overwrite it?</source>
-        <translation type="obsolete">Un profilo d&apos;Ingresso al %1 già esiste. Lo vuoi sovrascrivere?</translation>
-    </message>
-    <message>
-        <source>Save Input Profile</source>
-        <translation type="obsolete">Salva il profilo di Ingresso</translation>
-    </message>
-    <message>
-        <source>Input Profiles (*.qxi)</source>
-        <translation type="obsolete">Profilo D&apos;ingresso (*.qxi)</translation>
-    </message>
-    <message>
-        <source>Saving failed</source>
-        <translation type="obsolete">Salvataggio Fallito</translation>
-    </message>
-    <message>
-        <source>Unable to save the profile to %1</source>
-        <translation type="obsolete">Impossibile salvare il profilo in %1</translation>
-    </message>
-    <message>
-        <source>Delete profile</source>
-        <translation type="obsolete">Elimina Profilo</translation>
-    </message>
-    <message>
-        <source>Do you wish to permanently delete profile &quot;%1&quot;?</source>
-        <translation type="obsolete">Vuoi cancellare definitivamente il profilo &quot;%1&quot;?</translation>
-    </message>
-    <message>
-        <source>File deletion failed</source>
-        <translation type="obsolete">Cancellazione Fallita</translation>
-    </message>
-    <message>
-        <source>Unable to delete file %1</source>
-        <translation type="obsolete">Impossibile eliminare il file%1</translation>
-    </message>
-    <message>
-        <source>Unable to save %1 to %2</source>
-        <translation type="obsolete">Impossibile salvare %1 in %2</translation>
     </message>
 </context>
 <context>
@@ -2945,10 +2319,6 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
         <location filename="inputprofileeditor.ui" line="139"/>
         <source>Add a new channel description</source>
         <translation>Aggiungi una descrizione per il canale</translation>
-    </message>
-    <message>
-        <source>...</source>
-        <translation type="obsolete">...</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="159"/>
@@ -3141,84 +2511,6 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
 %2</source>
         <translation>Inizio: %1
 %2</translation>
-    </message>
-</context>
-<context>
-    <name>OutputManager</name>
-    <message>
-        <source>Output Manager</source>
-        <translation type="obsolete">Manager periferiche di uscita</translation>
-    </message>
-    <message>
-        <source>Edit Mapping</source>
-        <translation type="obsolete">Edita Mappa</translation>
-    </message>
-    <message>
-        <source>Universe</source>
-        <translation type="obsolete">Universo</translation>
-    </message>
-    <message>
-        <source>Plugin</source>
-        <translation type="obsolete">Plugin</translation>
-    </message>
-    <message>
-        <source>Output</source>
-        <translation type="obsolete">Uscita</translation>
-    </message>
-</context>
-<context>
-    <name>OutputPatchEditor</name>
-    <message>
-        <source>Output patch editor</source>
-        <translation type="obsolete">Editor del Patch di Uscita</translation>
-    </message>
-    <message>
-        <source>Mapping</source>
-        <translation type="obsolete">Mappa</translation>
-    </message>
-    <message>
-        <source>Plugins/Outputs</source>
-        <translation type="obsolete">Plugins/Uscita</translation>
-    </message>
-    <message>
-        <source>Output Information</source>
-        <translation type="obsolete">Informazioni di Uscita</translation>
-    </message>
-    <message>
-        <source>Information related to the currently selected plugin or output</source>
-        <translation type="obsolete">Informazioni relative al Plugin selezionato o Uscita</translation>
-    </message>
-    <message>
-        <source>Configure the selected plugin/output</source>
-        <translation type="obsolete">Configura il Plugin/Uscita selezionato</translation>
-    </message>
-    <message>
-        <source>Attempt to re-connect the current plugin</source>
-        <translation type="obsolete">Attendo di riconnettere il presente plugin</translation>
-    </message>
-    <message>
-        <source>...</source>
-        <translation type="obsolete">...</translation>
-    </message>
-    <message>
-        <source>Display 0-511 (instead of 1-512) as the DMX address space for this universe</source>
-        <translation type="obsolete">Mostra 0-511 (invece di 1-512) come indirizzi DMX in questo universo</translation>
-    </message>
-    <message>
-        <source>Display zero-based DMX addresses for this universe</source>
-        <translation type="obsolete">Mostra indirizzi DMX con partenza da 0 in questo universo</translation>
-    </message>
-    <message>
-        <source>Mapping properties for output universe %1</source>
-        <translation type="obsolete">Mappa delle propietà per universo di uscita %1</translation>
-    </message>
-    <message>
-        <source>No information</source>
-        <translation type="obsolete">No hay informacion</translation>
-    </message>
-    <message>
-        <source>Mapping for output universe %1</source>
-        <translation type="obsolete">Mappa dell&apos;universo di uscita %1</translation>
     </message>
 </context>
 <context>
@@ -3480,21 +2772,9 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <translation>Abilita tutti i canali delle fixture</translation>
     </message>
     <message>
-        <source>Enable all</source>
-        <translation type="obsolete">Abilita Tutto</translation>
-    </message>
-    <message>
         <location filename="sceneeditor.ui" line="203"/>
         <source>Disable all fixtures&apos; channels</source>
         <translation>Disattiva tutti i canali di tutte le fixture</translation>
-    </message>
-    <message>
-        <source>Disable all</source>
-        <translation type="obsolete">Disabilita tutto</translation>
-    </message>
-    <message>
-        <source>Speed bus</source>
-        <translation type="obsolete">Velocità del bus</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="158"/>
@@ -3550,10 +2830,6 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <location filename="sceneeditor.cpp" line="800"/>
         <source>Channels Groups</source>
         <translation>Gruppi di Canali</translation>
-    </message>
-    <message>
-        <source>Scene - %1</source>
-        <translation type="obsolete">Scena - %1</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="659"/>
@@ -3847,10 +3123,6 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <translation>Tutti i File (*)</translation>
     </message>
     <message>
-        <source>All files (*.*)</source>
-        <translation type="obsolete">Tutti i file (*.*)</translation>
-    </message>
-    <message>
         <location filename="showmanager.cpp" line="474"/>
         <source>Unsupported audio file</source>
         <translation>File audio non supportato</translation>
@@ -3932,10 +3204,6 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <location filename="simpledesk.cpp" line="285"/>
         <source>Record cue</source>
         <translation>Registra azione</translation>
-    </message>
-    <message>
-        <source>Intensity</source>
-        <translation type="obsolete">Intensità</translation>
     </message>
     <message>
         <location filename="simpledesk.cpp" line="555"/>
@@ -4105,17 +3373,9 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <translation>Attacca una Funzione a questo Bottone</translation>
     </message>
     <message>
-        <source>...</source>
-        <translation type="obsolete">...</translation>
-    </message>
-    <message>
         <location filename="vcbuttonproperties.ui" line="77"/>
         <source>Detach the button&apos;s function attachment</source>
         <translation>Stacca la Funzione collegata a questo Bottone</translation>
-    </message>
-    <message>
-        <source>Keyboard hotkey</source>
-        <translation type="obsolete">Tecla del Teclado</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="100"/>
@@ -4193,10 +3453,6 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <translation>Percentuale di intensità della funzione aggiustata in esecuzione</translation>
     </message>
     <message>
-        <source>Choose the external input universe &amp; channel that this widget should listen to</source>
-        <translation type="obsolete">Elige el universo de entrada externo &amp; canal que escuchara este boton</translation>
-    </message>
-    <message>
         <location filename="vcbuttonproperties.ui" line="221"/>
         <source>Choose...</source>
         <translation>Scegli...</translation>
@@ -4241,31 +3497,48 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <source>No function</source>
         <translation>Nessuna funzione</translation>
     </message>
-    <message>
-        <source>%1: Unknown</source>
-        <translation type="obsolete">%1: Sconosciuto</translation>
-    </message>
-    <message>
-        <source>Unknown</source>
-        <translation type="obsolete">Sconosciuto</translation>
-    </message>
 </context>
 <context>
     <name>VCCueList</name>
     <message>
-        <location filename="vccuelist.cpp" line="80"/>
+        <location filename="vccuelist.cpp" line="90"/>
+        <source>Play</source>
+        <translation>Riproduci</translation>
+    </message>
+    <message>
+        <location filename="vccuelist.cpp" line="98"/>
         <source>Stop</source>
         <translation>Stop</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="85"/>
+        <location filename="vccuelist.cpp" line="106"/>
+        <source>Previous Cue</source>
+        <translation>Azione precedente</translation>
+    </message>
+    <message>
+        <location filename="vccuelist.cpp" line="114"/>
+        <source>Next Cue</source>
+        <translation>Azione successiva</translation>
+    </message>
+    <message>
+        <location filename="vccuelist.cpp" line="121"/>
         <source>Cue list</source>
         <translation>Lista d&apos;Azione</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="421"/>
-        <source>Number</source>
-        <translation>Numero</translation>
+        <location filename="vccuelist.cpp" line="532"/>
+        <source>Fade In</source>
+        <translation>Fade In</translation>
+    </message>
+    <message>
+        <location filename="vccuelist.cpp" line="532"/>
+        <source>Fade Out</source>
+        <translation>Fade Out</translation>
+    </message>
+    <message>
+        <location filename="vccuelist.cpp" line="532"/>
+        <source>Duration</source>
+        <translation>Durata</translation>
     </message>
 </context>
 <context>
@@ -4273,51 +3546,23 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="vccuelistproperties.ui" line="14"/>
         <source>Cue list properties</source>
-        <translation>Proprietà della lista d&apos;Azione</translation>
+        <translation>Proprietà della lista di azioni</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="20"/>
         <source>Cue list name</source>
-        <translation>Nome della lista d&apos;Azione</translation>
+        <translation>Nome della lista di azioni</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="27"/>
         <source>The name of the cue list widget</source>
-        <translation>Nome della lista d&apos;Azione</translation>
+        <translation>Nome dell&apos;oggetto lista di azioni</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="41"/>
         <source>Cue List</source>
         <oldsource>Cues</oldsource>
-        <translation>Lista Azioni</translation>
-    </message>
-    <message>
-        <source>List of scenes that can be activated with this cue list</source>
-        <translation type="obsolete">Lista delle scene che possono essere attivate con questa lista d&apos;Azione</translation>
-    </message>
-    <message>
-        <source>Number</source>
-        <translation type="obsolete">Numero</translation>
-    </message>
-    <message>
-        <source>Scene</source>
-        <translation type="obsolete">Scena</translation>
-    </message>
-    <message>
-        <source>Add scene(s) to the cue list</source>
-        <translation type="obsolete">Aggiungi scene alla lista d&apos;Azione</translation>
-    </message>
-    <message>
-        <source>Cut the selected scenes from their current positions</source>
-        <translation type="obsolete">Taglia le scene selezionate dalla loro posizione corrente</translation>
-    </message>
-    <message>
-        <source>Copy the selected scenes</source>
-        <translation type="obsolete">Copia le scene selezionate</translation>
-    </message>
-    <message>
-        <source>Paste scenes from the clipboard to the currently selected position</source>
-        <translation type="obsolete">Incolla scene dalla memoria alla posizione corrente selezionata</translation>
+        <translation>Lista di azioni</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="47"/>
@@ -4483,22 +3728,6 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <translation>...</translation>
     </message>
     <message>
-        <source>Remove selected scene(s) from the cue list</source>
-        <translation type="obsolete">Elimina le scene selezionate dalla lista d&apos;Azione</translation>
-    </message>
-    <message>
-        <source>Raise the selected scene</source>
-        <translation type="obsolete">Alzare la scena selezionata</translation>
-    </message>
-    <message>
-        <source>Lower the selected scene</source>
-        <translation type="obsolete">Abbassare la scena selezionata</translation>
-    </message>
-    <message>
-        <source>Next cue key combination</source>
-        <translation type="obsolete">Combinacion de tecla para el proximo cue</translation>
-    </message>
-    <message>
         <location filename="vccuelistproperties.ui" line="130"/>
         <source>The key combination used to step to the next cue</source>
         <translation>La combinazione di tasti usata per passare alla prossima lista d&apos;Azione</translation>
@@ -4516,36 +3745,9 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <translation>Togli la combinazione di tasti</translation>
     </message>
     <message>
-        <source>Cut</source>
-        <translation type="obsolete">Taglia</translation>
-    </message>
-    <message>
-        <source>Copy</source>
-        <translation type="obsolete">Copia</translation>
-    </message>
-    <message>
-        <source>Paste</source>
-        <translation type="obsolete">Incolla</translation>
-    </message>
-    <message>
         <location filename="vccuelistproperties.cpp" line="200"/>
         <source>No function</source>
         <translation>Nessuna funzione</translation>
-    </message>
-</context>
-<context>
-    <name>VCDockSlider</name>
-    <message>
-        <source>0.00s</source>
-        <translation type="obsolete">0.00s</translation>
-    </message>
-    <message>
-        <source>Bus %1</source>
-        <translation type="obsolete">Bus %1</translation>
-    </message>
-    <message>
-        <source>time</source>
-        <translation type="obsolete">tempo</translation>
     </message>
 </context>
 <context>
@@ -4601,111 +3803,15 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <translation>Impostazioni della Console Virtuale</translation>
     </message>
     <message>
-        <source>Layout</source>
-        <translation type="obsolete">Layout</translation>
-    </message>
-    <message>
-        <source>Keyboard</source>
-        <translation type="obsolete">Teclado</translation>
-    </message>
-    <message>
-        <source>Make virtual console to take exclusive keyboard control during operate mode</source>
-        <translation type="obsolete">Fai che la console virtuale possa prendere il controllo esclusivamente della tastiera durante la modalità Operate</translation>
-    </message>
-    <message>
-        <source>Grab keyboard in operate mode</source>
-        <translation type="obsolete">Agarra el teclado en modo trabajo</translation>
-    </message>
-    <message>
-        <source>Prevent flickering when a keyboard hotkey has been pressed in operate mode</source>
-        <translation type="obsolete">Prevenire il flickering quendo viene premuto un tasto nella modalità Operate</translation>
-    </message>
-    <message>
-        <source>Turn off key repeat in operate mode</source>
-        <translation type="obsolete">Apaga la repeticion de tecla en modo trabajo</translation>
-    </message>
-    <message>
-        <source>Use a grid layout for virtual console widgets</source>
-        <translation type="obsolete">Usa una griglia per gli oggetti sulla virtual console</translation>
-    </message>
-    <message>
-        <source>Grid</source>
-        <translation type="obsolete">Griglia</translation>
-    </message>
-    <message>
-        <source>Horizontal (X)</source>
-        <translation type="obsolete">Orizzontale (X)</translation>
-    </message>
-    <message>
         <location filename="vcproperties.ui" line="43"/>
         <location filename="vcproperties.ui" line="69"/>
         <source>Widget grid layout X resolution</source>
         <translation>Risoluzione della griglia X</translation>
     </message>
     <message>
-        <source>px</source>
-        <translation type="obsolete">Px</translation>
-    </message>
-    <message>
-        <source>Vertical (Y)</source>
-        <translation type="obsolete">Verticale (Y)</translation>
-    </message>
-    <message>
-        <source>Widget grid layout Y resolution</source>
-        <translation type="obsolete">Risoluzione della griglia Y</translation>
-    </message>
-    <message>
-        <source>Default sliders</source>
-        <translation type="obsolete">Correderas por defecto</translation>
-    </message>
-    <message>
-        <source>Default fade slider</source>
-        <translation type="obsolete">Cursore di dissolvenza predefinito</translation>
-    </message>
-    <message>
-        <source>Low limit</source>
-        <translation type="obsolete">Limite Basso</translation>
-    </message>
-    <message>
-        <source>Lowest value that can be set to the &apos;fade&apos; bus with the default sliders</source>
-        <translation type="obsolete">Il più basso valore che può essere settato alla &apos;dissolvenza&apos; con il cursore predefinito</translation>
-    </message>
-    <message>
-        <source>s</source>
-        <translation type="obsolete">s</translation>
-    </message>
-    <message>
-        <source>High limit</source>
-        <translation type="obsolete">Limite Alto</translation>
-    </message>
-    <message>
-        <source>Highest value that can be set to the &apos;fade&apos; bus with the default sliders</source>
-        <translation type="obsolete">Il più alto valore che può essere settato alla &apos;dissolvenza&apos; con il cursore predefinito</translation>
-    </message>
-    <message>
-        <source>Input universe</source>
-        <translation type="obsolete">Universo di ingresso</translation>
-    </message>
-    <message>
-        <source>Input channel</source>
-        <translation type="obsolete">Canale di ingresso</translation>
-    </message>
-    <message>
         <location filename="vcproperties.ui" line="264"/>
         <source>Choose...</source>
         <translation>Scegli...</translation>
-    </message>
-    <message>
-        <source>Keyboard in operate mode</source>
-        <translation type="obsolete">Tastiera in modalità Operate</translation>
-    </message>
-    <message>
-        <source>Grab keyboard</source>
-        <translation type="obsolete">Ascolta la Tastiera</translation>
-    </message>
-    <message>
-        <source>Turn off key repeat</source>
-        <translation type="obsolete">Disabilita la ripetizione dei tasti</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="24"/>
@@ -4838,78 +3944,6 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <translation>Scegli un universo in input ed un canale da assegnare al Grand Master.</translation>
     </message>
     <message>
-        <source>Blackout</source>
-        <translation type="obsolete">Blackout</translation>
-    </message>
-    <message>
-        <source>Input universe for Blackout.</source>
-        <translation type="obsolete">Universo di Ingresso per il Balckout.</translation>
-    </message>
-    <message>
-        <source>Input channel for Blackout.</source>
-        <translation type="obsolete">Canale d&apos;ingresso per il Blackout.</translation>
-    </message>
-    <message>
-        <source>When toggled, you can move an external slider/knob to assign it to Blackout.</source>
-        <translation type="obsolete">Se calcato, puoi muovere uno slider o una rotella da un controller esterno ed assegnarlo al Blackout.</translation>
-    </message>
-    <message>
-        <source>Choose an external input universe &amp; channel that Blackout should listen to.</source>
-        <translation type="obsolete">Scegli un universo in input ed un canale da assegnare al Blackout.</translation>
-    </message>
-    <message>
-        <source>Default Fade</source>
-        <translation type="obsolete">Fade di Default</translation>
-    </message>
-    <message>
-        <source>Input universe for default fade.</source>
-        <translation type="obsolete">Universo di Ingresso per il fade di default.</translation>
-    </message>
-    <message>
-        <source>Input channel for default fade.</source>
-        <translation type="obsolete">Canale d&apos;ingresso per il fade di default.</translation>
-    </message>
-    <message>
-        <source>When toggled, you can move an external slider/knob to assign it to the default fade slider.</source>
-        <translation type="obsolete">Se calcato, puoi muovere uno slider o una rotella da un controller esterno ed assegnarlo al fade di default.</translation>
-    </message>
-    <message>
-        <source>Choose an external input universe &amp; channel that the default fade slider should listen to.</source>
-        <translation type="obsolete">Scegli un universo in input ed un canale da assegnare al fade di default.</translation>
-    </message>
-    <message>
-        <source>Default Hold</source>
-        <translation type="obsolete">Default Hold</translation>
-    </message>
-    <message>
-        <source>Default hold slider</source>
-        <translation type="obsolete">Slider del Default Hold</translation>
-    </message>
-    <message>
-        <source>Lowest value that can be set to the &apos;hold&apos; bus with the default sliders</source>
-        <translation type="obsolete">Il più basso valore che si può assegnare al bus &apos;hold&apos; con lo slider di default</translation>
-    </message>
-    <message>
-        <source>Highest value that can be set to the &apos;hold&apos; bus with the default sliders</source>
-        <translation type="obsolete">Il più alto valore che si può assegnare al bus &apos;hold&apos; con lo slider di default</translation>
-    </message>
-    <message>
-        <source>Input universe for default hold.</source>
-        <translation type="obsolete">Universo di Input per il default Hold</translation>
-    </message>
-    <message>
-        <source>Input channel for default hold.</source>
-        <translation type="obsolete">Canale di Input per il default Hold</translation>
-    </message>
-    <message>
-        <source>When toggled, you can move an external slider/knob to assign it to the default hold slider.</source>
-        <translation type="obsolete">Se calcato, puoi muovere uno slider o una rotella da un controller esterno ed assegnarlo al default hold.</translation>
-    </message>
-    <message>
-        <source>Choose an external input universe &amp; channel that the default hold slider should listen to.</source>
-        <translation type="obsolete">Scegli un universo in input ed un canale da assegnare al default hold.</translation>
-    </message>
-    <message>
         <location filename="vcpropertieseditor.cpp" line="244"/>
         <source>%1: Unknown</source>
         <translation>%1: Sconosciuto</translation>
@@ -4951,10 +3985,6 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <location filename="vcsliderproperties.ui" line="57"/>
         <source>Show exact DMX values</source>
         <translation>Mostra i valori esatti DMX</translation>
-    </message>
-    <message>
-        <source>DMX / Time</source>
-        <translation type="obsolete">DMX / Tempo</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="70"/>
@@ -5028,10 +4058,6 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <translation>Assegnazione Automatica</translation>
     </message>
     <message>
-        <source>Bus</source>
-        <translation type="obsolete">Bus</translation>
-    </message>
-    <message>
         <location filename="vcsliderproperties.ui" line="208"/>
         <source>Value range</source>
         <translation>Intervallo di Valori</translation>
@@ -5042,29 +4068,9 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <translation>Limite Basso</translation>
     </message>
     <message>
-        <source>The lowest value that can be set with this slider for a bus</source>
-        <translation type="obsolete">Il più basso valore che può essere assegnato con questo slider ad un bus</translation>
-    </message>
-    <message>
-        <source>s</source>
-        <translation type="obsolete">s</translation>
-    </message>
-    <message>
         <location filename="vcsliderproperties.ui" line="231"/>
         <source>High limit</source>
         <translation>Limite Alto</translation>
-    </message>
-    <message>
-        <source>The highest value that can be set with this slider for a bus</source>
-        <translation type="obsolete">Il più alto valore che può essere assegnato con questo slider ad un bus</translation>
-    </message>
-    <message>
-        <source>Make the slider control a bus</source>
-        <translation type="obsolete">Fai che questo Slider controlli un bus</translation>
-    </message>
-    <message>
-        <source>Switch to Bus Mode</source>
-        <translation type="obsolete">Cambia in modalità BUS</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="202"/>
@@ -5110,10 +4116,6 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <location filename="vcsliderproperties.ui" line="470"/>
         <source>Switch to Playback Mode</source>
         <translation>Passa alla modalità di riproduzione</translation>
-    </message>
-    <message>
-        <source>Lowest DMX value that can be se with this slider</source>
-        <translation type="obsolete">El valor DMX mas bajo que puede tener esta corredera</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="60"/>
@@ -5201,23 +4203,7 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <translation>Passa a modo Livello</translation>
     </message>
     <message>
-        <source>Submaster</source>
-        <translation type="obsolete">Submaster</translation>
-    </message>
-    <message>
-        <source>Not implemented yet</source>
-        <translation type="obsolete">No esta implementado</translation>
-    </message>
-    <message>
-        <source>%1: Unknown</source>
-        <translation type="obsolete">%1: Sconosciuto</translation>
-    </message>
-    <message>
-        <source>Unknown</source>
-        <translation type="obsolete">Sconosciuto</translation>
-    </message>
-    <message>
-        <location filename="vcsliderproperties.cpp" line="610"/>
+        <location filename="vcsliderproperties.cpp" line="636"/>
         <source>No function</source>
         <translation>Nessuna Funzione</translation>
     </message>
@@ -5503,10 +4489,6 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <translation>Tilt / Assi verticali</translation>
     </message>
     <message>
-        <source>...</source>
-        <translation type="obsolete">...</translation>
-    </message>
-    <message>
         <location filename="vcxypadproperties.ui" line="107"/>
         <source>Remove selected fixture(s) from the pad</source>
         <translation>Rimuovi le fixture selezionate da questo Pad</translation>
@@ -5530,62 +4512,6 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
 <context>
     <name>VirtualConsole</name>
     <message>
-        <source>Virtual Console</source>
-        <translation type="obsolete">Virtual Console</translation>
-    </message>
-    <message>
-        <source>Button</source>
-        <translation type="obsolete">Bottone</translation>
-    </message>
-    <message>
-        <source>Button Matrix</source>
-        <translation type="obsolete">Matrice di Bottoni</translation>
-    </message>
-    <message>
-        <source>Slider</source>
-        <translation type="obsolete">Slider</translation>
-    </message>
-    <message>
-        <source>Slider Matrix</source>
-        <translation type="obsolete">Matrice di Sliders</translation>
-    </message>
-    <message>
-        <source>XY pad</source>
-        <translation type="obsolete">Pad XY</translation>
-    </message>
-    <message>
-        <source>Cue list</source>
-        <translation type="obsolete">Lista d&apos;Azione</translation>
-    </message>
-    <message>
-        <source>Frame</source>
-        <translation type="obsolete">Cornice</translation>
-    </message>
-    <message>
-        <source>Solo frame</source>
-        <translation type="obsolete">Solo Telaio</translation>
-    </message>
-    <message>
-        <source>Label</source>
-        <translation type="obsolete">Etichetta</translation>
-    </message>
-    <message>
-        <source>Settings</source>
-        <translation type="obsolete">Settaggi</translation>
-    </message>
-    <message>
-        <source>Default sliders</source>
-        <translation type="obsolete">Sliders di default</translation>
-    </message>
-    <message>
-        <source>Toggle &amp;Blackout</source>
-        <translation type="obsolete">Premi per &amp;blackout</translation>
-    </message>
-    <message>
-        <source>Stop ALL functions!</source>
-        <translation type="obsolete">Ferma TUTTE le funzioni!</translation>
-    </message>
-    <message>
         <location filename="virtualconsole.cpp" line="330"/>
         <source>Cut</source>
         <translation>Taglia</translation>
@@ -5606,31 +4532,11 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <translation>Elimina</translation>
     </message>
     <message>
-        <source>Properties</source>
-        <translation type="obsolete">Proprietà</translation>
-    </message>
-    <message>
-        <source>Rename</source>
-        <translation type="obsolete">Rinomina</translation>
-    </message>
-    <message>
-        <source>Color</source>
-        <translation type="obsolete">Colore</translation>
-    </message>
-    <message>
-        <source>Image</source>
-        <translation type="obsolete">Immagine</translation>
-    </message>
-    <message>
         <location filename="virtualconsole.cpp" line="366"/>
         <location filename="virtualconsole.cpp" line="380"/>
         <location filename="virtualconsole.cpp" line="393"/>
         <source>Default</source>
         <translation>Default</translation>
-    </message>
-    <message>
-        <source>Choose...</source>
-        <translation type="obsolete">Scegli...</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="390"/>
@@ -5653,14 +4559,6 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <translation>Nessuno</translation>
     </message>
     <message>
-        <source>Raise</source>
-        <translation type="obsolete">Aumenta</translation>
-    </message>
-    <message>
-        <source>Lower</source>
-        <translation type="obsolete">Abbassa</translation>
-    </message>
-    <message>
         <location filename="virtualconsole.cpp" line="437"/>
         <source>&amp;Add</source>
         <translation>&amp;Aggiungi</translation>
@@ -5669,10 +4567,6 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <location filename="virtualconsole.cpp" line="454"/>
         <source>&amp;Edit</source>
         <translation>&amp;Edita</translation>
-    </message>
-    <message>
-        <source>&amp;Tools</source>
-        <translation type="obsolete">S&amp;trumenti</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="278"/>
@@ -5790,31 +4684,27 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <translation>Nuova Matrice di Fader</translation>
     </message>
     <message>
-        <source>Horizontal Count x Slider Height</source>
-        <translation type="obsolete">Cuenta horizontal de la talla de correderas X</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole.cpp" line="1013"/>
+        <location filename="virtualconsole.cpp" line="1014"/>
         <source>Do you wish to delete the selected widgets?</source>
         <translation>Vuoi cancellare gli oggetti selezionati?</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1014"/>
+        <location filename="virtualconsole.cpp" line="1015"/>
         <source>Delete widgets</source>
         <translation>Elimina oggetti</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1059"/>
+        <location filename="virtualconsole.cpp" line="1060"/>
         <source>Rename widgets</source>
         <translation>Rinomina gli oggetti</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1059"/>
+        <location filename="virtualconsole.cpp" line="1060"/>
         <source>Caption:</source>
         <translation>Titolo:</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1112"/>
+        <location filename="virtualconsole.cpp" line="1113"/>
         <source>Select background image</source>
         <translation>Selezione l&apos;immagine di fondo</translation>
     </message>
