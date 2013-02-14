@@ -882,10 +882,10 @@ Changes will be lost if you don&apos;t save them.</source>
     </message>
     <message>
         <location filename="chasereditor.ui" line="441"/>
-        <location filename="chasereditor.ui" line="464"/>
-        <location filename="chasereditor.ui" line="484"/>
-        <location filename="chasereditor.ui" line="504"/>
-        <location filename="chasereditor.ui" line="524"/>
+        <location filename="chasereditor.ui" line="471"/>
+        <location filename="chasereditor.ui" line="491"/>
+        <location filename="chasereditor.ui" line="511"/>
+        <location filename="chasereditor.ui" line="531"/>
         <source>...</source>
         <translation>...</translation>
     </message>
@@ -995,22 +995,22 @@ Changes will be lost if you don&apos;t save them.</source>
         <translation>Jeder Schritt hat seine eigene chasergesteuerte Dauer</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="461"/>
+        <location filename="chasereditor.ui" line="468"/>
         <source>See what the chaser does when it is run</source>
         <translation>Chaservorschau</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="481"/>
+        <location filename="chasereditor.ui" line="488"/>
         <source>Stop the chaser if running</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="521"/>
+        <location filename="chasereditor.ui" line="528"/>
         <source>Skip to the next step</source>
         <translation>Zum nächsten Schritt wechseln</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="501"/>
+        <location filename="chasereditor.ui" line="508"/>
         <source>Skip to the previous step</source>
         <translation>Zum vorherigen Schritt wechseln</translation>
     </message>
@@ -2731,48 +2731,60 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
         <translation>Allgemein</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="135"/>
+        <location filename="sceneeditor.ui" line="76"/>
+        <source>Enable all channel groups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sceneeditor.ui" line="122"/>
+        <source>Disable all channel groups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sceneeditor.ui" line="244"/>
         <source>Channel groups used in this scene</source>
         <translation>In der Szene verwendete Kanalgruppen</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="166"/>
-        <location filename="sceneeditor.ui" line="206"/>
+        <location filename="sceneeditor.ui" line="59"/>
+        <location filename="sceneeditor.ui" line="79"/>
+        <location filename="sceneeditor.ui" line="125"/>
+        <location filename="sceneeditor.ui" line="205"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="38"/>
+        <location filename="sceneeditor.ui" line="254"/>
         <source>Scene name</source>
         <translation>Szenenname</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="51"/>
+        <location filename="sceneeditor.ui" line="267"/>
         <source>Name of this scene</source>
         <translation>Name dieser Szene</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="105"/>
+        <location filename="sceneeditor.ui" line="194"/>
         <source>Fixtures used in this scene</source>
         <translation>In dieser Szene benutzte Geräte</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="183"/>
+        <location filename="sceneeditor.ui" line="142"/>
         <source>Add a new fixture to this scene</source>
         <translation>Neues Gerät dieser Szene hinzufügen</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="60"/>
+        <location filename="sceneeditor.ui" line="36"/>
         <source>Remove the selected fixture(s) from this scene</source>
         <translation>Ausgewählte Gerät von Szene entfernen</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="163"/>
+        <location filename="sceneeditor.ui" line="56"/>
         <source>Enable all fixtures&apos; channels</source>
         <translation>Alle Gerätekanäle aktivieren</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="203"/>
+        <location filename="sceneeditor.ui" line="202"/>
         <source>Disable all fixtures&apos; channels</source>
         <translation>Alle Gerätekanäle deaktivieren</translation>
     </message>
@@ -2827,23 +2839,23 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
         <translation>Nichts</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="800"/>
+        <location filename="sceneeditor.cpp" line="861"/>
         <source>Channels Groups</source>
         <translation>Kanalgruppen</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="659"/>
-        <location filename="sceneeditor.cpp" line="660"/>
+        <location filename="sceneeditor.cpp" line="667"/>
+        <location filename="sceneeditor.cpp" line="668"/>
         <source>Generic</source>
         <translation>Generisch</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="726"/>
+        <location filename="sceneeditor.cpp" line="734"/>
         <source>Remove fixtures</source>
         <translation>Geräte entfernen</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="727"/>
+        <location filename="sceneeditor.cpp" line="735"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Willst du die ausgewählten Funktionen entfernen?</translation>
     </message>

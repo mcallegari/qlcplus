@@ -881,10 +881,10 @@ Menetät muutokset jos et tallenna niitä.</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="441"/>
-        <location filename="chasereditor.ui" line="464"/>
-        <location filename="chasereditor.ui" line="484"/>
-        <location filename="chasereditor.ui" line="504"/>
-        <location filename="chasereditor.ui" line="524"/>
+        <location filename="chasereditor.ui" line="471"/>
+        <location filename="chasereditor.ui" line="491"/>
+        <location filename="chasereditor.ui" line="511"/>
+        <location filename="chasereditor.ui" line="531"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -994,22 +994,22 @@ Menetät muutokset jos et tallenna niitä.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="461"/>
+        <location filename="chasereditor.ui" line="468"/>
         <source>See what the chaser does when it is run</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="481"/>
+        <location filename="chasereditor.ui" line="488"/>
         <source>Stop the chaser if running</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="521"/>
+        <location filename="chasereditor.ui" line="528"/>
         <source>Skip to the next step</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="501"/>
+        <location filename="chasereditor.ui" line="508"/>
         <source>Skip to the previous step</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2728,48 +2728,60 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
         <translation>Yleinen</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="135"/>
+        <location filename="sceneeditor.ui" line="76"/>
+        <source>Enable all channel groups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sceneeditor.ui" line="122"/>
+        <source>Disable all channel groups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sceneeditor.ui" line="244"/>
         <source>Channel groups used in this scene</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="166"/>
-        <location filename="sceneeditor.ui" line="206"/>
+        <location filename="sceneeditor.ui" line="59"/>
+        <location filename="sceneeditor.ui" line="79"/>
+        <location filename="sceneeditor.ui" line="125"/>
+        <location filename="sceneeditor.ui" line="205"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="38"/>
+        <location filename="sceneeditor.ui" line="254"/>
         <source>Scene name</source>
         <translation>Tilanteen nimi</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="51"/>
+        <location filename="sceneeditor.ui" line="267"/>
         <source>Name of this scene</source>
         <translation>Tämän tilanteen nimi</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="105"/>
+        <location filename="sceneeditor.ui" line="194"/>
         <source>Fixtures used in this scene</source>
         <translation>Tässä tilanteessa käytettävät valaisimet</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="183"/>
+        <location filename="sceneeditor.ui" line="142"/>
         <source>Add a new fixture to this scene</source>
         <translation>Lisää tilanteeseen uusi valaisin</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="60"/>
+        <location filename="sceneeditor.ui" line="36"/>
         <source>Remove the selected fixture(s) from this scene</source>
         <translation>Poista valitut valaisimet tilanteesta</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="163"/>
+        <location filename="sceneeditor.ui" line="56"/>
         <source>Enable all fixtures&apos; channels</source>
         <translation>Käytä kaikkien valaisinten kanavia</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="203"/>
+        <location filename="sceneeditor.ui" line="202"/>
         <source>Disable all fixtures&apos; channels</source>
         <translation>Kytke pois kaikkien valaisinten kanavat</translation>
     </message>
@@ -2824,23 +2836,23 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
         <translation type="unfinished">Ei mitään</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="800"/>
+        <location filename="sceneeditor.cpp" line="861"/>
         <source>Channels Groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="659"/>
-        <location filename="sceneeditor.cpp" line="660"/>
+        <location filename="sceneeditor.cpp" line="667"/>
+        <location filename="sceneeditor.cpp" line="668"/>
         <source>Generic</source>
         <translation>Yleinen</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="726"/>
+        <location filename="sceneeditor.cpp" line="734"/>
         <source>Remove fixtures</source>
         <translation>Poista valaisimia</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="727"/>
+        <location filename="sceneeditor.cpp" line="735"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Haluatko poistaa valitut valaisimet?</translation>
     </message>
