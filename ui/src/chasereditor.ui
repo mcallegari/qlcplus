@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>572</width>
+    <width>604</width>
     <height>553</height>
    </rect>
   </property>
@@ -14,50 +14,7 @@
    <string>Chaser editor</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="14" column="1" colspan="6">
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
-     <item>
-      <widget class="QPushButton" name="m_testButton">
-       <property name="toolTip">
-        <string>See what the chaser does when it is run</string>
-       </property>
-       <property name="text">
-        <string>Test Run</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="m_testPreviousButton">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="toolTip">
-        <string>Skip to the previous step</string>
-       </property>
-       <property name="text">
-        <string>Previous</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="m_testNextButton">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="toolTip">
-        <string>Skip to the next step</string>
-       </property>
-       <property name="text">
-        <string>Next</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="6" column="6" rowspan="5">
+   <item row="7" column="6" rowspan="5">
     <spacer>
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -98,60 +55,9 @@
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QToolButton" name="m_copyButton">
-       <property name="text">
-        <string notr="true">...</string>
-       </property>
-       <property name="icon">
-        <iconset resource="qlcui.qrc">
-         <normaloff>:/editcopy.png</normaloff>:/editcopy.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>24</width>
-         <height>24</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QToolButton" name="m_cutButton">
-       <property name="text">
-        <string notr="true">...</string>
-       </property>
-       <property name="icon">
-        <iconset resource="qlcui.qrc">
-         <normaloff>:/editcut.png</normaloff>:/editcut.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>24</width>
-         <height>24</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QToolButton" name="m_pasteButton">
-       <property name="text">
-        <string notr="true">...</string>
-       </property>
-       <property name="icon">
-        <iconset resource="qlcui.qrc">
-         <normaloff>:/editpaste.png</normaloff>:/editpaste.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>24</width>
-         <height>24</height>
-        </size>
-       </property>
-      </widget>
-     </item>
     </layout>
    </item>
-   <item row="5" column="6">
+   <item row="6" column="6">
     <widget class="QToolButton" name="m_lower">
      <property name="toolTip">
       <string>Lower the selected step once</string>
@@ -171,37 +77,14 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="6">
+   <item row="4" column="6">
     <widget class="Line" name="line">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
    </item>
-   <item row="14" column="0">
-    <widget class="QToolButton" name="m_speeddial">
-     <property name="toolTip">
-      <string>Show/Hide speed dial window</string>
-     </property>
-     <property name="text">
-      <string>...</string>
-     </property>
-     <property name="icon">
-      <iconset resource="qlcui.qrc">
-       <normaloff>:/speed.png</normaloff>:/speed.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>24</width>
-       <height>24</height>
-      </size>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="6">
+   <item row="5" column="6">
     <widget class="QToolButton" name="m_raise">
      <property name="toolTip">
       <string>Raise the selected step once</string>
@@ -221,7 +104,7 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="6">
+   <item row="2" column="6">
     <widget class="QToolButton" name="m_add">
      <property name="toolTip">
       <string>Add step(s) to the current position</string>
@@ -241,7 +124,7 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0" rowspan="10" colspan="6">
+   <item row="2" column="0" rowspan="10" colspan="6">
     <widget class="QTreeWidget" name="m_tree">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -294,7 +177,7 @@
      </column>
     </widget>
    </item>
-   <item row="2" column="6">
+   <item row="3" column="6">
     <widget class="QToolButton" name="m_remove">
      <property name="toolTip">
       <string>Remove the selected step</string>
@@ -314,14 +197,14 @@
      </property>
     </widget>
    </item>
-   <item row="13" column="0" colspan="7">
+   <item row="14" column="0" colspan="7">
     <widget class="Line" name="line_3">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
    </item>
-   <item row="11" column="0" colspan="7">
+   <item row="12" column="0" colspan="7">
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QGroupBox" name="groupBox">
@@ -543,6 +426,164 @@
          </spacer>
         </item>
        </layout>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="1" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QToolButton" name="m_speeddial">
+       <property name="toolTip">
+        <string>Show/Hide speed dial window</string>
+       </property>
+       <property name="text">
+        <string>...</string>
+       </property>
+       <property name="icon">
+        <iconset resource="qlcui.qrc">
+         <normaloff>:/speed.png</normaloff>:/speed.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>28</width>
+         <height>28</height>
+        </size>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="m_testPlayButton">
+       <property name="toolTip">
+        <string>See what the chaser does when it is run</string>
+       </property>
+       <property name="text">
+        <string>...</string>
+       </property>
+       <property name="icon">
+        <iconset resource="qlcui.qrc">
+         <normaloff>:/player_play.png</normaloff>:/player_play.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>28</width>
+         <height>28</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="m_testStopButton">
+       <property name="toolTip">
+        <string>Stop the chaser if running</string>
+       </property>
+       <property name="text">
+        <string>...</string>
+       </property>
+       <property name="icon">
+        <iconset resource="qlcui.qrc">
+         <normaloff>:/player_stop.png</normaloff>:/player_stop.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>28</width>
+         <height>28</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="m_testPreviousButton">
+       <property name="toolTip">
+        <string>Skip to the previous step</string>
+       </property>
+       <property name="text">
+        <string>...</string>
+       </property>
+       <property name="icon">
+        <iconset resource="qlcui.qrc">
+         <normaloff>:/back.png</normaloff>:/back.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>28</width>
+         <height>28</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="m_testNextButton">
+       <property name="toolTip">
+        <string>Skip to the next step</string>
+       </property>
+       <property name="text">
+        <string>...</string>
+       </property>
+       <property name="icon">
+        <iconset resource="qlcui.qrc">
+         <normaloff>:/forward.png</normaloff>:/forward.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>28</width>
+         <height>28</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="m_copyButton">
+       <property name="text">
+        <string notr="true">...</string>
+       </property>
+       <property name="icon">
+        <iconset resource="qlcui.qrc">
+         <normaloff>:/editcopy.png</normaloff>:/editcopy.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>28</width>
+         <height>28</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="m_cutButton">
+       <property name="text">
+        <string notr="true">...</string>
+       </property>
+       <property name="icon">
+        <iconset resource="qlcui.qrc">
+         <normaloff>:/editcut.png</normaloff>:/editcut.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>28</width>
+         <height>28</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="m_pasteButton">
+       <property name="text">
+        <string notr="true">...</string>
+       </property>
+       <property name="icon">
+        <iconset resource="qlcui.qrc">
+         <normaloff>:/editpaste.png</normaloff>:/editpaste.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>28</width>
+         <height>28</height>
+        </size>
+       </property>
       </widget>
      </item>
     </layout>

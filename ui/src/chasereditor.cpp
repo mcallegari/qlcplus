@@ -214,7 +214,9 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc)
     connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
             this, SLOT(slotItemChanged(QTreeWidgetItem*,int)));
 
-    connect(m_testButton, SIGNAL(toggled(bool)), this, SLOT(slotTestToggled(bool)));
+    //connect(m_testButton, SIGNAL(toggled(bool)), this, SLOT(slotTestToggled(bool)));
+    connect(m_testPlayButton, SIGNAL(clicked()), this, SLOT(slotTestPlay()));
+    connect(m_testStopButton, SIGNAL(clicked()), this, SLOT(slotTestStop()));
     connect(m_testPreviousButton, SIGNAL(clicked()), this, SLOT(slotTestPreviousClicked()));
     connect(m_testNextButton, SIGNAL(clicked()), this, SLOT(slotTestNextClicked()));
     connect(m_doc, SIGNAL(modeChanged(Doc::Mode)), this, SLOT(slotModeChanged(Doc::Mode)));
@@ -228,6 +230,9 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc)
 
     // Set focus to the editor
     m_nameEdit->setFocus();
+
+    m_testPreviousButton->setEnabled(false);
+    m_testNextButton->setEnabled(false);
 }
 
 ChaserEditor::~ChaserEditor()
@@ -236,7 +241,7 @@ ChaserEditor::~ChaserEditor()
         delete m_speedDials;
     m_speedDials = NULL;
 
-    if (m_testButton->isChecked() == true)
+    if (m_chaser->stopped() == false)
         m_chaser->stopAndWait();
 }
 
@@ -819,29 +824,30 @@ void ChaserEditor::updateSpeedDials()
 
 void ChaserEditor::slotRestartTest()
 {
-    if (m_testButton->isChecked() == true)
+    if (m_chaser->stopped() == false)
     {
         // Toggle off, toggle on. Derp.
-        m_testButton->click();
-        m_testButton->click();
+        m_testStopButton->click();
+        m_testPlayButton->click();
     }
 }
 
-void ChaserEditor::slotTestToggled(bool state)
+void ChaserEditor::slotTestPlay()
 {
-    m_testPreviousButton->setEnabled(state);
-    m_testNextButton->setEnabled(state);
+    m_testPreviousButton->setEnabled(true);
+    m_testNextButton->setEnabled(true);
 
-    if (state == true)
-    {
-        if (m_chaser->stopped() == true)
-            m_chaser->start(m_doc->masterTimer());
-    }
-    else
-    {
-        if (m_chaser->stopped() == false)
-            m_chaser->stopAndWait();
-    }
+    if (m_chaser->stopped() == true)
+        m_chaser->start(m_doc->masterTimer());
+}
+
+void ChaserEditor::slotTestStop()
+{
+    m_testPreviousButton->setEnabled(false);
+    m_testNextButton->setEnabled(false);
+
+    if (m_chaser->stopped() == false)
+        m_chaser->stopAndWait();
 }
 
 void ChaserEditor::slotTestPreviousClicked()
@@ -858,13 +864,15 @@ void ChaserEditor::slotModeChanged(Doc::Mode mode)
 {
     if (mode == Doc::Operate)
     {
-        m_testButton->setEnabled(false);
-        if (m_testButton->isChecked() == true)
+        m_testPlayButton->setEnabled(false);
+        m_testStopButton->setEnabled(false);
+        if (m_chaser->stopped() == false)
             m_chaser->stop();
     }
     else
     {
-        m_testButton->setEnabled(true);
+        m_testPlayButton->setEnabled(true);
+        m_testStopButton->setEnabled(true);
     }
 }
 
@@ -880,7 +888,6 @@ bool ChaserEditor::interruptRunning()
     if (m_chaser->stopped() == false)
     {
         m_chaser->stopAndWait();
-        m_testButton->setChecked(false);
         return true;
     }
     else
@@ -896,7 +903,7 @@ void ChaserEditor::continueRunning(bool running)
         if (m_doc->mode() == Doc::Operate)
             m_chaser->start(m_doc->masterTimer());
         else
-            m_testButton->click();
+            m_testStopButton->click();
     }
 }
 

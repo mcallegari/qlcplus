@@ -126,7 +126,8 @@ private:
      ************************************************************************/
 private slots:
     void slotRestartTest();
-    void slotTestToggled(bool state);
+    void slotTestPlay();
+    void slotTestStop();
     void slotTestPreviousClicked();
     void slotTestNextClicked();
     void slotModeChanged(Doc::Mode mode);

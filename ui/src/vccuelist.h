@@ -32,7 +32,7 @@ class QTreeWidgetItem;
 class QDomDocument;
 class QDomElement;
 class QTreeWidget;
-class QPushButton;
+class QToolButton;
 
 class VCCueListProperties;
 class ChaserRunner;
@@ -102,12 +102,18 @@ private:
     /** Update the list of steps */
     void updateStepList();
 
+    /** Get the currently selected item index, otherwise 0 */
+    int getCurrentIndex();
+
 private slots:
     /** Removes destroyed functions from the list */
     void slotFunctionRemoved(quint32 fid);
 
     /** Updates name in the list if function got changed */
     void slotFunctionChanged(quint32 fid);
+
+    /** Play the cue list from the current selection */
+    void slotPlay();
 
     /** Skip to the next cue */
     void slotNextCue();
@@ -132,7 +138,10 @@ private:
 private:
     quint32 m_chaser;
     QTreeWidget* m_tree;
-    QPushButton* m_stopButton;
+    QToolButton* m_playButton;
+    QToolButton* m_stopButton;
+    QToolButton* m_previousButton;
+    QToolButton* m_nextButton;
 
     ChaserRunner* m_runner;
     QMutex m_mutex; // Guards m_runner

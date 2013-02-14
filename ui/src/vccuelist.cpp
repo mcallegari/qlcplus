@@ -75,11 +75,43 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     connect(m_tree, SIGNAL(itemActivated(QTreeWidgetItem*,int)),
             this, SLOT(slotItemActivated(QTreeWidgetItem*)));
 
-    /* Create a stop button */
-    m_stopButton = new QPushButton(this);
+    /* Create control buttons */
+    QHBoxLayout *hbox = new QHBoxLayout(this);
+    hbox->setSpacing(2);
+
+    m_playButton = new QToolButton(this);
+    m_playButton->setIcon(QIcon(":/player_play.png"));
+    m_playButton->setIconSize(QSize(24, 24));
+    m_playButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    m_playButton->setText(tr("Play"));
+    connect(m_playButton, SIGNAL(clicked()), this, SLOT(slotPlay()));
+    hbox->addWidget(m_playButton);
+
+    m_stopButton = new QToolButton(this);
+    m_stopButton->setIcon(QIcon(":/player_stop.png"));
+    m_stopButton->setIconSize(QSize(24, 24));
+    m_stopButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     m_stopButton->setText(tr("Stop"));
-    layout()->addWidget(m_stopButton);
     connect(m_stopButton, SIGNAL(clicked()), this, SLOT(slotStop()));
+    hbox->addWidget(m_stopButton);
+
+    m_previousButton = new QToolButton(this);
+    m_previousButton->setIcon(QIcon(":/back.png"));
+    m_previousButton->setIconSize(QSize(24, 24));
+    m_previousButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    m_previousButton->setText(tr("Previous Cue"));
+    connect(m_previousButton, SIGNAL(clicked()), this, SLOT(slotPreviousCue()));
+    hbox->addWidget(m_previousButton);
+
+    m_nextButton = new QToolButton(this);
+    m_nextButton->setIcon(QIcon(":/forward.png"));
+    m_nextButton->setIconSize(QSize(24, 24));
+    m_nextButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    m_nextButton->setText(tr("Next Cue"));
+    connect(m_nextButton, SIGNAL(clicked()), this, SLOT(slotNextCue()));
+    hbox->addWidget(m_nextButton);
+
+    layout()->addItem(hbox);
 
     setFrameStyle(KVCFrameStyleSunken);
     setCaption(tr("Cue list"));
@@ -181,6 +213,18 @@ void VCCueList::updateStepList()
     }
 }
 
+int VCCueList::getCurrentIndex()
+{
+    QList <QTreeWidgetItem*> selected(m_tree->selectedItems());
+    int index = 0;
+    if (selected.size() > 0)
+    {
+        QTreeWidgetItem* item(selected.first());
+        index = m_tree->indexOfTopLevelItem(item);
+    }
+    return index;
+}
+
 void VCCueList::slotFunctionRemoved(quint32 fid)
 {
     if (fid == m_chaser)
@@ -196,6 +240,18 @@ void VCCueList::slotFunctionChanged(quint32 fid)
         updateStepList();
 }
 
+void VCCueList::slotPlay()
+{
+    if (mode() != Doc::Operate)
+        return;
+
+    m_mutex.lock();
+    int index = getCurrentIndex();
+    if (m_runner == NULL)
+        createRunner(index);
+    m_mutex.unlock();
+}
+
 void VCCueList::slotNextCue()
 {
     if (mode() != Doc::Operate)
@@ -206,7 +262,13 @@ void VCCueList::slotNextCue()
     if (m_runner == NULL)
         createRunner();
     else
-        m_runner->next();
+    {
+        int index = getCurrentIndex();
+        if (index < m_tree->topLevelItemCount() - 1)
+            m_runner->next();
+        else
+            m_runner->setCurrentStep(0);
+    }
     m_mutex.unlock();
 }
 
@@ -220,7 +282,13 @@ void VCCueList::slotPreviousCue()
     if (m_runner == NULL)
         createRunner(m_tree->topLevelItemCount() - 1); // Start from end
     else
-        m_runner->previous();
+    {
+        int index = getCurrentIndex();
+        if (index > 0)
+            m_runner->previous();
+        else
+            m_runner->setCurrentStep(m_tree->topLevelItemCount() - 1);
+    }
     m_mutex.unlock();
 }
 
@@ -429,6 +497,10 @@ void VCCueList::slotModeChanged(Doc::Mode mode)
         Q_ASSERT(m_runner == NULL);
         m_doc->masterTimer()->registerDMXSource(this);
         m_tree->setEnabled(true);
+        m_playButton->setEnabled(true);
+        m_stopButton->setEnabled(true);
+        m_previousButton->setEnabled(true);
+        m_nextButton->setEnabled(true);
     }
     else
     {
@@ -439,6 +511,10 @@ void VCCueList::slotModeChanged(Doc::Mode mode)
         m_runner = NULL;
         m_mutex.unlock();
         m_tree->setEnabled(false);
+        m_playButton->setEnabled(false);
+        m_stopButton->setEnabled(false);
+        m_previousButton->setEnabled(false);
+        m_nextButton->setEnabled(false);
     }
 
     /* Always start from the beginning */

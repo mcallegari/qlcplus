@@ -207,9 +207,11 @@ void ChaserRunner::setCurrentStep(int step)
     if (step >= 0 && step < m_chaser->steps().size())
     {
         m_newCurrent = step;
-        m_next = false;
-        m_previous = false;
     }
+    else
+        m_newCurrent = 0;
+    m_next = false;
+    m_previous = false;
 }
 
 int ChaserRunner::currentStep() const
