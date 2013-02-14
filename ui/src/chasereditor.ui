@@ -456,6 +456,13 @@
       </widget>
      </item>
      <item>
+      <widget class="Line" name="line_2">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QToolButton" name="m_testPlayButton">
        <property name="toolTip">
         <string>See what the chaser does when it is run</string>
@@ -532,6 +539,13 @@
          <width>28</width>
          <height>28</height>
         </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="Line" name="line_4">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
        </property>
       </widget>
      </item>
