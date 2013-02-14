@@ -45,6 +45,7 @@ AboutBox::AboutBox(QWidget* parent) : QDialog (parent)
             this, SLOT(slotItemClicked()));
     m_contributors->clear();
     m_contributors->addItem("Contributors:");
+    m_contributors->addItem("Thomas Achtner");
     m_contributors->addItem("Oliver Ruempelein");
     m_contributors->addItem("Jannis Achstetter");
     m_contributors->addItem(QString::fromUtf8("Daniel Nyström"));
