@@ -265,6 +265,8 @@ QFile::FileError QLCFixtureDef::saveXML(const QString& fileName)
 
     /* Create a text stream for the file */
     QTextStream stream(&file);
+    stream.setAutoDetectUnicode(true);
+    stream.setCodec("UTF-8");
 
     /* Fixture tag */
     QDomElement root = doc.documentElement();
