@@ -87,8 +87,8 @@ Section
 	File pthreadGC2.dll
 	File qlcplus.exe
 	File qlcplus-fixtureeditor.exe
-     File libqlcplusengine.a
-     File libqlcplusui.a
+	File qlcplusengine.dll
+	File qlcplusui.dll
 	File QtCore4.dll
 	File QtGui4.dll
 	File QtXml4.dll
@@ -123,8 +123,8 @@ Section "Uninstall"
 	Delete $INSTDIR\uninstall.exe
 	Delete $INSTDIR\qlcplus.exe
 	Delete $INSTDIR\qlcplus-fixtureeditor.exe
-    Delete $INSTDIR\libqlcplusengine.a
-    Delete $INSTDIR\libqlcplusui.a
+	Delete $INSTDIR\qlcplusengine.dll
+	Delete $INSTDIR\qlcplusui.dll
 	Delete $INSTDIR\mingwm10.dll
 	Delete $INSTDIR\libgcc_s_dw2-1.dll
 	Delete $INSTDIR\libmad-0.dll
