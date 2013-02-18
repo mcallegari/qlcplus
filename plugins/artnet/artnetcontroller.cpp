@@ -178,17 +178,20 @@ void ArtNetController::processPendingPackets()
                         qDebug() << "DMX data received";
                         QByteArray dmxData;
                         int universe;
-                        if (m_packetizer->fillDMXdata(datagram, dmxData, universe) == true)
+                        if (this->getType() == Input)
                         {
-                            if ((universe * 512) > m_dmxValues.length() || m_universes.contains(universe) == false)
+                            if (m_packetizer->fillDMXdata(datagram, dmxData, universe) == true)
                             {
-                                qDebug() << "Universe " << universe << "not supported !";
-                                break;
-                            }
-                            for (int i = 0; i < dmxData.length(); i++)
-                            {
-                                if (m_dmxValues.at(i + (universe * 512)) != dmxData.at(i))
-                                    emit valueChanged(m_universes[universe], i, (uchar)dmxData.at(i));
+                                if ((universe * 512) > m_dmxValues.length() || m_universes.contains(universe) == false)
+                                {
+                                    qDebug() << "Universe " << universe << "not supported !";
+                                    break;
+                                }
+                                for (int i = 0; i < dmxData.length(); i++)
+                                {
+                                    if (m_dmxValues.at(i + (universe * 512)) != dmxData.at(i))
+                                        emit valueChanged(m_universes[universe], i, (uchar)dmxData.at(i));
+                                }
                             }
                         }
                     }
