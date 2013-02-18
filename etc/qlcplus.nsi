@@ -17,6 +17,7 @@
 Name "Q Light Controller Plus"
 OutFile "QLC+_4.2.1.exe"
 InstallDir C:\QLC+
+InstallDirRegKey HKCU "Software\qlcplus" "Install_Dir"
 RequestExecutionLevel user
 
 ;--------------------------------
@@ -87,13 +88,13 @@ Section
 	File pthreadGC2.dll
 	File qlcplus.exe
 	File qlcplus-fixtureeditor.exe
-     File libqlcplusengine.a
-     File libqlcplusui.a
+	File libqlcplusengine.a
+	File libqlcplusui.a
 	File QtCore4.dll
 	File QtGui4.dll
 	File QtXml4.dll
 	File QtNetwork4.dll
-     File QtScript4.dll
+	File QtScript4.dll
 	File Sample.qxw
 	File *.qm
 	File /r Documents
@@ -111,6 +112,8 @@ Section
 	WriteRegStr HKCR "QLightControllerFixturePlus.Document\DefaultIcon" "" "$INSTDIR\qlcplus-fixtureeditor.exe,0"
 	WriteRegStr HKCR "QLightControllerFixturePlus.Document\shell\open\command" "" '"$INSTDIR\qlcplus-fixtureeditor.exe" "--open %1"'
 
+	WriteRegStr HKCU "SOFTWARE\qlcplus" "Install_Dir" "$INSTDIR"
+
 	WriteUninstaller $INSTDIR\uninstall.exe
 SectionEnd
 
@@ -123,8 +126,8 @@ Section "Uninstall"
 	Delete $INSTDIR\uninstall.exe
 	Delete $INSTDIR\qlcplus.exe
 	Delete $INSTDIR\qlcplus-fixtureeditor.exe
-    Delete $INSTDIR\libqlcplusengine.a
-    Delete $INSTDIR\libqlcplusui.a
+	Delete $INSTDIR\libqlcplusengine.a
+	Delete $INSTDIR\libqlcplusui.a
 	Delete $INSTDIR\mingwm10.dll
 	Delete $INSTDIR\libgcc_s_dw2-1.dll
 	Delete $INSTDIR\libmad-0.dll
@@ -139,7 +142,7 @@ Section "Uninstall"
 	Delete $INSTDIR\QtGui4.dll
 	Delete $INSTDIR\QtXml4.dll
 	Delete $INSTDIR\QtNetwork4.dll
-    Delete $INSTDIR\QtScript4.dll
+	Delete $INSTDIR\QtScript4.dll
 	Delete $INSTDIR\Sample.qxw
 	Delete $INSTDIR\*.qm
 	RMDir /r $INSTDIR\Documents
@@ -154,4 +157,6 @@ Section "Uninstall"
 
 	DeleteRegKey HKCR ".qxf"
 	DeleteRegKey HKCR "QLightControllerPlusFixture.Document"
+
+	DeleteRegKey HKCU "Software\qlcplus"
 SectionEnd
