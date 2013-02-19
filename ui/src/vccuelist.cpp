@@ -281,6 +281,21 @@ void VCCueList::slotFunctionChanged(quint32 fid)
 {
     if (fid == m_chaser)
         updateStepList();
+    else
+    {
+        // fid might be an ID of a ChaserStep of m_chaser
+        Chaser* chaser = qobject_cast<Chaser*> (m_doc->function(m_chaser));
+        if (chaser == NULL)
+            return;
+        foreach (ChaserStep step, chaser->steps())
+        {
+            if (step.fid == fid)
+            {
+                updateStepList();
+                return;
+            }
+        }
+    }
 }
 
 void VCCueList::slotPlay()
