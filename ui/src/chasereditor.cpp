@@ -241,8 +241,10 @@ ChaserEditor::~ChaserEditor()
         delete m_speedDials;
     m_speedDials = NULL;
 
-    if (m_chaser->stopped() == false)
-        m_chaser->stopAndWait();
+    // double check that the Chaser still exists !
+    if (m_doc->functions().contains(m_chaser) == true &&
+        m_chaser->stopped() == false)
+            m_chaser->stopAndWait();
 }
 
 void ChaserEditor::slotFunctionManagerActive(bool active)

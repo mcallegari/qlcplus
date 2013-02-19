@@ -3,6 +3,7 @@ qlcplus (4.2.2) stable; urgency=low
   * Fixed crash when ArtNet plugin is in output mode and receives DMX data
   * Fixed Scene changes not updating Virtual Console Cue List
   * On Simple Desk reset, restore also page label to 1
+  * Fixed crash when deleting a Chaser from Function Manager
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Fri, 19 Feb 2013 13:00:42 +0200
 
