@@ -450,6 +450,7 @@ void SimpleDesk::slotUniverseResetClicked()
     qDebug() << Q_FUNC_INFO;
     resetUniverseSliders();
     m_engine->resetUniverse(m_currentUniverse);
+    m_universePageSpin->setValue(1);
     slotUniversePageChanged(1);
 }
 
