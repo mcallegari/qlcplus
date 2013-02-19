@@ -1,5 +1,6 @@
 qlcplus (4.2.2) stable; urgency=low
 
+  * Fixed crash when ArtNet plugin is in output mode and receives DMX data
   * Fixed Scene changes not updating Virtual Console Cue List
   * On Simple Desk reset, restore also page label to 1
 
