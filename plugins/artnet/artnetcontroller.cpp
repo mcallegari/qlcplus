@@ -54,7 +54,11 @@ ArtNetController::ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> i
     m_packetizer = new ArtNetPacketizer();
 
     m_UdpSocket = new QUdpSocket(this);
-    if (m_UdpSocket->bind(m_broadcastAddr, ARTNET_DEFAULT_PORT, QUdpSocket::ShareAddress) == false)
+#if defined(__APPLE__)
+    if (m_UdpSocket->bind(ARTNET_DEFAULT_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint) == false)
+#else
+    if (m_UdpSocket->bind(m_broadcastAddr, ARTNET_DEFAULT_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint) == false)
+#endif
         return;
 
     connect(m_UdpSocket, SIGNAL(readyRead()),
@@ -65,8 +69,14 @@ ArtNetController::ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> i
     {
         QByteArray pollPacket;
         m_packetizer->setupArtNetPoll(pollPacket);
-        m_UdpSocket->writeDatagram(pollPacket.data(), pollPacket.size(),
-                                   m_broadcastAddr, ARTNET_DEFAULT_PORT);
+        qint64 sent = m_UdpSocket->writeDatagram(pollPacket.data(), pollPacket.size(),
+                                                 m_broadcastAddr, ARTNET_DEFAULT_PORT);
+        if (sent < 0)
+        {
+            qDebug() << "Unable to send initial Poll packet";
+            qDebug() << "Errno: " << m_UdpSocket->error();
+            qDebug() << "Errmgs: " << m_UdpSocket->errorString();
+        }
     }
     else
     {
@@ -129,8 +139,14 @@ void ArtNetController::sendDmx(const int &universe, const QByteArray &data)
 {
     QByteArray dmxPacket;
     m_packetizer->setupArtNetDmx(dmxPacket, universe, data);
-    m_UdpSocket->writeDatagram(dmxPacket.data(), dmxPacket.size(),
-                               m_broadcastAddr, ARTNET_DEFAULT_PORT);
+    qint64 sent = m_UdpSocket->writeDatagram(dmxPacket.data(), dmxPacket.size(),
+                                             m_broadcastAddr, ARTNET_DEFAULT_PORT);
+    if (sent < 0)
+    {
+        qDebug() << "sendDmx failed";
+        qDebug() << "Errno: " << m_UdpSocket->error();
+        qDebug() << "Errmgs: " << m_UdpSocket->errorString();
+    }
 }
 
 void ArtNetController::processPendingPackets()

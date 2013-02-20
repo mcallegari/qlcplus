@@ -1,5 +1,5 @@
 LIBPORTAUDIO_DIR      = $$system("pkg-config --variable libdir mad")
-LIBPORTAUDIO_FILE     = libportaudio.0.dylib
+LIBPORTAUDIO_FILE     = libportaudio.2.dylib
 LIBPORTAUDIO_FILEPATH = $$LIBPORTAUDIO_DIR/$$LIBPORTAUDIO_FILE
 
 LIBPORTAUDIO_INSTALL_NAME_TOOL = install_name_tool -change $$LIBPORTAUDIO_FILEPATH \

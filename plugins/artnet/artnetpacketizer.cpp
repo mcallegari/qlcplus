@@ -188,9 +188,12 @@ bool ArtNetPacketizer::fillDMXdata(QByteArray& data, QByteArray &dmx, int &unive
     // phisycal skipped
     universe = data.at(14);
     // net skipped
-    int lenght = ((int)data.at(16) << 8) + (int)data.at(17);
-    qDebug() << "lenght: " << lenght;
-    for (int i = 18; i < 18 + lenght; i++)
+    unsigned int msb = (data.at(16)&0xff);
+    unsigned int lsb = (data.at(17)&0xff);
+    int length = (msb << 8) | lsb;
+
+    qDebug() << "length: " << length;
+    for (int i = 18; i < 18 + length; i++)
         dmx.append(data.at(i));
     return true;
 }

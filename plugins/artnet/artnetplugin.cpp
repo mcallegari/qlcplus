@@ -352,7 +352,10 @@ void ArtNetPlugin::remapOutputs(QList<QString> IPs, QList<int> ports)
                 m_IOmapping.at(oldIdx).port == ports.at(i))
             {
                 tmpIO.controller = m_IOmapping.at(oldIdx).controller;
-                tmpIO.type = (ArtNetController::Type)tmpIO.controller->getType();
+                if (tmpIO.controller != NULL)
+                    tmpIO.type = (ArtNetController::Type)tmpIO.controller->getType();
+                else
+                    tmpIO.type = ArtNetController::Unknown;
                 oldIdx++;
             }
             else
