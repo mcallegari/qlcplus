@@ -17,6 +17,7 @@
 Name "Q Light Controller Plus"
 OutFile "QLC+_4.2.2.exe"
 InstallDir C:\QLC+
+InstallDirRegKey HKCU "Software\qlcplus" "Install_Dir"
 RequestExecutionLevel user
 
 ;--------------------------------
@@ -93,7 +94,7 @@ Section
 	File QtGui4.dll
 	File QtXml4.dll
 	File QtNetwork4.dll
-     File QtScript4.dll
+	File QtScript4.dll
 	File Sample.qxw
 	File *.qm
 	File /r Documents
@@ -110,6 +111,8 @@ Section
 	WriteRegStr HKCR "QLightControllerFixturePlus.Document" "" "Q Light Controller Plus Fixture"
 	WriteRegStr HKCR "QLightControllerFixturePlus.Document\DefaultIcon" "" "$INSTDIR\qlcplus-fixtureeditor.exe,0"
 	WriteRegStr HKCR "QLightControllerFixturePlus.Document\shell\open\command" "" '"$INSTDIR\qlcplus-fixtureeditor.exe" "--open %1"'
+
+	WriteRegStr HKCU "SOFTWARE\qlcplus" "Install_Dir" "$INSTDIR"
 
 	WriteUninstaller $INSTDIR\uninstall.exe
 SectionEnd
@@ -139,7 +142,7 @@ Section "Uninstall"
 	Delete $INSTDIR\QtGui4.dll
 	Delete $INSTDIR\QtXml4.dll
 	Delete $INSTDIR\QtNetwork4.dll
-    Delete $INSTDIR\QtScript4.dll
+	Delete $INSTDIR\QtScript4.dll
 	Delete $INSTDIR\Sample.qxw
 	Delete $INSTDIR\*.qm
 	RMDir /r $INSTDIR\Documents
@@ -154,4 +157,7 @@ Section "Uninstall"
 
 	DeleteRegKey HKCR ".qxf"
 	DeleteRegKey HKCR "QLightControllerPlusFixture.Document"
+
+	; This will delete all settings
+	DeleteRegKey HKCU "Software\qlcplus"
 SectionEnd
