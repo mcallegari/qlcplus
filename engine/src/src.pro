@@ -120,8 +120,15 @@ unix:!macx:SOURCES += audio/audiorenderer_alsa.cpp
 win32:SOURCES += audio/audiorenderer_waveout.cpp
 
 macx {
-     HEADERS += audio/audiorenderer_coreaudio.h
-     SOURCES += audio/audiorenderer_coreaudio.cpp
+  system(pkg-config --exists portaudio-2.0) {
+    DEFINES += HAS_PORTAUDIO
+    PKGCONFIG += portaudio-2.0
+    HEADERS += audio/audiorenderer_portaudio.h
+    SOURCES += audio/audiorenderer_portaudio.cpp
+  }
+
+#  HEADERS += audio/audiorenderer_coreaudio.h
+#  SOURCES += audio/audiorenderer_coreaudio.cpp
 }
 
 # Engine
