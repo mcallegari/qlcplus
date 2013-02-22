@@ -417,7 +417,8 @@ void Scene::writeDMX(MasterTimer* timer, UniverseArray* ua)
 
 void Scene::preRun(MasterTimer* timer)
 {
-    qDebug() << Q_FUNC_INFO;
+    qDebug() << "Scene preRun. ID: " << id();
+
     Q_ASSERT(m_fader == NULL);
     m_fader = new GenericFader(doc());
     m_fader->adjustIntensity(intensity());
@@ -471,7 +472,7 @@ void Scene::write(MasterTimer* timer, UniverseArray* ua)
 
 void Scene::postRun(MasterTimer* timer, UniverseArray* ua)
 {
-    qDebug() << Q_FUNC_INFO;
+    qDebug() << "Scene postRun. ID: " << id();
     if (m_fader == NULL)
         return;
     QHashIterator <FadeChannel,FadeChannel> it(m_fader->channels());

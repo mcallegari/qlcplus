@@ -628,6 +628,7 @@ void Function::preRun(MasterTimer* timer)
 {
     Q_UNUSED(timer);
 
+    qDebug() << "Function preRun. ID: " << m_id;
     m_running = true;
 
     emit running(m_id);
@@ -638,6 +639,7 @@ void Function::postRun(MasterTimer* timer, UniverseArray* universes)
     Q_UNUSED(timer);
     Q_UNUSED(universes);
 
+    qDebug() << "Function postRun. ID: " << m_id;
     m_stopMutex.lock();
     resetElapsed();
     resetIntensity();
@@ -686,7 +688,7 @@ void Function::incrementElapsed()
 void Function::start(MasterTimer* timer, bool child, uint overrideFadeIn,
                      uint overrideFadeOut, uint overrideDuration)
 {
-    qDebug() << Q_FUNC_INFO;
+    qDebug() << "Function start(). ID: " << m_id;
     Q_ASSERT(timer != NULL);
     m_startedAsChild = child;
     m_overrideFadeInSpeed = overrideFadeIn;
@@ -703,7 +705,7 @@ bool Function::startedAsChild() const
 
 void Function::stop()
 {
-    qDebug() << Q_FUNC_INFO;
+    qDebug() << "Function stop(). ID: " << m_id;
     m_stop = true;
 }
 
