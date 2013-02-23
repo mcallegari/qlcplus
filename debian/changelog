@@ -1,8 +1,9 @@
 qlcplus (4.2.2) stable; urgency=low
 
-  * Rewritten OSX audio renderer code. Tested on various OSX version and should finally work fine !
+  * Rewritten OSX audio renderer code. Tested on various OSX versions and should finally work fine !
   * Fixed crash when ArtNet plugin is in output mode and receives DMX data
   * Fixed crash when pressing OK on ArtNet configuration dialog
+  * Fixed ArtNet plugin output on OSX (big thanks to David Geldreich)
   * Fixed Scene changes not updating Virtual Console Cue List
   * On Simple Desk reset, restore also page label to 1
   * Fixed crash when deleting a Chaser from Function Manager

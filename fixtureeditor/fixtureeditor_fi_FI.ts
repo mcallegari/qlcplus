@@ -139,7 +139,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="app.cpp" line="260"/>
         <source>Save &amp;As...</source>
-        <translation></translation>
+        <translation>Tallenna nimellä...</translation>
     </message>
     <message>
         <location filename="app.cpp" line="261"/>
@@ -394,17 +394,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editchannel.ui" line="122"/>
         <source>Add a new capability</source>
-        <translation type="unfinished"></translation>
+        <translation>Lisää uusi valmius</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="142"/>
         <source>Remove the selected capability</source>
-        <translation type="unfinished"></translation>
+        <translation>Poista valittu valmius</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="162"/>
         <source>Edit the selected capability</source>
-        <translation type="unfinished"></translation>
+        <translation>Muokkaa valittua valmiutta</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="195"/>
@@ -440,12 +440,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="edithead.ui" line="33"/>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanava</translation>
     </message>
     <message>
         <location filename="edithead.ui" line="38"/>
         <source>Name</source>
-        <translation type="unfinished">Nimi</translation>
+        <translation>Nimi</translation>
     </message>
 </context>
 <context>
@@ -479,22 +479,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editmode.ui" line="66"/>
         <source>Add channel(s) to this mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Lisää kanavia tähän tilaan</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="86"/>
         <source>Remove the selected channel</source>
-        <translation type="unfinished">Poista valittu kanava</translation>
+        <translation>Poista valittu kanava</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="106"/>
         <source>Raise the selected channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Nosta valittua kanavaa</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="126"/>
         <source>Lower the selected channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Laske valittua kanavaa</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="160"/>
@@ -524,7 +524,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editmode.ui" line="224"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="241"/>
@@ -544,7 +544,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editmode.ui" line="301"/>
         <source>Bulb</source>
-        <translation>Poltin</translation>
+        <translation>Polttimo</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="307"/>
@@ -560,82 +560,82 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editmode.ui" line="504"/>
         <source>Colour Temp (K)</source>
-        <translation type="unfinished"></translation>
+        <translation>Värilämpotila (K)</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="518"/>
         <source>2000</source>
-        <translation></translation>
+        <translation>2000</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="523"/>
         <source>2800</source>
-        <translation></translation>
+        <translation>2800</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="528"/>
         <source>3200</source>
-        <translation></translation>
+        <translation>3200</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="533"/>
         <source>4000</source>
-        <translation></translation>
+        <translation>4000</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="538"/>
         <source>4500</source>
-        <translation></translation>
+        <translation>4500</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="543"/>
         <source>5000</source>
-        <translation></translation>
+        <translation>5000</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="548"/>
         <source>5500</source>
-        <translation></translation>
+        <translation>5500</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="553"/>
         <source>6000</source>
-        <translation></translation>
+        <translation>6000</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="558"/>
         <source>6500</source>
-        <translation></translation>
+        <translation>6500</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="563"/>
         <source>7000</source>
-        <translation></translation>
+        <translation>7000</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="568"/>
         <source>7200</source>
-        <translation></translation>
+        <translation>7200</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="573"/>
         <source>8000</source>
-        <translation></translation>
+        <translation>8000</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="578"/>
         <source>8300</source>
-        <translation></translation>
+        <translation>8300</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="583"/>
         <source>9000</source>
-        <translation></translation>
+        <translation>9000</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="588"/>
         <source>9300</source>
-        <translation></translation>
+        <translation>9300</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="599"/>
@@ -707,7 +707,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editmode.ui" line="834"/>
         <source>Electrical</source>
-        <translation type="unfinished"></translation>
+        <translation>Elektroninen</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="840"/>
@@ -796,7 +796,7 @@ p, li { white-space: pre-wrap; }
         <location filename="fixtureeditor.ui" line="163"/>
         <source>The name of the author of this fixture definition</source>
         <oldsource>The author name of this fixture definition</oldsource>
-        <translation type="unfinished">Valaisinmäärittelyn tekijän nimi</translation>
+        <translation>Valaisinmäärittelyn tekijän nimi</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="184"/>

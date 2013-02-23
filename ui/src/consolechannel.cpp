@@ -180,10 +180,19 @@ void ConsoleChannel::slotInputValueChanged(quint32 channel, uchar value)
 void ConsoleChannel::setValue(uchar value, bool apply)
 {
     if (apply == false)
+    {
+        disconnect(m_spin, SIGNAL(valueChanged(int)), this, SLOT(slotSpinChanged(int)));
         disconnect(m_slider, SIGNAL(valueChanged(int)), this, SLOT(slotSliderChanged(int)));
+    }
+
     m_slider->setValue(int(value));
+    m_spin->setValue(int(value));
+
     if (apply == false)
+    {
         connect(m_slider, SIGNAL(valueChanged(int)), this, SLOT(slotSliderChanged(int)));
+        connect(m_spin, SIGNAL(valueChanged(int)), this, SLOT(slotSpinChanged(int)));
+    }
 }
 
 uchar ConsoleChannel::value() const
