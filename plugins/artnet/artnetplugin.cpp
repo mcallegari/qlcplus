@@ -130,8 +130,31 @@ QStringList ArtNetPlugin::outputs()
 
 QString ArtNetPlugin::outputInfo(quint32 output)
 {
-    Q_UNUSED(output);
-    return QString();
+    if (output >= (quint32)m_IOmapping.length())
+        return QString();
+
+    QString str;
+
+    str += QString("<H3>%1</H3>").arg(outputs()[output]);
+    str += QString("<P>");
+    ArtNetController *ctrl = m_IOmapping.at(output).controller;
+    if (ctrl == NULL || ctrl->getType() == ArtNetController::Input)
+        str += tr("Status: Not open");
+    else
+    {
+        str += tr("Status: Open");
+        str += QString("<BR>");
+        str += tr("Nodes discovered: ");
+        str += QString("%1").arg(ctrl->getNodesList().size());
+        str += QString("<BR>");
+        str += tr("Packets sent: ");
+        str += QString("%1").arg(ctrl->getPacketSentNumber());
+    }
+    str += QString("</P>");
+    str += QString("</BODY>");
+    str += QString("</HTML>");
+
+    return str;
 }
 
 void ArtNetPlugin::openOutput(quint32 output)
@@ -302,8 +325,28 @@ void ArtNetPlugin::closeInput(quint32 input)
 
 QString ArtNetPlugin::inputInfo(quint32 input)
 {
-    Q_UNUSED(input);
-    return QString();
+    if (input >= (quint32)m_IOmapping.length())
+        return QString();
+
+    QString str;
+
+    str += QString("<H3>%1</H3>").arg(inputs()[input]);
+    str += QString("<P>");
+    ArtNetController *ctrl = m_IOmapping.at(input).controller;
+    if (ctrl == NULL || ctrl->getType() == ArtNetController::Output)
+        str += tr("Status: Not open");
+    else
+    {
+        str += tr("Status: Open");
+        str += QString("<BR>");
+        str += tr("Packets received: ");
+        str += QString("%1").arg(ctrl->getPacketReceivedNumber());
+    }
+    str += QString("</P>");
+    str += QString("</BODY>");
+    str += QString("</HTML>");
+
+    return str;
 }
 
 void ArtNetPlugin::slotInputValueChanged(quint32 input, int channel, uchar value)

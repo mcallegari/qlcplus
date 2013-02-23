@@ -22,7 +22,7 @@
 <context>
     <name>PlaybackWing</name>
     <message>
-        <location filename="playbackwing.cpp" line="172"/>
+        <location filename="playbackwing.cpp" line="180"/>
         <source>at</source>
         <translation>a</translation>
     </message>

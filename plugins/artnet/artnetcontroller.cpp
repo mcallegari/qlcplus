@@ -52,6 +52,8 @@ ArtNetController::ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> i
     qDebug() << "[ArtNetController] Broadcast address:" << m_broadcastAddr.toString() << "(MAC:" << m_MACAddress << ")";
     qDebug() << "[ArtNetController] type: " << type;
     m_packetizer = new ArtNetPacketizer();
+    m_packetSent = 0;
+    m_packetReceived = 0;
 
     m_UdpSocket = new QUdpSocket(this);
 #if defined(__APPLE__)
@@ -77,6 +79,8 @@ ArtNetController::ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> i
             qDebug() << "Errno: " << m_UdpSocket->error();
             qDebug() << "Errmgs: " << m_UdpSocket->errorString();
         }
+        else
+            m_packetSent++;
     }
     else
     {
@@ -125,6 +129,16 @@ int ArtNetController::getType()
     return m_type;
 }
 
+quint64 ArtNetController::getPacketSentNumber()
+{
+    return m_packetSent;
+}
+
+quint64 ArtNetController::getPacketReceivedNumber()
+{
+    return m_packetReceived;
+}
+
 QString ArtNetController::getNetworkIP()
 {
     return m_ipAddr.toString();
@@ -147,6 +161,8 @@ void ArtNetController::sendDmx(const int &universe, const QByteArray &data)
         qDebug() << "Errno: " << m_UdpSocket->error();
         qDebug() << "Errmgs: " << m_UdpSocket->errorString();
     }
+    else
+        m_packetSent++;
 }
 
 void ArtNetController::processPendingPackets()
@@ -178,6 +194,8 @@ void ArtNetController::processPendingPackets()
                         m_packetizer->setupArtNetPollReply(pollReplyPacket, m_ipAddr, m_MACAddress);
                         m_UdpSocket->writeDatagram(pollReplyPacket.data(), pollReplyPacket.size(),
                                                    senderAddress, ARTNET_DEFAULT_PORT);
+                        m_packetReceived++;
+                        m_packetSent++;
                     }
                     break;
                     case ARTNET_POLL:
@@ -187,6 +205,8 @@ void ArtNetController::processPendingPackets()
                         m_packetizer->setupArtNetPollReply(pollReplyPacket, m_ipAddr, m_MACAddress);
                         m_UdpSocket->writeDatagram(pollReplyPacket.data(), pollReplyPacket.size(),
                                                    senderAddress, ARTNET_DEFAULT_PORT);
+                        m_packetReceived++;
+                        m_packetSent++;
                     }
                     break;
                     case ARTNET_DMX:
@@ -196,6 +216,7 @@ void ArtNetController::processPendingPackets()
                         int universe;
                         if (this->getType() == Input)
                         {
+                            m_packetReceived++;
                             if (m_packetizer->fillDMXdata(datagram, dmxData, universe) == true)
                             {
                                 if ((universe * 512) > m_dmxValues.length() || m_universes.contains(universe) == false)
@@ -214,6 +235,7 @@ void ArtNetController::processPendingPackets()
                     break;
                     default:
                         qDebug() << "opCode not supported yet (" << opCode << ")";
+                        m_packetReceived++;
                     break;
                 }
             }

@@ -839,19 +839,19 @@ Los cambios se perderan si no los salvas.</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="165"/>
-        <location filename="chasereditor.cpp" line="711"/>
+        <location filename="chasereditor.cpp" line="713"/>
         <source>Fade In</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="170"/>
-        <location filename="chasereditor.cpp" line="712"/>
+        <location filename="chasereditor.cpp" line="714"/>
         <source>Fade Out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="175"/>
-        <location filename="chasereditor.cpp" line="713"/>
+        <location filename="chasereditor.cpp" line="715"/>
         <source>Duration</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1061,22 +1061,22 @@ Los cambios se perderan si no los salvas.</translation>
         <translation type="unfinished">Pegar</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="714"/>
+        <location filename="chasereditor.cpp" line="716"/>
         <source>Common Fade In</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="715"/>
+        <location filename="chasereditor.cpp" line="717"/>
         <source>Common Fade Out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="716"/>
+        <location filename="chasereditor.cpp" line="718"/>
         <source>Common Duration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="732"/>
+        <location filename="chasereditor.cpp" line="734"/>
         <source>Multiple Steps</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2194,62 +2194,62 @@ Los cambios se perderan si no los salvas.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="590"/>
-        <location filename="inputoutputpatcheditor.cpp" line="724"/>
+        <location filename="inputoutputpatcheditor.cpp" line="592"/>
+        <location filename="inputoutputpatcheditor.cpp" line="726"/>
         <source>Existing Input Profile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="591"/>
-        <location filename="inputoutputpatcheditor.cpp" line="725"/>
+        <location filename="inputoutputpatcheditor.cpp" line="593"/>
+        <location filename="inputoutputpatcheditor.cpp" line="727"/>
         <source>An input profile at %1 already exists. Do you wish to overwrite it?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="600"/>
-        <location filename="inputoutputpatcheditor.cpp" line="734"/>
+        <location filename="inputoutputpatcheditor.cpp" line="602"/>
+        <location filename="inputoutputpatcheditor.cpp" line="736"/>
         <source>Save Input Profile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="601"/>
-        <location filename="inputoutputpatcheditor.cpp" line="735"/>
+        <location filename="inputoutputpatcheditor.cpp" line="603"/>
+        <location filename="inputoutputpatcheditor.cpp" line="737"/>
         <source>Input Profiles (*.qxi)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="614"/>
-        <location filename="inputoutputpatcheditor.cpp" line="751"/>
+        <location filename="inputoutputpatcheditor.cpp" line="616"/>
+        <location filename="inputoutputpatcheditor.cpp" line="753"/>
         <source>Saving failed</source>
         <translation type="unfinished">Fallo en Guardar</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="615"/>
+        <location filename="inputoutputpatcheditor.cpp" line="617"/>
         <source>Unable to save the profile to %1</source>
         <translation type="unfinished">Imposible guardar el archivo %1</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="652"/>
+        <location filename="inputoutputpatcheditor.cpp" line="654"/>
         <source>Delete profile</source>
         <translation type="unfinished">Eliminar archivo</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="653"/>
+        <location filename="inputoutputpatcheditor.cpp" line="655"/>
         <source>Do you wish to permanently delete profile &quot;%1&quot;?</source>
         <translation type="unfinished">¿Deseas borrar permanentemente este archivo &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="681"/>
+        <location filename="inputoutputpatcheditor.cpp" line="683"/>
         <source>File deletion failed</source>
         <translation type="unfinished">Fallo al eliminar archivo</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="682"/>
+        <location filename="inputoutputpatcheditor.cpp" line="684"/>
         <source>Unable to delete file %1</source>
         <translation type="unfinished">Imposible borrar archivo %1</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="752"/>
+        <location filename="inputoutputpatcheditor.cpp" line="754"/>
         <source>Unable to save %1 to %2</source>
         <translation type="unfinished">Imposible guardar %1 vers %2</translation>
     </message>
@@ -3216,42 +3216,42 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="555"/>
+        <location filename="simpledesk.cpp" line="556"/>
         <source>Cue Stack - Playback %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="673"/>
+        <location filename="simpledesk.cpp" line="674"/>
         <source>No selection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="693"/>
+        <location filename="simpledesk.cpp" line="694"/>
         <source>Cue name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="700"/>
+        <location filename="simpledesk.cpp" line="701"/>
         <source>Multiple Cues</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="797"/>
+        <location filename="simpledesk.cpp" line="798"/>
         <source>Delete cue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="851"/>
+        <location filename="simpledesk.cpp" line="852"/>
         <source>Clone Cue Stack</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="851"/>
+        <location filename="simpledesk.cpp" line="852"/>
         <source>Clone To Playback#</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="924"/>
+        <location filename="simpledesk.cpp" line="925"/>
         <source>Cue %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3536,17 +3536,17 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <translation>Lista Cue</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="532"/>
+        <location filename="vccuelist.cpp" line="547"/>
         <source>Fade In</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="532"/>
+        <location filename="vccuelist.cpp" line="547"/>
         <source>Fade Out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="532"/>
+        <location filename="vccuelist.cpp" line="547"/>
         <source>Duration</source>
         <translation type="unfinished"></translation>
     </message>

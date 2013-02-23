@@ -4,9 +4,13 @@
 <context>
     <name>AboutBox</name>
     <message>
-        <location filename="../ui/src/aboutbox.ui" line="14"/>
         <source>About Q Light Controller</source>
-        <translation>Sobre Q Light Controller</translation>
+        <translation type="obsolete">Sobre Q Light Controller</translation>
+    </message>
+    <message>
+        <location filename="../ui/src/aboutbox.ui" line="14"/>
+        <source>About Q Light Controller Plus</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/src/aboutbox.ui" line="69"/>

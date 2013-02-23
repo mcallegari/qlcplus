@@ -171,8 +171,24 @@ QStringList OSCPlugin::inputs()
 
 QString OSCPlugin::inputInfo(quint32 input)
 {
-    Q_UNUSED(input);
-    return QString();
+    if (input >= OSC_INPUTS)
+        return QString();
+
+    QString str;
+
+    str += QString("<H3>%1</H3>").arg(inputs()[input]);
+    str += QString("<P>");
+    if (m_serv_threads[input] == NULL)
+        str += tr("Status: Not open");
+    else
+    {
+        str += tr("Status: Open");
+    }
+    str += QString("</P>");
+    str += QString("</BODY>");
+    str += QString("</HTML>");
+
+    return str;
 }
 
 quint16 OSCPlugin::getHash(QString path)

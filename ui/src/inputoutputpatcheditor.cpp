@@ -407,6 +407,8 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
         }
     }
 
+    slotMapCurrentItemChanged(item);
+
     /* Start listening to this signal once again */
     connect(m_mapTree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
             this, SLOT(slotMapItemChanged(QTreeWidgetItem*, int)));

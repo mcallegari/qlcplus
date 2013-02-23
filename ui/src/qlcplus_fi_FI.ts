@@ -838,19 +838,19 @@ Menetät muutokset jos et tallenna niitä.</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="165"/>
-        <location filename="chasereditor.cpp" line="711"/>
+        <location filename="chasereditor.cpp" line="713"/>
         <source>Fade In</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="170"/>
-        <location filename="chasereditor.cpp" line="712"/>
+        <location filename="chasereditor.cpp" line="714"/>
         <source>Fade Out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="175"/>
-        <location filename="chasereditor.cpp" line="713"/>
+        <location filename="chasereditor.cpp" line="715"/>
         <source>Duration</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1059,22 +1059,22 @@ Menetät muutokset jos et tallenna niitä.</translation>
         <translation>Liitä</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="714"/>
+        <location filename="chasereditor.cpp" line="716"/>
         <source>Common Fade In</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="715"/>
+        <location filename="chasereditor.cpp" line="717"/>
         <source>Common Fade Out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="716"/>
+        <location filename="chasereditor.cpp" line="718"/>
         <source>Common Duration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="732"/>
+        <location filename="chasereditor.cpp" line="734"/>
         <source>Multiple Steps</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2191,62 +2191,62 @@ Menetät muutokset jos et tallenna niitä.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="590"/>
-        <location filename="inputoutputpatcheditor.cpp" line="724"/>
+        <location filename="inputoutputpatcheditor.cpp" line="592"/>
+        <location filename="inputoutputpatcheditor.cpp" line="726"/>
         <source>Existing Input Profile</source>
         <translation type="unfinished">Olemassaoleva sisääntuloprofiili</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="591"/>
-        <location filename="inputoutputpatcheditor.cpp" line="725"/>
+        <location filename="inputoutputpatcheditor.cpp" line="593"/>
+        <location filename="inputoutputpatcheditor.cpp" line="727"/>
         <source>An input profile at %1 already exists. Do you wish to overwrite it?</source>
         <translation type="unfinished">Sisääntuloprofiili %1 on jo olemassa. Haluatko ylikirjoittaa sen?</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="600"/>
-        <location filename="inputoutputpatcheditor.cpp" line="734"/>
+        <location filename="inputoutputpatcheditor.cpp" line="602"/>
+        <location filename="inputoutputpatcheditor.cpp" line="736"/>
         <source>Save Input Profile</source>
         <translation type="unfinished">Tallenna sisääntuloprofiili</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="601"/>
-        <location filename="inputoutputpatcheditor.cpp" line="735"/>
+        <location filename="inputoutputpatcheditor.cpp" line="603"/>
+        <location filename="inputoutputpatcheditor.cpp" line="737"/>
         <source>Input Profiles (*.qxi)</source>
         <translation type="unfinished">Sisääntuloprofiilit (*.qxi)</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="614"/>
-        <location filename="inputoutputpatcheditor.cpp" line="751"/>
+        <location filename="inputoutputpatcheditor.cpp" line="616"/>
+        <location filename="inputoutputpatcheditor.cpp" line="753"/>
         <source>Saving failed</source>
         <translation type="unfinished">Tallennus epäonnistui</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="615"/>
+        <location filename="inputoutputpatcheditor.cpp" line="617"/>
         <source>Unable to save the profile to %1</source>
         <translation type="unfinished">Profiilia ei voida tallentaa tiedostoon %1</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="652"/>
+        <location filename="inputoutputpatcheditor.cpp" line="654"/>
         <source>Delete profile</source>
         <translation type="unfinished">Poista profiili</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="653"/>
+        <location filename="inputoutputpatcheditor.cpp" line="655"/>
         <source>Do you wish to permanently delete profile &quot;%1&quot;?</source>
         <translation type="unfinished">Haluat poistaa profiilin %1 pysyvästi?</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="681"/>
+        <location filename="inputoutputpatcheditor.cpp" line="683"/>
         <source>File deletion failed</source>
         <translation type="unfinished">Tiedoston poisto epäonnistui</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="682"/>
+        <location filename="inputoutputpatcheditor.cpp" line="684"/>
         <source>Unable to delete file %1</source>
         <translation type="unfinished">Tiedostoa %1 ei voida poistaa</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="752"/>
+        <location filename="inputoutputpatcheditor.cpp" line="754"/>
         <source>Unable to save %1 to %2</source>
         <translation type="unfinished">Profiilia %1 ei voida tallentaa tiedostoon %2</translation>
     </message>
@@ -3215,42 +3215,42 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="555"/>
+        <location filename="simpledesk.cpp" line="556"/>
         <source>Cue Stack - Playback %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="673"/>
+        <location filename="simpledesk.cpp" line="674"/>
         <source>No selection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="693"/>
+        <location filename="simpledesk.cpp" line="694"/>
         <source>Cue name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="700"/>
+        <location filename="simpledesk.cpp" line="701"/>
         <source>Multiple Cues</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="797"/>
+        <location filename="simpledesk.cpp" line="798"/>
         <source>Delete cue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="851"/>
+        <location filename="simpledesk.cpp" line="852"/>
         <source>Clone Cue Stack</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="851"/>
+        <location filename="simpledesk.cpp" line="852"/>
         <source>Clone To Playback#</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="924"/>
+        <location filename="simpledesk.cpp" line="925"/>
         <source>Cue %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3535,17 +3535,17 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
         <translation>Cue lista</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="532"/>
+        <location filename="vccuelist.cpp" line="547"/>
         <source>Fade In</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="532"/>
+        <location filename="vccuelist.cpp" line="547"/>
         <source>Fade Out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="532"/>
+        <location filename="vccuelist.cpp" line="547"/>
         <source>Duration</source>
         <translation type="unfinished"></translation>
     </message>

@@ -65,6 +65,12 @@ public:
     /** Get the type of this controller */
     int getType();
 
+    /** Get the number of packets sent by this controller */
+    quint64 getPacketSentNumber();
+
+    /** Get the number of packets received by this controller */
+    quint64 getPacketReceivedNumber();
+
 private:
     /** The controller IP address as QHostAddress */
     QHostAddress m_ipAddr;
@@ -75,6 +81,9 @@ private:
 
     /** The controller interface MAC address. Used only for ArtPollReply */
     QString m_MACAddress;
+
+    quint64 m_packetSent;
+    quint64 m_packetReceived;
 
     /** List of universes managed by this controller */
     /** Coupled as universe/QLC+ line */

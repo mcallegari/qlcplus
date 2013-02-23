@@ -78,7 +78,7 @@ void ConfigureArtNet::fillOutputTree()
                 }
             }
             pitem->setText(KOutputColumnNetwork, ifaceStr);
-            pitem->setText(KOutputColumnUniverse, tr("Universe %1").arg(u + 1));
+            pitem->setText(KOutputColumnUniverse, tr("Universe %1").arg(u));
             pitem->setData(KOutputColumnUniverse, Qt::UserRole, u);
         }
     }
