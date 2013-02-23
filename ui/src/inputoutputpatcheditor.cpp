@@ -176,7 +176,8 @@ void InputOutputPatchEditor::fillMappingTree()
     // cycle through available plugins
     foreach (QString pluginName, IOplugins)
     {
-        quint32 id = 0;
+        quint32 inputId = 0;
+        quint32 outputId = 0;
         QStringList inputs = m_inputMap->pluginInputs(pluginName);
         QStringList outputs = m_outputMap->pluginOutputs(pluginName);
 
@@ -194,7 +195,7 @@ void InputOutputPatchEditor::fillMappingTree()
             // 2nd case: plugin with an input and maybe an output
             for (int l = 0; l < inputs.length(); l++)
             {
-                quint32 uni = m_inputMap->mapping(pluginName, id);
+                quint32 uni = m_inputMap->mapping(pluginName, inputId);
                 //qDebug() << "Plugin: " << pluginName << ", input: " << id << ", universe:" << uni;
                 if (uni == InputMap::invalidUniverse() || uni == m_universe)
                 {
@@ -202,42 +203,45 @@ void InputOutputPatchEditor::fillMappingTree()
                     pitem->setText(KMapColumnPluginName, pluginName);
                     pitem->setText(KMapColumnDeviceName, inputs.at(l));
                     pitem->setFlags(pitem->flags() | Qt::ItemIsUserCheckable);
-                    if (m_currentInputPluginName == pluginName && m_currentInput == id)
+                    if (m_currentInputPluginName == pluginName && m_currentInput == inputId)
                         pitem->setCheckState(KMapColumnHasInput, Qt::Checked);
                     else
                         pitem->setCheckState(KMapColumnHasInput, Qt::Unchecked);
                     pitem->setTextAlignment(KMapColumnHasInput, Qt::AlignHCenter);
-                    pitem->setText(KMapColumnInputLine, QString("%1").arg(id));
+                    pitem->setText(KMapColumnInputLine, QString("%1").arg(inputId));
+                    pitem->setText(KMapColumnOutputLine, QString("%1").arg(QLCIOPlugin::invalidLine()));
                     // check if this plugin has also an output
                     if (outputs.contains(inputs.at(l)))
                     {
-                        quint32 outUni = m_outputMap->mapping(pluginName, id);
+                        quint32 outUni = m_outputMap->mapping(pluginName, outputId);
                         if (outUni == OutputMap::invalidUniverse() || outUni == m_universe)
                         {
-                            if (m_currentOutputPluginName == pluginName && m_currentOutput == id)
+                            if (m_currentOutputPluginName == pluginName && m_currentOutput == outputId)
                                 pitem->setCheckState(KMapColumnHasOutput, Qt::Checked);
                             else
                                 pitem->setCheckState(KMapColumnHasOutput, Qt::Unchecked);
-                            pitem->setText(KMapColumnOutputLine, QString("%1").arg(id));
+                            pitem->setText(KMapColumnOutputLine, QString("%1").arg(outputId));
                             // add feedback
                             if (pluginName == "MIDI")
                             {
-                                if (m_currentFeedbackPluginName == pluginName && m_currentFeedback == id)
+                                if (m_currentFeedbackPluginName == pluginName && m_currentFeedback == outputId)
                                     pitem->setCheckState(KMapColumnHasFeedback, Qt::Checked);
                                 else
                                     pitem->setCheckState(KMapColumnHasFeedback, Qt::Unchecked);
                             }
                         }
+                        outputId++;
                     }
+
                 }
-                id++;
+                inputId++;
             }
             // 3rd case: output only plugins
             for (int o = 0; o < outputs.length(); o++)
             {
                 if (inputs.contains(outputs.at(o)) == false)
                 {
-                    quint32 outUni = m_outputMap->mapping(pluginName, id);
+                    quint32 outUni = m_outputMap->mapping(pluginName, outputId);
                     if (outUni == OutputMap::invalidUniverse() || outUni == m_universe)
                     {
                         //qDebug() << "Plugin: " << pluginName << ", output: " << id << ", universe:" << outUni;
@@ -245,23 +249,23 @@ void InputOutputPatchEditor::fillMappingTree()
                         pitem->setText(KMapColumnPluginName, pluginName);
                         pitem->setText(KMapColumnDeviceName, outputs.at(o));
                         pitem->setFlags(pitem->flags() | Qt::ItemIsUserCheckable);
-                        if (m_currentOutputPluginName == pluginName && m_currentOutput == id)
+                        if (m_currentOutputPluginName == pluginName && m_currentOutput == outputId)
                             pitem->setCheckState(KMapColumnHasOutput, Qt::Checked);
                         else
                             pitem->setCheckState(KMapColumnHasOutput, Qt::Unchecked);
                         // add feedback
                         if (pluginName == "MIDI")
                         {
-                            if (m_currentFeedbackPluginName == pluginName && m_currentFeedback == id)
+                            if (m_currentFeedbackPluginName == pluginName && m_currentFeedback == outputId)
                                 pitem->setCheckState(KMapColumnHasFeedback, Qt::Checked);
                             else
                                 pitem->setCheckState(KMapColumnHasFeedback, Qt::Unchecked);
                         }
-                        pitem->setText(KMapColumnOutputLine, QString("%1").arg(id));
+                        pitem->setText(KMapColumnOutputLine, QString("%1").arg(outputId));
                         pitem->setText(KMapColumnInputLine, QString("%1").arg(QLCIOPlugin::invalidLine()));
                     }
-                    id++;
                 }
+                outputId++;
             }
         }
     }

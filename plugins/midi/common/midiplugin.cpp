@@ -140,7 +140,8 @@ QString MidiPlugin::outputInfo(quint32 output)
     }
     else
     {
-        str += QString("<H3>%1 %2</H3>").arg(tr("Invalid Output")).arg(outputs()[output]);
+        if (output < (quint32)outputs().length())
+            str += QString("<H3>%1 %2</H3>").arg(tr("Invalid Output")).arg(outputs()[output]);
     }
 
     str += QString("</BODY>");
@@ -241,7 +242,8 @@ QString MidiPlugin::inputInfo(quint32 input)
     }
     else
     {
-        str += QString("<H3>%1 %2</H3>").arg(tr("Invalid Input")).arg(inputs()[input]);
+        if (input < (quint32)inputs().length())
+            str += QString("<H3>%1 %2</H3>").arg(tr("Invalid Input")).arg(inputs()[input]);
     }
 
     str += QString("</BODY>");
