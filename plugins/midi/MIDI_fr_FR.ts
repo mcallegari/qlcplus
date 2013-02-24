@@ -60,13 +60,13 @@
         <location filename="common/midiplugin.cpp" line="135"/>
         <location filename="common/midiplugin.cpp" line="236"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvert</translation>
     </message>
     <message>
         <location filename="common/midiplugin.cpp" line="137"/>
         <location filename="common/midiplugin.cpp" line="238"/>
         <source>Not Open</source>
-        <translation type="unfinished"></translation>
+        <translation>Non Ouvert</translation>
     </message>
     <message>
         <location filename="common/midiplugin.cpp" line="138"/>

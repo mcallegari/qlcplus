@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
-<TITLE>Q Light Controller Documentation</TITLE>
+<TITLE>Q Light Controller Plus Documentation</TITLE>
 <SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
 </HEAD>
 <BODY onLoad="replaceqrc()">
@@ -9,7 +9,7 @@
 <H1>Input Mapping Howto</H1>
 
 This howto document tells you how to patch input plugins and their input lines
-(physical input devices) to QLC's internal input universes.
+(physical input devices) to QLC+'s internal input universes.
 
 <H1>Input Manager</H1>
 
@@ -34,7 +34,7 @@ Each of these internal universes can have one input plugin and one input line
 from that plugin assigned to them. In other words, the input control data
 that you create with an external input device (like a slider board) is first
 caught thru some plugin's input line, which is then sent thru the plugin to
-the main QLC application. This data is then made available thru an input
+the main QLC+ application. This data is then made available thru an input
 universe that you can use to connect to from various virtual console elements
 and editors. The flow of data is basically just the opposite compared to
 <A HREF="howto-output-mapping.html">Output Mapping</A>.
@@ -44,7 +44,7 @@ and editors. The flow of data is basically just the opposite compared to
 Each universe can also have a special <u>Input Device</u>, which basically
 tells you, what kinds of controls your input hardware contains. For example,
 the <u>Behringer BCF 2000</u> slider board contains multiple sliders, knobs
-and buttons that are seen just dumb channels by QLC. An <u>Input Device</u>
+and buttons that are seen just dumb channels by QLC+. An <u>Input Device</u>
 can tell you, which channel is which slider, button and knob so you don't
 have to memorize them. You could think of an input device as an input-side
 equivalent to an output-side
@@ -105,7 +105,7 @@ To patch a plugin's input line to the selected universe, you need to place
 a checkmark on that particular plugin's input line. You can have only one
 line assigned to a universe at a time, so when you check another line, the
 checkmark will <u>move</u> from its previous position to the one you checked.
-If you can't see any input lines, you don't have any input devices that QLC
+If you can't see any input lines, you don't have any input devices that QLC+
 understands and you're left with the one and only choice: <u>None</u>.
 </P>
 
@@ -120,7 +120,7 @@ to close the dialog and accept the mapping.</B>
 Now you should see the input device mapping in the <u>Input Manager</u>. If
 you assigned a valid input device to the universe, wiggling its controls will
 now flash a small icon <IMG SRC="qrc:/input.png" height="14"> in the universe
-column to show that QLC receives input data from that device.
+column to show that QLC+ receives input data from that device.
 </P>
 
 <H2>Input Devices</H2>

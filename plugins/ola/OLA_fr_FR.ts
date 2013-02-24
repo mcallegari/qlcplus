@@ -6,7 +6,7 @@
     <message>
         <location filename="configureolaio.ui" line="14"/>
         <source>Configure OLA I/O</source>
-        <translation type="unfinished">Configurer OLA</translation>
+        <translation>Configurer OLA</translation>
     </message>
     <message>
         <location filename="configureolaio.ui" line="21"/>

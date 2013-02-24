@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
-<TITLE>Q Light Controller Documentation - Output Mapping Howto</TITLE>
+<TITLE>Q Light Controller Plus Documentation - Output Mapping Howto</TITLE>
 <SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
 </HEAD>
 <BODY onLoad="replaceqrc()">
@@ -10,7 +10,7 @@
 
 <P>
 This howto document tells you how to patch output plugins and their output
-lines (physical output universes) to QLC's internal output universes.
+lines (physical output universes) to QLC+'s internal output universes.
 </P>
 
 <H2>Output Manager</H2>
@@ -34,7 +34,7 @@ button:
 <P>
 Each of these internal universes can have one output plugin and one output
 line from that plugin assigned to them. In other words, the DMX control data
-that you create with QLC, is first sent to one of QLC's internal universes.
+that you create with QLC+, is first sent to one of QLC+'s internal universes.
 From there, the data is sent to the output plugin that is assigned to that
 particular universe and the plugin sends the data yet again to one of its
 output lines. With this approach, one plugin can provide multiple physical

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
-<TITLE>Q Light Controller Documentation - Basic Concepts</TITLE>
+<TITLE>Q Light Controller Plus Documentation - Basic Concepts</TITLE>
 <SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
 </HEAD>
 <BODY onLoad="replaceqrc()">
@@ -9,9 +9,9 @@
 <H1>Basic Concepts &amp; Glossary</H1>
 
 <P>
-Q Light Controller (QLC for short) is meant to control lighting equipment used
+Q Light Controller Plus (QLC+ for short) is meant to control lighting equipment used
 in various performances, like live concerts and theatres etc. The main purpose
-is that QLC could outperform commercial lighting desks with an intuitive and
+is that QLC+ could outperform commercial lighting desks with an intuitive and
 flexible user interface, without the need for a 500+ page manual.
 </P>
 
@@ -114,7 +114,7 @@ channels' value range (0-255).
 </P>
 
 <P>
-QLC supports 4 individual universes, that need not be necessarily connected to
+QLC+ supports 4 individual universes, that need not be necessarily connected to
 DMX hardware; rather, DMX has just been selected as the de facto lighting
 standard. Actual hardware abstraction (whether it's analog 0-10V, DMX or some
 other method) is achieved thru <A HREF="#OutputPlugins">output plugins</A>.
@@ -189,7 +189,7 @@ in a fixture library that contains the following properties for each fixture:
 
 <P>
 These fixture definitions can then be used to create actual fixtures, that will
-in the Q Light Controller application, have additional properties defined by users:
+in the Q Light Controller Plus application, have additional properties defined by users:
 </P>
 <UL>
 <LI>DMX Universe</LI>
@@ -230,7 +230,7 @@ be configured to understand different sets of channels. For example, a scanner
 might have two configuration options: one for only 8bit movement channels
 (1x pan, 1x tilt) and another one for 16bit movement channels (2x pan, 2x tilt).
 Instead of creating a completely new fixture definition for each variation,
-they have been bundled together in QLC's fixture definitions into fixture modes.
+they have been bundled together in QLC+'s fixture definitions into fixture modes.
 </P>
 
 <H3><IMG SRC="qrc:/function.png"> <A NAME="Functions" HREF="#Functions">Functions</A></H3>
@@ -303,7 +303,7 @@ they have multiple light output devices, i.e. heads.
 For example, you might have a RGB LED bar fixture that is packed into a single chassis, and
 as such it appears as a single fixture with one DMX input and one DMX output, but that
 actually comprises of four separate RGB LED "fixtures". These separate fixtures are treated
-in QLC as heads; they share some common properties with their sibling heads, they
+in QLC+ as heads; they share some common properties with their sibling heads, they
 can be controlled individually, but they might also have a master intensity control that
 controls the light output of all the heads together.
 </P>
@@ -332,13 +332,13 @@ is dragged down. See also <A HREF="concept.html#LTP">LTP</A>.
 <H3><IMG SRC="qrc:/input.png"> <A NAME="InputPlugins" HREF="#InputPlugins">Input plugins</A></H3>
 
 <P>
-Primary input methods for QLC are naturally the keyboard and mouse. Users can
+Primary input methods for QLC+ are naturally the keyboard and mouse. Users can
 attach keyboard keys to virtual console buttons and drag sliders and do pretty
 much everything with a mouse. It is possible to attach additional input devices
 to one's computer to alleviate the rather clumsy and slow user experience that
 is achieved with a regular mouse and a keyboard. Special input plugins provide
 capabilities for getting external devices (mainly slider boards) to produce
-input data to various QLC elements.
+input data to various QLC+ elements.
 </P>
 
 <A NAME="Input" HREF="#Input"><H3>Input (line)</H3></A>
@@ -372,7 +372,7 @@ of what some other control has done to it. See also <A HREF="concept.html#HTP">H
 <A NAME="Modes" HREF="#Modes"><H3>Modes</H3></A>
 
 <P>
-Q Light Controller is based on the common concept of having two distinct
+Q Light Controller Plus is based on the common concept of having two distinct
 operational modes to prevent accidental or otherwise harmful changes during
 operation:
 </P>
@@ -388,7 +388,7 @@ eventually control the user's lighting fixtures.</LI>
 
 <P>
 DMX output is achieved thru output plugins that can support one or more
-output lines. It is also possible to run QLC without actual DMX
+output lines. It is also possible to run QLC+ without actual DMX
 hardware.
 </P>
 
@@ -397,7 +397,7 @@ hardware.
 <P>
 An output is a physical output line provided by a hardware device which is accessed
 thru an output plugin. In other words, it is a real DMX universe, but has been
-dubbed <u>output</u> to separate it from QLC's internal universes. You could
+dubbed <u>output</u> to separate it from QLC+'s internal universes. You could
 think of them as individual XLR output connectors in your DMX hardware.
 </P>
 

@@ -44,6 +44,7 @@
         <file alias="filesave.png">../../gfx/filesave.png</file>
         <file alias="filesaveas.png">../../gfx/filesaveas.png</file>
         <file alias="fixture.png">../../gfx/fixture.png</file>
+        <file alias="qlcplus-fixtureeditor.png">../../gfx/qlcplus-fixtureeditor.png</file>
         <file alias="flash.png">../../gfx/flash.png</file>
         <file alias="flower.png">../../gfx/flower.png</file>
         <file alias="fontcolor.png">../../gfx/fontcolor.png</file>

@@ -1,59 +1,39 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
-<TITLE>Q Light Controller Documentation</TITLE>
+<TITLE>Q Light Controller Plus Documentation</TITLE>
 <SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
 </HEAD>
 <BODY onLoad="replaceqrc()">
 
 <H1>Input Profiles Howto</H1>
 
+<P>
 This howto document tells you how to associate input profiles to input universes
 and how to edit these profiles. You should first read the
-<A HREF="howto-input-mapping.html">howto on input mapping</A> so that you
-can access the input manager and know how to edit input universes.
-
-<H1>Input Manager</H1>
-
-<P>
-<B>Click the <u>Inputs</u> item from the main window's <u>Manager</u> menu.</B>
+<A HREF="howto-input-output-mapping.html">howto on input/output mapping</A> so that you
+can access the input/output manager and know how to edit input universes.
 </P>
 
-<H2>Mapping Properties</H2>
+<H2>Input Profile Manager</H2>
 
 <P>
-<B>Select <u>universe 1</u> and then click the
-<IMG SRC="qrc:/edit.png" ALIGN="absmiddle"> edit button to edit the first
-universe's mapping properties.</B>
-</P>
-
-<P>
-The dialog that opens is the same that has been covered in the 
-<A HREF="howto-input-mapping.html">input mapping howto.</A> However, the
-dialog contains two pages: <u>Mapping</u> and <u>Profile</u> that are accessed
-thru the little tabs at the top of the dialog.
+To access the Input/Output Manager, just click on the tab with the <img src="qrc:/input_output.png" width=32> icon
+placed on the bottom of the QLC+ main screen.<br>
+Select the desired universe on the left part of the screen and then click the
+<u>Profile</u> tab places beside the <u>Mapping</u> tab on the top right part of the screen.
 </P>
 
 <H2>Profile assignment</H2>
 
 <P>
-<B>Click the <u>Profile</u> tab to access the input profile tab.</B>
-</P>
-
-<P>
-You'll see a list of available input profile definitions, with a check mark
+You will see a list of available input profile definitions, with a check mark
 on <u>None</u>. This means that the current universe doesn't have a profile
 assigned yet. To assign a profile to the universe, simply place a check mark
 on one of the available profiles by clicking on the empty check box. Only one
 profile can be assigned to one universe at a time, so the check mark will
 actually <u>move</u> from its previous position to the item that you have
 selected.
-</P>
-
-<P>
-<B>Click the white box beside <u>Behringer - BCF2000</u> to assign it to
-the current universe. If you're happy with this, click OK to close the dialog
-and accept these mappings.</B>
 </P>
 
 <H2>Add/Edit a Profile</H2>
@@ -74,12 +54,12 @@ same in both cases from now on.</B>
 <H2>Input Profile Editor</H2>
 
 <P>
-A dialog is opened with entry fields for <u>Manufacturer</u> and <u>Model</u>.
+A dialog is opened with entry fields for <u>Manufacturer</u>, <u>Model</u> and <u>Type</u>.
 </P>
 
 <P>
-<B>Enter the profile's manufacturer and model to these fields and then click
-the <u>Channels</u> tab to edit the profile's channels.</B>
+<B>Enter the profile's manufacturer, the model and the input type to these fields and 
+then click the <u>Channels</u> tab to edit the profile's channels.</B>
 </P>
 
 <P>
@@ -93,7 +73,7 @@ enter individual channel information by hand for each channel.<BR>
 
 <IMG SRC="qrc:/wizard.png" ALIGN="absmiddle"> Click the automatic wizard
 button to attempt automatic channel detection. You'll receive further
-instructions from QLC. You must have an input profile assigned to the current
+instructions from QLC+. You must have an input profile assigned to the current
 universe for this feature to work. Also, you must first stop the wizard to
 be able to navigate away from this dialog page.
 </P>
@@ -117,7 +97,7 @@ input profile. If you didn't enter a manufacturer/model for the profile,
 you'll be prompted to enter them before you can continue.</B>
 </P>
 
-<H2>Back in the mapping properties dialog</H2>
+<H2>Back to the input profile definitions panel</H2>
 
 <P>
 Now you should see the profile you just defined in the list of available input
@@ -133,7 +113,10 @@ administrator.
 </P>
 
 <P>
-<B>Click OK to accept these mappings and close the dialog.</B>
+That's all !<br>
+Now you can start using your preferred profile. When assigining 
+an input channel to a QLC+ element (like Virtual Console sliders, channel groups, etc..)
+you will see that your Input profile mapping will be used.
 </P>
 
 </BODY>

@@ -25,9 +25,8 @@ docs.files = \
              functionwizard.html \
              headeditor.html \
              howto-add-fixtures.html \
-             howto-input-devices.html \
-             howto-input-mapping.html \
-             howto-output-mapping.html \
+             howto-input-profiles.html \
+             howto-input-output-mapping.html \
              index.html \
              modeeditor.html \
              peperonioutput.html \
