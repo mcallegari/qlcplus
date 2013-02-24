@@ -8,82 +8,107 @@
 
 <H1>Q Light Controller User Documentation</H1>
 
-<UL>
- <LI><A HREF="concept.html">Basic Concepts &amp; Glossary</A></LI>
- <LI><A HREF="commandlineparameters.html">Command-Line Parameters</A></LI>
-  <LI><A HREF="fixturemanager.html">Fixture Manager</A></LI>
- <UL>
-  <LI><A HREF="addeditfixtures.html">Add/Edit Fixtures</A></LI>
-  <LI><A HREF="fixturegroupeditor.html">Fixture Group Editor</A></LI>
-  <LI><A HREF="channelsgroupeditor.html">Channels Groups Editor</A></LI>
- </UL>
- <LI><A HREF="functionmanager.html">Function Manager</A></LI>
- <UL>
-  <LI><A HREF="sceneeditor.html">Scene Editor</A></LI>
-  <LI><A HREF="chasereditor.html">Chaser Editor</A></LI>
-  <LI><A HREF="showeditor.html">Show Editor</A></LI>
-  <LI><A HREF="efxeditor.html">EFX Editor</A></LI>
-  <LI><A HREF="collectioneditor.html">Collection Editor</A></LI>
-  <LI><A HREF="rgbmatrixeditor.html">RGB Matrix Editor</A></LI>
-  <UL>
-   <LI><A HREF="rgbscriptapi.html">RGB Script API</A></LI>
-  </UL>
-  <LI><A HREF="functionwizard.html">Function Wizard</A></LI>
-  <LI><A HREF="selectfunction.html">Select Functions</A></LI>
-  <LI><A HREF="selectfixture.html">Select Fixtures</A></LI>
- </UL>
- <LI><A HREF="fixturedefinitioneditor.html">Fixture Definition Editor</A></LI>
- <UL>
-  <LI><A HREF="capabilityeditor.html">Capability Editor</A></LI>
-  <LI><A HREF="capabilitywizard.html">Capability Wizard</A></LI>
-  <LI><A HREF="channeleditor.html">Channel Editor</A></LI>
-  <LI><A HREF="fixtureeditor.html">Fixture Editor</A></LI>
-  <LI><A HREF="modeeditor.html">Mode Editor</A></LI>
-  <LI><A HREF="headeditor.html">Head Editor</A></LI>
- </UL>
- <LI><A HREF="showmanager.html">Show Manager</A></LI>
- <LI><A HREF="fixturemonitor.html">Fixture Monitor</A></LI>
- <LI><A HREF="virtualconsole.html">Virtual Console</A></LI>
- <UL>
-  <LI><A HREF="vcbutton.html">Button</A></LI>
-  <LI><A HREF="vcbuttonmatrix.html">Button Matrix</A></LI>
-  <LI><A HREF="addvcbuttonmatrix.html">Add Button Matrix</A></LI>
-  <LI><A HREF="vcslider.html">Slider</A></LI>
-  <LI><A HREF="vcslidermatrix.html">Slider Matrix</A></LI>
-  <LI><A HREF="vcspeeddial.html">Speed Dial</A></LI>
-  <LI><A HREF="vcxypad.html">XY Pad</A></LI>
-  <LI><A HREF="vccuelist.html">Cue List</A></LI>
-  <LI><A HREF="vcsoloframe.html">Solo Frame</A></LI>
-  <LI><A HREF="vcframe.html">Frame</A></LI>
-  <LI><A HREF="vclabel.html">Label</A></LI>
-  <LI><A HREF="selectinputchannel.html">Select Input Channel</A></LI>
-  <LI><A HREF="vcstylingplacement.html">Widget Styling &amp; Placement</A></LI>
- </UL>
- <LI><A HREF="simpledesk.html">Simple Desk</A></LI>
-</UL>
-
-<H2>Plugins</H2>
-<UL>
- <LI><A HREF="enttecdmxusboutput.html">Enttec DMXUSB Output</LI>
- <!-- LI><A HREF="">MIDI Output</LI -->
- <!-- LI><A HREF="">OLA Output</LI -->
- <LI><A HREF="peperonioutput.html">Peperoni Output</LI>
- <LI><A HREF="udmxoutput.html">uDMX Output</LI>
- <LI><A HREF="vellemanoutput.html">Velleman Output</LI>
- <BR>
- <!-- LI><A HREF="">Enttec Wing Input</LI -->
- <!-- LI><A HREF="">HID Input</LI -->
- <!-- LI><A HREF="">MIDI Input</LI -->
-</UL>
-
-<H2>Howto</H2>
-<UL>
- <LI><A HREF="tutorial.html">Tutorial</A></LI>
- <LI><A HREF="howto-add-fixtures.html">Add fixtures</A></LI>
- <LI><A HREF="howto-output-mapping.html">Output mapping</A></LI>
- <LI><A HREF="howto-input-mapping.html">Input mapping</A></LI>
- <LI><A HREF="howto-input-profiles.html">Input profiles</A></LI>
-</UL>
+<TABLE border="1">
+ <TR>
+  <TD valign="top">
+    <H2><img src="qrc:/qlcplus.png" width=32>Main</H2>
+    <UL>
+     <LI><A HREF="concept.html">Basic Concepts &amp; Glossary</A></LI>
+     <LI><A HREF="commandlineparameters.html">Command-Line Parameters</A></LI>    
+    </UL>
+  </TD>
+  <TD valign="top">
+    <H2><img src="qrc:/monitor.png" width=32><A HREF="fixturemonitor.html">DMX Monitor</A></H2>
+  </TD>
+  <TD valign="top">
+    <H2><img src="qrc:/input_output.png" width=32>Plugins</H2>
+    <UL>
+     <LI>ArtNet</LI>
+     <LI><A HREF="enttecdmxusboutput.html">DMX USB</A></LI>
+     <LI>Enttec Wing</LI>
+     <LI>HID</LI>
+     <LI>MIDI</LI>
+     <LI>OLA</LI>
+     <LI>OSC</LI>
+     <LI><A HREF="peperonioutput.html">Peperoni</A></LI>
+     <LI><A HREF="udmxoutput.html">uDMX</A></LI>
+     <LI><A HREF="vellemanoutput.html">Velleman</A></LI>    
+    </UL>
+  </TD>
+  <TD valign="top">
+    <H2>Howto</H2>
+     <UL>
+      <LI><A HREF="tutorial.html">Tutorial</A></LI>
+      <LI><A HREF="howto-add-fixtures.html">Add fixtures</A></LI>
+      <LI><A HREF="howto-output-mapping.html">Output mapping</A></LI>
+      <LI><A HREF="howto-input-mapping.html">Input mapping</A></LI>
+      <LI><A HREF="howto-input-profiles.html">Input profiles</A></LI>
+     </UL>
+  </TD>
+  <TD valign="top">
+    <H2><img src="qrc:/qlcplus-fixtureeditor.png" width=32><A HREF="fixturedefinitioneditor.html">Fixture Definition Editor</A></H2>
+    <UL>
+    <LI><A HREF="capabilityeditor.html">Capability Editor</A></LI>
+    <LI><A HREF="capabilitywizard.html">Capability Wizard</A></LI>
+    <LI><A HREF="channeleditor.html">Channel Editor</A></LI>
+    <LI><A HREF="fixtureeditor.html">Fixture Editor</A></LI>
+    <LI><A HREF="modeeditor.html">Mode Editor</A></LI>
+    <LI><A HREF="headeditor.html">Head Editor</A></LI>
+    </UL>
+  </TD>
+ </TR>
+ <TR>
+  <TD valign="top">
+   <H2><img src="qrc:/fixture.png" width=32><A HREF="fixturemanager.html">Fixture Manager</A></H2>
+   <UL>
+    <LI><A HREF="addeditfixtures.html">Add/Edit Fixtures</A></LI>
+    <LI><A HREF="fixturegroupeditor.html">Fixture Group Editor</A></LI>
+    <LI><A HREF="channelsgroupeditor.html">Channels Groups Editor</A></LI>
+   </UL>
+  </TD>
+  <TD valign="top">
+    <H2><img src="qrc:/function.png" width=32><A HREF="functionmanager.html">Function Manager</A></H2>
+    <UL>
+     <LI><A HREF="sceneeditor.html">Scene Editor</A></LI>
+     <LI><A HREF="chasereditor.html">Chaser Editor</A></LI>
+     <LI><A HREF="showeditor.html">Show Editor</A></LI>
+     <LI><A HREF="efxeditor.html">EFX Editor</A></LI>
+     <LI><A HREF="collectioneditor.html">Collection Editor</A></LI>
+     <LI><A HREF="rgbmatrixeditor.html">RGB Matrix Editor</A></LI>
+     <UL>
+      <LI><A HREF="rgbscriptapi.html">RGB Script API</A></LI>
+     </UL>
+     <LI><A HREF="functionwizard.html">Function Wizard</A></LI>
+     <LI><A HREF="selectfunction.html">Select Functions</A></LI>
+     <LI><A HREF="selectfixture.html">Select Fixtures</A></LI>
+    </UL>
+  </TD>
+  <TD valign="top">
+   <H2><img src="qrc:/show.png" width=32><A HREF="showmanager.html">Show Manager</A></H2>
+  </TD>
+  <TD valign="top">
+    <H2><img src="qrc:/virtualconsole.png" width=32><A HREF="virtualconsole.html">Virtual Console</A></H2>
+    <UL>
+     <LI><A HREF="vcbutton.html">Button</A></LI>
+     <LI><A HREF="vcbuttonmatrix.html">Button Matrix</A></LI>
+     <LI><A HREF="addvcbuttonmatrix.html">Add Button Matrix</A></LI>
+     <LI><A HREF="vcslider.html">Slider</A></LI>
+     <LI><A HREF="vcslidermatrix.html">Slider Matrix</A></LI>
+     <LI><A HREF="vcspeeddial.html">Speed Dial</A></LI>
+     <LI><A HREF="vcxypad.html">XY Pad</A></LI>
+     <LI><A HREF="vccuelist.html">Cue List</A></LI>
+     <LI><A HREF="vcsoloframe.html">Solo Frame</A></LI>
+     <LI><A HREF="vcframe.html">Frame</A></LI>
+     <LI><A HREF="vclabel.html">Label</A></LI>
+     <LI><A HREF="selectinputchannel.html">Select Input Channel</A></LI>
+     <LI><A HREF="vcstylingplacement.html">Widget Styling &amp; Placement</A></LI>
+    </UL>
+  </TD>
+  <TD valign="top">
+   <H2><img src="qrc:/slidermatrix.png" width=32><A HREF="simpledesk.html">Simple Desk</A></H2>
+  </TD>
+ </TR>
+</TABLE>
 
 </BODY>
 </HTML>
