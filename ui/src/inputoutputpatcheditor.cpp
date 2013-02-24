@@ -232,7 +232,6 @@ void InputOutputPatchEditor::fillMappingTree()
                         }
                         outputId++;
                     }
-
                 }
                 inputId++;
             }
@@ -264,8 +263,8 @@ void InputOutputPatchEditor::fillMappingTree()
                         pitem->setText(KMapColumnOutputLine, QString("%1").arg(outputId));
                         pitem->setText(KMapColumnInputLine, QString("%1").arg(QLCIOPlugin::invalidLine()));
                     }
+                    outputId++;
                 }
-                outputId++;
             }
         }
     }
