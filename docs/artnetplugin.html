@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - ArtNet Plugin</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>Introduction</H1>
+
+<P>
+QLC+ supports the <a href="http://en.wikipedia.org/wiki/Art-Net">ArtNet protocol</a> through an input/output plugin 
+that receives and transmits packets on the network.<br>
+No extra requirement is needed, since QLC+ has a native implementation of the ArtNet protocol
+that works on Linux, Windows and OSX systems.
+</P>
+
+<H1>Configuration</H1>
+
+<P>
+The ArtNet plugin can be configured to send and receive packets from multiple network cards, virtual addresses
+and multiple universes per network card.<br>
+The desired configuration can be achieved quite easily by opening the plugin configuration panel.<br>
+The dialog will show all the possible choices depending on the network interfaces that QLC+ detects
+when opened.<br>
+The dialog will display two lists:
+<ul>
+ <li>The available networks and universes. Just click on the corresponding checkbox to enable
+     the one you're going to use and it will be listed in QLC+ input/output manager.<br>
+     Networks and universes are displayed in the following form:</li>
+   <ul>
+    <li>Network 1 - Universe 0</li>
+    <li>Network 1 - Universe 1</li>
+    <li>Network 1 - Universe 2</li>
+    <li>Network 1 - Universe 3</li>
+    <li>Network 2 - Universe 0</li>
+    <li>...</li>
+    <li>Network 2 - Universe 3</li>
+    <li>...</li>
+   </ul>
+  <li>A simple node inspector that will display the available ArtNet nodes 
+      discovered on the network</li>
+</ul>
+</P>
+
+<H1>Compatibility</H1>
+
+<P>
+QLC+ has been tested with the following ArtNet softwares/devices:
+<ul>
+ <li><a href="http://dmxking.com/artnetsacn/edmx2-tx-rdm">DMXking eDMX2 TX</a> - Output device</li>
+ <li><a href="http://www.enttec.com/index.php?main_menu=Products&pn=70305">Enttec Open DMX Ethernet (ODE)</a> - Output device</li>
+ <li><a href="http://www.opendmx.net/index.php/Open_Lighting_Architecture">OLA - Open Lighting Architecture</a> - Input/Output software node</li>
+ <li><a href="https://sites.google.com/site/artnetcontroller/">ArtNet Controller LITE</a> - Input controller for Android</li>
+ <li><a href="http://www.chfsoft.com.br/downloads/android/artnet_dmx_lite.html">Controlador ArtNet DMX (Lite)</a> - Input controller for Android</li>
+</ul>
+</P>
+
+</BODY>
+</HTML>

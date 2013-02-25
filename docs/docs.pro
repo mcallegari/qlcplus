@@ -4,6 +4,7 @@ TEMPLATE = subdirs
 
 docs.path = $$INSTALLROOT/$$DOCSDIR/html
 docs.files = \
+             artnetplugin.html \
              addeditfixtures.html \
              addvcbuttonmatrix.html \
              capabilityeditor.html \
@@ -29,6 +30,7 @@ docs.files = \
              howto-input-output-mapping.html \
              index.html \
              modeeditor.html \
+             oscplugin.html \
              peperonioutput.html \
              rgbmatrixeditor.html \
              rgbscriptapi.html \

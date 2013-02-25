@@ -46,42 +46,42 @@
 <context>
     <name>ConfigureArtNet</name>
     <message>
-        <location filename="configureartnet.ui" line="6"/>
+        <location filename="configureartnet.ui" line="14"/>
         <source>Configure ArtNet Plugin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configureartnet.ui" line="16"/>
-        <source>Output Mapping</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="configureartnet.ui" line="29"/>
+        <location filename="configureartnet.ui" line="37"/>
         <source>Network</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configureartnet.ui" line="34"/>
-        <source>Address</source>
+        <location filename="configureartnet.ui" line="24"/>
+        <source>Network Mapping</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configureartnet.ui" line="43"/>
+        <location filename="configureartnet.ui" line="42"/>
+        <source>Universe</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configureartnet.ui" line="51"/>
         <source>Nodes Tree</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configureartnet.ui" line="53"/>
+        <location filename="configureartnet.ui" line="61"/>
         <source>IP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configureartnet.ui" line="58"/>
+        <location filename="configureartnet.ui" line="66"/>
         <source>Short Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configureartnet.ui" line="63"/>
+        <location filename="configureartnet.ui" line="71"/>
         <source>Long Name</source>
         <translation type="unfinished"></translation>
     </message>
