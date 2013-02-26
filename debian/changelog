@@ -2,19 +2,21 @@ qlcplus (4.2.2) stable; urgency=low
 
   * Rewritten OSX audio renderer code. Tested on various OSX versions and should finally work fine !
   * Fixed crash when ArtNet plugin is in output mode and receives DMX data
-  * Fixed crash when pressing OK on ArtNet configuration dialog
+  * Fixed crash when changing ArtNet configuration
   * Fixed ArtNet plugin output on OSX (big thanks to David Geldreich)
   * Fixed Scene changes not updating Virtual Console Cue List
+  * Fixed wrong input/output mapping that leaded to a potential crash
   * On Simple Desk reset, restore also page label to 1
   * Fixed crash when deleting a Chaser from Function Manager
   * Windows installer now remembers last installation path (thanks to Pixeldoc)
+  * Fixes and improvements of documentation
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Fri, 19 Feb 2013 13:00:42 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Fri, 26 Feb 2013 17:00:42 +0200
 
 qlcplus (4.2.1) stable; urgency=low
 
   * NEW: Added ArtNet input support (tested on Android with Art-Net controller LITE and Controlador Artnet-DMX)
-  * NEW: It is now possible to import/export fixtures to a separate file (.qlfl) to shorten the project creation
+  * NEW: It is now possible to import/export fixtures to a separate file (.qxfl) to shorten the project creation
   * NEW: Added page change feature for Enttec Wing (thanks to Thomas Achtner)
   * NEW: Channel Groups can be associated to a Scene and saved into the project
   * Fixed project enconding issue for special characters (happening on Windows)
