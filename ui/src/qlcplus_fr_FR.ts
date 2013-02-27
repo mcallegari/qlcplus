@@ -7,7 +7,7 @@
         <location filename="aboutbox.ui" line="14"/>
         <source>About Q Light Controller Plus</source>
         <oldsource>About Q Light Controller</oldsource>
-        <translation type="unfinished">À propos de Q Light Controller Plus</translation>
+        <translation>À propos de Q Light Controller Plus</translation>
     </message>
     <message>
         <location filename="aboutbox.ui" line="69"/>
@@ -866,7 +866,7 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
     <message>
         <location filename="chasereditor.ui" line="438"/>
         <source>Show/Hide speed dial window</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher/Cacher la fenêtre des vitesses</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="241"/>
@@ -956,7 +956,7 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
     <message>
         <location filename="chasereditor.ui" line="488"/>
         <source>Stop the chaser if running</source>
-        <translation type="unfinished"></translation>
+        <translation>Arrêter le chaser en cours</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="528"/>
@@ -975,7 +975,7 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
         <location filename="chasereditor.ui" line="511"/>
         <location filename="chasereditor.ui" line="531"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="183"/>
@@ -1643,12 +1643,12 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="909"/>
         <source>Import fixtures...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importer des Projecteurs...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="914"/>
         <source>Export fixtures...</source>
-        <translation type="unfinished"></translation>
+        <translation>Exporter des Projecteurs...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1120"/>
@@ -1679,29 +1679,29 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
         <location filename="fixturemanager.cpp" line="1376"/>
         <source>Import Fixtures List</source>
         <oldsource>Import Fixture Definition</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Importer une Liste de Projecteurs</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1381"/>
         <source>Export Fixtures List As</source>
         <oldsource>Export Fixture Definition As</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Exporter une Liste de Projecteurs</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1387"/>
         <source>Fixtures List (*%1)</source>
         <oldsource>Fixture Definitions (*%1)</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Liste de Projecteurs (*%1)</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1389"/>
         <source>All Files (*.*)</source>
-        <translation type="unfinished">Tous les fichiers (*.*)</translation>
+        <translation>Tous les fichiers (*.*)</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1391"/>
         <source>All Files (*)</source>
-        <translation type="unfinished">Tous les fichiers (*)</translation>
+        <translation>Tous les fichiers (*)</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="949"/>
@@ -2194,7 +2194,7 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
         <location filename="inputoutputpatcheditor.cpp" line="352"/>
         <location filename="inputoutputpatcheditor.cpp" line="370"/>
         <source>Output line already assigned</source>
-        <translation type="unfinished"></translation>
+        <translation>La ligne de sortie est déjà assignée</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="592"/>
@@ -2502,12 +2502,12 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="multitrackview.cpp" line="287"/>
         <source>Do you want to DELETE scene:</source>
-        <translation type="unfinished"></translation>
+        <translation>Voulez vous EFFACER la scène :</translation>
     </message>
     <message>
         <location filename="multitrackview.cpp" line="290"/>
         <source>This operation will also DELETE:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ceci effacera aussi :</translation>
     </message>
     <message>
         <location filename="multitrackview.cpp" line="472"/>
@@ -2738,12 +2738,12 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="sceneeditor.ui" line="76"/>
         <source>Enable all channel groups</source>
-        <translation type="unfinished"></translation>
+        <translation>Activer tous les groupes de canaux</translation>
     </message>
     <message>
         <location filename="sceneeditor.ui" line="122"/>
         <source>Disable all channel groups</source>
-        <translation type="unfinished"></translation>
+        <translation>Désactiver tous les groupes de canaux</translation>
     </message>
     <message>
         <location filename="sceneeditor.ui" line="254"/>
@@ -2831,7 +2831,7 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="sceneeditor.cpp" line="172"/>
         <source>Show/Hide speed dial window</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher/Cacher la fenêtre des vitesses</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="174"/>
@@ -3520,7 +3520,7 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vccuelist.cpp" line="90"/>
         <source>Play</source>
-        <translation type="unfinished"></translation>
+        <translation>Go</translation>
     </message>
     <message>
         <location filename="vccuelist.cpp" line="98"/>
@@ -3530,12 +3530,12 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vccuelist.cpp" line="106"/>
         <source>Previous Cue</source>
-        <translation type="unfinished">Mémoiree Précédente</translation>
+        <translation>Go- (Mémoire Précédente)</translation>
     </message>
     <message>
         <location filename="vccuelist.cpp" line="114"/>
         <source>Next Cue</source>
-        <translation type="unfinished">Mémoire Suivante</translation>
+        <translation>Go +(Mémoire Suivante)</translation>
     </message>
     <message>
         <location filename="vccuelist.cpp" line="121"/>
@@ -3545,17 +3545,17 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vccuelist.cpp" line="547"/>
         <source>Fade In</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="vccuelist.cpp" line="547"/>
         <source>Fade Out</source>
-        <translation type="unfinished">Fade Out</translation>
+        <translation>Fade Out</translation>
     </message>
     <message>
         <location filename="vccuelist.cpp" line="547"/>
         <source>Duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Durée</translation>
     </message>
 </context>
 <context>
