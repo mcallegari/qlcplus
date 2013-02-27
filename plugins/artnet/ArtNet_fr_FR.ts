@@ -7,40 +7,40 @@
         <location filename="artnetplugin.cpp" line="109"/>
         <source>This plugin provides DMX output for devices supporting the ArtNet communication protocol.</source>
         <oldsource>This plugin provides output for devices supporting the ArtNet communication protocol.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Ce greffon fournit le support DMX pour les périphériques supportant le protocole ArtNet.</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="125"/>
         <location filename="artnetplugin.cpp" line="247"/>
         <source>%1: [%2] Universe: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: [%2] Univers: %3</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="142"/>
         <location filename="artnetplugin.cpp" line="337"/>
         <source>Status: Not open</source>
-        <translation type="unfinished"></translation>
+        <translation>Statut : Pas ouvert</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="145"/>
         <location filename="artnetplugin.cpp" line="340"/>
         <source>Status: Open</source>
-        <translation type="unfinished"></translation>
+        <translation>Statut : Ouvert</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="147"/>
         <source>Nodes discovered: </source>
-        <translation type="unfinished"></translation>
+        <translation>Noeuds Découverts : </translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="150"/>
         <source>Packets sent: </source>
-        <translation type="unfinished"></translation>
+        <translation>Paquets Envoyés : </translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="342"/>
         <source>Packets received: </source>
-        <translation type="unfinished"></translation>
+        <translation>Paquets Reçus : </translation>
     </message>
 </context>
 <context>
@@ -48,47 +48,47 @@
     <message>
         <location filename="configureartnet.ui" line="14"/>
         <source>Configure ArtNet Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Configurer le greffon ArtNet</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="37"/>
         <source>Network</source>
-        <translation type="unfinished"></translation>
+        <translation>Réseau</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="24"/>
         <source>Network Mapping</source>
-        <translation type="unfinished"></translation>
+        <translation>Patch Réseau</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="42"/>
         <source>Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Univers</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="51"/>
         <source>Nodes Tree</source>
-        <translation type="unfinished"></translation>
+        <translation>Arbre des Noeuds</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="61"/>
         <source>IP</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="66"/>
         <source>Short Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom Court</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="71"/>
         <source>Long Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom Long</translation>
     </message>
     <message>
         <location filename="configureartnet.cpp" line="81"/>
         <source>Universe %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Univers : %1</translation>
     </message>
 </context>
 </TS>
