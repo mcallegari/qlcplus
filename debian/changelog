@@ -1,6 +1,7 @@
 qlcplus (4.2.3) stable; urgency=low
 
   * QLC+ and Fixture Editor now remember the working directory
+  * Added fixtures: Eurolite TMH-8, Showtec LED Par 56, Showtec MultiDim MK III DMX (thanks to Heiko Fanieng)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 2 Mar 2013 12:12:42 +0200
 
