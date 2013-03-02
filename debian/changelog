@@ -1,3 +1,9 @@
+qlcplus (4.2.3) stable; urgency=low
+
+  * QLC+ and Fixture Editor now remember the working directory
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 2 Mar 2013 12:12:42 +0200
+
 qlcplus (4.2.2) stable; urgency=low
 
   * Rewritten OSX audio renderer code. Tested on various OSX versions and should finally work fine !
@@ -11,7 +17,7 @@ qlcplus (4.2.2) stable; urgency=low
   * Windows installer now remembers last installation path (thanks to Pixeldoc)
   * Fixes and improvements of documentation
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Fri, 26 Feb 2013 17:00:42 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 26 Feb 2013 17:00:42 +0200
 
 qlcplus (4.2.1) stable; urgency=low
 

@@ -23,6 +23,7 @@
 #define APP_H
 
 #include <QMainWindow>
+#include <QDir>
 
 class QLCFixtureDef;
 class QLCChannel;
@@ -90,6 +91,7 @@ signals:
 
 protected:
     QLCChannel* m_copyChannel;
+    QDir m_workingDirectory;
 
     /*********************************************************************
      * Actions, toolbar & menubar

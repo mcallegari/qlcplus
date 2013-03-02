@@ -64,6 +64,7 @@ private:
 
 private:
     QTabWidget* m_tab;
+    QDir m_workingDirectory;
 
     /*********************************************************************
      * Progress dialog

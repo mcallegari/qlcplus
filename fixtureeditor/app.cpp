@@ -53,6 +53,7 @@
 
 #define SETTINGS_GEOMETRY "workspace/geometry"
 #define SETTINGS_OPENDIALOGSTATE "workspace/opendialog"
+#define SETTINGS_WORKINGPATH "workspace/workingpath"
 
 App* _app;
 
@@ -75,13 +76,20 @@ App::App(QWidget* parent) : QMainWindow(parent)
     QCoreApplication::setApplicationName(FXEDNAME);
 
     initActions();
-    initMenuBar();
+    //initMenuBar();
     initToolBar();
 
     QSettings settings;
     QVariant var = settings.value(SETTINGS_GEOMETRY);
     if (var.isValid() == true)
         restoreGeometry(var.toByteArray());
+
+    QVariant dir = settings.value(SETTINGS_WORKINGPATH);
+    if (dir.isValid() == false || QDir(dir.toString()).exists() == false)
+        m_workingDirectory = QLCFixtureDefCache::userDefinitionDirectory();
+    else
+        m_workingDirectory = QDir(dir.toString());
+
 
     this->raise();
 }
@@ -257,7 +265,8 @@ void App::initActions()
     connect(m_fileSaveAction, SIGNAL(triggered(bool)),
             this, SLOT(slotFileSave()));
 
-    m_fileSaveAsAction = new QAction(tr("Save &As..."), this);
+    m_fileSaveAsAction = new QAction(QIcon(":/filesaveas.png"),
+                                     tr("Save &As..."), this);
     m_fileSaveAsAction->setShortcut(QKeySequence(tr("CTRL+SHIFT+S", "File|Save As...")));
     connect(m_fileSaveAsAction, SIGNAL(triggered(bool)),
             this, SLOT(slotFileSaveAs()));
@@ -295,6 +304,12 @@ void App::initToolBar()
     m_toolBar->addAction(m_fileNewAction);
     m_toolBar->addAction(m_fileOpenAction);
     m_toolBar->addAction(m_fileSaveAction);
+    m_toolBar->addAction(m_fileSaveAsAction);
+
+    m_toolBar->addSeparator();
+
+    m_toolBar->addAction(m_helpIndexAction);
+    m_toolBar->addAction(m_helpAboutAction);
 }
 
 void App::initMenuBar()
@@ -364,11 +379,8 @@ void App::slotFileOpen()
     {
         dialog.restoreState(var.toByteArray());
     }
-    else
-    {
-        QDir dir = QLCFixtureDefCache::userDefinitionDirectory();
-        dialog.setDirectory(dir);
-    }
+
+    dialog.setDirectory(m_workingDirectory);
 
     /* Execute the dialog */
     if (dialog.exec() != QDialog::Accepted)
@@ -380,6 +392,8 @@ void App::slotFileOpen()
         loadFixtureDefinition(it.next());
 
     settings.setValue(SETTINGS_OPENDIALOGSTATE, dialog.saveState());
+    m_workingDirectory = dialog.directory();
+    settings.setValue(SETTINGS_WORKINGPATH, m_workingDirectory.absolutePath());
 }
 
 void App::slotFileSave()

@@ -46,6 +46,7 @@
 #include "qlcfile.h"
 
 #define SETTINGS_GEOMETRY "workspace/geometry"
+#define SETTINGS_WORKINGPATH "workspace/workingpath"
 #define KXMLQLCWorkspaceWindow "CurrentWindow"
 
 #define KModeTextOperate QObject::tr("Operate")
@@ -163,6 +164,10 @@ void App::init()
         if (state.isValid() == true)
             setWindowState(Qt::WindowState(state.toInt()));
     }
+
+    QVariant dir = settings.value(SETTINGS_WORKINGPATH);
+    if (dir.isValid() == true)
+        m_workingDirectory = QDir(dir.toString());
 
     // The engine object
     initDoc();
@@ -653,6 +658,8 @@ QFile::FileError App::slotFileOpen()
     dialog.setWindowTitle(tr("Open Workspace"));
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
     dialog.selectFile(fileName());
+    if (m_workingDirectory.exists() == true)
+        dialog.setDirectory(m_workingDirectory);
 
     /* Append file filters to the dialog */
     QStringList filters;
@@ -673,6 +680,9 @@ QFile::FileError App::slotFileOpen()
     /* Get file name */
     if (dialog.exec() != QDialog::Accepted)
         return QFile::NoError;
+    QSettings settings;
+    m_workingDirectory = dialog.directory();
+    settings.setValue(SETTINGS_WORKINGPATH, m_workingDirectory.absolutePath());
 
     fn = dialog.selectedFiles().first();
     if (fn.isEmpty() == true)
