@@ -13,34 +13,34 @@
         <location filename="artnetplugin.cpp" line="125"/>
         <location filename="artnetplugin.cpp" line="247"/>
         <source>%1: [%2] Universe: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: [%2] Universum: %3</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="142"/>
         <location filename="artnetplugin.cpp" line="337"/>
         <source>Status: Not open</source>
-        <translation type="unfinished"></translation>
+        <translation>Status: Nicht geöffnet</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="145"/>
         <location filename="artnetplugin.cpp" line="340"/>
         <source>Status: Open</source>
-        <translation type="unfinished"></translation>
+        <translation>Geöffnet</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="147"/>
         <source>Nodes discovered: </source>
-        <translation type="unfinished"></translation>
+        <translation>Knoten (Nodes) erkannt</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="150"/>
         <source>Packets sent: </source>
-        <translation type="unfinished"></translation>
+        <translation>Gesendete Pakete:</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="342"/>
         <source>Packets received: </source>
-        <translation type="unfinished"></translation>
+        <translation>Empfangene Pakete:</translation>
     </message>
 </context>
 <context>
@@ -58,12 +58,12 @@
     <message>
         <location filename="configureartnet.ui" line="24"/>
         <source>Network Mapping</source>
-        <translation type="unfinished"></translation>
+        <translation>Netzwerk Zuordnung (Mapping)</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="42"/>
         <source>Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Universum</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="51"/>
