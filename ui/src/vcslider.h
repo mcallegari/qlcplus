@@ -22,6 +22,7 @@
 #ifndef VCSLIDER_H
 #define VCSLIDER_H
 
+#include <QSlider>
 #include <QMutex>
 #include <QList>
 
@@ -32,7 +33,6 @@ class QDomDocument;
 class QDomElement;
 class QPushButton;
 class QHBoxLayout;
-class QSlider;
 class QLabel;
 class QTime;
 
@@ -61,6 +61,16 @@ class VCSliderProperties;
 
 #define KXMLQLCVCSliderPlayback "Playback"
 #define KXMLQLCVCSliderPlaybackFunction "Function"
+
+class ClicknGoSlider : public QSlider
+{
+    Q_OBJECT
+public:
+    ClicknGoSlider ( QWidget * parent = 0 );
+
+protected:
+    void mousePressEvent ( QMouseEvent * event );
+};
 
 class VCSlider : public VCWidget, public DMXSource
 {
@@ -385,7 +395,7 @@ private:
 
 protected:
     QHBoxLayout* m_hbox;
-    QSlider* m_slider;
+    ClicknGoSlider* m_slider;
     bool m_externalMovement;
 
     /*********************************************************************

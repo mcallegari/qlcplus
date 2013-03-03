@@ -58,6 +58,24 @@ const QSize VCSlider::defaultSize(QSize(60, 200));
  * Initialization
  *****************************************************************************/
 
+ClicknGoSlider::ClicknGoSlider(QWidget *parent) : QSlider(parent)
+{
+}
+
+void ClicknGoSlider::mousePressEvent ( QMouseEvent * event )
+{
+    if (event->button() == Qt::LeftButton)
+    {
+        if (orientation() == Qt::Vertical)
+            setValue(minimum() + ((maximum()-minimum()) * (height()-event->y())) / height() ) ;
+        else
+            setValue(minimum() + ((maximum()-minimum()) * event->x()) / width() ) ;
+
+        event->accept();
+    }
+    QSlider::mousePressEvent(event);
+}
+
 VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 {
     /* Set the class name "VCSlider" as the object name as well */
@@ -102,8 +120,15 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_hbox->addStretch();
 
     /* The slider */
-    m_slider = new QSlider(this);
+    m_slider = new ClicknGoSlider(this);
     m_slider->setStyle(AppUtil::saneStyle());
+    /*
+    m_slider->setStyleSheet("QSlider::handle:vertical {"
+                          "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #a4a4a4, stop:1 #4f4f4f);"
+                          "border: 1px solid #5c5c5c;"
+                          "border-radius: 3px;"
+                          "}");
+    */
     m_hbox->addWidget(m_slider);
     m_slider->setRange(0, 255);
     m_slider->setPageStep(1);
