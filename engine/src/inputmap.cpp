@@ -360,7 +360,7 @@ bool InputMap::inputSourceNames(const QLCInputSource& src,
         return false;
 
     InputPatch* pat = this->patch(src.universe());
-    if (pat == NULL || pat->plugin() == NULL)
+    if (pat == NULL)
     {
         /* There is no patch for the given universe */
         return false;
@@ -370,7 +370,10 @@ bool InputMap::inputSourceNames(const QLCInputSource& src,
     if (profile == NULL)
     {
         /* There is no profile. Display plugin name and channel number. */
-        uniName = QString("%1: %2").arg(src.universe() + 1).arg(pat->plugin()->name());
+        if (pat->plugin() != NULL)
+            uniName = QString("%1: %2").arg(src.universe() + 1).arg(pat->plugin()->name());
+        else
+            uniName = QString("%1: ??").arg(src.universe() + 1);
         chName = QString("%1: ?").arg(src.channel() + 1);
     }
     else
@@ -508,33 +511,19 @@ void InputMap::saveDefaults()
         key = QString("/inputmap/editoruniverse/");
         settings.setValue(key, m_editorUniverse);
 
+        /* Plugin name */
+        key = QString("/inputmap/universe%2/plugin/").arg(i);
         if (pat->plugin() != NULL)
-        {
-            /* Plugin name */
-            key = QString("/inputmap/universe%2/plugin/").arg(i);
             settings.setValue(key, pat->plugin()->name());
-
-            /* Plugin input */
-            key = QString("/inputmap/universe%2/input/").arg(i);
-            settings.setValue(key, str.setNum(pat->input()));
-
-            /* Input profile */
-            key = QString("/inputmap/universe%2/profile/").arg(i);
-            settings.setValue(key, pat->profileName());
-        }
         else
-        {
-            /* Plugin name */
-            key = QString("/inputmap/universe%2/plugin/").arg(i);
-            settings.setValue(key, "");
+            settings.setValue(key, "None");
 
-            /* Plugin input */
-            key = QString("/inputmap/universe%2/input/").arg(i);
-            settings.setValue(key, "");
+        /* Plugin input */
+        key = QString("/inputmap/universe%2/input/").arg(i);
+        settings.setValue(key, str.setNum(pat->input()));
 
-            /* Input profile */
-            key = QString("/inputmap/universe%2/profile/").arg(i);
-            settings.setValue(key, "");
-        }
+        /* Input profile */
+        key = QString("/inputmap/universe%2/profile/").arg(i);
+        settings.setValue(key, pat->profileName());
     }
 }
