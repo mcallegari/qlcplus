@@ -31,6 +31,7 @@ HEADERS += aboutbox.h \
            assignhotkey.h \
            channelselection.h \
            chasereditor.h \
+           clickngoslider.h \
            collectioneditor.h \
            consolechannel.h \
            createfixturegroup.h \
@@ -135,6 +136,7 @@ SOURCES += aboutbox.cpp \
            assignhotkey.cpp \
            channelselection.cpp \
            chasereditor.cpp \
+           clickngoslider.cpp \
            collectioneditor.cpp \
            consolechannel.cpp \
            createfixturegroup.cpp \

@@ -58,24 +58,6 @@ const QSize VCSlider::defaultSize(QSize(60, 200));
  * Initialization
  *****************************************************************************/
 
-ClicknGoSlider::ClicknGoSlider(QWidget *parent) : QSlider(parent)
-{
-}
-
-void ClicknGoSlider::mousePressEvent ( QMouseEvent * event )
-{
-    if (event->button() == Qt::LeftButton)
-    {
-        if (orientation() == Qt::Vertical)
-            setValue(minimum() + ((maximum()-minimum()) * (height()-event->y())) / height() ) ;
-        else
-            setValue(minimum() + ((maximum()-minimum()) * event->x()) / width() ) ;
-
-        event->accept();
-    }
-    QSlider::mousePressEvent(event);
-}
-
 VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 {
     /* Set the class name "VCSlider" as the object name as well */

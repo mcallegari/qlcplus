@@ -26,6 +26,7 @@
 #include <QMutex>
 #include <QIcon>
 
+#include "clickngoslider.h"
 #include "qlcchannel.h"
 #include "dmxsource.h"
 
@@ -33,7 +34,6 @@ class QContextMenuEvent;
 class QIntValidator;
 class QToolButton;
 class QSpinBox;
-class QSlider;
 class QLabel;
 class QMenu;
 
@@ -111,7 +111,7 @@ signals:
 private:
     QToolButton* m_presetButton;
     QSpinBox* m_spin;
-    QSlider* m_slider;
+    ClicknGoSlider* m_slider;
     QLabel* m_label;
 
     /*************************************************************************

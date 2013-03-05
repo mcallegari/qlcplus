@@ -22,10 +22,10 @@
 #ifndef VCSLIDER_H
 #define VCSLIDER_H
 
-#include <QSlider>
 #include <QMutex>
 #include <QList>
 
+#include "clickngoslider.h"
 #include "dmxsource.h"
 #include "vcwidget.h"
 
@@ -62,15 +62,6 @@ class VCSliderProperties;
 #define KXMLQLCVCSliderPlayback "Playback"
 #define KXMLQLCVCSliderPlaybackFunction "Function"
 
-class ClicknGoSlider : public QSlider
-{
-    Q_OBJECT
-public:
-    ClicknGoSlider ( QWidget * parent = 0 );
-
-protected:
-    void mousePressEvent ( QMouseEvent * event );
-};
 
 class VCSlider : public VCWidget, public DMXSource
 {
