@@ -19,6 +19,7 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
+#include <QFileDialog>
 #include <QLineEdit>
 #include <QSettings>
 #include <QSpinBox>
@@ -29,12 +30,15 @@
 
 #define KSettingsGeometry "editcapability/geometry"
 
-EditCapability::EditCapability(QWidget* parent, const QLCCapability* cap)
+EditCapability::EditCapability(QWidget* parent, const QLCCapability* cap, QLCChannel::Group group)
     : QDialog(parent)
 {
     m_capability = new QLCCapability(cap);
 
     setupUi(this);
+
+    if (group != QLCChannel::Gobo)
+        m_resourceGroup->hide();
 
     QAction* action = new QAction(this);
     action->setShortcut(QKeySequence(QKeySequence::Close));
@@ -48,12 +52,17 @@ EditCapability::EditCapability(QWidget* parent, const QLCCapability* cap)
     m_minSpin->setFocus();
     m_minSpin->selectAll();
 
+    if (m_capability->resourceName().isEmpty() == false)
+        m_resourceButton->setIcon(QIcon(m_capability->resourceName()));
+
     connect(m_minSpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotMinSpinChanged(int)));
     connect(m_maxSpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotMaxSpinChanged(int)));
     connect(m_descriptionEdit, SIGNAL(textEdited(const QString&)),
             this, SLOT(slotDescriptionEdited(const QString&)));
+    connect(m_resourceButton, SIGNAL(pressed()),
+            this, SLOT(slotResourceButtonPressed()));
 
     QSettings settings;
     QVariant var = settings.value(KSettingsGeometry);
@@ -83,5 +92,26 @@ void EditCapability::slotMaxSpinChanged(int value)
 void EditCapability::slotDescriptionEdited(const QString& text)
 {
     m_capability->setName(text);
+}
+
+void EditCapability::slotResourceButtonPressed()
+{
+    QFileDialog dialog(this);
+
+    dialog.setWindowTitle(tr("Open Gobo File"));
+    dialog.setAcceptMode(QFileDialog::AcceptOpen);
+
+    dialog.setFilter(tr("Gobo pictures (*.jpg *.jpeg *.png *.bmp)"));
+
+    /* Get file name */
+    if (dialog.exec() != QDialog::Accepted)
+        return;
+
+    QString filename = dialog.selectedFiles().first();
+    if (filename.isEmpty() == true)
+        return;
+
+    m_resourceButton->setIcon(QIcon(filename));
+    m_capability->setResourceName(filename);
 }
 

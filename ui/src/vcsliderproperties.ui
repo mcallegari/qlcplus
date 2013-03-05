@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>511</width>
-    <height>412</height>
+    <height>455</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -360,6 +360,59 @@
         </layout>
        </item>
        <item>
+        <widget class="QGroupBox" name="m_clickngoGroup">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="title">
+          <string>Click &amp;&amp; Go</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QRadioButton" name="m_cngNoneCheck">
+            <property name="text">
+             <string>None</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="m_cngGoboCheck">
+            <property name="text">
+             <string>Gobo</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="m_cngColorCheck">
+            <property name="text">
+             <string>Color</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="m_cngRGBCheck">
+            <property name="text">
+             <string>RGB</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="m_cngPresetCheck">
+            <property name="text">
+             <string>Preset</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
         <spacer name="m_levelSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -488,6 +541,7 @@
   </layout>
  </widget>
  <resources>
+  <include location="qlcui.qrc"/>
   <include location="qlcui.qrc"/>
  </resources>
  <connections>

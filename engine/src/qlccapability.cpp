@@ -31,11 +31,12 @@
  * Initialization
  ************************************************************************/
 
-QLCCapability::QLCCapability(uchar min, uchar max, const QString& name)
+QLCCapability::QLCCapability(uchar min, uchar max, const QString& name, const QString &resource)
 {
     m_min = min;
     m_max = max;
     m_name = name;
+    m_resourceName = resource;
 }
 
 QLCCapability::QLCCapability(const QLCCapability* capability)
@@ -58,6 +59,7 @@ QLCCapability& QLCCapability::operator=(const QLCCapability& capability)
         m_min = capability.m_min;
         m_max = capability.m_max;
         m_name = capability.m_name;
+        m_resourceName = capability.m_resourceName;
     }
 
     return *this;
@@ -110,6 +112,16 @@ void QLCCapability::setName(const QString& name)
     m_name = name;
 }
 
+QString QLCCapability::resourceName()
+{
+    return m_resourceName;
+}
+
+void QLCCapability::setResourceName(const QString& name)
+{
+    m_resourceName = name;
+}
+
 bool QLCCapability::overlaps(const QLCCapability& cap)
 {
     if (m_min >= cap.min() && m_min <= cap.max())
@@ -146,6 +158,12 @@ bool QLCCapability::saveXML(QDomDocument* doc, QDomElement* root)
     /* Max limit attribute */
     str.setNum(m_max);
     tag.setAttribute(KXMLQLCCapabilityMax, str);
+
+    /* Resource file attribute */
+    if (m_resourceName.isEmpty() == false)
+    {
+        tag.setAttribute(KXMLQLCCapabilityResource, m_resourceName);
+    }
 
     /* Name value */
     text = doc->createTextNode(m_name);
@@ -195,6 +213,10 @@ bool QLCCapability::loadXML(const QDomElement& root)
         setName(root.text());
         setMin(min);
         setMax(max);
+        if(root.hasAttribute(KXMLQLCCapabilityResource))
+        {
+            setResourceName(root.attribute(KXMLQLCCapabilityResource));
+        }
         return true;
     }
     else

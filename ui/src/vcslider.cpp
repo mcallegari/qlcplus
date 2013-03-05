@@ -19,6 +19,7 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
+#include <QWidgetAction>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QPushButton>
@@ -29,6 +30,7 @@
 #include <QSlider>
 #include <QDebug>
 #include <QLabel>
+#include <QMenu>
 #include <QTime>
 #include <QSize>
 #include <QtXml>
@@ -102,19 +104,22 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_hbox->addStretch();
 
     /* The slider */
-    m_slider = new ClicknGoSlider(this);
-    m_slider->setStyle(AppUtil::saneStyle());
-    /*
-    m_slider->setStyleSheet("QSlider::handle:vertical {"
-                          "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #a4a4a4, stop:1 #4f4f4f);"
-                          "border: 1px solid #5c5c5c;"
-                          "border-radius: 3px;"
-                          "}");
-    */
+    m_slider = new ClickAndGoSlider(this);
+
     m_hbox->addWidget(m_slider);
     m_slider->setRange(0, 255);
     m_slider->setPageStep(1);
     m_slider->setInvertedAppearance(false);
+#if 1
+    m_slider->setStyle(AppUtil::saneStyle());
+#else
+    m_slider->setStyleSheet("QSlider::handle:vertical {"
+                          "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #a4a4a4, stop:1 #4f4f4f);"
+                          "border: 1px solid #5c5c5c;"
+                          "border-radius: 3px;"
+                          "margin: 0 -20px;"
+                          "}");
+#endif
     connect(m_slider, SIGNAL(valueChanged(int)),
             this, SLOT(slotSliderMoved(int)));
     m_externalMovement = false;
@@ -128,6 +133,28 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     connect(m_tapButton, SIGNAL(clicked()),
             this, SLOT(slotTapButtonClicked()));
     m_time = new QTime();
+
+    /* Click & Go button */
+    m_cngType = None;
+    m_cngBox = new QHBoxLayout();
+    layout()->addItem(m_cngBox);
+    m_cngBox->addStretch();
+
+    m_cngButton = new QToolButton(this);
+    m_cngButton->setFixedSize(48, 48);
+    m_cngButton->setIconSize(QSize(42, 42));
+    m_menu = new QMenu(this);
+    QWidgetAction* action = new QWidgetAction(this);
+    m_cngWidget = new ClickAndGoWidget();
+    action->setDefaultWidget(m_cngWidget);
+    m_menu->addAction(action);
+    m_cngButton->setMenu(m_menu);
+    m_cngButton->setPopupMode(QToolButton::InstantPopup);
+    m_cngBox->addWidget(m_cngButton);
+    m_cngBox->addStretch();
+    m_cngButton->hide();
+    connect(m_cngWidget, SIGNAL(levelChanged(uchar)),
+            this, SLOT(slotClickAndGoLevelChanged(uchar)));
 
     /* Bottom label */
     m_bottomLabel = new QLabel(this);
@@ -230,7 +257,16 @@ void VCSlider::editProperties()
 {
     VCSliderProperties prop(this, m_doc);
     if (prop.exec() == QDialog::Accepted)
+    {
         m_doc->setModified();
+        if (m_cngType == None)
+            m_cngButton->hide();
+        else
+        {
+            m_cngWidget->setType(m_cngType);
+            m_cngButton->show();
+        }
+    }
 }
 
 /*****************************************************************************
@@ -245,6 +281,7 @@ void VCSlider::slotModeChanged(Doc::Mode mode)
         m_slider->setEnabled(true);
         m_bottomLabel->setEnabled(true);
         m_tapButton->setEnabled(true);
+        m_cngButton->setEnabled(true);
 
         if (sliderMode() == Playback)
         {
@@ -268,6 +305,7 @@ void VCSlider::slotModeChanged(Doc::Mode mode)
         m_slider->setEnabled(false);
         m_bottomLabel->setEnabled(false);
         m_tapButton->setEnabled(false);
+        m_cngButton->setEnabled(false);
 
         if (sliderMode() == Playback)
         {
@@ -401,6 +439,11 @@ void VCSlider::setSliderMode(SliderMode mode)
 
         m_bottomLabel->show();
         m_tapButton->hide();
+        if (m_cngType != None)
+        {
+            m_cngWidget->setType(m_cngType);
+            m_cngButton->show();
+        }
 
         m_doc->masterTimer()->registerDMXSource(this);
     }
@@ -408,6 +451,7 @@ void VCSlider::setSliderMode(SliderMode mode)
     {
         m_bottomLabel->show();
         m_tapButton->hide();
+        m_cngButton->hide();
 
         uchar level = playbackValue();
         m_slider->setRange(0, UCHAR_MAX);
@@ -491,6 +535,64 @@ void VCSlider::slotFixtureRemoved(quint32 fxi_id)
         if (it.value().fixture == fxi_id)
             it.remove();
     }
+}
+
+/*********************************************************************
+ * Click & Go
+ *********************************************************************/
+
+void VCSlider::setClickAndGoType(VCSlider::ClickAndGo type)
+{
+    m_cngType = type;
+}
+
+VCSlider::ClickAndGo VCSlider::getClickAndGoType()
+{
+    return m_cngType;
+}
+
+QString VCSlider::clickAndGoTypeToString(VCSlider::ClickAndGo type)
+{
+    switch (type)
+    {
+        default:
+        case None: return "None"; break;
+        case Gobo: return "Gobo"; break;
+        case Red: return "Red"; break;
+        case Green: return "Green"; break;
+        case Blue: return "Blue"; break;
+        case Cyan: return "Cyan"; break;
+        case Magenta: return "Magenta"; break;
+        case Yellow: return "Yellow"; break;
+        case White: return "White"; break;
+        case RGB: return "RGB"; break;
+        case Preset: return "Preset"; break;
+    }
+}
+
+VCSlider::ClickAndGo VCSlider::stringToClickAndGoType(QString str)
+{
+    if (str == "Gobo") return Gobo;
+    else if (str == "Red") return Red;
+    else if (str == "Green") return Green;
+    else if (str == "Blue") return Blue;
+    else if (str == "Cyan") return Cyan;
+    else if (str == "Magenta") return Magenta;
+    else if (str == "Yellow") return Yellow;
+    else if (str == "White") return White;
+    else if (str == "RGB") return RGB;
+    else if (str == "Preset") return Preset;
+
+    return None;
+}
+
+void VCSlider::slotClickAndGoLevelChanged(uchar level)
+{
+    m_slider->setValue(level);
+    QColor col = m_cngWidget->getColorAt(level);
+    QPixmap px(42, 42);
+    px.fill(col);
+    m_cngButton->setIcon(px);
 }
 
 /*****************************************************************************
@@ -862,6 +964,12 @@ bool VCSlider::loadXML(const QDomElement* root)
 
             str = tag.attribute(KXMLQLCVCSliderValueDisplayStyle);
             setValueDisplayStyle(stringToValueDisplayStyle(str));
+
+            if (tag.hasAttribute(KXMLQLCVCSliderClickAndGoType))
+            {
+                str = tag.attribute(KXMLQLCVCSliderClickAndGoType);
+                setClickAndGoType(stringToClickAndGoType(str));
+            }
         }
         else if (tag.tagName() == KXMLQLCVCSliderLevel)
         {
@@ -1016,6 +1124,10 @@ bool VCSlider::saveXML(QDomDocument* doc, QDomElement* vc_root)
     /* Value display style */
     str = valueDisplayStyleToString(valueDisplayStyle());
     tag.setAttribute(KXMLQLCVCSliderValueDisplayStyle, str);
+
+    /* Click And Go type */
+    str = clickAndGoTypeToString(m_cngType);
+    tag.setAttribute(KXMLQLCVCSliderClickAndGoType, str);
 
     /* Level */
     tag = doc->createElement(KXMLQLCVCSliderLevel);

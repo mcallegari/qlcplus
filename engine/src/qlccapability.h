@@ -28,6 +28,7 @@
 #define KXMLQLCCapability    "Capability"
 #define KXMLQLCCapabilityMin "Min"
 #define KXMLQLCCapabilityMax "Max"
+#define KXMLQLCCapabilityResource "Res"
 
 class QString;
 class QFile;
@@ -51,7 +52,7 @@ class QLCCapability
 public:
     /** Default constructor */
     QLCCapability(uchar min = 0, uchar max = UCHAR_MAX,
-                  const QString& name = QString());
+                  const QString& name = QString(), const QString& resource = QString());
 
     /** Copy constructor */
     QLCCapability(const QLCCapability* cap);
@@ -80,6 +81,9 @@ public:
     QString name() const;
     void setName(const QString& name);
 
+    QString resourceName();
+    void setResourceName(const QString& name);
+
     /** Check, whether the given capability overlaps with this */
     bool overlaps(const QLCCapability& cap);
 
@@ -87,6 +91,7 @@ protected:
     uchar m_min;
     uchar m_max;
     QString m_name;
+    QString m_resourceName;
 
     /********************************************************************
      * Load & Save

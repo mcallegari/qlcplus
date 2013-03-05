@@ -4092,12 +4092,12 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="vcsliderproperties.ui" line="221"/>
         <source>Lowest DMX value that can be set with this slider</source>
-        <translation>Il più basso valore DMX che può essere raggiunto da questo slider</translation>
+        <translation>Il valore DMX più basso che può essere raggiunto da questo slider</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="389"/>
         <source>Playback</source>
-        <translation>riproduzione</translation>
+        <translation>Riproduzione</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="395"/>

@@ -26,7 +26,7 @@
 #include <QMutex>
 #include <QIcon>
 
-#include "clickngoslider.h"
+#include "clickandgoslider.h"
 #include "qlcchannel.h"
 #include "dmxsource.h"
 
@@ -111,7 +111,7 @@ signals:
 private:
     QToolButton* m_presetButton;
     QSpinBox* m_spin;
-    ClicknGoSlider* m_slider;
+    ClickAndGoSlider* m_slider;
     QLabel* m_label;
 
     /*************************************************************************

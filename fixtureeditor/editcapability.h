@@ -24,6 +24,7 @@
 
 #include <QWidget>
 #include "ui_editcapability.h"
+#include "qlcchannel.h"
 
 class QWidget;
 class QLCCapability;
@@ -33,7 +34,7 @@ class EditCapability : public QDialog, public Ui_EditCapability
     Q_OBJECT
 
 public:
-    EditCapability(QWidget* parent, const QLCCapability* capability = NULL);
+    EditCapability(QWidget* parent, const QLCCapability* capability = NULL, QLCChannel::Group group = QLCChannel::NoGroup);
     ~EditCapability();
 
     /*********************************************************************
@@ -54,6 +55,7 @@ public slots:
     void slotMinSpinChanged(int value);
     void slotMaxSpinChanged(int value);
     void slotDescriptionEdited(const QString& text);
+    void slotResourceButtonPressed();
 };
 
 #endif

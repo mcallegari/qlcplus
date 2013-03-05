@@ -104,7 +104,7 @@ void ConsoleChannel::init()
     layout()->setAlignment(m_spin, Qt::AlignCenter);
 
     /* Value slider */
-    m_slider = new ClicknGoSlider(this);
+    m_slider = new ClickAndGoSlider(this);
     m_slider->setStyle(AppUtil::saneStyle());
     layout()->addWidget(m_slider);
     m_slider->setInvertedAppearance(false);

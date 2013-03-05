@@ -166,6 +166,8 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
     /* Function */
     m_playbackFunctionId = m_slider->playbackFunction();
     updatePlaybackFunctionName();
+
+
 }
 
 VCSliderProperties::~VCSliderProperties()
@@ -188,6 +190,7 @@ void VCSliderProperties::slotModeLevelClicked()
     m_levelNoneButton->show();
     m_levelInvertButton->show();
     m_levelByGroupButton->show();
+    m_clickngoGroup->show();
 
     m_playbackFunctionGroup->hide();
 
@@ -196,6 +199,31 @@ void VCSliderProperties::slotModeLevelClicked()
 
     m_levelSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
     m_playbackSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
+
+    int cngType = m_slider->getClickAndGoType();
+    switch(cngType)
+    {
+        case VCSlider::Gobo:
+            m_cngGoboCheck->setChecked(true);
+        break;
+        case VCSlider::RGB:
+            m_cngRGBCheck->setChecked(true);
+        break;
+        case VCSlider::Red:
+        case VCSlider::Green:
+        case VCSlider::Blue:
+        case VCSlider::Cyan:
+        case VCSlider::Magenta:
+        case VCSlider::Yellow:
+        case VCSlider::White:
+            m_cngColorCheck->setChecked(true);
+        break;
+        default:
+        case VCSlider::None:
+            m_cngNoneCheck->setChecked(true);
+        break;
+
+    }
 }
 
 void VCSliderProperties::slotModePlaybackClicked()
@@ -210,6 +238,7 @@ void VCSliderProperties::slotModePlaybackClicked()
     m_levelNoneButton->hide();
     m_levelInvertButton->hide();
     m_levelByGroupButton->hide();
+    m_clickngoGroup->hide();
 
     m_playbackFunctionGroup->show();
 
@@ -448,8 +477,7 @@ void VCSliderProperties::levelSelectChannelsByGroup(QString group)
             Q_ASSERT(ch_item != NULL);
 
             if (ch_item->text(KColumnType) == group)
-                ch_item->setCheckState(KColumnName,
-                                       Qt::Checked);
+                ch_item->setCheckState(KColumnName, Qt::Checked);
         }
     }
 }
@@ -641,8 +669,20 @@ void VCSliderProperties::updatePlaybackFunctionName()
  * OK & Cancel
  *****************************************************************************/
 
+void VCSliderProperties::checkMajorColor(int *comp, int *max, int type)
+{
+    if (*comp > *max)
+    {
+        *max = *comp;
+        m_slider->setClickAndGoType((VCSlider::ClickAndGo)type);
+    }
+}
+
 void VCSliderProperties::storeLevelChannels()
 {
+    int red = 0, green = 0, blue = 0;
+    int cyan = 0, magenta = 0, yellow = 0, white = 0;
+    int majorColor = 0;
     /* Clear all channels from the slider first */
     m_slider->clearLevelChannels();
 
@@ -653,6 +693,7 @@ void VCSliderProperties::storeLevelChannels()
         Q_ASSERT(fxi_item != NULL);
 
         quint32 fxi_id = fxi_item->text(KColumnID).toUInt();
+        Fixture *fxi = m_doc->fixture(fxi_id);
 
         for (int j = 0; j < fxi_item->childCount(); j++)
         {
@@ -662,6 +703,48 @@ void VCSliderProperties::storeLevelChannels()
             if (ch_item->checkState(KColumnName) == Qt::Checked)
             {
                 quint32 ch_num = ch_item->text(KColumnID).toUInt();
+                if (fxi != NULL)
+                {
+                    const QLCChannel *ch = fxi->channel(ch_num);
+                    if (ch->group() == QLCChannel::Intensity)
+                    {
+                        if (ch->colour() == QLCChannel::Red)
+                        {
+                            red++;
+                            checkMajorColor(&red, &majorColor, VCSlider::Red);
+                        }
+                        else if (ch->colour() == QLCChannel::Green)
+                        {
+                            green++;
+                            checkMajorColor(&green, &majorColor, VCSlider::Green);
+                        }
+                        else if (ch->colour() == QLCChannel::Blue)
+                        {
+                            blue++;
+                            checkMajorColor(&blue, &majorColor, VCSlider::Blue);
+                        }
+                        else if (ch->colour() == QLCChannel::Cyan)
+                        {
+                            cyan++;
+                            checkMajorColor(&cyan, &majorColor, VCSlider::Cyan);
+                        }
+                        else if (ch->colour() == QLCChannel::Magenta)
+                        {
+                            magenta++;
+                            checkMajorColor(&magenta, &majorColor, VCSlider::Magenta);
+                        }
+                        else if (ch->colour() == QLCChannel::Yellow)
+                        {
+                            yellow++;
+                            checkMajorColor(&yellow, &majorColor, VCSlider::Yellow);
+                        }
+                        else if (ch->colour() == QLCChannel::White)
+                        {
+                            white++;
+                            checkMajorColor(&white, &majorColor, VCSlider::White);
+                        }
+                    }
+                }
                 m_slider->addLevelChannel(fxi_id, ch_num);
             }
         }
@@ -674,6 +757,18 @@ void VCSliderProperties::accept()
     m_slider->setLevelLowLimit(m_levelLowLimitSpin->value());
     m_slider->setLevelHighLimit(m_levelHighLimitSpin->value());
     storeLevelChannels();
+
+    /* Click & Go group */
+    /* Color doesn't have a case cause it is calculated
+     * in storeLevelChannels */
+    if (m_cngNoneCheck->isChecked())
+        m_slider->setClickAndGoType(VCSlider::None);
+    else if (m_cngGoboCheck->isChecked())
+        m_slider->setClickAndGoType(VCSlider::Gobo);
+    else if (m_cngRGBCheck->isChecked())
+        m_slider->setClickAndGoType(VCSlider::RGB);
+    else if (m_cngPresetCheck->isChecked())
+        m_slider->setClickAndGoType(VCSlider::Preset);
 
     /* Playback page */
     m_slider->setPlaybackFunction(m_playbackFunctionId);

@@ -224,7 +224,7 @@ void EditChannel::slotAddCapabilityClicked()
     QLCCapability* cap = NULL;
     bool ok = false;
 
-    ec = new EditCapability(this);
+    ec = new EditCapability(this, NULL, m_channel->group());
 
     while (ok == false)
     {
@@ -289,7 +289,7 @@ void EditChannel::slotEditCapabilityClicked()
     if (real == NULL)
         return;
 
-    ec = new EditCapability(this, real);
+    ec = new EditCapability(this, real, m_channel->group());
 
     while (ok == false)
     {

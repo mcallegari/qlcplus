@@ -25,13 +25,15 @@
 #include <QMutex>
 #include <QList>
 
-#include "clickngoslider.h"
+#include "clickandgoslider.h"
+#include "clickandgowidget.h"
 #include "dmxsource.h"
 #include "vcwidget.h"
 
 class QDomDocument;
 class QDomElement;
 class QPushButton;
+class QToolButton;
 class QHBoxLayout;
 class QLabel;
 class QTime;
@@ -44,6 +46,8 @@ class VCSliderProperties;
 #define KXMLQLCVCSliderValueDisplayStyle "ValueDisplayStyle"
 #define KXMLQLCVCSliderValueDisplayStyleExact "Exact"
 #define KXMLQLCVCSliderValueDisplayStylePercentage "Percentage"
+
+#define KXMLQLCVCSliderClickAndGoType "ClickAndGoType"
 
 #define KXMLQLCVCSliderInvertedAppearance "InvertedAppearance"
 
@@ -386,7 +390,7 @@ private:
 
 protected:
     QHBoxLayout* m_hbox;
-    ClicknGoSlider* m_slider;
+    ClickAndGoSlider* m_slider;
     bool m_externalMovement;
 
     /*********************************************************************
@@ -429,6 +433,46 @@ public slots:
 protected:
     QPushButton* m_tapButton;
     QTime* m_time;
+
+    /*********************************************************************
+     * Click & Go
+     *********************************************************************/
+public:
+    enum ClickAndGo
+    {
+        None,
+        Gobo,
+        Red,
+        Green,
+        Blue,
+        Cyan,
+        Magenta,
+        Yellow,
+        White,
+        RGB,
+        Preset
+    };
+
+    void setClickAndGoType(ClickAndGo type);
+
+    ClickAndGo getClickAndGoType();
+
+protected:
+    /** Returns a human readable string of a Click And Go type */
+    QString clickAndGoTypeToString(ClickAndGo type);
+
+    /** Returns a Click And Go type from the given string */
+    ClickAndGo stringToClickAndGoType(QString str);
+
+private slots:
+    void slotClickAndGoLevelChanged(uchar level);
+
+protected:
+    ClickAndGo m_cngType;
+    QHBoxLayout *m_cngBox;
+    QToolButton *m_cngButton;
+    QMenu *m_menu;
+    ClickAndGoWidget *m_cngWidget;
 
     /*********************************************************************
      * External input

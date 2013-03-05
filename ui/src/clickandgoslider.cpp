@@ -19,13 +19,13 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#include "clickngoslider.h"
+#include "clickandgoslider.h"
 
-ClicknGoSlider::ClicknGoSlider(QWidget *parent) : QSlider(parent)
+ClickAndGoSlider::ClickAndGoSlider(QWidget *parent) : QSlider(parent)
 {
 }
 
-void ClicknGoSlider::mousePressEvent ( QMouseEvent * event )
+void ClickAndGoSlider::mousePressEvent ( QMouseEvent * event )
 {
     if (event->button() == Qt::LeftButton)
     {

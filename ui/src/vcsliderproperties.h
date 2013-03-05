@@ -154,6 +154,10 @@ protected:
      * OK & Cancel
      *********************************************************************/
 protected:
+    /** Check if the given comp color is the predominant and set the
+     *  proper value for ClickAndGo color functionality */
+    void checkMajorColor(int *comp, int *max, int type);
+
     /** Store selected channels to the slider */
     void storeLevelChannels();
 

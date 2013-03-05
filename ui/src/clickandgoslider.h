@@ -26,11 +26,11 @@
 #include <QMouseEvent>
 #include <QSlider>
 
-class ClicknGoSlider : public QSlider
+class ClickAndGoSlider : public QSlider
 {
     Q_OBJECT
 public:
-    ClicknGoSlider ( QWidget * parent = 0 );
+    ClickAndGoSlider ( QWidget * parent = 0 );
 
 protected:
     void mousePressEvent ( QMouseEvent * event );
