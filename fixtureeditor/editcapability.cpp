@@ -39,7 +39,13 @@ EditCapability::EditCapability(QWidget* parent, const QLCCapability* cap, QLCCha
 
     setupUi(this);
 
-    if (group != QLCChannel::Gobo)
+    if (group == QLCChannel::Gobo)
+        m_resourceGroup->setTitle(tr("Gobo"));
+    else if (group == QLCChannel::Colour)
+        m_resourceGroup->setTitle(tr("Colour"));
+    else if (group == QLCChannel::Effect)
+        m_resourceGroup->setTitle(tr("Effect"));
+    else
         m_resourceGroup->hide();
 
     QAction* action = new QAction(this);

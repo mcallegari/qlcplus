@@ -7,6 +7,7 @@ SUBDIRS      += engine
 SUBDIRS      += ui
 SUBDIRS      += main
 SUBDIRS      += fixtures
+SUBDIRS      += gobos
 SUBDIRS      += inputprofiles
 SUBDIRS      += rgbscripts
 SUBDIRS      += fixtureeditor

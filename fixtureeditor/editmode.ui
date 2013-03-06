@@ -27,7 +27,7 @@
    <item row="1" column="0" colspan="2">
     <widget class="QTabWidget" name="m_tab">
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_channels">
       <attribute name="title">
