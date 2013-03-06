@@ -68,9 +68,9 @@ unix:!macx:DOCSDIR = $$DATADIR/documents
 macx:DOCSDIR       = $$DATADIR/Documents
 
 # Input profiles
-win32:INPUTPROFILEDIR          = InputProfiles
-unix:!macx:INPUTPROFILEDIR     = $$DATADIR/inputprofiles
-macx:INPUTPROFILEDIR           = $$DATADIR/InputProfiles
+win32:INPUTPROFILEDIR      = InputProfiles
+unix:!macx:INPUTPROFILEDIR = $$DATADIR/inputprofiles
+macx:INPUTPROFILEDIR       = $$DATADIR/InputProfiles
 
 # User input profiles
 win32:USERINPUTPROFILEDIR      = QLC+/InputProfiles
@@ -78,9 +78,14 @@ unix:!macx:USERINPUTPROFILEDIR = .qlcplus/inputprofiles
 macx:USERINPUTPROFILEDIR       = "Library/Application Support/QLC+/InputProfiles"
 
 # Fixtures
-win32:FIXTUREDIR          = Fixtures
-unix:!macx:FIXTUREDIR     = $$DATADIR/fixtures
-macx:FIXTUREDIR           = $$DATADIR/Fixtures
+win32:FIXTUREDIR      = Fixtures
+unix:!macx:FIXTUREDIR = $$DATADIR/fixtures
+macx:FIXTUREDIR       = $$DATADIR/Fixtures
+
+# Gobos
+win32:GOBODIR      = Gobos
+unix:!macx:GOBODIR = $$DATADIR/gobos
+macx:GOBODIR       = $$DATADIR/Gobos
 
 # User fixtures
 win32:USERFIXTUREDIR      = QLC+/Fixtures
