@@ -58,6 +58,7 @@ AddFixture::AddFixture(QWidget* parent, const Doc* doc, const Fixture* fxi)
     m_channelsValue = 1;
     m_fixtureDef = NULL;
     m_mode = NULL;
+    m_fxiCount = 0;
 
     setupUi(this);
 
@@ -92,6 +93,8 @@ AddFixture::AddFixture(QWidget* parent, const Doc* doc, const Fixture* fxi)
         fillTree(fxi->fixtureDef()->manufacturer(), fxi->fixtureDef()->model());
     else
         fillTree(KXMLFixtureGeneric, KXMLFixtureGeneric);
+
+    m_fixturesCount->setText(tr("Fixtures found: %1").arg(m_fxiCount));
 
     /* Fill universe combo with available universes */
     m_universeCombo->addItems(m_doc->outputMap()->universeNames());
@@ -239,6 +242,7 @@ void AddFixture::fillTree(const QString& selectManufacturer,
                 parent->setExpanded(true);
                 m_tree->setCurrentItem(child);
             }
+            m_fxiCount++;
         }
     }
 

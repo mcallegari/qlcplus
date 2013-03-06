@@ -89,109 +89,109 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>App</name>
     <message>
-        <location filename="app.cpp" line="115"/>
+        <location filename="app.cpp" line="123"/>
         <source>Unrecognized file extension: %1</source>
         <translation>Unbekannte Dateinamenerweiterung: %1</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="139"/>
+        <location filename="app.cpp" line="147"/>
         <source>Fixture loading failed</source>
         <translation>Laden fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="140"/>
+        <location filename="app.cpp" line="148"/>
         <source>Unable to load fixture definition: </source>
         <translation>Gerätedefinition konnte nicht geladen werden:</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="243"/>
+        <location filename="app.cpp" line="251"/>
         <source>&amp;New</source>
         <translation>&amp;Neu</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="244"/>
+        <location filename="app.cpp" line="252"/>
         <source>CTRL+N</source>
         <comment>File|New</comment>
         <translation>CTRL+N</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="249"/>
+        <location filename="app.cpp" line="257"/>
         <source>&amp;Open</source>
         <translation>&amp;Öffnen</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="250"/>
+        <location filename="app.cpp" line="258"/>
         <source>CTRL+O</source>
         <comment>File|Open</comment>
         <translation>CTRL+O</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="255"/>
+        <location filename="app.cpp" line="263"/>
         <source>&amp;Save</source>
         <translation>&amp;Speichern</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="256"/>
+        <location filename="app.cpp" line="264"/>
         <source>CTRL+S</source>
         <comment>File|Save</comment>
         <translation>CTRL+S</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="260"/>
+        <location filename="app.cpp" line="269"/>
         <source>Save &amp;As...</source>
         <oldsource>Save &amp;As</oldsource>
         <translation>Speichern &amp;unter ...</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="261"/>
+        <location filename="app.cpp" line="270"/>
         <source>CTRL+SHIFT+S</source>
         <comment>File|Save As...</comment>
         <translation>CTRL+SHIFT+S</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="266"/>
+        <location filename="app.cpp" line="275"/>
         <source>&amp;Quit</source>
         <translation>&amp;Beenden</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="267"/>
+        <location filename="app.cpp" line="276"/>
         <source>CTRL+Q</source>
         <comment>File|Quit</comment>
         <translation>CTRL+Q</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="273"/>
+        <location filename="app.cpp" line="282"/>
         <source>Index</source>
         <translation>Handbuch</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="274"/>
+        <location filename="app.cpp" line="283"/>
         <source>SHIFT+F1</source>
         <comment>Help|Index</comment>
         <translation>F1</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="279"/>
+        <location filename="app.cpp" line="288"/>
         <source>About Fixture Definition Editor...</source>
         <translation>Über Fixture Defninition Editor...</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="284"/>
+        <location filename="app.cpp" line="293"/>
         <source>About Qt...</source>
         <translation>Über Qt...</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="304"/>
+        <location filename="app.cpp" line="319"/>
         <source>&amp;File</source>
         <translation>&amp;Datei</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="314"/>
+        <location filename="app.cpp" line="329"/>
         <source>&amp;Help</source>
         <translation>&amp;Hilfe</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="352"/>
+        <location filename="app.cpp" line="367"/>
         <source>Open a fixture definition</source>
         <translation>Eine Gerätedefinition öffnen</translation>
     </message>
@@ -295,29 +295,44 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>EditCapability</name>
     <message>
-        <location filename="editcapability.ui" line="13"/>
+        <location filename="editcapability.ui" line="14"/>
         <source>Edit Capability</source>
         <translation>Funktion Bearbeiten</translation>
     </message>
     <message>
-        <location filename="editcapability.ui" line="19"/>
+        <location filename="editcapability.ui" line="22"/>
         <source>Capability Values</source>
         <translation>Funktionswerte</translation>
     </message>
     <message>
-        <location filename="editcapability.ui" line="25"/>
+        <location filename="editcapability.ui" line="73"/>
         <source>Min</source>
         <translation>Min</translation>
     </message>
     <message>
-        <location filename="editcapability.ui" line="32"/>
+        <location filename="editcapability.ui" line="106"/>
+        <source>Gobo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editcapability.ui" line="37"/>
         <source>Max</source>
         <translation>Max</translation>
     </message>
     <message>
-        <location filename="editcapability.ui" line="39"/>
+        <location filename="editcapability.ui" line="60"/>
         <source>Description</source>
         <translation>Beschreibung</translation>
+    </message>
+    <message>
+        <location filename="editcapability.cpp" line="101"/>
+        <source>Open Gobo File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editcapability.cpp" line="104"/>
+        <source>Gobo pictures (*.jpg *.jpeg *.png *.bmp)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -36,7 +36,12 @@ public:
     QColor getColorAt(uchar pos);
     
 protected:
+    /** Prepare the widget to display a linear gradient */
+    /** from black to a primary color (end) */
     void setupGradient(QColor end);
+
+    void fillWithGradient(int r, int g, int b, QPainter *painter, int x);
+    void setupColorPicker();
 
 protected:
     /** The Click And Go type. Essential for the whole widget behaviour */
@@ -56,7 +61,7 @@ protected:
 
 signals:
     void levelChanged(uchar level);
-    void colorChanged(uchar red, uchar green, uchar blue);
+    void colorChanged(QRgb color);
     
 public slots:
     

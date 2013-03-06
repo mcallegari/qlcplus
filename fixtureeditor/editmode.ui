@@ -27,7 +27,7 @@
    <item row="1" column="0" colspan="2">
     <widget class="QTabWidget" name="m_tab">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tab_channels">
       <attribute name="title">
@@ -314,7 +314,7 @@
              <bool>true</bool>
             </property>
             <property name="currentIndex">
-             <number>27</number>
+             <number>30</number>
             </property>
             <item>
              <property name="text">
@@ -389,6 +389,31 @@
             <item>
              <property name="text">
               <string notr="true">ELC 250W</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>HMI 150W</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>HMI 250W</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>HMI 400W</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>HMI 575W</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>HMI 700W</string>
              </property>
             </item>
             <item>
@@ -906,6 +931,7 @@
   </layout>
  </widget>
  <resources>
+  <include location="../ui/src/qlcui.qrc"/>
   <include location="../ui/src/qlcui.qrc"/>
  </resources>
  <connections>

@@ -466,6 +466,7 @@ protected:
 
 private slots:
     void slotClickAndGoLevelChanged(uchar level);
+    void slotClickAndGoColorChanged(QRgb color);
 
 protected:
     ClickAndGo m_cngType;

@@ -140,6 +140,9 @@ protected:
     /** Update the maximum amount of fixtures for the universe */
     void updateMaximumAmount();
 
+protected:
+    int m_fxiCount;
+
     /*********************************************************************
      * Slots
      *********************************************************************/

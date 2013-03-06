@@ -155,6 +155,8 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_cngButton->hide();
     connect(m_cngWidget, SIGNAL(levelChanged(uchar)),
             this, SLOT(slotClickAndGoLevelChanged(uchar)));
+    connect(m_cngWidget, SIGNAL(colorChanged(QRgb)),
+            this, SLOT(slotClickAndGoColorChanged(QRgb)));
 
     /* Bottom label */
     m_bottomLabel = new QLabel(this);
@@ -590,6 +592,14 @@ void VCSlider::slotClickAndGoLevelChanged(uchar level)
 {
     m_slider->setValue(level);
     QColor col = m_cngWidget->getColorAt(level);
+    QPixmap px(42, 42);
+    px.fill(col);
+    m_cngButton->setIcon(px);
+}
+
+void VCSlider::slotClickAndGoColorChanged(QRgb color)
+{
+    QColor col(color);
     QPixmap px(42, 42);
     px.fill(col);
     m_cngButton->setIcon(px);
