@@ -474,6 +474,7 @@ protected:
     QToolButton *m_cngButton;
     QMenu *m_menu;
     ClickAndGoWidget *m_cngWidget;
+    QColor m_cngRGBvalue;
 
     /*********************************************************************
      * External input

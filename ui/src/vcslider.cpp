@@ -600,9 +600,12 @@ void VCSlider::slotClickAndGoLevelChanged(uchar level)
 void VCSlider::slotClickAndGoColorChanged(QRgb color)
 {
     QColor col(color);
+    m_cngRGBvalue = col;
     QPixmap px(42, 42);
     px.fill(col);
     m_cngButton->setIcon(px);
+    // place the slider half way to reach white@255 and black@0
+    m_slider->setValue(128);
 }
 
 /*****************************************************************************
@@ -673,6 +676,28 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, UniverseArray* universes)
 
     m_levelValueMutex.lock();
 
+    uchar modLevel = m_levelValue;
+
+    int r, g, b;
+    if (m_cngType == RGB)
+    {
+        float f = SCALE(float(m_levelValue),
+                        float(m_slider->minimum()),
+                        float(m_slider->maximum()),
+                        float(0), float(200));
+        if ((uchar)f == 0)
+        {
+            r = g = b = 0;
+        }
+        else
+        {
+            QColor modColor = m_cngRGBvalue.lighter((uchar)f);
+            r = modColor.red();
+            g = modColor.green();
+            b = modColor.blue();
+        }
+    }
+
     QListIterator <LevelChannel> it(m_levelChannels);
     while (it.hasNext() == true)
     {
@@ -691,9 +716,18 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, UniverseArray* universes)
                    LTP in effect. */
                 continue;
             }
+            if (m_cngType == RGB && qlcch->group() == QLCChannel::Intensity)
+            {
+                if (qlcch->colour() == QLCChannel::Red)
+                    modLevel = (uchar)r;
+                else if (qlcch->colour() == QLCChannel::Green)
+                    modLevel = (uchar)g;
+                else if (qlcch->colour() == QLCChannel::Blue)
+                    modLevel = (uchar)b;
+            }
 
             quint32 dmx_ch = fxi->channelAddress(lch.channel);
-            universes->write(dmx_ch, m_levelValue, qlcch->group());
+            universes->write(dmx_ch, modLevel, qlcch->group());
         }
     }
     m_levelValueChanged = false;
