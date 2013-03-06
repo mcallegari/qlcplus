@@ -19,13 +19,15 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
+#include <QColorDialog>
 #include <QFileDialog>
 #include <QLineEdit>
 #include <QSettings>
 #include <QSpinBox>
 
-#include "qlccapability.h"
 #include "editcapability.h"
+#include "qlccapability.h"
+#include "qlcconfig.h"
 #include "util.h"
 
 #define KSettingsGeometry "editcapability/geometry"
@@ -54,6 +56,12 @@ EditCapability::EditCapability(QWidget* parent, const QLCCapability* cap, QLCCha
 
     if (m_capability->resourceName().isEmpty() == false)
         m_resourceButton->setIcon(QIcon(m_capability->resourceName()));
+    else if (m_capability->resourceColor().isValid())
+    {
+        QPixmap pix(58, 58);
+        pix.fill(m_capability->resourceColor());
+        m_resourceButton->setIcon(pix);
+    }
 
     connect(m_minSpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotMinSpinChanged(int)));
@@ -63,6 +71,8 @@ EditCapability::EditCapability(QWidget* parent, const QLCCapability* cap, QLCCha
             this, SLOT(slotDescriptionEdited(const QString&)));
     connect(m_resourceButton, SIGNAL(pressed()),
             this, SLOT(slotResourceButtonPressed()));
+    connect(m_colorButton, SIGNAL(pressed()),
+            this, SLOT(slotColorButtonPressed()));
 
     QSettings settings;
     QVariant var = settings.value(KSettingsGeometry);
@@ -100,6 +110,7 @@ void EditCapability::slotResourceButtonPressed()
 
     dialog.setWindowTitle(tr("Open Gobo File"));
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
+    dialog.setDirectory(GOBODIR);
 
     dialog.setFilter(tr("Gobo pictures (*.jpg *.jpeg *.png *.bmp)"));
 
@@ -113,5 +124,18 @@ void EditCapability::slotResourceButtonPressed()
 
     m_resourceButton->setIcon(QIcon(filename));
     m_capability->setResourceName(filename);
+}
+
+void EditCapability::slotColorButtonPressed()
+{
+    QColorDialog dialog(this);
+    if (dialog.exec() != QDialog::Accepted)
+        return;
+
+    QColor color = dialog.selectedColor();
+    QPixmap pix(58, 58);
+    pix.fill(color);
+    m_resourceButton->setIcon(pix);
+    m_capability->setResourceColor(color);
 }
 

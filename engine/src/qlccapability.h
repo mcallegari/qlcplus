@@ -23,18 +23,20 @@
 #define QLCCAPABILITY_H
 
 #include <climits>
+#include <QColor>
 #include <QList>
 
 #define KXMLQLCCapability    "Capability"
 #define KXMLQLCCapabilityMin "Min"
 #define KXMLQLCCapabilityMax "Max"
 #define KXMLQLCCapabilityResource "Res"
+#define KXMLQLCCapabilityColor "Color"
 
-class QString;
-class QFile;
+class QLCCapability;
 class QDomDocument;
 class QDomElement;
-class QLCCapability;
+class QString;
+class QFile;
 
 /**
  * QLCCapability represents one value range with a special meaning in a
@@ -52,7 +54,7 @@ class QLCCapability
 public:
     /** Default constructor */
     QLCCapability(uchar min = 0, uchar max = UCHAR_MAX,
-                  const QString& name = QString(), const QString& resource = QString());
+                  const QString& name = QString(), const QString& resource = QString(), const QColor &color = QColor());
 
     /** Copy constructor */
     QLCCapability(const QLCCapability* cap);
@@ -84,6 +86,9 @@ public:
     QString resourceName();
     void setResourceName(const QString& name);
 
+    QColor resourceColor();
+    void setResourceColor(QColor col);
+
     /** Check, whether the given capability overlaps with this */
     bool overlaps(const QLCCapability& cap);
 
@@ -92,6 +97,7 @@ protected:
     uchar m_max;
     QString m_name;
     QString m_resourceName;
+    QColor m_resourceColor;
 
     /********************************************************************
      * Load & Save

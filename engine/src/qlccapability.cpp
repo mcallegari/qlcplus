@@ -26,17 +26,19 @@
 
 #include "qlccapability.h"
 #include "qlcmacros.h"
+#include "qlcconfig.h"
 
 /************************************************************************
  * Initialization
  ************************************************************************/
 
-QLCCapability::QLCCapability(uchar min, uchar max, const QString& name, const QString &resource)
+QLCCapability::QLCCapability(uchar min, uchar max, const QString& name, const QString &resource, const QColor &color)
 {
     m_min = min;
     m_max = max;
     m_name = name;
     m_resourceName = resource;
+    m_resourceColor = color;
 }
 
 QLCCapability::QLCCapability(const QLCCapability* capability)
@@ -60,6 +62,7 @@ QLCCapability& QLCCapability::operator=(const QLCCapability& capability)
         m_max = capability.m_max;
         m_name = capability.m_name;
         m_resourceName = capability.m_resourceName;
+        m_resourceColor = capability.m_resourceColor;
     }
 
     return *this;
@@ -122,6 +125,16 @@ void QLCCapability::setResourceName(const QString& name)
     m_resourceName = name;
 }
 
+QColor QLCCapability::resourceColor()
+{
+    return m_resourceColor;
+}
+
+void QLCCapability::setResourceColor(QColor col)
+{
+    m_resourceColor = col;
+}
+
 bool QLCCapability::overlaps(const QLCCapability& cap)
 {
     if (m_min >= cap.min() && m_min <= cap.max())
@@ -162,7 +175,15 @@ bool QLCCapability::saveXML(QDomDocument* doc, QDomElement* root)
     /* Resource file attribute */
     if (m_resourceName.isEmpty() == false)
     {
-        tag.setAttribute(KXMLQLCCapabilityResource, m_resourceName);
+        QString modFilename = m_resourceName;
+        if (modFilename.contains(GOBODIR))
+            modFilename.remove(QString(GOBODIR) + QDir::separator() );
+
+        tag.setAttribute(KXMLQLCCapabilityResource, modFilename);
+    }
+    if (m_resourceColor.isValid())
+    {
+        tag.setAttribute(KXMLQLCCapabilityColor, m_resourceColor.name());
     }
 
     /* Name value */
@@ -208,15 +229,29 @@ bool QLCCapability::loadXML(const QDomElement& root)
         max = CLAMP(str.toInt(), 0, UCHAR_MAX);
     }
 
+    /* Get (optional) resource name for gobo/effect/... */
+    if(root.hasAttribute(KXMLQLCCapabilityResource))
+    {
+        QString path = root.attribute(KXMLQLCCapabilityResource);
+        if (QFileInfo(path).isRelative())
+            path = QString(GOBODIR) + QDir::separator() + path;
+        setResourceName(path);
+    }
+
+    /* Get (optional) color resource for color presets */
+    if (root.hasAttribute(KXMLQLCCapabilityColor))
+    {
+        QColor col = QColor(root.attribute(KXMLQLCCapabilityColor));
+        if (col.isValid())
+            setResourceColor(col);
+    }
+
     if (min <= max)
     {
         setName(root.text());
         setMin(min);
         setMax(max);
-        if(root.hasAttribute(KXMLQLCCapabilityResource))
-        {
-            setResourceName(root.attribute(KXMLQLCCapabilityResource));
-        }
+
         return true;
     }
     else
@@ -226,3 +261,4 @@ bool QLCCapability::loadXML(const QDomElement& root)
         return false;
     }
 }
+

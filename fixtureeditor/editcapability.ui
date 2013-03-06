@@ -22,8 +22,44 @@
         <string>Capability Values</string>
        </property>
        <layout class="QGridLayout">
+        <item row="1" column="0">
+         <widget class="QLabel" name="m_minLabel">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Min</string>
+          </property>
+         </widget>
+        </item>
         <item row="2" column="2">
          <widget class="QLineEdit" name="m_descriptionEdit"/>
+        </item>
+        <item row="2" column="0">
+         <widget class="QSpinBox" name="m_minSpin">
+          <property name="accelerated">
+           <bool>true</bool>
+          </property>
+          <property name="maximum">
+           <number>255</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" colspan="3">
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
         </item>
         <item row="1" column="1">
          <widget class="QLabel" name="m_maxLabel">
@@ -61,42 +97,6 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="m_minLabel">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>Min</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QSpinBox" name="m_minSpin">
-          <property name="accelerated">
-           <bool>true</bool>
-          </property>
-          <property name="maximum">
-           <number>255</number>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0" colspan="3">
-         <spacer name="verticalSpacer">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
        </layout>
       </widget>
      </item>
@@ -105,8 +105,11 @@
        <property name="title">
         <string>Gobo</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
        <layout class="QGridLayout" name="gridLayout">
-        <item row="0" column="0">
+        <item row="1" column="1">
          <widget class="QToolButton" name="m_resourceButton">
           <property name="minimumSize">
            <size>
@@ -128,6 +131,20 @@
           </property>
          </widget>
         </item>
+        <item row="1" column="0">
+         <widget class="QToolButton" name="m_colorButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="icon">
+           <iconset resource="../ui/src/qlcui.qrc">
+            <normaloff>:/color.png</normaloff>:/color.png</iconset>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
      </item>
@@ -145,7 +162,10 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../ui/src/qlcui.qrc"/>
+  <include location="../ui/src/qlcui.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>m_buttonBox</sender>

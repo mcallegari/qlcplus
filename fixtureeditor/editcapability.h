@@ -56,6 +56,7 @@ public slots:
     void slotMaxSpinChanged(int value);
     void slotDescriptionEdited(const QString& text);
     void slotResourceButtonPressed();
+    void slotColorButtonPressed();
 };
 
 #endif
