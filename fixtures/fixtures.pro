@@ -39,6 +39,7 @@ fixtures.files += Chauvet-Slim-Par-Pro-RGBA.qxf
 fixtures.files += Chauvet-Slim-Par-Pro-VW.qxf
 fixtures.files += Chauvet-Vue-3.1.qxf
 fixtures.files += Chauvet-Vue-6.1.qxf
+fixtures.files += Clay-Paky-Atlas.qxf
 fixtures.files += Clay-Paky-Mini-Scan-HPE.qxf
 fixtures.files += Elation-Color-Spot-150.qxf
 fixtures.files += Elation-Platinum-Spot-5R.qxf
