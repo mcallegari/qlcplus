@@ -441,7 +441,6 @@ public:
     enum ClickAndGo
     {
         None,
-        Gobo,
         Red,
         Green,
         Blue,
@@ -453,9 +452,27 @@ public:
         Preset
     };
 
+    /**
+     * Set the Click & Go type. Fundamental to decide
+     * the popup behaviour
+     */
     void setClickAndGoType(ClickAndGo type);
 
+    /**
+     * Returns the Click & Go type
+     */
     ClickAndGo getClickAndGoType();
+
+    /**
+     * Create or update the Click And Go widget (if applicable)
+     */
+    void setupClickAndGoWidegt();
+
+    /**
+     * Returns the Click & Go widget. Used by
+     * configuration dialog to setup the widget
+     */
+    ClickAndGoWidget* getClickAndGoWidget();
 
 protected:
     /** Returns a human readable string of a Click And Go type */
@@ -467,6 +484,7 @@ protected:
 private slots:
     void slotClickAndGoLevelChanged(uchar level);
     void slotClickAndGoColorChanged(QRgb color);
+    void slotClickAndGoLevelAndPresetChanged(uchar level, QImage img);
 
 protected:
     ClickAndGo m_cngType;

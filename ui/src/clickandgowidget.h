@@ -24,28 +24,94 @@
 
 #include <QWidget>
 
+#include "qlcchannel.h"
+
 class ClickAndGoWidget : public QWidget
 {
     Q_OBJECT
 public:
     explicit ClickAndGoWidget(QWidget *parent = 0);
 
-    void setType(int type);
+    /**
+     * Set the widget type. This is fundamental
+     * for the whole widget behaviour
+     */
+    void setType(int type, const QLCChannel *chan);
+
+    /**
+     * Returns the widget type
+     */
     int getType();
 
+    /**
+     * Returns the color at pos position.
+     * Used with primary colors linear gradient
+     */
     QColor getColorAt(uchar pos);
-    
+
 protected:
-    /** Prepare the widget to display a linear gradient */
-    /** from black to a primary color (end) */
+    /**
+     * Prepare the widget to display a linear gradient
+     * from black to a primary color (end)
+     */
     void setupGradient(QColor end);
 
+    /**
+     * Helper function to draw a vertical gradient from
+     * black to white to a given X position
+     */
     void fillWithGradient(int r, int g, int b, QPainter *painter, int x);
+
+    /**
+     * Prepare the widget to display a full color picker
+     * with all gradients of colors from black to white
+     * and 16 default colors
+     */
     void setupColorPicker();
+
+    /**
+     * Prepare the list of gobos/effects to be used
+     * when the widget is in Preset mode
+     */
+    void createPresetList(const QLCChannel *chan);
+
+    /**
+     * Prepare the widget to display a grid of the
+     * channel(s) preset functions
+     */
+    void setupPresetPicker();
+
+    /*************************************************************************
+     * PresetResource Class
+     *************************************************************************/
+public:
+    class PresetResource
+    {
+    public:
+        PresetResource(QString path, QString text, uchar min, uchar max);
+        PresetResource(QColor color, QString text, uchar min, uchar max);
+        PresetResource(int index, QString text, uchar min, uchar max);
+
+    public:
+        QImage m_thumbnail;
+        QString m_descr;
+        uchar m_min;
+        uchar m_max;
+    };
 
 protected:
     /** The Click And Go type. Essential for the whole widget behaviour */
     int m_type;
+
+    /** Geometry parameters of the widget */
+    int m_width;
+    int m_height;
+    int m_hoverCellIdx;
+    int m_cellBarXpos;
+    int m_cellBarYpos;
+    int m_cellBarWidth;
+
+    QList<ClickAndGoWidget::PresetResource> m_resources;
 
     /** Used to group all the primary colors */
     bool m_linearColor;
@@ -54,14 +120,22 @@ protected:
     QImage m_image;
 
 protected:
+    /** @reimp */
     QSize sizeHint() const;
+
+    /** @reimp */
     void mousePressEvent(QMouseEvent *event);
+
+    /** @reimp */
     void mouseMoveEvent(QMouseEvent *event);
+
+    /** @reimp */
     void paintEvent(QPaintEvent *event);
 
 signals:
     void levelChanged(uchar level);
     void colorChanged(QRgb color);
+    void levelAndPresetChanged(uchar level, QImage img);
     
 public slots:
     

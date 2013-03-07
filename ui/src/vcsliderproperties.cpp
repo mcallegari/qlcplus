@@ -203,12 +203,6 @@ void VCSliderProperties::slotModeLevelClicked()
     int cngType = m_slider->getClickAndGoType();
     switch(cngType)
     {
-        case VCSlider::Gobo:
-            m_cngGoboCheck->setChecked(true);
-        break;
-        case VCSlider::RGB:
-            m_cngRGBCheck->setChecked(true);
-        break;
         case VCSlider::Red:
         case VCSlider::Green:
         case VCSlider::Blue:
@@ -217,6 +211,12 @@ void VCSliderProperties::slotModeLevelClicked()
         case VCSlider::Yellow:
         case VCSlider::White:
             m_cngColorCheck->setChecked(true);
+        break;
+        case VCSlider::RGB:
+            m_cngRGBCheck->setChecked(true);
+        break;
+        case VCSlider::Preset:
+            m_cngPresetCheck->setChecked(true);
         break;
         default:
         case VCSlider::None:
@@ -706,7 +706,8 @@ void VCSliderProperties::storeLevelChannels()
                 if (fxi != NULL)
                 {
                     const QLCChannel *ch = fxi->channel(ch_num);
-                    if (ch->group() == QLCChannel::Intensity)
+                    if (ch->group() == QLCChannel::Intensity &&
+                        m_cngColorCheck->isChecked())
                     {
                         if (ch->colour() == QLCChannel::Red)
                         {
@@ -763,8 +764,6 @@ void VCSliderProperties::accept()
      * in storeLevelChannels */
     if (m_cngNoneCheck->isChecked())
         m_slider->setClickAndGoType(VCSlider::None);
-    else if (m_cngGoboCheck->isChecked())
-        m_slider->setClickAndGoType(VCSlider::Gobo);
     else if (m_cngRGBCheck->isChecked())
         m_slider->setClickAndGoType(VCSlider::RGB);
     else if (m_cngPresetCheck->isChecked())

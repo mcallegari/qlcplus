@@ -157,6 +157,8 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
             this, SLOT(slotClickAndGoLevelChanged(uchar)));
     connect(m_cngWidget, SIGNAL(colorChanged(QRgb)),
             this, SLOT(slotClickAndGoColorChanged(QRgb)));
+    connect(m_cngWidget, SIGNAL(levelAndPresetChanged(uchar,QImage)),
+            this, SLOT(slotClickAndGoLevelAndPresetChanged(uchar, QImage)));
 
     /* Bottom label */
     m_bottomLabel = new QLabel(this);
@@ -265,7 +267,6 @@ void VCSlider::editProperties()
             m_cngButton->hide();
         else
         {
-            m_cngWidget->setType(m_cngType);
             m_cngButton->show();
         }
     }
@@ -443,7 +444,8 @@ void VCSlider::setSliderMode(SliderMode mode)
         m_tapButton->hide();
         if (m_cngType != None)
         {
-            m_cngWidget->setType(m_cngType);
+            setClickAndGoType(m_cngType);
+            setupClickAndGoWidegt();
             m_cngButton->show();
         }
 
@@ -553,13 +555,37 @@ VCSlider::ClickAndGo VCSlider::getClickAndGoType()
     return m_cngType;
 }
 
+void VCSlider::setupClickAndGoWidegt()
+{
+    if (m_cngWidget != NULL)
+    {
+        qDebug() << Q_FUNC_INFO << "Level channel: " << m_levelChannels.size() << "type: " << m_cngType;
+        if (m_cngType == Preset && m_levelChannels.size() > 0)
+        {
+            LevelChannel lChan = m_levelChannels.first();
+            Fixture *fxi = m_doc->fixture(lChan.fixture);
+            if (fxi != NULL)
+            {
+                const QLCChannel *chan = fxi->channel(lChan.channel);
+                m_cngWidget->setType(m_cngType, chan);
+            }
+        }
+        else
+            m_cngWidget->setType(m_cngType, NULL);
+    }
+}
+
+ClickAndGoWidget *VCSlider::getClickAndGoWidget()
+{
+    return m_cngWidget;
+}
+
 QString VCSlider::clickAndGoTypeToString(VCSlider::ClickAndGo type)
 {
     switch (type)
     {
         default:
         case None: return "None"; break;
-        case Gobo: return "Gobo"; break;
         case Red: return "Red"; break;
         case Green: return "Green"; break;
         case Blue: return "Blue"; break;
@@ -574,8 +600,7 @@ QString VCSlider::clickAndGoTypeToString(VCSlider::ClickAndGo type)
 
 VCSlider::ClickAndGo VCSlider::stringToClickAndGoType(QString str)
 {
-    if (str == "Gobo") return Gobo;
-    else if (str == "Red") return Red;
+    if (str == "Red") return Red;
     else if (str == "Green") return Green;
     else if (str == "Blue") return Blue;
     else if (str == "Cyan") return Cyan;
@@ -606,6 +631,14 @@ void VCSlider::slotClickAndGoColorChanged(QRgb color)
     m_cngButton->setIcon(px);
     // place the slider half way to reach white@255 and black@0
     m_slider->setValue(128);
+}
+
+void VCSlider::slotClickAndGoLevelAndPresetChanged(uchar level, QImage img)
+{
+    Q_UNUSED(img)
+    m_slider->setValue(level);
+    QPixmap px = QPixmap::fromImage(img);
+    m_cngButton->setIcon(px);
 }
 
 /*****************************************************************************

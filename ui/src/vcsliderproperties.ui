@@ -382,13 +382,6 @@
            </widget>
           </item>
           <item>
-           <widget class="QRadioButton" name="m_cngGoboCheck">
-            <property name="text">
-             <string>Gobo</string>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QRadioButton" name="m_cngColorCheck">
             <property name="text">
              <string>Color</string>
@@ -405,7 +398,7 @@
           <item>
            <widget class="QRadioButton" name="m_cngPresetCheck">
             <property name="text">
-             <string>Preset</string>
+             <string>Gobo/Effect</string>
             </property>
            </widget>
           </item>
