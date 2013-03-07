@@ -1,6 +1,6 @@
 /*
   Q Light Controller
-  enttecdmxusbconfig.cpp
+  dmxusbconfig.cpp
 
   Copyright (C) Heikki Junnila
 
@@ -28,18 +28,18 @@
 #include <QDebug>
 #include <QTimer>
 
-#include "enttecdmxusbconfig.h"
-#include "enttecdmxusbwidget.h"
-#include "enttecdmxusb.h"
+#include "dmxusbconfig.h"
+#include "dmxusbwidget.h"
+#include "dmxusb.h"
 
-#define SETTINGS_GEOMETRY "enttecdmxusbconfig/geometry"
+#define SETTINGS_GEOMETRY "dmxusbconfig/geometry"
 
 #define COL_NAME   0
 #define COL_SERIAL 1
 #define COL_TYPE   2
 #define PROP_SERIAL "serial"
 
-EnttecDMXUSBConfig::EnttecDMXUSBConfig(EnttecDMXUSB* plugin, QWidget* parent)
+DMXUSBConfig::DMXUSBConfig(DMXUSB* plugin, QWidget* parent)
     : QDialog(parent)
     , m_plugin(plugin)
     , m_tree(new QTreeWidget(this))
@@ -77,13 +77,13 @@ EnttecDMXUSBConfig::EnttecDMXUSBConfig(EnttecDMXUSB* plugin, QWidget* parent)
     slotRefresh();
 }
 
-EnttecDMXUSBConfig::~EnttecDMXUSBConfig()
+DMXUSBConfig::~DMXUSBConfig()
 {
     QSettings settings;
     settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
-void EnttecDMXUSBConfig::slotTypeComboActivated(int index)
+void DMXUSBConfig::slotTypeComboActivated(int index)
 {
     QComboBox* combo = qobject_cast<QComboBox*> (QObject::sender());
     Q_ASSERT(combo != NULL);
@@ -91,8 +91,7 @@ void EnttecDMXUSBConfig::slotTypeComboActivated(int index)
     QVariant var = combo->property(PROP_SERIAL);
     if (var.isValid() == true)
     {
-        EnttecDMXUSBWidget::Type type = (EnttecDMXUSBWidget::Type)
-                                            combo->itemData(index).toInt();
+        DMXUSBWidget::Type type = (DMXUSBWidget::Type)combo->itemData(index).toInt();
         QMap <QString,QVariant> typeMap(QLCFTDI::typeMap());
         typeMap[var.toString()] = type;
         QLCFTDI::storeTypeMap(typeMap);
@@ -101,17 +100,17 @@ void EnttecDMXUSBConfig::slotTypeComboActivated(int index)
     QTimer::singleShot(0, this, SLOT(slotRefresh()));
 }
 
-void EnttecDMXUSBConfig::slotRefresh()
+void DMXUSBConfig::slotRefresh()
 {
     m_plugin->rescanWidgets();
 
     m_ignoreItemChanged = true;
 
     m_tree->clear();
-    QListIterator <EnttecDMXUSBWidget*> it(m_plugin->widgets());
+    QListIterator <DMXUSBWidget*> it(m_plugin->widgets());
     while (it.hasNext() == true)
     {
-        EnttecDMXUSBWidget* widget = it.next();
+        DMXUSBWidget* widget = it.next();
         QTreeWidgetItem* item = new QTreeWidgetItem(m_tree);
         item->setText(COL_NAME, widget->name());
         item->setText(COL_SERIAL, widget->serial());
@@ -121,14 +120,15 @@ void EnttecDMXUSBConfig::slotRefresh()
     m_ignoreItemChanged = false;
 }
 
-QComboBox* EnttecDMXUSBConfig::createTypeCombo(EnttecDMXUSBWidget* widget)
+QComboBox* DMXUSBConfig::createTypeCombo(DMXUSBWidget *widget)
 {
     Q_ASSERT(widget != NULL);
     QComboBox* combo = new QComboBox;
     combo->setProperty(PROP_SERIAL, widget->serial());
-    combo->addItem(QString("Pro TX"), EnttecDMXUSBWidget::ProTX);
-    combo->addItem(QString("Open TX"), EnttecDMXUSBWidget::OpenTX);
-    combo->addItem(QString("Pro RX"), EnttecDMXUSBWidget::ProRX);
+    combo->addItem(QString("Pro TX"), DMXUSBWidget::ProTX);
+    combo->addItem(QString("Open TX"), DMXUSBWidget::OpenTX);
+    combo->addItem(QString("Pro RX"), DMXUSBWidget::ProRX);
+    combo->addItem(QString("Pro Mk2"), DMXUSBWidget::ProMk2);
     int index = combo->findData(widget->type());
     combo->setCurrentIndex(index);
 

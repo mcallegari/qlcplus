@@ -26,11 +26,11 @@
  * Initialization
  ****************************************************************************/
 
-EnttecDMXUSBPro::EnttecDMXUSBPro(const QString& serial, const QString& name, quint32 id)
-    : EnttecDMXUSBWidget(serial, name, id)
+EnttecDMXUSBPro::EnttecDMXUSBPro(const QString& serial, const QString& name, QLCFTDI *ftdi, quint32 id)
+    : DMXUSBWidget(serial, name, ftdi, id)
 {
     // Bypass rts setting by calling parent class' open method
-    if (EnttecDMXUSBWidget::open() == true)
+    if (DMXUSBWidget::open() == true)
         extractSerial();
     close();
 }
@@ -45,7 +45,7 @@ EnttecDMXUSBPro::~EnttecDMXUSBPro()
 
 bool EnttecDMXUSBPro::open()
 {
-    if (EnttecDMXUSBWidget::open() == false)
+    if (DMXUSBWidget::open() == false)
         return close();
 
     if (ftdi()->clearRts() == false)
@@ -69,11 +69,12 @@ QString EnttecDMXUSBPro::uniqueName() const
 bool EnttecDMXUSBPro::extractSerial()
 {
     QByteArray request;
-    request.append(char(0x7e));
-    request.append(char(0x0a));
-    request.append(char(0x00));
-    request.append(char(0x00));
-    request.append(char(0xe7));
+    request.append(ENTTEC_PRO_START_OF_MSG);
+    request.append(ENTTEC_PRO_READ_SERIAL);
+    request.append(ENTTEC_PRO_DMX_ZERO); // data length LSB
+    request.append(ENTTEC_PRO_DMX_ZERO); // data length MSB
+    request.append(ENTTEC_PRO_END_OF_MSG);
+
     if (ftdi()->write(request) == true)
     {
         QByteArray reply = ftdi()->read(9);
@@ -94,9 +95,11 @@ bool EnttecDMXUSBPro::extractSerial()
         else
         {
             qWarning() << Q_FUNC_INFO << name() << "gave malformed serial reply:"
-                       << int(reply[0]) << int(reply[1]) << int(reply[2])
-                       << int(reply[3]) << int(reply[4]) << int(reply[5])
-                       << int(reply[6]) << int(reply[7]) << int(reply[8]);
+                       << QString::number(reply[0], 16) << QString::number(reply[1], 16)
+                       << QString::number(reply[2], 16) << QString::number(reply[3], 16)
+                       << QString::number(reply[4], 16) << QString::number(reply[5], 16)
+                       << QString::number(reply[6], 16) << QString::number(reply[7], 16)
+                       << QString::number(reply[8], 16);
             return false;
         }
     }

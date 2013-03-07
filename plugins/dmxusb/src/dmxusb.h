@@ -1,6 +1,6 @@
 /*
   Q Light Controller
-  enttecdmxusb.h
+  dmxusb.h
 
   Copyright (C) Heikki Junnila
 
@@ -19,14 +19,14 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307,$
 */
 
-#ifndef ENTTECDMXUSB_H
-#define ENTTECDMXUSB_H
+#ifndef DMXUSB_H
+#define DMXUSB_H
 
 #include "qlcioplugin.h"
 
-class EnttecDMXUSBWidget;
+class DMXUSBWidget;
 
-class EnttecDMXUSB : public QLCIOPlugin
+class DMXUSB : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)
@@ -36,7 +36,7 @@ class EnttecDMXUSB : public QLCIOPlugin
      ************************************************************************/
 public:
     /** @reimp */
-    virtual ~EnttecDMXUSB();
+    virtual ~DMXUSB();
 
     /** @reimp */
     void init();
@@ -54,7 +54,7 @@ public:
     bool rescanWidgets();
 
     /** Get currently connected widgets (input & output) */
-    QList <EnttecDMXUSBWidget*> widgets() const;
+    QList <DMXUSBWidget*> widgets() const;
 
     /************************************************************************
      * Outputs
@@ -76,7 +76,7 @@ public:
     void writeUniverse(quint32 output, const QByteArray& universe);
 
 private:
-    QList <EnttecDMXUSBWidget*> m_outputs;
+    QList <DMXUSBWidget*> m_outputs;
 
     /*************************************************************************
      * Inputs
@@ -99,7 +99,7 @@ public:
         { Q_UNUSED(input); Q_UNUSED(channel); Q_UNUSED(value); }
 
 private:
-    QList <EnttecDMXUSBWidget*> m_inputs;
+    QList <DMXUSBWidget*> m_inputs;
 
     /********************************************************************
      * Configuration

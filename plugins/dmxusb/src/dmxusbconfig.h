@@ -24,30 +24,30 @@
 
 #include <QDialog>
 
-class EnttecDMXUSBWidget;
+class DMXUSBWidget;
 class QTreeWidgetItem;
-class EnttecDMXUSB;
+class DMXUSB;
 class QPushButton;
 class QTreeWidget;
 class QComboBox;
 
-class EnttecDMXUSBConfig : public QDialog
+class DMXUSBConfig : public QDialog
 {
     Q_OBJECT
 
 public:
-    EnttecDMXUSBConfig(EnttecDMXUSB* plugin, QWidget* parent = 0);
-    ~EnttecDMXUSBConfig();
+    DMXUSBConfig(DMXUSB *plugin, QWidget* parent = 0);
+    ~DMXUSBConfig();
 
 private slots:
     void slotTypeComboActivated(int index);
     void slotRefresh();
 
 private:
-    QComboBox* createTypeCombo(EnttecDMXUSBWidget* widget);
+    QComboBox* createTypeCombo(DMXUSBWidget* widget);
 
 private:
-    EnttecDMXUSB* m_plugin;
+    DMXUSB* m_plugin;
 
     QTreeWidget* m_tree;
     QPushButton* m_refreshButton;

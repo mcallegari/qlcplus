@@ -3,6 +3,7 @@
   enttecdmxusbprotx.cpp
 
   Copyright (C) Heikki Junnila
+  Copyright (C) Massimo Callegari
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License
@@ -28,8 +29,9 @@
  * Initialization
  ****************************************************************************/
 
-EnttecDMXUSBProTX::EnttecDMXUSBProTX(const QString& serial, const QString& name, quint32 id)
-    : EnttecDMXUSBPro(serial, name, id)
+EnttecDMXUSBProTX::EnttecDMXUSBProTX(const QString& serial, const QString& name, int port, QLCFTDI *ftdi, quint32 id)
+    : EnttecDMXUSBPro(serial, name, ftdi, id)
+    , m_port(port)
 {
 }
 
@@ -37,10 +39,15 @@ EnttecDMXUSBProTX::~EnttecDMXUSBProTX()
 {
 }
 
-EnttecDMXUSBWidget::Type EnttecDMXUSBProTX::type() const
+DMXUSBWidget::Type EnttecDMXUSBProTX::type() const
 {
-    return EnttecDMXUSBWidget::ProTX;
+    if (EnttecDMXUSBPro::name().toUpper().contains("PRO MK2") == true)
+        return DMXUSBWidget::ProMk2;
+    else
+    return DMXUSBWidget::ProTX;
 }
+
+
 
 /****************************************************************************
  * Open & Close
@@ -48,11 +55,62 @@ EnttecDMXUSBWidget::Type EnttecDMXUSBProTX::type() const
 
 bool EnttecDMXUSBProTX::open()
 {
-    if (EnttecDMXUSBWidget::open() == false)
+    if (DMXUSBWidget::open() == false)
         return close();
 
     if (ftdi()->clearRts() == false)
         return close();
+
+    if (configurePort(m_port) == false)
+        return close();
+
+    return true;
+}
+
+QString EnttecDMXUSBProTX::uniqueName() const
+{
+    return QString("%1 - Port %2").arg(name()).arg(m_port);
+}
+
+bool EnttecDMXUSBProTX::configurePort(int port)
+{
+    qDebug() << "EnttecDMXUSBProTX: Configuring port: " << port;
+    if (port == 2)
+    {
+        QByteArray request;
+        request.append(ENTTEC_PRO_START_OF_MSG); // DMX start code (Which constitutes the + 1 below)
+        request.append(ENTTEC_PRO_ENABLE_API2); // Enable API2
+        request.append(char(0x04)); // data length LSB
+        request.append(ENTTEC_PRO_DMX_ZERO); // data length MSB
+        request.append(char(0xAD)); // Magic number
+        request.append(char(0x88)); // Magic number
+        request.append(char(0xD0)); // Magic number
+        request.append(char(0xC8)); // Magic number
+        request.append(ENTTEC_PRO_END_OF_MSG); // Stop byte
+
+        /* Write "Set API Key Request" message */
+        if (ftdi()->write(request) == false)
+        {
+            qWarning() << Q_FUNC_INFO << name() << "FTDI write filed (second port)";
+            return false;
+        }
+
+        request.clear();
+        request.append(ENTTEC_PRO_START_OF_MSG);
+        request.append(ENTTEC_PRO_PORT_ASS_REQ);
+        request.append(char(0x02)); // data length LSB - 2 bytes
+        request.append(ENTTEC_PRO_DMX_ZERO); // data length MSB
+        request.append(char(0x01)); // Port 1 enabled for DMX and RDM
+        request.append(char(0x01)); // Port 2 enabled for DMX and RDM
+        request.append(ENTTEC_PRO_END_OF_MSG); // Stop byte
+
+        /* Write "Set Port Assignment Request" message */
+        if (ftdi()->write(request) == false)
+        {
+            qWarning() << Q_FUNC_INFO << name() << "FTDI write filed (port config)";
+            return false;
+        }
+    }
 
     return true;
 }
@@ -84,10 +142,15 @@ bool EnttecDMXUSBProTX::writeUniverse(const QByteArray& universe)
         return false;
 
     QByteArray request(universe);
-    request.prepend(char(ENTTEC_PRO_DMX_STARTCODE)); // DMX start code (Which constitutes the + 1 below)
+    request.prepend(char(ENTTEC_PRO_DMX_ZERO)); // DMX start code (Which constitutes the + 1 below)
     request.prepend(((universe.size() + 1) >> 8) & 0xff); // Data length MSB
     request.prepend((universe.size() + 1) & 0xff); // Data length LSB
-    request.prepend(ENTTEC_PRO_SEND_DMX_RQ); // Command
+
+    if (m_port == 2)
+        request.prepend(ENTTEC_PRO_SEND_DMX_RQ2); // Command - second port
+    else
+        request.prepend(ENTTEC_PRO_SEND_DMX_RQ); // Command - first port
+
     request.prepend(ENTTEC_PRO_START_OF_MSG); // Start byte
     request.append(ENTTEC_PRO_END_OF_MSG); // Stop byte
 

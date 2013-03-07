@@ -1,6 +1,6 @@
 /*
   Q Light Controller
-  enttecdmxusbwidget.h
+  dmxusbwidget.h
 
   Copyright (C) Heikki Junnila
 
@@ -19,33 +19,35 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 */
 
-#ifndef ENTTECDMXUSBWIDGET_H
-#define ENTTECDMXUSBWIDGET_H
+#ifndef DMXUSBWIDGET_H
+#define DMXUSBWIDGET_H
 
 #include "qlcftdi.h"
 
 /**
  * This is the base interface class for ENTTEC USB DMX [Pro|Open] widgets.
  */
-class EnttecDMXUSBWidget
+class DMXUSBWidget
 {
 public:
     /**
-     * Construct a new EnttecDMXUSBWidget object.
+     * Construct a new DMXUSBWidget object.
      *
      * @param serial The widget's USB serial
      * @param name The name of the widget
      * @param id The ID of the device in FTD2XX (0 when libftdi is used)
      */
-    EnttecDMXUSBWidget(const QString& serial, const QString& name, quint32 id = 0);
-    virtual ~EnttecDMXUSBWidget();
+    DMXUSBWidget(const QString& serial, const QString& name, QLCFTDI *ftdi = NULL, quint32 id = 0);
+    virtual ~DMXUSBWidget();
 
     /** Widget types */
     enum Type
     {
-        ProTX,  //! Enttec Pro widget using the TX side of the dongle
-        OpenTX, //! Enttec Open widget (only TX)
-        ProRX   //! Enttec Pro widget using the RX side of the dongle
+        ProTX,     //! Enttec Pro widget using the TX side of the dongle
+        OpenTX,    //! Enttec Open widget (only TX)
+        ProRX,     //! Enttec Pro widget using the RX side of the dongle
+        ProMk2,    //! Enttec Pro Mk2 widget using 2 TX outputs
+        UltraProTx //! DMXKing Ultra Pro widget using 2 TX ports
     };
 
     /** Get the type of the widget */

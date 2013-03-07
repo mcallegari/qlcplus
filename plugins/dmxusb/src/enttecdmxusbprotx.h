@@ -1,6 +1,6 @@
 /*
   Q Light Controller
-  enttecdmxusbpro.h
+  enttecdmxusbprotx.h
 
   Copyright (C) Heikki Junnila
 
@@ -19,55 +19,55 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA
 */
 
-#ifndef ENTTECDMXUSBPRO_H
-#define ENTTECDMXUSBPRO_H
+#ifndef ENTTECDMXUSBPROTX_H
+#define ENTTECDMXUSBPROTX_H
 
-#ifdef WIN32
-#   include <windows.h>
-#endif
+#include "enttecdmxusbpro.h"
 
-#include <QByteArray>
-#include <QObject>
-
-#include "enttecdmxusbwidget.h"
-
-#define ENTTEC_PRO_DMX_STARTCODE char(0x00)
-#define ENTTEC_PRO_START_OF_MSG  char(0x7e)
-#define ENTTEC_PRO_END_OF_MSG    char(0xe7)
-#define ENTTEC_PRO_SEND_DMX_RQ   char(0x06)
-#define ENTTEC_PRO_RECV_DMX_PKT  char(0x05)
-/**
- * This is the base interface class for ENTTEC USB DMX Pro widgets.
- */
-class EnttecDMXUSBPro : public EnttecDMXUSBWidget
+class QByteArray;
+class EnttecDMXUSBProTX : public EnttecDMXUSBPro
 {
     /************************************************************************
      * Initialization
      ************************************************************************/
 public:
-    EnttecDMXUSBPro(const QString& serial, const QString& name, quint32 id = 0);
-    virtual ~EnttecDMXUSBPro();
+    EnttecDMXUSBProTX(const QString& serial, const QString& name, int port = 0,
+                      QLCFTDI *ftdi = NULL, quint32 id = 0);
+    ~EnttecDMXUSBProTX();
 
-    /****************************************************************************
-     * Open & Close
-     ****************************************************************************/
-public:
     /** @reimp */
-    virtual bool open();
+    Type type() const;
+
+private:
+    bool configurePort(int port);
+
+private:
+    Type m_type;
+    int m_port;
 
     /************************************************************************
-     * Name & Serial
+     * Open & Close
      ************************************************************************/
 public:
     /** @reimp */
+    bool open();
+
+    /** @reimp */
     QString uniqueName() const;
 
-private:
-    /** Extract the widget's unique serial number (printed on the bottom) */
-    bool extractSerial();
+    /****************************************************************************
+     * Name & Serial
+     ****************************************************************************/
+public:
+    /** @reimp */
+    QString additionalInfo() const;
 
-private:
-    QString m_proSerial;
+    /************************************************************************
+     * Write universe
+     ************************************************************************/
+public:
+    /** @reimp */
+    bool writeUniverse(const QByteArray& universe);
 };
 
 #endif

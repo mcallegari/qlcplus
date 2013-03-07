@@ -1,8 +1,8 @@
 /*
   Q Light Controller
-  enttecdmxusbprorx.cpp
+  ultradmxusbprotx.h
 
-  Copyright (C) Heikki Junnila
+  Copyright (C) Massimo Callegari
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License
@@ -19,27 +19,30 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA
 */
 
-#ifndef ENTTECDMXUSBPRORX_H
-#define ENTTECDMXUSBPRORX_H
+#ifndef ULTRADMXUSBPROTX_H
+#define ULTRADMXUSBPROTX_H
 
-#include <QThread>
-#include <QMutex>
 #include "enttecdmxusbpro.h"
 
-class EnttecDMXUSBProRX : public QThread, public EnttecDMXUSBPro
-{
-    Q_OBJECT
+#define SEND_DMX_PORT1  0x64
+#define SEND_DMX_PORT2  0x65
 
+class ultraDMXUSBProTx : public EnttecDMXUSBPro
+{
+    /************************************************************************
+     * Initialization
+     ************************************************************************/
 public:
-    EnttecDMXUSBProRX(const QString& serial, const QString& name,
-                      quint32 input, quint32 id = 0);
-    ~EnttecDMXUSBProRX();
+    ultraDMXUSBProTx(const QString& serial, const QString& name, int port = 0,
+                     QLCFTDI *ftdi = NULL, quint32 id = 0);
+    ~ultraDMXUSBProTx();
 
     /** @reimp */
     Type type() const;
 
 private:
-    const quint32 m_input;
+    Type m_type;
+    int m_port;
 
     /************************************************************************
      * Open & Close
@@ -49,33 +52,21 @@ public:
     bool open();
 
     /** @reimp */
-    bool close();
+    QString uniqueName() const;
 
-    /************************************************************************
+    /****************************************************************************
      * Name & Serial
-     ************************************************************************/
+     ****************************************************************************/
 public:
     /** @reimp */
     QString additionalInfo() const;
 
     /************************************************************************
-     * DMX reception
+     * Write universe
      ************************************************************************/
-signals:
-    /** Tells that the value of a received DMX channel has changed */
-    void valueChanged(quint32 input, quint32 channel, uchar value);
-
-private:
-    /** Stop DMX receiver thread */
-    void stop();
-
-    /** DMX receiver thread worker method */
-    void run();
-
-private:
-    bool m_running;
-    QMutex m_mutex;
-    QByteArray m_universe;
+public:
+    /** @reimp */
+    bool writeUniverse(const QByteArray& universe);
 };
 
-#endif
+#endif // ULTRADMXUSBPROTX_H

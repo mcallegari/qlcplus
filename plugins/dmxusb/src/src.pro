@@ -2,7 +2,7 @@ include (../../../variables.pri)
 
 TEMPLATE = lib
 LANGUAGE = C++
-TARGET   = enttecdmxusb
+TARGET   = dmxusb
 
 CONFIG      += plugin
 QT          += gui core
@@ -40,23 +40,25 @@ CONFIG(ftd2xx) {
     PKGCONFIG   += libftdi libusb
 }
 
-HEADERS += ../../interfaces/qlcioplugin.h
-HEADERS += enttecdmxusb.h \
-           enttecdmxusbwidget.h \
+HEADERS += ../../interfaces/qlcioplugin.h \
+    ultradmxusbprotx.h
+HEADERS += dmxusb.h \
+           dmxusbwidget.h \
+           dmxusbconfig.h \
            enttecdmxusbpro.h \
            enttecdmxusbprorx.h \
            enttecdmxusbprotx.h \
            enttecdmxusbopen.h \
-           enttecdmxusbconfig.h \
            qlcftdi.h
 
-SOURCES += enttecdmxusb.cpp \
-           enttecdmxusbwidget.cpp \
+SOURCES += dmxusb.cpp \
+           dmxusbwidget.cpp \
+           dmxusbconfig.cpp \
            enttecdmxusbpro.cpp \
            enttecdmxusbprorx.cpp \
            enttecdmxusbprotx.cpp \
            enttecdmxusbopen.cpp \
-           enttecdmxusbconfig.cpp
+    ultradmxusbprotx.cpp
 
 CONFIG(ftd2xx) {
     SOURCES += qlcftdi-ftd2xx.cpp
@@ -65,17 +67,17 @@ CONFIG(ftd2xx) {
 }
 
 unix:!macx {
-    # Rules to make ENTTEC devices readable & writable by normal users
+    # Rules to make USB DMX devices readable & writable by normal users
     udev.path  = /etc/udev/rules.d
     udev.files = z65-enttec-dmxusb.rules
     INSTALLS  += udev
 }
 
-TRANSLATIONS += Enttec_DMX_USB_de_DE.ts
-TRANSLATIONS += Enttec_DMX_USB_es_ES.ts
-TRANSLATIONS += Enttec_DMX_USB_fi_FI.ts
-TRANSLATIONS += Enttec_DMX_USB_fr_FR.ts
-TRANSLATIONS += Enttec_DMX_USB_it_IT.ts
+TRANSLATIONS += DMX_USB_de_DE.ts
+TRANSLATIONS += DMX_USB_es_ES.ts
+TRANSLATIONS += DMX_USB_fi_FI.ts
+TRANSLATIONS += DMX_USB_fr_FR.ts
+TRANSLATIONS += DMX_USB_it_IT.ts
 
 # This must be after "TARGET = " and before target installation so that
 # install_name_tool can be run before target installation

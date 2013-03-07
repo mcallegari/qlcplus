@@ -27,11 +27,11 @@
 #include <QThread>
 #include <QMutex>
 
-#include "enttecdmxusbwidget.h"
+#include "dmxusbwidget.h"
 
 class QLCFTDI;
 
-class EnttecDMXUSBOpen : public QThread, public EnttecDMXUSBWidget
+class EnttecDMXUSBOpen : public QThread, public DMXUSBWidget
 {
     Q_OBJECT
 
@@ -55,7 +55,7 @@ public:
     virtual ~EnttecDMXUSBOpen();
 
     /** @reimp */
-    EnttecDMXUSBWidget::Type type() const;
+    DMXUSBWidget::Type type() const;
 
     /************************************************************************
      * Open & Close

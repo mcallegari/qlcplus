@@ -25,6 +25,7 @@
 #include <QByteArray>
 #include <QSettings>
 #include <QString>
+#include <QMutex>
 #include <QList>
 #include <QMap>
 
@@ -39,7 +40,7 @@
 
 #define SETTINGS_TYPE_MAP "qlcftdi/typemap"
 
-class EnttecDMXUSBWidget;
+class DMXUSBWidget;
 
 class QLCFTDI
 {
@@ -55,7 +56,7 @@ public:
      *
      * @return A list of enttec-compabitble devices
      */
-    static QList <EnttecDMXUSBWidget*> widgets();
+    static QList<DMXUSBWidget *> widgets();
 
     /**
      * Get a map of [serial = type] bindings that tells which serials should
@@ -106,6 +107,7 @@ private:
     QString m_serial;
     QString m_name;
     quint32 m_id;
+    QMutex m_writeMutex;
 
     /************************************************************************
      * FTDI Interface Methods

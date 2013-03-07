@@ -23,9 +23,9 @@
 #include "enttecdmxusbprorx.h"
 
 EnttecDMXUSBProRX::EnttecDMXUSBProRX(const QString& serial, const QString& name,
-                                     quint32 input, quint32 id)
+                                     quint32 input, QLCFTDI *ftdi, quint32 id)
     : QThread(NULL)
-    , EnttecDMXUSBPro(serial, name, id)
+    , EnttecDMXUSBPro(serial, name, ftdi, id)
     , m_input(input)
     , m_running(false)
     , m_universe(QByteArray(512, char(0)))
@@ -39,9 +39,9 @@ EnttecDMXUSBProRX::~EnttecDMXUSBProRX()
     stop();
 }
 
-EnttecDMXUSBWidget::Type EnttecDMXUSBProRX::type() const
+DMXUSBWidget::Type EnttecDMXUSBProRX::type() const
 {
-    return EnttecDMXUSBWidget::ProRX;
+    return DMXUSBWidget::ProRX;
 }
 
 /****************************************************************************
@@ -63,7 +63,7 @@ bool EnttecDMXUSBProRX::close()
 {
     qDebug() << Q_FUNC_INFO;
     stop();
-    return EnttecDMXUSBWidget::close();
+    return DMXUSBWidget::close();
 }
 
 /****************************************************************************

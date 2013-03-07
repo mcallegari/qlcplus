@@ -1,6 +1,6 @@
 TEMPLATE = subdirs
 
-SUBDIRS              += enttecdmxusb
+SUBDIRS              += dmxusb
 SUBDIRS              += peperoni
 SUBDIRS              += udmx
 SUBDIRS              += midi

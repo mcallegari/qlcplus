@@ -41,7 +41,7 @@
 EnttecDMXUSBOpen::EnttecDMXUSBOpen(const QString& serial, const QString& name,
                                    quint32 id, QObject* parent)
     : QThread(parent)
-    , EnttecDMXUSBWidget(serial, name, id)
+    , DMXUSBWidget(serial, name, NULL, id)
     , m_running(false)
     , m_universe(QByteArray(513, 0))
     , m_frequency(30)
@@ -58,9 +58,9 @@ EnttecDMXUSBOpen::~EnttecDMXUSBOpen()
     stop();
 }
 
-EnttecDMXUSBWidget::Type EnttecDMXUSBOpen::type() const
+DMXUSBWidget::Type EnttecDMXUSBOpen::type() const
 {
-    return EnttecDMXUSBWidget::OpenTX;
+    return DMXUSBWidget::OpenTX;
 }
 
 /****************************************************************************
@@ -69,7 +69,7 @@ EnttecDMXUSBWidget::Type EnttecDMXUSBOpen::type() const
 
 bool EnttecDMXUSBOpen::open()
 {
-    if (EnttecDMXUSBWidget::open() == false)
+    if (DMXUSBWidget::open() == false)
         return close();
 
     if (ftdi()->clearRts() == false)
@@ -82,7 +82,7 @@ bool EnttecDMXUSBOpen::open()
 bool EnttecDMXUSBOpen::close()
 {
     stop();
-    return EnttecDMXUSBWidget::close();
+    return DMXUSBWidget::close();
 }
 
 /****************************************************************************

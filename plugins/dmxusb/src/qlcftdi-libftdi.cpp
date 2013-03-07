@@ -25,10 +25,11 @@
 #include <QDebug>
 #include <QMap>
 
-#include "enttecdmxusbwidget.h"
+#include "dmxusbwidget.h"
 #include "enttecdmxusbprotx.h"
 #include "enttecdmxusbprorx.h"
 #include "enttecdmxusbopen.h"
+#include "ultradmxusbprotx.h"
 #include "qlcftdi.h"
 
 QLCFTDI::QLCFTDI(const QString& serial, const QString& name, quint32 id)
@@ -47,9 +48,9 @@ QLCFTDI::~QLCFTDI()
     ftdi_deinit(&m_handle);
 }
 
-QList <EnttecDMXUSBWidget*> QLCFTDI::widgets()
+QList <DMXUSBWidget*> QLCFTDI::widgets()
 {
-    QList <EnttecDMXUSBWidget*> widgetList;
+    QList <DMXUSBWidget*> widgetList;
     struct ftdi_device_list* list = 0;
     struct ftdi_context ftdi;
     ftdi_init(&ftdi);
@@ -69,29 +70,57 @@ QList <EnttecDMXUSBWidget*> QLCFTDI::widgets()
                              serial, sizeof(serial));
 
         QString ser(serial);
+        QString nme(name);
         QString ven(vendor);
         QMap <QString,QVariant> types(typeMap());
+
+        qDebug() << "serial: " << ser << "name:" << nme << "vendor:" << ven;
 
         if (types.contains(ser) == true)
         {
             // Force a widget with a specific serial to either type
-            EnttecDMXUSBWidget::Type type = (EnttecDMXUSBWidget::Type) types[ser].toInt();
+            DMXUSBWidget::Type type = (DMXUSBWidget::Type) types[ser].toInt();
             switch (type)
             {
-            case EnttecDMXUSBWidget::OpenTX:
+            case DMXUSBWidget::OpenTX:
                 widgetList << new EnttecDMXUSBOpen(serial, name);
                 break;
-            case EnttecDMXUSBWidget::ProRX:
+            case DMXUSBWidget::ProRX:
             {
                 EnttecDMXUSBProRX* prorx = new EnttecDMXUSBProRX(serial, name, widgetList.size());
                 widgetList << prorx;
                 break;
             }
+            case DMXUSBWidget::ProMk2:
+            {
+                EnttecDMXUSBProTX* protx = new EnttecDMXUSBProTX(serial, name, 1);
+                widgetList << protx;
+                widgetList << new EnttecDMXUSBProTX(serial, name, 2, protx->ftdi());
+                break;
+            }
+            case DMXUSBWidget::UltraProTx:
+            {
+                ultraDMXUSBProTx* protx = new ultraDMXUSBProTx(serial, name, 1);
+                widgetList << protx;
+                widgetList << new ultraDMXUSBProTx(serial, name, 2, protx->ftdi());
+            }
             default:
-            case EnttecDMXUSBWidget::ProTX:
+            case DMXUSBWidget::ProTX:
                 widgetList << new EnttecDMXUSBProTX(serial, name);
                 break;
             }
+        }
+        else if (nme.toUpper().contains("PRO MK2") == true)
+        {
+            EnttecDMXUSBProTX* protx = new EnttecDMXUSBProTX(serial, name, 1);
+            widgetList << protx;
+            widgetList << new EnttecDMXUSBProTX(serial, name, 2, protx->ftdi());
+        }
+        else if (ven.toUpper().contains("DMXKING") && nme.toUpper().contains("USB PRO"))
+        {
+            ultraDMXUSBProTx* protx = new ultraDMXUSBProTx(serial, name, 1);
+            widgetList << protx;
+            widgetList << new ultraDMXUSBProTx(serial, name, 2, protx->ftdi());
         }
         else if (ven.toUpper().contains("FTDI") == true)
         {
@@ -113,6 +142,9 @@ QList <EnttecDMXUSBWidget*> QLCFTDI::widgets()
 
 bool QLCFTDI::open()
 {
+    if (isOpen() == true)
+        return true;
+
     if (ftdi_usb_open_desc(&m_handle, QLCFTDI::VID, QLCFTDI::PID,
                            name().toAscii(), serial().toAscii()) < 0)
     {
@@ -242,13 +274,16 @@ bool QLCFTDI::setBreak(bool on)
 
 bool QLCFTDI::write(const QByteArray& data)
 {
+    m_writeMutex.lock();
     if (ftdi_write_data(&m_handle, (uchar*) data.data(), data.size()) < 0)
     {
         qWarning() << Q_FUNC_INFO << name() << ftdi_get_error_string(&m_handle);
+        m_writeMutex.unlock();
         return false;
     }
     else
     {
+        m_writeMutex.unlock();
         return true;
     }
 }

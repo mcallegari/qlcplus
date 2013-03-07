@@ -1,0 +1,111 @@
+/*
+  Q Light Controller
+  ultradmxusbprotx.cpp
+
+  Copyright (C) Massimo Callegari
+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU General Public License
+  Version 2 as published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details. The license is
+  in the file "COPYING".
+
+  You should have received a copy of the GNU General Public License
+  along with this program; if not, write to the Free Software
+  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA
+*/
+
+#include <QDebug>
+
+#include "ultradmxusbprotx.h"
+
+ultraDMXUSBProTx::ultraDMXUSBProTx(const QString& serial, const QString& name, int port, QLCFTDI *ftdi, quint32 id)
+    : EnttecDMXUSBPro(serial, name, ftdi, id)
+    , m_port(port)
+{
+}
+
+ultraDMXUSBProTx::~ultraDMXUSBProTx()
+{
+}
+
+DMXUSBWidget::Type ultraDMXUSBProTx::type() const
+{
+    return DMXUSBWidget::UltraProTx;
+}
+
+/****************************************************************************
+ * Open & Close
+ ****************************************************************************/
+
+bool ultraDMXUSBProTx::open()
+{
+    qDebug() << Q_FUNC_INFO << "port: " << m_port;
+    if (DMXUSBWidget::open() == false)
+        return close();
+
+    if (ftdi()->clearRts() == false)
+        return close();
+
+    return true;
+}
+
+QString ultraDMXUSBProTx::uniqueName() const
+{
+    return QString("%1 - Port %2").arg(name()).arg(m_port);
+}
+
+/****************************************************************************
+ * Name & Serial
+ ****************************************************************************/
+
+QString ultraDMXUSBProTx::additionalInfo() const
+{
+    QString info;
+
+    info += QString("<P>");
+    info += QString("<B>%1:</B> %2 (%3)").arg(QObject::tr("Protocol"))
+                                         .arg("Ultra DMX USB Pro")
+                                         .arg(QObject::tr("Output"));
+    info += QString("</P>");
+
+    return info;
+}
+
+/****************************************************************************
+ * Write universe data
+ ****************************************************************************/
+
+bool ultraDMXUSBProTx::writeUniverse(const QByteArray& universe)
+{
+    if (isOpen() == false)
+        return false;
+
+    QByteArray request(universe);
+    request.prepend(char(ENTTEC_PRO_DMX_ZERO)); // DMX start code (Which constitutes the + 1 below)
+    request.prepend(((universe.size() + 1) >> 8) & 0xff); // Data length MSB
+    request.prepend((universe.size() + 1) & 0xff); // Data length LSB
+
+    if (m_port == 2)
+        request.prepend(SEND_DMX_PORT2); // Command - second port
+    else
+        request.prepend(SEND_DMX_PORT1); // Command - first port
+
+    request.prepend(ENTTEC_PRO_START_OF_MSG); // Start byte
+    request.append(ENTTEC_PRO_END_OF_MSG); // Stop byte
+
+    /* Write "Output Only Send DMX Packet Request" message */
+    if (ftdi()->write(request) == false)
+    {
+        qWarning() << Q_FUNC_INFO << name() << "will not accept DMX data";
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}

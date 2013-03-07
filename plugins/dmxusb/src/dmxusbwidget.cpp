@@ -1,6 +1,6 @@
 /*
   Q Light Controller
-  enttecdmxusbwidget.cpp
+  dmxusbwidget.cpp
 
   Copyright (C) Heikki Junnila
 
@@ -20,21 +20,24 @@
 */
 
 #include <QDebug>
-#include "enttecdmxusbwidget.h"
+#include "dmxusbwidget.h"
 
-EnttecDMXUSBWidget::EnttecDMXUSBWidget(const QString& serial, const QString& name,
-                                       quint32 id)
-    : m_ftdi(new QLCFTDI(serial, name, id))
+DMXUSBWidget::DMXUSBWidget(const QString& serial, const QString& name,
+                                       QLCFTDI *ftdi, quint32 id)
 {
+    if (ftdi != NULL)
+        m_ftdi = ftdi;
+    else
+        m_ftdi = new QLCFTDI(serial, name, id);
 }
 
-EnttecDMXUSBWidget::~EnttecDMXUSBWidget()
+DMXUSBWidget::~DMXUSBWidget()
 {
     delete m_ftdi;
     m_ftdi = NULL;
 }
 
-QLCFTDI* EnttecDMXUSBWidget::ftdi() const
+QLCFTDI* DMXUSBWidget::ftdi() const
 {
     return m_ftdi;
 }
@@ -43,7 +46,7 @@ QLCFTDI* EnttecDMXUSBWidget::ftdi() const
  * Open & Close
  ****************************************************************************/
 
-bool EnttecDMXUSBWidget::open()
+bool DMXUSBWidget::open()
 {
     if (isOpen() == true)
         close();
@@ -69,7 +72,7 @@ bool EnttecDMXUSBWidget::open()
     return true;
 }
 
-bool EnttecDMXUSBWidget::close()
+bool DMXUSBWidget::close()
 {
     if (isOpen() == false)
         return true;
@@ -77,7 +80,7 @@ bool EnttecDMXUSBWidget::close()
     return m_ftdi->close();
 }
 
-bool EnttecDMXUSBWidget::isOpen()
+bool DMXUSBWidget::isOpen()
 {
     return m_ftdi->isOpen();
 }
@@ -86,17 +89,17 @@ bool EnttecDMXUSBWidget::isOpen()
  * Name & Serial
  ****************************************************************************/
 
-QString EnttecDMXUSBWidget::name() const
+QString DMXUSBWidget::name() const
 {
     return m_ftdi->name();
 }
 
-QString EnttecDMXUSBWidget::serial() const
+QString DMXUSBWidget::serial() const
 {
     return m_ftdi->serial();
 }
 
-QString EnttecDMXUSBWidget::uniqueName() const
+QString DMXUSBWidget::uniqueName() const
 {
     return QString("%1 (S/N: %2)").arg(name()).arg(serial());
 }
@@ -105,7 +108,7 @@ QString EnttecDMXUSBWidget::uniqueName() const
  * Write universe
  ****************************************************************************/
 
-bool EnttecDMXUSBWidget::writeUniverse(const QByteArray& universe)
+bool DMXUSBWidget::writeUniverse(const QByteArray& universe)
 {
     Q_UNUSED(universe);
     return false;
