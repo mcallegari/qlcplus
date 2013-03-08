@@ -447,6 +447,7 @@ void VCSlider::setSliderMode(SliderMode mode)
             setClickAndGoType(m_cngType);
             setupClickAndGoWidegt();
             m_cngButton->show();
+            setClickAndGoWidgetFromLevel(m_slider->value());
         }
 
         m_doc->masterTimer()->registerDMXSource(this);
@@ -611,6 +612,33 @@ VCSlider::ClickAndGo VCSlider::stringToClickAndGoType(QString str)
     else if (str == "Preset") return Preset;
 
     return None;
+}
+
+void VCSlider::setClickAndGoWidgetFromLevel(uchar level)
+{
+    if (m_cngType == None || m_cngWidget == NULL)
+        return;
+
+    if (m_cngType == RGB)
+    {
+        QPixmap px(42, 42);
+        float f = SCALE(float(level),
+                        float(m_slider->minimum()),
+                        float(m_slider->maximum()),
+                        float(0), float(200));
+        if ((uchar)f == 0)
+        {
+            px.fill(Qt::black);
+        }
+        else
+        {
+            QColor modColor = m_cngRGBvalue.lighter((uchar)f);
+            px.fill(modColor);
+        }
+        m_cngButton->setIcon(px);
+    }
+    else
+        m_cngButton->setIcon(QPixmap::fromImage(m_cngWidget->getImageFromValue(level)));
 }
 
 void VCSlider::slotClickAndGoLevelChanged(uchar level)
@@ -832,6 +860,7 @@ void VCSlider::slotSliderMoved(int value)
     case Level:
     {
         setLevelValue(value);
+        setClickAndGoWidgetFromLevel(value);
 
         /* Set text for the top label */
         if (valueDisplayStyle() == ExactValue)

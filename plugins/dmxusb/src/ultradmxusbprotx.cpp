@@ -23,17 +23,17 @@
 
 #include "ultradmxusbprotx.h"
 
-ultraDMXUSBProTx::ultraDMXUSBProTx(const QString& serial, const QString& name, int port, QLCFTDI *ftdi, quint32 id)
+UltraDMXUSBProTx::UltraDMXUSBProTx(const QString& serial, const QString& name, int port, QLCFTDI *ftdi, quint32 id)
     : EnttecDMXUSBPro(serial, name, ftdi, id)
     , m_port(port)
 {
 }
 
-ultraDMXUSBProTx::~ultraDMXUSBProTx()
+UltraDMXUSBProTx::~UltraDMXUSBProTx()
 {
 }
 
-DMXUSBWidget::Type ultraDMXUSBProTx::type() const
+DMXUSBWidget::Type UltraDMXUSBProTx::type() const
 {
     return DMXUSBWidget::UltraProTx;
 }
@@ -42,7 +42,7 @@ DMXUSBWidget::Type ultraDMXUSBProTx::type() const
  * Open & Close
  ****************************************************************************/
 
-bool ultraDMXUSBProTx::open()
+bool UltraDMXUSBProTx::open()
 {
     qDebug() << Q_FUNC_INFO << "port: " << m_port;
     if (DMXUSBWidget::open() == false)
@@ -54,7 +54,7 @@ bool ultraDMXUSBProTx::open()
     return true;
 }
 
-QString ultraDMXUSBProTx::uniqueName() const
+QString UltraDMXUSBProTx::uniqueName() const
 {
     return QString("%1 - Port %2").arg(name()).arg(m_port);
 }
@@ -63,7 +63,7 @@ QString ultraDMXUSBProTx::uniqueName() const
  * Name & Serial
  ****************************************************************************/
 
-QString ultraDMXUSBProTx::additionalInfo() const
+QString UltraDMXUSBProTx::additionalInfo() const
 {
     QString info;
 
@@ -80,7 +80,7 @@ QString ultraDMXUSBProTx::additionalInfo() const
  * Write universe data
  ****************************************************************************/
 
-bool ultraDMXUSBProTx::writeUniverse(const QByteArray& universe)
+bool UltraDMXUSBProTx::writeUniverse(const QByteArray& universe)
 {
     if (isOpen() == false)
         return false;

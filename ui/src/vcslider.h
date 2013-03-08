@@ -481,6 +481,8 @@ protected:
     /** Returns a Click And Go type from the given string */
     ClickAndGo stringToClickAndGoType(QString str);
 
+    void setClickAndGoWidgetFromLevel(uchar level);
+
 private slots:
     void slotClickAndGoLevelChanged(uchar level);
     void slotClickAndGoColorChanged(QRgb color);

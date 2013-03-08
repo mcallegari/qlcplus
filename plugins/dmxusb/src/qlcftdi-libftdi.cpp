@@ -101,9 +101,10 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
             }
             case DMXUSBWidget::UltraProTx:
             {
-                ultraDMXUSBProTx* protx = new ultraDMXUSBProTx(serial, name, 1);
+                UltraDMXUSBProTx* protx = new UltraDMXUSBProTx(serial, name, 1);
                 widgetList << protx;
-                widgetList << new ultraDMXUSBProTx(serial, name, 2, protx->ftdi());
+                widgetList << new UltraDMXUSBProTx(serial, name, 2, protx->ftdi());
+                break;
             }
             default:
             case DMXUSBWidget::ProTX:
@@ -119,9 +120,9 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
         }
         else if (ven.toUpper().contains("DMXKING") && nme.toUpper().contains("USB PRO"))
         {
-            ultraDMXUSBProTx* protx = new ultraDMXUSBProTx(serial, name, 1);
+            UltraDMXUSBProTx* protx = new UltraDMXUSBProTx(serial, name, 1);
             widgetList << protx;
-            widgetList << new ultraDMXUSBProTx(serial, name, 2, protx->ftdi());
+            widgetList << new UltraDMXUSBProTx(serial, name, 2, protx->ftdi());
         }
         else if (ven.toUpper().contains("FTDI") == true)
         {

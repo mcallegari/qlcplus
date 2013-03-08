@@ -215,9 +215,36 @@ QColor ClickAndGoWidget::getColorAt(uchar pos)
     return QColor(0,0,0);
 }
 
+QImage ClickAndGoWidget::getImageFromValue(uchar value)
+{
+    /** If the widget type is a Preset, return directly
+     *  the pre-loaded resource */
+    if (m_type == VCSlider::Preset)
+    {
+        foreach(PresetResource res, m_resources)
+        {
+            if (value >= res.m_min && value <= res.m_max)
+                return res.m_thumbnail;
+        }
+    }
+
+    QImage img(42, 42, QImage::Format_RGB32);
+    if (m_type == VCSlider::None)
+    {
+        img.fill(Qt::black);
+    }
+    else if (m_linearColor == true)
+    {
+        QRgb col = m_image.pixel(10 + value, 10);
+        img.fill(QColor(col));
+    }
+
+    return img;
+}
+
 void ClickAndGoWidget::createPresetList(const QLCChannel *chan)
 {
-    int i = 0;
+    int i = 1;
     if (chan == NULL)
         return;
 
@@ -244,8 +271,9 @@ void ClickAndGoWidget::setupPresetPicker()
 
     int x = 0;
     int y = 0;
-    int height = (m_resources.size() / 2) * CELL_H;
-    m_image = QImage(CELL_W * 2, height, QImage::Format_RGB32);
+    m_width = CELL_W * 2;
+    m_height = qCeil((qreal)m_resources.size() / 2) * CELL_H;
+    m_image = QImage(m_width, m_height, QImage::Format_RGB32);
     QPainter painter(&m_image);
     m_image.fill(Qt::lightGray);
     for (int i = 0; i < m_resources.size(); i++)
@@ -261,10 +289,7 @@ void ClickAndGoWidget::setupPresetPicker()
         painter.drawText(x + 43, y + 4, CELL_W - 42, CELL_H - 5, Qt::TextWordWrap|Qt::AlignVCenter, res.m_descr);
         if (i%2)
             y+=CELL_H;
-    }
-
-    m_width = CELL_W * 2;
-    m_height = height;
+    }  
 }
 
 QSize ClickAndGoWidget::sizeHint() const

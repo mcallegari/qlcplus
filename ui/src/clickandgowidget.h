@@ -49,6 +49,13 @@ public:
      */
     QColor getColorAt(uchar pos);
 
+    /**
+     * Return a QImage to be displayed on a Click & Go button
+     *
+     * @param value the slider position value
+     */
+    QImage getImageFromValue(uchar value);
+
 protected:
     /**
      * Prepare the widget to display a linear gradient
@@ -84,7 +91,7 @@ protected:
     /*************************************************************************
      * PresetResource Class
      *************************************************************************/
-public:
+private:
     class PresetResource
     {
     public:

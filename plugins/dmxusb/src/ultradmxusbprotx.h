@@ -27,15 +27,15 @@
 #define SEND_DMX_PORT1  0x64
 #define SEND_DMX_PORT2  0x65
 
-class ultraDMXUSBProTx : public EnttecDMXUSBPro
+class UltraDMXUSBProTx : public EnttecDMXUSBPro
 {
     /************************************************************************
      * Initialization
      ************************************************************************/
 public:
-    ultraDMXUSBProTx(const QString& serial, const QString& name, int port = 0,
+    UltraDMXUSBProTx(const QString& serial, const QString& name, int port = 0,
                      QLCFTDI *ftdi = NULL, quint32 id = 0);
-    ~ultraDMXUSBProTx();
+    ~UltraDMXUSBProTx();
 
     /** @reimp */
     Type type() const;
