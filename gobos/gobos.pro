@@ -1,4 +1,5 @@
 TEMPLATE = subdirs
 
-SUBDIRS              += ClayPaky
-SUBDIRS              += GLP
+SUBDIRS += ClayPaky
+SUBDIRS += GLP
+SUBDIRS += SGM
