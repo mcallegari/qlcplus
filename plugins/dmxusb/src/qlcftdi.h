@@ -108,6 +108,7 @@ private:
     QString m_name;
     quint32 m_id;
     QMutex m_writeMutex;
+    int m_refCount;
 
     /************************************************************************
      * FTDI Interface Methods
@@ -151,6 +152,12 @@ public:
 
     /** Read exactly one byte. $ok tells if a byte was read or not. */
     uchar readByte(bool* ok = NULL);
+
+    /** Modify the reference count by 'amount'. Used when sharing a FTDI handle */
+    void modifyRefCount(int amount);
+
+    /** Returns the number of references this class is pointed by */
+    int refCount();
 
 private:
 #ifdef FTD2XX

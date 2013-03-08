@@ -26,15 +26,23 @@ DMXUSBWidget::DMXUSBWidget(const QString& serial, const QString& name,
                                        QLCFTDI *ftdi, quint32 id)
 {
     if (ftdi != NULL)
+    {
         m_ftdi = ftdi;
+        m_ftdi->modifyRefCount(1);
+    }
     else
         m_ftdi = new QLCFTDI(serial, name, id);
 }
 
 DMXUSBWidget::~DMXUSBWidget()
 {
-    delete m_ftdi;
-    m_ftdi = NULL;
+    if (m_ftdi->refCount() == 1)
+        delete m_ftdi;
+    else
+    {
+        m_ftdi->modifyRefCount(-1);
+        m_ftdi = NULL;
+    }
 }
 
 QLCFTDI* DMXUSBWidget::ftdi() const

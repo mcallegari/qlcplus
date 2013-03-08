@@ -112,7 +112,7 @@ void DMXUSBConfig::slotRefresh()
     {
         DMXUSBWidget* widget = it.next();
         QTreeWidgetItem* item = new QTreeWidgetItem(m_tree);
-        item->setText(COL_NAME, widget->name());
+        item->setText(COL_NAME, widget->uniqueName());
         item->setText(COL_SERIAL, widget->serial());
         m_tree->setItemWidget(item, COL_TYPE, createTypeCombo(widget));
     }

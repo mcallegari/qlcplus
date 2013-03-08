@@ -36,6 +36,7 @@ QLCFTDI::QLCFTDI(const QString& serial, const QString& name, quint32 id)
     : m_serial(serial)
     , m_name(name)
     , m_id(id)
+    , m_refCount(1)
 {
     bzero(&m_handle, sizeof(struct ftdi_context));
     ftdi_init(&m_handle);
@@ -332,4 +333,14 @@ uchar QLCFTDI::readByte(bool* ok)
             *ok = false;
         return 0;
     }
+}
+
+void QLCFTDI::modifyRefCount(int amount)
+{
+    m_refCount += amount;
+}
+
+int QLCFTDI::refCount()
+{
+    return m_refCount;
 }
