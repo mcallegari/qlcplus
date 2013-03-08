@@ -28,6 +28,7 @@
 #include "enttecdmxusbprotx.h"
 #include "enttecdmxusbprorx.h"
 #include "enttecdmxusbopen.h"
+#include "ultradmxusbprotx.h"
 #include "qlcftdi.h"
 
 /**
@@ -166,15 +167,15 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
             else if (description.toUpper().contains("PRO MK2") == true)
             {
                 EnttecDMXUSBProTX* protx = new EnttecDMXUSBProTX(serial, description, 1);
-                widgetList << protx;
-                widgetList << new EnttecDMXUSBProTX(serial, description, 2, protx->ftdi());
+                list << protx;
+                list << new EnttecDMXUSBProTX(serial, description, 2, protx->ftdi());
             }
             else if (vendor.toUpper().contains("DMXKING") &&
                      description.toUpper().contains("USB PRO"))
             {
                 UltraDMXUSBProTx* protx = new UltraDMXUSBProTx(serial, description, 1);
-                widgetList << protx;
-                widgetList << new UltraDMXUSBProTx(serial, description, 2, protx->ftdi());
+                list << protx;
+                list << new UltraDMXUSBProTx(serial, description, 2, protx->ftdi());
             }
             else if (vendor.toUpper().contains("FTDI") == true || vendor.isEmpty())
             {
