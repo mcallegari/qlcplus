@@ -663,7 +663,6 @@ void VCSlider::slotClickAndGoColorChanged(QRgb color)
 
 void VCSlider::slotClickAndGoLevelAndPresetChanged(uchar level, QImage img)
 {
-    Q_UNUSED(img)
     m_slider->setValue(level);
     QPixmap px = QPixmap::fromImage(img);
     m_cngButton->setIcon(px);

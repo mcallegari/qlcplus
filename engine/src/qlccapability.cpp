@@ -123,6 +123,8 @@ QString QLCCapability::resourceName()
 void QLCCapability::setResourceName(const QString& name)
 {
     m_resourceName = name;
+    // invalidate any previous color set
+    m_resourceColor = QColor();
 }
 
 QColor QLCCapability::resourceColor()
@@ -133,6 +135,8 @@ QColor QLCCapability::resourceColor()
 void QLCCapability::setResourceColor(QColor col)
 {
     m_resourceColor = col;
+    // invalidate any previous resource path set
+    m_resourceName = "";
 }
 
 bool QLCCapability::overlaps(const QLCCapability& cap)
