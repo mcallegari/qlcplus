@@ -79,6 +79,8 @@ WING_PLAYBACK_BYTE_SLIDER + 9: Slider 10 (0-255)
 #define WING_PLAYBACK_BYTE_SLIDER 15 /* Bytes 15-25 are for sliders */
 #define WING_PLAYBACK_SLIDER_SIZE 10 /* 10 slider values in all */
 
+#define WING_PLAYBACK_PACKET_SIZE (WING_PLAYBACK_BYTE_SLIDER + WING_PLAYBACK_SLIDER_SIZE) /* 25, total packet size */
+
 #define WING_PLAYBACK_BYTE_EXTRA_BUTTONS 6
 #define WING_PLAYBACK_BIT_PAGEUP   (1 << 7)
 #define WING_PLAYBACK_BIT_PAGEDOWN (1 << 6)
@@ -189,17 +191,17 @@ QString PlaybackWing::name() const
 
 void PlaybackWing::parseData(const QByteArray& data)
 {
-    /* Check if page buttons were pressed and act accordingly */
-    applyExtraButtons(data);
-
-    /* Check that we can get all buttons from the packet */
-    int size = WING_PLAYBACK_BYTE_BUTTON + WING_PLAYBACK_BUTTON_SIZE;
-    if (data.size() < size)
+    if (data.size() < WING_PLAYBACK_PACKET_SIZE )
     {
-        qWarning() << Q_FUNC_INFO << "Expected at least" << size
+        qWarning() << Q_FUNC_INFO << "Expected at least" << WING_PLAYBACK_PACKET_SIZE
                    << "bytes for buttons but got only" << data.size();
         return;
     }
+
+    /* Check if page buttons were pressed and act accordingly */
+    applyExtraButtons(data);
+
+    int size = WING_PLAYBACK_BYTE_BUTTON + WING_PLAYBACK_BUTTON_SIZE;
 
     /* Read the state of each button */
     for (int byte = size - 1; byte >= WING_PLAYBACK_BYTE_BUTTON; byte--)
@@ -225,9 +227,7 @@ void PlaybackWing::parseData(const QByteArray& data)
         }
     }
 
-    /* Check that we can get all sliders from the packet */
     size = WING_PLAYBACK_BYTE_SLIDER + WING_PLAYBACK_SLIDER_SIZE;
-    Q_ASSERT(data.size() >= size);
 
     /* Read the state of each slider. Each value takes all 8 bits. */
     for (int slider = 0; slider < WING_PLAYBACK_SLIDER_SIZE; slider++)
@@ -244,13 +244,14 @@ void PlaybackWing::parseData(const QByteArray& data)
 void PlaybackWing::applyExtraButtons(const QByteArray& data)
 {
     /* Check that there's enough data for flags */
-    if (data.size() < WING_PLAYBACK_BYTE_EXTRA_BUTTONS + 1)
+    if (data.size() < WING_PLAYBACK_PACKET_SIZE )
         return;
 
     if (!(data[WING_PLAYBACK_BYTE_EXTRA_BUTTONS] & WING_PLAYBACK_BIT_PAGEUP))
     {
         nextPage();
         sendPageData();
+
         /* Read the state of each slider. Each value takes all 8 bits. */
         for (int slider = 0; slider < WING_PLAYBACK_SLIDER_SIZE; slider++)
         {
