@@ -40,6 +40,9 @@ public:
     GrandMasterSlider(QWidget* parent, OutputMap* outputMap, InputMap* inputMap);
     virtual ~GrandMasterSlider();
 
+    bool invertedAppearance() const;
+    void setInvertedAppearance(bool invert);
+
 private:
     void updateTooltip();
     void updateDisplayValue();

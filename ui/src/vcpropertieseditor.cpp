@@ -84,6 +84,17 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
         break;
     }
 
+    switch (properties.grandMasterSlideMode())
+    {
+    default:
+    case UniverseArray::GMNormal:
+        m_gmSliderModeNormalRadio->setChecked(true);
+        break;
+    case UniverseArray::GMInverted:
+        m_gmSliderModeInvertedRadio->setChecked(true);
+        break;
+    }
+
     updateGrandMasterInputSource();
 }
 
@@ -162,6 +173,14 @@ void VCPropertiesEditor::slotGrandMasterReduceToggled(bool checked)
         m_properties.setGrandMasterValueMode(UniverseArray::GMReduce);
     else
         m_properties.setGrandMasterValueMode(UniverseArray::GMLimit);
+}
+
+void VCPropertiesEditor::slotGrandMasterSliderNormalToggled(bool checked)
+{
+    if (checked == true)
+        m_properties.setGrandMasterSliderMode(UniverseArray::GMNormal);
+    else
+        m_properties.setGrandMasterSliderMode(UniverseArray::GMInverted);
 }
 
 void VCPropertiesEditor::slotAutoDetectGrandMasterInputToggled(bool checked)

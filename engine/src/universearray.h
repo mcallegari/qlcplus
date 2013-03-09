@@ -81,11 +81,20 @@ public:
         GMAllChannels /** GM applied for all channels */
     };
 
+    enum GMSliderMode
+    {
+        GMNormal,     /** GM slider in normal mode 0-255 */
+        GMInverted    /** GM Slider inverted mode 255-0 */
+    };
+
     static GMValueMode stringToGMValueMode(const QString& str);
     static QString gMValueModeToString(GMValueMode mode);
 
     static GMChannelMode stringToGMChannelMode(const QString& str);
     static QString gMChannelModeToString(GMChannelMode mode);
+
+    static GMSliderMode stringToGMSliderMode(const QString& str);
+    static QString gMSliderModeToString(GMSliderMode mode);
 
     /**
      * Set the way how Grand Master should treat its value. @See enum

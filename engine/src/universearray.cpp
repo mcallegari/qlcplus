@@ -28,6 +28,8 @@
 #define KXMLQLCGMValueModeReduce "Reduce"
 #define KXMLQLCGMChannelModeAllChannels "All"
 #define KXMLQLCGMChannelModeIntensity "Intensity"
+#define KXMLQLCGMSliderModeNormal "Normal"
+#define KXMLQLCGMSliderModeInverted "Inverted"
 
 /****************************************************************************
  * Initialization
@@ -148,6 +150,26 @@ QString UniverseArray::gMChannelModeToString(UniverseArray::GMChannelMode mode)
     default:
     case UniverseArray::GMIntensity:
         return KXMLQLCGMChannelModeIntensity;
+    }
+}
+
+UniverseArray::GMSliderMode UniverseArray::stringToGMSliderMode(const QString &str)
+{
+    if (str == KXMLQLCGMSliderModeInverted)
+        return UniverseArray::GMInverted;
+    else
+        return UniverseArray::GMNormal;
+}
+
+QString UniverseArray::gMSliderModeToString(UniverseArray::GMSliderMode mode)
+{
+    switch (mode)
+    {
+    case UniverseArray::GMInverted:
+        return KXMLQLCGMSliderModeInverted;
+    default:
+    case UniverseArray::GMNormal:
+        return KXMLQLCGMSliderModeNormal;
     }
 }
 

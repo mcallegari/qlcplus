@@ -89,6 +89,18 @@ GrandMasterSlider::~GrandMasterSlider()
 {
 }
 
+bool GrandMasterSlider::invertedAppearance() const
+{
+    Q_ASSERT(m_slider != NULL);
+    return m_slider->invertedAppearance();
+}
+
+void GrandMasterSlider::setInvertedAppearance(bool invert)
+{
+    Q_ASSERT(m_slider != NULL);
+    m_slider->setInvertedAppearance(invert);
+}
+
 void GrandMasterSlider::slotValueChanged(int value)
 {
     // Update display value

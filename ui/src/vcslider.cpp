@@ -738,18 +738,14 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, UniverseArray* universes)
 
     uchar modLevel = m_levelValue;
 
-    int r, g, b;
+    int r = 0, g = 0, b = 0;
     if (m_cngType == RGB)
     {
         float f = SCALE(float(m_levelValue),
                         float(m_slider->minimum()),
                         float(m_slider->maximum()),
                         float(0), float(200));
-        if ((uchar)f == 0)
-        {
-            r = g = b = 0;
-        }
-        else
+        if ((uchar)f != 0)
         {
             QColor modColor = m_cngRGBvalue.lighter((uchar)f);
             r = modColor.red();

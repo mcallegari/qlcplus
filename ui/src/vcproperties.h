@@ -48,6 +48,7 @@ class Doc;
 #define KXMLQLCVCPropertiesGrandMasterVisible "Visible"
 #define KXMLQLCVCPropertiesGrandMasterChannelMode "ChannelMode"
 #define KXMLQLCVCPropertiesGrandMasterValueMode "ValueMode"
+#define KXMLQLCVCPropertiesGrandMasterSliderMode "SliderMode"
 
 #define KXMLQLCVCPropertiesInput "Input"
 #define KXMLQLCVCPropertiesInputUniverse "Universe"
@@ -100,6 +101,9 @@ public:
     void setGrandMasterValueMode(UniverseArray::GMValueMode mode);
     UniverseArray::GMValueMode grandMasterValueMode() const;
 
+    void setGrandMasterSliderMode(UniverseArray::GMSliderMode mode);
+    UniverseArray::GMSliderMode grandMasterSlideMode() const;
+
     void setGrandMasterInputSource(quint32 universe, quint32 channel);
     quint32 grandMasterInputUniverse() const;
     quint32 grandMasterInputChannel() const;
@@ -107,6 +111,7 @@ public:
 private:
     UniverseArray::GMChannelMode m_gmChannelMode;
     UniverseArray::GMValueMode m_gmValueMode;
+    UniverseArray::GMSliderMode m_gmSliderMode;
     quint32 m_gmInputUniverse;
     quint32 m_gmInputChannel;
 

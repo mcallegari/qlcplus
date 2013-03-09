@@ -7,6 +7,7 @@ usr/share/pixmaps/*
 usr/share/qlcplus/fixtures/*
 usr/share/qlcplus/inputprofiles/*
 usr/share/qlcplus/translations/*
+usr/share/qlcplus/gobos/*
 usr/share/mime/packages/qlcplus.xml
 
 # Plugins

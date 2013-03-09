@@ -51,6 +51,14 @@ VCDockArea::~VCDockArea()
 {
 }
 
+void VCDockArea::setGrandMasterInvertedAppearance(UniverseArray::GMSliderMode mode)
+{
+    Q_ASSERT(m_gm != NULL);
+    if (mode == UniverseArray::GMNormal)
+        m_gm->setInvertedAppearance(false);
+    else
+        m_gm->setInvertedAppearance(true);
+}
 
 /*****************************************************************************
  * Event Handlers

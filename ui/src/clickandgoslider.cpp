@@ -20,6 +20,8 @@
 */
 
 #include "clickandgoslider.h"
+#include <QStyleOptionSlider>
+#include <QStyle>
 
 ClickAndGoSlider::ClickAndGoSlider(QWidget *parent) : QSlider(parent)
 {
@@ -27,12 +29,16 @@ ClickAndGoSlider::ClickAndGoSlider(QWidget *parent) : QSlider(parent)
 
 void ClickAndGoSlider::mousePressEvent ( QMouseEvent * event )
 {
-    if (event->button() == Qt::LeftButton)
+    QStyleOptionSlider opt;
+    initStyleOption(&opt);
+    QRect sr = style()->subControlRect(QStyle::CC_Slider, &opt, QStyle::SC_SliderHandle, this);
+    if (event->button() == Qt::LeftButton && sr.contains(event->pos()) == false)
     {
-        if (orientation() == Qt::Vertical)
-            setValue(minimum() + ((maximum()-minimum()) * (height()-event->y())) / height() ) ;
+        int newVal = minimum() + ((maximum()-minimum()) * (height()-event->y())) / height();
+        if (invertedAppearance() == true)
+            setValue( maximum() - newVal );
         else
-            setValue(minimum() + ((maximum()-minimum()) * event->x()) / width() ) ;
+            setValue(newVal);
 
         event->accept();
     }

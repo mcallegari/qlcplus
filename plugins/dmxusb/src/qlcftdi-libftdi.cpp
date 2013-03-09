@@ -276,16 +276,13 @@ bool QLCFTDI::setBreak(bool on)
 
 bool QLCFTDI::write(const QByteArray& data)
 {
-    m_writeMutex.lock();
     if (ftdi_write_data(&m_handle, (uchar*) data.data(), data.size()) < 0)
     {
         qWarning() << Q_FUNC_INFO << name() << ftdi_get_error_string(&m_handle);
-        m_writeMutex.unlock();
         return false;
     }
     else
     {
-        m_writeMutex.unlock();
         return true;
     }
 }

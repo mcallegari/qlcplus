@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>351</width>
-    <height>325</height>
+    <height>391</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -186,7 +186,7 @@
          </layout>
         </widget>
        </item>
-       <item row="1" column="0" colspan="2">
+       <item row="2" column="0" colspan="2">
         <widget class="QGroupBox" name="groupBox">
          <property name="title">
           <string>External Input</string>
@@ -268,7 +268,7 @@
          </layout>
         </widget>
        </item>
-       <item row="2" column="0" colspan="2">
+       <item row="3" column="0" colspan="2">
         <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -280,6 +280,29 @@
           </size>
          </property>
         </spacer>
+       </item>
+       <item row="1" column="0" colspan="2">
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="title">
+          <string>Slider movement</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QRadioButton" name="m_gmSliderModeNormalRadio">
+            <property name="text">
+             <string>Normal</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="m_gmSliderModeInvertedRadio">
+            <property name="text">
+             <string>Inverted</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -306,8 +329,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>257</x>
-     <y>302</y>
+     <x>266</x>
+     <y>381</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -322,8 +345,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>325</x>
-     <y>302</y>
+     <x>334</x>
+     <y>381</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>
@@ -338,8 +361,8 @@
    <slot>slotAutoDetectGrandMasterInputToggled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>282</x>
-     <y>253</y>
+     <x>234</x>
+     <y>299</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
@@ -354,8 +377,8 @@
    <slot>slotChooseGrandMasterInputClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>401</x>
-     <y>253</y>
+     <x>319</x>
+     <y>299</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
@@ -370,8 +393,8 @@
    <slot>slotGrandMasterIntensityToggled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>99</x>
-     <y>87</y>
+     <x>121</x>
+     <y>84</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -386,11 +409,11 @@
    <slot>slotGrandMasterReduceToggled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>344</x>
-     <y>87</y>
+     <x>319</x>
+     <y>84</y>
     </hint>
     <hint type="destinationlabel">
-     <x>398</x>
+     <x>350</x>
      <y>106</y>
     </hint>
    </hints>
@@ -402,8 +425,8 @@
    <slot>slotSizeXChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>169</x>
-     <y>79</y>
+     <x>319</x>
+     <y>83</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -418,12 +441,28 @@
    <slot>slotSizeYChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>159</x>
-     <y>107</y>
+     <x>319</x>
+     <y>109</y>
     </hint>
     <hint type="destinationlabel">
      <x>1</x>
      <y>112</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_gmSliderModeNormalRadio</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>VCPropertiesEditor</receiver>
+   <slot>slotGrandMasterSliderNormalToggled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>75</x>
+     <y>167</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>149</x>
+     <y>838</y>
     </hint>
    </hints>
   </connection>
@@ -439,5 +478,6 @@
   <slot>slotChooseBlackoutInputClicked()</slot>
   <slot>slotSizeXChanged(int)</slot>
   <slot>slotSizeYChanged(int)</slot>
+  <slot>slotGrandMasterSliderNormalToggled(bool)</slot>
  </slots>
 </ui>

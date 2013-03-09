@@ -71,6 +71,7 @@ private slots:
 private slots:
     void slotGrandMasterIntensityToggled(bool checked);
     void slotGrandMasterReduceToggled(bool checked);
+    void slotGrandMasterSliderNormalToggled(bool checked);
     void slotAutoDetectGrandMasterInputToggled(bool checked);
     void slotGrandMasterInputValueChanged(quint32 universe, quint32 channel);
     void slotChooseGrandMasterInputClicked();

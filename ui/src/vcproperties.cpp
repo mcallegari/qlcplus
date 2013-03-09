@@ -42,6 +42,7 @@ VCProperties::VCProperties()
 
     , m_gmChannelMode(UniverseArray::GMIntensity)
     , m_gmValueMode(UniverseArray::GMReduce)
+    , m_gmSliderMode(UniverseArray::GMNormal)
     , m_gmInputUniverse(InputMap::invalidUniverse())
     , m_gmInputChannel(InputMap::invalidChannel())
 {
@@ -54,6 +55,7 @@ VCProperties::VCProperties(const VCProperties& properties)
 
     , m_gmChannelMode(properties.m_gmChannelMode)
     , m_gmValueMode(properties.m_gmValueMode)
+    , m_gmSliderMode(properties.m_gmSliderMode)
     , m_gmInputUniverse(properties.m_gmInputUniverse)
     , m_gmInputChannel(properties.m_gmInputChannel)
 {
@@ -113,6 +115,16 @@ void VCProperties::setGrandMasterValueMode(UniverseArray::GMValueMode mode)
 UniverseArray::GMValueMode VCProperties::grandMasterValueMode() const
 {
     return m_gmValueMode;
+}
+
+void VCProperties::setGrandMasterSliderMode(UniverseArray::GMSliderMode mode)
+{
+    m_gmSliderMode = mode;
+}
+
+UniverseArray::GMSliderMode VCProperties::grandMasterSlideMode() const
+{
+    return m_gmSliderMode;
 }
 
 void VCProperties::setGrandMasterInputSource(quint32 universe, quint32 channel)
@@ -184,6 +196,12 @@ bool VCProperties::loadXML(const QDomElement& root)
             str = tag.attribute(KXMLQLCVCPropertiesGrandMasterValueMode);
             setGrandMasterValueMode(UniverseArray::stringToGMValueMode(str));
 
+            if (tag.hasAttribute(KXMLQLCVCPropertiesGrandMasterSliderMode))
+            {
+                str = tag.attribute(KXMLQLCVCPropertiesGrandMasterSliderMode);
+                setGrandMasterSliderMode(UniverseArray::stringToGMSliderMode(str));
+            }
+
             /* External input */
             if (loadXMLInput(tag.firstChild().toElement(), &universe, &channel) == true)
                 setGrandMasterInputSource(universe, channel);
@@ -240,6 +258,10 @@ bool VCProperties::saveXML(QDomDocument* doc, QDomElement* wksp_root) const
     /* Value mode */
     tag.setAttribute(KXMLQLCVCPropertiesGrandMasterValueMode,
                      UniverseArray::gMValueModeToString(m_gmValueMode));
+
+    /* Slider mode */
+    tag.setAttribute(KXMLQLCVCPropertiesGrandMasterSliderMode,
+                     UniverseArray::gMSliderModeToString(m_gmSliderMode));
 
     /* Grand Master external input */
     if (m_gmInputUniverse != InputMap::invalidUniverse() &&

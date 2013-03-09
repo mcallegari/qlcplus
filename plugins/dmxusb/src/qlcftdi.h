@@ -107,7 +107,6 @@ private:
     QString m_serial;
     QString m_name;
     quint32 m_id;
-    QMutex m_writeMutex;
     int m_refCount;
 
     /************************************************************************

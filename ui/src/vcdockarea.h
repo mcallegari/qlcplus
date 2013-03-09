@@ -22,6 +22,8 @@
 #ifndef VCDOCKAREA_H
 #define VCDOCKAREA_H
 
+#include "universearray.h"
+
 #include <qframe.h>
 
 class GrandMasterSlider;
@@ -41,6 +43,8 @@ class VCDockArea : public QFrame
 public:
     VCDockArea(QWidget* parent, OutputMap* outputMap, InputMap* inputMap);
     ~VCDockArea();
+
+    void setGrandMasterInvertedAppearance(UniverseArray::GMSliderMode mode);
 
 signals:
     void visibilityChanged(bool isVisible);
