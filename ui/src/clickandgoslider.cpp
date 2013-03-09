@@ -32,7 +32,9 @@ void ClickAndGoSlider::mousePressEvent ( QMouseEvent * event )
     QStyleOptionSlider opt;
     initStyleOption(&opt);
     QRect sr = style()->subControlRect(QStyle::CC_Slider, &opt, QStyle::SC_SliderHandle, this);
-    if (event->button() == Qt::LeftButton && sr.contains(event->pos()) == false)
+
+    if (event->button() == Qt::LeftButton && // react only to left button press
+        sr.contains(event->pos()) == false) // check if the click is not over the slider's handle
     {
         int newVal = minimum() + ((maximum()-minimum()) * (height()-event->y())) / height();
         if (invertedAppearance() == true)

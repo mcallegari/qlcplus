@@ -275,6 +275,7 @@ void ClickAndGoWidget::setupPresetPicker()
     m_height = qCeil((qreal)m_resources.size() / 2) * CELL_H;
     m_image = QImage(m_width, m_height, QImage::Format_RGB32);
     QPainter painter(&m_image);
+    painter.setRenderHint(QPainter::Antialiasing);
     m_image.fill(Qt::lightGray);
     for (int i = 0; i < m_resources.size(); i++)
     {
@@ -364,6 +365,7 @@ ClickAndGoWidget::PresetResource::PresetResource(QString path, QString text, uch
     QImage px(path);
     m_thumbnail = QImage(40, 40, QImage::Format_RGB32);
     QPainter painter(&m_thumbnail);
+    painter.setRenderHint(QPainter::SmoothPixmapTransform);
     painter.drawImage(QRect(0,0,40,40), px);
     qDebug() << "PATH: adding " << path << ", descr: " << text;
 }
