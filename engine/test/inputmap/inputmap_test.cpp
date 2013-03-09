@@ -377,9 +377,9 @@ void InputMap_Test::inputSourceNames()
     im.loadProfiles(dir);
 
     QString uni, ch;
-    QVERIFY(im.inputSourceNames(QLCInputSource(0, 0), uni, ch) == false);
-    QCOMPARE(uni, QString());
-    QCOMPARE(ch, QString());
+    QVERIFY(im.inputSourceNames(QLCInputSource(0, 0), uni, ch) == true);
+    QCOMPARE(uni, tr("%1: ??").arg(1));
+    QCOMPARE(ch, tr("%1: ?").arg(1));
 
     QVERIFY(im.setPatch(0, stub->name(), 0, QString("Generic MIDI")) == true);
     QVERIFY(im.inputSourceNames(QLCInputSource(0, 0), uni, ch) == true);
