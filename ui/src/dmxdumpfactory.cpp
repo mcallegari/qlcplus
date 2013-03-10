@@ -53,7 +53,7 @@ DmxDumpFactory::DmxDumpFactory(Doc *doc, DmxDumpFactoryProperties *props, QWidge
     updateFixturesTree();
     updateChasersTree();
 
-    m_dumpAllRadio->setText(tr("Dump all DMX values (%1 Universes, %2 Fixtures, %3 Channels)")
+    m_dumpAllRadio->setText(tr("Dump all channels (%1 Universes, %2 Fixtures, %3 Channels)")
                             .arg(m_universesCount).arg(m_fixturesCount).arg(m_channelsCount));
 
     m_sceneName->setText(tr("New Scene From Live %1").arg(m_doc->nextFunctionID()));

@@ -1212,7 +1212,8 @@ Changes will be lost if you don&apos;t save them.</source>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="50"/>
-        <source>Dump selected DMX values</source>
+        <source>Dump selected channels</source>
+        <oldsource>Dump selected DMX values</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1228,22 +1229,18 @@ Changes will be lost if you don&apos;t save them.</source>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="83"/>
-        <source>Fixture channels selection:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="dmxdumpfactory.ui" line="90"/>
         <source>Add to Chaser:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.ui" line="102"/>
+        <location filename="dmxdumpfactory.ui" line="95"/>
         <source>Scene name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.cpp" line="56"/>
-        <source>Dump all DMX values (%1 Universes, %2 Fixtures, %3 Channels)</source>
+        <source>Dump all channels (%1 Universes, %2 Fixtures, %3 Channels)</source>
+        <oldsource>Dump all DMX values (%1 Universes, %2 Fixtures, %3 Channels)</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
