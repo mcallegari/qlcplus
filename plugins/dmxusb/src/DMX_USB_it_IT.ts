@@ -2,59 +2,58 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="it_IT">
 <context>
-    <name>EnttecDMXUSB</name>
+    <name>DMXUSB</name>
     <message>
-        <location filename="enttecdmxusb.cpp" line="139"/>
-        <source>and compatible devices.</source>
-        <oldsource>No devices available.</oldsource>
-        <translation>e dispositivi compatibili.</translation>
-    </message>
-    <message>
-        <location filename="enttecdmxusb.cpp" line="155"/>
-        <source>Make sure that you have your hardware firmly plugged in. NOTE: FTDI VCP interface is not supported by this plugin.</source>
-        <translation>Controlla che la tua interfaccia sia connessa correttamente. ATTENZIONE: le interfacce FTDI VCP non sono supportate da questa plugin.</translation>
-    </message>
-    <message>
-        <location filename="enttecdmxusb.cpp" line="136"/>
+        <location filename="dmxusb.cpp" line="136"/>
         <source>This plugin provides DMX output support for</source>
         <translation>Questa plugin permette la trasmissione di segnale DMX in uscita per</translation>
     </message>
     <message>
-        <location filename="enttecdmxusb.cpp" line="153"/>
+        <location filename="dmxusb.cpp" line="139"/>
+        <source>and compatible devices.</source>
+        <translation>e dispositivi compatibili.</translation>
+    </message>
+    <message>
+        <location filename="dmxusb.cpp" line="153"/>
         <source>No output support available.</source>
         <translation>Nessuna uscita disponibile.</translation>
     </message>
     <message>
-        <location filename="enttecdmxusb.cpp" line="164"/>
-        <location filename="enttecdmxusb.cpp" line="231"/>
+        <location filename="dmxusb.cpp" line="155"/>
+        <source>Make sure that you have your hardware firmly plugged in. NOTE: FTDI VCP interface is not supported by this plugin.</source>
+        <translation>Controlla che la tua interfaccia sia connessa correttamente. ATTENZIONE: le interfacce FTDI VCP non sono supportate da questa plugin.</translation>
+    </message>
+    <message>
+        <location filename="dmxusb.cpp" line="164"/>
+        <location filename="dmxusb.cpp" line="231"/>
         <source>Device is operating correctly.</source>
         <translation>Interfaccia connessa ed attiva.</translation>
     </message>
     <message>
-        <location filename="enttecdmxusb.cpp" line="218"/>
+        <location filename="dmxusb.cpp" line="218"/>
         <source>No input support available.</source>
         <translation>Nessun ingresso disponibile.</translation>
     </message>
 </context>
 <context>
-    <name>EnttecDMXUSBConfig</name>
+    <name>DMXUSBConfig</name>
     <message>
-        <location filename="enttecdmxusbconfig.cpp" line="46"/>
+        <location filename="dmxusbconfig.cpp" line="46"/>
         <source>Refresh</source>
         <translation>Aggiorna</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbconfig.cpp" line="47"/>
+        <location filename="dmxusbconfig.cpp" line="47"/>
         <source>Close</source>
         <translation>Chiudi</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbconfig.cpp" line="55"/>
+        <location filename="dmxusbconfig.cpp" line="55"/>
         <source>Name</source>
         <translation>Nome</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbconfig.cpp" line="55"/>
+        <location filename="dmxusbconfig.cpp" line="55"/>
         <source>Serial</source>
         <translation>Seriale</translation>
     </message>
@@ -96,7 +95,8 @@
     <name>QObject</name>
     <message>
         <location filename="enttecdmxusbprorx.cpp" line="78"/>
-        <location filename="enttecdmxusbprotx.cpp" line="69"/>
+        <location filename="enttecdmxusbprotx.cpp" line="127"/>
+        <location filename="ultradmxusbprotx.cpp" line="71"/>
         <source>Protocol</source>
         <translation>Protocollo</translation>
     </message>
@@ -106,7 +106,8 @@
         <translation>Ingresso</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbprotx.cpp" line="71"/>
+        <location filename="enttecdmxusbprotx.cpp" line="129"/>
+        <location filename="ultradmxusbprotx.cpp" line="73"/>
         <source>Output</source>
         <translation>Uscita</translation>
     </message>

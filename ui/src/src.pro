@@ -39,6 +39,7 @@ HEADERS += aboutbox.h \
            cuestackmodel.h \
            docbrowser.h \
            dmxslider.h \
+           dmxdumpfactory.h \
            efxeditor.h \
            efxpreviewarea.h \
            fixtureconsole.h \
@@ -126,7 +127,8 @@ FORMS += aboutbox.ui \
          vcsliderproperties.ui \
          vcspeeddialproperties.ui \
          vcxypadfixtureeditor.ui \
-         vcxypadproperties.ui
+         vcxypadproperties.ui \
+    dmxdumpfactory.ui
 
 SOURCES += aboutbox.cpp \
            addfixture.cpp \
@@ -145,6 +147,7 @@ SOURCES += aboutbox.cpp \
            cuestackmodel.cpp \
            docbrowser.cpp \
            dmxslider.cpp \
+           dmxdumpfactory.cpp \
            efxeditor.cpp \
            efxpreviewarea.cpp \
            fixtureconsole.cpp \

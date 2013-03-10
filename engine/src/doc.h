@@ -371,6 +371,12 @@ public:
      */
     Function* function(quint32 id) const;
 
+    /**
+     * Get the next Function ID that will be assigned at the
+     * creation of a new Function
+     */
+    quint32 nextFunctionID();
+
 protected:
     /**
      * Create a new function Id

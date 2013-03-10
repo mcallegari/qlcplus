@@ -43,6 +43,7 @@
 #include "addvcbuttonmatrix.h"
 #include "addvcslidermatrix.h"
 #include "virtualconsole.h"
+#include "dmxdumpfactory.h"
 #include "vcproperties.h"
 #include "vcspeeddial.h"
 #include "vcsoloframe.h"

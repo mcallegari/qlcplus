@@ -608,6 +608,18 @@ Function* Doc::function(quint32 id) const
         return NULL;
 }
 
+quint32 Doc::nextFunctionID()
+{
+    quint32 tmpFID = m_latestFunctionId;
+    while (m_functions.contains(tmpFID) == true ||
+           tmpFID == Fixture::invalidId())
+    {
+        tmpFID++;
+    }
+
+    return tmpFID;
+}
+
 void Doc::slotFunctionChanged(quint32 fid)
 {
     setModified();

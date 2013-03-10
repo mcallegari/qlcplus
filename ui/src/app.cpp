@@ -28,6 +28,7 @@
 #include "functionmanager.h"
 #include "virtualconsole.h"
 #include "fixturemanager.h"
+#include "dmxdumpfactory.h"
 #include "showmanager.h"
 #include "mastertimer.h"
 #include "simpledesk.h"
@@ -74,6 +75,7 @@ App::App()
     , m_controlFullScreenAction(NULL)
     , m_controlBlackoutAction(NULL)
     , m_controlPanicAction(NULL)
+    , m_dumpDmxAction(NULL)
 
     , m_helpIndexAction(NULL)
     , m_helpAboutAction(NULL)
@@ -175,6 +177,8 @@ void App::init()
     initActions();
     // Main tool bar
     initToolBar();
+
+    m_dumpProperties = new DmxDumpFactoryProperties(KUniverseCount);
 
     // Create primary views.
     m_tab->setIconSize(QSize(24, 24));
@@ -494,6 +498,10 @@ void App::initActions()
     connect(m_controlBlackoutAction, SIGNAL(triggered(bool)), this, SLOT(slotControlBlackout()));
     m_controlBlackoutAction->setChecked(m_doc->outputMap()->blackout());
 
+    m_dumpDmxAction = new QAction(QIcon(":/add_dump.png"), tr("Dump DMX values to a function"), this);
+    m_dumpDmxAction->setShortcut(QKeySequence(tr("CTRL+D", "Control|Dump DMX")));
+    connect(m_dumpDmxAction, SIGNAL(triggered()), this, SLOT(slotDumpDmxIntoFunction()));
+
     m_controlPanicAction = new QAction(QIcon(":/panic.png"), tr("Stop ALL functions!"), this);
     m_controlPanicAction->setShortcut(QKeySequence("CTRL+SHIFT+ESC"));
     connect(m_controlPanicAction, SIGNAL(triggered(bool)), this, SLOT(slotControlPanic()));
@@ -535,6 +543,8 @@ void App::initToolBar()
     QWidget* widget = new QWidget(this);
     widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     m_toolbar->addWidget(widget);
+    m_toolbar->addAction(m_dumpDmxAction);
+    m_toolbar->addSeparator();
     m_toolbar->addAction(m_controlPanicAction);
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_controlBlackoutAction);
@@ -804,6 +814,15 @@ void App::slotRunningFunctionsChanged()
         m_controlPanicAction->setEnabled(true);
     else
         m_controlPanicAction->setEnabled(false);
+}
+
+void App::slotDumpDmxIntoFunction()
+{
+    DmxDumpFactory ddf(m_doc, m_dumpProperties, this);
+    if (ddf.exec() == QDialog::Accepted)
+    {
+
+    }
 }
 
 void App::slotControlFullScreen()

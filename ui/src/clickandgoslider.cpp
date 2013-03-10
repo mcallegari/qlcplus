@@ -1,6 +1,6 @@
 /*
-  Q Light Controller
-  clickngoslider.cpp
+  Q Light Controller Plus
+  clickandgoslider.cpp
 
   Copyright (c) Massimo Callegari
 

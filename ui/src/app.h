@@ -27,6 +27,7 @@
 #include <QList>
 #include <QFile>
 
+#include "dmxdumpfactoryproperties.h"
 #include "qlcfixturedefcache.h"
 #include "doc.h"
 
@@ -128,6 +129,7 @@ public slots:
     void slotBlackoutChanged(bool state);
     void slotControlPanic();
     void slotRunningFunctionsChanged();
+    void slotDumpDmxIntoFunction();
 
     void slotHelpIndex();
     void slotHelpAbout();
@@ -143,12 +145,19 @@ private:
     QAction* m_controlFullScreenAction;
     QAction* m_controlBlackoutAction;
     QAction* m_controlPanicAction;
+    QAction* m_dumpDmxAction;
 
     QAction* m_helpIndexAction;
     QAction* m_helpAboutAction;
 
 private:
     QToolBar* m_toolbar;
+
+    /*********************************************************************
+     * Load & Save
+     *********************************************************************/
+private:
+    DmxDumpFactoryProperties *m_dumpProperties;
 
     /*********************************************************************
      * Load & Save

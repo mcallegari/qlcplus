@@ -2,61 +2,60 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="de_DE">
 <context>
-    <name>EnttecDMXUSB</name>
+    <name>DMXUSB</name>
     <message>
-        <location filename="enttecdmxusb.cpp" line="139"/>
-        <source>and compatible devices.</source>
-        <oldsource>No devices available.</oldsource>
-        <translation>Keine Geräte verfügbar.</translation>
-    </message>
-    <message>
-        <location filename="enttecdmxusb.cpp" line="155"/>
-        <source>Make sure that you have your hardware firmly plugged in. NOTE: FTDI VCP interface is not supported by this plugin.</source>
-        <translation>Stellen Sie sicher, dass Sie Ihre Hardware fest eingesteckt haben. FTDI VCP Schnittstelle ist nicht durch dieses Plugin unterstützt.</translation>
-    </message>
-    <message>
-        <location filename="enttecdmxusb.cpp" line="136"/>
+        <location filename="dmxusb.cpp" line="136"/>
         <source>This plugin provides DMX output support for</source>
-        <translation>Dieses Plugin bietet DMX-Ausgabesupport für</translation>
+        <translation type="unfinished">Dieses Plugin bietet DMX-Ausgabesupport für</translation>
     </message>
     <message>
-        <location filename="enttecdmxusb.cpp" line="153"/>
+        <location filename="dmxusb.cpp" line="139"/>
+        <source>and compatible devices.</source>
+        <translation type="unfinished">Keine Geräte verfügbar.</translation>
+    </message>
+    <message>
+        <location filename="dmxusb.cpp" line="153"/>
         <source>No output support available.</source>
-        <translation>Keine Ausgabeunterstützung verfügbar.</translation>
+        <translation type="unfinished">Keine Ausgabeunterstützung verfügbar.</translation>
     </message>
     <message>
-        <location filename="enttecdmxusb.cpp" line="164"/>
-        <location filename="enttecdmxusb.cpp" line="231"/>
+        <location filename="dmxusb.cpp" line="155"/>
+        <source>Make sure that you have your hardware firmly plugged in. NOTE: FTDI VCP interface is not supported by this plugin.</source>
+        <translation type="unfinished">Stellen Sie sicher, dass Sie Ihre Hardware fest eingesteckt haben. FTDI VCP Schnittstelle ist nicht durch dieses Plugin unterstützt.</translation>
+    </message>
+    <message>
+        <location filename="dmxusb.cpp" line="164"/>
+        <location filename="dmxusb.cpp" line="231"/>
         <source>Device is operating correctly.</source>
-        <translation>Gerät ist funktionsfähig.</translation>
+        <translation type="unfinished">Gerät ist funktionsfähig.</translation>
     </message>
     <message>
-        <location filename="enttecdmxusb.cpp" line="218"/>
+        <location filename="dmxusb.cpp" line="218"/>
         <source>No input support available.</source>
-        <translation>Keine Eingabeunterstützung verfügbar.</translation>
+        <translation type="unfinished">Keine Eingabeunterstützung verfügbar.</translation>
     </message>
 </context>
 <context>
-    <name>EnttecDMXUSBConfig</name>
+    <name>DMXUSBConfig</name>
     <message>
-        <location filename="enttecdmxusbconfig.cpp" line="46"/>
+        <location filename="dmxusbconfig.cpp" line="46"/>
         <source>Refresh</source>
-        <translation>Aktualisieren</translation>
+        <translation type="unfinished">Aktualisieren</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbconfig.cpp" line="47"/>
+        <location filename="dmxusbconfig.cpp" line="47"/>
         <source>Close</source>
-        <translation>Schliessen</translation>
+        <translation type="unfinished">Schliessen</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbconfig.cpp" line="55"/>
+        <location filename="dmxusbconfig.cpp" line="55"/>
         <source>Name</source>
-        <translation>Name</translation>
+        <translation type="unfinished">Name</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbconfig.cpp" line="55"/>
+        <location filename="dmxusbconfig.cpp" line="55"/>
         <source>Serial</source>
-        <translation>Seriennummer</translation>
+        <translation type="unfinished">Seriennummer</translation>
     </message>
 </context>
 <context>
@@ -96,7 +95,8 @@
     <name>QObject</name>
     <message>
         <location filename="enttecdmxusbprorx.cpp" line="78"/>
-        <location filename="enttecdmxusbprotx.cpp" line="69"/>
+        <location filename="enttecdmxusbprotx.cpp" line="127"/>
+        <location filename="ultradmxusbprotx.cpp" line="71"/>
         <source>Protocol</source>
         <translation>Protokoll</translation>
     </message>
@@ -106,7 +106,8 @@
         <translation>Eingabe</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbprotx.cpp" line="71"/>
+        <location filename="enttecdmxusbprotx.cpp" line="129"/>
+        <location filename="ultradmxusbprotx.cpp" line="73"/>
         <source>Output</source>
         <translation>Ausgabe</translation>
     </message>
