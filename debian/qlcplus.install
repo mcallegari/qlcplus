@@ -15,7 +15,7 @@ usr/lib/qt4/plugins/qlcplus/libenttecwing.so
 usr/lib/qt4/plugins/qlcplus/libhid.so
 usr/lib/qt4/plugins/qlcplus/libdmx4linux.so
 usr/lib/qt4/plugins/qlcplus/libmidiplugin.so
-usr/lib/qt4/plugins/qlcplus/libenttecdmxusb.so
+usr/lib/qt4/plugins/qlcplus/libdmxusb.so
 usr/lib/qt4/plugins/qlcplus/libpeperoni.so
 usr/lib/qt4/plugins/qlcplus/libudmx.so
 usr/lib/qt4/plugins/qlcplus/libosc.so
