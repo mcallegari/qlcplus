@@ -754,7 +754,7 @@ void ShowManager::slotFunctionChanged(quint32 id)
 
 void ShowManager::slotFunctionRemoved(quint32 id)
 {
-    /** If the deleted function was a Scene, find and delete all the
+    /** If the deleted function was a Chaser, find and delete all the
      *  associated Sequences */
     foreach (Function* function, m_doc->functions())
     {
@@ -767,6 +767,11 @@ void ShowManager::slotFunctionRemoved(quint32 id)
             }
         }
     }
+
+    if (m_show != NULL && m_show->id() == id)
+        m_show = NULL;
+    if (m_scene!= NULL && m_scene->id() == id)
+        m_scene = NULL;
 
     updateMultiTrackView();
 }

@@ -27,6 +27,7 @@
 #include <QIcon>
 
 #include "clickandgoslider.h"
+#include "clickandgowidget.h"
 #include "qlcchannel.h"
 #include "dmxsource.h"
 
@@ -110,6 +111,7 @@ signals:
 
 private:
     QToolButton* m_presetButton;
+    ClickAndGoWidget *m_cngWidget;
     QSpinBox* m_spin;
     ClickAndGoSlider* m_slider;
     QLabel* m_label;
@@ -119,6 +121,8 @@ private:
      *************************************************************************/
 private slots:
     void slotContextMenuTriggered(QAction* action);
+    void slotClickAndGoLevelChanged(uchar level);
+    void slotClickAndGoLevelAndPresetChanged(uchar level, QImage img);
 
 private:
     void contextMenuEvent(QContextMenuEvent*);

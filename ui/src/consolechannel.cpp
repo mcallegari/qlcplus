@@ -21,6 +21,7 @@
 
 #include <QContextMenuEvent>
 #include <QIntValidator>
+#include <QWidgetAction>
 #include <QVBoxLayout>
 #include <QToolButton>
 #include <QSpinBox>
@@ -51,6 +52,7 @@ ConsoleChannel::ConsoleChannel(QWidget* parent, Doc* doc, quint32 fixture, quint
     , m_channel(channel)
     , m_group(Fixture::invalidId())
     , m_presetButton(NULL)
+    , m_cngWidget(NULL)
     , m_spin(NULL)
     , m_slider(NULL)
     , m_label(NULL)
@@ -259,12 +261,18 @@ void ConsoleChannel::initMenu()
         break;
     case QLCChannel::Colour:
         m_presetButton->setIcon(QIcon(":/color.png"));
+        m_cngWidget = new ClickAndGoWidget();
+        m_cngWidget->setType(ClickAndGoWidget::Preset, ch);
         break;
     case QLCChannel::Effect:
         m_presetButton->setIcon(QIcon(":/star.png"));
+        m_cngWidget = new ClickAndGoWidget();
+        m_cngWidget->setType(ClickAndGoWidget::Preset, ch);
         break;
     case QLCChannel::Gobo:
         m_presetButton->setIcon(QIcon(":/gobo.png"));
+        m_cngWidget = new ClickAndGoWidget();
+        m_cngWidget->setType(ClickAndGoWidget::Preset, ch);
         break;
     case QLCChannel::Shutter:
         m_presetButton->setIcon(QIcon(":/shutter.png"));
@@ -289,14 +297,27 @@ void ConsoleChannel::initMenu()
         break;
     }
 
-    QAction* action = m_menu->addAction(m_presetButton->icon(), ch->name());
-    m_menu->setTitle(ch->name());
-    action->setEnabled(false);
-    m_menu->addSeparator();
+    if (m_cngWidget != NULL)
+    {
+        QWidgetAction* action = new QWidgetAction(this);
+        action->setDefaultWidget(m_cngWidget);
+        m_menu->addAction(action);
+        connect(m_cngWidget, SIGNAL(levelChanged(uchar)),
+                this, SLOT(slotClickAndGoLevelChanged(uchar)));
+        connect(m_cngWidget, SIGNAL(levelAndPresetChanged(uchar,QImage)),
+                this, SLOT(slotClickAndGoLevelAndPresetChanged(uchar, QImage)));
+    }
+    else
+    {
+        QAction* action = m_menu->addAction(m_presetButton->icon(), ch->name());
+        m_menu->setTitle(ch->name());
+        action->setEnabled(false);
+        m_menu->addSeparator();
 
-    // Initialize the preset menu only for intelligent fixtures
-    if (fxi->isDimmer() == false)
-        initCapabilityMenu(ch);
+        // Initialize the preset menu only for intelligent fixtures
+        if (fxi->isDimmer() == false)
+            initCapabilityMenu(ch);
+    }
 }
 
 void ConsoleChannel::setIntensityButton(const QLCChannel* channel)
@@ -308,6 +329,8 @@ void ConsoleChannel::setIntensityButton(const QLCChannel* channel)
         pal.setColor(QPalette::Button, Qt::red);
         m_presetButton->setPalette(pal);
         m_presetButton->setText("R"); // Don't localize
+        m_cngWidget = new ClickAndGoWidget();
+        m_cngWidget->setType(ClickAndGoWidget::Red);
     }
     else if (channel->colour() == QLCChannel::Green ||
              channel->name().contains("green", Qt::CaseInsensitive) == true)
@@ -316,6 +339,8 @@ void ConsoleChannel::setIntensityButton(const QLCChannel* channel)
         pal.setColor(QPalette::Button, Qt::green);
         m_presetButton->setPalette(pal);
         m_presetButton->setText("G"); // Don't localize
+        m_cngWidget = new ClickAndGoWidget();
+        m_cngWidget->setType(ClickAndGoWidget::Green);
     }
     else if (channel->colour() == QLCChannel::Blue ||
              channel->name().contains("blue", Qt::CaseInsensitive) == true)
@@ -325,6 +350,8 @@ void ConsoleChannel::setIntensityButton(const QLCChannel* channel)
         pal.setColor(QPalette::ButtonText, Qt::white); // Improve contrast
         m_presetButton->setPalette(pal);
         m_presetButton->setText("B"); // Don't localize
+        m_cngWidget = new ClickAndGoWidget();
+        m_cngWidget->setType(ClickAndGoWidget::Blue);
     }
     else if (channel->colour() == QLCChannel::Cyan ||
              channel->name().contains("cyan", Qt::CaseInsensitive) == true)
@@ -333,6 +360,8 @@ void ConsoleChannel::setIntensityButton(const QLCChannel* channel)
         pal.setColor(QPalette::Button, QColor("cyan"));
         m_presetButton->setPalette(pal);
         m_presetButton->setText("C"); // Don't localize
+        m_cngWidget = new ClickAndGoWidget();
+        m_cngWidget->setType(ClickAndGoWidget::Cyan);
     }
     else if (channel->colour() == QLCChannel::Magenta ||
              channel->name().contains("magenta", Qt::CaseInsensitive) == true)
@@ -341,6 +370,8 @@ void ConsoleChannel::setIntensityButton(const QLCChannel* channel)
         pal.setColor(QPalette::Button, QColor("magenta"));
         m_presetButton->setPalette(pal);
         m_presetButton->setText("M"); // Don't localize
+        m_cngWidget = new ClickAndGoWidget();
+        m_cngWidget->setType(ClickAndGoWidget::Magenta);
     }
     else if (channel->colour() == QLCChannel::Yellow ||
              channel->name().contains("yellow", Qt::CaseInsensitive) == true)
@@ -349,6 +380,8 @@ void ConsoleChannel::setIntensityButton(const QLCChannel* channel)
         pal.setColor(QPalette::Button, QColor("yellow"));
         m_presetButton->setPalette(pal);
         m_presetButton->setText("Y"); // Don't localize
+        m_cngWidget = new ClickAndGoWidget();
+        m_cngWidget->setType(ClickAndGoWidget::Yellow);
     }
     else if (channel->colour() == QLCChannel::White ||
              channel->name().contains("white", Qt::CaseInsensitive) == true)
@@ -357,6 +390,8 @@ void ConsoleChannel::setIntensityButton(const QLCChannel* channel)
         pal.setColor(QPalette::Button, QColor("white"));
         m_presetButton->setPalette(pal);
         m_presetButton->setText("W"); // Don't localize
+        m_cngWidget = new ClickAndGoWidget();
+        m_cngWidget->setType(ClickAndGoWidget::White);
     }
     else
     {
@@ -515,3 +550,16 @@ void ConsoleChannel::slotContextMenuTriggered(QAction* action)
     // The menuitem's data contains a valid DMX value
     setValue(action->data().toInt());
 }
+
+void ConsoleChannel::slotClickAndGoLevelChanged(uchar level)
+{
+    setValue(level);
+}
+
+void ConsoleChannel::slotClickAndGoLevelAndPresetChanged(uchar level, QImage img)
+{
+    Q_UNUSED(img)
+    setValue(level);
+}
+
+

@@ -32,11 +32,25 @@ class ClickAndGoWidget : public QWidget
 public:
     explicit ClickAndGoWidget(QWidget *parent = 0);
 
+    enum ClickAndGo
+    {
+        None,
+        Red,
+        Green,
+        Blue,
+        Cyan,
+        Magenta,
+        Yellow,
+        White,
+        RGB,
+        Preset
+    };
+
     /**
      * Set the widget type. This is fundamental
      * for the whole widget behaviour
      */
-    void setType(int type, const QLCChannel *chan);
+    void setType(int type, const QLCChannel *chan = NULL);
 
     /**
      * Returns the widget type
@@ -55,6 +69,12 @@ public:
      * @param value the slider position value
      */
     QImage getImageFromValue(uchar value);
+
+    /** Returns a human readable string of a Click And Go type */
+    static QString clickAndGoTypeToString(ClickAndGoWidget::ClickAndGo type);
+
+    /** Returns a Click And Go type from the given string */
+    static ClickAndGoWidget::ClickAndGo stringToClickAndGoType(QString str);
 
 protected:
     /**

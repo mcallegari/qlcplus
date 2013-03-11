@@ -8,6 +8,7 @@ qlcplus (4.2.3) stable; urgency=low
   * NEW: Sliders can now jump directly to the clicked position
   * QLC+ and Fixture Editor now remember the working directory
   * Input profiles can now be used with no input device connected
+  * Fixed crash when loading a new project from a project with a Show
   * Added fixtures: Eurolite TMH-8, Showtec LED Par 56, Showtec MultiDim MK III DMX (thanks to Heiko Fanieng)
   * Added fixtures: Clay Paky Atlas, Clay Paky Beam 300
 

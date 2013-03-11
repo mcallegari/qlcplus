@@ -49,7 +49,7 @@ Show::Show(Doc* doc) : Function(doc, Function::Show)
 
 Show::~Show()
 {
-
+    m_tracks.clear();
 }
 
 /*****************************************************************************
@@ -136,13 +136,7 @@ Track* Show::getTrackFromSceneID(quint32 id)
 
 int Show::getTracksCount()
 {
-    int i = 0;
-    foreach(Track *t, m_tracks)
-    {
-        Q_UNUSED(t)
-        i++;
-    }
-    return i;
+    return m_tracks.size();
 }
 
 QList <Track*> Show::tracks() const

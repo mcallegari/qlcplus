@@ -203,23 +203,23 @@ void VCSliderProperties::slotModeLevelClicked()
     int cngType = m_slider->getClickAndGoType();
     switch(cngType)
     {
-        case VCSlider::Red:
-        case VCSlider::Green:
-        case VCSlider::Blue:
-        case VCSlider::Cyan:
-        case VCSlider::Magenta:
-        case VCSlider::Yellow:
-        case VCSlider::White:
+        case ClickAndGoWidget::Red:
+        case ClickAndGoWidget::Green:
+        case ClickAndGoWidget::Blue:
+        case ClickAndGoWidget::Cyan:
+        case ClickAndGoWidget::Magenta:
+        case ClickAndGoWidget::Yellow:
+        case ClickAndGoWidget::White:
             m_cngColorCheck->setChecked(true);
         break;
-        case VCSlider::RGB:
+        case ClickAndGoWidget::RGB:
             m_cngRGBCheck->setChecked(true);
         break;
-        case VCSlider::Preset:
+        case ClickAndGoWidget::Preset:
             m_cngPresetCheck->setChecked(true);
         break;
         default:
-        case VCSlider::None:
+        case ClickAndGoWidget::None:
             m_cngNoneCheck->setChecked(true);
         break;
 
@@ -674,7 +674,7 @@ void VCSliderProperties::checkMajorColor(int *comp, int *max, int type)
     if (*comp > *max)
     {
         *max = *comp;
-        m_slider->setClickAndGoType((VCSlider::ClickAndGo)type);
+        m_slider->setClickAndGoType((ClickAndGoWidget::ClickAndGo)type);
     }
 }
 
@@ -712,37 +712,37 @@ void VCSliderProperties::storeLevelChannels()
                         if (ch->colour() == QLCChannel::Red)
                         {
                             red++;
-                            checkMajorColor(&red, &majorColor, VCSlider::Red);
+                            checkMajorColor(&red, &majorColor, ClickAndGoWidget::Red);
                         }
                         else if (ch->colour() == QLCChannel::Green)
                         {
                             green++;
-                            checkMajorColor(&green, &majorColor, VCSlider::Green);
+                            checkMajorColor(&green, &majorColor, ClickAndGoWidget::Green);
                         }
                         else if (ch->colour() == QLCChannel::Blue)
                         {
                             blue++;
-                            checkMajorColor(&blue, &majorColor, VCSlider::Blue);
+                            checkMajorColor(&blue, &majorColor, ClickAndGoWidget::Blue);
                         }
                         else if (ch->colour() == QLCChannel::Cyan)
                         {
                             cyan++;
-                            checkMajorColor(&cyan, &majorColor, VCSlider::Cyan);
+                            checkMajorColor(&cyan, &majorColor, ClickAndGoWidget::Cyan);
                         }
                         else if (ch->colour() == QLCChannel::Magenta)
                         {
                             magenta++;
-                            checkMajorColor(&magenta, &majorColor, VCSlider::Magenta);
+                            checkMajorColor(&magenta, &majorColor, ClickAndGoWidget::Magenta);
                         }
                         else if (ch->colour() == QLCChannel::Yellow)
                         {
                             yellow++;
-                            checkMajorColor(&yellow, &majorColor, VCSlider::Yellow);
+                            checkMajorColor(&yellow, &majorColor, ClickAndGoWidget::Yellow);
                         }
                         else if (ch->colour() == QLCChannel::White)
                         {
                             white++;
-                            checkMajorColor(&white, &majorColor, VCSlider::White);
+                            checkMajorColor(&white, &majorColor, ClickAndGoWidget::White);
                         }
                     }
                 }
@@ -763,11 +763,11 @@ void VCSliderProperties::accept()
     /* Color doesn't have a case cause it is calculated
      * in storeLevelChannels */
     if (m_cngNoneCheck->isChecked())
-        m_slider->setClickAndGoType(VCSlider::None);
+        m_slider->setClickAndGoType(ClickAndGoWidget::None);
     else if (m_cngRGBCheck->isChecked())
-        m_slider->setClickAndGoType(VCSlider::RGB);
+        m_slider->setClickAndGoType(ClickAndGoWidget::RGB);
     else if (m_cngPresetCheck->isChecked())
-        m_slider->setClickAndGoType(VCSlider::Preset);
+        m_slider->setClickAndGoType(ClickAndGoWidget::Preset);
 
     /* Playback page */
     m_slider->setPlaybackFunction(m_playbackFunctionId);

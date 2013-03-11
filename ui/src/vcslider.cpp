@@ -135,7 +135,7 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_time = new QTime();
 
     /* Click & Go button */
-    m_cngType = None;
+    m_cngType = ClickAndGoWidget::None;
     m_cngBox = new QHBoxLayout();
     layout()->addItem(m_cngBox);
     m_cngBox->addStretch();
@@ -263,7 +263,7 @@ void VCSlider::editProperties()
     if (prop.exec() == QDialog::Accepted)
     {
         m_doc->setModified();
-        if (m_cngType == None)
+        if (m_cngType == ClickAndGoWidget::None)
             m_cngButton->hide();
         else
         {
@@ -442,7 +442,7 @@ void VCSlider::setSliderMode(SliderMode mode)
 
         m_bottomLabel->show();
         m_tapButton->hide();
-        if (m_cngType != None)
+        if (m_cngType != ClickAndGoWidget::None)
         {
             setClickAndGoType(m_cngType);
             setupClickAndGoWidegt();
@@ -546,12 +546,12 @@ void VCSlider::slotFixtureRemoved(quint32 fxi_id)
  * Click & Go
  *********************************************************************/
 
-void VCSlider::setClickAndGoType(VCSlider::ClickAndGo type)
+void VCSlider::setClickAndGoType(ClickAndGoWidget::ClickAndGo type)
 {
     m_cngType = type;
 }
 
-VCSlider::ClickAndGo VCSlider::getClickAndGoType()
+ClickAndGoWidget::ClickAndGo VCSlider::getClickAndGoType()
 {
     return m_cngType;
 }
@@ -561,7 +561,7 @@ void VCSlider::setupClickAndGoWidegt()
     if (m_cngWidget != NULL)
     {
         qDebug() << Q_FUNC_INFO << "Level channel: " << m_levelChannels.size() << "type: " << m_cngType;
-        if (m_cngType == Preset && m_levelChannels.size() > 0)
+        if (m_cngType == ClickAndGoWidget::Preset && m_levelChannels.size() > 0)
         {
             LevelChannel lChan = m_levelChannels.first();
             Fixture *fxi = m_doc->fixture(lChan.fixture);
@@ -581,45 +581,12 @@ ClickAndGoWidget *VCSlider::getClickAndGoWidget()
     return m_cngWidget;
 }
 
-QString VCSlider::clickAndGoTypeToString(VCSlider::ClickAndGo type)
-{
-    switch (type)
-    {
-        default:
-        case None: return "None"; break;
-        case Red: return "Red"; break;
-        case Green: return "Green"; break;
-        case Blue: return "Blue"; break;
-        case Cyan: return "Cyan"; break;
-        case Magenta: return "Magenta"; break;
-        case Yellow: return "Yellow"; break;
-        case White: return "White"; break;
-        case RGB: return "RGB"; break;
-        case Preset: return "Preset"; break;
-    }
-}
-
-VCSlider::ClickAndGo VCSlider::stringToClickAndGoType(QString str)
-{
-    if (str == "Red") return Red;
-    else if (str == "Green") return Green;
-    else if (str == "Blue") return Blue;
-    else if (str == "Cyan") return Cyan;
-    else if (str == "Magenta") return Magenta;
-    else if (str == "Yellow") return Yellow;
-    else if (str == "White") return White;
-    else if (str == "RGB") return RGB;
-    else if (str == "Preset") return Preset;
-
-    return None;
-}
-
 void VCSlider::setClickAndGoWidgetFromLevel(uchar level)
 {
-    if (m_cngType == None || m_cngWidget == NULL)
+    if (m_cngType == ClickAndGoWidget::None || m_cngWidget == NULL)
         return;
 
-    if (m_cngType == RGB)
+    if (m_cngType == ClickAndGoWidget::RGB)
     {
         QPixmap px(42, 42);
         float f = SCALE(float(level),
@@ -739,7 +706,7 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, UniverseArray* universes)
     uchar modLevel = m_levelValue;
 
     int r = 0, g = 0, b = 0;
-    if (m_cngType == RGB)
+    if (m_cngType == ClickAndGoWidget::RGB)
     {
         float f = SCALE(float(m_levelValue),
                         float(m_slider->minimum()),
@@ -772,7 +739,7 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, UniverseArray* universes)
                    LTP in effect. */
                 continue;
             }
-            if (m_cngType == RGB && qlcch->group() == QLCChannel::Intensity)
+            if (m_cngType == ClickAndGoWidget::RGB && qlcch->group() == QLCChannel::Intensity)
             {
                 if (qlcch->colour() == QLCChannel::Red)
                     modLevel = (uchar)r;
@@ -1069,7 +1036,7 @@ bool VCSlider::loadXML(const QDomElement* root)
             if (tag.hasAttribute(KXMLQLCVCSliderClickAndGoType))
             {
                 str = tag.attribute(KXMLQLCVCSliderClickAndGoType);
-                setClickAndGoType(stringToClickAndGoType(str));
+                setClickAndGoType(ClickAndGoWidget::stringToClickAndGoType(str));
             }
         }
         else if (tag.tagName() == KXMLQLCVCSliderLevel)
@@ -1227,7 +1194,7 @@ bool VCSlider::saveXML(QDomDocument* doc, QDomElement* vc_root)
     tag.setAttribute(KXMLQLCVCSliderValueDisplayStyle, str);
 
     /* Click And Go type */
-    str = clickAndGoTypeToString(m_cngType);
+    str = ClickAndGoWidget::clickAndGoTypeToString(m_cngType);
     tag.setAttribute(KXMLQLCVCSliderClickAndGoType, str);
 
     /* Level */

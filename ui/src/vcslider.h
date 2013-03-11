@@ -438,30 +438,17 @@ protected:
      * Click & Go
      *********************************************************************/
 public:
-    enum ClickAndGo
-    {
-        None,
-        Red,
-        Green,
-        Blue,
-        Cyan,
-        Magenta,
-        Yellow,
-        White,
-        RGB,
-        Preset
-    };
 
     /**
      * Set the Click & Go type. Fundamental to decide
      * the popup behaviour
      */
-    void setClickAndGoType(ClickAndGo type);
+    void setClickAndGoType(ClickAndGoWidget::ClickAndGo type);
 
     /**
      * Returns the Click & Go type
      */
-    ClickAndGo getClickAndGoType();
+    ClickAndGoWidget::ClickAndGo getClickAndGoType();
 
     /**
      * Create or update the Click And Go widget (if applicable)
@@ -475,12 +462,6 @@ public:
     ClickAndGoWidget* getClickAndGoWidget();
 
 protected:
-    /** Returns a human readable string of a Click And Go type */
-    QString clickAndGoTypeToString(ClickAndGo type);
-
-    /** Returns a Click And Go type from the given string */
-    ClickAndGo stringToClickAndGoType(QString str);
-
     void setClickAndGoWidgetFromLevel(uchar level);
 
 private slots:
@@ -489,7 +470,7 @@ private slots:
     void slotClickAndGoLevelAndPresetChanged(uchar level, QImage img);
 
 protected:
-    ClickAndGo m_cngType;
+    ClickAndGoWidget::ClickAndGo m_cngType;
     QHBoxLayout *m_cngBox;
     QToolButton *m_cngButton;
     QMenu *m_menu;

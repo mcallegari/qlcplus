@@ -38,7 +38,7 @@ ClickAndGoWidget::ClickAndGoWidget(QWidget *parent) :
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     setMouseTracking(true);
 
-    m_type = VCSlider::None;
+    m_type = None;
     m_linearColor = false;
     m_width = 10;
     m_height = 10;
@@ -169,29 +169,29 @@ void ClickAndGoWidget::setType(int type, const QLCChannel *chan)
 {
     m_linearColor = false;
     qDebug() << Q_FUNC_INFO << "Type: " << type;
-    if (type == VCSlider::None)
+    if (type == None)
     {
         m_image = QImage();
     }
-    else if (type == VCSlider::Red)
+    else if (type == Red)
         setupGradient(Qt::red);
-    else if (type == VCSlider::Green)
+    else if (type == Green)
         setupGradient(Qt::green);
-    else if (type == VCSlider::Blue)
+    else if (type == Blue)
         setupGradient(Qt::blue);
-    else if (type == VCSlider::Cyan)
+    else if (type == Cyan)
         setupGradient(Qt::cyan);
-    else if (type == VCSlider::Magenta)
+    else if (type == Magenta)
         setupGradient(Qt::magenta);
-    else if (type == VCSlider::Yellow)
+    else if (type == Yellow)
         setupGradient(Qt::yellow);
-    else if (type == VCSlider::White)
+    else if (type == White)
         setupGradient(Qt::white);
-    else if (type == VCSlider::RGB)
+    else if (type == RGB)
     {
         setupColorPicker();
     }
-    else if (type == VCSlider::Preset)
+    else if (type == Preset)
     {
         createPresetList(chan);
         setupPresetPicker();
@@ -203,6 +203,39 @@ void ClickAndGoWidget::setType(int type, const QLCChannel *chan)
 int ClickAndGoWidget::getType()
 {
     return m_type;
+}
+
+QString ClickAndGoWidget::clickAndGoTypeToString(ClickAndGoWidget::ClickAndGo type)
+{
+    switch (type)
+    {
+        default:
+        case None: return "None"; break;
+        case Red: return "Red"; break;
+        case Green: return "Green"; break;
+        case Blue: return "Blue"; break;
+        case Cyan: return "Cyan"; break;
+        case Magenta: return "Magenta"; break;
+        case Yellow: return "Yellow"; break;
+        case White: return "White"; break;
+        case RGB: return "RGB"; break;
+        case Preset: return "Preset"; break;
+    }
+}
+
+ClickAndGoWidget::ClickAndGo ClickAndGoWidget::stringToClickAndGoType(QString str)
+{
+    if (str == "Red") return Red;
+    else if (str == "Green") return Green;
+    else if (str == "Blue") return Blue;
+    else if (str == "Cyan") return Cyan;
+    else if (str == "Magenta") return Magenta;
+    else if (str == "Yellow") return Yellow;
+    else if (str == "White") return White;
+    else if (str == "RGB") return RGB;
+    else if (str == "Preset") return Preset;
+
+    return None;
 }
 
 QColor ClickAndGoWidget::getColorAt(uchar pos)
@@ -219,7 +252,7 @@ QImage ClickAndGoWidget::getImageFromValue(uchar value)
 {
     /** If the widget type is a Preset, return directly
      *  the pre-loaded resource */
-    if (m_type == VCSlider::Preset)
+    if (m_type == Preset)
     {
         foreach(PresetResource res, m_resources)
         {
@@ -229,7 +262,7 @@ QImage ClickAndGoWidget::getImageFromValue(uchar value)
     }
 
     QImage img(42, 42, QImage::Format_RGB32);
-    if (m_type == VCSlider::None)
+    if (m_type == None)
     {
         img.fill(Qt::black);
     }
@@ -309,11 +342,11 @@ void ClickAndGoWidget::mousePressEvent(QMouseEvent *event)
         else
             emit levelChanged(255);
     }
-    else if (m_type == VCSlider::RGB)
+    else if (m_type == RGB)
     {
         emit colorChanged(m_image.pixel(event->x(), event->y()));
     }
-    else if (m_type == VCSlider::Preset)
+    else if (m_type == Preset)
     {
         PresetResource res = m_resources.at(m_hoverCellIdx);
         qDebug() << "Mouse press. cellW: " << m_cellBarWidth << "min: " << res.m_min << "max:" << res.m_max;
@@ -329,7 +362,7 @@ void ClickAndGoWidget::mousePressEvent(QMouseEvent *event)
 
 void ClickAndGoWidget::mouseMoveEvent(QMouseEvent *event)
 {
-    if (m_type != VCSlider::Preset)
+    if (m_type != Preset)
         return;
     // calculate the index of the resource where the cursor is
     int floorX = qFloor(event->x() / CELL_W);
@@ -348,7 +381,7 @@ void ClickAndGoWidget::paintEvent(QPaintEvent *event)
 
     QPainter painter(this);
     painter.drawImage(QPoint(0, 0), m_image);
-    if (m_type == VCSlider::Preset)
+    if (m_type == Preset)
     {
         painter.setPen(Qt::NoPen);
         painter.setBrush(QBrush(QColor(76, 136, 255, 255)));
