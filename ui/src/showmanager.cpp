@@ -770,7 +770,7 @@ void ShowManager::slotFunctionRemoved(quint32 id)
 
     if (m_show != NULL && m_show->id() == id)
         m_show = NULL;
-    if (m_scene!= NULL && m_scene->id() == id)
+    if (m_scene != NULL && m_scene->id() == id)
         m_scene = NULL;
 
     updateMultiTrackView();

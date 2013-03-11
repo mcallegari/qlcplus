@@ -348,14 +348,17 @@ void ClickAndGoWidget::mousePressEvent(QMouseEvent *event)
     }
     else if (m_type == Preset)
     {
-        PresetResource res = m_resources.at(m_hoverCellIdx);
-        qDebug() << "Mouse press. cellW: " << m_cellBarWidth << "min: " << res.m_min << "max:" << res.m_max;
+        if (m_hoverCellIdx >= 0 && m_hoverCellIdx < m_resources.length())
+        {
+            PresetResource res = m_resources.at(m_hoverCellIdx);
+            qDebug() << "Mouse press. cellW: " << m_cellBarWidth << "min: " << res.m_min << "max:" << res.m_max;
 
-        float f = SCALE(float(m_cellBarWidth),
+            float f = SCALE(float(m_cellBarWidth),
                         float(0),
                         float(CELL_W),
                         float(0), float(res.m_max - res.m_min));
-        emit levelAndPresetChanged((uchar)f + res.m_min, res.m_thumbnail);
+            emit levelAndPresetChanged((uchar)f + res.m_min, res.m_thumbnail);
+        }
     }
     QWidget::mousePressEvent(event);
 }
@@ -367,10 +370,13 @@ void ClickAndGoWidget::mouseMoveEvent(QMouseEvent *event)
     // calculate the index of the resource where the cursor is
     int floorX = qFloor(event->x() / CELL_W);
     int floorY = qFloor(event->y() / CELL_H);
+    int tmpCellIDx = (floorY * 2) + floorX;
+    if (tmpCellIDx < 0 && tmpCellIDx >= m_resources.length())
+        return;
     m_cellBarXpos = floorX * CELL_W;
     m_cellBarYpos = floorY * CELL_H;
     m_cellBarWidth = event->x() - m_cellBarXpos;
-    m_hoverCellIdx = (floorY * 2) + floorX;
+    m_hoverCellIdx = tmpCellIDx;
     update();
     //qDebug() << "Idx:" << m_hoverCellIdx << "X:" << m_cellBarXpos << "mX:" << event->x();
 }
