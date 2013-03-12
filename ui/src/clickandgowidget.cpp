@@ -281,6 +281,8 @@ void ClickAndGoWidget::createPresetList(const QLCChannel *chan)
     if (chan == NULL)
         return;
 
+    m_resources.clear();
+
     qDebug() << Q_FUNC_INFO << "cap #" << chan->capabilities().size();
 
     foreach(QLCCapability cap, chan->capabilities())
@@ -309,7 +311,10 @@ void ClickAndGoWidget::setupPresetPicker()
     m_image = QImage(m_width, m_height, QImage::Format_RGB32);
     QPainter painter(&m_image);
     painter.setRenderHint(QPainter::Antialiasing);
-    m_image.fill(Qt::lightGray);
+    QLinearGradient presetGrad(QPointF(0,0), QPointF(0, m_height));
+    presetGrad.setColorAt(0, QApplication::palette().background().color());
+    presetGrad.setColorAt(1, QColor(173, 171, 179));
+    painter.fillRect(0, 0, m_width, m_height, presetGrad);
     for (int i = 0; i < m_resources.size(); i++)
     {
         PresetResource res = m_resources.at(i);
