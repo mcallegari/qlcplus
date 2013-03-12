@@ -17,7 +17,7 @@
     <message>
         <location filename="aboutbox.ui" line="116"/>
         <source>This application is licensed under the terms of GNU GPL version 2.</source>
-        <translation>Diese Programm ist unter den Bedingungen der GNU-GPL-Version 2 lizensiert.</translation>
+        <translation>Dieses Programm ist unter den Bedingungen der GNU-GPL-Version 2 lizensiert.</translation>
     </message>
     <message>
         <location filename="aboutbox.ui" line="126"/>
@@ -119,7 +119,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Arial&apos;; font-size:9pt;&quot;&gt;11. BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTYFOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW.  EXCEPT WHENOTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIESPROVIDE THE PROGRAM &amp;quot;AS IS&amp;quot; WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSEDOR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OFMERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.  THE ENTIRE RISK ASTO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU.  SHOULD THEPROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING,REPAIR OR CORRECTION.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Arial&apos;; font-size:9pt;&quot;&gt;12. IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITINGWILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MODIFY AND/ORREDISTRIBUTE THE PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES,INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISINGOUT OF THE USE OR INABILITY TO USE THE PROGRAM (INCLUDING BUT NOT LIMITEDTO LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BYYOU OR THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHERPROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THEPOSSIBILITY OF SUCH DAMAGES.&lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Arial&apos;; font-size:9pt; font-weight:600;&quot;&gt;END OF TERMS AND CONDITIONS&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</oldsource>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="aboutbox.cpp" line="41"/>
@@ -227,7 +227,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="addfixture.cpp" line="97"/>
         <source>Fixtures found: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Gefundene Geräte: %1</translation>
     </message>
     <message>
         <location filename="addfixture.cpp" line="510"/>
@@ -432,7 +432,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="app.cpp" line="242"/>
         <source>Do you wish to save the current workspace before closing the application?</source>
-        <translation>Willst du die aktuelle Arbeitsfläsche vor dem Schliessen speichern?</translation>
+        <translation>Willst du die aktuelle Arbeitsfläche vor dem Schliessen speichern?</translation>
     </message>
     <message>
         <location filename="app.cpp" line="416"/>
@@ -519,7 +519,7 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
     <message>
         <location filename="app.cpp" line="309"/>
         <source>Starting Q Light Controller</source>
-        <translation>Starte Q Light Controller</translation>
+        <translation>Starte Q Light Controller Plus</translation>
     </message>
     <message>
         <location filename="app.cpp" line="492"/>
@@ -583,13 +583,13 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
     <message>
         <location filename="app.cpp" line="501"/>
         <source>Dump DMX values to a function</source>
-        <translation type="unfinished"></translation>
+        <translation>Abbild (Dump) der DMX-Werte in einer Funktion</translation>
     </message>
     <message>
         <location filename="app.cpp" line="502"/>
         <source>CTRL+D</source>
         <comment>Control|Dump DMX</comment>
-        <translation type="unfinished"></translation>
+        <translation>STRG+D</translation>
     </message>
     <message>
         <location filename="app.cpp" line="505"/>
@@ -604,7 +604,7 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
     <message>
         <location filename="app.cpp" line="569"/>
         <source>Unable to read from file</source>
-        <translation>Kann von Datei nicht lesen</translation>
+        <translation>Kann Datei nicht lesen</translation>
     </message>
     <message>
         <location filename="app.cpp" line="572"/>
@@ -786,12 +786,12 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="channelselection.ui" line="84"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation>Der bestimmte Eingangskanal im Eingangsuniversum der Daten zu diesem Widget sendet</translation>
+        <translation>Der bestimmte Eingangskanal im Eingangsuniversum der Daten zu diesem Assistenten sendet</translation>
     </message>
     <message>
         <location filename="channelselection.ui" line="107"/>
         <source>The input universe that sends data to this widget</source>
-        <translation>Das Eingangsuniversum, welches Daten zu diesem Widget sendet</translation>
+        <translation>Das Eingangsuniversum, welches Daten zu diesem Assistenten sendet</translation>
     </message>
     <message>
         <location filename="channelselection.ui" line="117"/>
@@ -894,7 +894,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="chasereditor.ui" line="438"/>
         <source>Show/Hide speed dial window</source>
-        <translation>Anzeigen/Ausblenden des schnellwahl Fenter</translation>
+        <translation>Anzeigen/Ausblenden des Schnellwahlfensters</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="441"/>
@@ -1018,7 +1018,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="chasereditor.ui" line="488"/>
         <source>Stop the chaser if running</source>
-        <translation type="unfinished"></translation>
+        <translation>Den laufenden Chaser stoppen</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="528"/>
@@ -1121,7 +1121,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="collectioneditor.ui" line="61"/>
         <source>Add function(s) to the collection</source>
-        <translation>Funktionen zu der Sammlung hinzufügen</translation>
+        <translation>Funktion(en) zu der Sammlung hinzufügen</translation>
     </message>
     <message>
         <location filename="collectioneditor.ui" line="81"/>
@@ -1198,60 +1198,60 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="dmxdumpfactory.ui" line="14"/>
         <source>Dump DMX values</source>
-        <translation type="unfinished"></translation>
+        <translation>DMX-Werte abbilden (Dump)</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="20"/>
         <source>Dump only non-zero values</source>
-        <translation type="unfinished"></translation>
+        <translation>Abbild (Dump) von Werten ungleich Null</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="37"/>
         <source>Dump options</source>
-        <translation type="unfinished"></translation>
+        <translation>Abbildungseinstellungen</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="50"/>
         <source>Dump selected channels</source>
         <oldsource>Dump selected DMX values</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Abbild (Dump) der ausgewählten Kanäle</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="58"/>
         <location filename="dmxdumpfactory.ui" line="75"/>
         <source>Name</source>
-        <translation type="unfinished">Name</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="63"/>
         <source>Type</source>
-        <translation type="unfinished">Typ</translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="83"/>
         <source>Add to Chaser:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zum Chaser hinzufügen</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="95"/>
         <source>Scene name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Szenenname</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.cpp" line="56"/>
         <source>Dump all channels (%1 Universes, %2 Fixtures, %3 Channels)</source>
         <oldsource>Dump all DMX values (%1 Universes, %2 Fixtures, %3 Channels)</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Abbild aller Kanäle (%1 Universen, %2 Geräte, %3 Kanäle)</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.cpp" line="59"/>
         <source>New Scene From Live %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Szene aus der Livewiedergabe %1</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.cpp" line="97"/>
         <source>Universe %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Universum %1</translation>
     </message>
 </context>
 <context>
@@ -1337,7 +1337,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="efxeditor.ui" line="208"/>
         <source>The pattern propagates to each fixture in a sequential order</source>
-        <translation></translation>
+        <translation>Das Muster zu jedem Gerät in einer sequenziellen Reihenfolge verbreiten</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="211"/>
@@ -1715,12 +1715,12 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="fixturemanager.cpp" line="909"/>
         <source>Import fixtures...</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerätedefinitionen importieren...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="914"/>
         <source>Export fixtures...</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerätedefinitionen exportieren...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1120"/>
@@ -1751,19 +1751,19 @@ Changes will be lost if you don&apos;t save them.</source>
         <location filename="fixturemanager.cpp" line="1376"/>
         <source>Import Fixtures List</source>
         <oldsource>Import Fixture Definition</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Gerätedefinitionsliste importieren</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1381"/>
         <source>Export Fixtures List As</source>
         <oldsource>Export Fixture Definition As</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Gerätedefinitionsliste exportieren unter...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1387"/>
         <source>Fixtures List (*%1)</source>
         <oldsource>Fixture Definitions (*%1)</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Gerätedefinitionsliste (*%1)</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1389"/>
@@ -1811,7 +1811,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="fixtureselection.ui" line="44"/>
         <source>Heads</source>
-        <translation></translation>
+        <translation>Heads</translation>
     </message>
     <message>
         <location filename="fixtureselection.ui" line="49"/>
@@ -1821,7 +1821,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="fixtureselection.ui" line="54"/>
         <source>Model</source>
-        <translation>Model</translation>
+        <translation>Modell</translation>
     </message>
     <message>
         <location filename="fixtureselection.cpp" line="153"/>
@@ -1832,7 +1832,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="fixtureselection.cpp" line="174"/>
         <source>Head</source>
-        <translation></translation>
+        <translation>Head</translation>
     </message>
     <message>
         <location filename="fixtureselection.cpp" line="191"/>
@@ -1885,7 +1885,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="functionmanager.cpp" line="284"/>
         <source>Function Wizard</source>
-        <translation>Funktions Wizard</translation>
+        <translation>Funktionsassistent</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="338"/>
@@ -2077,7 +2077,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="functionwizard.ui" line="149"/>
         <source>Strobe, open, closed...</source>
-        <translation>Sroboskop, oppen, geschlossen ...</translation>
+        <translation>Stroboskop, geöffnet, geschlossen ...</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="152"/>
@@ -2267,7 +2267,7 @@ Changes will be lost if you don&apos;t save them.</source>
         <location filename="inputoutputpatcheditor.cpp" line="355"/>
         <location filename="inputoutputpatcheditor.cpp" line="373"/>
         <source>Output line already assigned</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgang bereits zugewiesen</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="595"/>
@@ -2355,7 +2355,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="inputprofileeditor.ui" line="67"/>
         <source>Model</source>
-        <translation>Model</translation>
+        <translation>Modell</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="40"/>
@@ -2431,7 +2431,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="inputprofileeditor.cpp" line="194"/>
         <source>Manufacturer and/or model name is missing.</source>
-        <translation>Hersteller und/oder Modelname fehlen.</translation>
+        <translation>Hersteller und/oder Modellname fehlen.</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="224"/>
@@ -2458,7 +2458,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="inputprofileeditor.cpp" line="361"/>
         <source>Channel wizard activated</source>
-        <translation>Kanal Wizard aktiviert</translation>
+        <translation>Kanalassistent aktiviert</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="362"/>
@@ -2519,7 +2519,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="monitor.cpp" line="263"/>
         <source>Show DMX values 0-255</source>
-        <translation>Zeige DMZ Werte (0-255)</translation>
+        <translation>Zeige DMX Werte (0-255)</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="274"/>
@@ -2574,12 +2574,12 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="multitrackview.cpp" line="287"/>
         <source>Do you want to DELETE scene:</source>
-        <translation type="unfinished"></translation>
+        <translation>Soll die Szene GELÖSCHT werden:</translation>
     </message>
     <message>
         <location filename="multitrackview.cpp" line="290"/>
         <source>This operation will also DELETE:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieser Vorgang LÖSCHT ebenfalls:</translation>
     </message>
     <message>
         <location filename="multitrackview.cpp" line="472"/>
@@ -2637,7 +2637,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="rgbmatrixeditor.ui" line="41"/>
         <source>The name of this RGB matrix function</source>
-        <translation>Name dieser RGB-Matrix-Function</translation>
+        <translation>Name dieser RGB-Matrix-Funktion</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="52"/>
@@ -2652,7 +2652,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="rgbmatrixeditor.ui" line="79"/>
         <source>Pattern</source>
-        <translation>Figur</translation>
+        <translation>Figur/Muster</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="85"/>
@@ -2810,12 +2810,12 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="sceneeditor.ui" line="76"/>
         <source>Enable all channel groups</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle Kanalgruppen aktivieren</translation>
     </message>
     <message>
         <location filename="sceneeditor.ui" line="122"/>
         <source>Disable all channel groups</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle Kanalgruppen deaktivieren</translation>
     </message>
     <message>
         <location filename="sceneeditor.ui" line="244"/>
@@ -2903,7 +2903,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="sceneeditor.cpp" line="172"/>
         <source>Show/Hide speed dial window</source>
-        <translation>Anzeigen/Ausblenden des schnellwahl Fenter</translation>
+        <translation>Anzeigen/Ausblenden des Schnellwahlfensters</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="174"/>
@@ -3401,7 +3401,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="vcbutton.cpp" line="276"/>
         <source>Select button icon</source>
-        <translation>Schaltericon wählen</translation>
+        <translation>Schaltersymbol wählen</translation>
     </message>
     <message>
         <location filename="vcbutton.cpp" line="277"/>
@@ -3421,7 +3421,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="vcbutton.cpp" line="638"/>
         <source>Icon</source>
-        <translation>Icon</translation>
+        <translation>Symbol</translation>
     </message>
 </context>
 <context>
@@ -3499,7 +3499,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="vcbuttonproperties.ui" line="172"/>
         <source>The input universe that sends data to this widget</source>
-        <translation>Das Eingangsuniversum, welches Daten zu diesem Widget sendet</translation>
+        <translation>Das Eingangsuniversum, welches Daten zu diesem Assistenten sendet</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="182"/>
@@ -3509,7 +3509,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="vcbuttonproperties.ui" line="189"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation>Der bestimmte Eingangskanal im Eingangsuniversum der Daten zu diesem Widget sendet</translation>
+        <translation>Der bestimmte Eingangskanal im Eingangsuniversum der Daten zu diesem Assistenten sendet</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="218"/>
@@ -3852,7 +3852,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="vcframeproperties.ui" line="14"/>
         <source>Frame Properties</source>
-        <translation>Frame Eigenschaften</translation>
+        <translation>Rahmen Eigenschaften</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="20"/>
@@ -3889,7 +3889,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
         <location filename="vcproperties.ui" line="14"/>
         <source>Virtual Console Settings</source>
         <oldsource>Virtual Console properties</oldsource>
-        <translation>Virtuelle Konsolen Eigenschaften</translation>
+        <translation>Eigenschaften der virtuellen Konsole</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="43"/>
@@ -3935,7 +3935,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="vcproperties.ui" line="117"/>
         <source>The keyboard key that turns button clicks to taps</source>
-        <translation></translation>
+        <translation>Taste zum Übertragen von Schaltflächenklicks in Taps</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="128"/>
@@ -4035,17 +4035,17 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="vcproperties.ui" line="287"/>
         <source>Slider movement</source>
-        <translation type="unfinished">Regler Bewegung</translation>
+        <translation>Regler Bewegung</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="293"/>
         <source>Normal</source>
-        <translation type="unfinished">Normal</translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="300"/>
         <source>Inverted</source>
-        <translation type="unfinished">Invertiert</translation>
+        <translation>Invertiert</translation>
     </message>
     <message>
         <location filename="vcpropertieseditor.cpp" line="263"/>
@@ -4128,7 +4128,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="vcsliderproperties.ui" line="122"/>
         <source>The input universe that sends data to this widget</source>
-        <translation>Das Eingangsuniversum, welches Daten zu diesem Widget sendet</translation>
+        <translation>Das Eingangsuniversum, welches Daten zu diesem Assistenten sendet</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="132"/>
@@ -4138,7 +4138,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="vcsliderproperties.ui" line="139"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation>Der bestimmte Eingangskanal im Eingangsuniversum der Daten zu diesem Widget sendet</translation>
+        <translation>Der bestimmte Eingangskanal im Eingangsuniversum der Daten zu diesem Assistenten sendet</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="162"/>
@@ -4179,7 +4179,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="vcsliderproperties.ui" line="401"/>
         <source>Gobo/Effect</source>
-        <translation type="unfinished"></translation>
+        <translation>Gobo/Effekt</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="60"/>
@@ -4271,17 +4271,17 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="vcsliderproperties.ui" line="371"/>
         <source>Click &amp;&amp; Go</source>
-        <translation type="unfinished"></translation>
+        <translation>Klick &amp; Go</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="387"/>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="394"/>
         <source>RGB</source>
-        <translation type="unfinished"></translation>
+        <translation>RGB</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="424"/>
@@ -4398,7 +4398,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="vcspeeddialproperties.ui" line="139"/>
         <source>Adjust selected functions&apos; fade in speed</source>
-        <translation></translation>
+        <translation>Einblendgeschwindigkeit der ausgewählten Funktion regeln</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="142"/>
@@ -4408,7 +4408,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="vcspeeddialproperties.ui" line="149"/>
         <source>Adjust selected functions&apos; fade out speed</source>
-        <translation></translation>
+        <translation>Ausblendgeschwindigkeit der ausgewählten Funktion regeln</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="152"/>
@@ -4418,7 +4418,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="vcspeeddialproperties.ui" line="159"/>
         <source>Adjust selected functions&apos; duration</source>
-        <translation></translation>
+        <translation>Dauer der ausgewählten Funktion regeln</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="162"/>
@@ -4473,7 +4473,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="vcspeeddialproperties.ui" line="270"/>
         <source>Tap</source>
-        <translation></translation>
+        <translation>Tap</translation>
     </message>
 </context>
 <context>
@@ -4481,7 +4481,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="vcwidget.cpp" line="376"/>
         <source>This widget has no properties</source>
-        <translation>Dieses Widget hat keine Eigenschaften</translation>
+        <translation>Dieser Assistent hat keine Eigenschaften</translation>
     </message>
 </context>
 <context>
