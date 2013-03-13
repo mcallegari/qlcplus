@@ -6,33 +6,33 @@
     <message>
         <location filename="dmxusb.cpp" line="136"/>
         <source>This plugin provides DMX output support for</source>
-        <translation type="unfinished">Dieses Plugin bietet DMX-Ausgabesupport für</translation>
+        <translation>Dieses Plugin bietet DMX-Ausgabesupport für</translation>
     </message>
     <message>
         <location filename="dmxusb.cpp" line="139"/>
         <source>and compatible devices.</source>
-        <translation type="unfinished">Keine Geräte verfügbar.</translation>
+        <translation>Keine Geräte verfügbar.</translation>
     </message>
     <message>
         <location filename="dmxusb.cpp" line="153"/>
         <source>No output support available.</source>
-        <translation type="unfinished">Keine Ausgabeunterstützung verfügbar.</translation>
+        <translation>Keine Ausgabeunterstützung verfügbar.</translation>
     </message>
     <message>
         <location filename="dmxusb.cpp" line="155"/>
         <source>Make sure that you have your hardware firmly plugged in. NOTE: FTDI VCP interface is not supported by this plugin.</source>
-        <translation type="unfinished">Stellen Sie sicher, dass Sie Ihre Hardware fest eingesteckt haben. FTDI VCP Schnittstelle ist nicht durch dieses Plugin unterstützt.</translation>
+        <translation>Stellen Sie sicher, dass Sie Ihre Hardware fest eingesteckt haben. FTDI VCP Schnittstelle ist nicht durch dieses Plugin unterstützt.</translation>
     </message>
     <message>
         <location filename="dmxusb.cpp" line="164"/>
         <location filename="dmxusb.cpp" line="231"/>
         <source>Device is operating correctly.</source>
-        <translation type="unfinished">Gerät ist funktionsfähig.</translation>
+        <translation>Gerät ist funktionsfähig.</translation>
     </message>
     <message>
         <location filename="dmxusb.cpp" line="218"/>
         <source>No input support available.</source>
-        <translation type="unfinished">Keine Eingabeunterstützung verfügbar.</translation>
+        <translation>Keine Eingabeunterstützung verfügbar.</translation>
     </message>
 </context>
 <context>
@@ -40,22 +40,22 @@
     <message>
         <location filename="dmxusbconfig.cpp" line="46"/>
         <source>Refresh</source>
-        <translation type="unfinished">Aktualisieren</translation>
+        <translation>Aktualisieren</translation>
     </message>
     <message>
         <location filename="dmxusbconfig.cpp" line="47"/>
         <source>Close</source>
-        <translation type="unfinished">Schliessen</translation>
+        <translation>Schliessen</translation>
     </message>
     <message>
         <location filename="dmxusbconfig.cpp" line="55"/>
         <source>Name</source>
-        <translation type="unfinished">Name</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="dmxusbconfig.cpp" line="55"/>
         <source>Serial</source>
-        <translation type="unfinished">Seriennummer</translation>
+        <translation>Seriennummer</translation>
     </message>
 </context>
 <context>
@@ -105,7 +105,7 @@
         <location filename="enttecdmxusbprotx.cpp" line="135"/>
         <location filename="ultradmxusbprotx.cpp" line="79"/>
         <source>Serial number</source>
-        <translation type="unfinished"></translation>
+        <translation>Seriennummer</translation>
     </message>
     <message>
         <location filename="enttecdmxusbprorx.cpp" line="49"/>
@@ -127,7 +127,7 @@
         <location filename="enttecdmxusbprotx.cpp" line="132"/>
         <location filename="ultradmxusbprotx.cpp" line="76"/>
         <source>Manufacturer</source>
-        <translation type="unfinished"></translation>
+        <translation>Hersteller</translation>
     </message>
 </context>
 </TS>
