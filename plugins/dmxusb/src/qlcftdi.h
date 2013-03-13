@@ -89,7 +89,7 @@ public:
      * @param name The widget's USB name (description)
      * @param id The ID of the device (used only when FTD2XX is the backend)
      */
-    QLCFTDI(const QString& serial, const QString& name, quint32 id = 0);
+    QLCFTDI(const QString& serial, const QString& name, const QString &vendor, quint32 id = 0);
 
     /** Destructor */
     virtual ~QLCFTDI();
@@ -100,14 +100,19 @@ public:
     /** Get the widget's USB name */
     QString name() const { return m_name; }
 
+    /** Get the widget's USB vendor */
+    QString vendor() const { return m_vendor; }
+
     /** Get the widget's FTD2XX ID number */
     quint32 id() const { return m_id; }
 
 private:
     QString m_serial;
     QString m_name;
+    QString m_vendor;
     quint32 m_id;
     int m_refCount;
+    int m_openCount;
 
     /************************************************************************
      * FTDI Interface Methods

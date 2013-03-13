@@ -31,7 +31,7 @@ class EnttecDMXUSBProRX : public QThread, public EnttecDMXUSBPro
     Q_OBJECT
 
 public:
-    EnttecDMXUSBProRX(const QString& serial, const QString& name,
+    EnttecDMXUSBProRX(const QString& serial, const QString& name, const QString& vendor,
                       quint32 input, QLCFTDI *ftdi = NULL, quint32 id = 0);
     ~EnttecDMXUSBProRX();
 
@@ -61,6 +61,9 @@ public:
     /************************************************************************
      * DMX reception
      ************************************************************************/
+    /** @reimp */
+    QString uniqueName() const;
+
 signals:
     /** Tells that the value of a received DMX channel has changed */
     void valueChanged(quint32 input, quint32 channel, uchar value);

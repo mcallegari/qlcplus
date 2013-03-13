@@ -101,6 +101,7 @@ private:
 private:
     /** List of currently running functions */
     QList <Function*> m_functionList;
+    QList <Function*> m_startQueue;
 
     /** Mutex that guards access to m_functionList */
     QMutex m_functionListMutex;

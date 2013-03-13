@@ -38,10 +38,10 @@
  * Initialization
  ****************************************************************************/
 
-EnttecDMXUSBOpen::EnttecDMXUSBOpen(const QString& serial, const QString& name,
+EnttecDMXUSBOpen::EnttecDMXUSBOpen(const QString& serial, const QString& name, const QString& vendor,
                                    quint32 id, QObject* parent)
     : QThread(parent)
-    , DMXUSBWidget(serial, name, NULL, id)
+    , DMXUSBWidget(serial, name, vendor, NULL, id)
     , m_running(false)
     , m_universe(QByteArray(513, 0))
     , m_frequency(30)
@@ -95,7 +95,10 @@ QString EnttecDMXUSBOpen::additionalInfo() const
     QString gran;
 
     info += QString("<P>");
-    info += QString("<B>%1:</B> %2").arg(tr("Protocol")).arg("Enttec Open DMX USB");
+    info += QString("<B>%1:</B> %2").arg(tr("Protocol")).arg("Open DMX USB");
+    info += QString("<BR>");
+    info += QString("<B>%1:</B> %2").arg(QObject::tr("Manufacturer"))
+                                         .arg(vendor());
     info += QString("<BR>");
     info += QString("<B>%1:</B> %2Hz").arg(tr("DMX Frame Frequency"))
                                       .arg(m_frequency);

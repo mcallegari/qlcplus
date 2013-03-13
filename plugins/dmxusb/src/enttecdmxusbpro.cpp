@@ -26,8 +26,8 @@
  * Initialization
  ****************************************************************************/
 
-EnttecDMXUSBPro::EnttecDMXUSBPro(const QString& serial, const QString& name, QLCFTDI *ftdi, quint32 id)
-    : DMXUSBWidget(serial, name, ftdi, id)
+EnttecDMXUSBPro::EnttecDMXUSBPro(const QString& serial, const QString& name, const QString &vendor, QLCFTDI *ftdi, quint32 id)
+    : DMXUSBWidget(serial, name, vendor, ftdi, id)
 {
     // Bypass rts setting by calling parent class' open method
     if (DMXUSBWidget::open() == true)

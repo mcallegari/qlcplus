@@ -1,11 +1,12 @@
-qlcplus (4.2.3) stable; urgency=low
+qlcplus (4.3.0) stable; urgency=low
 
   * NEW: introduced the Click & Go technology to quick access fixtures capabilities such as gobos, effects, colours, RGB
   * NEW: added DMX dump functionality, to save the current values into a new Scene and Chaser (Shortcut: CTRL+D)
   * NEW: added support for Enttec DMX USB PRO Mk2 (thanks to Tim for providing it)
-  * NEW: added support for DMXKing ultraDMX Pro (device provided by the DMXking team)
+  * NEW: added support for DMXKing ultraDMX Pro (device provided by the DMXking team. Thanks)
   * NEW: Added Grand Master reverse functionality
   * NEW: Sliders can now jump directly to the clicked position
+  * Fixed fast stop/start functions sequence, causing wrong behaviour
   * QLC+ and Fixture Editor now remember the working directory
   * Input profiles can now be used with no input device connected
   * Fixed crash when loading a new project from a project with a Show

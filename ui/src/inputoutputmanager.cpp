@@ -88,6 +88,7 @@ InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
             this, SLOT(slotCurrentItemChanged()));
 
     /* Timer that clears the input data icon after a while */
+    m_icon = QIcon(":/input.png");
     m_timer = new QTimer(this);
     m_timer->setSingleShot(true);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(slotTimerTimeout()));
@@ -172,8 +173,7 @@ void InputOutputManager::slotInputValueChanged(quint32 universe, quint32 channel
         return;
 
     /* Show an icon on a universe row that received input data */
-    QIcon icon(":/input.png");
-    item->setIcon(KColumnUniverse, icon);
+    item->setIcon(KColumnUniverse, m_icon);
 
     /* Restart the timer */
     m_timer->start(250);
