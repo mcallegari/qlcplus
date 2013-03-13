@@ -112,6 +112,7 @@ private:
     QString m_vendor;
     quint32 m_id;
     int m_refCount;
+    int m_openCount;
 
     /************************************************************************
      * FTDI Interface Methods

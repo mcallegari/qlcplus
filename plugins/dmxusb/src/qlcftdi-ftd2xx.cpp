@@ -83,6 +83,7 @@ QLCFTDI::QLCFTDI(const QString& serial, const QString& name, const QString& vend
     , m_vendor(vendor)
     , m_id(id)
     , m_refCount(1)
+    , m_openCount(0)
     , m_handle(NULL)
 {
 }
@@ -206,6 +207,9 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
 
 bool QLCFTDI::open()
 {
+    if (m_openCount < m_refCount)
+        m_openCount++;
+
     if (isOpen() == true)
         return true;
 
@@ -223,6 +227,12 @@ bool QLCFTDI::open()
 
 bool QLCFTDI::close()
 {
+    if (m_openCount > 1)
+    {
+        m_openCount--;
+        return true;
+    }
+
     FT_STATUS status = FT_Close(m_handle);
     m_handle = NULL;
     if (status != FT_OK)

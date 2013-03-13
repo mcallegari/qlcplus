@@ -38,6 +38,7 @@ QLCFTDI::QLCFTDI(const QString& serial, const QString& name, const QString& vend
     , m_vendor(vendor)
     , m_id(id)
     , m_refCount(1)
+    , m_openCount(0)
 {
     bzero(&m_handle, sizeof(struct ftdi_context));
     ftdi_init(&m_handle);
@@ -155,6 +156,9 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
 
 bool QLCFTDI::open()
 {
+    if (m_openCount < m_refCount)
+        m_openCount++;
+
     if (isOpen() == true)
         return true;
 
@@ -172,6 +176,12 @@ bool QLCFTDI::open()
 
 bool QLCFTDI::close()
 {
+    if (m_openCount > 1)
+    {
+        m_openCount--;
+        return true;
+    }
+
     if (ftdi_usb_close(&m_handle) < 0)
     {
         qWarning() << Q_FUNC_INFO << name() << ftdi_get_error_string(&m_handle);
