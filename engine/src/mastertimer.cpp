@@ -112,8 +112,8 @@ void MasterTimer::startFunction(Function* function)
         return;
 
     m_functionListMutex.lock();
-    if (m_functionList.contains(function) == false)
-        m_functionList.append(function);
+    if (m_startQueue.contains(function) == false)
+        m_startQueue.append(function);
     m_functionListMutex.unlock();
 
     emit functionListChanged();
@@ -165,9 +165,6 @@ void MasterTimer::timerTickFunctions(UniverseArray* universes)
 
         if (function != NULL)
         {
-            if (function->isRunning() == false)
-                function->preRun(this);
-
             /* Run the function unless it's supposed to be stopped */
             if (function->stopped() == false && m_stopAllFunctions == false)
                 function->write(this, universes);
@@ -201,6 +198,19 @@ void MasterTimer::timerTickFunctions(UniverseArray* universes)
 
     /* No more functions. Get out and wait for next timer event. */
     m_functionListMutex.unlock();
+
+    foreach (Function* f, m_startQueue)
+    {
+        if (m_functionList.contains(f) == false)
+        {
+            m_functionListMutex.lock();
+            m_functionList.append(f);
+            m_functionListMutex.unlock();
+            f->preRun(this);
+            f->write(this, universes);
+        }
+        m_startQueue.removeOne(f);
+    }
 }
 
 /****************************************************************************

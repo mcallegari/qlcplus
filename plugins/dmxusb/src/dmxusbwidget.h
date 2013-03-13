@@ -37,7 +37,7 @@ public:
      * @param name The name of the widget
      * @param id The ID of the device in FTD2XX (0 when libftdi is used)
      */
-    DMXUSBWidget(const QString& serial, const QString& name, QLCFTDI *ftdi = NULL, quint32 id = 0);
+    DMXUSBWidget(const QString& serial, const QString& name, const QString &vendor, QLCFTDI *ftdi = NULL, quint32 id = 0);
     virtual ~DMXUSBWidget();
 
     /** Widget types */
@@ -108,6 +108,13 @@ public:
      * @return widget's unique name as: "<name> (S/N: <serial>)"
      */
     virtual QString uniqueName() const;
+
+    /**
+     * Get the widget's vendor name
+     *
+     * @return widget's vendor
+     */
+    virtual QString vendor() const;
 
     /**
      * Get any additional information pertaining to the device (can be empty)

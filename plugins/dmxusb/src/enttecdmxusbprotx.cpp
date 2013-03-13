@@ -29,8 +29,9 @@
  * Initialization
  ****************************************************************************/
 
-EnttecDMXUSBProTX::EnttecDMXUSBProTX(const QString& serial, const QString& name, int port, QLCFTDI *ftdi, quint32 id)
-    : EnttecDMXUSBPro(serial, name, ftdi, id)
+EnttecDMXUSBProTX::EnttecDMXUSBProTX(const QString& serial, const QString& name, const QString &vendor,
+                                     int port, QLCFTDI *ftdi, quint32 id)
+    : EnttecDMXUSBPro(serial, name, vendor, ftdi, id)
     , m_port(port)
 {
 }
@@ -69,7 +70,7 @@ bool EnttecDMXUSBProTX::open()
 
 QString EnttecDMXUSBProTX::uniqueName() const
 {
-    return QString("%1 - Port %2").arg(name()).arg(m_port);
+    return QString("%1 - %2 %3").arg(name()).arg(QObject::tr("Output")).arg(m_port);
 }
 
 bool EnttecDMXUSBProTX::configurePort(int port)
@@ -125,8 +126,14 @@ QString EnttecDMXUSBProTX::additionalInfo() const
 
     info += QString("<P>");
     info += QString("<B>%1:</B> %2 (%3)").arg(QObject::tr("Protocol"))
-                                         .arg("Enttec DMX USB Pro")
+                                         .arg("Enttec DMX USB Pro Tx")
                                          .arg(QObject::tr("Output"));
+    info += QString("<BR>");
+    info += QString("<B>%1:</B> %2").arg(QObject::tr("Manufacturer"))
+                                         .arg(vendor());
+    info += QString("<BR>");
+    info += QString("<B>%1:</B> %2").arg(QObject::tr("Serial number"))
+                                                 .arg(serial());
     info += QString("</P>");
 
     return info;

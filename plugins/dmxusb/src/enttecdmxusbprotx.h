@@ -31,8 +31,8 @@ class EnttecDMXUSBProTX : public EnttecDMXUSBPro
      * Initialization
      ************************************************************************/
 public:
-    EnttecDMXUSBProTX(const QString& serial, const QString& name, int port = 0,
-                      QLCFTDI *ftdi = NULL, quint32 id = 0);
+    EnttecDMXUSBProTX(const QString& serial, const QString& name, const QString& vendor,
+                      int port = 0, QLCFTDI *ftdi = NULL, quint32 id = 0);
     ~EnttecDMXUSBProTX();
 
     /** @reimp */

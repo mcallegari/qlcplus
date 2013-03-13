@@ -23,11 +23,13 @@
 #define INPUTOUTPUTMANAGER_H
 
 #include <QWidget>
+#include <QIcon>
 
 class QTreeWidgetItem;
 class QTreeWidget;
 class QSplitter;
 class QTimer;
+class QIcon;
 
 class InputPatch;
 class InputMap;
@@ -86,6 +88,7 @@ private slots:
 private:
     QSplitter* m_splitter;
     QTreeWidget* m_tree;
+    QIcon m_icon;
     QTimer* m_timer;
 };
 

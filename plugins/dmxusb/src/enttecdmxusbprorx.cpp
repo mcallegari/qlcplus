@@ -22,10 +22,10 @@
 #include <QDebug>
 #include "enttecdmxusbprorx.h"
 
-EnttecDMXUSBProRX::EnttecDMXUSBProRX(const QString& serial, const QString& name,
+EnttecDMXUSBProRX::EnttecDMXUSBProRX(const QString& serial, const QString& name, const QString &vendor,
                                      quint32 input, QLCFTDI *ftdi, quint32 id)
     : QThread(NULL)
-    , EnttecDMXUSBPro(serial, name, ftdi, id)
+    , EnttecDMXUSBPro(serial, name, vendor, ftdi, id)
     , m_input(input)
     , m_running(false)
     , m_universe(QByteArray(512, char(0)))
@@ -42,6 +42,11 @@ EnttecDMXUSBProRX::~EnttecDMXUSBProRX()
 DMXUSBWidget::Type EnttecDMXUSBProRX::type() const
 {
     return DMXUSBWidget::ProRX;
+}
+
+QString EnttecDMXUSBProRX::uniqueName() const
+{
+    return QString("%1 - %2").arg(name()).arg(QObject::tr("Input"));
 }
 
 /****************************************************************************
@@ -76,8 +81,14 @@ QString EnttecDMXUSBProRX::additionalInfo() const
 
     info += QString("<P>");
     info += QString("<B>%1:</B> %2 (%3)").arg(QObject::tr("Protocol"))
-                                         .arg("Enttec DMX USB Pro")
+                                         .arg("DMX USB Pro Rx")
                                          .arg(QObject::tr("Input"));
+    info += QString("<BR>");
+    info += QString("<B>%1:</B> %2").arg(QObject::tr("Manufacturer"))
+                                         .arg(vendor());
+    info += QString("<BR>");
+    info += QString("<B>%1:</B> %2").arg(QObject::tr("Serial number"))
+                                                 .arg(serial());
     info += QString("</P>");
 
     return info;

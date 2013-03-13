@@ -22,7 +22,7 @@
 #include <QDebug>
 #include "dmxusbwidget.h"
 
-DMXUSBWidget::DMXUSBWidget(const QString& serial, const QString& name,
+DMXUSBWidget::DMXUSBWidget(const QString& serial, const QString& name, const QString& vendor,
                                        QLCFTDI *ftdi, quint32 id)
 {
     if (ftdi != NULL)
@@ -31,7 +31,7 @@ DMXUSBWidget::DMXUSBWidget(const QString& serial, const QString& name,
         m_ftdi->modifyRefCount(1);
     }
     else
-        m_ftdi = new QLCFTDI(serial, name, id);
+        m_ftdi = new QLCFTDI(serial, name, vendor, id);
 }
 
 DMXUSBWidget::~DMXUSBWidget()
@@ -110,6 +110,11 @@ QString DMXUSBWidget::serial() const
 QString DMXUSBWidget::uniqueName() const
 {
     return QString("%1 (S/N: %2)").arg(name()).arg(serial());
+}
+
+QString DMXUSBWidget::vendor() const
+{
+    return m_ftdi->vendor();
 }
 
 /****************************************************************************

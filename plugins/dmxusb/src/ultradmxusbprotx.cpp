@@ -23,8 +23,9 @@
 
 #include "ultradmxusbprotx.h"
 
-UltraDMXUSBProTx::UltraDMXUSBProTx(const QString& serial, const QString& name, int port, QLCFTDI *ftdi, quint32 id)
-    : EnttecDMXUSBPro(serial, name, ftdi, id)
+UltraDMXUSBProTx::UltraDMXUSBProTx(const QString& serial, const QString& name, const QString &vendor,
+                                   int port, QLCFTDI *ftdi, quint32 id)
+    : EnttecDMXUSBPro(serial, name, vendor, ftdi, id)
     , m_port(port)
 {
 }
@@ -56,7 +57,7 @@ bool UltraDMXUSBProTx::open()
 
 QString UltraDMXUSBProTx::uniqueName() const
 {
-    return QString("%1 - Port %2").arg(name()).arg(m_port);
+    return QString("%1 - %2 %3").arg(name()).arg(QObject::tr("Output")).arg(m_port);
 }
 
 /****************************************************************************
@@ -69,8 +70,14 @@ QString UltraDMXUSBProTx::additionalInfo() const
 
     info += QString("<P>");
     info += QString("<B>%1:</B> %2 (%3)").arg(QObject::tr("Protocol"))
-                                         .arg("Ultra DMX USB Pro")
+                                         .arg("ultraDMX USB Pro Tx")
                                          .arg(QObject::tr("Output"));
+    info += QString("<BR>");
+    info += QString("<B>%1:</B> %2").arg(QObject::tr("Manufacturer"))
+                                         .arg(vendor());
+    info += QString("<BR>");
+    info += QString("<B>%1:</B> %2").arg(QObject::tr("Serial number"))
+                                                 .arg(serial());
     info += QString("</P>");
 
     return info;

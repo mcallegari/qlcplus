@@ -50,7 +50,8 @@ class EnttecDMXUSBPro : public DMXUSBWidget
      * Initialization
      ************************************************************************/
 public:
-    EnttecDMXUSBPro(const QString& serial, const QString& name, QLCFTDI *ftdi = NULL, quint32 id = 0);
+    EnttecDMXUSBPro(const QString& serial, const QString& name, const QString& vendor,
+                    QLCFTDI *ftdi = NULL, quint32 id = 0);
     virtual ~EnttecDMXUSBPro();
 
     /****************************************************************************
