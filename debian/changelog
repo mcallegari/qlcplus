@@ -11,7 +11,7 @@ qlcplus (4.3.0) stable; urgency=low
   * Input profiles can now be used with no input device connected
   * Fixed crash when loading a new project from a project with a Show
   * Added fixtures: Eurolite TMH-8, Showtec LED Par 56, Showtec MultiDim MK III DMX (thanks to Heiko Fanieng)
-  * Added fixtures: Clay Paky Atlas, Clay Paky Beam 300
+  * Added fixtures: Clay Paky Atlas, Clay Paky Beam 300, Proel Dreamlight 250 Eclipse Spot, Proel Moving Head 3Wx108 LED RGBW
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 2 Mar 2013 12:12:42 +0200
 

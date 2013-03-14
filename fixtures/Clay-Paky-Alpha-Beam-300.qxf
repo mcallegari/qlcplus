@@ -2,7 +2,7 @@
 <FixtureDefinition>
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.2.3</Version>
+  <Version>4.3.0</Version>
   <Author>Massimo Callegari</Author>
  </Creator>
  <Manufacturer>Clay Paky</Manufacturer>
@@ -23,29 +23,29 @@
   <Colour>Yellow</Colour>
   <Capability Min="0" Max="255">Yellow</Capability>
  </Channel>
- <Channel Name="Colour Wheel - LinC Off - FulC Off - Rain On">
+ <Channel Name="Colour Wheel 1">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="6" Color="#ffffff">White</Capability>
-  <Capability Min="7" Max="13" Color="#ffffff">White+Red</Capability>
+  <Capability Min="7" Max="13" Color="#ffffff" Color2="#ff0000">White+Red</Capability>
   <Capability Min="14" Max="20" Color="#ff0000">Red</Capability>
-  <Capability Min="21" Max="27" Color="#ff0000">Red+CTB</Capability>
+  <Capability Min="21" Max="27" Color="#ff0000" Color2="#89ccb4">Red+CTB</Capability>
   <Capability Min="28" Max="34" Color="#89ccb4">CTB</Capability>
-  <Capability Min="35" Max="41" Color="#89ccb4">CTB+CTO 3200</Capability>
+  <Capability Min="35" Max="41" Color="#89ccb4" Color2="#f2d46f">CTB+CTO 3200</Capability>
   <Capability Min="42" Max="48" Color="#f2d46f">CTO 3200</Capability>
-  <Capability Min="49" Max="55" Color="#f2d46f">CTO 3200 + CTO 2500</Capability>
+  <Capability Min="49" Max="55" Color="#f2d46f" Color2="#f1c236">CTO 3200 + CTO 2500</Capability>
   <Capability Min="56" Max="62" Color="#f1c236">CTO 2500</Capability>
-  <Capability Min="63" Max="69" Color="#f1c236">CTO 2500 + Green</Capability>
+  <Capability Min="63" Max="69" Color="#f1c236" Color2="#08954d">CTO 2500 + Green</Capability>
   <Capability Min="70" Max="76" Color="#08954d">Green</Capability>
-  <Capability Min="77" Max="83" Color="#08954d">Green + Aquamarine</Capability>
+  <Capability Min="77" Max="83" Color="#08954d" Color2="#6ac980">Green + Aquamarine</Capability>
   <Capability Min="84" Max="90" Color="#6ac980">Aquamarine</Capability>
-  <Capability Min="91" Max="97" Color="#6ac980">Aquamarine + Orange</Capability>
+  <Capability Min="91" Max="97" Color="#6ac980" Color2="#f47227">Aquamarine + Orange</Capability>
   <Capability Min="98" Max="104" Color="#f47227">Orange</Capability>
-  <Capability Min="105" Max="111" Color="#f47227">Orange + Blue</Capability>
+  <Capability Min="105" Max="111" Color="#f47227" Color2="#2e51ab">Orange + Blue</Capability>
   <Capability Min="112" Max="118" Color="#2e51ab">Blue</Capability>
-  <Capability Min="119" Max="127" Color="#2e51ab">Blue + White</Capability>
+  <Capability Min="119" Max="127" Color="#2e51ab" Color2="#ffffff">Blue + White</Capability>
   <Capability Min="128" Max="255">Rotation (Slow to Fast)</Capability>
  </Channel>
- <Channel Name="Colour Wheel - LinC Off - FulC On - Rain On">
+ <Channel Name="Colour Wheel 2">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="13" Color="#ffffff">White</Capability>
   <Capability Min="14" Max="27" Color="#ff0000">Red</Capability>
@@ -58,33 +58,33 @@
   <Capability Min="112" Max="127" Color="#2e51ab">Blue</Capability>
   <Capability Min="128" Max="255">Rotation (Slow to Fast)</Capability>
  </Channel>
- <Channel Name="Colour Wheel - LinC On - Rain On">
+ <Channel Name="Colour Wheel 3">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="127" Color="#9bc3ff">White to Blue+White</Capability>
   <Capability Min="128" Max="255">Rotation (Slow to Fast)</Capability>
  </Channel>
- <Channel Name="Colour Wheel - LinC Off - FulC Off - Rain Off">
+ <Channel Name="Colour Wheel 4">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="13" Color="#ffffff">White</Capability>
-  <Capability Min="14" Max="27" Color="#ffffff">White+Red</Capability>
+  <Capability Min="14" Max="27" Color="#ffffff" Color2="#ff0000">White+Red</Capability>
   <Capability Min="28" Max="41" Color="#ff0000">Red</Capability>
-  <Capability Min="42" Max="55" Color="#ff0000">Red+CTB</Capability>
+  <Capability Min="42" Max="55" Color="#ff0000" Color2="#89ccb4">Red+CTB</Capability>
   <Capability Min="56" Max="69" Color="#89ccb4">CTB</Capability>
-  <Capability Min="70" Max="83" Color="#89ccb4">CTB+CTO 3200</Capability>
+  <Capability Min="70" Max="83" Color="#89ccb4" Color2="#f2d46f">CTB+CTO 3200</Capability>
   <Capability Min="84" Max="97" Color="#f2d46f">CTO 3200</Capability>
-  <Capability Min="98" Max="111" Color="#f2d46f">CTO 3200 + CTO 2500</Capability>
+  <Capability Min="98" Max="111" Color="#f2d46f" Color2="#f1c236">CTO 3200 + CTO 2500</Capability>
   <Capability Min="112" Max="125" Color="#f1c236">CTO 2500</Capability>
-  <Capability Min="126" Max="139" Color="#f1c236">CTO 2500 + Green</Capability>
+  <Capability Min="126" Max="139" Color="#f1c236" Color2="#08954d">CTO 2500 + Green</Capability>
   <Capability Min="140" Max="153" Color="#08954d">Green</Capability>
-  <Capability Min="154" Max="167" Color="#08954d">Green + Aquamarine</Capability>
+  <Capability Min="154" Max="167" Color="#08954d" Color2="#6ac980">Green + Aquamarine</Capability>
   <Capability Min="168" Max="181" Color="#6ac980">Aquamarine</Capability>
-  <Capability Min="182" Max="195" Color="#6ac980">Aquamarine + Orange</Capability>
+  <Capability Min="182" Max="195" Color="#6ac980" Color2="#f47227">Aquamarine + Orange</Capability>
   <Capability Min="196" Max="209" Color="#f47227">Orange</Capability>
-  <Capability Min="210" Max="223" Color="#f47227">Orange + Blue</Capability>
+  <Capability Min="210" Max="223" Color="#f47227" Color2="#2e51ab">Orange + Blue</Capability>
   <Capability Min="224" Max="237" Color="#2e51ab">Blue</Capability>
-  <Capability Min="238" Max="255" Color="#2e51ab">Blue + White</Capability>
+  <Capability Min="238" Max="255" Color="#2e51ab" Color2="#ffffff">Blue + White</Capability>
  </Channel>
- <Channel Name="Colour Wheel - LinC Off - FulC On - Rain Off">
+ <Channel Name="Colour Wheel 5">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="27" Color="#ffffff">White</Capability>
   <Capability Min="28" Max="55" Color="#ff0000">Red</Capability>
@@ -96,7 +96,7 @@
   <Capability Min="196" Max="223" Color="#f47227">Orange</Capability>
   <Capability Min="224" Max="255" Color="#2e51ab">Blue</Capability>
  </Channel>
- <Channel Name="Colour Wheel - LinC On - Rain Off">
+ <Channel Name="Colour Wheel 6">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="255" Color="#9bc3ff">White to Blue+White</Capability>
  </Channel>
@@ -198,7 +198,7 @@
   <Channel Number="0">Cyan</Channel>
   <Channel Number="1">Magenta</Channel>
   <Channel Number="2">Yellow</Channel>
-  <Channel Number="3">Colour Wheel - LinC Off - FulC Off - Rain On</Channel>
+  <Channel Number="3">Colour Wheel 1</Channel>
   <Channel Number="4">Strobe</Channel>
   <Channel Number="5">Dimmer</Channel>
   <Channel Number="6">Fixed Gobo Change</Channel>
@@ -221,7 +221,7 @@
   <Channel Number="0">Cyan</Channel>
   <Channel Number="1">Magenta</Channel>
   <Channel Number="2">Yellow</Channel>
-  <Channel Number="3">Colour Wheel - LinC Off - FulC On - Rain On</Channel>
+  <Channel Number="3">Colour Wheel 2</Channel>
   <Channel Number="4">Strobe</Channel>
   <Channel Number="5">Dimmer</Channel>
   <Channel Number="6">Fixed Gobo Change</Channel>
@@ -244,7 +244,7 @@
   <Channel Number="0">Cyan</Channel>
   <Channel Number="1">Magenta</Channel>
   <Channel Number="2">Yellow</Channel>
-  <Channel Number="3">Colour Wheel - LinC On - Rain On</Channel>
+  <Channel Number="3">Colour Wheel 3</Channel>
   <Channel Number="4">Strobe</Channel>
   <Channel Number="5">Dimmer</Channel>
   <Channel Number="6">Fixed Gobo Change</Channel>
@@ -267,7 +267,7 @@
   <Channel Number="0">Cyan</Channel>
   <Channel Number="1">Magenta</Channel>
   <Channel Number="2">Yellow</Channel>
-  <Channel Number="3">Colour Wheel - LinC Off - FulC Off - Rain Off</Channel>
+  <Channel Number="3">Colour Wheel 4</Channel>
   <Channel Number="4">Strobe</Channel>
   <Channel Number="5">Dimmer</Channel>
   <Channel Number="6">Fixed Gobo Change</Channel>
@@ -290,7 +290,7 @@
   <Channel Number="0">Cyan</Channel>
   <Channel Number="1">Magenta</Channel>
   <Channel Number="2">Yellow</Channel>
-  <Channel Number="3">Colour Wheel - LinC Off - FulC On - Rain Off</Channel>
+  <Channel Number="3">Colour Wheel 5</Channel>
   <Channel Number="4">Strobe</Channel>
   <Channel Number="5">Dimmer</Channel>
   <Channel Number="6">Fixed Gobo Change</Channel>
@@ -313,7 +313,7 @@
   <Channel Number="0">Cyan</Channel>
   <Channel Number="1">Magenta</Channel>
   <Channel Number="2">Yellow</Channel>
-  <Channel Number="3">Colour Wheel - LinC On - Rain Off</Channel>
+  <Channel Number="3">Colour Wheel 6</Channel>
   <Channel Number="4">Strobe</Channel>
   <Channel Number="5">Dimmer</Channel>
   <Channel Number="6">Fixed Gobo Change</Channel>
@@ -336,7 +336,7 @@
   <Channel Number="0">Cyan</Channel>
   <Channel Number="1">Magenta</Channel>
   <Channel Number="2">Yellow</Channel>
-  <Channel Number="3">Colour Wheel - LinC Off - FulC Off - Rain On</Channel>
+  <Channel Number="3">Colour Wheel 1</Channel>
   <Channel Number="4">Strobe</Channel>
   <Channel Number="5">Dimmer</Channel>
   <Channel Number="6">Fixed Gobo Change</Channel>

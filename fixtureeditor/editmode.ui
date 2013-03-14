@@ -314,7 +314,7 @@
              <bool>true</bool>
             </property>
             <property name="currentIndex">
-             <number>30</number>
+             <number>34</number>
             </property>
             <item>
              <property name="text">
@@ -424,6 +424,26 @@
             <item>
              <property name="text">
               <string notr="true">HMI 4000W</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>HSD 150W</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>HSD 200W</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>HSD 250W</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>HSD 575W</string>
              </property>
             </item>
             <item>

@@ -223,8 +223,15 @@ void EditChannel::slotAddCapabilityClicked()
     EditCapability* ec = NULL;
     QLCCapability* cap = NULL;
     bool ok = false;
+    uchar minFound = 0;
 
-    ec = new EditCapability(this, NULL, m_channel->group());
+    foreach(QLCCapability *cap, m_channel->capabilities())
+    {
+        if (cap->max() > minFound)
+            minFound = cap->max() + 1;
+    }
+
+    ec = new EditCapability(this, NULL, m_channel->group(), minFound);
 
     while (ok == false)
     {

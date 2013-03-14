@@ -26,7 +26,7 @@
 #include <QRegExp>
 
 // Prevent people from using ALL CAPS. It's fucking annoying.
-#define REGEXP_CAPS "(([^A-Z]*[A-Z]{,3}[^A-Z]+)*)"
+#define REGEXP_CAPS "(([^A-Z]*[A-Z]{,5}[^A-Z]+)*)"
 #define CAPS_VALIDATOR(parent) new QRegExpValidator(QRegExp(REGEXP_CAPS), parent)
 
 #endif

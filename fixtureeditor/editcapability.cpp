@@ -19,11 +19,13 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
+#include <QCoreApplication>
 #include <QColorDialog>
 #include <QFileDialog>
 #include <QLineEdit>
 #include <QSettings>
 #include <QSpinBox>
+#include <QPainter>
 
 #include "editcapability.h"
 #include "qlccapability.h"
@@ -32,7 +34,8 @@
 
 #define KSettingsGeometry "editcapability/geometry"
 
-EditCapability::EditCapability(QWidget* parent, const QLCCapability* cap, QLCChannel::Group group)
+EditCapability::EditCapability(QWidget* parent, const QLCCapability* cap,
+                               QLCChannel::Group group, uchar min)
     : QDialog(parent)
 {
     m_capability = new QLCCapability(cap);
@@ -53,6 +56,8 @@ EditCapability::EditCapability(QWidget* parent, const QLCCapability* cap, QLCCha
     connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
     addAction(action);
 
+    if (cap == NULL)
+        m_capability->setMin(min);
     m_minSpin->setValue(m_capability->min());
     m_maxSpin->setValue(m_capability->max());
     m_descriptionEdit->setText(m_capability->name());
@@ -62,10 +67,18 @@ EditCapability::EditCapability(QWidget* parent, const QLCCapability* cap, QLCCha
 
     if (m_capability->resourceName().isEmpty() == false)
         m_resourceButton->setIcon(QIcon(m_capability->resourceName()));
-    else if (m_capability->resourceColor().isValid())
+    else if (m_capability->resourceColor1().isValid())
     {
         QPixmap pix(58, 58);
-        pix.fill(m_capability->resourceColor());
+        if (m_capability->resourceColor2().isValid())
+        {
+            QPainter painter(&pix);
+            painter.fillRect(0, 0, 29, 58, m_capability->resourceColor1());
+            painter.fillRect(29, 0, 58, 58, m_capability->resourceColor2());
+        }
+        else
+            pix.fill(m_capability->resourceColor1());
+        m_color2Button->setEnabled(true);
         m_resourceButton->setIcon(pix);
     }
 
@@ -75,10 +88,13 @@ EditCapability::EditCapability(QWidget* parent, const QLCCapability* cap, QLCCha
             this, SLOT(slotMaxSpinChanged(int)));
     connect(m_descriptionEdit, SIGNAL(textEdited(const QString&)),
             this, SLOT(slotDescriptionEdited(const QString&)));
-    connect(m_resourceButton, SIGNAL(pressed()),
-            this, SLOT(slotResourceButtonPressed()));
-    connect(m_colorButton, SIGNAL(pressed()),
-            this, SLOT(slotColorButtonPressed()));
+    connect(m_pictureButton, SIGNAL(pressed()),
+            this, SLOT(slotPictureButtonPressed()));
+    connect(m_color1Button, SIGNAL(pressed()),
+            this, SLOT(slotColor1ButtonPressed()));
+    connect(m_color2Button, SIGNAL(pressed()),
+            this, SLOT(slotColor2ButtonPressed()));
+
 
     QSettings settings;
     QVariant var = settings.value(KSettingsGeometry);
@@ -110,13 +126,20 @@ void EditCapability::slotDescriptionEdited(const QString& text)
     m_capability->setName(text);
 }
 
-void EditCapability::slotResourceButtonPressed()
+void EditCapability::slotPictureButtonPressed()
 {
     QFileDialog dialog(this);
+    QDir dir;
+#ifdef __APPLE__
+    dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
+                .arg(GOBODIR));
+#else
+    dir.setPath(GOBODIR);
+#endif
 
     dialog.setWindowTitle(tr("Open Gobo File"));
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
-    dialog.setDirectory(GOBODIR);
+    dialog.setDirectory(dir);
 
     dialog.setFilter(tr("Gobo pictures (*.jpg *.jpeg *.png *.bmp)"));
 
@@ -132,7 +155,7 @@ void EditCapability::slotResourceButtonPressed()
     m_capability->setResourceName(filename);
 }
 
-void EditCapability::slotColorButtonPressed()
+void EditCapability::slotColor1ButtonPressed()
 {
     QColorDialog dialog(this);
     if (dialog.exec() != QDialog::Accepted)
@@ -142,6 +165,25 @@ void EditCapability::slotColorButtonPressed()
     QPixmap pix(58, 58);
     pix.fill(color);
     m_resourceButton->setIcon(pix);
-    m_capability->setResourceColor(color);
+    m_capability->setResourceColors(color, QColor());
+    m_color2Button->setEnabled(true);
 }
+
+void EditCapability::slotColor2ButtonPressed()
+{
+    QColorDialog dialog(this);
+    if (dialog.exec() != QDialog::Accepted)
+        return;
+
+    QColor color = dialog.selectedColor();
+    QColor firstColor = m_capability->resourceColor1();
+    QPixmap pix(58, 58);
+    QPainter painter(&pix);
+    painter.fillRect(0, 0, 29, 58, firstColor);
+    painter.fillRect(29, 0, 58, 58, color);
+
+    m_resourceButton->setIcon(pix);
+    m_capability->setResourceColors(firstColor, color);
+}
+
 

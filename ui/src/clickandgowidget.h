@@ -116,7 +116,7 @@ private:
     {
     public:
         PresetResource(QString path, QString text, uchar min, uchar max);
-        PresetResource(QColor color, QString text, uchar min, uchar max);
+        PresetResource(QColor color1, QColor color2, QString text, uchar min, uchar max);
         PresetResource(int index, QString text, uchar min, uchar max);
 
     public:
