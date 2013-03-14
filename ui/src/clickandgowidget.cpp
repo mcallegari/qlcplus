@@ -290,9 +290,9 @@ void ClickAndGoWidget::createPresetList(const QLCChannel *chan)
         if (cap.resourceName().isEmpty() == false)
             m_resources.append(PresetResource(cap.resourceName(), cap.name(),
                                               cap.min(), cap.max()));
-        else if (cap.resourceColor().isValid())
-            m_resources.append(PresetResource(cap.resourceColor(), cap.name(),
-                                              cap.min(), cap.max()));
+        else if (cap.resourceColor1().isValid())
+            m_resources.append(PresetResource(cap.resourceColor1(), cap.resourceColor2(),
+                                              cap.name(), cap.min(), cap.max()));
         else
             m_resources.append(PresetResource(i, cap.name(), cap.min(), cap.max()));
         i++;
@@ -414,14 +414,22 @@ ClickAndGoWidget::PresetResource::PresetResource(QString path, QString text, uch
     qDebug() << "PATH: adding " << path << ", descr: " << text;
 }
 
-ClickAndGoWidget::PresetResource::PresetResource(QColor color, QString text, uchar min, uchar max)
+ClickAndGoWidget::PresetResource::PresetResource(QColor color1, QColor color2,
+                                                 QString text, uchar min, uchar max)
 {
     m_descr = text;
     m_min = min;
     m_max = max;
     m_thumbnail = QImage(40, 40, QImage::Format_RGB32);
-    m_thumbnail.fill(color);
-    qDebug() << "COLOR: adding " << color.name() << ", descr: " << text;
+    if (color2.isValid() == false)
+        m_thumbnail.fill(color1);
+    else
+    {
+        QPainter painter(&m_thumbnail);
+        painter.fillRect(0, 0, 20, 40, color1);
+        painter.fillRect(20, 0, 40, 40, color2);
+    }
+    qDebug() << "COLOR: adding " << color1.name() << ", descr: " << text;
 }
 
 ClickAndGoWidget::PresetResource::PresetResource(int index, QString text, uchar min, uchar max)

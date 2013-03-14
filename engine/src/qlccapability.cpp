@@ -32,13 +32,15 @@
  * Initialization
  ************************************************************************/
 
-QLCCapability::QLCCapability(uchar min, uchar max, const QString& name, const QString &resource, const QColor &color)
+QLCCapability::QLCCapability(uchar min, uchar max, const QString& name,
+                             const QString &resource, const QColor &color1, const QColor &color2)
 {
     m_min = min;
     m_max = max;
     m_name = name;
     m_resourceName = resource;
-    m_resourceColor = color;
+    m_resourceColor1 = color1;
+    m_resourceColor2 = color2;
 }
 
 QLCCapability::QLCCapability(const QLCCapability* capability)
@@ -62,7 +64,8 @@ QLCCapability& QLCCapability::operator=(const QLCCapability& capability)
         m_max = capability.m_max;
         m_name = capability.m_name;
         m_resourceName = capability.m_resourceName;
-        m_resourceColor = capability.m_resourceColor;
+        m_resourceColor1 = capability.m_resourceColor1;
+        m_resourceColor2 = capability.m_resourceColor2;
     }
 
     return *this;
@@ -124,17 +127,24 @@ void QLCCapability::setResourceName(const QString& name)
 {
     m_resourceName = name;
     // invalidate any previous color set
-    m_resourceColor = QColor();
+    m_resourceColor1 = QColor();
+    m_resourceColor2 = QColor();
 }
 
-QColor QLCCapability::resourceColor()
+QColor QLCCapability::resourceColor1()
 {
-    return m_resourceColor;
+    return m_resourceColor1;
 }
 
-void QLCCapability::setResourceColor(QColor col)
+QColor QLCCapability::resourceColor2()
 {
-    m_resourceColor = col;
+    return m_resourceColor2;
+}
+
+void QLCCapability::setResourceColors(QColor col1, QColor col2)
+{
+    m_resourceColor1 = col1;
+    m_resourceColor2 = col2;
     // invalidate any previous resource path set
     m_resourceName = "";
 }
@@ -185,9 +195,13 @@ bool QLCCapability::saveXML(QDomDocument* doc, QDomElement* root)
 
         tag.setAttribute(KXMLQLCCapabilityResource, modFilename);
     }
-    if (m_resourceColor.isValid())
+    if (m_resourceColor1.isValid())
     {
-        tag.setAttribute(KXMLQLCCapabilityColor, m_resourceColor.name());
+        tag.setAttribute(KXMLQLCCapabilityColor1, m_resourceColor1.name());
+    }
+    if (m_resourceColor2.isValid())
+    {
+        tag.setAttribute(KXMLQLCCapabilityColor2, m_resourceColor2.name());
     }
 
     /* Name value */
@@ -243,11 +257,16 @@ bool QLCCapability::loadXML(const QDomElement& root)
     }
 
     /* Get (optional) color resource for color presets */
-    if (root.hasAttribute(KXMLQLCCapabilityColor))
+    if (root.hasAttribute(KXMLQLCCapabilityColor1))
     {
-        QColor col = QColor(root.attribute(KXMLQLCCapabilityColor));
-        if (col.isValid())
-            setResourceColor(col);
+        QColor col1 = QColor(root.attribute(KXMLQLCCapabilityColor1));
+        QColor col2 = QColor();
+        if (root.hasAttribute(KXMLQLCCapabilityColor2))
+            col2 = QColor(root.attribute(KXMLQLCCapabilityColor2));
+        if (col1.isValid())
+        {
+            setResourceColors(col1, col2);
+        }
     }
 
     if (min <= max)

@@ -55,8 +55,10 @@ public slots:
     void slotMinSpinChanged(int value);
     void slotMaxSpinChanged(int value);
     void slotDescriptionEdited(const QString& text);
-    void slotResourceButtonPressed();
-    void slotColorButtonPressed();
+    void slotPictureButtonPressed();
+    void slotColor1ButtonPressed();
+    void slotColor2ButtonPressed();
+
 };
 
 #endif
