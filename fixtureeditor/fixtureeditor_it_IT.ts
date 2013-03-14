@@ -306,7 +306,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="editcapability.ui" line="106"/>
-        <location filename="editcapability.cpp" line="43"/>
+        <location filename="editcapability.cpp" line="45"/>
         <source>Gobo</source>
         <translation>Gobo</translation>
     </message>
@@ -321,22 +321,40 @@ p, li { white-space: pre-wrap; }
         <translation>Descrizione</translation>
     </message>
     <message>
-        <location filename="editcapability.cpp" line="45"/>
+        <location filename="editcapability.ui" line="143"/>
+        <location filename="editcapability.ui" line="154"/>
+        <location filename="editcapability.ui" line="165"/>
+        <source>...</source>
+        <translation>...</translation>
+    </message>
+    <message>
+        <location filename="editcapability.ui" line="172"/>
+        <source>Picture</source>
+        <translation>Immagine</translation>
+    </message>
+    <message>
+        <location filename="editcapability.ui" line="179"/>
+        <location filename="editcapability.cpp" line="47"/>
         <source>Colour</source>
         <translation>Colore</translation>
     </message>
     <message>
-        <location filename="editcapability.cpp" line="47"/>
+        <location filename="editcapability.ui" line="186"/>
+        <source>Second Colour</source>
+        <translation>Secondo colore</translation>
+    </message>
+    <message>
+        <location filename="editcapability.cpp" line="49"/>
         <source>Effect</source>
         <translation>Effetto</translation>
     </message>
     <message>
-        <location filename="editcapability.cpp" line="117"/>
+        <location filename="editcapability.cpp" line="137"/>
         <source>Open Gobo File</source>
         <translation>Apri file di gobo</translation>
     </message>
     <message>
-        <location filename="editcapability.cpp" line="121"/>
+        <location filename="editcapability.cpp" line="141"/>
         <source>Gobo pictures (*.jpg *.jpeg *.png *.bmp)</source>
         <translation>Immagini Gobo (*.jpg *.jpeg *.png *.bmp)</translation>
     </message>

@@ -307,7 +307,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="editcapability.ui" line="106"/>
-        <location filename="editcapability.cpp" line="43"/>
+        <location filename="editcapability.cpp" line="45"/>
         <source>Gobo</source>
         <translation>Gobo (Maske)</translation>
     </message>
@@ -322,22 +322,40 @@ p, li { white-space: pre-wrap; }
         <translation>Beschreibung</translation>
     </message>
     <message>
-        <location filename="editcapability.cpp" line="45"/>
+        <location filename="editcapability.ui" line="143"/>
+        <location filename="editcapability.ui" line="154"/>
+        <location filename="editcapability.ui" line="165"/>
+        <source>...</source>
+        <translation type="unfinished">...</translation>
+    </message>
+    <message>
+        <location filename="editcapability.ui" line="172"/>
+        <source>Picture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editcapability.ui" line="179"/>
+        <location filename="editcapability.cpp" line="47"/>
         <source>Colour</source>
         <translation type="unfinished">Farbe</translation>
     </message>
     <message>
-        <location filename="editcapability.cpp" line="47"/>
+        <location filename="editcapability.ui" line="186"/>
+        <source>Second Colour</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editcapability.cpp" line="49"/>
         <source>Effect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="editcapability.cpp" line="117"/>
+        <location filename="editcapability.cpp" line="137"/>
         <source>Open Gobo File</source>
         <translation>Öffne Gobo Datei</translation>
     </message>
     <message>
-        <location filename="editcapability.cpp" line="121"/>
+        <location filename="editcapability.cpp" line="141"/>
         <source>Gobo pictures (*.jpg *.jpeg *.png *.bmp)</source>
         <translation>Gobo-Bilder (*.jpg *.jpeg *.png *.bmp)</translation>
     </message>

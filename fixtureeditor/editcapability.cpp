@@ -34,7 +34,8 @@
 
 #define KSettingsGeometry "editcapability/geometry"
 
-EditCapability::EditCapability(QWidget* parent, const QLCCapability* cap, QLCChannel::Group group)
+EditCapability::EditCapability(QWidget* parent, const QLCCapability* cap,
+                               QLCChannel::Group group, uchar min)
     : QDialog(parent)
 {
     m_capability = new QLCCapability(cap);
@@ -55,6 +56,8 @@ EditCapability::EditCapability(QWidget* parent, const QLCCapability* cap, QLCCha
     connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
     addAction(action);
 
+    if (cap == NULL)
+        m_capability->setMin(min);
     m_minSpin->setValue(m_capability->min());
     m_maxSpin->setValue(m_capability->max());
     m_descriptionEdit->setText(m_capability->name());
