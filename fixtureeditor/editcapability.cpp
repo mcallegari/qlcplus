@@ -19,6 +19,7 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
+#include <QCoreApplication>
 #include <QColorDialog>
 #include <QFileDialog>
 #include <QLineEdit>
@@ -125,10 +126,17 @@ void EditCapability::slotDescriptionEdited(const QString& text)
 void EditCapability::slotPictureButtonPressed()
 {
     QFileDialog dialog(this);
+    QDir dir;
+#ifdef __APPLE__
+    dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
+                .arg(GOBODIR));
+#else
+    dir.setPath(GOBODIR);
+#endif
 
     dialog.setWindowTitle(tr("Open Gobo File"));
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
-    dialog.setDirectory(GOBODIR);
+    dialog.setDirectory(dir);
 
     dialog.setFilter(tr("Gobo pictures (*.jpg *.jpeg *.png *.bmp)"));
 

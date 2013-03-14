@@ -19,6 +19,7 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
+#include <QCoreApplication>
 #include <QString>
 #include <QDebug>
 #include <QFile>
@@ -190,8 +191,16 @@ bool QLCCapability::saveXML(QDomDocument* doc, QDomElement* root)
     if (m_resourceName.isEmpty() == false)
     {
         QString modFilename = m_resourceName;
-        if (modFilename.contains(GOBODIR))
-            modFilename.remove(QString(GOBODIR) + QDir::separator() );
+        QDir dir;
+#ifdef __APPLE__
+        dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
+                    .arg(GOBODIR));
+        dir = dir.cleanPath(dir.path());
+#else
+        dir.setPath(GOBODIR);
+#endif
+        if (modFilename.contains(dir.path()))
+            modFilename.remove(dir.path() + QDir::separator() );
 
         tag.setAttribute(KXMLQLCCapabilityResource, modFilename);
     }
@@ -252,7 +261,16 @@ bool QLCCapability::loadXML(const QDomElement& root)
     {
         QString path = root.attribute(KXMLQLCCapabilityResource);
         if (QFileInfo(path).isRelative())
+        {
+#ifdef __APPLE__
+            QDir dir;
+            dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
+                        .arg(GOBODIR));
+            path = dir.path() + QDir::separator() + path;
+#else
             path = QString(GOBODIR) + QDir::separator() + path;
+#endif
+        }
         setResourceName(path);
     }
 
