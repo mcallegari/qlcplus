@@ -28,6 +28,7 @@
 #include <QMap>
 
 #include "ui_sceneeditor.h"
+#include "groupsconsole.h"
 #include "fixture.h"
 #include "scene.h"
 
@@ -135,6 +136,7 @@ private:
      *********************************************************************/
 private:
     void updateChannelsGroupsTab();
+    GroupsConsole* groupConsoleTab(int tab);
 
 private:
     /** Index of the Channel Groups tab. Equal to -1
@@ -160,7 +162,7 @@ private:
 
     void addFixtureTab(Fixture* fixture);
     void removeFixtureTab(Fixture* fixture);
-    FixtureConsole* consoleTab(int tab);
+    FixtureConsole* fixtureConsoleTab(int tab);
 
 signals:
     void fixtureValueChanged(SceneValue val);

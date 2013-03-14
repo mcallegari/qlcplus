@@ -368,7 +368,7 @@ void SceneEditor::slotTabChanged(int tab)
 void SceneEditor::slotEnableCurrent()
 {
     /* QObject cast fails unless the widget is a FixtureConsole */
-    FixtureConsole* fc = consoleTab(m_currentTab);
+    FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
     if (fc != NULL)
         fc->setChecked(true);
 }
@@ -376,7 +376,7 @@ void SceneEditor::slotEnableCurrent()
 void SceneEditor::slotDisableCurrent()
 {
     /* QObject cast fails unless the widget is a FixtureConsole */
-    FixtureConsole* fc = consoleTab(m_currentTab);
+    FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
     if (fc != NULL)
         fc->setChecked(false);
 }
@@ -384,7 +384,7 @@ void SceneEditor::slotDisableCurrent()
 void SceneEditor::slotCopy()
 {
     /* QObject cast fails unless the widget is a FixtureConsole */
-    FixtureConsole* fc = consoleTab(m_currentTab);
+    FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
     if (fc != NULL)
     {
         m_copy = fc->values();
@@ -395,7 +395,7 @@ void SceneEditor::slotCopy()
 void SceneEditor::slotPaste()
 {
     /* QObject cast fails unless the widget is a FixtureConsole */
-    FixtureConsole* fc = consoleTab(m_currentTab);
+    FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
     if (fc != NULL && m_copy.isEmpty() == false)
         fc->setValues(m_copy);
 }
@@ -406,7 +406,7 @@ void SceneEditor::slotCopyToAll()
 
     for (int i = m_fixtureFirstTabIndex; i < m_tab->count(); i++)
     {
-        FixtureConsole* fc = consoleTab(i);
+        FixtureConsole* fc = fixtureConsoleTab(i);
         if (fc != NULL)
             fc->setValues(m_copy);
     }
@@ -418,80 +418,110 @@ void SceneEditor::slotCopyToAll()
 void SceneEditor::slotColorTool()
 {
     /* QObject cast fails unless the widget is a FixtureConsole */
-    FixtureConsole* fc = consoleTab(m_currentTab);
-    if (fc == NULL)
+    FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
+    if (fc != NULL)
+    {
+        Fixture* fxi = m_doc->fixture(fc->fixture());
+        Q_ASSERT(fxi != NULL);
+
+        QSet <quint32> cyan = fxi->channels(CYAN, Qt::CaseInsensitive, QLCChannel::Intensity);
+        QSet <quint32> magenta = fxi->channels(MAGENTA, Qt::CaseInsensitive, QLCChannel::Intensity);
+        QSet <quint32> yellow = fxi->channels(YELLOW, Qt::CaseInsensitive, QLCChannel::Intensity);
+        QSet <quint32> red = fxi->channels(RED, Qt::CaseInsensitive, QLCChannel::Intensity);
+        QSet <quint32> green = fxi->channels(GREEN, Qt::CaseInsensitive, QLCChannel::Intensity);
+        QSet <quint32> blue = fxi->channels(BLUE, Qt::CaseInsensitive, QLCChannel::Intensity);
+
+        if (!cyan.isEmpty() && !magenta.isEmpty() && !yellow.isEmpty())
+        {
+            QColor color;
+            color.setCmyk(fc->value(*cyan.begin()),
+                          fc->value(*magenta.begin()),
+                          fc->value(*yellow.begin()),
+                          0);
+
+            color = QColorDialog::getColor(color);
+            if (color.isValid() == true)
+            {
+                foreach (quint32 ch, cyan)
+                {
+                    fc->setChecked(true, ch);
+                    fc->setValue(ch, color.cyan());
+                }
+
+                foreach (quint32 ch, magenta)
+                {
+                    fc->setChecked(true, ch);
+                    fc->setValue(ch, color.magenta());
+                }
+
+                foreach (quint32 ch, yellow)
+                {
+                    fc->setChecked(true, ch);
+                    fc->setValue(ch, color.yellow());
+                }
+            }
+        }
+        else if (!red.isEmpty() && !green.isEmpty() && !blue.isEmpty())
+        {
+            QColor color;
+            color.setRgb(fc->value(*red.begin()),
+                         fc->value(*green.begin()),
+                         fc->value(*blue.begin()),
+                         0);
+
+            color = QColorDialog::getColor(color);
+            if (color.isValid() == true)
+            {
+                foreach (quint32 ch, red)
+                {
+                    fc->setChecked(true, ch);
+                    fc->setValue(ch, color.red());
+                }
+
+                foreach (quint32 ch, green)
+                {
+                    fc->setChecked(true, ch);
+                    fc->setValue(ch, color.green());
+                }
+
+                foreach (quint32 ch, blue)
+                {
+                    fc->setChecked(true, ch);
+                    fc->setValue(ch, color.blue());
+                }
+            }
+        }
         return;
+    }
 
-    Fixture* fxi = m_doc->fixture(fc->fixture());
-    Q_ASSERT(fxi != NULL);
-
-    QSet <quint32> cyan = fxi->channels(CYAN, Qt::CaseInsensitive, QLCChannel::Intensity);
-    QSet <quint32> magenta = fxi->channels(MAGENTA, Qt::CaseInsensitive, QLCChannel::Intensity);
-    QSet <quint32> yellow = fxi->channels(YELLOW, Qt::CaseInsensitive, QLCChannel::Intensity);
-    QSet <quint32> red = fxi->channels(RED, Qt::CaseInsensitive, QLCChannel::Intensity);
-    QSet <quint32> green = fxi->channels(GREEN, Qt::CaseInsensitive, QLCChannel::Intensity);
-    QSet <quint32> blue = fxi->channels(BLUE, Qt::CaseInsensitive, QLCChannel::Intensity);
-
-    if (!cyan.isEmpty() && !magenta.isEmpty() && !yellow.isEmpty())
+    /* QObject cast fails unless the widget is a GroupsConsole */
+    GroupsConsole* gc = groupConsoleTab(m_currentTab);
+    if (gc != NULL)
     {
-        QColor color;
-        color.setCmyk(fc->value(*cyan.begin()),
-                      fc->value(*magenta.begin()),
-                      fc->value(*yellow.begin()),
-                      0);
-
-        color = QColorDialog::getColor(color);
-        if (color.isValid() == true)
+        QColor color = QColorDialog::getColor(color);
+        foreach(ConsoleChannel *cc, gc->groups())
         {
-            foreach (quint32 ch, cyan)
+            Fixture* fxi = m_doc->fixture(cc->fixture());
+            Q_ASSERT(fxi != NULL);
+            const QLCChannel *ch = fxi->channel(cc->channel());
+            if (ch->group() == QLCChannel::Intensity)
             {
-                fc->setChecked(true, ch);
-                fc->setValue(ch, color.cyan());
-            }
-
-            foreach (quint32 ch, magenta)
-            {
-                fc->setChecked(true, ch);
-                fc->setValue(ch, color.magenta());
-            }
-
-            foreach (quint32 ch, yellow)
-            {
-                fc->setChecked(true, ch);
-                fc->setValue(ch, color.yellow());
+                if (ch->colour() == QLCChannel::Red)
+                    cc->setValue(color.red());
+                else if (ch->colour() == QLCChannel::Green)
+                    cc->setValue(color.green());
+                else if (ch->colour() == QLCChannel::Blue)
+                    cc->setValue(color.blue());
+                else if (ch->colour() == QLCChannel::Magenta)
+                    cc->setValue(color.magenta());
+                else if (ch->colour() == QLCChannel::Yellow)
+                    cc->setValue(color.yellow());
+                else if (ch->colour() == QLCChannel::Cyan)
+                    cc->setValue(color.cyan());
             }
         }
     }
-    else if (!red.isEmpty() && !green.isEmpty() && !blue.isEmpty())
-    {
-        QColor color;
-        color.setRgb(fc->value(*red.begin()),
-                     fc->value(*green.begin()),
-                     fc->value(*blue.begin()),
-                     0);
 
-        color = QColorDialog::getColor(color);
-        if (color.isValid() == true)
-        {
-            foreach (quint32 ch, red)
-            {
-                fc->setChecked(true, ch);
-                fc->setValue(ch, color.red());
-            }
-
-            foreach (quint32 ch, green)
-            {
-                fc->setChecked(true, ch);
-                fc->setValue(ch, color.green());
-            }
-
-            foreach (quint32 ch, blue)
-            {
-                fc->setChecked(true, ch);
-                fc->setValue(ch, color.blue());
-            }
-        }
-    }
 }
 
 void SceneEditor::slotSpeedDialToggle(bool state)
@@ -549,25 +579,51 @@ void SceneEditor::slotChaserComboActivated(int index)
 
 bool SceneEditor::isColorToolAvailable()
 {
-    Fixture* fxi;
-    QColor color;
+    Fixture* fxi = NULL;
     quint32 cyan, magenta, yellow;
     quint32 red, green, blue;
 
     /* QObject cast fails unless the widget is a FixtureConsole */
-    FixtureConsole* fc = consoleTab(m_currentTab);
-    if (fc == NULL)
-        return false;
+    FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
+    if (fc != NULL)
+    {
+        fxi = m_doc->fixture(fc->fixture());
+        Q_ASSERT(fxi != NULL);
 
-    fxi = m_doc->fixture(fc->fixture());
-    Q_ASSERT(fxi != NULL);
+        cyan = fxi->channel(CYAN, Qt::CaseInsensitive, QLCChannel::Intensity);
+        magenta = fxi->channel(MAGENTA, Qt::CaseInsensitive, QLCChannel::Intensity);
+        yellow = fxi->channel(YELLOW, Qt::CaseInsensitive, QLCChannel::Intensity);
+        red = fxi->channel(RED, Qt::CaseInsensitive, QLCChannel::Intensity);
+        green = fxi->channel(GREEN, Qt::CaseInsensitive, QLCChannel::Intensity);
+        blue = fxi->channel(BLUE, Qt::CaseInsensitive, QLCChannel::Intensity);
+    }
 
-    cyan = fxi->channel(CYAN, Qt::CaseInsensitive, QLCChannel::Intensity);
-    magenta = fxi->channel(MAGENTA, Qt::CaseInsensitive, QLCChannel::Intensity);
-    yellow = fxi->channel(YELLOW, Qt::CaseInsensitive, QLCChannel::Intensity);
-    red = fxi->channel(RED, Qt::CaseInsensitive, QLCChannel::Intensity);
-    green = fxi->channel(GREEN, Qt::CaseInsensitive, QLCChannel::Intensity);
-    blue = fxi->channel(BLUE, Qt::CaseInsensitive, QLCChannel::Intensity);
+    GroupsConsole* gc = groupConsoleTab(m_currentTab);
+    if (gc != NULL)
+    {
+        cyan = magenta = yellow = red = green = blue = QLCChannel::invalid();
+        foreach(ConsoleChannel *cc, gc->groups())
+        {
+            fxi = m_doc->fixture(cc->fixture());
+            Q_ASSERT(fxi != NULL);
+            const QLCChannel *ch = fxi->channel(cc->channel());
+            if (ch->group() == QLCChannel::Intensity)
+            {
+                if (ch->colour() == QLCChannel::Red)
+                    red = 1;
+                else if (ch->colour() == QLCChannel::Green)
+                    green = 1;
+                else if (ch->colour() == QLCChannel::Blue)
+                    blue = 1;
+                else if (ch->colour() == QLCChannel::Magenta)
+                    magenta = 1;
+                else if (ch->colour() == QLCChannel::Yellow)
+                    yellow = 1;
+                else if (ch->colour() == QLCChannel::Cyan)
+                    cyan = 1;
+            }
+        }
+    }
 
     if (cyan != QLCChannel::invalid() && magenta != QLCChannel::invalid() &&
         yellow != QLCChannel::invalid())
@@ -757,7 +813,7 @@ void SceneEditor::slotEnableAll()
 {
     for (int i = m_fixtureFirstTabIndex; i < m_tab->count(); i++)
     {
-        FixtureConsole* fc = consoleTab(i);
+        FixtureConsole* fc = fixtureConsoleTab(i);
         if (fc != NULL)
             fc->setChecked(true);
     }
@@ -767,7 +823,7 @@ void SceneEditor::slotDisableAll()
 {
     for (int i = m_fixtureFirstTabIndex; i < m_tab->count(); i++)
     {
-        FixtureConsole* fc = consoleTab(i);
+        FixtureConsole* fc = fixtureConsoleTab(i);
         if (fc != NULL)
             fc->setChecked(false);
     }
@@ -866,6 +922,17 @@ void SceneEditor::updateChannelsGroupsTab()
             this, SLOT(slotGroupValueChanged(quint32,uchar)));
 }
 
+GroupsConsole *SceneEditor::groupConsoleTab(int tab)
+{
+    if (tab != m_channelGroupsTab)
+        return NULL;
+
+    QScrollArea* area = qobject_cast<QScrollArea*> (m_tab->widget(tab));
+    Q_ASSERT(area != NULL);
+
+    return qobject_cast<GroupsConsole*> (area->widget());
+}
+
 void SceneEditor::slotGroupValueChanged(quint32 groupID, uchar value)
 {
     // Don't modify m_scene contents when doing initialization
@@ -899,7 +966,7 @@ FixtureConsole* SceneEditor::fixtureConsole(Fixture* fixture)
     /* Start from the first fixture tab */
     for (int i = m_fixtureFirstTabIndex; i < m_tab->count(); i++)
     {
-        FixtureConsole* fc = consoleTab(i);
+        FixtureConsole* fc = fixtureConsoleTab(i);
         if (fc != NULL && fc->fixture() == fixture->id())
             return fc;
     }
@@ -936,7 +1003,7 @@ void SceneEditor::removeFixtureTab(Fixture* fixture)
     /* Start searching from the first fixture tab */
     for (int i = m_fixtureFirstTabIndex; i < m_tab->count(); i++)
     {
-        FixtureConsole* fc = consoleTab(i);
+        FixtureConsole* fc = fixtureConsoleTab(i);
         if (fc != NULL && fc->fixture() == fixture->id())
         {
             /* First remove the tab because otherwise Qt might
@@ -951,7 +1018,7 @@ void SceneEditor::removeFixtureTab(Fixture* fixture)
     }
 }
 
-FixtureConsole* SceneEditor::consoleTab(int tab)
+FixtureConsole* SceneEditor::fixtureConsoleTab(int tab)
 {
     if (tab >= m_tab->count() || tab <= 0)
         return NULL;

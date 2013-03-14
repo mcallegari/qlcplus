@@ -41,6 +41,8 @@ class GroupsConsole : public QWidget
 public:
     GroupsConsole(QWidget* parent, Doc* doc, QList <quint32> ids);
     ~GroupsConsole();
+
+    QList<ConsoleChannel*>groups();
     
 private:
     Doc* m_doc;

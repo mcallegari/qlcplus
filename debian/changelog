@@ -7,6 +7,7 @@ qlcplus (4.3.0) stable; urgency=low
   * NEW: Added Grand Master reverse functionality
   * NEW: Sliders can now jump directly to the clicked position
   * NEW: Implemented BPM view for Show Manager
+  * NEW: Color selection tool now works also with channel groups
   * Fixed fast stop/start functions sequence, causing wrong behaviour
   * QLC+ and Fixture Editor now remember the working directory
   * Input profiles can now be used with no input device connected

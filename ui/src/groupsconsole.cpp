@@ -52,6 +52,11 @@ GroupsConsole::~GroupsConsole()
 {
 }
 
+QList<ConsoleChannel *> GroupsConsole::groups()
+{
+    return m_groups;
+}
+
 void GroupsConsole::init()
 {
     foreach(quint32 id, m_ids)
