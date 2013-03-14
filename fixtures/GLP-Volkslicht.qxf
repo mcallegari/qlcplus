@@ -1,8 +1,8 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition>
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.1.0</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.3.0</Version>
   <Author>Jano Svitok</Author>
  </Creator>
  <Manufacturer>GLP</Manufacturer>
@@ -27,23 +27,23 @@
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7">RGB mix</Capability>
-  <Capability Min="8" Max="15">Red</Capability>
-  <Capability Min="16" Max="23">Amber</Capability>
-  <Capability Min="24" Max="31">Warm Yellow</Capability>
-  <Capability Min="32" Max="39">Yellow</Capability>
-  <Capability Min="40" Max="47">Green</Capability>
-  <Capability Min="48" Max="55">Turquoise</Capability>
-  <Capability Min="56" Max="63">Cyan</Capability>
-  <Capability Min="64" Max="71">Blue</Capability>
-  <Capability Min="72" Max="79">Lavender</Capability>
-  <Capability Min="80" Max="87">Mauve</Capability>
-  <Capability Min="88" Max="95">Magenta</Capability>
-  <Capability Min="96" Max="103">Pink</Capability>
-  <Capability Min="104" Max="111">White - CTO</Capability>
-  <Capability Min="112" Max="119">White</Capability>
-  <Capability Min="120" Max="127">White - CTB</Capability>
+  <Capability Min="8" Max="15" Color="#ff0000">Red</Capability>
+  <Capability Min="16" Max="23" Color="#ffaa00">Amber</Capability>
+  <Capability Min="24" Max="31" Color="#ffaf00">Warm Yellow</Capability>
+  <Capability Min="32" Max="39" Color="#ffd400">Yellow</Capability>
+  <Capability Min="40" Max="47" Color="#00ff00">Green</Capability>
+  <Capability Min="48" Max="55" Color="#00ff92">Turquoise</Capability>
+  <Capability Min="56" Max="63" Color="#00ffff">Cyan</Capability>
+  <Capability Min="64" Max="71" Color="#0000ff">Blue</Capability>
+  <Capability Min="72" Max="79" Color="#ff00ff">Lavender</Capability>
+  <Capability Min="80" Max="87" Color="#ff00a1">Mauve</Capability>
+  <Capability Min="88" Max="95" Color="#ff008a">Magenta</Capability>
+  <Capability Min="96" Max="103" Color="#ff355e">Pink</Capability>
+  <Capability Min="104" Max="111" Color="#ffd175">White CTO</Capability>
+  <Capability Min="112" Max="119" Color="#ffd57a">White</Capability>
+  <Capability Min="120" Max="127" Color="#ffffc8">White CTB</Capability>
   <Capability Min="128" Max="128">Rainbow effect stop</Capability>
-  <Capability Min="129" Max="2235">Rainbow effect slow-fast</Capability>
+  <Capability Min="129" Max="223">Rainbow effect slow-fast</Capability>
   <Capability Min="224" Max="255">Rainbow effect, random colors, slow-fast</Capability>
  </Channel>
  <Channel Name="Red coarse">
@@ -236,9 +236,8 @@
   <Channel Number="7">Blue coarse</Channel>
   <Channel Number="8">Shutter</Channel>
   <Channel Number="9">Dimmer coarse</Channel>
-  <Channel Number="11">Special</Channel>
-  <Channel Number="12">Movement</Channel>
-  <Channel Number="13">Movement speed</Channel>
+  <Channel Number="10">Special</Channel>
+  <Channel Number="11">Movement</Channel>
+  <Channel Number="12">Movement speed</Channel>
  </Mode>
 </FixtureDefinition>
-
