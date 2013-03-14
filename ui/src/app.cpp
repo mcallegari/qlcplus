@@ -306,7 +306,7 @@ void App::slotSetProgressText(const QString& text)
     static int progress = 0;
     m_progressDialog->setValue(progress++);
     m_progressDialog->setLabelText(QString("<B>%1</B><BR/>%2")
-                                   .arg(tr("Starting Q Light Controller"))
+                                   .arg(tr("Starting Q Light Controller Plus"))
                                    .arg(text));
     QApplication::processEvents();
 }

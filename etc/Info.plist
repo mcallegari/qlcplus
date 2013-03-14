@@ -18,7 +18,7 @@
 	<string>qlcplus-launcher</string>
 
 	<key>CFBundleName</key>
-	<string>Q Light Controller</string>
+	<string>Q Light Controller Plus</string>
 
 	<key>CFBundleDocumentTypes</key>
 	<array>
