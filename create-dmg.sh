@@ -34,6 +34,6 @@ cd dmg
 	     --background background.png \
 	     --window-size 300 225 \
 	     --icon-size 128 --icon "qlcplus" 150 16 \
-	     QLC+-$VERSION.dmg \
+	     QLC+_$VERSION.dmg \
 	     ~/QLC+.app
 cd ..
