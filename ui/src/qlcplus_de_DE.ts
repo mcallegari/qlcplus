@@ -518,8 +518,9 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
     </message>
     <message>
         <location filename="app.cpp" line="309"/>
-        <source>Starting Q Light Controller</source>
-        <translation>Starte Q Light Controller Plus</translation>
+        <source>Starting Q Light Controller Plus</source>
+        <oldsource>Starting Q Light Controller</oldsource>
+        <translation type="unfinished">Starte Q Light Controller Plus</translation>
     </message>
     <message>
         <location filename="app.cpp" line="492"/>
@@ -720,23 +721,23 @@ Changes will be lost if you don&apos;t save them.</source>
 <context>
     <name>AudioItem</name>
     <message>
-        <location filename="sceneitems.cpp" line="490"/>
-        <location filename="sceneitems.cpp" line="820"/>
+        <location filename="sceneitems.cpp" line="536"/>
+        <location filename="sceneitems.cpp" line="866"/>
         <source>Preview Left Channel</source>
         <translation>Vorschau linker Kanal</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="494"/>
+        <location filename="sceneitems.cpp" line="540"/>
         <source>Preview Right Channel</source>
         <translation>Vorschau rechter Kanal</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="498"/>
+        <location filename="sceneitems.cpp" line="544"/>
         <source>Preview Stereo Channels</source>
         <translation>Vorschau Stereo-Kanäle</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="816"/>
+        <location filename="sceneitems.cpp" line="862"/>
         <source>Preview Mono</source>
         <translation>Vorschaue Mono</translation>
     </message>
@@ -1132,7 +1133,7 @@ Changes will be lost if you don&apos;t save them.</source>
 <context>
     <name>ConsoleChannel</name>
     <message>
-        <location filename="consolechannel.cpp" line="125"/>
+        <location filename="consolechannel.cpp" line="127"/>
         <source>Intensity</source>
         <translation>Intensität</translation>
     </message>
@@ -2544,8 +2545,8 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     </message>
     <message>
         <location filename="multitrackview.cpp" line="181"/>
-        <location filename="multitrackview.cpp" line="473"/>
-        <location filename="multitrackview.cpp" line="493"/>
+        <location filename="multitrackview.cpp" line="486"/>
+        <location filename="multitrackview.cpp" line="507"/>
         <source>Click to move this sequence across the timeline</source>
         <translation>Zum Verschieben der Sequenz über die Timeline klicken</translation>
     </message>
@@ -2582,8 +2583,8 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
         <translation>Dieser Vorgang LÖSCHT ebenfalls:</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="472"/>
-        <location filename="multitrackview.cpp" line="492"/>
+        <location filename="multitrackview.cpp" line="485"/>
+        <location filename="multitrackview.cpp" line="506"/>
         <source>Start time: %1
 %2</source>
         <translation>Start Zeit: %1
@@ -2916,23 +2917,23 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
         <translation>Nichts</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="861"/>
+        <location filename="sceneeditor.cpp" line="917"/>
         <source>Channels Groups</source>
         <translation>Kanalgruppen</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="667"/>
-        <location filename="sceneeditor.cpp" line="668"/>
+        <location filename="sceneeditor.cpp" line="723"/>
+        <location filename="sceneeditor.cpp" line="724"/>
         <source>Generic</source>
         <translation>Generisch</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="734"/>
+        <location filename="sceneeditor.cpp" line="790"/>
         <source>Remove fixtures</source>
         <translation>Geräte entfernen</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="735"/>
+        <location filename="sceneeditor.cpp" line="791"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Willst du die ausgewählten Funktionen entfernen?</translation>
     </message>
@@ -3122,107 +3123,117 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
 <context>
     <name>ShowManager</name>
     <message>
-        <location filename="showmanager.cpp" line="148"/>
+        <location filename="showmanager.cpp" line="149"/>
         <source>New s&amp;how</source>
         <translation>Neue S&amp;how</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="154"/>
+        <location filename="showmanager.cpp" line="155"/>
         <source>New &amp;track</source>
         <translation>Neuer &amp;Track</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="160"/>
+        <location filename="showmanager.cpp" line="161"/>
         <source>New s&amp;equence</source>
         <translation>Neue S&amp;equenz</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="166"/>
+        <location filename="showmanager.cpp" line="167"/>
         <source>New &amp;audio</source>
         <translation>Neues &amp;Audio</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="172"/>
+        <location filename="showmanager.cpp" line="173"/>
         <source>&amp;Clone</source>
         <translation>&amp;Kopieren</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="179"/>
+        <location filename="showmanager.cpp" line="180"/>
         <source>&amp;Delete</source>
         <translation>&amp;Löschen</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="186"/>
+        <location filename="showmanager.cpp" line="187"/>
         <source>Change Co&amp;lor</source>
         <translation>&amp;Farbe ändern</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="193"/>
+        <location filename="showmanager.cpp" line="194"/>
         <source>St&amp;op</source>
         <translation>St&amp;op</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="199"/>
+        <location filename="showmanager.cpp" line="200"/>
         <source>&amp;Play</source>
         <translation>Abs&amp;pielen</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="345"/>
+        <location filename="showmanager.cpp" line="253"/>
+        <source>Time division:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager.cpp" line="258"/>
+        <source>Time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager.cpp" line="376"/>
         <source>New Show</source>
         <translation>Neue Show</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="347"/>
+        <location filename="showmanager.cpp" line="378"/>
         <source>Show name setup</source>
         <translation>Shownameneinstellung</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="348"/>
+        <location filename="showmanager.cpp" line="379"/>
         <source>Show name:</source>
         <translation>Show-Name:</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="379"/>
+        <location filename="showmanager.cpp" line="410"/>
         <source>New Scene</source>
         <translation>Neue Szene</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="408"/>
+        <location filename="showmanager.cpp" line="439"/>
         <source>New Sequence</source>
         <translation>Neue Sequenz</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="422"/>
+        <location filename="showmanager.cpp" line="453"/>
         <source>Open Audio File</source>
         <translation>Audio-Datei-öffnen</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="448"/>
+        <location filename="showmanager.cpp" line="479"/>
         <source>Audio Files (%1)</source>
         <translation>Audio Dateien (%1)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="450"/>
+        <location filename="showmanager.cpp" line="481"/>
         <source>All Files (*.*)</source>
         <translation>Alle Dateien (*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="452"/>
+        <location filename="showmanager.cpp" line="483"/>
         <source>All Files (*)</source>
         <translation>Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="474"/>
+        <location filename="showmanager.cpp" line="505"/>
         <source>Unsupported audio file</source>
         <translation>Nicht unterstützte Audio-Datei</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="474"/>
+        <location filename="showmanager.cpp" line="505"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation>Diese Audiodatei kann mit QLC+ nicht wiedergegeben werden. Sorry.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="510"/>
+        <location filename="showmanager.cpp" line="541"/>
         <source>Copy of %1</source>
         <translation>Kopie von %1</translation>
     </message>

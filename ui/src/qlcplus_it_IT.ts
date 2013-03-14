@@ -400,8 +400,9 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="app.cpp" line="309"/>
-        <source>Starting Q Light Controller</source>
-        <translation>Avvio Q Light Controller</translation>
+        <source>Starting Q Light Controller Plus</source>
+        <oldsource>Starting Q Light Controller</oldsource>
+        <translation>Avvio Q Light Controller Plus</translation>
     </message>
     <message>
         <location filename="app.cpp" line="365"/>
@@ -719,23 +720,23 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
 <context>
     <name>AudioItem</name>
     <message>
-        <location filename="sceneitems.cpp" line="490"/>
-        <location filename="sceneitems.cpp" line="820"/>
+        <location filename="sceneitems.cpp" line="536"/>
+        <location filename="sceneitems.cpp" line="866"/>
         <source>Preview Left Channel</source>
         <translation>Anteprima Canale Sinistro</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="494"/>
+        <location filename="sceneitems.cpp" line="540"/>
         <source>Preview Right Channel</source>
         <translation>Anteprima Canale Destro</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="498"/>
+        <location filename="sceneitems.cpp" line="544"/>
         <source>Preview Stereo Channels</source>
         <translation>Anteprima Canali Stereo</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="816"/>
+        <location filename="sceneitems.cpp" line="862"/>
         <source>Preview Mono</source>
         <translation>Anteprima Mono</translation>
     </message>
@@ -1131,7 +1132,7 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
 <context>
     <name>ConsoleChannel</name>
     <message>
-        <location filename="consolechannel.cpp" line="125"/>
+        <location filename="consolechannel.cpp" line="127"/>
         <source>Intensity</source>
         <translation>Intensità</translation>
     </message>
@@ -2544,8 +2545,8 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     </message>
     <message>
         <location filename="multitrackview.cpp" line="181"/>
-        <location filename="multitrackview.cpp" line="473"/>
-        <location filename="multitrackview.cpp" line="493"/>
+        <location filename="multitrackview.cpp" line="486"/>
+        <location filename="multitrackview.cpp" line="507"/>
         <source>Click to move this sequence across the timeline</source>
         <translation>Clicca per muovere la sequenza lungo la linea temporale</translation>
     </message>
@@ -2582,8 +2583,8 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <translation>Questa operazione ELIMINERA&apos; anche:</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="472"/>
-        <location filename="multitrackview.cpp" line="492"/>
+        <location filename="multitrackview.cpp" line="485"/>
+        <location filename="multitrackview.cpp" line="506"/>
         <source>Start time: %1
 %2</source>
         <translation>Inizio: %1
@@ -2916,23 +2917,23 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <translation>Nessuno</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="861"/>
+        <location filename="sceneeditor.cpp" line="917"/>
         <source>Channels Groups</source>
         <translation>Gruppi di Canali</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="667"/>
-        <location filename="sceneeditor.cpp" line="668"/>
+        <location filename="sceneeditor.cpp" line="723"/>
+        <location filename="sceneeditor.cpp" line="724"/>
         <source>Generic</source>
         <translation>Generico</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="734"/>
+        <location filename="sceneeditor.cpp" line="790"/>
         <source>Remove fixtures</source>
         <translation>Elimina Fixture</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="735"/>
+        <location filename="sceneeditor.cpp" line="791"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Vuoi eliminare le fixture selezionate?</translation>
     </message>
@@ -3122,107 +3123,117 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
 <context>
     <name>ShowManager</name>
     <message>
-        <location filename="showmanager.cpp" line="148"/>
+        <location filename="showmanager.cpp" line="149"/>
         <source>New s&amp;how</source>
         <translation>Nuovo S&amp;how</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="154"/>
+        <location filename="showmanager.cpp" line="155"/>
         <source>New &amp;track</source>
         <translation>Nuova &amp;traccia</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="160"/>
+        <location filename="showmanager.cpp" line="161"/>
         <source>New s&amp;equence</source>
         <translation>Nuova s&amp;equenza</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="166"/>
+        <location filename="showmanager.cpp" line="167"/>
         <source>New &amp;audio</source>
         <translation>Nuovo &amp;audio</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="172"/>
+        <location filename="showmanager.cpp" line="173"/>
         <source>&amp;Clone</source>
         <translation>&amp;Clona</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="179"/>
+        <location filename="showmanager.cpp" line="180"/>
         <source>&amp;Delete</source>
         <translation>&amp;Elimina</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="186"/>
+        <location filename="showmanager.cpp" line="187"/>
         <source>Change Co&amp;lor</source>
         <translation>Cambia Co&amp;lore</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="193"/>
+        <location filename="showmanager.cpp" line="194"/>
         <source>St&amp;op</source>
         <translation>St&amp;op</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="199"/>
+        <location filename="showmanager.cpp" line="200"/>
         <source>&amp;Play</source>
         <translation>&amp;Play</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="345"/>
+        <location filename="showmanager.cpp" line="253"/>
+        <source>Time division:</source>
+        <translation>Marcatori di tempo:</translation>
+    </message>
+    <message>
+        <location filename="showmanager.cpp" line="258"/>
+        <source>Time</source>
+        <translation>Tempo</translation>
+    </message>
+    <message>
+        <location filename="showmanager.cpp" line="376"/>
         <source>New Show</source>
         <translation>Nuovo Show</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="347"/>
+        <location filename="showmanager.cpp" line="378"/>
         <source>Show name setup</source>
         <translation>Immissione nome Show</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="348"/>
+        <location filename="showmanager.cpp" line="379"/>
         <source>Show name:</source>
         <translation>Nome Show:</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="379"/>
+        <location filename="showmanager.cpp" line="410"/>
         <source>New Scene</source>
         <translation>Nuova Scena</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="408"/>
+        <location filename="showmanager.cpp" line="439"/>
         <source>New Sequence</source>
         <translation>Nuova Sequenza</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="422"/>
+        <location filename="showmanager.cpp" line="453"/>
         <source>Open Audio File</source>
         <translation>Apri File Audio</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="448"/>
+        <location filename="showmanager.cpp" line="479"/>
         <source>Audio Files (%1)</source>
         <translation>File Audio (%1)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="450"/>
+        <location filename="showmanager.cpp" line="481"/>
         <source>All Files (*.*)</source>
         <translation>Tutti i file (*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="452"/>
+        <location filename="showmanager.cpp" line="483"/>
         <source>All Files (*)</source>
         <translation>Tutti i File (*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="474"/>
+        <location filename="showmanager.cpp" line="505"/>
         <source>Unsupported audio file</source>
         <translation>File audio non supportato</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="474"/>
+        <location filename="showmanager.cpp" line="505"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation>Questo file audio non può essere riprodotto da QLC+. Spiacente.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="510"/>
+        <location filename="showmanager.cpp" line="541"/>
         <source>Copy of %1</source>
         <translation>Copia di %1</translation>
     </message>
