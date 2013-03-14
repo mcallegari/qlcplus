@@ -29,6 +29,7 @@
 #include <QComboBox>
 #include <QSplitter>
 #include <QToolBar>
+#include <QSpinBox>
 #include <QLabel>
 #include <QDebug>
 #include <QUrl>
@@ -212,7 +213,8 @@ void ShowManager::initToolbar()
     m_toolbar->addAction(m_addShowAction);
     m_showsCombo = new QComboBox();
     m_showsCombo->setFixedWidth(200);
-    connect(m_showsCombo, SIGNAL(currentIndexChanged(int)),this, SLOT(slotShowsComboChanged(int)));
+    connect(m_showsCombo, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(slotShowsComboChanged(int)));
     m_toolbar->addWidget(m_showsCombo);
     m_toolbar->addSeparator();
 
@@ -241,6 +243,35 @@ void ShowManager::initToolbar()
 
     m_toolbar->addAction(m_stopAction);
     m_toolbar->addAction(m_playAction);
+
+    /* Create an empty widget between help items to flush them to the right */
+    QWidget* widget = new QWidget(this);
+    widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    m_toolbar->addWidget(widget);
+
+    /* Add time division elements */
+    QLabel* timeLabel = new QLabel(tr("Time division:"));
+    m_toolbar->addWidget(timeLabel);
+
+    m_timeDivisionCombo = new QComboBox();
+    m_timeDivisionCombo->setFixedWidth(100);
+    m_timeDivisionCombo->addItem(tr("Time"));
+    m_timeDivisionCombo->addItem("BPM 4/4");
+    m_timeDivisionCombo->addItem("BPM 3/4");
+    m_timeDivisionCombo->addItem("BPM 2/4");
+    m_toolbar->addWidget(m_timeDivisionCombo);
+    connect(m_timeDivisionCombo, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(slotTimeDivisionTypeChanged(int)));
+
+    m_bpmField = new QSpinBox();
+    m_bpmField->setFixedWidth(70);
+    m_bpmField->setMinimum(10);
+    m_bpmField->setMaximum(240);
+    m_bpmField->setValue(120);
+    m_bpmField->setEnabled(false);
+    m_toolbar->addWidget(m_bpmField);
+    connect(m_bpmField, SIGNAL(valueChanged(int)),
+            this, SLOT(slotBPMValueChanged(int)));
 }
 
 /*********************************************************************
@@ -591,6 +622,20 @@ void ShowManager::slotStartPlayback()
     if (m_showsCombo->count() == 0 || m_show == NULL)
         return;
     m_show->start(m_doc->masterTimer());
+}
+
+void ShowManager::slotTimeDivisionTypeChanged(int idx)
+{
+    m_showview->setHeaderType(idx);
+    if (idx > 0)
+        m_bpmField->setEnabled(true);
+    else
+        m_bpmField->setEnabled(false);
+}
+
+void ShowManager::slotBPMValueChanged(int value)
+{
+    m_showview->setBPMValue(value);
 }
 
 void ShowManager::slotViewClicked(QMouseEvent *event)

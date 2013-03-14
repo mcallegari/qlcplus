@@ -48,6 +48,10 @@ public:
     /** Auto calculation of view size based on items */
     void updateViewSize();
 
+    /*********************************************************************
+     * Contents
+     *********************************************************************/
+
     /** Update the multitrack view with the scene elements */
     void resetView();
 
@@ -63,12 +67,7 @@ public:
     /** Delete the currently selected sequence */
     quint32 deleteSelectedFunction();
 
-    /** Move cursor to a given time */
-    void moveCursor(quint32 timePos);
-
-    /** Reset cursor to initial position */
-    void rewindCursor();
-
+    /** Set the given track to active state */
     void activateTrack(Track *track);
 
     /** get the selected sequence item. If none, returns NULL */
@@ -78,14 +77,37 @@ public:
     AudioItem *getSelectedAudio();
 
 private:
+    /** Get the index of the currently selected track */
+    int getActiveTrack();
+
+    /*********************************************************************
+     * Header
+     *********************************************************************/
+public:
+    /** Set the type of header. Can be Time (seconds) or BPM,
+     *  in various forms (4/4, 3/4) */
+    void setHeaderType(int type);
+
+    /** When BPM is selected, this function can set a precise
+     *  value of time division */
+    void setBPMValue(int value);
+
+    /*********************************************************************
+     * Cursor
+     *********************************************************************/
+public:
+    /** Move cursor to a given time */
+    void moveCursor(quint32 timePos);
+
+    /** Reset cursor to initial position */
+    void rewindCursor();
+
+private:
     /** Get time of current cursor position */
     quint32 getTimeFromPosition();
 
     /** Return position in pixel of a given time (in msec) */
     quint32 getPositionFromTime(quint32 time);
-
-    /** Get the index of the currently selected track */
-    int getActiveTrack();
 
 private:
     QGraphicsScene *m_scene;

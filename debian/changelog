@@ -6,6 +6,7 @@ qlcplus (4.3.0) stable; urgency=low
   * NEW: added support for DMXKing ultraDMX Pro (device provided by the DMXking team. Thanks)
   * NEW: Added Grand Master reverse functionality
   * NEW: Sliders can now jump directly to the clicked position
+  * NEW: Implemented BPM view for Show Manager
   * Fixed fast stop/start functions sequence, causing wrong behaviour
   * QLC+ and Fixture Editor now remember the working directory
   * Input profiles can now be used with no input device connected

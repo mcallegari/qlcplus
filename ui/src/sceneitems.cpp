@@ -33,8 +33,11 @@
  ****************************************************************************/
 SceneHeaderItem::SceneHeaderItem(int w)
     : m_width(w)
-    , m_timeStep(25)
+    , m_timeStep(HALF_SECOND_WIDTH)
+    , m_timeHit(2)
     , m_timeScale(3)
+    , m_BPMValue(120)
+    , m_type(Time)
 {
 }
 
@@ -59,24 +62,35 @@ void SceneHeaderItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
     painter->setBrush(QBrush(QColor(150, 150, 150, 255)));
     painter->drawRect(0, 0, m_width, 35);
 
+    if (m_type > Time)
+        m_timeStep = ((float)(120 * HALF_SECOND_WIDTH) / (float)m_BPMValue) / (float)m_timeScale;
+
     // draw vertical timing lines and time labels
     int tmpSec = 0;
     for (int i = 0; i < m_width / m_timeStep; i++)
     {
-        int xpos = (i * m_timeStep) + 1;
+        int xpos = ((float)i * m_timeStep) + 1;
         painter->setPen(QPen( QColor(250, 250, 250, 255), 1));
-        if (i%2 == 0)
+        if (i%m_timeHit == 0)
         {
             painter->drawLine(xpos, 20, xpos, 34);
             painter->setPen(QPen( Qt::black, 1));
-            tmpSec = (i/2) * m_timeScale;
-            if (tmpSec < 60)
-                painter->drawText(xpos - 4, 15, QString("%1s").arg(tmpSec));
+            if (m_type == Time)
+            {
+                tmpSec = (i/2) * m_timeScale;
+                if (tmpSec < 60)
+                    painter->drawText(xpos - 4, 15, QString("%1s").arg(tmpSec));
+                else
+                {
+                    int tmpMin = tmpSec / 60;
+                    tmpSec = tmpSec - (tmpMin * 60);
+                    painter->drawText(xpos - 4, 15, QString("%1m%2s").arg(tmpMin).arg(tmpSec));
+                }
+            }
             else
             {
-                int tmpMin = tmpSec / 60;
-                tmpSec = tmpSec - (tmpMin * 60);
-                painter->drawText(xpos - 4, 15, QString("%1m%2s").arg(tmpMin).arg(tmpSec));
+                tmpSec++;
+                painter->drawText(xpos - 4, 15, QString("%1").arg(tmpSec));
             }
         }
         else
@@ -96,9 +110,41 @@ int SceneHeaderItem::getTimeScale()
     return m_timeScale;
 }
 
-int SceneHeaderItem::getTimeStep()
+void SceneHeaderItem::setTimeDivisionType(SceneHeaderItem::TimeDivision type)
 {
-    return m_timeStep;
+    if (type >= Invalid)
+        return;
+
+    m_type = type;
+    if (m_type == Time)
+    {
+        m_timeStep = HALF_SECOND_WIDTH;
+        m_timeHit = 2;
+    }
+    else
+    {
+        if (m_type == BPM_4_4)
+            m_timeHit = 4;
+        else if (m_type == BPM_3_4)
+            m_timeHit = 3;
+        else if (m_type == BPM_2_4)
+            m_timeHit = 2;
+    }
+    update();
+}
+
+void SceneHeaderItem::setBPMValue(int value)
+{
+    if (value > 1)
+    {
+        m_BPMValue = value;
+    }
+    update();
+}
+
+int SceneHeaderItem::getHalfSecondWidth()
+{
+    return HALF_SECOND_WIDTH;
 }
 
 void SceneHeaderItem::setWidth(int w)
