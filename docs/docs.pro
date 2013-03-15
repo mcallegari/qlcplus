@@ -30,6 +30,7 @@ docs.files = \
              howto-input-output-mapping.html \
              index.html \
              modeeditor.html \
+             olaplugin.html \
              oscplugin.html \
              peperonioutput.html \
              rgbmatrixeditor.html \
