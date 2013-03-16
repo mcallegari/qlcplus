@@ -6,7 +6,7 @@
     <message>
         <location filename="enttecwing.cpp" line="113"/>
         <source>This plugin provides input support for Enttec Playback and Enttec Shortcut Wings.</source>
-        <translation>Ce plugin active le support des Enttec Playback et Shortcut Wings.</translation>
+        <translation>Ce greffon permet le support des Enttec Playback et Shortcut Wings.</translation>
     </message>
     <message>
         <location filename="enttecwing.cpp" line="130"/>
@@ -24,7 +24,7 @@
     <message>
         <location filename="playbackwing.cpp" line="180"/>
         <source>at</source>
-        <translation type="unfinished"></translation>
+        <translation>à</translation>
     </message>
 </context>
 <context>
@@ -32,7 +32,7 @@
     <message>
         <location filename="programwing.cpp" line="155"/>
         <source>at</source>
-        <translation type="unfinished"></translation>
+        <translation>à</translation>
     </message>
 </context>
 <context>
@@ -40,7 +40,7 @@
     <message>
         <location filename="shortcutwing.cpp" line="104"/>
         <source>at</source>
-        <translation type="unfinished"></translation>
+        <translation>à</translation>
     </message>
 </context>
 <context>
