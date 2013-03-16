@@ -229,7 +229,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="addfixture.cpp" line="97"/>
         <source>Fixtures found: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Projecteurs trouvés : %1</translation>
     </message>
     <message>
         <location filename="addfixture.cpp" line="510"/>
@@ -404,7 +404,7 @@ p, li { white-space: pre-wrap; }
         <location filename="app.cpp" line="309"/>
         <source>Starting Q Light Controller Plus</source>
         <oldsource>Starting Q Light Controller</oldsource>
-        <translation type="unfinished">Démarrage de Q Light Controller</translation>
+        <translation type="unfinished">Démarrage de Q Light Controller Plus</translation>
     </message>
     <message>
         <location filename="app.cpp" line="365"/>
@@ -585,13 +585,13 @@ Voulez-vous vraiement les arrêter et basculer vers le Mode Design?</translation
     <message>
         <location filename="app.cpp" line="501"/>
         <source>Dump DMX values to a function</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Capturer les valeurs DMX vers une fonction</translation>
     </message>
     <message>
         <location filename="app.cpp" line="502"/>
         <source>CTRL+D</source>
         <comment>Control|Dump DMX</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">CTRL+D</translation>
     </message>
     <message>
         <location filename="app.cpp" line="505"/>
@@ -755,7 +755,7 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
     <message>
         <location filename="channelselection.ui" line="24"/>
         <source>Group Name</source>
-        <translation>Nom</translation>
+        <translation>Nom du Groupe</translation>
     </message>
     <message>
         <location filename="channelselection.ui" line="48"/>
@@ -1203,23 +1203,23 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
     <message>
         <location filename="dmxdumpfactory.ui" line="14"/>
         <source>Dump DMX values</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Capture de Valeurs DMX</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="20"/>
         <source>Dump only non-zero values</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Valeurs différentes de Zéro uniquement</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="37"/>
         <source>Dump options</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Options de capture</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="50"/>
         <source>Dump selected channels</source>
         <oldsource>Dump selected DMX values</oldsource>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Capturer les canaux sélectionnés</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="58"/>
@@ -1235,28 +1235,28 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
     <message>
         <location filename="dmxdumpfactory.ui" line="83"/>
         <source>Add to Chaser:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ajouter au chaser :</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="95"/>
         <source>Scene name:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nom de la scène :</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.cpp" line="56"/>
         <source>Dump all channels (%1 Universes, %2 Fixtures, %3 Channels)</source>
         <oldsource>Dump all DMX values (%1 Universes, %2 Fixtures, %3 Channels)</oldsource>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Capturer tous les canaux (%1 Univers, %2 Projecteurs, %3 Canaux)</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.cpp" line="59"/>
         <source>New Scene From Live %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nouvelle scène depuis le Live %1</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.cpp" line="97"/>
         <source>Universe %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Univers %1</translation>
     </message>
 </context>
 <context>
@@ -3175,12 +3175,12 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="showmanager.cpp" line="253"/>
         <source>Time division:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Division temporelle :</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="258"/>
         <source>Time</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Temps</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="376"/>
@@ -3759,7 +3759,7 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vccuelistproperties.ui" line="270"/>
         <source>Previous Cue</source>
-        <translation>Mémoiree Précédente</translation>
+        <translation>Mémoire Précédente</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="282"/>
@@ -4056,7 +4056,7 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vcproperties.ui" line="293"/>
         <source>Normal</source>
-        <translation type="unfinished">Normal</translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="300"/>
@@ -4170,7 +4170,7 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vcsliderproperties.ui" line="172"/>
         <source>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</source>
-        <translation>Bougez un fader externe afin de l&apos;assigner à ce fader de la console virtuelle.</translation>
+        <translation>Manipulez un fader externe afin de l&apos;assigner à ce curseur de la console virtuelle.</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="175"/>
@@ -4205,12 +4205,12 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vcsliderproperties.ui" line="401"/>
         <source>Gobo/Effect</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gobo/Effet</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="435"/>
         <source>Playback</source>
-        <translation>Playback</translation>
+        <translation>Fonction</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="441"/>
@@ -4240,7 +4240,7 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vcsliderproperties.ui" line="516"/>
         <source>Switch to Playback Mode</source>
-        <translation>Mode Playback</translation>
+        <translation type="unfinished">Mode Fonction</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="60"/>
@@ -4326,12 +4326,12 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vcsliderproperties.ui" line="387"/>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="394"/>
         <source>RGB</source>
-        <translation type="unfinished"></translation>
+        <translation>RVB</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="424"/>
@@ -4341,7 +4341,7 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vcsliderproperties.ui" line="427"/>
         <source>Switch to Level Mode</source>
-        <translation>Basculer vers le mode level</translation>
+        <translation type="unfinished">Basculer vers le Mode Niveau</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.cpp" line="664"/>
