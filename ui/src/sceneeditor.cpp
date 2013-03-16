@@ -580,8 +580,8 @@ void SceneEditor::slotChaserComboActivated(int index)
 bool SceneEditor::isColorToolAvailable()
 {
     Fixture* fxi = NULL;
-    quint32 cyan, magenta, yellow;
-    quint32 red, green, blue;
+    quint32 cyan = QLCChannel::invalid(), magenta = QLCChannel::invalid(), yellow = QLCChannel::invalid();
+    quint32 red = QLCChannel::invalid(), green = QLCChannel::invalid(), blue = QLCChannel::invalid();
 
     /* QObject cast fails unless the widget is a FixtureConsole */
     FixtureConsole* fc = fixtureConsoleTab(m_currentTab);

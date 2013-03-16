@@ -29,6 +29,7 @@
 #include "enttecdmxusbprorx.h"
 #include "enttecdmxusbopen.h"
 #include "ultradmxusbprotx.h"
+#include "stageprofi.h"
 #include "qlcftdi.h"
 
 /**
@@ -67,7 +68,10 @@ static FT_STATUS qlcftdi_get_strings(DWORD deviceIndex,
     status = FT_EE_Read(handle, &pData);
     if (status == FT_OK)
     {
-        vendor = QString(cVendor);
+        if (pData.ProductId == QLCFTDI::DMX4ALLPID)
+            vendor = QString("DMX4ALL");
+        else
+            vendor = QString(cVendor);
         description = QString(cDescription);
         serial = QString(cSerial);
     }
@@ -188,6 +192,10 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
                 EnttecDMXUSBProRX* prorx = new EnttecDMXUSBProRX(serial, name, vendor, input_id++, protx->ftdi());
                 list << prorx;
             }
+            else if (vendor.toUpper().contains("DMX4ALL") == true)
+            {
+                list << new Stageprofi("", "USB-DMX STAGE-PROFI MK2", vendor, NULL, i);
+            }
             else if (vendor.toUpper().contains("FTDI") == true || vendor.isEmpty())
             {
                 /* This is probably an Open DMX USB widget */
@@ -273,7 +281,7 @@ bool QLCFTDI::reset()
 
 bool QLCFTDI::setLineProperties()
 {
-    FT_STATUS status = FT_SetDataCharacteristics(m_handle, 8, 2, 0);
+    FT_STATUS status = FT_SetDataCharacteristics(m_handle, FT_BITS_8, FT_STOP_BITS_2, FT_PARITY_NONE);
     if (status != FT_OK)
     {
         qWarning() << Q_FUNC_INFO << name() << status;
