@@ -898,7 +898,8 @@ void Chaser_Test::write()
     QVERIFY(c->stopped() == true);
     c->start(&timer);
 
-    for (uint i = 0; i < c->duration(); i += MasterTimer::tick())
+    timer.timerTick();
+    for (uint i = MasterTimer::tick(); i < c->duration(); i += MasterTimer::tick())
     {
         timer.timerTick();
         QVERIFY(c->isRunning() == true);

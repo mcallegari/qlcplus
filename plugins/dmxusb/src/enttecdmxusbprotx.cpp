@@ -83,10 +83,10 @@ bool EnttecDMXUSBProTX::configurePort(int port)
         request.append(ENTTEC_PRO_ENABLE_API2); // Enable API2
         request.append(char(0x04)); // data length LSB
         request.append(ENTTEC_PRO_DMX_ZERO); // data length MSB
-        request.append(char(0xAD)); // Magic number
-        request.append(char(0x88)); // Magic number
-        request.append(char(0xD0)); // Magic number
-        request.append(char(0xC8)); // Magic number
+        request.append(char(0xAD)); // Magic number. WTF ??
+        request.append(char(0x88)); // Magic number. WFT ??
+        request.append(char(0xD0)); // Magic number. WTF ??
+        request.append(char(0xC8)); // Magic number. WTF ??
         request.append(ENTTEC_PRO_END_OF_MSG); // Stop byte
 
         /* Write "Set API Key Request" message */

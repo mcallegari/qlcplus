@@ -74,7 +74,7 @@ private:
     void timerTick();
 
 private:
-    /** An OutputMap instance that routes all values to correct plugins. */
+    /** The timer tick frequency in Hertz */
     static const uint s_frequency;
 
     /*********************************************************************
