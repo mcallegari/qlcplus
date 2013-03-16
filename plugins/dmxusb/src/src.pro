@@ -49,7 +49,7 @@ HEADERS += dmxusb.h \
            enttecdmxusbprorx.h \
            enttecdmxusbprotx.h \
            enttecdmxusbopen.h \
-           stageprofi.h \
+           dmx4all.h \
            qlcftdi.h
 
 SOURCES += dmxusb.cpp \
@@ -59,8 +59,8 @@ SOURCES += dmxusb.cpp \
            enttecdmxusbprorx.cpp \
            enttecdmxusbprotx.cpp \
            enttecdmxusbopen.cpp \
-           stageprofi.cpp \
-    ultradmxusbprotx.cpp
+           dmx4all.cpp \
+           ultradmxusbprotx.cpp
 
 CONFIG(ftd2xx) {
     SOURCES += qlcftdi-ftd2xx.cpp

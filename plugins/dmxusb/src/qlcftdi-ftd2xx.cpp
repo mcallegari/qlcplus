@@ -29,7 +29,7 @@
 #include "enttecdmxusbprorx.h"
 #include "enttecdmxusbopen.h"
 #include "ultradmxusbprotx.h"
-#include "stageprofi.h"
+#include "dmx4all.h"
 #include "qlcftdi.h"
 
 /**
@@ -194,7 +194,7 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
             }
             else if (vendor.toUpper().contains("DMX4ALL") == true)
             {
-                list << new Stageprofi("", "USB-DMX STAGE-PROFI MK2", vendor, NULL, i);
+                list << new DMX4ALL("", "DMX4ALL USB-DMX Adapter", vendor, NULL, i);
             }
             else if (vendor.toUpper().contains("FTDI") == true || vendor.isEmpty())
             {

@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  stageprofi.h
+  dmx4all.h
 
   Copyright (C) Massimo Callegari
 
@@ -26,15 +26,15 @@
 
 class QLCFTDI;
 
-class Stageprofi : public DMXUSBWidget
+class DMX4ALL : public DMXUSBWidget
 {
     /************************************************************************
      * Initialization
      ************************************************************************/
 public:
-    Stageprofi(const QString& serial, const QString& name, const QString& vendor,
+    DMX4ALL(const QString& serial, const QString& name, const QString& vendor,
                     QLCFTDI *ftdi = NULL, quint32 id = 0);
-    virtual ~Stageprofi();
+    virtual ~DMX4ALL();
 
     /** @reimp */
     DMXUSBWidget::Type type() const;

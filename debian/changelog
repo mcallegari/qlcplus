@@ -4,7 +4,7 @@ qlcplus (4.3.0) stable; urgency=low
   * NEW: added DMX dump functionality, to save the current values into a new Scene and Chaser (Shortcut: CTRL+D)
   * NEW: added support for Enttec DMX USB PRO Mk2 (thanks to Tim for providing it)
   * NEW: added support for DMXKing ultraDMX Pro (device provided by the DMXking team. Thanks)
-  * NEW: added support for DMX4ALL USB DMX STAGE-PROFI MK2 (thanks to Heiko Fanieng for providing it)
+  * NEW: added support for DMX4ALL USB-DMX adapters (tested with STAGE-PROFI MK2. Thanks to Heiko Fanieng for providing it)
   * NEW: Sliders can now jump directly to the clicked position
   * NEW: Implemented BPM view for Show Manager
   * NEW: Color selection tool now works also with channel groups

@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  stageprofi.cpp
+  dmx4all.cpp
 
   Copyright (C) Massimo Callegari
 
@@ -19,29 +19,31 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 */
 
-#include "stageprofi.h"
+#include "dmx4all.h"
 
 #include <QDebug>
 
-Stageprofi::Stageprofi(const QString& serial, const QString& name, const QString &vendor, QLCFTDI *ftdi, quint32 id)
+DMX4ALL::DMX4ALL(const QString& serial, const QString& name,
+                       const QString &vendor, QLCFTDI *ftdi, quint32 id)
     : DMXUSBWidget(serial, name, vendor, ftdi, id)
 {
 }
 
-Stageprofi::~Stageprofi()
+DMX4ALL::~DMX4ALL()
 {
 }
 
-DMXUSBWidget::Type Stageprofi::type() const
+DMXUSBWidget::Type DMX4ALL::type() const
 {
-    return DMXUSBWidget::Stageprofi;
+    return DMXUSBWidget::DMX4ALL;
 }
 
-bool Stageprofi::checkReply()
+bool DMX4ALL::checkReply()
 {
     QByteArray reply = ftdi()->read(1);
-    qDebug() << Q_FUNC_INFO << "Reply: " << QString::number(reply[0], 16);
-    if (reply[0] == char(0x00)) // this doesn't make sense. According to the specs it should return 'G'
+    //qDebug() << Q_FUNC_INFO << "Reply: " << QString::number(reply[0], 16);
+    if (reply.size() > 0 &&
+        reply[0] == char(0x00)) // this doesn't make sense. According to the specs it should return 'G'
     {
         qDebug() << Q_FUNC_INFO << name() << "Good connection.";
         return true;
@@ -51,7 +53,7 @@ bool Stageprofi::checkReply()
     return false;
 }
 
-bool Stageprofi::sendChannelValue(int channel, uchar value)
+bool DMX4ALL::sendChannelValue(int channel, uchar value)
 {
     QByteArray chanMsg;
     QString msg;
@@ -63,7 +65,7 @@ bool Stageprofi::sendChannelValue(int channel, uchar value)
  * Open & Close
  ****************************************************************************/
 
-bool Stageprofi::open()
+bool DMX4ALL::open()
 {
     if (isOpen() == true)
         close();
@@ -113,7 +115,7 @@ bool Stageprofi::open()
     return true;
 }
 
-QString Stageprofi::uniqueName() const
+QString DMX4ALL::uniqueName() const
 {
     return QString("%1").arg(name());
 }
@@ -122,20 +124,17 @@ QString Stageprofi::uniqueName() const
  * Name & Serial
  ****************************************************************************/
 
-QString Stageprofi::additionalInfo() const
+QString DMX4ALL::additionalInfo() const
 {
     QString info;
 
     info += QString("<P>");
     info += QString("<B>%1:</B> %2 (%3)").arg(QObject::tr("Protocol"))
-                                         .arg("DMX4ALL DMX USB")
+                                         .arg("DMX4ALL DMX-USB")
                                          .arg(QObject::tr("Output"));
     info += QString("<BR>");
     info += QString("<B>%1:</B> %2").arg(QObject::tr("Manufacturer"))
                                          .arg(vendor());
-    info += QString("<BR>");
-    info += QString("<B>%1:</B> %2").arg(QObject::tr("Serial number"))
-                                                 .arg(serial());
     info += QString("</P>");
 
     return info;
@@ -145,7 +144,7 @@ QString Stageprofi::additionalInfo() const
  * Write universe data
  ****************************************************************************/
 
-bool Stageprofi::writeUniverse(const QByteArray& universe)
+bool DMX4ALL::writeUniverse(const QByteArray& universe)
 {
     if (isOpen() == false)
         return false;

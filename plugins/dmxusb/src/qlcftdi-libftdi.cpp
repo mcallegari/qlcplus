@@ -30,7 +30,7 @@
 #include "enttecdmxusbprorx.h"
 #include "enttecdmxusbopen.h"
 #include "ultradmxusbprotx.h"
-#include "stageprofi.h"
+#include "dmx4all.h"
 #include "qlcftdi.h"
 
 QLCFTDI::QLCFTDI(const QString& serial, const QString& name, const QString& vendor, quint32 id)
@@ -173,7 +173,7 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
         //QMap <QString,QVariant> types(typeMap());
 
         qDebug() << "serial: " << ser << "name:" << nme << "vendor:" << ven;
-        widgetList << new Stageprofi("", "USB-DMX STAGE-PROFI MK2", "DMX4ALL");
+        widgetList << new DMX4ALL("", "DMX4ALL USB-DMX Adapter", "DMX4ALL");
 
         list = list->next;
     }

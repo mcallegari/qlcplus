@@ -48,7 +48,7 @@ public:
         ProRX,     //! Enttec Pro widget using the RX side of the dongle
         ProMk2,    //! Enttec Pro Mk2 widget using 2 TX outputs
         UltraProTx, //! DMXKing Ultra Pro widget using 2 TX ports
-        Stageprofi
+        DMX4ALL
     };
 
     /** Get the type of the widget */
