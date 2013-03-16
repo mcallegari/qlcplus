@@ -49,6 +49,7 @@ HEADERS += dmxusb.h \
            enttecdmxusbprorx.h \
            enttecdmxusbprotx.h \
            enttecdmxusbopen.h \
+           stageprofi.h \
            qlcftdi.h
 
 SOURCES += dmxusb.cpp \
@@ -58,6 +59,7 @@ SOURCES += dmxusb.cpp \
            enttecdmxusbprorx.cpp \
            enttecdmxusbprotx.cpp \
            enttecdmxusbopen.cpp \
+           stageprofi.cpp \
     ultradmxusbprotx.cpp
 
 CONFIG(ftd2xx) {
@@ -69,7 +71,7 @@ CONFIG(ftd2xx) {
 unix:!macx {
     # Rules to make USB DMX devices readable & writable by normal users
     udev.path  = /etc/udev/rules.d
-    udev.files = z65-enttec-dmxusb.rules
+    udev.files = z65-dmxusb.rules
     INSTALLS  += udev
 }
 

@@ -225,6 +225,12 @@ bool QLCFTDI::open()
     }
 }
 
+bool QLCFTDI::openByPID(const int PID)
+{
+    Q_UNUSED(PID)
+    return open();
+}
+
 bool QLCFTDI::close()
 {
     if (m_openCount > 1)

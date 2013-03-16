@@ -30,6 +30,7 @@
 #include "enttecdmxusbprorx.h"
 #include "enttecdmxusbopen.h"
 #include "ultradmxusbprotx.h"
+#include "stageprofi.h"
 #include "qlcftdi.h"
 
 QLCFTDI::QLCFTDI(const QString& serial, const QString& name, const QString& vendor, quint32 id)
@@ -150,6 +151,33 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
         list = list->next;
     }
 
+    /* Search for DMX4ALL devices now */
+    ftdi_usb_find_all(&ftdi, &list, QLCFTDI::VID, QLCFTDI::DMX4ALLPID);
+    while (list != NULL)
+    {
+        struct usb_device* dev = list->dev;
+        Q_ASSERT(dev != NULL);
+
+        char serial[256];
+        char name[256];
+        char vendor[256];
+
+        ftdi_usb_get_strings(&ftdi, dev,
+                             vendor, sizeof(vendor),
+                             name, sizeof(name),
+                             serial, sizeof(serial));
+
+        QString ser(serial);
+        QString nme(name);
+        QString ven(vendor);
+        //QMap <QString,QVariant> types(typeMap());
+
+        qDebug() << "serial: " << ser << "name:" << nme << "vendor:" << ven;
+        widgetList << new Stageprofi("", "USB-DMX STAGE-PROFI MK2", "DMX4ALL");
+
+        list = list->next;
+    }
+
     ftdi_deinit(&ftdi);
     return widgetList;
 }
@@ -164,6 +192,25 @@ bool QLCFTDI::open()
 
     if (ftdi_usb_open_desc(&m_handle, QLCFTDI::VID, QLCFTDI::PID,
                            name().toAscii(), serial().toAscii()) < 0)
+    {
+        qWarning() << Q_FUNC_INFO << name() << ftdi_get_error_string(&m_handle);
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+bool QLCFTDI::openByPID(const int PID)
+{
+    if (m_openCount < m_refCount)
+        m_openCount++;
+
+    if (isOpen() == true)
+        return true;
+
+    if (ftdi_usb_open(&m_handle, QLCFTDI::VID, PID) < 0)
     {
         qWarning() << Q_FUNC_INFO << name() << ftdi_get_error_string(&m_handle);
         return false;
