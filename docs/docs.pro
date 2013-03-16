@@ -29,10 +29,12 @@ docs.files = \
              howto-input-profiles.html \
              howto-input-output-mapping.html \
              index.html \
+             midiplugin.html \
              modeeditor.html \
              olaplugin.html \
              oscplugin.html \
              peperonioutput.html \
+             resetconfiguration.html \
              rgbmatrixeditor.html \
              rgbscriptapi.html \
              sceneeditor.html \
