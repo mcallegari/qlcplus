@@ -30,5 +30,6 @@ engine/src/qlcconfig.h
 *_test
 main/qlcplus
 fixtureeditor/qlcplus-fixtureeditor
+launcher/qlcplus-launcher
 hotplugmonitor/test/test
 *.qm
