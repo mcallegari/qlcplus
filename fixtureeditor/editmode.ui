@@ -513,6 +513,11 @@
             </item>
             <item>
              <property name="text">
+              <string>MSR 575W</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
               <string notr="true">MSR 700W</string>
              </property>
             </item>
