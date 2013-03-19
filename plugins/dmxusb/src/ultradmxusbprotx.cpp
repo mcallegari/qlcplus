@@ -57,7 +57,10 @@ bool UltraDMXUSBProTx::open()
 
 QString UltraDMXUSBProTx::uniqueName() const
 {
-    return QString("%1 - %2 %3").arg(name()).arg(QObject::tr("Output")).arg(m_port);
+    if (realName().isEmpty())
+        return QString("%1 - %2 %3").arg(name()).arg(QObject::tr("Output")).arg(m_port);
+    else
+        return QString("%1 - %2 %3").arg(realName()).arg(QObject::tr("Output")).arg(m_port);
 }
 
 /****************************************************************************

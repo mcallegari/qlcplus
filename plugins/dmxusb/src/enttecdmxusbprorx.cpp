@@ -46,7 +46,10 @@ DMXUSBWidget::Type EnttecDMXUSBProRX::type() const
 
 QString EnttecDMXUSBProRX::uniqueName() const
 {
-    return QString("%1 - %2").arg(name()).arg(QObject::tr("Input"));
+    if (realName().isEmpty())
+        return QString("%1 - %2").arg(name()).arg(QObject::tr("Input"));
+    else
+        return QString("%1 - %2").arg(realName()).arg(QObject::tr("Input"));
 }
 
 /****************************************************************************

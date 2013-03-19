@@ -40,16 +40,15 @@ DMXUSBWidget::Type DMX4ALL::type() const
 
 bool DMX4ALL::checkReply()
 {
-    QByteArray reply = ftdi()->read(1);
+    uchar reply = ftdi()->readByte();
     //qDebug() << Q_FUNC_INFO << "Reply: " << QString::number(reply[0], 16);
-    if (reply.size() > 0 &&
-        reply[0] == char(0x00)) // this doesn't make sense. According to the specs it should return 'G'
+    if (reply == 'G')
     {
         qDebug() << Q_FUNC_INFO << name() << "Good connection.";
         return true;
     }
 
-    qWarning() << Q_FUNC_INFO << name() << "Response failed (got: " << reply[0] << ")";
+    qWarning() << Q_FUNC_INFO << name() << "Response failed (got: " << reply << ")";
     return false;
 }
 
@@ -135,6 +134,9 @@ QString DMX4ALL::additionalInfo() const
     info += QString("<BR>");
     info += QString("<B>%1:</B> %2").arg(QObject::tr("Manufacturer"))
                                          .arg(vendor());
+    info += QString("<BR>");
+    info += QString("<B>%1:</B> %2").arg(QObject::tr("Serial number"))
+                                                 .arg(serial());
     info += QString("</P>");
 
     return info;

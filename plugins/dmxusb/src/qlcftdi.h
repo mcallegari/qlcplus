@@ -52,6 +52,11 @@ public:
     static const int PID = 0x6001; //! FTDI Product ID
     static const int DMX4ALLPID = 0xC850; //! DMX4ALL Product ID
 
+#ifdef FTD2XX
+    static QString readLabel(FT_HANDLE* ftdi, char *name, char *serial, uchar label, int *ESTA_code);
+#else
+    static QString readLabel(struct ftdi_context *ftdi, char *name, char *serial, uchar label, int *ESTA_code);
+#endif
     /**
      * Compose a list of available widgets
      *

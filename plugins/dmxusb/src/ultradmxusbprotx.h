@@ -24,8 +24,16 @@
 
 #include "enttecdmxusbpro.h"
 
-#define SEND_DMX_PORT1  0x64
-#define SEND_DMX_PORT2  0x65
+#define SEND_DMX_PORT1          0x64
+#define SEND_DMX_PORT2          0x65
+#define USB_DEVICE_MANUFACTURER 0x4D
+#define USB_DEVICE_NAME         0x4E
+
+#define DMXKING_ESTA_ID         0x6A6B
+#define ULTRADMX_DMX512A_DEV_ID 0x00
+#define ULTRADMX_PRO_DEV_ID     0x02
+#define ULTRADMX_MICRO_DEV_ID   0x03
+
 
 class UltraDMXUSBProTx : public EnttecDMXUSBPro
 {

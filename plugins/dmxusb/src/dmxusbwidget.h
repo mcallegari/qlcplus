@@ -110,6 +110,12 @@ public:
      */
     virtual QString uniqueName() const;
 
+    /** Set the real device name extracted from serial using label 78 */
+    void setRealName(QString devName);
+
+    /** retrieve the real device name read from label 78 */
+    virtual QString realName() const;
+
     /**
      * Get the widget's vendor name
      *
@@ -121,6 +127,9 @@ public:
      * Get any additional information pertaining to the device (can be empty)
      */
     virtual QString additionalInfo() const { return QString(); }
+
+private:
+    QString m_realName;
 
     /********************************************************************
      * Write universe

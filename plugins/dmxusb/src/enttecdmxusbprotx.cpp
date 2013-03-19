@@ -48,8 +48,6 @@ DMXUSBWidget::Type EnttecDMXUSBProTX::type() const
     return DMXUSBWidget::ProTX;
 }
 
-
-
 /****************************************************************************
  * Open & Close
  ****************************************************************************/
@@ -70,7 +68,10 @@ bool EnttecDMXUSBProTX::open()
 
 QString EnttecDMXUSBProTX::uniqueName() const
 {
-    return QString("%1 - %2 %3").arg(name()).arg(QObject::tr("Output")).arg(m_port);
+    if (realName().isEmpty())
+        return QString("%1 - %2 %3").arg(name()).arg(QObject::tr("Output")).arg(m_port);
+    else
+        return QString("%1 - %2 %3").arg(realName()).arg(QObject::tr("Output")).arg(m_port);
 }
 
 bool EnttecDMXUSBProTX::configurePort(int port)

@@ -112,6 +112,16 @@ QString DMXUSBWidget::uniqueName() const
     return QString("%1 (S/N: %2)").arg(name()).arg(serial());
 }
 
+void DMXUSBWidget::setRealName(QString devName)
+{
+    m_realName = devName;
+}
+
+QString DMXUSBWidget::realName() const
+{
+    return m_realName;
+}
+
 QString DMXUSBWidget::vendor() const
 {
     return m_ftdi->vendor();
