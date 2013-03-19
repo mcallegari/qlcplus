@@ -86,20 +86,6 @@ App::App()
     QCoreApplication::setOrganizationDomain("sf.net");
     QCoreApplication::setApplicationName(APPNAME);
 
-#ifdef __APPLE__
-    createProgressDialog();
-#endif
-
-    init();
-    slotModeDesign();
-    slotDocModified(false);
-
-#ifdef __APPLE__
-    destroyProgressDialog();
-#endif
-
-    // Activate FixtureManager
-    setActiveWindow(FixtureManager::staticMetaObject.className());
 }
 
 App::~App()
@@ -136,6 +122,24 @@ App::~App()
     if (m_doc != NULL)
         delete m_doc;
     m_doc = NULL;
+}
+
+void App::startup()
+{
+#ifdef __APPLE__
+    createProgressDialog();
+#endif
+
+    init();
+    slotModeDesign();
+    slotDocModified(false);
+
+#ifdef __APPLE__
+    destroyProgressDialog();
+#endif
+
+    // Activate FixtureManager
+    setActiveWindow(FixtureManager::staticMetaObject.className());
 }
 
 void App::init()
