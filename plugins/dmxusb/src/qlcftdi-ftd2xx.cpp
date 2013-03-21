@@ -139,7 +139,7 @@ QString QLCFTDI::readLabel(quint32 id, uchar label, int *ESTA_code)
 
     int read = 0;
     QByteArray array;
-    FT_SetTimeouts(ftdi, 1000,0);
+    FT_SetTimeouts(ftdi, 500,0);
     FT_Read(ftdi, buffer, 40, (LPDWORD) &read);
     qDebug() << Q_FUNC_INFO << "----- Read: " << read << " ------";
     for (int i = 0; i < read; i++)
