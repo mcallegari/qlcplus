@@ -81,9 +81,9 @@ namespace QLCArgs
 /**
  * Suppresses debug messages
  */
-void qlcMessageHandler(QtMsgType /*type*/, const char* msg)
+void qlcMessageHandler(QtMsgType type, const char* msg)
 {
-    //if (type >= QLCArgs::debugLevel)
+    if (type >= QLCArgs::debugLevel)
     {
 #if defined(WIN32) || defined(__APPLE__)
         if (QLCArgs::dbgBox != NULL)
