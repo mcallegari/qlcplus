@@ -229,7 +229,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="addfixture.cpp" line="97"/>
         <source>Fixtures found: %1</source>
-        <translation type="unfinished">Projecteurs trouvés : %1</translation>
+        <translation>%1 projecteurs dans la bibliothèque</translation>
     </message>
     <message>
         <location filename="addfixture.cpp" line="510"/>
@@ -404,7 +404,7 @@ p, li { white-space: pre-wrap; }
         <location filename="app.cpp" line="309"/>
         <source>Starting Q Light Controller Plus</source>
         <oldsource>Starting Q Light Controller</oldsource>
-        <translation type="unfinished">Démarrage de Q Light Controller Plus</translation>
+        <translation>Démarrage de Q Light Controller Plus</translation>
     </message>
     <message>
         <location filename="app.cpp" line="365"/>
@@ -442,7 +442,7 @@ Voulez-vous vraiement les arrêter et basculer vers le Mode Design?</translation
         <location filename="app.cpp" line="460"/>
         <location filename="app.cpp" line="488"/>
         <source>Switch to operate mode</source>
-        <translation>Bascle vers le mode d&apos;exploitation</translation>
+        <translation>Go ! (Mode d&apos;exploitation)</translation>
     </message>
     <message>
         <location filename="app.cpp" line="471"/>
@@ -495,7 +495,7 @@ Voulez-vous vraiement les arrêter et basculer vers le Mode Design?</translation
     <message>
         <location filename="app.cpp" line="496"/>
         <source>Toggle &amp;Blackout</source>
-        <translation>Basculer en &amp;Blackout</translation>
+        <translation>&amp;Blackout</translation>
     </message>
     <message>
         <location filename="app.cpp" line="489"/>
@@ -523,7 +523,7 @@ Voulez-vous vraiement les arrêter et basculer vers le Mode Design?</translation
     <message>
         <location filename="app.cpp" line="515"/>
         <source>&amp;Index</source>
-        <translation>&amp;Index</translation>
+        <translation>A&amp;ide</translation>
     </message>
     <message>
         <location filename="app.cpp" line="516"/>
@@ -585,13 +585,13 @@ Voulez-vous vraiement les arrêter et basculer vers le Mode Design?</translation
     <message>
         <location filename="app.cpp" line="501"/>
         <source>Dump DMX values to a function</source>
-        <translation type="unfinished">Capturer les valeurs DMX vers une fonction</translation>
+        <translation>Capturer les valeurs DMX vers une fonction</translation>
     </message>
     <message>
         <location filename="app.cpp" line="502"/>
         <source>CTRL+D</source>
         <comment>Control|Dump DMX</comment>
-        <translation type="unfinished">CTRL+D</translation>
+        <translation>CTRL+D</translation>
     </message>
     <message>
         <location filename="app.cpp" line="505"/>
@@ -1203,60 +1203,60 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
     <message>
         <location filename="dmxdumpfactory.ui" line="14"/>
         <source>Dump DMX values</source>
-        <translation type="unfinished">Capture de Valeurs DMX</translation>
+        <translation>Capture de Valeurs DMX</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="20"/>
         <source>Dump only non-zero values</source>
-        <translation type="unfinished">Valeurs différentes de Zéro uniquement</translation>
+        <translation>Valeurs différentes de Zéro uniquement</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="37"/>
         <source>Dump options</source>
-        <translation type="unfinished">Options de capture</translation>
+        <translation>Options de capture</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="50"/>
         <source>Dump selected channels</source>
         <oldsource>Dump selected DMX values</oldsource>
-        <translation type="unfinished">Capturer les canaux sélectionnés</translation>
+        <translation>Sélection de canaux</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="58"/>
         <location filename="dmxdumpfactory.ui" line="75"/>
         <source>Name</source>
-        <translation type="unfinished">Nom</translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="63"/>
         <source>Type</source>
-        <translation type="unfinished">Type</translation>
+        <translation>Type</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="83"/>
         <source>Add to Chaser:</source>
-        <translation type="unfinished">Ajouter au chaser :</translation>
+        <translation>Ajouter au chaser :</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="95"/>
         <source>Scene name:</source>
-        <translation type="unfinished">Nom de la scène :</translation>
+        <translation>Nom de la scène :</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.cpp" line="56"/>
         <source>Dump all channels (%1 Universes, %2 Fixtures, %3 Channels)</source>
         <oldsource>Dump all DMX values (%1 Universes, %2 Fixtures, %3 Channels)</oldsource>
-        <translation type="unfinished">Capturer tous les canaux (%1 Univers, %2 Projecteurs, %3 Canaux)</translation>
+        <translation>Capturer tous les canaux (%1 Univers, %2 Projecteurs, %3 Canaux)</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.cpp" line="59"/>
         <source>New Scene From Live %1</source>
-        <translation type="unfinished">Nouvelle scène depuis le Live %1</translation>
+        <translation type="unfinished">Nouvelle scène Live %1</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.cpp" line="97"/>
         <source>Universe %1</source>
-        <translation type="unfinished">Univers %1</translation>
+        <translation>Univers %1</translation>
     </message>
 </context>
 <context>
@@ -3175,12 +3175,12 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="showmanager.cpp" line="253"/>
         <source>Time division:</source>
-        <translation type="unfinished">Division temporelle :</translation>
+        <translation>Division temporelle :</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="258"/>
         <source>Time</source>
-        <translation type="unfinished">Temps</translation>
+        <translation>m:s</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="376"/>
@@ -3455,7 +3455,7 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vcbuttonproperties.ui" line="26"/>
         <source>Button label</source>
-        <translation>Étiquette du bouton</translation>
+        <translation>Nom du bouton</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="33"/>
@@ -3555,7 +3555,7 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vcbuttonproperties.ui" line="314"/>
         <source>Function&apos;s adjusted intensity percentage when run</source>
-        <translation>Pourcentage d&apos;ajustement de l&apos;intensité au lancement de la fonction</translation>
+        <translation>Modificateur d&apos;intensité de la fonction</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="221"/>
@@ -3580,7 +3580,7 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vcbuttonproperties.ui" line="256"/>
         <source>Toggle the assigned function on/off with this button</source>
-        <translation>Basculer la fonction assignée on/off avec ce bouton</translation>
+        <translation>Le bouton déclenche et arrête la fonction</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="259"/>
@@ -3590,7 +3590,7 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vcbuttonproperties.ui" line="269"/>
         <source>Flash the assigned function with this button</source>
-        <translation>Flasher la fonction assignée avec ce bouton</translation>
+        <translation>Le bouton va Flasher la fonction assignée</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="272"/>
@@ -3725,7 +3725,7 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
         <location filename="vccuelistproperties.ui" line="355"/>
         <location filename="vccuelistproperties.ui" line="507"/>
         <source>Input channel</source>
-        <translation>Note</translation>
+        <translation>Canal d&apos;Entrée</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="210"/>
@@ -3779,7 +3779,7 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vccuelistproperties.ui" line="362"/>
         <source>Input channel for skipping to the previous cue</source>
-        <translation>Note d&apos;Entrée</translation>
+        <translation>Canal d&apos;Entrée pour passer à la mémoire précédente</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="382"/>
@@ -3991,7 +3991,7 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vcproperties.ui" line="169"/>
         <source>Make Grand Master reduce levels by a percentage.</source>
-        <translation>Le Grand Master agit par une réduction proportionnelle de niveaux.</translation>
+        <translation>Le Grand Master va réduire proportionnellement les niveaux.</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="172"/>
@@ -4001,7 +4001,7 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vcproperties.ui" line="179"/>
         <source>Make Grand Master limit the maximum channel values.</source>
-        <translation>Le Grand Master agit par limite de valeur maximum.</translation>
+        <translation>Le Grand Master va limiter les valeurs maximum.</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="182"/>
@@ -4051,7 +4051,7 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vcproperties.ui" line="287"/>
         <source>Slider movement</source>
-        <translation type="unfinished">Curseur de mouvement</translation>
+        <translation>Mouvement du curseur</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="293"/>
@@ -4061,7 +4061,7 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vcproperties.ui" line="300"/>
         <source>Inverted</source>
-        <translation type="unfinished">Inversé</translation>
+        <translation>Inversé</translation>
     </message>
     <message>
         <location filename="vcpropertieseditor.cpp" line="263"/>
@@ -4180,7 +4180,7 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vcsliderproperties.ui" line="208"/>
         <source>Value range</source>
-        <translation>Valeur de l&apos;étendue</translation>
+        <translation>Course</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="214"/>
@@ -4205,7 +4205,7 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vcsliderproperties.ui" line="401"/>
         <source>Gobo/Effect</source>
-        <translation type="unfinished">Gobo/Effet</translation>
+        <translation>Gobo/Effet</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="435"/>
@@ -4240,7 +4240,7 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vcsliderproperties.ui" line="516"/>
         <source>Switch to Playback Mode</source>
-        <translation type="unfinished">Mode Fonction</translation>
+        <translation>Mode Fonction</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="60"/>
@@ -4321,7 +4321,7 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vcsliderproperties.ui" line="371"/>
         <source>Click &amp;&amp; Go</source>
-        <translation type="unfinished"></translation>
+        <translation>Accès Rapide</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="387"/>
@@ -4341,7 +4341,7 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vcsliderproperties.ui" line="427"/>
         <source>Switch to Level Mode</source>
-        <translation type="unfinished">Basculer vers le Mode Niveau</translation>
+        <translation>Basculer vers le Mode Niveau</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.cpp" line="664"/>
@@ -4448,7 +4448,7 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vcspeeddialproperties.ui" line="192"/>
         <source>Absolute Value</source>
-        <translation>Valeur Absolue</translation>
+        <translation>Course</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="198"/>

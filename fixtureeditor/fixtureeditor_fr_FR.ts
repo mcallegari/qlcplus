@@ -308,7 +308,7 @@ p, li { white-space: pre-wrap; }
         <location filename="editcapability.ui" line="106"/>
         <location filename="editcapability.cpp" line="45"/>
         <source>Gobo</source>
-        <translation type="unfinished"></translation>
+        <translation>Gobo</translation>
     </message>
     <message>
         <location filename="editcapability.ui" line="73"/>
@@ -325,38 +325,38 @@ p, li { white-space: pre-wrap; }
         <location filename="editcapability.ui" line="154"/>
         <location filename="editcapability.ui" line="165"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="editcapability.ui" line="172"/>
         <source>Picture</source>
-        <translation type="unfinished"></translation>
+        <translation>Image</translation>
     </message>
     <message>
         <location filename="editcapability.ui" line="179"/>
         <location filename="editcapability.cpp" line="47"/>
         <source>Colour</source>
-        <translation type="unfinished">Couleur</translation>
+        <translation>Couleur</translation>
     </message>
     <message>
         <location filename="editcapability.ui" line="186"/>
         <source>Second Colour</source>
-        <translation type="unfinished"></translation>
+        <translation>Deuxième Couleur</translation>
     </message>
     <message>
         <location filename="editcapability.cpp" line="49"/>
         <source>Effect</source>
-        <translation type="unfinished"></translation>
+        <translation>Effet</translation>
     </message>
     <message>
         <location filename="editcapability.cpp" line="137"/>
         <source>Open Gobo File</source>
-        <translation type="unfinished"></translation>
+        <translation>Ovrir un Gobo</translation>
     </message>
     <message>
         <location filename="editcapability.cpp" line="141"/>
         <source>Gobo pictures (*.jpg *.jpeg *.png *.bmp)</source>
-        <translation type="unfinished"></translation>
+        <translation>Images de gobos.(*.jpg *.jpeg *.png *.bmp)</translation>
     </message>
 </context>
 <context>
@@ -595,27 +595,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editmode.ui" line="396"/>
         <source>HMI 150W</source>
-        <translation type="unfinished"></translation>
+        <translation>HMI 150W</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="401"/>
         <source>HMI 250W</source>
-        <translation type="unfinished"></translation>
+        <translation>HMI 250W</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="406"/>
         <source>HMI 400W</source>
-        <translation type="unfinished"></translation>
+        <translation>HMI 400W</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="411"/>
         <source>HMI 575W</source>
-        <translation type="unfinished"></translation>
+        <translation>HMI 575W</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="416"/>
         <source>HMI 700W</source>
-        <translation type="unfinished"></translation>
+        <translation>HMI 700W</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="509"/>
