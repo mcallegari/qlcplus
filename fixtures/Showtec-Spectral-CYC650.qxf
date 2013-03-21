@@ -1,8 +1,8 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition>
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.3.0-r2968</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.3.0</Version>
   <Author>NiKoyes</Author>
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
@@ -247,11 +247,11 @@
  </Channel>
  <Mode Name="Pixel">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
+   <Bulb Lumens="640" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="500" Height="80" Weight="3,2" Depth="190"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+   <Technical PowerConsumption="65" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pixel 1 Red</Channel>
   <Channel Number="1">Pixel 1 Green</Channel>
@@ -324,7 +324,7 @@
    <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+   <Technical PowerConsumption="65" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Master</Channel>
   <Channel Number="1">Red</Channel>
@@ -336,6 +336,12 @@
   <Channel Number="7">Auto Speed</Channel>
   <Channel Number="8">Dimmer Speed</Channel>
   <Channel Number="9">Block</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
  </Mode>
  <Mode Name="ARC 1">
   <Physical>
@@ -343,11 +349,16 @@
    <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+   <Technical PowerConsumption="65" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
  </Mode>
  <Mode Name="ARC 1+D">
   <Physical>
@@ -355,12 +366,18 @@
    <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+   <Technical PowerConsumption="65" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Master</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
   <Channel Number="3">Blue</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
  </Mode>
  <Mode Name="HSV">
   <Physical>
@@ -368,10 +385,15 @@
    <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+   <Technical PowerConsumption="65" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Hue</Channel>
   <Channel Number="1">Saturation</Channel>
   <Channel Number="2">Value</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
  </Mode>
 </FixtureDefinition>
