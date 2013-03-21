@@ -11,7 +11,7 @@
     <message>
         <location filename="configurehid.ui" line="33"/>
         <source>Input Line</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">N°</translation>
     </message>
     <message>
         <location filename="configurehid.ui" line="38"/>
@@ -45,7 +45,7 @@
     <message>
         <location filename="hidjsdevice.cpp" line="188"/>
         <source>Axes: %1</source>
-        <translation type="unfinished">Axes: %1</translation>
+        <translation>Axes: %1</translation>
     </message>
     <message>
         <location filename="hidjsdevice.cpp" line="190"/>
