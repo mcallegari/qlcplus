@@ -25,6 +25,7 @@
 #include <QWidget>
 #include <QIcon>
 
+class InputOutputPatchEditor;
 class QTreeWidgetItem;
 class QTreeWidget;
 class QSplitter;
@@ -68,9 +69,6 @@ private:
     /** Update the contents of the input universe to the item */
     void updateItem(QTreeWidgetItem* item, quint32 universe);
 
-    /** Get the currently opened editor (if any) */
-    QWidget* currentEditor() const;
-
 private slots:
     /** Listens to input data and displays a small icon to indicate a
         working connection between a plugin and an input device. */
@@ -90,6 +88,7 @@ private:
     QTreeWidget* m_tree;
     QIcon m_icon;
     QTimer* m_timer;
+    InputOutputPatchEditor *m_editor;
 };
 
 #endif
