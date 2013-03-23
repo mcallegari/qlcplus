@@ -166,6 +166,8 @@ void SceneEditor::init(bool applyValues)
                                     tr("Copy current values to all fixtures"), this);
     m_colorToolAction = new QAction(QIcon(":/color.png"),
                                     tr("Color tool for CMY/RGB-capable fixtures"), this);
+    m_tabViewAction = new QAction(QIcon(":/tabview.png"),
+                                    tr("Switch between tab view and all channels view"), this);
     m_blindAction = new QAction(QIcon(":/blind.png"),
                                 tr("Toggle blind mode"), this);
     m_speedDialAction = new QAction(QIcon(":/speed.png"),
@@ -199,6 +201,9 @@ void SceneEditor::init(bool applyValues)
         if (m_source != NULL)
             m_source->setOutputEnabled(true);
     }
+
+    m_tabViewAction->setCheckable(true);
+    m_tabViewAction->setChecked(true);
 
     // Chaser combo init
     quint32 selectId = Function::invalidId();
@@ -240,6 +245,8 @@ void SceneEditor::init(bool applyValues)
             this, SLOT(slotColorTool()));
     connect(m_speedDialAction, SIGNAL(toggled(bool)),
             this, SLOT(slotSpeedDialToggle(bool)));
+    connect(m_tabViewAction, SIGNAL(toggled(bool)),
+            this, SLOT(slotViewModeChanged(bool)));
     connect(m_blindAction, SIGNAL(toggled(bool)),
             this, SLOT(slotBlindToggled(bool)));
     connect(m_recordAction, SIGNAL(triggered(bool)),
@@ -265,6 +272,7 @@ void SceneEditor::init(bool applyValues)
     toolBar->addAction(m_colorToolAction);
     toolBar->addSeparator();
     toolBar->addAction(m_speedDialAction);
+    toolBar->addAction(m_tabViewAction);
     toolBar->addSeparator();
     toolBar->addAction(m_blindAction);
     toolBar->addSeparator();
@@ -561,6 +569,88 @@ void SceneEditor::slotModeChanged(Doc::Mode mode)
         m_blindAction->setChecked(true);
     else
         m_blindAction->setChecked(false);
+}
+
+void SceneEditor::slotViewModeChanged(bool toggled)
+{
+    for (int i = m_tab->count() - 1; i >= m_fixtureFirstTabIndex; i--)
+    {
+        QScrollArea* area = qobject_cast<QScrollArea*> (m_tab->widget(i));
+        Q_ASSERT(area != NULL);
+        m_tab->removeTab(i);
+        delete area; // Deletes also FixtureConsole
+    }
+
+    if (toggled == false)
+    {
+        QListIterator <Fixture*> it(selectedFixtures());
+        if (it.hasNext() == true)
+        {
+            QScrollArea* scrollArea = new QScrollArea(m_tab);
+
+            scrollArea->setWidgetResizable(true);
+            int tIdx = m_tab->addTab(scrollArea, tr("All fixtures"));
+            m_tab->setTabToolTip(tIdx, tr("All fixtures"));
+
+            QGroupBox* grpBox = new QGroupBox(scrollArea);
+            grpBox->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
+            QHBoxLayout* fixturesLayout = new QHBoxLayout(grpBox);
+            grpBox->setLayout(fixturesLayout);
+            fixturesLayout->setSpacing(2);
+            fixturesLayout->setContentsMargins(0, 2, 2, 2);
+
+            int c = 0;
+            while (it.hasNext() == true)
+            {
+                Fixture* fixture = it.next();
+                Q_ASSERT(fixture != NULL);
+                FixtureConsole* console = NULL;
+                if (c%2 == 0)
+                    console = new FixtureConsole(scrollArea, m_doc, FixtureConsole::GroupOdd);
+                else
+                    console = new FixtureConsole(scrollArea, m_doc, FixtureConsole::GroupEven);
+                console->setFixture(fixture->id());
+                console->setChecked(false);
+                QListIterator <SceneValue> it(m_scene->values());
+                while (it.hasNext() == true)
+                {
+                    SceneValue scv(it.next());
+                    if (scv.fxi == fixture->id())
+                        console->setSceneValue(scv);
+                }
+                connect(console, SIGNAL(valueChanged(quint32,quint32,uchar)),
+                        this, SLOT(slotValueChanged(quint32,quint32,uchar)));
+                connect(console, SIGNAL(checked(quint32,quint32,bool)),
+                        this, SLOT(slotChecked(quint32,quint32,bool)));
+                fixturesLayout->addWidget(console);
+                c++;
+            }
+            fixturesLayout->addStretch(1);
+            scrollArea->setWidget(grpBox);
+        }
+    }
+    else
+    {
+        QListIterator <Fixture*> it(selectedFixtures());
+        while (it.hasNext() == true)
+        {
+            Fixture* fixture = it.next();
+            Q_ASSERT(fixture != NULL);
+
+            addFixtureTab(fixture);
+            QListIterator <SceneValue> it(m_scene->values());
+            while (it.hasNext() == true)
+            {
+                SceneValue scv(it.next());
+                if (scv.fxi == fixture->id())
+                    setSceneValue(scv);
+            }
+        }
+    }
+    if (m_tab->count() == 0)
+        slotTabChanged(KTabGeneral);
+    else
+        m_tab->setCurrentIndex(m_fixtureFirstTabIndex);
 }
 
 void SceneEditor::slotRecord()
@@ -997,11 +1087,11 @@ void SceneEditor::addFixtureTab(Fixture* fixture)
 
     /* Put the console inside a scroll area */
     QScrollArea* scrollArea = new QScrollArea(m_tab);
+    scrollArea->setWidgetResizable(true);
 
     FixtureConsole* console = new FixtureConsole(scrollArea, m_doc);
     console->setFixture(fixture->id());
     scrollArea->setWidget(console);
-    scrollArea->setWidgetResizable(true);
     int tIdx = m_tab->addTab(scrollArea, fixture->name());
     m_tab->setTabToolTip(tIdx, fixture->name());
 

@@ -37,13 +37,17 @@
  * Initialization
  *****************************************************************************/
 
-FixtureConsole::FixtureConsole(QWidget* parent, Doc* doc)
-    : QWidget(parent)
+FixtureConsole::FixtureConsole(QWidget* parent, Doc* doc, GroupType type)
+    : QGroupBox(parent)
     , m_doc(doc)
+    , m_groupType(type)
     , m_fixture(Fixture::invalidId())
 {
     Q_ASSERT(doc != NULL);
-    new QHBoxLayout(this);
+
+    m_layout = new QHBoxLayout(this);
+    layout()->setSpacing(0);
+    layout()->setContentsMargins(0, 1, 0, 1);
 }
 
 FixtureConsole::~FixtureConsole()
@@ -63,6 +67,20 @@ void FixtureConsole::setFixture(quint32 id)
     /* Get the new fixture */
     Fixture* fxi = m_doc->fixture(id);
     Q_ASSERT(fxi != NULL);
+    if (m_groupType != GroupNone)
+        setTitle(fxi->name());
+
+    QString ssEven =  "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #C3D1C9, stop: 1 #AFBBB4); "
+                     "border: 1px solid gray; border-radius: 4px; margin-top: 14px; margin-right: 1px; } "
+                     "QGroupBox::title {top:-14px; left: 14px; subcontrol-origin: border}";
+
+    QString ssOdd = "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D5E0, stop: 1 #A7A6AF); "
+                     "border: 1px solid gray; border-radius: 4px; margin-top: 14px; margin-right: 1px; } "
+                     "QGroupBox::title {top:-14px; left: 14px; subcontrol-origin: border}";
+
+    QString ssNone = "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D2D0, stop: 1 #AFACAB); "
+                     "border: 1px solid gray; border-radius: 4px; margin-top: 14px; margin-right: 1px; } "
+                     "QGroupBox::title {top:-14px; left: 14px; subcontrol-origin: border}";
 
     /* Create channel units */
     for (uint i = 0; i < fxi->channels(); i++)
@@ -73,7 +91,14 @@ void FixtureConsole::setFixture(quint32 id)
             continue;
 
         ConsoleChannel* cc = new ConsoleChannel(this, m_doc, id, i);
-        layout()->addWidget(cc);
+        if (m_groupType == GroupNone)
+            cc->setStyleSheet(ssNone);
+        else if (m_groupType == GroupOdd)
+            cc->setStyleSheet(ssOdd);
+        else if (m_groupType == GroupEven)
+            cc->setStyleSheet(ssEven);
+
+        m_layout->addWidget(cc);
         m_channels.append(cc);
         connect(cc, SIGNAL(valueChanged(quint32,quint32,uchar)),
                 this, SIGNAL(valueChanged(quint32,quint32,uchar)));
@@ -82,7 +107,7 @@ void FixtureConsole::setFixture(quint32 id)
     }
 
     /* Make a spacer item eat excess space to justify channels left */
-    layout()->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding));
+    m_layout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding));
 
     m_fixture = id;
 }

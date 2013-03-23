@@ -31,13 +31,14 @@
 class QDomDocument;
 class QDomElement;
 class MasterTimer;
+class QHBoxLayout;
 class OutputMap;
 class InputMap;
 class Doc;
 
 #define KXMLQLCFixtureConsole "Console"
 
-class FixtureConsole : public QWidget
+class FixtureConsole : public QGroupBox
 {
     Q_OBJECT
     Q_DISABLE_COPY(FixtureConsole)
@@ -46,11 +47,20 @@ class FixtureConsole : public QWidget
      * Initialization
      *********************************************************************/
 public:
-    FixtureConsole(QWidget* parent, Doc* doc);
+    enum GroupType
+    {
+        GroupNone,
+        GroupEven,
+        GroupOdd
+    };
+
+    FixtureConsole(QWidget* parent, Doc* doc, GroupType type = GroupNone);
     ~FixtureConsole();
 
 private:
     Doc* m_doc;
+    GroupType m_groupType;
+    QHBoxLayout* m_layout;
 
     /*********************************************************************
      * Fixture

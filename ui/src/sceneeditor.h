@@ -88,6 +88,7 @@ private slots:
     void slotRecord();
     void slotChaserComboActivated(int index);
     void slotModeChanged(Doc::Mode mode);
+    void slotViewModeChanged(bool toggled);
 
 private:
     bool isColorToolAvailable();
@@ -107,6 +108,8 @@ private:
 
     QAction* m_nextTabAction;
     QAction* m_prevTabAction;
+
+    QAction* m_tabViewAction;
 
     QComboBox* m_chaserCombo;
 
