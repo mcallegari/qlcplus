@@ -9,7 +9,7 @@
 <H1>Virtual Console Cue List</H1>
 <IMG SRC="qrc:/cuelist.png" ALIGN="absmiddle">
 <P>
-A Cue List provides a list of <A HREF="concept.html#Function">Functions</A> that
+A Cue List provides a list of <A HREF="concept.html#Functions">Functions</A> that
 you can step through with a single keyboard key. The Cue List is at home in
 theatrical shows where the lighting operator needs only to follow the script
 and toggle the next cue as the performance goes on.
@@ -18,17 +18,25 @@ and toggle the next cue as the performance goes on.
 <P>
 The first column on the Cue List displays the cue number that runs from 1 to
 infinity and beyond <A HREF="http://en.wikipedia.org/wiki/Buzz_Lightyear">.</A>
-The second column shows the individual <A HREF="concept.html#Function">Function</A>
-name that has been assigned to that particular cue. The functions in the Cue List
-obey normal <A HREF="concept.html#Buses">Bus</A> settings.
+The second column shows the individual <A HREF="concept.html#Functions">Function</A>
+name that has been assigned to that particular cue.
+</P>
+
+<P>
+<b>Please note</b> that only <A HREF="concept.html#Chaser">Chasers</A> 
+can be assigned to a Cue List, for the simple reason that the Chaser 
+is the only function with a duration. Since any other Function can be added
+as a step to a Chaser with the <A HREF="chasereditor.html">Chaser Editor</A>,
+it is simple to create the desired Cues by mixing <A HREF="concept.html#Scene">Scenes</A>, 
+<A HREF="concept.html#Collection">Collections</A>, and so on...
 </P>
 
 <H3>Configuration</H3>
 
 <P>
-Cue Lists can be configured with the properties
-<IMG SRC="qrc:/configure.png" ALIGN="bottom"> button found in the toolbar or
-with the <B>Edit -&gt; Properties</B> menu item.
+Cue Lists can be configured with the object properties button
+<IMG SRC="qrc:/edit.png" ALIGN="bottom"> found in the toolbar or
+by double clicking on the Cue List widget.<br>
 </P>
 
 <TABLE BORDER="1">
@@ -46,8 +54,8 @@ with the <B>Edit -&gt; Properties</B> menu item.
    <B>Cue list</B>
   </TD>
   <TD>
-   This list displays the functions in exactly the same order as they appear in
-   the actual widget on the Virtual Console.
+   This panel allows the user to select the <A HREF="concept.html#Chaser">Chaser</A> 
+   to associate to the Cue List.
   </TD>
  </TR>
  <TR>
@@ -55,7 +63,7 @@ with the <B>Edit -&gt; Properties</B> menu item.
    <IMG SRC="qrc:/edit_add.png">
   </TD>
   <TD>
-   Add new <A HREF="concept.html#Function">Functions</A> to the Cue List using
+   Associate a <A HREF="concept.html#Chaser">Chaser</A> to the Cue List using
    the <A HREF="selectfunction.html">Select Function</A> dialog.
   </TD>
  </TR>
@@ -64,23 +72,7 @@ with the <B>Edit -&gt; Properties</B> menu item.
    <IMG SRC="qrc:/edit_remove.png">
   </TD>
   <TD>
-   Remove the selected functions from the Cue List.
-  </TD>
- </TR>
- <TR>
-  <TD>
-   <IMG SRC="qrc:/up.png">
-  </TD>
-  <TD>
-   Raise the selected function before the function above it.
-  </TD>
- </TR>
- <TR>
-  <TD>
-   <IMG SRC="qrc:/down.png">
-  </TD>
-  <TD>
-   Lower the selected function after the function below it.
+   Remove the selected Chaser from the Cue List.
   </TD>
  </TR>
  <TR>
@@ -95,10 +87,30 @@ with the <B>Edit -&gt; Properties</B> menu item.
  </TR>
  <TR>
   <TD>
+   <B>Previous cue key combination</B>
+  </TD>
+  <TD>
+   You can select the key that you use to skip to the previous cue in the Cue List
+   with this option. The key combination is shown on the text field; if the
+   field is empty, there is no key combination currently attached to the Cue List.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Stop cue key combination</B>
+  </TD>
+  <TD>
+   You can select the key that you use to stop the cue in the Cue List
+   with this option. The key combination is shown on the text field; if the
+   field is empty, there is no key combination currently attached to the Cue List.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
    <IMG SRC="qrc:/key_bindings.png">
   </TD>
   <TD>
-   Attach a keyboard key to the Cue List.
+   Assign a keyboard key to the specific action to be performed on the Cue List.
   </TD>
  </TR>
  <TR>
@@ -110,6 +122,51 @@ with the <B>Edit -&gt; Properties</B> menu item.
   </TD>
  </TR>
 </TABLE>
+
+<br>
+<H3>Operate mode</H3>
+
+<P>
+When switching QLC+ to <A HREF="concept.html#Modes">Operate Mode</A>, the Cue List will
+become active, allowing the selection of the desired steps included in the associated Chaser.<br><br>
+Four buttons are displayed at the bottom of the Cue List widget:<br>
+
+<TABLE BORDER="1">
+ <TR>
+  <TD><IMG src="qrc:/player_play.png"></TD>
+  <TD>Activate the selected action in the Cue List</TD>
+ </TR>
+ <TR>
+  <TD><IMG src="qrc:/player_stop.png"></TD>
+  <TD>The currently running action in the Cue List will be interrupted</TD>
+ </TR>
+ <TR>
+  <TD><IMG src="qrc:/back.png"></TD>
+  <TD>The previous action in the Cue List will be activated. 
+  When reaching the top, the previous action will be the last of the Cue List</TD>
+ </TR>
+ <TR>
+  <TD><IMG src="qrc:/forward.png"></TD>
+  <TD>The next action in the Cue List will be activated. 
+  When reaching the bottom, the next action will be the first of the Cue List</TD>
+ </TR>
+</TABLE>
+
+</P>
+
+<br>
+<H3>Hint</H3>
+
+<P>
+When a step is added to a Chaser using the <A HREF="chasereditor.html">Chaser Editor</A>, the default 
+duration is set to 0.<br>
+To avoid your actions in the Cue List to loop endlessly without any result, please set the duration
+of your steps, either by double clicking on the duration field or by using the 
+Speed Dial widget<IMG src="qrc:/speed.png"><br>
+Please note that if you need light scenes that you're going to change manually with the 
+Cue List widget, you might want to set the duration to "infinite" (&infin;) using the Speed Dial widget
+enabled in the Chaser Editor by clicking on the <IMG src="qrc:/speed.png"> button.
+</P>
 
 </BODY>
 </HTML>
