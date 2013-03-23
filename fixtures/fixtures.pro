@@ -200,6 +200,7 @@ fixtures.files += Stairville-LED-PAR56-MKII-RGBA.qxf
 fixtures.files += Stairville-LED-PAR56-MKII-RGBW.qxf
 fixtures.files += Stairville-LED-PAR56.qxf
 fixtures.files += Stairville-Matrixx-FL-110-DMX.qxf
+fixtures.files += Stairville-MH-360.qxf
 fixtures.files += Stairville-PS1500DMX.qxf
 fixtures.files += Stairville-SC250H.qxf
 fixtures.files += Stairville-ZF-1500.qxf
