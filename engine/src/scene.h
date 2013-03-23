@@ -140,12 +140,23 @@ public:
     void removeChannelGroup(quint32 id);
 
     /**
-     * Returns the list Channel Groups associated to this Scene
+     * Returns the list of Channel Groups associated to this Scene
      */
-    QList<quint32> getChannelGroups();
+    QList<quint32> channelGroups();
+
+    /**
+     * Set the level of a channel group with the given id
+     */
+    void setChannelGroupLevel(quint32 id, uchar level);
+
+    /**
+     * Returns the list of Channel Groups levels
+     */
+    QList<uchar> channelGroupsLevels();
 
 protected:
     QList <quint32> m_channelGroups;
+    QList <uchar> m_channelGroupsLevels;
 
     /*********************************************************************
      * Fixtures

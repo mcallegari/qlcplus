@@ -105,6 +105,9 @@ private:
     QAction* m_recordAction;
     QAction* m_speedDialAction;
 
+    QAction* m_nextTabAction;
+    QAction* m_prevTabAction;
+
     QComboBox* m_chaserCombo;
 
     /*********************************************************************
@@ -171,8 +174,13 @@ private slots:
     void slotValueChanged(quint32 fxi, quint32 channel, uchar value);
     void slotChecked(quint32 fxi, quint32 channel, bool state);
 
+    void slotGoToNextTab();
+    void slotGoToPreviousTab();
+
 private:
+    /** Index of the currently selected tab */
     int m_currentTab;
+    /** Index of the first fixture's tab */
     int m_fixtureFirstTabIndex;
 
     /** Values from a copied console (i.e. clipboard) */

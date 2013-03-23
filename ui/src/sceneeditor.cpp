@@ -173,6 +173,15 @@ void SceneEditor::init(bool applyValues)
     m_recordAction = new QAction(QIcon(":/record.png"),
                                  tr("Clone this scene and append as a new step to the selected chaser"), this);
 
+    m_nextTabAction = new QAction(QIcon(":/forward.png"), tr("Go to next fixture tab"), this);
+    m_nextTabAction->setShortcut(QKeySequence("Alt+Right"));
+    connect(m_nextTabAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotGoToNextTab()));
+    m_prevTabAction = new QAction(QIcon(":/back.png"), tr("Go to previous fixture tab"), this);
+    m_prevTabAction->setShortcut(QKeySequence("Alt+Left"));
+    connect(m_prevTabAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotGoToPreviousTab()));
+
     // Speed Dial initial state
     m_speedDialAction->setCheckable(true);
 
@@ -246,6 +255,9 @@ void SceneEditor::init(bool applyValues)
     toolBar->addAction(m_enableCurrentAction);
     toolBar->addAction(m_disableCurrentAction);
     toolBar->addSeparator();
+    toolBar->addAction(m_prevTabAction);
+    toolBar->addAction(m_nextTabAction);
+    toolBar->addSeparator();
     toolBar->addAction(m_copyAction);
     toolBar->addAction(m_pasteAction);
     toolBar->addAction(m_copyToAllAction);
@@ -275,7 +287,7 @@ void SceneEditor::init(bool applyValues)
             this, SLOT(slotNameEdited(const QString&)));
 
     // Channels groups tab
-    QList<quint32> chGrpIds = m_scene->getChannelGroups();
+    QList<quint32> chGrpIds = m_scene->channelGroups();
     QListIterator <ChannelsGroup*> scg(m_doc->channelsGroups());
     while (scg.hasNext() == true)
     {
@@ -868,7 +880,7 @@ void SceneEditor::slotChannelGroupsChanged(QTreeWidgetItem *item, int column)
     else
         m_scene->removeChannelGroup(grpID);
 
-    qDebug() << Q_FUNC_INFO << "Groups in list: " << m_scene->getChannelGroups().count();
+    qDebug() << Q_FUNC_INFO << "Groups in list: " << m_scene->channelGroups().count();
 
     updateChannelsGroupsTab();
 }
@@ -879,7 +891,7 @@ void SceneEditor::slotChannelGroupsChanged(QTreeWidgetItem *item, int column)
 void SceneEditor::updateChannelsGroupsTab()
 {
     QScrollArea* scrollArea = NULL;
-    QList <quint32> ids = m_scene->getChannelGroups();
+    QList <quint32> ids = m_scene->channelGroups();
 
     if (m_channelGroupsTree->topLevelItemCount() == 0)
     {
@@ -910,11 +922,15 @@ void SceneEditor::updateChannelsGroupsTab()
         scrollArea = new QScrollArea(m_tab);
     }
 
-    GroupsConsole* console = new GroupsConsole(scrollArea, m_doc, ids);
+    QList<uchar>levels = m_scene->channelGroupsLevels();
+    GroupsConsole* console = new GroupsConsole(scrollArea, m_doc, ids, levels);
     scrollArea->setWidget(console);
     scrollArea->setWidgetResizable(true);
     if (m_channelGroupsTab == -1)
+    {
         m_tab->insertTab(1, scrollArea, tr("Channels Groups"));
+        m_tab->setTabToolTip(1, tr("Channels Groups"));
+    }
 
     m_channelGroupsTab = 1;
     m_fixtureFirstTabIndex = 2;
@@ -952,6 +968,7 @@ void SceneEditor::slotGroupValueChanged(quint32 groupID, uchar value)
                 continue;
             fc->setValue(scv.channel, value);
         }
+        m_scene->setChannelGroupLevel(groupID, value);
     }
 }
 
@@ -985,7 +1002,8 @@ void SceneEditor::addFixtureTab(Fixture* fixture)
     console->setFixture(fixture->id());
     scrollArea->setWidget(console);
     scrollArea->setWidgetResizable(true);
-    m_tab->addTab(scrollArea, fixture->name());
+    int tIdx = m_tab->addTab(scrollArea, fixture->name());
+    m_tab->setTabToolTip(tIdx, fixture->name());
 
     /* Start off with all channels disabled */
     console->setChecked(false);
@@ -1058,4 +1076,21 @@ void SceneEditor::slotChecked(quint32 fxi, quint32 channel, bool state)
                 m_source->unset(fxi, channel);
         }
     }
+}
+
+void SceneEditor::slotGoToNextTab()
+{
+    m_currentTab++;
+    if (m_currentTab == m_tab->count())
+        m_currentTab = 0;
+    m_tab->setCurrentIndex(m_currentTab);
+}
+
+void SceneEditor::slotGoToPreviousTab()
+{
+    if (m_currentTab == 0)
+        m_currentTab = m_tab->count() - 1;
+    else
+        m_currentTab--;
+    m_tab->setCurrentIndex(m_currentTab);
 }

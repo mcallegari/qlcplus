@@ -25,8 +25,14 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
+     <property name="elideMode">
+      <enum>Qt::ElideRight</enum>
+     </property>
      <widget class="QWidget" name="General">
       <attribute name="title">
+       <string>General</string>
+      </attribute>
+      <attribute name="toolTip">
        <string>General</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout">
