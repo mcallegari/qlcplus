@@ -29,7 +29,7 @@ The Show Manager has been studied to be used quickly and easily. Basically with 
 <H3><LI>Add a new Show <IMG SRC="qrc:/show.png"></LI></H3>
 First of all you need to add a new Show to the view. This creates an empty multitrack view with no tracks
 and no items, ready to be filled.<br>
-A popup will appear asking the name to assign to the Show. It is possible to change the name aftwerward with the
+A popup will appear asking the name to assign to the Show. It is possible to change the name afterward with the
 <A HREF="functionmanager.html">Function Manager</A>, using the <A HREF="showeditor.html">Show Editor</A> panel.
 
 <H3><LI>Add a Scene <IMG SRC="qrc:/scene.png"></LI></H3>
@@ -46,11 +46,11 @@ Once selected, a track will display its <A HREF="sceneeditor.html">Scene Editor<
 
 When a track has been activated, it is possible to add a <A HREF="concept.html#Sequence">Sequence</A> or
 and <A HREF="concept.html#Audio">Audio</A> item to it.<br>
-A new show item will be placed at the cursor position, but it is always possible to move it to the desired time
+A new item will be placed at the cursor position, but it is always possible to move it to the desired time
 just by dragging it along the timeline.<br>
 A show item cannot be moved to another track, since it is bounded to the track where it has originally been created.<br>
 A show item can be cloned <IMG SRC="qrc:/editcopy.png"> or deleted <IMG SRC="qrc:/editdelete.png"> with the toolbar icons.
-The cloned show item will be placed at the current cursor position.<br>
+The cloned item will be placed at the current cursor position.<br>
 The background color can be changed with the toolbar icon <IMG SRC="qrc:/color.png">. The assigned color will be saved
 in your project file.<br>
 Once selected, a sequence will display its <A HREF="chasereditor.html">Chaser Editor</A> on the right side of the screen.
@@ -58,6 +58,9 @@ Follow step 4 to understand how to fill a Sequence<br>
 
 <H3><LI>Add some steps <IMG SRC="qrc:/edit_add.png"></LI></H3>
 Once a sequence has been created, it is now the time to add steps to it.<br>
+<b>Please note</b> that the difference between a Chaser and a Sequence is that a Sequence is bound to the Track (so the Scene)
+where it has been created. So, when adding a step, QLC+ will not ask the Function to associate, but will always use the
+channels of the same Scene.<br>
 When modifying a step duration, fade in or fade out time, you will see the sequence changing on the multitrack view,
 giving an immediate feedback for aligning to other sequences or certain points in time.<br>
 Fade In and Fade Out times will be displayed as diagonal lines over the sequence item on the multitrack view, while
