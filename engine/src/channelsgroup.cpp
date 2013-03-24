@@ -147,6 +147,8 @@ QString ChannelsGroup::status(Doc *doc) const
     foreach (SceneValue value, m_channels)
     {
         Fixture *fixture = doc->fixture(value.fxi);
+        if (fixture == NULL)
+            return QString();
         const QLCFixtureDef *def = fixture->fixtureDef();
         QString chInfo("<TR><TD>%1</TD><TD>%2</TD><TD>%3</TD></TR>");
         if (def != NULL)

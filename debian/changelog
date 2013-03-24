@@ -3,12 +3,15 @@ qlcplus (4.3.1) stable; urgency=low
   * Fixed DMXking devices detection
   * Improved DMX4ALL devices information
   * Fixed crash happening on OSX when opening plugin's configuration panels
+  * Channel Groups order can now be changed in the Fixture Manager panel
+  * Fixture Manager can now remove multiple Channel Groups
   * Sliders labels are now multi line (applies to Channel Groups and Virtual Console sliders)
   * Scene Editor now remembers the Channel Groups values. Not saved in the project.
   * Scene Editor has a new button to switch between "tab view" and "all channels view"
   * Scene Editor now shows all fixtures tabs on the screen. In case they're a lot, it will display "..." beside the name
   * On Scene Editor it is now possible to switch betwwen tabs by pressing Alt+Left, Alt+Right
   * On Scene Editor it is now possible to switch between channels values by pressing TAB
+  * various fixes to avoid a crash when deleting Channel Groups
   * Added fixture: Stairville MH-360 (thanks to Jannis Achstetter)
   * Documentation updates
 

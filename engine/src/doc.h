@@ -313,6 +313,9 @@ public:
      */
     bool deleteChannelsGroup(quint32 id);
 
+    /** Move a channel group of a given direction amount */
+    bool moveChannelGroup(quint32 id, int direction);
+
     /** Get a channels group by id */
     ChannelsGroup* channelsGroup(quint32 id) const;
 
@@ -324,8 +327,12 @@ private:
     quint32 createChannelsGroupId();
 
 private:
-    /** Channels Groups */
+    /** Channel Groups */
     QMap <quint32,ChannelsGroup*> m_channelsGroups;
+
+    /** Hold the Channel Groups IDs ordered as displayed
+     *  in the Fixture Manager panel */
+    QList <quint32> m_orderedGroups;
 
     /** Latest assigned fixture group ID */
     quint32 m_latestChannelsGroupId;
