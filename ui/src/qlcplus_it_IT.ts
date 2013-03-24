@@ -3687,7 +3687,7 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="vccuelistproperties.ui" line="118"/>
         <source>Next Cue</source>
-        <translation>Prossima Lista d&apos;Azione</translation>
+        <translation>Azione Successiva</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="124"/>
@@ -3713,7 +3713,7 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="vccuelistproperties.ui" line="196"/>
         <source>Input universe for skipping to the next cue</source>
-        <translation>Universo di Ingresso per saltare alla prossima lista d&apos;Azione</translation>
+        <translation>Universo di ingresso per passare alla prossima azione nella lista</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="203"/>
@@ -3725,12 +3725,12 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="vccuelistproperties.ui" line="210"/>
         <source>Input channel for skipping to the next cue</source>
-        <translation>Canale di ingresso per saltare alla prossima lista d&apos;Azione</translation>
+        <translation>Canale di ingresso per passare all&apos;azione successiva nella lista</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="230"/>
         <source>When toggled, you can click an external button to assign it as the control that skips to the next cue.</source>
-        <translation>Quando premuto, puoi cliccare su di un bottone esterno in modo da assegnarli il salto alla prossima lista d&apos;Azione.</translation>
+        <translation>Quando attivato, puoi cliccare su di un bottone esterno in modo da assegnarlo per il passaggio all&apos;azione successiva.</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="233"/>
@@ -3742,7 +3742,7 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="vccuelistproperties.ui" line="243"/>
         <source>Choose an input universe/channel for skipping to the next cue</source>
-        <translation>Scegli un universo/canale di ingresso per saltare alla prossima lista d&apos;Azione</translation>
+        <translation>Scegli un universo/canale di ingresso per passare all&apos;azione successiva</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="246"/>
@@ -3754,37 +3754,37 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="vccuelistproperties.ui" line="270"/>
         <source>Previous Cue</source>
-        <translation>Lista d&apos;Azione Precedente</translation>
+        <translation>Azione Precedente</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="282"/>
         <source>The key combination used to step to the previous cue</source>
-        <translation>Combinazione di tasti usata per saltare alla lista d&apos;Azione precedente</translation>
+        <translation>Combinazione di tasti usata per passare all&apos;azione precedente</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="292"/>
         <source>Bind a key combination to skip to the previous cue</source>
-        <translation>Inserisci una combinazione di tasti per saltare alla lista d&apos;Azione precedente</translation>
+        <translation>Associa una combinazione di tasti per passare all&apos;azione precedente</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="348"/>
         <source>Input universe for skipping to the previous cue</source>
-        <translation>Universo d&apos;ingresso per saltare alla lista d&apos;Azione precedente</translation>
+        <translation>Universo d&apos;ingresso per passare all&apos;azione precedente</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="362"/>
         <source>Input channel for skipping to the previous cue</source>
-        <translation>Canale d&apos;ingresso per saltare alla lista d&apos;Azione precedente</translation>
+        <translation>Canale d&apos;ingresso per passare all&apos;azione precedente</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="382"/>
         <source>When toggled, you can click an external button to assign it as the control that skips to the previous cue.</source>
-        <translation>Quando premuto, puoi cliccare su di un bottone esterno in modo da assegnarli il salto alla lista d&apos;Azione precedente.</translation>
+        <translation>Quando attivato, puoi cliccare su di un bottone esterno in modo da assegnarlo per il passaggio all&apos;azione precedente.</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="395"/>
         <source>Choose an input universe/channel for skipping to the previous cue</source>
-        <translation>Scegli un universo/canale di ingresso per saltare alla lista d&apos;Azione precedente</translation>
+        <translation>Scegli un universo/canale di ingresso per passare all&apos;azione precedente</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="422"/>

@@ -15,6 +15,7 @@ docs.files = \
              collectioneditor.html \
              commandlineparameters.html \
              concept.html \
+             dmxdump.html \
              efxeditor.html \
              enttecdmxusboutput.html \
              fixturedefinitioneditor.html \
