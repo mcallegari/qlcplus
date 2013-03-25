@@ -29,6 +29,7 @@
 
 #include "showrunner.h"
 #include "function.h"
+#include "chaser.h"
 #include "show.h"
 #include "doc.h"
 
@@ -72,9 +73,34 @@ Function* Show::createCopy(Doc* doc)
 
 bool Show::copyFrom(const Function* function)
 {
-    const Show* shw = qobject_cast<const Show*> (function);
-    if (shw == NULL)
+    const Show* show = qobject_cast<const Show*> (function);
+    if (show == NULL)
         return false;
+
+    // create a copy of each track
+    foreach(Track *track, show->tracks())
+    {
+        quint32 sceneID = track->getSceneID();
+        Track* newTrack = new Track(sceneID);
+        newTrack->setName(track->name());
+        addTrack(newTrack);
+
+        // create a copy of each sequence/audio in a track
+        foreach(quint32 fid, track->functionsID())
+        {
+            Function* function = doc()->function(fid);
+            if (function == NULL)
+                continue;
+
+            /* Attempt to create a copy of the function to Doc */
+            Function* copy = function->createCopy(doc());
+            if (copy != NULL)
+            {
+                copy->setName(tr("Copy of %1").arg(function->name()));
+                newTrack->addFunctionID(copy->id());
+            }
+        }
+    }
 
     return Function::copyFrom(function);
 }
