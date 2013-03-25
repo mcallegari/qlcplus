@@ -81,8 +81,8 @@ FixtureManager::FixtureManager(QWidget* parent, Doc* doc)
     : QWidget(parent)
     , m_doc(doc)
     , m_splitter(NULL)
-    , m_tree(NULL)
-    , m_channels_tree(NULL)
+    , m_fixtures_tree(NULL)
+    , m_channel_groups_tree(NULL)
     , m_info(NULL)
     , m_groupEditor(NULL)
     , m_currentTabIndex(0)
@@ -92,6 +92,8 @@ FixtureManager::FixtureManager(QWidget* parent, Doc* doc)
     , m_groupAction(NULL)
     , m_unGroupAction(NULL)
     , m_newGroupAction(NULL)
+    , m_moveUpAction(NULL)
+    , m_moveDownAction(NULL)
     , m_importAction(NULL)
     , m_exportAction(NULL)
     , m_groupMenu(NULL)
@@ -111,7 +113,7 @@ FixtureManager::FixtureManager(QWidget* parent, Doc* doc)
     updateView();
     updateChannelsGroupView();
 
-    QTreeWidgetItem* grpItem = m_tree->topLevelItem(0);
+    QTreeWidgetItem* grpItem = m_fixtures_tree->topLevelItem(0);
     if (grpItem != NULL)
         grpItem->setExpanded(true);
 
@@ -158,9 +160,9 @@ FixtureManager* FixtureManager::instance()
 
 void FixtureManager::slotFixtureRemoved(quint32 id)
 {
-    for (int i = 0; i < m_tree->topLevelItemCount(); i++)
+    for (int i = 0; i < m_fixtures_tree->topLevelItemCount(); i++)
     {
-        QTreeWidgetItem* grpItem = m_tree->topLevelItem(i);
+        QTreeWidgetItem* grpItem = m_fixtures_tree->topLevelItem(i);
         Q_ASSERT(grpItem != NULL);
         for (int j = 0; j < grpItem->childCount(); j++)
         {
@@ -177,9 +179,9 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
 {
     if (mode == Doc::Design)
     {
-        int selected = m_tree->selectedItems().size();
+        int selected = m_fixtures_tree->selectedItems().size();
 
-        QTreeWidgetItem* item = m_tree->currentItem();
+        QTreeWidgetItem* item = m_fixtures_tree->currentItem();
         if (item == NULL)
         {
             m_addAction->setEnabled(true);
@@ -237,9 +239,9 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
 
 void FixtureManager::slotFixtureGroupRemoved(quint32 id)
 {
-    for (int i = 0; i < m_tree->topLevelItemCount(); i++)
+    for (int i = 0; i < m_fixtures_tree->topLevelItemCount(); i++)
     {
-        QTreeWidgetItem* item = m_tree->topLevelItem(i);
+        QTreeWidgetItem* item = m_fixtures_tree->topLevelItem(i);
         Q_ASSERT(item != NULL);
         QVariant var = item->data(KColumnName, PROP_GROUP);
         if (var.isValid() && var.toUInt() == id)
@@ -276,52 +278,52 @@ void FixtureManager::initDataView()
     m_splitter->addWidget(tabs);
 
     /* Create a tree widget to the left part of the splitter */
-    m_tree = new QTreeWidget(this);
+    m_fixtures_tree = new QTreeWidget(this);
 
     QStringList labels;
     labels << tr("Name") << tr("Universe") << tr("Address");
-    m_tree->setHeaderLabels(labels);
-    m_tree->setRootIsDecorated(true);
-    m_tree->setIconSize(QSize(32, 32));
-    m_tree->setSortingEnabled(true);
-    m_tree->setAllColumnsShowFocus(true);
-    m_tree->sortByColumn(KColumnAddress, Qt::AscendingOrder);
-    m_tree->setContextMenuPolicy(Qt::CustomContextMenu);
-    m_tree->setSelectionMode(QAbstractItemView::ExtendedSelection);
-    m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
+    m_fixtures_tree->setHeaderLabels(labels);
+    m_fixtures_tree->setRootIsDecorated(true);
+    m_fixtures_tree->setIconSize(QSize(32, 32));
+    m_fixtures_tree->setSortingEnabled(true);
+    m_fixtures_tree->setAllColumnsShowFocus(true);
+    m_fixtures_tree->sortByColumn(KColumnAddress, Qt::AscendingOrder);
+    m_fixtures_tree->setContextMenuPolicy(Qt::CustomContextMenu);
+    m_fixtures_tree->setSelectionMode(QAbstractItemView::ExtendedSelection);
+    m_fixtures_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
     QFont m_font = QApplication::font();
     m_font.setPixelSize(13);
-    m_tree->setFont(m_font);
+    m_fixtures_tree->setFont(m_font);
 
-    connect(m_tree, SIGNAL(itemSelectionChanged()),
+    connect(m_fixtures_tree, SIGNAL(itemSelectionChanged()),
             this, SLOT(slotSelectionChanged()));
 
-    connect(m_tree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),
+    connect(m_fixtures_tree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),
             this, SLOT(slotDoubleClicked(QTreeWidgetItem*)));
 
-    connect(m_tree, SIGNAL(customContextMenuRequested(const QPoint&)),
+    connect(m_fixtures_tree, SIGNAL(customContextMenuRequested(const QPoint&)),
             this, SLOT(slotContextMenuRequested(const QPoint&)));
 
 
-    tabs->addTab(m_tree, tr("Fixtures Groups"));
+    tabs->addTab(m_fixtures_tree, tr("Fixtures Groups"));
 
-    m_channels_tree = new QTreeWidget(this);
+    m_channel_groups_tree = new QTreeWidget(this);
     QStringList chan_labels;
     chan_labels << tr("Name") << tr("Channels");
-    m_channels_tree->setHeaderLabels(chan_labels);
-    m_channels_tree->setRootIsDecorated(true);
-    m_channels_tree->setAllColumnsShowFocus(true);
-    m_channels_tree->setIconSize(QSize(32, 32));
-    m_channels_tree->setSelectionMode(QAbstractItemView::ExtendedSelection);
-    m_channels_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
-    m_channels_tree->setFont(m_font);
+    m_channel_groups_tree->setHeaderLabels(chan_labels);
+    m_channel_groups_tree->setRootIsDecorated(false);
+    m_channel_groups_tree->setAllColumnsShowFocus(true);
+    m_channel_groups_tree->setIconSize(QSize(32, 32));
+    m_channel_groups_tree->setSelectionMode(QAbstractItemView::ExtendedSelection);
+    m_channel_groups_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
+    m_channel_groups_tree->setFont(m_font);
 
-    connect(m_channels_tree, SIGNAL(itemSelectionChanged()),
+    connect(m_channel_groups_tree, SIGNAL(itemSelectionChanged()),
             this, SLOT(slotChannelsGroupSelectionChanged()));
-    connect(m_channels_tree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),
+    connect(m_channel_groups_tree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),
             this, SLOT(slotChannelsGroupDoubleClicked(QTreeWidgetItem*)));
 
-    tabs->addTab(m_channels_tree, tr("Channels Groups"));
+    tabs->addTab(m_channel_groups_tree, tr("Channels Groups"));
 
     connect(tabs, SIGNAL(currentChanged(int)), this, SLOT(slotTabChanged(int)));
 
@@ -335,27 +337,29 @@ void FixtureManager::updateView()
 {
     // Record which groups are open
     QList <QVariant> openGroups;
-    for (int i = 0; i < m_tree->topLevelItemCount(); i++)
+    for (int i = 0; i < m_fixtures_tree->topLevelItemCount(); i++)
     {
-        QTreeWidgetItem* item = m_tree->topLevelItem(i);
+        QTreeWidgetItem* item = m_fixtures_tree->topLevelItem(i);
         if (item->isExpanded() == true)
             openGroups << item->data(KColumnName, PROP_GROUP);
     }
 
     // Clear the view
-    m_tree->clear();
+    m_fixtures_tree->clear();
     m_exportAction->setEnabled(false);
+    m_moveUpAction->setEnabled(false);
+    m_moveDownAction->setEnabled(false);
 
     // Insert known fixture groups and their children
     foreach (FixtureGroup* grp, m_doc->fixtureGroups())
     {
-        QTreeWidgetItem* grpItem = new QTreeWidgetItem(m_tree);
+        QTreeWidgetItem* grpItem = new QTreeWidgetItem(m_fixtures_tree);
         grpItem->setIcon(KColumnName, QIcon(":/group.png"));
         updateGroupItem(grpItem, grp);
     }
 
     // Insert the "All fixtures group"
-    QTreeWidgetItem* grpItem = new QTreeWidgetItem(m_tree);
+    QTreeWidgetItem* grpItem = new QTreeWidgetItem(m_fixtures_tree);
     grpItem->setIcon(KColumnName, QIcon(":/group.png"));
     grpItem->setText(KColumnName, tr("All fixtures"));
 
@@ -369,9 +373,9 @@ void FixtureManager::updateView()
     }
 
     // Reopen groups that were open before update
-    for (int i = 0; i < m_tree->topLevelItemCount(); i++)
+    for (int i = 0; i < m_fixtures_tree->topLevelItemCount(); i++)
     {
-        QTreeWidgetItem* item = m_tree->topLevelItem(i);
+        QTreeWidgetItem* item = m_fixtures_tree->topLevelItem(i);
         QVariant var = item->data(KColumnName, PROP_GROUP);
         if (openGroups.contains(var) == true)
         {
@@ -387,69 +391,56 @@ void FixtureManager::updateView()
 QIcon FixtureManager::getIntensityIcon(const QLCChannel* channel)
 {
     QPixmap pm(32, 32);
+    QColor color;
     if (channel->colour() == QLCChannel::Red ||
         channel->name().contains("red", Qt::CaseInsensitive) == true)
-    {
-        QColor color(255, 0, 0);
-        pm.fill(color);
-        return QIcon(pm);
-    }
+            color = QColor(255, 0, 0);
     else if (channel->colour() == QLCChannel::Green ||
              channel->name().contains("green", Qt::CaseInsensitive) == true)
-    {
-        QColor color(0, 255, 0);
-        pm.fill(color);
-        return QIcon(pm);
-    }
+                color = QColor(0, 255, 0);
     else if (channel->colour() == QLCChannel::Blue ||
              channel->name().contains("blue", Qt::CaseInsensitive) == true)
-    {
-        QColor color(0, 0, 255);
-        pm.fill(color);
-        return QIcon(pm);
-    }
+                color = QColor(0, 0, 255);
     else if (channel->colour() == QLCChannel::Cyan ||
              channel->name().contains("cyan", Qt::CaseInsensitive) == true)
-    {
-        QColor color(0, 255, 255);
-        pm.fill(color);
-        return QIcon(pm);
-    }
+                color = QColor(0, 255, 255);
     else if (channel->colour() == QLCChannel::Magenta ||
              channel->name().contains("magenta", Qt::CaseInsensitive) == true)
-    {
-        QColor color(255, 0, 255);
-        pm.fill(color);
-        return QIcon(pm);
-    }
+                color = QColor(255, 0, 255);
     else if (channel->colour() == QLCChannel::Yellow ||
              channel->name().contains("yellow", Qt::CaseInsensitive) == true)
-    {
-        QColor color(255, 255, 0);
-        pm.fill(color);
-        return QIcon(pm);
-    }
+                color = QColor(255, 255, 0);
     else if (channel->colour() == QLCChannel::White ||
              channel->name().contains("white", Qt::CaseInsensitive) == true)
-    {
-        QColor color(255, 255, 255);
-        pm.fill(color);
-        return QIcon(pm);
-    }
+                color = QColor(255, 255, 255);
     else
     {
         // None of the primary colours matched and since this is an
         // intensity channel, it must be controlling a plain dimmer OSLT.
         return QIcon(":/intensity.png");
     }
+
+    pm.fill(color);
+    return QIcon(pm);
 }
 
 void FixtureManager::updateChannelsGroupView()
 {
-    m_channels_tree->clear();
+    quint32 selGroupID = ChannelsGroup::invalidId();
+    //m_channel_groups_tree->clear();
+    if (m_channel_groups_tree->selectedItems().size() > 0)
+    {
+        QTreeWidgetItem* item = m_channel_groups_tree->selectedItems().first();
+        selGroupID = item->data(KColumnName, PROP_FIXTURE).toUInt();
+    }
+
+    if (m_channel_groups_tree->topLevelItemCount() > 0)
+        for (int i = m_channel_groups_tree->topLevelItemCount() - 1; i >= 0; i--)
+            m_channel_groups_tree->takeTopLevelItem(i);
+
     foreach (ChannelsGroup* grp, m_doc->channelsGroups())
     {
-        QTreeWidgetItem* grpItem = new QTreeWidgetItem(m_channels_tree);
+        QTreeWidgetItem* grpItem = new QTreeWidgetItem(m_channel_groups_tree);
         grpItem->setText(KColumnName, grp->name());
         grpItem->setData(KColumnName, PROP_FIXTURE, grp->id());
         grpItem->setText(KColumnChannels, QString("%1").arg(grp->getChannels().count()));
@@ -457,6 +448,9 @@ void FixtureManager::updateChannelsGroupView()
         {
             SceneValue scv = grp->getChannels().at(0);
             Fixture *fxi = m_doc->fixture(scv.fxi);
+            if (fxi == NULL)
+                continue;
+
             const QLCChannel* ch = fxi->channel(scv.channel);
             switch(ch->group())
             {
@@ -475,6 +469,8 @@ void FixtureManager::updateChannelsGroupView()
             break;
             }
         }
+        if (selGroupID == grp->id())
+            m_channel_groups_tree->setItemSelected(grpItem, true);
     }
     m_propertiesAction->setEnabled(false);
     m_groupAction->setEnabled(false);
@@ -483,7 +479,7 @@ void FixtureManager::updateChannelsGroupView()
 
 QTreeWidgetItem* FixtureManager::fixtureItem(quint32 id) const
 {
-    QTreeWidgetItemIterator it(m_tree);
+    QTreeWidgetItemIterator it(m_fixtures_tree);
     while (*it != NULL)
     {
         QTreeWidgetItem* item(*it);
@@ -498,7 +494,7 @@ QTreeWidgetItem* FixtureManager::fixtureItem(quint32 id) const
 
 QTreeWidgetItem* FixtureManager::groupItem(quint32 id) const
 {
-    QTreeWidgetItemIterator it(m_tree);
+    QTreeWidgetItemIterator it(m_fixtures_tree);
     while (*it != NULL)
     {
         QTreeWidgetItem* item(*it);
@@ -516,7 +512,8 @@ void FixtureManager::updateFixtureItem(QTreeWidgetItem* item, const Fixture* fxi
     QString s;
 
     Q_ASSERT(item != NULL);
-    Q_ASSERT(fxi != NULL);
+    if (fxi == NULL)
+        return;
 
     // Universe column
     item->setText(KColumnUniverse, QString("%1").arg(fxi->universe() + 1));
@@ -647,10 +644,10 @@ void FixtureManager::createInfo()
 
 void FixtureManager::slotSelectionChanged()
 {
-    int selectedCount = m_tree->selectedItems().size();
+    int selectedCount = m_fixtures_tree->selectedItems().size();
     if (selectedCount == 1)
     {
-        QTreeWidgetItem* item = m_tree->selectedItems().first();
+        QTreeWidgetItem* item = m_fixtures_tree->selectedItems().first();
         Q_ASSERT(item != NULL);
 
         // Set the text view's contents
@@ -697,7 +694,7 @@ void FixtureManager::slotSelectionChanged()
         }
         else
         {
-            if (m_tree->topLevelItemCount() <= 0)
+            if (m_fixtures_tree->topLevelItemCount() <= 0)
             {
                 info = tr("<HTML><BODY><H1>No fixtures</H1>" \
                           "<P>Click <IMG SRC=\"" ":/edit_add.png\">" \
@@ -726,11 +723,11 @@ void FixtureManager::slotChannelsGroupSelectionChanged()
     if (m_info == NULL)
         createInfo();
 
-    int selectedCount = m_channels_tree->selectedItems().size();
+    int selectedCount = m_channel_groups_tree->selectedItems().size();
 
     if (selectedCount == 1)
     {
-        QTreeWidgetItem* item = m_channels_tree->selectedItems().first();
+        QTreeWidgetItem* item = m_channel_groups_tree->selectedItems().first();
         Q_ASSERT(item != NULL);
 
         // Set the text view's contents
@@ -744,14 +741,29 @@ void FixtureManager::slotChannelsGroupSelectionChanged()
         }
         m_removeAction->setEnabled(true);
         m_addAction->setToolTip(tr("Edit group..."));
+        int selIdx = m_channel_groups_tree->currentIndex().row();
+        if (selIdx == 0)
+            m_moveUpAction->setEnabled(false);
+        else
+            m_moveUpAction->setEnabled(true);
+        if (selIdx == m_channel_groups_tree->topLevelItemCount() - 1)
+            m_moveDownAction->setEnabled(false);
+        else
+            m_moveDownAction->setEnabled(true);
+    }
+    else if (selectedCount > 1)
+    {
+        m_info->setText(tr("<HTML><BODY><H1>Multiple groups selected</H1>" \
+                  "<P>Click <IMG SRC=\"" ":/edit_remove.png\">" \
+                  " to remove the selected groups.</P></BODY></HTML>"));
+        m_removeAction->setEnabled(true);
     }
     else
     {
-        QString info = tr("<HTML><BODY><H1>Nothing selected</H1>" \
+        m_info->setText(tr("<HTML><BODY><H1>Nothing selected</H1>" \
                   "<P>Select a channel group from the list or " \
                   "click <IMG SRC=\"" ":/edit_add.png\">" \
-                  " to add a new channels group.</P></BODY></HTML>");
-        m_info->setText(info);
+                  " to add a new channels group.</P></BODY></HTML>"));
         m_removeAction->setEnabled(false);
         m_addAction->setToolTip(tr("Add group..."));
     }
@@ -789,16 +801,16 @@ void FixtureManager::slotTabChanged(int index)
 
 void FixtureManager::selectGroup(quint32 id)
 {
-    for (int i = 0; i < m_tree->topLevelItemCount(); i++)
+    for (int i = 0; i < m_fixtures_tree->topLevelItemCount(); i++)
     {
-        QTreeWidgetItem* item = m_tree->topLevelItem(i);
+        QTreeWidgetItem* item = m_fixtures_tree->topLevelItem(i);
         QVariant var = item->data(KColumnName, PROP_GROUP);
         if (var.isValid() == false)
             continue;
 
         if (var.toUInt() == id)
         {
-            m_tree->setCurrentItem(item);
+            m_fixtures_tree->setCurrentItem(item);
             slotSelectionChanged();
             break;
         }
@@ -905,6 +917,18 @@ void FixtureManager::initActions()
 
     m_newGroupAction = new QAction(tr("New Group..."), this);
 
+    m_moveUpAction = new QAction(QIcon(":/up.png"),
+                                 tr("Move group up..."), this);
+    m_moveUpAction->setEnabled(false);
+    connect(m_moveUpAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotMoveGroupUp()));
+
+    m_moveDownAction = new QAction(QIcon(":/down.png"),
+                                 tr("Move group down..."), this);
+    m_moveDownAction->setEnabled(false);
+    connect(m_moveDownAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotMoveGroupDown()));
+
     m_importAction = new QAction(QIcon(":/fileimport.png"),
                                  tr("Import fixtures..."), this);
     connect(m_importAction, SIGNAL(triggered(bool)),
@@ -915,7 +939,6 @@ void FixtureManager::initActions()
 
     connect(m_exportAction, SIGNAL(triggered(bool)),
             this, SLOT(slotExport()));
-
 }
 
 void FixtureManager::updateGroupMenu()
@@ -957,6 +980,9 @@ void FixtureManager::initToolBar()
     toolbar->addAction(m_groupAction);
     toolbar->addAction(m_unGroupAction);
     toolbar->addSeparator();
+    toolbar->addAction(m_moveUpAction);
+    toolbar->addAction(m_moveDownAction);
+    toolbar->addSeparator();
     toolbar->addAction(m_importAction);
     toolbar->addAction(m_exportAction);
 
@@ -983,7 +1009,7 @@ void FixtureManager::addFixture()
     const QLCFixtureMode* mode = af.mode();
 
     FixtureGroup* addToGroup = NULL;
-    QTreeWidgetItem* current = m_tree->currentItem();
+    QTreeWidgetItem* current = m_fixtures_tree->currentItem();
     if (current != NULL)
     {
         if (current->parent() != NULL)
@@ -1074,7 +1100,7 @@ void FixtureManager::addFixture()
 
     QTreeWidgetItem* selectItem = fixtureItem(latestFxi);
     if (selectItem != NULL)
-        m_tree->setCurrentItem(selectItem);
+        m_fixtures_tree->setCurrentItem(selectItem);
 
     updateView();
 }
@@ -1083,11 +1109,11 @@ void FixtureManager::addChannelsGroup()
 {
     ChannelsGroup *group = NULL;
 
-    int selectedCount = m_channels_tree->selectedItems().size();
+    int selectedCount = m_channel_groups_tree->selectedItems().size();
 
     if (selectedCount > 0)
     {
-        QTreeWidgetItem* current = m_channels_tree->selectedItems().first();
+        QTreeWidgetItem* current = m_channel_groups_tree->selectedItems().first();
         QVariant var = current->data(KColumnName, PROP_FIXTURE);
         if (var.isValid() == true)
             group = m_doc->channelsGroup(var.toUInt());
@@ -1123,7 +1149,7 @@ void FixtureManager::removeFixture()
         return;
     }
 
-    QListIterator <QTreeWidgetItem*> it(m_tree->selectedItems());
+    QListIterator <QTreeWidgetItem*> it(m_fixtures_tree->selectedItems());
     while (it.hasNext() == true)
     {
         QTreeWidgetItem* item(it.next());
@@ -1161,20 +1187,29 @@ void FixtureManager::removeChannelsGroup()
 {
     // Ask before deletion
     if (QMessageBox::question(this, tr("Delete Channels Group"),
-                              tr("Do you want to delete the selected group?"),
+                              tr("Do you want to delete the selected groups?"),
                               QMessageBox::Yes, QMessageBox::No) == QMessageBox::No)
     {
         return;
     }
-    if (m_channels_tree->selectedItems().count() > 0)
+
+    disconnect(m_channel_groups_tree, SIGNAL(itemSelectionChanged()),
+            this, SLOT(slotChannelsGroupSelectionChanged()));
+
+    QListIterator <QTreeWidgetItem*> it(m_channel_groups_tree->selectedItems());
+    while (it.hasNext() == true)
     {
-        QVariant var = m_channels_tree->currentItem()->data(KColumnName, PROP_FIXTURE);
+        QTreeWidgetItem* item(it.next());
+        Q_ASSERT(item != NULL);
+
+        QVariant var = item->data(KColumnName, PROP_FIXTURE);
         if (var.isValid() == true)
-        {
             m_doc->deleteChannelsGroup(var.toUInt());
-            updateChannelsGroupView();
-        }
     }
+    updateChannelsGroupView();
+
+    connect(m_channel_groups_tree, SIGNAL(itemSelectionChanged()),
+            this, SLOT(slotChannelsGroupSelectionChanged()));
 }
 
 void FixtureManager::slotRemove()
@@ -1268,7 +1303,7 @@ int FixtureManager::headCount(const QList <QTreeWidgetItem*>& items) const
 
 void FixtureManager::slotProperties()
 {
-    QTreeWidgetItem* item = m_tree->currentItem();
+    QTreeWidgetItem* item = m_fixtures_tree->currentItem();
     if (item == NULL)
         return;
 
@@ -1292,7 +1327,7 @@ void FixtureManager::slotUnGroup()
     // one big bunch.
     QList <QPair<quint32,quint32> > resignList;
 
-    foreach (QTreeWidgetItem* item, m_tree->selectedItems())
+    foreach (QTreeWidgetItem* item, m_fixtures_tree->selectedItems())
     {
         if (item->parent() == NULL)
             continue;
@@ -1335,7 +1370,7 @@ void FixtureManager::slotGroupSelected(QAction* action)
         // New Group selected.
 
         // Suggest an equilateral grid
-        qreal side = sqrt(headCount(m_tree->selectedItems()));
+        qreal side = sqrt(headCount(m_fixtures_tree->selectedItems()));
         if (side != floor(side))
             side += 1; // Fixture number doesn't provide a full square
 
@@ -1353,7 +1388,7 @@ void FixtureManager::slotGroupSelected(QAction* action)
     }
 
     // Assign selected fixture items to the group
-    foreach (QTreeWidgetItem* item, m_tree->selectedItems())
+    foreach (QTreeWidgetItem* item, m_fixtures_tree->selectedItems())
     {
         QVariant var = item->data(KColumnName, PROP_FIXTURE);
         if (var.isValid() == false)
@@ -1363,6 +1398,28 @@ void FixtureManager::slotGroupSelected(QAction* action)
     }
 
     updateView();
+}
+
+void FixtureManager::slotMoveGroupUp()
+{
+    if (m_channel_groups_tree->selectedItems().size() > 0)
+    {
+        QTreeWidgetItem* item = m_channel_groups_tree->selectedItems().first();
+        quint32 grpID = item->data(KColumnName, PROP_FIXTURE).toUInt();
+        m_doc->moveChannelGroup(grpID, -1);
+        updateChannelsGroupView();
+    }
+}
+
+void FixtureManager::slotMoveGroupDown()
+{
+    if (m_channel_groups_tree->selectedItems().size() > 0)
+    {
+        QTreeWidgetItem* item = m_channel_groups_tree->selectedItems().first();
+        quint32 grpID = item->data(KColumnName, PROP_FIXTURE).toUInt();
+        m_doc->moveChannelGroup(grpID, 1);
+        updateChannelsGroupView();
+    }
 }
 
 QString FixtureManager::createDialog(bool import)

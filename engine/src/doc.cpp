@@ -473,9 +473,9 @@ bool Doc::addChannelsGroup(ChannelsGroup *grp, quint32 id)
 
      grp->setId(id);
      m_channelsGroups[id] = grp;
-/*
-     emit channelsGroupAdded(id);
-*/
+     m_orderedGroups.append(id);
+
+     //emit channelsGroupAdded(id);
      setModified();
 
      return true;
@@ -492,6 +492,10 @@ bool Doc::deleteChannelsGroup(quint32 id)
         setModified();
         delete grp;
 
+        int idx = m_orderedGroups.indexOf(id);
+        if (idx != -1)
+            m_orderedGroups.takeAt(idx);
+
         return true;
     }
     else
@@ -499,6 +503,25 @@ bool Doc::deleteChannelsGroup(quint32 id)
         qWarning() << Q_FUNC_INFO << "No channels group with id" << id;
         return false;
     }
+}
+
+bool Doc::moveChannelGroup(quint32 id, int direction)
+{
+    if (direction == 0 || m_orderedGroups.contains(id) == false)
+        return false;
+
+    int idx = m_orderedGroups.indexOf(id);
+
+    if (idx + direction < 0 || idx + direction >= m_orderedGroups.count())
+        return false;
+
+    qDebug() << Q_FUNC_INFO << m_orderedGroups;
+    m_orderedGroups.takeAt(idx);
+    m_orderedGroups.insert(idx + direction, id);
+    qDebug() << Q_FUNC_INFO << m_orderedGroups;
+
+    setModified();
+    return true;
 }
 
 ChannelsGroup* Doc::channelsGroup(quint32 id) const
@@ -511,7 +534,13 @@ ChannelsGroup* Doc::channelsGroup(quint32 id) const
 
 QList <ChannelsGroup*> Doc::channelsGroups() const
 {
-    return m_channelsGroups.values();
+    QList <ChannelsGroup*> orderedList;
+
+    for (int i = 0; i < m_orderedGroups.count(); i++)
+    {
+        orderedList.append(m_channelsGroups[m_orderedGroups.at(i)]);
+    }
+    return orderedList;
 }
 
 quint32 Doc::createChannelsGroupId()

@@ -501,6 +501,8 @@ void VCButton_Test::toggle()
     // Mouse button press in operate mode should toggle the function
     m_doc->setMode(Doc::Operate);
     btn.slotKeyPressed(QKeySequence(keySequenceB));
+    // tell MasterTimer to process start queue
+    m_doc->masterTimer()->timerTick();
     QCOMPARE(m_doc->masterTimer()->m_functionList.size(), 1);
     QCOMPARE(m_doc->masterTimer()->m_functionList[0], sc);
     QCOMPARE(sc->intensity(), btn.intensityAdjustment());

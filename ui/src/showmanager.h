@@ -35,6 +35,7 @@
 class QComboBox;
 class QSplitter;
 class QToolBar;
+class QSpinBox;
 class QAction;
 class QLabel;
 class Doc;
@@ -106,6 +107,8 @@ protected:
     QAction* m_colorAction;
     QAction* m_stopAction;
     QAction* m_playAction;
+    QComboBox* m_timeDivisionCombo;
+    QSpinBox* m_bpmField;
 
 protected slots:
     void slotShowsComboChanged(int idx);
@@ -122,6 +125,12 @@ protected slots:
      *********************************************************************/
     void slotStopPlayback();
     void slotStartPlayback();
+
+    /*********************************************************************
+     * Time division
+     *********************************************************************/
+    void slotTimeDivisionTypeChanged(int idx);
+    void slotBPMValueChanged(int value);
 
     /*********************************************************************
      * UI events

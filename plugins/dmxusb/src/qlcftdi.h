@@ -50,7 +50,13 @@ class QLCFTDI
 public:
     static const int VID = 0x0403; //! FTDI Vendor ID
     static const int PID = 0x6001; //! FTDI Product ID
+    static const int DMX4ALLPID = 0xC850; //! DMX4ALL Product ID
 
+#ifdef FTD2XX
+    static QString readLabel(quint32 id, uchar label, int *ESTA_code);
+#else
+    static QString readLabel(struct ftdi_context *ftdi, char *name, char *serial, uchar label, int *ESTA_code);
+#endif
     /**
      * Compose a list of available widgets
      *
@@ -120,6 +126,9 @@ private:
 public:
     /** Open the widget */
     bool open();
+
+    /** Open the widget using a specific Product ID */
+    bool openByPID(const int PID);
 
     /** Close the widget */
     bool close();

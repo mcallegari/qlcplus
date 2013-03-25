@@ -371,6 +371,7 @@ void VCXYPad_Test::modeChange()
     QCOMPARE(m_doc->masterTimer()->m_dmxSourceList.size(), 1);
     QCOMPARE(m_doc->masterTimer()->m_dmxSourceList[0], &pad);
 /*
+    // FIXME !!
     pad.m_area->setPosition(QPoint(pad.m_area->width(), pad.m_area->height()));
     pad.writeDMX(m_doc->masterTimer(), &ua);
     QCOMPARE(ua.preGMValues()[0], char(255));

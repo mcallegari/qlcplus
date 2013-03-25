@@ -103,6 +103,7 @@
         <file alias="star.png">../../gfx/star.png</file>
         <file alias="stop.png">../../gfx/stop.png</file>
         <file alias="strobe.png">../../gfx/strobe.png</file>
+        <file alias="tabview.png">../../gfx/tabview.png</file>
         <file alias="tilt.png">../../gfx/tilt.png</file>
         <file alias="uncheck.png">../../gfx/uncheck.png</file>
         <file alias="undo.png">../../gfx/undo.png</file>

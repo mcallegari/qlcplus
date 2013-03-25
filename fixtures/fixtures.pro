@@ -184,6 +184,7 @@ fixtures.files += Sagitter-Miniscan-2001.qxf
 fixtures.files += SGM-Colorlab-250.qxf
 fixtures.files += SGM-Giotto-Spot-250.qxf
 fixtures.files += SGM-Giotto-Wash-400.qxf
+fixtures.files += SGM-Idea-Spot-575.qxf
 fixtures.files += SGM-Victory-250.qxf
 fixtures.files += SGM-Victory-II-250.qxf
 fixtures.files += SGM-Victory-II-Pro150.qxf
@@ -199,12 +200,14 @@ fixtures.files += Stairville-LED-PAR56-MKII-RGBA.qxf
 fixtures.files += Stairville-LED-PAR56-MKII-RGBW.qxf
 fixtures.files += Stairville-LED-PAR56.qxf
 fixtures.files += Stairville-Matrixx-FL-110-DMX.qxf
+fixtures.files += Stairville-MH-360.qxf
 fixtures.files += Stairville-PS1500DMX.qxf
 fixtures.files += Stairville-SC250H.qxf
 fixtures.files += Stairville-ZF-1500.qxf
 fixtures.files += Varytec-Easy-Move-LED-XS-Spot.qxf
 fixtures.files += Varytec-Easy-Move-LED-XS-Wash.qxf
 fixtures.files += Varytec-Gigabar-II.qxf
+fixtures.files += Varytec-RGB-LED-Spot-38.qxf
 fixtures.files += Venue-LEDPAR64.qxf
 
 

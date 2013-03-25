@@ -357,7 +357,8 @@ AudioItem *MultiTrackView::getSelectedAudio()
 
 quint32 MultiTrackView::getTimeFromPosition()
 {
-    quint32 s_time = (m_cursor->x() - TRACK_WIDTH) * (m_header->getTimeScale() * 1000) / (m_header->getTimeStep() * 2);
+    quint32 s_time = (double)(m_cursor->x() - TRACK_WIDTH) * (m_header->getTimeScale() * 1000) /
+                     (double)(m_header->getHalfSecondWidth() * 2);
     return s_time;
 }
 
@@ -365,7 +366,8 @@ quint32 MultiTrackView::getPositionFromTime(quint32 time)
 {
     if (time == 0)
         return TRACK_WIDTH;
-    quint32 xPos = ((double)time / 500) * ((double)m_header->getTimeStep() / m_header->getTimeScale());
+    quint32 xPos = ((double)time / 500) * ((double)m_header->getHalfSecondWidth() /
+                                           (double)m_header->getTimeScale());
     return TRACK_WIDTH + xPos;
 }
 
@@ -380,6 +382,16 @@ int MultiTrackView::getActiveTrack()
     }
 
     return -1;
+}
+
+void MultiTrackView::setHeaderType(int type)
+{
+    m_header->setTimeDivisionType((SceneHeaderItem::TimeDivision)type);
+}
+
+void MultiTrackView::setBPMValue(int value)
+{
+    m_header->setBPMValue(value);
 }
 
 void MultiTrackView::mouseReleaseEvent(QMouseEvent * e)
@@ -467,7 +479,8 @@ void MultiTrackView::slotSequenceMoved(QGraphicsSceneMouseEvent *, SequenceItem 
         item->setPos(TRACK_WIDTH + 2, ypos); // avoid moving a sequence too early...
     else
         item->setPos(item->x(), ypos);
-    quint32 s_time = (item->x() - TRACK_WIDTH) * (m_header->getTimeScale() * 1000) / (m_header->getTimeStep() * 2);
+    quint32 s_time = (item->x() - TRACK_WIDTH) * (double)(m_header->getTimeScale() * 1000) /
+                                                 (double)(m_header->getHalfSecondWidth() * 2);
     item->getChaser()->setStartTime(s_time);
     item->setToolTip(QString(tr("Start time: %1\n%2"))
                      .arg(Function::speedToString(s_time)).arg(tr("Click to move this sequence across the timeline")));
@@ -487,7 +500,8 @@ void MultiTrackView::slotSequenceMoved(QGraphicsSceneMouseEvent *, AudioItem *it
         item->setPos(TRACK_WIDTH + 2, ypos); // avoid moving a sequence too early...
     else
         item->setPos(item->x(), ypos);
-    quint32 s_time = (item->x() - TRACK_WIDTH) * (m_header->getTimeScale() * 1000) / (m_header->getTimeStep() * 2);
+    quint32 s_time = (double)(item->x() - TRACK_WIDTH) * (double)(m_header->getTimeScale() * 1000) /
+                     (double)(m_header->getHalfSecondWidth() * 2);
     item->getAudio()->setStartTime(s_time);
     item->setToolTip(QString(tr("Start time: %1\n%2"))
                      .arg(Function::speedToString(s_time)).arg(tr("Click to move this sequence across the timeline")));

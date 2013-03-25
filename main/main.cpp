@@ -247,7 +247,6 @@ int main(int argc, char** argv)
 
     /* Create and initialize the QLC application object */
     App app;
-    app.show();
 
 #if defined(WIN32) || defined(__APPLE__)
     if (QLCArgs::debugLevel < QtSystemMsg)
@@ -256,6 +255,8 @@ int main(int argc, char** argv)
         QLCArgs::dbgBox->show();
     }
 #endif
+    app.startup();
+    app.show();
 
     if (QLCArgs::workspace.isEmpty() == false)
         app.loadXML(QLCArgs::workspace);

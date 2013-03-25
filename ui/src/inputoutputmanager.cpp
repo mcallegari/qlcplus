@@ -54,6 +54,7 @@ InputOutputManager* InputOutputManager::s_instance = NULL;
 
 InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
     : QWidget(parent)
+    , m_editor(NULL)
 {
     Q_ASSERT(s_instance == NULL);
     s_instance = this;
@@ -79,6 +80,11 @@ InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
     m_tree->setSortingEnabled(false);
     m_tree->setAllColumnsShowFocus(true);
     m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
+
+    QWidget* gcontainer = new QWidget(this);
+    m_splitter->addWidget(gcontainer);
+    gcontainer->setLayout(new QVBoxLayout);
+    gcontainer->layout()->setContentsMargins(0, 0, 0, 0);
 
     QStringList columns;
     columns << tr("Universe") << tr("Input") << tr("Output") << tr("Feedback") << tr("Profile");
@@ -154,15 +160,6 @@ void InputOutputManager::updateItem(QTreeWidgetItem* item, quint32 universe)
     item->setText(KColumnOutputNum, QString::number(op->output() + 1));
 }
 
-QWidget* InputOutputManager::currentEditor() const
-{
-    Q_ASSERT(m_splitter != NULL);
-    if (m_splitter->count() < 2)
-        return NULL;
-    else
-        return m_splitter->widget(1);
-}
-
 void InputOutputManager::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
     Q_UNUSED(channel);
@@ -197,16 +194,23 @@ void InputOutputManager::slotCurrentItemChanged()
         m_tree->setCurrentItem(m_tree->topLevelItem(0));
         item = m_tree->currentItem();
     }
-    Q_ASSERT(item != NULL);
+    //Q_ASSERT(item != NULL);
+    if (item == NULL)
+        return;
 
-    if (currentEditor() != NULL)
-        delete currentEditor();
+    if (m_editor != NULL)
+    {
+        m_splitter->widget(1)->layout()->removeWidget(m_editor);
+        m_editor->deleteLater();
+        m_editor = NULL;
+        //delete currentEditor();
+    }
 
     quint32 universe = item->text(KColumnUniverse).toInt() - 1;
-    QWidget* editor = new InputOutputPatchEditor(this, universe, m_inputMap, m_outputMap);
-    m_splitter->addWidget(editor);
-    connect(editor, SIGNAL(mappingChanged()), this, SLOT(slotMappingChanged()));
-    editor->show();
+    m_editor = new InputOutputPatchEditor(this, universe, m_inputMap, m_outputMap);
+    m_splitter->widget(1)->layout()->addWidget(m_editor);
+    connect(m_editor, SIGNAL(mappingChanged()), this, SLOT(slotMappingChanged()));
+    m_editor->show();
 }
 
 void InputOutputManager::slotMappingChanged()

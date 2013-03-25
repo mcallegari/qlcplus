@@ -66,14 +66,16 @@ INSTALL_ROOT=$RPM_BUILD_ROOT make install
 /usr/share/qlcplus/Sample.qxw
 /usr/share/mime/packages/qlcplus.xml
 %doc /usr/share/qlcplus/documents/*
-/usr/lib/qt4/plugins/qlcplus/input/libhidinput.so
-/usr/lib/qt4/plugins/qlcplus/input/libewinginput.so
-/usr/lib/qt4/plugins/qlcplus/input/libmidiinput.so
-/usr/lib/qt4/plugins/qlcplus/output/libdmx4linuxout.so
-/usr/lib/qt4/plugins/qlcplus/output/libenttecdmxusbout.so
-/etc/udev/rules.d/z65-enttec-dmxusb.rules
-/usr/lib/qt4/plugins/qlcplus/output/libudmxout.so
+/usr/lib/qt4/plugins/qlcplus/libartnet.so
+/usr/lib/qt4/plugins/qlcplus/libhid.so
+/usr/lib/qt4/plugins/qlcplus/libosc.so
+/usr/lib/qt4/plugins/qlcplus/libpeperoni.so
+/usr/lib/qt4/plugins/qlcplus/libenttecwing.so
+/usr/lib/qt4/plugins/qlcplus/libmidiplugin.so
+/usr/lib/qt4/plugins/qlcplus/libdmx4linux.so
+/usr/lib/qt4/plugins/qlcplus/libdmxusb.so
+/usr/lib/qt4/plugins/qlcplus/libudmx.so
+/etc/udev/rules.d/z65-dmxusb.rules
 /etc/udev/rules.d/z65-anyma-udmx.rules
-/usr/lib/qt4/plugins/qlcplus/output/libpeperoniout.so
 /etc/udev/rules.d/z65-peperoni.rules
-/usr/lib/qt4/plugins/qlcplus/output/libmidiout.so
+

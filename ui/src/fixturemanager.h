@@ -158,8 +158,8 @@ private:
 
 private:
     QSplitter* m_splitter;
-    QTreeWidget* m_tree;
-    QTreeWidget* m_channels_tree;
+    QTreeWidget* m_fixtures_tree;
+    QTreeWidget* m_channel_groups_tree;
 
     QTextBrowser* m_info;
     FixtureGroupEditor* m_groupEditor;
@@ -192,6 +192,8 @@ private slots:
     void slotProperties();
     void slotUnGroup();
     void slotGroupSelected(QAction* action);
+    void slotMoveGroupUp();
+    void slotMoveGroupDown();
     void slotImport();
     void slotExport();
 
@@ -205,6 +207,10 @@ private:
     QAction* m_groupAction;
     QAction* m_unGroupAction;
     QAction* m_newGroupAction;
+
+    QAction* m_moveUpAction;
+    QAction* m_moveDownAction;
+
     QAction* m_importAction;
     QAction* m_exportAction;
     QMenu* m_groupMenu;

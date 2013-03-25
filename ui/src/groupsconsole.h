@@ -39,13 +39,16 @@ class GroupsConsole : public QWidget
      * Initialization
      *********************************************************************/
 public:
-    GroupsConsole(QWidget* parent, Doc* doc, QList <quint32> ids);
+    GroupsConsole(QWidget* parent, Doc* doc, QList <quint32> ids, QList<uchar> levels);
     ~GroupsConsole();
+
+    QList<ConsoleChannel*>groups();
     
 private:
     Doc* m_doc;
     /** List of active ChannelsGroup IDs */
     QList <quint32> m_ids;
+    QList <uchar> m_levels;
     QList<ConsoleChannel*> m_groups;
 
     /** init the widget view with groups sliders */

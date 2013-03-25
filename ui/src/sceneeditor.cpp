@@ -166,12 +166,23 @@ void SceneEditor::init(bool applyValues)
                                     tr("Copy current values to all fixtures"), this);
     m_colorToolAction = new QAction(QIcon(":/color.png"),
                                     tr("Color tool for CMY/RGB-capable fixtures"), this);
+    m_tabViewAction = new QAction(QIcon(":/tabview.png"),
+                                    tr("Switch between tab view and all channels view"), this);
     m_blindAction = new QAction(QIcon(":/blind.png"),
                                 tr("Toggle blind mode"), this);
     m_speedDialAction = new QAction(QIcon(":/speed.png"),
                                     tr("Show/Hide speed dial window"), this);
     m_recordAction = new QAction(QIcon(":/record.png"),
                                  tr("Clone this scene and append as a new step to the selected chaser"), this);
+
+    m_nextTabAction = new QAction(QIcon(":/forward.png"), tr("Go to next fixture tab"), this);
+    m_nextTabAction->setShortcut(QKeySequence("Alt+Right"));
+    connect(m_nextTabAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotGoToNextTab()));
+    m_prevTabAction = new QAction(QIcon(":/back.png"), tr("Go to previous fixture tab"), this);
+    m_prevTabAction->setShortcut(QKeySequence("Alt+Left"));
+    connect(m_prevTabAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotGoToPreviousTab()));
 
     // Speed Dial initial state
     m_speedDialAction->setCheckable(true);
@@ -190,6 +201,9 @@ void SceneEditor::init(bool applyValues)
         if (m_source != NULL)
             m_source->setOutputEnabled(true);
     }
+
+    m_tabViewAction->setCheckable(true);
+    m_tabViewAction->setChecked(true);
 
     // Chaser combo init
     quint32 selectId = Function::invalidId();
@@ -231,6 +245,8 @@ void SceneEditor::init(bool applyValues)
             this, SLOT(slotColorTool()));
     connect(m_speedDialAction, SIGNAL(toggled(bool)),
             this, SLOT(slotSpeedDialToggle(bool)));
+    connect(m_tabViewAction, SIGNAL(toggled(bool)),
+            this, SLOT(slotViewModeChanged(bool)));
     connect(m_blindAction, SIGNAL(toggled(bool)),
             this, SLOT(slotBlindToggled(bool)));
     connect(m_recordAction, SIGNAL(triggered(bool)),
@@ -246,6 +262,9 @@ void SceneEditor::init(bool applyValues)
     toolBar->addAction(m_enableCurrentAction);
     toolBar->addAction(m_disableCurrentAction);
     toolBar->addSeparator();
+    toolBar->addAction(m_prevTabAction);
+    toolBar->addAction(m_nextTabAction);
+    toolBar->addSeparator();
     toolBar->addAction(m_copyAction);
     toolBar->addAction(m_pasteAction);
     toolBar->addAction(m_copyToAllAction);
@@ -253,6 +272,7 @@ void SceneEditor::init(bool applyValues)
     toolBar->addAction(m_colorToolAction);
     toolBar->addSeparator();
     toolBar->addAction(m_speedDialAction);
+    toolBar->addAction(m_tabViewAction);
     toolBar->addSeparator();
     toolBar->addAction(m_blindAction);
     toolBar->addSeparator();
@@ -275,7 +295,7 @@ void SceneEditor::init(bool applyValues)
             this, SLOT(slotNameEdited(const QString&)));
 
     // Channels groups tab
-    QList<quint32> chGrpIds = m_scene->getChannelGroups();
+    QList<quint32> chGrpIds = m_scene->channelGroups();
     QListIterator <ChannelsGroup*> scg(m_doc->channelsGroups());
     while (scg.hasNext() == true)
     {
@@ -368,7 +388,7 @@ void SceneEditor::slotTabChanged(int tab)
 void SceneEditor::slotEnableCurrent()
 {
     /* QObject cast fails unless the widget is a FixtureConsole */
-    FixtureConsole* fc = consoleTab(m_currentTab);
+    FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
     if (fc != NULL)
         fc->setChecked(true);
 }
@@ -376,7 +396,7 @@ void SceneEditor::slotEnableCurrent()
 void SceneEditor::slotDisableCurrent()
 {
     /* QObject cast fails unless the widget is a FixtureConsole */
-    FixtureConsole* fc = consoleTab(m_currentTab);
+    FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
     if (fc != NULL)
         fc->setChecked(false);
 }
@@ -384,7 +404,7 @@ void SceneEditor::slotDisableCurrent()
 void SceneEditor::slotCopy()
 {
     /* QObject cast fails unless the widget is a FixtureConsole */
-    FixtureConsole* fc = consoleTab(m_currentTab);
+    FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
     if (fc != NULL)
     {
         m_copy = fc->values();
@@ -395,7 +415,7 @@ void SceneEditor::slotCopy()
 void SceneEditor::slotPaste()
 {
     /* QObject cast fails unless the widget is a FixtureConsole */
-    FixtureConsole* fc = consoleTab(m_currentTab);
+    FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
     if (fc != NULL && m_copy.isEmpty() == false)
         fc->setValues(m_copy);
 }
@@ -406,7 +426,7 @@ void SceneEditor::slotCopyToAll()
 
     for (int i = m_fixtureFirstTabIndex; i < m_tab->count(); i++)
     {
-        FixtureConsole* fc = consoleTab(i);
+        FixtureConsole* fc = fixtureConsoleTab(i);
         if (fc != NULL)
             fc->setValues(m_copy);
     }
@@ -418,80 +438,110 @@ void SceneEditor::slotCopyToAll()
 void SceneEditor::slotColorTool()
 {
     /* QObject cast fails unless the widget is a FixtureConsole */
-    FixtureConsole* fc = consoleTab(m_currentTab);
-    if (fc == NULL)
+    FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
+    if (fc != NULL)
+    {
+        Fixture* fxi = m_doc->fixture(fc->fixture());
+        Q_ASSERT(fxi != NULL);
+
+        QSet <quint32> cyan = fxi->channels(CYAN, Qt::CaseInsensitive, QLCChannel::Intensity);
+        QSet <quint32> magenta = fxi->channels(MAGENTA, Qt::CaseInsensitive, QLCChannel::Intensity);
+        QSet <quint32> yellow = fxi->channels(YELLOW, Qt::CaseInsensitive, QLCChannel::Intensity);
+        QSet <quint32> red = fxi->channels(RED, Qt::CaseInsensitive, QLCChannel::Intensity);
+        QSet <quint32> green = fxi->channels(GREEN, Qt::CaseInsensitive, QLCChannel::Intensity);
+        QSet <quint32> blue = fxi->channels(BLUE, Qt::CaseInsensitive, QLCChannel::Intensity);
+
+        if (!cyan.isEmpty() && !magenta.isEmpty() && !yellow.isEmpty())
+        {
+            QColor color;
+            color.setCmyk(fc->value(*cyan.begin()),
+                          fc->value(*magenta.begin()),
+                          fc->value(*yellow.begin()),
+                          0);
+
+            color = QColorDialog::getColor(color);
+            if (color.isValid() == true)
+            {
+                foreach (quint32 ch, cyan)
+                {
+                    fc->setChecked(true, ch);
+                    fc->setValue(ch, color.cyan());
+                }
+
+                foreach (quint32 ch, magenta)
+                {
+                    fc->setChecked(true, ch);
+                    fc->setValue(ch, color.magenta());
+                }
+
+                foreach (quint32 ch, yellow)
+                {
+                    fc->setChecked(true, ch);
+                    fc->setValue(ch, color.yellow());
+                }
+            }
+        }
+        else if (!red.isEmpty() && !green.isEmpty() && !blue.isEmpty())
+        {
+            QColor color;
+            color.setRgb(fc->value(*red.begin()),
+                         fc->value(*green.begin()),
+                         fc->value(*blue.begin()),
+                         0);
+
+            color = QColorDialog::getColor(color);
+            if (color.isValid() == true)
+            {
+                foreach (quint32 ch, red)
+                {
+                    fc->setChecked(true, ch);
+                    fc->setValue(ch, color.red());
+                }
+
+                foreach (quint32 ch, green)
+                {
+                    fc->setChecked(true, ch);
+                    fc->setValue(ch, color.green());
+                }
+
+                foreach (quint32 ch, blue)
+                {
+                    fc->setChecked(true, ch);
+                    fc->setValue(ch, color.blue());
+                }
+            }
+        }
         return;
+    }
 
-    Fixture* fxi = m_doc->fixture(fc->fixture());
-    Q_ASSERT(fxi != NULL);
-
-    QSet <quint32> cyan = fxi->channels(CYAN, Qt::CaseInsensitive, QLCChannel::Intensity);
-    QSet <quint32> magenta = fxi->channels(MAGENTA, Qt::CaseInsensitive, QLCChannel::Intensity);
-    QSet <quint32> yellow = fxi->channels(YELLOW, Qt::CaseInsensitive, QLCChannel::Intensity);
-    QSet <quint32> red = fxi->channels(RED, Qt::CaseInsensitive, QLCChannel::Intensity);
-    QSet <quint32> green = fxi->channels(GREEN, Qt::CaseInsensitive, QLCChannel::Intensity);
-    QSet <quint32> blue = fxi->channels(BLUE, Qt::CaseInsensitive, QLCChannel::Intensity);
-
-    if (!cyan.isEmpty() && !magenta.isEmpty() && !yellow.isEmpty())
+    /* QObject cast fails unless the widget is a GroupsConsole */
+    GroupsConsole* gc = groupConsoleTab(m_currentTab);
+    if (gc != NULL)
     {
-        QColor color;
-        color.setCmyk(fc->value(*cyan.begin()),
-                      fc->value(*magenta.begin()),
-                      fc->value(*yellow.begin()),
-                      0);
-
-        color = QColorDialog::getColor(color);
-        if (color.isValid() == true)
+        QColor color = QColorDialog::getColor(color);
+        foreach(ConsoleChannel *cc, gc->groups())
         {
-            foreach (quint32 ch, cyan)
+            Fixture* fxi = m_doc->fixture(cc->fixture());
+            Q_ASSERT(fxi != NULL);
+            const QLCChannel *ch = fxi->channel(cc->channel());
+            if (ch->group() == QLCChannel::Intensity)
             {
-                fc->setChecked(true, ch);
-                fc->setValue(ch, color.cyan());
-            }
-
-            foreach (quint32 ch, magenta)
-            {
-                fc->setChecked(true, ch);
-                fc->setValue(ch, color.magenta());
-            }
-
-            foreach (quint32 ch, yellow)
-            {
-                fc->setChecked(true, ch);
-                fc->setValue(ch, color.yellow());
+                if (ch->colour() == QLCChannel::Red)
+                    cc->setValue(color.red());
+                else if (ch->colour() == QLCChannel::Green)
+                    cc->setValue(color.green());
+                else if (ch->colour() == QLCChannel::Blue)
+                    cc->setValue(color.blue());
+                else if (ch->colour() == QLCChannel::Magenta)
+                    cc->setValue(color.magenta());
+                else if (ch->colour() == QLCChannel::Yellow)
+                    cc->setValue(color.yellow());
+                else if (ch->colour() == QLCChannel::Cyan)
+                    cc->setValue(color.cyan());
             }
         }
     }
-    else if (!red.isEmpty() && !green.isEmpty() && !blue.isEmpty())
-    {
-        QColor color;
-        color.setRgb(fc->value(*red.begin()),
-                     fc->value(*green.begin()),
-                     fc->value(*blue.begin()),
-                     0);
 
-        color = QColorDialog::getColor(color);
-        if (color.isValid() == true)
-        {
-            foreach (quint32 ch, red)
-            {
-                fc->setChecked(true, ch);
-                fc->setValue(ch, color.red());
-            }
-
-            foreach (quint32 ch, green)
-            {
-                fc->setChecked(true, ch);
-                fc->setValue(ch, color.green());
-            }
-
-            foreach (quint32 ch, blue)
-            {
-                fc->setChecked(true, ch);
-                fc->setValue(ch, color.blue());
-            }
-        }
-    }
 }
 
 void SceneEditor::slotSpeedDialToggle(bool state)
@@ -519,6 +569,88 @@ void SceneEditor::slotModeChanged(Doc::Mode mode)
         m_blindAction->setChecked(true);
     else
         m_blindAction->setChecked(false);
+}
+
+void SceneEditor::slotViewModeChanged(bool toggled)
+{
+    for (int i = m_tab->count() - 1; i >= m_fixtureFirstTabIndex; i--)
+    {
+        QScrollArea* area = qobject_cast<QScrollArea*> (m_tab->widget(i));
+        Q_ASSERT(area != NULL);
+        m_tab->removeTab(i);
+        delete area; // Deletes also FixtureConsole
+    }
+
+    if (toggled == false)
+    {
+        QListIterator <Fixture*> it(selectedFixtures());
+        if (it.hasNext() == true)
+        {
+            QScrollArea* scrollArea = new QScrollArea(m_tab);
+
+            scrollArea->setWidgetResizable(true);
+            int tIdx = m_tab->addTab(scrollArea, tr("All fixtures"));
+            m_tab->setTabToolTip(tIdx, tr("All fixtures"));
+
+            QGroupBox* grpBox = new QGroupBox(scrollArea);
+            grpBox->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
+            QHBoxLayout* fixturesLayout = new QHBoxLayout(grpBox);
+            grpBox->setLayout(fixturesLayout);
+            fixturesLayout->setSpacing(2);
+            fixturesLayout->setContentsMargins(0, 2, 2, 2);
+
+            int c = 0;
+            while (it.hasNext() == true)
+            {
+                Fixture* fixture = it.next();
+                Q_ASSERT(fixture != NULL);
+                FixtureConsole* console = NULL;
+                if (c%2 == 0)
+                    console = new FixtureConsole(scrollArea, m_doc, FixtureConsole::GroupOdd);
+                else
+                    console = new FixtureConsole(scrollArea, m_doc, FixtureConsole::GroupEven);
+                console->setFixture(fixture->id());
+                console->setChecked(false);
+                QListIterator <SceneValue> it(m_scene->values());
+                while (it.hasNext() == true)
+                {
+                    SceneValue scv(it.next());
+                    if (scv.fxi == fixture->id())
+                        console->setSceneValue(scv);
+                }
+                connect(console, SIGNAL(valueChanged(quint32,quint32,uchar)),
+                        this, SLOT(slotValueChanged(quint32,quint32,uchar)));
+                connect(console, SIGNAL(checked(quint32,quint32,bool)),
+                        this, SLOT(slotChecked(quint32,quint32,bool)));
+                fixturesLayout->addWidget(console);
+                c++;
+            }
+            fixturesLayout->addStretch(1);
+            scrollArea->setWidget(grpBox);
+        }
+    }
+    else
+    {
+        QListIterator <Fixture*> it(selectedFixtures());
+        while (it.hasNext() == true)
+        {
+            Fixture* fixture = it.next();
+            Q_ASSERT(fixture != NULL);
+
+            addFixtureTab(fixture);
+            QListIterator <SceneValue> it(m_scene->values());
+            while (it.hasNext() == true)
+            {
+                SceneValue scv(it.next());
+                if (scv.fxi == fixture->id())
+                    setSceneValue(scv);
+            }
+        }
+    }
+    if (m_tab->count() == 0)
+        slotTabChanged(KTabGeneral);
+    else
+        m_tab->setCurrentIndex(m_fixtureFirstTabIndex);
 }
 
 void SceneEditor::slotRecord()
@@ -549,25 +681,51 @@ void SceneEditor::slotChaserComboActivated(int index)
 
 bool SceneEditor::isColorToolAvailable()
 {
-    Fixture* fxi;
-    QColor color;
-    quint32 cyan, magenta, yellow;
-    quint32 red, green, blue;
+    Fixture* fxi = NULL;
+    quint32 cyan = QLCChannel::invalid(), magenta = QLCChannel::invalid(), yellow = QLCChannel::invalid();
+    quint32 red = QLCChannel::invalid(), green = QLCChannel::invalid(), blue = QLCChannel::invalid();
 
     /* QObject cast fails unless the widget is a FixtureConsole */
-    FixtureConsole* fc = consoleTab(m_currentTab);
-    if (fc == NULL)
-        return false;
+    FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
+    if (fc != NULL)
+    {
+        fxi = m_doc->fixture(fc->fixture());
+        Q_ASSERT(fxi != NULL);
 
-    fxi = m_doc->fixture(fc->fixture());
-    Q_ASSERT(fxi != NULL);
+        cyan = fxi->channel(CYAN, Qt::CaseInsensitive, QLCChannel::Intensity);
+        magenta = fxi->channel(MAGENTA, Qt::CaseInsensitive, QLCChannel::Intensity);
+        yellow = fxi->channel(YELLOW, Qt::CaseInsensitive, QLCChannel::Intensity);
+        red = fxi->channel(RED, Qt::CaseInsensitive, QLCChannel::Intensity);
+        green = fxi->channel(GREEN, Qt::CaseInsensitive, QLCChannel::Intensity);
+        blue = fxi->channel(BLUE, Qt::CaseInsensitive, QLCChannel::Intensity);
+    }
 
-    cyan = fxi->channel(CYAN, Qt::CaseInsensitive, QLCChannel::Intensity);
-    magenta = fxi->channel(MAGENTA, Qt::CaseInsensitive, QLCChannel::Intensity);
-    yellow = fxi->channel(YELLOW, Qt::CaseInsensitive, QLCChannel::Intensity);
-    red = fxi->channel(RED, Qt::CaseInsensitive, QLCChannel::Intensity);
-    green = fxi->channel(GREEN, Qt::CaseInsensitive, QLCChannel::Intensity);
-    blue = fxi->channel(BLUE, Qt::CaseInsensitive, QLCChannel::Intensity);
+    GroupsConsole* gc = groupConsoleTab(m_currentTab);
+    if (gc != NULL)
+    {
+        cyan = magenta = yellow = red = green = blue = QLCChannel::invalid();
+        foreach(ConsoleChannel *cc, gc->groups())
+        {
+            fxi = m_doc->fixture(cc->fixture());
+            Q_ASSERT(fxi != NULL);
+            const QLCChannel *ch = fxi->channel(cc->channel());
+            if (ch->group() == QLCChannel::Intensity)
+            {
+                if (ch->colour() == QLCChannel::Red)
+                    red = 1;
+                else if (ch->colour() == QLCChannel::Green)
+                    green = 1;
+                else if (ch->colour() == QLCChannel::Blue)
+                    blue = 1;
+                else if (ch->colour() == QLCChannel::Magenta)
+                    magenta = 1;
+                else if (ch->colour() == QLCChannel::Yellow)
+                    yellow = 1;
+                else if (ch->colour() == QLCChannel::Cyan)
+                    cyan = 1;
+            }
+        }
+    }
 
     if (cyan != QLCChannel::invalid() && magenta != QLCChannel::invalid() &&
         yellow != QLCChannel::invalid())
@@ -757,7 +915,7 @@ void SceneEditor::slotEnableAll()
 {
     for (int i = m_fixtureFirstTabIndex; i < m_tab->count(); i++)
     {
-        FixtureConsole* fc = consoleTab(i);
+        FixtureConsole* fc = fixtureConsoleTab(i);
         if (fc != NULL)
             fc->setChecked(true);
     }
@@ -767,7 +925,7 @@ void SceneEditor::slotDisableAll()
 {
     for (int i = m_fixtureFirstTabIndex; i < m_tab->count(); i++)
     {
-        FixtureConsole* fc = consoleTab(i);
+        FixtureConsole* fc = fixtureConsoleTab(i);
         if (fc != NULL)
             fc->setChecked(false);
     }
@@ -812,7 +970,7 @@ void SceneEditor::slotChannelGroupsChanged(QTreeWidgetItem *item, int column)
     else
         m_scene->removeChannelGroup(grpID);
 
-    qDebug() << Q_FUNC_INFO << "Groups in list: " << m_scene->getChannelGroups().count();
+    qDebug() << Q_FUNC_INFO << "Groups in list: " << m_scene->channelGroups().count();
 
     updateChannelsGroupsTab();
 }
@@ -823,7 +981,7 @@ void SceneEditor::slotChannelGroupsChanged(QTreeWidgetItem *item, int column)
 void SceneEditor::updateChannelsGroupsTab()
 {
     QScrollArea* scrollArea = NULL;
-    QList <quint32> ids = m_scene->getChannelGroups();
+    QList <quint32> ids = m_scene->channelGroups();
 
     if (m_channelGroupsTree->topLevelItemCount() == 0)
     {
@@ -854,16 +1012,31 @@ void SceneEditor::updateChannelsGroupsTab()
         scrollArea = new QScrollArea(m_tab);
     }
 
-    GroupsConsole* console = new GroupsConsole(scrollArea, m_doc, ids);
+    QList<uchar>levels = m_scene->channelGroupsLevels();
+    GroupsConsole* console = new GroupsConsole(scrollArea, m_doc, ids, levels);
     scrollArea->setWidget(console);
     scrollArea->setWidgetResizable(true);
     if (m_channelGroupsTab == -1)
+    {
         m_tab->insertTab(1, scrollArea, tr("Channels Groups"));
+        m_tab->setTabToolTip(1, tr("Channels Groups"));
+    }
 
     m_channelGroupsTab = 1;
     m_fixtureFirstTabIndex = 2;
     connect(console, SIGNAL(groupValueChanged(quint32,uchar)),
             this, SLOT(slotGroupValueChanged(quint32,uchar)));
+}
+
+GroupsConsole *SceneEditor::groupConsoleTab(int tab)
+{
+    if (tab != m_channelGroupsTab)
+        return NULL;
+
+    QScrollArea* area = qobject_cast<QScrollArea*> (m_tab->widget(tab));
+    Q_ASSERT(area != NULL);
+
+    return qobject_cast<GroupsConsole*> (area->widget());
 }
 
 void SceneEditor::slotGroupValueChanged(quint32 groupID, uchar value)
@@ -885,6 +1058,7 @@ void SceneEditor::slotGroupValueChanged(quint32 groupID, uchar value)
                 continue;
             fc->setValue(scv.channel, value);
         }
+        m_scene->setChannelGroupLevel(groupID, value);
     }
 }
 
@@ -899,7 +1073,7 @@ FixtureConsole* SceneEditor::fixtureConsole(Fixture* fixture)
     /* Start from the first fixture tab */
     for (int i = m_fixtureFirstTabIndex; i < m_tab->count(); i++)
     {
-        FixtureConsole* fc = consoleTab(i);
+        FixtureConsole* fc = fixtureConsoleTab(i);
         if (fc != NULL && fc->fixture() == fixture->id())
             return fc;
     }
@@ -913,12 +1087,13 @@ void SceneEditor::addFixtureTab(Fixture* fixture)
 
     /* Put the console inside a scroll area */
     QScrollArea* scrollArea = new QScrollArea(m_tab);
+    scrollArea->setWidgetResizable(true);
 
     FixtureConsole* console = new FixtureConsole(scrollArea, m_doc);
     console->setFixture(fixture->id());
     scrollArea->setWidget(console);
-    scrollArea->setWidgetResizable(true);
-    m_tab->addTab(scrollArea, fixture->name());
+    int tIdx = m_tab->addTab(scrollArea, fixture->name());
+    m_tab->setTabToolTip(tIdx, fixture->name());
 
     /* Start off with all channels disabled */
     console->setChecked(false);
@@ -936,7 +1111,7 @@ void SceneEditor::removeFixtureTab(Fixture* fixture)
     /* Start searching from the first fixture tab */
     for (int i = m_fixtureFirstTabIndex; i < m_tab->count(); i++)
     {
-        FixtureConsole* fc = consoleTab(i);
+        FixtureConsole* fc = fixtureConsoleTab(i);
         if (fc != NULL && fc->fixture() == fixture->id())
         {
             /* First remove the tab because otherwise Qt might
@@ -951,7 +1126,7 @@ void SceneEditor::removeFixtureTab(Fixture* fixture)
     }
 }
 
-FixtureConsole* SceneEditor::consoleTab(int tab)
+FixtureConsole* SceneEditor::fixtureConsoleTab(int tab)
 {
     if (tab >= m_tab->count() || tab <= 0)
         return NULL;
@@ -991,4 +1166,21 @@ void SceneEditor::slotChecked(quint32 fxi, quint32 channel, bool state)
                 m_source->unset(fxi, channel);
         }
     }
+}
+
+void SceneEditor::slotGoToNextTab()
+{
+    m_currentTab++;
+    if (m_currentTab == m_tab->count())
+        m_currentTab = 0;
+    m_tab->setCurrentIndex(m_currentTab);
+}
+
+void SceneEditor::slotGoToPreviousTab()
+{
+    if (m_currentTab == 0)
+        m_currentTab = m_tab->count() - 1;
+    else
+        m_currentTab--;
+    m_tab->setCurrentIndex(m_currentTab);
 }

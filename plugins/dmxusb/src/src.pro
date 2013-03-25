@@ -25,7 +25,7 @@ win32 {
 CONFIG(ftd2xx) {
     win32 {
         # Windows target
-        FTD2XXDIR    = C:/Qt/CDM20824
+        FTD2XXDIR    = C:/Qt/CDM20828
         LIBS        += -L$$FTD2XXDIR/i386 -lftd2xx
         INCLUDEPATH += $$FTD2XXDIR
 		QMAKE_LFLAGS += -shared
@@ -49,6 +49,7 @@ HEADERS += dmxusb.h \
            enttecdmxusbprorx.h \
            enttecdmxusbprotx.h \
            enttecdmxusbopen.h \
+           dmx4all.h \
            qlcftdi.h
 
 SOURCES += dmxusb.cpp \
@@ -58,7 +59,8 @@ SOURCES += dmxusb.cpp \
            enttecdmxusbprorx.cpp \
            enttecdmxusbprotx.cpp \
            enttecdmxusbopen.cpp \
-    ultradmxusbprotx.cpp
+           dmx4all.cpp \
+           ultradmxusbprotx.cpp
 
 CONFIG(ftd2xx) {
     SOURCES += qlcftdi-ftd2xx.cpp
@@ -69,7 +71,7 @@ CONFIG(ftd2xx) {
 unix:!macx {
     # Rules to make USB DMX devices readable & writable by normal users
     udev.path  = /etc/udev/rules.d
-    udev.files = z65-enttec-dmxusb.rules
+    udev.files = z65-dmxusb.rules
     INSTALLS  += udev
 }
 

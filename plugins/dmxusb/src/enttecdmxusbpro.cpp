@@ -32,6 +32,7 @@ EnttecDMXUSBPro::EnttecDMXUSBPro(const QString& serial, const QString& name, con
     // Bypass rts setting by calling parent class' open method
     if (DMXUSBWidget::open() == true)
         extractSerial();
+
     close();
 }
 
@@ -90,6 +91,7 @@ bool EnttecDMXUSBPro::extractSerial()
                                                   uchar(reply[6]),
                                                   uchar(reply[5]),
                                                   uchar(reply[4]));
+            qDebug() << Q_FUNC_INFO << "Serial number OK: " << m_proSerial;
             return true;
         }
         else
@@ -109,3 +111,5 @@ bool EnttecDMXUSBPro::extractSerial()
         return false;
     }
 }
+
+

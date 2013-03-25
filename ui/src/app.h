@@ -57,6 +57,7 @@ class App : public QMainWindow
 public:
     App();
     ~App();
+    void startup();
 
 private:
     void init();

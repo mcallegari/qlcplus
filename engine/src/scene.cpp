@@ -86,6 +86,8 @@ bool Scene::copyFrom(const Function* function)
     m_values = scene->m_values;
     m_channelGroups.clear();
     m_channelGroups = scene->m_channelGroups;
+    m_channelGroupsLevels.clear();
+    m_channelGroupsLevels = scene->m_channelGroupsLevels;
 
     return Function::copyFrom(function);
 }
@@ -150,17 +152,35 @@ void Scene::clear()
 void Scene::addChannelGroup(quint32 id)
 {
     if (m_channelGroups.contains(id) == false)
+    {
         m_channelGroups.append(id);
+        m_channelGroupsLevels.append(0);
+    }
 }
 
 void Scene::removeChannelGroup(quint32 id)
 {
     int idx = m_channelGroups.indexOf(id);
     if (idx != -1)
+    {
         m_channelGroups.removeAt(idx);
+        m_channelGroupsLevels.removeAt(idx);
+    }
 }
 
-QList<quint32> Scene::getChannelGroups()
+void Scene::setChannelGroupLevel(quint32 id, uchar level)
+{
+    int idx = m_channelGroups.indexOf(id);
+    if (idx >= 0 && idx < m_channelGroupsLevels.count())
+        m_channelGroupsLevels[idx] = level;
+}
+
+QList<uchar> Scene::channelGroupsLevels()
+{
+    return m_channelGroupsLevels;
+}
+
+QList<quint32> Scene::channelGroups()
 {
     return m_channelGroups;
 }
@@ -304,7 +324,10 @@ bool Scene::loadXML(const QDomElement& root)
             {
                 QStringList grpArray = chGrpIDs.split(",");
                 foreach(QString grp, grpArray)
+                {
                     m_channelGroups.append(grp.toUInt());
+                    m_channelGroupsLevels.append(0); // @TODO: wanna save this on projects too ?
+                }
             }
         }
         /* "old" style XML */

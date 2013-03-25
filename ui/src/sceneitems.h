@@ -37,6 +37,9 @@
  * Scene Header class. Clickable time line header
  *
  *********************************************************************/
+
+#define HALF_SECOND_WIDTH  25
+
 class SceneHeaderItem :  public QObject, public QGraphicsItem
 {
     Q_OBJECT
@@ -45,12 +48,25 @@ class SceneHeaderItem :  public QObject, public QGraphicsItem
 public:
     SceneHeaderItem(int);
 
+    enum TimeDivision
+    {
+        Time = 0,
+        BPM_4_4,
+        BPM_3_4,
+        BPM_2_4,
+        Invalid
+    };
+
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     void setTimeScale(int val);
     int getTimeScale();
-    int getTimeStep();
+
+    void setTimeDivisionType(TimeDivision type);
+    void setBPMValue(int value);
+
+    int getHalfSecondWidth();
     void setWidth(int);
 
 signals:
@@ -60,9 +76,18 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
 private:
+    /** Total width of the item */
     int m_width;
-    int m_timeStep;
+    /** Distance in pixels between the time division bars */
+    float m_timeStep;
+    /** Divisor of the time division hit bar (the highest bar) */
+    char m_timeHit;
+    /** Scale of the time division */
     int m_timeScale;
+    /** When BPM mode is active, this holds the number of BPM to display */
+    int m_BPMValue;
+    /** The type of time division */
+    TimeDivision m_type;
 };
 
 /***************************************************************************

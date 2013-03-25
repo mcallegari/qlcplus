@@ -64,6 +64,7 @@ ConsoleChannel::ConsoleChannel(QWidget* parent, Doc* doc, quint32 fixture, quint
 
     if (isCheckable == true)
         setCheckable(true);
+    setFocusPolicy(Qt::NoFocus);
     init();
     setStyle(AppUtil::saneStyle());
 }
@@ -91,6 +92,7 @@ void ConsoleChannel::init()
         m_presetButton->setIconSize(QSize(32, 32));
         m_presetButton->setMinimumSize(QSize(32, 32));
         m_presetButton->setMaximumSize(QSize(32, 32));
+        m_presetButton->setFocusPolicy(Qt::NoFocus);
         initMenu();
     }
 
@@ -113,13 +115,17 @@ void ConsoleChannel::init()
     m_slider->setRange(0, UCHAR_MAX);
     m_slider->setPageStep(1);
     m_slider->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+    m_slider->setFocusPolicy(Qt::NoFocus);
 
     /* Channel number label */
     m_label = new QLabel(this);
     m_label->setMinimumWidth(38);
+    m_label->setMaximumWidth(80);
     layout()->addWidget(m_label);
     m_label->setAlignment(Qt::AlignCenter);
     m_label->setText(QString::number(m_channel + 1));
+    m_label->setFocusPolicy(Qt::NoFocus);
+    m_label->setWordWrap(true);
 
     /* Set tooltip */
     if (fxi == NULL || fxi->isDimmer() == true)

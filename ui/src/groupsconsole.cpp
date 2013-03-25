@@ -37,10 +37,11 @@
  * Initialization
  *****************************************************************************/
 
-GroupsConsole::GroupsConsole(QWidget* parent, Doc* doc, QList <quint32> ids)
+GroupsConsole::GroupsConsole(QWidget* parent, Doc* doc, QList <quint32> ids, QList<uchar> levels)
     : QWidget(parent)
     , m_doc(doc)
     , m_ids(ids)
+    , m_levels(levels)
 {
     Q_ASSERT(doc != NULL);
     new QHBoxLayout(this);
@@ -52,8 +53,14 @@ GroupsConsole::~GroupsConsole()
 {
 }
 
+QList<ConsoleChannel *> GroupsConsole::groups()
+{
+    return m_groups;
+}
+
 void GroupsConsole::init()
 {
+    int idx = 0;
     foreach(quint32 id, m_ids)
     {
         ChannelsGroup *grp = m_doc->channelsGroup(id);
@@ -62,11 +69,14 @@ void GroupsConsole::init()
         ConsoleChannel* cc = new ConsoleChannel(this, m_doc, scv.fxi, scv.channel);
         cc->setLabel(grp->name());
         cc->setChannelsGroup(id);
+        if (idx < m_levels.count())
+            cc->setValue(m_levels.at(idx));
         layout()->addWidget(cc);
         m_groups.append(cc);
 
         connect(cc, SIGNAL(groupValueChanged(quint32, uchar)),
                 this, SIGNAL(groupValueChanged(quint32, uchar)));
+        idx++;
     }
     /* Make a spacer item eat excess space to justify channels left */
     layout()->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding));

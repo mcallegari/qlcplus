@@ -599,6 +599,7 @@ void VCCueList_Test::nextPrevious()
     cl.slotNextCue();
     QVERIFY(cl.m_runner != NULL);
     timer->timerTick();
+    timer->timerTick();
     QCOMPARE(timer->runningFunctions(), 1);
     QCOMPARE(timer->m_functionList[0], s1);
     timer->timerTick();
@@ -610,9 +611,8 @@ void VCCueList_Test::nextPrevious()
 
     cl.slotNextCue();
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 2); // DMX sources are run after functions, so
-    QCOMPARE(timer->m_functionList[0], s1); // the function will be removed in the next
-    QCOMPARE(timer->m_functionList[1], s2); // round.
+    QCOMPARE(timer->runningFunctions(), 1); // here there is still one function and the switch
+    QCOMPARE(timer->m_functionList[0], s1); // to the new one will be done in the next tick
     timer->timerTick();
     QCOMPARE(timer->runningFunctions(), 1);
     QCOMPARE(timer->m_functionList[0], s2);
@@ -622,9 +622,8 @@ void VCCueList_Test::nextPrevious()
 
     cl.slotNextCue();
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 2); // DMX sources are run after functions, so
-    QCOMPARE(timer->m_functionList[0], s2); // the function will be removed in the next
-    QCOMPARE(timer->m_functionList[1], s3); // round.
+    QCOMPARE(timer->runningFunctions(), 1); // here there is still one function and the switch
+    QCOMPARE(timer->m_functionList[0], s2); // to the new one will be done in the next tick
     timer->timerTick();
     QCOMPARE(timer->runningFunctions(), 1);
     QCOMPARE(timer->m_functionList[0], s3);
@@ -634,9 +633,8 @@ void VCCueList_Test::nextPrevious()
 
     cl.slotPreviousCue();
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 2); // DMX sources are run after functions, so
-    QCOMPARE(timer->m_functionList[0], s3); // the function will be removed in the next
-    QCOMPARE(timer->m_functionList[1], s2); // round.
+    QCOMPARE(timer->runningFunctions(), 1); // here there is still one function and the switch
+    QCOMPARE(timer->m_functionList[0], s3); // to the new one will be done in the next tick
     timer->timerTick();
     QCOMPARE(timer->runningFunctions(), 1);
     QCOMPARE(timer->m_functionList[0], s2);
@@ -646,9 +644,8 @@ void VCCueList_Test::nextPrevious()
 
     cl.slotPreviousCue();
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 2); // DMX sources are run after functions, so
-    QCOMPARE(timer->m_functionList[0], s2); // the function will be removed in the next
-    QCOMPARE(timer->m_functionList[1], s1); // round.
+    QCOMPARE(timer->runningFunctions(), 1); // here there is still one function and the switch
+    QCOMPARE(timer->m_functionList[0], s2); // to the new one will be done in the next tick
     timer->timerTick();
     QCOMPARE(timer->runningFunctions(), 1);
     QCOMPARE(timer->m_functionList[0], s1);
@@ -659,9 +656,8 @@ void VCCueList_Test::nextPrevious()
     // Wrap around to the last cue
     cl.slotPreviousCue();
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 2); // DMX sources are run after functions, so
-    QCOMPARE(timer->m_functionList[0], s1); // the function will be removed in the next
-    QCOMPARE(timer->m_functionList[1], s4); // round.
+    QCOMPARE(timer->runningFunctions(), 1); // here there is still one function and the switch
+    QCOMPARE(timer->m_functionList[0], s1); // to the new one will be done in the next tick
     timer->timerTick();
     QCOMPARE(timer->runningFunctions(), 1);
     QCOMPARE(timer->m_functionList[0], s4);
@@ -672,9 +668,8 @@ void VCCueList_Test::nextPrevious()
     // Wrap around to the next cue
     cl.slotNextCue();
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 2); // DMX sources are run after functions, so
-    QCOMPARE(timer->m_functionList[0], s4); // the function will be removed in the next
-    QCOMPARE(timer->m_functionList[1], s1); // round.
+    QCOMPARE(timer->runningFunctions(), 1); // here there is still one function and the switch
+    QCOMPARE(timer->m_functionList[0], s4); // to the new one will be done in the next tick
     timer->timerTick();
     QCOMPARE(timer->runningFunctions(), 1);
     QCOMPARE(timer->m_functionList[0], s1);
@@ -704,6 +699,7 @@ void VCCueList_Test::manualActivation()
     cl.slotItemActivated(cl.m_tree->topLevelItem(2));
     QVERIFY(cl.m_runner != NULL);
     timer->timerTick();
+    timer->timerTick();
     QCOMPARE(timer->runningFunctions(), 1);
     QCOMPARE(timer->m_functionList[0], s3);
     timer->timerTick();
@@ -728,9 +724,8 @@ void VCCueList_Test::manualActivation()
     // Another item
     cl.slotItemActivated(cl.m_tree->topLevelItem(0));
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 2); // DMX sources are run after functions, so
-    QCOMPARE(timer->m_functionList[0], s3); // the function will be removed in the next
-    QCOMPARE(timer->m_functionList[1], s1); // round.
+    QCOMPARE(timer->runningFunctions(), 1); // DMX sources are run after functions, so
+    QCOMPARE(timer->m_functionList[0], s3); // the function will be removed in the next round
     timer->timerTick();
     QCOMPARE(timer->runningFunctions(), 1);
     QCOMPARE(timer->m_functionList[0], s1);

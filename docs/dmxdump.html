@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - DMX Dump</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>DMX Dump</H1>
+
+<P>
+The DMX Dump functionality allows you to save the current DMX values that are sent to the ouput universes
+in a particular moment. Basically it makes a "screenshot" of DMX channels and saves them for a later use.<br>
+DMX Dump can save values to a new <A HREF="concept.html#Scene">Scene</A> and also add the newly created 
+Scene into an existing <A HREF="concept.html#Chaser">Chaser</A>.<br><br>
+
+Please note that:
+<ul>
+ <li>Selected Channels/Chasers will be remembered when re-opening this window</li>
+ <li>The DMX values saved are taken before the Grand Master</li>
+</ul>
+When opening the DMX Dump window, the following options will appear:<br>
+
+<TABLE BORDER="1">
+ <TR>
+  <TD><b>Scene name</b></TD>
+  <TD>
+   Defines the name that the Scene that will be created will have. If none specified, a default 
+   name like "New Scene From Live" and a numeric identification will be set for fast use of this functionality.
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Dump all channels</B></TD>
+  <TD>
+   If this option is selected, QLC+ will dump all the channels of all the universes and all the fixtures.
+   To inform the user about what this option will do, a report in the form of (Universes, Fixtures, Channels) 
+   will be displayed.
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Dump selected channels</B></TD>
+  <TD>
+   If this option is selected, the panel below will be activated, allowing you to choose exactly the channels
+   that you need to be saved into a Scene. They're organized in a tree by Universes and Fixtures.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Add to Chaser</B>
+  </TD>
+  <TD>
+   The chasers panel is filled with all the chasers present when DMX Dump window is openend. Each Chaser
+   has a checkbox that, if checked, will tell QLC+ to add the newly created Scene to the selected chasers.<br>
+   This feature is nice when using <A HREF="vccuelist.html">Cue Lists</A> in the 
+   <A HREF="virtualconsole.html">Virtual Console</A> panel. In this case, the newly created Scene will appear
+   in the Cue List for immediate use during a live performance.
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Dump only non-zero values</B></TD>
+  <TD>
+   This option will tell QLC+ to save only the channels with values <b>not</b> equal to zero.<br>
+   If you know what you're doing, this could save project space and avoid channels conflicts with other
+   Virtual Console widgets.
+  </TD>
+ </TR>
+</TABLE>
+
+</P>
+
+</BODY>
+</HTML>

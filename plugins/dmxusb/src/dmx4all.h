@@ -1,6 +1,6 @@
 /*
-  Q Light Controller
-  ultradmxusbprotx.h
+  Q Light Controller Plus
+  dmx4all.h
 
   Copyright (C) Massimo Callegari
 
@@ -16,44 +16,31 @@
 
   You should have received a copy of the GNU General Public License
   along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA
+  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 */
 
-#ifndef ULTRADMXUSBPROTX_H
-#define ULTRADMXUSBPROTX_H
+#ifndef STAGEPROFI_H
+#define STAGEPROFI_H
 
-#include "enttecdmxusbpro.h"
+#include "dmxusbwidget.h"
 
-#define SEND_DMX_PORT1          0x64
-#define SEND_DMX_PORT2          0x65
-#define USB_DEVICE_MANUFACTURER 0x4D
-#define USB_DEVICE_NAME         0x4E
+class QLCFTDI;
 
-#define DMXKING_ESTA_ID         0x6A6B
-#define ULTRADMX_DMX512A_DEV_ID 0x00
-#define ULTRADMX_PRO_DEV_ID     0x02
-#define ULTRADMX_MICRO_DEV_ID   0x03
-
-
-class UltraDMXUSBProTx : public EnttecDMXUSBPro
+class DMX4ALL : public DMXUSBWidget
 {
     /************************************************************************
      * Initialization
      ************************************************************************/
 public:
-    UltraDMXUSBProTx(const QString& serial, const QString& name, const QString& vendor,
-                     int port = 0, QLCFTDI *ftdi = NULL, quint32 id = 0);
-    ~UltraDMXUSBProTx();
+    DMX4ALL(const QString& serial, const QString& name, const QString& vendor,
+                    QLCFTDI *ftdi = NULL, quint32 id = 0);
+    virtual ~DMX4ALL();
 
     /** @reimp */
-    Type type() const;
-
-private:
-    Type m_type;
-    int m_port;
+    DMXUSBWidget::Type type() const;
 
     /************************************************************************
-     * Open & Close
+     * Widget functions
      ************************************************************************/
 public:
     /** @reimp */
@@ -62,19 +49,18 @@ public:
     /** @reimp */
     QString uniqueName() const;
 
-    /****************************************************************************
-     * Name & Serial
-     ****************************************************************************/
-public:
     /** @reimp */
     QString additionalInfo() const;
 
-    /************************************************************************
-     * Write universe
-     ************************************************************************/
-public:
     /** @reimp */
     bool writeUniverse(const QByteArray& universe);
+
+private:
+    bool checkReply();
+    bool sendChannelValue(int channel, uchar value);
+
+private:
+    QByteArray m_universe;
 };
 
-#endif // ULTRADMXUSBPROTX_H
+#endif

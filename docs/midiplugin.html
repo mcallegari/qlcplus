@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - MIDI Plugin</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>Introduction</H1>
+<P>
+This plugin gives input/output support for the <a href="http://en.wikipedia.org/wiki/MIDI">MIDI protocol</a>
+and leave the user the freedom to control typical parameters like channels, Program Change, Control Change.<br>
+
+The MIDI plugin can be quite powerful used in combination with MIDI devices such as keyboards, MIDI controllers 
+(like Behringer BCF2000 or KORG nanoKONTROL) or software audio sequencer like Cubase or Ardour 3.<br>
+The usage can vary from fader-to-fader controlling (the BCF2000 case) to sequence triggering for synchronized
+shows (metronome controlled gigs using an audio sequencer)
+</P>
+
+<H1>Configuration</H1>
+
+<P>
+When clicking on the configuration button, a window will appear, showing all the MIDI input and output lines
+detected.<br>
+Each line has two options that can be changed depending on your needs:
+<ul>
+ <li><b>MIDI Channel</b>: This is the channel where QLC+ will receive or send data through the MIDI system. MIDI channels can go
+     from 1 to 16. The special "1-16" channel will tell QLC+ to receive or send data on any MIDI channel.
+ </li>
+ <li><b>Mode</b>: This is the MIDI mode that QLC+ will use to receive/send data through the MIDI system. 
+     This parameter can assume two possible values:
+     <ul>
+      <li><b>Note velocity</b>: in this mode, QLC+ will receive/send data using MIDI notes velocity. MIDI notes can go from 21 (A0) to 108 (C8) and 
+          each note can have a velocity going from 0 to 127, which will be doubled inside QLC+ to fit the DMX range (0-255).
+      </li>
+      <li><b>Control Change</b>: this is one of the MIDI protocol messages (like Program Change) frequently used by MIDI controllers.
+      Each device should list the supported CC messages in its user manual, so please consult it before using this mode. CC range can go
+      from 0 to 127 and can carry values from 0 to 127, which will be doubled inside QLC+ to fit the DMX range (0-255).
+      </li>
+     </ul>
+ </li>
+</ul>
+</P>
+
+<H1>Feedbacks</H1>
+
+<P>
+At the moment, the MIDI plugin is the only one supporting feedbacks. When QLC+ detects a MIDI device with an output line, it will
+enable the feedback check box in the <A HREF="howto-input-output-mapping.html">Input/Output panel</A>. Please note that output
+and feedbacks are exclusive, so they cannot be used both at the same time.<br>
+If your MIDI device supports a return channel, QLC+ can send a visual/mechanical feedback to it. Devices such as Behringer BCF2000 support this feature.
+This is very useful during live shows, to have an immediate feeling of the current state of faders controlled by QLC+.<br><br>
+
+A small trick that can be achieved with QLC+, is to use feedbacks as a generic MIDI output line to trigger external controllers/sequencers.<br>
+Let's make some examples:
+<ul>
+ <li>Input: <b>OSC</b> ---> Output: <b>DMX USB</b> --> Feedback: <b>MIDI</b></li>
+ <li>Input: <b>Enttec Wing</b> --> Output: <b>ArtNet</b> --> Feedback: <b>MIDI</b></li>
+</ul>
+</P>
+
+</BODY>
+</HTML>

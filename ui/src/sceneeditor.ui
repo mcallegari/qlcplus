@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>627</width>
-    <height>536</height>
+    <height>422</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -20,13 +20,28 @@
    <string>Scene editor</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="leftMargin">
+    <number>9</number>
+   </property>
+   <property name="topMargin">
+    <number>2</number>
+   </property>
+   <property name="bottomMargin">
+    <number>2</number>
+   </property>
    <item>
     <widget class="QTabWidget" name="m_tab">
      <property name="currentIndex">
       <number>0</number>
      </property>
+     <property name="elideMode">
+      <enum>Qt::ElideRight</enum>
+     </property>
      <widget class="QWidget" name="General">
       <attribute name="title">
+       <string>General</string>
+      </attribute>
+      <attribute name="toolTip">
        <string>General</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout">

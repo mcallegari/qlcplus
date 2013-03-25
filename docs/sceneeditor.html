@@ -9,62 +9,67 @@
 <H1>Scene Editor</H1>
 <P>
 The scene editor, as its name suggests, is used to edit
-<A HREF="concept.html#Scene">scene</A> functions. The editor is divided into
-tabs; with the first, <B>General</B> tab, you control the list of fixtures that take
-part in the scene, the scene's name and the scene's fade speeds.
-All subsequent tabs are used to control the individual channel values for each fixture.
+<A HREF="concept.html#Scene">Scene</A> functions. The editor is divided into
+tabs; with the first, <B>General</B> tab, you control the list of fixtures 
+and <A HREF="concept.html#Channelgroups">channel groups</A> that take part in the scene editing,
+together with the Scene name.<br>
+All subsequent tabs are used to control the individual channel values for each fixture
+and, if defined, the channels groups values.
 </P>
 
 <H2>General Tab Controls</H2>
 
 <P>
-<B>Note:</B> The toolbar on top of the editor is disabled completely while the
-<B>General</B> tab is visible.
+On the left part of the screen, are displayed the buttons to control the fixtures used in the scene<br>
 </P>
 
 <TABLE BORDER="1">
  <TR>
-  <TD>
-   <B>Scene name</B>
-  </TD>
-  <TD>
-   Change the name of the scene.
-  </TD>
+  <TD><B>Scene name</B></TD>
+  <TD>Change the name of the scene.</TD>
  </TR>
  <TR>
-  <TD>
-   <IMG SRC="qrc:/edit_add.png">
-  </TD>
-  <TD>
-   Add an existing <A HREF="concept.html#Fixtures">Fixture</A> to the scene.
-  </TD>
+  <TD><IMG SRC="qrc:/edit_add.png"></TD>
+  <TD>Add an existing <A HREF="concept.html#Fixtures">Fixture</A> to the scene.</TD>
  </TR>
  <TR>
-  <TD>
-   <IMG SRC="qrc:/edit_remove.png">
-  </TD>
-  <TD>
-   Remove the selected <A HREF="concept.html#Fixtures">Fixture(s)</A> from the
-   scene.
-  </TD>
+  <TD><IMG SRC="qrc:/edit_remove.png"></TD>
+  <TD>Remove the selected <A HREF="concept.html#Fixtures">Fixture(s)</A> from the scene.</TD>
  </TR>
  <TR>
-  <TD>
-   <IMG SRC="qrc:/check.png">
-  </TD>
-  <TD>
-   Enable all channels of all selected fixtures.
-  </TD>
+  <TD><IMG SRC="qrc:/check.png"></TD>
+  <TD>Enable all channels of all selected fixtures.</TD>
  </TR>
  <TR>
-  <TD>
-   <IMG SRC="qrc:/uncheck.png">
-  </TD>
-  <TD>
-   Disable all channels of all selected fixtures.
-  </TD>
+  <TD><IMG SRC="qrc:/uncheck.png"></TD>
+  <TD>Disable all channels of all selected fixtures.</TD>
  </TR>
 </TABLE>
+
+<P>
+On the right part of the screen, are displayed the buttons to control the 
+<A HREF="concept.html#Channelgroups">channel groups</A> used in the scene<br>
+</P>
+
+<TABLE BORDER="1">
+ <TR>
+  <TD><IMG SRC="qrc:/check.png"></TD>
+  <TD>Enable all the selected channel groups.</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/uncheck.png"></TD>
+  <TD>Disable all the selected channel groups.</TD>
+ </TR>
+</TABLE>
+
+<H2>Channel Groups Tabs</H2>
+
+<P>
+This tab will be displayed only if one or more channel groups are selected in the General tab.<br>
+Each Channel Group will be displayed with a quick macro access button 
+(<A HREF="concept.html#ClickAndGo">Click And Go</A> if supported), 
+a label with the group value, a fader, and the name of the group.
+</P>
 
 <H2>Fixture Tabs</H2>
 
@@ -75,7 +80,8 @@ box on top of the channel unit. The value of each channel can be set either by
 typing the value to the edit box on top of the slider or by moving the slider.
 Channels that provide multiple functions such as gobos, colors, etc. have also
 a button above the channel slider; this button can be used to directly select
-a specific function or capability provided by that channel.
+a specific function or capability provided by that channel.<br>
+<b>Hint</b>: The keyboard shortcut to move between channels values edit boxes it <b>Tab</b>
 </P>
 
 <H3>Channel enabled/disabled status</H3>
@@ -97,52 +103,43 @@ want to fade in or fade out with the dimmer channel.
 
 <TABLE BORDER="1">
  <TR>
-  <TD>
-   <IMG SRC="qrc:/check.png">
-  </TD>
-  <TD>
-   Enable all channels from the current fixture.
-  </TD>
+  <TD><IMG SRC="qrc:/check.png"></TD>
+  <TD>Enable all channels from the current fixture.</TD>
  </TR>
  <TR>
-  <TD>
-   <IMG SRC="qrc:/uncheck.png">
-  </TD>
-  <TD>
-   Disable all channels from the current fixture.
-  </TD>
+  <TD><IMG SRC="qrc:/uncheck.png"></TD>
+  <TD>Disable all channels from the current fixture.</TD>
  </TR>
  <TR>
-  <TD>
-   <IMG SRC="qrc:/editcopy.png">
-  </TD>
+  <TD><IMG SRC="qrc:/back.png"></TD>
+  <TD>Go to the previous tab in the view. If the first tab is selected, 
+  this will go to the last tab in the view. Keyboard shortcut: <b>ALT+Left</b></TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/forward.png"></TD>
+  <TD>Go to the next tab in the view. If the last tab is selected, 
+  this will go to the first tab in the view. Keyboard shortcut: <b>ALT+Right</b></TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/editcopy.png"></TD>
   <TD>
    Copy the values (and enabled/disabled states) of all channels in the current
    fixture to the clipboard.
   </TD>
  </TR>
  <TR>
-  <TD>
-   <IMG SRC="qrc:/editpaste.png">
-  </TD>
-  <TD>
-   Paste values (and enabled/disabled states) from clipboard to the current
-   fixture.
-  </TD>
+  <TD><IMG SRC="qrc:/editpaste.png"></TD>
+  <TD>Paste values (and enabled/disabled states) from clipboard to the current fixture. </TD>
  </TR>
  <TR>
-  <TD>
-   <IMG SRC="qrc:/editcopyall.png">
-  </TD>
+  <TD><IMG SRC="qrc:/editcopyall.png"></TD>
   <TD>
    Copy all values (and enabled/disabled states) of all channels to all other
    fixtures taking part in the scene.
   </TD>
  </TR>
  <TR>
-  <TD>
-   <IMG SRC="qrc:/color.png">
-  </TD>
+  <TD><IMG SRC="qrc:/color.png"></TD>
   <TD>
    Launch a colour tool to select a specific colour and set that colour to the
    current fixture; This feature is enabled only for fixtures that are
@@ -150,14 +147,25 @@ want to fade in or fade out with the dimmer channel.
   </TD>
  </TR>
  <TR>
-  <TD>
-   <IMG SRC="qrc:/blind.png">
-  </TD>
-  <TD>
-   Toggle blind mode for the selected fixture.
-  </TD>
+  <TD><IMG SRC="qrc:/speed.png"></TD>
+  <TD>Show/Hide the Speed Dial widget, used to facilitate the Scene parameters 
+  tuning like Fade In and Fade Out</TD>
  </TR>
-
+ <TR>
+  <TD><IMG SRC="qrc:/tabview.png"></TD>
+  <TD>Switch between "tab view" and "all channels view". 
+  The first mode will display one tab for each fixture, while the second will 
+  display a unique tab for all the fixtures</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/blind.png"></TD>
+  <TD>Toggle blind mode for the selected fixture.</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/record.png"></TD>
+  <TD>Clone the current scene and add a new step to the Chaser selected from the
+  drop down list beside this button</TD>
+ </TR>
 </TABLE>
 
 </BODY>

@@ -6,34 +6,34 @@
     <message>
         <location filename="dmxusb.cpp" line="136"/>
         <source>This plugin provides DMX output support for</source>
-        <translation type="unfinished">Ce greffon active la sortie DMX pour</translation>
+        <translation>Ce greffon active la sortie DMX pour</translation>
     </message>
     <message>
         <location filename="dmxusb.cpp" line="139"/>
         <source>and compatible devices.</source>
-        <translation type="unfinished">et périphériques compatibles.</translation>
+        <translation>et périphériques compatibles.</translation>
     </message>
     <message>
         <location filename="dmxusb.cpp" line="153"/>
         <source>No output support available.</source>
-        <translation type="unfinished">Fonctions de Sorties indisponibles.</translation>
+        <translation>Fonctions de Sorties indisponibles.</translation>
     </message>
     <message>
         <location filename="dmxusb.cpp" line="155"/>
         <source>Make sure that you have your hardware firmly plugged in. NOTE: FTDI VCP interface is not supported by this plugin.</source>
-        <translation type="unfinished">Assurez vous que le périphérique est bien branché.
+        <translation>Assurez vous que le périphérique est bien branché.
 NOTE : L&apos;interface VCP FTDI ne fonctionne pas avec ce greffon.</translation>
     </message>
     <message>
         <location filename="dmxusb.cpp" line="164"/>
         <location filename="dmxusb.cpp" line="231"/>
         <source>Device is operating correctly.</source>
-        <translation type="unfinished">Le périphérique fonctionne correctement.</translation>
+        <translation>Le périphérique fonctionne correctement.</translation>
     </message>
     <message>
         <location filename="dmxusb.cpp" line="218"/>
         <source>No input support available.</source>
-        <translation type="unfinished">Fonctions d&apos;Entrées indisponibles.</translation>
+        <translation>Fonctions d&apos;Entrées indisponibles.</translation>
     </message>
 </context>
 <context>
@@ -41,22 +41,22 @@ NOTE : L&apos;interface VCP FTDI ne fonctionne pas avec ce greffon.</translation
     <message>
         <location filename="dmxusbconfig.cpp" line="46"/>
         <source>Refresh</source>
-        <translation type="unfinished">Rafraichir</translation>
+        <translation>Rafraichir</translation>
     </message>
     <message>
         <location filename="dmxusbconfig.cpp" line="47"/>
         <source>Close</source>
-        <translation type="unfinished">Fermer</translation>
+        <translation>Fermer</translation>
     </message>
     <message>
         <location filename="dmxusbconfig.cpp" line="55"/>
         <source>Name</source>
-        <translation type="unfinished">Nom</translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <location filename="dmxusbconfig.cpp" line="55"/>
         <source>Serial</source>
-        <translation type="unfinished">N° de Série</translation>
+        <translation>N° de Série</translation>
     </message>
 </context>
 <context>
@@ -84,7 +84,7 @@ NOTE : L&apos;interface VCP FTDI ne fonctionne pas avec ce greffon.</translation
     <message>
         <location filename="enttecdmxusbopen.cpp" line="111"/>
         <source>Patch this widget to a universe to find out.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Patcher le greffon à un Univers.</translation>
     </message>
     <message>
         <location filename="enttecdmxusbopen.cpp" line="112"/>
@@ -106,7 +106,7 @@ NOTE : L&apos;interface VCP FTDI ne fonctionne pas avec ce greffon.</translation
         <location filename="enttecdmxusbprotx.cpp" line="135"/>
         <location filename="ultradmxusbprotx.cpp" line="79"/>
         <source>Serial number</source>
-        <translation type="unfinished"></translation>
+        <translation>N° de Série</translation>
     </message>
     <message>
         <location filename="enttecdmxusbprorx.cpp" line="49"/>
@@ -128,7 +128,7 @@ NOTE : L&apos;interface VCP FTDI ne fonctionne pas avec ce greffon.</translation
         <location filename="enttecdmxusbprotx.cpp" line="132"/>
         <location filename="ultradmxusbprotx.cpp" line="76"/>
         <source>Manufacturer</source>
-        <translation type="unfinished"></translation>
+        <translation>Fabricant</translation>
     </message>
 </context>
 </TS>

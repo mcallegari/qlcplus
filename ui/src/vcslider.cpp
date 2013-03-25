@@ -136,9 +136,6 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
     /* Click & Go button */
     m_cngType = ClickAndGoWidget::None;
-    m_cngBox = new QHBoxLayout();
-    layout()->addItem(m_cngBox);
-    m_cngBox->addStretch();
 
     m_cngButton = new QToolButton(this);
     m_cngButton->setFixedSize(48, 48);
@@ -150,9 +147,10 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_menu->addAction(action);
     m_cngButton->setMenu(m_menu);
     m_cngButton->setPopupMode(QToolButton::InstantPopup);
-    m_cngBox->addWidget(m_cngButton);
-    m_cngBox->addStretch();
+    layout()->addWidget(m_cngButton);
+    layout()->setAlignment(m_cngButton, Qt::AlignHCenter);
     m_cngButton->hide();
+
     connect(m_cngWidget, SIGNAL(levelChanged(uchar)),
             this, SLOT(slotClickAndGoLevelChanged(uchar)));
     connect(m_cngWidget, SIGNAL(colorChanged(QRgb)),
@@ -164,6 +162,7 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_bottomLabel = new QLabel(this);
     layout()->addWidget(m_bottomLabel);
     m_bottomLabel->setAlignment(Qt::AlignCenter);
+    m_bottomLabel->setWordWrap(true);
     m_bottomLabel->hide();
 
     setMinimumSize(20, 20);

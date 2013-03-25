@@ -1,9 +1,9 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition>
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.3.0-r2741</Version>
-  <Author>janek3</Author>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.3.0</Version>
+  <Author>Jano Svitok</Author>
  </Creator>
  <Manufacturer>Varytec</Manufacturer>
  <Model>Gigabar II</Model>
@@ -171,7 +171,7 @@
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
    <Dimensions Width="965" Height="64" Weight="4.3" Depth="153"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Lens DegreesMax="40" Name="Other" DegreesMin="40"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="20" DmxConnector="3-pin"/>
   </Physical>
@@ -183,7 +183,7 @@
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
    <Dimensions Width="965" Height="64" Weight="4.3" Depth="153"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Lens DegreesMax="40" Name="Other" DegreesMin="40"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="20" DmxConnector="3-pin"/>
   </Physical>
@@ -197,7 +197,7 @@
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
    <Dimensions Width="965" Height="64" Weight="4.3" Depth="153"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Lens DegreesMax="40" Name="Other" DegreesMin="40"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="20" DmxConnector="3-pin"/>
   </Physical>
@@ -224,7 +224,7 @@
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
    <Dimensions Width="965" Height="64" Weight="4.3" Depth="153"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Lens DegreesMax="40" Name="Other" DegreesMin="40"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="20" DmxConnector="3-pin"/>
   </Physical>
@@ -267,7 +267,7 @@
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
    <Dimensions Width="965" Height="64" Weight="4.3" Depth="153"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Lens DegreesMax="40" Name="Other" DegreesMin="40"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="20" DmxConnector="3-pin"/>
   </Physical>
@@ -340,7 +340,7 @@
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
    <Dimensions Width="965" Height="64" Weight="4.3" Depth="153"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Lens DegreesMax="40" Name="Other" DegreesMin="40"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="20" DmxConnector="3-pin"/>
   </Physical>
