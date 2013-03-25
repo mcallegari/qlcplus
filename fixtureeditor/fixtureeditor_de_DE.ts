@@ -197,7 +197,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="capabilitywizard.ui" line="13"/>
         <source>Capability Wizard</source>
-        <translation>Funktions Wizard</translation>
+        <translation>Funktions Assistent</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="19"/>
@@ -326,28 +326,28 @@ p, li { white-space: pre-wrap; }
         <location filename="editcapability.ui" line="154"/>
         <location filename="editcapability.ui" line="165"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="editcapability.ui" line="172"/>
         <source>Picture</source>
-        <translation type="unfinished"></translation>
+        <translation>Bild</translation>
     </message>
     <message>
         <location filename="editcapability.ui" line="179"/>
         <location filename="editcapability.cpp" line="47"/>
         <source>Colour</source>
-        <translation type="unfinished">Farbe</translation>
+        <translation>Farbe</translation>
     </message>
     <message>
         <location filename="editcapability.ui" line="186"/>
         <source>Second Colour</source>
-        <translation type="unfinished"></translation>
+        <translation>Zweite Farbe</translation>
     </message>
     <message>
         <location filename="editcapability.cpp" line="49"/>
         <source>Effect</source>
-        <translation type="unfinished"></translation>
+        <translation>Effekt</translation>
     </message>
     <message>
         <location filename="editcapability.cpp" line="137"/>
@@ -599,27 +599,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editmode.ui" line="396"/>
         <source>HMI 150W</source>
-        <translation type="unfinished"></translation>
+        <translation>HMI 150W</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="401"/>
         <source>HMI 250W</source>
-        <translation type="unfinished"></translation>
+        <translation>HMI 250W</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="406"/>
         <source>HMI 400W</source>
-        <translation type="unfinished"></translation>
+        <translation>HMI 400W</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="411"/>
         <source>HMI 575W</source>
-        <translation type="unfinished"></translation>
+        <translation>HMI 575W</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="416"/>
         <source>HMI 700W</source>
-        <translation type="unfinished"></translation>
+        <translation>HMI 700W</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="509"/>
