@@ -392,7 +392,7 @@ void ShowManager::slotAddTrack()
     QList <quint32> disabledIDs;
     if (m_show->tracks().count() > 0)
     {
-        /** Add already Scene IDs already assigned in this Show */
+        /** Add Scene IDs already assigned in this Show */
         foreach (Track *track, m_show->tracks())
             disabledIDs.append(track->getSceneID());
     }
