@@ -695,6 +695,7 @@ void EFXEditor::slotFadeOutChanged(int ms)
 void EFXEditor::slotDurationChanged(int ms)
 {
     m_efx->setDuration(ms);
+    redrawPreview();
 }
 
 void EFXEditor::slotFixtureRemoved()
@@ -865,5 +866,5 @@ void EFXEditor::redrawPreview()
     QVector <QPoint> points;
     m_efx->preview(m_efx->direction(), points);
     m_previewArea->setPoints(points);
-    m_previewArea->draw();
+    m_previewArea->draw(m_efx->duration() / points.size());
 }
