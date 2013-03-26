@@ -52,6 +52,7 @@ fixtures.files += Eurolite-LED-PAR56.qxf
 fixtures.files += Eurolite-LED-PAR64-RGBA.qxf
 fixtures.files += Eurolite-LED-PAR64-RGB.qxf
 fixtures.files += Eurolite-LED-PAR64-White.qxf
+fixtures.files += Eurolite-LED-Z-200-TCL.qxf
 fixtures.files += Eurolite-KLS200.qxf
 fixtures.files += Eurolite-TC-150.qxf
 fixtures.files += Eurolite-TC-200.qxf
