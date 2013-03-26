@@ -145,9 +145,8 @@ void SceneEditor::slotSetSceneValues(QList <SceneValue>&sceneValues)
         Q_ASSERT(fixture != NULL);
 
         fc = fixtureConsole(fixture);
-        Q_ASSERT(fc != NULL);
-
-        fc->setSceneValue(sv);
+        if (fc != NULL)
+            fc->setSceneValue(sv);
     }
 }
 
@@ -348,9 +347,8 @@ void SceneEditor::setSceneValue(const SceneValue& scv)
     Q_ASSERT(fixture != NULL);
 
     fc = fixtureConsole(fixture);
-    Q_ASSERT(fc != NULL);
-
-    fc->setSceneValue(scv);
+    if (fc != NULL)
+        fc->setSceneValue(scv);
 }
 
 /*****************************************************************************
@@ -580,6 +578,7 @@ void SceneEditor::slotViewModeChanged(bool toggled)
         m_tab->removeTab(i);
         delete area; // Deletes also FixtureConsole
     }
+    m_consoleList.clear();
 
     if (toggled == false)
     {
@@ -611,6 +610,7 @@ void SceneEditor::slotViewModeChanged(bool toggled)
                     console = new FixtureConsole(scrollArea, m_doc, FixtureConsole::GroupEven);
                 console->setFixture(fixture->id());
                 console->setChecked(false);
+                m_consoleList.append(console);
                 QListIterator <SceneValue> it(m_scene->values());
                 while (it.hasNext() == true)
                 {
@@ -1070,10 +1070,8 @@ FixtureConsole* SceneEditor::fixtureConsole(Fixture* fixture)
 {
     Q_ASSERT(fixture != NULL);
 
-    /* Start from the first fixture tab */
-    for (int i = m_fixtureFirstTabIndex; i < m_tab->count(); i++)
+    foreach (FixtureConsole* fc, m_consoleList)
     {
-        FixtureConsole* fc = fixtureConsoleTab(i);
         if (fc != NULL && fc->fixture() == fixture->id())
             return fc;
     }
@@ -1091,6 +1089,7 @@ void SceneEditor::addFixtureTab(Fixture* fixture)
 
     FixtureConsole* console = new FixtureConsole(scrollArea, m_doc);
     console->setFixture(fixture->id());
+    m_consoleList.append(console);
     scrollArea->setWidget(console);
     int tIdx = m_tab->addTab(scrollArea, fixture->name());
     m_tab->setTabToolTip(tIdx, fixture->name());
@@ -1114,12 +1113,14 @@ void SceneEditor::removeFixtureTab(Fixture* fixture)
         FixtureConsole* fc = fixtureConsoleTab(i);
         if (fc != NULL && fc->fixture() == fixture->id())
         {
+            m_consoleList.removeOne(fc);
             /* First remove the tab because otherwise Qt might
                remove two tabs -- undocumented feature, which
                might be intended or it might not. */
             QScrollArea* area = qobject_cast<QScrollArea*> (m_tab->widget(i));
             Q_ASSERT(area != NULL);
             m_tab->removeTab(i);
+            m_consoleList.removeOne(fc);
             delete area; // Deletes also FixtureConsole
             break;
         }

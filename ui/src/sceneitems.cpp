@@ -414,12 +414,11 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
 
     painter->drawRect(0, 0, m_width, 77);
     /* draw vertical lines to show the chaser's steps */
-    int xpos = 0;
+    float xpos = 0;
     float timeScale = 50/(float)m_timeScale;
 
     foreach (ChaserStep step, m_chaser->steps())
     {
-
         if (step.fadeIn > 0)
         {
             int fadeXpos = xpos + ((timeScale * (float)step.fadeIn) / 1000);

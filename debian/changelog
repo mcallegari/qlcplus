@@ -1,3 +1,10 @@
+qlcplus (4.3.2) stable; urgency=low
+
+  * Fixed copy of a Show. Now it copies also all the contents
+  * Fixed crash when clicking on a Chaser step when Scene Editor "all channels" view is active
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Mon, 15 Apr 2013 12:12:42 +0200
+
 qlcplus (4.3.1) stable; urgency=low
 
   * Fixed DMXking devices detection
