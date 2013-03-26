@@ -1241,6 +1241,137 @@ void EFX_Test::previewLissajous()
     QCOMPARE(poly[127], QPoint(114,252));
 }
 
+// Due to rounding errors, reverse direction might come out 
+// +/- one point. For now it's acceptable, but should be fixed
+// some day.
+static bool CloseEnough(QPoint const & a, QPoint const & b)
+{
+    QPoint diff = a - b;
+    return -1 <= diff.rx() && diff.rx() <= 1 &&
+           -1 <= diff.ry() && diff.ry() <= 1;
+}
+
+void EFX_Test::previewCircleBackwards()
+{
+    EFX e(m_doc);
+
+    QVector <QPoint> polyF;
+    QVERIFY(e.preview(polyF) == true);
+    QCOMPARE(polyF.size(), 128);
+
+    e.setDirection(Function::Backward);
+
+    QVector <QPoint> polyB;
+    QVERIFY(e.preview(polyB) == true);
+    QCOMPARE(polyB.size(), 128);
+
+    QVERIFY(CloseEnough(polyB[0], polyF[0]));
+
+    for (int i = 1; i < 128; ++i)
+    {
+         QVERIFY(CloseEnough(polyB[128 - i], polyF[i]));
+    }
+}
+
+void EFX_Test::previewEightBackwards()
+{
+    EFX e(m_doc);
+
+    e.setAlgorithm(EFX::Eight);
+
+    QVector <QPoint> polyF;
+    QVERIFY(e.preview(polyF) == true);
+    QCOMPARE(polyF.size(), 128);
+
+    e.setDirection(Function::Backward);
+
+    QVector <QPoint> polyB;
+    QVERIFY(e.preview(polyB) == true);
+    QCOMPARE(polyB.size(), 128);
+
+    QVERIFY(CloseEnough(polyB[0], polyF[0]));
+
+    for (int i = 1; i < 128; ++i)
+    {
+         QVERIFY(CloseEnough(polyB[128 - i], polyF[i]));
+    }
+}
+
+void EFX_Test::previewLineBackwards()
+{
+    EFX e(m_doc);
+
+    e.setAlgorithm(EFX::Line);
+
+    QVector <QPoint> polyF;
+    QVERIFY(e.preview(polyF) == true);
+    QCOMPARE(polyF.size(), 128);
+
+    e.setDirection(Function::Backward);
+
+    QVector <QPoint> polyB;
+    QVERIFY(e.preview(polyB) == true);
+    QCOMPARE(polyB.size(), 128);
+
+    for (int i = 0; i < 64; ++i)
+    {
+         QVERIFY(CloseEnough(polyB[i + 64], polyF[i]));
+    }
+
+    for (int i = 64; i < 128; ++i)
+    {
+         QVERIFY(CloseEnough(polyB[i - 64], polyF[i]));
+    }
+}
+
+void EFX_Test::previewDiamondBackwards()
+{
+    EFX e(m_doc);
+
+    e.setAlgorithm(EFX::Diamond);
+
+    QVector <QPoint> polyF;
+    QVERIFY(e.preview(polyF) == true);
+    QCOMPARE(polyF.size(), 128);
+
+    e.setDirection(Function::Backward);
+
+    QVector <QPoint> polyB;
+    QVERIFY(e.preview(polyB) == true);
+    QCOMPARE(polyB.size(), 128);
+
+    QVERIFY(CloseEnough(polyB[0], polyF[0]));
+
+    for (int i = 1; i < 128; ++i)
+    {
+         QVERIFY(CloseEnough(polyB[128 - i], polyF[i]));
+    }
+}
+
+void EFX_Test::previewLissajousBackwards()
+{
+    EFX e(m_doc);
+
+    e.setAlgorithm(EFX::Lissajous);
+
+    QVector <QPoint> polyF;
+    QVERIFY(e.preview(polyF) == true);
+    QCOMPARE(polyF.size(), 128);
+
+    e.setDirection(Function::Backward);
+
+    QVector <QPoint> polyB;
+    QVERIFY(e.preview(polyB) == true);
+    QCOMPARE(polyB.size(), 128);
+
+    QVERIFY(CloseEnough(polyB[0], polyF[0]));
+
+    for (int i = 1; i < 128; ++i)
+    {
+         QVERIFY(CloseEnough(polyB[128 - i], polyF[i]));
+    }
+}
+
 void EFX_Test::widthHeightOffset()
 {
     EFX e(m_doc);
