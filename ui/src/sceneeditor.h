@@ -34,6 +34,7 @@
 
 class GenericDMXSource;
 class SpeedDialWidget;
+class FixtureConsole;
 class MasterTimer;
 class QComboBox;
 class OutputMap;
@@ -185,6 +186,8 @@ private:
     int m_currentTab;
     /** Index of the first fixture's tab */
     int m_fixtureFirstTabIndex;
+
+    QList <FixtureConsole *> m_consoleList;
 
     /** Values from a copied console (i.e. clipboard) */
     QList <SceneValue> m_copy;
