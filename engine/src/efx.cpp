@@ -211,10 +211,10 @@ bool EFX::preview(QVector <QPoint>& polygon) const
     /* Resize the array to contain stepCount points */
     polygon.resize(stepCount);
 
-    /* Draw a preview of a circle */
+    /* Draw a preview of the effect */
     for (step = 0; step < stepCount; step++)
     {
-        calculatePoint(this->direction(), i, &x, &y);
+        calculatePoint(Function::Forward, i, &x, &y);
         polygon[step] = QPoint(int(x), int(y));
         i += stepSize;
     }
@@ -241,7 +241,7 @@ void EFX::rotateAndScale(qreal* x, qreal* y) const
 
 qreal EFX::calculateDirection(Function::Direction direction, qreal iterator) const
 {
-    if (direction == Function::Forward)
+    if (direction == this->direction())
         return iterator;
 
     switch (algorithm())
