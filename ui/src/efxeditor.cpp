@@ -864,7 +864,7 @@ void EFXEditor::slotBackwardClicked()
 void EFXEditor::redrawPreview()
 {
     QVector <QPoint> points;
-    m_efx->preview(m_efx->direction(), points);
+    m_efx->preview(points);
     m_previewArea->setPoints(points);
     m_previewArea->draw(m_efx->duration() / points.size());
 }

@@ -121,10 +121,9 @@ public:
      * roughly the path of the pattern on a flat surface directly in front
      * of a moving (head/mirror) fixture.
      *
-     * @param direction Forward or Backward
      * @param polygon The polygon to fill with preview points
      */
-    bool preview(Function::Direction direction, QVector <QPoint>& polygon) const;
+    bool preview(QVector <QPoint>& polygon) const;
 
 private:
     /**

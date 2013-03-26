@@ -552,7 +552,7 @@ void EFX_Test::previewCircle()
     EFX e(m_doc);
 
     QVector <QPoint> poly;
-    QVERIFY(e.preview(Function::Forward, poly));
+    QVERIFY(e.preview(poly));
     QCOMPARE(poly.size(), 128);
 
     QCOMPARE(poly[0], QPoint(127,254));
@@ -691,7 +691,7 @@ void EFX_Test::previewEight()
     e.setAlgorithm(EFX::Eight);
 
     QVector <QPoint> poly;
-    QVERIFY(e.preview(Function::Forward, poly));
+    QVERIFY(e.preview(poly));
     QCOMPARE(poly.size(), 128);
 
     QCOMPARE(poly[0], QPoint(127,254));
@@ -830,7 +830,7 @@ void EFX_Test::previewLine()
     e.setAlgorithm(EFX::Line);
 
     QVector <QPoint> poly;
-    QVERIFY(e.preview(Function::Forward, poly));
+    QVERIFY(e.preview(poly));
     QCOMPARE(poly.size(), 128);
 
     QCOMPARE(poly[0], QPoint(254,254));
@@ -969,7 +969,7 @@ void EFX_Test::previewDiamond()
     e.setAlgorithm(EFX::Diamond);
 
     QVector <QPoint> poly;
-    QVERIFY(e.preview(Function::Forward, poly));
+    QVERIFY(e.preview(poly));
     QCOMPARE(poly.size(), 128);
 
     QCOMPARE(poly[0], QPoint(127,254));
@@ -1108,7 +1108,7 @@ void EFX_Test::previewLissajous()
     e.setAlgorithm(EFX::Lissajous);
 
     QVector <QPoint> poly;
-    QVERIFY(e.preview(Function::Forward, poly));
+    QVERIFY(e.preview(poly));
     QCOMPARE(poly.size(), 128);
 
     QCOMPARE(poly[0], QPoint(127,254));
@@ -1248,13 +1248,13 @@ void EFX_Test::widthHeightOffset()
     int max = 0;
 
     QVector <QPoint> poly;
-    QVERIFY(e.preview(Function::Forward, poly));
+    QVERIFY(e.preview(poly));
     QCOMPARE(poly.size(), 128);
 
     /* Check that width affects the pattern */
     e.setWidth(50);
     poly.clear();
-    QVERIFY(e.preview(Function::Forward, poly));
+    QVERIFY(e.preview(poly));
     QVERIFY(poly.size() == 128);
 
     /* Width of 50 means actually 50px left of center (127-50) and
@@ -1266,7 +1266,7 @@ void EFX_Test::widthHeightOffset()
     /* Check that height affects the pattern */
     e.setHeight(87);
     poly.clear();
-    QVERIFY(e.preview(Function::Forward, poly));
+    QVERIFY(e.preview(poly));
     QVERIFY(poly.size() == 128);
 
     /* Height of 87 means actually 87px down of center (127-87) and
@@ -1278,7 +1278,7 @@ void EFX_Test::widthHeightOffset()
     /* X Offset is at center */
     max = 0;
     poly.clear();
-    QVERIFY(e.preview(Function::Forward, poly));
+    QVERIFY(e.preview(poly));
     QVERIFY(poly.size() == 128);
     for (i = 0; i < 128; i++)
         if (poly[i].x() > max)
@@ -1289,7 +1289,7 @@ void EFX_Test::widthHeightOffset()
     max = 0;
     e.setXOffset(127 + 20);
     poly.clear();
-    QVERIFY(e.preview(Function::Forward, poly));
+    QVERIFY(e.preview(poly));
     QVERIFY(poly.size() == 128);
     for (i = 0; i < 128; i++)
         if (poly[i].x() > max)
@@ -1299,7 +1299,7 @@ void EFX_Test::widthHeightOffset()
     /* Y Offset is at center */
     max = 0;
     poly.clear();
-    QVERIFY(e.preview(Function::Forward, poly));
+    QVERIFY(e.preview(poly));
     QVERIFY(poly.size() == 128);
     for (i = 0; i < 128; i++)
         if (poly[i].y() > max)
@@ -1310,7 +1310,7 @@ void EFX_Test::widthHeightOffset()
     max = 0;
     e.setYOffset(127 - 25);
     poly.clear();
-    QVERIFY(e.preview(Function::Forward, poly));
+    QVERIFY(e.preview(poly));
     QVERIFY(poly.size() == 128);
     for (i = 0; i < 128; i++)
         if (poly[i].y() > max)

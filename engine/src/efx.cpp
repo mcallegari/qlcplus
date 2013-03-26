@@ -197,7 +197,7 @@ EFX::Algorithm EFX::stringToAlgorithm(const QString& str)
         return EFX::Circle;
 }
 
-bool EFX::preview(Function::Direction direction, QVector <QPoint>& polygon) const
+bool EFX::preview(QVector <QPoint>& polygon) const
 {
     bool retval = true;
     int stepCount = 128;
@@ -214,7 +214,7 @@ bool EFX::preview(Function::Direction direction, QVector <QPoint>& polygon) cons
     /* Draw a preview of a circle */
     for (step = 0; step < stepCount; step++)
     {
-        calculatePoint(direction, i, &x, &y);
+        calculatePoint(this->direction(), i, &x, &y);
         polygon[step] = QPoint(int(x), int(y));
         i += stepSize;
     }
