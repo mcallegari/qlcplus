@@ -115,8 +115,6 @@ void MasterTimer::startFunction(Function* function)
     if (m_startQueue.contains(function) == false)
         m_startQueue.append(function);
     m_functionListMutex.unlock();
-
-    emit functionListChanged();
 }
 
 void MasterTimer::stopAllFunctions()
@@ -208,6 +206,7 @@ void MasterTimer::timerTickFunctions(UniverseArray* universes)
             m_functionListMutex.unlock();
             f->preRun(this);
             f->write(this, universes);
+            emit functionListChanged();
         }
         m_startQueue.removeOne(f);
     }

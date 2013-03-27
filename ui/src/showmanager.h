@@ -74,8 +74,14 @@ protected:
     Show* m_show;
     /* Currently selected scene */
     Scene* m_scene;
+    /* Scene editor instance reference */
     QWidget* m_scene_editor;
+    /* Chaser editor instance reference */
     QWidget* m_sequence_editor;
+
+    /* Index of the currently selected Show
+     * (basically the m_showsCombo index) */
+    int m_selectedShowIndex;
 
 private:
     void showSceneEditor(Scene *scene);

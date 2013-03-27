@@ -51,6 +51,7 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
     , m_scene(NULL)
     , m_scene_editor(NULL)
     , m_sequence_editor(NULL)
+    , m_selectedShowIndex(0)
     , m_splitter(NULL)
     , m_vsplitter(NULL)
     , m_showview(NULL)
@@ -280,6 +281,11 @@ void ShowManager::initToolbar()
 void ShowManager::updateShowsCombo()
 {
     int newIndex = 0;
+
+    // protect poor Show Manager from drawing all the shows
+    disconnect(m_showsCombo, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(slotShowsComboChanged(int)));
+
     m_showsCombo->clear();
     foreach (Function* function, m_doc->functions())
     {
@@ -292,7 +298,6 @@ void ShowManager::updateShowsCombo()
     }
     if (m_showsCombo->count() > 0)
     {
-        m_showsCombo->setCurrentIndex(newIndex);
         m_addTrackAction->setEnabled(true);
     }
     else
@@ -305,11 +310,21 @@ void ShowManager::updateShowsCombo()
         m_deleteAction->setEnabled(false);
     else
         m_deleteAction->setEnabled(true);
+
+    connect(m_showsCombo, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(slotShowsComboChanged(int)));
+
+    if (m_selectedShowIndex < 0 || m_selectedShowIndex >= m_showsCombo->count())
+        m_selectedShowIndex = 0;
+
+    m_showsCombo->setCurrentIndex(m_selectedShowIndex);
+    updateMultiTrackView();
 }
 
 void ShowManager::slotShowsComboChanged(int idx)
 {
     qDebug() << Q_FUNC_INFO << "Idx: " << idx;
+    m_selectedShowIndex = idx;
     updateMultiTrackView();
 }
 
@@ -380,6 +395,8 @@ void ShowManager::slotAddShow()
                                              f->name(), &ok);
         if (ok && !text.isEmpty())
             m_show->setName(text);
+        // modify the new selected Show index
+        m_selectedShowIndex = m_showsCombo->count();
         updateShowsCombo();
     }
 }
@@ -580,32 +597,6 @@ void ShowManager::slotDelete()
         }
 
         m_doc->deleteFunction(deleteID);
-/*
-        if (m_sequence_editor != NULL)
-        {
-            m_vsplitter->widget(1)->layout()->removeWidget(m_sequence_editor);
-            m_sequence_editor->deleteLater();
-            m_sequence_editor = NULL;
-        }
-
-        else
-        {
-            foreach(Track *track, m_show->tracks())
-            {
-                m_scene = qobject_cast<Scene*>(m_doc->function(track->getSceneID()));
-                if (m_scene == NULL)
-                {
-                    qDebug() << Q_FUNC_INFO << "Invalid scene !";
-                    continue;
-                }
-                Track *firstTrack = m_show->getTrackFromSceneID(m_scene->id());
-                m_showview->activateTrack(firstTrack);
-                showSceneEditor(m_scene);
-                m_deleteAction->setEnabled(true);
-                break;
-            }
-        }
-*/
     }
 }
 
