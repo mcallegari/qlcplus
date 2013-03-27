@@ -123,7 +123,7 @@ public:
      *
      * @param polygon The polygon to fill with preview points
      */
-    bool preview(QVector <QPoint>& polygon) const;
+    void preview(QVector <QPoint>& polygon) const;
 
 private:
     /**

@@ -197,9 +197,8 @@ EFX::Algorithm EFX::stringToAlgorithm(const QString& str)
         return EFX::Circle;
 }
 
-bool EFX::preview(QVector <QPoint>& polygon) const
+void EFX::preview(QVector <QPoint>& polygon) const
 {
-    bool retval = true;
     int stepCount = 128;
     int step = 0;
     qreal stepSize = (qreal)(1) / ((qreal)(stepCount) / (M_PI * 2.0));
@@ -218,8 +217,6 @@ bool EFX::preview(QVector <QPoint>& polygon) const
         polygon[step] = QPoint(int(x), int(y));
         i += stepSize;
     }
-
-    return retval;
 }
 
 void EFX::calculatePoint(Function::Direction direction, qreal iterator, qreal* x, qreal* y) const
