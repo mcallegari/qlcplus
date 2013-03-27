@@ -125,7 +125,18 @@ public:
      */
     void preview(QVector <QPoint>& polygon) const;
 
+    /**
+     * Get a preview of path for all contained fixtures. For format of the polygons,
+     * see preview()
+     *
+     * @param polygons Array of polygons, one for each contained fixture.
+     */
+    void previewFixtures(QVector <QVector <QPoint> >& polygons) const;
+
 private:
+
+    void preview(QVector <QPoint>& polygon, Function::Direction direction) const;
+
     /**
      * Calculate a single point with the currently selected algorithm,
      * based on the value of iterator (which is basically a step number).

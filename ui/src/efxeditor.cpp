@@ -417,6 +417,7 @@ void EFXEditor::addFixtureItem(EFXFixture* ef)
 
     /* Select newly-added fixtures so that they can be moved quickly */
     m_tree->setCurrentItem(item);
+    redrawPreview();
 }
 
 void EFXEditor::updateIntensityColumn(QTreeWidgetItem* item, EFXFixture* ef)
@@ -452,6 +453,7 @@ void EFXEditor::removeFixtureItem(EFXFixture* ef)
     delete item;
 
     updateIndices(from, m_tree->topLevelItemCount() - 1);
+    redrawPreview();
 }
 
 void EFXEditor::createSpeedDials()
@@ -487,6 +489,8 @@ void EFXEditor::slotFixtureItemChanged(QTreeWidgetItem* item, int column)
             ef->setDirection(Function::Backward);
         else
             ef->setDirection(Function::Forward);
+
+	redrawPreview();
     }
 }
 
@@ -564,6 +568,8 @@ void EFXEditor::slotAddFixtureClicked()
                 delete ef;
         }
 
+	redrawPreview();
+
         // Continue running if appropriate
         continueRunning(running);
     }
@@ -591,6 +597,8 @@ void EFXEditor::slotRemoveFixtureClicked()
             if (m_efx->removeFixture(ef) == true)
                 delete ef;
         }
+
+	redrawPreview();
 
         // Continue if appropriate
         continueRunning(running);
@@ -622,6 +630,7 @@ void EFXEditor::slotRaiseFixtureClicked()
             updateIntensityColumn(item, ef);
 
             updateIndices(index - 1, index);
+	    redrawPreview();
         }
     }
 
@@ -653,6 +662,7 @@ void EFXEditor::slotLowerFixtureClicked()
             updateIntensityColumn(item, ef);
 
             updateIndices(index, index + 1);
+	    redrawPreview();
         }
     }
 
@@ -702,6 +712,7 @@ void EFXEditor::slotFixtureRemoved()
 {
     // EFX already catches fixture removals so just update the list
     updateFixtureTree();
+    redrawPreview();
 }
 
 void EFXEditor::slotFixtureChanged()
@@ -863,8 +874,17 @@ void EFXEditor::slotBackwardClicked()
 
 void EFXEditor::redrawPreview()
 {
+    if (m_previewArea == NULL)
+        return;
+
     QVector <QPoint> points;
     m_efx->preview(points);
+
+    QVector <QVector <QPoint> > fixturePoints;
+    m_efx->previewFixtures(fixturePoints);
+ 
     m_previewArea->setPoints(points);
+    m_previewArea->setFixturePoints(fixturePoints);
+
     m_previewArea->draw(m_efx->duration() / points.size());
 }

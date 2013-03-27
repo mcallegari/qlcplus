@@ -199,6 +199,20 @@ EFX::Algorithm EFX::stringToAlgorithm(const QString& str)
 
 void EFX::preview(QVector <QPoint>& polygon) const
 {
+    preview(polygon, Function::Forward);
+}
+
+void EFX::previewFixtures(QVector <QVector <QPoint> >& polygons) const
+{
+    polygons.resize(m_fixtures.size());
+    for (int i = 0; i < m_fixtures.size(); ++i)
+    { 
+        preview(polygons[i], m_fixtures[i]->m_direction);
+    }
+}
+
+void EFX::preview(QVector <QPoint>& polygon, Function::Direction direction) const
+{
     int stepCount = 128;
     int step = 0;
     qreal stepSize = (qreal)(1) / ((qreal)(stepCount) / (M_PI * 2.0));
@@ -213,7 +227,7 @@ void EFX::preview(QVector <QPoint>& polygon) const
     /* Draw a preview of the effect */
     for (step = 0; step < stepCount; step++)
     {
-        calculatePoint(Function::Forward, i, &x, &y);
+        calculatePoint(direction, i, &x, &y);
         polygon[step] = QPoint(int(x), int(y));
         i += stepSize;
     }
