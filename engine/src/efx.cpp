@@ -52,6 +52,7 @@ EFX::EFX(Doc* doc) : Function(doc, Function::EFX)
     m_xOffset = 127;
     m_yOffset = 127;
     m_rotation = 0;
+    m_startOffset = 0;
 
     updateRotationCache();
 
@@ -122,6 +123,7 @@ bool EFX::copyFrom(const Function* function)
     m_xOffset = efx->m_xOffset;
     m_yOffset = efx->m_yOffset;
     m_rotation = efx->m_rotation;
+    m_startOffset = efx->m_startOffset;
 
     updateRotationCache();
 
@@ -199,7 +201,7 @@ EFX::Algorithm EFX::stringToAlgorithm(const QString& str)
 
 void EFX::preview(QVector <QPoint>& polygon) const
 {
-    preview(polygon, Function::Forward);
+    preview(polygon, Function::Forward, 0);
 }
 
 void EFX::previewFixtures(QVector <QVector <QPoint> >& polygons) const
@@ -207,11 +209,11 @@ void EFX::previewFixtures(QVector <QVector <QPoint> >& polygons) const
     polygons.resize(m_fixtures.size());
     for (int i = 0; i < m_fixtures.size(); ++i)
     { 
-        preview(polygons[i], m_fixtures[i]->m_direction);
+        preview(polygons[i], m_fixtures[i]->m_direction, m_fixtures[i]->m_startOffset);
     }
 }
 
-void EFX::preview(QVector <QPoint>& polygon, Function::Direction direction) const
+void EFX::preview(QVector <QPoint>& polygon, Function::Direction direction, int startOffset) const
 {
     int stepCount = 128;
     int step = 0;
@@ -227,15 +229,21 @@ void EFX::preview(QVector <QPoint>& polygon, Function::Direction direction) cons
     /* Draw a preview of the effect */
     for (step = 0; step < stepCount; step++)
     {
-        calculatePoint(direction, i, &x, &y);
+        calculatePoint(direction, startOffset, i, &x, &y);
         polygon[step] = QPoint(int(x), int(y));
         i += stepSize;
     }
 }
 
-void EFX::calculatePoint(Function::Direction direction, qreal iterator, qreal* x, qreal* y) const
+void EFX::calculatePoint(Function::Direction direction, int startOffset, qreal iterator, qreal* x, qreal* y) const
 {
-    calculatePoint(calculateDirection(direction, iterator), x, y);
+    iterator = calculateDirection(direction, iterator);
+    iterator += convertOffset(startOffset + m_startOffset);
+
+    if (iterator >= M_PI * 2.0)
+        iterator -= M_PI * 2.0;
+
+    calculatePoint(iterator, x, y);
 }
 
 void EFX::rotateAndScale(qreal* x, qreal* y) const
@@ -353,6 +361,26 @@ void EFX::updateRotationCache()
     qreal r = M_PI/180 * m_rotation;
     m_cosR = cos(r);
     m_sinR = sin(r);
+}
+
+/*****************************************************************************
+ * Start Offset
+ *****************************************************************************/
+
+void EFX::setStartOffset(int startOffset)
+{
+    m_startOffset = static_cast<int> (CLAMP(startOffset, 0, 359));
+    emit changed(this->id());
+}
+
+int EFX::startOffset() const
+{
+    return static_cast<int> (m_startOffset);
+}
+
+qreal EFX::convertOffset(int offset) const
+{
+    return M_PI/180 * (offset % 360);
 }
 
 /*****************************************************************************
@@ -649,6 +677,13 @@ bool EFX::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     text = doc->createTextNode(str);
     tag.appendChild(text);
 
+    /* StartOffset */
+    tag = doc->createElement(KXMLQLCEFXStartOffset);
+    root.appendChild(tag);
+    str.setNum(startOffset());
+    text = doc->createTextNode(str);
+    tag.appendChild(text);
+
     /********************************************
      * X-Axis
      ********************************************/
@@ -783,6 +818,11 @@ bool EFX::loadXML(const QDomElement& root)
         {
             /* Rotation */
             setRotation(tag.text().toInt());
+        }
+        else if (tag.tagName() == KXMLQLCEFXStartOffset)
+        {
+            /* StartOffset */
+            setStartOffset(tag.text().toInt());
         }
         else if (tag.tagName() == KXMLQLCEFXAxis)
         {

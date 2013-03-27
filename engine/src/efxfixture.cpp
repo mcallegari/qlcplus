@@ -42,6 +42,7 @@ EFXFixture::EFXFixture(const EFX* parent)
     : m_parent(parent)
     , m_fixture(Fixture::invalidId())
     , m_direction(Function::Forward)
+    , m_startOffset(0)
     , m_fadeIntensity(255)
 
     , m_serialNumber(0)
@@ -61,6 +62,7 @@ void EFXFixture::copyFrom(const EFXFixture* ef)
     // be different than $ef's
     m_fixture = ef->m_fixture;
     m_direction = ef->m_direction;
+    m_startOffset = ef->m_startOffset;
     m_fadeIntensity = ef->m_fadeIntensity;
 
     m_serialNumber = ef->m_serialNumber;
@@ -99,6 +101,16 @@ void EFXFixture::setDirection(Function::Direction dir)
 Function::Direction EFXFixture::direction() const
 {
     return m_direction;
+}
+
+void EFXFixture::setStartOffset(int startOffset)
+{
+    m_startOffset = CLAMP(startOffset, 0, 359);
+}
+
+int EFXFixture::startOffset() const
+{
+    return m_startOffset;
 }
 
 void EFXFixture::setFadeIntensity(uchar value)
@@ -151,6 +163,11 @@ bool EFXFixture::loadXML(const QDomElement& root)
             Function::Direction dir = Function::stringToDirection(tag.text());
             setDirection(dir);
         }
+        else if (tag.tagName() == KXMLQLCEFXFixtureStartOffset)
+        {
+            /* Start offset */
+            setStartOffset(int(tag.text().toInt()));
+        }
         else if (tag.tagName() == KXMLQLCEFXFixtureIntensity)
         {
             /* Intensity */
@@ -190,6 +207,12 @@ bool EFXFixture::saveXML(QDomDocument* doc, QDomElement* efx_root) const
     subtag = doc->createElement(KXMLQLCEFXFixtureDirection);
     tag.appendChild(subtag);
     text = doc->createTextNode(Function::directionToString(m_direction));
+    subtag.appendChild(text);
+
+    /* Start offset */
+    subtag = doc->createElement(KXMLQLCEFXFixtureStartOffset);
+    tag.appendChild(subtag);
+    text = doc->createTextNode(QString::number(startOffset()));
     subtag.appendChild(text);
 
     /* Intensity */
@@ -277,6 +300,7 @@ void EFXFixture::nextStep(MasterTimer* timer, UniverseArray* universes)
     qreal iterator = SCALE(qreal(pos),
                            qreal(0), qreal(m_parent->duration()),
                            qreal(0), qreal(M_PI * 2));
+
     qreal pan = 0;
     qreal tilt = 0;
 
@@ -284,7 +308,7 @@ void EFXFixture::nextStep(MasterTimer* timer, UniverseArray* universes)
         m_elapsed < (m_parent->duration() + timeOffset()))
         || m_elapsed < m_parent->duration())
     {
-        m_parent->calculatePoint(m_runTimeDirection, iterator, &pan, &tilt);
+        m_parent->calculatePoint(m_runTimeDirection, m_startOffset, iterator, &pan, &tilt);
 
         /* Write this fixture's data to universes. */
         setPoint(universes, pan, tilt);

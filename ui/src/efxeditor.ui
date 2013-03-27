@@ -90,6 +90,11 @@
          </column>
          <column>
           <property name="text">
+           <string>Start Offset</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
            <string>Intensity</string>
           </property>
          </column>
@@ -276,6 +281,13 @@
           <string>Parameters</string>
          </property>
          <layout class="QGridLayout" name="gridLayout">
+          <item row="6" column="0" colspan="2">
+           <widget class="Line" name="line_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
           <item row="0" column="0">
            <widget class="QLabel" name="m_widthLabel">
             <property name="text">
@@ -373,7 +385,7 @@
             </property>
            </widget>
           </item>
-          <item row="7" column="0">
+          <item row="8" column="0">
            <widget class="QLabel" name="m_xFrequencyLabel">
             <property name="enabled">
              <bool>false</bool>
@@ -383,7 +395,7 @@
             </property>
            </widget>
           </item>
-          <item row="7" column="1">
+          <item row="8" column="1">
            <widget class="QSpinBox" name="m_xFrequencySpin">
             <property name="enabled">
              <bool>false</bool>
@@ -399,7 +411,7 @@
             </property>
            </widget>
           </item>
-          <item row="8" column="0">
+          <item row="9" column="0">
            <widget class="QLabel" name="m_yFrequencyLabel">
             <property name="enabled">
              <bool>false</bool>
@@ -409,7 +421,7 @@
             </property>
            </widget>
           </item>
-          <item row="8" column="1">
+          <item row="9" column="1">
            <widget class="QSpinBox" name="m_yFrequencySpin">
             <property name="enabled">
              <bool>false</bool>
@@ -425,7 +437,7 @@
             </property>
            </widget>
           </item>
-          <item row="9" column="0">
+          <item row="10" column="0">
            <widget class="QLabel" name="m_xPhaseLabel">
             <property name="enabled">
              <bool>false</bool>
@@ -435,7 +447,7 @@
             </property>
            </widget>
           </item>
-          <item row="9" column="1">
+          <item row="10" column="1">
            <widget class="QSpinBox" name="m_xPhaseSpin">
             <property name="enabled">
              <bool>false</bool>
@@ -451,7 +463,7 @@
             </property>
            </widget>
           </item>
-          <item row="10" column="0">
+          <item row="11" column="0">
            <widget class="QLabel" name="m_yPhaseLabel">
             <property name="enabled">
              <bool>false</bool>
@@ -461,7 +473,20 @@
             </property>
            </widget>
           </item>
-          <item row="10" column="1">
+          <item row="12" column="0" colspan="2">
+           <spacer name="verticalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="11" column="1">
            <widget class="QSpinBox" name="m_yPhaseSpin">
             <property name="enabled">
              <bool>false</bool>
@@ -477,25 +502,22 @@
             </property>
            </widget>
           </item>
-          <item row="5" column="0" colspan="2">
-           <widget class="Line" name="line_2">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+          <item row="5" column="1">
+           <widget class="QSpinBox" name="m_startOffsetSpin">
+            <property name="maximum">
+             <number>359</number>
             </property>
            </widget>
           </item>
-          <item row="11" column="0" colspan="2">
-           <spacer name="verticalSpacer_4">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
+          <item row="5" column="0">
+           <widget class="QLabel" name="m_startOffsetLabel">
+            <property name="text">
+             <string>Start Offset</string>
             </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
+            <property name="textFormat">
+             <enum>Qt::AutoText</enum>
             </property>
-           </spacer>
+           </widget>
           </item>
          </layout>
         </widget>

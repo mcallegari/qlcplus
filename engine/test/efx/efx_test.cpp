@@ -2332,6 +2332,7 @@ void EFX_Test::save()
     e1.setWidth(13);
     e1.setHeight(42);
     e1.setRotation(78);
+    e1.setStartOffset(91);
     e1.setXOffset(34);
     e1.setYOffset(27);
     e1.setXFrequency(5);
@@ -2347,6 +2348,7 @@ void EFX_Test::save()
     EFXFixture* ef2 = new EFXFixture(&e1);
     ef2->setFixture(34);
     ef2->setDirection(EFX::Backward);
+    ef2->setStartOffset(27);
     ef2->setFadeIntensity(64);
     e1.addFixture(ef2);
     EFXFixture* ef3 = new EFXFixture(&e1);
@@ -2361,11 +2363,11 @@ void EFX_Test::save()
     QVERIFY(root.firstChild().toElement().attribute("Type") == "EFX");
     QVERIFY(root.firstChild().toElement().attribute("Name") == "First");
 
-    bool dir = false, run = false, algo = false, w = false,
+    bool dir = false, off = false, run = false, algo = false, w = false,
          h = false, rot = false, xoff = false, yoff = false,
          xfreq = false, yfreq = false, xpha = false, ypha = false,
          prop = false, intensity = false, speed = false;
-    int fixtureid = 0, fixturedirection = 0;
+    int fixtureid = 0, fixturedirection = 0, fixtureStartOffset = 0;
     QList <QString> fixtures;
 
     QDomNode node = root.firstChild().firstChild();
@@ -2383,6 +2385,11 @@ void EFX_Test::save()
         {
             QVERIFY(tag.text() == "Backward");
             dir = true;
+        }
+        else if (tag.tagName() == "StartOffset")
+        {
+            QVERIFY(tag.text() == "91");
+            off = true;
         }
         else if (tag.tagName() == "RunOrder")
         {
@@ -2483,6 +2490,7 @@ void EFX_Test::save()
         {
             bool expectBackward = false;
             int expectIntensity = 255;
+            int expectStartOffset = 0;
 
             QDomNode subnode = tag.firstChild();
             while (subnode.isNull() == false)
@@ -2499,6 +2507,7 @@ void EFX_Test::save()
                     {
                         expectIntensity = 64;
                         expectBackward = true;
+                        expectStartOffset = 27;
                     }
                     else
                     {
@@ -2507,6 +2516,7 @@ void EFX_Test::save()
                         else
                             expectIntensity = 255;
                         expectBackward = false;
+                        expectStartOffset = 0;
                     }
 
                     fixtureid++;
@@ -2519,6 +2529,11 @@ void EFX_Test::save()
                     }
 
                     fixturedirection++;
+                }
+                else if (subtag.tagName() == "StartOffset")
+                {
+                    QCOMPARE(subtag.text().toInt(), expectStartOffset);
+                    fixtureStartOffset++;
                 }
                 else if (subtag.tagName() == "Intensity")
                 {
@@ -2544,7 +2559,9 @@ void EFX_Test::save()
     QCOMPARE(fixtures.size(), 3);
     QCOMPARE(fixtureid, 3);
     QCOMPARE(fixturedirection, 3);
+    QCOMPARE(fixtureStartOffset, 3);
     QVERIFY(dir == true);
+    QVERIFY(off == true);
     QVERIFY(run == true);
     QVERIFY(speed == true);
     QVERIFY(algo == true);

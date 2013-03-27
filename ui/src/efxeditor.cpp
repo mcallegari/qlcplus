@@ -49,7 +49,8 @@
 #define KColumnNumber  0
 #define KColumnName    1
 #define KColumnReverse 2
-#define KColumnIntensity 3
+#define KColumnStartOffset 3
+#define KColumnIntensity 4
 
 #define PROPERTY_FIXTURE "fixture"
 
@@ -206,6 +207,8 @@ void EFXEditor::initMovementPage()
             this, SLOT(slotYOffsetSpinChanged(int)));
     connect(m_rotationSpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotRotationSpinChanged(int)));
+    connect(m_startOffsetSpin, SIGNAL(valueChanged(int)),
+            this, SLOT(slotStartOffsetSpinChanged(int)));
 
     connect(m_xFrequencySpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotXFrequencySpinChanged(int)));
@@ -236,6 +239,7 @@ void EFXEditor::initMovementPage()
     m_xOffsetSpin->setValue(m_efx->xOffset());
     m_yOffsetSpin->setValue(m_efx->yOffset());
     m_rotationSpin->setValue(m_efx->rotation());
+    m_startOffsetSpin->setValue(m_efx->startOffset());
 
     m_xFrequencySpin->setValue(m_efx->xFrequency());
     m_yFrequencySpin->setValue(m_efx->yFrequency());
@@ -411,6 +415,7 @@ void EFXEditor::addFixtureItem(EFXFixture* ef)
         item->setCheckState(KColumnReverse, Qt::Unchecked);
 
     updateIntensityColumn(item, ef);
+    updateStartOffsetColumn(item, ef);
 
     updateIndices(m_tree->indexOfTopLevelItem(item),
                   m_tree->topLevelItemCount() - 1);
@@ -435,6 +440,24 @@ void EFXEditor::updateIntensityColumn(QTreeWidgetItem* item, EFXFixture* ef)
         spin->setProperty(PROPERTY_FIXTURE, (qulonglong) ef);
         connect(spin, SIGNAL(valueChanged(int)),
                 this, SLOT(slotFixtureIntensityChanged(int)));
+    }
+}
+
+void EFXEditor::updateStartOffsetColumn(QTreeWidgetItem* item, EFXFixture* ef)
+{
+    Q_ASSERT(item != NULL);
+    Q_ASSERT(ef != NULL);
+
+    if (m_tree->itemWidget(item, KColumnStartOffset) == NULL)
+    {
+        QSpinBox* spin = new QSpinBox(m_tree);
+        spin->setAutoFillBackground(true);
+        spin->setRange(0, 359);
+        spin->setValue(ef->startOffset());
+        m_tree->setItemWidget(item, KColumnStartOffset, spin);
+        spin->setProperty(PROPERTY_FIXTURE, (qulonglong) ef);
+        connect(spin, SIGNAL(valueChanged(int)),
+                this, SLOT(slotFixtureStartOffsetChanged(int)));
     }
 }
 
@@ -501,6 +524,18 @@ void EFXEditor::slotFixtureIntensityChanged(int intensity)
     EFXFixture* ef = (EFXFixture*) spin->property(PROPERTY_FIXTURE).toULongLong();
     Q_ASSERT(ef != NULL);
     ef->setFadeIntensity(uchar(intensity));
+
+    // Restart the test after the latest intensity change, delayed
+    m_testTimer.start();
+}
+
+void EFXEditor::slotFixtureStartOffsetChanged(int startOffset)
+{
+    QSpinBox* spin = qobject_cast<QSpinBox*>(QObject::sender());
+    Q_ASSERT(spin != NULL);
+    EFXFixture* ef = (EFXFixture*) spin->property(PROPERTY_FIXTURE).toULongLong();
+    Q_ASSERT(ef != NULL);
+    ef->setStartOffset(uchar(startOffset));
 
     // Restart the test after the latest intensity change, delayed
     m_testTimer.start();
@@ -787,6 +822,13 @@ void EFXEditor::slotRotationSpinChanged(int value)
 {
     Q_ASSERT(m_efx != NULL);
     m_efx->setRotation(value);
+    redrawPreview();
+}
+
+void EFXEditor::slotStartOffsetSpinChanged(int value)
+{
+    Q_ASSERT(m_efx != NULL);
+    m_efx->setStartOffset(value);
     redrawPreview();
 }
 

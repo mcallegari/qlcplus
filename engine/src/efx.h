@@ -43,6 +43,7 @@ class Fixture;
 #define KXMLQLCEFXWidth "Width"
 #define KXMLQLCEFXHeight "Height"
 #define KXMLQLCEFXRotation "Rotation"
+#define KXMLQLCEFXStartOffset "StartOffset"
 #define KXMLQLCEFXAxis "Axis"
 #define KXMLQLCEFXOffset "Offset"
 #define KXMLQLCEFXFrequency "Frequency"
@@ -135,19 +136,20 @@ public:
 
 private:
 
-    void preview(QVector <QPoint>& polygon, Function::Direction direction) const;
+    void preview(QVector <QPoint>& polygon, Function::Direction direction, int startOffset) const;
 
     /**
      * Calculate a single point with the currently selected algorithm,
      * based on the value of iterator (which is basically a step number).
      *
      * @param direction Forward or Backward (input)
+     * @param startOffset 
      * @param iterator Step number (input)
      * @param x Used to store the calculated X coordinate (output)
      * @param y Used to store the calculated Y coordinate (output)
      */
-    void calculatePoint(Function::Direction direction, qreal iterator, qreal* x, qreal* y) const;
-
+    void calculatePoint(Function::Direction direction, int startOffset, qreal iterator, qreal* x, qreal* y) const;
+ 
     /**
      * Rotate a point of the pattern by rot degrees and scale the point
      * within w/h and xOff/yOff.
@@ -271,6 +273,34 @@ private:
      * cached sin(m_rotation) to speed up computation
      */
     qreal m_sinR;
+
+    /*********************************************************************
+     * Start Offset
+     *********************************************************************/
+public:
+    /**
+     * Set start offset of the pattern
+     *
+     * @param startOffset StartOffset of the pattern (0-359)
+     */
+    void setStartOffset(int startOffset);
+
+    /**
+     * Get the pattern start offset
+     *
+     * @return Pattern start offset (0-359)
+     */
+    int startOffset() const;
+
+private:
+
+    qreal convertOffset(int offset) const;
+
+private:
+    /**
+     * Pattern start offset, see setStartOffset()
+     */
+    int m_startOffset;
 
     /*********************************************************************
      * Offset
