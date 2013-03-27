@@ -450,7 +450,7 @@ void Scene::preRun(MasterTimer* timer)
 
 void Scene::write(MasterTimer* timer, UniverseArray* ua)
 {
-    //qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO << elapsed();
     Q_UNUSED(timer);
     Q_ASSERT(ua != NULL);
     Q_ASSERT(m_fader != NULL);

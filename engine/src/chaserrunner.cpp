@@ -395,13 +395,7 @@ bool ChaserRunner::roundCheck()
 void ChaserRunner::switchFunctions(MasterTimer* timer)
 {
     if (m_currentFunction != NULL)
-    {
         m_currentFunction->stop();
-
-        /** @todo this is a dirty hack to re-use the same scene for all the steps */
-        //if (m_chaser->isSequence())
-        //    m_currentFunction->postRun(timer, NULL);
-    }
 
     ChaserStep step(m_chaser->steps().at(m_currentStep));
     m_currentFunction = m_doc->function(step.fid);

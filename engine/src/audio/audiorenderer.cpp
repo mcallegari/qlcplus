@@ -75,6 +75,8 @@ void AudioRenderer::run()
           {
             audioDataWritten = writeAudio(audioData + (audioDataRead - pendingAudioBytes), pendingAudioBytes);
             pendingAudioBytes -= audioDataWritten;
+            if (audioDataWritten == 0)
+                usleep(15000);
           }
           //qDebug() << "[Cycle] read: " << audioDataRead << ", written: " << audioDataWritten;
         }
