@@ -575,10 +575,8 @@ void Scene_Test::writeHTPTwoTicks()
 
     QVERIFY(s1->stopped() == true);
     s1->start(&timer);
-
-    QVERIFY(s1->stopped() == false);
-    QVERIFY(s1->isRunning() == false);
     timer.timerTick();
+
     QVERIFY(s1->stopped() == false);
     QVERIFY(s1->isRunning() == true);
     ua = doc->outputMap()->claimUniverses();
@@ -669,10 +667,8 @@ void Scene_Test::writeHTPTwoTicksIntensity()
 
     QVERIFY(s1->stopped() == true);
     s1->start(&timer);
-
-    QVERIFY(s1->stopped() == false);
-    QVERIFY(s1->isRunning() == false);
     timer.timerTick();
+
     QVERIFY(s1->stopped() == false);
     QVERIFY(s1->isRunning() == true);
     ua = doc->outputMap()->claimUniverses();
