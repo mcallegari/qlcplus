@@ -307,7 +307,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="editcapability.ui" line="106"/>
-        <location filename="editcapability.cpp" line="45"/>
+        <location filename="editcapability.cpp" line="46"/>
         <source>Gobo</source>
         <translation>Gobo (Maske)</translation>
     </message>
@@ -335,7 +335,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="editcapability.ui" line="179"/>
-        <location filename="editcapability.cpp" line="47"/>
+        <location filename="editcapability.cpp" line="48"/>
         <source>Colour</source>
         <translation>Farbe</translation>
     </message>
@@ -345,17 +345,17 @@ p, li { white-space: pre-wrap; }
         <translation>Zweite Farbe</translation>
     </message>
     <message>
-        <location filename="editcapability.cpp" line="49"/>
+        <location filename="editcapability.cpp" line="50"/>
         <source>Effect</source>
         <translation>Effekt</translation>
     </message>
     <message>
-        <location filename="editcapability.cpp" line="137"/>
+        <location filename="editcapability.cpp" line="140"/>
         <source>Open Gobo File</source>
         <translation>Öffne Gobo Datei</translation>
     </message>
     <message>
-        <location filename="editcapability.cpp" line="141"/>
+        <location filename="editcapability.cpp" line="144"/>
         <source>Gobo pictures (*.jpg *.jpeg *.png *.bmp)</source>
         <translation>Gobo-Bilder (*.jpg *.jpeg *.png *.bmp)</translation>
     </message>
@@ -455,20 +455,20 @@ p, li { white-space: pre-wrap; }
         <translation>Funktions Wizard</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="238"/>
-        <location filename="editchannel.cpp" line="304"/>
-        <location filename="editchannel.cpp" line="348"/>
+        <location filename="editchannel.cpp" line="245"/>
+        <location filename="editchannel.cpp" line="311"/>
+        <location filename="editchannel.cpp" line="355"/>
         <source>Overlapping values</source>
         <translation>Überlappende Werte</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="239"/>
-        <location filename="editchannel.cpp" line="305"/>
+        <location filename="editchannel.cpp" line="246"/>
+        <location filename="editchannel.cpp" line="312"/>
         <source>The capability&apos;s values overlap with another capability!</source>
         <translation>Der Funktionswert überlappt mit einem anderen Funktionswert!</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="349"/>
+        <location filename="editchannel.cpp" line="356"/>
         <source>Some capabilities could not be created because of overlapping values.</source>
         <translation>Einige Funktionen konnte nicht angelegt werden aufgrund von überlappenden Werten.</translation>
     </message>
@@ -516,7 +516,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="editmode.ui" line="58"/>
-        <location filename="editmode.ui" line="716"/>
+        <location filename="editmode.ui" line="741"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
@@ -592,7 +592,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="editmode.ui" line="307"/>
-        <location filename="editmode.ui" line="788"/>
+        <location filename="editmode.ui" line="813"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
@@ -622,174 +622,199 @@ p, li { white-space: pre-wrap; }
         <translation>HMI 700W</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="509"/>
+        <location filename="editmode.ui" line="431"/>
+        <source>HSD 150W</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editmode.ui" line="436"/>
+        <source>HSD 200W</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editmode.ui" line="441"/>
+        <source>HSD 250W</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editmode.ui" line="446"/>
+        <source>HSD 575W</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editmode.ui" line="516"/>
+        <source>MSR 575W</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editmode.ui" line="534"/>
         <source>Lumens</source>
         <translation>Lumen</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="529"/>
+        <location filename="editmode.ui" line="554"/>
         <source>Colour Temp (K)</source>
         <translation>Farbtemperatur</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="543"/>
+        <location filename="editmode.ui" line="568"/>
         <source>2000</source>
         <translation>2000</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="548"/>
+        <location filename="editmode.ui" line="573"/>
         <source>2800</source>
         <translation>2800</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="553"/>
+        <location filename="editmode.ui" line="578"/>
         <source>3200</source>
         <translation>3200</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="558"/>
+        <location filename="editmode.ui" line="583"/>
         <source>4000</source>
         <translation>4000</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="563"/>
+        <location filename="editmode.ui" line="588"/>
         <source>4500</source>
         <translation>4500</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="568"/>
+        <location filename="editmode.ui" line="593"/>
         <source>5000</source>
         <translation>5000</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="573"/>
+        <location filename="editmode.ui" line="598"/>
         <source>5500</source>
         <translation>5500</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="578"/>
+        <location filename="editmode.ui" line="603"/>
         <source>6000</source>
         <translation>6000</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="583"/>
+        <location filename="editmode.ui" line="608"/>
         <source>6500</source>
         <translation>6500</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="588"/>
+        <location filename="editmode.ui" line="613"/>
         <source>7000</source>
         <translation>7000</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="593"/>
+        <location filename="editmode.ui" line="618"/>
         <source>7200</source>
         <translation>7200</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="598"/>
+        <location filename="editmode.ui" line="623"/>
         <source>8000</source>
         <translation>8000</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="603"/>
+        <location filename="editmode.ui" line="628"/>
         <source>8300</source>
         <translation>8300</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="608"/>
+        <location filename="editmode.ui" line="633"/>
         <source>9000</source>
         <translation>9000</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="613"/>
+        <location filename="editmode.ui" line="638"/>
         <source>9300</source>
         <translation>9300</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="624"/>
+        <location filename="editmode.ui" line="649"/>
         <source>Dimensions</source>
         <translation>Maße</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="630"/>
+        <location filename="editmode.ui" line="655"/>
         <source>Weight</source>
         <translation>Gewicht</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="637"/>
+        <location filename="editmode.ui" line="662"/>
         <source>kg</source>
         <translation>kg</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="647"/>
+        <location filename="editmode.ui" line="672"/>
         <source>Width</source>
         <translation>Breite</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="657"/>
-        <location filename="editmode.ui" line="677"/>
-        <location filename="editmode.ui" line="697"/>
+        <location filename="editmode.ui" line="682"/>
+        <location filename="editmode.ui" line="702"/>
+        <location filename="editmode.ui" line="722"/>
         <source>mm</source>
         <translation>mm</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="667"/>
+        <location filename="editmode.ui" line="692"/>
         <source>Height</source>
         <translation>Höhe</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="687"/>
+        <location filename="editmode.ui" line="712"/>
         <source>Depth</source>
         <translation>Tiefe</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="710"/>
+        <location filename="editmode.ui" line="735"/>
         <source>Lens</source>
         <translation>Linse</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="745"/>
+        <location filename="editmode.ui" line="770"/>
         <source>Min Degrees</source>
         <translation>Min Grad</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="762"/>
+        <location filename="editmode.ui" line="787"/>
         <source>Max Degrees</source>
         <translation>Max Grad</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="782"/>
+        <location filename="editmode.ui" line="807"/>
         <source>Focus</source>
         <translation>Fokus</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="822"/>
+        <location filename="editmode.ui" line="847"/>
         <source>Pan Max Degrees</source>
         <translation>Pan max. Grad</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="839"/>
+        <location filename="editmode.ui" line="864"/>
         <source>Tilt Max Degrees</source>
         <translation>Tilt max. Grad</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="859"/>
+        <location filename="editmode.ui" line="884"/>
         <source>Electrical</source>
         <translation>Anschlussdaten</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="865"/>
+        <location filename="editmode.ui" line="890"/>
         <source>Power Consumption</source>
         <translation>Leistung</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="875"/>
+        <location filename="editmode.ui" line="900"/>
         <source>W</source>
         <translation>W</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="885"/>
+        <location filename="editmode.ui" line="910"/>
         <source>DMX Connector</source>
         <translation>DMX-Anschluss</translation>
     </message>

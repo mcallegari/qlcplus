@@ -720,23 +720,23 @@ Menetät muutokset jos et tallenna niitä.</translation>
 <context>
     <name>AudioItem</name>
     <message>
-        <location filename="sceneitems.cpp" line="536"/>
-        <location filename="sceneitems.cpp" line="866"/>
+        <location filename="sceneitems.cpp" line="535"/>
+        <location filename="sceneitems.cpp" line="865"/>
         <source>Preview Left Channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="540"/>
+        <location filename="sceneitems.cpp" line="539"/>
         <source>Preview Right Channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="544"/>
+        <location filename="sceneitems.cpp" line="543"/>
         <source>Preview Stereo Channels</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="862"/>
+        <location filename="sceneitems.cpp" line="861"/>
         <source>Preview Mono</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1320,232 +1320,238 @@ Menetät muutokset jos et tallenna niitä.</translation>
         <translation>Käänteinen</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="189"/>
+        <location filename="efxeditor.ui" line="194"/>
         <source>Fixture order</source>
         <translation>Valaisinten järjestys</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="195"/>
+        <location filename="efxeditor.ui" line="200"/>
         <source>All fixtures move in parallel</source>
         <translation>Kaikki valaisimet liikkuvat yhtäaikaa</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="198"/>
+        <location filename="efxeditor.ui" line="203"/>
         <source>Parallel</source>
         <translation>Rinnakkain</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="208"/>
+        <location filename="efxeditor.ui" line="213"/>
         <source>The pattern propagates to each fixture in a sequential order</source>
         <translation>Kuvio leviää vähitellen kaikkiin valaisimiin järjestyksessä</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="211"/>
+        <location filename="efxeditor.ui" line="216"/>
         <source>Serial</source>
         <translation>Sarjassa</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="232"/>
+        <location filename="efxeditor.ui" line="237"/>
         <source>Movement</source>
         <translation>Liike</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="93"/>
+        <location filename="efxeditor.ui" line="98"/>
         <source>Intensity</source>
         <translation>Intensiteetti</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="218"/>
+        <location filename="efxeditor.ui" line="93"/>
+        <location filename="efxeditor.ui" line="515"/>
+        <source>Start Offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="efxeditor.ui" line="223"/>
         <source>Each fixture starts moving immediately with an offset</source>
         <translation>Jokainen valaisin alkaa liikkua yhtäaikaisesti, hieman toisistaan erillään</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="221"/>
+        <location filename="efxeditor.ui" line="226"/>
         <source>Asymmetric</source>
         <translation>Epäsymmetrinen</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="260"/>
+        <location filename="efxeditor.ui" line="265"/>
         <source>Pattern</source>
         <translation>Kuvio</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="266"/>
+        <location filename="efxeditor.ui" line="271"/>
         <source>Pattern for moving the mirror/head</source>
         <translation>Kuvio, jonka mukaan peiliä/sankaa liikutetaan</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="276"/>
+        <location filename="efxeditor.ui" line="281"/>
         <source>Parameters</source>
         <translation>Parametrit</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="282"/>
+        <location filename="efxeditor.ui" line="294"/>
         <source>Width</source>
         <translation>Leveys</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="289"/>
+        <location filename="efxeditor.ui" line="301"/>
         <source>Value width of the pattern</source>
         <translation>Kuvion leveys</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="302"/>
+        <location filename="efxeditor.ui" line="314"/>
         <source>Height</source>
         <translation>Korkeus</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="309"/>
+        <location filename="efxeditor.ui" line="321"/>
         <source>Value height of the pattern</source>
         <translation>Kuvion korkeus</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="322"/>
+        <location filename="efxeditor.ui" line="334"/>
         <source>X offset</source>
         <translation>X-poikkeutus</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="329"/>
+        <location filename="efxeditor.ui" line="341"/>
         <source>Pattern&apos;s center point on the X axis</source>
         <translation>Kuvion keskuspiste X-akselilla</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="342"/>
+        <location filename="efxeditor.ui" line="354"/>
         <source>Y offset</source>
         <translation>Y-poikkeutus</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="349"/>
+        <location filename="efxeditor.ui" line="361"/>
         <source>Pattern&apos;s center point on the Y axis</source>
         <translation>Kuvion keskuspiste Y-akselilla</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="362"/>
+        <location filename="efxeditor.ui" line="374"/>
         <source>Rotation</source>
         <translation>Kääntö</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="369"/>
+        <location filename="efxeditor.ui" line="381"/>
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>Kuvion aloituspisteen kääntö</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="382"/>
+        <location filename="efxeditor.ui" line="394"/>
         <source>X frequency</source>
         <translation>X-taajuus</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="392"/>
+        <location filename="efxeditor.ui" line="404"/>
         <source>Lissajous pattern&apos;s X frequency</source>
         <translation>Lissajous-kuvion X-taajuus</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="408"/>
+        <location filename="efxeditor.ui" line="420"/>
         <source>Y frequency</source>
         <translation>Y-taajuus</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="418"/>
+        <location filename="efxeditor.ui" line="430"/>
         <source>Lissajous pattern&apos;s Y frequency</source>
         <translation>Lissajous-kuvion Y-taajuus</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="434"/>
+        <location filename="efxeditor.ui" line="446"/>
         <source>X phase</source>
         <translation>X-vaihe</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="444"/>
+        <location filename="efxeditor.ui" line="456"/>
         <source>Lissajous pattern&apos;s X phase</source>
         <translation>Lissajous-kuvion X-vaihe</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="460"/>
+        <location filename="efxeditor.ui" line="472"/>
         <source>Y phase</source>
         <translation>Y-vaihe</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="470"/>
+        <location filename="efxeditor.ui" line="495"/>
         <source>Lissajous pattern&apos;s Y phase</source>
         <translation>Lissajous-kuvion Y-vaihe</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="506"/>
+        <location filename="efxeditor.ui" line="528"/>
         <source>Direction</source>
         <translation>Suunta</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="512"/>
+        <location filename="efxeditor.ui" line="534"/>
         <source>Run the pattern forwards</source>
         <translation>Aja kuviota eteenpäin</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="515"/>
+        <location filename="efxeditor.ui" line="537"/>
         <source>Forward</source>
         <translation>Etuperin</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="525"/>
+        <location filename="efxeditor.ui" line="547"/>
         <source>Run the pattern backwards</source>
         <translation>Aja kuviota takaperin</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="528"/>
+        <location filename="efxeditor.ui" line="550"/>
         <source>Backward</source>
         <translation>Takaperin</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="554"/>
+        <location filename="efxeditor.ui" line="576"/>
         <source>Run order</source>
         <translation>Ajojärjestys</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="560"/>
+        <location filename="efxeditor.ui" line="582"/>
         <source>Run through over and over again</source>
         <translation>Aja jatkuvasti alusta loppuun</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="563"/>
+        <location filename="efxeditor.ui" line="585"/>
         <source>Loop</source>
         <translation>Silmukka</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="573"/>
+        <location filename="efxeditor.ui" line="595"/>
         <source>Run through once and stop</source>
         <translation>Aja läpi kerran ja lopeta</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="576"/>
+        <location filename="efxeditor.ui" line="598"/>
         <source>Single shot</source>
         <translation>Kertalaukaus</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="583"/>
+        <location filename="efxeditor.ui" line="605"/>
         <source>First run forwards, then backwards, again forwards, etc...</source>
         <translation>Aja ensin alusta loppuun, sitten lopusta alkuun, alusta loppuun, jne...</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="586"/>
+        <location filename="efxeditor.ui" line="608"/>
         <source>Ping pong</source>
         <translation>Edestakaisin</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="616"/>
+        <location filename="efxeditor.ui" line="638"/>
         <source>See what the EFX does when it is run</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="619"/>
+        <location filename="efxeditor.ui" line="641"/>
         <source>&amp;Test Run</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="efxeditor.cpp" line="575"/>
+        <location filename="efxeditor.cpp" line="616"/>
         <source>Remove fixtures</source>
         <translation>Poista valaisimia</translation>
     </message>
     <message>
-        <location filename="efxeditor.cpp" line="576"/>
+        <location filename="efxeditor.cpp" line="617"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Haluatko poistaa valitut valaisimet?</translation>
     </message>
@@ -2550,54 +2556,54 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
 <context>
     <name>MultiTrackView</name>
     <message>
-        <location filename="multitrackview.cpp" line="180"/>
-        <location filename="multitrackview.cpp" line="214"/>
+        <location filename="multitrackview.cpp" line="194"/>
+        <location filename="multitrackview.cpp" line="228"/>
         <source>Start time: %1msec
 %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="181"/>
-        <location filename="multitrackview.cpp" line="486"/>
-        <location filename="multitrackview.cpp" line="507"/>
+        <location filename="multitrackview.cpp" line="195"/>
+        <location filename="multitrackview.cpp" line="500"/>
+        <location filename="multitrackview.cpp" line="521"/>
         <source>Click to move this sequence across the timeline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="215"/>
+        <location filename="multitrackview.cpp" line="229"/>
         <source>Click to move this audio across the timeline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="242"/>
+        <location filename="multitrackview.cpp" line="256"/>
         <source>Do you want to DELETE sequence:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="245"/>
-        <location filename="multitrackview.cpp" line="266"/>
-        <location filename="multitrackview.cpp" line="300"/>
+        <location filename="multitrackview.cpp" line="259"/>
+        <location filename="multitrackview.cpp" line="280"/>
+        <location filename="multitrackview.cpp" line="314"/>
         <source>Delete Functions</source>
         <translation type="unfinished">Poista funktioita</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="262"/>
+        <location filename="multitrackview.cpp" line="276"/>
         <source>Do you want to DELETE audio (the source file will NOT be removed):</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="287"/>
+        <location filename="multitrackview.cpp" line="301"/>
         <source>Do you want to DELETE scene:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="290"/>
+        <location filename="multitrackview.cpp" line="304"/>
         <source>This operation will also DELETE:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="485"/>
-        <location filename="multitrackview.cpp" line="506"/>
+        <location filename="multitrackview.cpp" line="499"/>
+        <location filename="multitrackview.cpp" line="520"/>
         <source>Start time: %1
 %2</source>
         <translation type="unfinished"></translation>
@@ -2880,73 +2886,73 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
         <translation>Kytke pois kaikkien valaisinten kanavat</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="158"/>
+        <location filename="sceneeditor.cpp" line="157"/>
         <source>Enable all channels in current fixture</source>
         <translation>Käytä kaikkia valitun valaisimen kanavia</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="160"/>
+        <location filename="sceneeditor.cpp" line="159"/>
         <source>Disable all channels in current fixture</source>
         <translation>Poista käytöstä valitun valaisimen kaikki kanavat</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="162"/>
+        <location filename="sceneeditor.cpp" line="161"/>
         <source>Copy current values to clipboard</source>
         <translation>Kopio nykyiset arvot leikepöydälle</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="164"/>
+        <location filename="sceneeditor.cpp" line="163"/>
         <source>Paste clipboard values to current fixture</source>
         <translation>Liitä leikepöydälle tallennetut arvot nykyiselle valaisimelle</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="166"/>
+        <location filename="sceneeditor.cpp" line="165"/>
         <source>Copy current values to all fixtures</source>
         <translation>Kopioi nykyisen valaisimen arvot kaikkiin valittuihin valaisimiin</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="168"/>
+        <location filename="sceneeditor.cpp" line="167"/>
         <source>Color tool for CMY/RGB-capable fixtures</source>
         <translation>Värityökalu CMY/RGB-toiminnolla varustettuja valaisimia varten</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="170"/>
+        <location filename="sceneeditor.cpp" line="169"/>
         <source>Switch between tab view and all channels view</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="172"/>
+        <location filename="sceneeditor.cpp" line="171"/>
         <source>Toggle blind mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="174"/>
+        <location filename="sceneeditor.cpp" line="173"/>
         <source>Show/Hide speed dial window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="176"/>
+        <location filename="sceneeditor.cpp" line="175"/>
         <source>Clone this scene and append as a new step to the selected chaser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="178"/>
+        <location filename="sceneeditor.cpp" line="177"/>
         <source>Go to next fixture tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="182"/>
+        <location filename="sceneeditor.cpp" line="181"/>
         <source>Go to previous fixture tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="215"/>
+        <location filename="sceneeditor.cpp" line="214"/>
         <source>None</source>
         <translation type="unfinished">Ei mitään</translation>
     </message>
     <message>
+        <location filename="sceneeditor.cpp" line="591"/>
         <location filename="sceneeditor.cpp" line="592"/>
-        <location filename="sceneeditor.cpp" line="593"/>
         <source>All fixtures</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3158,117 +3164,117 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
 <context>
     <name>ShowManager</name>
     <message>
-        <location filename="showmanager.cpp" line="149"/>
+        <location filename="showmanager.cpp" line="150"/>
         <source>New s&amp;how</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="155"/>
+        <location filename="showmanager.cpp" line="156"/>
         <source>New &amp;track</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="161"/>
+        <location filename="showmanager.cpp" line="162"/>
         <source>New s&amp;equence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="167"/>
+        <location filename="showmanager.cpp" line="168"/>
         <source>New &amp;audio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="173"/>
+        <location filename="showmanager.cpp" line="174"/>
         <source>&amp;Clone</source>
         <translation type="unfinished">K&amp;loonaa</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="180"/>
+        <location filename="showmanager.cpp" line="181"/>
         <source>&amp;Delete</source>
         <translation type="unfinished">&amp;Poista</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="187"/>
+        <location filename="showmanager.cpp" line="188"/>
         <source>Change Co&amp;lor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="194"/>
+        <location filename="showmanager.cpp" line="195"/>
         <source>St&amp;op</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="200"/>
+        <location filename="showmanager.cpp" line="201"/>
         <source>&amp;Play</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="253"/>
+        <location filename="showmanager.cpp" line="254"/>
         <source>Time division:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="258"/>
+        <location filename="showmanager.cpp" line="259"/>
         <source>Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="376"/>
+        <location filename="showmanager.cpp" line="391"/>
         <source>New Show</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="378"/>
+        <location filename="showmanager.cpp" line="393"/>
         <source>Show name setup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="379"/>
+        <location filename="showmanager.cpp" line="394"/>
         <source>Show name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="410"/>
+        <location filename="showmanager.cpp" line="427"/>
         <source>New Scene</source>
         <translation type="unfinished">Uusi tilanne</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="439"/>
+        <location filename="showmanager.cpp" line="457"/>
         <source>New Sequence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="453"/>
+        <location filename="showmanager.cpp" line="471"/>
         <source>Open Audio File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="479"/>
+        <location filename="showmanager.cpp" line="497"/>
         <source>Audio Files (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="481"/>
+        <location filename="showmanager.cpp" line="499"/>
         <source>All Files (*.*)</source>
         <translation type="unfinished">Kaikki tiedostot (*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="483"/>
+        <location filename="showmanager.cpp" line="501"/>
         <source>All Files (*)</source>
         <translation type="unfinished">Kaikki tiedostot (*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="505"/>
+        <location filename="showmanager.cpp" line="523"/>
         <source>Unsupported audio file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="505"/>
+        <location filename="showmanager.cpp" line="523"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="541"/>
+        <location filename="showmanager.cpp" line="559"/>
         <source>Copy of %1</source>
         <translation type="unfinished"></translation>
     </message>
