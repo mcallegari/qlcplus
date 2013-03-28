@@ -51,6 +51,13 @@ public:
     void setPoints(const QVector<QPoint>& points);
 
     /**
+     * Set an an array of X-Y points that can be used for drawing individual fixture positions
+     *
+     * @param fixturePoints The array of point arrays (one array for each fixture)
+     */
+    void setFixturePoints(const QVector<QVector<QPoint> >& fixturePoints);
+
+    /**
      * Tell the preview area to draw the points.
      *
      * @param timerInterval Timer interval between repaints in milliseconds
@@ -75,6 +82,9 @@ private:
     /** Points that are drawn in the preview area */
     QPolygon m_points;
     QPolygon m_original;
+
+    QVector <QPolygon> m_fixturePoints;
+    QVector <QPolygon> m_originalFixturePoints;
 
     /** Animation timer */
     QTimer m_timer;
