@@ -552,7 +552,7 @@ void EFX_Test::previewCircle()
     EFX e(m_doc);
 
     QVector <QPoint> poly;
-    QVERIFY(e.preview(Function::Forward, poly));
+    e.preview(poly);
     QCOMPARE(poly.size(), 128);
 
     QCOMPARE(poly[0], QPoint(127,254));
@@ -691,7 +691,7 @@ void EFX_Test::previewEight()
     e.setAlgorithm(EFX::Eight);
 
     QVector <QPoint> poly;
-    QVERIFY(e.preview(Function::Forward, poly));
+    e.preview(poly);
     QCOMPARE(poly.size(), 128);
 
     QCOMPARE(poly[0], QPoint(127,254));
@@ -830,7 +830,7 @@ void EFX_Test::previewLine()
     e.setAlgorithm(EFX::Line);
 
     QVector <QPoint> poly;
-    QVERIFY(e.preview(Function::Forward, poly));
+    e.preview(poly);
     QCOMPARE(poly.size(), 128);
 
     QCOMPARE(poly[0], QPoint(254,254));
@@ -969,7 +969,7 @@ void EFX_Test::previewDiamond()
     e.setAlgorithm(EFX::Diamond);
 
     QVector <QPoint> poly;
-    QVERIFY(e.preview(Function::Forward, poly));
+    e.preview(poly);
     QCOMPARE(poly.size(), 128);
 
     QCOMPARE(poly[0], QPoint(127,254));
@@ -1108,7 +1108,7 @@ void EFX_Test::previewLissajous()
     e.setAlgorithm(EFX::Lissajous);
 
     QVector <QPoint> poly;
-    QVERIFY(e.preview(Function::Forward, poly));
+    e.preview(poly);
     QCOMPARE(poly.size(), 128);
 
     QCOMPARE(poly[0], QPoint(127,254));
@@ -1241,6 +1241,137 @@ void EFX_Test::previewLissajous()
     QCOMPARE(poly[127], QPoint(114,252));
 }
 
+// Due to rounding errors, reverse direction might come out 
+// +/- one point. For now it's acceptable, but should be fixed
+// some day.
+static bool CloseEnough(QPoint const & a, QPoint const & b)
+{
+    QPoint diff = a - b;
+    return -1 <= diff.rx() && diff.rx() <= 1 &&
+           -1 <= diff.ry() && diff.ry() <= 1;
+}
+
+void EFX_Test::previewCircleBackwards()
+{
+    EFX e(m_doc);
+
+    QVector <QPoint> polyF;
+    e.preview(polyF);
+    QCOMPARE(polyF.size(), 128);
+
+    e.setDirection(Function::Backward);
+
+    QVector <QPoint> polyB;
+    e.preview(polyB);
+    QCOMPARE(polyB.size(), 128);
+
+    QVERIFY(CloseEnough(polyB[0], polyF[0]));
+
+    for (int i = 1; i < 128; ++i)
+    {
+         QVERIFY(CloseEnough(polyB[128 - i], polyF[i]));
+    }
+}
+
+void EFX_Test::previewEightBackwards()
+{
+    EFX e(m_doc);
+
+    e.setAlgorithm(EFX::Eight);
+
+    QVector <QPoint> polyF;
+    e.preview(polyF);
+    QCOMPARE(polyF.size(), 128);
+
+    e.setDirection(Function::Backward);
+
+    QVector <QPoint> polyB;
+    e.preview(polyB);
+    QCOMPARE(polyB.size(), 128);
+
+    QVERIFY(CloseEnough(polyB[0], polyF[0]));
+
+    for (int i = 1; i < 128; ++i)
+    {
+         QVERIFY(CloseEnough(polyB[128 - i], polyF[i]));
+    }
+}
+
+void EFX_Test::previewLineBackwards()
+{
+    EFX e(m_doc);
+
+    e.setAlgorithm(EFX::Line);
+
+    QVector <QPoint> polyF;
+    e.preview(polyF);
+    QCOMPARE(polyF.size(), 128);
+
+    e.setDirection(Function::Backward);
+
+    QVector <QPoint> polyB;
+    e.preview(polyB);
+    QCOMPARE(polyB.size(), 128);
+
+    for (int i = 0; i < 64; ++i)
+    {
+         QVERIFY(CloseEnough(polyB[i + 64], polyF[i]));
+    }
+
+    for (int i = 64; i < 128; ++i)
+    {
+         QVERIFY(CloseEnough(polyB[i - 64], polyF[i]));
+    }
+}
+
+void EFX_Test::previewDiamondBackwards()
+{
+    EFX e(m_doc);
+
+    e.setAlgorithm(EFX::Diamond);
+
+    QVector <QPoint> polyF;
+    e.preview(polyF);
+    QCOMPARE(polyF.size(), 128);
+
+    e.setDirection(Function::Backward);
+
+    QVector <QPoint> polyB;
+    e.preview(polyB);
+    QCOMPARE(polyB.size(), 128);
+
+    QVERIFY(CloseEnough(polyB[0], polyF[0]));
+
+    for (int i = 1; i < 128; ++i)
+    {
+         QVERIFY(CloseEnough(polyB[128 - i], polyF[i]));
+    }
+}
+
+void EFX_Test::previewLissajousBackwards()
+{
+    EFX e(m_doc);
+
+    e.setAlgorithm(EFX::Lissajous);
+
+    QVector <QPoint> polyF;
+    e.preview(polyF);
+    QCOMPARE(polyF.size(), 128);
+
+    e.setDirection(Function::Backward);
+
+    QVector <QPoint> polyB;
+    e.preview(polyB);
+    QCOMPARE(polyB.size(), 128);
+
+    QVERIFY(CloseEnough(polyB[0], polyF[0]));
+
+    for (int i = 1; i < 128; ++i)
+    {
+         QVERIFY(CloseEnough(polyB[128 - i], polyF[i]));
+    }
+}
+
 void EFX_Test::widthHeightOffset()
 {
     EFX e(m_doc);
@@ -1248,13 +1379,13 @@ void EFX_Test::widthHeightOffset()
     int max = 0;
 
     QVector <QPoint> poly;
-    QVERIFY(e.preview(Function::Forward, poly));
+    e.preview(poly);
     QCOMPARE(poly.size(), 128);
 
     /* Check that width affects the pattern */
     e.setWidth(50);
     poly.clear();
-    QVERIFY(e.preview(Function::Forward, poly));
+    e.preview(poly);
     QVERIFY(poly.size() == 128);
 
     /* Width of 50 means actually 50px left of center (127-50) and
@@ -1266,7 +1397,7 @@ void EFX_Test::widthHeightOffset()
     /* Check that height affects the pattern */
     e.setHeight(87);
     poly.clear();
-    QVERIFY(e.preview(Function::Forward, poly));
+    e.preview(poly);
     QVERIFY(poly.size() == 128);
 
     /* Height of 87 means actually 87px down of center (127-87) and
@@ -1278,7 +1409,7 @@ void EFX_Test::widthHeightOffset()
     /* X Offset is at center */
     max = 0;
     poly.clear();
-    QVERIFY(e.preview(Function::Forward, poly));
+    e.preview(poly);
     QVERIFY(poly.size() == 128);
     for (i = 0; i < 128; i++)
         if (poly[i].x() > max)
@@ -1289,7 +1420,7 @@ void EFX_Test::widthHeightOffset()
     max = 0;
     e.setXOffset(127 + 20);
     poly.clear();
-    QVERIFY(e.preview(Function::Forward, poly));
+    e.preview(poly);
     QVERIFY(poly.size() == 128);
     for (i = 0; i < 128; i++)
         if (poly[i].x() > max)
@@ -1299,7 +1430,7 @@ void EFX_Test::widthHeightOffset()
     /* Y Offset is at center */
     max = 0;
     poly.clear();
-    QVERIFY(e.preview(Function::Forward, poly));
+    e.preview(poly);
     QVERIFY(poly.size() == 128);
     for (i = 0; i < 128; i++)
         if (poly[i].y() > max)
@@ -1310,7 +1441,7 @@ void EFX_Test::widthHeightOffset()
     max = 0;
     e.setYOffset(127 - 25);
     poly.clear();
-    QVERIFY(e.preview(Function::Forward, poly));
+    e.preview(poly);
     QVERIFY(poly.size() == 128);
     for (i = 0; i < 128; i++)
         if (poly[i].y() > max)
@@ -2201,6 +2332,7 @@ void EFX_Test::save()
     e1.setWidth(13);
     e1.setHeight(42);
     e1.setRotation(78);
+    e1.setStartOffset(91);
     e1.setXOffset(34);
     e1.setYOffset(27);
     e1.setXFrequency(5);
@@ -2216,6 +2348,7 @@ void EFX_Test::save()
     EFXFixture* ef2 = new EFXFixture(&e1);
     ef2->setFixture(34);
     ef2->setDirection(EFX::Backward);
+    ef2->setStartOffset(27);
     ef2->setFadeIntensity(64);
     e1.addFixture(ef2);
     EFXFixture* ef3 = new EFXFixture(&e1);
@@ -2230,11 +2363,11 @@ void EFX_Test::save()
     QVERIFY(root.firstChild().toElement().attribute("Type") == "EFX");
     QVERIFY(root.firstChild().toElement().attribute("Name") == "First");
 
-    bool dir = false, run = false, algo = false, w = false,
+    bool dir = false, off = false, run = false, algo = false, w = false,
          h = false, rot = false, xoff = false, yoff = false,
          xfreq = false, yfreq = false, xpha = false, ypha = false,
          prop = false, intensity = false, speed = false;
-    int fixtureid = 0, fixturedirection = 0;
+    int fixtureid = 0, fixturedirection = 0, fixtureStartOffset = 0;
     QList <QString> fixtures;
 
     QDomNode node = root.firstChild().firstChild();
@@ -2252,6 +2385,11 @@ void EFX_Test::save()
         {
             QVERIFY(tag.text() == "Backward");
             dir = true;
+        }
+        else if (tag.tagName() == "StartOffset")
+        {
+            QVERIFY(tag.text() == "91");
+            off = true;
         }
         else if (tag.tagName() == "RunOrder")
         {
@@ -2352,6 +2490,7 @@ void EFX_Test::save()
         {
             bool expectBackward = false;
             int expectIntensity = 255;
+            int expectStartOffset = 0;
 
             QDomNode subnode = tag.firstChild();
             while (subnode.isNull() == false)
@@ -2368,6 +2507,7 @@ void EFX_Test::save()
                     {
                         expectIntensity = 64;
                         expectBackward = true;
+                        expectStartOffset = 27;
                     }
                     else
                     {
@@ -2376,6 +2516,7 @@ void EFX_Test::save()
                         else
                             expectIntensity = 255;
                         expectBackward = false;
+                        expectStartOffset = 0;
                     }
 
                     fixtureid++;
@@ -2388,6 +2529,11 @@ void EFX_Test::save()
                     }
 
                     fixturedirection++;
+                }
+                else if (subtag.tagName() == "StartOffset")
+                {
+                    QCOMPARE(subtag.text().toInt(), expectStartOffset);
+                    fixtureStartOffset++;
                 }
                 else if (subtag.tagName() == "Intensity")
                 {
@@ -2413,7 +2559,9 @@ void EFX_Test::save()
     QCOMPARE(fixtures.size(), 3);
     QCOMPARE(fixtureid, 3);
     QCOMPARE(fixturedirection, 3);
+    QCOMPARE(fixtureStartOffset, 3);
     QVERIFY(dir == true);
+    QVERIFY(off == true);
     QVERIFY(run == true);
     QVERIFY(speed == true);
     QVERIFY(algo == true);

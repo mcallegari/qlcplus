@@ -88,6 +88,7 @@ private:
     void updateIndices(int from, int to);
     void addFixtureItem(EFXFixture* ef);
     void updateIntensityColumn(QTreeWidgetItem* item, EFXFixture* ef);
+    void updateStartOffsetColumn(QTreeWidgetItem* item, EFXFixture* ef);
     void removeFixtureItem(EFXFixture* ef);
     void createSpeedDials();
 
@@ -95,6 +96,7 @@ private slots:
     void slotNameEdited(const QString &text);
     void slotFixtureItemChanged(QTreeWidgetItem* item, int column);
     void slotFixtureIntensityChanged(int intensity);
+    void slotFixtureStartOffsetChanged(int intensity);
     void slotAddFixtureClicked();
     void slotRemoveFixtureClicked();
     void slotRaiseFixtureClicked();
@@ -124,6 +126,7 @@ private slots:
     void slotXOffsetSpinChanged(int value);
     void slotYOffsetSpinChanged(int value);
     void slotRotationSpinChanged(int value);
+    void slotStartOffsetSpinChanged(int value);
 
     void slotXFrequencySpinChanged(int value);
     void slotYFrequencySpinChanged(int value);
