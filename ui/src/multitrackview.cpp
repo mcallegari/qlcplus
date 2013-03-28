@@ -70,9 +70,7 @@ MultiTrackView::MultiTrackView(QWidget *parent) :
     m_scene->addWidget(m_timeSlider);
 
     // draw vertical "splitter" between tracks and sequences
-    m_scene->addRect(TRACK_WIDTH - 3, 0, 3, m_scene->height(),
-                        QPen( QColor(150, 150, 150, 255) ),
-                        QBrush( QColor(190, 190, 190, 255) ) );
+    m_vdivider = NULL;
     // draw horizontal lines for tracks
     updateTracksDividers();
 
@@ -97,15 +95,24 @@ void MultiTrackView::updateTracksDividers()
             m_scene->removeItem(m_hdividers.at(c));
         m_hdividers.clear();
     }
+    if (m_vdivider != NULL)
+        m_scene->removeItem(m_vdivider);
+
     int ypos = 35 + TRACK_HEIGHT;
-    for (int j = 0; j < 5; j++)
+    int hDivNum = 6;
+    if (m_tracks.count() > 5)
+        hDivNum = m_tracks.count();
+    for (int j = 0; j < hDivNum; j++)
     {
-        QGraphicsItem *item = m_scene->addRect(0, ypos + (j * TRACK_HEIGHT),
-                                               m_scene->width(), 2,
+        QGraphicsItem *item = m_scene->addRect(TRACK_WIDTH, ypos + (j * TRACK_HEIGHT),
+                                               m_scene->width(), 1,
                                                QPen( QColor(150, 150, 150, 255) ),
                                                QBrush( QColor(190, 190, 190, 255) ) );
         m_hdividers.append(item);
     }
+    m_vdivider = m_scene->addRect(TRACK_WIDTH - 3, 0, 3, m_scene->height(),
+                        QPen( QColor(150, 150, 150, 255) ),
+                        QBrush( QColor(190, 190, 190, 255) ) );
 }
 
 void MultiTrackView::setViewSize(int width, int height)
@@ -118,14 +125,21 @@ void MultiTrackView::setViewSize(int width, int height)
 
 void MultiTrackView::updateViewSize()
 {
-    quint32 gWidth = 0;
+    quint32 gWidth = VIEW_DEFAULT_WIDTH;
+    quint32 gHeight = VIEW_DEFAULT_HEIGHT;
+
+    // find leftmost sequence item
     foreach (SequenceItem *item, m_sequences)
     {
         if (item->x() + item->getWidth() > gWidth)
             gWidth = item->x() + item->getWidth();
     }
-    if (gWidth > VIEW_DEFAULT_WIDTH)
-        setViewSize(gWidth + 1000, VIEW_DEFAULT_HEIGHT);
+
+    if ((m_tracks.count() * TRACK_HEIGHT) + HEADER_HEIGHT > VIEW_DEFAULT_HEIGHT)
+        gHeight = (m_tracks.count() * TRACK_HEIGHT) + HEADER_HEIGHT;
+
+    if (gWidth > VIEW_DEFAULT_WIDTH || gHeight > VIEW_DEFAULT_HEIGHT)
+        setViewSize(gWidth + 1000, gHeight);
 }
 
 void MultiTrackView::resetView()

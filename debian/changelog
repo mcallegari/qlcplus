@@ -4,7 +4,8 @@ qlcplus (4.3.2) stable; urgency=low
   * Fixed crash when clicking on a Chaser step when Scene Editor "all channels" view is active
   * Fixed crash happening on Show playback
   * Improved Show Manager opening speed
-  * INCOMPATIBLE CHANGE: EFX direction is taken in account
+  * Fixed Show Manager vertical resize when adding a big number of tracks
+  * EFX improvememnts. Direction parameter is now taken in account (thanks to Jano Svitok)
   * Added fixture: Eurolite LED Z-200 Beam effect (thank to Heiko Fanieng)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Mon, 15 Apr 2013 12:12:42 +0200

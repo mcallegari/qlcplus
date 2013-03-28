@@ -114,6 +114,7 @@ private:
     QSlider *m_timeSlider;
     SceneHeaderItem *m_header;
     SceneCursorItem *m_cursor;
+    QGraphicsItem * m_vdivider;
     QList <QGraphicsItem *> m_hdividers;
     QList <TrackItem *> m_tracks;
     QList <SequenceItem *> m_sequences;

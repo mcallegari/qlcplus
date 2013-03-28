@@ -439,6 +439,7 @@ void ShowManager::slotAddTrack()
         m_addAudioAction->setEnabled(true);
         m_showview->activateTrack(newTrack);
         m_deleteAction->setEnabled(true);
+        m_showview->updateViewSize();
     }
 }
 
@@ -879,6 +880,7 @@ void ShowManager::updateMultiTrackView()
         m_showview->activateTrack(firstTrack);
         showSceneEditor(m_scene);
     }
+    m_showview->updateViewSize();
 }
 
 void ShowManager::showEvent(QShowEvent* ev)
