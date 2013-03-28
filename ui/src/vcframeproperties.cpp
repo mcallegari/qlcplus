@@ -30,8 +30,10 @@ VCFrameProperties::VCFrameProperties(QWidget* parent, const VCFrame* frame)
     Q_ASSERT(frame != NULL);
     setupUi(this);
 
+    m_frameName->setText(frame->caption());
     m_allowChildrenCheck->setChecked(frame->allowChildren());
     m_allowResizeCheck->setChecked(frame->allowResize());
+    m_showHeaderCheck->setChecked(frame->isHeaderVisible());
 }
 
 VCFrameProperties::~VCFrameProperties()
@@ -48,9 +50,20 @@ bool VCFrameProperties::allowResize() const
     return m_allowResize;
 }
 
+bool VCFrameProperties::showHeader() const
+{
+    return m_showHeader;
+}
+
+QString VCFrameProperties::frameName() const
+{
+    return m_frameName->text();
+}
+
 void VCFrameProperties::accept()
 {
     m_allowChildren = m_allowChildrenCheck->isChecked();
     m_allowResize = m_allowResizeCheck->isChecked();
+    m_showHeader = m_showHeaderCheck->isChecked();
     QDialog::accept();
 }

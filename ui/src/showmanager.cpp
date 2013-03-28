@@ -213,7 +213,8 @@ void ShowManager::initToolbar()
     layout()->addWidget(m_toolbar);
     m_toolbar->addAction(m_addShowAction);
     m_showsCombo = new QComboBox();
-    m_showsCombo->setFixedWidth(200);
+    m_showsCombo->setFixedWidth(250);
+    m_showsCombo->setMaxVisibleItems(30);
     connect(m_showsCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(slotShowsComboChanged(int)));
     m_toolbar->addWidget(m_showsCombo);

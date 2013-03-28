@@ -36,8 +36,9 @@ class QString;
 
 #define KXMLQLCVCFrame "Frame"
 #define KXMLQLCVCFrameAllowChildren "AllowChildren"
-#define KXMLQLCVCFrameAllowResize "AllowResize"
-#define KXMLQLCVCFrameIsCollapsed "Collapsed"
+#define KXMLQLCVCFrameAllowResize   "AllowResize"
+#define KXMLQLCVCFrameShowHeader    "ShowHeader"
+#define KXMLQLCVCFrameIsCollapsed   "Collapsed"
 
 class VCFrame : public VCWidget
 {
@@ -68,7 +69,23 @@ public:
     /** @reimp */
     void setCaption(const QString& text);
 
-    bool isCollapsed();
+    /** @reimp */
+    void setFont(const QFont& font);
+
+    /** @reimp */
+    QFont font() const;
+
+    /** @reimp */
+    void setForegroundColor(const QColor& color);
+
+    /** @reimp */
+    QColor foregroundColor() const;
+
+    void setShowHeader(bool enable);
+
+    bool isHeaderVisible() const;
+
+    bool isCollapsed();  
 
 protected slots:
     void slotCollapseButtonToggled(bool toggle);
@@ -78,6 +95,7 @@ protected:
     QToolButton *m_button;
     QLabel *m_label;
     bool m_collapsed;
+    bool m_showHeader;
     int m_width, m_height;
 
     /*********************************************************************

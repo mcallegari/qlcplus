@@ -37,6 +37,8 @@ public:
 
     bool allowChildren() const;
     bool allowResize() const;
+    bool showHeader() const;
+    QString frameName() const;
 
 public slots:
     void accept();
@@ -44,6 +46,7 @@ public slots:
 private:
     bool m_allowChildren;
     bool m_allowResize;
+    bool m_showHeader;
 };
 
 #endif

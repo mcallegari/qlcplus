@@ -7,13 +7,27 @@
     <x>0</x>
     <y>0</y>
     <width>306</width>
-    <height>108</height>
+    <height>174</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Frame Properties</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Frame name</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="m_frameName"/>
+     </item>
+    </layout>
+   </item>
    <item>
     <widget class="QCheckBox" name="m_allowChildrenCheck">
      <property name="text">
@@ -25,6 +39,13 @@
     <widget class="QCheckBox" name="m_allowResizeCheck">
      <property name="text">
       <string>Allow resizing</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="m_showHeaderCheck">
+     <property name="text">
+      <string>Show header</string>
      </property>
     </widget>
    </item>
