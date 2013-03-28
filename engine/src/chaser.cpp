@@ -61,7 +61,7 @@ Chaser::Chaser(Doc* doc)
     , m_color(85, 107, 128)
     , m_fadeInMode(Default)
     , m_fadeOutMode(Default)
-    , m_durationMode(Common)
+    , m_holdMode(Common)
     , m_runner(NULL)
 {
     setName(tr("New Chaser"));
@@ -104,7 +104,7 @@ bool Chaser::copyFrom(const Function* function)
     m_steps = chaser->m_steps;
     m_fadeInMode = chaser->m_fadeInMode;
     m_fadeOutMode = chaser->m_fadeOutMode;
-    m_durationMode = chaser->m_durationMode;
+    m_holdMode = chaser->m_holdMode;
     m_isSequence = chaser->m_isSequence;
     m_boundedSceneID = chaser->m_boundedSceneID;
     m_startTime = chaser->m_startTime;
@@ -290,13 +290,13 @@ Chaser::SpeedMode Chaser::fadeOutMode() const
 
 void Chaser::setDurationMode(Chaser::SpeedMode mode)
 {
-    m_durationMode = mode;
+    m_holdMode = mode;
     emit changed(this->id());
 }
 
 Chaser::SpeedMode Chaser::durationMode() const
 {
-    return m_durationMode;
+    return m_holdMode;
 }
 
 QString Chaser::speedModeToString(Chaser::SpeedMode mode)

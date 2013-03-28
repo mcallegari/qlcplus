@@ -1,5 +1,7 @@
 qlcplus (4.3.2) stable; urgency=low
 
+  * NEW: Added "Hold" parameter to Chaser steps, between FadeIn and FadeOut
+  * Fade is no more applied to Pan, Tilt and Speed channels
   * Fixed copy of a Show. Now it copies also all the contents
   * Fixed crash when clicking on a Chaser step when Scene Editor "all channels" view is active
   * Fixed crash happening on Show playback
@@ -8,6 +10,7 @@ qlcplus (4.3.2) stable; urgency=low
   * EFX improvememnts. Direction parameter is now taken in account (thanks to Jano Svitok)
   * Virtual Console Frame new options: show/hide header, title font/color, set title with double click
   * Added fixture: Eurolite LED Z-200 Beam effect (thank to Heiko Fanieng)
+  * Added fixture: American DJ Vizi Beam 5R (thanks to Daniel Sevelt)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Mon, 15 Apr 2013 12:12:42 +0200
 

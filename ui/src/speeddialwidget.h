@@ -67,13 +67,13 @@ signals:
     void fadeOutChanged(int ms);
     void fadeOutTapped();
 
-    void durationChanged(int ms);
-    void durationTapped();
+    void holdChanged(int ms);
+    void holdTapped();
 
 private:
     SpeedDial* m_fadeIn;
     SpeedDial* m_fadeOut;
-    SpeedDial* m_duration;
+    SpeedDial* m_hold;
 
     /************************************************************************
      * Optional text

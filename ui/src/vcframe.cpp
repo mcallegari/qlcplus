@@ -92,12 +92,18 @@ VCFrame::VCFrame(QWidget* parent, Doc* doc, bool canCollapse) : VCWidget(parent,
         QString txtColor = "white";
         if (m_hasCustomForegroundColor)
             txtColor = this->foregroundColor().name();
-        m_label->setStyleSheet("QLabel { background-color: black; color: " + txtColor +"; border-radius: 3px; padding: 3px; margin-left: 2px }");
+        m_label->setStyleSheet("QLabel { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #666666, stop: 1 #000000); "
+                               "color: " + txtColor + "; border-radius: 3px; padding: 3px; margin-left: 2px }");
 
-        //QFont m_font = QApplication::font();
-        //m_font.setBold(true);
-        //m_font.setPixelSize(14);
-        //m_label->setFont(font());
+        if (m_hasCustomFont)
+            m_label->setFont(font());
+        else
+        {
+            QFont m_font = QApplication::font();
+            m_font.setBold(true);
+            m_font.setPixelSize(12);
+            m_label->setFont(m_font);
+        }
         m_hbox->addWidget(m_label);
     }
     resize(defaultSize);
@@ -142,7 +148,8 @@ void VCFrame::setForegroundColor(const QColor &color)
 {
     if (m_label != NULL)
     {
-        m_label->setStyleSheet("QLabel { background-color: black; color: " + color.name() + "; border-radius: 3px; padding: 3px; margin-left: 2px }");
+        m_label->setStyleSheet("QLabel { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #666666, stop: 1 #000000); "
+                               "color: " + color.name() + "; border-radius: 3px; padding: 3px; margin-left: 2px }");
         m_hasCustomForegroundColor = true;
         m_doc->setModified();
     }
@@ -199,6 +206,7 @@ void VCFrame::slotCollapseButtonToggled(bool toggle)
         resize(QSize(m_width, m_height));
         m_collapsed = false;
     }
+    m_doc->setModified();
 }
 
 /*****************************************************************************

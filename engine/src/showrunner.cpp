@@ -154,6 +154,9 @@ void ShowRunner::write()
     }
     if (m_elapsedTime >= m_totalRunTime)
     {
+        Show *show = qobject_cast<Show*>(m_doc->function(m_showID));
+        if (show != NULL)
+            show->stop();
         emit showFinished();
         return;
     }

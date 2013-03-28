@@ -230,7 +230,7 @@ public:
 private:
     SpeedMode m_fadeInMode;
     SpeedMode m_fadeOutMode;
-    SpeedMode m_durationMode;
+    SpeedMode m_holdMode;
 
     /*********************************************************************
      * Save & Load

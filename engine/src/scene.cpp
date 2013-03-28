@@ -473,10 +473,20 @@ void Scene::write(MasterTimer* timer, UniverseArray* ua)
             fc.setFixture(value.fxi);
             fc.setChannel(value.channel);
             fc.setTarget(value.value);
-            if (overrideFadeInSpeed() == defaultSpeed())
-                fc.setFadeTime(fadeInSpeed());
+            QLCChannel::Group grp = fc.group(doc());
+            // do not fade motors or speed
+            if (grp == QLCChannel::Pan || grp == QLCChannel::Tilt ||
+                grp == QLCChannel::Speed)
+            {
+                fc.setFadeTime(0);
+            }
             else
-                fc.setFadeTime(overrideFadeInSpeed());
+            {
+                if (overrideFadeInSpeed() == defaultSpeed())
+                    fc.setFadeTime(fadeInSpeed());
+                else
+                    fc.setFadeTime(overrideFadeInSpeed());
+            }
             insertStartValue(fc, timer, ua);
             m_fader->add(fc);
         }

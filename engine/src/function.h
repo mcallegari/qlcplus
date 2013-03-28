@@ -57,6 +57,7 @@ class Doc;
 
 #define KXMLQLCFunctionSpeed         "Speed"
 #define KXMLQLCFunctionSpeedFadeIn   "FadeIn"
+#define KXMLQLCFunctionSpeedHold     "Hold"
 #define KXMLQLCFunctionSpeedFadeOut  "FadeOut"
 #define KXMLQLCFunctionSpeedDuration "Duration"
 
