@@ -806,10 +806,6 @@ void VCButton::paintEvent(QPaintEvent* e)
     else
         option.state= QStyle::State_Raised;
 
-    /* Enabled or disabled looks based on application mode */
-    if (mode() == Doc::Operate)
-        option.state |= QStyle::State_Enabled;
-
     /* Icon */
     if (m_action == Blackout)
     {
