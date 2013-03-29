@@ -127,6 +127,7 @@ void Doc::clearContents()
         delete grp;
     }
 
+    m_orderedGroups.clear();
 
     m_latestFunctionId = 0;
     m_latestFixtureId = 0;
