@@ -51,6 +51,7 @@ public:
 
 signals:
     void applyValues(QList<SceneValue>&);
+    void stepSelectionChanged(int index);
 
 public slots:
     /** Listens to functionManagerActive() so that speed dial box can be hidden/shown */

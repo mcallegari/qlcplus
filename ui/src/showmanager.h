@@ -149,6 +149,7 @@ protected slots:
     void slotTrackClicked(Track *track);
     void slotChangeColor();
     void slotChangeSize(int width, int height);
+    void slotStepSelectionChanged(int index);
 
     /*********************************************************************
      * DOC events

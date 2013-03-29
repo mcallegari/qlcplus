@@ -377,6 +377,9 @@ void ShowManager::showSequenceEditor(Chaser *chaser)
             /** Signal from scene editor to chaser editor. When a fixture value is changed, update the selected chaser step */
             connect(m_scene_editor, SIGNAL(fixtureValueChanged(SceneValue)),
                     m_sequence_editor, SLOT(slotUpdateCurrentStep(SceneValue)));
+            connect(m_sequence_editor, SIGNAL(stepSelectionChanged(int)),
+                    this, SLOT(slotStepSelectionChanged(int)));
+
             m_vsplitter->widget(1)->show();
             m_sequence_editor->show();
         }
@@ -734,6 +737,15 @@ void ShowManager::slotChangeSize(int width, int height)
 {
     if (m_showview != NULL)
         m_showview->setViewSize(width, height);
+}
+
+void ShowManager::slotStepSelectionChanged(int index)
+{
+    SequenceItem *seqItem = m_showview->getSelectedSequence();
+    if (seqItem != NULL)
+    {
+        seqItem->setSelectedStep(index);
+    }
 }
 
 void ShowManager::slotDocClearing()

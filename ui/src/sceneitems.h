@@ -100,6 +100,8 @@ class SceneCursorItem : public QGraphicsItem
 public:
     SceneCursorItem(int h);
 
+    void setHeight(int height);
+
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
@@ -171,11 +173,11 @@ private:
     bool m_isSolo;
 };
 
-/*********************************************************************
+/***************************************************************************************
  *
- * Sequence Item. Clickable and draggable object identifying a chaser
+ * Sequence Item. Clickable and draggable object identifying a chaser in sequence mode
  *
- *********************************************************************/
+ ***************************************************************************************/
 class SequenceItem : public QObject, public QGraphicsItem
 {
     Q_OBJECT
@@ -195,6 +197,8 @@ public:
 
     void setColor(QColor col);
     QColor getColor();
+
+    void setSelectedStep(int idx);
 
     /** Return a pointer to a Chaser associated to this item */
     Chaser *getChaser();
@@ -223,6 +227,8 @@ private:
     int m_timeScale;
     /** track index this sequence belongs to */
     int m_trackIdx;
+    /** index of the selected step for highlighting (-1 if none) */
+    int m_selectedStep;
 };
 
 /**************************************************************************

@@ -165,6 +165,12 @@ SceneCursorItem::SceneCursorItem(int h)
 {
 }
 
+void SceneCursorItem::setHeight(int height)
+{
+    prepareGeometryChange();
+    m_height = height;
+}
+
 void SceneCursorItem::setTime(quint32 t)
 {
     m_time = t;
@@ -363,6 +369,7 @@ SequenceItem::SequenceItem(Chaser *seq)
     , m_width(50)
     , m_timeScale(3)
     , m_trackIdx(-1)
+    , m_selectedStep(-1)
 {
     Q_ASSERT(seq != NULL);
     setToolTip(QString("Start time: %1\n%2")
@@ -406,17 +413,22 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
+    float xpos = 0;
+    float timeScale = 50/(float)m_timeScale;
+    int stepIdx = 0;
+
     if (this->isSelected() == true)
         painter->setPen(QPen(Qt::white, 3));
     else
+    {
         painter->setPen(QPen(Qt::white, 1));
+        m_selectedStep = -1;
+    }
+
     painter->setBrush(QBrush(m_color));
-
     painter->drawRect(0, 0, m_width, 77);
-    /* draw vertical lines to show the chaser's steps */
-    float xpos = 0;
-    float timeScale = 50/(float)m_timeScale;
 
+    /* draw vertical lines to divide the chaser's steps */
     foreach (ChaserStep step, m_chaser->steps())
     {
         if (step.fadeIn > 0)
@@ -429,8 +441,16 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
                 painter->drawLine(xpos, 76, fadeXpos, 1);
             }
         }
+        float stepWidth = ((timeScale * (float)step.duration) / 1000);
+        if (stepIdx == m_selectedStep)
+        {
+            painter->setPen(QPen(Qt::yellow, 2));
+            painter->setBrush(QBrush(Qt::NoBrush));
+            painter->drawRect(xpos, 0, stepWidth, 77);
+        }
+        xpos += stepWidth;
+
         painter->setPen(QPen(Qt::white, 1));
-        xpos += ((timeScale * (float)step.duration) / 1000);
         painter->drawLine(xpos, 1, xpos, 75);
         if (step.fadeOut > 0)
         {
@@ -442,6 +462,7 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
                 painter->drawLine(fadeXpos, 1, xpos, 76);
             }
         }
+        stepIdx++;
     }
 }
 
@@ -471,6 +492,12 @@ void SequenceItem::setColor(QColor col)
 QColor SequenceItem::getColor()
 {
     return m_color;
+}
+
+void SequenceItem::setSelectedStep(int idx)
+{
+    m_selectedStep = idx;
+    update();
 }
 
 Chaser *SequenceItem::getChaser()

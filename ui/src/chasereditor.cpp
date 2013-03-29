@@ -451,6 +451,15 @@ void ChaserEditor::slotItemSelectionChanged()
 {
     if (m_chaser->isRunning() == false)
     {
+        if (m_tree->selectedItems().count() > 0)
+        {
+            QTreeWidgetItem *item = m_tree->selectedItems().first();
+            int idx = item->text(COL_NUM).toUInt() - 1;
+            emit stepSelectionChanged(idx);
+        }
+        else
+            emit stepSelectionChanged(-1);
+
         updateClipboardButtons();
         updateSpeedDials();
         applyStepValues();

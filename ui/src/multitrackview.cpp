@@ -82,7 +82,7 @@ MultiTrackView::MultiTrackView(QWidget *parent) :
 
     m_cursor = new SceneCursorItem(m_scene->height());
     m_cursor->setPos(TRACK_WIDTH, 0);
-    m_cursor->setZValue(99); // make sure the cursor is always on top of everything else
+    m_cursor->setZValue(999); // make sure the cursor is always on top of everything else
     m_scene->addItem(m_cursor);
     connect(horizontalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotViewScrolled(int)));
 }
@@ -104,10 +104,11 @@ void MultiTrackView::updateTracksDividers()
         hDivNum = m_tracks.count();
     for (int j = 0; j < hDivNum; j++)
     {
-        QGraphicsItem *item = m_scene->addRect(TRACK_WIDTH, ypos + (j * TRACK_HEIGHT),
+        QGraphicsItem *item = m_scene->addRect(0, ypos + (j * TRACK_HEIGHT),
                                                m_scene->width(), 1,
                                                QPen( QColor(150, 150, 150, 255) ),
                                                QBrush( QColor(190, 190, 190, 255) ) );
+        item->setZValue(-1);
         m_hdividers.append(item);
     }
     m_vdivider = m_scene->addRect(TRACK_WIDTH - 3, 0, 3, m_scene->height(),
@@ -136,7 +137,10 @@ void MultiTrackView::updateViewSize()
     }
 
     if ((m_tracks.count() * TRACK_HEIGHT) + HEADER_HEIGHT > VIEW_DEFAULT_HEIGHT)
+    {
         gHeight = (m_tracks.count() * TRACK_HEIGHT) + HEADER_HEIGHT;
+        m_cursor->setHeight(gHeight);
+    }
 
     if (gWidth > VIEW_DEFAULT_WIDTH || gHeight > VIEW_DEFAULT_HEIGHT)
         setViewSize(gWidth + 1000, gHeight);
