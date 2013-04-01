@@ -1,6 +1,7 @@
 qlcplus (4.3.2) stable; urgency=low
 
   * NEW: Added "Hold" parameter to Chaser steps, between FadeIn and FadeOut
+  * NEW: Added address tool to quickly preview a DIP switch configuration
   * Fade is no more applied to Pan, Tilt and Speed channels
   * Fixed copy of a Show. Now it copies also all the contents
   * Fixed crash when clicking on a Chaser step when Scene Editor "all channels" view is active
@@ -10,6 +11,7 @@ qlcplus (4.3.2) stable; urgency=low
   * Fixed Show Manager vertical resize when adding a big number of tracks
   * EFX improvememnts. Direction parameter is now taken into account (thanks to Jano Svitok)
   * Virtual Console Frame new options: show/hide header, title font/color, set title with double click
+  * Improved binary address display in fixture information panel
   * Added fixture: Eurolite LED Z-200 Beam effect (thank to Heiko Fanieng)
   * Added fixtures: American DJ Vizi Beam 5R, Martin MAC 101 (thanks to Daniel Sevelt)
   * Added fixture: Lanta Orion Link V2 (thanks to OddSocks)

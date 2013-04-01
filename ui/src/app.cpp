@@ -31,6 +31,7 @@
 #include "dmxdumpfactory.h"
 #include "showmanager.h"
 #include "mastertimer.h"
+#include "addresstool.h"
 #include "simpledesk.h"
 #include "docbrowser.h"
 #include "outputmap.h"
@@ -72,6 +73,7 @@ App::App()
 
     , m_modeToggleAction(NULL)
     , m_controlMonitorAction(NULL)
+    , m_addressToolAction(NULL)
     , m_controlFullScreenAction(NULL)
     , m_controlBlackoutAction(NULL)
     , m_controlPanicAction(NULL)
@@ -497,6 +499,9 @@ void App::initActions()
     m_controlMonitorAction->setShortcut(QKeySequence(tr("CTRL+M", "Control|Monitor")));
     connect(m_controlMonitorAction, SIGNAL(triggered(bool)), this, SLOT(slotControlMonitor()));
 
+    m_addressToolAction = new QAction(QIcon(":/diptool.png"), tr("Address Tool"), this);
+    connect(m_addressToolAction, SIGNAL(triggered()), this, SLOT(slotAddressTool()));
+
     m_controlBlackoutAction = new QAction(QIcon(":/blackout.png"), tr("Toggle &Blackout"), this);
     m_controlBlackoutAction->setCheckable(true);
     connect(m_controlBlackoutAction, SIGNAL(triggered(bool)), this, SLOT(slotControlBlackout()));
@@ -538,6 +543,7 @@ void App::initToolBar()
     m_toolbar->addAction(m_fileSaveAsAction);
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_controlMonitorAction);
+    m_toolbar->addAction(m_addressToolAction);
     m_toolbar->addAction(m_controlFullScreenAction);
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_helpIndexAction);
@@ -795,6 +801,12 @@ QFile::FileError App::slotFileSaveAs()
 void App::slotControlMonitor()
 {
     Monitor::createAndShow(this, m_doc);
+}
+
+void App::slotAddressTool()
+{
+    AddressTool at(this);
+    at.exec();
 }
 
 void App::slotControlBlackout()

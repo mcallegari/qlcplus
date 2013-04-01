@@ -24,6 +24,7 @@ RESOURCES    += qlcui.qrc
 # Sources
 HEADERS += aboutbox.h \
            addfixture.h \
+           addresstool.h \
            addvcbuttonmatrix.h \
            addvcslidermatrix.h \
            app.h \
@@ -99,6 +100,7 @@ HEADERS += aboutbox.h \
 
 FORMS += aboutbox.ui \
          addfixture.ui \
+         addresstool.ui \
          addvcbuttonmatrix.ui \
          addvcslidermatrix.ui \
          assignhotkey.ui \
@@ -106,6 +108,7 @@ FORMS += aboutbox.ui \
          channelselection.ui \
          collectioneditor.ui \
          createfixturegroup.ui \
+         dmxdumpfactory.ui \
          efxeditor.ui \
          fixturegroupeditor.ui \
          fixtureselection.ui \
@@ -127,11 +130,11 @@ FORMS += aboutbox.ui \
          vcsliderproperties.ui \
          vcspeeddialproperties.ui \
          vcxypadfixtureeditor.ui \
-         vcxypadproperties.ui \
-    dmxdumpfactory.ui
+         vcxypadproperties.ui
 
 SOURCES += aboutbox.cpp \
            addfixture.cpp \
+           addresstool.cpp \
            addvcbuttonmatrix.cpp \
            addvcslidermatrix.cpp \
            app.cpp \
