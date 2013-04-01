@@ -758,8 +758,22 @@ QString Fixture::status() const
     info += genInfo.arg(tr("Channels")).arg(channels());
 
     // Binary address
+    QString binaryStr = QString("%1").arg(address() + 1, 10, 2, QChar('0'));
+    QString dipTable("<TABLE COLS='33' cellspacing='0'><TR><TD COLSPAN='33'><IMG SRC=\"" ":/ds_top.png\"></TD></TR>");
+    dipTable += "<TR><TD><IMG SRC=\"" ":/ds_border.png\"></TD><TD><IMG SRC=\"" ":/ds_border.png\"></TD>";
+    for (int i = 9; i >= 0; i--)
+    {
+        if (binaryStr.at(i) == '0')
+            dipTable += "<TD COLSPAN='3'><IMG SRC=\"" ":/ds_off.png\"></TD>";
+        else
+            dipTable += "<TD COLSPAN='3'><IMG SRC=\"" ":/ds_on.png\"></TD>";
+    }
+    dipTable += "<TD><IMG SRC=\"" ":/ds_border.png\"></TD></TR>";
+    dipTable += "<TR><TD COLSPAN='33'><IMG SRC=\"" ":/ds_bottom.png\"></TD></TR>";
+    dipTable += "</TABLE>";
+
     info += genInfo.arg(tr("Binary Address (DIP)"))
-            .arg(QString("%1").arg(address() + 1, 9, 2, QChar('0')));
+            .arg(QString("%1").arg(dipTable));
 
     /********************************************************************
      * Channels

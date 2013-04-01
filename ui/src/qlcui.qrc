@@ -22,6 +22,11 @@
         <file alias="detach.png">../../gfx/detach.png</file>
         <file alias="dimmer.png">../../gfx/dimmer.png</file>
         <file alias="down.png">../../gfx/down.png</file>
+        <file alias="ds_top.png">../../gfx/ds_top.png</file>
+        <file alias="ds_border.png">../../gfx/ds_border.png</file>
+        <file alias="ds_on.png">../../gfx/ds_on.png</file>
+        <file alias="ds_off.png">../../gfx/ds_off.png</file>
+        <file alias="ds_bottom.png">../../gfx/ds_bottom.png</file>
         <file alias="edit.png">../../gfx/edit.png</file>
         <file alias="editclear.png">../../gfx/editclear.png</file>
         <file alias="editcopy.png">../../gfx/editcopy.png</file>
