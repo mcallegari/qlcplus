@@ -377,314 +377,347 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>AddressTool</name>
+    <message>
+        <location filename="addresstool.ui" line="14"/>
+        <source>Address Tool</source>
+        <translation>Strumento per indirizzi</translation>
+    </message>
+    <message>
+        <location filename="addresstool.ui" line="22"/>
+        <source>Reverse vertically</source>
+        <translation>Inverti in verticale</translation>
+    </message>
+    <message>
+        <location filename="addresstool.ui" line="35"/>
+        <source>Color</source>
+        <translation>Colore</translation>
+    </message>
+    <message>
+        <location filename="addresstool.ui" line="51"/>
+        <source>Address</source>
+        <translation>Indirizzo</translation>
+    </message>
+    <message>
+        <location filename="addresstool.ui" line="98"/>
+        <source>Reverse Horizontally</source>
+        <translation>Inverti in orizzontale</translation>
+    </message>
+</context>
+<context>
     <name>App</name>
     <message>
-        <location filename="app.cpp" line="236"/>
+        <location filename="app.cpp" line="238"/>
         <source>Cannot exit in Operate mode</source>
         <translation>Non puoi uscire durante la modalità Operativa</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="237"/>
+        <location filename="app.cpp" line="239"/>
         <source>You must switch back to Design mode to close the application.</source>
         <translation>Devi tornare alla modalità di Design per chiudere l&apos;applicazione.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="245"/>
+        <location filename="app.cpp" line="247"/>
         <source>Close</source>
         <translation>Chiudi</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="246"/>
+        <location filename="app.cpp" line="248"/>
         <source>Do you wish to save the current workspace before closing the application?</source>
         <translation>Vuoi salvare il progetto corrente prima di chiudere l&apos;applicazione?</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="313"/>
+        <location filename="app.cpp" line="315"/>
         <source>Starting Q Light Controller Plus</source>
         <oldsource>Starting Q Light Controller</oldsource>
         <translation>Avvio Q Light Controller Plus</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="369"/>
+        <location filename="app.cpp" line="371"/>
         <source> - New Workspace</source>
         <translation> - Nuovo Spazio di Lavoro</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="420"/>
+        <location filename="app.cpp" line="422"/>
         <source>Switch to Design Mode</source>
         <translation>Vai in Modalità Design</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="421"/>
+        <location filename="app.cpp" line="423"/>
         <source>There are still running functions.
 Really stop them and switch back to Design mode?</source>
         <translation>Ci sono Funzioni Attive.
 Vuoi veramente fermarle e ritornare in modalità Design?</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="453"/>
+        <location filename="app.cpp" line="455"/>
         <source>Design</source>
         <translation>Design</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="454"/>
+        <location filename="app.cpp" line="456"/>
         <source>Switch to design mode</source>
         <translation>Vai in modalità Design</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="463"/>
+        <location filename="app.cpp" line="465"/>
         <source>Operate</source>
         <translation>Operate</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="464"/>
-        <location filename="app.cpp" line="492"/>
+        <location filename="app.cpp" line="466"/>
+        <location filename="app.cpp" line="494"/>
         <source>Switch to operate mode</source>
         <translation>Vai in modalità Operate</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="475"/>
+        <location filename="app.cpp" line="477"/>
         <source>&amp;New</source>
         <translation>&amp;Nuovo</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="476"/>
+        <location filename="app.cpp" line="478"/>
         <source>CTRL+N</source>
         <comment>File|New</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="479"/>
+        <location filename="app.cpp" line="481"/>
         <source>&amp;Open</source>
         <translation>&amp;Apri</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="480"/>
+        <location filename="app.cpp" line="482"/>
         <source>CTRL+O</source>
         <comment>File|Open</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="483"/>
+        <location filename="app.cpp" line="485"/>
         <source>&amp;Save</source>
         <translation>&amp;Salva</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="484"/>
+        <location filename="app.cpp" line="486"/>
         <source>CTRL+S</source>
         <comment>File|Save</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="487"/>
+        <location filename="app.cpp" line="489"/>
         <source>Save &amp;As...</source>
         <translation>Salva &amp;Con Nome...</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="491"/>
+        <location filename="app.cpp" line="493"/>
         <source>&amp;Operate</source>
         <translation>&amp;Operativo</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="496"/>
+        <location filename="app.cpp" line="498"/>
         <source>&amp;Monitor</source>
         <translation>&amp;Monitor</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="500"/>
+        <location filename="app.cpp" line="505"/>
         <source>Toggle &amp;Blackout</source>
         <translation>&amp;Blackout On/Off</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="493"/>
+        <location filename="app.cpp" line="495"/>
         <source>CTRL+F12</source>
         <comment>Control|Toggle operate/design mode</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="497"/>
+        <location filename="app.cpp" line="499"/>
         <source>CTRL+M</source>
         <comment>Control|Monitor</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="513"/>
+        <location filename="app.cpp" line="518"/>
         <source>Toggle Full Screen</source>
         <translation>Passa in modalità schermo intero</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="515"/>
+        <location filename="app.cpp" line="520"/>
         <source>CTRL+F11</source>
         <comment>Control|Toggle Full Screen</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="519"/>
+        <location filename="app.cpp" line="524"/>
         <source>&amp;Index</source>
         <translation>&amp;Indice</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="520"/>
+        <location filename="app.cpp" line="525"/>
         <source>SHIFT+F1</source>
         <comment>Help|Index</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="523"/>
+        <location filename="app.cpp" line="528"/>
         <source>&amp;About QLC+</source>
         <oldsource>&amp;About QLC</oldsource>
         <translation>&amp;A proposito di QLC+</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="190"/>
+        <location filename="app.cpp" line="192"/>
         <source>Fixtures</source>
         <translation>Fixture</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="192"/>
+        <location filename="app.cpp" line="194"/>
         <source>Functions</source>
         <translation>Funzioni</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="194"/>
+        <location filename="app.cpp" line="196"/>
         <source>Shows</source>
         <translation>Show</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="196"/>
+        <location filename="app.cpp" line="198"/>
         <source>Virtual Console</source>
         <translation>Console Virtuale</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="198"/>
+        <location filename="app.cpp" line="200"/>
         <source>Simple Desk</source>
         <translation>Banco Semplice</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="200"/>
+        <location filename="app.cpp" line="202"/>
         <source>Inputs/Outputs</source>
         <translation>Ingressi/Uscite</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="270"/>
+        <location filename="app.cpp" line="272"/>
         <source>Close the application?</source>
         <translation>Chiudere l&apos;applicazione?</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="271"/>
+        <location filename="app.cpp" line="273"/>
         <source>Do you wish to close the application?</source>
         <translation>Vuoi chiudere l&apos;applicazione?</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="403"/>
+        <location filename="app.cpp" line="405"/>
         <source>Exit</source>
         <translation>Uscita</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="505"/>
+        <location filename="app.cpp" line="502"/>
+        <source>Address Tool</source>
+        <translation>Strumento per indirizzi</translation>
+    </message>
+    <message>
+        <location filename="app.cpp" line="510"/>
         <source>Dump DMX values to a function</source>
         <translation>Salva i valori DMX su una funzione</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="506"/>
+        <location filename="app.cpp" line="511"/>
         <source>CTRL+D</source>
         <comment>Control|Dump DMX</comment>
         <translation>CTRL+D</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="509"/>
+        <location filename="app.cpp" line="514"/>
         <source>Stop ALL functions!</source>
         <translation>Ferma TUTTE le funzioni!</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="529"/>
+        <location filename="app.cpp" line="534"/>
         <source>Workspace</source>
         <translation>Spazio di lavoro</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="573"/>
+        <location filename="app.cpp" line="579"/>
         <source>Unable to read from file</source>
         <translation>Impossibile leggere dal file</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="576"/>
+        <location filename="app.cpp" line="582"/>
         <source>Unable to write to file</source>
         <translation>Impossibile Salvare il File</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="579"/>
+        <location filename="app.cpp" line="585"/>
         <source>A fatal error occurred</source>
         <translation>Errore fatale</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="582"/>
+        <location filename="app.cpp" line="588"/>
         <source>Unable to access resource</source>
         <translation>Impossibile accedere alla risorsa</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="585"/>
+        <location filename="app.cpp" line="591"/>
         <source>Unable to open file for reading or writing</source>
         <translation>Impossibile leggere o scrivere il file</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="588"/>
+        <location filename="app.cpp" line="594"/>
         <source>Operation was aborted</source>
         <translation>L&apos;operazione è stata annullata</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="591"/>
+        <location filename="app.cpp" line="597"/>
         <source>Operation timed out</source>
         <translation>Operazione scaduta</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="595"/>
+        <location filename="app.cpp" line="601"/>
         <source>An unspecified error has occurred. Nice.</source>
         <translation>Errore sconosciuto. Figo.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="599"/>
+        <location filename="app.cpp" line="605"/>
         <source>File error</source>
         <translation>Errore file</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="610"/>
-        <location filename="app.cpp" line="649"/>
+        <location filename="app.cpp" line="616"/>
+        <location filename="app.cpp" line="655"/>
         <source>Do you wish to save the current workspace?
 Changes will be lost if you don&apos;t save them.</source>
         <translation>Vuoi salvare il presente workspace?
 Tutti i cambiamenti andranno persi senza salvataggio..</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="612"/>
+        <location filename="app.cpp" line="618"/>
         <source>New Workspace</source>
         <translation>Nuovo Spazio di Lavoro</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="651"/>
-        <location filename="app.cpp" line="672"/>
+        <location filename="app.cpp" line="657"/>
+        <location filename="app.cpp" line="678"/>
         <source>Open Workspace</source>
         <translation>Apri Spazio di Lavoro</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="680"/>
-        <location filename="app.cpp" line="755"/>
+        <location filename="app.cpp" line="686"/>
+        <location filename="app.cpp" line="761"/>
         <source>Workspaces (*%1)</source>
         <translation>Spazio di Lavoro (*%1)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="682"/>
-        <location filename="app.cpp" line="757"/>
+        <location filename="app.cpp" line="688"/>
+        <location filename="app.cpp" line="763"/>
         <source>All Files (*.*)</source>
         <translation>Tutti i tipi di Files (*.*)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="684"/>
-        <location filename="app.cpp" line="759"/>
+        <location filename="app.cpp" line="690"/>
+        <location filename="app.cpp" line="765"/>
         <source>All Files (*)</source>
         <translation>Tutti i Files (*)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="749"/>
+        <location filename="app.cpp" line="755"/>
         <source>Save Workspace As</source>
         <translation>Salva lo Spazio di Lavoro come</translation>
     </message>
@@ -720,23 +753,23 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
 <context>
     <name>AudioItem</name>
     <message>
-        <location filename="sceneitems.cpp" line="535"/>
-        <location filename="sceneitems.cpp" line="865"/>
+        <location filename="sceneitems.cpp" line="562"/>
+        <location filename="sceneitems.cpp" line="892"/>
         <source>Preview Left Channel</source>
         <translation>Anteprima Canale Sinistro</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="539"/>
+        <location filename="sceneitems.cpp" line="566"/>
         <source>Preview Right Channel</source>
         <translation>Anteprima Canale Destro</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="543"/>
+        <location filename="sceneitems.cpp" line="570"/>
         <source>Preview Stereo Channels</source>
         <translation>Anteprima Canali Stereo</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="861"/>
+        <location filename="sceneitems.cpp" line="888"/>
         <source>Preview Mono</source>
         <translation>Anteprima Mono</translation>
     </message>
@@ -834,264 +867,273 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
         <translation>Editor dei Chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="41"/>
+        <location filename="chasereditor.ui" line="106"/>
         <source>Chaser name</source>
         <translation>Nome del Chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="54"/>
+        <location filename="chasereditor.ui" line="119"/>
         <source>Name of the chaser being edited</source>
         <translation>Edita il nome del chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="155"/>
+        <location filename="chasereditor.ui" line="45"/>
         <source>Step</source>
         <translation>Passo</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="160"/>
+        <location filename="chasereditor.ui" line="50"/>
         <source>Function</source>
         <translation>Funzione</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="165"/>
-        <location filename="chasereditor.cpp" line="713"/>
+        <location filename="chasereditor.ui" line="55"/>
+        <location filename="chasereditor.cpp" line="747"/>
         <source>Fade In</source>
         <translation>Fade In</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="170"/>
-        <location filename="chasereditor.cpp" line="714"/>
+        <location filename="chasereditor.ui" line="65"/>
+        <location filename="chasereditor.cpp" line="748"/>
         <source>Fade Out</source>
         <translation>Fade Out</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="175"/>
-        <location filename="chasereditor.cpp" line="715"/>
+        <location filename="chasereditor.ui" line="70"/>
         <source>Duration</source>
         <translation>Durata</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="110"/>
+        <location filename="chasereditor.ui" line="566"/>
         <source>Add step(s) to the current position</source>
         <translation>Aggiungi passi alla posizione corrente</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="438"/>
+        <location filename="chasereditor.ui" line="396"/>
         <source>Show/Hide speed dial window</source>
         <translation>Mostra/Nascondi finestra speed dial</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="241"/>
+        <location filename="chasereditor.ui" line="60"/>
+        <location filename="chasereditor.cpp" line="749"/>
+        <source>Hold</source>
+        <translation>Hold</translation>
+    </message>
+    <message>
+        <location filename="chasereditor.ui" line="159"/>
         <source>Switch direction at both ends</source>
         <translation>Cambia direzione alle estremità</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="302"/>
+        <location filename="chasereditor.ui" line="220"/>
         <source>Fade In Speed</source>
         <translation>Velocità Fade In</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="308"/>
+        <location filename="chasereditor.ui" line="226"/>
         <source>All steps have common fade in speed set by the chaser</source>
         <translation>Tutti i passi hanno una velocità comune di fade in impostata dal chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="311"/>
-        <location filename="chasereditor.ui" line="353"/>
-        <location filename="chasereditor.ui" line="395"/>
+        <location filename="chasereditor.ui" line="229"/>
+        <location filename="chasereditor.ui" line="271"/>
+        <location filename="chasereditor.ui" line="313"/>
         <source>Common</source>
         <translation>Comune</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="318"/>
+        <location filename="chasereditor.ui" line="236"/>
         <source>Each step has its own fade in speed set by the chaser</source>
         <translation>Ogni passo ha la propria velocità di fade in impostata dal chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="321"/>
-        <location filename="chasereditor.ui" line="363"/>
-        <location filename="chasereditor.ui" line="408"/>
+        <location filename="chasereditor.ui" line="239"/>
+        <location filename="chasereditor.ui" line="281"/>
+        <location filename="chasereditor.ui" line="326"/>
         <source>Per Step</source>
         <translation>Per passo</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="328"/>
+        <location filename="chasereditor.ui" line="246"/>
         <source>Use each function&apos;s own fade in speed</source>
         <translation>Ogni funzione ha la propria velocità di fade in</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="331"/>
-        <location filename="chasereditor.ui" line="373"/>
+        <location filename="chasereditor.ui" line="249"/>
+        <location filename="chasereditor.ui" line="291"/>
         <source>Default</source>
         <translation>Default</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="344"/>
+        <location filename="chasereditor.ui" line="262"/>
         <source>Fade Out Speed</source>
         <translation>Velocità Fade Out</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="350"/>
+        <location filename="chasereditor.ui" line="268"/>
         <source>All steps have common fade out speed set by the chaser</source>
         <translation>Tutti i passi hanno una velocità comune di fade out impostata dal chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="360"/>
+        <location filename="chasereditor.ui" line="278"/>
         <source>Each step has its own fade out speed set by the chaser</source>
         <translation>Ogni passo ha la propria velocità di fade out impostata dal chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="370"/>
+        <location filename="chasereditor.ui" line="288"/>
         <source>Use each function&apos;s own fade out speed</source>
         <translation>Ogni funzione ha la propria velocità di fade out</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="386"/>
+        <location filename="chasereditor.ui" line="304"/>
         <source>Step Duration</source>
         <translation>Durata Passo</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="392"/>
+        <location filename="chasereditor.ui" line="310"/>
         <source>All steps have common step duration set by the chaser</source>
         <translation>Tutti i passi hanno una durata comune impostata dal chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="405"/>
+        <location filename="chasereditor.ui" line="323"/>
         <source>Each step has its own duration set by the chaser</source>
         <translation>Ogni passo ha la propria durata impostata dal chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="468"/>
+        <location filename="chasereditor.ui" line="426"/>
         <source>See what the chaser does when it is run</source>
         <translation>Guarda cosa fa il chaser quando è in esecuzione</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="488"/>
+        <location filename="chasereditor.ui" line="446"/>
         <source>Stop the chaser if running</source>
         <translation>Interrompe il chaser se in esecuzione</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="528"/>
+        <location filename="chasereditor.ui" line="486"/>
         <source>Skip to the next step</source>
         <translation>Salta al prossimo passo</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="508"/>
+        <location filename="chasereditor.ui" line="466"/>
         <source>Skip to the previous step</source>
         <translation>Salta al passo precedente</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="441"/>
-        <location filename="chasereditor.ui" line="471"/>
-        <location filename="chasereditor.ui" line="491"/>
-        <location filename="chasereditor.ui" line="511"/>
-        <location filename="chasereditor.ui" line="531"/>
+        <location filename="chasereditor.ui" line="399"/>
+        <location filename="chasereditor.ui" line="429"/>
+        <location filename="chasereditor.ui" line="449"/>
+        <location filename="chasereditor.ui" line="469"/>
+        <location filename="chasereditor.ui" line="489"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="183"/>
+        <location filename="chasereditor.ui" line="78"/>
         <source>Remove the selected step</source>
         <translation>Elimina il passo selezionato</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="90"/>
+        <location filename="chasereditor.ui" line="586"/>
         <source>Raise the selected step once</source>
         <translation>Aumentare il passo selezionato</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="63"/>
+        <location filename="chasereditor.ui" line="354"/>
         <source>Lower the selected step once</source>
         <translation>Abbassare il passo selezionato</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="212"/>
+        <location filename="chasereditor.ui" line="130"/>
         <source>Run Order</source>
         <translation>Ordine</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="218"/>
+        <location filename="chasereditor.ui" line="136"/>
         <source>Run through over and over again</source>
         <translation>Esecuzione continua</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="221"/>
+        <location filename="chasereditor.ui" line="139"/>
         <source>Loop</source>
         <translation>Loop</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="231"/>
+        <location filename="chasereditor.ui" line="149"/>
         <source>Run through once and stop</source>
         <translation>Esecuzione singola e poi Stop</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="234"/>
+        <location filename="chasereditor.ui" line="152"/>
         <source>Single Shot</source>
         <translation>Singolo</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="244"/>
+        <location filename="chasereditor.ui" line="162"/>
         <source>Ping Pong</source>
         <translation>Ping Pong</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="254"/>
+        <location filename="chasereditor.ui" line="172"/>
         <source>Direction</source>
         <translation>Direzione</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="260"/>
+        <location filename="chasereditor.ui" line="178"/>
         <source>Start from the first step</source>
         <translation>Partire dal primo passo</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="263"/>
+        <location filename="chasereditor.ui" line="181"/>
         <source>Forward</source>
         <translation>Avanti</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="273"/>
+        <location filename="chasereditor.ui" line="191"/>
         <source>Start from the last step</source>
         <translation>Partire dall&apos;ultimo passo</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="276"/>
+        <location filename="chasereditor.ui" line="194"/>
         <source>Backward</source>
         <translation>Indietro</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="76"/>
+        <location filename="chasereditor.cpp" line="77"/>
         <source>Cut</source>
         <translation>Taglia</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="81"/>
+        <location filename="chasereditor.cpp" line="82"/>
         <source>Copy</source>
         <translation>Copia</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="86"/>
+        <location filename="chasereditor.cpp" line="87"/>
         <source>Paste</source>
         <translation>Incolla</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="716"/>
+        <location filename="chasereditor.cpp" line="750"/>
         <source>Common Fade In</source>
         <translation>Fade In Comune</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="717"/>
+        <location filename="chasereditor.cpp" line="751"/>
         <source>Common Fade Out</source>
         <translation>Fade Out Comune</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="718"/>
-        <source>Common Duration</source>
-        <translation>Durata Comune</translation>
+        <location filename="chasereditor.cpp" line="752"/>
+        <source>Common Hold</source>
+        <translation>Hold Comune</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="734"/>
+        <source>Common Duration</source>
+        <translation type="obsolete">Durata Comune</translation>
+    </message>
+    <message>
+        <location filename="chasereditor.cpp" line="768"/>
         <source>Multiple Steps</source>
         <translation>Passi Multipli</translation>
     </message>
@@ -2557,55 +2599,55 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
 <context>
     <name>MultiTrackView</name>
     <message>
-        <location filename="multitrackview.cpp" line="194"/>
-        <location filename="multitrackview.cpp" line="228"/>
+        <location filename="multitrackview.cpp" line="198"/>
+        <location filename="multitrackview.cpp" line="232"/>
         <source>Start time: %1msec
 %2</source>
         <translation>Inizio: %1msec
 %2</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="195"/>
-        <location filename="multitrackview.cpp" line="500"/>
-        <location filename="multitrackview.cpp" line="521"/>
+        <location filename="multitrackview.cpp" line="199"/>
+        <location filename="multitrackview.cpp" line="504"/>
+        <location filename="multitrackview.cpp" line="525"/>
         <source>Click to move this sequence across the timeline</source>
         <translation>Clicca per muovere la sequenza lungo la linea temporale</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="229"/>
+        <location filename="multitrackview.cpp" line="233"/>
         <source>Click to move this audio across the timeline</source>
         <translation>Clicca per spostare questo audio lungo la linea temporale</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="256"/>
+        <location filename="multitrackview.cpp" line="260"/>
         <source>Do you want to DELETE sequence:</source>
         <translation>Vuoi ELIMINARE la sequenza:</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="259"/>
-        <location filename="multitrackview.cpp" line="280"/>
-        <location filename="multitrackview.cpp" line="314"/>
+        <location filename="multitrackview.cpp" line="263"/>
+        <location filename="multitrackview.cpp" line="284"/>
+        <location filename="multitrackview.cpp" line="318"/>
         <source>Delete Functions</source>
         <translation>Elimina Funzioni</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="276"/>
+        <location filename="multitrackview.cpp" line="280"/>
         <source>Do you want to DELETE audio (the source file will NOT be removed):</source>
         <translation>Vuoi ELIMINARE audio (il file sorgente NON verrà eliminato):</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="301"/>
+        <location filename="multitrackview.cpp" line="305"/>
         <source>Do you want to DELETE scene:</source>
         <translation>Vuoi ELIMINARE la scena:</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="304"/>
+        <location filename="multitrackview.cpp" line="308"/>
         <source>This operation will also DELETE:</source>
         <translation>Questa operazione ELIMINERA&apos; anche:</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="499"/>
-        <location filename="multitrackview.cpp" line="520"/>
+        <location filename="multitrackview.cpp" line="503"/>
+        <location filename="multitrackview.cpp" line="524"/>
         <source>Start time: %1
 %2</source>
         <translation>Inizio: %1
@@ -2628,12 +2670,12 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
 <context>
     <name>QObject</name>
     <message>
-        <location filename="app.cpp" line="53"/>
+        <location filename="app.cpp" line="54"/>
         <source>Operate</source>
         <translation>Operativo</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="54"/>
+        <location filename="app.cpp" line="55"/>
         <source>Design</source>
         <translation>Design</translation>
     </message>
@@ -3212,72 +3254,72 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <translation>&amp;Play</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="254"/>
+        <location filename="showmanager.cpp" line="255"/>
         <source>Time division:</source>
         <translation>Marcatori di tempo:</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="259"/>
+        <location filename="showmanager.cpp" line="260"/>
         <source>Time</source>
         <translation>Tempo</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="391"/>
+        <location filename="showmanager.cpp" line="395"/>
         <source>New Show</source>
         <translation>Nuovo Show</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="393"/>
+        <location filename="showmanager.cpp" line="397"/>
         <source>Show name setup</source>
         <translation>Immissione nome Show</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="394"/>
+        <location filename="showmanager.cpp" line="398"/>
         <source>Show name:</source>
         <translation>Nome Show:</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="427"/>
+        <location filename="showmanager.cpp" line="431"/>
         <source>New Scene</source>
         <translation>Nuova Scena</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="457"/>
+        <location filename="showmanager.cpp" line="461"/>
         <source>New Sequence</source>
         <translation>Nuova Sequenza</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="471"/>
+        <location filename="showmanager.cpp" line="475"/>
         <source>Open Audio File</source>
         <translation>Apri File Audio</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="497"/>
+        <location filename="showmanager.cpp" line="501"/>
         <source>Audio Files (%1)</source>
         <translation>File Audio (%1)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="499"/>
+        <location filename="showmanager.cpp" line="503"/>
         <source>All Files (*.*)</source>
         <translation>Tutti i file (*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="501"/>
+        <location filename="showmanager.cpp" line="505"/>
         <source>All Files (*)</source>
         <translation>Tutti i File (*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="523"/>
+        <location filename="showmanager.cpp" line="527"/>
         <source>Unsupported audio file</source>
         <translation>File audio non supportato</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="523"/>
+        <location filename="showmanager.cpp" line="527"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation>Questo file audio non può essere riprodotto da QLC+. Spiacente.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="559"/>
+        <location filename="showmanager.cpp" line="563"/>
         <source>Copy of %1</source>
         <translation>Copia di %1</translation>
     </message>
@@ -3437,8 +3479,12 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     </message>
     <message>
         <location filename="speeddialwidget.cpp" line="69"/>
+        <source>Hold</source>
+        <translation>Hold</translation>
+    </message>
+    <message>
         <source>Duration</source>
-        <translation>Durata</translation>
+        <translation type="obsolete">Durata</translation>
     </message>
 </context>
 <context>
@@ -3897,7 +3943,7 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
 <context>
     <name>VCFrame</name>
     <message>
-        <location filename="vcframe.cpp" line="457"/>
+        <location filename="vcframe.cpp" line="548"/>
         <source>Add</source>
         <translation>Aggiungi</translation>
     </message>
@@ -3910,14 +3956,24 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <translation>Proprietà cornice</translation>
     </message>
     <message>
-        <location filename="vcframeproperties.ui" line="20"/>
+        <location filename="vcframeproperties.ui" line="22"/>
+        <source>Frame name</source>
+        <translation>Nome della cornice</translation>
+    </message>
+    <message>
+        <location filename="vcframeproperties.ui" line="34"/>
         <source>Accept child widgets</source>
         <translation>Consenti oggetti figli</translation>
     </message>
     <message>
-        <location filename="vcframeproperties.ui" line="27"/>
+        <location filename="vcframeproperties.ui" line="41"/>
         <source>Allow resizing</source>
         <translation>Consenti ridimensionamento</translation>
+    </message>
+    <message>
+        <location filename="vcframeproperties.ui" line="48"/>
+        <source>Show header</source>
+        <translation>Mostra la barra del titolo</translation>
     </message>
 </context>
 <context>
