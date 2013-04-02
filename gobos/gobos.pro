@@ -2,5 +2,7 @@ TEMPLATE = subdirs
 
 SUBDIRS += ClayPaky
 SUBDIRS += GLP
+SUBDIRS += Others
 SUBDIRS += SGM
 SUBDIRS += SGM-Color
+

@@ -16,6 +16,7 @@ qlcplus (4.3.2) stable; urgency=low
   * Added fixtures: American DJ Vizi Beam 5R, Martin MAC 101 (thanks to Daniel Sevelt)
   * Added fixture: Lanta Orion Link V2 (thanks to OddSocks)
   * Added fixtures: Rosco I-Cue, Ledj Colour Storm Quad, Ledj Alu Quad PAR64 (thanks to Michael Clements)
+  * Improved fixture: Elation Platinum Spot 5R (thanks to George Qualley)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Mon, 15 Apr 2013 12:12:42 +0200
 
