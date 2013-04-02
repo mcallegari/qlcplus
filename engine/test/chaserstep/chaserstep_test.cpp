@@ -39,8 +39,9 @@ void ChaserStep_Test::initial()
     step = ChaserStep(1, 2, 3, 4);
     QCOMPARE(step.fid, quint32(1));
     QCOMPARE(step.fadeIn, uint(2));
-    QCOMPARE(step.fadeOut, uint(3));
-    QCOMPARE(step.duration, uint(4));
+    QCOMPARE(step.hold, uint(3));
+    QCOMPARE(step.fadeOut, uint(4));
+    QCOMPARE(step.duration, uint(9));
 }
 
 void ChaserStep_Test::comparison()
@@ -71,17 +72,19 @@ void ChaserStep_Test::variant()
     ChaserStep step(1, 2, 3, 4);
     QVariant var = step.toVariant();
     QList <QVariant> list(var.toList());
-    QCOMPARE(list.size(), 4);
+    QCOMPARE(list.size(), 5);
     QCOMPARE(list[0].toUInt(), uint(1));
     QCOMPARE(list[1].toUInt(), uint(2));
     QCOMPARE(list[2].toUInt(), uint(3));
     QCOMPARE(list[3].toUInt(), uint(4));
+    QCOMPARE(list[4].toUInt(), uint(9));
 
     ChaserStep pets = ChaserStep::fromVariant(var);
     QCOMPARE(pets.fid, uint(1));
     QCOMPARE(pets.fadeIn, uint(2));
-    QCOMPARE(pets.fadeOut, uint(3));
-    QCOMPARE(pets.duration, uint(4));
+    QCOMPARE(pets.hold, uint(3));
+    QCOMPARE(pets.fadeOut, uint(4));
+    QCOMPARE(pets.duration, uint(9));
 }
 
 void ChaserStep_Test::load()
@@ -120,8 +123,9 @@ void ChaserStep_Test::save()
     QCOMPARE(tag.tagName(), QString("Step"));
     QCOMPARE(tag.text(), QString("1"));
     QCOMPARE(tag.attribute("FadeIn"), QString("2"));
-    QCOMPARE(tag.attribute("FadeOut"), QString("3"));
-    QCOMPARE(tag.attribute("Duration"), QString("4"));
+    QCOMPARE(tag.attribute("Hold"), QString("3"));
+    QCOMPARE(tag.attribute("FadeOut"), QString("4"));
+    //QCOMPARE(tag.attribute("Duration"), QString("4")); // deprecated from version 4.3.2
     QCOMPARE(tag.attribute("Number"), QString("5"));
 }
 

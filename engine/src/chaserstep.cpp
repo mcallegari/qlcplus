@@ -80,7 +80,7 @@ ChaserStep ChaserStep::fromVariant(const QVariant& var)
     ChaserStep cs;
     qDebug() << "-------------  ChaserStep::fromVariant";
     QList <QVariant> list(var.toList());
-    if (list.size() == 4)
+    if (list.size() == 5)
     {
         cs.fid = list.takeFirst().toUInt();
         cs.fadeIn = list.takeFirst().toUInt();

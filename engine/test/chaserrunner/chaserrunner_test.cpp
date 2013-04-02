@@ -248,11 +248,11 @@ void ChaserRunner_Test::currentFadeOut()
 
     m_chaser->setFadeOutMode(Chaser::PerStep);
     cr.m_currentStep = 0;
-    QCOMPARE(cr.currentFadeOut(), uint(2000));
+    QCOMPARE(cr.currentFadeOut(), uint(3000));
     cr.m_currentStep = 1;
-    QCOMPARE(cr.currentFadeOut(), uint(2100));
+    QCOMPARE(cr.currentFadeOut(), uint(3100));
     cr.m_currentStep = 2;
-    QCOMPARE(cr.currentFadeOut(), uint(2200));
+    QCOMPARE(cr.currentFadeOut(), uint(3200));
     cr.m_currentStep = 3; // Nonexistent step
     QCOMPARE(cr.currentFadeOut(), Function::defaultSpeed());
 
@@ -317,11 +317,11 @@ void ChaserRunner_Test::currentDuration()
 
     m_chaser->setDurationMode(Chaser::PerStep);
     cr.m_currentStep = 0;
-    QCOMPARE(cr.currentDuration(), uint(3000));
+    QCOMPARE(cr.currentDuration(), uint(6000));
     cr.m_currentStep = 1;
-    QCOMPARE(cr.currentDuration(), uint(3100));
+    QCOMPARE(cr.currentDuration(), uint(6300));
     cr.m_currentStep = 2;
-    QCOMPARE(cr.currentDuration(), uint(3200));
+    QCOMPARE(cr.currentDuration(), uint(6600));
     cr.m_currentStep = 3; // Nonexistent step
     QCOMPARE(cr.currentDuration(), uint(300)); // Fall back to common speed
 
