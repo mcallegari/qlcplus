@@ -63,6 +63,7 @@ const QSize VCButton::defaultSize(QSize(50, 50));
  *****************************************************************************/
 
 VCButton::VCButton(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
+    , m_iconPath()
     , m_adjustIntensity(false)
     , m_intensityAdjustment(1.0)
 {
@@ -250,12 +251,13 @@ QColor VCButton::foregroundColor() const
 
 QString VCButton::icon() const
 {
-    return m_icon;
+    return m_iconPath;
 }
 
 void VCButton::setIcon(const QString& icon)
 {
-    m_icon = icon;
+    m_iconPath = icon;
+    updateIcon();
     m_doc->setModified();
     update();
 }
@@ -284,6 +286,30 @@ void VCButton::slotChooseIcon()
             if (button != NULL)
                 button->setIcon(path);
         }
+    }
+}
+
+void VCButton::updateIcon()
+{
+    if (m_action == Blackout)
+    {
+        m_icon = QIcon(":/blackout.png");
+        m_iconSize = QSize(26, 26);
+    }
+    else if (m_action == StopAll)
+    {
+        m_icon = QIcon(":/panic.png");
+        m_iconSize = QSize(26, 26);
+    }
+    else if (icon().isEmpty() == false)
+    {
+        m_icon = QIcon(icon());
+        m_iconSize = QSize(26, 26);
+    }
+    else
+    {
+        m_icon = QIcon();
+        m_iconSize = QSize(-1, -1);
     }
 }
 
@@ -439,6 +465,7 @@ void VCButton::setAction(Action action)
                 this, SLOT(slotBlackoutChanged(bool)));
 
     m_action = action;
+    updateIcon();
 
     if (m_action == Blackout)
         setToolTip(tr("Toggle Blackout"));
@@ -811,26 +838,8 @@ void VCButton::paintEvent(QPaintEvent* e)
         option.state |= QStyle::State_Enabled;
 
     /* Icon */
-    if (m_action == Blackout)
-    {
-        option.icon = QIcon(":/blackout.png");
-        option.iconSize = QSize(26, 26);
-    }
-    else if (m_action == StopAll)
-    {
-        option.icon = QIcon(":/panic.png");
-        option.iconSize = QSize(26, 26);
-    }
-    else if (icon().isEmpty() == false)
-    {
-        option.icon = QIcon(icon());
-        option.iconSize = QSize(26, 26);
-    }
-    else
-    {
-        option.icon = QIcon();
-        option.iconSize = QSize(-1, -1);
-    }
+    option.icon = m_icon;
+    option.iconSize = m_iconSize;
 
     /* Paint the button */
     QPainter painter(this);
