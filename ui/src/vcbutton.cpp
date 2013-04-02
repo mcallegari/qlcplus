@@ -833,8 +833,8 @@ void VCButton::paintEvent(QPaintEvent* e)
     else
         option.state= QStyle::State_Raised;
 
-    /* Enabled or disabled looks based on application mode */
-    if (mode() == Doc::Operate)
+    /* Custom icons are always enabled, to see them in fuill color also in design mode */
+    if (m_action == Toggle || m_action == Flash)
         option.state |= QStyle::State_Enabled;
 
     /* Icon */
