@@ -84,10 +84,14 @@ public:
     /** Get the number of channels to use (ONLY for generic dimmers) */
     quint32 channels() const;
 
+    /** Get if the entered address is valid or not */
+    bool invalidAddress();
+
 protected:
     const Doc* m_doc;
     const QLCFixtureDef* m_fixtureDef;
     const QLCFixtureMode* m_mode;
+    quint32 m_fixtureID;
 
     QString m_nameValue;
 
@@ -96,6 +100,7 @@ protected:
     int m_amountValue;
     quint32 m_gapValue;
     quint32 m_channelsValue;
+    bool m_invalidAddressFlag;
 
     /*********************************************************************
      * Fillers
@@ -139,6 +144,9 @@ protected:
 
     /** Update the maximum amount of fixtures for the universe */
     void updateMaximumAmount();
+
+    /** Check if an address is available for contiguous channels */
+    bool checkAddressAvailability(int value, int channels);
 
 protected:
     int m_fxiCount;

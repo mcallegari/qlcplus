@@ -59,8 +59,11 @@ AddFixture::AddFixture(QWidget* parent, const Doc* doc, const Fixture* fxi)
     m_fixtureDef = NULL;
     m_mode = NULL;
     m_fxiCount = 0;
+    m_fixtureID = Fixture::invalidId();
+    m_invalidAddressFlag = false;
 
     setupUi(this);
+    m_addrErrorLabel->hide();
 
     QAction* action = new QAction(this);
     action->setShortcut(QKeySequence(QKeySequence::Close));
@@ -105,6 +108,7 @@ AddFixture::AddFixture(QWidget* parent, const Doc* doc, const Fixture* fxi)
     // Universe
     if (fxi != NULL)
     {
+        m_fixtureID = fxi->id();
         m_universeCombo->setCurrentIndex(fxi->universe());
         slotUniverseActivated(fxi->universe());
 
@@ -204,6 +208,11 @@ quint32 AddFixture::gap() const
 quint32 AddFixture::channels() const
 {
     return m_channelsValue;
+}
+
+bool AddFixture::invalidAddress()
+{
+    return m_invalidAddressFlag;
 }
 
 /*****************************************************************************
@@ -384,6 +393,18 @@ void AddFixture::updateMaximumAmount()
                            (m_channelsSpin->value() + m_gapSpin->value()));
 }
 
+bool AddFixture::checkAddressAvailability(int value, int channels)
+{
+    qDebug() << "Check availability for address: " << value;
+    for (int i = 0; i < channels; i++)
+    {
+        quint32 fid = m_doc->fixtureForAddress(value + i);
+        if (fid != Fixture::invalidId() && fid != m_fixtureID)
+            return false;
+    }
+    return true;
+}
+
 /*****************************************************************************
  * Slots
  *****************************************************************************/
@@ -432,6 +453,20 @@ void AddFixture::slotUniverseActivated(int universe)
 
 void AddFixture::slotAddressChanged(int value)
 {
+    int absAddress = ((value - 1) & 0x01FF) | (m_universeValue << 9);
+    if (checkAddressAvailability(absAddress, m_channelsSpin->value()) == false)
+    {
+        // turn the new address to red
+        m_addrErrorLabel->show();
+        m_invalidAddressFlag = true;
+        return;
+    }
+    else
+    {
+        m_addrErrorLabel->hide();
+        m_invalidAddressFlag = false;
+    }
+
     m_addressValue = value - 1;
 
     /* Set the maximum number of fixtures */

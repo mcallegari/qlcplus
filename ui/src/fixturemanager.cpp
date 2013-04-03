@@ -1253,6 +1253,8 @@ void FixtureManager::editFixtureProperties(QTreeWidgetItem* item)
     af.setWindowTitle(tr("Change fixture properties"));
     if (af.exec() == QDialog::Accepted)
     {
+      if (af.invalidAddress() == false)
+      {
         if (fxi->name() != af.name())
             fxi->setName(af.name());
         if (fxi->universe() != af.universe())
@@ -1278,6 +1280,13 @@ void FixtureManager::editFixtureProperties(QTreeWidgetItem* item)
 
         updateFixtureItem(item, fxi);
         slotSelectionChanged();
+      }
+      else
+      {
+          QMessageBox msg(QMessageBox::Critical, tr("Error"),
+                          tr("Please enter a valid address"), QMessageBox::Ok);
+          msg.exec();
+      }
     }
 }
 

@@ -1,8 +1,8 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition>
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.2.0-1-r2498</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.3.2</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Pro-Lights</Manufacturer>
@@ -42,25 +42,25 @@
  </Channel>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="7">White</Capability>
-  <Capability Min="8" Max="14">Green</Capability>
-  <Capability Min="15" Max="22">Green + magenta</Capability>
-  <Capability Min="23" Max="29">Magenta</Capability>
-  <Capability Min="30" Max="37">Light blue</Capability>
-  <Capability Min="38" Max="44">Yellow</Capability>
-  <Capability Min="45" Max="52">Red</Capability>
-  <Capability Min="53" Max="59">Blue + red</Capability>
-  <Capability Min="60" Max="67">Blue</Capability>
-  <Capability Min="68" Max="74">UV purple</Capability>
-  <Capability Min="75" Max="82">Deep green</Capability>
-  <Capability Min="83" Max="89">Green + orange</Capability>
-  <Capability Min="90" Max="97">Orange</Capability>
-  <Capability Min="98" Max="104">Yellow + orange</Capability>
-  <Capability Min="105" Max="112">Yellow 2</Capability>
-  <Capability Min="113" Max="119">Yellow + pink</Capability>
-  <Capability Min="120" Max="127">Pink</Capability>
-  <Capability Min="128" Max="191">Rainbow CW speed</Capability>
-  <Capability Min="192" Max="255">Rainbow CCW speed</Capability>
+  <Capability Min="0" Max="7" Color="#ffffff">White</Capability>
+  <Capability Min="8" Max="14" Color="#00ff00">Green</Capability>
+  <Capability Color2="#ff00ff" Min="15" Max="22" Color="#00ff00">Green + magenta</Capability>
+  <Capability Min="23" Max="29" Color="#ff00ff">Magenta</Capability>
+  <Capability Min="30" Max="37" Color="#c0c0ff">Light blue</Capability>
+  <Capability Min="38" Max="44" Color="#ffff00">Yellow</Capability>
+  <Capability Min="45" Max="52" Color="#ff0000">Red</Capability>
+  <Capability Color2="#ff0000" Min="53" Max="59" Color="#0000ff">Blue + red</Capability>
+  <Capability Min="60" Max="67" Color="#0000ff">Blue</Capability>
+  <Capability Min="68" Max="74" Color="#c000c0">UV purple</Capability>
+  <Capability Min="75" Max="82" Color="#008000">Deep green</Capability>
+  <Capability Color2="#ff8000" Min="83" Max="89" Color="#00ff00">Green + orange</Capability>
+  <Capability Min="90" Max="97" Color="#ff8000">Orange</Capability>
+  <Capability Color2="#ff8000" Min="98" Max="104" Color="#ffff00">Yellow + orange</Capability>
+  <Capability Min="105" Max="112" Color="#ffff00">Yellow 2</Capability>
+  <Capability Color2="#ffc0c0" Min="113" Max="119" Color="#ffff00">Yellow + pink</Capability>
+  <Capability Min="120" Max="127" Color="#ffc0c0">Pink</Capability>
+  <Capability Res="Others/rainbow.png" Min="128" Max="191">Rainbow CW speed</Capability>
+  <Capability Res="Others/rainbow.png" Min="192" Max="255">Rainbow CCW speed</Capability>
  </Channel>
  <Channel Name="Gobo rotation">
   <Group Byte="0">Speed</Group>
@@ -123,7 +123,7 @@
  <Mode Name="8 channels">
   <Physical>
    <Bulb Lumens="0" Type="HTI 150W" ColourTemperature="5500"/>
-   <Dimensions Width="276" Height="369" Weight="11.5" Depth="266"/>
+   <Dimensions Width="276" Height="369" Weight="11,5" Depth="266"/>
    <Lens DegreesMax="14" Name="Other" DegreesMin="14"/>
    <Focus PanMax="540" Type="Head" TiltMax="270"/>
    <Technical PowerConsumption="200" DmxConnector="3-pin"/>
@@ -140,7 +140,7 @@
  <Mode Name="13 channels">
   <Physical>
    <Bulb Lumens="0" Type="HTI 150W" ColourTemperature="5500"/>
-   <Dimensions Width="276" Height="369" Weight="11.5" Depth="266"/>
+   <Dimensions Width="276" Height="369" Weight="11,5" Depth="266"/>
    <Lens DegreesMax="14" Name="Other" DegreesMin="14"/>
    <Focus PanMax="540" Type="Head" TiltMax="270"/>
    <Technical PowerConsumption="200" DmxConnector="3-pin"/>
