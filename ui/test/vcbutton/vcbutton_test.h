@@ -42,7 +42,9 @@ private slots:
     void bgcolor();
     void fgcolor();
     void resetColors();
-    void icon();
+    void iconPath();
+    void relativeIconPath();
+    void absoluteIconPath();
     void on();
     void keySequence();
     void copy();

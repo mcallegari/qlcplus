@@ -130,7 +130,7 @@ bool VCButton::copyFrom(VCWidget* widget)
         return false;
 
     /* Copy button-specific stuff */
-    setIcon(button->icon());
+    setIconPath(button->iconPath());
     setKeySequence(button->keySequence());
     setFunction(button->function());
     setAdjustIntensity(button->adjustIntensity());
@@ -249,14 +249,15 @@ QColor VCButton::foregroundColor() const
  * Button icon
  *****************************************************************************/
 
-QString VCButton::icon() const
+QString VCButton::iconPath() const
 {
     return m_iconPath;
 }
 
-void VCButton::setIcon(const QString& icon)
+void VCButton::setIconPath(const QString& iconPath)
 {
-    m_iconPath = icon;
+    m_iconPath = iconPath;
+
     updateIcon();
     m_doc->setModified();
     update();
@@ -276,7 +277,7 @@ void VCButton::slotChooseIcon()
 
     QString path;
     path = QFileDialog::getOpenFileName(this, tr("Select button icon"),
-                                        icon(), tr("Images (%1)").arg(formats));
+                                        iconPath(), tr("Images (%1)").arg(formats));
     if (path.isEmpty() == false)
     {
         VCWidget* widget;
@@ -284,7 +285,7 @@ void VCButton::slotChooseIcon()
         {
             VCButton* button = qobject_cast<VCButton*> (widget);
             if (button != NULL)
-                button->setIcon(path);
+                button->setIconPath(path);
         }
     }
 }
@@ -301,9 +302,9 @@ void VCButton::updateIcon()
         m_icon = QIcon(":/panic.png");
         m_iconSize = QSize(26, 26);
     }
-    else if (icon().isEmpty() == false)
+    else if (iconPath().isEmpty() == false)
     {
-        m_icon = QIcon(icon());
+        m_icon = QIcon(iconPath());
         m_iconSize = QSize(26, 26);
     }
     else
@@ -313,9 +314,31 @@ void VCButton::updateIcon()
     }
 }
 
+QString VCButton::relativeIconPath() const
+{
+    if (iconPath().isEmpty()) // || m_doc->getWorkspacePath().isEmpty())
+    {
+        return iconPath();
+    }
+
+    QDir workspaceDir = QFileInfo(m_doc->getWorkspacePath()).dir();
+    return workspaceDir.relativeFilePath(QFileInfo(iconPath()).canonicalFilePath());
+}
+
+QString VCButton::absoluteIconPath(const QString& iconPath) const
+{
+    if (iconPath.isEmpty()) // || m_doc->getWorkspacePath().isEmpty())
+    {
+        return iconPath;
+    }
+
+    QDir workspaceDir = QFileInfo(m_doc->getWorkspacePath()).dir();
+    return QFileInfo(workspaceDir, iconPath).canonicalFilePath();
+}
+
 void VCButton::slotResetIcon()
 {
-    setIcon(QString());
+    setIconPath(QString());
     update();
 }
 
@@ -697,7 +720,7 @@ bool VCButton::loadXML(const QDomElement* root)
     setCaption(root->attribute(KXMLQLCVCCaption));
 
     /* Icon */
-    setIcon(root->attribute(KXMLQLCVCButtonIcon));
+    setIconPath(absoluteIconPath(root->attribute(KXMLQLCVCButtonIcon)));
 
     /* Children */
     node = root->firstChild();
@@ -772,7 +795,7 @@ bool VCButton::saveXML(QDomDocument* doc, QDomElement* vc_root)
     root.setAttribute(KXMLQLCVCCaption, caption());
 
     /* Icon */
-    root.setAttribute(KXMLQLCVCButtonIcon, icon());
+    root.setAttribute(KXMLQLCVCButtonIcon, relativeIconPath());
 
     /* Function */
     tag = doc->createElement(KXMLQLCVCButtonFunction);
