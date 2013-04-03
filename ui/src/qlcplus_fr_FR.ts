@@ -158,7 +158,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="addfixture.ui" line="97"/>
         <source>A friendly name for the new fixture</source>
-        <translation>Un nom sympa pour le nouveau projecteur</translation>
+        <translation>Un nom sympa à donner au nouveau projecteur</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="104"/>
@@ -307,12 +307,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="addvcbuttonmatrix.ui" line="153"/>
         <source>Allocation</source>
-        <translation>Répartition</translation>
+        <translation>Allocations</translation>
     </message>
     <message>
         <location filename="addvcbuttonmatrix.ui" line="160"/>
         <source>Functions / Buttons</source>
-        <translation>Fonctions / Boutons</translation>
+        <translation>(Fonctions / Boutons) Nombre de boutons alloués</translation>
     </message>
     <message>
         <location filename="addvcbuttonmatrix.ui" line="173"/>
@@ -383,27 +383,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="addresstool.ui" line="14"/>
         <source>Address Tool</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficheur Dip Switch</translation>
     </message>
     <message>
         <location filename="addresstool.ui" line="22"/>
         <source>Reverse vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Miroir Vertical</translation>
     </message>
     <message>
         <location filename="addresstool.ui" line="35"/>
         <source>Color</source>
-        <translation type="unfinished">Couleur</translation>
+        <translation>Couleur</translation>
     </message>
     <message>
         <location filename="addresstool.ui" line="51"/>
         <source>Address</source>
-        <translation type="unfinished">Adresse</translation>
+        <translation>Adresse</translation>
     </message>
     <message>
         <location filename="addresstool.ui" line="98"/>
         <source>Reverse Horizontally</source>
-        <translation type="unfinished"></translation>
+        <translation>Miroir Horizontal</translation>
     </message>
 </context>
 <context>
@@ -613,7 +613,7 @@ Voulez-vous vraiement les arrêter et basculer vers le Mode Design?</translation
     <message>
         <location filename="app.cpp" line="502"/>
         <source>Address Tool</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficheur Dip Switch</translation>
     </message>
     <message>
         <location filename="app.cpp" line="510"/>
@@ -736,7 +736,7 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
     <message>
         <location filename="assignhotkey.ui" line="23"/>
         <source>Key combination</source>
-        <translation>Combinaison de touches</translation>
+        <translation>Raccourci Clavier</translation>
     </message>
     <message>
         <location filename="assignhotkey.ui" line="43"/>
@@ -751,7 +751,7 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
     <message>
         <location filename="assignhotkey.cpp" line="53"/>
         <source>Hit the key combination that you wish to assign. You may hit either a single key or a combination using %1, %2, and %3.</source>
-        <translation>Appuyer sur la combinaison de touches que vous voulez assigner. Vous pouvez frapper une simple touche ou une combinaison utilisant %1, %2 et %3.</translation>
+        <translation>Appuyer sur la combinaison de touches que vous voulez assigner. Vous pouvez saisir une simple touche ou une combinaison utilisant %1, %2 et %3.</translation>
     </message>
 </context>
 <context>
@@ -894,13 +894,13 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
         <location filename="chasereditor.ui" line="55"/>
         <location filename="chasereditor.cpp" line="747"/>
         <source>Fade In</source>
-        <translation>Fade IN</translation>
+        <translation>Montée</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="65"/>
         <location filename="chasereditor.cpp" line="748"/>
         <source>Fade Out</source>
-        <translation>Fade Out</translation>
+        <translation>Descente</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="70"/>
@@ -921,7 +921,7 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
         <location filename="chasereditor.ui" line="60"/>
         <location filename="chasereditor.cpp" line="749"/>
         <source>Hold</source>
-        <translation type="unfinished"></translation>
+        <translation>Maintien</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="159"/>
@@ -931,12 +931,12 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
     <message>
         <location filename="chasereditor.ui" line="220"/>
         <source>Fade In Speed</source>
-        <translation>Vitesse de Fade IN</translation>
+        <translation>Vitesse de Montée</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="226"/>
         <source>All steps have common fade in speed set by the chaser</source>
-        <translation>Vitesse prédéterminée commune à tous les pas</translation>
+        <translation>Vitesse de Montée commune à tous les pas</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="229"/>
@@ -948,7 +948,7 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
     <message>
         <location filename="chasereditor.ui" line="236"/>
         <source>Each step has its own fade in speed set by the chaser</source>
-        <translation>Vitesse prédéterminée dans chaque pas</translation>
+        <translation>Vitesse de Montée indépendante pour chaque pas</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="239"/>
@@ -960,7 +960,7 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
     <message>
         <location filename="chasereditor.ui" line="246"/>
         <source>Use each function&apos;s own fade in speed</source>
-        <translation>La vitesse pourra être modulée par un potentiomètre</translation>
+        <translation>Utiliser la Vitesse de Montée propre aux fontions</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="249"/>
@@ -971,22 +971,22 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
     <message>
         <location filename="chasereditor.ui" line="262"/>
         <source>Fade Out Speed</source>
-        <translation>Vitesse de Fade OUT</translation>
+        <translation>Vitesse de Descente</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="268"/>
         <source>All steps have common fade out speed set by the chaser</source>
-        <translation>Vitesse prédéterminée commune à tous les pas</translation>
+        <translation>Vitesse de Descente commune à tous les pas</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="278"/>
         <source>Each step has its own fade out speed set by the chaser</source>
-        <translation>Vitesse prédéterminée dans chaque pas</translation>
+        <translation>Vitesse de Descente indépendante pour chaque pas</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="288"/>
         <source>Use each function&apos;s own fade out speed</source>
-        <translation>La vitesse pourra être modulée par un potentiomètre</translation>
+        <translation>Utiliser la Vitesse de Descente propre aux fontions</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="304"/>
@@ -1120,17 +1120,17 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
     <message>
         <location filename="chasereditor.cpp" line="750"/>
         <source>Common Fade In</source>
-        <translation>Fade IN Commun</translation>
+        <translation>Montée Commune</translation>
     </message>
     <message>
         <location filename="chasereditor.cpp" line="751"/>
         <source>Common Fade Out</source>
-        <translation>Fade OUT Commun</translation>
+        <translation>Descente Commune</translation>
     </message>
     <message>
         <location filename="chasereditor.cpp" line="752"/>
         <source>Common Hold</source>
-        <translation type="unfinished"></translation>
+        <translation>Maintien Commun</translation>
     </message>
     <message>
         <source>Common Duration</source>
@@ -1222,12 +1222,12 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
     <message>
         <location filename="cuestackmodel.cpp" line="138"/>
         <source>Fade In</source>
-        <translation>Fade IN</translation>
+        <translation>Montée</translation>
     </message>
     <message>
         <location filename="cuestackmodel.cpp" line="140"/>
         <source>Fade Out</source>
-        <translation>Fade Out</translation>
+        <translation>Descente</translation>
     </message>
     <message>
         <location filename="cuestackmodel.cpp" line="142"/>
@@ -1293,7 +1293,7 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
     <message>
         <location filename="dmxdumpfactory.cpp" line="59"/>
         <source>New Scene From Live %1</source>
-        <translation type="unfinished">Nouvelle scène Live %1</translation>
+        <translation>Nouvelle scène Live %1</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.cpp" line="97"/>
@@ -1406,7 +1406,7 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
         <location filename="efxeditor.ui" line="93"/>
         <location filename="efxeditor.ui" line="515"/>
         <source>Start Offset</source>
-        <translation type="unfinished"></translation>
+        <translation>Décalage</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="223"/>
@@ -1727,7 +1727,7 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="756"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple groups selected&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; to remove the selected groups.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Plusieur Groupes sélectionnés&lt;/H1&gt;&lt;P&gt;Cliquez sur &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; afin d&apos;effacer ces groupes.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="763"/>
@@ -1774,12 +1774,12 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="921"/>
         <source>Move group up...</source>
-        <translation type="unfinished"></translation>
+        <translation>Remonter...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="927"/>
         <source>Move group down...</source>
-        <translation type="unfinished"></translation>
+        <translation>Redescendre...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="933"/>
@@ -1857,7 +1857,7 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="1190"/>
         <source>Do you want to delete the selected groups?</source>
-        <translation type="unfinished"></translation>
+        <translation>Souhaitez vous supprimer ce groupe ?</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1253"/>
@@ -2968,7 +2968,7 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="sceneeditor.cpp" line="169"/>
         <source>Switch between tab view and all channels view</source>
-        <translation type="unfinished"></translation>
+        <translation>Vue Onglets Machines / Tous les Canaux</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="171"/>
@@ -2988,12 +2988,12 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="sceneeditor.cpp" line="177"/>
         <source>Go to next fixture tab</source>
-        <translation type="unfinished"></translation>
+        <translation>Projecteur Suivant</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="181"/>
         <source>Go to previous fixture tab</source>
-        <translation type="unfinished"></translation>
+        <translation>Projecteur Précédant</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="214"/>
@@ -3004,7 +3004,7 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
         <location filename="sceneeditor.cpp" line="591"/>
         <location filename="sceneeditor.cpp" line="592"/>
         <source>All fixtures</source>
-        <translation type="unfinished">Tous les Projecteurs</translation>
+        <translation>Tous les Projecteurs</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="1021"/>
@@ -3475,17 +3475,17 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="speeddialwidget.cpp" line="57"/>
         <source>Fade In</source>
-        <translation>Fade In</translation>
+        <translation>Montée</translation>
     </message>
     <message>
         <location filename="speeddialwidget.cpp" line="63"/>
         <source>Fade Out</source>
-        <translation>Fade Out</translation>
+        <translation>Descente</translation>
     </message>
     <message>
         <location filename="speeddialwidget.cpp" line="69"/>
         <source>Hold</source>
-        <translation type="unfinished"></translation>
+        <translation>Maintien</translation>
     </message>
     <message>
         <source>Duration</source>
@@ -3723,12 +3723,12 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vccuelist.cpp" line="547"/>
         <source>Fade In</source>
-        <translation></translation>
+        <translation>Montée</translation>
     </message>
     <message>
         <location filename="vccuelist.cpp" line="547"/>
         <source>Fade Out</source>
-        <translation>Fade Out</translation>
+        <translation>Descente</translation>
     </message>
     <message>
         <location filename="vccuelist.cpp" line="547"/>
@@ -3963,7 +3963,7 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vcframeproperties.ui" line="22"/>
         <source>Frame name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom du Panneau</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="34"/>
@@ -3978,7 +3978,7 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vcframeproperties.ui" line="48"/>
         <source>Show header</source>
-        <translation type="unfinished"></translation>
+        <translation>Montrer l&apos;En-tête</translation>
     </message>
 </context>
 <context>
@@ -4151,17 +4151,17 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vcproperties.ui" line="287"/>
         <source>Slider movement</source>
-        <translation>Mouvement du curseur</translation>
+        <translation>Course</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="293"/>
         <source>Normal</source>
-        <translation>Normal</translation>
+        <translation>Normale</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="300"/>
         <source>Inverted</source>
-        <translation>Inversé</translation>
+        <translation>Inversée</translation>
     </message>
     <message>
         <location filename="vcpropertieseditor.cpp" line="263"/>
@@ -4355,12 +4355,12 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vcsliderproperties.ui" line="267"/>
         <source>Set value range from the selected capability</source>
-        <translation>Établir une étendue de valeur pour la propriété sélectionnée</translation>
+        <translation>Définir les limites depuis une valeur de la définition DMX</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="270"/>
         <source>From capability</source>
-        <translation>À partir de la propriété</translation>
+        <translation>Capturer dans la définition</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="290"/>
@@ -4513,22 +4513,22 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="vcspeeddialproperties.ui" line="139"/>
         <source>Adjust selected functions&apos; fade in speed</source>
-        <translation>Controller la vitesse de Fade In de ces fonctions</translation>
+        <translation>Controller la vitesse de Montée de ces fonctions</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="142"/>
         <source>Fade In</source>
-        <translation>Fade In</translation>
+        <translation>Montée</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="149"/>
         <source>Adjust selected functions&apos; fade out speed</source>
-        <translation>Contrôler la vitesse de Fade Out de ces fonctions</translation>
+        <translation>Contrôler la vitesse de Descente de ces fonctions</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="152"/>
         <source>Fade Out</source>
-        <translation>Fade Out</translation>
+        <translation>Descente</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="159"/>
