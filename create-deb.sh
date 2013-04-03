@@ -7,4 +7,4 @@
 ./translate.sh
 
 # Build package
-dpkg-buildpackage -j4 -rfakeroot -I.git
+dpkg-buildpackage -rfakeroot -I.git
