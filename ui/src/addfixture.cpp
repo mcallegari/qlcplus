@@ -226,6 +226,9 @@ void AddFixture::fillTree(const QString& selectManufacturer,
     while (it.hasNext() == true)
     {
         manuf = it.next();
+        if (manuf == KXMLFixtureGeneric)
+            continue;
+
         parent = new QTreeWidgetItem(m_tree);
         parent->setText(KColumnName, manuf);
 
@@ -246,12 +249,29 @@ void AddFixture::fillTree(const QString& selectManufacturer,
         }
     }
 
-    /* Sort the tree A-Z BEFORE appending a generic entry */
+    /* Sort the tree A-Z BEFORE appending a generic entries */
     m_tree->sortItems(0, Qt::AscendingOrder);
 
-    /* Create a parent and a child for generic dimmer device */
+    /* Create a parent for the generic devices */
     parent = new QTreeWidgetItem(m_tree);
     parent->setText(KColumnName, KXMLFixtureGeneric);
+    QStringListIterator modit(m_doc->fixtureDefCache()->models(KXMLFixtureGeneric));
+    while (modit.hasNext() == true)
+    {
+        model = modit.next();
+        child = new QTreeWidgetItem(parent);
+        child->setText(KColumnName, model);
+
+        if (manuf == selectManufacturer &&
+                model == selectModel)
+        {
+            parent->setExpanded(true);
+            m_tree->setCurrentItem(child);
+        }
+        m_fxiCount++;
+    }
+
+    /* Create a child for generic dimmer device */
     child = new QTreeWidgetItem(parent);
     child->setText(KColumnName, KXMLFixtureGeneric);
 
