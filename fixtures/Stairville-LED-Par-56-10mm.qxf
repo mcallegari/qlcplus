@@ -1,12 +1,12 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition>
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.2.0-1-r</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.3.2</Version>
   <Author>NiKoyes,,,</Author>
  </Creator>
- <Manufacturer>Stairville </Manufacturer>
- <Model>Par 56 10mm</Model>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>LED Par 56 10mm</Model>
  <Type>Color Changer</Type>
  <Channel Name="Red">
   <Group Byte="0">Colour</Group>
