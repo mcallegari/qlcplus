@@ -21,7 +21,7 @@
     <message>
         <location filename="configureolaio.ui" line="34"/>
         <source>Run standalone OLA daemon</source>
-        <translation type="unfinished">Lancer le démon OLA en standalone</translation>
+        <translation>Lancer le démon OLA en standalone</translation>
     </message>
 </context>
 <context>
@@ -34,7 +34,7 @@
     <message>
         <location filename="olaio.cpp" line="168"/>
         <source>This is the output for OLA universe %1</source>
-        <translation type="unfinished">Sortie de l&apos;univers OLA %1</translation>
+        <translation>Sortie de l&apos;univers OLA %1</translation>
     </message>
 </context>
 </TS>
