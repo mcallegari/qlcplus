@@ -10,15 +10,19 @@
  <Type>Scanner</Type>
  <Channel Name="Pan">
   <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan coarse</Capability>
  </Channel>
  <Channel Name="Tilt">
   <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt coarse</Capability>
  </Channel>
  <Channel Name="Pan Fine">
   <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Pan fine</Capability>
  </Channel>
  <Channel Name="Tilt Fine">
   <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt fine</Capability>
  </Channel>
  <Channel Name="Speed P/T">
   <Group Byte="0">Speed</Group>
@@ -113,6 +117,7 @@
  </Channel>
  <Channel Name="Focus">
   <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Focus</Capability>
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
@@ -127,14 +132,15 @@
  </Channel>
  <Channel Name="Dimmer">
   <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Dimmer (0 - 100%)</Capability>
  </Channel>
  <Mode Name="Mode 1/2">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
+   <Bulb Lumens="49000" Type="HMI 575W" ColourTemperature="6000"/>
+   <Dimensions Width="306" Height="346" Weight="22" Depth="769"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+   <Technical PowerConsumption="480" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
@@ -155,11 +161,11 @@
  </Mode>
  <Mode Name="8 bits">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
+   <Bulb Lumens="49000" Type="HMI 575W" ColourTemperature="6000"/>
+   <Dimensions Width="306" Height="346" Weight="22" Depth="769"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+   <Technical PowerConsumption="480" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
