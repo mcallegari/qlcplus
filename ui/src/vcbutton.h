@@ -24,6 +24,7 @@
 
 #include <QKeySequence>
 #include <QWidget>
+#include <QIcon>
 
 #include "vcwidget.h"
 
@@ -124,15 +125,37 @@ public:
      * Button icon
      *********************************************************************/
 public:
-    QString icon() const;
-    void setIcon(const QString& icon);
+
+    /** Get the button icon's path
+        @return absolute path
+     */
+    QString iconPath() const;
+
+    /** Set the icon's path 
+        @param iconPath - either absolute path or relative to working directory
+     */
+    void setIconPath(const QString& iconPath);
+
+private:
+
+    /** Reload icon file from disk */
+    void updateIcon();
+    
+    /** Compute relative icon path to workspace, for saving to XML */
+    QString relativeIconPath() const;
+
+    /** Compute absolute icon path from path relative to worspace */
+    QString absoluteIconPath(const QString& iconPath) const;
 
 public slots:
     void slotChooseIcon();
     void slotResetIcon();
 
 protected:
-    QString m_icon;
+    QString m_iconPath;
+    QIcon m_icon;
+    QSize m_iconSize;
+
     QAction* m_chooseIconAction;
     QAction* m_resetIconAction;
 
