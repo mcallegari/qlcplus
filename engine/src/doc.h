@@ -72,8 +72,24 @@ public:
      */
     void setWorkspacePath(QString path);
 
-    /** Retieve the current workspace absolute path */
-    QString getWorkspacePath();
+    /** Retrieve the current workspace absolute path */
+    QString getWorkspacePath() const;
+
+    /** If filePath is in the workspace directory or in one of its subdirectories,
+     *  return path relative to the workspace directory.
+     *  Otherwise return absolute path.
+     *
+     *  Purpose: saving components of the workspace file (audio, icons,...)
+     */
+    QString normalizeComponentPath(const QString& filePath) const;
+
+    /** If filePath is relative path, it is resolved relative to the workspace 
+     *  directory (absolute path is returned).
+     *  If filePath is absolute, it is returned unchanged (symlinks and .. are resolved).
+     *
+     *  Purpose: saving components of the workspace file (audio, icons,...)
+     */
+    QString denormalizeComponentPath(const QString& filePath) const;
 
 private:
     QString m_wsPath;
