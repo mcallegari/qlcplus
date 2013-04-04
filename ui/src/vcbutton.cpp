@@ -63,6 +63,7 @@ const QSize VCButton::defaultSize(QSize(50, 50));
  *****************************************************************************/
 
 VCButton::VCButton(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
+    , m_iconPath()
     , m_adjustIntensity(false)
     , m_intensityAdjustment(1.0)
 {
@@ -129,7 +130,7 @@ bool VCButton::copyFrom(VCWidget* widget)
         return false;
 
     /* Copy button-specific stuff */
-    setIcon(button->icon());
+    setIconPath(button->iconPath());
     setKeySequence(button->keySequence());
     setFunction(button->function());
     setAdjustIntensity(button->adjustIntensity());
@@ -248,14 +249,16 @@ QColor VCButton::foregroundColor() const
  * Button icon
  *****************************************************************************/
 
-QString VCButton::icon() const
+QString VCButton::iconPath() const
 {
-    return m_icon;
+    return m_iconPath;
 }
 
-void VCButton::setIcon(const QString& icon)
+void VCButton::setIconPath(const QString& iconPath)
 {
-    m_icon = icon;
+    m_iconPath = iconPath;
+
+    updateIcon();
     m_doc->setModified();
     update();
 }
@@ -274,7 +277,7 @@ void VCButton::slotChooseIcon()
 
     QString path;
     path = QFileDialog::getOpenFileName(this, tr("Select button icon"),
-                                        icon(), tr("Images (%1)").arg(formats));
+                                        iconPath(), tr("Images (%1)").arg(formats));
     if (path.isEmpty() == false)
     {
         VCWidget* widget;
@@ -282,14 +285,60 @@ void VCButton::slotChooseIcon()
         {
             VCButton* button = qobject_cast<VCButton*> (widget);
             if (button != NULL)
-                button->setIcon(path);
+                button->setIconPath(path);
         }
     }
 }
 
+void VCButton::updateIcon()
+{
+    if (m_action == Blackout)
+    {
+        m_icon = QIcon(":/blackout.png");
+        m_iconSize = QSize(26, 26);
+    }
+    else if (m_action == StopAll)
+    {
+        m_icon = QIcon(":/panic.png");
+        m_iconSize = QSize(26, 26);
+    }
+    else if (iconPath().isEmpty() == false)
+    {
+        m_icon = QIcon(iconPath());
+        m_iconSize = QSize(26, 26);
+    }
+    else
+    {
+        m_icon = QIcon();
+        m_iconSize = QSize(-1, -1);
+    }
+}
+
+QString VCButton::relativeIconPath() const
+{
+    if (iconPath().isEmpty()) // || m_doc->getWorkspacePath().isEmpty())
+    {
+        return iconPath();
+    }
+
+    QDir workspaceDir = QFileInfo(m_doc->getWorkspacePath()).dir();
+    return workspaceDir.relativeFilePath(QFileInfo(iconPath()).canonicalFilePath());
+}
+
+QString VCButton::absoluteIconPath(const QString& iconPath) const
+{
+    if (iconPath.isEmpty()) // || m_doc->getWorkspacePath().isEmpty())
+    {
+        return iconPath;
+    }
+
+    QDir workspaceDir = QFileInfo(m_doc->getWorkspacePath()).dir();
+    return QFileInfo(workspaceDir, iconPath).canonicalFilePath();
+}
+
 void VCButton::slotResetIcon()
 {
-    setIcon(QString());
+    setIconPath(QString());
     update();
 }
 
@@ -439,6 +488,7 @@ void VCButton::setAction(Action action)
                 this, SLOT(slotBlackoutChanged(bool)));
 
     m_action = action;
+    updateIcon();
 
     if (m_action == Blackout)
         setToolTip(tr("Toggle Blackout"));
@@ -670,7 +720,7 @@ bool VCButton::loadXML(const QDomElement* root)
     setCaption(root->attribute(KXMLQLCVCCaption));
 
     /* Icon */
-    setIcon(root->attribute(KXMLQLCVCButtonIcon));
+    setIconPath(absoluteIconPath(root->attribute(KXMLQLCVCButtonIcon)));
 
     /* Children */
     node = root->firstChild();
@@ -745,7 +795,7 @@ bool VCButton::saveXML(QDomDocument* doc, QDomElement* vc_root)
     root.setAttribute(KXMLQLCVCCaption, caption());
 
     /* Icon */
-    root.setAttribute(KXMLQLCVCButtonIcon, icon());
+    root.setAttribute(KXMLQLCVCButtonIcon, relativeIconPath());
 
     /* Function */
     tag = doc->createElement(KXMLQLCVCButtonFunction);
@@ -806,31 +856,13 @@ void VCButton::paintEvent(QPaintEvent* e)
     else
         option.state= QStyle::State_Raised;
 
-    /* Enabled or disabled looks based on application mode */
-    if (mode() == Doc::Operate)
+    /* Custom icons are always enabled, to see them in fuill color also in design mode */
+    if (m_action == Toggle || m_action == Flash)
         option.state |= QStyle::State_Enabled;
 
     /* Icon */
-    if (m_action == Blackout)
-    {
-        option.icon = QIcon(":/blackout.png");
-        option.iconSize = QSize(26, 26);
-    }
-    else if (m_action == StopAll)
-    {
-        option.icon = QIcon(":/panic.png");
-        option.iconSize = QSize(26, 26);
-    }
-    else if (icon().isEmpty() == false)
-    {
-        option.icon = QIcon(icon());
-        option.iconSize = QSize(26, 26);
-    }
-    else
-    {
-        option.icon = QIcon();
-        option.iconSize = QSize(-1, -1);
-    }
+    option.icon = m_icon;
+    option.iconSize = m_iconSize;
 
     /* Paint the button */
     QPainter painter(this);
