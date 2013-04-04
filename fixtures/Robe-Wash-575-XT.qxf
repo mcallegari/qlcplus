@@ -2,7 +2,7 @@
 <FixtureDefinition>
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.2.2</Version>
+  <Version>4.3.2</Version>
   <Author>NiKoyes,,,</Author>
  </Creator>
  <Manufacturer>Robe</Manufacturer>
@@ -36,14 +36,14 @@
  </Channel>
  <Channel Name="Colours">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="0">White</Capability>
-  <Capability Min="16" Max="16">Deep Red</Capability>
-  <Capability Min="32" Max="32">Blue</Capability>
-  <Capability Min="48" Max="48">Green</Capability>
-  <Capability Min="64" Max="64">Orange</Capability>
-  <Capability Min="80" Max="80">3200 K</Capability>
-  <Capability Min="96" Max="96">5600 K</Capability>
-  <Capability Min="112" Max="112">UV Filter</Capability>
+  <Capability Min="0" Max="0" Color="#ffffff">White</Capability>
+  <Capability Min="16" Max="16" Color="#aa0000">Deep Red</Capability>
+  <Capability Min="32" Max="32" Color="#0000ff">Blue</Capability>
+  <Capability Min="48" Max="48" Color="#00ff00">Green</Capability>
+  <Capability Min="64" Max="64" Color="#ff8000">Orange</Capability>
+  <Capability Min="80" Max="80" Color="#ffdab4">3200 K</Capability>
+  <Capability Min="96" Max="96" Color="#c6d8ff">5600 K</Capability>
+  <Capability Min="112" Max="112" Color="#7f00ff">UV Filter</Capability>
   <Capability Min="128" Max="190">Rainbow Fast to Slow</Capability>
   <Capability Min="191" Max="192">No Function</Capability>
   <Capability Min="193" Max="255">CCW Rainbow Slow to Fast</Capability>
