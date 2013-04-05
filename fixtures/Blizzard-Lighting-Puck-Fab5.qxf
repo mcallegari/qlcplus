@@ -85,8 +85,7 @@
  </Channel>
  <Channel Name="Snap Speed">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="15">Snap Off</Capability>
-  <Capability Min="16" Max="255">Snap On Slow -> Fast</Capability>
+  <Capability Min="0" Max="255">Snap Slow -> Fast</Capability>
  </Channel>
  <Channel Name="Color Fade">
   <Group Byte="0">Effect</Group>
@@ -95,8 +94,7 @@
  </Channel>
  <Channel Name="Fade Speed">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="15">Fade Off</Capability>
-  <Capability Min="16" Max="255">Fade On Slow -> Fast</Capability>
+  <Capability Min="0" Max="255">Fade Slow -> Fast</Capability>
  </Channel>
  <Channel Name="Sound Active">
   <Group Byte="0">Effect</Group>
