@@ -284,6 +284,8 @@ void AddFixture::fillTree(const QString& selectManufacturer,
     child = new QTreeWidgetItem(parent);
     child->setText(KColumnName, KXMLFixtureGeneric);
 
+    parent->sortChildren(0, Qt::AscendingOrder);
+
     /* Select generic dimmer by default */
     if (selectManufacturer == KXMLFixtureGeneric &&
             selectModel == KXMLFixtureGeneric)
