@@ -126,6 +126,9 @@ fixtures.files += GLP-YPOCBasic250.qxf
 fixtures.files += GLP-YPOCBasicColor.qxf
 fixtures.files += GLP-YPOCColor.qxf
 fixtures.files += High-End-Systems-Studio-Command-1200.qxf
+fixtures.files += High-End-Systems-Xspot-Xtreme.qxf
+fixtures.files += High-End-Systems-Technobeam.qxf
+fixtures.files += High-End-Systems-Trackspot.qxf
 fixtures.files += HQ-Power-Power-Space-250.qxf
 fixtures.files += i-Pix-BB4.qxf
 fixtures.files += JB-Lighting-Varyscan-2.qxf
@@ -179,6 +182,7 @@ fixtures.files += Pro-Lights-XP575-Spot.qxf
 fixtures.files += Pro-Lights-XP575-Wash.qxf
 fixtures.files += Proel-Dreamlight-250-Eclipse-Spot.qxf
 fixtures.files += Proel-Moving-Head-3Wx108-LED-RGBW.qxf
+fixtures.files += ReelEfx-DF-50.qxf
 fixtures.files += Robe-ClubScan-150CT.qxf
 fixtures.files += Robe-ClubScan-250CT.qxf
 fixtures.files += Robe-ClubSpot-150CT.qxf
@@ -223,7 +227,6 @@ fixtures.files += Varytec-Easy-Move-LED-XS-Wash.qxf
 fixtures.files += Varytec-Gigabar-II.qxf
 fixtures.files += Varytec-RGB-LED-Spot-38.qxf
 fixtures.files += Venue-LEDPAR64.qxf
-
 
 fixtures.path = $$INSTALLROOT/$$FIXTUREDIR
 INSTALLS += fixtures
