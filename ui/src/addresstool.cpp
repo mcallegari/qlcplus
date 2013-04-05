@@ -131,7 +131,7 @@ void DIPSwitchWidget::paintEvent(QPaintEvent *e)
     float xpos = margin + (minDiv / 3);
     int onPos = 15; // position of the "ON" string
     int numPos = height() - 5; // position of number labels
-    int zeroPos = height() - 22 - dipW;
+    int zeroPos = height() - 21 - dipW;
     int onePos = 21;
     QString binVal = QString("%1").arg(m_value, 10, 2, QChar('0'));
 
@@ -158,8 +158,8 @@ void DIPSwitchWidget::paintEvent(QPaintEvent *e)
     {
         onPos = height() - 5;
         numPos = 15;
-        zeroPos = 21;
-        onePos = height() - 22 - dipW;
+        zeroPos = 20;
+        onePos = height() - 20 - dipW;
     }
 
     painter.drawText(xpos, onPos, "ON");
