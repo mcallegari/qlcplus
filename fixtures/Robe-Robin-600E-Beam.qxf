@@ -6,7 +6,7 @@
   <Author>NiKoyes</Author>
  </Creator>
  <Manufacturer>Robe</Manufacturer>
- <Model>Robin 600E Spot (v1.1)</Model>
+ <Model>Robin 600E Beam</Model>
  <Type>Moving Head</Type>
  <Channel Name="Pan">
   <Group Byte="0">Pan</Group>
@@ -44,8 +44,8 @@
   <Capability Min="140" Max="149">P/T Reset</Capability>
   <Capability Min="150" Max="159">Colour Reset</Capability>
   <Capability Min="160" Max="169">Gobo Reset</Capability>
-  <Capability Min="170" Max="179">Dimmer/Shutter/HotSpot Reset</Capability>
-  <Capability Min="180" Max="189">Zoom/Focus/Frost/Prism Reset</Capability>
+  <Capability Min="170" Max="179">Dimmer/Shutter Reset</Capability>
+  <Capability Min="180" Max="189">Focus/Frost Reset</Capability>
   <Capability Min="190" Max="199">Iris Reset</Capability>
   <Capability Min="200" Max="209">Total Reset</Capability>
   <Capability Min="210" Max="229">Reserved</Capability>
@@ -60,7 +60,7 @@
   <Capability Min="32" Max="32" Color="#0000ff">Deep Blue</Capability>
   <Capability Min="48" Max="48" Color="#ff7f00">Orange</Capability>
   <Capability Min="64" Max="64" Color="#00ff00">Green</Capability>
-  <Capability Min="80" Max="80" Color="#ff4000">Light Red</Capability>
+  <Capability Min="80" Max="80" Color="#ffe7c4">3200°K</Capability>
   <Capability Min="96" Max="96" Color="#ffc800">Amber</Capability>
   <Capability Min="112" Max="112" Color="#7300ff">UV Filter</Capability>
   <Capability Min="128" Max="129" Color="#ffffff">White</Capability>
@@ -68,7 +68,7 @@
   <Capability Min="138" Max="145" Color="#0000ff">Deep Blue</Capability>
   <Capability Min="146" Max="153" Color="#ff7f00">Orange</Capability>
   <Capability Min="154" Max="163" Color="#00ff00">Green</Capability>
-  <Capability Min="164" Max="171" Color="#ff4000">Light Red</Capability>
+  <Capability Min="164" Max="171" Color="#ffebd2">3200°K</Capability>
   <Capability Min="172" Max="181" Color="#ffcc00">Amber</Capability>
   <Capability Min="182" Max="189" Color="#7f00ff">UV Filter</Capability>
   <Capability Min="190" Max="215">Fwd Rainbow &lt;&lt;&lt;</Capability>
@@ -95,10 +95,6 @@
   <Group Byte="0">Intensity</Group>
   <Colour>Yellow</Colour>
   <Capability Min="0" Max="255">Yellow</Capability>
- </Channel>
- <Channel Name="CTO Filter">
-  <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="255">6900°K -> 3200°K</Capability>
  </Channel>
  <Channel Name="CMY Macros">
   <Group Byte="0">Colour</Group>
@@ -138,29 +134,33 @@
  </Channel>
  <Channel Name="Effect Speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">CMY/CTO or Rot Gobo Select max to min</Capability>
+  <Capability Min="0" Max="255">CMY or Gobo Select max to min</Capability>
  </Channel>
  <Channel Name="Static Gobos">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="0">Open</Capability>
-  <Capability Res="Robe/gobo00024.png" Min="65" Max="69">Gobo 1</Capability>
-  <Capability Res="Robe/gobo00023.png" Min="70" Max="74">Gobo 2</Capability>
-  <Capability Res="Robe/gobo00022.png" Min="75" Max="79">Gobo 3</Capability>
-  <Capability Res="Robe/gobo00011.png" Min="80" Max="84">Gobo 4</Capability>
-  <Capability Res="Robe/gobo00010.png" Min="85" Max="89">Gobo 5</Capability>
-  <Capability Res="Robe/gobo00013.png" Min="90" Max="94">Gobo 6</Capability>
-  <Capability Res="Robe/gobo00020.png" Min="95" Max="99">Gobo 7</Capability>
-  <Capability Res="Robe/gobo00009.png" Min="100" Max="104">Gobo 8</Capability>
-  <Capability Res="Robe/gobo00012.png" Min="105" Max="109">Gobo 9</Capability>
-  <Capability Res="Robe/gobo00024.png" Min="110" Max="119">Shaking Gobo 1</Capability>
-  <Capability Res="Robe/gobo00023.png" Min="120" Max="129">Shaking Gobo 2</Capability>
-  <Capability Res="Robe/gobo00022.png" Min="130" Max="139">Shaking Gobo 3</Capability>
-  <Capability Res="Robe/gobo00011.png" Min="140" Max="149">Shaking Gobo 4</Capability>
-  <Capability Res="Robe/gobo00010.png" Min="150" Max="159">Shaking Gobo 5</Capability>
-  <Capability Res="Robe/gobo00013.png" Min="160" Max="169">Shaking Gobo 6</Capability>
-  <Capability Res="Robe/gobo00020.png" Min="170" Max="179">Shaking Gobo 7</Capability>
-  <Capability Res="Robe/gobo00009.png" Min="180" Max="189">Shaking Gobo 8</Capability>
-  <Capability Res="Robe/gobo00012.png" Min="190" Max="199">Shaking Gobo 9</Capability>
+  <Capability Res="Robe/gobo00031.png" Min="7" Max="7">Gobo 1</Capability>
+  <Capability Res="Robe/gobo00030.png" Min="14" Max="14">Gobo 2</Capability>
+  <Capability Res="Robe/gobo00029.png" Min="21" Max="21">Gobo 3</Capability>
+  <Capability Res="Robe/gobo00028.png" Min="28" Max="28">Gobo 4</Capability>
+  <Capability Res="Robe/gobo00027.png" Min="35" Max="35">Gobo 5</Capability>
+  <Capability Res="Robe/gobo00026.png" Min="42" Max="42">Gobo 6</Capability>
+  <Capability Res="Robe/gobo00025.png" Min="56" Max="56">Gobo 7</Capability>
+  <Capability Min="64" Max="64">Open</Capability>
+  <Capability Res="Robe/gobo00031.png" Min="65" Max="71">Gobo 1</Capability>
+  <Capability Res="Robe/gobo00030.png" Min="72" Max="78">Gobo 2</Capability>
+  <Capability Res="Robe/gobo00029.png" Min="79" Max="85">Gobo 3</Capability>
+  <Capability Res="Robe/gobo00028.png" Min="86" Max="91">Gobo 4</Capability>
+  <Capability Res="Robe/gobo00027.png" Min="93" Max="97">Gobo 5</Capability>
+  <Capability Res="Robe/gobo00026.png" Min="98" Max="103">Gobo 6</Capability>
+  <Capability Res="Robe/gobo00025.png" Min="104" Max="109">Gobo 7</Capability>
+  <Capability Res="Robe/gobo00031.png" Min="110" Max="123">Shaking Gobo 1</Capability>
+  <Capability Res="Robe/gobo00030.png" Min="124" Max="135">Shaking Gobo 2</Capability>
+  <Capability Res="Robe/gobo00029.png" Min="136" Max="149">Shaking Gobo 3</Capability>
+  <Capability Res="Robe/gobo00028.png" Min="150" Max="161">Shaking Gobo 4</Capability>
+  <Capability Res="Robe/gobo00027.png" Min="162" Max="175">Shaking Gobo 5</Capability>
+  <Capability Res="Robe/gobo00026.png" Min="176" Max="187">Shaking Gobo 6</Capability>
+  <Capability Res="Robe/gobo00025.png" Min="188" Max="199">Shaking Gobo 7</Capability>
   <Capability Min="200" Max="201">Open</Capability>
   <Capability Min="202" Max="221">Fw Wheel &lt;&lt;&lt;</Capability>
   <Capability Min="222" Max="223">No Rotation</Capability>
@@ -175,34 +175,34 @@
  <Channel Name="Rotating Gobos">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="3">Open</Capability>
-  <Capability Res="Robe/gobo00014.png" Min="4" Max="7">Gobo 1</Capability>
-  <Capability Res="Robe/gobo00015.png" Min="8" Max="11">Gobo 2</Capability>
-  <Capability Res="Robe/gobo00016.png" Min="12" Max="15">Gobo 3</Capability>
-  <Capability Res="Robe/gobo00017.png" Min="16" Max="19">Gobo 4</Capability>
-  <Capability Res="Robe/gobo00018.png" Min="20" Max="23">Gobo 5</Capability>
-  <Capability Res="Robe/gobo00019.png" Min="24" Max="27">Gobo 6</Capability>
-  <Capability Res="Robe/gobo00021.png" Min="28" Max="31">Gobo 7</Capability>
-  <Capability Res="Robe/gobo00014.png" Min="32" Max="35">Gobo 1 ></Capability>
-  <Capability Res="Robe/gobo00015.png" Min="36" Max="39">Gobo 2 ></Capability>
-  <Capability Res="Robe/gobo00016.png" Min="40" Max="43">Gobo 3 ></Capability>
-  <Capability Res="Robe/gobo00017.png" Min="44" Max="47">Gobo 4 ></Capability>
-  <Capability Res="Robe/gobo00018.png" Min="48" Max="51">Gobo 5 ></Capability>
-  <Capability Res="Robe/gobo00019.png" Min="52" Max="55">Gobo 6 ></Capability>
-  <Capability Res="Robe/gobo00021.png" Min="56" Max="59">Gobo 7 ></Capability>
-  <Capability Res="Robe/gobo00014.png" Min="60" Max="69">Shaking Gobo 1</Capability>
-  <Capability Res="Robe/gobo00015.png" Min="70" Max="79">Shaking Gobo 2</Capability>
-  <Capability Res="Robe/gobo00016.png" Min="80" Max="89">Shaking Gobo 3</Capability>
-  <Capability Res="Robe/gobo00017.png" Min="90" Max="99">Shaking Gobo 4</Capability>
-  <Capability Res="Robe/gobo00018.png" Min="100" Max="109">Shaking Gobo 5</Capability>
-  <Capability Res="Robe/gobo00019.png" Min="110" Max="119">Shaking Gobo 6</Capability>
-  <Capability Res="Robe/gobo00021.png" Min="120" Max="129">Shaking Gobo 7</Capability>
-  <Capability Res="Robe/gobo00014.png" Min="130" Max="139">Shaking Gobo 1 ></Capability>
-  <Capability Res="Robe/gobo00015.png" Min="140" Max="149">Shaking Gobo 2 ></Capability>
-  <Capability Res="Robe/gobo00016.png" Min="150" Max="159">Shaking Gobo 3 ></Capability>
-  <Capability Res="Robe/gobo00017.png" Min="160" Max="169">Shaking Gobo 4 ></Capability>
-  <Capability Res="Robe/gobo00018.png" Min="170" Max="179">Shaking Gobo 5 ></Capability>
-  <Capability Res="Robe/gobo00019.png" Min="180" Max="189">Shaking Gobo 6 ></Capability>
-  <Capability Res="Robe/gobo00021.png" Min="190" Max="199">Shaking Gobo 7 ></Capability>
+  <Capability Res="Robe/gobo00036.png" Min="4" Max="7">Gobo 1</Capability>
+  <Capability Res="Robe/gobo00037.png" Min="8" Max="11">Gobo 2</Capability>
+  <Capability Res="Robe/gobo00038.png" Min="12" Max="15">Gobo 3</Capability>
+  <Capability Res="Robe/gobo00035.png" Min="16" Max="19">Gobo 4</Capability>
+  <Capability Res="Robe/gobo00034.png" Min="20" Max="23">Gobo 5</Capability>
+  <Capability Res="Robe/gobo00033.png" Min="24" Max="27">Gobo 6</Capability>
+  <Capability Res="Robe/gobo00032.png" Min="28" Max="31">Gobo 7</Capability>
+  <Capability Res="Robe/gobo00036.png" Min="32" Max="35">Gobo 1 ></Capability>
+  <Capability Res="Robe/gobo00037.png" Min="36" Max="39">Gobo 2 ></Capability>
+  <Capability Res="Robe/gobo00038.png" Min="40" Max="43">Gobo 3 ></Capability>
+  <Capability Res="Robe/gobo00035.png" Min="44" Max="47">Gobo 4 ></Capability>
+  <Capability Res="Robe/gobo00034.png" Min="48" Max="51">Gobo 5 ></Capability>
+  <Capability Res="Robe/gobo00033.png" Min="52" Max="55">Gobo 6 ></Capability>
+  <Capability Res="Robe/gobo00032.png" Min="56" Max="59">Gobo 7 ></Capability>
+  <Capability Res="Robe/gobo00036.png" Min="60" Max="69">Shaking Gobo 1</Capability>
+  <Capability Res="Robe/gobo00037.png" Min="70" Max="79">Shaking Gobo 2</Capability>
+  <Capability Res="Robe/gobo00038.png" Min="80" Max="89">Shaking Gobo 3</Capability>
+  <Capability Res="Robe/gobo00035.png" Min="90" Max="99">Shaking Gobo 4</Capability>
+  <Capability Res="Robe/gobo00034.png" Min="100" Max="109">Shaking Gobo 5</Capability>
+  <Capability Res="Robe/gobo00033.png" Min="110" Max="119">Shaking Gobo 6</Capability>
+  <Capability Res="Robe/gobo00032.png" Min="120" Max="129">Shaking Gobo 7</Capability>
+  <Capability Res="Robe/gobo00036.png" Min="130" Max="139">Shaking Gobo 1 ></Capability>
+  <Capability Res="Robe/gobo00037.png" Min="140" Max="149">Shaking Gobo 2 ></Capability>
+  <Capability Res="Robe/gobo00038.png" Min="150" Max="159">Shaking Gobo 3 ></Capability>
+  <Capability Res="Robe/gobo00035.png" Min="160" Max="169">Shaking Gobo 4 ></Capability>
+  <Capability Res="Robe/gobo00034.png" Min="170" Max="179">Shaking Gobo 5 ></Capability>
+  <Capability Res="Robe/gobo00033.png" Min="180" Max="189">Shaking Gobo 6 ></Capability>
+  <Capability Res="Robe/gobo00032.png" Min="190" Max="199">Shaking Gobo 7 ></Capability>
   <Capability Min="200" Max="201">Open</Capability>
   <Capability Min="202" Max="221">Fwd Wheel &lt;&lt;</Capability>
   <Capability Min="222" Max="223">No Rotation</Capability>
@@ -217,34 +217,6 @@
   <Capability Min="128" Max="129">No Rotation</Capability>
   <Capability Min="130" Max="255">Bwd Rotation >></Capability>
  </Channel>
- <Channel Name="Prism">
-  <Group Byte="0">Prism</Group>
-  <Capability Min="0" Max="19">Open</Capability>
-  <Capability Min="20" Max="127">Rotating Prism</Capability>
-  <Capability Min="128" Max="135">Prism/Gobo Macro 1</Capability>
-  <Capability Min="136" Max="143">Prism/Gobo Macro 2</Capability>
-  <Capability Min="144" Max="151">Prism/Gobo Macro 3</Capability>
-  <Capability Min="152" Max="159">Prism/Gobo Macro 4</Capability>
-  <Capability Min="160" Max="167">Prism/Gobo Macro 5</Capability>
-  <Capability Min="168" Max="175">Prism/Gobo Macro 6</Capability>
-  <Capability Min="176" Max="183">Prism/Gobo Macro 7</Capability>
-  <Capability Min="184" Max="191">Prism/Gobo Macro 8</Capability>
-  <Capability Min="192" Max="199">Prism/Gobo Macro 9</Capability>
-  <Capability Min="200" Max="207">Prism/Gobo Macro 10</Capability>
-  <Capability Min="208" Max="215">Prism/Gobo Macro 11</Capability>
-  <Capability Min="216" Max="223">Prism/Gobo Macro 12</Capability>
-  <Capability Min="224" Max="231">Prism/Gobo Macro 13</Capability>
-  <Capability Min="232" Max="239">Prism/Gobo Macro 14</Capability>
-  <Capability Min="240" Max="247">Prism/Gobo Macro 15</Capability>
-  <Capability Min="248" Max="255">Prism/Gobo Macro 16</Capability>
- </Channel>
- <Channel Name="Prism Rotation">
-  <Group Byte="0">Prism</Group>
-  <Capability Min="0" Max="0">No Rotation</Capability>
-  <Capability Min="1" Max="127">Fw Rotation >></Capability>
-  <Capability Min="128" Max="129">No Rotation</Capability>
-  <Capability Min="130" Max="255">Bw Rotation >></Capability>
- </Channel>
  <Channel Name="Iris">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="0">Open</Capability>
@@ -256,18 +228,6 @@
   <Capability Min="250" Max="251">Random Pulse Opening Slow</Capability>
   <Capability Min="252" Max="253">Random Pulse Closing Fast</Capability>
   <Capability Min="254" Max="255">Random Pulse Closing Slow</Capability>
- </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Max to Min</Capability>
- </Channel>
- <Channel Name="Zoom Fine">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Fine Zooming</Capability>
- </Channel>
- <Channel Name="Hot Spot">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Max to Min Beam distribution</Capability>
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
@@ -294,8 +254,8 @@
   <Capability Min="0" Max="0">Open</Capability>
   <Capability Min="1" Max="179">Frost >></Capability>
   <Capability Min="180" Max="189">Frost 100%</Capability>
-  <Capability Min="190" Max="211">Pulse Closing &lt;&lt;</Capability>
-  <Capability Min="212" Max="233">Pulse Opening >></Capability>
+  <Capability Min="190" Max="211">Pulse Closing >></Capability>
+  <Capability Min="212" Max="233">Pulse Opening &lt;&lt;</Capability>
   <Capability Min="234" Max="255">Ramping &lt;&lt;</Capability>
  </Channel>
  <Channel Name="Gobo Rotation Fine">
@@ -317,9 +277,9 @@
  <Mode Name="Mode 1">
   <Physical>
    <Bulb Lumens="37000" Type="MSR 575W/2" ColourTemperature="7500"/>
-   <Dimensions Width="433" Height="516" Weight="21,7" Depth="470"/>
-   <Lens DegreesMax="45" Name="Other" DegreesMin="10"/>
-   <Focus PanMax="540" Type="Head" TiltMax="280"/>
+   <Dimensions Width="433" Height="648" Weight="21,5" Depth="458"/>
+   <Lens DegreesMax="6.5" Name="Other" DegreesMin="1"/>
+   <Focus PanMax="540" Type="Head" TiltMax="260"/>
    <Technical PowerConsumption="750" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -333,34 +293,28 @@
   <Channel Number="8">Cyan</Channel>
   <Channel Number="9">Magenta</Channel>
   <Channel Number="10">Yellow</Channel>
-  <Channel Number="11">CTO Filter</Channel>
-  <Channel Number="12">CMY Macros</Channel>
-  <Channel Number="13">Effect Speed</Channel>
-  <Channel Number="14">Static Gobos</Channel>
-  <Channel Number="15">Static Gobo Fine</Channel>
-  <Channel Number="16">Rotating Gobos</Channel>
-  <Channel Number="17">Gobo Rotation</Channel>
-  <Channel Number="18">Gobo Rotation Fine</Channel>
-  <Channel Number="19">Prism</Channel>
-  <Channel Number="20">Prism Rotation</Channel>
-  <Channel Number="21">Frost</Channel>
-  <Channel Number="22">Iris</Channel>
-  <Channel Number="23">Iris Fine</Channel>
-  <Channel Number="24">Zoom</Channel>
-  <Channel Number="25">Zoom Fine</Channel>
-  <Channel Number="26">Focus</Channel>
-  <Channel Number="27">Focus Fine</Channel>
-  <Channel Number="28">Hot Spot</Channel>
-  <Channel Number="29">Shutter</Channel>
-  <Channel Number="30">Dimmer</Channel>
-  <Channel Number="31">Dimmer Fine</Channel>
+  <Channel Number="11">CMY Macros</Channel>
+  <Channel Number="12">Effect Speed</Channel>
+  <Channel Number="13">Static Gobos</Channel>
+  <Channel Number="14">Static Gobo Fine</Channel>
+  <Channel Number="15">Rotating Gobos</Channel>
+  <Channel Number="16">Gobo Rotation</Channel>
+  <Channel Number="17">Gobo Rotation Fine</Channel>
+  <Channel Number="18">Frost</Channel>
+  <Channel Number="19">Iris</Channel>
+  <Channel Number="20">Iris Fine</Channel>
+  <Channel Number="21">Focus</Channel>
+  <Channel Number="22">Focus Fine</Channel>
+  <Channel Number="23">Shutter</Channel>
+  <Channel Number="24">Dimmer</Channel>
+  <Channel Number="25">Dimmer Fine</Channel>
  </Mode>
  <Mode Name="Mode 2">
   <Physical>
    <Bulb Lumens="37000" Type="MSR 575W/2" ColourTemperature="7500"/>
-   <Dimensions Width="433" Height="516" Weight="21,7" Depth="470"/>
-   <Lens DegreesMax="45" Name="Other" DegreesMin="10"/>
-   <Focus PanMax="540" Type="Head" TiltMax="280"/>
+   <Dimensions Width="433" Height="648" Weight="21,5" Depth="458"/>
+   <Lens DegreesMax="6.5" Name="Other" DegreesMin="1"/>
+   <Focus PanMax="540" Type="Head" TiltMax="260"/>
    <Technical PowerConsumption="750" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -373,28 +327,23 @@
   <Channel Number="7">Cyan</Channel>
   <Channel Number="8">Magenta</Channel>
   <Channel Number="9">Yellow</Channel>
-  <Channel Number="10">CTO Filter</Channel>
-  <Channel Number="11">CMY Macros</Channel>
-  <Channel Number="12">Effect Speed</Channel>
-  <Channel Number="13">Static Gobos</Channel>
-  <Channel Number="14">Rotating Gobos</Channel>
-  <Channel Number="15">Gobo Rotation</Channel>
-  <Channel Number="16">Prism</Channel>
-  <Channel Number="17">Prism Rotation</Channel>
-  <Channel Number="18">Frost</Channel>
-  <Channel Number="19">Iris</Channel>
-  <Channel Number="20">Zoom</Channel>
-  <Channel Number="21">Focus</Channel>
-  <Channel Number="22">Hot Spot</Channel>
-  <Channel Number="23">Shutter</Channel>
-  <Channel Number="24">Dimmer</Channel>
+  <Channel Number="10">CMY Macros</Channel>
+  <Channel Number="11">Effect Speed</Channel>
+  <Channel Number="12">Static Gobos</Channel>
+  <Channel Number="13">Rotating Gobos</Channel>
+  <Channel Number="14">Gobo Rotation</Channel>
+  <Channel Number="15">Frost</Channel>
+  <Channel Number="16">Iris</Channel>
+  <Channel Number="17">Focus</Channel>
+  <Channel Number="18">Shutter</Channel>
+  <Channel Number="19">Dimmer</Channel>
  </Mode>
  <Mode Name="Mode 3">
   <Physical>
    <Bulb Lumens="37000" Type="MSR 575W/2" ColourTemperature="7500"/>
-   <Dimensions Width="433" Height="516" Weight="21,7" Depth="470"/>
-   <Lens DegreesMax="45" Name="Other" DegreesMin="10"/>
-   <Focus PanMax="540" Type="Head" TiltMax="280"/>
+   <Dimensions Width="433" Height="648" Weight="21,5" Depth="458"/>
+   <Lens DegreesMax="6.5" Name="Other" DegreesMin="1"/>
+   <Focus PanMax="540" Type="Head" TiltMax="260"/>
    <Technical PowerConsumption="750" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -405,20 +354,15 @@
   <Channel Number="5">Cyan</Channel>
   <Channel Number="6">Magenta</Channel>
   <Channel Number="7">Yellow</Channel>
-  <Channel Number="8">CTO Filter</Channel>
-  <Channel Number="9">CMY Macros</Channel>
-  <Channel Number="10">Effect Speed</Channel>
-  <Channel Number="11">Static Gobos</Channel>
-  <Channel Number="12">Rotating Gobos</Channel>
-  <Channel Number="13">Gobo Rotation</Channel>
-  <Channel Number="14">Prism</Channel>
-  <Channel Number="15">Prism Rotation</Channel>
-  <Channel Number="16">Frost</Channel>
-  <Channel Number="17">Iris</Channel>
-  <Channel Number="18">Zoom</Channel>
-  <Channel Number="19">Focus</Channel>
-  <Channel Number="20">Hot Spot</Channel>
-  <Channel Number="21">Shutter</Channel>
-  <Channel Number="22">Dimmer</Channel>
+  <Channel Number="8">CMY Macros</Channel>
+  <Channel Number="9">Effect Speed</Channel>
+  <Channel Number="10">Static Gobos</Channel>
+  <Channel Number="11">Rotating Gobos</Channel>
+  <Channel Number="12">Gobo Rotation</Channel>
+  <Channel Number="13">Frost</Channel>
+  <Channel Number="14">Iris</Channel>
+  <Channel Number="15">Focus</Channel>
+  <Channel Number="16">Shutter</Channel>
+  <Channel Number="17">Dimmer</Channel>
  </Mode>
 </FixtureDefinition>
