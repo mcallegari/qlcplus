@@ -205,7 +205,7 @@ public:
      */
     virtual QString inputInfo(quint32 input) = 0;
 
-    virtual void sendFeedBack(quint32 inputLine, quint32 channel, uchar value) = 0;
+    virtual void sendFeedBack(quint32 inputLine, quint32 channel, uchar value, const QString& key = 0) = 0;
 
 signals:
     /**

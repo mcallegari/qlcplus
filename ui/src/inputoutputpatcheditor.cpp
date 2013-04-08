@@ -222,7 +222,7 @@ void InputOutputPatchEditor::fillMappingTree()
                                 pitem->setCheckState(KMapColumnHasOutput, Qt::Unchecked);
                             pitem->setText(KMapColumnOutputLine, QString("%1").arg(outputId));
                             // add feedback
-                            if (pluginName == "MIDI")
+                            if (pluginName == "MIDI" || pluginName == "OSC")
                             {
                                 if (m_currentFeedbackPluginName == pluginName && m_currentFeedback == outputId)
                                     pitem->setCheckState(KMapColumnHasFeedback, Qt::Checked);
@@ -253,7 +253,7 @@ void InputOutputPatchEditor::fillMappingTree()
                         else
                             pitem->setCheckState(KMapColumnHasOutput, Qt::Unchecked);
                         // add feedback
-                        if (pluginName == "MIDI")
+                        if (pluginName == "MIDI" || pluginName == "OSC")
                         {
                             if (m_currentFeedbackPluginName == pluginName && m_currentFeedback == outputId)
                                 pitem->setCheckState(KMapColumnHasFeedback, Qt::Checked);

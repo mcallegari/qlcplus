@@ -375,7 +375,7 @@ QString OutputMap::pluginStatus(const QString& pluginName, quint32 output)
     }
 }
 
-bool OutputMap::feedBack(quint32 universe, quint32 channel, uchar value)
+bool OutputMap::feedBack(quint32 universe, quint32 channel, uchar value, const QString& key)
 {
     if (universe >= quint32(m_fb_patch.size()))
         return false;
@@ -385,7 +385,7 @@ bool OutputMap::feedBack(quint32 universe, quint32 channel, uchar value)
 
     if (patch->plugin() != NULL && patch->output() != QLCIOPlugin::invalidLine())
     {
-        patch->plugin()->sendFeedBack(patch->output(), channel, value);
+        patch->plugin()->sendFeedBack(patch->output(), channel, value, key);
         return true;
     }
     else

@@ -308,7 +308,7 @@ public:
 
     /** Send feedback value to the input profile e.g. to move a motorized
         sliders & knobs, set indicator leds etc. */
-    bool feedBack(quint32 universe, quint32 channel, uchar value);
+    bool feedBack(quint32 universe, quint32 channel, uchar value, const QString& key = 0);
 
 private slots:
    /** Slot that catches plugin configuration change notifications from UIPluginCache */

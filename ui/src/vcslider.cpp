@@ -882,7 +882,21 @@ void VCSlider::sendFeedBack(int value)
                          float(m_slider->maximum()), float(0),
                          float(UCHAR_MAX));
 
-        m_doc->outputMap()->feedBack(src.universe(), src.channel(), int(fb));
+        QString chName = QString();
+
+        InputPatch* pat = m_doc->inputMap()->patch(src.universe());
+        if (pat != NULL)
+        {
+            QLCInputProfile* profile = pat->profile();
+            if (profile != NULL)
+            {
+                QLCInputChannel* ich = profile->channel(src.channel());
+                if (ich != NULL)
+                    chName = ich->name();
+            }
+        }
+
+        m_doc->outputMap()->feedBack(src.universe(), src.channel(), int(fb), chName);
     }
 }
 

@@ -2,6 +2,7 @@ qlcplus (4.3.2) stable; urgency=low
 
   * NEW: Added "Hold" parameter to Chaser steps, between FadeIn and FadeOut
   * NEW: Added address tool to quickly preview a DIP switch configuration
+  * NEW: OSC plugin can now send data. Either output or feedback
   * Fade is no more applied to Pan, Tilt and Speed channels
   * Fixture address overlapping is no more permitted
   * Fixed copy of a Show. Now it copies also all the contents

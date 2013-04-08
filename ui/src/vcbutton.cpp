@@ -45,9 +45,11 @@
 
 #include "vcbuttonproperties.h"
 #include "functionselection.h"
-#include "vcsoloframe.h"
+#include "qlcinputchannel.h"
 #include "virtualconsole.h"
 #include "mastertimer.h"
+#include "vcsoloframe.h"
+#include "inputpatch.h"
 #include "outputmap.h"
 #include "inputmap.h"
 #include "vcbutton.h"
@@ -412,10 +414,24 @@ void VCButton::setOn(bool on)
     QLCInputSource src(inputSource());
     if (src.isValid() == true)
     {
+        QString chName = QString();
+
+        InputPatch* pat = m_doc->inputMap()->patch(src.universe());
+        if (pat != NULL)
+        {
+            QLCInputProfile* profile = pat->profile();
+            if (profile != NULL)
+            {
+                QLCInputChannel* ich = profile->channel(src.channel());
+                if (ich != NULL)
+                    chName = ich->name();
+            }
+        }
+
         if (on == true)
-            m_doc->outputMap()->feedBack(src.universe(), src.channel(), UCHAR_MAX);
+            m_doc->outputMap()->feedBack(src.universe(), src.channel(), UCHAR_MAX, chName);
         else
-            m_doc->outputMap()->feedBack(src.universe(), src.channel(), 0);
+            m_doc->outputMap()->feedBack(src.universe(), src.channel(), 0, chName);
     }
 
     update();
