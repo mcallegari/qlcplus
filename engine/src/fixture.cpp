@@ -899,12 +899,24 @@ QString Fixture::status() const
         info += genInfo.arg(tr("Colour Temperature")).arg(K.arg(physical.bulbColourTemperature()));
 
         // Lens
-        QString angle("%1&deg; - %2&deg;");
+        QString angle1("%1&deg;");
+        QString angle2("%1&deg; &ndash; %2&deg;");
+
         info += subTitle.arg(tr("Lens"));
         info += genInfo.arg(tr("Name")).arg(physical.lensName());
-        info += genInfo.arg(tr("Beam Angle"))
-                .arg(angle.arg(physical.lensDegreesMin())
-                     .arg(physical.lensDegreesMax()));
+
+        if (physical.lensDegreesMin() == physical.lensDegreesMax())
+        {
+            info += genInfo.arg(tr("Beam Angle"))
+                .arg(angle1.arg(physical.lensDegreesMin()));
+        }
+        else
+        {
+            info += genInfo.arg(tr("Beam Angle"))
+                .arg(angle2.arg(physical.lensDegreesMin())
+                .arg(physical.lensDegreesMax()));
+        }
+
 
         // Focus
         QString range("%1&deg;");
