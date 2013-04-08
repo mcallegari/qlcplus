@@ -81,7 +81,7 @@ QString OSCPlugin::name()
 
 int OSCPlugin::capabilities() const
 {
-    return QLCIOPlugin::Input | QLCIOPlugin::Output;
+    return QLCIOPlugin::Input | QLCIOPlugin::Output | QLCIOPlugin::Feedback;
 }
 
 QString OSCPlugin::pluginInfo()
