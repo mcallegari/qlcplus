@@ -140,7 +140,12 @@ p, li { white-space: pre-wrap; }
         <translation>Gerät hinzufügen</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="229"/>
+        <location filename="addfixture.ui" line="219"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addfixture.ui" line="236"/>
         <source>Fixture Model</source>
         <translation>Gerätemodel</translation>
     </message>
@@ -225,12 +230,12 @@ p, li { white-space: pre-wrap; }
         <translation>Anzahl an leeren Kanälen zwischen den hinzugefügten Geräten</translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="97"/>
+        <location filename="addfixture.cpp" line="100"/>
         <source>Fixtures found: %1</source>
         <translation>Gefundene Geräte: %1</translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="510"/>
+        <location filename="addfixture.cpp" line="567"/>
         <source>Dimmers</source>
         <translation>Dimmer</translation>
     </message>
@@ -1130,10 +1135,6 @@ Changes will be lost if you don&apos;t save them.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Common Duration</source>
-        <translation type="obsolete">Gemeinsame Dauer</translation>
-    </message>
-    <message>
         <location filename="chasereditor.cpp" line="768"/>
         <source>Multiple Steps</source>
         <translation>Mehrere Schritte</translation>
@@ -1797,40 +1798,50 @@ Changes will be lost if you don&apos;t save them.</source>
         <translation>Kanalgruppe löschen</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1317"/>
+        <location filename="fixturemanager.cpp" line="1286"/>
+        <source>Error</source>
+        <translation type="unfinished">Fehler</translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="1287"/>
+        <source>Please enter a valid address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="1326"/>
         <source>Ungroup fixtures?</source>
         <translation>Geräte-Gruppierung aufheben?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1318"/>
+        <location filename="fixturemanager.cpp" line="1327"/>
         <source>Do you want to ungroup the selected fixtures?</source>
         <translation>Gruppierung der ausgewählten Geräte aufheben?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1433"/>
+        <location filename="fixturemanager.cpp" line="1442"/>
         <source>Import Fixtures List</source>
         <oldsource>Import Fixture Definition</oldsource>
         <translation>Gerätedefinitionsliste importieren</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1438"/>
+        <location filename="fixturemanager.cpp" line="1447"/>
         <source>Export Fixtures List As</source>
         <oldsource>Export Fixture Definition As</oldsource>
         <translation>Gerätedefinitionsliste exportieren unter...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1444"/>
+        <location filename="fixturemanager.cpp" line="1453"/>
         <source>Fixtures List (*%1)</source>
         <oldsource>Fixture Definitions (*%1)</oldsource>
         <translation>Gerätedefinitionsliste (*%1)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1446"/>
+        <location filename="fixturemanager.cpp" line="1455"/>
         <source>All Files (*.*)</source>
         <translation>Alle Dateien (*.*)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1448"/>
+        <location filename="fixturemanager.cpp" line="1457"/>
         <source>All Files (*)</source>
         <translation>Alle Dateien (*)</translation>
     </message>
@@ -2322,74 +2333,74 @@ Changes will be lost if you don&apos;t save them.</source>
         <translation>Das ausgewählte Eingangsprofil bearbeiten</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="354"/>
-        <location filename="inputoutputpatcheditor.cpp" line="372"/>
+        <location filename="inputoutputpatcheditor.cpp" line="355"/>
+        <location filename="inputoutputpatcheditor.cpp" line="373"/>
         <source>Error</source>
         <translation>Fehler</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="355"/>
-        <location filename="inputoutputpatcheditor.cpp" line="373"/>
+        <location filename="inputoutputpatcheditor.cpp" line="356"/>
+        <location filename="inputoutputpatcheditor.cpp" line="374"/>
         <source>Output line already assigned</source>
         <translation>Ausgang bereits zugewiesen</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="595"/>
-        <location filename="inputoutputpatcheditor.cpp" line="729"/>
+        <location filename="inputoutputpatcheditor.cpp" line="596"/>
+        <location filename="inputoutputpatcheditor.cpp" line="730"/>
         <source>Existing Input Profile</source>
         <translation>Existierendes Eingangsprofil</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="596"/>
-        <location filename="inputoutputpatcheditor.cpp" line="730"/>
+        <location filename="inputoutputpatcheditor.cpp" line="597"/>
+        <location filename="inputoutputpatcheditor.cpp" line="731"/>
         <source>An input profile at %1 already exists. Do you wish to overwrite it?</source>
         <translation>Es existiert bereits ein Eingangsprofil in %1. Willst du es überschreiben?</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="605"/>
-        <location filename="inputoutputpatcheditor.cpp" line="739"/>
+        <location filename="inputoutputpatcheditor.cpp" line="606"/>
+        <location filename="inputoutputpatcheditor.cpp" line="740"/>
         <source>Save Input Profile</source>
         <translation>Eingangsprofil speichern</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="606"/>
-        <location filename="inputoutputpatcheditor.cpp" line="740"/>
+        <location filename="inputoutputpatcheditor.cpp" line="607"/>
+        <location filename="inputoutputpatcheditor.cpp" line="741"/>
         <source>Input Profiles (*.qxi)</source>
         <translation>Eingangsprofile (*.qxi)</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="619"/>
-        <location filename="inputoutputpatcheditor.cpp" line="756"/>
+        <location filename="inputoutputpatcheditor.cpp" line="620"/>
+        <location filename="inputoutputpatcheditor.cpp" line="757"/>
         <source>Saving failed</source>
         <translation>Speichern fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="620"/>
+        <location filename="inputoutputpatcheditor.cpp" line="621"/>
         <source>Unable to save the profile to %1</source>
         <translation>Kann das Profil nicht nach %1 speichern</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="657"/>
+        <location filename="inputoutputpatcheditor.cpp" line="658"/>
         <source>Delete profile</source>
         <translation>Profil löschen</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="658"/>
+        <location filename="inputoutputpatcheditor.cpp" line="659"/>
         <source>Do you wish to permanently delete profile &quot;%1&quot;?</source>
         <translation>Willst du das Profil &quot;%1&quot; permanent löschen?</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="686"/>
+        <location filename="inputoutputpatcheditor.cpp" line="687"/>
         <source>File deletion failed</source>
         <translation>Löschen fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="687"/>
+        <location filename="inputoutputpatcheditor.cpp" line="688"/>
         <source>Unable to delete file %1</source>
         <translation>Kann Datei %1 nicht löschen</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="757"/>
+        <location filename="inputoutputpatcheditor.cpp" line="758"/>
         <source>Unable to save %1 to %2</source>
         <translation>Kann %1 nicht nach %2 speichern</translation>
     </message>
@@ -3482,45 +3493,41 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
         <source>Hold</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Duration</source>
-        <translation type="obsolete">Dauer</translation>
-    </message>
 </context>
 <context>
     <name>VCButton</name>
     <message>
-        <location filename="vcbutton.cpp" line="81"/>
+        <location filename="vcbutton.cpp" line="84"/>
         <source>Choose...</source>
         <translation>Auswählen ...</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="85"/>
+        <location filename="vcbutton.cpp" line="88"/>
         <source>None</source>
         <translation>Kein</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="276"/>
+        <location filename="vcbutton.cpp" line="281"/>
         <source>Select button icon</source>
         <translation>Schaltersymbol wählen</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="277"/>
+        <location filename="vcbutton.cpp" line="282"/>
         <source>Images (%1)</source>
         <translation>Bilder (%1)</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="444"/>
+        <location filename="vcbutton.cpp" line="510"/>
         <source>Toggle Blackout</source>
         <translation>Schalte Blackout</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="446"/>
+        <location filename="vcbutton.cpp" line="512"/>
         <source>Stop ALL functions!</source>
         <translation>ALLE Funktionen stoppen!</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="638"/>
+        <location filename="vcbutton.cpp" line="704"/>
         <source>Icon</source>
         <translation>Symbol</translation>
     </message>
@@ -4288,9 +4295,15 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
         <translation>Oberes Limit</translation>
     </message>
     <message>
+        <location filename="vcsliderproperties.ui" line="387"/>
+        <source>Intensity</source>
+        <translation type="unfinished">Intensität</translation>
+    </message>
+    <message>
         <location filename="vcsliderproperties.ui" line="401"/>
-        <source>Gobo/Effect</source>
-        <translation>Gobo/Effekt</translation>
+        <source>Gobo/Effect/Macro</source>
+        <oldsource>Gobo/Effect</oldsource>
+        <translation type="unfinished">Gobo/Effekt</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="60"/>
@@ -4383,11 +4396,6 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
         <location filename="vcsliderproperties.ui" line="371"/>
         <source>Click &amp;&amp; Go</source>
         <translation>Klick &amp; Go</translation>
-    </message>
-    <message>
-        <location filename="vcsliderproperties.ui" line="387"/>
-        <source>Color</source>
-        <translation>Farbe</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="394"/>

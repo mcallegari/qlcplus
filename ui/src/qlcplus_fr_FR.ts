@@ -140,7 +140,12 @@ p, li { white-space: pre-wrap; }
         <translation>Ajouter un projecteur</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="229"/>
+        <location filename="addfixture.ui" line="219"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addfixture.ui" line="236"/>
         <source>Fixture Model</source>
         <translatorcomment>Fixture est traduit ici par projecteur et regoupe tous les types de projecteurs: asservis et traditionnels.</translatorcomment>
         <translation>Modèle de projecteur</translation>
@@ -227,12 +232,12 @@ p, li { white-space: pre-wrap; }
         <translation>Nombre de canaux vides à laisser entre les projecteurs</translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="97"/>
+        <location filename="addfixture.cpp" line="100"/>
         <source>Fixtures found: %1</source>
         <translation>%1 projecteurs dans la bibliothèque</translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="510"/>
+        <location filename="addfixture.cpp" line="567"/>
         <source>Dimmers</source>
         <translation>Gradateurs</translation>
     </message>
@@ -1133,10 +1138,6 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
         <translation>Maintien Commun</translation>
     </message>
     <message>
-        <source>Common Duration</source>
-        <translation type="obsolete">Durée Commune</translation>
-    </message>
-    <message>
         <location filename="chasereditor.cpp" line="768"/>
         <source>Multiple Steps</source>
         <translation>Pas Multiples</translation>
@@ -1802,40 +1803,50 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
         <translation>Supprimer le Groupe de Canaux</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1317"/>
+        <location filename="fixturemanager.cpp" line="1286"/>
+        <source>Error</source>
+        <translation type="unfinished">Erreur</translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="1287"/>
+        <source>Please enter a valid address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="1326"/>
         <source>Ungroup fixtures?</source>
         <translation>Dégrouper les projecteurs ?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1318"/>
+        <location filename="fixturemanager.cpp" line="1327"/>
         <source>Do you want to ungroup the selected fixtures?</source>
         <translation>Voulez vous dégrouper les projecteurs sélectionnés ?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1433"/>
+        <location filename="fixturemanager.cpp" line="1442"/>
         <source>Import Fixtures List</source>
         <oldsource>Import Fixture Definition</oldsource>
         <translation>Importer une Liste de Projecteurs</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1438"/>
+        <location filename="fixturemanager.cpp" line="1447"/>
         <source>Export Fixtures List As</source>
         <oldsource>Export Fixture Definition As</oldsource>
         <translation>Exporter une Liste de Projecteurs</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1444"/>
+        <location filename="fixturemanager.cpp" line="1453"/>
         <source>Fixtures List (*%1)</source>
         <oldsource>Fixture Definitions (*%1)</oldsource>
         <translation>Liste de Projecteurs (*%1)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1446"/>
+        <location filename="fixturemanager.cpp" line="1455"/>
         <source>All Files (*.*)</source>
         <translation>Tous les fichiers (*.*)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1448"/>
+        <location filename="fixturemanager.cpp" line="1457"/>
         <source>All Files (*)</source>
         <translation>Tous les fichiers (*)</translation>
     </message>
@@ -2326,74 +2337,74 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
         <translation>Éditer ce profil d&apos;Entrée</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="354"/>
-        <location filename="inputoutputpatcheditor.cpp" line="372"/>
+        <location filename="inputoutputpatcheditor.cpp" line="355"/>
+        <location filename="inputoutputpatcheditor.cpp" line="373"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="355"/>
-        <location filename="inputoutputpatcheditor.cpp" line="373"/>
+        <location filename="inputoutputpatcheditor.cpp" line="356"/>
+        <location filename="inputoutputpatcheditor.cpp" line="374"/>
         <source>Output line already assigned</source>
         <translation>La ligne de sortie est déjà assignée</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="595"/>
-        <location filename="inputoutputpatcheditor.cpp" line="729"/>
+        <location filename="inputoutputpatcheditor.cpp" line="596"/>
+        <location filename="inputoutputpatcheditor.cpp" line="730"/>
         <source>Existing Input Profile</source>
         <translation>Profil d&apos;Entrée existant</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="596"/>
-        <location filename="inputoutputpatcheditor.cpp" line="730"/>
+        <location filename="inputoutputpatcheditor.cpp" line="597"/>
+        <location filename="inputoutputpatcheditor.cpp" line="731"/>
         <source>An input profile at %1 already exists. Do you wish to overwrite it?</source>
         <translation>Un profil d&apos;Entrée existe déjà en %1. Voulez vous l&apos;écraser ?</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="605"/>
-        <location filename="inputoutputpatcheditor.cpp" line="739"/>
+        <location filename="inputoutputpatcheditor.cpp" line="606"/>
+        <location filename="inputoutputpatcheditor.cpp" line="740"/>
         <source>Save Input Profile</source>
         <translation>Enregistrer le profil d&apos;Entrée</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="606"/>
-        <location filename="inputoutputpatcheditor.cpp" line="740"/>
+        <location filename="inputoutputpatcheditor.cpp" line="607"/>
+        <location filename="inputoutputpatcheditor.cpp" line="741"/>
         <source>Input Profiles (*.qxi)</source>
         <translation>Profils d&apos;Entrée (*.qxi)</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="619"/>
-        <location filename="inputoutputpatcheditor.cpp" line="756"/>
+        <location filename="inputoutputpatcheditor.cpp" line="620"/>
+        <location filename="inputoutputpatcheditor.cpp" line="757"/>
         <source>Saving failed</source>
         <translation>L&apos;Enregistrement à échoué</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="620"/>
+        <location filename="inputoutputpatcheditor.cpp" line="621"/>
         <source>Unable to save the profile to %1</source>
         <translation>Impossible d&apos;enregistrer le profil vers %1</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="657"/>
+        <location filename="inputoutputpatcheditor.cpp" line="658"/>
         <source>Delete profile</source>
         <translation>Effacer le profil</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="658"/>
+        <location filename="inputoutputpatcheditor.cpp" line="659"/>
         <source>Do you wish to permanently delete profile &quot;%1&quot;?</source>
         <translation>Voulez-vous effacer définitivement le profil &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="686"/>
+        <location filename="inputoutputpatcheditor.cpp" line="687"/>
         <source>File deletion failed</source>
         <translation>L&apos;effacement du fichier a échoué</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="687"/>
+        <location filename="inputoutputpatcheditor.cpp" line="688"/>
         <source>Unable to delete file %1</source>
         <translation>Impossible d&apos;effacer le fichier %1</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="757"/>
+        <location filename="inputoutputpatcheditor.cpp" line="758"/>
         <source>Unable to save %1 to %2</source>
         <translation>Impossible d&apos;enregistrer %1 vers %2</translation>
     </message>
@@ -3487,45 +3498,41 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
         <source>Hold</source>
         <translation>Maintien</translation>
     </message>
-    <message>
-        <source>Duration</source>
-        <translation type="obsolete">Durée</translation>
-    </message>
 </context>
 <context>
     <name>VCButton</name>
     <message>
-        <location filename="vcbutton.cpp" line="81"/>
+        <location filename="vcbutton.cpp" line="84"/>
         <source>Choose...</source>
         <translation>Choisissez...</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="85"/>
+        <location filename="vcbutton.cpp" line="88"/>
         <source>None</source>
         <translation>Aucun</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="276"/>
+        <location filename="vcbutton.cpp" line="281"/>
         <source>Select button icon</source>
         <translation>Sélectionnez l&apos;icône du bouton</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="277"/>
+        <location filename="vcbutton.cpp" line="282"/>
         <source>Images (%1)</source>
         <translation>Images (%1)</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="444"/>
+        <location filename="vcbutton.cpp" line="510"/>
         <source>Toggle Blackout</source>
         <translation>Blackout</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="446"/>
+        <location filename="vcbutton.cpp" line="512"/>
         <source>Stop ALL functions!</source>
         <translation>Arrêter TOUTES les fonctions !</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="638"/>
+        <location filename="vcbutton.cpp" line="704"/>
         <source>Icon</source>
         <translation>Icône</translation>
     </message>
@@ -4303,9 +4310,15 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
         <translation>Valeur DMX la plus basse qui peut être donnée avec ce curseur</translation>
     </message>
     <message>
+        <location filename="vcsliderproperties.ui" line="387"/>
+        <source>Intensity</source>
+        <translation type="unfinished">Intensité</translation>
+    </message>
+    <message>
         <location filename="vcsliderproperties.ui" line="401"/>
-        <source>Gobo/Effect</source>
-        <translation>Gobo/Effet</translation>
+        <source>Gobo/Effect/Macro</source>
+        <oldsource>Gobo/Effect</oldsource>
+        <translation type="unfinished">Gobo/Effet</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="435"/>
@@ -4422,11 +4435,6 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
         <location filename="vcsliderproperties.ui" line="371"/>
         <source>Click &amp;&amp; Go</source>
         <translation>Accès Rapide</translation>
-    </message>
-    <message>
-        <location filename="vcsliderproperties.ui" line="387"/>
-        <source>Color</source>
-        <translation>Couleur</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="394"/>

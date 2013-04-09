@@ -20,7 +20,7 @@
       <string/>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="General">
       <attribute name="title">
@@ -384,7 +384,7 @@
           <item>
            <widget class="QRadioButton" name="m_cngColorCheck">
             <property name="text">
-             <string>Color</string>
+             <string>Intensity</string>
             </property>
            </widget>
           </item>
@@ -398,7 +398,7 @@
           <item>
            <widget class="QRadioButton" name="m_cngPresetCheck">
             <property name="text">
-             <string>Gobo/Effect</string>
+             <string>Gobo/Effect/Macro</string>
             </property>
            </widget>
           </item>

@@ -140,7 +140,12 @@ p, li { white-space: pre-wrap; }
         <translation>Agregar proyector</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="229"/>
+        <location filename="addfixture.ui" line="219"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addfixture.ui" line="236"/>
         <source>Fixture Model</source>
         <translation>Modelo de Proyector</translation>
     </message>
@@ -225,12 +230,12 @@ p, li { white-space: pre-wrap; }
         <translation>Numero de canales entre proyectores</translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="97"/>
+        <location filename="addfixture.cpp" line="100"/>
         <source>Fixtures found: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="510"/>
+        <location filename="addfixture.cpp" line="567"/>
         <source>Dimmers</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1795,40 +1800,50 @@ Los cambios se perderan si no los salvas.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1317"/>
+        <location filename="fixturemanager.cpp" line="1286"/>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="1287"/>
+        <source>Please enter a valid address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="1326"/>
         <source>Ungroup fixtures?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1318"/>
+        <location filename="fixturemanager.cpp" line="1327"/>
         <source>Do you want to ungroup the selected fixtures?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1433"/>
+        <location filename="fixturemanager.cpp" line="1442"/>
         <source>Import Fixtures List</source>
         <oldsource>Import Fixture Definition</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1438"/>
+        <location filename="fixturemanager.cpp" line="1447"/>
         <source>Export Fixtures List As</source>
         <oldsource>Export Fixture Definition As</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1444"/>
+        <location filename="fixturemanager.cpp" line="1453"/>
         <source>Fixtures List (*%1)</source>
         <oldsource>Fixture Definitions (*%1)</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1446"/>
+        <location filename="fixturemanager.cpp" line="1455"/>
         <source>All Files (*.*)</source>
         <translation type="unfinished">Todos los archivos (*.*)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1448"/>
+        <location filename="fixturemanager.cpp" line="1457"/>
         <source>All Files (*)</source>
         <translation type="unfinished">Todos los archivos (*)</translation>
     </message>
@@ -2319,74 +2334,74 @@ Los cambios se perderan si no los salvas.</translation>
         <translation type="unfinished">edita el archivo de entrada seleccionado</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="354"/>
-        <location filename="inputoutputpatcheditor.cpp" line="372"/>
+        <location filename="inputoutputpatcheditor.cpp" line="355"/>
+        <location filename="inputoutputpatcheditor.cpp" line="373"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="355"/>
-        <location filename="inputoutputpatcheditor.cpp" line="373"/>
+        <location filename="inputoutputpatcheditor.cpp" line="356"/>
+        <location filename="inputoutputpatcheditor.cpp" line="374"/>
         <source>Output line already assigned</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="inputoutputpatcheditor.cpp" line="595"/>
-        <location filename="inputoutputpatcheditor.cpp" line="729"/>
-        <source>Existing Input Profile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="596"/>
         <location filename="inputoutputpatcheditor.cpp" line="730"/>
-        <source>An input profile at %1 already exists. Do you wish to overwrite it?</source>
+        <source>Existing Input Profile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="605"/>
-        <location filename="inputoutputpatcheditor.cpp" line="739"/>
-        <source>Save Input Profile</source>
+        <location filename="inputoutputpatcheditor.cpp" line="597"/>
+        <location filename="inputoutputpatcheditor.cpp" line="731"/>
+        <source>An input profile at %1 already exists. Do you wish to overwrite it?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="606"/>
         <location filename="inputoutputpatcheditor.cpp" line="740"/>
+        <source>Save Input Profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.cpp" line="607"/>
+        <location filename="inputoutputpatcheditor.cpp" line="741"/>
         <source>Input Profiles (*.qxi)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="619"/>
-        <location filename="inputoutputpatcheditor.cpp" line="756"/>
+        <location filename="inputoutputpatcheditor.cpp" line="620"/>
+        <location filename="inputoutputpatcheditor.cpp" line="757"/>
         <source>Saving failed</source>
         <translation type="unfinished">Fallo en Guardar</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="620"/>
+        <location filename="inputoutputpatcheditor.cpp" line="621"/>
         <source>Unable to save the profile to %1</source>
         <translation type="unfinished">Imposible guardar el archivo %1</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="657"/>
+        <location filename="inputoutputpatcheditor.cpp" line="658"/>
         <source>Delete profile</source>
         <translation type="unfinished">Eliminar archivo</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="658"/>
+        <location filename="inputoutputpatcheditor.cpp" line="659"/>
         <source>Do you wish to permanently delete profile &quot;%1&quot;?</source>
         <translation type="unfinished">¿Deseas borrar permanentemente este archivo &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="686"/>
+        <location filename="inputoutputpatcheditor.cpp" line="687"/>
         <source>File deletion failed</source>
         <translation type="unfinished">Fallo al eliminar archivo</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="687"/>
+        <location filename="inputoutputpatcheditor.cpp" line="688"/>
         <source>Unable to delete file %1</source>
         <translation type="unfinished">Imposible borrar archivo %1</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="757"/>
+        <location filename="inputoutputpatcheditor.cpp" line="758"/>
         <source>Unable to save %1 to %2</source>
         <translation type="unfinished">Imposible guardar %1 vers %2</translation>
     </message>
@@ -3480,37 +3495,37 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
 <context>
     <name>VCButton</name>
     <message>
-        <location filename="vcbutton.cpp" line="81"/>
+        <location filename="vcbutton.cpp" line="84"/>
         <source>Choose...</source>
         <translation>Elige...</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="85"/>
+        <location filename="vcbutton.cpp" line="88"/>
         <source>None</source>
         <translation>Ninguno</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="276"/>
+        <location filename="vcbutton.cpp" line="281"/>
         <source>Select button icon</source>
         <translation>Selecciona el icono del boton</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="277"/>
+        <location filename="vcbutton.cpp" line="282"/>
         <source>Images (%1)</source>
         <translation>Imagen (%1)</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="444"/>
+        <location filename="vcbutton.cpp" line="510"/>
         <source>Toggle Blackout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="446"/>
+        <location filename="vcbutton.cpp" line="512"/>
         <source>Stop ALL functions!</source>
         <translation type="unfinished">Para TODAS las funciones!</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="638"/>
+        <location filename="vcbutton.cpp" line="704"/>
         <source>Icon</source>
         <translation>Icono</translation>
     </message>
@@ -4288,8 +4303,14 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="vcsliderproperties.ui" line="387"/>
+        <source>Intensity</source>
+        <translation type="unfinished">Intensidad</translation>
+    </message>
+    <message>
         <location filename="vcsliderproperties.ui" line="401"/>
-        <source>Gobo/Effect</source>
+        <source>Gobo/Effect/Macro</source>
+        <oldsource>Gobo/Effect</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4406,11 +4427,6 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="vcsliderproperties.ui" line="371"/>
         <source>Click &amp;&amp; Go</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="vcsliderproperties.ui" line="387"/>
-        <source>Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
