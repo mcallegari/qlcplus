@@ -342,6 +342,15 @@ QStringList OutputMap::pluginOutputs(const QString& pluginName)
         return op->outputs();
 }
 
+bool OutputMap::pluginSupportsFeedback(const QString& pluginName)
+{
+    QLCIOPlugin* outputPlugin = doc()->ioPluginCache()->plugin(pluginName);
+    if (outputPlugin != NULL)
+        return (outputPlugin->capabilities() & QLCIOPlugin::Feedback) > 0;
+    else
+        return false;
+}
+
 void OutputMap::configurePlugin(const QString& pluginName)
 {
     QLCIOPlugin* outputPlugin = doc()->ioPluginCache()->plugin(pluginName);
