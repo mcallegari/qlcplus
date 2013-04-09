@@ -4654,101 +4654,116 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <translation>Proprietà del pad XY</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="20"/>
+        <location filename="vcxypadproperties.ui" line="301"/>
         <source>XY Pad Name</source>
         <translation>Nome del pad XY</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="27"/>
+        <location filename="vcxypadproperties.ui" line="308"/>
         <source>The name of this XY Pad</source>
         <translation>Il nome di questo pad XY</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="38"/>
+        <location filename="vcxypadproperties.ui" line="24"/>
         <source>Fixtures</source>
         <translation>Fixture</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="44"/>
+        <location filename="vcxypadproperties.ui" line="30"/>
         <source>List of fixtures that are controlled by this pad</source>
         <translation>Lista di fixture che sono controllate da questo Pad</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="69"/>
+        <location filename="vcxypadproperties.ui" line="55"/>
         <source>Fixture</source>
         <translation>Fixture</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="74"/>
+        <location filename="vcxypadproperties.ui" line="60"/>
         <source>X-Axis</source>
         <translation>Asse X</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="79"/>
+        <location filename="vcxypadproperties.ui" line="65"/>
         <source>Y-Axis</source>
         <translation>Asse Y</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="87"/>
+        <location filename="vcxypadproperties.ui" line="73"/>
         <source>Add fixture(s) to the pad</source>
         <translation>Aggiungi fixture a questo Pad</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="161"/>
+        <location filename="vcxypadproperties.ui" line="147"/>
         <source>Input</source>
         <translation>Ingresso</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="167"/>
+        <location filename="vcxypadproperties.ui" line="153"/>
         <source>Pan / Horizontal Axis</source>
         <translation>Pan / Asse orizzontale</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="173"/>
-        <location filename="vcxypadproperties.ui" line="240"/>
+        <location filename="vcxypadproperties.ui" line="159"/>
+        <location filename="vcxypadproperties.ui" line="226"/>
         <source>Input universe</source>
         <translation>Universo di ingresso</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="187"/>
-        <location filename="vcxypadproperties.ui" line="254"/>
+        <location filename="vcxypadproperties.ui" line="173"/>
+        <location filename="vcxypadproperties.ui" line="240"/>
         <source>Input channel</source>
         <translation>Canale di ingresso</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="214"/>
-        <location filename="vcxypadproperties.ui" line="281"/>
+        <location filename="vcxypadproperties.ui" line="200"/>
+        <location filename="vcxypadproperties.ui" line="267"/>
         <source>Auto Detect</source>
         <translation>Auto Rileva</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="224"/>
-        <location filename="vcxypadproperties.ui" line="291"/>
+        <location filename="vcxypadproperties.ui" line="210"/>
+        <location filename="vcxypadproperties.ui" line="277"/>
         <source>Choose...</source>
         <translation>Scegli...</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="234"/>
+        <location filename="vcxypadproperties.ui" line="220"/>
         <source>Tilt / Vertical Axis</source>
         <translation>Tilt / Assi verticali</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="107"/>
+        <location filename="vcxypadproperties.ui" line="315"/>
+        <source>Y-Axis slider movement</source>
+        <translation>Movimento slider asse-Y</translation>
+    </message>
+    <message>
+        <location filename="vcxypadproperties.ui" line="321"/>
+        <source>Normal</source>
+        <translation>Normale</translation>
+    </message>
+    <message>
+        <location filename="vcxypadproperties.ui" line="331"/>
+        <source>Inverted</source>
+        <translation>Invertito</translation>
+    </message>
+    <message>
+        <location filename="vcxypadproperties.ui" line="93"/>
         <source>Remove selected fixture(s) from the pad</source>
         <translation>Rimuovi le fixture selezionate da questo Pad</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="127"/>
+        <location filename="vcxypadproperties.ui" line="113"/>
         <source>Edit the selected fixture&apos;s axis</source>
         <translation>Edita l&apos;Asse della fixture selezionata</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.cpp" line="237"/>
+        <location filename="vcxypadproperties.cpp" line="241"/>
         <source>Remove fixtures</source>
         <translation>Rimuovi fixture</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.cpp" line="238"/>
+        <location filename="vcxypadproperties.cpp" line="242"/>
         <source>Do you want to remove the selected fixtures?</source>
         <translation>Vuoi rimuovere le fixture selezionate?</translation>
     </message>

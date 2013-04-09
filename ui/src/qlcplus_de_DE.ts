@@ -4655,101 +4655,116 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
         <translation>XY-Feldeigenschaften</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="20"/>
+        <location filename="vcxypadproperties.ui" line="301"/>
         <source>XY Pad Name</source>
         <translation>XY-Feldname</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="27"/>
+        <location filename="vcxypadproperties.ui" line="308"/>
         <source>The name of this XY Pad</source>
         <translation>Der Name dieses XY-Feldes</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="38"/>
+        <location filename="vcxypadproperties.ui" line="24"/>
         <source>Fixtures</source>
         <translation>Geräte</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="44"/>
+        <location filename="vcxypadproperties.ui" line="30"/>
         <source>List of fixtures that are controlled by this pad</source>
         <translation>Liste der Geräte die von diesem Feld gesteuert werden</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="69"/>
+        <location filename="vcxypadproperties.ui" line="55"/>
         <source>Fixture</source>
         <translation>Gerät</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="74"/>
+        <location filename="vcxypadproperties.ui" line="60"/>
         <source>X-Axis</source>
         <translation>x-Achse</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="79"/>
+        <location filename="vcxypadproperties.ui" line="65"/>
         <source>Y-Axis</source>
         <translation>y-Achse</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="87"/>
+        <location filename="vcxypadproperties.ui" line="73"/>
         <source>Add fixture(s) to the pad</source>
         <translation>Geräte zum Feld hinzufügen</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="107"/>
+        <location filename="vcxypadproperties.ui" line="93"/>
         <source>Remove selected fixture(s) from the pad</source>
         <translation>Ausgewählte Geräte vom Feld entfernen</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="127"/>
+        <location filename="vcxypadproperties.ui" line="113"/>
         <source>Edit the selected fixture&apos;s axis</source>
         <translation>Achsen des ausgewählten Geräts bearbeiten</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="161"/>
+        <location filename="vcxypadproperties.ui" line="147"/>
         <source>Input</source>
         <translation>Eingang</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="167"/>
+        <location filename="vcxypadproperties.ui" line="153"/>
         <source>Pan / Horizontal Axis</source>
         <translation>Pan / Horizontale Achsen</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="173"/>
-        <location filename="vcxypadproperties.ui" line="240"/>
+        <location filename="vcxypadproperties.ui" line="159"/>
+        <location filename="vcxypadproperties.ui" line="226"/>
         <source>Input universe</source>
         <translation>Eingangsuniversum</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="187"/>
-        <location filename="vcxypadproperties.ui" line="254"/>
+        <location filename="vcxypadproperties.ui" line="173"/>
+        <location filename="vcxypadproperties.ui" line="240"/>
         <source>Input channel</source>
         <translation>Eingangskanal</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="214"/>
-        <location filename="vcxypadproperties.ui" line="281"/>
+        <location filename="vcxypadproperties.ui" line="200"/>
+        <location filename="vcxypadproperties.ui" line="267"/>
         <source>Auto Detect</source>
         <translation>Automatische Erkennung</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="224"/>
-        <location filename="vcxypadproperties.ui" line="291"/>
+        <location filename="vcxypadproperties.ui" line="210"/>
+        <location filename="vcxypadproperties.ui" line="277"/>
         <source>Choose...</source>
         <translation>Auswahl...</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="234"/>
+        <location filename="vcxypadproperties.ui" line="220"/>
         <source>Tilt / Vertical Axis</source>
         <translation>Tilt / Vertikale Achse</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.cpp" line="237"/>
+        <location filename="vcxypadproperties.ui" line="315"/>
+        <source>Y-Axis slider movement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcxypadproperties.ui" line="321"/>
+        <source>Normal</source>
+        <translation type="unfinished">Normal</translation>
+    </message>
+    <message>
+        <location filename="vcxypadproperties.ui" line="331"/>
+        <source>Inverted</source>
+        <translation type="unfinished">Invertiert</translation>
+    </message>
+    <message>
+        <location filename="vcxypadproperties.cpp" line="241"/>
         <source>Remove fixtures</source>
         <translation>Geräte entfernen</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.cpp" line="238"/>
+        <location filename="vcxypadproperties.cpp" line="242"/>
         <source>Do you want to remove the selected fixtures?</source>
         <translation>Willst du das ausgewählte Gerät entfernen?</translation>
     </message>

@@ -4659,101 +4659,116 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
         <translation>Propriétés du pad XY</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="20"/>
+        <location filename="vcxypadproperties.ui" line="301"/>
         <source>XY Pad Name</source>
         <translation>Nom du pad XY</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="27"/>
+        <location filename="vcxypadproperties.ui" line="308"/>
         <source>The name of this XY Pad</source>
         <translation>Le nom de ce pad XY</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="38"/>
+        <location filename="vcxypadproperties.ui" line="24"/>
         <source>Fixtures</source>
         <translation>Projecteurs</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="44"/>
+        <location filename="vcxypadproperties.ui" line="30"/>
         <source>List of fixtures that are controlled by this pad</source>
         <translation>Liste des projecteurs contrôlés par ce pad</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="69"/>
+        <location filename="vcxypadproperties.ui" line="55"/>
         <source>Fixture</source>
         <translation>Projecteur</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="74"/>
+        <location filename="vcxypadproperties.ui" line="60"/>
         <source>X-Axis</source>
         <translation>Axe X</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="79"/>
+        <location filename="vcxypadproperties.ui" line="65"/>
         <source>Y-Axis</source>
         <translation>Axe Y</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="87"/>
+        <location filename="vcxypadproperties.ui" line="73"/>
         <source>Add fixture(s) to the pad</source>
         <translation>Ajouter un ou des projecteurs au pad</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="161"/>
+        <location filename="vcxypadproperties.ui" line="147"/>
         <source>Input</source>
         <translation>Entrée</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="167"/>
+        <location filename="vcxypadproperties.ui" line="153"/>
         <source>Pan / Horizontal Axis</source>
         <translation>Pan / Axe Horizontal</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="173"/>
-        <location filename="vcxypadproperties.ui" line="240"/>
+        <location filename="vcxypadproperties.ui" line="159"/>
+        <location filename="vcxypadproperties.ui" line="226"/>
         <source>Input universe</source>
         <translation>Univers d&apos;entrée</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="187"/>
-        <location filename="vcxypadproperties.ui" line="254"/>
+        <location filename="vcxypadproperties.ui" line="173"/>
+        <location filename="vcxypadproperties.ui" line="240"/>
         <source>Input channel</source>
         <translation>Canal d&apos;entrée</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="214"/>
-        <location filename="vcxypadproperties.ui" line="281"/>
+        <location filename="vcxypadproperties.ui" line="200"/>
+        <location filename="vcxypadproperties.ui" line="267"/>
         <source>Auto Detect</source>
         <translation>Auto-détection</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="224"/>
-        <location filename="vcxypadproperties.ui" line="291"/>
+        <location filename="vcxypadproperties.ui" line="210"/>
+        <location filename="vcxypadproperties.ui" line="277"/>
         <source>Choose...</source>
         <translation>Choisissez...</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="234"/>
+        <location filename="vcxypadproperties.ui" line="220"/>
         <source>Tilt / Vertical Axis</source>
         <translation>Tilt / Axe Vertical</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="107"/>
+        <location filename="vcxypadproperties.ui" line="315"/>
+        <source>Y-Axis slider movement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcxypadproperties.ui" line="321"/>
+        <source>Normal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcxypadproperties.ui" line="331"/>
+        <source>Inverted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcxypadproperties.ui" line="93"/>
         <source>Remove selected fixture(s) from the pad</source>
         <translation>Enlever le(s) projecteur(s) sélectionné(s) du pad</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="127"/>
+        <location filename="vcxypadproperties.ui" line="113"/>
         <source>Edit the selected fixture&apos;s axis</source>
         <translation>Éditer l&apos;axe du projecteur sélectionné</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.cpp" line="237"/>
+        <location filename="vcxypadproperties.cpp" line="241"/>
         <source>Remove fixtures</source>
         <translation>Enlever les projecteurs</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.cpp" line="238"/>
+        <location filename="vcxypadproperties.cpp" line="242"/>
         <source>Do you want to remove the selected fixtures?</source>
         <translation>Voulez-vous enleverles projecteurs sélectionnés?</translation>
     </message>

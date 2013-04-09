@@ -7,7 +7,7 @@
         <location filename="aboutbox.ui" line="14"/>
         <source>About Q Light Controller Plus</source>
         <oldsource>About Q Light Controller</oldsource>
-        <translation type="unfinished">Sobre Q Light Controller</translation>
+        <translation>Sobre Q Light Controller Plus</translation>
     </message>
     <message>
         <location filename="aboutbox.ui" line="69"/>
@@ -320,7 +320,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="addvcbuttonmatrix.ui" line="173"/>
         <source>Frame</source>
-        <translation type="unfinished">Frame</translation>
+        <translation>Frame</translation>
     </message>
     <message>
         <location filename="addvcbuttonmatrix.ui" line="179"/>
@@ -330,7 +330,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="addvcbuttonmatrix.ui" line="182"/>
         <source>Normal</source>
-        <translation type="unfinished">Normal</translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <location filename="addvcbuttonmatrix.ui" line="189"/>
@@ -358,7 +358,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="addvcslidermatrix.ui" line="26"/>
         <source>Amount</source>
-        <translation type="unfinished">Cuantos mas</translation>
+        <translation>Cuantos mas</translation>
     </message>
     <message>
         <location filename="addvcslidermatrix.ui" line="33"/>
@@ -368,7 +368,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="addvcslidermatrix.ui" line="43"/>
         <source>Height</source>
-        <translation type="unfinished">Altura</translation>
+        <translation>Altura</translation>
     </message>
     <message>
         <location filename="addvcslidermatrix.ui" line="50"/>
@@ -378,7 +378,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="addvcslidermatrix.ui" line="53"/>
         <source>px</source>
-        <translation type="unfinished">Px</translation>
+        <translation>px</translation>
     </message>
 </context>
 <context>
@@ -396,12 +396,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="addresstool.ui" line="35"/>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Color</translation>
     </message>
     <message>
         <location filename="addresstool.ui" line="51"/>
         <source>Address</source>
-        <translation type="unfinished">Direccion</translation>
+        <translation>Direccion</translation>
     </message>
     <message>
         <location filename="addresstool.ui" line="98"/>
@@ -526,7 +526,7 @@ Really stop them and switch back to Design mode?</source>
     <message>
         <location filename="app.cpp" line="505"/>
         <source>Toggle &amp;Blackout</source>
-        <translation type="unfinished">Pulsa &amp;blackout</translation>
+        <translation>Pulsa &amp;blackout</translation>
     </message>
     <message>
         <location filename="app.cpp" line="495"/>
@@ -1179,7 +1179,7 @@ Los cambios se perderan si no los salvas.</translation>
     <message>
         <location filename="consolechannel.cpp" line="133"/>
         <source>Intensity</source>
-        <translation type="unfinished">Intensidad</translation>
+        <translation>Intensidad</translation>
     </message>
 </context>
 <context>
@@ -1202,12 +1202,12 @@ Los cambios se perderan si no los salvas.</translation>
     <message>
         <location filename="createfixturegroup.ui" line="38"/>
         <source>Width</source>
-        <translation type="unfinished">Anchura</translation>
+        <translation>Anchura</translation>
     </message>
     <message>
         <location filename="createfixturegroup.ui" line="52"/>
         <source>Height</source>
-        <translation type="unfinished">Altura</translation>
+        <translation>Altura</translation>
     </message>
 </context>
 <context>
@@ -1215,7 +1215,7 @@ Los cambios se perderan si no los salvas.</translation>
     <message>
         <location filename="cuestackmodel.cpp" line="136"/>
         <source>Number</source>
-        <translation type="unfinished">Numero</translation>
+        <translation>Numero</translation>
     </message>
     <message>
         <location filename="cuestackmodel.cpp" line="138"/>
@@ -1398,7 +1398,7 @@ Los cambios se perderan si no los salvas.</translation>
     <message>
         <location filename="efxeditor.ui" line="98"/>
         <source>Intensity</source>
-        <translation type="unfinished">Intensidad</translation>
+        <translation>Intensidad</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="93"/>
@@ -2725,7 +2725,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="rgbmatrixeditor.ui" line="79"/>
         <source>Pattern</source>
-        <translation type="unfinished">Modelo</translation>
+        <translation>Modelo</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="85"/>
@@ -2755,7 +2755,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="rgbmatrixeditor.ui" line="133"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="150"/>
@@ -2770,7 +2770,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="rgbmatrixeditor.ui" line="166"/>
         <source>X</source>
-        <translation type="unfinished"></translation>
+        <translation>X</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="173"/>
@@ -2780,7 +2780,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="rgbmatrixeditor.ui" line="186"/>
         <source>Y</source>
-        <translation type="unfinished"></translation>
+        <translation>Y</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="193"/>
@@ -2815,37 +2815,37 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="rgbmatrixeditor.ui" line="262"/>
         <source>First run forwards, then backwards, again forwards, etc.</source>
-        <translation type="unfinished">Primero corre adelante, despues atras, adelante otra vez, etc...</translation>
+        <translation>Primero corre adelante, despues atras, adelante otra vez, etc.</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="265"/>
         <source>Ping Pong</source>
-        <translation type="unfinished">Ping Pong</translation>
+        <translation>Ping Pong</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="281"/>
         <source>Direction</source>
-        <translation type="unfinished">Direccion</translation>
+        <translation>Direccion</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="287"/>
         <source>Start from the first step</source>
-        <translation type="unfinished">Empieza el primer paso</translation>
+        <translation>Empieza el primer paso</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="290"/>
         <source>Forward</source>
-        <translation type="unfinished">Adelante</translation>
+        <translation>Adelante</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="300"/>
         <source>Start from the last step</source>
-        <translation type="unfinished">Empieza desde el ultimo paso</translation>
+        <translation>Empieza desde el ultimo paso</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="303"/>
         <source>Backward</source>
-        <translation type="unfinished">Atras</translation>
+        <translation>Atras</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="329"/>
@@ -2860,7 +2860,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="rgbmatrixeditor.cpp" line="220"/>
         <source>None</source>
-        <translation type="unfinished">Ninguno</translation>
+        <translation>Ninguno</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.cpp" line="273"/>
@@ -3075,7 +3075,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <location filename="scripteditor.ui" line="122"/>
         <location filename="scripteditor.ui" line="149"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="scripteditor.ui" line="79"/>
@@ -4652,101 +4652,116 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <translation>Propiedades del pad XY</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="20"/>
+        <location filename="vcxypadproperties.ui" line="301"/>
         <source>XY Pad Name</source>
         <translation>NOmbre del pad XY</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="27"/>
+        <location filename="vcxypadproperties.ui" line="308"/>
         <source>The name of this XY Pad</source>
         <translation>El nombre de este pad XY</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="38"/>
+        <location filename="vcxypadproperties.ui" line="24"/>
         <source>Fixtures</source>
         <translation type="unfinished">Proyectores</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="44"/>
+        <location filename="vcxypadproperties.ui" line="30"/>
         <source>List of fixtures that are controlled by this pad</source>
         <translation>Lista de proyectores que son controlados por este pad</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="69"/>
+        <location filename="vcxypadproperties.ui" line="55"/>
         <source>Fixture</source>
         <translation>Proyector</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="74"/>
+        <location filename="vcxypadproperties.ui" line="60"/>
         <source>X-Axis</source>
         <translation>Eje X</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="79"/>
+        <location filename="vcxypadproperties.ui" line="65"/>
         <source>Y-Axis</source>
         <translation>Eje Y</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="87"/>
+        <location filename="vcxypadproperties.ui" line="73"/>
         <source>Add fixture(s) to the pad</source>
         <translation>Añade proyectores al pad</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="161"/>
+        <location filename="vcxypadproperties.ui" line="147"/>
         <source>Input</source>
         <translation type="unfinished">Entrada</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="167"/>
+        <location filename="vcxypadproperties.ui" line="153"/>
         <source>Pan / Horizontal Axis</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="173"/>
-        <location filename="vcxypadproperties.ui" line="240"/>
+        <location filename="vcxypadproperties.ui" line="159"/>
+        <location filename="vcxypadproperties.ui" line="226"/>
         <source>Input universe</source>
         <translation type="unfinished">Universo de entrada</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="187"/>
-        <location filename="vcxypadproperties.ui" line="254"/>
+        <location filename="vcxypadproperties.ui" line="173"/>
+        <location filename="vcxypadproperties.ui" line="240"/>
         <source>Input channel</source>
         <translation type="unfinished">Canal de entrada</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="214"/>
-        <location filename="vcxypadproperties.ui" line="281"/>
+        <location filename="vcxypadproperties.ui" line="200"/>
+        <location filename="vcxypadproperties.ui" line="267"/>
         <source>Auto Detect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="224"/>
-        <location filename="vcxypadproperties.ui" line="291"/>
+        <location filename="vcxypadproperties.ui" line="210"/>
+        <location filename="vcxypadproperties.ui" line="277"/>
         <source>Choose...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="234"/>
+        <location filename="vcxypadproperties.ui" line="220"/>
         <source>Tilt / Vertical Axis</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="107"/>
+        <location filename="vcxypadproperties.ui" line="315"/>
+        <source>Y-Axis slider movement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcxypadproperties.ui" line="321"/>
+        <source>Normal</source>
+        <translation type="unfinished">Normal</translation>
+    </message>
+    <message>
+        <location filename="vcxypadproperties.ui" line="331"/>
+        <source>Inverted</source>
+        <translation type="unfinished">Invertido</translation>
+    </message>
+    <message>
+        <location filename="vcxypadproperties.ui" line="93"/>
         <source>Remove selected fixture(s) from the pad</source>
         <translation>Elimina el proyector seleccionado del pad</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="127"/>
+        <location filename="vcxypadproperties.ui" line="113"/>
         <source>Edit the selected fixture&apos;s axis</source>
         <translation>Edita el eje del proyector seleccionado</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.cpp" line="237"/>
+        <location filename="vcxypadproperties.cpp" line="241"/>
         <source>Remove fixtures</source>
         <translation>Elimina Proyectores</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.cpp" line="238"/>
+        <location filename="vcxypadproperties.cpp" line="242"/>
         <source>Do you want to remove the selected fixtures?</source>
         <translation>¿Quieres eleminar el proyector seleccionado?</translation>
     </message>
