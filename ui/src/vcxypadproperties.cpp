@@ -65,6 +65,10 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad* xypad, Doc* doc)
     addAction(action);
 
     m_nameEdit->setText(m_xypad->caption());
+
+    if (m_xypad->invertedAppearance() == true)
+        m_YInvertedRadio->setChecked(true);
+
     slotSelectionChanged(NULL);
     fillTree();
     m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
@@ -413,6 +417,10 @@ void VCXYPadProperties::accept()
     m_xypad->setCaption(m_nameEdit->text());
     m_xypad->setInputSource(m_panInputSource, VCXYPad::panInputSourceId);
     m_xypad->setInputSource(m_tiltInputSource, VCXYPad::tiltInputSourceId);
+    if (m_YNormalRadio->isChecked())
+        m_xypad->setInvertedAppearance(false);
+    else
+        m_xypad->setInvertedAppearance(true);
 
     QTreeWidgetItemIterator it(m_tree);
     while (*it != NULL)

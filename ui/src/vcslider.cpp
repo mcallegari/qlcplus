@@ -865,8 +865,8 @@ void VCSlider::slotSliderMoved(int value)
         break;
     }
 
-    if (m_slider->isSliderDown() == true)
-        sendFeedBack(value);
+    //if (m_slider->isSliderDown() == true)
+    sendFeedBack(value);
 }
 
 void VCSlider::sendFeedBack(int value)

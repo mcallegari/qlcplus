@@ -58,6 +58,10 @@ typedef struct
     /** It holds values for a whole 4 universes address (512 * 4) */
     QByteArray m_dmxValues;
 
+    /** XY pads have 2 bytes in a single message. This variable is used to keep the */
+    /** first byte, so when the second arrives the message can be composed correctly */
+    uchar m_multiDataFirst;
+
 } OSC_Node;
 
 class OSCPlugin : public QLCIOPlugin

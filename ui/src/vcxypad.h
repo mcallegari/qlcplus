@@ -51,6 +51,8 @@ class Doc;
 #define KXMLQLCVCXYPadPositionX "X" // Legacy
 #define KXMLQLCVCXYPadPositionY "Y" // Legacy
 
+#define KXMLQLCVCXYPadInvertedAppearance "InvertedAppearance"
+
 class VCXYPad : public VCWidget, public DMXSource
 {
     Q_OBJECT
@@ -91,6 +93,13 @@ public:
 public:
     /** @reimp */
     void setCaption(const QString& text);
+
+    /*********************************************************************
+     * Y-Axis Inverted appearance
+     *********************************************************************/
+public:
+    bool invertedAppearance() const;
+    void setInvertedAppearance(bool invert);
 
     /*************************************************************************
      * Properties
@@ -135,6 +144,9 @@ public:
     /** @reimp */
     void writeDMX(MasterTimer* timer, UniverseArray* universes);
 
+private:
+    void sendFeedback();
+
 public slots:
     void slotPositionChanged(const QPoint& pt);
     void slotSliderValueChanged();
@@ -142,6 +154,7 @@ public slots:
 private:
     bool m_padInteraction;
     bool m_sliderInteraction;
+    bool m_inputValueChanged;
 
     /*********************************************************************
      * External input

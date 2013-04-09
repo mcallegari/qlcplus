@@ -211,7 +211,8 @@ void OSCPlugin::writeUniverse(quint32 output, const QByteArray &universe)
             //send data here
             m_nodes[output].m_dmxValues[i] = universe[i];
             QString str = QString("/%1/dmx/%2").arg(output).arg(i);
-            lo_send(m_nodes[output].m_outAddr, str.toStdString().c_str(), "f", (float)universe[i] / 255);
+            //qDebug() << "[OSC writeUniverse] Send channel : " << str << ", value: " << universe[i];
+            lo_send(m_nodes[output].m_outAddr, str.toStdString().c_str(), "f", (float)((uchar)universe[i]) / 255);
         }
     }
 }
@@ -294,12 +295,24 @@ QString OSCPlugin::inputInfo(quint32 input)
 
 void OSCPlugin::sendFeedBack(quint32 input, quint32 channel, uchar value, const QString &key)
 {
-    //qDebug() << Q_FUNC_INFO << "key= " << key;
+    qDebug() << "[OSC sendFeedBack] Key:" << key << "value:" << value;
     QString path = key;
     // on invalid key try to retrieve the OSC path from the hash table.
     // This works only if the OSC widget has been previously moved by the user
     if (key.isEmpty())
         path = m_nodes[input].m_hash.key(channel);
+
+    if (path.contains("_0"))
+    {
+        m_nodes[input].m_multiDataFirst = value;
+        return;
+    }
+    else if (path.contains("_1"))
+    {
+        path.chop(2);
+        lo_send(m_nodes[input].m_outAddr, path.toStdString().c_str(), "ff", (float)value / 255, (float)m_nodes[input].m_multiDataFirst / 255);
+        return;
+    }
     //lo_send_from(destAddr, m_nodes[input].m_serv_thread, LO_TT_IMMEDIATE, "/1/fader1", "f", 0.5f /*(float)value / 255*/);
     lo_send(m_nodes[input].m_outAddr, path.toStdString().c_str(), "f", (float)value / 255);
 }
