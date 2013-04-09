@@ -295,6 +295,9 @@ QString OSCPlugin::inputInfo(quint32 input)
 
 void OSCPlugin::sendFeedBack(quint32 input, quint32 channel, uchar value, const QString &key)
 {
+    if (input >= OSC_UNIVERSES || m_nodes[input].m_outAddrStr.isEmpty())
+        return;
+
     qDebug() << "[OSC sendFeedBack] Key:" << key << "value:" << value;
     QString path = key;
     // on invalid key try to retrieve the OSC path from the hash table.
@@ -310,7 +313,7 @@ void OSCPlugin::sendFeedBack(quint32 input, quint32 channel, uchar value, const 
     else if (path.contains("_1"))
     {
         path.chop(2);
-        lo_send(m_nodes[input].m_outAddr, path.toStdString().c_str(), "ff", (float)value / 255, (float)m_nodes[input].m_multiDataFirst / 255);
+        lo_send(m_nodes[input].m_outAddr, path.toStdString().c_str(), "ff", (float)m_nodes[input].m_multiDataFirst / 255, (float)value / 255);
         return;
     }
     //lo_send_from(destAddr, m_nodes[input].m_serv_thread, LO_TT_IMMEDIATE, "/1/fader1", "f", 0.5f /*(float)value / 255*/);
