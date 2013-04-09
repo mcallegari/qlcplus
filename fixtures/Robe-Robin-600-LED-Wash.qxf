@@ -1,0 +1,435 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.3.2</Version>
+  <Author>NiKoyes</Author>
+ </Creator>
+ <Manufacturer>Robe</Manufacturer>
+ <Model>Robin 600 LED Wash</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan Coarse</Capability>
+ </Channel>
+ <Channel Name="Pan Fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Pan Fine</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt Coarse</Capability>
+ </Channel>
+ <Channel Name="Tilt Fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt Fine</Capability>
+ </Channel>
+ <Channel Name="P/T Speed - P/T Time">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="0">Max Speed (Tracking Mode)</Capability>
+  <Capability Min="1" Max="255">Speed Max to Min (Vector Mode)</Capability>
+ </Channel>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="49">Reserved</Capability>
+  <Capability Min="50" Max="59">P/T speed mode</Capability>
+  <Capability Min="60" Max="69">P/T Time Mode</Capability>
+  <Capability Min="70" Max="79">BO P/T moving</Capability>
+  <Capability Min="80" Max="89">Disable BO P/T moving</Capability>
+  <Capability Min="90" Max="99">Theatre Mode ON</Capability>
+  <Capability Min="100" Max="109">Theatre Mode OFF</Capability>
+  <Capability Min="110" Max="139">Reserved</Capability>
+  <Capability Min="140" Max="149">P/T Reset</Capability>
+  <Capability Min="150" Max="179">Reseved</Capability>
+  <Capability Min="180" Max="189">Zoom Reset</Capability>
+  <Capability Min="190" Max="199">Reserved</Capability>
+  <Capability Min="200" Max="209">Total Reset</Capability>
+  <Capability Min="210" Max="255">Reserved</Capability>
+ </Channel>
+ <Channel Name="Red (All Zones)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red Saturation 0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Green (All Zones)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green Saturation 0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Blue (All Zones)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue Saturation 0% to 100%</Capability>
+ </Channel>
+ <Channel Name="CTC">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">CTB -> CTO</Capability>
+ </Channel>
+ <Channel Name="Colours">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">No Function</Capability>
+  <Capability Min="1" Max="2" Color="#ffffff">2700K White</Capability>
+  <Capability Min="3" Max="3" Color="#ffffff">2700K White (Halogen)</Capability>
+  <Capability Min="4" Max="5" Color="#ffffff">3200K White</Capability>
+  <Capability Min="6" Max="6" Color="#ffffff">3200K White (Halogen)</Capability>
+  <Capability Min="7" Max="9" Color="#ffffff">4200K White</Capability>
+  <Capability Min="10" Max="12" Color="#ffffff">5600K White</Capability>
+  <Capability Min="13" Max="15">8000K White</Capability>
+  <Capability Min="16" Max="16" Color="#0000ff">Blue</Capability>
+  <Capability Min="17" Max="55">Blue -> Cyan</Capability>
+  <Capability Min="56" Max="56" Color="#00ffff">Cyan</Capability>
+  <Capability Min="57" Max="95">Cyan -> Green</Capability>
+  <Capability Min="96" Max="96" Color="#00ff00">Green</Capability>
+  <Capability Min="97" Max="134">Green -> Yellow</Capability>
+  <Capability Min="135" Max="135" Color="#ffff00">Yellow</Capability>
+  <Capability Min="136" Max="174">Yellow -> Red</Capability>
+  <Capability Min="175" Max="175" Color="#ff0000">Red</Capability>
+  <Capability Min="176" Max="214">Red -> Magenta</Capability>
+  <Capability Min="215" Max="215" Color="#ff00ff">Magenta</Capability>
+  <Capability Min="216" Max="246">Magenta -> Blue</Capability>
+  <Capability Min="247" Max="247" Color="#0000ff">Blue</Capability>
+  <Capability Min="248" Max="248">Rainbow (Fade)</Capability>
+  <Capability Min="249" Max="249">Rainbow</Capability>
+  <Capability Min="250" Max="255">Zone Effect</Capability>
+ </Channel>
+ <Channel Name="Zoom">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Min to Max</Capability>
+ </Channel>
+ <Channel Name="Zoom Fine">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Fine Zooming</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31">Closed</Capability>
+  <Capability Min="32" Max="63">Strobe >> (Z3)</Capability>
+  <Capability Min="64" Max="95">Strobe >> (All Zones)</Capability>
+  <Capability Min="96" Max="111">Effects >></Capability>
+  <Capability Min="112" Max="127">Effects &lt;&lt;</Capability>
+  <Capability Min="128" Max="143">Opening Pulse ></Capability>
+  <Capability Min="144" Max="159">Closing Pulse &lt;</Capability>
+  <Capability Min="160" Max="175">Rnd Strobe >> (Rndm Zone)</Capability>
+  <Capability Min="176" Max="191">Random Strobe >> (Rndm Strb+Zone)</Capability>
+  <Capability Min="192" Max="223">Random Strobe >> (All Zones)</Capability>
+  <Capability Min="224" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Dimmer 0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Dimmer Fine">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Fine Dimming</Capability>
+ </Channel>
+ <Channel Name="White (All Zones)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">White Saturation 0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Red Fine (All Zones)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Fine Saturation</Capability>
+ </Channel>
+ <Channel Name="Green Fine (All Zones)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Fine Saturation</Capability>
+ </Channel>
+ <Channel Name="Blue Fine (All Zones)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Fine Saturation</Capability>
+ </Channel>
+ <Channel Name="White Fine (All Zones)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">Fine Saturation</Capability>
+ </Channel>
+ <Channel Name="Red (Z1)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red Saturation 0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Green (Z1)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green Saturation 0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Blue (Z1)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue Saturation 0% to 100%</Capability>
+ </Channel>
+ <Channel Name="White (Z1)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">Fine Saturation</Capability>
+ </Channel>
+ <Channel Name="Red Fine (Z1)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Fine Saturation</Capability>
+ </Channel>
+ <Channel Name="Green Fine (Z1)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Fine Saturation</Capability>
+ </Channel>
+ <Channel Name="Blue Fine (Z1)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Fine Saturation</Capability>
+ </Channel>
+ <Channel Name="White Fine (Z1)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">Fine Saturation</Capability>
+ </Channel>
+ <Channel Name="Red (Z2)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red Saturation 0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Green (Z2)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green Saturation 0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Blue (Z2)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue Saturation 0% to 100%</Capability>
+ </Channel>
+ <Channel Name="White (Z2)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">Fine Saturation</Capability>
+ </Channel>
+ <Channel Name="Red Fine (Z2)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Fine Saturation</Capability>
+ </Channel>
+ <Channel Name="Green Fine (Z2)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Fine Saturation</Capability>
+ </Channel>
+ <Channel Name="Blue Fine (Z2)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Fine Saturation</Capability>
+ </Channel>
+ <Channel Name="White Fine (Z2)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">Fine Saturation</Capability>
+ </Channel>
+ <Channel Name="Red (Z3)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red Saturation 0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Green (Z3)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green Saturation 0% to 100%</Capability>
+ </Channel>
+ <Channel Name="Blue (Z3)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue Saturation 0% to 100%</Capability>
+ </Channel>
+ <Channel Name="White (Z3)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">Fine Saturation</Capability>
+ </Channel>
+ <Channel Name="Red Fine (Z3)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Fine Saturation</Capability>
+ </Channel>
+ <Channel Name="Green Fine (Z3)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Fine Saturation</Capability>
+ </Channel>
+ <Channel Name="Blue Fine (Z3)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Fine Saturation</Capability>
+ </Channel>
+ <Channel Name="White Fine (Z3)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">Fine Saturation</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Physical>
+   <Bulb Lumens="37000" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="343" Height="444" Weight="10,6" Depth="203"/>
+   <Lens DegreesMax="60" Name="Other" DegreesMin="15"/>
+   <Focus PanMax="450" Type="Head" TiltMax="300"/>
+   <Technical PowerConsumption="415" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">P/T Speed - P/T Time</Channel>
+  <Channel Number="5">Control</Channel>
+  <Channel Number="6">Red (Z1)</Channel>
+  <Channel Number="7">Red Fine (Z1)</Channel>
+  <Channel Number="8">Green (Z1)</Channel>
+  <Channel Number="9">Green Fine (Z1)</Channel>
+  <Channel Number="10">Blue (Z1)</Channel>
+  <Channel Number="11">Blue Fine (Z1)</Channel>
+  <Channel Number="12">White (Z1)</Channel>
+  <Channel Number="13">White Fine (Z1)</Channel>
+  <Channel Number="14">Red (Z2)</Channel>
+  <Channel Number="15">Red Fine (Z2)</Channel>
+  <Channel Number="16">Green (Z2)</Channel>
+  <Channel Number="17">Green Fine (Z2)</Channel>
+  <Channel Number="18">Blue (Z2)</Channel>
+  <Channel Number="19">Blue Fine (Z2)</Channel>
+  <Channel Number="20">White (Z2)</Channel>
+  <Channel Number="21">White Fine (Z2)</Channel>
+  <Channel Number="22">Red (Z3)</Channel>
+  <Channel Number="23">Red Fine (Z3)</Channel>
+  <Channel Number="24">Green (Z3)</Channel>
+  <Channel Number="25">Green Fine (Z3)</Channel>
+  <Channel Number="26">Blue (Z3)</Channel>
+  <Channel Number="27">Blue Fine (Z3)</Channel>
+  <Channel Number="28">White (Z3)</Channel>
+  <Channel Number="29">White Fine (Z3)</Channel>
+  <Channel Number="30">CTC</Channel>
+  <Channel Number="31">Colours</Channel>
+  <Channel Number="32">Zoom</Channel>
+  <Channel Number="33">Zoom Fine</Channel>
+  <Channel Number="34">Shutter</Channel>
+  <Channel Number="35">Dimmer</Channel>
+  <Channel Number="36">Dimmer Fine</Channel>
+ </Mode>
+ <Mode Name="Mode 2">
+  <Physical>
+   <Bulb Lumens="37000" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="343" Height="444" Weight="10,6" Depth="203"/>
+   <Lens DegreesMax="60" Name="Other" DegreesMin="15"/>
+   <Focus PanMax="450" Type="Head" TiltMax="300"/>
+   <Technical PowerConsumption="415" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">P/T Speed - P/T Time</Channel>
+  <Channel Number="5">Control</Channel>
+  <Channel Number="6">Red (All Zones)</Channel>
+  <Channel Number="7">Red Fine (All Zones)</Channel>
+  <Channel Number="8">Green (All Zones)</Channel>
+  <Channel Number="9">Green Fine (All Zones)</Channel>
+  <Channel Number="10">Blue (All Zones)</Channel>
+  <Channel Number="11">Blue Fine (All Zones)</Channel>
+  <Channel Number="12">White (All Zones)</Channel>
+  <Channel Number="13">White Fine (All Zones)</Channel>
+  <Channel Number="14">CTC</Channel>
+  <Channel Number="15">Colours</Channel>
+  <Channel Number="16">Zoom</Channel>
+  <Channel Number="17">Zoom Fine</Channel>
+  <Channel Number="18">Shutter</Channel>
+  <Channel Number="19">Dimmer</Channel>
+  <Channel Number="20">Dimmer Fine</Channel>
+ </Mode>
+ <Mode Name="Mode 3">
+  <Physical>
+   <Bulb Lumens="37000" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="343" Height="444" Weight="10,6" Depth="203"/>
+   <Lens DegreesMax="60" Name="Other" DegreesMin="15"/>
+   <Focus PanMax="450" Type="Head" TiltMax="300"/>
+   <Technical PowerConsumption="415" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">P/T Speed - P/T Time</Channel>
+  <Channel Number="5">Control</Channel>
+  <Channel Number="6">Red (All Zones)</Channel>
+  <Channel Number="7">Green (All Zones)</Channel>
+  <Channel Number="8">Blue (All Zones)</Channel>
+  <Channel Number="9">White (All Zones)</Channel>
+  <Channel Number="10">CTC</Channel>
+  <Channel Number="11">Colours</Channel>
+  <Channel Number="12">Zoom</Channel>
+  <Channel Number="13">Shutter</Channel>
+  <Channel Number="14">Dimmer</Channel>
+ </Mode>
+ <Mode Name="Mode 4">
+  <Physical>
+   <Bulb Lumens="37000" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="343" Height="444" Weight="10,6" Depth="203"/>
+   <Lens DegreesMax="60" Name="Other" DegreesMin="15"/>
+   <Focus PanMax="450" Type="Head" TiltMax="300"/>
+   <Technical PowerConsumption="415" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">P/T Speed - P/T Time</Channel>
+  <Channel Number="5">Control</Channel>
+  <Channel Number="6">Colours</Channel>
+  <Channel Number="7">Zoom</Channel>
+  <Channel Number="8">Shutter</Channel>
+  <Channel Number="9">Dimmer</Channel>
+ </Mode>
+ <Mode Name="Mode 5">
+  <Physical>
+   <Bulb Lumens="37000" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="343" Height="444" Weight="10,6" Depth="203"/>
+   <Lens DegreesMax="60" Name="Other" DegreesMin="15"/>
+   <Focus PanMax="450" Type="Head" TiltMax="300"/>
+   <Technical PowerConsumption="415" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">P/T Speed - P/T Time</Channel>
+  <Channel Number="5">Control</Channel>
+  <Channel Number="6">Zoom</Channel>
+  <Channel Number="7">Zoom Fine</Channel>
+  <Channel Number="8">Shutter</Channel>
+  <Channel Number="9">Dimmer</Channel>
+  <Channel Number="10">Dimmer Fine</Channel>
+  <Channel Number="11">CTC</Channel>
+  <Channel Number="12">Colours</Channel>
+  <Channel Number="13">Red (Z1)</Channel>
+  <Channel Number="14">Red Fine (Z1)</Channel>
+  <Channel Number="15">Green (Z1)</Channel>
+  <Channel Number="16">Green Fine (Z1)</Channel>
+  <Channel Number="17">Blue (Z1)</Channel>
+  <Channel Number="18">Blue Fine (Z1)</Channel>
+  <Channel Number="19">White (Z1)</Channel>
+  <Channel Number="20">White Fine (Z1)</Channel>
+  <Channel Number="21">Red (Z2)</Channel>
+  <Channel Number="22">Red Fine (Z2)</Channel>
+  <Channel Number="23">Green (Z2)</Channel>
+  <Channel Number="24">Green Fine (Z2)</Channel>
+  <Channel Number="25">Blue (Z2)</Channel>
+  <Channel Number="26">Blue Fine (Z2)</Channel>
+  <Channel Number="27">White (Z2)</Channel>
+  <Channel Number="28">White Fine (Z2)</Channel>
+  <Channel Number="29">Red (Z3)</Channel>
+  <Channel Number="30">Red Fine (Z3)</Channel>
+  <Channel Number="31">Green (Z3)</Channel>
+  <Channel Number="32">Green Fine (Z3)</Channel>
+  <Channel Number="33">Blue (Z3)</Channel>
+  <Channel Number="34">Blue Fine (Z3)</Channel>
+  <Channel Number="35">White (Z3)</Channel>
+  <Channel Number="36">White Fine (Z3)</Channel>
+ </Mode>
+</FixtureDefinition>

@@ -3,7 +3,7 @@
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.3.2</Version>
-  <Author>NiKoyes,,,</Author>
+  <Author>NiKoyes</Author>
  </Creator>
  <Manufacturer>Robe</Manufacturer>
  <Model>Scan 575 XT</Model>
@@ -64,14 +64,14 @@
   <Capability Res="Robe/gobo00001.png" Min="128" Max="134">MultiColor</Capability>
   <Capability Res="Robe/gobo00002.png" Min="135" Max="140">Dichro 1</Capability>
   <Capability Res="Robe/gobo00003.png" Min="141" Max="153">Dichro 2</Capability>
-  <Capability Res="Others/gobo00008.png" Min="154" Max="166">Gobo 4</Capability>
-  <Capability Res="Robe/gobo00004.png" Min="167" Max="179">Gobo 5</Capability>
-  <Capability Res="Others/gobo00014.png" Min="180" Max="191">Gobo 6</Capability>
-  <Capability Res="Robe/gobo00005.png" Min="192" Max="204">Gobo 7</Capability>
-  <Capability Res="Robe/gobo00006.png" Min="205" Max="217">Gobo 8</Capability>
-  <Capability Res="Robe/gobo00007.png" Min="218" Max="230">Gobo 9</Capability>
-  <Capability Res="Robe/gobo00008.png" Min="231" Max="243">Gobo 10</Capability>
-  <Capability Res="Others/gobo00012.png" Min="244" Max="255">Gobo 11</Capability>
+  <Capability Res="Robe/gobo00004.png" Min="154" Max="166">Gobo 4</Capability>
+  <Capability Res="Robe/gobo00005.png" Min="167" Max="179">Gobo 5</Capability>
+  <Capability Res="Robe/gobo00006.png" Min="180" Max="191">Gobo 6</Capability>
+  <Capability Res="Robe/gobo00007.png" Min="192" Max="204">Gobo 7</Capability>
+  <Capability Res="Robe/gobo00008.png" Min="205" Max="217">Gobo 8</Capability>
+  <Capability Res="Robe/gobo00039.png" Min="218" Max="230">Gobo 9</Capability>
+  <Capability Res="Robe/gobo00040.png" Min="231" Max="243">Gobo 10</Capability>
+  <Capability Res="Robe/gobo00041.png" Min="244" Max="255">Gobo 11</Capability>
  </Channel>
  <Channel Name="Beam">
   <Group Byte="0">Beam</Group>
