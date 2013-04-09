@@ -176,6 +176,14 @@ public:
     QStringList pluginInputs(const QString& pluginName);
 
     /**
+     * Check, whether a plugin supports feedback
+     *
+     * @param pluginName The name of the plugin to check from.
+     * @return true if plugin supports feedback. Otherwise false.
+     */
+    bool pluginSupportsFeedback(const QString& pluginName);
+
+    /**
      * Open a configuration dialog for the given plugin
      *
      * @param pluginName Name of the plugin to configure

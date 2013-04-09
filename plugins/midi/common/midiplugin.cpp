@@ -56,7 +56,7 @@ QString MidiPlugin::name()
 
 int MidiPlugin::capabilities() const
 {
-    return QLCIOPlugin::Output | QLCIOPlugin::Input;
+    return QLCIOPlugin::Output | QLCIOPlugin::Input | QLCIOPlugin::Feedback;
 }
 
 /*****************************************************************************
