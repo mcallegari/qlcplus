@@ -4730,12 +4730,12 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="vcxypadproperties.ui" line="220"/>
         <source>Tilt / Vertical Axis</source>
-        <translation>Tilt / Assi verticali</translation>
+        <translation>Tilt / Asse verticale</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="315"/>
         <source>Y-Axis slider movement</source>
-        <translation>Movimento slider asse-Y</translation>
+        <translation>Movimento slider su asse-Y</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="321"/>
