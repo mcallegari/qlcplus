@@ -4300,7 +4300,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
         <translation type="unfinished">Intensität</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="401"/>
+        <location filename="vcsliderproperties.ui" line="408"/>
         <source>Gobo/Effect/Macro</source>
         <oldsource>Gobo/Effect</oldsource>
         <translation type="unfinished">Gobo/Effekt</translation>
@@ -4403,52 +4403,67 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
         <translation>RGB</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="424"/>
+        <location filename="vcsliderproperties.ui" line="401"/>
+        <source>CMY</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcsliderproperties.ui" line="431"/>
         <source>Make the slider control the level of a set of channels</source>
         <translation>Schieberegler den Level mehrer Kanäle kontrollieren lassen</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="427"/>
+        <location filename="vcsliderproperties.ui" line="434"/>
         <source>Switch to Level Mode</source>
         <translation>In den Level-Modus wechseln</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="435"/>
+        <location filename="vcsliderproperties.ui" line="442"/>
         <source>Playback</source>
         <translation>Wiedergabe</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="441"/>
+        <location filename="vcsliderproperties.ui" line="448"/>
         <source>Function</source>
         <translation>Funktion</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="447"/>
+        <location filename="vcsliderproperties.ui" line="454"/>
         <source>Function that is attached to the slider</source>
         <translation>Funktion die diesem Schieberegler zugewiesen ist</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="457"/>
+        <location filename="vcsliderproperties.ui" line="464"/>
         <source>Attach a function to the slider</source>
         <translation>Funktion diesem Schieberegler zuweisen</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="477"/>
+        <location filename="vcsliderproperties.ui" line="484"/>
         <source>Detach the current function from the slider</source>
         <translation>Funktion des Schiebereglers zurücknehmen</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="513"/>
+        <location filename="vcsliderproperties.ui" line="520"/>
         <source>Make the slider control a function</source>
         <translation>Schieberegler eine Funktiion kontrollieren lassen</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="516"/>
+        <location filename="vcsliderproperties.ui" line="523"/>
         <source>Switch to Playback Mode</source>
         <translation>Zum Wiedergabemodus wechseln</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.cpp" line="664"/>
+        <location filename="vcsliderproperties.cpp" line="620"/>
+        <source>Select channels by group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcsliderproperties.cpp" line="621"/>
+        <source>Select a channel group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcsliderproperties.cpp" line="667"/>
         <source>No function</source>
         <translation>Keine Funktion</translation>
     </message>

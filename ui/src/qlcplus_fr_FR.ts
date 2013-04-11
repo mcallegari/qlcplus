@@ -4315,43 +4315,43 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
         <translation type="unfinished">Intensité</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="401"/>
+        <location filename="vcsliderproperties.ui" line="408"/>
         <source>Gobo/Effect/Macro</source>
         <oldsource>Gobo/Effect</oldsource>
         <translation type="unfinished">Gobo/Effet</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="435"/>
+        <location filename="vcsliderproperties.ui" line="442"/>
         <source>Playback</source>
         <translation>Fonction</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="441"/>
+        <location filename="vcsliderproperties.ui" line="448"/>
         <source>Function</source>
         <translation>Fonction</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="447"/>
+        <location filename="vcsliderproperties.ui" line="454"/>
         <source>Function that is attached to the slider</source>
         <translation>Fonction assignée au curseur</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="457"/>
+        <location filename="vcsliderproperties.ui" line="464"/>
         <source>Attach a function to the slider</source>
         <translation>Assigner une fonction au curseur</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="477"/>
+        <location filename="vcsliderproperties.ui" line="484"/>
         <source>Detach the current function from the slider</source>
         <translation>Désaffecter la fonction</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="513"/>
+        <location filename="vcsliderproperties.ui" line="520"/>
         <source>Make the slider control a function</source>
         <translation>Le curseur contrôlera une fonction</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="516"/>
+        <location filename="vcsliderproperties.ui" line="523"/>
         <source>Switch to Playback Mode</source>
         <translation>Mode Fonction</translation>
     </message>
@@ -4442,17 +4442,32 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
         <translation>RVB</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="424"/>
+        <location filename="vcsliderproperties.ui" line="401"/>
+        <source>CMY</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcsliderproperties.ui" line="431"/>
         <source>Make the slider control the level of a set of channels</source>
         <translation>Faire que le curseur contrôle le niveau d&apos;un jeu de canaux</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="427"/>
+        <location filename="vcsliderproperties.ui" line="434"/>
         <source>Switch to Level Mode</source>
         <translation>Basculer vers le Mode Niveau</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.cpp" line="664"/>
+        <location filename="vcsliderproperties.cpp" line="620"/>
+        <source>Select channels by group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcsliderproperties.cpp" line="621"/>
+        <source>Select a channel group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcsliderproperties.cpp" line="667"/>
         <source>No function</source>
         <translation>Aucune Fonction</translation>
     </message>

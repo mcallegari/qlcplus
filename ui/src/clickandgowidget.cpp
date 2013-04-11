@@ -187,7 +187,7 @@ void ClickAndGoWidget::setType(int type, const QLCChannel *chan)
         setupGradient(Qt::yellow);
     else if (type == White)
         setupGradient(Qt::white);
-    else if (type == RGB)
+    else if (type == RGB || type == CMY)
     {
         setupColorPicker();
     }
@@ -219,6 +219,7 @@ QString ClickAndGoWidget::clickAndGoTypeToString(ClickAndGoWidget::ClickAndGo ty
         case Yellow: return "Yellow"; break;
         case White: return "White"; break;
         case RGB: return "RGB"; break;
+        case CMY: return "CMY"; break;
         case Preset: return "Preset"; break;
     }
 }
@@ -233,6 +234,7 @@ ClickAndGoWidget::ClickAndGo ClickAndGoWidget::stringToClickAndGoType(QString st
     else if (str == "Yellow") return Yellow;
     else if (str == "White") return White;
     else if (str == "RGB") return RGB;
+    else if (str == "CMY") return CMY;
     else if (str == "Preset") return Preset;
 
     return None;
@@ -347,7 +349,7 @@ void ClickAndGoWidget::mousePressEvent(QMouseEvent *event)
         else
             emit levelChanged(255);
     }
-    else if (m_type == RGB)
+    else if (m_type == RGB || m_type == CMY)
     {
         emit colorChanged(m_image.pixel(event->x(), event->y()));
     }

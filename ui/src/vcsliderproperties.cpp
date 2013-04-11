@@ -215,6 +215,9 @@ void VCSliderProperties::slotModeLevelClicked()
         case ClickAndGoWidget::RGB:
             m_cngRGBCheck->setChecked(true);
         break;
+        case ClickAndGoWidget::CMY:
+            m_cngCMYCheck->setChecked(true);
+        break;
         case ClickAndGoWidget::Preset:
             m_cngPresetCheck->setChecked(true);
         break;
@@ -614,9 +617,9 @@ void VCSliderProperties::slotLevelByGroupClicked()
     }
 
     group = QInputDialog::getItem(this,
-                                  "Select channels by group",
-                                  "Select a channel group",
-                                  groups/*QLCChannel::groupList()*/, 0,
+                                  tr("Select channels by group"),
+                                  tr("Select a channel group"),
+                                  groups, 0,
                                   false, &ok);
 
     if (ok == true)
@@ -766,6 +769,8 @@ void VCSliderProperties::accept()
         m_slider->setClickAndGoType(ClickAndGoWidget::None);
     else if (m_cngRGBCheck->isChecked())
         m_slider->setClickAndGoType(ClickAndGoWidget::RGB);
+    else if (m_cngCMYCheck->isChecked())
+        m_slider->setClickAndGoType(ClickAndGoWidget::CMY);
     else if (m_cngPresetCheck->isChecked())
         m_slider->setClickAndGoType(ClickAndGoWidget::Preset);
 

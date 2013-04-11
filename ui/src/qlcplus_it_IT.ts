@@ -4310,43 +4310,43 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <translation>Intensità</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="401"/>
+        <location filename="vcsliderproperties.ui" line="408"/>
         <source>Gobo/Effect/Macro</source>
         <oldsource>Gobo/Effect</oldsource>
         <translation>Gobo/Effetto/Macro</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="435"/>
+        <location filename="vcsliderproperties.ui" line="442"/>
         <source>Playback</source>
         <translation>Riproduzione</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="441"/>
+        <location filename="vcsliderproperties.ui" line="448"/>
         <source>Function</source>
         <translation>Funzione</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="447"/>
+        <location filename="vcsliderproperties.ui" line="454"/>
         <source>Function that is attached to the slider</source>
         <translation>Funzione la quale è connessa a questo Slider</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="457"/>
+        <location filename="vcsliderproperties.ui" line="464"/>
         <source>Attach a function to the slider</source>
         <translation>Connetti una funzione a questo Slider</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="477"/>
+        <location filename="vcsliderproperties.ui" line="484"/>
         <source>Detach the current function from the slider</source>
         <translation>Disconnetti la funzione corrente da questo Slider</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="513"/>
+        <location filename="vcsliderproperties.ui" line="520"/>
         <source>Make the slider control a function</source>
         <translation>Fai che questo Slider controlli una funzione</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="516"/>
+        <location filename="vcsliderproperties.ui" line="523"/>
         <source>Switch to Playback Mode</source>
         <translation>Passa alla modalità di riproduzione</translation>
     </message>
@@ -4437,17 +4437,32 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <translation>RGB</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="424"/>
+        <location filename="vcsliderproperties.ui" line="401"/>
+        <source>CMY</source>
+        <translation>CMY</translation>
+    </message>
+    <message>
+        <location filename="vcsliderproperties.ui" line="431"/>
         <source>Make the slider control the level of a set of channels</source>
         <translation>Fai che questo Slider controlli il livello dei canali settati</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="427"/>
+        <location filename="vcsliderproperties.ui" line="434"/>
         <source>Switch to Level Mode</source>
         <translation>Passa a modo Livello</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.cpp" line="664"/>
+        <location filename="vcsliderproperties.cpp" line="620"/>
+        <source>Select channels by group</source>
+        <translation>Seleziona i canali per gruppo</translation>
+    </message>
+    <message>
+        <location filename="vcsliderproperties.cpp" line="621"/>
+        <source>Select a channel group</source>
+        <translation>Seleziona un gruppo di canali</translation>
+    </message>
+    <message>
+        <location filename="vcsliderproperties.cpp" line="667"/>
         <source>No function</source>
         <translation>Nessuna Funzione</translation>
     </message>

@@ -43,6 +43,7 @@ public:
         Yellow,
         White,
         RGB,
+        CMY,
         Preset
     };
 
