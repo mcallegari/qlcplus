@@ -3,6 +3,7 @@ include(../variables.pri)
 TEMPLATE = subdirs
 TARGET = fixtures
 
+fixtures.files += American-DJ-64B-LED-PRO.qxf
 fixtures.files += American-DJ-Accu-Spot-250-II.qxf
 fixtures.files += American-DJ-DJ-Spot-300.qxf
 fixtures.files += American-DJ-Galaxian-3D.qxf
@@ -13,11 +14,12 @@ fixtures.files += American-DJ-Mega-Panel-LED.qxf
 fixtures.files += American-DJ-Mega-Tri-Bar.qxf
 fixtures.files += American-DJ-Nucleus-LED.qxf
 fixtures.files += American-DJ-Par-38-Pro.qxf
+fixtures.files += American-DJ-Profile-Panel-RGB.qxf
 fixtures.files += American-DJ-ProPAR-56RGB.qxf
 fixtures.files += American-DJ-Quad-Gem-DMX.qxf
-fixtures.files += American-DJ-Spherion-Tri-LED.qxf
 fixtures.files += American-DJ-Revo-3.qxf
 fixtures.files += American-DJ-Revo-4.qxf
+fixtures.files += American-DJ-Spherion-Tri-LED.qxf
 fixtures.files += American-DJ-Vizi-Beam-5R.qxf
 fixtures.files += American-DJ-Vizi-LED-Spot.qxf
 fixtures.files += Blizzard-Lighting-Puck-Fab5.qxf
