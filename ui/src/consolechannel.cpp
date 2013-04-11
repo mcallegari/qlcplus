@@ -130,13 +130,13 @@ void ConsoleChannel::init()
     /* Set tooltip */
     if (fxi == NULL || fxi->isDimmer() == true)
     {
-        setToolTip(tr("Intensity"));
+        setToolTip("<div style=\"background-color:black; color:white;\">" + tr("Intensity") + "</div>");
     }
     else
     {
         const QLCChannel* ch = fxi->channel(m_channel);
         Q_ASSERT(ch != NULL);
-        setToolTip(QString("%1").arg(ch->name()));
+        setToolTip("<div style=\"background-color:black; color:white;\">" + QString("%1").arg(ch->name()) + "</div>");
     }
 
     connect(m_spin, SIGNAL(valueChanged(int)), this, SLOT(slotSpinChanged(int)));
@@ -266,7 +266,7 @@ void ConsoleChannel::initMenu()
         m_presetButton->setIcon(QIcon(":/tilt.png"));
         break;
     case QLCChannel::Colour:
-        m_presetButton->setIcon(QIcon(":/color.png"));
+        m_presetButton->setIcon(QIcon(":/colorwheel.png"));
         m_cngWidget = new ClickAndGoWidget();
         m_cngWidget->setType(ClickAndGoWidget::Preset, ch);
         break;

@@ -1,3 +1,7 @@
+qlcplus (4.3.3) stable; urgency=low
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 30 Apr 2013 12:12:42 +0200
+
 qlcplus (4.3.2) stable; urgency=low
 
   * NEW: Added "Hold" parameter to Chaser steps, between FadeIn and FadeOut
