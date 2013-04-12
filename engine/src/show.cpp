@@ -137,7 +137,7 @@ bool Show::removeTrack(quint32 id)
     }
     else
     {
-        qWarning() << Q_FUNC_INFO << "No channels group with id" << id;
+        qWarning() << Q_FUNC_INFO << "No track found with id" << id;
         return false;
     }
 }

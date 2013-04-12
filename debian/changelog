@@ -1,6 +1,8 @@
 qlcplus (4.3.3) stable; urgency=low
 
   * NEW: Added Click And Go CMY functionality
+  * Fixed crash on Show Editor when displaying a deleted sequence
+  * Added total Show duration in Show Editor
   * Added fixtures: American DJ 64B LED PRO, American DJ Profile Panel RGB
   * Added fixture: Chauvet Gyser RGB (thanks to George Qualley)
 

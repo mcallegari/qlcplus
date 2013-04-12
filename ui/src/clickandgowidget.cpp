@@ -413,7 +413,7 @@ ClickAndGoWidget::PresetResource::PresetResource(QString path, QString text, uch
     QPainter painter(&m_thumbnail);
     painter.setRenderHint(QPainter::SmoothPixmapTransform);
     painter.drawImage(QRect(0,0,40,40), px);
-    qDebug() << "PATH: adding " << path << ", descr: " << text;
+    //qDebug() << "PATH: adding " << path << ", descr: " << text;
 }
 
 ClickAndGoWidget::PresetResource::PresetResource(QColor color1, QColor color2,
@@ -431,7 +431,7 @@ ClickAndGoWidget::PresetResource::PresetResource(QColor color1, QColor color2,
         painter.fillRect(0, 0, 20, 40, color1);
         painter.fillRect(20, 0, 40, 40, color2);
     }
-    qDebug() << "COLOR: adding " << color1.name() << ", descr: " << text;
+    //qDebug() << "COLOR: adding " << color1.name() << ", descr: " << text;
 }
 
 ClickAndGoWidget::PresetResource::PresetResource(int index, QString text, uchar min, uchar max)
@@ -447,7 +447,7 @@ ClickAndGoWidget::PresetResource::PresetResource(int index, QString text, uchar 
     QPainter painter(&m_thumbnail);
     painter.setFont(tfont);
     painter.drawText(0, 0, 40, 40, Qt::AlignHCenter|Qt::AlignVCenter, QString("%1").arg(index));
-    qDebug() << "GENERIC: adding " << index << ", descr: " << text;
+    //qDebug() << "GENERIC: adding " << index << ", descr: " << text;
 }
 
 

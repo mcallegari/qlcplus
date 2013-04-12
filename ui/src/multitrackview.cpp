@@ -492,16 +492,30 @@ void MultiTrackView::slotSequenceMoved(QGraphicsSceneMouseEvent *, SequenceItem 
     // align to the appropriate track
     int trackNum = item->getTrackIndex();
     int ypos = HEADER_HEIGHT + 1 + (trackNum * TRACK_HEIGHT);
+    int shift = qAbs(item->getDraggingPos().x() - item->x());
+    quint32 s_time = 0;
 
     if (item->x() < TRACK_WIDTH + 2)
+    {
         item->setPos(TRACK_WIDTH + 2, ypos); // avoid moving a sequence too early...
+    }
+    else if (shift < 3) // a drag of less than 3 pixel doesn't move the item
+    {
+        qDebug() << "Drag too short (" << shift << "px) not allowed !";
+        item->setPos(item->getDraggingPos());
+        s_time = item->getChaser()->getStartTime();
+    }
     else
+    {
         item->setPos(item->x(), ypos);
-    quint32 s_time = (item->x() - TRACK_WIDTH) * (double)(m_header->getTimeScale() * 1000) /
-                                                 (double)(m_header->getHalfSecondWidth() * 2);
+        s_time = (item->x() - TRACK_WIDTH) * (double)(m_header->getTimeScale() * 1000) /
+                                             (double)(m_header->getHalfSecondWidth() * 2);
+    }
+
     item->getChaser()->setStartTime(s_time);
     item->setToolTip(QString(tr("Start time: %1\n%2"))
-                     .arg(Function::speedToString(s_time)).arg(tr("Click to move this sequence across the timeline")));
+                     .arg(Function::speedToString(s_time))
+                     .arg(tr("Click to move this sequence across the timeline")));
 
     m_scene->update();
     emit sequenceMoved(item);
@@ -513,13 +527,26 @@ void MultiTrackView::slotSequenceMoved(QGraphicsSceneMouseEvent *, AudioItem *it
     // align to the appropriate track
     int trackNum = item->getTrackIndex();
     int ypos = HEADER_HEIGHT + 1 + (trackNum * TRACK_HEIGHT);
+    int shift = qAbs(item->getDraggingPos().x() - item->x());
+    quint32 s_time = 0;
 
     if (item->x() < TRACK_WIDTH + 2)
+    {
         item->setPos(TRACK_WIDTH + 2, ypos); // avoid moving a sequence too early...
+    }
+    else if (shift < 3) // a drag of less than 3 pixel doesn't move the item
+    {
+        qDebug() << "Drag too short (" << shift << "px) not allowed !";
+        item->setPos(item->getDraggingPos());
+        s_time = item->getAudio()->getStartTime();
+    }
     else
+    {
         item->setPos(item->x(), ypos);
-    quint32 s_time = (double)(item->x() - TRACK_WIDTH) * (double)(m_header->getTimeScale() * 1000) /
-                     (double)(m_header->getHalfSecondWidth() * 2);
+        s_time = (double)(item->x() - TRACK_WIDTH) * (double)(m_header->getTimeScale() * 1000) /
+                 (double)(m_header->getHalfSecondWidth() * 2);
+    }
+
     item->getAudio()->setStartTime(s_time);
     item->setToolTip(QString(tr("Start time: %1\n%2"))
                      .arg(Function::speedToString(s_time)).arg(tr("Click to move this sequence across the timeline")));

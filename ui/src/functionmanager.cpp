@@ -184,7 +184,7 @@ void FunctionManager::slotDocLoaded()
                                     step.values.append(scv);
                             }
                             chaser->replaceStep(step, i);
-                            qDebug() << "************ STEP FIXED *********** total values: " << step.values.count();
+                            //qDebug() << "************ STEP FIXED *********** total values: " << step.values.count();
                             i++;
                         }
                     }

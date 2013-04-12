@@ -192,6 +192,8 @@ public:
     void setTimeScale(int val);
     int getWidth();
 
+    QPointF getDraggingPos();
+
     void setTrackIndex(int idx);
     int getTrackIndex();
 
@@ -223,6 +225,8 @@ private:
     Chaser *m_chaser;
     /** width of the graphics object. Recalculated every time a chaser step  changes */
     int m_width;
+    /** Position of the item top-left corner. This is used to handle unwanted dragging */
+    QPointF m_pos;
     /** horizontal scale to adapt width to the current time line */
     int m_timeScale;
     /** track index this sequence belongs to */
@@ -249,6 +253,8 @@ public:
 
     void setTimeScale(int val);
     int getWidth();
+
+    QPointF getDraggingPos();
 
     void setTrackIndex(int idx);
     int getTrackIndex();
@@ -292,6 +298,8 @@ private:
     Audio *m_audio;
     /** width of the graphics object */
     int m_width;
+    /** Position of the item top-left corner. This is used to handle unwanted dragging */
+    QPointF m_pos;
     /** horizontal scale to adapt width to the current time line */
     int m_timeScale;
     /** track index this Audio object belongs to */

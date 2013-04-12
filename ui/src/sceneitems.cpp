@@ -403,6 +403,11 @@ int SequenceItem::getWidth()
     return m_width;
 }
 
+QPointF SequenceItem::getDraggingPos()
+{
+    return m_pos;
+}
+
 QRectF SequenceItem::boundingRect() const
 {
     return QRectF(0, 0, m_width, 77);
@@ -514,6 +519,7 @@ void SequenceItem::slotSequenceChanged(quint32)
 void SequenceItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mousePressEvent(event);
+    m_pos = this->pos();
     this->setSelected(true);
 }
 
@@ -591,6 +597,11 @@ void AudioItem::calculateWidth()
 int AudioItem::getWidth()
 {
     return m_width;
+}
+
+QPointF AudioItem::getDraggingPos()
+{
+    return m_pos;
 }
 
 QRectF AudioItem::boundingRect() const
@@ -865,6 +876,7 @@ void AudioItem::createWaveform(bool left, bool right)
 void AudioItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mousePressEvent(event);
+    m_pos = this->pos();
     this->setSelected(true);
 }
 
