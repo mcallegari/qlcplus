@@ -11,6 +11,8 @@
         <file alias="buttonmatrix.png">../../gfx/buttonmatrix.png</file>
         <file alias="chaser.png">../../gfx/chaser.png</file>
         <file alias="check.png">../../gfx/check.png</file>
+        <file alias="checkbox_empty.png">../../gfx/checkbox_empty.png</file>
+        <file alias="checkbox_full.png">../../gfx/checkbox_full.png</file>
         <file alias="collection.png">../../gfx/collection.png</file>
         <file alias="color.png">../../gfx/color.png</file>
         <file alias="colorwheel.png">../../gfx/colorwheel.png</file>

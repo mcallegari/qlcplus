@@ -59,14 +59,13 @@ ConsoleChannel::ConsoleChannel(QWidget* parent, Doc* doc, quint32 fixture, quint
     , m_menu(NULL)
 {
     Q_ASSERT(doc != NULL);
-    //Q_ASSERT(fixture != Fixture::invalidId());
     Q_ASSERT(channel != QLCChannel::invalid());
 
     if (isCheckable == true)
         setCheckable(true);
     setFocusPolicy(Qt::NoFocus);
     init();
-    setStyle(AppUtil::saneStyle());
+    //setStyle(AppUtil::saneStyle());
 }
 
 ConsoleChannel::~ConsoleChannel()
@@ -102,6 +101,7 @@ void ConsoleChannel::init()
     m_spin->setValue(0);
     m_spin->setMinimumWidth(38);
     m_spin->setButtonSymbols(QAbstractSpinBox::NoButtons);
+    m_spin->setStyle(AppUtil::saneStyle());
     layout()->addWidget(m_spin);
     m_spin->setAlignment(Qt::AlignCenter);
     m_spin->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
@@ -130,13 +130,13 @@ void ConsoleChannel::init()
     /* Set tooltip */
     if (fxi == NULL || fxi->isDimmer() == true)
     {
-        setToolTip("<div style=\"background-color:black; color:white;\">" + tr("Intensity") + "</div>");
+        setToolTip(tr("Intensity"));
     }
     else
     {
         const QLCChannel* ch = fxi->channel(m_channel);
         Q_ASSERT(ch != NULL);
-        setToolTip("<div style=\"background-color:black; color:white;\">" + QString("%1").arg(ch->name()) + "</div>");
+        setToolTip(QString("%1").arg(ch->name()));
     }
 
     connect(m_spin, SIGNAL(valueChanged(int)), this, SLOT(slotSpinChanged(int)));

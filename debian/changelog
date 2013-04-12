@@ -2,6 +2,7 @@ qlcplus (4.3.3) stable; urgency=low
 
   * NEW: Added Click And Go CMY functionality
   * Added fixtures: American DJ 64B LED PRO, American DJ Profile Panel RGB
+  * Added fixture: Chauvet Gyser RGB (thanks to George Qualley)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 30 Apr 2013 12:12:42 +0200
 
