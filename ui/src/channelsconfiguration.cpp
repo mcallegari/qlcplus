@@ -172,7 +172,7 @@ void ChannelsConfiguration::accept()
                 for (int c = 0; c < fixItem->childCount(); c++)
                 {
                     QTreeWidgetItem *chanItem = fixItem->child(c);
-                    if (chanItem->checkState(KColumnFade) == false)
+                    if (chanItem->checkState(KColumnFade) == Qt::Unchecked)
                         excludeList.append(c);
                 }
                 fxi->setExcludeFadeChannels(excludeList);

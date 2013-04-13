@@ -474,7 +474,8 @@ bool Doc::addChannelsGroup(ChannelsGroup *grp, quint32 id)
 
      grp->setId(id);
      m_channelsGroups[id] = grp;
-     m_orderedGroups.append(id);
+     if (m_orderedGroups.contains(id) == false)
+        m_orderedGroups.append(id);
 
      //emit channelsGroupAdded(id);
      setModified();

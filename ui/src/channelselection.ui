@@ -50,17 +50,12 @@
      </column>
      <column>
       <property name="text">
-       <string>ID</string>
+       <string>Type</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>Channel</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Function</string>
+       <string>Group</string>
       </property>
      </column>
     </widget>

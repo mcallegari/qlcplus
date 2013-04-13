@@ -51,9 +51,6 @@ public:
     /** @reimp */
     void accept();
 
-public slots:
-    int exec();
-
 private:
     Doc* m_doc;
     ChannelsGroup* m_chansGroup;
@@ -61,10 +58,12 @@ private:
 protected:
     QLCInputSource m_inputSource;
 
+    int m_checkedChannels;
+
     void updateInputSource();
 
 protected slots:
-    void slotItemSelectionChanged();
+    void slotItemChecked(QTreeWidgetItem *item, int col);
     void slotAutoDetectInputToggled(bool checked);
     void slotInputValueChanged(quint32 universe, quint32 channel);
     void slotChooseInputClicked();
