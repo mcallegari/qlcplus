@@ -30,6 +30,7 @@ HEADERS += aboutbox.h \
            app.h \
            apputil.h \
            assignhotkey.h \
+           channelsconfiguration.h \
            channelselection.h \
            chasereditor.h \
            clickandgoslider.h \
@@ -105,6 +106,7 @@ FORMS += aboutbox.ui \
          addvcslidermatrix.ui \
          assignhotkey.ui \
          chasereditor.ui \
+         channelsconfiguration.ui \
          channelselection.ui \
          collectioneditor.ui \
          createfixturegroup.ui \
@@ -140,6 +142,7 @@ SOURCES += aboutbox.cpp \
            app.cpp \
            apputil.cpp \
            assignhotkey.cpp \
+           channelsconfiguration.cpp \
            channelselection.cpp \
            chasereditor.cpp \
            clickandgoslider.cpp \

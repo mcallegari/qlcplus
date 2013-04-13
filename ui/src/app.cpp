@@ -835,10 +835,8 @@ void App::slotRunningFunctionsChanged()
 void App::slotDumpDmxIntoFunction()
 {
     DmxDumpFactory ddf(m_doc, m_dumpProperties, this);
-    if (ddf.exec() == QDialog::Accepted)
-    {
-
-    }
+    if (ddf.exec() != QDialog::Accepted)
+        return;
 }
 
 void App::slotControlFullScreen()

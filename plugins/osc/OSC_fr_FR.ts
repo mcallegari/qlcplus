@@ -55,13 +55,13 @@
     </message>
     <message>
         <location filename="oscplugin.cpp" line="190"/>
-        <location filename="oscplugin.cpp" line="283"/>
+        <location filename="oscplugin.cpp" line="284"/>
         <source>Status: Not open</source>
         <translation>Statut : Fermé</translation>
     </message>
     <message>
         <location filename="oscplugin.cpp" line="193"/>
-        <location filename="oscplugin.cpp" line="286"/>
+        <location filename="oscplugin.cpp" line="287"/>
         <source>Status: Open</source>
         <translation>Statut : Ouvert</translation>
     </message>

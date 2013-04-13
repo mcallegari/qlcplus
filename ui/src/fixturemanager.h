@@ -87,9 +87,6 @@ public:
     /** Update the list of fixtures */
     void updateView();
 
-    /** Get the icon for intensity groups */
-    QIcon getIntensityIcon(const QLCChannel* channel);
-
     /** Update the list of channels group */
     void updateChannelsGroupView();
 
@@ -190,6 +187,7 @@ private slots:
     void slotAdd();
     void slotRemove();
     void slotProperties();
+    void slotFadeConfig();
     void slotUnGroup();
     void slotGroupSelected(QAction* action);
     void slotMoveGroupUp();
@@ -204,6 +202,7 @@ private:
     QAction* m_addAction;
     QAction* m_removeAction;
     QAction* m_propertiesAction;
+    QAction* m_fadeConfigAction;
     QAction* m_groupAction;
     QAction* m_unGroupAction;
     QAction* m_newGroupAction;

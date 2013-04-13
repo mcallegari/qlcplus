@@ -24,6 +24,7 @@
 
 #include <QObject>
 #include <QList>
+#include <QIcon>
 
 #include "qlcchannel.h"
 
@@ -35,6 +36,7 @@
 #define KXMLFixtureGeneric "Generic"
 #define KXMLFixtureChannels "Channels"
 #define KXMLFixtureDimmer "Dimmer"
+#define KXMLFixtureExcludeFade "ExcludeFade"
 
 class QDomDocument;
 class QDomElement;
@@ -270,6 +272,15 @@ public:
     /** @see QLCFixtureHead */
     QList <quint32> cmyChannels(int head = 0) const;
 
+    /** Set a list of channel indexes to exclude from fade transitions */
+    void setExcludeFadeChannels(QList<int> indexes);
+
+    /** Get the list of channel indexes to exclude from fade transitions */
+    QList<int> excludeFadeChannels();
+
+    /** Check if a channel can be faded or not */
+    bool channelCanFade(int index);
+
 protected:
     /** Create a generic intensity channel */
     void createGenericChannel();
@@ -286,6 +297,9 @@ protected:
 
     /** Generic intensity channel for dimmer fixtures */
     QLCChannel* m_genericChannel;
+
+    /** List holding the channels indexes to exlude from fade transitions */
+    QList<int> m_excludeFadeIndexes;
 
     /*********************************************************************
      * Fixture definition
@@ -334,6 +348,8 @@ public:
      * @return The head at the given index or NULL
      */
     QLCFixtureHead head(int index) const;
+
+    QIcon getIconFromType(QString type) const;
 
 protected:
     /** The fixture definition that this instance is based on */

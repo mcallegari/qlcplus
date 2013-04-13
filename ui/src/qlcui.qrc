@@ -44,6 +44,7 @@
         <file alias="empty.png">../../gfx/empty.png</file>
         <file alias="exit.png">../../gfx/exit.png</file>
         <file alias="expand.png">../../gfx/expand.png</file>
+        <file alias="fade.png">../../gfx/fade.png</file>
         <file alias="fan.png">../../gfx/fan.png</file>
         <file alias="fileclose.png">../../gfx/fileclose.png</file>
         <file alias="fileexport.png">../../gfx/fileexport.png</file>

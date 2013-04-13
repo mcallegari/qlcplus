@@ -1,5 +1,6 @@
 qlcplus (4.3.3) stable; urgency=low
 
+  * NEW: Added a window to exclude the desired fixture channels from fade transitions
   * NEW: Added Click And Go CMY functionality
   * Fixed crash on Show Editor when displaying a deleted sequence
   * Added total Show duration in Show Editor

@@ -468,15 +468,19 @@ void Scene::write(MasterTimer* timer, UniverseArray* ua)
         while (it.hasNext() == true)
         {
             SceneValue value(it.next());
+            bool canFade = true;
 
             FadeChannel fc;
             fc.setFixture(value.fxi);
             fc.setChannel(value.channel);
             fc.setTarget(value.value);
-            QLCChannel::Group grp = fc.group(doc());
-            // do not fade motors or speed
-            if (grp == QLCChannel::Pan || grp == QLCChannel::Tilt ||
-                grp == QLCChannel::Speed)
+            Fixture *fixture = doc()->fixture(value.fxi);
+            if (fixture != NULL)
+            {
+                if (fixture->channelCanFade(value.channel) == false)
+                    canFade = false;
+            }
+            if (canFade == false)
             {
                 fc.setFadeTime(0);
             }
