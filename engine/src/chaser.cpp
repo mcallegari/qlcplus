@@ -212,6 +212,15 @@ QList <ChaserStep> Chaser::steps() const
     return m_steps;
 }
 
+quint32 Chaser::getDuration()
+{
+    quint32 duration = 0;
+    foreach (ChaserStep step, m_steps)
+        duration += step.duration;
+
+    return duration;
+}
+
 void Chaser::slotFunctionRemoved(quint32 fid)
 {
     m_stepListMutex.lock();

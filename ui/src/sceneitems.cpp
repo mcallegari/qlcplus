@@ -372,8 +372,10 @@ SequenceItem::SequenceItem(Chaser *seq)
     , m_selectedStep(-1)
 {
     Q_ASSERT(seq != NULL);
-    setToolTip(QString("Start time: %1\n%2")
-              .arg(Function::speedToString(seq->getStartTime())).arg("Click to move this sequence across the timeline"));
+    setToolTip(QString(tr("Start time: %1\nDuration: %2\n%3"))
+              .arg(Function::speedToString(seq->getStartTime()))
+              .arg(Function::speedToString(seq->getDuration()))
+              .arg(tr("Click to move this sequence across the timeline")));
     setCursor(Qt::OpenHandCursor);
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
@@ -550,8 +552,10 @@ AudioItem::AudioItem(Audio *aud)
     , m_preview(NULL)
 {
     Q_ASSERT(aud != NULL);
-    setToolTip(QString("Start time: %1\n%2")
-              .arg(Function::speedToString(m_audio->getStartTime())).arg("Click to move this object across the timeline"));
+    setToolTip(QString(tr("Start time: %1\nDuration: %2\n%3"))
+              .arg(Function::speedToString(m_audio->getStartTime()))
+              .arg(Function::speedToString(m_audio->getDuration()))
+              .arg(tr("Click to move this audio across the timeline")));
     setCursor(Qt::OpenHandCursor);
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);

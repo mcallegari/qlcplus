@@ -137,9 +137,7 @@ void ShowEditor::updateFunctionList()
                 chItem->setIcon(NAME_COL, QIcon(":/sequence.png"));
                 chItem->setText(STEPS_COL, QString("%1").arg(chaser->steps().count()));
                 chItem->setText(TIME_COL, Function::speedToString(chaser->getStartTime()));
-                quint32 seq_duration = 0;
-                foreach (ChaserStep step, chaser->steps())
-                    seq_duration += step.duration;
+                quint32 seq_duration = chaser->getDuration();
                 chItem->setText(DUR_COL, Function::speedToString(seq_duration));
                 if (chaser->getStartTime() + seq_duration > totalDuration)
                     totalDuration = chaser->getStartTime() + seq_duration;

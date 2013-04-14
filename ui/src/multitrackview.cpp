@@ -195,8 +195,10 @@ void MultiTrackView::addSequence(Chaser *chaser)
         quint32 s_time = getTimeFromPosition();
         chaser->setStartTime(s_time);
         item->setPos(m_cursor->x() + 2, 36 + (trackNum * TRACK_HEIGHT));
-        item->setToolTip(QString(tr("Start time: %1msec\n%2"))
-                         .arg(s_time).arg(tr("Click to move this sequence across the timeline")));
+        item->setToolTip(QString(tr("Start time: %1\nDuration: %2\n%3"))
+                         .arg(Function::speedToString(s_time))
+                         .arg(Function::speedToString(chaser->getDuration()))
+                         .arg(tr("Click to move this sequence across the timeline")));
     }
     else
     {
@@ -229,8 +231,10 @@ void MultiTrackView::addAudio(Audio *audio)
         quint32 s_time = getTimeFromPosition();
         audio->setStartTime(s_time);
         item->setPos(m_cursor->x() + 2, 36 + (trackNum * TRACK_HEIGHT));
-        item->setToolTip(QString(tr("Start time: %1msec\n%2"))
-                         .arg(s_time).arg(tr("Click to move this audio across the timeline")));
+        item->setToolTip(QString(tr("Start time: %1\nDuration: %2\n%3"))
+                         .arg(Function::speedToString(s_time))
+                         .arg(Function::speedToString(audio->getDuration()))
+                         .arg(tr("Click to move this audio across the timeline")));
     }
     else
     {

@@ -70,10 +70,8 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID)
                 m_functions.append(m_doc->function(funcID));
                 connect(chaser, SIGNAL(stopped(quint32)), this, SLOT(slotSequenceStopped(quint32)));
 
-                // offline calculation of the chaser duration
-                quint32 seq_duration = 0;
-                foreach (ChaserStep step, chaser->steps())
-                    seq_duration += step.duration;
+                // offline calculation of the show
+                quint32 seq_duration = chaser->getDuration();
                 m_durations.append(seq_duration);
                 if (chaser->getStartTime() + seq_duration > m_totalRunTime)
                     m_totalRunTime = chaser->getStartTime() + seq_duration;

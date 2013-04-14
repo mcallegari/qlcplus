@@ -131,6 +131,9 @@ public:
      */
     QList <ChaserStep> steps() const;
 
+    /** Get the Chaser duration in milliseconds */
+    quint32 getDuration();
+
 public slots:
     /**
      * Catches Doc::functionRemoved() so that destroyed members can be
