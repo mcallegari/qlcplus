@@ -4,6 +4,7 @@ qlcplus (4.3.3) stable; urgency=low
   * NEW: Added Click And Go CMY functionality
   * NEW: Added list of recent project files (long press open icon to activate it)
   * Fixed crash on Show Editor when displaying a deleted sequence
+  * Fixed enable/disable all channels of Scene Editor "all channels view" mode
   * Added total Show duration in Show Editor
   * Added fixtures: American DJ 64B LED PRO, American DJ Profile Panel RGB
   * Added fixture: Chauvet Gyser RGB (thanks to George Qualley)

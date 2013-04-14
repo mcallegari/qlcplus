@@ -913,9 +913,8 @@ void SceneEditor::slotRemoveFixtureClicked()
 
 void SceneEditor::slotEnableAll()
 {
-    for (int i = m_fixtureFirstTabIndex; i < m_tab->count(); i++)
+    foreach (FixtureConsole* fc, m_consoleList)
     {
-        FixtureConsole* fc = fixtureConsoleTab(i);
         if (fc != NULL)
             fc->setChecked(true);
     }
@@ -923,9 +922,8 @@ void SceneEditor::slotEnableAll()
 
 void SceneEditor::slotDisableAll()
 {
-    for (int i = m_fixtureFirstTabIndex; i < m_tab->count(); i++)
+    foreach (FixtureConsole* fc, m_consoleList)
     {
-        FixtureConsole* fc = fixtureConsoleTab(i);
         if (fc != NULL)
             fc->setChecked(false);
     }
