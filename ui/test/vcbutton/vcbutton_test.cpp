@@ -704,4 +704,50 @@ void VCButton_Test::paint()
     QTest::qWait(1);
 }
 
+void VCButton_Test::toggleAndFlash()
+{
+    QWidget w;
+
+    Scene* sc = new Scene(m_doc);
+    m_doc->addFunction(sc);
+
+    VCButton toggleBtn(&w, m_doc);
+    toggleBtn.setFunction(sc->id());
+    toggleBtn.setAction(VCButton::Toggle);
+    toggleBtn.setKeySequence(QKeySequence(keySequenceA));
+
+    VCButton flashBtn(&w, m_doc);
+    flashBtn.setFunction(sc->id());
+    flashBtn.setAction(VCButton::Flash);
+    flashBtn.setKeySequence(QKeySequence(keySequenceB));
+
+    m_doc->setMode(Doc::Operate);
+
+    // push toggle button
+    toggleBtn.slotKeyPressed(QKeySequence(keySequenceA));
+    // tell MasterTimer to process start queue
+    m_doc->masterTimer()->timerTick();
+    QCOMPARE(toggleBtn.isOn(), true);
+    QCOMPARE(flashBtn.isOn(), false);
+
+    // push flash button
+    flashBtn.slotKeyPressed(QKeySequence(keySequenceB));
+    QCOMPARE(toggleBtn.isOn(), true);
+    QCOMPARE(flashBtn.isOn(), true);
+
+    // flash button released
+    flashBtn.slotKeyReleased(QKeySequence(keySequenceB));
+    QCOMPARE(toggleBtn.isOn(), true);
+    QCOMPARE(flashBtn.isOn(), false);
+
+    // push toggle button once more
+    toggleBtn.slotKeyPressed(QKeySequence(keySequenceA));
+    // tell MasterTimer to process start queue
+    m_doc->masterTimer()->timerTick();
+    QCOMPARE(toggleBtn.isOn(), false);
+    QCOMPARE(flashBtn.isOn(), false);
+    QCOMPARE(sc->m_stop, true);
+    toggleBtn.slotFunctionStopped(sc->id());
+}
+
 QTEST_MAIN(VCButton_Test)

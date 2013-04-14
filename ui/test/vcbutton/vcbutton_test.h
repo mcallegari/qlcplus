@@ -56,6 +56,9 @@ private slots:
     void input();
     void paint();
 
+    // https://github.com/mcallegari/qlcplus/issues/116
+    void toggleAndFlash();
+
 private:
     Doc* m_doc;
 };
