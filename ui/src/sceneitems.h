@@ -64,10 +64,14 @@ public:
     int getTimeScale();
 
     void setTimeDivisionType(TimeDivision type);
+    TimeDivision getTimeDivisionType();
     void setBPMValue(int value);
 
     int getHalfSecondWidth();
     void setWidth(int);
+
+    static QString tempoToString(TimeDivision type);
+    static TimeDivision stringToTempo(QString tempo);
 
 signals:
     void itemClicked(QGraphicsSceneMouseEvent *);

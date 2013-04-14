@@ -55,6 +55,19 @@ public:
     bool copyFrom(const Function* function);
 
     /*********************************************************************
+     * Time division
+     *********************************************************************/
+    /** Set the show time division type (Time, BPM) */
+    void setTimeDivision(QString type, int BPM);
+
+    QString getTimeDivisionType();
+    int getTimeDivisionBPM();
+
+private:
+    QString m_timeDivType;
+    int m_timeDivBPM;
+
+    /*********************************************************************
      * Tracks
      *********************************************************************/
 public:

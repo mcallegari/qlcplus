@@ -98,8 +98,8 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
             this, SLOT(slotSequenceMoved(SequenceItem*)));
     connect(m_showview, SIGNAL(audioMoved(AudioItem *)),
             this, SLOT(slotAudioMoved(AudioItem*)));
-    //connect(m_showview, SIGNAL(timeChanged(quint32)),
-    //        this, SLOT(slotUpdateTime(quint32)));
+    connect(m_showview, SIGNAL(timeChanged(quint32)),
+            this, SLOT(slotUpdateTime(quint32)));
     connect(m_showview, SIGNAL(trackClicked(Track*)),
             this, SLOT(slotTrackClicked(Track*)));
 
@@ -233,7 +233,7 @@ void ShowManager::initToolbar()
     m_toolbar->addSeparator();
 
     // Time label and playback buttons
-    m_timeLabel = new QLabel("00:00:00:000");
+    m_timeLabel = new QLabel("00:00:00.000");
     m_timeLabel->setFixedWidth(150);
     m_timeLabel->setAlignment(Qt::AlignRight | Qt::AlignBottom);
     QFont timeFont = QApplication::font();
@@ -257,10 +257,10 @@ void ShowManager::initToolbar()
 
     m_timeDivisionCombo = new QComboBox();
     m_timeDivisionCombo->setFixedWidth(100);
-    m_timeDivisionCombo->addItem(tr("Time"));
-    m_timeDivisionCombo->addItem("BPM 4/4");
-    m_timeDivisionCombo->addItem("BPM 3/4");
-    m_timeDivisionCombo->addItem("BPM 2/4");
+    m_timeDivisionCombo->addItem(tr("Time"), SceneHeaderItem::Time);
+    m_timeDivisionCombo->addItem("BPM 4/4", SceneHeaderItem::BPM_4_4);
+    m_timeDivisionCombo->addItem("BPM 3/4", SceneHeaderItem::BPM_3_4);
+    m_timeDivisionCombo->addItem("BPM 2/4", SceneHeaderItem::BPM_2_4);
     m_toolbar->addWidget(m_timeDivisionCombo);
     connect(m_timeDivisionCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(slotTimeDivisionTypeChanged(int)));
@@ -325,8 +325,11 @@ void ShowManager::updateShowsCombo()
 void ShowManager::slotShowsComboChanged(int idx)
 {
     qDebug() << Q_FUNC_INFO << "Idx: " << idx;
-    m_selectedShowIndex = idx;
-    updateMultiTrackView();
+    if (m_selectedShowIndex != idx)
+    {
+        m_selectedShowIndex = idx;
+        updateMultiTrackView();
+    }
 }
 
 void ShowManager::showSceneEditor(Scene *scene)
@@ -622,16 +625,24 @@ void ShowManager::slotStartPlayback()
 
 void ShowManager::slotTimeDivisionTypeChanged(int idx)
 {
-    m_showview->setHeaderType(idx);
-    if (idx > 0)
-        m_bpmField->setEnabled(true);
-    else
-        m_bpmField->setEnabled(false);
+    QVariant var = m_timeDivisionCombo->itemData(idx);
+    if (var.isValid())
+    {
+        m_showview->setHeaderType((SceneHeaderItem::TimeDivision)var.toInt());
+        if (idx > 0)
+            m_bpmField->setEnabled(true);
+        else
+            m_bpmField->setEnabled(false);
+        m_show->setTimeDivision(SceneHeaderItem::tempoToString((SceneHeaderItem::TimeDivision)var.toInt()), m_bpmField->value());
+    }
 }
 
 void ShowManager::slotBPMValueChanged(int value)
 {
     m_showview->setBPMValue(value);
+    QVariant var = m_timeDivisionCombo->itemData(m_timeDivisionCombo->currentIndex());
+    if (var.isValid() && m_show != NULL)
+        m_show->setTimeDivision(SceneHeaderItem::tempoToString((SceneHeaderItem::TimeDivision)var.toInt()), m_bpmField->value());
 }
 
 void ShowManager::slotViewClicked(QMouseEvent *event)
@@ -688,7 +699,7 @@ void ShowManager::slotAudioMoved(AudioItem *item)
 
 void ShowManager::slotupdateTimeAndCursor(quint32 msec_time)
 {
-    //qDebug() << Q_FUNC_INFO << "time: " << msec_time;
+    qDebug() << Q_FUNC_INFO << "time: " << msec_time;
     slotUpdateTime(msec_time);
     m_showview->moveCursor(msec_time);
 }
@@ -844,6 +855,16 @@ void ShowManager::updateMultiTrackView()
         return;
     }
 
+    // disconnect BPM field and update the view manually, to
+    // prevent m_show time division override
+    disconnect(m_bpmField, SIGNAL(valueChanged(int)), this, SLOT(slotBPMValueChanged(int)));
+
+    m_bpmField->setValue(m_show->getTimeDivisionBPM());
+    m_showview->setBPMValue(m_show->getTimeDivisionBPM());
+    int tIdx = m_timeDivisionCombo->findData(QVariant(SceneHeaderItem::stringToTempo(m_show->getTimeDivisionType())));
+    m_timeDivisionCombo->setCurrentIndex(tIdx);
+
+    connect(m_bpmField, SIGNAL(valueChanged(int)), this, SLOT(slotBPMValueChanged(int)));
     connect(m_show, SIGNAL(timeChanged(quint32)), this, SLOT(slotupdateTimeAndCursor(quint32)));
     connect(m_show, SIGNAL(showFinished()), this, SLOT(slotStopPlayback()));
 

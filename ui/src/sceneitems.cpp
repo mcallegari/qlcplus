@@ -133,6 +133,11 @@ void SceneHeaderItem::setTimeDivisionType(SceneHeaderItem::TimeDivision type)
     update();
 }
 
+SceneHeaderItem::TimeDivision SceneHeaderItem::getTimeDivisionType()
+{
+    return m_type;
+}
+
 void SceneHeaderItem::setBPMValue(int value)
 {
     if (value > 1)
@@ -151,6 +156,35 @@ void SceneHeaderItem::setWidth(int w)
 {
     prepareGeometryChange();
     m_width = w;
+}
+
+QString SceneHeaderItem::tempoToString(SceneHeaderItem::TimeDivision type)
+{
+    switch(type)
+    {
+        case Time: return QString("Time"); break;
+        case BPM_4_4: return QString("BPM_4_4"); break;
+        case BPM_3_4: return QString("BPM_3_4"); break;
+        case BPM_2_4: return QString("BPM_2_4"); break;
+        case Invalid:
+        default:
+            return QString("Invalid"); break;
+    }
+    return QString();
+}
+
+SceneHeaderItem::TimeDivision SceneHeaderItem::stringToTempo(QString tempo)
+{
+    if (tempo == "Time")
+        return Time;
+    else if (tempo == "BPM_4_4")
+        return BPM_4_4;
+    else if (tempo == "BPM_3_4")
+        return BPM_3_4;
+    else if (tempo == "BPM_2_4")
+        return BPM_2_4;
+    else
+        return Invalid;
 }
 
 

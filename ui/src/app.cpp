@@ -853,6 +853,8 @@ QFile::FileError App::slotFileSaveAs()
     /* Save the document and set workspace name */
     QFile::FileError error = saveXML(fn);
     handleFileError(error);
+
+    updateFileOpenMenu(fn);
     return error;
 }
 

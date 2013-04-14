@@ -33,11 +33,17 @@
 #include "show.h"
 #include "doc.h"
 
+#define KXMLQLCShowTimeDivision "TimeDivision"
+#define KXMLQLCShowTimeType "Type"
+#define KXMLQLCShowTimeBPM "BPM"
+
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
 
 Show::Show(Doc* doc) : Function(doc, Function::Show)
+  , m_timeDivType(QString("Time"))
+  , m_timeDivBPM(120)
   , m_latestTrackId(0)
   , m_runner(NULL)
 {
@@ -77,6 +83,10 @@ bool Show::copyFrom(const Function* function)
     if (show == NULL)
         return false;
 
+    m_timeDivType = show->m_timeDivType;
+    m_timeDivBPM = show->m_timeDivBPM;
+    m_latestTrackId = show->m_latestTrackId;
+
     // create a copy of each track
     foreach(Track *track, show->tracks())
     {
@@ -103,6 +113,27 @@ bool Show::copyFrom(const Function* function)
     }
 
     return Function::copyFrom(function);
+}
+
+/*********************************************************************
+ * Time division
+ *********************************************************************/
+
+void Show::setTimeDivision(QString type, int BPM)
+{
+    qDebug() << "[setTimeDivision] type:" << type << ", BPM:" << BPM;
+    m_timeDivType = type;
+    m_timeDivBPM = BPM;
+}
+
+QString Show::getTimeDivisionType()
+{
+    return m_timeDivType;
+}
+
+int Show::getTimeDivisionBPM()
+{
+    return m_timeDivBPM;
 }
 
 /*****************************************************************************
@@ -205,6 +236,11 @@ bool Show::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     root.setAttribute(KXMLQLCFunctionType, Function::typeToString(type()));
     root.setAttribute(KXMLQLCFunctionName, name());
 
+    QDomElement td = doc->createElement(KXMLQLCShowTimeDivision);
+    td.setAttribute(KXMLQLCShowTimeType, m_timeDivType);
+    td.setAttribute(KXMLQLCShowTimeBPM, m_timeDivBPM);
+    root.appendChild(td);
+
     foreach(Track *track, m_tracks)
         track->saveXML(doc, &root);
 
@@ -230,7 +266,13 @@ bool Show::loadXML(const QDomElement& root)
     while (node.isNull() == false)
     {
         QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCTrack)
+        if (tag.tagName() == KXMLQLCShowTimeDivision)
+        {
+            QString type = tag.attribute(KXMLQLCShowTimeType);
+            int bpm = (tag.attribute(KXMLQLCShowTimeBPM)).toInt();
+            setTimeDivision(type, bpm);
+        }
+        else if (tag.tagName() == KXMLQLCTrack)
         {
             Track *trk = new Track();
             if (trk->loadXML(tag) == true)

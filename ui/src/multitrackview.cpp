@@ -406,9 +406,14 @@ int MultiTrackView::getActiveTrack()
     return -1;
 }
 
-void MultiTrackView::setHeaderType(int type)
+void MultiTrackView::setHeaderType(SceneHeaderItem::TimeDivision type)
 {
-    m_header->setTimeDivisionType((SceneHeaderItem::TimeDivision)type);
+    m_header->setTimeDivisionType(type);
+}
+
+SceneHeaderItem::TimeDivision MultiTrackView::getHeaderType()
+{
+    return m_header->getTimeDivisionType();
 }
 
 void MultiTrackView::setBPMValue(int value)
@@ -427,7 +432,7 @@ void MultiTrackView::mouseReleaseEvent(QMouseEvent * e)
 
 void MultiTrackView::slotMoveCursor(QGraphicsSceneMouseEvent *event)
 {
-    //qDebug() << Q_FUNC_INFO << "event - <" << event->pos().toPoint().x() << "> - <" << event->pos().toPoint().y() << ">";
+    qDebug() << Q_FUNC_INFO << "event - <" << event->pos().toPoint().x() << "> - <" << event->pos().toPoint().y() << ">";
     m_cursor->setPos(TRACK_WIDTH +  event->pos().toPoint().x(), 0);
     m_cursor->setTime(getTimeFromPosition());
     emit timeChanged(getTimeFromPosition());
