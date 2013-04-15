@@ -69,7 +69,7 @@ void SceneHeaderItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
     int tmpSec = 0;
     for (int i = 0; i < m_width / m_timeStep; i++)
     {
-        int xpos = ((float)i * m_timeStep) + 1;
+        float xpos = ((float)i * m_timeStep) + 1;
         painter->setPen(QPen( QColor(250, 250, 250, 255), 1));
         if (i%m_timeHit == 0)
         {
@@ -94,7 +94,10 @@ void SceneHeaderItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
             }
         }
         else
-            painter->drawLine(xpos, 25, xpos, 34);
+        {
+            if (m_timeStep > 5)
+                painter->drawLine(xpos, 25, xpos, 34);
+        }
     }
 
 }
@@ -150,6 +153,13 @@ void SceneHeaderItem::setBPMValue(int value)
 int SceneHeaderItem::getHalfSecondWidth()
 {
     return HALF_SECOND_WIDTH;
+}
+
+float SceneHeaderItem::getTimeDivisionStep()
+{
+    if (m_type > Time && m_timeStep <= 5)
+        return m_timeStep * m_timeHit;
+    return m_timeStep;
 }
 
 void SceneHeaderItem::setWidth(int w)

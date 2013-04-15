@@ -550,12 +550,12 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
         <translation>STRG+F12</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="964"/>
+        <location filename="app.cpp" line="966"/>
         <source>Error</source>
         <translation type="unfinished">Fehler</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="965"/>
+        <location filename="app.cpp" line="967"/>
         <source>File not found !
 The selected file has been moved or deleted.</source>
         <translation type="unfinished"></translation>
@@ -699,7 +699,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="app.cpp" line="676"/>
         <location filename="app.cpp" line="715"/>
-        <location filename="app.cpp" line="973"/>
+        <location filename="app.cpp" line="975"/>
         <source>Do you wish to save the current workspace?
 Changes will be lost if you don&apos;t save them.</source>
         <translation>Willst du die aktuelle Arbeitsfläche speichern?
@@ -713,7 +713,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="app.cpp" line="717"/>
         <location filename="app.cpp" line="738"/>
-        <location filename="app.cpp" line="975"/>
+        <location filename="app.cpp" line="977"/>
         <source>Open Workspace</source>
         <translation>Arbeitsfläche öffnen</translation>
     </message>
@@ -772,35 +772,35 @@ Changes will be lost if you don&apos;t save them.</source>
 <context>
     <name>AudioItem</name>
     <message>
-        <location filename="sceneitems.cpp" line="555"/>
+        <location filename="sceneitems.cpp" line="599"/>
         <source>Start time: %1
 Duration: %2
 %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="558"/>
+        <location filename="sceneitems.cpp" line="602"/>
         <source>Click to move this audio across the timeline</source>
         <translation type="unfinished">Zum Verschieben von Audio über die Timeline klicken</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="572"/>
-        <location filename="sceneitems.cpp" line="908"/>
+        <location filename="sceneitems.cpp" line="616"/>
+        <location filename="sceneitems.cpp" line="952"/>
         <source>Preview Left Channel</source>
         <translation>Vorschau linker Kanal</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="576"/>
+        <location filename="sceneitems.cpp" line="620"/>
         <source>Preview Right Channel</source>
         <translation>Vorschau rechter Kanal</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="580"/>
+        <location filename="sceneitems.cpp" line="624"/>
         <source>Preview Stereo Channels</source>
         <translation>Vorschau Stereo-Kanäle</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="904"/>
+        <location filename="sceneitems.cpp" line="948"/>
         <source>Preview Mono</source>
         <translation>Vorschaue Mono</translation>
     </message>
@@ -2668,55 +2668,55 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
 <context>
     <name>MultiTrackView</name>
     <message>
-        <location filename="multitrackview.cpp" line="201"/>
-        <location filename="multitrackview.cpp" line="522"/>
-        <location filename="multitrackview.cpp" line="556"/>
+        <location filename="multitrackview.cpp" line="202"/>
+        <location filename="multitrackview.cpp" line="541"/>
+        <location filename="multitrackview.cpp" line="583"/>
         <source>Click to move this sequence across the timeline</source>
         <translation>Zum Verschieben der Sequenz über die Timeline klicken</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="237"/>
+        <location filename="multitrackview.cpp" line="238"/>
         <source>Click to move this audio across the timeline</source>
         <translation>Zum Verschieben von Audio über die Timeline klicken</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="198"/>
-        <location filename="multitrackview.cpp" line="234"/>
+        <location filename="multitrackview.cpp" line="199"/>
+        <location filename="multitrackview.cpp" line="235"/>
         <source>Start time: %1
 Duration: %2
 %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="264"/>
+        <location filename="multitrackview.cpp" line="265"/>
         <source>Do you want to DELETE sequence:</source>
         <translation>Soll die Sequenz GELÖSCHT werden:</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="267"/>
-        <location filename="multitrackview.cpp" line="288"/>
-        <location filename="multitrackview.cpp" line="322"/>
+        <location filename="multitrackview.cpp" line="268"/>
+        <location filename="multitrackview.cpp" line="289"/>
+        <location filename="multitrackview.cpp" line="323"/>
         <source>Delete Functions</source>
         <translation>Funktionen entfernen</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="284"/>
+        <location filename="multitrackview.cpp" line="285"/>
         <source>Do you want to DELETE audio (the source file will NOT be removed):</source>
         <translation>Soll Audio GELÖSCHT werden (Die Ursprungsdatei wird NICHT entfernt):</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="309"/>
+        <location filename="multitrackview.cpp" line="310"/>
         <source>Do you want to DELETE scene:</source>
         <translation>Soll die Szene GELÖSCHT werden:</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="312"/>
+        <location filename="multitrackview.cpp" line="313"/>
         <source>This operation will also DELETE:</source>
         <translation>Dieser Vorgang LÖSCHT ebenfalls:</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="520"/>
-        <location filename="multitrackview.cpp" line="555"/>
+        <location filename="multitrackview.cpp" line="539"/>
+        <location filename="multitrackview.cpp" line="582"/>
         <source>Start time: %1
 %2</source>
         <translation>Start Zeit: %1
@@ -3071,8 +3071,8 @@ Duration: %2
         <translation type="unfinished">Alle Geräte</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1021"/>
-        <location filename="sceneeditor.cpp" line="1022"/>
+        <location filename="sceneeditor.cpp" line="1019"/>
+        <location filename="sceneeditor.cpp" line="1020"/>
         <source>Channels Groups</source>
         <translation>Kanalgruppen</translation>
     </message>
@@ -3230,14 +3230,14 @@ Duration: %2
 <context>
     <name>SequenceItem</name>
     <message>
-        <location filename="sceneitems.cpp" line="375"/>
+        <location filename="sceneitems.cpp" line="419"/>
         <source>Start time: %1
 Duration: %2
 %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="378"/>
+        <location filename="sceneitems.cpp" line="422"/>
         <source>Click to move this sequence across the timeline</source>
         <translation type="unfinished">Zum Verschieben der Sequenz über die Timeline klicken</translation>
     </message>
@@ -3293,117 +3293,122 @@ Duration: %2
 <context>
     <name>ShowManager</name>
     <message>
-        <location filename="showmanager.cpp" line="150"/>
+        <location filename="showmanager.cpp" line="152"/>
         <source>New s&amp;how</source>
         <translation>Neue S&amp;how</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="156"/>
+        <location filename="showmanager.cpp" line="158"/>
         <source>New &amp;track</source>
         <translation>Neuer &amp;Track</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="162"/>
+        <location filename="showmanager.cpp" line="164"/>
         <source>New s&amp;equence</source>
         <translation>Neue S&amp;equenz</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="168"/>
+        <location filename="showmanager.cpp" line="170"/>
         <source>New &amp;audio</source>
         <translation>Neues &amp;Audio</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="174"/>
+        <location filename="showmanager.cpp" line="176"/>
         <source>&amp;Clone</source>
         <translation>&amp;Kopieren</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="181"/>
+        <location filename="showmanager.cpp" line="183"/>
         <source>&amp;Delete</source>
         <translation>&amp;Löschen</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="188"/>
+        <location filename="showmanager.cpp" line="190"/>
         <source>Change Co&amp;lor</source>
         <translation>&amp;Farbe ändern</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="195"/>
+        <location filename="showmanager.cpp" line="197"/>
+        <source>Snap to &amp;Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager.cpp" line="204"/>
         <source>St&amp;op</source>
         <translation>St&amp;op</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="201"/>
+        <location filename="showmanager.cpp" line="210"/>
         <source>&amp;Play</source>
         <translation>Abs&amp;pielen</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="255"/>
+        <location filename="showmanager.cpp" line="265"/>
         <source>Time division:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="260"/>
+        <location filename="showmanager.cpp" line="270"/>
         <source>Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="395"/>
+        <location filename="showmanager.cpp" line="408"/>
         <source>New Show</source>
         <translation>Neue Show</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="397"/>
+        <location filename="showmanager.cpp" line="410"/>
         <source>Show name setup</source>
         <translation>Shownameneinstellung</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="398"/>
+        <location filename="showmanager.cpp" line="411"/>
         <source>Show name:</source>
         <translation>Show-Name:</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="431"/>
+        <location filename="showmanager.cpp" line="444"/>
         <source>New Scene</source>
         <translation>Neue Szene</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="461"/>
+        <location filename="showmanager.cpp" line="474"/>
         <source>New Sequence</source>
         <translation>Neue Sequenz</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="475"/>
+        <location filename="showmanager.cpp" line="488"/>
         <source>Open Audio File</source>
         <translation>Audio-Datei-öffnen</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="501"/>
+        <location filename="showmanager.cpp" line="514"/>
         <source>Audio Files (%1)</source>
         <translation>Audio Dateien (%1)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="503"/>
+        <location filename="showmanager.cpp" line="516"/>
         <source>All Files (*.*)</source>
         <translation>Alle Dateien (*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="505"/>
+        <location filename="showmanager.cpp" line="518"/>
         <source>All Files (*)</source>
         <translation>Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="527"/>
+        <location filename="showmanager.cpp" line="540"/>
         <source>Unsupported audio file</source>
         <translation>Nicht unterstützte Audio-Datei</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="527"/>
+        <location filename="showmanager.cpp" line="540"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation>Diese Audiodatei kann mit QLC+ nicht wiedergegeben werden. Sorry.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="563"/>
+        <location filename="showmanager.cpp" line="576"/>
         <source>Copy of %1</source>
         <translation>Kopie von %1</translation>
     </message>
@@ -3600,7 +3605,7 @@ Duration: %2
         <translation>ALLE Funktionen stoppen!</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="704"/>
+        <location filename="vcbutton.cpp" line="713"/>
         <source>Icon</source>
         <translation>Symbol</translation>
     </message>

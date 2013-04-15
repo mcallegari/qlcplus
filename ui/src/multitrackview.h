@@ -94,6 +94,8 @@ public:
      *  value of time division */
     void setBPMValue(int value);
 
+    void setSnapToGrid(bool enable);
+
     /*********************************************************************
      * Cursor
      *********************************************************************/
@@ -121,6 +123,7 @@ private:
     QList <TrackItem *> m_tracks;
     QList <SequenceItem *> m_sequences;
     QList <AudioItem *> m_audio;
+    bool m_snapToGrid;
 
 signals:
     void sequenceMoved(SequenceItem *item);

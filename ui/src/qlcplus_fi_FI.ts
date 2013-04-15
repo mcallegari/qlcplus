@@ -687,7 +687,7 @@ Haluatko varmasti pysäyttää ne ja vaihtaa takaisin Suunnittelutilaan?</transl
     <message>
         <location filename="app.cpp" line="676"/>
         <location filename="app.cpp" line="715"/>
-        <location filename="app.cpp" line="973"/>
+        <location filename="app.cpp" line="975"/>
         <source>Do you wish to save the current workspace?
 Changes will be lost if you don&apos;t save them.</source>
         <translation>Haluatko tallentaa nykyisen työtilan?
@@ -701,7 +701,7 @@ Menetät muutokset jos et tallenna niitä.</translation>
     <message>
         <location filename="app.cpp" line="717"/>
         <location filename="app.cpp" line="738"/>
-        <location filename="app.cpp" line="975"/>
+        <location filename="app.cpp" line="977"/>
         <source>Open Workspace</source>
         <translation>Avaa työtila</translation>
     </message>
@@ -729,12 +729,12 @@ Menetät muutokset jos et tallenna niitä.</translation>
         <translation>Tallenna työtila nimellä</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="964"/>
+        <location filename="app.cpp" line="966"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="965"/>
+        <location filename="app.cpp" line="967"/>
         <source>File not found !
 The selected file has been moved or deleted.</source>
         <translation type="unfinished"></translation>
@@ -771,35 +771,35 @@ The selected file has been moved or deleted.</source>
 <context>
     <name>AudioItem</name>
     <message>
-        <location filename="sceneitems.cpp" line="555"/>
+        <location filename="sceneitems.cpp" line="599"/>
         <source>Start time: %1
 Duration: %2
 %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="558"/>
+        <location filename="sceneitems.cpp" line="602"/>
         <source>Click to move this audio across the timeline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="572"/>
-        <location filename="sceneitems.cpp" line="908"/>
+        <location filename="sceneitems.cpp" line="616"/>
+        <location filename="sceneitems.cpp" line="952"/>
         <source>Preview Left Channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="576"/>
+        <location filename="sceneitems.cpp" line="620"/>
         <source>Preview Right Channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="580"/>
+        <location filename="sceneitems.cpp" line="624"/>
         <source>Preview Stereo Channels</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="904"/>
+        <location filename="sceneitems.cpp" line="948"/>
         <source>Preview Mono</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2667,55 +2667,55 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
 <context>
     <name>MultiTrackView</name>
     <message>
-        <location filename="multitrackview.cpp" line="201"/>
-        <location filename="multitrackview.cpp" line="522"/>
-        <location filename="multitrackview.cpp" line="556"/>
+        <location filename="multitrackview.cpp" line="202"/>
+        <location filename="multitrackview.cpp" line="541"/>
+        <location filename="multitrackview.cpp" line="583"/>
         <source>Click to move this sequence across the timeline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="237"/>
+        <location filename="multitrackview.cpp" line="238"/>
         <source>Click to move this audio across the timeline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="198"/>
-        <location filename="multitrackview.cpp" line="234"/>
+        <location filename="multitrackview.cpp" line="199"/>
+        <location filename="multitrackview.cpp" line="235"/>
         <source>Start time: %1
 Duration: %2
 %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="264"/>
+        <location filename="multitrackview.cpp" line="265"/>
         <source>Do you want to DELETE sequence:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="267"/>
-        <location filename="multitrackview.cpp" line="288"/>
-        <location filename="multitrackview.cpp" line="322"/>
+        <location filename="multitrackview.cpp" line="268"/>
+        <location filename="multitrackview.cpp" line="289"/>
+        <location filename="multitrackview.cpp" line="323"/>
         <source>Delete Functions</source>
         <translation type="unfinished">Poista funktioita</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="284"/>
+        <location filename="multitrackview.cpp" line="285"/>
         <source>Do you want to DELETE audio (the source file will NOT be removed):</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="309"/>
+        <location filename="multitrackview.cpp" line="310"/>
         <source>Do you want to DELETE scene:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="312"/>
+        <location filename="multitrackview.cpp" line="313"/>
         <source>This operation will also DELETE:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="520"/>
-        <location filename="multitrackview.cpp" line="555"/>
+        <location filename="multitrackview.cpp" line="539"/>
+        <location filename="multitrackview.cpp" line="582"/>
         <source>Start time: %1
 %2</source>
         <translation type="unfinished"></translation>
@@ -3069,8 +3069,8 @@ Duration: %2
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1021"/>
-        <location filename="sceneeditor.cpp" line="1022"/>
+        <location filename="sceneeditor.cpp" line="1019"/>
+        <location filename="sceneeditor.cpp" line="1020"/>
         <source>Channels Groups</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3228,14 +3228,14 @@ Duration: %2
 <context>
     <name>SequenceItem</name>
     <message>
-        <location filename="sceneitems.cpp" line="375"/>
+        <location filename="sceneitems.cpp" line="419"/>
         <source>Start time: %1
 Duration: %2
 %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="378"/>
+        <location filename="sceneitems.cpp" line="422"/>
         <source>Click to move this sequence across the timeline</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3291,117 +3291,122 @@ Duration: %2
 <context>
     <name>ShowManager</name>
     <message>
-        <location filename="showmanager.cpp" line="150"/>
+        <location filename="showmanager.cpp" line="152"/>
         <source>New s&amp;how</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="156"/>
+        <location filename="showmanager.cpp" line="158"/>
         <source>New &amp;track</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="162"/>
+        <location filename="showmanager.cpp" line="164"/>
         <source>New s&amp;equence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="168"/>
+        <location filename="showmanager.cpp" line="170"/>
         <source>New &amp;audio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="174"/>
+        <location filename="showmanager.cpp" line="176"/>
         <source>&amp;Clone</source>
         <translation type="unfinished">K&amp;loonaa</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="181"/>
+        <location filename="showmanager.cpp" line="183"/>
         <source>&amp;Delete</source>
         <translation type="unfinished">&amp;Poista</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="188"/>
+        <location filename="showmanager.cpp" line="190"/>
         <source>Change Co&amp;lor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="195"/>
+        <location filename="showmanager.cpp" line="197"/>
+        <source>Snap to &amp;Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager.cpp" line="204"/>
         <source>St&amp;op</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="201"/>
+        <location filename="showmanager.cpp" line="210"/>
         <source>&amp;Play</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="255"/>
+        <location filename="showmanager.cpp" line="265"/>
         <source>Time division:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="260"/>
+        <location filename="showmanager.cpp" line="270"/>
         <source>Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="395"/>
+        <location filename="showmanager.cpp" line="408"/>
         <source>New Show</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="397"/>
+        <location filename="showmanager.cpp" line="410"/>
         <source>Show name setup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="398"/>
+        <location filename="showmanager.cpp" line="411"/>
         <source>Show name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="431"/>
+        <location filename="showmanager.cpp" line="444"/>
         <source>New Scene</source>
         <translation type="unfinished">Uusi tilanne</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="461"/>
+        <location filename="showmanager.cpp" line="474"/>
         <source>New Sequence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="475"/>
+        <location filename="showmanager.cpp" line="488"/>
         <source>Open Audio File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="501"/>
+        <location filename="showmanager.cpp" line="514"/>
         <source>Audio Files (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="503"/>
+        <location filename="showmanager.cpp" line="516"/>
         <source>All Files (*.*)</source>
         <translation type="unfinished">Kaikki tiedostot (*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="505"/>
+        <location filename="showmanager.cpp" line="518"/>
         <source>All Files (*)</source>
         <translation type="unfinished">Kaikki tiedostot (*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="527"/>
+        <location filename="showmanager.cpp" line="540"/>
         <source>Unsupported audio file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="527"/>
+        <location filename="showmanager.cpp" line="540"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="563"/>
+        <location filename="showmanager.cpp" line="576"/>
         <source>Copy of %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3598,7 +3603,7 @@ Duration: %2
         <translation type="unfinished">Pysäytä KAIKKI funktiot!</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="704"/>
+        <location filename="vcbutton.cpp" line="713"/>
         <source>Icon</source>
         <translation>Ikoni</translation>
     </message>

@@ -68,6 +68,8 @@ public:
     void setBPMValue(int value);
 
     int getHalfSecondWidth();
+    float getTimeDivisionStep();
+
     void setWidth(int);
 
     static QString tempoToString(TimeDivision type);

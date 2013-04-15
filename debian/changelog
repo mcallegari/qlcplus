@@ -1,10 +1,12 @@
 qlcplus (4.3.3) stable; urgency=low
 
   * NEW: Added a window to exclude the desired fixture channels from fade transitions
-  * NEW: Added Click And Go CMY functionality
+  * NEW: Added Click And Go functionality for CMY fixtures
   * NEW: Added list of recent project files (long press open icon to activate it)
+  * NEW: Added "Snap to Grid" functionality in Show manager
   * Fixed crash on Show Editor when displaying a deleted sequence
   * Fixed enable/disable all channels of Scene Editor "all channels view" mode
+  * Fixed Virtual Console buttons conflict between flash and manual on/off (thanks to Jano Svitok)
   * Added total Show duration in Show Editor
   * Added fixtures: American DJ 64B LED PRO, American DJ Profile Panel RGB
   * Added fixture: Chauvet Gyser RGB (thanks to George Qualley)

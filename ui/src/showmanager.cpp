@@ -63,6 +63,8 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
     , m_addAudioAction(NULL)
     , m_cloneAction(NULL)
     , m_deleteAction(NULL)
+    , m_colorAction(NULL)
+    , m_snapGridAction(NULL)
     , m_stopAction(NULL)
     , m_playAction(NULL)
 {
@@ -191,6 +193,13 @@ void ShowManager::initActions()
            this, SLOT(slotChangeColor()));
     m_colorAction->setEnabled(false);
 
+    m_snapGridAction = new QAction(QIcon(":/grid.png"),
+                                   tr("Snap to &Grid"), this);
+    m_snapGridAction->setShortcut(QKeySequence("CTRL+G"));
+    m_snapGridAction->setCheckable(true);
+    connect(m_snapGridAction, SIGNAL(triggered(bool)),
+           this, SLOT(slotToggleSnapToGrid(bool)));
+
     m_stopAction = new QAction(QIcon(":/player_stop.png"),
                                  tr("St&op"), this);
     m_stopAction->setShortcut(QKeySequence("CTRL+O"));
@@ -230,6 +239,7 @@ void ShowManager::initToolbar()
     m_toolbar->addSeparator();
 
     m_toolbar->addAction(m_colorAction);
+    m_toolbar->addAction(m_snapGridAction);
     m_toolbar->addSeparator();
 
     // Time label and playback buttons
@@ -633,7 +643,8 @@ void ShowManager::slotTimeDivisionTypeChanged(int idx)
             m_bpmField->setEnabled(true);
         else
             m_bpmField->setEnabled(false);
-        m_show->setTimeDivision(SceneHeaderItem::tempoToString((SceneHeaderItem::TimeDivision)var.toInt()), m_bpmField->value());
+        if (m_show != NULL)
+            m_show->setTimeDivision(SceneHeaderItem::tempoToString((SceneHeaderItem::TimeDivision)var.toInt()), m_bpmField->value());
     }
 }
 
@@ -656,13 +667,15 @@ void ShowManager::slotViewClicked(QMouseEvent *event)
     }
     m_vsplitter->widget(1)->hide();
     m_cloneAction->setEnabled(false);
+    m_deleteAction->setEnabled(false);
+    m_colorAction->setEnabled(false);
     if (m_show != NULL && m_show->getTracksCount() == 0)
         m_deleteAction->setEnabled(false);
 }
 
 void ShowManager::slotSequenceMoved(SequenceItem *item)
 {
-    qDebug() << Q_FUNC_INFO << "Sequence moved.........";
+    qDebug() << Q_FUNC_INFO << "Sequence moved...";
     Chaser *chaser = item->getChaser();
     if (chaser == NULL)
         return;
@@ -683,6 +696,7 @@ void ShowManager::slotSequenceMoved(SequenceItem *item)
     m_cloneAction->setEnabled(true);
     m_deleteAction->setEnabled(true);
     m_colorAction->setEnabled(true);
+    m_doc->setModified();
 }
 
 void ShowManager::slotAudioMoved(AudioItem *item)
@@ -695,6 +709,7 @@ void ShowManager::slotAudioMoved(AudioItem *item)
     m_cloneAction->setEnabled(true);
     m_deleteAction->setEnabled(true);
     m_colorAction->setEnabled(true);
+    m_doc->setModified();
 }
 
 void ShowManager::slotupdateTimeAndCursor(quint32 msec_time)
@@ -744,6 +759,11 @@ void ShowManager::slotChangeColor()
     }
 }
 
+void ShowManager::slotToggleSnapToGrid(bool enable)
+{
+    m_showview->setSnapToGrid(enable);
+}
+
 void ShowManager::slotChangeSize(int width, int height)
 {
     if (m_showview != NULL)
@@ -786,7 +806,9 @@ void ShowManager::slotDocClearing()
     m_addTrackAction->setEnabled(false);
     m_addSequenceAction->setEnabled(false);
     m_addAudioAction->setEnabled(false);
+    m_cloneAction->setEnabled(false);
     m_deleteAction->setEnabled(false);
+    m_colorAction->setEnabled(false);
 }
 
 void ShowManager::slotDocLoaded()

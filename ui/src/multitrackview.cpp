@@ -79,6 +79,7 @@ MultiTrackView::MultiTrackView(QWidget *parent) :
     connect(m_header, SIGNAL(itemClicked(QGraphicsSceneMouseEvent *)),
             this, SLOT(slotMoveCursor(QGraphicsSceneMouseEvent *)));
     m_scene->addItem(m_header);
+    m_snapToGrid = false;
 
     m_cursor = new SceneCursorItem(m_scene->height());
     m_cursor->setPos(TRACK_WIDTH, 0);
@@ -421,6 +422,11 @@ void MultiTrackView::setBPMValue(int value)
     m_header->setBPMValue(value);
 }
 
+void MultiTrackView::setSnapToGrid(bool enable)
+{
+    m_snapToGrid = enable;
+}
+
 void MultiTrackView::mouseReleaseEvent(QMouseEvent * e)
 {
     emit viewClicked(e);
@@ -499,10 +505,10 @@ void MultiTrackView::slotSequenceMoved(QGraphicsSceneMouseEvent *, SequenceItem 
 {
     //qDebug() << Q_FUNC_INFO << "event - <" << event->pos().toPoint().x() << "> - <" << event->pos().toPoint().y() << ">";
     // align to the appropriate track
+    quint32 s_time = 0;
     int trackNum = item->getTrackIndex();
     int ypos = HEADER_HEIGHT + 1 + (trackNum * TRACK_HEIGHT);
     int shift = qAbs(item->getDraggingPos().x() - item->x());
-    quint32 s_time = 0;
 
     if (item->x() < TRACK_WIDTH + 2)
     {
@@ -513,6 +519,14 @@ void MultiTrackView::slotSequenceMoved(QGraphicsSceneMouseEvent *, SequenceItem 
         qDebug() << "Drag too short (" << shift << "px) not allowed !";
         item->setPos(item->getDraggingPos());
         s_time = item->getChaser()->getStartTime();
+    }
+    else if (m_snapToGrid == true)
+    {
+        float step = m_header->getTimeDivisionStep();
+        float gridPos = ((int)(item->x() / step) * step);
+        item->setPos(gridPos, ypos);
+        s_time = (gridPos - TRACK_WIDTH) * (double)(m_header->getTimeScale() * 1000) /
+                                           (double)(m_header->getHalfSecondWidth() * 2);
     }
     else
     {
@@ -541,13 +555,21 @@ void MultiTrackView::slotSequenceMoved(QGraphicsSceneMouseEvent *, AudioItem *it
 
     if (item->x() < TRACK_WIDTH + 2)
     {
-        item->setPos(TRACK_WIDTH + 2, ypos); // avoid moving a sequence too early...
+        item->setPos(TRACK_WIDTH + 2, ypos); // avoid moving audio too early...
     }
     else if (shift < 3) // a drag of less than 3 pixel doesn't move the item
     {
         qDebug() << "Drag too short (" << shift << "px) not allowed !";
         item->setPos(item->getDraggingPos());
         s_time = item->getAudio()->getStartTime();
+    }
+    else if (m_snapToGrid == true)
+    {
+        float step = m_header->getTimeDivisionStep();
+        float gridPos = ((int)(item->x() / step) * step);
+        item->setPos(gridPos, ypos);
+        s_time = (gridPos - TRACK_WIDTH) * (double)(m_header->getTimeScale() * 1000) /
+                                           (double)(m_header->getHalfSecondWidth() * 2);
     }
     else
     {
