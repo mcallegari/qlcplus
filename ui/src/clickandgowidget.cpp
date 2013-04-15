@@ -168,7 +168,7 @@ void ClickAndGoWidget::setupColorPicker()
 void ClickAndGoWidget::setType(int type, const QLCChannel *chan)
 {
     m_linearColor = false;
-    qDebug() << Q_FUNC_INFO << "Type: " << type;
+    //qDebug() << Q_FUNC_INFO << "Type: " << type;
     if (type == None)
     {
         m_image = QImage();
@@ -285,7 +285,7 @@ void ClickAndGoWidget::createPresetList(const QLCChannel *chan)
 
     m_resources.clear();
 
-    qDebug() << Q_FUNC_INFO << "cap #" << chan->capabilities().size();
+    //qDebug() << Q_FUNC_INFO << "cap #" << chan->capabilities().size();
 
     foreach(QLCCapability cap, chan->capabilities())
     {

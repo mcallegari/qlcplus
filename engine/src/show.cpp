@@ -48,10 +48,6 @@ Show::Show(Doc* doc) : Function(doc, Function::Show)
   , m_runner(NULL)
 {
     setName(tr("New Show"));
-
-    // Listen to member Function removals
-    connect(doc, SIGNAL(functionRemoved(quint32)),
-            this, SLOT(slotFunctionRemoved(quint32)));
 }
 
 Show::~Show()
@@ -199,11 +195,6 @@ int Show::getTracksCount()
 QList <Track*> Show::tracks() const
 {
     return m_tracks.values();
-}
-
-void Show::slotFunctionRemoved(quint32 fid)
-{
-    removeTrack(fid);
 }
 
 quint32 Show::createTrackId()

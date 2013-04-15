@@ -294,6 +294,7 @@ quint32 MultiTrackView::deleteSelectedFunction()
                 m_audio.removeAt(i);
                 return fID;
             }
+            return Function::invalidId();
         }
         i++;
     }

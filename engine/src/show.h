@@ -105,11 +105,6 @@ private:
     /** Create a new track ID */
     quint32 createTrackId();
 
-public slots:
-    /** Catches Doc::functionRemoved() so that destroyed members can be
-        removed immediately. */
-    void slotFunctionRemoved(quint32 function);
-
 protected:
     QMap <quint32,Track*> m_tracks;
 

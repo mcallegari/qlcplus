@@ -348,9 +348,13 @@ void ShowManager::showSceneEditor(Scene *scene)
     {
         emit functionManagerActive(false);
         m_splitter->widget(1)->layout()->removeWidget(m_scene_editor);
+        m_splitter->widget(1)->hide();
         m_scene_editor->deleteLater();
         m_scene_editor = NULL;
     }
+
+    if (scene == NULL)
+        return;
 
     if (this->isVisible())
     {
@@ -613,6 +617,8 @@ void ShowManager::slotDelete()
             if (currTrack != NULL)
                 currTrack->removeFunctionID(deleteID);
         }
+        else
+            m_show->removeTrack(deleteID);
 
         m_doc->deleteFunction(deleteID);
     }
@@ -667,7 +673,6 @@ void ShowManager::slotViewClicked(QMouseEvent *event)
     }
     m_vsplitter->widget(1)->hide();
     m_cloneAction->setEnabled(false);
-    m_deleteAction->setEnabled(false);
     m_colorAction->setEnabled(false);
     if (m_show != NULL && m_show->getTracksCount() == 0)
         m_deleteAction->setEnabled(false);
@@ -705,6 +710,23 @@ void ShowManager::slotAudioMoved(AudioItem *item)
     Audio *audio = item->getAudio();
     if (audio == NULL)
         return;
+    // reverse lookup of Track from an Audio item
+    foreach(Track *track, m_show->tracks())
+    {
+        foreach(quint32 fid, track->functionsID())
+        {
+            if (fid == audio->id())
+            {
+                m_showview->activateTrack(track);
+                Function *f = m_doc->function(track->getSceneID());
+                if (f == NULL)
+                    return;
+                m_scene = qobject_cast<Scene*>(f);
+                showSceneEditor(NULL);
+            }
+        }
+    }
+
     showSequenceEditor(NULL);
     m_cloneAction->setEnabled(true);
     m_deleteAction->setEnabled(true);
@@ -714,7 +736,7 @@ void ShowManager::slotAudioMoved(AudioItem *item)
 
 void ShowManager::slotupdateTimeAndCursor(quint32 msec_time)
 {
-    qDebug() << Q_FUNC_INFO << "time: " << msec_time;
+    //qDebug() << Q_FUNC_INFO << "time: " << msec_time;
     slotUpdateTime(msec_time);
     m_showview->moveCursor(msec_time);
 }
@@ -733,6 +755,7 @@ void ShowManager::slotTrackClicked(Track *track)
         return;
     m_scene = qobject_cast<Scene*>(f);
     showSceneEditor(m_scene);
+    m_deleteAction->setEnabled(true);
 }
 
 void ShowManager::slotChangeColor()
