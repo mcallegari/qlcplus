@@ -656,8 +656,17 @@ void VCButton::slotFunctionStopped(quint32 fid)
 
 void VCButton::slotFunctionFlashing(quint32 fid, bool state)
 {
-    if (fid == m_function)
-        setOn(state);
+    if (fid != m_function)
+        return;
+
+    // if the function was flashed by another button, and the function is still running, keep the button pushed
+    Function* f = m_doc->function(m_function);
+    if (state == false && m_action == Toggle && f != NULL && f->isRunning())
+    {
+        return;
+    }
+
+    setOn(state);
 }
 
 void VCButton::blink(int ms)
