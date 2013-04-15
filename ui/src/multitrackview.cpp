@@ -30,12 +30,8 @@
 #include <QDebug>
 
 #include "multitrackview.h"
-#include "sceneitems.h"
 #include "track.h"
 
-#define HEADER_HEIGHT       35
-#define TRACK_HEIGHT        80
-#define TRACK_WIDTH         150
 #define VIEW_DEFAULT_WIDTH  2000
 #define VIEW_DEFAULT_HEIGHT 600
 
@@ -69,11 +65,6 @@ MultiTrackView::MultiTrackView(QWidget *parent) :
     connect(m_timeSlider, SIGNAL(valueChanged(int)), this, SLOT(slotTimeScaleChanged(int)));
     m_scene->addWidget(m_timeSlider);
 
-    // draw vertical "splitter" between tracks and sequences
-    m_vdivider = NULL;
-    // draw horizontal lines for tracks
-    updateTracksDividers();
-
     m_header = new SceneHeaderItem(m_scene->width());
     m_header->setPos(TRACK_WIDTH, 0);
     connect(m_header, SIGNAL(itemClicked(QGraphicsSceneMouseEvent *)),
@@ -86,6 +77,10 @@ MultiTrackView::MultiTrackView(QWidget *parent) :
     m_cursor->setZValue(999); // make sure the cursor is always on top of everything else
     m_scene->addItem(m_cursor);
     connect(horizontalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotViewScrolled(int)));
+
+    m_vdivider = NULL;
+    // draw horizontal and vertical lines for tracks
+    updateTracksDividers();
 }
 
 void MultiTrackView::updateTracksDividers()
@@ -122,6 +117,10 @@ void MultiTrackView::setViewSize(int width, int height)
     m_scene->setSceneRect(0, 0, width, height);
     setSceneRect(0, 0, width, height);
     m_header->setWidth(width);
+    if (m_snapToGrid == true)
+        m_header->setHeight(height);
+    else
+        m_header->setHeight(HEADER_HEIGHT);
     updateTracksDividers();
 }
 
@@ -425,6 +424,10 @@ void MultiTrackView::setBPMValue(int value)
 void MultiTrackView::setSnapToGrid(bool enable)
 {
     m_snapToGrid = enable;
+    if (enable == true)
+        m_header->setHeight(height());
+    else
+        m_header->setHeight(HEADER_HEIGHT);
 }
 
 void MultiTrackView::mouseReleaseEvent(QMouseEvent * e)

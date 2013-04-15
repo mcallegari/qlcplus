@@ -1,5 +1,5 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   sceneitems.h
 
   Copyright (C) Heikki Junnila
@@ -32,13 +32,16 @@
 #include "audio.h"
 #include "track.h"
 
+#define HEADER_HEIGHT       35
+#define TRACK_HEIGHT        80
+#define TRACK_WIDTH         150
+#define HALF_SECOND_WIDTH   25
+
 /*********************************************************************
  *
  * Scene Header class. Clickable time line header
  *
  *********************************************************************/
-
-#define HALF_SECOND_WIDTH  25
 
 class SceneHeaderItem :  public QObject, public QGraphicsItem
 {
@@ -71,6 +74,7 @@ public:
     float getTimeDivisionStep();
 
     void setWidth(int);
+    void setHeight(int);
 
     static QString tempoToString(TimeDivision type);
     static TimeDivision stringToTempo(QString tempo);
@@ -84,6 +88,8 @@ protected:
 private:
     /** Total width of the item */
     int m_width;
+    /** Total height of the item */
+    int m_height;
     /** Distance in pixels between the time division bars */
     float m_timeStep;
     /** Divisor of the time division hit bar (the highest bar) */

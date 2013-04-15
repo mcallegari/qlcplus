@@ -1,5 +1,5 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   sceneitems.cpp
 
   Copyright (C) Massimo Callegari
@@ -33,6 +33,7 @@
  ****************************************************************************/
 SceneHeaderItem::SceneHeaderItem(int w)
     : m_width(w)
+    , m_height(HEADER_HEIGHT)
     , m_timeStep(HALF_SECOND_WIDTH)
     , m_timeHit(2)
     , m_timeScale(3)
@@ -49,7 +50,7 @@ void SceneHeaderItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 QRectF SceneHeaderItem::boundingRect() const
 {
-    return QRectF(0, 0, m_width, 35);
+    return QRectF(0, 0, m_width, m_height);
 }
 
 void SceneHeaderItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -74,6 +75,11 @@ void SceneHeaderItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
         if (i%m_timeHit == 0)
         {
             painter->drawLine(xpos, 20, xpos, 34);
+            if (m_height > HEADER_HEIGHT)
+            {
+                painter->setPen(QPen(QColor(105, 105, 105, 255), 1));
+                painter->drawLine(xpos, HEADER_HEIGHT, xpos, m_height);
+            }
             painter->setPen(QPen( Qt::black, 1));
             if (m_type == Time)
             {
@@ -96,7 +102,14 @@ void SceneHeaderItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
         else
         {
             if (m_timeStep > 5)
+            {
                 painter->drawLine(xpos, 25, xpos, 34);
+                if (m_height > HEADER_HEIGHT)
+                {
+                    painter->setPen(QPen(QColor(105, 105, 105, 255), 1));
+                    painter->drawLine(xpos, HEADER_HEIGHT, xpos, m_height);
+                }
+            }
         }
     }
 
@@ -166,6 +179,12 @@ void SceneHeaderItem::setWidth(int w)
 {
     prepareGeometryChange();
     m_width = w;
+}
+
+void SceneHeaderItem::setHeight(int h)
+{
+    prepareGeometryChange();
+    m_height = h;
 }
 
 QString SceneHeaderItem::tempoToString(SceneHeaderItem::TimeDivision type)
@@ -342,7 +361,7 @@ void TrackItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 QRectF TrackItem::boundingRect() const
 {
-    return QRectF(0, 0, 146, 80);
+    return QRectF(0, 0, TRACK_WIDTH - 4, TRACK_HEIGHT);
 }
 
 void TrackItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -351,12 +370,12 @@ void TrackItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     Q_UNUSED(widget);
 
     // draw background gradient
-    QLinearGradient linearGrad(QPointF(0, 0), QPointF(0, 80));
+    QLinearGradient linearGrad(QPointF(0, 0), QPointF(0, TRACK_HEIGHT));
     linearGrad.setColorAt(0, QColor(50, 64, 75, 255));
     //linearGrad.setColorAt(1, QColor(99, 127, 148, 255));
     linearGrad.setColorAt(1, QColor(76, 98, 115, 255));
     painter->setBrush(linearGrad);
-    painter->drawRect(0, 0, 146, 79);
+    painter->drawRect(0, 0, TRACK_WIDTH - 4, TRACK_HEIGHT - 1);
 
     // Draw left bar that shows if the track is active or not
     painter->setPen(QPen(QColor(48, 61, 72, 255), 1));
@@ -456,7 +475,7 @@ QPointF SequenceItem::getDraggingPos()
 
 QRectF SequenceItem::boundingRect() const
 {
-    return QRectF(0, 0, m_width, 77);
+    return QRectF(0, 0, m_width, TRACK_HEIGHT - 3);
 }
 
 void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -489,7 +508,7 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
             if (fadeXpos - xpos > 5)
             {
                 painter->setPen(QPen(Qt::gray, 1));
-                painter->drawLine(xpos, 76, fadeXpos, 1);
+                painter->drawLine(xpos, TRACK_HEIGHT - 4, fadeXpos, 1);
             }
         }
         float stepWidth = ((timeScale * (float)step.duration) / 1000);
@@ -497,12 +516,12 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
         {
             painter->setPen(QPen(Qt::yellow, 2));
             painter->setBrush(QBrush(Qt::NoBrush));
-            painter->drawRect(xpos, 0, stepWidth, 77);
+            painter->drawRect(xpos, 0, stepWidth, TRACK_HEIGHT - 3);
         }
         xpos += stepWidth;
 
         painter->setPen(QPen(Qt::white, 1));
-        painter->drawLine(xpos, 1, xpos, 75);
+        painter->drawLine(xpos, 1, xpos, TRACK_HEIGHT - 5);
         if (step.fadeOut > 0)
         {
             int fadeXpos = xpos - ((timeScale * (float)step.fadeOut) / 1000);
@@ -510,7 +529,7 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
             if (xpos - fadeXpos > 5)
             {
                 painter->setPen(QPen(Qt::gray, 1));
-                painter->drawLine(fadeXpos, 1, xpos, 76);
+                painter->drawLine(fadeXpos, 1, xpos, TRACK_HEIGHT - 4);
             }
         }
         stepIdx++;
@@ -654,7 +673,7 @@ QPointF AudioItem::getDraggingPos()
 
 QRectF AudioItem::boundingRect() const
 {
-    return QRectF(0, 0, m_width, 77);
+    return QRectF(0, 0, m_width, TRACK_HEIGHT - 3);
 }
 
 void AudioItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -668,13 +687,13 @@ void AudioItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         painter->setPen(QPen(Qt::white, 1));
     painter->setBrush(QBrush(m_color));
 
-    painter->drawRect(0, 0, m_width, 77);
+    painter->drawRect(0, 0, m_width, TRACK_HEIGHT - 3);
 
     painter->setFont(m_font);
     if (m_preview != NULL)
     {
         // show preview here
-        QPixmap waveform = m_preview->scaled(m_width, 76);
+        QPixmap waveform = m_preview->scaled(m_width, TRACK_HEIGHT - 4);
         painter->drawPixmap(0, 0, waveform);
     }
     // draw shadow
