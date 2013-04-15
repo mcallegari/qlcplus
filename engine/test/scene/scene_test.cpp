@@ -581,7 +581,7 @@ void Scene_Test::writeHTPTwoTicks()
     QVERIFY(s1->isRunning() == true);
     ua = doc->outputMap()->claimUniverses();
     QVERIFY(ua->preGMValues()[5] == (char) 125);
-    QVERIFY(ua->preGMValues()[0] == (char) 100);
+    QVERIFY(ua->preGMValues()[0] == (char) 50);
     doc->outputMap()->releaseUniverses(false);
 
     timer.timerTick();
@@ -673,7 +673,7 @@ void Scene_Test::writeHTPTwoTicksIntensity()
     QVERIFY(s1->isRunning() == true);
     ua = doc->outputMap()->claimUniverses();
     QVERIFY(ua->preGMValues()[5] == (char) floor((qreal(125) * qreal(0.5)) + 0.5));
-    QVERIFY(ua->preGMValues()[0] == (char) 100); // Intensity affects only HTP channels
+    QVERIFY(ua->preGMValues()[0] == (char) 50); // Intensity affects only HTP channels
     doc->outputMap()->releaseUniverses(false);
 
     s1->adjustIntensity(1.0);
@@ -760,8 +760,8 @@ void Scene_Test::writeLTPReady()
 
     timer.timerTick();
     ua = doc->outputMap()->claimUniverses();
-    QVERIFY(ua->preGMValues()[0] == (char) 250);
-    QVERIFY(ua->preGMValues()[1] == (char) 200);
+    QVERIFY(ua->preGMValues()[0] == (char) 125);
+    QVERIFY(ua->preGMValues()[1] == (char) 100);
     QVERIFY(ua->preGMValues()[2] == (char) 50);
     doc->outputMap()->releaseUniverses(false);
 
