@@ -300,7 +300,8 @@ quint32 MultiTrackView::deleteSelectedFunction()
         if (item->isActive() == true)
         {
             Track *track = item->getTrack();
-            quint32 fID = track->getSceneID();
+            quint32 sceneID = track->getSceneID();
+            quint32 trkID = track->id();
             QList <quint32> ids = track->functionsID();
             QString msg = tr("Do you want to DELETE scene:") + QString("\n\n") + track->name();
             if (ids.count() > 0)
@@ -309,7 +310,7 @@ quint32 MultiTrackView::deleteSelectedFunction()
                 foreach (SequenceItem *item, m_sequences)
                 {
                     Chaser *chaser = item->getChaser();
-                    if (chaser->getBoundedSceneID() == fID)
+                    if (chaser->getBoundedSceneID() == sceneID)
                         msg += chaser->name() + QString("\n");
                 }
             }
@@ -321,7 +322,7 @@ quint32 MultiTrackView::deleteSelectedFunction()
             {
                 m_scene->removeItem(item);
                 m_tracks.removeOne(item);
-                return fID;
+                return trkID;
             }
             return Function::invalidId();
         }
