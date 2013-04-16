@@ -99,7 +99,7 @@ void ConsoleChannel::init()
     m_spin = new QSpinBox(this);
     m_spin->setRange(0, UCHAR_MAX);
     m_spin->setValue(0);
-    m_spin->setMinimumWidth(38);
+    m_spin->setMinimumWidth(30);
     m_spin->setButtonSymbols(QAbstractSpinBox::NoButtons);
     m_spin->setStyle(AppUtil::saneStyle());
     layout()->addWidget(m_spin);

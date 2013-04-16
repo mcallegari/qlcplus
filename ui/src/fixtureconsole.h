@@ -54,13 +54,14 @@ public:
         GroupOdd
     };
 
-    FixtureConsole(QWidget* parent, Doc* doc, GroupType type = GroupNone);
+    FixtureConsole(QWidget* parent, Doc* doc, GroupType type = GroupNone, bool showCheck = true);
     ~FixtureConsole();
 
 private:
     Doc* m_doc;
     GroupType m_groupType;
     QHBoxLayout* m_layout;
+    bool m_showCheckBoxes;
 
     /*********************************************************************
      * Fixture

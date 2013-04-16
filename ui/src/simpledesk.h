@@ -27,6 +27,7 @@
 #include <QWidget>
 #include <QList>
 #include <QHash>
+#include <QScrollArea>
 
 #define KXMLQLCSimpleDesk "SimpleDesk"
 
@@ -73,8 +74,8 @@ private:
 
     /** Initialize the simple desk view components */
     void initView();
-    void initLeftSide();
-    void initRightSide();
+    void initTopSide();
+    void initBottomSide();
 
 private:
     static SimpleDesk* s_instance;
@@ -90,9 +91,11 @@ private:
     void initUniverseSliders();
     void initUniversePager();
     void resetUniverseSliders();
+    void initSliderView(bool fullMode);
 
 private slots:
     void slotUniversesComboChanged(int index);
+    void slotViewModeClicked(bool toggle);
     void slotUniversePageUpClicked();
     void slotUniversePageDownClicked();
     void slotUniversePageChanged(int page);
@@ -104,11 +107,13 @@ private slots:
 private:
     QGroupBox* m_universeGroup;
     QComboBox* m_universesCombo;
+    QToolButton* m_viewModeButton;
     QToolButton* m_universePageUpButton;
     QSpinBox* m_universePageSpin;
     QToolButton* m_universePageDownButton;
     QToolButton* m_universeResetButton;
     GrandMasterSlider* m_grandMasterSlider;
+    QScrollArea* scrollArea;
 
     QList <ConsoleChannel*> m_universeSliders;
 
