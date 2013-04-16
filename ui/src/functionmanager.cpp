@@ -148,45 +148,42 @@ void FunctionManager::slotDocClearing()
 void FunctionManager::slotDocLoaded()
 {
     // Once the doc is completely loaded, update all the steps of Chasers acting like sequences
-    foreach (Function *f, m_doc->functions())
+    foreach (Function *f, m_doc->functionsByType(Function::Chaser))
     {
-        if (f->type() == Function::Chaser)
+        Chaser *chaser = qobject_cast<Chaser *>(f);
+        if (chaser->isSequence() && chaser->getBoundedSceneID() != Scene::invalidId())
         {
-            Chaser *chaser = qobject_cast<Chaser *>(f);
-            if (chaser->isSequence() && chaser->getBoundedSceneID() != Scene::invalidId())
+            Function *f = m_doc->function(chaser->getBoundedSceneID());
+            Scene *s = qobject_cast<Scene*>(f);
+            int i = 0;
+            foreach(ChaserStep step, chaser->steps())
             {
-                Function *f = m_doc->function(chaser->getBoundedSceneID());
-                Scene *s = qobject_cast<Scene*>(f);
-                int i = 0;
-                foreach(ChaserStep step, chaser->steps())
+                if (step.values.count() > 0)
                 {
-                    if (step.values.count() > 0)
+                    // Since I saved only the non-zero values in the XML files, at the first chance I need
+                    // to fix the values against the bounded scene, and restore all the zero values previously there
+                    qDebug() << Q_FUNC_INFO << "Scene values: " << s->values().count() << ", step values: " <<  step.values.count();
+                    if (s->values().count() != step.values.count())
                     {
-                        // Since I saved only the non-zero values in the XML files, at the first chance I need
-                        // to fix the values against the bounded scene, and restore all the zero values previously there
-                        qDebug() << Q_FUNC_INFO << "Scene values: " << s->values().count() << ", step values: " <<  step.values.count();
-                        if (s->values().count() != step.values.count())
+                        int j = 0;
+                        // 1- copy the list
+                        QList <SceneValue> tmpList = step.values;
+                        // 2- clear it
+                        step.values.clear();
+                        // 3- fix it
+                        QListIterator <SceneValue> it(s->values());
+                        while (it.hasNext() == true)
                         {
-                            int j = 0;
-                            // 1- copy the list
-                            QList <SceneValue> tmpList = step.values;
-                            // 2- clear it
-                            step.values.clear();
-                            // 3- fix it
-                            QListIterator <SceneValue> it(s->values());
-                            while (it.hasNext() == true)
-                            {
-                                SceneValue scv(it.next());
-                                scv.value = 0;
-                                if (j < tmpList.count() && tmpList.at(j) == scv)
-                                    step.values.append(tmpList.at(j++));
-                                else
-                                    step.values.append(scv);
-                            }
-                            chaser->replaceStep(step, i);
-                            //qDebug() << "************ STEP FIXED *********** total values: " << step.values.count();
-                            i++;
+                            SceneValue scv(it.next());
+                            scv.value = 0;
+                            if (j < tmpList.count() && tmpList.at(j) == scv)
+                                step.values.append(tmpList.at(j++));
+                            else
+                                step.values.append(scv);
                         }
+                        chaser->replaceStep(step, i);
+                        //qDebug() << "************ STEP FIXED *********** total values: " << step.values.count();
+                        i++;
                     }
                 }
             }
@@ -704,13 +701,26 @@ void FunctionManager::deleteSelectedFunctions()
     {
         QTreeWidgetItem* item(it.next());
         quint32 fid = itemFunctionId(item);
+        m_doc->deleteFunction(fid);
+
+        QTreeWidgetItem* parent = item->parent();
+        delete item;
+        if (parent != NULL && parent->childCount() == 0)
+            delete parent;
+    }
+/*
+    QListIterator <QTreeWidgetItem*> it(m_tree->selectedItems());
+    while (it.hasNext() == true)
+    {
+        QTreeWidgetItem* item(it.next());
+        quint32 fid = itemFunctionId(item);
 
         Function *f = m_doc->function(fid);
         if (f != NULL && f->type() == Function::Scene)
         {
             foreach (Function* function, m_doc->functions())
             {
-                /** Search for Show tracks associated to Scenes */
+                // Search for Show tracks associated to Scenes
                 if (function->type() == Function::Show)
                 {
                     Show *show = qobject_cast<Show*>(function);
@@ -720,7 +730,7 @@ void FunctionManager::deleteSelectedFunctions()
                             show->removeTrack(track->id());
                     }
                 }
-                /** Search for Sequences associated to Scenes */
+                // Search for Sequences associated to Scenes
                 if (function->type() == Function::Chaser)
                 {
                     Chaser *chaser = qobject_cast<Chaser*>(function);
@@ -739,6 +749,7 @@ void FunctionManager::deleteSelectedFunctions()
         if (parent != NULL && parent->childCount() == 0)
             delete parent;
     }
+*/
 }
 
 void FunctionManager::slotTreeSelectionChanged()

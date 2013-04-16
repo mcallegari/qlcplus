@@ -255,8 +255,6 @@ void MultiTrackView::addAudio(Audio *audio)
 
 quint32 MultiTrackView::deleteSelectedFunction()
 {
-    int i = 0;
-
     foreach(SequenceItem *item, m_sequences)
     {
         if (item->isSelected() == true)
@@ -270,13 +268,12 @@ quint32 MultiTrackView::deleteSelectedFunction()
             {
                 quint32 fID = item->getChaser()->id();
                 m_scene->removeItem(item);
-                m_sequences.removeAt(i);
+                m_sequences.removeOne(item);
                 return fID;
             }
         }
-        i++;
     }
-    i = 0;
+
     foreach(AudioItem *item, m_audio)
     {
         if (item->isSelected() == true)
@@ -291,15 +288,13 @@ quint32 MultiTrackView::deleteSelectedFunction()
             {
                 quint32 fID = item->getAudio()->id();
                 m_scene->removeItem(item);
-                m_audio.removeAt(i);
+                m_audio.removeOne(item);
                 return fID;
             }
             return Function::invalidId();
         }
-        i++;
     }
 
-    i = 0;
     foreach(TrackItem *item, m_tracks)
     {
         if (item->isActive() == true)
@@ -325,11 +320,11 @@ quint32 MultiTrackView::deleteSelectedFunction()
                                   == QMessageBox::Yes)
             {
                 m_scene->removeItem(item);
-                m_tracks.removeAt(i);
+                m_tracks.removeOne(item);
                 return fID;
             }
+            return Function::invalidId();
         }
-        i++;
     }
 
     return Function::invalidId();

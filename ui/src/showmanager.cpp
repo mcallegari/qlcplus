@@ -298,14 +298,11 @@ void ShowManager::updateShowsCombo()
             this, SLOT(slotShowsComboChanged(int)));
 
     m_showsCombo->clear();
-    foreach (Function* function, m_doc->functions())
+    foreach (Function* f, m_doc->functionsByType(Function::Show))
     {
-        if (function->type() == Function::Show)
-        {
-            m_showsCombo->addItem(function->name(), QVariant(function->id()));
-            if (m_show != NULL && m_show->id() != function->id())
-                newIndex++;
-        }
+        m_showsCombo->addItem(f->name(), QVariant(f->id()));
+        if (m_show != NULL && m_show->id() != f->id())
+            newIndex++;
     }
     if (m_showsCombo->count() > 0)
     {
@@ -618,9 +615,13 @@ void ShowManager::slotDelete()
                 currTrack->removeFunctionID(deleteID);
         }
         else
+        {
             m_show->removeTrack(deleteID);
+            m_doc->setModified();
+            updateMultiTrackView();
+        }
 
-        m_doc->deleteFunction(deleteID);
+        //m_doc->deleteFunction(deleteID);
     }
 }
 
@@ -860,16 +861,25 @@ void ShowManager::slotFunctionChanged(quint32 id)
 
 void ShowManager::slotFunctionRemoved(quint32 id)
 {
-    /** If the deleted function was a Chaser, find and delete all the
-     *  associated Sequences */
-    foreach (Function* function, m_doc->functions())
+    /* Here we handle only the cases where 'id' */
+    /* is a Scene (Track) or a Chaser (Sequence) */
+    foreach (Function *function, m_doc->functionsByType(Function::Show))
     {
-        if (function->type() == Function::Chaser)
+        Show *show = qobject_cast<Show*>(function);
+        foreach(Track *track, show->tracks())
         {
-            Chaser *chaser = qobject_cast<Chaser*>(function);
-            if (chaser->isSequence() && chaser->getBoundedSceneID() == id)
+            // if 'id' is a track, remove all the functions associated to it
+            if (track->id() == id)
             {
-                m_doc->deleteFunction(chaser->id());
+                foreach (quint32 fid, track->functionsID())
+                {
+                    track->removeFunctionID(fid);
+                }
+            }
+            // if 'id' is a sequence or an audio item then remove it
+            else
+            {
+                track->removeFunctionID(id);
             }
         }
     }
@@ -879,7 +889,8 @@ void ShowManager::slotFunctionRemoved(quint32 id)
     if (m_scene != NULL && m_scene->id() == id)
         m_scene = NULL;
 
-    updateMultiTrackView();
+    if (isVisible())
+        updateMultiTrackView();
 }
 
 void ShowManager::updateMultiTrackView()

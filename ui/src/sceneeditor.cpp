@@ -213,19 +213,14 @@ void SceneEditor::init(bool applyValues)
     m_chaserCombo = new QComboBox(this);
     m_chaserCombo->addItem(tr("None"), Function::invalidId());
     slotChaserComboActivated(0);
-    QListIterator <Function*> fit(m_doc->functions());
-    while (fit.hasNext() == true)
+    foreach (Function *function, m_doc->functionsByType(Function::Chaser))
     {
-        Function* function(fit.next());
-        if (function->type() == Function::Chaser)
+        m_chaserCombo->addItem(function->name(), function->id());
+        if (function->id() == selectId)
         {
-            m_chaserCombo->addItem(function->name(), function->id());
-            if (function->id() == selectId)
-            {
-                int index = m_chaserCombo->count() - 1;
-                m_chaserCombo->setCurrentIndex(index);
-                slotChaserComboActivated(index);
-            }
+            int index = m_chaserCombo->count() - 1;
+            m_chaserCombo->setCurrentIndex(index);
+            slotChaserComboActivated(index);
         }
     }
 

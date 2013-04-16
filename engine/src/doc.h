@@ -363,6 +363,13 @@ public:
     QList <Function*> functions() const;
 
     /**
+     * Get a list of currently available functions by type
+     *
+     * @return List of functions by type
+     */
+    QList <Function*> functionsByType(Function::Type type) const;
+
+    /**
      * Delete the given function
      *
      * @param id The ID of the function to delete

@@ -611,6 +611,17 @@ QList <Function*> Doc::functions() const
     return m_functions.values();
 }
 
+QList<Function *> Doc::functionsByType(Function::Type type) const
+{
+    QList <Function*> list;
+    foreach(Function *f, m_functions)
+    {
+        if (f != NULL && f->type() == type)
+            list.append(f);
+    }
+    return list;
+}
+
 bool Doc::deleteFunction(quint32 id)
 {
     if (m_functions.contains(id) == true)
