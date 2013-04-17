@@ -55,6 +55,7 @@ fixtures.files += Clay-Paky-Alpha-Beam-300.qxf
 fixtures.files += Clay-Paky-Atlas.qxf
 fixtures.files += Clay-Paky-Mini-Scan-HPE.qxf
 fixtures.files += Elation-Color-Spot-150.qxf
+fixtures.files += Elation-EVC-MH.qxf
 fixtures.files += Elation-Platinum-Spot-5R.qxf
 fixtures.files += Elation-Vision-250.qxf
 fixtures.files += Electroconcept-PAR-56-LED-Full-RGB-18x3W.qxf
