@@ -99,7 +99,7 @@ void ConsoleChannel::init()
     m_spin = new QSpinBox(this);
     m_spin->setRange(0, UCHAR_MAX);
     m_spin->setValue(0);
-    m_spin->setMinimumWidth(30);
+    m_spin->setMinimumWidth(25);
     m_spin->setButtonSymbols(QAbstractSpinBox::NoButtons);
     m_spin->setStyle(AppUtil::saneStyle());
     layout()->addWidget(m_spin);
@@ -153,7 +153,7 @@ void ConsoleChannel::init()
     */
     /* Channel number label */
     m_label = new QLabel(this);
-    m_label->setMinimumWidth(38);
+    m_label->setMinimumWidth(25);
     m_label->setMaximumWidth(80);
     layout()->addWidget(m_label);
     m_label->setAlignment(Qt::AlignCenter);

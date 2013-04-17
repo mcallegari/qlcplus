@@ -175,21 +175,23 @@ void SimpleDesk::initTopSide()
 
     m_viewModeButton = new QToolButton(this);
     m_viewModeButton->setIcon(QIcon(":/tabview.png"));
-    m_viewModeButton->setIconSize(QSize(32, 32));
-    m_viewModeButton->setMaximumSize(QSize(32, 32));
+    m_viewModeButton->setIconSize(QSize(24, 24));
+    m_viewModeButton->setMinimumSize(QSize(36, 36));
+    m_viewModeButton->setMaximumSize(QSize(36, 36));
     m_viewModeButton->setToolTip(tr("View mode"));
     m_viewModeButton->setCheckable(true);
     uniLay->addWidget(m_viewModeButton);
 
     m_universePageDownButton = new QToolButton(this);
     m_universePageDownButton->setIcon(QIcon(":/back.png"));
-    m_universePageDownButton->setIconSize(QSize(32, 32));
-    m_universePageDownButton->setMaximumSize(QSize(32, 32));
+    m_universePageDownButton->setIconSize(QSize(24, 24));
+    m_universePageDownButton->setMinimumSize(QSize(36, 36));
+    m_universePageDownButton->setMaximumSize(QSize(36, 36));
     m_universePageDownButton->setToolTip(tr("Previous page"));
     uniLay->addWidget(m_universePageDownButton);
 
     m_universePageSpin = new QSpinBox(this);
-    m_universePageSpin->setMaximumSize(QSize(40, 32));
+    m_universePageSpin->setMaximumSize(QSize(40, 34));
     m_universePageSpin->setButtonSymbols(QAbstractSpinBox::NoButtons);
     m_universePageSpin->setAlignment(Qt::AlignCenter);
     m_universePageSpin->setWrapping(true);
@@ -198,15 +200,17 @@ void SimpleDesk::initTopSide()
 
     m_universePageUpButton = new QToolButton(this);
     m_universePageUpButton->setIcon(QIcon(":/forward.png"));
-    m_universePageUpButton->setIconSize(QSize(32, 32));
-    m_universePageUpButton->setMaximumSize(QSize(32, 32));
+    m_universePageUpButton->setIconSize(QSize(24, 24));
+    m_universePageUpButton->setMinimumSize(QSize(36, 36));
+    m_universePageUpButton->setMaximumSize(QSize(36, 36));
     m_universePageUpButton->setToolTip(tr("Next page"));
     uniLay->addWidget(m_universePageUpButton);
 
     m_universeResetButton = new QToolButton(this);
     m_universeResetButton->setIcon(QIcon(":/fileclose.png"));
-    m_universeResetButton->setIconSize(QSize(32, 32));
-    m_universeResetButton->setMaximumSize(QSize(32, 32));
+    m_universeResetButton->setIconSize(QSize(24, 24));
+    m_universeResetButton->setMinimumSize(QSize(36, 36));
+    m_universeResetButton->setMaximumSize(QSize(36, 36));
     m_universeResetButton->setToolTip(tr("Reset universe"));
     uniLay->addWidget(m_universeResetButton);
 
@@ -400,8 +404,15 @@ void SimpleDesk::initSliderView(bool fullMode)
             else
                 console = new FixtureConsole(scrollArea, m_doc, FixtureConsole::GroupEven, false);
             console->setFixture(fixture->id());
-            //console->setSceneValue(scv);
+            quint32 absoluteAddr = fixture->universeAddress();
+            for (quint32 i = 0; i < fixture->channels(); i++)
+            {
+                SceneValue scv(fixture->id(), i, m_engine->value(absoluteAddr + i));
+                console->setSceneValue(scv);
+            }
             fixturesLayout->addWidget(console);
+            connect(console, SIGNAL(valueChanged(quint32,quint32,uchar)),
+                    this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
             c++;
         }
         fixturesLayout->addStretch(1);
@@ -554,7 +565,7 @@ void SimpleDesk::slotUniverseResetClicked()
         slotUniversePageChanged(1);
 }
 
-void SimpleDesk::slotUniverseSliderValueChanged(quint32,quint32,uchar value)
+void SimpleDesk::slotUniverseSliderValueChanged(quint32 fid, quint32 chan, uchar value)
 {
     QVariant var(sender()->property(PROP_ADDRESS));
     if (var.isValid() == true) // Not true with disabled sliders
@@ -563,6 +574,18 @@ void SimpleDesk::slotUniverseSliderValueChanged(quint32,quint32,uchar value)
 
         if (m_editCueStackButton->isChecked() == true)
             replaceCurrentCue();
+    }
+    else // calculate the absolute address from the given parameters
+    {
+        Fixture *fixture = m_doc->fixture(fid);
+        if (fixture != NULL)
+        {
+            quint32 absoluteAddr = fixture->universeAddress();
+            m_engine->setValue(absoluteAddr + chan, value);
+
+            if (m_editCueStackButton->isChecked() == true)
+                replaceCurrentCue();
+        }
     }
 }
 
