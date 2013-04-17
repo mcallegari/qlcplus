@@ -33,6 +33,37 @@
 
 #define TIMER_INTERVAL 50
 
+static bool compareFunctions(const Function *f1, const Function *f2)
+{
+    if (f1 == NULL || f2 == NULL)
+        return false;
+
+    quint32 st1 = 0;
+    quint32 st2 = 0;
+    if (f1->type() == Function::Audio)
+    {
+        st1 = (qobject_cast<const Audio*> (f1))->getStartTime();
+    }
+    else
+    {
+        st1 = (qobject_cast<const Chaser*> (f1))->getStartTime();
+    }
+
+    if (f2->type() == Function::Audio)
+    {
+        st2 = (qobject_cast<const Audio*> (f2))->getStartTime();
+    }
+    else
+    {
+        st2 = (qobject_cast<const Chaser*> (f2))->getStartTime();
+    }
+
+    if (st1 < st2)
+        return true;
+    else
+        return false;
+}
+
 ShowRunner::ShowRunner(const Doc* doc, quint32 showID)
     : QObject(NULL)
     , m_doc(doc)
@@ -90,7 +121,7 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID)
         }
     }
 
-    qSort(m_functions.begin(), m_functions.end());
+    qSort(m_functions.begin(), m_functions.end(), compareFunctions);
 
     m_runningQueue.clear();
 

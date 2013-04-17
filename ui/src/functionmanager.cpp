@@ -162,7 +162,7 @@ void FunctionManager::slotDocLoaded()
                 {
                     // Since I saved only the non-zero values in the XML files, at the first chance I need
                     // to fix the values against the bounded scene, and restore all the zero values previously there
-                    qDebug() << Q_FUNC_INFO << "Scene values: " << s->values().count() << ", step values: " <<  step.values.count();
+                    //qDebug() << Q_FUNC_INFO << "Scene values: " << s->values().count() << ", step values: " <<  step.values.count();
                     if (s->values().count() != step.values.count())
                     {
                         int j = 0;

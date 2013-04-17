@@ -1553,388 +1553,388 @@
   <Channel Number="254">Blue (15,14)</Channel>
   <Channel Number="255">White (15,15)</Channel>
   <Head>
-   <Channels>0</Channels>
-   <Channels>1</Channels>
-   <Channels>2</Channels>
-   <Channels>3</Channels>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
   </Head>
   <Head>
-   <Channels>4</Channels>
-   <Channels>5</Channels>
-   <Channels>6</Channels>
-   <Channels>7</Channels>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
   </Head>
   <Head>
-   <Channels>8</Channels>
-   <Channels>9</Channels>
-   <Channels>10</Channels>
-   <Channels>11</Channels>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
   </Head>
   <Head>
-   <Channels>12</Channels>
-   <Channels>13</Channels>
-   <Channels>14</Channels>
-   <Channels>15</Channels>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
   </Head>
   <Head>
-   <Channels>16</Channels>
-   <Channels>17</Channels>
-   <Channels>18</Channels>
-   <Channels>19</Channels>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
   </Head>
   <Head>
-   <Channels>20</Channels>
-   <Channels>21</Channels>
-   <Channels>22</Channels>
-   <Channels>23</Channels>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
   </Head>
   <Head>
-   <Channels>24</Channels>
-   <Channels>25</Channels>
-   <Channels>26</Channels>
-   <Channels>27</Channels>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
   </Head>
   <Head>
-   <Channels>28</Channels>
-   <Channels>29</Channels>
-   <Channels>30</Channels>
-   <Channels>31</Channels>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
   </Head>
   <Head>
-   <Channels>32</Channels>
-   <Channels>33</Channels>
-   <Channels>34</Channels>
-   <Channels>35</Channels>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
   </Head>
   <Head>
-   <Channels>36</Channels>
-   <Channels>37</Channels>
-   <Channels>38</Channels>
-   <Channels>39</Channels>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
   </Head>
   <Head>
-   <Channels>40</Channels>
-   <Channels>41</Channels>
-   <Channels>42</Channels>
-   <Channels>43</Channels>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
   </Head>
   <Head>
-   <Channels>44</Channels>
-   <Channels>45</Channels>
-   <Channels>46</Channels>
-   <Channels>47</Channels>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
   </Head>
   <Head>
-   <Channels>48</Channels>
-   <Channels>49</Channels>
-   <Channels>50</Channels>
-   <Channels>51</Channels>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
   </Head>
   <Head>
-   <Channels>52</Channels>
-   <Channels>53</Channels>
-   <Channels>54</Channels>
-   <Channels>55</Channels>
+   <Channel>52</Channel>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
   </Head>
   <Head>
-   <Channels>56</Channels>
-   <Channels>57</Channels>
-   <Channels>58</Channels>
-   <Channels>59</Channels>
+   <Channel>56</Channel>
+   <Channel>57</Channel>
+   <Channel>58</Channel>
+   <Channel>59</Channel>
   </Head>
   <Head>
-   <Channels>60</Channels>
-   <Channels>61</Channels>
-   <Channels>62</Channels>
-   <Channels>63</Channels>
+   <Channel>60</Channel>
+   <Channel>61</Channel>
+   <Channel>62</Channel>
+   <Channel>63</Channel>
   </Head>
   <Head>
-   <Channels>64</Channels>
-   <Channels>65</Channels>
-   <Channels>66</Channels>
-   <Channels>67</Channels>
+   <Channel>64</Channel>
+   <Channel>65</Channel>
+   <Channel>66</Channel>
+   <Channel>67</Channel>
   </Head>
   <Head>
-   <Channels>68</Channels>
-   <Channels>69</Channels>
-   <Channels>70</Channels>
-   <Channels>71</Channels>
+   <Channel>68</Channel>
+   <Channel>69</Channel>
+   <Channel>70</Channel>
+   <Channel>71</Channel>
   </Head>
   <Head>
-   <Channels>72</Channels>
-   <Channels>73</Channels>
-   <Channels>74</Channels>
-   <Channels>75</Channels>
+   <Channel>72</Channel>
+   <Channel>73</Channel>
+   <Channel>74</Channel>
+   <Channel>75</Channel>
   </Head>
   <Head>
-   <Channels>76</Channels>
-   <Channels>77</Channels>
-   <Channels>78</Channels>
-   <Channels>79</Channels>
+   <Channel>76</Channel>
+   <Channel>77</Channel>
+   <Channel>78</Channel>
+   <Channel>79</Channel>
   </Head>
   <Head>
-   <Channels>80</Channels>
-   <Channels>81</Channels>
-   <Channels>82</Channels>
-   <Channels>83</Channels>
+   <Channel>80</Channel>
+   <Channel>81</Channel>
+   <Channel>82</Channel>
+   <Channel>83</Channel>
   </Head>
   <Head>
-   <Channels>84</Channels>
-   <Channels>85</Channels>
-   <Channels>86</Channels>
-   <Channels>87</Channels>
+   <Channel>84</Channel>
+   <Channel>85</Channel>
+   <Channel>86</Channel>
+   <Channel>87</Channel>
   </Head>
   <Head>
-   <Channels>88</Channels>
-   <Channels>89</Channels>
-   <Channels>90</Channels>
-   <Channels>91</Channels>
+   <Channel>88</Channel>
+   <Channel>89</Channel>
+   <Channel>90</Channel>
+   <Channel>91</Channel>
   </Head>
   <Head>
-   <Channels>92</Channels>
-   <Channels>93</Channels>
-   <Channels>94</Channels>
-   <Channels>95</Channels>
+   <Channel>92</Channel>
+   <Channel>93</Channel>
+   <Channel>94</Channel>
+   <Channel>95</Channel>
   </Head>
   <Head>
-   <Channels>96</Channels>
-   <Channels>97</Channels>
-   <Channels>98</Channels>
-   <Channels>99</Channels>
+   <Channel>96</Channel>
+   <Channel>97</Channel>
+   <Channel>98</Channel>
+   <Channel>99</Channel>
   </Head>
   <Head>
-   <Channels>100</Channels>
-   <Channels>101</Channels>
-   <Channels>102</Channels>
-   <Channels>103</Channels>
+   <Channel>100</Channel>
+   <Channel>101</Channel>
+   <Channel>102</Channel>
+   <Channel>103</Channel>
   </Head>
   <Head>
-   <Channels>104</Channels>
-   <Channels>105</Channels>
-   <Channels>106</Channels>
-   <Channels>107</Channels>
+   <Channel>104</Channel>
+   <Channel>105</Channel>
+   <Channel>106</Channel>
+   <Channel>107</Channel>
   </Head>
   <Head>
-   <Channels>108</Channels>
-   <Channels>109</Channels>
-   <Channels>110</Channels>
-   <Channels>111</Channels>
+   <Channel>108</Channel>
+   <Channel>109</Channel>
+   <Channel>110</Channel>
+   <Channel>111</Channel>
   </Head>
   <Head>
-   <Channels>112</Channels>
-   <Channels>113</Channels>
-   <Channels>114</Channels>
-   <Channels>115</Channels>
+   <Channel>112</Channel>
+   <Channel>113</Channel>
+   <Channel>114</Channel>
+   <Channel>115</Channel>
   </Head>
   <Head>
-   <Channels>116</Channels>
-   <Channels>117</Channels>
-   <Channels>118</Channels>
-   <Channels>119</Channels>
+   <Channel>116</Channel>
+   <Channel>117</Channel>
+   <Channel>118</Channel>
+   <Channel>119</Channel>
   </Head>
   <Head>
-   <Channels>120</Channels>
-   <Channels>121</Channels>
-   <Channels>122</Channels>
-   <Channels>123</Channels>
+   <Channel>120</Channel>
+   <Channel>121</Channel>
+   <Channel>122</Channel>
+   <Channel>123</Channel>
   </Head>
   <Head>
-   <Channels>124</Channels>
-   <Channels>125</Channels>
-   <Channels>126</Channels>
-   <Channels>127</Channels>
+   <Channel>124</Channel>
+   <Channel>125</Channel>
+   <Channel>126</Channel>
+   <Channel>127</Channel>
   </Head>
   <Head>
-   <Channels>128</Channels>
-   <Channels>129</Channels>
-   <Channels>130</Channels>
-   <Channels>131</Channels>
+   <Channel>128</Channel>
+   <Channel>129</Channel>
+   <Channel>130</Channel>
+   <Channel>131</Channel>
   </Head>
   <Head>
-   <Channels>132</Channels>
-   <Channels>133</Channels>
-   <Channels>134</Channels>
-   <Channels>135</Channels>
+   <Channel>132</Channel>
+   <Channel>133</Channel>
+   <Channel>134</Channel>
+   <Channel>135</Channel>
   </Head>
   <Head>
-   <Channels>136</Channels>
-   <Channels>137</Channels>
-   <Channels>138</Channels>
-   <Channels>139</Channels>
+   <Channel>136</Channel>
+   <Channel>137</Channel>
+   <Channel>138</Channel>
+   <Channel>139</Channel>
   </Head>
   <Head>
-   <Channels>140</Channels>
-   <Channels>141</Channels>
-   <Channels>142</Channels>
-   <Channels>143</Channels>
+   <Channel>140</Channel>
+   <Channel>141</Channel>
+   <Channel>142</Channel>
+   <Channel>143</Channel>
   </Head>
   <Head>
-   <Channels>144</Channels>
-   <Channels>145</Channels>
-   <Channels>146</Channels>
-   <Channels>147</Channels>
+   <Channel>144</Channel>
+   <Channel>145</Channel>
+   <Channel>146</Channel>
+   <Channel>147</Channel>
   </Head>
   <Head>
-   <Channels>148</Channels>
-   <Channels>149</Channels>
-   <Channels>150</Channels>
-   <Channels>151</Channels>
+   <Channel>148</Channel>
+   <Channel>149</Channel>
+   <Channel>150</Channel>
+   <Channel>151</Channel>
   </Head>
   <Head>
-   <Channels>152</Channels>
-   <Channels>153</Channels>
-   <Channels>154</Channels>
-   <Channels>155</Channels>
+   <Channel>152</Channel>
+   <Channel>153</Channel>
+   <Channel>154</Channel>
+   <Channel>155</Channel>
   </Head>
   <Head>
-   <Channels>156</Channels>
-   <Channels>157</Channels>
-   <Channels>158</Channels>
-   <Channels>159</Channels>
+   <Channel>156</Channel>
+   <Channel>157</Channel>
+   <Channel>158</Channel>
+   <Channel>159</Channel>
   </Head>
   <Head>
-   <Channels>160</Channels>
-   <Channels>161</Channels>
-   <Channels>162</Channels>
-   <Channels>163</Channels>
+   <Channel>160</Channel>
+   <Channel>161</Channel>
+   <Channel>162</Channel>
+   <Channel>163</Channel>
   </Head>
   <Head>
-   <Channels>164</Channels>
-   <Channels>165</Channels>
-   <Channels>166</Channels>
-   <Channels>167</Channels>
+   <Channel>164</Channel>
+   <Channel>165</Channel>
+   <Channel>166</Channel>
+   <Channel>167</Channel>
   </Head>
   <Head>
-   <Channels>168</Channels>
-   <Channels>169</Channels>
-   <Channels>170</Channels>
-   <Channels>171</Channels>
+   <Channel>168</Channel>
+   <Channel>169</Channel>
+   <Channel>170</Channel>
+   <Channel>171</Channel>
   </Head>
   <Head>
-   <Channels>172</Channels>
-   <Channels>173</Channels>
-   <Channels>174</Channels>
-   <Channels>175</Channels>
+   <Channel>172</Channel>
+   <Channel>173</Channel>
+   <Channel>174</Channel>
+   <Channel>175</Channel>
   </Head>
   <Head>
-   <Channels>176</Channels>
-   <Channels>177</Channels>
-   <Channels>178</Channels>
-   <Channels>179</Channels>
+   <Channel>176</Channel>
+   <Channel>177</Channel>
+   <Channel>178</Channel>
+   <Channel>179</Channel>
   </Head>
   <Head>
-   <Channels>180</Channels>
-   <Channels>181</Channels>
-   <Channels>182</Channels>
-   <Channels>183</Channels>
+   <Channel>180</Channel>
+   <Channel>181</Channel>
+   <Channel>182</Channel>
+   <Channel>183</Channel>
   </Head>
   <Head>
-   <Channels>184</Channels>
-   <Channels>185</Channels>
-   <Channels>186</Channels>
-   <Channels>187</Channels>
+   <Channel>184</Channel>
+   <Channel>185</Channel>
+   <Channel>186</Channel>
+   <Channel>187</Channel>
   </Head>
   <Head>
-   <Channels>188</Channels>
-   <Channels>189</Channels>
-   <Channels>190</Channels>
-   <Channels>191</Channels>
+   <Channel>188</Channel>
+   <Channel>189</Channel>
+   <Channel>190</Channel>
+   <Channel>191</Channel>
   </Head>
   <Head>
-   <Channels>192</Channels>
-   <Channels>193</Channels>
-   <Channels>194</Channels>
-   <Channels>195</Channels>
+   <Channel>192</Channel>
+   <Channel>193</Channel>
+   <Channel>194</Channel>
+   <Channel>195</Channel>
   </Head>
   <Head>
-   <Channels>196</Channels>
-   <Channels>197</Channels>
-   <Channels>198</Channels>
-   <Channels>199</Channels>
+   <Channel>196</Channel>
+   <Channel>197</Channel>
+   <Channel>198</Channel>
+   <Channel>199</Channel>
   </Head>
   <Head>
-   <Channels>200</Channels>
-   <Channels>201</Channels>
-   <Channels>202</Channels>
-   <Channels>203</Channels>
+   <Channel>200</Channel>
+   <Channel>201</Channel>
+   <Channel>202</Channel>
+   <Channel>203</Channel>
   </Head>
   <Head>
-   <Channels>204</Channels>
-   <Channels>205</Channels>
-   <Channels>206</Channels>
-   <Channels>207</Channels>
+   <Channel>204</Channel>
+   <Channel>205</Channel>
+   <Channel>206</Channel>
+   <Channel>207</Channel>
   </Head>
   <Head>
-   <Channels>208</Channels>
-   <Channels>209</Channels>
-   <Channels>210</Channels>
-   <Channels>211</Channels>
+   <Channel>208</Channel>
+   <Channel>209</Channel>
+   <Channel>210</Channel>
+   <Channel>211</Channel>
   </Head>
   <Head>
-   <Channels>212</Channels>
-   <Channels>213</Channels>
-   <Channels>214</Channels>
-   <Channels>215</Channels>
+   <Channel>212</Channel>
+   <Channel>213</Channel>
+   <Channel>214</Channel>
+   <Channel>215</Channel>
   </Head>
   <Head>
-   <Channels>216</Channels>
-   <Channels>217</Channels>
-   <Channels>218</Channels>
-   <Channels>219</Channels>
+   <Channel>216</Channel>
+   <Channel>217</Channel>
+   <Channel>218</Channel>
+   <Channel>219</Channel>
   </Head>
   <Head>
-   <Channels>220</Channels>
-   <Channels>221</Channels>
-   <Channels>222</Channels>
-   <Channels>223</Channels>
+   <Channel>220</Channel>
+   <Channel>221</Channel>
+   <Channel>222</Channel>
+   <Channel>223</Channel>
   </Head>
   <Head>
-   <Channels>224</Channels>
-   <Channels>225</Channels>
-   <Channels>226</Channels>
-   <Channels>227</Channels>
+   <Channel>224</Channel>
+   <Channel>225</Channel>
+   <Channel>226</Channel>
+   <Channel>227</Channel>
   </Head>
   <Head>
-   <Channels>228</Channels>
-   <Channels>229</Channels>
-   <Channels>230</Channels>
-   <Channels>231</Channels>
+   <Channel>228</Channel>
+   <Channel>229</Channel>
+   <Channel>230</Channel>
+   <Channel>231</Channel>
   </Head>
   <Head>
-   <Channels>232</Channels>
-   <Channels>233</Channels>
-   <Channels>234</Channels>
-   <Channels>235</Channels>
+   <Channel>232</Channel>
+   <Channel>233</Channel>
+   <Channel>234</Channel>
+   <Channel>235</Channel>
   </Head>
   <Head>
-   <Channels>236</Channels>
-   <Channels>237</Channels>
-   <Channels>238</Channels>
-   <Channels>239</Channels>
+   <Channel>236</Channel>
+   <Channel>237</Channel>
+   <Channel>238</Channel>
+   <Channel>239</Channel>
   </Head>
   <Head>
-   <Channels>240</Channels>
-   <Channels>241</Channels>
-   <Channels>242</Channels>
-   <Channels>243</Channels>
+   <Channel>240</Channel>
+   <Channel>241</Channel>
+   <Channel>242</Channel>
+   <Channel>243</Channel>
   </Head>
   <Head>
-   <Channels>244</Channels>
-   <Channels>245</Channels>
-   <Channels>246</Channels>
-   <Channels>247</Channels>
+   <Channel>244</Channel>
+   <Channel>245</Channel>
+   <Channel>246</Channel>
+   <Channel>247</Channel>
   </Head>
   <Head>
-   <Channels>248</Channels>
-   <Channels>249</Channels>
-   <Channels>250</Channels>
-   <Channels>251</Channels>
+   <Channel>248</Channel>
+   <Channel>249</Channel>
+   <Channel>250</Channel>
+   <Channel>251</Channel>
   </Head>
   <Head>
-   <Channels>252</Channels>
-   <Channels>253</Channels>
-   <Channels>254</Channels>
-   <Channels>255</Channels>
+   <Channel>252</Channel>
+   <Channel>253</Channel>
+   <Channel>254</Channel>
+   <Channel>255</Channel>
   </Head>
  </Mode>
 </FixtureDefinition>
