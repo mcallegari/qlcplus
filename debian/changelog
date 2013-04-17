@@ -1,6 +1,7 @@
 qlcplus (4.3.3) stable; urgency=low
 
   * NEW: Added a window to exclude the desired fixture channels from fade transitions
+  * NEW: Added status "LED" to Virtual Console buttons
   * NEW: Added Click And Go functionality for CMY fixtures
   * NEW: Added list of recent project files (long press open icon to activate it)
   * NEW: Added "Snap to Grid" functionality in Show manager

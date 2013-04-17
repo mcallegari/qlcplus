@@ -881,7 +881,7 @@ void VCButton::paintEvent(QPaintEvent* e)
     else
         option.state= QStyle::State_Raised;
 
-    /* Custom icons are always enabled, to see them in fuill color also in design mode */
+    /* Custom icons are always enabled, to see them in full color also in design mode */
     if (m_action == Toggle || m_action == Flash)
         option.state |= QStyle::State_Enabled;
 
@@ -891,6 +891,8 @@ void VCButton::paintEvent(QPaintEvent* e)
 
     /* Paint the button */
     QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+
     style()->drawControl(QStyle::CE_PushButton, &option, &painter, this);
 
     /* Paint caption with text wrapping */
@@ -908,9 +910,21 @@ void VCButton::paintEvent(QPaintEvent* e)
     if (m_action == Flash)
     {
         QIcon icon(":/flash.png");
-        painter.drawPixmap(rect().width() - 16, 0,
+        painter.drawPixmap(rect().width() - 18, 2,
                            icon.pixmap(QSize(16, 16), QIcon::Normal, QIcon::On));
     }
+
+    painter.setPen(QPen(QColor(160, 160, 160, 255), 2));
+
+    if (isOn() == true)
+        painter.setBrush(QBrush(QColor(0, 230, 0, 255)));
+    else
+        painter.setBrush(QBrush(QColor(110, 110, 110, 255)));
+
+    int diameter = rect().width() / 6;
+    if (diameter > 14) diameter = 14;
+
+    painter.drawEllipse(6, 6, diameter, diameter);
 
     /* Stop painting here */
     painter.end();
