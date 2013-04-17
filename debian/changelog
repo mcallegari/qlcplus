@@ -12,6 +12,7 @@ qlcplus (4.3.3) stable; urgency=low
   * Added fixtures: American DJ 64B LED PRO, American DJ Profile Panel RGB
   * Added fixture: Chauvet Gyser RGB (thanks to George Qualley)
   * Added fixture: Martin MAC250 Entour (thanks to Jannik Dam Kehlet)
+  * Added fixtures: American DJ Accu UFO, American DJ Double Phase, American DJ FREQ 16 Strobe, American DJ Quad Phase, American DJ Revo4 256 CH (thanks to David Kuder)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 30 Apr 2013 12:12:42 +0200
 
