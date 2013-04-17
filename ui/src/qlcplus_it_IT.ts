@@ -320,7 +320,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="addvcbuttonmatrix.ui" line="173"/>
         <source>Frame</source>
-        <translation>Cronice</translation>
+        <translation>Cornice</translation>
     </message>
     <message>
         <location filename="addvcbuttonmatrix.ui" line="179"/>
@@ -772,7 +772,7 @@ Il file selezionato è stato spostato o eliminato.</translation>
 <context>
     <name>AudioItem</name>
     <message>
-        <location filename="sceneitems.cpp" line="599"/>
+        <location filename="sceneitems.cpp" line="618"/>
         <source>Start time: %1
 Duration: %2
 %3</source>
@@ -781,28 +781,28 @@ Durata: %2
 %3</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="602"/>
+        <location filename="sceneitems.cpp" line="621"/>
         <source>Click to move this audio across the timeline</source>
         <translation>Clicca per muovere l&apos;audio lungo la linea temporale</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="616"/>
-        <location filename="sceneitems.cpp" line="952"/>
+        <location filename="sceneitems.cpp" line="635"/>
+        <location filename="sceneitems.cpp" line="971"/>
         <source>Preview Left Channel</source>
         <translation>Anteprima Canale Sinistro</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="620"/>
+        <location filename="sceneitems.cpp" line="639"/>
         <source>Preview Right Channel</source>
         <translation>Anteprima Canale Destro</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="624"/>
+        <location filename="sceneitems.cpp" line="643"/>
         <source>Preview Stereo Channels</source>
         <translation>Anteprima Canali Stereo</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="948"/>
+        <location filename="sceneitems.cpp" line="967"/>
         <source>Preview Mono</source>
         <translation>Anteprima Mono</translation>
     </message>
@@ -1984,92 +1984,92 @@ Durata: %2
 <context>
     <name>FunctionManager</name>
     <message>
-        <location filename="functionmanager.cpp" line="241"/>
+        <location filename="functionmanager.cpp" line="238"/>
         <source>New &amp;scene</source>
         <translation>Nuova &amp;scena</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="247"/>
+        <location filename="functionmanager.cpp" line="244"/>
         <source>New c&amp;haser</source>
         <translation>Nuovo c&amp;haser</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="253"/>
+        <location filename="functionmanager.cpp" line="250"/>
         <source>New se&amp;quence</source>
         <translation>Nuova se&amp;quenza</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="260"/>
+        <location filename="functionmanager.cpp" line="257"/>
         <source>New c&amp;ollection</source>
         <translation>Nuova c&amp;ollezione</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="266"/>
+        <location filename="functionmanager.cpp" line="263"/>
         <source>New E&amp;FX</source>
         <translation>Nuovo E&amp;FX</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="272"/>
+        <location filename="functionmanager.cpp" line="269"/>
         <source>New &amp;RGB Matrix</source>
         <translation>Nuova Matrice &amp;RGB</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="278"/>
+        <location filename="functionmanager.cpp" line="275"/>
         <source>New scrip&amp;t</source>
         <translation>Nuovo Scrip&amp;t</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="284"/>
+        <location filename="functionmanager.cpp" line="281"/>
         <source>Function Wizard</source>
         <translation>Assistente per le Funzioni</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="338"/>
+        <location filename="functionmanager.cpp" line="335"/>
         <source>New Scene</source>
         <translation>Nuova Scena</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="351"/>
+        <location filename="functionmanager.cpp" line="348"/>
         <source>New Chaser</source>
         <translation>Nuovo Chaser</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="374"/>
+        <location filename="functionmanager.cpp" line="371"/>
         <source>New Sequence</source>
         <translation>Nuova Sequenza</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="796"/>
+        <location filename="functionmanager.cpp" line="807"/>
         <source>Copy of %1</source>
         <translation>Copia di %1</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="291"/>
+        <location filename="functionmanager.cpp" line="288"/>
         <source>&amp;Clone</source>
         <translation>&amp;Clona</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="297"/>
+        <location filename="functionmanager.cpp" line="294"/>
         <source>&amp;Delete</source>
         <translation>&amp;Elimina</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="303"/>
+        <location filename="functionmanager.cpp" line="300"/>
         <source>Select &amp;all</source>
         <translation>Seleziona &amp;Tutto</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="448"/>
+        <location filename="functionmanager.cpp" line="445"/>
         <source>Do you want to DELETE functions:</source>
         <translation>Vuoi CANCELLARE le funzioni:</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="455"/>
+        <location filename="functionmanager.cpp" line="452"/>
         <source>Delete Functions</source>
         <translation>CAncella Funzioni</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="536"/>
+        <location filename="functionmanager.cpp" line="533"/>
         <source>Function</source>
         <translation>Funzione</translation>
     </message>
@@ -2671,20 +2671,20 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
 <context>
     <name>MultiTrackView</name>
     <message>
-        <location filename="multitrackview.cpp" line="202"/>
+        <location filename="multitrackview.cpp" line="201"/>
         <location filename="multitrackview.cpp" line="541"/>
         <location filename="multitrackview.cpp" line="583"/>
         <source>Click to move this sequence across the timeline</source>
         <translation>Clicca per muovere la sequenza lungo la linea temporale</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="238"/>
+        <location filename="multitrackview.cpp" line="237"/>
         <source>Click to move this audio across the timeline</source>
         <translation>Clicca per spostare questo audio lungo la linea temporale</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="199"/>
-        <location filename="multitrackview.cpp" line="235"/>
+        <location filename="multitrackview.cpp" line="198"/>
+        <location filename="multitrackview.cpp" line="234"/>
         <source>Start time: %1
 Duration: %2
 %3</source>
@@ -2693,29 +2693,29 @@ Durata: %2
 %3</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="265"/>
+        <location filename="multitrackview.cpp" line="262"/>
         <source>Do you want to DELETE sequence:</source>
         <translation>Vuoi ELIMINARE la sequenza:</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="268"/>
-        <location filename="multitrackview.cpp" line="289"/>
-        <location filename="multitrackview.cpp" line="323"/>
+        <location filename="multitrackview.cpp" line="265"/>
+        <location filename="multitrackview.cpp" line="285"/>
+        <location filename="multitrackview.cpp" line="319"/>
         <source>Delete Functions</source>
         <translation>Elimina Funzioni</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="285"/>
+        <location filename="multitrackview.cpp" line="281"/>
         <source>Do you want to DELETE audio (the source file will NOT be removed):</source>
         <translation>Vuoi ELIMINARE audio (il file sorgente NON verrà eliminato):</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="310"/>
+        <location filename="multitrackview.cpp" line="306"/>
         <source>Do you want to DELETE scene:</source>
         <translation>Vuoi ELIMINARE la scena:</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="313"/>
+        <location filename="multitrackview.cpp" line="309"/>
         <source>This operation will also DELETE:</source>
         <translation>Questa operazione ELIMINERA&apos; anche:</translation>
     </message>
@@ -3070,30 +3070,30 @@ Durata: %2
         <translation>Nessuno</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="591"/>
-        <location filename="sceneeditor.cpp" line="592"/>
+        <location filename="sceneeditor.cpp" line="586"/>
+        <location filename="sceneeditor.cpp" line="587"/>
         <source>All fixtures</source>
         <translation>Tutte le fixture</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1019"/>
-        <location filename="sceneeditor.cpp" line="1020"/>
+        <location filename="sceneeditor.cpp" line="1014"/>
+        <location filename="sceneeditor.cpp" line="1015"/>
         <source>Channels Groups</source>
         <translation>Gruppi di Canali</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="825"/>
-        <location filename="sceneeditor.cpp" line="826"/>
+        <location filename="sceneeditor.cpp" line="820"/>
+        <location filename="sceneeditor.cpp" line="821"/>
         <source>Generic</source>
         <translation>Generico</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="892"/>
+        <location filename="sceneeditor.cpp" line="887"/>
         <source>Remove fixtures</source>
         <translation>Elimina Fixture</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="893"/>
+        <location filename="sceneeditor.cpp" line="888"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Vuoi eliminare le fixture selezionate?</translation>
     </message>
@@ -3235,7 +3235,7 @@ Durata: %2
 <context>
     <name>SequenceItem</name>
     <message>
-        <location filename="sceneitems.cpp" line="419"/>
+        <location filename="sceneitems.cpp" line="438"/>
         <source>Start time: %1
 Duration: %2
 %3</source>
@@ -3244,7 +3244,7 @@ Durata: %2
 %3</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="422"/>
+        <location filename="sceneitems.cpp" line="441"/>
         <source>Click to move this sequence across the timeline</source>
         <translation>Clicca per muovere la sequenza lungo la linea temporale</translation>
     </message>
@@ -3360,62 +3360,62 @@ Durata: %2
         <translation>Tempo</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="408"/>
+        <location filename="showmanager.cpp" line="409"/>
         <source>New Show</source>
         <translation>Nuovo Show</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="410"/>
+        <location filename="showmanager.cpp" line="411"/>
         <source>Show name setup</source>
         <translation>Immissione nome Show</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="411"/>
+        <location filename="showmanager.cpp" line="412"/>
         <source>Show name:</source>
         <translation>Nome Show:</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="444"/>
+        <location filename="showmanager.cpp" line="445"/>
         <source>New Scene</source>
         <translation>Nuova Scena</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="474"/>
+        <location filename="showmanager.cpp" line="475"/>
         <source>New Sequence</source>
         <translation>Nuova Sequenza</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="488"/>
+        <location filename="showmanager.cpp" line="489"/>
         <source>Open Audio File</source>
         <translation>Apri File Audio</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="514"/>
+        <location filename="showmanager.cpp" line="515"/>
         <source>Audio Files (%1)</source>
         <translation>File Audio (%1)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="516"/>
+        <location filename="showmanager.cpp" line="517"/>
         <source>All Files (*.*)</source>
         <translation>Tutti i file (*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="518"/>
+        <location filename="showmanager.cpp" line="519"/>
         <source>All Files (*)</source>
         <translation>Tutti i File (*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="540"/>
+        <location filename="showmanager.cpp" line="541"/>
         <source>Unsupported audio file</source>
         <translation>File audio non supportato</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="540"/>
+        <location filename="showmanager.cpp" line="541"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation>Questo file audio non può essere riprodotto da QLC+. Spiacente.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="576"/>
+        <location filename="showmanager.cpp" line="577"/>
         <source>Copy of %1</source>
         <translation>Copia di %1</translation>
     </message>
@@ -3423,107 +3423,112 @@ Durata: %2
 <context>
     <name>SimpleDesk</name>
     <message>
-        <location filename="simpledesk.cpp" line="173"/>
+        <location filename="simpledesk.cpp" line="219"/>
         <source>Universe</source>
         <translation>Universo</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="197"/>
+        <location filename="simpledesk.cpp" line="206"/>
         <source>Next page</source>
         <translation>Pagina successiva</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="204"/>
+        <location filename="simpledesk.cpp" line="198"/>
         <source>Current page</source>
         <translation>Pagina corrente</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="210"/>
+        <location filename="simpledesk.cpp" line="190"/>
         <source>Previous page</source>
         <translation>Pagina precedente</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="216"/>
+        <location filename="simpledesk.cpp" line="181"/>
+        <source>View mode</source>
+        <translation>Modalità di visualizzazione</translation>
+    </message>
+    <message>
+        <location filename="simpledesk.cpp" line="214"/>
         <source>Reset universe</source>
         <translation>Resetta universo</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="225"/>
+        <location filename="simpledesk.cpp" line="255"/>
         <source>Playback</source>
         <translation>Riproduzione</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="242"/>
+        <location filename="simpledesk.cpp" line="262"/>
         <source>Cue Stack</source>
         <translation>Pila Azioni</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="252"/>
+        <location filename="simpledesk.cpp" line="272"/>
         <source>Previous cue</source>
         <translation>Azione precedente</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="258"/>
+        <location filename="simpledesk.cpp" line="278"/>
         <source>Stop cue stack</source>
         <translation>Ferma pila azioni</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="264"/>
+        <location filename="simpledesk.cpp" line="284"/>
         <source>Next cue</source>
         <translation>Azione successiva</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="272"/>
+        <location filename="simpledesk.cpp" line="292"/>
         <source>Clone cue stack</source>
         <translation>Clona pila azioni</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="278"/>
+        <location filename="simpledesk.cpp" line="298"/>
         <source>Edit cue stack</source>
         <translation>Modifica pila azioni</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="285"/>
+        <location filename="simpledesk.cpp" line="305"/>
         <source>Record cue</source>
         <translation>Registra azione</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="556"/>
+        <location filename="simpledesk.cpp" line="680"/>
         <source>Cue Stack - Playback %1</source>
         <translation>Pila azioni - Riproduzione %1</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="674"/>
+        <location filename="simpledesk.cpp" line="798"/>
         <source>No selection</source>
         <translation>Nessuna selezione</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="694"/>
+        <location filename="simpledesk.cpp" line="818"/>
         <source>Cue name</source>
         <translation>Nome azione</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="701"/>
+        <location filename="simpledesk.cpp" line="825"/>
         <source>Multiple Cues</source>
         <translation>Azioni multiple</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="798"/>
+        <location filename="simpledesk.cpp" line="922"/>
         <source>Delete cue</source>
         <translation>Elimina azione</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="852"/>
+        <location filename="simpledesk.cpp" line="976"/>
         <source>Clone Cue Stack</source>
         <translation>Clona pila azioni</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="852"/>
+        <location filename="simpledesk.cpp" line="976"/>
         <source>Clone To Playback#</source>
         <translation>Clona su riproduzione#</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="925"/>
+        <location filename="simpledesk.cpp" line="1049"/>
         <source>Cue %1</source>
         <translation>Azione %1</translation>
     </message>
