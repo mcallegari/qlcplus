@@ -914,6 +914,7 @@ void VCButton::paintEvent(QPaintEvent* e)
                            icon.pixmap(QSize(16, 16), QIcon::Normal, QIcon::On));
     }
 
+/*
     painter.setPen(QPen(QColor(160, 160, 160, 255), 2));
 
     if (isOn() == true)
@@ -921,10 +922,28 @@ void VCButton::paintEvent(QPaintEvent* e)
     else
         painter.setBrush(QBrush(QColor(110, 110, 110, 255)));
 
-    int diameter = rect().width() / 6;
-    if (diameter > 14) diameter = 14;
+    int dim = rect().width() / 6;
+    if (dim > 14) dim = 14;
 
-    painter.drawEllipse(6, 6, diameter, diameter);
+//    painter.drawEllipse(6, 6, dim, dim);      // Style #1
+    painter.drawRoundedRect(-1, -1, dim, dim, 3, 3);   // Style #2
+*/
+
+    // Style #3
+    painter.setBrush(Qt::NoBrush);
+
+    if (isOn() == true)
+    {
+        painter.setPen(QPen(QColor(20, 20, 20, 255), 4));
+        painter.drawRoundedRect(2, 2, rect().width() - 4, rect().height() - 4, 3, 3);
+        painter.setPen(QPen(QColor(0, 230, 0, 255), 2));
+        painter.drawRoundedRect(2, 2, rect().width() - 4, rect().height() - 4, 2, 2);
+    }
+    else
+    {
+        painter.setPen(QPen(QColor(160, 160, 160, 255), 3));
+        painter.drawRoundedRect(1, 1, rect().width() - 2, rect().height() - 2, 3, 3);
+    }
 
     /* Stop painting here */
     painter.end();
