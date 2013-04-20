@@ -52,6 +52,7 @@ Doc::Doc(QObject* parent, int outputUniverses, int inputUniverses)
     , m_inputMap(new InputMap(this, inputUniverses))
     , m_mode(Design)
     , m_kiosk(false)
+    , m_clipboard(new QLCClipboard(this))
     , m_latestFixtureId(0)
     , m_latestFixtureGroupId(0)
     , m_latestChannelsGroupId(0)
@@ -225,6 +226,15 @@ void Doc::setKiosk(bool state)
 bool Doc::isKiosk() const
 {
     return m_kiosk;
+}
+
+/*********************************************************************
+ * Clipboard
+ *********************************************************************/
+
+QLCClipboard *Doc::clipboard()
+{
+    return m_clipboard;
 }
 
 /*****************************************************************************

@@ -55,7 +55,7 @@ public:
      *********************************************************************/
 public:
     /** @reimpl */
-    virtual Function* createCopy(Doc* doc);
+    virtual Function* createCopy(Doc* doc, bool addToDoc = true);
 
     /** @reimpl */
     virtual bool copyFrom(const Function* function);

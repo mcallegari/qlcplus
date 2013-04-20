@@ -109,7 +109,8 @@ protected:
     QAction* m_addTrackAction;
     QAction* m_addSequenceAction;
     QAction* m_addAudioAction;
-    QAction* m_cloneAction;
+    QAction* m_copyAction;
+    QAction* m_pasteAction;
     QAction* m_deleteAction;
     QAction* m_colorAction;
     QAction* m_snapGridAction;
@@ -125,7 +126,8 @@ protected slots:
     void slotAddSequence();
     void slotAddAudio();
 
-    void slotClone();
+    void slotCopy();
+    void slotPaste();
     void slotDelete();
 
     /*********************************************************************

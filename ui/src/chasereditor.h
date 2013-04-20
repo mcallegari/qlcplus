@@ -88,7 +88,7 @@ private slots:
     void slotPasteClicked();
 
 private:
-    QList <ChaserStep> m_clipboard;
+    //QList <ChaserStep> m_clipboard;
     QAction* m_cutAction;
     QAction* m_copyAction;
     QAction* m_pasteAction;

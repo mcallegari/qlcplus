@@ -35,7 +35,7 @@ Function_Stub::~Function_Stub()
 {
 }
 
-Function* Function_Stub::createCopy(Doc* doc)
+Function* Function_Stub::createCopy(Doc* doc, bool addToDoc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -47,7 +47,7 @@ Function* Function_Stub::createCopy(Doc* doc)
         delete copy;
         copy = NULL;
     }
-    else if (doc->addFunction(copy) == false)
+    else if (addToDoc == true && doc->addFunction(copy) == false)
     {
         delete copy;
         copy = NULL;

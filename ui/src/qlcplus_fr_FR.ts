@@ -775,35 +775,36 @@ The selected file has been moved or deleted.</source>
 <context>
     <name>AudioItem</name>
     <message>
-        <location filename="sceneitems.cpp" line="618"/>
-        <source>Start time: %1
-Duration: %2
-%3</source>
+        <location filename="sceneitems.cpp" line="620"/>
+        <source>Name: %1
+Start time: %2
+Duration: %3
+%4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="621"/>
+        <location filename="sceneitems.cpp" line="624"/>
         <source>Click to move this audio across the timeline</source>
         <translation type="unfinished">Cliquez afin de déplacer la piste audio sur la timeline</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="635"/>
-        <location filename="sceneitems.cpp" line="971"/>
+        <location filename="sceneitems.cpp" line="639"/>
+        <location filename="sceneitems.cpp" line="975"/>
         <source>Preview Left Channel</source>
         <translation>Prévisualisation du Canal Gauche</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="639"/>
+        <location filename="sceneitems.cpp" line="643"/>
         <source>Preview Right Channel</source>
         <translation>Prévisualisation du Canal Droit</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="643"/>
+        <location filename="sceneitems.cpp" line="647"/>
         <source>Preview Stereo Channels</source>
         <translation>Prévisualisation Stéréo</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="967"/>
+        <location filename="sceneitems.cpp" line="971"/>
         <source>Preview Mono</source>
         <translation>Prévisualisation Mono</translation>
     </message>
@@ -950,13 +951,13 @@ Duration: %2
     </message>
     <message>
         <location filename="chasereditor.ui" line="55"/>
-        <location filename="chasereditor.cpp" line="747"/>
+        <location filename="chasereditor.cpp" line="773"/>
         <source>Fade In</source>
         <translation>Montée</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="65"/>
-        <location filename="chasereditor.cpp" line="748"/>
+        <location filename="chasereditor.cpp" line="774"/>
         <source>Fade Out</source>
         <translation>Descente</translation>
     </message>
@@ -977,7 +978,7 @@ Duration: %2
     </message>
     <message>
         <location filename="chasereditor.ui" line="60"/>
-        <location filename="chasereditor.cpp" line="749"/>
+        <location filename="chasereditor.cpp" line="775"/>
         <source>Hold</source>
         <translation>Maintien</translation>
     </message>
@@ -1161,37 +1162,47 @@ Duration: %2
         <translation>Arrière</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="77"/>
+        <location filename="chasereditor.cpp" line="78"/>
         <source>Cut</source>
         <translation>Couper</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="82"/>
+        <location filename="chasereditor.cpp" line="83"/>
         <source>Copy</source>
         <translation>Copier</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="87"/>
+        <location filename="chasereditor.cpp" line="88"/>
         <source>Paste</source>
         <translation>Coller</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="750"/>
+        <location filename="chasereditor.cpp" line="567"/>
+        <source>Paste error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="chasereditor.cpp" line="567"/>
+        <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="chasereditor.cpp" line="776"/>
         <source>Common Fade In</source>
         <translation>Montée Commune</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="751"/>
+        <location filename="chasereditor.cpp" line="777"/>
         <source>Common Fade Out</source>
         <translation>Descente Commune</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="752"/>
+        <location filename="chasereditor.cpp" line="778"/>
         <source>Common Hold</source>
         <translation>Maintien Commun</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="768"/>
+        <location filename="chasereditor.cpp" line="794"/>
         <source>Multiple Steps</source>
         <translation>Pas Multiples</translation>
     </message>
@@ -2674,13 +2685,13 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <name>MultiTrackView</name>
     <message>
         <location filename="multitrackview.cpp" line="201"/>
-        <location filename="multitrackview.cpp" line="541"/>
-        <location filename="multitrackview.cpp" line="583"/>
+        <location filename="multitrackview.cpp" line="544"/>
         <source>Click to move this sequence across the timeline</source>
         <translation>Cliquez afin de déplacer la séquence sur la timeline</translation>
     </message>
     <message>
         <location filename="multitrackview.cpp" line="237"/>
+        <location filename="multitrackview.cpp" line="589"/>
         <source>Click to move this audio across the timeline</source>
         <translation>Cliquez afin de déplacer la piste audio sur la timeline</translation>
     </message>
@@ -2720,12 +2731,13 @@ Duration: %2
         <translation>Ceci effacera aussi :</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="539"/>
-        <location filename="multitrackview.cpp" line="582"/>
-        <source>Start time: %1
-%2</source>
-        <translation>Temps Initial : %1
-%2</translation>
+        <location filename="multitrackview.cpp" line="540"/>
+        <location filename="multitrackview.cpp" line="585"/>
+        <source>Name: %1
+Start time: %2
+Duration: %3
+%4</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3236,13 +3248,17 @@ Duration: %2
     <name>SequenceItem</name>
     <message>
         <location filename="sceneitems.cpp" line="438"/>
-        <source>Start time: %1
+        <source>Name: %1
+Start time: %2
+Duration: %3
+%4</source>
+        <oldsource>Start time: %1
 Duration: %2
-%3</source>
+%3</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="441"/>
+        <location filename="sceneitems.cpp" line="442"/>
         <source>Click to move this sequence across the timeline</source>
         <translation type="unfinished">Cliquez afin de déplacer la séquence sur la timeline</translation>
     </message>
@@ -3298,124 +3314,142 @@ Duration: %2
 <context>
     <name>ShowManager</name>
     <message>
-        <location filename="showmanager.cpp" line="152"/>
+        <location filename="showmanager.cpp" line="153"/>
         <source>New s&amp;how</source>
         <translation>Nouveau S&amp;how</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="158"/>
+        <location filename="showmanager.cpp" line="159"/>
         <source>New &amp;track</source>
         <translation>Nouvelle Pis&amp;te</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="164"/>
+        <location filename="showmanager.cpp" line="165"/>
         <source>New s&amp;equence</source>
         <translation>Nouvelle Séqu&amp;ence</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="170"/>
+        <location filename="showmanager.cpp" line="171"/>
         <source>New &amp;audio</source>
         <translation>Nouvelle Piste &amp;audio</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="176"/>
-        <source>&amp;Clone</source>
-        <translation>&amp;Cloner</translation>
+        <location filename="showmanager.cpp" line="177"/>
+        <source>&amp;Copy</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="183"/>
+        <location filename="showmanager.cpp" line="184"/>
+        <source>&amp;Paste</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager.cpp" line="190"/>
         <source>&amp;Delete</source>
         <translation>Effacer (&amp;D)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="190"/>
+        <location filename="showmanager.cpp" line="197"/>
         <source>Change Co&amp;lor</source>
         <translation>Cou&amp;leur</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="197"/>
+        <location filename="showmanager.cpp" line="204"/>
         <source>Snap to &amp;Grid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="204"/>
+        <location filename="showmanager.cpp" line="211"/>
         <source>St&amp;op</source>
         <translation>St&amp;op</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="210"/>
+        <location filename="showmanager.cpp" line="217"/>
         <source>&amp;Play</source>
         <translation>Lecture (&amp;P)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="265"/>
+        <location filename="showmanager.cpp" line="273"/>
         <source>Time division:</source>
         <translation>Division temporelle :</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="270"/>
+        <location filename="showmanager.cpp" line="278"/>
         <source>Time</source>
         <translation>m:s</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="409"/>
+        <location filename="showmanager.cpp" line="425"/>
         <source>New Show</source>
         <translation>Nouveau Show</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="411"/>
+        <location filename="showmanager.cpp" line="427"/>
         <source>Show name setup</source>
         <translation>Définition du nom du Show</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="412"/>
+        <location filename="showmanager.cpp" line="428"/>
         <source>Show name:</source>
         <translation>Nom du Show :</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="445"/>
+        <location filename="showmanager.cpp" line="461"/>
         <source>New Scene</source>
         <translation>Nouvelle Scène</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="475"/>
+        <location filename="showmanager.cpp" line="491"/>
         <source>New Sequence</source>
         <translation>Nouvelle Séquence</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="489"/>
+        <location filename="showmanager.cpp" line="505"/>
         <source>Open Audio File</source>
         <translation>Ouvrir un fichier audio</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="515"/>
+        <location filename="showmanager.cpp" line="531"/>
         <source>Audio Files (%1)</source>
         <translation>Fichiers Audio (%1)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="517"/>
+        <location filename="showmanager.cpp" line="533"/>
         <source>All Files (*.*)</source>
         <translation>Tous les fichiers (*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="519"/>
+        <location filename="showmanager.cpp" line="535"/>
         <source>All Files (*)</source>
         <translation>Tous les fichiers (*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="541"/>
+        <location filename="showmanager.cpp" line="557"/>
         <source>Unsupported audio file</source>
         <translation>Fichier audio non pris en charge</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="541"/>
+        <location filename="showmanager.cpp" line="557"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation>QLC+ n&apos;arrive pas à lire ce fichier audio. Désolé.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="577"/>
-        <source>Copy of %1</source>
-        <translation>Copie de %1</translation>
+        <location filename="showmanager.cpp" line="627"/>
+        <location filename="showmanager.cpp" line="638"/>
+        <location filename="showmanager.cpp" line="657"/>
+        <source>Paste error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager.cpp" line="627"/>
+        <location filename="showmanager.cpp" line="638"/>
+        <source>Overlapping paste not allowed. Operation cancelled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager.cpp" line="657"/>
+        <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

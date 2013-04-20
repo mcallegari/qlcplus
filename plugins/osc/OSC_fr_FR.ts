@@ -54,16 +54,38 @@
         <translation>Ce greffon active les fonctions d&apos;entrée pour les périphériques supportant le protocole OSC.</translation>
     </message>
     <message>
+        <location filename="oscplugin.cpp" line="176"/>
+        <location filename="oscplugin.cpp" line="273"/>
+        <source>OSC Network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="oscplugin.cpp" line="187"/>
+        <source>Output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="oscplugin.cpp" line="190"/>
-        <location filename="oscplugin.cpp" line="284"/>
-        <source>Status: Not open</source>
-        <translation>Statut : Fermé</translation>
+        <location filename="oscplugin.cpp" line="287"/>
+        <source>Status: Not ready</source>
+        <oldsource>Status: Not open</oldsource>
+        <translation type="unfinished">Statut : Fermé</translation>
     </message>
     <message>
         <location filename="oscplugin.cpp" line="193"/>
-        <location filename="oscplugin.cpp" line="287"/>
-        <source>Status: Open</source>
-        <translation>Statut : Ouvert</translation>
+        <source>Address: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="oscplugin.cpp" line="196"/>
+        <location filename="oscplugin.cpp" line="290"/>
+        <source>Status: Ready</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="oscplugin.cpp" line="284"/>
+        <source>Input</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

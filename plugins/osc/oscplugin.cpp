@@ -1,5 +1,5 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   oscplugin.cpp
 
   Copyright (c) Massimo Callegari
@@ -173,7 +173,7 @@ QStringList OSCPlugin::outputs()
 {
     QStringList list;
     for (int i = 0; i < OSC_UNIVERSES; i++)
-        list << QString("%1: OSC Network %1").arg(i + 1);
+        list << QString("%1: %2 %1").arg(i + 1).arg(tr("OSC Network"));
     return list;
 }
 
@@ -184,13 +184,16 @@ QString OSCPlugin::outputInfo(quint32 output)
 
     QString str;
 
-    str += QString("<H3>%1</H3>").arg(outputs()[output]);
+    str += QString("<H3>%1 %2</H3>").arg(tr("Output")).arg(outputs()[output]);
     str += QString("<P>");
-    if (m_nodes[output].m_serv_thread == NULL)
-        str += tr("Status: Not open");
+    if (m_nodes[output].m_outAddrStr.isEmpty() == true)
+        str += tr("Status: Not ready");
     else
     {
-        str += tr("Status: Open");
+        str += tr("Address: ");
+        str += m_nodes[output].m_outAddrStr;
+        str += "<BR>";
+        str += tr("Status: Ready");
     }
     str += QString("</P>");
     str += QString("</BODY>");
@@ -267,7 +270,7 @@ QStringList OSCPlugin::inputs()
 {
     QStringList list;
     for (int i = 0; i < OSC_UNIVERSES; i++)
-        list << QString("%1: OSC Network %1").arg(i + 1);
+        list << QString("%1: %2 %1").arg(i + 1).arg(tr("OSC Network"));
     return list;
 }
 
@@ -278,13 +281,13 @@ QString OSCPlugin::inputInfo(quint32 input)
 
     QString str;
 
-    str += QString("<H3>%1</H3>").arg(inputs()[input]);
+    str += QString("<H3>%1 %2</H3>").arg(tr("Input")).arg(inputs()[input]);
     str += QString("<P>");
     if (m_nodes[input].m_serv_thread == NULL)
-        str += tr("Status: Not open");
+        str += tr("Status: Not ready");
     else
     {
-        str += tr("Status: Open");
+        str += tr("Status: Ready");
     }
     str += QString("</P>");
     str += QString("</BODY>");

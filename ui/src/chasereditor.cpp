@@ -43,6 +43,7 @@
 #include "chaser.h"
 #include "scene.h"
 #include "doc.h"
+#include <QMessageBox>
 
 #define SETTINGS_GEOMETRY "chasereditor/geometry"
 #define PROP_STEP Qt::UserRole
@@ -305,11 +306,11 @@ void ChaserEditor::slotAddClicked()
 
     if (m_chaser->isSequence() == true)
     {
-        ChaserStep step(m_chaser->getBoundedSceneID());
+        ChaserStep step(m_chaser->getBoundSceneID());
         QTreeWidgetItem* item = new QTreeWidgetItem;
         updateItem(item, step);
         // if this is the first step we add, then copy all DMX channels non-zero values
-        Scene *currScene = qobject_cast<Scene*> (m_doc->function(m_chaser->getBoundedSceneID()));
+        Scene *currScene = qobject_cast<Scene*> (m_doc->function(m_chaser->getBoundSceneID()));
         QListIterator <SceneValue> it(currScene->values());
         qDebug() << "First step added !!";
         while (it.hasNext() == true)
@@ -357,7 +358,7 @@ void ChaserEditor::slotAddClicked()
 void ChaserEditor::slotRemoveClicked()
 {
     slotCutClicked();
-    m_clipboard.clear();
+    //m_clipboard.clear();
     updateClipboardButtons();
 }
 
@@ -514,17 +515,18 @@ void ChaserEditor::slotItemChanged(QTreeWidgetItem *item, int column)
 
 void ChaserEditor::slotCutClicked()
 {
-    m_clipboard.clear();
+    QList <ChaserStep> copyList;
     QListIterator <QTreeWidgetItem*> it(m_tree->selectedItems());
     while (it.hasNext() == true)
     {
         QTreeWidgetItem* item(it.next());
-        m_clipboard << stepAtItem(item);
+        copyList << stepAtItem(item);
         int index = m_tree->indexOfTopLevelItem(item);
         m_chaser->removeStep(index);
         delete item;
     }
 
+    m_doc->clipboard()->copyContent(m_chaser->id(), copyList);
     m_tree->setCurrentItem(NULL);
 
     updateStepNumbers();
@@ -533,17 +535,41 @@ void ChaserEditor::slotCutClicked()
 
 void ChaserEditor::slotCopyClicked()
 {
-    m_clipboard.clear();
+    //m_clipboard.clear();
+    QList <ChaserStep> copyList;
     QListIterator <QTreeWidgetItem*> it(m_tree->selectedItems());
     while (it.hasNext() == true)
-        m_clipboard << stepAtItem(it.next());
+        copyList << stepAtItem(it.next());
+    QLCClipboard *clipboard = m_doc->clipboard();
+    clipboard->copyContent(m_chaser->id(), copyList);
     updateClipboardButtons();
 }
 
 void ChaserEditor::slotPasteClicked()
 {
-    if (m_clipboard.isEmpty() == true)
+    if (m_doc->clipboard()->hasChaserSteps() == false)
         return;
+    QList <ChaserStep> pasteList = m_doc->clipboard()->getChaserSteps();
+
+    // If the Chaser is a sequence, then perform a sanity
+    // check on each Step to see if they really belong to
+    // this scene
+    if (m_chaser->isSequence())
+    {
+        quint32 sceneID = m_chaser->getBoundSceneID();
+        Scene *scene = qobject_cast<Scene*>(m_doc->function(sceneID));
+        foreach(ChaserStep step, pasteList)
+        {
+            foreach(SceneValue scv, step.values)
+            {
+                if (scene->checkValue(scv) == false)
+                {
+                    QMessageBox::warning(this, tr("Paste error"), tr("Trying to paste on an incompatible Scene. Operation cancelled."));
+                    return;
+                }
+            }
+        }
+    }
 
     int insertionPoint = 0;
     QTreeWidgetItem* currentItem = m_tree->currentItem();
@@ -557,7 +583,7 @@ void ChaserEditor::slotPasteClicked()
         insertionPoint = m_tree->topLevelItemCount();
     }
 
-    QListIterator <ChaserStep> it(m_clipboard);
+    QListIterator <ChaserStep> it(pasteList);
     while (it.hasNext() == true)
     {
         QTreeWidgetItem* item = new QTreeWidgetItem;
@@ -1072,7 +1098,7 @@ void ChaserEditor::updateClipboardButtons()
         m_copyAction->setEnabled(false);
     }
 
-    if (m_clipboard.size() > 0)
+    if (m_doc->clipboard()->hasChaserSteps())
         m_pasteAction->setEnabled(true);
     else
         m_pasteAction->setEnabled(false);

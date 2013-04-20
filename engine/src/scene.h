@@ -82,7 +82,7 @@ private:
      *********************************************************************/
 public:
     /** @reimpl */
-    Function* createCopy(Doc* doc);
+    Function* createCopy(Doc* doc, bool addToDoc = true);
 
     /** @reimpl */
     bool copyFrom(const Function* function);
@@ -110,6 +110,11 @@ public:
      * Get the value of one fixture channel
      */
     uchar value(quint32 fxi, quint32 ch);
+
+    /**
+     * Verify if the given value belongs to the Scene
+     */
+    bool checkValue(SceneValue val);
 
     /**
      * Get a list of values in this scene

@@ -31,6 +31,7 @@
 #include "ioplugincache.h"
 #include "channelsgroup.h"
 #include "fixturegroup.h"
+#include "qlcclipboard.h"
 #include "mastertimer.h"
 #include "outputmap.h"
 #include "inputmap.h"
@@ -174,6 +175,16 @@ signals:
 protected:
     /** Modified status (true; needs saving, false; does not) */
     bool m_modified;
+
+    /*********************************************************************
+     * Clipboard
+     *********************************************************************/
+public:
+    /** Get a reference to QLC+ global clipboard*/
+    QLCClipboard *clipboard();
+
+private:
+    QLCClipboard *m_clipboard;
 
     /*********************************************************************
      * Fixture Instances

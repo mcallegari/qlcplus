@@ -151,9 +151,9 @@ void FunctionManager::slotDocLoaded()
     foreach (Function *f, m_doc->functionsByType(Function::Chaser))
     {
         Chaser *chaser = qobject_cast<Chaser *>(f);
-        if (chaser->isSequence() && chaser->getBoundedSceneID() != Scene::invalidId())
+        if (chaser->isSequence() && chaser->getBoundSceneID() != Scene::invalidId())
         {
-            Function *f = m_doc->function(chaser->getBoundedSceneID());
+            Function *f = m_doc->function(chaser->getBoundSceneID());
             Scene *s = qobject_cast<Scene*>(f);
             int i = 0;
             foreach(ChaserStep step, chaser->steps())
@@ -161,7 +161,7 @@ void FunctionManager::slotDocLoaded()
                 if (step.values.count() > 0)
                 {
                     // Since I saved only the non-zero values in the XML files, at the first chance I need
-                    // to fix the values against the bounded scene, and restore all the zero values previously there
+                    // to fix the values against the bound scene, and restore all the zero values previously there
                     //qDebug() << Q_FUNC_INFO << "Scene values: " << s->values().count() << ", step values: " <<  step.values.count();
                     if (s->values().count() != step.values.count())
                     {
@@ -610,7 +610,7 @@ QTreeWidgetItem* FunctionManager::parentItem(const Function* function)
         {
             if (type == Function::Scene)
             {
-                quint32 sid = qobject_cast<const Chaser*>(function)->getBoundedSceneID();
+                quint32 sid = qobject_cast<const Chaser*>(function)->getBoundSceneID();
                 for (int c = 0; c < item->childCount(); c++)
                 {
                     QTreeWidgetItem* child = item->child(c);
@@ -734,7 +734,7 @@ void FunctionManager::deleteSelectedFunctions()
                 if (function->type() == Function::Chaser)
                 {
                     Chaser *chaser = qobject_cast<Chaser*>(function);
-                    if (chaser->isSequence() && chaser->getBoundedSceneID() == fid)
+                    if (chaser->isSequence() && chaser->getBoundSceneID() == fid)
                     {
                         m_doc->deleteFunction(chaser->id());
                     }
@@ -835,7 +835,7 @@ void FunctionManager::editFunction(Function* function)
                 m_editor, SLOT(slotFunctionManagerActive(bool)));
         if (chaser->isSequence() == true)
         {
-            Function* sfunc = m_doc->function(chaser->getBoundedSceneID());
+            Function* sfunc = m_doc->function(chaser->getBoundSceneID());
             m_scene_editor = new SceneEditor(m_vsplitter->widget(1), qobject_cast<Scene*> (sfunc), m_doc, false);
             connect(this, SIGNAL(functionManagerActive(bool)),
                     m_scene_editor, SLOT(slotFunctionManagerActive(bool)));
