@@ -46,6 +46,7 @@ class VCSpeedDial : public VCWidget
 public:
     static const quint8 absoluteInputSourceId;
     static const quint8 tapInputSourceId;
+    static const QSize defaultSize;
 
     /************************************************************************
      * Initialization

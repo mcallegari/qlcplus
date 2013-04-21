@@ -38,6 +38,7 @@
 #include "qlcmacros.h"
 #include "qlcfile.h"
 
+#include "vcpropertieseditor.h"
 #include "vcxypadproperties.h"
 #include "qlcinputchannel.h"
 #include "virtualconsole.h"
@@ -98,7 +99,13 @@ VCXYPad::VCXYPad(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     setFrameStyle(KVCFrameStyleSunken);
     setCaption("XY Pad");
     setMinimumSize(20, 20);
-    resize(QSize(200, 200));
+
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_XYPAD_SIZE);
+    if (var.isValid() == true)
+        resize(var.toSize());
+    else
+        resize(QSize(200, 200));
     m_padInteraction = false;
     m_sliderInteraction = false;
     m_inputValueChanged = false;

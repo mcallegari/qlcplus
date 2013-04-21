@@ -37,6 +37,7 @@
 #include <QPen>
 
 #include "vcsliderproperties.h"
+#include "vcpropertieseditor.h"
 #include "qlcinputchannel.h"
 #include "virtualconsole.h"
 #include "qlcinputsource.h"
@@ -166,7 +167,12 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_bottomLabel->hide();
 
     setMinimumSize(20, 20);
-    resize(VCSlider::defaultSize);
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_SLIDER_SIZE);
+    if (var.isValid() == true)
+        resize(var.toSize());
+    else
+        resize(VCSlider::defaultSize);
 
     /* Initialize to playback mode by default */
     setInvertedAppearance(false);

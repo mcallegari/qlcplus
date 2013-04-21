@@ -33,6 +33,7 @@
 #include <QList>
 #include <QtXml>
 
+#include "vcpropertieseditor.h"
 #include "vcframeproperties.h"
 #include "virtualconsole.h"
 #include "vcsoloframe.h"
@@ -106,7 +107,13 @@ VCFrame::VCFrame(QWidget* parent, Doc* doc, bool canCollapse) : VCWidget(parent,
         }
         m_hbox->addWidget(m_label);
     }
-    resize(defaultSize);
+
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_FRAME_SIZE);
+    if (var.isValid() == true)
+        resize(var.toSize());
+    else
+        resize(defaultSize);
 }
 
 VCFrame::~VCFrame()

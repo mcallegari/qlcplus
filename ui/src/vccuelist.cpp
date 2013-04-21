@@ -28,6 +28,7 @@
 #include <QtXml>
 
 #include "vccuelistproperties.h"
+#include "vcpropertieseditor.h"
 #include "virtualconsole.h"
 #include "chaserrunner.h"
 #include "mastertimer.h"
@@ -122,7 +123,13 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
     setFrameStyle(KVCFrameStyleSunken);
     setCaption(tr("Cue list"));
-    resize(QSize(200, 200));
+
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_CUELIST_SIZE);
+    if (var.isValid() == true)
+        resize(var.toSize());
+    else
+        resize(QSize(200, 200));
 
     slotModeChanged(mode());
 

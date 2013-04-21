@@ -44,6 +44,7 @@
 #include "qlcfile.h"
 
 #include "vcbuttonproperties.h"
+#include "vcpropertieseditor.h"
 #include "functionselection.h"
 #include "qlcinputchannel.h"
 #include "virtualconsole.h"
@@ -94,7 +95,12 @@ VCButton::VCButton(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
             this, SLOT(slotResetIcon()));
 
     /* Initial size */
-    resize(defaultSize);
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_BUTTON_SIZE);
+    if (var.isValid() == true)
+        resize(var.toSize());
+    else
+        resize(defaultSize);
 
     setStyle(AppUtil::saneStyle());
 

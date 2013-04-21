@@ -29,6 +29,15 @@
 #include "universearray.h"
 #include "vcproperties.h"
 
+#define SETTINGS_BUTTON_SIZE     "virtualconsole/buttonsize"
+#define SETTINGS_SLIDER_SIZE     "virtualconsole/slidersize"
+#define SETTINGS_SPEEDDIAL_SIZE  "virtualconsole/speeddialsize"
+#define SETTINGS_SPEEDDIAL_VALUE "virtualconsole/speeddialvalue"
+#define SETTINGS_XYPAD_SIZE      "virtualconsole/xypadsize"
+#define SETTINGS_CUELIST_SIZE    "virtualconsole/cuelistsize"
+#define SETTINGS_FRAME_SIZE      "virtualconsole/framesize"
+#define SETTINGS_SOLOFRAME_SIZE  "virtualconsole/soloframesize"
+
 class VirtualConsole;
 class QDomDocument;
 class QDomElement;
@@ -49,6 +58,15 @@ public:
     ~VCPropertiesEditor();
 
     VCProperties properties() const;
+
+    QSize buttonSize();
+    QSize sliderSize();
+    QSize speedDialSize();
+    uint speedDialValue();
+    QSize xypadSize();
+    QSize cuelistSize();
+    QSize frameSize();
+    QSize soloFrameSize();
 
 private:
     VCProperties m_properties;
