@@ -927,12 +927,12 @@ Duration: %3
         <translation>Chaser Editor</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="106"/>
+        <location filename="chasereditor.ui" line="111"/>
         <source>Chaser name</source>
         <translation>Chaser Name</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="119"/>
+        <location filename="chasereditor.ui" line="124"/>
         <source>Name of the chaser being edited</source>
         <translation>Name des zu bearbeitenden Chasers</translation>
     </message>
@@ -948,13 +948,13 @@ Duration: %3
     </message>
     <message>
         <location filename="chasereditor.ui" line="55"/>
-        <location filename="chasereditor.cpp" line="773"/>
+        <location filename="chasereditor.cpp" line="778"/>
         <source>Fade In</source>
         <translation>Einblenden</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="65"/>
-        <location filename="chasereditor.cpp" line="774"/>
+        <location filename="chasereditor.cpp" line="779"/>
         <source>Fade Out</source>
         <translation>Ausblenden</translation>
     </message>
@@ -964,242 +964,247 @@ Duration: %3
         <translation>Dauer</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="566"/>
+        <location filename="chasereditor.ui" line="571"/>
         <source>Add step(s) to the current position</source>
         <translation>Schritte zur aktuellen Position hinzufügen</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="78"/>
+        <location filename="chasereditor.ui" line="83"/>
         <source>Remove the selected step</source>
         <translation>Ausgwählten Schritt entfernen</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="586"/>
+        <location filename="chasereditor.ui" line="591"/>
         <source>Raise the selected step once</source>
         <translation>Ausgewählten Schritt um eins noch oben schieben</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="354"/>
+        <location filename="chasereditor.ui" line="359"/>
         <source>Lower the selected step once</source>
         <translation>Ausgewählten Schritt um eins noch unten schieben</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="396"/>
+        <location filename="chasereditor.ui" line="401"/>
         <source>Show/Hide speed dial window</source>
         <translation>Anzeigen/Ausblenden des Schnellwahlfensters</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="399"/>
-        <location filename="chasereditor.ui" line="429"/>
-        <location filename="chasereditor.ui" line="449"/>
-        <location filename="chasereditor.ui" line="469"/>
-        <location filename="chasereditor.ui" line="489"/>
+        <location filename="chasereditor.ui" line="404"/>
+        <location filename="chasereditor.ui" line="434"/>
+        <location filename="chasereditor.ui" line="454"/>
+        <location filename="chasereditor.ui" line="474"/>
+        <location filename="chasereditor.ui" line="494"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="130"/>
+        <location filename="chasereditor.ui" line="135"/>
         <source>Run Order</source>
         <translation>Laufrichtung</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="60"/>
-        <location filename="chasereditor.cpp" line="775"/>
+        <location filename="chasereditor.cpp" line="780"/>
         <source>Hold</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="136"/>
+        <location filename="chasereditor.ui" line="75"/>
+        <source>Notes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="chasereditor.ui" line="141"/>
         <source>Run through over and over again</source>
         <translation>Läuft immer weiter durch</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="139"/>
+        <location filename="chasereditor.ui" line="144"/>
         <source>Loop</source>
         <translation>Wiederholen</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="149"/>
+        <location filename="chasereditor.ui" line="154"/>
         <source>Run through once and stop</source>
         <translation>Läuft nur einmal durch und stoppt dann</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="152"/>
+        <location filename="chasereditor.ui" line="157"/>
         <source>Single Shot</source>
         <translation>Einmal</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="159"/>
+        <location filename="chasereditor.ui" line="164"/>
         <source>Switch direction at both ends</source>
         <translation>Richtung an beiden Enden wechseln</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="220"/>
+        <location filename="chasereditor.ui" line="225"/>
         <source>Fade In Speed</source>
         <translation>Einblendgeschwindigkeit</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="226"/>
+        <location filename="chasereditor.ui" line="231"/>
         <source>All steps have common fade in speed set by the chaser</source>
         <translation>Alle Schritte haben eine gemeinsame chasergesteuerte Einblendzeit</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="229"/>
-        <location filename="chasereditor.ui" line="271"/>
-        <location filename="chasereditor.ui" line="313"/>
+        <location filename="chasereditor.ui" line="234"/>
+        <location filename="chasereditor.ui" line="276"/>
+        <location filename="chasereditor.ui" line="318"/>
         <source>Common</source>
         <translation>Gemeinsame</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="236"/>
+        <location filename="chasereditor.ui" line="241"/>
         <source>Each step has its own fade in speed set by the chaser</source>
         <translation>Jeder Schritt hat seine eigene chasergesteuerte Einblendgeschwindigkeit</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="239"/>
-        <location filename="chasereditor.ui" line="281"/>
-        <location filename="chasereditor.ui" line="326"/>
+        <location filename="chasereditor.ui" line="244"/>
+        <location filename="chasereditor.ui" line="286"/>
+        <location filename="chasereditor.ui" line="331"/>
         <source>Per Step</source>
         <translation>Pro Schritt</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="246"/>
+        <location filename="chasereditor.ui" line="251"/>
         <source>Use each function&apos;s own fade in speed</source>
         <translation>Für jede Funktion eine eigene Einblendgeschwindigkeit verwenden</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="249"/>
-        <location filename="chasereditor.ui" line="291"/>
+        <location filename="chasereditor.ui" line="254"/>
+        <location filename="chasereditor.ui" line="296"/>
         <source>Default</source>
         <translation>Standard</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="262"/>
+        <location filename="chasereditor.ui" line="267"/>
         <source>Fade Out Speed</source>
         <translation>Ausblendgeschwindigkeit</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="268"/>
+        <location filename="chasereditor.ui" line="273"/>
         <source>All steps have common fade out speed set by the chaser</source>
         <translation>Alle Schritte haben eine gemeinsame chasergesteuerte Ausblendgeschwindigkeit</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="278"/>
+        <location filename="chasereditor.ui" line="283"/>
         <source>Each step has its own fade out speed set by the chaser</source>
         <translation>Jeder Schritt hat seine eigene chasergesteuerte Ausblendgeschwindigkeit</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="288"/>
+        <location filename="chasereditor.ui" line="293"/>
         <source>Use each function&apos;s own fade out speed</source>
         <translation>Für jede Funktion eine eigene Ausblendgeschwindigkeit verwenden</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="304"/>
+        <location filename="chasereditor.ui" line="309"/>
         <source>Step Duration</source>
         <translation>Schrittdauer</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="310"/>
+        <location filename="chasereditor.ui" line="315"/>
         <source>All steps have common step duration set by the chaser</source>
         <translation>Alle Schritte haben eine gemeinsame chasergesteuerte Dauer</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="323"/>
+        <location filename="chasereditor.ui" line="328"/>
         <source>Each step has its own duration set by the chaser</source>
         <translation>Jeder Schritt hat seine eigene chasergesteuerte Dauer</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="426"/>
+        <location filename="chasereditor.ui" line="431"/>
         <source>See what the chaser does when it is run</source>
         <translation>Chaservorschau</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="446"/>
+        <location filename="chasereditor.ui" line="451"/>
         <source>Stop the chaser if running</source>
         <translation>Den laufenden Chaser stoppen</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="486"/>
+        <location filename="chasereditor.ui" line="491"/>
         <source>Skip to the next step</source>
         <translation>Zum nächsten Schritt wechseln</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="466"/>
+        <location filename="chasereditor.ui" line="471"/>
         <source>Skip to the previous step</source>
         <translation>Zum vorherigen Schritt wechseln</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="162"/>
+        <location filename="chasereditor.ui" line="167"/>
         <source>Ping Pong</source>
         <translation>Hin und Her</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="172"/>
+        <location filename="chasereditor.ui" line="177"/>
         <source>Direction</source>
         <translation>Richtung</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="178"/>
+        <location filename="chasereditor.ui" line="183"/>
         <source>Start from the first step</source>
         <translation>Vom ersten Punkt starten</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="181"/>
+        <location filename="chasereditor.ui" line="186"/>
         <source>Forward</source>
         <translation>Vorwärts</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="191"/>
+        <location filename="chasereditor.ui" line="196"/>
         <source>Start from the last step</source>
         <translation>Vom letzten Punkt starten</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="194"/>
+        <location filename="chasereditor.ui" line="199"/>
         <source>Backward</source>
         <translation>Rückwärts</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="78"/>
+        <location filename="chasereditor.cpp" line="79"/>
         <source>Cut</source>
         <translation>Ausschneiden</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="83"/>
+        <location filename="chasereditor.cpp" line="84"/>
         <source>Copy</source>
         <translation>Kopieren</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="88"/>
+        <location filename="chasereditor.cpp" line="89"/>
         <source>Paste</source>
         <translation>Einfügen</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="567"/>
+        <location filename="chasereditor.cpp" line="572"/>
         <source>Paste error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="567"/>
+        <location filename="chasereditor.cpp" line="572"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="776"/>
+        <location filename="chasereditor.cpp" line="781"/>
         <source>Common Fade In</source>
         <translation>Gemeinsame Einblendung</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="777"/>
+        <location filename="chasereditor.cpp" line="782"/>
         <source>Common Fade Out</source>
         <translation>Gemeinsame Ausblendung</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="778"/>
+        <location filename="chasereditor.cpp" line="783"/>
         <source>Common Hold</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="794"/>
+        <location filename="chasereditor.cpp" line="799"/>
         <source>Multiple Steps</source>
         <translation>Mehrere Schritte</translation>
     </message>
@@ -3429,20 +3434,18 @@ Duration: %2
         <translation>Diese Audiodatei kann mit QLC+ nicht wiedergegeben werden. Sorry.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="627"/>
-        <location filename="showmanager.cpp" line="638"/>
-        <location filename="showmanager.cpp" line="657"/>
+        <location filename="showmanager.cpp" line="613"/>
+        <location filename="showmanager.cpp" line="633"/>
         <source>Paste error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="627"/>
-        <location filename="showmanager.cpp" line="638"/>
+        <location filename="showmanager.cpp" line="613"/>
         <source>Overlapping paste not allowed. Operation cancelled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="657"/>
+        <location filename="showmanager.cpp" line="633"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3614,37 +3617,37 @@ Duration: %2
 <context>
     <name>VCButton</name>
     <message>
-        <location filename="vcbutton.cpp" line="84"/>
+        <location filename="vcbutton.cpp" line="85"/>
         <source>Choose...</source>
         <translation>Auswählen ...</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="88"/>
+        <location filename="vcbutton.cpp" line="89"/>
         <source>None</source>
         <translation>Kein</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="281"/>
+        <location filename="vcbutton.cpp" line="287"/>
         <source>Select button icon</source>
         <translation>Schaltersymbol wählen</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="282"/>
+        <location filename="vcbutton.cpp" line="288"/>
         <source>Images (%1)</source>
         <translation>Bilder (%1)</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="510"/>
+        <location filename="vcbutton.cpp" line="516"/>
         <source>Toggle Blackout</source>
         <translation>Schalte Blackout</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="512"/>
+        <location filename="vcbutton.cpp" line="518"/>
         <source>Stop ALL functions!</source>
         <translation>ALLE Funktionen stoppen!</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="713"/>
+        <location filename="vcbutton.cpp" line="719"/>
         <source>Icon</source>
         <translation>Symbol</translation>
     </message>
@@ -3815,44 +3818,49 @@ Duration: %2
 <context>
     <name>VCCueList</name>
     <message>
-        <location filename="vccuelist.cpp" line="90"/>
+        <location filename="vccuelist.cpp" line="94"/>
         <source>Play</source>
         <translation>Abspielen</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="98"/>
+        <location filename="vccuelist.cpp" line="102"/>
         <source>Stop</source>
         <translation>Stop</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="106"/>
+        <location filename="vccuelist.cpp" line="110"/>
         <source>Previous Cue</source>
         <translation>Vorherige Cue</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="114"/>
+        <location filename="vccuelist.cpp" line="118"/>
         <source>Next Cue</source>
         <translation>Nächste-Cue</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="121"/>
+        <location filename="vccuelist.cpp" line="125"/>
         <source>Cue list</source>
         <translation>Cue-Liste</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="547"/>
+        <location filename="vccuelist.cpp" line="583"/>
         <source>Fade In</source>
         <translation>Einblenden</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="547"/>
+        <location filename="vccuelist.cpp" line="583"/>
         <source>Fade Out</source>
         <translation>Ausblenden</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="547"/>
+        <location filename="vccuelist.cpp" line="583"/>
         <source>Duration</source>
         <translation>Dauer</translation>
+    </message>
+    <message>
+        <location filename="vccuelist.cpp" line="583"/>
+        <source>Notes</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4067,7 +4075,7 @@ Duration: %2
 <context>
     <name>VCFrame</name>
     <message>
-        <location filename="vcframe.cpp" line="548"/>
+        <location filename="vcframe.cpp" line="555"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
@@ -4133,7 +4141,7 @@ Duration: %2
         <translation>X-Auflösung des Layoutgitters</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="264"/>
+        <location filename="vcproperties.ui" line="644"/>
         <source>Choose...</source>
         <translation>Auswählen  ...</translation>
     </message>
@@ -4174,121 +4182,182 @@ Duration: %2
     </message>
     <message>
         <location filename="vcproperties.ui" line="128"/>
+        <source>Widgets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcproperties.ui" line="140"/>
+        <source>Widgets default properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcproperties.ui" line="165"/>
+        <location filename="vcproperties.ui" line="211"/>
+        <location filename="vcproperties.ui" line="263"/>
+        <location filename="vcproperties.ui" line="338"/>
+        <location filename="vcproperties.ui" line="384"/>
+        <location filename="vcproperties.ui" line="430"/>
+        <location filename="vcproperties.ui" line="469"/>
+        <source>x</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcproperties.ui" line="172"/>
+        <source>Button size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcproperties.ui" line="179"/>
+        <source>Solo frame size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcproperties.ui" line="237"/>
+        <source>Slider size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcproperties.ui" line="270"/>
+        <source>Speed dial size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcproperties.ui" line="315"/>
+        <source>XY Pad size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcproperties.ui" line="361"/>
+        <source>Cue List size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcproperties.ui" line="407"/>
+        <source>Frame size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcproperties.ui" line="492"/>
+        <source>Speed dial value:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcproperties.ui" line="508"/>
         <source>Grand Master</source>
         <translation>Hauptregler</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="134"/>
+        <location filename="vcproperties.ui" line="514"/>
         <source>Channels</source>
         <translation>Kanäle</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="140"/>
+        <location filename="vcproperties.ui" line="520"/>
         <source>Apply Grand Master only to Intensity channels.</source>
         <translation>Den Hauptregler nur auf Intensitätskanäle anwenden.</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="143"/>
+        <location filename="vcproperties.ui" line="523"/>
         <source>Intensity</source>
         <translation>Intensität</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="150"/>
+        <location filename="vcproperties.ui" line="530"/>
         <source>Apply Grand Master to all channels.</source>
         <translation>Den Hauptregler auf alle Kanäle anwenden.</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="153"/>
+        <location filename="vcproperties.ui" line="533"/>
         <source>All channels</source>
         <translation>Alle Kanäle</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="163"/>
+        <location filename="vcproperties.ui" line="543"/>
         <source>Values</source>
         <translation>Werte</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="169"/>
+        <location filename="vcproperties.ui" line="549"/>
         <source>Make Grand Master reduce levels by a percentage.</source>
         <translation>Der Hauptregler reduziert die Werte prozentualisch.</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="172"/>
+        <location filename="vcproperties.ui" line="552"/>
         <source>Reduce</source>
         <translation>Reduzieren</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="179"/>
+        <location filename="vcproperties.ui" line="559"/>
         <source>Make Grand Master limit the maximum channel values.</source>
         <translation>Der Hauptregler limitiert die Maximalen Werte der Kanäle.</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="182"/>
+        <location filename="vcproperties.ui" line="562"/>
         <source>Limit</source>
         <translation>Limitieren</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="192"/>
+        <location filename="vcproperties.ui" line="572"/>
         <source>External Input</source>
         <translation>Externer Eingang</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="198"/>
+        <location filename="vcproperties.ui" line="578"/>
         <source>Input Universe</source>
         <translation>Eingangsuniversum</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="205"/>
+        <location filename="vcproperties.ui" line="585"/>
         <source>Input universe for Grand Master slider.</source>
         <translation>Eingangsuniversum für den Hauptregler.</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="215"/>
+        <location filename="vcproperties.ui" line="595"/>
         <source>Input Channel</source>
         <translation>Eingangskanal</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="222"/>
+        <location filename="vcproperties.ui" line="602"/>
         <source>Input channel for Grand Master slider.</source>
         <translation>Eingangskanal für den Hauptregler.</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="245"/>
+        <location filename="vcproperties.ui" line="625"/>
         <source>When toggled, you can move an external slider/knob to assign it to the Grand Master slider.</source>
         <translation>Wenn betätigt kann ein externer Regler/Schalter betätigt werden um diesen dem Hauptregler zuzuweisen.</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="248"/>
+        <location filename="vcproperties.ui" line="628"/>
         <source>Auto Detect</source>
         <translation>Automatische Erkennung</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="261"/>
+        <location filename="vcproperties.ui" line="641"/>
         <source>Choose an external input universe &amp; channel that the Grand Master slider should listen to.</source>
         <translation>Wähle ein externes Universum &amp; einen Kanal auf den dieser Hauptregler hören soll.</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="287"/>
+        <location filename="vcproperties.ui" line="667"/>
         <source>Slider movement</source>
         <translation>Regler Bewegung</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="293"/>
+        <location filename="vcproperties.ui" line="673"/>
         <source>Normal</source>
         <translation>Normal</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="300"/>
+        <location filename="vcproperties.ui" line="680"/>
         <source>Inverted</source>
         <translation>Invertiert</translation>
     </message>
     <message>
-        <location filename="vcpropertieseditor.cpp" line="263"/>
+        <location filename="vcpropertieseditor.cpp" line="403"/>
         <source>%1: Unknown</source>
         <translation>%1: Unbekannt</translation>
     </message>
     <message>
-        <location filename="vcpropertieseditor.cpp" line="279"/>
+        <location filename="vcpropertieseditor.cpp" line="419"/>
         <source>Unknown</source>
         <translation>Unbekannt</translation>
     </message>
@@ -4588,7 +4657,7 @@ Duration: %2
 <context>
     <name>VCSpeedDial</name>
     <message>
-        <location filename="vcspeeddial.cpp" line="54"/>
+        <location filename="vcspeeddial.cpp" line="56"/>
         <source>Duration</source>
         <translation>Dauer</translation>
     </message>
@@ -5076,27 +5145,27 @@ Duration: %2
         <translation>&amp;Sortierungsreihenfolge</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1017"/>
+        <location filename="virtualconsole.cpp" line="1028"/>
         <source>Do you wish to delete the selected widgets?</source>
         <translation>Das ausgewählte Element löschen?</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1018"/>
+        <location filename="virtualconsole.cpp" line="1029"/>
         <source>Delete widgets</source>
         <translation>Element löschen</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1063"/>
+        <location filename="virtualconsole.cpp" line="1074"/>
         <source>Rename widgets</source>
         <translation>Element umbenennen</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1063"/>
+        <location filename="virtualconsole.cpp" line="1074"/>
         <source>Caption:</source>
         <translation>Überschrift:</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1116"/>
+        <location filename="virtualconsole.cpp" line="1127"/>
         <source>Select background image</source>
         <translation>Hintergrundbild auswählen</translation>
     </message>
