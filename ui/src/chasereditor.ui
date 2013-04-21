@@ -70,6 +70,11 @@
        <string>Duration</string>
       </property>
      </column>
+     <column>
+      <property name="text">
+       <string>Notes</string>
+      </property>
+     </column>
     </widget>
    </item>
    <item row="3" column="2">

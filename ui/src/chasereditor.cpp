@@ -54,6 +54,7 @@
 #define COL_HOLD     3
 #define COL_FADEOUT  4
 #define COL_DURATION 5
+#define COL_NOTES    6
 
 ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc)
     : QWidget(parent)
@@ -501,9 +502,13 @@ void ChaserEditor::slotItemChanged(QTreeWidgetItem *item, int column)
         qint32 newDuration = (qint32)newValue - (qint32)step.fadeIn - (qint32)step.fadeOut;
         if (newDuration >= 0)
         {
-        step.duration = newValue;
+            step.duration = newValue;
             step.hold = step.duration - step.fadeIn - step.fadeOut;
         }
+    }
+    else if (column == COL_NOTES)
+    {
+        step.note = itemText;
     }
     m_chaser->replaceStep(step, idx);
     updateItem(item, step);
@@ -1007,6 +1012,8 @@ void ChaserEditor::updateItem(QTreeWidgetItem* item, ChaserStep& step)
     item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
     item->setText(COL_NUM, QString("%1").arg(m_tree->indexOfTopLevelItem(item) + 1));
     item->setText(COL_NAME, function->name());
+    if (step.note.isEmpty() == false)
+        item->setText(COL_NOTES, step.note);
     step.fid = function->id();
 
     switch (m_chaser->fadeInMode())

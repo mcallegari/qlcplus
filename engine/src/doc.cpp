@@ -90,6 +90,8 @@ void Doc::clearContents()
 {
     emit clearing();
 
+    m_clipboard->resetContents();
+
     // Delete all function instances
     QListIterator <quint32> funcit(m_functions.keys());
     while (funcit.hasNext() == true)

@@ -30,22 +30,32 @@ QLCClipboard::QLCClipboard(Doc *doc)
 
 }
 
+void QLCClipboard::resetContents()
+{
+    m_copySteps.clear();
+    if (m_copyFunction != NULL && m_doc->function(m_copyFunction->id()) == NULL)
+        delete m_copyFunction;
+    m_copyFunction = NULL;
+}
+
 void QLCClipboard::copyContent(quint32 sourceID, QList<ChaserStep> steps)
 {
-    m_copyStepsID = sourceID;
+    Q_UNUSED(sourceID)
+
     m_copySteps.clear();
     m_copySteps = steps;
 }
 
 void QLCClipboard::copyContent(quint32 sourceID, Function *function)
 {
+    Q_UNUSED(sourceID)
+
     if (function == NULL)
         return;
 
-    m_copyFunctionID = sourceID;
-
     if (m_copyFunction != NULL && m_doc->function(m_copyFunction->id()) == NULL)
         delete m_copyFunction;
+    m_copyFunction = NULL;
 
     /* Attempt to create a copy of the function to Doc */
     Function* copy = function->createCopy(m_doc, false);

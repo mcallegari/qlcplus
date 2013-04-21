@@ -131,6 +131,10 @@ private slots:
         pressing the key binding or clicking an item with mouse) */
     void slotItemActivated(QTreeWidgetItem* item);
 
+    /** Slot that is called whenever an item field has been changed.
+        Note that only 'Notes" column is considered */
+    void slotItemChanged(QTreeWidgetItem*item, int column);
+
 private:
     /** Create the runner that writes cue values to universes */
     void createRunner(int startIndex = -1);
@@ -142,6 +146,7 @@ private:
     QToolButton* m_stopButton;
     QToolButton* m_previousButton;
     QToolButton* m_nextButton;
+    bool m_listIsUpdating;
 
     ChaserRunner* m_runner;
     QMutex m_mutex; // Guards m_runner

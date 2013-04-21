@@ -44,6 +44,8 @@ public:
         NoType
     };
 
+    void resetContents();
+
 private:
     Doc* m_doc;
 
@@ -63,10 +65,7 @@ public:
 
 private:
     QList <ChaserStep> m_copySteps;
-    quint32 m_copyStepsID;
-
     Function *m_copyFunction;
-    quint32 m_copyFunctionID;
 };
 
 #endif // QLCCLIPBOARD_H

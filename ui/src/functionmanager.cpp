@@ -676,7 +676,7 @@ QIcon FunctionManager::functionIcon(const Function* function) const
         if (qobject_cast<const Chaser*>(function)->isSequence() == true)
             return QIcon(":/sequence.png");
         else
-        return QIcon(":/chaser.png");
+            return QIcon(":/chaser.png");
     case Function::EFX:
         return QIcon(":/efx.png");
     case Function::Collection:

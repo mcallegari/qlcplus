@@ -35,6 +35,7 @@ void ChaserStep_Test::initial()
     QCOMPARE(step.fadeIn, uint(0));
     QCOMPARE(step.fadeOut, uint(0));
     QCOMPARE(step.duration, uint(0));
+    QCOMPARE(step.note, QString());
 
     step = ChaserStep(1, 2, 3, 4);
     QCOMPARE(step.fid, quint32(1));
@@ -42,6 +43,7 @@ void ChaserStep_Test::initial()
     QCOMPARE(step.hold, uint(3));
     QCOMPARE(step.fadeOut, uint(4));
     QCOMPARE(step.duration, uint(9));
+    QCOMPARE(step.note, QString());
 }
 
 void ChaserStep_Test::comparison()
@@ -72,7 +74,7 @@ void ChaserStep_Test::variant()
     ChaserStep step(1, 2, 3, 4);
     QVariant var = step.toVariant();
     QList <QVariant> list(var.toList());
-    QCOMPARE(list.size(), 5);
+    QCOMPARE(list.size(), 6);
     QCOMPARE(list[0].toUInt(), uint(1));
     QCOMPARE(list[1].toUInt(), uint(2));
     QCOMPARE(list[2].toUInt(), uint(3));

@@ -102,6 +102,9 @@ protected:
     void updateShowsCombo();
     void updateMultiTrackView();
 
+private:
+    bool checkOverlapping(quint32 startTime, quint32 duration);
+
     QToolBar* m_toolbar;
     QComboBox* m_showsCombo;
     QLabel* m_timeLabel;

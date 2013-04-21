@@ -81,6 +81,7 @@ public:
     uint fadeOut;                //! Fade out speed
     uint duration;               //! Duration
     QList <SceneValue> values;   //! specific DMX values for this step (chaser in sequence mode)
+    QString note;
 };
 
 #endif

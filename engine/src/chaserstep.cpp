@@ -29,6 +29,7 @@
 #include "doc.h"
 
 #define KXMLQLCSequenceSceneValues "Values"
+#define KXMLQLCStepNote "Note"
 
 ChaserStep::ChaserStep(quint32 aFid, uint aFadeIn, uint aHold, uint aFadeOut)
     : fid(aFid)
@@ -37,6 +38,7 @@ ChaserStep::ChaserStep(quint32 aFid, uint aFadeIn, uint aHold, uint aFadeOut)
     , fadeOut(aFadeOut)
 {
     duration = fadeIn + hold + fadeOut;
+    note = QString();
 }
 
 ChaserStep::ChaserStep(const ChaserStep& cs)
@@ -46,6 +48,7 @@ ChaserStep::ChaserStep(const ChaserStep& cs)
     , fadeOut(cs.fadeOut)
     , duration(cs.duration)
     , values(cs.values)
+    , note(cs.note)
 {
 }
 
@@ -72,6 +75,7 @@ QVariant ChaserStep::toVariant() const
     list << hold;
     list << fadeOut;
     list << duration;
+    list << note;
     return list;
 }
 
@@ -80,13 +84,14 @@ ChaserStep ChaserStep::fromVariant(const QVariant& var)
     ChaserStep cs;
     qDebug() << "-------------  ChaserStep::fromVariant";
     QList <QVariant> list(var.toList());
-    if (list.size() == 5)
+    if (list.size() == 6)
     {
         cs.fid = list.takeFirst().toUInt();
         cs.fadeIn = list.takeFirst().toUInt();
         cs.hold = list.takeFirst().toUInt();
         cs.fadeOut = list.takeFirst().toUInt();
         cs.duration = list.takeFirst().toUInt();
+        cs.note = list.takeFirst().toString();
     }
     return cs;
 }
@@ -114,6 +119,8 @@ bool ChaserStep::loadXML(const QDomElement& root, int& stepNumber)
         duration = root.attribute(KXMLQLCFunctionSpeedDuration).toUInt();
     if (root.hasAttribute(KXMLQLCFunctionNumber) == true)
         stepNumber = root.attribute(KXMLQLCFunctionNumber).toInt();
+    if (root.hasAttribute(KXMLQLCStepNote) == true)
+        note = root.attribute(KXMLQLCStepNote);
 
     if (root.hasAttribute(KXMLQLCSequenceSceneValues) == true)
     {
@@ -160,6 +167,8 @@ bool ChaserStep::saveXML(QDomDocument* doc, QDomElement* root, int stepNumber) c
     tag.setAttribute(KXMLQLCFunctionSpeedHold, hold);
     tag.setAttribute(KXMLQLCFunctionSpeedFadeOut, fadeOut);
     //tag.setAttribute(KXMLQLCFunctionSpeedDuration, duration); // deprecated from version 4.3.1
+    if (note.isEmpty() == false)
+        tag.setAttribute(KXMLQLCStepNote, note);
 
     if (values.count() > 0)
     {

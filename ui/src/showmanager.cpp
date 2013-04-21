@@ -608,39 +608,15 @@ void ShowManager::slotPaste()
         copyDuration = (qobject_cast<Audio*>(copy))->getDuration();
 
     // Overlapping check
-    quint32 cursorTime = m_showview->getTimeFromCursor();
+    if (checkOverlapping(m_showview->getTimeFromCursor(), copyDuration) == true)
+    {
+        QMessageBox::warning(this, tr("Paste error"), tr("Overlapping paste not allowed. Operation cancelled."));
+        return;
+    }
+
     Track *track = m_show->getTrackFromSceneID(m_scene->id());
     //qDebug() << "Check overlap... cursor time:" << cursorTime << "msec";
-    foreach(quint32 fid, track->functionsID())
-    {
-        Function *func = m_doc->function(fid);
-        if (func != NULL)
-        {
-            if (func->type() == Function::Chaser)
-            {
-                Chaser *chaser = qobject_cast<Chaser*>(func);
-                quint32 chsST = chaser->getStartTime();
-                //qDebug() << "Chaser ID:" << chaser->id() << ", start time:" << chsST << ", duration:" << chaser->getDuration();
-                if ((cursorTime >= chsST && cursorTime <= chsST + chaser->getDuration()) ||
-                    (chsST >= cursorTime && chsST <= cursorTime + copyDuration))
-                {
-                    QMessageBox::warning(this, tr("Paste error"), tr("Overlapping paste not allowed. Operation cancelled."));
-                    return;
-                }
-            }
-            else if (func->type() == Function::Audio)
-            {
-                Audio *audio = qobject_cast<Audio*>(func);
-                quint32 audST = audio->getStartTime();
-                if ((cursorTime >= audST && cursorTime <= audST + audio->getDuration()) ||
-                    (audST >= cursorTime && audST <= cursorTime + copyDuration))
-                {
-                    QMessageBox::warning(this, tr("Paste error"), tr("Overlapping paste not allowed. Operation cancelled."));
-                    return;
-                }
-            }
-        }
-    }
+
 
     if (copy != NULL)
     {
@@ -1057,6 +1033,42 @@ void ShowManager::updateMultiTrackView()
         showSceneEditor(m_scene);
     }
     m_showview->updateViewSize();
+}
+
+bool ShowManager::checkOverlapping(quint32 startTime, quint32 duration)
+{
+    Track *track = m_show->getTrackFromSceneID(m_scene->id());
+
+    foreach(quint32 fid, track->functionsID())
+    {
+        Function *func = m_doc->function(fid);
+        if (func != NULL)
+        {
+            if (func->type() == Function::Chaser)
+            {
+                Chaser *chaser = qobject_cast<Chaser*>(func);
+                quint32 chsST = chaser->getStartTime();
+                //qDebug() << "Chaser ID:" << chaser->id() << ", start time:" << chsST << ", duration:" << chaser->getDuration();
+                if ((startTime >= chsST && startTime <= chsST + chaser->getDuration()) ||
+                    (chsST >= startTime && chsST <= startTime + duration))
+                {
+                    return true;
+                }
+            }
+            else if (func->type() == Function::Audio)
+            {
+                Audio *audio = qobject_cast<Audio*>(func);
+                quint32 audST = audio->getStartTime();
+                if ((startTime >= audST && startTime <= audST + audio->getDuration()) ||
+                    (audST >= startTime && audST <= startTime + duration))
+                {
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false;
 }
 
 void ShowManager::showEvent(QShowEvent* ev)

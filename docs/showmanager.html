@@ -56,7 +56,18 @@ the atmosphere at the right time.<br>
  <TR></TR>
  <TR>
   <TD><IMG SRC="qrc:/editcopy.png"/></TD>
-  <TD>Clone the currently selected item at cursor position</TD>
+  <TD>Copy the currently selected item into QLC+ clipboard</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/editpaste.png"/></TD>
+  <TD>Paste QLC+ clipboard content at the cursor position. When performing this 
+  operation two checks are performed:
+    <UL>
+     <LI>Overlapping: checks if the item you're going to paste overlaps with an 
+     existing item in the selected track</LI>
+     <LI>Validity: In case you're pasting a Sequence, QLC+ will verify if the 
+     Sequence contents are compatible with the currently selected track</LI>
+  </TD>
  </TR>
  <TR>
   <TD><IMG SRC="qrc:/editdelete.png"/></TD>
