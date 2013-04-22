@@ -322,6 +322,35 @@ bool Doc::deleteFixture(quint32 id)
     }
 }
 
+bool Doc::moveFixture(quint32 id, quint32 newAddress)
+{
+    if (m_fixtures.contains(id) == true)
+    {
+        Fixture* fixture = m_fixtures[id];
+        // remove it
+        QMutableHashIterator <uint,uint> it(m_addresses);
+        while (it.hasNext() == true)
+        {
+            it.next();
+            if (it.value() == id)
+                it.remove();
+        }
+        // add it to new address
+        for (uint i = newAddress; i < newAddress + fixture->channels(); i++)
+        {
+            m_addresses[i] = id;
+        }
+        setModified();
+
+        return true;
+    }
+    else
+    {
+        qWarning() << Q_FUNC_INFO << "No fixture with id" << id;
+        return false;
+    }
+}
+
 QList <Fixture*> Doc::fixtures() const
 {
     return m_fixtures.values();

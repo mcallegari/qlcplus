@@ -213,6 +213,14 @@ public:
     bool deleteFixture(quint32 id);
 
     /**
+     * Mode the given fixture instance from an address to another
+     *
+     * @param id The ID of the fixture instance to move
+     * @param newAddress the new DMX address where the fixture takes place
+     */
+    bool moveFixture(quint32 id, quint32 newAddress);
+
+    /**
      * Get the fixture instance that has the given ID
      *
      * @param id The ID of the fixture to get

@@ -1198,7 +1198,10 @@ void FixtureManager::editFixtureProperties(QTreeWidgetItem* item)
         if (fxi->universe() != af.universe())
             fxi->setUniverse(af.universe());
         if (fxi->address() != af.address())
+        {
+            m_doc->moveFixture(id, af.address());
             fxi->setAddress(af.address());
+        }
 
         if (af.fixtureDef() != NULL && af.mode() != NULL)
         {
