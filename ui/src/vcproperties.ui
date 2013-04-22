@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="m_tab">
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="Layout">
       <attribute name="title">
@@ -504,37 +504,6 @@
         </widget>
        </item>
       </layout>
-      <zorder>groupBox_3</zorder>
-      <zorder>label_16</zorder>
-      <zorder>label_7</zorder>
-      <zorder>m_frameWspin</zorder>
-      <zorder>m_sliderHspin</zorder>
-      <zorder>label_18</zorder>
-      <zorder>label_10</zorder>
-      <zorder>label_14</zorder>
-      <zorder>m_cuelistHspin</zorder>
-      <zorder>m_speedHspin</zorder>
-      <zorder>m_speedValueEdit</zorder>
-      <zorder>label_2</zorder>
-      <zorder>label_9</zorder>
-      <zorder>m_xypadHspin</zorder>
-      <zorder>m_frameHspin</zorder>
-      <zorder>label_15</zorder>
-      <zorder>label_6</zorder>
-      <zorder>m_buttonHspin</zorder>
-      <zorder>label_11</zorder>
-      <zorder>m_xypadWspin</zorder>
-      <zorder>m_speedWspin</zorder>
-      <zorder>m_soloHspin</zorder>
-      <zorder>label_8</zorder>
-      <zorder>label_17</zorder>
-      <zorder>m_sliderWspin</zorder>
-      <zorder>label_12</zorder>
-      <zorder>label_13</zorder>
-      <zorder>m_cuelistWspin</zorder>
-      <zorder>m_soloWspin</zorder>
-      <zorder>m_buttonWspin</zorder>
-      <zorder>label_2</zorder>
      </widget>
      <widget class="QWidget" name="GrandMaster">
       <attribute name="title">
