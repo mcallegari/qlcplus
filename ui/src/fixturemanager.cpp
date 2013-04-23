@@ -1208,6 +1208,7 @@ void FixtureManager::editFixtureProperties(QTreeWidgetItem* item)
             if (fxi->fixtureDef() != af.fixtureDef() ||
                     fxi->fixtureMode() != af.mode())
             {
+                m_doc->changeFixtureMode(id, af.mode());
                 fxi->setFixtureDefinition(af.fixtureDef(),
                                           af.mode());
             }

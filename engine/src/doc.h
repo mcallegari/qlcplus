@@ -220,6 +220,8 @@ public:
      */
     bool moveFixture(quint32 id, quint32 newAddress);
 
+    bool changeFixtureMode(quint32 id, const QLCFixtureMode *mode);
+
     /**
      * Get the fixture instance that has the given ID
      *
