@@ -112,6 +112,10 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
         m_speedValueEdit->setText(Function::speedToString(var.toUInt()));
     else
         m_speedValueEdit->setText(Function::speedToString(0));
+
+    connect(m_speedValueEdit, SIGNAL(editingFinished()),
+            this, SLOT(slotSpeedDialConfirmed()));
+
     // ********************* XY PAD ****************************
     var = settings.value(SETTINGS_XYPAD_SIZE);
     if (var.isValid() == true)
@@ -305,6 +309,14 @@ void VCPropertiesEditor::slotSizeYChanged(int value)
 void VCPropertiesEditor::slotTapModifierActivated(int index)
 {
     m_properties.setTapModifier(Qt::KeyboardModifier(m_tapModifierCombo->itemData(index).toInt()));
+}
+
+void VCPropertiesEditor::slotSpeedDialConfirmed()
+{
+    if (m_speedValueEdit->text().contains(".") == false)
+    {
+        m_speedValueEdit->setText(Function::speedToString(m_speedValueEdit->text().toUInt()));
+    }
 }
 
 /*****************************************************************************
