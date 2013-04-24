@@ -245,6 +245,9 @@ private:
     int m_trackIdx;
     /** index of the selected step for highlighting (-1 if none) */
     int m_selectedStep;
+
+    QFont m_timeFont;
+    bool m_pressed;
 };
 
 /**************************************************************************
@@ -323,6 +326,8 @@ private:
     QAction *m_previewStereoAction;
     /** Pixmap holding the waveform (if enabled) */
     QPixmap *m_preview;
+
+    bool m_pressed;
 };
 
 #endif

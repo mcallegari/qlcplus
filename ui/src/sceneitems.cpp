@@ -433,6 +433,7 @@ SequenceItem::SequenceItem(Chaser *seq)
     , m_timeScale(3)
     , m_trackIdx(-1)
     , m_selectedStep(-1)
+    , m_pressed(false)
 {
     Q_ASSERT(seq != NULL);
     setToolTip(QString(tr("Name: %1\nStart time: %2\nDuration: %3\n%4"))
@@ -446,6 +447,9 @@ SequenceItem::SequenceItem(Chaser *seq)
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     m_color = m_chaser->getColor();
     calculateWidth();
+    m_timeFont = QApplication::font();
+    m_timeFont.setBold(true);
+    m_timeFont.setPixelSize(12);
     connect(m_chaser, SIGNAL(changed(quint32)), this, SLOT(slotSequenceChanged(quint32)));
 }
 
@@ -490,7 +494,9 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     int stepIdx = 0;
 
     if (this->isSelected() == true)
+    {
         painter->setPen(QPen(Qt::white, 3));
+    }
     else
     {
         painter->setPen(QPen(Qt::white, 1));
@@ -535,6 +541,14 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
             }
         }
         stepIdx++;
+    }
+
+    if (m_pressed)
+    {
+        quint32 s_time = (double)(x() - TRACK_WIDTH - 2) * (m_timeScale * 500) /
+                         (double)(HALF_SECOND_WIDTH);
+        painter->setFont(m_timeFont);
+        painter->drawText(5, TRACK_HEIGHT - 10, Function::speedToString(s_time));
     }
 }
 
@@ -587,6 +601,7 @@ void SequenceItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mousePressEvent(event);
     m_pos = this->pos();
+    m_pressed = true;
     this->setSelected(true);
 }
 
@@ -595,9 +610,9 @@ void SequenceItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     QGraphicsItem::mouseReleaseEvent(event);
     qDebug() << Q_FUNC_INFO << "mouse RELEASE event - <" << event->pos().toPoint().x() << "> - <" << event->pos().toPoint().y() << ">";
     setCursor(Qt::OpenHandCursor);
+    m_pressed = false;
     emit itemDropped(event, this);
 }
-
 
 /*********************************************************************
  *
@@ -615,6 +630,7 @@ AudioItem::AudioItem(Audio *aud)
     , m_previewRightAction(NULL)
     , m_previewStereoAction(NULL)
     , m_preview(NULL)
+    , m_pressed(false)
 {
     Q_ASSERT(aud != NULL);
     setToolTip(QString(tr("Name: %1\nStart time: %2\nDuration: %3\n%4"))
@@ -706,6 +722,13 @@ void AudioItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     // draw track name
     painter->setPen(QPen(QColor(220, 220, 220, 255), 2));
     painter->drawText(5, 15, m_audio->name());
+
+    if (m_pressed)
+    {
+        quint32 s_time = (double)(x() - TRACK_WIDTH - 2) * (m_timeScale * 500) /
+                         (double)(HALF_SECOND_WIDTH);
+        painter->drawText(5, TRACK_HEIGHT - 10, Function::speedToString(s_time));
+    }
 }
 
 void AudioItem::updateDuration()
@@ -948,6 +971,7 @@ void AudioItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mousePressEvent(event);
     m_pos = this->pos();
+    m_pressed = true;
     this->setSelected(true);
 }
 
@@ -956,6 +980,7 @@ void AudioItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     QGraphicsItem::mouseReleaseEvent(event);
     qDebug() << Q_FUNC_INFO << "mouse RELEASE event - <" << event->pos().toPoint().x() << "> - <" << event->pos().toPoint().y() << ">";
     setCursor(Qt::OpenHandCursor);
+    m_pressed = false;
     emit itemDropped(event, this);
 }
 
