@@ -328,28 +328,6 @@ void VCButton::updateIcon()
     }
 }
 
-QString VCButton::relativeIconPath() const
-{
-    if (iconPath().isEmpty()) // || m_doc->getWorkspacePath().isEmpty())
-    {
-        return iconPath();
-    }
-
-    QDir workspaceDir = QFileInfo(m_doc->getWorkspacePath()).dir();
-    return workspaceDir.relativeFilePath(QFileInfo(iconPath()).canonicalFilePath());
-}
-
-QString VCButton::absoluteIconPath(const QString& iconPath) const
-{
-    if (iconPath.isEmpty()) // || m_doc->getWorkspacePath().isEmpty())
-    {
-        return iconPath;
-    }
-
-    QDir workspaceDir = QFileInfo(m_doc->getWorkspacePath()).dir();
-    return QFileInfo(workspaceDir, iconPath).canonicalFilePath();
-}
-
 void VCButton::slotResetIcon()
 {
     setIconPath(QString());
@@ -757,7 +735,7 @@ bool VCButton::loadXML(const QDomElement* root)
     setCaption(root->attribute(KXMLQLCVCCaption));
 
     /* Icon */
-    setIconPath(absoluteIconPath(root->attribute(KXMLQLCVCButtonIcon)));
+    setIconPath(m_doc->denormalizeComponentPath(root->attribute(KXMLQLCVCButtonIcon)));
 
     /* Children */
     node = root->firstChild();
@@ -832,7 +810,7 @@ bool VCButton::saveXML(QDomDocument* doc, QDomElement* vc_root)
     root.setAttribute(KXMLQLCVCCaption, caption());
 
     /* Icon */
-    root.setAttribute(KXMLQLCVCButtonIcon, relativeIconPath());
+    root.setAttribute(KXMLQLCVCButtonIcon, m_doc->normalizeComponentPath(iconPath()));
 
     /* Function */
     tag = doc->createElement(KXMLQLCVCButtonFunction);

@@ -146,9 +146,34 @@ void Doc::setWorkspacePath(QString path)
     m_wsPath = path;
 }
 
-QString Doc::getWorkspacePath()
+QString Doc::getWorkspacePath() const
 {
     return m_wsPath;
+}
+
+QString Doc::normalizeComponentPath(const QString& filePath) const
+{
+    if (filePath.isEmpty())
+        return filePath;
+
+    QFileInfo f(filePath);
+
+    if (f.absolutePath().startsWith(getWorkspacePath()))
+    {
+        return QDir(getWorkspacePath()).relativeFilePath(f.absoluteFilePath());
+    }
+    else
+    {
+        return f.absoluteFilePath();
+    }
+}
+
+QString Doc::denormalizeComponentPath(const QString& filePath) const
+{
+    if (filePath.isEmpty())
+        return filePath;
+
+    return QFileInfo(QDir(getWorkspacePath()), filePath).absoluteFilePath();
 }
 
 /*****************************************************************************
