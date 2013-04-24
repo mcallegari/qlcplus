@@ -22,6 +22,7 @@
 #include <QApplication>
 #include <QPainter>
 #include <QImage>
+#include <QDesktopWidget>
 
 #include "clickandgowidget.h"
 #include "qlccapability.h"
@@ -42,6 +43,8 @@ ClickAndGoWidget::ClickAndGoWidget(QWidget *parent) :
     m_linearColor = false;
     m_width = 10;
     m_height = 10;
+    m_cols = 0;
+    m_rows = 0;
     m_hoverCellIdx = 0;
     m_cellBarXpos = 1;
     m_cellBarYpos = 1;
@@ -306,10 +309,23 @@ void ClickAndGoWidget::setupPresetPicker()
     if (m_resources.size() == 0)
         return;
 
+    QRect screen = QApplication::desktop()->availableGeometry(this);
+
+    m_cols = 2;
+    m_rows = qCeil((qreal)m_resources.size() / 2);
+    m_width = CELL_W * m_cols;
+    m_height = CELL_H * m_rows;
+
+    if (m_height > screen.height())
+    {
+        m_rows = qFloor((qreal)screen.height() / CELL_H);
+        m_cols = qCeil((qreal)m_resources.size() / m_rows);
+        m_width = CELL_W * m_cols;
+        m_height = CELL_H * m_rows;
+    }
+ 
     int x = 0;
     int y = 0;
-    m_width = CELL_W * 2;
-    m_height = qCeil((qreal)m_resources.size() / 2) * CELL_H;
     m_image = QImage(m_width, m_height, QImage::Format_RGB32);
     QPainter painter(&m_image);
     painter.setRenderHint(QPainter::Antialiasing);
@@ -320,16 +336,18 @@ void ClickAndGoWidget::setupPresetPicker()
     for (int i = 0; i < m_resources.size(); i++)
     {
         PresetResource res = m_resources.at(i);
-        if (i%2)
-            x = CELL_W;
-        else
-            x = 0;
         painter.setPen(Qt::black);
         painter.drawRect(x, y, CELL_W, CELL_H);
         painter.drawImage(x + 1, y + 4, res.m_thumbnail);
         painter.drawText(x + 43, y + 4, CELL_W - 42, CELL_H - 5, Qt::TextWordWrap|Qt::AlignVCenter, res.m_descr);
-        if (i%2)
-            y+=CELL_H;
+        if (i % m_cols == m_cols - 1)
+        {
+            y += CELL_H;
+            x = 0;
+        }
+        else
+            x += CELL_W;
+         
     }  
 }
 
@@ -377,7 +395,7 @@ void ClickAndGoWidget::mouseMoveEvent(QMouseEvent *event)
     // calculate the index of the resource where the cursor is
     int floorX = qFloor(event->x() / CELL_W);
     int floorY = qFloor(event->y() / CELL_H);
-    int tmpCellIDx = (floorY * 2) + floorX;
+    int tmpCellIDx = (floorY * m_cols) + floorX;
     if (tmpCellIDx < 0 && tmpCellIDx >= m_resources.length())
         return;
     m_cellBarXpos = floorX * CELL_W;
