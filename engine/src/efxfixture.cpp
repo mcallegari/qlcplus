@@ -344,24 +344,24 @@ void EFXFixture::setPoint(UniverseArray* universes, qreal pan, qreal tilt)
     /* Write coarse point data to universes */
     if (fxi->panMsbChannel() != QLCChannel::invalid())
         universes->write(fxi->universeAddress() + fxi->panMsbChannel(),
-                         static_cast<char>(pan), QLCChannel::Pan);
+                         static_cast<char>(pan), QLCChannel::Pan, m_parent->isRelative());
     if (fxi->tiltMsbChannel() != QLCChannel::invalid())
         universes->write(fxi->universeAddress() + fxi->tiltMsbChannel(),
-                         static_cast<char> (tilt), QLCChannel::Tilt);
+                         static_cast<char> (tilt), QLCChannel::Tilt, m_parent->isRelative());
 
     /* Write fine point data to universes if applicable */
     if (fxi->panLsbChannel() != QLCChannel::invalid())
     {
         /* Leave only the fraction */
         char value = static_cast<char> ((pan - floor(pan)) * double(UCHAR_MAX));
-        universes->write(fxi->universeAddress() + fxi->panLsbChannel(), value, QLCChannel::Pan);
+        universes->write(fxi->universeAddress() + fxi->panLsbChannel(), value, QLCChannel::Pan, m_parent->isRelative());
     }
 
     if (fxi->tiltLsbChannel() != QLCChannel::invalid())
     {
         /* Leave only the fraction */
         char value = static_cast<char> ((tilt - floor(tilt)) * double(UCHAR_MAX));
-        universes->write(fxi->universeAddress() + fxi->tiltLsbChannel(), value, QLCChannel::Tilt);
+        universes->write(fxi->universeAddress() + fxi->tiltLsbChannel(), value, QLCChannel::Tilt, m_parent->isRelative());
     }
 }
 

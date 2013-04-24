@@ -95,6 +95,7 @@ void MasterTimer::timerTick()
 
     UniverseArray* universes = doc->outputMap()->claimUniverses();
     universes->zeroIntensityChannels();
+    universes->zeroRelativeValues();
 
     timerTickFunctions(universes);
     timerTickDMXSources(universes);

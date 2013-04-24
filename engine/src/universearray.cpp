@@ -24,6 +24,8 @@
 #include "universearray.h"
 #include "qlcmacros.h"
 
+#include <QDebug>
+
 #define KXMLQLCGMValueModeLimit "Limit"
 #define KXMLQLCGMValueModeReduce "Reduce"
 #define KXMLQLCGMChannelModeAllChannels "All"
@@ -39,11 +41,13 @@ UniverseArray::UniverseArray(int size)
     : m_size(size)
     , m_preGMValues(new QByteArray(size, char(0)))
     , m_postGMValues(new QByteArray(size, char(0)))
+    , m_doRelative( false )
 {
     m_gMChannelMode = GMIntensity;
     m_gMValueMode = GMReduce;
     m_gMValue = 255;
     m_gMFraction = 1.0;
+    m_relativeValues.fill(0, size);
 }
 
 UniverseArray::~UniverseArray()
@@ -63,6 +67,8 @@ void UniverseArray::reset()
     m_postGMValues->fill(0);
     m_gMIntensityChannels.clear();
     m_gMNonIntensityChannels.clear();
+    m_relativeValues.fill(0);
+    m_doRelative = false;
 }
 
 void UniverseArray::reset(int address, int range)
@@ -73,6 +79,7 @@ void UniverseArray::reset(int address, int range)
         m_postGMValues->data()[i] = 0;
         m_gMIntensityChannels.remove(i);
         m_gMNonIntensityChannels.remove(i);
+        m_relativeValues[i] = 0;
     }
 }
 
@@ -88,6 +95,7 @@ void UniverseArray::zeroIntensityChannels()
         int channel(it.next());
         m_preGMValues->data()[channel] = 0;
         m_postGMValues->data()[channel] = 0;
+        m_relativeValues[channel] = 0;
     }
 }
 
@@ -264,6 +272,11 @@ const QByteArray* UniverseArray::postGMValues() const
     return m_postGMValues;
 }
 
+void UniverseArray::zeroRelativeValues()
+{
+    m_relativeValues.fill(0);
+}
+
 const QByteArray UniverseArray::preGMValues() const
 {
     if (m_preGMValues->isNull())
@@ -303,16 +316,37 @@ uchar UniverseArray::applyGM(int channel, uchar value, QLCChannel::Group group)
  * Writing
  ****************************************************************************/
 
-bool UniverseArray::write(int channel, uchar value, QLCChannel::Group group)
+bool UniverseArray::write(int channel, uchar value, QLCChannel::Group group, bool isRelative)
 {
     if (channel >= size())
         return false;
 
-    if (checkHTP(channel, value, group) == false)
-        return false;
+    if (isRelative)
+    {
+        if (value == 127)
+            return true;
 
-    if (m_preGMValues != NULL)
-        m_preGMValues->data()[channel] = char(value);
+        m_doRelative = true;
+        m_relativeValues[channel] += value - 127;
+    }
+    else
+    {
+        if (checkHTP(channel, value, group) == false)
+            return false;
+
+        if (m_preGMValues != NULL)
+            m_preGMValues->data()[channel] = char(value);
+    }
+
+
+    if (m_doRelative)
+    {
+        int val = m_relativeValues[channel];
+        if (m_preGMValues != NULL)
+            val += (uchar)m_preGMValues->data()[channel];
+        value = CLAMP(val, 0, UCHAR_MAX);
+    }
+
     value = applyGM(channel, value, group);
     m_postGMValues->data()[channel] = char(value);
 

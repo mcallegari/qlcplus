@@ -212,6 +212,70 @@ void UniverseArray_Test::write()
     QCOMPARE(ua.postGMValues()->at(0), char(127));
 }
 
+void UniverseArray_Test::writeRelative()
+{
+    UniverseArray ua(10);
+
+    // past the end of the array
+    QVERIFY(ua.write(10, 255, QLCChannel::Pan, true) == false);
+    QCOMPARE(ua. m_relativeValues[9], short(0));
+    QCOMPARE(ua.m_relativeValues[4], short(0));
+    QCOMPARE(ua.m_relativeValues[0], short(0));
+    QCOMPARE(ua.postGMValues()->at(9), char(0));
+    QCOMPARE(ua.postGMValues()->at(4), char(0));
+    QCOMPARE(ua.postGMValues()->at(0), char(0));
+
+    // 127 == 0
+    QVERIFY(ua.write(9, 127, QLCChannel::Pan, true) == true);
+    QCOMPARE(ua.m_relativeValues[9], short(0));
+    QCOMPARE(ua.m_relativeValues[4], short(0));
+    QCOMPARE(ua.m_relativeValues[0], short(0));
+    QCOMPARE(int(ua.postGMValues()->at(9)), 0);
+    QCOMPARE(int(ua.postGMValues()->at(4)), 0);
+    QCOMPARE(int(ua.postGMValues()->at(0)), 0);
+
+    // 255 == -128
+    QVERIFY(ua.write(9, 255, QLCChannel::Pan, true) == true);
+    QCOMPARE(ua.m_relativeValues[9], short(128));
+    QCOMPARE(ua.m_relativeValues[4], short(0));
+    QCOMPARE(ua.m_relativeValues[0], short(0));
+    QCOMPARE(ua.postGMValues()->at(9), char(128));
+    QCOMPARE(ua.postGMValues()->at(4), char(0));
+    QCOMPARE(ua.postGMValues()->at(0), char(0));
+
+    // 0 == -127
+    QVERIFY(ua.write(9, 0, QLCChannel::Pan, true) == true);
+    QCOMPARE(ua.m_relativeValues[9], short(1));
+    QCOMPARE(ua.m_relativeValues[4], short(0));
+    QCOMPARE(ua.m_relativeValues[0], short(0));
+    QCOMPARE(ua.postGMValues()->at(9), char(1));
+    QCOMPARE(ua.postGMValues()->at(4), char(0));
+    QCOMPARE(ua.postGMValues()->at(0), char(0));
+
+    ua.reset();
+
+    QVERIFY(ua.write(9, 85, QLCChannel::Pan, false) == true);
+    QCOMPARE(ua.postGMValues()->at(9), char(85));
+    QVERIFY(ua.write(9, 117, QLCChannel::Pan, true) == true);
+    QCOMPARE(ua.postGMValues()->at(9), char(75));
+    QVERIFY(ua.write(9, 75, QLCChannel::Pan, false) == true);
+    QCOMPARE(ua.postGMValues()->at(9), char(65));
+
+    ua.reset();
+
+    QVERIFY(ua.write(9, 255, QLCChannel::Pan, false) == true);
+    QCOMPARE(ua.postGMValues()->at(9), char(255));
+    QVERIFY(ua.write(9, 255, QLCChannel::Pan, true) == true);
+    QCOMPARE(ua.postGMValues()->at(9), char(255));
+
+    ua.reset();
+
+    QVERIFY(ua.write(9, 0, QLCChannel::Pan, false) == true);
+    QCOMPARE(ua.postGMValues()->at(9), char(0));
+    QVERIFY(ua.write(9, 0, QLCChannel::Pan, true) == true);
+    QCOMPARE(ua.postGMValues()->at(9), char(0));
+}
+
 void UniverseArray_Test::reset()
 {
     UniverseArray ua(128);

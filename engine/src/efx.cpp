@@ -53,6 +53,7 @@ EFX::EFX(Doc* doc) : Function(doc, Function::EFX)
     m_yOffset = 127;
     m_rotation = 0;
     m_startOffset = 0;
+    m_isRelative = false;
 
     updateRotationCache();
 
@@ -135,6 +136,7 @@ bool EFX::copyFrom(const Function* function)
     m_yOffset = efx->m_yOffset;
     m_rotation = efx->m_rotation;
     m_startOffset = efx->m_startOffset;
+    m_isRelative = efx->m_isRelative;
 
     updateRotationCache();
 
@@ -391,6 +393,21 @@ int EFX::startOffset() const
 qreal EFX::convertOffset(int offset) const
 {
     return M_PI/180 * (offset % 360);
+}
+
+/*****************************************************************************
+ * Is Relative
+ *****************************************************************************/
+
+void EFX::setIsRelative(bool isRelative)
+{
+    m_isRelative = isRelative;
+    emit changed(this->id());
+}
+
+bool EFX::isRelative() const
+{
+    return m_isRelative;
 }
 
 /*****************************************************************************
@@ -700,6 +717,13 @@ bool EFX::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     text = doc->createTextNode(str);
     tag.appendChild(text);
 
+    /* IsRelative */
+    tag = doc->createElement(KXMLQLCEFXIsRelative);
+    root.appendChild(tag);
+    str.setNum(isRelative() ? 1 : 0);
+    text = doc->createTextNode(str);
+    tag.appendChild(text);
+
     /********************************************
      * X-Axis
      ********************************************/
@@ -839,6 +863,11 @@ bool EFX::loadXML(const QDomElement& root)
         {
             /* StartOffset */
             setStartOffset(tag.text().toInt());
+        }
+        else if (tag.tagName() == KXMLQLCEFXIsRelative)
+        {
+            /* IsRelative */
+            setIsRelative(tag.text().toInt() != 0);
         }
         else if (tag.tagName() == KXMLQLCEFXAxis)
         {

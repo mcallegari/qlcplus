@@ -127,6 +127,7 @@ private slots:
     void slotYOffsetSpinChanged(int value);
     void slotRotationSpinChanged(int value);
     void slotStartOffsetSpinChanged(int value);
+    void slotIsRelativeCheckboxChanged(int value);
 
     void slotXFrequencySpinChanged(int value);
     void slotYFrequencySpinChanged(int value);

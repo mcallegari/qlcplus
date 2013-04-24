@@ -206,6 +206,8 @@ void EFXEditor::initMovementPage()
             this, SLOT(slotRotationSpinChanged(int)));
     connect(m_startOffsetSpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotStartOffsetSpinChanged(int)));
+    connect(m_isRelativeCheckbox, SIGNAL(stateChanged(int)),
+            this, SLOT(slotIsRelativeCheckboxChanged(int)));
 
     connect(m_xFrequencySpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotXFrequencySpinChanged(int)));
@@ -237,6 +239,7 @@ void EFXEditor::initMovementPage()
     m_yOffsetSpin->setValue(m_efx->yOffset());
     m_rotationSpin->setValue(m_efx->rotation());
     m_startOffsetSpin->setValue(m_efx->startOffset());
+    m_isRelativeCheckbox->setChecked(m_efx->isRelative());
 
     m_xFrequencySpin->setValue(m_efx->xFrequency());
     m_yFrequencySpin->setValue(m_efx->yFrequency());
@@ -855,6 +858,12 @@ void EFXEditor::slotStartOffsetSpinChanged(int value)
     Q_ASSERT(m_efx != NULL);
     m_efx->setStartOffset(value);
     redrawPreview();
+}
+
+void EFXEditor::slotIsRelativeCheckboxChanged(int value)
+{
+    Q_ASSERT(m_efx != NULL);
+    m_efx->setIsRelative(value == Qt::Checked);
 }
 
 void EFXEditor::slotXOffsetSpinChanged(int value)
