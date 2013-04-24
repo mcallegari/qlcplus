@@ -79,6 +79,27 @@ void Doc_Test::cleanup()
     QCOMPARE(m_doc->m_addresses.size(), 0);
 }
 
+void Doc_Test::normalizeComponentPath()
+{
+     m_doc->setWorkspacePath(QDir("../../../gfx").absolutePath());
+
+     QCOMPARE(m_doc->normalizeComponentPath(QString()), QString());
+     QCOMPARE(m_doc->normalizeComponentPath("qlcplus.png"), QFileInfo("qlcplus.png").absoluteFilePath());
+     QCOMPARE(m_doc->normalizeComponentPath("../../../gfx/qlcplus.png"), QString("qlcplus.png"));
+     QCOMPARE(m_doc->normalizeComponentPath("../../../gfx/sub/qlcplus.png"), QString("sub/qlcplus.png"));
+     QCOMPARE(m_doc->normalizeComponentPath("/home/user/test.png"), QString("/home/user/test.png"));
+}
+
+void Doc_Test::denormalizeComponentPath()
+{
+     m_doc->setWorkspacePath(QDir("../../../gfx").absolutePath());
+
+     QCOMPARE(m_doc->denormalizeComponentPath(QString()), QString());
+     QCOMPARE(m_doc->denormalizeComponentPath("qlcplus.png"), QFileInfo("../../../gfx/qlcplus.png").absoluteFilePath());
+     QCOMPARE(m_doc->denormalizeComponentPath("sub/qlcplus.png"), QFileInfo("../../../gfx/sub/qlcplus.png").absoluteFilePath());
+     QCOMPARE(m_doc->denormalizeComponentPath("/home/user/test.png"), QString("/home/user/test.png"));
+}
+
 void Doc_Test::defaults()
 {
     QVERIFY(m_doc->m_fixtureDefCache != NULL);
