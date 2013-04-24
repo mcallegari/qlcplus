@@ -8,6 +8,8 @@ qlcplus (4.3.3) stable; urgency=low
   * NEW: Added list of recent project files (long press open icon to activate it)
   * NEW: Added "Snap to Grid" functionality in Show manager
   * NEW: It is now possible to add notes to Chaser steps (either from Chaser Editor or Virtual Console Cue List)
+  * NEW: Added "Align to cursor" option to Sequences and Audio item in Show Manager
+  * NEW: Show time position when dragging a Show Manager object
   * Fixed crash when changing a fixture address
   * Fixed crash on Show Editor when displaying a deleted sequence
   * Fixed Show Manager playback crash after deleting an audio track
