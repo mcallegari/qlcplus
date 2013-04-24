@@ -192,13 +192,8 @@ void MultiTrackView::addSequence(Chaser *chaser)
 
     if (chaser->getStartTime() == UINT_MAX)
     {
-        quint32 s_time = getTimeFromCursor();
-        chaser->setStartTime(s_time);
+        updateItem(item, getTimeFromCursor());
         item->setPos(m_cursor->x() + 2, 36 + (trackNum * TRACK_HEIGHT));
-        item->setToolTip(QString(tr("Start time: %1\nDuration: %2\n%3"))
-                         .arg(Function::speedToString(s_time))
-                         .arg(Function::speedToString(chaser->getDuration()))
-                         .arg(tr("Click to move this sequence across the timeline")));
     }
     else
     {
@@ -209,6 +204,8 @@ void MultiTrackView::addSequence(Chaser *chaser)
 
     connect(item, SIGNAL(itemDropped(QGraphicsSceneMouseEvent *, SequenceItem *)),
             this, SLOT(slotSequenceMoved(QGraphicsSceneMouseEvent *, SequenceItem *)));
+    connect(item, SIGNAL(alignToCursor(SequenceItem*)),
+            this, SLOT(slotAlignToCursor(SequenceItem*)));
     m_scene->addItem(item);
     m_sequences.append(item);
     int new_scene_width = item->x() + item->getWidth();
@@ -228,13 +225,8 @@ void MultiTrackView::addAudio(Audio *audio)
 
     if (audio->getStartTime() == UINT_MAX)
     {
-        quint32 s_time = getTimeFromCursor();
-        audio->setStartTime(s_time);
+        updateItem(item, getTimeFromCursor());
         item->setPos(m_cursor->x() + 2, 36 + (trackNum * TRACK_HEIGHT));
-        item->setToolTip(QString(tr("Start time: %1\nDuration: %2\n%3"))
-                         .arg(Function::speedToString(s_time))
-                         .arg(Function::speedToString(audio->getDuration()))
-                         .arg(tr("Click to move this audio across the timeline")));
     }
     else
     {
@@ -245,6 +237,8 @@ void MultiTrackView::addAudio(Audio *audio)
 
     connect(item, SIGNAL(itemDropped(QGraphicsSceneMouseEvent *, AudioItem *)),
             this, SLOT(slotSequenceMoved(QGraphicsSceneMouseEvent *, AudioItem *)));
+    connect(item, SIGNAL(alignToCursor(AudioItem*)),
+            this, SLOT(slotAlignToCursor(AudioItem*)));
     connect(audio, SIGNAL(totalTimeChanged(qint64)), item, SLOT(updateDuration()));
     m_scene->addItem(item);
     m_audio.append(item);
@@ -376,18 +370,47 @@ AudioItem *MultiTrackView::getSelectedAudio()
 
 quint32 MultiTrackView::getTimeFromCursor()
 {
-    quint32 s_time = (double)(m_cursor->x() - TRACK_WIDTH) * (m_header->getTimeScale() * 1000) /
+    quint32 s_time = (double)(m_cursor->x() - TRACK_WIDTH) *
+                     (m_header->getTimeScale() * 1000) /
                      (double)(m_header->getHalfSecondWidth() * 2);
     return s_time;
+}
+
+quint32 MultiTrackView::getTimeFromPosition(qreal pos)
+{
+    return ((double)(pos - TRACK_WIDTH) *
+            (double)(m_header->getTimeScale() * 1000) /
+            (double)(m_header->getHalfSecondWidth() * 2));
 }
 
 quint32 MultiTrackView::getPositionFromTime(quint32 time)
 {
     if (time == 0)
         return TRACK_WIDTH;
-    quint32 xPos = ((double)time / 500) * ((double)m_header->getHalfSecondWidth() /
-                                           (double)m_header->getTimeScale());
+    quint32 xPos = ((double)time / 500) *
+                    ((double)m_header->getHalfSecondWidth() /
+                     (double)m_header->getTimeScale());
     return TRACK_WIDTH + xPos;
+}
+
+void MultiTrackView::updateItem(SequenceItem *item, quint32 time)
+{
+    item->getChaser()->setStartTime(time);
+    item->setToolTip(QString(tr("Name: %1\nStart time: %2\nDuration: %3\n%4"))
+                    .arg(item->getChaser()->name())
+                    .arg(Function::speedToString(time))
+                    .arg(Function::speedToString(item->getChaser()->getDuration()))
+                    .arg(tr("Click to move this sequence across the timeline")));
+}
+
+void MultiTrackView::updateItem(AudioItem *item, quint32 time)
+{
+    item->getAudio()->setStartTime(time);
+    item->setToolTip(QString(tr("Name: %1\nStart time: %2\nDuration: %3\n%4"))
+                    .arg(item->getAudio()->name())
+                    .arg(Function::speedToString(time))
+                    .arg(Function::speedToString(item->getAudio()->getDuration()))
+                    .arg(tr("Click to move this audio across the timeline")));
 }
 
 int MultiTrackView::getActiveTrack()
@@ -525,23 +548,15 @@ void MultiTrackView::slotSequenceMoved(QGraphicsSceneMouseEvent *, SequenceItem 
         float step = m_header->getTimeDivisionStep();
         float gridPos = ((int)(item->x() / step) * step);
         item->setPos(gridPos, ypos);
-        s_time = (gridPos - TRACK_WIDTH) * (double)(m_header->getTimeScale() * 1000) /
-                                           (double)(m_header->getHalfSecondWidth() * 2);
+        s_time = getTimeFromPosition(gridPos);
     }
     else
     {
         item->setPos(item->x(), ypos);
-        s_time = (item->x() - TRACK_WIDTH) * (double)(m_header->getTimeScale() * 1000) /
-                                             (double)(m_header->getHalfSecondWidth() * 2);
+        s_time = getTimeFromPosition(item->x());
     }
 
-    item->getChaser()->setStartTime(s_time);
-
-    item->setToolTip(QString(tr("Name: %1\nStart time: %2\nDuration: %3\n%4"))
-                    .arg(item->getChaser()->name())
-                    .arg(Function::speedToString(s_time))
-                    .arg(Function::speedToString(item->getChaser()->getDuration()))
-                    .arg(tr("Click to move this sequence across the timeline")));
+    updateItem(item, s_time);
 
     m_scene->update();
     emit sequenceMoved(item);
@@ -571,23 +586,29 @@ void MultiTrackView::slotSequenceMoved(QGraphicsSceneMouseEvent *, AudioItem *it
         float step = m_header->getTimeDivisionStep();
         float gridPos = ((int)(item->x() / step) * step);
         item->setPos(gridPos, ypos);
-        s_time = (gridPos - TRACK_WIDTH) * (double)(m_header->getTimeScale() * 1000) /
-                                           (double)(m_header->getHalfSecondWidth() * 2);
+        s_time = getTimeFromPosition(gridPos);
     }
     else
     {
         item->setPos(item->x(), ypos);
-        s_time = (double)(item->x() - TRACK_WIDTH) * (double)(m_header->getTimeScale() * 1000) /
-                 (double)(m_header->getHalfSecondWidth() * 2);
+        s_time = getTimeFromPosition(item->x());
     }
 
-    item->getAudio()->setStartTime(s_time);
-    item->setToolTip(QString(tr("Name: %1\nStart time: %2\nDuration: %3\n%4"))
-                    .arg(item->getAudio()->name())
-                    .arg(Function::speedToString(s_time))
-                    .arg(Function::speedToString(item->getAudio()->getDuration()))
-                    .arg(tr("Click to move this audio across the timeline")));
-
+    updateItem(item, s_time);
     m_scene->update();
     emit audioMoved(item);
+}
+
+void MultiTrackView::slotAlignToCursor(SequenceItem *item)
+{
+    item->setX(m_cursor->x());
+    updateItem(item, getTimeFromPosition(item->x()));
+    m_scene->update();
+}
+
+void MultiTrackView::slotAlignToCursor(AudioItem *item)
+{
+    item->setX(m_cursor->x());
+    updateItem(item, getTimeFromPosition(item->x()));
+    m_scene->update();
 }

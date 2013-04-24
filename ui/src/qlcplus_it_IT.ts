@@ -772,7 +772,7 @@ Il file selezionato è stato spostato o eliminato.</translation>
 <context>
     <name>AudioItem</name>
     <message>
-        <location filename="sceneitems.cpp" line="636"/>
+        <location filename="sceneitems.cpp" line="660"/>
         <source>Name: %1
 Start time: %2
 Duration: %3
@@ -783,28 +783,33 @@ Durata: %3
 %4</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="640"/>
+        <location filename="sceneitems.cpp" line="664"/>
         <source>Click to move this audio across the timeline</source>
         <translation>Clicca per muovere l&apos;audio lungo la linea temporale</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="655"/>
-        <location filename="sceneitems.cpp" line="1000"/>
+        <location filename="sceneitems.cpp" line="679"/>
+        <location filename="sceneitems.cpp" line="1038"/>
         <source>Preview Left Channel</source>
         <translation>Anteprima Canale Sinistro</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="659"/>
+        <location filename="sceneitems.cpp" line="683"/>
         <source>Preview Right Channel</source>
         <translation>Anteprima Canale Destro</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="663"/>
+        <location filename="sceneitems.cpp" line="687"/>
         <source>Preview Stereo Channels</source>
         <translation>Anteprima Canali Stereo</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="996"/>
+        <location filename="sceneitems.cpp" line="692"/>
+        <source>Align to cursor</source>
+        <translation>Allinea al cursore</translation>
+    </message>
+    <message>
+        <location filename="sceneitems.cpp" line="1034"/>
         <source>Preview Mono</source>
         <translation>Anteprima Mono</translation>
     </message>
@@ -2688,57 +2693,45 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
 <context>
     <name>MultiTrackView</name>
     <message>
-        <location filename="multitrackview.cpp" line="201"/>
-        <location filename="multitrackview.cpp" line="544"/>
+        <location filename="multitrackview.cpp" line="403"/>
         <source>Click to move this sequence across the timeline</source>
         <translation>Clicca per muovere la sequenza lungo la linea temporale</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="237"/>
-        <location filename="multitrackview.cpp" line="589"/>
+        <location filename="multitrackview.cpp" line="413"/>
         <source>Click to move this audio across the timeline</source>
         <translation>Clicca per spostare questo audio lungo la linea temporale</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="198"/>
-        <location filename="multitrackview.cpp" line="234"/>
-        <source>Start time: %1
-Duration: %2
-%3</source>
-        <translation>Inizio: %1
-Durata: %2
-%3</translation>
-    </message>
-    <message>
-        <location filename="multitrackview.cpp" line="262"/>
+        <location filename="multitrackview.cpp" line="256"/>
         <source>Do you want to DELETE sequence:</source>
         <translation>Vuoi ELIMINARE la sequenza:</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="265"/>
-        <location filename="multitrackview.cpp" line="285"/>
-        <location filename="multitrackview.cpp" line="319"/>
+        <location filename="multitrackview.cpp" line="259"/>
+        <location filename="multitrackview.cpp" line="279"/>
+        <location filename="multitrackview.cpp" line="313"/>
         <source>Delete Functions</source>
         <translation>Elimina Funzioni</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="281"/>
+        <location filename="multitrackview.cpp" line="275"/>
         <source>Do you want to DELETE audio (the source file will NOT be removed):</source>
         <translation>Vuoi ELIMINARE audio (il file sorgente NON verrà eliminato):</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="306"/>
+        <location filename="multitrackview.cpp" line="300"/>
         <source>Do you want to DELETE scene:</source>
         <translation>Vuoi ELIMINARE la scena:</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="309"/>
+        <location filename="multitrackview.cpp" line="303"/>
         <source>This operation will also DELETE:</source>
         <translation>Questa operazione ELIMINERA&apos; anche:</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="540"/>
-        <location filename="multitrackview.cpp" line="585"/>
+        <location filename="multitrackview.cpp" line="399"/>
+        <location filename="multitrackview.cpp" line="409"/>
         <source>Name: %1
 Start time: %2
 Duration: %3
@@ -3256,7 +3249,7 @@ Durata: %3
 <context>
     <name>SequenceItem</name>
     <message>
-        <location filename="sceneitems.cpp" line="439"/>
+        <location filename="sceneitems.cpp" line="440"/>
         <source>Name: %1
 Start time: %2
 Duration: %3
@@ -3270,9 +3263,14 @@ Durata: %3
 %4</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="443"/>
+        <location filename="sceneitems.cpp" line="444"/>
         <source>Click to move this sequence across the timeline</source>
         <translation>Clicca per muovere la sequenza lungo la linea temporale</translation>
+    </message>
+    <message>
+        <location filename="sceneitems.cpp" line="456"/>
+        <source>Align to cursor</source>
+        <translation>Allinea al cursore</translation>
     </message>
 </context>
 <context>

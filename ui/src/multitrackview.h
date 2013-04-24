@@ -114,6 +114,12 @@ private:
     /** Return position in pixel of a given time (in msec) */
     quint32 getPositionFromTime(quint32 time);
 
+    /** Return the time (in msec) from a given X position */
+    quint32 getTimeFromPosition(qreal pos);
+
+    void updateItem(SequenceItem *, quint32 time);
+    void updateItem(AudioItem *, quint32 time);
+
 private:
     QGraphicsScene *m_scene;
     QSlider *m_timeSlider;
@@ -146,6 +152,8 @@ protected slots:
 
     void slotSequenceMoved(QGraphicsSceneMouseEvent *, SequenceItem *);
     void slotSequenceMoved(QGraphicsSceneMouseEvent *, AudioItem *);
+    void slotAlignToCursor(SequenceItem *);
+    void slotAlignToCursor(AudioItem *);
 };
 
 #endif

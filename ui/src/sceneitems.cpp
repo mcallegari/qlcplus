@@ -434,6 +434,7 @@ SequenceItem::SequenceItem(Chaser *seq)
     , m_trackIdx(-1)
     , m_selectedStep(-1)
     , m_pressed(false)
+    , m_alignToCursor(NULL)
 {
     Q_ASSERT(seq != NULL);
     setToolTip(QString(tr("Name: %1\nStart time: %2\nDuration: %3\n%4"))
@@ -451,6 +452,11 @@ SequenceItem::SequenceItem(Chaser *seq)
     m_timeFont.setBold(true);
     m_timeFont.setPixelSize(12);
     connect(m_chaser, SIGNAL(changed(quint32)), this, SLOT(slotSequenceChanged(quint32)));
+
+    m_alignToCursor = new QAction(tr("Align to cursor"), this);
+    connect(m_alignToCursor, SIGNAL(triggered()),
+            this, SLOT(slotAlignToCursorClicked()));
+
 }
 
 void SequenceItem::calculateWidth()
@@ -597,11 +603,17 @@ void SequenceItem::slotSequenceChanged(quint32)
     calculateWidth();
 }
 
+void SequenceItem::slotAlignToCursorClicked()
+{
+    emit alignToCursor(this);
+}
+
 void SequenceItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mousePressEvent(event);
     m_pos = this->pos();
-    m_pressed = true;
+    if(event->button() == Qt::LeftButton)
+        m_pressed = true;
     this->setSelected(true);
 }
 
@@ -612,6 +624,17 @@ void SequenceItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     setCursor(Qt::OpenHandCursor);
     m_pressed = false;
     emit itemDropped(event, this);
+}
+
+void SequenceItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
+{
+    QMenu menu;
+    QFont menuFont = QApplication::font();
+    menuFont.setPixelSize(14);
+    menu.setFont(menuFont);
+
+    menu.addAction(m_alignToCursor);
+    menu.exec(QCursor::pos());
 }
 
 /*********************************************************************
@@ -629,6 +652,7 @@ AudioItem::AudioItem(Audio *aud)
     , m_previewLeftAction(NULL)
     , m_previewRightAction(NULL)
     , m_previewStereoAction(NULL)
+    , m_alignToCursor(NULL)
     , m_preview(NULL)
     , m_pressed(false)
 {
@@ -664,6 +688,10 @@ AudioItem::AudioItem(Audio *aud)
     m_previewStereoAction->setCheckable(true);
     connect(m_previewStereoAction, SIGNAL(toggled(bool)),
             this, SLOT(slotAudioPreviewStero(bool)));
+
+    m_alignToCursor = new QAction(tr("Align to cursor"), this);
+    connect(m_alignToCursor, SIGNAL(triggered()),
+            this, SLOT(slotAlignToCursorClicked()));
 }
 
 void AudioItem::calculateWidth()
@@ -815,6 +843,11 @@ void AudioItem::slotAudioPreviewStero(bool active)
     m_previewLeftAction->setChecked(false);
     m_previewRightAction->setChecked(false);
     createWaveform(active, active);
+}
+
+void AudioItem::slotAlignToCursorClicked()
+{
+    emit alignToCursor(this);
 }
 
 void AudioItem::createWaveform(bool left, bool right)
@@ -971,7 +1004,8 @@ void AudioItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mousePressEvent(event);
     m_pos = this->pos();
-    m_pressed = true;
+    if(event->button() == Qt::LeftButton)
+        m_pressed = true;
     this->setSelected(true);
 }
 
@@ -986,12 +1020,16 @@ void AudioItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 void AudioItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
 {
+    QMenu menu;
+    QFont menuFont = QApplication::font();
+    menuFont.setPixelSize(14);
+    menu.setFont(menuFont);
+
     if (m_audio->getAudioDecoder() != NULL)
     {
         AudioDecoder *ad = m_audio->getAudioDecoder();
         AudioParameters ap = ad->audioParameters();
 
-        QMenu menu;
         if (ap.channels() == 1)
             m_previewLeftAction->setText(tr("Preview Mono"));
         menu.addAction(m_previewLeftAction);
@@ -1001,7 +1039,8 @@ void AudioItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
             menu.addAction(m_previewRightAction);
             menu.addAction(m_previewStereoAction);
         }
-
-        menu.exec(QCursor::pos());
+        menu.addSeparator();
     }
+    menu.addAction(m_alignToCursor);
+    menu.exec(QCursor::pos());
 }

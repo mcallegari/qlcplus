@@ -219,13 +219,16 @@ public:
 
 signals:
     void itemDropped(QGraphicsSceneMouseEvent *, SequenceItem *);
+    void alignToCursor(SequenceItem *);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *);
 
 protected slots:
     void slotSequenceChanged(quint32);
+    void slotAlignToCursorClicked();
 
 private:
     /** Calculate sequence width for paint() and boundingRect() */
@@ -248,6 +251,8 @@ private:
 
     QFont m_timeFont;
     bool m_pressed;
+
+    QAction *m_alignToCursor;
 };
 
 /**************************************************************************
@@ -285,6 +290,7 @@ public slots:
 
 signals:
     void itemDropped(QGraphicsSceneMouseEvent *, AudioItem *);
+    void alignToCursor(AudioItem *);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
@@ -297,6 +303,7 @@ protected slots:
     void slotAudioPreviewLeft(bool active);
     void slotAudioPreviewRight(bool active);
     void slotAudioPreviewStero(bool active);
+    void slotAlignToCursorClicked();
 
 private:
     /** Calculate sequence width for paint() and boundingRect() */
@@ -324,6 +331,8 @@ private:
     QAction *m_previewLeftAction;
     QAction *m_previewRightAction;
     QAction *m_previewStereoAction;
+    QAction *m_alignToCursor;
+
     /** Pixmap holding the waveform (if enabled) */
     QPixmap *m_preview;
 
