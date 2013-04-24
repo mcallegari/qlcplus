@@ -271,7 +271,7 @@ QImage ClickAndGoWidget::getImageFromValue(uchar value)
     else if (m_linearColor == true)
     {
         QRgb col = m_image.pixel(10 + value, 10);
-        img.fill(QColor(col));
+        img.fill(QColor(col).rgb());
     }
 
     return img;
@@ -424,7 +424,7 @@ ClickAndGoWidget::PresetResource::PresetResource(QColor color1, QColor color2,
     m_max = max;
     m_thumbnail = QImage(40, 40, QImage::Format_RGB32);
     if (color2.isValid() == false)
-        m_thumbnail.fill(color1);
+        m_thumbnail.fill(color1.rgb());
     else
     {
         QPainter painter(&m_thumbnail);
