@@ -542,9 +542,8 @@ void ChaserEditor::slotCopyClicked()
 {
     //m_clipboard.clear();
     QList <ChaserStep> copyList;
-    QListIterator <QTreeWidgetItem*> it(m_tree->selectedItems());
-    while (it.hasNext() == true)
-        copyList << stepAtItem(it.next());
+    foreach (QTreeWidgetItem *item, m_tree->selectedItems())
+        copyList << stepAtItem(item);
     QLCClipboard *clipboard = m_doc->clipboard();
     clipboard->copyContent(m_chaser->id(), copyList);
     updateClipboardButtons();
@@ -565,12 +564,15 @@ void ChaserEditor::slotPasteClicked()
         Scene *scene = qobject_cast<Scene*>(m_doc->function(sceneID));
         foreach(ChaserStep step, pasteList)
         {
-            foreach(SceneValue scv, step.values)
+            if (step.fid != sceneID) // if IDs are the same then it's a valid step
             {
-                if (scene->checkValue(scv) == false)
+                foreach(SceneValue scv, step.values)
                 {
-                    QMessageBox::warning(this, tr("Paste error"), tr("Trying to paste on an incompatible Scene. Operation cancelled."));
-                    return;
+                    if (scene->checkValue(scv) == false)
+                    {
+                        QMessageBox::warning(this, tr("Paste error"), tr("Trying to paste on an incompatible Scene. Operation cancelled."));
+                        return;
+                    }
                 }
             }
         }
@@ -596,8 +598,8 @@ void ChaserEditor::slotPasteClicked()
         updateItem(item, step);
         m_tree->insertTopLevelItem(insertionPoint, item);
         item->setSelected(true);
-        insertionPoint = CLAMP(m_tree->indexOfTopLevelItem(item) + 1, 0, m_tree->topLevelItemCount() - 1);
         m_chaser->addStep(step, insertionPoint);
+        insertionPoint++;
     }
 
     updateStepNumbers();

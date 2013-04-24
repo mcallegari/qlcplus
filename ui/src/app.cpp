@@ -664,7 +664,8 @@ void App::updateFileOpenMenu(QString addRecent)
     }
 
     // Set the recent files menu to the file open action
-    m_fileOpenAction->setMenu(m_fileOpenMenu);
+    if (menuRecentList.isEmpty() == false)
+        m_fileOpenAction->setMenu(m_fileOpenMenu);
 }
 
 bool App::slotFileNew()

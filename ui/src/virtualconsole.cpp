@@ -887,6 +887,7 @@ void VirtualConsole::slotToolsSettings()
 
         QSettings settings;
         settings.setValue(SETTINGS_BUTTON_SIZE, vcpe.buttonSize());
+        settings.setValue(SETTINGS_BUTTON_STATUSLED, vcpe.buttonStatusLED());
         settings.setValue(SETTINGS_SLIDER_SIZE, vcpe.sliderSize());
         settings.setValue(SETTINGS_SPEEDDIAL_SIZE, vcpe.speedDialSize());
         settings.setValue(SETTINGS_SPEEDDIAL_VALUE, vcpe.speedDialValue());

@@ -196,6 +196,7 @@ public:
 
 protected:
     bool m_on;
+    bool m_ledStyle;
 
     /*********************************************************************
      * Key sequence handler

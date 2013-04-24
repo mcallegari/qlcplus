@@ -550,12 +550,12 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
         <translation>STRG+F12</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="966"/>
+        <location filename="app.cpp" line="967"/>
         <source>Error</source>
         <translation type="unfinished">Fehler</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="967"/>
+        <location filename="app.cpp" line="968"/>
         <source>File not found !
 The selected file has been moved or deleted.</source>
         <translation type="unfinished"></translation>
@@ -697,46 +697,46 @@ The selected file has been moved or deleted.</source>
         <translation>Dateifehler</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="676"/>
-        <location filename="app.cpp" line="715"/>
-        <location filename="app.cpp" line="975"/>
+        <location filename="app.cpp" line="677"/>
+        <location filename="app.cpp" line="716"/>
+        <location filename="app.cpp" line="976"/>
         <source>Do you wish to save the current workspace?
 Changes will be lost if you don&apos;t save them.</source>
         <translation>Willst du die aktuelle Arbeitsfläche speichern?
 Änderungen gehen sonst verloren.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="678"/>
+        <location filename="app.cpp" line="679"/>
         <source>New Workspace</source>
         <translation>Neue Arbeitsfläche</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="717"/>
-        <location filename="app.cpp" line="738"/>
-        <location filename="app.cpp" line="977"/>
+        <location filename="app.cpp" line="718"/>
+        <location filename="app.cpp" line="739"/>
+        <location filename="app.cpp" line="978"/>
         <source>Open Workspace</source>
         <translation>Arbeitsfläche öffnen</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="746"/>
-        <location filename="app.cpp" line="823"/>
+        <location filename="app.cpp" line="747"/>
+        <location filename="app.cpp" line="824"/>
         <source>Workspaces (*%1)</source>
         <translation>Arbeitsflächen (*%1)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="748"/>
-        <location filename="app.cpp" line="825"/>
+        <location filename="app.cpp" line="749"/>
+        <location filename="app.cpp" line="826"/>
         <source>All Files (*.*)</source>
         <translation>Alle Dateien (*.*)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="750"/>
-        <location filename="app.cpp" line="827"/>
+        <location filename="app.cpp" line="751"/>
+        <location filename="app.cpp" line="828"/>
         <source>All Files (*)</source>
         <translation>Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="817"/>
+        <location filename="app.cpp" line="818"/>
         <source>Save Workspace As</source>
         <translation>Arbeitsfläche speichern unter</translation>
     </message>
@@ -772,7 +772,7 @@ Changes will be lost if you don&apos;t save them.</source>
 <context>
     <name>AudioItem</name>
     <message>
-        <location filename="sceneitems.cpp" line="620"/>
+        <location filename="sceneitems.cpp" line="636"/>
         <source>Name: %1
 Start time: %2
 Duration: %3
@@ -780,28 +780,28 @@ Duration: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="624"/>
+        <location filename="sceneitems.cpp" line="640"/>
         <source>Click to move this audio across the timeline</source>
         <translation type="unfinished">Zum Verschieben von Audio über die Timeline klicken</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="639"/>
-        <location filename="sceneitems.cpp" line="975"/>
+        <location filename="sceneitems.cpp" line="655"/>
+        <location filename="sceneitems.cpp" line="1000"/>
         <source>Preview Left Channel</source>
         <translation>Vorschau linker Kanal</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="643"/>
+        <location filename="sceneitems.cpp" line="659"/>
         <source>Preview Right Channel</source>
         <translation>Vorschau rechter Kanal</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="647"/>
+        <location filename="sceneitems.cpp" line="663"/>
         <source>Preview Stereo Channels</source>
         <translation>Vorschau Stereo-Kanäle</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="971"/>
+        <location filename="sceneitems.cpp" line="996"/>
         <source>Preview Mono</source>
         <translation>Vorschaue Mono</translation>
     </message>
@@ -948,13 +948,13 @@ Duration: %3
     </message>
     <message>
         <location filename="chasereditor.ui" line="55"/>
-        <location filename="chasereditor.cpp" line="778"/>
+        <location filename="chasereditor.cpp" line="780"/>
         <source>Fade In</source>
         <translation>Einblenden</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="65"/>
-        <location filename="chasereditor.cpp" line="779"/>
+        <location filename="chasereditor.cpp" line="781"/>
         <source>Fade Out</source>
         <translation>Ausblenden</translation>
     </message>
@@ -1004,7 +1004,7 @@ Duration: %3
     </message>
     <message>
         <location filename="chasereditor.ui" line="60"/>
-        <location filename="chasereditor.cpp" line="780"/>
+        <location filename="chasereditor.cpp" line="782"/>
         <source>Hold</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1179,32 +1179,32 @@ Duration: %3
         <translation>Einfügen</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="572"/>
+        <location filename="chasereditor.cpp" line="573"/>
         <source>Paste error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="572"/>
+        <location filename="chasereditor.cpp" line="573"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="781"/>
+        <location filename="chasereditor.cpp" line="783"/>
         <source>Common Fade In</source>
         <translation>Gemeinsame Einblendung</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="782"/>
+        <location filename="chasereditor.cpp" line="784"/>
         <source>Common Fade Out</source>
         <translation>Gemeinsame Ausblendung</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="783"/>
+        <location filename="chasereditor.cpp" line="785"/>
         <source>Common Hold</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="799"/>
+        <location filename="chasereditor.cpp" line="801"/>
         <source>Multiple Steps</source>
         <translation>Mehrere Schritte</translation>
     </message>
@@ -1872,50 +1872,50 @@ Duration: %3
         <translation>Kanalgruppe löschen</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1224"/>
+        <location filename="fixturemanager.cpp" line="1228"/>
         <source>Error</source>
         <translation type="unfinished">Fehler</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1225"/>
+        <location filename="fixturemanager.cpp" line="1229"/>
         <source>Please enter a valid address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1271"/>
+        <location filename="fixturemanager.cpp" line="1275"/>
         <source>Ungroup fixtures?</source>
         <translation>Geräte-Gruppierung aufheben?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1272"/>
+        <location filename="fixturemanager.cpp" line="1276"/>
         <source>Do you want to ungroup the selected fixtures?</source>
         <translation>Gruppierung der ausgewählten Geräte aufheben?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1387"/>
+        <location filename="fixturemanager.cpp" line="1391"/>
         <source>Import Fixtures List</source>
         <oldsource>Import Fixture Definition</oldsource>
         <translation>Gerätedefinitionsliste importieren</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1392"/>
+        <location filename="fixturemanager.cpp" line="1396"/>
         <source>Export Fixtures List As</source>
         <oldsource>Export Fixture Definition As</oldsource>
         <translation>Gerätedefinitionsliste exportieren unter...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1398"/>
+        <location filename="fixturemanager.cpp" line="1402"/>
         <source>Fixtures List (*%1)</source>
         <oldsource>Fixture Definitions (*%1)</oldsource>
         <translation>Gerätedefinitionsliste (*%1)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1400"/>
+        <location filename="fixturemanager.cpp" line="1404"/>
         <source>All Files (*.*)</source>
         <translation>Alle Dateien (*.*)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1402"/>
+        <location filename="fixturemanager.cpp" line="1406"/>
         <source>All Files (*)</source>
         <translation>Alle Dateien (*)</translation>
     </message>
@@ -3247,7 +3247,7 @@ Duration: %3
 <context>
     <name>SequenceItem</name>
     <message>
-        <location filename="sceneitems.cpp" line="438"/>
+        <location filename="sceneitems.cpp" line="439"/>
         <source>Name: %1
 Start time: %2
 Duration: %3
@@ -3258,7 +3258,7 @@ Duration: %2
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="442"/>
+        <location filename="sceneitems.cpp" line="443"/>
         <source>Click to move this sequence across the timeline</source>
         <translation type="unfinished">Zum Verschieben der Sequenz über die Timeline klicken</translation>
     </message>
@@ -3627,27 +3627,27 @@ Duration: %2
         <translation>Kein</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="287"/>
+        <location filename="vcbutton.cpp" line="293"/>
         <source>Select button icon</source>
         <translation>Schaltersymbol wählen</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="288"/>
+        <location filename="vcbutton.cpp" line="294"/>
         <source>Images (%1)</source>
         <translation>Bilder (%1)</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="516"/>
+        <location filename="vcbutton.cpp" line="522"/>
         <source>Toggle Blackout</source>
         <translation>Schalte Blackout</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="518"/>
+        <location filename="vcbutton.cpp" line="524"/>
         <source>Stop ALL functions!</source>
         <translation>ALLE Funktionen stoppen!</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="719"/>
+        <location filename="vcbutton.cpp" line="725"/>
         <source>Icon</source>
         <translation>Symbol</translation>
     </message>
@@ -4141,7 +4141,7 @@ Duration: %2
         <translation>X-Auflösung des Layoutgitters</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="644"/>
+        <location filename="vcproperties.ui" line="673"/>
         <source>Choose...</source>
         <translation>Auswählen  ...</translation>
     </message>
@@ -4191,43 +4191,43 @@ Duration: %2
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="165"/>
-        <location filename="vcproperties.ui" line="211"/>
-        <location filename="vcproperties.ui" line="263"/>
-        <location filename="vcproperties.ui" line="338"/>
-        <location filename="vcproperties.ui" line="384"/>
-        <location filename="vcproperties.ui" line="430"/>
-        <location filename="vcproperties.ui" line="469"/>
+        <location filename="vcproperties.ui" line="195"/>
+        <location filename="vcproperties.ui" line="218"/>
+        <location filename="vcproperties.ui" line="270"/>
+        <location filename="vcproperties.ui" line="284"/>
+        <location filename="vcproperties.ui" line="367"/>
+        <location filename="vcproperties.ui" line="393"/>
+        <location filename="vcproperties.ui" line="400"/>
         <source>x</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="172"/>
+        <location filename="vcproperties.ui" line="499"/>
         <source>Button size:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="179"/>
+        <location filename="vcproperties.ui" line="485"/>
         <source>Solo frame size:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="237"/>
+        <location filename="vcproperties.ui" line="277"/>
         <source>Slider size:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="270"/>
+        <location filename="vcproperties.ui" line="430"/>
         <source>Speed dial size:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="315"/>
+        <location filename="vcproperties.ui" line="225"/>
         <source>XY Pad size:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="361"/>
+        <location filename="vcproperties.ui" line="492"/>
         <source>Cue List size:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4237,127 +4237,142 @@ Duration: %2
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="492"/>
+        <location filename="vcproperties.ui" line="188"/>
         <source>Speed dial value:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="508"/>
+        <location filename="vcproperties.ui" line="506"/>
+        <source>Button status style:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcproperties.ui" line="513"/>
+        <source>LED</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcproperties.ui" line="523"/>
+        <source>Border</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcproperties.ui" line="537"/>
         <source>Grand Master</source>
         <translation>Hauptregler</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="514"/>
+        <location filename="vcproperties.ui" line="543"/>
         <source>Channels</source>
         <translation>Kanäle</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="520"/>
+        <location filename="vcproperties.ui" line="549"/>
         <source>Apply Grand Master only to Intensity channels.</source>
         <translation>Den Hauptregler nur auf Intensitätskanäle anwenden.</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="523"/>
+        <location filename="vcproperties.ui" line="552"/>
         <source>Intensity</source>
         <translation>Intensität</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="530"/>
+        <location filename="vcproperties.ui" line="559"/>
         <source>Apply Grand Master to all channels.</source>
         <translation>Den Hauptregler auf alle Kanäle anwenden.</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="533"/>
+        <location filename="vcproperties.ui" line="562"/>
         <source>All channels</source>
         <translation>Alle Kanäle</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="543"/>
+        <location filename="vcproperties.ui" line="572"/>
         <source>Values</source>
         <translation>Werte</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="549"/>
+        <location filename="vcproperties.ui" line="578"/>
         <source>Make Grand Master reduce levels by a percentage.</source>
         <translation>Der Hauptregler reduziert die Werte prozentualisch.</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="552"/>
+        <location filename="vcproperties.ui" line="581"/>
         <source>Reduce</source>
         <translation>Reduzieren</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="559"/>
+        <location filename="vcproperties.ui" line="588"/>
         <source>Make Grand Master limit the maximum channel values.</source>
         <translation>Der Hauptregler limitiert die Maximalen Werte der Kanäle.</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="562"/>
+        <location filename="vcproperties.ui" line="591"/>
         <source>Limit</source>
         <translation>Limitieren</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="572"/>
+        <location filename="vcproperties.ui" line="601"/>
         <source>External Input</source>
         <translation>Externer Eingang</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="578"/>
+        <location filename="vcproperties.ui" line="607"/>
         <source>Input Universe</source>
         <translation>Eingangsuniversum</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="585"/>
+        <location filename="vcproperties.ui" line="614"/>
         <source>Input universe for Grand Master slider.</source>
         <translation>Eingangsuniversum für den Hauptregler.</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="595"/>
+        <location filename="vcproperties.ui" line="624"/>
         <source>Input Channel</source>
         <translation>Eingangskanal</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="602"/>
+        <location filename="vcproperties.ui" line="631"/>
         <source>Input channel for Grand Master slider.</source>
         <translation>Eingangskanal für den Hauptregler.</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="625"/>
+        <location filename="vcproperties.ui" line="654"/>
         <source>When toggled, you can move an external slider/knob to assign it to the Grand Master slider.</source>
         <translation>Wenn betätigt kann ein externer Regler/Schalter betätigt werden um diesen dem Hauptregler zuzuweisen.</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="628"/>
+        <location filename="vcproperties.ui" line="657"/>
         <source>Auto Detect</source>
         <translation>Automatische Erkennung</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="641"/>
+        <location filename="vcproperties.ui" line="670"/>
         <source>Choose an external input universe &amp; channel that the Grand Master slider should listen to.</source>
         <translation>Wähle ein externes Universum &amp; einen Kanal auf den dieser Hauptregler hören soll.</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="667"/>
+        <location filename="vcproperties.ui" line="696"/>
         <source>Slider movement</source>
         <translation>Regler Bewegung</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="673"/>
+        <location filename="vcproperties.ui" line="702"/>
         <source>Normal</source>
         <translation>Normal</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="680"/>
+        <location filename="vcproperties.ui" line="709"/>
         <source>Inverted</source>
         <translation>Invertiert</translation>
     </message>
     <message>
-        <location filename="vcpropertieseditor.cpp" line="403"/>
+        <location filename="vcpropertieseditor.cpp" line="415"/>
         <source>%1: Unknown</source>
         <translation>%1: Unbekannt</translation>
     </message>
     <message>
-        <location filename="vcpropertieseditor.cpp" line="419"/>
+        <location filename="vcpropertieseditor.cpp" line="431"/>
         <source>Unknown</source>
         <translation>Unbekannt</translation>
     </message>
@@ -5145,27 +5160,27 @@ Duration: %2
         <translation>&amp;Sortierungsreihenfolge</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1028"/>
+        <location filename="virtualconsole.cpp" line="1029"/>
         <source>Do you wish to delete the selected widgets?</source>
         <translation>Das ausgewählte Element löschen?</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1029"/>
+        <location filename="virtualconsole.cpp" line="1030"/>
         <source>Delete widgets</source>
         <translation>Element löschen</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1074"/>
+        <location filename="virtualconsole.cpp" line="1075"/>
         <source>Rename widgets</source>
         <translation>Element umbenennen</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1074"/>
+        <location filename="virtualconsole.cpp" line="1075"/>
         <source>Caption:</source>
         <translation>Überschrift:</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1127"/>
+        <location filename="virtualconsole.cpp" line="1128"/>
         <source>Select background image</source>
         <translation>Hintergrundbild auswählen</translation>
     </message>

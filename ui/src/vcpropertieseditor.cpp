@@ -76,6 +76,10 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
         m_buttonWspin->setValue(50);
         m_buttonHspin->setValue(50);
     }
+    // ********************* BUTTON STATUS *********************
+    var = settings.value(SETTINGS_BUTTON_STATUSLED);
+    if (var.isValid() == true && var.toBool() == true)
+            m_buttonStatusLEDRadio->setChecked(true);
     // ********************* SLIDER ****************************
     var = settings.value(SETTINGS_SLIDER_SIZE);
     if (var.isValid() == true)
@@ -210,6 +214,14 @@ VCProperties VCPropertiesEditor::properties() const
 QSize VCPropertiesEditor::buttonSize()
 {
     return QSize(m_buttonWspin->value(), m_buttonHspin->value());
+}
+
+bool VCPropertiesEditor::buttonStatusLED()
+{
+    if (m_buttonStatusLEDRadio->isChecked())
+        return true;
+    else
+        return false;
 }
 
 QSize VCPropertiesEditor::sliderSize()

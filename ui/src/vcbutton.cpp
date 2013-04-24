@@ -102,6 +102,12 @@ VCButton::VCButton(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     else
         resize(defaultSize);
 
+    var = settings.value(SETTINGS_BUTTON_STATUSLED);
+    if (var.isValid() == true && var.toBool() == true)
+        m_ledStyle = true;
+    else
+        m_ledStyle = false;
+
     setStyle(AppUtil::saneStyle());
 
     /* Listen to function removals */
@@ -920,35 +926,43 @@ void VCButton::paintEvent(QPaintEvent* e)
                            icon.pixmap(QSize(16, 16), QIcon::Normal, QIcon::On));
     }
 
-/*
-    painter.setPen(QPen(QColor(160, 160, 160, 255), 2));
-
-    if (isOn() == true)
-        painter.setBrush(QBrush(QColor(0, 230, 0, 255)));
-    else
-        painter.setBrush(QBrush(QColor(110, 110, 110, 255)));
-
-    int dim = rect().width() / 6;
-    if (dim > 14) dim = 14;
-
-//    painter.drawEllipse(6, 6, dim, dim);      // Style #1
-    painter.drawRoundedRect(-1, -1, dim, dim, 3, 3);   // Style #2
-*/
-
-    // Style #3
-    painter.setBrush(Qt::NoBrush);
-
-    if (isOn() == true)
+    if (m_ledStyle == true)
     {
-        painter.setPen(QPen(QColor(20, 20, 20, 255), 4));
-        painter.drawRoundedRect(2, 2, rect().width() - 4, rect().height() - 4, 3, 3);
-        painter.setPen(QPen(QColor(0, 230, 0, 255), 2));
-        painter.drawRoundedRect(2, 2, rect().width() - 4, rect().height() - 4, 2, 2);
+        painter.setPen(QPen(QColor(160, 160, 160, 255), 2));
+
+        if (isOn() == true)
+            painter.setBrush(QBrush(QColor(0, 230, 0, 255)));
+        else
+            painter.setBrush(QBrush(QColor(110, 110, 110, 255)));
+
+        int dim = rect().width() / 6;
+        if (dim > 14) dim = 14;
+
+        painter.drawEllipse(6, 6, dim, dim);      // Style #1
+        //painter.drawRoundedRect(-1, -1, dim, dim, 3, 3);   // Style #2
     }
     else
     {
-        painter.setPen(QPen(QColor(160, 160, 160, 255), 3));
-        painter.drawRoundedRect(1, 1, rect().width() - 2, rect().height() - 2, 3, 3);
+        // Style #3
+        painter.setBrush(Qt::NoBrush);
+
+        if (isOn() == true)
+        {
+            int borderWidth = (rect().width() > 80)?3:2;
+            painter.setPen(QPen(QColor(20, 20, 20, 255), borderWidth * 2));
+            painter.drawRoundedRect(borderWidth, borderWidth,
+                                    rect().width() - borderWidth * 2, rect().height() - (borderWidth * 2),
+                                    borderWidth + 1,  borderWidth + 1);
+            painter.setPen(QPen(QColor(0, 230, 0, 255), borderWidth));
+            painter.drawRoundedRect(borderWidth, borderWidth,
+                                    rect().width() - borderWidth * 2, rect().height() - (borderWidth * 2),
+                                    borderWidth, borderWidth);
+        }
+        else
+        {
+            painter.setPen(QPen(QColor(160, 160, 160, 255), 3));
+            painter.drawRoundedRect(1, 1, rect().width() - 2, rect().height() - 2, 3, 3);
+        }
     }
 
     /* Stop painting here */
