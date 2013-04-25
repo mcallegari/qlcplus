@@ -253,7 +253,7 @@ void ShowManager::initToolbar()
     // Time label and playback buttons
     m_timeLabel = new QLabel("00:00:00.000");
     m_timeLabel->setFixedWidth(150);
-    m_timeLabel->setAlignment(Qt::AlignRight | Qt::AlignBottom);
+    m_timeLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     QFont timeFont = QApplication::font();
     timeFont.setBold(true);
     timeFont.setPixelSize(20);
