@@ -142,7 +142,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="addfixture.ui" line="219"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERREUR: Cette addresse est utilisée !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="236"/>
@@ -735,13 +735,14 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
     <message>
         <location filename="app.cpp" line="967"/>
         <source>Error</source>
-        <translation type="unfinished">Erreur</translation>
+        <translation>Erreur</translation>
     </message>
     <message>
         <location filename="app.cpp" line="968"/>
         <source>File not found !
 The selected file has been moved or deleted.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier introuvable !
+Celui ci a du être déplacé ou effacé.</translation>
     </message>
 </context>
 <context>
@@ -780,12 +781,15 @@ The selected file has been moved or deleted.</source>
 Start time: %2
 Duration: %3
 %4</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom : %1
+Début : %2
+Durée : %3
+%4</translation>
     </message>
     <message>
         <location filename="sceneitems.cpp" line="664"/>
         <source>Click to move this audio across the timeline</source>
-        <translation type="unfinished">Cliquez afin de déplacer la piste audio sur la timeline</translation>
+        <translation>Cliquez afin de déplacer la piste audio sur la timeline</translation>
     </message>
     <message>
         <location filename="sceneitems.cpp" line="679"/>
@@ -806,7 +810,7 @@ Duration: %3
     <message>
         <location filename="sceneitems.cpp" line="692"/>
         <source>Align to cursor</source>
-        <translation type="unfinished"></translation>
+        <translation>Aligner sur le curseur</translation>
     </message>
     <message>
         <location filename="sceneitems.cpp" line="1034"/>
@@ -834,12 +838,12 @@ Duration: %3
     <message>
         <location filename="channelselection.ui" line="53"/>
         <source>Type</source>
-        <translation type="unfinished">Type</translation>
+        <translation>Type</translation>
     </message>
     <message>
         <location filename="channelselection.ui" line="58"/>
         <source>Group</source>
-        <translation type="unfinished"></translation>
+        <translation>Groupe</translation>
     </message>
     <message>
         <location filename="channelselection.ui" line="66"/>
@@ -891,7 +895,7 @@ Duration: %3
     <message>
         <location filename="channelselection.cpp" line="79"/>
         <source>Universe %1</source>
-        <translation type="unfinished">Univers %1</translation>
+        <translation>Univers %1</translation>
     </message>
 </context>
 <context>
@@ -899,32 +903,32 @@ Duration: %3
     <message>
         <location filename="channelsconfiguration.ui" line="14"/>
         <source>Channels Fade Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuration des Fondus de canaux</translation>
     </message>
     <message>
         <location filename="channelsconfiguration.ui" line="28"/>
         <source>Name</source>
-        <translation type="unfinished">Nom</translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <location filename="channelsconfiguration.ui" line="33"/>
         <source>Type</source>
-        <translation type="unfinished">Type</translation>
+        <translation>Type</translation>
     </message>
     <message>
         <location filename="channelsconfiguration.ui" line="38"/>
         <source>Fade</source>
-        <translation type="unfinished"></translation>
+        <translation>Fondu</translation>
     </message>
     <message>
         <location filename="channelsconfiguration.ui" line="46"/>
         <source>Apply changes to fixtures of the same type</source>
-        <translation type="unfinished"></translation>
+        <translation>Appliquer à tous les projecteurs du même type</translation>
     </message>
     <message>
         <location filename="channelsconfiguration.cpp" line="75"/>
         <source>Universe %1</source>
-        <translation type="unfinished">Univers %1</translation>
+        <translation>Univers %1</translation>
     </message>
 </context>
 <context>
@@ -990,7 +994,7 @@ Duration: %3
     <message>
         <location filename="chasereditor.ui" line="75"/>
         <source>Notes</source>
-        <translation type="unfinished"></translation>
+        <translation>Notes</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="164"/>
@@ -1189,12 +1193,12 @@ Duration: %3
     <message>
         <location filename="chasereditor.cpp" line="573"/>
         <source>Paste error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur de collage</translation>
     </message>
     <message>
         <location filename="chasereditor.cpp" line="573"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Scene incompatible à cette copie. Opération annulée.</translation>
     </message>
     <message>
         <location filename="chasereditor.cpp" line="783"/>
@@ -1834,7 +1838,7 @@ Duration: %3
     <message>
         <location filename="fixturemanager.cpp" line="842"/>
         <source>Channels Fade Configuration...</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuration des fondus de canaux...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="848"/>
@@ -1884,12 +1888,12 @@ Duration: %3
     <message>
         <location filename="fixturemanager.cpp" line="1228"/>
         <source>Error</source>
-        <translation type="unfinished">Erreur</translation>
+        <translation>Erreur</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1229"/>
         <source>Please enter a valid address</source>
-        <translation type="unfinished"></translation>
+        <translation>Saisissez une adresse valide</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1275"/>
@@ -2737,7 +2741,10 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
 Start time: %2
 Duration: %3
 %4</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom : %1
+Début : %2
+Durée : %3
+%4</translation>
     </message>
 </context>
 <context>
@@ -3255,17 +3262,20 @@ Duration: %3
         <oldsource>Start time: %1
 Duration: %2
 %3</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Nom : %1
+Début : %2
+Durée : %3
+%4</translation>
     </message>
     <message>
         <location filename="sceneitems.cpp" line="444"/>
         <source>Click to move this sequence across the timeline</source>
-        <translation type="unfinished">Cliquez afin de déplacer la séquence sur la timeline</translation>
+        <translation>Cliquez afin de déplacer la séquence sur la timeline</translation>
     </message>
     <message>
         <location filename="sceneitems.cpp" line="456"/>
         <source>Align to cursor</source>
-        <translation type="unfinished"></translation>
+        <translation>Aligner sur le curseur</translation>
     </message>
 </context>
 <context>
@@ -3341,12 +3351,12 @@ Duration: %2
     <message>
         <location filename="showmanager.cpp" line="177"/>
         <source>&amp;Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Copier</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="184"/>
         <source>&amp;Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>Coller (&amp;P)</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="190"/>
@@ -3361,7 +3371,7 @@ Duration: %2
     <message>
         <location filename="showmanager.cpp" line="204"/>
         <source>Snap to &amp;Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Grille Magnétique</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="211"/>
@@ -3442,17 +3452,17 @@ Duration: %2
         <location filename="showmanager.cpp" line="613"/>
         <location filename="showmanager.cpp" line="633"/>
         <source>Paste error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur de collage</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="613"/>
         <source>Overlapping paste not allowed. Operation cancelled.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Le collage va chevaucher. Opération annulée.</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="633"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Scene incompatible avec la copie. Opération annulée.</translation>
     </message>
 </context>
 <context>
@@ -3460,7 +3470,7 @@ Duration: %2
     <message>
         <location filename="simpledesk.cpp" line="219"/>
         <source>Universe</source>
-        <translation>Page</translation>
+        <translation>Univers</translation>
     </message>
     <message>
         <location filename="simpledesk.cpp" line="206"/>
@@ -3470,7 +3480,7 @@ Duration: %2
     <message>
         <location filename="simpledesk.cpp" line="198"/>
         <source>Current page</source>
-        <translation>Page actuelle</translation>
+        <translation>Page</translation>
     </message>
     <message>
         <location filename="simpledesk.cpp" line="190"/>
@@ -3480,7 +3490,7 @@ Duration: %2
     <message>
         <location filename="simpledesk.cpp" line="181"/>
         <source>View mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Type de Vue</translation>
     </message>
     <message>
         <location filename="simpledesk.cpp" line="214"/>
@@ -3865,7 +3875,7 @@ Duration: %2
     <message>
         <location filename="vccuelist.cpp" line="583"/>
         <source>Notes</source>
-        <translation type="unfinished"></translation>
+        <translation>Notes</translation>
     </message>
 </context>
 <context>
@@ -4188,12 +4198,12 @@ Duration: %2
     <message>
         <location filename="vcproperties.ui" line="128"/>
         <source>Widgets</source>
-        <translation type="unfinished"></translation>
+        <translation>Widgets</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="140"/>
         <source>Widgets default properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Propriétés par défaut</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="195"/>
@@ -4204,62 +4214,62 @@ Duration: %2
         <location filename="vcproperties.ui" line="393"/>
         <location filename="vcproperties.ui" line="400"/>
         <source>x</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="499"/>
         <source>Button size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Taille des boutons :</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="485"/>
         <source>Solo frame size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Taille des cadres de solos :</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="277"/>
         <source>Slider size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Taille des curseurs :</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="430"/>
         <source>Speed dial size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Taille des widgets vitesse :</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="225"/>
         <source>XY Pad size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Taille des Pads XY :</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="492"/>
         <source>Cue List size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Taille des Séquentiels :</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="407"/>
         <source>Frame size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Taille des Cadres :</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="188"/>
         <source>Speed dial value:</source>
-        <translation type="unfinished"></translation>
+        <translation>Valeur des widgets vitesse :</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="506"/>
         <source>Button status style:</source>
-        <translation type="unfinished"></translation>
+        <translation>Style des boutons :</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="513"/>
         <source>LED</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="523"/>
         <source>Border</source>
-        <translation type="unfinished"></translation>
+        <translation>Bord</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="537"/>
@@ -4513,13 +4523,13 @@ Duration: %2
     <message>
         <location filename="vcsliderproperties.ui" line="387"/>
         <source>Intensity</source>
-        <translation type="unfinished">Intensité</translation>
+        <translation>Intensité</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="408"/>
         <source>Gobo/Effect/Macro</source>
         <oldsource>Gobo/Effect</oldsource>
-        <translation type="unfinished">Gobo/Effet</translation>
+        <translation>Gobo/Effet/Macro</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="442"/>
@@ -4645,7 +4655,7 @@ Duration: %2
     <message>
         <location filename="vcsliderproperties.ui" line="401"/>
         <source>CMY</source>
-        <translation type="unfinished"></translation>
+        <translation>CMY</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="431"/>
@@ -4660,12 +4670,12 @@ Duration: %2
     <message>
         <location filename="vcsliderproperties.cpp" line="620"/>
         <source>Select channels by group</source>
-        <translation type="unfinished"></translation>
+        <translation>Selectionner les canaux par groupe</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.cpp" line="621"/>
         <source>Select a channel group</source>
-        <translation type="unfinished"></translation>
+        <translation>Selectionner un groupe de canaux</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.cpp" line="667"/>
@@ -4956,17 +4966,17 @@ Duration: %2
     <message>
         <location filename="vcxypadproperties.ui" line="315"/>
         <source>Y-Axis slider movement</source>
-        <translation type="unfinished"></translation>
+        <translation>Movement Y</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="321"/>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="331"/>
         <source>Inverted</source>
-        <translation type="unfinished"></translation>
+        <translation>Inversé</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="93"/>
