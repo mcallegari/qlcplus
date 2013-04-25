@@ -142,7 +142,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="addfixture.ui" line="219"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;Fehler: Addresse wird bereits verwendet !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="236"/>
@@ -387,27 +387,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="addresstool.ui" line="14"/>
         <source>Address Tool</source>
-        <translation type="unfinished"></translation>
+        <translation>Adress-Werkzeug</translation>
     </message>
     <message>
         <location filename="addresstool.ui" line="22"/>
         <source>Reverse vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Vertikal umkehren</translation>
     </message>
     <message>
         <location filename="addresstool.ui" line="35"/>
         <source>Color</source>
-        <translation type="unfinished">Farbe</translation>
+        <translation>Farbe</translation>
     </message>
     <message>
         <location filename="addresstool.ui" line="51"/>
         <source>Address</source>
-        <translation type="unfinished">Adresse</translation>
+        <translation>Adresse</translation>
     </message>
     <message>
         <location filename="addresstool.ui" line="98"/>
         <source>Reverse Horizontally</source>
-        <translation type="unfinished"></translation>
+        <translation>Horizontal umkehren</translation>
     </message>
 </context>
 <context>
@@ -552,19 +552,20 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
     <message>
         <location filename="app.cpp" line="967"/>
         <source>Error</source>
-        <translation type="unfinished">Fehler</translation>
+        <translation>Fehler</translation>
     </message>
     <message>
         <location filename="app.cpp" line="968"/>
         <source>File not found !
 The selected file has been moved or deleted.</source>
-        <translation type="unfinished"></translation>
+        <translation>Datei nich gefunden !
+Die ausgewählte Datei wurde verschoben oder gelöscht.</translation>
     </message>
     <message>
         <location filename="app.cpp" line="320"/>
         <source>Starting Q Light Controller Plus</source>
         <oldsource>Starting Q Light Controller</oldsource>
-        <translation type="unfinished">Starte Q Light Controller Plus</translation>
+        <translation>Starte Q Light Controller Plus</translation>
     </message>
     <message>
         <location filename="app.cpp" line="503"/>
@@ -623,7 +624,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="app.cpp" line="507"/>
         <source>Address Tool</source>
-        <translation type="unfinished"></translation>
+        <translation>Adress-Werkzeug</translation>
     </message>
     <message>
         <location filename="app.cpp" line="510"/>
@@ -777,12 +778,15 @@ Changes will be lost if you don&apos;t save them.</source>
 Start time: %2
 Duration: %3
 %4</source>
-        <translation type="unfinished"></translation>
+        <translation>Name: %1
+Startzeit: %2
+Dauer: %3
+%4</translation>
     </message>
     <message>
         <location filename="sceneitems.cpp" line="664"/>
         <source>Click to move this audio across the timeline</source>
-        <translation type="unfinished">Zum Verschieben von Audio über die Timeline klicken</translation>
+        <translation>Zum Verschieben von Audio über die Timeline klicken</translation>
     </message>
     <message>
         <location filename="sceneitems.cpp" line="679"/>
@@ -803,7 +807,7 @@ Duration: %3
     <message>
         <location filename="sceneitems.cpp" line="692"/>
         <source>Align to cursor</source>
-        <translation type="unfinished"></translation>
+        <translation>Am Cursor ausrichten</translation>
     </message>
     <message>
         <location filename="sceneitems.cpp" line="1034"/>
@@ -831,12 +835,12 @@ Duration: %3
     <message>
         <location filename="channelselection.ui" line="53"/>
         <source>Type</source>
-        <translation type="unfinished">Typ</translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <location filename="channelselection.ui" line="58"/>
         <source>Group</source>
-        <translation type="unfinished"></translation>
+        <translation>Gruppe</translation>
     </message>
     <message>
         <location filename="channelselection.ui" line="66"/>
@@ -888,7 +892,7 @@ Duration: %3
     <message>
         <location filename="channelselection.cpp" line="79"/>
         <source>Universe %1</source>
-        <translation type="unfinished">Universum %1</translation>
+        <translation>Universum %1</translation>
     </message>
 </context>
 <context>
@@ -896,32 +900,32 @@ Duration: %3
     <message>
         <location filename="channelsconfiguration.ui" line="14"/>
         <source>Channels Fade Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanalfader Einstellung</translation>
     </message>
     <message>
         <location filename="channelsconfiguration.ui" line="28"/>
         <source>Name</source>
-        <translation type="unfinished">Name</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="channelsconfiguration.ui" line="33"/>
         <source>Type</source>
-        <translation type="unfinished">Typ</translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <location filename="channelsconfiguration.ui" line="38"/>
         <source>Fade</source>
-        <translation type="unfinished"></translation>
+        <translation>Fade</translation>
     </message>
     <message>
         <location filename="channelsconfiguration.ui" line="46"/>
         <source>Apply changes to fixtures of the same type</source>
-        <translation type="unfinished"></translation>
+        <translation>Änderungen auf Geräte gleichen Typs übernehmen</translation>
     </message>
     <message>
         <location filename="channelsconfiguration.cpp" line="75"/>
         <source>Universe %1</source>
-        <translation type="unfinished">Universum %1</translation>
+        <translation>Universum %1</translation>
     </message>
 </context>
 <context>
@@ -1011,12 +1015,12 @@ Duration: %3
         <location filename="chasereditor.ui" line="60"/>
         <location filename="chasereditor.cpp" line="782"/>
         <source>Hold</source>
-        <translation type="unfinished"></translation>
+        <translation>Halten</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="75"/>
         <source>Notes</source>
-        <translation type="unfinished"></translation>
+        <translation>Notizen</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="141"/>
@@ -1186,12 +1190,12 @@ Duration: %3
     <message>
         <location filename="chasereditor.cpp" line="573"/>
         <source>Paste error</source>
-        <translation type="unfinished"></translation>
+        <translation>Einfügefehler</translation>
     </message>
     <message>
         <location filename="chasereditor.cpp" line="573"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Einfügen in eine inkompatible Szene. Ausführung abgebrochen.</translation>
     </message>
     <message>
         <location filename="chasereditor.cpp" line="783"/>
@@ -1206,7 +1210,7 @@ Duration: %3
     <message>
         <location filename="chasereditor.cpp" line="785"/>
         <source>Common Hold</source>
-        <translation type="unfinished"></translation>
+        <translation>Gemeinsamer Halt</translation>
     </message>
     <message>
         <location filename="chasereditor.cpp" line="801"/>
@@ -1476,7 +1480,7 @@ Duration: %3
         <location filename="efxeditor.ui" line="93"/>
         <location filename="efxeditor.ui" line="515"/>
         <source>Start Offset</source>
-        <translation type="unfinished"></translation>
+        <translation>Startabstand</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="223"/>
@@ -1797,7 +1801,7 @@ Duration: %3
     <message>
         <location filename="fixturemanager.cpp" line="688"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple groups selected&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; to remove the selected groups.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Mehrere Gruppen ausgewähtl&lt;/H1&gt;&lt;P&gt;Klick &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; zum Entfernen der ausgewählten Gruppe.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="695"/>
@@ -1829,7 +1833,7 @@ Duration: %3
     <message>
         <location filename="fixturemanager.cpp" line="842"/>
         <source>Channels Fade Configuration...</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanalfader-Einstellungen..</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="848"/>
@@ -1849,12 +1853,12 @@ Duration: %3
     <message>
         <location filename="fixturemanager.cpp" line="858"/>
         <source>Move group up...</source>
-        <translation type="unfinished"></translation>
+        <translation>Gruppe aufwärts verschieben..</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="864"/>
         <source>Move group down...</source>
-        <translation type="unfinished"></translation>
+        <translation>Gruppe abwärts verschieben..</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="870"/>
@@ -1879,12 +1883,12 @@ Duration: %3
     <message>
         <location filename="fixturemanager.cpp" line="1228"/>
         <source>Error</source>
-        <translation type="unfinished">Fehler</translation>
+        <translation>Fehler</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1229"/>
         <source>Please enter a valid address</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte gültige Adresse eingeben</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1275"/>
@@ -1942,7 +1946,7 @@ Duration: %3
     <message>
         <location filename="fixturemanager.cpp" line="1128"/>
         <source>Do you want to delete the selected groups?</source>
-        <translation type="unfinished"></translation>
+        <translation>Willst du die ausgewählten Gruppen entfernen?</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1191"/>
@@ -2732,7 +2736,10 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
 Start time: %2
 Duration: %3
 %4</source>
-        <translation type="unfinished"></translation>
+        <translation>Name: %1
+Startzeit: %2
+Dauer: %3
+%4</translation>
     </message>
 </context>
 <context>
@@ -3044,7 +3051,7 @@ Duration: %3
     <message>
         <location filename="sceneeditor.cpp" line="169"/>
         <source>Switch between tab view and all channels view</source>
-        <translation type="unfinished"></translation>
+        <translation>Zwischen Tab-Ansischt und allen Kanälen</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="171"/>
@@ -3064,12 +3071,12 @@ Duration: %3
     <message>
         <location filename="sceneeditor.cpp" line="177"/>
         <source>Go to next fixture tab</source>
-        <translation type="unfinished"></translation>
+        <translation>Zum nächsten Geräte-Tab wechseln</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="181"/>
         <source>Go to previous fixture tab</source>
-        <translation type="unfinished"></translation>
+        <translation>Zum vorherigen Geräte-Tab wechseln</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="214"/>
@@ -3080,7 +3087,7 @@ Duration: %3
         <location filename="sceneeditor.cpp" line="586"/>
         <location filename="sceneeditor.cpp" line="587"/>
         <source>All fixtures</source>
-        <translation type="unfinished">Alle Geräte</translation>
+        <translation>Alle Geräte</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="1014"/>
@@ -3250,17 +3257,20 @@ Duration: %3
         <oldsource>Start time: %1
 Duration: %2
 %3</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Name: %1
+Startzeit: %2
+Dauer: %3
+%4</translation>
     </message>
     <message>
         <location filename="sceneitems.cpp" line="444"/>
         <source>Click to move this sequence across the timeline</source>
-        <translation type="unfinished">Zum Verschieben der Sequenz über die Timeline klicken</translation>
+        <translation>Zum Verschieben der Sequenz über die Timeline klicken</translation>
     </message>
     <message>
         <location filename="sceneitems.cpp" line="456"/>
         <source>Align to cursor</source>
-        <translation type="unfinished"></translation>
+        <translation>Am Cursor ausrichten</translation>
     </message>
 </context>
 <context>
@@ -3336,12 +3346,12 @@ Duration: %2
     <message>
         <location filename="showmanager.cpp" line="177"/>
         <source>&amp;Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kopieren</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="184"/>
         <source>&amp;Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Einfügen</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="190"/>
@@ -3356,7 +3366,7 @@ Duration: %2
     <message>
         <location filename="showmanager.cpp" line="204"/>
         <source>Snap to &amp;Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Am &amp;Gitter einrasten</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="211"/>
@@ -3371,12 +3381,13 @@ Duration: %2
     <message>
         <location filename="showmanager.cpp" line="273"/>
         <source>Time division:</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Maybe &quot;Zeit-Einteilung&quot;?</translatorcomment>
+        <translation>Zeit-Aufteilung:</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="278"/>
         <source>Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeit</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="425"/>
@@ -3437,17 +3448,17 @@ Duration: %2
         <location filename="showmanager.cpp" line="613"/>
         <location filename="showmanager.cpp" line="633"/>
         <source>Paste error</source>
-        <translation type="unfinished"></translation>
+        <translation>Einfügefehler</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="613"/>
         <source>Overlapping paste not allowed. Operation cancelled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Überlappendes Einfügen nicht zulässig Ausführung abgebrochen.</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="633"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Einfügen in eine inkompatible Szene. Ausführung abgebrochen.</translation>
     </message>
 </context>
 <context>
@@ -3475,7 +3486,7 @@ Duration: %2
     <message>
         <location filename="simpledesk.cpp" line="181"/>
         <source>View mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Ansischtsmodus</translation>
     </message>
     <message>
         <location filename="simpledesk.cpp" line="214"/>
@@ -3611,7 +3622,7 @@ Duration: %2
     <message>
         <location filename="speeddialwidget.cpp" line="69"/>
         <source>Hold</source>
-        <translation type="unfinished"></translation>
+        <translation>Halten</translation>
     </message>
 </context>
 <context>
@@ -3860,7 +3871,7 @@ Duration: %2
     <message>
         <location filename="vccuelist.cpp" line="583"/>
         <source>Notes</source>
-        <translation type="unfinished"></translation>
+        <translation>Notizen</translation>
     </message>
 </context>
 <context>
@@ -4090,7 +4101,7 @@ Duration: %2
     <message>
         <location filename="vcframeproperties.ui" line="22"/>
         <source>Frame name</source>
-        <translation type="unfinished"></translation>
+        <translation>Rahmenname</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="34"/>
@@ -4105,7 +4116,7 @@ Duration: %2
     <message>
         <location filename="vcframeproperties.ui" line="48"/>
         <source>Show header</source>
-        <translation type="unfinished"></translation>
+        <translation>Show-Überschrift</translation>
     </message>
 </context>
 <context>
@@ -4183,12 +4194,12 @@ Duration: %2
     <message>
         <location filename="vcproperties.ui" line="128"/>
         <source>Widgets</source>
-        <translation type="unfinished"></translation>
+        <translation>Assistenten</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="140"/>
         <source>Widgets default properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Standardeigenschaften des Assistenten</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="195"/>
@@ -4199,62 +4210,62 @@ Duration: %2
         <location filename="vcproperties.ui" line="393"/>
         <location filename="vcproperties.ui" line="400"/>
         <source>x</source>
-        <translation type="unfinished"></translation>
+        <translation>x</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="499"/>
         <source>Button size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Schaltergrösse</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="485"/>
         <source>Solo frame size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Größe des Einzelrahmen</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="277"/>
         <source>Slider size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Schiebereglergröße:</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="430"/>
         <source>Speed dial size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Schnellwahlgröße:</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="225"/>
         <source>XY Pad size:</source>
-        <translation type="unfinished"></translation>
+        <translation>XY-Feld-Größe:</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="492"/>
         <source>Cue List size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cue-Listengröße:</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="407"/>
         <source>Frame size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Rahmengröße:</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="188"/>
         <source>Speed dial value:</source>
-        <translation type="unfinished"></translation>
+        <translation>Schnellwahl-Wert:</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="506"/>
         <source>Button status style:</source>
-        <translation type="unfinished"></translation>
+        <translation>Schalter-Status-Style:</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="513"/>
         <source>LED</source>
-        <translation type="unfinished"></translation>
+        <translation>LED</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="523"/>
         <source>Border</source>
-        <translation type="unfinished"></translation>
+        <translation>Rand</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="537"/>
@@ -4498,13 +4509,13 @@ Duration: %2
     <message>
         <location filename="vcsliderproperties.ui" line="387"/>
         <source>Intensity</source>
-        <translation type="unfinished">Intensität</translation>
+        <translation>Intensität</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="408"/>
         <source>Gobo/Effect/Macro</source>
         <oldsource>Gobo/Effect</oldsource>
-        <translation type="unfinished">Gobo/Effekt</translation>
+        <translation>Gobo/Effekt/Makro</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="60"/>
@@ -4606,7 +4617,7 @@ Duration: %2
     <message>
         <location filename="vcsliderproperties.ui" line="401"/>
         <source>CMY</source>
-        <translation type="unfinished"></translation>
+        <translation>CMY</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="431"/>
@@ -4656,12 +4667,12 @@ Duration: %2
     <message>
         <location filename="vcsliderproperties.cpp" line="620"/>
         <source>Select channels by group</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanäle nach Gruppe auswählen</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.cpp" line="621"/>
         <source>Select a channel group</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanalgruppe auswählen</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.cpp" line="667"/>
@@ -4962,17 +4973,17 @@ Duration: %2
     <message>
         <location filename="vcxypadproperties.ui" line="315"/>
         <source>Y-Axis slider movement</source>
-        <translation type="unfinished"></translation>
+        <translation>Schiebereglerbewegung Y-Achse</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="321"/>
         <source>Normal</source>
-        <translation type="unfinished">Normal</translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="331"/>
         <source>Inverted</source>
-        <translation type="unfinished">Invertiert</translation>
+        <translation>Invertiert</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.cpp" line="241"/>
