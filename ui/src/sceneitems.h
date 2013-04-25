@@ -1,5 +1,5 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   sceneitems.h
 
   Copyright (C) Heikki Junnila
@@ -32,13 +32,16 @@
 #include "audio.h"
 #include "track.h"
 
+#define HEADER_HEIGHT       35
+#define TRACK_HEIGHT        80
+#define TRACK_WIDTH         150
+#define HALF_SECOND_WIDTH   25
+
 /*********************************************************************
  *
  * Scene Header class. Clickable time line header
  *
  *********************************************************************/
-
-#define HALF_SECOND_WIDTH  25
 
 class SceneHeaderItem :  public QObject, public QGraphicsItem
 {
@@ -64,10 +67,17 @@ public:
     int getTimeScale();
 
     void setTimeDivisionType(TimeDivision type);
+    TimeDivision getTimeDivisionType();
     void setBPMValue(int value);
 
     int getHalfSecondWidth();
+    float getTimeDivisionStep();
+
     void setWidth(int);
+    void setHeight(int);
+
+    static QString tempoToString(TimeDivision type);
+    static TimeDivision stringToTempo(QString tempo);
 
 signals:
     void itemClicked(QGraphicsSceneMouseEvent *);
@@ -78,6 +88,8 @@ protected:
 private:
     /** Total width of the item */
     int m_width;
+    /** Total height of the item */
+    int m_height;
     /** Distance in pixels between the time division bars */
     float m_timeStep;
     /** Divisor of the time division hit bar (the highest bar) */
@@ -99,6 +111,8 @@ class SceneCursorItem : public QGraphicsItem
 {
 public:
     SceneCursorItem(int h);
+
+    void setHeight(int height);
 
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
@@ -171,11 +185,11 @@ private:
     bool m_isSolo;
 };
 
-/*********************************************************************
+/***************************************************************************************
  *
- * Sequence Item. Clickable and draggable object identifying a chaser
+ * Sequence Item. Clickable and draggable object identifying a chaser in sequence mode
  *
- *********************************************************************/
+ ***************************************************************************************/
 class SequenceItem : public QObject, public QGraphicsItem
 {
     Q_OBJECT
@@ -190,24 +204,31 @@ public:
     void setTimeScale(int val);
     int getWidth();
 
+    QPointF getDraggingPos();
+
     void setTrackIndex(int idx);
     int getTrackIndex();
 
     void setColor(QColor col);
     QColor getColor();
 
+    void setSelectedStep(int idx);
+
     /** Return a pointer to a Chaser associated to this item */
     Chaser *getChaser();
 
 signals:
     void itemDropped(QGraphicsSceneMouseEvent *, SequenceItem *);
+    void alignToCursor(SequenceItem *);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *);
 
 protected slots:
     void slotSequenceChanged(quint32);
+    void slotAlignToCursorClicked();
 
 private:
     /** Calculate sequence width for paint() and boundingRect() */
@@ -219,10 +240,19 @@ private:
     Chaser *m_chaser;
     /** width of the graphics object. Recalculated every time a chaser step  changes */
     int m_width;
+    /** Position of the item top-left corner. This is used to handle unwanted dragging */
+    QPointF m_pos;
     /** horizontal scale to adapt width to the current time line */
     int m_timeScale;
     /** track index this sequence belongs to */
     int m_trackIdx;
+    /** index of the selected step for highlighting (-1 if none) */
+    int m_selectedStep;
+
+    QFont m_timeFont;
+    bool m_pressed;
+
+    QAction *m_alignToCursor;
 };
 
 /**************************************************************************
@@ -244,6 +274,8 @@ public:
     void setTimeScale(int val);
     int getWidth();
 
+    QPointF getDraggingPos();
+
     void setTrackIndex(int idx);
     int getTrackIndex();
 
@@ -258,6 +290,7 @@ public slots:
 
 signals:
     void itemDropped(QGraphicsSceneMouseEvent *, AudioItem *);
+    void alignToCursor(AudioItem *);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
@@ -270,6 +303,7 @@ protected slots:
     void slotAudioPreviewLeft(bool active);
     void slotAudioPreviewRight(bool active);
     void slotAudioPreviewStero(bool active);
+    void slotAlignToCursorClicked();
 
 private:
     /** Calculate sequence width for paint() and boundingRect() */
@@ -286,6 +320,8 @@ private:
     Audio *m_audio;
     /** width of the graphics object */
     int m_width;
+    /** Position of the item top-left corner. This is used to handle unwanted dragging */
+    QPointF m_pos;
     /** horizontal scale to adapt width to the current time line */
     int m_timeScale;
     /** track index this Audio object belongs to */
@@ -295,8 +331,12 @@ private:
     QAction *m_previewLeftAction;
     QAction *m_previewRightAction;
     QAction *m_previewStereoAction;
+    QAction *m_alignToCursor;
+
     /** Pixmap holding the waveform (if enabled) */
     QPixmap *m_preview;
+
+    bool m_pressed;
 };
 
 #endif

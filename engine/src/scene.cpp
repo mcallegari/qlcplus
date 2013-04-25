@@ -62,12 +62,17 @@ void Scene::setChildrenFlag(bool flag)
  * Copying
  *****************************************************************************/
 
-Function* Scene::createCopy(Doc* doc)
+Function* Scene::createCopy(Doc* doc, bool addToDoc)
 {
     Q_ASSERT(doc != NULL);
 
     Function* copy = new Scene(doc);
-    if (copy->copyFrom(this) == false || doc->addFunction(copy) == false)
+    if (copy->copyFrom(this) == false)
+    {
+        delete copy;
+        copy = NULL;
+    }
+    if (addToDoc == true && doc->addFunction(copy) == false)
     {
         delete copy;
         copy = NULL;
@@ -132,6 +137,15 @@ uchar Scene::value(quint32 fxi, quint32 ch)
         return 0;
     else
         return m_values.at(index).value;
+}
+
+bool Scene::checkValue(SceneValue val)
+{
+    int index = m_values.indexOf(val);
+    if (index == -1)
+        return false;
+    else
+        return true;
 }
 
 QList <SceneValue> Scene::values() const
@@ -450,7 +464,7 @@ void Scene::preRun(MasterTimer* timer)
 
 void Scene::write(MasterTimer* timer, UniverseArray* ua)
 {
-    //qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO << elapsed();
     Q_UNUSED(timer);
     Q_ASSERT(ua != NULL);
     Q_ASSERT(m_fader != NULL);
@@ -468,15 +482,29 @@ void Scene::write(MasterTimer* timer, UniverseArray* ua)
         while (it.hasNext() == true)
         {
             SceneValue value(it.next());
+            bool canFade = true;
 
             FadeChannel fc;
             fc.setFixture(value.fxi);
             fc.setChannel(value.channel);
             fc.setTarget(value.value);
-            if (overrideFadeInSpeed() == defaultSpeed())
-                fc.setFadeTime(fadeInSpeed());
+            Fixture *fixture = doc()->fixture(value.fxi);
+            if (fixture != NULL)
+            {
+                if (fixture->channelCanFade(value.channel) == false)
+                    canFade = false;
+            }
+            if (canFade == false)
+            {
+                fc.setFadeTime(0);
+            }
             else
-                fc.setFadeTime(overrideFadeInSpeed());
+            {
+                if (overrideFadeInSpeed() == defaultSpeed())
+                    fc.setFadeTime(fadeInSpeed());
+                else
+                    fc.setFadeTime(overrideFadeInSpeed());
+            }
             insertStartValue(fc, timer, ua);
             m_fader->add(fc);
         }

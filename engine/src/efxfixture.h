@@ -34,6 +34,7 @@ class Doc;
 #define KXMLQLCEFXFixture "Fixture"
 #define KXMLQLCEFXFixtureID "ID"
 #define KXMLQLCEFXFixtureDirection "Direction"
+#define KXMLQLCEFXFixtureStartOffset "StartOffset"
 #define KXMLQLCEFXFixtureIntensity "Intensity"
 
 class EFXFixture
@@ -73,6 +74,12 @@ public:
     /** Get this fixture's initial direction. */
     Function::Direction direction() const;
 
+    /** Set this fixture's start offset */
+    void setStartOffset(int startOffset);
+
+    /** Get this fixture's start offset */
+    int startOffset() const;
+
     /**
      * Set a value to fade the fixture's intensity channel(s) to
      * during start().
@@ -94,6 +101,7 @@ public:
 private:
     quint32 m_fixture;
     Function::Direction m_direction;
+    int m_startOffset;
     uchar m_fadeIntensity;
 
     /*************************************************************************

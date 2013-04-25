@@ -86,7 +86,7 @@ public:
     virtual QString name() = 0;
 
     /** Plugin's I/O capabilities */
-    enum Capability { Output = 0x1, Input = 0x2 };
+    enum Capability { Output = 0x1, Input = 0x2, Feedback = 0x4 };
 
     /**
      * Get plugin capabilities as an OR'ed bitmask
@@ -205,7 +205,7 @@ public:
      */
     virtual QString inputInfo(quint32 input) = 0;
 
-    virtual void sendFeedBack(quint32 inputLine, quint32 channel, uchar value) = 0;
+    virtual void sendFeedBack(quint32 inputLine, quint32 channel, uchar value, const QString& key = 0) = 0;
 
 signals:
     /**

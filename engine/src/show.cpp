@@ -33,19 +33,21 @@
 #include "show.h"
 #include "doc.h"
 
+#define KXMLQLCShowTimeDivision "TimeDivision"
+#define KXMLQLCShowTimeType "Type"
+#define KXMLQLCShowTimeBPM "BPM"
+
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
 
 Show::Show(Doc* doc) : Function(doc, Function::Show)
+  , m_timeDivType(QString("Time"))
+  , m_timeDivBPM(120)
   , m_latestTrackId(0)
   , m_runner(NULL)
 {
     setName(tr("New Show"));
-
-    // Listen to member Function removals
-    connect(doc, SIGNAL(functionRemoved(quint32)),
-            this, SLOT(slotFunctionRemoved(quint32)));
 }
 
 Show::~Show()
@@ -57,12 +59,17 @@ Show::~Show()
  * Copying
  *****************************************************************************/
 
-Function* Show::createCopy(Doc* doc)
+Function* Show::createCopy(Doc* doc, bool addToDoc)
 {
     Q_ASSERT(doc != NULL);
 
     Function* copy = new Show(doc);
-    if (copy->copyFrom(this) == false || doc->addFunction(copy) == false)
+    if (copy->copyFrom(this) == false)
+    {
+        delete copy;
+        copy = NULL;
+    }
+    if (addToDoc == true && doc->addFunction(copy) == false)
     {
         delete copy;
         copy = NULL;
@@ -76,6 +83,10 @@ bool Show::copyFrom(const Function* function)
     const Show* show = qobject_cast<const Show*> (function);
     if (show == NULL)
         return false;
+
+    m_timeDivType = show->m_timeDivType;
+    m_timeDivBPM = show->m_timeDivBPM;
+    m_latestTrackId = show->m_latestTrackId;
 
     // create a copy of each track
     foreach(Track *track, show->tracks())
@@ -103,6 +114,27 @@ bool Show::copyFrom(const Function* function)
     }
 
     return Function::copyFrom(function);
+}
+
+/*********************************************************************
+ * Time division
+ *********************************************************************/
+
+void Show::setTimeDivision(QString type, int BPM)
+{
+    qDebug() << "[setTimeDivision] type:" << type << ", BPM:" << BPM;
+    m_timeDivType = type;
+    m_timeDivBPM = BPM;
+}
+
+QString Show::getTimeDivisionType()
+{
+    return m_timeDivType;
+}
+
+int Show::getTimeDivisionBPM()
+{
+    return m_timeDivBPM;
 }
 
 /*****************************************************************************
@@ -137,7 +169,7 @@ bool Show::removeTrack(quint32 id)
     }
     else
     {
-        qWarning() << Q_FUNC_INFO << "No channels group with id" << id;
+        qWarning() << Q_FUNC_INFO << "No track found with id" << id;
         return false;
     }
 }
@@ -170,11 +202,6 @@ QList <Track*> Show::tracks() const
     return m_tracks.values();
 }
 
-void Show::slotFunctionRemoved(quint32 fid)
-{
-    removeTrack(fid);
-}
-
 quint32 Show::createTrackId()
 {
     while (m_tracks.contains(m_latestTrackId) == true ||
@@ -205,6 +232,11 @@ bool Show::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     root.setAttribute(KXMLQLCFunctionType, Function::typeToString(type()));
     root.setAttribute(KXMLQLCFunctionName, name());
 
+    QDomElement td = doc->createElement(KXMLQLCShowTimeDivision);
+    td.setAttribute(KXMLQLCShowTimeType, m_timeDivType);
+    td.setAttribute(KXMLQLCShowTimeBPM, m_timeDivBPM);
+    root.appendChild(td);
+
     foreach(Track *track, m_tracks)
         track->saveXML(doc, &root);
 
@@ -230,7 +262,13 @@ bool Show::loadXML(const QDomElement& root)
     while (node.isNull() == false)
     {
         QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCTrack)
+        if (tag.tagName() == KXMLQLCShowTimeDivision)
+        {
+            QString type = tag.attribute(KXMLQLCShowTimeType);
+            int bpm = (tag.attribute(KXMLQLCShowTimeBPM)).toInt();
+            setTimeDivision(type, bpm);
+        }
+        else if (tag.tagName() == KXMLQLCTrack)
         {
             Track *trk = new Track();
             if (trk->loadXML(tag) == true)

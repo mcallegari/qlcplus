@@ -395,24 +395,17 @@ bool ChaserRunner::roundCheck()
 void ChaserRunner::switchFunctions(MasterTimer* timer)
 {
     if (m_currentFunction != NULL)
-    {
         m_currentFunction->stop();
-        /** @todo this is a dirty hack to re-use the same scene for all the steps */
-
-        if (m_chaser->isSequence())
-            m_currentFunction->postRun(timer, NULL);
-
-    }
 
     ChaserStep step(m_chaser->steps().at(m_currentStep));
     m_currentFunction = m_doc->function(step.fid);
-    qDebug() << Q_FUNC_INFO << "Step #" << m_currentStep << ", function ID: " << step.fid;
+    qDebug() << Q_FUNC_INFO << "Step #" << m_currentStep << ", function ID:" << step.fid;
     if (m_currentFunction != NULL && m_currentFunction->stopped() == true)
     {
         if (m_chaser->isSequence())
         {
             Scene *s = qobject_cast<Scene*>(m_currentFunction);
-            qDebug() << Q_FUNC_INFO << "Current step #" << m_currentStep << " has values: " << step.values.count();
+            qDebug() << Q_FUNC_INFO << "Current step #" << m_currentStep << " has values:" << step.values.count();
             if (m_currentStep == 0)
             {
                 for (int i = 0; i < step.values.count(); i++)
@@ -421,7 +414,7 @@ void ChaserRunner::switchFunctions(MasterTimer* timer)
             else
             {
                 ChaserStep prevStep(m_chaser->steps().at(m_currentStep - 1));
-                qDebug() << Q_FUNC_INFO << "Previous step has values: " << prevStep.values.count();
+                qDebug() << Q_FUNC_INFO << "Previous step has values:" << prevStep.values.count();
                 for (int i = 0; i < step.values.count(); i++)
                 {
                     SceneValue stepValue = step.values.at(i);

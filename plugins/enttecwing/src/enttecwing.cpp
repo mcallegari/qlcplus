@@ -153,7 +153,7 @@ QString EnttecWing::inputInfo(quint32 input)
     return str;
 }
 
-void EnttecWing::sendFeedBack(quint32 input, quint32 channel, uchar value)
+void EnttecWing::sendFeedBack(quint32 input, quint32 channel, uchar value, const QString &)
 {
     Wing* wing = device(input);
     if (wing != NULL)

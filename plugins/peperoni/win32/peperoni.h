@@ -105,8 +105,8 @@ public:
     QString inputInfo(quint32 input) { Q_UNUSED(input); return QString(); }
 
     /** @reimp */
-    void sendFeedBack(quint32 input, quint32 channel, uchar value)
-        { Q_UNUSED(input); Q_UNUSED(channel); Q_UNUSED(value); }
+    void sendFeedBack(quint32 input, quint32 channel, uchar value, const QString& key)
+        { Q_UNUSED(input); Q_UNUSED(channel); Q_UNUSED(value); Q_UNUSED(key); }
 
     /*************************************************************************
      * Configuration

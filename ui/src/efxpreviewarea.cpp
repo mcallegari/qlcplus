@@ -51,6 +51,18 @@ void EFXPreviewArea::setPoints(const QVector <QPoint>& points)
     m_points = scale(m_original, size());
 }
 
+void EFXPreviewArea::setFixturePoints(const QVector<QVector<QPoint> >& fixturePoints)
+{
+    m_originalFixturePoints.resize(fixturePoints.size());
+    m_fixturePoints.resize(fixturePoints.size());
+
+    for(int i = 0; i < m_fixturePoints.size(); ++i)
+    {
+        m_originalFixturePoints[i] = QPolygon(fixturePoints[i]);
+        m_fixturePoints[i] = scale(m_originalFixturePoints[i], size());
+    }
+}
+
 void EFXPreviewArea::draw(int timerInterval)
 {
     m_timer.stop();
@@ -81,6 +93,11 @@ QPolygon EFXPreviewArea::scale(const QPolygon& poly, const QSize& target)
 void EFXPreviewArea::resizeEvent(QResizeEvent* e)
 {
     m_points = scale(m_original, e->size());
+
+    for(int i = 0; i < m_fixturePoints.size(); ++i)
+    {
+        m_fixturePoints[i] = scale(m_originalFixturePoints[i], e->size());
+    }
     QWidget::resizeEvent(e);
 }
 
@@ -112,11 +129,28 @@ void EFXPreviewArea::paintEvent(QPaintEvent* e)
     // Draw the points from the point array
     if (m_iter < m_points.size() && m_iter >= 0)
     {
+        /*
+        // draw origin
         color = color.lighter(100 + (m_points.size() / 100));
         pen.setColor(color);
         painter.setPen(pen);
         point = m_points.point(m_iter);
         painter.drawEllipse(point.x() - 4, point.y() - 4, 8, 8);
+        */
+
+        painter.setBrush(Qt::white);
+	pen.setColor(Qt::black);
+
+        // draw fixture positions
+
+        // drawing from the end -- so that lower numbers are on top
+        for (int i = m_fixturePoints.size() - 1; i >= 0; --i)
+        {
+	    point = m_fixturePoints.at(i).at(m_iter);
+            
+            painter.drawEllipse(point, 8, 8);
+	    painter.drawText(point.x() - 4, point.y() + 5, QString::number(i+1));
+        }
     }
     else
     {

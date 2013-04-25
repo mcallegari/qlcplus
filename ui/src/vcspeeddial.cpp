@@ -25,6 +25,7 @@
 #include <QDebug>
 
 #include "vcspeeddialproperties.h"
+#include "vcpropertieseditor.h"
 #include "vcspeeddial.h"
 #include "speeddial.h"
 #include "qlcmacros.h"
@@ -32,6 +33,7 @@
 
 const quint8 VCSpeedDial::absoluteInputSourceId = 0;
 const quint8 VCSpeedDial::tapInputSourceId = 1;
+const QSize VCSpeedDial::defaultSize(QSize(200, 175));
 
 /****************************************************************************
  * Initialization
@@ -52,6 +54,18 @@ VCSpeedDial::VCSpeedDial(QWidget* parent, Doc* doc)
     connect(m_dial, SIGNAL(tapped()), this, SLOT(slotDialTapped()));
 
     setCaption(tr("Duration"));
+
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_SPEEDDIAL_SIZE);
+    if (var.isValid() == true)
+        resize(var.toSize());
+    else
+        resize(VCSpeedDial::defaultSize);
+
+    var = settings.value(SETTINGS_SPEEDDIAL_VALUE);
+    if (var.isValid() == true)
+        m_dial->setValue(var.toUInt());
+
     slotModeChanged(doc->mode());
 }
 

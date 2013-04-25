@@ -1,5 +1,5 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   configureosc.h
 
   Copyright (c) Massimo Callegari

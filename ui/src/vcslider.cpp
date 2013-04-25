@@ -37,6 +37,7 @@
 #include <QPen>
 
 #include "vcsliderproperties.h"
+#include "vcpropertieseditor.h"
 #include "qlcinputchannel.h"
 #include "virtualconsole.h"
 #include "qlcinputsource.h"
@@ -166,7 +167,12 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_bottomLabel->hide();
 
     setMinimumSize(20, 20);
-    resize(VCSlider::defaultSize);
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_SLIDER_SIZE);
+    if (var.isValid() == true)
+        resize(var.toSize());
+    else
+        resize(VCSlider::defaultSize);
 
     /* Initialize to playback mode by default */
     setInvertedAppearance(false);
@@ -585,7 +591,7 @@ void VCSlider::setClickAndGoWidgetFromLevel(uchar level)
     if (m_cngType == ClickAndGoWidget::None || m_cngWidget == NULL)
         return;
 
-    if (m_cngType == ClickAndGoWidget::RGB)
+    if (m_cngType == ClickAndGoWidget::RGB || m_cngType == ClickAndGoWidget::CMY)
     {
         QPixmap px(42, 42);
         float f = SCALE(float(level),
@@ -704,7 +710,7 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, UniverseArray* universes)
 
     uchar modLevel = m_levelValue;
 
-    int r = 0, g = 0, b = 0;
+    int r = 0, g = 0, b = 0, c = 0, m = 0, y = 0;
     if (m_cngType == ClickAndGoWidget::RGB)
     {
         float f = SCALE(float(m_levelValue),
@@ -717,6 +723,20 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, UniverseArray* universes)
             r = modColor.red();
             g = modColor.green();
             b = modColor.blue();
+        }
+    }
+    else if (m_cngType == ClickAndGoWidget::CMY)
+    {
+        float f = SCALE(float(m_levelValue),
+                        float(m_slider->minimum()),
+                        float(m_slider->maximum()),
+                        float(0), float(200));
+        if ((uchar)f != 0)
+        {
+            QColor modColor = m_cngRGBvalue.lighter((uchar)f);
+            c = modColor.cyan();
+            m = modColor.magenta();
+            y = modColor.yellow();
         }
     }
 
@@ -738,14 +758,26 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, UniverseArray* universes)
                    LTP in effect. */
                 continue;
             }
-            if (m_cngType == ClickAndGoWidget::RGB && qlcch->group() == QLCChannel::Intensity)
+            if (qlcch->group() == QLCChannel::Intensity)
             {
-                if (qlcch->colour() == QLCChannel::Red)
-                    modLevel = (uchar)r;
-                else if (qlcch->colour() == QLCChannel::Green)
-                    modLevel = (uchar)g;
-                else if (qlcch->colour() == QLCChannel::Blue)
-                    modLevel = (uchar)b;
+                if (m_cngType == ClickAndGoWidget::RGB)
+                {
+                    if (qlcch->colour() == QLCChannel::Red)
+                        modLevel = (uchar)r;
+                    else if (qlcch->colour() == QLCChannel::Green)
+                        modLevel = (uchar)g;
+                    else if (qlcch->colour() == QLCChannel::Blue)
+                        modLevel = (uchar)b;
+                }
+                else if (m_cngType == ClickAndGoWidget::CMY)
+                {
+                    if (qlcch->colour() == QLCChannel::Cyan)
+                        modLevel = (uchar)c;
+                    else if (qlcch->colour() == QLCChannel::Magenta)
+                        modLevel = (uchar)m;
+                    else if (qlcch->colour() == QLCChannel::Yellow)
+                        modLevel = (uchar)y;
+                }
             }
 
             quint32 dmx_ch = fxi->channelAddress(lch.channel);
@@ -865,8 +897,8 @@ void VCSlider::slotSliderMoved(int value)
         break;
     }
 
-    if (m_slider->isSliderDown() == true)
-        sendFeedBack(value);
+    //if (m_slider->isSliderDown() == true)
+    sendFeedBack(value);
 }
 
 void VCSlider::sendFeedBack(int value)
@@ -882,7 +914,21 @@ void VCSlider::sendFeedBack(int value)
                          float(m_slider->maximum()), float(0),
                          float(UCHAR_MAX));
 
-        m_doc->outputMap()->feedBack(src.universe(), src.channel(), int(fb));
+        QString chName = QString();
+
+        InputPatch* pat = m_doc->inputMap()->patch(src.universe());
+        if (pat != NULL)
+        {
+            QLCInputProfile* profile = pat->profile();
+            if (profile != NULL)
+            {
+                QLCInputChannel* ich = profile->channel(src.channel());
+                if (ich != NULL)
+                    chName = ich->name();
+            }
+        }
+
+        m_doc->outputMap()->feedBack(src.universe(), src.channel(), int(fb), chName);
     }
 }
 

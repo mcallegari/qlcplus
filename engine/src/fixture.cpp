@@ -371,6 +371,26 @@ QList <quint32> Fixture::cmyChannels(int head) const
     }
 }
 
+void Fixture::setExcludeFadeChannels(QList<int> indexes)
+{
+    if (indexes.isEmpty() || indexes.count() > (int)channels())
+        return;
+    m_excludeFadeIndexes = indexes;
+}
+
+QList<int> Fixture::excludeFadeChannels()
+{
+    return m_excludeFadeIndexes;
+}
+
+bool Fixture::channelCanFade(int index)
+{
+    if (m_excludeFadeIndexes.contains(index))
+        return false;
+
+    return true;
+}
+
 void Fixture::createGenericChannel()
 {
     if (m_genericChannel == NULL)
@@ -462,6 +482,34 @@ QLCFixtureHead Fixture::head(int index) const
     }
 }
 
+QIcon Fixture::getIconFromType(QString type) const
+{
+    if (type == "Color Changer")
+        return QIcon(":/fixture.png");
+    else if (type == "Dimmer")
+        return QIcon(":/dimmer.png");
+    else if (type == "Effect")
+        return QIcon(":/effect.png");
+    else if (type == "Fan")
+         return QIcon(":/fan.png");
+    else if (type == "Flower")
+        return QIcon(":/flower.png");
+    else if (type == "Hazer")
+        return QIcon(":/hazer.png");
+    else if (type == "Laser")
+        return QIcon(":/laser.png");
+    else if (type == "Moving Head")
+        return QIcon(":/movinghead.png");
+    else if (type == "Scanner")
+        return QIcon(":/scanner.png");
+    else if (type == "Smoke")
+        return QIcon(":/smoke.png");
+    else if (type == "Strobe")
+        return QIcon(":/strobe.png");
+
+    return QIcon(":/other.png");
+}
+
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
@@ -510,6 +558,7 @@ bool Fixture::loadXML(const QDomElement& root,
     quint32 universe = 0;
     quint32 address = 0;
     quint32 channels = 0;
+    QList<int> excludeList;
 
     if (root.tagName() != KXMLFixture)
     {
@@ -553,6 +602,14 @@ bool Fixture::loadXML(const QDomElement& root,
         else if (tag.tagName() == KXMLFixtureChannels)
         {
             channels = tag.text().toInt();
+        }
+        else if (tag.tagName() == KXMLFixtureExcludeFade)
+        {
+            QString list = tag.text();
+            QStringList values = list.split(",");
+
+            for (int i = 0; i < values.count(); i++)
+                excludeList.append(values.at(i).toInt());
         }
         else
         {
@@ -624,6 +681,7 @@ bool Fixture::loadXML(const QDomElement& root,
     setAddress(address);
     setUniverse(universe);
     setName(name);
+    setExcludeFadeChannels(excludeList);
     setID(id);
 
     return true;
@@ -709,6 +767,21 @@ bool Fixture::saveXML(QDomDocument* doc, QDomElement* wksp_root) const
     text = doc->createTextNode(str);
     tag.appendChild(text);
 
+    if (m_excludeFadeIndexes.count() > 0)
+    {
+        tag = doc->createElement(KXMLFixtureExcludeFade);
+        root.appendChild(tag);
+        QString list;
+        for (int i = 0; i < m_excludeFadeIndexes.count(); i++)
+        {
+            if (list.isEmpty() == false)
+                list.append(QString(","));
+            list.append(QString("%1").arg(m_excludeFadeIndexes.at(i)));
+        }
+        text = doc->createTextNode(list);
+        tag.appendChild(text);
+    }
+
     return true;
 }
 
@@ -758,8 +831,22 @@ QString Fixture::status() const
     info += genInfo.arg(tr("Channels")).arg(channels());
 
     // Binary address
+    QString binaryStr = QString("%1").arg(address() + 1, 10, 2, QChar('0'));
+    QString dipTable("<TABLE COLS='33' cellspacing='0'><TR><TD COLSPAN='33'><IMG SRC=\"" ":/ds_top.png\"></TD></TR>");
+    dipTable += "<TR><TD><IMG SRC=\"" ":/ds_border.png\"></TD><TD><IMG SRC=\"" ":/ds_border.png\"></TD>";
+    for (int i = 9; i >= 0; i--)
+    {
+        if (binaryStr.at(i) == '0')
+            dipTable += "<TD COLSPAN='3'><IMG SRC=\"" ":/ds_off.png\"></TD>";
+        else
+            dipTable += "<TD COLSPAN='3'><IMG SRC=\"" ":/ds_on.png\"></TD>";
+    }
+    dipTable += "<TD><IMG SRC=\"" ":/ds_border.png\"></TD></TR>";
+    dipTable += "<TR><TD COLSPAN='33'><IMG SRC=\"" ":/ds_bottom.png\"></TD></TR>";
+    dipTable += "</TABLE>";
+
     info += genInfo.arg(tr("Binary Address (DIP)"))
-            .arg(QString("%1").arg(address() + 1, 9, 2, QChar('0')));
+            .arg(QString("%1").arg(dipTable));
 
     /********************************************************************
      * Channels

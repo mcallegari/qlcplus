@@ -44,10 +44,13 @@
 #include "qlcfile.h"
 
 #include "vcbuttonproperties.h"
+#include "vcpropertieseditor.h"
 #include "functionselection.h"
-#include "vcsoloframe.h"
+#include "qlcinputchannel.h"
 #include "virtualconsole.h"
 #include "mastertimer.h"
+#include "vcsoloframe.h"
+#include "inputpatch.h"
 #include "outputmap.h"
 #include "inputmap.h"
 #include "vcbutton.h"
@@ -63,6 +66,7 @@ const QSize VCButton::defaultSize(QSize(50, 50));
  *****************************************************************************/
 
 VCButton::VCButton(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
+    , m_iconPath()
     , m_adjustIntensity(false)
     , m_intensityAdjustment(1.0)
 {
@@ -91,7 +95,18 @@ VCButton::VCButton(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
             this, SLOT(slotResetIcon()));
 
     /* Initial size */
-    resize(defaultSize);
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_BUTTON_SIZE);
+    if (var.isValid() == true)
+        resize(var.toSize());
+    else
+        resize(defaultSize);
+
+    var = settings.value(SETTINGS_BUTTON_STATUSLED);
+    if (var.isValid() == true && var.toBool() == true)
+        m_ledStyle = true;
+    else
+        m_ledStyle = false;
 
     setStyle(AppUtil::saneStyle());
 
@@ -129,7 +144,7 @@ bool VCButton::copyFrom(VCWidget* widget)
         return false;
 
     /* Copy button-specific stuff */
-    setIcon(button->icon());
+    setIconPath(button->iconPath());
     setKeySequence(button->keySequence());
     setFunction(button->function());
     setAdjustIntensity(button->adjustIntensity());
@@ -248,14 +263,16 @@ QColor VCButton::foregroundColor() const
  * Button icon
  *****************************************************************************/
 
-QString VCButton::icon() const
+QString VCButton::iconPath() const
 {
-    return m_icon;
+    return m_iconPath;
 }
 
-void VCButton::setIcon(const QString& icon)
+void VCButton::setIconPath(const QString& iconPath)
 {
-    m_icon = icon;
+    m_iconPath = iconPath;
+
+    updateIcon();
     m_doc->setModified();
     update();
 }
@@ -274,7 +291,7 @@ void VCButton::slotChooseIcon()
 
     QString path;
     path = QFileDialog::getOpenFileName(this, tr("Select button icon"),
-                                        icon(), tr("Images (%1)").arg(formats));
+                                        iconPath(), tr("Images (%1)").arg(formats));
     if (path.isEmpty() == false)
     {
         VCWidget* widget;
@@ -282,14 +299,38 @@ void VCButton::slotChooseIcon()
         {
             VCButton* button = qobject_cast<VCButton*> (widget);
             if (button != NULL)
-                button->setIcon(path);
+                button->setIconPath(path);
         }
+    }
+}
+
+void VCButton::updateIcon()
+{
+    if (m_action == Blackout)
+    {
+        m_icon = QIcon(":/blackout.png");
+        m_iconSize = QSize(26, 26);
+    }
+    else if (m_action == StopAll)
+    {
+        m_icon = QIcon(":/panic.png");
+        m_iconSize = QSize(26, 26);
+    }
+    else if (iconPath().isEmpty() == false)
+    {
+        m_icon = QIcon(iconPath());
+        m_iconSize = QSize(26, 26);
+    }
+    else
+    {
+        m_icon = QIcon();
+        m_iconSize = QSize(-1, -1);
     }
 }
 
 void VCButton::slotResetIcon()
 {
-    setIcon(QString());
+    setIconPath(QString());
     update();
 }
 
@@ -363,10 +404,24 @@ void VCButton::setOn(bool on)
     QLCInputSource src(inputSource());
     if (src.isValid() == true)
     {
+        QString chName = QString();
+
+        InputPatch* pat = m_doc->inputMap()->patch(src.universe());
+        if (pat != NULL)
+        {
+            QLCInputProfile* profile = pat->profile();
+            if (profile != NULL)
+            {
+                QLCInputChannel* ich = profile->channel(src.channel());
+                if (ich != NULL)
+                    chName = ich->name();
+            }
+        }
+
         if (on == true)
-            m_doc->outputMap()->feedBack(src.universe(), src.channel(), UCHAR_MAX);
+            m_doc->outputMap()->feedBack(src.universe(), src.channel(), UCHAR_MAX, chName);
         else
-            m_doc->outputMap()->feedBack(src.universe(), src.channel(), 0);
+            m_doc->outputMap()->feedBack(src.universe(), src.channel(), 0, chName);
     }
 
     update();
@@ -439,6 +494,7 @@ void VCButton::setAction(Action action)
                 this, SLOT(slotBlackoutChanged(bool)));
 
     m_action = action;
+    updateIcon();
 
     if (m_action == Blackout)
         setToolTip(tr("Toggle Blackout"));
@@ -590,8 +646,17 @@ void VCButton::slotFunctionStopped(quint32 fid)
 
 void VCButton::slotFunctionFlashing(quint32 fid, bool state)
 {
-    if (fid == m_function)
-        setOn(state);
+    if (fid != m_function)
+        return;
+
+    // if the function was flashed by another button, and the function is still running, keep the button pushed
+    Function* f = m_doc->function(m_function);
+    if (state == false && m_action == Toggle && f != NULL && f->isRunning())
+    {
+        return;
+    }
+
+    setOn(state);
 }
 
 void VCButton::blink(int ms)
@@ -670,7 +735,7 @@ bool VCButton::loadXML(const QDomElement* root)
     setCaption(root->attribute(KXMLQLCVCCaption));
 
     /* Icon */
-    setIcon(root->attribute(KXMLQLCVCButtonIcon));
+    setIconPath(m_doc->denormalizeComponentPath(root->attribute(KXMLQLCVCButtonIcon)));
 
     /* Children */
     node = root->firstChild();
@@ -745,7 +810,7 @@ bool VCButton::saveXML(QDomDocument* doc, QDomElement* vc_root)
     root.setAttribute(KXMLQLCVCCaption, caption());
 
     /* Icon */
-    root.setAttribute(KXMLQLCVCButtonIcon, icon());
+    root.setAttribute(KXMLQLCVCButtonIcon, m_doc->normalizeComponentPath(iconPath()));
 
     /* Function */
     tag = doc->createElement(KXMLQLCVCButtonFunction);
@@ -806,34 +871,18 @@ void VCButton::paintEvent(QPaintEvent* e)
     else
         option.state= QStyle::State_Raised;
 
-    /* Enabled or disabled looks based on application mode */
-    if (mode() == Doc::Operate)
+    /* Custom icons are always enabled, to see them in full color also in design mode */
+    if (m_action == Toggle || m_action == Flash)
         option.state |= QStyle::State_Enabled;
 
     /* Icon */
-    if (m_action == Blackout)
-    {
-        option.icon = QIcon(":/blackout.png");
-        option.iconSize = QSize(26, 26);
-    }
-    else if (m_action == StopAll)
-    {
-        option.icon = QIcon(":/panic.png");
-        option.iconSize = QSize(26, 26);
-    }
-    else if (icon().isEmpty() == false)
-    {
-        option.icon = QIcon(icon());
-        option.iconSize = QSize(26, 26);
-    }
-    else
-    {
-        option.icon = QIcon();
-        option.iconSize = QSize(-1, -1);
-    }
+    option.icon = m_icon;
+    option.iconSize = m_iconSize;
 
     /* Paint the button */
     QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+
     style()->drawControl(QStyle::CE_PushButton, &option, &painter, this);
 
     /* Paint caption with text wrapping */
@@ -851,8 +900,47 @@ void VCButton::paintEvent(QPaintEvent* e)
     if (m_action == Flash)
     {
         QIcon icon(":/flash.png");
-        painter.drawPixmap(rect().width() - 16, 0,
+        painter.drawPixmap(rect().width() - 18, 2,
                            icon.pixmap(QSize(16, 16), QIcon::Normal, QIcon::On));
+    }
+
+    if (m_ledStyle == true)
+    {
+        painter.setPen(QPen(QColor(160, 160, 160, 255), 2));
+
+        if (isOn() == true)
+            painter.setBrush(QBrush(QColor(0, 230, 0, 255)));
+        else
+            painter.setBrush(QBrush(QColor(110, 110, 110, 255)));
+
+        int dim = rect().width() / 6;
+        if (dim > 14) dim = 14;
+
+        painter.drawEllipse(6, 6, dim, dim);      // Style #1
+        //painter.drawRoundedRect(-1, -1, dim, dim, 3, 3);   // Style #2
+    }
+    else
+    {
+        // Style #3
+        painter.setBrush(Qt::NoBrush);
+
+        if (isOn() == true)
+        {
+            int borderWidth = (rect().width() > 80)?3:2;
+            painter.setPen(QPen(QColor(20, 20, 20, 255), borderWidth * 2));
+            painter.drawRoundedRect(borderWidth, borderWidth,
+                                    rect().width() - borderWidth * 2, rect().height() - (borderWidth * 2),
+                                    borderWidth + 1,  borderWidth + 1);
+            painter.setPen(QPen(QColor(0, 230, 0, 255), borderWidth));
+            painter.drawRoundedRect(borderWidth, borderWidth,
+                                    rect().width() - borderWidth * 2, rect().height() - (borderWidth * 2),
+                                    borderWidth, borderWidth);
+        }
+        else
+        {
+            painter.setPen(QPen(QColor(160, 160, 160, 255), 3));
+            painter.drawRoundedRect(1, 1, rect().width() - 2, rect().height() - 2, 3, 3);
+        }
     }
 
     /* Stop painting here */

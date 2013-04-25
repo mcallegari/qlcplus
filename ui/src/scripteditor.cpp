@@ -83,7 +83,7 @@ void ScriptEditor::initAddMenu()
     connect(m_addStopFunctionAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddStopFunction()));
 
-    m_addWaitAction = new QAction(QIcon(":/clock.png"), tr("Wait"), this);
+    m_addWaitAction = new QAction(QIcon(":/speed.png"), tr("Wait"), this);
     connect(m_addWaitAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddWait()));
 

@@ -6,12 +6,16 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>763</width>
-    <height>429</height>
+    <width>760</width>
+    <height>530</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dump DMX values</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="qlcui.qrc">
+    <normaloff>:/add_dump.png</normaloff>:/add_dump.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="3" column="0">
@@ -53,6 +57,9 @@
       </item>
       <item row="3" column="0">
        <widget class="QTreeWidget" name="m_fixturesTree">
+        <property name="alternatingRowColors">
+         <bool>true</bool>
+        </property>
         <column>
          <property name="text">
           <string>Name</string>
@@ -103,7 +110,10 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="qlcui.qrc"/>
+  <include location="qlcui.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>

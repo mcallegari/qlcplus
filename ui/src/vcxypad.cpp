@@ -38,10 +38,13 @@
 #include "qlcmacros.h"
 #include "qlcfile.h"
 
+#include "vcpropertieseditor.h"
 #include "vcxypadproperties.h"
+#include "qlcinputchannel.h"
 #include "virtualconsole.h"
 #include "mastertimer.h"
 #include "vcxypadarea.h"
+#include "inputpatch.h"
 #include "vcxypad.h"
 #include "fixture.h"
 #include "apputil.h"
@@ -96,9 +99,16 @@ VCXYPad::VCXYPad(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     setFrameStyle(KVCFrameStyleSunken);
     setCaption("XY Pad");
     setMinimumSize(20, 20);
-    resize(QSize(200, 200));
+
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_XYPAD_SIZE);
+    if (var.isValid() == true)
+        resize(var.toSize());
+    else
+        resize(QSize(200, 200));
     m_padInteraction = false;
     m_sliderInteraction = false;
+    m_inputValueChanged = false;
 
     slotModeChanged(Doc::Design);
 }
@@ -156,6 +166,19 @@ void VCXYPad::setCaption(const QString& text)
 {
     m_area->setWindowTitle(text);
     VCWidget::setCaption(text);
+}
+
+bool VCXYPad::invertedAppearance() const
+{
+    return !(m_vSlider->invertedAppearance());
+}
+
+void VCXYPad::setInvertedAppearance(bool invert)
+{
+    if (invert == true)
+        m_vSlider->setInvertedAppearance(false);
+    else
+        m_vSlider->setInvertedAppearance(true);
 }
 
 /*****************************************************************************
@@ -220,6 +243,57 @@ void VCXYPad::writeDMX(MasterTimer* timer, UniverseArray* universes)
     }
 }
 
+void VCXYPad::sendFeedback()
+{
+    QLCInputSource panSrc = inputSource(panInputSourceId);
+    if (panSrc.isValid() == true)
+    {
+        QString chName = QString();
+
+        InputPatch* pat = m_doc->inputMap()->patch(panSrc.universe());
+        if (pat != NULL)
+        {
+            QLCInputProfile* profile = pat->profile();
+            if (profile != NULL)
+            {
+                QLCInputChannel* ich = profile->channel(panSrc.channel());
+                if (ich != NULL)
+                    chName = ich->name();
+            }
+        }
+        // X Axis
+        float Xfb = SCALE(float(m_hSlider->value()), float(m_hSlider->minimum()),
+                         float(m_hSlider->maximum()), float(0),
+                         float(UCHAR_MAX));
+
+        m_doc->outputMap()->feedBack(panSrc.universe(), panSrc.channel(), int(Xfb), chName);
+    }
+
+    QLCInputSource tiltSrc = inputSource(tiltInputSourceId);
+    if (tiltSrc.isValid() == true)
+    {
+        QString chName = QString();
+
+        InputPatch* pat = m_doc->inputMap()->patch(tiltSrc.universe());
+        if (pat != NULL)
+        {
+            QLCInputProfile* profile = pat->profile();
+            if (profile != NULL)
+            {
+                QLCInputChannel* ich = profile->channel(tiltSrc.channel());
+                if (ich != NULL)
+                    chName = ich->name();
+            }
+        }
+        // Y Axis
+        float Yfb = SCALE(float(m_vSlider->value()), float(m_vSlider->minimum()),
+                         float(m_vSlider->maximum()), float(0),
+                         float(UCHAR_MAX));
+
+        m_doc->outputMap()->feedBack(tiltSrc.universe(), tiltSrc.channel(), int(Yfb), chName);
+    }
+}
+
 void VCXYPad::slotPositionChanged(const QPoint& pt)
 {
     if (m_sliderInteraction == true)
@@ -228,12 +302,25 @@ void VCXYPad::slotPositionChanged(const QPoint& pt)
     m_padInteraction = true;
     qreal x = SCALE(qreal(pt.x()), qreal(0), qreal(m_area->width()),
                     qreal(m_hSlider->minimum()), qreal(m_hSlider->maximum()));
-    qreal y = SCALE(qreal(pt.y()), qreal(0), qreal(m_area->height()),
-                    qreal(m_vSlider->minimum()), qreal(m_vSlider->maximum()));
+
+    qreal y;
+    if (invertedAppearance() == false)
+    {
+        y = SCALE(qreal(pt.y()), qreal(0), qreal(m_area->height()),
+                  qreal(m_vSlider->minimum()), qreal(m_vSlider->maximum()));
+    }
+    else
+    {
+        y = SCALE(qreal(pt.y()), qreal(m_area->height()), qreal(0),
+                  qreal(m_vSlider->minimum()), qreal(m_vSlider->maximum()));
+    }
 
     m_hSlider->setValue(int(x));
     m_vSlider->setValue(int(y));
+    if (m_inputValueChanged == false)
+        sendFeedback();
     m_padInteraction = false;
+    m_inputValueChanged = false;
 }
 
 void VCXYPad::slotSliderValueChanged()
@@ -253,14 +340,21 @@ void VCXYPad::slotSliderValueChanged()
     }
     else
     {
-        y = int(SCALE(qreal(m_vSlider->value()),
-                      qreal(m_vSlider->minimum()), qreal(m_vSlider->maximum()),
-                      qreal(0), qreal(m_area->height())));
+        if (invertedAppearance() == false)
+            y = int(SCALE(qreal(m_vSlider->value()),
+                          qreal(m_vSlider->minimum()), qreal(m_vSlider->maximum()),
+                          qreal(0), qreal(m_area->height())));
+        else
+            y = int(SCALE(qreal(m_vSlider->value()),
+                          qreal(m_vSlider->maximum()), qreal(m_vSlider->minimum()),
+                          qreal(0), qreal(m_area->height())));
+
         x = m_area->position().x();
     }
 
     m_area->setPosition(QPoint(x, y));
     m_area->update();
+    sendFeedback();
     m_sliderInteraction = false;
 }
 
@@ -287,11 +381,17 @@ void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
     else if (src == inputSource(tiltInputSourceId))
     {
         x = m_area->position().x();
-        y = int(SCALE(qreal(value), qreal(0), qreal(255),
-                      qreal(0), qreal(m_area->height())));
+        if (invertedAppearance() == false)
+            y = int(SCALE(qreal(value), qreal(0), qreal(255),
+                          qreal(0), qreal(m_area->height())));
+        else
+            y = int(SCALE(qreal(value), qreal(255), qreal(0),
+                          qreal(0), qreal(m_area->height())));
     }
     else
         return;
+
+    m_inputValueChanged = true;
 
     m_area->setPosition(QPoint(x, y));
     m_area->update();
@@ -366,6 +466,14 @@ bool VCXYPad::loadXML(const QDomElement* root)
     /* Caption */
     setCaption(root->attribute(KXMLQLCVCCaption));
 
+    if (root->hasAttribute(KXMLQLCVCXYPadInvertedAppearance))
+    {
+        if (root->attribute(KXMLQLCVCXYPadInvertedAppearance) == "false")
+            setInvertedAppearance(false);
+        else
+            setInvertedAppearance(true);
+    }
+
     /* Children */
     node = root->firstChild();
     while (node.isNull() == false)
@@ -438,6 +546,8 @@ bool VCXYPad::saveXML(QDomDocument* doc, QDomElement* vc_root)
 
     /* Caption */
     root.setAttribute(KXMLQLCVCCaption, caption());
+
+    root.setAttribute(KXMLQLCVCXYPadInvertedAppearance, invertedAppearance());
 
     /* Fixtures */
     foreach (VCXYPadFixture fixture, m_fixtures)

@@ -99,7 +99,7 @@ public:
     QString inputInfo(quint32 input);
 
     /** @reimp */
-    void sendFeedBack(quint32 input, quint32 channel, uchar value);
+    void sendFeedBack(quint32 input, quint32 channel, uchar value, const QString& key);
 
     /*************************************************************************
      * Configuration

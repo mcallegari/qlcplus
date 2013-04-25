@@ -56,7 +56,7 @@ QString MidiPlugin::name()
 
 int MidiPlugin::capabilities() const
 {
-    return QLCIOPlugin::Output | QLCIOPlugin::Input;
+    return QLCIOPlugin::Output | QLCIOPlugin::Input | QLCIOPlugin::Feedback;
 }
 
 /*****************************************************************************
@@ -252,7 +252,7 @@ QString MidiPlugin::inputInfo(quint32 input)
     return str;
 }
 
-void MidiPlugin::sendFeedBack(quint32 output, quint32 channel, uchar value)
+void MidiPlugin::sendFeedBack(quint32 output, quint32 channel, uchar value, const QString &)
 {
     MidiOutputDevice* dev = outputDevice(output);
     if (dev != NULL)

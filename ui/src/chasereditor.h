@@ -51,6 +51,7 @@ public:
 
 signals:
     void applyValues(QList<SceneValue>&);
+    void stepSelectionChanged(int index);
 
 public slots:
     /** Listens to functionManagerActive() so that speed dial box can be hidden/shown */
@@ -87,7 +88,7 @@ private slots:
     void slotPasteClicked();
 
 private:
-    QList <ChaserStep> m_clipboard;
+    //QList <ChaserStep> m_clipboard;
     QAction* m_cutAction;
     QAction* m_copyAction;
     QAction* m_pasteAction;
@@ -108,7 +109,7 @@ private slots:
 private slots:
     void slotFadeInDialChanged(int ms);
     void slotFadeOutDialChanged(int ms);
-    void slotDurationDialChanged(int ms);
+    void slotHoldDialChanged(int ms);
 
     void slotFadeInToggled();
     void slotFadeOutToggled();

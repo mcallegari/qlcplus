@@ -11,7 +11,7 @@
     <message>
         <location filename="configurehid.ui" line="33"/>
         <source>Input Line</source>
-        <translation type="unfinished">N°</translation>
+        <translation>N°</translation>
     </message>
     <message>
         <location filename="configurehid.ui" line="38"/>

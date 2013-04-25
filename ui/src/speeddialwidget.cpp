@@ -37,7 +37,7 @@ SpeedDialWidget::SpeedDialWidget(QWidget* parent, Qt::WindowFlags flags)
     : QWidget(parent, flags)
     , m_fadeIn(NULL)
     , m_fadeOut(NULL)
-    , m_duration(NULL)
+    , m_hold(NULL)
     , m_optionalTextGroup(NULL)
     , m_optionalTextEdit(NULL)
 {
@@ -65,11 +65,11 @@ SpeedDialWidget::SpeedDialWidget(QWidget* parent, Qt::WindowFlags flags)
     connect(m_fadeOut, SIGNAL(valueChanged(int)), this, SIGNAL(fadeOutChanged(int)));
     connect(m_fadeOut, SIGNAL(tapped()), this, SIGNAL(fadeOutTapped()));
 
-    m_duration = new SpeedDial(this);
-    m_duration->setTitle(tr("Duration"));
-    layout()->addWidget(m_duration);
-    connect(m_duration, SIGNAL(valueChanged(int)), this, SIGNAL(durationChanged(int)));
-    connect(m_duration, SIGNAL(tapped()), this, SIGNAL(durationTapped()));
+    m_hold = new SpeedDial(this);
+    m_hold->setTitle(tr("Hold"));
+    layout()->addWidget(m_hold);
+    connect(m_hold, SIGNAL(valueChanged(int)), this, SIGNAL(holdChanged(int)));
+    connect(m_hold, SIGNAL(tapped()), this, SIGNAL(holdTapped()));
 
     /* Optional text */
     m_optionalTextGroup = new QGroupBox(this);
@@ -142,27 +142,27 @@ int SpeedDialWidget::fadeOut() const
 
 void SpeedDialWidget::setDurationTitle(const QString& title)
 {
-    m_duration->setTitle(title);
+    m_hold->setTitle(title);
 }
 
 void SpeedDialWidget::setDurationEnabled(bool enable)
 {
-    m_duration->setEnabled(enable);
+    m_hold->setEnabled(enable);
 }
 
 void SpeedDialWidget::setDurationVisible(bool set)
 {
-    m_duration->setVisible(set);
+    m_hold->setVisible(set);
 }
 
 void SpeedDialWidget::setDuration(int ms)
 {
-    m_duration->setValue(ms);
+    m_hold->setValue(ms);
 }
 
 int SpeedDialWidget::duration() const
 {
-    return m_duration->value();
+    return m_hold->value();
 }
 
 /************************************************************************

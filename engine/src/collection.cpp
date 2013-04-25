@@ -57,12 +57,17 @@ Collection::~Collection()
  * Copying
  *****************************************************************************/
 
-Function* Collection::createCopy(Doc* doc)
+Function* Collection::createCopy(Doc* doc, bool addToDoc)
 {
     Q_ASSERT(doc != NULL);
 
     Function* copy = new Collection(doc);
-    if (copy->copyFrom(this) == false || doc->addFunction(copy) == false)
+    if (copy->copyFrom(this) == false)
+    {
+        delete copy;
+        copy = NULL;
+    }
+    if (addToDoc == true && doc->addFunction(copy) == false)
     {
         delete copy;
         copy = NULL;

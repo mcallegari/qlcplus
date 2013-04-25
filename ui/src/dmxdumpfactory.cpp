@@ -75,6 +75,7 @@ void DmxDumpFactory::updateFixturesTree()
     QByteArray chMask = m_properties->channelsMask();
     m_fixturesTree->clear();
     m_fixturesTree->header()->setResizeMode(QHeaderView::ResizeToContents);
+    m_fixturesTree->setIconSize(QSize(24, 24));
 
     foreach(Fixture *fxi, m_doc->fixtures())
     {
@@ -103,6 +104,7 @@ void DmxDumpFactory::updateFixturesTree()
 
         QTreeWidgetItem *fItem = new QTreeWidgetItem(topItem);
         fItem->setText(KColumnName, fxi->name());
+        fItem->setIcon(KColumnName, fxi->getIconFromType(fxi->type()));
         fItem->setText(KColumnID, QString::number(fxi->id()));
         fItem->setFlags(fItem->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsTristate);
         fItem->setCheckState(KColumnName, Qt::Unchecked);
@@ -114,6 +116,7 @@ void DmxDumpFactory::updateFixturesTree()
             QTreeWidgetItem *item = new QTreeWidgetItem(fItem);
             item->setText(KColumnName, QString("%1:%2").arg(c + 1)
                           .arg(channel->name()));
+            item->setIcon(KColumnName, channel->getIconFromGroup(channel->group()));
             if (channel->group() == QLCChannel::Intensity &&
                 channel->colour() != QLCChannel::NoColour)
                 item->setText(KColumnType, QLCChannel::colourToString(channel->colour()));
@@ -134,22 +137,19 @@ void DmxDumpFactory::updateFixturesTree()
 void DmxDumpFactory::updateChasersTree()
 {
     m_chasersTree->clear();
-    foreach(Function *f, m_doc->functions())
+    foreach(Function *f, m_doc->functionsByType(Function::Chaser))
     {
-        if (f->type() == Function::Chaser)
+        Chaser *chaser = qobject_cast<Chaser*>(f);
+        if (chaser->isSequence() == false)
         {
-            Chaser *chaser = qobject_cast<Chaser*>(f);
-            if (chaser->isSequence() == false)
-            {
-                QTreeWidgetItem *item = new QTreeWidgetItem(m_chasersTree);
-                item->setText(KColumnChaserName, chaser->name());
-                item->setText(KColumnChaserID, QString::number(chaser->id()));
-                item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
-                if (m_properties->isChaserSelected(chaser->id()))
-                    item->setCheckState(KColumnName, Qt::Checked);
-                else
-                    item->setCheckState(KColumnName, Qt::Unchecked);
-            }
+            QTreeWidgetItem *item = new QTreeWidgetItem(m_chasersTree);
+            item->setText(KColumnChaserName, chaser->name());
+            item->setText(KColumnChaserID, QString::number(chaser->id()));
+            item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+            if (m_properties->isChaserSelected(chaser->id()))
+                item->setCheckState(KColumnName, Qt::Checked);
+            else
+                item->setCheckState(KColumnName, Qt::Unchecked);
         }
     }
 }

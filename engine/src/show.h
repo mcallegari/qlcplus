@@ -49,10 +49,23 @@ public:
      *********************************************************************/
 public:
     /** @reimpl */
-    Function* createCopy(Doc* doc);
+    Function* createCopy(Doc* doc, bool addToDoc = true);
 
     /** Copy the contents for this function from another function */
     bool copyFrom(const Function* function);
+
+    /*********************************************************************
+     * Time division
+     *********************************************************************/
+    /** Set the show time division type (Time, BPM) */
+    void setTimeDivision(QString type, int BPM);
+
+    QString getTimeDivisionType();
+    int getTimeDivisionBPM();
+
+private:
+    QString m_timeDivType;
+    int m_timeDivBPM;
 
     /*********************************************************************
      * Tracks
@@ -91,11 +104,6 @@ public:
 private:
     /** Create a new track ID */
     quint32 createTrackId();
-
-public slots:
-    /** Catches Doc::functionRemoved() so that destroyed members can be
-        removed immediately. */
-    void slotFunctionRemoved(quint32 function);
 
 protected:
     QMap <quint32,Track*> m_tracks;

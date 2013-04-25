@@ -33,6 +33,7 @@
 #include <QList>
 #include <QtXml>
 
+#include "vcpropertieseditor.h"
 #include "vcframeproperties.h"
 #include "virtualconsole.h"
 #include "vcsoloframe.h"
@@ -54,6 +55,7 @@ VCFrame::VCFrame(QWidget* parent, Doc* doc, bool canCollapse) : VCWidget(parent,
     , m_button(NULL)
     , m_label(NULL)
     , m_collapsed(false)
+    , m_showHeader(true)
 {
     /* Set the class name "VCFrame" as the object name as well */
     setObjectName(VCFrame::staticMetaObject.className());
@@ -88,15 +90,30 @@ VCFrame::VCFrame(QWidget* parent, Doc* doc, bool canCollapse) : VCWidget(parent,
 
         m_label = new QLabel(this);
         m_label->setText(this->caption());
-        m_label->setStyleSheet("QLabel { background-color: gray; color: white; border-radius: 3px; padding: 3px; margin-left: 2px }");
+        QString txtColor = "white";
+        if (m_hasCustomForegroundColor)
+            txtColor = this->foregroundColor().name();
+        m_label->setStyleSheet("QLabel { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #666666, stop: 1 #000000); "
+                               "color: " + txtColor + "; border-radius: 3px; padding: 3px; margin-left: 2px }");
 
-        QFont m_font = QApplication::font();
-        m_font.setBold(true);
-        m_font.setPixelSize(14);
-        m_label->setFont(m_font);
+        if (m_hasCustomFont)
+            m_label->setFont(font());
+        else
+        {
+            QFont m_font = QApplication::font();
+            m_font.setBold(true);
+            m_font.setPixelSize(12);
+            m_label->setFont(m_font);
+        }
         m_hbox->addWidget(m_label);
     }
-    resize(defaultSize);
+
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_FRAME_SIZE);
+    if (var.isValid() == true)
+        resize(var.toSize());
+    else
+        resize(defaultSize);
 }
 
 VCFrame::~VCFrame()
@@ -114,6 +131,67 @@ void VCFrame::setCaption(const QString& text)
         m_label->setText(text);
 
     VCWidget::setCaption(text);
+}
+
+void VCFrame::setFont(const QFont &font)
+{
+    if (m_label != NULL)
+    {
+        m_label->setFont(font);
+        m_hasCustomFont = true;
+        m_doc->setModified();
+    }
+}
+
+QFont VCFrame::font() const
+{
+    if (m_label != NULL)
+        return m_label->font();
+    else
+        return VCWidget::font();
+}
+
+void VCFrame::setForegroundColor(const QColor &color)
+{
+    if (m_label != NULL)
+    {
+        m_label->setStyleSheet("QLabel { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #666666, stop: 1 #000000); "
+                               "color: " + color.name() + "; border-radius: 3px; padding: 3px; margin-left: 2px }");
+        m_hasCustomForegroundColor = true;
+        m_doc->setModified();
+    }
+}
+
+QColor VCFrame::foregroundColor() const
+{
+    if (m_label != NULL)
+        return m_label->palette().color(m_label->foregroundRole());
+    else
+        return VCWidget::foregroundColor();
+}
+
+void VCFrame::setShowHeader(bool enable)
+{
+    m_showHeader = enable;
+
+    if (m_button == NULL)
+        return;
+
+    if (enable == false)
+    {
+        m_button->hide();
+        m_label->hide();
+    }
+    else
+    {
+        m_button->show();
+        m_label->show();
+    }
+}
+
+bool VCFrame::isHeaderVisible() const
+{
+    return m_showHeader;
 }
 
 bool VCFrame::isCollapsed()
@@ -135,6 +213,7 @@ void VCFrame::slotCollapseButtonToggled(bool toggle)
         resize(QSize(m_width, m_height));
         m_collapsed = false;
     }
+    m_doc->setModified();
 }
 
 /*****************************************************************************
@@ -193,6 +272,9 @@ void VCFrame::editProperties()
     {
         setAllowChildren(prop.allowChildren());
         setAllowResize(prop.allowResize());
+        setCaption(prop.frameName());
+        m_showHeader = prop.showHeader();
+        setShowHeader(prop.showHeader());
         VirtualConsole* vc = VirtualConsole::instance();
         if (vc != NULL)
             vc->reselectWidgets();
@@ -255,6 +337,13 @@ bool VCFrame::loadXML(const QDomElement* root)
             /* Collapsed */
             if (tag.text() == KXMLQLCTrue && m_button != NULL)
                 m_button->toggle();
+        }
+        else if (tag.tagName() == KXMLQLCVCFrameShowHeader)
+        {
+            if (tag.text() == KXMLQLCTrue)
+                setShowHeader(true);
+            else
+                setShowHeader(false);
         }
         else if (tag.tagName() == KXMLQLCVCFrame)
         {
@@ -383,6 +472,15 @@ bool VCFrame::saveXML(QDomDocument* doc, QDomElement* vc_root)
         /* Allow resize */
         tag = doc->createElement(KXMLQLCVCFrameAllowResize);
         if (allowResize() == true)
+            text = doc->createTextNode(KXMLQLCTrue);
+        else
+            text = doc->createTextNode(KXMLQLCFalse);
+        tag.appendChild(text);
+        root.appendChild(tag);
+
+        /* ShowHeader */
+        tag = doc->createElement(KXMLQLCVCFrameShowHeader);
+        if (isHeaderVisible())
             text = doc->createTextNode(KXMLQLCTrue);
         else
             text = doc->createTextNode(KXMLQLCFalse);

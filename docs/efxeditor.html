@@ -18,6 +18,8 @@ The EFX editor, as its name suggests, is used to edit
 
 <H3>General Tab Controls</H3>
 
+<IMG SRC="efx-general.png" />
+
 <TABLE BORDER="1">
  <TR>
   <TD>
@@ -35,7 +37,9 @@ The EFX editor, as its name suggests, is used to edit
    <UL>
     <LI>Step: Shows the order in which the fixtures start their movement in serial/asymmetric order</LI>
     <LI>Fixture: The name of each fixture that has been added to the EFX</LI>
-    <LI>Reverse: When checked, the fixture reverses its movement as opposed to non-reversed fixtures</LI>
+    <LI>Reverse: When checked, the fixture reverses its movement as opposed to non-reversed fixtures. The "normal" direction 
+        is set by direction in the "Movement" page.</LI>
+    <LI>Start Offset: Value in degrees, where on the movement path this fixture should start</LI>
     <LI>Intensity: The value set to the fixture's intensity/dimmer channel when the fixture starts to move</LI>
    </UL>
   </TD>
@@ -95,15 +99,18 @@ The EFX editor, as its name suggests, is used to edit
 
 <H3>Movement Tab Controls</H3>
 
+<IMG SRC="efx-movement.png" />
+
 <TABLE BORDER="1">
  <TR>
   <TD>
    <B>Pattern area</B>
   </TD>
   <TD>
-   Shows a 2D-projection of the fixtures' head/mirror movement. Every time you
-   change a parameter on this page, a small dot travels the complete path in the
-   direction selected with the <B>Direction</B> buttons.
+   <P>Shows a 2D-projection of the fixtures' head/mirror movement. Every time you
+   change a parameter, one small dot for each fixture travels the complete path in its selected direction 
+   from its start offset.</P>
+   <P>The speed of the movement reflects selected speed settings.</P>
   </TD>
  </TR>
  <TR>
@@ -111,6 +118,7 @@ The EFX editor, as its name suggests, is used to edit
    <B>Direction</B>
   </TD>
   <TD>
+   Default direction of the fixtures (can be altered individually for each fixture by the checkbox in the <B>Reverse</B> column)
    <UL>
     <LI>Forward: The fixtures move forwards along the pattern path</LI>
     <LI>Backward: The fixtures move backwards along the pattern path</LI>
@@ -148,6 +156,7 @@ The EFX editor, as its name suggests, is used to edit
     <LI>X Offset: Move the pattern's horizontal (pan) centerpoint (0-255)</LI>
     <LI>Y Offset: Move the pattern's vertical (tilt) centerpoint (0-255)</LI>
     <LI>Rotation: Rotate the pattern along its axis (0-360 degrees)</LI>
+    <LI>Start Offset: Where along the path the movement should start (0-360 degrees)</LI>
     <LI>X Frequency: Change the <B>Lissajous</B> pattern's X (horizontal) frequency (0-5)</LI>
     <LI>Y Frequency: Change the <B>Lissajous</B> pattern's Y (vertical) frequency (0-5)</LI>
     <LI>X Phase: Change the <B>Lissajous</B> pattern's X (horizontal) phase (0-360 degrees)</LI>

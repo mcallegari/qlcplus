@@ -54,13 +54,13 @@ signals:
      * ID
      ************************************************************************/
 public:
-    /** Set a channels group's id (only Doc is allowed to do this!) */
+    /** Set a track id (only Doc is allowed to do this!) */
     void setId(quint32 id);
 
-    /** Get a channels group's unique id */
+    /** Get a track unique id */
     quint32 id() const;
 
-    /** Get an invalid channels group id */
+    /** Get an invalid track id */
     static quint32 invalidId();
 
 private:

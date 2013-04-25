@@ -36,34 +36,34 @@
 </Channel>
 <Channel Name="Color">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="0">White</Capability>
-  <Capability Min="11" Max="11">CTC</Capability>
-  <Capability Min="22" Max="22">Yellow 603</Capability>
-  <Capability Min="33" Max="33">Blue 104</Capability>
-  <Capability Min="44" Max="44">Pink 312</Capability>
-  <Capability Min="55" Max="55">Green 206</Capability>
-  <Capability Min="66" Max="66">Blue 108</Capability>
-  <Capability Min="77" Max="77">Red 301</Capability>
-  <Capability Min="88" Max="88">Magenta 507</Capability>
-  <Capability Min="99" Max="99">Blue 101</Capability>
-  <Capability Min="110" Max="110">Orange 306</Capability>
-  <Capability Min="121" Max="121">Dark green</Capability>
-  <Capability Min="132" Max="132">Purple 502</Capability>
-  <Capability Min="143" Max="143">White</Capability>
-  <Capability Min="156" Max="159">White</Capability>
-  <Capability Min="160" Max="163">CTC</Capability>
-  <Capability Min="164" Max="167">Yellow 603</Capability>
-  <Capability Min="168" Max="171">Blue 104</Capability>
-  <Capability Min="172" Max="175">Pink 312</Capability>
-  <Capability Min="176" Max="179">Green 206</Capability>
-  <Capability Min="180" Max="183">Blue 108</Capability>
-  <Capability Min="184" Max="187">Red 301</Capability>
-  <Capability Min="188" Max="191">Magenta 507</Capability>
-  <Capability Min="192" Max="195">Blue 101</Capability>
-  <Capability Min="196" Max="199">Orange 306</Capability>
-  <Capability Min="200" Max="203">Dark green</Capability>
-  <Capability Min="204" Max="207">Purple 502</Capability>
-  <Capability Min="208" Max="226">Continuou rotation CW, fast -> slow</Capability>
+  <Capability Min="0" Max="0" Color="#ffffff">White</Capability>
+  <Capability Min="11" Max="11" Color="#fb7c41">CTC</Capability>
+  <Capability Min="22" Max="22" Color="#fec600">Yellow 603</Capability>
+  <Capability Min="33" Max="33" Color="#009cde">Blue 104</Capability>
+  <Capability Min="44" Max="44" Color="#ee63e6">Pink 312</Capability>
+  <Capability Min="55" Max="55" Color="#00bd52">Green 206</Capability>
+  <Capability Min="66" Max="66" Color="#080094">Blue 108</Capability>
+  <Capability Min="77" Max="77" Color="#de005a">Red 301</Capability>
+  <Capability Min="88" Max="88" Color="#e600ad">Magenta 507</Capability>
+  <Capability Min="99" Max="99" Color="#0084ee">Blue 101</Capability>
+  <Capability Min="110" Max="110" Color="#ff6600">Orange 306</Capability>
+  <Capability Min="121" Max="121" Color="#00a837">Dark green</Capability>
+  <Capability Min="132" Max="132" Color="#9c39b5">Purple 502</Capability>
+  <Capability Min="143" Max="143" Color="#ffffff">White</Capability>
+  <Capability Min="156" Max="159" Color="#ffffff">White</Capability>
+  <Capability Min="160" Max="163" Color="#fb7c41">CTC</Capability>
+  <Capability Min="164" Max="167" Color="#fec600">Yellow 603</Capability>
+  <Capability Min="168" Max="171" Color="#009cde">Blue 104</Capability>
+  <Capability Min="172" Max="175" Color="#ee63e6">Pink 312</Capability>
+  <Capability Min="176" Max="179" Color="#00bd52">Green 206</Capability>
+  <Capability Min="180" Max="183" Color="#080094">Blue 108</Capability>
+  <Capability Min="184" Max="187" Color="#de005a">Red 301</Capability>
+  <Capability Min="188" Max="191" Color="#e600ad">Magenta 507</Capability>
+  <Capability Min="192" Max="195" Color="#0084ee">Blue 101</Capability>
+  <Capability Min="196" Max="199" Color="#ff6600">Orange 306</Capability>
+  <Capability Min="200" Max="203" Color="#00a837">Dark green</Capability>
+  <Capability Min="204" Max="207" Color="#9c39b5">Purple 502</Capability>
+  <Capability Min="208" Max="226">Continuous rotation CW, fast -> slow</Capability>
   <Capability Min="227" Max="245">Continuous rotation CCW, slow -> fast</Capability>
   <Capability Min="246" Max="248">Random color, fast</Capability>
   <Capability Min="249" Max="251">Random color, medium</Capability>

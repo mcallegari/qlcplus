@@ -28,6 +28,7 @@
 #include <QtXml>
 
 #include "vccuelistproperties.h"
+#include "vcpropertieseditor.h"
 #include "virtualconsole.h"
 #include "chaserrunner.h"
 #include "mastertimer.h"
@@ -39,11 +40,12 @@
 #include "chaser.h"
 #include "doc.h"
 
-#define COL_NUM  0
-#define COL_NAME 1
+#define COL_NUM      0
+#define COL_NAME     1
 #define COL_FADEIN   2
 #define COL_FADEOUT  3
 #define COL_DURATION 4
+#define COL_NOTES    5
 
 #define PROP_ID  Qt::UserRole
 #define HYSTERESIS 3 // Hysteresis for next/previous external input
@@ -78,6 +80,8 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
     connect(m_tree, SIGNAL(itemActivated(QTreeWidgetItem*,int)),
             this, SLOT(slotItemActivated(QTreeWidgetItem*)));
+    connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
+            this, SLOT(slotItemChanged(QTreeWidgetItem*,int)));
 
     /* Create control buttons */
     QHBoxLayout *hbox = new QHBoxLayout(this);
@@ -119,7 +123,13 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
     setFrameStyle(KVCFrameStyleSunken);
     setCaption(tr("Cue list"));
-    resize(QSize(200, 200));
+
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_CUELIST_SIZE);
+    if (var.isValid() == true)
+        resize(var.toSize());
+    else
+        resize(QSize(200, 200));
 
     slotModeChanged(mode());
 
@@ -195,6 +205,8 @@ quint32 VCCueList::chaser() const
 
 void VCCueList::updateStepList()
 {
+    m_listIsUpdating = true;
+
     m_tree->clear();
 
     Chaser* chaser = qobject_cast<Chaser*> (m_doc->function(m_chaser));
@@ -210,10 +222,13 @@ void VCCueList::updateStepList()
         Q_ASSERT(function != NULL);
 
         QTreeWidgetItem* item = new QTreeWidgetItem(m_tree);
+        item->setFlags(item->flags() | Qt::ItemIsEditable);
         int index = m_tree->indexOfTopLevelItem(item) + 1;
         item->setText(COL_NUM, QString("%1").arg(index));
-        item->setText(COL_NAME, function->name());
         item->setData(COL_NUM, PROP_ID, function->id());
+        item->setText(COL_NAME, function->name());
+        if (step.note.isEmpty() == false)
+            item->setText(COL_NOTES, step.note);
 
         switch (chaser->fadeInMode())
         {
@@ -254,6 +269,8 @@ void VCCueList::updateStepList()
                 item->setText(COL_DURATION, QString());
         }
     }
+
+    m_listIsUpdating = false;
 }
 
 int VCCueList::getCurrentIndex()
@@ -384,6 +401,25 @@ void VCCueList::slotItemActivated(QTreeWidgetItem* item)
     else
         m_runner->setCurrentStep(m_tree->indexOfTopLevelItem(item));
     m_mutex.unlock();
+}
+
+void VCCueList::slotItemChanged(QTreeWidgetItem *item, int column)
+{
+    if (m_listIsUpdating)
+        return;
+
+    Function *func = m_doc->function(m_chaser);
+    if (column != COL_NOTES || func == NULL)
+        return;
+
+    Chaser* chaser = qobject_cast<Chaser*> (func);
+    QString itemText = item->text(column);
+    int idx = m_tree->indexOfTopLevelItem(item);
+    ChaserStep step = chaser->steps().at(idx);
+
+    step.note = itemText;
+    chaser->replaceStep(step, idx);
+    updateStepList();
 }
 
 void VCCueList::createRunner(int startIndex)
@@ -544,7 +580,7 @@ void VCCueList::setCaption(const QString& text)
     VCWidget::setCaption(text);
 
     QStringList list;
-    list << "#" << text << tr("Fade In") << tr("Fade Out") << tr("Duration");
+    list << "#" << text << tr("Fade In") << tr("Fade Out") << tr("Duration") << tr("Notes");
     m_tree->setHeaderLabels(list);
 }
 

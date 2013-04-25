@@ -115,8 +115,6 @@ void MasterTimer::startFunction(Function* function)
     if (m_startQueue.contains(function) == false)
         m_startQueue.append(function);
     m_functionListMutex.unlock();
-
-    emit functionListChanged();
 }
 
 void MasterTimer::stopAllFunctions()
@@ -174,6 +172,7 @@ void MasterTimer::timerTickFunctions(UniverseArray* universes)
                 /* Function should be stopped instead */
                 m_functionListMutex.lock();
                 function->postRun(this, universes);
+                //qDebug() << "[MasterTimer] Add function (ID: " << function->id() << ") to remove list ";
                 removeList << i; // Don't remove the item from the list just yet.
                 m_functionListMutex.unlock();
                 emit functionListChanged();
@@ -201,13 +200,16 @@ void MasterTimer::timerTickFunctions(UniverseArray* universes)
 
     foreach (Function* f, m_startQueue)
     {
+        //qDebug() << "[MasterTimer] Processing ID: " << f->id();
         if (m_functionList.contains(f) == false)
         {
             m_functionListMutex.lock();
             m_functionList.append(f);
             m_functionListMutex.unlock();
+            //qDebug() << "[MasterTimer] Starting up ID: " << f->id();
             f->preRun(this);
             f->write(this, universes);
+            emit functionListChanged();
         }
         m_startQueue.removeOne(f);
     }

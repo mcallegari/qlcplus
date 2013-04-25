@@ -116,6 +116,7 @@ private:
     void initActions();
     void initToolBar();
     bool handleFileError(QFile::FileError error);
+    void updateFileOpenMenu(QString addRecent);
 
 public slots:
     bool slotFileNew();
@@ -124,6 +125,7 @@ public slots:
     QFile::FileError slotFileSaveAs();
 
     void slotControlMonitor();
+    void slotAddressTool();
     void slotControlFullScreen();
     void slotControlFullScreen(bool usingGeometry);
     void slotControlBlackout();
@@ -135,6 +137,8 @@ public slots:
     void slotHelpIndex();
     void slotHelpAbout();
 
+    void slotRecentFileClicked(QAction *recent);
+
 private:
     QAction* m_fileNewAction;
     QAction* m_fileOpenAction;
@@ -143,6 +147,7 @@ private:
 
     QAction* m_modeToggleAction;
     QAction* m_controlMonitorAction;
+    QAction* m_addressToolAction;
     QAction* m_controlFullScreenAction;
     QAction* m_controlBlackoutAction;
     QAction* m_controlPanicAction;
@@ -150,6 +155,7 @@ private:
 
     QAction* m_helpIndexAction;
     QAction* m_helpAboutAction;
+    QMenu* m_fileOpenMenu;
 
 private:
     QToolBar* m_toolbar;

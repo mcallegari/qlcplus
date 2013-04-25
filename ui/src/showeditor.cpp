@@ -94,6 +94,8 @@ void ShowEditor::slotRemove()
 
 void ShowEditor::updateFunctionList()
 {
+    quint32 totalDuration = 0;
+
     m_tree->clear();
 
     if (m_show == NULL)
@@ -122,7 +124,11 @@ void ShowEditor::updateFunctionList()
 
         foreach(quint32 id, track->functionsID())
         {
-            if (m_doc->function(id)->type() == Function::Chaser)
+            Function *func = m_doc->function(id);
+            if (func == NULL)
+                continue;
+
+            if (func->type() == Function::Chaser)
             {
                 Chaser *chaser = qobject_cast<Chaser*>(m_doc->function(id));
                 QTreeWidgetItem *chItem = new QTreeWidgetItem(sceneItem);
@@ -131,12 +137,12 @@ void ShowEditor::updateFunctionList()
                 chItem->setIcon(NAME_COL, QIcon(":/sequence.png"));
                 chItem->setText(STEPS_COL, QString("%1").arg(chaser->steps().count()));
                 chItem->setText(TIME_COL, Function::speedToString(chaser->getStartTime()));
-                quint32 seq_duration = 0;
-                foreach (ChaserStep step, chaser->steps())
-                    seq_duration += step.duration;
+                quint32 seq_duration = chaser->getDuration();
                 chItem->setText(DUR_COL, Function::speedToString(seq_duration));
+                if (chaser->getStartTime() + seq_duration > totalDuration)
+                    totalDuration = chaser->getStartTime() + seq_duration;
             }
-            else if (m_doc->function(id)->type() == Function::Audio)
+            else if (func->type() == Function::Audio)
             {
                 Audio *audio = qobject_cast<Audio*>(m_doc->function(id));
                 QTreeWidgetItem *chItem = new QTreeWidgetItem(sceneItem);
@@ -145,9 +151,14 @@ void ShowEditor::updateFunctionList()
                 chItem->setIcon(NAME_COL, QIcon(":/audio.png"));
                 chItem->setText(TIME_COL, Function::speedToString(audio->getStartTime()));
                 chItem->setText(DUR_COL, Function::speedToString(audio->getDuration()));
+                if (audio->getStartTime() + audio->getDuration() > totalDuration)
+                    totalDuration = audio->getStartTime() + audio->getDuration();
             }
         }
     }
+
+    masterItem->setText(DUR_COL, Function::speedToString(totalDuration));
+
     m_tree->expandAll();
     m_tree->resizeColumnToContents(NAME_COL);
     m_tree->resizeColumnToContents(TIME_COL);

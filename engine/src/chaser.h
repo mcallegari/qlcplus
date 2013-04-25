@@ -65,7 +65,7 @@ private:
      *********************************************************************/
 public:
     /** @reimpl */
-    Function* createCopy(Doc* doc);
+    Function* createCopy(Doc* doc, bool addToDoc = true);
 
     /** Copy the contents for this function from another function */
     bool copyFrom(const Function* function);
@@ -131,6 +131,9 @@ public:
      */
     QList <ChaserStep> steps() const;
 
+    /** Get the Chaser duration in milliseconds */
+    quint32 getDuration();
+
 public slots:
     /**
      * Catches Doc::functionRemoved() so that destroyed members can be
@@ -165,11 +168,11 @@ public:
     bool isSequence() const;
 
     /**
-     * Returns the current bounded scene ID
+     * Returns the current bound scene ID
      *
      * @return The associated Scene for this Chaser in sequence mode
      */
-    quint32 getBoundedSceneID() const;
+    quint32 getBoundSceneID() const;
 
     /**
      * Set the time where the Chaser is placed over a timeline
@@ -199,7 +202,7 @@ private:
     /** This Chaser is a Sequence that uses always the same Scene for each step */
     bool m_isSequence;
     /** The associated Scene of this Chaser when acting like a Sequence */
-    quint32 m_boundedSceneID;
+    quint32 m_boundSceneID;
     /** Absolute start time of this Chaser over a timeline (in milliseconds) */
     quint32 m_startTime;
     /** Color to use when displaying the sequence in the Show manager */
@@ -230,7 +233,7 @@ public:
 private:
     SpeedMode m_fadeInMode;
     SpeedMode m_fadeOutMode;
-    SpeedMode m_durationMode;
+    SpeedMode m_holdMode;
 
     /*********************************************************************
      * Save & Load

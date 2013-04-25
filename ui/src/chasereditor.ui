@@ -14,117 +14,7 @@
    <string>Chaser editor</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="7" column="6" rowspan="5">
-    <spacer>
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="0" column="0" colspan="7">
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QLabel" name="m_nameLabel">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>Chaser name</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="m_nameEdit">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="toolTip">
-        <string>Name of the chaser being edited</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="6" column="6">
-    <widget class="QToolButton" name="m_lower">
-     <property name="toolTip">
-      <string>Lower the selected step once</string>
-     </property>
-     <property name="text">
-      <string notr="true">...</string>
-     </property>
-     <property name="icon">
-      <iconset resource="qlcui.qrc">
-       <normaloff>:/down.png</normaloff>:/down.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>24</width>
-       <height>24</height>
-      </size>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="6">
-    <widget class="Line" name="line">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="6">
-    <widget class="QToolButton" name="m_raise">
-     <property name="toolTip">
-      <string>Raise the selected step once</string>
-     </property>
-     <property name="text">
-      <string notr="true">...</string>
-     </property>
-     <property name="icon">
-      <iconset resource="qlcui.qrc">
-       <normaloff>:/up.png</normaloff>:/up.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>24</width>
-       <height>24</height>
-      </size>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="6">
-    <widget class="QToolButton" name="m_add">
-     <property name="toolTip">
-      <string>Add step(s) to the current position</string>
-     </property>
-     <property name="text">
-      <string notr="true">...</string>
-     </property>
-     <property name="icon">
-      <iconset resource="qlcui.qrc">
-       <normaloff>:/edit_add.png</normaloff>:/edit_add.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>24</width>
-       <height>24</height>
-      </size>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0" rowspan="10" colspan="6">
+   <item row="2" column="0" rowspan="10" colspan="2">
     <widget class="QTreeWidget" name="m_tree">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -167,6 +57,11 @@
      </column>
      <column>
       <property name="text">
+       <string>Hold</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
        <string>Fade Out</string>
       </property>
      </column>
@@ -175,9 +70,14 @@
        <string>Duration</string>
       </property>
      </column>
+     <column>
+      <property name="text">
+       <string>Notes</string>
+      </property>
+     </column>
     </widget>
    </item>
-   <item row="3" column="6">
+   <item row="3" column="2">
     <widget class="QToolButton" name="m_remove">
      <property name="toolTip">
       <string>Remove the selected step</string>
@@ -197,14 +97,37 @@
      </property>
     </widget>
    </item>
-   <item row="14" column="0" colspan="7">
-    <widget class="Line" name="line_3">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
+   <item row="0" column="0" colspan="3">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="m_nameLabel">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Chaser name</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="m_nameEdit">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>Name of the chaser being edited</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
-   <item row="12" column="0" colspan="7">
+   <item row="12" column="0" colspan="3">
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QGroupBox" name="groupBox">
@@ -430,6 +353,46 @@
      </item>
     </layout>
    </item>
+   <item row="6" column="2">
+    <widget class="QToolButton" name="m_lower">
+     <property name="toolTip">
+      <string>Lower the selected step once</string>
+     </property>
+     <property name="text">
+      <string notr="true">...</string>
+     </property>
+     <property name="icon">
+      <iconset resource="qlcui.qrc">
+       <normaloff>:/down.png</normaloff>:/down.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>24</width>
+       <height>24</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="2">
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="2" rowspan="5">
+    <spacer>
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
    <item row="1" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
@@ -601,6 +564,46 @@
       </widget>
      </item>
     </layout>
+   </item>
+   <item row="2" column="2">
+    <widget class="QToolButton" name="m_add">
+     <property name="toolTip">
+      <string>Add step(s) to the current position</string>
+     </property>
+     <property name="text">
+      <string notr="true">...</string>
+     </property>
+     <property name="icon">
+      <iconset resource="qlcui.qrc">
+       <normaloff>:/edit_add.png</normaloff>:/edit_add.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>24</width>
+       <height>24</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="2">
+    <widget class="QToolButton" name="m_raise">
+     <property name="toolTip">
+      <string>Raise the selected step once</string>
+     </property>
+     <property name="text">
+      <string notr="true">...</string>
+     </property>
+     <property name="icon">
+      <iconset resource="qlcui.qrc">
+       <normaloff>:/up.png</normaloff>:/up.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>24</width>
+       <height>24</height>
+      </size>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

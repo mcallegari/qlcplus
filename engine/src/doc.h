@@ -31,6 +31,7 @@
 #include "ioplugincache.h"
 #include "channelsgroup.h"
 #include "fixturegroup.h"
+#include "qlcclipboard.h"
 #include "mastertimer.h"
 #include "outputmap.h"
 #include "inputmap.h"
@@ -72,8 +73,24 @@ public:
      */
     void setWorkspacePath(QString path);
 
-    /** Retieve the current workspace absolute path */
-    QString getWorkspacePath();
+    /** Retrieve the current workspace absolute path */
+    QString getWorkspacePath() const;
+
+    /** If filePath is in the workspace directory or in one of its subdirectories,
+     *  return path relative to the workspace directory.
+     *  Otherwise return absolute path.
+     *
+     *  Purpose: saving components of the workspace file (audio, icons,...)
+     */
+    QString normalizeComponentPath(const QString& filePath) const;
+
+    /** If filePath is relative path, it is resolved relative to the workspace 
+     *  directory (absolute path is returned).
+     *  If filePath is absolute, it is returned unchanged (symlinks and .. are resolved).
+     *
+     *  Purpose: saving components of the workspace file (audio, icons,...)
+     */
+    QString denormalizeComponentPath(const QString& filePath) const;
 
 private:
     QString m_wsPath;
@@ -176,6 +193,16 @@ protected:
     bool m_modified;
 
     /*********************************************************************
+     * Clipboard
+     *********************************************************************/
+public:
+    /** Get a reference to QLC+ global clipboard*/
+    QLCClipboard *clipboard();
+
+private:
+    QLCClipboard *m_clipboard;
+
+    /*********************************************************************
      * Fixture Instances
      *********************************************************************/
 public:
@@ -200,6 +227,16 @@ public:
      * @param id The ID of the fixture instance to delete
      */
     bool deleteFixture(quint32 id);
+
+    /**
+     * Mode the given fixture instance from an address to another
+     *
+     * @param id The ID of the fixture instance to move
+     * @param newAddress the new DMX address where the fixture takes place
+     */
+    bool moveFixture(quint32 id, quint32 newAddress);
+
+    bool changeFixtureMode(quint32 id, const QLCFixtureMode *mode);
 
     /**
      * Get the fixture instance that has the given ID
@@ -361,6 +398,13 @@ public:
      * @return List of functions
      */
     QList <Function*> functions() const;
+
+    /**
+     * Get a list of currently available functions by type
+     *
+     * @return List of functions by type
+     */
+    QList <Function*> functionsByType(Function::Type type) const;
 
     /**
      * Delete the given function

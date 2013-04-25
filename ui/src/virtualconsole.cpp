@@ -884,6 +884,18 @@ void VirtualConsole::slotToolsSettings()
         m_doc->outputMap()->setGrandMasterValueMode(m_properties.grandMasterValueMode());
         if (m_dockArea != NULL)
             m_dockArea->setGrandMasterInvertedAppearance(m_properties.grandMasterSlideMode());
+
+        QSettings settings;
+        settings.setValue(SETTINGS_BUTTON_SIZE, vcpe.buttonSize());
+        settings.setValue(SETTINGS_BUTTON_STATUSLED, vcpe.buttonStatusLED());
+        settings.setValue(SETTINGS_SLIDER_SIZE, vcpe.sliderSize());
+        settings.setValue(SETTINGS_SPEEDDIAL_SIZE, vcpe.speedDialSize());
+        settings.setValue(SETTINGS_SPEEDDIAL_VALUE, vcpe.speedDialValue());
+        settings.setValue(SETTINGS_XYPAD_SIZE, vcpe.xypadSize());
+        settings.setValue(SETTINGS_CUELIST_SIZE, vcpe.cuelistSize());
+        settings.setValue(SETTINGS_FRAME_SIZE, vcpe.frameSize());
+        settings.setValue(SETTINGS_SOLOFRAME_SIZE, vcpe.soloFrameSize());
+
         m_doc->setModified();
     }
 }

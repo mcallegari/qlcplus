@@ -25,6 +25,7 @@
 #include <QToolButton>
 #include <QHeaderView>
 #include <QPushButton>
+#include <QScrollArea>
 #include <QSettings>
 #include <QSplitter>
 #include <QGroupBox>
@@ -38,10 +39,11 @@
 #include "grandmasterslider.h"
 #include "simpledeskengine.h"
 #include "speeddialwidget.h"
+#include "fixtureconsole.h"
 #include "playbackslider.h"
+#include "consolechannel.h"
 #include "cuestackmodel.h"
 #include "simpledesk.h"
-#include "consolechannel.h"
 #include "qlcmacros.h"
 #include "cuestack.h"
 #include "cue.h"
@@ -54,8 +56,8 @@
 #define SETTINGS_PAGE_CHANNELS  "simpledesk/channelsperpage"
 #define SETTINGS_PAGE_PLAYBACKS "simpledesk/playbacksperpage"
 #define SETTINGS_CHANNEL_NAMES  "simpledesk/showchannelnames"
-#define DEFAULT_PAGE_CHANNELS   16
-#define DEFAULT_PAGE_PLAYBACKS  12
+#define DEFAULT_PAGE_CHANNELS   32
+#define DEFAULT_PAGE_PLAYBACKS  15
 
 SimpleDesk* SimpleDesk::s_instance = NULL;
 
@@ -148,32 +150,78 @@ void SimpleDesk::initView()
 {
     qDebug() << Q_FUNC_INFO;
 
-    new QHBoxLayout(this);
+    new QVBoxLayout(this);
     layout()->setContentsMargins(0, 0, 0, 0);
-    m_splitter = new QSplitter(Qt::Horizontal, this);
+    m_splitter = new QSplitter(this);
     layout()->addWidget(m_splitter);
 
-    initLeftSide();
-    initRightSide();
+    initTopSide();
+    initBottomSide();
 
     QSettings settings;
     m_splitter->restoreState(settings.value(SETTINGS_SPLITTER).toByteArray());
+    m_splitter->setOrientation(Qt::Vertical);
 }
 
-void SimpleDesk::initLeftSide()
+void SimpleDesk::initTopSide()
 {
-    qDebug() << Q_FUNC_INFO;
-
-    QWidget* leftSide = new QWidget(this);
-    QVBoxLayout* lay = new QVBoxLayout(leftSide);
+    QWidget* topSide = new QWidget(this);
+    QVBoxLayout* lay = new QVBoxLayout(topSide);
     lay->setContentsMargins(1, 1, 1, 1);
-    m_splitter->addWidget(leftSide);
+    m_splitter->addWidget(topSide);
 
     QHBoxLayout* uniLay = new QHBoxLayout;
+    uniLay->setContentsMargins(1, 1, 1, 1);
+
+    m_viewModeButton = new QToolButton(this);
+    m_viewModeButton->setIcon(QIcon(":/tabview.png"));
+    m_viewModeButton->setIconSize(QSize(24, 24));
+    m_viewModeButton->setMinimumSize(QSize(36, 36));
+    m_viewModeButton->setMaximumSize(QSize(36, 36));
+    m_viewModeButton->setToolTip(tr("View mode"));
+    m_viewModeButton->setCheckable(true);
+    uniLay->addWidget(m_viewModeButton);
+
+    m_universePageDownButton = new QToolButton(this);
+    m_universePageDownButton->setIcon(QIcon(":/back.png"));
+    m_universePageDownButton->setIconSize(QSize(24, 24));
+    m_universePageDownButton->setMinimumSize(QSize(36, 36));
+    m_universePageDownButton->setMaximumSize(QSize(36, 36));
+    m_universePageDownButton->setToolTip(tr("Previous page"));
+    uniLay->addWidget(m_universePageDownButton);
+
+    m_universePageSpin = new QSpinBox(this);
+    m_universePageSpin->setMaximumSize(QSize(40, 34));
+    m_universePageSpin->setButtonSymbols(QAbstractSpinBox::NoButtons);
+    m_universePageSpin->setAlignment(Qt::AlignCenter);
+    m_universePageSpin->setWrapping(true);
+    m_universePageSpin->setToolTip(tr("Current page"));
+    uniLay->addWidget(m_universePageSpin);
+
+    m_universePageUpButton = new QToolButton(this);
+    m_universePageUpButton->setIcon(QIcon(":/forward.png"));
+    m_universePageUpButton->setIconSize(QSize(24, 24));
+    m_universePageUpButton->setMinimumSize(QSize(36, 36));
+    m_universePageUpButton->setMaximumSize(QSize(36, 36));
+    m_universePageUpButton->setToolTip(tr("Next page"));
+    uniLay->addWidget(m_universePageUpButton);
+
+    m_universeResetButton = new QToolButton(this);
+    m_universeResetButton->setIcon(QIcon(":/fileclose.png"));
+    m_universeResetButton->setIconSize(QSize(24, 24));
+    m_universeResetButton->setMinimumSize(QSize(36, 36));
+    m_universeResetButton->setMaximumSize(QSize(36, 36));
+    m_universeResetButton->setToolTip(tr("Reset universe"));
+    uniLay->addWidget(m_universeResetButton);
+
+    uniLay->addSpacing(50);
+
     QLabel *label = new QLabel(tr("Universe"));
     label->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
     uniLay->addWidget(label);
+
     m_universesCombo = new QComboBox(this);
+    //m_universesCombo->setFixedWidth(200);
     m_universesCombo->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     uniLay->addWidget(m_universesCombo);
     lay->addLayout(uniLay);
@@ -185,63 +233,35 @@ void SimpleDesk::initLeftSide()
     m_universeGroup = new QGroupBox(this);
     //m_universeGroup->setTitle(tr("Universe"));
     QHBoxLayout* grpLay = new QHBoxLayout(m_universeGroup);
-    grpLay->setContentsMargins(0, 6, 0, 0);
+    grpLay->setContentsMargins(1, 1, 1, 1);
     grpLay->setSpacing(1);
     lay->addWidget(m_universeGroup);
 
     QVBoxLayout* vbox = new QVBoxLayout;
-    vbox->setContentsMargins(0, 0, 0, 0);
-    m_universePageUpButton = new QToolButton(this);
-    m_universePageUpButton->setIcon(QIcon(":/forward.png"));
-    m_universePageUpButton->setIconSize(QSize(32, 32));
-    m_universePageUpButton->setToolTip(tr("Next page"));
-    vbox->addWidget(m_universePageUpButton);
-
-    m_universePageSpin = new QSpinBox(this);
-    m_universePageSpin->setMaximumSize(QSize(40, 40));
-    m_universePageSpin->setButtonSymbols(QAbstractSpinBox::NoButtons);
-    m_universePageSpin->setWrapping(true);
-    m_universePageUpButton->setToolTip(tr("Current page"));
-    vbox->addWidget(m_universePageSpin);
-
-    m_universePageDownButton = new QToolButton(this);
-    m_universePageDownButton->setIcon(QIcon(":/back.png"));
-    m_universePageDownButton->setIconSize(QSize(32, 32));
-    m_universePageUpButton->setToolTip(tr("Previous page"));
-    vbox->addWidget(m_universePageDownButton);
-
-    m_universeResetButton = new QToolButton(this);
-    m_universeResetButton->setIcon(QIcon(":/fileclose.png"));
-    m_universeResetButton->setIconSize(QSize(32, 32));
-    m_universeResetButton->setToolTip(tr("Reset universe"));
-    vbox->addWidget(m_universeResetButton);
-
     m_grandMasterSlider = new GrandMasterSlider(this, m_doc->outputMap(), m_doc->inputMap());
     vbox->addWidget(m_grandMasterSlider);
 
     grpLay->addLayout(vbox);
+}
+
+void SimpleDesk::initBottomSide()
+{
+    QWidget* bottomSide = new QWidget(this);
+    QHBoxLayout* lay = new QHBoxLayout(bottomSide);
+    lay->setContentsMargins(1, 1, 1, 1);
+    m_splitter->addWidget(bottomSide);
 
     m_playbackGroup = new QGroupBox(this);
     m_playbackGroup->setTitle(tr("Playback"));
-    grpLay = new QHBoxLayout(m_playbackGroup);
+    QHBoxLayout *grpLay = new QHBoxLayout(m_playbackGroup);
     grpLay->setContentsMargins(0, 6, 0, 0);
     grpLay->setSpacing(1);
     lay->addWidget(m_playbackGroup);
-}
-
-void SimpleDesk::initRightSide()
-{
-    qDebug() << Q_FUNC_INFO;
-
-    QWidget* rightSide = new QWidget(this);
-    QVBoxLayout* lay = new QVBoxLayout(rightSide);
-    lay->setContentsMargins(1, 1, 1, 1);
-    m_splitter->addWidget(rightSide);
 
     m_cueStackGroup = new QGroupBox(this);
     m_cueStackGroup->setTitle(tr("Cue Stack"));
-    QVBoxLayout* grpLay = new QVBoxLayout(m_cueStackGroup);
-    grpLay->setContentsMargins(0, 6, 0, 0);
+    QVBoxLayout *grpLay2 = new QVBoxLayout(m_cueStackGroup);
+    grpLay2->setContentsMargins(0, 6, 0, 0);
     lay->addWidget(m_cueStackGroup);
 
     QHBoxLayout* hbox = new QHBoxLayout;
@@ -285,7 +305,7 @@ void SimpleDesk::initRightSide()
     m_recordCueButton->setToolTip(tr("Record cue"));
     hbox->addWidget(m_recordCueButton);
 
-    grpLay->addLayout(hbox);
+    grpLay2->addLayout(hbox);
 
     m_cueStackView = new QTreeView(this);
     m_cueStackView->setAllColumnsShowFocus(true);
@@ -312,7 +332,7 @@ void SimpleDesk::initUniversesCombo()
 void SimpleDesk::initUniverseSliders()
 {
     qDebug() << Q_FUNC_INFO;
-    quint32 start = (m_universePageSpin->value() - 1) * m_channelsPerPage;
+    quint32 start = m_universesPage.at(m_currentUniverse) * m_channelsPerPage;
     for (quint32 i = 0; i < m_channelsPerPage; i++)
     {
         ConsoleChannel* slider = NULL;
@@ -342,6 +362,7 @@ void SimpleDesk::initUniversePager()
     m_universePageSpin->setValue(1);
     slotUniversePageChanged(1);
 
+    connect(m_viewModeButton, SIGNAL(clicked(bool)), this, SLOT(slotViewModeClicked(bool)));
     connect(m_universePageUpButton, SIGNAL(clicked()), this, SLOT(slotUniversePageUpClicked()));
     connect(m_universePageDownButton, SIGNAL(clicked()), this, SLOT(slotUniversePageDownClicked()));
     connect(m_universePageSpin, SIGNAL(valueChanged(int)), this, SLOT(slotUniversePageChanged(int)));
@@ -351,9 +372,59 @@ void SimpleDesk::initUniversePager()
 void SimpleDesk::resetUniverseSliders()
 {
     qDebug() << Q_FUNC_INFO;
-    QListIterator <ConsoleChannel*> it(m_universeSliders);
-    while (it.hasNext() == true)
-        it.next()->setValue(0);
+    foreach (ConsoleChannel *channel, m_universeSliders)
+    {
+        if (channel != NULL)
+            channel->setValue(0);
+    }
+}
+
+void SimpleDesk::initSliderView(bool fullMode)
+{
+    if (fullMode == true)
+    {
+        scrollArea = new QScrollArea();
+        scrollArea->setWidgetResizable(true);
+
+        QGroupBox* grpBox = new QGroupBox(scrollArea);
+        grpBox->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
+        QHBoxLayout* fixturesLayout = new QHBoxLayout(grpBox);
+        grpBox->setLayout(fixturesLayout);
+        fixturesLayout->setSpacing(2);
+        fixturesLayout->setContentsMargins(2, 2, 2, 2);
+
+        int c = 0;
+        foreach(Fixture *fixture, m_doc->fixtures())
+        {
+            if (fixture->universe() != (quint32)m_universesCombo->currentIndex())
+                continue;
+            FixtureConsole* console = NULL;
+            if (c%2 == 0)
+                console = new FixtureConsole(scrollArea, m_doc, FixtureConsole::GroupOdd, false);
+            else
+                console = new FixtureConsole(scrollArea, m_doc, FixtureConsole::GroupEven, false);
+            console->setFixture(fixture->id());
+            quint32 absoluteAddr = fixture->universeAddress();
+            for (quint32 i = 0; i < fixture->channels(); i++)
+            {
+                SceneValue scv(fixture->id(), i, m_engine->value(absoluteAddr + i));
+                console->setSceneValue(scv);
+            }
+            fixturesLayout->addWidget(console);
+            connect(console, SIGNAL(valueChanged(quint32,quint32,uchar)),
+                    this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
+            c++;
+        }
+        fixturesLayout->addStretch(1);
+        scrollArea->setWidget(grpBox);
+
+        m_universeGroup->layout()->addWidget(scrollArea);
+    }
+    else
+    {
+        int page = m_universesPage.at(m_universesCombo->currentIndex());
+        slotUniversePageChanged(page);
+    }
 }
 
 void SimpleDesk::slotUniversesComboChanged(int index)
@@ -361,7 +432,45 @@ void SimpleDesk::slotUniversesComboChanged(int index)
     m_currentUniverse = index;
     int page = m_universesPage.at(index);
     m_universePageSpin->setValue(page);
-    slotUniversePageChanged(page);
+    if (m_viewModeButton->isChecked() == true)
+    {
+        m_universeGroup->layout()->removeWidget(scrollArea);
+        delete scrollArea;
+        initSliderView(true);
+    }
+    else
+    {
+        slotUniversePageChanged(page);
+    }
+}
+
+void SimpleDesk::slotViewModeClicked(bool toggle)
+{
+    if (toggle == true)
+    {
+        for (quint32 i = 0; i < m_channelsPerPage; i++)
+        {
+            ConsoleChannel* slider = m_universeSliders[i];
+            if (slider != NULL)
+            {
+                m_universeGroup->layout()->removeWidget(slider);
+                disconnect(slider, SIGNAL(valueChanged(quint32,quint32,uchar)),
+                       this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
+                delete slider;
+                m_universeSliders[i] = NULL;
+            }
+        }
+        initSliderView(true);
+    }
+    else
+    {
+        m_universeGroup->layout()->removeWidget(scrollArea);
+        delete scrollArea;
+        initSliderView(false);
+    }
+    m_universePageUpButton->setEnabled(!toggle);
+    m_universePageDownButton->setEnabled(!toggle);
+    m_universePageSpin->setEnabled(!toggle);
 }
 
 void SimpleDesk::slotUniversePageUpClicked()
@@ -404,6 +513,7 @@ void SimpleDesk::slotUniversePageChanged(int page)
             disconnect(slider, SIGNAL(valueChanged(quint32,quint32,uchar)),
                    this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
             delete slider;
+            m_universeSliders[i] = NULL;
         }
         const Fixture* fx = m_doc->fixture(m_doc->fixtureForAddress(absoluteAddr + i));
         if (fx == NULL)
@@ -451,10 +561,11 @@ void SimpleDesk::slotUniverseResetClicked()
     resetUniverseSliders();
     m_engine->resetUniverse(m_currentUniverse);
     m_universePageSpin->setValue(1);
-    slotUniversePageChanged(1);
+    if (m_viewModeButton->isChecked() == false)
+        slotUniversePageChanged(1);
 }
 
-void SimpleDesk::slotUniverseSliderValueChanged(quint32,quint32,uchar value)
+void SimpleDesk::slotUniverseSliderValueChanged(quint32 fid, quint32 chan, uchar value)
 {
     QVariant var(sender()->property(PROP_ADDRESS));
     if (var.isValid() == true) // Not true with disabled sliders
@@ -463,6 +574,18 @@ void SimpleDesk::slotUniverseSliderValueChanged(quint32,quint32,uchar value)
 
         if (m_editCueStackButton->isChecked() == true)
             replaceCurrentCue();
+    }
+    else // calculate the absolute address from the given parameters
+    {
+        Fixture *fixture = m_doc->fixture(fid);
+        if (fixture != NULL)
+        {
+            quint32 absoluteAddr = fixture->universeAddress();
+            m_engine->setValue(absoluteAddr + chan, value);
+
+            if (m_editCueStackButton->isChecked() == true)
+                replaceCurrentCue();
+        }
     }
 }
 
@@ -482,7 +605,8 @@ void SimpleDesk::slotUniversesWritten(const QByteArray& ua)
             if (fx != NULL)
             {
                 ConsoleChannel *cc = m_universeSliders[i - start];
-                cc->setValue(ua.at(i), false);
+                if (cc != NULL)
+                    cc->setValue(ua.at(i), false);
             }
         }
     }

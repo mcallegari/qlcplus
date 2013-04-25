@@ -213,19 +213,14 @@ void SceneEditor::init(bool applyValues)
     m_chaserCombo = new QComboBox(this);
     m_chaserCombo->addItem(tr("None"), Function::invalidId());
     slotChaserComboActivated(0);
-    QListIterator <Function*> fit(m_doc->functions());
-    while (fit.hasNext() == true)
+    foreach (Function *function, m_doc->functionsByType(Function::Chaser))
     {
-        Function* function(fit.next());
-        if (function->type() == Function::Chaser)
+        m_chaserCombo->addItem(function->name(), function->id());
+        if (function->id() == selectId)
         {
-            m_chaserCombo->addItem(function->name(), function->id());
-            if (function->id() == selectId)
-            {
-                int index = m_chaserCombo->count() - 1;
-                m_chaserCombo->setCurrentIndex(index);
-                slotChaserComboActivated(index);
-            }
+            int index = m_chaserCombo->count() - 1;
+            m_chaserCombo->setCurrentIndex(index);
+            slotChaserComboActivated(index);
         }
     }
 
@@ -332,7 +327,7 @@ void SceneEditor::init(bool applyValues)
         if (applyValues == false)
             scv.value = 0;
         setSceneValue(scv);
-        qDebug() << "Applying fixture :" << scv.fxi << ", channel: " << scv.channel << ", value: " << scv.value;
+        //qDebug() << "Applying fixture :" << scv.fxi << ", channel: " << scv.channel << ", value: " << scv.value;
     }
 
     //createSpeedDials();
@@ -913,9 +908,8 @@ void SceneEditor::slotRemoveFixtureClicked()
 
 void SceneEditor::slotEnableAll()
 {
-    for (int i = m_fixtureFirstTabIndex; i < m_tab->count(); i++)
+    foreach (FixtureConsole* fc, m_consoleList)
     {
-        FixtureConsole* fc = fixtureConsoleTab(i);
         if (fc != NULL)
             fc->setChecked(true);
     }
@@ -923,9 +917,8 @@ void SceneEditor::slotEnableAll()
 
 void SceneEditor::slotDisableAll()
 {
-    for (int i = m_fixtureFirstTabIndex; i < m_tab->count(); i++)
+    foreach (FixtureConsole* fc, m_consoleList)
     {
-        FixtureConsole* fc = fixtureConsoleTab(i);
         if (fc != NULL)
             fc->setChecked(false);
     }

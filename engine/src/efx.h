@@ -43,6 +43,7 @@ class Fixture;
 #define KXMLQLCEFXWidth "Width"
 #define KXMLQLCEFXHeight "Height"
 #define KXMLQLCEFXRotation "Rotation"
+#define KXMLQLCEFXStartOffset "StartOffset"
 #define KXMLQLCEFXAxis "Axis"
 #define KXMLQLCEFXOffset "Offset"
 #define KXMLQLCEFXFrequency "Frequency"
@@ -82,7 +83,7 @@ public:
      *********************************************************************/
 public:
     /** @reimpl */
-    Function* createCopy(Doc* doc);
+    Function* createCopy(Doc* doc, bool addToDoc = true);
 
     /** Copy the contents for this function from another function */
     bool copyFrom(const Function* function);
@@ -121,23 +122,34 @@ public:
      * roughly the path of the pattern on a flat surface directly in front
      * of a moving (head/mirror) fixture.
      *
-     * @param direction Forward or Backward
      * @param polygon The polygon to fill with preview points
      */
-    bool preview(Function::Direction direction, QVector <QPoint>& polygon) const;
+    void preview(QVector <QPoint>& polygon) const;
+
+    /**
+     * Get a preview of path for all contained fixtures. For format of the polygons,
+     * see preview()
+     *
+     * @param polygons Array of polygons, one for each contained fixture.
+     */
+    void previewFixtures(QVector <QVector <QPoint> >& polygons) const;
 
 private:
+
+    void preview(QVector <QPoint>& polygon, Function::Direction direction, int startOffset) const;
+
     /**
      * Calculate a single point with the currently selected algorithm,
      * based on the value of iterator (which is basically a step number).
      *
      * @param direction Forward or Backward (input)
+     * @param startOffset 
      * @param iterator Step number (input)
      * @param x Used to store the calculated X coordinate (output)
      * @param y Used to store the calculated Y coordinate (output)
      */
-    void calculatePoint(Function::Direction direction, qreal iterator, qreal* x, qreal* y) const;
-
+    void calculatePoint(Function::Direction direction, int startOffset, qreal iterator, qreal* x, qreal* y) const;
+ 
     /**
      * Rotate a point of the pattern by rot degrees and scale the point
      * within w/h and xOff/yOff.
@@ -261,6 +273,34 @@ private:
      * cached sin(m_rotation) to speed up computation
      */
     qreal m_sinR;
+
+    /*********************************************************************
+     * Start Offset
+     *********************************************************************/
+public:
+    /**
+     * Set start offset of the pattern
+     *
+     * @param startOffset StartOffset of the pattern (0-359)
+     */
+    void setStartOffset(int startOffset);
+
+    /**
+     * Get the pattern start offset
+     *
+     * @return Pattern start offset (0-359)
+     */
+    int startOffset() const;
+
+private:
+
+    qreal convertOffset(int offset) const;
+
+private:
+    /**
+     * Pattern start offset, see setStartOffset()
+     */
+    int m_startOffset;
 
     /*********************************************************************
      * Offset

@@ -59,14 +59,13 @@ ConsoleChannel::ConsoleChannel(QWidget* parent, Doc* doc, quint32 fixture, quint
     , m_menu(NULL)
 {
     Q_ASSERT(doc != NULL);
-    //Q_ASSERT(fixture != Fixture::invalidId());
     Q_ASSERT(channel != QLCChannel::invalid());
 
     if (isCheckable == true)
         setCheckable(true);
     setFocusPolicy(Qt::NoFocus);
     init();
-    setStyle(AppUtil::saneStyle());
+    //setStyle(AppUtil::saneStyle());
 }
 
 ConsoleChannel::~ConsoleChannel()
@@ -100,8 +99,9 @@ void ConsoleChannel::init()
     m_spin = new QSpinBox(this);
     m_spin->setRange(0, UCHAR_MAX);
     m_spin->setValue(0);
-    m_spin->setMinimumWidth(38);
+    m_spin->setMinimumWidth(25);
     m_spin->setButtonSymbols(QAbstractSpinBox::NoButtons);
+    m_spin->setStyle(AppUtil::saneStyle());
     layout()->addWidget(m_spin);
     m_spin->setAlignment(Qt::AlignCenter);
     m_spin->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
@@ -117,9 +117,43 @@ void ConsoleChannel::init()
     m_slider->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
     m_slider->setFocusPolicy(Qt::NoFocus);
 
+    /*
+    m_slider->setStyleSheet("QSlider::groove:vertical { background: transparent; position: absolute; left: 4px; right: 4px; } "
+                            "QSlider::handle:vertical { "
+                            "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #c4c4c4, stop:1 #8f8f8f);"
+                            "border: 1px solid #5c5c5c;"
+                            "width: 20px; height: 20px;"
+                            "border-radius: 4px; margin: 0 -4px; }"
+                            "QSlider::add-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #78d, stop: stop: 1 #238); "
+                            "height: 10px; }"
+                            "QSlider::sub-page:vertical { background: gray;  height: 10px; }");
+    */
+    /*
+    m_slider->setStyleSheet(
+        "QSlider::sub-page:vertical {"
+        "background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #fff, stop: 0.4999 #eee, stop: 0.5 #ddd, stop: 1 #eee );"
+        "border: 1px solid #777; width: 10px; border-radius: 4px; }"
+
+        "QSlider::add-page:vertical {"
+        "background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #78d, stop: 0.4999 #46a, stop: 0.5 #45a, stop: 1 #238 );"
+        "border: 1px solid #777; width: 10px; border-radius: 4px; }"
+
+        "QSlider::handle:vertical {"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #eee, stop:1 #ccc);"
+        "border: 1px solid #777; height: 13px; margin-top: -2px; margin-bottom: -2px; border-radius: 4px; }"
+
+        "QSlider::handle:vertical:hover {"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #fff, stop:1 #ddd);"
+        "border: 1px solid #444; border-radius: 4px; }"
+
+        "QSlider::sub-page:vertical:disabled { background: #bbb; border-color: #999; }"
+        "QSlider::add-page:vertical:disabled { background: #eee; border-color: #999; }"
+
+        "QSlider::handle:vertical:disabled { background: #eee; border: 1px solid #aaa; border-radius: 4px; }");
+    */
     /* Channel number label */
     m_label = new QLabel(this);
-    m_label->setMinimumWidth(38);
+    m_label->setMinimumWidth(25);
     m_label->setMaximumWidth(80);
     layout()->addWidget(m_label);
     m_label->setAlignment(Qt::AlignCenter);
@@ -266,7 +300,7 @@ void ConsoleChannel::initMenu()
         m_presetButton->setIcon(QIcon(":/tilt.png"));
         break;
     case QLCChannel::Colour:
-        m_presetButton->setIcon(QIcon(":/color.png"));
+        m_presetButton->setIcon(QIcon(":/colorwheel.png"));
         m_cngWidget = new ClickAndGoWidget();
         m_cngWidget->setType(ClickAndGoWidget::Preset, ch);
         break;

@@ -1,8 +1,8 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition>
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.3.0-r3028</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.3.1</Version>
   <Author>George Qualley IV</Author>
  </Creator>
  <Manufacturer>Elation</Manufacturer>
@@ -26,15 +26,15 @@
  </Channel>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="13">Open / white</Capability>
-  <Capability Min="14" Max="27">Red</Capability>
-  <Capability Min="28" Max="41">Blue</Capability>
-  <Capability Min="42" Max="55">Green</Capability>
-  <Capability Min="56" Max="69">Yellow</Capability>
-  <Capability Min="70" Max="83">Magenta</Capability>
-  <Capability Min="84" Max="97">UV</Capability>
-  <Capability Min="98" Max="111">CTB</Capability>
-  <Capability Min="112" Max="127">CTO</Capability>
+  <Capability Min="0" Max="13" Color="#ffffff">Open / white</Capability>
+  <Capability Min="14" Max="27" Color="#ff0000">Red</Capability>
+  <Capability Min="28" Max="41" Color="#0000ff">Blue</Capability>
+  <Capability Min="42" Max="55" Color="#00ff00">Green</Capability>
+  <Capability Min="56" Max="69" Color="#ffff00">Yellow</Capability>
+  <Capability Min="70" Max="83" Color="#ff00ff">Magenta</Capability>
+  <Capability Min="84" Max="97" Color="#8000ff">UV</Capability>
+  <Capability Min="98" Max="111" Color="#d0ffff">CTB</Capability>
+  <Capability Min="112" Max="127" Color="#fff0e1">CTO</Capability>
   <Capability Min="128" Max="189">Scroll Forward (Fast -> Slow)</Capability>
   <Capability Min="190" Max="193">No Rotation</Capability>
   <Capability Min="194" Max="255">Scroll Backwards (Slow -> Fast)</Capability>
@@ -46,22 +46,22 @@
  <Channel Name="Rotating Gobos (Continuous Rotation)">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9">Open</Capability>
-  <Capability Min="10" Max="19">Rot. Gobo 1</Capability>
-  <Capability Min="20" Max="29">Rot. Gobo 2</Capability>
-  <Capability Min="30" Max="39">Rot. Gobo 3</Capability>
-  <Capability Min="40" Max="49">Rot. Gobo 4</Capability>
-  <Capability Min="50" Max="59">Rot. Gobo 5</Capability>
-  <Capability Min="60" Max="69">Rot. Gobo 6</Capability>
-  <Capability Min="70" Max="79">Rot. Gobo 7</Capability>
-  <Capability Min="80" Max="89">Rot. Gobo 8</Capability>
-  <Capability Min="90" Max="104">Rot. Gobo 1 Shake</Capability>
-  <Capability Min="105" Max="119">Rot. Gobo 2 Shake</Capability>
-  <Capability Min="120" Max="134">Rot. Gobo 3 Shake</Capability>
-  <Capability Min="135" Max="149">Rot. Gobo 4 Shake</Capability>
-  <Capability Min="150" Max="164">Rot. Gobo 5 Shake</Capability>
-  <Capability Min="165" Max="179">Rot. Gobo 6 Shake</Capability>
-  <Capability Min="180" Max="194">Rot. Gobo 7 Shake</Capability>
-  <Capability Min="195" Max="209">Rot. Gobo 8 Shake</Capability>
+  <Capability Res="Others/gobo00001.png" Min="10" Max="19">Rot. Gobo 1</Capability>
+  <Capability Res="Others/gobo00002.png" Min="20" Max="29">Rot. Gobo 2</Capability>
+  <Capability Res="Others/gobo00003.png" Min="30" Max="39">Rot. Gobo 3</Capability>
+  <Capability Res="Others/gobo00004.png" Min="40" Max="49">Rot. Gobo 4</Capability>
+  <Capability Res="Others/gobo00005.png" Min="50" Max="59">Rot. Gobo 5</Capability>
+  <Capability Res="Others/gobo00006.png" Min="60" Max="69">Rot. Gobo 6</Capability>
+  <Capability Res="Others/gobo00007.png" Min="70" Max="79">Rot. Gobo 7</Capability>
+  <Capability Res="Others/gobo00008.png" Min="80" Max="89">Rot. Gobo 8</Capability>
+  <Capability Res="Others/gobo00001.png" Min="90" Max="104">Rot. Gobo 1 Shake</Capability>
+  <Capability Res="Others/gobo00002.png" Min="105" Max="119">Rot. Gobo 2 Shake</Capability>
+  <Capability Res="Others/gobo00003.png" Min="120" Max="134">Rot. Gobo 3 Shake</Capability>
+  <Capability Res="Others/gobo00004.png" Min="135" Max="149">Rot. Gobo 4 Shake</Capability>
+  <Capability Res="Others/gobo00005.png" Min="150" Max="164">Rot. Gobo 5 Shake</Capability>
+  <Capability Res="Others/gobo00006.png" Min="165" Max="179">Rot. Gobo 6 Shake</Capability>
+  <Capability Res="Others/gobo00007.png" Min="180" Max="194">Rot. Gobo 7 Shake</Capability>
+  <Capability Res="Others/gobo00008.png" Min="195" Max="209">Rot. Gobo 8 Shake</Capability>
   <Capability Min="210" Max="255">Rot. Gobo Wheel Rotate (Slow -> Fast)</Capability>
  </Channel>
  <Channel Name="Rotating Gobos (Indexing)">
@@ -78,34 +78,34 @@
  <Channel Name="Fixed Gobos">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7">Open</Capability>
-  <Capability Min="8" Max="15">Gobo 1</Capability>
-  <Capability Min="16" Max="23">Gobo 2</Capability>
-  <Capability Min="24" Max="31">Gobo 3</Capability>
-  <Capability Min="32" Max="39">Gobo 4</Capability>
-  <Capability Min="40" Max="47">Gobo 5</Capability>
-  <Capability Min="48" Max="55">Gobo 6</Capability>
-  <Capability Min="56" Max="63">Gobo 7</Capability>
-  <Capability Min="64" Max="71">Gobo 8</Capability>
-  <Capability Min="72" Max="79">Gobo 9</Capability>
-  <Capability Min="80" Max="87">Gobo 10</Capability>
-  <Capability Min="88" Max="95">Gobo 11</Capability>
-  <Capability Min="96" Max="103">Gobo 12</Capability>
-  <Capability Min="104" Max="111">Gobo 13</Capability>
-  <Capability Min="112" Max="119">Gobo 14</Capability>
-  <Capability Min="120" Max="126">Gobo 1 Shake (Slow -> Fast)</Capability>
-  <Capability Min="127" Max="133">Gobo 2 Shake (Slow -> Fast)</Capability>
-  <Capability Min="134" Max="140">Gobo 3 Shake (Slow -> Fast)</Capability>
-  <Capability Min="141" Max="147">Gobo 4 Shake (Slow -> Fast)</Capability>
-  <Capability Min="148" Max="154">Gobo 5 Shake (Slow -> Fast)</Capability>
-  <Capability Min="155" Max="161">Gobo 6 Shake (Slow -> Fast)</Capability>
-  <Capability Min="162" Max="168">Gobo 7 Shake (Slow -> Fast)</Capability>
-  <Capability Min="169" Max="175">Gobo 8 Shake (Slow -> Fast)</Capability>
-  <Capability Min="176" Max="182">Gobo 9 Shake (Slow -> Fast)</Capability>
-  <Capability Min="183" Max="189">Gobo 10 Shake (Slow -> Fast)</Capability>
-  <Capability Min="190" Max="196">Gobo 11 Shake (Slow -> Fast)</Capability>
-  <Capability Min="197" Max="203">Gobo 12 Shake (Slow -> Fast)</Capability>
-  <Capability Min="204" Max="210">Gobo 13 Shake (Slow -> Fast)</Capability>
-  <Capability Min="211" Max="217">Gobo 14 Shake (Slow -> Fast)</Capability>
+  <Capability Res="Others/gobo00009.png" Min="8" Max="15">Gobo 1</Capability>
+  <Capability Res="Others/gobo00010.png" Min="16" Max="23">Gobo 2</Capability>
+  <Capability Res="Others/gobo00011.png" Min="24" Max="31">Gobo 3</Capability>
+  <Capability Res="Others/gobo00012.png" Min="32" Max="39">Gobo 4</Capability>
+  <Capability Res="Others/gobo00013.png" Min="40" Max="47">Gobo 5</Capability>
+  <Capability Res="ClayPaky/gobo00058.png" Min="48" Max="55">Gobo 6</Capability>
+  <Capability Res="Others/gobo00014.png" Min="56" Max="63">Gobo 7</Capability>
+  <Capability Res="Others/gobo00015.png" Min="64" Max="71">Gobo 8</Capability>
+  <Capability Res="Others/gobo00016.png" Min="72" Max="79">Gobo 9</Capability>
+  <Capability Res="Others/gobo00017.png" Min="80" Max="87">Gobo 10</Capability>
+  <Capability Res="Others/gobo00018.png" Min="88" Max="95">Gobo 11</Capability>
+  <Capability Res="Others/gobo00019.png" Min="96" Max="103">Gobo 12</Capability>
+  <Capability Res="Others/gobo00020.png" Min="104" Max="111">Gobo 13</Capability>
+  <Capability Res="Others/gobo00021.png" Min="112" Max="119">Gobo 14</Capability>
+  <Capability Res="Others/gobo00009.png" Min="120" Max="126">Gobo 1 Shake (Slow -> Fast)</Capability>
+  <Capability Res="Others/gobo00010.png" Min="127" Max="133">Gobo 2 Shake (Slow -> Fast)</Capability>
+  <Capability Res="Others/gobo00011.png" Min="134" Max="140">Gobo 3 Shake (Slow -> Fast)</Capability>
+  <Capability Res="Others/gobo00012.png" Min="141" Max="147">Gobo 4 Shake (Slow -> Fast)</Capability>
+  <Capability Res="Others/gobo00013.png" Min="148" Max="154">Gobo 5 Shake (Slow -> Fast)</Capability>
+  <Capability Res="ClayPaky/gobo00058.png" Min="155" Max="161">Gobo 6 Shake (Slow -> Fast)</Capability>
+  <Capability Res="Others/gobo00014.png" Min="162" Max="168">Gobo 7 Shake (Slow -> Fast)</Capability>
+  <Capability Res="Others/gobo00015.png" Min="169" Max="175">Gobo 8 Shake (Slow -> Fast)</Capability>
+  <Capability Res="Others/gobo00016.png" Min="176" Max="182">Gobo 9 Shake (Slow -> Fast)</Capability>
+  <Capability Res="Others/gobo00017.png" Min="183" Max="189">Gobo 10 Shake (Slow -> Fast)</Capability>
+  <Capability Res="Others/gobo00018.png" Min="190" Max="196">Gobo 11 Shake (Slow -> Fast)</Capability>
+  <Capability Res="Others/gobo00019.png" Min="197" Max="203">Gobo 12 Shake (Slow -> Fast)</Capability>
+  <Capability Res="Others/gobo00020.png" Min="204" Max="210">Gobo 13 Shake (Slow -> Fast)</Capability>
+  <Capability Res="Others/gobo00021.png" Min="211" Max="217">Gobo 14 Shake (Slow -> Fast)</Capability>
   <Capability Min="218" Max="255">Gobo Wheel Rotation (Slow -> Fast)</Capability>
  </Channel>
  <Channel Name="Fixed Gobo (Indexing) Fine">
@@ -242,11 +242,11 @@
  </Mode>
  <Mode Name="Standard">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+   <Bulb Lumens="0" Type="MSD Platinum 5R" ColourTemperature="8000"/>
+   <Dimensions Width="460" Height="635" Weight="14.8" Depth="350"/>
+   <Lens DegreesMax="16" Name="Other" DegreesMin="16"/>
+   <Focus PanMax="630" Type="Fixed" TiltMax="270"/>
+   <Technical PowerConsumption="350" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
@@ -268,11 +268,11 @@
  </Mode>
  <Mode Name="Extended">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+   <Bulb Lumens="0" Type="MSD Platinum 5R" ColourTemperature="8000"/>
+   <Dimensions Width="460" Height="635" Weight="14.8" Depth="350"/>
+   <Lens DegreesMax="16" Name="Other" DegreesMin="16"/>
+   <Focus PanMax="630" Type="Fixed" TiltMax="270"/>
+   <Technical PowerConsumption="350" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>

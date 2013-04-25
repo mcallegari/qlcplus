@@ -25,6 +25,7 @@
 #include <climits>
 #include <QString>
 #include <QList>
+#include <QIcon>
 
 #define KXMLQLCChannel          QString("Channel")
 #define KXMLQLCChannelNumber    QString("Number")
@@ -110,6 +111,12 @@ public:
 
     /** Get the channel's group as an enum */
     Group group() const;
+
+    QIcon getIconFromGroup(Group grp) const;
+
+private:
+    QPixmap drawIntensity(QColor color, QString str) const;
+    QIcon getIntensityIcon() const;
 
 protected:
     Group m_group;

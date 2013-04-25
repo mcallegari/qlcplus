@@ -43,6 +43,7 @@
 #include "qlcchannel.h"
 #include "qlcfile.h"
 
+#include "channelsconfiguration.h"
 #include "createfixturegroup.h"
 #include "fixturegroupeditor.h"
 #include "channelselection.h"
@@ -89,6 +90,7 @@ FixtureManager::FixtureManager(QWidget* parent, Doc* doc)
     , m_addAction(NULL)
     , m_removeAction(NULL)
     , m_propertiesAction(NULL)
+    , m_fadeConfigAction(NULL)
     , m_groupAction(NULL)
     , m_unGroupAction(NULL)
     , m_newGroupAction(NULL)
@@ -187,6 +189,7 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
             m_addAction->setEnabled(true);
             m_removeAction->setEnabled(false);
             m_propertiesAction->setEnabled(false);
+            m_fadeConfigAction->setEnabled(false);
             m_groupAction->setEnabled(false);
             m_unGroupAction->setEnabled(false);
             m_importAction->setEnabled(true);
@@ -200,6 +203,7 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
                 m_propertiesAction->setEnabled(true);
             else
                 m_propertiesAction->setEnabled(false);
+            m_fadeConfigAction->setEnabled(true);
             m_groupAction->setEnabled(true);
 
             // Don't allow ungrouping from the "All fixtures" group
@@ -214,6 +218,7 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
             m_addAction->setEnabled(true);
             m_removeAction->setEnabled(true);
             m_propertiesAction->setEnabled(false);
+            m_fadeConfigAction->setEnabled(false);
             m_groupAction->setEnabled(false);
             m_unGroupAction->setEnabled(false);
         }
@@ -223,6 +228,7 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
             m_addAction->setEnabled(true);
             m_removeAction->setEnabled(false);
             m_propertiesAction->setEnabled(false);
+            m_fadeConfigAction->setEnabled(false);
             m_groupAction->setEnabled(false);
             m_unGroupAction->setEnabled(false);
         }
@@ -232,6 +238,7 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
         m_addAction->setEnabled(false);
         m_removeAction->setEnabled(false);
         m_propertiesAction->setEnabled(false);
+        m_fadeConfigAction->setEnabled(false);
         m_groupAction->setEnabled(false);
         m_unGroupAction->setEnabled(false);
     }
@@ -388,42 +395,6 @@ void FixtureManager::updateView()
     slotModeChanged(m_doc->mode());
 }
 
-QIcon FixtureManager::getIntensityIcon(const QLCChannel* channel)
-{
-    QPixmap pm(32, 32);
-    QColor color;
-    if (channel->colour() == QLCChannel::Red ||
-        channel->name().contains("red", Qt::CaseInsensitive) == true)
-            color = QColor(255, 0, 0);
-    else if (channel->colour() == QLCChannel::Green ||
-             channel->name().contains("green", Qt::CaseInsensitive) == true)
-                color = QColor(0, 255, 0);
-    else if (channel->colour() == QLCChannel::Blue ||
-             channel->name().contains("blue", Qt::CaseInsensitive) == true)
-                color = QColor(0, 0, 255);
-    else if (channel->colour() == QLCChannel::Cyan ||
-             channel->name().contains("cyan", Qt::CaseInsensitive) == true)
-                color = QColor(0, 255, 255);
-    else if (channel->colour() == QLCChannel::Magenta ||
-             channel->name().contains("magenta", Qt::CaseInsensitive) == true)
-                color = QColor(255, 0, 255);
-    else if (channel->colour() == QLCChannel::Yellow ||
-             channel->name().contains("yellow", Qt::CaseInsensitive) == true)
-                color = QColor(255, 255, 0);
-    else if (channel->colour() == QLCChannel::White ||
-             channel->name().contains("white", Qt::CaseInsensitive) == true)
-                color = QColor(255, 255, 255);
-    else
-    {
-        // None of the primary colours matched and since this is an
-        // intensity channel, it must be controlling a plain dimmer OSLT.
-        return QIcon(":/intensity.png");
-    }
-
-    pm.fill(color);
-    return QIcon(pm);
-}
-
 void FixtureManager::updateChannelsGroupView()
 {
     quint32 selGroupID = ChannelsGroup::invalidId();
@@ -452,22 +423,7 @@ void FixtureManager::updateChannelsGroupView()
                 continue;
 
             const QLCChannel* ch = fxi->channel(scv.channel);
-            switch(ch->group())
-            {
-            case QLCChannel::Pan: grpItem->setIcon(KColumnName, QIcon(":/pan.png")); break;
-            case QLCChannel::Tilt: grpItem->setIcon(KColumnName, QIcon(":/tilt.png")); break;
-            case QLCChannel::Colour: grpItem->setIcon(KColumnName, QIcon(":/color.png")); break;
-            case QLCChannel::Effect: grpItem->setIcon(KColumnName, QIcon(":/star.png")); break;
-            case QLCChannel::Gobo: grpItem->setIcon(KColumnName, QIcon(":/gobo.png")); break;
-            case QLCChannel::Shutter: grpItem->setIcon(KColumnName, QIcon(":/shutter.png")); break;
-            case QLCChannel::Speed: grpItem->setIcon(KColumnName, QIcon(":/speed.png")); break;
-            case QLCChannel::Prism: grpItem->setIcon(KColumnName, QIcon(":/prism.png")); break;
-            case QLCChannel::Maintenance: grpItem->setIcon(KColumnName, QIcon(":/maintenance.png")); break;
-            case QLCChannel::Intensity: grpItem->setIcon(KColumnName, getIntensityIcon(ch)); break;
-            case QLCChannel::Beam: grpItem->setIcon(KColumnName, QIcon(":/beam.png")); break;
-            default:
-            break;
-            }
+            grpItem->setIcon(KColumnName, ch->getIconFromGroup(ch->group()));
         }
         if (selGroupID == grp->id())
             m_channel_groups_tree->setItemSelected(grpItem, true);
@@ -529,31 +485,7 @@ void FixtureManager::updateFixtureItem(QTreeWidgetItem* item, const Fixture* fxi
     // ID column
     item->setData(KColumnName, PROP_FIXTURE, fxi->id());
 
-    QString ftype = fxi->type();
-    if (ftype == "Color Changer")
-        item->setIcon(KColumnName, QIcon(":/fixture.png"));
-    else if (ftype == "Dimmer")
-        item->setIcon(KColumnName, QIcon(":/dimmer.png"));
-    else if (ftype == "Effect")
-        item->setIcon(KColumnName, QIcon(":/effect.png"));
-    else if (ftype == "Fan")
-        item->setIcon(KColumnName, QIcon(":/fan.png"));
-    else if (ftype == "Flower")
-        item->setIcon(KColumnName, QIcon(":/flower.png"));
-    else if (ftype == "Hazer")
-        item->setIcon(KColumnName, QIcon(":/hazer.png"));
-    else if (ftype == "Laser")
-        item->setIcon(KColumnName, QIcon(":/laser.png"));
-    else if (ftype == "Moving Head")
-        item->setIcon(KColumnName, QIcon(":/movinghead.png"));
-    else if (ftype == "Scanner")
-        item->setIcon(KColumnName, QIcon(":/scanner.png"));
-    else if (ftype == "Smoke")
-        item->setIcon(KColumnName, QIcon(":/smoke.png"));
-    else if (ftype == "Strobe")
-        item->setIcon(KColumnName, QIcon(":/strobe.png"));
-    else if (ftype == "Other")
-        item->setIcon(KColumnName, QIcon(":/other.png"));
+    item->setIcon(KColumnName, fxi->getIconFromType(fxi->type()));
 }
 
 void FixtureManager::updateGroupItem(QTreeWidgetItem* item, const FixtureGroup* grp)
@@ -906,6 +838,11 @@ void FixtureManager::initActions()
     connect(m_propertiesAction, SIGNAL(triggered(bool)),
             this, SLOT(slotProperties()));
 
+    m_fadeConfigAction = new QAction(QIcon(":/fade.png"),
+                                     tr("Channels Fade Configuration..."), this);
+    connect(m_fadeConfigAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotFadeConfig()));
+
     // Group actions
     m_groupAction = new QAction(QIcon(":/group.png"),
                                 tr("Add fixture to group..."), this);
@@ -976,6 +913,7 @@ void FixtureManager::initToolBar()
     toolbar->addAction(m_addAction);
     toolbar->addAction(m_removeAction);
     toolbar->addAction(m_propertiesAction);
+    toolbar->addAction(m_fadeConfigAction);
     toolbar->addSeparator();
     toolbar->addAction(m_groupAction);
     toolbar->addAction(m_unGroupAction);
@@ -1253,18 +1191,24 @@ void FixtureManager::editFixtureProperties(QTreeWidgetItem* item)
     af.setWindowTitle(tr("Change fixture properties"));
     if (af.exec() == QDialog::Accepted)
     {
+      if (af.invalidAddress() == false)
+      {
         if (fxi->name() != af.name())
             fxi->setName(af.name());
         if (fxi->universe() != af.universe())
             fxi->setUniverse(af.universe());
         if (fxi->address() != af.address())
+        {
+            m_doc->moveFixture(id, af.address());
             fxi->setAddress(af.address());
+        }
 
         if (af.fixtureDef() != NULL && af.mode() != NULL)
         {
             if (fxi->fixtureDef() != af.fixtureDef() ||
                     fxi->fixtureMode() != af.mode())
             {
+                m_doc->changeFixtureMode(id, af.mode());
                 fxi->setFixtureDefinition(af.fixtureDef(),
                                           af.mode());
             }
@@ -1278,6 +1222,13 @@ void FixtureManager::editFixtureProperties(QTreeWidgetItem* item)
 
         updateFixtureItem(item, fxi);
         slotSelectionChanged();
+      }
+      else
+      {
+          QMessageBox msg(QMessageBox::Critical, tr("Error"),
+                          tr("Please enter a valid address"), QMessageBox::Ok);
+          msg.exec();
+      }
     }
 }
 
@@ -1310,6 +1261,13 @@ void FixtureManager::slotProperties()
     QVariant var = item->data(KColumnName, PROP_FIXTURE);
     if (var.isValid() == true)
         editFixtureProperties(item);
+}
+
+void FixtureManager::slotFadeConfig()
+{
+    ChannelsConfiguration cfg(m_doc, this);
+    if (cfg.exec() != QDialog::Accepted)
+        return; // User pressed cancel
 }
 
 void FixtureManager::slotUnGroup()

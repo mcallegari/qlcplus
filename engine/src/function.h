@@ -57,6 +57,7 @@ class Doc;
 
 #define KXMLQLCFunctionSpeed         "Speed"
 #define KXMLQLCFunctionSpeedFadeIn   "FadeIn"
+#define KXMLQLCFunctionSpeedHold     "Hold"
 #define KXMLQLCFunctionSpeedFadeOut  "FadeOut"
 #define KXMLQLCFunctionSpeedDuration "Duration"
 
@@ -116,9 +117,10 @@ public:
      * newly-created function, unless an error has occurred.
      *
      * @param doc The QLC Doc object that owns all functions
+     * @param addToDoc enable/disable addition of the function copy to Doc
      * @return The newly-created function or NULL in case of an error
      */
-    virtual Function* createCopy(Doc* doc) = 0;
+    virtual Function* createCopy(Doc* doc, bool addToDoc = true) = 0;
 
     /**
      * Copy this function's contents from the given function. Finally emits

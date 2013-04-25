@@ -30,15 +30,17 @@
 #include "fixture.h"
 #include "doc.h"
 
-#define KColumnName     0
-#define KColumnID       1
-#define KColumnChannel  2
-#define KColumnType     3
+#define KColumnName  0
+#define KColumnType  1
+#define KColumnGroup 2
+#define KColumnChIdx 3
+#define KColumnID    4
 
 ChannelSelection::ChannelSelection(QWidget* parent, Doc* doc, ChannelsGroup *group)
     : QDialog(parent)
     , m_doc(doc)
     , m_chansGroup(group)
+    , m_checkedChannels(0)
 {
     Q_ASSERT(doc != NULL);
     Q_ASSERT(m_chansGroup != NULL);
@@ -49,46 +51,79 @@ ChannelSelection::ChannelSelection(QWidget* parent, Doc* doc, ChannelsGroup *gro
     m_tree->setSelectionMode(QAbstractItemView::MultiSelection);
     m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
     m_tree->setAlternatingRowColors(true);
+    m_tree->setIconSize(QSize(20, 20));
 
     m_groupNameEdit->setText(group->name());
 
     QList <SceneValue> chans = group->getChannels();
-    int c = 0;
+    int ch = 0;
 
-    foreach (Fixture* fixture, m_doc->fixtures())
+    foreach (Fixture* fxi, m_doc->fixtures())
     {
-        const QLCFixtureMode *mode = fixture->fixtureMode();
-        //const QLCFixtureDef *def = fixture->fixtureDef();
-
-        for (quint32 i = 0; i < fixture->channels(); i++)
+        QTreeWidgetItem *topItem = NULL;
+        quint32 uni = fxi->universe();
+        for (int i = 0; i < m_tree->topLevelItemCount(); i++)
         {
-            QTreeWidgetItem* item = new QTreeWidgetItem(m_tree);
-            item->setText(KColumnName, fixture->name());
-            item->setText(KColumnID, QString("%1").arg(fixture->id()));
-            item->setText(KColumnChannel, QString("%1").arg(i + 1));
-
-            if (mode == NULL)
-                item->setText(KColumnType, QString(tr("Channel %1").arg(i + 1)));
-            else
-                item->setText(KColumnType, mode->channels().at(i)->name());
-
-            if (chans.count() > c &&
-                chans.at(c).fxi == fixture->id() && chans.at(c).channel == i)
+            QTreeWidgetItem* tItem = m_tree->topLevelItem(i);
+            quint32 tUni = tItem->text(KColumnID).toUInt();
+            if (tUni == uni)
             {
-                item->setSelected(true);
-                c++;
+                topItem = tItem;
+                break;
             }
+        }
+        // Haven't found this universe node ? Create it.
+        if (topItem == NULL)
+        {
+            topItem = new QTreeWidgetItem(m_tree);
+            topItem->setText(KColumnName, tr("Universe %1").arg(uni + 1));
+            topItem->setText(KColumnID, QString::number(uni));
+            topItem->setExpanded(true);
+        }
+
+        QTreeWidgetItem *fItem = new QTreeWidgetItem(topItem);
+        fItem->setExpanded(true);
+        fItem->setText(KColumnName, fxi->name());
+        fItem->setIcon(KColumnName, fxi->getIconFromType(fxi->type()));
+        fItem->setText(KColumnID, QString::number(fxi->id()));
+
+        for (quint32 c = 0; c < fxi->channels(); c++)
+        {
+            const QLCChannel* channel = fxi->channel(c);
+            QTreeWidgetItem *item = new QTreeWidgetItem(fItem);
+            item->setText(KColumnName, QString("%1:%2").arg(c + 1)
+                          .arg(channel->name()));
+            item->setIcon(KColumnName, channel->getIconFromGroup(channel->group()));
+            if (channel->group() == QLCChannel::Intensity &&
+                channel->colour() != QLCChannel::NoColour)
+                item->setText(KColumnType, QLCChannel::colourToString(channel->colour()));
+            else
+                item->setText(KColumnType, QLCChannel::groupToString(channel->group()));
+
+            item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+            if (chans.count() > ch &&
+                chans.at(ch).fxi == fxi->id() &&
+                chans.at(ch).channel == c)
+            {
+                item->setCheckState(KColumnGroup, Qt::Checked);
+                m_checkedChannels++;
+                ch++;
+            }
+            else
+                item->setCheckState(KColumnGroup, Qt::Unchecked);
+            item->setText(KColumnID, QString::number(fxi->id()));
+            item->setText(KColumnChIdx, QString::number(c));
         }
     }
 
     m_inputSource = group->inputSource();
     updateInputSource();
 
-    if (chans.count() == 0)
+    if (m_checkedChannels == 0)
         m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 
-    connect(m_tree, SIGNAL(itemSelectionChanged()),
-            this, SLOT(slotItemSelectionChanged()));
+    connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
+            this, SLOT(slotItemChecked(QTreeWidgetItem*, int)));
 
     connect(m_autoDetectInputButton, SIGNAL(toggled(bool)),
             this, SLOT(slotAutoDetectInputToggled(bool)));
@@ -100,22 +135,32 @@ ChannelSelection::~ChannelSelection()
 {
 }
 
-int ChannelSelection::exec()
-{
-
-    return QDialog::exec();
-}
-
 void ChannelSelection::accept()
 {
-    QListIterator <QTreeWidgetItem *> it(m_tree->selectedItems());
     m_chansGroup->resetList();
-    while (it.hasNext() == true)
+
+    for (int t = 0; t < m_tree->topLevelItemCount(); t++)
     {
-        QTreeWidgetItem *channel(it.next());
-        m_chansGroup->addChannel(QString(channel->text(KColumnID)).toUInt(),
-                                 QString(channel->text(KColumnChannel)).toUInt() - 1);
-        qDebug() << "Added channel with ID: " << channel->text(KColumnID) << ", and channel: " << channel->text(KColumnChannel);
+        QTreeWidgetItem *uniItem = m_tree->topLevelItem(t);
+        for (int f = 0; f < uniItem->childCount(); f++)
+        {
+            QTreeWidgetItem *fixItem = uniItem->child(f);
+            quint32 fxID = fixItem->text(KColumnID).toUInt();
+            Fixture *fxi = m_doc->fixture(fxID);
+            if (fxi != NULL)
+            {
+                for (int c = 0; c < fixItem->childCount(); c++)
+                {
+                    QTreeWidgetItem *chanItem = fixItem->child(c);
+                    if (chanItem->checkState(KColumnGroup) == Qt::Checked)
+                    {
+                        m_chansGroup->addChannel(QString(chanItem->text(KColumnID)).toUInt(),
+                                                 QString(chanItem->text(KColumnChIdx)).toUInt());
+                        qDebug() << "Added channel with ID:" << chanItem->text(KColumnID) << ", and channel:" << chanItem->text(KColumnChIdx);
+                    }
+                }
+            }
+        }
     }
 
     m_chansGroup->setName(m_groupNameEdit->text());
@@ -123,9 +168,17 @@ void ChannelSelection::accept()
     QDialog::accept();
 }
 
-void ChannelSelection::slotItemSelectionChanged()
+void ChannelSelection::slotItemChecked(QTreeWidgetItem *item, int col)
 {
-    if (m_tree->selectedItems().count() > 0)
+    if (col != KColumnGroup || item->text(KColumnID).isEmpty())
+        return;
+
+    if (item->checkState(col) == Qt::Checked)
+        m_checkedChannels++;
+    else
+        m_checkedChannels--;
+
+    if (m_checkedChannels > 0)
         m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
     else
         m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
@@ -175,4 +228,5 @@ void ChannelSelection::updateInputSource()
     m_inputUniverseEdit->setText(uniName);
     m_inputChannelEdit->setText(chName);
 }
+
 

@@ -32,11 +32,12 @@
 #include <QList>
 #include <QtXml>
 
-#include "qlcfile.h"
+#include "vcpropertieseditor.h"
 #include "virtualconsole.h"
 #include "vcsoloframe.h"
 #include "vcbutton.h"
 #include "function.h"
+#include "qlcfile.h"
 #include "doc.h"
 
 VCSoloFrame::VCSoloFrame(QWidget* parent, Doc* doc, bool canCollapse) : VCFrame(parent, doc, canCollapse)
@@ -45,6 +46,13 @@ VCSoloFrame::VCSoloFrame(QWidget* parent, Doc* doc, bool canCollapse) : VCFrame(
     setObjectName(VCSoloFrame::staticMetaObject.className());
 
     m_frameStyle = KVCFrameStyleSunken;
+
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_SOLOFRAME_SIZE);
+    if (var.isValid() == true)
+        resize(var.toSize());
+    else
+        resize(VCFrame::defaultSize);
 }
 
 VCSoloFrame::~VCSoloFrame()

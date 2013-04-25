@@ -25,7 +25,17 @@ In other words, Windows and OSX don't need any extra software, while Linux syste
 <P>
 The OSC plugin supports up to 4 inputs, one for each QLC+ universe. Each input has to listen to a unique port and this can
 be configured from the plugin configuration panel.<br>
-Just enter the same port your external OSC controller is using to connect QLC+ to your device.
+For each OSC network the following parameters can be set:
+<ul>
+ <li> 
+  <b>Port:</b> The port QLC+ will listen to receive OSC data from your external controller 
+  (Just enter the same port your external OSC controller is using) 
+ </li>
+ <li> 
+  <b>Output address:</b> In case you need to output DMX data through the OSC plugin (either for feedbacks),
+  enter here the address to send to. This must be specified in the form: <i>IPAddress:port</i>
+ </li>
+</ul>
 </P>
 
 <H1>Controllers</H1>

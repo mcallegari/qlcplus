@@ -283,6 +283,14 @@ public:
     QStringList pluginOutputs(const QString& pluginName);
 
     /**
+     * Check, whether a plugin supports feedback
+     *
+     * @param pluginName The name of the plugin to check from.
+     * @return true if plugin supports feedback. Otherwise false.
+     */
+    bool pluginSupportsFeedback(const QString& pluginName);
+
+    /**
      * Open a configuration dialog for the given plugin
      *
      * @param pluginName Name of the plugin to configure
@@ -308,7 +316,7 @@ public:
 
     /** Send feedback value to the input profile e.g. to move a motorized
         sliders & knobs, set indicator leds etc. */
-    bool feedBack(quint32 universe, quint32 channel, uchar value);
+    bool feedBack(quint32 universe, quint32 channel, uchar value, const QString& key = 0);
 
 private slots:
    /** Slot that catches plugin configuration change notifications from UIPluginCache */

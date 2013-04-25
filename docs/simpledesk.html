@@ -21,14 +21,19 @@ and <A HREF="concept.html#Scene">Scenes</A> are not visible in the cue stack.
 <P>
 The universe box contains the sliders that are used to control individual DMX channels
 in the first DMX universe. Since 512 sliders cannot nicely fit on the screen at the same
-time, they have been divided into pages. By default, each page contains 12 sliders but
+time, they have been divided into pages. By default, each page contains 32 sliders but
 that can be <A HREF="#Tuning">tuned</A>.
 </P>
 
 <TABLE BORDER="1">
  <TR>
-  <TD><IMG SRC="qrc:/forward.png"/></TD>
-  <TD>Skip to the next DMX page.</TD>
+  <TD><IMG SRC="qrc:/tabview.png"/></TD>
+  <TD>Switch the view mode from all channels to fixture channels. Please note that if 
+  no fixtures has been defined, the second mode will result empty</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/back.png"/></TD>
+  <TD>Skip to the previous DMX page.</TD>
  </TR>
  <TR>
   <TD><B>Universe page box</B></TD>
@@ -36,9 +41,8 @@ that can be <A HREF="#Tuning">tuned</A>.
       directly onto this box or use the mouse wheel to skip between pages quickly.</TD>
  </TR>
  <TR>
- <TR>
-  <TD><IMG SRC="qrc:/back.png"/></TD>
-  <TD>Skip to the previous DMX page.</TD>
+  <TD><IMG SRC="qrc:/forward.png"/></TD>
+  <TD>Skip to the next DMX page.</TD>
  </TR>
  <TR>
   <TD><IMG SRC="qrc:/fileclose.png"/></TD>

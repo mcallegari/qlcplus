@@ -629,6 +629,7 @@ void Function::preRun(MasterTimer* timer)
     Q_UNUSED(timer);
 
     qDebug() << "Function preRun. ID: " << m_id;
+    m_stop = false;
     m_running = true;
 
     emit running(m_id);
@@ -644,9 +645,9 @@ void Function::postRun(MasterTimer* timer, UniverseArray* universes)
     resetElapsed();
     resetIntensity();
     m_stop = true;
-    m_overrideFadeInSpeed = defaultSpeed();
-    m_overrideFadeOutSpeed = defaultSpeed();
-    m_overrideDuration = defaultSpeed();
+    //m_overrideFadeInSpeed = defaultSpeed();
+    //m_overrideFadeOutSpeed = defaultSpeed();
+    //m_overrideDuration = defaultSpeed();
     m_functionStopped.wakeAll();
     m_stopMutex.unlock();
 
@@ -694,7 +695,6 @@ void Function::start(MasterTimer* timer, bool child, uint overrideFadeIn,
     m_overrideFadeInSpeed = overrideFadeIn;
     m_overrideFadeOutSpeed = overrideFadeOut;
     m_overrideDuration = overrideDuration;
-    m_stop = false;
     timer->startFunction(this);
 }
 

@@ -86,11 +86,15 @@ private:
 public:
     /** Set the type of header. Can be Time (seconds) or BPM,
      *  in various forms (4/4, 3/4) */
-    void setHeaderType(int type);
+    void setHeaderType(SceneHeaderItem::TimeDivision type);
+
+    SceneHeaderItem::TimeDivision getHeaderType();
 
     /** When BPM is selected, this function can set a precise
      *  value of time division */
     void setBPMValue(int value);
+
+    void setSnapToGrid(bool enable);
 
     /*********************************************************************
      * Cursor
@@ -102,22 +106,31 @@ public:
     /** Reset cursor to initial position */
     void rewindCursor();
 
+    /** Get time in milliseconds of the current cursor position */
+    quint32 getTimeFromCursor();
+
 private:
-    /** Get time of current cursor position */
-    quint32 getTimeFromPosition();
 
     /** Return position in pixel of a given time (in msec) */
     quint32 getPositionFromTime(quint32 time);
+
+    /** Return the time (in msec) from a given X position */
+    quint32 getTimeFromPosition(qreal pos);
+
+    void updateItem(SequenceItem *, quint32 time);
+    void updateItem(AudioItem *, quint32 time);
 
 private:
     QGraphicsScene *m_scene;
     QSlider *m_timeSlider;
     SceneHeaderItem *m_header;
     SceneCursorItem *m_cursor;
+    QGraphicsItem * m_vdivider;
     QList <QGraphicsItem *> m_hdividers;
     QList <TrackItem *> m_tracks;
     QList <SequenceItem *> m_sequences;
     QList <AudioItem *> m_audio;
+    bool m_snapToGrid;
 
 signals:
     void sequenceMoved(SequenceItem *item);
@@ -139,6 +152,8 @@ protected slots:
 
     void slotSequenceMoved(QGraphicsSceneMouseEvent *, SequenceItem *);
     void slotSequenceMoved(QGraphicsSceneMouseEvent *, AudioItem *);
+    void slotAlignToCursor(SequenceItem *);
+    void slotAlignToCursor(AudioItem *);
 };
 
 #endif

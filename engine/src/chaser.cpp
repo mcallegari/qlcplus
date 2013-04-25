@@ -55,13 +55,13 @@ Chaser::Chaser(Doc* doc)
     : Function(doc, Function::Chaser)
     , m_legacyHoldBus(Bus::invalid())
     , m_isSequence(false)
-    , m_boundedSceneID(-1)
+    , m_boundSceneID(-1)
     , m_startTime(UINT_MAX)
     //, m_color(qrand() % 256, qrand() % 256, qrand() % 256)
     , m_color(85, 107, 128)
     , m_fadeInMode(Default)
     , m_fadeOutMode(Default)
-    , m_durationMode(Common)
+    , m_holdMode(Common)
     , m_runner(NULL)
 {
     setName(tr("New Chaser"));
@@ -79,12 +79,17 @@ Chaser::~Chaser()
  * Copying
  *****************************************************************************/
 
-Function* Chaser::createCopy(Doc* doc)
+Function* Chaser::createCopy(Doc* doc, bool addToDoc)
 {
     Q_ASSERT(doc != NULL);
 
     Function* copy = new Chaser(doc);
-    if (copy->copyFrom(this) == false || doc->addFunction(copy) == false)
+    if (copy->copyFrom(this) == false)
+    {
+        delete copy;
+        copy = NULL;
+    }
+    if (addToDoc == true && doc->addFunction(copy) == false)
     {
         delete copy;
         copy = NULL;
@@ -104,9 +109,9 @@ bool Chaser::copyFrom(const Function* function)
     m_steps = chaser->m_steps;
     m_fadeInMode = chaser->m_fadeInMode;
     m_fadeOutMode = chaser->m_fadeOutMode;
-    m_durationMode = chaser->m_durationMode;
+    m_holdMode = chaser->m_holdMode;
     m_isSequence = chaser->m_isSequence;
-    m_boundedSceneID = chaser->m_boundedSceneID;
+    m_boundSceneID = chaser->m_boundSceneID;
     m_startTime = chaser->m_startTime;
     m_color = chaser->m_color;
 
@@ -212,6 +217,15 @@ QList <ChaserStep> Chaser::steps() const
     return m_steps;
 }
 
+quint32 Chaser::getDuration()
+{
+    quint32 duration = 0;
+    foreach (ChaserStep step, m_steps)
+        duration += step.duration;
+
+    return duration;
+}
+
 void Chaser::slotFunctionRemoved(quint32 fid)
 {
     m_stepListMutex.lock();
@@ -228,8 +242,8 @@ void Chaser::slotFunctionRemoved(quint32 fid)
 void Chaser::enableSequenceMode(quint32 sceneID)
 {
     m_isSequence = true;
-    m_boundedSceneID = sceneID;
-    qDebug() << "[enableSequenceMode] bounded to scene ID:" << m_boundedSceneID;
+    m_boundSceneID = sceneID;
+    qDebug() << "[enableSequenceMode] bounded to scene ID:" << m_boundSceneID;
 }
 
 bool Chaser::isSequence() const
@@ -237,9 +251,9 @@ bool Chaser::isSequence() const
     return m_isSequence;
 }
 
-quint32 Chaser::getBoundedSceneID() const
+quint32 Chaser::getBoundSceneID() const
 {
-    return m_boundedSceneID;
+    return m_boundSceneID;
 }
 
 void Chaser::setStartTime(quint32 time)
@@ -290,13 +304,13 @@ Chaser::SpeedMode Chaser::fadeOutMode() const
 
 void Chaser::setDurationMode(Chaser::SpeedMode mode)
 {
-    m_durationMode = mode;
+    m_holdMode = mode;
     emit changed(this->id());
 }
 
 Chaser::SpeedMode Chaser::durationMode() const
 {
-    return m_durationMode;
+    return m_holdMode;
 }
 
 QString Chaser::speedModeToString(Chaser::SpeedMode mode)
@@ -359,7 +373,7 @@ bool Chaser::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     if (m_isSequence == true)
     {
         QDomElement seq = doc->createElement(KXMLQLCChaserSequenceTag);
-        seq.setAttribute(KXMLQLCChaserSequenceBoundScene, m_boundedSceneID);
+        seq.setAttribute(KXMLQLCChaserSequenceBoundScene, m_boundSceneID);
         seq.setAttribute(KXMLQLCChaserSequenceStartTime, m_startTime);
         seq.setAttribute(KXMLQLCChaserSequenceColor, m_color.name());
         root.appendChild(seq);
@@ -445,7 +459,7 @@ bool Chaser::loadXML(const QDomElement& root)
             if (step.loadXML(tag, stepNumber) == true)
             {
                 if (step.values.count() > 0)
-                    step.fid = getBoundedSceneID();
+                    step.fid = getBoundSceneID();
                 if (stepNumber >= m_steps.size())
                     m_steps.append(step);
                 else

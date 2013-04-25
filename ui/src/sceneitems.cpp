@@ -1,5 +1,5 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   sceneitems.cpp
 
   Copyright (C) Massimo Callegari
@@ -33,6 +33,7 @@
  ****************************************************************************/
 SceneHeaderItem::SceneHeaderItem(int w)
     : m_width(w)
+    , m_height(HEADER_HEIGHT)
     , m_timeStep(HALF_SECOND_WIDTH)
     , m_timeHit(2)
     , m_timeScale(3)
@@ -49,7 +50,7 @@ void SceneHeaderItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 QRectF SceneHeaderItem::boundingRect() const
 {
-    return QRectF(0, 0, m_width, 35);
+    return QRectF(0, 0, m_width, m_height);
 }
 
 void SceneHeaderItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -69,11 +70,16 @@ void SceneHeaderItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
     int tmpSec = 0;
     for (int i = 0; i < m_width / m_timeStep; i++)
     {
-        int xpos = ((float)i * m_timeStep) + 1;
+        float xpos = ((float)i * m_timeStep) + 1;
         painter->setPen(QPen( QColor(250, 250, 250, 255), 1));
         if (i%m_timeHit == 0)
         {
             painter->drawLine(xpos, 20, xpos, 34);
+            if (m_height > HEADER_HEIGHT)
+            {
+                painter->setPen(QPen(QColor(105, 105, 105, 255), 1));
+                painter->drawLine(xpos, HEADER_HEIGHT, xpos, m_height);
+            }
             painter->setPen(QPen( Qt::black, 1));
             if (m_type == Time)
             {
@@ -94,7 +100,17 @@ void SceneHeaderItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
             }
         }
         else
-            painter->drawLine(xpos, 25, xpos, 34);
+        {
+            if (m_timeStep > 5)
+            {
+                painter->drawLine(xpos, 25, xpos, 34);
+                if (m_height > HEADER_HEIGHT)
+                {
+                    painter->setPen(QPen(QColor(105, 105, 105, 255), 1));
+                    painter->drawLine(xpos, HEADER_HEIGHT, xpos, m_height);
+                }
+            }
+        }
     }
 
 }
@@ -133,6 +149,11 @@ void SceneHeaderItem::setTimeDivisionType(SceneHeaderItem::TimeDivision type)
     update();
 }
 
+SceneHeaderItem::TimeDivision SceneHeaderItem::getTimeDivisionType()
+{
+    return m_type;
+}
+
 void SceneHeaderItem::setBPMValue(int value)
 {
     if (value > 1)
@@ -147,10 +168,52 @@ int SceneHeaderItem::getHalfSecondWidth()
     return HALF_SECOND_WIDTH;
 }
 
+float SceneHeaderItem::getTimeDivisionStep()
+{
+    if (m_type > Time && m_timeStep <= 5)
+        return m_timeStep * m_timeHit;
+    return m_timeStep;
+}
+
 void SceneHeaderItem::setWidth(int w)
 {
     prepareGeometryChange();
     m_width = w;
+}
+
+void SceneHeaderItem::setHeight(int h)
+{
+    prepareGeometryChange();
+    m_height = h;
+}
+
+QString SceneHeaderItem::tempoToString(SceneHeaderItem::TimeDivision type)
+{
+    switch(type)
+    {
+        case Time: return QString("Time"); break;
+        case BPM_4_4: return QString("BPM_4_4"); break;
+        case BPM_3_4: return QString("BPM_3_4"); break;
+        case BPM_2_4: return QString("BPM_2_4"); break;
+        case Invalid:
+        default:
+            return QString("Invalid"); break;
+    }
+    return QString();
+}
+
+SceneHeaderItem::TimeDivision SceneHeaderItem::stringToTempo(QString tempo)
+{
+    if (tempo == "Time")
+        return Time;
+    else if (tempo == "BPM_4_4")
+        return BPM_4_4;
+    else if (tempo == "BPM_3_4")
+        return BPM_3_4;
+    else if (tempo == "BPM_2_4")
+        return BPM_2_4;
+    else
+        return Invalid;
 }
 
 
@@ -163,6 +226,12 @@ SceneCursorItem::SceneCursorItem(int h)
     : m_height(h)
     , m_time(0)
 {
+}
+
+void SceneCursorItem::setHeight(int height)
+{
+    prepareGeometryChange();
+    m_height = height;
 }
 
 void SceneCursorItem::setTime(quint32 t)
@@ -292,7 +361,7 @@ void TrackItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 QRectF TrackItem::boundingRect() const
 {
-    return QRectF(0, 0, 146, 80);
+    return QRectF(0, 0, TRACK_WIDTH - 4, TRACK_HEIGHT);
 }
 
 void TrackItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -301,12 +370,12 @@ void TrackItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     Q_UNUSED(widget);
 
     // draw background gradient
-    QLinearGradient linearGrad(QPointF(0, 0), QPointF(0, 80));
+    QLinearGradient linearGrad(QPointF(0, 0), QPointF(0, TRACK_HEIGHT));
     linearGrad.setColorAt(0, QColor(50, 64, 75, 255));
     //linearGrad.setColorAt(1, QColor(99, 127, 148, 255));
     linearGrad.setColorAt(1, QColor(76, 98, 115, 255));
     painter->setBrush(linearGrad);
-    painter->drawRect(0, 0, 146, 79);
+    painter->drawRect(0, 0, TRACK_WIDTH - 4, TRACK_HEIGHT - 1);
 
     // Draw left bar that shows if the track is active or not
     painter->setPen(QPen(QColor(48, 61, 72, 255), 1));
@@ -363,16 +432,31 @@ SequenceItem::SequenceItem(Chaser *seq)
     , m_width(50)
     , m_timeScale(3)
     , m_trackIdx(-1)
+    , m_selectedStep(-1)
+    , m_pressed(false)
+    , m_alignToCursor(NULL)
 {
     Q_ASSERT(seq != NULL);
-    setToolTip(QString("Start time: %1\n%2")
-              .arg(Function::speedToString(seq->getStartTime())).arg("Click to move this sequence across the timeline"));
+    setToolTip(QString(tr("Name: %1\nStart time: %2\nDuration: %3\n%4"))
+              .arg(m_chaser->name())
+              .arg(Function::speedToString(m_chaser->getStartTime()))
+              .arg(Function::speedToString(m_chaser->getDuration()))
+              .arg(tr("Click to move this sequence across the timeline")));
+
     setCursor(Qt::OpenHandCursor);
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     m_color = m_chaser->getColor();
     calculateWidth();
+    m_timeFont = QApplication::font();
+    m_timeFont.setBold(true);
+    m_timeFont.setPixelSize(12);
     connect(m_chaser, SIGNAL(changed(quint32)), this, SLOT(slotSequenceChanged(quint32)));
+
+    m_alignToCursor = new QAction(tr("Align to cursor"), this);
+    connect(m_alignToCursor, SIGNAL(triggered()),
+            this, SLOT(slotAlignToCursorClicked()));
+
 }
 
 void SequenceItem::calculateWidth()
@@ -396,9 +480,14 @@ int SequenceItem::getWidth()
     return m_width;
 }
 
+QPointF SequenceItem::getDraggingPos()
+{
+    return m_pos;
+}
+
 QRectF SequenceItem::boundingRect() const
 {
-    return QRectF(0, 0, m_width, 77);
+    return QRectF(0, 0, m_width, TRACK_HEIGHT - 3);
 }
 
 void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -406,17 +495,24 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    if (this->isSelected() == true)
-        painter->setPen(QPen(Qt::white, 3));
-    else
-        painter->setPen(QPen(Qt::white, 1));
-    painter->setBrush(QBrush(m_color));
-
-    painter->drawRect(0, 0, m_width, 77);
-    /* draw vertical lines to show the chaser's steps */
     float xpos = 0;
     float timeScale = 50/(float)m_timeScale;
+    int stepIdx = 0;
 
+    if (this->isSelected() == true)
+    {
+        painter->setPen(QPen(Qt::white, 3));
+    }
+    else
+    {
+        painter->setPen(QPen(Qt::white, 1));
+        m_selectedStep = -1;
+    }
+
+    painter->setBrush(QBrush(m_color));
+    painter->drawRect(0, 0, m_width, 77);
+
+    /* draw vertical lines to divide the chaser's steps */
     foreach (ChaserStep step, m_chaser->steps())
     {
         if (step.fadeIn > 0)
@@ -426,12 +522,20 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
             if (fadeXpos - xpos > 5)
             {
                 painter->setPen(QPen(Qt::gray, 1));
-                painter->drawLine(xpos, 76, fadeXpos, 1);
+                painter->drawLine(xpos, TRACK_HEIGHT - 4, fadeXpos, 1);
             }
         }
+        float stepWidth = ((timeScale * (float)step.duration) / 1000);
+        if (stepIdx == m_selectedStep)
+        {
+            painter->setPen(QPen(Qt::yellow, 2));
+            painter->setBrush(QBrush(Qt::NoBrush));
+            painter->drawRect(xpos, 0, stepWidth, TRACK_HEIGHT - 3);
+        }
+        xpos += stepWidth;
+
         painter->setPen(QPen(Qt::white, 1));
-        xpos += ((timeScale * (float)step.duration) / 1000);
-        painter->drawLine(xpos, 1, xpos, 75);
+        painter->drawLine(xpos, 1, xpos, TRACK_HEIGHT - 5);
         if (step.fadeOut > 0)
         {
             int fadeXpos = xpos - ((timeScale * (float)step.fadeOut) / 1000);
@@ -439,9 +543,18 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
             if (xpos - fadeXpos > 5)
             {
                 painter->setPen(QPen(Qt::gray, 1));
-                painter->drawLine(fadeXpos, 1, xpos, 76);
+                painter->drawLine(fadeXpos, 1, xpos, TRACK_HEIGHT - 4);
             }
         }
+        stepIdx++;
+    }
+
+    if (m_pressed)
+    {
+        quint32 s_time = (double)(x() - TRACK_WIDTH - 2) * (m_timeScale * 500) /
+                         (double)(HALF_SECOND_WIDTH);
+        painter->setFont(m_timeFont);
+        painter->drawText(5, TRACK_HEIGHT - 10, Function::speedToString(s_time));
     }
 }
 
@@ -473,6 +586,12 @@ QColor SequenceItem::getColor()
     return m_color;
 }
 
+void SequenceItem::setSelectedStep(int idx)
+{
+    m_selectedStep = idx;
+    update();
+}
+
 Chaser *SequenceItem::getChaser()
 {
     return m_chaser;
@@ -484,9 +603,17 @@ void SequenceItem::slotSequenceChanged(quint32)
     calculateWidth();
 }
 
+void SequenceItem::slotAlignToCursorClicked()
+{
+    emit alignToCursor(this);
+}
+
 void SequenceItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mousePressEvent(event);
+    m_pos = this->pos();
+    if(event->button() == Qt::LeftButton)
+        m_pressed = true;
     this->setSelected(true);
 }
 
@@ -495,9 +622,20 @@ void SequenceItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     QGraphicsItem::mouseReleaseEvent(event);
     qDebug() << Q_FUNC_INFO << "mouse RELEASE event - <" << event->pos().toPoint().x() << "> - <" << event->pos().toPoint().y() << ">";
     setCursor(Qt::OpenHandCursor);
+    m_pressed = false;
     emit itemDropped(event, this);
 }
 
+void SequenceItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
+{
+    QMenu menu;
+    QFont menuFont = QApplication::font();
+    menuFont.setPixelSize(14);
+    menu.setFont(menuFont);
+
+    menu.addAction(m_alignToCursor);
+    menu.exec(QCursor::pos());
+}
 
 /*********************************************************************
  *
@@ -514,11 +652,17 @@ AudioItem::AudioItem(Audio *aud)
     , m_previewLeftAction(NULL)
     , m_previewRightAction(NULL)
     , m_previewStereoAction(NULL)
+    , m_alignToCursor(NULL)
     , m_preview(NULL)
+    , m_pressed(false)
 {
     Q_ASSERT(aud != NULL);
-    setToolTip(QString("Start time: %1\n%2")
-              .arg(Function::speedToString(m_audio->getStartTime())).arg("Click to move this object across the timeline"));
+    setToolTip(QString(tr("Name: %1\nStart time: %2\nDuration: %3\n%4"))
+              .arg(m_audio->name())
+              .arg(Function::speedToString(m_audio->getStartTime()))
+              .arg(Function::speedToString(m_audio->getDuration()))
+              .arg(tr("Click to move this audio across the timeline")));
+
     setCursor(Qt::OpenHandCursor);
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
@@ -544,6 +688,10 @@ AudioItem::AudioItem(Audio *aud)
     m_previewStereoAction->setCheckable(true);
     connect(m_previewStereoAction, SIGNAL(toggled(bool)),
             this, SLOT(slotAudioPreviewStero(bool)));
+
+    m_alignToCursor = new QAction(tr("Align to cursor"), this);
+    connect(m_alignToCursor, SIGNAL(triggered()),
+            this, SLOT(slotAlignToCursorClicked()));
 }
 
 void AudioItem::calculateWidth()
@@ -566,9 +714,14 @@ int AudioItem::getWidth()
     return m_width;
 }
 
+QPointF AudioItem::getDraggingPos()
+{
+    return m_pos;
+}
+
 QRectF AudioItem::boundingRect() const
 {
-    return QRectF(0, 0, m_width, 77);
+    return QRectF(0, 0, m_width, TRACK_HEIGHT - 3);
 }
 
 void AudioItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -582,13 +735,13 @@ void AudioItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         painter->setPen(QPen(Qt::white, 1));
     painter->setBrush(QBrush(m_color));
 
-    painter->drawRect(0, 0, m_width, 77);
+    painter->drawRect(0, 0, m_width, TRACK_HEIGHT - 3);
 
     painter->setFont(m_font);
     if (m_preview != NULL)
     {
         // show preview here
-        QPixmap waveform = m_preview->scaled(m_width, 76);
+        QPixmap waveform = m_preview->scaled(m_width, TRACK_HEIGHT - 4);
         painter->drawPixmap(0, 0, waveform);
     }
     // draw shadow
@@ -597,6 +750,13 @@ void AudioItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     // draw track name
     painter->setPen(QPen(QColor(220, 220, 220, 255), 2));
     painter->drawText(5, 15, m_audio->name());
+
+    if (m_pressed)
+    {
+        quint32 s_time = (double)(x() - TRACK_WIDTH - 2) * (m_timeScale * 500) /
+                         (double)(HALF_SECOND_WIDTH);
+        painter->drawText(5, TRACK_HEIGHT - 10, Function::speedToString(s_time));
+    }
 }
 
 void AudioItem::updateDuration()
@@ -683,6 +843,11 @@ void AudioItem::slotAudioPreviewStero(bool active)
     m_previewLeftAction->setChecked(false);
     m_previewRightAction->setChecked(false);
     createWaveform(active, active);
+}
+
+void AudioItem::slotAlignToCursorClicked()
+{
+    emit alignToCursor(this);
 }
 
 void AudioItem::createWaveform(bool left, bool right)
@@ -838,6 +1003,9 @@ void AudioItem::createWaveform(bool left, bool right)
 void AudioItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mousePressEvent(event);
+    m_pos = this->pos();
+    if(event->button() == Qt::LeftButton)
+        m_pressed = true;
     this->setSelected(true);
 }
 
@@ -846,17 +1014,22 @@ void AudioItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     QGraphicsItem::mouseReleaseEvent(event);
     qDebug() << Q_FUNC_INFO << "mouse RELEASE event - <" << event->pos().toPoint().x() << "> - <" << event->pos().toPoint().y() << ">";
     setCursor(Qt::OpenHandCursor);
+    m_pressed = false;
     emit itemDropped(event, this);
 }
 
 void AudioItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
 {
+    QMenu menu;
+    QFont menuFont = QApplication::font();
+    menuFont.setPixelSize(14);
+    menu.setFont(menuFont);
+
     if (m_audio->getAudioDecoder() != NULL)
     {
         AudioDecoder *ad = m_audio->getAudioDecoder();
         AudioParameters ap = ad->audioParameters();
 
-        QMenu menu;
         if (ap.channels() == 1)
             m_previewLeftAction->setText(tr("Preview Mono"));
         menu.addAction(m_previewLeftAction);
@@ -866,7 +1039,8 @@ void AudioItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
             menu.addAction(m_previewRightAction);
             menu.addAction(m_previewStereoAction);
         }
-
-        menu.exec(QCursor::pos());
+        menu.addSeparator();
     }
+    menu.addAction(m_alignToCursor);
+    menu.exec(QCursor::pos());
 }

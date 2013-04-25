@@ -34,7 +34,7 @@ public:
     Function_Stub(Doc* doc);
     ~Function_Stub();
 
-    Function* createCopy(Doc* parent);
+    Function* createCopy(Doc* parent, bool addToDoc = true);
 
     bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
     bool loadXML(const QDomElement& root);

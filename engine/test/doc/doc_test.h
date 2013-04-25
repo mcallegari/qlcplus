@@ -35,6 +35,9 @@ private slots:
     void init();
     void cleanup();
 
+    void normalizeComponentPath();
+    void denormalizeComponentPath();
+
     void defaults();
     void mode();
 

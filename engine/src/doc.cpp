@@ -52,6 +52,7 @@ Doc::Doc(QObject* parent, int outputUniverses, int inputUniverses)
     , m_inputMap(new InputMap(this, inputUniverses))
     , m_mode(Design)
     , m_kiosk(false)
+    , m_clipboard(new QLCClipboard(this))
     , m_latestFixtureId(0)
     , m_latestFixtureGroupId(0)
     , m_latestChannelsGroupId(0)
@@ -88,6 +89,8 @@ Doc::~Doc()
 void Doc::clearContents()
 {
     emit clearing();
+
+    m_clipboard->resetContents();
 
     // Delete all function instances
     QListIterator <quint32> funcit(m_functions.keys());
@@ -127,6 +130,7 @@ void Doc::clearContents()
         delete grp;
     }
 
+    m_orderedGroups.clear();
 
     m_latestFunctionId = 0;
     m_latestFixtureId = 0;
@@ -142,9 +146,34 @@ void Doc::setWorkspacePath(QString path)
     m_wsPath = path;
 }
 
-QString Doc::getWorkspacePath()
+QString Doc::getWorkspacePath() const
 {
     return m_wsPath;
+}
+
+QString Doc::normalizeComponentPath(const QString& filePath) const
+{
+    if (filePath.isEmpty())
+        return filePath;
+
+    QFileInfo f(filePath);
+
+    if (f.absolutePath().startsWith(getWorkspacePath()))
+    {
+        return QDir(getWorkspacePath()).relativeFilePath(f.absoluteFilePath());
+    }
+    else
+    {
+        return f.absoluteFilePath();
+    }
+}
+
+QString Doc::denormalizeComponentPath(const QString& filePath) const
+{
+    if (filePath.isEmpty())
+        return filePath;
+
+    return QFileInfo(QDir(getWorkspacePath()), filePath).absoluteFilePath();
 }
 
 /*****************************************************************************
@@ -226,6 +255,15 @@ bool Doc::isKiosk() const
     return m_kiosk;
 }
 
+/*********************************************************************
+ * Clipboard
+ *********************************************************************/
+
+QLCClipboard *Doc::clipboard()
+{
+    return m_clipboard;
+}
+
 /*****************************************************************************
  * Fixtures
  *****************************************************************************/
@@ -299,6 +337,66 @@ bool Doc::deleteFixture(quint32 id)
         emit fixtureRemoved(id);
         setModified();
         delete fxi;
+
+        return true;
+    }
+    else
+    {
+        qWarning() << Q_FUNC_INFO << "No fixture with id" << id;
+        return false;
+    }
+}
+
+bool Doc::moveFixture(quint32 id, quint32 newAddress)
+{
+    if (m_fixtures.contains(id) == true)
+    {
+        Fixture* fixture = m_fixtures[id];
+        // remove it
+        QMutableHashIterator <uint,uint> it(m_addresses);
+        while (it.hasNext() == true)
+        {
+            it.next();
+            if (it.value() == id)
+                it.remove();
+        }
+        // add it to new address
+        for (uint i = newAddress; i < newAddress + fixture->channels(); i++)
+        {
+            m_addresses[i] = id;
+        }
+        setModified();
+
+        return true;
+    }
+    else
+    {
+        qWarning() << Q_FUNC_INFO << "No fixture with id" << id;
+        return false;
+    }
+}
+
+bool Doc::changeFixtureMode(quint32 id, const QLCFixtureMode *mode)
+{
+    if (m_fixtures.contains(id) == true)
+    {
+        Fixture* fixture = m_fixtures[id];
+        int address = fixture->address();
+        // remove it
+        QMutableHashIterator <uint,uint> it(m_addresses);
+        while (it.hasNext() == true)
+        {
+            it.next();
+            if (it.value() == id)
+                it.remove();
+        }
+        // add it with new carachteristics
+        int channels = mode->channels().count();
+        for (int i = address; i < address + channels; i++)
+        {
+            m_addresses[i] = id;
+        }
+        setModified();
 
         return true;
     }
@@ -473,7 +571,8 @@ bool Doc::addChannelsGroup(ChannelsGroup *grp, quint32 id)
 
      grp->setId(id);
      m_channelsGroups[id] = grp;
-     m_orderedGroups.append(id);
+     if (m_orderedGroups.contains(id) == false)
+        m_orderedGroups.append(id);
 
      //emit channelsGroupAdded(id);
      setModified();
@@ -607,6 +706,17 @@ bool Doc::addFunction(Function* func, quint32 id)
 QList <Function*> Doc::functions() const
 {
     return m_functions.values();
+}
+
+QList<Function *> Doc::functionsByType(Function::Type type) const
+{
+    QList <Function*> list;
+    foreach(Function *f, m_functions)
+    {
+        if (f != NULL && f->type() == type)
+            list.append(f);
+    }
+    return list;
 }
 
 bool Doc::deleteFunction(quint32 id)

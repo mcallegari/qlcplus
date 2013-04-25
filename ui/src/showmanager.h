@@ -33,6 +33,7 @@
 #include "doc.h"
 
 class QComboBox;
+class QCheckBox;
 class QSplitter;
 class QToolBar;
 class QSpinBox;
@@ -74,8 +75,14 @@ protected:
     Show* m_show;
     /* Currently selected scene */
     Scene* m_scene;
+    /* Scene editor instance reference */
     QWidget* m_scene_editor;
+    /* Chaser editor instance reference */
     QWidget* m_sequence_editor;
+
+    /* Index of the currently selected Show
+     * (basically the m_showsCombo index) */
+    int m_selectedShowIndex;
 
 private:
     void showSceneEditor(Scene *scene);
@@ -95,6 +102,9 @@ protected:
     void updateShowsCombo();
     void updateMultiTrackView();
 
+private:
+    bool checkOverlapping(quint32 startTime, quint32 duration);
+
     QToolBar* m_toolbar;
     QComboBox* m_showsCombo;
     QLabel* m_timeLabel;
@@ -102,9 +112,11 @@ protected:
     QAction* m_addTrackAction;
     QAction* m_addSequenceAction;
     QAction* m_addAudioAction;
-    QAction* m_cloneAction;
+    QAction* m_copyAction;
+    QAction* m_pasteAction;
     QAction* m_deleteAction;
     QAction* m_colorAction;
+    QAction* m_snapGridAction;
     QAction* m_stopAction;
     QAction* m_playAction;
     QComboBox* m_timeDivisionCombo;
@@ -117,7 +129,8 @@ protected slots:
     void slotAddSequence();
     void slotAddAudio();
 
-    void slotClone();
+    void slotCopy();
+    void slotPaste();
     void slotDelete();
 
     /*********************************************************************
@@ -142,7 +155,9 @@ protected slots:
     void slotupdateTimeAndCursor(quint32 msec_time);
     void slotTrackClicked(Track *track);
     void slotChangeColor();
+    void slotToggleSnapToGrid(bool enable);
     void slotChangeSize(int width, int height);
+    void slotStepSelectionChanged(int index);
 
     /*********************************************************************
      * DOC events

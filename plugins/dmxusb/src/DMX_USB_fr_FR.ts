@@ -95,38 +95,45 @@ NOTE : L&apos;interface VCP FTDI ne fonctionne pas avec ce greffon.</translation
 <context>
     <name>QObject</name>
     <message>
-        <location filename="enttecdmxusbprorx.cpp" line="83"/>
-        <location filename="enttecdmxusbprotx.cpp" line="128"/>
-        <location filename="ultradmxusbprotx.cpp" line="72"/>
+        <location filename="dmx4all.cpp" line="131"/>
+        <location filename="enttecdmxusbprorx.cpp" line="86"/>
+        <location filename="enttecdmxusbprotx.cpp" line="129"/>
+        <location filename="ultradmxusbprotx.cpp" line="75"/>
         <source>Protocol</source>
         <translation>Protocole</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbprorx.cpp" line="90"/>
-        <location filename="enttecdmxusbprotx.cpp" line="135"/>
-        <location filename="ultradmxusbprotx.cpp" line="79"/>
+        <location filename="dmx4all.cpp" line="138"/>
+        <location filename="enttecdmxusbprorx.cpp" line="93"/>
+        <location filename="enttecdmxusbprotx.cpp" line="136"/>
+        <location filename="ultradmxusbprotx.cpp" line="82"/>
         <source>Serial number</source>
         <translation>N° de Série</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbprorx.cpp" line="49"/>
-        <location filename="enttecdmxusbprorx.cpp" line="85"/>
+        <location filename="enttecdmxusbprorx.cpp" line="50"/>
+        <location filename="enttecdmxusbprorx.cpp" line="52"/>
+        <location filename="enttecdmxusbprorx.cpp" line="88"/>
         <source>Input</source>
         <translation>Entrée</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbprotx.cpp" line="73"/>
-        <location filename="enttecdmxusbprotx.cpp" line="130"/>
-        <location filename="ultradmxusbprotx.cpp" line="60"/>
-        <location filename="ultradmxusbprotx.cpp" line="74"/>
+        <location filename="dmx4all.cpp" line="133"/>
+        <location filename="enttecdmxusbprotx.cpp" line="72"/>
+        <location filename="enttecdmxusbprotx.cpp" line="74"/>
+        <location filename="enttecdmxusbprotx.cpp" line="131"/>
+        <location filename="ultradmxusbprotx.cpp" line="61"/>
+        <location filename="ultradmxusbprotx.cpp" line="63"/>
+        <location filename="ultradmxusbprotx.cpp" line="77"/>
         <source>Output</source>
         <translation>Sortie</translation>
     </message>
     <message>
+        <location filename="dmx4all.cpp" line="135"/>
         <location filename="enttecdmxusbopen.cpp" line="100"/>
-        <location filename="enttecdmxusbprorx.cpp" line="87"/>
-        <location filename="enttecdmxusbprotx.cpp" line="132"/>
-        <location filename="ultradmxusbprotx.cpp" line="76"/>
+        <location filename="enttecdmxusbprorx.cpp" line="90"/>
+        <location filename="enttecdmxusbprotx.cpp" line="133"/>
+        <location filename="ultradmxusbprotx.cpp" line="79"/>
         <source>Manufacturer</source>
         <translation>Fabricant</translation>
     </message>

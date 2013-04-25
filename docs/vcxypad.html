@@ -19,8 +19,8 @@ the attached fixtures' mirror/head position.
 
 <P>
 XY Pads can be configured with the properties
-<IMG SRC="qrc:/configure.png" ALIGN="bottom"> button found in the toolbar or
-with the <B>Edit -&gt; Properties</B> menu item.
+<IMG SRC="qrc:/edit.png" ALIGN="bottom"> button found in the toolbar or
+by double clicking on the XY pad itself.
 </P>
 
 <TABLE BORDER="1">
@@ -35,7 +35,17 @@ with the <B>Edit -&gt; Properties</B> menu item.
  </TR>
  <TR>
   <TD>
-   <B>Fixture list</B>
+   <B>Y-Axis slider movement</B>
+  </TD>
+  <TD>
+   The appearance of the vertical slider (namely Y-Axis control) can be set to <b>Normal</b> or <b>Inverted</b>.<br>
+   In the first case the maximum value will be reached on the bottom of the pad, 
+   while in the second case it will be reached on the top.
+  </TD>
+ </TR> 
+ <TR>
+  <TD>
+   <B>Fixture tab</B>
   </TD>
   <TD>
    Shows the fixtures that are currently controlled with the XY Pad.
@@ -77,7 +87,8 @@ with the <B>Edit -&gt; Properties</B> menu item.
  </TR>
 </TABLE>
 
-<H3>XY Pad Fixture Configuration</H3>
+<br>
+<H3><IMG SRC="qrc:/edit.png"> Fixture movement configuration</H3>
 
 <P>
 You can change the extent of movement and reverse fixtures' movement with the
@@ -110,6 +121,32 @@ XY Pad Fixture Configuration dialog.
   </TD>
  </TR>
 </TABLE>
+
+<br>
+<H3>External input configuration (Input Tab)</H3>
+
+<P>
+You can attach an external input channel from an input device (like a
+tablet) to XY pads so that you don't always have to use the mouse to control
+your fixtures.
+<UL>
+  <LI>Input universe: The input universe that you wish to get input data to
+    the XY pad.</LI>
+    <LI>Input channel: The individual input channel within the selected input
+    universe that you wish to use for controlling the XY pad.</LI>
+    <LI>Auto Detect: When toggled, you can just move/press a button/slider/knob
+    on your external input hardware and it will be automatically assigned to the
+    XY pad. The latest combination is shown on the text boxes when QLC+ receives
+    input data. If you don't see anything in the boxes, your input connection
+    might have a problem that you need to fix first.<br>
+    <b>Hint:</b> When assigning a XY pad from OSC, you need to click the
+    "Tilt / Vertical axis" auto detect button, otherwise the X/Y axis will
+    result inverted.
+    </LI>
+    <LI>Choose...: Shows the <A HREF="selectinputchannel.html">Select Input Channel</A>
+    dialog that you can use to select an input channel manually.</LI>
+   </UL>
+</P>
 
 </BODY>
 </HTML>

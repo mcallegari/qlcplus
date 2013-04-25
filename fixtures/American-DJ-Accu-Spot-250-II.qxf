@@ -1,8 +1,8 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition>
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.3.0-r2754</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.3.0</Version>
   <Author>Lime Lounge</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -18,37 +18,37 @@
  </Channel>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="12">White</Capability>
-  <Capability Min="13" Max="25">Red</Capability>
-  <Capability Min="26" Max="38">Blue</Capability>
-  <Capability Min="39" Max="51">Green</Capability>
-  <Capability Min="52" Max="64">Yellow</Capability>
-  <Capability Min="65" Max="77">Magenta</Capability>
-  <Capability Min="78" Max="90">Orange</Capability>
-  <Capability Min="91" Max="103">Purple</Capability>
-  <Capability Min="104" Max="116">Pink</Capability>
-  <Capability Min="117" Max="127">Light Blue</Capability>
-  <Capability Min="128" Max="187">Forward Rainbow Effect (Fast -> Slow)</Capability>
+  <Capability Min="0" Max="12" Color="#ffffff">White</Capability>
+  <Capability Min="13" Max="25" Color="#ff0000">Red</Capability>
+  <Capability Min="26" Max="38" Color="#0000ff">Blue</Capability>
+  <Capability Min="39" Max="51" Color="#00ff00">Green</Capability>
+  <Capability Min="52" Max="64" Color="#ffff00">Yellow</Capability>
+  <Capability Min="65" Max="77" Color="#ff00ff">Magenta</Capability>
+  <Capability Min="78" Max="90" Color="#ff8000">Orange</Capability>
+  <Capability Min="91" Max="103" Color="#8000ff">Purple</Capability>
+  <Capability Min="104" Max="116" Color="#ff66ff">Pink</Capability>
+  <Capability Min="117" Max="127" Color="#66ccff">Light Blue</Capability>
+  <Capability Res="Others/rainbow.png" Min="128" Max="187">Forward Rainbow Effect (Fast -> Slow)</Capability>
   <Capability Min="188" Max="193">No Rotation</Capability>
-  <Capability Min="194" Max="255">Backward Rainbow Effect (Slow -> Fast)</Capability>
+  <Capability Res="Others/rainbow.png" Min="194" Max="255">Backward Rainbow Effect (Slow -> Fast)</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="9">Spot</Capability>
-  <Capability Min="10" Max="19">Star Circle (Metal)</Capability>
-  <Capability Min="20" Max="29">Cross (Metal)</Capability>
-  <Capability Min="30" Max="39">Blue &amp; White Web (Dichoric)</Capability>
-  <Capability Min="40" Max="49">Textured Glass (Glass)</Capability>
-  <Capability Min="50" Max="59">Donut (Metal)</Capability>
-  <Capability Min="60" Max="69">Triangle (Metal)</Capability>
-  <Capability Min="70" Max="79">Dot Line (Metal)</Capability>
-  <Capability Min="80" Max="99">Star Circle (Metal) Shake</Capability>
-  <Capability Min="100" Max="119">Cross (Metal) Shake</Capability>
-  <Capability Min="120" Max="139">Blue &amp; White Web (Dichoric) Shake</Capability>
-  <Capability Min="140" Max="159">Textured Glass (Glass) Shake</Capability>
-  <Capability Min="160" Max="179">Donut (Metal) Shake</Capability>
-  <Capability Min="180" Max="199">Triangle (Metal) Shake</Capability>
-  <Capability Min="200" Max="219">Dot Line (Metal) Shake</Capability>
+  <Capability Res="Others/gobo00022.png" Min="0" Max="9">Spot</Capability>
+  <Capability Res="Others/gobo00036.png" Min="10" Max="19">Star Circle (Metal)</Capability>
+  <Capability Res="Others/gobo00023.png" Min="20" Max="29">Cross (Metal)</Capability>
+  <Capability Res="Others/gobo00035.png" Min="30" Max="39">Blue &amp; White Web (Dichoric)</Capability>
+  <Capability Res="Others/gobo00034.png" Min="40" Max="49">Textured Glass (Glass)</Capability>
+  <Capability Res="Others/gobo00037.png" Min="50" Max="59">Donut (Metal)</Capability>
+  <Capability Res="Others/gobo00027.png" Min="60" Max="69">Triangle (Metal)</Capability>
+  <Capability Res="Others/gobo00029.png" Min="70" Max="79">Dot Line (Metal)</Capability>
+  <Capability Res="Others/gobo00036.png" Min="80" Max="99">Star Circle (Metal) Shake</Capability>
+  <Capability Res="Others/gobo00023.png" Min="100" Max="119">Cross (Metal) Shake</Capability>
+  <Capability Res="Others/gobo00035.png" Min="120" Max="139">Blue &amp; White Web (Dichoric) Shake</Capability>
+  <Capability Res="Others/gobo00034.png" Min="140" Max="159">Textured Glass (Glass) Shake</Capability>
+  <Capability Res="Others/gobo00037.png" Min="160" Max="179">Donut (Metal) Shake</Capability>
+  <Capability Res="Others/gobo00027.png" Min="180" Max="199">Triangle (Metal) Shake</Capability>
+  <Capability Res="Others/gobo00029.png" Min="200" Max="219">Dot Line (Metal) Shake</Capability>
   <Capability Min="220" Max="255">Rotating Gobo Wheel (Slow -> Fast)</Capability>
  </Channel>
  <Channel Name="Gobo Rotation">

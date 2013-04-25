@@ -22,6 +22,7 @@
 #include <QApplication>
 #include <QPainter>
 #include <QImage>
+#include <QDesktopWidget>
 
 #include "clickandgowidget.h"
 #include "qlccapability.h"
@@ -42,6 +43,8 @@ ClickAndGoWidget::ClickAndGoWidget(QWidget *parent) :
     m_linearColor = false;
     m_width = 10;
     m_height = 10;
+    m_cols = 0;
+    m_rows = 0;
     m_hoverCellIdx = 0;
     m_cellBarXpos = 1;
     m_cellBarYpos = 1;
@@ -168,7 +171,7 @@ void ClickAndGoWidget::setupColorPicker()
 void ClickAndGoWidget::setType(int type, const QLCChannel *chan)
 {
     m_linearColor = false;
-    qDebug() << Q_FUNC_INFO << "Type: " << type;
+    //qDebug() << Q_FUNC_INFO << "Type: " << type;
     if (type == None)
     {
         m_image = QImage();
@@ -187,7 +190,7 @@ void ClickAndGoWidget::setType(int type, const QLCChannel *chan)
         setupGradient(Qt::yellow);
     else if (type == White)
         setupGradient(Qt::white);
-    else if (type == RGB)
+    else if (type == RGB || type == CMY)
     {
         setupColorPicker();
     }
@@ -219,6 +222,7 @@ QString ClickAndGoWidget::clickAndGoTypeToString(ClickAndGoWidget::ClickAndGo ty
         case Yellow: return "Yellow"; break;
         case White: return "White"; break;
         case RGB: return "RGB"; break;
+        case CMY: return "CMY"; break;
         case Preset: return "Preset"; break;
     }
 }
@@ -233,6 +237,7 @@ ClickAndGoWidget::ClickAndGo ClickAndGoWidget::stringToClickAndGoType(QString st
     else if (str == "Yellow") return Yellow;
     else if (str == "White") return White;
     else if (str == "RGB") return RGB;
+    else if (str == "CMY") return CMY;
     else if (str == "Preset") return Preset;
 
     return None;
@@ -269,7 +274,7 @@ QImage ClickAndGoWidget::getImageFromValue(uchar value)
     else if (m_linearColor == true)
     {
         QRgb col = m_image.pixel(10 + value, 10);
-        img.fill(QColor(col));
+        img.fill(QColor(col).rgb());
     }
 
     return img;
@@ -283,7 +288,7 @@ void ClickAndGoWidget::createPresetList(const QLCChannel *chan)
 
     m_resources.clear();
 
-    qDebug() << Q_FUNC_INFO << "cap #" << chan->capabilities().size();
+    //qDebug() << Q_FUNC_INFO << "cap #" << chan->capabilities().size();
 
     foreach(QLCCapability cap, chan->capabilities())
     {
@@ -304,10 +309,23 @@ void ClickAndGoWidget::setupPresetPicker()
     if (m_resources.size() == 0)
         return;
 
+    QRect screen = QApplication::desktop()->availableGeometry(this);
+
+    m_cols = 2;
+    m_rows = qCeil((qreal)m_resources.size() / 2);
+    m_width = CELL_W * m_cols;
+    m_height = CELL_H * m_rows;
+
+    if (m_height > screen.height())
+    {
+        m_rows = qFloor((qreal)screen.height() / CELL_H);
+        m_cols = qCeil((qreal)m_resources.size() / m_rows);
+        m_width = CELL_W * m_cols;
+        m_height = CELL_H * m_rows;
+    }
+ 
     int x = 0;
     int y = 0;
-    m_width = CELL_W * 2;
-    m_height = qCeil((qreal)m_resources.size() / 2) * CELL_H;
     m_image = QImage(m_width, m_height, QImage::Format_RGB32);
     QPainter painter(&m_image);
     painter.setRenderHint(QPainter::Antialiasing);
@@ -318,16 +336,18 @@ void ClickAndGoWidget::setupPresetPicker()
     for (int i = 0; i < m_resources.size(); i++)
     {
         PresetResource res = m_resources.at(i);
-        if (i%2)
-            x = CELL_W;
-        else
-            x = 0;
         painter.setPen(Qt::black);
         painter.drawRect(x, y, CELL_W, CELL_H);
         painter.drawImage(x + 1, y + 4, res.m_thumbnail);
         painter.drawText(x + 43, y + 4, CELL_W - 42, CELL_H - 5, Qt::TextWordWrap|Qt::AlignVCenter, res.m_descr);
-        if (i%2)
-            y+=CELL_H;
+        if (i % m_cols == m_cols - 1)
+        {
+            y += CELL_H;
+            x = 0;
+        }
+        else
+            x += CELL_W;
+         
     }  
 }
 
@@ -347,7 +367,7 @@ void ClickAndGoWidget::mousePressEvent(QMouseEvent *event)
         else
             emit levelChanged(255);
     }
-    else if (m_type == RGB)
+    else if (m_type == RGB || m_type == CMY)
     {
         emit colorChanged(m_image.pixel(event->x(), event->y()));
     }
@@ -375,7 +395,7 @@ void ClickAndGoWidget::mouseMoveEvent(QMouseEvent *event)
     // calculate the index of the resource where the cursor is
     int floorX = qFloor(event->x() / CELL_W);
     int floorY = qFloor(event->y() / CELL_H);
-    int tmpCellIDx = (floorY * 2) + floorX;
+    int tmpCellIDx = (floorY * m_cols) + floorX;
     if (tmpCellIDx < 0 && tmpCellIDx >= m_resources.length())
         return;
     m_cellBarXpos = floorX * CELL_W;
@@ -411,7 +431,7 @@ ClickAndGoWidget::PresetResource::PresetResource(QString path, QString text, uch
     QPainter painter(&m_thumbnail);
     painter.setRenderHint(QPainter::SmoothPixmapTransform);
     painter.drawImage(QRect(0,0,40,40), px);
-    qDebug() << "PATH: adding " << path << ", descr: " << text;
+    //qDebug() << "PATH: adding " << path << ", descr: " << text;
 }
 
 ClickAndGoWidget::PresetResource::PresetResource(QColor color1, QColor color2,
@@ -422,14 +442,14 @@ ClickAndGoWidget::PresetResource::PresetResource(QColor color1, QColor color2,
     m_max = max;
     m_thumbnail = QImage(40, 40, QImage::Format_RGB32);
     if (color2.isValid() == false)
-        m_thumbnail.fill(color1);
+        m_thumbnail.fill(color1.rgb());
     else
     {
         QPainter painter(&m_thumbnail);
         painter.fillRect(0, 0, 20, 40, color1);
         painter.fillRect(20, 0, 40, 40, color2);
     }
-    qDebug() << "COLOR: adding " << color1.name() << ", descr: " << text;
+    //qDebug() << "COLOR: adding " << color1.name() << ", descr: " << text;
 }
 
 ClickAndGoWidget::PresetResource::PresetResource(int index, QString text, uchar min, uchar max)
@@ -445,7 +465,7 @@ ClickAndGoWidget::PresetResource::PresetResource(int index, QString text, uchar 
     QPainter painter(&m_thumbnail);
     painter.setFont(tfont);
     painter.drawText(0, 0, 40, 40, Qt::AlignHCenter|Qt::AlignVCenter, QString("%1").arg(index));
-    qDebug() << "GENERIC: adding " << index << ", descr: " << text;
+    //qDebug() << "GENERIC: adding " << index << ", descr: " << text;
 }
 
 

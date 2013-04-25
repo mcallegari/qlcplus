@@ -19,7 +19,9 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
+#include <QApplication>
 #include <QStringList>
+#include <QPainter>
 #include <iostream>
 #include <QString>
 #include <QFile>
@@ -193,6 +195,81 @@ void QLCChannel::setGroup(Group grp)
 QLCChannel::Group QLCChannel::group() const
 {
     return m_group;
+}
+
+QPixmap QLCChannel::drawIntensity(QColor color, QString str) const
+{
+    QPixmap pm(32, 32);
+    QPainter painter(&pm);
+    painter.setRenderHint(QPainter::Antialiasing);
+
+    QFont tfont = QApplication::font();
+    tfont.setBold(true);
+    tfont.setPixelSize(14);
+    painter.setFont(tfont);
+
+    pm.fill(color);
+    if (str == "B")
+        painter.setPen(Qt::white);
+    painter.drawText(0, 0, 32, 32, Qt::AlignHCenter|Qt::AlignVCenter, str);
+
+    return pm;
+}
+
+QIcon QLCChannel::getIntensityIcon() const
+{
+    QPixmap pm(32, 32);
+
+    if (m_colour == QLCChannel::Red ||
+        m_name.contains("red", Qt::CaseInsensitive) == true)
+            pm = drawIntensity(Qt::red, "R");
+    else if (m_colour == QLCChannel::Green ||
+             m_name.contains("green", Qt::CaseInsensitive) == true)
+                pm = drawIntensity(Qt::green, "G");
+    else if (m_colour == QLCChannel::Blue ||
+             m_name.contains("blue", Qt::CaseInsensitive) == true)
+                pm = drawIntensity(Qt::blue, "B");
+    else if (m_colour == QLCChannel::Cyan ||
+             m_name.contains("cyan", Qt::CaseInsensitive) == true)
+                pm = drawIntensity(Qt::cyan, "C");
+    else if (m_colour == QLCChannel::Magenta ||
+             m_name.contains("magenta", Qt::CaseInsensitive) == true)
+                pm = drawIntensity(Qt::magenta, "M");
+    else if (m_colour == QLCChannel::Yellow ||
+             m_name.contains("yellow", Qt::CaseInsensitive) == true)
+                pm = drawIntensity(Qt::yellow, "Y");
+    else if (m_colour == QLCChannel::White ||
+             m_name.contains("white", Qt::CaseInsensitive) == true)
+                pm = drawIntensity(Qt::white, "W");
+    else
+    {
+        // None of the primary colours matched and since this is an
+        // intensity channel, it must be controlling a plain dimmer OSLT.
+        return QIcon(":/intensity.png");
+    }
+
+    return QIcon(pm);
+}
+
+QIcon QLCChannel::getIconFromGroup(QLCChannel::Group grp) const
+{
+    switch(grp)
+    {
+        case Pan: return QIcon(":/pan.png"); break;
+        case Tilt: return QIcon(":/tilt.png"); break;
+        case Colour: return QIcon(":/color.png"); break;
+        case Effect: return QIcon(":/star.png"); break;
+        case Gobo: return QIcon(":/gobo.png"); break;
+        case Shutter: return QIcon(":/shutter.png"); break;
+        case Speed: return QIcon(":/speed.png"); break;
+        case Prism: return QIcon(":/prism.png"); break;
+        case Maintenance: return QIcon(":/maintenance.png"); break;
+        case Intensity: return getIntensityIcon(); break;
+        case Beam: return QIcon(":/beam.png"); break;
+        default:
+        break;
+    }
+    return QIcon(":/intensity.png");
 }
 
 /*****************************************************************************

@@ -89,12 +89,17 @@ Audio::~Audio()
  * Copying
  *****************************************************************************/
 
-Function* Audio::createCopy(Doc* doc)
+Function* Audio::createCopy(Doc* doc, bool addToDoc)
 {
     Q_ASSERT(doc != NULL);
 
     Function* copy = new Audio(doc);
-    if (copy->copyFrom(this) == false || doc->addFunction(copy) == false)
+    if (copy->copyFrom(this) == false)
+    {
+        delete copy;
+        copy = NULL;
+    }
+    if (addToDoc == true && doc->addFunction(copy) == false)
     {
         delete copy;
         copy = NULL;
@@ -173,18 +178,12 @@ bool Audio::setSourceFileName(QString filename)
     if (m_object == NULL)
         return false;
 #endif
-    QString workPath = doc()->getWorkspacePath();
-    QFileInfo ai(filename);
-    //QMessageBox::warning(0,"Warning", QString("Project path: %1   ---  %2").arg(workPath).arg(ai.canonicalPath()));
-    if (ai.isRelative())
-        m_sourceFileName = workPath + QDir::separator() + filename;
-    else
-        m_sourceFileName = filename;
+    m_sourceFileName = filename;
 
     //QMessageBox::warning(0,"Warning", QString("File complete path: %1").arg(m_sourceFileName));
 
     if (QFile(m_sourceFileName).exists())
-        setName(ai.baseName() + "." + ai.completeSuffix());
+        setName(QFileInfo(m_sourceFileName).fileName());
     else
     {
         setName(tr("File not found"));
@@ -262,11 +261,7 @@ bool Audio::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     source.setAttribute(KXMLQLCAudioStartTime, m_startTime);
     source.setAttribute(KXMLQLCAudioColor, m_color.name());
 
-    QFileInfo ai(m_sourceFileName);
-    if (ai.absolutePath() == m_doc->getWorkspacePath())
-        text = doc->createTextNode(ai.baseName() + "." + ai.completeSuffix());
-    else
-        text = doc->createTextNode(m_sourceFileName);
+    text = doc->createTextNode(m_doc->normalizeComponentPath(m_sourceFileName));
 
     source.appendChild(text);
     root.appendChild(source);
@@ -299,7 +294,7 @@ bool Audio::loadXML(const QDomElement& root)
                 m_startTime = tag.attribute(KXMLQLCAudioStartTime).toUInt();
             if (tag.hasAttribute(KXMLQLCAudioColor))
                 m_color = QColor(tag.attribute(KXMLQLCAudioColor));
-            setSourceFileName(tag.text());
+            setSourceFileName(m_doc->denormalizeComponentPath(tag.text()));
         }
         node = node.nextSibling();
     }

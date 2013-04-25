@@ -15,18 +15,51 @@ The chaser editor, as its name suggests, is used to edit
 <H3>Controls</H3>
 
 <TABLE BORDER="1">
- <TR>
-  <TD>
-   <B>Chaser name</B>
-  </TD>
-  <TD>
-   Change the name of the chaser.
-  </TD>
+ <TR> 
+  <TD><B>Chaser name</B></TD>
+  <TD>Change the name of the chaser. </TD>
  </TR>
  <TR>
-  <TD>
-   <IMG SRC="qrc:/edit_add.png">
-  </TD>
+  <TD><IMG SRC="qrc:/speed.png"></TD>
+  <TD>Show/Hide the Speed Dial widget, used to facilitate the Chaser parameters 
+  tuning like Fade In, Fade Out and Hold</TD>
+ </TR>
+ <TR></TR>
+ <TR>
+  <TD><IMG SRC="qrc:/player_play.png"></TD>
+  <TD>Start to run the Chaser to test the playback beginning from the selected step</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/player_stop.png"></TD>
+  <TD>Stop a previously started playback</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/back.png"></TD>
+  <TD>When playback is active, go to the previous step in the Chaser</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/forward.png"></TD>
+  <TD>When playback is active, go to the next step in the Chaser</TD>
+ </TR>
+ <TR></TR>
+ <TR>
+  <TD><IMG SRC="qrc:/editcopy.png"></TD>
+  <TD>Copy the selected steps into the clipboard.</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/editpaste.png"></TD>
+  <TD>Paste the previously copied steps from clipboard to the current position selected. 
+  If none, the steps will be appended at the end of the list</TD>
+ </TR>
+ <TR>
+ <TR>
+  <TD><IMG SRC="qrc:/editcut.png"></TD>
+  <TD>Remove the selected steps from the list and copy them into the clipboard.</TD>
+ </TR>
+ 
+ <TR></TR>
+ <TR>
+  <TD><IMG SRC="qrc:/edit_add.png"></TD>
   <TD>
    Add an existing <A HREF="concept.html#Functions">Function</A> to the chaser,
    using the <A HREF="selectfunction.html">Select Function</A> dialog. The
@@ -34,33 +67,19 @@ The chaser editor, as its name suggests, is used to edit
   </TD>
  </TR>
  <TR>
-  <TD>
-   <IMG SRC="qrc:/edit_remove.png">
-  </TD>
-  <TD>
-   Remove the selected step from the chaser.
-  </TD>
+  <TD><IMG SRC="qrc:/edit_remove.png"></TD>
+  <TD>Remove the selected step from the chaser.</TD>
  </TR>
  <TR>
-  <TD>
-   <IMG SRC="qrc:/up.png">
-  </TD>
-  <TD>
-   Raise the selected step above/before the previous step.
-  </TD>
+  <TD><IMG SRC="qrc:/up.png"></TD>
+  <TD>Move the selected step above/before the previous step.</TD>
  </TR>
  <TR>
-  <TD>
-   <IMG SRC="qrc:/down.png">
-  </TD>
-  <TD>
-   Lower the selected step below/after the next step.
-  </TD>
+  <TD><IMG SRC="qrc:/down.png"></TD>
+  <TD>Move the selected step below/after the next step.</TD>
  </TR>
  <TR>
-  <TD>
-   <B>Run Order</B>
-  </TD>
+  <TD><B>Run Order</B></TD>
   <TD>
    <UL>
     <LI>Loop: Run thru the steps over and over again.</LI>
@@ -70,9 +89,7 @@ The chaser editor, as its name suggests, is used to edit
   </TD>
  </TR>
  <TR>
-  <TD>
-   <B>Direction</B>
-  </TD>
+  <TD><B>Direction</B></TD>
   <TD>
    <UL>
     <LI>Forward: Run thru the steps from start to end; 1, 2, 3...</LI>
@@ -81,14 +98,31 @@ The chaser editor, as its name suggests, is used to edit
   </TD>
  </TR>
  <TR>
+  <TD><B>Fade In Speed</B></TD>
   <TD>
-   <B>Speed</B>
-  </TD>
-  <TD>
-   Change the chaser's <A HREF="concept.html#Chaser">speed</A> settings.
+    <LI>Common: Apply the same speed for all the steps in this Chaser</LI>
+    <LI>Per step: Apply a user defined speed for each step in this Chaser</LI>
+    <LI>Default: Apply the default speed for each step (0 seconds).</LI>
   </TD>
  </TR>
+ <TR>
+  <TD><B>Fade Out Speed</B></TD>
+  <TD>
+    <LI>Common: Apply the same speed for all the steps in this Chaser</LI>
+    <LI>Per step: Apply a user defined speed for each step in this Chaser</LI>
+    <LI>Default: Apply the default speed for each step (0 seconds).</LI>
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Step Duration</B></TD>
+  <TD>
+    <LI>Common: Apply the same duration for all the steps in this Chaser</LI>
+    <LI>Per step: Apply a user defined duration for each step in this Chaser</LI>
+  </TD>
+ </TR>
+
 </TABLE>
+
 
 </BODY>
 </HTML> 

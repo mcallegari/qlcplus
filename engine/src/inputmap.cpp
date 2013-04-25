@@ -209,6 +209,15 @@ QStringList InputMap::pluginInputs(const QString& pluginName)
         return ip->inputs();
 }
 
+bool InputMap::pluginSupportsFeedback(const QString& pluginName)
+{
+    QLCIOPlugin* inputPlugin = doc()->ioPluginCache()->plugin(pluginName);
+    if (inputPlugin != NULL)
+        return (inputPlugin->capabilities() & QLCIOPlugin::Feedback) > 0;
+    else
+        return false;
+}
+
 void InputMap::configurePlugin(const QString& pluginName)
 {
     QLCIOPlugin* inputPlugin = doc()->ioPluginCache()->plugin(pluginName);

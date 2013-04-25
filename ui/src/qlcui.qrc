@@ -11,9 +11,11 @@
         <file alias="buttonmatrix.png">../../gfx/buttonmatrix.png</file>
         <file alias="chaser.png">../../gfx/chaser.png</file>
         <file alias="check.png">../../gfx/check.png</file>
-        <file alias="clock.png">../../gfx/clock.png</file>
+        <file alias="checkbox_empty.png">../../gfx/checkbox_empty.png</file>
+        <file alias="checkbox_full.png">../../gfx/checkbox_full.png</file>
         <file alias="collection.png">../../gfx/collection.png</file>
         <file alias="color.png">../../gfx/color.png</file>
+        <file alias="colorwheel.png">../../gfx/colorwheel.png</file>
         <file alias="configure.png">../../gfx/configure.png</file>
         <file alias="cuelist.png">../../gfx/cuelist.png</file>
         <file alias="current.png">../../gfx/current.png</file>
@@ -21,7 +23,13 @@
         <file alias="design.png">../../gfx/design.png</file>
         <file alias="detach.png">../../gfx/detach.png</file>
         <file alias="dimmer.png">../../gfx/dimmer.png</file>
+        <file alias="diptool.png">../../gfx/diptool.png</file>
         <file alias="down.png">../../gfx/down.png</file>
+        <file alias="ds_top.png">../../gfx/ds_top.png</file>
+        <file alias="ds_border.png">../../gfx/ds_border.png</file>
+        <file alias="ds_on.png">../../gfx/ds_on.png</file>
+        <file alias="ds_off.png">../../gfx/ds_off.png</file>
+        <file alias="ds_bottom.png">../../gfx/ds_bottom.png</file>
         <file alias="edit.png">../../gfx/edit.png</file>
         <file alias="editclear.png">../../gfx/editclear.png</file>
         <file alias="editcopy.png">../../gfx/editcopy.png</file>
@@ -36,6 +44,7 @@
         <file alias="empty.png">../../gfx/empty.png</file>
         <file alias="exit.png">../../gfx/exit.png</file>
         <file alias="expand.png">../../gfx/expand.png</file>
+        <file alias="fade.png">../../gfx/fade.png</file>
         <file alias="fan.png">../../gfx/fan.png</file>
         <file alias="fileclose.png">../../gfx/fileclose.png</file>
         <file alias="fileexport.png">../../gfx/fileexport.png</file>
@@ -60,6 +69,7 @@
         <file alias="gobo.png">../../gfx/gobo.png</file>
         <file alias="gonext.png">../../gfx/gonext.png</file>
         <file alias="goprevious.png">../../gfx/goprevious.png</file>
+        <file alias="grid.png">../../gfx/grid.png</file>
         <file alias="group.png">../../gfx/group.png</file>
         <file alias="hazer.png">../../gfx/hazer.png</file>
         <file alias="help.png">../../gfx/help.png</file>

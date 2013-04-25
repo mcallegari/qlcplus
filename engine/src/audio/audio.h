@@ -54,7 +54,7 @@ private:
      *********************************************************************/
 public:
     /** @reimpl */
-    Function* createCopy(Doc* doc);
+    Function* createCopy(Doc* doc, bool addToDoc = true);
 
     /** Copy the contents for this function from another function */
     bool copyFrom(const Function* function);

@@ -51,6 +51,7 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
     , m_scene(NULL)
     , m_scene_editor(NULL)
     , m_sequence_editor(NULL)
+    , m_selectedShowIndex(0)
     , m_splitter(NULL)
     , m_vsplitter(NULL)
     , m_showview(NULL)
@@ -60,8 +61,11 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
     , m_addTrackAction(NULL)
     , m_addSequenceAction(NULL)
     , m_addAudioAction(NULL)
-    , m_cloneAction(NULL)
+    , m_copyAction(NULL)
+    , m_pasteAction(NULL)
     , m_deleteAction(NULL)
+    , m_colorAction(NULL)
+    , m_snapGridAction(NULL)
     , m_stopAction(NULL)
     , m_playAction(NULL)
 {
@@ -97,8 +101,8 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
             this, SLOT(slotSequenceMoved(SequenceItem*)));
     connect(m_showview, SIGNAL(audioMoved(AudioItem *)),
             this, SLOT(slotAudioMoved(AudioItem*)));
-    //connect(m_showview, SIGNAL(timeChanged(quint32)),
-    //        this, SLOT(slotUpdateTime(quint32)));
+    connect(m_showview, SIGNAL(timeChanged(quint32)),
+            this, SLOT(slotUpdateTime(quint32)));
     connect(m_showview, SIGNAL(trackClicked(Track*)),
             this, SLOT(slotTrackClicked(Track*)));
 
@@ -169,12 +173,18 @@ void ShowManager::initActions()
     connect(m_addAudioAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddAudio()));
     /* Edit actions */
-    m_cloneAction = new QAction(QIcon(":/editcopy.png"),
-                                tr("&Clone"), this);
-    m_cloneAction->setShortcut(QKeySequence("CTRL+C"));
-    connect(m_cloneAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotClone()));
-    m_cloneAction->setEnabled(false);
+    m_copyAction = new QAction(QIcon(":/editcopy.png"),
+                                tr("&Copy"), this);
+    m_copyAction->setShortcut(QKeySequence("CTRL+C"));
+    connect(m_copyAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotCopy()));
+    m_copyAction->setEnabled(false);
+
+    m_pasteAction = new QAction(QIcon(":/editpaste.png"),
+                               tr("&Paste"), this);
+    connect(m_pasteAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotPaste()));
+    m_pasteAction->setEnabled(false);
 
     m_deleteAction = new QAction(QIcon(":/editdelete.png"),
                                  tr("&Delete"), this);
@@ -189,6 +199,13 @@ void ShowManager::initActions()
     connect(m_colorAction, SIGNAL(triggered(bool)),
            this, SLOT(slotChangeColor()));
     m_colorAction->setEnabled(false);
+
+    m_snapGridAction = new QAction(QIcon(":/grid.png"),
+                                   tr("Snap to &Grid"), this);
+    m_snapGridAction->setShortcut(QKeySequence("CTRL+G"));
+    m_snapGridAction->setCheckable(true);
+    connect(m_snapGridAction, SIGNAL(triggered(bool)),
+           this, SLOT(slotToggleSnapToGrid(bool)));
 
     m_stopAction = new QAction(QIcon(":/player_stop.png"),
                                  tr("St&op"), this);
@@ -212,7 +229,8 @@ void ShowManager::initToolbar()
     layout()->addWidget(m_toolbar);
     m_toolbar->addAction(m_addShowAction);
     m_showsCombo = new QComboBox();
-    m_showsCombo->setFixedWidth(200);
+    m_showsCombo->setFixedWidth(250);
+    m_showsCombo->setMaxVisibleItems(30);
     connect(m_showsCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(slotShowsComboChanged(int)));
     m_toolbar->addWidget(m_showsCombo);
@@ -223,17 +241,19 @@ void ShowManager::initToolbar()
     m_toolbar->addAction(m_addAudioAction);
 
     m_toolbar->addSeparator();
-    m_toolbar->addAction(m_cloneAction);
+    m_toolbar->addAction(m_copyAction);
+    m_toolbar->addAction(m_pasteAction);
     m_toolbar->addAction(m_deleteAction);
     m_toolbar->addSeparator();
 
     m_toolbar->addAction(m_colorAction);
+    m_toolbar->addAction(m_snapGridAction);
     m_toolbar->addSeparator();
 
     // Time label and playback buttons
-    m_timeLabel = new QLabel("00:00:00:000");
+    m_timeLabel = new QLabel("00:00:00.000");
     m_timeLabel->setFixedWidth(150);
-    m_timeLabel->setAlignment(Qt::AlignRight | Qt::AlignBottom);
+    m_timeLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     QFont timeFont = QApplication::font();
     timeFont.setBold(true);
     timeFont.setPixelSize(20);
@@ -255,10 +275,10 @@ void ShowManager::initToolbar()
 
     m_timeDivisionCombo = new QComboBox();
     m_timeDivisionCombo->setFixedWidth(100);
-    m_timeDivisionCombo->addItem(tr("Time"));
-    m_timeDivisionCombo->addItem("BPM 4/4");
-    m_timeDivisionCombo->addItem("BPM 3/4");
-    m_timeDivisionCombo->addItem("BPM 2/4");
+    m_timeDivisionCombo->addItem(tr("Time"), SceneHeaderItem::Time);
+    m_timeDivisionCombo->addItem("BPM 4/4", SceneHeaderItem::BPM_4_4);
+    m_timeDivisionCombo->addItem("BPM 3/4", SceneHeaderItem::BPM_3_4);
+    m_timeDivisionCombo->addItem("BPM 2/4", SceneHeaderItem::BPM_2_4);
     m_toolbar->addWidget(m_timeDivisionCombo);
     connect(m_timeDivisionCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(slotTimeDivisionTypeChanged(int)));
@@ -280,19 +300,20 @@ void ShowManager::initToolbar()
 void ShowManager::updateShowsCombo()
 {
     int newIndex = 0;
+
+    // protect poor Show Manager from drawing all the shows
+    disconnect(m_showsCombo, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(slotShowsComboChanged(int)));
+
     m_showsCombo->clear();
-    foreach (Function* function, m_doc->functions())
+    foreach (Function* f, m_doc->functionsByType(Function::Show))
     {
-        if (function->type() == Function::Show)
-        {
-            m_showsCombo->addItem(function->name(), QVariant(function->id()));
-            if (m_show != NULL && m_show->id() != function->id())
-                newIndex++;
-        }
+        m_showsCombo->addItem(f->name(), QVariant(f->id()));
+        if (m_show != NULL && m_show->id() != f->id())
+            newIndex++;
     }
     if (m_showsCombo->count() > 0)
     {
-        m_showsCombo->setCurrentIndex(newIndex);
         m_addTrackAction->setEnabled(true);
     }
     else
@@ -301,16 +322,37 @@ void ShowManager::updateShowsCombo()
         m_addSequenceAction->setEnabled(false);
         m_addAudioAction->setEnabled(false);
     }
+
     if (m_show == NULL || m_show->getTracksCount() == 0)
+    {
         m_deleteAction->setEnabled(false);
+        m_pasteAction->setEnabled(false);
+    }
     else
+    {
+        if (m_doc->clipboard()->hasFunction())
+            m_pasteAction->setEnabled(true);
         m_deleteAction->setEnabled(true);
+    }
+
+    connect(m_showsCombo, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(slotShowsComboChanged(int)));
+
+    if (m_selectedShowIndex < 0 || m_selectedShowIndex >= m_showsCombo->count())
+        m_selectedShowIndex = 0;
+
+    m_showsCombo->setCurrentIndex(m_selectedShowIndex);
+    updateMultiTrackView();
 }
 
 void ShowManager::slotShowsComboChanged(int idx)
 {
     qDebug() << Q_FUNC_INFO << "Idx: " << idx;
-    updateMultiTrackView();
+    if (m_selectedShowIndex != idx)
+    {
+        m_selectedShowIndex = idx;
+        updateMultiTrackView();
+    }
 }
 
 void ShowManager::showSceneEditor(Scene *scene)
@@ -319,9 +361,13 @@ void ShowManager::showSceneEditor(Scene *scene)
     {
         emit functionManagerActive(false);
         m_splitter->widget(1)->layout()->removeWidget(m_scene_editor);
+        m_splitter->widget(1)->hide();
         m_scene_editor->deleteLater();
         m_scene_editor = NULL;
     }
+
+    if (scene == NULL)
+        return;
 
     if (this->isVisible())
     {
@@ -361,6 +407,9 @@ void ShowManager::showSequenceEditor(Chaser *chaser)
             /** Signal from scene editor to chaser editor. When a fixture value is changed, update the selected chaser step */
             connect(m_scene_editor, SIGNAL(fixtureValueChanged(SceneValue)),
                     m_sequence_editor, SLOT(slotUpdateCurrentStep(SceneValue)));
+            connect(m_sequence_editor, SIGNAL(stepSelectionChanged(int)),
+                    this, SLOT(slotStepSelectionChanged(int)));
+
             m_vsplitter->widget(1)->show();
             m_sequence_editor->show();
         }
@@ -380,6 +429,8 @@ void ShowManager::slotAddShow()
                                              f->name(), &ok);
         if (ok && !text.isEmpty())
             m_show->setName(text);
+        // modify the new selected Show index
+        m_selectedShowIndex = m_showsCombo->count();
         updateShowsCombo();
     }
 }
@@ -422,6 +473,7 @@ void ShowManager::slotAddTrack()
         m_addAudioAction->setEnabled(true);
         m_showview->activateTrack(newTrack);
         m_deleteAction->setEnabled(true);
+        m_showview->updateViewSize();
     }
 }
 
@@ -514,7 +566,7 @@ void ShowManager::slotAddAudio()
 
 }
 
-void ShowManager::slotClone()
+void ShowManager::slotCopy()
 {
     quint32 fid = Function::invalidId();
     AudioItem *audItem = NULL;
@@ -534,29 +586,75 @@ void ShowManager::slotClone()
         Function* function = m_doc->function(fid);
         Q_ASSERT(function != NULL);
 
-        /* Attempt to create a copy of the function to Doc */
-        Function* copy = function->createCopy(m_doc);
-        if (copy != NULL)
+        m_doc->clipboard()->copyContent(m_show->id(), function);
+        m_pasteAction->setEnabled(true);
+    }
+}
+
+void ShowManager::slotPaste()
+{
+    if (m_doc->clipboard()->hasFunction() == false)
+        return;
+
+    if (m_scene == NULL) // @todo: here I should eventually create a new track...
+        return;
+
+    // Get the Function copy and add it to Doc
+    Function* copy = m_doc->clipboard()->getFunction();
+    quint32 copyDuration = 0;
+    if (copy->type() == Function::Chaser)
+        copyDuration = (qobject_cast<Chaser*>(copy))->getDuration();
+    else if (copy->type() == Function::Audio)
+        copyDuration = (qobject_cast<Audio*>(copy))->getDuration();
+
+    // Overlapping check
+    if (checkOverlapping(m_showview->getTimeFromCursor(), copyDuration) == true)
+    {
+        QMessageBox::warning(this, tr("Paste error"), tr("Overlapping paste not allowed. Operation cancelled."));
+        return;
+    }
+
+    Track *track = m_show->getTrackFromSceneID(m_scene->id());
+    //qDebug() << "Check overlap... cursor time:" << cursorTime << "msec";
+
+
+    if (copy != NULL)
+    {
+        if (copy->type() == Function::Chaser)
         {
-            copy->setName(tr("Copy of %1").arg(function->name()));
-            Track *track = m_show->getTrackFromSceneID(m_scene->id());
-            if (seqItem != NULL)
+            Chaser *chaser = qobject_cast<Chaser*>(copy);
+            // Verify the Chaser copy steps against the current Scene
+            foreach(ChaserStep cs, chaser->steps())
             {
-                Chaser *chaser = qobject_cast<Chaser*>(copy);
-                // Invalidate start time so the sequence will be cloned at the cursor position
-                chaser->setStartTime(UINT_MAX);
-                track->addFunctionID(chaser->id());
-                m_showview->addSequence(chaser);
+                foreach(SceneValue scv, cs.values)
+                {
+                    if (m_scene->checkValue(scv) == false)
+                    {
+                        QMessageBox::warning(this, tr("Paste error"), tr("Trying to paste on an incompatible Scene. Operation cancelled."));
+                        return;
+                    }
+                }
             }
 
-            if (audItem != NULL)
-            {
-                Audio *audio = qobject_cast<Audio*>(copy);
-                // Invalidate start time so the sequence will be cloned at the cursor position
-                audio->setStartTime(UINT_MAX);
-                track->addFunctionID(audio->id());
-                m_showview->addAudio(audio);
-            }
+            // Invalidate start time so the sequence will be pasted at the cursor position
+            chaser->setStartTime(UINT_MAX);
+            // Reset the Scene ID to bind to the correct Scene
+            chaser->enableSequenceMode(m_scene->id());
+            if (m_doc->addFunction(copy) == false)
+                return;
+            track->addFunctionID(chaser->id());
+            m_showview->addSequence(chaser);
+        }
+
+        if (copy->type() == Function::Audio)
+        {
+            Audio *audio = qobject_cast<Audio*>(copy);
+            // Invalidate start time so the sequence will be pasted at the cursor position
+            audio->setStartTime(UINT_MAX);
+            if (m_doc->addFunction(copy) == false)
+                return;
+            track->addFunctionID(audio->id());
+            m_showview->addAudio(audio);
         }
     }
 }
@@ -578,34 +676,14 @@ void ShowManager::slotDelete()
             if (currTrack != NULL)
                 currTrack->removeFunctionID(deleteID);
         }
-
-        m_doc->deleteFunction(deleteID);
-/*
-        if (m_sequence_editor != NULL)
-        {
-            m_vsplitter->widget(1)->layout()->removeWidget(m_sequence_editor);
-            m_sequence_editor->deleteLater();
-            m_sequence_editor = NULL;
-        }
-
         else
         {
-            foreach(Track *track, m_show->tracks())
-            {
-                m_scene = qobject_cast<Scene*>(m_doc->function(track->getSceneID()));
-                if (m_scene == NULL)
-                {
-                    qDebug() << Q_FUNC_INFO << "Invalid scene !";
-                    continue;
-                }
-                Track *firstTrack = m_show->getTrackFromSceneID(m_scene->id());
-                m_showview->activateTrack(firstTrack);
-                showSceneEditor(m_scene);
-                m_deleteAction->setEnabled(true);
-                break;
-            }
+            m_show->removeTrack(deleteID);
+            m_doc->setModified();
+            updateMultiTrackView();
         }
-*/
+
+        //m_doc->deleteFunction(deleteID);
     }
 }
 
@@ -626,16 +704,25 @@ void ShowManager::slotStartPlayback()
 
 void ShowManager::slotTimeDivisionTypeChanged(int idx)
 {
-    m_showview->setHeaderType(idx);
-    if (idx > 0)
-        m_bpmField->setEnabled(true);
-    else
-        m_bpmField->setEnabled(false);
+    QVariant var = m_timeDivisionCombo->itemData(idx);
+    if (var.isValid())
+    {
+        m_showview->setHeaderType((SceneHeaderItem::TimeDivision)var.toInt());
+        if (idx > 0)
+            m_bpmField->setEnabled(true);
+        else
+            m_bpmField->setEnabled(false);
+        if (m_show != NULL)
+            m_show->setTimeDivision(SceneHeaderItem::tempoToString((SceneHeaderItem::TimeDivision)var.toInt()), m_bpmField->value());
+    }
 }
 
 void ShowManager::slotBPMValueChanged(int value)
 {
     m_showview->setBPMValue(value);
+    QVariant var = m_timeDivisionCombo->itemData(m_timeDivisionCombo->currentIndex());
+    if (var.isValid() && m_show != NULL)
+        m_show->setTimeDivision(SceneHeaderItem::tempoToString((SceneHeaderItem::TimeDivision)var.toInt()), m_bpmField->value());
 }
 
 void ShowManager::slotViewClicked(QMouseEvent *event)
@@ -648,19 +735,20 @@ void ShowManager::slotViewClicked(QMouseEvent *event)
         m_sequence_editor = NULL;
     }
     m_vsplitter->widget(1)->hide();
-    m_cloneAction->setEnabled(false);
+    m_copyAction->setEnabled(false);
+    m_colorAction->setEnabled(false);
     if (m_show != NULL && m_show->getTracksCount() == 0)
         m_deleteAction->setEnabled(false);
 }
 
 void ShowManager::slotSequenceMoved(SequenceItem *item)
 {
-    qDebug() << Q_FUNC_INFO << "Sequence moved.........";
+    qDebug() << Q_FUNC_INFO << "Sequence moved...";
     Chaser *chaser = item->getChaser();
     if (chaser == NULL)
         return;
     /* Check if scene has changed */
-    quint32 newSceneID = chaser->getBoundedSceneID();
+    quint32 newSceneID = chaser->getBoundSceneID();
     if (newSceneID != m_scene->id())
     {
         Function *f = m_doc->function(newSceneID);
@@ -673,9 +761,10 @@ void ShowManager::slotSequenceMoved(SequenceItem *item)
         m_showview->activateTrack(track);
     }
     showSequenceEditor(chaser);
-    m_cloneAction->setEnabled(true);
+    m_copyAction->setEnabled(true);
     m_deleteAction->setEnabled(true);
     m_colorAction->setEnabled(true);
+    m_doc->setModified();
 }
 
 void ShowManager::slotAudioMoved(AudioItem *item)
@@ -684,10 +773,28 @@ void ShowManager::slotAudioMoved(AudioItem *item)
     Audio *audio = item->getAudio();
     if (audio == NULL)
         return;
+    // reverse lookup of Track from an Audio item
+    foreach(Track *track, m_show->tracks())
+    {
+        foreach(quint32 fid, track->functionsID())
+        {
+            if (fid == audio->id())
+            {
+                m_showview->activateTrack(track);
+                Function *f = m_doc->function(track->getSceneID());
+                if (f == NULL)
+                    return;
+                m_scene = qobject_cast<Scene*>(f);
+                showSceneEditor(NULL);
+            }
+        }
+    }
+
     showSequenceEditor(NULL);
-    m_cloneAction->setEnabled(true);
+    m_copyAction->setEnabled(true);
     m_deleteAction->setEnabled(true);
     m_colorAction->setEnabled(true);
+    m_doc->setModified();
 }
 
 void ShowManager::slotupdateTimeAndCursor(quint32 msec_time)
@@ -711,6 +818,7 @@ void ShowManager::slotTrackClicked(Track *track)
         return;
     m_scene = qobject_cast<Scene*>(f);
     showSceneEditor(m_scene);
+    m_deleteAction->setEnabled(true);
 }
 
 void ShowManager::slotChangeColor()
@@ -737,10 +845,24 @@ void ShowManager::slotChangeColor()
     }
 }
 
+void ShowManager::slotToggleSnapToGrid(bool enable)
+{
+    m_showview->setSnapToGrid(enable);
+}
+
 void ShowManager::slotChangeSize(int width, int height)
 {
     if (m_showview != NULL)
         m_showview->setViewSize(width, height);
+}
+
+void ShowManager::slotStepSelectionChanged(int index)
+{
+    SequenceItem *seqItem = m_showview->getSelectedSequence();
+    if (seqItem != NULL)
+    {
+        seqItem->setSelectedStep(index);
+    }
 }
 
 void ShowManager::slotDocClearing()
@@ -770,7 +892,9 @@ void ShowManager::slotDocClearing()
     m_addTrackAction->setEnabled(false);
     m_addSequenceAction->setEnabled(false);
     m_addAudioAction->setEnabled(false);
+    m_copyAction->setEnabled(false);
     m_deleteAction->setEnabled(false);
+    m_colorAction->setEnabled(false);
 }
 
 void ShowManager::slotDocLoaded()
@@ -799,16 +923,25 @@ void ShowManager::slotFunctionChanged(quint32 id)
 
 void ShowManager::slotFunctionRemoved(quint32 id)
 {
-    /** If the deleted function was a Chaser, find and delete all the
-     *  associated Sequences */
-    foreach (Function* function, m_doc->functions())
+    /* Here we handle only the cases where 'id' */
+    /* is a Scene (Track) or a Chaser (Sequence) */
+    foreach (Function *function, m_doc->functionsByType(Function::Show))
     {
-        if (function->type() == Function::Chaser)
+        Show *show = qobject_cast<Show*>(function);
+        foreach(Track *track, show->tracks())
         {
-            Chaser *chaser = qobject_cast<Chaser*>(function);
-            if (chaser->isSequence() && chaser->getBoundedSceneID() == id)
+            // if 'id' is a track, remove all the functions associated to it
+            if (track->id() == id)
             {
-                m_doc->deleteFunction(chaser->id());
+                foreach (quint32 fid, track->functionsID())
+                {
+                    track->removeFunctionID(fid);
+                }
+            }
+            // if 'id' is a sequence or an audio item then remove it
+            else
+            {
+                track->removeFunctionID(id);
             }
         }
     }
@@ -818,7 +951,8 @@ void ShowManager::slotFunctionRemoved(quint32 id)
     if (m_scene != NULL && m_scene->id() == id)
         m_scene = NULL;
 
-    updateMultiTrackView();
+    if (isVisible())
+        updateMultiTrackView();
 }
 
 void ShowManager::updateMultiTrackView()
@@ -839,6 +973,16 @@ void ShowManager::updateMultiTrackView()
         return;
     }
 
+    // disconnect BPM field and update the view manually, to
+    // prevent m_show time division override
+    disconnect(m_bpmField, SIGNAL(valueChanged(int)), this, SLOT(slotBPMValueChanged(int)));
+
+    m_bpmField->setValue(m_show->getTimeDivisionBPM());
+    m_showview->setBPMValue(m_show->getTimeDivisionBPM());
+    int tIdx = m_timeDivisionCombo->findData(QVariant(SceneHeaderItem::stringToTempo(m_show->getTimeDivisionType())));
+    m_timeDivisionCombo->setCurrentIndex(tIdx);
+
+    connect(m_bpmField, SIGNAL(valueChanged(int)), this, SLOT(slotBPMValueChanged(int)));
     connect(m_show, SIGNAL(timeChanged(quint32)), this, SLOT(slotupdateTimeAndCursor(quint32)));
     connect(m_show, SIGNAL(showFinished()), this, SLOT(slotStopPlayback()));
 
@@ -888,6 +1032,43 @@ void ShowManager::updateMultiTrackView()
         m_showview->activateTrack(firstTrack);
         showSceneEditor(m_scene);
     }
+    m_showview->updateViewSize();
+}
+
+bool ShowManager::checkOverlapping(quint32 startTime, quint32 duration)
+{
+    Track *track = m_show->getTrackFromSceneID(m_scene->id());
+
+    foreach(quint32 fid, track->functionsID())
+    {
+        Function *func = m_doc->function(fid);
+        if (func != NULL)
+        {
+            if (func->type() == Function::Chaser)
+            {
+                Chaser *chaser = qobject_cast<Chaser*>(func);
+                quint32 chsST = chaser->getStartTime();
+                //qDebug() << "Chaser ID:" << chaser->id() << ", start time:" << chsST << ", duration:" << chaser->getDuration();
+                if ((startTime >= chsST && startTime <= chsST + chaser->getDuration()) ||
+                    (chsST >= startTime && chsST <= startTime + duration))
+                {
+                    return true;
+                }
+            }
+            else if (func->type() == Function::Audio)
+            {
+                Audio *audio = qobject_cast<Audio*>(func);
+                quint32 audST = audio->getStartTime();
+                if ((startTime >= audST && startTime <= audST + audio->getDuration()) ||
+                    (audST >= startTime && audST <= startTime + duration))
+                {
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false;
 }
 
 void ShowManager::showEvent(QShowEvent* ev)

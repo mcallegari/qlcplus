@@ -1,9 +1,59 @@
+qlcplus (4.3.3) stable; urgency=low
+
+  * NEW: Added a window to exclude the desired fixture channels from fade transitions
+  * NEW: Added global clipboard to copy & paste steps between Chasers. Show manager allows also to copy sequence and audio items between different Shows
+  * NEW: Added status "LED" to Virtual Console buttons
+  * NEW: It is now possible to set Virtual Console widgets default size and Speed Dial default value
+  * NEW: Added Click And Go functionality for CMY fixtures
+  * NEW: Added list of recent project files (long press open icon to activate it)
+  * NEW: Added "Snap to Grid" functionality in Show manager
+  * NEW: It is now possible to add notes to Chaser steps (either from Chaser Editor or Virtual Console Cue List)
+  * NEW: Added "Align to cursor" option to Sequences and Audio item in Show Manager
+  * NEW: Show time position when dragging a Show Manager object
+  * Fixed crash when changing a fixture address
+  * Fixed crash on Show Editor when displaying a deleted sequence
+  * Fixed Show Manager playback crash after deleting an audio track
+  * Fixed enable/disable all channels of Scene Editor "all channels view" mode
+  * Fixed Virtual Console buttons conflict between flash and manual on/off (thanks to Jano Svitok)
+  * Added total Show duration in Show Editor
+  * Added fixtures: American DJ 64B LED PRO, American DJ Profile Panel RGB
+  * Added fixture: Chauvet Gyser RGB (thanks to George Qualley)
+  * Added fixture: Martin MAC250 Entour (thanks to Jannik Dam Kehlet)
+  * Added fixtures: American DJ Accu UFO, American DJ Double Phase, American DJ FREQ 16 Strobe, American DJ Quad Phase, American DJ Revo4 256 CH, Elation EVC MH LED (thanks to David Kuder)
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 30 Apr 2013 12:12:42 +0200
+
 qlcplus (4.3.2) stable; urgency=low
 
+  * NEW: Added "Hold" parameter to Chaser steps, between FadeIn and FadeOut
+  * NEW: Added address tool to quickly preview a DIP switch configuration
+  * NEW: OSC plugin can now send data. Either output or feedback
+  * NEW: XY Pad Y-Axis inverted appearance option
+  * NEW: XY Pad now sends feedbacks
+  * Fade is no more applied to Pan, Tilt and Speed channels
+  * Fixture address overlapping is no more permitted
   * Fixed copy of a Show. Now it copies also all the contents
   * Fixed crash when clicking on a Chaser step when Scene Editor "all channels" view is active
+  * Fixed crash happening on Show playback
+  * Improved Show Manager opening speed
+  * Sequence items in Show Manager now highlight the selected Sequence step
+  * Fixed Show Manager vertical resize when adding a big number of tracks
+  * EFX improvememnts. Direction parameter is now taken into account (thanks to Jano Svitok)
+  * Virtual Console Button icons improvements (thanks to Jano Svitok)
+  * Virtual Console Frame new options: show/hide header, title font/color, set title with double click
+  * Improved binary address display in fixture information panel
+  * Added fixture: Eurolite LED Z-200 Beam effect (thank to Heiko Fanieng)
+  * Added fixtures: American DJ Vizi Beam 5R, Martin MAC 101 (thanks to Daniel Sevelt)
+  * Added fixture: Lanta Orion Link V2 (thanks to OddSocks)
+  * Added fixtures: Rosco I-Cue, Ledj Colour Storm Quad, Ledj Alu Quad PAR64 (thanks to Michael Clements)
+  * Added fixtures: American DJ Hypnotic RGB, Blizzard Lighting Puck Fab5, Blizzard Lighting Snowball (thanks to James Elliott)
+  * Added fixtures: Generic RGB, Robe Scan 575 XT, Robe Wash 575 XT, Robe Robin 600 LED Wash, Robe Robin 600E Beam, Robe Robin 600E Spot, Robe Robin 600E Wash (thanks to NiKoyes)
+  * Added fixture: High End Systems Studio Command 1200 (thanks to Tony Schuite)
+  * Added fixtures: High End Systems Technobeam, High End Systems Trackspot, High End Systems Xspot Xtreme, ReelEfx DF-50 (thanks to Louis Gutenschwager)
+  * Added fixtures: Mac Mah Mac Follow 1200, Proel Tarkus 575 Spot, Showtec Sunstrip Active (thanks to Julien Poilvilain)
+  * Improved fixture: Elation Platinum Spot 5R (thanks to George Qualley)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Mon, 15 Apr 2013 12:12:42 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Wed, 10 Apr 2013 12:12:42 +0200
 
 qlcplus (4.3.1) stable; urgency=low
 

@@ -61,6 +61,114 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
     m_sizeYSpin->setValue(properties.size().height());
     fillTapModifierCombo();
 
+    /* Widgets page */
+    QSettings settings;
+    // ********************* BUTTON ****************************
+    QVariant var = settings.value(SETTINGS_BUTTON_SIZE);
+    if (var.isValid() == true)
+    {
+        QSize size = var.toSize();
+        m_buttonWspin->setValue(size.width());
+        m_buttonHspin->setValue(size.height());
+    }
+    else
+    {
+        m_buttonWspin->setValue(50);
+        m_buttonHspin->setValue(50);
+    }
+    // ********************* BUTTON STATUS *********************
+    var = settings.value(SETTINGS_BUTTON_STATUSLED);
+    if (var.isValid() == true && var.toBool() == true)
+            m_buttonStatusLEDRadio->setChecked(true);
+    // ********************* SLIDER ****************************
+    var = settings.value(SETTINGS_SLIDER_SIZE);
+    if (var.isValid() == true)
+    {
+        QSize size = var.toSize();
+        m_sliderWspin->setValue(size.width());
+        m_sliderHspin->setValue(size.height());
+    }
+    else
+    {
+        m_sliderWspin->setValue(60);
+        m_sliderHspin->setValue(200);
+    }
+    // ********************* SPEED DIAL ************************
+    var = settings.value(SETTINGS_SPEEDDIAL_SIZE);
+    if (var.isValid() == true)
+    {
+        QSize size = var.toSize();
+        m_speedWspin->setValue(size.width());
+        m_speedHspin->setValue(size.height());
+    }
+    else
+    {
+        m_speedWspin->setValue(200);
+        m_speedHspin->setValue(175);
+    }
+    // ********************* SPEED DIAL VALUE ******************
+    var = settings.value(SETTINGS_SPEEDDIAL_VALUE);
+    if (var.isValid() == true)
+        m_speedValueEdit->setText(Function::speedToString(var.toUInt()));
+    else
+        m_speedValueEdit->setText(Function::speedToString(0));
+
+    connect(m_speedValueEdit, SIGNAL(editingFinished()),
+            this, SLOT(slotSpeedDialConfirmed()));
+
+    // ********************* XY PAD ****************************
+    var = settings.value(SETTINGS_XYPAD_SIZE);
+    if (var.isValid() == true)
+    {
+        QSize size = var.toSize();
+        m_xypadWspin->setValue(size.width());
+        m_xypadHspin->setValue(size.height());
+    }
+    else
+    {
+        m_xypadWspin->setValue(200);
+        m_xypadHspin->setValue(200);
+    }
+    // ********************* CUE LIST **************************
+    var = settings.value(SETTINGS_CUELIST_SIZE);
+    if (var.isValid() == true)
+    {
+        QSize size = var.toSize();
+        m_cuelistWspin->setValue(size.width());
+        m_cuelistHspin->setValue(size.height());
+    }
+    else
+    {
+        m_cuelistWspin->setValue(200);
+        m_cuelistHspin->setValue(200);
+    }
+    // ************************ FRAME **************************
+    var = settings.value(SETTINGS_FRAME_SIZE);
+    if (var.isValid() == true)
+    {
+        QSize size = var.toSize();
+        m_frameWspin->setValue(size.width());
+        m_frameHspin->setValue(size.height());
+    }
+    else
+    {
+        m_frameWspin->setValue(200);
+        m_frameHspin->setValue(200);
+    }
+    // ********************* SOLO FRAME ************************
+    var = settings.value(SETTINGS_SOLOFRAME_SIZE);
+    if (var.isValid() == true)
+    {
+        QSize size = var.toSize();
+        m_soloWspin->setValue(size.width());
+        m_soloHspin->setValue(size.height());
+    }
+    else
+    {
+        m_soloWspin->setValue(200);
+        m_soloHspin->setValue(200);
+    }
+
     /* Grand Master page */
     switch (properties.grandMasterChannelMode())
     {
@@ -105,6 +213,54 @@ VCPropertiesEditor::~VCPropertiesEditor()
 VCProperties VCPropertiesEditor::properties() const
 {
     return m_properties;
+}
+
+QSize VCPropertiesEditor::buttonSize()
+{
+    return QSize(m_buttonWspin->value(), m_buttonHspin->value());
+}
+
+bool VCPropertiesEditor::buttonStatusLED()
+{
+    if (m_buttonStatusLEDRadio->isChecked())
+        return true;
+    else
+        return false;
+}
+
+QSize VCPropertiesEditor::sliderSize()
+{
+    return QSize(m_sliderWspin->value(), m_sliderHspin->value());
+}
+
+QSize VCPropertiesEditor::speedDialSize()
+{
+    return QSize(m_speedWspin->value(), m_speedHspin->value());
+}
+
+uint VCPropertiesEditor::speedDialValue()
+{
+    return Function::stringToSpeed(m_speedValueEdit->text());
+}
+
+QSize VCPropertiesEditor::xypadSize()
+{
+    return QSize(m_xypadWspin->value(), m_xypadHspin->value());
+}
+
+QSize VCPropertiesEditor::cuelistSize()
+{
+    return QSize(m_cuelistWspin->value(), m_cuelistHspin->value());
+}
+
+QSize VCPropertiesEditor::frameSize()
+{
+    return QSize(m_frameWspin->value(), m_frameHspin->value());
+}
+
+QSize VCPropertiesEditor::soloFrameSize()
+{
+    return QSize(m_soloWspin->value(), m_soloHspin->value());
 }
 
 /*****************************************************************************
@@ -153,6 +309,14 @@ void VCPropertiesEditor::slotSizeYChanged(int value)
 void VCPropertiesEditor::slotTapModifierActivated(int index)
 {
     m_properties.setTapModifier(Qt::KeyboardModifier(m_tapModifierCombo->itemData(index).toInt()));
+}
+
+void VCPropertiesEditor::slotSpeedDialConfirmed()
+{
+    if (m_speedValueEdit->text().contains(".") == false)
+    {
+        m_speedValueEdit->setText(Function::speedToString(m_speedValueEdit->text().toUInt()));
+    }
 }
 
 /*****************************************************************************

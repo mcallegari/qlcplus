@@ -82,6 +82,7 @@ HEADERS += bus.h \
            outputmap.h \
            outputpatch.h \
            palettegenerator.h \
+           qlcclipboard.h \
            qlcpoint.h \
            rgbalgorithm.h \
            rgbmatrix.h \
@@ -161,6 +162,7 @@ SOURCES += bus.cpp \
            outputmap.cpp \
            outputpatch.cpp \
            palettegenerator.cpp \
+           qlcclipboard.cpp \
            qlcpoint.cpp \
            rgbalgorithm.cpp \
            rgbmatrix.cpp \

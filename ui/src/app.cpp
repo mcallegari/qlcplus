@@ -20,6 +20,7 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
+#include <QToolButton>
 #include <QtCore>
 #include <QtGui>
 #include <QtXml>
@@ -31,6 +32,7 @@
 #include "dmxdumpfactory.h"
 #include "showmanager.h"
 #include "mastertimer.h"
+#include "addresstool.h"
 #include "simpledesk.h"
 #include "docbrowser.h"
 #include "outputmap.h"
@@ -48,7 +50,10 @@
 
 #define SETTINGS_GEOMETRY "workspace/geometry"
 #define SETTINGS_WORKINGPATH "workspace/workingpath"
+#define SETTINGS_RECENTFILE "workspace/recent"
 #define KXMLQLCWorkspaceWindow "CurrentWindow"
+
+#define MAX_RECENT_FILES    10
 
 #define KModeTextOperate QObject::tr("Operate")
 #define KModeTextDesign QObject::tr("Design")
@@ -72,6 +77,7 @@ App::App()
 
     , m_modeToggleAction(NULL)
     , m_controlMonitorAction(NULL)
+    , m_addressToolAction(NULL)
     , m_controlFullScreenAction(NULL)
     , m_controlBlackoutAction(NULL)
     , m_controlPanicAction(NULL)
@@ -79,6 +85,7 @@ App::App()
 
     , m_helpIndexAction(NULL)
     , m_helpAboutAction(NULL)
+    , m_fileOpenMenu(NULL)
 
     , m_toolbar(NULL)
 {
@@ -497,6 +504,9 @@ void App::initActions()
     m_controlMonitorAction->setShortcut(QKeySequence(tr("CTRL+M", "Control|Monitor")));
     connect(m_controlMonitorAction, SIGNAL(triggered(bool)), this, SLOT(slotControlMonitor()));
 
+    m_addressToolAction = new QAction(QIcon(":/diptool.png"), tr("Address Tool"), this);
+    connect(m_addressToolAction, SIGNAL(triggered()), this, SLOT(slotAddressTool()));
+
     m_controlBlackoutAction = new QAction(QIcon(":/blackout.png"), tr("Toggle &Blackout"), this);
     m_controlBlackoutAction->setCheckable(true);
     connect(m_controlBlackoutAction, SIGNAL(triggered(bool)), this, SLOT(slotControlBlackout()));
@@ -538,6 +548,7 @@ void App::initToolBar()
     m_toolbar->addAction(m_fileSaveAsAction);
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_controlMonitorAction);
+    m_toolbar->addAction(m_addressToolAction);
     m_toolbar->addAction(m_controlFullScreenAction);
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_helpIndexAction);
@@ -554,6 +565,11 @@ void App::initToolBar()
     m_toolbar->addAction(m_controlBlackoutAction);
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_modeToggleAction);
+
+    QToolButton* btn = qobject_cast<QToolButton*> (m_toolbar->widgetForAction(m_fileOpenAction));
+    Q_ASSERT(btn != NULL);
+    btn->setPopupMode(QToolButton::DelayedPopup);
+    updateFileOpenMenu("");
 }
 
 /*****************************************************************************
@@ -599,6 +615,57 @@ bool App::handleFileError(QFile::FileError error)
     QMessageBox::warning(this, tr("File error"), msg);
 
     return false;
+}
+
+void App::updateFileOpenMenu(QString addRecent)
+{
+    QSettings settings;
+    QStringList menuRecentList;
+
+    if (m_fileOpenMenu == NULL)
+    {
+        m_fileOpenMenu = new QMenu(this);
+        QString style = "QMenu { background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #B9D9E8, stop:1 #A4C0CE);"
+                        "border: 1px solid black; font:bold; }"
+                        "QMenu::item { background-color: transparent; padding: 5px 10px 5px 10px; border: 1px solid black; }"
+                        "QMenu::item:selected { background-color: #2D8CFF; }";
+        m_fileOpenMenu->setStyleSheet(style);
+        connect(m_fileOpenMenu, SIGNAL(triggered(QAction*)),
+                this, SLOT(slotRecentFileClicked(QAction*)));
+    }
+
+    foreach (QAction* a, m_fileOpenMenu->actions())
+    {
+        menuRecentList.append(a->text());
+        m_fileOpenMenu->removeAction(a);
+    }
+
+    if (addRecent.isEmpty() == false)
+    {
+        menuRecentList.removeAll(addRecent); // in case the string is already present, remove it...
+        menuRecentList.prepend(addRecent); // and add it to the top
+        for (int i = 0; i < menuRecentList.count(); i++)
+        {
+            settings.setValue(QString("%1%2").arg(SETTINGS_RECENTFILE).arg(i), menuRecentList.at(i));
+            /*QAction* a =*/ m_fileOpenMenu->addAction(menuRecentList.at(i));
+        }
+    }
+    else
+    {
+        for (int i = 0; i < MAX_RECENT_FILES; i++)
+        {
+            QVariant recent = settings.value(QString("%1%2").arg(SETTINGS_RECENTFILE).arg(i));
+            if (recent.isValid() == true)
+            {
+                menuRecentList.append(recent.toString());
+                m_fileOpenMenu->addAction(menuRecentList.at(i));
+            }
+        }
+    }
+
+    // Set the recent files menu to the file open action
+    if (menuRecentList.isEmpty() == false)
+        m_fileOpenAction->setMenu(m_fileOpenMenu);
 }
 
 bool App::slotFileNew()
@@ -723,6 +790,8 @@ QFile::FileError App::slotFileOpen()
     if (InputOutputManager::instance() != NULL)
         InputOutputManager::instance()->updateTree();
 
+    updateFileOpenMenu(fn);
+
     return error;
 }
 
@@ -785,6 +854,8 @@ QFile::FileError App::slotFileSaveAs()
     /* Save the document and set workspace name */
     QFile::FileError error = saveXML(fn);
     handleFileError(error);
+
+    updateFileOpenMenu(fn);
     return error;
 }
 
@@ -795,6 +866,12 @@ QFile::FileError App::slotFileSaveAs()
 void App::slotControlMonitor()
 {
     Monitor::createAndShow(this, m_doc);
+}
+
+void App::slotAddressTool()
+{
+    AddressTool at(this);
+    at.exec();
 }
 
 void App::slotControlBlackout()
@@ -823,10 +900,8 @@ void App::slotRunningFunctionsChanged()
 void App::slotDumpDmxIntoFunction()
 {
     DmxDumpFactory ddf(m_doc, m_dumpProperties, this);
-    if (ddf.exec() == QDialog::Accepted)
-    {
-
-    }
+    if (ddf.exec() != QDialog::Accepted)
+        return;
 }
 
 void App::slotControlFullScreen()
@@ -878,6 +953,72 @@ void App::slotHelpAbout()
 {
     AboutBox ab(this);
     ab.exec();
+}
+
+void App::slotRecentFileClicked(QAction *recent)
+{
+    if (recent == NULL)
+        return;
+
+    QString recentAbsPath = recent->text();
+    QFile testFile(recentAbsPath);
+    if (testFile.exists() == false)
+    {
+        QMessageBox::critical(this, tr("Error"),
+                              tr("File not found !\nThe selected file has been moved or deleted."),
+                              QMessageBox::Close);
+        return;
+    }
+
+    /* Check that the user is aware of losing previous changes */
+    if (m_doc->isModified() == true)
+    {
+        QString msg(tr("Do you wish to save the current workspace?\n" \
+                       "Changes will be lost if you don't save them."));
+        int result = QMessageBox::warning(this, tr("Open Workspace"),
+                                          msg,
+                                          QMessageBox::Yes,
+                                          QMessageBox::No,
+                                          QMessageBox::Cancel);
+        if (result == QMessageBox::Yes)
+        {
+            /* Save first, but don't proceed unless it succeeded. */
+            QFile::FileError error = slotFileSaveAs();
+            if (handleFileError(error) == false)
+                return;
+        }
+        else if (result == QMessageBox::Cancel)
+        {
+            /* Second thoughts... Cancel loading. */
+            return;
+        }
+    }
+
+    m_workingDirectory = QFileInfo(recentAbsPath).absoluteDir();
+    QSettings settings;
+    settings.setValue(SETTINGS_WORKINGPATH, m_workingDirectory.absolutePath());
+
+    /* Clear existing document data */
+    clearDocument();
+
+    /* Set the workspace path before loading the new XML. In this way local files
+       can be loaded even if the workspace file has been moved */
+    m_doc->setWorkspacePath(QFileInfo(recentAbsPath).absolutePath());
+
+    /* Load the file */
+    QFile::FileError error = loadXML(recentAbsPath);
+    if (handleFileError(error) == true)
+        m_doc->resetModified();
+
+    /* Update these in any case, since they are at least emptied now as
+       a result of calling clearDocument() a few lines ago. */
+    if (FunctionManager::instance() != NULL)
+        FunctionManager::instance()->updateTree();
+    if (FixtureManager::instance() != NULL)
+        FixtureManager::instance()->updateView();
+    if (InputOutputManager::instance() != NULL)
+        InputOutputManager::instance()->updateTree();
+
 }
 
 /*****************************************************************************

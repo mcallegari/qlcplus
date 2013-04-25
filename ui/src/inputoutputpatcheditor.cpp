@@ -180,6 +180,7 @@ void InputOutputPatchEditor::fillMappingTree()
         quint32 outputId = 0;
         QStringList inputs = m_inputMap->pluginInputs(pluginName);
         QStringList outputs = m_outputMap->pluginOutputs(pluginName);
+        bool hasFeedback = m_outputMap->pluginSupportsFeedback(pluginName) || m_inputMap->pluginSupportsFeedback(pluginName);
 
         // 1st case: this plugin has no input or output
         if (inputs.length() == 0 && outputs.length() == 0)
@@ -222,7 +223,7 @@ void InputOutputPatchEditor::fillMappingTree()
                                 pitem->setCheckState(KMapColumnHasOutput, Qt::Unchecked);
                             pitem->setText(KMapColumnOutputLine, QString("%1").arg(outputId));
                             // add feedback
-                            if (pluginName == "MIDI")
+                            if (hasFeedback)
                             {
                                 if (m_currentFeedbackPluginName == pluginName && m_currentFeedback == outputId)
                                     pitem->setCheckState(KMapColumnHasFeedback, Qt::Checked);
@@ -253,7 +254,7 @@ void InputOutputPatchEditor::fillMappingTree()
                         else
                             pitem->setCheckState(KMapColumnHasOutput, Qt::Unchecked);
                         // add feedback
-                        if (pluginName == "MIDI")
+                        if (hasFeedback)
                         {
                             if (m_currentFeedbackPluginName == pluginName && m_currentFeedback == outputId)
                                 pitem->setCheckState(KMapColumnHasFeedback, Qt::Checked);

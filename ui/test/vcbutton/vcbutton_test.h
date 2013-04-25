@@ -42,7 +42,7 @@ private slots:
     void bgcolor();
     void fgcolor();
     void resetColors();
-    void icon();
+    void iconPath();
     void on();
     void keySequence();
     void copy();
@@ -53,6 +53,9 @@ private slots:
     void flash();
     void input();
     void paint();
+
+    // https://github.com/mcallegari/qlcplus/issues/116
+    void toggleAndFlash();
 
 private:
     Doc* m_doc;

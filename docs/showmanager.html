@@ -21,7 +21,104 @@ A typical use case are those gigs where bands play songs following a metronome a
 always to be the same, following the music.<br>
 Another case are visual entertainment shows, where dancers or singers follow some music and lights create
 the atmosphere at the right time.<br>
-<br>
+
+<H1>Controls</H1>
+<TABLE BORDER="1">
+ <TR>
+  <TD><IMG SRC="qrc:/show.png"/></TD>
+  <TD>Create a new <A HREF="concept.html#Show">Show</A>. A Show is represented as a multitrack
+  workspace where tracks, sequences and audio elements can be added</TD>
+ </TR>
+ <TR></TR>
+ <TR>
+  <TD><B>Shows list</B></TD>
+  <TD>This drop down box list the currently created Shows. Clicking on a Show will display it</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/scene.png"/></TD>
+  <TD>Create a new track. In QLC+ a track corresponds to a <A HREF="concept.html#Scene">Scene</A>.
+  A Show can virtually have an infinite number of tracks.</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/sequence.png"/></TD>
+  <TD>Create a new <A HREF="concept.html#Sequence">Sequence</A> item. A sequence is a special
+  <A HREF="concept.html#Chaser">Chaser</A> bound to a Scene. All the steps created in a sequence will
+  only act on the selected track's DMX channels</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/audio.png"/></TD>
+  <TD>Create a new <A HREF="concept.html#Audio">audio</A> item. An audio item simply represents
+  an audio file. Audio items can be added on any track, but if you intend to create a separate
+  track for it, just create an empty Scene track.<br>
+  <B>Note:</B> It is possible to display the waveform preview of an audio item just by right clicking it
+  and selecting the desired channels you want to display (Mono, left channel, right channel, stereo)</TD>
+ </TR>
+ <TR></TR>
+ <TR>
+  <TD><IMG SRC="qrc:/editcopy.png"/></TD>
+  <TD>Copy the currently selected item into QLC+ clipboard</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/editpaste.png"/></TD>
+  <TD>Paste QLC+ clipboard content at the cursor position. When performing this 
+  operation two checks are performed:
+    <UL>
+     <LI>Overlapping: checks if the item you're going to paste overlaps with an 
+     existing item in the selected track</LI>
+     <LI>Validity: In case you're pasting a Sequence, QLC+ will verify if the 
+     Sequence contents are compatible with the currently selected track</LI>
+  </TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/editdelete.png"/></TD>
+  <TD>Delete the currently selected item. This can be a sequence, an audio item or a track.
+  Note that deleting a track will delete also all its sequences/audio children.<br>
+  <B>Note: Show Manager will only perform a "visual removal" of functions. To permanently 
+  delete them, please use the <A HREF="functionmanager.html">Function Manager</A></B></TD>
+ </TR>
+ <TR></TR>
+ <TR>
+  <TD><IMG SRC="qrc:/color.png"/></TD>
+  <TD>Assign a custom color to the selected item</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/grid.png"/></TD>
+  <TD>Enable/disable the "Snap to grid" functionality. The view will be filled of vertical bars
+  corresponding to the header markers (time or BPM)<br>
+  Snapping to grid will correct your items dragging to the nearest reference bar</TD>
+ </TR>
+ <TR></TR>
+ <TR>
+  <TD><B>00:00:00.000</B></TD>
+  <TD>This field displays the cursor time position either if the playback is stopped or activated</TD>
+ </TR>
+ <TR></TR>
+ <TR>
+  <TD><IMG SRC="qrc:/player_play.png"/></TD>
+  <TD>Start the current Show playback</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/player_stop.png"/></TD>
+  <TD>Stop the current Show playback</TD>
+ </TR>
+ <TR></TR>
+ <TR>
+  <TD><B>Time markers</B></TD>
+  <TD>This drop down menu lets you to choose the desired time division to display for your Show.<br>
+  This can be either 'Time'. 'BPM 4/4', 'BPM 3/4' or 'BPM 2/2'</TD>
+ </TR>
+ <TR>
+  <TD><B>BPMs</B></TD>
+  <TD>When a BPM time division mode is selected, this field lets you decide the appropriate BPM
+  to set for you Show. This ranges from 20 to 240.<br>
+  This can be quite useful when dealing with electronic music or BPM synchronized shows</TD>
+ </TR>
+ 
+ 
+</TABLE>
+
+<H1>4 steps</H1>
+
 The Show Manager has been studied to be used quickly and easily. Basically with just 4 steps a complete
 <A HREF="concept.html#Show">Show</A> can be created:
 
@@ -32,8 +129,8 @@ and no items, ready to be filled.<br>
 A popup will appear asking the name to assign to the Show. It is possible to change the name afterward with the
 <A HREF="functionmanager.html">Function Manager</A>, using the <A HREF="showeditor.html">Show Editor</A> panel.
 
-<H3><LI>Add a Scene <IMG SRC="qrc:/scene.png"></LI></H3>
-In the Show Manager, a Scene corresponds to a track. When you add a Scene, a popup will ask you to select an existing
+<H3><LI>Add a track <IMG SRC="qrc:/scene.png"></LI></H3>
+In the Show Manager, a track corresponds to a Scene. When you add a track, a popup will ask you to select an existing
 Scene or to create a new one with a default name.<br>
 When done, a new track will be created. All the sequences created on this track
 will act only on the associated Scene, not affecting all the other tracks.<br>

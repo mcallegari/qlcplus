@@ -63,7 +63,7 @@ public:
      ************************************************************************/
 public:
     /** @reimpl */
-    Function* createCopy(Doc* doc);
+    Function* createCopy(Doc* doc, bool addToDoc = true);
 
     /** @reimpl */
     bool copyFrom(const Function* function);

@@ -140,7 +140,12 @@ p, li { white-space: pre-wrap; }
         <translation>Gerät hinzufügen</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="229"/>
+        <location filename="addfixture.ui" line="219"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addfixture.ui" line="236"/>
         <source>Fixture Model</source>
         <translation>Gerätemodel</translation>
     </message>
@@ -225,12 +230,12 @@ p, li { white-space: pre-wrap; }
         <translation>Anzahl an leeren Kanälen zwischen den hinzugefügten Geräten</translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="97"/>
+        <location filename="addfixture.cpp" line="100"/>
         <source>Fixtures found: %1</source>
         <translation>Gefundene Geräte: %1</translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="510"/>
+        <location filename="addfixture.cpp" line="567"/>
         <source>Dimmers</source>
         <translation>Dimmer</translation>
     </message>
@@ -378,314 +383,360 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>AddressTool</name>
+    <message>
+        <location filename="addresstool.ui" line="14"/>
+        <source>Address Tool</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addresstool.ui" line="22"/>
+        <source>Reverse vertically</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addresstool.ui" line="35"/>
+        <source>Color</source>
+        <translation type="unfinished">Farbe</translation>
+    </message>
+    <message>
+        <location filename="addresstool.ui" line="51"/>
+        <source>Address</source>
+        <translation type="unfinished">Adresse</translation>
+    </message>
+    <message>
+        <location filename="addresstool.ui" line="98"/>
+        <source>Reverse Horizontally</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>App</name>
     <message>
-        <location filename="app.cpp" line="369"/>
+        <location filename="app.cpp" line="376"/>
         <source> - New Workspace</source>
         <translation> - Neue Arbeitsfläche</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="236"/>
+        <location filename="app.cpp" line="243"/>
         <source>Cannot exit in Operate mode</source>
         <translation>Im Betriebsmodus kann das Programm nicht beendet werden</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="190"/>
+        <location filename="app.cpp" line="197"/>
         <source>Fixtures</source>
         <translation>Geräte</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="192"/>
+        <location filename="app.cpp" line="199"/>
         <source>Functions</source>
         <translation>Funktionen</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="194"/>
+        <location filename="app.cpp" line="201"/>
         <source>Shows</source>
         <translation>Shows</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="196"/>
+        <location filename="app.cpp" line="203"/>
         <source>Virtual Console</source>
         <translation>Virtuelle Konsole</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="198"/>
+        <location filename="app.cpp" line="205"/>
         <source>Simple Desk</source>
         <translation>Einfache Arbeitsfläche</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="200"/>
+        <location filename="app.cpp" line="207"/>
         <source>Inputs/Outputs</source>
         <translation>Eingänge/Ausgänge</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="237"/>
+        <location filename="app.cpp" line="244"/>
         <source>You must switch back to Design mode to close the application.</source>
         <translation>Du musst in den Designmodus wechseln um das Programm zu schliessen.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="245"/>
+        <location filename="app.cpp" line="252"/>
         <source>Close</source>
         <translation>Schliessen</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="246"/>
+        <location filename="app.cpp" line="253"/>
         <source>Do you wish to save the current workspace before closing the application?</source>
         <translation>Willst du die aktuelle Arbeitsfläche vor dem Schliessen speichern?</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="420"/>
+        <location filename="app.cpp" line="427"/>
         <source>Switch to Design Mode</source>
         <translation>In den Entwurfsmodus wechseln</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="421"/>
+        <location filename="app.cpp" line="428"/>
         <source>There are still running functions.
 Really stop them and switch back to Design mode?</source>
         <translation>Es gibt noch laufende Funktionen.
 Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="453"/>
+        <location filename="app.cpp" line="460"/>
         <source>Design</source>
         <translation>Entwurf</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="454"/>
+        <location filename="app.cpp" line="461"/>
         <source>Switch to design mode</source>
         <translation>In den Entwurfsmodus wechseln</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="463"/>
+        <location filename="app.cpp" line="470"/>
         <source>Operate</source>
         <translation>Betrieb</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="464"/>
-        <location filename="app.cpp" line="492"/>
+        <location filename="app.cpp" line="471"/>
+        <location filename="app.cpp" line="499"/>
         <source>Switch to operate mode</source>
         <translation>In den Betriebsmodus wechseln</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="475"/>
+        <location filename="app.cpp" line="482"/>
         <source>&amp;New</source>
         <translation>&amp;Neu</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="476"/>
+        <location filename="app.cpp" line="483"/>
         <source>CTRL+N</source>
         <comment>File|New</comment>
         <translation>STRG+N</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="479"/>
+        <location filename="app.cpp" line="486"/>
         <source>&amp;Open</source>
         <translation>Ö&amp;ffnen</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="480"/>
+        <location filename="app.cpp" line="487"/>
         <source>CTRL+O</source>
         <comment>File|Open</comment>
         <translation>STRG+O</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="483"/>
+        <location filename="app.cpp" line="490"/>
         <source>&amp;Save</source>
         <translation>&amp;Speichern</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="484"/>
+        <location filename="app.cpp" line="491"/>
         <source>CTRL+S</source>
         <comment>File|Save</comment>
         <translation>STRG+S</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="487"/>
+        <location filename="app.cpp" line="494"/>
         <source>Save &amp;As...</source>
         <translation>Speichern &amp;unter ...</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="491"/>
+        <location filename="app.cpp" line="498"/>
         <source>&amp;Operate</source>
         <translation>&amp;Betrieb</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="493"/>
+        <location filename="app.cpp" line="500"/>
         <source>CTRL+F12</source>
         <comment>Control|Toggle operate/design mode</comment>
         <translation>STRG+F12</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="313"/>
+        <location filename="app.cpp" line="967"/>
+        <source>Error</source>
+        <translation type="unfinished">Fehler</translation>
+    </message>
+    <message>
+        <location filename="app.cpp" line="968"/>
+        <source>File not found !
+The selected file has been moved or deleted.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="app.cpp" line="320"/>
         <source>Starting Q Light Controller Plus</source>
         <oldsource>Starting Q Light Controller</oldsource>
         <translation type="unfinished">Starte Q Light Controller Plus</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="496"/>
+        <location filename="app.cpp" line="503"/>
         <source>&amp;Monitor</source>
         <translation>&amp;Monitor</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="497"/>
+        <location filename="app.cpp" line="504"/>
         <source>CTRL+M</source>
         <comment>Control|Monitor</comment>
         <translation>STRG+M</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="513"/>
+        <location filename="app.cpp" line="523"/>
         <source>Toggle Full Screen</source>
         <translation>Vollbildmodus umschalten</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="515"/>
+        <location filename="app.cpp" line="525"/>
         <source>CTRL+F11</source>
         <comment>Control|Toggle Full Screen</comment>
         <translation>STRG+F11</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="519"/>
+        <location filename="app.cpp" line="529"/>
         <source>&amp;Index</source>
         <translation>&amp;Handbuch</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="520"/>
+        <location filename="app.cpp" line="530"/>
         <source>SHIFT+F1</source>
         <comment>Help|Index</comment>
         <translation>SHIFT+F1</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="523"/>
+        <location filename="app.cpp" line="533"/>
         <source>&amp;About QLC+</source>
         <oldsource>&amp;About QLC</oldsource>
         <translation>&amp;Über QLC+</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="270"/>
+        <location filename="app.cpp" line="277"/>
         <source>Close the application?</source>
         <translation>Anwendung beenden?</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="271"/>
+        <location filename="app.cpp" line="278"/>
         <source>Do you wish to close the application?</source>
         <translation>Soll das Programm beendet werden?</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="403"/>
+        <location filename="app.cpp" line="410"/>
         <source>Exit</source>
         <translation>Beenden</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="500"/>
+        <location filename="app.cpp" line="507"/>
+        <source>Address Tool</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="app.cpp" line="510"/>
         <source>Toggle &amp;Blackout</source>
         <translation>&amp;Blackout umschalten</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="505"/>
+        <location filename="app.cpp" line="515"/>
         <source>Dump DMX values to a function</source>
         <translation>Abbild (Dump) der DMX-Werte in einer Funktion</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="506"/>
+        <location filename="app.cpp" line="516"/>
         <source>CTRL+D</source>
         <comment>Control|Dump DMX</comment>
         <translation>STRG+D</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="509"/>
+        <location filename="app.cpp" line="519"/>
         <source>Stop ALL functions!</source>
         <translation>ALLE Funktionen stoppen!</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="529"/>
+        <location filename="app.cpp" line="539"/>
         <source>Workspace</source>
         <translation>Arbeitsfläche</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="573"/>
+        <location filename="app.cpp" line="589"/>
         <source>Unable to read from file</source>
         <translation>Kann Datei nicht lesen</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="576"/>
+        <location filename="app.cpp" line="592"/>
         <source>Unable to write to file</source>
         <translation>Kann in Datei nicht schreiben</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="579"/>
+        <location filename="app.cpp" line="595"/>
         <source>A fatal error occurred</source>
         <translation>Ein schwerer Fehler ist aufgetreten</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="582"/>
+        <location filename="app.cpp" line="598"/>
         <source>Unable to access resource</source>
         <translation>Ressource nicht erreichbar</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="585"/>
+        <location filename="app.cpp" line="601"/>
         <source>Unable to open file for reading or writing</source>
         <translation>Datei kann nicht zum Lesen oder Schreiben geöffnet werden</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="588"/>
+        <location filename="app.cpp" line="604"/>
         <source>Operation was aborted</source>
         <translation>Vorgang wurde abgebrochen</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="591"/>
+        <location filename="app.cpp" line="607"/>
         <source>Operation timed out</source>
         <translation>Zeitüberschreitung bei Vorgang</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="595"/>
+        <location filename="app.cpp" line="611"/>
         <source>An unspecified error has occurred. Nice.</source>
         <translation>Ein unkategorisierter Fehler ist aufgetreten. Nicht schlecht.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="599"/>
+        <location filename="app.cpp" line="615"/>
         <source>File error</source>
         <translation>Dateifehler</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="610"/>
-        <location filename="app.cpp" line="649"/>
+        <location filename="app.cpp" line="677"/>
+        <location filename="app.cpp" line="716"/>
+        <location filename="app.cpp" line="976"/>
         <source>Do you wish to save the current workspace?
 Changes will be lost if you don&apos;t save them.</source>
         <translation>Willst du die aktuelle Arbeitsfläche speichern?
 Änderungen gehen sonst verloren.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="612"/>
+        <location filename="app.cpp" line="679"/>
         <source>New Workspace</source>
         <translation>Neue Arbeitsfläche</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="651"/>
-        <location filename="app.cpp" line="672"/>
+        <location filename="app.cpp" line="718"/>
+        <location filename="app.cpp" line="739"/>
+        <location filename="app.cpp" line="978"/>
         <source>Open Workspace</source>
         <translation>Arbeitsfläche öffnen</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="680"/>
-        <location filename="app.cpp" line="755"/>
+        <location filename="app.cpp" line="747"/>
+        <location filename="app.cpp" line="824"/>
         <source>Workspaces (*%1)</source>
         <translation>Arbeitsflächen (*%1)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="682"/>
-        <location filename="app.cpp" line="757"/>
+        <location filename="app.cpp" line="749"/>
+        <location filename="app.cpp" line="826"/>
         <source>All Files (*.*)</source>
         <translation>Alle Dateien (*.*)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="684"/>
-        <location filename="app.cpp" line="759"/>
+        <location filename="app.cpp" line="751"/>
+        <location filename="app.cpp" line="828"/>
         <source>All Files (*)</source>
         <translation>Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="749"/>
+        <location filename="app.cpp" line="818"/>
         <source>Save Workspace As</source>
         <translation>Arbeitsfläche speichern unter</translation>
     </message>
@@ -721,23 +772,41 @@ Changes will be lost if you don&apos;t save them.</source>
 <context>
     <name>AudioItem</name>
     <message>
-        <location filename="sceneitems.cpp" line="536"/>
-        <location filename="sceneitems.cpp" line="866"/>
+        <location filename="sceneitems.cpp" line="660"/>
+        <source>Name: %1
+Start time: %2
+Duration: %3
+%4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sceneitems.cpp" line="664"/>
+        <source>Click to move this audio across the timeline</source>
+        <translation type="unfinished">Zum Verschieben von Audio über die Timeline klicken</translation>
+    </message>
+    <message>
+        <location filename="sceneitems.cpp" line="679"/>
+        <location filename="sceneitems.cpp" line="1038"/>
         <source>Preview Left Channel</source>
         <translation>Vorschau linker Kanal</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="540"/>
+        <location filename="sceneitems.cpp" line="683"/>
         <source>Preview Right Channel</source>
         <translation>Vorschau rechter Kanal</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="544"/>
+        <location filename="sceneitems.cpp" line="687"/>
         <source>Preview Stereo Channels</source>
         <translation>Vorschau Stereo-Kanäle</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="862"/>
+        <location filename="sceneitems.cpp" line="692"/>
+        <source>Align to cursor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sceneitems.cpp" line="1034"/>
         <source>Preview Mono</source>
         <translation>Vorschaue Mono</translation>
     </message>
@@ -761,70 +830,98 @@ Changes will be lost if you don&apos;t save them.</source>
     </message>
     <message>
         <location filename="channelselection.ui" line="53"/>
-        <source>ID</source>
-        <translation>ID</translation>
+        <source>Type</source>
+        <translation type="unfinished">Typ</translation>
     </message>
     <message>
         <location filename="channelselection.ui" line="58"/>
-        <source>Channel</source>
-        <translation>Kanal</translation>
+        <source>Group</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="channelselection.ui" line="63"/>
-        <source>Function</source>
-        <translation>Funktion</translation>
-    </message>
-    <message>
-        <location filename="channelselection.ui" line="71"/>
+        <location filename="channelselection.ui" line="66"/>
         <source>External Input</source>
         <translation>Externer Eingang</translation>
     </message>
     <message>
-        <location filename="channelselection.ui" line="77"/>
+        <location filename="channelselection.ui" line="72"/>
         <source>Input channel</source>
         <translation>Eingangskanal</translation>
     </message>
     <message>
-        <location filename="channelselection.ui" line="84"/>
+        <location filename="channelselection.ui" line="79"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
         <translation>Der bestimmte Eingangskanal im Eingangsuniversum der Daten zu diesem Assistenten sendet</translation>
     </message>
     <message>
-        <location filename="channelselection.ui" line="107"/>
+        <location filename="channelselection.ui" line="102"/>
         <source>The input universe that sends data to this widget</source>
         <translation>Das Eingangsuniversum, welches Daten zu diesem Assistenten sendet</translation>
     </message>
     <message>
-        <location filename="channelselection.ui" line="117"/>
+        <location filename="channelselection.ui" line="112"/>
         <source>Choose an external input universe and channel that this group should listen to</source>
         <oldsource>Choose an external input and universe and channel that this group should listen to</oldsource>
         <translation>Wähle ein externes Universum und einen Kanal auf den dieser Schieberegler hören soll</translation>
     </message>
     <message>
-        <location filename="channelselection.ui" line="120"/>
+        <location filename="channelselection.ui" line="115"/>
         <source>Choose...</source>
         <translation>Auswählen...</translation>
     </message>
     <message>
-        <location filename="channelselection.ui" line="127"/>
+        <location filename="channelselection.ui" line="122"/>
         <source>When toggled, you can move an external slider/knob to assign it to this group.</source>
         <oldsource>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When toggled, you can move an external slider/knob to assign it to this group.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</oldsource>
         <translation>Wenn betätigt kann ein externer Regler/Schalter betätigt werden um diesen dem virtuellen Konsolenregler zuzuweisen.</translation>
     </message>
     <message>
-        <location filename="channelselection.ui" line="130"/>
+        <location filename="channelselection.ui" line="125"/>
         <source>Auto Detect</source>
         <translation>Automatisch erkennen</translation>
     </message>
     <message>
-        <location filename="channelselection.ui" line="140"/>
+        <location filename="channelselection.ui" line="135"/>
         <source>Input universe</source>
         <translation>Eingangsuniversum</translation>
     </message>
     <message>
-        <location filename="channelselection.cpp" line="71"/>
-        <source>Channel %1</source>
-        <translation>Kanal %1</translation>
+        <location filename="channelselection.cpp" line="79"/>
+        <source>Universe %1</source>
+        <translation type="unfinished">Universum %1</translation>
+    </message>
+</context>
+<context>
+    <name>ChannelsConfiguration</name>
+    <message>
+        <location filename="channelsconfiguration.ui" line="14"/>
+        <source>Channels Fade Configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="channelsconfiguration.ui" line="28"/>
+        <source>Name</source>
+        <translation type="unfinished">Name</translation>
+    </message>
+    <message>
+        <location filename="channelsconfiguration.ui" line="33"/>
+        <source>Type</source>
+        <translation type="unfinished">Typ</translation>
+    </message>
+    <message>
+        <location filename="channelsconfiguration.ui" line="38"/>
+        <source>Fade</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="channelsconfiguration.ui" line="46"/>
+        <source>Apply changes to fixtures of the same type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="channelsconfiguration.cpp" line="75"/>
+        <source>Universe %1</source>
+        <translation type="unfinished">Universum %1</translation>
     </message>
 </context>
 <context>
@@ -835,264 +932,284 @@ Changes will be lost if you don&apos;t save them.</source>
         <translation>Chaser Editor</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="41"/>
+        <location filename="chasereditor.ui" line="111"/>
         <source>Chaser name</source>
         <translation>Chaser Name</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="54"/>
+        <location filename="chasereditor.ui" line="124"/>
         <source>Name of the chaser being edited</source>
         <translation>Name des zu bearbeitenden Chasers</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="155"/>
+        <location filename="chasereditor.ui" line="45"/>
         <source>Step</source>
         <translation>Schritt</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="160"/>
+        <location filename="chasereditor.ui" line="50"/>
         <source>Function</source>
         <translation>Funktion</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="165"/>
-        <location filename="chasereditor.cpp" line="713"/>
+        <location filename="chasereditor.ui" line="55"/>
+        <location filename="chasereditor.cpp" line="780"/>
         <source>Fade In</source>
         <translation>Einblenden</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="170"/>
-        <location filename="chasereditor.cpp" line="714"/>
+        <location filename="chasereditor.ui" line="65"/>
+        <location filename="chasereditor.cpp" line="781"/>
         <source>Fade Out</source>
         <translation>Ausblenden</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="175"/>
-        <location filename="chasereditor.cpp" line="715"/>
+        <location filename="chasereditor.ui" line="70"/>
         <source>Duration</source>
         <translation>Dauer</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="110"/>
+        <location filename="chasereditor.ui" line="571"/>
         <source>Add step(s) to the current position</source>
         <translation>Schritte zur aktuellen Position hinzufügen</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="183"/>
+        <location filename="chasereditor.ui" line="83"/>
         <source>Remove the selected step</source>
         <translation>Ausgwählten Schritt entfernen</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="90"/>
+        <location filename="chasereditor.ui" line="591"/>
         <source>Raise the selected step once</source>
         <translation>Ausgewählten Schritt um eins noch oben schieben</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="63"/>
+        <location filename="chasereditor.ui" line="359"/>
         <source>Lower the selected step once</source>
         <translation>Ausgewählten Schritt um eins noch unten schieben</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="438"/>
+        <location filename="chasereditor.ui" line="401"/>
         <source>Show/Hide speed dial window</source>
         <translation>Anzeigen/Ausblenden des Schnellwahlfensters</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="441"/>
-        <location filename="chasereditor.ui" line="471"/>
-        <location filename="chasereditor.ui" line="491"/>
-        <location filename="chasereditor.ui" line="511"/>
-        <location filename="chasereditor.ui" line="531"/>
+        <location filename="chasereditor.ui" line="404"/>
+        <location filename="chasereditor.ui" line="434"/>
+        <location filename="chasereditor.ui" line="454"/>
+        <location filename="chasereditor.ui" line="474"/>
+        <location filename="chasereditor.ui" line="494"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="212"/>
+        <location filename="chasereditor.ui" line="135"/>
         <source>Run Order</source>
         <translation>Laufrichtung</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="218"/>
+        <location filename="chasereditor.ui" line="60"/>
+        <location filename="chasereditor.cpp" line="782"/>
+        <source>Hold</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="chasereditor.ui" line="75"/>
+        <source>Notes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="chasereditor.ui" line="141"/>
         <source>Run through over and over again</source>
         <translation>Läuft immer weiter durch</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="221"/>
+        <location filename="chasereditor.ui" line="144"/>
         <source>Loop</source>
         <translation>Wiederholen</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="231"/>
+        <location filename="chasereditor.ui" line="154"/>
         <source>Run through once and stop</source>
         <translation>Läuft nur einmal durch und stoppt dann</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="234"/>
+        <location filename="chasereditor.ui" line="157"/>
         <source>Single Shot</source>
         <translation>Einmal</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="241"/>
+        <location filename="chasereditor.ui" line="164"/>
         <source>Switch direction at both ends</source>
         <translation>Richtung an beiden Enden wechseln</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="302"/>
+        <location filename="chasereditor.ui" line="225"/>
         <source>Fade In Speed</source>
         <translation>Einblendgeschwindigkeit</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="308"/>
+        <location filename="chasereditor.ui" line="231"/>
         <source>All steps have common fade in speed set by the chaser</source>
         <translation>Alle Schritte haben eine gemeinsame chasergesteuerte Einblendzeit</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="311"/>
-        <location filename="chasereditor.ui" line="353"/>
-        <location filename="chasereditor.ui" line="395"/>
+        <location filename="chasereditor.ui" line="234"/>
+        <location filename="chasereditor.ui" line="276"/>
+        <location filename="chasereditor.ui" line="318"/>
         <source>Common</source>
         <translation>Gemeinsame</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="318"/>
+        <location filename="chasereditor.ui" line="241"/>
         <source>Each step has its own fade in speed set by the chaser</source>
         <translation>Jeder Schritt hat seine eigene chasergesteuerte Einblendgeschwindigkeit</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="321"/>
-        <location filename="chasereditor.ui" line="363"/>
-        <location filename="chasereditor.ui" line="408"/>
+        <location filename="chasereditor.ui" line="244"/>
+        <location filename="chasereditor.ui" line="286"/>
+        <location filename="chasereditor.ui" line="331"/>
         <source>Per Step</source>
         <translation>Pro Schritt</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="328"/>
+        <location filename="chasereditor.ui" line="251"/>
         <source>Use each function&apos;s own fade in speed</source>
         <translation>Für jede Funktion eine eigene Einblendgeschwindigkeit verwenden</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="331"/>
-        <location filename="chasereditor.ui" line="373"/>
+        <location filename="chasereditor.ui" line="254"/>
+        <location filename="chasereditor.ui" line="296"/>
         <source>Default</source>
         <translation>Standard</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="344"/>
+        <location filename="chasereditor.ui" line="267"/>
         <source>Fade Out Speed</source>
         <translation>Ausblendgeschwindigkeit</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="350"/>
+        <location filename="chasereditor.ui" line="273"/>
         <source>All steps have common fade out speed set by the chaser</source>
         <translation>Alle Schritte haben eine gemeinsame chasergesteuerte Ausblendgeschwindigkeit</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="360"/>
+        <location filename="chasereditor.ui" line="283"/>
         <source>Each step has its own fade out speed set by the chaser</source>
         <translation>Jeder Schritt hat seine eigene chasergesteuerte Ausblendgeschwindigkeit</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="370"/>
+        <location filename="chasereditor.ui" line="293"/>
         <source>Use each function&apos;s own fade out speed</source>
         <translation>Für jede Funktion eine eigene Ausblendgeschwindigkeit verwenden</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="386"/>
+        <location filename="chasereditor.ui" line="309"/>
         <source>Step Duration</source>
         <translation>Schrittdauer</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="392"/>
+        <location filename="chasereditor.ui" line="315"/>
         <source>All steps have common step duration set by the chaser</source>
         <translation>Alle Schritte haben eine gemeinsame chasergesteuerte Dauer</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="405"/>
+        <location filename="chasereditor.ui" line="328"/>
         <source>Each step has its own duration set by the chaser</source>
         <translation>Jeder Schritt hat seine eigene chasergesteuerte Dauer</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="468"/>
+        <location filename="chasereditor.ui" line="431"/>
         <source>See what the chaser does when it is run</source>
         <translation>Chaservorschau</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="488"/>
+        <location filename="chasereditor.ui" line="451"/>
         <source>Stop the chaser if running</source>
         <translation>Den laufenden Chaser stoppen</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="528"/>
+        <location filename="chasereditor.ui" line="491"/>
         <source>Skip to the next step</source>
         <translation>Zum nächsten Schritt wechseln</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="508"/>
+        <location filename="chasereditor.ui" line="471"/>
         <source>Skip to the previous step</source>
         <translation>Zum vorherigen Schritt wechseln</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="244"/>
+        <location filename="chasereditor.ui" line="167"/>
         <source>Ping Pong</source>
         <translation>Hin und Her</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="254"/>
+        <location filename="chasereditor.ui" line="177"/>
         <source>Direction</source>
         <translation>Richtung</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="260"/>
+        <location filename="chasereditor.ui" line="183"/>
         <source>Start from the first step</source>
         <translation>Vom ersten Punkt starten</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="263"/>
+        <location filename="chasereditor.ui" line="186"/>
         <source>Forward</source>
         <translation>Vorwärts</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="273"/>
+        <location filename="chasereditor.ui" line="196"/>
         <source>Start from the last step</source>
         <translation>Vom letzten Punkt starten</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="276"/>
+        <location filename="chasereditor.ui" line="199"/>
         <source>Backward</source>
         <translation>Rückwärts</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="76"/>
+        <location filename="chasereditor.cpp" line="79"/>
         <source>Cut</source>
         <translation>Ausschneiden</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="81"/>
+        <location filename="chasereditor.cpp" line="84"/>
         <source>Copy</source>
         <translation>Kopieren</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="86"/>
+        <location filename="chasereditor.cpp" line="89"/>
         <source>Paste</source>
         <translation>Einfügen</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="716"/>
+        <location filename="chasereditor.cpp" line="573"/>
+        <source>Paste error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="chasereditor.cpp" line="573"/>
+        <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="chasereditor.cpp" line="783"/>
         <source>Common Fade In</source>
         <translation>Gemeinsame Einblendung</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="717"/>
+        <location filename="chasereditor.cpp" line="784"/>
         <source>Common Fade Out</source>
         <translation>Gemeinsame Ausblendung</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="718"/>
-        <source>Common Duration</source>
-        <translation>Gemeinsame Dauer</translation>
+        <location filename="chasereditor.cpp" line="785"/>
+        <source>Common Hold</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="734"/>
+        <location filename="chasereditor.cpp" line="801"/>
         <source>Multiple Steps</source>
         <translation>Mehrere Schritte</translation>
     </message>
@@ -1133,7 +1250,7 @@ Changes will be lost if you don&apos;t save them.</source>
 <context>
     <name>ConsoleChannel</name>
     <message>
-        <location filename="consolechannel.cpp" line="133"/>
+        <location filename="consolechannel.cpp" line="167"/>
         <source>Intensity</source>
         <translation>Intensität</translation>
     </message>
@@ -1202,39 +1319,39 @@ Changes will be lost if you don&apos;t save them.</source>
         <translation>DMX-Werte abbilden (Dump)</translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.ui" line="20"/>
+        <location filename="dmxdumpfactory.ui" line="24"/>
         <source>Dump only non-zero values</source>
         <translation>Abbild (Dump) von Werten ungleich Null</translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.ui" line="37"/>
+        <location filename="dmxdumpfactory.ui" line="41"/>
         <source>Dump options</source>
         <translation>Abbildungseinstellungen</translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.ui" line="50"/>
+        <location filename="dmxdumpfactory.ui" line="54"/>
         <source>Dump selected channels</source>
         <oldsource>Dump selected DMX values</oldsource>
         <translation>Abbild (Dump) der ausgewählten Kanäle</translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.ui" line="58"/>
-        <location filename="dmxdumpfactory.ui" line="75"/>
+        <location filename="dmxdumpfactory.ui" line="65"/>
+        <location filename="dmxdumpfactory.ui" line="82"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.ui" line="63"/>
+        <location filename="dmxdumpfactory.ui" line="70"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.ui" line="83"/>
+        <location filename="dmxdumpfactory.ui" line="90"/>
         <source>Add to Chaser:</source>
         <translation>Zum Chaser hinzufügen</translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.ui" line="95"/>
+        <location filename="dmxdumpfactory.ui" line="102"/>
         <source>Scene name:</source>
         <translation>Szenenname</translation>
     </message>
@@ -1250,7 +1367,7 @@ Changes will be lost if you don&apos;t save them.</source>
         <translation>Neue Szene aus der Livewiedergabe %1</translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.cpp" line="97"/>
+        <location filename="dmxdumpfactory.cpp" line="98"/>
         <source>Universe %1</source>
         <translation>Universum %1</translation>
     </message>
@@ -1321,232 +1438,238 @@ Changes will be lost if you don&apos;t save them.</source>
         <translation>Umgekehrt</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="189"/>
+        <location filename="efxeditor.ui" line="194"/>
         <source>Fixture order</source>
         <translation>Geräteanordnung</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="195"/>
+        <location filename="efxeditor.ui" line="200"/>
         <source>All fixtures move in parallel</source>
         <translation>Alle Geräte bewegen sich gleichzeitig</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="198"/>
+        <location filename="efxeditor.ui" line="203"/>
         <source>Parallel</source>
         <translation>Parallel (gleichzeitig)</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="208"/>
+        <location filename="efxeditor.ui" line="213"/>
         <source>The pattern propagates to each fixture in a sequential order</source>
         <translation>Das Muster zu jedem Gerät in einer sequenziellen Reihenfolge verbreiten</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="211"/>
+        <location filename="efxeditor.ui" line="216"/>
         <source>Serial</source>
         <translation>Seriell (nacheinander)</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="232"/>
+        <location filename="efxeditor.ui" line="237"/>
         <source>Movement</source>
         <translation>Bewegung</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="93"/>
+        <location filename="efxeditor.ui" line="98"/>
         <source>Intensity</source>
         <translation>Intensität</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="218"/>
+        <location filename="efxeditor.ui" line="93"/>
+        <location filename="efxeditor.ui" line="515"/>
+        <source>Start Offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="efxeditor.ui" line="223"/>
         <source>Each fixture starts moving immediately with an offset</source>
         <translation>Jedes Gerät fängt umgehend an sich zu bewegen mit einem Offset</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="221"/>
+        <location filename="efxeditor.ui" line="226"/>
         <source>Asymmetric</source>
         <translation>Asymmetrisch</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="260"/>
+        <location filename="efxeditor.ui" line="265"/>
         <source>Pattern</source>
         <translation>Figur</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="266"/>
+        <location filename="efxeditor.ui" line="271"/>
         <source>Pattern for moving the mirror/head</source>
         <translation>Figur für die Spiegel-/Kopfbewegung</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="276"/>
+        <location filename="efxeditor.ui" line="281"/>
         <source>Parameters</source>
         <translation>Parameter</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="282"/>
+        <location filename="efxeditor.ui" line="294"/>
         <source>Width</source>
         <translation>Breite</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="289"/>
+        <location filename="efxeditor.ui" line="301"/>
         <source>Value width of the pattern</source>
         <translation>Wert für die Breite der Figur</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="302"/>
+        <location filename="efxeditor.ui" line="314"/>
         <source>Height</source>
         <translation>Höhe</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="309"/>
+        <location filename="efxeditor.ui" line="321"/>
         <source>Value height of the pattern</source>
         <translation>Wert für die Höhe der Figur</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="322"/>
+        <location filename="efxeditor.ui" line="334"/>
         <source>X offset</source>
         <translation>X-Offset</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="329"/>
+        <location filename="efxeditor.ui" line="341"/>
         <source>Pattern&apos;s center point on the X axis</source>
         <translation>Mittelpunkt auf der X-Achse der Figur</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="342"/>
+        <location filename="efxeditor.ui" line="354"/>
         <source>Y offset</source>
         <translation>Y-Offset</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="349"/>
+        <location filename="efxeditor.ui" line="361"/>
         <source>Pattern&apos;s center point on the Y axis</source>
         <translation>Mittelpunkt auf der Y-Achse der Figur</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="362"/>
+        <location filename="efxeditor.ui" line="374"/>
         <source>Rotation</source>
         <translation>Rotation</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="369"/>
+        <location filename="efxeditor.ui" line="381"/>
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>Rotation des Startpunktes der Figur</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="382"/>
+        <location filename="efxeditor.ui" line="394"/>
         <source>X frequency</source>
         <translation>x Frequenz</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="392"/>
+        <location filename="efxeditor.ui" line="404"/>
         <source>Lissajous pattern&apos;s X frequency</source>
         <translation>Lissajous Muster X-Frequenz</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="408"/>
+        <location filename="efxeditor.ui" line="420"/>
         <source>Y frequency</source>
         <translation>y Frequenz</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="418"/>
+        <location filename="efxeditor.ui" line="430"/>
         <source>Lissajous pattern&apos;s Y frequency</source>
         <translation>Lissajous Muster Y-Frequenz</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="434"/>
+        <location filename="efxeditor.ui" line="446"/>
         <source>X phase</source>
         <translation>x Phase</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="444"/>
+        <location filename="efxeditor.ui" line="456"/>
         <source>Lissajous pattern&apos;s X phase</source>
         <translation>Lissajous Muster X-Phase</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="460"/>
+        <location filename="efxeditor.ui" line="472"/>
         <source>Y phase</source>
         <translation>y Phase</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="470"/>
+        <location filename="efxeditor.ui" line="495"/>
         <source>Lissajous pattern&apos;s Y phase</source>
         <translation>Lissajous Muster X-Phase</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="506"/>
+        <location filename="efxeditor.ui" line="528"/>
         <source>Direction</source>
         <translation>Richtung</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="512"/>
+        <location filename="efxeditor.ui" line="534"/>
         <source>Run the pattern forwards</source>
         <translation>Die Figur vorwärts fahren</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="515"/>
+        <location filename="efxeditor.ui" line="537"/>
         <source>Forward</source>
         <translation>Vorwärts</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="525"/>
+        <location filename="efxeditor.ui" line="547"/>
         <source>Run the pattern backwards</source>
         <translation>Die Figur rückwärts fahren</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="528"/>
+        <location filename="efxeditor.ui" line="550"/>
         <source>Backward</source>
         <translation>Rückwärts</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="554"/>
+        <location filename="efxeditor.ui" line="576"/>
         <source>Run order</source>
         <translation>Laufrichtung</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="560"/>
+        <location filename="efxeditor.ui" line="582"/>
         <source>Run through over and over again</source>
         <translation>Läuft immer weiter durch</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="563"/>
+        <location filename="efxeditor.ui" line="585"/>
         <source>Loop</source>
         <translation>Wiederholen</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="573"/>
+        <location filename="efxeditor.ui" line="595"/>
         <source>Run through once and stop</source>
         <translation>Läuft nur einmal durch und stoppt dann</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="576"/>
+        <location filename="efxeditor.ui" line="598"/>
         <source>Single shot</source>
         <translation>Einmal</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="583"/>
+        <location filename="efxeditor.ui" line="605"/>
         <source>First run forwards, then backwards, again forwards, etc...</source>
         <translation>Läuft erst vorwärts, dann rückwärts, dann wieder vorwärts, etc...</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="586"/>
+        <location filename="efxeditor.ui" line="608"/>
         <source>Ping pong</source>
         <translation>Hin und Her</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="616"/>
+        <location filename="efxeditor.ui" line="638"/>
         <source>See what the EFX does when it is run</source>
         <translation>Effekt-Vorschau</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="619"/>
+        <location filename="efxeditor.ui" line="641"/>
         <source>&amp;Test Run</source>
         <translation>&amp;Testlauf</translation>
     </message>
     <message>
-        <location filename="efxeditor.cpp" line="575"/>
+        <location filename="efxeditor.cpp" line="616"/>
         <source>Remove fixtures</source>
         <translation>Gerät entfernen</translation>
     </message>
     <message>
-        <location filename="efxeditor.cpp" line="576"/>
+        <location filename="efxeditor.cpp" line="617"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Willst du die ausgewählten Funktionen entfernen?</translation>
     </message>
@@ -1605,209 +1728,224 @@ Changes will be lost if you don&apos;t save them.</source>
 <context>
     <name>FixtureManager</name>
     <message>
-        <location filename="fixturemanager.cpp" line="284"/>
+        <location filename="fixturemanager.cpp" line="291"/>
         <source>Universe</source>
         <translation>Universum</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="284"/>
+        <location filename="fixturemanager.cpp" line="291"/>
         <source>Address</source>
         <translation>Adresse</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="284"/>
-        <location filename="fixturemanager.cpp" line="312"/>
+        <location filename="fixturemanager.cpp" line="291"/>
+        <location filename="fixturemanager.cpp" line="319"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="308"/>
+        <location filename="fixturemanager.cpp" line="315"/>
         <source>Fixtures Groups</source>
         <translation>Gerätegruppen</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="312"/>
+        <location filename="fixturemanager.cpp" line="319"/>
         <source>Channels</source>
         <translation>Kanäle</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="326"/>
+        <location filename="fixturemanager.cpp" line="333"/>
         <source>Channels Groups</source>
         <translation>Kanalgruppen</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="364"/>
-        <location filename="fixturemanager.cpp" line="672"/>
+        <location filename="fixturemanager.cpp" line="371"/>
+        <location filename="fixturemanager.cpp" line="604"/>
         <source>All fixtures</source>
         <translation>Alle Geräte</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="672"/>
+        <location filename="fixturemanager.cpp" line="604"/>
         <source>This group contains all fixtures.</source>
         <translation>Diese Gruppe enthält alle Geräte.</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="684"/>
+        <location filename="fixturemanager.cpp" line="616"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple fixtures selected&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; to remove the selected fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Mehrere Geräte ausgewählt&lt;/H1&gt;&lt;P&gt;Klick &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; zum Entfernen der ausgewählten Geräte.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="690"/>
+        <location filename="fixturemanager.cpp" line="622"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple fixtures selected&lt;/H1&gt;&lt;P&gt;Fixture list modification is not permitted in operate mode.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Mehrere Geräte ausgewählt&lt;/H1&gt;&lt;P&gt;Gerätelistenänderungen sind während der Laufzeit nicht zulässig.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="699"/>
+        <location filename="fixturemanager.cpp" line="631"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;No fixtures&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Keine Geräte&lt;/H1&gt;&lt;P&gt;Klick &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; um Geräte hinzuzufügen.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="705"/>
+        <location filename="fixturemanager.cpp" line="637"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a fixture from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Keine Auswahl&lt;/H1&gt;&lt;P&gt;Gerät aus der Liste wählen oder Klick &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; um Geräte hinzuzufügen.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="743"/>
+        <location filename="fixturemanager.cpp" line="675"/>
         <source>Edit group...</source>
         <translation>Gruppe bearbeiten...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="756"/>
+        <location filename="fixturemanager.cpp" line="688"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple groups selected&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; to remove the selected groups.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="763"/>
+        <location filename="fixturemanager.cpp" line="695"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a channel group from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add a new channels group.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Keine Auswahl&lt;/H1&gt;&lt;P&gt;Kanlgruppe aus der Liste wählen oder Klick &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; um Kanalgruppe hinzuzufügen.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="768"/>
-        <location filename="fixturemanager.cpp" line="788"/>
+        <location filename="fixturemanager.cpp" line="700"/>
+        <location filename="fixturemanager.cpp" line="720"/>
         <source>Add group...</source>
         <translation>Gruppe hinzufügen...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="794"/>
-        <location filename="fixturemanager.cpp" line="895"/>
+        <location filename="fixturemanager.cpp" line="726"/>
+        <location filename="fixturemanager.cpp" line="827"/>
         <source>Add fixture...</source>
         <translation>Gerät hinzufügen ...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="900"/>
+        <location filename="fixturemanager.cpp" line="832"/>
         <source>Delete items</source>
         <translation>Objekte löschen</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="905"/>
+        <location filename="fixturemanager.cpp" line="837"/>
         <source>Properties...</source>
         <translation>Eigenschaften...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="911"/>
+        <location filename="fixturemanager.cpp" line="842"/>
+        <source>Channels Fade Configuration...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="848"/>
         <source>Add fixture to group...</source>
         <translation>Gerät zur Gruppe hinzufügen...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="914"/>
+        <location filename="fixturemanager.cpp" line="851"/>
         <source>Remove fixture from group</source>
         <translation>Gerät aus Gruppe entfernen</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="918"/>
+        <location filename="fixturemanager.cpp" line="855"/>
         <source>New Group...</source>
         <translation>Neue Gruppe...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="921"/>
+        <location filename="fixturemanager.cpp" line="858"/>
         <source>Move group up...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="927"/>
+        <location filename="fixturemanager.cpp" line="864"/>
         <source>Move group down...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="933"/>
+        <location filename="fixturemanager.cpp" line="870"/>
         <source>Import fixtures...</source>
         <translation>Gerätedefinitionen importieren...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="938"/>
+        <location filename="fixturemanager.cpp" line="875"/>
         <source>Export fixtures...</source>
         <translation>Gerätedefinitionen exportieren...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1146"/>
+        <location filename="fixturemanager.cpp" line="1084"/>
         <source>Do you want to delete the selected items?</source>
         <translation>Ausgewählte Objekte löschen?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1189"/>
+        <location filename="fixturemanager.cpp" line="1127"/>
         <source>Delete Channels Group</source>
         <translation>Kanalgruppe löschen</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1317"/>
+        <location filename="fixturemanager.cpp" line="1228"/>
+        <source>Error</source>
+        <translation type="unfinished">Fehler</translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="1229"/>
+        <source>Please enter a valid address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="1275"/>
         <source>Ungroup fixtures?</source>
         <translation>Geräte-Gruppierung aufheben?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1318"/>
+        <location filename="fixturemanager.cpp" line="1276"/>
         <source>Do you want to ungroup the selected fixtures?</source>
         <translation>Gruppierung der ausgewählten Geräte aufheben?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1433"/>
+        <location filename="fixturemanager.cpp" line="1391"/>
         <source>Import Fixtures List</source>
         <oldsource>Import Fixture Definition</oldsource>
         <translation>Gerätedefinitionsliste importieren</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1438"/>
+        <location filename="fixturemanager.cpp" line="1396"/>
         <source>Export Fixtures List As</source>
         <oldsource>Export Fixture Definition As</oldsource>
         <translation>Gerätedefinitionsliste exportieren unter...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1444"/>
+        <location filename="fixturemanager.cpp" line="1402"/>
         <source>Fixtures List (*%1)</source>
         <oldsource>Fixture Definitions (*%1)</oldsource>
         <translation>Gerätedefinitionsliste (*%1)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1446"/>
+        <location filename="fixturemanager.cpp" line="1404"/>
         <source>All Files (*.*)</source>
         <translation>Alle Dateien (*.*)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1448"/>
+        <location filename="fixturemanager.cpp" line="1406"/>
         <source>All Files (*)</source>
         <translation>Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="972"/>
+        <location filename="fixturemanager.cpp" line="909"/>
         <source>Fixture manager</source>
         <translation>Gerätemanager</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1039"/>
+        <location filename="fixturemanager.cpp" line="977"/>
         <source>Generic Dimmer</source>
         <translation>Generischer Dimmer</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1145"/>
+        <location filename="fixturemanager.cpp" line="1083"/>
         <source>Delete Fixtures</source>
         <translation>Geräte löschen</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1190"/>
+        <location filename="fixturemanager.cpp" line="1128"/>
         <source>Do you want to delete the selected groups?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1253"/>
+        <location filename="fixturemanager.cpp" line="1191"/>
         <source>Change fixture properties</source>
         <translation>Geräteeigenschaften ändern</translation>
     </message>
@@ -1864,92 +2002,92 @@ Changes will be lost if you don&apos;t save them.</source>
 <context>
     <name>FunctionManager</name>
     <message>
-        <location filename="functionmanager.cpp" line="241"/>
+        <location filename="functionmanager.cpp" line="238"/>
         <source>New &amp;scene</source>
         <translation>Neue &amp;Szene</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="247"/>
+        <location filename="functionmanager.cpp" line="244"/>
         <source>New c&amp;haser</source>
         <translation>Neuer C&amp;haser</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="253"/>
+        <location filename="functionmanager.cpp" line="250"/>
         <source>New se&amp;quence</source>
         <translation>Neue Se&amp;quenz</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="260"/>
+        <location filename="functionmanager.cpp" line="257"/>
         <source>New c&amp;ollection</source>
         <translation>Neue Sa&amp;mmlung</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="266"/>
+        <location filename="functionmanager.cpp" line="263"/>
         <source>New E&amp;FX</source>
         <translation>Neuer E&amp;ffekt</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="272"/>
+        <location filename="functionmanager.cpp" line="269"/>
         <source>New &amp;RGB Matrix</source>
         <translation>Neue &amp;RGB Matrix</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="278"/>
+        <location filename="functionmanager.cpp" line="275"/>
         <source>New scrip&amp;t</source>
         <translation>Neues Scrip&amp;t</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="284"/>
+        <location filename="functionmanager.cpp" line="281"/>
         <source>Function Wizard</source>
         <translation>Funktionsassistent</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="338"/>
+        <location filename="functionmanager.cpp" line="335"/>
         <source>New Scene</source>
         <translation>Neue Szene</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="351"/>
+        <location filename="functionmanager.cpp" line="348"/>
         <source>New Chaser</source>
         <translation>Neuer Chaser</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="374"/>
+        <location filename="functionmanager.cpp" line="371"/>
         <source>New Sequence</source>
         <translation>Neue Sequenz</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="796"/>
+        <location filename="functionmanager.cpp" line="807"/>
         <source>Copy of %1</source>
         <translation>Kopie von %1</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="291"/>
+        <location filename="functionmanager.cpp" line="288"/>
         <source>&amp;Clone</source>
         <translation>&amp;Kopieren</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="297"/>
+        <location filename="functionmanager.cpp" line="294"/>
         <source>&amp;Delete</source>
         <translation>&amp;Löschen</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="303"/>
+        <location filename="functionmanager.cpp" line="300"/>
         <source>Select &amp;all</source>
         <translation>&amp;Alles auswählen</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="448"/>
+        <location filename="functionmanager.cpp" line="445"/>
         <source>Do you want to DELETE functions:</source>
         <translation>Willst du folgende Funktionen entfernen:</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="455"/>
+        <location filename="functionmanager.cpp" line="452"/>
         <source>Delete Functions</source>
         <translation>Funktionen entfernen</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="536"/>
+        <location filename="functionmanager.cpp" line="533"/>
         <source>Function</source>
         <translation>Funktion</translation>
     </message>
@@ -2274,74 +2412,74 @@ Changes will be lost if you don&apos;t save them.</source>
         <translation>Das ausgewählte Eingangsprofil bearbeiten</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="354"/>
-        <location filename="inputoutputpatcheditor.cpp" line="372"/>
+        <location filename="inputoutputpatcheditor.cpp" line="355"/>
+        <location filename="inputoutputpatcheditor.cpp" line="373"/>
         <source>Error</source>
         <translation>Fehler</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="355"/>
-        <location filename="inputoutputpatcheditor.cpp" line="373"/>
+        <location filename="inputoutputpatcheditor.cpp" line="356"/>
+        <location filename="inputoutputpatcheditor.cpp" line="374"/>
         <source>Output line already assigned</source>
         <translation>Ausgang bereits zugewiesen</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="595"/>
-        <location filename="inputoutputpatcheditor.cpp" line="729"/>
+        <location filename="inputoutputpatcheditor.cpp" line="596"/>
+        <location filename="inputoutputpatcheditor.cpp" line="730"/>
         <source>Existing Input Profile</source>
         <translation>Existierendes Eingangsprofil</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="596"/>
-        <location filename="inputoutputpatcheditor.cpp" line="730"/>
+        <location filename="inputoutputpatcheditor.cpp" line="597"/>
+        <location filename="inputoutputpatcheditor.cpp" line="731"/>
         <source>An input profile at %1 already exists. Do you wish to overwrite it?</source>
         <translation>Es existiert bereits ein Eingangsprofil in %1. Willst du es überschreiben?</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="605"/>
-        <location filename="inputoutputpatcheditor.cpp" line="739"/>
+        <location filename="inputoutputpatcheditor.cpp" line="606"/>
+        <location filename="inputoutputpatcheditor.cpp" line="740"/>
         <source>Save Input Profile</source>
         <translation>Eingangsprofil speichern</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="606"/>
-        <location filename="inputoutputpatcheditor.cpp" line="740"/>
+        <location filename="inputoutputpatcheditor.cpp" line="607"/>
+        <location filename="inputoutputpatcheditor.cpp" line="741"/>
         <source>Input Profiles (*.qxi)</source>
         <translation>Eingangsprofile (*.qxi)</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="619"/>
-        <location filename="inputoutputpatcheditor.cpp" line="756"/>
+        <location filename="inputoutputpatcheditor.cpp" line="620"/>
+        <location filename="inputoutputpatcheditor.cpp" line="757"/>
         <source>Saving failed</source>
         <translation>Speichern fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="620"/>
+        <location filename="inputoutputpatcheditor.cpp" line="621"/>
         <source>Unable to save the profile to %1</source>
         <translation>Kann das Profil nicht nach %1 speichern</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="657"/>
+        <location filename="inputoutputpatcheditor.cpp" line="658"/>
         <source>Delete profile</source>
         <translation>Profil löschen</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="658"/>
+        <location filename="inputoutputpatcheditor.cpp" line="659"/>
         <source>Do you wish to permanently delete profile &quot;%1&quot;?</source>
         <translation>Willst du das Profil &quot;%1&quot; permanent löschen?</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="686"/>
+        <location filename="inputoutputpatcheditor.cpp" line="687"/>
         <source>File deletion failed</source>
         <translation>Löschen fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="687"/>
+        <location filename="inputoutputpatcheditor.cpp" line="688"/>
         <source>Unable to delete file %1</source>
         <translation>Kann Datei %1 nicht löschen</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="757"/>
+        <location filename="inputoutputpatcheditor.cpp" line="758"/>
         <source>Unable to save %1 to %2</source>
         <translation>Kann %1 nicht nach %2 speichern</translation>
     </message>
@@ -2551,59 +2689,50 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
 <context>
     <name>MultiTrackView</name>
     <message>
-        <location filename="multitrackview.cpp" line="180"/>
-        <location filename="multitrackview.cpp" line="214"/>
-        <source>Start time: %1msec
-%2</source>
-        <translation>Startzeit: %1msec
-%2</translation>
-    </message>
-    <message>
-        <location filename="multitrackview.cpp" line="181"/>
-        <location filename="multitrackview.cpp" line="486"/>
-        <location filename="multitrackview.cpp" line="507"/>
+        <location filename="multitrackview.cpp" line="403"/>
         <source>Click to move this sequence across the timeline</source>
         <translation>Zum Verschieben der Sequenz über die Timeline klicken</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="215"/>
+        <location filename="multitrackview.cpp" line="413"/>
         <source>Click to move this audio across the timeline</source>
         <translation>Zum Verschieben von Audio über die Timeline klicken</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="242"/>
+        <location filename="multitrackview.cpp" line="256"/>
         <source>Do you want to DELETE sequence:</source>
         <translation>Soll die Sequenz GELÖSCHT werden:</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="245"/>
-        <location filename="multitrackview.cpp" line="266"/>
-        <location filename="multitrackview.cpp" line="300"/>
+        <location filename="multitrackview.cpp" line="259"/>
+        <location filename="multitrackview.cpp" line="279"/>
+        <location filename="multitrackview.cpp" line="313"/>
         <source>Delete Functions</source>
         <translation>Funktionen entfernen</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="262"/>
+        <location filename="multitrackview.cpp" line="275"/>
         <source>Do you want to DELETE audio (the source file will NOT be removed):</source>
         <translation>Soll Audio GELÖSCHT werden (Die Ursprungsdatei wird NICHT entfernt):</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="287"/>
+        <location filename="multitrackview.cpp" line="300"/>
         <source>Do you want to DELETE scene:</source>
         <translation>Soll die Szene GELÖSCHT werden:</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="290"/>
+        <location filename="multitrackview.cpp" line="303"/>
         <source>This operation will also DELETE:</source>
         <translation>Dieser Vorgang LÖSCHT ebenfalls:</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="485"/>
-        <location filename="multitrackview.cpp" line="506"/>
-        <source>Start time: %1
-%2</source>
-        <translation>Start Zeit: %1
-%2</translation>
+        <location filename="multitrackview.cpp" line="399"/>
+        <location filename="multitrackview.cpp" line="409"/>
+        <source>Name: %1
+Start time: %2
+Duration: %3
+%4</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2622,12 +2751,12 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
 <context>
     <name>QObject</name>
     <message>
-        <location filename="app.cpp" line="53"/>
+        <location filename="app.cpp" line="58"/>
         <source>Operate</source>
         <translation>Betrieb</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="54"/>
+        <location filename="app.cpp" line="59"/>
         <source>Design</source>
         <translation>Entwurf</translation>
     </message>
@@ -2883,95 +3012,95 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
         <translation>Alle Gerätekanäle deaktivieren</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="158"/>
+        <location filename="sceneeditor.cpp" line="157"/>
         <source>Enable all channels in current fixture</source>
         <translation>Alle Kanäle im aktuellen Gerät aktivieren</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="160"/>
+        <location filename="sceneeditor.cpp" line="159"/>
         <source>Disable all channels in current fixture</source>
         <translation>Alle Kanäle im aktuellen Gerät deaktivieren</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="162"/>
+        <location filename="sceneeditor.cpp" line="161"/>
         <source>Copy current values to clipboard</source>
         <translation>Aktuelle Werte in den Zwischenspeicher kopieren</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="164"/>
+        <location filename="sceneeditor.cpp" line="163"/>
         <source>Paste clipboard values to current fixture</source>
         <translation>Werte aus dem Zwischenspeicher in das aktuelle Gerät kopieren</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="166"/>
+        <location filename="sceneeditor.cpp" line="165"/>
         <source>Copy current values to all fixtures</source>
         <translation>Aktuelle Werte in alle Geräte kopieren</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="168"/>
+        <location filename="sceneeditor.cpp" line="167"/>
         <source>Color tool for CMY/RGB-capable fixtures</source>
         <translation>Farbtool für CMY/RGB-fähige Geräte</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="170"/>
+        <location filename="sceneeditor.cpp" line="169"/>
         <source>Switch between tab view and all channels view</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="172"/>
+        <location filename="sceneeditor.cpp" line="171"/>
         <source>Toggle blind mode</source>
         <translation>Blindmodus umschalten</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="174"/>
+        <location filename="sceneeditor.cpp" line="173"/>
         <source>Show/Hide speed dial window</source>
         <translation>Anzeigen/Ausblenden des Schnellwahlfensters</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="176"/>
+        <location filename="sceneeditor.cpp" line="175"/>
         <source>Clone this scene and append as a new step to the selected chaser</source>
         <translation>Szene kopieren und als neuen Schritt an den ausgewählten Chaser anfügen</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="178"/>
+        <location filename="sceneeditor.cpp" line="177"/>
         <source>Go to next fixture tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="182"/>
+        <location filename="sceneeditor.cpp" line="181"/>
         <source>Go to previous fixture tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="215"/>
+        <location filename="sceneeditor.cpp" line="214"/>
         <source>None</source>
         <translation>Nichts</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="592"/>
-        <location filename="sceneeditor.cpp" line="593"/>
+        <location filename="sceneeditor.cpp" line="586"/>
+        <location filename="sceneeditor.cpp" line="587"/>
         <source>All fixtures</source>
         <translation type="unfinished">Alle Geräte</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1021"/>
-        <location filename="sceneeditor.cpp" line="1022"/>
+        <location filename="sceneeditor.cpp" line="1014"/>
+        <location filename="sceneeditor.cpp" line="1015"/>
         <source>Channels Groups</source>
         <translation>Kanalgruppen</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="825"/>
-        <location filename="sceneeditor.cpp" line="826"/>
+        <location filename="sceneeditor.cpp" line="820"/>
+        <location filename="sceneeditor.cpp" line="821"/>
         <source>Generic</source>
         <translation>Generisch</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="892"/>
+        <location filename="sceneeditor.cpp" line="887"/>
         <source>Remove fixtures</source>
         <translation>Geräte entfernen</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="893"/>
+        <location filename="sceneeditor.cpp" line="888"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Willst du die ausgewählten Funktionen entfernen?</translation>
     </message>
@@ -3111,6 +3240,30 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     </message>
 </context>
 <context>
+    <name>SequenceItem</name>
+    <message>
+        <location filename="sceneitems.cpp" line="440"/>
+        <source>Name: %1
+Start time: %2
+Duration: %3
+%4</source>
+        <oldsource>Start time: %1
+Duration: %2
+%3</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sceneitems.cpp" line="444"/>
+        <source>Click to move this sequence across the timeline</source>
+        <translation type="unfinished">Zum Verschieben der Sequenz über die Timeline klicken</translation>
+    </message>
+    <message>
+        <location filename="sceneitems.cpp" line="456"/>
+        <source>Align to cursor</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ShowEditor</name>
     <message>
         <location filename="showeditor.ui" line="14"/>
@@ -3161,225 +3314,251 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
 <context>
     <name>ShowManager</name>
     <message>
-        <location filename="showmanager.cpp" line="149"/>
+        <location filename="showmanager.cpp" line="153"/>
         <source>New s&amp;how</source>
         <translation>Neue S&amp;how</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="155"/>
+        <location filename="showmanager.cpp" line="159"/>
         <source>New &amp;track</source>
         <translation>Neuer &amp;Track</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="161"/>
+        <location filename="showmanager.cpp" line="165"/>
         <source>New s&amp;equence</source>
         <translation>Neue S&amp;equenz</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="167"/>
+        <location filename="showmanager.cpp" line="171"/>
         <source>New &amp;audio</source>
         <translation>Neues &amp;Audio</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="173"/>
-        <source>&amp;Clone</source>
-        <translation>&amp;Kopieren</translation>
+        <location filename="showmanager.cpp" line="177"/>
+        <source>&amp;Copy</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="180"/>
+        <location filename="showmanager.cpp" line="184"/>
+        <source>&amp;Paste</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager.cpp" line="190"/>
         <source>&amp;Delete</source>
         <translation>&amp;Löschen</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="187"/>
+        <location filename="showmanager.cpp" line="197"/>
         <source>Change Co&amp;lor</source>
         <translation>&amp;Farbe ändern</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="194"/>
+        <location filename="showmanager.cpp" line="204"/>
+        <source>Snap to &amp;Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager.cpp" line="211"/>
         <source>St&amp;op</source>
         <translation>St&amp;op</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="200"/>
+        <location filename="showmanager.cpp" line="217"/>
         <source>&amp;Play</source>
         <translation>Abs&amp;pielen</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="253"/>
+        <location filename="showmanager.cpp" line="273"/>
         <source>Time division:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="258"/>
+        <location filename="showmanager.cpp" line="278"/>
         <source>Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="376"/>
+        <location filename="showmanager.cpp" line="425"/>
         <source>New Show</source>
         <translation>Neue Show</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="378"/>
+        <location filename="showmanager.cpp" line="427"/>
         <source>Show name setup</source>
         <translation>Shownameneinstellung</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="379"/>
+        <location filename="showmanager.cpp" line="428"/>
         <source>Show name:</source>
         <translation>Show-Name:</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="410"/>
+        <location filename="showmanager.cpp" line="461"/>
         <source>New Scene</source>
         <translation>Neue Szene</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="439"/>
+        <location filename="showmanager.cpp" line="491"/>
         <source>New Sequence</source>
         <translation>Neue Sequenz</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="453"/>
+        <location filename="showmanager.cpp" line="505"/>
         <source>Open Audio File</source>
         <translation>Audio-Datei-öffnen</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="479"/>
+        <location filename="showmanager.cpp" line="531"/>
         <source>Audio Files (%1)</source>
         <translation>Audio Dateien (%1)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="481"/>
+        <location filename="showmanager.cpp" line="533"/>
         <source>All Files (*.*)</source>
         <translation>Alle Dateien (*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="483"/>
+        <location filename="showmanager.cpp" line="535"/>
         <source>All Files (*)</source>
         <translation>Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="505"/>
+        <location filename="showmanager.cpp" line="557"/>
         <source>Unsupported audio file</source>
         <translation>Nicht unterstützte Audio-Datei</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="505"/>
+        <location filename="showmanager.cpp" line="557"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation>Diese Audiodatei kann mit QLC+ nicht wiedergegeben werden. Sorry.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="541"/>
-        <source>Copy of %1</source>
-        <translation>Kopie von %1</translation>
+        <location filename="showmanager.cpp" line="613"/>
+        <location filename="showmanager.cpp" line="633"/>
+        <source>Paste error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager.cpp" line="613"/>
+        <source>Overlapping paste not allowed. Operation cancelled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager.cpp" line="633"/>
+        <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SimpleDesk</name>
     <message>
-        <location filename="simpledesk.cpp" line="173"/>
+        <location filename="simpledesk.cpp" line="219"/>
         <source>Universe</source>
         <translation>Universum</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="197"/>
+        <location filename="simpledesk.cpp" line="206"/>
         <source>Next page</source>
         <translation>Nächste Seite</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="204"/>
+        <location filename="simpledesk.cpp" line="198"/>
         <source>Current page</source>
         <translation>Aktuelle Seite</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="210"/>
+        <location filename="simpledesk.cpp" line="190"/>
         <source>Previous page</source>
         <translation>Vorherige Seite</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="216"/>
+        <location filename="simpledesk.cpp" line="181"/>
+        <source>View mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="simpledesk.cpp" line="214"/>
         <source>Reset universe</source>
         <translation>Universum zurücksetzen</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="225"/>
+        <location filename="simpledesk.cpp" line="255"/>
         <source>Playback</source>
         <translation>Wiedergabe</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="242"/>
+        <location filename="simpledesk.cpp" line="262"/>
         <source>Cue Stack</source>
         <translation>Cue-Stapel</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="252"/>
+        <location filename="simpledesk.cpp" line="272"/>
         <source>Previous cue</source>
         <translation>Vorheriges Cue</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="258"/>
+        <location filename="simpledesk.cpp" line="278"/>
         <source>Stop cue stack</source>
         <translation>Cue-Stapel stoppen</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="264"/>
+        <location filename="simpledesk.cpp" line="284"/>
         <source>Next cue</source>
         <translation>Nächste Cue</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="272"/>
+        <location filename="simpledesk.cpp" line="292"/>
         <source>Clone cue stack</source>
         <translation>Cue-Stapel kopieren</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="278"/>
+        <location filename="simpledesk.cpp" line="298"/>
         <source>Edit cue stack</source>
         <translation>Cue-Stapel bearbeiten</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="285"/>
+        <location filename="simpledesk.cpp" line="305"/>
         <source>Record cue</source>
         <translation>Cue aufzeichnen</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="556"/>
+        <location filename="simpledesk.cpp" line="680"/>
         <source>Cue Stack - Playback %1</source>
         <translation>Cue Stapel - Wiedergabe %1</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="674"/>
+        <location filename="simpledesk.cpp" line="798"/>
         <source>No selection</source>
         <translation>Keine Auswahl</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="694"/>
+        <location filename="simpledesk.cpp" line="818"/>
         <source>Cue name</source>
         <translation>Cue-Name</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="701"/>
+        <location filename="simpledesk.cpp" line="825"/>
         <source>Multiple Cues</source>
         <translation>Mehrere Cues</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="798"/>
+        <location filename="simpledesk.cpp" line="922"/>
         <source>Delete cue</source>
         <translation>Cue löschen</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="852"/>
+        <location filename="simpledesk.cpp" line="976"/>
         <source>Clone Cue Stack</source>
         <translation>Cue-Stapel kopieren</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="852"/>
+        <location filename="simpledesk.cpp" line="976"/>
         <source>Clone To Playback#</source>
         <translation>Zur Wiedergabe kopieren#</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="925"/>
+        <location filename="simpledesk.cpp" line="1049"/>
         <source>Cue %1</source>
         <translation>Cue %1</translation>
     </message>
@@ -3431,44 +3610,44 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     </message>
     <message>
         <location filename="speeddialwidget.cpp" line="69"/>
-        <source>Duration</source>
-        <translation>Dauer</translation>
+        <source>Hold</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>VCButton</name>
     <message>
-        <location filename="vcbutton.cpp" line="81"/>
+        <location filename="vcbutton.cpp" line="85"/>
         <source>Choose...</source>
         <translation>Auswählen ...</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="85"/>
+        <location filename="vcbutton.cpp" line="89"/>
         <source>None</source>
         <translation>Kein</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="276"/>
+        <location filename="vcbutton.cpp" line="293"/>
         <source>Select button icon</source>
         <translation>Schaltersymbol wählen</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="277"/>
+        <location filename="vcbutton.cpp" line="294"/>
         <source>Images (%1)</source>
         <translation>Bilder (%1)</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="444"/>
+        <location filename="vcbutton.cpp" line="522"/>
         <source>Toggle Blackout</source>
         <translation>Schalte Blackout</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="446"/>
+        <location filename="vcbutton.cpp" line="524"/>
         <source>Stop ALL functions!</source>
         <translation>ALLE Funktionen stoppen!</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="638"/>
+        <location filename="vcbutton.cpp" line="725"/>
         <source>Icon</source>
         <translation>Symbol</translation>
     </message>
@@ -3639,44 +3818,49 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
 <context>
     <name>VCCueList</name>
     <message>
-        <location filename="vccuelist.cpp" line="90"/>
+        <location filename="vccuelist.cpp" line="94"/>
         <source>Play</source>
         <translation>Abspielen</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="98"/>
+        <location filename="vccuelist.cpp" line="102"/>
         <source>Stop</source>
         <translation>Stop</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="106"/>
+        <location filename="vccuelist.cpp" line="110"/>
         <source>Previous Cue</source>
         <translation>Vorherige Cue</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="114"/>
+        <location filename="vccuelist.cpp" line="118"/>
         <source>Next Cue</source>
         <translation>Nächste-Cue</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="121"/>
+        <location filename="vccuelist.cpp" line="125"/>
         <source>Cue list</source>
         <translation>Cue-Liste</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="547"/>
+        <location filename="vccuelist.cpp" line="583"/>
         <source>Fade In</source>
         <translation>Einblenden</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="547"/>
+        <location filename="vccuelist.cpp" line="583"/>
         <source>Fade Out</source>
         <translation>Ausblenden</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="547"/>
+        <location filename="vccuelist.cpp" line="583"/>
         <source>Duration</source>
         <translation>Dauer</translation>
+    </message>
+    <message>
+        <location filename="vccuelist.cpp" line="583"/>
+        <source>Notes</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3891,7 +4075,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
 <context>
     <name>VCFrame</name>
     <message>
-        <location filename="vcframe.cpp" line="457"/>
+        <location filename="vcframe.cpp" line="555"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
@@ -3904,14 +4088,24 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
         <translation>Rahmen Eigenschaften</translation>
     </message>
     <message>
-        <location filename="vcframeproperties.ui" line="20"/>
+        <location filename="vcframeproperties.ui" line="22"/>
+        <source>Frame name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcframeproperties.ui" line="34"/>
         <source>Accept child widgets</source>
         <translation>Untergeordnete Steuerelemente akzeptieren</translation>
     </message>
     <message>
-        <location filename="vcframeproperties.ui" line="27"/>
+        <location filename="vcframeproperties.ui" line="41"/>
         <source>Allow resizing</source>
         <translation>Grössenänderung zulassen</translation>
+    </message>
+    <message>
+        <location filename="vcframeproperties.ui" line="48"/>
+        <source>Show header</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3947,7 +4141,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
         <translation>X-Auflösung des Layoutgitters</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="264"/>
+        <location filename="vcproperties.ui" line="673"/>
         <source>Choose...</source>
         <translation>Auswählen  ...</translation>
     </message>
@@ -3988,121 +4182,197 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     </message>
     <message>
         <location filename="vcproperties.ui" line="128"/>
+        <source>Widgets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcproperties.ui" line="140"/>
+        <source>Widgets default properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcproperties.ui" line="195"/>
+        <location filename="vcproperties.ui" line="218"/>
+        <location filename="vcproperties.ui" line="270"/>
+        <location filename="vcproperties.ui" line="284"/>
+        <location filename="vcproperties.ui" line="367"/>
+        <location filename="vcproperties.ui" line="393"/>
+        <location filename="vcproperties.ui" line="400"/>
+        <source>x</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcproperties.ui" line="499"/>
+        <source>Button size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcproperties.ui" line="485"/>
+        <source>Solo frame size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcproperties.ui" line="277"/>
+        <source>Slider size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcproperties.ui" line="430"/>
+        <source>Speed dial size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcproperties.ui" line="225"/>
+        <source>XY Pad size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcproperties.ui" line="492"/>
+        <source>Cue List size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcproperties.ui" line="407"/>
+        <source>Frame size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcproperties.ui" line="188"/>
+        <source>Speed dial value:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcproperties.ui" line="506"/>
+        <source>Button status style:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcproperties.ui" line="513"/>
+        <source>LED</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcproperties.ui" line="523"/>
+        <source>Border</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcproperties.ui" line="537"/>
         <source>Grand Master</source>
         <translation>Hauptregler</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="134"/>
+        <location filename="vcproperties.ui" line="543"/>
         <source>Channels</source>
         <translation>Kanäle</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="140"/>
+        <location filename="vcproperties.ui" line="549"/>
         <source>Apply Grand Master only to Intensity channels.</source>
         <translation>Den Hauptregler nur auf Intensitätskanäle anwenden.</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="143"/>
+        <location filename="vcproperties.ui" line="552"/>
         <source>Intensity</source>
         <translation>Intensität</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="150"/>
+        <location filename="vcproperties.ui" line="559"/>
         <source>Apply Grand Master to all channels.</source>
         <translation>Den Hauptregler auf alle Kanäle anwenden.</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="153"/>
+        <location filename="vcproperties.ui" line="562"/>
         <source>All channels</source>
         <translation>Alle Kanäle</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="163"/>
+        <location filename="vcproperties.ui" line="572"/>
         <source>Values</source>
         <translation>Werte</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="169"/>
+        <location filename="vcproperties.ui" line="578"/>
         <source>Make Grand Master reduce levels by a percentage.</source>
         <translation>Der Hauptregler reduziert die Werte prozentualisch.</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="172"/>
+        <location filename="vcproperties.ui" line="581"/>
         <source>Reduce</source>
         <translation>Reduzieren</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="179"/>
+        <location filename="vcproperties.ui" line="588"/>
         <source>Make Grand Master limit the maximum channel values.</source>
         <translation>Der Hauptregler limitiert die Maximalen Werte der Kanäle.</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="182"/>
+        <location filename="vcproperties.ui" line="591"/>
         <source>Limit</source>
         <translation>Limitieren</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="192"/>
+        <location filename="vcproperties.ui" line="601"/>
         <source>External Input</source>
         <translation>Externer Eingang</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="198"/>
+        <location filename="vcproperties.ui" line="607"/>
         <source>Input Universe</source>
         <translation>Eingangsuniversum</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="205"/>
+        <location filename="vcproperties.ui" line="614"/>
         <source>Input universe for Grand Master slider.</source>
         <translation>Eingangsuniversum für den Hauptregler.</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="215"/>
+        <location filename="vcproperties.ui" line="624"/>
         <source>Input Channel</source>
         <translation>Eingangskanal</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="222"/>
+        <location filename="vcproperties.ui" line="631"/>
         <source>Input channel for Grand Master slider.</source>
         <translation>Eingangskanal für den Hauptregler.</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="245"/>
+        <location filename="vcproperties.ui" line="654"/>
         <source>When toggled, you can move an external slider/knob to assign it to the Grand Master slider.</source>
         <translation>Wenn betätigt kann ein externer Regler/Schalter betätigt werden um diesen dem Hauptregler zuzuweisen.</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="248"/>
+        <location filename="vcproperties.ui" line="657"/>
         <source>Auto Detect</source>
         <translation>Automatische Erkennung</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="261"/>
+        <location filename="vcproperties.ui" line="670"/>
         <source>Choose an external input universe &amp; channel that the Grand Master slider should listen to.</source>
         <translation>Wähle ein externes Universum &amp; einen Kanal auf den dieser Hauptregler hören soll.</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="287"/>
+        <location filename="vcproperties.ui" line="696"/>
         <source>Slider movement</source>
         <translation>Regler Bewegung</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="293"/>
+        <location filename="vcproperties.ui" line="702"/>
         <source>Normal</source>
         <translation>Normal</translation>
     </message>
     <message>
-        <location filename="vcproperties.ui" line="300"/>
+        <location filename="vcproperties.ui" line="709"/>
         <source>Inverted</source>
         <translation>Invertiert</translation>
     </message>
     <message>
-        <location filename="vcpropertieseditor.cpp" line="263"/>
+        <location filename="vcpropertieseditor.cpp" line="415"/>
         <source>%1: Unknown</source>
         <translation>%1: Unbekannt</translation>
     </message>
     <message>
-        <location filename="vcpropertieseditor.cpp" line="279"/>
+        <location filename="vcpropertieseditor.cpp" line="431"/>
         <source>Unknown</source>
         <translation>Unbekannt</translation>
     </message>
@@ -4226,9 +4496,15 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
         <translation>Oberes Limit</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="401"/>
-        <source>Gobo/Effect</source>
-        <translation>Gobo/Effekt</translation>
+        <location filename="vcsliderproperties.ui" line="387"/>
+        <source>Intensity</source>
+        <translation type="unfinished">Intensität</translation>
+    </message>
+    <message>
+        <location filename="vcsliderproperties.ui" line="408"/>
+        <source>Gobo/Effect/Macro</source>
+        <oldsource>Gobo/Effect</oldsource>
+        <translation type="unfinished">Gobo/Effekt</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="60"/>
@@ -4323,62 +4599,72 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
         <translation>Klick &amp; Go</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="387"/>
-        <source>Color</source>
-        <translation>Farbe</translation>
-    </message>
-    <message>
         <location filename="vcsliderproperties.ui" line="394"/>
         <source>RGB</source>
         <translation>RGB</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="424"/>
+        <location filename="vcsliderproperties.ui" line="401"/>
+        <source>CMY</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcsliderproperties.ui" line="431"/>
         <source>Make the slider control the level of a set of channels</source>
         <translation>Schieberegler den Level mehrer Kanäle kontrollieren lassen</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="427"/>
+        <location filename="vcsliderproperties.ui" line="434"/>
         <source>Switch to Level Mode</source>
         <translation>In den Level-Modus wechseln</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="435"/>
+        <location filename="vcsliderproperties.ui" line="442"/>
         <source>Playback</source>
         <translation>Wiedergabe</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="441"/>
+        <location filename="vcsliderproperties.ui" line="448"/>
         <source>Function</source>
         <translation>Funktion</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="447"/>
+        <location filename="vcsliderproperties.ui" line="454"/>
         <source>Function that is attached to the slider</source>
         <translation>Funktion die diesem Schieberegler zugewiesen ist</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="457"/>
+        <location filename="vcsliderproperties.ui" line="464"/>
         <source>Attach a function to the slider</source>
         <translation>Funktion diesem Schieberegler zuweisen</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="477"/>
+        <location filename="vcsliderproperties.ui" line="484"/>
         <source>Detach the current function from the slider</source>
         <translation>Funktion des Schiebereglers zurücknehmen</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="513"/>
+        <location filename="vcsliderproperties.ui" line="520"/>
         <source>Make the slider control a function</source>
         <translation>Schieberegler eine Funktiion kontrollieren lassen</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="516"/>
+        <location filename="vcsliderproperties.ui" line="523"/>
         <source>Switch to Playback Mode</source>
         <translation>Zum Wiedergabemodus wechseln</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.cpp" line="664"/>
+        <location filename="vcsliderproperties.cpp" line="620"/>
+        <source>Select channels by group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcsliderproperties.cpp" line="621"/>
+        <source>Select a channel group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcsliderproperties.cpp" line="667"/>
         <source>No function</source>
         <translation>Keine Funktion</translation>
     </message>
@@ -4386,7 +4672,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
 <context>
     <name>VCSpeedDial</name>
     <message>
-        <location filename="vcspeeddial.cpp" line="54"/>
+        <location filename="vcspeeddial.cpp" line="56"/>
         <source>Duration</source>
         <translation>Dauer</translation>
     </message>
@@ -4585,101 +4871,116 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
         <translation>XY-Feldeigenschaften</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="20"/>
+        <location filename="vcxypadproperties.ui" line="301"/>
         <source>XY Pad Name</source>
         <translation>XY-Feldname</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="27"/>
+        <location filename="vcxypadproperties.ui" line="308"/>
         <source>The name of this XY Pad</source>
         <translation>Der Name dieses XY-Feldes</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="38"/>
+        <location filename="vcxypadproperties.ui" line="24"/>
         <source>Fixtures</source>
         <translation>Geräte</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="44"/>
+        <location filename="vcxypadproperties.ui" line="30"/>
         <source>List of fixtures that are controlled by this pad</source>
         <translation>Liste der Geräte die von diesem Feld gesteuert werden</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="69"/>
+        <location filename="vcxypadproperties.ui" line="55"/>
         <source>Fixture</source>
         <translation>Gerät</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="74"/>
+        <location filename="vcxypadproperties.ui" line="60"/>
         <source>X-Axis</source>
         <translation>x-Achse</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="79"/>
+        <location filename="vcxypadproperties.ui" line="65"/>
         <source>Y-Axis</source>
         <translation>y-Achse</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="87"/>
+        <location filename="vcxypadproperties.ui" line="73"/>
         <source>Add fixture(s) to the pad</source>
         <translation>Geräte zum Feld hinzufügen</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="107"/>
+        <location filename="vcxypadproperties.ui" line="93"/>
         <source>Remove selected fixture(s) from the pad</source>
         <translation>Ausgewählte Geräte vom Feld entfernen</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="127"/>
+        <location filename="vcxypadproperties.ui" line="113"/>
         <source>Edit the selected fixture&apos;s axis</source>
         <translation>Achsen des ausgewählten Geräts bearbeiten</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="161"/>
+        <location filename="vcxypadproperties.ui" line="147"/>
         <source>Input</source>
         <translation>Eingang</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="167"/>
+        <location filename="vcxypadproperties.ui" line="153"/>
         <source>Pan / Horizontal Axis</source>
         <translation>Pan / Horizontale Achsen</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="173"/>
-        <location filename="vcxypadproperties.ui" line="240"/>
+        <location filename="vcxypadproperties.ui" line="159"/>
+        <location filename="vcxypadproperties.ui" line="226"/>
         <source>Input universe</source>
         <translation>Eingangsuniversum</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="187"/>
-        <location filename="vcxypadproperties.ui" line="254"/>
+        <location filename="vcxypadproperties.ui" line="173"/>
+        <location filename="vcxypadproperties.ui" line="240"/>
         <source>Input channel</source>
         <translation>Eingangskanal</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="214"/>
-        <location filename="vcxypadproperties.ui" line="281"/>
+        <location filename="vcxypadproperties.ui" line="200"/>
+        <location filename="vcxypadproperties.ui" line="267"/>
         <source>Auto Detect</source>
         <translation>Automatische Erkennung</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="224"/>
-        <location filename="vcxypadproperties.ui" line="291"/>
+        <location filename="vcxypadproperties.ui" line="210"/>
+        <location filename="vcxypadproperties.ui" line="277"/>
         <source>Choose...</source>
         <translation>Auswahl...</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.ui" line="234"/>
+        <location filename="vcxypadproperties.ui" line="220"/>
         <source>Tilt / Vertical Axis</source>
         <translation>Tilt / Vertikale Achse</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.cpp" line="237"/>
+        <location filename="vcxypadproperties.ui" line="315"/>
+        <source>Y-Axis slider movement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcxypadproperties.ui" line="321"/>
+        <source>Normal</source>
+        <translation type="unfinished">Normal</translation>
+    </message>
+    <message>
+        <location filename="vcxypadproperties.ui" line="331"/>
+        <source>Inverted</source>
+        <translation type="unfinished">Invertiert</translation>
+    </message>
+    <message>
+        <location filename="vcxypadproperties.cpp" line="241"/>
         <source>Remove fixtures</source>
         <translation>Geräte entfernen</translation>
     </message>
     <message>
-        <location filename="vcxypadproperties.cpp" line="238"/>
+        <location filename="vcxypadproperties.cpp" line="242"/>
         <source>Do you want to remove the selected fixtures?</source>
         <translation>Willst du das ausgewählte Gerät entfernen?</translation>
     </message>
@@ -4859,27 +5160,27 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
         <translation>&amp;Sortierungsreihenfolge</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1017"/>
+        <location filename="virtualconsole.cpp" line="1029"/>
         <source>Do you wish to delete the selected widgets?</source>
         <translation>Das ausgewählte Element löschen?</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1018"/>
+        <location filename="virtualconsole.cpp" line="1030"/>
         <source>Delete widgets</source>
         <translation>Element löschen</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1063"/>
+        <location filename="virtualconsole.cpp" line="1075"/>
         <source>Rename widgets</source>
         <translation>Element umbenennen</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1063"/>
+        <location filename="virtualconsole.cpp" line="1075"/>
         <source>Caption:</source>
         <translation>Überschrift:</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1116"/>
+        <location filename="virtualconsole.cpp" line="1128"/>
         <source>Select background image</source>
         <translation>Hintergrundbild auswählen</translation>
     </message>
