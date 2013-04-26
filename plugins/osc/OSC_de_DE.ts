@@ -14,7 +14,7 @@
         <location filename="configureosc.ui" line="155"/>
         <location filename="configureosc.ui" line="162"/>
         <source>Output address:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgangsadresse:</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="37"/>
@@ -23,27 +23,27 @@
         <location filename="configureosc.ui" line="135"/>
         <source>Input port:</source>
         <oldsource>Port:</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Eingangsport:</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="70"/>
         <source>OSC Network 2</source>
-        <translation type="unfinished"></translation>
+        <translation>OSC-Netzwerk 2</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="101"/>
         <source>OSC Network 1</source>
-        <translation type="unfinished"></translation>
+        <translation>OSC-Netzwerk 1</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="186"/>
         <source>OSC Network 3</source>
-        <translation type="unfinished"></translation>
+        <translation>OSC-Netzwerk 3</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="193"/>
         <source>OSC Network 4</source>
-        <translation type="unfinished"></translation>
+        <translation>OSC-Netzwerk 4</translation>
     </message>
 </context>
 <context>
@@ -57,35 +57,35 @@
         <location filename="oscplugin.cpp" line="176"/>
         <location filename="oscplugin.cpp" line="273"/>
         <source>OSC Network</source>
-        <translation type="unfinished"></translation>
+        <translation>OSC-Netzwerk</translation>
     </message>
     <message>
         <location filename="oscplugin.cpp" line="187"/>
         <source>Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgang</translation>
     </message>
     <message>
         <location filename="oscplugin.cpp" line="190"/>
         <location filename="oscplugin.cpp" line="287"/>
         <source>Status: Not ready</source>
         <oldsource>Status: Not open</oldsource>
-        <translation type="unfinished">Nicht geöffnet</translation>
+        <translation>Nicht geöffnet</translation>
     </message>
     <message>
         <location filename="oscplugin.cpp" line="193"/>
         <source>Address: </source>
-        <translation type="unfinished"></translation>
+        <translation>Adresse:</translation>
     </message>
     <message>
         <location filename="oscplugin.cpp" line="196"/>
         <location filename="oscplugin.cpp" line="290"/>
         <source>Status: Ready</source>
-        <translation type="unfinished"></translation>
+        <translation>Status: Bereit</translation>
     </message>
     <message>
         <location filename="oscplugin.cpp" line="284"/>
         <source>Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Eingang</translation>
     </message>
 </context>
 </TS>
