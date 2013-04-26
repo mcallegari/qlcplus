@@ -44,6 +44,7 @@ AddressTool::AddressTool(QWidget *parent) :
 
     m_dipSwitch = new DIPSwitchWidget(this);
     ui->m_gridLayout->addWidget(m_dipSwitch, 0, 0, 1, 5);
+    m_dipSwitch->setMinimumHeight(80);
 
     connect(ui->m_addressSpin, SIGNAL(valueChanged(int)),
             m_dipSwitch, SLOT(slotSetValue(int)));

@@ -11,7 +11,7 @@
 The Show Manager has been introduced in QLC+ starting from version 4.0.0, after forking the original
 QLC code on November 5th, 2012.<br>
 <br>
-This new feature is meant to give users the possibility to setup a time driven show in a friendly and
+This feature is meant to give users the possibility to setup a time driven show in a friendly and
 completely graphical way.<br>
 The graphic interface shows a multitrack view, typical of audio sequencers or video editing softwares,
 and with it users are allowed to place QLC+ <A HREF="concept.html#Functions">Functions</A> at the desired
@@ -145,12 +145,17 @@ When a track has been activated, it is possible to add a <A HREF="concept.html#S
 and <A HREF="concept.html#Audio">Audio</A> item to it.<br>
 A new item will be placed at the cursor position, but it is always possible to move it to the desired time
 just by dragging it along the timeline.<br>
-A show item cannot be moved to another track, since it is bounded to the track where it has originally been created.<br>
-A show item can be cloned <IMG SRC="qrc:/editcopy.png"> or deleted <IMG SRC="qrc:/editdelete.png"> with the toolbar icons.
-The cloned item will be placed at the current cursor position.<br>
+A show item cannot be moved to another track, since it is bound to the track where it has originally been created.<br>
+A show item can be copied <IMG SRC="qrc:/editcopy.png">, pasted <IMG SRC="qrc:/editpaste.png"> or deleted <IMG SRC="qrc:/editdelete.png"> with the toolbar icons.
+The pasted item will be placed at the current cursor position.<br>
 The background color can be changed with the toolbar icon <IMG SRC="qrc:/color.png">. The assigned color will be saved
 in your project file.<br>
 Once selected, a sequence will display its <A HREF="chasereditor.html">Chaser Editor</A> on the right side of the screen.
+When right clicking an item a contextual menu will be displayd, showing the following option:
+<ul>
+<li>Preview: This option is available only on audio items. It will display the waveform preview for right, left or stereo channels when available</li>
+<li>Align to cursor: This option will move the selected item to the cursor position</li>
+</ul>
 Follow step 4 to understand how to fill a Sequence<br>
 
 <H3><LI>Add some steps <IMG SRC="qrc:/edit_add.png"></LI></H3>
