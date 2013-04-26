@@ -481,6 +481,7 @@ void ShowManager::slotAddTrack()
         showSceneEditor(m_scene);
         m_showview->addTrack(newTrack);
 
+        // When adding an existing Scene, create a default 10 seconds Sequence
         if (ss.getSelectedID() != Scene::invalidId())
         {
             Function* f = new Chaser(m_doc);
@@ -495,7 +496,7 @@ void ShowManager::slotAddTrack()
                 Track *track = m_show->getTrackFromSceneID(m_scene->id());
                 track->addFunctionID(chaser->id());
                 m_showview->addSequence(chaser);
-                ChaserStep step(m_scene->id(), 0, 10000, 0);
+                ChaserStep step(m_scene->id(), m_scene->fadeInSpeed(), 10000, m_scene->fadeOutSpeed());
                 step.note = QString();
                 step.values.append(m_scene->values());
                 chaser->addStep(step);

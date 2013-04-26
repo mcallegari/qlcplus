@@ -1,17 +1,18 @@
 qlcplus (4.3.3) stable; urgency=low
 
-  * NEW: Added a window to exclude the desired fixture channels from fade transitions
-  * NEW: Added global clipboard to copy & paste steps between Chasers. Show manager allows also to copy sequence and audio items between different Shows
+  * NEW: Added a window to exclude the desired fixture channels from fade transitions (purple icon)
+  * NEW: Added global clipboard to copy & paste steps between Chasers. Show manager allows also to copy tracks, sequence and audio items between different Shows
   * NEW: It is now possible to set Virtual Console widgets default size, button status style and speed dial default value
   * NEW: Added Click And Go functionality for CMY fixtures
-  * NEW: Added list of recent project files (long press open icon to activate it)
-  * NEW: Added "Snap to Grid" functionality in Show manager
+  * NEW: Added list of recent project files (long press open icon to see it)
   * NEW: It is now possible to add notes to Chaser steps (either from Chaser Editor or Virtual Console Cue List)
+  * NEW: Added "Snap to Grid" functionality in Show manager
   * NEW: Added "Align to cursor" option to Sequences and Audio item in Show Manager
-  * NEW: Show time position when dragging a Show Manager object
+  * NEW: Show time position when dragging a Show Manager object  
   * When adding an existing Scene into Show Manager, a 10seconds Sequence is now created by default with the Scene values
-  * Fixed crash when changing a fixture address
+  * Fixed crash when changing a fixture address or manufacturer
   * Fixed crash on Show Editor when displaying a deleted sequence
+  * Fixed Show Manager playback nasty bug preventing to play sequences/audio in the right order
   * Fixed Show Manager playback crash after deleting an audio track
   * Fixed enable/disable all channels of Scene Editor "all channels view" mode
   * Fixed Virtual Console buttons conflict between flash and manual on/off (thanks to Jano Svitok)
@@ -22,7 +23,7 @@ qlcplus (4.3.3) stable; urgency=low
   * Added fixture: Martin MAC250 Entour (thanks to Jannik Dam Kehlet)
   * Added fixtures: American DJ Accu UFO, American DJ Double Phase, American DJ FREQ 16 Strobe, American DJ Quad Phase, American DJ Revo4 256 CH, Elation EVC MH LED (thanks to David Kuder)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 30 Apr 2013 12:12:42 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 27 Apr 2013 12:12:42 +0200
 
 qlcplus (4.3.2) stable; urgency=low
 
