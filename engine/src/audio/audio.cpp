@@ -114,6 +114,7 @@ bool Audio::copyFrom(const Function* function)
     if (aud == NULL)
         return false;
 
+    setSourceFileName(aud->m_sourceFileName);
     m_audioDuration = aud->m_audioDuration;
     m_color = aud->m_color;
 

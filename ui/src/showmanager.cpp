@@ -432,6 +432,9 @@ void ShowManager::slotAddShow()
         // modify the new selected Show index
         m_selectedShowIndex = m_showsCombo->count();
         updateShowsCombo();
+        m_copyAction->setEnabled(false);
+        if (m_doc->clipboard()->hasFunction())
+            m_pasteAction->setEnabled(true);
     }
 }
 
@@ -601,12 +604,19 @@ void ShowManager::slotCopy()
 
     SequenceItem *seqItem = m_showview->getSelectedSequence();
     if (seqItem != NULL)
+    {
         fid = seqItem->getChaser()->id();
+    }
     else
     {
         audItem = m_showview->getSelectedAudio();
         if (audItem != NULL)
             fid = audItem->getAudio()->id();
+
+        if (audItem == NULL)
+        {
+            fid = m_scene->id();
+        }
     }
 
     if (fid != Function::invalidId())
@@ -624,16 +634,13 @@ void ShowManager::slotPaste()
     if (m_doc->clipboard()->hasFunction() == false)
         return;
 
-    if (m_scene == NULL) // @todo: here I should eventually create a new track...
-        return;
-
     // Get the Function copy and add it to Doc
-    Function* copy = m_doc->clipboard()->getFunction();
+    Function* clipboardCopy = m_doc->clipboard()->getFunction();
     quint32 copyDuration = 0;
-    if (copy->type() == Function::Chaser)
-        copyDuration = (qobject_cast<Chaser*>(copy))->getDuration();
-    else if (copy->type() == Function::Audio)
-        copyDuration = (qobject_cast<Audio*>(copy))->getDuration();
+    if (clipboardCopy->type() == Function::Chaser)
+        copyDuration = (qobject_cast<Chaser*>(clipboardCopy))->getDuration();
+    else if (clipboardCopy->type() == Function::Audio)
+        copyDuration = (qobject_cast<Audio*>(clipboardCopy))->getDuration();
 
     // Overlapping check
     if (checkOverlapping(m_showview->getTimeFromCursor(), copyDuration) == true)
@@ -641,15 +648,18 @@ void ShowManager::slotPaste()
         QMessageBox::warning(this, tr("Paste error"), tr("Overlapping paste not allowed. Operation cancelled."));
         return;
     }
-
-    Track *track = m_show->getTrackFromSceneID(m_scene->id());
     //qDebug() << "Check overlap... cursor time:" << cursorTime << "msec";
 
-    if (copy != NULL)
+    if (clipboardCopy != NULL)
     {
-        if (copy->type() == Function::Chaser)
+        // copy the function again, to allow multiple copies of the same function
+        Function* newCopy = clipboardCopy->createCopy(m_doc, false);
+        if (newCopy == NULL)
+            return;
+
+        if (clipboardCopy->type() == Function::Chaser)
         {
-            Chaser *chaser = qobject_cast<Chaser*>(copy);
+            Chaser *chaser = qobject_cast<Chaser*>(newCopy);
             // Verify the Chaser copy steps against the current Scene
             foreach(ChaserStep cs, chaser->steps())
             {
@@ -667,26 +677,35 @@ void ShowManager::slotPaste()
             chaser->setStartTime(UINT_MAX);
             // Reset the Scene ID to bind to the correct Scene
             chaser->enableSequenceMode(m_scene->id());
-            if (m_doc->addFunction(copy) == false)
+            if (m_doc->addFunction(newCopy) == false)
+            {
+                delete newCopy;
                 return;
+            }
+            Track *track = m_show->getTrackFromSceneID(m_scene->id());
             track->addFunctionID(chaser->id());
             m_showview->addSequence(chaser);
         }
-        else if (copy->type() == Function::Audio)
+        else if (clipboardCopy->type() == Function::Audio)
         {
-            Audio *audio = qobject_cast<Audio*>(copy);
+            if (m_doc->addFunction(newCopy) == false)
+            {
+                delete newCopy;
+                return;
+            }
+            Audio *audio = qobject_cast<Audio*>(newCopy);
             // Invalidate start time so the sequence will be pasted at the cursor position
             audio->setStartTime(UINT_MAX);
-            if (m_doc->addFunction(copy) == false)
-                return;
+
+            Track *track = m_show->getTrackFromSceneID(m_scene->id());
             track->addFunctionID(audio->id());
             m_showview->addAudio(audio);
         }
-        else if (copy->type() == Function::Scene)
+        else if (clipboardCopy->type() == Function::Scene)
         {
-            if (m_doc->addFunction(copy) == false)
+            if (m_doc->addFunction(newCopy) == false)
                 return;
-            m_scene = qobject_cast<Scene*>(copy);
+            m_scene = qobject_cast<Scene*>(newCopy);
             Track* newTrack = new Track(m_scene->id());
             newTrack->setName(m_scene->name());
             m_show->addTrack(newTrack);
@@ -777,7 +796,6 @@ void ShowManager::slotViewClicked(QMouseEvent *event)
         m_sequence_editor = NULL;
     }
     m_vsplitter->widget(1)->hide();
-    m_copyAction->setEnabled(false);
     m_colorAction->setEnabled(false);
     if (m_show != NULL && m_show->getTracksCount() == 0)
         m_deleteAction->setEnabled(false);
@@ -861,6 +879,7 @@ void ShowManager::slotTrackClicked(Track *track)
     m_scene = qobject_cast<Scene*>(f);
     showSceneEditor(m_scene);
     m_deleteAction->setEnabled(true);
+    m_copyAction->setEnabled(true);
 }
 
 void ShowManager::slotChangeColor()
@@ -1073,12 +1092,23 @@ void ShowManager::updateMultiTrackView()
         m_scene = firstScene;
         m_showview->activateTrack(firstTrack);
         showSceneEditor(m_scene);
+        m_copyAction->setEnabled(true);
     }
+    else
+    {
+        m_scene = NULL;
+        showSceneEditor(NULL);
+    }
+    if (m_doc->clipboard()->hasFunction())
+        m_pasteAction->setEnabled(true);
     m_showview->updateViewSize();
 }
 
 bool ShowManager::checkOverlapping(quint32 startTime, quint32 duration)
 {
+    if (m_scene == NULL)
+        return false;
+
     Track *track = m_show->getTrackFromSceneID(m_scene->id());
 
     foreach(quint32 fid, track->functionsID())
