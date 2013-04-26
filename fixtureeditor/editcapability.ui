@@ -108,7 +108,7 @@
        <property name="alignment">
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
        </property>
-       <layout class="QGridLayout" name="gridLayout">
+       <layout class="QGridLayout" name="gridLayout1">
         <item row="1" column="3" rowspan="3">
          <widget class="QToolButton" name="m_resourceButton">
           <property name="enabled">

@@ -46,7 +46,9 @@ docs.files = \
              showmanager.html \
              simpledesk.html \
              tutorial.html \
-             tutorial.png \
+             tutorial1_1.png \
+             tutorial1_2.png \
+             tutorial1_3.png \
              udmxoutput.html \
              vcbutton.html \
              vcbuttonmatrix.html \
