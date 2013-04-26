@@ -459,16 +459,46 @@ void ShowManager::slotAddTrack()
             Function *f = qobject_cast<Function*>(m_scene);
             if (m_doc->addFunction(f) == true)
                 f->setName(QString("%1 %2").arg(tr("New Scene")).arg(f->id()));
+            else
+            {
+                delete m_scene;
+                return;
+            }
         }
         else
         {
             m_scene = qobject_cast<Scene*>(m_doc->function(ss.getSelectedID()));
         }
+        if (m_scene == NULL)
+            return;
+
         Track* newTrack = new Track(m_scene->id());
         newTrack->setName(m_scene->name());
         m_show->addTrack(newTrack);
         showSceneEditor(m_scene);
         m_showview->addTrack(newTrack);
+
+        if (ss.getSelectedID() != Scene::invalidId())
+        {
+            Function* f = new Chaser(m_doc);
+            if (m_doc->addFunction(f) == true)
+            {
+                Chaser *chaser = qobject_cast<Chaser*> (f);
+                chaser->enableSequenceMode(m_scene->id());
+                chaser->setRunOrder(Function::SingleShot);
+                chaser->setDurationMode(Chaser::PerStep);
+                m_scene->setChildrenFlag(true);
+                f->setName(QString("%1 %2").arg(tr("New Sequence")).arg(f->id()));
+                Track *track = m_show->getTrackFromSceneID(m_scene->id());
+                track->addFunctionID(chaser->id());
+                m_showview->addSequence(chaser);
+                ChaserStep step(m_scene->id(), 0, 10000, 0);
+                step.note = QString();
+                step.values.append(m_scene->values());
+                chaser->addStep(step);
+            }
+        }
+
         m_addSequenceAction->setEnabled(true);
         m_addAudioAction->setEnabled(true);
         m_showview->activateTrack(newTrack);
@@ -480,14 +510,12 @@ void ShowManager::slotAddTrack()
 void ShowManager::slotAddSequence()
 {
     Function* f = new Chaser(m_doc);
-    Chaser *chaser = qobject_cast<Chaser*> (f);
-    quint32 sceneID = m_scene->id();
-    chaser->enableSequenceMode(sceneID);
-    chaser->setRunOrder(Function::SingleShot);
-    Scene *boundScene = qobject_cast<Scene*>(m_doc->function(sceneID));
-    boundScene->setChildrenFlag(true);
     if (m_doc->addFunction(f) == true)
     {
+        Chaser *chaser = qobject_cast<Chaser*> (f);
+        chaser->enableSequenceMode(m_scene->id());
+        chaser->setRunOrder(Function::SingleShot);
+        m_scene->setChildrenFlag(true);
         f->setName(QString("%1 %2").arg(tr("New Sequence")).arg(f->id()));
         showSequenceEditor(chaser);
         Track *track = m_show->getTrackFromSceneID(m_scene->id());
@@ -617,7 +645,6 @@ void ShowManager::slotPaste()
     Track *track = m_show->getTrackFromSceneID(m_scene->id());
     //qDebug() << "Check overlap... cursor time:" << cursorTime << "msec";
 
-
     if (copy != NULL)
     {
         if (copy->type() == Function::Chaser)
@@ -645,8 +672,7 @@ void ShowManager::slotPaste()
             track->addFunctionID(chaser->id());
             m_showview->addSequence(chaser);
         }
-
-        if (copy->type() == Function::Audio)
+        else if (copy->type() == Function::Audio)
         {
             Audio *audio = qobject_cast<Audio*>(copy);
             // Invalidate start time so the sequence will be pasted at the cursor position
@@ -655,6 +681,22 @@ void ShowManager::slotPaste()
                 return;
             track->addFunctionID(audio->id());
             m_showview->addAudio(audio);
+        }
+        else if (copy->type() == Function::Scene)
+        {
+            if (m_doc->addFunction(copy) == false)
+                return;
+            m_scene = qobject_cast<Scene*>(copy);
+            Track* newTrack = new Track(m_scene->id());
+            newTrack->setName(m_scene->name());
+            m_show->addTrack(newTrack);
+            showSceneEditor(m_scene);
+            m_showview->addTrack(newTrack);
+            m_addSequenceAction->setEnabled(true);
+            m_addAudioAction->setEnabled(true);
+            m_showview->activateTrack(newTrack);
+            m_deleteAction->setEnabled(true);
+            m_showview->updateViewSize();
         }
     }
 }

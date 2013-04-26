@@ -249,7 +249,7 @@ private:
     /** index of the selected step for highlighting (-1 if none) */
     int m_selectedStep;
 
-    QFont m_timeFont;
+    QFont m_font;
     bool m_pressed;
 
     QAction *m_alignToCursor;

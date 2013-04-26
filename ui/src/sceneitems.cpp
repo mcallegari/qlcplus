@@ -448,9 +448,9 @@ SequenceItem::SequenceItem(Chaser *seq)
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     m_color = m_chaser->getColor();
     calculateWidth();
-    m_timeFont = QApplication::font();
-    m_timeFont.setBold(true);
-    m_timeFont.setPixelSize(12);
+    m_font = QApplication::font();
+    m_font.setBold(true);
+    m_font.setPixelSize(12);
     connect(m_chaser, SIGNAL(changed(quint32)), this, SLOT(slotSequenceChanged(quint32)));
 
     m_alignToCursor = new QAction(tr("Align to cursor"), this);
@@ -548,12 +548,20 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
         }
         stepIdx++;
     }
+/*
+    // draw shadow
+    painter->setPen(QPen(QColor(10, 10, 10, 150), 2));
+    painter->drawText(QRect(6, 6, m_width - 6, 71), Qt::AlignLeft, m_chaser->name());
 
+    // draw chaser name
+    painter->setPen(QPen(QColor(220, 220, 220, 255), 2));
+    painter->drawText(QRect(5, 5, m_width - 5, 72), Qt::AlignLeft, m_chaser->name());
+*/
     if (m_pressed)
     {
         quint32 s_time = (double)(x() - TRACK_WIDTH - 2) * (m_timeScale * 500) /
                          (double)(HALF_SECOND_WIDTH);
-        painter->setFont(m_timeFont);
+        painter->setFont(m_font);
         painter->drawText(5, TRACK_HEIGHT - 10, Function::speedToString(s_time));
     }
 }

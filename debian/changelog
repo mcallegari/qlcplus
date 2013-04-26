@@ -2,19 +2,20 @@ qlcplus (4.3.3) stable; urgency=low
 
   * NEW: Added a window to exclude the desired fixture channels from fade transitions
   * NEW: Added global clipboard to copy & paste steps between Chasers. Show manager allows also to copy sequence and audio items between different Shows
-  * NEW: Added status "LED" to Virtual Console buttons
-  * NEW: It is now possible to set Virtual Console widgets default size and Speed Dial default value
+  * NEW: It is now possible to set Virtual Console widgets default size, button status style and speed dial default value
   * NEW: Added Click And Go functionality for CMY fixtures
   * NEW: Added list of recent project files (long press open icon to activate it)
   * NEW: Added "Snap to Grid" functionality in Show manager
   * NEW: It is now possible to add notes to Chaser steps (either from Chaser Editor or Virtual Console Cue List)
   * NEW: Added "Align to cursor" option to Sequences and Audio item in Show Manager
   * NEW: Show time position when dragging a Show Manager object
+  * When adding an existing Scene into Show Manager, a 10seconds Sequence is now created by default with the Scene values
   * Fixed crash when changing a fixture address
   * Fixed crash on Show Editor when displaying a deleted sequence
   * Fixed Show Manager playback crash after deleting an audio track
   * Fixed enable/disable all channels of Scene Editor "all channels view" mode
   * Fixed Virtual Console buttons conflict between flash and manual on/off (thanks to Jano Svitok)
+  * Improved Click & Go preset widget to fit on the screen (thanks to Jano Svitok)
   * Added total Show duration in Show Editor
   * Added fixtures: American DJ 64B LED PRO, American DJ Profile Panel RGB
   * Added fixture: Chauvet Gyser RGB (thanks to George Qualley)
