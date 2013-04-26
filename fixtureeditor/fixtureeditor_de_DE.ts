@@ -624,27 +624,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editmode.ui" line="431"/>
         <source>HSD 150W</source>
-        <translation type="unfinished"></translation>
+        <translation>HSD 150W</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="436"/>
         <source>HSD 200W</source>
-        <translation type="unfinished"></translation>
+        <translation>HSD 200W</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="441"/>
         <source>HSD 250W</source>
-        <translation type="unfinished"></translation>
+        <translation>HSD 250W</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="446"/>
         <source>HSD 575W</source>
-        <translation type="unfinished"></translation>
+        <translation>HSD 575W</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="516"/>
         <source>MSR 575W</source>
-        <translation type="unfinished"></translation>
+        <translation>MSR 575W</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="534"/>
