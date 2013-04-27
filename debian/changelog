@@ -6,9 +6,10 @@ qlcplus (4.3.3) stable; urgency=low
   * NEW: Added Click And Go functionality for CMY fixtures
   * NEW: Added list of recent project files (long press open icon to see it)
   * NEW: It is now possible to add notes to Chaser steps (either from Chaser Editor or Virtual Console Cue List)
-  * NEW: Added "Snap to Grid" functionality in Show manager
+  * NEW: Added "Snap to Grid" functionality to Show manager
   * NEW: Added "Align to cursor" option to Sequences and Audio item in Show Manager
   * NEW: Show time position when dragging a Show Manager object  
+  * Gives more time to DMXking devices to respond to identification calls
   * When adding an existing Scene into Show Manager, a 10seconds Sequence is now created by default with the Scene values
   * Fixed crash when changing a fixture address or manufacturer
   * Fixed crash on Show Editor when displaying a deleted sequence
