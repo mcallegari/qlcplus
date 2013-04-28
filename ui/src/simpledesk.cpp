@@ -615,7 +615,16 @@ void SimpleDesk::slotUniversesWritten(const QByteArray& ua)
 void SimpleDesk::slotUpdateUniverseSliders()
 {
     qDebug() << Q_FUNC_INFO;
-    slotUniversePageChanged(m_universePageSpin->value());
+    if (m_viewModeButton->isChecked() == true)
+    {
+        m_universeGroup->layout()->removeWidget(scrollArea);
+        delete scrollArea;
+        initSliderView(true);
+    }
+    else
+    {
+        slotUniversePageChanged(m_universePageSpin->value());
+    }
 }
 
 /****************************************************************************
