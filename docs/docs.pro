@@ -17,6 +17,8 @@ docs.files = \
              concept.html \
              dmxdump.html \
              efxeditor.html \
+             efx-general.png \
+             efx-movement.png \
              enttecdmxusboutput.html \
              fixturedefinitioneditor.html \
              fixtureeditor.html \
