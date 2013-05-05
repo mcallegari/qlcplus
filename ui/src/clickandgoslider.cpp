@@ -29,6 +29,12 @@ ClickAndGoSlider::ClickAndGoSlider(QWidget *parent) : QSlider(parent)
 
 void ClickAndGoSlider::mousePressEvent ( QMouseEvent * event )
 {
+    if (event->modifiers() == Qt::ControlModifier)
+    {
+        emit controlClicked();
+        return;
+    }
+
     QStyleOptionSlider opt;
     initStyleOption(&opt);
     QRect sr = style()->subControlRect(QStyle::CC_Slider, &opt, QStyle::SC_SliderHandle, this);
