@@ -39,7 +39,7 @@
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="0">White</Capability>
-  <Capability Min="10" Max="10">türkis?!</Capability>
+  <Capability Min="10" Max="10">Turquoise</Capability>
   <Capability Min="21" Max="21">Red</Capability>
   <Capability Min="32" Max="32">Cyan</Capability>
   <Capability Min="42" Max="42">Green</Capability>
