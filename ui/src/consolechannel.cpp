@@ -609,6 +609,11 @@ void ConsoleChannel::slotClickAndGoLevelAndPresetChanged(uchar level, QImage img
  * Selection
  *************************************************************************/
 
+bool ConsoleChannel::isSelected()
+{
+    return m_selected;
+}
+
 void ConsoleChannel::slotControlClicked()
 {
     qDebug() << "CONTROL modifier + click";
