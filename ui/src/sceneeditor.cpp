@@ -78,6 +78,7 @@ SceneEditor::SceneEditor(QWidget* parent, Scene* scene, Doc* doc, bool applyValu
     , m_channelGroupsTab(-1)
     , m_currentTab(KTabGeneral)
     , m_fixtureFirstTabIndex(1)
+    , m_copyFromSelection(false)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -401,6 +402,10 @@ void SceneEditor::slotCopy()
     if (fc != NULL)
     {
         m_copy = fc->values();
+        if (fc->hasSelections())
+            m_copyFromSelection = true;
+        else
+            m_copyFromSelection = false;
         m_pasteAction->setEnabled(true);
     }
 }
@@ -410,7 +415,7 @@ void SceneEditor::slotPaste()
     /* QObject cast fails unless the widget is a FixtureConsole */
     FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
     if (fc != NULL && m_copy.isEmpty() == false)
-        fc->setValues(m_copy);
+        fc->setValues(m_copy, m_copyFromSelection);
 }
 
 void SceneEditor::slotCopyToAll()
@@ -421,7 +426,7 @@ void SceneEditor::slotCopyToAll()
     {
         FixtureConsole* fc = fixtureConsoleTab(i);
         if (fc != NULL)
-            fc->setValues(m_copy);
+            fc->setValues(m_copy, m_copyFromSelection);
     }
 
     m_copy.clear();

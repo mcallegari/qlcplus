@@ -191,6 +191,7 @@ private:
 
     /** Values from a copied console (i.e. clipboard) */
     QList <SceneValue> m_copy;
+    bool m_copyFromSelection;
 };
 
 #endif

@@ -187,9 +187,22 @@ QList <SceneValue> FixtureConsole::values() const
         return list;
 }
 
-void FixtureConsole::setValues(const QList <SceneValue>& list)
+bool FixtureConsole::hasSelections()
 {
-    setChecked(false);
+    foreach(ConsoleChannel *cc, m_channels)
+    {
+        Q_ASSERT(cc != NULL);
+        if (cc->isChecked() && cc->isSelected())
+            return true;
+    }
+
+    return false;
+}
+
+void FixtureConsole::setValues(const QList <SceneValue>& list, bool fromSelection)
+{
+    if (fromSelection == false)
+        setChecked(false);
 
     QListIterator <SceneValue> it(list);
     while (it.hasNext() == true)
