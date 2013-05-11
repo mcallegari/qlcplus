@@ -1564,6 +1564,9 @@ bool VirtualConsole::loadXML(const QDomElement& root)
         {
             /* Properties */
             m_properties.loadXML(tag);
+            QSize size(m_properties.size());
+            contents()->resize(size);
+            contents()->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
         }
         else if (tag.tagName() == KXMLQLCVCFrame)
         {
