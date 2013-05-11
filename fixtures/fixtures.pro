@@ -11,6 +11,7 @@ fixtures.files += American-DJ-Double-Phase.qxf
 fixtures.files += American-DJ-FREQ-16-Strobe.qxf
 fixtures.files += American-DJ-Galaxian-3D.qxf
 fixtures.files += American-DJ-Hypnotic-RGB.qxf
+fixtures.files += American-DJ-Mega-Bar-50RGB.qxf
 fixtures.files += American-DJ-Mega-Bar-LED.qxf
 fixtures.files += American-DJ-Mega-Flash-DMX.qxf
 fixtures.files += American-DJ-Mega-Panel-LED.qxf

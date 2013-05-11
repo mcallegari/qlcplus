@@ -5,6 +5,7 @@ qlcplus (4.3.4) stable; urgency=low
   * Fixed 'hold' setting changed from a speed dial for RGBMatrix, EFX and Simple Desk Playback Cue
   * Fixed loading of empty sequence steps when all values are set to zero
   * Virtual Console size is now taken into account when loading a project (including kiosk mode)
+  * Added fixture: American DJ Mega Bar 50RGB (thanks to George Qualley)
 
 qlcplus (4.3.3) stable; urgency=low
 
