@@ -487,10 +487,10 @@ void EFXEditor::createSpeedDials()
     m_speedDials->show();
     m_speedDials->setFadeInSpeed(m_efx->fadeInSpeed());
     m_speedDials->setFadeOutSpeed(m_efx->fadeOutSpeed());
-    m_speedDials->setDuration(m_efx->duration());
+    m_speedDials->setDuration(m_efx->duration() - m_efx->fadeInSpeed() - m_efx->fadeOutSpeed());
     connect(m_speedDials, SIGNAL(fadeInChanged(int)), this, SLOT(slotFadeInChanged(int)));
     connect(m_speedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotFadeOutChanged(int)));
-    connect(m_speedDials, SIGNAL(durationChanged(int)), this, SLOT(slotDurationChanged(int)));
+    connect(m_speedDials, SIGNAL(holdChanged(int)), this, SLOT(slotHoldChanged(int)));
     connect(m_speedDials, SIGNAL(durationTapped()), this, SLOT(slotDurationTapped()));
 }
 
@@ -737,9 +737,10 @@ void EFXEditor::slotFadeOutChanged(int ms)
     m_efx->setFadeOutSpeed(ms);
 }
 
-void EFXEditor::slotDurationChanged(int ms)
+void EFXEditor::slotHoldChanged(int ms)
 {
-    m_efx->setDuration(ms);
+    uint duration = m_efx->fadeInSpeed() + ms + m_efx->fadeOutSpeed();
+    m_efx->setDuration(duration);
     redrawPreview();
 }
 

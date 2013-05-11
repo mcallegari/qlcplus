@@ -174,7 +174,7 @@ private slots:
 
     void slotFadeInDialChanged(int ms);
     void slotFadeOutDialChanged(int ms);
-    void slotDurationDialChanged(int ms);
+    void slotHoldDialChanged(int ms);
     void slotCueNameEdited(const QString& name);
 
 protected:

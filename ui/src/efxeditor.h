@@ -108,7 +108,7 @@ private slots:
 
     void slotFadeInChanged(int ms);
     void slotFadeOutChanged(int ms);
-    void slotDurationChanged(int ms);
+    void slotHoldChanged(int ms);
 
     void slotFixtureRemoved();
     void slotFixtureChanged();

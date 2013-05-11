@@ -822,7 +822,7 @@ void SimpleDesk::updateSpeedDials()
         m_speedDials->setWindowTitle(cue.name());
         m_speedDials->setFadeInSpeed(cue.fadeInSpeed());
         m_speedDials->setFadeOutSpeed(cue.fadeOutSpeed());
-        m_speedDials->setDuration(cue.duration());
+        m_speedDials->setDuration(cue.duration() - cue.fadeInSpeed() - cue.fadeOutSpeed());
 
         m_speedDials->setOptionalTextTitle(tr("Cue name"));
         m_speedDials->setOptionalText(cue.name());
@@ -1018,8 +1018,8 @@ void SimpleDesk::slotEditCueStackClicked()
                     this, SLOT(slotFadeInDialChanged(int)));
             connect(m_speedDials, SIGNAL(fadeOutChanged(int)),
                     this, SLOT(slotFadeOutDialChanged(int)));
-            connect(m_speedDials, SIGNAL(durationChanged(int)),
-                    this, SLOT(slotDurationDialChanged(int)));
+            connect(m_speedDials, SIGNAL(holdChanged(int)),
+                    this, SLOT(slotHoldDialChanged(int)));
             connect(m_speedDials, SIGNAL(optionalTextEdited(const QString&)),
                     this, SLOT(slotCueNameEdited(const QString&)));
         }
@@ -1116,14 +1116,17 @@ void SimpleDesk::slotFadeOutDialChanged(int ms)
         cueStack->setFadeOutSpeed(ms, index.row());
 }
 
-void SimpleDesk::slotDurationDialChanged(int ms)
+void SimpleDesk::slotHoldDialChanged(int ms)
 {
     Q_ASSERT(m_cueStackView != NULL);
     Q_ASSERT(m_cueStackView->selectionModel() != NULL);
     QModelIndexList selected(m_cueStackView->selectionModel()->selectedRows());
     CueStack* cueStack = currentCueStack();
     foreach (QModelIndex index, selected)
-        cueStack->setDuration(ms, index.row());
+    {
+        uint duration = cueStack->fadeInSpeed() + ms + cueStack->fadeOutSpeed();
+        cueStack->setDuration(duration, index.row());
+    }
 }
 
 void SimpleDesk::slotCueNameEdited(const QString& name)
