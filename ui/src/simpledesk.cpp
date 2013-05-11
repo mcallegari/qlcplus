@@ -822,7 +822,10 @@ void SimpleDesk::updateSpeedDials()
         m_speedDials->setWindowTitle(cue.name());
         m_speedDials->setFadeInSpeed(cue.fadeInSpeed());
         m_speedDials->setFadeOutSpeed(cue.fadeOutSpeed());
-        m_speedDials->setDuration(cue.duration() - cue.fadeInSpeed() - cue.fadeOutSpeed());
+        if ((int)cue.duration() < 0)
+            m_speedDials->setDuration(cue.duration());
+        else
+            m_speedDials->setDuration(cue.duration() - cue.fadeInSpeed() - cue.fadeOutSpeed());
 
         m_speedDials->setOptionalTextTitle(tr("Cue name"));
         m_speedDials->setOptionalText(cue.name());
@@ -1124,8 +1127,10 @@ void SimpleDesk::slotHoldDialChanged(int ms)
     CueStack* cueStack = currentCueStack();
     foreach (QModelIndex index, selected)
     {
-        uint duration = cueStack->fadeInSpeed() + ms + cueStack->fadeOutSpeed();
-        cueStack->setDuration(duration, index.row());
+        if (ms < 0)
+            cueStack->setDuration(ms, index.row());
+        else
+            cueStack->setDuration(cueStack->fadeInSpeed() + ms + cueStack->fadeOutSpeed(), index.row());
     }
 }
 

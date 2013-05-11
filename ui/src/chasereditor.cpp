@@ -735,6 +735,7 @@ void ChaserEditor::slotFadeOutDialChanged(int ms)
 
 void ChaserEditor::slotHoldDialChanged(int ms)
 {
+    qDebug() << "HOLD set to " << ms;
     switch (m_chaser->durationMode())
     {
     case Chaser::PerStep:
@@ -743,7 +744,10 @@ void ChaserEditor::slotHoldDialChanged(int ms)
             int index = m_tree->indexOfTopLevelItem(item);
             ChaserStep step = stepAtItem(item);
             step.hold = ms;
-            step.duration = step.fadeIn + step.hold + step.fadeOut;
+            if (ms < 0)
+                step.duration = ms;
+            else
+                step.duration = step.fadeIn + step.hold + step.fadeOut;
             m_chaser->replaceStep(step, index);
             updateItem(item, step);
         }
@@ -875,8 +879,10 @@ void ChaserEditor::updateSpeedDials()
     default:
     case Chaser::Common:
     {
-        uint holdSpeed = m_chaser->duration() - m_chaser->fadeInSpeed() - m_chaser->fadeOutSpeed();
-        m_speedDials->setDuration(holdSpeed);
+        if ((int)m_chaser->duration() < 0)
+            m_speedDials->setDuration(m_chaser->duration());
+        else
+            m_speedDials->setDuration(m_chaser->duration() - m_chaser->fadeInSpeed() - m_chaser->fadeOutSpeed());
         m_speedDials->setDurationTitle(globalHold);
         m_speedDials->setDurationEnabled(true);
         break;

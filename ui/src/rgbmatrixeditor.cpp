@@ -196,7 +196,10 @@ void RGBMatrixEditor::createSpeedDials()
     m_speedDials->show();
     m_speedDials->setFadeInSpeed(m_matrix->fadeInSpeed());
     m_speedDials->setFadeOutSpeed(m_matrix->fadeOutSpeed());
-    m_speedDials->setDuration(m_matrix->duration() - m_matrix->fadeInSpeed() - m_matrix->fadeOutSpeed());
+    if ((int)m_matrix->duration() < 0)
+        m_speedDials->setDuration(m_matrix->duration());
+    else
+        m_speedDials->setDuration(m_matrix->duration() - m_matrix->fadeInSpeed() - m_matrix->fadeOutSpeed());
     connect(m_speedDials, SIGNAL(fadeInChanged(int)), this, SLOT(slotFadeInChanged(int)));
     connect(m_speedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotFadeOutChanged(int)));
     connect(m_speedDials, SIGNAL(holdChanged(int)), this, SLOT(slotHoldChanged(int)));
@@ -482,7 +485,11 @@ void RGBMatrixEditor::slotFadeOutChanged(int ms)
 
 void RGBMatrixEditor::slotHoldChanged(int ms)
 {
-    uint duration = m_matrix->fadeInSpeed() + ms + m_matrix->fadeOutSpeed();
+    uint duration = 0;
+    if (ms < 0)
+        duration = ms;
+    else
+        duration = m_matrix->fadeInSpeed() + ms + m_matrix->fadeOutSpeed();
     m_matrix->setDuration(duration);
 }
 
