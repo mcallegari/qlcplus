@@ -1,6 +1,7 @@
 qlcplus (4.3.4) stable; urgency=low
 
   * NEW: In Scene Editor, fixture channels can be selected (CTRL+Click) for advanced copy/paste
+  * Fixed regression of Chaser Editor paste operation, causing a major drop of performances
 
 qlcplus (4.3.3) stable; urgency=low
 

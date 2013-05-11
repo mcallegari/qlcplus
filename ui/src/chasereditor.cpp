@@ -60,6 +60,7 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc)
     : QWidget(parent)
     , m_doc(doc)
     , m_chaser(chaser)
+    , m_itemIsUpdating(false)
 {
     Q_ASSERT(chaser != NULL);
     Q_ASSERT(doc != NULL);
@@ -352,7 +353,7 @@ void ChaserEditor::slotAddClicked()
         m_tree->setCurrentItem(item);
         updateStepNumbers();
         updateClipboardButtons();
-        printSteps();
+        //printSteps();
     }
 }
 
@@ -397,7 +398,7 @@ void ChaserEditor::slotRaiseClicked()
         it.next()->setSelected(true);
 
     updateClipboardButtons();
-    printSteps();
+    //printSteps();
 }
 
 void ChaserEditor::slotLowerClicked()
@@ -434,7 +435,7 @@ void ChaserEditor::slotLowerClicked()
         it.next()->setSelected(true);
 
     updateClipboardButtons();
-    printSteps();
+    //printSteps();
 }
 
 void ChaserEditor::slotSpeedDialToggle(bool state)
@@ -590,6 +591,8 @@ void ChaserEditor::slotPasteClicked()
         insertionPoint = m_tree->topLevelItemCount();
     }
 
+    QList<QTreeWidgetItem*>selectionList;
+
     QListIterator <ChaserStep> it(pasteList);
     while (it.hasNext() == true)
     {
@@ -597,13 +600,17 @@ void ChaserEditor::slotPasteClicked()
         ChaserStep step(it.next());
         updateItem(item, step);
         m_tree->insertTopLevelItem(insertionPoint, item);
-        item->setSelected(true);
         m_chaser->addStep(step, insertionPoint);
+        selectionList.append(item); // defer items selection cause of performances issues
         insertionPoint++;
     }
 
     updateStepNumbers();
     updateClipboardButtons();
+
+    // this is done here cause of a misterious performance issue
+    foreach (QTreeWidgetItem *item, selectionList)
+        item->setSelected(true);
 }
 
 /****************************************************************************
