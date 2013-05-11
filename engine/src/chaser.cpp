@@ -458,7 +458,7 @@ bool Chaser::loadXML(const QDomElement& root)
 
             if (step.loadXML(tag, stepNumber) == true)
             {
-                if (step.values.count() > 0)
+                if (isSequence() == true)
                     step.fid = getBoundSceneID();
                 if (stepNumber >= m_steps.size())
                     m_steps.append(step);
