@@ -203,7 +203,7 @@ void SceneEditor::init(bool applyValues)
     }
 
     m_tabViewAction->setCheckable(true);
-    m_tabViewAction->setChecked(true);
+    m_tabViewAction->setChecked(m_scene->viewMode());
 
     // Chaser combo init
     quint32 selectId = Function::invalidId();
@@ -310,6 +310,7 @@ void SceneEditor::init(bool applyValues)
     updateChannelsGroupsTab();
 
     // Fixtures & tabs
+    // Fill the fixtures list from the Scene values
     QListIterator <SceneValue> it(m_scene->values());
     while (it.hasNext() == true)
     {
@@ -322,16 +323,12 @@ void SceneEditor::init(bool applyValues)
                 continue;
 
             addFixtureItem(fixture);
-            addFixtureTab(fixture);
+            //addFixtureTab(fixture);
         }
-
-        if (applyValues == false)
-            scv.value = 0;
-        setSceneValue(scv);
-        //qDebug() << "Applying fixture :" << scv.fxi << ", channel: " << scv.channel << ", value: " << scv.value;
     }
 
-    //createSpeedDials();
+    // Create the actual tab view
+    slotViewModeChanged(m_scene->viewMode(), applyValues);
 }
 
 void SceneEditor::setSceneValue(const SceneValue& scv)
@@ -569,8 +566,9 @@ void SceneEditor::slotModeChanged(Doc::Mode mode)
         m_blindAction->setChecked(false);
 }
 
-void SceneEditor::slotViewModeChanged(bool toggled)
+void SceneEditor::slotViewModeChanged(bool toggled, bool applyValues)
 {
+    qDebug() << "--------- slotViewModeChanged";
     for (int i = m_tab->count() - 1; i >= m_fixtureFirstTabIndex; i--)
     {
         QScrollArea* area = qobject_cast<QScrollArea*> (m_tab->widget(i));
@@ -611,13 +609,17 @@ void SceneEditor::slotViewModeChanged(bool toggled)
                 console->setFixture(fixture->id());
                 console->setChecked(false);
                 m_consoleList.append(console);
+
                 QListIterator <SceneValue> it(m_scene->values());
                 while (it.hasNext() == true)
                 {
                     SceneValue scv(it.next());
+                    if (applyValues == false)
+                        scv.value = 0;
                     if (scv.fxi == fixture->id())
                         console->setSceneValue(scv);
                 }
+
                 connect(console, SIGNAL(valueChanged(quint32,quint32,uchar)),
                         this, SLOT(slotValueChanged(quint32,quint32,uchar)));
                 connect(console, SIGNAL(checked(quint32,quint32,bool)),
@@ -638,10 +640,13 @@ void SceneEditor::slotViewModeChanged(bool toggled)
             Q_ASSERT(fixture != NULL);
 
             addFixtureTab(fixture);
+
             QListIterator <SceneValue> it(m_scene->values());
             while (it.hasNext() == true)
             {
                 SceneValue scv(it.next());
+                if (applyValues == false)
+                    scv.value = 0;
                 if (scv.fxi == fixture->id())
                     setSceneValue(scv);
             }
@@ -651,6 +656,8 @@ void SceneEditor::slotViewModeChanged(bool toggled)
         slotTabChanged(KTabGeneral);
     else
         m_tab->setCurrentIndex(m_fixtureFirstTabIndex);
+
+    m_scene->setViewMode(toggled);
 }
 
 void SceneEditor::slotRecord()

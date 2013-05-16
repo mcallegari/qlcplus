@@ -89,7 +89,7 @@ private slots:
     void slotRecord();
     void slotChaserComboActivated(int index);
     void slotModeChanged(Doc::Mode mode);
-    void slotViewModeChanged(bool toggled);
+    void slotViewModeChanged(bool toggled, bool applyValues = true);
 
 private:
     bool isColorToolAvailable();

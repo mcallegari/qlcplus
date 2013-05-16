@@ -35,7 +35,7 @@
       <number>0</number>
      </property>
      <property name="elideMode">
-      <enum>Qt::ElideRight</enum>
+      <enum>Qt::ElideMiddle</enum>
      </property>
      <widget class="QWidget" name="General">
       <attribute name="title">
