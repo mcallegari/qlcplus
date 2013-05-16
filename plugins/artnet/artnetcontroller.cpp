@@ -84,8 +84,7 @@ ArtNetController::ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> i
     }
     else
     {
-        for (int i = 0; i < 2048; i++)
-            m_dmxValues.append((char)0x00);
+        m_dmxValues.fill(0, 2048);
     }
 
     m_type = type;
@@ -227,7 +226,10 @@ void ArtNetController::processPendingPackets()
                                 for (int i = 0; i < dmxData.length(); i++)
                                 {
                                     if (m_dmxValues.at(i + (universe * 512)) != dmxData.at(i))
+                                    {
+                                        m_dmxValues[i + (universe * 512)] =  dmxData[i];
                                         emit valueChanged(m_universes[universe], i, (uchar)dmxData.at(i));
+                                    }
                                 }
                             }
                         }

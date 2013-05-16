@@ -735,7 +735,6 @@ void ChaserEditor::slotFadeOutDialChanged(int ms)
 
 void ChaserEditor::slotHoldDialChanged(int ms)
 {
-    qDebug() << "HOLD set to " << ms;
     switch (m_chaser->durationMode())
     {
     case Chaser::PerStep:
