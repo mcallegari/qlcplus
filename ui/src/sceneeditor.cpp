@@ -120,7 +120,7 @@ void SceneEditor::slotFunctionManagerActive(bool active)
 
     if (active == true)
     {
-        if (m_speedDials == NULL)
+        if (m_speedDialAction->isChecked() && m_speedDials == NULL)
             createSpeedDials();
     }
     else
@@ -568,7 +568,6 @@ void SceneEditor::slotModeChanged(Doc::Mode mode)
 
 void SceneEditor::slotViewModeChanged(bool toggled, bool applyValues)
 {
-    qDebug() << "--------- slotViewModeChanged";
     for (int i = m_tab->count() - 1; i >= m_fixtureFirstTabIndex; i--)
     {
         QScrollArea* area = qobject_cast<QScrollArea*> (m_tab->widget(i));
