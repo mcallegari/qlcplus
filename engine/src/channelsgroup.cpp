@@ -23,7 +23,7 @@
 #include <QDomElement>
 #include <QDebug>
 
-#include "qlcfixturedef.h"
+#include "qlcfixturemode.h"
 #include "channelsgroup.h"
 #include "scenevalue.h"
 #include "fixture.h"
@@ -149,12 +149,12 @@ QString ChannelsGroup::status(Doc *doc) const
         Fixture *fixture = doc->fixture(value.fxi);
         if (fixture == NULL)
             return QString();
-        const QLCFixtureDef *def = fixture->fixtureDef();
+        const QLCFixtureMode *mode = fixture->fixtureMode();
         QString chInfo("<TR><TD>%1</TD><TD>%2</TD><TD>%3</TD></TR>");
-        if (def != NULL)
+        if (mode != NULL)
         {
             info += chInfo.arg(fixture->name()).arg(value.channel + 1)
-                .arg(def->channels().at(value.channel)->name());
+                .arg(mode->channels().at(value.channel)->name());
         }
         else
         {
