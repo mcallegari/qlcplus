@@ -126,7 +126,7 @@ void Doc::clearContents()
     while (grpchans.hasNext() == true)
     {
         ChannelsGroup* grp = m_channelsGroups.take(grpchans.next());
-        //emit fixtureGroupRemoved(grp->id());
+        emit channelsGroupRemoved(grp->id());
         delete grp;
     }
 
@@ -574,7 +574,7 @@ bool Doc::addChannelsGroup(ChannelsGroup *grp, quint32 id)
      if (m_orderedGroups.contains(id) == false)
         m_orderedGroups.append(id);
 
-     //emit channelsGroupAdded(id);
+     emit channelsGroupAdded(id);
      setModified();
 
      return true;
@@ -587,7 +587,7 @@ bool Doc::deleteChannelsGroup(quint32 id)
         ChannelsGroup* grp = m_channelsGroups.take(id);
         Q_ASSERT(grp != NULL);
 
-        //emit channelsGroupRemoved(id);
+        emit channelsGroupRemoved(id);
         setModified();
         delete grp;
 

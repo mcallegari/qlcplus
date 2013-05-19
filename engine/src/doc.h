@@ -363,6 +363,13 @@ private:
     /** Create a new channels group ID */
     quint32 createChannelsGroupId();
 
+signals:
+    /** Signal that a channels group has been added */
+    void channelsGroupAdded(quint32 chgrp_id);
+
+    /** Signal that a channels group has been removed */
+    void channelsGroupRemoved(quint32 chgrp_id);
+
 private:
     /** Channel Groups */
     QMap <quint32,ChannelsGroup*> m_channelsGroups;

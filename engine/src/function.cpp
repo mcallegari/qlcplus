@@ -139,7 +139,7 @@ quint32 Function::invalidId()
 
 void Function::setName(const QString& name)
 {
-        m_name = QString(name);
+    m_name = QString(name);
 
     emit changed(m_id);
 }

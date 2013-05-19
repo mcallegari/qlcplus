@@ -108,7 +108,7 @@ FunctionManager::FunctionManager(QWidget* parent, Doc* doc)
 
     m_tree->sortItems(COL_NAME, Qt::AscendingOrder);
 
-    connect(m_doc, SIGNAL(clearing()), this, SLOT(slotDocClearing()));
+    connect(m_doc, SIGNAL(cleared()), this, SLOT(slotDocClearing()));
     connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
     connect(m_doc, SIGNAL(functionChanged(quint32)), this, SLOT(slotFunctionChanged(quint32)));
     connect(m_doc, SIGNAL(functionAdded(quint32)), this, SLOT(slotFunctionAdded(quint32)));
@@ -660,6 +660,16 @@ QTreeWidgetItem* FunctionManager::functionItem(const Function* function)
         QTreeWidgetItem* item = parent->child(i);
         if (itemFunctionId(item) == function->id())
             return item;
+        // Sequences are in a further sublevel. Check if there is any
+        if (item->childCount() > 0)
+        {
+            for (int j = 0; j < item->childCount(); j++)
+            {
+                QTreeWidgetItem* seqItem = item->child(j);
+                if (itemFunctionId(seqItem) == function->id())
+                    return item;
+            }
+        }
     }
 
     return NULL;
