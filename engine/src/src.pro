@@ -48,9 +48,10 @@ HEADERS += avolitesd4parser.h \
 HEADERS += audio/audio.h \
            audio/audiodecoder.h \
            audio/audiorenderer.h \
-           audio/audioparameters.h
+           audio/audioparameters.h \
+           audio/audiocapture.h
 
-unix:!macx:HEADERS += audio/audiorenderer_alsa.h
+unix:!macx:HEADERS += audio/audiorenderer_alsa.h audio/audiocapture_alsa.h
 win32:HEADERS += audio/audiorenderer_waveout.h
 
 # Engine
@@ -116,9 +117,10 @@ SOURCES += avolitesd4parser.cpp \
 SOURCES += audio/audio.cpp \
            audio/audiodecoder.cpp \
            audio/audiorenderer.cpp \
-           audio/audioparameters.cpp
+           audio/audioparameters.cpp \
+           audio/audiocapture.cpp
 
-unix:!macx:SOURCES += audio/audiorenderer_alsa.cpp
+unix:!macx:SOURCES += audio/audiorenderer_alsa.cpp audio/audiocapture_alsa.cpp
 win32:SOURCES += audio/audiorenderer_waveout.cpp
 
 macx {
@@ -177,6 +179,7 @@ SOURCES += bus.cpp \
 
 win32:SOURCES += mastertimer-win32.cpp
 unix:SOURCES  += mastertimer-unix.cpp
+
 system(pkg-config --exists mad) {
     DEFINES += HAS_LIBMAD
     PKGCONFIG += mad
@@ -189,6 +192,10 @@ system(pkg-config --exists sndfile) {
     PKGCONFIG += sndfile
     HEADERS += audio/audiodecoder_sndfile.h
     SOURCES += audio/audiodecoder_sndfile.cpp
+}
+
+system(pkg-config --exists fftw3) {
+    PKGCONFIG += fftw3
 }
 
 unix:!macx:LIBS += -lasound

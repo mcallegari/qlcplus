@@ -78,6 +78,7 @@ App::App()
     , m_modeToggleAction(NULL)
     , m_controlMonitorAction(NULL)
     , m_addressToolAction(NULL)
+    , m_audioInputAction(NULL)
     , m_controlFullScreenAction(NULL)
     , m_controlBlackoutAction(NULL)
     , m_controlPanicAction(NULL)
@@ -215,6 +216,8 @@ void App::init()
 
     // Start up in non-modified state
     m_doc->resetModified();
+
+    m_audioTriggers = new AudioTriggerFactory();
 }
 
 void App::setActiveWindow(const QString& name)
@@ -507,6 +510,9 @@ void App::initActions()
     m_addressToolAction = new QAction(QIcon(":/diptool.png"), tr("Address Tool"), this);
     connect(m_addressToolAction, SIGNAL(triggered()), this, SLOT(slotAddressTool()));
 
+    m_audioInputAction = new QAction(QIcon(":/audioinput.png"), tr("Audio Trigger Factory"), this);
+    connect(m_audioInputAction, SIGNAL(triggered()), this, SLOT(slotAudioInput()));
+
     m_controlBlackoutAction = new QAction(QIcon(":/blackout.png"), tr("Toggle &Blackout"), this);
     m_controlBlackoutAction->setCheckable(true);
     connect(m_controlBlackoutAction, SIGNAL(triggered(bool)), this, SLOT(slotControlBlackout()));
@@ -549,8 +555,9 @@ void App::initToolBar()
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_controlMonitorAction);
     m_toolbar->addAction(m_addressToolAction);
-    m_toolbar->addAction(m_controlFullScreenAction);
+    m_toolbar->addAction(m_audioInputAction);
     m_toolbar->addSeparator();
+    m_toolbar->addAction(m_controlFullScreenAction);
     m_toolbar->addAction(m_helpIndexAction);
     m_toolbar->addAction(m_helpAboutAction);
 
@@ -872,6 +879,12 @@ void App::slotAddressTool()
 {
     AddressTool at(this);
     at.exec();
+}
+
+void App::slotAudioInput()
+{
+    if (m_audioTriggers)
+        m_audioTriggers->show();
 }
 
 void App::slotControlBlackout()

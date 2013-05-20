@@ -3,6 +3,7 @@
         <file alias="add_dump.png">../../gfx/add_dump.png</file>
         <file alias="attach.png">../../gfx/attach.png</file>
         <file alias="audio.png">../../gfx/audio.png</file>
+        <file alias="audioinput.png">../../gfx/audioinput.png</file>
         <file alias="back.png">../../gfx/back.png</file>
         <file alias="beam.png">../../gfx/beam.png</file>
         <file alias="blackout.png">../../gfx/blackout.png</file>
