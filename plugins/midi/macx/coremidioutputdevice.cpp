@@ -92,9 +92,19 @@ bool CoreMidiOutputDevice::isOpen() const
 
 void CoreMidiOutputDevice::writeChannel(ushort channel, uchar value)
 {
-    if (channel < ushort(m_universe.size()) && uchar(m_universe[channel]) != value)
+    // m_universe contains scaled values (0-127), so we have to compare scaled value as well
+    // however, since writeUniverse scales the value again, we have to store unscaled value.
+    char scaled = DMX2MIDI(value);
+    if (channel < ushort(m_universe.size()) && m_universe[channel] != scaled)
     {
         QByteArray tmp(m_universe);
+
+        for (uchar ch = 0; ch < MAX_MIDI_DMX_CHANNELS && ch < tmp.size(); ++ch)
+        {
+           char midi = tmp[ch];
+           tmp[ch] = (char)MIDI2DMX(midi);
+        }
+
         tmp[channel] = value;
         writeUniverse(tmp);
     }
