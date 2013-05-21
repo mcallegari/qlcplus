@@ -19,8 +19,8 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef AUDIORENDERER_H
-#define AUDIORENDERER_H
+#ifndef AUDIOCAPTURE_H
+#define AUDIOCAPTURE_H
 
 #include <QThread>
 #include <QMutex>
@@ -107,4 +107,4 @@ protected:
     double m_fftMagnitudeBuffer[FREQ_SUBBANDS_NUMBER];
 };
 
-#endif
+#endif // AUDIOCAPTURE_H

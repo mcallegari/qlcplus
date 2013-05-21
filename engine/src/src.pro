@@ -196,6 +196,7 @@ system(pkg-config --exists sndfile) {
 
 system(pkg-config --exists fftw3) {
     PKGCONFIG += fftw3
+macx:LIBS += -lfftw3
 }
 
 unix:!macx:LIBS += -lasound
