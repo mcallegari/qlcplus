@@ -55,9 +55,9 @@ void AudioTriggerFactory::slotEnableCapture(bool enable)
     if (enable == true)
     {
 #if defined(__APPLE__)
-        m_inputCapture = new AudioRendererPortAudio();
+        m_inputCapture = new AudioCapturePortAudio();
 #elif defined(WIN32)
-        m_inputCapture = new AudioRendererWaveOut();
+        m_inputCapture = new AudioCaptureWaveIn();
 #else
         m_inputCapture = new AudioCaptureAlsa();
 #endif
