@@ -79,11 +79,21 @@ bool Win32MidiOutputDevice::isOpen() const
 
 void Win32MidiOutputDevice::writeChannel(ushort channel, uchar value)
 {
-    if (channel < m_universe.size())
+    // m_universe contains scaled values (0-127), so we have to compare scaled value as well
+    // however, since writeUniverse scales the value again, we have to store unscaled value.
+    char scaled = DMX2MIDI(value);
+    if (channel < ushort(m_universe.size()) && m_universe[channel] != scaled)
     {
-        QByteArray ua(m_universe);
-        ua[channel] = value;
-        writeUniverse(ua);
+        QByteArray tmp(m_universe);
+
+        for (uchar ch = 0; ch < MAX_MIDI_DMX_CHANNELS && ch < tmp.size(); ++ch)
+        {
+           char midi = tmp[ch];
+           tmp[ch] = (char)MIDI2DMX(midi);
+        }
+
+        tmp[channel] = value;
+        writeUniverse(tmp);
     }
 }
 
