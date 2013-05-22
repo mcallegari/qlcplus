@@ -52,7 +52,7 @@ HEADERS += audio/audio.h \
            audio/audiocapture.h
 
 unix:!macx:HEADERS += audio/audiorenderer_alsa.h audio/audiocapture_alsa.h
-win32:HEADERS += audio/audiorenderer_waveout.h
+win32:HEADERS += audio/audiorenderer_waveout.h audio/audiocapture_wavein.h
 
 # Engine
 HEADERS += bus.h \
@@ -121,7 +121,7 @@ SOURCES += audio/audio.cpp \
            audio/audiocapture.cpp
 
 unix:!macx:SOURCES += audio/audiorenderer_alsa.cpp audio/audiocapture_alsa.cpp
-win32:SOURCES += audio/audiorenderer_waveout.cpp
+win32:SOURCES += audio/audiorenderer_waveout.cpp audio/audiocapture_wavein.cpp
 
 macx {
   system(pkg-config --exists portaudio-2.0) {

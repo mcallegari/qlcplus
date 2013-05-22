@@ -25,8 +25,6 @@
 #include <QThread>
 #include <QMutex>
 
-#include "fftw3.h"
-
 #define FREQ_SUBBANDS_NUMBER    32
 
 class AudioCapture : public QThread
@@ -103,7 +101,7 @@ protected:
 
     /** **************** FFT variables ********************** */
     double *m_fftInputBuffer;
-    fftw_complex *m_fftOutputBuffer;
+    void *m_fftOutputBuffer;
     double m_fftMagnitudeBuffer[FREQ_SUBBANDS_NUMBER];
 };
 

@@ -24,6 +24,8 @@
 
 #include "audiocapture.h"
 
+#include "fftw3.h"
+
 #define USE_HANNING
 #define CLEAR_NOISE
 
@@ -43,7 +45,7 @@ AudioCapture::~AudioCapture()
     if (m_fftInputBuffer)
         delete[] m_fftInputBuffer;
     if (m_fftOutputBuffer)
-        delete[] m_fftOutputBuffer;
+        delete[] (fftw_complex*)m_fftOutputBuffer;
 }
 
 bool AudioCapture::initialize(quint32 sampleRate, quint8 channels, quint16 bufferSize)
@@ -56,7 +58,7 @@ bool AudioCapture::initialize(quint32 sampleRate, quint8 channels, quint16 buffe
 
     m_audioBuffer = new qint16[bufferSize * channels];
     m_fftInputBuffer = new double[bufferSize];
-    m_fftOutputBuffer = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * bufferSize);
+    m_fftOutputBuffer = fftw_malloc(sizeof(fftw_complex) * bufferSize);
 
     return true;
 }
@@ -75,7 +77,7 @@ void AudioCapture::processData()
 
     // 1 ********* Initialize FFTW
     fftw_plan plan_forward;
-    plan_forward = fftw_plan_dft_r2c_1d(m_captureSize, m_fftInputBuffer, m_fftOutputBuffer , 0);
+    plan_forward = fftw_plan_dft_r2c_1d(m_captureSize, m_fftInputBuffer, (fftw_complex*)m_fftOutputBuffer , 0);
 
     // 2 ********* Apply a window to audio data
     // *********** and convert it to doubles
@@ -108,10 +110,10 @@ void AudioCapture::processData()
     // 4 ********* Clear FFT noise
 #ifdef CLEAR_NOISE
     //We delete some values since these will ruin our output
-    m_fftOutputBuffer[0][0] = 0;
-    m_fftOutputBuffer[0][1] = 0;
-    m_fftOutputBuffer[1][0] = 0;
-    m_fftOutputBuffer[1][1] = 0;
+    ((fftw_complex*)m_fftOutputBuffer)[0][0] = 0;
+    ((fftw_complex*)m_fftOutputBuffer)[0][1] = 0;
+    ((fftw_complex*)m_fftOutputBuffer)[1][0] = 0;
+    ((fftw_complex*)m_fftOutputBuffer)[1][1] = 0;
 #endif
 
     // 5 ********* Calculate the average signal power
@@ -132,8 +134,8 @@ void AudioCapture::processData()
         {
             if (i == m_captureSize)
                 break;
-            magnitudeSum += qSqrt((m_fftOutputBuffer[i][0] * m_fftOutputBuffer[i][0]) +
-                                  (m_fftOutputBuffer[i][1] * m_fftOutputBuffer[i][1]));
+            magnitudeSum += qSqrt((((fftw_complex*)m_fftOutputBuffer)[i][0] * ((fftw_complex*)m_fftOutputBuffer)[i][0]) +
+                                  (((fftw_complex*)m_fftOutputBuffer)[i][1] * ((fftw_complex*)m_fftOutputBuffer)[i][1]));
         }
         m_fftMagnitudeBuffer[b] = (magnitudeSum / subBandWidth);
     }
