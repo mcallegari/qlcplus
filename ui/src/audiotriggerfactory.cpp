@@ -25,7 +25,7 @@
 #if defined(__APPLE__)
   #include "audiocapture_portaudio.h"
 #elif defined(WIN32)
-  #include "audiocapture_waveout.h"
+  #include "audiocapture_wavein.h"
 #else
   #include "audiocapture_alsa.h"
 #endif
