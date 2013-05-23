@@ -52,13 +52,13 @@ bool AudioCapture::initialize(quint32 sampleRate, quint8 channels, quint16 buffe
 {
     Q_UNUSED(sampleRate)
 
-    m_captureSize = bufferSize;
+    m_captureSize = bufferSize * channels;
     m_sampleRate = sampleRate;
     m_channels = channels;
 
-    m_audioBuffer = new qint16[bufferSize * channels];
-    m_fftInputBuffer = new double[bufferSize];
-    m_fftOutputBuffer = fftw_malloc(sizeof(fftw_complex) * bufferSize);
+    m_audioBuffer = new qint16[m_captureSize];
+    m_fftInputBuffer = new double[m_captureSize];
+    m_fftOutputBuffer = fftw_malloc(sizeof(fftw_complex) * m_captureSize);
 
     return true;
 }

@@ -21,21 +21,31 @@
 
 #include <QDebug>
 #include <windows.h>
+#include <memory.h>
 
 #include "audiocapture_wavein.h"
 
-static HWAVEIN deviceHandle;
+static HWAVEIN deviceHandle = NULL;
+static WAVEHDR waveHeaders[HEADERS_NUMBER];
 
 AudioCaptureWaveIn::AudioCaptureWaveIn(QObject * parent)
     : AudioCapture(parent)
+    , m_started(false)
+    , m_currentBufferIndex(0)
 {
 
 }
 
 AudioCaptureWaveIn::~AudioCaptureWaveIn()
 {
-    waveInStop(deviceHandle);
-    waveInClose(deviceHandle);
+    m_mutex.lock();
+    if (deviceHandle)
+    {
+        waveInReset(deviceHandle);
+        //waveInStop(deviceHandle);
+        waveInClose(deviceHandle);
+    }
+    m_mutex.unlock();
 }
 
 bool AudioCaptureWaveIn::initialize(quint32 sampleRate, quint8 channels, quint16 bufferSize)
@@ -97,42 +107,81 @@ void AudioCaptureWaveIn::resume()
 
 bool AudioCaptureWaveIn::readAudio(int maxSize)
 {
-    WAVEHDR waveHeader;
-
-    // Set up and prepare header for input
-    waveHeader.lpData = (LPSTR)m_audioBuffer;
-    waveHeader.dwBufferLength = maxSize;
-    waveHeader.dwBytesRecorded = 0;
-    waveHeader.dwUser = 0L;
-    waveHeader.dwFlags = 0L;
-    waveHeader.dwLoops = 0L;
-
-    if (waveInPrepareHeader(deviceHandle, &waveHeader, sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
+    if (m_started == false)
     {
-        qWarning("[WAVEIN readAudio] PrepareHeader failed");
-        return false;
-    }
-    // Insert a wave input buffer
-    if (waveInAddBuffer(deviceHandle, &waveHeader, sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
-    {
-        qWarning("[WAVEIN readAudio] AddBuffer failed");
-        return false;
+        for (int i = 0; i < HEADERS_NUMBER; i++)
+        {
+            m_internalBuffers[i] = new qint16[m_captureSize];
+            // Set up and prepare header for input
+            waveHeaders[i].lpData = (LPSTR)m_internalBuffers[i];
+            waveHeaders[i].dwBufferLength = maxSize;
+            waveHeaders[i].dwBytesRecorded = 0;
+            waveHeaders[i].dwUser = 0L;
+            waveHeaders[i].dwFlags = 0L;
+            waveHeaders[i].dwLoops = 0L;
+
+            if (waveInPrepareHeader(deviceHandle, &waveHeaders[i], sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
+            {
+                qWarning("[WAVEIN readAudio] PrepareHeader failed");
+                return false;
+            }
+            // Insert the first input buffer
+            if (waveInAddBuffer(deviceHandle, &waveHeaders[i], sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
+            {
+                qWarning("[WAVEIN readAudio] AddBuffer failed");
+                return false;
+            }
+        }
+
+        if (waveInStart(deviceHandle) != MMSYSERR_NOERROR)
+        {
+            qWarning("[WAVEIN readAudio] WaveStart failed");
+            return false;
+        }
+        m_started = true;
     }
 
-    if (waveInStart(deviceHandle) != MMSYSERR_NOERROR)
-    {
-        qWarning("[WAVEIN readAudio] WaveStart failed");
-        return false;
-    }
+    m_mutex.lock();
 
-    while ( (waveHeader.dwFlags & WHDR_DONE) == 0) usleep(1000);
+    while ( (waveHeaders[m_currentBufferIndex].dwFlags & WHDR_DONE) == 0)
+        usleep(1000);
 
-    //waveInReset(deviceHandle);
-    if (waveInUnprepareHeader(deviceHandle, &waveHeader, sizeof(WAVEHDR) != MMSYSERR_NOERROR)
+    memcpy(m_audioBuffer, m_internalBuffers[m_currentBufferIndex], maxSize);
+/*
+    if (waveInUnprepareHeader(deviceHandle, &waveHeaders[m_currentBufferIndex], sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
     {
         qWarning("[WAVEIN readAudio] UnprepareHeader failed");
+        m_mutex.unlock();
         return false;
     }
+*/
+    // requeue the buffer for another use
+    if (waveInAddBuffer(deviceHandle, &waveHeaders[m_currentBufferIndex], sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
+    {
+        qWarning("[WAVEIN readAudio] AddBuffer failed");
+        m_mutex.unlock();
+        return false;
+    }
+
+    m_currentBufferIndex++;
+    if (m_currentBufferIndex == HEADERS_NUMBER)
+        m_currentBufferIndex = 0;
+/*
+    if (waveInPrepareHeader(deviceHandle, &waveHeaders[m_currentBufferIndex], sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
+    {
+        qWarning("[WAVEIN readAudio] PrepareHeader failed");
+        m_mutex.unlock();
+        return false;
+    }
+
+    if (waveInAddBuffer(deviceHandle, &waveHeaders[m_currentBufferIndex], sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
+    {
+        qWarning("[WAVEIN readAudio] AddBuffer failed");
+        m_mutex.unlock();
+        return false;
+    }
+*/
+    m_mutex.unlock();
 
     qDebug() << "[WAVEIN readAudio] " << maxSize << "bytes read";
 

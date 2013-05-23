@@ -24,6 +24,10 @@
 
 #include "audiocapture.h"
 
+#include <QMutex>
+
+#define HEADERS_NUMBER   2
+
 class AudioCaptureWaveIn : public AudioCapture
 {
     Q_OBJECT
@@ -48,7 +52,10 @@ protected:
     bool readAudio(int maxSize);
 
 private:
-
+    bool m_started;
+    QMutex m_mutex;
+    int m_currentBufferIndex;
+    qint16 *m_internalBuffers[HEADERS_NUMBER];
 };
 
 #endif // AUDIOCAPTURE_WAVEIN_H
