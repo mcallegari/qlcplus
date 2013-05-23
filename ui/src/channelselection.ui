@@ -15,9 +15,9 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QGridLayout">
+    <layout class="QGridLayout" name="gridGroupName">
      <item row="0" column="0">
-      <layout class="QHBoxLayout" name="_2">
+      <layout class="QHBoxLayout" name="hboxGroupName">
        <item>
         <widget class="QLabel" name="label">
          <property name="text">
