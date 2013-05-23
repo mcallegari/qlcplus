@@ -139,7 +139,6 @@ bool AudioRendererWaveOut::initialize(quint32 freq, int chan, AudioFormat format
 
     waveOutReset (dev);
     InitializeCriticalSection (&cs);
-    //configure(freq, chan, format);
 
     return true;
 }

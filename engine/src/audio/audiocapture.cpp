@@ -92,11 +92,11 @@ void AudioCapture::processData()
         double a0 = (1-0.16)/2;
         double a1 = 0.5;
         double a2 = 0.16/2;
-        m_fftInputBuffer[i] = a0 - a1 * qCos((M_2PI * m_audioBuffer[i]) / (m_captureSize - 1)) +
-                              a2 * qCos((2 * M_2PI * m_audioBuffer[i]) / (m_captureSize - 1));
+        m_fftInputBuffer[i] = m_audioBuffer[i]  * (a0 - a1 * qCos((M_2PI * i) / (m_captureSize - 1)) +
+                              a2 * qCos((2 * M_2PI * i) / (m_captureSize - 1)));
 #endif
 #ifdef USE_HANNING
-        m_fftInputBuffer[i] = 0.5 * (1.00 - qCos((M_2PI * m_audioBuffer[i]) / (m_captureSize - 1)));
+        m_fftInputBuffer[i] = m_audioBuffer[i] * (0.5 * (1.00 - qCos((M_2PI * i) / (m_captureSize - 1))));
 #endif
 #ifdef USE_NO_WINDOW
         m_fftInputBuffer[i] = (double)m_audioBuffer[i];
@@ -126,7 +126,8 @@ void AudioCapture::processData()
     // I will just consider 0 to 5000Hz and will calculate average magnitude
     // for the number of desired bands.
     i = 0;
-    double subBandWidth = (m_captureSize * 5000) / m_sampleRate / FREQ_SUBBANDS_NUMBER;
+    int subBandWidth = ((m_captureSize * 5000) / m_sampleRate) / FREQ_SUBBANDS_NUMBER;
+
     for (int b = 0; b < FREQ_SUBBANDS_NUMBER; b++)
     {
         quint64 magnitudeSum = 0;
