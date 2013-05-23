@@ -24,8 +24,6 @@
 
 #include "audiocapture.h"
 
-#include <portaudio.h>
-
 class AudioCapturePortAudio : public AudioCapture
 {
     Q_OBJECT
@@ -48,9 +46,6 @@ protected:
 
     /** @reimpl */
     bool readAudio(int maxSize);
-
-private:
-    PaStream *stream;
 };
 
 #endif // AUDIOCAPTURE_PORTAUDIO_H

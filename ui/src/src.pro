@@ -216,19 +216,6 @@ SOURCES += aboutbox.cpp \
            vcxypadproperties.cpp \
            virtualconsole.cpp
 
-# Stupid OSX, again.
-# Since Xcode includes a GCC version coming from the stone age (4.2.1),
-# it is not able to resolve FFTW and PortAudio symbols like
-# more recent GCC versions do, so this is a hack.  
-macx {
-CONFIG += link_pkgconfig
-system(pkg-config --exists portaudio-2.0) {
-    PKGCONFIG += portaudio-2.0
-  }
-system(pkg-config --exists fftw3) {
-    PKGCONFIG += fftw3
-}
-}
 
 TRANSLATIONS += qlcplus_fi_FI.ts
 TRANSLATIONS += qlcplus_fr_FR.ts
