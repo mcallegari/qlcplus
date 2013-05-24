@@ -165,7 +165,7 @@ DocBrowser::DocBrowser(QWidget* parent)
 #endif
 
     m_browser->setSearchPaths(searchPaths);
-    m_browser->setSource(QUrl(QString("index.html")));
+    m_browser->setSource(QUrl("file:index.html"));
 }
 
 DocBrowser::~DocBrowser()
