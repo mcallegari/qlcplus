@@ -620,7 +620,7 @@ bool Fixture::loadXML(const QDomElement& root,
     }
 
     /* Find the given fixture definition, unless its a generic dimmer */
-    if (manufacturer != KXMLFixtureGeneric && model != KXMLFixtureGeneric)
+    if (model != KXMLFixtureGeneric)
     {
         fixtureDef = fixtureDefCache->fixtureDef(manufacturer, model);
         if (fixtureDef == NULL)
