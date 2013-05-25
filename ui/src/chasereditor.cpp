@@ -905,6 +905,17 @@ void ChaserEditor::updateSpeedDials()
 /****************************************************************************
  * Test
  ****************************************************************************/
+int ChaserEditor::getCurrentIndex()
+{
+    QList <QTreeWidgetItem*> selected(m_tree->selectedItems());
+    int index = 0;
+    if (selected.size() > 0)
+    {
+        QTreeWidgetItem* item(selected.first());
+        index = m_tree->indexOfTopLevelItem(item);
+    }
+    return index;
+}
 
 void ChaserEditor::slotRestartTest()
 {
@@ -922,7 +933,12 @@ void ChaserEditor::slotTestPlay()
     m_testNextButton->setEnabled(true);
 
     if (m_chaser->stopped() == true)
+    {
+        int idx = getCurrentIndex();
+        if (idx >= 0)
+            m_chaser->setStepIndex(idx);
         m_chaser->start(m_doc->masterTimer());
+    }
 }
 
 void ChaserEditor::slotTestStop()

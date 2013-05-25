@@ -321,6 +321,7 @@ void Audio::preRun(MasterTimer* timer)
 #endif
     if (m_decoder != NULL)
     {
+        m_decoder->seek(elapsed());
         AudioParameters ap = m_decoder->audioParameters();
 #if defined(__APPLE__)
         //m_audio_out = new AudioRendererCoreAudio();

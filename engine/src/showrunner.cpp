@@ -64,13 +64,13 @@ static bool compareFunctions(const Function *f1, const Function *f2)
         return false;
 }
 
-ShowRunner::ShowRunner(const Doc* doc, quint32 showID)
+ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
     : QObject(NULL)
     , m_doc(doc)
     , m_showID(showID)
-    , m_elapsedTime(0)
+    , m_elapsedTime(startTime)
     , m_totalRunTime(0)
-    , m_currentStepIndex(0)
+    , m_currentFunctionIndex(0)
 {
     Q_ASSERT(m_doc != NULL);
     Q_ASSERT(m_showID != Show::invalidId());
@@ -98,11 +98,13 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID)
                 Chaser *chaser = qobject_cast<Chaser*> (m_doc->function(funcID));
                 if (chaser == NULL)
                     continue;
+                quint32 seq_duration = chaser->getDuration();
+                if (chaser->getStartTime() + seq_duration <= startTime)
+                    continue;
                 m_functions.append(m_doc->function(funcID));
                 connect(chaser, SIGNAL(stopped(quint32)), this, SLOT(slotSequenceStopped(quint32)));
 
                 // offline calculation of the show
-                quint32 seq_duration = chaser->getDuration();
                 m_durations.append(seq_duration);
                 if (chaser->getStartTime() + seq_duration > m_totalRunTime)
                     m_totalRunTime = chaser->getStartTime() + seq_duration;
@@ -111,6 +113,8 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID)
             {
                 Audio *audio = qobject_cast<Audio*> (m_doc->function(funcID));
                 if (audio == NULL)
+                    continue;
+                if (audio->getStartTime() + audio->getDuration() <= startTime)
                     continue;
                 m_functions.append(m_doc->function(funcID));
                 connect(audio, SIGNAL(stopped(quint32)), this, SLOT(slotSequenceStopped(quint32)));
@@ -134,14 +138,14 @@ ShowRunner::~ShowRunner()
 
 void ShowRunner::start()
 {
-    stop();
+    //stop();
     qDebug() << "ShowRunner started";
 }
 
 void ShowRunner::stop()
 {
     m_elapsedTime = 0;
-    m_currentStepIndex = 0;
+    m_currentFunctionIndex = 0;
     foreach (quint32 id, m_runningQueue)
         m_doc->function(id)->stop();
 
@@ -160,10 +164,12 @@ void ShowRunner::slotSequenceStopped(quint32 id)
 
 void ShowRunner::write()
 {
-    if (m_currentStepIndex < m_functions.count())
+    //qDebug() << Q_FUNC_INFO << "elapsed:" << m_elapsedTime << ", total:" << m_totalRunTime;
+    if (m_currentFunctionIndex < m_functions.count())
     {
         quint32 funcStartTime = 0;
-        Function *f = m_functions.at(m_currentStepIndex);
+        quint32 functionTimeOffset = 0;
+        Function *f = m_functions.at(m_currentFunctionIndex);
         if (f->type() == Function::Chaser)
         {
             Chaser *chaser = qobject_cast<Chaser*>(f);
@@ -174,13 +180,20 @@ void ShowRunner::write()
             Audio *audio = qobject_cast<Audio*>(f);
             funcStartTime = audio->getStartTime();
         }
-        if (m_elapsedTime >= funcStartTime)
+        // this should happen only when a Show is not started from 0
+        if (m_elapsedTime > funcStartTime)
         {
-            f->start(m_doc->masterTimer(), true);
+            functionTimeOffset = m_elapsedTime - funcStartTime;
+            funcStartTime = m_elapsedTime;
+        }
+        if (m_elapsedTime == funcStartTime)
+        {
+            f->start(m_doc->masterTimer(), true, functionTimeOffset);
             m_runningQueue.append(f->id());
-            m_currentStepIndex++;
+            m_currentFunctionIndex++;
         }
     }
+    // end of the show
     if (m_elapsedTime >= m_totalRunTime)
     {
         Show *show = qobject_cast<Show*>(m_doc->function(m_showID));

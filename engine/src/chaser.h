@@ -249,17 +249,22 @@ public:
     void postLoad();
 
     /*********************************************************************
-     * Next/Previous
+     * Start/Next/Previous
      *********************************************************************/
 public:
     /** @reimpl */
     void tap();
+
+    void setStepIndex(int idx);
 
     /** Skip to the previous step */
     void previous();
 
     /** Skip to the next step */
     void next();
+
+private:
+    int m_startStepIndex;
 
     /*********************************************************************
      * Running
@@ -273,7 +278,7 @@ public:
      * @param doc The engine object
      * @return NULL if unsuccessful, otherwise a new ChaserRunner*
      */
-    static ChaserRunner* createRunner(Chaser* self, Doc* doc);
+    static ChaserRunner* createRunner(Chaser* self, Doc* doc, quint32 startTime = 0, int startStepIdx = 0);
 
     /** @reimpl */
     void preRun(MasterTimer* timer);

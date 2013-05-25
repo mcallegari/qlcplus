@@ -40,7 +40,7 @@ class ChaserRunner : public QObject
     Q_OBJECT
 
 public:
-    ChaserRunner(const Doc* doc, const Chaser* chaser);
+    ChaserRunner(const Doc* doc, const Chaser* chaser, quint32 startTime = 0);
     ~ChaserRunner();
 
 private slots:
@@ -112,7 +112,8 @@ signals:
 private:
     Function::Direction m_direction; //! Run-time direction (reversed by ping-pong)
     Function* m_currentFunction;     //! Currently active function
-    uint m_elapsed;                  //! Elapsed milliseconds
+    quint32 m_elapsed;               //! Elapsed milliseconds
+    quint32 m_startOffset;           //! Steps offset start time in milliseconds
     bool m_next;                     //! If true, skips to the next step when write is called
     bool m_previous;                 //! If true, skips to the previous step when write is called
     int m_currentStep;               //! Current step in m_steps

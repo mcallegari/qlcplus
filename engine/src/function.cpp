@@ -686,12 +686,13 @@ void Function::incrementElapsed()
  * Start & Stop
  *****************************************************************************/
 
-void Function::start(MasterTimer* timer, bool child, uint overrideFadeIn,
-                     uint overrideFadeOut, uint overrideDuration)
+void Function::start(MasterTimer* timer, bool child, quint32 startTime,
+                     uint overrideFadeIn, uint overrideFadeOut, uint overrideDuration)
 {
-    qDebug() << "Function start(). ID: " << m_id;
+    qDebug() << "Function start(). ID: " << m_id << ", startTime:" << startTime;
     Q_ASSERT(timer != NULL);
     m_startedAsChild = child;
+    m_elapsed = startTime;
     m_overrideFadeInSpeed = overrideFadeIn;
     m_overrideFadeOutSpeed = overrideFadeOut;
     m_overrideDuration = overrideDuration;

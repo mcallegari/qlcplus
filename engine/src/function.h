@@ -530,7 +530,7 @@ public:
      * @param overrideFadeOut Override the function's default fade out speed
      * @param overrideDuration Override the function's default duration
      */
-    void start(MasterTimer* timer, bool child = false,
+    void start(MasterTimer* timer, bool child = false, quint32 startTime = 0,
                uint overrideFadeIn = defaultSpeed(),
                uint overrideFadeOut = defaultSpeed(),
                uint overrideDuration = defaultSpeed());

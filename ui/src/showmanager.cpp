@@ -752,7 +752,10 @@ void ShowManager::slotDelete()
 void ShowManager::slotStopPlayback()
 {
     if (m_show != NULL && m_show->isRunning())
+    {
         m_show->stop();
+        return;
+    }
     m_showview->rewindCursor();
     m_timeLabel->setText("00:00:00.000");
 }
@@ -761,7 +764,7 @@ void ShowManager::slotStartPlayback()
 {
     if (m_showsCombo->count() == 0 || m_show == NULL)
         return;
-    m_show->start(m_doc->masterTimer());
+    m_show->start(m_doc->masterTimer(), false, m_showview->getTimeFromCursor());
 }
 
 void ShowManager::slotTimeDivisionTypeChanged(int idx)
@@ -789,7 +792,8 @@ void ShowManager::slotBPMValueChanged(int value)
 
 void ShowManager::slotViewClicked(QMouseEvent *event)
 {
-    qDebug() << Q_FUNC_INFO << "View clicked at pos: " << event->pos().x() << event->pos().y();
+    Q_UNUSED(event)
+    //qDebug() << Q_FUNC_INFO << "View clicked at pos: " << event->pos().x() << event->pos().y();
     if (m_sequence_editor != NULL)
     {
         m_vsplitter->widget(1)->layout()->removeWidget(m_sequence_editor);

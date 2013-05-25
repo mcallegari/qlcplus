@@ -137,6 +137,7 @@ private slots:
 private:
     bool interruptRunning();
     void continueRunning(bool running);
+    int getCurrentIndex();
 
     /************************************************************************
      * Utilities
