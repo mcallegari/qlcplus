@@ -351,6 +351,7 @@ void ShowManager::slotShowsComboChanged(int idx)
     if (m_selectedShowIndex != idx)
     {
         m_selectedShowIndex = idx;
+        showSequenceEditor(NULL);
         updateMultiTrackView();
     }
 }
@@ -388,6 +389,7 @@ void ShowManager::showSequenceEditor(Chaser *chaser)
     if (m_sequence_editor != NULL)
     {
         m_vsplitter->widget(1)->layout()->removeWidget(m_sequence_editor);
+        m_vsplitter->widget(1)->hide();
         m_sequence_editor->deleteLater();
         m_sequence_editor = NULL;
     }
@@ -794,13 +796,7 @@ void ShowManager::slotViewClicked(QMouseEvent *event)
 {
     Q_UNUSED(event)
     //qDebug() << Q_FUNC_INFO << "View clicked at pos: " << event->pos().x() << event->pos().y();
-    if (m_sequence_editor != NULL)
-    {
-        m_vsplitter->widget(1)->layout()->removeWidget(m_sequence_editor);
-        m_sequence_editor->deleteLater();
-        m_sequence_editor = NULL;
-    }
-    m_vsplitter->widget(1)->hide();
+    showSequenceEditor(NULL);
     m_colorAction->setEnabled(false);
     if (m_show != NULL && m_show->getTracksCount() == 0)
         m_deleteAction->setEnabled(false);
