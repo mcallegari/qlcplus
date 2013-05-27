@@ -33,6 +33,7 @@ QLCClipboard::QLCClipboard(Doc *doc)
 void QLCClipboard::resetContents()
 {
     m_copySteps.clear();
+    m_copySceneValues.clear();
     if (m_copyFunction != NULL && m_doc->function(m_copyFunction->id()) == NULL)
         delete m_copyFunction;
     m_copyFunction = NULL;
@@ -44,6 +45,14 @@ void QLCClipboard::copyContent(quint32 sourceID, QList<ChaserStep> steps)
 
     m_copySteps.clear();
     m_copySteps = steps;
+}
+
+void QLCClipboard::copyContent(quint32 sourceID, QList<SceneValue> values)
+{
+    Q_UNUSED(sourceID)
+
+    m_copySceneValues.clear();
+    m_copySceneValues = values;
 }
 
 void QLCClipboard::copyContent(quint32 sourceID, Function *function)
@@ -74,6 +83,14 @@ bool QLCClipboard::hasChaserSteps()
     return false;
 }
 
+bool QLCClipboard::hasSceneValues()
+{
+    if (m_copySceneValues.count() > 0)
+        return true;
+
+    return false;
+}
+
 bool QLCClipboard::hasFunction()
 {
     if (m_copyFunction != NULL)
@@ -85,6 +102,11 @@ bool QLCClipboard::hasFunction()
 QList<ChaserStep> QLCClipboard::getChaserSteps()
 {
     return m_copySteps;
+}
+
+QList<SceneValue> QLCClipboard::getSceneValues()
+{
+    return m_copySceneValues;
 }
 
 Function *QLCClipboard::getFunction()

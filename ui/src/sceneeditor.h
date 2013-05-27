@@ -189,8 +189,8 @@ private:
 
     QList <FixtureConsole *> m_consoleList;
 
-    /** Values from a copied console (i.e. clipboard) */
-    QList <SceneValue> m_copy;
+    /** Flag to indicate if some fixture channels were
+     *  manually selected and copied to clipboard */
     bool m_copyFromSelection;
 };
 

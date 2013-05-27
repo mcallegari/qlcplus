@@ -41,6 +41,7 @@
 #include "groupsconsole.h"
 #include "qlcfixturedef.h"
 #include "channelsgroup.h"
+#include "qlcclipboard.h"
 #include "sceneeditor.h"
 #include "mastertimer.h"
 #include "qlcchannel.h"
@@ -351,6 +352,7 @@ void SceneEditor::setSceneValue(const SceneValue& scv)
 void SceneEditor::slotTabChanged(int tab)
 {
     m_currentTab = tab;
+    QLCClipboard *clipboard = m_doc->clipboard();
 
     if (tab == KTabGeneral)
     {
@@ -368,10 +370,15 @@ void SceneEditor::slotTabChanged(int tab)
         m_disableCurrentAction->setEnabled(true);
 
         m_copyAction->setEnabled(true);
-        if (m_copy.isEmpty() == false)
+        if (clipboard->hasSceneValues())
             m_pasteAction->setEnabled(true);
+        else
+            m_pasteAction->setEnabled(false);
 
-        m_copyToAllAction->setEnabled(true);
+        if (m_tabViewAction->isChecked())
+            m_copyToAllAction->setEnabled(true);
+        else
+            m_copyToAllAction->setEnabled(false);
         m_colorToolAction->setEnabled(isColorToolAvailable());
     }
 }
@@ -394,39 +401,90 @@ void SceneEditor::slotDisableCurrent()
 
 void SceneEditor::slotCopy()
 {
+    QList <SceneValue> copyList;
+    QLCClipboard *clipboard = m_doc->clipboard();
+
     /* QObject cast fails unless the widget is a FixtureConsole */
-    FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
-    if (fc != NULL)
+    if (m_tabViewAction->isChecked())
     {
-        m_copy = fc->values();
-        if (fc->hasSelections())
-            m_copyFromSelection = true;
-        else
-            m_copyFromSelection = false;
-        m_pasteAction->setEnabled(true);
+        FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
+        if (fc != NULL)
+        {
+            copyList = fc->values();
+            if (fc->hasSelections())
+                m_copyFromSelection = true;
+            else
+                m_copyFromSelection = false;
+            clipboard->copyContent(m_scene->id(), copyList);
+        }
     }
+    else
+    {
+        bool oneHasSelection = false;
+        foreach(FixtureConsole *fc, m_consoleList)
+        {
+            if (fc == NULL)
+                continue;
+            copyList.append(fc->values());
+            if (fc->hasSelections())
+                oneHasSelection = true;
+        }
+        m_copyFromSelection = oneHasSelection;
+        clipboard->copyContent(m_scene->id(), copyList);
+    }
+    if (copyList.count() > 0)
+        m_pasteAction->setEnabled(true);
 }
 
 void SceneEditor::slotPaste()
 {
+    QLCClipboard *clipboard = m_doc->clipboard();
+
     /* QObject cast fails unless the widget is a FixtureConsole */
-    FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
-    if (fc != NULL && m_copy.isEmpty() == false)
-        fc->setValues(m_copy, m_copyFromSelection);
+    if (clipboard->hasSceneValues())
+    {
+        if (m_tabViewAction->isChecked())
+        {
+            FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
+            if (fc != NULL)
+                fc->setValues(clipboard->getSceneValues(), m_copyFromSelection);
+        }
+        else
+        {
+            foreach(FixtureConsole *fc, m_consoleList)
+            {
+                if (fc == NULL)
+                    continue;
+                quint32 fxi = fc->fixture();
+                QList<SceneValue>thisFixtureVals;
+                foreach(SceneValue val, clipboard->getSceneValues())
+                {
+                    if (val.fxi == fxi)
+                        thisFixtureVals.append(val);
+                }
+                fc->setValues(thisFixtureVals, m_copyFromSelection);
+            }
+        }
+    }
 }
 
 void SceneEditor::slotCopyToAll()
 {
     slotCopy();
 
-    for (int i = m_fixtureFirstTabIndex; i < m_tab->count(); i++)
+    QLCClipboard *clipboard = m_doc->clipboard();
+
+    if (clipboard->hasSceneValues())
     {
-        FixtureConsole* fc = fixtureConsoleTab(i);
-        if (fc != NULL)
-            fc->setValues(m_copy, m_copyFromSelection);
+        for (int i = m_fixtureFirstTabIndex; i < m_tab->count(); i++)
+        {
+            FixtureConsole* fc = fixtureConsoleTab(i);
+            if (fc != NULL)
+                fc->setValues(clipboard->getSceneValues(), m_copyFromSelection);
+        }
     }
 
-    m_copy.clear();
+    //m_copy.clear();
     m_pasteAction->setEnabled(false);
 }
 

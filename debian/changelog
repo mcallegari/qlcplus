@@ -2,6 +2,8 @@ qlcplus (4.3.4) stable; urgency=low
 
   * NEW: Shows can now be started at any position in time
   * NEW: In Scene Editor, fixture channels can be selected (CTRL+Click) for advanced copy/paste
+  * Scene Editor now uses global clipboard too, so values can be copied from a Scene to another
+  * Copy and paste is now allowed in "all fixtures view" mode too
   * Fixed regression of Chaser Editor paste operation, causing a major drop of performances
   * Fixed regression introduced with the hold parameter, causing "infinite" value wrong behaviour
   * Fixed 'hold' setting changed from a speed dial for RGBMatrix, EFX and Simple Desk Playback Cue
