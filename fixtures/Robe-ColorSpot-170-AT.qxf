@@ -1,8 +1,8 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition>
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.1.0</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.3.4</Version>
   <Author>hjunnila</Author>
  </Creator>
  <Manufacturer>Robe</Manufacturer>
@@ -67,19 +67,19 @@
  </Channel>
  <Channel Name="Colours">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="0">White</Capability>
-  <Capability Min="11" Max="11">Dark Green</Capability>
-  <Capability Min="23" Max="23">Red</Capability>
-  <Capability Min="35" Max="35">Cyan</Capability>
-  <Capability Min="46" Max="46">Magenta</Capability>
-  <Capability Min="58" Max="70">Yellow</Capability>
-  <Capability Min="81" Max="81">Green</Capability>
-  <Capability Min="93" Max="93">Pink</Capability>
-  <Capability Min="105" Max="105">Dark Blue</Capability>
-  <Capability Min="116" Max="116">Orange</Capability>
-  <Capability Min="128" Max="189">Forwards rainbow fast to slow</Capability>
+  <Capability Min="0" Max="0" Color="#ffffff">White</Capability>
+  <Capability Min="11" Max="11" Color="#008000">Dark Green</Capability>
+  <Capability Min="23" Max="23" Color="#ff0000">Red</Capability>
+  <Capability Min="35" Max="35" Color="#00ffff">Cyan</Capability>
+  <Capability Min="46" Max="46" Color="#ff00ff">Magenta</Capability>
+  <Capability Min="58" Max="70" Color="#ffff00">Yellow</Capability>
+  <Capability Min="81" Max="81" Color="#00ff00">Green</Capability>
+  <Capability Min="93" Max="93" Color="#ffc0ff">Pink</Capability>
+  <Capability Min="105" Max="105" Color="#0000c0">Dark Blue</Capability>
+  <Capability Min="116" Max="116" Color="#ff8000">Orange</Capability>
+  <Capability Res="Others/rainbow.png" Min="128" Max="189">Forwards rainbow fast to slow</Capability>
   <Capability Min="190" Max="193">No rotation</Capability>
-  <Capability Min="194" Max="255">Backwards rainbow slow to fast</Capability>
+  <Capability Res="Others/rainbow.png" Min="194" Max="255">Backwards rainbow slow to fast</Capability>
  </Channel>
  <Channel Name="Focus">
   <Group Byte="0">Beam</Group>
