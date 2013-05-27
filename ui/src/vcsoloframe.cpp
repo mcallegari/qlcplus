@@ -185,7 +185,7 @@ void VCSoloFrame::paintEvent(QPaintEvent* e)
         drawSelectionFrame = true;
 
     /* Draw a dotted line around the widget */
-    QPen pen(drawSelectionFrame ? Qt::DotLine : Qt::DashLine);
+    QPen pen(drawSelectionFrame ? Qt::DashLine : Qt::SolidLine);
     pen.setColor(Qt::red);
 
     if (drawSelectionFrame == true)

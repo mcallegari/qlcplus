@@ -814,7 +814,8 @@ void VCWidget::paintEvent(QPaintEvent* e)
     if (mode() == Doc::Design && vc->isWidgetSelected(this) == true)
     {
         /* Draw a dotted line around the widget */
-        QPen pen(Qt::DotLine);
+        QPen pen(Qt::DashLine);
+        pen.setColor(Qt::blue);
         pen.setCapStyle(Qt::RoundCap);
         pen.setWidth(0);
         painter.setPen(pen);
