@@ -47,17 +47,19 @@ MidiEnumeratorPrivate::~MidiEnumeratorPrivate()
 {
     qDebug() << Q_FUNC_INFO;
 
-    Q_ASSERT(m_inputThread != NULL);
-    m_inputThread->stop();
+    if (m_inputThread != NULL)
+    {
+        m_inputThread->stop();
 
-    while (m_outputDevices.isEmpty() == false)
-        delete m_outputDevices.takeFirst();
+        while (m_outputDevices.isEmpty() == false)
+            delete m_outputDevices.takeFirst();
 
-    while (m_inputDevices.isEmpty() == false)
-        delete m_inputDevices.takeFirst();
+        while (m_inputDevices.isEmpty() == false)
+            delete m_inputDevices.takeFirst();
 
-    delete m_inputThread;
-    m_inputThread = NULL;
+        delete m_inputThread;
+        m_inputThread = NULL;
+    }
 }
 
 void MidiEnumeratorPrivate::initAlsa()
