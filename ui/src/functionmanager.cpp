@@ -54,9 +54,11 @@
 #include "chaser.h"
 #include "script.h"
 #include "scene.h"
+#include "audio.h"
 #include "show.h"
 #include "doc.h"
 #include "efx.h"
+#include <QFileDialog>
 
 #define PROP_ID Qt::UserRole
 #define COL_NAME 0
@@ -82,6 +84,7 @@ FunctionManager::FunctionManager(QWidget* parent, Doc* doc)
     , m_addEFXAction(NULL)
     , m_addRGBMatrixAction(NULL)
     , m_addScriptAction(NULL)
+    , m_addAudioAction(NULL)
     , m_wizardAction(NULL)
     , m_cloneAction(NULL)
     , m_deleteAction(NULL)
@@ -276,9 +279,15 @@ void FunctionManager::initActions()
     connect(m_addScriptAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddScript()));
 
+    m_addAudioAction = new QAction(QIcon(":/audio.png"),
+                                   tr("New au&dio"), this);
+    m_addAudioAction->setShortcut(QKeySequence("CTRL+D"));
+    connect(m_addAudioAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotAddAudio()));
+
     m_wizardAction = new QAction(QIcon(":/wizard.png"),
-                                 tr("Function Wizard"), this);
-    m_wizardAction->setShortcut(QKeySequence("CTRL+A"));
+                                 tr("Function &Wizard"), this);
+    m_wizardAction->setShortcut(QKeySequence("CTRL+W"));
     connect(m_wizardAction, SIGNAL(triggered(bool)),
             this, SLOT(slotWizard()));
 
@@ -316,6 +325,7 @@ void FunctionManager::initToolbar()
     m_toolbar->addAction(m_addCollectionAction);
     m_toolbar->addAction(m_addRGBMatrixAction);
     m_toolbar->addAction(m_addScriptAction);
+    m_toolbar->addAction(m_addAudioAction);
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_wizardAction);
     m_toolbar->addSeparator();
@@ -412,6 +422,76 @@ void FunctionManager::slotAddRGBMatrix()
 void FunctionManager::slotAddScript()
 {
     Function* f = new Script(m_doc);
+    if (m_doc->addFunction(f) == true)
+    {
+        QTreeWidgetItem* item = functionItem(f);
+        Q_ASSERT(item != NULL);
+        m_tree->scrollToItem(item);
+        m_tree->setCurrentItem(item);
+    }
+}
+
+void FunctionManager::slotAddAudio()
+{
+    QString fn;
+
+    /* Create a file open dialog */
+    QFileDialog dialog(this);
+    dialog.setWindowTitle(tr("Open Audio File"));
+    dialog.setAcceptMode(QFileDialog::AcceptOpen);
+    //dialog.selectFile(fileName());
+
+    /* Append file filters to the dialog */
+    QStringList extList;
+#ifdef QT_PHONON_LIB
+    QStringList systemCaps = Audio::getCapabilities();
+    if (systemCaps.contains("audio/ogg") || systemCaps.contains("audio/x-ogg"))
+        extList << "*.ogg";
+    if (systemCaps.contains("audio/x-m4a"))
+        extList << "*.m4a";
+    if (systemCaps.contains("audio/flac") || systemCaps.contains("audio/x-flac"))
+        extList << "*.flac";
+    if (systemCaps.contains("audio/x-ms-wma"))
+        extList << "*.wma";
+    if (systemCaps.contains("audio/wav") || systemCaps.contains("audio/x-wav"))
+        extList << "*.wav";
+    if (systemCaps.contains("audio/mp3") || systemCaps.contains("audio/x-mp3") ||
+        systemCaps.contains("audio/mpeg3") || systemCaps.contains("audio/x-mpeg3"))
+        extList << "*.mp3";
+#else
+    extList = Audio::getCapabilities();
+#endif
+    QStringList filters;
+    qDebug() << Q_FUNC_INFO << "Extensions: " << extList.join(" ");
+    filters << tr("Audio Files (%1)").arg(extList.join(" "));
+#ifdef WIN32
+    filters << tr("All Files (*.*)");
+#else
+    filters << tr("All Files (*)");
+#endif
+    dialog.setNameFilters(filters);
+
+    /* Append useful URLs to the dialog */
+    QList <QUrl> sidebar;
+    sidebar.append(QUrl::fromLocalFile(QDir::homePath()));
+    sidebar.append(QUrl::fromLocalFile(QDir::rootPath()));
+    dialog.setSidebarUrls(sidebar);
+
+    /* Get file name */
+    if (dialog.exec() != QDialog::Accepted)
+        return;
+
+    fn = dialog.selectedFiles().first();
+    if (fn.isEmpty() == true)
+        return;
+
+    Function* f = new Audio(m_doc);
+    Audio *audio = qobject_cast<Audio*> (f);
+    if (audio->setSourceFileName(fn) == false)
+    {
+        QMessageBox::warning(this, tr("Unsupported audio file"), tr("This audio file cannot be played with QLC+. Sorry."));
+        return;
+    }
     if (m_doc->addFunction(f) == true)
     {
         QTreeWidgetItem* item = functionItem(f);

@@ -1,6 +1,7 @@
 qlcplus (4.3.4) stable; urgency=low
 
   * NEW: Shows can now be started at any position in time
+  * NEW: Audio files can now be added from Function Manager
   * NEW: In Scene Editor, fixture channels can be selected (CTRL+Click) for advanced copy/paste
   * Scene Editor now uses global clipboard too, so values can be copied from a Scene to another
   * Copy and paste is now allowed in "all fixtures view" mode too

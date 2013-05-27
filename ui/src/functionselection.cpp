@@ -59,7 +59,7 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
     , m_doc(doc)
     , m_multiSelection(true)
     , m_filter(Function::Scene | Function::Chaser | Function::Collection |
-               Function::EFX | Function::Script | Function::RGBMatrix | Function::Show)
+               Function::EFX | Function::Script | Function::RGBMatrix | Function::Show | Function::Audio)
     , m_constFilter(false)
 {
     Q_ASSERT(doc != NULL);
@@ -91,6 +91,9 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
 
     connect(m_showCheck, SIGNAL(toggled(bool)),
             this, SLOT(slotShowChecked(bool)));
+
+    connect(m_audioCheck, SIGNAL(toggled(bool)),
+            this, SLOT(slotAudioChecked(bool)));
 }
 
 int FunctionSelection::exec()
@@ -102,6 +105,7 @@ int FunctionSelection::exec()
     m_scriptCheck->setChecked(m_filter & Function::Script);
     m_rgbMatrixCheck->setChecked(m_filter & Function::RGBMatrix);
     m_showCheck->setChecked(m_filter & Function::Show);
+    m_audioCheck->setChecked(m_filter & Function::Audio);
 
     if (m_constFilter == true)
     {
@@ -112,6 +116,7 @@ int FunctionSelection::exec()
         m_scriptCheck->setEnabled(false);
         m_rgbMatrixCheck->setEnabled(false);
         m_showCheck->setEnabled(false);
+        m_audioCheck->setEnabled(false);
     }
 
     /* Multiple/single selection */
@@ -299,5 +304,14 @@ void FunctionSelection::slotShowChecked(bool state)
         m_filter = (m_filter | Function::Show);
     else
         m_filter = (m_filter & ~Function::Show);
+    refillTree();
+}
+
+void FunctionSelection::slotAudioChecked(bool state)
+{
+    if (state == true)
+        m_filter = (m_filter | Function::Audio);
+    else
+        m_filter = (m_filter & ~Function::Audio);
     refillTree();
 }

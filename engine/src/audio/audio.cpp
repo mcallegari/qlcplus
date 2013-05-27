@@ -82,7 +82,11 @@ Audio::Audio(Doc* doc)
 
 Audio::~Audio()
 {
-
+    if (m_audio_out != NULL)
+    {
+        m_audio_out->stop();
+        delete m_audio_out;
+    }
 }
 
 /*****************************************************************************
