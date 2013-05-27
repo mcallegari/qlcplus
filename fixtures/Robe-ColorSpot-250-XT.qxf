@@ -1,8 +1,8 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition>
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.0.7</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.3.4</Version>
   <Author>nikoyes</Author>
  </Creator>
  <Manufacturer>Robe</Manufacturer>
@@ -40,21 +40,21 @@
  </Channel>
  <Channel Name="Colours">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="9">White</Capability>
-  <Capability Min="10" Max="20">Turquoise</Capability>
-  <Capability Min="21" Max="31">Red</Capability>
-  <Capability Min="32" Max="41">Cyan</Capability>
-  <Capability Min="42" Max="52">Green</Capability>
-  <Capability Min="53" Max="63">Magenta</Capability>
-  <Capability Min="64" Max="73">Light Blue</Capability>
-  <Capability Min="74" Max="84">Yellow</Capability>
-  <Capability Min="85" Max="95">Green</Capability>
-  <Capability Min="96" Max="105">Pink</Capability>
-  <Capability Min="106" Max="116">Blue</Capability>
-  <Capability Min="117" Max="127">Orange</Capability>
-  <Capability Min="128" Max="189">Rainbow Fast to Slow CW</Capability>
+  <Capability Min="0" Max="9" Color="#ffffff">White</Capability>
+  <Capability Min="10" Max="20" Color="#00c0c0">Turquoise</Capability>
+  <Capability Min="21" Max="31" Color="#ff0000">Red</Capability>
+  <Capability Min="32" Max="41" Color="#00ffff">Cyan</Capability>
+  <Capability Min="42" Max="52" Color="#00ff00">Green</Capability>
+  <Capability Min="53" Max="63" Color="#ff00ff">Magenta</Capability>
+  <Capability Min="64" Max="73" Color="#c0c0ff">Light Blue</Capability>
+  <Capability Min="74" Max="84" Color="#ffff00">Yellow</Capability>
+  <Capability Min="85" Max="95" Color="#00ff00">Green</Capability>
+  <Capability Min="96" Max="105" Color="#ffc0ff">Pink</Capability>
+  <Capability Min="106" Max="116" Color="#0000ff">Blue</Capability>
+  <Capability Min="117" Max="127" Color="#ff8000">Orange</Capability>
+  <Capability Res="Others/rainbow.png" Min="128" Max="189">Rainbow Fast to Slow CW</Capability>
   <Capability Min="190" Max="193">No Function</Capability>
-  <Capability Min="194" Max="255">Rainbow Fast to Slow CCW</Capability>
+  <Capability Res="Others/rainbow.png" Min="194" Max="255">Rainbow Fast to Slow CCW</Capability>
  </Channel>
  <Channel Name="No Function">
   <Group Byte="0">Nothing</Group>
@@ -85,7 +85,7 @@
  </Channel>
  <Channel Name="Gobos">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="31">Open</Capability>
+  <Capability Res="Others/gobo00022.png" Min="0" Max="31">Open</Capability>
   <Capability Min="32" Max="63">Dichroic</Capability>
   <Capability Min="64" Max="95">Glass</Capability>
   <Capability Min="96" Max="127">Metal 1</Capability>
@@ -94,7 +94,7 @@
   <Capability Min="192" Max="223">Metal 4</Capability>
   <Capability Min="224" Max="255">Gobo Wheel Rotation Fast to Slow</Capability>
  </Channel>
- <Channel Name="Gobo Rotatio">
+ <Channel Name="Gobo Rotation">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="127">Gobo Indexing</Capability>
   <Capability Min="128" Max="190">Rotation CW Fast to Slow</Capability>
@@ -142,7 +142,7 @@
   <Channel Number="8">Effect Wheel</Channel>
   <Channel Number="9">Prism Rotation</Channel>
   <Channel Number="10">Gobos</Channel>
-  <Channel Number="11">Gobo Rotatio</Channel>
+  <Channel Number="11">Gobo Rotation</Channel>
   <Channel Number="12">No Funtion</Channel>
   <Channel Number="13">Focus</Channel>
   <Channel Number="14">Shutter</Channel>
@@ -167,7 +167,7 @@
   <Channel Number="8">Effect Wheel</Channel>
   <Channel Number="9">Prism Rotation</Channel>
   <Channel Number="10">Gobos</Channel>
-  <Channel Number="11">Gobo Rotatio</Channel>
+  <Channel Number="11">Gobo Rotation</Channel>
   <Channel Number="12">No Funtion</Channel>
   <Channel Number="13">Focus</Channel>
   <Channel Number="14">Shutter</Channel>
@@ -190,11 +190,10 @@
   <Channel Number="6">Effect Wheel</Channel>
   <Channel Number="7">Prism Rotation</Channel>
   <Channel Number="8">Gobos</Channel>
-  <Channel Number="9">Gobo Rotatio</Channel>
+  <Channel Number="9">Gobo Rotation</Channel>
   <Channel Number="10">No Funtion</Channel>
   <Channel Number="11">Focus</Channel>
   <Channel Number="12">Shutter</Channel>
   <Channel Number="13">Dimmer</Channel>
  </Mode>
 </FixtureDefinition>
-
