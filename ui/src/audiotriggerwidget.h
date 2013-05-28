@@ -35,7 +35,7 @@ public:
 signals:
     
 public slots:
-    void displaySpectrum(double *spectrumData, quint32 power);
+    void displaySpectrum(double *spectrumData, double maxMagnitude, quint32 power);
 
 protected:
     void resizeEvent (QResizeEvent *e);
@@ -43,7 +43,7 @@ protected:
 
 private:
     double *m_spectrumBands;
-    quint32 m_powerValue;
+    quint32 m_volumeBarHeight;
 
     int m_barsNumber;
     float m_barWidth;

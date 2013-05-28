@@ -34,7 +34,7 @@ AudioCaptureAlsa::~AudioCaptureAlsa()
     snd_pcm_close (m_captureHandle);
 }
 
-bool AudioCaptureAlsa::initialize(quint32 sampleRate, quint8 channels, quint16 bufferSize)
+bool AudioCaptureAlsa::initialize(unsigned int sampleRate, quint8 channels, quint16 bufferSize)
 {
     snd_pcm_hw_params_t *hw_params;
     char pcm_name[] = "default";
@@ -65,7 +65,7 @@ bool AudioCaptureAlsa::initialize(quint32 sampleRate, quint8 channels, quint16 b
         qWarning("cannot set sample format (%s)\n", snd_strerror (err));
         return false;
     }
-    if ((err = snd_pcm_hw_params_set_rate_near (m_captureHandle, hw_params, (unsigned int *) &sampleRate, 0)) < 0)
+    if ((err = snd_pcm_hw_params_set_rate_near (m_captureHandle, hw_params, &sampleRate, 0)) < 0)
     {
         qWarning("cannot set sample rate (%s)\n", snd_strerror (err));
         return false;
@@ -106,13 +106,14 @@ void AudioCaptureAlsa::resume()
 
 bool AudioCaptureAlsa::readAudio(int maxSize)
 {
-    int err;
-    if ((err = snd_pcm_readi (m_captureHandle, m_audioBuffer, maxSize)) != maxSize)
+    int read;
+    if ((read = snd_pcm_readi (m_captureHandle, m_audioBuffer, maxSize)) != maxSize)
     {
-        qWarning("read from audio interface failed (%s)\n", snd_strerror (err));
+        qWarning("read from audio interface failed (%s)\n", snd_strerror (read));
         return false;
     }
 
+    //qDebug() << "Audio sample #0:" << m_audioBuffer[0] << ", #max:" << m_audioBuffer[m_captureSize - 1];
     qDebug() << "[ALSA readAudio] " << maxSize << "bytes read";
 
     return true;

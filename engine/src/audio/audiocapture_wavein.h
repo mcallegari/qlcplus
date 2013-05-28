@@ -36,7 +36,7 @@ public:
     ~AudioCaptureWaveIn();
 
     /** @reimpl */
-    bool initialize(quint32 sampleRate, quint8 channels, quint16 bufferSize);
+    bool initialize(unsigned int sampleRate, quint8 channels, quint16 bufferSize);
 
     /** @reimpl */
     qint64 latency();

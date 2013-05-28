@@ -48,7 +48,7 @@ AudioCaptureWaveIn::~AudioCaptureWaveIn()
     m_mutex.unlock();
 }
 
-bool AudioCaptureWaveIn::initialize(quint32 sampleRate, quint8 channels, quint16 bufferSize)
+bool AudioCaptureWaveIn::initialize(unsigned int sampleRate, quint8 channels, quint16 bufferSize)
 {
     MMRESULT result = 0;
     WAVEFORMATEX format;

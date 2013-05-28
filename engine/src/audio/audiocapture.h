@@ -50,7 +50,7 @@ public:
      * @param bufferSize Audio dat buffer size\
      * @return initialization result (\b true - success, \b false - failure)
      */
-    virtual bool initialize(quint32 sampleRate, quint8 channels, quint16 bufferSize);
+    virtual bool initialize(unsigned int sampleRate, quint8 channels, quint16 bufferSize);
 
     /*!
      * Returns input interface latency in milliseconds.
@@ -81,7 +81,7 @@ private:
     bool m_userStop, m_pause;
 
 signals:
-    void dataProcessed(double *spectrumBands, quint32 power);
+    void dataProcessed(double *spectrumBands, double maxMagnitude, quint32 power);
 
 protected:
     /*!
@@ -93,12 +93,13 @@ protected:
 
     QMutex m_mutex;
 
-    int m_captureSize, m_sampleRate, m_channels;
+    unsigned int m_captureSize, m_sampleRate, m_channels;
 
     /** Data buffer for audio data coming from the sound card */
-    qint16 *m_audioBuffer;
+    int16_t *m_audioBuffer;
 
     quint32 m_signalPower;
+    double m_maxMagnitude;
 
     /** **************** FFT variables ********************** */
     double *m_fftInputBuffer;

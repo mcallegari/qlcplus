@@ -49,7 +49,7 @@ AudioCapture::~AudioCapture()
         delete[] (fftw_complex*)m_fftOutputBuffer;
 }
 
-bool AudioCapture::initialize(quint32 sampleRate, quint8 channels, quint16 bufferSize)
+bool AudioCapture::initialize(unsigned int sampleRate, quint8 channels, quint16 bufferSize)
 {
     Q_UNUSED(sampleRate)
 
@@ -57,7 +57,7 @@ bool AudioCapture::initialize(quint32 sampleRate, quint8 channels, quint16 buffe
     m_sampleRate = sampleRate;
     m_channels = channels;
 
-    m_audioBuffer = new qint16[m_captureSize];
+    m_audioBuffer = new int16_t[m_captureSize];
     m_fftInputBuffer = new double[m_captureSize];
     m_fftOutputBuffer = fftw_malloc(sizeof(fftw_complex) * m_captureSize);
 
@@ -73,7 +73,7 @@ void AudioCapture::stop()
 
 void AudioCapture::processData()
 {
-    int i;
+    unsigned int i;
     quint64 pwrSum = 0;
 
     // 1 ********* Initialize FFTW
@@ -82,6 +82,7 @@ void AudioCapture::processData()
 
     // 2 ********* Apply a window to audio data
     // *********** and convert it to doubles
+
     for (i = 0; i < m_captureSize; i++)
     {
         if(m_audioBuffer[i] < 0)
@@ -128,6 +129,7 @@ void AudioCapture::processData()
     // for the number of desired bands.
     i = 0;
     int subBandWidth = ((m_captureSize * 5000) / m_sampleRate) / FREQ_SUBBANDS_NUMBER;
+    m_maxMagnitude = 0;
 
     for (int b = 0; b < FREQ_SUBBANDS_NUMBER; b++)
     {
@@ -140,6 +142,8 @@ void AudioCapture::processData()
                                   (((fftw_complex*)m_fftOutputBuffer)[i][1] * ((fftw_complex*)m_fftOutputBuffer)[i][1]));
         }
         m_fftMagnitudeBuffer[b] = (magnitudeSum / subBandWidth);
+        if (m_maxMagnitude < m_fftMagnitudeBuffer[b])
+            m_maxMagnitude = m_fftMagnitudeBuffer[b];
     }
 }
 
@@ -155,7 +159,7 @@ void AudioCapture::run()
             if (readAudio(m_captureSize) == true)
             {
                 processData();
-                emit dataProcessed(m_fftMagnitudeBuffer, m_signalPower);
+                emit dataProcessed(m_fftMagnitudeBuffer, m_maxMagnitude, m_signalPower);
             }
             else
                 qDebug() << "Error reading data from audio source";
