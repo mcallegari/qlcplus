@@ -46,7 +46,7 @@ AudioCapture::~AudioCapture()
     if (m_fftInputBuffer)
         delete[] m_fftInputBuffer;
     if (m_fftOutputBuffer)
-        delete[] (fftw_complex*)m_fftOutputBuffer;
+        fftw_free(m_fftOutputBuffer); //delete[] (fftw_complex*)m_fftOutputBuffer;
 }
 
 bool AudioCapture::initialize(unsigned int sampleRate, quint8 channels, quint16 bufferSize)

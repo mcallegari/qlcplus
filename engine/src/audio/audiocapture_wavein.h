@@ -55,7 +55,7 @@ private:
     bool m_started;
     QMutex m_mutex;
     int m_currentBufferIndex;
-    qint16 *m_internalBuffers[HEADERS_NUMBER];
+    char *m_internalBuffers[HEADERS_NUMBER];
 };
 
 #endif // AUDIOCAPTURE_WAVEIN_H
