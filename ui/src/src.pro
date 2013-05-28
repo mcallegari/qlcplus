@@ -30,6 +30,7 @@ HEADERS += aboutbox.h \
            app.h \
            apputil.h \
            assignhotkey.h \
+           audioeditor.h \
            audiotriggerfactory.h \
            audiotriggerwidget.h \
            channelsconfiguration.h \
@@ -107,6 +108,7 @@ FORMS += aboutbox.ui \
          addvcbuttonmatrix.ui \
          addvcslidermatrix.ui \
          assignhotkey.ui \
+         audioeditor.ui \
          audiotriggerfactory.ui \
          chasereditor.ui \
          channelsconfiguration.ui \
@@ -145,6 +147,7 @@ SOURCES += aboutbox.cpp \
            app.cpp \
            apputil.cpp \
            assignhotkey.cpp \
+           audioeditor.cpp \
            audiotriggerfactory.cpp \
            audiotriggerwidget.cpp \
            channelsconfiguration.cpp \

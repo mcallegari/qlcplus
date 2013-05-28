@@ -44,6 +44,7 @@
 #include "chasereditor.h"
 #include "scripteditor.h"
 #include "sceneeditor.h"
+#include "audioeditor.h"
 #include "showeditor.h"
 #include "chaserstep.h"
 #include "collection.h"
@@ -959,6 +960,10 @@ void FunctionManager::editFunction(Function* function)
     else if (function->type() == Function::Show)
     {
         m_editor = new ShowEditor(m_hsplitter->widget(1), qobject_cast<Show*> (function), m_doc);
+    }
+    else if (function->type() == Function::Audio)
+    {
+        m_editor = new AudioEditor(m_hsplitter->widget(1), qobject_cast<Audio*> (function), m_doc);
     }
     else
     {
