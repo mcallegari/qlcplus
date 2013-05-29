@@ -26,7 +26,8 @@
 #include <QThread>
 #include <QMutex>
 
-#define FREQ_SUBBANDS_NUMBER    32
+#define FREQ_SUBBANDS_MAX_NUMBER    32
+#define SPECTRUM_MAX_FREQUENCY           5000
 
 class AudioCapture : public QThread
 {
@@ -40,7 +41,10 @@ public:
 
     ~AudioCapture();
 
-    static int bandsNumber() { return FREQ_SUBBANDS_NUMBER; }
+    void setBandsNumber(int number);
+    int bandsNumber();
+
+    static int maxFrequency() { return SPECTRUM_MAX_FREQUENCY; }
 
     /*!
      * Prepares object for usage and setups required audio parameters.
@@ -100,11 +104,12 @@ protected:
 
     quint32 m_signalPower;
     double m_maxMagnitude;
+    int m_subBandsNumber;
 
     /** **************** FFT variables ********************** */
     double *m_fftInputBuffer;
     void *m_fftOutputBuffer;
-    double m_fftMagnitudeBuffer[FREQ_SUBBANDS_NUMBER];
+    double m_fftMagnitudeBuffer[FREQ_SUBBANDS_MAX_NUMBER];
 };
 
 #endif // AUDIOCAPTURE_H

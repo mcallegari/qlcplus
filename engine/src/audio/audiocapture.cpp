@@ -37,6 +37,7 @@ AudioCapture::AudioCapture (QObject* parent)
     , m_userStop(true)
     , m_pause(false)
 {
+    m_subBandsNumber = FREQ_SUBBANDS_MAX_NUMBER;
 }
 
 AudioCapture::~AudioCapture()
@@ -46,7 +47,18 @@ AudioCapture::~AudioCapture()
     if (m_fftInputBuffer)
         delete[] m_fftInputBuffer;
     if (m_fftOutputBuffer)
-        fftw_free(m_fftOutputBuffer); //delete[] (fftw_complex*)m_fftOutputBuffer;
+        fftw_free(m_fftOutputBuffer);
+}
+
+void AudioCapture::setBandsNumber(int number)
+{
+    if (number > 0 && number < FREQ_SUBBANDS_MAX_NUMBER)
+        m_subBandsNumber = number;
+}
+
+int AudioCapture::bandsNumber()
+{
+    return m_subBandsNumber;
 }
 
 bool AudioCapture::initialize(unsigned int sampleRate, quint8 channels, quint16 bufferSize)
@@ -128,10 +140,10 @@ void AudioCapture::processData()
     // I will just consider 0 to 5000Hz and will calculate average magnitude
     // for the number of desired bands.
     i = 0;
-    int subBandWidth = ((m_captureSize * 5000) / m_sampleRate) / FREQ_SUBBANDS_NUMBER;
+    int subBandWidth = ((m_captureSize * SPECTRUM_MAX_FREQUENCY) / m_sampleRate) / m_subBandsNumber;
     m_maxMagnitude = 0;
 
-    for (int b = 0; b < FREQ_SUBBANDS_NUMBER; b++)
+    for (int b = 0; b < m_subBandsNumber; b++)
     {
         quint64 magnitudeSum = 0;
         for (int s = 0; s < subBandWidth; s++, i++)

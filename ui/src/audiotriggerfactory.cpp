@@ -37,7 +37,6 @@ AudioTriggerFactory::AudioTriggerFactory(QWidget *parent) :
     ui->setupUi(this);
 
     m_spectrum = new AudioTriggerWidget(this);
-    m_spectrum->setBarsNumber(AudioCapture::bandsNumber());
 
     ui->m_gridLayout->addWidget(m_spectrum);
 
@@ -61,6 +60,8 @@ void AudioTriggerFactory::slotEnableCapture(bool enable)
 #else
         m_inputCapture = new AudioCaptureAlsa();
 #endif
+        m_spectrum->setBarsNumber(m_inputCapture->bandsNumber());
+        m_spectrum->setMaxFrequency(AudioCapture::maxFrequency());
         connect(m_inputCapture, SIGNAL(dataProcessed(double *, double, quint32)),
                 m_spectrum, SLOT(displaySpectrum(double *, double, quint32)));
         m_inputCapture->initialize(44100, 1, 2048);
