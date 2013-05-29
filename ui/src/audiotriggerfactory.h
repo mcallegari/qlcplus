@@ -43,6 +43,7 @@ public:
     
 protected slots:
     void slotEnableCapture(bool enable);
+    void slotConfiguration();
 
 private:
     Ui::AudioTriggerFactory *ui;

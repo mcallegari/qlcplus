@@ -37,15 +37,28 @@ AudioTriggerFactory::AudioTriggerFactory(QWidget *parent) :
     ui->setupUi(this);
 
     m_spectrum = new AudioTriggerWidget(this);
+#if defined(__APPLE__)
+    m_inputCapture = new AudioCapturePortAudio();
+#elif defined(WIN32)
+    m_inputCapture = new AudioCaptureWaveIn();
+#else
+    m_inputCapture = new AudioCaptureAlsa();
+#endif
+    m_spectrum->setBarsNumber(m_inputCapture->bandsNumber());
+    m_spectrum->setMaxFrequency(AudioCapture::maxFrequency());
 
     ui->m_gridLayout->addWidget(m_spectrum);
 
     connect(ui->m_enableBox, SIGNAL(toggled(bool)),
             this, SLOT(slotEnableCapture(bool)));
+    connect(ui->m_configButton, SIGNAL(clicked()),
+            this, SLOT(slotConfiguration()));
 }
 
 AudioTriggerFactory::~AudioTriggerFactory()
 {
+    m_inputCapture->stop();
+    delete m_inputCapture;
     delete ui;
 }
 
@@ -53,15 +66,6 @@ void AudioTriggerFactory::slotEnableCapture(bool enable)
 {
     if (enable == true)
     {
-#if defined(__APPLE__)
-        m_inputCapture = new AudioCapturePortAudio();
-#elif defined(WIN32)
-        m_inputCapture = new AudioCaptureWaveIn();
-#else
-        m_inputCapture = new AudioCaptureAlsa();
-#endif
-        m_spectrum->setBarsNumber(m_inputCapture->bandsNumber());
-        m_spectrum->setMaxFrequency(AudioCapture::maxFrequency());
         connect(m_inputCapture, SIGNAL(dataProcessed(double *, double, quint32)),
                 m_spectrum, SLOT(displaySpectrum(double *, double, quint32)));
         m_inputCapture->initialize(44100, 1, 2048);
@@ -70,6 +74,10 @@ void AudioTriggerFactory::slotEnableCapture(bool enable)
     else
     {
         m_inputCapture->stop();
-        delete m_inputCapture;
     }
+    ui->m_configButton->setEnabled(enable);
+}
+
+void AudioTriggerFactory::slotConfiguration()
+{
 }

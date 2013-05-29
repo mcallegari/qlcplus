@@ -54,7 +54,6 @@ void AudioTriggerWidget::setMaxFrequency(int freq)
 
 void AudioTriggerWidget::displaySpectrum(double *spectrumData, double maxMagnitude, quint32 power)
 {
-    m_spectrumHeight = height() - 20;
     m_volumeBarHeight = (power * m_spectrumHeight) / 0x7FFF;
     for (int i = 0; i < m_barsNumber; i++)
         m_spectrumBands[i] =  (m_volumeBarHeight * spectrumData[i]) / maxMagnitude;
@@ -75,6 +74,8 @@ void AudioTriggerWidget::paintEvent(QPaintEvent *e)
 
     if (m_barsNumber == 0)
         return;
+
+    m_spectrumHeight = height() - 20;
 
     QPainter painter(this);
 
@@ -102,14 +103,17 @@ void AudioTriggerWidget::paintEvent(QPaintEvent *e)
         painter.setPen(QPen(Qt::NoPen));
         painter.drawRect(xpos, m_spectrumHeight - m_spectrumBands[i], m_barWidth - 1, m_spectrumBands[i]);
         painter.setPen(QPen(Qt::lightGray, 1));
-        painter.drawLine(xpos + m_barWidth, 0, xpos + m_barWidth, m_spectrumHeight);
+        painter.drawLine(xpos + m_barWidth, 0, xpos + m_barWidth, m_spectrumHeight - 2);
 
         xpos += m_barWidth;
     }
 
     // draw frequencies scale
     float freqIncr = m_maxFrequency / 10;
-    painter.setPen(QPen(Qt::black, 1));
+    if (this->isEnabled())
+        painter.setPen(QPen(Qt::black, 1));
+    else
+        painter.setPen(QPen(Qt::gray, 1));
 
     for (int i = 1; i < 11; i++)
     {
