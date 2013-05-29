@@ -23,6 +23,7 @@ RESOURCES    += qlcui.qrc
 
 # Sources
 HEADERS += aboutbox.h \
+           addchannelsgroup.h \
            addfixture.h \
            addresstool.h \
            addvcbuttonmatrix.h \
@@ -34,7 +35,6 @@ HEADERS += aboutbox.h \
            audiotriggerfactory.h \
            audiotriggerwidget.h \
            channelsconfiguration.h \
-           channelselection.h \
            chasereditor.h \
            clickandgoslider.h \
            clickandgowidget.h \
@@ -103,6 +103,7 @@ HEADERS += aboutbox.h \
            virtualconsole.h
 
 FORMS += aboutbox.ui \
+         addchannelsgroup.ui \
          addfixture.ui \
          addresstool.ui \
          addvcbuttonmatrix.ui \
@@ -112,7 +113,6 @@ FORMS += aboutbox.ui \
          audiotriggerfactory.ui \
          chasereditor.ui \
          channelsconfiguration.ui \
-         channelselection.ui \
          collectioneditor.ui \
          createfixturegroup.ui \
          dmxdumpfactory.ui \
@@ -140,6 +140,7 @@ FORMS += aboutbox.ui \
          vcxypadproperties.ui
 
 SOURCES += aboutbox.cpp \
+           addchannelsgroup.cpp \
            addfixture.cpp \
            addresstool.cpp \
            addvcbuttonmatrix.cpp \
@@ -151,7 +152,6 @@ SOURCES += aboutbox.cpp \
            audiotriggerfactory.cpp \
            audiotriggerwidget.cpp \
            channelsconfiguration.cpp \
-           channelselection.cpp \
            chasereditor.cpp \
            clickandgoslider.cpp \
            clickandgowidget.cpp \

@@ -41,6 +41,7 @@ private:
     Doc* m_doc;
 
 protected:
+    bool m_isUpdating;
     void updateFixturesTree();
 
 protected slots:

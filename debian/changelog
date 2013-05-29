@@ -14,6 +14,7 @@ qlcplus (4.3.4) stable; urgency=low
   * Scene Editor now remembers the fixtures view mode (not saved into project)
   * Fixed QLC+ 4.0.0 regression causing Function Manager to reset the tree state on show/hide
   * Fixed ArtNet input never reaching zero value (thanks to Jano Svitok)
+  * Project loading speed improvement. Should be much faster on projects with lot of fixtures
   * Added fixture: American DJ Mega Bar 50RGB (thanks to George Qualley)
   * Added fixture: SGM Giotto Spot 400 CMY (thanks to Willy)
   * Added fixture: PixelRANGE PixelPar 44 (thanks to bwerst)

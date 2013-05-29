@@ -46,7 +46,7 @@
 #include "channelsconfiguration.h"
 #include "createfixturegroup.h"
 #include "fixturegroupeditor.h"
-#include "channelselection.h"
+#include "addchannelsgroup.h"
 #include "fixturemanager.h"
 #include "universearray.h"
 #include "mastertimer.h"
@@ -1075,7 +1075,7 @@ void FixtureManager::addChannelsGroup()
     else
         group = new ChannelsGroup(m_doc);
 
-    ChannelSelection cs(this, m_doc, group);
+    AddChannelsGroup cs(this, m_doc, group);
     if (cs.exec() == QDialog::Accepted)
     {
         qDebug() << "CHANNEL GROUP ADDED. Count: " << group->getChannels().count();

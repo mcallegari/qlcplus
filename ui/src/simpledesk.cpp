@@ -323,8 +323,11 @@ void SimpleDesk::initUniversesCombo()
 {
     disconnect(m_universesCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(slotUniversesComboChanged(int)));
+    int currIdx = m_universesCombo->currentIndex();
     m_universesCombo->clear();
     m_universesCombo->addItems(m_doc->outputMap()->universeNames());
+    if (currIdx != -1)
+        m_universesCombo->setCurrentIndex(currIdx);
     connect(m_universesCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(slotUniversesComboChanged(int)));
 }
@@ -349,10 +352,6 @@ void SimpleDesk::initUniverseSliders()
         connect(slider, SIGNAL(valueChanged(quint32,quint32,uchar)),
                 this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
     }
-
-    connect(m_doc, SIGNAL(fixtureAdded(quint32)), this, SLOT(slotUpdateUniverseSliders()));
-    connect(m_doc, SIGNAL(fixtureRemoved(quint32)), this, SLOT(slotUpdateUniverseSliders()));
-    connect(m_doc, SIGNAL(fixtureChanged(quint32)), this, SLOT(slotUpdateUniverseSliders()));
 }
 
 void SimpleDesk::initUniversePager()
@@ -430,8 +429,6 @@ void SimpleDesk::initSliderView(bool fullMode)
 void SimpleDesk::slotUniversesComboChanged(int index)
 {
     m_currentUniverse = index;
-    int page = m_universesPage.at(index);
-    m_universePageSpin->setValue(page);
     if (m_viewModeButton->isChecked() == true)
     {
         m_universeGroup->layout()->removeWidget(scrollArea);
@@ -440,7 +437,9 @@ void SimpleDesk::slotUniversesComboChanged(int index)
     }
     else
     {
-        slotUniversePageChanged(page);
+        int page = m_universesPage.at(index);
+        slotUniversePageChanged(m_universesPage.at(index));
+        m_universePageSpin->setValue(page);
     }
 }
 
@@ -1150,6 +1149,7 @@ void SimpleDesk::showEvent(QShowEvent* ev)
     if (m_editCueStackButton->isChecked() == true)
         slotEditCueStackClicked();
     initUniversesCombo();
+    slotUpdateUniverseSliders();
     QWidget::showEvent(ev);
 }
 

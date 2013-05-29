@@ -32,8 +32,9 @@
 #define KColumnID    4
 
 ChannelsConfiguration::ChannelsConfiguration(Doc *doc, QWidget *parent)
-    : QDialog(parent),
-    m_doc(doc)
+    : QDialog(parent)
+    , m_doc(doc)
+    , m_isUpdating(false)
 {
     Q_ASSERT(doc != NULL);
 
@@ -108,9 +109,11 @@ void ChannelsConfiguration::updateFixturesTree()
 
 void ChannelsConfiguration::slotItemChecked(QTreeWidgetItem *item, int col)
 {
-    if (m_applyAllCheck->isChecked() == false || col != KColumnFade ||
+    if (m_isUpdating == true || m_applyAllCheck->isChecked() == false || col != KColumnFade ||
         item->text(KColumnID).isEmpty())
         return;
+
+    m_isUpdating = true;
 
     Fixture *fixture = m_doc->fixture(item->text(KColumnID).toUInt());
     if (fixture == NULL)
@@ -152,6 +155,8 @@ void ChannelsConfiguration::slotItemChecked(QTreeWidgetItem *item, int col)
             }
         }
     }
+
+    m_isUpdating = false;
 }
 
 void ChannelsConfiguration::accept()
