@@ -19,8 +19,9 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
+#include "scenevalue.h"
 #include "audiotriggerfactory.h"
-#include "ui_audiotriggerfactory.h"
+#include "audiotriggersconfiguration.h"
 
 #if defined(__APPLE__)
   #include "audiocapture_portaudio.h"
@@ -30,11 +31,15 @@
   #include "audiocapture_alsa.h"
 #endif
 
-AudioTriggerFactory::AudioTriggerFactory(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::AudioTriggerFactory)
+AudioTriggerFactory::AudioTriggerFactory(Doc *doc, QWidget *parent)
+    : QDialog(parent)
+    , m_doc(doc)
 {
-    ui->setupUi(this);
+    setupUi(this);
+
+    AudioBar asb;
+    asb.type = 0;
+    asb.value = 0;
 
     m_spectrum = new AudioTriggerWidget(this);
 #if defined(__APPLE__)
@@ -44,14 +49,18 @@ AudioTriggerFactory::AudioTriggerFactory(QWidget *parent) :
 #else
     m_inputCapture = new AudioCaptureAlsa();
 #endif
+
+    for (int i = 0; i < m_inputCapture->bandsNumber(); i++)
+        m_spectrumBars.append(asb);
+
     m_spectrum->setBarsNumber(m_inputCapture->bandsNumber());
     m_spectrum->setMaxFrequency(AudioCapture::maxFrequency());
 
-    ui->m_gridLayout->addWidget(m_spectrum);
+    m_gridLayout->addWidget(m_spectrum);
 
-    connect(ui->m_enableBox, SIGNAL(toggled(bool)),
+    connect(m_enableBox, SIGNAL(toggled(bool)),
             this, SLOT(slotEnableCapture(bool)));
-    connect(ui->m_configButton, SIGNAL(clicked()),
+    connect(m_configButton, SIGNAL(clicked()),
             this, SLOT(slotConfiguration()));
 }
 
@@ -59,7 +68,12 @@ AudioTriggerFactory::~AudioTriggerFactory()
 {
     m_inputCapture->stop();
     delete m_inputCapture;
-    delete ui;
+}
+
+void AudioTriggerFactory::setSpectrumBarType(int index, int type)
+{
+    if (index >= 0 && index < m_spectrumBars.size())
+        m_spectrumBars[index].type = type;
 }
 
 void AudioTriggerFactory::slotEnableCapture(bool enable)
@@ -75,9 +89,30 @@ void AudioTriggerFactory::slotEnableCapture(bool enable)
     {
         m_inputCapture->stop();
     }
-    ui->m_configButton->setEnabled(enable);
+    m_configButton->setEnabled(enable);
 }
 
 void AudioTriggerFactory::slotConfiguration()
 {
+    AudioTriggersConfiguration atc(this, m_doc, m_inputCapture);
+    if (atc.exec() == QDialog::Accepted)
+    {
+
+    }
+}
+
+/************************************************************************
+ * AudioBar class methods
+ ************************************************************************/
+
+void AudioBar::attachDmxChannels(QList<SceneValue> list)
+{
+    m_dmxChannels.clear();
+    m_dmxChannels = list;
+}
+
+void AudioBar::attachFunction(Function *func)
+{
+    if (func != NULL)
+        m_function = func;
 }

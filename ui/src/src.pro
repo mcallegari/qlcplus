@@ -32,9 +32,10 @@ HEADERS += aboutbox.h \
            apputil.h \
            assignhotkey.h \
            audioeditor.h \
+           audiotriggersconfiguration.h \
            audiotriggerfactory.h \
            audiotriggerwidget.h \
-           channelsconfiguration.h \
+           channelsselection.h \
            chasereditor.h \
            clickandgoslider.h \
            clickandgowidget.h \
@@ -110,9 +111,10 @@ FORMS += aboutbox.ui \
          addvcslidermatrix.ui \
          assignhotkey.ui \
          audioeditor.ui \
+         audiotriggersconfiguration.ui \
          audiotriggerfactory.ui \
          chasereditor.ui \
-         channelsconfiguration.ui \
+         channelsselection.ui \
          collectioneditor.ui \
          createfixturegroup.ui \
          dmxdumpfactory.ui \
@@ -149,9 +151,10 @@ SOURCES += aboutbox.cpp \
            apputil.cpp \
            assignhotkey.cpp \
            audioeditor.cpp \
+           audiotriggersconfiguration.cpp \
            audiotriggerfactory.cpp \
            audiotriggerwidget.cpp \
-           channelsconfiguration.cpp \
+           channelsselection.cpp \
            chasereditor.cpp \
            clickandgoslider.cpp \
            clickandgowidget.cpp \

@@ -25,31 +25,63 @@
 #include <QDialog>
 #include <QThread>
 
+#include "ui_audiotriggerfactory.h"
 #include "audiotriggerwidget.h"
+#include "scenevalue.h"
+#include "function.h"
+#include "doc.h"
 
 class AudioCapture;
 
-namespace Ui {
-class AudioTriggerFactory;
-}
+class AudioBar
+{
+public:
+    /** Normal constructor */
+    AudioBar() { }
 
-class AudioTriggerFactory : public QDialog
+    /** Destructor */
+    ~AudioBar() { }
+
+    enum BarType
+    {
+        None = 0,
+        DMXBar,
+        FunctionBar,
+        VCWidgetBar
+    };
+
+    void attachDmxChannels(QList<SceneValue>list);
+    void attachFunction(Function *func);
+
+public:
+    uchar value;
+    int type;
+
+    QList<SceneValue> m_dmxChannels;
+    Function *m_function;
+};
+
+class AudioTriggerFactory : public QDialog, public Ui_AudioTriggerFactory
 {
     Q_OBJECT
     
 public:
-    explicit AudioTriggerFactory(QWidget *parent = 0);
+    explicit AudioTriggerFactory(Doc* doc, QWidget *parent = 0);
     ~AudioTriggerFactory();
+
+    void setSpectrumBarType(int index, int type);
     
 protected slots:
     void slotEnableCapture(bool enable);
     void slotConfiguration();
 
 private:
-    Ui::AudioTriggerFactory *ui;
-
+    Doc *m_doc;
     AudioCapture *m_inputCapture;
     AudioTriggerWidget *m_spectrum;
+
+    AudioBar m_volumeBar;
+    QList <AudioBar> m_spectrumBars;
 };
 
 #endif // AUDIOTRIGGERFACTORY_H

@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Audio Trigger Factory</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="qlcui.qrc">
+    <normaloff>:/audioinput.png</normaloff>:/audioinput.png</iconset>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QGroupBox" name="m_enableBox">

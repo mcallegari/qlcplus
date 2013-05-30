@@ -43,9 +43,9 @@
 #include "qlcchannel.h"
 #include "qlcfile.h"
 
-#include "channelsconfiguration.h"
 #include "createfixturegroup.h"
 #include "fixturegroupeditor.h"
+#include "channelsselection.h"
 #include "addchannelsgroup.h"
 #include "fixturemanager.h"
 #include "universearray.h"
@@ -1281,9 +1281,10 @@ void FixtureManager::slotProperties()
 
 void FixtureManager::slotFadeConfig()
 {
-    ChannelsConfiguration cfg(m_doc, this);
-    if (cfg.exec() != QDialog::Accepted)
+    ChannelsSelection cfg(m_doc, this, ChannelsSelection::ExcludeChannelsMode);
+    if (cfg.exec() == QDialog::Rejected)
         return; // User pressed cancel
+    m_doc->setModified();
 }
 
 void FixtureManager::slotUnGroup()

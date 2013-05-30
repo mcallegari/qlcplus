@@ -373,7 +373,7 @@ QList <quint32> Fixture::cmyChannels(int head) const
 
 void Fixture::setExcludeFadeChannels(QList<int> indexes)
 {
-    if (indexes.isEmpty() || indexes.count() > (int)channels())
+    if (indexes.count() > (int)channels())
         return;
     m_excludeFadeIndexes = indexes;
 }

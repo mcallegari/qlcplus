@@ -327,7 +327,7 @@ void ConsoleChannel::initMenu()
         m_presetButton->setIcon(QIcon(":/prism.png"));
         break;
     case QLCChannel::Maintenance:
-        m_presetButton->setIcon(QIcon(":/maintenance.png"));
+        m_presetButton->setIcon(QIcon(":/configure.png"));
         break;
     case QLCChannel::Intensity:
         setIntensityButton(ch);

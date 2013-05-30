@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  channelsconfiguration.h
+  channelsselection.h
 
   Copyright (c) Massimo Callegari
 
@@ -24,21 +24,33 @@
 
 #include <QDialog>
 
-#include "ui_channelsconfiguration.h"
+#include "ui_channelsselection.h"
+#include "scenevalue.h"
 
 class Doc;
 
-class ChannelsConfiguration : public QDialog, public Ui_ChannelsConfiguration
+class ChannelsSelection : public QDialog, public Ui_ChannelsSelection
 {
     Q_OBJECT
-    Q_DISABLE_COPY(ChannelsConfiguration)
+    Q_DISABLE_COPY(ChannelsSelection)
     
 public:
-    ChannelsConfiguration(Doc* doc, QWidget *parent = 0);
-    ~ChannelsConfiguration();
+    enum ChannelSelectionType
+    {
+        NormalMode,
+        ExcludeChannelsMode
+    };
+
+    ChannelsSelection(Doc* doc, QWidget *parent = 0, ChannelSelectionType mode = NormalMode);
+    ~ChannelsSelection();
+
+    void setChannelsList(QList<SceneValue> list);
+    QList<SceneValue> channelsList();
 
 private:
     Doc* m_doc;
+    ChannelSelectionType m_mode;
+    QList<SceneValue> m_channelsList;
 
 protected:
     bool m_isUpdating;

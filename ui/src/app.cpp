@@ -217,7 +217,7 @@ void App::init()
     // Start up in non-modified state
     m_doc->resetModified();
 
-    m_audioTriggers = new AudioTriggerFactory();
+    m_audioTriggers = new AudioTriggerFactory(m_doc);
 }
 
 void App::setActiveWindow(const QString& name)

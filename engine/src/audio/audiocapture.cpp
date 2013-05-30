@@ -28,7 +28,7 @@
 #include "fftw3.h"
 
 #define USE_HANNING
-#define CLEAR_NOISE
+#define CLEAR_FFT_NOISE
 
 #define M_2PI       6.28318530718           /* 2*pi */
 
@@ -122,12 +122,14 @@ void AudioCapture::processData()
     fftw_destroy_plan(plan_forward);
 
     // 4 ********* Clear FFT noise
-#ifdef CLEAR_NOISE
+#ifdef CLEAR_FFT_NOISE
     //We delete some values since these will ruin our output
     ((fftw_complex*)m_fftOutputBuffer)[0][0] = 0;
     ((fftw_complex*)m_fftOutputBuffer)[0][1] = 0;
     ((fftw_complex*)m_fftOutputBuffer)[1][0] = 0;
     ((fftw_complex*)m_fftOutputBuffer)[1][1] = 0;
+    ((fftw_complex*)m_fftOutputBuffer)[2][0] = 0;
+    ((fftw_complex*)m_fftOutputBuffer)[2][1] = 0;
 #endif
 
     // 5 ********* Calculate the average signal power
