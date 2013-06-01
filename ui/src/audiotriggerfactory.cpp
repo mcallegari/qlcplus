@@ -37,10 +37,6 @@ AudioTriggerFactory::AudioTriggerFactory(Doc *doc, QWidget *parent)
 {
     setupUi(this);
 
-    AudioBar asb;
-    asb.type = 0;
-    asb.value = 0;
-
     m_spectrum = new AudioTriggerWidget(this);
 #if defined(__APPLE__)
     m_inputCapture = new AudioCapturePortAudio();
@@ -50,8 +46,14 @@ AudioTriggerFactory::AudioTriggerFactory(Doc *doc, QWidget *parent)
     m_inputCapture = new AudioCaptureAlsa();
 #endif
 
+    // create the  AudioBar spectrum data. To be loaded
+    // from the project
+    m_volumeBar = new AudioBar(AudioBar::None, 0);
     for (int i = 0; i < m_inputCapture->bandsNumber(); i++)
+    {
+        AudioBar *asb = new AudioBar(AudioBar::None, 0);
         m_spectrumBars.append(asb);
+    }
 
     m_spectrum->setBarsNumber(m_inputCapture->bandsNumber());
     m_spectrum->setMaxFrequency(AudioCapture::maxFrequency());
@@ -70,10 +72,42 @@ AudioTriggerFactory::~AudioTriggerFactory()
     delete m_inputCapture;
 }
 
+AudioBar *AudioTriggerFactory::getSpectrumBar(int index)
+{
+    if (index == 1000)
+        return m_volumeBar;
+    if (index >= 0 && index < m_spectrumBars.size())
+        return m_spectrumBars.at(index);
+
+    return NULL;
+}
+
+void AudioTriggerFactory::setSpectrumBarsNumber(int num)
+{
+    if (num > m_spectrumBars.count())
+    {
+        for (int i = 0 ; i < num - m_spectrumBars.count(); i++)
+        {
+            AudioBar *asb = new AudioBar(AudioBar::None, 0);
+            m_spectrumBars.append(asb);
+        }
+    }
+    else if (num < m_spectrumBars.count())
+    {
+        for (int i = 0 ; i < m_spectrumBars.count() - num; i++)
+            m_spectrumBars.takeLast();
+    }
+}
+
 void AudioTriggerFactory::setSpectrumBarType(int index, int type)
 {
+    if (index == 1000)
+    {
+        m_volumeBar->m_type = type;
+        return;
+    }
     if (index >= 0 && index < m_spectrumBars.size())
-        m_spectrumBars[index].type = type;
+        m_spectrumBars[index]->m_type = type;
 }
 
 void AudioTriggerFactory::slotEnableCapture(bool enable)
@@ -94,16 +128,32 @@ void AudioTriggerFactory::slotEnableCapture(bool enable)
 
 void AudioTriggerFactory::slotConfiguration()
 {
+    m_inputCapture->stop();
     AudioTriggersConfiguration atc(this, m_doc, m_inputCapture);
     if (atc.exec() == QDialog::Accepted)
     {
 
     }
+    m_inputCapture->start();
 }
 
 /************************************************************************
  * AudioBar class methods
  ************************************************************************/
+
+AudioBar::AudioBar(int t, uchar v)
+{
+    m_type = t;
+    m_value = v;
+    m_function = NULL;
+    min_threshold = 51; // 20%
+    max_threshold = 204; // 80%
+}
+
+void AudioBar::setName(QString nme)
+{
+    m_name = nme;
+}
 
 void AudioBar::attachDmxChannels(QList<SceneValue> list)
 {
@@ -115,4 +165,11 @@ void AudioBar::attachFunction(Function *func)
 {
     if (func != NULL)
         m_function = func;
+}
+
+void AudioBar::debugInfo()
+{
+    qDebug() << "[AudioBar] " << m_name;
+    qDebug() << "   type:" << m_type << ", value:" << m_value;
+
 }

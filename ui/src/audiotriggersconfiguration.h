@@ -42,10 +42,11 @@ public:
     void accept();
     
 private slots:
-    void addTypeCombo(QString name, int idx);
+    void updateTreeItem(QTreeWidgetItem *item, int idx);
     void updateTree();
     void slotTypeComboChanged(int comboIndex);
     void slotDmxSelectionClicked();
+    void slotFunctionSelectionClicked();
 
 private:
     Doc *m_doc;

@@ -37,7 +37,7 @@ class AudioBar
 {
 public:
     /** Normal constructor */
-    AudioBar() { }
+    AudioBar(int t, uchar v);
 
     /** Destructor */
     ~AudioBar() { }
@@ -50,15 +50,21 @@ public:
         VCWidgetBar
     };
 
+    void setName(QString nme);
     void attachDmxChannels(QList<SceneValue>list);
     void attachFunction(Function *func);
 
+    void debugInfo();
+
 public:
-    uchar value;
-    int type;
+    QString m_name;
+    int m_type;
+    uchar m_value;
 
     QList<SceneValue> m_dmxChannels;
     Function *m_function;
+
+    uchar min_threshold, max_threshold;
 };
 
 class AudioTriggerFactory : public QDialog, public Ui_AudioTriggerFactory
@@ -69,6 +75,8 @@ public:
     explicit AudioTriggerFactory(Doc* doc, QWidget *parent = 0);
     ~AudioTriggerFactory();
 
+    AudioBar *getSpectrumBar(int index);
+    void setSpectrumBarsNumber(int num);
     void setSpectrumBarType(int index, int type);
     
 protected slots:
@@ -80,8 +88,8 @@ private:
     AudioCapture *m_inputCapture;
     AudioTriggerWidget *m_spectrum;
 
-    AudioBar m_volumeBar;
-    QList <AudioBar> m_spectrumBars;
+    AudioBar *m_volumeBar;
+    QList <AudioBar *> m_spectrumBars;
 };
 
 #endif // AUDIOTRIGGERFACTORY_H

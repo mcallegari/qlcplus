@@ -64,6 +64,11 @@
        </column>
        <column>
         <property name="text">
+         <string>Info</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
          <string>Disable threshold</string>
         </property>
        </column>
