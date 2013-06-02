@@ -137,12 +137,16 @@ void AudioTriggerFactory::slotDisplaySpectrum(double *spectrumBands, double maxM
     m_volumeBar->m_value = m_spectrum->getUcharVolume();
     if (m_volumeBar->m_type == AudioBar::FunctionBar)
         m_volumeBar->checkFunctionThresholds(m_doc);
+    else if (m_volumeBar->m_type == AudioBar::VCWidgetBar)
+        m_volumeBar->checkWidgetFunctionality();
 
     for (int i = 0; i < m_spectrumBars.count(); i++)
     {
         m_spectrumBars[i]->m_value = m_spectrum->getUcharBand(i);
         if (m_spectrumBars[i]->m_type == AudioBar::FunctionBar)
             m_spectrumBars[i]->checkFunctionThresholds(m_doc);
+        else if (m_spectrumBars[i]->m_type == AudioBar::VCWidgetBar)
+            m_spectrumBars[i]->checkWidgetFunctionality();
     }
 }
 
@@ -240,13 +244,19 @@ void AudioBar::attachDmxChannels(Doc *doc, QList<SceneValue> list)
 void AudioBar::attachFunction(Function *func)
 {
     if (func != NULL)
+    {
+        qDebug() << Q_FUNC_INFO << "Attaching function:" << func->name();
         m_function = func;
+    }
 }
 
 void AudioBar::attachWidget(VCWidget *widget)
 {
     if (widget != NULL)
+    {
+        qDebug() << Q_FUNC_INFO << "Attaching widget:" << widget->caption();
         m_widget = widget;
+    }
 }
 
 void AudioBar::checkFunctionThresholds(Doc *doc)
@@ -263,6 +273,7 @@ void AudioBar::checkWidgetFunctionality()
 {
     if (m_widget == NULL)
         return;
+
     if (m_widget->type() == VCWidget::ButtonWidget)
     {
         VCButton *btn = (VCButton *)m_widget;
