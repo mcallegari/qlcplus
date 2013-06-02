@@ -22,13 +22,16 @@
 #include <QTreeWidgetItem>
 #include <QTreeWidget>
 #include <QHeaderView>
-#include <QVBoxLayout>
+#include <QGridLayout>
+#include <QCheckBox>
 #include <QString>
+#include <QLabel>
 #include <QDebug>
 #include <QtXml>
 
 #include "vccuelistproperties.h"
 #include "vcpropertieseditor.h"
+#include "clickandgoslider.h"
 #include "virtualconsole.h"
 #include "chaserrunner.h"
 #include "mastertimer.h"
@@ -37,6 +40,7 @@
 #include "function.h"
 #include "inputmap.h"
 #include "qlcfile.h"
+#include "apputil.h"
 #include "chaser.h"
 #include "doc.h"
 
@@ -63,12 +67,44 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     setObjectName(VCCueList::staticMetaObject.className());
 
     /* Create a layout for this widget */
-    new QVBoxLayout(this);
-    layout()->setSpacing(2);
+    QGridLayout* grid = new QGridLayout(this);
+    grid->setSpacing(2);
+
+    m_linkCheck = new QCheckBox();
+    grid->addWidget(m_linkCheck, 0, 0, 1, 2, Qt::AlignVCenter | Qt::AlignCenter);
+
+    m_sl1TopLabel = new QLabel("100%");
+    m_sl1TopLabel->setAlignment(Qt::AlignHCenter);
+    grid->addWidget(m_sl1TopLabel, 1, 0, 1, 1);
+    m_slider1 = new ClickAndGoSlider();
+    m_slider1->setStyle(AppUtil::saneStyle());
+    m_slider1->setFixedWidth(35);
+    m_slider1->setRange(0, 100);
+    m_slider1->setValue(100);
+    grid->addWidget(m_slider1, 2, 0, 1, 1);
+    m_sl1BottomLabel = new QLabel("");
+    grid->addWidget(m_sl1BottomLabel, 3, 0, 1, 1);
+    connect(m_slider1, SIGNAL(valueChanged(int)),
+            this, SLOT(slotSlider1ValueChanged(int)));
+
+    m_sl2TopLabel = new QLabel("0%");
+    m_sl2TopLabel->setAlignment(Qt::AlignHCenter);
+    grid->addWidget(m_sl2TopLabel, 1, 1, 1, 1);
+    m_slider2 = new ClickAndGoSlider();
+    m_slider2->setStyle(AppUtil::saneStyle());
+    m_slider2->setFixedWidth(35);
+    m_slider2->setRange(0, 100);
+    m_slider2->setValue(0);
+    m_slider2->setInvertedAppearance(true);
+    grid->addWidget(m_slider2, 2, 1, 1, 1);
+    m_sl2BottomLabel = new QLabel("");
+    grid->addWidget(m_sl2BottomLabel, 3, 1, 1, 1);
+    connect(m_slider2, SIGNAL(valueChanged(int)),
+            this, SLOT(slotSlider2ValueChanged(int)));
 
     /* Create a list for scenes (cues) */
     m_tree = new QTreeWidget(this);
-    layout()->addWidget(m_tree);
+    grid->addWidget(m_tree, 0, 2, 3, 1);
     m_tree->setSelectionMode(QAbstractItemView::SingleSelection);
     m_tree->setAlternatingRowColors(true);
     m_tree->setAllColumnsShowFocus(true);
@@ -119,9 +155,10 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     connect(m_nextButton, SIGNAL(clicked()), this, SLOT(slotNextCue()));
     hbox->addWidget(m_nextButton);
 
-    layout()->addItem(hbox);
+    grid->addItem(hbox, 3, 2);
 
     setFrameStyle(KVCFrameStyleSunken);
+    setType(VCWidget::CueListWidget);
     setCaption(tr("Cue list"));
 
     QSettings settings;
@@ -129,7 +166,7 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     if (var.isValid() == true)
         resize(var.toSize());
     else
-        resize(QSize(200, 200));
+        resize(QSize(300, 220));
 
     slotModeChanged(mode());
 
@@ -436,6 +473,22 @@ void VCCueList::createRunner(int startIndex)
     }
 }
 
+/*****************************************************************************
+ * Crossfade
+ *****************************************************************************/
+void VCCueList::slotSlider1ValueChanged(int value)
+{
+    m_sl1TopLabel->setText(QString("%1%").arg(value));
+    if (m_linkCheck->isChecked())
+        m_slider2->setValue(100 - value);
+}
+
+void VCCueList::slotSlider2ValueChanged(int value)
+{
+    m_sl2TopLabel->setText(QString("%1%").arg(value));
+    if (m_linkCheck->isChecked())
+        m_slider1->setValue(100 - value);
+}
 /*****************************************************************************
  * DMX Source
  *****************************************************************************/

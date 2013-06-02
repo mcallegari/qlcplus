@@ -76,6 +76,7 @@ VCButton::VCButton(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     /* No function is initially attached to the button */
     m_function = Function::invalidId();
 
+    setType(VCWidget::ButtonWidget);
     setCaption(QString());
     setOn(false);
     setAction(Toggle);

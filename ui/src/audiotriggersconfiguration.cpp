@@ -28,7 +28,9 @@
 #include "audiotriggersconfiguration.h"
 #include "channelsselection.h"
 #include "functionselection.h"
+#include "vcwidgetselection.h"
 #include "qlcmacros.h"
+#include "chaser.h"
 
 #define KColumnName             0
 #define KColumnType             1
@@ -57,7 +59,9 @@ AudioTriggersConfiguration::AudioTriggersConfiguration(QWidget *parent, Doc *doc
 
     m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
     m_tree->setAlternatingRowColors(true);
+    m_tree->setRootIsDecorated(false);
     m_tree->setSelectionMode(QAbstractItemView::NoSelection);
+    m_tree->setAllColumnsShowFocus(true);
 
     updateTree();
 }
@@ -121,6 +125,23 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
         if (bar->m_function != NULL)
         {
             item->setText(KColumnInfo, bar->m_function->name());
+            switch (bar->m_function->type())
+            {
+            case Function::Scene: item->setIcon(KColumnInfo, QIcon(":/scene.png")); break;
+            case Function::Chaser:
+                if (qobject_cast<const Chaser*>(bar->m_function)->isSequence() == true)
+                    item->setIcon(KColumnInfo, QIcon(":/sequence.png"));
+                else
+                    item->setIcon(KColumnInfo, QIcon(":/chaser.png"));
+            break;
+            case Function::EFX:item->setIcon(KColumnInfo, QIcon(":/efx.png")); break;
+            case Function::Collection:item->setIcon(KColumnInfo, QIcon(":/collection.png")); break;
+            case Function::RGBMatrix:item->setIcon(KColumnInfo, QIcon(":/rgbmatrix.png")); break;
+            case Function::Script:item->setIcon(KColumnInfo, QIcon(":/script.png")); break;
+            case Function::Show:item->setIcon(KColumnInfo, QIcon(":/show.png")); break;
+            case Function::Audio:item->setIcon(KColumnInfo, QIcon(":/audio.png")); break;
+            default: item->setIcon(KColumnInfo, QIcon(":/function.png")); break;
+            }
         }
         else
             item->setText(KColumnInfo, tr("No function"));
@@ -143,6 +164,19 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
     }
     else if (bar->m_type == AudioBar::VCWidgetBar)
     {
+        QToolButton *btn = new QToolButton();
+        btn->setIcon(QIcon(":/attach.png"));
+        btn->setProperty("index", idx);
+        m_tree->setItemWidget(item, KColumnAssign, btn);
+        connect(btn, SIGNAL(clicked()), this, SLOT(slotWidgetSelectionClicked()));
+        if (bar->m_widget != NULL)
+        {
+            item->setText(KColumnInfo, bar->m_widget->caption());
+            item->setIcon(KColumnInfo, VCWidget::typeToIcon(bar->m_widget->type()));
+        }
+        else
+            item->setText(KColumnInfo, tr("No widget"));
+
         QSpinBox *minspin = new QSpinBox();
         minspin->setMinimum(5);
         minspin->setMaximum(95);
@@ -236,6 +270,32 @@ void AudioTriggersConfiguration::slotFunctionSelectionClicked()
         Function *f = m_doc->function(fs.selection().first());
         if (bar != NULL && f != NULL)
             bar->attachFunction(f);
+
+        QTreeWidgetItem *item = NULL;
+        if (prop.toInt() == 1000)
+            item = m_tree->topLevelItem(0);
+        else
+            item = m_tree->topLevelItem(prop.toInt() + 1);
+        updateTreeItem(item, prop.toInt());
+    }
+}
+
+void AudioTriggersConfiguration::slotWidgetSelectionClicked()
+{
+    QToolButton *btn = (QToolButton *)sender();
+    QVariant prop = btn->property("index");
+    if (prop.isValid())
+    {
+        QList<int> filters;
+        filters.append(VCWidget::SliderWidget);
+        filters.append(VCWidget::ButtonWidget);
+        VCWidgetSelection ws(filters, this);
+        if (ws.exec() == QDialog::Rejected)
+            return; // User pressed cancel
+        AudioBar *bar = m_factory->getSpectrumBar(prop.toInt());
+        if (bar != NULL)
+            bar->attachWidget(ws.getSelectedWidget());
+
         QTreeWidgetItem *item = NULL;
         if (prop.toInt() == 1000)
             item = m_tree->topLevelItem(0);

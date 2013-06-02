@@ -33,8 +33,11 @@ class QDomDocument;
 class QDomElement;
 class QTreeWidget;
 class QToolButton;
+class QCheckBox;
+class QLabel;
 
 class VCCueListProperties;
+class ClickAndGoSlider;
 class ChaserRunner;
 class MasterTimer;
 class InputMap;
@@ -150,6 +153,24 @@ private:
 
     ChaserRunner* m_runner;
     QMutex m_mutex; // Guards m_runner
+
+
+    /*************************************************************************
+     * Crossfade
+     *************************************************************************/
+protected slots:
+    void slotSlider1ValueChanged(int value);
+    void slotSlider2ValueChanged(int value);
+
+private:
+    QCheckBox *m_linkCheck;
+    QLabel *m_sl1TopLabel;
+    ClickAndGoSlider* m_slider1;
+    QLabel *m_sl1BottomLabel;
+
+    QLabel *m_sl2TopLabel;
+    ClickAndGoSlider* m_slider2;
+    QLabel *m_sl2BottomLabel;
 
     /*************************************************************************
      * DMX Source

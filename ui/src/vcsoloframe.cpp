@@ -44,6 +44,7 @@ VCSoloFrame::VCSoloFrame(QWidget* parent, Doc* doc, bool canCollapse) : VCFrame(
 {
     /* Set the class name "VCSoloFrame" as the object name as well */
     setObjectName(VCSoloFrame::staticMetaObject.className());
+    setType(VCWidget::SoloFrameWidget);
 
     m_frameStyle = KVCFrameStyleSunken;
 

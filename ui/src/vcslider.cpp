@@ -86,6 +86,7 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
     m_time = NULL;
 
+    setType(VCWidget::SliderWidget);
     setCaption(QString());
     setFrameStyle(KVCFrameStyleSunken);
 

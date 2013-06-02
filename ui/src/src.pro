@@ -96,6 +96,7 @@ HEADERS += aboutbox.h \
            vcspeeddialproperties.h \
            vcwidget.h \
            vcwidgetproperties.h \
+           vcwidgetselection.h \
            vcxypad.h \
            vcxypadarea.h \
            vcxypadfixture.h \
@@ -138,6 +139,7 @@ FORMS += aboutbox.ui \
          vcproperties.ui \
          vcsliderproperties.ui \
          vcspeeddialproperties.ui \
+         vcwidgetselection.ui \
          vcxypadfixtureeditor.ui \
          vcxypadproperties.ui
 
@@ -215,6 +217,7 @@ SOURCES += aboutbox.cpp \
            vcspeeddialproperties.cpp \
            vcwidget.cpp \
            vcwidgetproperties.cpp \
+           vcwidgetselection.cpp \
            vcxypad.cpp \
            vcxypadarea.cpp \
            vcxypadfixture.cpp \

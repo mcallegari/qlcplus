@@ -97,6 +97,9 @@ void AudioTriggerFactory::setSpectrumBarsNumber(int num)
         for (int i = 0 ; i < m_spectrumBars.count() - num; i++)
             m_spectrumBars.takeLast();
     }
+    if (m_inputCapture != NULL)
+        m_inputCapture->setBandsNumber(num);
+    m_spectrum->setBarsNumber(num);
 }
 
 void AudioTriggerFactory::setSpectrumBarType(int index, int type)
@@ -137,6 +140,16 @@ void AudioTriggerFactory::slotConfiguration()
     m_inputCapture->start();
 }
 
+/*********************************************************************
+ * DMXSource
+ *********************************************************************/
+
+void AudioTriggerFactory::writeDMX(MasterTimer *timer, UniverseArray *universes)
+{
+    Q_UNUSED(timer);
+    Q_UNUSED(universes);
+}
+
 /************************************************************************
  * AudioBar class methods
  ************************************************************************/
@@ -146,6 +159,7 @@ AudioBar::AudioBar(int t, uchar v)
     m_type = t;
     m_value = v;
     m_function = NULL;
+    m_widget = NULL;
     min_threshold = 51; // 20%
     max_threshold = 204; // 80%
 }
@@ -165,6 +179,12 @@ void AudioBar::attachFunction(Function *func)
 {
     if (func != NULL)
         m_function = func;
+}
+
+void AudioBar::attachWidget(VCWidget *widget)
+{
+    if (widget != NULL)
+        m_widget = widget;
 }
 
 void AudioBar::debugInfo()

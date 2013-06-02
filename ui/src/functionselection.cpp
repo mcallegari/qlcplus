@@ -193,6 +193,23 @@ void FunctionSelection::updateFunctionItem(QTreeWidgetItem* item, Function* func
     item->setText(KColumnName, function->name());
     item->setText(KColumnType, function->typeString());
     item->setText(KColumnID, QString::number(function->id()));
+    switch (function->type())
+    {
+    case Function::Scene: item->setIcon(KColumnName, QIcon(":/scene.png")); break;
+    case Function::Chaser:
+        if (qobject_cast<const Chaser*>(function)->isSequence() == true)
+            item->setIcon(KColumnName, QIcon(":/sequence.png"));
+        else
+            item->setIcon(KColumnName, QIcon(":/chaser.png"));
+    break;
+    case Function::EFX:item->setIcon(KColumnName, QIcon(":/efx.png")); break;
+    case Function::Collection:item->setIcon(KColumnName, QIcon(":/collection.png")); break;
+    case Function::RGBMatrix:item->setIcon(KColumnName, QIcon(":/rgbmatrix.png")); break;
+    case Function::Script:item->setIcon(KColumnName, QIcon(":/script.png")); break;
+    case Function::Show:item->setIcon(KColumnName, QIcon(":/show.png")); break;
+    case Function::Audio:item->setIcon(KColumnName, QIcon(":/audio.png")); break;
+    default: item->setIcon(KColumnName, QIcon(":/function.png")); break;
+    }
 }
 
 void FunctionSelection::refillTree()

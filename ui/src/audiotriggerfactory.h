@@ -28,7 +28,9 @@
 #include "ui_audiotriggerfactory.h"
 #include "audiotriggerwidget.h"
 #include "scenevalue.h"
+#include "dmxsource.h"
 #include "function.h"
+#include "vcwidget.h"
 #include "doc.h"
 
 class AudioCapture;
@@ -53,6 +55,7 @@ public:
     void setName(QString nme);
     void attachDmxChannels(QList<SceneValue>list);
     void attachFunction(Function *func);
+    void attachWidget(VCWidget *widget);
 
     void debugInfo();
 
@@ -63,11 +66,12 @@ public:
 
     QList<SceneValue> m_dmxChannels;
     Function *m_function;
+    VCWidget *m_widget;
 
     uchar min_threshold, max_threshold;
 };
 
-class AudioTriggerFactory : public QDialog, public Ui_AudioTriggerFactory
+class AudioTriggerFactory : public QDialog, public Ui_AudioTriggerFactory, public DMXSource
 {
     Q_OBJECT
     
@@ -90,6 +94,13 @@ private:
 
     AudioBar *m_volumeBar;
     QList <AudioBar *> m_spectrumBars;
+
+    /*********************************************************************
+     * DMXSource
+     *********************************************************************/
+public:
+    /** @reimpl */
+    void writeDMX(MasterTimer* timer, UniverseArray* universes);
 };
 
 #endif // AUDIOTRIGGERFACTORY_H

@@ -47,6 +47,7 @@ private slots:
     void slotTypeComboChanged(int comboIndex);
     void slotDmxSelectionClicked();
     void slotFunctionSelectionClicked();
+    void slotWidgetSelectionClicked();
 
 private:
     Doc *m_doc;
