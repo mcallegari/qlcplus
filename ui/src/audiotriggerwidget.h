@@ -32,6 +32,9 @@ public:
 
     void setBarsNumber(int num);
     void setMaxFrequency(int freq);
+
+    uchar getUcharVolume();
+    uchar getUcharBand(int idx);
     
 signals:
     

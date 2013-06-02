@@ -24,6 +24,7 @@
 #include <qmath.h>
 
 #include "audiotriggerwidget.h"
+#include "qlcmacros.h"
 
 AudioTriggerWidget::AudioTriggerWidget(QWidget *parent) :
     QWidget(parent)
@@ -50,6 +51,19 @@ void AudioTriggerWidget::setBarsNumber(int num)
 void AudioTriggerWidget::setMaxFrequency(int freq)
 {
     m_maxFrequency = freq;
+}
+
+uchar AudioTriggerWidget::getUcharVolume()
+{
+    return SCALE(float(m_volumeBarHeight), 0.0, float(m_spectrumHeight), 0.0, 255.0);
+}
+
+uchar AudioTriggerWidget::getUcharBand(int idx)
+{
+    if (idx >= 0 && idx < m_barsNumber)
+        return SCALE(float(m_spectrumBands[idx]), 0.0, float(m_spectrumHeight), 0.0, 255.0);
+
+    return 0;
 }
 
 void AudioTriggerWidget::displaySpectrum(double *spectrumData, double maxMagnitude, quint32 power)

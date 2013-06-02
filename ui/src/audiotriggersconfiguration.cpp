@@ -145,22 +145,6 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
         }
         else
             item->setText(KColumnInfo, tr("No function"));
-
-        QSpinBox *minspin = new QSpinBox();
-        minspin->setMinimum(5);
-        minspin->setMaximum(95);
-        minspin->setSingleStep(1);
-        minspin->setSuffix("%");
-        minspin->setValue(SCALE(float(bar->min_threshold), 0.0, 255.0, 0.0, 100.0));
-        m_tree->setItemWidget(item, KColumnMinThreshold, minspin);
-
-        QSpinBox *maxspin = new QSpinBox();
-        maxspin->setMinimum(5);
-        maxspin->setMaximum(95);
-        maxspin->setSingleStep(1);
-        maxspin->setSuffix("%");
-        maxspin->setValue(SCALE(float(bar->max_threshold), 0.0, 255.0, 0.0, 100.0));
-        m_tree->setItemWidget(item, KColumnMaxThreshold, maxspin);
     }
     else if (bar->m_type == AudioBar::VCWidgetBar)
     {
@@ -176,13 +160,20 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
         }
         else
             item->setText(KColumnInfo, tr("No widget"));
+    }
+    else
+        item->setText(KColumnInfo, tr("Not assigned"));
 
+    if (bar->m_type == AudioBar::FunctionBar || bar->m_type == AudioBar::VCWidgetBar)
+    {
         QSpinBox *minspin = new QSpinBox();
         minspin->setMinimum(5);
         minspin->setMaximum(95);
         minspin->setSingleStep(1);
         minspin->setSuffix("%");
-        minspin->setValue(SCALE(float(bar->min_threshold), 0.0, 255.0, 0.0, 100.0));
+        minspin->setValue(SCALE(float(bar->m_minThreshold), 0.0, 255.0, 0.0, 100.0));
+        minspin->setProperty("index", idx);
+        connect(minspin, SIGNAL(valueChanged(int)), this, SLOT(slotMinThresholdChanged(int)));
         m_tree->setItemWidget(item, KColumnMinThreshold, minspin);
 
         QSpinBox *maxspin = new QSpinBox();
@@ -190,11 +181,11 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
         maxspin->setMaximum(95);
         maxspin->setSingleStep(1);
         maxspin->setSuffix("%");
-        maxspin->setValue(SCALE(float(bar->max_threshold), 0.0, 255.0, 0.0, 100.0));
+        maxspin->setValue(SCALE(float(bar->m_maxThreshold), 0.0, 255.0, 0.0, 100.0));
+        maxspin->setProperty("index", idx);
+        connect(maxspin, SIGNAL(valueChanged(int)), this, SLOT(slotMaxThresholdChanged(int)));
         m_tree->setItemWidget(item, KColumnMaxThreshold, maxspin);
     }
-    else
-        item->setText(KColumnInfo, tr("Not assigned"));
 }
 
 void AudioTriggersConfiguration::updateTree()
@@ -247,7 +238,7 @@ void AudioTriggersConfiguration::slotDmxSelectionClicked()
         QList<SceneValue> dmxList = cfg.channelsList();
         AudioBar *bar = m_factory->getSpectrumBar(prop.toInt());
         if (bar != NULL)
-            bar->attachDmxChannels(dmxList);
+            bar->attachDmxChannels(m_doc, dmxList);
         QTreeWidgetItem *item = NULL;
         if (prop.toInt() == 1000)
             item = m_tree->topLevelItem(0);
@@ -302,5 +293,31 @@ void AudioTriggersConfiguration::slotWidgetSelectionClicked()
         else
             item = m_tree->topLevelItem(prop.toInt() + 1);
         updateTreeItem(item, prop.toInt());
+    }
+}
+
+void AudioTriggersConfiguration::slotMinThresholdChanged(int val)
+{
+    QSpinBox *spin = (QSpinBox *)sender();
+    QVariant prop = spin->property("index");
+    if (prop.isValid())
+    {
+        AudioBar *bar = m_factory->getSpectrumBar(prop.toInt());
+        uchar scaledVal = SCALE(float(val), 0.0, 100.0, 0.0, 255.0);
+        if (bar != NULL)
+            bar->setMinThreshold(scaledVal);
+    }
+}
+
+void AudioTriggersConfiguration::slotMaxThresholdChanged(int val)
+{
+    QSpinBox *spin = (QSpinBox *)sender();
+    QVariant prop = spin->property("index");
+    if (prop.isValid())
+    {
+        AudioBar *bar = m_factory->getSpectrumBar(prop.toInt());
+        uchar scaledVal = SCALE(float(val), 0.0, 100.0, 0.0, 255.0);
+        if (bar != NULL)
+            bar->setMaxThreshold(scaledVal);
     }
 }

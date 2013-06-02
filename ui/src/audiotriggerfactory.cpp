@@ -19,6 +19,8 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
+#include "vcbutton.h"
+#include "vcslider.h"
 #include "scenevalue.h"
 #include "audiotriggerfactory.h"
 #include "audiotriggersconfiguration.h"
@@ -118,7 +120,7 @@ void AudioTriggerFactory::slotEnableCapture(bool enable)
     if (enable == true)
     {
         connect(m_inputCapture, SIGNAL(dataProcessed(double *, double, quint32)),
-                m_spectrum, SLOT(displaySpectrum(double *, double, quint32)));
+                this, SLOT(slotDisplaySpectrum(double *, double, quint32)));
         m_inputCapture->initialize(44100, 1, 2048);
         m_inputCapture->start();
     }
@@ -129,13 +131,39 @@ void AudioTriggerFactory::slotEnableCapture(bool enable)
     m_configButton->setEnabled(enable);
 }
 
+void AudioTriggerFactory::slotDisplaySpectrum(double *spectrumBands, double maxMagnitude, quint32 power)
+{
+    m_spectrum->displaySpectrum(spectrumBands, maxMagnitude, power);
+    m_volumeBar->m_value = m_spectrum->getUcharVolume();
+    if (m_volumeBar->m_type == AudioBar::FunctionBar)
+        m_volumeBar->checkFunctionThresholds(m_doc);
+
+    for (int i = 0; i < m_spectrumBars.count(); i++)
+    {
+        m_spectrumBars[i]->m_value = m_spectrum->getUcharBand(i);
+        if (m_spectrumBars[i]->m_type == AudioBar::FunctionBar)
+            m_spectrumBars[i]->checkFunctionThresholds(m_doc);
+    }
+}
+
 void AudioTriggerFactory::slotConfiguration()
 {
     m_inputCapture->stop();
+    m_doc->masterTimer()->unregisterDMXSource(this);
     AudioTriggersConfiguration atc(this, m_doc, m_inputCapture);
     if (atc.exec() == QDialog::Accepted)
     {
 
+    }
+    if (m_volumeBar->m_type == AudioBar::DMXBar)
+        m_doc->masterTimer()->registerDMXSource(this);
+    else
+    {
+        foreach(AudioBar *bar, m_spectrumBars)
+        {
+            if (bar->m_type == AudioBar::DMXBar)
+                m_doc->masterTimer()->registerDMXSource(this);
+        }
     }
     m_inputCapture->start();
 }
@@ -147,7 +175,19 @@ void AudioTriggerFactory::slotConfiguration()
 void AudioTriggerFactory::writeDMX(MasterTimer *timer, UniverseArray *universes)
 {
     Q_UNUSED(timer);
-    Q_UNUSED(universes);
+    if (m_volumeBar->m_type == AudioBar::DMXBar)
+    {
+        for(int i = 0; i < m_volumeBar->m_absDmxChannels.count(); i++)
+            universes->write(m_volumeBar->m_absDmxChannels.at(i), m_volumeBar->m_value, QLCChannel::Intensity);
+    }
+    foreach(AudioBar *sb, m_spectrumBars)
+    {
+        if (sb->m_type == AudioBar::DMXBar)
+        {
+            for(int i = 0; i < sb->m_absDmxChannels.count(); i++)
+                universes->write(sb->m_absDmxChannels.at(i), sb->m_value, QLCChannel::Intensity);
+        }
+    }
 }
 
 /************************************************************************
@@ -158,10 +198,12 @@ AudioBar::AudioBar(int t, uchar v)
 {
     m_type = t;
     m_value = v;
+    m_dmxChannels.clear();
+    m_absDmxChannels.clear();
     m_function = NULL;
     m_widget = NULL;
-    min_threshold = 51; // 20%
-    max_threshold = 204; // 80%
+    m_minThreshold = 51; // 20%
+    m_maxThreshold = 204; // 80%
 }
 
 void AudioBar::setName(QString nme)
@@ -169,10 +211,30 @@ void AudioBar::setName(QString nme)
     m_name = nme;
 }
 
-void AudioBar::attachDmxChannels(QList<SceneValue> list)
+void AudioBar::setMinThreshold(uchar value)
+{
+    m_minThreshold = value;
+}
+
+void AudioBar::setMaxThreshold(uchar value)
+{
+    m_maxThreshold = value;
+}
+
+void AudioBar::attachDmxChannels(Doc *doc, QList<SceneValue> list)
 {
     m_dmxChannels.clear();
     m_dmxChannels = list;
+    m_absDmxChannels.clear();
+    foreach(SceneValue scv, m_dmxChannels)
+    {
+        Fixture *fx = doc->fixture(scv.fxi);
+        if (fx != NULL)
+        {
+            quint32 absAddr = fx->universeAddress() + scv.channel;
+            m_absDmxChannels.append(absAddr);
+        }
+    }
 }
 
 void AudioBar::attachFunction(Function *func)
@@ -185,6 +247,35 @@ void AudioBar::attachWidget(VCWidget *widget)
 {
     if (widget != NULL)
         m_widget = widget;
+}
+
+void AudioBar::checkFunctionThresholds(Doc *doc)
+{
+    if (m_function == NULL)
+        return;
+    if (m_value >= m_maxThreshold && m_function->isRunning() == false)
+        m_function->start(doc->masterTimer());
+    else if (m_value < m_minThreshold && m_function->isRunning() == true)
+        m_function->stop();
+}
+
+void AudioBar::checkWidgetFunctionality()
+{
+    if (m_widget == NULL)
+        return;
+    if (m_widget->type() == VCWidget::ButtonWidget)
+    {
+        VCButton *btn = (VCButton *)m_widget;
+        if (m_value >= m_maxThreshold && btn->isOn() == false)
+            btn->setOn(true);
+        else if (m_value < m_minThreshold && btn->isOn() == true)
+            btn->setOn(false);
+    }
+    else if (m_widget->type() == VCWidget::SliderWidget)
+    {
+        VCSlider *slider = (VCSlider *)m_widget;
+        slider->setSliderValue(m_value);
+    }
 }
 
 void AudioBar::debugInfo()

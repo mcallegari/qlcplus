@@ -53,9 +53,15 @@ public:
     };
 
     void setName(QString nme);
-    void attachDmxChannels(QList<SceneValue>list);
+    void setMinThreshold(uchar value);
+    void setMaxThreshold(uchar value);
+
+    void attachDmxChannels(Doc *doc, QList<SceneValue>list);
     void attachFunction(Function *func);
     void attachWidget(VCWidget *widget);
+
+    void checkFunctionThresholds(Doc *doc);
+    void checkWidgetFunctionality();
 
     void debugInfo();
 
@@ -64,11 +70,17 @@ public:
     int m_type;
     uchar m_value;
 
+    /** List of individual DMX channels when m_type == DMXBar */
     QList<SceneValue> m_dmxChannels;
+    /** List of absolute DMX channel addresses when m_type == DMXBar.
+      * This is precalculated to speed up writeDMX */
+    QList<int> m_absDmxChannels;
+    /** Reference to an attached Function when m_type == FunctionBar */
     Function *m_function;
+    /** Reference to an attached VCWidget when m_type == VCWidgetBar */
     VCWidget *m_widget;
 
-    uchar min_threshold, max_threshold;
+    uchar m_minThreshold, m_maxThreshold;
 };
 
 class AudioTriggerFactory : public QDialog, public Ui_AudioTriggerFactory, public DMXSource
@@ -85,6 +97,7 @@ public:
     
 protected slots:
     void slotEnableCapture(bool enable);
+    void slotDisplaySpectrum(double *spectrumBands, double maxMagnitude, quint32 power);
     void slotConfiguration();
 
 private:

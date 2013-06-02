@@ -48,6 +48,8 @@ private slots:
     void slotDmxSelectionClicked();
     void slotFunctionSelectionClicked();
     void slotWidgetSelectionClicked();
+    void slotMinThresholdChanged(int val);
+    void slotMaxThresholdChanged(int val);
 
 private:
     Doc *m_doc;
