@@ -454,6 +454,7 @@ void EFXEditor::updateStartOffsetColumn(QTreeWidgetItem* item, EFXFixture* ef)
         spin->setAutoFillBackground(true);
         spin->setRange(0, 359);
         spin->setValue(ef->startOffset());
+        spin->setSuffix(QChar(0x00b0)); // degree
         m_tree->setItemWidget(item, KColumnStartOffset, spin);
         spin->setProperty(PROPERTY_FIXTURE, (qulonglong) ef);
         connect(spin, SIGNAL(valueChanged(int)),
@@ -538,7 +539,7 @@ void EFXEditor::slotFixtureStartOffsetChanged(int startOffset)
     Q_ASSERT(spin != NULL);
     EFXFixture* ef = (EFXFixture*) spin->property(PROPERTY_FIXTURE).toULongLong();
     Q_ASSERT(ef != NULL);
-    ef->setStartOffset(uchar(startOffset));
+    ef->setStartOffset(startOffset);
 
     // Restart the test after the latest intensity change, delayed
     m_testTimer.start();

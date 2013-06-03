@@ -362,6 +362,20 @@ void EFXFixture_Test::reset()
     QVERIFY(ef4->m_elapsed == 0);
 }
 
+void EFXFixture_Test::startOffset()
+{
+    EFX e(m_doc);
+    EFXFixture ef(&e);
+    ef.setFixture(0);
+
+    QCOMPARE(0, ef.startOffset());
+    for(int i = 0; i < 360; i += 90)
+    {
+        ef.setStartOffset(i);
+        QCOMPARE(i, ef.startOffset());
+    }
+}
+
 void EFXFixture_Test::setPoint8bit()
 {
     const QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
