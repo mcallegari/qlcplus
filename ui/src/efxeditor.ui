@@ -380,6 +380,9 @@
             <property name="toolTip">
              <string>Rotation of the pattern's starting point</string>
             </property>
+            <property name="suffix">
+             <string>°</string>
+            </property>
             <property name="maximum">
              <number>359</number>
             </property>
@@ -504,6 +507,9 @@
           </item>
           <item row="5" column="1">
            <widget class="QSpinBox" name="m_startOffsetSpin">
+            <property name="suffix">
+             <string>°</string>
+            </property>
             <property name="maximum">
              <number>359</number>
             </property>
