@@ -166,7 +166,7 @@ bool EFXFixture::loadXML(const QDomElement& root)
         else if (tag.tagName() == KXMLQLCEFXFixtureStartOffset)
         {
             /* Start offset */
-            setStartOffset(int(tag.text().toInt()));
+            setStartOffset(tag.text().toInt());
         }
         else if (tag.tagName() == KXMLQLCEFXFixtureIntensity)
         {
