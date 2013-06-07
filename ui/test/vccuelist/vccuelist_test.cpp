@@ -114,7 +114,7 @@ void VCCueList_Test::initial()
     QCOMPARE(cl.objectName(), QString("VCCueList"));
     QCOMPARE(cl.frameStyle(), QFrame::Panel | QFrame::Sunken);
     QCOMPARE(cl.caption(), tr("Cue list"));
-    QCOMPARE(cl.size(), QSize(200, 200));
+    QCOMPARE(cl.size(), QSize(300, 220));
     QVERIFY(cl.m_runner == NULL);
     QVERIFY(cl.m_tree != NULL);
     QCOMPARE(cl.m_tree->isEnabled(), false);
