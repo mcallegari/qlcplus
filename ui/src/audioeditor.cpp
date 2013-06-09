@@ -46,13 +46,16 @@ AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
     m_nameEdit->setSelection(0, m_nameEdit->text().length());
 
     AudioDecoder *adec = m_audio->getAudioDecoder();
-    AudioParameters ap = adec->audioParameters();
 
     m_filenameLabel->setText(m_audio->getSourceFileName());
-    m_durationLabel->setText(Function::speedToString(m_audio->getDuration()));
-    m_srateLabel->setText(QString("%1 Hz").arg(ap.sampleRate()));
-    m_channelsLabel->setText(QString("%1").arg(ap.channels()));
-    m_bitrateLabel->setText(QString("%1 kb/s").arg(adec->bitrate()));
+    if (adec != NULL)
+    {
+        AudioParameters ap = adec->audioParameters();
+        m_durationLabel->setText(Function::speedToString(m_audio->getDuration()));
+        m_srateLabel->setText(QString("%1 Hz").arg(ap.sampleRate()));
+        m_channelsLabel->setText(QString("%1").arg(ap.channels()));
+        m_bitrateLabel->setText(QString("%1 kb/s").arg(adec->bitrate()));
+    }
 
     // Set focus to the editor
     m_nameEdit->setFocus();
