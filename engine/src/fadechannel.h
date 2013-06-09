@@ -101,6 +101,9 @@ public:
     /** Check if this channel is ready. Default is false. */
     bool isReady() const;
 
+    /** Returns if a channel can be faded or not */
+    bool canFade(const Doc *doc) const;
+
     /** Set the fade time in milliseconds. */
     void setFadeTime(uint ms);
 

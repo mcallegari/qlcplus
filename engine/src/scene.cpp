@@ -501,10 +501,8 @@ void Scene::write(MasterTimer* timer, UniverseArray* ua)
             fc.setTarget(value.value);
             Fixture *fixture = doc()->fixture(value.fxi);
             if (fixture != NULL)
-            {
-                if (fixture->channelCanFade(value.channel) == false)
-                    canFade = false;
-            }
+                canFade = fixture->channelCanFade(value.channel);
+
             if (canFade == false)
             {
                 fc.setFadeTime(0);

@@ -115,8 +115,8 @@ private slots:
     /** Updates name in the list if function got changed */
     void slotFunctionChanged(quint32 fid);
 
-    /** Play the cue list from the current selection */
-    void slotPlay();
+    /** Play/stop the cue list from the current selection */
+    void slotPlayback();
 
     /** Skip to the next cue */
     void slotNextCue();
@@ -143,10 +143,9 @@ private:
     void createRunner(int startIndex = -1);
 
 private:
-    quint32 m_chaser;
+    quint32 m_chaserID;
     QTreeWidget* m_tree;
-    QToolButton* m_playButton;
-    QToolButton* m_stopButton;
+    QToolButton* m_playbackButton;
     QToolButton* m_previousButton;
     QToolButton* m_nextButton;
     bool m_listIsUpdating;
@@ -158,6 +157,9 @@ private:
     /*************************************************************************
      * Crossfade
      *************************************************************************/
+protected:
+    void setSecondaryInfo(int pIndex, Chaser *chaser);
+
 protected slots:
     void slotSlider1ValueChanged(int value);
     void slotSlider2ValueChanged(int value);
@@ -171,6 +173,10 @@ private:
     QLabel *m_sl2TopLabel;
     ClickAndGoSlider* m_slider2;
     QLabel *m_sl2BottomLabel;
+
+    QBrush m_defCol;
+    int m_primaryIndex, m_secondaryIndex;
+
 
     /*************************************************************************
      * DMX Source

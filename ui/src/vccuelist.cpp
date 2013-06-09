@@ -59,8 +59,10 @@ const quint8 VCCueList::previousInputSourceId = 1;
 const quint8 VCCueList::stopInputSourceId = 2;
 
 VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
-    , m_chaser(Function::invalidId())
+    , m_chaserID(Function::invalidId())
     , m_runner(NULL)
+    , m_primaryIndex(0)
+    , m_secondaryIndex(0)
     , m_stop(false)
 {
     /* Set the class name "VCCueList" as the object name as well */
@@ -83,6 +85,8 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_slider1->setValue(100);
     grid->addWidget(m_slider1, 2, 0, 1, 1);
     m_sl1BottomLabel = new QLabel("");
+    m_sl1BottomLabel->setStyleSheet("QLabel { background-color: #4E8DDE; color: white; border: 1px solid; border-radius: 3px; font: bold; }");
+    m_sl1BottomLabel->setAlignment(Qt::AlignCenter);
     grid->addWidget(m_sl1BottomLabel, 3, 0, 1, 1);
     connect(m_slider1, SIGNAL(valueChanged(int)),
             this, SLOT(slotSlider1ValueChanged(int)));
@@ -98,6 +102,8 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_slider2->setInvertedAppearance(true);
     grid->addWidget(m_slider2, 2, 1, 1, 1);
     m_sl2BottomLabel = new QLabel("");
+    m_sl2BottomLabel->setStyleSheet("QLabel { background-color: orange; color: black; border: 1px solid; border-radius: 3px; font: bold; }");
+    m_sl2BottomLabel->setAlignment(Qt::AlignCenter);
     grid->addWidget(m_sl2BottomLabel, 3, 1, 1, 1);
     connect(m_slider2, SIGNAL(valueChanged(int)),
             this, SLOT(slotSlider2ValueChanged(int)));
@@ -106,7 +112,7 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_tree = new QTreeWidget(this);
     grid->addWidget(m_tree, 0, 2, 3, 1);
     m_tree->setSelectionMode(QAbstractItemView::SingleSelection);
-    m_tree->setAlternatingRowColors(true);
+    //m_tree->setAlternatingRowColors(true);
     m_tree->setAllColumnsShowFocus(true);
     m_tree->setRootIsDecorated(false);
     m_tree->setItemsExpandable(false);
@@ -123,21 +129,13 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     QHBoxLayout *hbox = new QHBoxLayout(this);
     hbox->setSpacing(2);
 
-    m_playButton = new QToolButton(this);
-    m_playButton->setIcon(QIcon(":/player_play.png"));
-    m_playButton->setIconSize(QSize(24, 24));
-    m_playButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-    m_playButton->setText(tr("Play"));
-    connect(m_playButton, SIGNAL(clicked()), this, SLOT(slotPlay()));
-    hbox->addWidget(m_playButton);
-
-    m_stopButton = new QToolButton(this);
-    m_stopButton->setIcon(QIcon(":/player_stop.png"));
-    m_stopButton->setIconSize(QSize(24, 24));
-    m_stopButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-    m_stopButton->setText(tr("Stop"));
-    connect(m_stopButton, SIGNAL(clicked()), this, SLOT(slotStop()));
-    hbox->addWidget(m_stopButton);
+    m_playbackButton = new QToolButton(this);
+    m_playbackButton->setIcon(QIcon(":/player_play.png"));
+    m_playbackButton->setIconSize(QSize(24, 24));
+    m_playbackButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    m_playbackButton->setText(tr("Play"));
+    connect(m_playbackButton, SIGNAL(clicked()), this, SLOT(slotPlayback()));
+    hbox->addWidget(m_playbackButton);
 
     m_previousButton = new QToolButton(this);
     m_previousButton->setIcon(QIcon(":/back.png"));
@@ -229,15 +227,15 @@ void VCCueList::setChaser(quint32 id)
 {
     Chaser* chaser = qobject_cast<Chaser*> (m_doc->function(id));
     if (chaser == NULL)
-        m_chaser = Function::invalidId();
+        m_chaserID = Function::invalidId();
     else
-        m_chaser = id;
+        m_chaserID = id;
     updateStepList();
 }
 
 quint32 VCCueList::chaser() const
 {
-    return m_chaser;
+    return m_chaserID;
 }
 
 void VCCueList::updateStepList()
@@ -246,7 +244,7 @@ void VCCueList::updateStepList()
 
     m_tree->clear();
 
-    Chaser* chaser = qobject_cast<Chaser*> (m_doc->function(m_chaser));
+    Chaser* chaser = qobject_cast<Chaser*> (m_doc->function(m_chaserID));
     if (chaser == NULL)
         return;
 
@@ -307,6 +305,10 @@ void VCCueList::updateStepList()
         }
     }
 
+    QTreeWidgetItem *item = m_tree->topLevelItem(0);
+    if (item != NULL)
+        m_defCol = item->background(COL_NUM);
+
     m_listIsUpdating = false;
 }
 
@@ -324,7 +326,7 @@ int VCCueList::getCurrentIndex()
 
 void VCCueList::slotFunctionRemoved(quint32 fid)
 {
-    if (fid == m_chaser)
+    if (fid == m_chaserID)
     {
         setChaser(Function::invalidId());
         updateStepList();
@@ -333,12 +335,12 @@ void VCCueList::slotFunctionRemoved(quint32 fid)
 
 void VCCueList::slotFunctionChanged(quint32 fid)
 {
-    if (fid == m_chaser)
+    if (fid == m_chaserID)
         updateStepList();
     else
     {
         // fid might be an ID of a ChaserStep of m_chaser
-        Chaser* chaser = qobject_cast<Chaser*> (m_doc->function(m_chaser));
+        Chaser* chaser = qobject_cast<Chaser*> (m_doc->function(m_chaserID));
         if (chaser == NULL)
             return;
         foreach (ChaserStep step, chaser->steps())
@@ -352,16 +354,22 @@ void VCCueList::slotFunctionChanged(quint32 fid)
     }
 }
 
-void VCCueList::slotPlay()
+void VCCueList::slotPlayback()
 {
     if (mode() != Doc::Operate)
         return;
 
-    m_mutex.lock();
-    int index = getCurrentIndex();
-    if (m_runner == NULL)
+    if (m_runner != NULL)
+    {
+        slotStop();
+    }
+    else
+    {
+        m_mutex.lock();
+        int index = getCurrentIndex();
         createRunner(index);
-    m_mutex.unlock();
+        m_mutex.unlock();
+    }
 }
 
 void VCCueList::slotNextCue()
@@ -412,10 +420,13 @@ void VCCueList::slotStop()
     m_mutex.lock();
     if (m_runner != NULL)
         m_stop = true;
+    m_playbackButton->setIcon(QIcon(":/player_play.png"));
+    m_sl1BottomLabel->setText("");
+    m_sl2BottomLabel->setText("");
     m_mutex.unlock();
 
     /* Start from the beginning */
-    m_tree->setCurrentItem(NULL);
+    //m_tree->setCurrentItem(NULL);
 }
 
 void VCCueList::slotCurrentStepChanged(int stepNumber)
@@ -425,6 +436,9 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
     Q_ASSERT(item != NULL);
     m_tree->scrollToItem(item, QAbstractItemView::PositionAtCenter);
     m_tree->setCurrentItem(item);
+    m_primaryIndex = stepNumber;
+    m_sl1BottomLabel->setText(QString("#%1").arg(m_primaryIndex + 1));
+    setSecondaryInfo(m_primaryIndex, NULL);
 }
 
 void VCCueList::slotItemActivated(QTreeWidgetItem* item)
@@ -433,10 +447,14 @@ void VCCueList::slotItemActivated(QTreeWidgetItem* item)
         return;
 
     m_mutex.lock();
+    m_primaryIndex = m_tree->indexOfTopLevelItem(item);
     if (m_runner == NULL)
-        createRunner(m_tree->indexOfTopLevelItem(item));
+        createRunner(m_primaryIndex);
     else
-        m_runner->setCurrentStep(m_tree->indexOfTopLevelItem(item));
+        m_runner->setCurrentStep(m_primaryIndex);
+
+    m_sl1BottomLabel->setText(QString("#%1").arg(m_primaryIndex + 1));
+    setSecondaryInfo(m_primaryIndex, NULL);
     m_mutex.unlock();
 }
 
@@ -445,7 +463,7 @@ void VCCueList::slotItemChanged(QTreeWidgetItem *item, int column)
     if (m_listIsUpdating)
         return;
 
-    Function *func = m_doc->function(m_chaser);
+    Function *func = m_doc->function(m_chaserID);
     if (column != COL_NOTES || func == NULL)
         return;
 
@@ -463,24 +481,63 @@ void VCCueList::createRunner(int startIndex)
 {
     Q_ASSERT(m_runner == NULL);
 
-    Chaser* chaser = qobject_cast<Chaser*> (m_doc->function(m_chaser));
+    Chaser* chaser = qobject_cast<Chaser*> (m_doc->function(m_chaserID));
     if (chaser != NULL)
     {
         m_runner = Chaser::createRunner(chaser, m_doc);
         m_runner->setCurrentStep(startIndex);
+        m_primaryIndex = startIndex;
         connect(m_runner, SIGNAL(currentStepChanged(int)),
                 this, SLOT(slotCurrentStepChanged(int)));
+        m_playbackButton->setIcon(QIcon(":/player_stop.png"));
+        m_sl1BottomLabel->setText(QString("#%1").arg(startIndex + 1));
+        setSecondaryInfo(startIndex, chaser);
     }
 }
 
 /*****************************************************************************
  * Crossfade
  *****************************************************************************/
+void VCCueList::setSecondaryInfo(int pIndex, Chaser *chaser)
+{
+    Chaser *lChaser = chaser;
+    if (lChaser == NULL)
+        lChaser = qobject_cast<Chaser*> (m_doc->function(m_chaserID));
+
+    int tmpIndex = -1;
+    if (lChaser->direction() == Function::Forward)
+    {
+        if (pIndex + 1 == m_tree->topLevelItemCount())
+            tmpIndex = 0;
+        else
+            tmpIndex = pIndex + 1;
+    }
+    else
+    {
+        if (pIndex == 0)
+            tmpIndex = m_tree->topLevelItemCount() - 1;
+        else
+            tmpIndex = pIndex - 1;
+    }
+    m_sl2BottomLabel->setText(QString("#%1").arg(tmpIndex + 1));
+    // reset any previously set background
+    QTreeWidgetItem *item = m_tree->topLevelItem(m_secondaryIndex);
+    if (item != NULL)
+        item->setBackground(COL_NUM, m_defCol);
+
+    item = m_tree->topLevelItem(tmpIndex);
+    if (item != NULL)
+        item->setBackground(COL_NUM, QColor("#FF8000"));
+    m_secondaryIndex = tmpIndex;
+}
+
 void VCCueList::slotSlider1ValueChanged(int value)
 {
     m_sl1TopLabel->setText(QString("%1%").arg(value));
     if (m_linkCheck->isChecked())
         m_slider2->setValue(100 - value);
+    if (m_runner != NULL)
+        m_runner->adjustIntensity((qreal)value / 100);
 }
 
 void VCCueList::slotSlider2ValueChanged(int value)
@@ -639,15 +696,12 @@ void VCCueList::setCaption(const QString& text)
 
 void VCCueList::slotModeChanged(Doc::Mode mode)
 {
+    bool enable = false;
     if (mode == Doc::Operate)
     {
         Q_ASSERT(m_runner == NULL);
         m_doc->masterTimer()->registerDMXSource(this);
-        m_tree->setEnabled(true);
-        m_playButton->setEnabled(true);
-        m_stopButton->setEnabled(true);
-        m_previousButton->setEnabled(true);
-        m_nextButton->setEnabled(true);
+        enable = true;
     }
     else
     {
@@ -657,12 +711,20 @@ void VCCueList::slotModeChanged(Doc::Mode mode)
             delete m_runner;
         m_runner = NULL;
         m_mutex.unlock();
-        m_tree->setEnabled(false);
-        m_playButton->setEnabled(false);
-        m_stopButton->setEnabled(false);
-        m_previousButton->setEnabled(false);
-        m_nextButton->setEnabled(false);
     }
+
+    m_tree->setEnabled(enable);
+    m_playbackButton->setEnabled(enable);
+    m_previousButton->setEnabled(enable);
+    m_nextButton->setEnabled(enable);
+
+    m_linkCheck->setEnabled(enable);
+    m_sl1TopLabel->setEnabled(enable);
+    m_slider1->setEnabled(enable);
+    m_sl1BottomLabel->setEnabled(enable);
+    m_sl2TopLabel->setEnabled(enable);
+    m_slider2->setEnabled(enable);
+    m_sl2BottomLabel->setEnabled(enable);
 
     /* Always start from the beginning */
     m_tree->setCurrentItem(NULL);

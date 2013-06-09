@@ -432,26 +432,6 @@ void ChaserRunner::switchFunctions(MasterTimer* timer)
             Scene *s = qobject_cast<Scene*>(m_currentFunction);
             for (int i = 0; i < step.values.count(); i++)
                 s->setValue(step.values.at(i));
-/*
-            qDebug() << Q_FUNC_INFO << "Current step #" << m_currentStep << " has values:" << step.values.count();
-            if (m_currentStep == 0)
-            {
-                for (int i = 0; i < step.values.count(); i++)
-                    s->setValue(step.values.at(i));
-            }
-            else
-            {
-                ChaserStep prevStep(m_chaser->steps().at(m_currentStep - 1));
-                qDebug() << Q_FUNC_INFO << "Previous step has values:" << prevStep.values.count();
-                for (int i = 0; i < step.values.count(); i++)
-                {
-                    SceneValue stepValue = step.values.at(i);
-                    SceneValue prevStepValue = prevStep.values.at(i);
-                    if (stepValue == prevStepValue && stepValue.value != prevStepValue.value)
-                        s->setValue(stepValue);
-                }
-            }
-*/
         }
 
         // Set intensity before starting the function. Otherwise the intensity
