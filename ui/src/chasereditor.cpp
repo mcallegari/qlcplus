@@ -24,6 +24,7 @@
 #include <QHeaderView>
 #include <QTreeWidget>
 #include <QPushButton>
+#include <QMessageBox>
 #include <QLineEdit>
 #include <QSettings>
 #include <QDebug>
@@ -43,7 +44,6 @@
 #include "chaser.h"
 #include "scene.h"
 #include "doc.h"
-#include <QMessageBox>
 
 #define SETTINGS_GEOMETRY "chasereditor/geometry"
 #define PROP_STEP Qt::UserRole
@@ -69,6 +69,7 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc)
 
     /* Resize columns to fit contents */
     m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
+    m_tree->setItemDelegateForColumn(COL_NUM, new NoEditDelegate(this)); // disable editing of steps number
     if (m_chaser->isSequence() == true)
     {
         m_tree->header()->setSectionHidden(COL_NAME, true);

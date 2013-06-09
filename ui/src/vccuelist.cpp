@@ -19,6 +19,7 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
+#include <QStyledItemDelegate>
 #include <QTreeWidgetItem>
 #include <QTreeWidget>
 #include <QHeaderView>
@@ -120,6 +121,14 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_tree->header()->setClickable(false);
     m_tree->header()->setMovable(false);
     m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
+
+    // Make only the notes column editable
+    m_tree->setItemDelegateForColumn(COL_NUM, new NoEditDelegate(this));
+    m_tree->setItemDelegateForColumn(COL_NAME, new NoEditDelegate(this));
+    m_tree->setItemDelegateForColumn(COL_FADEIN, new NoEditDelegate(this));
+    m_tree->setItemDelegateForColumn(COL_FADEOUT, new NoEditDelegate(this));
+    m_tree->setItemDelegateForColumn(COL_DURATION, new NoEditDelegate(this));
+
     connect(m_tree, SIGNAL(itemActivated(QTreeWidgetItem*,int)),
             this, SLOT(slotItemActivated(QTreeWidgetItem*)));
     connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
