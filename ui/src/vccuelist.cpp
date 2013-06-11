@@ -34,7 +34,7 @@
 #include "vcpropertieseditor.h"
 #include "clickandgoslider.h"
 #include "virtualconsole.h"
-#include "chaserrunner.h"
+#include "cuelistrunner.h"
 #include "mastertimer.h"
 #include "chaserstep.h"
 #include "vccuelist.h"
@@ -493,9 +493,14 @@ void VCCueList::createRunner(int startIndex)
     Chaser* chaser = qobject_cast<Chaser*> (m_doc->function(m_chaserID));
     if (chaser != NULL)
     {
-        m_runner = Chaser::createRunner(chaser, m_doc);
+        //m_runner = Chaser::createRunner(chaser, m_doc);
+        m_runner = new CueListRunner(m_doc, chaser);
+        Q_ASSERT(m_runner != NULL);
+        //m_runner->moveToThread(QCoreApplication::instance()->thread());
+        //m_runner->setParent(chaser);
         m_runner->setCurrentStep(startIndex);
         m_primaryIndex = startIndex;
+
         connect(m_runner, SIGNAL(currentStepChanged(int)),
                 this, SLOT(slotCurrentStepChanged(int)));
         m_playbackButton->setIcon(QIcon(":/player_stop.png"));

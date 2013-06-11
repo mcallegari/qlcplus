@@ -62,6 +62,7 @@ HEADERS += bus.h \
            chaserstep.h \
            collection.h \
            cue.h \
+           cuelistrunner.h \
            cuestack.h \
            doc.h \
            dmxdumpfactoryproperties.h \
@@ -143,6 +144,7 @@ SOURCES += bus.cpp \
            chaserstep.cpp \
            collection.cpp \
            cue.cpp \
+           cuelistrunner.cpp \
            cuestack.cpp \
            doc.cpp \
            dmxdumpfactoryproperties.cpp \
