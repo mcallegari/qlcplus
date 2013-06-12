@@ -145,6 +145,7 @@ private:
 private:
     quint32 m_chaserID;
     QTreeWidget* m_tree;
+    QToolButton* m_crossfadeButton;
     QToolButton* m_playbackButton;
     QToolButton* m_previousButton;
     QToolButton* m_nextButton;
@@ -158,9 +159,10 @@ private:
      * Crossfade
      *************************************************************************/
 protected:
-    void setSecondaryInfo(int pIndex, Chaser *chaser);
+    void setSlidersInfo(int pIndex, Chaser *chaser);
 
 protected slots:
+    void slotShowCrossfadePanel(bool enable);
     void slotSlider1ValueChanged(int value);
     void slotSlider2ValueChanged(int value);
 
@@ -176,6 +178,8 @@ private:
 
     QBrush m_defCol;
     int m_primaryIndex, m_secondaryIndex;
+    QString m_noStyle, m_blueStyle, m_orangeStyle;
+    bool m_primaryLeft;
 
 
     /*************************************************************************

@@ -137,7 +137,7 @@ public:
     /**
      * Adjust the intensities of chaser steps.
      */
-    void adjustIntensity(qreal fraction);
+    void adjustIntensity(qreal fraction, int stepIndex);
 
 private:
     qreal m_intensity;
@@ -146,7 +146,7 @@ private:
      * Running
      ************************************************************************/
 private:
-    void startNewStep(int index, MasterTimer *timer);
+    void startNewStep(int index, MasterTimer *timer, bool manualFade);
 
     int getNextStepIndex();
 

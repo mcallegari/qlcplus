@@ -64,6 +64,7 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     , m_runner(NULL)
     , m_primaryIndex(0)
     , m_secondaryIndex(0)
+    , m_primaryLeft(true)
     , m_stop(false)
 {
     /* Set the class name "VCCueList" as the object name as well */
@@ -73,8 +74,12 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     QGridLayout* grid = new QGridLayout(this);
     grid->setSpacing(2);
 
-    m_linkCheck = new QCheckBox();
+    m_linkCheck = new QCheckBox(tr("Link"));
     grid->addWidget(m_linkCheck, 0, 0, 1, 2, Qt::AlignVCenter | Qt::AlignCenter);
+
+    m_blueStyle = "QLabel { background-color: #4E8DDE; color: white; border: 1px solid; border-radius: 3px; font: bold; }";
+    m_orangeStyle = "QLabel { background-color: orange; color: black; border: 1px solid; border-radius: 3px; font: bold; }";
+    m_noStyle = "QLabel { border: 1px solid; border-radius: 3px; font: bold; }";
 
     m_sl1TopLabel = new QLabel("100%");
     m_sl1TopLabel->setAlignment(Qt::AlignHCenter);
@@ -86,7 +91,7 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_slider1->setValue(100);
     grid->addWidget(m_slider1, 2, 0, 1, 1);
     m_sl1BottomLabel = new QLabel("");
-    m_sl1BottomLabel->setStyleSheet("QLabel { background-color: #4E8DDE; color: white; border: 1px solid; border-radius: 3px; font: bold; }");
+    m_sl1BottomLabel->setStyleSheet(m_noStyle);
     m_sl1BottomLabel->setAlignment(Qt::AlignCenter);
     grid->addWidget(m_sl1BottomLabel, 3, 0, 1, 1);
     connect(m_slider1, SIGNAL(valueChanged(int)),
@@ -103,11 +108,13 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_slider2->setInvertedAppearance(true);
     grid->addWidget(m_slider2, 2, 1, 1, 1);
     m_sl2BottomLabel = new QLabel("");
-    m_sl2BottomLabel->setStyleSheet("QLabel { background-color: orange; color: black; border: 1px solid; border-radius: 3px; font: bold; }");
+    m_sl2BottomLabel->setStyleSheet(m_noStyle);
     m_sl2BottomLabel->setAlignment(Qt::AlignCenter);
     grid->addWidget(m_sl2BottomLabel, 3, 1, 1, 1);
     connect(m_slider2, SIGNAL(valueChanged(int)),
             this, SLOT(slotSlider2ValueChanged(int)));
+
+    slotShowCrossfadePanel(false);
 
     /* Create a list for scenes (cues) */
     m_tree = new QTreeWidget(this);
@@ -138,27 +145,36 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     QHBoxLayout *hbox = new QHBoxLayout(this);
     hbox->setSpacing(2);
 
+    m_crossfadeButton = new QToolButton(this);
+    m_crossfadeButton->setIcon(QIcon(":/slider.png"));
+    m_crossfadeButton->setIconSize(QSize(24, 24));
+    m_crossfadeButton->setCheckable(true);
+    m_crossfadeButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+    m_crossfadeButton->setFixedHeight(32);
+    connect(m_crossfadeButton, SIGNAL(toggled(bool)), this, SLOT(slotShowCrossfadePanel(bool)));
+    hbox->addWidget(m_crossfadeButton);
+
     m_playbackButton = new QToolButton(this);
     m_playbackButton->setIcon(QIcon(":/player_play.png"));
     m_playbackButton->setIconSize(QSize(24, 24));
-    m_playbackButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-    m_playbackButton->setText(tr("Play"));
+    m_playbackButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    m_playbackButton->setFixedHeight(32);
     connect(m_playbackButton, SIGNAL(clicked()), this, SLOT(slotPlayback()));
     hbox->addWidget(m_playbackButton);
 
     m_previousButton = new QToolButton(this);
     m_previousButton->setIcon(QIcon(":/back.png"));
     m_previousButton->setIconSize(QSize(24, 24));
-    m_previousButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-    m_previousButton->setText(tr("Previous Cue"));
+    m_previousButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    m_previousButton->setFixedHeight(32);
     connect(m_previousButton, SIGNAL(clicked()), this, SLOT(slotPreviousCue()));
     hbox->addWidget(m_previousButton);
 
     m_nextButton = new QToolButton(this);
     m_nextButton->setIcon(QIcon(":/forward.png"));
     m_nextButton->setIconSize(QSize(24, 24));
-    m_nextButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-    m_nextButton->setText(tr("Next Cue"));
+    m_nextButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    m_nextButton->setFixedHeight(32);
     connect(m_nextButton, SIGNAL(clicked()), this, SLOT(slotNextCue()));
     hbox->addWidget(m_nextButton);
 
@@ -431,7 +447,9 @@ void VCCueList::slotStop()
         m_stop = true;
     m_playbackButton->setIcon(QIcon(":/player_play.png"));
     m_sl1BottomLabel->setText("");
+    m_sl1BottomLabel->setStyleSheet(m_noStyle);
     m_sl2BottomLabel->setText("");
+    m_sl2BottomLabel->setStyleSheet(m_noStyle);
     m_mutex.unlock();
 
     /* Start from the beginning */
@@ -446,8 +464,7 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
     m_tree->scrollToItem(item, QAbstractItemView::PositionAtCenter);
     m_tree->setCurrentItem(item);
     m_primaryIndex = stepNumber;
-    m_sl1BottomLabel->setText(QString("#%1").arg(m_primaryIndex + 1));
-    setSecondaryInfo(m_primaryIndex, NULL);
+    setSlidersInfo(m_primaryIndex, NULL);
 }
 
 void VCCueList::slotItemActivated(QTreeWidgetItem* item)
@@ -462,8 +479,7 @@ void VCCueList::slotItemActivated(QTreeWidgetItem* item)
     else
         m_runner->setCurrentStep(m_primaryIndex);
 
-    m_sl1BottomLabel->setText(QString("#%1").arg(m_primaryIndex + 1));
-    setSecondaryInfo(m_primaryIndex, NULL);
+    setSlidersInfo(m_primaryIndex, NULL);
     m_mutex.unlock();
 }
 
@@ -504,16 +520,18 @@ void VCCueList::createRunner(int startIndex)
         connect(m_runner, SIGNAL(currentStepChanged(int)),
                 this, SLOT(slotCurrentStepChanged(int)));
         m_playbackButton->setIcon(QIcon(":/player_stop.png"));
-        m_sl1BottomLabel->setText(QString("#%1").arg(startIndex + 1));
-        setSecondaryInfo(startIndex, chaser);
+        setSlidersInfo(startIndex, chaser);
     }
 }
 
 /*****************************************************************************
  * Crossfade
  *****************************************************************************/
-void VCCueList::setSecondaryInfo(int pIndex, Chaser *chaser)
+void VCCueList::setSlidersInfo(int pIndex, Chaser *chaser)
 {
+    m_sl1BottomLabel->setText(QString("#%1").arg(pIndex + 1));
+    m_sl1BottomLabel->setStyleSheet(m_primaryLeft ? m_blueStyle : m_orangeStyle);
+
     Chaser *lChaser = chaser;
     if (lChaser == NULL)
         lChaser = qobject_cast<Chaser*> (m_doc->function(m_chaserID));
@@ -534,6 +552,8 @@ void VCCueList::setSecondaryInfo(int pIndex, Chaser *chaser)
             tmpIndex = pIndex - 1;
     }
     m_sl2BottomLabel->setText(QString("#%1").arg(tmpIndex + 1));
+    m_sl2BottomLabel->setStyleSheet(m_primaryLeft ? m_orangeStyle : m_blueStyle);
+
     // reset any previously set background
     QTreeWidgetItem *item = m_tree->topLevelItem(m_secondaryIndex);
     if (item != NULL)
@@ -545,13 +565,30 @@ void VCCueList::setSecondaryInfo(int pIndex, Chaser *chaser)
     m_secondaryIndex = tmpIndex;
 }
 
+void VCCueList::slotShowCrossfadePanel(bool enable)
+{
+    m_linkCheck->setVisible(enable);
+    m_sl1TopLabel->setVisible(enable);
+    m_slider1->setVisible(enable);
+    m_sl1BottomLabel->setVisible(enable);
+    m_sl2TopLabel->setVisible(enable);
+    m_slider2->setVisible(enable);
+    m_sl2BottomLabel->setVisible(enable);
+}
+
 void VCCueList::slotSlider1ValueChanged(int value)
 {
     m_sl1TopLabel->setText(QString("%1%").arg(value));
     if (m_linkCheck->isChecked())
         m_slider2->setValue(100 - value);
     if (m_runner != NULL)
-        m_runner->adjustIntensity((qreal)value / 100);
+        m_runner->adjustIntensity((qreal)value / 100, m_primaryLeft ? m_primaryIndex: m_secondaryIndex);
+    if (value == 0 && m_linkCheck->isChecked())
+    {
+        m_primaryLeft = false;
+        m_primaryIndex = m_secondaryIndex;
+        setSlidersInfo(m_primaryIndex, NULL);
+    }
 }
 
 void VCCueList::slotSlider2ValueChanged(int value)
@@ -559,6 +596,14 @@ void VCCueList::slotSlider2ValueChanged(int value)
     m_sl2TopLabel->setText(QString("%1%").arg(value));
     if (m_linkCheck->isChecked())
         m_slider1->setValue(100 - value);
+    if (m_runner != NULL)
+        m_runner->adjustIntensity((qreal)value / 100, m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
+    if (value == 0 && m_linkCheck->isChecked())
+    {
+        m_primaryLeft = true;
+        m_primaryIndex = m_secondaryIndex;
+        setSlidersInfo(m_primaryIndex, NULL);
+    }
 }
 /*****************************************************************************
  * DMX Source

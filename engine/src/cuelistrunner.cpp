@@ -238,21 +238,29 @@ int CueListRunner::runningStepsNumber() const
  * Intensity
  ****************************************************************************/
 
-void CueListRunner::adjustIntensity(qreal fraction)
+void CueListRunner::adjustIntensity(qreal fraction, int stepIndex)
 {
     m_intensity = CLAMP(fraction, qreal(0.0), qreal(1.0));
     foreach(CueRunnerStep *step, m_runnerSteps)
     {
-        if (step->m_function != NULL)
-            step->m_function->adjustIntensity(m_intensity);
+        if (stepIndex == step->m_index && step->m_function != NULL)
+        {
+            if (fraction == 0 && m_runnerSteps.count() > 1)
+                step->m_function->stop();
+            else
+                step->m_function->adjustIntensity(m_intensity);
+            return;
+        }
     }
+    // not found ?? It means we need to start a new step and crossfade kicks in !
+    startNewStep(stepIndex, m_doc->masterTimer(), true);
 }
 
 /****************************************************************************
  * Running
  ****************************************************************************/
 
-void CueListRunner::startNewStep(int index, MasterTimer* timer)
+void CueListRunner::startNewStep(int index, MasterTimer* timer, bool manualFade)
 {
     ChaserStep step(m_chaser->steps().at(index));
     Function *func = m_doc->function(step.fid);
@@ -260,7 +268,10 @@ void CueListRunner::startNewStep(int index, MasterTimer* timer)
     {
         CueRunnerStep *newStep = new CueRunnerStep();
         newStep->m_index = index;
-        newStep->m_fadeIn = stepFadeIn(index);
+        if (manualFade == true)
+            newStep->m_fadeIn = 0;
+        else
+            newStep->m_fadeIn = stepFadeIn(index);
         newStep->m_fadeOut = stepFadeOut(index);
         newStep->m_duration = stepDuration(index);
         newStep->m_elapsed = MasterTimer::tick();
@@ -358,7 +369,7 @@ bool CueListRunner::write(MasterTimer* timer, UniverseArray* universes)
         m_lastRunStepIdx = m_newStartStepIdx;
         m_newStartStepIdx = -1;
         qDebug() << "Starting from step" << m_lastRunStepIdx;
-        startNewStep(m_lastRunStepIdx, timer);
+        startNewStep(m_lastRunStepIdx, timer, false);
         emit currentStepChanged(m_lastRunStepIdx);
     }
 
@@ -414,7 +425,7 @@ bool CueListRunner::write(MasterTimer* timer, UniverseArray* universes)
         int nextIdx = getNextStepIndex();
         if (nextIdx != -1)
         {
-            startNewStep(nextIdx, timer);
+            startNewStep(nextIdx, timer, false);
             emit currentStepChanged(nextIdx);
         }
         else
