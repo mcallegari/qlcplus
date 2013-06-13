@@ -533,9 +533,6 @@ void VCCueList::createRunner(int startIndex)
  *****************************************************************************/
 void VCCueList::setSlidersInfo(int pIndex, Chaser *chaser)
 {
-    m_sl1BottomLabel->setText(QString("#%1").arg(pIndex + 1));
-    m_sl1BottomLabel->setStyleSheet(m_primaryLeft ? m_blueStyle : m_orangeStyle);
-
     Chaser *lChaser = chaser;
     if (lChaser == NULL)
         lChaser = qobject_cast<Chaser*> (m_doc->function(m_chaserID));
@@ -555,7 +552,10 @@ void VCCueList::setSlidersInfo(int pIndex, Chaser *chaser)
         else
             tmpIndex = pIndex - 1;
     }
-    m_sl2BottomLabel->setText(QString("#%1").arg(tmpIndex + 1));
+    m_sl1BottomLabel->setText(QString("#%1").arg(m_primaryLeft ? pIndex + 1 : tmpIndex + 1));
+    m_sl1BottomLabel->setStyleSheet(m_primaryLeft ? m_blueStyle : m_orangeStyle);
+
+    m_sl2BottomLabel->setText(QString("#%1").arg(m_primaryLeft ? tmpIndex + 1 : pIndex + 1));
     m_sl2BottomLabel->setStyleSheet(m_primaryLeft ? m_orangeStyle : m_blueStyle);
 
     // reset any previously set background
@@ -591,6 +591,12 @@ void VCCueList::slotSlider1ValueChanged(int value)
     {
         m_primaryLeft = false;
         m_primaryIndex = m_secondaryIndex;
+        QTreeWidgetItem* item = m_tree->topLevelItem(m_primaryIndex);
+        if (item != NULL)
+        {
+            m_tree->scrollToItem(item, QAbstractItemView::PositionAtCenter);
+            m_tree->setCurrentItem(item);
+        }
         setSlidersInfo(m_primaryIndex, NULL);
     }
 }
@@ -606,6 +612,12 @@ void VCCueList::slotSlider2ValueChanged(int value)
     {
         m_primaryLeft = true;
         m_primaryIndex = m_secondaryIndex;
+        QTreeWidgetItem* item = m_tree->topLevelItem(m_primaryIndex);
+        if (item != NULL)
+        {
+            m_tree->scrollToItem(item, QAbstractItemView::PositionAtCenter);
+            m_tree->setCurrentItem(item);
+        }
         setSlidersInfo(m_primaryIndex, NULL);
     }
 }
