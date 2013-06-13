@@ -51,6 +51,8 @@ class Doc;
 #define KXMLQLCVCCueListNext "Next"
 #define KXMLQLCVCCueListPrevious "Previous"
 #define KXMLQLCVCCueListStop "Stop"
+#define KXMLQLCVCCueListCrossfadeLeft "CrossLeft"
+#define KXMLQLCVCCueListCrossfadeRight "CrossRight"
 
 /**
  * VCCueList provides a \ref VirtualConsole widget to control cue lists.
@@ -69,6 +71,8 @@ public:
     static const quint8 nextInputSourceId;
     static const quint8 previousInputSourceId;
     static const quint8 stopInputSourceId;
+    static const quint8 cf1InputSourceId;
+    static const quint8 cf2InputSourceId;
 
     /*************************************************************************
      * Initialization

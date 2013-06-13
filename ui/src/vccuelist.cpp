@@ -38,6 +38,7 @@
 #include "mastertimer.h"
 #include "chaserstep.h"
 #include "vccuelist.h"
+#include "qlcmacros.h"
 #include "function.h"
 #include "inputmap.h"
 #include "qlcfile.h"
@@ -58,6 +59,8 @@
 const quint8 VCCueList::nextInputSourceId = 0;
 const quint8 VCCueList::previousInputSourceId = 1;
 const quint8 VCCueList::stopInputSourceId = 2;
+const quint8 VCCueList::cf1InputSourceId = 3;
+const quint8 VCCueList::cf2InputSourceId = 4;
 
 VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     , m_chaserID(Function::invalidId())
@@ -754,6 +757,20 @@ void VCCueList::slotInputValueChanged(quint32 universe, quint32 channel, uchar v
         if (value > HYSTERESIS)
             m_stopLatestValue = value;
     }
+    else if (src == inputSource(cf1InputSourceId))
+    {
+        float val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
+                          (float) m_slider1->minimum(),
+                          (float) m_slider1->maximum());
+        m_slider1->setValue(val);
+    }
+    else if (src == inputSource(cf2InputSourceId))
+    {
+        float val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
+                          (float) m_slider2->minimum(),
+                          (float) m_slider2->maximum());
+        m_slider2->setValue(val);
+    }
 }
 
 /*****************************************************************************
@@ -861,8 +878,7 @@ bool VCCueList::loadXML(const QDomElement* root)
                 QDomElement subTag = subNode.toElement();
                 if (subTag.tagName() == KXMLQLCVCWidgetInput)
                 {
-                    quint32 uni = 0;
-                    quint32 ch = 0;
+                    quint32 uni = 0, ch = 0;
                     if (loadXMLInput(subTag, &uni, &ch) == true)
                         setInputSource(QLCInputSource(uni, ch), nextInputSourceId);
                 }
@@ -886,8 +902,7 @@ bool VCCueList::loadXML(const QDomElement* root)
                 QDomElement subTag = subNode.toElement();
                 if (subTag.tagName() == KXMLQLCVCWidgetInput)
                 {
-                    quint32 uni = 0;
-                    quint32 ch = 0;
+                    quint32 uni = 0, ch = 0;
                     if (loadXMLInput(subTag, &uni, &ch) == true)
                         setInputSource(QLCInputSource(uni, ch), previousInputSourceId);
                 }
@@ -911,8 +926,7 @@ bool VCCueList::loadXML(const QDomElement* root)
                 QDomElement subTag = subNode.toElement();
                 if (subTag.tagName() == KXMLQLCVCWidgetInput)
                 {
-                    quint32 uni = 0;
-                    quint32 ch = 0;
+                    quint32 uni = 0, ch = 0;
                     if (loadXMLInput(subTag, &uni, &ch) == true)
                         setInputSource(QLCInputSource(uni, ch), stopInputSourceId);
                 }
@@ -926,6 +940,34 @@ bool VCCueList::loadXML(const QDomElement* root)
                 }
 
                 subNode = subNode.nextSibling();
+            }
+        }
+        else if (tag.tagName() == KXMLQLCVCCueListCrossfadeLeft)
+        {
+            QDomNode subNode = tag.firstChild();
+            if (subNode.isNull() == false)
+            {
+                QDomElement subTag = subNode.toElement();
+                if (subTag.tagName() == KXMLQLCVCWidgetInput)
+                {
+                    quint32 uni = 0, ch = 0;
+                    if (loadXMLInput(subTag, &uni, &ch) == true)
+                        setInputSource(QLCInputSource(uni, ch), cf1InputSourceId);
+                }
+            }
+        }
+        else if (tag.tagName() == KXMLQLCVCCueListCrossfadeRight)
+        {
+            QDomNode subNode = tag.firstChild();
+            if (subNode.isNull() == false)
+            {
+                QDomElement subTag = subNode.toElement();
+                if (subTag.tagName() == KXMLQLCVCWidgetInput)
+                {
+                    quint32 uni = 0, ch = 0;
+                    if (loadXMLInput(subTag, &uni, &ch) == true)
+                        setInputSource(QLCInputSource(uni, ch), cf2InputSourceId);
+                }
             }
         }
         else if (tag.tagName() == KXMLQLCVCCueListKey) /* Legacy */
@@ -1030,6 +1072,20 @@ bool VCCueList::saveXML(QDomDocument* doc, QDomElement* vc_root)
     text = doc->createTextNode(m_stopKeySequence.toString());
     subtag.appendChild(text);
     saveXMLInput(doc, &tag, inputSource(stopInputSourceId));
+
+    /* Crossfade cue list */
+    if (inputSource(cf1InputSourceId).isValid())
+    {
+        tag = doc->createElement(KXMLQLCVCCueListCrossfadeLeft);
+        root.appendChild(tag);
+        saveXMLInput(doc, &tag, inputSource(cf1InputSourceId));
+    }
+    if (inputSource(cf2InputSourceId).isValid())
+    {
+        tag = doc->createElement(KXMLQLCVCCueListCrossfadeRight);
+        root.appendChild(tag);
+        saveXMLInput(doc, &tag, inputSource(cf2InputSourceId));
+    }
 
     /* Window state */
     saveXMLWindowState(doc, &root);
