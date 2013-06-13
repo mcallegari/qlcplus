@@ -151,6 +151,7 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_crossfadeButton->setCheckable(true);
     m_crossfadeButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
     m_crossfadeButton->setFixedHeight(32);
+    m_crossfadeButton->setToolTip(tr("Show/Hide crossfade sliders"));
     connect(m_crossfadeButton, SIGNAL(toggled(bool)), this, SLOT(slotShowCrossfadePanel(bool)));
     hbox->addWidget(m_crossfadeButton);
 
@@ -159,6 +160,7 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_playbackButton->setIconSize(QSize(24, 24));
     m_playbackButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     m_playbackButton->setFixedHeight(32);
+    m_playbackButton->setToolTip(tr("Play/Stop Cue list"));
     connect(m_playbackButton, SIGNAL(clicked()), this, SLOT(slotPlayback()));
     hbox->addWidget(m_playbackButton);
 
@@ -167,6 +169,7 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_previousButton->setIconSize(QSize(24, 24));
     m_previousButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     m_previousButton->setFixedHeight(32);
+    m_previousButton->setToolTip(tr("Go to previous step in the list"));
     connect(m_previousButton, SIGNAL(clicked()), this, SLOT(slotPreviousCue()));
     hbox->addWidget(m_previousButton);
 
@@ -175,6 +178,7 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_nextButton->setIconSize(QSize(24, 24));
     m_nextButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     m_nextButton->setFixedHeight(32);
+    m_nextButton->setToolTip(tr("Go to next step in the list"));
     connect(m_nextButton, SIGNAL(clicked()), this, SLOT(slotNextCue()));
     hbox->addWidget(m_nextButton);
 
