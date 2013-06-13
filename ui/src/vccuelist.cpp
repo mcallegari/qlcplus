@@ -528,6 +528,9 @@ void VCCueList::setSlidersInfo(int pIndex, Chaser *chaser)
     if (lChaser == NULL)
         lChaser = qobject_cast<Chaser*> (m_doc->function(m_chaserID));
 
+    if (lChaser == NULL)
+        return;
+
     int tmpIndex = -1;
     if (lChaser->direction() == Function::Forward)
     {
