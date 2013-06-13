@@ -802,7 +802,7 @@ void VCCueList_Test::keyboardNextPrevious()
     cl.slotKeyPressed(QKeySequence(keySequenceD));
     timer->timerTick();
     QVERIFY(cl.m_runner == NULL);
-    QCOMPARE(cl.m_tree->indexOfTopLevelItem(cl.m_tree->currentItem()), -1);
+    QCOMPARE(cl.m_tree->indexOfTopLevelItem(cl.m_tree->currentItem()), 0);
 }
 
 void VCCueList_Test::input()

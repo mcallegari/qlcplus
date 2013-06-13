@@ -146,6 +146,7 @@ private:
      * Running
      ************************************************************************/
 private:
+    void clearRunningList();
     void startNewStep(int index, MasterTimer *timer, bool manualFade);
 
     int getNextStepIndex();

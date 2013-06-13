@@ -414,13 +414,7 @@ void VCCueList::slotNextCue()
     if (m_runner == NULL)
         createRunner();
     else
-    {
-        int index = getCurrentIndex();
-        if (index < m_tree->topLevelItemCount() - 1)
-            m_runner->next();
-        else
-            m_runner->setCurrentStep(0);
-    }
+        m_runner->next();
     m_mutex.unlock();
 }
 
@@ -434,13 +428,7 @@ void VCCueList::slotPreviousCue()
     if (m_runner == NULL)
         createRunner(m_tree->topLevelItemCount() - 1); // Start from end
     else
-    {
-        int index = getCurrentIndex();
-        if (index > 0)
-            m_runner->previous();
-        else
-            m_runner->setCurrentStep(m_tree->topLevelItemCount() - 1);
-    }
+        m_runner->previous();
     m_mutex.unlock();
 }
 

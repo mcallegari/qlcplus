@@ -55,15 +55,7 @@ CueListRunner::CueListRunner(const Doc* doc, const Chaser* chaser)
 
 CueListRunner::~CueListRunner()
 {
-    foreach(CueRunnerStep *step, m_runnerSteps)
-    {
-        if (step->m_function != NULL && step->m_function->isRunning())
-        {
-            step->m_function->stop();
-            step->m_function = NULL;
-        }
-    }
-    m_runnerSteps.clear();
+    clearRunningList();
     delete m_roundTime;
     m_roundTime = NULL;
 }
@@ -256,6 +248,20 @@ void CueListRunner::adjustIntensity(qreal fraction, int stepIndex)
     startNewStep(stepIndex, m_doc->masterTimer(), true);
 }
 
+void CueListRunner::clearRunningList()
+{
+    // empty the running queue
+    foreach(CueRunnerStep *step, m_runnerSteps)
+    {
+        if (step->m_function != NULL && step->m_function->isRunning())
+        {
+            step->m_function->stop();
+            step->m_function = NULL;
+        }
+    }
+    m_runnerSteps.clear();
+}
+
 /****************************************************************************
  * Running
  ****************************************************************************/
@@ -364,6 +370,11 @@ bool CueListRunner::write(MasterTimer* timer, UniverseArray* universes)
     if (m_chaser->steps().size() == 0)
         return false;
 
+    if (m_next == true || m_previous == true || m_newStartStepIdx != -1)
+    {
+        clearRunningList();
+    }
+
     if (m_newStartStepIdx != -1)
     {
         m_lastRunStepIdx = m_newStartStepIdx;
@@ -371,20 +382,6 @@ bool CueListRunner::write(MasterTimer* timer, UniverseArray* universes)
         qDebug() << "Starting from step" << m_lastRunStepIdx;
         startNewStep(m_lastRunStepIdx, timer, false);
         emit currentStepChanged(m_lastRunStepIdx);
-    }
-
-    if (m_next == true || m_previous == true)
-    {
-        // empty the running queue
-        foreach(CueRunnerStep *step, m_runnerSteps)
-        {
-            if (step->m_function != NULL && step->m_function->isRunning())
-            {
-                step->m_function->stop();
-                step->m_function = NULL;
-            }
-        }
-        m_runnerSteps.clear();
     }
 
     foreach(CueRunnerStep *step, m_runnerSteps)
@@ -443,15 +440,6 @@ void CueListRunner::postRun(MasterTimer* timer, UniverseArray* universes)
     Q_UNUSED(timer);
 
     qDebug() << Q_FUNC_INFO;
-
-    foreach(CueRunnerStep *step, m_runnerSteps)
-    {
-        if (step->m_function != NULL && step->m_function->isRunning())
-        {
-            step->m_function->stop();
-            step->m_function = NULL;
-        }
-    }
-    m_runnerSteps.clear();
+    clearRunningList();
 }
 

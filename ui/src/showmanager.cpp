@@ -251,7 +251,7 @@ void ShowManager::initToolbar()
     m_toolbar->addSeparator();
 
     // Time label and playback buttons
-    m_timeLabel = new QLabel("00:00:00.000");
+    m_timeLabel = new QLabel("00:00:00.00");
     m_timeLabel->setFixedWidth(150);
     m_timeLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     QFont timeFont = QApplication::font();
@@ -759,7 +759,7 @@ void ShowManager::slotStopPlayback()
         return;
     }
     m_showview->rewindCursor();
-    m_timeLabel->setText("00:00:00.000");
+    m_timeLabel->setText("00:00:00.00");
 }
 
 void ShowManager::slotStartPlayback()
@@ -867,9 +867,23 @@ void ShowManager::slotupdateTimeAndCursor(quint32 msec_time)
 
 void ShowManager::slotUpdateTime(quint32 msec_time)
 {
-    QTime tmpTime = QTime(0, 0, 0, 0).addMSecs(msec_time);
+    //QTime tmpTime = QTime(0, 0, 0, 0).addMSecs(msec_time);
+    //m_timeLabel->setText(tmpTime.toString("hh:mm:ss.zzz"));
 
-    m_timeLabel->setText(tmpTime.toString("hh:mm:ss.zzz"));
+    uint h, m, s;
+
+    h = msec_time / 3600000;
+    msec_time -= (h * 3600000);
+
+    m = msec_time / 60000;
+    msec_time -= (m * 60000);
+
+    s = msec_time / 1000;
+    msec_time -= (s * 1000);
+
+    QString str = QString("%1:%2:%3:%4").arg(h, 2, 10, QChar('0')).arg(m, 2, 10, QChar('0'))
+            .arg(s, 2, 10, QChar('0')).arg(msec_time / 10, 2, 10, QChar('0'));
+    m_timeLabel->setText(str);
 }
 
 void ShowManager::slotTrackClicked(Track *track)

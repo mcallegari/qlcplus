@@ -1,8 +1,12 @@
-qlcplus (4.3.4) stable; urgency=low
+qlcplus (4.4.0) unstable; urgency=low
 
   * NEW: Shows can now be started at any position in time
   * NEW: Audio files can now be added from Function Manager
   * NEW: In Scene Editor, fixture channels can be selected (CTRL+Click) for advanced copy/paste
+  * NEW; Audio input support. It is now possible to associate DMX channels, functions or VC widgets to 
+    audio volume and spectrum bars
+  * NEW: VC Cue list crossfade functionality. It is now possible to open a side panel with two sliders
+    to manually control the transition between two chaser steps
   * Scene Editor now uses global clipboard too, so values can be copied from a Scene to another
   * Copy and paste is now allowed in "all fixtures view" mode too
   * Fixed regression of Chaser Editor paste operation, causing a major drop of performances
@@ -19,7 +23,7 @@ qlcplus (4.3.4) stable; urgency=low
   * Added fixture: SGM Giotto Spot 400 CMY (thanks to Willy)
   * Added fixture: PixelRANGE PixelPar 44 (thanks to bwerst)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 20 May 2013 4:03:04 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 20 June 2013 4:03:04 +0200
 
 qlcplus (4.3.3) stable; urgency=low
 
