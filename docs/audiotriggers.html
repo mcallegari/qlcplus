@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - Audio Triggers</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1><img src="qrc:/audioinput.png" width=32>Audio triggers</H1>
+<P>
+Starting from QLC+ version 4.4.0, this new functionality allows you to use an audio input
+source like a microphone, to add more life to your light shows.<br><br>
+
+<H1>1 Introduction</H1>
+
+When clicking on the <img src="qrc:/audioinput.png"> icon, a panel will be displayed,
+showing mainly 3 things:<br>
+<TABLE BORDER="1">
+ <TR>
+  <TD><b>Enable</b></TD>
+  <TD>This checkbox allows you to enable/disable the whole audio trigger functionality</TD>
+ </TR>
+ <TR>
+  <TD><CENTER><IMG SRC="qrc:/configure.png" width=32></CENTER></TD>
+  <TD>This buttons allows you to configure the audio trigger functionality. Please see paragraph 2: Configuration</TD>
+ </TR>
+ <TR>
+  <TD><B>Spectrum and volume bars</B></TD>
+  <TD>This graphics area shows the live monitoring of the captured audio, displaying
+  a number of spectrum bars and a volume bar.<br>
+  On the bottom you can see the range of frequencies analyzed by QLC+</TD>
+ </TR>
+</TABLE>
+
+<H1>2 Configuration</H1>
+
+When clicking on the configuration button, a panel is displayed, showing a complete set of options
+to tune the audio triggers functionality.<br>
+The first thing you can configure is the number of spectrum bars that you want to display and that you 
+will need during your live show. The accepted number is between 5 and 32.<br>
+Once decided the number of bars, you can proceed to assign a functionality to each bar. There is a list
+showing the following options for the volume and spectrum bars:
+
+<TABLE BORDER="1">
+ <TR>
+  <TD>Name</TD>
+  <TD>Can be "Volume Bar" or a spectrum bar shown as #number (start frequency - end frequency). Example: #5 (1250Hz - 1562Hz)></TD>
+ </TR>
+ <TR>
+  <TD><B>Type</B></TD>
+  <TD>Indicates the type of funtionality the bar will control. It can be:
+     <UL>
+      <LI><img src="qrc:/uncheck.png"> None - No functionality assigned</LI>
+      <LI><img src="qrc:/intensity.png"> DMX - Controls single DMX channels</LI>
+      <LI><img src="qrc:/function.png"> Function - Controls a QLC+ function</LI>
+      <LI><img src="qrc:/virtualconsole.png"> VC Widget - Controls a Virtual Console widget</LI>
+     </UL>
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Assign</B></TD>
+  <TD>When a type is selected, a button with <img src="qrc:/attach.png"> icon is displayed to allow 
+  you to connect the bar to the desired functionality. Depending on which type you chose, clicking on
+  this button will display the DMX channels, Functions or Virtual Console widgets selection dialogs.
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Info</B></TD>
+  <TD>This column displays some additional information regarding the bar--functionality association.<br>
+  Depending on the type you chose, here you will find the number of DMX channels, the function name or 
+  the VC Widget name selected</TD>
+ </TR>
+ <TR>
+  <TD><B>Disable threshold</B></TD>
+  <TD>When selecting a Function or a VC Widget button, this column allows you to set a deactivation 
+  threshold percentage. When the spectrum or volume bar will go below this value, the associated function/VC button
+  will be stopped/deactivated.</TD>
+ </TR>
+ <TR>
+  <TD><B>Enable threshold</B></TD>
+  <TD>When selecting a Function or a VC Widget button, this column allows you to set an activation 
+  threshold percentage. When the spectrum or volume bar will go above this value, the associated function/VC button
+  will be started/activated.</TD>
+ </TR>
+</TABLE>
+</P>
+
+</BODY>
+</HTML>

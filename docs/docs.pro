@@ -4,9 +4,11 @@ TEMPLATE = subdirs
 
 docs.path = $$INSTALLROOT/$$DOCSDIR/html
 docs.files = \
-             artnetplugin.html \
              addeditfixtures.html \
+             addresstool.html \
              addvcbuttonmatrix.html \
+             artnetplugin.html \
+             audiotriggers.html \
              capabilityeditor.html \
              capabilitywizard.html \
              channeleditor.html \
@@ -16,10 +18,10 @@ docs.files = \
              commandlineparameters.html \
              concept.html \
              dmxdump.html \
+             dmxusbplugin.html \
              efxeditor.html \
              efx-general.png \
              efx-movement.png \
-             enttecdmxusboutput.html \
              fixturedefinitioneditor.html \
              fixtureeditor.html \
              fixturegroupeditor.html \
