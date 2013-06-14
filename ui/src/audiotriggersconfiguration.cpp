@@ -190,6 +190,10 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
 
 void AudioTriggersConfiguration::updateTree()
 {
+    if (m_barsNumSpin->value() < m_barsNumSpin->minimum() ||
+        m_barsNumSpin->value() > m_barsNumSpin->maximum())
+            return;
+
     m_tree->clear();
     m_factory->setSpectrumBarsNumber(m_barsNumSpin->value());
 
