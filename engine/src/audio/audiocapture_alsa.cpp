@@ -26,12 +26,13 @@
 AudioCaptureAlsa::AudioCaptureAlsa(QObject * parent)
     : AudioCapture(parent)
 {
-
+    m_captureHandle = NULL;
 }
 
 AudioCaptureAlsa::~AudioCaptureAlsa()
 {
-    snd_pcm_close (m_captureHandle);
+    if (m_captureHandle)
+        snd_pcm_close (m_captureHandle);
 }
 
 bool AudioCaptureAlsa::initialize(unsigned int sampleRate, quint8 channels, quint16 bufferSize)

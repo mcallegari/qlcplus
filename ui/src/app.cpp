@@ -89,6 +89,9 @@ App::App()
     , m_fileOpenMenu(NULL)
 
     , m_toolbar(NULL)
+
+    , m_dumpProperties(NULL)
+    , m_audioTriggers(NULL)
 {
     QCoreApplication::setOrganizationName("qlcplus");
     QCoreApplication::setOrganizationDomain("sf.net");
@@ -126,6 +129,12 @@ App::~App()
 
     if (SimpleDesk::instance() != NULL)
         delete SimpleDesk::instance();
+
+    if (m_dumpProperties != NULL)
+        delete m_dumpProperties;
+
+    if (m_audioTriggers != NULL)
+        delete m_audioTriggers;
 
     if (m_doc != NULL)
         delete m_doc;
@@ -1121,6 +1130,10 @@ bool App::loadXML(const QDomDocument& doc)
         {
             /* Ignore creator information */
         }
+        else if (tag.tagName() == KXMLQLCAudioTriggerFactory)
+        {
+            AudioTriggerFactory::instance()->loadXML(tag);
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown Workspace tag:" << tag.tagName();
@@ -1174,6 +1187,9 @@ QFile::FileError App::saveXML(const QString& fileName)
 
         /* Write Simple Desk to the XML document */
         SimpleDesk::instance()->saveXML(&doc, &root);
+
+        /* Write Audio Trigger Factory to the XML document */
+        AudioTriggerFactory::instance()->saveXML(&doc, &root);
 
         /* Write the XML document to the stream (=file) */
         stream << doc.toString() << "\n";

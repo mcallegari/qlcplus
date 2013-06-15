@@ -36,6 +36,8 @@ AudioCapture::AudioCapture (QObject* parent)
     : QThread (parent)
     , m_userStop(true)
     , m_pause(false)
+    , m_fftInputBuffer(NULL)
+    , m_fftOutputBuffer(NULL)
 {
     m_subBandsNumber = FREQ_SUBBANDS_DEFAULT_NUMBER;
 }

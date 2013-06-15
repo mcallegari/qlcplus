@@ -33,10 +33,28 @@
   #include "audiocapture_alsa.h"
 #endif
 
+#include <QDomElement>
+
+#define KXMLQLCATFBarsNumber   "BarsNumber"
+
+#define KXMLQLCVolumeBar "VolumeBar"
+#define KXMLQLCSpectrumBar "SpectrumBar"
+
+#define KXMLQLCAudioBarIndex "Index"
+#define KXMLQLCAudioBarName "Name"
+#define KXMLQLCAudioBarType "Type"
+#define KXMLQLCAudioBarDMXChannels "DMXChannels"
+#define KXMLQLCAudioBarFunction "FunctionID"
+
+AudioTriggerFactory* AudioTriggerFactory::s_instance = NULL;
+
 AudioTriggerFactory::AudioTriggerFactory(Doc *doc, QWidget *parent)
     : QDialog(parent)
     , m_doc(doc)
 {
+    Q_ASSERT(s_instance == NULL);
+    s_instance = this;
+
     setupUi(this);
 
     m_spectrum = new AudioTriggerWidget(this);
@@ -71,7 +89,13 @@ AudioTriggerFactory::AudioTriggerFactory(Doc *doc, QWidget *parent)
 AudioTriggerFactory::~AudioTriggerFactory()
 {
     m_inputCapture->stop();
+    m_doc->masterTimer()->unregisterDMXSource(this);
     delete m_inputCapture;
+}
+
+AudioTriggerFactory *AudioTriggerFactory::instance()
+{
+    return s_instance;
 }
 
 AudioBar *AudioTriggerFactory::getSpectrumBar(int index)
@@ -207,6 +231,124 @@ void AudioTriggerFactory::writeDMX(MasterTimer *timer, UniverseArray *universes)
     }
 }
 
+/*********************************************************************
+ * Load & Save
+ *********************************************************************/
+
+bool AudioTriggerFactory::loadXML(const QDomElement &root)
+{
+    qDebug() << Q_FUNC_INFO;
+
+    if (root.tagName() != KXMLQLCAudioTriggerFactory)
+    {
+        qWarning() << Q_FUNC_INFO << "Audio Trigger Factory node not found";
+        return false;
+    }
+
+    if (root.hasAttribute(KXMLQLCATFBarsNumber))
+    {
+        int barsNumber = root.attribute(KXMLQLCATFBarsNumber).toInt();
+        setSpectrumBarsNumber(barsNumber);
+    }
+
+    QDomNode node = root.firstChild();
+    while (node.isNull() == false)
+    {
+        QDomElement tag = node.toElement();
+        if (tag.tagName() == KXMLQLCVolumeBar)
+        {
+            m_volumeBar->loadXML(tag);
+            if (m_volumeBar->m_type == AudioBar::FunctionBar)
+            {
+                if (tag.hasAttribute(KXMLQLCAudioBarFunction))
+                {
+                    quint32 fid = tag.attribute(KXMLQLCAudioBarFunction).toUInt();
+                    Function *func = m_doc->function(fid);
+                    if (func != NULL)
+                        m_volumeBar->m_function = func;
+                }
+            }
+        }
+        else if (tag.tagName() == KXMLQLCSpectrumBar)
+        {
+            if (tag.hasAttribute(KXMLQLCAudioBarIndex))
+            {
+                int idx = tag.attribute(KXMLQLCAudioBarIndex).toInt();
+                if (idx >= 0 && idx < m_spectrumBars.count())
+                {
+                    m_spectrumBars[idx]->loadXML(tag);
+                    if (m_spectrumBars[idx]->m_type == AudioBar::FunctionBar)
+                    {
+                        if (tag.hasAttribute(KXMLQLCAudioBarFunction))
+                        {
+                            quint32 fid = tag.attribute(KXMLQLCAudioBarFunction).toUInt();
+                            Function *func = m_doc->function(fid);
+                            if (func != NULL)
+                                m_spectrumBars[idx]->m_function = func;
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            qWarning() << Q_FUNC_INFO << "Unrecognized Audio Triggers Factory node:" << tag.tagName();
+        }
+
+        node = node.nextSibling();
+    }
+
+    return true;
+}
+
+bool AudioTriggerFactory::saveXML(QDomDocument* doc, QDomElement* wksp_root)
+{
+    Q_ASSERT(doc != NULL);
+    Q_ASSERT(wksp_root != NULL);
+
+    qDebug() << Q_FUNC_INFO;
+
+    /* Lookup for any assigned bar */
+    bool hasAssignment = false;
+    if (m_volumeBar->m_type != AudioBar::None)
+        hasAssignment = true;
+    else
+    {
+        foreach(AudioBar *bar, m_spectrumBars)
+        {
+            if (bar->m_type != AudioBar::None)
+            {
+                hasAssignment = true;
+                break;
+            }
+        }
+    }
+
+    if (hasAssignment == false)
+        return false;
+
+    qDebug() << "hasAssignment";
+
+    /* Audio Trigger Factory entry */
+    QDomElement atf_root = doc->createElement(KXMLQLCAudioTriggerFactory);
+    atf_root.setAttribute(KXMLQLCATFBarsNumber, m_spectrumBars.count());
+    wksp_root->appendChild(atf_root);
+
+    if (m_volumeBar->m_type != AudioBar::None)
+    {
+        m_volumeBar->saveXML(doc, &atf_root, KXMLQLCVolumeBar, 1000);
+    }
+    int idx = 0;
+    foreach (AudioBar *bar, m_spectrumBars)
+    {
+        if (bar->m_type != AudioBar::None)
+            bar->saveXML(doc, &atf_root, KXMLQLCSpectrumBar, idx);
+        idx++;
+    }
+
+    return true;
+}
+
 /************************************************************************
  * AudioBar class methods
  ************************************************************************/
@@ -323,4 +465,80 @@ void AudioBar::debugInfo()
     qDebug() << "[AudioBar] " << m_name;
     qDebug() << "   type:" << m_type << ", value:" << m_value;
 
+}
+
+bool AudioBar::loadXML(const QDomElement &root)
+{
+    if (root.hasAttribute(KXMLQLCAudioBarName))
+        m_name = root.attribute(KXMLQLCAudioBarName);
+
+    if (root.hasAttribute(KXMLQLCAudioBarType))
+    {
+        m_type = root.attribute(KXMLQLCAudioBarType).toInt();
+
+        if (m_type == AudioBar::DMXBar)
+        {
+            QDomNode node = root.firstChild();
+            if (node.isNull() == false)
+            {
+                QDomElement tag = node.toElement();
+                if (tag.tagName() == KXMLQLCAudioBarDMXChannels)
+                {
+                    QString dmxValues = tag.text();
+                    if (dmxValues.isEmpty() == false)
+                    {
+                        m_dmxChannels.clear();
+                        QStringList varray = dmxValues.split(",");
+                        for (int i = 0; i < varray.count(); i+=2)
+                        {
+                            m_dmxChannels.append(SceneValue(QString(varray.at(i)).toUInt(),
+                                                         QString(varray.at(i + 1)).toUInt(), 0));
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return true;
+}
+
+bool AudioBar::saveXML(QDomDocument *doc, QDomElement *atf_root, QString tagName, int index)
+{
+    Q_ASSERT(doc != NULL);
+    Q_ASSERT(atf_root != NULL);
+
+    qDebug() << Q_FUNC_INFO;
+
+    QDomElement ab_tag = doc->createElement(tagName);
+    ab_tag.setAttribute(KXMLQLCAudioBarName, m_name);
+    ab_tag.setAttribute(KXMLQLCAudioBarType, m_type);
+    ab_tag.setAttribute(KXMLQLCAudioBarIndex, index);
+    if (m_type == AudioBar::DMXBar && m_dmxChannels.count() > 0)
+    {
+        QDomElement dmx_tag = doc->createElement(KXMLQLCAudioBarDMXChannels);
+        QString chans;
+        foreach (SceneValue scv, m_dmxChannels)
+        {
+            if (chans.isEmpty() == false)
+                chans.append(",");
+            chans.append(QString("%1,%2").arg(scv.fxi).arg(scv.channel));
+        }
+        if (chans.isEmpty() == false)
+        {
+            QDomText text = doc->createTextNode(chans);
+            dmx_tag.appendChild(text);
+        }
+
+        ab_tag.appendChild(dmx_tag);
+    }
+    else if (m_type == AudioBar::FunctionBar && m_function != NULL)
+        ab_tag.setAttribute(KXMLQLCAudioBarFunction, m_function->id());
+
+    else if (m_type == AudioBar::VCWidgetBar)
+    {
+
+    }
+    atf_root->appendChild(ab_tag);
+
+    return true;
 }

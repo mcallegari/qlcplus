@@ -33,6 +33,8 @@
 #include "vcwidget.h"
 #include "doc.h"
 
+#define KXMLQLCAudioTriggerFactory "AudioTriggerFactory"
+
 class AudioCapture;
 
 class AudioBar
@@ -66,6 +68,12 @@ public:
 
     void debugInfo();
 
+    /** Load properties and contents from an XML tree */
+    bool loadXML(const QDomElement& root);
+
+    /** Save properties and contents to an XML document */
+    bool saveXML(QDomDocument* doc, QDomElement* atf_root, QString tagName, int index);
+
 public:
     QString m_name;
     int m_type;
@@ -92,10 +100,16 @@ public:
     explicit AudioTriggerFactory(Doc* doc, QWidget *parent = 0);
     ~AudioTriggerFactory();
 
+    /** Get the singleton instance */
+    static AudioTriggerFactory* instance();
+
     AudioBar *getSpectrumBar(int index);
     void setSpectrumBarsNumber(int num);
     void setSpectrumBarType(int index, int type);
     
+private:
+    static AudioTriggerFactory* s_instance;
+
 protected slots:
     void slotEnableCapture(bool enable);
     void slotDisplaySpectrum(double *spectrumBands, double maxMagnitude, quint32 power);
@@ -115,6 +129,16 @@ private:
 public:
     /** @reimpl */
     void writeDMX(MasterTimer* timer, UniverseArray* universes);
+
+    /*********************************************************************
+     * Load & Save
+     *********************************************************************/
+public:
+    /** Load properties and contents from an XML tree */
+    bool loadXML(const QDomElement& root);
+
+    /** Save properties and contents to an XML document */
+    bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
 };
 
 #endif // AUDIOTRIGGERFACTORY_H
