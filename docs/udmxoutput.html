@@ -37,37 +37,8 @@ This device is not yet supported on Windows.
 It is possible to change the DMX frame frequency for all uDMX devices with a
 hidden settings key on each platform. The key tells QLC+ how many times each DMX frame (512 channels)
 should be sent to the universe per second. A value of "30" means 30 times per second (30Hz).
+Please refer to the <A HREF="file:parameterstuning.html#uDMX">Manual parameters tuning</A> uDMX section
 </P>
-
-<H2>3.1 Linux</H2>
-<UL>
- <LI>Open gedit, kedit, nano, vim or some other PLAIN text editor</LI>
- <LI>Open the following file from your home directory: ".config/qlcplus/Q Light Controller Plus.conf"
- <LI>Place the following text to the very end of the file (and replace 30 with the value you want):</LI>
-</UL>
-<PRE>
-    [udmx]
-    frequency=30
-</PRE>
-
-<H2>3.2 Mac OS X</H2>
-<UL>
- <LI>Install <B>TextWrangler</B> from Mac App Store, it's completely free.</LI>
- <LI>Open the following file with TextWrangler from your home directory: "Library/Preferences/net.sf.Q Light Controller Plus.plist".</LI>
- <LI>Scroll to the very bottom of the file, just above the last "&lt;/dict&gt;" row and put the following text there (replace 30 with the frequency you want):</LI>
-</UL>
-<PRE>
-    &lt;key&gt;udmx/frequency&lt;/key&gt;
-    &lt;string&gt;30&lt;/string&gt;
-</PRE>
-
-<H2>3.3 Windows</H2>
-<UL>
- <LI>Open the Windows Registry Editor</LI>
- <LI>Navigate to HKEY_CURRENT_USER/Software/qlc.sf.net/Q Light Controller Plus</LI>
- <LI>Create a new group and name it "udmx"</LI>
- <LI>Create a new decimal integer key "frequency" and set its value to the desired DMX frame frequency</LI>
-</UL>
 
 </BODY>
 </HTML>

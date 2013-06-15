@@ -75,7 +75,7 @@ private:
 
 private:
     /** The timer tick frequency in Hertz */
-    static const uint s_frequency;
+    static uint s_frequency;
 
     /*********************************************************************
      * Functions

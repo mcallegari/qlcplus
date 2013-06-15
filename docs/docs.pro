@@ -38,8 +38,8 @@ docs.files = \
              modeeditor.html \
              olaplugin.html \
              oscplugin.html \
+             parameterstuning.html \
              peperonioutput.html \
-             resetconfiguration.html \
              rgbmatrixeditor.html \
              rgbscriptapi.html \
              sceneeditor.html \
