@@ -39,7 +39,7 @@ class AudioBar
 {
 public:
     /** Normal constructor */
-    AudioBar(int t, uchar v);
+    AudioBar(int t = 0, uchar v = 0);
 
     /** Destructor */
     ~AudioBar() { }
@@ -52,6 +52,7 @@ public:
         VCWidgetBar
     };
 
+    AudioBar *createCopy();
     void setName(QString nme);
     void setMinThreshold(uchar value);
     void setMaxThreshold(uchar value);

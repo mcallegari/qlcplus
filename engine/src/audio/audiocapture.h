@@ -26,8 +26,9 @@
 #include <QThread>
 #include <QMutex>
 
-#define FREQ_SUBBANDS_MAX_NUMBER    16
-#define SPECTRUM_MAX_FREQUENCY      5000
+#define FREQ_SUBBANDS_MAX_NUMBER        32
+#define FREQ_SUBBANDS_DEFAULT_NUMBER    16
+#define SPECTRUM_MAX_FREQUENCY          5000
 
 class AudioCapture : public QThread
 {

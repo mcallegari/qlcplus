@@ -37,7 +37,7 @@ AudioCapture::AudioCapture (QObject* parent)
     , m_userStop(true)
     , m_pause(false)
 {
-    m_subBandsNumber = FREQ_SUBBANDS_MAX_NUMBER;
+    m_subBandsNumber = FREQ_SUBBANDS_DEFAULT_NUMBER;
 }
 
 AudioCapture::~AudioCapture()

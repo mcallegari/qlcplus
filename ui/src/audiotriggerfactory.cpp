@@ -101,7 +101,6 @@ void AudioTriggerFactory::setSpectrumBarsNumber(int num)
     }
     if (m_inputCapture != NULL)
         m_inputCapture->setBandsNumber(num);
-    m_spectrum->setBarsNumber(num);
 }
 
 void AudioTriggerFactory::setSpectrumBarType(int index, int type)
@@ -154,11 +153,25 @@ void AudioTriggerFactory::slotConfiguration()
 {
     m_inputCapture->stop();
     m_doc->masterTimer()->unregisterDMXSource(this);
-    AudioTriggersConfiguration atc(this, m_doc, m_inputCapture);
-    if (atc.exec() == QDialog::Accepted)
-    {
 
+    // make a backup copy of the current bars
+    AudioBar *tmpVolume = m_volumeBar->createCopy();
+    QList <AudioBar *> tmpSpectrumBars;
+    foreach(AudioBar *bar, m_spectrumBars)
+        tmpSpectrumBars.append(bar->createCopy());
+
+    AudioTriggersConfiguration atc(this, m_doc, m_inputCapture);
+    if (atc.exec() == QDialog::Rejected)
+    {
+        // restore the previous bars backup
+        delete m_volumeBar;
+        m_volumeBar = tmpVolume;
+        m_spectrumBars.clear();
+        foreach(AudioBar *bar, tmpSpectrumBars)
+            m_spectrumBars.append(bar);
     }
+    m_spectrum->setBarsNumber(m_spectrumBars.count());
+    m_inputCapture->setBandsNumber(m_spectrumBars.count());
     if (m_volumeBar->m_type == AudioBar::DMXBar)
         m_doc->masterTimer()->registerDMXSource(this);
     else
@@ -208,6 +221,22 @@ AudioBar::AudioBar(int t, uchar v)
     m_widget = NULL;
     m_minThreshold = 51; // 20%
     m_maxThreshold = 204; // 80%
+}
+
+AudioBar *AudioBar::createCopy()
+{
+    AudioBar *copy = new AudioBar();
+    copy->m_type = m_type;
+    copy->m_value = m_value;
+    copy->m_name = m_name;
+    copy->m_dmxChannels = m_dmxChannels;
+    copy->m_absDmxChannels = m_absDmxChannels;
+    copy->m_function = m_function;
+    copy->m_widget = m_widget;
+    copy->m_minThreshold = m_minThreshold;
+    copy->m_maxThreshold = m_maxThreshold;
+
+    return copy;
 }
 
 void AudioBar::setName(QString nme)

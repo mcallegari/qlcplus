@@ -1,4 +1,4 @@
-qlcplus (4.4.0) unstable; urgency=low
+qlcplus (4.4.0.beta1) unstable; urgency=low
 
   * NEW: Shows can now be started at any position in time
   * NEW: Audio files can now be added from Function Manager
