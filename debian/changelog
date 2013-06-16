@@ -1,14 +1,13 @@
 qlcplus (4.4.0.beta1) unstable; urgency=low
 
   * NEW: Shows can now be started at any position in time
-  * NEW: Audio files can now be added from Function Manager
+  * NEW: Audio files can now be added and inspected from Function Manager. They can also be added to Chasers, to create Audio Cues
   * NEW: In Scene Editor, fixture channels can be selected (CTRL+Click) for advanced copy/paste
-  * NEW; Audio input support. It is now possible to associate DMX channels, functions or VC widgets to 
-    audio volume and spectrum bars
-  * NEW: VC Cue list crossfade functionality. It is now possible to open a side panel with two sliders
-    to manually control the transition between two chaser steps
+  * NEW; Audio input support. It is now possible to associate DMX channels, functions or VC widgets to audio volume and spectrum bars
+  * NEW: VC Cue list crossfade functionality. It is now possible to open a side panel with two sliders to manually control the transition between two chaser steps
   * Scene Editor now uses global clipboard too, so values can be copied from a Scene to another
   * Copy and paste is now allowed in "all fixtures view" mode too
+  * Project loading speed improvement. Should be much faster on projects with lot of fixtures
   * Fixed regression of Chaser Editor paste operation, causing a major drop of performances
   * Fixed regression introduced with the hold parameter, causing "infinite" value wrong behaviour
   * Fixed 'hold' setting changed from a speed dial for RGBMatrix, EFX and Simple Desk Playback Cue
@@ -18,7 +17,7 @@ qlcplus (4.4.0.beta1) unstable; urgency=low
   * Scene Editor now remembers the fixtures view mode (not saved into project)
   * Fixed QLC+ 4.0.0 regression causing Function Manager to reset the tree state on show/hide
   * Fixed ArtNet input never reaching zero value (thanks to Jano Svitok)
-  * Project loading speed improvement. Should be much faster on projects with lot of fixtures
+  * Added Sequences/Audio creation overlapping check on Show Manager
   * Added fixture: American DJ Mega Bar 50RGB (thanks to George Qualley)
   * Added fixture: SGM Giotto Spot 400 CMY (thanks to Willy)
   * Added fixture: PixelRANGE PixelPar 44 (thanks to bwerst)
