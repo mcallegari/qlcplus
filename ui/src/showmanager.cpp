@@ -515,6 +515,13 @@ void ShowManager::slotAddTrack()
 
 void ShowManager::slotAddSequence()
 {
+    // Overlapping check
+    if (checkOverlapping(m_showview->getTimeFromCursor(), 1000) == true)
+    {
+        QMessageBox::warning(this, tr("Overlapping error"), tr("Overlapping not allowed. Operation cancelled."));
+        return;
+    }
+
     Function* f = new Chaser(m_doc);
     if (m_doc->addFunction(f) == true)
     {
@@ -589,6 +596,14 @@ void ShowManager::slotAddAudio()
     if (audio->setSourceFileName(fn) == false)
     {
         QMessageBox::warning(this, tr("Unsupported audio file"), tr("This audio file cannot be played with QLC+. Sorry."));
+        delete f;
+        return;
+    }
+    // Overlapping check
+    if (checkOverlapping(m_showview->getTimeFromCursor(), audio->getDuration()) == true)
+    {
+        QMessageBox::warning(this, tr("Overlapping error"), tr("Overlapping not allowed. Operation cancelled."));
+        delete f;
         return;
     }
     if (m_doc->addFunction(f) == true)

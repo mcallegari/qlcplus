@@ -87,6 +87,8 @@ Audio::~Audio()
         m_audio_out->stop();
         delete m_audio_out;
     }
+    if (m_decoder != NULL)
+        delete m_decoder;
 }
 
 /*****************************************************************************
@@ -174,7 +176,10 @@ bool Audio::setSourceFileName(QString filename)
     {
         // unload previous source
         if (m_decoder != NULL)
+        {
             delete m_decoder;
+            m_decoder = NULL;
+        }
     }
 
 #ifdef QT_PHONON_LIB
@@ -202,7 +207,10 @@ bool Audio::setSourceFileName(QString filename)
 #ifdef HAS_LIBSNDFILE
     m_decoder = new AudioDecoderSndFile(m_sourceFileName);
     if (m_decoder->initialize() == false)
+    {
         delete m_decoder;
+        m_decoder = NULL;
+    }
     else
     {
         m_audioDuration = m_decoder->totalTime();
@@ -212,7 +220,10 @@ bool Audio::setSourceFileName(QString filename)
 #ifdef HAS_LIBMAD
     m_decoder = new AudioDecoderMAD(m_sourceFileName);
     if (m_decoder->initialize() == false)
+    {
         delete m_decoder;
+        m_decoder = NULL;
+    }
     else
     {
         m_audioDuration = m_decoder->totalTime();
