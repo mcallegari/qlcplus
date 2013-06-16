@@ -18,6 +18,7 @@ qlcplus (4.4.0.beta1) unstable; urgency=low
   * Fixed QLC+ 4.0.0 regression causing Function Manager to reset the tree state on show/hide
   * Fixed ArtNet input never reaching zero value (thanks to Jano Svitok)
   * Added Sequences/Audio creation overlapping check on Show Manager
+  * Audio functions now support volume adjustment. Not yet on Chasers though.
   * Added fixture: American DJ Mega Bar 50RGB (thanks to George Qualley)
   * Added fixture: SGM Giotto Spot 400 CMY (thanks to Willy)
   * Added fixture: PixelRANGE PixelPar 44 (thanks to bwerst)

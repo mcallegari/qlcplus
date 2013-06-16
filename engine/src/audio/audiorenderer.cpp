@@ -22,11 +22,13 @@
 #include <QDebug>
 
 #include "audiorenderer.h"
+#include "qlcmacros.h"
 
 AudioRenderer::AudioRenderer (QObject* parent)
     : QThread (parent)
     , m_userStop(true)
     , m_pause(false)
+    , m_intensity(1.0)
     , audioDataRead(0)
     , pendingAudioBytes(0)
 {
@@ -37,11 +39,17 @@ void AudioRenderer::setDecoder(AudioDecoder *adec)
     m_adec = adec;
 }
 
+void AudioRenderer::adjustIntensity(qreal fraction)
+{
+    m_intensity = CLAMP(fraction, 0.0, 1.0);
+}
+
 void AudioRenderer::stop()
 {
     m_userStop = true;
     while (this->isRunning())
         usleep(10000);
+    m_intensity = 1.0;
 }
 
 void AudioRenderer::run()
@@ -63,6 +71,11 @@ void AudioRenderer::run()
             {
                 m_mutex.unlock();
                 return;
+            }
+            if (m_intensity != 1.0)
+            {
+                for (int i = 0; i < audioDataRead; i++)
+                    audioData[i] = (unsigned char)((char)audioData[i] * m_intensity);
             }
             audioDataWritten = writeAudio(audioData, audioDataRead);
             if (audioDataWritten < audioDataRead)

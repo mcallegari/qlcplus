@@ -77,6 +77,8 @@ public:
      */
     virtual void resume() = 0;
 
+    void adjustIntensity(qreal fraction);
+
     /*********************************************************************
      * Thread functions
      *********************************************************************/
@@ -88,6 +90,7 @@ public:
 private:
 
     bool m_userStop, m_pause;
+    qreal m_intensity;
 
 protected:
     /*!

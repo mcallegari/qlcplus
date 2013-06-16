@@ -243,6 +243,13 @@ AudioDecoder* Audio::getAudioDecoder()
     return m_decoder;
 }
 
+void Audio::adjustIntensity(qreal fraction)
+{
+    if (m_audio_out != NULL)
+        m_audio_out->adjustIntensity(fraction);
+    Function::adjustIntensity(fraction);
+}
+
 void Audio::slotTotalTimeChanged(qint64)
 {
 #ifdef QT_PHONON_LIB
