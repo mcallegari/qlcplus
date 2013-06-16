@@ -17,6 +17,8 @@ qlcplus (4.4.0.beta1) unstable; urgency=low
   * Scene Editor now remembers the fixtures view mode (not saved into project)
   * Fixed QLC+ 4.0.0 regression causing Function Manager to reset the tree state on show/hide
   * Fixed ArtNet input never reaching zero value (thanks to Jano Svitok)
+  * Fixed MIDI feedback corrupting non zero channels (thanks to Jano Svitok)
+  * Fixed EFX editor start offset overflow (thanks to Jano Svitok)
   * Added Sequences/Audio creation overlapping check on Show Manager
   * Audio functions now support volume adjustment. Not yet on Chasers though.
   * Added fixture: American DJ Mega Bar 50RGB (thanks to George Qualley)
