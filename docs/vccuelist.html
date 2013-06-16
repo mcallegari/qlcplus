@@ -133,12 +133,8 @@ Four buttons are displayed at the bottom of the Cue List widget:<br>
 
 <TABLE BORDER="1">
  <TR>
-  <TD><IMG src="qrc:/player_play.png"></TD>
-  <TD>Activate the selected action in the Cue List</TD>
- </TR>
- <TR>
-  <TD><IMG src="qrc:/player_stop.png"></TD>
-  <TD>The currently running action in the Cue List will be interrupted</TD>
+  <TD><IMG src="qrc:/player_play.png"><IMG src="qrc:/player_stop.png"></TD>
+  <TD>Start/stop the selected action in the Cue List</TD>
  </TR>
  <TR>
   <TD><IMG src="qrc:/back.png"></TD>
@@ -149,6 +145,21 @@ Four buttons are displayed at the bottom of the Cue List widget:<br>
   <TD><IMG src="qrc:/forward.png"></TD>
   <TD>The next action in the Cue List will be activated. 
   When reaching the bottom, the next action will be the first of the Cue List</TD>
+ </TR>
+ <TR>
+  <TD><IMG src="qrc:/slider.png"></TD>
+  <TD>When clicked, this button will open/close a side panel showing two sliders.<br>
+  Each slider is connected to an action and to understand their meaning we'll call them 
+  "primary" and "secondary". The label on the bottom will show the corresponding
+  color and number of the running action.<br>
+  The checkbox on the top will link the sliders together for a linear transition<br>
+  When the Cue list is running the sliders will control the intensity of the 
+  associated actions, overriding their Fade In speed, to allow manual control
+  of the transition between two actions.<br>
+  When the primary slider will reach zero value, the secondary slider will turn to blue,
+  to indicate the action has been stopped and the Cue list moved to the next action.
+  At this point the secondary slider becomes primary and what was primary becomes secondary.<br>
+  In this way it is possible to manually crossfade two sequential actions.</TD>
  </TR>
 </TABLE>
 
