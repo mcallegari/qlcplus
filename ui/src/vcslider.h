@@ -380,6 +380,8 @@ protected:
      * Slider
      *********************************************************************/
 public:
+    void setSliderValue(uchar value);
+
     int sliderValue() const;
 
 private slots:
@@ -435,7 +437,7 @@ protected:
     QTime* m_time;
 
     /*********************************************************************
-     * Click & Go
+     * Click & Go Button
      *********************************************************************/
 public:
 

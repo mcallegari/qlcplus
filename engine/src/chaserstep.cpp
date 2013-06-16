@@ -143,9 +143,19 @@ bool ChaserStep::loadXML(const QDomElement& root, int& stepNumber)
     }
 
     if (holdFound == true)
-        duration = fadeIn + hold + fadeOut;
+    {
+        if ((int)hold < 0)
+            duration = hold;
+        else
+            duration = fadeIn + hold + fadeOut;
+    }
     else
-        hold = duration - fadeIn - fadeOut;
+    {
+        if ((int)duration < 0)
+            hold = duration;
+        else
+            hold = duration - fadeIn - fadeOut;
+    }
 
     return true;
 }

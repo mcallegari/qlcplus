@@ -139,8 +139,8 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
     }
     else
     {
-        m_cuelistWspin->setValue(200);
-        m_cuelistHspin->setValue(200);
+        m_cuelistWspin->setValue(300);
+        m_cuelistHspin->setValue(220);
     }
     // ************************ FRAME **************************
     var = settings.value(SETTINGS_FRAME_SIZE);

@@ -299,7 +299,7 @@ void Show::preRun(MasterTimer* timer)
         delete m_runner;
     }
 
-    m_runner = new ShowRunner(doc(), this->id());
+    m_runner = new ShowRunner(doc(), this->id(), elapsed());
     connect(m_runner, SIGNAL(timeChanged(quint32)), this, SIGNAL(timeChanged(quint32)));
     connect(m_runner, SIGNAL(showFinished()), this, SIGNAL(showFinished()));
     m_runner->start();

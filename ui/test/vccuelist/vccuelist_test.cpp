@@ -29,7 +29,7 @@
 #define private public
 #include "virtualconsole.h"
 #include "genericfader.h"
-#include "chaserrunner.h"
+#include "cuelistrunner.h"
 #include "mastertimer.h"
 #include "vccuelist.h"
 #include "vcwidget.h"
@@ -114,7 +114,7 @@ void VCCueList_Test::initial()
     QCOMPARE(cl.objectName(), QString("VCCueList"));
     QCOMPARE(cl.frameStyle(), QFrame::Panel | QFrame::Sunken);
     QCOMPARE(cl.caption(), tr("Cue list"));
-    QCOMPARE(cl.size(), QSize(200, 200));
+    QCOMPARE(cl.size(), QSize(300, 220));
     QVERIFY(cl.m_runner == NULL);
     QVERIFY(cl.m_tree != NULL);
     QCOMPARE(cl.m_tree->isEnabled(), false);
@@ -802,7 +802,7 @@ void VCCueList_Test::keyboardNextPrevious()
     cl.slotKeyPressed(QKeySequence(keySequenceD));
     timer->timerTick();
     QVERIFY(cl.m_runner == NULL);
-    QCOMPARE(cl.m_tree->indexOfTopLevelItem(cl.m_tree->currentItem()), -1);
+    QCOMPARE(cl.m_tree->indexOfTopLevelItem(cl.m_tree->currentItem()), 0);
 }
 
 void VCCueList_Test::input()

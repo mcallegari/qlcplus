@@ -81,6 +81,36 @@ protected:
     Doc* m_doc;
 
     /*********************************************************************
+     * Type
+     *********************************************************************/
+public:
+    enum WidgetType
+    {
+        UnknownWidget,
+        ButtonWidget,
+        SliderWidget,
+        XYPadWidget,
+        FrameWidget,
+        SoloFrameWidget,
+        SpeedDialWidget,
+        CueListWidget,
+        LabelWidget
+    };
+
+public:
+    /** Set the widget's type */
+    void setType(int type);
+
+    /** Get the widget's type */
+    int type();
+
+    static QString typeToString(int type);
+    static QIcon typeToIcon(int type);
+
+protected:
+    int m_type;
+
+    /*********************************************************************
      * Clipboard
      *********************************************************************/
 public:

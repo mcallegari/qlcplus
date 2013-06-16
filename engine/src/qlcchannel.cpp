@@ -263,7 +263,7 @@ QIcon QLCChannel::getIconFromGroup(QLCChannel::Group grp) const
         case Shutter: return QIcon(":/shutter.png"); break;
         case Speed: return QIcon(":/speed.png"); break;
         case Prism: return QIcon(":/prism.png"); break;
-        case Maintenance: return QIcon(":/maintenance.png"); break;
+        case Maintenance: return QIcon(":/configure.png"); break;
         case Intensity: return getIntensityIcon(); break;
         case Beam: return QIcon(":/beam.png"); break;
         default:

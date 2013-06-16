@@ -3,6 +3,7 @@
         <file alias="add_dump.png">../../gfx/add_dump.png</file>
         <file alias="attach.png">../../gfx/attach.png</file>
         <file alias="audio.png">../../gfx/audio.png</file>
+        <file alias="audioinput.png">../../gfx/audioinput.png</file>
         <file alias="back.png">../../gfx/back.png</file>
         <file alias="beam.png">../../gfx/beam.png</file>
         <file alias="blackout.png">../../gfx/blackout.png</file>
@@ -82,7 +83,6 @@
         <file alias="key_bindings.png">../../gfx/key_bindings.png</file>
         <file alias="knob.png">../../gfx/knob.png</file>
         <file alias="label.png">../../gfx/label.png</file>
-        <file alias="maintenance.png">../../gfx/maintenance.png</file>
         <file alias="monitor.png">../../gfx/monitor.png</file>
         <file alias="movinghead.png">../../gfx/movinghead.png</file>
         <file alias="operate.png">../../gfx/operate.png</file>

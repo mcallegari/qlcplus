@@ -34,7 +34,7 @@
 #include "scene.h"
 #include "doc.h"
 
-ChaserRunner::ChaserRunner(const Doc* doc, const Chaser* chaser)
+ChaserRunner::ChaserRunner(const Doc* doc, const Chaser* chaser, quint32 startTime)
     : QObject(NULL)
     , m_doc(doc)
     , m_chaser(chaser)
@@ -43,6 +43,7 @@ ChaserRunner::ChaserRunner(const Doc* doc, const Chaser* chaser)
     , m_direction(Function::Forward)
     , m_currentFunction(NULL)
     , m_elapsed(0)
+    , m_startOffset(0)
     , m_next(false)
     , m_previous(false)
     , m_currentStep(0)
@@ -51,6 +52,24 @@ ChaserRunner::ChaserRunner(const Doc* doc, const Chaser* chaser)
     , m_intensity(1.0)
 {
     Q_ASSERT(chaser != NULL);
+
+    if (chaser->isSequence() == true)
+    {
+        qDebug() << "[ChaserRunner] startTime:" << startTime;
+        int idx = 0;
+        quint32 stepsTime = 0;
+        foreach(ChaserStep step, chaser->steps())
+        {
+            if (startTime < stepsTime + step.duration)
+            {
+                m_newCurrent = idx;
+                m_startOffset = startTime - stepsTime;
+                break;
+            }
+            idx++;
+            stepsTime += step.duration;
+        }
+    }
 
     if (m_chaser->direction() == Function::Backward)
         m_currentStep = m_chaser->steps().size() - 1;
@@ -262,14 +281,20 @@ bool ChaserRunner::write(MasterTimer* timer, UniverseArray* universes)
 
     if (m_newCurrent != -1)
     {
+        qDebug() << "Starting from step" << m_currentStep << "@ offset" << m_startOffset;
+
         // Manually-set current step
         m_currentStep = m_newCurrent;
         m_newCurrent = -1;
 
         // No need to do roundcheck here, since manually-set steps are
         // always within m_chaser->steps() limits.
+        if (m_startOffset != 0)
+            m_elapsed = m_startOffset + MasterTimer::tick();
+        else
+            m_elapsed = MasterTimer::tick();
+        m_startOffset = 0;
 
-        m_elapsed = MasterTimer::tick();
         switchFunctions(timer);
         emit currentStepChanged(m_currentStep);
     }
@@ -405,24 +430,8 @@ void ChaserRunner::switchFunctions(MasterTimer* timer)
         if (m_chaser->isSequence())
         {
             Scene *s = qobject_cast<Scene*>(m_currentFunction);
-            qDebug() << Q_FUNC_INFO << "Current step #" << m_currentStep << " has values:" << step.values.count();
-            if (m_currentStep == 0)
-            {
-                for (int i = 0; i < step.values.count(); i++)
-                    s->setValue(step.values.at(i));
-            }
-            else
-            {
-                ChaserStep prevStep(m_chaser->steps().at(m_currentStep - 1));
-                qDebug() << Q_FUNC_INFO << "Previous step has values:" << prevStep.values.count();
-                for (int i = 0; i < step.values.count(); i++)
-                {
-                    SceneValue stepValue = step.values.at(i);
-                    SceneValue prevStepValue = prevStep.values.at(i);
-                    if (stepValue == prevStepValue && stepValue.value != prevStepValue.value)
-                        s->setValue(stepValue);
-                }
-            }
+            for (int i = 0; i < step.values.count(); i++)
+                s->setValue(step.values.at(i));
         }
 
         // Set intensity before starting the function. Otherwise the intensity
@@ -435,7 +444,7 @@ void ChaserRunner::switchFunctions(MasterTimer* timer)
         // the current chaser's duration would mean that only the first step is
         // run from the sub-chaser. If the subfunction is an RGBMatrix or EFX,
         // the step duration probably isb not the wanted subfunction speed, either
-        m_currentFunction->start(timer, true, currentFadeIn(), currentFadeOut());
+        m_currentFunction->start(timer, true, 0, currentFadeIn(), currentFadeOut());
     }
 
     m_roundTime->restart();

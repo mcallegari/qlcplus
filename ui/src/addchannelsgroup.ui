@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ChannelSelection</class>
- <widget class="QDialog" name="ChannelSelection">
+ <class>AddChannelsGroup</class>
+ <widget class="QDialog" name="AddChannelsGroup">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -15,9 +15,9 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QGridLayout">
+    <layout class="QGridLayout" name="gridGroupName">
      <item row="0" column="0">
-      <layout class="QHBoxLayout" name="_2">
+      <layout class="QHBoxLayout" name="hboxGroupName">
        <item>
         <widget class="QLabel" name="label">
          <property name="text">
@@ -58,6 +58,13 @@
        <string>Group</string>
       </property>
      </column>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="m_applyAllCheck">
+     <property name="text">
+      <string>Apply changes to fixtures of the same type</string>
+     </property>
     </widget>
    </item>
    <item>
@@ -156,7 +163,7 @@
   <connection>
    <sender>m_buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>ChannelSelection</receiver>
+   <receiver>AddChannelsGroup</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -172,7 +179,7 @@
   <connection>
    <sender>m_buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>ChannelSelection</receiver>
+   <receiver>AddChannelsGroup</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

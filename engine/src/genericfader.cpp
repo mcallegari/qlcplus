@@ -75,12 +75,13 @@ void GenericFader::write(UniverseArray* ua)
         FadeChannel& fc(it.next().value());
         QLCChannel::Group grp = fc.group(m_doc);
         quint32 addr = fc.address(m_doc);
+        bool canFade = fc.canFade(m_doc);
 
         // Calculate the next step
         uchar value = fc.nextStep(MasterTimer::tick());
 
         // Apply intensity to HTP channels
-        if (grp == QLCChannel::Intensity)
+        if (grp == QLCChannel::Intensity && canFade == true)
             value = fc.current(intensity());
 
         ua->write(addr, value, grp);

@@ -1,27 +1,59 @@
+qlcplus (4.4.0.beta1) unstable; urgency=low
+
+  * NEW: Shows can now be started at any position in time
+  * NEW: Audio files can now be added and inspected from Function Manager. They can also be added to Chasers, to create Audio Cues
+  * NEW: In Scene Editor, fixture channels can be selected (CTRL+Click) for advanced copy/paste
+  * NEW; Audio input support. It is now possible to associate DMX channels, functions or VC widgets to audio volume and spectrum bars
+  * NEW: VC Cue list crossfade functionality. It is now possible to open a side panel with two sliders to manually control the transition between two chaser steps
+  * Scene Editor now uses global clipboard too, so values can be copied from a Scene to another
+  * Copy and paste is now allowed in "all fixtures view" mode too
+  * Project loading speed improvement. Should be much faster on projects with lot of fixtures
+  * Fixed regression of Chaser Editor paste operation, causing a major drop of performances
+  * Fixed regression introduced with the hold parameter, causing "infinite" value wrong behaviour
+  * Fixed 'hold' setting changed from a speed dial for RGBMatrix, EFX and Simple Desk Playback Cue
+  * Fixed loading of empty sequence steps when all values are set to zero
+  * Chasers can now be started/tested from any step
+  * Virtual Console size is now taken into account when loading a project (including kiosk mode)
+  * Scene Editor now remembers the fixtures view mode (not saved into project)
+  * Fixed QLC+ 4.0.0 regression causing Function Manager to reset the tree state on show/hide
+  * Fixed ArtNet input never reaching zero value (thanks to Jano Svitok)
+  * Fixed MIDI feedback corrupting non zero channels (thanks to Jano Svitok)
+  * Fixed EFX editor start offset overflow (thanks to Jano Svitok)
+  * Added Sequences/Audio creation overlapping check on Show Manager
+  * Audio functions now support volume adjustment. Not yet on Chasers though.
+  * Added fixture: American DJ Mega Bar 50RGB (thanks to George Qualley)
+  * Added fixture: SGM Giotto Spot 400 CMY (thanks to Willy)
+  * Added fixture: PixelRANGE PixelPar 44 (thanks to bwerst)
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 20 June 2013 4:03:04 +0200
+
 qlcplus (4.3.3) stable; urgency=low
 
-  * NEW: Added a window to exclude the desired fixture channels from fade transitions
-  * NEW: Added global clipboard to copy & paste steps between Chasers. Show manager allows also to copy sequence and audio items between different Shows
-  * NEW: Added status "LED" to Virtual Console buttons
-  * NEW: It is now possible to set Virtual Console widgets default size and Speed Dial default value
+  * NEW: Added a window to exclude the desired fixture channels from fade transitions (purple icon)
+  * NEW: Added global clipboard to copy & paste steps between Chasers. Show manager allows also to copy tracks, sequence and audio items between different Shows
+  * NEW: It is now possible to set Virtual Console widgets default size, button status style and speed dial default value
   * NEW: Added Click And Go functionality for CMY fixtures
-  * NEW: Added list of recent project files (long press open icon to activate it)
-  * NEW: Added "Snap to Grid" functionality in Show manager
+  * NEW: Added list of recent project files (long press open icon to see it)
   * NEW: It is now possible to add notes to Chaser steps (either from Chaser Editor or Virtual Console Cue List)
+  * NEW: Added "Snap to Grid" functionality to Show manager
   * NEW: Added "Align to cursor" option to Sequences and Audio item in Show Manager
-  * NEW: Show time position when dragging a Show Manager object
-  * Fixed crash when changing a fixture address
+  * NEW: Show time position when dragging a Show Manager object  
+  * Gives more time to DMXking devices to respond to identification calls
+  * When adding an existing Scene into Show Manager, a 10seconds Sequence is now created by default with the Scene values
+  * Fixed crash when changing a fixture address or manufacturer
   * Fixed crash on Show Editor when displaying a deleted sequence
+  * Fixed Show Manager playback nasty bug preventing to play sequences/audio in the right order
   * Fixed Show Manager playback crash after deleting an audio track
   * Fixed enable/disable all channels of Scene Editor "all channels view" mode
   * Fixed Virtual Console buttons conflict between flash and manual on/off (thanks to Jano Svitok)
+  * Improved Click & Go preset widget to fit on the screen (thanks to Jano Svitok)
   * Added total Show duration in Show Editor
   * Added fixtures: American DJ 64B LED PRO, American DJ Profile Panel RGB
   * Added fixture: Chauvet Gyser RGB (thanks to George Qualley)
   * Added fixture: Martin MAC250 Entour (thanks to Jannik Dam Kehlet)
   * Added fixtures: American DJ Accu UFO, American DJ Double Phase, American DJ FREQ 16 Strobe, American DJ Quad Phase, American DJ Revo4 256 CH, Elation EVC MH LED (thanks to David Kuder)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 30 Apr 2013 12:12:42 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 27 Apr 2013 12:12:42 +0200
 
 qlcplus (4.3.2) stable; urgency=low
 

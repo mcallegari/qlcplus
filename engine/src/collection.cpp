@@ -263,7 +263,7 @@ void Collection::write(MasterTimer* timer, UniverseArray* universes)
             connect(function, SIGNAL(stopped(quint32)),
                     this, SLOT(slotChildStopped(quint32)));
 
-            function->start(timer, true, overrideFadeInSpeed(), overrideFadeOutSpeed(), overrideDuration());
+            function->start(timer, true, 0, overrideFadeInSpeed(), overrideFadeOutSpeed(), overrideDuration());
         }
         m_functionListMutex.unlock();
     }

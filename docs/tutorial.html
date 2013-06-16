@@ -205,9 +205,11 @@ Since we haven't yet created any, it's very much empty.
 <P>
 With the scene editor, you can create scene functions that basically contain
 values for a number of channels that relate to certain fixtures. On the left
-side of the dialog there is a list of fixtures used in the scene, which is
-empty (but not for long). On the right, there are two buttons for adding and
-removing fixtures to the scene.
+side of the editor there is a list of fixtures used in the scene, which is
+empty (but not for long). There are also some buttons to add/remove fixtures 
+and enable/disable all the selected fixtures channels.<br>
+On the right side of the editor the is a list of channel groups used in the 
+scene. This will not be used in this tutorial.
 </P>
 
 <P>
@@ -255,7 +257,7 @@ capabilities contain yet another sub-menu. Let's try setting a color.
 </P>
 
 <P>
-<B>Click the color <IMG SRC="qrc:/color.png" align="absmiddle"> button on
+<B>Click the color <IMG SRC="qrc:/colorwheel.png" align="absmiddle"> button on
 channel 3, then move your cursor to "Orange" and select "80" from the sub-menu
 by clicking on that value.</B>
 </P>
@@ -284,24 +286,28 @@ general page where we started with the scene editor.
 
 <P>
 You can set a nice name to the scene by writing it to the <u>Scene name</u>
-edit box. <B>Type: "<I>DJScan250 Orange Gobo 7</I>" there and click OK to
-save the scene and close the editor dialog.</B>
+edit box. <B>Type: "<I>DJScan250 Orange Gobo 7</I>" there.</B>
+</P>
+
+<P>
+Now we're going to set a Fade In time to the Scene, so that when we play it
+it will fade to the values we set in a given amount of time.<br>
+Click on the <IMG SRC="qrc:/speed.png" align="absmiddle"> icon from the Scene
+Editor toolbar. A tool will be displayed, allowing you to choose the Fade In and
+Fade Out times of the Scene. Let's change Fade In to 5 seconds. Either use the
+speed dial widget or manually write '5' on the second last text field where 0s
+is written.<br>
+Close the Fade tool by clicking again on <IMG SRC="qrc:/speed.png" align="absmiddle">.
 </P>
 
 <H2>Back in the function manager</h2>
 
 <P>
 You can now see that the function manager displays a function called "DJScan250
-Orange Gobo 7" with a speed bus "1: Fade". This bus is assigned by default to
-all newly-created scenes, but if you don't like it, you can change it with the
-help of the function manager.
-</P>
-
-<P>
+Orange Gobo 7".<br>
 If you click the right mouse button over a function item, you get the same menu
 functionalities that are available in the upper part of the function manager.
-You can add new functions from the <u>Manage</u> menu and edit the selected
-functions with <u>Edit</u> menu options. <B>But let's not edit this function
+You can add new functions or edit existing ones. <B>But let's not edit this function
 anymore.</B>
 </P>
 
@@ -333,14 +339,14 @@ make up some room but it's not necessary.
 
 <P>
 <B>Click the <IMG SRC="qrc:/virtualconsole.png" align="absmiddle"> virtual
-console button on the main toolbar to open the virtual console window.</B>
+console button on the main window to show the virtual console tab.</B>
 </P>
 
 <H2>Creating a button</H2>
 
 <P>
 At first, the virtual console is just an empty window without much to look at.
-There's a menu bar at the top of the window, with menus to <u>Add</u> new
+There's a toolbar at the top of the panel, with icons to <u>Add</u> new
 widgets, <u>Edit</u> for editing widget properties and <u>Tools</u> for various
 tools to control the virtual console behaviour. You can also click the right
 mouse button on any virtual console widget to access a menu that contains
@@ -348,8 +354,7 @@ most (but not all) of the options that are accessible thru the menu bar.
 </P>
 
 <P>
-<B>Click the <u>Add</u> menu on the menu bar and select
-<IMG SRC="qrc:/button.png" align="absmiddle"> <u>Button</u>.</B>
+<B>Click the <IMG SRC="qrc:/button.png" align="absmiddle"> icon to add a new <u>Button</u> widget.</B>
 </P>
 
 <P>
@@ -359,9 +364,9 @@ An empty button appears to the virtual console.
 <H2>Attaching a function to the button</H2>
 
 <P>
-<B>Right-click on the button and select
-<IMG SRC="qrc:/configure.png" align="absmiddle"> <u>Properties</u> to bring
-up the button's configuration dialog.</B>
+<B>Double click on the button or on the 
+<IMG SRC="qrc:/edit.png" align="absmiddle"> icon 
+to bring up the button's configuration dialog.</B>
 </P>
 
 <P>
@@ -402,9 +407,8 @@ the button a little bigger. But hey, let's change the button's color now.
 </P>
 
 <P>
-<B> Right-click the button again, drag your mouse over the <u>Background</u>
-sub-menu and select <IMG SRC="qrc:/color.png" align="absmiddle"> <u>Color</u>.
-Select an orange-tinted color from this dialog and click OK.</B>
+<B>Click on the button again, and then click on the <IMG SRC="qrc:/color.png" align="absmiddle"> 
+icon. Select an orange-tinted color from this dialog and click OK.</B>
 </P>
 
 <P>
@@ -427,16 +431,10 @@ color to black and foreground (text) color to white.</B>
 <H2>Seeing the results</H2>
 
 <P>
-<B>In order to see some fading happening, drag the <u>Fade</u> slider on the
-upper left side of the virtual console all the way down so that it displays
-"5.00s" (i.e. 5 seconds).</B>
-</P>
-
-<P>
 Since we haven't covered DMX output patching at all, you probably have a
-dummy output plugin assigned to all output universes and you can't get any
+no output plugin assigned to all output universes and you can't get any
 real DMX out from your computer. This is OK for now. If you're interested in
-output mapping details, refer to the <A HREF="howto-output-mapping.html">Output
+output mapping details, refer to the <A HREF="file:howto-output-mapping.html">Output
 mapping howto</A>.
 </P>
 
@@ -480,12 +478,14 @@ and then start the other function.
 <H2>Reference</H2>
 
 <P>
-The picture below shows pretty much what you should have achieved if you
+The pictures below show pretty much what you should have achieved if you
 followed this tutorial.
 </P>
 
 <P>
-<A HREF="tutorial.png"><IMG SRC="tutorial.png"></A>
+<A HREF="file:tutorial1_1.png"><IMG SRC="tutorial1_1.png"></A><br>
+<A HREF="file:tutorial1_2.png"><IMG SRC="tutorial1_2.png"></A><br>
+<A HREF="file:tutorial1_3.png"><IMG SRC="tutorial1_3.png"></A>
 </P>
 
 </BODY>

@@ -22,6 +22,8 @@
 #ifndef APPUTIL_H
 #define APPUTIL_H
 
+#include <QStyledItemDelegate>
+
 class QWidget;
 
 namespace AppUtil
@@ -47,6 +49,16 @@ namespace AppUtil
      * sliders as well as buttons that don't obey background color setting.
      */
     QStyle* saneStyle();
+};
+
+class NoEditDelegate: public QStyledItemDelegate
+{
+public:
+    NoEditDelegate(QObject* parent=0): QStyledItemDelegate(parent) {}
+    virtual QWidget* createEditor(QWidget *, const QStyleOptionViewItem &, const QModelIndex &) const
+    {
+        return 0;
+    }
 };
 
 #endif

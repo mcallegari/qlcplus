@@ -38,7 +38,7 @@
 
 static CRITICAL_SECTION  cs;
 static HWAVEOUT          dev                    = NULL;
-static unsigned int               ScheduledBlocks        = 0;
+static unsigned int      ScheduledBlocks        = 0;
 static int               PlayedWaveHeadersCount = 0;          // free index
 static WAVEHDR*          PlayedWaveHeaders [MAX_WAVEBLOCKS];
 
@@ -139,7 +139,6 @@ bool AudioRendererWaveOut::initialize(quint32 freq, int chan, AudioFormat format
 
     waveOutReset (dev);
     InitializeCriticalSection (&cs);
-    //configure(freq, chan, format);
 
     return true;
 }

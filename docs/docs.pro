@@ -4,9 +4,11 @@ TEMPLATE = subdirs
 
 docs.path = $$INSTALLROOT/$$DOCSDIR/html
 docs.files = \
-             artnetplugin.html \
              addeditfixtures.html \
+             addresstool.html \
              addvcbuttonmatrix.html \
+             artnetplugin.html \
+             audiotriggers.html \
              capabilityeditor.html \
              capabilitywizard.html \
              channeleditor.html \
@@ -16,8 +18,10 @@ docs.files = \
              commandlineparameters.html \
              concept.html \
              dmxdump.html \
+             dmxusbplugin.html \
              efxeditor.html \
-             enttecdmxusboutput.html \
+             efx-general.png \
+             efx-movement.png \
              fixturedefinitioneditor.html \
              fixtureeditor.html \
              fixturegroupeditor.html \
@@ -34,8 +38,8 @@ docs.files = \
              modeeditor.html \
              olaplugin.html \
              oscplugin.html \
+             parameterstuning.html \
              peperonioutput.html \
-             resetconfiguration.html \
              rgbmatrixeditor.html \
              rgbscriptapi.html \
              sceneeditor.html \
@@ -46,7 +50,9 @@ docs.files = \
              showmanager.html \
              simpledesk.html \
              tutorial.html \
-             tutorial.png \
+             tutorial1_1.png \
+             tutorial1_2.png \
+             tutorial1_3.png \
              udmxoutput.html \
              vcbutton.html \
              vcbuttonmatrix.html \

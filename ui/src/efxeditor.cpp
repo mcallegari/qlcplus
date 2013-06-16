@@ -454,6 +454,7 @@ void EFXEditor::updateStartOffsetColumn(QTreeWidgetItem* item, EFXFixture* ef)
         spin->setAutoFillBackground(true);
         spin->setRange(0, 359);
         spin->setValue(ef->startOffset());
+        spin->setSuffix(QChar(0x00b0)); // degree
         m_tree->setItemWidget(item, KColumnStartOffset, spin);
         spin->setProperty(PROPERTY_FIXTURE, (qulonglong) ef);
         connect(spin, SIGNAL(valueChanged(int)),
@@ -487,10 +488,13 @@ void EFXEditor::createSpeedDials()
     m_speedDials->show();
     m_speedDials->setFadeInSpeed(m_efx->fadeInSpeed());
     m_speedDials->setFadeOutSpeed(m_efx->fadeOutSpeed());
-    m_speedDials->setDuration(m_efx->duration());
+    if ((int)m_efx->duration() < 0)
+        m_speedDials->setDuration(m_efx->duration());
+    else
+        m_speedDials->setDuration(m_efx->duration() - m_efx->fadeInSpeed() - m_efx->fadeOutSpeed());
     connect(m_speedDials, SIGNAL(fadeInChanged(int)), this, SLOT(slotFadeInChanged(int)));
     connect(m_speedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotFadeOutChanged(int)));
-    connect(m_speedDials, SIGNAL(durationChanged(int)), this, SLOT(slotDurationChanged(int)));
+    connect(m_speedDials, SIGNAL(holdChanged(int)), this, SLOT(slotHoldChanged(int)));
     connect(m_speedDials, SIGNAL(durationTapped()), this, SLOT(slotDurationTapped()));
 }
 
@@ -535,7 +539,7 @@ void EFXEditor::slotFixtureStartOffsetChanged(int startOffset)
     Q_ASSERT(spin != NULL);
     EFXFixture* ef = (EFXFixture*) spin->property(PROPERTY_FIXTURE).toULongLong();
     Q_ASSERT(ef != NULL);
-    ef->setStartOffset(uchar(startOffset));
+    ef->setStartOffset(startOffset);
 
     // Restart the test after the latest intensity change, delayed
     m_testTimer.start();
@@ -737,9 +741,14 @@ void EFXEditor::slotFadeOutChanged(int ms)
     m_efx->setFadeOutSpeed(ms);
 }
 
-void EFXEditor::slotDurationChanged(int ms)
+void EFXEditor::slotHoldChanged(int ms)
 {
-    m_efx->setDuration(ms);
+    uint duration = 0;
+    if (ms < 0)
+        duration = ms;
+    else
+        duration = m_efx->fadeInSpeed() + ms + m_efx->fadeOutSpeed();
+    m_efx->setDuration(duration);
     redrawPreview();
 }
 

@@ -9,6 +9,7 @@ include(libmad-nametool.pri)
 include(libsndfile-nametool.pri)
 include(libportaudio-nametool.pri)
 include(liblo-nametool.pri)
+include(libfftw-nametool.pri)
 include(libqtgui-nametool.pri)
 include(libqtxml-nametool.pri)
 include(libqtcore-nametool.pri)
@@ -24,6 +25,7 @@ INSTALLS += LIBMAD LIBMAD_ID
 INSTALLS += LIBSNDFILE LIBSNDFILE_ID
 INSTALLS += LIBPORTAUDIO LIBPORTAUDIO_ID
 INSTALLS += LIBLO LIBLO_ID
+INSTALLS += LIBFFTW LIBFFTW_ID
 INSTALLS += LIBQTGUI QTMENU LIBQTGUI_ID
 INSTALLS += LIBQTXML LIBQTXML_ID
 INSTALLS += LIBQTCORE LIBQTCORE_ID
@@ -52,13 +54,15 @@ qtnametool.commands += && $$LIBUSB1_INSTALL_NAME_TOOL \
 qtnametool.commands += && $$LIBUSB1_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBUSB0_FILE
 
-# libqlcplusengine depends on libmad, libsndfile and libportaudio
+# libqlcplusengine depends on libmad, libsndfile, libportaudio and libfftw3
 qtnametool.commands += && $$LIBMAD_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBQLCENGINE_FILE
 qtnametool.commands += && $$LIBSNDFILE_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBQLCENGINE_FILE
 qtnametool.commands += && $$LIBPORTAUDIO_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBQLCENGINE_FILE
+qtnametool.commands += && $$LIBFFTW_INSTALL_NAME_TOOL \
+    $$INSTALLROOT/$$LIBSDIR/$$LIBQLCENGINE_FILE    
 
 # libsndfile depends on flac, libvorbis, libvorbisenc and libogg
 qtnametool.commands += && $$LIBOGG_INSTALL_NAME_TOOL \

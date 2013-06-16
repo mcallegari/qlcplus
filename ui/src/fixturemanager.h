@@ -68,6 +68,9 @@ public slots:
     /** Callback for Doc::fixtureRemoved() signals */
     void slotFixtureRemoved(quint32 id);
 
+    /** Callback for Doc::channelsGroupRemoved() signals */
+    void slotChannelsGroupRemoved(quint32 id);
+
     /** Callback that listens to mode change signals */
     void slotModeChanged(Doc::Mode mode);
 

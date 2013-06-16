@@ -23,6 +23,7 @@ RESOURCES    += qlcui.qrc
 
 # Sources
 HEADERS += aboutbox.h \
+           addchannelsgroup.h \
            addfixture.h \
            addresstool.h \
            addvcbuttonmatrix.h \
@@ -30,8 +31,11 @@ HEADERS += aboutbox.h \
            app.h \
            apputil.h \
            assignhotkey.h \
-           channelsconfiguration.h \
-           channelselection.h \
+           audioeditor.h \
+           audiotriggersconfiguration.h \
+           audiotriggerfactory.h \
+           audiotriggerwidget.h \
+           channelsselection.h \
            chasereditor.h \
            clickandgoslider.h \
            clickandgowidget.h \
@@ -92,6 +96,7 @@ HEADERS += aboutbox.h \
            vcspeeddialproperties.h \
            vcwidget.h \
            vcwidgetproperties.h \
+           vcwidgetselection.h \
            vcxypad.h \
            vcxypadarea.h \
            vcxypadfixture.h \
@@ -100,14 +105,17 @@ HEADERS += aboutbox.h \
            virtualconsole.h
 
 FORMS += aboutbox.ui \
+         addchannelsgroup.ui \
          addfixture.ui \
          addresstool.ui \
          addvcbuttonmatrix.ui \
          addvcslidermatrix.ui \
          assignhotkey.ui \
+         audioeditor.ui \
+         audiotriggersconfiguration.ui \
+         audiotriggerfactory.ui \
          chasereditor.ui \
-         channelsconfiguration.ui \
-         channelselection.ui \
+         channelsselection.ui \
          collectioneditor.ui \
          createfixturegroup.ui \
          dmxdumpfactory.ui \
@@ -131,10 +139,12 @@ FORMS += aboutbox.ui \
          vcproperties.ui \
          vcsliderproperties.ui \
          vcspeeddialproperties.ui \
+         vcwidgetselection.ui \
          vcxypadfixtureeditor.ui \
          vcxypadproperties.ui
 
 SOURCES += aboutbox.cpp \
+           addchannelsgroup.cpp \
            addfixture.cpp \
            addresstool.cpp \
            addvcbuttonmatrix.cpp \
@@ -142,8 +152,11 @@ SOURCES += aboutbox.cpp \
            app.cpp \
            apputil.cpp \
            assignhotkey.cpp \
-           channelsconfiguration.cpp \
-           channelselection.cpp \
+           audioeditor.cpp \
+           audiotriggersconfiguration.cpp \
+           audiotriggerfactory.cpp \
+           audiotriggerwidget.cpp \
+           channelsselection.cpp \
            chasereditor.cpp \
            clickandgoslider.cpp \
            clickandgowidget.cpp \
@@ -204,12 +217,14 @@ SOURCES += aboutbox.cpp \
            vcspeeddialproperties.cpp \
            vcwidget.cpp \
            vcwidgetproperties.cpp \
+           vcwidgetselection.cpp \
            vcxypad.cpp \
            vcxypadarea.cpp \
            vcxypadfixture.cpp \
            vcxypadfixtureeditor.cpp \
            vcxypadproperties.cpp \
            virtualconsole.cpp
+
 
 TRANSLATIONS += qlcplus_fi_FI.ts
 TRANSLATIONS += qlcplus_fr_FR.ts

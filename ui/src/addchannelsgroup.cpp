@@ -23,7 +23,7 @@
 #include <QDebug>
 
 #include "selectinputchannel.h"
-#include "channelselection.h"
+#include "addchannelsgroup.h"
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
 #include "channelsgroup.h"
@@ -36,11 +36,12 @@
 #define KColumnChIdx 3
 #define KColumnID    4
 
-ChannelSelection::ChannelSelection(QWidget* parent, Doc* doc, ChannelsGroup *group)
+AddChannelsGroup::AddChannelsGroup(QWidget* parent, Doc* doc, ChannelsGroup *group)
     : QDialog(parent)
     , m_doc(doc)
     , m_chansGroup(group)
     , m_checkedChannels(0)
+    , m_isUpdating(false)
 {
     Q_ASSERT(doc != NULL);
     Q_ASSERT(m_chansGroup != NULL);
@@ -131,11 +132,11 @@ ChannelSelection::ChannelSelection(QWidget* parent, Doc* doc, ChannelsGroup *gro
             this, SLOT(slotChooseInputClicked()));
 }
 
-ChannelSelection::~ChannelSelection()
+AddChannelsGroup::~AddChannelsGroup()
 {
 }
 
-void ChannelSelection::accept()
+void AddChannelsGroup::accept()
 {
     m_chansGroup->resetList();
 
@@ -168,23 +169,79 @@ void ChannelSelection::accept()
     QDialog::accept();
 }
 
-void ChannelSelection::slotItemChecked(QTreeWidgetItem *item, int col)
+void AddChannelsGroup::slotItemChecked(QTreeWidgetItem *item, int col)
 {
-    if (col != KColumnGroup || item->text(KColumnID).isEmpty())
+    if (m_isUpdating == true || col != KColumnGroup || item->text(KColumnID).isEmpty())
         return;
 
-    if (item->checkState(col) == Qt::Checked)
-        m_checkedChannels++;
+    m_isUpdating = true;
+
+    if (m_applyAllCheck->isChecked() == false)
+    {
+        if (item->checkState(col) == Qt::Checked)
+            m_checkedChannels++;
+        else
+            m_checkedChannels--;
+    }
     else
-        m_checkedChannels--;
+    {
+        Fixture *fixture = m_doc->fixture(item->text(KColumnID).toUInt());
+        if (fixture == NULL)
+            return;
+
+        const QLCFixtureDef *def = fixture->fixtureDef();
+        if (def == NULL)
+            return;
+
+        QString manufacturer = def->manufacturer();
+        QString model = def->model();
+        int chIdx = item->text(KColumnChIdx).toInt();
+        Qt::CheckState enable = item->checkState(KColumnGroup);
+
+        qDebug() << "Manuf:" << manufacturer << ", model:" << model << ", ch:" << chIdx;
+
+        for (int t = 0; t < m_tree->topLevelItemCount(); t++)
+        {
+            QTreeWidgetItem *uniItem = m_tree->topLevelItem(t);
+            for (int f = 0; f < uniItem->childCount(); f++)
+            {
+                QTreeWidgetItem *fixItem = uniItem->child(f);
+                quint32 fxID = fixItem->text(KColumnID).toUInt();
+                Fixture *fxi = m_doc->fixture(fxID);
+                if (fxi != NULL)
+                {
+                    const QLCFixtureDef *tmpDef = fxi->fixtureDef();
+                    if (tmpDef != NULL)
+                    {
+                        QString tmpManuf = tmpDef->manufacturer();
+                        QString tmpModel = tmpDef->model();
+                        if (tmpManuf == manufacturer && tmpModel == model)
+                        {
+                            QTreeWidgetItem* item = fixItem->child(chIdx);
+                            if (item != NULL)
+                            {
+                                item->setCheckState(KColumnGroup, enable);
+                                if (enable == Qt::Checked)
+                                    m_checkedChannels++;
+                                else
+                                    m_checkedChannels--;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     if (m_checkedChannels > 0)
         m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
     else
         m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+
+    m_isUpdating = false;
 }
 
-void ChannelSelection::slotAutoDetectInputToggled(bool checked)
+void AddChannelsGroup::slotAutoDetectInputToggled(bool checked)
 {
     if (checked == true)
     {
@@ -198,13 +255,13 @@ void ChannelSelection::slotAutoDetectInputToggled(bool checked)
     }
 }
 
-void ChannelSelection::slotInputValueChanged(quint32 universe, quint32 channel)
+void AddChannelsGroup::slotInputValueChanged(quint32 universe, quint32 channel)
 {
     m_inputSource = QLCInputSource(universe, channel);
     updateInputSource();
 }
 
-void ChannelSelection::slotChooseInputClicked()
+void AddChannelsGroup::slotChooseInputClicked()
 {
     SelectInputChannel sic(this, m_doc->inputMap());
     if (sic.exec() == QDialog::Accepted)
@@ -214,7 +271,7 @@ void ChannelSelection::slotChooseInputClicked()
     }
 }
 
-void ChannelSelection::updateInputSource()
+void AddChannelsGroup::updateInputSource()
 {
     QString uniName;
     QString chName;

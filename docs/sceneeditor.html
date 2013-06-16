@@ -9,9 +9,9 @@
 <H1>Scene Editor</H1>
 <P>
 The scene editor, as its name suggests, is used to edit
-<A HREF="concept.html#Scene">Scene</A> functions. The editor is divided into
+<A HREF="file:concept.html#Scene">Scene</A> functions. The editor is divided into
 tabs; with the first, <B>General</B> tab, you control the list of fixtures 
-and <A HREF="concept.html#Channelgroups">channel groups</A> that take part in the scene editing,
+and <A HREF="file:concept.html#Channelgroups">channel groups</A> that take part in the scene editing,
 together with the Scene name.<br>
 All subsequent tabs are used to control the individual channel values for each fixture
 and, if defined, the channels groups values.
@@ -30,11 +30,11 @@ On the left part of the screen, are displayed the buttons to control the fixture
  </TR>
  <TR>
   <TD><IMG SRC="qrc:/edit_add.png"></TD>
-  <TD>Add an existing <A HREF="concept.html#Fixtures">Fixture</A> to the scene.</TD>
+  <TD>Add an existing <A HREF="file:concept.html#Fixtures">Fixture</A> to the scene.</TD>
  </TR>
  <TR>
   <TD><IMG SRC="qrc:/edit_remove.png"></TD>
-  <TD>Remove the selected <A HREF="concept.html#Fixtures">Fixture(s)</A> from the scene.</TD>
+  <TD>Remove the selected <A HREF="file:concept.html#Fixtures">Fixture(s)</A> from the scene.</TD>
  </TR>
  <TR>
   <TD><IMG SRC="qrc:/check.png"></TD>
@@ -48,7 +48,7 @@ On the left part of the screen, are displayed the buttons to control the fixture
 
 <P>
 On the right part of the screen, are displayed the buttons to control the 
-<A HREF="concept.html#Channelgroups">channel groups</A> used in the scene<br>
+<A HREF="file:concept.html#Channelgroups">channel groups</A> used in the scene<br>
 </P>
 
 <TABLE BORDER="1">
@@ -67,7 +67,7 @@ On the right part of the screen, are displayed the buttons to control the
 <P>
 This tab will be displayed only if one or more channel groups are selected in the General tab.<br>
 Each Channel Group will be displayed with a quick macro access button 
-(<A HREF="concept.html#ClickAndGo">Click And Go</A> if supported), 
+(<A HREF="file:concept.html#ClickAndGo">Click And Go</A> if supported), 
 a label with the group value, a fader, and the name of the group.
 </P>
 
@@ -81,7 +81,7 @@ typing the value to the edit box on top of the slider or by moving the slider.
 Channels that provide multiple functions such as gobos, colors, etc. have also
 a button above the channel slider; this button can be used to directly select
 a specific function or capability provided by that channel.<br>
-<b>Hint</b>: The keyboard shortcut to move between channels values edit boxes it <b>Tab</b>
+<b>Hint</b>: The keyboard shortcut to move between channels values edit boxes is '<b>Tab</b>'
 </P>
 
 <H3>Channel enabled/disabled status</H3>
@@ -113,29 +113,38 @@ want to fade in or fade out with the dimmer channel.
  <TR>
   <TD><IMG SRC="qrc:/back.png"></TD>
   <TD>Go to the previous tab in the view. If the first tab is selected, 
-  this will go to the last tab in the view. Keyboard shortcut: <b>ALT+Left</b></TD>
+  this will go to the last tab in the view. Keyboard shortcut: '<b>ALT+Left</b>'</TD>
  </TR>
  <TR>
   <TD><IMG SRC="qrc:/forward.png"></TD>
   <TD>Go to the next tab in the view. If the last tab is selected, 
-  this will go to the first tab in the view. Keyboard shortcut: <b>ALT+Right</b></TD>
+  this will go to the first tab in the view. Keyboard shortcut: '<b>ALT+Right</b>'</TD>
  </TR>
  <TR>
   <TD><IMG SRC="qrc:/editcopy.png"></TD>
   <TD>
-   Copy the values (and enabled/disabled states) of all channels in the current
-   fixture to the clipboard.
+   The copy functionality has 2 modes:<br>
+   <ul>
+    <li>Copy the values (and enabled/disabled states) of all channels in the current
+        fixture to the clipboard.</li>
+    <li>Copy only the selected channels (CTRL-clicked, yellow background) values 
+        into the clipboard.</li>
   </TD>
  </TR>
  <TR>
   <TD><IMG SRC="qrc:/editpaste.png"></TD>
-  <TD>Paste values (and enabled/disabled states) from clipboard to the current fixture. </TD>
+  <TD>Paste the values from clipboard to the current fixture. If no channels were selected
+      during 'copy', then also the enabled/disabled states will be pasted</TD>
  </TR>
  <TR>
   <TD><IMG SRC="qrc:/editcopyall.png"></TD>
   <TD>
-   Copy all values (and enabled/disabled states) of all channels to all other
-   fixtures taking part in the scene.
+   The 'copy all' functionality has 2 modes:<br>
+   <ul>
+    <li>Copy all values (and enabled/disabled states) of all channels to all other
+        fixtures taking part in the scene.</li>
+    <li>Copy only the selected channels (CTRL-clicked, yellow background) 
+        values to all the other fixtures taking part in the scene.</li>
   </TD>
  </TR>
  <TR>

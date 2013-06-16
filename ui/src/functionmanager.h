@@ -136,6 +136,7 @@ protected slots:
     void slotAddEFX();
     void slotAddRGBMatrix();
     void slotAddScript();
+    void slotAddAudio();
     void slotWizard();
 
     void slotClone();
@@ -155,6 +156,7 @@ protected:
     QAction* m_addEFXAction;
     QAction* m_addRGBMatrixAction;
     QAction* m_addScriptAction;
+    QAction* m_addAudioAction;
 
     QAction* m_wizardAction;
     QAction* m_cloneAction;

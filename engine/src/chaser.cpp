@@ -57,11 +57,11 @@ Chaser::Chaser(Doc* doc)
     , m_isSequence(false)
     , m_boundSceneID(-1)
     , m_startTime(UINT_MAX)
-    //, m_color(qrand() % 256, qrand() % 256, qrand() % 256)
     , m_color(85, 107, 128)
     , m_fadeInMode(Default)
     , m_fadeOutMode(Default)
     , m_holdMode(Common)
+    , m_startStepIndex(-1)
     , m_runner(NULL)
 {
     setName(tr("New Chaser"));
@@ -458,7 +458,7 @@ bool Chaser::loadXML(const QDomElement& root)
 
             if (step.loadXML(tag, stepNumber) == true)
             {
-                if (step.values.count() > 0)
+                if (isSequence() == true)
                     step.fid = getBoundSceneID();
                 if (stepNumber >= m_steps.size())
                     m_steps.append(step);
@@ -505,6 +505,14 @@ void Chaser::tap()
         m_runner->tap();
 }
 
+void Chaser::setStepIndex(int idx)
+{
+    if (m_runner != NULL)
+        m_runner->setCurrentStep(idx);
+    else
+        m_startStepIndex = idx;
+}
+
 void Chaser::previous()
 {
     if (m_runner != NULL)
@@ -521,15 +529,17 @@ void Chaser::next()
  * Running
  *****************************************************************************/
 
-ChaserRunner* Chaser::createRunner(Chaser* self, Doc* doc)
+ChaserRunner* Chaser::createRunner(Chaser* self, Doc* doc, quint32 startTime, int startStepIdx)
 {
     if (self == NULL || doc == NULL)
         return NULL;
 
-    ChaserRunner* runner = new ChaserRunner(doc, self);
+    ChaserRunner* runner = new ChaserRunner(doc, self, startTime);
     Q_ASSERT(runner != NULL);
     runner->moveToThread(QCoreApplication::instance()->thread());
     runner->setParent(self);
+    if (startStepIdx != -1)
+        runner->setCurrentStep(startStepIdx);
 
     return runner;
 }
@@ -537,7 +547,8 @@ ChaserRunner* Chaser::createRunner(Chaser* self, Doc* doc)
 void Chaser::preRun(MasterTimer* timer)
 {
     Q_ASSERT(m_runner == NULL);
-    m_runner = createRunner(this, doc());
+    m_runner = createRunner(this, doc(), elapsed(), m_startStepIndex);
+    m_startStepIndex = -1;
     connect(m_runner, SIGNAL(currentStepChanged(int)), this, SIGNAL(currentStepChanged(int)));
     Function::preRun(timer);
 }

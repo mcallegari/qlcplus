@@ -24,16 +24,16 @@
 
 #include <QDialog>
 
-#include "ui_channelselection.h"
+#include "ui_addchannelsgroup.h"
 #include "qlcinputsource.h"
 
 class ChannelsGroup;
 class Doc;
 
-class ChannelSelection : public QDialog, public Ui_ChannelSelection
+class AddChannelsGroup : public QDialog, public Ui_AddChannelsGroup
 {
     Q_OBJECT
-    Q_DISABLE_COPY(ChannelSelection)
+    Q_DISABLE_COPY(AddChannelsGroup)
 
     /*********************************************************************
      * Initialization
@@ -45,8 +45,8 @@ public:
      * @param parent The parent widget for the dialog
      * @param doc The QLC engine instance
      */
-    ChannelSelection(QWidget* parent, Doc* doc, ChannelsGroup *group);
-    ~ChannelSelection();
+    AddChannelsGroup(QWidget* parent, Doc* doc, ChannelsGroup *group);
+    ~AddChannelsGroup();
 
     /** @reimp */
     void accept();
@@ -59,6 +59,7 @@ protected:
     QLCInputSource m_inputSource;
 
     int m_checkedChannels;
+    bool m_isUpdating;
 
     void updateInputSource();
 

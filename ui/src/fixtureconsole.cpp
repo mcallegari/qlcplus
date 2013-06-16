@@ -166,22 +166,43 @@ void FixtureConsole::setSceneValue(const SceneValue& scv)
 
 QList <SceneValue> FixtureConsole::values() const
 {
-    QList <SceneValue> list;
+    QList <SceneValue> list; // list of all checked channels
+    QList <SceneValue> selectedList; // list of selected channels only
     QListIterator <ConsoleChannel*> it(m_channels);
     while (it.hasNext() == true)
     {
         ConsoleChannel* cc = it.next();
         Q_ASSERT(cc != NULL);
         if (cc->isChecked() == true)
+        {
             list.append(SceneValue(m_fixture, cc->channel(), cc->value()));
+            if (cc->isSelected())
+                selectedList.append(SceneValue(m_fixture, cc->channel(), cc->value()));
+        }
     }
 
-    return list;
+    if (selectedList.count() > 0)
+        return selectedList;
+    else
+        return list;
 }
 
-void FixtureConsole::setValues(const QList <SceneValue>& list)
+bool FixtureConsole::hasSelections()
 {
-    setChecked(false);
+    foreach(ConsoleChannel *cc, m_channels)
+    {
+        Q_ASSERT(cc != NULL);
+        if (cc->isChecked() && cc->isSelected())
+            return true;
+    }
+
+    return false;
+}
+
+void FixtureConsole::setValues(const QList <SceneValue>& list, bool fromSelection)
+{
+    if (fromSelection == false)
+        setChecked(false);
 
     QListIterator <SceneValue> it(list);
     while (it.hasNext() == true)

@@ -9,7 +9,7 @@
 <H1>RGB Script Fundamentals</H1>
 <P>
 Users can write their own RGB scripts to produce custom graphics projection with the
-<A HREF="concept.html#RGBMatrix">RGB Matrix</A> function. The scripts' operation principle
+<A HREF="file:concept.html#RGBMatrix">RGB Matrix</A> function. The scripts' operation principle
 is to produce a number of RGB maps that each represent one step in the graphics animation.
 The principle is basically the same as in movies: the audience observes a moving picture,
 which in reality is only a sequentially-played stream of static images that only produce
@@ -76,7 +76,7 @@ to declare the following properties for the returned script object:
 </P>
 <UL>
  <LI><B>apiVersion:</B> The API version that the script follows. Currently '1' is correct number. 0 will cause the script to be treated as invalid.</LI>
- <LI><B>name:</B> The name of your script. This name appears in the pattern selection box in the <A HREF="rgbmatrixeditor.html">RGB Matrix Editor</A></LI>
+ <LI><B>name:</B> The name of your script. This name appears in the pattern selection box in the <A HREF="file:rgbmatrixeditor.html">RGB Matrix Editor</A></LI>
  <LI><B>author:</B> The name of the person who has written the script. <B>You.</B></LI>
 </UL>
 
@@ -102,7 +102,7 @@ With this in mind we add declarations for these three properties to the script:
 
 <H2>Functions</H2>
 <P>
-Now we are getting to the actual business of producing data for the <A HREF="concept.html#RGBMatrix">RGB Matrix</A>.
+Now we are getting to the actual business of producing data for the <A HREF="file:concept.html#RGBMatrix">RGB Matrix</A>.
 The current API version uses two functions to achieve this:
 <UL>
  <LI>rgbMapStepCount(width, height)</LI>
@@ -166,7 +166,7 @@ must contain <B>height</B> items and each of these items must be an array that c
 <B>width</B> items that must be 32bit integers, representing an RGB color as understood by
 <A HREF="http://doc.trolltech.com/4.7/qcolor.html#QRgb-typedef">QRgb</A> without alpha
 channel (0x00RRGGBB). The <B>rgb</B> parameter is an integer-representation of the color
-selected by user in the <A HREF="rgbmatrixeditor.html">RGB Matrix Editor</A>. The <B>step</B>
+selected by user in the <A HREF="file:rgbmatrixeditor.html">RGB Matrix Editor</A>. The <B>step</B>
 parameter tells the step number requested by the RGB Matrix function and is guaranteed
 to be within (0, rgbMapStepCount(w, h) - 1).
 </P>

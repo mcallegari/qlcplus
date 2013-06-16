@@ -33,7 +33,7 @@ class ShowRunner : public QObject
     Q_OBJECT
 
 public:
-    ShowRunner(const Doc* doc, quint32 showID);
+    ShowRunner(const Doc* doc, quint32 showID, quint32 startTime = 0);
     ~ShowRunner();
 
     /** Start the runner */
@@ -67,7 +67,7 @@ private:
     QMutex m_runningQueueMutex;
 
     /** Current step being played */
-    int m_currentStepIndex;
+    int m_currentFunctionIndex;
 
 private slots:
     void slotSequenceStopped(quint32);

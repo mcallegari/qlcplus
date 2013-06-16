@@ -133,6 +133,19 @@ private:
 
 private:
     QMenu* m_menu;
+
+    /*************************************************************************
+     * Selection
+     *************************************************************************/
+public:
+    bool isSelected();
+
+private slots:
+    void slotControlClicked();
+
+private:
+    bool m_selected;
+    QString m_originalStyle;
 };
 
 #endif

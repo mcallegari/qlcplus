@@ -67,6 +67,7 @@ VCWidget::VCWidget(QWidget* parent, Doc* doc)
 
     setMinimumSize(QSize(20, 20));
 
+    m_type = UnknownWidget;
     m_hasCustomBackgroundColor = false;
     m_hasCustomForegroundColor = false;
     m_hasCustomFont = false;
@@ -93,6 +94,56 @@ VCWidget::VCWidget(QWidget* parent, Doc* doc)
 
 VCWidget::~VCWidget()
 {
+}
+
+void VCWidget::setType(int type)
+{
+    m_type = type;
+}
+
+int VCWidget::type()
+{
+    return m_type;
+}
+
+QString VCWidget::typeToString(int type)
+{
+    switch (type)
+    {
+
+        case ButtonWidget: return QString(tr("Button"));
+        case SliderWidget: return QString(tr("Slider"));
+        case XYPadWidget: return QString(tr("XYPad"));
+        case FrameWidget: return QString(tr("Frame"));
+        case SoloFrameWidget: return QString(tr("Solo frame"));
+        case SpeedDialWidget: return QString(tr("Speed dial"));
+        case CueListWidget: return QString(tr("Cue list"));
+        case LabelWidget: return QString(tr("Label"));
+        case UnknownWidget:
+        default:
+             return QString(tr("Unknown"));
+    }
+    return QString(tr("Unknown"));
+}
+
+QIcon VCWidget::typeToIcon(int type)
+{
+    switch (type)
+    {
+
+        case ButtonWidget: return QIcon(":/button.png");
+        case SliderWidget: return QIcon(":/slider.png");
+        case XYPadWidget: return QIcon(":/xypad.png");
+        case FrameWidget: return QIcon(":/frame.png");
+        case SoloFrameWidget: return QIcon(":/soloframe.png");
+        case SpeedDialWidget: return QIcon(":/knob.png");
+        case CueListWidget: return QIcon(":/cuelist.png");
+        case LabelWidget: return QIcon(":/label.png");
+        case UnknownWidget:
+        default:
+             return QIcon(":/virtualconsole.png");
+    }
+    return QIcon(":/virtualconsole.png");
 }
 
 /*****************************************************************************
@@ -814,7 +865,8 @@ void VCWidget::paintEvent(QPaintEvent* e)
     if (mode() == Doc::Design && vc->isWidgetSelected(this) == true)
     {
         /* Draw a dotted line around the widget */
-        QPen pen(Qt::DotLine);
+        QPen pen(Qt::DashLine);
+        pen.setColor(Qt::blue);
         pen.setCapStyle(Qt::RoundCap);
         pen.setWidth(0);
         painter.setPen(pen);

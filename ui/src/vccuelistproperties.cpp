@@ -133,6 +133,25 @@ VCCueListProperties::VCCueListProperties(VCCueList* cueList, Doc* doc)
     /* External input */
     m_stopInputSource = cueList->inputSource(VCCueList::stopInputSourceId);
     updateStopInputSource();
+
+    /************************************************************************
+     * Crossfade Cue List page
+     ************************************************************************/
+
+    /* Connections */
+    connect(m_cf1AutoDetectInputButton, SIGNAL(toggled(bool)),
+            this, SLOT(slotCF1AutoDetectInputToggled(bool)));
+    connect(m_cf1ChooseInputButton, SIGNAL(clicked()),
+            this, SLOT(slotCF1ChooseInputClicked()));
+    connect(m_cf2AutoDetectInputButton, SIGNAL(toggled(bool)),
+            this, SLOT(slotCF2AutoDetectInputToggled(bool)));
+    connect(m_cf2ChooseInputButton, SIGNAL(clicked()),
+            this, SLOT(slotCF2ChooseInputClicked()));
+
+    /* External input */
+    m_cf1InputSource = cueList->inputSource(VCCueList::cf1InputSourceId);
+    m_cf2InputSource = cueList->inputSource(VCCueList::cf2InputSourceId);
+    updateCrossfadeInputSource();
 }
 
 VCCueListProperties::~VCCueListProperties()
@@ -156,6 +175,8 @@ void VCCueListProperties::accept()
     m_cueList->setInputSource(m_nextInputSource, VCCueList::nextInputSourceId);
     m_cueList->setInputSource(m_previousInputSource, VCCueList::previousInputSourceId);
     m_cueList->setInputSource(m_stopInputSource, VCCueList::stopInputSourceId);
+    m_cueList->setInputSource(m_cf1InputSource, VCCueList::cf1InputSourceId);
+    m_cueList->setInputSource(m_cf2InputSource, VCCueList::cf2InputSourceId);
 
     QDialog::accept();
 }
@@ -169,6 +190,10 @@ void VCCueListProperties::slotTabChanged()
         m_previousAutoDetectInputButton->toggle();
     if (m_stopAutoDetectInputButton->isChecked() == true)
         m_stopAutoDetectInputButton->toggle();
+    if (m_cf1AutoDetectInputButton->isChecked() == true)
+        m_cf1AutoDetectInputButton->toggle();
+    if (m_cf2AutoDetectInputButton->isChecked() == true)
+        m_cf2AutoDetectInputButton->toggle();
 }
 
 /****************************************************************************
@@ -403,5 +428,99 @@ void VCCueListProperties::updateStopInputSource()
     {
         m_stopInputUniverseEdit->setText(KInputNone);
         m_stopInputChannelEdit->setText(KInputNone);
+    }
+}
+
+/************************************************************************
+ * Crossfade Cue List
+ ************************************************************************/
+
+void VCCueListProperties::slotCF1ChooseInputClicked()
+{
+    SelectInputChannel sic(this, m_doc->inputMap());
+    if (sic.exec() == QDialog::Accepted)
+    {
+        m_cf1InputSource = QLCInputSource(sic.universe(), sic.channel());
+        updateCrossfadeInputSource();
+    }
+}
+
+void VCCueListProperties::slotCF1AutoDetectInputToggled(bool checked)
+{
+    if (checked == true)
+    {
+        connect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+                this, SLOT(slotCF1InputValueChanged(quint32,quint32)));
+    }
+    else
+    {
+        disconnect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+                   this, SLOT(slotCF1InputValueChanged(quint32,quint32)));
+    }
+}
+
+void VCCueListProperties::slotCF1InputValueChanged(quint32 uni, quint32 ch)
+{
+    m_cf1InputSource = QLCInputSource(uni, ch);
+    updateCrossfadeInputSource();
+}
+
+void VCCueListProperties::slotCF2ChooseInputClicked()
+{
+    SelectInputChannel sic(this, m_doc->inputMap());
+    if (sic.exec() == QDialog::Accepted)
+    {
+        m_cf2InputSource = QLCInputSource(sic.universe(), sic.channel());
+        updateCrossfadeInputSource();
+    }
+}
+
+void VCCueListProperties::slotCF2AutoDetectInputToggled(bool checked)
+{
+    if (checked == true)
+    {
+        connect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+                this, SLOT(slotCF2InputValueChanged(quint32,quint32)));
+    }
+    else
+    {
+        disconnect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+                   this, SLOT(slotCF2InputValueChanged(quint32,quint32)));
+    }
+}
+
+void VCCueListProperties::slotCF2InputValueChanged(quint32 uni, quint32 ch)
+{
+    m_cf2InputSource = QLCInputSource(uni, ch);
+    updateCrossfadeInputSource();
+}
+
+void VCCueListProperties::updateCrossfadeInputSource()
+{
+    QString uniName;
+    QString chName;
+
+    if (m_doc->inputMap()->inputSourceNames(m_cf1InputSource, uniName, chName) == true)
+    {
+        /* Display the gathered information */
+        m_cf1InputUniverseEdit->setText(uniName);
+        m_cf1InputChannelEdit->setText(chName);
+    }
+    else
+    {
+        m_cf1InputUniverseEdit->setText(KInputNone);
+        m_cf1InputChannelEdit->setText(KInputNone);
+    }
+
+    if (m_doc->inputMap()->inputSourceNames(m_cf2InputSource, uniName, chName) == true)
+    {
+        /* Display the gathered information */
+        m_cf2InputUniverseEdit->setText(uniName);
+        m_cf2InputChannelEdit->setText(chName);
+    }
+    else
+    {
+        m_cf2InputUniverseEdit->setText(KInputNone);
+        m_cf2InputChannelEdit->setText(KInputNone);
     }
 }

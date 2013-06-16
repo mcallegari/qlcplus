@@ -164,6 +164,18 @@ protected:
     QList <uchar> m_channelGroupsLevels;
 
     /*********************************************************************
+     * Display Mode
+     *********************************************************************/
+public:
+    void setViewMode(bool tabbed);
+
+    bool viewMode();
+
+protected:
+    /** Holds the display mode (tabbed or all channels ) to be used by Scene Editor */
+    bool m_viewMode;
+
+    /*********************************************************************
      * Fixtures
      *********************************************************************/
 public slots:

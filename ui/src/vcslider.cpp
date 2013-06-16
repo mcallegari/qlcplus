@@ -86,6 +86,7 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
     m_time = NULL;
 
+    setType(VCWidget::SliderWidget);
     setCaption(QString());
     setFrameStyle(KVCFrameStyleSunken);
 
@@ -837,6 +838,22 @@ QString VCSlider::topLabelText()
 /*****************************************************************************
  * Slider
  *****************************************************************************/
+
+void VCSlider::setSliderValue(uchar value)
+{
+    Q_ASSERT(m_slider != NULL);
+
+    /* Scale from input value range to this slider's range */
+    float val;
+    val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
+                (float) m_slider->minimum(),
+                (float) m_slider->maximum());
+
+    if (m_slider->invertedAppearance() == true)
+        m_slider->setValue(m_slider->maximum() - (int) val);
+    else
+        m_slider->setValue((int) val);
+}
 
 int VCSlider::sliderValue() const
 {

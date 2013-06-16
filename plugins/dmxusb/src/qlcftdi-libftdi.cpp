@@ -86,6 +86,7 @@ QString QLCFTDI::readLabel(ftdi_context *ftdi, char* name, char* serial, uchar l
     Q_ASSERT(buffer != NULL);
 
     QByteArray array;
+    usleep(300000); // give some time to the device to respond
     int read = ftdi_read_data(ftdi, buffer, 40);
     //qDebug() << Q_FUNC_INFO << "Data read: " << read;
     array = QByteArray::fromRawData((char*) buffer, read);

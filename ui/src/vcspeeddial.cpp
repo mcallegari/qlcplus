@@ -53,6 +53,7 @@ VCSpeedDial::VCSpeedDial(QWidget* parent, Doc* doc)
     connect(m_dial, SIGNAL(valueChanged(int)), this, SLOT(slotDialValueChanged(int)));
     connect(m_dial, SIGNAL(tapped()), this, SLOT(slotDialTapped()));
 
+    setType(VCWidget::SpeedDialWidget);
     setCaption(tr("Duration"));
 
     QSettings settings;

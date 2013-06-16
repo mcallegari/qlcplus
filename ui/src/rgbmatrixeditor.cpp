@@ -53,7 +53,7 @@
 RGBMatrixEditor::RGBMatrixEditor(QWidget* parent, RGBMatrix* mtx, Doc* doc)
     : QWidget(parent)
     , m_doc(doc)
-    , m_mtx(mtx)
+    , m_matrix(mtx)
     , m_speedDials(NULL)
     , m_scene(new QGraphicsScene(this))
     , m_previewTimer(new QTimer(this))
@@ -90,7 +90,7 @@ RGBMatrixEditor::~RGBMatrixEditor()
     m_previewTimer->stop();
 
     if (m_testButton->isChecked() == true)
-        m_mtx->stopAndWait();
+        m_matrix->stopAndWait();
 }
 
 void RGBMatrixEditor::slotFunctionManagerActive(bool active)
@@ -111,11 +111,11 @@ void RGBMatrixEditor::slotFunctionManagerActive(bool active)
 void RGBMatrixEditor::init()
 {
     /* Name */
-    m_nameEdit->setText(m_mtx->name());
-    m_nameEdit->setSelection(0, m_mtx->name().length());
+    m_nameEdit->setText(m_matrix->name());
+    m_nameEdit->setSelection(0, m_matrix->name().length());
 
     /* Running order */
-    switch (m_mtx->runOrder())
+    switch (m_matrix->runOrder())
     {
     default:
     case Function::Loop:
@@ -130,7 +130,7 @@ void RGBMatrixEditor::init()
     }
 
     /* Running direction */
-    switch (m_mtx->direction())
+    switch (m_matrix->direction())
     {
     default:
     case Function::Forward:
@@ -146,7 +146,7 @@ void RGBMatrixEditor::init()
     fillAnimationCombo();
 
     QPixmap pm(100, 26);
-    pm.fill(m_mtx->monoColor());
+    pm.fill(m_matrix->monoColor());
     m_colorButton->setIcon(QIcon(pm));
 
     connect(m_nameEdit, SIGNAL(textEdited(const QString&)),
@@ -192,23 +192,26 @@ void RGBMatrixEditor::createSpeedDials()
         return;
 
     m_speedDials = new SpeedDialWidget(this);
-    m_speedDials->setWindowTitle(m_mtx->name());
+    m_speedDials->setWindowTitle(m_matrix->name());
     m_speedDials->show();
-    m_speedDials->setFadeInSpeed(m_mtx->fadeInSpeed());
-    m_speedDials->setFadeOutSpeed(m_mtx->fadeOutSpeed());
-    m_speedDials->setDuration(m_mtx->duration());
+    m_speedDials->setFadeInSpeed(m_matrix->fadeInSpeed());
+    m_speedDials->setFadeOutSpeed(m_matrix->fadeOutSpeed());
+    if ((int)m_matrix->duration() < 0)
+        m_speedDials->setDuration(m_matrix->duration());
+    else
+        m_speedDials->setDuration(m_matrix->duration() - m_matrix->fadeInSpeed() - m_matrix->fadeOutSpeed());
     connect(m_speedDials, SIGNAL(fadeInChanged(int)), this, SLOT(slotFadeInChanged(int)));
     connect(m_speedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotFadeOutChanged(int)));
-    connect(m_speedDials, SIGNAL(durationChanged(int)), this, SLOT(slotDurationChanged(int)));
+    connect(m_speedDials, SIGNAL(holdChanged(int)), this, SLOT(slotHoldChanged(int)));
     connect(m_speedDials, SIGNAL(durationTapped()), this, SLOT(slotDurationTapped()));
 }
 
 void RGBMatrixEditor::fillPatternCombo()
 {
     m_patternCombo->addItems(RGBAlgorithm::algorithms());
-    if (m_mtx->algorithm() != NULL)
+    if (m_matrix->algorithm() != NULL)
     {
-        int index = m_patternCombo->findText(m_mtx->algorithm()->name());
+        int index = m_patternCombo->findText(m_matrix->algorithm()->name());
         if (index >= 0)
             m_patternCombo->setCurrentIndex(index);
     }
@@ -225,7 +228,7 @@ void RGBMatrixEditor::fillFixtureGroupCombo()
         FixtureGroup* grp(it.next());
         Q_ASSERT(grp != NULL);
         m_fixtureGroupCombo->addItem(grp->name(), grp->id());
-        if (m_mtx->fixtureGroup() == grp->id())
+        if (m_matrix->fixtureGroup() == grp->id())
             m_fixtureGroupCombo->setCurrentIndex(m_fixtureGroupCombo->count() - 1);
     }
 }
@@ -237,7 +240,7 @@ void RGBMatrixEditor::fillAnimationCombo()
 
 void RGBMatrixEditor::updateExtraOptions()
 {
-    if (m_mtx->algorithm() == NULL || m_mtx->algorithm()->type() != RGBAlgorithm::Text)
+    if (m_matrix->algorithm() == NULL || m_matrix->algorithm()->type() != RGBAlgorithm::Text)
     {
         m_textGroup->hide();
         m_offsetGroup->hide();
@@ -247,7 +250,7 @@ void RGBMatrixEditor::updateExtraOptions()
         m_textGroup->show();
         m_offsetGroup->show();
 
-        RGBText* text = static_cast<RGBText*> (m_mtx->algorithm());
+        RGBText* text = static_cast<RGBText*> (m_matrix->algorithm());
         Q_ASSERT(text != NULL);
         m_textEdit->setText(text->text());
 
@@ -267,7 +270,7 @@ void RGBMatrixEditor::createPreviewItems()
 
     QPalette pal(this->palette());
 
-    FixtureGroup* grp = m_doc->fixtureGroup(m_mtx->fixtureGroup());
+    FixtureGroup* grp = m_doc->fixtureGroup(m_matrix->fixtureGroup());
     if (grp == NULL)
     {
         QGraphicsTextItem* text = new QGraphicsTextItem(tr("No fixture group to control"));
@@ -275,7 +278,7 @@ void RGBMatrixEditor::createPreviewItems()
         return;
     }
 
-    m_previewMaps = m_mtx->previewMaps();
+    m_previewMaps = m_matrix->previewMaps();
 
     for (int x = 0; x < grp->size().width(); x++)
     {
@@ -298,7 +301,7 @@ void RGBMatrixEditor::createPreviewItems()
         }
     }
 
-    if (m_mtx->direction() == Function::Forward)
+    if (m_matrix->direction() == Function::Forward)
         m_previewStep = 0;
     else
         m_previewStep = m_previewMaps.size() - 1;
@@ -308,13 +311,13 @@ void RGBMatrixEditor::slotPreviewTimeout()
 {
     RGBItem* shape = NULL;
 
-    if (m_mtx->duration() <= 0)
+    if (m_matrix->duration() <= 0)
         return;
 
     m_previewIterator += MasterTimer::tick();
-    if (m_previewIterator >= m_mtx->duration())
+    if (m_previewIterator >= m_matrix->duration())
     {
-        if (m_mtx->direction() == Function::Forward)
+        if (m_matrix->direction() == Function::Forward)
         {
             m_previewStep++;
             if (m_previewStep >= m_previewMaps.size())
@@ -346,9 +349,9 @@ void RGBMatrixEditor::slotPreviewTimeout()
                     shape->setColor(map[y][x]);
 
                 if (shape->color() == QColor(Qt::black).rgb())
-                    shape->draw(m_mtx->fadeOutSpeed());
+                    shape->draw(m_matrix->fadeOutSpeed());
                 else
-                    shape->draw(m_mtx->fadeInSpeed());
+                    shape->draw(m_matrix->fadeInSpeed());
             }
         }
     }
@@ -356,7 +359,7 @@ void RGBMatrixEditor::slotPreviewTimeout()
 
 void RGBMatrixEditor::slotNameEdited(const QString& text)
 {
-    m_mtx->setName(text);
+    m_matrix->setName(text);
     if (m_speedDials != NULL)
         m_speedDials->setWindowTitle(text);
 }
@@ -364,7 +367,7 @@ void RGBMatrixEditor::slotNameEdited(const QString& text)
 void RGBMatrixEditor::slotPatternActivated(const QString& text)
 {
     RGBAlgorithm* algo = RGBAlgorithm::algorithm(text);
-    m_mtx->setAlgorithm(algo);
+    m_matrix->setAlgorithm(algo);
     updateExtraOptions();
     slotRestartTest();
 }
@@ -373,19 +376,19 @@ void RGBMatrixEditor::slotFixtureGroupActivated(int index)
 {
     QVariant var = m_fixtureGroupCombo->itemData(index);
     if (var.isValid() == true)
-        m_mtx->setFixtureGroup(var.toUInt());
+        m_matrix->setFixtureGroup(var.toUInt());
     else
-        m_mtx->setFixtureGroup(FixtureGroup::invalidId());
+        m_matrix->setFixtureGroup(FixtureGroup::invalidId());
     createPreviewItems();
     slotRestartTest();
 }
 
 void RGBMatrixEditor::slotColorButtonClicked()
 {
-    QColor col = QColorDialog::getColor(m_mtx->monoColor());
+    QColor col = QColorDialog::getColor(m_matrix->monoColor());
     if (col.isValid() == true)
     {
-        m_mtx->setMonoColor(col);
+        m_matrix->setMonoColor(col);
         QPixmap pm(100, 26);
         pm.fill(col);
         m_colorButton->setIcon(QIcon(pm));
@@ -396,9 +399,9 @@ void RGBMatrixEditor::slotColorButtonClicked()
 
 void RGBMatrixEditor::slotTextEdited(const QString& text)
 {
-    if (m_mtx->algorithm() != NULL && m_mtx->algorithm()->type() == RGBAlgorithm::Text)
+    if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Text)
     {
-        RGBText* algo = static_cast<RGBText*> (m_mtx->algorithm());
+        RGBText* algo = static_cast<RGBText*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
         algo->setText(text);
         slotRestartTest();
@@ -407,9 +410,9 @@ void RGBMatrixEditor::slotTextEdited(const QString& text)
 
 void RGBMatrixEditor::slotFontButtonClicked()
 {
-    if (m_mtx->algorithm() != NULL && m_mtx->algorithm()->type() == RGBAlgorithm::Text)
+    if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Text)
     {
-        RGBText* algo = static_cast<RGBText*> (m_mtx->algorithm());
+        RGBText* algo = static_cast<RGBText*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
 
         bool ok = false;
@@ -424,9 +427,9 @@ void RGBMatrixEditor::slotFontButtonClicked()
 
 void RGBMatrixEditor::slotAnimationActivated(const QString& text)
 {
-    if (m_mtx->algorithm() != NULL && m_mtx->algorithm()->type() == RGBAlgorithm::Text)
+    if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Text)
     {
-        RGBText* algo = static_cast<RGBText*> (m_mtx->algorithm());
+        RGBText* algo = static_cast<RGBText*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
         algo->setAnimationStyle(RGBText::stringToAnimationStyle(text));
         slotRestartTest();
@@ -435,9 +438,9 @@ void RGBMatrixEditor::slotAnimationActivated(const QString& text)
 
 void RGBMatrixEditor::slotOffsetSpinChanged()
 {
-    if (m_mtx->algorithm() != NULL && m_mtx->algorithm()->type() == RGBAlgorithm::Text)
+    if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Text)
     {
-        RGBText* algo = static_cast<RGBText*> (m_mtx->algorithm());
+        RGBText* algo = static_cast<RGBText*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
         algo->setXOffset(m_xOffsetSpin->value());
         algo->setYOffset(m_yOffsetSpin->value());
@@ -447,47 +450,52 @@ void RGBMatrixEditor::slotOffsetSpinChanged()
 
 void RGBMatrixEditor::slotLoopClicked()
 {
-    m_mtx->setRunOrder(Function::Loop);
+    m_matrix->setRunOrder(Function::Loop);
 }
 
 void RGBMatrixEditor::slotPingPongClicked()
 {
-    m_mtx->setRunOrder(Function::PingPong);
+    m_matrix->setRunOrder(Function::PingPong);
 }
 
 void RGBMatrixEditor::slotSingleShotClicked()
 {
-    m_mtx->setRunOrder(Function::SingleShot);
+    m_matrix->setRunOrder(Function::SingleShot);
 }
 
 void RGBMatrixEditor::slotForwardClicked()
 {
-    m_mtx->setDirection(Function::Forward);
+    m_matrix->setDirection(Function::Forward);
 }
 
 void RGBMatrixEditor::slotBackwardClicked()
 {
-    m_mtx->setDirection(Function::Backward);
+    m_matrix->setDirection(Function::Backward);
 }
 
 void RGBMatrixEditor::slotFadeInChanged(int ms)
 {
-    m_mtx->setFadeInSpeed(ms);
+    m_matrix->setFadeInSpeed(ms);
 }
 
 void RGBMatrixEditor::slotFadeOutChanged(int ms)
 {
-    m_mtx->setFadeOutSpeed(ms);
+    m_matrix->setFadeOutSpeed(ms);
 }
 
-void RGBMatrixEditor::slotDurationChanged(int ms)
+void RGBMatrixEditor::slotHoldChanged(int ms)
 {
-    m_mtx->setDuration(ms);
+    uint duration = 0;
+    if (ms < 0)
+        duration = ms;
+    else
+        duration = m_matrix->fadeInSpeed() + ms + m_matrix->fadeOutSpeed();
+    m_matrix->setDuration(duration);
 }
 
 void RGBMatrixEditor::slotDurationTapped()
 {
-    m_mtx->tap();
+    m_matrix->tap();
 }
 
 void RGBMatrixEditor::slotTestClicked()
@@ -495,11 +503,11 @@ void RGBMatrixEditor::slotTestClicked()
     if (m_testButton->isChecked() == true)
     {
         m_previewTimer->stop();
-        m_mtx->start(m_doc->masterTimer());
+        m_matrix->start(m_doc->masterTimer());
     }
     else
     {
-        m_mtx->stopAndWait();
+        m_matrix->stopAndWait();
         m_previewIterator = 0;
         m_previewTimer->start(MasterTimer::tick());
     }
@@ -507,7 +515,7 @@ void RGBMatrixEditor::slotTestClicked()
 
 void RGBMatrixEditor::slotRestartTest()
 {
-    m_previewMaps = m_mtx->previewMaps();
+    m_previewMaps = m_matrix->previewMaps();
 
     if (m_testButton->isChecked() == true)
     {
@@ -522,7 +530,7 @@ void RGBMatrixEditor::slotModeChanged(Doc::Mode mode)
     if (mode == Doc::Operate)
     {
         if (m_testButton->isChecked() == true)
-            m_mtx->stopAndWait();
+            m_matrix->stopAndWait();
         m_testButton->setChecked(false);
         m_previewTimer->stop();
         m_testButton->setEnabled(false);
@@ -547,7 +555,7 @@ void RGBMatrixEditor::slotFixtureGroupRemoved()
 
 void RGBMatrixEditor::slotFixtureGroupChanged(quint32 id)
 {
-    if (id == m_mtx->fixtureGroup())
+    if (id == m_matrix->fixtureGroup())
     {
         // Update the whole chain -> maybe the fixture layout has changed
         fillFixtureGroupCombo();

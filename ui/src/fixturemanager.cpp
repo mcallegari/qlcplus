@@ -43,10 +43,10 @@
 #include "qlcchannel.h"
 #include "qlcfile.h"
 
-#include "channelsconfiguration.h"
 #include "createfixturegroup.h"
 #include "fixturegroupeditor.h"
-#include "channelselection.h"
+#include "channelsselection.h"
+#include "addchannelsgroup.h"
 #include "fixturemanager.h"
 #include "universearray.h"
 #include "mastertimer.h"
@@ -123,6 +123,9 @@ FixtureManager::FixtureManager(QWidget* parent, Doc* doc)
     connect(m_doc, SIGNAL(fixtureRemoved(quint32)),
             this, SLOT(slotFixtureRemoved(quint32)));
 
+    connect(m_doc, SIGNAL(channelsGroupRemoved(quint32)),
+            this, SLOT(slotChannelsGroupRemoved(quint32)));
+
     connect(m_doc, SIGNAL(modeChanged(Doc::Mode)),
             this, SLOT(slotModeChanged(Doc::Mode)));
 
@@ -174,6 +177,19 @@ void FixtureManager::slotFixtureRemoved(quint32 id)
             if (var.isValid() == true && var.toUInt() == id)
                 delete fxiItem;
         }
+    }
+}
+
+void FixtureManager::slotChannelsGroupRemoved(quint32 id)
+{
+    qDebug() << "Channel group removed: " << id;
+    for (int i = 0; i < m_channel_groups_tree->topLevelItemCount(); i++)
+    {
+        QTreeWidgetItem* grpItem = m_channel_groups_tree->topLevelItem(i);
+        Q_ASSERT(grpItem != NULL);
+        QVariant var = grpItem->data(KColumnName, PROP_FIXTURE);
+        if (var.isValid() == true && var.toUInt() == id)
+            delete grpItem;
     }
 }
 
@@ -1059,7 +1075,7 @@ void FixtureManager::addChannelsGroup()
     else
         group = new ChannelsGroup(m_doc);
 
-    ChannelSelection cs(this, m_doc, group);
+    AddChannelsGroup cs(this, m_doc, group);
     if (cs.exec() == QDialog::Accepted)
     {
         qDebug() << "CHANNEL GROUP ADDED. Count: " << group->getChannels().count();
@@ -1265,9 +1281,10 @@ void FixtureManager::slotProperties()
 
 void FixtureManager::slotFadeConfig()
 {
-    ChannelsConfiguration cfg(m_doc, this);
-    if (cfg.exec() != QDialog::Accepted)
+    ChannelsSelection cfg(m_doc, this, ChannelsSelection::ExcludeChannelsMode);
+    if (cfg.exec() == QDialog::Rejected)
         return; // User pressed cancel
+    m_doc->setModified();
 }
 
 void FixtureManager::slotUnGroup()

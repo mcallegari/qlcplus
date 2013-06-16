@@ -374,13 +374,13 @@ void EFX::updateRotationCache()
 
 void EFX::setStartOffset(int startOffset)
 {
-    m_startOffset = static_cast<int> (CLAMP(startOffset, 0, 359));
+    m_startOffset = CLAMP(startOffset, 0, 359);
     emit changed(this->id());
 }
 
 int EFX::startOffset() const
 {
-    return static_cast<int> (m_startOffset);
+    return m_startOffset;
 }
 
 qreal EFX::convertOffset(int offset) const

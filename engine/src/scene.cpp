@@ -43,6 +43,7 @@
 Scene::Scene(Doc* doc) : Function(doc, Function::Scene)
     , m_legacyFadeBus(Bus::invalid())
     , m_hasChildren(false)
+    , m_viewMode(true)
     , m_fader(NULL)
 {
     setName(tr("New Scene"));
@@ -192,6 +193,16 @@ void Scene::setChannelGroupLevel(quint32 id, uchar level)
 QList<uchar> Scene::channelGroupsLevels()
 {
     return m_channelGroupsLevels;
+}
+
+void Scene::setViewMode(bool tabbed)
+{
+    m_viewMode = tabbed;
+}
+
+bool Scene::viewMode()
+{
+    return m_viewMode;
 }
 
 QList<quint32> Scene::channelGroups()
@@ -490,10 +501,8 @@ void Scene::write(MasterTimer* timer, UniverseArray* ua)
             fc.setTarget(value.value);
             Fixture *fixture = doc()->fixture(value.fxi);
             if (fixture != NULL)
-            {
-                if (fixture->channelCanFade(value.channel) == false)
-                    canFade = false;
-            }
+                canFade = fixture->channelCanFade(value.channel);
+
             if (canFade == false)
             {
                 fc.setFadeTime(0);

@@ -44,6 +44,7 @@ VCSoloFrame::VCSoloFrame(QWidget* parent, Doc* doc, bool canCollapse) : VCFrame(
 {
     /* Set the class name "VCSoloFrame" as the object name as well */
     setObjectName(VCSoloFrame::staticMetaObject.className());
+    setType(VCWidget::SoloFrameWidget);
 
     m_frameStyle = KVCFrameStyleSunken;
 
@@ -185,7 +186,7 @@ void VCSoloFrame::paintEvent(QPaintEvent* e)
         drawSelectionFrame = true;
 
     /* Draw a dotted line around the widget */
-    QPen pen(drawSelectionFrame ? Qt::DotLine : Qt::DashLine);
+    QPen pen(drawSelectionFrame ? Qt::DashLine : Qt::SolidLine);
     pen.setColor(Qt::red);
 
     if (drawSelectionFrame == true)

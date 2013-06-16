@@ -41,6 +41,7 @@
 #include "groupsconsole.h"
 #include "qlcfixturedef.h"
 #include "channelsgroup.h"
+#include "qlcclipboard.h"
 #include "sceneeditor.h"
 #include "mastertimer.h"
 #include "qlcchannel.h"
@@ -78,6 +79,7 @@ SceneEditor::SceneEditor(QWidget* parent, Scene* scene, Doc* doc, bool applyValu
     , m_channelGroupsTab(-1)
     , m_currentTab(KTabGeneral)
     , m_fixtureFirstTabIndex(1)
+    , m_copyFromSelection(false)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -119,7 +121,7 @@ void SceneEditor::slotFunctionManagerActive(bool active)
 
     if (active == true)
     {
-        if (m_speedDials == NULL)
+        if (m_speedDialAction->isChecked() && m_speedDials == NULL)
             createSpeedDials();
     }
     else
@@ -202,7 +204,7 @@ void SceneEditor::init(bool applyValues)
     }
 
     m_tabViewAction->setCheckable(true);
-    m_tabViewAction->setChecked(true);
+    m_tabViewAction->setChecked(m_scene->viewMode());
 
     // Chaser combo init
     quint32 selectId = Function::invalidId();
@@ -309,6 +311,7 @@ void SceneEditor::init(bool applyValues)
     updateChannelsGroupsTab();
 
     // Fixtures & tabs
+    // Fill the fixtures list from the Scene values
     QListIterator <SceneValue> it(m_scene->values());
     while (it.hasNext() == true)
     {
@@ -321,16 +324,12 @@ void SceneEditor::init(bool applyValues)
                 continue;
 
             addFixtureItem(fixture);
-            addFixtureTab(fixture);
+            //addFixtureTab(fixture);
         }
-
-        if (applyValues == false)
-            scv.value = 0;
-        setSceneValue(scv);
-        //qDebug() << "Applying fixture :" << scv.fxi << ", channel: " << scv.channel << ", value: " << scv.value;
     }
 
-    //createSpeedDials();
+    // Create the actual tab view
+    slotViewModeChanged(m_scene->viewMode(), applyValues);
 }
 
 void SceneEditor::setSceneValue(const SceneValue& scv)
@@ -353,6 +352,7 @@ void SceneEditor::setSceneValue(const SceneValue& scv)
 void SceneEditor::slotTabChanged(int tab)
 {
     m_currentTab = tab;
+    QLCClipboard *clipboard = m_doc->clipboard();
 
     if (tab == KTabGeneral)
     {
@@ -370,10 +370,15 @@ void SceneEditor::slotTabChanged(int tab)
         m_disableCurrentAction->setEnabled(true);
 
         m_copyAction->setEnabled(true);
-        if (m_copy.isEmpty() == false)
+        if (clipboard->hasSceneValues())
             m_pasteAction->setEnabled(true);
+        else
+            m_pasteAction->setEnabled(false);
 
-        m_copyToAllAction->setEnabled(true);
+        if (m_tabViewAction->isChecked())
+            m_copyToAllAction->setEnabled(true);
+        else
+            m_copyToAllAction->setEnabled(false);
         m_colorToolAction->setEnabled(isColorToolAvailable());
     }
 }
@@ -396,35 +401,90 @@ void SceneEditor::slotDisableCurrent()
 
 void SceneEditor::slotCopy()
 {
+    QList <SceneValue> copyList;
+    QLCClipboard *clipboard = m_doc->clipboard();
+
     /* QObject cast fails unless the widget is a FixtureConsole */
-    FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
-    if (fc != NULL)
+    if (m_tabViewAction->isChecked())
     {
-        m_copy = fc->values();
-        m_pasteAction->setEnabled(true);
+        FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
+        if (fc != NULL)
+        {
+            copyList = fc->values();
+            if (fc->hasSelections())
+                m_copyFromSelection = true;
+            else
+                m_copyFromSelection = false;
+            clipboard->copyContent(m_scene->id(), copyList);
+        }
     }
+    else
+    {
+        bool oneHasSelection = false;
+        foreach(FixtureConsole *fc, m_consoleList)
+        {
+            if (fc == NULL)
+                continue;
+            copyList.append(fc->values());
+            if (fc->hasSelections())
+                oneHasSelection = true;
+        }
+        m_copyFromSelection = oneHasSelection;
+        clipboard->copyContent(m_scene->id(), copyList);
+    }
+    if (copyList.count() > 0)
+        m_pasteAction->setEnabled(true);
 }
 
 void SceneEditor::slotPaste()
 {
+    QLCClipboard *clipboard = m_doc->clipboard();
+
     /* QObject cast fails unless the widget is a FixtureConsole */
-    FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
-    if (fc != NULL && m_copy.isEmpty() == false)
-        fc->setValues(m_copy);
+    if (clipboard->hasSceneValues())
+    {
+        if (m_tabViewAction->isChecked())
+        {
+            FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
+            if (fc != NULL)
+                fc->setValues(clipboard->getSceneValues(), m_copyFromSelection);
+        }
+        else
+        {
+            foreach(FixtureConsole *fc, m_consoleList)
+            {
+                if (fc == NULL)
+                    continue;
+                quint32 fxi = fc->fixture();
+                QList<SceneValue>thisFixtureVals;
+                foreach(SceneValue val, clipboard->getSceneValues())
+                {
+                    if (val.fxi == fxi)
+                        thisFixtureVals.append(val);
+                }
+                fc->setValues(thisFixtureVals, m_copyFromSelection);
+            }
+        }
+    }
 }
 
 void SceneEditor::slotCopyToAll()
 {
     slotCopy();
 
-    for (int i = m_fixtureFirstTabIndex; i < m_tab->count(); i++)
+    QLCClipboard *clipboard = m_doc->clipboard();
+
+    if (clipboard->hasSceneValues())
     {
-        FixtureConsole* fc = fixtureConsoleTab(i);
-        if (fc != NULL)
-            fc->setValues(m_copy);
+        for (int i = m_fixtureFirstTabIndex; i < m_tab->count(); i++)
+        {
+            FixtureConsole* fc = fixtureConsoleTab(i);
+            if (fc != NULL)
+                fc->setValues(clipboard->getSceneValues(), m_copyFromSelection);
+        }
     }
 
-    m_copy.clear();
+    //m_copy.clear();
     m_pasteAction->setEnabled(false);
 }
 
@@ -564,7 +624,7 @@ void SceneEditor::slotModeChanged(Doc::Mode mode)
         m_blindAction->setChecked(false);
 }
 
-void SceneEditor::slotViewModeChanged(bool toggled)
+void SceneEditor::slotViewModeChanged(bool toggled, bool applyValues)
 {
     for (int i = m_tab->count() - 1; i >= m_fixtureFirstTabIndex; i--)
     {
@@ -606,13 +666,17 @@ void SceneEditor::slotViewModeChanged(bool toggled)
                 console->setFixture(fixture->id());
                 console->setChecked(false);
                 m_consoleList.append(console);
+
                 QListIterator <SceneValue> it(m_scene->values());
                 while (it.hasNext() == true)
                 {
                     SceneValue scv(it.next());
+                    if (applyValues == false)
+                        scv.value = 0;
                     if (scv.fxi == fixture->id())
                         console->setSceneValue(scv);
                 }
+
                 connect(console, SIGNAL(valueChanged(quint32,quint32,uchar)),
                         this, SLOT(slotValueChanged(quint32,quint32,uchar)));
                 connect(console, SIGNAL(checked(quint32,quint32,bool)),
@@ -633,10 +697,13 @@ void SceneEditor::slotViewModeChanged(bool toggled)
             Q_ASSERT(fixture != NULL);
 
             addFixtureTab(fixture);
+
             QListIterator <SceneValue> it(m_scene->values());
             while (it.hasNext() == true)
             {
                 SceneValue scv(it.next());
+                if (applyValues == false)
+                    scv.value = 0;
                 if (scv.fxi == fixture->id())
                     setSceneValue(scv);
             }
@@ -646,6 +713,8 @@ void SceneEditor::slotViewModeChanged(bool toggled)
         slotTabChanged(KTabGeneral);
     else
         m_tab->setCurrentIndex(m_fixtureFirstTabIndex);
+
+    m_scene->setViewMode(toggled);
 }
 
 void SceneEditor::slotRecord()

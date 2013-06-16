@@ -74,7 +74,7 @@ protected slots:
     void slotNextAttachClicked();
     void slotNextDetachClicked();
     void slotNextChooseInputClicked();
-    void slotNextAutoDetectInputToggled(bool state);
+    void slotNextAutoDetectInputToggled(bool checked);
     void slotNextInputValueChanged(quint32 uni, quint32 ch);
 
 protected:
@@ -91,7 +91,7 @@ protected slots:
     void slotPreviousAttachClicked();
     void slotPreviousDetachClicked();
     void slotPreviousChooseInputClicked();
-    void slotPreviousAutoDetectInputToggled(bool state);
+    void slotPreviousAutoDetectInputToggled(bool checked);
     void slotPreviousInputValueChanged(quint32 uni, quint32 ch);
 
 protected:
@@ -108,7 +108,7 @@ protected slots:
     void slotStopAttachClicked();
     void slotStopDetachClicked();
     void slotStopChooseInputClicked();
-    void slotStopAutoDetectInputToggled(bool state);
+    void slotStopAutoDetectInputToggled(bool checked);
     void slotStopInputValueChanged(quint32 uni, quint32 ch);
 
 protected:
@@ -117,6 +117,25 @@ protected:
 protected:
     QKeySequence m_stopKeySequence;
     QLCInputSource m_stopInputSource;
+
+    /************************************************************************
+     * Crossfade Cue List
+     ************************************************************************/
+protected slots:
+    void slotCF1ChooseInputClicked();
+    void slotCF1AutoDetectInputToggled(bool checked);
+    void slotCF1InputValueChanged(quint32 uni, quint32 ch);
+    void slotCF2ChooseInputClicked();
+    void slotCF2AutoDetectInputToggled(bool checked);
+    void slotCF2InputValueChanged(quint32 uni, quint32 ch);
+
+protected:
+    void updateCrossfadeInputSource();
+
+protected:
+    QLCInputSource m_cf1InputSource;
+    QLCInputSource m_cf2InputSource;
+
 };
 
 #endif

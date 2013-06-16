@@ -24,6 +24,7 @@
 #include <QHeaderView>
 #include <QTreeWidget>
 #include <QPushButton>
+#include <QMessageBox>
 #include <QLineEdit>
 #include <QSettings>
 #include <QDebug>
@@ -43,7 +44,6 @@
 #include "chaser.h"
 #include "scene.h"
 #include "doc.h"
-#include <QMessageBox>
 
 #define SETTINGS_GEOMETRY "chasereditor/geometry"
 #define PROP_STEP Qt::UserRole
@@ -60,6 +60,7 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc)
     : QWidget(parent)
     , m_doc(doc)
     , m_chaser(chaser)
+    , m_itemIsUpdating(false)
 {
     Q_ASSERT(chaser != NULL);
     Q_ASSERT(doc != NULL);
@@ -68,6 +69,7 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc)
 
     /* Resize columns to fit contents */
     m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
+    m_tree->setItemDelegateForColumn(COL_NUM, new NoEditDelegate(this)); // disable editing of steps number
     if (m_chaser->isSequence() == true)
     {
         m_tree->header()->setSectionHidden(COL_NAME, true);
@@ -352,7 +354,7 @@ void ChaserEditor::slotAddClicked()
         m_tree->setCurrentItem(item);
         updateStepNumbers();
         updateClipboardButtons();
-        printSteps();
+        //printSteps();
     }
 }
 
@@ -397,7 +399,7 @@ void ChaserEditor::slotRaiseClicked()
         it.next()->setSelected(true);
 
     updateClipboardButtons();
-    printSteps();
+    //printSteps();
 }
 
 void ChaserEditor::slotLowerClicked()
@@ -434,7 +436,7 @@ void ChaserEditor::slotLowerClicked()
         it.next()->setSelected(true);
 
     updateClipboardButtons();
-    printSteps();
+    //printSteps();
 }
 
 void ChaserEditor::slotSpeedDialToggle(bool state)
@@ -590,6 +592,8 @@ void ChaserEditor::slotPasteClicked()
         insertionPoint = m_tree->topLevelItemCount();
     }
 
+    QList<QTreeWidgetItem*>selectionList;
+
     QListIterator <ChaserStep> it(pasteList);
     while (it.hasNext() == true)
     {
@@ -597,13 +601,17 @@ void ChaserEditor::slotPasteClicked()
         ChaserStep step(it.next());
         updateItem(item, step);
         m_tree->insertTopLevelItem(insertionPoint, item);
-        item->setSelected(true);
         m_chaser->addStep(step, insertionPoint);
+        selectionList.append(item); // defer items selection cause of performances issues
         insertionPoint++;
     }
 
     updateStepNumbers();
     updateClipboardButtons();
+
+    // this is done here cause of a misterious performance issue
+    foreach (QTreeWidgetItem *item, selectionList)
+        item->setSelected(true);
 }
 
 /****************************************************************************
@@ -736,7 +744,10 @@ void ChaserEditor::slotHoldDialChanged(int ms)
             int index = m_tree->indexOfTopLevelItem(item);
             ChaserStep step = stepAtItem(item);
             step.hold = ms;
-            step.duration = step.fadeIn + step.hold + step.fadeOut;
+            if (ms < 0)
+                step.duration = ms;
+            else
+                step.duration = step.fadeIn + step.hold + step.fadeOut;
             m_chaser->replaceStep(step, index);
             updateItem(item, step);
         }
@@ -868,8 +879,10 @@ void ChaserEditor::updateSpeedDials()
     default:
     case Chaser::Common:
     {
-        uint holdSpeed = m_chaser->duration() - m_chaser->fadeInSpeed() - m_chaser->fadeOutSpeed();
-        m_speedDials->setDuration(holdSpeed);
+        if ((int)m_chaser->duration() < 0)
+            m_speedDials->setDuration(m_chaser->duration());
+        else
+            m_speedDials->setDuration(m_chaser->duration() - m_chaser->fadeInSpeed() - m_chaser->fadeOutSpeed());
         m_speedDials->setDurationTitle(globalHold);
         m_speedDials->setDurationEnabled(true);
         break;
@@ -893,6 +906,17 @@ void ChaserEditor::updateSpeedDials()
 /****************************************************************************
  * Test
  ****************************************************************************/
+int ChaserEditor::getCurrentIndex()
+{
+    QList <QTreeWidgetItem*> selected(m_tree->selectedItems());
+    int index = 0;
+    if (selected.size() > 0)
+    {
+        QTreeWidgetItem* item(selected.first());
+        index = m_tree->indexOfTopLevelItem(item);
+    }
+    return index;
+}
 
 void ChaserEditor::slotRestartTest()
 {
@@ -910,7 +934,12 @@ void ChaserEditor::slotTestPlay()
     m_testNextButton->setEnabled(true);
 
     if (m_chaser->stopped() == true)
+    {
+        int idx = getCurrentIndex();
+        if (idx >= 0)
+            m_chaser->setStepIndex(idx);
         m_chaser->start(m_doc->masterTimer());
+    }
 }
 
 void ChaserEditor::slotTestStop()

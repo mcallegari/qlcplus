@@ -59,7 +59,7 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
     , m_doc(doc)
     , m_multiSelection(true)
     , m_filter(Function::Scene | Function::Chaser | Function::Collection |
-               Function::EFX | Function::Script | Function::RGBMatrix | Function::Show)
+               Function::EFX | Function::Script | Function::RGBMatrix | Function::Show | Function::Audio)
     , m_constFilter(false)
 {
     Q_ASSERT(doc != NULL);
@@ -91,6 +91,9 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
 
     connect(m_showCheck, SIGNAL(toggled(bool)),
             this, SLOT(slotShowChecked(bool)));
+
+    connect(m_audioCheck, SIGNAL(toggled(bool)),
+            this, SLOT(slotAudioChecked(bool)));
 }
 
 int FunctionSelection::exec()
@@ -102,6 +105,7 @@ int FunctionSelection::exec()
     m_scriptCheck->setChecked(m_filter & Function::Script);
     m_rgbMatrixCheck->setChecked(m_filter & Function::RGBMatrix);
     m_showCheck->setChecked(m_filter & Function::Show);
+    m_audioCheck->setChecked(m_filter & Function::Audio);
 
     if (m_constFilter == true)
     {
@@ -112,6 +116,7 @@ int FunctionSelection::exec()
         m_scriptCheck->setEnabled(false);
         m_rgbMatrixCheck->setEnabled(false);
         m_showCheck->setEnabled(false);
+        m_audioCheck->setEnabled(false);
     }
 
     /* Multiple/single selection */
@@ -188,6 +193,23 @@ void FunctionSelection::updateFunctionItem(QTreeWidgetItem* item, Function* func
     item->setText(KColumnName, function->name());
     item->setText(KColumnType, function->typeString());
     item->setText(KColumnID, QString::number(function->id()));
+    switch (function->type())
+    {
+    case Function::Scene: item->setIcon(KColumnName, QIcon(":/scene.png")); break;
+    case Function::Chaser:
+        if (qobject_cast<const Chaser*>(function)->isSequence() == true)
+            item->setIcon(KColumnName, QIcon(":/sequence.png"));
+        else
+            item->setIcon(KColumnName, QIcon(":/chaser.png"));
+    break;
+    case Function::EFX:item->setIcon(KColumnName, QIcon(":/efx.png")); break;
+    case Function::Collection:item->setIcon(KColumnName, QIcon(":/collection.png")); break;
+    case Function::RGBMatrix:item->setIcon(KColumnName, QIcon(":/rgbmatrix.png")); break;
+    case Function::Script:item->setIcon(KColumnName, QIcon(":/script.png")); break;
+    case Function::Show:item->setIcon(KColumnName, QIcon(":/show.png")); break;
+    case Function::Audio:item->setIcon(KColumnName, QIcon(":/audio.png")); break;
+    default: item->setIcon(KColumnName, QIcon(":/function.png")); break;
+    }
 }
 
 void FunctionSelection::refillTree()
@@ -299,5 +321,14 @@ void FunctionSelection::slotShowChecked(bool state)
         m_filter = (m_filter | Function::Show);
     else
         m_filter = (m_filter & ~Function::Show);
+    refillTree();
+}
+
+void FunctionSelection::slotAudioChecked(bool state)
+{
+    if (state == true)
+        m_filter = (m_filter | Function::Audio);
+    else
+        m_filter = (m_filter & ~Function::Audio);
     refillTree();
 }

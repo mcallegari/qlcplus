@@ -37,8 +37,10 @@
 #include "function.h"
 #include "doc.h"
 
+#define MASTERTIMER_FREQUENCY "mastertimer/frequency"
+
 /** The timer tick frequency in Hertz */
-const uint MasterTimer::s_frequency = 50;
+uint MasterTimer::s_frequency = 50;
 
 /*****************************************************************************
  * Initialization
@@ -52,6 +54,11 @@ MasterTimer::MasterTimer(Doc* doc)
 {
     Q_ASSERT(doc != NULL);
     Q_ASSERT(d_ptr != NULL);
+
+    QSettings settings;
+    QVariant var = settings.value(MASTERTIMER_FREQUENCY);
+    if (var.isValid() == true)
+        s_frequency = var.toUInt();
 }
 
 MasterTimer::~MasterTimer()

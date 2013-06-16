@@ -69,6 +69,32 @@ win32 {
     }
     INSTALLS += mingw
 
+	# audio libraries
+	audio.path = $$INSTALLROOT/$$LIBSDIR
+	exists($$(SystemDrive)/MinGW/bin/libmad-0.dll) {
+        audio.files += $$(SystemDrive)/MinGW/bin/libmad-0.dll
+    }
+	exists($$(SystemDrive)/MinGW/bin/libogg-0.dll) {
+        audio.files += $$(SystemDrive)/MinGW/bin/libogg-0.dll
+    }
+	exists($$(SystemDrive)/MinGW/bin/libvorbis-0.dll) {
+        audio.files += $$(SystemDrive)/MinGW/bin/libvorbis-0.dll
+    }
+	exists($$(SystemDrive)/MinGW/bin/libvorbisenc-2.dll) {
+        audio.files += $$(SystemDrive)/MinGW/bin/libvorbisenc-2.dll
+    }
+	exists($$(SystemDrive)/MinGW/bin/libFLAC-8.dll) {
+        audio.files += $$(SystemDrive)/MinGW/bin/libFLAC-8.dll
+    }
+	exists($$(SystemDrive)/MinGW/bin/libsndfile-1.dll) {
+        audio.files += $$(SystemDrive)/MinGW/bin/libsndfile-1.dll
+    }
+	exists($$(SystemDrive)/MinGW/bin/libfftw3-3.dll) {
+        audio.files += $$(SystemDrive)/MinGW/bin/libfftw3-3.dll
+    }
+	
+	INSTALLS += audio
+	
     # NullSoft installer files
     nsis.path  = $$INSTALLROOT/$$DATADIR
     nsis.files = qlcplus.nsi

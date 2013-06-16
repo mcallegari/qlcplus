@@ -82,7 +82,13 @@ Audio::Audio(Doc* doc)
 
 Audio::~Audio()
 {
-
+    if (m_audio_out != NULL)
+    {
+        m_audio_out->stop();
+        delete m_audio_out;
+    }
+    if (m_decoder != NULL)
+        delete m_decoder;
 }
 
 /*****************************************************************************
@@ -114,6 +120,7 @@ bool Audio::copyFrom(const Function* function)
     if (aud == NULL)
         return false;
 
+    setSourceFileName(aud->m_sourceFileName);
     m_audioDuration = aud->m_audioDuration;
     m_color = aud->m_color;
 
@@ -169,7 +176,10 @@ bool Audio::setSourceFileName(QString filename)
     {
         // unload previous source
         if (m_decoder != NULL)
+        {
             delete m_decoder;
+            m_decoder = NULL;
+        }
     }
 
 #ifdef QT_PHONON_LIB
@@ -197,7 +207,10 @@ bool Audio::setSourceFileName(QString filename)
 #ifdef HAS_LIBSNDFILE
     m_decoder = new AudioDecoderSndFile(m_sourceFileName);
     if (m_decoder->initialize() == false)
+    {
         delete m_decoder;
+        m_decoder = NULL;
+    }
     else
     {
         m_audioDuration = m_decoder->totalTime();
@@ -207,7 +220,10 @@ bool Audio::setSourceFileName(QString filename)
 #ifdef HAS_LIBMAD
     m_decoder = new AudioDecoderMAD(m_sourceFileName);
     if (m_decoder->initialize() == false)
+    {
         delete m_decoder;
+        m_decoder = NULL;
+    }
     else
     {
         m_audioDuration = m_decoder->totalTime();
@@ -225,6 +241,13 @@ QString Audio::getSourceFileName()
 AudioDecoder* Audio::getAudioDecoder()
 {
     return m_decoder;
+}
+
+void Audio::adjustIntensity(qreal fraction)
+{
+    if (m_audio_out != NULL)
+        m_audio_out->adjustIntensity(fraction);
+    Function::adjustIntensity(fraction);
 }
 
 void Audio::slotTotalTimeChanged(qint64)
@@ -320,6 +343,7 @@ void Audio::preRun(MasterTimer* timer)
 #endif
     if (m_decoder != NULL)
     {
+        m_decoder->seek(elapsed());
         AudioParameters ap = m_decoder->audioParameters();
 #if defined(__APPLE__)
         //m_audio_out = new AudioRendererCoreAudio();

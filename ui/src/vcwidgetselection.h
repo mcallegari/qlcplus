@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  channelsconfiguration.h
+  vcwidgetselection.h
 
   Copyright (c) Massimo Callegari
 
@@ -19,36 +19,32 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef CHANNELSCONFIGURATION_H
-#define CHANNELSCONFIGURATION_H
+#ifndef VCWIDGETSELECTION_H
+#define VCWIDGETSELECTION_H
 
 #include <QDialog>
 
-#include "ui_channelsconfiguration.h"
+#include "ui_vcwidgetselection.h"
 
-class Doc;
+class VCWidget;
 
-class ChannelsConfiguration : public QDialog, public Ui_ChannelsConfiguration
+class VCWidgetSelection : public QDialog, public Ui_VCWidgetSelection
 {
     Q_OBJECT
-    Q_DISABLE_COPY(ChannelsConfiguration)
     
 public:
-    ChannelsConfiguration(Doc* doc, QWidget *parent = 0);
-    ~ChannelsConfiguration();
+    explicit VCWidgetSelection(QList<int> filters, QWidget *parent = 0);
+    ~VCWidgetSelection();
+
+    VCWidget* getSelectedWidget();
 
 private:
-    Doc* m_doc;
+    QList<int> m_filters;
+    QList<VCWidget *> m_widgetsList;
 
 protected:
-    void updateFixturesTree();
-
-protected slots:
-
-    void slotItemChecked(QTreeWidgetItem *item, int col);
-
-    /** Callback for OK button clicks */
-    void accept();
+    QList<VCWidget *> getChildren(VCWidget *obj);
+    void updateWidgetsTree();
 };
 
-#endif // CHANNELSCONFIGURATION_H
+#endif // VCWIDGETSELECTION_H

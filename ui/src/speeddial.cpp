@@ -386,9 +386,9 @@ void SpeedDial::slotInfiniteChecked(bool state)
     }
     else
     {
-        m_value = 0;
+        m_value = spinValues();
         if (m_preventSignals == false)
-            emit valueChanged(0);
+            emit valueChanged(m_value);
     }
 }
 

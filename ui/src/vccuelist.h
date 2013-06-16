@@ -33,9 +33,12 @@ class QDomDocument;
 class QDomElement;
 class QTreeWidget;
 class QToolButton;
+class QCheckBox;
+class QLabel;
 
 class VCCueListProperties;
-class ChaserRunner;
+class ClickAndGoSlider;
+class CueListRunner;
 class MasterTimer;
 class InputMap;
 class Chaser;
@@ -48,6 +51,8 @@ class Doc;
 #define KXMLQLCVCCueListNext "Next"
 #define KXMLQLCVCCueListPrevious "Previous"
 #define KXMLQLCVCCueListStop "Stop"
+#define KXMLQLCVCCueListCrossfadeLeft "CrossLeft"
+#define KXMLQLCVCCueListCrossfadeRight "CrossRight"
 
 /**
  * VCCueList provides a \ref VirtualConsole widget to control cue lists.
@@ -66,6 +71,8 @@ public:
     static const quint8 nextInputSourceId;
     static const quint8 previousInputSourceId;
     static const quint8 stopInputSourceId;
+    static const quint8 cf1InputSourceId;
+    static const quint8 cf2InputSourceId;
 
     /*************************************************************************
      * Initialization
@@ -112,8 +119,8 @@ private slots:
     /** Updates name in the list if function got changed */
     void slotFunctionChanged(quint32 fid);
 
-    /** Play the cue list from the current selection */
-    void slotPlay();
+    /** Play/stop the cue list from the current selection */
+    void slotPlayback();
 
     /** Skip to the next cue */
     void slotNextCue();
@@ -140,16 +147,44 @@ private:
     void createRunner(int startIndex = -1);
 
 private:
-    quint32 m_chaser;
+    quint32 m_chaserID;
     QTreeWidget* m_tree;
-    QToolButton* m_playButton;
-    QToolButton* m_stopButton;
+    QToolButton* m_crossfadeButton;
+    QToolButton* m_playbackButton;
     QToolButton* m_previousButton;
     QToolButton* m_nextButton;
     bool m_listIsUpdating;
 
-    ChaserRunner* m_runner;
+    CueListRunner* m_runner;
     QMutex m_mutex; // Guards m_runner
+
+
+    /*************************************************************************
+     * Crossfade
+     *************************************************************************/
+protected:
+    void setSlidersInfo(int pIndex, Chaser *chaser);
+
+protected slots:
+    void slotShowCrossfadePanel(bool enable);
+    void slotSlider1ValueChanged(int value);
+    void slotSlider2ValueChanged(int value);
+
+private:
+    QCheckBox *m_linkCheck;
+    QLabel *m_sl1TopLabel;
+    ClickAndGoSlider* m_slider1;
+    QLabel *m_sl1BottomLabel;
+
+    QLabel *m_sl2TopLabel;
+    ClickAndGoSlider* m_slider2;
+    QLabel *m_sl2BottomLabel;
+
+    QBrush m_defCol;
+    int m_primaryIndex, m_secondaryIndex;
+    QString m_noStyle, m_blueStyle, m_orangeStyle;
+    bool m_primaryLeft;
+
 
     /*************************************************************************
      * DMX Source

@@ -175,6 +175,19 @@ bool FadeChannel::isReady() const
     return m_ready;
 }
 
+bool FadeChannel::canFade(const Doc* doc) const
+{
+    bool cFade = true;
+
+    if (fixture() != Fixture::invalidId())
+    {
+        Fixture* fxi = doc->fixture(fixture());
+        if (fxi != NULL)
+            cFade = fxi->channelCanFade(channel());
+    }
+    return cFade;
+}
+
 void FadeChannel::setFadeTime(uint ms)
 {
     m_fadeTime = ms;

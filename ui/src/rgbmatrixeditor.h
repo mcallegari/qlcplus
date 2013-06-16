@@ -84,7 +84,7 @@ private slots:
 
     void slotFadeInChanged(int ms);
     void slotFadeOutChanged(int ms);
-    void slotDurationChanged(int ms);
+    void slotHoldChanged(int ms);
     void slotDurationTapped();
 
     void slotTestClicked();
@@ -96,7 +96,7 @@ private slots:
 
 private:
     Doc* m_doc;
-    RGBMatrix* m_mtx; // The RGBMatrix being edited
+    RGBMatrix* m_matrix; // The RGBMatrix being edited
 
     QList <RGBScript> m_scripts;
     QList <RGBMap> m_previewMaps;

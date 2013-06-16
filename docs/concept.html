@@ -25,7 +25,7 @@ specific topic.
 An audio <A HREF="#Functions">function</A> is an object representing an audio
 file stored in a disk.<br>
 Audio files can be placed in a <A HREF="#Show">show</A> at the desired time, using
-the <A HREF="showmanager.html">Show Manager</A> panel.<br>
+the <A HREF="file:showmanager.html">Show Manager</A> panel.<br>
 </P>
 
 <H3><IMG SRC="qrc:/blackout.png"> <A NAME="Blackout" HREF="#Blackout">Blackout</A></H3>
@@ -56,8 +56,8 @@ three properties:
 
 <A NAME="Channelgroups" HREF="#Channelgroups"><H3>Channel Groups</H3></A>
 <P>
-Channel groups can be added and defined in the <A HREF="fixturemanager.html">Fixture Manager</A>
-panel by using the <A HREF="channelsgroupeditor.html">Channel groups editor</A>.<br>
+Channel groups can be added and defined in the <A HREF="file:fixturemanager.html">Fixture Manager</A>
+panel by using the <A HREF="file:channelsgroupeditor.html">Channel groups editor</A>.<br>
 Channel groups can have a user defined name and can group any user defined channels
 selected from an existing Fixtures list.
 </P>
@@ -81,13 +81,14 @@ be stopped manually.
 
 <P>
 As of version 3.3.0, each chaser has their own speed settings:
-<LI><B>Fade In:</B> Overrides the fade in speed of all steps</LI>
-<LI><B>Fade Out:</B> Overrides the fade out speed of all steps</LI>
-<LI><B>Duration:</B> The duration of the current step</LI>
+<LI><B>Fade In:</B> The fade in speed of a step</LI>
+<LI><B>Hold:</B> The hold time of a step</LI>
+<LI><B>Fade Out:</B> The fade out speed of a step</LI>
+<LI><B>Duration:</B> The duration of a step</LI>
 </P>
 
 <P>
-Copies of chaser functions can be created with the <A HREF="functionmanager.html">
+Copies of chaser functions can be created with the <A HREF="file:functionmanager.html">
 Function Manager</A>. The scenes inside a chaser are not duplicated when a chaser
 is copied. Only the order and direction are copied to the new one.
 </P>
@@ -122,7 +123,7 @@ thru their own editors.
 </P>
 
 <P>
-Copies of collection functions can be created with the <A HREF="functionmanager.html">
+Copies of collection functions can be created with the <A HREF="file:functionmanager.html">
 Function Manager</A>. The functions inside a collection are not duplicated; only the
 list of functions is copied.
 </P>
@@ -179,7 +180,7 @@ If the function is set to do an infinite loop, it must be stopped manually.
 </P>
 
 <P>
-Copies of EFX functions can be created with the <A HREF="functionmanager.html">
+Copies of EFX functions can be created with the <A HREF="file:functionmanager.html">
 Function Manager</A>. All of the EFX's contents are copied to the duplicate.
 </P>
 
@@ -470,16 +471,16 @@ Function Manager</A>. All of the scene's contents are copied to the duplicate.
 
 <H3><IMG SRC="qrc:/sequence.png"> <A NAME="Sequence" HREF="#Sequence">Sequence</A></H3>
 <P>
-A sequence is a special <A HREF="#Chaser">Chaser</A> which is bounded to a specific <A HREF="#Scene">Scene</A>. It means all the created steps will
+A sequence is a special <A HREF="#Chaser">Chaser</A> which is bound to a specific <A HREF="#Scene">Scene</A>. It means all the created steps will
 control channels of the same scene. When creating new steps in a sequence, no Function selection popup will appear, since a Sequence is a child of a Scene.<br>
 A sequence will appear in the <A HREF="functionmanager.html">Function Manager</A> with a different icon than a Chaser.
 </P>
 
 <H3><IMG SRC="qrc:/show.png"> <A NAME="Show" HREF="#Show">Show</A></H3>
 <P>
-A Show is an advanced <A HREF="#Functions">function</A> which encapsulates <A HREF="#Scene">scenes</A> and <A HREF="#Sequence">sequences</A> to create
-a time driven light sequence. A Show can be created only with the <A HREF="showmanager.html">Show Manager</A> and can be inspected and renamed with the
-<A HREF="functionmanager.html">Function Manager</A>.
+A Show is an advanced <A HREF="#Functions">function</A> which encapsulates <A HREF="#Scene">scenes</A>, <A HREF="#Audio">audio</A> and <A HREF="#Sequence">sequences</A> to create
+a time driven light show. A Show can be created only with the <A HREF="showmanager.html">Show Manager</A> and can be inspected and renamed with the
+<A HREF="showeditor.html">Show Editor</A>.
 </P>
 
 </BODY>

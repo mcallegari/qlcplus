@@ -78,6 +78,7 @@ App::App()
     , m_modeToggleAction(NULL)
     , m_controlMonitorAction(NULL)
     , m_addressToolAction(NULL)
+    , m_audioInputAction(NULL)
     , m_controlFullScreenAction(NULL)
     , m_controlBlackoutAction(NULL)
     , m_controlPanicAction(NULL)
@@ -88,6 +89,9 @@ App::App()
     , m_fileOpenMenu(NULL)
 
     , m_toolbar(NULL)
+
+    , m_dumpProperties(NULL)
+    , m_audioTriggers(NULL)
 {
     QCoreApplication::setOrganizationName("qlcplus");
     QCoreApplication::setOrganizationDomain("sf.net");
@@ -125,6 +129,12 @@ App::~App()
 
     if (SimpleDesk::instance() != NULL)
         delete SimpleDesk::instance();
+
+    if (m_dumpProperties != NULL)
+        delete m_dumpProperties;
+
+    if (m_audioTriggers != NULL)
+        delete m_audioTriggers;
 
     if (m_doc != NULL)
         delete m_doc;
@@ -215,6 +225,8 @@ void App::init()
 
     // Start up in non-modified state
     m_doc->resetModified();
+
+    m_audioTriggers = new AudioTriggerFactory(m_doc);
 }
 
 void App::setActiveWindow(const QString& name)
@@ -507,6 +519,9 @@ void App::initActions()
     m_addressToolAction = new QAction(QIcon(":/diptool.png"), tr("Address Tool"), this);
     connect(m_addressToolAction, SIGNAL(triggered()), this, SLOT(slotAddressTool()));
 
+    m_audioInputAction = new QAction(QIcon(":/audioinput.png"), tr("Audio Trigger Factory"), this);
+    connect(m_audioInputAction, SIGNAL(triggered()), this, SLOT(slotAudioInput()));
+
     m_controlBlackoutAction = new QAction(QIcon(":/blackout.png"), tr("Toggle &Blackout"), this);
     m_controlBlackoutAction->setCheckable(true);
     connect(m_controlBlackoutAction, SIGNAL(triggered(bool)), this, SLOT(slotControlBlackout()));
@@ -549,8 +564,9 @@ void App::initToolBar()
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_controlMonitorAction);
     m_toolbar->addAction(m_addressToolAction);
-    m_toolbar->addAction(m_controlFullScreenAction);
+    m_toolbar->addAction(m_audioInputAction);
     m_toolbar->addSeparator();
+    m_toolbar->addAction(m_controlFullScreenAction);
     m_toolbar->addAction(m_helpIndexAction);
     m_toolbar->addAction(m_helpAboutAction);
 
@@ -874,6 +890,12 @@ void App::slotAddressTool()
     at.exec();
 }
 
+void App::slotAudioInput()
+{
+    if (m_audioTriggers)
+        m_audioTriggers->show();
+}
+
 void App::slotControlBlackout()
 {
     m_doc->outputMap()->setBlackout(!m_doc->outputMap()->blackout());
@@ -1108,6 +1130,10 @@ bool App::loadXML(const QDomDocument& doc)
         {
             /* Ignore creator information */
         }
+        else if (tag.tagName() == KXMLQLCAudioTriggerFactory)
+        {
+            AudioTriggerFactory::instance()->loadXML(tag);
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown Workspace tag:" << tag.tagName();
@@ -1161,6 +1187,9 @@ QFile::FileError App::saveXML(const QString& fileName)
 
         /* Write Simple Desk to the XML document */
         SimpleDesk::instance()->saveXML(&doc, &root);
+
+        /* Write Audio Trigger Factory to the XML document */
+        AudioTriggerFactory::instance()->saveXML(&doc, &root);
 
         /* Write the XML document to the stream (=file) */
         stream << doc.toString() << "\n";

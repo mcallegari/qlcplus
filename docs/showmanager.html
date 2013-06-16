@@ -11,10 +11,10 @@
 The Show Manager has been introduced in QLC+ starting from version 4.0.0, after forking the original
 QLC code on November 5th, 2012.<br>
 <br>
-This new feature is meant to give users the possibility to setup a time driven show in a friendly and
+This feature is meant to give users the possibility to setup a time driven show in a friendly and
 completely graphical way.<br>
 The graphic interface shows a multitrack view, typical of audio sequencers or video editing softwares,
-and with it users are allowed to place QLC+ <A HREF="concept.html#Functions">Functions</A> at the desired
+and with it users are allowed to place QLC+ <A HREF="file:concept.html#Functions">Functions</A> at the desired
 place and time in the view.<br>
 <br>
 A typical use case are those gigs where bands play songs following a metronome and the light show has
@@ -26,7 +26,7 @@ the atmosphere at the right time.<br>
 <TABLE BORDER="1">
  <TR>
   <TD><IMG SRC="qrc:/show.png"/></TD>
-  <TD>Create a new <A HREF="concept.html#Show">Show</A>. A Show is represented as a multitrack
+  <TD>Create a new <A HREF="file:concept.html#Show">Show</A>. A Show is represented as a multitrack
   workspace where tracks, sequences and audio elements can be added</TD>
  </TR>
  <TR></TR>
@@ -36,18 +36,18 @@ the atmosphere at the right time.<br>
  </TR>
  <TR>
   <TD><IMG SRC="qrc:/scene.png"/></TD>
-  <TD>Create a new track. In QLC+ a track corresponds to a <A HREF="concept.html#Scene">Scene</A>.
+  <TD>Create a new track. In QLC+ a track corresponds to a <A HREF="file:concept.html#Scene">Scene</A>.
   A Show can virtually have an infinite number of tracks.</TD>
  </TR>
  <TR>
   <TD><IMG SRC="qrc:/sequence.png"/></TD>
-  <TD>Create a new <A HREF="concept.html#Sequence">Sequence</A> item. A sequence is a special
-  <A HREF="concept.html#Chaser">Chaser</A> bound to a Scene. All the steps created in a sequence will
+  <TD>Create a new <A HREF="file:concept.html#Sequence">Sequence</A> item. A sequence is a special
+  <A HREF="file:concept.html#Chaser">Chaser</A> bound to a Scene. All the steps created in a sequence will
   only act on the selected track's DMX channels</TD>
  </TR>
  <TR>
   <TD><IMG SRC="qrc:/audio.png"/></TD>
-  <TD>Create a new <A HREF="concept.html#Audio">audio</A> item. An audio item simply represents
+  <TD>Create a new <A HREF="file:concept.html#Audio">audio</A> item. An audio item simply represents
   an audio file. Audio items can be added on any track, but if you intend to create a separate
   track for it, just create an empty Scene track.<br>
   <B>Note:</B> It is possible to display the waveform preview of an audio item just by right clicking it
@@ -74,7 +74,7 @@ the atmosphere at the right time.<br>
   <TD>Delete the currently selected item. This can be a sequence, an audio item or a track.
   Note that deleting a track will delete also all its sequences/audio children.<br>
   <B>Note: Show Manager will only perform a "visual removal" of functions. To permanently 
-  delete them, please use the <A HREF="functionmanager.html">Function Manager</A></B></TD>
+  delete them, please use the <A HREF="file:functionmanager.html">Function Manager</A></B></TD>
  </TR>
  <TR></TR>
  <TR>
@@ -95,11 +95,12 @@ the atmosphere at the right time.<br>
  <TR></TR>
  <TR>
   <TD><IMG SRC="qrc:/player_play.png"/></TD>
-  <TD>Start the current Show playback</TD>
+  <TD>Start the current Show playback from the cursor position</TD>
  </TR>
  <TR>
   <TD><IMG SRC="qrc:/player_stop.png"/></TD>
-  <TD>Stop the current Show playback</TD>
+  <TD>Stop the current Show playback. Clicking once will stop the cursor at the current position
+  for later resume. Clicking twice will restore the cursor to 0 seconds.</TD>
  </TR>
  <TR></TR>
  <TR>
@@ -117,17 +118,17 @@ the atmosphere at the right time.<br>
  
 </TABLE>
 
-<H1>4 steps</H1>
+<H1>Just 4 steps</H1>
 
 The Show Manager has been studied to be used quickly and easily. Basically with just 4 steps a complete
-<A HREF="concept.html#Show">Show</A> can be created:
+<A HREF="file:concept.html#Show">Show</A> can be created:
 
 <OL>
 <H3><LI>Add a new Show <IMG SRC="qrc:/show.png"></LI></H3>
 First of all you need to add a new Show to the view. This creates an empty multitrack view with no tracks
 and no items, ready to be filled.<br>
 A popup will appear asking the name to assign to the Show. It is possible to change the name afterward with the
-<A HREF="functionmanager.html">Function Manager</A>, using the <A HREF="showeditor.html">Show Editor</A> panel.
+<A HREF="file:functionmanager.html">Function Manager</A>, using the <A HREF="file:showeditor.html">Show Editor</A> panel.
 
 <H3><LI>Add a track <IMG SRC="qrc:/scene.png"></LI></H3>
 In the Show Manager, a track corresponds to a Scene. When you add a track, a popup will ask you to select an existing
@@ -137,20 +138,25 @@ will act only on the associated Scene, not affecting all the other tracks.<br>
 A newly created track will be set automatically as active. An active track has a green light on the left side.<br>
 A Track can be set to mute and solo states. Mute state will exclude the track from the playback, while the solo state will
 mute all the other tracks of the Show.<br>
-Once selected, a track will display its <A HREF="sceneeditor.html">Scene Editor</A> on the bottom of the screen.
+Once selected, a track will display its <A HREF="file:sceneeditor.html">Scene Editor</A> on the bottom of the screen.
 
 <H3><LI>Add a Sequence <IMG SRC="qrc:/sequence.png">  or Audio <IMG SRC="qrc:/audio.png"></LI></H3>
 
-When a track has been activated, it is possible to add a <A HREF="concept.html#Sequence">Sequence</A> or
-and <A HREF="concept.html#Audio">Audio</A> item to it.<br>
+When a track has been activated, it is possible to add a <A HREF="file:concept.html#Sequence">Sequence</A> or
+and <A HREF="file:concept.html#Audio">Audio</A> item to it.<br>
 A new item will be placed at the cursor position, but it is always possible to move it to the desired time
 just by dragging it along the timeline.<br>
-A show item cannot be moved to another track, since it is bounded to the track where it has originally been created.<br>
-A show item can be cloned <IMG SRC="qrc:/editcopy.png"> or deleted <IMG SRC="qrc:/editdelete.png"> with the toolbar icons.
-The cloned item will be placed at the current cursor position.<br>
+A show item cannot be moved to another track, since it is bound to the track where it has originally been created.<br>
+A show item can be copied <IMG SRC="qrc:/editcopy.png">, pasted <IMG SRC="qrc:/editpaste.png"> or deleted <IMG SRC="qrc:/editdelete.png"> with the toolbar icons.
+The pasted item will be placed at the current cursor position.<br>
 The background color can be changed with the toolbar icon <IMG SRC="qrc:/color.png">. The assigned color will be saved
 in your project file.<br>
-Once selected, a sequence will display its <A HREF="chasereditor.html">Chaser Editor</A> on the right side of the screen.
+Once selected, a sequence will display its <A HREF="file:chasereditor.html">Chaser Editor</A> on the right side of the screen.
+When right clicking an item a contextual menu will be displayd, showing the following option:
+<ul>
+<li>Preview: This option is available only on audio items. It will display the waveform preview for right, left or stereo channels when available</li>
+<li>Align to cursor: This option will move the selected item to the cursor position</li>
+</ul>
 Follow step 4 to understand how to fill a Sequence<br>
 
 <H3><LI>Add some steps <IMG SRC="qrc:/edit_add.png"></LI></H3>

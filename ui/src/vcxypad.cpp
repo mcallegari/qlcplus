@@ -97,6 +97,7 @@ VCXYPad::VCXYPad(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
             this, SLOT(slotSliderValueChanged()));
 
     setFrameStyle(KVCFrameStyleSunken);
+    setType(VCWidget::XYPadWidget);
     setCaption("XY Pad");
     setMinimumSize(20, 20);
 

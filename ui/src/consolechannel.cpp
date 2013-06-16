@@ -57,6 +57,7 @@ ConsoleChannel::ConsoleChannel(QWidget* parent, Doc* doc, quint32 fixture, quint
     , m_slider(NULL)
     , m_label(NULL)
     , m_menu(NULL)
+    , m_selected(false)
 {
     Q_ASSERT(doc != NULL);
     Q_ASSERT(channel != QLCChannel::invalid());
@@ -116,6 +117,8 @@ void ConsoleChannel::init()
     m_slider->setPageStep(1);
     m_slider->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
     m_slider->setFocusPolicy(Qt::NoFocus);
+    connect(m_slider, SIGNAL(controlClicked()),
+            this, SLOT(slotControlClicked()));
 
     /*
     m_slider->setStyleSheet("QSlider::groove:vertical { background: transparent; position: absolute; left: 4px; right: 4px; } "
@@ -324,7 +327,7 @@ void ConsoleChannel::initMenu()
         m_presetButton->setIcon(QIcon(":/prism.png"));
         break;
     case QLCChannel::Maintenance:
-        m_presetButton->setIcon(QIcon(":/maintenance.png"));
+        m_presetButton->setIcon(QIcon(":/configure.png"));
         break;
     case QLCChannel::Intensity:
         setIntensityButton(ch);
@@ -602,4 +605,36 @@ void ConsoleChannel::slotClickAndGoLevelAndPresetChanged(uchar level, QImage img
     setValue(level);
 }
 
+/*************************************************************************
+ * Selection
+ *************************************************************************/
 
+bool ConsoleChannel::isSelected()
+{
+    return m_selected;
+}
+
+void ConsoleChannel::slotControlClicked()
+{
+    qDebug() << "CONTROL modifier + click";
+    if (m_selected == false)
+    {
+        m_originalStyle = this->styleSheet();
+        int topMargin = isCheckable()?16:1;
+
+        QString common = "QGroupBox::title {top:-15px; left: 12px; subcontrol-origin: border; background-color: transparent; } "
+                         "QGroupBox::indicator { width: 18px; height: 18px; } "
+                         "QGroupBox::indicator:checked { image: url(:/checkbox_full.png) } "
+                         "QGroupBox::indicator:unchecked { image: url(:/checkbox_empty.png) }";
+        QString ssSelected = QString("QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D9D730, stop: 1 #AFAD27); "
+                                 "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; } " +
+                                 (isCheckable()?common:"")).arg(topMargin);
+        setStyleSheet(ssSelected);
+        m_selected = true;
+    }
+    else
+    {
+        this->setStyleSheet(m_originalStyle);
+        m_selected = false;
+    }
+}

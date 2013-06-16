@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  channelsconfiguration.cpp
+  channelsselection.cpp
 
   Copyright (c) Massimo Callegari
 
@@ -21,19 +21,21 @@
 
 #include <QDebug>
 
-#include "channelsconfiguration.h"
+#include "channelsselection.h"
 #include "qlcfixturedef.h"
 #include "doc.h"
 
-#define KColumnName  0
-#define KColumnType  1
-#define KColumnFade  2
-#define KColumnChIdx 3
-#define KColumnID    4
+#define KColumnName         0
+#define KColumnType         1
+#define KColumnSelection    2
+#define KColumnChIdx        3
+#define KColumnID           4
 
-ChannelsConfiguration::ChannelsConfiguration(Doc *doc, QWidget *parent)
-    : QDialog(parent),
-    m_doc(doc)
+ChannelsSelection::ChannelsSelection(Doc *doc, QWidget *parent, ChannelSelectionType mode)
+    : QDialog(parent)
+    , m_doc(doc)
+    , m_mode(mode)
+    , m_isUpdating(false)
 {
     Q_ASSERT(doc != NULL);
 
@@ -44,11 +46,25 @@ ChannelsConfiguration::ChannelsConfiguration(Doc *doc, QWidget *parent)
             this, SLOT(slotItemChecked(QTreeWidgetItem*, int)));
 }
 
-ChannelsConfiguration::~ChannelsConfiguration()
+ChannelsSelection::~ChannelsSelection()
 {
 }
 
-void ChannelsConfiguration::updateFixturesTree()
+void ChannelsSelection::setChannelsList(QList<SceneValue> list)
+{
+    if (list.count() > 0)
+    {
+        m_channelsList = list;
+        updateFixturesTree();
+    }
+}
+
+QList<SceneValue> ChannelsSelection::channelsList()
+{
+    return m_channelsList;
+}
+
+void ChannelsSelection::updateFixturesTree()
 {
     m_channelsTree->clear();
     m_channelsTree->header()->setResizeMode(QHeaderView::ResizeToContents);
@@ -96,21 +112,34 @@ void ChannelsConfiguration::updateFixturesTree()
                 item->setText(KColumnType, QLCChannel::groupToString(channel->group()));
 
             item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
-            if (fxi->channelCanFade(c))
-                item->setCheckState(KColumnFade, Qt::Checked);
+            if (m_mode == ExcludeChannelsMode)
+            {
+                if (fxi->channelCanFade(c))
+                    item->setCheckState(KColumnSelection, Qt::Checked);
+                else
+                    item->setCheckState(KColumnSelection, Qt::Unchecked);
+            }
             else
-                item->setCheckState(KColumnFade, Qt::Unchecked);
+            {
+                SceneValue scv(fxi->id(), c);
+                if (m_channelsList.contains(scv))
+                    item->setCheckState(KColumnSelection, Qt::Checked);
+                else
+                    item->setCheckState(KColumnSelection, Qt::Unchecked);
+            }
             item->setText(KColumnID, QString::number(fxi->id()));
             item->setText(KColumnChIdx, QString::number(c));
         }
     }
 }
 
-void ChannelsConfiguration::slotItemChecked(QTreeWidgetItem *item, int col)
+void ChannelsSelection::slotItemChecked(QTreeWidgetItem *item, int col)
 {
-    if (m_applyAllCheck->isChecked() == false || col != KColumnFade ||
+    if (m_isUpdating == true || m_applyAllCheck->isChecked() == false || col != KColumnSelection ||
         item->text(KColumnID).isEmpty())
         return;
+
+    m_isUpdating = true;
 
     Fixture *fixture = m_doc->fixture(item->text(KColumnID).toUInt());
     if (fixture == NULL)
@@ -123,7 +152,7 @@ void ChannelsConfiguration::slotItemChecked(QTreeWidgetItem *item, int col)
     QString manufacturer = def->manufacturer();
     QString model = def->model();
     int chIdx = item->text(KColumnChIdx).toInt();
-    Qt::CheckState enable = item->checkState(KColumnFade);
+    Qt::CheckState enable = item->checkState(KColumnSelection);
 
     qDebug() << "Manuf:" << manufacturer << ", model:" << model << ", ch:" << chIdx;
 
@@ -146,17 +175,20 @@ void ChannelsConfiguration::slotItemChecked(QTreeWidgetItem *item, int col)
                     {
                         QTreeWidgetItem* item = fixItem->child(chIdx);
                         if (item != NULL)
-                            item->setCheckState(KColumnFade, enable);
+                            item->setCheckState(KColumnSelection, enable);
                     }
                 }
             }
         }
     }
+
+    m_isUpdating = false;
 }
 
-void ChannelsConfiguration::accept()
+void ChannelsSelection::accept()
 {
     QList<int> excludeList;
+    m_channelsList.clear();
 
     for (int t = 0; t < m_channelsTree->topLevelItemCount(); t++)
     {
@@ -172,10 +204,19 @@ void ChannelsConfiguration::accept()
                 for (int c = 0; c < fixItem->childCount(); c++)
                 {
                     QTreeWidgetItem *chanItem = fixItem->child(c);
-                    if (chanItem->checkState(KColumnFade) == Qt::Unchecked)
-                        excludeList.append(c);
+                    if (m_mode == ExcludeChannelsMode)
+                    {
+                        if (chanItem->checkState(KColumnSelection) == Qt::Unchecked)
+                            excludeList.append(c);
+                    }
+                    else
+                    {
+                        if (chanItem->checkState(KColumnSelection) == Qt::Checked)
+                            m_channelsList.append(SceneValue(fxID, c));
+                    }
                 }
-                fxi->setExcludeFadeChannels(excludeList);
+                if (m_mode == ExcludeChannelsMode)
+                    fxi->setExcludeFadeChannels(excludeList);
             }
         }
     }

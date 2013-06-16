@@ -61,6 +61,7 @@ VCFrame::VCFrame(QWidget* parent, Doc* doc, bool canCollapse) : VCWidget(parent,
     setObjectName(VCFrame::staticMetaObject.className());
     setFrameStyle(KVCFrameStyleSunken);
     setAllowChildren(true);
+    setType(VCWidget::FrameWidget);
 
     if (canCollapse == true)
     {
@@ -114,6 +115,8 @@ VCFrame::VCFrame(QWidget* parent, Doc* doc, bool canCollapse) : VCWidget(parent,
         resize(var.toSize());
     else
         resize(defaultSize);
+    m_width = this->width();
+    m_height = this->height();
 }
 
 VCFrame::~VCFrame()

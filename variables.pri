@@ -4,7 +4,7 @@
 
 APPNAME    = Q Light Controller Plus
 FXEDNAME   = Fixture Definition Editor
-APPVERSION = 4.3.3
+APPVERSION = 4.4.0 beta1
 
 #############################################################################
 # Compiler & linker configuration
@@ -12,7 +12,7 @@ APPVERSION = 4.3.3
 
 # Treat all compiler warnings as errors
 QMAKE_CXXFLAGS += -Werror
-QMAKE_CXXFLAGS += -Wno-unused-local-typedefs # Fix to build with GCC 4.8
+!macx:QMAKE_CXXFLAGS += -Wno-unused-local-typedefs # Fix to build with GCC 4.8
 CONFIG         += warn_on
 
 # Build everything in the order specified in .pro files

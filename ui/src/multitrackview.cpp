@@ -455,16 +455,15 @@ void MultiTrackView::mouseReleaseEvent(QMouseEvent * e)
     emit viewClicked(e);
 
     QGraphicsView::mouseReleaseEvent(e);
-    qDebug() << Q_FUNC_INFO << "View clicked at pos: " << e->pos().x() << e->pos().y();
-
+    //qDebug() << Q_FUNC_INFO << "View clicked at pos: " << e->pos().x() << e->pos().y();
 }
 
 void MultiTrackView::slotMoveCursor(QGraphicsSceneMouseEvent *event)
 {
-    qDebug() << Q_FUNC_INFO << "event - <" << event->pos().toPoint().x() << "> - <" << event->pos().toPoint().y() << ">";
     m_cursor->setPos(TRACK_WIDTH +  event->pos().toPoint().x(), 0);
     m_cursor->setTime(getTimeFromCursor());
-    emit timeChanged(getTimeFromCursor());
+    qDebug() << Q_FUNC_INFO << "Cursor moved to time:" << m_cursor->getTime();
+    emit timeChanged(m_cursor->getTime());
 }
 
 void MultiTrackView::slotTimeScaleChanged(int val)

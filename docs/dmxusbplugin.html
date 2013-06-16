@@ -19,9 +19,27 @@ The DMX USB plugin supports a variety of FTDI-based USB-to-DMX devices:
  <LI><A HREF="http://www.dmx4all.de/produkte_usb_dmx_interfaces.html">DMX4ALL USB-DMX STAGE-PROFI MK2</A></LI>
  <LI><A HREF="http://sourceforge.net/apps/trac/qlc/wiki/FTDI-USB-COM485-Plus1">FTDI USBCOM 485+</A></LI>
 </UL>
+
+<H1>2 Configuration</H1>
+<P>
+DMX USB devices should be automatically detected from QLC+ and displayed in the input/output panels list.<br>
+If for some reason the auto-detection fails, you can "force" the type of your DMX USB adapter manually.<br>
+Click on the name of your device and open the configuration dialog by clicking on 
+the <IMG SRC="qrc:/configure.png" width=32> icon on the bottom-right side of the panel.<br>
+You will see a list of DMX USB devices currently connected to your computer. Each one has a drop down menu 
+where you can force the device type.<br>
+Here's the meaning of each one:
+<UL>
+ <LI><B>Pro TX</B>: Enttec USB DMX Pro or most of the DMXKing devices in transmit (output) mode</LI>
+ <LI><B>Open TX</B>: Enttec USB DMX Open (output only)</LI>
+ <LI><B>Pro RX</B>: Enttec USB DMX Pro in receive (input) mode</LI>
+ <LI><B>Pro Mk2</B>: Enttec USB DMX Pro Mk2 - 2 outputs and 1 input available</LI>
+ <LI><B>Ultra Pro Tx</B>: DMXKing ultraDMX Pro output.</LI>
+ <LI><B>DMX4ALL</B>: DMX4ALL USB-DMX STAGE-PROFI MK2</LI>
+</UL>
 </P>
 
-<H1>2 Requirements</H1>
+<H1>3 Requirements</H1>
 
 <H2>2.1 Linux</H2>
 <P>
@@ -45,42 +63,14 @@ Consult the <A HREF="http://www.ftdichip.com/Support/Documents/InstallGuides.htm
 <B>DO NOT INSTALL VCP drivers</B> as they will probably interfere with the D2XX interface.
 </P>
 
-<H1>3 Tuning</H1>
+<H1>4 Tuning</H1>
 <P>
+<B>Note: Manual tuning should never be performed except for some very particular cases. Use it at your own risk !</B><BR>
 It is possible to change the DMX frame frequency for Enttec Open (and like) devices with a
 hidden settings key on each platform. The key tells QLC+ how many times each DMX frame (512 channels)
-should be sent to the universe per second. A value of "30" means 30 times per second (30Hz).
+should be sent to the universe per second. A value of "30" means 30 times per second (30Hz).<BR>
+Please refer to the <A HREF="file:parameterstuning.html#EnttecOpen">Manual parameters tuning</A> DMX USB Enttec Open section
 </P>
-
-<H2>3.1 Linux</H2>
-<UL>
- <LI>Open gedit, kedit, nano, vim or some other PLAIN text editor</LI>
- <LI>Open the following file from your home directory: ".config/qlcplus/Q Light Controller Plus.conf"
- <LI>Place the following text to the very end of the file (and replace 30 with the value you want):</LI>
-</UL>
-<PRE>
-    [enttecdmxusbopen]
-    frequency=30
-</PRE>
-
-<H2>3.2 Mac OS X</H2>
-<UL>
- <LI>Install <B>TextWrangler</B> from Mac App Store, it's completely free.</LI>
- <LI>Open the following file with TextWrangler from your home directory: "Library/Preferences/net.sf.Q Light Controller Plus.plist".</LI>
- <LI>Scroll to the very bottom of the file, just above the last "&lt;/dict&gt;" row and put the following text there (replace 30 with the frequency you want):</LI>
-</UL>
-<PRE>
-    &lt;key&gt;enttecdmxusbopen/frequency&lt;/key&gt;
-    &lt;string&gt;30&lt;/string&gt;
-</PRE>
-
-<H2>3.3 Windows</H2>
-<UL>
- <LI>Open the Windows Registry Editor</LI>
- <LI>Navigate to HKEY_CURRENT_USER/Software/qlc.sf.net/Q Light Controller Plus</LI>
- <LI>Create a new group and name it "enttecdmxusbopen"</LI>
- <LI>Create a new decimal integer key "frequency" and set its value to the desired DMX frame frequency</LI>
-</UL>
 
 </BODY>
 </HTML>

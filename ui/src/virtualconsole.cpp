@@ -277,34 +277,34 @@ void VirtualConsole::initActions()
 {
     /* Add menu actions */
     m_addButtonAction = new QAction(QIcon(":/button.png"), tr("New Button"), this);
-    connect(m_addButtonAction, SIGNAL(triggered(bool)), this, SLOT(slotAddButton()));
+    connect(m_addButtonAction, SIGNAL(triggered(bool)), this, SLOT(slotAddButton()), Qt::QueuedConnection);
 
     m_addButtonMatrixAction = new QAction(QIcon(":/buttonmatrix.png"), tr("New Button Matrix"), this);
-    connect(m_addButtonMatrixAction, SIGNAL(triggered(bool)), this, SLOT(slotAddButtonMatrix()));
+    connect(m_addButtonMatrixAction, SIGNAL(triggered(bool)), this, SLOT(slotAddButtonMatrix()), Qt::QueuedConnection);
 
     m_addSliderAction = new QAction(QIcon(":/slider.png"), tr("New Slider"), this);
-    connect(m_addSliderAction, SIGNAL(triggered(bool)), this, SLOT(slotAddSlider()));
+    connect(m_addSliderAction, SIGNAL(triggered(bool)), this, SLOT(slotAddSlider()), Qt::QueuedConnection);
 
     m_addSliderMatrixAction = new QAction(QIcon(":/slidermatrix.png"), tr("New Slider Matrix"), this);
-    connect(m_addSliderMatrixAction, SIGNAL(triggered(bool)), this, SLOT(slotAddSliderMatrix()));
+    connect(m_addSliderMatrixAction, SIGNAL(triggered(bool)), this, SLOT(slotAddSliderMatrix()), Qt::QueuedConnection);
 
     m_addSpeedDialAction = new QAction(QIcon(":/knob.png"), tr("New Speed Dial"), this);
-    connect(m_addSpeedDialAction, SIGNAL(triggered(bool)), this, SLOT(slotAddSpeedDial()));
+    connect(m_addSpeedDialAction, SIGNAL(triggered(bool)), this, SLOT(slotAddSpeedDial()), Qt::QueuedConnection);
 
     m_addXYPadAction = new QAction(QIcon(":/xypad.png"), tr("New XY pad"), this);
-    connect(m_addXYPadAction, SIGNAL(triggered(bool)), this, SLOT(slotAddXYPad()));
+    connect(m_addXYPadAction, SIGNAL(triggered(bool)), this, SLOT(slotAddXYPad()), Qt::QueuedConnection);
 
     m_addCueListAction = new QAction(QIcon(":/cuelist.png"), tr("New Cue list"), this);
-    connect(m_addCueListAction, SIGNAL(triggered(bool)), this, SLOT(slotAddCueList()));
+    connect(m_addCueListAction, SIGNAL(triggered(bool)), this, SLOT(slotAddCueList()), Qt::QueuedConnection);
 
     m_addFrameAction = new QAction(QIcon(":/frame.png"), tr("New Frame"), this);
-    connect(m_addFrameAction, SIGNAL(triggered(bool)), this, SLOT(slotAddFrame()));
+    connect(m_addFrameAction, SIGNAL(triggered(bool)), this, SLOT(slotAddFrame()), Qt::QueuedConnection);
 
     m_addSoloFrameAction = new QAction(QIcon(":/soloframe.png"), tr("New Solo frame"), this);
-    connect(m_addSoloFrameAction, SIGNAL(triggered(bool)), this, SLOT(slotAddSoloFrame()));
+    connect(m_addSoloFrameAction, SIGNAL(triggered(bool)), this, SLOT(slotAddSoloFrame()), Qt::QueuedConnection);
 
     m_addLabelAction = new QAction(QIcon(":/label.png"), tr("New Label"), this);
-    connect(m_addLabelAction, SIGNAL(triggered(bool)), this, SLOT(slotAddLabel()));
+    connect(m_addLabelAction, SIGNAL(triggered(bool)), this, SLOT(slotAddLabel()), Qt::QueuedConnection);
 
     /* Put add actions under the same group */
     m_addActionGroup = new QActionGroup(this);
@@ -1564,6 +1564,9 @@ bool VirtualConsole::loadXML(const QDomElement& root)
         {
             /* Properties */
             m_properties.loadXML(tag);
+            QSize size(m_properties.size());
+            contents()->resize(size);
+            contents()->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
         }
         else if (tag.tagName() == KXMLQLCVCFrame)
         {

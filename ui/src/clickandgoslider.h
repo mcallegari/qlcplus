@@ -34,6 +34,9 @@ public:
 
 protected:
     void mousePressEvent ( QMouseEvent * event );
+
+signals:
+    void controlClicked();
 };
 
 #endif

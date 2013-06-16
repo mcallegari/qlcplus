@@ -323,8 +323,11 @@ void SimpleDesk::initUniversesCombo()
 {
     disconnect(m_universesCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(slotUniversesComboChanged(int)));
+    int currIdx = m_universesCombo->currentIndex();
     m_universesCombo->clear();
     m_universesCombo->addItems(m_doc->outputMap()->universeNames());
+    if (currIdx != -1)
+        m_universesCombo->setCurrentIndex(currIdx);
     connect(m_universesCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(slotUniversesComboChanged(int)));
 }
@@ -349,10 +352,6 @@ void SimpleDesk::initUniverseSliders()
         connect(slider, SIGNAL(valueChanged(quint32,quint32,uchar)),
                 this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
     }
-
-    connect(m_doc, SIGNAL(fixtureAdded(quint32)), this, SLOT(slotUpdateUniverseSliders()));
-    connect(m_doc, SIGNAL(fixtureRemoved(quint32)), this, SLOT(slotUpdateUniverseSliders()));
-    connect(m_doc, SIGNAL(fixtureChanged(quint32)), this, SLOT(slotUpdateUniverseSliders()));
 }
 
 void SimpleDesk::initUniversePager()
@@ -430,8 +429,6 @@ void SimpleDesk::initSliderView(bool fullMode)
 void SimpleDesk::slotUniversesComboChanged(int index)
 {
     m_currentUniverse = index;
-    int page = m_universesPage.at(index);
-    m_universePageSpin->setValue(page);
     if (m_viewModeButton->isChecked() == true)
     {
         m_universeGroup->layout()->removeWidget(scrollArea);
@@ -440,7 +437,9 @@ void SimpleDesk::slotUniversesComboChanged(int index)
     }
     else
     {
-        slotUniversePageChanged(page);
+        int page = m_universesPage.at(index);
+        slotUniversePageChanged(m_universesPage.at(index));
+        m_universePageSpin->setValue(page);
     }
 }
 
@@ -615,7 +614,16 @@ void SimpleDesk::slotUniversesWritten(const QByteArray& ua)
 void SimpleDesk::slotUpdateUniverseSliders()
 {
     qDebug() << Q_FUNC_INFO;
-    slotUniversePageChanged(m_universePageSpin->value());
+    if (m_viewModeButton->isChecked() == true)
+    {
+        m_universeGroup->layout()->removeWidget(scrollArea);
+        delete scrollArea;
+        initSliderView(true);
+    }
+    else
+    {
+        slotUniversePageChanged(m_universePageSpin->value());
+    }
 }
 
 /****************************************************************************
@@ -813,7 +821,10 @@ void SimpleDesk::updateSpeedDials()
         m_speedDials->setWindowTitle(cue.name());
         m_speedDials->setFadeInSpeed(cue.fadeInSpeed());
         m_speedDials->setFadeOutSpeed(cue.fadeOutSpeed());
-        m_speedDials->setDuration(cue.duration());
+        if ((int)cue.duration() < 0)
+            m_speedDials->setDuration(cue.duration());
+        else
+            m_speedDials->setDuration(cue.duration() - cue.fadeInSpeed() - cue.fadeOutSpeed());
 
         m_speedDials->setOptionalTextTitle(tr("Cue name"));
         m_speedDials->setOptionalText(cue.name());
@@ -1009,8 +1020,8 @@ void SimpleDesk::slotEditCueStackClicked()
                     this, SLOT(slotFadeInDialChanged(int)));
             connect(m_speedDials, SIGNAL(fadeOutChanged(int)),
                     this, SLOT(slotFadeOutDialChanged(int)));
-            connect(m_speedDials, SIGNAL(durationChanged(int)),
-                    this, SLOT(slotDurationDialChanged(int)));
+            connect(m_speedDials, SIGNAL(holdChanged(int)),
+                    this, SLOT(slotHoldDialChanged(int)));
             connect(m_speedDials, SIGNAL(optionalTextEdited(const QString&)),
                     this, SLOT(slotCueNameEdited(const QString&)));
         }
@@ -1107,14 +1118,19 @@ void SimpleDesk::slotFadeOutDialChanged(int ms)
         cueStack->setFadeOutSpeed(ms, index.row());
 }
 
-void SimpleDesk::slotDurationDialChanged(int ms)
+void SimpleDesk::slotHoldDialChanged(int ms)
 {
     Q_ASSERT(m_cueStackView != NULL);
     Q_ASSERT(m_cueStackView->selectionModel() != NULL);
     QModelIndexList selected(m_cueStackView->selectionModel()->selectedRows());
     CueStack* cueStack = currentCueStack();
     foreach (QModelIndex index, selected)
-        cueStack->setDuration(ms, index.row());
+    {
+        if (ms < 0)
+            cueStack->setDuration(ms, index.row());
+        else
+            cueStack->setDuration(cueStack->fadeInSpeed() + ms + cueStack->fadeOutSpeed(), index.row());
+    }
 }
 
 void SimpleDesk::slotCueNameEdited(const QString& name)
@@ -1133,6 +1149,7 @@ void SimpleDesk::showEvent(QShowEvent* ev)
     if (m_editCueStackButton->isChecked() == true)
         slotEditCueStackClicked();
     initUniversesCombo();
+    slotUpdateUniverseSliders();
     QWidget::showEvent(ev);
 }
 

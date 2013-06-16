@@ -92,8 +92,11 @@ public:
     /** Get all channel's values */
     QList <SceneValue> values() const;
 
+    /** Return true if at least one channel is checked and selected */
+    bool hasSelections();
+
     /** Set all channel's values */
-    void setValues(const QList <SceneValue>& list);
+    void setValues(const QList <SceneValue>& list, bool fromSelection);
 
     /** Set the value of one channel (doesn't enable it) */
     void setValue(quint32 ch, uchar value);
