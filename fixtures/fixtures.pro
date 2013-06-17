@@ -153,6 +153,7 @@ fixtures.files += Ledj-Alu-Quad-Par-64.qxf
 fixtures.files += Ledj-Colour-Storm-Quad.qxf
 fixtures.files += Litecraft-PowerBar-4.qxf
 fixtures.files += Lite-Works-ColorChanger.qxf
+fixtures.files += Look-Solutions-Unique-2.1.qxf
 fixtures.files += Mac-Mah-Mac-Follow-1200.qxf
 fixtures.files += Mac-Mah-WiderPanel.qxf
 fixtures.files += Martin-Atomic-3000.qxf
