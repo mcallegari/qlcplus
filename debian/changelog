@@ -24,6 +24,7 @@ qlcplus (4.4.0.beta1) unstable; urgency=low
   * Added fixture: American DJ Mega Bar 50RGB (thanks to George Qualley)
   * Added fixture: SGM Giotto Spot 400 CMY (thanks to Willy)
   * Added fixture: PixelRANGE PixelPar 44 (thanks to bwerst)
+  * Added fixture: Martin Mac 2000 Profile (thanks to Louis Gutenschwager)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 20 June 2013 4:03:04 +0200
 
