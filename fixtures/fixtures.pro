@@ -164,7 +164,6 @@ fixtures.files += Martin-EFX-600.qxf
 fixtures.files += Martin-EFX-700.qxf
 fixtures.files += Martin-EFX-800.qxf
 fixtures.files += Martin-MAC-101.qxf
-fixtures.files += Martin-Mac-2000-Profile.qxf
 fixtures.files += Martin-MAC250-Entour.qxf
 fixtures.files += Martin-MAC250-Krypton.qxf
 fixtures.files += Martin-MAC250plus.qxf
