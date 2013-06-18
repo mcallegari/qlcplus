@@ -67,6 +67,14 @@ win32 {
     exists($$(QTDIR)/../MinGW/bin/libgcc_s_dw2-1.dll) {
         mingw.files += $$(QTDIR)/../MinGW/bin/libgcc_s_dw2-1.dll
     }
+	
+    exists($$(QTDIR)/../MinGW/bin/libstdc++-6.dll) {
+        mingw.files += $$(QTDIR)/../MinGW/bin/libstdc++-6.dll
+    }
+	
+    exists($$(QTDIR)/../MinGW/bin/pthreadGC2.dll) {
+        mingw.files += $$(QTDIR)/../MinGW/bin/pthreadGC2.dll
+    }
     INSTALLS += mingw
 
 	# audio libraries
