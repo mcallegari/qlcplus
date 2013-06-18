@@ -84,6 +84,7 @@ Section
 	File libvorbis-0.dll
 	File libvorbisenc-2.dll
 	File libsndfile-1.dll
+	File libfftw3-3.dll
 	File libstdc++-6.dll
 	File pthreadGC2.dll
 	File qlcplus.exe
@@ -137,6 +138,7 @@ Section "Uninstall"
 	Delete $INSTDIR\libvorbis-0.dll
 	Delete $INSTDIR\libvorbisenc-2.dll
 	Delete $INSTDIR\libsndfile-1.dll
+	Delete $INSTDIR\libfftw3-3.dll
 	Delete $INSTDIR\libstdc++-6.dll
 	Delete $INSTDIR\pthreadGC2.dll
 	Delete $INSTDIR\QtCore4.dll
