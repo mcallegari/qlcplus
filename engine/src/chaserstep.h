@@ -72,7 +72,7 @@ public:
     bool loadXML(const QDomElement& root, int& stepNumber);
 
     /** Save ChaserStep contents to $doc, under $root with $stepNumber */
-    bool saveXML(QDomDocument* doc, QDomElement* root, int stepNumber) const;
+    bool saveXML(QDomDocument* doc, QDomElement* root, int stepNumber, bool isSequence) const;
 
 public:
     quint32 fid;                 //! The function ID

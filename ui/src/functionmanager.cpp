@@ -162,33 +162,30 @@ void FunctionManager::slotDocLoaded()
             int i = 0;
             foreach(ChaserStep step, chaser->steps())
             {
-                if (step.values.count() > 0)
+                // Since I saved only the non-zero values in the XML files, at the first chance I need
+                // to fix the values against the bound scene, and restore all the zero values previously there
+                //qDebug() << Q_FUNC_INFO << "Scene values: " << s->values().count() << ", step values: " <<  step.values.count();
+                if (s->values().count() != step.values.count())
                 {
-                    // Since I saved only the non-zero values in the XML files, at the first chance I need
-                    // to fix the values against the bound scene, and restore all the zero values previously there
-                    //qDebug() << Q_FUNC_INFO << "Scene values: " << s->values().count() << ", step values: " <<  step.values.count();
-                    if (s->values().count() != step.values.count())
+                    int j = 0;
+                    // 1- copy the list
+                    QList <SceneValue> tmpList = step.values;
+                    // 2- clear it
+                    step.values.clear();
+                    // 3- fix it
+                    QListIterator <SceneValue> it(s->values());
+                    while (it.hasNext() == true)
                     {
-                        int j = 0;
-                        // 1- copy the list
-                        QList <SceneValue> tmpList = step.values;
-                        // 2- clear it
-                        step.values.clear();
-                        // 3- fix it
-                        QListIterator <SceneValue> it(s->values());
-                        while (it.hasNext() == true)
-                        {
-                            SceneValue scv(it.next());
-                            scv.value = 0;
-                            if (j < tmpList.count() && tmpList.at(j) == scv)
-                                step.values.append(tmpList.at(j++));
-                            else
-                                step.values.append(scv);
-                        }
-                        chaser->replaceStep(step, i);
-                        //qDebug() << "************ STEP FIXED *********** total values: " << step.values.count();
-                        i++;
+                        SceneValue scv(it.next());
+                        scv.value = 0;
+                        if (j < tmpList.count() && tmpList.at(j) == scv)
+                            step.values.append(tmpList.at(j++));
+                        else
+                            step.values.append(scv);
                     }
+                    chaser->replaceStep(step, i);
+                    //qDebug() << "************ STEP FIXED *********** total values: " << step.values.count();
+                    i++;
                 }
             }
         }

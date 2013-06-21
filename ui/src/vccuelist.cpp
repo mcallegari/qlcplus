@@ -89,7 +89,7 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     grid->addWidget(m_sl1TopLabel, 1, 0, 1, 1);
     m_slider1 = new ClickAndGoSlider();
     m_slider1->setStyle(AppUtil::saneStyle());
-    m_slider1->setFixedWidth(35);
+    m_slider1->setFixedWidth(40);
     m_slider1->setRange(0, 100);
     m_slider1->setValue(100);
     grid->addWidget(m_slider1, 2, 0, 1, 1);
@@ -105,10 +105,10 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     grid->addWidget(m_sl2TopLabel, 1, 1, 1, 1);
     m_slider2 = new ClickAndGoSlider();
     m_slider2->setStyle(AppUtil::saneStyle());
-    m_slider2->setFixedWidth(35);
+    m_slider2->setFixedWidth(40);
     m_slider2->setRange(0, 100);
     m_slider2->setValue(0);
-    m_slider2->setInvertedAppearance(true);
+    //m_slider2->setInvertedAppearance(true);
     grid->addWidget(m_slider2, 2, 1, 1, 1);
     m_sl2BottomLabel = new QLabel("");
     m_sl2BottomLabel->setStyleSheet(m_noStyle);

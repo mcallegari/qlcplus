@@ -160,7 +160,7 @@ bool ChaserStep::loadXML(const QDomElement& root, int& stepNumber)
     return true;
 }
 
-bool ChaserStep::saveXML(QDomDocument* doc, QDomElement* root, int stepNumber) const
+bool ChaserStep::saveXML(QDomDocument* doc, QDomElement* root, int stepNumber, bool isSequence) const
 {
     QDomElement tag;
     QDomText text;
@@ -180,7 +180,7 @@ bool ChaserStep::saveXML(QDomDocument* doc, QDomElement* root, int stepNumber) c
     if (note.isEmpty() == false)
         tag.setAttribute(KXMLQLCStepNote, note);
 
-    if (values.count() > 0)
+    if (isSequence)
     {
         /* it's a sequence step. Save values accordingly */
         tag.setAttribute(KXMLQLCSequenceSceneValues, values.count());

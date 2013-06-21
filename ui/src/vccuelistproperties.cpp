@@ -447,6 +447,8 @@ void VCCueListProperties::slotCF1ChooseInputClicked()
 
 void VCCueListProperties::slotCF1AutoDetectInputToggled(bool checked)
 {
+    m_cf2AutoDetectInputButton->setChecked(false);
+
     if (checked == true)
     {
         connect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
@@ -477,6 +479,8 @@ void VCCueListProperties::slotCF2ChooseInputClicked()
 
 void VCCueListProperties::slotCF2AutoDetectInputToggled(bool checked)
 {
+    m_cf1AutoDetectInputButton->setChecked(false);
+
     if (checked == true)
     {
         connect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
