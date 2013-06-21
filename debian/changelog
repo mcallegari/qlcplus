@@ -6,6 +6,8 @@ qlcplus (4.4.0.beta2) unstable; urgency=low
   * VC Cue List manual crossfade when sliders are not linked now goes to next cue when sliders reach their opposite ends
   * Reorganized documentation and introduced more user friendly guides (thanks to Jano Svitok)
   * Fixed potential crash when closing QLC+ and not using Audio input triggers
+  * Fixed Show Manager sequence creation not updating Function Manager tree correctly
+  * Fixed Function Manager sequence deletion removing also its parent Scene
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 16 July 2013 4:03:04 +0200
   

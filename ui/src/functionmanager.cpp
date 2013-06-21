@@ -786,13 +786,17 @@ void FunctionManager::deleteSelectedFunctions()
     QListIterator <QTreeWidgetItem*> it(m_tree->selectedItems());
     while (it.hasNext() == true)
     {
+        bool isSequence = false;
         QTreeWidgetItem* item(it.next());
         quint32 fid = itemFunctionId(item);
+        Function *func = m_doc->function(fid);
+        if (func->type() == Function::Chaser && qobject_cast<const Chaser*>(func)->isSequence() == true)
+            isSequence = true;
         m_doc->deleteFunction(fid);
 
         QTreeWidgetItem* parent = item->parent();
         delete item;
-        if (parent != NULL && parent->childCount() == 0)
+        if (parent != NULL && parent->childCount() == 0 && isSequence == false)
             delete parent;
     }
 /*
