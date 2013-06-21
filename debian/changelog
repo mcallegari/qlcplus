@@ -1,8 +1,11 @@
 qlcplus (4.4.0.beta2) unstable; urgency=low
 
-  * Fixed empty Sequence steps save/load causing QLC+ (and the user) to freak out
+  * Fixed empty Sequence steps save/load causing QLC+ (and the operator) to freak out
   * Inverted VC Cue list "next step" slider to reflect external controllers faders
+  * Added feedbacks to VC Cue List crossfade sliders
+  * VC Cue List manual crossfade when sliders are not linked now goes to next cue when sliders reach their opposite ends
   * Reorganized documentation and introduced more user friendly guides (thanks to Jano Svitok)
+  * Fixed potential crash when closing QLC+ and not using Audio input triggers
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 16 July 2013 4:03:04 +0200
   

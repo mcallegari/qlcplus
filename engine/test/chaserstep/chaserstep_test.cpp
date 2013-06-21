@@ -120,7 +120,7 @@ void ChaserStep_Test::save()
     QDomElement root = doc.createElement("Foo");
 
     ChaserStep step(1, 2, 3, 4);
-    QVERIFY(step.saveXML(&doc, &root, 5) == true);
+    QVERIFY(step.saveXML(&doc, &root, 5, false) == true);
     QDomElement tag = root.firstChild().toElement();
     QCOMPARE(tag.tagName(), QString("Step"));
     QCOMPARE(tag.text(), QString("1"));

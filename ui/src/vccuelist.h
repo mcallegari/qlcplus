@@ -2,7 +2,7 @@
   Q Light Controller
   vccuelist.h
 
-  Copyright (c) Heikki Junnila
+  Copyright (c) Heikki Junnila, Massimo Callegari
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License
@@ -167,6 +167,7 @@ protected:
 
 protected slots:
     void slotShowCrossfadePanel(bool enable);
+    void sendFeedBack(int value, const quint8 feedbackId);
     void slotSlider1ValueChanged(int value);
     void slotSlider2ValueChanged(int value);
 
