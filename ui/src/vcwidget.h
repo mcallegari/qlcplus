@@ -38,6 +38,7 @@ class QFile;
 #define KXMLQLCVCCaption "Caption"
 #define KXMLQLCVCFrameStyle "FrameStyle"
 
+#define KXMLQLCVCWidgetID "ID"
 #define KXMLQLCVCWidgetAppearance "Appearance"
 
 #define KXMLQLCVCWidgetForegroundColor "ForegroundColor"
@@ -79,6 +80,30 @@ public:
 
 protected:
     Doc* m_doc;
+
+    /*********************************************************************
+     * ID
+     *********************************************************************/
+public:
+    /**
+     * Set this function's unique ID
+     *
+     * @param id This widget's unique ID
+     */
+    void setID(quint32 id);
+
+    /**
+     * Get this widget's unique ID
+     */
+    quint32 id() const;
+
+    /**
+     * Get the value for an invalid widget ID (for comparison etc.)
+     */
+    static quint32 invalidId();
+
+private:
+    quint32 m_id;
 
     /*********************************************************************
      * Type

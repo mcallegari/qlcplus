@@ -64,6 +64,14 @@ protected:
     static VirtualConsole* s_instance;
     Doc* m_doc;
 
+private:
+    /** Create a new channels group ID */
+    quint32 newWidgetId();
+
+private:
+    /** Latest assigned fixture group ID */
+    quint32 m_latestWidgetId;
+
     /*********************************************************************
      * Properties
      *********************************************************************/
@@ -291,6 +299,8 @@ public:
 protected:
     /** Place the contents area to the VC view */
     void initContents();
+
+    QList<VCWidget *> getChildren(VCWidget *obj);
 
 protected:
     QVBoxLayout* m_contentsLayout;
