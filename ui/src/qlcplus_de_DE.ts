@@ -137,82 +137,82 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="addchannelsgroup.ui" line="14"/>
         <source>Select Channels</source>
-        <translation type="unfinished">Kanalauswahl</translation>
+        <translation>Kanalauswahl</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="24"/>
         <source>Group Name</source>
-        <translation type="unfinished">Gruppenname</translation>
+        <translation>Gruppenname</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="48"/>
         <source>Name</source>
-        <translation type="unfinished">Name</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="53"/>
         <source>Type</source>
-        <translation type="unfinished">Typ</translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="58"/>
         <source>Group</source>
-        <translation type="unfinished">Gruppe</translation>
+        <translation>Gruppe</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="66"/>
         <source>Apply changes to fixtures of the same type</source>
-        <translation type="unfinished">Änderungen auf Geräte gleichen Typs übernehmen</translation>
+        <translation>Änderungen auf Geräte gleichen Typs übernehmen</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="73"/>
         <source>External Input</source>
-        <translation type="unfinished">Externer Eingang</translation>
+        <translation>Externer Eingang</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="79"/>
         <source>Input channel</source>
-        <translation type="unfinished">Eingangskanal</translation>
+        <translation>Eingangskanal</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="86"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation type="unfinished">Der bestimmte Eingangskanal im Eingangsuniversum der Daten zu diesem Assistenten sendet</translation>
+        <translation>Der bestimmte Eingangskanal im Eingangsuniversum der Daten zu diesem Assistenten sendet</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="109"/>
         <source>The input universe that sends data to this widget</source>
-        <translation type="unfinished">Das Eingangsuniversum, welches Daten zu diesem Assistenten sendet</translation>
+        <translation>Das Eingangsuniversum, welches Daten zu diesem Assistenten sendet</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="119"/>
         <source>Choose an external input universe and channel that this group should listen to</source>
-        <translation type="unfinished">Wähle ein externes Universum und einen Kanal auf den dieser Schieberegler hören soll</translation>
+        <translation>Wähle ein externes Universum und einen Kanal auf den dieser Schieberegler hören soll</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="122"/>
         <source>Choose...</source>
-        <translation type="unfinished"></translation>
+        <translation>Auswählen ...</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="129"/>
         <source>When toggled, you can move an external slider/knob to assign it to this group.</source>
-        <translation type="unfinished">Wenn betätigt kann ein externer Regler/Schalter betätigt werden um diesen dem virtuellen Konsolenregler zuzuweisen.</translation>
+        <translation>Wenn betätigt kann ein externer Regler/Schalter betätigt werden um diesen dem virtuellen Konsolenregler zuzuweisen.</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="132"/>
         <source>Auto Detect</source>
-        <translation type="unfinished">Automatische Erkennung</translation>
+        <translation>Automatische Erkennung</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="142"/>
         <source>Input universe</source>
-        <translation type="unfinished">Eingangsuniversum</translation>
+        <translation>Eingangsuniversum</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.cpp" line="80"/>
         <source>Universe %1</source>
-        <translation type="unfinished">Universum %1</translation>
+        <translation>Universum %1</translation>
     </message>
 </context>
 <context>
@@ -635,7 +635,7 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
     <message>
         <location filename="app.cpp" line="522"/>
         <source>Audio Trigger Factory</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio Trigger Factory</translation>
     </message>
     <message>
         <location filename="app.cpp" line="989"/>
@@ -863,42 +863,42 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="audioeditor.ui" line="14"/>
         <source>Audio editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Audioeditor</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="22"/>
         <source>Bitrate:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitrate:</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="29"/>
         <source>Duration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dauer:</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="68"/>
         <source>Audio name</source>
-        <translation type="unfinished"></translation>
+        <translation>Audioname</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="88"/>
         <source>Sample rate:</source>
-        <translation type="unfinished"></translation>
+        <translation>Samplerate:</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="95"/>
         <source>Name of the function being edited</source>
-        <translation type="unfinished">Name der zu bearbeitenden Sammlung</translation>
+        <translation>Name der zu bearbeitenden Sammlung</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="115"/>
         <source>Channels:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanäle:</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="142"/>
         <source>File name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dateiname:</translation>
     </message>
 </context>
 <context>
@@ -951,17 +951,17 @@ Dauer: %3
     <message>
         <location filename="audiotriggerfactory.ui" line="14"/>
         <source>Audio Trigger Factory</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio Trigger Factory</translation>
     </message>
     <message>
         <location filename="audiotriggerfactory.ui" line="24"/>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivieren</translation>
     </message>
     <message>
         <location filename="audiotriggerfactory.ui" line="55"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
 </context>
 <context>
@@ -969,92 +969,92 @@ Dauer: %3
     <message>
         <location filename="audiotriggersconfiguration.ui" line="14"/>
         <source>Audio Triggers Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Audiotrigger-Einstellungen</translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.ui" line="41"/>
         <source>Number of spectrum bars:</source>
-        <translation type="unfinished"></translation>
+        <translation>Anzahl Spektrum-Balken</translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.ui" line="52"/>
         <source>Name</source>
-        <translation type="unfinished">Name</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.ui" line="57"/>
         <source>Type</source>
-        <translation type="unfinished">Typ</translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.ui" line="62"/>
         <source>Assign</source>
-        <translation type="unfinished"></translation>
+        <translation>Zuweisen</translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.ui" line="67"/>
         <source>Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Info</translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.ui" line="72"/>
         <source>Disable threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Schwelle deaktivieren</translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.ui" line="77"/>
         <source>Enable threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Schwelle aktivieren</translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.cpp" line="100"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine</translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.cpp" line="101"/>
         <source>DMX</source>
-        <translation type="unfinished"></translation>
+        <translation>DMX</translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.cpp" line="102"/>
         <source>Function</source>
-        <translation type="unfinished">Funktion</translation>
+        <translation>Funktion</translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.cpp" line="103"/>
         <source>VC Widget</source>
-        <translation type="unfinished"></translation>
+        <translation>Virtuelle Konsole Assistent</translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.cpp" line="116"/>
         <source>%1 channels</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 Kanäle</translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.cpp" line="147"/>
         <source>No function</source>
-        <translation type="unfinished">Keine Funktion</translation>
+        <translation>Keine Funktion</translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.cpp" line="162"/>
         <source>No widget</source>
-        <translation type="unfinished"></translation>
+        <translation>Kein Assistent</translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.cpp" line="165"/>
         <source>Not assigned</source>
-        <translation type="unfinished"></translation>
+        <translation>Nicht zugewiesen</translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.cpp" line="202"/>
         <source>Volume Bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Lautstärke-Balken</translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.cpp" line="211"/>
         <source>#%1 (%2Hz - %3Hz)</source>
-        <translation type="unfinished"></translation>
+        <translation>#%1 (%2Hz - %3Hz)</translation>
     </message>
 </context>
 <context>
@@ -1062,32 +1062,32 @@ Dauer: %3
     <message>
         <location filename="channelsselection.ui" line="14"/>
         <source>Channels Fade Configuration</source>
-        <translation type="unfinished">Kanalfader Einstellung</translation>
+        <translation>Kanalfader Einstellung</translation>
     </message>
     <message>
         <location filename="channelsselection.ui" line="28"/>
         <source>Name</source>
-        <translation type="unfinished">Name</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="channelsselection.ui" line="33"/>
         <source>Type</source>
-        <translation type="unfinished">Typ</translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <location filename="channelsselection.ui" line="38"/>
         <source>Fade</source>
-        <translation type="unfinished">Fade</translation>
+        <translation>Fade</translation>
     </message>
     <message>
         <location filename="channelsselection.ui" line="46"/>
         <source>Apply changes to fixtures of the same type</source>
-        <translation type="unfinished">Änderungen auf Geräte gleichen Typs übernehmen</translation>
+        <translation>Änderungen auf Geräte gleichen Typs übernehmen</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="91"/>
         <source>Universe %1</source>
-        <translation type="unfinished">Universum %1</translation>
+        <translation>Universum %1</translation>
     </message>
 </context>
 <context>
@@ -1723,7 +1723,7 @@ Dauer: %3
         <location filename="efxeditor.ui" line="384"/>
         <location filename="efxeditor.ui" line="511"/>
         <source>°</source>
-        <translation type="unfinished"></translation>
+        <translation>°</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="397"/>
@@ -2236,12 +2236,12 @@ Dauer: %3
     <message>
         <location filename="functionmanager.cpp" line="284"/>
         <source>New au&amp;dio</source>
-        <translation type="unfinished"></translation>
+        <translation>Neues &amp;Audio</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="290"/>
         <source>Function &amp;Wizard</source>
-        <translation type="unfinished"></translation>
+        <translation>Funktionsassistent</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="303"/>
@@ -2256,32 +2256,32 @@ Dauer: %3
     <message>
         <location filename="functionmanager.cpp" line="441"/>
         <source>Open Audio File</source>
-        <translation type="unfinished">Audio-Datei-öffnen</translation>
+        <translation>Audio-Datei-öffnen</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="467"/>
         <source>Audio Files (%1)</source>
-        <translation type="unfinished">Audio Dateien (%1)</translation>
+        <translation>Audio Dateien (%1)</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="469"/>
         <source>All Files (*.*)</source>
-        <translation type="unfinished">Alle Dateien (*.*)</translation>
+        <translation>Alle Dateien (*.*)</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="471"/>
         <source>All Files (*)</source>
-        <translation type="unfinished">Alle Dateien (*)</translation>
+        <translation>Alle Dateien (*)</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="493"/>
         <source>Unsupported audio file</source>
-        <translation type="unfinished">Nicht unterstützte Audio-Datei</translation>
+        <translation>Nicht unterstützte Audio-Datei</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="493"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
-        <translation type="unfinished">Diese Audiodatei kann mit QLC+ nicht wiedergegeben werden. Sorry.</translation>
+        <translation>Diese Audiodatei kann mit QLC+ nicht wiedergegeben werden. Sorry.</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="525"/>
@@ -2374,7 +2374,7 @@ Dauer: %3
     <message>
         <location filename="functionselection.ui" line="122"/>
         <source>Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="78"/>
@@ -3627,13 +3627,13 @@ Dauer: %3
         <location filename="showmanager.cpp" line="521"/>
         <location filename="showmanager.cpp" line="605"/>
         <source>Overlapping error</source>
-        <translation type="unfinished"></translation>
+        <translation>Überlappungsfehler</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="521"/>
         <location filename="showmanager.cpp" line="605"/>
         <source>Overlapping not allowed. Operation cancelled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Überlappen nicht zulässig. Ausführung abgebrochen.</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="546"/>
@@ -4052,27 +4052,27 @@ Dauer: %3
     <message>
         <location filename="vccuelist.cpp" line="80"/>
         <source>Link</source>
-        <translation type="unfinished"></translation>
+        <translation>Link</translation>
     </message>
     <message>
         <location filename="vccuelist.cpp" line="157"/>
         <source>Show/Hide crossfade sliders</source>
-        <translation type="unfinished"></translation>
+        <translation>Anzeigen/Ausblenden Crossfaderegler</translation>
     </message>
     <message>
         <location filename="vccuelist.cpp" line="166"/>
         <source>Play/Stop Cue list</source>
-        <translation type="unfinished"></translation>
+        <translation>Start/Stop Cue-Liste</translation>
     </message>
     <message>
         <location filename="vccuelist.cpp" line="175"/>
         <source>Go to previous step in the list</source>
-        <translation type="unfinished"></translation>
+        <translation>Zum vorherigen Schritt in der Liste wechseln</translation>
     </message>
     <message>
         <location filename="vccuelist.cpp" line="184"/>
         <source>Go to next step in the list</source>
-        <translation type="unfinished"></translation>
+        <translation>Zum nächsten Schritt in der Liste wechseln</translation>
     </message>
     <message>
         <location filename="vccuelist.cpp" line="192"/>
@@ -4279,17 +4279,17 @@ Dauer: %3
     <message>
         <location filename="vccuelistproperties.ui" line="584"/>
         <source>Crossfade</source>
-        <translation type="unfinished"></translation>
+        <translation>Crossfade</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="590"/>
         <source>Left Slider</source>
-        <translation type="unfinished"></translation>
+        <translation>Linker Schieberegler</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="663"/>
         <source>Right Slider</source>
-        <translation type="unfinished"></translation>
+        <translation>Rechter Schieberegler</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="140"/>
@@ -5084,48 +5084,48 @@ Dauer: %3
     <message>
         <location filename="vcwidget.cpp" line="114"/>
         <source>Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Schalter</translation>
     </message>
     <message>
         <location filename="vcwidget.cpp" line="115"/>
         <source>Slider</source>
-        <translation type="unfinished"></translation>
+        <translation>Schieberegler</translation>
     </message>
     <message>
         <location filename="vcwidget.cpp" line="116"/>
         <source>XYPad</source>
-        <translation type="unfinished"></translation>
+        <translation>XY-Pad</translation>
     </message>
     <message>
         <location filename="vcwidget.cpp" line="117"/>
         <source>Frame</source>
-        <translation type="unfinished">Rahmen</translation>
+        <translation>Rahmen</translation>
     </message>
     <message>
         <location filename="vcwidget.cpp" line="118"/>
         <source>Solo frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Einzelrahmen</translation>
     </message>
     <message>
         <location filename="vcwidget.cpp" line="119"/>
         <source>Speed dial</source>
-        <translation type="unfinished"></translation>
+        <translation>Schnellwahl</translation>
     </message>
     <message>
         <location filename="vcwidget.cpp" line="120"/>
         <source>Cue list</source>
-        <translation type="unfinished">Cue-Liste</translation>
+        <translation>Cue-Liste</translation>
     </message>
     <message>
         <location filename="vcwidget.cpp" line="121"/>
         <source>Label</source>
-        <translation type="unfinished">Beschriftung</translation>
+        <translation>Beschriftung</translation>
     </message>
     <message>
         <location filename="vcwidget.cpp" line="124"/>
         <location filename="vcwidget.cpp" line="126"/>
         <source>Unknown</source>
-        <translation type="unfinished">Unbekannt</translation>
+        <translation>Unbekannt</translation>
     </message>
     <message>
         <location filename="vcwidget.cpp" line="427"/>
@@ -5138,17 +5138,17 @@ Dauer: %3
     <message>
         <location filename="vcwidgetselection.ui" line="14"/>
         <source>Virtual Console widget selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Virtuelle Konsole Assistentauswahl</translation>
     </message>
     <message>
         <location filename="vcwidgetselection.ui" line="23"/>
         <source>Name</source>
-        <translation type="unfinished">Name</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="vcwidgetselection.ui" line="28"/>
         <source>Type</source>
-        <translation type="unfinished">Typ</translation>
+        <translation>Typ</translation>
     </message>
 </context>
 <context>
