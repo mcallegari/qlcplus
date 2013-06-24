@@ -1408,6 +1408,24 @@ void VirtualConsole::resetContents()
     m_properties.setGrandMasterInputSource(InputMap::invalidUniverse(), InputMap::invalidChannel());
 }
 
+VCWidget *VirtualConsole::widget(quint32 id)
+{
+    if (id == VCWidget::invalidId())
+        return NULL;
+
+    QList<VCWidget *> widgetsList = getChildren((VCWidget *)m_contents);
+
+    foreach (QObject *object, widgetsList)
+    {
+        VCWidget *widget = (VCWidget *)object;
+        quint32 wid = widget->id();
+        if (wid == id)
+            return widget;
+    }
+
+    return NULL;
+}
+
 void VirtualConsole::initContents()
 {
     Q_ASSERT(layout() != NULL);
@@ -1657,8 +1675,7 @@ void VirtualConsole::postLoad()
     m_doc->outputMap()->setGrandMasterChannelMode(m_properties.grandMasterChannelMode());
 
     /* Go through widgets and check IDs */
-    QList<VCWidget *> widgetsList;
-    widgetsList = getChildren((VCWidget *)m_contents);
+    QList<VCWidget *> widgetsList = getChildren((VCWidget *)m_contents);
 
     foreach (QObject *object, widgetsList)
     {
@@ -1667,8 +1684,8 @@ void VirtualConsole::postLoad()
         if(wid == VCWidget::invalidId())
             widget->setID(newWidgetId());
         else
-            if (wid > m_latestWidgetId)
+            if (wid >= m_latestWidgetId)
                 m_latestWidgetId = wid + 1;
     }
-    qDebug() << "Last assigned ID:" << m_latestWidgetId;
+    qDebug() << "Next ID to assign:" << m_latestWidgetId;
 }

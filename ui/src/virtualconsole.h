@@ -296,6 +296,8 @@ public:
     /** Reset the Virtual Console contents to an initial state */
     void resetContents();
 
+    VCWidget *widget(quint32 id);
+
 protected:
     /** Place the contents area to the VC view */
     void initContents();
