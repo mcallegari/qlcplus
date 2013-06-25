@@ -29,13 +29,16 @@
 #include <QList>
 #include <QMap>
 
-#ifdef FTD2XX
-#   ifdef WIN32
-#       include <windows.h>
-#   endif
-#   include <ftd2xx.h>
-#else
-#   include <ftdi.h>
+#if defined(FTD2XX)
+  #ifdef WIN32
+    #include <windows.h>
+  #endif
+  #include <ftd2xx.h>
+#elif defined(LIBFTDI)
+  #include <ftdi.h>
+#elif defined(QTSERIAL)
+  #include <QtSerialPort/QSerialPort>
+  #include <QtSerialPort/QSerialPortInfo>
 #endif
 
 #define SETTINGS_TYPE_MAP "qlcftdi/typemap"
@@ -52,10 +55,12 @@ public:
     static const int PID = 0x6001; //! FTDI Product ID
     static const int DMX4ALLPID = 0xC850; //! DMX4ALL Product ID
 
-#ifdef FTD2XX
+#if defined(FTD2XX)
     static QString readLabel(quint32 id, uchar label, int *ESTA_code);
-#else
+#elif defined(LIBFTDI)
     static QString readLabel(struct ftdi_context *ftdi, char *name, char *serial, uchar label, int *ESTA_code);
+#elif defined(QTSERIAL)
+    static QString readLabel(const QSerialPortInfo &info, uchar label, int *ESTA_code);
 #endif
     /**
      * Compose a list of available widgets
@@ -173,10 +178,12 @@ public:
     int refCount();
 
 private:
-#ifdef FTD2XX
+#if defined(FTD2XX)
     FT_HANDLE m_handle;
-#else
+#elif defined(LIBFTDI)
     struct ftdi_context m_handle;
+#elif defined(QTSERIAL)
+    QSerialPort *m_handle;
 #endif
 };
 
