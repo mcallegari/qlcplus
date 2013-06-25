@@ -22,6 +22,7 @@
 #include "vcbutton.h"
 #include "vcslider.h"
 #include "scenevalue.h"
+#include "virtualconsole.h"
 #include "audiotriggerfactory.h"
 #include "audiotriggersconfiguration.h"
 
@@ -45,6 +46,7 @@
 #define KXMLQLCAudioBarType "Type"
 #define KXMLQLCAudioBarDMXChannels "DMXChannels"
 #define KXMLQLCAudioBarFunction "FunctionID"
+#define KXMLQLCAudioBarWidget "WidgetID"
 
 AudioTriggerFactory* AudioTriggerFactory::s_instance = NULL;
 
@@ -158,6 +160,10 @@ void AudioTriggerFactory::slotDisplaySpectrum(double *spectrumBands, double maxM
 {
     m_spectrum->displaySpectrum(spectrumBands, maxMagnitude, power);
     m_volumeBar->m_value = m_spectrum->getUcharVolume();
+
+    if (m_doc->mode() == Doc::Design)
+        return;
+
     if (m_volumeBar->m_type == AudioBar::FunctionBar)
         m_volumeBar->checkFunctionThresholds(m_doc);
     else if (m_volumeBar->m_type == AudioBar::VCWidgetBar)
@@ -216,6 +222,10 @@ void AudioTriggerFactory::slotConfiguration()
 void AudioTriggerFactory::writeDMX(MasterTimer *timer, UniverseArray *universes)
 {
     Q_UNUSED(timer);
+
+    if (m_doc->mode() == Doc::Design)
+        return;
+
     if (m_volumeBar->m_type == AudioBar::DMXBar)
     {
         for(int i = 0; i < m_volumeBar->m_absDmxChannels.count(); i++)
@@ -268,6 +278,16 @@ bool AudioTriggerFactory::loadXML(const QDomElement &root)
                         m_volumeBar->m_function = func;
                 }
             }
+            else if (m_volumeBar->m_type == AudioBar::VCWidgetBar)
+            {
+                if (tag.hasAttribute(KXMLQLCAudioBarWidget))
+                {
+                    quint32 wid = tag.attribute(KXMLQLCAudioBarWidget).toUInt();
+                    VCWidget *widget = VirtualConsole::instance()->widget(wid);
+                    if (widget != NULL)
+                        m_volumeBar->m_widget = widget;
+                }
+            }
         }
         else if (tag.tagName() == KXMLQLCSpectrumBar)
         {
@@ -285,6 +305,16 @@ bool AudioTriggerFactory::loadXML(const QDomElement &root)
                             Function *func = m_doc->function(fid);
                             if (func != NULL)
                                 m_spectrumBars[idx]->m_function = func;
+                        }
+                    }
+                    else if (m_spectrumBars[idx]->m_type == AudioBar::VCWidgetBar)
+                    {
+                        if (tag.hasAttribute(KXMLQLCAudioBarWidget))
+                        {
+                            quint32 wid = tag.attribute(KXMLQLCAudioBarWidget).toUInt();
+                            VCWidget *widget = VirtualConsole::instance()->widget(wid);
+                            if (widget != NULL)
+                                m_spectrumBars[idx]->m_widget = widget;
                         }
                     }
                 }
@@ -532,11 +562,12 @@ bool AudioBar::saveXML(QDomDocument *doc, QDomElement *atf_root, QString tagName
         ab_tag.appendChild(dmx_tag);
     }
     else if (m_type == AudioBar::FunctionBar && m_function != NULL)
-        ab_tag.setAttribute(KXMLQLCAudioBarFunction, m_function->id());
-
-    else if (m_type == AudioBar::VCWidgetBar)
     {
-
+        ab_tag.setAttribute(KXMLQLCAudioBarFunction, m_function->id());
+    }
+    else if (m_type == AudioBar::VCWidgetBar && m_widget != NULL)
+    {
+        ab_tag.setAttribute(KXMLQLCAudioBarWidget, m_widget->id());
     }
     atf_root->appendChild(ab_tag);
 

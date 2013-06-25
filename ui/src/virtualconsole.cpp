@@ -70,6 +70,7 @@ VirtualConsole* VirtualConsole::s_instance = NULL;
 VirtualConsole::VirtualConsole(QWidget* parent, Doc* doc)
     : QWidget(parent)
     , m_doc(doc)
+    , m_latestWidgetId(0)
 
     , m_editAction(EditNone)
     , m_toolbar(NULL)
@@ -166,6 +167,14 @@ VirtualConsole::~VirtualConsole()
 VirtualConsole* VirtualConsole::instance()
 {
     return s_instance;
+}
+
+quint32 VirtualConsole::newWidgetId()
+{
+    quint32 currId = m_latestWidgetId;
+    m_latestWidgetId++;
+    qDebug() << Q_FUNC_INFO << "Creating new ID: " << currId;
+    return currId;
 }
 
 /*****************************************************************************
@@ -660,6 +669,7 @@ void VirtualConsole::slotAddButton()
 
     VCButton* button = new VCButton(parent, m_doc);
     Q_ASSERT(button != NULL);
+    button->setID(newWidgetId());
     button->show();
     button->move(parent->lastClickPoint());
     clearWidgetSelection();
@@ -687,6 +697,8 @@ void VirtualConsole::slotAddButtonMatrix()
     else
         frame = new VCSoloFrame(parent, m_doc);
     Q_ASSERT(frame != NULL);
+    frame->setID(newWidgetId());
+    frame->setShowHeader(false);
 
     // Resize the parent frame to fit the buttons nicely and toggle resizing off
     frame->resize(QSize((h * sz) + 20, (v * sz) + 20));
@@ -698,6 +710,7 @@ void VirtualConsole::slotAddButtonMatrix()
         {
             VCButton* button = new VCButton(frame, m_doc);
             Q_ASSERT(button != NULL);
+            button->setID(newWidgetId());
             button->move(QPoint(10 + (x * sz), 10 + (y * sz)));
             button->resize(QSize(sz, sz));
             button->show();
@@ -733,6 +746,7 @@ void VirtualConsole::slotAddSlider()
 
     VCSlider* slider = new VCSlider(parent, m_doc);
     Q_ASSERT(slider != NULL);
+    slider->setID(newWidgetId());
     slider->show();
     slider->move(parent->lastClickPoint());
     clearWidgetSelection();
@@ -756,6 +770,8 @@ void VirtualConsole::slotAddSliderMatrix()
 
     VCFrame* frame = new VCFrame(parent, m_doc);
     Q_ASSERT(frame != NULL);
+    frame->setID(newWidgetId());
+    frame->setShowHeader(false);
 
     // Resize the parent frame to fit the sliders nicely
     frame->resize(QSize((count * width) + 20, height + 20));
@@ -765,6 +781,7 @@ void VirtualConsole::slotAddSliderMatrix()
     {
         VCSlider* slider = new VCSlider(frame, m_doc);
         Q_ASSERT(slider != NULL);
+        slider->setID(newWidgetId());
         slider->move(QPoint(10 + (width * i), 10));
         slider->resize(QSize(width, height));
         slider->show();
@@ -787,6 +804,7 @@ void VirtualConsole::slotAddSpeedDial()
 
     VCSpeedDial* dial = new VCSpeedDial(parent, m_doc);
     Q_ASSERT(dial != NULL);
+    dial->setID(newWidgetId());
     dial->show();
     dial->move(parent->lastClickPoint());
     clearWidgetSelection();
@@ -802,6 +820,7 @@ void VirtualConsole::slotAddXYPad()
 
     VCXYPad* xypad = new VCXYPad(parent, m_doc);
     Q_ASSERT(xypad != NULL);
+    xypad->setID(newWidgetId());
     xypad->show();
     xypad->move(parent->lastClickPoint());
     clearWidgetSelection();
@@ -817,6 +836,7 @@ void VirtualConsole::slotAddCueList()
 
     VCCueList* cuelist = new VCCueList(parent, m_doc);
     Q_ASSERT(cuelist != NULL);
+    cuelist->setID(newWidgetId());
     cuelist->show();
     cuelist->move(parent->lastClickPoint());
     clearWidgetSelection();
@@ -832,6 +852,7 @@ void VirtualConsole::slotAddFrame()
 
     VCFrame* frame = new VCFrame(parent, m_doc, true);
     Q_ASSERT(frame != NULL);
+    frame->setID(newWidgetId());
     frame->show();
     frame->move(parent->lastClickPoint());
     clearWidgetSelection();
@@ -847,6 +868,7 @@ void VirtualConsole::slotAddSoloFrame()
 
     VCSoloFrame* soloframe = new VCSoloFrame(parent, m_doc, true);
     Q_ASSERT(soloframe != NULL);
+    soloframe->setID(newWidgetId());
     soloframe->show();
     soloframe->move(parent->lastClickPoint());
     clearWidgetSelection();
@@ -862,6 +884,7 @@ void VirtualConsole::slotAddLabel()
 
     VCLabel* label = new VCLabel(parent, m_doc);
     Q_ASSERT(label != NULL);
+    label->setID(newWidgetId());
     label->show();
     label->move(parent->lastClickPoint());
     clearWidgetSelection();
@@ -1385,6 +1408,24 @@ void VirtualConsole::resetContents()
     m_properties.setGrandMasterInputSource(InputMap::invalidUniverse(), InputMap::invalidChannel());
 }
 
+VCWidget *VirtualConsole::widget(quint32 id)
+{
+    if (id == VCWidget::invalidId())
+        return NULL;
+
+    QList<VCWidget *> widgetsList = getChildren((VCWidget *)m_contents);
+
+    foreach (QObject *object, widgetsList)
+    {
+        VCWidget *widget = (VCWidget *)object;
+        quint32 wid = widget->id();
+        if (wid == id)
+            return widget;
+    }
+
+    return NULL;
+}
+
 void VirtualConsole::initContents()
 {
     Q_ASSERT(layout() != NULL);
@@ -1606,8 +1647,24 @@ bool VirtualConsole::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     return true;
 }
 
+QList<VCWidget *> VirtualConsole::getChildren(VCWidget *obj)
+{
+    QList<VCWidget *> list;
+    if (obj == NULL)
+        return list;
+    QListIterator <VCWidget*> it(obj->findChildren<VCWidget*>());
+    while (it.hasNext() == true)
+    {
+        VCWidget* child = it.next();
+        list.append(child);
+        list.append(getChildren(child));
+    }
+    return list;
+}
+
 void VirtualConsole::postLoad()
 {
+    qDebug() << Q_FUNC_INFO << "---------------------------<<";
     m_contents->postLoad();
 
     /* apply GM values
@@ -1616,4 +1673,19 @@ void VirtualConsole::postLoad()
     m_doc->outputMap()->setGrandMasterValue(255);
     m_doc->outputMap()->setGrandMasterValueMode(m_properties.grandMasterValueMode());
     m_doc->outputMap()->setGrandMasterChannelMode(m_properties.grandMasterChannelMode());
+
+    /* Go through widgets and check IDs */
+    QList<VCWidget *> widgetsList = getChildren((VCWidget *)m_contents);
+
+    foreach (QObject *object, widgetsList)
+    {
+        VCWidget *widget = (VCWidget *)object;
+        quint32 wid = widget->id();
+        if(wid == VCWidget::invalidId())
+            widget->setID(newWidgetId());
+        else
+            if (wid >= m_latestWidgetId)
+                m_latestWidgetId = wid + 1;
+    }
+    qDebug() << "Next ID to assign:" << m_latestWidgetId;
 }

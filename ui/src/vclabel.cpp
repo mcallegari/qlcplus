@@ -99,6 +99,10 @@ bool VCLabel::loadXML(const QDomElement* root)
     /* Caption */
     setCaption(root->attribute(KXMLQLCVCCaption));
 
+    /* ID */
+    if (root->hasAttribute(KXMLQLCVCWidgetID))
+        setID(root->attribute(KXMLQLCVCWidgetID).toUInt());
+
     /* Children */
     QDomNode node = root->firstChild();
     while (node.isNull() == false)
@@ -142,6 +146,10 @@ bool VCLabel::saveXML(QDomDocument* doc, QDomElement* vc_root)
 
     /* Caption */
     root.setAttribute(KXMLQLCVCCaption, caption());
+
+    /* ID */
+    if (id() != VCWidget::invalidId())
+        root.setAttribute(KXMLQLCVCWidgetID, id());
 
     /* Window state */
     saveXMLWindowState(doc, &root);

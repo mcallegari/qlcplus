@@ -1,8 +1,8 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition>
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.1.0</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.4.0 beta1</Version>
   <Author>raymorris</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -18,25 +18,25 @@
  </Channel>
  <Channel Name="Color">
   <Group Byte="1">Colour</Group>
-  <Capability Min="0" Max="7">White</Capability>
-  <Capability Min="8" Max="14">Red</Capability>
-  <Capability Min="15" Max="21">Red/yellow</Capability>
-  <Capability Min="22" Max="28">Yellow</Capability>
-  <Capability Min="29" Max="35">Yellow/blue</Capability>
-  <Capability Min="36" Max="42">Blue</Capability>
-  <Capability Min="43" Max="49">Blue/green</Capability>
-  <Capability Min="50" Max="56">Green</Capability>
-  <Capability Min="57" Max="63">Green/purple</Capability>
-  <Capability Min="64" Max="71">Purple</Capability>
-  <Capability Min="72" Max="77">Purple/orange</Capability>
-  <Capability Min="78" Max="85">Orange</Capability>
-  <Capability Min="86" Max="92">Orange/pink</Capability>
-  <Capability Min="93" Max="99">Pink</Capability>
-  <Capability Min="100" Max="106">Pink/light blue</Capability>
-  <Capability Min="107" Max="113">Light blue</Capability>
-  <Capability Min="114" Max="120">Lightblue/light green</Capability>
-  <Capability Min="121" Max="127">Light green</Capability>
-  <Capability Min="128" Max="255">Rainbow effect</Capability>
+  <Capability Min="0" Max="7" Color="#ffffff">White</Capability>
+  <Capability Min="8" Max="14" Color="#ff0000">Red</Capability>
+  <Capability Color2="#ffff00" Min="15" Max="21" Color="#ff0000">Red/yellow</Capability>
+  <Capability Min="22" Max="28" Color="#ffff00">Yellow</Capability>
+  <Capability Color2="#ffff00" Min="29" Max="35" Color="#0000ff">Yellow/blue</Capability>
+  <Capability Min="36" Max="42" Color="#0000ff">Blue</Capability>
+  <Capability Color2="#00ff00" Min="43" Max="49" Color="#0000ff">Blue/green</Capability>
+  <Capability Min="50" Max="56" Color="#00ff00">Green</Capability>
+  <Capability Color2="#ff00ff" Min="57" Max="63" Color="#00ff00">Green/purple</Capability>
+  <Capability Min="64" Max="71" Color="#ff00ff">Purple</Capability>
+  <Capability Color2="#ff8000" Min="72" Max="77" Color="#ff00ff">Purple/orange</Capability>
+  <Capability Min="78" Max="85" Color="#ff8000">Orange</Capability>
+  <Capability Color2="#ffc0ff" Min="86" Max="92" Color="#ff8000">Orange/pink</Capability>
+  <Capability Min="93" Max="99" Color="#ffc0ff">Pink</Capability>
+  <Capability Color2="#c0c0ff" Min="100" Max="106" Color="#ffc0ff">Pink/light blue</Capability>
+  <Capability Min="107" Max="113" Color="#c0c0ff">Light blue</Capability>
+  <Capability Color2="#c0ffc0" Min="114" Max="120" Color="#c0c0ff">Lightblue/light green</Capability>
+  <Capability Min="121" Max="127" Color="#c0ffc0">Light green</Capability>
+  <Capability Res="Others/rainbow.png" Min="128" Max="255">Rainbow effect</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="1">Gobo</Group>

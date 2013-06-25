@@ -535,7 +535,7 @@ bool Function::loader(const QDomElement& root, Doc* doc)
     }
 
     /* Get common information from the tag's attributes */
-    quint32 id = root.attribute(KXMLQLCFunctionID).toInt();
+    quint32 id = root.attribute(KXMLQLCFunctionID).toUInt();
     QString name = root.attribute(KXMLQLCFunctionName);
     Type type = Function::stringToType(root.attribute(KXMLQLCFunctionType));
 

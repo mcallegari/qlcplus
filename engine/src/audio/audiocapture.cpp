@@ -36,6 +36,7 @@ AudioCapture::AudioCapture (QObject* parent)
     : QThread (parent)
     , m_userStop(true)
     , m_pause(false)
+    , m_audioBuffer(NULL)
     , m_fftInputBuffer(NULL)
     , m_fftOutputBuffer(NULL)
 {

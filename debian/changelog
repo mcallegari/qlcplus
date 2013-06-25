@@ -1,3 +1,16 @@
+qlcplus (4.4.0.beta2) unstable; urgency=low
+
+  * Fixed empty Sequence steps save/load causing QLC+ (and the operator) to freak out
+  * Inverted VC Cue list "next step" slider to reflect external controllers faders
+  * Added feedbacks to VC Cue List crossfade sliders
+  * VC Cue List manual crossfade when sliders are not linked now goes to next cue when sliders reach their opposite ends
+  * Reorganized documentation and introduced more user friendly guides (thanks to Jano Svitok)
+  * Fixed potential crash when closing QLC+ and not using Audio input triggers
+  * Fixed Show Manager sequence creation not updating Function Manager tree correctly
+  * Fixed Function Manager sequence deletion removing also its parent Scene
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 16 July 2013 4:03:04 +0200
+  
 qlcplus (4.4.0.beta1) unstable; urgency=low
 
   * NEW: Shows can now be started at any position in time
@@ -24,8 +37,10 @@ qlcplus (4.4.0.beta1) unstable; urgency=low
   * Added fixture: American DJ Mega Bar 50RGB (thanks to George Qualley)
   * Added fixture: SGM Giotto Spot 400 CMY (thanks to Willy)
   * Added fixture: PixelRANGE PixelPar 44 (thanks to bwerst)
+  * Added fixture: Look Solutions Unique 2.1 (thanks to Nicolas K)
+  * Added fixture: American DJ TRI64 Profile (thanks to Jed Nou)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 20 June 2013 4:03:04 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 18 June 2013 4:03:04 +0200
 
 qlcplus (4.3.3) stable; urgency=low
 

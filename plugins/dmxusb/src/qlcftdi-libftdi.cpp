@@ -214,8 +214,11 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
             }
             else
             {
-                /* This is probably a Enttec DMX USB Pro widget in TX mode */
-                widgetList << new EnttecDMXUSBProTX(serial, name, vendor);
+                /* This is probably a Enttec DMX USB Pro widget */
+                EnttecDMXUSBProTX* protx = new EnttecDMXUSBProTX(serial, name, vendor);
+                widgetList << protx;
+                EnttecDMXUSBProRX* prorx = new EnttecDMXUSBProRX(serial, name, vendor, input_id++, protx->ftdi());
+                widgetList << prorx;
             }
         }
         else

@@ -301,6 +301,10 @@ bool VCFrame::loadXML(const QDomElement* root)
     /* Caption */
     setCaption(root->attribute(KXMLQLCVCCaption));
 
+    /* ID */
+    if (root->hasAttribute(KXMLQLCVCWidgetID))
+        setID(root->attribute(KXMLQLCVCWidgetID).toUInt());
+
     /* Children */
     QDomNode node = root->firstChild();
     while (node.isNull() == false)
@@ -447,6 +451,10 @@ bool VCFrame::saveXML(QDomDocument* doc, QDomElement* vc_root)
 
     /* Caption */
     root.setAttribute(KXMLQLCVCCaption, caption());
+
+    /* ID */
+    if (id() != VCWidget::invalidId())
+        root.setAttribute(KXMLQLCVCWidgetID, id());
 
     /* Save appearance */
     saveXMLAppearance(doc, &root);

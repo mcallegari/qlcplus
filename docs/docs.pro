@@ -34,6 +34,8 @@ docs.files = \
              howto-input-profiles.html \
              howto-input-output-mapping.html \
              index.html \
+             mainwindow.html \
+             mainwindow2.png \
              midiplugin.html \
              modeeditor.html \
              olaplugin.html \
@@ -66,4 +68,5 @@ docs.files = \
              vcxypad.html \
              vellemanoutput.html \
              virtualconsole.html
+
 INSTALLS += docs

@@ -8,11 +8,20 @@ CONFIG      += plugin
 QT          += gui core
 INCLUDEPATH += ../../interfaces
 
+exists( $$[QT_INSTALL_LIBS]/libQtSerialPort.a ) {
+    CONFIG += serialport
+}
+
+serialport {
+    message(Building with QtSerialport support.)
+    DEFINES += QTSERIAL
+} else {
 # Use FTD2XX by default only in Windows. Uncomment the two rows with curly
 # braces to use ftd2xx interface on unix.
-win32 {
-    CONFIG += ftd2xx
-}
+    win32 {
+        CONFIG += ftd2xx
+        message(Building with FTD2xx support.)
+    }
 
 # FTD2XX is a proprietary interface by FTDI Ltd. and would therefore taint the
 # 100% FLOSS codebase of QLC if distributed along with QLC sources. Download
@@ -22,26 +31,29 @@ win32 {
 # plugin.
 #
 # Use forward slashes "/" instead of Windows backslashes "\" for paths here!
-CONFIG(ftd2xx) {
-    win32 {
-        # Windows target
-        FTD2XXDIR    = C:/Qt/CDM20828
-        LIBS        += -L$$FTD2XXDIR/i386 -lftd2xx
-        INCLUDEPATH += $$FTD2XXDIR
-		QMAKE_LFLAGS += -shared
+    CONFIG(ftd2xx) {
+        win32 {
+            # Windows target
+            FTD2XXDIR    = C:/Qt/CDM20828
+            LIBS        += -L$$FTD2XXDIR/i386 -lftd2xx
+            INCLUDEPATH += $$FTD2XXDIR
+            QMAKE_LFLAGS += -shared
+        } else {
+            # Unix target
+            INCLUDEPATH += /usr/local/include
+            LIBS        += -lftd2xx -L/usr/local/lib
+        }
+        DEFINES     += FTD2XX
     } else {
-        # Unix target
-        INCLUDEPATH += /usr/local/include
-        LIBS        += -lftd2xx -L/usr/local/lib
+        CONFIG      += link_pkgconfig
+        PKGCONFIG   += libftdi libusb
+        DEFINES     += LIBFTDI
+        message(Building with libFTDI support.)
     }
-    DEFINES     += FTD2XX
-} else {
-    CONFIG      += link_pkgconfig
-    PKGCONFIG   += libftdi libusb
 }
 
-HEADERS += ../../interfaces/qlcioplugin.h \
-    ultradmxusbprotx.h
+HEADERS += ../../interfaces/qlcioplugin.h
+
 HEADERS += dmxusb.h \
            dmxusbwidget.h \
            dmxusbconfig.h \
@@ -49,6 +61,7 @@ HEADERS += dmxusb.h \
            enttecdmxusbprorx.h \
            enttecdmxusbprotx.h \
            enttecdmxusbopen.h \
+           ultradmxusbprotx.h \
            dmx4all.h \
            qlcftdi.h
 
@@ -62,10 +75,14 @@ SOURCES += dmxusb.cpp \
            dmx4all.cpp \
            ultradmxusbprotx.cpp
 
-CONFIG(ftd2xx) {
-    SOURCES += qlcftdi-ftd2xx.cpp
+serialport {
+    SOURCES += qlcftdi-qtserial.cpp
 } else {
-    SOURCES += qlcftdi-libftdi.cpp
+    CONFIG(ftd2xx) {
+        SOURCES += qlcftdi-ftd2xx.cpp
+    } else {
+        SOURCES += qlcftdi-libftdi.cpp
+    }
 }
 
 unix:!macx {

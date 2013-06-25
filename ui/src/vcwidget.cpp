@@ -56,6 +56,7 @@
 VCWidget::VCWidget(QWidget* parent, Doc* doc)
     : QWidget(parent)
     , m_doc(doc)
+    , m_id(invalidId())
     , m_allowChildren(false)
     , m_allowResize(true)
 {
@@ -95,6 +96,33 @@ VCWidget::VCWidget(QWidget* parent, Doc* doc)
 VCWidget::~VCWidget()
 {
 }
+
+
+
+/*****************************************************************************
+ * ID
+ *****************************************************************************/
+
+void VCWidget::setID(quint32 id)
+{
+    /* Don't set doc modified status or emit changed signal, because this
+       function is called only once during widget creation. */
+    m_id = id;
+}
+
+quint32 VCWidget::id() const
+{
+    return m_id;
+}
+
+quint32 VCWidget::invalidId()
+{
+    return UINT_MAX;
+}
+
+/*********************************************************************
+ * Type
+ *********************************************************************/
 
 void VCWidget::setType(int type)
 {

@@ -385,7 +385,7 @@ bool Chaser::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     while (it.hasNext() == true)
     {
         ChaserStep step(it.next());
-        step.saveXML(doc, &root, stepNumber++);
+        step.saveXML(doc, &root, stepNumber++, m_isSequence);
     }
 
     return true;

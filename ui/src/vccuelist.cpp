@@ -2,7 +2,7 @@
   Q Light Controller
   vccuelist.cpp
 
-  Copyright (c) Heikki Junnila
+  Copyright (c) Heikki Junnila, Massimo Callegari
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License
@@ -33,10 +33,12 @@
 #include "vccuelistproperties.h"
 #include "vcpropertieseditor.h"
 #include "clickandgoslider.h"
+#include "qlcinputchannel.h"
 #include "virtualconsole.h"
 #include "cuelistrunner.h"
 #include "mastertimer.h"
 #include "chaserstep.h"
+#include "inputpatch.h"
 #include "vccuelist.h"
 #include "qlcmacros.h"
 #include "function.h"
@@ -89,7 +91,7 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     grid->addWidget(m_sl1TopLabel, 1, 0, 1, 1);
     m_slider1 = new ClickAndGoSlider();
     m_slider1->setStyle(AppUtil::saneStyle());
-    m_slider1->setFixedWidth(35);
+    m_slider1->setFixedWidth(40);
     m_slider1->setRange(0, 100);
     m_slider1->setValue(100);
     grid->addWidget(m_slider1, 2, 0, 1, 1);
@@ -105,10 +107,10 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     grid->addWidget(m_sl2TopLabel, 1, 1, 1, 1);
     m_slider2 = new ClickAndGoSlider();
     m_slider2->setStyle(AppUtil::saneStyle());
-    m_slider2->setFixedWidth(35);
+    m_slider2->setFixedWidth(40);
     m_slider2->setRange(0, 100);
     m_slider2->setValue(0);
-    m_slider2->setInvertedAppearance(true);
+    //m_slider2->setInvertedAppearance(true);
     grid->addWidget(m_slider2, 2, 1, 1, 1);
     m_sl2BottomLabel = new QLabel("");
     m_sl2BottomLabel->setStyleSheet(m_noStyle);
@@ -574,14 +576,49 @@ void VCCueList::slotShowCrossfadePanel(bool enable)
     m_sl2BottomLabel->setVisible(enable);
 }
 
+void VCCueList::sendFeedBack(int value, const quint8 feedbackId)
+{
+    /* Send input feedback */
+    QLCInputSource src = inputSource(feedbackId);
+    if (src.isValid() == true)
+    {
+        float fb = SCALE(float(value), float(0), float(100), float(0), float(UCHAR_MAX));
+
+        QString chName = QString();
+
+        InputPatch* pat = m_doc->inputMap()->patch(src.universe());
+        if (pat != NULL)
+        {
+            QLCInputProfile* profile = pat->profile();
+            if (profile != NULL)
+            {
+                QLCInputChannel* ich = profile->channel(src.channel());
+                if (ich != NULL)
+                    chName = ich->name();
+            }
+        }
+
+        m_doc->outputMap()->feedBack(src.universe(), src.channel(), int(fb), chName);
+    }
+}
+
 void VCCueList::slotSlider1ValueChanged(int value)
 {
+    bool switchFunction = false;
     m_sl1TopLabel->setText(QString("%1%").arg(value));
     if (m_linkCheck->isChecked())
         m_slider2->setValue(100 - value);
     if (m_runner != NULL)
         m_runner->adjustIntensity((qreal)value / 100, m_primaryLeft ? m_primaryIndex: m_secondaryIndex);
+
     if (value == 0 && m_linkCheck->isChecked())
+        switchFunction = true;
+    else if(m_linkCheck->isChecked() == false && value == 100 && m_slider2->value() == 0)
+        switchFunction = true;
+    else if(m_linkCheck->isChecked() == false && value == 0 && m_slider2->value() == 100)
+        switchFunction = true;
+
+    if (switchFunction)
     {
         m_primaryLeft = false;
         m_primaryIndex = m_secondaryIndex;
@@ -593,16 +630,26 @@ void VCCueList::slotSlider1ValueChanged(int value)
         }
         setSlidersInfo(m_primaryIndex, NULL);
     }
+    sendFeedBack(value, cf1InputSourceId);
 }
 
 void VCCueList::slotSlider2ValueChanged(int value)
 {
+    bool switchFunction = false;
     m_sl2TopLabel->setText(QString("%1%").arg(value));
     if (m_linkCheck->isChecked())
         m_slider1->setValue(100 - value);
     if (m_runner != NULL)
         m_runner->adjustIntensity((qreal)value / 100, m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
+
     if (value == 0 && m_linkCheck->isChecked())
+        switchFunction = true;
+    else if(m_linkCheck->isChecked() == false && value == 100 && m_slider1->value() == 0)
+        switchFunction = true;
+    else if(m_linkCheck->isChecked() == false && value == 0 && m_slider1->value() == 100)
+        switchFunction = true;
+
+    if (switchFunction)
     {
         m_primaryLeft = true;
         m_primaryIndex = m_secondaryIndex;
@@ -614,6 +661,7 @@ void VCCueList::slotSlider2ValueChanged(int value)
         }
         setSlidersInfo(m_primaryIndex, NULL);
     }
+    sendFeedBack(value, cf2InputSourceId);
 }
 /*****************************************************************************
  * DMX Source
@@ -689,6 +737,9 @@ void VCCueList::slotKeyPressed(const QKeySequence& keySequence)
 
 void VCCueList::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
+    if (m_doc->mode() == Doc::Design)
+        return;
+
     QLCInputSource src(universe, channel);
 
     if (src == inputSource(nextInputSourceId))
@@ -785,6 +836,9 @@ void VCCueList::slotModeChanged(Doc::Mode mode)
         Q_ASSERT(m_runner == NULL);
         m_doc->masterTimer()->registerDMXSource(this);
         enable = true;
+        // send the initial feedback for the current step slider
+        sendFeedBack(m_slider1->value(), cf1InputSourceId);
+        sendFeedBack(m_slider2->value(), cf2InputSourceId);
     }
     else
     {
@@ -844,6 +898,10 @@ bool VCCueList::loadXML(const QDomElement* root)
 
     /* Caption */
     setCaption(root->attribute(KXMLQLCVCCaption));
+
+    /* ID */
+    if (root->hasAttribute(KXMLQLCVCWidgetID))
+        setID(root->attribute(KXMLQLCVCWidgetID).toUInt());
 
     /* Children */
     node = root->firstChild();
@@ -1030,6 +1088,10 @@ bool VCCueList::saveXML(QDomDocument* doc, QDomElement* vc_root)
 
     /* Caption */
     root.setAttribute(KXMLQLCVCCaption, caption());
+
+    /* ID */
+    if (id() != VCWidget::invalidId())
+        root.setAttribute(KXMLQLCVCWidgetID, id());
 
     /* Chaser */
     tag = doc->createElement(KXMLQLCVCCueListChaser);
