@@ -110,7 +110,7 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_slider2->setFixedWidth(40);
     m_slider2->setRange(0, 100);
     m_slider2->setValue(0);
-    //m_slider2->setInvertedAppearance(true);
+    m_slider2->setInvertedAppearance(true);
     grid->addWidget(m_slider2, 2, 1, 1, 1);
     m_sl2BottomLabel = new QLabel("");
     m_sl2BottomLabel->setStyleSheet(m_noStyle);
@@ -661,7 +661,7 @@ void VCCueList::slotSlider2ValueChanged(int value)
         }
         setSlidersInfo(m_primaryIndex, NULL);
     }
-    sendFeedBack(value, cf2InputSourceId);
+    sendFeedBack(100 - value, cf2InputSourceId);
 }
 /*****************************************************************************
  * DMX Source
@@ -811,7 +811,7 @@ void VCCueList::slotInputValueChanged(quint32 universe, quint32 channel, uchar v
         float val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
                           (float) m_slider2->minimum(),
                           (float) m_slider2->maximum());
-        m_slider2->setValue(val);
+        m_slider2->setValue(100 - val);
     }
 }
 
@@ -838,7 +838,7 @@ void VCCueList::slotModeChanged(Doc::Mode mode)
         enable = true;
         // send the initial feedback for the current step slider
         sendFeedBack(m_slider1->value(), cf1InputSourceId);
-        sendFeedBack(m_slider2->value(), cf2InputSourceId);
+        sendFeedBack(100 - m_slider2->value(), cf2InputSourceId);
     }
     else
     {
