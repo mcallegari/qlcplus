@@ -88,64 +88,118 @@
          <property name="toolTip">
           <string>The general type of this fixture</string>
          </property>
+         <property name="iconSize">
+          <size>
+           <width>24</width>
+           <height>24</height>
+          </size>
+         </property>
          <item>
           <property name="text">
            <string notr="true">Color Changer</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../ui/src/qlcui.qrc">
+            <normaloff>:/fixture.png</normaloff>:/fixture.png</iconset>
           </property>
          </item>
          <item>
           <property name="text">
            <string notr="true">Dimmer</string>
           </property>
+          <property name="icon">
+           <iconset resource="../ui/src/qlcui.qrc">
+            <normaloff>:/dimmer.png</normaloff>:/dimmer.png</iconset>
+          </property>
          </item>
          <item>
           <property name="text">
            <string notr="true">Effect</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../ui/src/qlcui.qrc">
+            <normaloff>:/effect.png</normaloff>:/effect.png</iconset>
           </property>
          </item>
          <item>
           <property name="text">
            <string notr="true">Fan</string>
           </property>
+          <property name="icon">
+           <iconset resource="../ui/src/qlcui.qrc">
+            <normaloff>:/fan.png</normaloff>:/fan.png</iconset>
+          </property>
          </item>
          <item>
           <property name="text">
            <string notr="true">Flower</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../ui/src/qlcui.qrc">
+            <normaloff>:/flower.png</normaloff>:/flower.png</iconset>
           </property>
          </item>
          <item>
           <property name="text">
            <string notr="true">Hazer</string>
           </property>
+          <property name="icon">
+           <iconset resource="../ui/src/qlcui.qrc">
+            <normaloff>:/hazer.png</normaloff>:/hazer.png</iconset>
+          </property>
          </item>
          <item>
           <property name="text">
            <string notr="true">Laser</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../ui/src/qlcui.qrc">
+            <normaloff>:/laser.png</normaloff>:/laser.png</iconset>
           </property>
          </item>
          <item>
           <property name="text">
            <string notr="true">Moving Head</string>
           </property>
+          <property name="icon">
+           <iconset resource="../ui/src/qlcui.qrc">
+            <normaloff>:/movinghead.png</normaloff>:/movinghead.png</iconset>
+          </property>
          </item>
          <item>
           <property name="text">
            <string notr="true">Other</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../ui/src/qlcui.qrc">
+            <normaloff>:/other.png</normaloff>:/other.png</iconset>
           </property>
          </item>
          <item>
           <property name="text">
            <string notr="true">Scanner</string>
           </property>
+          <property name="icon">
+           <iconset resource="../ui/src/qlcui.qrc">
+            <normaloff>:/scanner.png</normaloff>:/scanner.png</iconset>
+          </property>
          </item>
          <item>
           <property name="text">
            <string notr="true">Smoke</string>
           </property>
+          <property name="icon">
+           <iconset resource="../ui/src/qlcui.qrc">
+            <normaloff>:/smoke.png</normaloff>:/smoke.png</iconset>
+          </property>
          </item>
          <item>
           <property name="text">
            <string notr="true">Strobe</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../ui/src/qlcui.qrc">
+            <normaloff>:/strobe.png</normaloff>:/strobe.png</iconset>
           </property>
          </item>
         </widget>
@@ -518,6 +572,7 @@
   </layout>
  </widget>
  <resources>
+  <include location="../ui/src/qlcui.qrc"/>
   <include location="../ui/src/qlcui.qrc"/>
  </resources>
  <connections/>

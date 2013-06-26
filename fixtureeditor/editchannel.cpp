@@ -91,6 +91,13 @@ void EditChannel::init()
 
     /* Get available groups and insert them into the groups combo */
     m_groupCombo->addItems(QLCChannel::groupList());
+    m_groupCombo->setIconSize(QSize(24, 24));
+    for (int i = 0; i < m_groupCombo->count(); i++)
+    {
+        QLCChannel ch;
+        m_groupCombo->setItemIcon(i, ch.getIconFromGroup(QLCChannel::stringToGroup(m_groupCombo->itemText(i))));
+    }
+
     connect(m_groupCombo, SIGNAL(activated(const QString&)),
             this, SLOT(slotGroupActivated(const QString&)));
     connect(m_msbRadio, SIGNAL(toggled(bool)),
@@ -111,6 +118,13 @@ void EditChannel::init()
 
     /* Get available colours and insert them into the colour combo */
     m_colourCombo->addItems(QLCChannel::colourList());
+    m_colourCombo->setIconSize(QSize(24, 24));
+    for (int i = 0; i < m_colourCombo->count(); i++)
+    {
+        QLCChannel ch;
+        ch.setName(m_colourCombo->itemText(i));
+        m_colourCombo->setItemIcon(i, ch.getIconFromGroup(QLCChannel::Intensity));
+    }
     connect(m_colourCombo, SIGNAL(activated(const QString&)),
             this, SLOT(slotColourActivated(const QString&)));
 

@@ -493,12 +493,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editmode.ui" line="14"/>
         <source>Edit Mode</source>
-        <translation>Modo Editor</translation>
+        <translation>Editor della modalità</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="20"/>
         <source>Mode Name</source>
-        <translation>Nome Modo</translation>
+        <translation>Nome della modalità</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="34"/>
@@ -529,7 +529,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editmode.ui" line="106"/>
         <source>Raise the selected channel</source>
-        <translation>Sposta su il canale selezionato</translation>
+        <translation>Sposta in su il canale selezionato</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="126"/>
