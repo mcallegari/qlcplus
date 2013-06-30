@@ -9,6 +9,8 @@ qlcplus (4.4.0.beta2) unstable; urgency=low
   * Fixed Show Manager sequence creation not updating Function Manager tree correctly
   * Fixed Function Manager sequence deletion removing also its parent Scene
   * Fixture Editor is now shiny and colorful (as someone said)
+  * Added Fixture: Blizzard Lighting Blade RGBW (thanks to James Elliott)
+  * Added Fixture: Stairville MH-X50+ (thanks to Guillaume Rousseau)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 16 July 2013 4:03:04 +0200
   
