@@ -895,7 +895,7 @@ void FunctionManager::copyFunction(quint32 fid)
     Function* copy = function->createCopy(m_doc);
     if (copy != NULL)
     {
-        copy->setName(tr("Copy of %1").arg(function->name()));
+        copy->setName(copy->name() + tr(" (Copy)"));
         QTreeWidgetItem* item = functionItem(copy);
         m_tree->setCurrentItem(item);
     }
