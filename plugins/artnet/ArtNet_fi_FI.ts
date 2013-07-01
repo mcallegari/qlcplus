@@ -16,6 +16,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="artnetplugin.cpp" line="138"/>
+        <source>Output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="artnetplugin.cpp" line="142"/>
         <location filename="artnetplugin.cpp" line="337"/>
         <source>Status: Not open</source>
@@ -35,6 +40,11 @@
     <message>
         <location filename="artnetplugin.cpp" line="150"/>
         <source>Packets sent: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="artnetplugin.cpp" line="333"/>
+        <source>Input</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
