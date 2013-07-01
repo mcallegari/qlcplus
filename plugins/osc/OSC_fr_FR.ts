@@ -62,7 +62,7 @@
     <message>
         <location filename="oscplugin.cpp" line="187"/>
         <source>Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Sorties</translation>
     </message>
     <message>
         <location filename="oscplugin.cpp" line="190"/>
@@ -85,7 +85,7 @@
     <message>
         <location filename="oscplugin.cpp" line="284"/>
         <source>Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrée</translation>
     </message>
 </context>
 </TS>

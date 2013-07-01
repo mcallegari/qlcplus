@@ -18,7 +18,7 @@
     <message>
         <location filename="artnetplugin.cpp" line="138"/>
         <source>Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgang</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="142"/>
@@ -35,7 +35,7 @@
     <message>
         <location filename="artnetplugin.cpp" line="147"/>
         <source>Nodes discovered: </source>
-        <translation>Knoten (Nodes) erkannt</translation>
+        <translation>Knoten (Nodes) erkannt: </translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="150"/>
@@ -45,7 +45,7 @@
     <message>
         <location filename="artnetplugin.cpp" line="333"/>
         <source>Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Eingang</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="342"/>

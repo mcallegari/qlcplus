@@ -18,7 +18,7 @@
     <message>
         <location filename="artnetplugin.cpp" line="138"/>
         <source>Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Sorties</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="142"/>
@@ -45,7 +45,7 @@
     <message>
         <location filename="artnetplugin.cpp" line="333"/>
         <source>Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrée</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="342"/>
