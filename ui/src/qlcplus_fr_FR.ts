@@ -706,7 +706,7 @@ Voulez-vous vraiement les arrêter et basculer vers le Mode Design?</translation
     <message>
         <location filename="app.cpp" line="522"/>
         <source>Audio Trigger Factory</source>
-        <translation type="unfinished"></translation>
+        <translation>Déclenchement Audio</translation>
     </message>
     <message>
         <location filename="app.cpp" line="530"/>
@@ -866,7 +866,7 @@ Celui ci a du être déplacé ou effacé.</translation>
     <message>
         <location filename="audioeditor.ui" line="14"/>
         <source>Audio editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Editeur Audio</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="22"/>
@@ -876,12 +876,12 @@ Celui ci a du être déplacé ou effacé.</translation>
     <message>
         <location filename="audioeditor.ui" line="29"/>
         <source>Duration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Durée :</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="68"/>
         <source>Audio name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="88"/>
@@ -896,12 +896,12 @@ Celui ci a du être déplacé ou effacé.</translation>
     <message>
         <location filename="audioeditor.ui" line="115"/>
         <source>Channels:</source>
-        <translation type="unfinished"></translation>
+        <translation>Canaux :</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="142"/>
         <source>File name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom du Fichier :</translation>
     </message>
 </context>
 <context>
@@ -954,12 +954,12 @@ Durée : %3
     <message>
         <location filename="audiotriggerfactory.ui" line="14"/>
         <source>Audio Trigger Factory</source>
-        <translation type="unfinished"></translation>
+        <translation>Déckenchement Audio</translation>
     </message>
     <message>
         <location filename="audiotriggerfactory.ui" line="24"/>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Activé</translation>
     </message>
     <message>
         <location filename="audiotriggerfactory.ui" line="55"/>
@@ -972,12 +972,12 @@ Durée : %3
     <message>
         <location filename="audiotriggersconfiguration.ui" line="14"/>
         <source>Audio Triggers Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuration du Déclechement Audio</translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.ui" line="41"/>
         <source>Number of spectrum bars:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de Bandes :</translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.ui" line="52"/>
@@ -992,22 +992,22 @@ Durée : %3
     <message>
         <location filename="audiotriggersconfiguration.ui" line="62"/>
         <source>Assign</source>
-        <translation type="unfinished"></translation>
+        <translation>Assignation</translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.ui" line="67"/>
         <source>Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Infos</translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.ui" line="72"/>
         <source>Disable threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Seuil de Désactivation</translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.ui" line="77"/>
         <source>Enable threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Seuil d&apos;Activation</translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.cpp" line="100"/>
@@ -1017,12 +1017,12 @@ Durée : %3
     <message>
         <location filename="audiotriggersconfiguration.cpp" line="101"/>
         <source>DMX</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.cpp" line="102"/>
         <source>Function</source>
-        <translation type="unfinished"></translation>
+        <translation>Fonction</translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.cpp" line="103"/>
@@ -1032,32 +1032,32 @@ Durée : %3
     <message>
         <location filename="audiotriggersconfiguration.cpp" line="116"/>
         <source>%1 channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Canaux : %1</translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.cpp" line="147"/>
         <source>No function</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas de Fonction</translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.cpp" line="162"/>
         <source>No widget</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas de Widget</translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.cpp" line="165"/>
         <source>Not assigned</source>
-        <translation type="unfinished"></translation>
+        <translation>Non assigné</translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.cpp" line="202"/>
         <source>Volume Bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Barre de Volume</translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.cpp" line="211"/>
         <source>#%1 (%2Hz - %3Hz)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -2245,7 +2245,7 @@ Durée : %3
     <message>
         <location filename="functionmanager.cpp" line="287"/>
         <source>Function &amp;Wizard</source>
-        <translation type="unfinished"></translation>
+        <translation>Assistant de Fonction (&amp;W)</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="300"/>
@@ -3635,13 +3635,13 @@ Durée : %3
         <location filename="showmanager.cpp" line="521"/>
         <location filename="showmanager.cpp" line="606"/>
         <source>Overlapping error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur de recouvrement</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="521"/>
         <location filename="showmanager.cpp" line="606"/>
         <source>Overlapping not allowed. Operation cancelled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Recouvrement interdit. Opération annulée.</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="547"/>
@@ -4060,27 +4060,27 @@ Durée : %3
     <message>
         <location filename="vccuelist.cpp" line="82"/>
         <source>Link</source>
-        <translation type="unfinished"></translation>
+        <translation>Lien</translation>
     </message>
     <message>
         <location filename="vccuelist.cpp" line="159"/>
         <source>Show/Hide crossfade sliders</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher/Masquer les curseurs linéaires</translation>
     </message>
     <message>
         <location filename="vccuelist.cpp" line="168"/>
         <source>Play/Stop Cue list</source>
-        <translation type="unfinished"></translation>
+        <translation>Go/Stop Séquentiel</translation>
     </message>
     <message>
         <location filename="vccuelist.cpp" line="177"/>
         <source>Go to previous step in the list</source>
-        <translation type="unfinished"></translation>
+        <translation>Go -</translation>
     </message>
     <message>
         <location filename="vccuelist.cpp" line="186"/>
         <source>Go to next step in the list</source>
-        <translation type="unfinished"></translation>
+        <translation>Go +</translation>
     </message>
     <message>
         <location filename="vccuelist.cpp" line="194"/>
@@ -4307,17 +4307,17 @@ Durée : %3
     <message>
         <location filename="vccuelistproperties.ui" line="584"/>
         <source>Crossfade</source>
-        <translation type="unfinished"></translation>
+        <translation>Curseur Linéaire</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="590"/>
         <source>Left Slider</source>
-        <translation type="unfinished"></translation>
+        <translation>Curseur Gauche</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="663"/>
         <source>Right Slider</source>
-        <translation type="unfinished"></translation>
+        <translation>Curseur Droit</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="77"/>
@@ -4485,7 +4485,7 @@ Durée : %3
     <message>
         <location filename="vcproperties.ui" line="485"/>
         <source>Solo frame size:</source>
-        <translation>Taille des cadres de solos :</translation>
+        <translation>Taille des Panneaux de solos :</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="277"/>
@@ -4510,7 +4510,7 @@ Durée : %3
     <message>
         <location filename="vcproperties.ui" line="407"/>
         <source>Frame size:</source>
-        <translation>Taille des Cadres :</translation>
+        <translation>Taille des Panneaux :</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="188"/>
@@ -5101,22 +5101,22 @@ Durée : %3
     <message>
         <location filename="vcwidget.cpp" line="144"/>
         <source>XYPad</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="vcwidget.cpp" line="145"/>
         <source>Frame</source>
-        <translation type="unfinished">Type de Matrice</translation>
+        <translation type="unfinished">Panneau</translation>
     </message>
     <message>
         <location filename="vcwidget.cpp" line="146"/>
         <source>Solo frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Panneau de Solos</translation>
     </message>
     <message>
         <location filename="vcwidget.cpp" line="147"/>
         <source>Speed dial</source>
-        <translation type="unfinished"></translation>
+        <translation>Contrôleur de Vitesse</translation>
     </message>
     <message>
         <location filename="vcwidget.cpp" line="148"/>
@@ -5145,7 +5145,7 @@ Durée : %3
     <message>
         <location filename="vcwidgetselection.ui" line="14"/>
         <source>Virtual Console widget selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Selection de Widget</translation>
     </message>
     <message>
         <location filename="vcwidgetselection.ui" line="23"/>
