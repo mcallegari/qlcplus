@@ -57,6 +57,27 @@
 
 const QSize VCSlider::defaultSize(QSize(60, 200));
 
+const QString sliderStyleSheet =
+        "QSlider::groove:vertical { background: transparent; position: absolute; left: 4px; right: 4px; } "
+
+        "QSlider::handle:vertical { "
+        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:0.45 #888, stop:0.50 #000, stop:0.55 #888, stop:1 #999);"
+        "border: 1px solid #5c5c5c;"
+        "border-radius: 4px; margin: 0 -4px; height: 20px; }"
+
+        "QSlider::handle:vertical:hover {"
+        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #eee, stop:0.45 #999, stop:0.50 #ff0000, stop:0.55 #999, stop:1 #ccc);"
+        "border: 1px solid #000; }"
+
+        "QSlider::add-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #78d, stop: 1 #97CDEC );"
+        "border: 1px solid #5288A7; margin: 0 9px; }"
+
+        "QSlider::sub-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #888, stop: 1 #ddd );"
+        "border: 1px solid #8E8A86; margin: 0 9px; }"
+
+        "QSlider::handle:vertical:disabled { background: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:0.45 #888, stop:0.50 #444, stop:0.55 #888, stop:1 #999);"
+        "border: 1px solid #666; }";
+
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
@@ -118,27 +139,7 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_slider->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
     m_slider->setMinimumWidth(32);
     m_slider->setMaximumWidth(80);
-    m_slider->setStyleSheet(
-        "QSlider::groove:vertical { background: transparent; position: absolute; left: 4px; right: 4px; } "
-
-        "QSlider::handle:vertical { "
-        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:0.45 #888, stop:0.50 #000, stop:0.55 #888, stop:1 #999);"
-        "border: 1px solid #5c5c5c;"
-        "border-radius: 4px; margin: 0 -4px; height: 20px; }"
-
-        "QSlider::handle:vertical:hover {"
-        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #eee, stop:0.45 #999, stop:0.50 #ff0000, stop:0.55 #999, stop:1 #ccc);"
-        "border: 1px solid #000; }"
-
-        "QSlider::add-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #78d, stop: 1 #97CDEC );"
-        "border: 1px solid #5288A7; margin: 0 9px; }"
-
-        "QSlider::sub-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #888, stop: 1 #ddd );"
-        "border: 1px solid #8E8A86; margin: 0 9px; }"
-
-        "QSlider::handle:vertical:disabled { background: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:0.45 #888, stop:0.50 #444, stop:0.55 #888, stop:1 #999);"
-        "border: 1px solid #666; }"
-        );
+    m_slider->setStyleSheet(sliderStyleSheet);
 
     connect(m_slider, SIGNAL(valueChanged(int)),
             this, SLOT(slotSliderMoved(int)));
@@ -940,12 +941,20 @@ void VCSlider::setWidgetMode(SliderWidgetMode mode)
 {
     if (mode == m_widgetMode)
         return;
+
     if (mode == WKnob && m_slider)
     {
+        qDebug() << "Switching to knob widget";
         disconnect(m_slider, SIGNAL(valueChanged(int)),
                 this, SLOT(slotSliderMoved(int)));
-        m_hbox->removeWidget(m_slider);
-        delete m_slider;
+
+        QLayoutItem* item;
+        while ( ( item = m_hbox->takeAt( 0 ) ) != NULL )
+        {
+            delete item->widget();
+            delete item;
+        }
+
         m_slider = NULL;
         m_knob = new KnobWidget(this);
         m_hbox->addWidget(m_knob);
@@ -954,17 +963,31 @@ void VCSlider::setWidgetMode(SliderWidgetMode mode)
     }
     else if (mode == WSlider && m_knob)
     {
+        qDebug() << "Switching to slider widget";
         disconnect(m_knob, SIGNAL(valueChanged(int)),
                 this, SLOT(slotSliderMoved(int)));
-        m_hbox->removeWidget(m_knob);
-        delete m_knob;
+
+        QLayoutItem* item;
+        while ( ( item = m_hbox->takeAt( 0 ) ) != NULL )
+        {
+            delete item->widget();
+            delete item;
+        }
+
         m_knob = NULL;
+        m_hbox->addStretch();
         m_slider = new ClickAndGoSlider(this);
         m_hbox->addWidget(m_slider);
+        m_slider->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+        m_slider->setMinimumWidth(32);
+        m_slider->setMaximumWidth(80);
+        m_slider->setStyleSheet(sliderStyleSheet);
+        m_hbox->addStretch();
         connect(m_slider, SIGNAL(valueChanged(int)),
                 this, SLOT(slotSliderMoved(int)));
     }
     m_widgetMode = mode;
+    update();
 }
 
 VCSlider::SliderWidgetMode VCSlider::widgetMode()
