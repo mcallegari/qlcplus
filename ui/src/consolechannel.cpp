@@ -110,7 +110,7 @@ void ConsoleChannel::init()
 
     /* Value slider */
     m_slider = new ClickAndGoSlider(this);
-    m_slider->setStyle(AppUtil::saneStyle());
+    //m_slider->setStyle(AppUtil::saneStyle());
     layout()->addWidget(m_slider);
     m_slider->setInvertedAppearance(false);
     m_slider->setRange(0, UCHAR_MAX);
@@ -120,40 +120,30 @@ void ConsoleChannel::init()
     connect(m_slider, SIGNAL(controlClicked()),
             this, SLOT(slotControlClicked()));
 
-    /*
-    m_slider->setStyleSheet("QSlider::groove:vertical { background: transparent; position: absolute; left: 4px; right: 4px; } "
-                            "QSlider::handle:vertical { "
-                            "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #c4c4c4, stop:1 #8f8f8f);"
-                            "border: 1px solid #5c5c5c;"
-                            "width: 20px; height: 20px;"
-                            "border-radius: 4px; margin: 0 -4px; }"
-                            "QSlider::add-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #78d, stop: stop: 1 #238); "
-                            "height: 10px; }"
-                            "QSlider::sub-page:vertical { background: gray;  height: 10px; }");
-    */
-    /*
+    m_slider->setMinimumWidth(25);
+    m_slider->setMaximumWidth(40);
     m_slider->setStyleSheet(
-        "QSlider::sub-page:vertical {"
-        "background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #fff, stop: 0.4999 #eee, stop: 0.5 #ddd, stop: 1 #eee );"
-        "border: 1px solid #777; width: 10px; border-radius: 4px; }"
+        "QSlider::groove:vertical { background: transparent; width: 32px; } "
 
-        "QSlider::add-page:vertical {"
-        "background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #78d, stop: 0.4999 #46a, stop: 0.5 #45a, stop: 1 #238 );"
-        "border: 1px solid #777; width: 10px; border-radius: 4px; }"
-
-        "QSlider::handle:vertical {"
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #eee, stop:1 #ccc);"
-        "border: 1px solid #777; height: 13px; margin-top: -2px; margin-bottom: -2px; border-radius: 4px; }"
+        "QSlider::handle:vertical { "
+        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:0.45 #888, stop:0.50 #000, stop:0.55 #888, stop:1 #999);"
+        "border: 1px solid #5c5c5c;"
+        "border-radius: 4px; margin: 0 -1px; height: 20px; }"
 
         "QSlider::handle:vertical:hover {"
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #fff, stop:1 #ddd);"
-        "border: 1px solid #444; border-radius: 4px; }"
+        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #eee, stop:0.45 #999, stop:0.50 #ff0000, stop:0.55 #999, stop:1 #ccc);"
+        "border: 1px solid #000; }"
 
-        "QSlider::sub-page:vertical:disabled { background: #bbb; border-color: #999; }"
-        "QSlider::add-page:vertical:disabled { background: #eee; border-color: #999; }"
+        "QSlider::add-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #78d, stop: 1 #97CDEC );"
+        "border: 1px solid #5288A7; margin: 0 13px; }"
 
-        "QSlider::handle:vertical:disabled { background: #eee; border: 1px solid #aaa; border-radius: 4px; }");
-    */
+        "QSlider::sub-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #888, stop: 1 #ddd );"
+        "border: 1px solid #8E8A86; margin: 0 13px; }"
+
+        "QSlider::handle:vertical:disabled { background: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:0.45 #888, stop:0.50 #444, stop:0.55 #888, stop:1 #999);"
+        "border: 1px solid #666; }"
+        );
+
     /* Channel number label */
     m_label = new QLabel(this);
     m_label->setMinimumWidth(25);
