@@ -156,6 +156,7 @@ protected:
     QAction* m_addButtonMatrixAction;
     QAction* m_addSliderAction;
     QAction* m_addSliderMatrixAction;
+    QAction* m_addKnobAction;
     QAction* m_addSpeedDialAction;
     QAction* m_addXYPadAction;
     QAction* m_addCueListAction;
@@ -210,6 +211,7 @@ public slots:
     void slotAddButtonMatrix();
     void slotAddSlider();
     void slotAddSliderMatrix();
+    void slotAddKnob();
     void slotAddSpeedDial();
     void slotAddXYPad();
     void slotAddCueList();

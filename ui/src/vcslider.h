@@ -27,6 +27,7 @@
 
 #include "clickandgoslider.h"
 #include "clickandgowidget.h"
+#include "knobwidget.h"
 #include "dmxsource.h"
 #include "vcwidget.h"
 
@@ -377,12 +378,23 @@ protected:
     QLabel* m_topLabel;
 
     /*********************************************************************
-     * Slider
+     * Slider / Knob
      *********************************************************************/
+public:
+    enum SliderWidgetMode
+    {
+        WSlider,
+        WKnob
+    };
+
 public:
     void setSliderValue(uchar value);
 
     int sliderValue() const;
+
+    void setWidgetMode(SliderWidgetMode mode);
+
+    SliderWidgetMode widgetMode();
 
 private slots:
     void slotSliderMoved(int value);
@@ -393,7 +405,9 @@ private:
 protected:
     QHBoxLayout* m_hbox;
     ClickAndGoSlider* m_slider;
+    KnobWidget* m_knob;
     bool m_externalMovement;
+    SliderWidgetMode m_widgetMode;
 
     /*********************************************************************
      * Bottom label

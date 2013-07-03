@@ -102,6 +102,12 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
     /* Name */
     m_nameEdit->setText(m_slider->caption());
 
+    /* Widget appearance */
+    if (m_slider->widgetMode() == VCSlider::WKnob)
+        m_widgetKnobRadio->setChecked(true);
+    else
+        m_widgetSliderRadio->setChecked(true);
+
     /* Slider mode */
     m_sliderMode = m_slider->sliderMode();
     switch (m_sliderMode)
@@ -757,6 +763,12 @@ void VCSliderProperties::storeLevelChannels()
 
 void VCSliderProperties::accept()
 {
+    /* Widget appearance */
+    if (m_widgetKnobRadio->isChecked())
+        m_slider->setWidgetMode(VCSlider::WKnob);
+    else
+        m_slider->setWidgetMode(VCSlider::WSlider);
+
     /* Level page */
     m_slider->setLevelLowLimit(m_levelLowLimitSpin->value());
     m_slider->setLevelHighLimit(m_levelHighLimitSpin->value());

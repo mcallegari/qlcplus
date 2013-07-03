@@ -61,6 +61,7 @@ HEADERS += aboutbox.h \
            inputoutputmanager.h \
            inputoutputpatcheditor.h \
            inputprofileeditor.h \
+           knobwidget.h \
            monitor.h \
            monitorfixture.h \
            monitorlayout.h \
@@ -182,6 +183,7 @@ SOURCES += aboutbox.cpp \
            inputoutputmanager.cpp \
            inputoutputpatcheditor.cpp \
            inputprofileeditor.cpp \
+           knobwidget.cpp \
            monitor.cpp \
            monitorfixture.cpp \
            monitorlayout.cpp \

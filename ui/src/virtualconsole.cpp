@@ -87,6 +87,7 @@ VirtualConsole::VirtualConsole(QWidget* parent, Doc* doc)
     , m_addButtonMatrixAction(NULL)
     , m_addSliderAction(NULL)
     , m_addSliderMatrixAction(NULL)
+    , m_addKnobAction(NULL)
     , m_addSpeedDialAction(NULL)
     , m_addXYPadAction(NULL)
     , m_addCueListAction(NULL)
@@ -297,7 +298,10 @@ void VirtualConsole::initActions()
     m_addSliderMatrixAction = new QAction(QIcon(":/slidermatrix.png"), tr("New Slider Matrix"), this);
     connect(m_addSliderMatrixAction, SIGNAL(triggered(bool)), this, SLOT(slotAddSliderMatrix()), Qt::QueuedConnection);
 
-    m_addSpeedDialAction = new QAction(QIcon(":/knob.png"), tr("New Speed Dial"), this);
+    m_addKnobAction = new QAction(QIcon(":/knob.png"), tr("New Knob"), this);
+    connect(m_addKnobAction, SIGNAL(triggered(bool)), this, SLOT(slotAddKnob()), Qt::QueuedConnection);
+
+    m_addSpeedDialAction = new QAction(QIcon(":/speed.png"), tr("New Speed Dial"), this);
     connect(m_addSpeedDialAction, SIGNAL(triggered(bool)), this, SLOT(slotAddSpeedDial()), Qt::QueuedConnection);
 
     m_addXYPadAction = new QAction(QIcon(":/xypad.png"), tr("New XY pad"), this);
@@ -322,6 +326,7 @@ void VirtualConsole::initActions()
     m_addActionGroup->addAction(m_addButtonMatrixAction);
     m_addActionGroup->addAction(m_addSliderAction);
     m_addActionGroup->addAction(m_addSliderMatrixAction);
+    m_addActionGroup->addAction(m_addKnobAction);
     m_addActionGroup->addAction(m_addSpeedDialAction);
     m_addActionGroup->addAction(m_addXYPadAction);
     m_addActionGroup->addAction(m_addCueListAction);
@@ -450,6 +455,7 @@ void VirtualConsole::initMenuBar()
     m_addMenu->addSeparator();
     m_addMenu->addAction(m_addSliderAction);
     m_addMenu->addAction(m_addSliderMatrixAction);
+    m_addMenu->addAction(m_addKnobAction);
     m_addMenu->addAction(m_addSpeedDialAction);
     m_addMenu->addSeparator();
     m_addMenu->addAction(m_addXYPadAction);
@@ -522,6 +528,7 @@ void VirtualConsole::initMenuBar()
     m_toolbar->addAction(m_addButtonMatrixAction);
     m_toolbar->addAction(m_addSliderAction);
     m_toolbar->addAction(m_addSliderMatrixAction);
+    m_toolbar->addAction(m_addKnobAction);
     m_toolbar->addAction(m_addSpeedDialAction);
     m_toolbar->addAction(m_addXYPadAction);
     m_toolbar->addAction(m_addCueListAction);
@@ -793,6 +800,24 @@ void VirtualConsole::slotAddSliderMatrix()
     frame->setAllowChildren(false); // Don't allow more children
     clearWidgetSelection();
     setWidgetSelected(frame, true);
+    m_doc->setModified();
+}
+
+void VirtualConsole::slotAddKnob()
+{
+    VCWidget* parent(closestParent());
+    if (parent == NULL)
+        return;
+
+    VCSlider* knob = new VCSlider(parent, m_doc);
+    knob->resize(QSize(60, 80));
+    knob->setWidgetMode(VCSlider::WKnob);
+    Q_ASSERT(knob != NULL);
+    knob->setID(newWidgetId());
+    knob->show();
+    knob->move(parent->lastClickPoint());
+    clearWidgetSelection();
+    setWidgetSelected(knob, true);
     m_doc->setModified();
 }
 
@@ -1506,6 +1531,7 @@ void VirtualConsole::slotModeChanged(Doc::Mode mode)
         m_addButtonMatrixAction->setShortcut(QKeySequence());
         m_addSliderAction->setShortcut(QKeySequence());
         m_addSliderMatrixAction->setShortcut(QKeySequence());
+        m_addKnobAction->setShortcut(QKeySequence());
         m_addSpeedDialAction->setShortcut(QKeySequence());
         m_addXYPadAction->setShortcut(QKeySequence());
         m_addCueListAction->setShortcut(QKeySequence());
@@ -1553,6 +1579,7 @@ void VirtualConsole::slotModeChanged(Doc::Mode mode)
         m_addButtonMatrixAction->setShortcut(QKeySequence("CTRL+SHIFT+M"));
         m_addSliderAction->setShortcut(QKeySequence("CTRL+SHIFT+S"));
         m_addSliderMatrixAction->setShortcut(QKeySequence("CTRL+SHIFT+I"));
+        m_addKnobAction->setShortcut(QKeySequence("CTRL+SHIFT+K"));
         m_addSpeedDialAction->setShortcut(QKeySequence("CTRL+SHIFT+D"));
         m_addXYPadAction->setShortcut(QKeySequence("CTRL+SHIFT+X"));
         m_addCueListAction->setShortcut(QKeySequence("CTRL+SHIFT+C"));
