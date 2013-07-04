@@ -811,7 +811,7 @@ void VirtualConsole::slotAddKnob()
 
     VCSlider* knob = new VCSlider(parent, m_doc);
     knob->resize(QSize(60, 90));
-    knob->setWidgetMode(VCSlider::WKnob);
+    knob->setWidgetStyle(VCSlider::WKnob);
     Q_ASSERT(knob != NULL);
     knob->setID(newWidgetId());
     knob->show();

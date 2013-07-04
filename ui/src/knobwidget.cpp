@@ -31,6 +31,44 @@ KnobWidget::KnobWidget(QWidget *parent) : QDial(parent)
     m_background = new QPixmap();
     m_cursor = new QPixmap();
     setWrapping(false);
+    setMinimum(0);
+    setMaximum(UCHAR_MAX);
+}
+
+KnobWidget::~KnobWidget()
+{
+    delete m_background;
+    delete m_cursor;
+}
+
+void KnobWidget::setEnabled(bool status)
+{
+    QDial::setEnabled(status);
+    prepareCursor();
+}
+
+void KnobWidget::prepareCursor()
+{
+    int shortSide = height();
+    if (width() < shortSide)
+        shortSide = width();
+    float arcWidth = shortSide / 15;
+    float dialSize = shortSide - (arcWidth * 2);
+    float cursor_radius = dialSize / 15;
+    if (cursor_radius < 5)
+        cursor_radius = 5;
+
+    QPainter fgP(m_cursor);
+    fgP.setRenderHints(QPainter::Antialiasing);
+    fgP.setCompositionMode(QPainter::CompositionMode_DestinationIn);
+    fgP.fillRect(m_cursor->rect(), QColor(0, 0, 0, 0));
+
+    fgP.setCompositionMode(QPainter::CompositionMode_Source);
+    if (isEnabled() == false)
+        fgP.setBrush(Qt::gray);
+    else
+        fgP.setBrush(Qt::green);
+    fgP.drawEllipse(QPointF(dialSize / 2 - (arcWidth * 1.5), dialSize - (arcWidth * 2.2)), cursor_radius, cursor_radius);
 }
 
 void KnobWidget::resizeEvent(QResizeEvent *e)
@@ -38,12 +76,12 @@ void KnobWidget::resizeEvent(QResizeEvent *e)
     QDial::resizeEvent(e);
 
     qDebug() << "Resize event";
-    float arcWidth = height() / 15;
-    int dialSize = height() - (arcWidth * 2);
-    int radius = dialSize / 2;
-    int cursor_radius = dialSize / 15;
-    if (cursor_radius < 5)
-        cursor_radius = 5;
+    int shortSide = height();
+    if (width() < shortSide)
+        shortSide = width();
+    float arcWidth = shortSide / 15;
+    float dialSize = shortSide - (arcWidth * 2);
+    float radius = dialSize / 2;
 
     QLinearGradient linearGrad(QPointF(0,0), QPointF(0, dialSize));
     linearGrad.setColorAt(0, Qt::darkGray);
@@ -67,55 +105,51 @@ void KnobWidget::resizeEvent(QResizeEvent *e)
     bgP.drawEllipse(QPointF(dialSize / 2, radius), radius, radius);
     bgP.setBrush(linearGrad2);
     bgP.setPen(Qt::NoPen);
-    bgP.drawEllipse(QPointF(dialSize / 2, radius), radius - 10, radius - 10);
+    bgP.drawEllipse(QPointF(dialSize / 2, radius), radius - (arcWidth * 2), radius - (arcWidth * 2));
 
-    QPainter fgP(m_cursor);
-    fgP.setRenderHints(QPainter::Antialiasing);
-    fgP.setCompositionMode(QPainter::CompositionMode_DestinationIn);
-    fgP.fillRect(m_cursor->rect(), QColor(0, 0, 0, 0));
-
-    fgP.setCompositionMode(QPainter::CompositionMode_Source);
-    fgP.setBrush(Qt::green);
-    fgP.drawEllipse(QPointF(dialSize / 2 - (arcWidth * 1.5), dialSize - (arcWidth * 2)), cursor_radius, cursor_radius);
+    prepareCursor();
 }
 
 void KnobWidget::paintEvent(QPaintEvent *e)
 {
     Q_UNUSED(e)
 
-    float arcWidth = height() / 15;
+    int shortSide = height();
+    if (width() < shortSide)
+        shortSide = width();
+    float arcWidth = shortSide / 15;
     QPointF pixPoint = QPointF(((width() - m_background->width()) / 2), arcWidth);
 
     QPainter painter(this);
     float degrees = SCALE(value(), minimum(), maximum(),
                           0.0, 330.0);
 
-    qDebug() << "degrees =" << degrees;
     painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
     painter.drawPixmap(pixPoint, *m_background);
 
     QPixmap rotNeedle = rotatePix(m_cursor, degrees);
     painter.drawPixmap(pixPoint, rotNeedle);
 
-    QRectF valRect = QRectF(pixPoint.x() - (arcWidth / 2), arcWidth / 2,
-                             m_background->width() + arcWidth, m_background->height() + arcWidth);
+    QRectF valRect = QRectF(pixPoint.x() - (arcWidth / 2) + 1, arcWidth / 2 + 1,
+                             m_background->width() + arcWidth - 2, m_background->height() + arcWidth - 2);
 
     int penWidth = arcWidth;
     if (arcWidth <= 6)
         penWidth = 6;
 
-    painter.setPen(QPen(QColor(100, 100, 100, 255), penWidth - 2));
+    painter.setPen(QPen(QColor(100, 100, 100, 255), penWidth - 1));
     painter.drawArc(valRect, -105 * 16, -330 * 16);
-    painter.setPen(QPen(QColor(0, 200, 0, 255), penWidth - 4));
+    QColor col = Qt::green;
+    if (this->isEnabled() == false)
+        col = Qt::lightGray;
+    painter.setPen(QPen(col, penWidth - 3));
     painter.drawArc(valRect, -105 * 16, -degrees * 16);
 
 }
 
 QPixmap KnobWidget::rotatePix(QPixmap *p_pix, float p_deg)
 {
-    // perform rotation, transforming around the center of the
-    // image
-
+    // perform rotation, transforming around the center of the image
     QTransform trans;
     trans.translate(p_pix->width()/2.0 , p_pix->height()/2.0);
     trans.rotate(p_deg);

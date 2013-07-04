@@ -28,9 +28,17 @@ class KnobWidget : public QDial
 {
     Q_OBJECT
 public:
-    explicit KnobWidget(QWidget *parent = 0);
+    /** Constructor */
+    KnobWidget(QWidget *parent = 0);
+
+    /** Destructor */
+    ~KnobWidget();
+
+    void setEnabled(bool);
 
 protected:
+    void prepareCursor();
+
     void resizeEvent(QResizeEvent *e);
     void paintEvent(QPaintEvent* e);
 

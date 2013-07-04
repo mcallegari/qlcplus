@@ -119,12 +119,12 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
     /* Top label */
     m_topLabel = new QLabel(this);
-    layout()->addWidget(m_topLabel);
     m_topLabel->setAlignment(Qt::AlignHCenter);
+
+    layout()->addWidget(m_topLabel);
 
     /* Slider's HBox |stretch|slider|stretch| */
     m_hbox = new QHBoxLayout();
-    layout()->addItem(m_hbox);
 
     /* Put stretchable space before the slider (to its left side) */
     m_hbox->addStretch();
@@ -147,6 +147,8 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
     /* Put stretchable space after the slider (to its right side) */
     m_hbox->addStretch();
+
+    layout()->addItem(m_hbox);
 
     /* Tap button */
     m_tapButton = new QPushButton(this);
@@ -937,7 +939,7 @@ int VCSlider::sliderValue() const
     return 0;
 }
 
-void VCSlider::setWidgetMode(SliderWidgetMode mode)
+void VCSlider::setWidgetStyle(SliderWidgetStyle mode)
 {
     if (mode == m_widgetMode)
         return;
@@ -956,8 +958,11 @@ void VCSlider::setWidgetMode(SliderWidgetMode mode)
         }
 
         m_slider = NULL;
+
         m_knob = new KnobWidget(this);
+        m_knob->setEnabled(false);
         m_hbox->addWidget(m_knob);
+        m_knob->show();
         connect(m_knob, SIGNAL(valueChanged(int)),
                 this, SLOT(slotSliderMoved(int)));
     }
@@ -977,12 +982,14 @@ void VCSlider::setWidgetMode(SliderWidgetMode mode)
         m_knob = NULL;
         m_hbox->addStretch();
         m_slider = new ClickAndGoSlider(this);
+        m_slider->setEnabled(false);
         m_hbox->addWidget(m_slider);
         m_slider->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
         m_slider->setMinimumWidth(32);
         m_slider->setMaximumWidth(80);
         m_slider->setStyleSheet(sliderStyleSheet);
         m_hbox->addStretch();
+        m_slider->show();
         connect(m_slider, SIGNAL(valueChanged(int)),
                 this, SLOT(slotSliderMoved(int)));
     }
@@ -990,9 +997,29 @@ void VCSlider::setWidgetMode(SliderWidgetMode mode)
     update();
 }
 
-VCSlider::SliderWidgetMode VCSlider::widgetMode()
+VCSlider::SliderWidgetStyle VCSlider::widgetStyle()
 {
     return m_widgetMode;
+}
+
+QString VCSlider::widgetStyleToString(VCSlider::SliderWidgetStyle style)
+{
+    if (style == VCSlider::WSlider)
+        return QString("Slider");
+    else if (style == VCSlider::WKnob)
+        return QString("Knob");
+
+    return QString();
+}
+
+VCSlider::SliderWidgetStyle VCSlider::stringToWidgetStyle(QString style)
+{
+    if (style == "Slider")
+        return VCSlider::WSlider;
+    else if (style == "Knob")
+        return VCSlider::WKnob;
+
+    return VCSlider::WSlider;
 }
 
 void VCSlider::slotSliderMoved(int value)
@@ -1222,6 +1249,10 @@ bool VCSlider::loadXML(const QDomElement* root)
     if (root->hasAttribute(KXMLQLCVCWidgetID))
         setID(root->attribute(KXMLQLCVCWidgetID).toUInt());
 
+    /* Widget style */
+    if (root->hasAttribute(KXMLQLCVCSliderWidgetStyle))
+        setWidgetStyle(stringToWidgetStyle(root->attribute(KXMLQLCVCSliderWidgetStyle)));
+
     if (root->attribute(KXMLQLCVCSliderInvertedAppearance) == "false")
         setInvertedAppearance(false);
     else
@@ -1386,6 +1417,9 @@ bool VCSlider::saveXML(QDomDocument* doc, QDomElement* vc_root)
     /* ID */
     if (id() != VCWidget::invalidId())
         root.setAttribute(KXMLQLCVCWidgetID, id());
+
+    /* Widget style */
+    root.setAttribute(KXMLQLCVCSliderWidgetStyle, widgetStyleToString(widgetStyle()));
 
     /* Inverted appearance */
     if (invertedAppearance() == true)

@@ -43,6 +43,7 @@ class VCSliderProperties;
 
 #define KXMLQLCVCSlider "Slider"
 #define KXMLQLCVCSliderMode "SliderMode"
+#define KXMLQLCVCSliderWidgetStyle "WidgetStyle"
 
 #define KXMLQLCVCSliderValueDisplayStyle "ValueDisplayStyle"
 #define KXMLQLCVCSliderValueDisplayStyleExact "Exact"
@@ -381,7 +382,7 @@ protected:
      * Slider / Knob
      *********************************************************************/
 public:
-    enum SliderWidgetMode
+    enum SliderWidgetStyle
     {
         WSlider,
         WKnob
@@ -392,9 +393,13 @@ public:
 
     int sliderValue() const;
 
-    void setWidgetMode(SliderWidgetMode mode);
+    void setWidgetStyle(SliderWidgetStyle mode);
 
-    SliderWidgetMode widgetMode();
+    SliderWidgetStyle widgetStyle();
+
+    QString widgetStyleToString(SliderWidgetStyle style);
+
+    SliderWidgetStyle stringToWidgetStyle(QString style);
 
 private slots:
     void slotSliderMoved(int value);
@@ -407,7 +412,7 @@ protected:
     ClickAndGoSlider* m_slider;
     KnobWidget* m_knob;
     bool m_externalMovement;
-    SliderWidgetMode m_widgetMode;
+    SliderWidgetStyle m_widgetMode;
 
     /*********************************************************************
      * Bottom label
