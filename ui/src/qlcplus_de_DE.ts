@@ -1416,7 +1416,7 @@ Dauer: %3
 <context>
     <name>ConsoleChannel</name>
     <message>
-        <location filename="consolechannel.cpp" line="170"/>
+        <location filename="consolechannel.cpp" line="160"/>
         <source>Intensity</source>
         <translation>Intensität</translation>
     </message>
@@ -2222,10 +2222,6 @@ Dauer: %3
         <location filename="functionmanager.cpp" line="378"/>
         <source>New Sequence</source>
         <translation>Neue Sequenz</translation>
-    </message>
-    <message>
-        <source>Copy of %1</source>
-        <translation type="obsolete">Kopie von %1</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="294"/>
@@ -4662,32 +4658,27 @@ Dauer: %3
         <translation>Allgemein</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="35"/>
-        <source>Slider name</source>
-        <translation>Schiebereglername</translation>
-    </message>
-    <message>
-        <location filename="vcsliderproperties.ui" line="42"/>
+        <location filename="vcsliderproperties.ui" line="74"/>
         <source>Name of the slider</source>
         <translation>Name des Schiebereglers</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="51"/>
+        <location filename="vcsliderproperties.ui" line="33"/>
         <source>Value display style</source>
         <translation>Werte Anzeigeart</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="57"/>
+        <location filename="vcsliderproperties.ui" line="39"/>
         <source>Show exact DMX values</source>
         <translation>Genauen DMX Wert zeigen</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="70"/>
+        <location filename="vcsliderproperties.ui" line="52"/>
         <source>Show value as percentage</source>
         <translation>Werte als Prozentangabe</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="73"/>
+        <location filename="vcsliderproperties.ui" line="55"/>
         <source>Percentage</source>
         <translation>Prozentual</translation>
     </message>
@@ -4753,190 +4744,210 @@ Dauer: %3
         <translation>Automatische Erkennung</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="208"/>
+        <location filename="vcsliderproperties.ui" line="251"/>
         <source>Value range</source>
         <translation>Wertebereich</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="214"/>
+        <location filename="vcsliderproperties.ui" line="257"/>
         <source>Low limit</source>
         <translation>Unteres Limit</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="231"/>
+        <location filename="vcsliderproperties.ui" line="274"/>
         <source>High limit</source>
         <translation>Oberes Limit</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="387"/>
+        <location filename="vcsliderproperties.ui" line="430"/>
         <source>Intensity</source>
         <translation>Intensität</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="408"/>
+        <location filename="vcsliderproperties.ui" line="451"/>
         <source>Gobo/Effect/Macro</source>
         <oldsource>Gobo/Effect</oldsource>
         <translation>Gobo/Effekt/Makro</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="60"/>
+        <location filename="vcsliderproperties.ui" line="42"/>
         <source>Actual</source>
         <translation>Aktuell</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="202"/>
+        <location filename="vcsliderproperties.ui" line="67"/>
+        <source>Widget name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcsliderproperties.ui" line="201"/>
+        <source>Widget appearance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcsliderproperties.ui" line="207"/>
+        <source>Slider</source>
+        <translation type="unfinished">Schieberegler</translation>
+    </message>
+    <message>
+        <location filename="vcsliderproperties.ui" line="224"/>
+        <source>Knob</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcsliderproperties.ui" line="245"/>
         <source>Level</source>
         <translation>Level</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="221"/>
+        <location filename="vcsliderproperties.ui" line="264"/>
         <source>Lowest DMX value that can be set with this slider</source>
         <oldsource>Lowest DMX value that can be se with this slider</oldsource>
         <translation>Niedrigster DMX-Wert der mit diesem Schieberegler gesetzt werden kann</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="238"/>
+        <location filename="vcsliderproperties.ui" line="281"/>
         <source>Highest DMX value that can be set with this slider</source>
         <translation>Höchster DMX-Wert der mit diesem Schieberegler gesetzt werden kann</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="267"/>
+        <location filename="vcsliderproperties.ui" line="310"/>
         <source>Set value range from the selected capability</source>
         <translation>Den Wertebereich von der ausgewählten Fähigkeit setzen</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="270"/>
+        <location filename="vcsliderproperties.ui" line="313"/>
         <source>From capability</source>
         <translation>Von Fähigkeiten</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="290"/>
+        <location filename="vcsliderproperties.ui" line="333"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="295"/>
+        <location filename="vcsliderproperties.ui" line="338"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="300"/>
+        <location filename="vcsliderproperties.ui" line="343"/>
         <source>Range</source>
         <translation>Bereich</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="310"/>
+        <location filename="vcsliderproperties.ui" line="353"/>
         <source>Select all channels</source>
         <translation>Alle Kanäle auswählen</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="313"/>
+        <location filename="vcsliderproperties.ui" line="356"/>
         <source>All</source>
         <translation>Alle</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="320"/>
+        <location filename="vcsliderproperties.ui" line="363"/>
         <source>Unselect everything</source>
         <translation>Alles abwählen</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="323"/>
-        <location filename="vcsliderproperties.ui" line="377"/>
+        <location filename="vcsliderproperties.ui" line="366"/>
+        <location filename="vcsliderproperties.ui" line="420"/>
         <source>None</source>
         <translation>Keine</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="330"/>
+        <location filename="vcsliderproperties.ui" line="373"/>
         <source>Invert selection</source>
         <translation>Auswahl umkehren</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="333"/>
+        <location filename="vcsliderproperties.ui" line="376"/>
         <source>Invert</source>
         <translation>Invertieren</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="353"/>
+        <location filename="vcsliderproperties.ui" line="396"/>
         <source>Choose channels by channel group</source>
         <translation>Kanäle nach Kanalgruppe auswählen</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="356"/>
+        <location filename="vcsliderproperties.ui" line="399"/>
         <source>By group...</source>
         <translation>Nach Gruppe...</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="371"/>
+        <location filename="vcsliderproperties.ui" line="414"/>
         <source>Click &amp;&amp; Go</source>
         <translation>Klick &amp; Go</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="394"/>
+        <location filename="vcsliderproperties.ui" line="437"/>
         <source>RGB</source>
         <translation>RGB</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="401"/>
+        <location filename="vcsliderproperties.ui" line="444"/>
         <source>CMY</source>
         <translation>CMY</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="431"/>
+        <location filename="vcsliderproperties.ui" line="474"/>
         <source>Make the slider control the level of a set of channels</source>
         <translation>Schieberegler den Level mehrer Kanäle kontrollieren lassen</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="434"/>
+        <location filename="vcsliderproperties.ui" line="477"/>
         <source>Switch to Level Mode</source>
         <translation>In den Level-Modus wechseln</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="442"/>
+        <location filename="vcsliderproperties.ui" line="485"/>
         <source>Playback</source>
         <translation>Wiedergabe</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="448"/>
+        <location filename="vcsliderproperties.ui" line="491"/>
         <source>Function</source>
         <translation>Funktion</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="454"/>
+        <location filename="vcsliderproperties.ui" line="497"/>
         <source>Function that is attached to the slider</source>
         <translation>Funktion die diesem Schieberegler zugewiesen ist</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="464"/>
+        <location filename="vcsliderproperties.ui" line="507"/>
         <source>Attach a function to the slider</source>
         <translation>Funktion diesem Schieberegler zuweisen</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="484"/>
+        <location filename="vcsliderproperties.ui" line="527"/>
         <source>Detach the current function from the slider</source>
         <translation>Funktion des Schiebereglers zurücknehmen</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="520"/>
+        <location filename="vcsliderproperties.ui" line="563"/>
         <source>Make the slider control a function</source>
         <translation>Schieberegler eine Funktiion kontrollieren lassen</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="523"/>
+        <location filename="vcsliderproperties.ui" line="566"/>
         <source>Switch to Playback Mode</source>
         <translation>Zum Wiedergabemodus wechseln</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.cpp" line="620"/>
+        <location filename="vcsliderproperties.cpp" line="626"/>
         <source>Select channels by group</source>
         <translation>Kanäle nach Gruppe auswählen</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.cpp" line="621"/>
+        <location filename="vcsliderproperties.cpp" line="627"/>
         <source>Select a channel group</source>
         <translation>Kanalgruppe auswählen</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.cpp" line="667"/>
+        <location filename="vcsliderproperties.cpp" line="673"/>
         <source>No function</source>
         <translation>Keine Funktion</translation>
     </message>
@@ -5324,199 +5335,204 @@ Dauer: %3
 <context>
     <name>VirtualConsole</name>
     <message>
-        <location filename="virtualconsole.cpp" line="340"/>
+        <location filename="virtualconsole.cpp" line="345"/>
         <source>Cut</source>
         <translation>Ausschneiden</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="343"/>
+        <location filename="virtualconsole.cpp" line="348"/>
         <source>Copy</source>
         <translation>Kopieren</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="346"/>
+        <location filename="virtualconsole.cpp" line="351"/>
         <source>Paste</source>
         <translation>Einfügen</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="350"/>
+        <location filename="virtualconsole.cpp" line="355"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="376"/>
-        <location filename="virtualconsole.cpp" line="390"/>
-        <location filename="virtualconsole.cpp" line="403"/>
+        <location filename="virtualconsole.cpp" line="381"/>
+        <location filename="virtualconsole.cpp" line="395"/>
+        <location filename="virtualconsole.cpp" line="408"/>
         <source>Default</source>
         <translation>Standard</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="413"/>
+        <location filename="virtualconsole.cpp" line="418"/>
         <source>Sunken</source>
         <translation>Versenkt</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="416"/>
+        <location filename="virtualconsole.cpp" line="421"/>
         <source>Raised</source>
         <translation>Hervorgehoben</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="419"/>
+        <location filename="virtualconsole.cpp" line="424"/>
         <source>None</source>
         <translation>Kein</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="447"/>
+        <location filename="virtualconsole.cpp" line="452"/>
         <source>&amp;Add</source>
         <translation>&amp;Hinzufügen</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="464"/>
+        <location filename="virtualconsole.cpp" line="470"/>
         <source>&amp;Edit</source>
         <translation>&amp;Bearbeiten</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="288"/>
+        <location filename="virtualconsole.cpp" line="289"/>
         <source>New Button</source>
         <translation>Neue Schaltfläche</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="291"/>
+        <location filename="virtualconsole.cpp" line="292"/>
         <source>New Button Matrix</source>
         <translation>Neue Schaltflächen-Matrix</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="294"/>
+        <location filename="virtualconsole.cpp" line="295"/>
         <source>New Slider</source>
         <translation>Neuer Regler</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="297"/>
+        <location filename="virtualconsole.cpp" line="298"/>
         <source>New Slider Matrix</source>
         <translation>Neue Regler-Matrix</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="300"/>
+        <location filename="virtualconsole.cpp" line="301"/>
+        <source>New Knob</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole.cpp" line="304"/>
         <source>New Speed Dial</source>
         <translation>Neue Schnellauswahl</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="303"/>
+        <location filename="virtualconsole.cpp" line="307"/>
         <source>New XY pad</source>
         <translation>Neues XY Feld</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="306"/>
+        <location filename="virtualconsole.cpp" line="310"/>
         <source>New Cue list</source>
         <translation>Neue Cue-Liste</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="309"/>
+        <location filename="virtualconsole.cpp" line="313"/>
         <source>New Frame</source>
         <translation>Neuer Rahmen</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="312"/>
+        <location filename="virtualconsole.cpp" line="316"/>
         <source>New Solo frame</source>
         <translation>Neuer Einzelrahmen</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="315"/>
+        <location filename="virtualconsole.cpp" line="319"/>
         <source>New Label</source>
         <translation>Neue Beschriftung</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="333"/>
+        <location filename="virtualconsole.cpp" line="338"/>
         <source>Virtual Console Settings</source>
         <translation>Virtuelle Konsolen Eigenschaften</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="353"/>
+        <location filename="virtualconsole.cpp" line="358"/>
         <source>Widget Properties</source>
         <translation>Schaltflächeneigenschaften</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="356"/>
+        <location filename="virtualconsole.cpp" line="361"/>
         <source>Rename Widget</source>
         <translation>Schaltfläche umbennen</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="370"/>
+        <location filename="virtualconsole.cpp" line="375"/>
         <source>Background Color</source>
         <translation>Hintergrundfarbe</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="373"/>
+        <location filename="virtualconsole.cpp" line="378"/>
         <source>Background Image</source>
         <translation>Hintergrundbild</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="387"/>
+        <location filename="virtualconsole.cpp" line="392"/>
         <source>Font Colour</source>
         <translation>Schriftfarbe</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="400"/>
+        <location filename="virtualconsole.cpp" line="405"/>
         <source>Font</source>
         <translation>Schriftart</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="430"/>
+        <location filename="virtualconsole.cpp" line="435"/>
         <source>Bring to front</source>
         <translation>In den Vordergrund</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="433"/>
+        <location filename="virtualconsole.cpp" line="438"/>
         <source>Send to back</source>
         <translation>In den Hintergrund</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="476"/>
+        <location filename="virtualconsole.cpp" line="482"/>
         <source>&amp;Background</source>
         <translation>&amp;Hintergrund</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="484"/>
+        <location filename="virtualconsole.cpp" line="490"/>
         <source>&amp;Foreground</source>
         <translation>&amp;Vordergrund</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="491"/>
+        <location filename="virtualconsole.cpp" line="497"/>
         <source>F&amp;ont</source>
         <translation>&amp;Schriftart</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="498"/>
+        <location filename="virtualconsole.cpp" line="504"/>
         <source>F&amp;rame</source>
         <translation>&amp;Rahmen</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="506"/>
+        <location filename="virtualconsole.cpp" line="512"/>
         <source>Stacking &amp;order</source>
         <translation>&amp;Sortierungsreihenfolge</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1052"/>
+        <location filename="virtualconsole.cpp" line="1077"/>
         <source>Do you wish to delete the selected widgets?</source>
         <translation>Das ausgewählte Element löschen?</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1053"/>
+        <location filename="virtualconsole.cpp" line="1078"/>
         <source>Delete widgets</source>
         <translation>Element löschen</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1098"/>
+        <location filename="virtualconsole.cpp" line="1123"/>
         <source>Rename widgets</source>
         <translation>Element umbenennen</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1098"/>
+        <location filename="virtualconsole.cpp" line="1123"/>
         <source>Caption:</source>
         <translation>Überschrift:</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1151"/>
+        <location filename="virtualconsole.cpp" line="1176"/>
         <source>Select background image</source>
         <translation>Hintergrundbild auswählen</translation>
     </message>

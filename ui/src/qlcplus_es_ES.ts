@@ -1413,7 +1413,7 @@ Duration: %3
 <context>
     <name>ConsoleChannel</name>
     <message>
-        <location filename="consolechannel.cpp" line="170"/>
+        <location filename="consolechannel.cpp" line="160"/>
         <source>Intensity</source>
         <translation>Intensidad</translation>
     </message>
@@ -4647,32 +4647,27 @@ Duration: %2
         <translation>General</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="35"/>
-        <source>Slider name</source>
-        <translation>Nombre de la corredera</translation>
-    </message>
-    <message>
-        <location filename="vcsliderproperties.ui" line="42"/>
+        <location filename="vcsliderproperties.ui" line="74"/>
         <source>Name of the slider</source>
         <translation>Nombre de la corredera</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="51"/>
+        <location filename="vcsliderproperties.ui" line="33"/>
         <source>Value display style</source>
         <translation>Estilo de Visualizacion</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="57"/>
+        <location filename="vcsliderproperties.ui" line="39"/>
         <source>Show exact DMX values</source>
         <translation>Mostrar el valor DMX exacto</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="70"/>
+        <location filename="vcsliderproperties.ui" line="52"/>
         <source>Show value as percentage</source>
         <translation>Mostrar valor en porcentaje</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="73"/>
+        <location filename="vcsliderproperties.ui" line="55"/>
         <source>Percentage</source>
         <translation>Porcentaje</translation>
     </message>
@@ -4738,189 +4733,209 @@ Duration: %2
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="208"/>
+        <location filename="vcsliderproperties.ui" line="251"/>
         <source>Value range</source>
         <translation>Valor Rango</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="214"/>
+        <location filename="vcsliderproperties.ui" line="257"/>
         <source>Low limit</source>
         <translation>Limite Bajo</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="231"/>
+        <location filename="vcsliderproperties.ui" line="274"/>
         <source>High limit</source>
         <translation>Limite Alto</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="202"/>
+        <location filename="vcsliderproperties.ui" line="245"/>
         <source>Level</source>
         <translation>Nivel</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="221"/>
+        <location filename="vcsliderproperties.ui" line="264"/>
         <source>Lowest DMX value that can be set with this slider</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="387"/>
+        <location filename="vcsliderproperties.ui" line="430"/>
         <source>Intensity</source>
         <translation type="unfinished">Intensidad</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="408"/>
+        <location filename="vcsliderproperties.ui" line="451"/>
         <source>Gobo/Effect/Macro</source>
         <oldsource>Gobo/Effect</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="442"/>
+        <location filename="vcsliderproperties.ui" line="485"/>
         <source>Playback</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="448"/>
+        <location filename="vcsliderproperties.ui" line="491"/>
         <source>Function</source>
         <translation type="unfinished">Funcion</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="454"/>
+        <location filename="vcsliderproperties.ui" line="497"/>
         <source>Function that is attached to the slider</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="464"/>
+        <location filename="vcsliderproperties.ui" line="507"/>
         <source>Attach a function to the slider</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="484"/>
+        <location filename="vcsliderproperties.ui" line="527"/>
         <source>Detach the current function from the slider</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="520"/>
+        <location filename="vcsliderproperties.ui" line="563"/>
         <source>Make the slider control a function</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="523"/>
+        <location filename="vcsliderproperties.ui" line="566"/>
         <source>Switch to Playback Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="60"/>
+        <location filename="vcsliderproperties.ui" line="42"/>
         <source>Actual</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="238"/>
+        <location filename="vcsliderproperties.ui" line="67"/>
+        <source>Widget name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcsliderproperties.ui" line="201"/>
+        <source>Widget appearance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcsliderproperties.ui" line="207"/>
+        <source>Slider</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcsliderproperties.ui" line="224"/>
+        <source>Knob</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcsliderproperties.ui" line="281"/>
         <source>Highest DMX value that can be set with this slider</source>
         <translation>El valor DMX mas alto que puede tener esta corredera</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="267"/>
+        <location filename="vcsliderproperties.ui" line="310"/>
         <source>Set value range from the selected capability</source>
         <translation>poner el rango de valores de la capacidad seleccionada</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="270"/>
+        <location filename="vcsliderproperties.ui" line="313"/>
         <source>From capability</source>
         <translation>A partir de las propiedades</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="290"/>
+        <location filename="vcsliderproperties.ui" line="333"/>
         <source>Name</source>
         <translation>Nombre</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="295"/>
+        <location filename="vcsliderproperties.ui" line="338"/>
         <source>Type</source>
         <translation>Tipo</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="300"/>
+        <location filename="vcsliderproperties.ui" line="343"/>
         <source>Range</source>
         <translation>Rango</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="310"/>
+        <location filename="vcsliderproperties.ui" line="353"/>
         <source>Select all channels</source>
         <translation>Seleccionar todos los canales</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="313"/>
+        <location filename="vcsliderproperties.ui" line="356"/>
         <source>All</source>
         <translation>Todos</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="320"/>
+        <location filename="vcsliderproperties.ui" line="363"/>
         <source>Unselect everything</source>
         <translation>Deseleccionar cualquier cosa</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="323"/>
-        <location filename="vcsliderproperties.ui" line="377"/>
+        <location filename="vcsliderproperties.ui" line="366"/>
+        <location filename="vcsliderproperties.ui" line="420"/>
         <source>None</source>
         <translation>Ninguno</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="330"/>
+        <location filename="vcsliderproperties.ui" line="373"/>
         <source>Invert selection</source>
         <translation>Invertir seleccion</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="333"/>
+        <location filename="vcsliderproperties.ui" line="376"/>
         <source>Invert</source>
         <translation>Inverso</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="353"/>
+        <location filename="vcsliderproperties.ui" line="396"/>
         <source>Choose channels by channel group</source>
         <translation>Elegir canaler por grupo de canales</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="356"/>
+        <location filename="vcsliderproperties.ui" line="399"/>
         <source>By group...</source>
         <translation>Por Grupo...</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="371"/>
+        <location filename="vcsliderproperties.ui" line="414"/>
         <source>Click &amp;&amp; Go</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="394"/>
+        <location filename="vcsliderproperties.ui" line="437"/>
         <source>RGB</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="401"/>
+        <location filename="vcsliderproperties.ui" line="444"/>
         <source>CMY</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="431"/>
+        <location filename="vcsliderproperties.ui" line="474"/>
         <source>Make the slider control the level of a set of channels</source>
         <translation>Hacer que la corredera controle el nivel de un juego de canales</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.ui" line="434"/>
+        <location filename="vcsliderproperties.ui" line="477"/>
         <source>Switch to Level Mode</source>
         <translation>Cambiar de modo de nivel</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.cpp" line="620"/>
+        <location filename="vcsliderproperties.cpp" line="626"/>
         <source>Select channels by group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.cpp" line="621"/>
+        <location filename="vcsliderproperties.cpp" line="627"/>
         <source>Select a channel group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.cpp" line="667"/>
+        <location filename="vcsliderproperties.cpp" line="673"/>
         <source>No function</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5308,199 +5323,204 @@ Duration: %2
 <context>
     <name>VirtualConsole</name>
     <message>
-        <location filename="virtualconsole.cpp" line="340"/>
+        <location filename="virtualconsole.cpp" line="345"/>
         <source>Cut</source>
         <translation>Cortar</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="343"/>
+        <location filename="virtualconsole.cpp" line="348"/>
         <source>Copy</source>
         <translation>Copiar</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="346"/>
+        <location filename="virtualconsole.cpp" line="351"/>
         <source>Paste</source>
         <translation>Pegar</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="350"/>
+        <location filename="virtualconsole.cpp" line="355"/>
         <source>Delete</source>
         <translation>Eliminar</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="376"/>
-        <location filename="virtualconsole.cpp" line="390"/>
-        <location filename="virtualconsole.cpp" line="403"/>
+        <location filename="virtualconsole.cpp" line="381"/>
+        <location filename="virtualconsole.cpp" line="395"/>
+        <location filename="virtualconsole.cpp" line="408"/>
         <source>Default</source>
         <translation>Defecto</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="400"/>
+        <location filename="virtualconsole.cpp" line="405"/>
         <source>Font</source>
         <translation type="unfinished">Fuente</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="413"/>
+        <location filename="virtualconsole.cpp" line="418"/>
         <source>Sunken</source>
         <translation>Hundido</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="416"/>
+        <location filename="virtualconsole.cpp" line="421"/>
         <source>Raised</source>
         <translation>Aumentar</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="419"/>
+        <location filename="virtualconsole.cpp" line="424"/>
         <source>None</source>
         <translation>Ninguno</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="447"/>
+        <location filename="virtualconsole.cpp" line="452"/>
         <source>&amp;Add</source>
         <translation>&amp;Añadir</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="464"/>
+        <location filename="virtualconsole.cpp" line="470"/>
         <source>&amp;Edit</source>
         <translation>&amp;Editar</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="288"/>
+        <location filename="virtualconsole.cpp" line="289"/>
         <source>New Button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="291"/>
+        <location filename="virtualconsole.cpp" line="292"/>
         <source>New Button Matrix</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="294"/>
+        <location filename="virtualconsole.cpp" line="295"/>
         <source>New Slider</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="300"/>
+        <location filename="virtualconsole.cpp" line="301"/>
+        <source>New Knob</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole.cpp" line="304"/>
         <source>New Speed Dial</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="303"/>
+        <location filename="virtualconsole.cpp" line="307"/>
         <source>New XY pad</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="306"/>
+        <location filename="virtualconsole.cpp" line="310"/>
         <source>New Cue list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="309"/>
+        <location filename="virtualconsole.cpp" line="313"/>
         <source>New Frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="312"/>
+        <location filename="virtualconsole.cpp" line="316"/>
         <source>New Solo frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="315"/>
+        <location filename="virtualconsole.cpp" line="319"/>
         <source>New Label</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="333"/>
+        <location filename="virtualconsole.cpp" line="338"/>
         <source>Virtual Console Settings</source>
         <translation type="unfinished">Propiedades de la Consola Virtual</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="353"/>
+        <location filename="virtualconsole.cpp" line="358"/>
         <source>Widget Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="356"/>
+        <location filename="virtualconsole.cpp" line="361"/>
         <source>Rename Widget</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="370"/>
+        <location filename="virtualconsole.cpp" line="375"/>
         <source>Background Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="373"/>
+        <location filename="virtualconsole.cpp" line="378"/>
         <source>Background Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="387"/>
+        <location filename="virtualconsole.cpp" line="392"/>
         <source>Font Colour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="430"/>
+        <location filename="virtualconsole.cpp" line="435"/>
         <source>Bring to front</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="433"/>
+        <location filename="virtualconsole.cpp" line="438"/>
         <source>Send to back</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="476"/>
+        <location filename="virtualconsole.cpp" line="482"/>
         <source>&amp;Background</source>
         <translation>&amp;Segundo Plano</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="484"/>
+        <location filename="virtualconsole.cpp" line="490"/>
         <source>&amp;Foreground</source>
         <translation>&amp;Primer Plano</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="491"/>
+        <location filename="virtualconsole.cpp" line="497"/>
         <source>F&amp;ont</source>
         <translation>Fuente</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="498"/>
+        <location filename="virtualconsole.cpp" line="504"/>
         <source>F&amp;rame</source>
         <translation>F&amp;rame</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="506"/>
+        <location filename="virtualconsole.cpp" line="512"/>
         <source>Stacking &amp;order</source>
         <translation>Colocar en Orden</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="297"/>
+        <location filename="virtualconsole.cpp" line="298"/>
         <source>New Slider Matrix</source>
         <translation type="unfinished">Nueva matriz de Correderas</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1052"/>
+        <location filename="virtualconsole.cpp" line="1077"/>
         <source>Do you wish to delete the selected widgets?</source>
         <translation>¿Deseas eliminar el widget seleccionado?</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1053"/>
+        <location filename="virtualconsole.cpp" line="1078"/>
         <source>Delete widgets</source>
         <translation>Eliminar widgets</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1098"/>
+        <location filename="virtualconsole.cpp" line="1123"/>
         <source>Rename widgets</source>
         <translation>Renombrar widgets</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1098"/>
+        <location filename="virtualconsole.cpp" line="1123"/>
         <source>Caption:</source>
         <translation>Titulo:</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1151"/>
+        <location filename="virtualconsole.cpp" line="1176"/>
         <source>Select background image</source>
         <translation>Selecciona la imagen de fondo</translation>
     </message>

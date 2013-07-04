@@ -1,5 +1,7 @@
-qlcplus (4.4.0.beta2) unstable; urgency=low
+qlcplus (4.4.0) stable; urgency=low
 
+  * NEW: Virtual Console sliders can now be displayed as knobs
+  * Siders style improved to get closer to real consoles appearance
   * Fixed empty Sequence steps save/load causing QLC+ (and the operator) to freak out
   * Inverted VC Cue list "next step" slider to reflect external controllers faders
   * Added feedbacks to VC Cue List crossfade sliders
@@ -9,6 +11,8 @@ qlcplus (4.4.0.beta2) unstable; urgency=low
   * Fixed Show Manager sequence creation not updating Function Manager tree correctly
   * Fixed Function Manager sequence deletion removing also its parent Scene
   * Fixture Editor is now shiny and colorful (as someone said)
+  * Changed function copy name to respect alphabetic order. Now it's "Function #xx (Copy)"
+  * Updated german and french translations (thanks to Heiko and NiKoyes)
   * Added Fixture: Blizzard Lighting Blade RGBW (thanks to James Elliott)
   * Added Fixture: Stairville MH-X50+ (thanks to Guillaume Rousseau)
 
