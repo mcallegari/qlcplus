@@ -16,7 +16,7 @@ qlcplus (4.4.0) stable; urgency=low
   * Added Fixture: Blizzard Lighting Blade RGBW (thanks to James Elliott)
   * Added Fixture: Stairville MH-X50+ (thanks to Guillaume Rousseau)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 16 July 2013 4:03:04 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 5 July 2013 17:03:04 +0200
   
 qlcplus (4.4.0.beta1) unstable; urgency=low
 
