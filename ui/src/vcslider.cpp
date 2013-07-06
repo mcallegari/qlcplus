@@ -1040,10 +1040,14 @@ void VCSlider::slotSliderMoved(int value)
         }
         else
         {
-            float f = SCALE(float(value),
-                            float(m_slider->minimum()),
-                            float(m_slider->maximum()),
-                            float(0), float(100));
+
+            float f = 0;
+            if (m_slider)
+                f = SCALE(float(value), float(m_slider->minimum()),
+                          float(m_slider->maximum()), float(0), float(100));
+            else if (m_knob)
+                f = SCALE(float(value), float(m_knob->minimum()),
+                          float(m_knob->maximum()), float(0), float(100));
             num.sprintf("%.3d%%", static_cast<int> (f));
         }
         setTopLabelText(num);
@@ -1061,10 +1065,13 @@ void VCSlider::slotSliderMoved(int value)
         }
         else
         {
-            float f = SCALE(float(value),
-                            float(m_slider->minimum()),
-                            float(m_slider->maximum()),
-                            float(0), float(100));
+            float f = 0;
+            if (m_slider)
+                f = SCALE(float(value), float(m_slider->minimum()),
+                          float(m_slider->maximum()), float(0), float(100));
+            else if (m_knob)
+                f = SCALE(float(value), float(m_knob->minimum()),
+                          float(m_knob->maximum()), float(0), float(100));
             num.sprintf("%.3d%%", static_cast<int> (f));
         }
         setTopLabelText(num);
