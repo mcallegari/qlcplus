@@ -245,6 +245,9 @@ bool VCSlider::copyFrom(VCWidget* widget)
     if (slider == NULL)
         return false;
 
+    /* Copy widget style */
+    setWidgetStyle(slider->widgetStyle());
+
     /* Copy level stuff */
     setLevelLowLimit(slider->levelLowLimit());
     setLevelHighLimit(slider->levelHighLimit());
