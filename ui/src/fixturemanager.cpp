@@ -1490,6 +1490,21 @@ void FixtureManager::slotImport()
                         delete fxi;
                     }
                 }
+                else if (tag.tagName() == KXMLQLCFixtureGroup)
+                {
+                    FixtureGroup* grp = new FixtureGroup(m_doc);
+                    Q_ASSERT(grp != NULL);
+
+                    if (grp->loadXML(tag) == true)
+                    {
+                        m_doc->addFixtureGroup(grp, grp->id());
+                    }
+                    else
+                    {
+                        qWarning() << Q_FUNC_INFO << "FixtureGroup" << grp->name() << "cannot be loaded.";
+                        delete grp;
+                    }
+                }
 
                 node = node.nextSibling();
             }
@@ -1526,6 +1541,14 @@ void FixtureManager::slotExport()
             Fixture* fxi(fxit.next());
             Q_ASSERT(fxi != NULL);
             fxi->saveXML(&doc, &root);
+        }
+
+        QListIterator <FixtureGroup*>grpit(m_doc->fixtureGroups());
+        while (grpit.hasNext() == true)
+        {
+            FixtureGroup *fxgrp(grpit.next());
+            Q_ASSERT(fxgrp != NULL);
+            fxgrp->saveXML(&doc, &root);
         }
 
         /* Write the XML document to the stream (=file) */
