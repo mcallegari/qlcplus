@@ -824,7 +824,7 @@ QString Fixture::status() const
     info += genInfo.arg(tr("Universe")).arg(universe() + 1);
 
     // Address
-    QString range = QString("%1 - %2").arg(address() + 1).arg(address() + channels() + 1);
+    QString range = QString("%1 - %2").arg(address() + 1).arg(address() + channels());
     info += genInfo.arg(tr("Address Range")).arg(range);
 
     // Channels
