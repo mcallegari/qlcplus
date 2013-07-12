@@ -56,8 +56,8 @@ int AudioRendererPortAudio::dataCallback ( const void *, void *outputBuffer,
     // not enough data ? Wait for another writeAudio to add more
     if (requestedData > (unsigned long)PAobj->m_buffer.size())
     {
-        Pa_Sleep(10);
         PAobj->m_mutex.unlock();
+        Pa_Sleep(5);
         return 0;
     }
 

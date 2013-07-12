@@ -56,6 +56,8 @@ void AudioRenderer::run()
 {
     m_userStop = false;
     audioDataRead = 0;
+    AudioParameters params = m_adec->audioParameters();
+    int sampleSize = params.format() + 1;
 
     while (!m_userStop)
     {
@@ -74,8 +76,36 @@ void AudioRenderer::run()
             }
             if (m_intensity != 1.0)
             {
-                for (int i = 0; i < audioDataRead; i++)
-                    audioData[i] = (unsigned char)((char)audioData[i] * m_intensity);
+                for (int i = 0; i < audioDataRead; i+=sampleSize)
+                {
+                    if (sampleSize == 2)
+                    {
+                        short sample = ((short)audioData[i+1] << 8) + (short)audioData[i];
+                        sample *= m_intensity;
+                        audioData[i+1] = (sample >> 8) & 0x00FF;
+                        audioData[i] = sample & 0x00FF;
+                    }
+                    else if (sampleSize == 3)
+                    {
+                        long sample = ((long)audioData[i+2] << 16) + ((long)audioData[i+1] << 8) + (short)audioData[i];
+                        sample *= m_intensity;
+                        audioData[i+2] = (sample >> 16) & 0x000000FF;
+                        audioData[i+1] = (sample >> 8) & 0x000000FF;
+                        audioData[i] = sample & 0x000000FF;
+                    }
+                    else if (sampleSize == 4)
+                    {
+                        long sample = ((long)audioData[i+3] << 24) + ((long)audioData[i+2] << 16) +
+                                      ((long)audioData[i+1] << 8) + (short)audioData[i];
+                        sample *= m_intensity;
+                        audioData[i+3] = (sample >> 24) & 0x000000FF;
+                        audioData[i+2] = (sample >> 16) & 0x000000FF;
+                        audioData[i+1] = (sample >> 8) & 0x000000FF;
+                        audioData[i] = sample & 0x000000FF;
+                    }
+                    else // this can be PCM_S8 or unknown. In any case perform byte per byte scaling
+                        audioData[i] = (unsigned char)((char)audioData[i] * m_intensity);
+                }
             }
             audioDataWritten = writeAudio(audioData, audioDataRead);
             if (audioDataWritten < audioDataRead)
