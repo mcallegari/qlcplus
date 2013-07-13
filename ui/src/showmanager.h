@@ -138,6 +138,7 @@ protected slots:
      *********************************************************************/
     void slotStopPlayback();
     void slotStartPlayback();
+    void slotShowStopped();
 
     /*********************************************************************
      * Time division

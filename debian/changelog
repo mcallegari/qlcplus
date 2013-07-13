@@ -4,6 +4,7 @@ qlcplus (4.4.1) stable; urgency=low
   * Fixed copy of a knob resulting in a slider again
   * Fixtures groups are now saved when exporting fixtures lists
   * Improved audio volume functionality
+  * Saved a lot of CPU usage during Show playback from the Show panel
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 15 July 2013 17:03:04 +0200
 
