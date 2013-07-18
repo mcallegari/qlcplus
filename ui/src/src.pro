@@ -53,6 +53,7 @@ HEADERS += aboutbox.h \
            fixturemanager.h \
            fixtureselection.h \
            functionmanager.h \
+           fixtureremap.h \
            functionselection.h \
            functionwizard.h \
            grandmasterslider.h \
@@ -67,6 +68,7 @@ HEADERS += aboutbox.h \
            monitorlayout.h \
            multitrackview.h \
            playbackslider.h \
+           remapwidget.h \
            rgbmatrixeditor.h \
            rgbitem.h \
            sceneeditor.h \
@@ -122,6 +124,7 @@ FORMS += aboutbox.ui \
          dmxdumpfactory.ui \
          efxeditor.ui \
          fixturegroupeditor.ui \
+         fixtureremap.ui \
          fixtureselection.ui \
          functionselection.ui \
          functionwizard.ui \
@@ -173,6 +176,7 @@ SOURCES += aboutbox.cpp \
            fixtureconsole.cpp \
            fixturegroupeditor.cpp \
            fixturemanager.cpp \
+           fixtureremap.cpp \
            fixtureselection.cpp \
            functionmanager.cpp \
            functionselection.cpp \
@@ -189,6 +193,7 @@ SOURCES += aboutbox.cpp \
            monitorlayout.cpp \
            multitrackview.cpp \
            playbackslider.cpp \
+           remapwidget.cpp \
            rgbmatrixeditor.cpp \
            rgbitem.cpp \
            sceneeditor.cpp \

@@ -69,6 +69,7 @@ void ChannelsSelection::updateFixturesTree()
     m_channelsTree->clear();
     m_channelsTree->header()->setResizeMode(QHeaderView::ResizeToContents);
     m_channelsTree->setIconSize(QSize(24, 24));
+    m_channelsTree->setAllColumnsShowFocus(true);
 
     foreach(Fixture *fxi, m_doc->fixtures())
     {
