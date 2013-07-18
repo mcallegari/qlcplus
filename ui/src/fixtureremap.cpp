@@ -283,7 +283,7 @@ void FixtureRemap::slotAddRemap()
 
 void FixtureRemap::slotUpdateConnections()
 {
-    remapWidget->repaint();
+    remapWidget->update();
 }
 
 void FixtureRemap::accept()

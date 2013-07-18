@@ -5,8 +5,9 @@ qlcplus (4.4.1) stable; urgency=low
   * Fixtures groups are now saved when exporting fixtures lists
   * Improved audio volume functionality
   * Saved a lot of CPU usage during Show playback from the Show panel
+  * Added fixtures: QTX SL Series (thanks to Tom Lincoln)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 15 July 2013 17:03:04 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 25 July 2013 17:03:04 +0200
 
 qlcplus (4.4.0) stable; urgency=low
 

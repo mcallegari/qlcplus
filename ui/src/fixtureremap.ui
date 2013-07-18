@@ -112,9 +112,6 @@
        <property name="indentation">
         <number>8</number>
        </property>
-       <property name="rootIsDecorated">
-        <bool>false</bool>
-       </property>
        <property name="allColumnsShowFocus">
         <bool>true</bool>
        </property>
@@ -146,9 +143,6 @@
        </property>
        <property name="indentation">
         <number>8</number>
-       </property>
-       <property name="rootIsDecorated">
-        <bool>false</bool>
        </property>
        <property name="allColumnsShowFocus">
         <bool>true</bool>
