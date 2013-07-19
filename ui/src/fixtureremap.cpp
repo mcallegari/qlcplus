@@ -53,25 +53,6 @@ FixtureRemap::FixtureRemap(Doc *doc, QWidget *parent)
     connect(m_remapButton, SIGNAL(clicked()),
             this, SLOT(slotAddRemap()));
 
-    connect(m_sourceTree->verticalScrollBar(), SIGNAL(sliderMoved(int)),
-            this, SLOT(slotUpdateConnections()));
-
-    connect(m_sourceTree, SIGNAL(clicked(QModelIndex)),
-            this, SLOT(slotUpdateConnections()));
-    connect(m_sourceTree, SIGNAL(expanded(QModelIndex)),
-            this, SLOT(slotUpdateConnections()));
-    connect(m_sourceTree, SIGNAL(collapsed(QModelIndex)),
-            this, SLOT(slotUpdateConnections()));
-
-    connect(m_targetTree->verticalScrollBar(), SIGNAL(sliderMoved(int)),
-            this, SLOT(slotUpdateConnections()));
-    connect(m_targetTree, SIGNAL(clicked(QModelIndex)),
-            this, SLOT(slotUpdateConnections()));
-    connect(m_targetTree, SIGNAL(expanded(QModelIndex)),
-            this, SLOT(slotUpdateConnections()));
-    connect(m_targetTree, SIGNAL(collapsed(QModelIndex)),
-            this, SLOT(slotUpdateConnections()));
-
     remapWidget = new RemapWidget(m_sourceTree, m_targetTree, this);
     remapWidget->show();
     m_remapLayout->addWidget(remapWidget);
@@ -83,7 +64,30 @@ FixtureRemap::FixtureRemap(Doc *doc, QWidget *parent)
 
     m_targetProjectLabel->setText(QString("%1%2%3").arg(m_doc->getWorkspacePath()).arg(QDir::separator()).arg("remapped_project.qxw"));
 
+    m_sourceTree->setIconSize(QSize(24, 24));
+    m_sourceTree->setAllColumnsShowFocus(true);
     fillFixturesTree(m_doc, m_sourceTree);
+
+    m_targetTree->setIconSize(QSize(24, 24));
+    m_targetTree->setAllColumnsShowFocus(true);
+
+    connect(m_sourceTree->verticalScrollBar(), SIGNAL(valueChanged(int)),
+            this, SLOT(slotUpdateConnections()));
+    connect(m_sourceTree, SIGNAL(clicked(QModelIndex)),
+            this, SLOT(slotUpdateConnections()));
+    connect(m_sourceTree, SIGNAL(expanded(QModelIndex)),
+            this, SLOT(slotUpdateConnections()));
+    connect(m_sourceTree, SIGNAL(collapsed(QModelIndex)),
+            this, SLOT(slotUpdateConnections()));
+
+    connect(m_targetTree->verticalScrollBar(), SIGNAL(valueChanged(int)),
+            this, SLOT(slotUpdateConnections()));
+    connect(m_targetTree, SIGNAL(clicked(QModelIndex)),
+            this, SLOT(slotUpdateConnections()));
+    connect(m_targetTree, SIGNAL(expanded(QModelIndex)),
+            this, SLOT(slotUpdateConnections()));
+    connect(m_targetTree, SIGNAL(collapsed(QModelIndex)),
+            this, SLOT(slotUpdateConnections()));
 }
 
 FixtureRemap::~FixtureRemap()
@@ -93,11 +97,6 @@ FixtureRemap::~FixtureRemap()
 
 void FixtureRemap::fillFixturesTree(Doc *doc, QTreeWidget *tree)
 {
-    tree->clear();
-    //tree->header()->setResizeMode(QHeaderView::ResizeToContents);
-    tree->setIconSize(QSize(24, 24));
-    tree->setAllColumnsShowFocus(true);
-
     foreach(Fixture *fxi, doc->fixtures())
     {
         QTreeWidgetItem *topItem = NULL;
@@ -196,13 +195,90 @@ void FixtureRemap::slotAddTargetFixture()
             fxi->setChannels(channels);
 
         m_targetDoc->addFixture(fxi);
-    }
 
-    fillFixturesTree(m_targetDoc, m_targetTree);
+        QTreeWidgetItem *topItem = NULL;
+        for (int i = 0; i < m_targetTree->topLevelItemCount(); i++)
+        {
+            QTreeWidgetItem* tItem = m_targetTree->topLevelItem(i);
+            quint32 tUni = tItem->text(KColumnUniverse).toUInt();
+            if (tUni == universe)
+            {
+                topItem = tItem;
+                break;
+            }
+        }
+        // Haven't found this universe node ? Create it.
+        if (topItem == NULL)
+        {
+            topItem = new QTreeWidgetItem(m_targetTree);
+            topItem->setText(KColumnName, tr("Universe %1").arg(universe + 1));
+            topItem->setText(KColumnUniverse, QString::number(universe));
+            topItem->setExpanded(true);
+        }
+
+        quint32 baseAddr = fxi->address();
+        QTreeWidgetItem *fItem = new QTreeWidgetItem(topItem);
+        fItem->setText(KColumnName, fxi->name());
+        fItem->setIcon(KColumnName, fxi->getIconFromType(fxi->type()));
+        fItem->setText(KColumnAddress, QString("%1 - %2").arg(baseAddr + 1).arg(baseAddr + fxi->channels()));
+        fItem->setText(KColumnUniverse, QString::number(universe));
+        fItem->setText(KColumnID, QString::number(fxi->id()));
+
+        for (quint32 c = 0; c < fxi->channels(); c++)
+        {
+            const QLCChannel* channel = fxi->channel(c);
+            QTreeWidgetItem *item = new QTreeWidgetItem(fItem);
+            item->setText(KColumnName, QString("%1:%2").arg(c + 1)
+                          .arg(channel->name()));
+            item->setIcon(KColumnName, channel->getIconFromGroup(channel->group()));
+            item->setText(KColumnUniverse, QString::number(universe));
+            item->setText(KColumnID, QString::number(fxi->id()));
+            item->setText(KColumnChIdx, QString::number(c));
+        }
+    }
+    m_targetTree->resizeColumnToContents(KColumnName);
+
 }
 
 void FixtureRemap::slotRemoveTargetFixture()
 {
+    if (m_targetTree->selectedItems().count() == 0)
+        return;
+
+    QTreeWidgetItem *item = m_targetTree->selectedItems().first();
+    bool ok = false;
+    quint32 fxid = item->text(KColumnID).toUInt(&ok);
+    if (ok == false)
+        return;
+
+    // Ask before deletion
+    if (QMessageBox::question(this, tr("Delete Fixtures"),
+                              tr("Do you want to delete the selected items?"),
+                              QMessageBox::Yes, QMessageBox::No) == QMessageBox::No)
+    {
+        return;
+    }
+
+    int i = 0;
+    QListIterator <RemapInfo> it(m_remapList);
+    while (it.hasNext() == true)
+    {
+        RemapInfo info = it.next();
+        quint32 tgtID = info.target->text(KColumnID).toUInt();
+        if (tgtID == fxid)
+            m_remapList.takeAt(i);
+        else
+            i++;
+    }
+    remapWidget->setRemapList(m_remapList);
+    m_targetDoc->deleteFixture(fxid);
+    for (int i = 0; i < item->childCount(); i++)
+    {
+        QTreeWidgetItem *child = item->child(i);
+        delete child;
+    }
+    delete item;
+    m_targetTree->resizeColumnToContents(KColumnName);
 }
 
 void FixtureRemap::slotAddRemap()
