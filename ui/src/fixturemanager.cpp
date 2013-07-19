@@ -1288,6 +1288,8 @@ void FixtureManager::slotRemap()
     FixtureRemap fxr(m_doc);
     if (fxr.exec() == QDialog::Rejected)
         return; // User pressed cancel
+
+    updateView();
 }
 
 void FixtureManager::slotUnGroup()

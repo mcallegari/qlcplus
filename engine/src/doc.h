@@ -229,13 +229,30 @@ public:
     bool deleteFixture(quint32 id);
 
     /**
-     * Mode the given fixture instance from an address to another
+     * Move the given fixture instance from an address to another
      *
      * @param id The ID of the fixture instance to move
-     * @param newAddress the new DMX address where the fixture takes place
+     * @param newAddress the new DMX address where the fixture must take place
      */
     bool moveFixture(quint32 id, quint32 newAddress);
 
+    /**
+     * Replace the whole fixtures list with a new one.
+     * This is done by remapping. Note that no signal is emitted to
+     * avoid loosing scenes and all the stuff connected to fixtures.
+     * The caller must be aware on this and reassign all the QLC+ project
+     * data previously created.
+     *
+     * @param newFixturesList list of fixtures that will take place
+     */
+    bool replaceFixtures(QList<Fixture*> newFixturesList);
+
+    /**
+     * Change the mode of an existing fixture
+     *
+     * @param id The ID of the fixture instance
+     * @param mode pointer to the new mode to be assigned
+     */
     bool changeFixtureMode(quint32 id, const QLCFixtureMode *mode);
 
     /**

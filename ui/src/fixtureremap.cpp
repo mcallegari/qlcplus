@@ -28,6 +28,8 @@
 #include "remapwidget.h"
 #include "qlcchannel.h"
 #include "addfixture.h"
+#include "scenevalue.h"
+#include "scene.h"
 #include "doc.h"
 
 #define KColumnName         0
@@ -288,6 +290,63 @@ void FixtureRemap::slotUpdateConnections()
 
 void FixtureRemap::accept()
 {
+    // 1 - create a map of SceneValues from the fixtures channel associations
+    QMap <SceneValue, SceneValue> m_sceneMap;
+
+    foreach (RemapInfo info, m_remapList)
+    {
+        quint32 srcFxiID = info.source->text(KColumnID).toUInt();
+        quint32 srcChIdx = info.source->text(KColumnChIdx).toUInt();
+
+        quint32 tgtFxiID = info.target->text(KColumnID).toUInt();
+        quint32 tgtChIdx = info.target->text(KColumnChIdx).toUInt();
+
+        SceneValue srcVal(srcFxiID, srcChIdx);
+        SceneValue tgtVal(tgtFxiID, tgtChIdx);
+        m_sceneMap[srcVal] = tgtVal;
+    }
+
+    // 2 - replace original project fixtures
+    m_doc->replaceFixtures(m_targetDoc->fixtures());
+
+    // 3 - scan project functions and perform remapping
+    foreach (Function *func, m_doc->functions())
+    {
+        switch (func->type())
+        {
+            case Function::Scene:
+            {
+                Scene *s = qobject_cast<Scene*>(func);
+                QList <SceneValue> newValuesList;
+                foreach(SceneValue val, s->values())
+                {
+                    if (m_sceneMap.contains(val))
+                    {
+                        SceneValue tgtVal = m_sceneMap[val];
+                        qDebug() << "[Scene] Remapping" << val.fxi << val.channel << " to " << tgtVal.fxi << tgtVal.channel;
+                        val.fxi = tgtVal.fxi;
+                        val.channel = tgtVal.channel;
+                        newValuesList.append(val);
+                    }
+                }
+                s->clear();
+                for (int i = 0; i < newValuesList.count(); i++)
+                    s->setValue(newValuesList.at(i));
+            }
+            break;
+            case Function::Chaser:
+            break;
+            case Function::Show:
+            break;
+            case Function::EFX:
+            break;
+            default:
+            break;
+        }
+    }
+
+    // 4- emit signal to save the remapped project into a new file
+
     /* Close dialog */
     QDialog::accept();
 }
