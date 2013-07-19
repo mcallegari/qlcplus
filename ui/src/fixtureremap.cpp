@@ -19,6 +19,7 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
+#include <QProgressDialog>
 #include <QMessageBox>
 #include <QScrollBar>
 #include <QDir>
@@ -29,6 +30,8 @@
 #include "qlcchannel.h"
 #include "addfixture.h"
 #include "scenevalue.h"
+#include "chaserstep.h"
+#include "chaser.h"
 #include "scene.h"
 #include "doc.h"
 
@@ -364,10 +367,31 @@ void FixtureRemap::slotUpdateConnections()
     remapWidget->update();
 }
 
+QList<SceneValue> FixtureRemap::remapSceneValues(QList<SceneValue> funcList,
+                                    QList<SceneValue> &srcList,
+                                    QList<SceneValue> &tgtList)
+{
+    QList <SceneValue> newValuesList;
+    foreach(SceneValue val, funcList)
+    {
+        for( int v = 0; v < srcList.count(); v++)
+        {
+            if (val == srcList.at(v))
+            {
+                SceneValue tgtVal = tgtList.at(v);
+                qDebug() << "[Scene] Remapping" << val.fxi << val.channel << " to " << tgtVal.fxi << tgtVal.channel;
+                newValuesList.append(SceneValue(tgtVal.fxi, tgtVal.channel, val.value));
+            }
+        }
+    }
+    return newValuesList;
+}
+
 void FixtureRemap::accept()
 {
     // 1 - create a map of SceneValues from the fixtures channel associations
-    QMap <SceneValue, SceneValue> m_sceneMap;
+    QList<SceneValue> sourceList;
+    QList<SceneValue> targetList;
 
     foreach (RemapInfo info, m_remapList)
     {
@@ -379,13 +403,21 @@ void FixtureRemap::accept()
 
         SceneValue srcVal(srcFxiID, srcChIdx);
         SceneValue tgtVal(tgtFxiID, tgtChIdx);
-        m_sceneMap[srcVal] = tgtVal;
+        sourceList.append(srcVal);
+        targetList.append(tgtVal);
     }
 
     // 2 - replace original project fixtures
     m_doc->replaceFixtures(m_targetDoc->fixtures());
 
-    // 3 - scan project functions and perform remapping
+    // 3 - Show a progress dialog, in case the operation takes a while
+    QProgressDialog progress(tr("This might take a while..."), tr("Cancel"), 0, 100, this);
+    progress.setWindowModality(Qt::WindowModal);
+    progress.show();
+
+    // 4 - scan project functions and perform remapping
+    int funcNum = m_doc->functions().count();
+    int i = 0;
     foreach (Function *func, m_doc->functions())
     {
         switch (func->type())
@@ -393,24 +425,30 @@ void FixtureRemap::accept()
             case Function::Scene:
             {
                 Scene *s = qobject_cast<Scene*>(func);
-                QList <SceneValue> newValuesList;
-                foreach(SceneValue val, s->values())
-                {
-                    if (m_sceneMap.contains(val))
-                    {
-                        SceneValue tgtVal = m_sceneMap[val];
-                        qDebug() << "[Scene] Remapping" << val.fxi << val.channel << " to " << tgtVal.fxi << tgtVal.channel;
-                        val.fxi = tgtVal.fxi;
-                        val.channel = tgtVal.channel;
-                        newValuesList.append(val);
-                    }
-                }
+                qDebug() << "Analyzing Scene #" << s->id();
+                QList <SceneValue> newList = remapSceneValues(s->values(), sourceList, targetList);
+                // this is crucial: here all the "unmapped" channels will be lost forever !
                 s->clear();
-                for (int i = 0; i < newValuesList.count(); i++)
-                    s->setValue(newValuesList.at(i));
+                for (int i = 0; i < newList.count(); i++)
+                    s->setValue(newList.at(i));
             }
             break;
             case Function::Chaser:
+            {
+                Chaser *c = qobject_cast<Chaser*>(func);
+                if (c->isSequence() == true)
+                {
+                    for (int idx = 0; idx < c->stepsCount(); idx++)
+                    {
+                        ChaserStep cs = c->stepAt(idx);
+                        QList <SceneValue> newList = remapSceneValues(cs.values, sourceList, targetList);
+                        cs.values.clear();
+                        for (int i = 0; i < newList.count(); i++)
+                            cs.values.append(newList.at(i));
+                        c->replaceStep(cs, idx);
+                    }
+                }
+            }
             break;
             case Function::Show:
             break;
@@ -419,7 +457,13 @@ void FixtureRemap::accept()
             default:
             break;
         }
+        if(progress.wasCanceled())
+            break;
+        i++;
+        progress.setValue((i * 100) / funcNum);
+        QApplication::processEvents();
     }
+    progress.hide();
 
     // 4- emit signal to save the remapped project into a new file
 

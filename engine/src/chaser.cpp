@@ -212,6 +212,18 @@ void Chaser::clear()
     emit changed(this->id());
 }
 
+int Chaser::stepsCount()
+{
+    return m_steps.count();
+}
+
+ChaserStep Chaser::stepAt(int idx)
+{
+    if (idx >= 0 && idx < m_steps.count())
+        return m_steps.at(idx);
+    return ChaserStep();
+}
+
 QList <ChaserStep> Chaser::steps() const
 {
     return m_steps;

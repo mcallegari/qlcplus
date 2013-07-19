@@ -29,6 +29,7 @@
 
 class Doc;
 class RemapWidget;
+class SceneValue;
 
 struct RemapInfo
 {
@@ -53,6 +54,9 @@ private:
 
 protected:
     void fillFixturesTree(Doc *doc, QTreeWidget *tree);
+    QList<SceneValue> remapSceneValues(QList<SceneValue> funcList,
+                                       QList<SceneValue> &srcList,
+                                       QList<SceneValue> &tgtList);
 
 protected slots:
     void slotAddTargetFixture();
