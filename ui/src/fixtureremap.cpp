@@ -525,7 +525,10 @@ void FixtureRemap::accept()
     }
     progress.hide();
 
-    // 4- emit signal to save the remapped project into a new file
+    // 4- save the remapped project into a new file
+    App *mainApp = (App *)m_doc->parent();
+    mainApp->setFileName(m_targetProjectLabel->text());
+    mainApp->slotFileSave();
 
     /* Close dialog */
     QDialog::accept();

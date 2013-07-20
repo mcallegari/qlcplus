@@ -961,7 +961,7 @@ void FixtureManager::initToolBar()
     toolbar->addSeparator();
     toolbar->addAction(m_importAction);
     toolbar->addAction(m_exportAction);
-    //toolbar->addAction(m_remapAction);
+    toolbar->addAction(m_remapAction);
 
     QToolButton* btn = qobject_cast<QToolButton*> (toolbar->widgetForAction(m_groupAction));
     Q_ASSERT(btn != NULL);
