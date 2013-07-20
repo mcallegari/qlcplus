@@ -29,11 +29,14 @@
 #include "remapwidget.h"
 #include "qlcchannel.h"
 #include "addfixture.h"
+#include "efxfixture.h"
 #include "scenevalue.h"
 #include "chaserstep.h"
 #include "chaser.h"
 #include "scene.h"
+#include "efx.h"
 #include "doc.h"
+#include "app.h"
 
 #define KColumnName         0
 #define KColumnAddress      1
@@ -65,8 +68,6 @@ FixtureRemap::FixtureRemap(Doc *doc, QWidget *parent)
     m_targetDoc->fixtureDefCache()->load(QLCFixtureDefCache::userDefinitionDirectory());
     m_targetDoc->fixtureDefCache()->load(QLCFixtureDefCache::systemDefinitionDirectory());
 
-    m_targetProjectLabel->setText(QString("%1%2%3").arg(m_doc->getWorkspacePath()).arg(QDir::separator()).arg("remapped_project.qxw"));
-
     m_sourceTree->setIconSize(QSize(24, 24));
     m_sourceTree->setAllColumnsShowFocus(true);
     fillFixturesTree(m_doc, m_sourceTree);
@@ -91,6 +92,17 @@ FixtureRemap::FixtureRemap(Doc *doc, QWidget *parent)
             this, SLOT(slotUpdateConnections()));
     connect(m_targetTree, SIGNAL(collapsed(QModelIndex)),
             this, SLOT(slotUpdateConnections()));
+
+    // retrieve the original project name for QLC+ main class
+    App *mainApp = (App *)m_doc->parent();
+    QString prjName = mainApp->fileName();
+
+    if (prjName.lastIndexOf(".") > 0)
+        prjName.insert(prjName.lastIndexOf("."), tr(" (remapped)"));
+    else
+        prjName.append(tr(" (remapped)"));
+
+    m_targetProjectLabel->setText(prjName);
 }
 
 FixtureRemap::~FixtureRemap()
@@ -417,7 +429,7 @@ void FixtureRemap::accept()
 
     // 4 - scan project functions and perform remapping
     int funcNum = m_doc->functions().count();
-    int i = 0;
+    int f = 0;
     foreach (Function *func, m_doc->functions())
     {
         switch (func->type())
@@ -442,6 +454,7 @@ void FixtureRemap::accept()
                     {
                         ChaserStep cs = c->stepAt(idx);
                         QList <SceneValue> newList = remapSceneValues(cs.values, sourceList, targetList);
+                        // this is crucial: here all the "unmapped" channels will be lost forever !
                         cs.values.clear();
                         for (int i = 0; i < newList.count(); i++)
                             cs.values.append(newList.at(i));
@@ -450,17 +463,64 @@ void FixtureRemap::accept()
                 }
             }
             break;
-            case Function::Show:
-            break;
             case Function::EFX:
+            {
+                EFX *e = qobject_cast<EFX*>(func);
+                QList <EFXFixture*> fixList = e->fixtures();
+                // Unfortunately EFX remapping needs 2 passes due to redundancy
+                // check on the EFX::addFixture method.
+                // The first pass is for 1-to-1 association and the second pass
+                // is for 1-to-many associations
+                bool firstPass = true;
+                for (int pass = 0; pass < 2; pass++)
+                {
+                  foreach( EFXFixture *efxFix, fixList)
+                  {
+                    quint32 fxID = efxFix->fixture();
+                    for (int i = 0; i < sourceList.count(); i++)
+                    {
+                        SceneValue val = sourceList.at(i);
+                        if (val.fxi == fxID)
+                        {
+                            SceneValue tgtVal = targetList.at(i);
+                            Fixture *docFix = m_doc->fixture(tgtVal.fxi);
+                            quint32 fxCh = tgtVal.channel;
+                            const QLCChannel *chan = docFix->channel(fxCh);
+                            if (chan->group() == QLCChannel::Pan ||
+                                chan->group() == QLCChannel::Tilt)
+                            {
+                                // single or 1-to-1 remapping
+                                if (firstPass == true)
+                                {
+                                    efxFix->setFixture(tgtVal.fxi);
+                                    qDebug() << "1- EFX remap" << val.fxi << "to" << tgtVal.fxi;
+                                    break;
+                                }
+                                // 1-to-many remapping. Need to create a EFXFixture clone
+                                else
+                                {
+                                    EFXFixture* ef = new EFXFixture(e);
+                                    ef->copyFrom(efxFix);
+                                    ef->setFixture(tgtVal.fxi);
+                                    if (e->addFixture(ef) == false)
+                                        delete ef;
+                                    qDebug() << "2- EFX remap" << val.fxi << "to" << tgtVal.fxi;
+                                }
+                            }
+                        }
+                    }
+                  }
+                  firstPass = false;
+                }
+            }
             break;
             default:
             break;
         }
         if(progress.wasCanceled())
             break;
-        i++;
-        progress.setValue((i * 100) / funcNum);
+        f++;
+        progress.setValue((f * 100) / funcNum);
         QApplication::processEvents();
     }
     progress.hide();
