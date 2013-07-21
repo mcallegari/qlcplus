@@ -28,6 +28,7 @@
 #include "ui_fixtureremap.h"
 
 class Doc;
+class VCWidget;
 class RemapWidget;
 class SceneValue;
 
@@ -57,6 +58,7 @@ protected:
     QList<SceneValue> remapSceneValues(QList<SceneValue> funcList,
                                        QList<SceneValue> &srcList,
                                        QList<SceneValue> &tgtList);
+    QList<VCWidget *> getVCChildren(VCWidget *obj);
 
 protected slots:
     void slotAddTargetFixture();

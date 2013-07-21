@@ -24,6 +24,7 @@
 #include <QScrollBar>
 #include <QDir>
 
+#include "virtualconsole.h"
 #include "qlcfixturedef.h"
 #include "fixtureremap.h"
 #include "remapwidget.h"
@@ -32,6 +33,8 @@
 #include "efxfixture.h"
 #include "scenevalue.h"
 #include "chaserstep.h"
+#include "vcslider.h"
+#include "vcframe.h"
 #include "chaser.h"
 #include "scene.h"
 #include "efx.h"
@@ -399,9 +402,27 @@ QList<SceneValue> FixtureRemap::remapSceneValues(QList<SceneValue> funcList,
     return newValuesList;
 }
 
+QList<VCWidget *> FixtureRemap::getVCChildren(VCWidget *obj)
+{
+    QList<VCWidget *> list;
+    if (obj == NULL)
+        return list;
+    QListIterator <VCWidget*> it(obj->findChildren<VCWidget*>());
+    while (it.hasNext() == true)
+    {
+        VCWidget* child = it.next();
+        qDebug() << Q_FUNC_INFO << "append: " << child->caption();
+        list.append(child);
+        list.append(getVCChildren(child));
+    }
+    return list;
+}
+
 void FixtureRemap::accept()
 {
-    // 1 - create a map of SceneValues from the fixtures channel associations
+    /* **********************************************************************
+     * 1 - create a map of SceneValues from the fixtures channel associations
+     * ********************************************************************** */
     QList<SceneValue> sourceList;
     QList<SceneValue> targetList;
 
@@ -419,15 +440,21 @@ void FixtureRemap::accept()
         targetList.append(tgtVal);
     }
 
-    // 2 - replace original project fixtures
+    /* **********************************************************************
+     * 2 - replace original project fixtures
+     * ********************************************************************** */
     m_doc->replaceFixtures(m_targetDoc->fixtures());
 
-    // 3 - Show a progress dialog, in case the operation takes a while
+    /* **********************************************************************
+     * 3 - Show a progress dialog, in case the operation takes a while
+     * ********************************************************************** */
     QProgressDialog progress(tr("This might take a while..."), tr("Cancel"), 0, 100, this);
     progress.setWindowModality(Qt::WindowModal);
     progress.show();
 
-    // 4 - scan project functions and perform remapping
+    /* **********************************************************************
+     * 4 - scan project functions and perform remapping
+     * ********************************************************************** */
     int funcNum = m_doc->functions().count();
     int f = 0;
     foreach (Function *func, m_doc->functions())
@@ -525,7 +552,45 @@ void FixtureRemap::accept()
     }
     progress.hide();
 
-    // 4- save the remapped project into a new file
+    /* **********************************************************************
+     * 5- remap Virtual Console widgets
+     * ********************************************************************** */
+    VCFrame* contents = VirtualConsole::instance()->contents();
+    QList<VCWidget *> widgetsList = getVCChildren((VCWidget *)contents);
+
+    foreach (QObject *object, widgetsList)
+    {
+        VCWidget *widget = (VCWidget *)object;
+        if (widget->type() == VCWidget::SliderWidget)
+        {
+            VCSlider *slider = (VCSlider *)object;
+            if (slider->sliderMode() == VCSlider::Level)
+            {
+                QList <VCSlider::LevelChannel> slChannels = slider->levelChannels();
+                QList <SceneValue> newChannels;
+
+                foreach (VCSlider::LevelChannel chan, slChannels)
+                {
+                    for( int v = 0; v < sourceList.count(); v++)
+                    {
+                        SceneValue val = sourceList.at(v);
+                        if (val.fxi == chan.fixture && val.channel == chan.channel)
+                        {
+                            newChannels.append(SceneValue(targetList.at(v).fxi, targetList.at(v).channel));
+                        }
+                    }
+                }
+                // this is crucial: here all the "unmapped" channels will be lost forever !
+                slider->clearLevelChannels();
+                foreach (SceneValue rmpChan, newChannels)
+                    slider->addLevelChannel(rmpChan.fxi, rmpChan.channel);
+            }
+        }
+    }
+
+    /* **********************************************************************
+     * 6- save the remapped project into a new file
+     * ********************************************************************** */
     App *mainApp = (App *)m_doc->parent();
     mainApp->setFileName(m_targetProjectLabel->text());
     mainApp->slotFileSave();
