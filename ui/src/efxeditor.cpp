@@ -667,6 +667,7 @@ void EFXEditor::slotRaiseFixtureClicked()
             m_tree->insertTopLevelItem(index - 1, item);
             m_tree->setCurrentItem(item);
             updateIntensityColumn(item, ef);
+            updateStartOffsetColumn(item, ef);
 
             updateIndices(index - 1, index);
 	    redrawPreview();
@@ -699,6 +700,7 @@ void EFXEditor::slotLowerFixtureClicked()
             m_tree->insertTopLevelItem(index + 1, item);
             m_tree->setCurrentItem(item);
             updateIntensityColumn(item, ef);
+            updateStartOffsetColumn(item, ef);
 
             updateIndices(index, index + 1);
 	    redrawPreview();
