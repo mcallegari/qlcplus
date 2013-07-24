@@ -523,6 +523,12 @@ bool EFX::removeFixture(EFXFixture* ef)
     }
 }
 
+void EFX::removeAllFixtures()
+{
+    m_fixtures.clear();
+    emit changed(this->id());
+}
+
 bool EFX::raiseFixture(EFXFixture* ef)
 {
     Q_ASSERT(ef != NULL);

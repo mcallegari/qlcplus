@@ -451,6 +451,9 @@ public:
     /** Remove the designated fixture from this EFX but don't delete it */
     bool removeFixture(EFXFixture* ef);
 
+    /** Remove all the fixtures from this EFX but don't delete them */
+    void removeAllFixtures();
+
     /** Raise a fixture in the serial order to an earlier position */
     bool raiseFixture(EFXFixture* ef);
 

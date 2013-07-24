@@ -522,16 +522,19 @@ void FixtureRemap::accept()
             case Function::EFX:
             {
                 EFX *e = qobject_cast<EFX*>(func);
-                QList <EFXFixture*> fixList = e->fixtures();
-                // Unfortunately EFX remapping needs 2 passes due to redundancy
-                // check on the EFX::addFixture method.
-                // The first pass is for 1-to-1 association and the second pass
-                // is for 1-to-many associations
-                bool firstPass = true;
-                for (int pass = 0; pass < 2; pass++)
+                // make a copy of this EFX fixtures list
+                QList <EFXFixture*> fixListCopy;
+                foreach(EFXFixture *efxFix, e->fixtures())
                 {
-                  foreach( EFXFixture *efxFix, fixList)
-                  {
+                    EFXFixture* ef = new EFXFixture(e);
+                    ef->copyFrom(efxFix);
+                    fixListCopy.append(ef);
+                }
+                // this is crucial: here all the "unmapped" fixtures will be lost forever !
+                e->removeAllFixtures();
+
+                foreach( EFXFixture *efxFix, fixListCopy)
+                {
                     quint32 fxID = efxFix->fixture();
                     for (int i = 0; i < sourceList.count(); i++)
                     {
@@ -545,29 +548,17 @@ void FixtureRemap::accept()
                             if (chan->group() == QLCChannel::Pan ||
                                 chan->group() == QLCChannel::Tilt)
                             {
-                                // single or 1-to-1 remapping
-                                if (firstPass == true)
-                                {
-                                    efxFix->setFixture(tgtVal.fxi);
-                                    qDebug() << "1- EFX remap" << val.fxi << "to" << tgtVal.fxi;
-                                    break;
-                                }
-                                // 1-to-many remapping. Need to create a EFXFixture clone
-                                else
-                                {
-                                    EFXFixture* ef = new EFXFixture(e);
-                                    ef->copyFrom(efxFix);
-                                    ef->setFixture(tgtVal.fxi);
-                                    if (e->addFixture(ef) == false)
-                                        delete ef;
-                                    qDebug() << "2- EFX remap" << val.fxi << "to" << tgtVal.fxi;
-                                }
+                                EFXFixture* ef = new EFXFixture(e);
+                                ef->copyFrom(efxFix);
+                                ef->setFixture(tgtVal.fxi);
+                                if (e->addFixture(ef) == false)
+                                    delete ef;
+                                qDebug() << "EFX remap" << val.fxi << "to" << tgtVal.fxi;
                             }
                         }
                     }
-                  }
-                  firstPass = false;
                 }
+                fixListCopy.clear();
             }
             break;
             default:
