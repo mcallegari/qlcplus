@@ -64,6 +64,7 @@ protected slots:
     void slotAddTargetFixture();
     void slotRemoveTargetFixture();
     void slotAddRemap();
+    void slotRemoveRemap();
     void slotUpdateConnections();
 
     /** Callback for OK button clicks */

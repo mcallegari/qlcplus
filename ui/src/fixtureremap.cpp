@@ -61,6 +61,8 @@ FixtureRemap::FixtureRemap(Doc *doc, QWidget *parent)
             this, SLOT(slotRemoveTargetFixture()));
     connect(m_remapButton, SIGNAL(clicked()),
             this, SLOT(slotAddRemap()));
+    connect(m_unmapButton, SIGNAL(clicked()),
+            this, SLOT(slotRemoveRemap()));
 
     remapWidget = new RemapWidget(m_sourceTree, m_targetTree, this);
     remapWidget->show();
@@ -374,6 +376,33 @@ void FixtureRemap::slotAddRemap()
         m_remapList.append(newRemap);
     }
 
+    remapWidget->setRemapList(m_remapList);
+}
+
+void FixtureRemap::slotRemoveRemap()
+{
+    if (m_sourceTree->selectedItems().count() == 0 ||
+        m_targetTree->selectedItems().count() == 0)
+    {
+        QMessageBox::warning(this,
+                             tr("Invalid selection"),
+                             tr("Please select a source and a target fixture or channel to perform this operation."));
+        return;
+    }
+
+    RemapInfo delRemap;
+    delRemap.source = m_sourceTree->selectedItems().first();
+    delRemap.target = m_targetTree->selectedItems().first();
+
+    for (int i = 0; i < m_remapList.count(); i++)
+    {
+        RemapInfo info = m_remapList.at(i);
+        if (info.source == delRemap.source && info.target == delRemap.target)
+        {
+            m_remapList.takeAt(i);
+            i--;
+        }
+    }
     remapWidget->setRemapList(m_remapList);
 }
 
