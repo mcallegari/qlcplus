@@ -146,7 +146,8 @@ void AudioTriggerFactory::slotEnableCapture(bool enable)
     {
         connect(m_inputCapture, SIGNAL(dataProcessed(double *, double, quint32)),
                 this, SLOT(slotDisplaySpectrum(double *, double, quint32)));
-        m_inputCapture->initialize(44100, 1, 2048);
+        if (m_inputCapture->isInitialized() == false)
+            m_inputCapture->initialize(44100, 1, 2048);
         m_inputCapture->start();
     }
     else

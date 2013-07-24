@@ -36,6 +36,7 @@ AudioCapture::AudioCapture (QObject* parent)
     : QThread (parent)
     , m_userStop(true)
     , m_pause(false)
+    , m_isInitialized(false)
     , m_audioBuffer(NULL)
     , m_fftInputBuffer(NULL)
     , m_fftOutputBuffer(NULL)
@@ -64,6 +65,11 @@ int AudioCapture::bandsNumber()
     return m_subBandsNumber;
 }
 
+bool AudioCapture::isInitialized()
+{
+    return m_isInitialized;
+}
+
 bool AudioCapture::initialize(unsigned int sampleRate, quint8 channels, quint16 bufferSize)
 {
     Q_UNUSED(sampleRate)
@@ -75,6 +81,8 @@ bool AudioCapture::initialize(unsigned int sampleRate, quint8 channels, quint16 
     m_audioBuffer = new int16_t[m_captureSize];
     m_fftInputBuffer = new double[m_captureSize];
     m_fftOutputBuffer = fftw_malloc(sizeof(fftw_complex) * m_captureSize);
+
+    m_isInitialized = true;
 
     return true;
 }
