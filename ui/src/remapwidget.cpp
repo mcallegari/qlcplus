@@ -71,7 +71,7 @@ void RemapWidget::paintEvent(QPaintEvent *e)
         if (tgtRect.isEmpty())
             tgtRect = m_targetTree->visualItemRect(info.target->parent());
 
-        qDebug() << "Source rect:" << srcRect << ", target rect:" << tgtRect;
+        //qDebug() << "Source rect:" << srcRect << ", target rect:" << tgtRect;
 
         painter.drawLine(0, srcRect.y() + yOffset, 10, srcRect.y() + yOffset);
         painter.drawLine(10, srcRect.y() + yOffset, 90, tgtRect.y() + yOffset);

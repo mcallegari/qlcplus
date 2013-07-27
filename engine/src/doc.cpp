@@ -338,6 +338,9 @@ bool Doc::deleteFixture(quint32 id)
         setModified();
         delete fxi;
 
+        if (m_fixtures.count() == 0)
+            m_latestFixtureId = 0;
+
         return true;
     }
     else
@@ -390,7 +393,7 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
 
     foreach(Fixture *fixture, newFixturesList)
     {
-        quint32 id = createFixtureId();
+        quint32 id = fixture->id();
         // create a copy of the original cause remapping will
         // destroy it later
         Fixture *newFixture = new Fixture(this);
@@ -421,6 +424,7 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
         {
             m_addresses[i] = id;
         }
+        m_latestFixtureId = id;
     }
     return true;
 }

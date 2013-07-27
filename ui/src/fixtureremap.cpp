@@ -258,6 +258,7 @@ void FixtureRemap::slotAddTargetFixture()
     }
     m_targetTree->resizeColumnToContents(KColumnName);
 
+    qDebug() << "Fixtures in target doc:" << m_targetDoc->fixtures().count();
 }
 
 void FixtureRemap::slotRemoveTargetFixture()
@@ -299,6 +300,8 @@ void FixtureRemap::slotRemoveTargetFixture()
     }
     delete item;
     m_targetTree->resizeColumnToContents(KColumnName);
+
+    qDebug() << "Fixtures in target doc:" << m_targetDoc->fixtures().count();
 }
 
 void FixtureRemap::slotAddRemap()
