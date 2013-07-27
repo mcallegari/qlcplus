@@ -7,7 +7,8 @@ qlcplus (4.4.1) stable; urgency=low
   * Fixtures groups are now saved when exporting fixtures lists
   * Improved audio volume functionality
   * Saved a lot of CPU usage during Show playback from the Show panel
-  * Added fixtures: QTX SL Series (thanks to Tom Lincoln)
+  * Added fixture: QTX SL Series (thanks to Tom Lincoln)
+  * Added fixture: Briteq BT W12L10 (thanks to Joep Admiraal)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 25 July 2013 17:03:04 +0200
 

@@ -32,6 +32,7 @@ fixtures.files += American-DJ-Vizi-LED-Spot.qxf
 fixtures.files += Blizzard-Lighting-Blade-RGBW.qxf
 fixtures.files += Blizzard-Lighting-Puck-Fab5.qxf
 fixtures.files += Blizzard-Lighting-Snowball.qxf
+fixtures.files += Briteq-BT-W12L10.qxf
 fixtures.files += Coemar-Stage-Lite-LED.qxf
 fixtures.files += Chauvet-200b.qxf
 fixtures.files += Chauvet-4Bar-Tri.qxf
