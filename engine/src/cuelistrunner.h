@@ -96,12 +96,19 @@ public:
     void tap();
 
     /**
+     * Stop a specific runnign step
+     * @param stepIndex Index of the running step to stop
+     */
+    void stopStep(int stepIndex);
+
+    /**
      * Set the NEW current step number. The value of m_currentStep is changed
      * on the next call to write().
      *
      * @param step Step number to set
+     * @param intensity Optional startup intensity
      */
-    void setCurrentStep(int step);
+    void setCurrentStep(int step, qreal intensity = 1.0);
 
     /**
      * Get the current step number.
@@ -111,9 +118,9 @@ public:
     int currentStep() const;
 
     /**
-     * Get the current step number.
+     * Get the running step number.
      *
-     * @return Current step number
+     * @return Running step number
      */
     int runningStepsNumber() const;
 
@@ -147,6 +154,7 @@ private:
      ************************************************************************/
 private:
     void clearRunningList();
+
     void startNewStep(int index, MasterTimer *timer, bool manualFade);
 
     int getNextStepIndex();

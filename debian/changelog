@@ -4,13 +4,15 @@ qlcplus (4.4.1) stable; urgency=low
   * Fixed crash when using knobs in percentage mode
   * Fixed copy of a knob resulting in a slider again
   * Fixed Audio Trigger Factory multiple enable issue
+  * Fixed most of the VC Cue List crossfade wrong behaviours
+  * VC Cue list intensity can now be set before playing
   * Fixtures groups are now saved when exporting fixtures lists
   * Improved audio volume functionality
   * Saved a lot of CPU usage during Show playback from the Show panel
   * Added fixture: QTX SL Series (thanks to Tom Lincoln)
   * Added fixture: Briteq BT W12L10 (thanks to Joep Admiraal)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 25 July 2013 17:03:04 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 5 August 2013 17:03:04 +0200
 
 qlcplus (4.4.0) stable; urgency=low
 

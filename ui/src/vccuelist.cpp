@@ -474,7 +474,7 @@ void VCCueList::slotItemActivated(QTreeWidgetItem* item)
     if (m_runner == NULL)
         createRunner(m_primaryIndex);
     else
-        m_runner->setCurrentStep(m_primaryIndex);
+        m_runner->setCurrentStep(m_primaryIndex, (qreal)m_slider1->value() / 100);
 
     setSlidersInfo(m_primaryIndex, NULL);
     m_mutex.unlock();
@@ -511,7 +511,7 @@ void VCCueList::createRunner(int startIndex)
         Q_ASSERT(m_runner != NULL);
         //m_runner->moveToThread(QCoreApplication::instance()->thread());
         //m_runner->setParent(chaser);
-        m_runner->setCurrentStep(startIndex);
+        m_runner->setCurrentStep(startIndex, (qreal)m_slider1->value() / 100);
         m_primaryIndex = startIndex;
 
         connect(m_runner, SIGNAL(currentStepChanged(int)),
@@ -608,19 +608,37 @@ void VCCueList::slotSlider1ValueChanged(int value)
     m_sl1TopLabel->setText(QString("%1%").arg(value));
     if (m_linkCheck->isChecked())
         m_slider2->setValue(100 - value);
-    if (m_runner != NULL)
-        m_runner->adjustIntensity((qreal)value / 100, m_primaryLeft ? m_primaryIndex: m_secondaryIndex);
+
+    if (m_runner == NULL)
+        return;
+
+    m_runner->adjustIntensity((qreal)value / 100, m_primaryLeft ? m_primaryIndex: m_secondaryIndex);
 
     if (value == 0 && m_linkCheck->isChecked())
+    {
+        m_runner->stopStep( m_primaryLeft ? m_primaryIndex: m_secondaryIndex);
+        m_primaryLeft = false;
         switchFunction = true;
-    else if(m_linkCheck->isChecked() == false && value == 100 && m_slider2->value() == 0)
-        switchFunction = true;
-    else if(m_linkCheck->isChecked() == false && value == 0 && m_slider2->value() == 100)
-        switchFunction = true;
+    }
+    else if(m_linkCheck->isChecked() == false && m_runner->runningStepsNumber() == 2)
+    {
+        if (value == 0 && m_slider2->value() == 100)
+        {
+            m_runner->stopStep( m_primaryLeft ? m_primaryIndex: m_secondaryIndex);
+            m_primaryLeft = false;
+            switchFunction = true;
+        }
+        else if (value == 100 && m_slider2->value() == 0)
+        {
+            m_runner->stopStep(m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
+            m_primaryLeft = true;
+            switchFunction = true;
+        }
+    }
+
 
     if (switchFunction)
     {
-        m_primaryLeft = false;
         m_primaryIndex = m_secondaryIndex;
         QTreeWidgetItem* item = m_tree->topLevelItem(m_primaryIndex);
         if (item != NULL)
@@ -639,19 +657,37 @@ void VCCueList::slotSlider2ValueChanged(int value)
     m_sl2TopLabel->setText(QString("%1%").arg(value));
     if (m_linkCheck->isChecked())
         m_slider1->setValue(100 - value);
-    if (m_runner != NULL)
-        m_runner->adjustIntensity((qreal)value / 100, m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
+
+    if (m_runner == NULL)
+        return;
+
+    m_runner->adjustIntensity((qreal)value / 100, m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
 
     if (value == 0 && m_linkCheck->isChecked())
+    {
+        m_runner->stopStep(m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
+        m_primaryLeft = true;
         switchFunction = true;
-    else if(m_linkCheck->isChecked() == false && value == 100 && m_slider1->value() == 0)
-        switchFunction = true;
-    else if(m_linkCheck->isChecked() == false && value == 0 && m_slider1->value() == 100)
-        switchFunction = true;
+    }
+    else if(m_linkCheck->isChecked() == false &&
+            m_runner->runningStepsNumber() == 2)
+    {
+        if (value == 0 && m_slider1->value() == 100)
+        {
+            m_runner->stopStep(m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
+            m_primaryLeft = true;
+            switchFunction = true;
+        }
+        else if (value == 100 && m_slider1->value() == 0)
+        {
+            m_runner->stopStep( m_primaryLeft ? m_primaryIndex: m_secondaryIndex);
+            m_primaryLeft = false;
+            switchFunction = true;
+        }
+    }
 
     if (switchFunction)
     {
-        m_primaryLeft = true;
         m_primaryIndex = m_secondaryIndex;
         QTreeWidgetItem* item = m_tree->topLevelItem(m_primaryIndex);
         if (item != NULL)
