@@ -49,6 +49,9 @@
  * should relinquish all resources associated to the closed line (unless
  * shared with other lines).
  */
+
+#define QLCIOPLUGINS_UNIVERSES   4
+
 class QLCIOPlugin : public QObject
 {
     Q_OBJECT
@@ -205,7 +208,26 @@ public:
      */
     virtual QString inputInfo(quint32 input) = 0;
 
+    /**
+     * If the device support this feature, this is the method to send data back for
+     * visual feedback
+     *
+     * @param inputLine the input line where to send the feedback
+     * @param channel the channel number where to send the feedback
+     * @param value the actual value of the channel
+     * @param key a string to identify a channel by name (ATM used only by OSC)
+     */
     virtual void sendFeedBack(quint32 inputLine, quint32 channel, uchar value, const QString& key = 0) = 0;
+
+    /**
+     * Function used to set (if requested by the user) pagination functionalities like
+     * next/previous/set to turn a single page device into a multipage one.
+     *
+     * @param nextPage channel number of the next page functionality
+     * @param prevPage channel number of the previous page functionality
+     * @param pageSet channel number of the page set functionality
+     */
+    virtual void setPageChannels(quint32 input, ushort nextPage, ushort prevPage, ushort pageSet) = 0;
 
 signals:
     /**
@@ -228,6 +250,7 @@ signals:
      * @param page The current page index
      */
     void pageChanged(quint32 input, quint32 pagesize, quint32 page);
+
     /*************************************************************************
      * Configure
      *************************************************************************/

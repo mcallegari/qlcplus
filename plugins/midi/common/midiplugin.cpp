@@ -39,6 +39,15 @@ void MidiPlugin::init()
     connect(m_enumerator, SIGNAL(configurationChanged()),
             this, SIGNAL(configurationChanged()));
     m_enumerator->rescan();
+
+    m_currentPage.clear();
+    for (int i = 0; i < m_enumerator->inputDevices().size(); i++)
+    {
+        m_currentPage.append(0);
+        m_nextPageCh.append(USHRT_MAX);
+        m_prevPageCh.append(USHRT_MAX);
+        m_pageSetCh.append(USHRT_MAX);
+    }
 }
 
 MidiPlugin::~MidiPlugin()
@@ -262,6 +271,18 @@ void MidiPlugin::sendFeedBack(quint32 output, quint32 channel, uchar value, cons
     }
 }
 
+void MidiPlugin::setPageChannels(quint32 input, ushort nextPage, ushort prevPage, ushort pageSet)
+{
+    qDebug() << Q_FUNC_INFO << "input: " << input << ", next:" << nextPage << ",prev:" << prevPage << ", set:" << pageSet;
+    MidiInputDevice* dev = inputDevice(input);
+    if (dev != NULL)
+    {
+        m_nextPageCh[input] = nextPage;
+        m_prevPageCh[input] = prevPage;
+        m_pageSetCh[input] = pageSet;
+    }
+}
+
 MidiInputDevice* MidiPlugin::inputDevice(quint32 input) const
 {
     if (input < quint32(m_enumerator->inputDevices().size()))
@@ -278,7 +299,15 @@ void MidiPlugin::slotValueChanged(const QVariant& uid, ushort channel, uchar val
         if (dev->uid() == uid)
         {
             qDebug() << "MIDI device: " << i << ", channel: " << channel << ", value: " << value;
-            emit valueChanged(i, channel, value);
+            if (channel == m_nextPageCh[i])
+                m_currentPage[i]++;
+            else if(channel == m_prevPageCh[i] && m_currentPage[i] > 0)
+                m_currentPage[i]--;
+            else if(channel == m_pageSetCh[i])
+                m_currentPage[i] = value;
+            else
+                emit valueChanged(i, ((quint32)m_currentPage[i] << 16) | (quint32)channel, value);
+
             break;
         }
     }

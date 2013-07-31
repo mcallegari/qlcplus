@@ -61,6 +61,8 @@ public:
 
 private:
     MidiEnumerator* m_enumerator;
+    QList<int> m_currentPage;
+    QList<ushort> m_nextPageCh, m_prevPageCh, m_pageSetCh;
 
     /*************************************************************************
      * Outputs
@@ -103,6 +105,9 @@ public:
 
     /** @reimp */
     void sendFeedBack(quint32 output, quint32 channel, uchar value, const QString& key);
+
+    /** @reimp */
+    void setPageChannels(quint32 input, ushort nextPage, ushort prevPage, ushort pageSet);
 
 private:
     /** Get an output device by its output index */

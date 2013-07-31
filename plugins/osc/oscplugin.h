@@ -29,8 +29,6 @@
 #include <lo/lo.h>
 #include "qlcioplugin.h"
 
-#define OSC_UNIVERSES   4
-
 class OSCPlugin;
 
 typedef struct
@@ -126,6 +124,10 @@ public:
     /** @reimp */
     void sendFeedBack(quint32 input, quint32 channel, uchar value, const QString& key);
 
+    /** @reimp */
+    void setPageChannels(quint32 input, ushort nextPage, ushort prevPage, ushort pageSet)
+        { Q_UNUSED(input) Q_UNUSED(nextPage); Q_UNUSED(prevPage); Q_UNUSED(pageSet); }
+
     /** send an event to the upper layers */
     void sendValueChanged(quint32 input, QString path, uchar value);
 
@@ -151,7 +153,7 @@ private:
     quint16 getHash(quint32 line, QString path);
 
 private:
-    OSC_Node m_nodes[OSC_UNIVERSES];
+    OSC_Node m_nodes[QLCIOPLUGINS_UNIVERSES];
 };
 
 #endif

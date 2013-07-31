@@ -97,6 +97,10 @@ public:
     void sendFeedBack(quint32 input, quint32 channel, uchar value, const QString& key)
         { Q_UNUSED(input); Q_UNUSED(channel); Q_UNUSED(value); Q_UNUSED(key); }
 
+    /** @reimp */
+    void setPageChannels(quint32 input, ushort nextPage, ushort prevPage, ushort pageSet)
+        { Q_UNUSED(input) Q_UNUSED(nextPage); Q_UNUSED(prevPage); Q_UNUSED(pageSet); }
+
     /*********************************************************************
      * Configuration
      *********************************************************************/

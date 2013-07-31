@@ -73,6 +73,15 @@ QString QLCInputChannel::typeToString(Type type)
     case Slider:
         str = QString(KXMLQLCInputChannelSlider);
         break;
+    case NextPage:
+        str = QString(KXMLQLCInputChannelPageUp);
+        break;
+    case PrevPage:
+        str = QString(KXMLQLCInputChannelPageDown);
+        break;
+    case PageSet:
+        str = QString(KXMLQLCInputChannelPageSet);
+        break;
     default:
         str = QString(KXMLQLCInputChannelNone);
     }
@@ -88,6 +97,12 @@ QLCInputChannel::Type QLCInputChannel::stringToType(const QString& type)
         return Knob;
     else if (type == KXMLQLCInputChannelSlider)
         return Slider;
+    else if (type == KXMLQLCInputChannelPageUp)
+        return NextPage;
+    else if (type == KXMLQLCInputChannelPageDown)
+        return PrevPage;
+    else if (type == KXMLQLCInputChannelPageSet)
+        return PageSet;
     else
         return NoType;
 }
@@ -98,6 +113,9 @@ QStringList QLCInputChannel::types()
     list << KXMLQLCInputChannelSlider;
     list << KXMLQLCInputChannelKnob;
     list << KXMLQLCInputChannelButton;
+    list << KXMLQLCInputChannelPageUp;
+    list << KXMLQLCInputChannelPageDown;
+    list << KXMLQLCInputChannelPageSet;
     return list;
 }
 

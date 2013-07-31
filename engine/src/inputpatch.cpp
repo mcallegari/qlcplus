@@ -29,6 +29,7 @@
 #include <QDebug>
 #include <QtXml>
 
+#include "qlcinputchannel.h"
 #include "qlcioplugin.h"
 #include "inputpatch.h"
 #include "inputmap.h"
@@ -80,6 +81,30 @@ void InputPatch::set(QLCIOPlugin* plugin, quint32 input, QLCInputProfile* profil
         connect(m_plugin, SIGNAL(pageChanged(quint32,quint32,quint32)),
                 this, SLOT(slotPageChanged(quint32,quint32,quint32)));
         m_plugin->openInput(m_input);
+
+        if (m_profile != NULL)
+        {
+            ushort nextPage = USHRT_MAX;
+            ushort prevPage = USHRT_MAX;
+            ushort pageSet = USHRT_MAX;
+
+            QMapIterator <quint32,QLCInputChannel*> it(m_profile->channels());
+            while (it.hasNext() == true)
+            {
+                it.next();
+                QLCInputChannel *ch = it.value();
+                if (ch != NULL)
+                {
+                    if (nextPage == USHRT_MAX && ch->type() == QLCInputChannel::NextPage)
+                        nextPage = m_profile->channelNumber(ch);
+                    else if (prevPage == USHRT_MAX && ch->type() == QLCInputChannel::PrevPage)
+                        prevPage = m_profile->channelNumber(ch);
+                    else if (pageSet == USHRT_MAX && ch->type() == QLCInputChannel::PageSet)
+                        pageSet = m_profile->channelNumber(ch);
+                }
+            }
+            m_plugin->setPageChannels(m_input, nextPage, prevPage, pageSet);
+        }
     }
 }
 
