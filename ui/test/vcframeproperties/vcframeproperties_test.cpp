@@ -59,7 +59,7 @@ void VCFrameProperties_Test::initial()
     frame->setAllowResize(true);
 
     QWidget w;
-    VCFrameProperties prop(&w, frame);
+    VCFrameProperties prop(&w, frame, m_doc);
     QCOMPARE(prop.m_allowChildrenCheck->isChecked(), false);
     QCOMPARE(prop.m_allowResizeCheck->isChecked(), true);
     prop.m_allowChildrenCheck->setChecked(true);

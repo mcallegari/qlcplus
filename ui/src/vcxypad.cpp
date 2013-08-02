@@ -464,12 +464,8 @@ bool VCXYPad::loadXML(const QDomElement* root)
         return false;
     }
 
-    /* Caption */
-    setCaption(root->attribute(KXMLQLCVCCaption));
-
-    /* ID */
-    if (root->hasAttribute(KXMLQLCVCWidgetID))
-        setID(root->attribute(KXMLQLCVCWidgetID).toUInt());
+    /* Widget commons */
+    loadXMLCommon(root);
 
     if (root->hasAttribute(KXMLQLCVCXYPadInvertedAppearance))
     {
@@ -549,12 +545,7 @@ bool VCXYPad::saveXML(QDomDocument* doc, QDomElement* vc_root)
     root = doc->createElement(KXMLQLCVCXYPad);
     vc_root->appendChild(root);
 
-    /* Caption */
-    root.setAttribute(KXMLQLCVCCaption, caption());
-
-    /* ID */
-    if (id() != VCWidget::invalidId())
-        root.setAttribute(KXMLQLCVCWidgetID, id());
+    saveXMLCommon(doc, &root);
 
     root.setAttribute(KXMLQLCVCXYPadInvertedAppearance, invertedAppearance());
 

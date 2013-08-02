@@ -1241,7 +1241,6 @@ bool VCSlider::loadXML(const QDomElement* root)
     SliderMode sliderMode = Playback;
     QDomElement tag;
     QDomNode node;
-    QString caption;
     QString str;
 
     Q_ASSERT(root != NULL);
@@ -1252,12 +1251,8 @@ bool VCSlider::loadXML(const QDomElement* root)
         return false;
     }
 
-    /* Caption */
-    caption = root->attribute(KXMLQLCVCCaption);
-
-    /* ID */
-    if (root->hasAttribute(KXMLQLCVCWidgetID))
-        setID(root->attribute(KXMLQLCVCWidgetID).toUInt());
+    /* Widget commons */
+    loadXMLCommon(root);
 
     /* Widget style */
     if (root->hasAttribute(KXMLQLCVCSliderWidgetStyle))
@@ -1317,7 +1312,6 @@ bool VCSlider::loadXML(const QDomElement* root)
 
     /* Set the mode last, after everything else has been set */
     setSliderMode(sliderMode);
-    setCaption(caption);
 
     return true;
 }
@@ -1421,12 +1415,7 @@ bool VCSlider::saveXML(QDomDocument* doc, QDomElement* vc_root)
     root = doc->createElement(KXMLQLCVCSlider);
     vc_root->appendChild(root);
 
-    /* Caption */
-    root.setAttribute(KXMLQLCVCCaption, caption());
-
-    /* ID */
-    if (id() != VCWidget::invalidId())
-        root.setAttribute(KXMLQLCVCWidgetID, id());
+    saveXMLCommon(doc, &root);
 
     /* Widget style */
     root.setAttribute(KXMLQLCVCSliderWidgetStyle, widgetStyleToString(widgetStyle()));

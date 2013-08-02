@@ -206,6 +206,13 @@ private:
      */
     VCWidget* closestParent() const;
 
+    /**
+     * If a newly created widget belongs to a multipage frame,
+     * then assign the current frame page to the widget and
+     * inform the frame of the new addition
+     */
+    void checkWidgetPage(VCWidget *widget, VCWidget *parent);
+
 public slots:
     void slotAddButton();
     void slotAddButtonMatrix();

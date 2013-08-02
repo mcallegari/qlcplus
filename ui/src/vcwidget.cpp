@@ -57,6 +57,7 @@ VCWidget::VCWidget(QWidget* parent, Doc* doc)
     : QWidget(parent)
     , m_doc(doc)
     , m_id(invalidId())
+    , m_page(0)
     , m_allowChildren(false)
     , m_allowResize(true)
 {
@@ -172,6 +173,16 @@ QIcon VCWidget::typeToIcon(int type)
              return QIcon(":/virtualconsole.png");
     }
     return QIcon(":/virtualconsole.png");
+}
+
+void VCWidget::setPage(int pNum)
+{
+    m_page = pNum;
+}
+
+int VCWidget::page()
+{
+    return m_page;
 }
 
 /*****************************************************************************
@@ -532,6 +543,24 @@ void VCWidget::postLoad()
     /* NOP */
 }
 
+bool VCWidget::loadXMLCommon(const QDomElement *root)
+{
+    Q_ASSERT(root != NULL);
+
+    /* Caption */
+    setCaption(root->attribute(KXMLQLCVCCaption));
+
+    /* ID */
+    if (root->hasAttribute(KXMLQLCVCWidgetID))
+        setID(root->attribute(KXMLQLCVCWidgetID).toUInt());
+
+    /* Page */
+    if (root->hasAttribute(KXMLQLCVCWidgetPage))
+        setPage(root->attribute(KXMLQLCVCWidgetPage).toInt());
+
+    return true;
+}
+
 bool VCWidget::loadXMLAppearance(const QDomElement* root)
 {
     QDomNode node;
@@ -621,6 +650,25 @@ bool VCWidget::loadXMLInput(const QDomElement& root, quint32* uni, quint32* ch) 
         *uni = root.attribute(KXMLQLCVCWidgetInputUniverse).toInt();
         *ch = root.attribute(KXMLQLCVCWidgetInputChannel).toInt();
     }
+
+    return true;
+}
+
+bool VCWidget::saveXMLCommon(QDomDocument *doc, QDomElement *widget_root)
+{
+    Q_ASSERT(doc != NULL);
+    Q_ASSERT(widget_root != NULL);
+
+    /* Caption */
+    widget_root->setAttribute(KXMLQLCVCCaption, caption());
+
+    /* ID */
+    if (id() != VCWidget::invalidId())
+        widget_root->setAttribute(KXMLQLCVCWidgetID, id());
+
+    /* Page */
+    if (page() != 0)
+        widget_root->setAttribute(KXMLQLCVCWidgetPage, page());
 
     return true;
 }

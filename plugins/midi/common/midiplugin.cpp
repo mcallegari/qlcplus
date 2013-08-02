@@ -300,11 +300,20 @@ void MidiPlugin::slotValueChanged(const QVariant& uid, ushort channel, uchar val
         {
             qDebug() << "MIDI device: " << i << ", channel: " << channel << ", value: " << value;
             if (channel == m_nextPageCh[i])
+            {
                 m_currentPage[i]++;
+                emit valueChanged(i, channel, value);
+            }
             else if(channel == m_prevPageCh[i] && m_currentPage[i] > 0)
+            {
                 m_currentPage[i]--;
+                emit valueChanged(i, channel, value);
+            }
             else if(channel == m_pageSetCh[i])
+            {
                 m_currentPage[i] = value;
+                emit valueChanged(i, channel, value);
+            }
             else
                 emit valueChanged(i, ((quint32)m_currentPage[i] << 16) | (quint32)channel, value);
 

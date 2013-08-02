@@ -668,6 +668,19 @@ VCWidget* VirtualConsole::closestParent() const
     return NULL;
 }
 
+void VirtualConsole::checkWidgetPage(VCWidget *widget, VCWidget *parent)
+{
+    if (parent->type() == VCWidget::FrameWidget)
+    {
+        VCFrame *frame = (VCFrame *)parent;
+        if (frame->multipageMode() == true)
+        {
+            widget->setPage(frame->currentPage());
+            frame->addWidgetToPageMap(widget);
+        }
+    }
+}
+
 void VirtualConsole::slotAddButton()
 {
     VCWidget* parent(closestParent());
@@ -677,6 +690,7 @@ void VirtualConsole::slotAddButton()
     VCButton* button = new VCButton(parent, m_doc);
     Q_ASSERT(button != NULL);
     button->setID(newWidgetId());
+    checkWidgetPage(button, parent);
     button->show();
     button->move(parent->lastClickPoint());
     clearWidgetSelection();
@@ -706,6 +720,7 @@ void VirtualConsole::slotAddButtonMatrix()
     Q_ASSERT(frame != NULL);
     frame->setID(newWidgetId());
     frame->setShowHeader(false);
+    checkWidgetPage(frame, parent);
 
     // Resize the parent frame to fit the buttons nicely and toggle resizing off
     frame->resize(QSize((h * sz) + 20, (v * sz) + 20));
@@ -754,6 +769,7 @@ void VirtualConsole::slotAddSlider()
     VCSlider* slider = new VCSlider(parent, m_doc);
     Q_ASSERT(slider != NULL);
     slider->setID(newWidgetId());
+    checkWidgetPage(slider, parent);
     slider->show();
     slider->move(parent->lastClickPoint());
     clearWidgetSelection();
@@ -779,6 +795,7 @@ void VirtualConsole::slotAddSliderMatrix()
     Q_ASSERT(frame != NULL);
     frame->setID(newWidgetId());
     frame->setShowHeader(false);
+    checkWidgetPage(frame, parent);
 
     // Resize the parent frame to fit the sliders nicely
     frame->resize(QSize((count * width) + 20, height + 20));
@@ -814,6 +831,7 @@ void VirtualConsole::slotAddKnob()
     knob->setWidgetStyle(VCSlider::WKnob);
     Q_ASSERT(knob != NULL);
     knob->setID(newWidgetId());
+    checkWidgetPage(knob, parent);
     knob->show();
     knob->move(parent->lastClickPoint());
     clearWidgetSelection();
@@ -830,6 +848,7 @@ void VirtualConsole::slotAddSpeedDial()
     VCSpeedDial* dial = new VCSpeedDial(parent, m_doc);
     Q_ASSERT(dial != NULL);
     dial->setID(newWidgetId());
+    checkWidgetPage(dial, parent);
     dial->show();
     dial->move(parent->lastClickPoint());
     clearWidgetSelection();
@@ -846,6 +865,7 @@ void VirtualConsole::slotAddXYPad()
     VCXYPad* xypad = new VCXYPad(parent, m_doc);
     Q_ASSERT(xypad != NULL);
     xypad->setID(newWidgetId());
+    checkWidgetPage(xypad, parent);
     xypad->show();
     xypad->move(parent->lastClickPoint());
     clearWidgetSelection();
@@ -862,6 +882,7 @@ void VirtualConsole::slotAddCueList()
     VCCueList* cuelist = new VCCueList(parent, m_doc);
     Q_ASSERT(cuelist != NULL);
     cuelist->setID(newWidgetId());
+    checkWidgetPage(cuelist, parent);
     cuelist->show();
     cuelist->move(parent->lastClickPoint());
     clearWidgetSelection();
@@ -878,6 +899,7 @@ void VirtualConsole::slotAddFrame()
     VCFrame* frame = new VCFrame(parent, m_doc, true);
     Q_ASSERT(frame != NULL);
     frame->setID(newWidgetId());
+    checkWidgetPage(frame, parent);
     frame->show();
     frame->move(parent->lastClickPoint());
     clearWidgetSelection();
@@ -894,6 +916,7 @@ void VirtualConsole::slotAddSoloFrame()
     VCSoloFrame* soloframe = new VCSoloFrame(parent, m_doc, true);
     Q_ASSERT(soloframe != NULL);
     soloframe->setID(newWidgetId());
+    checkWidgetPage(soloframe, parent);
     soloframe->show();
     soloframe->move(parent->lastClickPoint());
     clearWidgetSelection();
@@ -910,6 +933,7 @@ void VirtualConsole::slotAddLabel()
     VCLabel* label = new VCLabel(parent, m_doc);
     Q_ASSERT(label != NULL);
     label->setID(newWidgetId());
+    checkWidgetPage(label, parent);
     label->show();
     label->move(parent->lastClickPoint());
     clearWidgetSelection();

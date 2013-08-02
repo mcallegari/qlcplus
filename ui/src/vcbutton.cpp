@@ -732,12 +732,8 @@ bool VCButton::loadXML(const QDomElement* root)
         return false;
     }
 
-    /* Caption */
-    setCaption(root->attribute(KXMLQLCVCCaption));
-
-    /* ID */
-    if (root->hasAttribute(KXMLQLCVCWidgetID))
-        setID(root->attribute(KXMLQLCVCWidgetID).toUInt());
+    /* Widget commons */
+    loadXMLCommon(root);
 
     /* Icon */
     setIconPath(m_doc->denormalizeComponentPath(root->attribute(KXMLQLCVCButtonIcon)));
@@ -811,12 +807,7 @@ bool VCButton::saveXML(QDomDocument* doc, QDomElement* vc_root)
     root = doc->createElement(KXMLQLCVCButton);
     vc_root->appendChild(root);
 
-    /* Caption */
-    root.setAttribute(KXMLQLCVCCaption, caption());
-
-    /* ID */
-    if (id() != VCWidget::invalidId())
-        root.setAttribute(KXMLQLCVCWidgetID, id());
+    saveXMLCommon(doc, &root);
 
     /* Icon */
     root.setAttribute(KXMLQLCVCButtonIcon, m_doc->normalizeComponentPath(iconPath()));

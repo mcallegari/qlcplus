@@ -256,12 +256,8 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
         return false;
     }
 
-    /* Caption */
-    setCaption(root->attribute(KXMLQLCVCCaption));
-
-    /* ID */
-    if (root->hasAttribute(KXMLQLCVCWidgetID))
-        setID(root->attribute(KXMLQLCVCWidgetID).toUInt());
+    /* Widget commons */
+    loadXMLCommon(root);
 
     setSpeedTypes(VCSpeedDial::SpeedTypes(root->attribute(KXMLQLCVCSpeedDialSpeedTypes).toInt()));
 
@@ -357,12 +353,7 @@ bool VCSpeedDial::saveXML(QDomDocument* doc, QDomElement* vc_root)
     QDomElement root = doc->createElement(KXMLQLCVCSpeedDial);
     vc_root->appendChild(root);
 
-    /* Caption */
-    root.setAttribute(KXMLQLCVCCaption, caption());
-
-    /* ID */
-    if (id() != VCWidget::invalidId())
-        root.setAttribute(KXMLQLCVCWidgetID, id());
+    saveXMLCommon(doc, &root);
 
     /* Speed Type */
     root.setAttribute(KXMLQLCVCSpeedDialSpeedTypes, speedTypes());

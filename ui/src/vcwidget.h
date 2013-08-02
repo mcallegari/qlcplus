@@ -39,6 +39,7 @@ class QFile;
 #define KXMLQLCVCFrameStyle "FrameStyle"
 
 #define KXMLQLCVCWidgetID "ID"
+#define KXMLQLCVCWidgetPage "Page"
 #define KXMLQLCVCWidgetAppearance "Appearance"
 
 #define KXMLQLCVCWidgetForegroundColor "ForegroundColor"
@@ -134,6 +135,16 @@ public:
 
 protected:
     int m_type;
+
+    /*********************************************************************
+     * Page
+     *********************************************************************/
+public:
+    void setPage(int pNum);
+    int page();
+
+protected:
+    int m_page;
 
     /*********************************************************************
      * Clipboard
@@ -366,11 +377,13 @@ public:
     virtual void postLoad();
 
 protected:
+    bool loadXMLCommon(const QDomElement* root);
     bool loadXMLAppearance(const QDomElement* appearance_root);
     bool loadXMLInput(const QDomElement* root);
     /** Load input source from $root to $uni and $ch */
     bool loadXMLInput(const QDomElement& root, quint32* uni, quint32* ch) const;
 
+    bool saveXMLCommon(QDomDocument* doc, QDomElement* widget_root);
     bool saveXMLAppearance(QDomDocument* doc, QDomElement* widget_root);
     bool saveXMLInput(QDomDocument* doc, QDomElement* root);
     /** Save input source from $uni and $ch to $root */
