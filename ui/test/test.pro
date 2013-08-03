@@ -3,6 +3,7 @@ SUBDIRS += aboutbox
 SUBDIRS += assignhotkey
 SUBDIRS += addfixture
 SUBDIRS += efxpreviewarea
+SUBDIRS += functionselection
 SUBDIRS += monitorfixture
 SUBDIRS += vcbutton
 SUBDIRS += vccuelist

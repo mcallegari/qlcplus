@@ -42,6 +42,9 @@ void AddFixture_Test::initTestCase()
 {
     m_doc = new Doc(this);
 
+    QSettings settings;
+    m_expanded = settings.value(SETTINGS_EXPANDED);
+
     QDir dir(INTERNAL_FIXTUREDIR);
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
@@ -50,6 +53,16 @@ void AddFixture_Test::initTestCase()
 
 void AddFixture_Test::cleanupTestCase()
 {
+    QSettings settings;
+    if(m_expanded.isValid())
+    {
+        settings.setValue(SETTINGS_EXPANDED, m_expanded);
+    }
+    else
+    {
+        settings.remove(SETTINGS_EXPANDED);
+    }
+
     delete m_doc;
 }
 
@@ -470,6 +483,20 @@ void AddFixture_Test::selectionGeneric()
     QVERIFY(af.m_amountSpin->isEnabled() == true);
     QVERIFY(af.m_amountSpin->value() == 1);
     QVERIFY(af.amount() == 1);
+}
+
+
+void AddFixture_Test::rememberExpanded()
+{
+    {
+        AddFixture af(NULL, m_doc);
+        af.m_tree->invisibleRootItem()->child(5)->setExpanded(true);
+    }
+
+    {
+        AddFixture af(NULL, m_doc);
+        QVERIFY(af.m_tree->invisibleRootItem()->child(5)->isExpanded());
+    }
 }
 
 QTEST_MAIN(AddFixture_Test)

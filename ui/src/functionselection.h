@@ -38,6 +38,8 @@ class QWidget;
 class Fixture;
 class Doc;
 
+#define SETTINGS_FILTER "functionselection/filter"
+
 class FunctionSelection : public QDialog, public Ui_FunctionSelection
 {
     Q_OBJECT
