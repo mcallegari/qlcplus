@@ -43,6 +43,8 @@ VCFrameProperties::VCFrameProperties(QWidget* parent, VCFrame* frame, Doc *doc)
     m_showHeaderCheck->setChecked(frame->isHeaderVisible());
     m_enablePaging->setChecked(frame->multipageMode());
     m_totalPagesSpin->setValue(frame->totalPagesNumber());
+    if (frame->totalPagesNumber() != 1)
+        m_cloneFirstPageCheck->setEnabled(false);
 
     /************************************************************************
      * Next page
@@ -116,6 +118,11 @@ QString VCFrameProperties::frameName() const
 bool VCFrameProperties::multipageEnabled() const
 {
     return m_multipageEnabled;
+}
+
+bool VCFrameProperties::cloneWidgets() const
+{
+    return m_cloneFirstPageCheck->isChecked();
 }
 
 void VCFrameProperties::accept()

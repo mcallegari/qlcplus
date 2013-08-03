@@ -43,6 +43,7 @@ public:
     bool showHeader() const;
     QString frameName() const;
     bool multipageEnabled() const;
+    bool cloneWidgets() const;
 
 protected:
     VCFrame *m_frame;

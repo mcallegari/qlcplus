@@ -341,6 +341,11 @@ void VCFrame::addWidgetToPageMap(VCWidget *widget)
     m_pagesMap.insert(widget, widget->page());
 }
 
+void VCFrame::removeWidgetFromPageMap(VCWidget *widget)
+{
+    m_pagesMap.remove(widget);
+}
+
 void VCFrame::slotPreviousPage()
 {
     slotSetPage(m_currentPage - 1);
@@ -384,6 +389,9 @@ void VCFrame::slotSetPage(int pageNum)
 void VCFrame::setNextPageKeySequence(const QKeySequence& keySequence)
 {
     m_nextPageKeySequence = QKeySequence(keySequence);
+    /* Quite a dirty workaround, but it works without interfering with other widgets */
+    disconnect(this, SIGNAL(keyPressed(QKeySequence)), this, SLOT(slotFrameKeyPressed(QKeySequence)));
+    connect(this, SIGNAL(keyPressed(QKeySequence)), this, SLOT(slotFrameKeyPressed(QKeySequence)));
 }
 
 QKeySequence VCFrame::nextPageKeySequence() const
@@ -394,6 +402,9 @@ QKeySequence VCFrame::nextPageKeySequence() const
 void VCFrame::setPreviousPageKeySequence(const QKeySequence& keySequence)
 {
     m_previousPageKeySequence = QKeySequence(keySequence);
+    /* Quite a dirty workaround, but it works without interfering with other widgets */
+    disconnect(this, SIGNAL(keyPressed(QKeySequence)), this, SLOT(slotFrameKeyPressed(QKeySequence)));
+    connect(this, SIGNAL(keyPressed(QKeySequence)), this, SLOT(slotFrameKeyPressed(QKeySequence)));
 }
 
 QKeySequence VCFrame::previousPageKeySequence() const
@@ -401,13 +412,17 @@ QKeySequence VCFrame::previousPageKeySequence() const
     return m_previousPageKeySequence;
 }
 
-void VCFrame::slotKeyPressed(const QKeySequence& keySequence)
+void VCFrame::slotFrameKeyPressed(const QKeySequence& keySequence)
 {
     if (m_previousPageKeySequence == keySequence)
         slotSetPage(m_currentPage - 1);
     else if (m_nextPageKeySequence == keySequence)
         slotSetPage(m_currentPage + 1);
 }
+
+/*****************************************************************************
+ * External input
+ *****************************************************************************/
 
 void VCFrame::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
@@ -478,6 +493,98 @@ void VCFrame::editProperties()
     VCFrameProperties prop(NULL, this, m_doc);
     if (prop.exec() == QDialog::Accepted)
     {
+        if (prop.cloneWidgets() == true)
+        {
+            if (m_pagesMap.isEmpty() == false)
+            {
+                for (int pg = 1; pg < totalPagesNumber(); pg++)
+                {
+                    QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
+                    while (it.hasNext() == true)
+                    {
+                        VCWidget* child = it.next();
+                        if (child->page() == 0)
+                        {
+                            VCWidget *newWidget = NULL;
+                            quint8 sourceIDnum = 1;
+                            switch(child->type())
+                            {
+                                case VCWidget::ButtonWidget:
+                                {
+                                  VCButton *btn = (VCButton *)child->createCopy(this);
+                                  newWidget = (VCWidget *)btn;
+                                }
+                                break;
+                                case VCWidget::SliderWidget:
+                                {
+                                  VCSlider *slider = (VCSlider *)child->createCopy(this);
+                                  newWidget = (VCWidget *)slider;
+                                }
+                                break;
+                                case VCWidget::SpeedDialWidget:
+                                {
+                                  VCSpeedDial *dial = (VCSpeedDial *)child->createCopy(this);
+                                  sourceIDnum = 2;
+                                  newWidget = (VCWidget *)dial;
+                                }
+                                break;
+                                case VCWidget::XYPadWidget:
+                                {
+                                  VCXYPad *xy = (VCXYPad *)child->createCopy(this);
+                                  sourceIDnum = 2;
+                                  newWidget = (VCWidget *)xy;
+                                }
+                                break;
+                                case VCWidget::LabelWidget:
+                                {
+                                  VCLabel *label = (VCLabel *)child->createCopy(this);
+                                  newWidget = (VCWidget *)label;
+                                }
+                                break;
+                                case VCWidget::CueListWidget:
+                                {
+                                  VCCueList *cue = (VCCueList *)child->createCopy(this);
+                                  sourceIDnum = 5;
+                                  newWidget = (VCWidget *)cue;
+                                }
+                                break;
+                                case VCWidget::FrameWidget:
+                                {
+                                  VCFrame *frame = (VCFrame *)child->createCopy(this);
+                                  newWidget = (VCWidget *)frame;
+                                }
+                                break;
+                                case VCWidget::SoloFrameWidget:
+                                {
+                                  VCSoloFrame *soloframe = (VCSoloFrame *)child->createCopy(this);
+                                  newWidget = (VCWidget *)soloframe;
+                                }
+                                break;
+                            }
+                            newWidget->setPage(pg);
+                            newWidget->show();
+                            /**
+                             *  Remap input sources to the new page, otherwise
+                             *  all the cloned widgets would respond to the
+                             *  same sontrols
+                             */
+                            for (quint8 s = 0; s < sourceIDnum; s++)
+                            {
+                                QLCInputSource src = newWidget->inputSource(s);
+                                if (src.isValid())
+                                {
+                                    src.setPage(pg);
+                                    newWidget->setInputSource(src, s);
+                                }
+                            }
+
+                            m_pagesMap.insert(newWidget, pg);
+                        }
+                    }
+                }
+                slotSetPage(0);
+            }
+        }
         VirtualConsole* vc = VirtualConsole::instance();
         if (vc != NULL)
             vc->reselectWidgets();
@@ -571,7 +678,7 @@ bool VCFrame::loadXML(const QDomElement* root)
                 }
                 else if (subTag.tagName() == KXMLQLCVCFrameKey)
                 {
-                    m_nextPageKeySequence = stripKeySequence(QKeySequence(subTag.text()));
+                    setNextPageKeySequence(stripKeySequence(QKeySequence(subTag.text())));
                 }
                 else
                 {
@@ -595,7 +702,7 @@ bool VCFrame::loadXML(const QDomElement* root)
                 }
                 else if (subTag.tagName() == KXMLQLCVCFrameKey)
                 {
-                    m_previousPageKeySequence = stripKeySequence(QKeySequence(subTag.text()));
+                    setPreviousPageKeySequence(stripKeySequence(QKeySequence(subTag.text())));
                 }
                 else
                 {
@@ -800,7 +907,7 @@ bool VCFrame::saveXML(QDomDocument* doc, QDomElement* vc_root)
             tag.setAttribute(KXMLQLCVCFrameCurrentPage, currentPage());
             root.appendChild(tag);
 
-            /* Next cue */
+            /* Next page */
             tag = doc->createElement(KXMLQLCVCFrameNext);
             root.appendChild(tag);
             subtag = doc->createElement(KXMLQLCVCFrameKey);
@@ -809,7 +916,7 @@ bool VCFrame::saveXML(QDomDocument* doc, QDomElement* vc_root)
             subtag.appendChild(text);
             saveXMLInput(doc, &tag, inputSource(nextPageInputSourceId));
 
-            /* Previous cue */
+            /* Previous page */
             tag = doc->createElement(KXMLQLCVCFramePrevious);
             root.appendChild(tag);
             subtag = doc->createElement(KXMLQLCVCFrameKey);

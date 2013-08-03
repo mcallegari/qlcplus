@@ -1110,7 +1110,17 @@ void VirtualConsole::slotEditDelete()
             /* Consume the selected list until it is empty and
                delete each widget. */
             VCWidget* widget = m_selectedWidgets.takeFirst();
+            VCWidget* parent = qobject_cast<VCWidget*> (widget->parentWidget());
             widget->deleteLater();
+            if (parent != NULL)
+            {
+                if (parent->type() == VCWidget::FrameWidget)
+                {
+                    VCFrame *frame = (VCFrame *)parent;
+                    if (frame->multipageMode() == true)
+                        frame->removeWidgetFromPageMap(widget);
+                }
+            }
 
             /* Remove the widget from clipboard as well so that
                deleted widgets won't be pasted anymore anywhere */

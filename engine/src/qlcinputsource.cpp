@@ -89,3 +89,14 @@ quint32 QLCInputSource::channel() const
     return m_channel;
 }
 
+void QLCInputSource::setPage(ushort pgNum)
+{
+    quint32 chCopy = m_channel & 0x00FF;
+    m_channel = ((quint32)pgNum << 16) | chCopy;
+}
+
+ushort QLCInputSource::page()
+{
+    return m_channel >> 16;
+}
+

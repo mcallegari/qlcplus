@@ -107,9 +107,9 @@
          </property>
          <layout class="QGridLayout" name="gridLayout_3">
           <item row="2" column="0">
-           <widget class="QCheckBox" name="checkBox">
+           <widget class="QCheckBox" name="m_cloneFirstPageCheck">
             <property name="text">
-             <string>Clone widgets</string>
+             <string>Clone first page widgets</string>
             </property>
            </widget>
           </item>

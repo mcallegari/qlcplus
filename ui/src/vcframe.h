@@ -122,6 +122,7 @@ public:
     int currentPage();
 
     void addWidgetToPageMap(VCWidget *widget);
+    void removeWidgetFromPageMap(VCWidget *widget);
 
 protected slots:
     void slotPreviousPage();
@@ -156,7 +157,7 @@ public:
     QKeySequence previousPageKeySequence() const;
 
 protected slots:
-    void slotKeyPressed(const QKeySequence& keySequence);
+    void slotFrameKeyPressed(const QKeySequence& keySequence);
 
 private:
     QKeySequence m_nextPageKeySequence;
