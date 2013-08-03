@@ -1,8 +1,8 @@
 /*
   Q Light Controller
-  addfixture_test.h
+  functionselection_test.h
 
-  Copyright (c) Heikki Junnila
+  Copyright (C) Jano Svitok
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License
@@ -19,15 +19,14 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef ADDFIXTURE_TEST_H
-#define ADDFIXTURE_TEST_H
+#ifndef FUNCTIONSELECTION_TEST_H
+#define FUNCTIONSELECTION_TEST_H
 
 #include <QObject>
 #include <QVariant>
 
 class Doc;
-
-class AddFixture_Test : public QObject
+class FunctionSelection_Test : public QObject
 {
     Q_OBJECT
 
@@ -35,19 +34,13 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
 
-    void findAddress();
-    void initialNoFixture();
-    void initialDimmer();
-    void initialScanner();
-
-    void selectionNothing();
-    void selectionGeneric();
-
-    void rememberExpanded();
+    void initial();
+    void rememberFilter();
+    void constFilter();
 
 private:
     Doc* m_doc;
-    QVariant m_expanded;
+    QVariant m_savedFilter;
 };
 
 #endif

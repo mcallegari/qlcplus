@@ -36,6 +36,8 @@ class OutputMap;
 class QString;
 class Doc;
 
+#define SETTINGS_EXPANDED "addfixture/expanded"
+
 class AddFixture : public QDialog, public Ui_AddFixture
 {
     Q_OBJECT
