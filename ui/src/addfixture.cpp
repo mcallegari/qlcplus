@@ -164,6 +164,20 @@ AddFixture::~AddFixture()
 {
     QSettings settings;
     settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
+   
+    QList<QVariant> expanded;
+    QTreeWidgetItem * root = m_tree->invisibleRootItem();
+
+    for (int i=0; i < root->childCount(); i++)
+    {
+        QTreeWidgetItem * manuf = root->child(i);
+        if (manuf->isExpanded())
+        {
+            expanded << manuf->text(KColumnName);
+        }
+    }
+
+    settings.setValue(SETTINGS_EXPANDED, expanded);
 }
 
 /*****************************************************************************
@@ -226,6 +240,14 @@ void AddFixture::fillTree(const QString& selectManufacturer,
     QTreeWidgetItem* child;
     QString manuf;
     QString model;
+    QList<QVariant> expanded;
+
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_EXPANDED);
+    if (var.isValid() == true)
+    {
+        expanded = var.toList();
+    }
 
     /* Clear the tree of any previous data */
     m_tree->clear();
@@ -254,6 +276,10 @@ void AddFixture::fillTree(const QString& selectManufacturer,
                 parent->setExpanded(true);
                 m_tree->setCurrentItem(child);
             }
+            else if(expanded.indexOf(manuf) != -1)
+            {
+                parent->setExpanded(true);
+            }
             m_fxiCount++;
         }
     }
@@ -276,6 +302,10 @@ void AddFixture::fillTree(const QString& selectManufacturer,
         {
             parent->setExpanded(true);
             m_tree->setCurrentItem(child);
+        }
+        else if(expanded.indexOf(manuf) != -1)
+        {
+            parent->setExpanded(true);
         }
         m_fxiCount++;
     }

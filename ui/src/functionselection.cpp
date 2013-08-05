@@ -25,6 +25,7 @@
 #include <QMessageBox>
 #include <QToolBar>
 #include <QDebug>
+#include <QSettings>
 
 #include "functionselection.h"
 #include "collectioneditor.h"
@@ -94,6 +95,13 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
 
     connect(m_audioCheck, SIGNAL(toggled(bool)),
             this, SLOT(slotAudioChecked(bool)));
+
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_FILTER);
+    if (var.isValid() == true)
+    {
+        setFilter(var.toInt(), false);
+    }
 }
 
 int FunctionSelection::exec()
@@ -140,6 +148,11 @@ int FunctionSelection::exec()
 
 FunctionSelection::~FunctionSelection()
 {
+    if(!m_constFilter)
+    {
+        QSettings settings;
+        settings.setValue(SETTINGS_FILTER, m_filter);
+    }
 }
 
 /*****************************************************************************
