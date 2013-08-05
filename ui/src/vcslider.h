@@ -401,11 +401,10 @@ public:
 
     SliderWidgetStyle stringToWidgetStyle(QString style);
 
+    void updateFeedback();
+
 private slots:
     void slotSliderMoved(int value);
-
-private:
-    void sendFeedBack(int value);
 
 protected:
     QHBoxLayout* m_hbox;

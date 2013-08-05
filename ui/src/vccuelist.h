@@ -167,7 +167,6 @@ protected:
 
 protected slots:
     void slotShowCrossfadePanel(bool enable);
-    void sendFeedBack(int value, const quint8 feedbackId);
     void slotSlider1ValueChanged(int value);
     void slotSlider2ValueChanged(int value);
 
@@ -231,6 +230,9 @@ private:
     /*************************************************************************
      * External Input
      *************************************************************************/
+public:
+    void updateFeedback();
+
 protected slots:
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
 

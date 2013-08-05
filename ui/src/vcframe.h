@@ -166,6 +166,9 @@ private:
     /*************************************************************************
      * External Input
      *************************************************************************/
+public:
+    void updateFeedback();
+
 protected slots:
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
 
@@ -183,6 +186,9 @@ protected:
     /*********************************************************************
      * Properties
      *********************************************************************/
+protected:
+    QList<VCWidget *> getChildren(VCWidget *obj);
+
 public:
     /** @reimp */
     void editProperties();

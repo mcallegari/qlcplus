@@ -401,29 +401,7 @@ void VCButton::setOn(bool on)
 {
     m_on = on;
 
-    /* Send input feedback */
-    QLCInputSource src(inputSource());
-    if (src.isValid() == true)
-    {
-        QString chName = QString();
-
-        InputPatch* pat = m_doc->inputMap()->patch(src.universe());
-        if (pat != NULL)
-        {
-            QLCInputProfile* profile = pat->profile();
-            if (profile != NULL)
-            {
-                QLCInputChannel* ich = profile->channel(src.channel());
-                if (ich != NULL)
-                    chName = ich->name();
-            }
-        }
-
-        if (on == true)
-            m_doc->outputMap()->feedBack(src.universe(), src.channel(), UCHAR_MAX, chName);
-        else
-            m_doc->outputMap()->feedBack(src.universe(), src.channel(), 0, chName);
-    }
+    updateFeedback();
 
     update();
 }
@@ -452,6 +430,14 @@ void VCButton::slotKeyReleased(const QKeySequence& keySequence)
 {
     if (m_keySequence == keySequence)
         releaseFunction();
+}
+
+void VCButton::updateFeedback()
+{
+    if (m_on == true)
+        sendFeedback(UCHAR_MAX);
+    else
+        sendFeedback(0);
 }
 
 /*****************************************************************************

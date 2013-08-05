@@ -144,9 +144,6 @@ public:
     /** @reimp */
     void writeDMX(MasterTimer* timer, UniverseArray* universes);
 
-private:
-    void sendFeedback();
-
 public slots:
     void slotPositionChanged(const QPoint& pt);
     void slotSliderValueChanged();
@@ -159,6 +156,8 @@ private:
     /*********************************************************************
      * External input
      *********************************************************************/
+public:
+    void updateFeedback();
 
 protected slots:
     /** Called when an external input device produces input data */

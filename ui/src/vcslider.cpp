@@ -1025,6 +1025,26 @@ VCSlider::SliderWidgetStyle VCSlider::stringToWidgetStyle(QString style)
     return VCSlider::WSlider;
 }
 
+void VCSlider::updateFeedback()
+{
+    int fbv = 0;
+    if (m_slider)
+    {
+        if (invertedAppearance() == true)
+            fbv = m_slider->maximum() - m_slider->value();
+        else
+            fbv = m_slider->value();
+        fbv = (int)SCALE(float(fbv), float(m_slider->minimum()),
+                         float(m_slider->maximum()), float(0), float(UCHAR_MAX));
+    }
+    else if (m_knob)
+    {
+        fbv = (int)SCALE(float(m_knob->value()), float(m_knob->minimum()),
+                         float(m_knob->maximum()), float(0), float(UCHAR_MAX));
+    }
+    sendFeedback(fbv);
+}
+
 void VCSlider::slotSliderMoved(int value)
 {
     QString num;
@@ -1085,43 +1105,7 @@ void VCSlider::slotSliderMoved(int value)
         break;
     }
 
-    //if (m_slider->isSliderDown() == true)
-    sendFeedBack(value);
-}
-
-void VCSlider::sendFeedBack(int value)
-{
-    /* Send input feedback */
-    QLCInputSource src = inputSource();
-    if (src.isValid() == true)
-    {
-        if (invertedAppearance() == true && m_slider)
-            value = m_slider->maximum() - value;
-
-        float fb = 0;
-        if (m_slider)
-            fb = SCALE(float(value), float(m_slider->minimum()),
-                       float(m_slider->maximum()), float(0), float(UCHAR_MAX));
-        else if (m_knob)
-            fb = SCALE(float(value), float(m_knob->minimum()),
-                       float(m_knob->maximum()), float(0), float(UCHAR_MAX));
-
-        QString chName = QString();
-
-        InputPatch* pat = m_doc->inputMap()->patch(src.universe());
-        if (pat != NULL)
-        {
-            QLCInputProfile* profile = pat->profile();
-            if (profile != NULL)
-            {
-                QLCInputChannel* ich = profile->channel(src.channel());
-                if (ich != NULL)
-                    chName = ich->name();
-            }
-        }
-
-        m_doc->outputMap()->feedBack(src.universe(), src.channel(), int(fb), chName);
-    }
+    updateFeedback();
 }
 
 /*****************************************************************************

@@ -327,6 +327,14 @@ public:
      */
     QLCInputSource inputSource(quint8 id = 0) const;
 
+    /**
+     * Send feedback to en external controller.
+     *
+     * @param value value from 0 to 255 to be sent
+     * @param id ID of the input source where to send feedback
+     */
+    void sendFeedback(int value, quint8 id = 0);
+
 protected slots:
     /**
      * Slot that receives external input data. Overwrite in subclasses to

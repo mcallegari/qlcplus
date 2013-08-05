@@ -244,57 +244,6 @@ void VCXYPad::writeDMX(MasterTimer* timer, UniverseArray* universes)
     }
 }
 
-void VCXYPad::sendFeedback()
-{
-    QLCInputSource panSrc = inputSource(panInputSourceId);
-    if (panSrc.isValid() == true)
-    {
-        QString chName = QString();
-
-        InputPatch* pat = m_doc->inputMap()->patch(panSrc.universe());
-        if (pat != NULL)
-        {
-            QLCInputProfile* profile = pat->profile();
-            if (profile != NULL)
-            {
-                QLCInputChannel* ich = profile->channel(panSrc.channel());
-                if (ich != NULL)
-                    chName = ich->name();
-            }
-        }
-        // X Axis
-        float Xfb = SCALE(float(m_hSlider->value()), float(m_hSlider->minimum()),
-                         float(m_hSlider->maximum()), float(0),
-                         float(UCHAR_MAX));
-
-        m_doc->outputMap()->feedBack(panSrc.universe(), panSrc.channel(), int(Xfb), chName);
-    }
-
-    QLCInputSource tiltSrc = inputSource(tiltInputSourceId);
-    if (tiltSrc.isValid() == true)
-    {
-        QString chName = QString();
-
-        InputPatch* pat = m_doc->inputMap()->patch(tiltSrc.universe());
-        if (pat != NULL)
-        {
-            QLCInputProfile* profile = pat->profile();
-            if (profile != NULL)
-            {
-                QLCInputChannel* ich = profile->channel(tiltSrc.channel());
-                if (ich != NULL)
-                    chName = ich->name();
-            }
-        }
-        // Y Axis
-        float Yfb = SCALE(float(m_vSlider->value()), float(m_vSlider->minimum()),
-                         float(m_vSlider->maximum()), float(0),
-                         float(UCHAR_MAX));
-
-        m_doc->outputMap()->feedBack(tiltSrc.universe(), tiltSrc.channel(), int(Yfb), chName);
-    }
-}
-
 void VCXYPad::slotPositionChanged(const QPoint& pt)
 {
     if (m_sliderInteraction == true)
@@ -319,7 +268,7 @@ void VCXYPad::slotPositionChanged(const QPoint& pt)
     m_hSlider->setValue(int(x));
     m_vSlider->setValue(int(y));
     if (m_inputValueChanged == false)
-        sendFeedback();
+        updateFeedback();
     m_padInteraction = false;
     m_inputValueChanged = false;
 }
@@ -355,8 +304,18 @@ void VCXYPad::slotSliderValueChanged()
 
     m_area->setPosition(QPoint(x, y));
     m_area->update();
-    sendFeedback();
+    updateFeedback();
     m_sliderInteraction = false;
+}
+
+void VCXYPad::updateFeedback()
+{
+    int Xfb = (int)SCALE(float(m_hSlider->value()), float(m_hSlider->minimum()),
+                         float(m_hSlider->maximum()), float(0), float(UCHAR_MAX));
+    sendFeedback(Xfb, panInputSourceId);
+    int Yfb = (int)SCALE(float(m_vSlider->value()), float(m_vSlider->minimum()),
+                         float(m_vSlider->maximum()), float(0), float(UCHAR_MAX));
+    sendFeedback(Yfb, tiltInputSourceId);
 }
 
 /*****************************************************************************

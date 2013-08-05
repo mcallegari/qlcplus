@@ -576,32 +576,6 @@ void VCCueList::slotShowCrossfadePanel(bool enable)
     m_sl2BottomLabel->setVisible(enable);
 }
 
-void VCCueList::sendFeedBack(int value, const quint8 feedbackId)
-{
-    /* Send input feedback */
-    QLCInputSource src = inputSource(feedbackId);
-    if (src.isValid() == true)
-    {
-        float fb = SCALE(float(value), float(0), float(100), float(0), float(UCHAR_MAX));
-
-        QString chName = QString();
-
-        InputPatch* pat = m_doc->inputMap()->patch(src.universe());
-        if (pat != NULL)
-        {
-            QLCInputProfile* profile = pat->profile();
-            if (profile != NULL)
-            {
-                QLCInputChannel* ich = profile->channel(src.channel());
-                if (ich != NULL)
-                    chName = ich->name();
-            }
-        }
-
-        m_doc->outputMap()->feedBack(src.universe(), src.channel(), int(fb), chName);
-    }
-}
-
 void VCCueList::slotSlider1ValueChanged(int value)
 {
     bool switchFunction = false;
@@ -636,7 +610,6 @@ void VCCueList::slotSlider1ValueChanged(int value)
         }
     }
 
-
     if (switchFunction)
     {
         m_primaryIndex = m_secondaryIndex;
@@ -648,7 +621,7 @@ void VCCueList::slotSlider1ValueChanged(int value)
         }
         setSlidersInfo(m_primaryIndex, NULL);
     }
-    sendFeedBack(value, cf1InputSourceId);
+    updateFeedback();
 }
 
 void VCCueList::slotSlider2ValueChanged(int value)
@@ -697,7 +670,7 @@ void VCCueList::slotSlider2ValueChanged(int value)
         }
         setSlidersInfo(m_primaryIndex, NULL);
     }
-    sendFeedBack(100 - value, cf2InputSourceId);
+    updateFeedback();
 }
 /*****************************************************************************
  * DMX Source
@@ -765,6 +738,14 @@ void VCCueList::slotKeyPressed(const QKeySequence& keySequence)
         slotPreviousCue();
     else if (m_stopKeySequence == keySequence)
         slotStop();
+}
+
+void VCCueList::updateFeedback()
+{
+    int fbv = (int)SCALE(float(m_slider1->value()), float(0), float(100), float(0), float(UCHAR_MAX));
+    sendFeedback(fbv, cf1InputSourceId);
+    fbv = (int)SCALE(float(100 - m_slider2->value()), float(0), float(100), float(0), float(UCHAR_MAX));
+    sendFeedback(fbv, cf2InputSourceId);
 }
 
 /*****************************************************************************
@@ -873,8 +854,7 @@ void VCCueList::slotModeChanged(Doc::Mode mode)
         m_doc->masterTimer()->registerDMXSource(this);
         enable = true;
         // send the initial feedback for the current step slider
-        sendFeedBack(m_slider1->value(), cf1InputSourceId);
-        sendFeedBack(100 - m_slider2->value(), cf2InputSourceId);
+        updateFeedback();
     }
     else
     {

@@ -45,8 +45,10 @@
 #include "qlcinputsource.h"
 #include "qlcfile.h"
 
+#include "qlcinputchannel.h"
 #include "virtualconsole.h"
 #include "vcproperties.h"
+#include "inputpatch.h"
 #include "inputmap.h"
 #include "vcwidget.h"
 #include "doc.h"
@@ -213,7 +215,14 @@ bool VCWidget::copyFrom(const VCWidget* widget)
     setGeometry(widget->geometry());
     setCaption(widget->caption());
 
-    m_inputs = widget->m_inputs;
+    QHashIterator <quint8, QLCInputSource> it(widget->m_inputs);
+    while (it.hasNext() == true)
+    {
+        it.next();
+        quint8 id = it.key();
+        QLCInputSource src = it.value();
+        setInputSource(src, id);
+    }
 
     return true;
 }
@@ -495,6 +504,30 @@ QLCInputSource VCWidget::inputSource(quint8 id) const
         return QLCInputSource();
     else
         return m_inputs[id];
+}
+
+void VCWidget::sendFeedback(int value, quint8 id)
+{
+    /* Send input feedback */
+    QLCInputSource src = inputSource(id);
+    if (src.isValid() == true)
+    {
+        QString chName = QString();
+
+        InputPatch* pat = m_doc->inputMap()->patch(src.universe());
+        if (pat != NULL)
+        {
+            QLCInputProfile* profile = pat->profile();
+            if (profile != NULL)
+            {
+                QLCInputChannel* ich = profile->channel(src.channel());
+                if (ich != NULL)
+                    chName = ich->name();
+            }
+        }
+
+        m_doc->outputMap()->feedBack(src.universe(), src.channel(), value, chName);
+    }
 }
 
 void VCWidget::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
