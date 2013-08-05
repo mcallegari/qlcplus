@@ -33,6 +33,7 @@ public:
     ~StubWidget();
 
     VCWidget* createCopy(VCWidget* parent);
+    void updateFeedback();
     bool loadXML(const QDomElement* vc_root);
     bool saveXML(QDomDocument* doc, QDomElement* vc_root);
 };

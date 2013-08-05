@@ -180,6 +180,13 @@ QIcon VCWidget::typeToIcon(int type)
 void VCWidget::setPage(int pNum)
 {
     m_page = pNum;
+
+    foreach(quint8 s, m_inputs.keys())
+       {
+        QLCInputSource src = m_inputs[s];
+        src.setPage(pNum);
+        setInputSource(src, s);
+    }
 }
 
 int VCWidget::page()
