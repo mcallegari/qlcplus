@@ -48,7 +48,7 @@ public:
     quint32 channel() const;
 
     void setPage(ushort pgNum);
-    ushort page();
+    ushort page() const;
 
 private:
     quint32 m_universe;

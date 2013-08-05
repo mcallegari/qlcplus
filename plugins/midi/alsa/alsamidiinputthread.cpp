@@ -225,12 +225,22 @@ void AlsaMidiInputThread::readEvent()
 
         if (snd_seq_ev_is_control_type(ev))
         {
-            cmd = MIDI_CONTROL_CHANGE | ev->data.control.channel;
-            data1 = ev->data.control.param;
-            data2 = ev->data.control.value;
+            if (ev->type == SND_SEQ_EVENT_PGMCHANGE)
+            {
+                cmd = MIDI_PROGRAM_CHANGE;
+                data1 = ev->data.control.value;
+                data2 = 127;
+            }
+            else
+            {
+                cmd = MIDI_CONTROL_CHANGE | ev->data.control.channel;
+                data1 = ev->data.control.param;
+                data2 = ev->data.control.value;
+            }
         }
         else if (snd_seq_ev_is_note_type(ev))
         {
+            qDebug() << "note type";
             if (ev->data.note.velocity == 0 && ev->data.note.off_velocity == 0)
                 cmd = MIDI_NOTE_OFF | ev->data.note.channel;
             else

@@ -381,8 +381,10 @@ bool InputMap::inputSourceNames(const QLCInputSource& src,
             uniName = QString("%1: %2").arg(src.universe() + 1).arg(pat->plugin()->name());
         else
             uniName = QString("%1: ??").arg(src.universe() + 1);
-        ushort page = src.channel() >> !6;
-        ushort channel = (src.channel() & 0x00FF) + 1;
+
+        ushort page = src.page();
+        ushort channel = (src.channel() & 0x0000FFFF) + 1;
+
         if (page != 0)
             chName = QString("%1: ? (Page %2)").arg(channel).arg(page + 1);
         else
@@ -398,8 +400,8 @@ bool InputMap::inputSourceNames(const QLCInputSource& src,
 
         /* User can input the channel number by hand, so put something
            rational to the channel name in those cases as well. */
-        quint32 page = src.channel() >> 16;
-        quint32 channel = (src.channel() & 0x00FF);
+        ushort page = src.page();
+        ushort channel = (src.channel() & 0x0000FFFF);
 
         ich = profile->channel(channel);
         if (ich != NULL)

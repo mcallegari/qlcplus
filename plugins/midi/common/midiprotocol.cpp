@@ -67,8 +67,8 @@ bool QLCMIDIProtocol::midiToInput(uchar cmd, uchar data1, uchar data2,
             return true;
 
         case MIDI_PROGRAM_CHANGE:
-            *channel = CHANNEL_OFFSET_PROGRAM_CHANGE;
-            *value = MIDI2DMX(data1);
+            *channel = quint32(data1); //CHANNEL_OFFSET_PROGRAM_CHANGE;
+            *value = MIDI2DMX(data2);
             return true;
 
         case MIDI_CHANNEL_AFTERTOUCH:

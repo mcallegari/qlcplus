@@ -91,12 +91,12 @@ quint32 QLCInputSource::channel() const
 
 void QLCInputSource::setPage(ushort pgNum)
 {
-    quint32 chCopy = m_channel & 0x00FF;
+    quint32 chCopy = m_channel & 0x0000FFFF;
     m_channel = ((quint32)pgNum << 16) | chCopy;
 }
 
-ushort QLCInputSource::page()
+ushort QLCInputSource::page() const
 {
-    return m_channel >> 16;
+    return (ushort)(m_channel >> 16);
 }
 

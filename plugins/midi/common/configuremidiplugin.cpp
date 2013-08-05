@@ -155,9 +155,12 @@ QWidget* ConfigureMidiPlugin::createModeWidget(MidiDevice::Mode mode)
     QComboBox* combo = new QComboBox;
     combo->addItem(MidiDevice::modeToString(MidiDevice::Note), MidiDevice::Note);
     combo->addItem(MidiDevice::modeToString(MidiDevice::ControlChange), MidiDevice::ControlChange);
+    combo->addItem(MidiDevice::modeToString(MidiDevice::ProgramChange), MidiDevice::ProgramChange);
 
     if (mode == MidiDevice::ControlChange)
         combo->setCurrentIndex(1);
+    else if (mode == MidiDevice::ProgramChange)
+        combo->setCurrentIndex(2);
     else
         combo->setCurrentIndex(0);
 
