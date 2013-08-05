@@ -108,10 +108,6 @@ public:
     /** send an event to the upper layers */
     void sendValueChanged(quint32 input, QString path, uchar value);
 
-    /** @reimp */
-    void setPageChannels(quint32 input, ushort nextPage, ushort prevPage, ushort pageSet)
-        { Q_UNUSED(input) Q_UNUSED(nextPage); Q_UNUSED(prevPage); Q_UNUSED(pageSet); }
-
     /*********************************************************************
      * Configuration
      *********************************************************************/

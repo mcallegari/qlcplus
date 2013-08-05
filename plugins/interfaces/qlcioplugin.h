@@ -219,16 +219,6 @@ public:
      */
     virtual void sendFeedBack(quint32 inputLine, quint32 channel, uchar value, const QString& key = 0) = 0;
 
-    /**
-     * Function used to set (if requested by the user) pagination functionalities like
-     * next/previous/set to turn a single page device into a multipage one.
-     *
-     * @param nextPage channel number of the next page functionality
-     * @param prevPage channel number of the previous page functionality
-     * @param pageSet channel number of the page set functionality
-     */
-    virtual void setPageChannels(quint32 input, ushort nextPage, ushort prevPage, ushort pageSet) = 0;
-
 signals:
     /**
      * Tells that the value of a channel in an input line has changed and needs
@@ -240,16 +230,6 @@ signals:
      * @param value The newly-changed channel value
      */
     void valueChanged(quint32 input, quint32 channel, uchar value, const QString& key = 0);
-
-    /**
-     * Tells that the page of a plugin device has changed and QLC+ needs to
-     * take some action.
-     *
-     * @param input The input line whose page has changed
-     * @param pagesize The number of channels per page
-     * @param page The current page index
-     */
-    void pageChanged(quint32 input, quint32 pagesize, quint32 page);
 
     /*************************************************************************
      * Configure

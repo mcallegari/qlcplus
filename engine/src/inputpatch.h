@@ -96,16 +96,23 @@ public:
 
 signals:
     void inputValueChanged(quint32 inputUniverse, quint32 channel, uchar value, const QString& key = 0);
-    void inputPageChanged(quint32 inputUniverse, quint32 pagesize, quint32 page);
 
 private slots:
     void slotValueChanged(quint32 input, quint32 channel, uchar value, const QString& key = 0);
-    void slotPageChanged(quint32 input, quint32 pagesize, quint32 page);
 
 private:
     QLCIOPlugin* m_plugin;
     quint32 m_input;
     QLCInputProfile* m_profile;
+
+    /************************************************************************
+     * Pages
+     ************************************************************************/
+
+private:
+    int m_currentPage;
+    ushort m_nextPageCh, m_prevPageCh, m_pageSetCh;
+
 };
 
 #endif
