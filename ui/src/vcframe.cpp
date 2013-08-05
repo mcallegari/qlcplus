@@ -595,7 +595,9 @@ void VCFrame::editProperties()
                          *  all the cloned widgets would respond to the
                          *  same controls
                          */
-                        QListIterator <VCWidget*> it(newWidget->findChildren<VCWidget*>());
+                        QList<VCWidget*>widgetList = newWidget->findChildren<VCWidget*>();
+                        widgetList.append(newWidget);
+                        QListIterator <VCWidget*> it(widgetList);
                         while (it.hasNext() == true)
                         {
                             VCWidget* widget = it.next();
