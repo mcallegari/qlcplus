@@ -37,6 +37,11 @@ VCWidget* StubWidget::createCopy(VCWidget* parent)
     return parent;
 }
 
+void StubWidget::updateFeedback()
+{
+
+}
+
 bool StubWidget::loadXML(const QDomElement* vc_root)
 {
     Q_UNUSED(vc_root);

@@ -335,6 +335,11 @@ public:
      */
     void sendFeedback(int value, quint8 id = 0);
 
+    /**
+     * Send the feedback data again, e.g. after page flip
+     */
+    virtual void updateFeedback() = 0;
+
 protected slots:
     /**
      * Slot that receives external input data. Overwrite in subclasses to
