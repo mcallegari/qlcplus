@@ -376,18 +376,7 @@ void VCFrame::slotSetPage(int pageNum)
             if (page == m_currentPage)
             {
                 widget->show();
-                if (widget->type() == VCWidget::SliderWidget)
-                    ((VCSlider *)widget)->updateFeedback();
-                else if (widget->type() == VCWidget::ButtonWidget)
-                    ((VCButton *)widget)->updateFeedback();
-                else if (widget->type() == VCWidget::XYPadWidget)
-                    ((VCXYPad *)widget)->updateFeedback();
-                else if (widget->type() == VCWidget::CueListWidget)
-                    ((VCCueList *)widget)->updateFeedback();
-                else if (widget->type() == VCWidget::FrameWidget)
-                    ((VCFrame *)widget)->updateFeedback();
-                else if (widget->type() == VCWidget::SoloFrameWidget)
-                    ((VCSoloFrame *)widget)->updateFeedback();
+                widget->updateFeedback();
             }
             else
                 widget->hide();
@@ -440,14 +429,7 @@ void VCFrame::updateFeedback()
     while (it.hasNext() == true)
     {
         VCWidget* child = it.next();
-        if (child->type() == VCWidget::SliderWidget)
-            ((VCSlider *)child)->updateFeedback();
-        else if (child->type() == VCWidget::ButtonWidget)
-            ((VCButton *)child)->updateFeedback();
-        else if (child->type() == VCWidget::XYPadWidget)
-            ((VCXYPad *)child)->updateFeedback();
-        else if (child->type() == VCWidget::CueListWidget)
-            ((VCCueList *)child)->updateFeedback();
+        child->updateFeedback();
     }
 }
 
@@ -536,90 +518,19 @@ void VCFrame::editProperties()
                     VCWidget* child = it.next();
                     if (child->page() == 0 && child->parentWidget() == this)
                     {
-                        VCWidget *newWidget = NULL;
-                        switch(child->type())
-                        {
-                            case VCWidget::ButtonWidget:
-                            {
-                              VCButton *btn = (VCButton *)child->createCopy(this);
-                              newWidget = (VCWidget *)btn;
-                            }
-                            break;
-                            case VCWidget::SliderWidget:
-                            {
-                              VCSlider *slider = (VCSlider *)child->createCopy(this);
-                              newWidget = (VCWidget *)slider;
-                            }
-                            break;
-                            case VCWidget::SpeedDialWidget:
-                            {
-                              VCSpeedDial *dial = (VCSpeedDial *)child->createCopy(this);
-                              newWidget = (VCWidget *)dial;
-                            }
-                            break;
-                            case VCWidget::XYPadWidget:
-                            {
-                              VCXYPad *xy = (VCXYPad *)child->createCopy(this);
-                              newWidget = (VCWidget *)xy;
-                            }
-                            break;
-                            case VCWidget::LabelWidget:
-                            {
-                              VCLabel *label = (VCLabel *)child->createCopy(this);
-                              newWidget = (VCWidget *)label;
-                            }
-                            break;
-                            case VCWidget::CueListWidget:
-                            {
-                              VCCueList *cue = (VCCueList *)child->createCopy(this);
-                              newWidget = (VCWidget *)cue;
-                            }
-                            break;
-                            case VCWidget::FrameWidget:
-                            {
-                              VCFrame *frame = (VCFrame *)child->createCopy(this);
-                              newWidget = (VCWidget *)frame;
-                            }
-                            break;
-                            case VCWidget::SoloFrameWidget:
-                            {
-                              VCSoloFrame *soloframe = (VCSoloFrame *)child->createCopy(this);
-                              newWidget = (VCWidget *)soloframe;
-                            }
-                            break;
-                        }
+                        VCWidget *newWidget = child->createCopy(this);;
                         newWidget->setPage(pg);
+                        newWidget->remapInputSources(pg);
                         newWidget->show();
                         /**
                          *  Remap input sources to the new page, otherwise
                          *  all the cloned widgets would respond to the
                          *  same controls
                          */
-                        QList<VCWidget*>widgetList = newWidget->findChildren<VCWidget*>();
-                        widgetList.append(newWidget);
-                        QListIterator <VCWidget*> it(widgetList);
-                        while (it.hasNext() == true)
+                        foreach( VCWidget* widget, newWidget->findChildren<VCWidget*>())
                         {
-                            VCWidget* widget = it.next();
-                            quint8 sourceIDnum = 1;
-                            if (widget->type() == VCWidget::SpeedDialWidget) sourceIDnum = 2;
-                            else if (widget->type() == VCWidget::XYPadWidget) sourceIDnum = 2;
-                            else if (widget->type() == VCWidget::LabelWidget) sourceIDnum = 0;
-                            else if (widget->type() == VCWidget::CueListWidget) sourceIDnum = 5;
-                            else if (widget->type() == VCWidget::FrameWidget) sourceIDnum = 0;
-                            else if (widget->type() == VCWidget::SoloFrameWidget) sourceIDnum = 0;
-
                             widget->setPage(pg);
-
-                            for (quint8 s = 0; s < sourceIDnum; s++)
-                            {
-                                QLCInputSource src = widget->inputSource(s);
-                                if (src.isValid())
-                                {
-                                    src.setPage(pg);
-                                    widget->setInputSource(src, s);
-                                }
-                            }
+                            widget->remapInputSources(pg);
                         }
 
                         m_pagesMap.insert(newWidget, pg);

@@ -97,17 +97,17 @@ VCFrameProperties::~VCFrameProperties()
 
 bool VCFrameProperties::allowChildren() const
 {
-    return m_allowChildren;
+    return m_allowChildrenCheck->isChecked();
 }
 
 bool VCFrameProperties::allowResize() const
 {
-    return m_allowResize;
+    return m_allowResizeCheck->isChecked();
 }
 
 bool VCFrameProperties::showHeader() const
 {
-    return m_showHeader;
+    return m_showHeaderCheck->isChecked();
 }
 
 QString VCFrameProperties::frameName() const
@@ -117,7 +117,7 @@ QString VCFrameProperties::frameName() const
 
 bool VCFrameProperties::multipageEnabled() const
 {
-    return m_multipageEnabled;
+    return m_enablePaging->isChecked();
 }
 
 bool VCFrameProperties::cloneWidgets() const

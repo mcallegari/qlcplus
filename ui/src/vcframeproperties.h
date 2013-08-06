@@ -85,12 +85,6 @@ protected:
 
 public slots:
     void accept();
-
-private:
-    bool m_allowChildren;
-    bool m_allowResize;
-    bool m_showHeader;
-    bool m_multipageEnabled;
 };
 
 #endif

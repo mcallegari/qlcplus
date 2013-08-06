@@ -506,6 +506,16 @@ QLCInputSource VCWidget::inputSource(quint8 id) const
         return m_inputs[id];
 }
 
+void VCWidget::remapInputSources(int pgNum)
+{
+    foreach(quint8 s, m_inputs.keys())
+    {
+        QLCInputSource src = m_inputs[s];
+        src.setPage(pgNum);
+        setInputSource(src, s);
+    }
+}
+
 void VCWidget::sendFeedback(int value, quint8 id)
 {
     /* Send input feedback */

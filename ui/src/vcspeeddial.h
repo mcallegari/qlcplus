@@ -142,9 +142,13 @@ private:
     QSet <quint32> m_functions;
     SpeedDial* m_dial;
 
-    /************************************************************************
-     * Input value change
-     ************************************************************************/
+    /*********************************************************************
+     * External input
+     *********************************************************************/
+public:
+    /** @reimp */
+    void updateFeedback();
+
 protected slots:
     /** @reimp */
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);

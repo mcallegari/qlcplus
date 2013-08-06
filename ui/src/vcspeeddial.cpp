@@ -201,9 +201,17 @@ void VCSpeedDial::slotDialTapped()
     }
 }
 
-/************************************************************************
- * Input value change
- ************************************************************************/
+/*****************************************************************************
++ * External input
++ *****************************************************************************/
+
+void VCSpeedDial::updateFeedback()
+{
+    int fbv = (int)SCALE(float(m_dial->value()), float(m_absoluteValueMin),
+                     float(m_absoluteValueMax), float(0), float(UCHAR_MAX));
+
+    sendFeedback(fbv, absoluteInputSourceId);
+}
 
 void VCSpeedDial::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {

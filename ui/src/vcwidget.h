@@ -328,12 +328,24 @@ public:
     QLCInputSource inputSource(quint8 id = 0) const;
 
     /**
+     * When cloning a widget on a multipage frame, this function
+     * will remap the original input source to respond to a new
+     * page source
+     */
+    void remapInputSources(int pgNum);
+
+    /**
      * Send feedback to en external controller.
      *
      * @param value value from 0 to 255 to be sent
      * @param id ID of the input source where to send feedback
      */
     void sendFeedback(int value, quint8 id = 0);
+
+    /**
+     * Send the feedback data again, e.g. after page flip
+     */
+    virtual void updateFeedback() = 0;
 
 protected slots:
     /**
