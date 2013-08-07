@@ -1197,13 +1197,14 @@ void SceneEditor::addFixtureTab(Fixture* fixture, quint32 channel)
 
     /* Start off with all channels disabled */
     console->setChecked(false);
-    if (channel != QLCChannel::invalid())
-        console->setChecked(true, channel);
 
     connect(console, SIGNAL(valueChanged(quint32,quint32,uchar)),
             this, SLOT(slotValueChanged(quint32,quint32,uchar)));
     connect(console, SIGNAL(checked(quint32,quint32,bool)),
             this, SLOT(slotChecked(quint32,quint32,bool)));
+
+    if (channel != QLCChannel::invalid())
+        console->setChecked(true, channel);
 }
 
 void SceneEditor::removeFixtureTab(Fixture* fixture)
