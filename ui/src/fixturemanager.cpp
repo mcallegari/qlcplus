@@ -230,7 +230,7 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
         }
         else if (item->data(KColumnName, PROP_GROUP).isValid() == true)
         {
-            // Group selected
+            // Fixture group selected
             m_addAction->setEnabled(true);
             m_removeAction->setEnabled(true);
             m_propertiesAction->setEnabled(false);
@@ -705,7 +705,7 @@ void FixtureManager::slotChannelsGroupSelectionChanged()
                             .arg(chGroup->status(m_doc)));
         }
         m_removeAction->setEnabled(true);
-        m_addAction->setToolTip(tr("Edit group..."));
+        m_propertiesAction->setEnabled(true);
         int selIdx = m_channel_groups_tree->currentIndex().row();
         if (selIdx == 0)
             m_moveUpAction->setEnabled(false);
@@ -722,6 +722,7 @@ void FixtureManager::slotChannelsGroupSelectionChanged()
                   "<P>Click <IMG SRC=\"" ":/edit_remove.png\">" \
                   " to remove the selected groups.</P></BODY></HTML>"));
         m_removeAction->setEnabled(true);
+        m_propertiesAction->setEnabled(false);
     }
     else
     {
@@ -730,7 +731,7 @@ void FixtureManager::slotChannelsGroupSelectionChanged()
                   "click <IMG SRC=\"" ":/edit_add.png\">" \
                   " to add a new channels group.</P></BODY></HTML>"));
         m_removeAction->setEnabled(false);
-        m_addAction->setToolTip(tr("Add group..."));
+        m_propertiesAction->setEnabled(false);
     }
 }
 
@@ -743,7 +744,7 @@ void FixtureManager::slotDoubleClicked(QTreeWidgetItem* item)
 void FixtureManager::slotChannelsGroupDoubleClicked(QTreeWidgetItem*)
 {
     slotChannelsGroupSelectionChanged();
-    addChannelsGroup();
+    editChannelGroupProperties();
 }
 
 void FixtureManager::slotTabChanged(int index)
@@ -1057,19 +1058,7 @@ void FixtureManager::addFixture()
 
 void FixtureManager::addChannelsGroup()
 {
-    ChannelsGroup *group = NULL;
-
-    int selectedCount = m_channel_groups_tree->selectedItems().size();
-
-    if (selectedCount > 0)
-    {
-        QTreeWidgetItem* current = m_channel_groups_tree->selectedItems().first();
-        QVariant var = current->data(KColumnName, PROP_FIXTURE);
-        if (var.isValid() == true)
-            group = m_doc->channelsGroup(var.toUInt());
-    }
-    else
-        group = new ChannelsGroup(m_doc);
+    ChannelsGroup *group = new ChannelsGroup(m_doc);
 
     AddChannelsGroup cs(this, m_doc, group);
     if (cs.exec() == QDialog::Accepted)
@@ -1078,7 +1067,8 @@ void FixtureManager::addChannelsGroup()
         m_doc->addChannelsGroup(group, group->id());
         updateChannelsGroupView();
     }
-
+    else
+        delete group;
 }
 
 void FixtureManager::slotAdd()
@@ -1170,9 +1160,11 @@ void FixtureManager::slotRemove()
         removeFixture();
 }
 
-void FixtureManager::editFixtureProperties(QTreeWidgetItem* item)
+void FixtureManager::editFixtureProperties()
 {
-    Q_ASSERT(item != NULL);
+    QTreeWidgetItem* item = m_fixtures_tree->currentItem();
+    if (item == NULL)
+        return;
 
     QVariant var = item->data(KColumnName, PROP_FIXTURE);
     if (var.isValid() == false)
@@ -1244,6 +1236,29 @@ void FixtureManager::editFixtureProperties(QTreeWidgetItem* item)
     }
 }
 
+void FixtureManager::editChannelGroupProperties()
+{
+    int selectedCount = m_channel_groups_tree->selectedItems().size();
+
+    if (selectedCount > 0)
+    {
+        QTreeWidgetItem* current = m_channel_groups_tree->selectedItems().first();
+        QVariant var = current->data(KColumnName, PROP_FIXTURE);
+        if (var.isValid() == true)
+        {
+            ChannelsGroup *group = m_doc->channelsGroup(var.toUInt());
+
+            AddChannelsGroup cs(this, m_doc, group);
+            if (cs.exec() == QDialog::Accepted)
+            {
+                qDebug() << "CHANNEL GROUP MODIFIED. Count: " << group->getChannels().count();
+                m_doc->addChannelsGroup(group, group->id());
+                updateChannelsGroupView();
+            }
+        }
+    }
+}
+
 int FixtureManager::headCount(const QList <QTreeWidgetItem*>& items) const
 {
     int count = 0;
@@ -1266,13 +1281,10 @@ int FixtureManager::headCount(const QList <QTreeWidgetItem*>& items) const
 
 void FixtureManager::slotProperties()
 {
-    QTreeWidgetItem* item = m_fixtures_tree->currentItem();
-    if (item == NULL)
-        return;
-
-    QVariant var = item->data(KColumnName, PROP_FIXTURE);
-    if (var.isValid() == true)
-        editFixtureProperties(item);
+    if (m_currentTabIndex == 1)
+        editChannelGroupProperties();
+    else
+        editFixtureProperties();
 }
 
 void FixtureManager::slotFadeConfig()
