@@ -1245,12 +1245,12 @@ FixtureConsole* SceneEditor::fixtureConsoleTab(int tab)
 void SceneEditor::setTabChannelState(bool status, Fixture *fixture, quint32 channel)
 {
     Q_ASSERT(fixture != NULL);
+
     if (channel == QLCChannel::invalid())
         return;
 
-    for (int i = m_fixtureFirstTabIndex; i < m_tab->count(); i++)
+    foreach (FixtureConsole* fc, m_consoleList)
     {
-        FixtureConsole* fc = fixtureConsoleTab(i);
         if (fc != NULL && fc->fixture() == fixture->id())
         {
             fc->setChecked(status, channel);
