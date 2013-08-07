@@ -699,7 +699,7 @@ bool VCWidget::loadXMLInput(const QDomElement& root, quint32* uni, quint32* ch) 
 
 bool VCWidget::saveXMLCommon(QDomDocument *doc, QDomElement *widget_root)
 {
-    Q_ASSERT(doc != NULL);
+    Q_UNUSED(doc)
     Q_ASSERT(widget_root != NULL);
 
     /* Caption */
