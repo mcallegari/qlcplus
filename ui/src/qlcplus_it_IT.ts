@@ -318,7 +318,7 @@ p, li { white-space: pre-wrap; }
         <translation>Fixture trovate: %1</translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="567"/>
+        <location filename="addfixture.cpp" line="597"/>
         <source>Dimmers</source>
         <translation>Dimmer</translation>
     </message>
@@ -1962,9 +1962,8 @@ Durata: %3
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Non è stato selezionato nulla&lt;/H1&gt;&lt;P&gt;Seleziona una fixture dalla lista o clicca &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; per aggiungere fixture.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="708"/>
         <source>Edit group...</source>
-        <translation>Modifica gruppo...</translation>
+        <translation type="obsolete">Modifica gruppo...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="721"/>
@@ -1972,157 +1971,156 @@ Durata: %3
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Piu di un gruppo selezionato&lt;/H1&gt;&lt;P&gt;Clicca &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt;per eliminare i gruppi selezionati.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="728"/>
+        <location filename="fixturemanager.cpp" line="729"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a channel group from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add a new channels group.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nessuna selezione&lt;/H1&gt;&lt;P&gt;Seleziona un gruppo di canali dalla lista o clicca &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; per aggiungere un nuovo gruppo di canali.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="733"/>
-        <location filename="fixturemanager.cpp" line="753"/>
+        <location filename="fixturemanager.cpp" line="754"/>
         <source>Add group...</source>
         <translation>Aggiungi gruppo...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="759"/>
-        <location filename="fixturemanager.cpp" line="860"/>
+        <location filename="fixturemanager.cpp" line="760"/>
+        <location filename="fixturemanager.cpp" line="861"/>
         <source>Add fixture...</source>
         <translation>Aggiungi Fixture...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="865"/>
+        <location filename="fixturemanager.cpp" line="866"/>
         <source>Delete items</source>
         <translation>Elimina elementi</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="870"/>
+        <location filename="fixturemanager.cpp" line="871"/>
         <source>Properties...</source>
         <translation>Proprietà...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="875"/>
+        <location filename="fixturemanager.cpp" line="876"/>
         <source>Channels Fade Configuration...</source>
         <translation>Configurazione fade dei canali...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="881"/>
+        <location filename="fixturemanager.cpp" line="882"/>
         <source>Add fixture to group...</source>
         <translation>Aggiungi fixture al gruppo...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="884"/>
+        <location filename="fixturemanager.cpp" line="885"/>
         <source>Remove fixture from group</source>
         <translation>Rimuovi fixture dal gruppo</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="888"/>
+        <location filename="fixturemanager.cpp" line="889"/>
         <source>New Group...</source>
         <translation>Nuovo gruppo...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="891"/>
+        <location filename="fixturemanager.cpp" line="892"/>
         <source>Move group up...</source>
         <translation>Sposta il gruppo in su...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="897"/>
+        <location filename="fixturemanager.cpp" line="898"/>
         <source>Move group down...</source>
         <translation>Sposta il gruppo in giù...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="903"/>
+        <location filename="fixturemanager.cpp" line="904"/>
         <source>Import fixtures...</source>
         <translation>Importa fixture...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="908"/>
+        <location filename="fixturemanager.cpp" line="909"/>
         <source>Export fixtures...</source>
         <translation>Esporta fixture...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="914"/>
+        <location filename="fixturemanager.cpp" line="915"/>
         <source>Remap fixtures...</source>
         <translation>Riassegna fixture...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1096"/>
+        <location filename="fixturemanager.cpp" line="1086"/>
         <source>Do you want to delete the selected items?</source>
         <translation>Vuoi eliminare gli elementi selezionati ?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1139"/>
+        <location filename="fixturemanager.cpp" line="1129"/>
         <source>Delete Channels Group</source>
         <translation>Elimina Gruppo di Canali</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1240"/>
+        <location filename="fixturemanager.cpp" line="1232"/>
         <source>Error</source>
         <translation>Errore</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1241"/>
+        <location filename="fixturemanager.cpp" line="1233"/>
         <source>Please enter a valid address</source>
         <translation>Per favore inserisci un indirizzo valido</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1297"/>
+        <location filename="fixturemanager.cpp" line="1309"/>
         <source>Ungroup fixtures?</source>
         <translation>Separare fixture?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1298"/>
+        <location filename="fixturemanager.cpp" line="1310"/>
         <source>Do you want to ungroup the selected fixtures?</source>
         <translation>Vuoi separare le fixture selezionate ?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1413"/>
+        <location filename="fixturemanager.cpp" line="1425"/>
         <source>Import Fixtures List</source>
         <oldsource>Import Fixture Definition</oldsource>
         <translation>Importa Lista Fixture</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1418"/>
+        <location filename="fixturemanager.cpp" line="1430"/>
         <source>Export Fixtures List As</source>
         <oldsource>Export Fixture Definition As</oldsource>
         <translation>Esporta Lista Fixture Come</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1424"/>
+        <location filename="fixturemanager.cpp" line="1436"/>
         <source>Fixtures List (*%1)</source>
         <oldsource>Fixture Definitions (*%1)</oldsource>
         <translation>Lista Fixture (*%1)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1426"/>
+        <location filename="fixturemanager.cpp" line="1438"/>
         <source>All Files (*.*)</source>
         <translation>Tutti i file (*.*)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1428"/>
+        <location filename="fixturemanager.cpp" line="1440"/>
         <source>All Files (*)</source>
         <translation>Tutti i file (*)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="947"/>
+        <location filename="fixturemanager.cpp" line="948"/>
         <source>Fixture manager</source>
         <translation>Gestione delle fixture</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1014"/>
+        <location filename="fixturemanager.cpp" line="1015"/>
         <source>Generic Dimmer</source>
         <translation>Dimmer generico</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1095"/>
+        <location filename="fixturemanager.cpp" line="1085"/>
         <source>Delete Fixtures</source>
         <translation>Elimina fixture</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1140"/>
+        <location filename="fixturemanager.cpp" line="1130"/>
         <source>Do you want to delete the selected groups?</source>
         <translation>Vuoi eliminare i gruppi selezionati?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1203"/>
+        <location filename="fixturemanager.cpp" line="1195"/>
         <source>Change fixture properties</source>
         <translation>Cambia le proprietà della fixture</translation>
     </message>
@@ -2150,76 +2148,93 @@ Durata: %3
         <translation>Connetti le selezioni...</translation>
     </message>
     <message>
-        <location filename="fixtureremap.ui" line="120"/>
+        <location filename="fixtureremap.ui" line="86"/>
+        <source>Disconnect selections...</source>
+        <translation>Disconnetti le selezioni...</translation>
+    </message>
+    <message>
+        <location filename="fixtureremap.ui" line="89"/>
+        <source>...</source>
+        <translation>...</translation>
+    </message>
+    <message>
+        <location filename="fixtureremap.ui" line="140"/>
         <source>Remapped Fixtures</source>
         <translation>Fixture riassegnate</translation>
     </message>
     <message>
-        <location filename="fixtureremap.ui" line="125"/>
-        <location filename="fixtureremap.ui" line="157"/>
+        <location filename="fixtureremap.ui" line="145"/>
+        <location filename="fixtureremap.ui" line="177"/>
         <source>Address</source>
         <translation>Indirizzo</translation>
     </message>
     <message>
-        <location filename="fixtureremap.ui" line="152"/>
+        <location filename="fixtureremap.ui" line="172"/>
         <source>Source Fixtures</source>
         <translation>Fixture sorgente</translation>
     </message>
     <message>
-        <location filename="fixtureremap.ui" line="205"/>
+        <location filename="fixtureremap.ui" line="223"/>
+        <source>Remap fixture names</source>
+        <translation>Riassegna i nomi delle fixture</translation>
+    </message>
+    <message>
+        <location filename="fixtureremap.ui" line="235"/>
         <source>Destination project name:</source>
         <translation>Nome del progetto di destinazione:</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="104"/>
         <location filename="fixtureremap.cpp" line="106"/>
+        <location filename="fixtureremap.cpp" line="108"/>
         <source> (remapped)</source>
         <translation> (riassegnato)</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="137"/>
-        <location filename="fixtureremap.cpp" line="232"/>
+        <location filename="fixtureremap.cpp" line="139"/>
+        <location filename="fixtureremap.cpp" line="234"/>
         <source>Universe %1</source>
         <translation>Universo %1</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="190"/>
+        <location filename="fixtureremap.cpp" line="192"/>
         <source>Generic Dimmer</source>
         <translation>Dimmer generico</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="273"/>
+        <location filename="fixtureremap.cpp" line="276"/>
         <source>Delete Fixtures</source>
         <translation>Elimina fixture</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="274"/>
+        <location filename="fixtureremap.cpp" line="277"/>
         <source>Do you want to delete the selected items?</source>
         <translation>Vuoi eliminare gli elementi selezionati ?</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="308"/>
-        <location filename="fixtureremap.cpp" line="335"/>
+        <location filename="fixtureremap.cpp" line="313"/>
+        <location filename="fixtureremap.cpp" line="340"/>
+        <location filename="fixtureremap.cpp" line="397"/>
         <source>Invalid selection</source>
         <translation>Selezione non valida</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="309"/>
+        <location filename="fixtureremap.cpp" line="314"/>
+        <location filename="fixtureremap.cpp" line="398"/>
         <source>Please select a source and a target fixture or channel to perform this operation.</source>
         <translation>Selezionare una fixture o un canale di sorgente e di destinazione per eseguire questa operazione.</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="336"/>
+        <location filename="fixtureremap.cpp" line="341"/>
         <source>To perform a fixture remap, please select fixtures on both lists.</source>
         <translation>Per eseguire una riassegnazione di fixture, seleziona una fixture in entrambe le liste.</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="451"/>
+        <location filename="fixtureremap.cpp" line="489"/>
         <source>This might take a while...</source>
         <translation>Questo potrebbe richiedere del tempo...</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="451"/>
+        <location filename="fixtureremap.cpp" line="489"/>
         <source>Cancel</source>
         <translation>Annulla</translation>
     </message>
@@ -3420,24 +3435,24 @@ Durata: %3
         <translation>Tutte le fixture</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1083"/>
-        <location filename="sceneeditor.cpp" line="1084"/>
+        <location filename="sceneeditor.cpp" line="1122"/>
+        <location filename="sceneeditor.cpp" line="1123"/>
         <source>Channels Groups</source>
         <translation>Gruppi di Canali</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="889"/>
-        <location filename="sceneeditor.cpp" line="890"/>
+        <location filename="sceneeditor.cpp" line="901"/>
+        <location filename="sceneeditor.cpp" line="902"/>
         <source>Generic</source>
         <translation>Generico</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="956"/>
+        <location filename="sceneeditor.cpp" line="970"/>
         <source>Remove fixtures</source>
         <translation>Elimina Fixture</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="957"/>
+        <location filename="sceneeditor.cpp" line="971"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Vuoi eliminare le fixture selezionate?</translation>
     </message>
@@ -4201,22 +4216,22 @@ Durata: %3
         <translation>Lista di azioni</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="827"/>
+        <location filename="vccuelist.cpp" line="863"/>
         <source>Fade In</source>
         <translation>Fade In</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="827"/>
+        <location filename="vccuelist.cpp" line="863"/>
         <source>Fade Out</source>
         <translation>Fade Out</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="827"/>
+        <location filename="vccuelist.cpp" line="863"/>
         <source>Duration</source>
         <translation>Durata</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="827"/>
+        <location filename="vccuelist.cpp" line="863"/>
         <source>Notes</source>
         <translation>Note</translation>
     </message>
@@ -5263,7 +5278,7 @@ Durata: %3
         <translation>Sconosciuto</translation>
     </message>
     <message>
-        <location filename="vcwidget.cpp" line="455"/>
+        <location filename="vcwidget.cpp" line="454"/>
         <source>This widget has no properties</source>
         <translation>Questo oggetto non ha proprietà</translation>
     </message>
