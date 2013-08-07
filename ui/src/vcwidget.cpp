@@ -158,13 +158,12 @@ QIcon VCWidget::typeToIcon(int type)
 {
     switch (type)
     {
-
         case ButtonWidget: return QIcon(":/button.png");
         case SliderWidget: return QIcon(":/slider.png");
         case XYPadWidget: return QIcon(":/xypad.png");
         case FrameWidget: return QIcon(":/frame.png");
         case SoloFrameWidget: return QIcon(":/soloframe.png");
-        case SpeedDialWidget: return QIcon(":/knob.png");
+        case SpeedDialWidget: return QIcon(":/speed.png");
         case CueListWidget: return QIcon(":/cuelist.png");
         case LabelWidget: return QIcon(":/label.png");
         case UnknownWidget:

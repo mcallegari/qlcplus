@@ -65,7 +65,6 @@ QList<VCWidget *> VCWidgetSelection::getChildren(VCWidget *obj)
         qDebug() << Q_FUNC_INFO << "append: " << child->caption();
         if (m_filters.isEmpty() || m_filters.contains(child->type()))
             list.append(child);
-        list.append(getChildren(child));
     }
     return list;
 }
