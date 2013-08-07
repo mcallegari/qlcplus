@@ -1,10 +1,12 @@
 qlcplus (4.4.1) stable; urgency=low
 
   * NEW: Added Fixture remapping functionality. It is possibile to perform 1-to-1 or 1-to-many remapping
+  * SceneEditor improvement: when checking a channel group, fixtures are automatically added and channels enabled/disabled
   * Fixed crash when using knobs in percentage mode
   * Fixed copy of a knob resulting in a slider again
   * Fixed Audio Trigger Factory multiple enable issue
   * Fixed most of the VC Cue List crossfade wrong behaviours
+  * ArtNet plugin listens to broadcast address. This makes Enttec ODE to work also on Linux and Windows
   * VC Cue list intensity can now be set before playing
   * Fixtures groups are now saved when exporting fixtures lists
   * Improved audio volume functionality
@@ -109,7 +111,7 @@ qlcplus (4.3.2) stable; urgency=low
   * Improved Show Manager opening speed
   * Sequence items in Show Manager now highlight the selected Sequence step
   * Fixed Show Manager vertical resize when adding a big number of tracks
-  * EFX improvememnts. Direction parameter is now taken into account (thanks to Jano Svitok)
+  * EFX improvements. Direction parameter is now taken into account (thanks to Jano Svitok)
   * Virtual Console Button icons improvements (thanks to Jano Svitok)
   * Virtual Console Frame new options: show/hide header, title font/color, set title with double click
   * Improved binary address display in fixture information panel

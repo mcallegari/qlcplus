@@ -351,6 +351,12 @@ void FixtureRemap::slotAddRemap()
         Fixture *tgtFxi = m_targetDoc->fixture(tgtFxiID);
         Q_ASSERT(tgtFxi != NULL);
 
+        if (m_remapNamesCheck->isChecked())
+        {
+            tgtFxi->setName(srcFxi->name());
+            newRemap.target->setText(KColumnName, srcFxi->name());
+        }
+
         for (quint32 s = 0; s < srcFxi->channels(); s++)
         {
             const QLCChannel* srcCh = srcFxi->channel(s);
