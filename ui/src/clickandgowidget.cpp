@@ -390,20 +390,25 @@ void ClickAndGoWidget::mousePressEvent(QMouseEvent *event)
 
 void ClickAndGoWidget::mouseMoveEvent(QMouseEvent *event)
 {
-    if (m_type != Preset)
-        return;
-    // calculate the index of the resource where the cursor is
-    int floorX = qFloor(event->x() / CELL_W);
-    int floorY = qFloor(event->y() / CELL_H);
-    int tmpCellIDx = (floorY * m_cols) + floorX;
-    if (tmpCellIDx < 0 && tmpCellIDx >= m_resources.length())
-        return;
-    m_cellBarXpos = floorX * CELL_W;
-    m_cellBarYpos = floorY * CELL_H;
-    m_cellBarWidth = event->x() - m_cellBarXpos;
-    m_hoverCellIdx = tmpCellIDx;
-    update();
-    //qDebug() << "Idx:" << m_hoverCellIdx << "X:" << m_cellBarXpos << "mX:" << event->x();
+    if ((m_type == RGB || m_type == CMY) && event->buttons() == Qt::LeftButton)
+    {
+        emit colorChanged(m_image.pixel(event->x(), event->y()));
+    }
+    else if (m_type == Preset)
+    {
+        // calculate the index of the resource where the cursor is
+        int floorX = qFloor(event->x() / CELL_W);
+        int floorY = qFloor(event->y() / CELL_H);
+        int tmpCellIDx = (floorY * m_cols) + floorX;
+        if (tmpCellIDx < 0 && tmpCellIDx >= m_resources.length())
+            return;
+        m_cellBarXpos = floorX * CELL_W;
+        m_cellBarYpos = floorY * CELL_H;
+        m_cellBarWidth = event->x() - m_cellBarXpos;
+        m_hoverCellIdx = tmpCellIDx;
+        update();
+        qDebug() << "Idx:" << m_hoverCellIdx << "X:" << m_cellBarXpos << "mX:" << event->x();
+    }
 }
 
 void ClickAndGoWidget::paintEvent(QPaintEvent *event)
