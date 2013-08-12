@@ -2,7 +2,7 @@
 <FixtureDefinition>
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.4.0</Version>
+  <Version>4.4.1</Version>
   <Author>Lars Kildholt</Author>
  </Creator>
  <Manufacturer>Stairville</Manufacturer>
@@ -31,10 +31,10 @@
  <Mode Name="Alm">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
+   <Dimensions Width="117" Height="140" Weight="3" Depth="420"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="13" DmxConnector="3-pin"/>
+   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
