@@ -247,6 +247,7 @@ fixtures.files += Stairville-Matrixx-FL-110-DMX.qxf
 fixtures.files += Stairville-MH-360.qxf
 fixtures.files += Stairville-MH-X50+.qxf
 fixtures.files += Stairville-PS1500DMX.qxf
+fixtures.files += Stairville-SC-100.qxf
 fixtures.files += Stairville-SC250H.qxf
 fixtures.files += Stairville-ZF-1500.qxf
 fixtures.files += Varytec-Easy-Move-LED-XS-Spot.qxf
