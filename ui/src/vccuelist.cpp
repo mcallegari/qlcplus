@@ -614,13 +614,7 @@ void VCCueList::slotSlider1ValueChanged(int value)
 
     m_runner->adjustIntensity((qreal)value / 100, m_primaryLeft ? m_primaryIndex: m_secondaryIndex);
 
-    if (value == 0 && m_linkCheck->isChecked())
-    {
-        m_runner->stopStep( m_primaryLeft ? m_primaryIndex: m_secondaryIndex);
-        m_primaryLeft = false;
-        switchFunction = true;
-    }
-    else if(m_linkCheck->isChecked() == false && m_runner->runningStepsNumber() == 2)
+    if(m_runner->runningStepsNumber() == 2)
     {
         if (m_primaryLeft == true && value == 0 && m_slider2->value() == 100)
         {
@@ -635,7 +629,6 @@ void VCCueList::slotSlider1ValueChanged(int value)
             switchFunction = true;
         }
     }
-
 
     if (switchFunction)
     {
@@ -663,14 +656,7 @@ void VCCueList::slotSlider2ValueChanged(int value)
 
     m_runner->adjustIntensity((qreal)value / 100, m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
 
-    if (value == 0 && m_linkCheck->isChecked())
-    {
-        m_runner->stopStep(m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
-        m_primaryLeft = true;
-        switchFunction = true;
-    }
-    else if(m_linkCheck->isChecked() == false &&
-            m_runner->runningStepsNumber() == 2)
+    if (m_runner->runningStepsNumber() == 2)
     {
         if (m_primaryLeft == false && value == 0 && m_slider1->value() == 100)
         {
