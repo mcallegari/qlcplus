@@ -447,6 +447,10 @@ void VCCueList::slotStop()
     m_sl1BottomLabel->setStyleSheet(m_noStyle);
     m_sl2BottomLabel->setText("");
     m_sl2BottomLabel->setStyleSheet(m_noStyle);
+    // reset any previously set background
+    QTreeWidgetItem *item = m_tree->topLevelItem(m_secondaryIndex);
+    if (item != NULL)
+        item->setBackground(COL_NUM, m_defCol);
     m_mutex.unlock();
 
     /* Start from the beginning */
@@ -870,6 +874,14 @@ void VCCueList::slotModeChanged(Doc::Mode mode)
             delete m_runner;
         m_runner = NULL;
         m_mutex.unlock();
+        m_sl1BottomLabel->setStyleSheet(m_noStyle);
+        m_sl1BottomLabel->setText("");
+        m_sl2BottomLabel->setStyleSheet(m_noStyle);
+        m_sl2BottomLabel->setText("");
+        // reset any previously set background
+        QTreeWidgetItem *item = m_tree->topLevelItem(m_secondaryIndex);
+        if (item != NULL)
+            item->setBackground(COL_NUM, m_defCol);
     }
 
     m_tree->setEnabled(enable);
