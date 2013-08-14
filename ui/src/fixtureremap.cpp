@@ -24,6 +24,7 @@
 #include <QScrollBar>
 #include <QDir>
 
+#include "audiotriggerfactory.h"
 #include "virtualconsole.h"
 #include "qlcfixturedef.h"
 #include "fixtureremap.h"
@@ -579,7 +580,6 @@ void FixtureRemap::accept()
         progress.setValue((f * 100) / funcNum);
         QApplication::processEvents();
     }
-    progress.hide();
 
     /* **********************************************************************
      * 5- remap Virtual Console widgets
@@ -618,11 +618,28 @@ void FixtureRemap::accept()
     }
 
     /* **********************************************************************
-     * 6- save the remapped project into a new file
+     * 6- remap Audio Trigger channels
+     * ********************************************************************** */
+    AudioTriggerFactory *triggers = AudioTriggerFactory::instance();
+    foreach (AudioBar *bar, triggers->getAudioBars())
+    {
+        if (bar->m_type == AudioBar::DMXBar)
+        {
+            QList <SceneValue> newList = remapSceneValues(bar->m_dmxChannels, sourceList, targetList);
+            // this is crucial: here all the "unmapped" channels will be lost forever !
+            bar->m_dmxChannels.clear();
+            bar->attachDmxChannels(m_doc, newList);
+        }
+    }
+
+    /* **********************************************************************
+     * 7- save the remapped project into a new file
      * ********************************************************************** */
     App *mainApp = (App *)m_doc->parent();
     mainApp->setFileName(m_targetProjectLabel->text());
     mainApp->slotFileSave();
+
+    progress.hide();
 
     /* Close dialog */
     QDialog::accept();

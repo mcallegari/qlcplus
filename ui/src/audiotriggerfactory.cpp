@@ -110,6 +110,15 @@ AudioBar *AudioTriggerFactory::getSpectrumBar(int index)
     return NULL;
 }
 
+QList<AudioBar *> AudioTriggerFactory::getAudioBars()
+{
+    QList <AudioBar *> list;
+    list.append(m_volumeBar);
+    list.append(m_spectrumBars);
+
+    return list;
+}
+
 void AudioTriggerFactory::setSpectrumBarsNumber(int num)
 {
     if (num > m_spectrumBars.count())

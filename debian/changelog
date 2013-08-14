@@ -7,10 +7,12 @@ qlcplus (4.4.1) stable; urgency=low
   * Fixed Audio Trigger Factory multiple enable issue
   * Fixed most of the VC Cue List crossfade wrong behaviours
   * VC Cue list intensity can now be set before playing
+  * Fixtures panel and Function Selection panel now remember their state (thanks to Jano Svitok)
   * ArtNet plugin listens to broadcast address. This makes Enttec ODE to work also on Linux and Windows
   * Fixtures groups are now saved when exporting fixtures lists
   * Improved audio volume functionality
   * Saved a lot of CPU usage during Show playback from the Show panel
+  * Click & Go RGB/CMY can now be set "live" when holding the mouse left button
   * Improved OSC plugin to handle mixed data (like from PureData OSC)
   * Added fixture: QTX SL Series (thanks to Tom Lincoln)
   * Added fixture: Briteq BT W12L10 (thanks to Joep Admiraal)
