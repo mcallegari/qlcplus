@@ -27,6 +27,8 @@ docs.files = \
              fixturegroupeditor.html \
              fixturemanager.html \
              fixturemonitor.html \
+             fixturesremap.html \
+             fixremap.png \
              functionmanager.html \
              functionwizard.html \
              headeditor.html \

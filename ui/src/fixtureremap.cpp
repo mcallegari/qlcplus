@@ -627,7 +627,6 @@ void FixtureRemap::accept()
         {
             QList <SceneValue> newList = remapSceneValues(bar->m_dmxChannels, sourceList, targetList);
             // this is crucial: here all the "unmapped" channels will be lost forever !
-            bar->m_dmxChannels.clear();
             bar->attachDmxChannels(m_doc, newList);
         }
     }
