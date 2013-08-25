@@ -26,6 +26,7 @@
 #include <QtXml>
 
 #include "qlcfile.h"
+#include "qlcmacros.h"
 
 #include "showrunner.h"
 #include "function.h"
@@ -195,6 +196,40 @@ Track* Show::getTrackFromSceneID(quint32 id)
 int Show::getTracksCount()
 {
     return m_tracks.size();
+}
+
+void Show::moveTrack(Track *track, int direction)
+{
+    if (track == NULL)
+        return;
+
+    qint32 trkID = track->id();
+    if (trkID == 0 && direction == -1)
+        return;
+    qint32 maxID = -1;
+    Track *swapTrack = NULL;
+    qint32 swapID = -1;
+    if (direction > 0) swapID = INT_MAX;
+
+    foreach(quint32 id, m_tracks.keys())
+    {
+        qint32 signedID = (qint32)id;
+        if (signedID > maxID) maxID = signedID;
+        if (direction == -1 && signedID > swapID && signedID < trkID)
+            swapID = signedID;
+        else if (direction == 1 && signedID < swapID && signedID > trkID)
+            swapID = signedID;
+    }
+
+    qDebug() << Q_FUNC_INFO << "Direction:" << direction << ", trackID:" << trkID << ", swapID:" << swapID;
+    if (swapID == trkID || (direction > 0 && trkID == maxID))
+        return;
+
+    swapTrack = m_tracks[swapID];
+    m_tracks[swapID] = track;
+    m_tracks[trkID] = swapTrack;
+    track->setId(swapID);
+    swapTrack->setId(trkID);
 }
 
 QList <Track*> Show::tracks() const

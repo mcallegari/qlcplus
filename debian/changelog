@@ -1,7 +1,9 @@
 qlcplus (4.4.1) stable; urgency=low
 
   * NEW: Added Fixture remapping functionality. It is possibile to perform 1-to-1 or 1-to-many remapping
+  * NEW: In Show Manager, tracks can be moved up or down
   * SceneEditor improvement: when checking a channel group, fixtures are automatically added and channels enabled/disabled
+  * Fade out time is now considered out of a step duration
   * Fixed crash when using knobs in percentage mode
   * Fixed copy of a knob resulting in a slider again
   * Fixed Audio Trigger Factory multiple enable issue
@@ -14,6 +16,7 @@ qlcplus (4.4.1) stable; urgency=low
   * Saved a lot of CPU usage during Show playback from the Show panel
   * Click & Go RGB/CMY can now be set "live" when holding the mouse left button
   * Improved OSC plugin to handle mixed data (like from PureData OSC)
+  * Fixed sequence incorrect start time when dragging it
   * Added fixture: QTX SL Series (thanks to Tom Lincoln)
   * Added fixture: Briteq BT W12L10 (thanks to Joep Admiraal)
   * Added fixture: Chauvet COLORdash Batten (thanks to Kurt Malkames)

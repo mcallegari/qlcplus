@@ -138,6 +138,7 @@ signals:
     void viewClicked(QMouseEvent * e);
     void timeChanged(quint32 msec);
     void trackClicked(Track *track);
+    void trackMoved(Track *, int);
 
 public slots:
     void mouseReleaseEvent(QMouseEvent * e);

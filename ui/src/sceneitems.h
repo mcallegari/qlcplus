@@ -163,14 +163,18 @@ public:
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *);
 
 protected slots:
     void slotTrackChanged(quint32 id);
+    void slotMoveUpClicked();
+    void slotMoveDownClicked();
 
 signals:
     void itemClicked(TrackItem *);
     void itemSoloFlagChanged(TrackItem *, bool);
     void itemMuteFlagChanged(TrackItem *, bool);
+    void itemMoveUpDown(Track *, int);
 
 private:
     QString m_name;
@@ -183,6 +187,9 @@ private:
     bool m_isMute;
     QRectF *m_soloRegion;
     bool m_isSolo;
+
+    QAction *m_moveUp;
+    QAction *m_moveDown;
 };
 
 /***************************************************************************************
