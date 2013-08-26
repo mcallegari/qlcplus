@@ -21,6 +21,7 @@ qlcplus (4.4.1) stable; urgency=low
   * Added fixture: Briteq BT W12L10 (thanks to Joep Admiraal)
   * Added fixture: Chauvet COLORdash Batten (thanks to Kurt Malkames)
   * Added fixture: Stairville SC-100 (thanks to Lars Kildholt)
+  * Added fixture: Contest LedColor (thanks to Nicolas K)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 27 August 2013 17:03:04 +0200
 
