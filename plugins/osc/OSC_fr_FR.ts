@@ -54,36 +54,36 @@
         <translation>Ce greffon active les fonctions d&apos;entrée pour les périphériques supportant le protocole OSC.</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="176"/>
-        <location filename="oscplugin.cpp" line="273"/>
+        <location filename="oscplugin.cpp" line="184"/>
+        <location filename="oscplugin.cpp" line="281"/>
         <source>OSC Network</source>
         <translation>Réseau OSC</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="187"/>
+        <location filename="oscplugin.cpp" line="195"/>
         <source>Output</source>
         <translation>Sorties</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="190"/>
-        <location filename="oscplugin.cpp" line="287"/>
+        <location filename="oscplugin.cpp" line="198"/>
+        <location filename="oscplugin.cpp" line="295"/>
         <source>Status: Not ready</source>
         <oldsource>Status: Not open</oldsource>
         <translation>Statut : Pas prêt</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="193"/>
+        <location filename="oscplugin.cpp" line="201"/>
         <source>Address: </source>
         <translation>Adresse :</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="196"/>
-        <location filename="oscplugin.cpp" line="290"/>
+        <location filename="oscplugin.cpp" line="204"/>
+        <location filename="oscplugin.cpp" line="298"/>
         <source>Status: Ready</source>
         <translation>Statut : Prêt</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="284"/>
+        <location filename="oscplugin.cpp" line="292"/>
         <source>Input</source>
         <translation>Entrée</translation>
     </message>

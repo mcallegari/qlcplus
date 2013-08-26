@@ -907,7 +907,7 @@ Celui ci a du être déplacé ou effacé.</translation>
 <context>
     <name>AudioItem</name>
     <message>
-        <location filename="sceneitems.cpp" line="668"/>
+        <location filename="sceneitems.cpp" line="705"/>
         <source>Name: %1
 Start time: %2
 Duration: %3
@@ -918,33 +918,33 @@ Durée : %3
 %4</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="672"/>
+        <location filename="sceneitems.cpp" line="709"/>
         <source>Click to move this audio across the timeline</source>
         <translation>Cliquez afin de déplacer la piste audio sur la timeline</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="687"/>
-        <location filename="sceneitems.cpp" line="1048"/>
+        <location filename="sceneitems.cpp" line="724"/>
+        <location filename="sceneitems.cpp" line="1085"/>
         <source>Preview Left Channel</source>
         <translation>Prévisualisation du Canal Gauche</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="691"/>
+        <location filename="sceneitems.cpp" line="728"/>
         <source>Preview Right Channel</source>
         <translation>Prévisualisation du Canal Droit</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="695"/>
+        <location filename="sceneitems.cpp" line="732"/>
         <source>Preview Stereo Channels</source>
         <translation>Prévisualisation Stéréo</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="700"/>
+        <location filename="sceneitems.cpp" line="737"/>
         <source>Align to cursor</source>
         <translation>Aligner sur le curseur</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="1044"/>
+        <location filename="sceneitems.cpp" line="1081"/>
         <source>Preview Mono</source>
         <translation>Prévisualisation Mono</translation>
     </message>
@@ -2189,57 +2189,57 @@ Durée : %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="106"/>
-        <location filename="fixtureremap.cpp" line="108"/>
+        <location filename="fixtureremap.cpp" line="107"/>
+        <location filename="fixtureremap.cpp" line="109"/>
         <source> (remapped)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="139"/>
-        <location filename="fixtureremap.cpp" line="234"/>
+        <location filename="fixtureremap.cpp" line="140"/>
+        <location filename="fixtureremap.cpp" line="235"/>
         <source>Universe %1</source>
         <translation type="unfinished">Univers %1</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="192"/>
+        <location filename="fixtureremap.cpp" line="193"/>
         <source>Generic Dimmer</source>
         <translation type="unfinished">Dimmer générique</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="276"/>
+        <location filename="fixtureremap.cpp" line="277"/>
         <source>Delete Fixtures</source>
         <translation type="unfinished">Effacer des projecteurs</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="277"/>
+        <location filename="fixtureremap.cpp" line="278"/>
         <source>Do you want to delete the selected items?</source>
         <translation type="unfinished">Voulez vous supprimer les éléments sélectionnés ?</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="313"/>
-        <location filename="fixtureremap.cpp" line="340"/>
-        <location filename="fixtureremap.cpp" line="397"/>
+        <location filename="fixtureremap.cpp" line="314"/>
+        <location filename="fixtureremap.cpp" line="341"/>
+        <location filename="fixtureremap.cpp" line="398"/>
         <source>Invalid selection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="314"/>
-        <location filename="fixtureremap.cpp" line="398"/>
+        <location filename="fixtureremap.cpp" line="315"/>
+        <location filename="fixtureremap.cpp" line="399"/>
         <source>Please select a source and a target fixture or channel to perform this operation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="341"/>
+        <location filename="fixtureremap.cpp" line="342"/>
         <source>To perform a fixture remap, please select fixtures on both lists.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="489"/>
+        <location filename="fixtureremap.cpp" line="490"/>
         <source>This might take a while...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="489"/>
+        <location filename="fixtureremap.cpp" line="490"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3043,45 +3043,45 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
 <context>
     <name>MultiTrackView</name>
     <message>
-        <location filename="multitrackview.cpp" line="403"/>
+        <location filename="multitrackview.cpp" line="404"/>
         <source>Click to move this sequence across the timeline</source>
         <translation>Cliquez afin de déplacer la séquence sur la timeline</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="413"/>
+        <location filename="multitrackview.cpp" line="414"/>
         <source>Click to move this audio across the timeline</source>
         <translation>Cliquez afin de déplacer la piste audio sur la timeline</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="256"/>
+        <location filename="multitrackview.cpp" line="257"/>
         <source>Do you want to DELETE sequence:</source>
         <translation>Voulez vous effacer la séquence :</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="259"/>
-        <location filename="multitrackview.cpp" line="279"/>
-        <location filename="multitrackview.cpp" line="313"/>
+        <location filename="multitrackview.cpp" line="260"/>
+        <location filename="multitrackview.cpp" line="280"/>
+        <location filename="multitrackview.cpp" line="314"/>
         <source>Delete Functions</source>
         <translation>Effacer les Fonctions</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="275"/>
+        <location filename="multitrackview.cpp" line="276"/>
         <source>Do you want to DELETE audio (the source file will NOT be removed):</source>
         <translation>Voulez vous supprimer la piste audio de la timeline (le fichier ne sera pas détruit) :</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="300"/>
+        <location filename="multitrackview.cpp" line="301"/>
         <source>Do you want to DELETE scene:</source>
         <translation>Voulez vous EFFACER la scène :</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="303"/>
+        <location filename="multitrackview.cpp" line="304"/>
         <source>This operation will also DELETE:</source>
         <translation>Ceci effacera aussi :</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="399"/>
-        <location filename="multitrackview.cpp" line="409"/>
+        <location filename="multitrackview.cpp" line="400"/>
+        <location filename="multitrackview.cpp" line="410"/>
         <source>Name: %1
 Start time: %2
 Duration: %3
@@ -3599,7 +3599,7 @@ Durée : %3
 <context>
     <name>SequenceItem</name>
     <message>
-        <location filename="sceneitems.cpp" line="440"/>
+        <location filename="sceneitems.cpp" line="470"/>
         <source>Name: %1
 Start time: %2
 Duration: %3
@@ -3613,12 +3613,12 @@ Durée : %3
 %4</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="444"/>
+        <location filename="sceneitems.cpp" line="474"/>
         <source>Click to move this sequence across the timeline</source>
         <translation>Cliquez afin de déplacer la séquence sur la timeline</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="456"/>
+        <location filename="sceneitems.cpp" line="486"/>
         <source>Align to cursor</source>
         <translation>Aligner sur le curseur</translation>
     </message>
@@ -3674,151 +3674,151 @@ Durée : %3
 <context>
     <name>ShowManager</name>
     <message>
-        <location filename="showmanager.cpp" line="153"/>
+        <location filename="showmanager.cpp" line="155"/>
         <source>New s&amp;how</source>
         <translation>Nouveau S&amp;how</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="159"/>
+        <location filename="showmanager.cpp" line="161"/>
         <source>New &amp;track</source>
         <translation>Nouvelle Pis&amp;te</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="165"/>
+        <location filename="showmanager.cpp" line="167"/>
         <source>New s&amp;equence</source>
         <translation>Nouvelle Séqu&amp;ence</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="171"/>
+        <location filename="showmanager.cpp" line="173"/>
         <source>New &amp;audio</source>
         <translation>Nouvelle Piste &amp;audio</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="177"/>
+        <location filename="showmanager.cpp" line="179"/>
         <source>&amp;Copy</source>
         <translation>&amp;Copier</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="184"/>
+        <location filename="showmanager.cpp" line="186"/>
         <source>&amp;Paste</source>
         <translation>Coller (&amp;P)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="190"/>
+        <location filename="showmanager.cpp" line="192"/>
         <source>&amp;Delete</source>
         <translation>Effacer (&amp;D)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="197"/>
+        <location filename="showmanager.cpp" line="199"/>
         <source>Change Co&amp;lor</source>
         <translation>Cou&amp;leur</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="204"/>
+        <location filename="showmanager.cpp" line="206"/>
         <source>Snap to &amp;Grid</source>
         <translation>&amp;Grille Magnétique</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="211"/>
+        <location filename="showmanager.cpp" line="213"/>
         <source>St&amp;op</source>
         <translation>St&amp;op</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="217"/>
+        <location filename="showmanager.cpp" line="219"/>
         <source>&amp;Play</source>
         <translation>Lecture (&amp;P)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="273"/>
+        <location filename="showmanager.cpp" line="275"/>
         <source>Time division:</source>
         <translation>Division temporelle :</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="278"/>
+        <location filename="showmanager.cpp" line="280"/>
         <source>Time</source>
         <translation>m:s</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="427"/>
+        <location filename="showmanager.cpp" line="429"/>
         <source>New Show</source>
         <translation>Nouveau Show</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="429"/>
+        <location filename="showmanager.cpp" line="431"/>
         <source>Show name setup</source>
         <translation>Définition du nom du Show</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="430"/>
+        <location filename="showmanager.cpp" line="432"/>
         <source>Show name:</source>
         <translation>Nom du Show :</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="466"/>
+        <location filename="showmanager.cpp" line="468"/>
         <source>New Scene</source>
         <translation>Nouvelle Scène</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="497"/>
-        <location filename="showmanager.cpp" line="533"/>
+        <location filename="showmanager.cpp" line="499"/>
+        <location filename="showmanager.cpp" line="535"/>
         <source>New Sequence</source>
         <translation>Nouvelle Séquence</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="521"/>
-        <location filename="showmanager.cpp" line="606"/>
+        <location filename="showmanager.cpp" line="523"/>
+        <location filename="showmanager.cpp" line="608"/>
         <source>Overlapping error</source>
         <translation>Erreur de recouvrement</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="521"/>
-        <location filename="showmanager.cpp" line="606"/>
+        <location filename="showmanager.cpp" line="523"/>
+        <location filename="showmanager.cpp" line="608"/>
         <source>Overlapping not allowed. Operation cancelled.</source>
         <translation>Recouvrement interdit. Opération annulée.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="547"/>
+        <location filename="showmanager.cpp" line="549"/>
         <source>Open Audio File</source>
         <translation>Ouvrir un fichier audio</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="573"/>
+        <location filename="showmanager.cpp" line="575"/>
         <source>Audio Files (%1)</source>
         <translation>Fichiers Audio (%1)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="575"/>
+        <location filename="showmanager.cpp" line="577"/>
         <source>All Files (*.*)</source>
         <translation>Tous les fichiers (*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="577"/>
+        <location filename="showmanager.cpp" line="579"/>
         <source>All Files (*)</source>
         <translation>Tous les fichiers (*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="599"/>
+        <location filename="showmanager.cpp" line="601"/>
         <source>Unsupported audio file</source>
         <translation>Fichier audio non pris en charge</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="599"/>
+        <location filename="showmanager.cpp" line="601"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation>QLC+ n&apos;arrive pas à lire ce fichier audio. Désolé.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="667"/>
-        <location filename="showmanager.cpp" line="689"/>
+        <location filename="showmanager.cpp" line="669"/>
+        <location filename="showmanager.cpp" line="691"/>
         <source>Paste error</source>
         <translation>Erreur de collage</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="667"/>
+        <location filename="showmanager.cpp" line="669"/>
         <source>Overlapping paste not allowed. Operation cancelled.</source>
         <translation>Le collage va chevaucher. Opération annulée.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="689"/>
+        <location filename="showmanager.cpp" line="691"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
         <translation>Scene incompatible avec la copie. Opération annulée.</translation>
     </message>
@@ -3985,6 +3985,19 @@ Durée : %3
         <location filename="speeddialwidget.cpp" line="69"/>
         <source>Hold</source>
         <translation>Maintien</translation>
+    </message>
+</context>
+<context>
+    <name>TrackItem</name>
+    <message>
+        <location filename="sceneitems.cpp" line="304"/>
+        <source>Move up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sceneitems.cpp" line="307"/>
+        <source>Move down</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4221,22 +4234,22 @@ Durée : %3
         <translation>Liste de mémoires</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="863"/>
+        <location filename="vccuelist.cpp" line="853"/>
         <source>Fade In</source>
         <translation>Montée</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="863"/>
+        <location filename="vccuelist.cpp" line="853"/>
         <source>Fade Out</source>
         <translation>Descente</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="863"/>
+        <location filename="vccuelist.cpp" line="853"/>
         <source>Duration</source>
         <translation>Durée</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="863"/>
+        <location filename="vccuelist.cpp" line="853"/>
         <source>Notes</source>
         <translation>Notes</translation>
     </message>
