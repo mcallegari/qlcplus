@@ -204,7 +204,6 @@ fixtures.files += Pro-Lights-XP575-Wash.qxf
 fixtures.files += Proel-Dreamlight-250-Eclipse-Spot.qxf
 fixtures.files += Proel-Moving-Head-3Wx108-LED-RGBW.qxf
 fixtures.files += Proel-Tarkus-575-Spot.qxf
-fixtures.files += QTX-Light-Slimline-RGB-LED-Par-can-[153.778].qxf
 fixtures.files += QTX-SL-Series.qxf
 fixtures.files += ReelEfx-DF-50.qxf
 fixtures.files += Robe-ClubScan-150CT.qxf
