@@ -17,6 +17,7 @@ qlcplus (4.4.1) stable; urgency=low
   * Click & Go RGB/CMY can now be set "live" when holding the mouse left button
   * Improved OSC plugin to handle mixed data (like from PureData OSC)
   * Fixed sequence incorrect start time when dragging it
+  * Added dutch translation (thanks to Raymond Van Laake)
   * Added fixture: QTX SL Series (thanks to Tom Lincoln)
   * Added fixture: Briteq BT W12L10 (thanks to Joep Admiraal)
   * Added fixture: Chauvet COLORdash Batten (thanks to Kurt Malkames)

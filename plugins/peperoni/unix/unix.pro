@@ -23,6 +23,7 @@ TRANSLATIONS += Peperoni_de_DE.ts
 TRANSLATIONS += Peperoni_es_ES.ts
 TRANSLATIONS += Peperoni_fr_FR.ts
 TRANSLATIONS += Peperoni_it_IT.ts
+TRANSLATIONS += Peperoni_nl_NL.ts
 
 # This must be after "TARGET = " and before target installation so that
 # install_name_tool can be run before target installation

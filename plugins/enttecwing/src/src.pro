@@ -40,6 +40,7 @@ TRANSLATIONS += ENTTEC_Wing_de_DE.ts
 TRANSLATIONS += ENTTEC_Wing_es_ES.ts
 TRANSLATIONS += ENTTEC_Wing_fr_FR.ts
 TRANSLATIONS += ENTTEC_Wing_it_IT.ts
+TRANSLATIONS += ENTTEC_Wing_nl_NL.ts
 
 # This must be after "TARGET = " and before target installation so that
 # install_name_tool can be run before target installation

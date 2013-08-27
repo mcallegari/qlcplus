@@ -27,6 +27,7 @@ TRANSLATIONS += Peperoni_de_DE.ts
 TRANSLATIONS += Peperoni_es_ES.ts
 TRANSLATIONS += Peperoni_fr_FR.ts
 TRANSLATIONS += Peperoni_it_IT.ts
+TRANSLATIONS += Peperoni_nl_NL.ts
 
 # Installation
 target.path = $$INSTALLROOT/$$PLUGINDIR

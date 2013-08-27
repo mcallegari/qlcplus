@@ -97,6 +97,7 @@ TRANSLATIONS += DMX_USB_es_ES.ts
 TRANSLATIONS += DMX_USB_fi_FI.ts
 TRANSLATIONS += DMX_USB_fr_FR.ts
 TRANSLATIONS += DMX_USB_it_IT.ts
+TRANSLATIONS += DMX_USB_nl_NL.ts
 
 # This must be after "TARGET = " and before target installation so that
 # install_name_tool can be run before target installation
