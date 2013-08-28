@@ -268,7 +268,7 @@ p, li { white-space: pre-wrap; }
         <translation>Fixtures gevonden: %1</translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="567"/>
+        <location filename="addfixture.cpp" line="597"/>
         <source>Dimmers</source>
         <translation>Dimmers</translation>
     </message>
@@ -849,7 +849,7 @@ The selected file has been moved or deleted.</source>
 <context>
     <name>AudioItem</name>
     <message>
-        <location filename="sceneitems.cpp" line="668"/>
+        <location filename="sceneitems.cpp" line="705"/>
         <source>Name: %1
 Start time: %2
 Duration: %3
@@ -860,33 +860,33 @@ Duur: %3
 %4</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="672"/>
+        <location filename="sceneitems.cpp" line="709"/>
         <source>Click to move this audio across the timeline</source>
         <translation>Klik om deze audio te verplaatsen over de tijdslijn</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="687"/>
-        <location filename="sceneitems.cpp" line="1048"/>
+        <location filename="sceneitems.cpp" line="724"/>
+        <location filename="sceneitems.cpp" line="1085"/>
         <source>Preview Left Channel</source>
         <translation>Preview Left Channel</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="691"/>
+        <location filename="sceneitems.cpp" line="728"/>
         <source>Preview Right Channel</source>
         <translation>Preview Right Channel</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="695"/>
+        <location filename="sceneitems.cpp" line="732"/>
         <source>Preview Stereo Channels</source>
         <translation>Preview Stereo Channels</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="700"/>
+        <location filename="sceneitems.cpp" line="737"/>
         <source>Align to cursor</source>
         <translation>Op lijn brenegn met cursor</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="1044"/>
+        <location filename="sceneitems.cpp" line="1081"/>
         <source>Preview Mono</source>
         <translation>Preview Mono</translation>
     </message>
@@ -1906,9 +1906,8 @@ Maak Fixture Group</translation>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Niets geselecteerd&lt;/H1&gt;&lt;P&gt;Selecteer een fixture van de lijst of klik &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt;om fixtures toe te voegen.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="708"/>
         <source>Edit group...</source>
-        <translation>Wijzig group...</translation>
+        <translation type="obsolete">Wijzig group...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="721"/>
@@ -1916,154 +1915,153 @@ Maak Fixture Group</translation>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Meerder groups geselecteerd&lt;/H1&gt;&lt;P&gt;Klik &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; om geselecteerde groups te verwijderen.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="728"/>
+        <location filename="fixturemanager.cpp" line="729"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a channel group from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add a new channels group.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>HTML&gt;&lt;BODY&gt;&lt;H1&gt;Niets geselecteerd&lt;/H1&gt;&lt;P&gt;Selecteer een channel group van de lijst of klik&lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; om een nieuwe channels group toe te voegen.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="733"/>
-        <location filename="fixturemanager.cpp" line="753"/>
+        <location filename="fixturemanager.cpp" line="754"/>
         <source>Add group...</source>
         <translation>Voeg group toe...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="759"/>
-        <location filename="fixturemanager.cpp" line="860"/>
+        <location filename="fixturemanager.cpp" line="760"/>
+        <location filename="fixturemanager.cpp" line="861"/>
         <source>Add fixture...</source>
         <translation>Voeg fixture toe...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="865"/>
+        <location filename="fixturemanager.cpp" line="866"/>
         <source>Delete items</source>
         <translation>Verwijder items</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="870"/>
+        <location filename="fixturemanager.cpp" line="871"/>
         <source>Properties...</source>
         <translation>Eigenschappen...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="875"/>
+        <location filename="fixturemanager.cpp" line="876"/>
         <source>Channels Fade Configuration...</source>
         <translation>Channels Fade configuratie...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="881"/>
+        <location filename="fixturemanager.cpp" line="882"/>
         <source>Add fixture to group...</source>
         <translation>Voeg fixture toe aan group...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="884"/>
+        <location filename="fixturemanager.cpp" line="885"/>
         <source>Remove fixture from group</source>
         <translation>Verwijder fixture van group</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="888"/>
+        <location filename="fixturemanager.cpp" line="889"/>
         <source>New Group...</source>
         <translation>Nieuwe group...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="891"/>
+        <location filename="fixturemanager.cpp" line="892"/>
         <source>Move group up...</source>
         <translation>Group naar boven...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="897"/>
+        <location filename="fixturemanager.cpp" line="898"/>
         <source>Move group down...</source>
         <translation>Group naar beneden...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="903"/>
+        <location filename="fixturemanager.cpp" line="904"/>
         <source>Import fixtures...</source>
         <translation>Importeer fixtures...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="908"/>
+        <location filename="fixturemanager.cpp" line="909"/>
         <source>Export fixtures...</source>
         <translation>Exporteer fixtures...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="914"/>
+        <location filename="fixturemanager.cpp" line="915"/>
         <source>Remap fixtures...</source>
         <translation>Fixtures herschikken...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="947"/>
+        <location filename="fixturemanager.cpp" line="948"/>
         <source>Fixture manager</source>
         <translation>Fixture manager</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1014"/>
+        <location filename="fixturemanager.cpp" line="1015"/>
         <source>Generic Dimmer</source>
         <translation>Algemene dimmer</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1095"/>
+        <location filename="fixturemanager.cpp" line="1085"/>
         <source>Delete Fixtures</source>
         <translation>Verwijder fixtures</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1096"/>
+        <location filename="fixturemanager.cpp" line="1086"/>
         <source>Do you want to delete the selected items?</source>
         <translation>Wil je de geslecteerde item verwijderen?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1139"/>
+        <location filename="fixturemanager.cpp" line="1129"/>
         <source>Delete Channels Group</source>
         <translation>Verwijder Channels Group</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1140"/>
+        <location filename="fixturemanager.cpp" line="1130"/>
         <source>Do you want to delete the selected groups?</source>
         <translation>Wil je de geselecteerde groups verwijderen?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1203"/>
+        <location filename="fixturemanager.cpp" line="1195"/>
         <source>Change fixture properties</source>
         <translation>Wijzig fixture eigenschappen</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1240"/>
+        <location filename="fixturemanager.cpp" line="1232"/>
         <source>Error</source>
         <translation>Fout</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1241"/>
+        <location filename="fixturemanager.cpp" line="1233"/>
         <source>Please enter a valid address</source>
         <translation>Vul een geldig adres in</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1297"/>
+        <location filename="fixturemanager.cpp" line="1309"/>
         <source>Ungroup fixtures?</source>
         <translation>Fixtures degroeperen?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1298"/>
+        <location filename="fixturemanager.cpp" line="1310"/>
         <source>Do you want to ungroup the selected fixtures?</source>
         <translation>Wil je de geselecteerde fixtures degroeperen?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1413"/>
+        <location filename="fixturemanager.cpp" line="1425"/>
         <source>Import Fixtures List</source>
         <translation>Importeer lijst met fixtures</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1418"/>
+        <location filename="fixturemanager.cpp" line="1430"/>
         <source>Export Fixtures List As</source>
         <translation>Export lijst met fixtures Als</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1424"/>
+        <location filename="fixturemanager.cpp" line="1436"/>
         <source>Fixtures List (*%1)</source>
         <translation>Fixtures Lijst (*%1)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1426"/>
+        <location filename="fixturemanager.cpp" line="1438"/>
         <source>All Files (*.*)</source>
         <translation>Alle bestanden (*.*)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1428"/>
+        <location filename="fixturemanager.cpp" line="1440"/>
         <source>All Files (*)</source>
         <translation>Alle bestanden (*)</translation>
     </message>
@@ -2117,62 +2115,67 @@ Maak Fixture Group</translation>
         <translation>Bron fixtures</translation>
     </message>
     <message>
-        <location filename="fixtureremap.ui" line="225"/>
+        <location filename="fixtureremap.ui" line="223"/>
+        <source>Remap fixture names</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixtureremap.ui" line="235"/>
         <source>Destination project name:</source>
         <translation>Doel project naam:</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="106"/>
-        <location filename="fixtureremap.cpp" line="108"/>
+        <location filename="fixtureremap.cpp" line="107"/>
+        <location filename="fixtureremap.cpp" line="109"/>
         <source> (remapped)</source>
         <translation>(heringedeeld)</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="139"/>
-        <location filename="fixtureremap.cpp" line="234"/>
+        <location filename="fixtureremap.cpp" line="140"/>
+        <location filename="fixtureremap.cpp" line="235"/>
         <source>Universe %1</source>
         <translation>Universe %1</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="192"/>
+        <location filename="fixtureremap.cpp" line="193"/>
         <source>Generic Dimmer</source>
         <translation>Algemene Dimmer</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="276"/>
+        <location filename="fixtureremap.cpp" line="277"/>
         <source>Delete Fixtures</source>
         <translation>Verwijder fixtures</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="277"/>
+        <location filename="fixtureremap.cpp" line="278"/>
         <source>Do you want to delete the selected items?</source>
         <translation>Geselecteerde items verwijderen?</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="313"/>
-        <location filename="fixtureremap.cpp" line="340"/>
-        <location filename="fixtureremap.cpp" line="391"/>
+        <location filename="fixtureremap.cpp" line="314"/>
+        <location filename="fixtureremap.cpp" line="341"/>
+        <location filename="fixtureremap.cpp" line="398"/>
         <source>Invalid selection</source>
         <translation>Ongeldige selectie</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="314"/>
-        <location filename="fixtureremap.cpp" line="392"/>
+        <location filename="fixtureremap.cpp" line="315"/>
+        <location filename="fixtureremap.cpp" line="399"/>
         <source>Please select a source and a target fixture or channel to perform this operation.</source>
         <translation>Selecteer een bron en een doel fixture of channel om deze bewerking uit te voeren.</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="341"/>
+        <location filename="fixtureremap.cpp" line="342"/>
         <source>To perform a fixture remap, please select fixtures on both lists.</source>
         <translation>Om een fixture herindeling uit te voeren dient uit beide lijsten fixtures geselecteerd te worden.</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="483"/>
+        <location filename="fixtureremap.cpp" line="490"/>
         <source>This might take a while...</source>
         <translation>Even geduld a.u.b...</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="483"/>
+        <location filename="fixtureremap.cpp" line="490"/>
         <source>Cancel</source>
         <translation>Annuleren</translation>
     </message>
@@ -2865,44 +2868,44 @@ Terugkoppeling</translation>
         <translation>Onvoldoende permissies om te schrijven naar bestand %1.Mogelijk kunnen wijizgingen aan het profiel niet worden opgeslagen.</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="199"/>
+        <location filename="inputprofileeditor.cpp" line="193"/>
         <source>Missing information</source>
         <translation>Informatie ontbreekt</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="200"/>
+        <location filename="inputprofileeditor.cpp" line="194"/>
         <source>Manufacturer and/or model name is missing.</source>
         <translation>Fabrikant en/of model naam ontbreekt.</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="230"/>
-        <location filename="inputprofileeditor.cpp" line="326"/>
+        <location filename="inputprofileeditor.cpp" line="224"/>
+        <location filename="inputprofileeditor.cpp" line="320"/>
         <source>Channel already exists</source>
         <translation>Channel bestaat al</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="231"/>
-        <location filename="inputprofileeditor.cpp" line="327"/>
+        <location filename="inputprofileeditor.cpp" line="225"/>
+        <location filename="inputprofileeditor.cpp" line="321"/>
         <source>Channel %1 already exists</source>
         <translation>Channel %1 bestaat al</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="253"/>
+        <location filename="inputprofileeditor.cpp" line="247"/>
         <source>Delete channels</source>
         <translation>Verwijder channels</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="254"/>
+        <location filename="inputprofileeditor.cpp" line="248"/>
         <source>Delete all %1 selected channels?</source>
         <translation>Verwijder all %1 geselecteerde channels?</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="367"/>
+        <location filename="inputprofileeditor.cpp" line="361"/>
         <source>Channel wizard activated</source>
         <translation>Channel wizard geactiveerd</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="368"/>
+        <location filename="inputprofileeditor.cpp" line="362"/>
         <source>You have enabled the input channel wizard. After clicking OK, wiggle your mapped input profile&apos;s controls. They should appear into the list. Click the wizard button again to stop channel auto-detection.
 
 Note that the wizard cannot tell the difference between a knob and a slider so you will have to do the change manually.</source>
@@ -2911,12 +2914,12 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
 Noot: de wizard maakt geen onderscheid tussen een knop of een slider, deze zal handmatig aangepast moeten worden.</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="412"/>
+        <location filename="inputprofileeditor.cpp" line="406"/>
         <source>Button %1</source>
         <translation>Knop %1</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="452"/>
+        <location filename="inputprofileeditor.cpp" line="446"/>
         <source>Slider %1</source>
         <translation>Slider %1</translation>
     </message>
@@ -2977,35 +2980,35 @@ Noot: de wizard maakt geen onderscheid tussen een knop of een slider, deze zal h
 <context>
     <name>MultiTrackView</name>
     <message>
-        <location filename="multitrackview.cpp" line="256"/>
+        <location filename="multitrackview.cpp" line="257"/>
         <source>Do you want to DELETE sequence:</source>
         <translation>VERWIJDER sequence:</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="259"/>
-        <location filename="multitrackview.cpp" line="279"/>
-        <location filename="multitrackview.cpp" line="313"/>
+        <location filename="multitrackview.cpp" line="260"/>
+        <location filename="multitrackview.cpp" line="280"/>
+        <location filename="multitrackview.cpp" line="314"/>
         <source>Delete Functions</source>
         <translation>Verwijder functions</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="275"/>
+        <location filename="multitrackview.cpp" line="276"/>
         <source>Do you want to DELETE audio (the source file will NOT be removed):</source>
         <translation>VERWIJDER audio (het bronbestand wordt NIET verwijderd):</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="300"/>
+        <location filename="multitrackview.cpp" line="301"/>
         <source>Do you want to DELETE scene:</source>
         <translation>VERWIJDER scene:</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="303"/>
+        <location filename="multitrackview.cpp" line="304"/>
         <source>This operation will also DELETE:</source>
         <translation>Deze bewerkingen zal tevens VERWIJDEREN:</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="399"/>
-        <location filename="multitrackview.cpp" line="409"/>
+        <location filename="multitrackview.cpp" line="400"/>
+        <location filename="multitrackview.cpp" line="410"/>
         <source>Name: %1
 Start time: %2
 Duration: %3
@@ -3016,12 +3019,12 @@ Duur: %3
 %4</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="403"/>
+        <location filename="multitrackview.cpp" line="404"/>
         <source>Click to move this sequence across the timeline</source>
         <translation>Klik om deze sequence te verplaatsen over de tijdslijn</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="413"/>
+        <location filename="multitrackview.cpp" line="414"/>
         <source>Click to move this audio across the timeline</source>
         <translation>Klik om deze audio te verplaatsen over de tijdslijn</translation>
     </message>
@@ -3374,24 +3377,24 @@ Duur: %3
         <translation>Alle fixtures</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="889"/>
-        <location filename="sceneeditor.cpp" line="890"/>
+        <location filename="sceneeditor.cpp" line="901"/>
+        <location filename="sceneeditor.cpp" line="902"/>
         <source>Generic</source>
         <translation>Algemeen</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="956"/>
+        <location filename="sceneeditor.cpp" line="970"/>
         <source>Remove fixtures</source>
         <translation>Verwijder fixtures</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="957"/>
+        <location filename="sceneeditor.cpp" line="971"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Wil je de geselecteerde fixtures verwijderen?</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1083"/>
-        <location filename="sceneeditor.cpp" line="1084"/>
+        <location filename="sceneeditor.cpp" line="1122"/>
+        <location filename="sceneeditor.cpp" line="1123"/>
         <source>Channels Groups</source>
         <translation>Channel Groups</translation>
     </message>
@@ -3533,7 +3536,7 @@ Duur: %3
 <context>
     <name>SequenceItem</name>
     <message>
-        <location filename="sceneitems.cpp" line="440"/>
+        <location filename="sceneitems.cpp" line="470"/>
         <source>Name: %1
 Start time: %2
 Duration: %3
@@ -3544,12 +3547,12 @@ Duur: %3
 %4</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="444"/>
+        <location filename="sceneitems.cpp" line="474"/>
         <source>Click to move this sequence across the timeline</source>
         <translation>Klik om deze sequence te verplaatsen over de tijdslijn</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="456"/>
+        <location filename="sceneitems.cpp" line="486"/>
         <source>Align to cursor</source>
         <translation>Op lijn brenegn met cursor</translation>
     </message>
@@ -3605,151 +3608,151 @@ Duur: %3
 <context>
     <name>ShowManager</name>
     <message>
-        <location filename="showmanager.cpp" line="153"/>
+        <location filename="showmanager.cpp" line="155"/>
         <source>New s&amp;how</source>
         <translation>Nieuwe s&amp;how</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="159"/>
+        <location filename="showmanager.cpp" line="161"/>
         <source>New &amp;track</source>
         <translation>Nieuwe &amp;track</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="165"/>
+        <location filename="showmanager.cpp" line="167"/>
         <source>New s&amp;equence</source>
         <translation>Nieuwe s&amp;equence</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="171"/>
+        <location filename="showmanager.cpp" line="173"/>
         <source>New &amp;audio</source>
         <translation>Nieuwe &amp;auido</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="177"/>
+        <location filename="showmanager.cpp" line="179"/>
         <source>&amp;Copy</source>
         <translation>&amp;C Kopieeren</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="184"/>
+        <location filename="showmanager.cpp" line="186"/>
         <source>&amp;Paste</source>
         <translation>&amp;Plakken</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="190"/>
+        <location filename="showmanager.cpp" line="192"/>
         <source>&amp;Delete</source>
         <translation>&amp;D Verwijderen</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="197"/>
+        <location filename="showmanager.cpp" line="199"/>
         <source>Change Co&amp;lor</source>
         <translation>Wijzig k&amp;leur</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="204"/>
+        <location filename="showmanager.cpp" line="206"/>
         <source>Snap to &amp;Grid</source>
         <translation>Lij uit op &amp;grid</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="211"/>
+        <location filename="showmanager.cpp" line="213"/>
         <source>St&amp;op</source>
         <translation>St&amp;op</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="217"/>
+        <location filename="showmanager.cpp" line="219"/>
         <source>&amp;Play</source>
         <translation>&amp;Play</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="273"/>
+        <location filename="showmanager.cpp" line="275"/>
         <source>Time division:</source>
         <translation>Tijdsverdeling:</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="278"/>
+        <location filename="showmanager.cpp" line="280"/>
         <source>Time</source>
         <translation>Tijd</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="427"/>
+        <location filename="showmanager.cpp" line="429"/>
         <source>New Show</source>
         <translation>Nieuwe show</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="429"/>
+        <location filename="showmanager.cpp" line="431"/>
         <source>Show name setup</source>
         <translation>Show name setup</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="430"/>
+        <location filename="showmanager.cpp" line="432"/>
         <source>Show name:</source>
         <translation>Show naam:</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="466"/>
+        <location filename="showmanager.cpp" line="468"/>
         <source>New Scene</source>
         <translation>Nieuwe Scene</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="497"/>
-        <location filename="showmanager.cpp" line="533"/>
+        <location filename="showmanager.cpp" line="499"/>
+        <location filename="showmanager.cpp" line="535"/>
         <source>New Sequence</source>
         <translation>Nieuwe Sequence</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="521"/>
-        <location filename="showmanager.cpp" line="606"/>
+        <location filename="showmanager.cpp" line="523"/>
+        <location filename="showmanager.cpp" line="608"/>
         <source>Overlapping error</source>
         <translation>Overlap fout</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="521"/>
-        <location filename="showmanager.cpp" line="606"/>
+        <location filename="showmanager.cpp" line="523"/>
+        <location filename="showmanager.cpp" line="608"/>
         <source>Overlapping not allowed. Operation cancelled.</source>
         <translation>Overlappen niet toegestaan. Bewerking geannuleerd.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="547"/>
+        <location filename="showmanager.cpp" line="549"/>
         <source>Open Audio File</source>
         <translation>Open Audio bestand</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="573"/>
+        <location filename="showmanager.cpp" line="575"/>
         <source>Audio Files (%1)</source>
         <translation>Audio Bestanden (%1)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="575"/>
+        <location filename="showmanager.cpp" line="577"/>
         <source>All Files (*.*)</source>
         <translation>Alle bestanden(*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="577"/>
+        <location filename="showmanager.cpp" line="579"/>
         <source>All Files (*)</source>
         <translation>Alle bestanden (*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="599"/>
+        <location filename="showmanager.cpp" line="601"/>
         <source>Unsupported audio file</source>
         <translation>Niet ondersteunde audio besatnd</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="599"/>
+        <location filename="showmanager.cpp" line="601"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation>Dit audio bestand kan niet worden afgespeeld met QLC+. Excuus.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="667"/>
-        <location filename="showmanager.cpp" line="689"/>
+        <location filename="showmanager.cpp" line="669"/>
+        <location filename="showmanager.cpp" line="691"/>
         <source>Paste error</source>
         <translation>Fout bij plakken</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="667"/>
+        <location filename="showmanager.cpp" line="669"/>
         <source>Overlapping paste not allowed. Operation cancelled.</source>
         <translation>Overlappen niet toegestaan. Bewerking geannuleerd.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="689"/>
+        <location filename="showmanager.cpp" line="691"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
         <translation>Poging om een niet compatibele scene te plannen geannuleerd.</translation>
     </message>
@@ -3916,6 +3919,19 @@ Duur: %3
         <location filename="speeddialwidget.cpp" line="69"/>
         <source>Hold</source>
         <translation>Hold</translation>
+    </message>
+</context>
+<context>
+    <name>TrackItem</name>
+    <message>
+        <location filename="sceneitems.cpp" line="304"/>
+        <source>Move up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sceneitems.cpp" line="307"/>
+        <source>Move down</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4152,22 +4168,22 @@ Duur: %3
         <translation>Cue list</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="863"/>
+        <location filename="vccuelist.cpp" line="853"/>
         <source>Fade In</source>
         <translation>Fade In</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="863"/>
+        <location filename="vccuelist.cpp" line="853"/>
         <source>Fade Out</source>
         <translation>Fade Out</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="863"/>
+        <location filename="vccuelist.cpp" line="853"/>
         <source>Duration</source>
         <translation>Duur</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="863"/>
+        <location filename="vccuelist.cpp" line="853"/>
         <source>Notes</source>
         <translation>Notities</translation>
     </message>
@@ -5211,7 +5227,7 @@ Kies...</translation>
         <translation>Onbekend</translation>
     </message>
     <message>
-        <location filename="vcwidget.cpp" line="455"/>
+        <location filename="vcwidget.cpp" line="454"/>
         <source>This widget has no properties</source>
         <translation>Deze widget heeft geen eigenschappen</translation>
     </message>

@@ -6,12 +6,12 @@
     <message>
         <location filename="peperoni.cpp" line="93"/>
         <source>This plugin provides DMX output support for Peperoni DMX devices.</source>
-        <translation type="unfinished"></translation>
+        <translation>Deze plugin verzorgt DMX output voor Peperoni DMX apparaten.</translation>
     </message>
     <message>
         <location filename="peperoni.cpp" line="127"/>
         <source>Do you wish to re-scan your hardware?</source>
-        <translation type="unfinished"></translation>
+        <translation>Hardware herscannen?</translation>
     </message>
 </context>
 <context>
@@ -19,27 +19,27 @@
     <message>
         <location filename="peperonidevice.cpp" line="149"/>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Onbekend</translation>
     </message>
     <message>
         <location filename="peperonidevice.cpp" line="169"/>
         <source>Device is working correctly.</source>
-        <translation type="unfinished"></translation>
+        <translation>Apparaat werkt correct.</translation>
     </message>
     <message>
         <location filename="peperonidevice.cpp" line="171"/>
         <source>Firmware version: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Firmware versie: %1</translation>
     </message>
     <message>
         <location filename="peperonidevice.cpp" line="177"/>
         <source>Unknown device</source>
-        <translation type="unfinished"></translation>
+        <translation>Onbekend apparaat</translation>
     </message>
     <message>
         <location filename="peperonidevice.cpp" line="180"/>
         <source>Cannot connect to USB device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Verbinden met USB apparaat mislukt.</translation>
     </message>
 </context>
 </TS>

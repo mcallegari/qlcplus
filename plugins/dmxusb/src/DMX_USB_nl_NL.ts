@@ -6,33 +6,33 @@
     <message>
         <location filename="dmxusb.cpp" line="136"/>
         <source>This plugin provides DMX output support for</source>
-        <translation type="unfinished"></translation>
+        <translation>Deze plugin verzorgt DMX output voor</translation>
     </message>
     <message>
         <location filename="dmxusb.cpp" line="139"/>
         <source>and compatible devices.</source>
-        <translation type="unfinished"></translation>
+        <translation>en compatibile apparaten.</translation>
     </message>
     <message>
         <location filename="dmxusb.cpp" line="153"/>
         <source>No output support available.</source>
-        <translation type="unfinished"></translation>
+        <translation>Geen output ondersteuning.</translation>
     </message>
     <message>
         <location filename="dmxusb.cpp" line="155"/>
         <source>Make sure that you have your hardware firmly plugged in. NOTE: FTDI VCP interface is not supported by this plugin.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zorg dat de hardware goed is ingeplugd. NOOT: FTDI VCP interface wordt niet onderstuend door deze plugin.</translation>
     </message>
     <message>
         <location filename="dmxusb.cpp" line="164"/>
         <location filename="dmxusb.cpp" line="231"/>
         <source>Device is operating correctly.</source>
-        <translation type="unfinished"></translation>
+        <translation>Apparaat functioneert correct.</translation>
     </message>
     <message>
         <location filename="dmxusb.cpp" line="218"/>
         <source>No input support available.</source>
-        <translation type="unfinished"></translation>
+        <translation>Geen input ondersteuning.</translation>
     </message>
 </context>
 <context>
@@ -40,22 +40,22 @@
     <message>
         <location filename="dmxusbconfig.cpp" line="46"/>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Ververs</translation>
     </message>
     <message>
         <location filename="dmxusbconfig.cpp" line="47"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Sluiten</translation>
     </message>
     <message>
         <location filename="dmxusbconfig.cpp" line="55"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Naam</translation>
     </message>
     <message>
         <location filename="dmxusbconfig.cpp" line="55"/>
         <source>Serial</source>
-        <translation type="unfinished"></translation>
+        <translation>Serienummer</translation>
     </message>
 </context>
 <context>
@@ -63,32 +63,32 @@
     <message>
         <location filename="enttecdmxusbopen.cpp" line="98"/>
         <source>Protocol</source>
-        <translation type="unfinished"></translation>
+        <translation>Protocol</translation>
     </message>
     <message>
         <location filename="enttecdmxusbopen.cpp" line="103"/>
         <source>DMX Frame Frequency</source>
-        <translation type="unfinished"></translation>
+        <translation>DMX Frame frequentie</translation>
     </message>
     <message>
         <location filename="enttecdmxusbopen.cpp" line="107"/>
         <source>Bad</source>
-        <translation type="unfinished"></translation>
+        <translation>Foutief</translation>
     </message>
     <message>
         <location filename="enttecdmxusbopen.cpp" line="109"/>
         <source>Good</source>
-        <translation type="unfinished"></translation>
+        <translation>Goed</translation>
     </message>
     <message>
         <location filename="enttecdmxusbopen.cpp" line="111"/>
         <source>Patch this widget to a universe to find out.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas deze widget aan een te ontdekken universe.</translation>
     </message>
     <message>
         <location filename="enttecdmxusbopen.cpp" line="112"/>
         <source>System Timer Accuracy</source>
-        <translation type="unfinished"></translation>
+        <translation>System Timer precisie</translation>
     </message>
 </context>
 <context>
@@ -99,7 +99,7 @@
         <location filename="enttecdmxusbprotx.cpp" line="129"/>
         <location filename="ultradmxusbprotx.cpp" line="75"/>
         <source>Protocol</source>
-        <translation type="unfinished"></translation>
+        <translation>Protocol</translation>
     </message>
     <message>
         <location filename="dmx4all.cpp" line="133"/>
@@ -110,7 +110,7 @@
         <location filename="ultradmxusbprotx.cpp" line="63"/>
         <location filename="ultradmxusbprotx.cpp" line="77"/>
         <source>Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Output</translation>
     </message>
     <message>
         <location filename="dmx4all.cpp" line="135"/>
@@ -119,7 +119,7 @@
         <location filename="enttecdmxusbprotx.cpp" line="133"/>
         <location filename="ultradmxusbprotx.cpp" line="79"/>
         <source>Manufacturer</source>
-        <translation type="unfinished"></translation>
+        <translation>Fabrikant</translation>
     </message>
     <message>
         <location filename="dmx4all.cpp" line="138"/>
@@ -127,14 +127,14 @@
         <location filename="enttecdmxusbprotx.cpp" line="136"/>
         <location filename="ultradmxusbprotx.cpp" line="82"/>
         <source>Serial number</source>
-        <translation type="unfinished"></translation>
+        <translation>Serienummer</translation>
     </message>
     <message>
         <location filename="enttecdmxusbprorx.cpp" line="50"/>
         <location filename="enttecdmxusbprorx.cpp" line="52"/>
         <location filename="enttecdmxusbprorx.cpp" line="88"/>
         <source>Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Input</translation>
     </message>
 </context>
 </TS>
