@@ -135,6 +135,7 @@ public slots:
     void slotControlPanic();
     void slotRunningFunctionsChanged();
     void slotDumpDmxIntoFunction();
+    void slotFunctionLiveEdit();
 
     void slotHelpIndex();
     void slotHelpAbout();
@@ -155,6 +156,7 @@ private:
     QAction* m_controlBlackoutAction;
     QAction* m_controlPanicAction;
     QAction* m_dumpDmxAction;
+    QAction* m_liveEditAction;
 
     QAction* m_helpIndexAction;
     QAction* m_helpAboutAction;

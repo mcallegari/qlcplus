@@ -54,6 +54,7 @@ HEADERS += aboutbox.h \
            fixtureselection.h \
            functionmanager.h \
            fixtureremap.h \
+           functionliveeditdialog.h \
            functionselection.h \
            functionwizard.h \
            grandmasterslider.h \
@@ -178,6 +179,7 @@ SOURCES += aboutbox.cpp \
            fixturemanager.cpp \
            fixtureremap.cpp \
            fixtureselection.cpp \
+           functionliveeditdialog.cpp \
            functionmanager.cpp \
            functionselection.cpp \
            functionwizard.cpp \

@@ -25,7 +25,9 @@
 #include <QtGui>
 #include <QtXml>
 
+#include "functionliveeditdialog.h"
 #include "inputoutputmanager.h"
+#include "functionselection.h"
 #include "functionmanager.h"
 #include "virtualconsole.h"
 #include "fixturemanager.h"
@@ -83,6 +85,7 @@ App::App()
     , m_controlBlackoutAction(NULL)
     , m_controlPanicAction(NULL)
     , m_dumpDmxAction(NULL)
+    , m_liveEditAction(NULL)
 
     , m_helpIndexAction(NULL)
     , m_helpAboutAction(NULL)
@@ -467,6 +470,7 @@ void App::slotModeChanged(Doc::Mode mode)
         /* Disable editing features */
         m_fileNewAction->setEnabled(false);
         m_fileOpenAction->setEnabled(false);
+        m_liveEditAction->setEnabled(true);
 
         m_modeToggleAction->setIcon(QIcon(":/design.png"));
         m_modeToggleAction->setText(tr("Design"));
@@ -477,6 +481,7 @@ void App::slotModeChanged(Doc::Mode mode)
         /* Enable editing features */
         m_fileNewAction->setEnabled(true);
         m_fileOpenAction->setEnabled(true);
+        m_liveEditAction->setEnabled(false);
 
         m_modeToggleAction->setIcon(QIcon(":/operate.png"));
         m_modeToggleAction->setText(tr("Operate"));
@@ -527,6 +532,10 @@ void App::initActions()
     connect(m_controlBlackoutAction, SIGNAL(triggered(bool)), this, SLOT(slotControlBlackout()));
     m_controlBlackoutAction->setChecked(m_doc->outputMap()->blackout());
 
+    m_liveEditAction = new QAction(QIcon(":/liveedit.png"), tr("Live edit a function"), this);
+    connect(m_liveEditAction, SIGNAL(triggered()), this, SLOT(slotFunctionLiveEdit()));
+    m_liveEditAction->setEnabled(false);
+
     m_dumpDmxAction = new QAction(QIcon(":/add_dump.png"), tr("Dump DMX values to a function"), this);
     m_dumpDmxAction->setShortcut(QKeySequence(tr("CTRL+D", "Control|Dump DMX")));
     connect(m_dumpDmxAction, SIGNAL(triggered()), this, SLOT(slotDumpDmxIntoFunction()));
@@ -575,6 +584,7 @@ void App::initToolBar()
     widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     m_toolbar->addWidget(widget);
     m_toolbar->addAction(m_dumpDmxAction);
+    m_toolbar->addAction(m_liveEditAction);
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_controlPanicAction);
     m_toolbar->addSeparator();
@@ -924,6 +934,23 @@ void App::slotDumpDmxIntoFunction()
     DmxDumpFactory ddf(m_doc, m_dumpProperties, this);
     if (ddf.exec() != QDialog::Accepted)
         return;
+}
+
+void App::slotFunctionLiveEdit()
+{
+    FunctionSelection fs(this, m_doc);
+    fs.setMultiSelection(false);
+    fs.setFilter(Function::Scene | Function::Chaser | Function::EFX | Function::RGBMatrix);
+    fs.disableFilters(Function::Show | Function::Script | Function::Collection | Function::Audio);
+
+    if (fs.exec() == QDialog::Accepted)
+    {
+        if (fs.selection().count() > 0)
+        {
+            FunctionLiveEditDialog fle(m_doc, fs.selection().first(), this);
+            fle.exec();
+        }
+    }
 }
 
 void App::slotControlFullScreen()
