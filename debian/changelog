@@ -24,6 +24,7 @@ qlcplus (4.4.1) stable; urgency=low
   * Added fixture: Stairville SC-100 (thanks to Lars Kildholt)
   * Added fixture: Contest LedColor (thanks to Nicolas K)
   * Added fixtures: Lanta Fireball P64s, QTX SL [153.778], KAM LED PartyBar (thanks to Brian Ely)
+  * Added fixtures: Stairville MH X25, Stairville SF 1500 (thanks to Veljko Stankov)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 27 August 2013 17:03:04 +0200
 
