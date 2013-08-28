@@ -198,6 +198,7 @@ fixtures.files += Movitec-WL-250.qxf
 fixtures.files += Movitec-WL-575.qxf
 fixtures.files += Nicols-Strob-LED-W.qxf
 fixtures.files += PixelRANGE-PixelPar-44.qxf
+fixtures.files += Pro-Lights-LumiPAR18QPRO.qxf
 fixtures.files += Pro-Lights-V200.qxf
 fixtures.files += Pro-Lights-XP250.qxf
 fixtures.files += Pro-Lights-XP575-Spot.qxf
