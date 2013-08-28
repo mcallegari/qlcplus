@@ -255,6 +255,7 @@ fixtures.files += Stairville-PS1500DMX.qxf
 fixtures.files += Stairville-SC-100.qxf
 fixtures.files += Stairville-SC250H.qxf
 fixtures.files += Stairville-SF-1500.qxf
+fixtures.files += Stairville-xBrick-Full-Colour.qxf
 fixtures.files += Stairville-ZF-1500.qxf
 fixtures.files += Varytec-Easy-Move-LED-XS-Spot.qxf
 fixtures.files += Varytec-Easy-Move-LED-XS-Wash.qxf
