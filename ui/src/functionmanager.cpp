@@ -185,8 +185,8 @@ void FunctionManager::slotDocLoaded()
                     }
                     chaser->replaceStep(step, i);
                     //qDebug() << "************ STEP FIXED *********** total values: " << step.values.count();
-                    i++;
                 }
+                i++;
             }
         }
     }
