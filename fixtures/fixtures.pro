@@ -60,6 +60,7 @@ fixtures.files += Clay-Paky-Atlas.qxf
 fixtures.files += Clay-Paky-Mini-Scan-HPE.qxf
 fixtures.files += Coemar-Stage-Lite-LED.qxf
 fixtures.files += Contest-LedColor.qxf
+fixtures.files += Dune-Lighting-MOVLED60W.qxf
 fixtures.files += Elation-Color-Spot-150.qxf
 fixtures.files += Elation-EVC-MH.qxf
 fixtures.files += Elation-Platinum-Spot-5R.qxf

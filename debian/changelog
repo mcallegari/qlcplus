@@ -22,7 +22,7 @@ qlcplus (4.4.1) stable; urgency=low
   * Added fixture: Briteq BT W12L10 (thanks to Joep Admiraal)
   * Added fixture: Chauvet COLORdash Batten (thanks to Kurt Malkames)
   * Added fixture: Stairville SC-100 (thanks to Lars Kildholt)
-  * Added fixture: Contest LedColor (thanks to Nicolas K)
+  * Added fixtures: Contest LedColor, Dune Lighting MOVLED60W (thanks to Nicolas K)
   * Added fixtures: Lanta Fireball P64s, QTX SL [153.778], KAM LED PartyBar (thanks to Brian Ely)
   * Added fixtures: Stairville MH X25, Stairville SF 1500 (thanks to Veljko Stankov)
 
