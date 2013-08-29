@@ -42,7 +42,7 @@ void ChaserStep_Test::initial()
     QCOMPARE(step.fadeIn, uint(2));
     QCOMPARE(step.hold, uint(3));
     QCOMPARE(step.fadeOut, uint(4));
-    QCOMPARE(step.duration, uint(9));
+    QCOMPARE(step.duration, uint(5));
     QCOMPARE(step.note, QString());
 }
 
@@ -79,14 +79,14 @@ void ChaserStep_Test::variant()
     QCOMPARE(list[1].toUInt(), uint(2));
     QCOMPARE(list[2].toUInt(), uint(3));
     QCOMPARE(list[3].toUInt(), uint(4));
-    QCOMPARE(list[4].toUInt(), uint(9));
+    QCOMPARE(list[4].toUInt(), uint(5));
 
     ChaserStep pets = ChaserStep::fromVariant(var);
     QCOMPARE(pets.fid, uint(1));
     QCOMPARE(pets.fadeIn, uint(2));
     QCOMPARE(pets.hold, uint(3));
     QCOMPARE(pets.fadeOut, uint(4));
-    QCOMPARE(pets.duration, uint(9));
+    QCOMPARE(pets.duration, uint(5));
 }
 
 void ChaserStep_Test::load()
@@ -101,17 +101,19 @@ void ChaserStep_Test::load()
     QDomElement root = doc.createElement("Step");
     root.setAttribute("Number", 5);
     root.setAttribute("FadeIn", 10);
-    root.setAttribute("FadeOut", 15);
-    root.setAttribute("Duration", 20);
-    QDomText text = doc.createTextNode("25");
+    root.setAttribute("Hold", 15);
+    root.setAttribute("FadeOut", 20);
+    root.setAttribute("Duration", 25);
+    QDomText text = doc.createTextNode("30");
     root.appendChild(text);
 
     QVERIFY(step.loadXML(root, number) == true);
     QCOMPARE(number, 5);
     QCOMPARE(step.fadeIn, uint(10));
-    QCOMPARE(step.fadeOut, uint(15));
-    QCOMPARE(step.duration, uint(20));
-    QCOMPARE(step.fid, quint32(25));
+    QCOMPARE(step.hold, uint(15));
+    QCOMPARE(step.fadeOut, uint(20));
+    QCOMPARE(step.duration, uint(25));
+    QCOMPARE(step.fid, quint32(30));
 }
 
 void ChaserStep_Test::save()

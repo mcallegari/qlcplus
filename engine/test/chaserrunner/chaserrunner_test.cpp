@@ -317,11 +317,11 @@ void ChaserRunner_Test::currentDuration()
 
     m_chaser->setDurationMode(Chaser::PerStep);
     cr.m_currentStep = 0;
-    QCOMPARE(cr.currentDuration(), uint(6000));
+    QCOMPARE(cr.currentDuration(), uint(3000));
     cr.m_currentStep = 1;
-    QCOMPARE(cr.currentDuration(), uint(6300));
+    QCOMPARE(cr.currentDuration(), uint(3200));
     cr.m_currentStep = 2;
-    QCOMPARE(cr.currentDuration(), uint(6600));
+    QCOMPARE(cr.currentDuration(), uint(3400));
     cr.m_currentStep = 3; // Nonexistent step
     QCOMPARE(cr.currentDuration(), uint(300)); // Fall back to common speed
 

@@ -446,7 +446,7 @@ void MultiTrackView::setSnapToGrid(bool enable)
 {
     m_snapToGrid = enable;
     if (enable == true)
-        m_header->setHeight(height());
+        m_header->setHeight(m_scene->height());
     else
         m_header->setHeight(HEADER_HEIGHT);
 }
