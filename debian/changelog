@@ -27,7 +27,7 @@ qlcplus (4.4.1) stable; urgency=low
   * Added fixtures: Stairville MH X25, Stairville SF 1500, Pro-Lights LumiPAR18QPRO (thanks to Veljko Stankov)
   * Added fixture: Stairville xBrick Full Colour (thanks to fintch)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 27 August 2013 17:03:04 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Thu, 29 August 2013 12:13:04 +0200
 
 qlcplus (4.4.0) stable; urgency=low
 
