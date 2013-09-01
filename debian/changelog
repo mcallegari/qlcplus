@@ -1,3 +1,8 @@
+qlcplus (4.4.2) stable; urgency=low
+
+  * NEW: Functions now have attributes. They can be controlled by right clicking on a Virtual Console button in operate mode
+  * NEW: added Czech translation (thank to Jan Lachman)
+
 qlcplus (4.4.1) stable; urgency=low
 
   * NEW: Added Fixture remapping functionality. It is possibile to perform 1-to-1 or 1-to-many remapping

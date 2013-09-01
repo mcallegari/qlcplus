@@ -3984,37 +3984,37 @@ Duration: %2
 <context>
     <name>VCButton</name>
     <message>
-        <location filename="vcbutton.cpp" line="86"/>
+        <location filename="vcbutton.cpp" line="88"/>
         <source>Choose...</source>
         <translation>Elige...</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="90"/>
+        <location filename="vcbutton.cpp" line="92"/>
         <source>None</source>
         <translation>Ninguno</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="294"/>
+        <location filename="vcbutton.cpp" line="296"/>
         <source>Select button icon</source>
         <translation>Selecciona el icono del boton</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="295"/>
+        <location filename="vcbutton.cpp" line="297"/>
         <source>Images (%1)</source>
         <translation>Imagen (%1)</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="501"/>
+        <location filename="vcbutton.cpp" line="503"/>
         <source>Toggle Blackout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="503"/>
+        <location filename="vcbutton.cpp" line="505"/>
         <source>Stop ALL functions!</source>
         <translation type="unfinished">Para TODAS las funciones!</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="704"/>
+        <location filename="vcbutton.cpp" line="716"/>
         <source>Icon</source>
         <translation>Icono</translation>
     </message>
@@ -4027,157 +4027,162 @@ Duration: %2
         <translation>Propiedades del Boton</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="20"/>
+        <location filename="vcbuttonproperties.ui" line="305"/>
         <source>General</source>
         <translation>General</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="26"/>
+        <location filename="vcbuttonproperties.ui" line="311"/>
         <source>Button label</source>
         <translation>Etiqueta del Boton</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="33"/>
+        <location filename="vcbuttonproperties.ui" line="318"/>
         <source>Text to display on the button</source>
         <translation>Texto a mostrar en el boton</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="40"/>
+        <location filename="vcbuttonproperties.ui" line="325"/>
         <source>Function</source>
         <translation>Funcion</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="47"/>
+        <location filename="vcbuttonproperties.ui" line="332"/>
         <source>The function that this button controls</source>
         <translation>La funcion que es controlada por este boton</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="57"/>
+        <location filename="vcbuttonproperties.ui" line="342"/>
         <source>Attach a function to this button</source>
         <translation>Enlazar esta funcion a este boton</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="77"/>
+        <location filename="vcbuttonproperties.ui" line="362"/>
         <source>Detach the button&apos;s function attachment</source>
         <translation>Desenlazar esta funcion de este boton</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="100"/>
+        <location filename="vcbuttonproperties.ui" line="76"/>
         <source>Key combination</source>
         <translation>Combinacion de teclas</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="106"/>
+        <location filename="vcbuttonproperties.ui" line="134"/>
         <source>Keyboard combination that toggles this button</source>
         <translation>Combinacion de teclas que pulsan este boton</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="116"/>
+        <location filename="vcbuttonproperties.ui" line="114"/>
         <source>Set a key combination for this button</source>
         <translation>Selecciona una combinacion de teclas para este boton</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="136"/>
+        <location filename="vcbuttonproperties.ui" line="94"/>
         <source>Remove the button&apos;s keyboard shortcut key</source>
         <translation>Eliminar la tecla de acceso para este boton</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="159"/>
+        <location filename="vcbuttonproperties.ui" line="227"/>
         <source>External Input</source>
         <translation>Entrada Externa</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="165"/>
+        <location filename="vcbuttonproperties.ui" line="233"/>
         <source>Input Universe</source>
         <translation>Universo de entrada</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="172"/>
+        <location filename="vcbuttonproperties.ui" line="292"/>
         <source>The input universe that sends data to this widget</source>
         <translation>Universo de entrada que manda datos para este boton</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="182"/>
+        <location filename="vcbuttonproperties.ui" line="240"/>
         <source>Input Channel</source>
         <translation>Canal de entrada</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="189"/>
+        <location filename="vcbuttonproperties.ui" line="282"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
         <translation>canal de entrada del universo que manda datos a este boton</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="218"/>
+        <location filename="vcbuttonproperties.ui" line="253"/>
         <source>Choose an external input universe &amp; channel that this button should listen to.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="279"/>
+        <location filename="vcbuttonproperties.ui" line="59"/>
         <source>Toggle Blackout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="286"/>
+        <location filename="vcbuttonproperties.ui" line="66"/>
         <source>Stop All Functions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="296"/>
+        <location filename="vcbuttonproperties.ui" line="147"/>
         <source>Adjust function intensity when it is running</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="299"/>
+        <location filename="vcbuttonproperties.ui" line="150"/>
         <source>Adjust Function Intensity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="314"/>
+        <location filename="vcbuttonproperties.ui" line="165"/>
         <source>Function&apos;s adjusted intensity percentage when run</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="221"/>
+        <location filename="vcbuttonproperties.ui" line="215"/>
+        <source>Attributes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcbuttonproperties.ui" line="256"/>
         <source>Choose...</source>
         <translation>Elegir...</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="228"/>
+        <location filename="vcbuttonproperties.ui" line="263"/>
         <source>When toggled, you can click an external button to assign it to this virtual console button.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="231"/>
+        <location filename="vcbuttonproperties.ui" line="266"/>
         <source>Auto Detect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="250"/>
+        <location filename="vcbuttonproperties.ui" line="30"/>
         <source>On button press...</source>
         <translation>Cuando se presiona el boton...</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="256"/>
+        <location filename="vcbuttonproperties.ui" line="36"/>
         <source>Toggle the assigned function on/off with this button</source>
         <translation>Bascula on off en este boton</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="259"/>
+        <location filename="vcbuttonproperties.ui" line="39"/>
         <source>Toggle function on/off</source>
         <translation>La funcion bascula on/off</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="269"/>
+        <location filename="vcbuttonproperties.ui" line="49"/>
         <source>Flash the assigned function with this button</source>
         <translation>la funcion se activa en modo flash </translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="272"/>
+        <location filename="vcbuttonproperties.ui" line="52"/>
         <source>Flash function (only for scenes)</source>
         <translation>La funcion se ejecuta en modo Flash</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.cpp" line="133"/>
+        <location filename="vcbuttonproperties.cpp" line="134"/>
         <source>No function</source>
         <translation type="unfinished"></translation>
     </message>
