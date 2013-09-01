@@ -267,6 +267,9 @@ protected:
     bool m_adjustIntensity;
     qreal m_intensityAdjustment;
 
+protected slots:
+    void slotAttributeChanged(int value);
+
     /*********************************************************************
      * Button press / release handlers
      *********************************************************************/

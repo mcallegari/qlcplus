@@ -333,8 +333,8 @@ void VCSlider::slotModeChanged(Doc::Mode mode)
                         this, SLOT(slotPlaybackFunctionRunning(quint32)));
                 connect(function, SIGNAL(stopped(quint32)),
                         this, SLOT(slotPlaybackFunctionStopped(quint32)));
-                connect(function, SIGNAL(intensityChanged(qreal)),
-                        this, SLOT(slotPlaybackFunctionIntensityChanged(qreal)));
+                connect(function, SIGNAL(attributeChanged(int, qreal)),
+                        this, SLOT(slotPlaybackFunctionIntensityChanged(int, qreal)));
             }
         }
     }
@@ -360,8 +360,8 @@ void VCSlider::slotModeChanged(Doc::Mode mode)
                         this, SLOT(slotPlaybackFunctionRunning(quint32)));
                 disconnect(function, SIGNAL(stopped(quint32)),
                         this, SLOT(slotPlaybackFunctionStopped(quint32)));
-                disconnect(function, SIGNAL(intensityChanged(qreal)),
-                        this, SLOT(slotPlaybackFunctionIntensityChanged(qreal)));
+                disconnect(function, SIGNAL(attributeChanged(int,qreal)),
+                        this, SLOT(slotPlaybackFunctionIntensityChanged(int, qreal)));
             }
         }
     }
@@ -748,8 +748,11 @@ void VCSlider::slotPlaybackFunctionStopped(quint32 fid)
     m_externalMovement = false;
 }
 
-void VCSlider::slotPlaybackFunctionIntensityChanged(qreal fraction)
+void VCSlider::slotPlaybackFunctionIntensityChanged(int attrIndex, qreal fraction)
 {
+    if (attrIndex != 0)
+        return;
+
     m_externalMovement = true;
     if (m_slider)
         m_slider->setValue(int(floor((qreal(m_slider->maximum()) * fraction) + 0.5)));
@@ -883,7 +886,7 @@ void VCSlider::writeDMXPlayback(MasterTimer* timer, UniverseArray* ua)
         {
             if (function->stopped() == true)
                 function->start(timer);
-            function->adjustIntensity(intensity);
+            function->adjustAttribute(intensity);
         }
     }
 }

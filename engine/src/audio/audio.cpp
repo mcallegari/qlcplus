@@ -243,11 +243,11 @@ AudioDecoder* Audio::getAudioDecoder()
     return m_decoder;
 }
 
-void Audio::adjustIntensity(qreal fraction)
+void Audio::adjustAttribute(qreal fraction, int)
 {
     if (m_audio_out != NULL)
         m_audio_out->adjustIntensity(fraction);
-    Function::adjustIntensity(fraction);
+    Function::adjustAttribute(fraction);
 }
 
 void Audio::slotTotalTimeChanged(qint64)

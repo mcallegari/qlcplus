@@ -590,9 +590,9 @@ void Chaser::postRun(MasterTimer* timer, UniverseArray* universes)
  * Intensity
  *****************************************************************************/
 
-void Chaser::adjustIntensity(qreal fraction)
+void Chaser::adjustAttribute(qreal fraction, int)
 {
     if (m_runner != NULL)
         m_runner->adjustIntensity(fraction);
-    Function::adjustIntensity(fraction);
+    Function::adjustAttribute(fraction);
 }
