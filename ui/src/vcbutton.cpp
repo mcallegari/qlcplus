@@ -1001,6 +1001,8 @@ void VCButton::mousePressEvent(QMouseEvent* e)
                 QWidget *entryWidget = new QWidget();
                 QHBoxLayout *hbox = new QHBoxLayout(menu);
                 QLabel *label = new QLabel(attr.name);
+                label->setAlignment(Qt::AlignLeft);
+                label->setFixedWidth(100);
                 ClickAndGoSlider *slider = new ClickAndGoSlider(menu);
                 slider->setOrientation(Qt::Horizontal);
                 slider->setStyleSheet(slStyle);

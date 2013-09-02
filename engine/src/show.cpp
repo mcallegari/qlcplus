@@ -49,6 +49,10 @@ Show::Show(Doc* doc) : Function(doc, Function::Show)
   , m_runner(NULL)
 {
     setName(tr("New Show"));
+
+    // Clear attributes here. I want attributes to be mapped
+    // exactly like the Show tracks
+    unregisterAttribute(tr("Intensity"));
 }
 
 Show::~Show()
@@ -153,6 +157,8 @@ bool Show::addTrack(Track *track, quint32 id)
      track->setId(id);
      m_tracks[id] = track;
 
+     registerAttribute(track->name());
+
      return true;
 }
 
@@ -162,6 +168,8 @@ bool Show::removeTrack(quint32 id)
     {
         Track* trk = m_tracks.take(id);
         Q_ASSERT(trk != NULL);
+
+        unregisterAttribute(trk->name());
 
         //emit trackRemoved(id);
         delete trk;
@@ -362,3 +370,25 @@ void Show::slotChildStopped(quint32 fid)
 {
     Q_UNUSED(fid);
 }
+
+/*****************************************************************************
+ * Attributes
+ *****************************************************************************/
+
+void Show::adjustAttribute(qreal fraction, int attributeIndex)
+{
+    Function::adjustAttribute(fraction, attributeIndex);
+
+    if (m_runner != NULL)
+    {
+        QList<Track*> trkList = m_tracks.values();
+        if (trkList.isEmpty() == false &&
+            attributeIndex >= 0 && attributeIndex < trkList.count())
+        {
+            Track *track = trkList.at(attributeIndex);
+            if (track != NULL)
+                m_runner->adjustIntensity(fraction, track);
+        }
+    }
+}
+

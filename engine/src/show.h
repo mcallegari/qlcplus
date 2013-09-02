@@ -153,6 +153,13 @@ protected:
     ShowRunner *m_runner;
     /** Number of currently running children */
     QSet <quint32> m_runningChildren;
+
+    /*************************************************************************
+     * Attributes
+     *************************************************************************/
+public:
+    /** @reimpl */
+    void adjustAttribute(qreal fraction, int attributeIndex = 0);
 };
 
 #endif
