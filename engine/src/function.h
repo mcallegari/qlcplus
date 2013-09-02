@@ -605,6 +605,14 @@ public:
     int registerAttribute(QString name, qreal value = 1.0);
 
     /**
+     * Unregister a previously created attribute for this function.
+     * If the attribute doesn't exist, false will be returned.
+     *
+     * @param name The attribute name
+     */
+    bool unregisterAttribute(QString name);
+
+    /**
      * Adjust the intensity of the function by a fraction.
      *
      * @param fraction Intensity as a fraction (0.0 - 1.0)

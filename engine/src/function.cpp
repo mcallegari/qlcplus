@@ -763,6 +763,19 @@ int Function::registerAttribute(QString name, qreal value)
     return m_attributes.count() - 1;
 }
 
+bool Function::unregisterAttribute(QString name)
+{
+    for( int i = 0; i < m_attributes.count(); i++)
+    {
+        if (m_attributes[i].name == name)
+        {
+            m_attributes.removeAt(i);
+            return true;
+        }
+    }
+    return false;
+}
+
 void Function::adjustAttribute(qreal fraction, int attributeIndex)
 {
     if (attributeIndex >= m_attributes.count())
