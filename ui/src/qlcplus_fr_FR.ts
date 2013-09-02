@@ -4304,6 +4304,11 @@ Durée : %3
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="128"/>
+        <source>Playback</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vccuelistproperties.ui" line="280"/>
         <source>Next Cue</source>
         <translation>Mémoire Suivante</translation>
     </message>
@@ -4331,7 +4336,7 @@ Durée : %3
         <translation>Univers d&apos;entrée</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="206"/>
+        <location filename="vccuelistproperties.ui" line="358"/>
         <source>Input universe for skipping to the next cue</source>
         <translation>Univers d&apos;Entrée pour passer à la mémoire suivante</translation>
     </message>
@@ -4345,12 +4350,12 @@ Durée : %3
         <translation>Canal d&apos;Entrée</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="220"/>
+        <location filename="vccuelistproperties.ui" line="372"/>
         <source>Input channel for skipping to the next cue</source>
         <translation>Canal d&apos;Entrée pour passer à la mémoire suivante</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="240"/>
+        <location filename="vccuelistproperties.ui" line="392"/>
         <source>When toggled, you can click an external button to assign it as the control that skips to the next cue.</source>
         <translation>Cliquez puis appuyez sur une touche de votre controlleur pour assigner une touche qui passera à la mémoire suivante.</translation>
     </message>
@@ -4364,7 +4369,7 @@ Durée : %3
         <translation>Auto-détection</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="253"/>
+        <location filename="vccuelistproperties.ui" line="405"/>
         <source>Choose an input universe/channel for skipping to the next cue</source>
         <translation>Choisir une note et un univers d&apos;Entrée</translation>
     </message>
@@ -4378,78 +4383,77 @@ Durée : %3
         <translation>Choisissez...</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="280"/>
+        <location filename="vccuelistproperties.ui" line="432"/>
         <source>Previous Cue</source>
         <translation>Mémoire Précédente</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="292"/>
+        <location filename="vccuelistproperties.ui" line="444"/>
         <source>The key combination used to step to the previous cue</source>
         <translation>Raccourci clavier pour passer à la mémoire précédente</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="302"/>
+        <location filename="vccuelistproperties.ui" line="454"/>
         <source>Bind a key combination to skip to the previous cue</source>
         <translation>Saisir un raccourci clavier</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="358"/>
+        <location filename="vccuelistproperties.ui" line="510"/>
         <source>Input universe for skipping to the previous cue</source>
         <translation>Univers d&apos;Entrée pour passer à la mémoire précédente</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="372"/>
+        <location filename="vccuelistproperties.ui" line="524"/>
         <source>Input channel for skipping to the previous cue</source>
         <translation>Canal d&apos;Entrée pour passer à la mémoire précédente</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="392"/>
+        <location filename="vccuelistproperties.ui" line="544"/>
         <source>When toggled, you can click an external button to assign it as the control that skips to the previous cue.</source>
         <translation>Cliquez puis appuyez sur une touche de votre controlleur pour assigner une touche qui passera à la mémoire précédente.</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="405"/>
+        <location filename="vccuelistproperties.ui" line="557"/>
         <source>Choose an input universe/channel for skipping to the previous cue</source>
         <translation>Choisir une note et un Univers d&apos;Entrée</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="432"/>
         <source>Stop</source>
-        <translation>Stop</translation>
+        <translation type="obsolete">Stop</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="444"/>
+        <location filename="vccuelistproperties.ui" line="140"/>
         <source>The key combination used to stop the cue list</source>
         <translation>Combinaison de toucher pour arrêter le séquentiel</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="454"/>
+        <location filename="vccuelistproperties.ui" line="150"/>
         <source>Bind a key combination to stop the cue list</source>
         <translation>Saisir un raccourci clavier</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="510"/>
+        <location filename="vccuelistproperties.ui" line="206"/>
         <location filename="vccuelistproperties.ui" line="603"/>
         <location filename="vccuelistproperties.ui" line="676"/>
         <source>Input universe for stopping the cue list</source>
         <translation>Univers d&apos;Entrée</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="524"/>
+        <location filename="vccuelistproperties.ui" line="220"/>
         <location filename="vccuelistproperties.ui" line="617"/>
         <location filename="vccuelistproperties.ui" line="690"/>
         <source>Input channel for stopping the cue list</source>
         <translation>Note pour arrêter le séquentiel</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="544"/>
+        <location filename="vccuelistproperties.ui" line="240"/>
         <location filename="vccuelistproperties.ui" line="637"/>
         <location filename="vccuelistproperties.ui" line="710"/>
         <source>When toggled, you can click an external button to assign it as the control that stops the cue list</source>
         <translation>Cliquez puis appuyez sur une touche de votre controlleur pour assigner une touche qui arrêtera le séquentiel</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="557"/>
+        <location filename="vccuelistproperties.ui" line="253"/>
         <location filename="vccuelistproperties.ui" line="650"/>
         <location filename="vccuelistproperties.ui" line="723"/>
         <source>Choose an input universe/channel for stopping the cue list</source>
@@ -4477,12 +4481,12 @@ Durée : %3
         <translation>...</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="140"/>
+        <location filename="vccuelistproperties.ui" line="292"/>
         <source>The key combination used to step to the next cue</source>
         <translation>La combinaison de touches utilisée pour aller au prochain pas</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="150"/>
+        <location filename="vccuelistproperties.ui" line="302"/>
         <source>Bind a key combination to skip to the next cue</source>
         <translation>Lier une combinaison de touches pour aller vers la prochaine mémoire</translation>
     </message>

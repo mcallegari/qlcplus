@@ -4243,6 +4243,11 @@ Duur: %3
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="128"/>
+        <source>Playback</source>
+        <translation type="unfinished">Playback</translation>
+    </message>
+    <message>
+        <location filename="vccuelistproperties.ui" line="280"/>
         <source>Next Cue</source>
         <translation>Volgende cue</translation>
     </message>
@@ -4254,12 +4259,12 @@ Duur: %3
         <translation>Toetscombinatie</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="140"/>
+        <location filename="vccuelistproperties.ui" line="292"/>
         <source>The key combination used to step to the next cue</source>
         <translation>Toets combinatie om naar de volgende cue te gaan</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="150"/>
+        <location filename="vccuelistproperties.ui" line="302"/>
         <source>Bind a key combination to skip to the next cue</source>
         <translation>Wijs een toets combinatie toe om naar de volgende cue te springen</translation>
     </message>
@@ -4287,7 +4292,7 @@ Duur: %3
         <translation>Input Universe</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="206"/>
+        <location filename="vccuelistproperties.ui" line="358"/>
         <source>Input universe for skipping to the next cue</source>
         <translation>Input universe om naar de volgende cue te springen</translation>
     </message>
@@ -4301,12 +4306,12 @@ Duur: %3
         <translation>Input Channel</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="220"/>
+        <location filename="vccuelistproperties.ui" line="372"/>
         <source>Input channel for skipping to the next cue</source>
         <translation>Input channel om naar de volgende cue te gaan</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="240"/>
+        <location filename="vccuelistproperties.ui" line="392"/>
         <source>When toggled, you can click an external button to assign it as the control that skips to the next cue.</source>
         <translation>Indien aangezet is het mogelijk een externe knop te koppelen die naar de volgende cue springt.</translation>
     </message>
@@ -4320,7 +4325,7 @@ Duur: %3
         <translation>Auto Detectie</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="253"/>
+        <location filename="vccuelistproperties.ui" line="405"/>
         <source>Choose an input universe/channel for skipping to the next cue</source>
         <translation>Kies een input universe/channel om naar de volgende cue te springen</translation>
     </message>
@@ -4334,78 +4339,77 @@ Duur: %3
         <translation>Kies...</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="280"/>
+        <location filename="vccuelistproperties.ui" line="432"/>
         <source>Previous Cue</source>
         <translation>Vorige cue</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="292"/>
+        <location filename="vccuelistproperties.ui" line="444"/>
         <source>The key combination used to step to the previous cue</source>
         <translation>Toets combinatie om naar de vorige cue te gaan</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="302"/>
+        <location filename="vccuelistproperties.ui" line="454"/>
         <source>Bind a key combination to skip to the previous cue</source>
         <translation>Wijs een toets combinatie toe om naar de vorige cue te springen</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="358"/>
+        <location filename="vccuelistproperties.ui" line="510"/>
         <source>Input universe for skipping to the previous cue</source>
         <translation>Input universe om naar de vorige cue te springen</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="372"/>
+        <location filename="vccuelistproperties.ui" line="524"/>
         <source>Input channel for skipping to the previous cue</source>
         <translation>Input universe om naar de vorige cue te springen</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="392"/>
+        <location filename="vccuelistproperties.ui" line="544"/>
         <source>When toggled, you can click an external button to assign it as the control that skips to the previous cue.</source>
         <translation>Indien aangezet is het mogelijk een externe knop te koppelen die naar de vorige cue springt.</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="405"/>
+        <location filename="vccuelistproperties.ui" line="557"/>
         <source>Choose an input universe/channel for skipping to the previous cue</source>
         <translation>Kies een input universe/channel om naar de vorige cue te springen</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="432"/>
         <source>Stop</source>
-        <translation>Stop</translation>
+        <translation type="obsolete">Stop</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="444"/>
+        <location filename="vccuelistproperties.ui" line="140"/>
         <source>The key combination used to stop the cue list</source>
         <translation>Toets combinatie om de cue te stoppen</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="454"/>
+        <location filename="vccuelistproperties.ui" line="150"/>
         <source>Bind a key combination to stop the cue list</source>
         <translation>Wijs een toets combinatie toe om de cue te stoppen</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="510"/>
+        <location filename="vccuelistproperties.ui" line="206"/>
         <location filename="vccuelistproperties.ui" line="603"/>
         <location filename="vccuelistproperties.ui" line="676"/>
         <source>Input universe for stopping the cue list</source>
         <translation>Input universe om nde cue te stoppen</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="524"/>
+        <location filename="vccuelistproperties.ui" line="220"/>
         <location filename="vccuelistproperties.ui" line="617"/>
         <location filename="vccuelistproperties.ui" line="690"/>
         <source>Input channel for stopping the cue list</source>
         <translation>Input channel om de  cue te stoppen</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="544"/>
+        <location filename="vccuelistproperties.ui" line="240"/>
         <location filename="vccuelistproperties.ui" line="637"/>
         <location filename="vccuelistproperties.ui" line="710"/>
         <source>When toggled, you can click an external button to assign it as the control that stops the cue list</source>
         <translation>Indien aangezet is het mogelijk een externe knop te koppelen die de cue stopt</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="557"/>
+        <location filename="vccuelistproperties.ui" line="253"/>
         <location filename="vccuelistproperties.ui" line="650"/>
         <location filename="vccuelistproperties.ui" line="723"/>
         <source>Choose an input universe/channel for stopping the cue list</source>

@@ -4299,6 +4299,11 @@ Durata: %3
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="128"/>
+        <source>Playback</source>
+        <translation>Riproduzione</translation>
+    </message>
+    <message>
+        <location filename="vccuelistproperties.ui" line="280"/>
         <source>Next Cue</source>
         <translation>Azione successiva</translation>
     </message>
@@ -4326,7 +4331,7 @@ Durata: %3
         <translation>Universo di Ingresso</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="206"/>
+        <location filename="vccuelistproperties.ui" line="358"/>
         <source>Input universe for skipping to the next cue</source>
         <translation>Universo di ingresso per passare alla prossima azione nella lista</translation>
     </message>
@@ -4340,12 +4345,12 @@ Durata: %3
         <translation>Canale di ingresso</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="220"/>
+        <location filename="vccuelistproperties.ui" line="372"/>
         <source>Input channel for skipping to the next cue</source>
         <translation>Canale di ingresso per passare all&apos;azione successiva nella lista</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="240"/>
+        <location filename="vccuelistproperties.ui" line="392"/>
         <source>When toggled, you can click an external button to assign it as the control that skips to the next cue.</source>
         <translation>Quando attivato, puoi cliccare su di un bottone esterno in modo da assegnarlo per il passaggio all&apos;azione successiva.</translation>
     </message>
@@ -4359,7 +4364,7 @@ Durata: %3
         <translation>Auto Apprendimento</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="253"/>
+        <location filename="vccuelistproperties.ui" line="405"/>
         <source>Choose an input universe/channel for skipping to the next cue</source>
         <translation>Scegli un universo/canale di ingresso per passare all&apos;azione successiva</translation>
     </message>
@@ -4373,78 +4378,77 @@ Durata: %3
         <translation>Scegli...</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="280"/>
+        <location filename="vccuelistproperties.ui" line="432"/>
         <source>Previous Cue</source>
         <translation>Azione precedente</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="292"/>
+        <location filename="vccuelistproperties.ui" line="444"/>
         <source>The key combination used to step to the previous cue</source>
         <translation>Combinazione di tasti usata per passare all&apos;azione precedente</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="302"/>
+        <location filename="vccuelistproperties.ui" line="454"/>
         <source>Bind a key combination to skip to the previous cue</source>
         <translation>Associa una combinazione di tasti per passare all&apos;azione precedente</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="358"/>
+        <location filename="vccuelistproperties.ui" line="510"/>
         <source>Input universe for skipping to the previous cue</source>
         <translation>Universo d&apos;ingresso per passare all&apos;azione precedente</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="372"/>
+        <location filename="vccuelistproperties.ui" line="524"/>
         <source>Input channel for skipping to the previous cue</source>
         <translation>Canale d&apos;ingresso per passare all&apos;azione precedente</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="392"/>
+        <location filename="vccuelistproperties.ui" line="544"/>
         <source>When toggled, you can click an external button to assign it as the control that skips to the previous cue.</source>
         <translation>Quando attivato, puoi cliccare su di un bottone esterno in modo da assegnarlo per il passaggio all&apos;azione precedente.</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="405"/>
+        <location filename="vccuelistproperties.ui" line="557"/>
         <source>Choose an input universe/channel for skipping to the previous cue</source>
         <translation>Scegli un universo/canale di ingresso per passare all&apos;azione precedente</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="432"/>
         <source>Stop</source>
-        <translation>Stop</translation>
+        <translation type="obsolete">Stop</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="444"/>
+        <location filename="vccuelistproperties.ui" line="140"/>
         <source>The key combination used to stop the cue list</source>
         <translation>La combinazione di tasti usata per fermare la lista di azioni</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="454"/>
+        <location filename="vccuelistproperties.ui" line="150"/>
         <source>Bind a key combination to stop the cue list</source>
         <translation>Imposta una combinazione di tasti per interrompere la lista di azioni</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="510"/>
+        <location filename="vccuelistproperties.ui" line="206"/>
         <location filename="vccuelistproperties.ui" line="603"/>
         <location filename="vccuelistproperties.ui" line="676"/>
         <source>Input universe for stopping the cue list</source>
         <translation>Universo di Ingresso per interrompere la lista di azioni</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="524"/>
+        <location filename="vccuelistproperties.ui" line="220"/>
         <location filename="vccuelistproperties.ui" line="617"/>
         <location filename="vccuelistproperties.ui" line="690"/>
         <source>Input channel for stopping the cue list</source>
         <translation>Canale di ingresso per interrompere la lista di azioni</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="544"/>
+        <location filename="vccuelistproperties.ui" line="240"/>
         <location filename="vccuelistproperties.ui" line="637"/>
         <location filename="vccuelistproperties.ui" line="710"/>
         <source>When toggled, you can click an external button to assign it as the control that stops the cue list</source>
         <translation>Quando premuto, puoi cliccare un bottone esterno per assegnarlo come controllo che interrompe la lista di azioni</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="557"/>
+        <location filename="vccuelistproperties.ui" line="253"/>
         <location filename="vccuelistproperties.ui" line="650"/>
         <location filename="vccuelistproperties.ui" line="723"/>
         <source>Choose an input universe/channel for stopping the cue list</source>
@@ -4472,12 +4476,12 @@ Durata: %3
         <translation>...</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="140"/>
+        <location filename="vccuelistproperties.ui" line="292"/>
         <source>The key combination used to step to the next cue</source>
         <translation>La combinazione di tasti usata per passare alla prossima lista d&apos;Azione</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="150"/>
+        <location filename="vccuelistproperties.ui" line="302"/>
         <source>Bind a key combination to skip to the next cue</source>
         <translation>Imposta una combinazione di tasti per passare alla prossima lista d&apos;Azione</translation>
     </message>

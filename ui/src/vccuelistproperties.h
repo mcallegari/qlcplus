@@ -102,21 +102,21 @@ protected:
     QLCInputSource m_previousInputSource;
 
     /************************************************************************
-     * Stop Cue List
+     * Cue List Playback
      ************************************************************************/
 protected slots:
-    void slotStopAttachClicked();
-    void slotStopDetachClicked();
-    void slotStopChooseInputClicked();
-    void slotStopAutoDetectInputToggled(bool checked);
-    void slotStopInputValueChanged(quint32 uni, quint32 ch);
+    void slotPlaybackAttachClicked();
+    void slotPlaybackDetachClicked();
+    void slotPlaybackChooseInputClicked();
+    void slotPlaybackAutoDetectInputToggled(bool checked);
+    void slotPlaybackInputValueChanged(quint32 uni, quint32 ch);
 
 protected:
-    void updateStopInputSource();
+    void updatePlaybackInputSource();
 
 protected:
-    QKeySequence m_stopKeySequence;
-    QLCInputSource m_stopInputSource;
+    QKeySequence m_playbackKeySequence;
+    QLCInputSource m_playbackInputSource;
 
     /************************************************************************
      * Crossfade Cue List

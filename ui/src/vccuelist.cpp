@@ -60,7 +60,7 @@
 
 const quint8 VCCueList::nextInputSourceId = 0;
 const quint8 VCCueList::previousInputSourceId = 1;
-const quint8 VCCueList::stopInputSourceId = 2;
+const quint8 VCCueList::playbackInputSourceId = 2;
 const quint8 VCCueList::cf1InputSourceId = 3;
 const quint8 VCCueList::cf2InputSourceId = 4;
 
@@ -209,7 +209,7 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
     m_nextLatestValue = 0;
     m_previousLatestValue = 0;
-    m_stopLatestValue = 0;
+    m_playbackLatestValue = 0;
 }
 
 VCCueList::~VCCueList()
@@ -247,7 +247,7 @@ bool VCCueList::copyFrom(VCWidget* widget)
     /* Key sequence */
     setNextKeySequence(cuelist->nextKeySequence());
     setPreviousKeySequence(cuelist->previousKeySequence());
-    setStopKeySequence(cuelist->stopKeySequence());
+    setPlaybackKeySequence(cuelist->playbackKeySequence());
 
     /* Common stuff */
     return VCWidget::copyFrom(widget);
@@ -737,14 +737,14 @@ QKeySequence VCCueList::previousKeySequence() const
     return m_previousKeySequence;
 }
 
-void VCCueList::setStopKeySequence(const QKeySequence& keySequence)
+void VCCueList::setPlaybackKeySequence(const QKeySequence& keySequence)
 {
-    m_stopKeySequence = QKeySequence(keySequence);
+    m_playbackKeySequence = QKeySequence(keySequence);
 }
 
-QKeySequence VCCueList::stopKeySequence() const
+QKeySequence VCCueList::playbackKeySequence() const
 {
-    return m_stopKeySequence;
+    return m_playbackKeySequence;
 }
 
 void VCCueList::slotKeyPressed(const QKeySequence& keySequence)
@@ -753,8 +753,8 @@ void VCCueList::slotKeyPressed(const QKeySequence& keySequence)
         slotNextCue();
     else if (m_previousKeySequence == keySequence)
         slotPreviousCue();
-    else if (m_stopKeySequence == keySequence)
-        slotStop();
+    else if (m_playbackKeySequence == keySequence)
+        slotPlayback();
 }
 
 /*****************************************************************************
@@ -806,24 +806,24 @@ void VCCueList::slotInputValueChanged(quint32 universe, quint32 channel, uchar v
         if (value > HYSTERESIS)
             m_previousLatestValue = value;
     }
-    else if (src == inputSource(stopInputSourceId))
+    else if (src == inputSource(playbackInputSourceId))
     {
         // Use hysteresis for values, in case the cue list is being controlled
         // by a slider. The value has to go to zero before the next non-zero
         // value is accepted as input. And the non-zero values have to visit
         // above $HYSTERESIS before a zero is accepted again.
-        if (m_stopLatestValue == 0 && value > 0)
+        if (m_playbackLatestValue == 0 && value > 0)
         {
-            slotStop();
-            m_stopLatestValue = value;
+            slotPlayback();
+            m_playbackLatestValue = value;
         }
-        else if (m_stopLatestValue > HYSTERESIS && value == 0)
+        else if (m_playbackLatestValue > HYSTERESIS && value == 0)
         {
-            m_stopLatestValue = 0;
+            m_playbackLatestValue = 0;
         }
 
         if (value > HYSTERESIS)
-            m_stopLatestValue = value;
+            m_playbackLatestValue = value;
     }
     else if (src == inputSource(cf1InputSourceId))
     {
@@ -1001,7 +1001,7 @@ bool VCCueList::loadXML(const QDomElement* root)
                 subNode = subNode.nextSibling();
             }
         }
-        else if (tag.tagName() == KXMLQLCVCCueListStop)
+        else if (tag.tagName() == KXMLQLCVCCueListPlayback)
         {
             QDomNode subNode = tag.firstChild();
             while (subNode.isNull() == false)
@@ -1011,11 +1011,11 @@ bool VCCueList::loadXML(const QDomElement* root)
                 {
                     quint32 uni = 0, ch = 0;
                     if (loadXMLInput(subTag, &uni, &ch) == true)
-                        setInputSource(QLCInputSource(uni, ch), stopInputSourceId);
+                        setInputSource(QLCInputSource(uni, ch), playbackInputSourceId);
                 }
                 else if (subTag.tagName() == KXMLQLCVCCueListKey)
                 {
-                    m_stopKeySequence = stripKeySequence(QKeySequence(subTag.text()));
+                    m_playbackKeySequence = stripKeySequence(QKeySequence(subTag.text()));
                 }
                 else
                 {
@@ -1152,13 +1152,13 @@ bool VCCueList::saveXML(QDomDocument* doc, QDomElement* vc_root)
     saveXMLInput(doc, &tag, inputSource(previousInputSourceId));
 
     /* Stop cue list */
-    tag = doc->createElement(KXMLQLCVCCueListStop);
+    tag = doc->createElement(KXMLQLCVCCueListPlayback);
     root.appendChild(tag);
     subtag = doc->createElement(KXMLQLCVCCueListKey);
     tag.appendChild(subtag);
-    text = doc->createTextNode(m_stopKeySequence.toString());
+    text = doc->createTextNode(m_playbackKeySequence.toString());
     subtag.appendChild(text);
-    saveXMLInput(doc, &tag, inputSource(stopInputSourceId));
+    saveXMLInput(doc, &tag, inputSource(playbackInputSourceId));
 
     /* Crossfade cue list */
     if (inputSource(cf1InputSourceId).isValid())
