@@ -2119,7 +2119,7 @@ Délka: %3
     <message>
         <location filename="fixtureremap.ui" line="223"/>
         <source>Remap fixture names</source>
-        <translation type="unfinished"></translation>
+        <translation>Přesunout názvy zařízení</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="235"/>
@@ -3925,12 +3925,12 @@ Délka: %3
     <message>
         <location filename="sceneitems.cpp" line="304"/>
         <source>Move up</source>
-        <translation type="unfinished"></translation>
+        <translation>Posunout výše</translation>
     </message>
     <message>
         <location filename="sceneitems.cpp" line="307"/>
         <source>Move down</source>
-        <translation type="unfinished"></translation>
+        <translation>Posunout níže</translation>
     </message>
 </context>
 <context>
@@ -3981,7 +3981,7 @@ Délka: %3
     <message>
         <location filename="vcbuttonproperties.ui" line="215"/>
         <source>Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Atributy</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="305"/>
