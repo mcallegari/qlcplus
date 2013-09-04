@@ -190,6 +190,15 @@ void ShowRunner::write()
         }
         if (m_elapsedTime == funcStartTime)
         {
+            foreach (Track *track, m_show->tracks())
+            {
+                if (track->functionsID().contains(f->id()))
+                {
+                    f->adjustAttribute(m_intensityMap[track->id()]);
+                    break;
+                }
+            }
+
             f->start(m_doc->masterTimer(), true, functionTimeOffset);
             m_runningQueue.append(f);
             m_currentFunctionIndex++;
@@ -214,6 +223,10 @@ void ShowRunner::write()
 
 void ShowRunner::adjustIntensity(qreal fraction, Track *track)
 {
+    if (track == NULL)
+        return;
+
+    qDebug() << Q_FUNC_INFO << "Track ID: " << track->id() << ", val:" << fraction;
     m_intensityMap[track->id()] = fraction;
 
     QList <quint32> funcIDList = track->functionsID();
