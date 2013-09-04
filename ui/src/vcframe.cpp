@@ -39,6 +39,7 @@
 #include "virtualconsole.h"
 #include "vcsoloframe.h"
 #include "vcspeeddial.h"
+#include "inputpatch.h"
 #include "vccuelist.h"
 #include "vcbutton.h"
 #include "vcslider.h"
@@ -362,7 +363,19 @@ void VCFrame::slotSetPage(int pageNum)
     {
         if (pageNum >= 0 && pageNum < m_totalPagesNumber)
             m_currentPage = pageNum;
-        else
+
+        // let's say this is a piece of code to "feedback" the
+        // InputPatch and keep it in sync with VCFrame
+        QLCInputSource src = inputSource(nextPageInputSourceId);
+        if (src.universe() != QLCInputSource::invalidUniverse)
+        {
+            InputPatch *patch = m_doc->inputMap()->patch(src.universe());
+            if (patch != NULL)
+                patch->setPage(m_currentPage);
+        }
+
+        // invalid page ? exits here
+        if (pageNum != m_currentPage)
             return;
 
         m_pageLabel->setText(tr("Page: %1").arg(m_currentPage + 1));

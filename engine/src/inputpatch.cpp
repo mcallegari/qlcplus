@@ -170,20 +170,34 @@ void InputPatch::slotValueChanged(quint32 input, quint32 channel, uchar value, c
     {
         if (channel == m_nextPageCh)
         {
-            m_currentPage++;
-            emit inputValueChanged(m_inputUniverse, channel, m_currentPage);
+            if (value > 0)
+            {
+                m_currentPage++;
+                emit inputValueChanged(m_inputUniverse, channel, m_currentPage);
+            }
         }
         else if(channel == m_prevPageCh && m_currentPage > 0)
         {
-            m_currentPage--;
-            emit inputValueChanged(m_inputUniverse, channel, m_currentPage);
+            if (value > 0)
+            {
+                m_currentPage--;
+                emit inputValueChanged(m_inputUniverse, channel, m_currentPage);
+            }
         }
         else if(channel == m_pageSetCh)
         {
-            m_currentPage = value;
-            emit inputValueChanged(m_inputUniverse, channel, m_currentPage);
+            if (value > 0)
+            {
+                m_currentPage = value;
+                emit inputValueChanged(m_inputUniverse, channel, m_currentPage);
+            }
         }
         else
             emit inputValueChanged(m_inputUniverse, ((quint32)m_currentPage << 16) | channel, value, key);
     }
+}
+
+void InputPatch::setPage(int pageNum)
+{
+    m_currentPage = pageNum;
 }
