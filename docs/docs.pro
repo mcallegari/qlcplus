@@ -31,6 +31,7 @@ docs.files = \
              fixremap.png \
              functionmanager.html \
              functionwizard.html \
+             guicustomstyles.html \
              headeditor.html \
              howto-add-fixtures.html \
              howto-input-profiles.html \
@@ -44,6 +45,7 @@ docs.files = \
              oscplugin.html \
              parameterstuning.html \
              peperonioutput.html \
+             questionsandanswers.html \
              rgbmatrixeditor.html \
              rgbscriptapi.html \
              sceneeditor.html \
