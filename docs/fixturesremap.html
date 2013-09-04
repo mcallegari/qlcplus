@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - Fixtures remap</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1><img src="qrc:/remap.png" width=32> Fixtures remapping</H1>
+<P>
+Starting from version 4.4.1, QLC+ offers a functionality called fixtures remapping.<br>
+When performing live shows in different places, it occurs to know which 
+<A HREF="file:concept.html#Fixtures">fixtures</A> are
+installed at the very last minute. Well, fixtures remapping helps you to use your
+existing projects in every situation.<br>
+For example, you can setup a project with just one PAR, one moving head and one scanner.
+When reaching the place where the show is going to take place, you can remap your fixtures
+to those you find, for example 50 PARs, 30 moving heads and 15 scanners.<br>
+With QLC+, it will take just a few minutes to do this operation !<br>
+<br>
+Fixtures remapping allows to perform 1-to-1 or 1-to-many reassignment of entire fixtures or single channels.
+QLC+ will try as much as possible to reassign channels of the same category.<br>
+When confirming the operation, a new project will be automatically saved to preserve your original project.<br>
+All the fixtures, scenes, EFX, Virtual Console widgets and audio triggers found in the original project
+will be remapped to work on a new fixtures list.<br>
+<br>
+</P>
+
+<h2>Remapping window</h2>
+<p>
+Let's now explain how to use the fixture remapping window, starting from a screenshot of
+a complete example:<br><br>
+<A HREF="file:fixremap.png"><IMG SRC="fixremap.png"></A>
+<br><br>
+Following, a detailed explanation of each element of the remapping window.<br>
+<br>
+<TABLE BORDER="1">
+ <TR>
+  <TD><b>Source fixtures</b></TD>
+  <TD>On the left side of the window, there's a tree representing the universes, fixtures and channels
+    used on your project. This list cannot be changed at this stage.</TD>
+ </TR>
+ <TR>
+  <TD><b>Remapped fixtures</b></TD>
+  <TD>On the right side of the window, there's a tree representing the universes, fixtures and channels
+    where you're going to remap your source fixtures.</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/edit_add.png"></TD>
+  <TD>Add one or more fixtures to the Remapped fixtures list. Clicking this button will open
+    the <A HREF="file:addeditfixtures.html">Add/Edit Fixtures</A> window. Please note that
+    once a fixture is added, it cannot be modified, so if you need specific names or quantity,
+    remember to do it before adding the new fixtures</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/edit_remove.png"></TD>
+  <TD>Remove the selected <A HREF="file:concept.html#Fixtures">Fixture</A> from the remapped fixtures list.</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/remap.png"></TD>
+  <TD>This is probably the most important button of the window. It allows you to
+    determine the connection between a source and a remapped fixture. 
+    The connection can be performed either between single channels or on a whole fixture.<br>
+    In the first case you will need to select the source channel from the source fixtures list 
+    and a target channel from the remapped fixtures list.<br>
+    In the second case you will need to select a fixture from the source fixtures list and a 
+    target fixture from the remapped fixtures list.<br>
+    Wrong selections will popup an error. For example you cannot remap a channel on a fixture and vice-versa.<br>
+    If the connection is valid, it will be represented as a line in the white area between the source and the remapped lists.
+    </TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/fileclose.png"></TD>
+  <TD>Remove a previously created remapping connection. Wrong selections will display an error popup.</TD>
+ </TR>
+ <TR>
+  <TD><b>Remap fixtures names</b></TD>
+  <TD>If checked, a new remapping connection between fixtures will also set the target fixture name
+  to the source fixture name.</TD>
+ </TR>
+ <TR>
+  <TD><b>Destination project name</b></TD>
+  <TD>The absolute path and name of the remapped project. For convenience, QLC+ will automatically 
+  take the original project name and will add "(remapped)" at the end of it.</TD>
+ </TR>
+</TABLE>
+</p>
+
+</BODY>
+</HTML>

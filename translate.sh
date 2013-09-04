@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Translated languages (update these also to qlcplus.pro)
-languages="de_DE es_ES fi_FI fr_FR it_IT"
+languages="de_DE es_ES fi_FI fr_FR it_IT nl_NL cz_CZ"
 
 # Compile all files for the given language into one common qlcplus_<lang>.qm file
 function compile {

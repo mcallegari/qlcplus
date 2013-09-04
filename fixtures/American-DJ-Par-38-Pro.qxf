@@ -1,23 +1,26 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition>
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.2.1</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.4.2</Version>
   <Author>JL Griffin</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
  <Model>Par 38 Pro</Model>
  <Type>Color Changer</Type>
  <Channel Name="Red">
-  <Group Byte="0">Colour</Group>
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
   <Capability Min="0" Max="255">0% -> 100%</Capability>
  </Channel>
  <Channel Name="Green">
-  <Group Byte="0">Colour</Group>
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
   <Capability Min="0" Max="255">0% -> 100%</Capability>
  </Channel>
  <Channel Name="Blue">
-  <Group Byte="0">Colour</Group>
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
   <Capability Min="0" Max="255">0% -> 100%</Capability>
  </Channel>
  <Channel Name="Color Macro">
@@ -48,10 +51,10 @@
  <Mode Name="3 Channel [Default] (RGB)">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
+   <Dimensions Width="216" Height="216" Weight="1,4" Depth="184"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="3-pin"/>
+   <Technical PowerConsumption="9" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
@@ -60,10 +63,10 @@
  <Mode Name="6 Channel">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
+   <Dimensions Width="216" Height="216" Weight="1,4" Depth="184"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="3-pin"/>
+   <Technical PowerConsumption="9" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
@@ -75,10 +78,10 @@
  <Mode Name="7 Channel">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
+   <Dimensions Width="216" Height="216" Weight="1,4" Depth="184"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="3-pin"/>
+   <Technical PowerConsumption="9" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>

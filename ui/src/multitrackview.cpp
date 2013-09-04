@@ -168,7 +168,7 @@ void MultiTrackView::resetView()
 
 void MultiTrackView::addTrack(Track *track)
 {
-    TrackItem *trackItem = new TrackItem(track, m_tracks.count() + 1);
+    TrackItem *trackItem = new TrackItem(track, m_tracks.count());
     trackItem->setName(track->name());
     trackItem->setPos(0, HEADER_HEIGHT + (TRACK_HEIGHT * m_tracks.count()));
     m_scene->addItem(trackItem);
@@ -177,6 +177,7 @@ void MultiTrackView::addTrack(Track *track)
     connect(trackItem, SIGNAL(itemClicked(TrackItem*)), this, SLOT(slotTrackClicked(TrackItem*)));
     connect(trackItem, SIGNAL(itemSoloFlagChanged(TrackItem*,bool)), this, SLOT(slotTrackSoloFlagChanged(TrackItem*,bool)));
     connect(trackItem, SIGNAL(itemMuteFlagChanged(TrackItem*,bool)), this, SLOT(slotTrackMuteFlagChanged(TrackItem*,bool)));
+    connect(trackItem, SIGNAL(itemMoveUpDown(Track*,int)), this, SIGNAL(trackMoved(Track*,int)));
 }
 
 void MultiTrackView::addSequence(Chaser *chaser)
@@ -445,7 +446,7 @@ void MultiTrackView::setSnapToGrid(bool enable)
 {
     m_snapToGrid = enable;
     if (enable == true)
-        m_header->setHeight(height());
+        m_header->setHeight(m_scene->height());
     else
         m_header->setHeight(HEADER_HEIGHT);
 }

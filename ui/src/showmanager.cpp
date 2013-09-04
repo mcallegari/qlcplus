@@ -105,6 +105,8 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
             this, SLOT(slotUpdateTime(quint32)));
     connect(m_showview, SIGNAL(trackClicked(Track*)),
             this, SLOT(slotTrackClicked(Track*)));
+    connect(m_showview, SIGNAL(trackMoved(Track*,int)),
+            this, SLOT(slotTrackMoved(Track*,int)));
 
     // split the multitrack view into two (left: tracks, right: chaser editor)
     m_vsplitter = new QSplitter(Qt::Horizontal, this);
@@ -921,6 +923,14 @@ void ShowManager::slotTrackClicked(Track *track)
     showSceneEditor(m_scene);
     m_deleteAction->setEnabled(true);
     m_copyAction->setEnabled(true);
+}
+
+void ShowManager::slotTrackMoved(Track *track, int direction)
+{
+    if (m_show != NULL)
+        m_show->moveTrack(track, direction);
+    updateMultiTrackView();
+    m_doc->setModified();
 }
 
 void ShowManager::slotChangeColor()

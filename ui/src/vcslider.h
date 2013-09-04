@@ -339,7 +339,7 @@ public:
 protected slots:
     void slotPlaybackFunctionRunning(quint32 fid);
     void slotPlaybackFunctionStopped(quint32 fid);
-    void slotPlaybackFunctionIntensityChanged(qreal fraction);
+    void slotPlaybackFunctionIntensityChanged(int attrIndex, qreal fraction);
 
 protected:
     quint32 m_playbackFunction;

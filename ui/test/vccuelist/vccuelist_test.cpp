@@ -125,15 +125,15 @@ void VCCueList_Test::initial()
 
     QCOMPARE(cl.m_nextLatestValue, quint32(0));
     QCOMPARE(cl.m_previousLatestValue, quint32(0));
-    QCOMPARE(cl.m_stopLatestValue, quint32(0));
+    QCOMPARE(cl.m_playbackLatestValue, quint32(0));
 
     QCOMPARE(cl.m_nextKeySequence, QKeySequence());
     QCOMPARE(cl.m_previousKeySequence, QKeySequence());
-    QCOMPARE(cl.m_stopKeySequence, QKeySequence());
+    QCOMPARE(cl.m_playbackKeySequence, QKeySequence());
 
     QVERIFY(cl.inputSource(VCCueList::nextInputSourceId).isValid() == false);
     QVERIFY(cl.inputSource(VCCueList::previousInputSourceId).isValid() == false);
-    QVERIFY(cl.inputSource(VCCueList::stopInputSourceId).isValid() == false);
+    QVERIFY(cl.inputSource(VCCueList::playbackInputSourceId).isValid() == false);
 }
 
 void VCCueList_Test::chaser()
@@ -196,17 +196,17 @@ void VCCueList_Test::keySequences()
     cl.setNextKeySequence(QKeySequence(keySequenceB));
     QCOMPARE(cl.nextKeySequence(), QKeySequence(keySequenceB));
     QCOMPARE(cl.previousKeySequence(), QKeySequence());
-    QCOMPARE(cl.stopKeySequence(), QKeySequence());
+    QCOMPARE(cl.playbackKeySequence(), QKeySequence());
 
     cl.setPreviousKeySequence(QKeySequence(keySequenceA));
     QCOMPARE(cl.nextKeySequence(), QKeySequence(keySequenceB));
     QCOMPARE(cl.previousKeySequence(), QKeySequence(keySequenceA));
-    QCOMPARE(cl.stopKeySequence(), QKeySequence());
+    QCOMPARE(cl.playbackKeySequence(), QKeySequence());
 
-    cl.setStopKeySequence(QKeySequence(keySequenceD));
+    cl.setPlaybackKeySequence(QKeySequence(keySequenceD));
     QCOMPARE(cl.nextKeySequence(), QKeySequence(keySequenceB));
     QCOMPARE(cl.previousKeySequence(), QKeySequence(keySequenceA));
-    QCOMPARE(cl.stopKeySequence(), QKeySequence(keySequenceD));
+    QCOMPARE(cl.playbackKeySequence(), QKeySequence(keySequenceD));
 }
 
 void VCCueList_Test::copy()
@@ -222,14 +222,14 @@ void VCCueList_Test::copy()
     cl.setCaption("Wheeee");
     cl.setNextKeySequence(QKeySequence(keySequenceB));
     cl.setPreviousKeySequence(QKeySequence(keySequenceA));
-    cl.setStopKeySequence(QKeySequence(keySequenceC));
+    cl.setPlaybackKeySequence(QKeySequence(keySequenceC));
 
     VCCueList* cl2 = qobject_cast<VCCueList*> (cl.createCopy(&parent));
     QVERIFY(cl2 != NULL);
     QCOMPARE(cl2->caption(), QString("Wheeee"));
     QCOMPARE(cl2->nextKeySequence(), QKeySequence(keySequenceB));
     QCOMPARE(cl2->previousKeySequence(), QKeySequence(keySequenceA));
-    QCOMPARE(cl2->stopKeySequence(), QKeySequence(keySequenceC));
+    QCOMPARE(cl2->playbackKeySequence(), QKeySequence(keySequenceC));
     QCOMPARE(cl2->chaser(), c->id());
     QCOMPARE(cl2->m_tree->topLevelItemCount(), 4);
 
@@ -244,7 +244,7 @@ void VCCueList_Test::copy()
     QCOMPARE(cl.m_tree->topLevelItemCount(), 0);
     QCOMPARE(cl.nextKeySequence(), QKeySequence());
     QCOMPARE(cl.previousKeySequence(), QKeySequence());
-    QCOMPARE(cl.stopKeySequence(), QKeySequence());
+    QCOMPARE(cl.playbackKeySequence(), QKeySequence());
 
     delete cl2;
 }
@@ -340,18 +340,18 @@ void VCCueList_Test::loadXML()
     previous.appendChild(previousFoo);
     root.appendChild(previous);
 
-    QDomElement stop = xmldoc.createElement("Stop");
-    QDomElement stopInput = xmldoc.createElement("Input");
-    stopInput.setAttribute("Universe", "4");
-    stopInput.setAttribute("Channel", "5");
-    stop.appendChild(stopInput);
-    QDomElement stopKey = xmldoc.createElement("Key");
-    QDomText stopKeyText = xmldoc.createTextNode(QKeySequence(keySequenceA).toString());
-    stopKey.appendChild(stopKeyText);
-    stop.appendChild(stopKey);
-    QDomElement stopFoo = xmldoc.createElement("Foo");
-    stop.appendChild(stopFoo);
-    root.appendChild(stop);
+    QDomElement playback = xmldoc.createElement("Playback");
+    QDomElement playbackInput = xmldoc.createElement("Input");
+    playbackInput.setAttribute("Universe", "4");
+    playbackInput.setAttribute("Channel", "5");
+    playback.appendChild(playbackInput);
+    QDomElement playbackKey = xmldoc.createElement("Key");
+    QDomText playbackKeyText = xmldoc.createTextNode(QKeySequence(keySequenceA).toString());
+    playbackKey.appendChild(playbackKeyText);
+    playback.appendChild(playbackKey);
+    QDomElement playbackFoo = xmldoc.createElement("Foo");
+    playback.appendChild(playbackFoo);
+    root.appendChild(playback);
 
     QDomElement f1 = xmldoc.createElement("Function");
     QDomText f1Text = xmldoc.createTextNode(QString::number(s1->id()));
@@ -402,8 +402,8 @@ void VCCueList_Test::loadXML()
     QCOMPARE(cl.nextKeySequence(), QKeySequence(keySequenceD));
     QCOMPARE(cl.inputSource(VCCueList::previousInputSourceId), QLCInputSource(2, 3));
     QCOMPARE(cl.previousKeySequence(), QKeySequence(keySequenceC));
-    QCOMPARE(cl.inputSource(VCCueList::stopInputSourceId), QLCInputSource(4, 5));
-    QCOMPARE(cl.stopKeySequence(), QKeySequence(keySequenceA));
+    QCOMPARE(cl.inputSource(VCCueList::playbackInputSourceId), QLCInputSource(4, 5));
+    QCOMPARE(cl.playbackKeySequence(), QKeySequence(keySequenceA));
 
     QCOMPARE(cl.pos(), QPoint(3, 4));
     QCOMPARE(cl.size(), QSize(42, 69));
@@ -433,17 +433,17 @@ void VCCueList_Test::saveXML()
     cl.setCaption("Testing");
     cl.setInputSource(QLCInputSource(0, 1), VCCueList::nextInputSourceId);
     cl.setInputSource(QLCInputSource(2, 3), VCCueList::previousInputSourceId);
-    cl.setInputSource(QLCInputSource(4, 5), VCCueList::stopInputSourceId);
+    cl.setInputSource(QLCInputSource(4, 5), VCCueList::playbackInputSourceId);
     cl.setNextKeySequence(QKeySequence(keySequenceB));
     cl.setPreviousKeySequence(QKeySequence(keySequenceA));
-    cl.setStopKeySequence(QKeySequence(keySequenceC));
+    cl.setPlaybackKeySequence(QKeySequence(keySequenceC));
 
     QDomDocument xmldoc;
     QDomElement root = xmldoc.createElement("TestRoot");
     xmldoc.appendChild(root);
 
     int chaser = 0, next = 0, nextKey = 0, nextInput = 0, previous = 0, previousKey = 0,
-        previousInput = 0, stop = 0, stopKey = 0, stopInput = 0, wstate = 0, appearance = 0;
+        previousInput = 0, playback = 0, playbackKey = 0, playbackInput = 0, wstate = 0, appearance = 0;
 
     QVERIFY(cl.saveXML(&xmldoc, &root) == true);
     QDomElement clroot = root.firstChild().toElement();
@@ -513,21 +513,21 @@ void VCCueList_Test::saveXML()
                 subnode = subnode.nextSibling();
             }
         }
-        else if (tag.tagName() == "Stop")
+        else if (tag.tagName() == "Playback")
         {
-            stop++;
+            playback++;
             QDomNode subnode = tag.firstChild();
             while (subnode.isNull() == false)
             {
                 QDomElement subtag = subnode.toElement();
                 if (subtag.tagName() == "Key")
                 {
-                    stopKey++;
+                    playbackKey++;
                     QCOMPARE(subtag.text(), QKeySequence(keySequenceC).toString());
                 }
                 else if (subtag.tagName() == "Input")
                 {
-                    stopInput++;
+                    playbackInput++;
                     // Handled by VCWidget tests, just check that the node is there
                 }
                 else
@@ -563,9 +563,9 @@ void VCCueList_Test::saveXML()
     QCOMPARE(previous, 1);
     QCOMPARE(previousKey, 1);
     QCOMPARE(previousInput, 1);
-    QCOMPARE(stop, 1);
-    QCOMPARE(stopKey, 1);
-    QCOMPARE(stopInput, 1);
+    QCOMPARE(playback, 1);
+    QCOMPARE(playbackKey, 1);
+    QCOMPARE(playbackInput, 1);
     QCOMPARE(wstate, 1);
     QCOMPARE(appearance, 1);
 }
@@ -756,7 +756,7 @@ void VCCueList_Test::keyboardNextPrevious()
 
     cl.setNextKeySequence(QKeySequence(keySequenceB));
     cl.setPreviousKeySequence(QKeySequence(keySequenceA));
-    cl.setStopKeySequence(QKeySequence(keySequenceD));
+    cl.setPlaybackKeySequence(QKeySequence(keySequenceD));
 
     // Switch mode
     m_doc->setMode(Doc::Operate);
@@ -798,7 +798,7 @@ void VCCueList_Test::keyboardNextPrevious()
     QCOMPARE(cl.m_runner->currentStep(), 0);
     QCOMPARE(cl.m_tree->indexOfTopLevelItem(cl.m_tree->currentItem()), 0);
 
-    // Stop
+    // Playback
     cl.slotKeyPressed(QKeySequence(keySequenceD));
     timer->timerTick();
     QVERIFY(cl.m_runner == NULL);
@@ -815,7 +815,7 @@ void VCCueList_Test::input()
 
     cl.setInputSource(QLCInputSource(0, 1), VCCueList::nextInputSourceId);
     cl.setInputSource(QLCInputSource(2, 3), VCCueList::previousInputSourceId);
-    cl.setInputSource(QLCInputSource(4, 5), VCCueList::stopInputSourceId);
+    cl.setInputSource(QLCInputSource(4, 5), VCCueList::playbackInputSourceId);
 
     // Switch mode
     m_doc->setMode(Doc::Operate);

@@ -103,7 +103,14 @@ public:
     /** Get the singleton instance */
     static AudioTriggerFactory* instance();
 
+    /** Get a pointer to a single AudioBar by index.
+     *  Note that volume bar has index = 1000
+     */
     AudioBar *getSpectrumBar(int index);
+
+    /** Get a list of pointers to all the current audio bars */
+    QList<AudioBar *> getAudioBars();
+
     void setSpectrumBarsNumber(int num);
     void setSpectrumBarType(int index, int type);
     

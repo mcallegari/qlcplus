@@ -318,7 +318,7 @@ p, li { white-space: pre-wrap; }
         <translation>Fixture trovate: %1</translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="567"/>
+        <location filename="addfixture.cpp" line="597"/>
         <source>Dimmers</source>
         <translation>Dimmer</translation>
     </message>
@@ -903,7 +903,7 @@ Il file selezionato è stato spostato o eliminato.</translation>
 <context>
     <name>AudioItem</name>
     <message>
-        <location filename="sceneitems.cpp" line="668"/>
+        <location filename="sceneitems.cpp" line="705"/>
         <source>Name: %1
 Start time: %2
 Duration: %3
@@ -914,33 +914,33 @@ Durata: %3
 %4</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="672"/>
+        <location filename="sceneitems.cpp" line="709"/>
         <source>Click to move this audio across the timeline</source>
         <translation>Clicca per muovere l&apos;audio lungo la linea temporale</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="687"/>
-        <location filename="sceneitems.cpp" line="1048"/>
+        <location filename="sceneitems.cpp" line="724"/>
+        <location filename="sceneitems.cpp" line="1085"/>
         <source>Preview Left Channel</source>
         <translation>Anteprima Canale Sinistro</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="691"/>
+        <location filename="sceneitems.cpp" line="728"/>
         <source>Preview Right Channel</source>
         <translation>Anteprima Canale Destro</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="695"/>
+        <location filename="sceneitems.cpp" line="732"/>
         <source>Preview Stereo Channels</source>
         <translation>Anteprima Canali Stereo</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="700"/>
+        <location filename="sceneitems.cpp" line="737"/>
         <source>Align to cursor</source>
         <translation>Allinea al cursore</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="1044"/>
+        <location filename="sceneitems.cpp" line="1081"/>
         <source>Preview Mono</source>
         <translation>Anteprima Mono</translation>
     </message>
@@ -1962,9 +1962,8 @@ Durata: %3
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Non è stato selezionato nulla&lt;/H1&gt;&lt;P&gt;Seleziona una fixture dalla lista o clicca &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; per aggiungere fixture.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="708"/>
         <source>Edit group...</source>
-        <translation>Modifica gruppo...</translation>
+        <translation type="obsolete">Modifica gruppo...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="721"/>
@@ -1972,157 +1971,156 @@ Durata: %3
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Piu di un gruppo selezionato&lt;/H1&gt;&lt;P&gt;Clicca &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt;per eliminare i gruppi selezionati.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="728"/>
+        <location filename="fixturemanager.cpp" line="729"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a channel group from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add a new channels group.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nessuna selezione&lt;/H1&gt;&lt;P&gt;Seleziona un gruppo di canali dalla lista o clicca &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; per aggiungere un nuovo gruppo di canali.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="733"/>
-        <location filename="fixturemanager.cpp" line="753"/>
+        <location filename="fixturemanager.cpp" line="754"/>
         <source>Add group...</source>
         <translation>Aggiungi gruppo...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="759"/>
-        <location filename="fixturemanager.cpp" line="860"/>
+        <location filename="fixturemanager.cpp" line="760"/>
+        <location filename="fixturemanager.cpp" line="861"/>
         <source>Add fixture...</source>
         <translation>Aggiungi Fixture...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="865"/>
+        <location filename="fixturemanager.cpp" line="866"/>
         <source>Delete items</source>
         <translation>Elimina elementi</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="870"/>
+        <location filename="fixturemanager.cpp" line="871"/>
         <source>Properties...</source>
         <translation>Proprietà...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="875"/>
+        <location filename="fixturemanager.cpp" line="876"/>
         <source>Channels Fade Configuration...</source>
         <translation>Configurazione fade dei canali...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="881"/>
+        <location filename="fixturemanager.cpp" line="882"/>
         <source>Add fixture to group...</source>
         <translation>Aggiungi fixture al gruppo...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="884"/>
+        <location filename="fixturemanager.cpp" line="885"/>
         <source>Remove fixture from group</source>
         <translation>Rimuovi fixture dal gruppo</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="888"/>
+        <location filename="fixturemanager.cpp" line="889"/>
         <source>New Group...</source>
         <translation>Nuovo gruppo...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="891"/>
+        <location filename="fixturemanager.cpp" line="892"/>
         <source>Move group up...</source>
         <translation>Sposta il gruppo in su...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="897"/>
+        <location filename="fixturemanager.cpp" line="898"/>
         <source>Move group down...</source>
         <translation>Sposta il gruppo in giù...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="903"/>
+        <location filename="fixturemanager.cpp" line="904"/>
         <source>Import fixtures...</source>
         <translation>Importa fixture...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="908"/>
+        <location filename="fixturemanager.cpp" line="909"/>
         <source>Export fixtures...</source>
         <translation>Esporta fixture...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="914"/>
+        <location filename="fixturemanager.cpp" line="915"/>
         <source>Remap fixtures...</source>
         <translation>Riassegna fixture...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1096"/>
+        <location filename="fixturemanager.cpp" line="1086"/>
         <source>Do you want to delete the selected items?</source>
         <translation>Vuoi eliminare gli elementi selezionati ?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1139"/>
+        <location filename="fixturemanager.cpp" line="1129"/>
         <source>Delete Channels Group</source>
         <translation>Elimina Gruppo di Canali</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1240"/>
+        <location filename="fixturemanager.cpp" line="1232"/>
         <source>Error</source>
         <translation>Errore</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1241"/>
+        <location filename="fixturemanager.cpp" line="1233"/>
         <source>Please enter a valid address</source>
         <translation>Per favore inserisci un indirizzo valido</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1297"/>
+        <location filename="fixturemanager.cpp" line="1309"/>
         <source>Ungroup fixtures?</source>
         <translation>Separare fixture?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1298"/>
+        <location filename="fixturemanager.cpp" line="1310"/>
         <source>Do you want to ungroup the selected fixtures?</source>
         <translation>Vuoi separare le fixture selezionate ?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1413"/>
+        <location filename="fixturemanager.cpp" line="1425"/>
         <source>Import Fixtures List</source>
         <oldsource>Import Fixture Definition</oldsource>
         <translation>Importa Lista Fixture</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1418"/>
+        <location filename="fixturemanager.cpp" line="1430"/>
         <source>Export Fixtures List As</source>
         <oldsource>Export Fixture Definition As</oldsource>
         <translation>Esporta Lista Fixture Come</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1424"/>
+        <location filename="fixturemanager.cpp" line="1436"/>
         <source>Fixtures List (*%1)</source>
         <oldsource>Fixture Definitions (*%1)</oldsource>
         <translation>Lista Fixture (*%1)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1426"/>
+        <location filename="fixturemanager.cpp" line="1438"/>
         <source>All Files (*.*)</source>
         <translation>Tutti i file (*.*)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1428"/>
+        <location filename="fixturemanager.cpp" line="1440"/>
         <source>All Files (*)</source>
         <translation>Tutti i file (*)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="947"/>
+        <location filename="fixturemanager.cpp" line="948"/>
         <source>Fixture manager</source>
         <translation>Gestione delle fixture</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1014"/>
+        <location filename="fixturemanager.cpp" line="1015"/>
         <source>Generic Dimmer</source>
         <translation>Dimmer generico</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1095"/>
+        <location filename="fixturemanager.cpp" line="1085"/>
         <source>Delete Fixtures</source>
         <translation>Elimina fixture</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1140"/>
+        <location filename="fixturemanager.cpp" line="1130"/>
         <source>Do you want to delete the selected groups?</source>
         <translation>Vuoi eliminare i gruppi selezionati?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1203"/>
+        <location filename="fixturemanager.cpp" line="1195"/>
         <source>Change fixture properties</source>
         <translation>Cambia le proprietà della fixture</translation>
     </message>
@@ -2150,76 +2148,93 @@ Durata: %3
         <translation>Connetti le selezioni...</translation>
     </message>
     <message>
-        <location filename="fixtureremap.ui" line="120"/>
+        <location filename="fixtureremap.ui" line="86"/>
+        <source>Disconnect selections...</source>
+        <translation>Disconnetti le selezioni...</translation>
+    </message>
+    <message>
+        <location filename="fixtureremap.ui" line="89"/>
+        <source>...</source>
+        <translation>...</translation>
+    </message>
+    <message>
+        <location filename="fixtureremap.ui" line="140"/>
         <source>Remapped Fixtures</source>
         <translation>Fixture riassegnate</translation>
     </message>
     <message>
-        <location filename="fixtureremap.ui" line="125"/>
-        <location filename="fixtureremap.ui" line="157"/>
+        <location filename="fixtureremap.ui" line="145"/>
+        <location filename="fixtureremap.ui" line="177"/>
         <source>Address</source>
         <translation>Indirizzo</translation>
     </message>
     <message>
-        <location filename="fixtureremap.ui" line="152"/>
+        <location filename="fixtureremap.ui" line="172"/>
         <source>Source Fixtures</source>
         <translation>Fixture sorgente</translation>
     </message>
     <message>
-        <location filename="fixtureremap.ui" line="205"/>
+        <location filename="fixtureremap.ui" line="223"/>
+        <source>Remap fixture names</source>
+        <translation>Riassegna i nomi delle fixture</translation>
+    </message>
+    <message>
+        <location filename="fixtureremap.ui" line="235"/>
         <source>Destination project name:</source>
         <translation>Nome del progetto di destinazione:</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="104"/>
-        <location filename="fixtureremap.cpp" line="106"/>
+        <location filename="fixtureremap.cpp" line="107"/>
+        <location filename="fixtureremap.cpp" line="109"/>
         <source> (remapped)</source>
         <translation> (riassegnato)</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="137"/>
-        <location filename="fixtureremap.cpp" line="232"/>
+        <location filename="fixtureremap.cpp" line="140"/>
+        <location filename="fixtureremap.cpp" line="235"/>
         <source>Universe %1</source>
         <translation>Universo %1</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="190"/>
+        <location filename="fixtureremap.cpp" line="193"/>
         <source>Generic Dimmer</source>
         <translation>Dimmer generico</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="273"/>
+        <location filename="fixtureremap.cpp" line="277"/>
         <source>Delete Fixtures</source>
         <translation>Elimina fixture</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="274"/>
+        <location filename="fixtureremap.cpp" line="278"/>
         <source>Do you want to delete the selected items?</source>
         <translation>Vuoi eliminare gli elementi selezionati ?</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="308"/>
-        <location filename="fixtureremap.cpp" line="335"/>
+        <location filename="fixtureremap.cpp" line="314"/>
+        <location filename="fixtureremap.cpp" line="341"/>
+        <location filename="fixtureremap.cpp" line="398"/>
         <source>Invalid selection</source>
         <translation>Selezione non valida</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="309"/>
+        <location filename="fixtureremap.cpp" line="315"/>
+        <location filename="fixtureremap.cpp" line="399"/>
         <source>Please select a source and a target fixture or channel to perform this operation.</source>
         <translation>Selezionare una fixture o un canale di sorgente e di destinazione per eseguire questa operazione.</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="336"/>
+        <location filename="fixtureremap.cpp" line="342"/>
         <source>To perform a fixture remap, please select fixtures on both lists.</source>
         <translation>Per eseguire una riassegnazione di fixture, seleziona una fixture in entrambe le liste.</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="451"/>
+        <location filename="fixtureremap.cpp" line="490"/>
         <source>This might take a while...</source>
         <translation>Questo potrebbe richiedere del tempo...</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="451"/>
+        <location filename="fixtureremap.cpp" line="490"/>
         <source>Cancel</source>
         <translation>Annulla</translation>
     </message>
@@ -3023,45 +3038,45 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
 <context>
     <name>MultiTrackView</name>
     <message>
-        <location filename="multitrackview.cpp" line="403"/>
+        <location filename="multitrackview.cpp" line="404"/>
         <source>Click to move this sequence across the timeline</source>
         <translation>Clicca per muovere la sequenza lungo la linea temporale</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="413"/>
+        <location filename="multitrackview.cpp" line="414"/>
         <source>Click to move this audio across the timeline</source>
         <translation>Clicca per spostare questo audio lungo la linea temporale</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="256"/>
+        <location filename="multitrackview.cpp" line="257"/>
         <source>Do you want to DELETE sequence:</source>
         <translation>Vuoi ELIMINARE la sequenza:</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="259"/>
-        <location filename="multitrackview.cpp" line="279"/>
-        <location filename="multitrackview.cpp" line="313"/>
+        <location filename="multitrackview.cpp" line="260"/>
+        <location filename="multitrackview.cpp" line="280"/>
+        <location filename="multitrackview.cpp" line="314"/>
         <source>Delete Functions</source>
         <translation>Elimina Funzioni</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="275"/>
+        <location filename="multitrackview.cpp" line="276"/>
         <source>Do you want to DELETE audio (the source file will NOT be removed):</source>
         <translation>Vuoi ELIMINARE audio (il file sorgente NON verrà eliminato):</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="300"/>
+        <location filename="multitrackview.cpp" line="301"/>
         <source>Do you want to DELETE scene:</source>
         <translation>Vuoi ELIMINARE la scena:</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="303"/>
+        <location filename="multitrackview.cpp" line="304"/>
         <source>This operation will also DELETE:</source>
         <translation>Questa operazione ELIMINERA&apos; anche:</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="399"/>
-        <location filename="multitrackview.cpp" line="409"/>
+        <location filename="multitrackview.cpp" line="400"/>
+        <location filename="multitrackview.cpp" line="410"/>
         <source>Name: %1
 Start time: %2
 Duration: %3
@@ -3420,24 +3435,24 @@ Durata: %3
         <translation>Tutte le fixture</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1083"/>
-        <location filename="sceneeditor.cpp" line="1084"/>
+        <location filename="sceneeditor.cpp" line="1122"/>
+        <location filename="sceneeditor.cpp" line="1123"/>
         <source>Channels Groups</source>
         <translation>Gruppi di Canali</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="889"/>
-        <location filename="sceneeditor.cpp" line="890"/>
+        <location filename="sceneeditor.cpp" line="901"/>
+        <location filename="sceneeditor.cpp" line="902"/>
         <source>Generic</source>
         <translation>Generico</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="956"/>
+        <location filename="sceneeditor.cpp" line="970"/>
         <source>Remove fixtures</source>
         <translation>Elimina Fixture</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="957"/>
+        <location filename="sceneeditor.cpp" line="971"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Vuoi eliminare le fixture selezionate?</translation>
     </message>
@@ -3579,7 +3594,7 @@ Durata: %3
 <context>
     <name>SequenceItem</name>
     <message>
-        <location filename="sceneitems.cpp" line="440"/>
+        <location filename="sceneitems.cpp" line="470"/>
         <source>Name: %1
 Start time: %2
 Duration: %3
@@ -3593,12 +3608,12 @@ Durata: %3
 %4</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="444"/>
+        <location filename="sceneitems.cpp" line="474"/>
         <source>Click to move this sequence across the timeline</source>
         <translation>Clicca per muovere la sequenza lungo la linea temporale</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="456"/>
+        <location filename="sceneitems.cpp" line="486"/>
         <source>Align to cursor</source>
         <translation>Allinea al cursore</translation>
     </message>
@@ -3654,151 +3669,151 @@ Durata: %3
 <context>
     <name>ShowManager</name>
     <message>
-        <location filename="showmanager.cpp" line="153"/>
+        <location filename="showmanager.cpp" line="155"/>
         <source>New s&amp;how</source>
         <translation>Nuovo S&amp;how</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="159"/>
+        <location filename="showmanager.cpp" line="161"/>
         <source>New &amp;track</source>
         <translation>Nuova &amp;traccia</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="165"/>
+        <location filename="showmanager.cpp" line="167"/>
         <source>New s&amp;equence</source>
         <translation>Nuova s&amp;equenza</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="171"/>
+        <location filename="showmanager.cpp" line="173"/>
         <source>New &amp;audio</source>
         <translation>Nuovo &amp;audio</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="177"/>
+        <location filename="showmanager.cpp" line="179"/>
         <source>&amp;Copy</source>
         <translation>&amp;Copia</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="184"/>
+        <location filename="showmanager.cpp" line="186"/>
         <source>&amp;Paste</source>
         <translation>&amp;Incolla</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="190"/>
+        <location filename="showmanager.cpp" line="192"/>
         <source>&amp;Delete</source>
         <translation>&amp;Elimina</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="197"/>
+        <location filename="showmanager.cpp" line="199"/>
         <source>Change Co&amp;lor</source>
         <translation>Cambia Co&amp;lore</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="204"/>
+        <location filename="showmanager.cpp" line="206"/>
         <source>Snap to &amp;Grid</source>
         <translation>Allinea alla &amp;griglia</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="211"/>
+        <location filename="showmanager.cpp" line="213"/>
         <source>St&amp;op</source>
         <translation>St&amp;op</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="217"/>
+        <location filename="showmanager.cpp" line="219"/>
         <source>&amp;Play</source>
         <translation>&amp;Play</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="273"/>
+        <location filename="showmanager.cpp" line="275"/>
         <source>Time division:</source>
         <translation>Marcatori di tempo:</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="278"/>
+        <location filename="showmanager.cpp" line="280"/>
         <source>Time</source>
         <translation>Tempo</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="427"/>
+        <location filename="showmanager.cpp" line="429"/>
         <source>New Show</source>
         <translation>Nuovo Show</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="429"/>
+        <location filename="showmanager.cpp" line="431"/>
         <source>Show name setup</source>
         <translation>Immissione nome Show</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="430"/>
+        <location filename="showmanager.cpp" line="432"/>
         <source>Show name:</source>
         <translation>Nome Show:</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="466"/>
+        <location filename="showmanager.cpp" line="468"/>
         <source>New Scene</source>
         <translation>Nuova Scena</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="497"/>
-        <location filename="showmanager.cpp" line="533"/>
+        <location filename="showmanager.cpp" line="499"/>
+        <location filename="showmanager.cpp" line="535"/>
         <source>New Sequence</source>
         <translation>Nuova Sequenza</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="521"/>
-        <location filename="showmanager.cpp" line="606"/>
+        <location filename="showmanager.cpp" line="523"/>
+        <location filename="showmanager.cpp" line="608"/>
         <source>Overlapping error</source>
         <translation>Errore di sovrapposizione</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="521"/>
-        <location filename="showmanager.cpp" line="606"/>
+        <location filename="showmanager.cpp" line="523"/>
+        <location filename="showmanager.cpp" line="608"/>
         <source>Overlapping not allowed. Operation cancelled.</source>
         <translation>Sovrapposizione non consentita. Operazione annullata.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="547"/>
+        <location filename="showmanager.cpp" line="549"/>
         <source>Open Audio File</source>
         <translation>Apri File Audio</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="573"/>
+        <location filename="showmanager.cpp" line="575"/>
         <source>Audio Files (%1)</source>
         <translation>File Audio (%1)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="575"/>
+        <location filename="showmanager.cpp" line="577"/>
         <source>All Files (*.*)</source>
         <translation>Tutti i file (*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="577"/>
+        <location filename="showmanager.cpp" line="579"/>
         <source>All Files (*)</source>
         <translation>Tutti i File (*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="599"/>
+        <location filename="showmanager.cpp" line="601"/>
         <source>Unsupported audio file</source>
         <translation>File audio non supportato</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="599"/>
+        <location filename="showmanager.cpp" line="601"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation>Questo file audio non può essere riprodotto da QLC+. Spiacente.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="667"/>
-        <location filename="showmanager.cpp" line="689"/>
+        <location filename="showmanager.cpp" line="669"/>
+        <location filename="showmanager.cpp" line="691"/>
         <source>Paste error</source>
         <translation>Errore di incolla</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="667"/>
+        <location filename="showmanager.cpp" line="669"/>
         <source>Overlapping paste not allowed. Operation cancelled.</source>
         <translation>Sovrapposizione non consentita. Operazione annullata.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="689"/>
+        <location filename="showmanager.cpp" line="691"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
         <translation>Stai cercando di incollare su una traccia non compatibile. Operazione annullata.</translation>
     </message>
@@ -3968,39 +3983,52 @@ Durata: %3
     </message>
 </context>
 <context>
+    <name>TrackItem</name>
+    <message>
+        <location filename="sceneitems.cpp" line="304"/>
+        <source>Move up</source>
+        <translation>Sposta su</translation>
+    </message>
+    <message>
+        <location filename="sceneitems.cpp" line="307"/>
+        <source>Move down</source>
+        <translation>Sposta giù</translation>
+    </message>
+</context>
+<context>
     <name>VCButton</name>
     <message>
-        <location filename="vcbutton.cpp" line="86"/>
+        <location filename="vcbutton.cpp" line="88"/>
         <source>Choose...</source>
         <translation>Scegli...</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="90"/>
+        <location filename="vcbutton.cpp" line="92"/>
         <source>None</source>
         <translation>Nessuno</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="294"/>
+        <location filename="vcbutton.cpp" line="296"/>
         <source>Select button icon</source>
         <translation>Seleziona l&apos;icona per il bottone</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="295"/>
+        <location filename="vcbutton.cpp" line="297"/>
         <source>Images (%1)</source>
         <translation>Immagini (%1)</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="501"/>
+        <location filename="vcbutton.cpp" line="503"/>
         <source>Toggle Blackout</source>
         <translation>Blackout On/Off</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="503"/>
+        <location filename="vcbutton.cpp" line="505"/>
         <source>Stop ALL functions!</source>
         <translation>Ferma TUTTE le funzioni!</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="704"/>
+        <location filename="vcbutton.cpp" line="716"/>
         <source>Icon</source>
         <translation>Icona</translation>
     </message>
@@ -4013,157 +4041,162 @@ Durata: %3
         <translation>Proprietà del bottone</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="20"/>
+        <location filename="vcbuttonproperties.ui" line="305"/>
         <source>General</source>
         <translation>Generale</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="26"/>
+        <location filename="vcbuttonproperties.ui" line="311"/>
         <source>Button label</source>
         <translation>Etichetta del bottone</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="33"/>
+        <location filename="vcbuttonproperties.ui" line="318"/>
         <source>Text to display on the button</source>
         <translation>Testo da mostrare sul bottone</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="40"/>
+        <location filename="vcbuttonproperties.ui" line="325"/>
         <source>Function</source>
         <translation>Funzione</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="47"/>
+        <location filename="vcbuttonproperties.ui" line="332"/>
         <source>The function that this button controls</source>
         <translation>La funzione che questo bottone controlla</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="57"/>
+        <location filename="vcbuttonproperties.ui" line="342"/>
         <source>Attach a function to this button</source>
         <translation>Attacca una Funzione a questo Bottone</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="77"/>
+        <location filename="vcbuttonproperties.ui" line="362"/>
         <source>Detach the button&apos;s function attachment</source>
         <translation>Stacca la Funzione collegata a questo Bottone</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="100"/>
+        <location filename="vcbuttonproperties.ui" line="76"/>
         <source>Key combination</source>
         <translation>Combinazione di tasti</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="106"/>
+        <location filename="vcbuttonproperties.ui" line="134"/>
         <source>Keyboard combination that toggles this button</source>
         <translation>Combinazione di tasti che attiva questo pulsante</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="116"/>
+        <location filename="vcbuttonproperties.ui" line="114"/>
         <source>Set a key combination for this button</source>
         <translation>Seleziona una combinazione di tasti per questo bottone</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="136"/>
+        <location filename="vcbuttonproperties.ui" line="94"/>
         <source>Remove the button&apos;s keyboard shortcut key</source>
         <translation>Rimuovi la combinazione di tasti che attiva questo bottone</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="159"/>
+        <location filename="vcbuttonproperties.ui" line="227"/>
         <source>External Input</source>
         <translation>Ingresso Esterno</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="165"/>
+        <location filename="vcbuttonproperties.ui" line="233"/>
         <source>Input Universe</source>
         <translation>Universo di Ingresso</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="172"/>
+        <location filename="vcbuttonproperties.ui" line="292"/>
         <source>The input universe that sends data to this widget</source>
         <translation>L&apos;universo di Ingresso che invia i dati a questo bottone</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="182"/>
+        <location filename="vcbuttonproperties.ui" line="240"/>
         <source>Input Channel</source>
         <translation>Canale di Ingresso</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="189"/>
+        <location filename="vcbuttonproperties.ui" line="282"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
         <translation>Il canale di ingresso particolare all&apos;interno dell&apos;universo di Ingresso che invia i dati a questo bottone</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="218"/>
+        <location filename="vcbuttonproperties.ui" line="253"/>
         <source>Choose an external input universe &amp; channel that this button should listen to.</source>
         <translation>Scegli un universo di ingresso esterno con il relativo canale a cui questo bottone deve rispondere.</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="279"/>
+        <location filename="vcbuttonproperties.ui" line="59"/>
         <source>Toggle Blackout</source>
         <translation>Blackout On/Off</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="286"/>
+        <location filename="vcbuttonproperties.ui" line="66"/>
         <source>Stop All Functions</source>
         <translation>Ferma tutte le funzioni</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="296"/>
+        <location filename="vcbuttonproperties.ui" line="147"/>
         <source>Adjust function intensity when it is running</source>
         <translation>Aggiusta l&apos;intensità della funzione mentre è in esecuzione</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="299"/>
+        <location filename="vcbuttonproperties.ui" line="150"/>
         <source>Adjust Function Intensity</source>
         <translation>Aggiusta l&apos;intensità della funzione</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="314"/>
+        <location filename="vcbuttonproperties.ui" line="165"/>
         <source>Function&apos;s adjusted intensity percentage when run</source>
         <translation>Percentuale di intensità della funzione aggiustata in esecuzione</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="221"/>
+        <location filename="vcbuttonproperties.ui" line="215"/>
+        <source>Attributes</source>
+        <translation>Attributi</translation>
+    </message>
+    <message>
+        <location filename="vcbuttonproperties.ui" line="256"/>
         <source>Choose...</source>
         <translation>Scegli...</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="228"/>
+        <location filename="vcbuttonproperties.ui" line="263"/>
         <source>When toggled, you can click an external button to assign it to this virtual console button.</source>
         <translation>Quando attivata, è possibile fare clic su un pulsante esterno per assegnarlo a questo bottone della console virtuale.</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="231"/>
+        <location filename="vcbuttonproperties.ui" line="266"/>
         <source>Auto Detect</source>
         <translation>Trova Automaticamente</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="250"/>
+        <location filename="vcbuttonproperties.ui" line="30"/>
         <source>On button press...</source>
         <translation>Quando si preme il bottone...</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="256"/>
+        <location filename="vcbuttonproperties.ui" line="36"/>
         <source>Toggle the assigned function on/off with this button</source>
         <translation>Attiva la funzione assegnata in modalità on/off con questo bottone</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="259"/>
+        <location filename="vcbuttonproperties.ui" line="39"/>
         <source>Toggle function on/off</source>
         <translation>Attiva la funzione on/off</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="269"/>
+        <location filename="vcbuttonproperties.ui" line="49"/>
         <source>Flash the assigned function with this button</source>
         <translation>Modalità Flash alla funzione assegnata con questo bottone</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.ui" line="272"/>
+        <location filename="vcbuttonproperties.ui" line="52"/>
         <source>Flash function (only for scenes)</source>
         <translation>Modalità Flash (solo per scene)</translation>
     </message>
     <message>
-        <location filename="vcbuttonproperties.cpp" line="133"/>
+        <location filename="vcbuttonproperties.cpp" line="134"/>
         <source>No function</source>
         <translation>Nessuna funzione</translation>
     </message>
@@ -4201,22 +4234,22 @@ Durata: %3
         <translation>Lista di azioni</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="827"/>
+        <location filename="vccuelist.cpp" line="853"/>
         <source>Fade In</source>
         <translation>Fade In</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="827"/>
+        <location filename="vccuelist.cpp" line="853"/>
         <source>Fade Out</source>
         <translation>Fade Out</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="827"/>
+        <location filename="vccuelist.cpp" line="853"/>
         <source>Duration</source>
         <translation>Durata</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="827"/>
+        <location filename="vccuelist.cpp" line="853"/>
         <source>Notes</source>
         <translation>Note</translation>
     </message>
@@ -4266,6 +4299,11 @@ Durata: %3
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="128"/>
+        <source>Playback</source>
+        <translation>Riproduzione</translation>
+    </message>
+    <message>
+        <location filename="vccuelistproperties.ui" line="280"/>
         <source>Next Cue</source>
         <translation>Azione successiva</translation>
     </message>
@@ -4293,7 +4331,7 @@ Durata: %3
         <translation>Universo di Ingresso</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="206"/>
+        <location filename="vccuelistproperties.ui" line="358"/>
         <source>Input universe for skipping to the next cue</source>
         <translation>Universo di ingresso per passare alla prossima azione nella lista</translation>
     </message>
@@ -4307,12 +4345,12 @@ Durata: %3
         <translation>Canale di ingresso</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="220"/>
+        <location filename="vccuelistproperties.ui" line="372"/>
         <source>Input channel for skipping to the next cue</source>
         <translation>Canale di ingresso per passare all&apos;azione successiva nella lista</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="240"/>
+        <location filename="vccuelistproperties.ui" line="392"/>
         <source>When toggled, you can click an external button to assign it as the control that skips to the next cue.</source>
         <translation>Quando attivato, puoi cliccare su di un bottone esterno in modo da assegnarlo per il passaggio all&apos;azione successiva.</translation>
     </message>
@@ -4326,7 +4364,7 @@ Durata: %3
         <translation>Auto Apprendimento</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="253"/>
+        <location filename="vccuelistproperties.ui" line="405"/>
         <source>Choose an input universe/channel for skipping to the next cue</source>
         <translation>Scegli un universo/canale di ingresso per passare all&apos;azione successiva</translation>
     </message>
@@ -4340,78 +4378,77 @@ Durata: %3
         <translation>Scegli...</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="280"/>
+        <location filename="vccuelistproperties.ui" line="432"/>
         <source>Previous Cue</source>
         <translation>Azione precedente</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="292"/>
+        <location filename="vccuelistproperties.ui" line="444"/>
         <source>The key combination used to step to the previous cue</source>
         <translation>Combinazione di tasti usata per passare all&apos;azione precedente</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="302"/>
+        <location filename="vccuelistproperties.ui" line="454"/>
         <source>Bind a key combination to skip to the previous cue</source>
         <translation>Associa una combinazione di tasti per passare all&apos;azione precedente</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="358"/>
+        <location filename="vccuelistproperties.ui" line="510"/>
         <source>Input universe for skipping to the previous cue</source>
         <translation>Universo d&apos;ingresso per passare all&apos;azione precedente</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="372"/>
+        <location filename="vccuelistproperties.ui" line="524"/>
         <source>Input channel for skipping to the previous cue</source>
         <translation>Canale d&apos;ingresso per passare all&apos;azione precedente</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="392"/>
+        <location filename="vccuelistproperties.ui" line="544"/>
         <source>When toggled, you can click an external button to assign it as the control that skips to the previous cue.</source>
         <translation>Quando attivato, puoi cliccare su di un bottone esterno in modo da assegnarlo per il passaggio all&apos;azione precedente.</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="405"/>
+        <location filename="vccuelistproperties.ui" line="557"/>
         <source>Choose an input universe/channel for skipping to the previous cue</source>
         <translation>Scegli un universo/canale di ingresso per passare all&apos;azione precedente</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="432"/>
         <source>Stop</source>
-        <translation>Stop</translation>
+        <translation type="obsolete">Stop</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="444"/>
+        <location filename="vccuelistproperties.ui" line="140"/>
         <source>The key combination used to stop the cue list</source>
         <translation>La combinazione di tasti usata per fermare la lista di azioni</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="454"/>
+        <location filename="vccuelistproperties.ui" line="150"/>
         <source>Bind a key combination to stop the cue list</source>
         <translation>Imposta una combinazione di tasti per interrompere la lista di azioni</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="510"/>
+        <location filename="vccuelistproperties.ui" line="206"/>
         <location filename="vccuelistproperties.ui" line="603"/>
         <location filename="vccuelistproperties.ui" line="676"/>
         <source>Input universe for stopping the cue list</source>
         <translation>Universo di Ingresso per interrompere la lista di azioni</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="524"/>
+        <location filename="vccuelistproperties.ui" line="220"/>
         <location filename="vccuelistproperties.ui" line="617"/>
         <location filename="vccuelistproperties.ui" line="690"/>
         <source>Input channel for stopping the cue list</source>
         <translation>Canale di ingresso per interrompere la lista di azioni</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="544"/>
+        <location filename="vccuelistproperties.ui" line="240"/>
         <location filename="vccuelistproperties.ui" line="637"/>
         <location filename="vccuelistproperties.ui" line="710"/>
         <source>When toggled, you can click an external button to assign it as the control that stops the cue list</source>
         <translation>Quando premuto, puoi cliccare un bottone esterno per assegnarlo come controllo che interrompe la lista di azioni</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="557"/>
+        <location filename="vccuelistproperties.ui" line="253"/>
         <location filename="vccuelistproperties.ui" line="650"/>
         <location filename="vccuelistproperties.ui" line="723"/>
         <source>Choose an input universe/channel for stopping the cue list</source>
@@ -4439,12 +4476,12 @@ Durata: %3
         <translation>...</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="140"/>
+        <location filename="vccuelistproperties.ui" line="292"/>
         <source>The key combination used to step to the next cue</source>
         <translation>La combinazione di tasti usata per passare alla prossima lista d&apos;Azione</translation>
     </message>
     <message>
-        <location filename="vccuelistproperties.ui" line="150"/>
+        <location filename="vccuelistproperties.ui" line="302"/>
         <source>Bind a key combination to skip to the next cue</source>
         <translation>Imposta una combinazione di tasti per passare alla prossima lista d&apos;Azione</translation>
     </message>
@@ -5263,7 +5300,7 @@ Durata: %3
         <translation>Sconosciuto</translation>
     </message>
     <message>
-        <location filename="vcwidget.cpp" line="455"/>
+        <location filename="vcwidget.cpp" line="454"/>
         <source>This widget has no properties</source>
         <translation>Questo oggetto non ha proprietà</translation>
     </message>

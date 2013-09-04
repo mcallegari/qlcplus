@@ -218,6 +218,16 @@
     </layout>
    </item>
    <item>
+    <widget class="QCheckBox" name="m_remapNamesCheck">
+     <property name="text">
+      <string>Remap fixture names</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QLabel" name="label">

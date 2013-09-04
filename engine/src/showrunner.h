@@ -24,8 +24,11 @@
 
 #include <QObject>
 #include <QMutex>
+#include <QMap>
 
 class Function;
+class Track;
+class Show;
 class Doc;
 
 class ShowRunner : public QObject
@@ -47,8 +50,8 @@ public:
 private:
     const Doc* m_doc;
 
-    /** The ID of the show to play */
-    quint32 m_showID;
+    /** The reference of the show to play */
+    Show* m_show;
 
     /** The list of Functions of the show to play */
     QList <Function *> m_functions;
@@ -63,7 +66,7 @@ private:
     quint32 m_totalRunTime;
 
     /** List of running Functions and its mutex */
-    QList <quint32> m_runningQueue;
+    QList <Function *> m_runningQueue;
     QMutex m_runningQueueMutex;
 
     /** Current step being played */
@@ -75,6 +78,18 @@ private slots:
 signals:
     void timeChanged(quint32 time);
     void showFinished();
+
+    /************************************************************************
+     * Intensity
+     ************************************************************************/
+public:
+    /**
+     * Adjust the intensity of show track
+     */
+    void adjustIntensity(qreal fraction, Track *track);
+
+private:
+    QMap<quint32, qreal> m_intensityMap;
 
 };
 

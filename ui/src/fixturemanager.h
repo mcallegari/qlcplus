@@ -178,8 +178,11 @@ private:
     /** Construct the toolbar */
     void initToolBar();
 
-    /** Edit properties for the fixture represented by $item */
-    void editFixtureProperties(QTreeWidgetItem* item);
+    /** Edit properties for the selected fixture */
+    void editFixtureProperties();
+
+    /** Edit properties for the selected channels group */
+    void editChannelGroupProperties();
 
     /** Count the number of heads in the list of fixture items */
     int headCount(const QList <QTreeWidgetItem*>& items) const;

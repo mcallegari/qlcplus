@@ -120,7 +120,7 @@ public:
      */
     AudioDecoder* getAudioDecoder();
 
-    void adjustIntensity(qreal fraction);
+    void adjustAttribute(qreal fraction, int attributeIndex = 0);
 
 private:
 #ifdef QT_PHONON_LIB

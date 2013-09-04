@@ -76,9 +76,9 @@ Function::Function(Doc* doc, Type t)
     , m_stop(true)
     , m_running(false)
     , m_startedAsChild(false)
-    , m_intensity(1.0)
 {
     Q_ASSERT(doc != NULL);
+    registerAttribute(tr("Intensity"));
 }
 
 Function::~Function()
@@ -643,7 +643,7 @@ void Function::postRun(MasterTimer* timer, UniverseArray* universes)
     qDebug() << "Function postRun. ID: " << m_id;
     m_stopMutex.lock();
     resetElapsed();
-    resetIntensity();
+    resetAttributes();
     m_stop = true;
     //m_overrideFadeInSpeed = defaultSpeed();
     //m_overrideFadeOutSpeed = defaultSpeed();
@@ -745,19 +745,63 @@ bool Function::stopAndWait()
 /*****************************************************************************
  * Intensity
  *****************************************************************************/
-
-void Function::adjustIntensity(qreal fraction)
+int Function::registerAttribute(QString name, qreal value)
 {
-    m_intensity = CLAMP(fraction, 0.0, 1.0);
-    emit intensityChanged(m_intensity);
+    for( int i = 0; i < m_attributes.count(); i++)
+    {
+        if (m_attributes[i].name == name)
+        {
+            m_attributes[i].value = value;
+            return i;
+        }
+    }
+    Attribute newAttr;
+    newAttr.name = name;
+    newAttr.value = value;
+    m_attributes.append(newAttr);
+
+    return m_attributes.count() - 1;
 }
 
-void Function::resetIntensity()
+bool Function::unregisterAttribute(QString name)
 {
-    adjustIntensity(1.0);
+    for( int i = 0; i < m_attributes.count(); i++)
+    {
+        if (m_attributes[i].name == name)
+        {
+            m_attributes.removeAt(i);
+            return true;
+        }
+    }
+    return false;
 }
 
-qreal Function::intensity() const
+void Function::adjustAttribute(qreal fraction, int attributeIndex)
 {
-    return m_intensity;
+    if (attributeIndex >= m_attributes.count())
+        return;
+
+    //qDebug() << Q_FUNC_INFO << "idx:" << attributeIndex << ", val:" << fraction;
+    m_attributes[attributeIndex].value = CLAMP(fraction, 0.0, 1.0);
+    emit attributeChanged(attributeIndex, m_attributes[attributeIndex].value);
 }
+
+void Function::resetAttributes()
+{
+    for (int i = 0; i < m_attributes.count(); i++)
+        m_attributes[i].value = 1.0;
+}
+
+qreal Function::getAttributeValue(int attributeIndex) const
+{
+    if (attributeIndex >= m_attributes.count())
+        return 0.0;
+
+    return m_attributes[attributeIndex].value;
+}
+
+QList<Attribute> Function::attributes()
+{
+    return m_attributes;
+}
+

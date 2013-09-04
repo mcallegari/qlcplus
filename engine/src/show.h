@@ -98,6 +98,9 @@ public:
     /** Get the number of tracks in the Show */
     int getTracksCount();
 
+    /** Move a track ID up or down */
+    void moveTrack(Track *track, int direction);
+
     /** Get a list of available tracks */
     QList <Track*> tracks() const;
 
@@ -106,6 +109,7 @@ private:
     quint32 createTrackId();
 
 protected:
+    /** Map of the available tracks coupled by ID */
     QMap <quint32,Track*> m_tracks;
 
     /** Latest assigned track ID */
@@ -149,6 +153,13 @@ protected:
     ShowRunner *m_runner;
     /** Number of currently running children */
     QSet <quint32> m_runningChildren;
+
+    /*************************************************************************
+     * Attributes
+     *************************************************************************/
+public:
+    /** @reimpl */
+    void adjustAttribute(qreal fraction, int attributeIndex = 0);
 };
 
 #endif

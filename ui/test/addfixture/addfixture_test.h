@@ -23,8 +23,10 @@
 #define ADDFIXTURE_TEST_H
 
 #include <QObject>
+#include <QVariant>
 
 class Doc;
+
 class AddFixture_Test : public QObject
 {
     Q_OBJECT
@@ -41,8 +43,11 @@ private slots:
     void selectionNothing();
     void selectionGeneric();
 
+    void rememberExpanded();
+
 private:
     Doc* m_doc;
+    QVariant m_expanded;
 };
 
 #endif

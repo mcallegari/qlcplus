@@ -31,6 +31,8 @@ TRANSLATIONS += Velleman_de_DE.ts
 TRANSLATIONS += Velleman_es_ES.ts
 TRANSLATIONS += Velleman_fr_FR.ts
 TRANSLATIONS += Velleman_it_IT.ts
+TRANSLATIONS += Velleman_nl_NL.ts
+TRANSLATIONS += Velleman_cz_CZ.ts
 
 # Installation only on Windows; Unix targets are built only for unit testing.
 target.path = $$INSTALLROOT/$$PLUGINDIR

@@ -131,11 +131,19 @@ int messageCallback(const char *path, const char *types, lo_arg **argv,
             float f_val = argv[i]->f;
             //qDebug() << "arg: " << i << ", type: '" << types[i] << "'', val: " << f_val;
             value = 255 * f_val;
-            if (argc > 1)
-            {
-                QString newPath = QString("%1_%2").arg(path).arg(i);
-                plugin->sendValueChanged(input, newPath, value);
-            }
+        }
+        else if (types[i] == 'i')
+        {
+            int32_t i_val = argv[i]->i;
+            if (i_val < 256)
+                value = (uchar)i_val;
+            else
+                value = i_val / 0xFFFFFF;
+        }
+        if (argc > 1)
+        {
+            QString newPath = QString("%1_%2").arg(path).arg(i);
+            plugin->sendValueChanged(input, newPath, value);
         }
         //lo_arg_pp((lo_type)types[i], argv[i]);
     }

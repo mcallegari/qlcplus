@@ -61,6 +61,12 @@ class Doc;
 #define KXMLQLCFunctionSpeedFadeOut  "FadeOut"
 #define KXMLQLCFunctionSpeedDuration "Duration"
 
+typedef struct
+{
+    QString name;
+    qreal value;
+} Attribute;
+
 class Function : public QObject
 {
     Q_OBJECT
@@ -590,31 +596,57 @@ private:
      *************************************************************************/
 public:
     /**
+     * Register a new attribute for this function.
+     * If the attribute already exists, it will be overwritten.
+     *
+     * @param name The attribute name
+     * @param value The attribute initial value
+     */
+    int registerAttribute(QString name, qreal value = 1.0);
+
+    /**
+     * Unregister a previously created attribute for this function.
+     * If the attribute doesn't exist, false will be returned.
+     *
+     * @param name The attribute name
+     */
+    bool unregisterAttribute(QString name);
+
+    /**
      * Adjust the intensity of the function by a fraction.
      *
      * @param fraction Intensity as a fraction (0.0 - 1.0)
      */
-    virtual void adjustIntensity(qreal fraction);
+    virtual void adjustAttribute(qreal fraction, int attributeIndex = 0);
 
     /**
      * Reset intensity to the default value (1.0).
      */
-    void resetIntensity();
+    void resetAttributes();
 
     /**
-     * Get the function's current intensity fraction.
+     * Get a specific function attribute by index
      *
-     * @return Intensity fraction (0.0 - 1.0)
+     * @param attributeIndex the attribute index
+     * @return the requested attribute value (on error return 0.0)
      */
-    qreal intensity() const;
+    qreal getAttributeValue(int attributeIndex = 0) const;
+
+    /**
+     * Get the function's attributes
+     *
+     * @return a list of Attributes
+     */
+    QList <Attribute> attributes();
 
 signals:
-    /** Informs that the intensity of a function has changed */
-    void intensityChanged(qreal fraction);
+    /** Informs that an attribute of the function has changed */
+    void attributeChanged(int index, qreal fraction);
 
 private:
     bool m_startedAsChild;
-    qreal m_intensity;
+    //qreal m_intensity;
+    QList <Attribute> m_attributes;
 };
 
 #endif
