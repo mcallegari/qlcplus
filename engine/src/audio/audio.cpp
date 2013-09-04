@@ -356,6 +356,7 @@ void Audio::preRun(MasterTimer* timer)
         m_audio_out->setDecoder(m_decoder);
         m_audio_out->initialize(ap.sampleRate(), ap.channels(), ap.format());
         m_audio_out->start();
+        m_audio_out->adjustIntensity(getAttributeValue());
     }
     Function::preRun(timer);
 }
