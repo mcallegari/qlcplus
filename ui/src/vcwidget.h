@@ -91,7 +91,7 @@ public:
      *
      * @param id This widget's unique ID
      */
-    void setID(quint32 id);
+    virtual void setID(quint32 id);
 
     /**
      * Get this widget's unique ID

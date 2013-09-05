@@ -589,12 +589,13 @@ bool VCWidget::loadXMLCommon(const QDomElement *root)
 {
     Q_ASSERT(root != NULL);
 
-    /* Caption */
-    setCaption(root->attribute(KXMLQLCVCCaption));
-
     /* ID */
     if (root->hasAttribute(KXMLQLCVCWidgetID))
         setID(root->attribute(KXMLQLCVCWidgetID).toUInt());
+
+    /* Caption */
+    if (root->hasAttribute(KXMLQLCVCCaption))
+        setCaption(root->attribute(KXMLQLCVCCaption));
 
     /* Page */
     if (root->hasAttribute(KXMLQLCVCWidgetPage))

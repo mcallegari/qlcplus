@@ -26,6 +26,8 @@ DmxDumpFactoryProperties::DmxDumpFactoryProperties(int universes)
     m_dumpAllChannels = true;
     m_dumpNonZeroValues = false;
 
+    m_selectedTarget = 0;
+
     m_channelsMask = QByteArray(universes * 512, 0);
 }
 
@@ -75,5 +77,16 @@ void DmxDumpFactoryProperties::removeChaserID(quint32 id)
 bool DmxDumpFactoryProperties::isChaserSelected(quint32 id)
 {
     return m_selectedChaserIDs.contains(id);
+}
+
+void DmxDumpFactoryProperties::setSelectedTarget(int idx)
+{
+    if (idx >= 0 && idx < 3)
+        m_selectedTarget = idx;
+}
+
+int DmxDumpFactoryProperties::selectedTarget()
+{
+    return m_selectedTarget;
 }
 

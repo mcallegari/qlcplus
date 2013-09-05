@@ -1,6 +1,8 @@
 qlcplus (4.4.2) stable; urgency=low
 
   * NEW: Functions now have attributes. They can be controlled by right clicking on a Virtual Console button in operate mode
+  * NEW: Added multi-page support to Virtual Console frames
+  * NEW: DMX dump can now set a Scene on a Virtual Console button or slider
   * NEW: added Czech translation (thank to Jan Lachman)
   * Cue List "Stop" input turned into "Playback", to handle start/stop of a cue with one key
   

@@ -122,6 +122,14 @@ VCButton::~VCButton()
 {
 }
 
+void VCButton::setID(quint32 id)
+{
+    VCWidget::setID(id);
+
+    if (caption().isEmpty())
+        setCaption(tr("Button %1").arg(id));
+}
+
 /*****************************************************************************
  * Clipboard
  *****************************************************************************/

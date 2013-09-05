@@ -43,6 +43,9 @@ public:
     void removeChaserID(quint32 id);
     bool isChaserSelected(quint32 id);
 
+    void setSelectedTarget(int idx);
+    int selectedTarget();
+
 private:
     /** array of bytes holding 0s and 1s where 0 is 'inactive channel' and
      *  1 is 'active channel'
@@ -52,6 +55,8 @@ private:
 
     bool m_dumpAllChannels;
     bool m_dumpNonZeroValues;
+
+    int m_selectedTarget;
 };
 
 #endif // DMXDUMPFACTORYPROPERTIES_H

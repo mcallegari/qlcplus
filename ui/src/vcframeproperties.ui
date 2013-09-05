@@ -31,7 +31,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -172,7 +172,7 @@
              <item row="2" column="1">
               <widget class="QPushButton" name="m_nextAutoDetectInputButton">
                <property name="toolTip">
-                <string>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</string>
+                <string>When toggled, you can move an external slider/knob to assign it to this widget.</string>
                </property>
                <property name="text">
                 <string>Auto Detect</string>
@@ -270,7 +270,7 @@
              <item row="2" column="1">
               <widget class="QPushButton" name="m_previousAutoDetectInputButton">
                <property name="toolTip">
-                <string>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</string>
+                <string>When toggled, you can move an external slider/knob to assign it to this frame.</string>
                </property>
                <property name="text">
                 <string>Auto Detect</string>
@@ -299,7 +299,7 @@
              <item row="1" column="1">
               <widget class="QToolButton" name="m_nextAttachButton">
                <property name="toolTip">
-                <string>Bind a key combination to skip to the next cue</string>
+                <string>Bind a key combination to skip to the next frame page</string>
                </property>
                <property name="text">
                 <string notr="true">...</string>
@@ -339,7 +339,7 @@
              <item row="0" column="1" colspan="2">
               <widget class="QLineEdit" name="m_nextKeyEdit">
                <property name="toolTip">
-                <string>The key combination used to step to the next cue</string>
+                <string>The key combination used to go to the next frame page</string>
                </property>
                <property name="readOnly">
                 <bool>true</bool>
@@ -358,7 +358,7 @@
              <item row="1" column="0">
               <widget class="QToolButton" name="m_previousAttachButton">
                <property name="toolTip">
-                <string>Bind a key combination to skip to the next cue</string>
+                <string>Bind a key combination to skip to the previous frame page</string>
                </property>
                <property name="text">
                 <string notr="true">...</string>
@@ -398,7 +398,7 @@
              <item row="0" column="0" colspan="2">
               <widget class="QLineEdit" name="m_previousKeyEdit">
                <property name="toolTip">
-                <string>The key combination used to step to the next cue</string>
+                <string>The key combination used to go to the previous frame page</string>
                </property>
                <property name="readOnly">
                 <bool>true</bool>

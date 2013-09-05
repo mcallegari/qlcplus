@@ -221,6 +221,14 @@ VCSlider::~VCSlider()
     m_doc->masterTimer()->unregisterDMXSource(this);
 }
 
+void VCSlider::setID(quint32 id)
+{
+    VCWidget::setID(id);
+
+    if (caption().isEmpty())
+        setCaption(tr("Slider %1").arg(id));
+}
+
 /*****************************************************************************
  * Clipboard
  *****************************************************************************/

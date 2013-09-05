@@ -476,302 +476,302 @@ p, li { white-space: pre-wrap; }
         <translation>Vstupy/výstupy</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="255"/>
+        <location filename="app.cpp" line="277"/>
         <source>Cannot exit in Operate mode</source>
         <translation>Nelze ukončit v režimu Provoz</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="256"/>
+        <location filename="app.cpp" line="278"/>
         <source>You must switch back to Design mode to close the application.</source>
         <translation>Pro uzavření aplikace se nejprve musíte se přepnout zpět do režimu Návrhu.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="264"/>
+        <location filename="app.cpp" line="286"/>
         <source>Close</source>
         <translation>Zavřít</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="265"/>
+        <location filename="app.cpp" line="287"/>
         <source>Do you wish to save the current workspace before closing the application?</source>
         <translation>Přejete si uložit rozdělanou práci před ukončením aplikace ?</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="289"/>
+        <location filename="app.cpp" line="311"/>
         <source>Close the application?</source>
         <translation>Zavřít aplikaci ?</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="290"/>
+        <location filename="app.cpp" line="312"/>
         <source>Do you wish to close the application?</source>
         <translation>Opravdu si přejete uzavřít aplikaci ?</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="332"/>
+        <location filename="app.cpp" line="354"/>
         <source>Starting Q Light Controller Plus</source>
         <translation>Startuje se Q Light Controller Plus</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="388"/>
+        <location filename="app.cpp" line="410"/>
         <source> - New Workspace</source>
         <translation>- Nové pracoviště</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="422"/>
+        <location filename="app.cpp" line="444"/>
         <source>Exit</source>
         <translation>Zavřít</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="439"/>
+        <location filename="app.cpp" line="461"/>
         <source>Switch to Design Mode</source>
         <translation>Přepnout do režimu Návrhu</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="440"/>
+        <location filename="app.cpp" line="462"/>
         <source>There are still running functions.
 Really stop them and switch back to Design mode?</source>
         <translation>Některé funkce stále běží.
 Opravdu si přejete běžící funkce zastavit a přejít zpět do režimu Návrhu?</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="472"/>
+        <location filename="app.cpp" line="494"/>
         <source>Design</source>
         <translation>Návrh</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="473"/>
+        <location filename="app.cpp" line="495"/>
         <source>Switch to design mode</source>
         <translation>Přepnout do režimu Návrhu</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="482"/>
+        <location filename="app.cpp" line="504"/>
         <source>Operate</source>
         <translation>Provoz</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="483"/>
-        <location filename="app.cpp" line="511"/>
+        <location filename="app.cpp" line="505"/>
+        <location filename="app.cpp" line="533"/>
         <source>Switch to operate mode</source>
         <translation>Přepnout do režimu Provoz</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="494"/>
+        <location filename="app.cpp" line="516"/>
         <source>&amp;New</source>
         <translation>&amp;Nový</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="495"/>
+        <location filename="app.cpp" line="517"/>
         <source>CTRL+N</source>
         <comment>File|New</comment>
         <translation>CTRL+N</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="498"/>
+        <location filename="app.cpp" line="520"/>
         <source>&amp;Open</source>
         <translation>&amp;Otevřít</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="499"/>
+        <location filename="app.cpp" line="521"/>
         <source>CTRL+O</source>
         <comment>File|Open</comment>
         <translation>CTRL+O</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="502"/>
+        <location filename="app.cpp" line="524"/>
         <source>&amp;Save</source>
         <translation>&amp;Uložit</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="503"/>
+        <location filename="app.cpp" line="525"/>
         <source>CTRL+S</source>
         <comment>File|Save</comment>
         <translation>CTRL+S</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="506"/>
+        <location filename="app.cpp" line="528"/>
         <source>Save &amp;As...</source>
         <translation>Uložit &amp;jako...</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="510"/>
+        <location filename="app.cpp" line="532"/>
         <source>&amp;Operate</source>
         <translation>&amp;Provoz</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="512"/>
+        <location filename="app.cpp" line="534"/>
         <source>CTRL+F12</source>
         <comment>Control|Toggle operate/design mode</comment>
         <translation>CTRL+F12</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="515"/>
+        <location filename="app.cpp" line="537"/>
         <source>&amp;Monitor</source>
         <translation>&amp;Monitor</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="516"/>
+        <location filename="app.cpp" line="538"/>
         <source>CTRL+M</source>
         <comment>Control|Monitor</comment>
         <translation>CTRL+M</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="519"/>
+        <location filename="app.cpp" line="541"/>
         <source>Address Tool</source>
         <translation>Pomocník adresace</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="522"/>
+        <location filename="app.cpp" line="544"/>
         <source>Audio Trigger Factory</source>
         <translation>Tvorba audio spouští</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="525"/>
+        <location filename="app.cpp" line="547"/>
         <source>Toggle &amp;Blackout</source>
         <translation>Režim &amp;Blackout</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="530"/>
+        <location filename="app.cpp" line="552"/>
         <source>Dump DMX values to a function</source>
         <translation>Zachytit DMX hodnoty do funkce</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="531"/>
+        <location filename="app.cpp" line="553"/>
         <source>CTRL+D</source>
         <comment>Control|Dump DMX</comment>
         <translation>CTRL+D</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="534"/>
+        <location filename="app.cpp" line="556"/>
         <source>Stop ALL functions!</source>
         <translation>Zastavit VŠECHNY funkce!</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="538"/>
+        <location filename="app.cpp" line="560"/>
         <source>Toggle Full Screen</source>
         <translation>Přepnout na celou obrazovku</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="540"/>
+        <location filename="app.cpp" line="562"/>
         <source>CTRL+F11</source>
         <comment>Control|Toggle Full Screen</comment>
         <translation>CTRL+F11</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="544"/>
+        <location filename="app.cpp" line="566"/>
         <source>&amp;Index</source>
         <translation>&amp;Index</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="545"/>
+        <location filename="app.cpp" line="567"/>
         <source>SHIFT+F1</source>
         <comment>Help|Index</comment>
         <translation>SHIFT+F1</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="548"/>
+        <location filename="app.cpp" line="570"/>
         <source>&amp;About QLC+</source>
         <translation>&amp;O programu QLC+</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="554"/>
+        <location filename="app.cpp" line="576"/>
         <source>Workspace</source>
         <translation>Pracoviště</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="605"/>
+        <location filename="app.cpp" line="627"/>
         <source>Unable to read from file</source>
         <translation>Ze souboru nelze číst</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="608"/>
+        <location filename="app.cpp" line="630"/>
         <source>Unable to write to file</source>
         <translation>Do souboru nelze zapisovat</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="611"/>
+        <location filename="app.cpp" line="633"/>
         <source>A fatal error occurred</source>
         <translation>Nastala kritická chyba</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="614"/>
+        <location filename="app.cpp" line="636"/>
         <source>Unable to access resource</source>
         <translation>K tomuto zdroji se nepodařilo získat přístup</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="617"/>
+        <location filename="app.cpp" line="639"/>
         <source>Unable to open file for reading or writing</source>
         <translation>Nelze otevřít soubor pro čtení nebo zápis</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="620"/>
+        <location filename="app.cpp" line="642"/>
         <source>Operation was aborted</source>
         <translation>Operace byla zrušena</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="623"/>
+        <location filename="app.cpp" line="645"/>
         <source>Operation timed out</source>
         <translation>Časový limit operace vypršel</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="627"/>
+        <location filename="app.cpp" line="649"/>
         <source>An unspecified error has occurred. Nice.</source>
         <translation>No, nastala neočekávaná chyba. Co dodat, mrzí nás to.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="631"/>
+        <location filename="app.cpp" line="653"/>
         <source>File error</source>
         <translation>Chyba souboru</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="693"/>
-        <location filename="app.cpp" line="732"/>
-        <location filename="app.cpp" line="998"/>
+        <location filename="app.cpp" line="715"/>
+        <location filename="app.cpp" line="754"/>
+        <location filename="app.cpp" line="1020"/>
         <source>Do you wish to save the current workspace?
 Changes will be lost if you don&apos;t save them.</source>
         <translation>Přejete si uložit rozdělanou práci?
 Veškeré změny budou zahozeny, pokud je teď neuložíte.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="695"/>
+        <location filename="app.cpp" line="717"/>
         <source>New Workspace</source>
         <translation>Nové Pracoviště</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="734"/>
-        <location filename="app.cpp" line="755"/>
-        <location filename="app.cpp" line="1000"/>
+        <location filename="app.cpp" line="756"/>
+        <location filename="app.cpp" line="777"/>
+        <location filename="app.cpp" line="1022"/>
         <source>Open Workspace</source>
         <translation>Otevřít Pracoviště</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="763"/>
-        <location filename="app.cpp" line="840"/>
+        <location filename="app.cpp" line="785"/>
+        <location filename="app.cpp" line="862"/>
         <source>Workspaces (*%1)</source>
         <translation>Pracoviště (*%1)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="765"/>
-        <location filename="app.cpp" line="842"/>
+        <location filename="app.cpp" line="787"/>
+        <location filename="app.cpp" line="864"/>
         <source>All Files (*.*)</source>
         <translation>Všechny soubory (*.*)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="767"/>
-        <location filename="app.cpp" line="844"/>
+        <location filename="app.cpp" line="789"/>
+        <location filename="app.cpp" line="866"/>
         <source>All Files (*)</source>
         <translation>Všechny soubory (*)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="834"/>
+        <location filename="app.cpp" line="856"/>
         <source>Save Workspace As</source>
         <translation>Uložit Pracoviště jako</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="989"/>
+        <location filename="app.cpp" line="1011"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="990"/>
+        <location filename="app.cpp" line="1012"/>
         <source>File not found !
 The selected file has been moved or deleted.</source>
         <translation>Soubor nebyl nalezen!
@@ -1443,43 +1443,62 @@ Délka: %3
         <translation>Možnosti zachytávání</translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.ui" line="54"/>
+        <location filename="dmxdumpfactory.ui" line="47"/>
         <source>Dump selected channels</source>
         <translation>Zachytávat pouze zvolené kanály</translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.ui" line="65"/>
-        <location filename="dmxdumpfactory.ui" line="82"/>
+        <location filename="dmxdumpfactory.ui" line="61"/>
+        <source>Add to:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="dmxdumpfactory.ui" line="72"/>
+        <location filename="dmxdumpfactory.ui" line="120"/>
         <source>Name</source>
         <translation>Název</translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.ui" line="70"/>
+        <location filename="dmxdumpfactory.ui" line="89"/>
+        <source>Chaser</source>
+        <translation type="unfinished">Prolínání</translation>
+    </message>
+    <message>
+        <location filename="dmxdumpfactory.ui" line="99"/>
+        <source>Button</source>
+        <translation type="unfinished">Tlačítko</translation>
+    </message>
+    <message>
+        <location filename="dmxdumpfactory.ui" line="106"/>
+        <source>Slider</source>
+        <translation type="unfinished">Šavle</translation>
+    </message>
+    <message>
+        <location filename="dmxdumpfactory.ui" line="125"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.ui" line="90"/>
         <source>Add to Chaser:</source>
-        <translation>Přidat do Prolínání:</translation>
+        <translation type="obsolete">Přidat do Prolínání:</translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.ui" line="102"/>
+        <location filename="dmxdumpfactory.ui" line="138"/>
         <source>Scene name:</source>
         <translation>Název Scény:</translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.cpp" line="56"/>
+        <location filename="dmxdumpfactory.cpp" line="66"/>
         <source>Dump all channels (%1 Universes, %2 Fixtures, %3 Channels)</source>
         <translation>Zachytit všechny kanály (%1 Větve, %2 Zařízení, %3 Kanály)</translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.cpp" line="59"/>
+        <location filename="dmxdumpfactory.cpp" line="69"/>
         <source>New Scene From Live %1</source>
         <translation>Nová scéna z Provozu %1</translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.cpp" line="98"/>
+        <location filename="dmxdumpfactory.cpp" line="108"/>
         <source>Universe %1</source>
         <translation>Větev %1</translation>
     </message>
@@ -2869,56 +2888,56 @@ Délka: %3
         <translation>Nemáte oprávnění zapisovat do souboru %1. Možná nebudete moci uložit Vaše změny v profilu.</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="193"/>
+        <location filename="inputprofileeditor.cpp" line="199"/>
         <source>Missing information</source>
         <translation>Chybějící informace</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="194"/>
+        <location filename="inputprofileeditor.cpp" line="200"/>
         <source>Manufacturer and/or model name is missing.</source>
         <translation>Výrobce a/nebo název modelu nebyl vyplněn.</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="224"/>
-        <location filename="inputprofileeditor.cpp" line="320"/>
+        <location filename="inputprofileeditor.cpp" line="230"/>
+        <location filename="inputprofileeditor.cpp" line="326"/>
         <source>Channel already exists</source>
         <translation>Kanál již existuje</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="225"/>
-        <location filename="inputprofileeditor.cpp" line="321"/>
+        <location filename="inputprofileeditor.cpp" line="231"/>
+        <location filename="inputprofileeditor.cpp" line="327"/>
         <source>Channel %1 already exists</source>
         <translation>Kanál %1 již existuje</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="247"/>
+        <location filename="inputprofileeditor.cpp" line="253"/>
         <source>Delete channels</source>
         <translation>Smazat kanály</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="248"/>
+        <location filename="inputprofileeditor.cpp" line="254"/>
         <source>Delete all %1 selected channels?</source>
         <translation>Smazat všechny %1 zvolené kanály ?</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="361"/>
+        <location filename="inputprofileeditor.cpp" line="367"/>
         <source>Channel wizard activated</source>
         <translation>Průvodce kanálů je aktivní</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="362"/>
+        <location filename="inputprofileeditor.cpp" line="368"/>
         <source>You have enabled the input channel wizard. After clicking OK, wiggle your mapped input profile&apos;s controls. They should appear into the list. Click the wizard button again to stop channel auto-detection.
 
 Note that the wizard cannot tell the difference between a knob and a slider so you will have to do the change manually.</source>
         <translation>Průvodce vstupních kanálů je aktivní. Po kliknutí na OK, spojíte Vámi přiřazené profily ovládání zařízení, která by se následně měla zobrazit v seznamu. Klikněte opět na tlačítko průvodce pokud chcete proces autodetekce zastavit.\n\n  Mějte prosím na paměti, že průvodce nemůže rozlišit rozdíl mezi šavlí a tlačítkem a tak to budete muset později upravit ručně.</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="406"/>
+        <location filename="inputprofileeditor.cpp" line="412"/>
         <source>Button %1</source>
         <translation>Tlačítko %1</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="446"/>
+        <location filename="inputprofileeditor.cpp" line="452"/>
         <source>Slider %1</source>
         <translation>Šavle %1</translation>
     </message>
@@ -3946,27 +3965,32 @@ Délka: %3
         <translation>Nic</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="296"/>
+        <location filename="vcbutton.cpp" line="130"/>
+        <source>Button %1</source>
+        <translation type="unfinished">Tlačítko %1</translation>
+    </message>
+    <message>
+        <location filename="vcbutton.cpp" line="304"/>
         <source>Select button icon</source>
         <translation>Zvolit ikonu tlačítka</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="297"/>
+        <location filename="vcbutton.cpp" line="305"/>
         <source>Images (%1)</source>
         <translation>Obrázky (%1)</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="503"/>
+        <location filename="vcbutton.cpp" line="497"/>
         <source>Toggle Blackout</source>
         <translation>Režim Blackout</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="505"/>
+        <location filename="vcbutton.cpp" line="499"/>
         <source>Stop ALL functions!</source>
         <translation>Zastavit VŠECHNY funkce!</translation>
     </message>
     <message>
-        <location filename="vcbutton.cpp" line="716"/>
+        <location filename="vcbutton.cpp" line="710"/>
         <source>Icon</source>
         <translation>Ikona</translation>
     </message>
@@ -4172,22 +4196,22 @@ Délka: %3
         <translation>Seznam střihů</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="853"/>
+        <location filename="vccuelist.cpp" line="835"/>
         <source>Fade In</source>
         <translation>Zesílení</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="853"/>
+        <location filename="vccuelist.cpp" line="835"/>
         <source>Fade Out</source>
         <translation>Zeslabení</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="853"/>
+        <location filename="vccuelist.cpp" line="835"/>
         <source>Duration</source>
         <translation>Délka</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="853"/>
+        <location filename="vccuelist.cpp" line="835"/>
         <source>Notes</source>
         <translation>Poznámky</translation>
     </message>
@@ -4438,7 +4462,13 @@ Délka: %3
 <context>
     <name>VCFrame</name>
     <message>
-        <location filename="vcframe.cpp" line="566"/>
+        <location filename="vcframe.cpp" line="271"/>
+        <location filename="vcframe.cpp" line="381"/>
+        <source>Page: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcframe.cpp" line="952"/>
         <source>Add</source>
         <translation>Přidat</translation>
     </message>
@@ -4456,19 +4486,141 @@ Délka: %3
         <translation>Název rámečku</translation>
     </message>
     <message>
-        <location filename="vcframeproperties.ui" line="34"/>
+        <location filename="vcframeproperties.ui" line="38"/>
+        <source>Appearance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcframeproperties.ui" line="50"/>
         <source>Accept child widgets</source>
         <translation>Povolit podřazené ovladače</translation>
     </message>
     <message>
-        <location filename="vcframeproperties.ui" line="41"/>
+        <location filename="vcframeproperties.ui" line="63"/>
         <source>Allow resizing</source>
         <translation>Povolit změnu velikosti</translation>
     </message>
     <message>
-        <location filename="vcframeproperties.ui" line="48"/>
+        <location filename="vcframeproperties.ui" line="76"/>
         <source>Show header</source>
         <translation>Zobrazit hlavičku</translation>
+    </message>
+    <message>
+        <location filename="vcframeproperties.ui" line="97"/>
+        <source>Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcframeproperties.ui" line="103"/>
+        <source>Enable</source>
+        <translation type="unfinished">Zapnout</translation>
+    </message>
+    <message>
+        <location filename="vcframeproperties.ui" line="112"/>
+        <source>Clone first page widgets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcframeproperties.ui" line="125"/>
+        <source>External Input - Next page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcframeproperties.ui" line="131"/>
+        <location filename="vcframeproperties.ui" line="239"/>
+        <source>Input universe</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcframeproperties.ui" line="138"/>
+        <location filename="vcframeproperties.ui" line="246"/>
+        <source>The input universe that sends data to this widget</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcframeproperties.ui" line="148"/>
+        <location filename="vcframeproperties.ui" line="256"/>
+        <source>Input channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcframeproperties.ui" line="155"/>
+        <location filename="vcframeproperties.ui" line="263"/>
+        <source>The particular input channel within the input universe that sends data to this widget</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcframeproperties.ui" line="165"/>
+        <location filename="vcframeproperties.ui" line="216"/>
+        <source>Choose an external input universe &amp; channel that this widget should listen to</source>
+        <translation type="unfinished">Zvolte větev  externího vstupu &amp; kanál, který by měl tento ovladač řídit</translation>
+    </message>
+    <message>
+        <location filename="vcframeproperties.ui" line="168"/>
+        <location filename="vcframeproperties.ui" line="219"/>
+        <source>Choose...</source>
+        <translation type="unfinished">Zvolit...</translation>
+    </message>
+    <message>
+        <location filename="vcframeproperties.ui" line="175"/>
+        <source>When toggled, you can move an external slider/knob to assign it to this widget.</source>
+        <oldsource>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</oldsource>
+        <translation type="unfinished">Je-li aktivní, bude externí šavle/ovladač dostupný pro řízení virtuální šavle.</translation>
+    </message>
+    <message>
+        <location filename="vcframeproperties.ui" line="178"/>
+        <location filename="vcframeproperties.ui" line="276"/>
+        <source>Auto Detect</source>
+        <translation type="unfinished">Automaticky detekovat</translation>
+    </message>
+    <message>
+        <location filename="vcframeproperties.ui" line="210"/>
+        <source>External Input - Previous page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcframeproperties.ui" line="273"/>
+        <source>When toggled, you can move an external slider/knob to assign it to this frame.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcframeproperties.ui" line="289"/>
+        <source>Number of pages:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcframeproperties.ui" line="296"/>
+        <location filename="vcframeproperties.ui" line="355"/>
+        <source>Key Combination</source>
+        <translation type="unfinished">Kombinace kláves</translation>
+    </message>
+    <message>
+        <location filename="vcframeproperties.ui" line="302"/>
+        <source>Bind a key combination to skip to the next frame page</source>
+        <oldsource>Bind a key combination to skip to the next cue</oldsource>
+        <translation type="unfinished">Navázat kombinaci kláves pro přeskočení na další střih</translation>
+    </message>
+    <message>
+        <location filename="vcframeproperties.ui" line="322"/>
+        <location filename="vcframeproperties.ui" line="381"/>
+        <source>Clear the key binding</source>
+        <translation type="unfinished">Odebrat přiřazenou klávesu</translation>
+    </message>
+    <message>
+        <location filename="vcframeproperties.ui" line="342"/>
+        <source>The key combination used to go to the next frame page</source>
+        <oldsource>The key combination used to step to the next cue</oldsource>
+        <translation type="unfinished">Kombinace kláves použitých pro posun na další krok střihu</translation>
+    </message>
+    <message>
+        <location filename="vcframeproperties.ui" line="361"/>
+        <source>Bind a key combination to skip to the previous frame page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcframeproperties.ui" line="401"/>
+        <source>The key combination used to go to the previous frame page</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4737,6 +4889,14 @@ Délka: %3
         <location filename="vcpropertieseditor.cpp" line="443"/>
         <source>Unknown</source>
         <translation>Neznámý</translation>
+    </message>
+</context>
+<context>
+    <name>VCSlider</name>
+    <message>
+        <location filename="vcslider.cpp" line="229"/>
+        <source>Slider %1</source>
+        <translation type="unfinished">Šavle %1</translation>
     </message>
 </context>
 <context>
@@ -5188,53 +5348,53 @@ Délka: %3
 <context>
     <name>VCWidget</name>
     <message>
-        <location filename="vcwidget.cpp" line="142"/>
+        <location filename="vcwidget.cpp" line="145"/>
         <source>Button</source>
         <translation>Tlačítko</translation>
     </message>
     <message>
-        <location filename="vcwidget.cpp" line="143"/>
+        <location filename="vcwidget.cpp" line="146"/>
         <source>Slider</source>
         <translation>Šavle</translation>
     </message>
     <message>
-        <location filename="vcwidget.cpp" line="144"/>
+        <location filename="vcwidget.cpp" line="147"/>
         <source>XYPad</source>
         <translation>2D ovladač</translation>
     </message>
     <message>
-        <location filename="vcwidget.cpp" line="145"/>
+        <location filename="vcwidget.cpp" line="148"/>
         <source>Frame</source>
         <translation>Rámeček</translation>
     </message>
     <message>
-        <location filename="vcwidget.cpp" line="146"/>
+        <location filename="vcwidget.cpp" line="149"/>
         <source>Solo frame</source>
         <translation>Samostatný rámeček</translation>
     </message>
     <message>
-        <location filename="vcwidget.cpp" line="147"/>
+        <location filename="vcwidget.cpp" line="150"/>
         <source>Speed dial</source>
         <translation>Rychlá volba</translation>
     </message>
     <message>
-        <location filename="vcwidget.cpp" line="148"/>
+        <location filename="vcwidget.cpp" line="151"/>
         <source>Cue list</source>
         <translation>Seznam střihů</translation>
     </message>
     <message>
-        <location filename="vcwidget.cpp" line="149"/>
+        <location filename="vcwidget.cpp" line="152"/>
         <source>Label</source>
         <translation>Popisek</translation>
     </message>
     <message>
-        <location filename="vcwidget.cpp" line="152"/>
-        <location filename="vcwidget.cpp" line="154"/>
+        <location filename="vcwidget.cpp" line="155"/>
+        <location filename="vcwidget.cpp" line="157"/>
         <source>Unknown</source>
         <translation>Neznámý</translation>
     </message>
     <message>
-        <location filename="vcwidget.cpp" line="454"/>
+        <location filename="vcwidget.cpp" line="474"/>
         <source>This widget has no properties</source>
         <translation>Tento prvek/ovladač nemá žádné vlastnosti</translation>
     </message>
@@ -5603,27 +5763,27 @@ Délka: %3
         <translation>Pořadí překryvu (CTRL+&amp;O)</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1077"/>
+        <location filename="virtualconsole.cpp" line="1101"/>
         <source>Do you wish to delete the selected widgets?</source>
         <translation>Přejete si smazat zvolený prvek/ovladač ?</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1078"/>
+        <location filename="virtualconsole.cpp" line="1102"/>
         <source>Delete widgets</source>
         <translation>Smazat prvek/ovladač</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1123"/>
+        <location filename="virtualconsole.cpp" line="1157"/>
         <source>Rename widgets</source>
         <translation>Přejmenovat prvek/ovladač</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1123"/>
+        <location filename="virtualconsole.cpp" line="1157"/>
         <source>Caption:</source>
         <translation>Nadpis:</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1176"/>
+        <location filename="virtualconsole.cpp" line="1210"/>
         <source>Select background image</source>
         <translation>Zvolit obrázek pozadí</translation>
     </message>
