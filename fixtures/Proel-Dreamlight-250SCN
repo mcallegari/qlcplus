@@ -1,0 +1,60 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.4.1</Version>
+  <Author>Massimo Stolfa</Author>
+ </Creator>
+ <Manufacturer>Proel</Manufacturer>
+ <Model>Dreamlight 250SCN</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="9 colors + open white + rotating, adjustable speed strobe effect">
+  <Group Byte="0">Effect</Group>
+ </Channel>
+ <Channel Name="gobos rotation index possibility left and right continuous rotation with adjustable speed left and right">
+  <Group Byte="0">Gobo</Group>
+ </Channel>
+ <Channel Name="7 gobos + open white">
+  <Group Byte="0">Gobo</Group>
+ </Channel>
+ <Channel Name="strobe effect 1-7 fps + dimmer">
+  <Group Byte="0">Intensity</Group>
+ </Channel>
+ <Channel Name="pan movement (within 450°)">
+  <Group Byte="0">Pan</Group>
+ </Channel>
+ <Channel Name="tilt movement (within 270°)">
+  <Group Byte="0">Tilt</Group>
+ </Channel>
+ <Channel Name="3 face prism">
+  <Group Byte="0">Prism</Group>
+ </Channel>
+ <Channel Name="focus control">
+  <Group Byte="0">Beam</Group>
+ </Channel>
+ <Channel Name="micro Pan (16 bit mode)">
+  <Group Byte="1">Pan</Group>
+ </Channel>
+ <Channel Name="micro Tilt (16 bit mode)">
+  <Group Byte="1">Tilt</Group>
+ </Channel>
+ <Mode Name="dremlight 250SCN">
+  <Physical>
+   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
+   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">9 colors + open white + rotating, adjustable speed strobe effect</Channel>
+  <Channel Number="1">gobos rotation index possibility left and right continuous rotation with adjustable speed left and right</Channel>
+  <Channel Number="2">7 gobos + open white</Channel>
+  <Channel Number="3">strobe effect 1-7 fps + dimmer</Channel>
+  <Channel Number="4">pan movement (within 450°)</Channel>
+  <Channel Number="5">tilt movement (within 270°)</Channel>
+  <Channel Number="6">3 face prism</Channel>
+  <Channel Number="7">focus control</Channel>
+  <Channel Number="8">micro Pan (16 bit mode)</Channel>
+  <Channel Number="9">micro Tilt (16 bit mode)</Channel>
+ </Mode>
+</FixtureDefinition>
