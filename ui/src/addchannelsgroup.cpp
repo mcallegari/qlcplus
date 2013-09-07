@@ -138,7 +138,7 @@ AddChannelsGroup::~AddChannelsGroup()
 
 void AddChannelsGroup::accept()
 {
-    m_chansGroup->resetList();
+    m_chansGroup->resetChannels();
 
     for (int t = 0; t < m_tree->topLevelItemCount(); t++)
     {

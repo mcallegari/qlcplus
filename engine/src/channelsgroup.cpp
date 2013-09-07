@@ -101,7 +101,7 @@ QString ChannelsGroup::name() const
  * Channels
  ************************************************************************/
 
-void ChannelsGroup::resetList()
+void ChannelsGroup::resetChannels()
 {
     m_channels.clear();
 }

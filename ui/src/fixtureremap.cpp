@@ -27,6 +27,7 @@
 #include "audiotriggerfactory.h"
 #include "virtualconsole.h"
 #include "qlcfixturedef.h"
+#include "channelsgroup.h"
 #include "fixtureremap.h"
 #include "remapwidget.h"
 #include "qlcchannel.h"
@@ -480,19 +481,32 @@ void FixtureRemap::accept()
     }
 
     /* **********************************************************************
-     * 2 - replace original project fixtures
-     * ********************************************************************** */
-    m_doc->replaceFixtures(m_targetDoc->fixtures());
-
-    /* **********************************************************************
-     * 3 - Show a progress dialog, in case the operation takes a while
+     * 2 - Show a progress dialog, in case the operation takes a while
      * ********************************************************************** */
     QProgressDialog progress(tr("This might take a while..."), tr("Cancel"), 0, 100, this);
     progress.setWindowModality(Qt::WindowModal);
     progress.show();
 
     /* **********************************************************************
-     * 4 - scan project functions and perform remapping
+     * 3 - replace original project fixtures
+     * ********************************************************************** */
+    m_doc->replaceFixtures(m_targetDoc->fixtures());
+
+    /* **********************************************************************
+     * 4 - remap channel groups
+     * ********************************************************************** */
+    foreach (ChannelsGroup *grp, m_doc->channelsGroups())
+    {
+        QList<SceneValue> grpChannels = grp->getChannels();
+        // this is crucial: here all the "unmapped" channels will be lost forever !
+        grp->resetChannels();
+        QList <SceneValue> newList = remapSceneValues(grpChannels, sourceList, targetList);
+        foreach (SceneValue val, newList)
+            grp->addChannel(val.fxi, val.channel);
+    }
+
+    /* **********************************************************************
+     * 5 - scan project functions and perform remapping
      * ********************************************************************** */
     int funcNum = m_doc->functions().count();
     int f = 0;
@@ -582,7 +596,7 @@ void FixtureRemap::accept()
     }
 
     /* **********************************************************************
-     * 5- remap Virtual Console widgets
+     * 6 - remap Virtual Console widgets
      * ********************************************************************** */
     VCFrame* contents = VirtualConsole::instance()->contents();
     QList<VCWidget *> widgetsList = getVCChildren((VCWidget *)contents);
@@ -618,7 +632,7 @@ void FixtureRemap::accept()
     }
 
     /* **********************************************************************
-     * 6- remap Audio Trigger channels
+     * 7 - remap Audio Trigger channels
      * ********************************************************************** */
     AudioTriggerFactory *triggers = AudioTriggerFactory::instance();
     foreach (AudioBar *bar, triggers->getAudioBars())
@@ -632,7 +646,7 @@ void FixtureRemap::accept()
     }
 
     /* **********************************************************************
-     * 7- save the remapped project into a new file
+     * 8 - save the remapped project into a new file
      * ********************************************************************** */
     App *mainApp = (App *)m_doc->parent();
     mainApp->setFileName(m_targetProjectLabel->text());

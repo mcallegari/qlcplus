@@ -452,7 +452,8 @@ void FixtureManager::updateChannelsGroupView()
                 continue;
 
             const QLCChannel* ch = fxi->channel(scv.channel);
-            grpItem->setIcon(KColumnName, ch->getIconFromGroup(ch->group()));
+            if (ch != NULL)
+                grpItem->setIcon(KColumnName, ch->getIconFromGroup(ch->group()));
         }
         if (selGroupID == grp->id())
             m_channel_groups_tree->setItemSelected(grpItem, true);
@@ -700,9 +701,10 @@ void FixtureManager::slotChannelsGroupSelectionChanged()
         if (grpvar.isValid() == true)
         {
             ChannelsGroup *chGroup = m_doc->channelsGroup(grpvar.toUInt());
-            m_info->setText(QString("%1<BODY>%2</BODY></HTML>")
-                            .arg(channelsGroupInfoStyleSheetHeader())
-                            .arg(chGroup->status(m_doc)));
+            if (chGroup != NULL)
+                m_info->setText(QString("%1<BODY>%2</BODY></HTML>")
+                                .arg(channelsGroupInfoStyleSheetHeader())
+                                .arg(chGroup->status(m_doc)));
         }
         m_removeAction->setEnabled(true);
         m_propertiesAction->setEnabled(true);

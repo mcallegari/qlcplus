@@ -97,7 +97,7 @@ public:
      * Channels
      ************************************************************************/
     /** Empty the current values of this channels group */
-    void resetList();
+    void resetChannels();
 
     /** Add a channel to this channels group */
     bool addChannel(quint32 fxid, quint32 channel);
