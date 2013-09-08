@@ -39,17 +39,24 @@ static void CALLBACK MidiInProc(HMIDIIN hMidiIn, UINT wMsg,
         BYTE cmd = dwParam1 & 0xFF;
         BYTE data1 = (dwParam1 & 0xFF00) >> 8;
         BYTE data2 = (dwParam1 & 0xFF0000) >> 16;
+
+        if (cmd >= MIDI_BEAT_CLOCK && cmd <= MIDI_BEAT_STOP)
+        {
+            if (self->processMBC(cmd) == false)
+                return;
+        }
+
         quint32 channel = 0;
         uchar value = 0;
 
         if (QLCMIDIProtocol::midiToInput(cmd, data1, data2,
             uchar(self->midiChannel()), &channel, &value) == true)
-        {/*
-            if (channel == CHANNEL_OFFSET_MBC)
-                if (self->incrementMBCCount() == false)
-                    return;
-*/
+        {
             self->emitValueChanged(channel, value);
+            // for MIDI beat clock signals,
+            // generate a synthetic release event
+            if (cmd >= MIDI_BEAT_CLOCK && cmd <= MIDI_BEAT_STOP)
+                self->emitValueChanged(channel, 0);
         }
     }
 }
@@ -61,6 +68,7 @@ Win32MidiInputDevice::Win32MidiInputDevice(const QVariant& uid, const QString& n
     , m_id(id)
     , m_handle(NULL)
     , m_universe(MAX_MIDI_DMX_CHANNELS, char(0))
+    , m_mbc_counter(UINT_MAX)
 {
     qDebug() << Q_FUNC_INFO;
 }
@@ -110,4 +118,28 @@ bool Win32MidiInputDevice::isOpen() const
         return true;
     else
         return false;
+}
+
+bool Win32MidiInputDevice::processMBC(int type)
+{
+    if (type == MIDI_BEAT_START || type == MIDI_BEAT_STOP)
+    {
+        m_mbc_counter = 1;
+        return true;
+    }
+    else if (type == MIDI_BEAT_CLOCK)
+    {
+        if (m_mbc_counter == UINT_MAX)
+        {
+            m_mbc_counter = 1;
+            return true;
+        }
+        m_mbc_counter++;
+        if (m_mbc_counter == MIDI_BEAT_CLOCK_PPQ)
+        {
+            m_mbc_counter = 0;
+            return true;
+        }
+    }
+    return false;
 }

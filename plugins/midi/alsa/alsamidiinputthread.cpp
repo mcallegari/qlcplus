@@ -223,6 +223,8 @@ void AlsaMidiInputThread::readEvent()
         uchar data1 = 0;
         uchar data2 = 0;
 
+        //qDebug() << "ALSA MIDI event received !" << ev->type;
+
         if (snd_seq_ev_is_control_type(ev))
         {
             if (ev->type == SND_SEQ_EVENT_PGMCHANGE)
@@ -240,13 +242,27 @@ void AlsaMidiInputThread::readEvent()
         }
         else if (snd_seq_ev_is_note_type(ev))
         {
-            qDebug() << "note type";
             if (ev->data.note.velocity == 0 && ev->data.note.off_velocity == 0)
                 cmd = MIDI_NOTE_OFF | ev->data.note.channel;
             else
                 cmd = MIDI_NOTE_ON | ev->data.note.channel;
             data1 = ev->data.note.note;
             data2 = ev->data.note.velocity;
+        }
+        else if (snd_seq_ev_is_queue_type(ev))
+        {
+            if (device->processMBC(ev->type) == false)
+                continue;
+            if (ev->type == SND_SEQ_EVENT_START)
+                cmd = MIDI_BEAT_START;
+            else if(ev->type == SND_SEQ_EVENT_STOP)
+                cmd = MIDI_BEAT_STOP;
+            else if(ev->type == SND_SEQ_EVENT_CONTINUE)
+                cmd = MIDI_BEAT_CONTINUE;
+            else if(ev->type == SND_SEQ_EVENT_CLOCK)
+                cmd = MIDI_BEAT_CLOCK;
+
+            qDebug()  << "MIDI clock: " << cmd;
         }
 
         // ALSA API is a bit controversial on this. snd_seq_event_input() says
@@ -260,12 +276,11 @@ void AlsaMidiInputThread::readEvent()
         if (QLCMIDIProtocol::midiToInput(cmd, data1, data2, device->midiChannel(),
                                          &channel, &value) == true)
         {
-/*
-            if (channel == CHANNEL_OFFSET_MBC)
-                if (device->incrementMBCCount() == false)
-                    continue;
-*/
             device->emitValueChanged(channel, value);
+            // for MIDI beat clock signals,
+            // generate a synthetic release event
+            if (cmd >= MIDI_BEAT_CLOCK && cmd <= MIDI_BEAT_STOP)
+                device->emitValueChanged(channel, 0);
         }
     } while (snd_seq_event_input_pending(m_alsa, 0) > 0);
 

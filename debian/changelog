@@ -4,7 +4,7 @@ qlcplus (4.4.2) stable; urgency=low
   * NEW: Added multi-page support to Virtual Console frames
   * NEW: DMX dump can now set a Scene on a Virtual Console button or slider
   * NEW: added Czech translation (thank to Jan Lachman)
-  * NEW: MIDI plugin can now receive Program Change signals too
+  * NEW: MIDI plugin can now receive Program Change and MIDI beat clock
   * Cue List "Stop" input turned into "Playback", to handle start/stop of a cue with one key
   * Fixed channel groups remapping
   

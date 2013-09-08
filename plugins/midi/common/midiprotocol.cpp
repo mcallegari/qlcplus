@@ -94,8 +94,15 @@ bool QLCMIDIProtocol::midiSysCommonToInput(uchar cmd, uchar data1, uchar data2,
 
     switch (cmd)
     {
-        case MIDI_BEATC_CLOCK:
-            *channel = CHANNEL_OFFSET_MBC;
+        case MIDI_BEAT_CLOCK:
+            *channel = CHANNEL_OFFSET_MBC_BEAT;
+            *value = 127;
+            return true;
+
+        case MIDI_BEAT_START:
+        case MIDI_BEAT_CONTINUE:
+        case MIDI_BEAT_STOP:
+            *channel = CHANNEL_OFFSET_MBC_PLAYBACK;
             *value = 127;
             return true;
 
