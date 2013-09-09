@@ -25,6 +25,10 @@
 #include <QtGui>
 #include <QtXml>
 
+#ifdef WIN32
+  #include <windows.h>
+#endif
+
 #include "inputoutputmanager.h"
 #include "functionmanager.h"
 #include "virtualconsole.h"
