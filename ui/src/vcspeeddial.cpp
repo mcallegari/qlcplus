@@ -230,6 +230,27 @@ void VCSpeedDial::slotInputValueChanged(quint32 universe, quint32 channel, uchar
     }
 }
 
+/*********************************************************************
+ * Tap key sequence handler
+ *********************************************************************/
+
+void VCSpeedDial::setKeySequence(const QKeySequence& keySequence)
+{
+    m_tapKeySequence = QKeySequence(keySequence);
+}
+
+QKeySequence VCSpeedDial::keySequence() const
+{
+    return m_tapKeySequence;
+}
+
+void VCSpeedDial::slotKeyPressed(const QKeySequence& keySequence)
+{
+    if (m_tapKeySequence == keySequence)
+        m_dial->tap();
+}
+
+
 /****************************************************************************
  * Absolute value range
  ****************************************************************************/
@@ -331,6 +352,10 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
                 sub = sub.nextSibling();
             }
         }
+        else if (tag.tagName() == KXMLQLCVCSpeedDialTapKey)
+        {
+            setKeySequence(stripKeySequence(QKeySequence(tag.text())));
+        }
         else if (tag.tagName() == KXMLQLCWindowState)
         {
             int x = 0, y = 0, w = 0, h = 0;
@@ -383,6 +408,15 @@ bool VCSpeedDial::saveXML(QDomDocument* doc, QDomElement* vc_root)
     QDomElement tap = doc->createElement(KXMLQLCVCSpeedDialTap);
     saveXMLInput(doc, &tap, inputSource(tapInputSourceId));
     root.appendChild(tap);
+
+    /* Key sequence */
+    if (m_tapKeySequence.isEmpty() == false)
+    {
+        QDomElement tag = doc->createElement(KXMLQLCVCSpeedDialTapKey);
+        root.appendChild(tag);
+        QDomText text = doc->createTextNode(m_tapKeySequence.toString());
+        tag.appendChild(text);
+    }
 
     /* Functions */
     foreach (quint32 id, m_functions)

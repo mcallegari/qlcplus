@@ -205,8 +205,6 @@ public:
     void setKeySequence(const QKeySequence& keySequence);
     QKeySequence keySequence() const;
 
-    bool isControlDown() const;
-
 protected slots:
     void slotKeyPressed(const QKeySequence& keySequence);
     void slotKeyReleased(const QKeySequence& keySequence);

@@ -22,6 +22,7 @@
 #include "vcspeeddialproperties.h"
 #include "selectinputchannel.h"
 #include "functionselection.h"
+#include "assignhotkey.h"
 #include "vcspeeddial.h"
 #include "doc.h"
 
@@ -62,12 +63,18 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
     /* Tap input */
     m_tapInputSource = m_dial->inputSource(VCSpeedDial::tapInputSourceId);
 
+    /* Key sequence */
+    m_tapKeySequence = QKeySequence(dial->keySequence());
+    m_keyEdit->setText(m_tapKeySequence.toString(QKeySequence::NativeText));
+
     updateInputSources();
 
     connect(m_autoDetectAbsoluteInputButton, SIGNAL(toggled(bool)),
             this, SLOT(slotAutoDetectAbsoluteInputSourceToggled(bool)));
     connect(m_autoDetectTapInputButton, SIGNAL(toggled(bool)),
             this, SLOT(slotAutoDetectTapInputSourceToggled(bool)));
+    connect(m_attachKey, SIGNAL(clicked()), this, SLOT(slotAttachKey()));
+    connect(m_detachKey, SIGNAL(clicked()), this, SLOT(slotDetachKey()));
 }
 
 VCSpeedDialProperties::~VCSpeedDialProperties()
@@ -97,6 +104,8 @@ void VCSpeedDialProperties::accept()
                                   m_absoluteMaxSpin->value() * 1000);
     m_dial->setInputSource(m_absoluteInputSource, VCSpeedDial::absoluteInputSourceId);
     m_dial->setInputSource(m_tapInputSource, VCSpeedDial::tapInputSourceId);
+
+    m_dial->setKeySequence(m_tapKeySequence);
 
     QDialog::accept();
 }
@@ -239,4 +248,20 @@ void VCSpeedDialProperties::slotChooseTapInputSourceClicked()
         m_tapInputSource = QLCInputSource(sic.universe(), sic.channel());
         updateInputSources();
     }
+}
+
+void VCSpeedDialProperties::slotAttachKey()
+{
+    AssignHotKey ahk(this, m_tapKeySequence);
+    if (ahk.exec() == QDialog::Accepted)
+    {
+        m_tapKeySequence = QKeySequence(ahk.keySequence());
+        m_keyEdit->setText(m_tapKeySequence.toString(QKeySequence::NativeText));
+    }
+}
+
+void VCSpeedDialProperties::slotDetachKey()
+{
+    m_tapKeySequence = QKeySequence();
+    m_keyEdit->setText(m_tapKeySequence.toString(QKeySequence::NativeText));
 }
