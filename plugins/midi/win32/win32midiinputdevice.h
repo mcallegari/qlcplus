@@ -39,10 +39,13 @@ public:
     void close();
     bool isOpen() const;
 
+    bool processMBC(int type);
+
 private:
     UINT m_id;
     HMIDIIN m_handle;
     QByteArray m_universe;
+    uint m_mbc_counter;
 };
 
 #endif

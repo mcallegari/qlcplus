@@ -40,6 +40,13 @@ class QString;
 #define KXMLQLCVCFrameShowHeader    "ShowHeader"
 #define KXMLQLCVCFrameIsCollapsed   "Collapsed"
 
+#define KXMLQLCVCFrameMultipage   "Multipage"
+#define KXMLQLCVCFramePagesNumber "PagesNum"
+#define KXMLQLCVCFrameCurrentPage "CurrentPage"
+#define KXMLQLCVCFrameKey         "Key"
+#define KXMLQLCVCFrameNext        "Next"
+#define KXMLQLCVCFramePrevious    "Previous"
+
 class VCFrame : public VCWidget
 {
     Q_OBJECT
@@ -48,6 +55,10 @@ class VCFrame : public VCWidget
 public:
     /** Default size for newly-created frames */
     static const QSize defaultSize;
+
+    /** External input source IDs */
+    static const quint8 nextPageInputSourceId;
+    static const quint8 previousPageInputSourceId;
 
     /*********************************************************************
      * Initialization
@@ -99,6 +110,69 @@ protected:
     int m_width, m_height;
 
     /*********************************************************************
+     * Pages
+     *********************************************************************/
+public:
+    void setMultipageMode(bool enable);
+    bool multipageMode() const;
+
+    void setTotalPagesNumber(int num);
+    int totalPagesNumber();
+
+    int currentPage();
+
+    void addWidgetToPageMap(VCWidget *widget);
+    void removeWidgetFromPageMap(VCWidget *widget);
+
+protected slots:
+    void slotPreviousPage();
+    void slotNextPage();
+    void slotSetPage(int pageNum);
+
+protected:
+    bool m_multiPageMode;
+    ushort m_currentPage;
+    ushort m_totalPagesNumber;
+    QToolButton *m_nextPageBtn, *m_prevPageBtn;
+    QLabel *m_pageLabel;
+
+    /** Here's where the magic takes place. This holds a map
+     *  of pages/widgets to be shown/hidden when page is changed */
+    QMap <VCWidget *, int> m_pagesMap;
+
+    /*************************************************************************
+     * Key sequences
+     *************************************************************************/
+public:
+    /** Set the keyboard key combination for skipping to the next cue */
+    void setNextPageKeySequence(const QKeySequence& keySequence);
+
+    /** Get the keyboard key combination for skipping to the next cue */
+    QKeySequence nextPageKeySequence() const;
+
+    /** Set the keyboard key combination for skipping to the previous cue */
+    void setPreviousPageKeySequence(const QKeySequence& keySequence);
+
+    /** Get the keyboard key combination for skipping to the previous cue */
+    QKeySequence previousPageKeySequence() const;
+
+protected slots:
+    void slotFrameKeyPressed(const QKeySequence& keySequence);
+
+private:
+    QKeySequence m_nextPageKeySequence;
+    QKeySequence m_previousPageKeySequence;
+
+    /*************************************************************************
+     * External Input
+     *************************************************************************/
+public:
+    void updateFeedback();
+
+protected slots:
+    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
+
+    /*********************************************************************
      * Clipboard
      *********************************************************************/
 public:
@@ -112,6 +186,9 @@ protected:
     /*********************************************************************
      * Properties
      *********************************************************************/
+protected:
+    QList<VCWidget *> getChildren(VCWidget *obj);
+
 public:
     /** @reimp */
     void editProperties();

@@ -1,0 +1,48 @@
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition>
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.4.1</Version>
+  <Author>Lars Kildholt</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>SC-100</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt</Capability>
+ </Channel>
+ <Channel Name="Patterne/Chase">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="159">Pattern</Capability>
+  <Capability Min="160" Max="255">Chase</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9">No Strobe</Capability>
+  <Capability Min="10" Max="249">Strobe Speed</Capability>
+  <Capability Min="250" Max="255">Stand Alone</Capability>
+ </Channel>
+ <Mode Name="Alm">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="117" Height="140" Weight="3" Depth="420"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Patterne/Chase</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+  </Head>
+ </Mode>
+</FixtureDefinition>

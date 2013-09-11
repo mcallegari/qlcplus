@@ -204,7 +204,21 @@ void CueListRunner::tap()
     //    next();
 }
 
-void CueListRunner::setCurrentStep(int step)
+void CueListRunner::stopStep(int stepIndex)
+{
+    foreach(CueRunnerStep *step, m_runnerSteps)
+    {
+        if (stepIndex == step->m_index && step->m_function != NULL)
+        {
+            qDebug() << "Stopping step idx:" << stepIndex << "(running:" << m_runnerSteps.count() << ")";
+            step->m_function->stop();
+            step->m_function = NULL;
+            m_runnerSteps.removeOne(step);
+        }
+    }
+}
+
+void CueListRunner::setCurrentStep(int step, qreal intensity)
 {
     if (step >= 0 && step < m_chaser->steps().size())
     {
@@ -212,6 +226,7 @@ void CueListRunner::setCurrentStep(int step)
     }
     else
         m_newStartStepIdx = 0;
+    m_intensity = intensity;
     m_next = false;
     m_previous = false;
 }
@@ -237,10 +252,7 @@ void CueListRunner::adjustIntensity(qreal fraction, int stepIndex)
     {
         if (stepIndex == step->m_index && step->m_function != NULL)
         {
-            if (fraction == 0 && m_runnerSteps.count() > 1)
-                step->m_function->stop();
-            else
-                step->m_function->adjustIntensity(m_intensity);
+            step->m_function->adjustAttribute(m_intensity);
             return;
         }
     }
@@ -285,7 +297,7 @@ void CueListRunner::startNewStep(int index, MasterTimer* timer, bool manualFade)
 
         // Set intensity before starting the function. Otherwise the intensity
         // might momentarily jump too high.
-        newStep->m_function->adjustIntensity(m_intensity);
+        newStep->m_function->adjustAttribute(m_intensity);
         // Start the fire up !
         newStep->m_function->start(timer, true, 0, newStep->m_fadeIn, newStep->m_fadeOut);
         m_runnerSteps.append(newStep);

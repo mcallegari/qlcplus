@@ -121,8 +121,7 @@ void QLCFixtureEditor::init()
     connect(m_modelEdit, SIGNAL(textEdited(const QString&)),
             this, SLOT(slotModelTextEdited(const QString&)));
 
-    m_typeCombo->setCurrentIndex(
-        m_typeCombo->findText(m_fixtureDef->type()));
+    m_typeCombo->setCurrentIndex(m_typeCombo->findText(m_fixtureDef->type()));
     connect(m_typeCombo, SIGNAL(activated(const QString&)),
             this, SLOT(slotTypeActivated(const QString&)));
 
@@ -158,6 +157,7 @@ void QLCFixtureEditor::init()
 
     m_channelList->header()->setResizeMode(QHeaderView::ResizeToContents);
     m_channelList->setContextMenuPolicy(Qt::CustomContextMenu);
+    m_channelList->setIconSize(QSize(24, 24));
     refreshChannelList();
 
     /* Mode page */
@@ -555,6 +555,7 @@ void QLCFixtureEditor::updateChannelItem(const QLCChannel* channel, QTreeWidgetI
     Q_ASSERT(item != NULL);
 
     item->setText(CH_COL_NAME, channel->name());
+    item->setIcon(CH_COL_NAME, channel->getIconFromGroup(channel->group()));
     item->setText(CH_COL_GRP, QLCChannel::groupToString(channel->group()));
     item->setData(CH_COL_NAME, PROP_PTR, (qulonglong) channel);
 
@@ -887,6 +888,7 @@ void QLCFixtureEditor::updateModeItem(const QLCFixtureMode* mode,
 
         QTreeWidgetItem* chitem = new QTreeWidgetItem(item);
         chitem->setText(MODE_COL_NAME, ch->name());
+        chitem->setIcon(MODE_COL_NAME, ch->getIconFromGroup(ch->group()));
         chitem->setText(MODE_COL_CHS, QString("%1").arg(i + 1));
         chitem->setFlags(0); /* No selection etc. */
     }

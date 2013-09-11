@@ -235,12 +235,14 @@ void AudioTriggersConfiguration::slotDmxSelectionClicked()
     QVariant prop = btn->property("index");
     if (prop.isValid())
     {
+        AudioBar *bar = m_factory->getSpectrumBar(prop.toInt());
         ChannelsSelection cfg(m_doc, this);
+        if (bar != NULL)
+            cfg.setChannelsList(bar->m_dmxChannels);
         if (cfg.exec() == QDialog::Rejected)
             return; // User pressed cancel
 
         QList<SceneValue> dmxList = cfg.channelsList();
-        AudioBar *bar = m_factory->getSpectrumBar(prop.toInt());
         if (bar != NULL)
             bar->attachDmxChannels(m_doc, dmxList);
         QTreeWidgetItem *item = NULL;

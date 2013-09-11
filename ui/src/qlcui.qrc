@@ -97,6 +97,7 @@
         <file alias="qt.png">../../gfx/qt.png</file>
         <file alias="rainbow.png">../../gfx/rainbow.png</file>
         <file alias="record.png">../../gfx/record.png</file>
+        <file alias="remap.png">../../gfx/remap.png</file>
         <file alias="rgbmatrix.png">../../gfx/rgbmatrix.png</file>
         <file alias="resize.png">../../gfx/resize.png</file>
         <file alias="scanner.png">../../gfx/scanner.png</file>

@@ -14,7 +14,7 @@
         <location filename="configureosc.ui" line="155"/>
         <location filename="configureosc.ui" line="162"/>
         <source>Output address:</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresse de Sortie :</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="37"/>
@@ -23,27 +23,27 @@
         <location filename="configureosc.ui" line="135"/>
         <source>Input port:</source>
         <oldsource>Port:</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Port d&apos;Entrée :</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="70"/>
         <source>OSC Network 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Réseau OSC 2</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="101"/>
         <source>OSC Network 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Réseau OSC 1</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="186"/>
         <source>OSC Network 3</source>
-        <translation type="unfinished"></translation>
+        <translation>Réseau OSC 3</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="193"/>
         <source>OSC Network 4</source>
-        <translation type="unfinished"></translation>
+        <translation>Réseau OSC 4</translation>
     </message>
 </context>
 <context>
@@ -54,38 +54,38 @@
         <translation>Ce greffon active les fonctions d&apos;entrée pour les périphériques supportant le protocole OSC.</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="176"/>
-        <location filename="oscplugin.cpp" line="273"/>
+        <location filename="oscplugin.cpp" line="184"/>
+        <location filename="oscplugin.cpp" line="281"/>
         <source>OSC Network</source>
-        <translation type="unfinished"></translation>
+        <translation>Réseau OSC</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="187"/>
+        <location filename="oscplugin.cpp" line="195"/>
         <source>Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Sorties</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="190"/>
-        <location filename="oscplugin.cpp" line="287"/>
+        <location filename="oscplugin.cpp" line="198"/>
+        <location filename="oscplugin.cpp" line="295"/>
         <source>Status: Not ready</source>
         <oldsource>Status: Not open</oldsource>
-        <translation type="unfinished">Statut : Fermé</translation>
+        <translation>Statut : Pas prêt</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="193"/>
+        <location filename="oscplugin.cpp" line="201"/>
         <source>Address: </source>
-        <translation type="unfinished"></translation>
+        <translation>Adresse :</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="196"/>
-        <location filename="oscplugin.cpp" line="290"/>
+        <location filename="oscplugin.cpp" line="204"/>
+        <location filename="oscplugin.cpp" line="298"/>
         <source>Status: Ready</source>
-        <translation type="unfinished"></translation>
+        <translation>Statut : Prêt</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="284"/>
+        <location filename="oscplugin.cpp" line="292"/>
         <source>Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrée</translation>
     </message>
 </context>
 </TS>

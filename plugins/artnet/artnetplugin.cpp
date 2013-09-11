@@ -135,7 +135,7 @@ QString ArtNetPlugin::outputInfo(quint32 output)
 
     QString str;
 
-    str += QString("<H3>%1</H3>").arg(outputs()[output]);
+    str += QString("<H3>%1 %2</H3>").arg(tr("Output")).arg(outputs()[output]);
     str += QString("<P>");
     ArtNetController *ctrl = m_IOmapping.at(output).controller;
     if (ctrl == NULL || ctrl->getType() == ArtNetController::Input)
@@ -330,7 +330,7 @@ QString ArtNetPlugin::inputInfo(quint32 input)
 
     QString str;
 
-    str += QString("<H3>%1</H3>").arg(inputs()[input]);
+    str += QString("<H3>%1 %2</H3>").arg(tr("Input")).arg(inputs()[input]);
     str += QString("<P>");
     ArtNetController *ctrl = m_IOmapping.at(input).controller;
     if (ctrl == NULL || ctrl->getType() == ArtNetController::Output)

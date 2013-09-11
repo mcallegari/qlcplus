@@ -68,14 +68,19 @@ private:
 private slots:
     void slotAutoDetectAbsoluteInputSourceToggled(bool checked);
     void slotChooseAbsoluteInputSourceClicked();
+    void slotAbsoluteInputValueChanged(quint32 universe, quint32 channel);
+
     void slotAutoDetectTapInputSourceToggled(bool checked);
     void slotChooseTapInputSourceClicked();
-    void slotAbsoluteInputValueChanged(quint32 universe, quint32 channel);
     void slotTapInputValueChanged(quint32 universe, quint32 channel);
+
+    void slotAttachKey();
+    void slotDetachKey();
 
 private:
     QLCInputSource m_absoluteInputSource;
     QLCInputSource m_tapInputSource;
+    QKeySequence m_tapKeySequence;
 };
 
 #endif

@@ -277,7 +277,6 @@ void MidiPlugin::slotValueChanged(const QVariant& uid, ushort channel, uchar val
         MidiInputDevice* dev = m_enumerator->inputDevices().at(i);
         if (dev->uid() == uid)
         {
-            qDebug() << "MIDI device: " << i << ", channel: " << channel << ", value: " << value;
             emit valueChanged(i, channel, value);
             break;
         }

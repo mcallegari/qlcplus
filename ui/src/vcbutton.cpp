@@ -20,6 +20,7 @@
 */
 
 #include <QStyleOptionButton>
+#include <QWidgetAction>
 #include <QColorDialog>
 #include <QImageReader>
 #include <QFileDialog>
@@ -46,6 +47,7 @@
 #include "vcbuttonproperties.h"
 #include "vcpropertieseditor.h"
 #include "functionselection.h"
+#include "clickandgoslider.h"
 #include "qlcinputchannel.h"
 #include "virtualconsole.h"
 #include "mastertimer.h"
@@ -118,6 +120,14 @@ VCButton::VCButton(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
 VCButton::~VCButton()
 {
+}
+
+void VCButton::setID(quint32 id)
+{
+    VCWidget::setID(id);
+
+    if (caption().isEmpty())
+        setCaption(tr("Button %1").arg(id));
 }
 
 /*****************************************************************************
@@ -401,29 +411,7 @@ void VCButton::setOn(bool on)
 {
     m_on = on;
 
-    /* Send input feedback */
-    QLCInputSource src(inputSource());
-    if (src.isValid() == true)
-    {
-        QString chName = QString();
-
-        InputPatch* pat = m_doc->inputMap()->patch(src.universe());
-        if (pat != NULL)
-        {
-            QLCInputProfile* profile = pat->profile();
-            if (profile != NULL)
-            {
-                QLCInputChannel* ich = profile->channel(src.channel());
-                if (ich != NULL)
-                    chName = ich->name();
-            }
-        }
-
-        if (on == true)
-            m_doc->outputMap()->feedBack(src.universe(), src.channel(), UCHAR_MAX, chName);
-        else
-            m_doc->outputMap()->feedBack(src.universe(), src.channel(), 0, chName);
-    }
+    updateFeedback();
 
     update();
 }
@@ -452,6 +440,14 @@ void VCButton::slotKeyReleased(const QKeySequence& keySequence)
 {
     if (m_keySequence == keySequence)
         releaseFunction();
+}
+
+void VCButton::updateFeedback()
+{
+    if (m_on == true)
+        sendFeedback(UCHAR_MAX);
+    else
+        sendFeedback(0);
 }
 
 /*****************************************************************************
@@ -556,6 +552,16 @@ qreal VCButton::intensityAdjustment() const
     return m_intensityAdjustment;
 }
 
+void VCButton::slotAttributeChanged(int value)
+{
+    ClickAndGoSlider *slider = (ClickAndGoSlider *)sender();
+    int idx = slider->property("attrIdx").toInt();
+
+    Function* func = m_doc->function(m_function);
+    if (func != NULL)
+        func->adjustAttribute((qreal)value / 100, idx);
+}
+
 /*****************************************************************************
  * Button press / release handlers
  *****************************************************************************/
@@ -596,7 +602,7 @@ void VCButton::pressFunction()
                 f->start(m_doc->masterTimer());
 
                 if (adjustIntensity() == true)
-                    f->adjustIntensity(intensityAdjustment());
+                    f->adjustAttribute(intensityAdjustment());
             }
         }
     }
@@ -732,12 +738,8 @@ bool VCButton::loadXML(const QDomElement* root)
         return false;
     }
 
-    /* Caption */
-    setCaption(root->attribute(KXMLQLCVCCaption));
-
-    /* ID */
-    if (root->hasAttribute(KXMLQLCVCWidgetID))
-        setID(root->attribute(KXMLQLCVCWidgetID).toUInt());
+    /* Widget commons */
+    loadXMLCommon(root);
 
     /* Icon */
     setIconPath(m_doc->denormalizeComponentPath(root->attribute(KXMLQLCVCButtonIcon)));
@@ -811,12 +813,7 @@ bool VCButton::saveXML(QDomDocument* doc, QDomElement* vc_root)
     root = doc->createElement(KXMLQLCVCButton);
     vc_root->appendChild(root);
 
-    /* Caption */
-    root.setAttribute(KXMLQLCVCCaption, caption());
-
-    /* ID */
-    if (id() != VCWidget::invalidId())
-        root.setAttribute(KXMLQLCVCWidgetID, id());
+    saveXMLCommon(doc, &root);
 
     /* Icon */
     root.setAttribute(KXMLQLCVCButtonIcon, m_doc->normalizeComponentPath(iconPath()));
@@ -963,8 +960,54 @@ void VCButton::mousePressEvent(QMouseEvent* e)
 {
     if (mode() == Doc::Design)
         VCWidget::mousePressEvent(e);
-    else
+    else if (e->button() == Qt::LeftButton)
         pressFunction();
+    else if (e->button() == Qt::RightButton)
+    {
+        Function* func = m_doc->function(m_function);
+        if (func != NULL)
+        {
+            QString menuStyle = "QMenu { background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #B9D9E8, stop:1 #A4C0CE);"
+                            "border: 1px solid black; border-radius: 4px; font:bold; }";
+            QMenu *menu = new QMenu();
+            menu->setStyleSheet(menuStyle);
+            int idx = 0;
+            foreach(Attribute attr, func->attributes())
+            {
+                QString slStyle = "QSlider::groove:horizontal { border: 1px solid #999999; margin: 0; border-radius: 2px;"
+                        "height: 10px; background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #B1B1B1, stop:1 #c4c4c4); }"
+
+                        "QSlider::handle:horizontal {"
+                        "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #b4b4b4, stop:1 #8f8f8f);"
+                        "border: 1px solid #5c5c5c; width: 10px; border-radius: 2px; margin: -1px 0; }"
+
+                        "QSlider::sub-page:horizontal { background: #114EA2; border-radius: 2px; }";
+
+                QWidget *entryWidget = new QWidget();
+                QHBoxLayout *hbox = new QHBoxLayout(menu);
+                QLabel *label = new QLabel(attr.name);
+                label->setAlignment(Qt::AlignLeft);
+                label->setFixedWidth(100);
+                ClickAndGoSlider *slider = new ClickAndGoSlider(menu);
+                slider->setOrientation(Qt::Horizontal);
+                slider->setStyleSheet(slStyle);
+                slider->setFixedSize(QSize(100, 15));
+                slider->setMinimum(0);
+                slider->setMaximum(100);
+                slider->setValue(attr.value * 100);
+                slider->setProperty("attrIdx", QVariant(idx));
+                connect(slider, SIGNAL(valueChanged(int)), this, SLOT(slotAttributeChanged(int)));
+                hbox->addWidget(label);
+                hbox->addWidget(slider);
+                entryWidget->setLayout(hbox);
+                QWidgetAction *sliderBoxAction = new QWidgetAction(menu);
+                sliderBoxAction->setDefaultWidget(entryWidget);
+                menu->addAction(sliderBoxAction);
+                idx++;
+            }
+            menu->exec(QCursor::pos());
+        }
+    }
 }
 
 void VCButton::mouseReleaseEvent(QMouseEvent* e)

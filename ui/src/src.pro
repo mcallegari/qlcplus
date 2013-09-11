@@ -53,6 +53,7 @@ HEADERS += aboutbox.h \
            fixturemanager.h \
            fixtureselection.h \
            functionmanager.h \
+           fixtureremap.h \
            functionselection.h \
            functionwizard.h \
            grandmasterslider.h \
@@ -61,11 +62,13 @@ HEADERS += aboutbox.h \
            inputoutputmanager.h \
            inputoutputpatcheditor.h \
            inputprofileeditor.h \
+           knobwidget.h \
            monitor.h \
            monitorfixture.h \
            monitorlayout.h \
            multitrackview.h \
            playbackslider.h \
+           remapwidget.h \
            rgbmatrixeditor.h \
            rgbitem.h \
            sceneeditor.h \
@@ -121,6 +124,7 @@ FORMS += aboutbox.ui \
          dmxdumpfactory.ui \
          efxeditor.ui \
          fixturegroupeditor.ui \
+         fixtureremap.ui \
          fixtureselection.ui \
          functionselection.ui \
          functionwizard.ui \
@@ -172,6 +176,7 @@ SOURCES += aboutbox.cpp \
            fixtureconsole.cpp \
            fixturegroupeditor.cpp \
            fixturemanager.cpp \
+           fixtureremap.cpp \
            fixtureselection.cpp \
            functionmanager.cpp \
            functionselection.cpp \
@@ -182,11 +187,13 @@ SOURCES += aboutbox.cpp \
            inputoutputmanager.cpp \
            inputoutputpatcheditor.cpp \
            inputprofileeditor.cpp \
+           knobwidget.cpp \
            monitor.cpp \
            monitorfixture.cpp \
            monitorlayout.cpp \
            multitrackview.cpp \
            playbackslider.cpp \
+           remapwidget.cpp \
            rgbmatrixeditor.cpp \
            rgbitem.cpp \
            sceneeditor.cpp \
@@ -231,6 +238,8 @@ TRANSLATIONS += qlcplus_fr_FR.ts
 TRANSLATIONS += qlcplus_es_ES.ts
 TRANSLATIONS += qlcplus_de_DE.ts
 TRANSLATIONS += qlcplus_it_IT.ts
+TRANSLATIONS += qlcplus_nl_NL.ts
+TRANSLATIONS += qlcplus_cz_CZ.ts
 
 macx {
     # This must be after "TARGET = " and before target installation so that

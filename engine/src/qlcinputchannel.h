@@ -35,6 +35,9 @@ class QString;
 #define KXMLQLCInputChannelSlider "Slider"
 #define KXMLQLCInputChannelKnob "Knob"
 #define KXMLQLCInputChannelButton "Button"
+#define KXMLQLCInputChannelPageUp "Next Page"
+#define KXMLQLCInputChannelPageDown "Previous Page"
+#define KXMLQLCInputChannelPageSet "Page Set"
 #define KXMLQLCInputChannelNone "None"
 
 class QLCInputChannel
@@ -61,6 +64,9 @@ public:
         Slider,
         Knob,
         Button,
+        NextPage,
+        PrevPage,
+        PageSet,
         NoType
     };
 

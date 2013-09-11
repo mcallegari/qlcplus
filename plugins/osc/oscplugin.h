@@ -29,8 +29,6 @@
 #include <lo/lo.h>
 #include "qlcioplugin.h"
 
-#define OSC_UNIVERSES   4
-
 class OSCPlugin;
 
 typedef struct
@@ -151,7 +149,7 @@ private:
     quint16 getHash(quint32 line, QString path);
 
 private:
-    OSC_Node m_nodes[OSC_UNIVERSES];
+    OSC_Node m_nodes[QLCIOPLUGINS_UNIVERSES];
 };
 
 #endif

@@ -161,6 +161,12 @@ void InputProfileEditor::updateChannelItem(QTreeWidgetItem* item,
         item->setIcon(KColumnType, QIcon(":/knob.png"));
     else if (ch->type() == QLCInputChannel::Button)
         item->setIcon(KColumnType, QIcon(":/button.png"));
+    else if (ch->type() == QLCInputChannel::NextPage)
+        item->setIcon(KColumnType, QIcon(":/forward.png"));
+    else if (ch->type() == QLCInputChannel::PrevPage)
+        item->setIcon(KColumnType, QIcon(":/back.png"));
+    else if (ch->type() == QLCInputChannel::PageSet)
+        item->setIcon(KColumnType, QIcon(":/star.png"));
 }
 
 /****************************************************************************

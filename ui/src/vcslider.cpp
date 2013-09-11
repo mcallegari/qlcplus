@@ -57,6 +57,27 @@
 
 const QSize VCSlider::defaultSize(QSize(60, 200));
 
+const QString sliderStyleSheet =
+        "QSlider::groove:vertical { background: transparent; position: absolute; left: 4px; right: 4px; } "
+
+        "QSlider::handle:vertical { "
+        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:0.45 #888, stop:0.50 #000, stop:0.55 #888, stop:1 #999);"
+        "border: 1px solid #5c5c5c;"
+        "border-radius: 4px; margin: 0 -4px; height: 20px; }"
+
+        "QSlider::handle:vertical:hover {"
+        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #eee, stop:0.45 #999, stop:0.50 #ff0000, stop:0.55 #999, stop:1 #ccc);"
+        "border: 1px solid #000; }"
+
+        "QSlider::add-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #78d, stop: 1 #97CDEC );"
+        "border: 1px solid #5288A7; margin: 0 9px; }"
+
+        "QSlider::sub-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #888, stop: 1 #ddd );"
+        "border: 1px solid #8E8A86; margin: 0 9px; }"
+
+        "QSlider::handle:vertical:disabled { background: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:0.45 #888, stop:0.50 #444, stop:0.55 #888, stop:1 #999);"
+        "border: 1px solid #666; }";
+
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
@@ -69,6 +90,7 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_hbox = NULL;
     m_topLabel = NULL;
     m_slider = NULL;
+    m_knob = NULL;
     m_bottomLabel = NULL;
     m_tapButton = NULL;
 
@@ -86,6 +108,8 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
     m_time = NULL;
 
+    m_widgetMode = WSlider;
+
     setType(VCWidget::SliderWidget);
     setCaption(QString());
     setFrameStyle(KVCFrameStyleSunken);
@@ -95,12 +119,12 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
     /* Top label */
     m_topLabel = new QLabel(this);
-    layout()->addWidget(m_topLabel);
     m_topLabel->setAlignment(Qt::AlignHCenter);
+
+    layout()->addWidget(m_topLabel);
 
     /* Slider's HBox |stretch|slider|stretch| */
     m_hbox = new QHBoxLayout();
-    layout()->addItem(m_hbox);
 
     /* Put stretchable space before the slider (to its left side) */
     m_hbox->addStretch();
@@ -112,22 +136,19 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_slider->setRange(0, 255);
     m_slider->setPageStep(1);
     m_slider->setInvertedAppearance(false);
-#if 1
-    m_slider->setStyle(AppUtil::saneStyle());
-#else
-    m_slider->setStyleSheet("QSlider::handle:vertical {"
-                          "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #a4a4a4, stop:1 #4f4f4f);"
-                          "border: 1px solid #5c5c5c;"
-                          "border-radius: 3px;"
-                          "margin: 0 -20px;"
-                          "}");
-#endif
+    m_slider->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+    m_slider->setMinimumWidth(32);
+    m_slider->setMaximumWidth(80);
+    m_slider->setStyleSheet(sliderStyleSheet);
+
     connect(m_slider, SIGNAL(valueChanged(int)),
             this, SLOT(slotSliderMoved(int)));
     m_externalMovement = false;
 
     /* Put stretchable space after the slider (to its right side) */
     m_hbox->addStretch();
+
+    layout()->addItem(m_hbox);
 
     /* Tap button */
     m_tapButton = new QPushButton(this);
@@ -200,6 +221,14 @@ VCSlider::~VCSlider()
     m_doc->masterTimer()->unregisterDMXSource(this);
 }
 
+void VCSlider::setID(quint32 id)
+{
+    VCWidget::setID(id);
+
+    if (caption().isEmpty())
+        setCaption(tr("Slider %1").arg(id));
+}
+
 /*****************************************************************************
  * Clipboard
  *****************************************************************************/
@@ -224,6 +253,9 @@ bool VCSlider::copyFrom(VCWidget* widget)
     if (slider == NULL)
         return false;
 
+    /* Copy widget style */
+    setWidgetStyle(slider->widgetStyle());
+
     /* Copy level stuff */
     setLevelLowLimit(slider->levelLowLimit());
     setLevelHighLimit(slider->levelHighLimit());
@@ -238,7 +270,10 @@ bool VCSlider::copyFrom(VCWidget* widget)
 
     /* Copy mode & current value */
     setSliderMode(slider->sliderMode());
-    m_slider->setValue(slider->sliderValue());
+    if (m_slider)
+        m_slider->setValue(slider->sliderValue());
+    else if (m_knob)
+        m_knob->setValue(slider->sliderValue());
 
     /* Copy common stuff */
     return VCWidget::copyFrom(widget);
@@ -287,7 +322,10 @@ void VCSlider::slotModeChanged(Doc::Mode mode)
     if (mode == Doc::Operate)
     {
         m_topLabel->setEnabled(true);
-        m_slider->setEnabled(true);
+        if (m_slider)
+            m_slider->setEnabled(true);
+        if (m_knob)
+            m_knob->setEnabled(true);
         m_bottomLabel->setEnabled(true);
         m_tapButton->setEnabled(true);
         m_cngButton->setEnabled(true);
@@ -303,15 +341,18 @@ void VCSlider::slotModeChanged(Doc::Mode mode)
                         this, SLOT(slotPlaybackFunctionRunning(quint32)));
                 connect(function, SIGNAL(stopped(quint32)),
                         this, SLOT(slotPlaybackFunctionStopped(quint32)));
-                connect(function, SIGNAL(intensityChanged(qreal)),
-                        this, SLOT(slotPlaybackFunctionIntensityChanged(qreal)));
+                connect(function, SIGNAL(attributeChanged(int, qreal)),
+                        this, SLOT(slotPlaybackFunctionIntensityChanged(int, qreal)));
             }
         }
     }
     else
     {
         m_topLabel->setEnabled(false);
-        m_slider->setEnabled(false);
+        if (m_slider)
+            m_slider->setEnabled(false);
+        if (m_knob)
+            m_knob->setEnabled(false);
         m_bottomLabel->setEnabled(false);
         m_tapButton->setEnabled(false);
         m_cngButton->setEnabled(false);
@@ -327,8 +368,8 @@ void VCSlider::slotModeChanged(Doc::Mode mode)
                         this, SLOT(slotPlaybackFunctionRunning(quint32)));
                 disconnect(function, SIGNAL(stopped(quint32)),
                         this, SLOT(slotPlaybackFunctionStopped(quint32)));
-                disconnect(function, SIGNAL(intensityChanged(qreal)),
-                        this, SLOT(slotPlaybackFunctionIntensityChanged(qreal)));
+                disconnect(function, SIGNAL(attributeChanged(int,qreal)),
+                        this, SLOT(slotPlaybackFunctionIntensityChanged(int, qreal)));
             }
         }
     }
@@ -379,15 +420,19 @@ VCSlider::ValueDisplayStyle VCSlider::valueDisplayStyle()
 
 bool VCSlider::invertedAppearance() const
 {
-    Q_ASSERT(m_slider != NULL);
-    return m_slider->invertedAppearance();
+    if (m_slider)
+        return m_slider->invertedAppearance();
+
+    return false;
 }
 
 void VCSlider::setInvertedAppearance(bool invert)
 {
-    Q_ASSERT(m_slider != NULL);
-    m_slider->setInvertedAppearance(invert);
-    m_slider->setInvertedControls(invert);
+    if (m_slider)
+    {
+        m_slider->setInvertedAppearance(invert);
+        m_slider->setInvertedControls(invert);
+    }
 }
 
 /*****************************************************************************
@@ -442,8 +487,16 @@ void VCSlider::setSliderMode(SliderMode mode)
     {
         /* Set the slider range */
         uchar level = levelValue();
-        m_slider->setRange(levelLowLimit(), levelHighLimit());
-        m_slider->setValue(level);
+        if (m_slider)
+        {
+            m_slider->setRange(levelLowLimit(), levelHighLimit());
+            m_slider->setValue(level);
+        }
+        else if(m_knob)
+        {
+            m_knob->setRange(levelLowLimit(), levelHighLimit());
+            m_knob->setValue(level);
+        }
         slotSliderMoved(level);
 
         m_bottomLabel->show();
@@ -453,7 +506,10 @@ void VCSlider::setSliderMode(SliderMode mode)
             setClickAndGoType(m_cngType);
             setupClickAndGoWidegt();
             m_cngButton->show();
-            setClickAndGoWidgetFromLevel(m_slider->value());
+            if (m_slider)
+                setClickAndGoWidgetFromLevel(m_slider->value());
+            else if(m_knob)
+                setClickAndGoWidgetFromLevel(m_knob->value());
         }
 
         m_doc->masterTimer()->registerDMXSource(this);
@@ -465,8 +521,16 @@ void VCSlider::setSliderMode(SliderMode mode)
         m_cngButton->hide();
 
         uchar level = playbackValue();
-        m_slider->setRange(0, UCHAR_MAX);
-        m_slider->setValue(level);
+        if (m_slider)
+        {
+            m_slider->setRange(0, UCHAR_MAX);
+            m_slider->setValue(level);
+        }
+        else if (m_knob)
+        {
+            m_knob->setRange(0, UCHAR_MAX);
+            m_knob->setValue(level);
+        }
         slotSliderMoved(level);
 
         m_doc->masterTimer()->registerDMXSource(this);
@@ -595,10 +659,10 @@ void VCSlider::setClickAndGoWidgetFromLevel(uchar level)
     if (m_cngType == ClickAndGoWidget::RGB || m_cngType == ClickAndGoWidget::CMY)
     {
         QPixmap px(42, 42);
-        float f = SCALE(float(level),
-                        float(m_slider->minimum()),
-                        float(m_slider->maximum()),
-                        float(0), float(200));
+        float f = 0;
+        if (m_slider)
+            f = SCALE(float(level), float(m_slider->minimum()),
+                      float(m_slider->maximum()), float(0), float(200));
         if ((uchar)f == 0)
         {
             px.fill(Qt::black);
@@ -616,7 +680,8 @@ void VCSlider::setClickAndGoWidgetFromLevel(uchar level)
 
 void VCSlider::slotClickAndGoLevelChanged(uchar level)
 {
-    m_slider->setValue(level);
+    if (m_slider)
+        m_slider->setValue(level);
     QColor col = m_cngWidget->getColorAt(level);
     QPixmap px(42, 42);
     px.fill(col);
@@ -631,12 +696,14 @@ void VCSlider::slotClickAndGoColorChanged(QRgb color)
     px.fill(col);
     m_cngButton->setIcon(px);
     // place the slider half way to reach white@255 and black@0
-    m_slider->setValue(128);
+    if (m_slider)
+        m_slider->setValue(128);
 }
 
 void VCSlider::slotClickAndGoLevelAndPresetChanged(uchar level, QImage img)
 {
-    m_slider->setValue(level);
+    if (m_slider)
+        m_slider->setValue(level);
     QPixmap px = QPixmap::fromImage(img);
     m_cngButton->setIcon(px);
 }
@@ -680,14 +747,25 @@ void VCSlider::slotPlaybackFunctionStopped(quint32 fid)
 {
     m_externalMovement = true;
     if (fid == playbackFunction())
-        m_slider->setValue(0);
+    {
+        if (m_slider)
+            m_slider->setValue(0);
+        else if (m_knob)
+            m_knob->setValue(0);
+    }
     m_externalMovement = false;
 }
 
-void VCSlider::slotPlaybackFunctionIntensityChanged(qreal fraction)
+void VCSlider::slotPlaybackFunctionIntensityChanged(int attrIndex, qreal fraction)
 {
+    if (attrIndex != 0)
+        return;
+
     m_externalMovement = true;
-    m_slider->setValue(int(floor((qreal(m_slider->maximum()) * fraction) + 0.5)));
+    if (m_slider)
+        m_slider->setValue(int(floor((qreal(m_slider->maximum()) * fraction) + 0.5)));
+    else if (m_knob)
+        m_knob->setValue(int(floor((qreal(m_knob->maximum()) * fraction) + 0.5)));
     m_externalMovement = false;
 }
 
@@ -714,10 +792,10 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, UniverseArray* universes)
     int r = 0, g = 0, b = 0, c = 0, m = 0, y = 0;
     if (m_cngType == ClickAndGoWidget::RGB)
     {
-        float f = SCALE(float(m_levelValue),
-                        float(m_slider->minimum()),
-                        float(m_slider->maximum()),
-                        float(0), float(200));
+        float f = 0;
+        if (m_slider)
+            f = SCALE(float(m_levelValue), float(m_slider->minimum()),
+                      float(m_slider->maximum()), float(0), float(200));
         if ((uchar)f != 0)
         {
             QColor modColor = m_cngRGBvalue.lighter((uchar)f);
@@ -728,10 +806,10 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, UniverseArray* universes)
     }
     else if (m_cngType == ClickAndGoWidget::CMY)
     {
-        float f = SCALE(float(m_levelValue),
-                        float(m_slider->minimum()),
-                        float(m_slider->maximum()),
-                        float(0), float(200));
+        float f = 0;
+        if (m_slider)
+            f = SCALE(float(m_levelValue), float(m_slider->minimum()),
+                      float(m_slider->maximum()), float(0), float(200));
         if ((uchar)f != 0)
         {
             QColor modColor = m_cngRGBvalue.lighter((uchar)f);
@@ -816,7 +894,7 @@ void VCSlider::writeDMXPlayback(MasterTimer* timer, UniverseArray* ua)
         {
             if (function->stopped() == true)
                 function->start(timer);
-            function->adjustIntensity(intensity);
+            function->adjustAttribute(intensity);
         }
     }
 }
@@ -841,24 +919,141 @@ QString VCSlider::topLabelText()
 
 void VCSlider::setSliderValue(uchar value)
 {
-    Q_ASSERT(m_slider != NULL);
-
-    /* Scale from input value range to this slider's range */
     float val;
-    val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
-                (float) m_slider->minimum(),
-                (float) m_slider->maximum());
 
-    if (m_slider->invertedAppearance() == true)
-        m_slider->setValue(m_slider->maximum() - (int) val);
-    else
-        m_slider->setValue((int) val);
+    if (m_widgetMode == WSlider && m_slider)
+    {
+        /* Scale from input value range to this slider's range */
+        val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
+                    (float) m_slider->minimum(),
+                    (float) m_slider->maximum());
+
+        if (m_slider->invertedAppearance() == true)
+            m_slider->setValue(m_slider->maximum() - (int) val);
+        else
+            m_slider->setValue((int) val);
+    }
+    else if (m_widgetMode == WKnob && m_knob)
+    {
+        /* Scale from input value range to this knob's range */
+        val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
+                    (float) m_knob->minimum(),
+                    (float) m_knob->maximum());
+        m_knob->setValue((int) val);
+    }
 }
 
 int VCSlider::sliderValue() const
 {
-    Q_ASSERT(m_slider != NULL);
-    return m_slider->value();
+    if (m_widgetMode == WSlider && m_slider)
+        return m_slider->value();
+    else if (m_widgetMode == WKnob && m_knob)
+        return m_knob->value();
+
+    return 0;
+}
+
+void VCSlider::setWidgetStyle(SliderWidgetStyle mode)
+{
+    if (mode == m_widgetMode)
+        return;
+
+    if (mode == WKnob && m_slider)
+    {
+        qDebug() << "Switching to knob widget";
+        disconnect(m_slider, SIGNAL(valueChanged(int)),
+                this, SLOT(slotSliderMoved(int)));
+
+        QLayoutItem* item;
+        while ( ( item = m_hbox->takeAt( 0 ) ) != NULL )
+        {
+            delete item->widget();
+            delete item;
+        }
+
+        m_slider = NULL;
+
+        m_knob = new KnobWidget(this);
+        m_knob->setEnabled(false);
+        m_hbox->addWidget(m_knob);
+        m_knob->show();
+        connect(m_knob, SIGNAL(valueChanged(int)),
+                this, SLOT(slotSliderMoved(int)));
+    }
+    else if (mode == WSlider && m_knob)
+    {
+        qDebug() << "Switching to slider widget";
+        disconnect(m_knob, SIGNAL(valueChanged(int)),
+                this, SLOT(slotSliderMoved(int)));
+
+        QLayoutItem* item;
+        while ( ( item = m_hbox->takeAt( 0 ) ) != NULL )
+        {
+            delete item->widget();
+            delete item;
+        }
+
+        m_knob = NULL;
+        m_hbox->addStretch();
+        m_slider = new ClickAndGoSlider(this);
+        m_slider->setEnabled(false);
+        m_hbox->addWidget(m_slider);
+        m_slider->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+        m_slider->setMinimumWidth(32);
+        m_slider->setMaximumWidth(80);
+        m_slider->setStyleSheet(sliderStyleSheet);
+        m_hbox->addStretch();
+        m_slider->show();
+        connect(m_slider, SIGNAL(valueChanged(int)),
+                this, SLOT(slotSliderMoved(int)));
+    }
+    m_widgetMode = mode;
+    update();
+}
+
+VCSlider::SliderWidgetStyle VCSlider::widgetStyle()
+{
+    return m_widgetMode;
+}
+
+QString VCSlider::widgetStyleToString(VCSlider::SliderWidgetStyle style)
+{
+    if (style == VCSlider::WSlider)
+        return QString("Slider");
+    else if (style == VCSlider::WKnob)
+        return QString("Knob");
+
+    return QString();
+}
+
+VCSlider::SliderWidgetStyle VCSlider::stringToWidgetStyle(QString style)
+{
+    if (style == "Slider")
+        return VCSlider::WSlider;
+    else if (style == "Knob")
+        return VCSlider::WKnob;
+
+    return VCSlider::WSlider;
+}
+
+void VCSlider::updateFeedback()
+{
+    int fbv = 0;
+    if (m_slider)
+    {
+        if (invertedAppearance() == true)
+            fbv = m_slider->maximum() - m_slider->value();
+        else
+            fbv = m_slider->value();
+        fbv = (int)SCALE(float(fbv), float(m_slider->minimum()),
+                         float(m_slider->maximum()), float(0), float(UCHAR_MAX));
+    }
+    else if (m_knob)
+    {
+        fbv = (int)SCALE(float(m_knob->value()), float(m_knob->minimum()),
+                         float(m_knob->maximum()), float(0), float(UCHAR_MAX));
+    }
+    sendFeedback(fbv);
 }
 
 void VCSlider::slotSliderMoved(int value)
@@ -879,10 +1074,14 @@ void VCSlider::slotSliderMoved(int value)
         }
         else
         {
-            float f = SCALE(float(value),
-                            float(m_slider->minimum()),
-                            float(m_slider->maximum()),
-                            float(0), float(100));
+
+            float f = 0;
+            if (m_slider)
+                f = SCALE(float(value), float(m_slider->minimum()),
+                          float(m_slider->maximum()), float(0), float(100));
+            else if (m_knob)
+                f = SCALE(float(value), float(m_knob->minimum()),
+                          float(m_knob->maximum()), float(0), float(100));
             num.sprintf("%.3d%%", static_cast<int> (f));
         }
         setTopLabelText(num);
@@ -900,10 +1099,13 @@ void VCSlider::slotSliderMoved(int value)
         }
         else
         {
-            float f = SCALE(float(value),
-                            float(m_slider->minimum()),
-                            float(m_slider->maximum()),
-                            float(0), float(100));
+            float f = 0;
+            if (m_slider)
+                f = SCALE(float(value), float(m_slider->minimum()),
+                          float(m_slider->maximum()), float(0), float(100));
+            else if (m_knob)
+                f = SCALE(float(value), float(m_knob->minimum()),
+                          float(m_knob->maximum()), float(0), float(100));
             num.sprintf("%.3d%%", static_cast<int> (f));
         }
         setTopLabelText(num);
@@ -914,39 +1116,7 @@ void VCSlider::slotSliderMoved(int value)
         break;
     }
 
-    //if (m_slider->isSliderDown() == true)
-    sendFeedBack(value);
-}
-
-void VCSlider::sendFeedBack(int value)
-{
-    /* Send input feedback */
-    QLCInputSource src = inputSource();
-    if (src.isValid() == true)
-    {
-        if (invertedAppearance() == true)
-            value = m_slider->maximum() - value;
-
-        float fb = SCALE(float(value), float(m_slider->minimum()),
-                         float(m_slider->maximum()), float(0),
-                         float(UCHAR_MAX));
-
-        QString chName = QString();
-
-        InputPatch* pat = m_doc->inputMap()->patch(src.universe());
-        if (pat != NULL)
-        {
-            QLCInputProfile* profile = pat->profile();
-            if (profile != NULL)
-            {
-                QLCInputChannel* ich = profile->channel(src.channel());
-                if (ich != NULL)
-                    chName = ich->name();
-            }
-        }
-
-        m_doc->outputMap()->feedBack(src.universe(), src.channel(), int(fb), chName);
-    }
+    updateFeedback();
 }
 
 /*****************************************************************************
@@ -1029,14 +1199,24 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel,
         {
             /* Scale from input value range to this slider's range */
             float val;
-            val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
-                        (float) m_slider->minimum(),
-                        (float) m_slider->maximum());
+            if (m_slider)
+            {
+                val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
+                            (float) m_slider->minimum(),
+                            (float) m_slider->maximum());
 
-            if (m_slider->invertedAppearance() == true)
-                m_slider->setValue(m_slider->maximum() - (int) val);
-            else
-                m_slider->setValue((int) val);
+                if (m_slider->invertedAppearance() == true)
+                    m_slider->setValue(m_slider->maximum() - (int) val);
+                else
+                    m_slider->setValue((int) val);
+            }
+            else if (m_knob)
+            {
+                val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
+                            (float) m_knob->minimum(),
+                            (float) m_knob->maximum());
+                m_knob->setValue((int) val);
+            }
         }
     }
 }
@@ -1056,7 +1236,6 @@ bool VCSlider::loadXML(const QDomElement* root)
     SliderMode sliderMode = Playback;
     QDomElement tag;
     QDomNode node;
-    QString caption;
     QString str;
 
     Q_ASSERT(root != NULL);
@@ -1067,12 +1246,12 @@ bool VCSlider::loadXML(const QDomElement* root)
         return false;
     }
 
-    /* Caption */
-    caption = root->attribute(KXMLQLCVCCaption);
+    /* Widget commons */
+    loadXMLCommon(root);
 
-    /* ID */
-    if (root->hasAttribute(KXMLQLCVCWidgetID))
-        setID(root->attribute(KXMLQLCVCWidgetID).toUInt());
+    /* Widget style */
+    if (root->hasAttribute(KXMLQLCVCSliderWidgetStyle))
+        setWidgetStyle(stringToWidgetStyle(root->attribute(KXMLQLCVCSliderWidgetStyle)));
 
     if (root->attribute(KXMLQLCVCSliderInvertedAppearance) == "false")
         setInvertedAppearance(false);
@@ -1128,7 +1307,6 @@ bool VCSlider::loadXML(const QDomElement* root)
 
     /* Set the mode last, after everything else has been set */
     setSliderMode(sliderMode);
-    setCaption(caption);
 
     return true;
 }
@@ -1232,12 +1410,10 @@ bool VCSlider::saveXML(QDomDocument* doc, QDomElement* vc_root)
     root = doc->createElement(KXMLQLCVCSlider);
     vc_root->appendChild(root);
 
-    /* Caption */
-    root.setAttribute(KXMLQLCVCCaption, caption());
+    saveXMLCommon(doc, &root);
 
-    /* ID */
-    if (id() != VCWidget::invalidId())
-        root.setAttribute(KXMLQLCVCWidgetID, id());
+    /* Widget style */
+    root.setAttribute(KXMLQLCVCSliderWidgetStyle, widgetStyleToString(widgetStyle()));
 
     /* Inverted appearance */
     if (invertedAppearance() == true)

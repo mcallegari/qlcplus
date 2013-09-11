@@ -1,5 +1,53 @@
-qlcplus (4.4.0.beta2) unstable; urgency=low
+qlcplus (4.4.2) stable; urgency=low
 
+  * NEW: Functions now have attributes. They can be controlled by right clicking on a Virtual Console button in operate mode
+  * NEW: Added multi-page support to Virtual Console frames
+  * NEW: DMX dump can now set a Scene on a Virtual Console button or slider
+  * NEW: added Czech translation (thank to Jan Lachman)
+  * NEW: MIDI plugin can now receive Program Change and MIDI beat clock
+  * Cue List "Stop" input turned into "Playback", to handle start/stop of a cue with one key
+  * Fixed channel groups remapping
+  * Added Tap keyboard mapping to Speed Dial widget
+  * Added fixtures: American DJ Fog Storm (with FS-DMXT Remote Timer), Stellar Labs LED PAR38 RGB (thanks to X)
+  * Added fixtures: American DJ Accu Spot Pro, Scanic Astute LED 108, Showtec Mini Max LED RGB (thanks to laserandi)
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Fri, 20 September 2013 12:13:04 +0200
+
+qlcplus (4.4.1) stable; urgency=low
+
+  * NEW: Added Fixture remapping functionality. It is possibile to perform 1-to-1 or 1-to-many remapping
+  * NEW: In Show Manager, tracks can be moved up or down
+  * SceneEditor improvement: when checking a channel group, fixtures are automatically added and channels enabled/disabled
+  * Fade out time is now considered out of a step duration
+  * Fixed crash when using knobs in percentage mode
+  * Fixed copy of a knob resulting in a slider again
+  * Fixed Audio Trigger Factory multiple enable issue
+  * Fixed most of the VC Cue List crossfade wrong behaviours
+  * VC Cue list intensity can now be set before playing
+  * Fixtures panel and Function Selection panel now remember their state (thanks to Jano Svitok)
+  * ArtNet plugin listens to broadcast address. This makes Enttec ODE to work also on Linux and Windows
+  * Fixtures groups are now saved when exporting fixtures lists
+  * Improved audio volume functionality
+  * Saved a lot of CPU usage during Show playback from the Show panel
+  * Click & Go RGB/CMY can now be set "live" when holding the mouse left button
+  * Improved OSC plugin to handle mixed data (like from PureData OSC)
+  * Fixed sequence incorrect start time when dragging it
+  * Added dutch translation (thanks to Raymond Van Laake)
+  * Added fixture: QTX SL Series (thanks to Tom Lincoln)
+  * Added fixture: Briteq BT W12L10 (thanks to Joep Admiraal)
+  * Added fixture: Chauvet COLORdash Batten (thanks to Kurt Malkames)
+  * Added fixture: Stairville SC-100 (thanks to Lars Kildholt)
+  * Added fixtures: Contest LedColor, Dune Lighting MOVLED60W (thanks to Nicolas K)
+  * Added fixtures: Lanta Fireball P64s, QTX SL [153.778], KAM LED PartyBar (thanks to Brian Ely)
+  * Added fixtures: Stairville MH X25, Stairville SF 1500, Pro-Lights LumiPAR18QPRO (thanks to Veljko Stankov)
+  * Added fixture: Stairville xBrick Full Colour (thanks to fintch)
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Thu, 29 August 2013 12:13:04 +0200
+
+qlcplus (4.4.0) stable; urgency=low
+
+  * NEW: Virtual Console sliders can now be displayed as knobs
+  * Siders style improved to get closer to real consoles appearance
   * Fixed empty Sequence steps save/load causing QLC+ (and the operator) to freak out
   * Inverted VC Cue list "next step" slider to reflect external controllers faders
   * Added feedbacks to VC Cue List crossfade sliders
@@ -8,8 +56,13 @@ qlcplus (4.4.0.beta2) unstable; urgency=low
   * Fixed potential crash when closing QLC+ and not using Audio input triggers
   * Fixed Show Manager sequence creation not updating Function Manager tree correctly
   * Fixed Function Manager sequence deletion removing also its parent Scene
+  * Fixture Editor is now shiny and colorful (as someone said)
+  * Changed function copy name to respect alphabetic order. Now it's "Function #xx (Copy)"
+  * Updated german and french translations (thanks to Heiko and NiKoyes)
+  * Added Fixture: Blizzard Lighting Blade RGBW (thanks to James Elliott)
+  * Added Fixture: Stairville MH-X50+ (thanks to Guillaume Rousseau)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 16 July 2013 4:03:04 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 5 July 2013 17:03:04 +0200
   
 qlcplus (4.4.0.beta1) unstable; urgency=low
 
@@ -85,7 +138,7 @@ qlcplus (4.3.2) stable; urgency=low
   * Improved Show Manager opening speed
   * Sequence items in Show Manager now highlight the selected Sequence step
   * Fixed Show Manager vertical resize when adding a big number of tracks
-  * EFX improvememnts. Direction parameter is now taken into account (thanks to Jano Svitok)
+  * EFX improvements. Direction parameter is now taken into account (thanks to Jano Svitok)
   * Virtual Console Button icons improvements (thanks to Jano Svitok)
   * Virtual Console Frame new options: show/hide header, title font/color, set title with double click
   * Improved binary address display in fixture information panel

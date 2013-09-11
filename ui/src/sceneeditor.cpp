@@ -874,11 +874,23 @@ QList <Fixture*> SceneEditor::selectedFixtures() const
     return list;
 }
 
-void SceneEditor::addFixtureItem(Fixture* fixture)
+bool SceneEditor::addFixtureItem(Fixture* fixture)
 {
-    QTreeWidgetItem* item;
-
     Q_ASSERT(fixture != NULL);
+
+    // check if the fixture is already there
+    for (int i = 0; i < m_tree->topLevelItemCount(); i++)
+    {
+        QTreeWidgetItem *fix = m_tree->topLevelItem(i);
+        if (fix != NULL)
+        {
+            quint32 fxid = fix->text(KColumnID).toUInt();
+            if (fxid == fixture->id())
+                return false;
+        }
+    }
+
+    QTreeWidgetItem* item;
 
     item = new QTreeWidgetItem(m_tree);
     item->setText(KColumnName, fixture->name());
@@ -899,6 +911,8 @@ void SceneEditor::addFixtureItem(Fixture* fixture)
     /* Select newly-added fixtures so that their channels can be
        quickly disabled/enabled */
     item->setSelected(true);
+
+    return true;
 }
 
 void SceneEditor::removeFixtureItem(Fixture* fixture)
@@ -1027,10 +1041,35 @@ void SceneEditor::slotChannelGroupsChanged(QTreeWidgetItem *item, int column)
         return;
 
     quint32 grpID = item->data(column, Qt::UserRole).toUInt();
+    ChannelsGroup *grp = m_doc->channelsGroup(grpID);
+    if (grp == NULL)
+        return;
+
     if (item->checkState(column) == Qt::Checked)
+    {
         m_scene->addChannelGroup(grpID);
+        foreach (SceneValue val, grp->getChannels())
+        {
+            Fixture *fixture = m_doc->fixture(val.fxi);
+            if (fixture != NULL)
+            {
+                if (addFixtureItem(fixture) == true)
+                    addFixtureTab(fixture, val.channel);
+                else
+                    setTabChannelState(true, fixture, val.channel);
+            }
+        }
+    }
     else
+    {
         m_scene->removeChannelGroup(grpID);
+        foreach (SceneValue val, grp->getChannels())
+        {
+            Fixture *fixture = m_doc->fixture(val.fxi);
+            if (fixture != NULL)
+                setTabChannelState(false, fixture, val.channel);
+        }
+    }
 
     qDebug() << Q_FUNC_INFO << "Groups in list: " << m_scene->channelGroups().count();
 
@@ -1141,7 +1180,7 @@ FixtureConsole* SceneEditor::fixtureConsole(Fixture* fixture)
     return NULL;
 }
 
-void SceneEditor::addFixtureTab(Fixture* fixture)
+void SceneEditor::addFixtureTab(Fixture* fixture, quint32 channel)
 {
     Q_ASSERT(fixture != NULL);
 
@@ -1163,6 +1202,9 @@ void SceneEditor::addFixtureTab(Fixture* fixture)
             this, SLOT(slotValueChanged(quint32,quint32,uchar)));
     connect(console, SIGNAL(checked(quint32,quint32,bool)),
             this, SLOT(slotChecked(quint32,quint32,bool)));
+
+    if (channel != QLCChannel::invalid())
+        console->setChecked(true, channel);
 }
 
 void SceneEditor::removeFixtureTab(Fixture* fixture)
@@ -1198,6 +1240,23 @@ FixtureConsole* SceneEditor::fixtureConsoleTab(int tab)
     Q_ASSERT(area != NULL);
 
     return qobject_cast<FixtureConsole*> (area->widget());
+}
+
+void SceneEditor::setTabChannelState(bool status, Fixture *fixture, quint32 channel)
+{
+    Q_ASSERT(fixture != NULL);
+
+    if (channel == QLCChannel::invalid())
+        return;
+
+    foreach (FixtureConsole* fc, m_consoleList)
+    {
+        if (fc != NULL && fc->fixture() == fixture->id())
+        {
+            fc->setChecked(status, channel);
+            return;
+        }
+    }
 }
 
 void SceneEditor::slotValueChanged(quint32 fxi, quint32 channel, uchar value)

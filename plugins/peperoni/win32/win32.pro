@@ -22,12 +22,6 @@ SOURCES += peperoni/usbdmx-dynamic.cpp \
 
 HEADERS += ../../interfaces/qlcioplugin.h
 
-TRANSLATIONS += Peperoni_fi_FI.ts
-TRANSLATIONS += Peperoni_de_DE.ts
-TRANSLATIONS += Peperoni_es_ES.ts
-TRANSLATIONS += Peperoni_fr_FR.ts
-TRANSLATIONS += Peperoni_it_IT.ts
-
 # Installation
 target.path = $$INSTALLROOT/$$PLUGINDIR
 INSTALLS   += target

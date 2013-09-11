@@ -116,10 +116,6 @@ QString OutputPluginStub::inputInfo(quint32 input)
     return QString("This is a plugin stub for testing.");
 }
 
-void OutputPluginStub::sendFeedBack(quint32 , quint32 , uchar, const QString& )
-{
-}
-
 /*****************************************************************************
  * Configuration
  *****************************************************************************/

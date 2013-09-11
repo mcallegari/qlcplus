@@ -110,6 +110,11 @@ void SpeedDialWidget::setFadeInEnabled(bool enable)
     m_fadeIn->setEnabled(enable);
 }
 
+void SpeedDialWidget::setFadeInVisible(bool set)
+{
+    m_fadeIn->setVisible(set);
+}
+
 void SpeedDialWidget::setFadeInSpeed(int ms)
 {
     m_fadeIn->setValue(ms);
@@ -128,6 +133,11 @@ void SpeedDialWidget::setFadeOutTitle(const QString& title)
 void SpeedDialWidget::setFadeOutEnabled(bool enable)
 {
     m_fadeOut->setEnabled(enable);
+}
+
+void SpeedDialWidget::setFadeOutVisible(bool set)
+{
+    m_fadeOut->setVisible(set);
 }
 
 void SpeedDialWidget::setFadeOutSpeed(int ms)

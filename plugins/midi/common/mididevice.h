@@ -61,7 +61,7 @@ private:
      * Mode
      ************************************************************************/
 public:
-    enum Mode { ControlChange, Note };
+    enum Mode { ControlChange, Note, ProgramChange };
 
     void setMode(Mode mode);
     Mode mode() const;

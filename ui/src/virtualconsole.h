@@ -156,6 +156,7 @@ protected:
     QAction* m_addButtonMatrixAction;
     QAction* m_addSliderAction;
     QAction* m_addSliderMatrixAction;
+    QAction* m_addKnobAction;
     QAction* m_addSpeedDialAction;
     QAction* m_addXYPadAction;
     QAction* m_addCueListAction;
@@ -205,11 +206,19 @@ private:
      */
     VCWidget* closestParent() const;
 
+    /**
+     * If a newly created widget belongs to a multipage frame,
+     * then assign the current frame page to the widget and
+     * inform the frame of the new addition
+     */
+    void checkWidgetPage(VCWidget *widget, VCWidget *parent);
+
 public slots:
     void slotAddButton();
     void slotAddButtonMatrix();
     void slotAddSlider();
     void slotAddSliderMatrix();
+    void slotAddKnob();
     void slotAddSpeedDial();
     void slotAddXYPad();
     void slotAddCueList();

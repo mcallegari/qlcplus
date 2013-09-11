@@ -178,8 +178,11 @@ private:
     /** Construct the toolbar */
     void initToolBar();
 
-    /** Edit properties for the fixture represented by $item */
-    void editFixtureProperties(QTreeWidgetItem* item);
+    /** Edit properties for the selected fixture */
+    void editFixtureProperties();
+
+    /** Edit properties for the selected channels group */
+    void editChannelGroupProperties();
 
     /** Count the number of heads in the list of fixture items */
     int headCount(const QList <QTreeWidgetItem*>& items) const;
@@ -191,6 +194,7 @@ private slots:
     void slotRemove();
     void slotProperties();
     void slotFadeConfig();
+    void slotRemap();
     void slotUnGroup();
     void slotGroupSelected(QAction* action);
     void slotMoveGroupUp();
@@ -206,6 +210,7 @@ private:
     QAction* m_removeAction;
     QAction* m_propertiesAction;
     QAction* m_fadeConfigAction;
+    QAction* m_remapAction;
     QAction* m_groupAction;
     QAction* m_unGroupAction;
     QAction* m_newGroupAction;

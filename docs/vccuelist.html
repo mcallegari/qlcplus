@@ -80,7 +80,7 @@ by double clicking on the Cue List widget.<br>
    <B>Next cue key combination</B>
   </TD>
   <TD>
-   You can select the key that you use to skip to the next cue in the Cue List
+   You can select the key that you want to use to skip to the next cue in the Cue List
    with this option. The key combination is shown on the text field; if the
    field is empty, there is no key combination currently attached to the Cue List.
   </TD>
@@ -90,7 +90,7 @@ by double clicking on the Cue List widget.<br>
    <B>Previous cue key combination</B>
   </TD>
   <TD>
-   You can select the key that you use to skip to the previous cue in the Cue List
+   You can select the key that you want to use to skip to the previous cue in the Cue List
    with this option. The key combination is shown on the text field; if the
    field is empty, there is no key combination currently attached to the Cue List.
   </TD>
@@ -100,9 +100,19 @@ by double clicking on the Cue List widget.<br>
    <B>Stop cue key combination</B>
   </TD>
   <TD>
-   You can select the key that you use to stop the cue in the Cue List
+   You can select the key that you want to use to stop the cue in the Cue List
    with this option. The key combination is shown on the text field; if the
    field is empty, there is no key combination currently attached to the Cue List.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Crossfade key combinations</B>
+  </TD>
+  <TD>
+   You can select the keys that want you use to control the Cue List crossfade
+   functionality. The key combinations are shown on the text field; if the
+   field is empty, there are no keys combination currently attached to the Cue List.
   </TD>
  </TR>
  <TR>
@@ -150,15 +160,16 @@ Four buttons are displayed at the bottom of the Cue List widget:<br>
   <TD><IMG src="qrc:/slider.png"></TD>
   <TD>When clicked, this button will open/close a side panel showing two sliders.<br>
   Each slider is connected to an action and to understand their meaning we'll call them 
-  "primary" and "secondary". The label on the bottom will show the corresponding
+  "current action" and "next action" sliders. The label on the bottom will show the corresponding
   color and number of the running action.<br>
   The checkbox on the top will link the sliders together for a linear transition<br>
   When the Cue list is running the sliders will control the intensity of the 
   associated actions, overriding their Fade In speed, to allow manual control
   of the transition between two actions.<br>
-  When the primary slider will reach zero value, the secondary slider will turn to blue,
+  When the current action slider will reach zero value, the next action slider will turn to blue,
   to indicate the action has been stopped and the Cue list moved to the next action.
-  At this point the secondary slider becomes primary and what was primary becomes secondary.<br>
+  At this point the next action slider becomes the current action and what was current action 
+  becomes next action.<br>
   In this way it is possible to manually crossfade two sequential actions.</TD>
  </TR>
 </TABLE>

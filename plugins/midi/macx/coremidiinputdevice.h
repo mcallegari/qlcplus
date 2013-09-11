@@ -38,11 +38,14 @@ public:
     void close();
     bool isOpen() const;
 
+    bool processMBC(int type);
+
 private:
     MIDIClientRef m_client;
     MIDIEntityRef m_entity;
     MIDIPortRef m_inPort;
     MIDIEndpointRef m_source;
+    uint m_mbc_counter;
 };
 
 #endif

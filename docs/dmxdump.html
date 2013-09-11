@@ -12,7 +12,8 @@
 The DMX Dump functionality allows you to save the current DMX values that are sent to the ouput universes
 in a particular moment. Basically it makes a "screenshot" of DMX channels and saves them for a later use.<br>
 DMX Dump can save values to a new <A HREF="file:concept.html#Scene">Scene</A> and also add the newly created 
-Scene into an existing <A HREF="file:concept.html#Chaser">Chaser</A>.<br><br>
+Scene into an existing <A HREF="file:concept.html#Chaser">Chaser</A>, Virtual Console 
+<A HREF="file:vcbutton.html">button</A> or <A HREF="file:vcslider.html">slider</A><br><br>
 
 Please note that:
 <ul>
@@ -46,14 +47,30 @@ When opening the DMX Dump window, the following options will appear:<br>
  </TR>
  <TR>
   <TD>
-   <B>Add to Chaser</B>
+   <B>Add to</B>
   </TD>
   <TD>
-   The chasers panel is filled with all the chasers present when DMX Dump window is openend. Each Chaser
-   has a checkbox that, if checked, will tell QLC+ to add the newly created Scene to the selected chasers.<br>
-   This feature is nice when using <A HREF="file:vccuelist.html">Cue Lists</A> in the 
-   <A HREF="file:virtualconsole.html">Virtual Console</A> panel. In this case, the newly created Scene will appear
-   in the Cue List for immediate use during a live performance.
+   This section offers you to immediately use your scene into and existing Virtual Console widget.<br>
+   Options are:
+   <UL>
+    <LI><B>Chaser</B>: The list is filled with all the chasers present when DMX Dump window is opened. Each Chaser
+     has a checkbox that, if checked, will tell QLC+ to add the newly created Scene to the selected chasers.<br>
+     This feature is nice when using <A HREF="file:vccuelist.html">Cue Lists</A> in the 
+     <A HREF="file:virtualconsole.html">Virtual Console</A> panel. In this case, the newly created Scene will appear
+     in the Cue List for immediate use during a live performance.
+    </LI>
+    <br>
+    <LI><B>Button</B>: The list is filled with all the buttons currently present in your Virtual Console space.<br>
+     When selected, the buttons will be set to activate/deactivate the Scene just captured. You will see the button
+     label chaning to "Scene from live ..." and a progress number to distinguish it.<br>
+     <b>Note:</b> Any previous function associated to the selected buttons will be overwritten !
+    </LI>
+    <br>
+    <LI><B>Slider</B>: The list is filled with all the sliders currently present in your Virtual Console space.<br>
+     Similarly to buttons, all the selected sliders will be set to control the Scene just captured.<br>
+     <b>Note 1:</b> A slider must be in <B>playback mode</B> to work as an intensity controller for a Scene.<br>
+     <b>Note 2:</b> Any previous function associated to the selected sliders will be overwritten !
+    </LI>
   </TD>
  </TR>
  <TR>

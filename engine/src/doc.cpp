@@ -338,6 +338,9 @@ bool Doc::deleteFixture(quint32 id)
         setModified();
         delete fxi;
 
+        if (m_fixtures.count() == 0)
+            m_latestFixtureId = 0;
+
         return true;
     }
     else
@@ -374,6 +377,56 @@ bool Doc::moveFixture(quint32 id, quint32 newAddress)
         qWarning() << Q_FUNC_INFO << "No fixture with id" << id;
         return false;
     }
+}
+
+bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
+{
+    // Delete all fixture instances
+    QListIterator <quint32> fxit(m_fixtures.keys());
+    while (fxit.hasNext() == true)
+    {
+        Fixture* fxi = m_fixtures.take(fxit.next());
+        delete fxi;
+    }
+    m_latestFixtureId = 0;
+    m_addresses.clear();
+
+    foreach(Fixture *fixture, newFixturesList)
+    {
+        quint32 id = fixture->id();
+        // create a copy of the original cause remapping will
+        // destroy it later
+        Fixture *newFixture = new Fixture(this);
+        newFixture->setID(id);
+        newFixture->setName(fixture->name());
+        newFixture->setAddress(fixture->address());
+        newFixture->setUniverse(fixture->universe());
+        if (fixture->fixtureDef() != NULL && fixture->fixtureMode() != NULL)
+        {
+            const QLCFixtureDef *def = fixtureDefCache()->fixtureDef(fixture->fixtureDef()->manufacturer(),
+                                                                     fixture->fixtureDef()->model());
+            const QLCFixtureMode *mode = NULL;
+            if (def != NULL)
+                mode = def->mode(fixture->fixtureMode()->name());
+            newFixture->setFixtureDefinition(def, mode);
+        }
+        else
+            newFixture->setChannels(fixture->channels());
+        m_fixtures[id] = newFixture;
+
+        /* Patch fixture change signals thru Doc */
+        connect(newFixture, SIGNAL(changed(quint32)),
+                this, SLOT(slotFixtureChanged(quint32)));
+
+        /* Keep track of fixture addresses */
+        for (uint i = newFixture->universeAddress();
+             i < newFixture->universeAddress() + newFixture->channels(); i++)
+        {
+            m_addresses[i] = id;
+        }
+        m_latestFixtureId = id;
+    }
+    return true;
 }
 
 bool Doc::changeFixtureMode(quint32 id, const QLCFixtureMode *mode)

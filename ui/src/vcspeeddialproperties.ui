@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>414</width>
-    <height>453</height>
+    <width>506</width>
+    <height>455</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -271,40 +271,108 @@
          </property>
          <layout class="QGridLayout" name="gridLayout_5">
           <item row="0" column="0">
-           <widget class="QLabel" name="m_tapInputUniverseLabel">
-            <property name="text">
-             <string>Input Universe</string>
+           <widget class="QGroupBox" name="groupBox">
+            <property name="title">
+             <string>External Input</string>
             </property>
+            <layout class="QGridLayout" name="gridLayout_3">
+             <item row="0" column="0">
+              <widget class="QLabel" name="m_tapInputUniverseLabel">
+               <property name="text">
+                <string>Input Universe</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1" colspan="2">
+              <widget class="QLineEdit" name="m_tapInputUniverseEdit"/>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="m_tapInputChannelLabel">
+               <property name="text">
+                <string>Input Channel</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1" colspan="2">
+              <widget class="QLineEdit" name="m_tapInputChannelEdit"/>
+             </item>
+             <item row="2" column="1">
+              <widget class="QPushButton" name="m_autoDetectTapInputButton">
+               <property name="text">
+                <string>Auto Detect</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2">
+              <widget class="QPushButton" name="m_chooseTapInputButton">
+               <property name="text">
+                <string>Choose...</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
-          <item row="0" column="1" colspan="2">
-           <widget class="QLineEdit" name="m_tapInputUniverseEdit"/>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="m_tapInputChannelLabel">
-            <property name="text">
-             <string>Input Channel</string>
+          <item row="0" column="1">
+           <widget class="QGroupBox" name="groupBox_4">
+            <property name="title">
+             <string>Key combination</string>
             </property>
-           </widget>
-          </item>
-          <item row="1" column="1" colspan="2">
-           <widget class="QLineEdit" name="m_tapInputChannelEdit"/>
-          </item>
-          <item row="2" column="1">
-           <widget class="QPushButton" name="m_autoDetectTapInputButton">
-            <property name="text">
-             <string>Auto Detect</string>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="2">
-           <widget class="QPushButton" name="m_chooseTapInputButton">
-            <property name="text">
-             <string>Choose...</string>
-            </property>
+            <layout class="QGridLayout" name="gridLayout_6">
+             <item row="0" column="0" colspan="2">
+              <widget class="QLineEdit" name="m_keyEdit">
+               <property name="toolTip">
+                <string>Keyboard combination to control the dial tap</string>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QToolButton" name="m_attachKey">
+               <property name="toolTip">
+                <string>Set a key combination for this dial</string>
+               </property>
+               <property name="text">
+                <string notr="true">...</string>
+               </property>
+               <property name="icon">
+                <iconset resource="qlcui.qrc">
+                 <normaloff>:/key_bindings.png</normaloff>:/key_bindings.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>32</width>
+                 <height>32</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QToolButton" name="m_detachKey">
+               <property name="toolTip">
+                <string>Remove the dial's keyboard shortcut key</string>
+               </property>
+               <property name="text">
+                <string notr="true">...</string>
+               </property>
+               <property name="icon">
+                <iconset resource="qlcui.qrc">
+                 <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>32</width>
+                 <height>32</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
          </layout>
@@ -340,6 +408,7 @@
   </layout>
  </widget>
  <resources>
+  <include location="qlcui.qrc"/>
   <include location="qlcui.qrc"/>
  </resources>
  <connections>

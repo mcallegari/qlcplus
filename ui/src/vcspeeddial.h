@@ -33,6 +33,7 @@
 #define KXMLQLCVCSpeedDialAbsoluteValueMin "Minimum"
 #define KXMLQLCVCSpeedDialAbsoluteValueMax "Maximum"
 #define KXMLQLCVCSpeedDialTap "Tap"
+#define KXMLQLCVCSpeedDialTapKey "Key"
 
 class QDomDocument;
 class QDomElement;
@@ -142,12 +143,29 @@ private:
     QSet <quint32> m_functions;
     SpeedDial* m_dial;
 
-    /************************************************************************
-     * Input value change
-     ************************************************************************/
+    /*********************************************************************
+     * External input
+     *********************************************************************/
+public:
+    /** @reimp */
+    void updateFeedback();
+
 protected slots:
     /** @reimp */
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
+
+    /*********************************************************************
+     * Tap key sequence handler
+     *********************************************************************/
+public:
+    void setKeySequence(const QKeySequence& keySequence);
+    QKeySequence keySequence() const;
+
+protected slots:
+    void slotKeyPressed(const QKeySequence& keySequence);
+
+protected:
+    QKeySequence m_tapKeySequence;
 
     /************************************************************************
      * Absolute value range

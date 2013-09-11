@@ -16,6 +16,11 @@
         <translation>%1: [%2] Universum: %3</translation>
     </message>
     <message>
+        <location filename="artnetplugin.cpp" line="138"/>
+        <source>Output</source>
+        <translation>Ausgang</translation>
+    </message>
+    <message>
         <location filename="artnetplugin.cpp" line="142"/>
         <location filename="artnetplugin.cpp" line="337"/>
         <source>Status: Not open</source>
@@ -30,12 +35,17 @@
     <message>
         <location filename="artnetplugin.cpp" line="147"/>
         <source>Nodes discovered: </source>
-        <translation>Knoten (Nodes) erkannt</translation>
+        <translation>Knoten (Nodes) erkannt: </translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="150"/>
         <source>Packets sent: </source>
         <translation>Gesendete Pakete:</translation>
+    </message>
+    <message>
+        <location filename="artnetplugin.cpp" line="333"/>
+        <source>Input</source>
+        <translation>Eingang</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="342"/>

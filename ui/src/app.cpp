@@ -25,6 +25,10 @@
 #include <QtGui>
 #include <QtXml>
 
+#ifdef WIN32
+  #include <windows.h>
+#endif
+
 #include "inputoutputmanager.h"
 #include "functionmanager.h"
 #include "virtualconsole.h"
@@ -227,6 +231,28 @@ void App::init()
     m_doc->resetModified();
 
     m_audioTriggers = new AudioTriggerFactory(m_doc);
+
+    QString ssDir;
+
+#ifdef WIN32
+    /* User's input profile directory on Windows */
+    LPTSTR home = (LPTSTR) malloc(256 * sizeof(TCHAR));
+    GetEnvironmentVariable(TEXT("UserProfile"), home, 256);
+    ssDir = QString("%1/%2").arg(QString::fromUtf16(reinterpret_cast<ushort*> (home)))
+                            .arg(USERQLCPLUSDIR);
+    free(home);
+#else
+    /* User's input profile directory on *NIX systems */
+    ssDir = QString("%1/%2").arg(getenv("HOME")).arg(USERQLCPLUSDIR);
+#endif
+
+    QFile ssFile(ssDir + QDir::separator() + "qlcplusStyle.qss");
+    if (ssFile.exists() == true)
+    {
+        ssFile.open(QFile::ReadOnly);
+        QString styleSheet = QLatin1String(ssFile.readAll());
+        this->setStyleSheet(styleSheet);
+    }
 }
 
 void App::setActiveWindow(const QString& name)

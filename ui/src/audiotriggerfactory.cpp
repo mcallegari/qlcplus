@@ -110,6 +110,15 @@ AudioBar *AudioTriggerFactory::getSpectrumBar(int index)
     return NULL;
 }
 
+QList<AudioBar *> AudioTriggerFactory::getAudioBars()
+{
+    QList <AudioBar *> list;
+    list.append(m_volumeBar);
+    list.append(m_spectrumBars);
+
+    return list;
+}
+
 void AudioTriggerFactory::setSpectrumBarsNumber(int num)
 {
     if (num > m_spectrumBars.count())
@@ -146,7 +155,8 @@ void AudioTriggerFactory::slotEnableCapture(bool enable)
     {
         connect(m_inputCapture, SIGNAL(dataProcessed(double *, double, quint32)),
                 this, SLOT(slotDisplaySpectrum(double *, double, quint32)));
-        m_inputCapture->initialize(44100, 1, 2048);
+        if (m_inputCapture->isInitialized() == false)
+            m_inputCapture->initialize(44100, 1, 2048);
         m_inputCapture->start();
     }
     else

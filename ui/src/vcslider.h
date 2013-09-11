@@ -27,6 +27,7 @@
 
 #include "clickandgoslider.h"
 #include "clickandgowidget.h"
+#include "knobwidget.h"
 #include "dmxsource.h"
 #include "vcwidget.h"
 
@@ -42,6 +43,7 @@ class VCSliderProperties;
 
 #define KXMLQLCVCSlider "Slider"
 #define KXMLQLCVCSliderMode "SliderMode"
+#define KXMLQLCVCSliderWidgetStyle "WidgetStyle"
 
 #define KXMLQLCVCSliderValueDisplayStyle "ValueDisplayStyle"
 #define KXMLQLCVCSliderValueDisplayStyleExact "Exact"
@@ -86,6 +88,13 @@ public:
 
     /** Destructor */
     ~VCSlider();
+
+    /*********************************************************************
+     * ID
+     *********************************************************************/
+public:
+    /** @reimpl */
+    void setID(quint32 id);
 
     /*********************************************************************
      * Clipboard
@@ -337,7 +346,7 @@ public:
 protected slots:
     void slotPlaybackFunctionRunning(quint32 fid);
     void slotPlaybackFunctionStopped(quint32 fid);
-    void slotPlaybackFunctionIntensityChanged(qreal fraction);
+    void slotPlaybackFunctionIntensityChanged(int attrIndex, qreal fraction);
 
 protected:
     quint32 m_playbackFunction;
@@ -377,23 +386,39 @@ protected:
     QLabel* m_topLabel;
 
     /*********************************************************************
-     * Slider
+     * Slider / Knob
      *********************************************************************/
+public:
+    enum SliderWidgetStyle
+    {
+        WSlider,
+        WKnob
+    };
+
 public:
     void setSliderValue(uchar value);
 
     int sliderValue() const;
 
+    void setWidgetStyle(SliderWidgetStyle mode);
+
+    SliderWidgetStyle widgetStyle();
+
+    QString widgetStyleToString(SliderWidgetStyle style);
+
+    SliderWidgetStyle stringToWidgetStyle(QString style);
+
+    void updateFeedback();
+
 private slots:
     void slotSliderMoved(int value);
-
-private:
-    void sendFeedBack(int value);
 
 protected:
     QHBoxLayout* m_hbox;
     ClickAndGoSlider* m_slider;
+    KnobWidget* m_knob;
     bool m_externalMovement;
+    SliderWidgetStyle m_widgetMode;
 
     /*********************************************************************
      * Bottom label

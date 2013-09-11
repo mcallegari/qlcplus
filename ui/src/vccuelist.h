@@ -50,7 +50,7 @@ class Doc;
 #define KXMLQLCVCCueListKey "Key"
 #define KXMLQLCVCCueListNext "Next"
 #define KXMLQLCVCCueListPrevious "Previous"
-#define KXMLQLCVCCueListStop "Stop"
+#define KXMLQLCVCCueListPlayback "Playback"
 #define KXMLQLCVCCueListCrossfadeLeft "CrossLeft"
 #define KXMLQLCVCCueListCrossfadeRight "CrossRight"
 
@@ -70,7 +70,7 @@ class VCCueList : public VCWidget, public DMXSource
 public:
     static const quint8 nextInputSourceId;
     static const quint8 previousInputSourceId;
-    static const quint8 stopInputSourceId;
+    static const quint8 playbackInputSourceId;
     static const quint8 cf1InputSourceId;
     static const quint8 cf2InputSourceId;
 
@@ -167,7 +167,6 @@ protected:
 
 protected slots:
     void slotShowCrossfadePanel(bool enable);
-    void sendFeedBack(int value, const quint8 feedbackId);
     void slotSlider1ValueChanged(int value);
     void slotSlider2ValueChanged(int value);
 
@@ -215,10 +214,10 @@ public:
     QKeySequence previousKeySequence() const;
 
     /** Set the keyboard key combination for stopping the cue list */
-    void setStopKeySequence(const QKeySequence& keySequence);
+    void setPlaybackKeySequence(const QKeySequence& keySequence);
 
     /** Get the keyboard key combination for stopping the cue list */
-    QKeySequence stopKeySequence() const;
+    QKeySequence playbackKeySequence() const;
 
 protected slots:
     void slotKeyPressed(const QKeySequence& keySequence);
@@ -226,18 +225,21 @@ protected slots:
 private:
     QKeySequence m_nextKeySequence;
     QKeySequence m_previousKeySequence;
-    QKeySequence m_stopKeySequence;
+    QKeySequence m_playbackKeySequence;
 
     /*************************************************************************
      * External Input
      *************************************************************************/
+public:
+    void updateFeedback();
+
 protected slots:
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
 
 private:
     quint32 m_nextLatestValue;
     quint32 m_previousLatestValue;
-    quint32 m_stopLatestValue;
+    quint32 m_playbackLatestValue;
 
     /*************************************************************************
      * VCWidget-inherited

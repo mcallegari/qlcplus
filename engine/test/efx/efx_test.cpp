@@ -2633,14 +2633,14 @@ void EFX_Test::adjustIntensity()
     ef2->setFixture(fxi2->id());
     e->addFixture(ef2);
 
-    e->adjustIntensity(0.2);
-    QCOMPARE(e->intensity(), 0.2);
+    e->adjustAttribute(0.2);
+    QCOMPARE(e->getAttributeValue(), 0.2);
     QCOMPARE(ef1->m_intensity, 0.2);
     QCOMPARE(ef2->m_intensity, 0.2);
 
     e->preRun(m_doc->masterTimer());
 
-    e->adjustIntensity(0.5);
+    e->adjustAttribute(0.5);
     QCOMPARE(e->m_fader->intensity(), 0.5);
     QCOMPARE(ef1->intensity(), 0.5);
     QCOMPARE(ef2->intensity(), 0.5);

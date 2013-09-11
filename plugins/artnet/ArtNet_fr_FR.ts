@@ -16,6 +16,11 @@
         <translation>%1: [%2] Univers: %3</translation>
     </message>
     <message>
+        <location filename="artnetplugin.cpp" line="138"/>
+        <source>Output</source>
+        <translation>Sorties</translation>
+    </message>
+    <message>
         <location filename="artnetplugin.cpp" line="142"/>
         <location filename="artnetplugin.cpp" line="337"/>
         <source>Status: Not open</source>
@@ -36,6 +41,11 @@
         <location filename="artnetplugin.cpp" line="150"/>
         <source>Packets sent: </source>
         <translation>Paquets Envoyés : </translation>
+    </message>
+    <message>
+        <location filename="artnetplugin.cpp" line="333"/>
+        <source>Input</source>
+        <translation>Entrée</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="342"/>

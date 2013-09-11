@@ -45,8 +45,10 @@
 #include "qlcinputsource.h"
 #include "qlcfile.h"
 
+#include "qlcinputchannel.h"
 #include "virtualconsole.h"
 #include "vcproperties.h"
+#include "inputpatch.h"
 #include "inputmap.h"
 #include "vcwidget.h"
 #include "doc.h"
@@ -57,6 +59,7 @@ VCWidget::VCWidget(QWidget* parent, Doc* doc)
     : QWidget(parent)
     , m_doc(doc)
     , m_id(invalidId())
+    , m_page(0)
     , m_allowChildren(false)
     , m_allowResize(true)
 {
@@ -158,13 +161,12 @@ QIcon VCWidget::typeToIcon(int type)
 {
     switch (type)
     {
-
         case ButtonWidget: return QIcon(":/button.png");
         case SliderWidget: return QIcon(":/slider.png");
         case XYPadWidget: return QIcon(":/xypad.png");
         case FrameWidget: return QIcon(":/frame.png");
         case SoloFrameWidget: return QIcon(":/soloframe.png");
-        case SpeedDialWidget: return QIcon(":/knob.png");
+        case SpeedDialWidget: return QIcon(":/speed.png");
         case CueListWidget: return QIcon(":/cuelist.png");
         case LabelWidget: return QIcon(":/label.png");
         case UnknownWidget:
@@ -172,6 +174,16 @@ QIcon VCWidget::typeToIcon(int type)
              return QIcon(":/virtualconsole.png");
     }
     return QIcon(":/virtualconsole.png");
+}
+
+void VCWidget::setPage(int pNum)
+{
+    m_page = pNum;
+}
+
+int VCWidget::page()
+{
+    return m_page;
 }
 
 /*****************************************************************************
@@ -202,7 +214,14 @@ bool VCWidget::copyFrom(const VCWidget* widget)
     setGeometry(widget->geometry());
     setCaption(widget->caption());
 
-    m_inputs = widget->m_inputs;
+    QHashIterator <quint8, QLCInputSource> it(widget->m_inputs);
+    while (it.hasNext() == true)
+    {
+        it.next();
+        quint8 id = it.key();
+        QLCInputSource src = it.value();
+        setInputSource(src, id);
+    }
 
     return true;
 }
@@ -486,6 +505,40 @@ QLCInputSource VCWidget::inputSource(quint8 id) const
         return m_inputs[id];
 }
 
+void VCWidget::remapInputSources(int pgNum)
+{
+    foreach(quint8 s, m_inputs.keys())
+    {
+        QLCInputSource src = m_inputs[s];
+        src.setPage(pgNum);
+        setInputSource(src, s);
+    }
+}
+
+void VCWidget::sendFeedback(int value, quint8 id)
+{
+    /* Send input feedback */
+    QLCInputSource src = inputSource(id);
+    if (src.isValid() == true)
+    {
+        QString chName = QString();
+
+        InputPatch* pat = m_doc->inputMap()->patch(src.universe());
+        if (pat != NULL)
+        {
+            QLCInputProfile* profile = pat->profile();
+            if (profile != NULL)
+            {
+                QLCInputChannel* ich = profile->channel(src.channel());
+                if (ich != NULL)
+                    chName = ich->name();
+            }
+        }
+
+        m_doc->outputMap()->feedBack(src.universe(), src.channel(), value, chName);
+    }
+}
+
 void VCWidget::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
     Q_UNUSED(universe);
@@ -530,6 +583,25 @@ void VCWidget::slotKeyReleased(const QKeySequence& keySequence)
 void VCWidget::postLoad()
 {
     /* NOP */
+}
+
+bool VCWidget::loadXMLCommon(const QDomElement *root)
+{
+    Q_ASSERT(root != NULL);
+
+    /* ID */
+    if (root->hasAttribute(KXMLQLCVCWidgetID))
+        setID(root->attribute(KXMLQLCVCWidgetID).toUInt());
+
+    /* Caption */
+    if (root->hasAttribute(KXMLQLCVCCaption))
+        setCaption(root->attribute(KXMLQLCVCCaption));
+
+    /* Page */
+    if (root->hasAttribute(KXMLQLCVCWidgetPage))
+        setPage(root->attribute(KXMLQLCVCWidgetPage).toInt());
+
+    return true;
 }
 
 bool VCWidget::loadXMLAppearance(const QDomElement* root)
@@ -621,6 +693,25 @@ bool VCWidget::loadXMLInput(const QDomElement& root, quint32* uni, quint32* ch) 
         *uni = root.attribute(KXMLQLCVCWidgetInputUniverse).toInt();
         *ch = root.attribute(KXMLQLCVCWidgetInputChannel).toInt();
     }
+
+    return true;
+}
+
+bool VCWidget::saveXMLCommon(QDomDocument *doc, QDomElement *widget_root)
+{
+    Q_UNUSED(doc)
+    Q_ASSERT(widget_root != NULL);
+
+    /* Caption */
+    widget_root->setAttribute(KXMLQLCVCCaption, caption());
+
+    /* ID */
+    if (id() != VCWidget::invalidId())
+        widget_root->setAttribute(KXMLQLCVCWidgetID, id());
+
+    /* Page */
+    if (page() != 0)
+        widget_root->setAttribute(KXMLQLCVCWidgetPage, page());
 
     return true;
 }

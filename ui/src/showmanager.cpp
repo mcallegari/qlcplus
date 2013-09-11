@@ -105,6 +105,8 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
             this, SLOT(slotUpdateTime(quint32)));
     connect(m_showview, SIGNAL(trackClicked(Track*)),
             this, SLOT(slotTrackClicked(Track*)));
+    connect(m_showview, SIGNAL(trackMoved(Track*,int)),
+            this, SLOT(slotTrackMoved(Track*,int)));
 
     // split the multitrack view into two (left: tracks, right: chaser editor)
     m_vsplitter = new QSplitter(Qt::Horizontal, this);
@@ -785,6 +787,11 @@ void ShowManager::slotStartPlayback()
     m_show->start(m_doc->masterTimer(), false, m_showview->getTimeFromCursor());
 }
 
+void ShowManager::slotShowStopped()
+{
+    slotUpdateTime(m_showview->getTimeFromCursor());
+}
+
 void ShowManager::slotTimeDivisionTypeChanged(int idx)
 {
     QVariant var = m_timeDivisionCombo->itemData(idx);
@@ -883,9 +890,6 @@ void ShowManager::slotupdateTimeAndCursor(quint32 msec_time)
 
 void ShowManager::slotUpdateTime(quint32 msec_time)
 {
-    //QTime tmpTime = QTime(0, 0, 0, 0).addMSecs(msec_time);
-    //m_timeLabel->setText(tmpTime.toString("hh:mm:ss.zzz"));
-
     uint h, m, s;
 
     h = msec_time / 3600000;
@@ -897,8 +901,16 @@ void ShowManager::slotUpdateTime(quint32 msec_time)
     s = msec_time / 1000;
     msec_time -= (s * 1000);
 
-    QString str = QString("%1:%2:%3:%4").arg(h, 2, 10, QChar('0')).arg(m, 2, 10, QChar('0'))
-            .arg(s, 2, 10, QChar('0')).arg(msec_time / 10, 2, 10, QChar('0'));
+    QString str;
+    if (m_show && m_show->isRunning())
+    {
+        str = QString("%1:%2:%3.%4").arg(h, 2, 10, QChar('0')).arg(m, 2, 10, QChar('0'))
+              .arg(s, 2, 10, QChar('0')).arg(msec_time / 100, 1, 10, QChar('0'));
+    }
+    else
+        str = QString("%1:%2:%3.%4").arg(h, 2, 10, QChar('0')).arg(m, 2, 10, QChar('0'))
+              .arg(s, 2, 10, QChar('0')).arg(msec_time / 10, 2, 10, QChar('0'));
+
     m_timeLabel->setText(str);
 }
 
@@ -911,6 +923,14 @@ void ShowManager::slotTrackClicked(Track *track)
     showSceneEditor(m_scene);
     m_deleteAction->setEnabled(true);
     m_copyAction->setEnabled(true);
+}
+
+void ShowManager::slotTrackMoved(Track *track, int direction)
+{
+    if (m_show != NULL)
+        m_show->moveTrack(track, direction);
+    updateMultiTrackView();
+    m_doc->setModified();
 }
 
 void ShowManager::slotChangeColor()
@@ -987,6 +1007,7 @@ void ShowManager::slotDocClearing()
     m_copyAction->setEnabled(false);
     m_deleteAction->setEnabled(false);
     m_colorAction->setEnabled(false);
+    m_timeLabel->setText("00:00:00.00");
 }
 
 void ShowManager::slotDocLoaded()
@@ -1077,6 +1098,7 @@ void ShowManager::updateMultiTrackView()
     connect(m_bpmField, SIGNAL(valueChanged(int)), this, SLOT(slotBPMValueChanged(int)));
     connect(m_show, SIGNAL(timeChanged(quint32)), this, SLOT(slotupdateTimeAndCursor(quint32)));
     connect(m_show, SIGNAL(showFinished()), this, SLOT(slotStopPlayback()));
+    connect(m_show, SIGNAL(stopped(quint32)), this, SLOT(slotShowStopped()));
 
     Scene *firstScene = NULL;
 

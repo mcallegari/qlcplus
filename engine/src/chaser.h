@@ -124,6 +124,16 @@ public:
      */
     void clear();
 
+    /** Get the Chaser steps number */
+    int stepsCount();
+
+    /**
+     * Get a chaser step from a given index
+     *
+     * @return The requested Chaser Step
+     */
+    ChaserStep stepAt(int idx);
+
     /**
      * Get the chaser's list of steps
      *
@@ -301,7 +311,7 @@ private:
      *************************************************************************/
 public:
     /** @reimpl */
-    void adjustIntensity(qreal fraction);
+    void adjustAttribute(qreal fraction, int attributeIndex = 0);
 };
 
 #endif

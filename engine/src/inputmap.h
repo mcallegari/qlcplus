@@ -70,8 +70,6 @@ signals:
     /** Everyone interested in input data should connect to this signal */
     void inputValueChanged(quint32 universe, quint32 channel, uchar value, const QString& key = 0);
 
-    /** Everyone interested in input page changes should connect to this signal */
-    void inputPageChanged(quint32 universe, quint32 pagesize, quint32 page);
     /** Notifies (InputManager) of plugin configuration changes */
     void pluginConfigurationChanged(const QString& pluginName);
 

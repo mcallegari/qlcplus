@@ -138,6 +138,7 @@ protected slots:
      *********************************************************************/
     void slotStopPlayback();
     void slotStartPlayback();
+    void slotShowStopped();
 
     /*********************************************************************
      * Time division
@@ -154,6 +155,7 @@ protected slots:
     void slotUpdateTime(quint32 msec_time);
     void slotupdateTimeAndCursor(quint32 msec_time);
     void slotTrackClicked(Track *track);
+    void slotTrackMoved(Track *track, int direction);
     void slotChangeColor();
     void slotToggleSnapToGrid(bool enable);
     void slotChangeSize(int width, int height);

@@ -42,10 +42,17 @@ AudioCaptureWaveIn::~AudioCaptureWaveIn()
     m_mutex.lock();
     if (deviceHandle)
     {
+        waveInStop(deviceHandle);
+        for (int i = 0; i < HEADERS_NUMBER; i++)
+        {
+            if (waveInUnprepareHeader(deviceHandle, &waveHeaders[i], sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
+                qWarning("[WAVEIN readAudio] UnprepareHeader failed");
+        }
+
         waveInReset(deviceHandle);
-        //waveInStop(deviceHandle);
         waveInClose(deviceHandle);
     }
+    deviceHandle = NULL;
     m_mutex.unlock();
 }
 

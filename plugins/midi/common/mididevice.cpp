@@ -27,6 +27,7 @@
 
 #define NOTE_VELOCITY "Note Velocity"
 #define CONTROL_CHANGE "Control Change"
+#define PROGRAM_CHANGE "Program Change"
 
 /****************************************************************************
  * Initialization
@@ -96,15 +97,20 @@ QString MidiDevice::modeToString(Mode mode)
     case Note:
         return QString(NOTE_VELOCITY);
         break;
+    case ProgramChange:
+        return QString(PROGRAM_CHANGE);
+        break;
     }
 }
 
 MidiDevice::Mode MidiDevice::stringToMode(const QString& mode)
 {
    if (mode == QString(NOTE_VELOCITY))
-        return Note;
-    else
-        return ControlChange;
+       return Note;
+   else if (mode == QString(PROGRAM_CHANGE))
+       return ProgramChange;
+   else
+       return ControlChange;
 }
 
 /****************************************************************************

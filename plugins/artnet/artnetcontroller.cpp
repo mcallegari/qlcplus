@@ -56,11 +56,8 @@ ArtNetController::ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> i
     m_packetReceived = 0;
 
     m_UdpSocket = new QUdpSocket(this);
-#if defined(__APPLE__)
+
     if (m_UdpSocket->bind(ARTNET_DEFAULT_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint) == false)
-#else
-    if (m_UdpSocket->bind(m_broadcastAddr, ARTNET_DEFAULT_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint) == false)
-#endif
         return;
 
     connect(m_UdpSocket, SIGNAL(readyRead()),

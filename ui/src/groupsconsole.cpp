@@ -64,19 +64,22 @@ void GroupsConsole::init()
     foreach(quint32 id, m_ids)
     {
         ChannelsGroup *grp = m_doc->channelsGroup(id);
-        SceneValue scv = grp->getChannels().at(0);
+        if (grp->getChannels().count() > 0)
+        {
+            SceneValue scv = grp->getChannels().at(0);
 
-        ConsoleChannel* cc = new ConsoleChannel(this, m_doc, scv.fxi, scv.channel, false);
-        cc->setLabel(grp->name());
-        cc->setChannelsGroup(id);
-        if (idx < m_levels.count())
-            cc->setValue(m_levels.at(idx));
-        layout()->addWidget(cc);
-        m_groups.append(cc);
+            ConsoleChannel* cc = new ConsoleChannel(this, m_doc, scv.fxi, scv.channel, false);
+            cc->setLabel(grp->name());
+            cc->setChannelsGroup(id);
+            if (idx < m_levels.count())
+                cc->setValue(m_levels.at(idx));
+            layout()->addWidget(cc);
+            m_groups.append(cc);
 
-        connect(cc, SIGNAL(groupValueChanged(quint32, uchar)),
-                this, SIGNAL(groupValueChanged(quint32, uchar)));
-        idx++;
+            connect(cc, SIGNAL(groupValueChanged(quint32, uchar)),
+                    this, SIGNAL(groupValueChanged(quint32, uchar)));
+            idx++;
+        }
     }
     /* Make a spacer item eat excess space to justify channels left */
     layout()->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding));

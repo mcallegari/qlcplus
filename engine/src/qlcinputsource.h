@@ -1,4 +1,4 @@
-/*
+/*;
   Q Light Controller
   qlcinputsource.h
 
@@ -46,6 +46,9 @@ public:
 
     void setChannel(quint32 ch);
     quint32 channel() const;
+
+    void setPage(ushort pgNum);
+    ushort page() const;
 
 private:
     quint32 m_universe;

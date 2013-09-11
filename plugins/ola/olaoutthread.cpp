@@ -249,7 +249,7 @@ bool OlaEmbeddedServer::init()
     if (m_init_run)
         return true;
 
-    ola::ola_server_options options;
+    ola::OlaServer::Options options;
     options.http_enable = true;
     options.http_port = ola::OlaServer::DEFAULT_HTTP_PORT;
     m_daemon = new ola::OlaDaemon(options);

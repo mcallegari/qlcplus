@@ -73,6 +73,10 @@ EFX::EFX(Doc* doc) : Function(doc, Function::EFX)
 
     m_legacyHoldBus = Bus::invalid();
     m_legacyFadeBus = Bus::invalid();
+
+    registerAttribute(tr("Width"));
+    registerAttribute(tr("Height"));
+    registerAttribute(tr("Rotation"));
 }
 
 EFX::~EFX()
@@ -253,14 +257,13 @@ void EFX::calculatePoint(Function::Direction direction, int startOffset, qreal i
 
 void EFX::rotateAndScale(qreal* x, qreal* y) const
 {
-    qreal xx;
-    qreal yy;
+    qreal xx = *x;
+    qreal yy = *y;
+    qreal w = m_width * getAttributeValue(Width);
+    qreal h = m_height * getAttributeValue(Height);
 
-    xx = *x;
-    yy = *y;
-
-    *x = m_xOffset + xx * m_cosR * m_width + yy * m_sinR * m_height;
-    *y = m_yOffset + -xx * m_sinR * m_width + yy * m_cosR * m_height;
+    *x = m_xOffset + xx * m_cosR * w + yy * m_sinR * h;
+    *y = m_yOffset + -xx * m_sinR * w + yy * m_cosR * h;
 }
 
 qreal EFX::calculateDirection(Function::Direction direction, qreal iterator) const
@@ -363,7 +366,7 @@ int EFX::rotation() const
 
 void EFX::updateRotationCache()
 {
-    qreal r = M_PI/180 * m_rotation;
+    qreal r = M_PI/180 * m_rotation * getAttributeValue(Rotation);
     m_cosR = cos(r);
     m_sinR = sin(r);
 }
@@ -521,6 +524,12 @@ bool EFX::removeFixture(EFXFixture* ef)
     {
         return false;
     }
+}
+
+void EFX::removeAllFixtures()
+{
+    m_fixtures.clear();
+    emit changed(this->id());
 }
 
 bool EFX::raiseFixture(EFXFixture* ef)
@@ -987,17 +996,32 @@ void EFX::postRun(MasterTimer* timer, UniverseArray* universes)
  * Intensity
  *****************************************************************************/
 
-void EFX::adjustIntensity(qreal fraction)
+void EFX::adjustAttribute(qreal fraction, int attributeIndex)
 {
-    if (m_fader != NULL)
-        m_fader->adjustIntensity(fraction);
-
-    QListIterator <EFXFixture*> it(m_fixtures);
-    while (it.hasNext() == true)
+    switch (attributeIndex)
     {
-        EFXFixture* ef = it.next();
-        ef->adjustIntensity(fraction);
+        case Intensity:
+        {
+            if (m_fader != NULL)
+                m_fader->adjustIntensity(fraction);
+
+            QListIterator <EFXFixture*> it(m_fixtures);
+            while (it.hasNext() == true)
+            {
+                EFXFixture* ef = it.next();
+                ef->adjustIntensity(fraction);
+            }
+        }
+        break;
+
+        case Height:
+        case Width:
+        break;
+
+        case Rotation:
+            updateRotationCache();
+        break;
     }
 
-    Function::adjustIntensity(fraction);
+    Function::adjustAttribute(fraction);
 }

@@ -71,6 +71,13 @@ public:
     ~VCButton();
 
     /*********************************************************************
+     * ID
+     *********************************************************************/
+public:
+    /** @reimpl */
+    void setID(quint32 id);
+
+    /*********************************************************************
      * Clipboard
      *********************************************************************/
 public:
@@ -198,8 +205,6 @@ public:
     void setKeySequence(const QKeySequence& keySequence);
     QKeySequence keySequence() const;
 
-    bool isControlDown() const;
-
 protected slots:
     void slotKeyPressed(const QKeySequence& keySequence);
     void slotKeyReleased(const QKeySequence& keySequence);
@@ -210,6 +215,9 @@ protected:
     /*********************************************************************
      * External input
      *********************************************************************/
+public:
+    void updateFeedback();
+
 protected slots:
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
 
@@ -266,6 +274,9 @@ public:
 protected:
     bool m_adjustIntensity;
     qreal m_intensityAdjustment;
+
+protected slots:
+    void slotAttributeChanged(int value);
 
     /*********************************************************************
      * Button press / release handlers

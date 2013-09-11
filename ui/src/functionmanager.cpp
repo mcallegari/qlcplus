@@ -185,8 +185,8 @@ void FunctionManager::slotDocLoaded()
                     }
                     chaser->replaceStep(step, i);
                     //qDebug() << "************ STEP FIXED *********** total values: " << step.values.count();
-                    i++;
                 }
+                i++;
             }
         }
     }
@@ -388,6 +388,7 @@ void FunctionManager::slotAddCollection()
     {
         QTreeWidgetItem* item = functionItem(f);
         Q_ASSERT(item != NULL);
+        f->setName(QString("%1 %2").arg(tr("New Collection")).arg(f->id()));
         m_tree->scrollToItem(item);
         m_tree->setCurrentItem(item);
     }
@@ -400,6 +401,7 @@ void FunctionManager::slotAddEFX()
     {
         QTreeWidgetItem* item = functionItem(f);
         Q_ASSERT(item != NULL);
+        f->setName(QString("%1 %2").arg(tr("New EFX")).arg(f->id()));
         m_tree->scrollToItem(item);
         m_tree->setCurrentItem(item);
     }
@@ -412,6 +414,7 @@ void FunctionManager::slotAddRGBMatrix()
     {
         QTreeWidgetItem* item = functionItem(f);
         Q_ASSERT(item != NULL);
+        f->setName(QString("%1 %2").arg(tr("New RGB Matrix")).arg(f->id()));
         m_tree->scrollToItem(item);
         m_tree->setCurrentItem(item);
     }
@@ -424,6 +427,7 @@ void FunctionManager::slotAddScript()
     {
         QTreeWidgetItem* item = functionItem(f);
         Q_ASSERT(item != NULL);
+        f->setName(QString("%1 %2").arg(tr("New Script")).arg(f->id()));
         m_tree->scrollToItem(item);
         m_tree->setCurrentItem(item);
     }
@@ -895,7 +899,7 @@ void FunctionManager::copyFunction(quint32 fid)
     Function* copy = function->createCopy(m_doc);
     if (copy != NULL)
     {
-        copy->setName(tr("Copy of %1").arg(function->name()));
+        copy->setName(copy->name() + tr(" (Copy)"));
         QTreeWidgetItem* item = functionItem(copy);
         m_tree->setCurrentItem(item);
     }

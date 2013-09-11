@@ -35,7 +35,7 @@ void OSCPlugin::init()
     QStringList defaults;
     defaults << "7770" << "8000" << "9000" << "9990";
 
-    for (int i = 0; i < OSC_UNIVERSES; i++)
+    for (int i = 0; i < QLCIOPLUGINS_UNIVERSES; i++)
     {
         QString key = QString("OSCplugin/Input%1/server_port").arg(i);
         QVariant value = settings.value(key);
@@ -131,11 +131,19 @@ int messageCallback(const char *path, const char *types, lo_arg **argv,
             float f_val = argv[i]->f;
             //qDebug() << "arg: " << i << ", type: '" << types[i] << "'', val: " << f_val;
             value = 255 * f_val;
-            if (argc > 1)
-            {
-                QString newPath = QString("%1_%2").arg(path).arg(i);
-                plugin->sendValueChanged(input, newPath, value);
-            }
+        }
+        else if (types[i] == 'i')
+        {
+            int32_t i_val = argv[i]->i;
+            if (i_val < 256)
+                value = (uchar)i_val;
+            else
+                value = i_val / 0xFFFFFF;
+        }
+        if (argc > 1)
+        {
+            QString newPath = QString("%1_%2").arg(path).arg(i);
+            plugin->sendValueChanged(input, newPath, value);
         }
         //lo_arg_pp((lo_type)types[i], argv[i]);
     }
@@ -150,7 +158,7 @@ int messageCallback(const char *path, const char *types, lo_arg **argv,
  *********************************************************************/
 void OSCPlugin::openOutput(quint32 output)
 {
-    if (output >= OSC_UNIVERSES)
+    if (output >= QLCIOPLUGINS_UNIVERSES)
         return;
 
     qDebug() << Q_FUNC_INFO << "Output on " << m_nodes[output].m_outAddrStr;
@@ -158,7 +166,7 @@ void OSCPlugin::openOutput(quint32 output)
 
 void OSCPlugin::closeOutput(quint32 output)
 {
-    if (output >= OSC_UNIVERSES)
+    if (output >= QLCIOPLUGINS_UNIVERSES)
         return;
 
     if (m_nodes[output].m_serv_thread != NULL)
@@ -172,14 +180,14 @@ void OSCPlugin::closeOutput(quint32 output)
 QStringList OSCPlugin::outputs()
 {
     QStringList list;
-    for (int i = 0; i < OSC_UNIVERSES; i++)
+    for (int i = 0; i < QLCIOPLUGINS_UNIVERSES; i++)
         list << QString("%1: %2 %1").arg(i + 1).arg(tr("OSC Network"));
     return list;
 }
 
 QString OSCPlugin::outputInfo(quint32 output)
 {
-    if (output >= OSC_UNIVERSES)
+    if (output >= QLCIOPLUGINS_UNIVERSES)
         return QString();
 
     QString str;
@@ -204,7 +212,7 @@ QString OSCPlugin::outputInfo(quint32 output)
 
 void OSCPlugin::writeUniverse(quint32 output, const QByteArray &universe)
 {
-    if (output >= OSC_UNIVERSES)
+    if (output >= QLCIOPLUGINS_UNIVERSES)
         return;
 
     for (int i = 0; i < universe.length(); i++)
@@ -226,7 +234,7 @@ void OSCPlugin::writeUniverse(quint32 output, const QByteArray &universe)
 
 void OSCPlugin::openInput(quint32 input)
 {
-    if (input >= OSC_UNIVERSES)
+    if (input >= QLCIOPLUGINS_UNIVERSES)
         return;
 
     qDebug() << Q_FUNC_INFO << "Input " << input << " port: " << m_nodes[input].m_port;
@@ -255,7 +263,7 @@ void OSCPlugin::openInput(quint32 input)
 
 void OSCPlugin::closeInput(quint32 input)
 {
-    if (input >= OSC_UNIVERSES)
+    if (input >= QLCIOPLUGINS_UNIVERSES)
         return;
 
     if (m_nodes[input].m_serv_thread != NULL)
@@ -269,14 +277,14 @@ void OSCPlugin::closeInput(quint32 input)
 QStringList OSCPlugin::inputs()
 {
     QStringList list;
-    for (int i = 0; i < OSC_UNIVERSES; i++)
+    for (int i = 0; i < QLCIOPLUGINS_UNIVERSES; i++)
         list << QString("%1: %2 %1").arg(i + 1).arg(tr("OSC Network"));
     return list;
 }
 
 QString OSCPlugin::inputInfo(quint32 input)
 {
-    if (input >= OSC_UNIVERSES)
+    if (input >= QLCIOPLUGINS_UNIVERSES)
         return QString();
 
     QString str;
@@ -298,7 +306,7 @@ QString OSCPlugin::inputInfo(quint32 input)
 
 void OSCPlugin::sendFeedBack(quint32 input, quint32 channel, uchar value, const QString &key)
 {
-    if (input >= OSC_UNIVERSES || m_nodes[input].m_outAddrStr.isEmpty())
+    if (input >= QLCIOPLUGINS_UNIVERSES || m_nodes[input].m_outAddrStr.isEmpty())
         return;
 
     qDebug() << "[OSC sendFeedBack] Key:" << key << "value:" << value;
@@ -370,7 +378,7 @@ bool OSCPlugin::canConfigure()
 
 QString OSCPlugin::getPort(int num)
 {
-    if (num >= OSC_UNIVERSES)
+    if (num >= QLCIOPLUGINS_UNIVERSES)
         return QString("7770");
 
     return m_nodes[num].m_port;
@@ -380,7 +388,7 @@ void OSCPlugin::setPort(int num, QString port)
 {
     qDebug() << Q_FUNC_INFO;
 
-    if (num >= OSC_UNIVERSES)
+    if (num >= QLCIOPLUGINS_UNIVERSES)
         return;
 
     QSettings settings;
@@ -397,7 +405,7 @@ void OSCPlugin::setPort(int num, QString port)
 
 QString OSCPlugin::getOutputAddress(int num)
 {
-    if (num >= OSC_UNIVERSES)
+    if (num >= QLCIOPLUGINS_UNIVERSES)
         return QString();
 
     return m_nodes[num].m_outAddrStr;
@@ -407,7 +415,7 @@ void OSCPlugin::setOutputAddress(int num, QString addr)
 {
     qDebug() << Q_FUNC_INFO;
 
-    if (num >= OSC_UNIVERSES)
+    if (num >= QLCIOPLUGINS_UNIVERSES)
         return;
 
     QSettings settings;

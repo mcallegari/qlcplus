@@ -23,9 +23,13 @@
 #include <QTreeWidget>
 
 #include "dmxdumpfactoryproperties.h"
+#include "virtualconsole.h"
 #include "dmxdumpfactory.h"
 #include "chaserstep.h"
 #include "function.h"
+#include "vcwidget.h"
+#include "vcbutton.h"
+#include "vcslider.h"
 #include "chaser.h"
 #include "scene.h"
 #include "doc.h"
@@ -34,8 +38,8 @@
 #define KColumnType  1
 #define KColumnID    2
 
-#define KColumnChaserName 0
-#define KColumnChaserID   1
+#define KColumnTargetName 0
+#define KColumnTargetID   1
 
 DmxDumpFactory::DmxDumpFactory(Doc *doc, DmxDumpFactoryProperties *props, QWidget *parent)
     : QDialog(parent)
@@ -51,7 +55,13 @@ DmxDumpFactory::DmxDumpFactory(Doc *doc, DmxDumpFactoryProperties *props, QWidge
     m_channelsCount = 0;
 
     updateFixturesTree();
-    updateChasersTree();
+
+    if (m_properties->selectedTarget() == 1)
+        m_buttonRadio->setChecked(true);
+    else if (m_properties->selectedTarget() == 2)
+        m_sliderRadio->setChecked(true);
+    else
+        slotUpdateChasersTree();
 
     m_dumpAllRadio->setText(tr("Dump all channels (%1 Universes, %2 Fixtures, %3 Channels)")
                             .arg(m_universesCount).arg(m_fixturesCount).arg(m_channelsCount));
@@ -134,23 +144,68 @@ void DmxDumpFactory::updateFixturesTree()
     }
 }
 
-void DmxDumpFactory::updateChasersTree()
+void DmxDumpFactory::slotUpdateChasersTree()
 {
-    m_chasersTree->clear();
+    m_addtoTree->clear();
     foreach(Function *f, m_doc->functionsByType(Function::Chaser))
     {
         Chaser *chaser = qobject_cast<Chaser*>(f);
         if (chaser->isSequence() == false)
         {
-            QTreeWidgetItem *item = new QTreeWidgetItem(m_chasersTree);
-            item->setText(KColumnChaserName, chaser->name());
-            item->setText(KColumnChaserID, QString::number(chaser->id()));
+            QTreeWidgetItem *item = new QTreeWidgetItem(m_addtoTree);
+            item->setText(KColumnTargetName, chaser->name());
+            item->setText(KColumnTargetID, QString::number(chaser->id()));
             item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
             if (m_properties->isChaserSelected(chaser->id()))
                 item->setCheckState(KColumnName, Qt::Checked);
             else
                 item->setCheckState(KColumnName, Qt::Unchecked);
         }
+    }
+}
+
+void DmxDumpFactory::slotUpdateButtons()
+{
+    updateWidgetsTree(VCWidget::ButtonWidget);
+}
+
+void DmxDumpFactory::slotUpdateSliders()
+{
+    updateWidgetsTree(VCWidget::SliderWidget);
+}
+
+QList<VCWidget *> DmxDumpFactory::getChildren(VCWidget *obj, int type)
+{
+    QList<VCWidget *> list;
+    if (obj == NULL)
+        return list;
+    QListIterator <VCWidget*> it(obj->findChildren<VCWidget*>());
+    while (it.hasNext() == true)
+    {
+        VCWidget* child = it.next();
+        qDebug() << Q_FUNC_INFO << "append: " << child->caption();
+        if (type == child->type())
+            list.append(child);
+    }
+    return list;
+}
+
+void DmxDumpFactory::updateWidgetsTree(int type)
+{
+    m_addtoTree->clear();
+    VCFrame* contents = VirtualConsole::instance()->contents();
+    QList<VCWidget *> widgetsList = getChildren((VCWidget *)contents, type);
+
+    foreach (QObject *object, widgetsList)
+    {
+        VCWidget *widget = (VCWidget *)object;
+
+        QTreeWidgetItem *item = new QTreeWidgetItem(m_addtoTree);
+        item->setText(KColumnTargetName, widget->caption());
+        item->setIcon(KColumnTargetName, VCWidget::typeToIcon(widget->type()));
+        item->setText(KColumnTargetID, QString::number(widget->id()));
+        item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+        item->setCheckState(KColumnName, Qt::Unchecked);
     }
 }
 
@@ -234,27 +289,54 @@ void DmxDumpFactory::accept()
         {
             quint32 sceneID = newScene->id();
             /** Now add the Scene to the selected Chasers */
-            for (int tc = 0; tc < m_chasersTree->topLevelItemCount(); tc++)
+            for (int tc = 0; tc < m_addtoTree->topLevelItemCount(); tc++)
             {
-                QTreeWidgetItem *chsItem = m_chasersTree->topLevelItem(tc);
-                quint32 chsID = chsItem->text(KColumnChaserID).toUInt();
-                if (chsItem->checkState(KColumnChaserName) == Qt::Checked)
+                QTreeWidgetItem *targetItem = m_addtoTree->topLevelItem(tc);
+                quint32 targetID = targetItem->text(KColumnTargetID).toUInt();
+                if (targetItem->checkState(KColumnTargetName) == Qt::Checked)
                 {
-                    Chaser *chaser = qobject_cast<Chaser*>(m_doc->function(chsID));
-                    if (chaser != NULL)
+                    if (m_chaserRadio->isChecked())
                     {
-                        ChaserStep chsStep(sceneID);
-                        chaser->addStep(chsStep);
-                        m_properties->addChaserID(chsID);
+                        Chaser *chaser = qobject_cast<Chaser*>(m_doc->function(targetID));
+                        if (chaser != NULL)
+                        {
+                            ChaserStep chsStep(sceneID);
+                            chaser->addStep(chsStep);
+                            m_properties->addChaserID(targetID);
+                        }
+                    }
+                    else if (m_buttonRadio->isChecked())
+                    {
+                        VCButton *button = qobject_cast<VCButton*>(VirtualConsole::instance()->widget(targetID));
+                        if (button != NULL)
+                        {
+                            button->setFunction(newScene->id());
+                            button->setCaption(newScene->name());
+                        }
+                    }
+                    else if (m_sliderRadio->isChecked())
+                    {
+                        VCSlider *slider = qobject_cast<VCSlider*>(VirtualConsole::instance()->widget(targetID));
+                        if (slider != NULL)
+                        {
+                            slider->setPlaybackFunction(newScene->id());
+                            slider->setCaption(newScene->name());
+                        }
                     }
                 }
                 else
-                    m_properties->removeChaserID(chsID);
+                    m_properties->removeChaserID(targetID);
             }
         }
     }
 
     m_properties->setChannelsMask(dumpMask);
+    if (m_chaserRadio->isChecked())
+        m_properties->setSelectedTarget(0);
+    else if (m_buttonRadio->isChecked())
+        m_properties->setSelectedTarget(1);
+    else if (m_sliderRadio->isChecked())
+        m_properties->setSelectedTarget(2);
 
     /* Close dialog */
     QDialog::accept();

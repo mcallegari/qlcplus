@@ -123,6 +123,158 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>Playback</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QGroupBox" name="groupBox_5">
+         <property name="title">
+          <string>Key Combination</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QLineEdit" name="m_playbackKeyEdit">
+            <property name="toolTip">
+             <string>The key combination used to stop the cue list</string>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="m_playbackAttachButton">
+            <property name="toolTip">
+             <string>Bind a key combination to stop the cue list</string>
+            </property>
+            <property name="text">
+             <string notr="true">...</string>
+            </property>
+            <property name="icon">
+             <iconset resource="qlcui.qrc">
+              <normaloff>:/key_bindings.png</normaloff>:/key_bindings.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>32</width>
+              <height>32</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="m_playbackDetachButton">
+            <property name="toolTip">
+             <string>Clear the key binding</string>
+            </property>
+            <property name="text">
+             <string notr="true">...</string>
+            </property>
+            <property name="icon">
+             <iconset resource="qlcui.qrc">
+              <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>32</width>
+              <height>32</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_6">
+         <property name="title">
+          <string>External Input</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_5">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>Input universe</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1" colspan="2">
+           <widget class="QLineEdit" name="m_playbackInputUniverseEdit">
+            <property name="toolTip">
+             <string>Input universe for stopping the cue list</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>Input channel</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1" colspan="2">
+           <widget class="QLineEdit" name="m_playbackInputChannelEdit">
+            <property name="toolTip">
+             <string>Input channel for stopping the cue list</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>225</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="2" column="1">
+           <widget class="QPushButton" name="m_playbackAutoDetectInputButton">
+            <property name="toolTip">
+             <string>When toggled, you can click an external button to assign it as the control that stops the cue list</string>
+            </property>
+            <property name="text">
+             <string>Auto Detect</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QPushButton" name="m_playbackChooseInputButton">
+            <property name="toolTip">
+             <string>Choose an input universe/channel for stopping the cue list</string>
+            </property>
+            <property name="text">
+             <string>Choose...</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>118</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
      <widget class="QWidget" name="NextCue">
       <attribute name="title">
        <string>Next Cue</string>
@@ -421,158 +573,6 @@
           <size>
            <width>20</width>
            <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="tab">
-      <attribute name="title">
-       <string>Stop</string>
-      </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_3">
-       <item>
-        <widget class="QGroupBox" name="groupBox_5">
-         <property name="title">
-          <string>Key Combination</string>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <item>
-           <widget class="QLineEdit" name="m_stopKeyEdit">
-            <property name="toolTip">
-             <string>The key combination used to stop the cue list</string>
-            </property>
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="m_stopAttachButton">
-            <property name="toolTip">
-             <string>Bind a key combination to stop the cue list</string>
-            </property>
-            <property name="text">
-             <string notr="true">...</string>
-            </property>
-            <property name="icon">
-             <iconset resource="qlcui.qrc">
-              <normaloff>:/key_bindings.png</normaloff>:/key_bindings.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>32</width>
-              <height>32</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="m_stopDetachButton">
-            <property name="toolTip">
-             <string>Clear the key binding</string>
-            </property>
-            <property name="text">
-             <string notr="true">...</string>
-            </property>
-            <property name="icon">
-             <iconset resource="qlcui.qrc">
-              <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>32</width>
-              <height>32</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QGroupBox" name="groupBox_6">
-         <property name="title">
-          <string>External Input</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_5">
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_5">
-            <property name="text">
-             <string>Input universe</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1" colspan="2">
-           <widget class="QLineEdit" name="m_stopInputUniverseEdit">
-            <property name="toolTip">
-             <string>Input universe for stopping the cue list</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_6">
-            <property name="text">
-             <string>Input channel</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1" colspan="2">
-           <widget class="QLineEdit" name="m_stopInputChannelEdit">
-            <property name="toolTip">
-             <string>Input channel for stopping the cue list</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <spacer name="horizontalSpacer_3">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>225</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="2" column="1">
-           <widget class="QPushButton" name="m_stopAutoDetectInputButton">
-            <property name="toolTip">
-             <string>When toggled, you can click an external button to assign it as the control that stops the cue list</string>
-            </property>
-            <property name="text">
-             <string>Auto Detect</string>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="2">
-           <widget class="QPushButton" name="m_stopChooseInputButton">
-            <property name="toolTip">
-             <string>Choose an input universe/channel for stopping the cue list</string>
-            </property>
-            <property name="text">
-             <string>Choose...</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <spacer name="verticalSpacer_4">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>118</height>
           </size>
          </property>
         </spacer>

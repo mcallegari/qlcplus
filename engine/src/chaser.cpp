@@ -212,6 +212,18 @@ void Chaser::clear()
     emit changed(this->id());
 }
 
+int Chaser::stepsCount()
+{
+    return m_steps.count();
+}
+
+ChaserStep Chaser::stepAt(int idx)
+{
+    if (idx >= 0 && idx < m_steps.count())
+        return m_steps.at(idx);
+    return ChaserStep();
+}
+
 QList <ChaserStep> Chaser::steps() const
 {
     return m_steps;
@@ -578,9 +590,9 @@ void Chaser::postRun(MasterTimer* timer, UniverseArray* universes)
  * Intensity
  *****************************************************************************/
 
-void Chaser::adjustIntensity(qreal fraction)
+void Chaser::adjustAttribute(qreal fraction, int)
 {
     if (m_runner != NULL)
         m_runner->adjustIntensity(fraction);
-    Function::adjustIntensity(fraction);
+    Function::adjustAttribute(fraction);
 }

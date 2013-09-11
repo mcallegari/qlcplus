@@ -121,7 +121,7 @@ private:
     QTreeWidgetItem* fixtureItem(quint32 fxi_id);
     QList <Fixture*> selectedFixtures() const;
 
-    void addFixtureItem(Fixture* fixture);
+    bool addFixtureItem(Fixture* fixture);
     void removeFixtureItem(Fixture* fixture);
 
 private slots:
@@ -167,9 +167,10 @@ private slots:
 private:
     FixtureConsole* fixtureConsole(Fixture* fixture);
 
-    void addFixtureTab(Fixture* fixture);
+    void addFixtureTab(Fixture* fixture, quint32 channel = QLCChannel::invalid());
     void removeFixtureTab(Fixture* fixture);
     FixtureConsole* fixtureConsoleTab(int tab);
+    void setTabChannelState(bool status, Fixture* fixture, quint32 channel);
 
 signals:
     void fixtureValueChanged(SceneValue val);

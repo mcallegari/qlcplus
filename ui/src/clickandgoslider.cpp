@@ -42,7 +42,12 @@ void ClickAndGoSlider::mousePressEvent ( QMouseEvent * event )
     if (event->button() == Qt::LeftButton && // react only to left button press
         sr.contains(event->pos()) == false) // check if the click is not over the slider's handle
     {
-        int newVal = minimum() + ((maximum()-minimum()) * (height()-event->y())) / height();
+        int newVal = 0;
+        if (orientation() == Qt::Vertical)
+            newVal = minimum() + ((maximum() - minimum()) * (height() - event->y())) / height();
+        else
+            newVal = minimum() + ((maximum() - minimum()) * event->x()) / width();
+
         if (invertedAppearance() == true)
             setValue( maximum() - newVal );
         else

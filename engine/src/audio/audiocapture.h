@@ -45,6 +45,8 @@ public:
     void setBandsNumber(int number);
     int bandsNumber();
 
+    bool isInitialized();
+
     static int maxFrequency() { return SPECTRUM_MAX_FREQUENCY; }
 
     /*!
@@ -97,6 +99,7 @@ protected:
     virtual bool readAudio(int maxSize) = 0;
 
     QMutex m_mutex;
+    bool m_isInitialized;
 
     unsigned int m_captureSize, m_sampleRate, m_channels;
 

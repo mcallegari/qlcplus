@@ -29,6 +29,7 @@ typedef _snd_seq snd_seq_t;
 
 struct snd_seq_addr;
 typedef snd_seq_addr snd_seq_addr_t;
+typedef unsigned char snd_seq_event_type_t;
 
 class AlsaMidiInputThread;
 
@@ -46,11 +47,14 @@ public:
 
     const snd_seq_addr_t* address() const;
 
+    bool processMBC(snd_seq_event_type_t type);
+
 private:
     snd_seq_t* m_alsa;
     snd_seq_addr_t* m_address;
     AlsaMidiInputThread* m_thread;
     bool m_open;
+    uint m_mbc_counter;
 };
 
 #endif

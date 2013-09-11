@@ -46,11 +46,13 @@ public:
 public:
     void setFadeInTitle(const QString& title);
     void setFadeInEnabled(bool set);
+    void setFadeInVisible(bool set);
     void setFadeInSpeed(int ms);
     int fadeIn() const;
 
     void setFadeOutTitle(const QString& title);
     void setFadeOutEnabled(bool set);
+    void setFadeOutVisible(bool set);
     void setFadeOutSpeed(int ms);
     int fadeOut() const;
 

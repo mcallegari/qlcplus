@@ -296,10 +296,17 @@ TrackItem::TrackItem(Track *track, int number)
         connect(m_track, SIGNAL(changed(quint32)), this, SLOT(slotTrackChanged(quint32)));
     }
     else
-        m_name = QString("Track %1").arg(m_number);
+        m_name = QString("Track %1").arg(m_number + 1);
 
     m_soloRegion = new QRectF(15.0, 10.0, 25.0, 16.0);
     m_muteRegion = new QRectF(42.0, 10.0, 25.0, 16.0);
+
+    m_moveUp = new QAction(QIcon(":/up.png"), tr("Move up"), this);
+    connect(m_moveUp, SIGNAL(triggered()),
+            this, SLOT(slotMoveUpClicked()));
+    m_moveDown = new QAction(QIcon(":/down.png"), tr("Move down"), this);
+    connect(m_moveDown, SIGNAL(triggered()),
+            this, SLOT(slotMoveDownClicked()));
 }
 
 Track *TrackItem::getTrack()
@@ -359,6 +366,19 @@ void TrackItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
     emit itemClicked(this);
 }
 
+void TrackItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
+{
+    QMenu menu;
+    QFont menuFont = QApplication::font();
+    menuFont.setPixelSize(14);
+    menu.setFont(menuFont);
+
+    if (m_number > 0)
+        menu.addAction(m_moveUp);
+    menu.addAction(m_moveDown);
+    menu.exec(QCursor::pos());
+}
+
 QRectF TrackItem::boundingRect() const
 {
     return QRectF(0, 0, TRACK_WIDTH - 4, TRACK_HEIGHT);
@@ -408,7 +428,7 @@ void TrackItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     painter->drawText(QRect(5, 47, TRACK_WIDTH - 5, 28), Qt::AlignLeft | Qt::TextWordWrap | Qt::AlignBottom, m_name);
     // draw track name
     painter->setPen(QPen(QColor(200, 200, 200, 255), 2));
-    painter->drawText(QRect(4, 47, TRACK_WIDTH - 4, 28), Qt::AlignLeft | Qt::TextWordWrap | Qt::AlignBottom, m_name);
+    painter->drawText(QRect(4, 47, TRACK_WIDTH - 5, 28), Qt::AlignLeft | Qt::TextWordWrap | Qt::AlignBottom, m_name);
 }
 
 void TrackItem::slotTrackChanged(quint32 id)
@@ -417,6 +437,16 @@ void TrackItem::slotTrackChanged(quint32 id)
 
     m_name = m_track->name();
     update();
+}
+
+void TrackItem::slotMoveUpClicked()
+{
+    emit itemMoveUpDown(m_track, -1);
+}
+
+void TrackItem::slotMoveDownClicked()
+{
+    emit itemMoveUpDown(m_track, 1);
 }
 
 
@@ -509,12 +539,13 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
         m_selectedStep = -1;
     }
 
+    // draw chaser background
     painter->setBrush(QBrush(m_color));
     painter->drawRect(0, 0, m_width, 77);
 
-    /* draw vertical lines to divide the chaser's steps */
     foreach (ChaserStep step, m_chaser->steps())
     {
+        // draw fade in line
         if (step.fadeIn > 0)
         {
             int fadeXpos = xpos + ((timeScale * (float)step.fadeIn) / 1000);
@@ -526,6 +557,7 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
             }
         }
         float stepWidth = ((timeScale * (float)step.duration) / 1000);
+        // draw selected step
         if (stepIdx == m_selectedStep)
         {
             painter->setPen(QPen(Qt::yellow, 2));
@@ -534,16 +566,19 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
         }
         xpos += stepWidth;
 
+        // draw step vertical delimiter
         painter->setPen(QPen(Qt::white, 1));
         painter->drawLine(xpos, 1, xpos, TRACK_HEIGHT - 5);
+
+        // draw fade out line
         if (step.fadeOut > 0)
         {
-            int fadeXpos = xpos - ((timeScale * (float)step.fadeOut) / 1000);
+            int fadeXpos = xpos + ((timeScale * (float)step.fadeOut) / 1000);
             // doesn't even draw it if too small
-            if (xpos - fadeXpos > 5)
+            if (fadeXpos - xpos > 5)
             {
                 painter->setPen(QPen(Qt::gray, 1));
-                painter->drawLine(fadeXpos, 1, xpos, TRACK_HEIGHT - 4);
+                painter->drawLine(xpos, 1, fadeXpos, TRACK_HEIGHT - 4);
             }
         }
         stepIdx++;
@@ -559,8 +594,10 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
 */
     if (m_pressed)
     {
-        quint32 s_time = (double)(x() - TRACK_WIDTH - 2) * (m_timeScale * 500) /
-                         (double)(HALF_SECOND_WIDTH);
+        quint32 s_time = 0;
+        if (x() > TRACK_WIDTH)
+            s_time = (double)(x() - TRACK_WIDTH) * (m_timeScale * 500) /
+                     (double)(HALF_SECOND_WIDTH);
         painter->setFont(m_font);
         painter->drawText(5, TRACK_HEIGHT - 10, Function::speedToString(s_time));
     }

@@ -54,36 +54,36 @@
         <translation>Dieses Plugin bietet Eingabunterstützung für Geräte mit dem OSC-Protokoll.</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="176"/>
-        <location filename="oscplugin.cpp" line="273"/>
+        <location filename="oscplugin.cpp" line="184"/>
+        <location filename="oscplugin.cpp" line="281"/>
         <source>OSC Network</source>
         <translation>OSC-Netzwerk</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="187"/>
+        <location filename="oscplugin.cpp" line="195"/>
         <source>Output</source>
         <translation>Ausgang</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="190"/>
-        <location filename="oscplugin.cpp" line="287"/>
+        <location filename="oscplugin.cpp" line="198"/>
+        <location filename="oscplugin.cpp" line="295"/>
         <source>Status: Not ready</source>
         <oldsource>Status: Not open</oldsource>
         <translation>Nicht geöffnet</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="193"/>
+        <location filename="oscplugin.cpp" line="201"/>
         <source>Address: </source>
         <translation>Adresse:</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="196"/>
-        <location filename="oscplugin.cpp" line="290"/>
+        <location filename="oscplugin.cpp" line="204"/>
+        <location filename="oscplugin.cpp" line="298"/>
         <source>Status: Ready</source>
         <translation>Status: Bereit</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="284"/>
+        <location filename="oscplugin.cpp" line="292"/>
         <source>Input</source>
         <translation>Eingang</translation>
     </message>

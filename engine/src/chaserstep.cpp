@@ -37,7 +37,7 @@ ChaserStep::ChaserStep(quint32 aFid, uint aFadeIn, uint aHold, uint aFadeOut)
     , hold(aHold)
     , fadeOut(aFadeOut)
 {
-    duration = fadeIn + hold + fadeOut;
+    duration = fadeIn + hold;
     note = QString();
 }
 
@@ -147,14 +147,14 @@ bool ChaserStep::loadXML(const QDomElement& root, int& stepNumber)
         if ((int)hold < 0)
             duration = hold;
         else
-            duration = fadeIn + hold + fadeOut;
+            duration = fadeIn + hold;
     }
     else
     {
         if ((int)duration < 0)
             hold = duration;
         else
-            hold = duration - fadeIn - fadeOut;
+            hold = duration - fadeIn;
     }
 
     return true;

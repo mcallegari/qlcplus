@@ -41,6 +41,7 @@ AlsaMidiInputDevice::AlsaMidiInputDevice(const QVariant& uid,
     , m_address(new snd_seq_addr_t)
     , m_thread(thread)
     , m_open(false)
+    , m_mbc_counter(UINT_MAX)
 {
     Q_ASSERT(alsa != NULL);
     Q_ASSERT(thread != NULL);
@@ -83,4 +84,28 @@ bool AlsaMidiInputDevice::isOpen() const
 const snd_seq_addr_t* AlsaMidiInputDevice::address() const
 {
     return m_address;
+}
+
+bool AlsaMidiInputDevice::processMBC(snd_seq_event_type_t type)
+{
+    if (type == SND_SEQ_EVENT_START || type == SND_SEQ_EVENT_STOP)
+    {
+        m_mbc_counter = 1;
+        return true;
+    }
+    else if (type == SND_SEQ_EVENT_CLOCK)
+    {
+        if (m_mbc_counter == UINT_MAX)
+        {
+            m_mbc_counter = 1;
+            return true;
+        }
+        m_mbc_counter++;
+        if (m_mbc_counter == MIDI_BEAT_CLOCK_PPQ)
+        {
+            m_mbc_counter = 0;
+            return true;
+        }
+    }
+    return false;
 }

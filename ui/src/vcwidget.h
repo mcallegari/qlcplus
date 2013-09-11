@@ -39,6 +39,7 @@ class QFile;
 #define KXMLQLCVCFrameStyle "FrameStyle"
 
 #define KXMLQLCVCWidgetID "ID"
+#define KXMLQLCVCWidgetPage "Page"
 #define KXMLQLCVCWidgetAppearance "Appearance"
 
 #define KXMLQLCVCWidgetForegroundColor "ForegroundColor"
@@ -90,7 +91,7 @@ public:
      *
      * @param id This widget's unique ID
      */
-    void setID(quint32 id);
+    virtual void setID(quint32 id);
 
     /**
      * Get this widget's unique ID
@@ -134,6 +135,16 @@ public:
 
 protected:
     int m_type;
+
+    /*********************************************************************
+     * Page
+     *********************************************************************/
+public:
+    void setPage(int pNum);
+    int page();
+
+protected:
+    int m_page;
 
     /*********************************************************************
      * Clipboard
@@ -316,6 +327,26 @@ public:
      */
     QLCInputSource inputSource(quint8 id = 0) const;
 
+    /**
+     * When cloning a widget on a multipage frame, this function
+     * will remap the original input source to respond to a new
+     * page source
+     */
+    void remapInputSources(int pgNum);
+
+    /**
+     * Send feedback to en external controller.
+     *
+     * @param value value from 0 to 255 to be sent
+     * @param id ID of the input source where to send feedback
+     */
+    void sendFeedback(int value, quint8 id = 0);
+
+    /**
+     * Send the feedback data again, e.g. after page flip
+     */
+    virtual void updateFeedback() = 0;
+
 protected slots:
     /**
      * Slot that receives external input data. Overwrite in subclasses to
@@ -366,11 +397,13 @@ public:
     virtual void postLoad();
 
 protected:
+    bool loadXMLCommon(const QDomElement* root);
     bool loadXMLAppearance(const QDomElement* appearance_root);
     bool loadXMLInput(const QDomElement* root);
     /** Load input source from $root to $uni and $ch */
     bool loadXMLInput(const QDomElement& root, quint32* uni, quint32* ch) const;
 
+    bool saveXMLCommon(QDomDocument* doc, QDomElement* widget_root);
     bool saveXMLAppearance(QDomDocument* doc, QDomElement* widget_root);
     bool saveXMLInput(QDomDocument* doc, QDomElement* root);
     /** Save input source from $uni and $ch to $root */

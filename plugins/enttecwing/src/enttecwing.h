@@ -101,6 +101,17 @@ public:
     /** @reimp */
     void sendFeedBack(quint32 input, quint32 channel, uchar value, const QString& key);
 
+signals:
+    /**
+     * Tells that the page of a plugin device has changed and QLC+ needs to
+     * take some action.
+     *
+     * @param input The input line whose page has changed
+     * @param pagesize The number of channels per page
+     * @param page The current page index
+     */
+    void pageChanged(quint32 input, quint32 pagesize, quint32 page);
+
     /*************************************************************************
      * Configuration
      *************************************************************************/

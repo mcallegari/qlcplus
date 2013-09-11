@@ -232,7 +232,7 @@ private:
      *********************************************************************/
 public:
     /** @reimpl */
-    void adjustIntensity(qreal intensity);
+    void adjustAttribute(qreal intensity, int attributeIndex = 0);
 };
 
 #endif

@@ -27,6 +27,7 @@
 #include "ui_dmxdumpfactory.h"
 
 class DmxDumpFactoryProperties;
+class VCWidget;
 class Doc;
 
 class DmxDumpFactory : public QDialog, public Ui_DmxDumpFactory
@@ -38,9 +39,15 @@ public:
     DmxDumpFactory(Doc* doc, DmxDumpFactoryProperties* props, QWidget *parent = 0);
     ~DmxDumpFactory();
 
+protected slots:
+    void slotUpdateChasersTree();
+    void slotUpdateButtons();
+    void slotUpdateSliders();
+
 protected:
     void updateFixturesTree();
-    void updateChasersTree();
+    QList<VCWidget *> getChildren(VCWidget *obj, int type);
+    void updateWidgetsTree(int type);
 
 private:
     Doc* m_doc;

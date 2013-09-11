@@ -26,6 +26,7 @@
 #include <QtXml>
 
 #include "qlcfile.h"
+#include "qlcmacros.h"
 
 #include "showrunner.h"
 #include "function.h"
@@ -48,6 +49,10 @@ Show::Show(Doc* doc) : Function(doc, Function::Show)
   , m_runner(NULL)
 {
     setName(tr("New Show"));
+
+    // Clear attributes here. I want attributes to be mapped
+    // exactly like the Show tracks
+    unregisterAttribute(tr("Intensity"));
 }
 
 Show::~Show()
@@ -152,6 +157,8 @@ bool Show::addTrack(Track *track, quint32 id)
      track->setId(id);
      m_tracks[id] = track;
 
+     registerAttribute(track->name());
+
      return true;
 }
 
@@ -161,6 +168,8 @@ bool Show::removeTrack(quint32 id)
     {
         Track* trk = m_tracks.take(id);
         Q_ASSERT(trk != NULL);
+
+        unregisterAttribute(trk->name());
 
         //emit trackRemoved(id);
         delete trk;
@@ -195,6 +204,40 @@ Track* Show::getTrackFromSceneID(quint32 id)
 int Show::getTracksCount()
 {
     return m_tracks.size();
+}
+
+void Show::moveTrack(Track *track, int direction)
+{
+    if (track == NULL)
+        return;
+
+    qint32 trkID = track->id();
+    if (trkID == 0 && direction == -1)
+        return;
+    qint32 maxID = -1;
+    Track *swapTrack = NULL;
+    qint32 swapID = -1;
+    if (direction > 0) swapID = INT_MAX;
+
+    foreach(quint32 id, m_tracks.keys())
+    {
+        qint32 signedID = (qint32)id;
+        if (signedID > maxID) maxID = signedID;
+        if (direction == -1 && signedID > swapID && signedID < trkID)
+            swapID = signedID;
+        else if (direction == 1 && signedID < swapID && signedID > trkID)
+            swapID = signedID;
+    }
+
+    qDebug() << Q_FUNC_INFO << "Direction:" << direction << ", trackID:" << trkID << ", swapID:" << swapID;
+    if (swapID == trkID || (direction > 0 && trkID == maxID))
+        return;
+
+    swapTrack = m_tracks[swapID];
+    m_tracks[swapID] = track;
+    m_tracks[trkID] = swapTrack;
+    track->setId(swapID);
+    swapTrack->setId(trkID);
 }
 
 QList <Track*> Show::tracks() const
@@ -300,6 +343,10 @@ void Show::preRun(MasterTimer* timer)
     }
 
     m_runner = new ShowRunner(doc(), this->id(), elapsed());
+    int i = 0;
+    foreach(Track *track, m_tracks.values())
+        m_runner->adjustIntensity(getAttributeValue(i++), track);
+
     connect(m_runner, SIGNAL(timeChanged(quint32)), this, SIGNAL(timeChanged(quint32)));
     connect(m_runner, SIGNAL(showFinished()), this, SIGNAL(showFinished()));
     m_runner->start();
@@ -327,3 +374,25 @@ void Show::slotChildStopped(quint32 fid)
 {
     Q_UNUSED(fid);
 }
+
+/*****************************************************************************
+ * Attributes
+ *****************************************************************************/
+
+void Show::adjustAttribute(qreal fraction, int attributeIndex)
+{
+    Function::adjustAttribute(fraction, attributeIndex);
+
+    if (m_runner != NULL)
+    {
+        QList<Track*> trkList = m_tracks.values();
+        if (trkList.isEmpty() == false &&
+            attributeIndex >= 0 && attributeIndex < trkList.count())
+        {
+            Track *track = trkList.at(attributeIndex);
+            if (track != NULL)
+                m_runner->adjustIntensity(fraction, track);
+        }
+    }
+}
+

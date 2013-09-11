@@ -71,6 +71,14 @@ class EFX : public Function
 
     friend class EFXFixture;
 
+    enum EFXAttr
+    {
+        Intensity = 0,
+        Height,
+        Width,
+        Rotation
+    };
+
     /*********************************************************************
      * Initialization
      *********************************************************************/
@@ -451,6 +459,9 @@ public:
     /** Remove the designated fixture from this EFX but don't delete it */
     bool removeFixture(EFXFixture* ef);
 
+    /** Remove all the fixtures from this EFX but don't delete them */
+    void removeAllFixtures();
+
     /** Raise a fixture in the serial order to an earlier position */
     bool raiseFixture(EFXFixture* ef);
 
@@ -531,7 +542,7 @@ public:
      *********************************************************************/
 public:
     /** @reimp */
-    void adjustIntensity(qreal fraction);
+    void adjustAttribute(qreal fraction, int attributeIndex = 0);
 };
 
 #endif

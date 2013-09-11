@@ -49,6 +49,7 @@
 #include "addchannelsgroup.h"
 #include "fixturemanager.h"
 #include "universearray.h"
+#include "fixtureremap.h"
 #include "mastertimer.h"
 #include "outputpatch.h"
 #include "addfixture.h"
@@ -91,6 +92,7 @@ FixtureManager::FixtureManager(QWidget* parent, Doc* doc)
     , m_removeAction(NULL)
     , m_propertiesAction(NULL)
     , m_fadeConfigAction(NULL)
+    , m_remapAction(NULL)
     , m_groupAction(NULL)
     , m_unGroupAction(NULL)
     , m_newGroupAction(NULL)
@@ -205,7 +207,6 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
             m_addAction->setEnabled(true);
             m_removeAction->setEnabled(false);
             m_propertiesAction->setEnabled(false);
-            m_fadeConfigAction->setEnabled(false);
             m_groupAction->setEnabled(false);
             m_unGroupAction->setEnabled(false);
             m_importAction->setEnabled(true);
@@ -219,7 +220,6 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
                 m_propertiesAction->setEnabled(true);
             else
                 m_propertiesAction->setEnabled(false);
-            m_fadeConfigAction->setEnabled(true);
             m_groupAction->setEnabled(true);
 
             // Don't allow ungrouping from the "All fixtures" group
@@ -230,11 +230,10 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
         }
         else if (item->data(KColumnName, PROP_GROUP).isValid() == true)
         {
-            // Group selected
+            // Fixture group selected
             m_addAction->setEnabled(true);
             m_removeAction->setEnabled(true);
             m_propertiesAction->setEnabled(false);
-            m_fadeConfigAction->setEnabled(false);
             m_groupAction->setEnabled(false);
             m_unGroupAction->setEnabled(false);
         }
@@ -244,10 +243,13 @@ void FixtureManager::slotModeChanged(Doc::Mode mode)
             m_addAction->setEnabled(true);
             m_removeAction->setEnabled(false);
             m_propertiesAction->setEnabled(false);
-            m_fadeConfigAction->setEnabled(false);
             m_groupAction->setEnabled(false);
             m_unGroupAction->setEnabled(false);
         }
+        if (m_doc->fixtures().count() > 0)
+            m_fadeConfigAction->setEnabled(true);
+        else
+            m_fadeConfigAction->setEnabled(false);
     }
     else
     {
@@ -369,7 +371,19 @@ void FixtureManager::updateView()
 
     // Clear the view
     m_fixtures_tree->clear();
-    m_exportAction->setEnabled(false);
+    if (m_doc->fixtures().count() > 0)
+    {
+        m_exportAction->setEnabled(true);
+        m_remapAction->setEnabled(true);
+        m_fadeConfigAction->setEnabled(true);
+    }
+    else
+    {
+        m_exportAction->setEnabled(false);
+        m_fadeConfigAction->setEnabled(false);
+        m_remapAction->setEnabled(false);
+    }
+    m_importAction->setEnabled(true);
     m_moveUpAction->setEnabled(false);
     m_moveDownAction->setEnabled(false);
 
@@ -392,7 +406,6 @@ void FixtureManager::updateView()
         Q_ASSERT(fixture != NULL);
         QTreeWidgetItem* item = new QTreeWidgetItem(grpItem);
         updateFixtureItem(item, fixture);
-        m_exportAction->setEnabled(true);
     }
 
     // Reopen groups that were open before update
@@ -439,7 +452,8 @@ void FixtureManager::updateChannelsGroupView()
                 continue;
 
             const QLCChannel* ch = fxi->channel(scv.channel);
-            grpItem->setIcon(KColumnName, ch->getIconFromGroup(ch->group()));
+            if (ch != NULL)
+                grpItem->setIcon(KColumnName, ch->getIconFromGroup(ch->group()));
         }
         if (selGroupID == grp->id())
             m_channel_groups_tree->setItemSelected(grpItem, true);
@@ -447,6 +461,10 @@ void FixtureManager::updateChannelsGroupView()
     m_propertiesAction->setEnabled(false);
     m_groupAction->setEnabled(false);
     m_unGroupAction->setEnabled(false);
+    m_fadeConfigAction->setEnabled(false);
+    m_exportAction->setEnabled(false);
+    m_importAction->setEnabled(false);
+    m_remapAction->setEnabled(false);
 }
 
 QTreeWidgetItem* FixtureManager::fixtureItem(quint32 id) const
@@ -683,12 +701,13 @@ void FixtureManager::slotChannelsGroupSelectionChanged()
         if (grpvar.isValid() == true)
         {
             ChannelsGroup *chGroup = m_doc->channelsGroup(grpvar.toUInt());
-            m_info->setText(QString("%1<BODY>%2</BODY></HTML>")
-                            .arg(channelsGroupInfoStyleSheetHeader())
-                            .arg(chGroup->status(m_doc)));
+            if (chGroup != NULL)
+                m_info->setText(QString("%1<BODY>%2</BODY></HTML>")
+                                .arg(channelsGroupInfoStyleSheetHeader())
+                                .arg(chGroup->status(m_doc)));
         }
         m_removeAction->setEnabled(true);
-        m_addAction->setToolTip(tr("Edit group..."));
+        m_propertiesAction->setEnabled(true);
         int selIdx = m_channel_groups_tree->currentIndex().row();
         if (selIdx == 0)
             m_moveUpAction->setEnabled(false);
@@ -705,6 +724,7 @@ void FixtureManager::slotChannelsGroupSelectionChanged()
                   "<P>Click <IMG SRC=\"" ":/edit_remove.png\">" \
                   " to remove the selected groups.</P></BODY></HTML>"));
         m_removeAction->setEnabled(true);
+        m_propertiesAction->setEnabled(false);
     }
     else
     {
@@ -713,7 +733,7 @@ void FixtureManager::slotChannelsGroupSelectionChanged()
                   "click <IMG SRC=\"" ":/edit_add.png\">" \
                   " to add a new channels group.</P></BODY></HTML>"));
         m_removeAction->setEnabled(false);
-        m_addAction->setToolTip(tr("Add group..."));
+        m_propertiesAction->setEnabled(false);
     }
 }
 
@@ -726,7 +746,7 @@ void FixtureManager::slotDoubleClicked(QTreeWidgetItem* item)
 void FixtureManager::slotChannelsGroupDoubleClicked(QTreeWidgetItem*)
 {
     slotChannelsGroupSelectionChanged();
-    addChannelsGroup();
+    editChannelGroupProperties();
 }
 
 void FixtureManager::slotTabChanged(int index)
@@ -892,6 +912,11 @@ void FixtureManager::initActions()
 
     connect(m_exportAction, SIGNAL(triggered(bool)),
             this, SLOT(slotExport()));
+
+    m_remapAction = new QAction(QIcon(":/remap.png"),
+                               tr("Remap fixtures..."), this);
+    connect(m_remapAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotRemap()));
 }
 
 void FixtureManager::updateGroupMenu()
@@ -939,6 +964,7 @@ void FixtureManager::initToolBar()
     toolbar->addSeparator();
     toolbar->addAction(m_importAction);
     toolbar->addAction(m_exportAction);
+    toolbar->addAction(m_remapAction);
 
     QToolButton* btn = qobject_cast<QToolButton*> (toolbar->widgetForAction(m_groupAction));
     Q_ASSERT(btn != NULL);
@@ -982,8 +1008,6 @@ void FixtureManager::addFixture()
         }
     }
 
-    QString modname;
-
     /* If an empty name was given use the model instead */
     if (name.simplified().isEmpty())
     {
@@ -993,40 +1017,15 @@ void FixtureManager::addFixture()
             name = tr("Generic Dimmer");
     }
 
-    /* If we're adding more than one fixture,
-       append a number to the end of the name */
-    if (af.amount() > 1)
-        modname = QString("%1 #1").arg(name);
-    else
-        modname = name;
-
-    /* Create the fixture */
-    Fixture* fxi = new Fixture(m_doc);
-
-    /* Add the first fixture without gap, at the given address */
-    fxi->setAddress(address);
-    fxi->setUniverse(universe);
-    fxi->setName(modname);
-
-    /* Set a fixture definition & mode if they were selected.
-       Otherwise assign channels to a generic dimmer. */
-    if (fixtureDef != NULL && mode != NULL)
-        fxi->setFixtureDefinition(fixtureDef, mode);
-    else
-        fxi->setChannels(channels);
-
-    m_doc->addFixture(fxi);
-    latestFxi = fxi->id();
-    if (addToGroup != NULL)
-        addToGroup->assignFixture(latestFxi);
-
     /* Add the rest (if any) WITH address gap */
-    for (int i = 1; i < af.amount(); i++)
+    for (int i = 0; i < af.amount(); i++)
     {
+        QString modname;
+
         /* If we're adding more than one fixture,
            append a number to the end of the name */
         if (af.amount() > 1)
-            modname = QString("%1 #%2").arg(name).arg(i +1);
+            modname = QString("%1 #%2").arg(name).arg(i + 1);
         else
             modname = name;
 
@@ -1061,19 +1060,7 @@ void FixtureManager::addFixture()
 
 void FixtureManager::addChannelsGroup()
 {
-    ChannelsGroup *group = NULL;
-
-    int selectedCount = m_channel_groups_tree->selectedItems().size();
-
-    if (selectedCount > 0)
-    {
-        QTreeWidgetItem* current = m_channel_groups_tree->selectedItems().first();
-        QVariant var = current->data(KColumnName, PROP_FIXTURE);
-        if (var.isValid() == true)
-            group = m_doc->channelsGroup(var.toUInt());
-    }
-    else
-        group = new ChannelsGroup(m_doc);
+    ChannelsGroup *group = new ChannelsGroup(m_doc);
 
     AddChannelsGroup cs(this, m_doc, group);
     if (cs.exec() == QDialog::Accepted)
@@ -1082,7 +1069,8 @@ void FixtureManager::addChannelsGroup()
         m_doc->addChannelsGroup(group, group->id());
         updateChannelsGroupView();
     }
-
+    else
+        delete group;
 }
 
 void FixtureManager::slotAdd()
@@ -1174,9 +1162,11 @@ void FixtureManager::slotRemove()
         removeFixture();
 }
 
-void FixtureManager::editFixtureProperties(QTreeWidgetItem* item)
+void FixtureManager::editFixtureProperties()
 {
-    Q_ASSERT(item != NULL);
+    QTreeWidgetItem* item = m_fixtures_tree->currentItem();
+    if (item == NULL)
+        return;
 
     QVariant var = item->data(KColumnName, PROP_FIXTURE);
     if (var.isValid() == false)
@@ -1248,6 +1238,29 @@ void FixtureManager::editFixtureProperties(QTreeWidgetItem* item)
     }
 }
 
+void FixtureManager::editChannelGroupProperties()
+{
+    int selectedCount = m_channel_groups_tree->selectedItems().size();
+
+    if (selectedCount > 0)
+    {
+        QTreeWidgetItem* current = m_channel_groups_tree->selectedItems().first();
+        QVariant var = current->data(KColumnName, PROP_FIXTURE);
+        if (var.isValid() == true)
+        {
+            ChannelsGroup *group = m_doc->channelsGroup(var.toUInt());
+
+            AddChannelsGroup cs(this, m_doc, group);
+            if (cs.exec() == QDialog::Accepted)
+            {
+                qDebug() << "CHANNEL GROUP MODIFIED. Count: " << group->getChannels().count();
+                m_doc->addChannelsGroup(group, group->id());
+                updateChannelsGroupView();
+            }
+        }
+    }
+}
+
 int FixtureManager::headCount(const QList <QTreeWidgetItem*>& items) const
 {
     int count = 0;
@@ -1270,13 +1283,10 @@ int FixtureManager::headCount(const QList <QTreeWidgetItem*>& items) const
 
 void FixtureManager::slotProperties()
 {
-    QTreeWidgetItem* item = m_fixtures_tree->currentItem();
-    if (item == NULL)
-        return;
-
-    QVariant var = item->data(KColumnName, PROP_FIXTURE);
-    if (var.isValid() == true)
-        editFixtureProperties(item);
+    if (m_currentTabIndex == 1)
+        editChannelGroupProperties();
+    else
+        editFixtureProperties();
 }
 
 void FixtureManager::slotFadeConfig()
@@ -1285,6 +1295,15 @@ void FixtureManager::slotFadeConfig()
     if (cfg.exec() == QDialog::Rejected)
         return; // User pressed cancel
     m_doc->setModified();
+}
+
+void FixtureManager::slotRemap()
+{
+    FixtureRemap fxr(m_doc);
+    if (fxr.exec() == QDialog::Rejected)
+        return; // User pressed cancel
+
+    updateView();
 }
 
 void FixtureManager::slotUnGroup()
@@ -1490,6 +1509,21 @@ void FixtureManager::slotImport()
                         delete fxi;
                     }
                 }
+                else if (tag.tagName() == KXMLQLCFixtureGroup)
+                {
+                    FixtureGroup* grp = new FixtureGroup(m_doc);
+                    Q_ASSERT(grp != NULL);
+
+                    if (grp->loadXML(tag) == true)
+                    {
+                        m_doc->addFixtureGroup(grp, grp->id());
+                    }
+                    else
+                    {
+                        qWarning() << Q_FUNC_INFO << "FixtureGroup" << grp->name() << "cannot be loaded.";
+                        delete grp;
+                    }
+                }
 
                 node = node.nextSibling();
             }
@@ -1526,6 +1560,14 @@ void FixtureManager::slotExport()
             Fixture* fxi(fxit.next());
             Q_ASSERT(fxi != NULL);
             fxi->saveXML(&doc, &root);
+        }
+
+        QListIterator <FixtureGroup*>grpit(m_doc->fixtureGroups());
+        while (grpit.hasNext() == true)
+        {
+            FixtureGroup *fxgrp(grpit.next());
+            Q_ASSERT(fxgrp != NULL);
+            fxgrp->saveXML(&doc, &root);
         }
 
         /* Write the XML document to the stream (=file) */

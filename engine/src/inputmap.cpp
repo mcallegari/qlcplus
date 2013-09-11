@@ -140,8 +140,6 @@ void InputMap::initPatch()
         m_patch.insert(i, patch);
         connect(patch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
                 this, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)));
-        connect(patch, SIGNAL(inputPageChanged(quint32,quint32,quint32)),
-                this, SIGNAL(inputPageChanged(quint32,quint32,quint32)));
     }
 }
 
@@ -383,7 +381,14 @@ bool InputMap::inputSourceNames(const QLCInputSource& src,
             uniName = QString("%1: %2").arg(src.universe() + 1).arg(pat->plugin()->name());
         else
             uniName = QString("%1: ??").arg(src.universe() + 1);
-        chName = QString("%1: ?").arg(src.channel() + 1);
+
+        ushort page = src.page();
+        ushort channel = (src.channel() & 0x0000FFFF) + 1;
+
+        if (page != 0)
+            chName = QString("%1: ? (Page %2)").arg(channel).arg(page + 1);
+        else
+            chName = QString("%1: ?").arg(channel);
     }
     else
     {
@@ -395,14 +400,20 @@ bool InputMap::inputSourceNames(const QLCInputSource& src,
 
         /* User can input the channel number by hand, so put something
            rational to the channel name in those cases as well. */
-        ich = profile->channel(src.channel());
+        ushort page = src.page();
+        ushort channel = (src.channel() & 0x0000FFFF);
+
+        ich = profile->channel(channel);
         if (ich != NULL)
             name = ich->name();
         else
             name = QString("?");
 
         /* Display channel name */
-        chName = QString("%1: %2").arg(src.channel() + 1).arg(name);
+        if (page != 0)
+            chName = QString("%1: %2 (Page %3)").arg(channel + 1).arg(name).arg(page + 1);
+        else
+            chName = QString("%1: %2").arg(channel + 1).arg(name);
     }
 
     return true;

@@ -72,7 +72,8 @@ public:
     void writeUniverse(quint32 output, const QByteArray& universe);
     
     /** @reimp */
-    void sendFeedBack(quint32 inputLine, quint32 channel, uchar value, const QString& key = 0);
+    void sendFeedBack(quint32 input, quint32 channel, uchar value, const QString& key)
+        { Q_UNUSED(input); Q_UNUSED(channel); Q_UNUSED(value); Q_UNUSED(key); }
 
 public:
     /** List of outputs that have been opened */

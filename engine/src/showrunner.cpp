@@ -67,19 +67,18 @@ static bool compareFunctions(const Function *f1, const Function *f2)
 ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
     : QObject(NULL)
     , m_doc(doc)
-    , m_showID(showID)
     , m_elapsedTime(startTime)
     , m_totalRunTime(0)
     , m_currentFunctionIndex(0)
 {
     Q_ASSERT(m_doc != NULL);
-    Q_ASSERT(m_showID != Show::invalidId());
+    Q_ASSERT(showID != Show::invalidId());
 
-    Show *show = qobject_cast<Show*>(m_doc->function(m_showID));
-    if (show == NULL)
+    m_show = qobject_cast<Show*>(m_doc->function(showID));
+    if (m_show == NULL)
         return;
 
-    foreach(Track *track, show->tracks())
+    foreach(Track *track, m_show->tracks())
     {
         // some sanity checks
         if (track == NULL ||
@@ -123,6 +122,9 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
                     m_totalRunTime = audio->getStartTime() + audio->getDuration();
             }
         }
+
+        // Initialize the intensity map
+        m_intensityMap[track->id()] = 1.0;
     }
 
     qSort(m_functions.begin(), m_functions.end(), compareFunctions);
@@ -146,8 +148,8 @@ void ShowRunner::stop()
 {
     m_elapsedTime = 0;
     m_currentFunctionIndex = 0;
-    foreach (quint32 id, m_runningQueue)
-        m_doc->function(id)->stop();
+    foreach (Function *f, m_runningQueue)
+        f->stop();
 
     m_runningQueue.clear();
     qDebug() << "ShowRunner stopped";
@@ -157,7 +159,7 @@ void ShowRunner::slotSequenceStopped(quint32 id)
 {
     m_runningQueueMutex.lock();
     for (int i = 0; i < m_runningQueue.count(); i++)
-        if (m_runningQueue.at(i) == id)
+        if (m_runningQueue.at(i)->id() == id)
             m_runningQueue.removeAt(i);
     m_runningQueueMutex.unlock();
 }
@@ -188,17 +190,25 @@ void ShowRunner::write()
         }
         if (m_elapsedTime == funcStartTime)
         {
+            foreach (Track *track, m_show->tracks())
+            {
+                if (track->functionsID().contains(f->id()))
+                {
+                    f->adjustAttribute(m_intensityMap[track->id()]);
+                    break;
+                }
+            }
+
             f->start(m_doc->masterTimer(), true, functionTimeOffset);
-            m_runningQueue.append(f->id());
+            m_runningQueue.append(f);
             m_currentFunctionIndex++;
         }
     }
     // end of the show
     if (m_elapsedTime >= m_totalRunTime)
     {
-        Show *show = qobject_cast<Show*>(m_doc->function(m_showID));
-        if (show != NULL)
-            show->stop();
+        if (m_show != NULL)
+            m_show->stop();
         emit showFinished();
         return;
     }
@@ -206,3 +216,36 @@ void ShowRunner::write()
     m_elapsedTime += MasterTimer::tick();
     emit timeChanged(m_elapsedTime);
 }
+
+/************************************************************************
+ * Intensity
+ ************************************************************************/
+
+void ShowRunner::adjustIntensity(qreal fraction, Track *track)
+{
+    if (track == NULL)
+        return;
+
+    qDebug() << Q_FUNC_INFO << "Track ID: " << track->id() << ", val:" << fraction;
+    m_intensityMap[track->id()] = fraction;
+
+    QList <quint32> funcIDList = track->functionsID();
+
+    foreach (Function *f, m_runningQueue)
+    {
+        if (funcIDList.contains(f->id()))
+        {
+            if (f->type() == Function::Chaser)
+            {
+                Chaser *chaser = qobject_cast<Chaser*>(f);
+                chaser->adjustAttribute(fraction);
+            }
+            else if (f->type() == Function::Audio)
+            {
+                Audio *audio = qobject_cast<Audio*>(f);
+                audio->adjustAttribute(fraction);
+            }
+        }
+    }
+}
+

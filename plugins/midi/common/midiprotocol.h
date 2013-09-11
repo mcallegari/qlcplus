@@ -118,7 +118,10 @@ namespace QLCMIDIProtocol
 #define MIDI_TIME_CODE          0xF1
 #define MIDI_SONG_POSITION      0xF2
 #define MIDI_SONG_SELECT        0xF3
-#define MIDI_BEATC_CLOCK        0xF8
+#define MIDI_BEAT_CLOCK         0xF8
+#define MIDI_BEAT_START         0xFA
+#define MIDI_BEAT_CONTINUE      0xFB
+#define MIDI_BEAT_STOP          0xFC
 
 /****************************************************************************
  * MIDI control/msg -> QLC input channel mappings
@@ -136,6 +139,9 @@ namespace QLCMIDIProtocol
 #define CHANNEL_OFFSET_CHANNEL_AFTERTOUCH  384
 #define CHANNEL_OFFSET_PROGRAM_CHANGE      385
 #define CHANNEL_OFFSET_PITCH_WHEEL         386
-#define CHANNEL_OFFSET_MBC                 387
+
+#define MIDI_BEAT_CLOCK_PPQ                24
+#define CHANNEL_OFFSET_MBC_PLAYBACK        387
+#define CHANNEL_OFFSET_MBC_BEAT            388
 
 #endif

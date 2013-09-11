@@ -49,6 +49,9 @@
  * should relinquish all resources associated to the closed line (unless
  * shared with other lines).
  */
+
+#define QLCIOPLUGINS_UNIVERSES   4
+
 class QLCIOPlugin : public QObject
 {
     Q_OBJECT
@@ -205,6 +208,15 @@ public:
      */
     virtual QString inputInfo(quint32 input) = 0;
 
+    /**
+     * If the device support this feature, this is the method to send data back for
+     * visual feedback
+     *
+     * @param inputLine the input line where to send the feedback
+     * @param channel the channel number where to send the feedback
+     * @param value the actual value of the channel
+     * @param key a string to identify a channel by name (ATM used only by OSC)
+     */
     virtual void sendFeedBack(quint32 inputLine, quint32 channel, uchar value, const QString& key = 0) = 0;
 
 signals:
@@ -219,15 +231,6 @@ signals:
      */
     void valueChanged(quint32 input, quint32 channel, uchar value, const QString& key = 0);
 
-    /**
-     * Tells that the page of a plugin device has changed and QLC+ needs to
-     * take some action.
-     *
-     * @param input The input line whose page has changed
-     * @param pagesize The number of channels per page
-     * @param page The current page index
-     */
-    void pageChanged(quint32 input, quint32 pagesize, quint32 page);
     /*************************************************************************
      * Configure
      *************************************************************************/

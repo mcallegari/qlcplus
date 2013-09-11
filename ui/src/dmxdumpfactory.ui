@@ -41,6 +41,13 @@
       <string>Dump options</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
+      <item row="1" column="0">
+       <widget class="QRadioButton" name="m_dumpSelectedRadio">
+        <property name="text">
+         <string>Dump selected channels</string>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="0" colspan="2">
        <widget class="QRadioButton" name="m_dumpAllRadio">
         <property name="text">
@@ -48,11 +55,59 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
-       <widget class="QRadioButton" name="m_dumpSelectedRadio">
+      <item row="1" column="1">
+       <widget class="QLabel" name="label_2">
         <property name="text">
-         <string>Dump selected channels</string>
+         <string>Add to:</string>
         </property>
+       </widget>
+      </item>
+      <item row="3" column="1" colspan="3">
+       <widget class="QTreeWidget" name="m_addtoTree">
+        <property name="rootIsDecorated">
+         <bool>false</bool>
+        </property>
+        <column>
+         <property name="text">
+          <string>Name</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QFrame" name="frame">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QRadioButton" name="m_chaserRadio">
+           <property name="text">
+            <string>Chaser</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="m_buttonRadio">
+           <property name="text">
+            <string>Button</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="m_sliderRadio">
+           <property name="text">
+            <string>Slider</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
       <item row="3" column="0">
@@ -70,25 +125,6 @@
           <string>Type</string>
          </property>
         </column>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QTreeWidget" name="m_chasersTree">
-        <property name="rootIsDecorated">
-         <bool>false</bool>
-        </property>
-        <column>
-         <property name="text">
-          <string>Name</string>
-         </property>
-        </column>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>Add to Chaser:</string>
-        </property>
        </widget>
       </item>
      </layout>
@@ -122,8 +158,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>227</x>
-     <y>408</y>
+     <x>236</x>
+     <y>520</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -138,8 +174,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>295</x>
-     <y>414</y>
+     <x>304</x>
+     <y>520</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>
@@ -170,8 +206,8 @@
    <slot>slotDumpNonZeroChanged(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>71</x>
-     <y>374</y>
+     <x>80</x>
+     <y>491</y>
     </hint>
     <hint type="destinationlabel">
      <x>141</x>
@@ -179,9 +215,60 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>m_chaserRadio</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>DmxDumpFactory</receiver>
+   <slot>slotUpdateChasersTree()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>548</x>
+     <y>118</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>179</x>
+     <y>496</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_buttonRadio</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>DmxDumpFactory</receiver>
+   <slot>slotUpdateButtons()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>621</x>
+     <y>117</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>184</x>
+     <y>562</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_sliderRadio</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>DmxDumpFactory</receiver>
+   <slot>slotUpdateSliders()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>696</x>
+     <y>109</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>736</x>
+     <y>569</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>slotDumpModeChanged(bool)</slot>
   <slot>slotDumpNonZeroChanged(bool)</slot>
+  <slot>slotUpdateChasersTree()</slot>
+  <slot>slotUpdateButtons()</slot>
+  <slot>slotUpdateSliders()</slot>
  </slots>
 </ui>
