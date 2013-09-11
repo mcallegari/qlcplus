@@ -1503,7 +1503,7 @@ Dauer: %3
     <message>
         <location filename="dmxdumpfactory.ui" line="61"/>
         <source>Add to:</source>
-        <translation type="unfinished"></translation>
+        <translation>Hinzufügen zu:</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="72"/>
@@ -1514,17 +1514,17 @@ Dauer: %3
     <message>
         <location filename="dmxdumpfactory.ui" line="89"/>
         <source>Chaser</source>
-        <translation type="unfinished">Chaser</translation>
+        <translation>Chaser</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="99"/>
         <source>Button</source>
-        <translation type="unfinished">Schalter</translation>
+        <translation>Schalter</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="106"/>
         <source>Slider</source>
-        <translation type="unfinished">Schieberegler</translation>
+        <translation>Schieberegler</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="125"/>
@@ -2058,7 +2058,7 @@ Dauer: %3
     <message>
         <location filename="fixturemanager.cpp" line="917"/>
         <source>Remap fixtures...</source>
-        <translation type="unfinished"></translation>
+        <translation>Geräte neu zuweisen...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1088"/>
@@ -2149,113 +2149,113 @@ Dauer: %3
     <message>
         <location filename="fixtureremap.ui" line="14"/>
         <source>Fixtures Remap</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerätezuweisung ändern</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="28"/>
         <source>Add target fixture...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zielgerät hinzufügen...</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="45"/>
         <source>Remove target fixture...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zielgerät entfernen...</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="69"/>
         <source>Connect selections...</source>
-        <translation type="unfinished"></translation>
+        <translation>Auswahl verbinden...</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="86"/>
         <source>Disconnect selections...</source>
-        <translation type="unfinished"></translation>
+        <translation>Auswahl trennen...</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="89"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="140"/>
         <source>Remapped Fixtures</source>
-        <translation type="unfinished"></translation>
+        <translation>Neu zugewiesene Geräte</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="145"/>
         <location filename="fixtureremap.ui" line="177"/>
         <source>Address</source>
-        <translation type="unfinished">Adresse</translation>
+        <translation>Adresse</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="172"/>
         <source>Source Fixtures</source>
-        <translation type="unfinished"></translation>
+        <translation>Quellgeräte</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="223"/>
         <source>Remap fixture names</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerätenamen neu zuweisen</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="235"/>
         <source>Destination project name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zielname des Projekts:</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="108"/>
         <location filename="fixtureremap.cpp" line="110"/>
         <source> (remapped)</source>
-        <translation type="unfinished"></translation>
+        <translation>-(neu zugewiesen)</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="141"/>
         <location filename="fixtureremap.cpp" line="236"/>
         <source>Universe %1</source>
-        <translation type="unfinished">Universum %1</translation>
+        <translation>Universum %1</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="194"/>
         <source>Generic Dimmer</source>
-        <translation type="unfinished">Generischer Dimmer</translation>
+        <translation>Generischer Dimmer</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="278"/>
         <source>Delete Fixtures</source>
-        <translation type="unfinished">Geräte löschen</translation>
+        <translation>Geräte löschen</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="279"/>
         <source>Do you want to delete the selected items?</source>
-        <translation type="unfinished">Ausgewählte Objekte löschen?</translation>
+        <translation>Ausgewählte Objekte löschen?</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="315"/>
         <location filename="fixtureremap.cpp" line="342"/>
         <location filename="fixtureremap.cpp" line="399"/>
         <source>Invalid selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Ungültige Auswahl</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="316"/>
         <location filename="fixtureremap.cpp" line="400"/>
         <source>Please select a source and a target fixture or channel to perform this operation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte Quell- und Zielgerät oder Kanal zur Ausführung auswählen.</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="343"/>
         <source>To perform a fixture remap, please select fixtures on both lists.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zur Änderung der Gerätezuweisung bitte Geräte in beiden Listen auswählen</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="486"/>
         <source>This might take a while...</source>
-        <translation type="unfinished"></translation>
+        <translation>Hierzu wird einige Zeit benötigt...</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="486"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
@@ -2387,22 +2387,22 @@ Dauer: %3
     <message>
         <location filename="functionmanager.cpp" line="391"/>
         <source>New Collection</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Sammlung</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="404"/>
         <source>New EFX</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuer Effekt</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="417"/>
         <source>New RGB Matrix</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue RGB Matrix</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="430"/>
         <source>New Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Neues Skript</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="442"/>
@@ -4007,12 +4007,12 @@ Dauer: %3
     <message>
         <location filename="sceneitems.cpp" line="304"/>
         <source>Move up</source>
-        <translation type="unfinished"></translation>
+        <translation>Aufwärts verschieben</translation>
     </message>
     <message>
         <location filename="sceneitems.cpp" line="307"/>
         <source>Move down</source>
-        <translation type="unfinished"></translation>
+        <translation>Abwärts verschieben</translation>
     </message>
 </context>
 <context>
@@ -4030,7 +4030,7 @@ Dauer: %3
     <message>
         <location filename="vcbutton.cpp" line="130"/>
         <source>Button %1</source>
-        <translation type="unfinished">Schalter %1</translation>
+        <translation>Schalter %1</translation>
     </message>
     <message>
         <location filename="vcbutton.cpp" line="304"/>
@@ -4068,7 +4068,7 @@ Dauer: %3
     <message>
         <location filename="vcbuttonproperties.ui" line="215"/>
         <source>Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigenschaften</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="305"/>
@@ -4380,7 +4380,7 @@ Dauer: %3
     <message>
         <location filename="vccuelistproperties.ui" line="128"/>
         <source>Playback</source>
-        <translation type="unfinished">Wiedergabe</translation>
+        <translation>Wiedergabe</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="432"/>
@@ -4529,7 +4529,7 @@ Dauer: %3
         <location filename="vcframe.cpp" line="271"/>
         <location filename="vcframe.cpp" line="381"/>
         <source>Page: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Seite: %1</translation>
     </message>
     <message>
         <location filename="vcframe.cpp" line="952"/>
@@ -4552,7 +4552,7 @@ Dauer: %3
     <message>
         <location filename="vcframeproperties.ui" line="38"/>
         <source>Appearance</source>
-        <translation type="unfinished"></translation>
+        <translation>Aussehen</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="50"/>
@@ -4572,119 +4572,119 @@ Dauer: %3
     <message>
         <location filename="vcframeproperties.ui" line="97"/>
         <source>Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Seiten</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="103"/>
         <source>Enable</source>
-        <translation type="unfinished">Aktivieren</translation>
+        <translation>Aktivieren</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="112"/>
         <source>Clone first page widgets</source>
-        <translation type="unfinished"></translation>
+        <translation>Assistenten der ersten Seite duplizieren</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="125"/>
         <source>External Input - Next page</source>
-        <translation type="unfinished"></translation>
+        <translation>Externer Eingang -Nächste Seite</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="131"/>
         <location filename="vcframeproperties.ui" line="239"/>
         <source>Input universe</source>
-        <translation type="unfinished">Eingangsuniversum</translation>
+        <translation>Eingangsuniversum</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="138"/>
         <location filename="vcframeproperties.ui" line="246"/>
         <source>The input universe that sends data to this widget</source>
-        <translation type="unfinished">Das Eingangsuniversum, welches Daten zu diesem Assistenten sendet</translation>
+        <translation>Das Eingangsuniversum, welches Daten zu diesem Assistenten sendet</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="148"/>
         <location filename="vcframeproperties.ui" line="256"/>
         <source>Input channel</source>
-        <translation type="unfinished">Eingangskanal</translation>
+        <translation>Eingangskanal</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="155"/>
         <location filename="vcframeproperties.ui" line="263"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation type="unfinished">Der bestimmte Eingangskanal im Eingangsuniversum der Daten zu diesem Assistenten sendet</translation>
+        <translation>Der bestimmte Eingangskanal im Eingangsuniversum der Daten zu diesem Assistenten sendet</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="165"/>
         <location filename="vcframeproperties.ui" line="216"/>
         <source>Choose an external input universe &amp; channel that this widget should listen to</source>
-        <translation type="unfinished">Wähle ein externes Universum &amp; einen Kanal auf den dieser Schieberegler hören soll</translation>
+        <translation>Wähle ein externes Universum &amp; einen Kanal auf den dieser Schieberegler hören soll</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="168"/>
         <location filename="vcframeproperties.ui" line="219"/>
         <source>Choose...</source>
-        <translation type="unfinished"></translation>
+        <translation>Auswahl...</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="175"/>
         <source>When toggled, you can move an external slider/knob to assign it to this widget.</source>
         <oldsource>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</oldsource>
-        <translation type="unfinished">Wenn betätigt kann ein externer Regler/Schalter betätigt werden um diesen dem virtuellen Konsolenregler zuzuweisen.</translation>
+        <translation>Wenn betätigt kann ein externer Regler/Schalter betätigt werden um diesen dem virtuellen Konsolenregler zuzuweisen.</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="178"/>
         <location filename="vcframeproperties.ui" line="276"/>
         <source>Auto Detect</source>
-        <translation type="unfinished">Automatische Erkennung</translation>
+        <translation>Automatische Erkennung</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="210"/>
         <source>External Input - Previous page</source>
-        <translation type="unfinished"></translation>
+        <translation>Externer Eingang -Vorherige Seite</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="273"/>
         <source>When toggled, you can move an external slider/knob to assign it to this frame.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn betätigt kann ein externer Regler/Schalter bewegt werden um diesem Rahmen hinzugefügt zu werden.</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="289"/>
         <source>Number of pages:</source>
-        <translation type="unfinished"></translation>
+        <translation>Anzahl der Seiten:</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="296"/>
         <location filename="vcframeproperties.ui" line="355"/>
         <source>Key Combination</source>
-        <translation type="unfinished">Tastenkombination</translation>
+        <translation>Tastenkombination</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="302"/>
         <source>Bind a key combination to skip to the next frame page</source>
         <oldsource>Bind a key combination to skip to the next cue</oldsource>
-        <translation type="unfinished">Eine Tastenkombination zuweisen um zur nächsten Cue zu springen</translation>
+        <translation>Eine Tastenkombination zuweisen um zur nächsten Cue zu springen</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="322"/>
         <location filename="vcframeproperties.ui" line="381"/>
         <source>Clear the key binding</source>
-        <translation type="unfinished">Tastenbindung lösen</translation>
+        <translation>Tastenbindung lösen</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="342"/>
         <source>The key combination used to go to the next frame page</source>
         <oldsource>The key combination used to step to the next cue</oldsource>
-        <translation type="unfinished">Die Tastenkombination um zur nächsten Cue zu springen</translation>
+        <translation>Die Tastenkombination um zur nächsten Cue zu springen</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="361"/>
         <source>Bind a key combination to skip to the previous frame page</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Tastenkombination zuweisen um zur vorherigen Rahmenseite zu springen</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="401"/>
         <source>The key combination used to go to the previous frame page</source>
-        <translation type="unfinished"></translation>
+        <translation>Tastenkombination um zur vorherigen Rahmenseite zu wechseln</translation>
     </message>
 </context>
 <context>
@@ -4961,7 +4961,7 @@ Dauer: %3
     <message>
         <location filename="vcslider.cpp" line="229"/>
         <source>Slider %1</source>
-        <translation type="unfinished">Schieberegler %1</translation>
+        <translation>Schieberegler %1</translation>
     </message>
 </context>
 <context>
@@ -5096,22 +5096,22 @@ Dauer: %3
     <message>
         <location filename="vcsliderproperties.ui" line="67"/>
         <source>Widget name</source>
-        <translation type="unfinished"></translation>
+        <translation>Name des Assistenten</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="201"/>
         <source>Widget appearance</source>
-        <translation type="unfinished"></translation>
+        <translation>Aussehen des Assistenten</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="207"/>
         <source>Slider</source>
-        <translation type="unfinished">Schieberegler</translation>
+        <translation>Schieberegler</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="224"/>
         <source>Knob</source>
-        <translation type="unfinished"></translation>
+        <translation>Knopf</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="245"/>
@@ -5415,22 +5415,23 @@ Dauer: %3
     <message>
         <location filename="vcspeeddialproperties.ui" line="322"/>
         <source>Key combination</source>
-        <translation type="unfinished">Tastenkombination</translation>
+        <translation>Tastenkombination</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="328"/>
         <source>Keyboard combination to control the dial tap</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>wtf is the right german translation for Tap ?</translatorcomment>
+        <translation>Tastenkombination für den Auswahl-Tap.</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="338"/>
         <source>Set a key combination for this dial</source>
-        <translation type="unfinished"></translation>
+        <translation>Tastenkombination für diese Wahl zuweisen</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="358"/>
         <source>Remove the dial&apos;s keyboard shortcut key</source>
-        <translation type="unfinished"></translation>
+        <translation>Entfernen der Tastenkombination für diese Wahl</translation>
     </message>
 </context>
 <context>
@@ -5748,7 +5749,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole.cpp" line="301"/>
         <source>New Knob</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuer Knopf</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="304"/>
