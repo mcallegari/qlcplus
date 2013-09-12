@@ -9,7 +9,7 @@ qlcplus (4.4.2) stable; urgency=low
   * Fixed channel groups remapping
   * Added Tap keyboard mapping to Speed Dial widget
   * Added fixtures: American DJ Fog Storm (with FS-DMXT Remote Timer), Stellar Labs LED PAR38 RGB (thanks to X)
-  * Added fixtures: American DJ Accu Spot Pro, Scanic Astute LED 108, Showtec Mini Max LED RGB (thanks to laserandi)
+  * Added fixtures: American DJ Accu Spot Pro, Scanic Astute LED 108, Showtec Mini Max LED RGB, Showtec Phantom 250 (thanks to laserandi)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Fri, 20 September 2013 12:13:04 +0200
 

@@ -247,6 +247,7 @@ fixtures.files += Showtec-Mini-Max-LED-RGB.qxf
 fixtures.files += Showtec-MiniMax-250.qxf
 fixtures.files += Showtec-MultiDim-MK-III-DMX.qxf
 fixtures.files += Showtec-Phantom-50.qxf
+fixtures.files += Showtec-Phantom-250.qxf
 fixtures.files += Showtec-Spectral-CYC650.qxf
 fixtures.files += Showtec-Sunstrip-Active.qxf
 fixtures.files += Stairville-LED-PAR56-MKII-RGBA.qxf
