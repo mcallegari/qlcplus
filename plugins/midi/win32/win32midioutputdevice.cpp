@@ -129,6 +129,11 @@ void Win32MidiOutputDevice::writeUniverse(const QByteArray& universe)
                 sendData(MIDI_NOTE_ON | (BYTE) midiChannel(), channel, scaled);
             }
         }
+        else if (mode() == ProgramChange)
+        {
+            /* Program change */
+            sendData(MIDI_PROGRAM_CHANGE | (BYTE) midiChannel(), channel, (BYTE)scaled);
+        }
         else
         {
             //qDebug() << "[writeUniverse] MIDI: " << midiChannel() << ", channel: " << channel << ", value: " << scaled;

@@ -149,6 +149,11 @@ void CoreMidiOutputDevice::writeUniverse(const QByteArray& universe)
                 cmd[0] = MIDI_NOTE_ON;
             }
         }
+        else if (mode() == ProgramChange)
+        {
+            /* Program change */
+            cmd[0] = MIDI_PROGRAM_CHANGE;
+        }
         else
         {
             /* Control change */
