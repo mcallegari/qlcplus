@@ -170,3 +170,54 @@ void AlsaMidiOutputDevice::writeUniverse(const QByteArray& universe)
     // Make sure that all values go to the MIDI endpoint
     snd_seq_drain_output(m_alsa);
 }
+
+void AlsaMidiOutputDevice::writeFeedback(uchar cmd, uchar data1, uchar data2)
+{
+    if (isOpen() == false)
+        return;
+
+    // Setup a common event structure for all values
+    snd_seq_event_t ev;
+    snd_seq_ev_clear(&ev);
+    snd_seq_ev_set_dest(&ev, m_receiver_address->client, m_receiver_address->port);
+    snd_seq_ev_set_subs(&ev);
+    snd_seq_ev_set_direct(&ev);
+
+    uchar midiCmd = MIDI_CMD(cmd);
+    uchar midiCh = MIDI_CH(cmd);
+
+    bool invalidCmd = false;
+
+    switch(midiCmd)
+    {
+        case MIDI_NOTE_OFF:
+            snd_seq_ev_set_noteoff(&ev, midiCh, data1, data2);
+        break;
+        case MIDI_NOTE_ON:
+            snd_seq_ev_set_noteon(&ev, midiCh, data1, data2);
+        break;
+        case MIDI_CONTROL_CHANGE:
+            snd_seq_ev_set_controller(&ev, midiCh, data1, data2);
+        break;
+        case MIDI_PROGRAM_CHANGE:
+            snd_seq_ev_set_pgmchange(&ev, midiCh, data1);
+        break;
+
+        case MIDI_NOTE_AFTERTOUCH:
+        case MIDI_CHANNEL_AFTERTOUCH:
+        case MIDI_PITCH_WHEEL:
+        default:
+            // What to do here ??
+            invalidCmd = true;
+        break;
+    }
+
+    if (!invalidCmd)
+    {
+        if (snd_seq_event_output(m_alsa, &ev) < 0)
+            qDebug() << "snd_seq_event_output ERROR";
+    }
+
+    // Make sure that all values go to the MIDI endpoint
+    snd_seq_drain_output(m_alsa);
+}

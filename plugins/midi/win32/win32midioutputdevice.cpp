@@ -138,6 +138,14 @@ void Win32MidiOutputDevice::writeUniverse(const QByteArray& universe)
     }
 }
 
+void Win32MidiOutputDevice::writeFeedback(uchar cmd, uchar data1, uchar data2)
+{
+    if (isOpen() == false)
+        return;
+
+    sendData(cmd, data1, data2);
+}
+
 void Win32MidiOutputDevice::sendData(BYTE command, BYTE channel, BYTE value)
 {
     union
