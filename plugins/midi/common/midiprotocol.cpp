@@ -130,7 +130,7 @@ bool QLCMIDIProtocol::feedbackToMidi(quint32 channel, uchar value,
         midiChannel = channel >> 12;
 
     // Remove the 4 MSB bits to retrieve the QLC+ channel to be processed
-    channel = channel | 0x0FFF;
+    channel = channel & 0x0FFF;
 
     if (channel <= CHANNEL_OFFSET_CONTROL_CHANGE_MAX)
     {
