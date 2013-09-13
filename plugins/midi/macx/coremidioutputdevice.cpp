@@ -197,7 +197,7 @@ void CoreMidiOutputDevice::writeFeedback(uchar cmd, uchar data1, uchar data2)
     if (packet == 0)
     {
         qWarning() << "MIDIOut buffer overflow";
-        break;
+        return;
     }
 
     /* Send the MIDI packet list */
