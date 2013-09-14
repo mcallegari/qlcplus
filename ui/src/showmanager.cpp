@@ -40,6 +40,7 @@
 #include "showmanager.h"
 #include "sceneeditor.h"
 #include "sceneitems.h"
+#include "qlcmacros.h"
 #include "chaser.h"
 
 ShowManager* ShowManager::s_instance = NULL;
@@ -892,14 +893,14 @@ void ShowManager::slotUpdateTime(quint32 msec_time)
 {
     uint h, m, s;
 
-    h = msec_time / 3600000;
-    msec_time -= (h * 3600000);
+    h = msec_time / MS_PER_HOUR;
+    msec_time -= (h * MS_PER_HOUR);
 
-    m = msec_time / 60000;
-    msec_time -= (m * 60000);
+    m = msec_time / MS_PER_MINUTE;
+    msec_time -= (m * MS_PER_MINUTE);
 
-    s = msec_time / 1000;
-    msec_time -= (s * 1000);
+    s = msec_time / MS_PER_SECOND;
+    msec_time -= (s * MS_PER_SECOND);
 
     QString str;
     if (m_show && m_show->isRunning())

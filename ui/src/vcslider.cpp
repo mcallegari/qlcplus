@@ -1206,7 +1206,7 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel,
                             (float) m_slider->maximum());
 
                 if (m_slider->invertedAppearance() == true)
-                    m_slider->setValue(m_slider->maximum() - (int) val);
+                    m_slider->setValue((m_slider->maximum() - (int) val) + m_slider->minimum());
                 else
                     m_slider->setValue((int) val);
             }

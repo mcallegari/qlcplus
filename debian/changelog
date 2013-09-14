@@ -10,6 +10,7 @@ qlcplus (4.4.2) stable; urgency=low
   * Added Tap keyboard mapping to Speed Dial widget
   * Fixed Show Manager viewport scaling considering audio tracks too
   * Slider Matrix can now have a custom width
+  * Fixed VC slider external control when minimum value is not 0
   * Added fixtures: American DJ Fog Storm (with FS-DMXT Remote Timer), Stellar Labs LED PAR38 RGB (thanks to X)
   * Added fixtures: American DJ Accu Spot Pro, Scanic Astute LED 108, Showtec Mini Max LED RGB, Showtec Phantom 250 (thanks to laserandi)
 
