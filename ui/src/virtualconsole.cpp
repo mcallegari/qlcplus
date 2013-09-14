@@ -787,7 +787,7 @@ void VirtualConsole::slotAddSliderMatrix()
     if (avsm.exec() == QDialog::Rejected)
         return;
 
-    int width = VCSlider::defaultSize.width();
+    int width = avsm.width();
     int height = avsm.height();
     int count = avsm.amount();
 

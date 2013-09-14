@@ -35,6 +35,7 @@ public:
 
     int amount() const;
     int height() const;
+    int width() const;
 
 public slots:
     void accept();
@@ -42,6 +43,7 @@ public slots:
 protected:
     int m_amount;
     int m_height;
+    int m_width;
 };
 
 #endif

@@ -23,6 +23,7 @@
 #include <QSpinBox>
 
 #include "addvcslidermatrix.h"
+#include "vcpropertieseditor.h"
 
 #define SETTINGS_SLIDER_MATRIX_SIZE "slidermatrix/defaultSize"
 
@@ -30,6 +31,7 @@ AddVCSliderMatrix::AddVCSliderMatrix(QWidget* parent)
     : QDialog(parent)
     , m_amount(1)
     , m_height(100)
+    , m_width(60)
 {
     setupUi(this);
 
@@ -38,16 +40,26 @@ AddVCSliderMatrix::AddVCSliderMatrix(QWidget* parent)
     connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
     addAction(action);
 
-    QSize size;
     QSettings settings;
+    QVariant userVar = settings.value(SETTINGS_SLIDER_SIZE);
+    if (userVar.isValid() == true)
+    {
+        QSize userSize = userVar.toSize();
+        m_height = userSize.height();
+        m_width = userSize.width();
+    }
+
     QVariant var = settings.value(SETTINGS_SLIDER_MATRIX_SIZE);
     if (var.isValid() == true)
-        size = var.toSize();
-    else
-        size = QSize(m_amount, m_height);
+    {
+        QSize size = var.toSize();
+        m_amount = size.width();
+        m_height = size.height();
+    }
 
-    m_amountSpin->setValue(size.width());
-    m_heightSpin->setValue(size.height());
+    m_amountSpin->setValue(m_amount);
+    m_heightSpin->setValue(m_height);
+    m_widthSpin->setValue(m_width);
 }
 
 AddVCSliderMatrix::~AddVCSliderMatrix()
@@ -64,10 +76,16 @@ int AddVCSliderMatrix::height() const
     return m_height;
 }
 
+int AddVCSliderMatrix::width() const
+{
+    return m_width;
+}
+
 void AddVCSliderMatrix::accept()
 {
     m_amount = m_amountSpin->value();
     m_height = m_heightSpin->value();
+    m_width = m_widthSpin->value();
 
     QSettings settings;
     QSize size(m_amount, m_height);
