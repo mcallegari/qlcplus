@@ -1448,7 +1448,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="dmxdumpfactory.ui" line="61"/>
         <source>Add to:</source>
-        <translation type="unfinished"></translation>
+        <translation>Toevoegen aan:</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="72"/>
@@ -1459,17 +1459,17 @@ Maak Fixture Group</translation>
     <message>
         <location filename="dmxdumpfactory.ui" line="89"/>
         <source>Chaser</source>
-        <translation type="unfinished">Chaser</translation>
+        <translation>Chaser</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="99"/>
         <source>Button</source>
-        <translation type="unfinished">Knop</translation>
+        <translation>Knop</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="106"/>
         <source>Slider</source>
-        <translation type="unfinished">Slider</translation>
+        <translation>Slider</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="125"/>
@@ -2136,7 +2136,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="fixtureremap.ui" line="223"/>
         <source>Remap fixture names</source>
-        <translation type="unfinished"></translation>
+        <translation>Deel fixture namen opnieuw in</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="235"/>
@@ -3945,12 +3945,12 @@ Duur: %3
     <message>
         <location filename="sceneitems.cpp" line="304"/>
         <source>Move up</source>
-        <translation type="unfinished"></translation>
+        <translation>Naar boven</translation>
     </message>
     <message>
         <location filename="sceneitems.cpp" line="307"/>
         <source>Move down</source>
-        <translation type="unfinished"></translation>
+        <translation>Naar beneden</translation>
     </message>
 </context>
 <context>
@@ -3968,7 +3968,7 @@ Duur: %3
     <message>
         <location filename="vcbutton.cpp" line="130"/>
         <source>Button %1</source>
-        <translation type="unfinished">Knop %1</translation>
+        <translation>Knop %1</translation>
     </message>
     <message>
         <location filename="vcbutton.cpp" line="304"/>
@@ -4006,7 +4006,7 @@ Duur: %3
     <message>
         <location filename="vcbuttonproperties.ui" line="215"/>
         <source>Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Attributen</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="305"/>
@@ -4268,7 +4268,7 @@ Duur: %3
     <message>
         <location filename="vccuelistproperties.ui" line="128"/>
         <source>Playback</source>
-        <translation type="unfinished">Playback</translation>
+        <translation>Playback</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="280"/>
@@ -4466,7 +4466,7 @@ Duur: %3
         <location filename="vcframe.cpp" line="271"/>
         <location filename="vcframe.cpp" line="381"/>
         <source>Page: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Pagina: %1</translation>
     </message>
     <message>
         <location filename="vcframe.cpp" line="952"/>
@@ -4489,7 +4489,7 @@ Duur: %3
     <message>
         <location filename="vcframeproperties.ui" line="38"/>
         <source>Appearance</source>
-        <translation type="unfinished"></translation>
+        <translation>Uiterlijk</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="50"/>
@@ -4509,119 +4509,119 @@ Duur: %3
     <message>
         <location filename="vcframeproperties.ui" line="97"/>
         <source>Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Pagina&apos;s</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="103"/>
         <source>Enable</source>
-        <translation type="unfinished">Aan</translation>
+        <translation>Aan</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="112"/>
         <source>Clone first page widgets</source>
-        <translation type="unfinished"></translation>
+        <translation>Kloneer widgets op eerste pagina</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="125"/>
         <source>External Input - Next page</source>
-        <translation type="unfinished"></translation>
+        <translation>Externe Input - Volgende pagina</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="131"/>
         <location filename="vcframeproperties.ui" line="239"/>
         <source>Input universe</source>
-        <translation type="unfinished">Input Universe</translation>
+        <translation>Input Universe</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="138"/>
         <location filename="vcframeproperties.ui" line="246"/>
         <source>The input universe that sends data to this widget</source>
-        <translation type="unfinished">De input universe die data stuurt naar deze widget</translation>
+        <translation>De input universe die data stuurt naar deze widget</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="148"/>
         <location filename="vcframeproperties.ui" line="256"/>
         <source>Input channel</source>
-        <translation type="unfinished">Input Channel</translation>
+        <translation>Input Channel</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="155"/>
         <location filename="vcframeproperties.ui" line="263"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation type="unfinished">De specifieke input channel in de input universe die data stuurt naar deze widget</translation>
+        <translation>De specifieke input channel in de input universe die data stuurt naar deze widget</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="165"/>
         <location filename="vcframeproperties.ui" line="216"/>
         <source>Choose an external input universe &amp; channel that this widget should listen to</source>
-        <translation type="unfinished">Kies een externe input universe en channel waarnaar deze widget moet luisteren</translation>
+        <translation>Kies een externe input universe en channel waarnaar deze widget moet luisteren</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="168"/>
         <location filename="vcframeproperties.ui" line="219"/>
         <source>Choose...</source>
-        <translation type="unfinished"></translation>
+        <translation>Kies...</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="175"/>
         <source>When toggled, you can move an external slider/knob to assign it to this widget.</source>
         <oldsource>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</oldsource>
-        <translation type="unfinished">Indien aangezet is het mogelijk een externe schuif/knop te koppelen aan deze virtuele console slider.</translation>
+        <translation>Indien aangezet is het mogelijk een externe schuif/knop te koppelen aan deze widget.</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="178"/>
         <location filename="vcframeproperties.ui" line="276"/>
         <source>Auto Detect</source>
-        <translation type="unfinished">Auto Detectie</translation>
+        <translation>Auto Detectie</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="210"/>
         <source>External Input - Previous page</source>
-        <translation type="unfinished"></translation>
+        <translation>Externe Input - Vorige pagina</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="273"/>
         <source>When toggled, you can move an external slider/knob to assign it to this frame.</source>
-        <translation type="unfinished"></translation>
+        <translation>Indien aangezet is het mogelijk een externe schuif/knop te koppelen aan deze frame.</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="289"/>
         <source>Number of pages:</source>
-        <translation type="unfinished"></translation>
+        <translation>Aantal pagina&apos;s:</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="296"/>
         <location filename="vcframeproperties.ui" line="355"/>
         <source>Key Combination</source>
-        <translation type="unfinished">Toetscombinatie</translation>
+        <translation>Toetscombinatie</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="302"/>
         <source>Bind a key combination to skip to the next frame page</source>
         <oldsource>Bind a key combination to skip to the next cue</oldsource>
-        <translation type="unfinished">Wijs een toets combinatie toe om naar de volgende cue te springen</translation>
+        <translation>Wijs een toets combinatie toe om naar de volgende frame pagina te springen</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="322"/>
         <location filename="vcframeproperties.ui" line="381"/>
         <source>Clear the key binding</source>
-        <translation type="unfinished">Toets combinatie toewijzigingen verwijderen</translation>
+        <translation>Toets combinatie toewijzigingen verwijderen</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="342"/>
         <source>The key combination used to go to the next frame page</source>
         <oldsource>The key combination used to step to the next cue</oldsource>
-        <translation type="unfinished">Toets combinatie om naar de volgende cue te gaan</translation>
+        <translation>Toets combinatie om naar de volgende frame pagina te gaan</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="361"/>
         <source>Bind a key combination to skip to the previous frame page</source>
-        <translation type="unfinished"></translation>
+        <translation>Wijs een toets combinatie toe om naar de vorige frame pagina te springen</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="401"/>
         <source>The key combination used to go to the previous frame page</source>
-        <translation type="unfinished"></translation>
+        <translation>Toets combinatie om naar de vorige frame pagina te gaan</translation>
     </message>
 </context>
 <context>
@@ -4898,7 +4898,7 @@ Kies...</translation>
     <message>
         <location filename="vcslider.cpp" line="229"/>
         <source>Slider %1</source>
-        <translation type="unfinished">Slider %1</translation>
+        <translation>Slider %1</translation>
     </message>
 </context>
 <context>
@@ -5349,22 +5349,22 @@ Kies...</translation>
     <message>
         <location filename="vcspeeddialproperties.ui" line="322"/>
         <source>Key combination</source>
-        <translation type="unfinished"></translation>
+        <translation>Toetscombinatie</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="328"/>
         <source>Keyboard combination to control the dial tap</source>
-        <translation type="unfinished"></translation>
+        <translation>Toets combinatie om de dial tap aan te sturen</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="338"/>
         <source>Set a key combination for this dial</source>
-        <translation type="unfinished"></translation>
+        <translation>Definieer een toets combinatie voor deze dial</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="358"/>
         <source>Remove the dial&apos;s keyboard shortcut key</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwijder de toets combinatie van deze dial</translation>
     </message>
 </context>
 <context>
