@@ -66,6 +66,7 @@ docs.files = \
              vcframe.html \
              vclabel.html \
              vcsoloframe.html \
+             vcspeeddial.html \
              vcslider.html \
              vcslidermatrix.html \
              vcstylingplacement.html \
