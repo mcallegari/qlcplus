@@ -299,7 +299,7 @@ void SceneEditor::init(bool applyValues)
         ChannelsGroup *grp = scg.next();
         item->setText(KColumnName, grp->name());
         item->setData(KColumnName, Qt::UserRole, grp->id());
-        //item->setSelected(true);
+
         item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
         if (chGrpIds.contains(grp->id()))
             item->setCheckState(KColumnName, Qt::Checked);
@@ -324,12 +324,14 @@ void SceneEditor::init(bool applyValues)
                 continue;
 
             addFixtureItem(fixture);
-            //addFixtureTab(fixture);
         }
     }
 
     // Create the actual tab view
     slotViewModeChanged(m_scene->viewMode(), applyValues);
+
+    // Apply any mode related change
+    slotModeChanged(m_doc->mode());
 }
 
 void SceneEditor::setSceneValue(const SceneValue& scv)
@@ -619,9 +621,15 @@ void SceneEditor::slotBlindToggled(bool state)
 void SceneEditor::slotModeChanged(Doc::Mode mode)
 {
     if (mode == Doc::Operate)
+    {
         m_blindAction->setChecked(true);
+        m_tab->widget(0)->setEnabled(false);
+    }
     else
+    {
         m_blindAction->setChecked(false);
+        m_tab->widget(0)->setEnabled(true);
+    }
 }
 
 void SceneEditor::slotViewModeChanged(bool toggled, bool applyValues)
