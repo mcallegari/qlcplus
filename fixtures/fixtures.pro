@@ -68,6 +68,7 @@ fixtures.files += Elation-EVC-MH.qxf
 fixtures.files += Elation-Platinum-Spot-5R.qxf
 fixtures.files += Elation-Vision-250.qxf
 fixtures.files += Electroconcept-PAR-56-LED-Full-RGB-18x3W.qxf
+fixtures.files += Eliminator-Electro-MH25R.qxf
 fixtures.files += Eurolite-DMXSuperstrobe-2700.qxf
 fixtures.files += Eurolite-LED-Bar-RGB-252_10_40__Indoor.qxf
 fixtures.files += Eurolite-LED-PAR56.qxf
