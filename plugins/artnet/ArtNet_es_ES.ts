@@ -7,7 +7,7 @@
         <location filename="artnetplugin.cpp" line="109"/>
         <source>This plugin provides DMX output for devices supporting the ArtNet communication protocol.</source>
         <oldsource>This plugin provides output for devices supporting the ArtNet communication protocol.</oldsource>
-        <translation>Este  plugin provee Salida DMX para dispositivos que soportan el protocolo de comunicación ArtNet.</translation>
+        <translation>Este plugin provee Salida DMX para dispositivos que soportan el protocolo de comunicación ArtNet.</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="125"/>
