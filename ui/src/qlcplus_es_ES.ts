@@ -4529,149 +4529,149 @@ Duración: %3
     <message>
         <location filename="vcframeproperties.ui" line="14"/>
         <source>Frame Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Propiedades del Marco</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="22"/>
         <source>Frame name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre del Marco</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="38"/>
         <source>Appearance</source>
-        <translation type="unfinished"></translation>
+        <translation>Apariencia</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="50"/>
         <source>Accept child widgets</source>
-        <translation type="unfinished">Aceptar </translation>
+        <translation>Aceptar widget hijos</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="63"/>
         <source>Allow resizing</source>
-        <translation type="unfinished"></translation>
+        <translation>Permitir redimensionar</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="76"/>
         <source>Show header</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar encabezado</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="97"/>
         <source>Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Páginas</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="103"/>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Habilitar</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="112"/>
         <source>Clone first page widgets</source>
-        <translation type="unfinished"></translation>
+        <translation>Clonar los widgets de la primera página</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="125"/>
         <source>External Input - Next page</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrada externa - Página siguiente</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="131"/>
         <location filename="vcframeproperties.ui" line="239"/>
         <source>Input universe</source>
-        <translation type="unfinished">Universo de entrada</translation>
+        <translation>Universo de Entrada</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="138"/>
         <location filename="vcframeproperties.ui" line="246"/>
         <source>The input universe that sends data to this widget</source>
-        <translation type="unfinished"></translation>
+        <translation>El universo de Entrada que manda datos a este widget</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="148"/>
         <location filename="vcframeproperties.ui" line="256"/>
         <source>Input channel</source>
-        <translation type="unfinished">Canal de entrada</translation>
+        <translation>Canal de Entrada</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="155"/>
         <location filename="vcframeproperties.ui" line="263"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation type="unfinished"></translation>
+        <translation>El canal de Entrada específico en el universo de Entrada que manda datos a este widget</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="165"/>
         <location filename="vcframeproperties.ui" line="216"/>
         <source>Choose an external input universe &amp; channel that this widget should listen to</source>
-        <translation type="unfinished">Elige el universo de entrada &amp; canal que escucha a este widget </translation>
+        <translation>Elige el universo de entrada &amp; canal que escucha a este widget</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="168"/>
         <location filename="vcframeproperties.ui" line="219"/>
         <source>Choose...</source>
-        <translation type="unfinished"></translation>
+        <translation>Elegir...</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="175"/>
         <source>When toggled, you can move an external slider/knob to assign it to this widget.</source>
         <oldsource>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Si está activo, puede mover un slider/perilla externo para asignarlo a este widget.</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="178"/>
         <location filename="vcframeproperties.ui" line="276"/>
         <source>Auto Detect</source>
-        <translation type="unfinished"></translation>
+        <translation>Detectar Automáticamente</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="210"/>
         <source>External Input - Previous page</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrada externa - Página anterior</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="273"/>
         <source>When toggled, you can move an external slider/knob to assign it to this frame.</source>
-        <translation type="unfinished"></translation>
+        <translation>Si está activo, puede mover un slider/perilla externo para asignarlo a este marco.</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="289"/>
         <source>Number of pages:</source>
-        <translation type="unfinished"></translation>
+        <translation>Número de páginas:</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="296"/>
         <location filename="vcframeproperties.ui" line="355"/>
         <source>Key Combination</source>
-        <translation type="unfinished"></translation>
+        <translation>Combinación de teclas</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="302"/>
         <source>Bind a key combination to skip to the next frame page</source>
         <oldsource>Bind a key combination to skip to the next cue</oldsource>
-        <translation type="unfinished">La combinacion de teclas usada para saltar al siguiente cue</translation>
+        <translation>Vincular una combinación de teclas para saltar a la siguiente página del marco</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="322"/>
         <location filename="vcframeproperties.ui" line="381"/>
         <source>Clear the key binding</source>
-        <translation type="unfinished">borra la atadura de teclas</translation>
+        <translation>Borrar la vinculación de teclas</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="342"/>
         <source>The key combination used to go to the next frame page</source>
         <oldsource>The key combination used to step to the next cue</oldsource>
-        <translation type="unfinished">La combinacion de teclas usada para saltar el siguiente paso del cue</translation>
+        <translation>La combinacion de teclas usada para saltar a la siguiente página del marco</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="361"/>
         <source>Bind a key combination to skip to the previous frame page</source>
-        <translation type="unfinished"></translation>
+        <translation>Vincula una combinación de teclas para saltar a la anterior página del marco</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="401"/>
         <source>The key combination used to go to the previous frame page</source>
-        <translation type="unfinished"></translation>
+        <translation>La combinación de teclas usada para ir a la siguiente página del marco</translation>
     </message>
 </context>
 <context>
@@ -4679,17 +4679,17 @@ Duración: %3
     <message>
         <location filename="vclabel.cpp" line="46"/>
         <source>Label</source>
-        <translation type="unfinished">Etiqueta</translation>
+        <translation>Etiqueta</translation>
     </message>
     <message>
         <location filename="vclabel.cpp" line="79"/>
         <source>Rename Label</source>
-        <translation type="unfinished">Renombrar Etiqueta</translation>
+        <translation>Renombrar Etiqueta</translation>
     </message>
     <message>
         <location filename="vclabel.cpp" line="79"/>
         <source>Caption:</source>
-        <translation type="unfinished">Título:</translation>
+        <translation>Título:</translation>
     </message>
 </context>
 <context>
@@ -4698,63 +4698,63 @@ Duración: %3
         <location filename="vcproperties.ui" line="14"/>
         <source>Virtual Console Settings</source>
         <oldsource>Virtual Console properties</oldsource>
-        <translation type="unfinished">Propiedades de la Consola Virtual</translation>
+        <translation>Propiedades de la Consola Virtual</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="43"/>
         <location filename="vcproperties.ui" line="69"/>
         <source>Widget grid layout X resolution</source>
-        <translation type="unfinished">Resolucion de la parrilla X</translation>
+        <translation>Resolución X de la grilla</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="673"/>
         <source>Choose...</source>
-        <translation type="unfinished">Elegir...</translation>
+        <translation>Elegir...</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="24"/>
         <source>General</source>
-        <translation type="unfinished">General</translation>
+        <translation>General</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="30"/>
         <source>Virtual Console Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño de la Consola Virtual</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="36"/>
         <source>Width</source>
-        <translation type="unfinished">Anchura</translation>
+        <translation>Ancho</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="62"/>
         <source>Height</source>
-        <translation type="unfinished">Altura</translation>
+        <translation>Alto</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="104"/>
         <source>Tap Modifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Modificador de Tap</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="110"/>
         <source>Key</source>
-        <translation type="unfinished"></translation>
+        <translation>Tecla</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="117"/>
         <source>The keyboard key that turns button clicks to taps</source>
-        <translation type="unfinished"></translation>
+        <translation>La tecla que convierte clicks del botón en Taps</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="128"/>
         <source>Widgets</source>
-        <translation type="unfinished"></translation>
+        <translation>Widget</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="140"/>
         <source>Widgets default properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Propiedades por defecto de los widgets</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="195"/>
@@ -4765,182 +4765,182 @@ Duración: %3
         <location filename="vcproperties.ui" line="393"/>
         <location filename="vcproperties.ui" line="400"/>
         <source>x</source>
-        <translation type="unfinished"></translation>
+        <translation>x</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="499"/>
         <source>Button size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño del botón:</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="485"/>
         <source>Solo frame size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño del marco Solo:</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="277"/>
         <source>Slider size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño de slider:</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="430"/>
         <source>Speed dial size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño del selector de velocidad:</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="225"/>
         <source>XY Pad size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño del XY Pad:</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="492"/>
         <source>Cue List size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño de la Lista Cue:</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="407"/>
         <source>Frame size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño del Marco:</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="188"/>
         <source>Speed dial value:</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor del selector de velocidad:</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="506"/>
         <source>Button status style:</source>
-        <translation type="unfinished"></translation>
+        <translation>Estilo del estado de botón:</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="513"/>
         <source>LED</source>
-        <translation type="unfinished"></translation>
+        <translation>LED</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="523"/>
         <source>Border</source>
-        <translation type="unfinished"></translation>
+        <translation>Borde</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="537"/>
         <source>Grand Master</source>
-        <translation type="unfinished"></translation>
+        <translation>Gran Master</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="543"/>
         <source>Channels</source>
-        <translation type="unfinished">Canales</translation>
+        <translation>Canales</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="549"/>
         <source>Apply Grand Master only to Intensity channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplicar Gran Master sólo a los canales de Intensidad.</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="552"/>
         <source>Intensity</source>
-        <translation type="unfinished">Intensidad</translation>
+        <translation>Intensidad</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="559"/>
         <source>Apply Grand Master to all channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplicar Gran Master a todos los canales.</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="562"/>
         <source>All channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Todos los canales</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="572"/>
         <source>Values</source>
-        <translation type="unfinished"></translation>
+        <translation>Valores</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="578"/>
         <source>Make Grand Master reduce levels by a percentage.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hacer que el Gran Master reduzca los niveles porcentualmente.</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="581"/>
         <source>Reduce</source>
-        <translation type="unfinished"></translation>
+        <translation>Reduce</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="588"/>
         <source>Make Grand Master limit the maximum channel values.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hace que el Gran Master limite el valor  máximo de los canales.</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="591"/>
         <source>Limit</source>
-        <translation type="unfinished"></translation>
+        <translation>Limitar</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="601"/>
         <source>External Input</source>
-        <translation type="unfinished">Entrada Externa</translation>
+        <translation>Entrada Externa</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="607"/>
         <source>Input Universe</source>
-        <translation type="unfinished">Universo de entrada</translation>
+        <translation>Universo de Entrada</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="614"/>
         <source>Input universe for Grand Master slider.</source>
-        <translation type="unfinished"></translation>
+        <translation>Universo de Entrada del slider para el Gran Master.</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="624"/>
         <source>Input Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Canal de Entrada</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="631"/>
         <source>Input channel for Grand Master slider.</source>
-        <translation type="unfinished"></translation>
+        <translation>Canal de entrada para el slider de Gran Master.</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="654"/>
         <source>When toggled, you can move an external slider/knob to assign it to the Grand Master slider.</source>
-        <translation type="unfinished"></translation>
+        <translation>Si está activo, puede mover un slider/perilla externo para asignarlo al slider del Gran Master.</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="657"/>
         <source>Auto Detect</source>
-        <translation type="unfinished"></translation>
+        <translation>Detectar Automáticamente</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="670"/>
         <source>Choose an external input universe &amp; channel that the Grand Master slider should listen to.</source>
-        <translation type="unfinished"></translation>
+        <translation>Elegir el universo y el canal de entrada que el slider de Gran Master debe escuchar.</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="696"/>
         <source>Slider movement</source>
-        <translation type="unfinished">Movimiento de Corredera</translation>
+        <translation>Movimiento de slider</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="702"/>
         <source>Normal</source>
-        <translation type="unfinished">Normal</translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="709"/>
         <source>Inverted</source>
-        <translation type="unfinished">Invertido</translation>
+        <translation>Invertido</translation>
     </message>
     <message>
         <location filename="vcpropertieseditor.cpp" line="427"/>
         <source>%1: Unknown</source>
-        <translation type="unfinished">%1: Desconocido</translation>
+        <translation>%1: Desconocido</translation>
     </message>
     <message>
         <location filename="vcpropertieseditor.cpp" line="443"/>
         <source>Unknown</source>
-        <translation type="unfinished">Desconocido</translation>
+        <translation>Desconocido</translation>
     </message>
 </context>
 <context>
@@ -4948,7 +4948,7 @@ Duración: %3
     <message>
         <location filename="vcslider.cpp" line="229"/>
         <source>Slider %1</source>
-        <translation type="unfinished">Slider %1</translation>
+        <translation>Slider %1</translation>
     </message>
 </context>
 <context>
@@ -4956,305 +4956,305 @@ Duración: %3
     <message>
         <location filename="vcsliderproperties.ui" line="14"/>
         <source>Slider properties</source>
-        <translation type="unfinished">Propiedades de la corredera</translation>
+        <translation>Propiedades del slider</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="27"/>
         <source>General</source>
-        <translation type="unfinished">General</translation>
+        <translation>General</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="74"/>
         <source>Name of the slider</source>
-        <translation type="unfinished">Nombre de la corredera</translation>
+        <translation>Nombre del slider</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="33"/>
         <source>Value display style</source>
-        <translation type="unfinished">Estilo de Visualizacion</translation>
+        <translation>Estilo de Visualizacion</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="39"/>
         <source>Show exact DMX values</source>
-        <translation type="unfinished">Mostrar el valor DMX exacto</translation>
+        <translation>Mostrar el valor DMX exacto</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="52"/>
         <source>Show value as percentage</source>
-        <translation type="unfinished">Mostrar valor en porcentaje</translation>
+        <translation>Mostrar el valor en porcentaje</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="55"/>
         <source>Percentage</source>
-        <translation type="unfinished">Porcentaje</translation>
+        <translation>Porcentaje</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="83"/>
         <source>Slider movement</source>
-        <translation type="unfinished">Movimiento de Corredera</translation>
+        <translation>Movimiento del slider</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="89"/>
         <source>Normal</source>
-        <translation type="unfinished">Normal</translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="99"/>
         <source>Inverted</source>
-        <translation type="unfinished">Invertido</translation>
+        <translation>Invertido</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="109"/>
         <source>External Input</source>
-        <translation type="unfinished">Entrada Externa</translation>
+        <translation>Entrada Externa</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="115"/>
         <source>Input universe</source>
-        <translation type="unfinished">Universo de entrada</translation>
+        <translation>Universo de entrada</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="122"/>
         <source>The input universe that sends data to this widget</source>
-        <translation type="unfinished">El universo de entrada que manda datos a este widget</translation>
+        <translation>El universo de Entrada que manda datos a este widget</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="132"/>
         <source>Input channel</source>
-        <translation type="unfinished">Canal de entrada</translation>
+        <translation>Canal de Entrada</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="139"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation type="unfinished">El canal de entrada de el universo que manda datos a este widget</translation>
+        <translation>El canal de Entrada dentro del universo de Entrada que manda datos a este widget</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="162"/>
         <source>Choose an external input universe &amp; channel that this widget should listen to</source>
         <oldsource>Choose the external input universe &amp; channel that this widget should listen to</oldsource>
-        <translation type="unfinished">Elige el universo de entrada &amp; canal que escucha a este widget </translation>
+        <translation>Eligir un universo de Entrada y un canal externos que este widget debe escuchar</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="165"/>
         <source>Choose...</source>
-        <translation type="unfinished">Elegir...</translation>
+        <translation>Elegir...</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="172"/>
         <source>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</source>
-        <translation type="unfinished"></translation>
+        <translation>Si está activo, puede mover un slider/perilla externo para asignarlo a este slider de Consola Virtual.</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="175"/>
         <source>Auto Detect</source>
-        <translation type="unfinished"></translation>
+        <translation>Detectar Automáticamente</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="251"/>
         <source>Value range</source>
-        <translation type="unfinished">Valor Rango</translation>
+        <translation>Rango de valores</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="257"/>
         <source>Low limit</source>
-        <translation type="unfinished">Limite Bajo</translation>
+        <translation>Limite inferior</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="274"/>
         <source>High limit</source>
-        <translation type="unfinished">Limite Alto</translation>
+        <translation>Limite superior</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="245"/>
         <source>Level</source>
-        <translation type="unfinished">Nivel</translation>
+        <translation>Nivel</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="264"/>
         <source>Lowest DMX value that can be set with this slider</source>
-        <translation type="unfinished"></translation>
+        <translation>El valor DMX mínimo que se puede establecer con este slider</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="430"/>
         <source>Intensity</source>
-        <translation type="unfinished">Intensidad</translation>
+        <translation>Intensidad</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="451"/>
         <source>Gobo/Effect/Macro</source>
         <oldsource>Gobo/Effect</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Gobo/Efecto/Macro</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="485"/>
         <source>Playback</source>
-        <translation type="unfinished"></translation>
+        <translation>Reproducir</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="491"/>
         <source>Function</source>
-        <translation type="unfinished">Funcion</translation>
+        <translation>Función</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="497"/>
         <source>Function that is attached to the slider</source>
-        <translation type="unfinished"></translation>
+        <translation>Función que está enlazada a este slider</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="507"/>
         <source>Attach a function to the slider</source>
-        <translation type="unfinished"></translation>
+        <translation>Enlazar una función al slider</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="527"/>
         <source>Detach the current function from the slider</source>
-        <translation type="unfinished"></translation>
+        <translation>Desenlazar la función actual de este slider</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="563"/>
         <source>Make the slider control a function</source>
-        <translation type="unfinished"></translation>
+        <translation>Haver que el slider controle una función</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="566"/>
         <source>Switch to Playback Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambiar a Modo Reproducción</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="42"/>
         <source>Actual</source>
-        <translation type="unfinished"></translation>
+        <translation>Actual</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="67"/>
         <source>Widget name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre del widget</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="201"/>
         <source>Widget appearance</source>
-        <translation type="unfinished"></translation>
+        <translation>Apariencia del widget</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="207"/>
         <source>Slider</source>
-        <translation type="unfinished"></translation>
+        <translation>Slider</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="224"/>
         <source>Knob</source>
-        <translation type="unfinished"></translation>
+        <translation>Perilla</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="281"/>
         <source>Highest DMX value that can be set with this slider</source>
-        <translation type="unfinished">El valor DMX mas alto que puede tener esta corredera</translation>
+        <translation>El valor DMX más alto que puede establecerse con  este slider</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="310"/>
         <source>Set value range from the selected capability</source>
-        <translation type="unfinished">poner el rango de valores de la capacidad seleccionada</translation>
+        <translation>Ajustar el rango de valores de la capacidad seleccionada</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="313"/>
         <source>From capability</source>
-        <translation type="unfinished">A partir de las propiedades</translation>
+        <translation>A partir de las capacidades</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="333"/>
         <source>Name</source>
-        <translation type="unfinished">Nombre</translation>
+        <translation>Nombre</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="338"/>
         <source>Type</source>
-        <translation type="unfinished">Tipo</translation>
+        <translation>Tipo</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="343"/>
         <source>Range</source>
-        <translation type="unfinished">Rango</translation>
+        <translation>Rango</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="353"/>
         <source>Select all channels</source>
-        <translation type="unfinished">Seleccionar todos los canales</translation>
+        <translation>Seleccionar todos los canales</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="356"/>
         <source>All</source>
-        <translation type="unfinished">Todos</translation>
+        <translation>Todos</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="363"/>
         <source>Unselect everything</source>
-        <translation type="unfinished">Deseleccionar cualquier cosa</translation>
+        <translation>Deseleccionar todo</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="366"/>
         <location filename="vcsliderproperties.ui" line="420"/>
         <source>None</source>
-        <translation type="unfinished">Ninguno</translation>
+        <translation>Ninguno</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="373"/>
         <source>Invert selection</source>
-        <translation type="unfinished">Invertir seleccion</translation>
+        <translation>Invertir selección</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="376"/>
         <source>Invert</source>
-        <translation type="unfinished">Inverso</translation>
+        <translation>Invertir</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="396"/>
         <source>Choose channels by channel group</source>
-        <translation type="unfinished">Elegir canaler por grupo de canales</translation>
+        <translation>Elegir canales por grupo de canales</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="399"/>
         <source>By group...</source>
-        <translation type="unfinished">Por Grupo...</translation>
+        <translation>Por Grupo...</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="414"/>
         <source>Click &amp;&amp; Go</source>
-        <translation type="unfinished"></translation>
+        <translation>Click &amp;&amp; Go</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="437"/>
         <source>RGB</source>
-        <translation type="unfinished"></translation>
+        <translation>RGB</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="444"/>
         <source>CMY</source>
-        <translation type="unfinished"></translation>
+        <translation>CMY</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="474"/>
         <source>Make the slider control the level of a set of channels</source>
-        <translation type="unfinished">Hacer que la corredera controle el nivel de un juego de canales</translation>
+        <translation>Hacer que este Slider controle el nivel de los canales seleccionados</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="477"/>
         <source>Switch to Level Mode</source>
-        <translation type="unfinished">Cambiar de modo de nivel</translation>
+        <translation>Cambiar a Modo Nivel</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.cpp" line="626"/>
         <source>Select channels by group</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar canales por grupo</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.cpp" line="627"/>
         <source>Select a channel group</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar un Grupo de Canales</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.cpp" line="673"/>
         <source>No function</source>
-        <translation type="unfinished"></translation>
+        <translation>Ninguna función</translation>
     </message>
 </context>
 <context>
@@ -5262,7 +5262,7 @@ Duración: %3
     <message>
         <location filename="vcspeeddial.cpp" line="57"/>
         <source>Duration</source>
-        <translation type="unfinished">Duración</translation>
+        <translation>Duración</translation>
     </message>
 </context>
 <context>
@@ -5270,153 +5270,153 @@ Duración: %3
     <message>
         <location filename="vcspeeddialproperties.ui" line="14"/>
         <source>Speed Dial Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Propiedades del selector de velociad</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="20"/>
         <source>Speed Dial Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre del Selector de Velocidad</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="27"/>
         <source>Title of the dial</source>
-        <translation type="unfinished"></translation>
+        <translation>Título del Selector de Velociad</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="38"/>
         <source>Functions</source>
-        <translation type="unfinished"></translation>
+        <translation>Funciones</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="44"/>
         <source>Functions whose speed is controlled by the dial</source>
-        <translation type="unfinished"></translation>
+        <translation>Funciones cuya velocidad es controlada por el Selector</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="72"/>
         <source>Function</source>
-        <translation type="unfinished">Funcion</translation>
+        <translation>Función</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="80"/>
         <source>Add functions to be controlled</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir funciones a ser controladas</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="83"/>
         <location filename="vcspeeddialproperties.ui" line="103"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="100"/>
         <source>Remove selected functions</source>
-        <translation type="unfinished"></translation>
+        <translation>Quitar las funciones seleccionadas</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="133"/>
         <source>Speeds to Adjust</source>
-        <translation type="unfinished"></translation>
+        <translation>Velociad a ajustar</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="139"/>
         <source>Adjust selected functions&apos; fade in speed</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajustar la velocidad de Fade In de las funciones seleccionadas</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="142"/>
         <source>Fade In</source>
-        <translation type="unfinished"></translation>
+        <translation>Fade In</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="149"/>
         <source>Adjust selected functions&apos; fade out speed</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajustar la velocidad de Fade Out de las funciones seleccionadas</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="152"/>
         <source>Fade Out</source>
-        <translation type="unfinished"></translation>
+        <translation>Fade Out</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="159"/>
         <source>Adjust selected functions&apos; duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajustar la duración de las funciones seleccionadas</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="162"/>
         <source>Duration (+ tap)</source>
-        <translation type="unfinished"></translation>
+        <translation>Duración (+tap)</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="186"/>
         <source>Input</source>
-        <translation type="unfinished">Entrada</translation>
+        <translation>Entrada</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="192"/>
         <source>Absolute Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor absoluto</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="198"/>
         <location filename="vcspeeddialproperties.ui" line="282"/>
         <source>Input Universe</source>
-        <translation type="unfinished">Universo de entrada</translation>
+        <translation>Universo de Entrada</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="212"/>
         <location filename="vcspeeddialproperties.ui" line="292"/>
         <source>Input Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Canal de Entrada</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="226"/>
         <location filename="vcspeeddialproperties.ui" line="302"/>
         <source>Auto Detect</source>
-        <translation type="unfinished"></translation>
+        <translation>Detectar Automáticamente</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="236"/>
         <location filename="vcspeeddialproperties.ui" line="312"/>
         <source>Choose...</source>
-        <translation type="unfinished"></translation>
+        <translation>Elegir...</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="243"/>
         <source>Range</source>
-        <translation type="unfinished">Rango</translation>
+        <translation>Rango</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="250"/>
         <location filename="vcspeeddialproperties.ui" line="257"/>
         <source>s</source>
-        <translation type="unfinished">s</translation>
+        <translation>s</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="270"/>
         <source>Tap</source>
-        <translation type="unfinished"></translation>
+        <translation>Tap</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="322"/>
         <source>Key combination</source>
-        <translation type="unfinished">Combinacion de teclas</translation>
+        <translation>Combinación de teclas</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="328"/>
         <source>Keyboard combination to control the dial tap</source>
-        <translation type="unfinished"></translation>
+        <translation>Combinación de teclas que controla el Tap del selector</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="338"/>
         <source>Set a key combination for this dial</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar una combinacion de teclas para este selector</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="358"/>
         <source>Remove the dial&apos;s keyboard shortcut key</source>
-        <translation type="unfinished"></translation>
+        <translation>Quitar el atajo de teclado para este Selector</translation>
     </message>
 </context>
 <context>
@@ -5424,53 +5424,53 @@ Duración: %3
     <message>
         <location filename="vcwidget.cpp" line="145"/>
         <source>Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Botón</translation>
     </message>
     <message>
         <location filename="vcwidget.cpp" line="146"/>
         <source>Slider</source>
-        <translation type="unfinished"></translation>
+        <translation>Slider</translation>
     </message>
     <message>
         <location filename="vcwidget.cpp" line="147"/>
         <source>XYPad</source>
-        <translation type="unfinished"></translation>
+        <translation>XY Pad</translation>
     </message>
     <message>
         <location filename="vcwidget.cpp" line="148"/>
         <source>Frame</source>
-        <translation type="unfinished">Frame</translation>
+        <translation>Marco</translation>
     </message>
     <message>
         <location filename="vcwidget.cpp" line="149"/>
         <source>Solo frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Marco Solo</translation>
     </message>
     <message>
         <location filename="vcwidget.cpp" line="150"/>
         <source>Speed dial</source>
-        <translation type="unfinished"></translation>
+        <translation>Selector de velocidad</translation>
     </message>
     <message>
         <location filename="vcwidget.cpp" line="151"/>
         <source>Cue list</source>
-        <translation type="unfinished">Lista Cue</translation>
+        <translation>Lista de Cues</translation>
     </message>
     <message>
         <location filename="vcwidget.cpp" line="152"/>
         <source>Label</source>
-        <translation type="unfinished">Etiqueta</translation>
+        <translation>Etiqueta</translation>
     </message>
     <message>
         <location filename="vcwidget.cpp" line="155"/>
         <location filename="vcwidget.cpp" line="157"/>
         <source>Unknown</source>
-        <translation type="unfinished">Desconocido</translation>
+        <translation>Desconocido</translation>
     </message>
     <message>
         <location filename="vcwidget.cpp" line="474"/>
         <source>This widget has no properties</source>
-        <translation type="unfinished">Este Widget no tiene propiedades</translation>
+        <translation>Este widget no tiene propiedades</translation>
     </message>
 </context>
 <context>
@@ -5478,17 +5478,17 @@ Duración: %3
     <message>
         <location filename="vcwidgetselection.ui" line="14"/>
         <source>Virtual Console widget selection</source>
-        <translation type="unfinished">Selección de widget de Consola Virtual</translation>
+        <translation>Selección de widget de Consola Virtual</translation>
     </message>
     <message>
         <location filename="vcwidgetselection.ui" line="23"/>
         <source>Name</source>
-        <translation type="unfinished">Nombre</translation>
+        <translation>Nombre</translation>
     </message>
     <message>
         <location filename="vcwidgetselection.ui" line="28"/>
         <source>Type</source>
-        <translation type="unfinished">Tipo</translation>
+        <translation>Tipo</translation>
     </message>
 </context>
 <context>
@@ -5496,18 +5496,18 @@ Duración: %3
     <message>
         <location filename="vcxypadfixtureeditor.ui" line="13"/>
         <source>XY Pad Fixture</source>
-        <translation type="unfinished">Pad XY del fixture</translation>
+        <translation>Pad XY del Fixture</translation>
     </message>
     <message>
         <location filename="vcxypadfixtureeditor.ui" line="19"/>
         <source>Horizontal X-Axis</source>
-        <translation type="unfinished">Eje X Horizontal </translation>
+        <translation>Eje X Horizontal</translation>
     </message>
     <message>
         <location filename="vcxypadfixtureeditor.ui" line="25"/>
         <location filename="vcxypadfixtureeditor.ui" line="81"/>
         <source>Minimum</source>
-        <translation type="unfinished">Mínimo</translation>
+        <translation>Mínimo</translation>
     </message>
     <message>
         <location filename="vcxypadfixtureeditor.ui" line="32"/>
@@ -5515,24 +5515,24 @@ Duración: %3
         <location filename="vcxypadfixtureeditor.ui" line="88"/>
         <location filename="vcxypadfixtureeditor.ui" line="105"/>
         <source>%</source>
-        <translation type="unfinished">%</translation>
+        <translation>%</translation>
     </message>
     <message>
         <location filename="vcxypadfixtureeditor.ui" line="42"/>
         <location filename="vcxypadfixtureeditor.ui" line="98"/>
         <source>Maximum</source>
-        <translation type="unfinished">Máximo</translation>
+        <translation>Máximo</translation>
     </message>
     <message>
         <location filename="vcxypadfixtureeditor.ui" line="65"/>
         <location filename="vcxypadfixtureeditor.ui" line="121"/>
         <source>Reverse</source>
-        <translation type="unfinished">Invertir</translation>
+        <translation>Invertir</translation>
     </message>
     <message>
         <location filename="vcxypadfixtureeditor.ui" line="75"/>
         <source>Vertical Y-Axis</source>
-        <translation type="unfinished">Eje Y Vertical</translation>
+        <translation>Eje Y Vertical</translation>
     </message>
 </context>
 <context>
@@ -5540,121 +5540,121 @@ Duración: %3
     <message>
         <location filename="vcxypadproperties.ui" line="14"/>
         <source>XY Pad Properties</source>
-        <translation type="unfinished">Propiedades del pad XY</translation>
+        <translation>Propiedades del XY Pad</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="301"/>
         <source>XY Pad Name</source>
-        <translation type="unfinished">NOmbre del pad XY</translation>
+        <translation>Nombre del XY Pad</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="308"/>
         <source>The name of this XY Pad</source>
-        <translation type="unfinished">El nombre de este pad XY</translation>
+        <translation>El nombre de este XY Pad</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="24"/>
         <source>Fixtures</source>
-        <translation type="unfinished">Proyectores</translation>
+        <translation>Fixtures</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="30"/>
         <source>List of fixtures that are controlled by this pad</source>
-        <translation type="unfinished">Lista de proyectores que son controlados por este pad</translation>
+        <translation>Lista de fixtures que son controlados por este pad</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="55"/>
         <source>Fixture</source>
-        <translation type="unfinished">Proyector</translation>
+        <translation>Fixture</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="60"/>
         <source>X-Axis</source>
-        <translation type="unfinished">Eje X</translation>
+        <translation>Eje X</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="65"/>
         <source>Y-Axis</source>
-        <translation type="unfinished">Eje Y</translation>
+        <translation>Eje Y</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="73"/>
         <source>Add fixture(s) to the pad</source>
-        <translation type="unfinished">Añade proyectores al pad</translation>
+        <translation>Añade fixture(s) al pad</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="147"/>
         <source>Input</source>
-        <translation type="unfinished">Entrada</translation>
+        <translation>Entrada</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="153"/>
         <source>Pan / Horizontal Axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Pan /Eje horizontal</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="159"/>
         <location filename="vcxypadproperties.ui" line="226"/>
         <source>Input universe</source>
-        <translation type="unfinished">Universo de entrada</translation>
+        <translation>Universo de Entrada</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="173"/>
         <location filename="vcxypadproperties.ui" line="240"/>
         <source>Input channel</source>
-        <translation type="unfinished">Canal de entrada</translation>
+        <translation>Canal de Entrada</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="200"/>
         <location filename="vcxypadproperties.ui" line="267"/>
         <source>Auto Detect</source>
-        <translation type="unfinished"></translation>
+        <translation>Detectar Automáticamente</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="210"/>
         <location filename="vcxypadproperties.ui" line="277"/>
         <source>Choose...</source>
-        <translation type="unfinished"></translation>
+        <translation>Elegir...</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="220"/>
         <source>Tilt / Vertical Axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilt / Eje vertical</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="315"/>
         <source>Y-Axis slider movement</source>
-        <translation type="unfinished"></translation>
+        <translation>Movimiento en el eje Y del slider</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="321"/>
         <source>Normal</source>
-        <translation type="unfinished">Normal</translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="331"/>
         <source>Inverted</source>
-        <translation type="unfinished">Invertido</translation>
+        <translation>Invertido</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="93"/>
         <source>Remove selected fixture(s) from the pad</source>
-        <translation type="unfinished">Elimina el proyector seleccionado del pad</translation>
+        <translation>Quitar el fixture seleccionado del pad</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.ui" line="113"/>
         <source>Edit the selected fixture&apos;s axis</source>
-        <translation type="unfinished">Edita el eje del proyector seleccionado</translation>
+        <translation>Editar los ejes del fixture seleccionado</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.cpp" line="241"/>
         <source>Remove fixtures</source>
-        <translation type="unfinished">Elimina Proyectores</translation>
+        <translation>Quitar fixtures</translation>
     </message>
     <message>
         <location filename="vcxypadproperties.cpp" line="242"/>
         <source>Do you want to remove the selected fixtures?</source>
-        <translation type="unfinished">¿Quieres eleminar el proyector seleccionado?</translation>
+        <translation>¿Desea eleminar el fixture seleccionado?</translation>
     </message>
 </context>
 <context>
@@ -5662,204 +5662,204 @@ Duración: %3
     <message>
         <location filename="virtualconsole.cpp" line="345"/>
         <source>Cut</source>
-        <translation type="unfinished">Cortar</translation>
+        <translation>Cortar</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="348"/>
         <source>Copy</source>
-        <translation type="unfinished">Copiar</translation>
+        <translation>Copiar</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="351"/>
         <source>Paste</source>
-        <translation type="unfinished">Pegar</translation>
+        <translation>Pegar</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="355"/>
         <source>Delete</source>
-        <translation type="unfinished">Eliminar</translation>
+        <translation>Eliminar</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="381"/>
         <location filename="virtualconsole.cpp" line="395"/>
         <location filename="virtualconsole.cpp" line="408"/>
         <source>Default</source>
-        <translation type="unfinished">Defecto</translation>
+        <translation>Por defecto</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="405"/>
         <source>Font</source>
-        <translation type="unfinished">Fuente</translation>
+        <translation>Fuente</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="418"/>
         <source>Sunken</source>
-        <translation type="unfinished">Hundido</translation>
+        <translation>Hundido</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="421"/>
         <source>Raised</source>
-        <translation type="unfinished">Aumentar</translation>
+        <translation>Elevado</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="424"/>
         <source>None</source>
-        <translation type="unfinished">Ninguno</translation>
+        <translation>Ninguno</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="452"/>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Añadir</translation>
+        <translation>&amp;Añadir</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="470"/>
         <source>&amp;Edit</source>
-        <translation type="unfinished">&amp;Editar</translation>
+        <translation>&amp;Editar</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="289"/>
         <source>New Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuevo botón</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="292"/>
         <source>New Button Matrix</source>
-        <translation type="unfinished"></translation>
+        <translation>Nueva Matriz de Botones</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="295"/>
         <source>New Slider</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuevo Slider</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="301"/>
         <source>New Knob</source>
-        <translation type="unfinished"></translation>
+        <translation>Nueva Perilla</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="304"/>
         <source>New Speed Dial</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuevo Selector de Velocidad</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="307"/>
         <source>New XY pad</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuevo XY Pad</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="310"/>
         <source>New Cue list</source>
-        <translation type="unfinished"></translation>
+        <translation>Nueva Lista de Cues</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="313"/>
         <source>New Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuevo Marco</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="316"/>
         <source>New Solo frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuevo Marco Solo</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="319"/>
         <source>New Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Nueva Etiqueta</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="338"/>
         <source>Virtual Console Settings</source>
-        <translation type="unfinished">Propiedades de la Consola Virtual</translation>
+        <translation>Propiedades de la Consola Virtual</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="358"/>
         <source>Widget Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Propiedades del widget</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="361"/>
         <source>Rename Widget</source>
-        <translation type="unfinished"></translation>
+        <translation>Renombrar widget</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="375"/>
         <source>Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Color de Fondo</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="378"/>
         <source>Background Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Imagen de Fondo</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="392"/>
         <source>Font Colour</source>
-        <translation type="unfinished"></translation>
+        <translation>Color de Fuente</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="435"/>
         <source>Bring to front</source>
-        <translation type="unfinished"></translation>
+        <translation>Traer al frente</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="438"/>
         <source>Send to back</source>
-        <translation type="unfinished"></translation>
+        <translation>Mandar al fondo</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="482"/>
         <source>&amp;Background</source>
-        <translation type="unfinished">&amp;Segundo Plano</translation>
+        <translation>(&amp;b) Fondo</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="490"/>
         <source>&amp;Foreground</source>
-        <translation type="unfinished">&amp;Primer Plano</translation>
+        <translation>&amp;Primer Plano</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="497"/>
         <source>F&amp;ont</source>
-        <translation type="unfinished">Fuente</translation>
+        <translation>Fuente (&amp;o)</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="504"/>
         <source>F&amp;rame</source>
-        <translation type="unfinished">F&amp;rame</translation>
+        <translation>Ma&amp;rco</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="512"/>
         <source>Stacking &amp;order</source>
-        <translation type="unfinished">Colocar en Orden</translation>
+        <translation>&amp;Orden de sobreposición</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="298"/>
         <source>New Slider Matrix</source>
-        <translation type="unfinished">Nueva matriz de Correderas</translation>
+        <translation>Nueva Matriz de Sliders</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="1101"/>
         <source>Do you wish to delete the selected widgets?</source>
-        <translation type="unfinished">¿Deseas eliminar el widget seleccionado?</translation>
+        <translation>¿Desea eliminar el widget seleccionado?</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="1102"/>
         <source>Delete widgets</source>
-        <translation type="unfinished">Eliminar widgets</translation>
+        <translation>Eliminar widgets</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="1157"/>
         <source>Rename widgets</source>
-        <translation type="unfinished">Renombrar widgets</translation>
+        <translation>Renombrar widgets</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="1157"/>
         <source>Caption:</source>
-        <translation type="unfinished">Titulo:</translation>
+        <translation>Titulo:</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="1210"/>
         <source>Select background image</source>
-        <translation type="unfinished">Selecciona la imagen de fondo</translation>
+        <translation>Seleccione la imagen de fondo</translation>
     </message>
 </context>
 </TS>
