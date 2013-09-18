@@ -68,7 +68,7 @@
     <message>
         <location filename="configureartnet.ui" line="24"/>
         <source>Network Mapping</source>
-        <translation>Mapeado de Red</translation>
+        <translation>Mappeado de Red</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="42"/>
