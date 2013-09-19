@@ -39,6 +39,7 @@ class QMessageBox;
 class QToolButton;
 class QFileDialog;
 class QTabWidget;
+class WebAccess;
 class QToolBar;
 class QPixmap;
 class QAction;
@@ -109,6 +110,15 @@ public slots:
     void slotModeDesign();
     void slotModeToggle();
     void slotModeChanged(Doc::Mode mode);
+
+    /*********************************************************************
+     * Web Access
+     *********************************************************************/
+public:
+    void enableWebAccess();
+
+protected:
+    WebAccess *m_webAccess;
 
     /*********************************************************************
      * Actions and toolbar

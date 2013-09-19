@@ -18,6 +18,9 @@ win32:QMAKE_LFLAGS += -shared
 # Types
 INCLUDEPATH += ../../plugins/interfaces
 
+# Web Access
+INCLUDEPATH     += ../../webaccess
+
 # Resources
 RESOURCES    += qlcui.qrc
 

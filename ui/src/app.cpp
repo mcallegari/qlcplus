@@ -41,6 +41,7 @@
 #include "addresstool.h"
 #include "simpledesk.h"
 #include "docbrowser.h"
+#include "webaccess.h"
 #include "outputmap.h"
 #include "inputmap.h"
 #include "aboutbox.h"
@@ -452,6 +453,11 @@ void App::createKioskCloseButton(const QRect& rect)
     btn->setGeometry(rect);
     connect(btn, SIGNAL(clicked()), this, SLOT(close()));
     btn->show();
+}
+
+void App::enableWebAccess()
+{
+    m_webAccess = new WebAccess(VirtualConsole::instance());
 }
 
 void App::slotModeOperate()
