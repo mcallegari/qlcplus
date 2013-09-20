@@ -40,6 +40,9 @@ public:
     ~WebAccess();
 
     int beginRequestHandler(struct mg_connection *conn);
+    void websocketReadyHandler(struct mg_connection *conn);
+    int websocketDataHandler(struct mg_connection *conn, int flags,
+                               char *data, size_t data_len);
 
 private:
     QString getButtonStyle();

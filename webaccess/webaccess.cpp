@@ -19,6 +19,8 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
+#include <QDebug>
+
 #include "webaccess.h"
 #include "virtualconsole.h"
 #include "vcbutton.h"
@@ -30,6 +32,17 @@ WebAccess* s_instance = NULL;
 static int begin_request_handler(struct mg_connection *conn)
 {
     return s_instance->beginRequestHandler(conn);
+}
+
+static void websocket_ready_handler(struct mg_connection *conn)
+{
+    s_instance->websocketReadyHandler(conn);
+}
+
+static int websocket_data_handler(struct mg_connection *conn, int flags,
+                                  char *data, size_t data_len)
+{
+    return s_instance->websocketDataHandler(conn, flags, data, data_len);
 }
 
 // This function will be called by mongoose on every new request.
@@ -47,6 +60,7 @@ int WebAccess::beginRequestHandler(mg_connection *conn)
   // Prepare the message we're going to send
   QString content = getVCHTML();
   int content_length = content.length();
+  QByteArray contentArray = content.toAscii();
 
   // Send HTTP reply to the client
   mg_printf(conn,
@@ -55,11 +69,29 @@ int WebAccess::beginRequestHandler(mg_connection *conn)
             "Content-Length: %d\r\n"        // Always set Content-Length
             "\r\n"
             "%s",
-            content_length, content.toAscii().data());
+            content_length, contentArray.data());
 
   // Returning non-zero tells mongoose that our function has replied to
   // the client, and mongoose should not send client any more data.
   return 1;
+}
+
+void WebAccess::websocketReadyHandler(mg_connection *conn)
+{
+    qDebug() << Q_FUNC_INFO;
+    static const char *message = "server ready";
+    mg_websocket_write(conn, WEBSOCKET_OPCODE_TEXT, message, strlen(message));
+}
+
+int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, size_t data_len)
+{
+    Q_UNUSED(conn)
+    Q_UNUSED(flags)
+    Q_UNUSED(data)
+    Q_UNUSED(data_len)
+
+    qDebug() << Q_FUNC_INFO;
+    return 1;
 }
 
 QString WebAccess::getChildrenHTML(VCWidget *frame)
@@ -68,24 +100,30 @@ QString WebAccess::getChildrenHTML(VCWidget *frame)
         return QString();
 
     QString str;
-    const QObjectList chList = frame->children();
+
+    QList<VCWidget *> chList = frame->findChildren<VCWidget*>();
 
     qDebug () << "getChildrenHTML: found " << chList.count() << " children";
 
-    foreach (QObject *obj, chList)
+    foreach (VCWidget *widget, chList)
     {
-        VCWidget *widget = (VCWidget *)obj;
+        if (widget->parentWidget() != frame)
+            continue;
+
         switch (widget->type())
         {
             case VCWidget::FrameWidget:
             case VCWidget::SoloFrameWidget:
+            {
                 str += getVCFrameHTML((VCFrame *)widget);
+            }
             break;
             case VCWidget::ButtonWidget:
             {
                 VCButton *button = qobject_cast<VCButton*>(widget);
                 str += getVCButtonHTML(button);
             }
+            break;
             case VCWidget::SliderWidget:
             {
                 VCSlider *slider = qobject_cast<VCSlider*>(widget);
@@ -106,22 +144,28 @@ QString WebAccess::getVCHTML()
                   "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                   "<head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n";
 
+    m_JScode = "<script language=\"javascript\" type=\"text/javascript\">\n"
+               "window.onload = function() {\n"
+               "var url = 'ws://' + window.location.host + '/foo';\n"
+               "websocket = new WebSocket(url);\n"
+               "};\n"
+               "</script>\n";
+
     VCFrame *mainFrame = m_vc->contents();
     QSize mfSize = mainFrame->size();
     QString widgetsHTML = "<div style=\"width: " + QString::number(mfSize.width()) +
             "px; height: " + QString::number(mfSize.height()) + "px; "
-            "background-color: " + mainFrame->backgroundColor().name() + "; \">\n";
+            "background-color: " + mainFrame->backgroundColor().name() + "; \" />\n";
 
     widgetsHTML += getChildrenHTML(mainFrame);
-    widgetsHTML += "</div>\n";
 
-    QString str = mainHTML + m_CSScode + m_JScode + "</head>\n<body>\n" + widgetsHTML + "</body>\n</html>";
+    QString str = mainHTML + m_JScode + m_CSScode + "</head>\n<body>\n" + widgetsHTML + "</body>\n</html>";
     return str;
 }
 
 QString WebAccess::getVCFrameHTML(VCFrame *frame)
 {
-    QColor border(0, 0, 0);
+    QColor border(90, 90, 90);
 
     if (frame->type() == VCWidget::SoloFrameWidget)
         border = QColor(255, 0, 0);
@@ -131,10 +175,10 @@ QString WebAccess::getVCFrameHTML(VCFrame *frame)
            QString::number(frame->width()) +
           "px; height: " + QString::number(frame->height()) + "px; "
           "background-color: " + frame->backgroundColor().name() + "; "
+          "border-radius: 3px;\n"
           "border: 1px solid " + border.name() + ";\">\n";
 
     str += getChildrenHTML(frame);
-
     str += "</div>\n";
 
     return str;
@@ -151,7 +195,7 @@ QString WebAccess::getButtonStyle()
             "}\n\n"
             ".vcbutton {\n"
             "display: table-cell;\n"
-            "border: 2px solid #666666;\n"
+            "border: 3px solid #A0A0A0;\n"
             "border-radius: 3px;\n"
             "font-family: arial, verdana, sans-serif;\n"
             "text-align:center;\n"
@@ -166,11 +210,15 @@ QString WebAccess::getButtonStyle()
 QString WebAccess::getVCButtonHTML(VCButton *btn)
 {
     m_CSScode += getButtonStyle();
-    QString str = "<div class=\"vcbutton-wrapper\" style=\"left: " + QString::number(btn->x()) +
-            "px; top: " + QString::number(btn->y()) + "px;\">\n";
-    str +=  "<div class=\"vcbutton\" style=\"width: " + QString::number(btn->width()) +
-            "px; height: " + QString::number(btn->height()) + "px; color: " + btn->foregroundColor().name() + "; "
-            "background-color: " + btn->backgroundColor().name() + "\">" + btn->caption() + "</div>\n</div>\n";
+    QString str = "<div class=\"vcbutton-wrapper\" style=\""
+            "left: " + QString::number(btn->x()) + "px; "
+            "top: " + QString::number(btn->y()) + "px;\">\n";
+    str +=  "<div class=\"vcbutton\" style=\""
+            "width: " + QString::number(btn->width()) + "px; "
+            "height: " + QString::number(btn->height()) + "px; "
+            "color: " + btn->foregroundColor().name() + "; "
+            "background-color: " + btn->backgroundColor().name() + "\">" +
+            btn->caption() + "</div>\n</div>\n";
     return str;
 }
 
@@ -182,29 +230,32 @@ QString WebAccess::getSliderStyle()
     QString str = "<style>\n"
             ".vcslider {\n"
             "position: absolute;\n"
-            "border: 1px solid #666666;\n"
+            "border: 1px solid #777777;\n"
             "border-radius: 3px;\n"
-            "z-index: 0"
             "}\n"
 
-            "input[type=range].vVertical {\n"
-            "height: 5px;\n"
-            "background-color: #333333;"
+            "input[type=\"range\"].vVertical {\n"
             "-webkit-appearance: none;\n"
-            "-webkit-transform:rotate(-90deg);\n"
-            "-moz-transform:rotate(-90deg);\n"
-            "-o-transform:rotate(-90deg);\n"
-            "-ms-transform:rotate(-90deg);\n"
-            "transform:rotate(-90deg);\n"
-            "z-index: 1"
+            "height: 4px;\n"
+            "border: 1px solid #8E8A86;\n"
+            "background-color: #888888;\n"
+            "-webkit-transform:rotate(270deg);\n"
+            "-webkit-transform-origin: 0% 50%;\n"
+            "-moz-transform:rotate(270deg);\n"
+            "-o-transform:rotate(270deg);\n"
+            "-ms-transform:rotate(270deg);\n"
+            "-ms-transform-origin:0% 50%;\n"
+            "transform:rotate(270deg);\n"
+            "transform-origin:0% 50%;\n"
             "}\n"
 
             "input[type=\"range\"]::-webkit-slider-thumb {\n"
             "-webkit-appearance: none;\n"
-            "background-color: red;\n"
-            "border-radius: 5px;\n"
+            "background-color: #999999;\n"
+            "border-radius: 4px;\n"
+            "border: 1px solid #5c5c5c;\n"
             "width: 20px;\n"
-            "height: 20px;\n"
+            "height: 36px;\n"
             "}\n"
             "</style>\n";
     m_sliderFound = true;
@@ -214,13 +265,19 @@ QString WebAccess::getSliderStyle()
 QString WebAccess::getVCSliderHTML(VCSlider *slider)
 {
     m_CSScode += getSliderStyle();
-    QString str = "<div class=\"vcslider\" style=\"left: " + QString::number(slider->x()) +
-            "px; top: " + QString::number(slider->y()) + "px; width: " + QString::number(slider->width()) +
-            "px; height: " + QString::number(slider->height()) + "px; background-color: " +
-            slider->backgroundColor().name() + ";\">\n";
-    str +=  "<input type=\"range\" class=\"vVertical\" style=\"width: " + QString::number(slider->height()) +
-            "px; \" min=0 max=255 step=1 value=" +
-            QString::number(slider->sliderValue()) + "></input>\n</div>\n";
+    QString str = "<div class=\"vcslider\" style=\""
+            "left: " + QString::number(slider->x()) + "px; "
+            "top: " + QString::number(slider->y()) + "px; "
+            "width: " + QString::number(slider->width()) + "px; "
+            "height: " + QString::number(slider->height()) + "px; "
+            "background-color: " + slider->backgroundColor().name() + ";\">\n";
+
+    str +=  "<input type=\"range\" class=\"vVertical\" style=\""
+            "width: " + QString::number(slider->height()) + "px; "
+            "margin-top: " + QString::number(slider->height()) + "px; "
+            "margin-left: " + QString::number(slider->width() / 2) + "px;\" "
+            "min=\"0\" max=\"255\" step=\"1\" value=\"" +
+            QString::number(slider->sliderValue()) + "\" />\n</div>\n";
     return str;
 }
 
@@ -237,6 +294,8 @@ WebAccess::WebAccess(VirtualConsole *vcInstance, QObject *parent) :
     // Prepare callbacks structure. We have only one callback, the rest are NULL.
     memset(&m_callbacks, 0, sizeof(m_callbacks));
     m_callbacks.begin_request = begin_request_handler;
+    m_callbacks.websocket_ready = websocket_ready_handler;
+    m_callbacks.websocket_data = websocket_data_handler;
 
     // Start the web server.
     m_ctx = mg_start(&m_callbacks, NULL, options);
