@@ -22,6 +22,7 @@
 #include "webaccess.h"
 #include "virtualconsole.h"
 #include "vcbutton.h"
+#include "vcslider.h"
 #include "vcframe.h"
 
 WebAccess* s_instance = NULL;
@@ -61,29 +62,6 @@ int WebAccess::beginRequestHandler(mg_connection *conn)
   return 1;
 }
 
-QString WebAccess::getButtonStyle()
-{
-    if (m_buttonFound == true)
-        return QString();
-
-    QString str = "<style>\n"
-            ".vcbutton-wrapper {\n"
-            "position: absolute;\n"
-            "}\n\n"
-            ".vcbutton {\n"
-            "display: table-cell;\n"
-            "border: 2px solid #666666;\n"
-            "border-radius: 3px;\n"
-            "font-family: arial, verdana, sans-serif;\n"
-            "text-align:center;\n"
-            "vertical-align: middle;\n"
-            "}\n"
-            "</style>\n";
-
-    m_buttonFound = true;
-    return str;
-}
-
 QString WebAccess::getChildrenHTML(VCWidget *frame)
 {
     if (frame == NULL)
@@ -107,6 +85,11 @@ QString WebAccess::getChildrenHTML(VCWidget *frame)
             {
                 VCButton *button = qobject_cast<VCButton*>(widget);
                 str += getVCButtonHTML(button);
+            }
+            case VCWidget::SliderWidget:
+            {
+                VCSlider *slider = qobject_cast<VCSlider*>(widget);
+                str += getVCSliderHTML(slider);
             }
             break;
             default:
@@ -157,6 +140,29 @@ QString WebAccess::getVCFrameHTML(VCFrame *frame)
     return str;
 }
 
+QString WebAccess::getButtonStyle()
+{
+    if (m_buttonFound == true)
+        return QString();
+
+    QString str = "<style>\n"
+            ".vcbutton-wrapper {\n"
+            "position: absolute;\n"
+            "}\n\n"
+            ".vcbutton {\n"
+            "display: table-cell;\n"
+            "border: 2px solid #666666;\n"
+            "border-radius: 3px;\n"
+            "font-family: arial, verdana, sans-serif;\n"
+            "text-align:center;\n"
+            "vertical-align: middle;\n"
+            "}\n"
+            "</style>\n";
+
+    m_buttonFound = true;
+    return str;
+}
+
 QString WebAccess::getVCButtonHTML(VCButton *btn)
 {
     m_CSScode += getButtonStyle();
@@ -165,6 +171,56 @@ QString WebAccess::getVCButtonHTML(VCButton *btn)
     str +=  "<div class=\"vcbutton\" style=\"width: " + QString::number(btn->width()) +
             "px; height: " + QString::number(btn->height()) + "px; color: " + btn->foregroundColor().name() + "; "
             "background-color: " + btn->backgroundColor().name() + "\">" + btn->caption() + "</div>\n</div>\n";
+    return str;
+}
+
+QString WebAccess::getSliderStyle()
+{
+    if (m_sliderFound == true)
+        return QString();
+
+    QString str = "<style>\n"
+            ".vcslider {\n"
+            "position: absolute;\n"
+            "border: 1px solid #666666;\n"
+            "border-radius: 3px;\n"
+            "z-index: 0"
+            "}\n"
+
+            "input[type=range].vVertical {\n"
+            "height: 5px;\n"
+            "background-color: #333333;"
+            "-webkit-appearance: none;\n"
+            "-webkit-transform:rotate(-90deg);\n"
+            "-moz-transform:rotate(-90deg);\n"
+            "-o-transform:rotate(-90deg);\n"
+            "-ms-transform:rotate(-90deg);\n"
+            "transform:rotate(-90deg);\n"
+            "z-index: 1"
+            "}\n"
+
+            "input[type=\"range\"]::-webkit-slider-thumb {\n"
+            "-webkit-appearance: none;\n"
+            "background-color: red;\n"
+            "border-radius: 5px;\n"
+            "width: 20px;\n"
+            "height: 20px;\n"
+            "}\n"
+            "</style>\n";
+    m_sliderFound = true;
+    return str;
+}
+
+QString WebAccess::getVCSliderHTML(VCSlider *slider)
+{
+    m_CSScode += getSliderStyle();
+    QString str = "<div class=\"vcslider\" style=\"left: " + QString::number(slider->x()) +
+            "px; top: " + QString::number(slider->y()) + "px; width: " + QString::number(slider->width()) +
+            "px; height: " + QString::number(slider->height()) + "px; background-color: " +
+            slider->backgroundColor().name() + ";\">\n";
+    str +=  "<input type=\"range\" class=\"vVertical\" style=\"width: " + QString::number(slider->height()) +
+            "px; \" min=0 max=255 step=1 value=" +
+            QString::number(slider->sliderValue()) + "></input>\n</div>\n";
     return str;
 }
 

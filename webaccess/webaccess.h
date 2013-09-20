@@ -28,6 +28,7 @@
 class VirtualConsole;
 class VCWidget;
 class VCButton;
+class VCSlider;
 class VCFrame;
 
 class WebAccess : public QObject
@@ -42,11 +43,13 @@ public:
 
 private:
     QString getButtonStyle();
+    QString getSliderStyle();
 
     QString getChildrenHTML(VCWidget *frame);
     QString getVCHTML();
     QString getVCFrameHTML(VCFrame *frame);
     QString getVCButtonHTML(VCButton *btn);
+    QString getVCSliderHTML(VCSlider *slider);
 
 protected:
     QString m_JScode;
