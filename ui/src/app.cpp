@@ -76,6 +76,7 @@ App::App()
     , m_tab(NULL)
     , m_progressDialog(NULL)
     , m_doc(NULL)
+    , m_webAccess(NULL)
 
     , m_fileNewAction(NULL)
     , m_fileOpenAction(NULL)
@@ -146,6 +147,10 @@ App::~App()
 
     if (m_doc != NULL)
         delete m_doc;
+
+    if (m_webAccess != NULL)
+        delete m_webAccess;
+
     m_doc = NULL;
 }
 

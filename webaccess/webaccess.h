@@ -26,7 +26,9 @@
 #include "mongoose.h"
 
 class VirtualConsole;
+class VCWidget;
 class VCButton;
+class VCFrame;
 
 class WebAccess : public QObject
 {
@@ -39,8 +41,25 @@ public:
     int beginRequestHandler(struct mg_connection *conn);
 
 private:
+    QString getButtonStyle();
+
+    QString getChildrenHTML(VCWidget *frame);
     QString getVCHTML();
+    QString getVCFrameHTML(VCFrame *frame);
     QString getVCButtonHTML(VCButton *btn);
+
+protected:
+    QString m_JScode;
+    QString m_CSScode;
+
+    bool m_buttonFound;
+    bool m_frameFound;
+    bool m_labelFound;
+    bool m_cueListFound;
+    bool m_sliderFound;
+    bool m_knobFound;
+    bool m_xyPadFound;
+    bool m_speedDialFound;
 
 protected:
     VirtualConsole *m_vc;

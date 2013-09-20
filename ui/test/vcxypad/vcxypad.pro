@@ -15,6 +15,9 @@ QMAKE_LIBDIR += ../../../engine/src
 QMAKE_LIBDIR += ../../src
 LIBS         += -lqlcplusengine -lqlcplusui
 
+QMAKE_LIBDIR += ../../../webaccess
+LIBS         += -lqlcpluswebaccess
+
 # Test sources
 SOURCES += vcxypad_test.cpp
 HEADERS += vcxypad_test.h
