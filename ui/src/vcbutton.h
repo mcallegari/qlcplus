@@ -281,7 +281,7 @@ protected slots:
     /*********************************************************************
      * Button press / release handlers
      *********************************************************************/
-protected:
+public:
     /** Handler for button presses (mouse/key)button down, not click */
     void pressFunction();
 

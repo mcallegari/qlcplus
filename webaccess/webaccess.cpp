@@ -21,8 +21,9 @@
 
 #include <QDebug>
 
-#include "webaccess.h"
 #include "virtualconsole.h"
+#include "qlcconfig.h"
+#include "webaccess.h"
 #include "vcbutton.h"
 #include "vcslider.h"
 #include "vcframe.h"
@@ -104,11 +105,27 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
 
     QString qData = QString(data);
     qData.truncate((int)data_len);
-    qDebug() << Q_FUNC_INFO << qData;
+    qDebug() << "[websocketDataHandler]" << qData;
 
     QStringList cmdList = qData.split("|");
     if (cmdList.isEmpty())
         return 1;
+
+    if(cmdList[0] == "QLC+CMD")
+    {
+        if (cmdList.count() < 2)
+            return 0;
+
+        if(cmdList[1] == "opMode")
+        {
+            if (m_doc->mode() == Doc::Design)
+                m_doc->setMode(Doc::Operate);
+            else
+                m_doc->setMode(Doc::Design);
+        }
+
+        return 1;
+    }
 
     quint32 widgetID = cmdList[0].toUInt();
     VCWidget *widget = m_vc->widget(widgetID);
@@ -123,9 +140,9 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
             {
                 VCButton *button = qobject_cast<VCButton*>(widget);
                 if (value == 0)
-                    button->setOn(false);
+                    button->releaseFunction();
                 else
-                    button->setOn(true);
+                    button->pressFunction();
             }
             default:
             break;
@@ -189,27 +206,73 @@ QString WebAccess::getVCHTML()
             "var websocket;\n"
             "function sendWSmessage(msg) {\n"
             " websocket.send(msg);\n"
-            "};\n"
+            "};\n\n"
+
+            "function sendCMD(cmd)\n"
+            "{\n"
+            " sendWSmessage(\"QLC+CMD|\" + cmd);\n"
+            "};\n\n"
+
             "window.onload = function() {\n"
             " var url = 'ws://' + window.location.host + '/qlcplusWS';\n"
             " websocket = new WebSocket(url);\n"
 
             " websocket.onopen = function(ev) {\n"
             "  //alert(\"Websocket open!\");\n"
-            " };\n"
+            " };\n\n"
 
             " websocket.onclose = function(ev) {\n"
             "  //alert(\"Websocket close!\");\n"
-            " };\n"
+            " };\n\n"
 
             " websocket.onerror = function(ev) {\n"
             "  alert(\"Websocket error!\");\n"
             " };\n"
             "};\n";
 
+    m_CSScode = "<style>\n"
+            "body { margin: 0px; }\n"
+            ".controlBar {\n"
+            " width: 100%;\n"
+            " height: 40px;\n"
+            " background: linear-gradient(to bottom, #B2D360 0%, #4B9002 100%);\n"
+            " background: -ms-linear-gradient(top, #B2D360 0%, #4B9002 100%);\n"
+            " background: -moz-linear-gradient(top, #B2D360 0%, #4B9002 100%);\n"
+            " background: -o-linear-gradient(top, #B2D360 0%, #4B9002 100%);\n"
+            " background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #B2D360), color-stop(1, #4B9002));\n"
+            " background: -webkit-linear-gradient(top, #B2D360 0%, #4B9002 100%);\n"
+            " font:bold 26px/1.2em sans-serif;\n"
+            " color: #ffffff;\n"
+            " border-spacing:5px 0px;\n"
+            "}\n"
+            ".cmdButton a {\n"
+            " height: 36px;\n"
+            " display: table-cell;\n"
+            " border: 2px solid #0E172E;\n"
+            " border-radius: 5px;\n"
+            " background-color: #2E4B95;\n"
+            " text-align:center;\n"
+            " vertical-align: middle;\n"
+            "}\n"
+            ".cmdButton a:hover {\n"
+            " background-color: #3D64C7;\n"
+            "}\n"
+            ".swInfo {\n"
+            " position: absolute;\n"
+            " right: 0;\n"
+            " top: 0;\n"
+            " font-size: 20px;\n"
+            "};\n"
+            "</style>\n";
+
     VCFrame *mainFrame = m_vc->contents();
     QSize mfSize = mainFrame->size();
-    QString widgetsHTML = "<div style=\"width: " + QString::number(mfSize.width()) +
+    QString widgetsHTML = "<div class=\"controlBar\">\n"
+            "<div class=\"cmdButton\"><a onclick=\"sendCMD('opMode');\">Operate mode</a></div>\n"
+            "<div class=\"swInfo\">" + QString(APPNAME) + " " + QString(APPVERSION) + "</div>"
+            "</div>\n"
+            "<div style=\"position: relative; "
+            "width: " + QString::number(mfSize.width()) +
             "px; height: " + QString::number(mfSize.height()) + "px; "
             "background-color: " + mainFrame->backgroundColor().name() + "; \" />\n";
 
@@ -294,7 +357,7 @@ QString WebAccess::getVCButtonHTML(VCButton *btn)
             "left: " + QString::number(btn->x()) + "px; "
             "top: " + QString::number(btn->y()) + "px;\">\n";
     str +=  "<div class=\"vcbutton\" id=\"" + QString::number(btn->id()) + "\" "
-            "onclick=\"buttonClick(" + QString::number(btn->id()) + ");\""
+            "onclick=\"buttonClick(" + QString::number(btn->id()) + ");\" "
             "style=\""
             "width: " + QString::number(btn->width()) + "px; "
             "height: " + QString::number(btn->height()) + "px; "
