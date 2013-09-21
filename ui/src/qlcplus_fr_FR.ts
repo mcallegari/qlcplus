@@ -1027,7 +1027,7 @@ Durée : %3
     <message>
         <location filename="audiotriggersconfiguration.cpp" line="103"/>
         <source>VC Widget</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">VC Widget</translation>
     </message>
     <message>
         <location filename="audiotriggersconfiguration.cpp" line="116"/>
