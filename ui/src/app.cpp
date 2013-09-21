@@ -462,7 +462,7 @@ void App::createKioskCloseButton(const QRect& rect)
 
 void App::enableWebAccess()
 {
-    m_webAccess = new WebAccess(VirtualConsole::instance());
+    m_webAccess = new WebAccess(m_doc, VirtualConsole::instance());
 }
 
 void App::slotModeOperate()

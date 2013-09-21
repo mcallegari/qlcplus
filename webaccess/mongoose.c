@@ -4201,7 +4201,7 @@ int mg_websocket_write(struct mg_connection* conn, int opcode,
     return retval;
 }
 
-static void handle_websocket_request(struct mg_connection *conn) {
+void handle_websocket_request(struct mg_connection *conn) {
   const char *version = mg_get_header(conn, "Sec-WebSocket-Version");
   if (version == NULL || strcmp(version, "13") != 0) {
     send_http_error(conn, 426, "Upgrade Required", "%s", "Upgrade Required");
@@ -4217,7 +4217,7 @@ static void handle_websocket_request(struct mg_connection *conn) {
   }
 }
 
-static int is_websocket_request(const struct mg_connection *conn) {
+int is_websocket_request(const struct mg_connection *conn) {
   const char *host, *upgrade, *connection, *version, *key;
 
   host = mg_get_header(conn, "Host");

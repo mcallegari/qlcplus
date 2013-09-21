@@ -385,6 +385,8 @@ int mg_url_decode(const char *src, int src_len, char *dst,
 //   mg_md5(buf, "aa", "bb", NULL);
 char *mg_md5(char buf[33], ...);
 
+int is_websocket_request(const struct mg_connection *conn);
+void handle_websocket_request(struct mg_connection *conn);
 
 #ifdef __cplusplus
 }

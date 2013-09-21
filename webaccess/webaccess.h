@@ -30,12 +30,13 @@ class VCWidget;
 class VCButton;
 class VCSlider;
 class VCFrame;
+class Doc;
 
 class WebAccess : public QObject
 {
     Q_OBJECT
 public:
-    explicit WebAccess(VirtualConsole *vcInstance, QObject *parent = 0);
+    explicit WebAccess(Doc *doc, VirtualConsole *vcInstance, QObject *parent = 0);
     /** Destructor */
     ~WebAccess();
 
@@ -45,13 +46,16 @@ public:
                                char *data, size_t data_len);
 
 private:
-    QString getButtonStyle();
-    QString getSliderStyle();
-
     QString getChildrenHTML(VCWidget *frame);
     QString getVCHTML();
+
     QString getVCFrameHTML(VCFrame *frame);
+
+    QString getButtonJS();
+    QString getButtonCSS();
     QString getVCButtonHTML(VCButton *btn);
+
+    QString getSliderCSS();
     QString getVCSliderHTML(VCSlider *slider);
 
 protected:
@@ -68,6 +72,7 @@ protected:
     bool m_speedDialFound;
 
 protected:
+    Doc *m_doc;
     VirtualConsole *m_vc;
 
     struct mg_context *m_ctx;

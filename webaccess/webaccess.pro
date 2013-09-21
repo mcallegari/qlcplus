@@ -11,6 +11,7 @@ QT     += core xml gui script
 # Engine
 INCLUDEPATH     += ../engine/src ../engine/src/audio ../ui/src
 DEPENDPATH      += ../../engine/src
+DEFINES         += USE_WEBSOCKET
 
 win32:QMAKE_LFLAGS += -shared
 

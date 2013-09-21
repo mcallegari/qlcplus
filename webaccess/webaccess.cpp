@@ -26,6 +26,8 @@
 #include "vcbutton.h"
 #include "vcslider.h"
 #include "vcframe.h"
+#include "mongoose.h"
+#include "doc.h"
 
 WebAccess* s_instance = NULL;
 
@@ -57,6 +59,18 @@ int WebAccess::beginRequestHandler(mg_connection *conn)
   m_xyPadFound = false;
   m_speedDialFound = false;
 
+  const struct mg_request_info *ri = mg_get_request_info(conn);
+  qDebug() << Q_FUNC_INFO << ri->request_method << ri->uri;
+
+  if (is_websocket_request(conn))
+  {
+    handle_websocket_request(conn);
+    return 1;
+  }
+
+  if (QString(ri->uri) != "/")
+      return 1;
+
   // Prepare the message we're going to send
   QString content = getVCHTML();
   int content_length = content.length();
@@ -87,10 +101,37 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
 {
     Q_UNUSED(conn)
     Q_UNUSED(flags)
-    Q_UNUSED(data)
-    Q_UNUSED(data_len)
 
-    qDebug() << Q_FUNC_INFO;
+    QString qData = QString(data);
+    qData.truncate((int)data_len);
+    qDebug() << Q_FUNC_INFO << qData;
+
+    QStringList cmdList = qData.split("|");
+    if (cmdList.isEmpty())
+        return 1;
+
+    quint32 widgetID = cmdList[0].toUInt();
+    VCWidget *widget = m_vc->widget(widgetID);
+    uchar value = 0;
+    if (cmdList.count() > 1)
+        value = (uchar)cmdList[1].toInt();
+    if (widget != NULL)
+    {
+        switch(widget->type())
+        {
+            case VCWidget::ButtonWidget:
+            {
+                VCButton *button = qobject_cast<VCButton*>(widget);
+                if (value == 0)
+                    button->setOn(false);
+                else
+                    button->setOn(true);
+            }
+            default:
+            break;
+        }
+    }
+
     return 1;
 }
 
@@ -145,11 +186,26 @@ QString WebAccess::getVCHTML()
                   "<head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n";
 
     m_JScode = "<script language=\"javascript\" type=\"text/javascript\">\n"
-               "window.onload = function() {\n"
-               "var url = 'ws://' + window.location.host + '/foo';\n"
-               "websocket = new WebSocket(url);\n"
-               "};\n"
-               "</script>\n";
+            "var websocket;\n"
+            "function sendWSmessage(msg) {\n"
+            " websocket.send(msg);\n"
+            "};\n"
+            "window.onload = function() {\n"
+            " var url = 'ws://' + window.location.host + '/qlcplusWS';\n"
+            " websocket = new WebSocket(url);\n"
+
+            " websocket.onopen = function(ev) {\n"
+            "  //alert(\"Websocket open!\");\n"
+            " };\n"
+
+            " websocket.onclose = function(ev) {\n"
+            "  //alert(\"Websocket close!\");\n"
+            " };\n"
+
+            " websocket.onerror = function(ev) {\n"
+            "  alert(\"Websocket error!\");\n"
+            " };\n"
+            "};\n";
 
     VCFrame *mainFrame = m_vc->contents();
     QSize mfSize = mainFrame->size();
@@ -158,6 +214,8 @@ QString WebAccess::getVCHTML()
             "background-color: " + mainFrame->backgroundColor().name() + "; \" />\n";
 
     widgetsHTML += getChildrenHTML(mainFrame);
+
+    m_JScode += "\n</script>\n";
 
     QString str = mainHTML + m_JScode + m_CSScode + "</head>\n<body>\n" + widgetsHTML + "</body>\n</html>";
     return str;
@@ -184,7 +242,28 @@ QString WebAccess::getVCFrameHTML(VCFrame *frame)
     return str;
 }
 
-QString WebAccess::getButtonStyle()
+QString WebAccess::getButtonJS()
+{
+    if (m_buttonFound == true)
+        return QString();
+
+    QString str = "function buttonClick(id) {\n"
+                " var obj = document.getElementById(id);\n"
+                " if (obj.value == \"0\" || obj.value == undefined) {\n"
+                "  obj.value = \"255\";\n"
+                "  obj.style.border = \"3px solid #00E600\";\n"
+                " }\n"
+                " else {\n"
+                "  obj.value = \"0\";\n"
+                "  obj.style.border = \"3px solid #A0A0A0\";\n"
+                " }\n"
+                " var btnMsg = id + \"|\" + obj.value;\n"
+                " sendWSmessage(btnMsg);\n"
+                "};\n";
+    return str;
+}
+
+QString WebAccess::getButtonCSS()
 {
     if (m_buttonFound == true)
         return QString();
@@ -209,11 +288,14 @@ QString WebAccess::getButtonStyle()
 
 QString WebAccess::getVCButtonHTML(VCButton *btn)
 {
-    m_CSScode += getButtonStyle();
+    m_JScode += getButtonJS();
+    m_CSScode += getButtonCSS();
     QString str = "<div class=\"vcbutton-wrapper\" style=\""
             "left: " + QString::number(btn->x()) + "px; "
             "top: " + QString::number(btn->y()) + "px;\">\n";
-    str +=  "<div class=\"vcbutton\" style=\""
+    str +=  "<div class=\"vcbutton\" id=\"" + QString::number(btn->id()) + "\" "
+            "onclick=\"buttonClick(" + QString::number(btn->id()) + ");\""
+            "style=\""
             "width: " + QString::number(btn->width()) + "px; "
             "height: " + QString::number(btn->height()) + "px; "
             "color: " + btn->foregroundColor().name() + "; "
@@ -222,7 +304,7 @@ QString WebAccess::getVCButtonHTML(VCButton *btn)
     return str;
 }
 
-QString WebAccess::getSliderStyle()
+QString WebAccess::getSliderCSS()
 {
     if (m_sliderFound == true)
         return QString();
@@ -264,7 +346,7 @@ QString WebAccess::getSliderStyle()
 
 QString WebAccess::getVCSliderHTML(VCSlider *slider)
 {
-    m_CSScode += getSliderStyle();
+    m_CSScode += getSliderCSS();
     QString str = "<div class=\"vcslider\" style=\""
             "left: " + QString::number(slider->x()) + "px; "
             "top: " + QString::number(slider->y()) + "px; "
@@ -281,8 +363,9 @@ QString WebAccess::getVCSliderHTML(VCSlider *slider)
     return str;
 }
 
-WebAccess::WebAccess(VirtualConsole *vcInstance, QObject *parent) :
+WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, QObject *parent) :
     QObject(parent)
+  , m_doc(doc)
   , m_vc(vcInstance)
 {
     Q_ASSERT(s_instance == NULL);
