@@ -144,6 +144,13 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
                 else
                     button->pressFunction();
             }
+            break;
+            case VCWidget::SliderWidget:
+            {
+                VCSlider *slider = qobject_cast<VCSlider*>(widget);
+                slider->setSliderValue(value);
+            }
+            break;
             default:
             break;
         }
@@ -367,6 +374,21 @@ QString WebAccess::getVCButtonHTML(VCButton *btn)
     return str;
 }
 
+QString WebAccess::getSliderJS()
+{
+    if (m_sliderFound == true)
+        return QString();
+
+    QString str = "function slVchange(id) {\n"
+            " var slObj = document.getElementById(id);\n"
+            " var obj = document.getElementById(\"slv\" + id);\n"
+            " obj.innerHTML = slObj.value;\n"
+            " var sldMsg = id + \"|\" + slObj.value;\n"
+            " sendWSmessage(sldMsg);\n"
+            "}\n";
+    return str;
+}
+
 QString WebAccess::getSliderCSS()
 {
     if (m_sliderFound == true)
@@ -377,6 +399,12 @@ QString WebAccess::getSliderCSS()
             "position: absolute;\n"
             "border: 1px solid #777777;\n"
             "border-radius: 3px;\n"
+            "}\n"
+
+            ".vcslLabel {\n"
+            "height:20px;\n"
+            "text-align:center;\n"
+            "font:normal 16px sans-serif;\n"
             "}\n"
 
             "input[type=\"range\"].vVertical {\n"
@@ -409,7 +437,10 @@ QString WebAccess::getSliderCSS()
 
 QString WebAccess::getVCSliderHTML(VCSlider *slider)
 {
+    m_JScode += getSliderJS();
     m_CSScode += getSliderCSS();
+    QString slID = QString::number(slider->id());
+
     QString str = "<div class=\"vcslider\" style=\""
             "left: " + QString::number(slider->x()) + "px; "
             "top: " + QString::number(slider->y()) + "px; "
@@ -417,12 +448,23 @@ QString WebAccess::getVCSliderHTML(VCSlider *slider)
             "height: " + QString::number(slider->height()) + "px; "
             "background-color: " + slider->backgroundColor().name() + ";\">\n";
 
-    str +=  "<input type=\"range\" class=\"vVertical\" style=\""
-            "width: " + QString::number(slider->height()) + "px; "
-            "margin-top: " + QString::number(slider->height()) + "px; "
+    str += "<div id=\"slv" + slID + "\" "
+            "class=\"vcslLabel\" style=\"top:0px;\">" +
+            QString::number(slider->sliderValue()) + "</div>\n";
+
+    str +=  "<input type=\"range\" class=\"vVertical\" "
+            "id=\"" + slID + "\" "
+            "onchange=\"slVchange(" + slID + ");\" style=\""
+            "width: " + QString::number(slider->height() - 50) + "px; "
+            "margin-top: " + QString::number(slider->height() - 50) + "px; "
             "margin-left: " + QString::number(slider->width() / 2) + "px;\" "
             "min=\"0\" max=\"255\" step=\"1\" value=\"" +
-            QString::number(slider->sliderValue()) + "\" />\n</div>\n";
+            QString::number(slider->sliderValue()) + "\" />\n";
+
+    str += "<div id=\"sln" + slID + "\" "
+            "class=\"vcslLabel\" style=\"bottom:0px;\">" +
+            slider->caption() + "</div>\n"
+            "</div>\n";
     return str;
 }
 

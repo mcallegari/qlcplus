@@ -55,6 +55,7 @@ private:
     QString getButtonCSS();
     QString getVCButtonHTML(VCButton *btn);
 
+    QString getSliderJS();
     QString getSliderCSS();
     QString getVCSliderHTML(VCSlider *slider);
 
