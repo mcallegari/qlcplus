@@ -172,7 +172,7 @@ QString WebAccess::getChildrenHTML(VCWidget *frame)
 
     foreach (VCWidget *widget, chList)
     {
-        if (widget->parentWidget() != frame)
+        if (widget->parentWidget() != frame || widget->isVisible() == false)
             continue;
 
         switch (widget->type())
@@ -291,6 +291,31 @@ QString WebAccess::getVCHTML()
     return str;
 }
 
+QString WebAccess::getFrameCSS()
+{
+    if (m_frameFound == true)
+        return QString();
+
+    QString str = "<style>\n"
+            ".frameHeader {\n"
+            " background: linear-gradient(to bottom, #666666 0%, #000000 100%);\n"
+            " background: -ms-linear-gradient(top, #666666 0%, #000000 100%);\n"
+            " background: -moz-linear-gradient(top, #666666 0%, #000000 100%);\n"
+            " background: -o-linear-gradient(top, #666666 0%, #000000 100%);\n"
+            " background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #666666), color-stop(1, #000000));\n"
+            " background: -webkit-linear-gradient(top, #666666 0%, #000000 100%);\n"
+            " border-radius: 3px;\n"
+            " padding: 3px;\n"
+            " margin-left: 2px;\n"
+            " height: 32px;\n"
+            " font:normal 20px/1.2em sans-serif;\n"
+            "}\n"
+            "</style>\n";
+
+    m_frameFound = true;
+    return str;
+}
+
 QString WebAccess::getVCFrameHTML(VCFrame *frame)
 {
     QColor border(90, 90, 90);
@@ -305,6 +330,12 @@ QString WebAccess::getVCFrameHTML(VCFrame *frame)
           "background-color: " + frame->backgroundColor().name() + "; "
           "border-radius: 3px;\n"
           "border: 1px solid " + border.name() + ";\">\n";
+    if (frame->isHeaderVisible())
+    {
+        m_CSScode += getFrameCSS();
+        str += "<div class=\"frameHeader\" style=\"color:" +
+                frame->foregroundColor().name() + "\">" + frame->caption() + "</div>\n";
+    }
 
     str += getChildrenHTML(frame);
     str += "</div>\n";
@@ -345,7 +376,7 @@ QString WebAccess::getButtonCSS()
             ".vcbutton {\n"
             "display: table-cell;\n"
             "border: 3px solid #A0A0A0;\n"
-            "border-radius: 3px;\n"
+            "border-radius: 4px;\n"
             "font-family: arial, verdana, sans-serif;\n"
             "text-align:center;\n"
             "vertical-align: middle;\n"

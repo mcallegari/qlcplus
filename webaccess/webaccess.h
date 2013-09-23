@@ -49,6 +49,7 @@ private:
     QString getChildrenHTML(VCWidget *frame);
     QString getVCHTML();
 
+    QString getFrameCSS();
     QString getVCFrameHTML(VCFrame *frame);
 
     QString getButtonJS();
