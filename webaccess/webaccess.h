@@ -29,6 +29,7 @@ class VirtualConsole;
 class VCWidget;
 class VCButton;
 class VCSlider;
+class VCLabel;
 class VCFrame;
 class Doc;
 
@@ -46,20 +47,22 @@ public:
                                char *data, size_t data_len);
 
 private:
-    QString getChildrenHTML(VCWidget *frame);
-    QString getVCHTML();
-
     QString getFrameCSS();
-    QString getVCFrameHTML(VCFrame *frame);
+    QString getFrameHTML(VCFrame *frame);
 
     QString getButtonJS();
     QString getButtonCSS();
-    QString getVCButtonHTML(VCButton *btn);
+    QString getButtonHTML(VCButton *btn);
 
     QString getSliderJS();
     QString getSliderCSS();
-    QString getVCSliderHTML(VCSlider *slider);
+    QString getSliderHTML(VCSlider *slider);
 
+    QString getLabelCSS();
+    QString getLabelHTML(VCLabel *label);
+
+    QString getChildrenHTML(VCWidget *frame);
+    QString getVCHTML();
 protected:
     QString m_JScode;
     QString m_CSScode;
