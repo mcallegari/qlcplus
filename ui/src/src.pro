@@ -36,7 +36,6 @@ HEADERS += aboutbox.h \
            assignhotkey.h \
            audioeditor.h \
            audiotriggersconfiguration.h \
-           audiotriggerfactory.h \
            audiotriggerwidget.h \
            channelsselection.h \
            chasereditor.h \
@@ -86,6 +85,7 @@ HEADERS += aboutbox.h \
            simpledeskengine.h \
            speeddial.h \
            speeddialwidget.h \
+           vcaudiotriggers.h \
            vcbutton.h \
            vcbuttonproperties.h \
            vccuelist.h \
@@ -109,7 +109,8 @@ HEADERS += aboutbox.h \
            vcxypadfixture.h \
            vcxypadfixtureeditor.h \
            vcxypadproperties.h \
-           virtualconsole.h
+           virtualconsole.h \
+    audiobar.h
 
 FORMS += aboutbox.ui \
          addchannelsgroup.ui \
@@ -120,7 +121,6 @@ FORMS += aboutbox.ui \
          assignhotkey.ui \
          audioeditor.ui \
          audiotriggersconfiguration.ui \
-         audiotriggerfactory.ui \
          chasereditor.ui \
          channelsselection.ui \
          collectioneditor.ui \
@@ -162,7 +162,6 @@ SOURCES += aboutbox.cpp \
            assignhotkey.cpp \
            audioeditor.cpp \
            audiotriggersconfiguration.cpp \
-           audiotriggerfactory.cpp \
            audiotriggerwidget.cpp \
            channelsselection.cpp \
            chasereditor.cpp \
@@ -212,6 +211,7 @@ SOURCES += aboutbox.cpp \
            simpledeskengine.cpp \
            speeddial.cpp \
            speeddialwidget.cpp \
+           vcaudiotriggers.cpp \
            vcbutton.cpp \
            vcbuttonproperties.cpp \
            vccuelist.cpp \
@@ -235,7 +235,8 @@ SOURCES += aboutbox.cpp \
            vcxypadfixture.cpp \
            vcxypadfixtureeditor.cpp \
            vcxypadproperties.cpp \
-           virtualconsole.cpp
+           virtualconsole.cpp \
+    audiobar.cpp
 
 
 TRANSLATIONS += qlcplus_fi_FI.ts

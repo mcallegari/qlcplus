@@ -28,7 +28,6 @@
 #include <QFile>
 
 #include "dmxdumpfactoryproperties.h"
-#include "audiotriggerfactory.h"
 #include "qlcfixturedefcache.h"
 #include "doc.h"
 
@@ -137,7 +136,6 @@ public slots:
 
     void slotControlMonitor();
     void slotAddressTool();
-    void slotAudioInput();
     void slotControlFullScreen();
     void slotControlFullScreen(bool usingGeometry);
     void slotControlBlackout();
@@ -161,7 +159,6 @@ private:
     QAction* m_modeToggleAction;
     QAction* m_controlMonitorAction;
     QAction* m_addressToolAction;
-    QAction* m_audioInputAction;
     QAction* m_controlFullScreenAction;
     QAction* m_controlBlackoutAction;
     QAction* m_controlPanicAction;
@@ -180,7 +177,6 @@ private:
      *********************************************************************/
 private:
     DmxDumpFactoryProperties *m_dumpProperties;
-    AudioTriggerFactory *m_audioTriggers;
 
     /*********************************************************************
      * Load & Save

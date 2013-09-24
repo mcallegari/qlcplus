@@ -48,6 +48,15 @@ VCSoloFrame::VCSoloFrame(QWidget* parent, Doc* doc, bool canCollapse) : VCFrame(
 
     m_frameStyle = KVCFrameStyleSunken;
 
+    if(canCollapse == true)
+    {
+        QString txtColor = "white";
+        if (m_hasCustomForegroundColor)
+            txtColor = this->foregroundColor().name();
+        m_label->setStyleSheet("QLabel { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #BC0A0A, stop: 1 #370303); "
+                               "color: " + txtColor + "; border-radius: 3px; padding: 3px; margin-left: 2px; }");
+    }
+
     QSettings settings;
     QVariant var = settings.value(SETTINGS_SOLOFRAME_SIZE);
     if (var.isValid() == true)

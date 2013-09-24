@@ -36,6 +36,7 @@
 
 #include "vcpropertieseditor.h"
 #include "vcframeproperties.h"
+#include "vcaudiotriggers.h"
 #include "virtualconsole.h"
 #include "vcsoloframe.h"
 #include "vcspeeddial.h"
@@ -781,6 +782,18 @@ bool VCFrame::loadXML(const QDomElement* root)
                 if (multipageMode() == true)
                     addWidgetToPageMap(dial);
                 dial->show();
+            }
+        }
+        else if (tag.tagName() == KXMLQLCVCAudioTriggers)
+        {
+            VCAudioTriggers* triggers = new VCAudioTriggers(this, m_doc);
+            if (triggers->loadXML(&tag) == false)
+                delete triggers;
+            else
+            {
+                if (multipageMode() == true)
+                    addWidgetToPageMap(triggers);
+                triggers->show();
             }
         }
         else

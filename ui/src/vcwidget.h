@@ -120,7 +120,8 @@ public:
         SoloFrameWidget,
         SpeedDialWidget,
         CueListWidget,
-        LabelWidget
+        LabelWidget,
+        AudioTriggersWidget
     };
 
 public:

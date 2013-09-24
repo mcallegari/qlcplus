@@ -42,6 +42,7 @@
 #include "vcpropertieseditor.h"
 #include "addvcbuttonmatrix.h"
 #include "addvcslidermatrix.h"
+#include "vcaudiotriggers.h"
 #include "virtualconsole.h"
 #include "dmxdumpfactory.h"
 #include "vcproperties.h"
@@ -94,6 +95,7 @@ VirtualConsole::VirtualConsole(QWidget* parent, Doc* doc)
     , m_addFrameAction(NULL)
     , m_addSoloFrameAction(NULL)
     , m_addLabelAction(NULL)
+    , m_addAudioTriggersAction(NULL)
 
     , m_toolsSettingsAction(NULL)
 
@@ -319,6 +321,9 @@ void VirtualConsole::initActions()
     m_addLabelAction = new QAction(QIcon(":/label.png"), tr("New Label"), this);
     connect(m_addLabelAction, SIGNAL(triggered(bool)), this, SLOT(slotAddLabel()), Qt::QueuedConnection);
 
+    m_addAudioTriggersAction = new QAction(QIcon(":/audioinput.png"), tr("New Audio Triggers"), this);
+    connect(m_addAudioTriggersAction, SIGNAL(triggered(bool)), this, SLOT(slotAddAudioTriggers()), Qt::QueuedConnection);
+
     /* Put add actions under the same group */
     m_addActionGroup = new QActionGroup(this);
     m_addActionGroup->setExclusive(false);
@@ -333,6 +338,7 @@ void VirtualConsole::initActions()
     m_addActionGroup->addAction(m_addFrameAction);
     m_addActionGroup->addAction(m_addSoloFrameAction);
     m_addActionGroup->addAction(m_addLabelAction);
+    m_addActionGroup->addAction(m_addAudioTriggersAction);
 
     /* Tools menu actions */
     m_toolsSettingsAction = new QAction(QIcon(":/configure.png"), tr("Virtual Console Settings"), this);
@@ -460,6 +466,7 @@ void VirtualConsole::initMenuBar()
     m_addMenu->addSeparator();
     m_addMenu->addAction(m_addXYPadAction);
     m_addMenu->addAction(m_addCueListAction);
+    m_addMenu->addAction(m_addAudioTriggersAction);
     m_addMenu->addSeparator();
     m_addMenu->addAction(m_addFrameAction);
     m_addMenu->addAction(m_addSoloFrameAction);
@@ -535,6 +542,7 @@ void VirtualConsole::initMenuBar()
     m_toolbar->addAction(m_addFrameAction);
     m_toolbar->addAction(m_addSoloFrameAction);
     m_toolbar->addAction(m_addLabelAction);
+    m_toolbar->addAction(m_addAudioTriggersAction);
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_editCutAction);
     m_toolbar->addAction(m_editCopyAction);
@@ -938,6 +946,23 @@ void VirtualConsole::slotAddLabel()
     label->move(parent->lastClickPoint());
     clearWidgetSelection();
     setWidgetSelected(label, true);
+    m_doc->setModified();
+}
+
+void VirtualConsole::slotAddAudioTriggers()
+{
+    VCWidget* parent(closestParent());
+    if (parent == NULL)
+        return;
+
+    VCAudioTriggers* triggers = new VCAudioTriggers(parent, m_doc);
+    Q_ASSERT(triggers != NULL);
+    triggers->setID(newWidgetId());
+    checkWidgetPage(triggers, parent);
+    triggers->show();
+    triggers->move(parent->lastClickPoint());
+    clearWidgetSelection();
+    setWidgetSelected(triggers, true);
     m_doc->setModified();
 }
 
@@ -1572,6 +1597,7 @@ void VirtualConsole::slotModeChanged(Doc::Mode mode)
         m_addFrameAction->setShortcut(QKeySequence());
         m_addSoloFrameAction->setShortcut(QKeySequence());
         m_addLabelAction->setShortcut(QKeySequence());
+        m_addAudioTriggersAction->setShortcut(QKeySequence());
 
         m_editCutAction->setShortcut(QKeySequence());
         m_editCopyAction->setShortcut(QKeySequence());
@@ -1620,6 +1646,7 @@ void VirtualConsole::slotModeChanged(Doc::Mode mode)
         m_addFrameAction->setShortcut(QKeySequence("CTRL+SHIFT+F"));
         m_addSoloFrameAction->setShortcut(QKeySequence("CTRL+SHIFT+O"));
         m_addLabelAction->setShortcut(QKeySequence("CTRL+SHIFT+L"));
+        m_addAudioTriggersAction->setShortcut(QKeySequence("CTRL+SHIFT+A"));
 
         m_editCutAction->setShortcut(QKeySequence("CTRL+X"));
         m_editCopyAction->setShortcut(QKeySequence("CTRL+C"));

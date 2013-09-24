@@ -42,6 +42,14 @@
 #include "doc.h"
 #include "bus.h"
 
+#if defined(__APPLE__)
+  #include "audiocapture_portaudio.h"
+#elif defined(WIN32)
+  #include "audiocapture_wavein.h"
+#else
+  #include "audiocapture_alsa.h"
+#endif
+
 Doc::Doc(QObject* parent, int outputUniverses, int inputUniverses)
     : QObject(parent)
     , m_wsPath("")
@@ -50,6 +58,7 @@ Doc::Doc(QObject* parent, int outputUniverses, int inputUniverses)
     , m_outputMap(new OutputMap(this, outputUniverses))
     , m_masterTimer(new MasterTimer(this))
     , m_inputMap(new InputMap(this, inputUniverses))
+    , m_inputCapture(NULL)
     , m_mode(Design)
     , m_kiosk(false)
     , m_clipboard(new QLCClipboard(this))
@@ -203,6 +212,21 @@ MasterTimer* Doc::masterTimer() const
 InputMap* Doc::inputMap() const
 {
     return m_inputMap;
+}
+
+AudioCapture *Doc::audioInputCapture()
+{
+    if (m_inputCapture == NULL)
+    {
+#if defined(__APPLE__)
+        m_inputCapture = new AudioCapturePortAudio();
+#elif defined(WIN32)
+        m_inputCapture = new AudioCaptureWaveIn();
+#else
+        m_inputCapture = new AudioCaptureAlsa();
+#endif
+    }
+    return m_inputCapture;
 }
 
 /*****************************************************************************
