@@ -963,6 +963,8 @@ void VirtualConsole::slotAddAudioTriggers()
     triggers->move(parent->lastClickPoint());
     clearWidgetSelection();
     setWidgetSelected(triggers, true);
+    connect(triggers, SIGNAL(enableRequest(quint32)),
+            this, SLOT(slotEnableAudioTriggers(quint32)));
     m_doc->setModified();
 }
 
@@ -1376,6 +1378,25 @@ void VirtualConsole::slotStackingLower()
         widget->lower();
 }
 
+void VirtualConsole::slotEnableAudioTriggers(quint32 id)
+{
+    QList<VCWidget *> widgetsList = getChildren((VCWidget *)m_contents);
+    VCAudioTriggers *enableWidget = NULL;
+    foreach (VCWidget *widget, widgetsList)
+    {
+        if (widget->type() == VCWidget::AudioTriggersWidget)
+        {
+            VCAudioTriggers *triggers = (VCAudioTriggers *)widget;
+            if (widget->id() == id)
+                enableWidget = triggers;
+            else
+                triggers->enableCapture(false);
+        }
+    }
+    if (enableWidget != NULL)
+        enableWidget->enableCapture(true);
+}
+
 /*****************************************************************************
  * Frame menu callbacks
  *****************************************************************************/
@@ -1752,7 +1773,6 @@ QList<VCWidget *> VirtualConsole::getChildren(VCWidget *obj)
 
 void VirtualConsole::postLoad()
 {
-    qDebug() << Q_FUNC_INFO << "---------------------------<<";
     m_contents->postLoad();
 
     /* apply GM values

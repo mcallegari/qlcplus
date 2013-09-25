@@ -55,6 +55,11 @@ public:
     /*********************************************************************
      * GUI
      *********************************************************************/
+public:
+    void enableCapture(bool enable);
+
+signals:
+    void enableRequest(quint32 id);
 
 protected slots:
     void slotEnableButtonToggled(bool toggle);

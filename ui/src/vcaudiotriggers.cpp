@@ -131,64 +131,35 @@ VCAudioTriggers::~VCAudioTriggers()
 {
 }
 
-AudioBar *VCAudioTriggers::getSpectrumBar(int index)
+void VCAudioTriggers::enableCapture(bool enable)
 {
-    if (index == 1000)
-        return m_volumeBar;
-    if (index >= 0 && index < m_spectrumBars.size())
-        return m_spectrumBars.at(index);
-
-    return NULL;
-}
-
-QList<AudioBar *> VCAudioTriggers::getAudioBars()
-{
-    QList <AudioBar *> list;
-    list.append(m_volumeBar);
-    list.append(m_spectrumBars);
-
-    return list;
-}
-
-void VCAudioTriggers::setSpectrumBarsNumber(int num)
-{
-    if (num > m_spectrumBars.count())
+    if (enable == true)
     {
-        for (int i = 0 ; i < num - m_spectrumBars.count(); i++)
-        {
-            AudioBar *asb = new AudioBar(AudioBar::None, 0);
-            m_spectrumBars.append(asb);
-        }
-    }
-    else if (num < m_spectrumBars.count())
-    {
-        for (int i = 0 ; i < m_spectrumBars.count() - num; i++)
-            m_spectrumBars.takeLast();
-    }
-    if (m_inputCapture != NULL)
-        m_inputCapture->setBandsNumber(num);
-}
+        if (m_inputCapture->isRunning())
+            return;
 
-void VCAudioTriggers::setSpectrumBarType(int index, int type)
-{
-    if (index == 1000)
-    {
-        m_volumeBar->m_type = type;
-        return;
+        m_inputCapture->setBandsNumber(m_spectrum->barsNumber());
+        if (m_inputCapture->isInitialized() == false)
+            m_inputCapture->initialize(44100, 1, 2048);
+        m_inputCapture->start();
+        m_button->setChecked(true);
+        connect(m_inputCapture, SIGNAL(dataProcessed(double *, double, quint32)),
+                this, SLOT(slotDisplaySpectrum(double *, double, quint32)));
     }
-    if (index >= 0 && index < m_spectrumBars.size())
-        m_spectrumBars[index]->m_type = type;
+    else
+    {
+        m_inputCapture->stop();
+        m_button->setChecked(false);
+        disconnect(m_inputCapture, SIGNAL(dataProcessed(double *, double, quint32)),
+                this, SLOT(slotDisplaySpectrum(double *, double, quint32)));
+    }
 }
 
 void VCAudioTriggers::slotEnableButtonToggled(bool toggle)
 {
     if (toggle == true)
     {
-        connect(m_inputCapture, SIGNAL(dataProcessed(double *, double, quint32)),
-                this, SLOT(slotDisplaySpectrum(double *, double, quint32)));
-        if (m_inputCapture->isInitialized() == false)
-            m_inputCapture->initialize(44100, 1, 2048);
-        m_inputCapture->start();
+        emit enableRequest(this->id());
     }
     else
     {
@@ -299,6 +270,60 @@ void VCAudioTriggers::slotModeChanged(Doc::Mode mode)
     }
     VCWidget::slotModeChanged(mode);
 }
+
+/*************************************************************************
+ * Configuration
+ *************************************************************************/
+
+AudioBar *VCAudioTriggers::getSpectrumBar(int index)
+{
+    if (index == 1000)
+        return m_volumeBar;
+    if (index >= 0 && index < m_spectrumBars.size())
+        return m_spectrumBars.at(index);
+
+    return NULL;
+}
+
+QList<AudioBar *> VCAudioTriggers::getAudioBars()
+{
+    QList <AudioBar *> list;
+    list.append(m_volumeBar);
+    list.append(m_spectrumBars);
+
+    return list;
+}
+
+void VCAudioTriggers::setSpectrumBarsNumber(int num)
+{
+    if (num > m_spectrumBars.count())
+    {
+        for (int i = 0 ; i < num - m_spectrumBars.count(); i++)
+        {
+            AudioBar *asb = new AudioBar(AudioBar::None, 0);
+            m_spectrumBars.append(asb);
+        }
+    }
+    else if (num < m_spectrumBars.count())
+    {
+        for (int i = 0 ; i < m_spectrumBars.count() - num; i++)
+            m_spectrumBars.takeLast();
+    }
+    if (m_inputCapture != NULL)
+        m_inputCapture->setBandsNumber(num);
+}
+
+void VCAudioTriggers::setSpectrumBarType(int index, int type)
+{
+    if (index == 1000)
+    {
+        m_volumeBar->m_type = type;
+        return;
+    }
+    if (index >= 0 && index < m_spectrumBars.size())
+        m_spectrumBars[index]->m_type = type;
+}
+
 
 void VCAudioTriggers::editProperties()
 {

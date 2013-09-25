@@ -31,6 +31,8 @@ public:
     explicit AudioTriggerWidget(QWidget *parent = 0);
 
     void setBarsNumber(int num);
+    int barsNumber();
+
     void setMaxFrequency(int freq);
 
     uchar getUcharVolume();
