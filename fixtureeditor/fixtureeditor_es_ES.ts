@@ -6,7 +6,7 @@
     <message>
         <location filename="../ui/src/aboutbox.ui" line="14"/>
         <source>About Q Light Controller Plus</source>
-        <translation type="unfinished"></translation>
+        <translation>Acerca de Q Light Controller Plus</translation>
     </message>
     <message>
         <location filename="../ui/src/aboutbox.ui" line="69"/>
@@ -16,7 +16,7 @@
     <message>
         <location filename="../ui/src/aboutbox.ui" line="116"/>
         <source>This application is licensed under the terms of GNU GPL version 2.</source>
-        <translation>Esta aplicacion tiene licencia bajo los terminos de GNU GPL version 2.</translation>
+        <translation>Esta aplicación está licenciadabajo los terminos de GNU GPL versión 2.</translation>
     </message>
     <message>
         <location filename="../ui/src/aboutbox.ui" line="126"/>
@@ -69,7 +69,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Arial&apos;;&quot;&gt;11. BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTYFOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW.  EXCEPT WHENOTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIESPROVIDE THE PROGRAM &amp;quot;AS IS&amp;quot; WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSEDOR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OFMERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.  THE ENTIRE RISK ASTO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU.  SHOULD THEPROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING,REPAIR OR CORRECTION.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Arial&apos;;&quot;&gt;12. IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITINGWILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MODIFY AND/ORREDISTRIBUTE THE PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES,INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISINGOUT OF THE USE OR INABILITY TO USE THE PROGRAM (INCLUDING BUT NOT LIMITEDTO LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BYYOU OR THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHERPROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THEPOSSIBILITY OF SUCH DAMAGES.&lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Arial&apos;; font-weight:600;&quot;&gt;END OF TERMS AND CONDITIONS&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/src/aboutbox.cpp" line="41"/>
@@ -79,6 +79,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../ui/src/aboutbox.cpp" line="42"/>
         <source>Website: %1</source>
+        <translatorcomment>Sitio Web: %1</translatorcomment>
         <translation>Website: %1</translation>
     </message>
 </context>
@@ -87,17 +88,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="app.cpp" line="123"/>
         <source>Unrecognized file extension: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Extensión de archivo no reconocida: %1</translation>
     </message>
     <message>
         <location filename="app.cpp" line="147"/>
         <source>Fixture loading failed</source>
-        <translation>Fallo al cargar Proyector</translation>
+        <translation>Fallo al cargar Fixture</translation>
     </message>
     <message>
         <location filename="app.cpp" line="148"/>
         <source>Unable to load fixture definition: </source>
-        <translation>Imposible cargar definiciones del proyector:</translation>
+        <translation>Imposible cargar definición de fixture:</translation>
     </message>
     <message>
         <location filename="app.cpp" line="251"/>
@@ -124,7 +125,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="app.cpp" line="263"/>
         <source>&amp;Save</source>
-        <translation>&amp;Salvar</translation>
+        <translation>&amp;Guardar</translation>
     </message>
     <message>
         <location filename="app.cpp" line="264"/>
@@ -135,7 +136,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="app.cpp" line="269"/>
         <source>Save &amp;As...</source>
-        <translation></translation>
+        <translation>Guardar &amp;como...</translation>
     </message>
     <message>
         <location filename="app.cpp" line="270"/>
@@ -157,7 +158,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="app.cpp" line="282"/>
         <source>Index</source>
-        <translation>Indice</translation>
+        <translation>Índice</translation>
     </message>
     <message>
         <location filename="app.cpp" line="283"/>
@@ -168,7 +169,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="app.cpp" line="288"/>
         <source>About Fixture Definition Editor...</source>
-        <translation>Sobre el editor de proyectores...</translation>
+        <translation>Sobre el Editor de Definiciones de Fixture...</translation>
     </message>
     <message>
         <location filename="app.cpp" line="293"/>
@@ -183,12 +184,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="app.cpp" line="329"/>
         <source>&amp;Help</source>
-        <translation>&amp;Ayuda</translation>
+        <translation>A&amp;yuda</translation>
     </message>
     <message>
         <location filename="app.cpp" line="367"/>
         <source>Open a fixture definition</source>
-        <translation>Abrir una definicion de proyector</translation>
+        <translation>Abrir una definición de fixture</translation>
     </message>
 </context>
 <context>
@@ -196,7 +197,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="capabilitywizard.ui" line="13"/>
         <source>Capability Wizard</source>
-        <translation>Asistente de Propiedades</translation>
+        <translation>Asistente de Capacidades</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="19"/>
@@ -216,12 +217,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="capabilitywizard.ui" line="42"/>
         <source>Gap</source>
-        <translation>Montar</translation>
+        <translation>Intérvalo</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="49"/>
         <source>Number of values per capability</source>
-        <translation>Numero de valores por propiedad</translation>
+        <translation>Cantidad de valores por capacidad</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="65"/>
@@ -231,7 +232,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="capabilitywizard.ui" line="72"/>
         <source>Number of capabilities to create</source>
-        <translation>Numero de propiedades a crear</translation>
+        <translation>Cantidad de capacidades a crear</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="88"/>
@@ -241,12 +242,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="capabilitywizard.ui" line="94"/>
         <source>The common base name for all capabilities. Use hash &apos;#&apos; to create a running number.</source>
-        <translation>El nombre comun de todas las propiedades. Usa # para crear un numero que corra.</translation>
+        <translation>El nombre comun para todas las capacidades. Utilice almohadilla (#) para crear números consecutivos.</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="97"/>
         <source>Capability #</source>
-        <translation>Propiedad</translation>
+        <translation># Capacidades</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="107"/>
@@ -256,7 +257,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="capabilitywizard.ui" line="113"/>
         <source>A list of capabilities that would be created with these settings</source>
-        <translation>Lista de propiedades que son creadas con estos parametros</translation>
+        <translation>Lista de capacidades que serán creadas con estos parámetros</translation>
     </message>
 </context>
 <context>
@@ -269,7 +270,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../ui/src/docbrowser.cpp" line="116"/>
         <source>Backward</source>
-        <translation>Atras</translation>
+        <translation>Atrás</translation>
     </message>
     <message>
         <location filename="../ui/src/docbrowser.cpp" line="117"/>
@@ -279,12 +280,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../ui/src/docbrowser.cpp" line="118"/>
         <source>Index</source>
-        <translation>Indice</translation>
+        <translation>Índice</translation>
     </message>
     <message>
         <location filename="../ui/src/docbrowser.cpp" line="119"/>
         <source>About Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>Acerca de Qt</translation>
     </message>
 </context>
 <context>
@@ -292,71 +293,71 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editcapability.ui" line="14"/>
         <source>Edit Capability</source>
-        <translation>Editar Propiedad</translation>
+        <translation>Editar Capacidad</translation>
     </message>
     <message>
         <location filename="editcapability.ui" line="22"/>
         <source>Capability Values</source>
-        <translation>Valor de Propiedad</translation>
+        <translation>Valores de Capacidades</translation>
     </message>
     <message>
         <location filename="editcapability.ui" line="34"/>
         <source>Min</source>
-        <translation>Minimo</translation>
+        <translation>Mínimo</translation>
     </message>
     <message>
         <location filename="editcapability.ui" line="106"/>
         <location filename="editcapability.cpp" line="46"/>
         <source>Gobo</source>
-        <translation type="unfinished"></translation>
+        <translation>Gobo</translation>
     </message>
     <message>
         <location filename="editcapability.ui" line="73"/>
         <source>Max</source>
-        <translation>Maximo</translation>
+        <translation>Máximo</translation>
     </message>
     <message>
         <location filename="editcapability.ui" line="96"/>
         <source>Description</source>
-        <translation>Descripcion</translation>
+        <translation>Descripción</translation>
     </message>
     <message>
         <location filename="editcapability.ui" line="143"/>
         <location filename="editcapability.ui" line="154"/>
         <location filename="editcapability.ui" line="165"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="editcapability.ui" line="172"/>
         <source>Picture</source>
-        <translation type="unfinished"></translation>
+        <translation>Imagen</translation>
     </message>
     <message>
         <location filename="editcapability.ui" line="179"/>
         <location filename="editcapability.cpp" line="48"/>
         <source>Colour</source>
-        <translation type="unfinished">Color</translation>
+        <translation>Color</translation>
     </message>
     <message>
         <location filename="editcapability.ui" line="186"/>
         <source>Second Colour</source>
-        <translation type="unfinished"></translation>
+        <translation>Color Secundario</translation>
     </message>
     <message>
         <location filename="editcapability.cpp" line="50"/>
         <source>Effect</source>
-        <translation type="unfinished"></translation>
+        <translation>Efecto</translation>
     </message>
     <message>
         <location filename="editcapability.cpp" line="140"/>
         <source>Open Gobo File</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir archivo de Gobo</translation>
     </message>
     <message>
         <location filename="editcapability.cpp" line="144"/>
         <source>Gobo pictures (*.jpg *.jpeg *.png *.bmp)</source>
-        <translation type="unfinished"></translation>
+        <translation>Imágenes de gobo (*.jpg *.jpeg *.png *.bmp)</translation>
     </message>
 </context>
 <context>
@@ -374,7 +375,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editchannel.ui" line="27"/>
         <source>The name of this channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de este canal</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="34"/>
@@ -384,7 +385,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editchannel.ui" line="41"/>
         <source>The group this channel belongs to</source>
-        <translation type="unfinished"></translation>
+        <translation>El grupo al que pertenece este canal</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="48"/>
@@ -394,7 +395,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editchannel.ui" line="55"/>
         <source>Primary colour level controlled by this channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivel de color primario controlado por este canal</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="62"/>
@@ -414,60 +415,60 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editchannel.ui" line="85"/>
         <source>Capabilities</source>
-        <translation>Propiedades</translation>
+        <translation>Capacidades</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="104"/>
         <source>Minimum value</source>
-        <translation>Valor Minimo</translation>
+        <translation>Valor Mínimo</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="109"/>
         <source>Maximum value</source>
-        <translation>Valor Maximo</translation>
+        <translation>Valor Máximo</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="114"/>
         <source>Description</source>
-        <translation>Descripcion</translation>
+        <translation>Descripción</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="122"/>
         <source>Add a new capability</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir una nueva capacidad</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="142"/>
         <source>Remove the selected capability</source>
-        <translation type="unfinished"></translation>
+        <translation>Quitar la capacidad seleccionada</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="162"/>
         <source>Edit the selected capability</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar la capacidad seleccionada</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="195"/>
         <source>Capability wizard</source>
-        <translation>Asistente de Propiedades</translation>
+        <translation>Asistente de Capacidades</translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="259"/>
         <location filename="editchannel.cpp" line="325"/>
         <location filename="editchannel.cpp" line="369"/>
         <source>Overlapping values</source>
-        <translation>Superposicion de Valores</translation>
+        <translation>Superposición de Valores</translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="260"/>
         <location filename="editchannel.cpp" line="326"/>
         <source>The capability&apos;s values overlap with another capability!</source>
-        <translation>Los valores de la propiedad superpuestos con otra propiedad!</translation>
+        <translation>Los valores de la capacidad están superpuestos con otra capacidad!</translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="370"/>
         <source>Some capabilities could not be created because of overlapping values.</source>
-        <translation>Algunas propiedades no pueden ser creadas a causa de una superposicion de valores.</translation>
+        <translation>Algunas capacidades no pueden ser creadas debido a  una superposición de valores.</translation>
     </message>
 </context>
 <context>
@@ -475,17 +476,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="edithead.ui" line="14"/>
         <source>Edit Head</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar Cabeza</translation>
     </message>
     <message>
         <location filename="edithead.ui" line="33"/>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Canal</translation>
     </message>
     <message>
         <location filename="edithead.ui" line="38"/>
         <source>Name</source>
-        <translation type="unfinished">Nombre</translation>
+        <translation>Nombre</translation>
     </message>
 </context>
 <context>
@@ -493,12 +494,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editmode.ui" line="14"/>
         <source>Edit Mode</source>
-        <translation>Modo Editor</translation>
+        <translation>Editor de Modo</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="20"/>
         <source>Mode Name</source>
-        <translation>Nombre Modo</translation>
+        <translation>Nombre del Modo</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="34"/>
@@ -508,7 +509,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editmode.ui" line="59"/>
         <source>Number</source>
-        <translation>Numero</translation>
+        <translation>Número</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="64"/>
@@ -519,67 +520,67 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editmode.ui" line="72"/>
         <source>Add channel(s) to this mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir canal(es) a este modo</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="92"/>
         <source>Remove the selected channel</source>
-        <translation type="unfinished">Eliminar el canal seleccionado</translation>
+        <translation>Quitar el canal seleccionado</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="112"/>
         <source>Raise the selected channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Subir el canal seleccionado</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="132"/>
         <source>Lower the selected channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Bajar el canal seleccionado</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="166"/>
         <source>Heads</source>
-        <translation type="unfinished"></translation>
+        <translation>Cabezas</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="179"/>
         <source>Head</source>
-        <translation type="unfinished"></translation>
+        <translation>Cabeza</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="187"/>
         <source>Compose a new head</source>
-        <translation type="unfinished"></translation>
+        <translation>Componer una nueva cabeza</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="207"/>
         <source>Remove the selected head</source>
-        <translation type="unfinished"></translation>
+        <translation>Quitar la cabeza seleccionada</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="227"/>
         <source>Edit the channels that belong to the selected head</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar los canales que pertenecen a la cabeza seleccionada</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="230"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="247"/>
         <source>Raise the selected head</source>
-        <translation type="unfinished"></translation>
+        <translation>Subir la cabeza seleccionada</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="267"/>
         <source>Lower the selected head</source>
-        <translation type="unfinished"></translation>
+        <translation>Bajar la cabeza seleccionado</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="301"/>
         <source>Physical</source>
-        <translation>Fisico</translation>
+        <translation>Físico</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="307"/>
@@ -595,62 +596,62 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editmode.ui" line="402"/>
         <source>HMI 150W</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="editmode.ui" line="407"/>
         <source>HMI 250W</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="editmode.ui" line="412"/>
         <source>HMI 400W</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="editmode.ui" line="417"/>
         <source>HMI 575W</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="editmode.ui" line="422"/>
         <source>HMI 700W</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="editmode.ui" line="437"/>
         <source>HSD 150W</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="editmode.ui" line="442"/>
         <source>HSD 200W</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="editmode.ui" line="447"/>
         <source>HSD 250W</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="editmode.ui" line="452"/>
         <source>HSD 575W</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="editmode.ui" line="522"/>
         <source>MSR 575W</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="editmode.ui" line="540"/>
         <source>Lumens</source>
-        <translation>Lumenes</translation>
+        <translation>Lúmenes</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="560"/>
         <source>Colour Temp (K)</source>
-        <translation type="unfinished"></translation>
+        <translation>Temperatura de Color (K)</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="574"/>
@@ -752,7 +753,7 @@ p, li { white-space: pre-wrap; }
         <location filename="editmode.ui" line="708"/>
         <location filename="editmode.ui" line="728"/>
         <source>mm</source>
-        <translation></translation>
+        <translation>mm</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="698"/>
@@ -762,7 +763,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editmode.ui" line="718"/>
         <source>Depth</source>
-        <translation>Profundo</translation>
+        <translation>Profundidad</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="741"/>
@@ -772,12 +773,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editmode.ui" line="776"/>
         <source>Min Degrees</source>
-        <translation>Grados Minimos</translation>
+        <translation>Grados Mínimos</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="793"/>
         <source>Max Degrees</source>
-        <translation>Grados Maximos</translation>
+        <translation>Grados Máximos</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="813"/>
@@ -787,22 +788,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editmode.ui" line="853"/>
         <source>Pan Max Degrees</source>
-        <translation>Grados Max Pan</translation>
+        <translation>Grados Max de Pan</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="870"/>
         <source>Tilt Max Degrees</source>
-        <translation>Grados Max Tilt</translation>
+        <translation>Grados Max de Tilt</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="890"/>
         <source>Electrical</source>
-        <translation type="unfinished"></translation>
+        <translation>Eléctrico</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="896"/>
         <source>Power Consumption</source>
-        <translation>Consumo</translation>
+        <translation>Consumo eléctrico</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="906"/>
@@ -822,7 +823,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editmode.cpp" line="173"/>
         <source>Select a channel to add</source>
-        <translation>Selecciona el canal a añadir</translation>
+        <translation>Seleccionar el canal a añadir</translation>
     </message>
     <message>
         <location filename="editmode.cpp" line="192"/>
@@ -832,7 +833,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editmode.cpp" line="193"/>
         <source>All available channels are present in the mode.</source>
-        <translation>Todos los canales disponibles estan presentes en el modo.</translation>
+        <translation>Todos los canales disponibles están presentes en el modo.</translation>
     </message>
 </context>
 <context>
@@ -840,7 +841,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="fixtureeditor.ui" line="14"/>
         <source>Fixture</source>
-        <translation>Proyector</translation>
+        <translation>Fixture</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="24"/>
@@ -855,7 +856,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="fixtureeditor.ui" line="49"/>
         <source>The manufacturer name for this fixture (e.g. Martin)</source>
-        <translation>El nombre del fabricante del proyector (ej.:Martin)</translation>
+        <translation>El nombre del fabricante de este fixture (ej.:Martin)</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="56"/>
@@ -865,7 +866,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="fixtureeditor.ui" line="69"/>
         <source>The model name for this fixture (e.g. MAC250)</source>
-        <translation>El nombre del proyector (ej.:MAC250)</translation>
+        <translation>El modelo de este fixture (ej.:MAC250)</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="76"/>
@@ -875,7 +876,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="fixtureeditor.ui" line="89"/>
         <source>The general type of this fixture</source>
-        <translation>De que tipo es este proyector</translation>
+        <translation>El tipo general de este fixture</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="210"/>
@@ -886,7 +887,7 @@ p, li { white-space: pre-wrap; }
         <location filename="fixtureeditor.ui" line="217"/>
         <source>The name of the author of this fixture definition</source>
         <oldsource>The author name of this fixture definition</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Nombre del autor de esta definición de fixture</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="238"/>
@@ -908,7 +909,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="fixtureeditor.ui" line="273"/>
         <source>Add a channel</source>
-        <translation>Añadir al canal</translation>
+        <translation>Añadir a un canal</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="293"/>
@@ -923,17 +924,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="fixtureeditor.ui" line="340"/>
         <source>Copy the selected channel to the clipboard</source>
-        <translation>Copiar el canal seleccionado al bloc de notas</translation>
+        <translation>Copiar el canal seleccionado al portapapeles</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="360"/>
         <source>Paste the channel in clipboard to this fixture</source>
-        <translation>Pegar el canal seleccionado al bloc de notas</translation>
+        <translation>Pegar el canal en el portapapeles a este fixture</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="393"/>
         <source>Open/close all channel items</source>
-        <translation>Abrir/Cerrar todos los canales</translation>
+        <translation>Abrir/Cerrar todos los elementos de canal</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="414"/>
@@ -943,12 +944,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="fixtureeditor.ui" line="443"/>
         <source>Heads</source>
-        <translation type="unfinished"></translation>
+        <translation>Cabezas</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="451"/>
         <source>Add a mode</source>
-        <translation>Añadir al modo</translation>
+        <translation>Añadir un modo</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="471"/>
@@ -968,7 +969,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="fixtureeditor.ui" line="551"/>
         <source>Open/close all mode items</source>
-        <translation>Abrir/Cerrar todos los modos</translation>
+        <translation>Abrir/Cerrar todos los elementos de modo</translation>
     </message>
 </context>
 <context>
@@ -983,31 +984,35 @@ p, li { white-space: pre-wrap; }
         <source>Do you want to save changes to fixture
 &quot;%1&quot;
 before closing?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Desea guardar los cambios al fixture
+&quot;%1&quot;
+antes de cerrar?</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="224"/>
         <location filename="fixtureeditor.cpp" line="234"/>
         <source>Missing important information</source>
-        <translation type="unfinished"></translation>
+        <translation>Falta información importante</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="225"/>
         <source>Missing manufacturer name.
 Unable to save fixture.</source>
-        <translation type="unfinished"></translation>
+        <translation>Falta el nombre del fabricante.
+No se puede guardar el fixture.</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="235"/>
         <source>Missing fixture model name.
 Unable to save fixture.</source>
-        <translation type="unfinished"></translation>
+        <translation>Falta el nombre del modelo de fixture.
+No se puede guardar el fixture.</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="264"/>
         <location filename="fixtureeditor.cpp" line="322"/>
         <source>Fixture saving failed</source>
-        <translation>Fallo al salvar Proyector</translation>
+        <translation>Fallo al guardar el Fixture</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="265"/>
@@ -1015,43 +1020,43 @@ Unable to save fixture.</source>
         <source>Unable to save fixture definition:
 %1</source>
         <oldsource>Unable to save fixture definition: </oldsource>
-        <translation>Imposible salvar definiciones del proyector:
+        <translation>Imposible salvar definiciones del fixture:
 %1</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="280"/>
         <source>Save fixture definition</source>
-        <translation>Salvar definicion del proyector</translation>
+        <translation>Guarda la definición del fixture</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="341"/>
         <source>New Fixture</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuevo Fixture</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="412"/>
         <source>Channel already exists</source>
-        <translation type="unfinished"></translation>
+        <translation>El canal ya existe</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="413"/>
         <source>A channel by the name &quot;%1&quot; already exists!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Un canal con el nombre &quot;%1&quot; ya existe!</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="420"/>
         <source>Channel has no name</source>
-        <translation type="unfinished"></translation>
+        <translation>El canal no tiene nombre</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="421"/>
         <source>You must give the channel a descriptive name!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Tiene que dar al canal un nombre descriptivo!</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="455"/>
         <source>Are you sure you wish to remove channel: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Está seguro que quiere quitar el canal: %1?</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="585"/>
@@ -1093,12 +1098,12 @@ Unable to save fixture.</source>
     <message>
         <location filename="fixtureeditor.cpp" line="689"/>
         <source>Another mode by that name already exists</source>
-        <translation>Ya existe este nombre</translation>
+        <translation>Otro modo con ese nombre ya existe</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="698"/>
         <source>You must give a name to the mode</source>
-        <translation>Necesitas un nombre para el modo</translation>
+        <translation>Necesita dar un nombre al modo</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="730"/>
@@ -1108,17 +1113,17 @@ Unable to save fixture.</source>
     <message>
         <location filename="fixtureeditor.cpp" line="731"/>
         <source>Are you sure you wish to remove mode: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Está seguro que quiere quitar el modo: %1?</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="771"/>
         <source>Rename new mode</source>
-        <translation>Renombra el nuevo modo</translation>
+        <translation>Renombrar el nuevo modo</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="772"/>
         <source>Give a unique name for the mode</source>
-        <translation>Elige un solo nombre para el modo</translation>
+        <translation>Elija un nombre único para el modo</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="774"/>
@@ -1133,7 +1138,7 @@ Unable to save fixture.</source>
     <message>
         <location filename="fixtureeditor.cpp" line="785"/>
         <source>Another mode by that name already exists.</source>
-        <translation>Ya existe este nombre.</translation>
+        <translation>Otro modo con ese nombre ya existe.</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="828"/>
