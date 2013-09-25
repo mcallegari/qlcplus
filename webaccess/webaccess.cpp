@@ -66,13 +66,22 @@ int WebAccess::beginRequestHandler(mg_connection *conn)
 
   if (QString(ri->uri) == "/qlcplusWS")
       return 0;
-  /*
-  if (is_websocket_request(conn))
+
+  if (QString(ri->uri) == "/loadProject")
   {
-    handle_websocket_request(conn);
-    return 1;
+      QByteArray postReply =
+              QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n"
+              "<script type=\"text/javascript\">\n"
+              " window.location = \"/\"\n"
+              "</script></head></html>").toAscii();
+      int post_size = postReply.length();
+      mg_printf(conn, "HTTP/1.1 200 OK\r\n"
+                "Content-Type: text/html\r\n"
+                "Content-Length: %d\r\n\r\n"
+                "%s",
+                post_size, postReply.data());
+      return 1;
   }
-  */
 
   if (QString(ri->uri) != "/")
       return 1;
@@ -86,8 +95,7 @@ int WebAccess::beginRequestHandler(mg_connection *conn)
   mg_printf(conn,
             "HTTP/1.1 200 OK\r\n"
             "Content-Type: text/html\r\n"
-            "Content-Length: %d\r\n"        // Always set Content-Length
-            "\r\n"
+            "Content-Length: %d\r\n\r\n"
             "%s",
             content_length, contentArray.data());
 
@@ -487,6 +495,7 @@ QString WebAccess::getVCHTML()
 
     m_CSScode = "<style>\n"
             "body { margin: 0px; }\n"
+
             ".controlBar {\n"
             " width: 100%;\n"
             " height: 40px;\n"
@@ -496,11 +505,12 @@ QString WebAccess::getVCHTML()
             " background: -o-linear-gradient(top, #B2D360 0%, #4B9002 100%);\n"
             " background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #B2D360), color-stop(1, #4B9002));\n"
             " background: -webkit-linear-gradient(top, #B2D360 0%, #4B9002 100%);\n"
-            " font:bold 26px/1.2em sans-serif;\n"
+            " font:bold 24px/1.2em sans-serif;\n"
             " color: #ffffff;\n"
             " border-spacing:5px 0px;\n"
             "}\n"
-            ".cmdButton a {\n"
+
+            ".cmdButton {\n"
             " height: 36px;\n"
             " display: table-cell;\n"
             " border: 2px solid #0E172E;\n"
@@ -509,9 +519,17 @@ QString WebAccess::getVCHTML()
             " text-align:center;\n"
             " vertical-align: middle;\n"
             "}\n"
+
             ".cmdButton a:hover {\n"
             " background-color: #3D64C7;\n"
             "}\n"
+
+            ".cmdButton input {\n"
+            " width: 80px;\n"
+            " overflow: hidden !important;\n"
+            " background: transparent;"
+            "}\n"
+
             ".swInfo {\n"
             " position: absolute;\n"
             " right: 0;\n"
@@ -523,6 +541,10 @@ QString WebAccess::getVCHTML()
     VCFrame *mainFrame = m_vc->contents();
     QSize mfSize = mainFrame->size();
     QString widgetsHTML = "<div class=\"controlBar\">\n"
+            "<div class=\"cmdButton\">\n"
+            "<form action=\"/loadProject\" method=\"POST\">Load project\n"
+            "<input type=\"file\" onchange=\"this.form.submit()\" name=\"qlcprj\"></input>\n"
+            "</form></div>\n"
             "<div class=\"cmdButton\"><a onclick=\"sendCMD('opMode');\">Operate mode</a></div>\n"
             "<div class=\"swInfo\">" + QString(APPNAME) + " " + QString(APPVERSION) + "</div>"
             "</div>\n"
