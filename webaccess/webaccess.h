@@ -47,18 +47,10 @@ public:
                                char *data, size_t data_len);
 
 private:
-    QString getFrameCSS();
+
     QString getFrameHTML(VCFrame *frame);
-
-    QString getButtonJS();
-    QString getButtonCSS();
     QString getButtonHTML(VCButton *btn);
-
-    QString getSliderJS();
-    QString getSliderCSS();
     QString getSliderHTML(VCSlider *slider);
-
-    QString getLabelCSS();
     QString getLabelHTML(VCLabel *label);
 
     QString getChildrenHTML(VCWidget *frame);

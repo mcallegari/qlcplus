@@ -576,6 +576,20 @@ void VCWidget::slotKeyReleased(const QKeySequence& keySequence)
     emit keyReleased(keySequence);
 }
 
+/*********************************************************************
+ * Web access
+ *********************************************************************/
+
+QString VCWidget::getCSS()
+{
+    return QString();
+}
+
+QString VCWidget::getJS()
+{
+    return QString();
+}
+
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/

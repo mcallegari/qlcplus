@@ -172,31 +172,6 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
     return 1;
 }
 
-QString WebAccess::getFrameCSS()
-{
-    if (m_frameFound == true)
-        return QString();
-
-    QString str = "<style>\n"
-            ".frameHeader {\n"
-            " background: linear-gradient(to bottom, #666666 0%, #000000 100%);\n"
-            " background: -ms-linear-gradient(top, #666666 0%, #000000 100%);\n"
-            " background: -moz-linear-gradient(top, #666666 0%, #000000 100%);\n"
-            " background: -o-linear-gradient(top, #666666 0%, #000000 100%);\n"
-            " background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #666666), color-stop(1, #000000));\n"
-            " background: -webkit-linear-gradient(top, #666666 0%, #000000 100%);\n"
-            " border-radius: 3px;\n"
-            " padding: 3px;\n"
-            " margin-left: 2px;\n"
-            " height: 32px;\n"
-            " font:normal 20px/1.2em sans-serif;\n"
-            "}\n"
-            "</style>\n";
-
-    m_frameFound = true;
-    return str;
-}
-
 QString WebAccess::getFrameHTML(VCFrame *frame)
 {
     QColor border(90, 90, 90);
@@ -213,7 +188,11 @@ QString WebAccess::getFrameHTML(VCFrame *frame)
           "border: 1px solid " + border.name() + ";\">\n";
     if (frame->isHeaderVisible())
     {
-        m_CSScode += getFrameCSS();
+        if (m_frameFound == false)
+        {
+            m_CSScode += frame->getCSS();
+            m_frameFound = true;
+        }
         str += "<div class=\"frameHeader\" style=\"color:" +
                 frame->foregroundColor().name() + "\">" + frame->caption() + "</div>\n";
     }
@@ -224,54 +203,16 @@ QString WebAccess::getFrameHTML(VCFrame *frame)
     return str;
 }
 
-QString WebAccess::getButtonJS()
-{
-    if (m_buttonFound == true)
-        return QString();
-
-    QString str = "function buttonClick(id) {\n"
-                " var obj = document.getElementById(id);\n"
-                " if (obj.value == \"0\" || obj.value == undefined) {\n"
-                "  obj.value = \"255\";\n"
-                "  obj.style.border = \"3px solid #00E600\";\n"
-                " }\n"
-                " else {\n"
-                "  obj.value = \"0\";\n"
-                "  obj.style.border = \"3px solid #A0A0A0\";\n"
-                " }\n"
-                " var btnMsg = id + \"|\" + obj.value;\n"
-                " sendWSmessage(btnMsg);\n"
-                "};\n";
-    return str;
-}
-
-QString WebAccess::getButtonCSS()
-{
-    if (m_buttonFound == true)
-        return QString();
-
-    QString str = "<style>\n"
-            ".vcbutton-wrapper {\n"
-            "position: absolute;\n"
-            "}\n\n"
-            ".vcbutton {\n"
-            "display: table-cell;\n"
-            "border: 3px solid #A0A0A0;\n"
-            "border-radius: 4px;\n"
-            "font-family: arial, verdana, sans-serif;\n"
-            "text-align:center;\n"
-            "vertical-align: middle;\n"
-            "}\n"
-            "</style>\n";
-
-    m_buttonFound = true;
-    return str;
-}
 
 QString WebAccess::getButtonHTML(VCButton *btn)
 {
-    m_JScode += getButtonJS();
-    m_CSScode += getButtonCSS();
+    if (m_buttonFound == false)
+    {
+        m_JScode += btn->getJS();
+        m_CSScode += btn->getCSS();
+        m_buttonFound = true;
+    }
+
     QString str = "<div class=\"vcbutton-wrapper\" style=\""
             "left: " + QString::number(btn->x()) + "px; "
             "top: " + QString::number(btn->y()) + "px;\">\n";
@@ -286,71 +227,15 @@ QString WebAccess::getButtonHTML(VCButton *btn)
     return str;
 }
 
-QString WebAccess::getSliderJS()
-{
-    if (m_sliderFound == true)
-        return QString();
-
-    QString str = "function slVchange(id) {\n"
-            " var slObj = document.getElementById(id);\n"
-            " var obj = document.getElementById(\"slv\" + id);\n"
-            " obj.innerHTML = slObj.value;\n"
-            " var sldMsg = id + \"|\" + slObj.value;\n"
-            " sendWSmessage(sldMsg);\n"
-            "}\n";
-    return str;
-}
-
-QString WebAccess::getSliderCSS()
-{
-    if (m_sliderFound == true)
-        return QString();
-
-    QString str = "<style>\n"
-            ".vcslider {\n"
-            "position: absolute;\n"
-            "border: 1px solid #777777;\n"
-            "border-radius: 3px;\n"
-            "}\n"
-
-            ".vcslLabel {\n"
-            "height:20px;\n"
-            "text-align:center;\n"
-            "font:normal 16px sans-serif;\n"
-            "}\n"
-
-            "input[type=\"range\"].vVertical {\n"
-            "-webkit-appearance: none;\n"
-            "height: 4px;\n"
-            "border: 1px solid #8E8A86;\n"
-            "background-color: #888888;\n"
-            "-webkit-transform:rotate(270deg);\n"
-            "-webkit-transform-origin: 0% 50%;\n"
-            "-moz-transform:rotate(270deg);\n"
-            "-o-transform:rotate(270deg);\n"
-            "-ms-transform:rotate(270deg);\n"
-            "-ms-transform-origin:0% 50%;\n"
-            "transform:rotate(270deg);\n"
-            "transform-origin:0% 50%;\n"
-            "}\n"
-
-            "input[type=\"range\"]::-webkit-slider-thumb {\n"
-            "-webkit-appearance: none;\n"
-            "background-color: #999999;\n"
-            "border-radius: 4px;\n"
-            "border: 1px solid #5c5c5c;\n"
-            "width: 20px;\n"
-            "height: 36px;\n"
-            "}\n"
-            "</style>\n";
-    m_sliderFound = true;
-    return str;
-}
-
 QString WebAccess::getSliderHTML(VCSlider *slider)
 {
-    m_JScode += getSliderJS();
-    m_CSScode += getSliderCSS();
+    if (m_sliderFound == false)
+    {
+        m_JScode += slider->getJS();
+        m_CSScode += slider->getCSS();
+        m_sliderFound = true;
+    }
+
     QString slID = QString::number(slider->id());
 
     QString str = "<div class=\"vcslider\" style=\""
@@ -380,32 +265,13 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
     return str;
 }
 
-QString WebAccess::getLabelCSS()
-{
-    if (m_labelFound == true)
-        return QString();
-
-    QString str = "<style>\n"
-            ".vclabel-wrapper {\n"
-            "position: absolute;\n"
-            "}\n\n"
-            ".vclabel {\n"
-            "display: table-cell;\n"
-            "border: 1px solid #A0A0A0;\n"
-            "border-radius: 3px;\n"
-            "font-family: arial, verdana, sans-serif;\n"
-            "text-align:center;\n"
-            "vertical-align: middle;\n"
-            "}\n"
-            "</style>\n";
-
-    m_labelFound = true;
-    return str;
-}
-
 QString WebAccess::getLabelHTML(VCLabel *label)
 {
-    m_CSScode += getLabelCSS();
+    if (m_labelFound == false)
+    {
+        m_CSScode += label->getCSS();
+        m_labelFound = true;
+    }
 
     QString str = "<div class=\"vclabel-wrapper\" style=\""
             "left: " + QString::number(label->x()) + "px; "
