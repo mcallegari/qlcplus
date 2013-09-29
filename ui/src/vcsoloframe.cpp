@@ -165,6 +165,32 @@ void VCSoloFrame::slotButtonFunctionStarting()
     }
 }
 
+QString VCSoloFrame::getCSS()
+{
+    QString str = "<style>\n"
+            " .vcsoloframe {\n"
+            " position: absolute;\n"
+            " border-radius: 4px;\n"
+            "}\n\n"
+
+            ".vcsoloframeHeader {\n"
+            " background: linear-gradient(to bottom, #BC0A0A 0%, #370303 100%);\n"
+            " background: -ms-linear-gradient(top, #BC0A0A 0%, #370303 100%);\n"
+            " background: -moz-linear-gradient(top, #BC0A0A 0%, #370303 100%);\n"
+            " background: -o-linear-gradient(top, #BC0A0A 0%, #370303 100%);\n"
+            " background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #BC0A0A), color-stop(1, #370303));\n"
+            " background: -webkit-linear-gradient(top, #BC0A0A 0%, #370303 100%);\n"
+            " border-radius: 3px;\n"
+            " margin: 2px;\n"
+            " padding: 0 0 0 3px;\n"
+            " height: 32px;\n"
+            " font:normal 20px/1.2em sans-serif;\n"
+            "}\n"
+            "</style>\n";
+
+    return str;
+}
+
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/

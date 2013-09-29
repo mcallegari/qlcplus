@@ -26,6 +26,8 @@
 #include "mongoose.h"
 
 class VirtualConsole;
+class VCAudioTriggers;
+class VCSoloFrame;
 class VCWidget;
 class VCButton;
 class VCSlider;
@@ -49,9 +51,11 @@ public:
 private:
     QString getWidgetHTML(VCWidget *widget);
     QString getFrameHTML(VCFrame *frame);
+    QString getSoloFrameHTML(VCSoloFrame *frame);
     QString getButtonHTML(VCButton *btn);
     QString getSliderHTML(VCSlider *slider);
     QString getLabelHTML(VCLabel *label);
+    QString getAudioTriggersHTML(VCAudioTriggers *triggers);
 
     QString getChildrenHTML(VCWidget *frame);
     QString getVCHTML();
@@ -62,12 +66,14 @@ protected:
     bool m_genericFound;
     bool m_buttonFound;
     bool m_frameFound;
+    bool m_soloFrameFound;
     bool m_labelFound;
     bool m_cueListFound;
     bool m_sliderFound;
     bool m_knobFound;
     bool m_xyPadFound;
     bool m_speedDialFound;
+    bool m_audioTriggersFound;
 
 protected:
     Doc *m_doc;

@@ -23,6 +23,8 @@
 #include <QDomDocument>
 
 #include "virtualconsole.h"
+#include "vcaudiotriggers.h"
+#include "vcsoloframe.h"
 #include "simpledesk.h"
 #include "qlcconfig.h"
 #include "webaccess.h"
@@ -56,14 +58,17 @@ static int websocket_data_handler(struct mg_connection *conn, int flags,
 // This function will be called by mongoose on every new request.
 int WebAccess::beginRequestHandler(mg_connection *conn)
 {
+  m_genericFound = false;
   m_buttonFound = false;
   m_frameFound = false;
+  m_soloFrameFound = false;
   m_labelFound = false;
   m_cueListFound = false;
   m_sliderFound = false;
   m_knobFound = false;
   m_xyPadFound = false;
   m_speedDialFound = false;
+  m_audioTriggersFound = false;
 
   const struct mg_request_info *ri = mg_get_request_info(conn);
   qDebug() << Q_FUNC_INFO << ri->request_method << ri->uri;
@@ -189,6 +194,12 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
                 slider->setSliderValue(value);
             }
             break;
+            case VCWidget::AudioTriggersWidget:
+            {
+                VCAudioTriggers *triggers = qobject_cast<VCAudioTriggers*>(widget);
+                triggers->slotEnableButtonToggled(value ? true : false);
+            }
+            break;
             default:
             break;
         }
@@ -221,15 +232,12 @@ QString WebAccess::getFrameHTML(VCFrame *frame)
 {
     QColor border(90, 90, 90);
 
-    if (frame->type() == VCWidget::SoloFrameWidget)
-        border = QColor(255, 0, 0);
-
-    QString str = "<div style=\"position: absolute; left: " + QString::number(frame->x()) +
+    QString str = "<div class=\"vcframe\" style=\"left: " + QString::number(frame->x()) +
           "px; top: " + QString::number(frame->y()) + "px; width: " +
            QString::number(frame->width()) +
           "px; height: " + QString::number(frame->height()) + "px; "
           "background-color: " + frame->backgroundColor().name() + "; "
-          "border-radius: 3px;\n"
+          "border-radius: 4px;\n"
           "border: 1px solid " + border.name() + ";\">\n";
     if (frame->isHeaderVisible())
     {
@@ -238,7 +246,35 @@ QString WebAccess::getFrameHTML(VCFrame *frame)
             m_CSScode += frame->getCSS();
             m_frameFound = true;
         }
-        str += "<div class=\"frameHeader\" style=\"color:" +
+        str += "<div class=\"vcframeHeader\" style=\"color:" +
+                frame->foregroundColor().name() + "\">" + frame->caption() + "</div>\n";
+    }
+
+    str += getChildrenHTML(frame);
+    str += "</div>\n";
+
+    return str;
+}
+
+QString WebAccess::getSoloFrameHTML(VCSoloFrame *frame)
+{
+    QColor border(255, 0, 0);
+
+    QString str = "<div class=\"vcsoloframe\" style=\"left: " + QString::number(frame->x()) +
+          "px; top: " + QString::number(frame->y()) + "px; width: " +
+           QString::number(frame->width()) +
+          "px; height: " + QString::number(frame->height()) + "px; "
+          "background-color: " + frame->backgroundColor().name() + "; "
+          "border-radius: 4px;\n"
+          "border: 1px solid " + border.name() + ";\">\n";
+    if (frame->isHeaderVisible())
+    {
+        if (m_soloFrameFound == false)
+        {
+            m_CSScode += frame->getCSS();
+            m_soloFrameFound = true;
+        }
+        str += "<div class=\"vcsoloframeHeader\" style=\"color:" +
                 frame->foregroundColor().name() + "\">" + frame->caption() + "</div>\n";
     }
 
@@ -331,6 +367,37 @@ QString WebAccess::getLabelHTML(VCLabel *label)
     return str;
 }
 
+QString WebAccess::getAudioTriggersHTML(VCAudioTriggers *triggers)
+{
+    if (m_audioTriggersFound == false)
+    {
+        m_CSScode += triggers->getCSS();
+        m_JScode += triggers->getJS();
+        m_audioTriggersFound = true;
+    }
+
+    QString str = "<div class=\"vcaudiotriggers\" style=\"left: " + QString::number(triggers->x()) +
+          "px; top: " + QString::number(triggers->y()) + "px; width: " +
+           QString::number(triggers->width()) +
+          "px; height: " + QString::number(triggers->height()) + "px; "
+          "background-color: " + triggers->backgroundColor().name() + ";\">\n";
+
+    str += "<div class=\"vcaudioHeader\" style=\"color:" +
+            triggers->foregroundColor().name() + "\">" + triggers->caption() + "</div>\n";
+
+    str += "<div class=\"vcatbutton-wrapper\">\n";
+    str += "<a  class=\"vcatbutton\" id=\"" + QString::number(triggers->id()) + "\" "
+            "href=\"javascript:atButtonClick(" + QString::number(triggers->id()) + ");\" "
+            "style=\""
+            "width: " + QString::number(triggers->width() - 2) + "px; "
+            "height: " + QString::number(triggers->height() - 42) + "px;\">"
+            + tr("Enable") + "</a>\n";
+
+    str += "</div></div>\n";
+
+    return str;
+}
+
 QString WebAccess::getChildrenHTML(VCWidget *frame)
 {
     if (frame == NULL)
@@ -350,8 +417,10 @@ QString WebAccess::getChildrenHTML(VCWidget *frame)
         switch (widget->type())
         {
             case VCWidget::FrameWidget:
-            case VCWidget::SoloFrameWidget:
                 str += getFrameHTML((VCFrame *)widget);
+            break;
+            case VCWidget::SoloFrameWidget:
+                str += getSoloFrameHTML((VCSoloFrame *)widget);
             break;
             case VCWidget::ButtonWidget:
                 str += getButtonHTML((VCButton *)widget);
@@ -361,6 +430,9 @@ QString WebAccess::getChildrenHTML(VCWidget *frame)
             break;
             case VCWidget::LabelWidget:
                 str += getLabelHTML((VCLabel *)widget);
+            break;
+            case VCWidget::AudioTriggersWidget:
+                str += getAudioTriggersHTML((VCAudioTriggers *)widget);
             break;
             default:
                 str += getWidgetHTML(widget);
@@ -425,14 +497,14 @@ QString WebAccess::getVCHTML()
             " background: -webkit-linear-gradient(top, #B2D360 0%, #4B9002 100%);\n"
             " font:bold 24px/1.2em sans-serif;\n"
             " color: #ffffff;\n"
-            " border-spacing:5px 0px;\n"
             "}\n\n"
 
             ".button\n"
             "{\n"
             " height: 36px;\n"
+            " margin-left: 5px;"
             " text-decoration: none;\n"
-            " font: bold 1.2em 'Trebuchet MS',Arial, Helvetica;\n"
+            " font: bold 27px/1.2em 'Trebuchet MS',Arial, Helvetica;\n"
             " display: inline-block;\n"
             " text-align: center;\n"
             " color: #fff;\n"
@@ -445,8 +517,8 @@ QString WebAccess::getVCHTML()
             "}\n\n"
 
             ".button, .button span  {\n"
-            "-moz-border-radius: .3em;\n"
-            "border-radius: .3em;\n"
+            " -moz-border-radius: .3em;\n"
+            " border-radius: .3em;\n"
             "}\n\n"
 
             ".button span {\n"
@@ -503,7 +575,7 @@ QString WebAccess::getVCHTML()
             "<a class=\"button button-blue\" href=\"javascript:document.getElementById('loadTrigger').click();\">\n"
             "<span>Load project</span></a>\n"
 
-            "<a class=\"button button-blue\" href=\"javascript:sendCMD('opMode');\"><span>Operate mode</span></a>\n"
+            //"<a class=\"button button-blue\" href=\"javascript:sendCMD('opMode');\"><span>Operate mode</span></a>\n"
 
             "<div class=\"swInfo\">" + QString(APPNAME) + " " + QString(APPVERSION) + "</div>"
             "</div>\n"

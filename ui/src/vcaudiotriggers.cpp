@@ -157,6 +157,9 @@ void VCAudioTriggers::enableCapture(bool enable)
 
 void VCAudioTriggers::slotEnableButtonToggled(bool toggle)
 {
+    if (m_doc->mode() == Doc::Design)
+        return;
+
     if (toggle == true)
     {
         emit enableRequest(this->id());
@@ -244,6 +247,25 @@ void VCAudioTriggers::setCaption(const QString &text)
         m_label->setText(text);
 
     VCWidget::setCaption(text);
+}
+
+void VCAudioTriggers::setForegroundColor(const QColor &color)
+{
+    if (m_label != NULL)
+    {
+        m_label->setStyleSheet("QLabel { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #345D27, stop: 1 #0E1A0A); "
+                               "color: " + color.name() + "; border-radius: 3px; padding: 3px; margin-left: 2px; }");
+        m_hasCustomForegroundColor = true;
+        m_doc->setModified();
+    }
+}
+
+QColor VCAudioTriggers::foregroundColor() const
+{
+    if (m_label != NULL)
+        return m_label->palette().color(m_label->foregroundRole());
+    else
+        return VCWidget::foregroundColor();
 }
 
 void VCAudioTriggers::slotModeChanged(Doc::Mode mode)
@@ -345,6 +367,67 @@ void VCAudioTriggers::editProperties()
     }
     m_spectrum->setBarsNumber(m_spectrumBars.count());
     m_inputCapture->setBandsNumber(m_spectrumBars.count());
+}
+
+QString VCAudioTriggers::getCSS()
+{
+    QString str = "<style>\n"
+            ".vcaudiotriggers {\n"
+            " position: absolute;\n"
+            " border: 1px solid #777777;\n"
+            " border-radius: 4px;\n"
+            "}\n"
+
+            ".vcaudioHeader {\n"
+            " background: linear-gradient(to bottom, #345D27 0%, #0E1A0A 100%);\n"
+            " background: -ms-linear-gradient(top, #345D27 0%, #0E1A0A 100%);\n"
+            " background: -moz-linear-gradient(top, #345D27 0%, #0E1A0A 100%);\n"
+            " background: -o-linear-gradient(top, #345D27 0%, #0E1A0A 100%);\n"
+            " background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #345D27), color-stop(1, #0E1A0A));\n"
+            " background: -webkit-linear-gradient(top, #345D27 0%, #0E1A0A 100%);\n"
+            " border-radius: 3px;\n"
+            " height: 32px;\n"
+            " margin: 2px;\n"
+            " padding: 0 0 0 3px;\n"
+            " font:normal 20px/1.2em sans-serif;\n"
+            "}\n"
+
+            ".vcatbutton-wrapper {\n"
+            "position: absolute;\n"
+            "}\n\n"
+
+            ".vcatbutton {\n"
+            "display: table-cell;\n"
+            "border: 3px solid #A0A0A0;\n"
+            "border-radius: 4px;\n"
+            "font-family: arial, verdana, sans-serif;\n"
+            " text-decoration: none;\n"
+            "text-align:center;\n"
+            "vertical-align: middle;\n"
+            "}\n"
+
+            "</style>\n";
+    return str;
+}
+
+QString VCAudioTriggers::getJS()
+{
+    QString str = "function atButtonClick(id) {\n"
+                " var obj = document.getElementById(id);\n"
+                " if (obj.value == \"0\" || obj.value == undefined) {\n"
+                "  obj.value = \"255\";\n"
+                "  obj.style.border = \"3px solid #00E600\";\n"
+                "  obj.style.backgroundColor = \"#D7DE75\";\n"
+                " }\n"
+                " else {\n"
+                "  obj.value = \"0\";\n"
+                "  obj.style.border = \"3px solid #A0A0A0\";\n"
+                "  obj.style.backgroundColor = \"#D6D2D0\";\n"
+                " }\n"
+                " var btnMsg = id + \"|\" + obj.value;\n"
+                " sendWSmessage(btnMsg);\n"
+                "};\n";
+    return str;
 }
 
 bool VCAudioTriggers::loadXML(const QDomElement *root)

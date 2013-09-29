@@ -566,7 +566,12 @@ void VCFrame::editProperties()
 QString VCFrame::getCSS()
 {
     QString str = "<style>\n"
-            ".frameHeader {\n"
+            " .vcframe {\n"
+            " position: absolute;\n"
+            " border-radius: 4px;\n"
+            "}\n\n"
+
+            ".vcframeHeader {\n"
             " background: linear-gradient(to bottom, #666666 0%, #000000 100%);\n"
             " background: -ms-linear-gradient(top, #666666 0%, #000000 100%);\n"
             " background: -moz-linear-gradient(top, #666666 0%, #000000 100%);\n"
@@ -574,7 +579,8 @@ QString VCFrame::getCSS()
             " background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #666666), color-stop(1, #000000));\n"
             " background: -webkit-linear-gradient(top, #666666 0%, #000000 100%);\n"
             " border-radius: 3px;\n"
-            " padding: 3px;\n"
+            " margin: 2px;\n"
+            " padding: 0 0 0 3px;\n"
             " height: 32px;\n"
             " font:normal 20px/1.2em sans-serif;\n"
             "}\n"

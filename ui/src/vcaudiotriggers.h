@@ -61,8 +61,10 @@ public:
 signals:
     void enableRequest(quint32 id);
 
-protected slots:
+public slots:
     void slotEnableButtonToggled(bool toggle);
+
+protected slots:
     void slotDisplaySpectrum(double *spectrumBands, double maxMagnitude, quint32 power);
 
 protected:
@@ -107,10 +109,26 @@ public:
     void setCaption(const QString& text);
 
     /** @reimp */
+    void setForegroundColor(const QColor& color);
+
+    /** @reimp */
+    QColor foregroundColor() const;
+
+    /** @reimp */
     void slotModeChanged(Doc::Mode mode);
 
     /** @reimp */
     void editProperties();
+
+    /*********************************************************************
+     * Web access
+     *********************************************************************/
+public:
+    /** @reimpl */
+    QString getCSS();
+
+    /** @reimpl */
+    QString getJS();
 
     /*************************************************************************
      * Configuration
