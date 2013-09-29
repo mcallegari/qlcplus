@@ -205,3 +205,47 @@ void CoreMidiOutputDevice::writeFeedback(uchar cmd, uchar data1, uchar data2)
     if (s != 0)
         qWarning() << Q_FUNC_INFO << "Unable to send MIDI data to" << name();
 }
+
+void CharToByte(uchar* chars, Byte* bytes, unsigned int count){
+    for(unsigned int i = 0; i < count; i++)
+        bytes[i] = (Byte)chars[i];
+}
+
+void ByteToChar(Byte* bytes, uchar* chars, unsigned int count){
+    for(unsigned int i = 0; i < count; i++)
+         chars[i] = (uchar)bytes[i];
+}
+
+void CoreMidiOutputDevice::writeRaw(uchar* data)
+{
+    if(sizeof(data) == 0)
+        return;
+
+    if (isOpen() == false)
+        return;
+
+    Byte buffer[128]; // Should be enough for 1 message
+    MIDIPacketList* list = (MIDIPacketList*) buffer;
+    MIDIPacket* packet = MIDIPacketListInit(list);
+
+    //TODO: determine size of data
+    Byte message[12];
+    CharToByte(data, message, 12);
+
+    qDebug() << "writeRaw msg: " << sizeof(message) << " " << message;
+
+    /* Add the MIDI command to the packet list */
+    packet = MIDIPacketListAdd(list, sizeof(buffer), packet, 0, sizeof(message), message);
+    if (packet == 0)
+    {
+        qWarning() << "MIDIOut buffer overflow";
+        return;
+    }
+
+    /* Send the MIDI packet list */
+    OSStatus s = MIDISend(m_outPort, m_destination, list);
+    if (s != 0)
+        qWarning() << Q_FUNC_INFO << "Unable to send MIDI data to" << name();
+
+    qDebug() << "writeRaw done";
+}

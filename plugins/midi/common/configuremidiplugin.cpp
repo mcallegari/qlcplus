@@ -213,14 +213,13 @@ QWidget* ConfigureMidiPlugin::createModeWidget(MidiDevice::Mode mode)
 
 QWidget* ConfigureMidiPlugin::createInitMessageWidget(QString initMessage)
 {
+    //TODO: messages should come from an XML file
     QComboBox* combo = new QComboBox;
     combo->addItem("", "");
-    combo->addItem("APC20 init message1", "APC20 init message2");
+    combo->addItem("APC20 init message", "F0 47 00 7B 60 00 04 41 09 00 05 F7");
     combo->setEditable(true);
 
-    qDebug() << "createInitMsgWidget: " << initMessage;
-
-    if (initMessage == "APC20 init message2")
+    if (initMessage == "F0 47 00 7B 60 00 04 41 09 00 05 F7")
         combo->setCurrentIndex(1);
     else if (initMessage != "")
     {

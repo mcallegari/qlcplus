@@ -71,6 +71,9 @@ void MidiPlugin::openOutput(quint32 output)
     MidiOutputDevice* dev = outputDevice(output);
     if (dev != NULL)
         dev->open();
+
+    if (dev->initMessage() != "")
+        sendRaw(output, dev->initMessage());
 }
 
 void MidiPlugin::closeOutput(quint32 output)
@@ -268,6 +271,25 @@ void MidiPlugin::sendFeedBack(quint32 output, quint32 channel, uchar value, cons
             qDebug() << Q_FUNC_INFO << "cmd:" << cmd << "data1:" << data1 << "data2:" << data2;
             dev->writeFeedback(cmd, data1, data2);
         }
+    }
+}
+
+void MidiPlugin::sendRaw(quint32 output, const QString &data)
+{
+    qDebug() << "sendRaw data: " << data;
+    bool ok;
+    QStringList list;
+    list = data.split(" ");
+
+    uchar message[12];
+    for (int i = 0; i < list.length(); ++i) {
+        message[i] = list[i].toUInt(&ok,16);
+    }
+
+    MidiOutputDevice* dev = outputDevice(output);
+    if (dev != NULL)
+    {
+        dev->writeRaw(message);
     }
 }
 
