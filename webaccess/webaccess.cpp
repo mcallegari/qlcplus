@@ -20,8 +20,10 @@
 */
 
 #include <QDebug>
+#include <QDomDocument>
 
 #include "virtualconsole.h"
+#include "simpledesk.h"
 #include "qlcconfig.h"
 #include "webaccess.h"
 #include "vcbutton.h"
@@ -30,6 +32,8 @@
 #include "vcframe.h"
 #include "mongoose.h"
 #include "doc.h"
+
+#define POST_DATA_SIZE 1024
 
 WebAccess* s_instance = NULL;
 
@@ -69,6 +73,30 @@ int WebAccess::beginRequestHandler(mg_connection *conn)
 
   if (QString(ri->uri) == "/loadProject")
   {
+      char post_data[POST_DATA_SIZE];
+      QString projectXML = "";
+      bool done = false;
+
+      while(!done)
+      {
+          int read = mg_read(conn, post_data, sizeof(post_data));
+
+          qDebug() << "POST: received: " << read << "bytes";
+
+          QString recv(post_data);
+
+          if (read < POST_DATA_SIZE)
+          {
+              recv.truncate(read);
+              done = true;
+          }
+          projectXML += recv;
+      }
+
+      projectXML.remove(0, projectXML.indexOf("\n\r") + 2);
+      projectXML.truncate(projectXML.indexOf("\n\r"));
+      qDebug() << "Project XML:\n\n" << projectXML << "\n\n";
+
       QByteArray postReply =
               QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n"
               "<script type=\"text/javascript\">\n"
@@ -80,6 +108,9 @@ int WebAccess::beginRequestHandler(mg_connection *conn)
                 "Content-Length: %d\r\n\r\n"
                 "%s",
                 post_size, postReply.data());
+
+      emit loadProject(projectXML);
+
       return 1;
   }
 
@@ -131,10 +162,7 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
 
         if(cmdList[1] == "opMode")
         {
-            if (m_doc->mode() == Doc::Design)
-                m_doc->setMode(Doc::Operate);
-            else
-                m_doc->setMode(Doc::Design);
+            emit toggleDocMode();
         }
 
         return 1;
@@ -152,10 +180,7 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
             case VCWidget::ButtonWidget:
             {
                 VCButton *button = qobject_cast<VCButton*>(widget);
-                if (value == 0)
-                    button->releaseFunction();
-                else
-                    button->pressFunction();
+                button->pressFunction();
             }
             break;
             case VCWidget::SliderWidget:
@@ -170,6 +195,26 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
     }
 
     return 1;
+}
+
+QString WebAccess::getWidgetHTML(VCWidget *widget)
+{
+    if (m_genericFound == false)
+    {
+        m_CSScode += widget->getCSS();
+        m_genericFound = true;
+    }
+
+    QString str = "<div class=\"vcwidget\" style=\""
+            "left: " + QString::number(widget->x()) + "px; "
+            "top: " + QString::number(widget->y()) + "px; "
+            "width: " + QString::number(widget->width()) + "px; "
+            "height: " + QString::number(widget->height()) + "px; "
+            "background-color: " + widget->backgroundColor().name() + ";\">\n";
+
+    str +=  tr("Widget not supported (yet) for web access") + "</div>\n";
+
+    return str;
 }
 
 QString WebAccess::getFrameHTML(VCFrame *frame)
@@ -216,14 +261,14 @@ QString WebAccess::getButtonHTML(VCButton *btn)
     QString str = "<div class=\"vcbutton-wrapper\" style=\""
             "left: " + QString::number(btn->x()) + "px; "
             "top: " + QString::number(btn->y()) + "px;\">\n";
-    str +=  "<div class=\"vcbutton\" id=\"" + QString::number(btn->id()) + "\" "
-            "onclick=\"buttonClick(" + QString::number(btn->id()) + ");\" "
+    str +=  "<a class=\"vcbutton\" id=\"" + QString::number(btn->id()) + "\" "
+            "href=\"javascript:buttonClick(" + QString::number(btn->id()) + ");\" "
             "style=\""
             "width: " + QString::number(btn->width()) + "px; "
             "height: " + QString::number(btn->height()) + "px; "
             "color: " + btn->foregroundColor().name() + "; "
             "background-color: " + btn->backgroundColor().name() + "\">" +
-            btn->caption() + "</div>\n</div>\n";
+            btn->caption() + "</a>\n</div>\n";
     return str;
 }
 
@@ -318,6 +363,7 @@ QString WebAccess::getChildrenHTML(VCWidget *frame)
                 str += getLabelHTML((VCLabel *)widget);
             break;
             default:
+                str += getWidgetHTML(widget);
             break;
         }
     }
@@ -362,6 +408,12 @@ QString WebAccess::getVCHTML()
     m_CSScode = "<style>\n"
             "body { margin: 0px; }\n"
 
+            "form {\n"
+            " position: absolute;\n"
+            " top: -100px;\n"
+            " visibility: hidden;\n"
+            "}\n\n"
+
             ".controlBar {\n"
             " width: 100%;\n"
             " height: 40px;\n"
@@ -374,44 +426,85 @@ QString WebAccess::getVCHTML()
             " font:bold 24px/1.2em sans-serif;\n"
             " color: #ffffff;\n"
             " border-spacing:5px 0px;\n"
-            "}\n"
+            "}\n\n"
 
-            ".cmdButton {\n"
+            ".button\n"
+            "{\n"
             " height: 36px;\n"
-            " display: table-cell;\n"
-            " border: 2px solid #0E172E;\n"
-            " border-radius: 5px;\n"
-            " background-color: #2E4B95;\n"
-            " text-align:center;\n"
-            " vertical-align: middle;\n"
-            "}\n"
+            " text-decoration: none;\n"
+            " font: bold 1.2em 'Trebuchet MS',Arial, Helvetica;\n"
+            " display: inline-block;\n"
+            " text-align: center;\n"
+            " color: #fff;\n"
+            " border: 1px solid #9c9c9c;\n"
+            " border: 1px solid rgba(0, 0, 0, 0.3);\n"
+            " text-shadow: 0 1px 0 rgba(0,0,0,0.4);\n"
+            " box-shadow: 0 0 .05em rgba(0,0,0,0.4);\n"
+            " -moz-box-shadow: 0 0 .05em rgba(0,0,0,0.4);\n"
+            " -webkit-box-shadow: 0 0 .05em rgba(0,0,0,0.4);\n"
+            "}\n\n"
 
-            ".cmdButton a:hover {\n"
-            " background-color: #3D64C7;\n"
-            "}\n"
+            ".button, .button span  {\n"
+            "-moz-border-radius: .3em;\n"
+            "border-radius: .3em;\n"
+            "}\n\n"
 
-            ".cmdButton input {\n"
-            " width: 80px;\n"
-            " overflow: hidden !important;\n"
-            " background: transparent;"
-            "}\n"
+            ".button span {\n"
+            " border-top: 1px solid #fff;\n"
+            " border-top: 1px solid rgba(255, 255, 255, 0.5);\n"
+            " display: block;\n"
+            " padding: 0 10px 0 10px;\n"
+            " background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(.25, rgba(0, 0, 0, 0.05)), color-stop(.25, transparent), to(transparent)),\n"
+            " background-image: -moz-linear-gradient(45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%, transparent),\n"
+            "}\n\n"
+
+            ".button:hover {\n"
+            " box-shadow: 0 0 .1em rgba(0,0,0,0.4);\n"
+            " -moz-box-shadow: 0 0 .1em rgba(0,0,0,0.4);\n"
+            " -webkit-box-shadow: 0 0 .1em rgba(0,0,0,0.4);\n"
+            "}\n\n"
+
+            ".button:active {\n"
+            " position: relative;\n"
+            " top: 1px;\n"
+            "}\n\n"
+
+            ".button-blue {\n"
+            " background: #4477a1;\n"
+            " background: -webkit-gradient(linear, left top, left bottom, from(#81a8cb), to(#4477a1) );\n"
+            " background: -moz-linear-gradient(-90deg, #81a8cb, #4477a1);\n"
+            "}\n\n"
+
+            ".button-blue:hover {\n"
+            " background: #81a8cb;\n"
+            " background: -webkit-gradient(linear, left top, left bottom, from(#4477a1), to(#81a8cb) );\n"
+            " background: -moz-linear-gradient(-90deg, #4477a1, #81a8cb);\n"
+            "}\n\n"
+
+            ".button-blue:active { background: #4477a1; }\n\n"
 
             ".swInfo {\n"
             " position: absolute;\n"
             " right: 0;\n"
             " top: 0;\n"
             " font-size: 20px;\n"
-            "};\n"
+            "}\n"
             "</style>\n";
 
     VCFrame *mainFrame = m_vc->contents();
     QSize mfSize = mainFrame->size();
-    QString widgetsHTML = "<div class=\"controlBar\">\n"
-            "<div class=\"cmdButton\">\n"
-            "<form action=\"/loadProject\" method=\"POST\">Load project\n"
-            "<input type=\"file\" onchange=\"this.form.submit()\" name=\"qlcprj\"></input>\n"
-            "</form></div>\n"
-            "<div class=\"cmdButton\"><a onclick=\"sendCMD('opMode');\">Operate mode</a></div>\n"
+    QString widgetsHTML =
+            "<form action=\"/loadProject\" method=\"POST\" enctype=\"multipart/form-data\">\n"
+            "<input id=\"loadTrigger\" type=\"file\" "
+            "onchange=\"document.getElementById('submitTrigger').click();\" name=\"qlcprj\" />\n"
+            "<input id=\"submitTrigger\" type=\"submit\"/></form>"
+
+            "<div class=\"controlBar\">\n"
+            "<a class=\"button button-blue\" href=\"javascript:document.getElementById('loadTrigger').click();\">\n"
+            "<span>Load project</span></a>\n"
+
+            "<a class=\"button button-blue\" href=\"javascript:sendCMD('opMode');\"><span>Operate mode</span></a>\n"
+
             "<div class=\"swInfo\">" + QString(APPNAME) + " " + QString(APPVERSION) + "</div>"
             "</div>\n"
             "<div style=\"position: relative; "

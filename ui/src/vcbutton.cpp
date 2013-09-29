@@ -724,11 +724,13 @@ QString VCButton::getCSS()
             ".vcbutton-wrapper {\n"
             "position: absolute;\n"
             "}\n\n"
+
             ".vcbutton {\n"
             "display: table-cell;\n"
             "border: 3px solid #A0A0A0;\n"
             "border-radius: 4px;\n"
             "font-family: arial, verdana, sans-serif;\n"
+            " text-decoration: none;\n"
             "text-align:center;\n"
             "vertical-align: middle;\n"
             "}\n"

@@ -582,7 +582,15 @@ void VCWidget::slotKeyReleased(const QKeySequence& keySequence)
 
 QString VCWidget::getCSS()
 {
-    return QString();
+    QString str = "<style>\n"
+            ".vcwidget {\n"
+            "position: absolute;\n"
+            "border: 1px solid #777777;\n"
+            "border-radius: 3px;\n"
+            "font-family: arial, verdana, sans-serif;\n"
+            "}\n"
+            "</style>";
+    return str;
 }
 
 QString VCWidget::getJS()
@@ -1143,3 +1151,4 @@ void VCWidget::mouseMoveEvent(QMouseEvent* e)
         QWidget::mouseMoveEvent(e);
     }
 }
+

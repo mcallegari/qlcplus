@@ -216,6 +216,9 @@ public:
      */
     QFile::FileError saveXML(const QString& fileName);
 
+public slots:
+    void slotLoadDocFromMemory(QString xmlData);
+
 private:
     QString m_fileName;
 };

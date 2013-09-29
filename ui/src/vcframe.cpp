@@ -575,7 +575,6 @@ QString VCFrame::getCSS()
             " background: -webkit-linear-gradient(top, #666666 0%, #000000 100%);\n"
             " border-radius: 3px;\n"
             " padding: 3px;\n"
-            " margin-left: 2px;\n"
             " height: 32px;\n"
             " font:normal 20px/1.2em sans-serif;\n"
             "}\n"

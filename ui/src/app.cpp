@@ -456,6 +456,10 @@ void App::createKioskCloseButton(const QRect& rect)
 void App::enableWebAccess()
 {
     m_webAccess = new WebAccess(m_doc, VirtualConsole::instance());
+    connect(m_webAccess, SIGNAL(toggleDocMode()),
+            this, SLOT(slotModeToggle()));
+    connect(m_webAccess, SIGNAL(loadProject(QString)),
+            this, SLOT(slotLoadDocFromMemory(QString)));
 }
 
 void App::slotModeOperate()
@@ -1249,4 +1253,11 @@ QFile::FileError App::saveXML(const QString& fileName)
     file.close();
 
     return retval;
+}
+
+void App::slotLoadDocFromMemory(QString xmlData)
+{
+    QDomDocument doc;
+    doc.setContent(xmlData);
+    loadXML(doc);
 }

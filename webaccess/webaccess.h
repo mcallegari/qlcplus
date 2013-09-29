@@ -47,7 +47,7 @@ public:
                                char *data, size_t data_len);
 
 private:
-
+    QString getWidgetHTML(VCWidget *widget);
     QString getFrameHTML(VCFrame *frame);
     QString getButtonHTML(VCButton *btn);
     QString getSliderHTML(VCSlider *slider);
@@ -59,6 +59,7 @@ protected:
     QString m_JScode;
     QString m_CSScode;
 
+    bool m_genericFound;
     bool m_buttonFound;
     bool m_frameFound;
     bool m_labelFound;
@@ -76,6 +77,8 @@ protected:
     struct mg_callbacks m_callbacks;
 
 signals:
+    void toggleDocMode();
+    void loadProject(QString xmlData);
     
 public slots:
     
