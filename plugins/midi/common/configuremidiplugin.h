@@ -44,11 +44,14 @@ public slots:
 private slots:
     void slotMidiChannelValueChanged(int index);
     void slotModeActivated(int index);
+    void slotInitMessageActivated(int index);
+    void slotInitMessageChanged(QString initMessage);
     void slotUpdateTree();
 
 private:
     QWidget* createMidiChannelWidget(int select);
     QWidget* createModeWidget(MidiDevice::Mode mode);
+    QWidget* createInitMessageWidget(QString initMessage);
 
 private:
     MidiPlugin* m_plugin;

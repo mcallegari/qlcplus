@@ -23,6 +23,7 @@
 #include <QTreeWidget>
 #include <QComboBox>
 #include <QSpinBox>
+#include <QDebug>
 
 #include "configuremidiplugin.h"
 #include "midioutputdevice.h"
@@ -32,10 +33,11 @@
 #include "mididevice.h"
 #include "midiplugin.h"
 
-#define PROP_DEV    "dev"
-#define COL_NAME    0
-#define COL_CHANNEL 1
-#define COL_MODE    2
+#define PROP_DEV        "dev"
+#define COL_NAME        0
+#define COL_CHANNEL     1
+#define COL_MODE        2
+#define COL_INITMESSAGE 3
 
 ConfigureMidiPlugin::ConfigureMidiPlugin(MidiPlugin* plugin, QWidget* parent)
     : QDialog(parent)
@@ -91,6 +93,38 @@ void ConfigureMidiPlugin::slotModeActivated(int index)
     dev->setMode(mode);
 }
 
+void ConfigureMidiPlugin::slotInitMessageActivated(int index)
+{
+    QComboBox* combo = qobject_cast<QComboBox*> (QObject::sender());
+    Q_ASSERT(combo != NULL);
+
+    QVariant var = combo->property(PROP_DEV);
+    Q_ASSERT(var.isValid() == true);
+
+    MidiDevice* dev = (MidiDevice*) var.toULongLong();
+    Q_ASSERT(dev != NULL);
+
+    QString initMessage = combo->itemData(index).toString();
+    qDebug() << "Saving init message" << initMessage;
+    dev->setInitMessage(initMessage);
+}
+
+void ConfigureMidiPlugin::slotInitMessageChanged(QString initMessage)
+{
+    QComboBox* combo = qobject_cast<QComboBox*> (QObject::sender());
+    Q_ASSERT(combo != NULL);
+
+    QVariant var = combo->property(PROP_DEV);
+    Q_ASSERT(var.isValid() == true);
+
+    MidiDevice* dev = (MidiDevice*) var.toULongLong();
+    Q_ASSERT(dev != NULL);
+
+    qDebug() << "Saving init message with changed" << initMessage;
+    dev->setInitMessage(initMessage);
+}
+
+
 void ConfigureMidiPlugin::slotUpdateTree()
 {
     m_tree->clear();
@@ -112,6 +146,10 @@ void ConfigureMidiPlugin::slotUpdateTree()
         widget = createModeWidget(dev->mode());
         widget->setProperty(PROP_DEV, (qulonglong) dev);
         m_tree->setItemWidget(item, COL_MODE, widget);
+
+        widget = createInitMessageWidget(dev->initMessage());
+        widget->setProperty(PROP_DEV, (qulonglong) dev);
+        m_tree->setItemWidget(item, COL_INITMESSAGE, widget);
     }
 
     QTreeWidgetItem* inputs = new QTreeWidgetItem(m_tree);
@@ -131,6 +169,10 @@ void ConfigureMidiPlugin::slotUpdateTree()
         widget = createModeWidget(dev->mode());
         widget->setProperty(PROP_DEV, (qulonglong) dev);
         m_tree->setItemWidget(item, COL_MODE, widget);
+
+        widget = createInitMessageWidget(dev->initMessage());
+        widget->setProperty(PROP_DEV, (qulonglong) dev);
+        m_tree->setItemWidget(item, COL_INITMESSAGE, widget);
     }
 
     outputs->setExpanded(true);
@@ -165,6 +207,29 @@ QWidget* ConfigureMidiPlugin::createModeWidget(MidiDevice::Mode mode)
         combo->setCurrentIndex(0);
 
     connect(combo, SIGNAL(activated(int)), this, SLOT(slotModeActivated(int)));
+
+    return combo;
+}
+
+QWidget* ConfigureMidiPlugin::createInitMessageWidget(QString initMessage)
+{
+    QComboBox* combo = new QComboBox;
+    combo->addItem("", "");
+    combo->addItem("APC20 init message1", "APC20 init message2");
+    combo->setEditable(true);
+
+    qDebug() << "createInitMsgWidget: " << initMessage;
+
+    if (initMessage == "APC20 init message2")
+        combo->setCurrentIndex(1);
+    else if (initMessage != "")
+    {
+        combo->addItem(initMessage, initMessage);
+        combo->setCurrentIndex(combo->count() -1);
+    }
+
+    connect(combo, SIGNAL(activated(int)), this, SLOT(slotInitMessageActivated(int)));
+    connect(combo, SIGNAL(editTextChanged(QString)), this, SLOT(slotInitMessageChanged(QString)));
 
     return combo;
 }
