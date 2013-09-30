@@ -28,6 +28,7 @@
 class VirtualConsole;
 class VCAudioTriggers;
 class VCSoloFrame;
+class VCCueList;
 class VCWidget;
 class VCButton;
 class VCSlider;
@@ -56,6 +57,7 @@ private:
     QString getSliderHTML(VCSlider *slider);
     QString getLabelHTML(VCLabel *label);
     QString getAudioTriggersHTML(VCAudioTriggers *triggers);
+    QString getCueListHTML(VCCueList *cue);
 
     QString getChildrenHTML(VCWidget *frame);
     QString getVCHTML();

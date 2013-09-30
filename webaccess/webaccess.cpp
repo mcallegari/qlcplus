@@ -22,17 +22,19 @@
 #include <QDebug>
 #include <QDomDocument>
 
-#include "virtualconsole.h"
 #include "vcaudiotriggers.h"
+#include "virtualconsole.h"
 #include "vcsoloframe.h"
-#include "simpledesk.h"
 #include "qlcconfig.h"
 #include "webaccess.h"
+#include "vccuelist.h"
+#include "mongoose.h"
 #include "vcbutton.h"
 #include "vcslider.h"
+#include "function.h"
 #include "vclabel.h"
 #include "vcframe.h"
-#include "mongoose.h"
+#include "chaser.h"
 #include "doc.h"
 
 #define POST_DATA_SIZE 1024
@@ -198,6 +200,17 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
             {
                 VCAudioTriggers *triggers = qobject_cast<VCAudioTriggers*>(widget);
                 triggers->slotEnableButtonToggled(value ? true : false);
+            }
+            break;
+            case VCWidget::CueListWidget:
+            {
+                VCCueList *cue = qobject_cast<VCCueList*>(widget);
+                if (cmdList[1] == "PLAY")
+                    cue->slotPlayback();
+                else if (cmdList[1] == "PREV")
+                    cue->slotPreviousCue();
+                else if (cmdList[1] == "NEXT")
+                    cue->slotNextCue();
             }
             break;
             default:
@@ -398,6 +411,63 @@ QString WebAccess::getAudioTriggersHTML(VCAudioTriggers *triggers)
     return str;
 }
 
+QString WebAccess::getCueListHTML(VCCueList *cue)
+{
+    if (m_cueListFound == false)
+    {
+        m_CSScode += cue->getCSS();
+        m_JScode += cue->getJS();
+        m_cueListFound = true;
+    }
+
+    QString str = "<div class=\"vccuelist\" style=\"left: " + QString::number(cue->x()) +
+            "px; top: " + QString::number(cue->y()) + "px; width: " +
+             QString::number(cue->width()) +
+            "px; height: " + QString::number(cue->height()) + "px; "
+            "background-color: " + cue->backgroundColor().name() + ";\">\n";
+
+    str += "<div style=\"width: 100%; height: " + QString::number(cue->height() - 32) + "px; overflow: scroll;\" >\n";
+    str += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
+    str += "<tr><th>#</th><th>Name</th><th>Fade In</th><th>Fade Out</th><th>Duration</th><th>Notes</th></tr>\n";
+    quint32 chaserID = cue->chaser();
+    if (chaserID != Function::invalidId())
+    {
+        Chaser *chaser = qobject_cast<Chaser*>(m_doc->function(chaserID));
+        if (chaser != NULL)
+        {
+            for (int i = 0; i < chaser->stepsCount(); i++)
+            {
+                str += "<tr onmouseover=\"this.style.backgroundColor='#92BDDF';\" "
+                        "onmouseout=\"this.style.backgroundColor='#ffffff';\">\n";
+                ChaserStep step = chaser->stepAt(i);
+                str += "<td>" + QString::number(i + 1) + "</td>" +
+                       "<td>" + Function::speedToString(step.fadeIn) + "</td>" +
+                       "<td>" + Function::speedToString(step.hold) + "</td>" +
+                       "<td>" + Function::speedToString(step.fadeOut) + "</td>" +
+                       "<td>" + Function::speedToString(step.duration) + "</td>" +
+                       "<td>" + step.note + "</td>\n";
+                str += "</td>\n";
+            }
+
+        }
+    }
+    str += "</table>\n";
+    str += "</div>\n";
+
+    str += "<a class=\"button button-blue\" style=\"height: 29px; font-size: 24px;\" "
+            "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'PLAY');\">\n"
+            "<span id=\"" + QString::number(cue->id()) + "\">Play</span></a>\n";
+    str += "<a class=\"button button-blue\" style=\"height: 29px; font-size: 24px;\" "
+            "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'PREV');\">\n"
+            "<span>Previous</span></a>\n";
+    str += "<a class=\"button button-blue\" style=\"height: 29px; font-size: 24px;\" "
+            "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'NEXT');\">\n"
+            "<span>Next</span></a>\n";
+    str += "</div>\n";
+
+    return str;
+}
+
 QString WebAccess::getChildrenHTML(VCWidget *frame)
 {
     if (frame == NULL)
@@ -433,6 +503,9 @@ QString WebAccess::getChildrenHTML(VCWidget *frame)
             break;
             case VCWidget::AudioTriggersWidget:
                 str += getAudioTriggersHTML((VCAudioTriggers *)widget);
+            break;
+            case VCWidget::CueListWidget:
+                str += getCueListHTML((VCCueList *)widget);
             break;
             default:
                 str += getWidgetHTML(widget);

@@ -891,6 +891,67 @@ void VCCueList::editProperties()
         m_doc->setModified();
 }
 
+QString VCCueList::getCSS()
+{
+    QString str = "<style>\n"
+            ".vccuelist {\n"
+            "position: absolute;\n"
+            "border: 1px solid #777777;\n"
+            "border-radius: 3px;\n"
+            "}\n"
+
+            "table.hovertable {\n"
+            " font-family: verdana,arial,sans-serif;\n"
+            " font-size:11px;\n"
+            " color:#333333;\n"
+            " border-width: 1px;\n"
+            " border-color: #999999;\n"
+            " border-collapse: collapse;\n"
+            "}\n"
+
+            "table.hovertable th {\n"
+            " background-color:#DCD9D6;\n"
+            " border-width: 1px;\n"
+            " padding: 3px;\n"
+            " border-style: solid;\n"
+            " border-color: #a9c6c9;\n"
+            "}\n"
+
+            "table.hovertable tr {\n"
+            " background-color:#ffffff;\n"
+            "}\n"
+
+            "table.hovertable td {\n"
+            " border-width: 1px;\n"
+            " padding: 3px;\n"
+            " border-style: solid;\n"
+            " border-color: #a9c6c9;\n"
+            "}\n"
+
+            "</style>\n";
+
+    return str;
+}
+
+QString VCCueList::getJS()
+{
+    QString str = "function sendCueCmd(id, cmd) {\n"
+                " if (cmd == \"PLAY\") {\n"
+                "   var obj = document.getElementById(id);\n"
+                "   if (obj.value == \"0\" || obj.value == undefined) {\n"
+                "     obj.value = \"255\";\n"
+                "     obj.innerHTML = \"Stop\";\n"
+                "   }\n"
+                "   else {\n"
+                "     obj.value = \"0\";\n"
+                "     obj.innerHTML = \"Play\";\n"
+                "   }\n"
+                " }\n"
+                " sendWSmessage(id + \"|\" + cmd);\n"
+                "};\n";
+    return str;
+}
+
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
