@@ -361,7 +361,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="editcapability.cpp" line="144"/>
         <source>Gobo pictures (*.jpg *.jpeg *.png *.bmp)</source>
-        <translation>Gobo afbeeldingen</translation>
+        <translation>Gobo afbeeldingen(*.jpg *.jpeg *.png *.bmp)</translation>
     </message>
 </context>
 <context>
