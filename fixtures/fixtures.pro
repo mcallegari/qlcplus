@@ -61,6 +61,7 @@ fixtures.files += Chauvet-Vue-6.1.qxf
 fixtures.files += Clay-Paky-Alpha-Beam-300.qxf
 fixtures.files += Clay-Paky-Atlas.qxf
 fixtures.files += Clay-Paky-Mini-Scan-HPE.qxf
+fixtures.files += Coemar-ProWash-250-LX.qxf
 fixtures.files += Coemar-Stage-Lite-LED.qxf
 fixtures.files += Contest-LedColor.qxf
 fixtures.files += Dune-Lighting-MOVLED60W.qxf
