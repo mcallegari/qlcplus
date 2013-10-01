@@ -70,6 +70,7 @@ public:
     QSize cuelistSize();
     QSize frameSize();
     QSize soloFrameSize();
+    QSize audioTriggersSize();
 
 private:
     VCProperties m_properties;
