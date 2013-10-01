@@ -663,6 +663,10 @@ void VCSlider::setClickAndGoWidgetFromLevel(uchar level)
         if (m_slider)
             f = SCALE(float(level), float(m_slider->minimum()),
                       float(m_slider->maximum()), float(0), float(200));
+        else if (m_knob)
+            f = SCALE(float(level), float(m_knob->minimum()),
+                      float(m_knob->maximum()), float(0), float(200));
+
         if ((uchar)f == 0)
         {
             px.fill(Qt::black);
@@ -682,6 +686,9 @@ void VCSlider::slotClickAndGoLevelChanged(uchar level)
 {
     if (m_slider)
         m_slider->setValue(level);
+    else if (m_knob)
+        m_knob->setValue(level);
+
     QColor col = m_cngWidget->getColorAt(level);
     QPixmap px(42, 42);
     px.fill(col);
@@ -695,15 +702,21 @@ void VCSlider::slotClickAndGoColorChanged(QRgb color)
     QPixmap px(42, 42);
     px.fill(col);
     m_cngButton->setIcon(px);
+
     // place the slider half way to reach white@255 and black@0
     if (m_slider)
         m_slider->setValue(128);
+    else if (m_knob)
+        m_knob->setValue(128);
 }
 
 void VCSlider::slotClickAndGoLevelAndPresetChanged(uchar level, QImage img)
 {
     if (m_slider)
         m_slider->setValue(level);
+    else if (m_knob)
+        m_knob->setValue(level);
+
     QPixmap px = QPixmap::fromImage(img);
     m_cngButton->setIcon(px);
 }

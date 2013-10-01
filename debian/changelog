@@ -1,4 +1,4 @@
-qlcplus (4.4.2) stable; urgency=low
+qlcplus (4.5.0) stable; urgency=low
 
   * NEW: Functions now have attributes. They can be controlled by right clicking on a Virtual Console button in operate mode
   * NEW: Added multi-page support to Virtual Console frames
@@ -6,18 +6,22 @@ qlcplus (4.4.2) stable; urgency=low
   * NEW: Added Live Edit functionality to modify functions while in operate mode
   * NEW: added Czech translation (thank to Jan Lachman)
   * NEW: MIDI plugin can now receive Program Change and MIDI beat clock
+  * NEW: Audio triggers turned to a Virtual Console widget. No backward compatibility. Please update your projects.
+  * EXPERIMENTAL: added web interface to run QLC+ on a headless system. Default port is 9999. Run QLC+ with '-w' option to enable web access.
   * Cue List "Stop" input turned into "Playback", to handle start/stop of a cue with one key
   * Fixed channel groups remapping
   * Added Tap keyboard mapping to Speed Dial widget
   * Fixed Show Manager viewport scaling considering audio tracks too
   * Slider Matrix can now have a custom width
   * Fixed VC slider external control when minimum value is not 0
+  * Fixed dutch translation preventing to load pictures on Fixture Editor
+  * Fixed Virtual Console knobs with Click & Go functionality
   * Added fixtures: American DJ Fog Storm (with FS-DMXT Remote Timer), Stellar Labs LED PAR38 RGB (thanks to X)
   * Added fixtures: American DJ Accu Spot Pro, Scanic Astute LED 108, Showtec Mini Max LED RGB, Showtec Phantom 250 (thanks to laserandi)
   * Added fixture: Eliminator Lighting Electro MH25R (thanks to Travis Cook)
   * Added fixtures: Geni OBY 5, Geni OBY 600, Griven Kolorado 2500 (thanks to Goran)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 September 2013 12:13:04 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 12 October 2013 12:13:04 +0200
 
 qlcplus (4.4.1) stable; urgency=low
 
