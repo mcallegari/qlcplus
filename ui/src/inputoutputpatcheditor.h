@@ -94,6 +94,7 @@ private:
     void fillProfileTree();
     void updateProfileItem(const QString& name, QTreeWidgetItem* item);
     QString fullProfilePath(const QString& manufacturer, const QString& model) const;
+    void fillAudioTree();
 
 private slots:
     void slotProfileItemChanged(QTreeWidgetItem* item);

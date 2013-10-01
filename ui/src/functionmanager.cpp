@@ -613,7 +613,6 @@ void FunctionManager::initTree()
     QStringList labels;
     labels << tr("Function");
     m_tree->setHeaderLabels(labels);
-    m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
     m_tree->setRootIsDecorated(true);
     m_tree->setAllColumnsShowFocus(true);
     m_tree->setSelectionMode(QAbstractItemView::ExtendedSelection);

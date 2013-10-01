@@ -61,7 +61,6 @@ AudioTriggersConfiguration::AudioTriggersConfiguration(QWidget *parent, Doc *doc
     connect(m_barsNumSpin, SIGNAL(valueChanged(int)),
             this, SLOT(updateTree()));
 
-    m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
     m_tree->setAlternatingRowColors(true);
     m_tree->setRootIsDecorated(false);
     m_tree->setSelectionMode(QAbstractItemView::NoSelection);
@@ -218,6 +217,14 @@ void AudioTriggersConfiguration::updateTree()
         updateTreeItem(barItem, i);
         freqCount += freqIncr;
     }
+
+    m_tree->resizeColumnToContents(KColumnName);
+    m_tree->resizeColumnToContents(KColumnType);
+    m_tree->resizeColumnToContents(KColumnAssign);
+    m_tree->resizeColumnToContents(KColumnInfo);
+    m_tree->resizeColumnToContents(KColumnMinThreshold);
+    m_tree->resizeColumnToContents(KColumnMaxThreshold);
+
 }
 
 void AudioTriggersConfiguration::slotTypeComboChanged(int comboIndex)

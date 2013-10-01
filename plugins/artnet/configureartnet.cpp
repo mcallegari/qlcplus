@@ -56,8 +56,6 @@ ConfigureArtNet::ConfigureArtNet(ArtNetPlugin* plugin, QWidget* parent)
 
 void ConfigureArtNet::fillOutputTree()
 {
-    m_outputTree->header()->setResizeMode(QHeaderView::ResizeToContents);
-
     QList<QNetworkAddressEntry> ifaces = m_plugin->interfaces();
     QList<ArtNetIO> IOmap = m_plugin->getIOMapping();
 
@@ -82,12 +80,12 @@ void ConfigureArtNet::fillOutputTree()
             pitem->setData(KOutputColumnUniverse, Qt::UserRole, u);
         }
     }
+
+    m_outputTree->resizeColumnToContents(KOutputColumnNetwork);
 }
 
 void ConfigureArtNet::fillNodesTree()
 {
-    m_nodesTree->header()->setResizeMode(QHeaderView::ResizeToContents);
-
     ArtNetController *prevController = NULL;
 
     QList<ArtNetIO> IOmap = m_plugin->getIOMapping();
@@ -113,7 +111,11 @@ void ConfigureArtNet::fillNodesTree()
             }
             prevController = controller;
         }
-     }
+    }
+
+    m_nodesTree->resizeColumnToContents(KNodesColumnIP);
+    m_nodesTree->resizeColumnToContents(KNodesColumnShortName);
+    m_nodesTree->resizeColumnToContents(KNodesColumnLongName);
 }
 
 ConfigureArtNet::~ConfigureArtNet()

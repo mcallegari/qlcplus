@@ -46,6 +46,14 @@
 #include "inputmap.h"
 #include "apputil.h"
 
+#if defined(__APPLE__)
+  #include "audiorenderer_portaudio.h"
+#elif defined(WIN32)
+  #include "audiorenderer_waveout.h"
+#else
+  #include "audiorenderer_alsa.h"
+#endif
+
 /* Plugin column structure */
 #define KMapColumnPluginName    0
 #define KMapColumnDeviceName    1
@@ -92,13 +100,13 @@ InputOutputPatchEditor::InputOutputPatchEditor(QWidget* parent, quint32 universe
     m_currentFeedbackPluginName = feedbackPatch->pluginName();
     m_currentFeedback = feedbackPatch->output();
 
-    m_mapTree->header()->setResizeMode(QHeaderView::ResizeToContents);
     m_mapTree->setSortingEnabled(true);
     m_mapTree->sortByColumn(KMapColumnPluginName, Qt::AscendingOrder);
 
     /* Setup UI controls */
     setupMappingPage();
     setupProfilePage();
+    fillAudioTree();
 
     /* Select the top-most "None" item */
     m_mapTree->setCurrentItem(m_mapTree->topLevelItem(0));
@@ -269,6 +277,9 @@ void InputOutputPatchEditor::fillMappingTree()
             }
         }
     }
+
+    m_mapTree->resizeColumnToContents(KMapColumnPluginName);
+    m_mapTree->resizeColumnToContents(KMapColumnDeviceName);
 
     /* Enable check state change tracking after the tree has been filled */
     connect(m_mapTree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
@@ -533,6 +544,35 @@ QString InputOutputPatchEditor::fullProfilePath(const QString& manufacturer,
                                         .arg(KExtInputProfile);
 
     return path;
+}
+
+void InputOutputPatchEditor::fillAudioTree()
+{
+    QList<AudioDeviceInfo> devList;
+#if defined(__APPLE__)
+
+#elif defined(WIN32)
+
+#else
+    devList = AudioRendererAlsa::getDevicesInfo();
+#endif
+
+    m_audioMapTree->clear();
+
+    foreach( AudioDeviceInfo info, devList)
+    {
+        QTreeWidgetItem* item;
+
+        /* Add an option for having no profile at all */
+        item = new QTreeWidgetItem(m_audioMapTree);
+        item->setText(0, info.deviceName);
+        if (info.capabilities & AUDIO_CAP_INPUT)
+            item->setCheckState(1, Qt::Unchecked);
+        if (info.capabilities & AUDIO_CAP_OUTPUT)
+            item->setCheckState(2, Qt::Unchecked);
+    }
+
+    m_audioMapTree->resizeColumnToContents(0);
 }
 
 void InputOutputPatchEditor::slotProfileItemChanged(QTreeWidgetItem* item)
