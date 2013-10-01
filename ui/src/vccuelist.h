@@ -112,13 +112,7 @@ private:
     /** Get the currently selected item index, otherwise 0 */
     int getCurrentIndex();
 
-private slots:
-    /** Removes destroyed functions from the list */
-    void slotFunctionRemoved(quint32 fid);
-
-    /** Updates name in the list if function got changed */
-    void slotFunctionChanged(quint32 fid);
-
+public slots:
     /** Play/stop the cue list from the current selection */
     void slotPlayback();
 
@@ -127,6 +121,13 @@ private slots:
 
     /** Skip to the previous cue */
     void slotPreviousCue();
+
+private slots:
+    /** Removes destroyed functions from the list */
+    void slotFunctionRemoved(quint32 fid);
+
+    /** Updates name in the list if function got changed */
+    void slotFunctionChanged(quint32 fid);
 
     /** Stop the cue list and return to start */
     void slotStop();
@@ -253,6 +254,16 @@ public:
 
     /** @reimp */
     void editProperties();
+
+    /*********************************************************************
+     * Web access
+     *********************************************************************/
+public:
+    /** @reimpl */
+    QString getCSS();
+
+    /** @reimpl */
+    QString getJS();
 
     /*************************************************************************
      * Load & Save

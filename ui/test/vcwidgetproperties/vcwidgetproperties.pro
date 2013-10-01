@@ -14,6 +14,9 @@ QMAKE_LIBDIR += ../../src
 QMAKE_LIBDIR += ../../../engine/src
 LIBS         += -lqlcplusui -lqlcplusengine
 
+QMAKE_LIBDIR += ../../../webaccess
+LIBS         += -lqlcpluswebaccess
+
 # Test sources
 SOURCES += vcwidgetproperties_test.cpp
 HEADERS += vcwidgetproperties_test.h

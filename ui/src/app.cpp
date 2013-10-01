@@ -41,6 +41,7 @@
 #include "addresstool.h"
 #include "simpledesk.h"
 #include "docbrowser.h"
+#include "webaccess.h"
 #include "outputmap.h"
 #include "inputmap.h"
 #include "aboutbox.h"
@@ -75,6 +76,7 @@ App::App()
     , m_tab(NULL)
     , m_progressDialog(NULL)
     , m_doc(NULL)
+    , m_webAccess(NULL)
 
     , m_fileNewAction(NULL)
     , m_fileOpenAction(NULL)
@@ -84,7 +86,6 @@ App::App()
     , m_modeToggleAction(NULL)
     , m_controlMonitorAction(NULL)
     , m_addressToolAction(NULL)
-    , m_audioInputAction(NULL)
     , m_controlFullScreenAction(NULL)
     , m_controlBlackoutAction(NULL)
     , m_controlPanicAction(NULL)
@@ -98,7 +99,6 @@ App::App()
     , m_toolbar(NULL)
 
     , m_dumpProperties(NULL)
-    , m_audioTriggers(NULL)
 {
     QCoreApplication::setOrganizationName("qlcplus");
     QCoreApplication::setOrganizationDomain("sf.net");
@@ -140,11 +140,12 @@ App::~App()
     if (m_dumpProperties != NULL)
         delete m_dumpProperties;
 
-    if (m_audioTriggers != NULL)
-        delete m_audioTriggers;
-
     if (m_doc != NULL)
         delete m_doc;
+
+    if (m_webAccess != NULL)
+        delete m_webAccess;
+
     m_doc = NULL;
 }
 
@@ -232,8 +233,6 @@ void App::init()
 
     // Start up in non-modified state
     m_doc->resetModified();
-
-    m_audioTriggers = new AudioTriggerFactory(m_doc);
 
     QString ssDir;
 
@@ -454,6 +453,16 @@ void App::createKioskCloseButton(const QRect& rect)
     btn->show();
 }
 
+void App::enableWebAccess()
+{
+    m_webAccess = new WebAccess(m_doc, VirtualConsole::instance());
+
+    connect(m_webAccess, SIGNAL(toggleDocMode()),
+            this, SLOT(slotModeToggle()));
+    connect(m_webAccess, SIGNAL(loadProject(QString)),
+            this, SLOT(slotLoadDocFromMemory(QString)));
+}
+
 void App::slotModeOperate()
 {
     m_doc->setMode(Doc::Operate);
@@ -550,9 +559,6 @@ void App::initActions()
     m_addressToolAction = new QAction(QIcon(":/diptool.png"), tr("Address Tool"), this);
     connect(m_addressToolAction, SIGNAL(triggered()), this, SLOT(slotAddressTool()));
 
-    m_audioInputAction = new QAction(QIcon(":/audioinput.png"), tr("Audio Trigger Factory"), this);
-    connect(m_audioInputAction, SIGNAL(triggered()), this, SLOT(slotAudioInput()));
-
     m_controlBlackoutAction = new QAction(QIcon(":/blackout.png"), tr("Toggle &Blackout"), this);
     m_controlBlackoutAction->setCheckable(true);
     connect(m_controlBlackoutAction, SIGNAL(triggered(bool)), this, SLOT(slotControlBlackout()));
@@ -599,7 +605,6 @@ void App::initToolBar()
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_controlMonitorAction);
     m_toolbar->addAction(m_addressToolAction);
-    m_toolbar->addAction(m_audioInputAction);
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_controlFullScreenAction);
     m_toolbar->addAction(m_helpIndexAction);
@@ -926,12 +931,6 @@ void App::slotAddressTool()
     at.exec();
 }
 
-void App::slotAudioInput()
-{
-    if (m_audioTriggers)
-        m_audioTriggers->show();
-}
-
 void App::slotControlBlackout()
 {
     m_doc->outputMap()->setBlackout(!m_doc->outputMap()->blackout());
@@ -1183,10 +1182,6 @@ bool App::loadXML(const QDomDocument& doc)
         {
             /* Ignore creator information */
         }
-        else if (tag.tagName() == KXMLQLCAudioTriggerFactory)
-        {
-            AudioTriggerFactory::instance()->loadXML(tag);
-        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown Workspace tag:" << tag.tagName();
@@ -1241,9 +1236,6 @@ QFile::FileError App::saveXML(const QString& fileName)
         /* Write Simple Desk to the XML document */
         SimpleDesk::instance()->saveXML(&doc, &root);
 
-        /* Write Audio Trigger Factory to the XML document */
-        AudioTriggerFactory::instance()->saveXML(&doc, &root);
-
         /* Write the XML document to the stream (=file) */
         stream << doc.toString() << "\n";
 
@@ -1262,4 +1254,17 @@ QFile::FileError App::saveXML(const QString& fileName)
     file.close();
 
     return retval;
+}
+
+void App::slotLoadDocFromMemory(QString xmlData)
+{
+    if (xmlData.isEmpty())
+        return;
+
+    /* Clear existing document data */
+    clearDocument();
+
+    QDomDocument doc;
+    doc.setContent(xmlData);
+    loadXML(doc);
 }

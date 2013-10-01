@@ -163,6 +163,7 @@ protected:
     QAction* m_addFrameAction;
     QAction* m_addSoloFrameAction;
     QAction* m_addLabelAction;
+    QAction* m_addAudioTriggersAction;
 
     QAction* m_toolsSettingsAction;
 
@@ -225,6 +226,7 @@ public slots:
     void slotAddFrame();
     void slotAddSoloFrame();
     void slotAddLabel();
+    void slotAddAudioTriggers();
 
     /*********************************************************************
      * Tools menu callbacks
@@ -279,6 +281,12 @@ public slots:
 public slots:
     void slotStackingRaise();
     void slotStackingLower();
+
+    /*********************************************************************
+     * Audio triggers callbacks
+     *********************************************************************/
+public slots:
+    void slotEnableAudioTriggers(quint32 id);
 
     /*********************************************************************
      * Dock Area

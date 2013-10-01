@@ -48,6 +48,11 @@ void AudioTriggerWidget::setBarsNumber(int num)
     update();
 }
 
+int AudioTriggerWidget::barsNumber()
+{
+    return m_barsNumber;
+}
+
 void AudioTriggerWidget::setMaxFrequency(int freq)
 {
     m_maxFrequency = freq;

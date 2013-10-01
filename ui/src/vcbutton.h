@@ -281,7 +281,7 @@ protected slots:
     /*********************************************************************
      * Button press / release handlers
      *********************************************************************/
-protected:
+public:
     /** Handler for button presses (mouse/key)button down, not click */
     void pressFunction();
 
@@ -321,6 +321,16 @@ signals:
 public:
     /** Get a custom menu specific to this widget. Must be deleted. */
     QMenu* customMenu(QMenu* parentMenu);
+
+    /*********************************************************************
+     * Web access
+     *********************************************************************/
+public:
+    /** @reimpl */
+    QString getCSS();
+
+    /** @reimpl */
+    QString getJS();
 
     /*********************************************************************
      * Load & Save

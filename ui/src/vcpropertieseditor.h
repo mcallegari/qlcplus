@@ -38,6 +38,7 @@
 #define SETTINGS_CUELIST_SIZE       "virtualconsole/cuelistsize"
 #define SETTINGS_FRAME_SIZE         "virtualconsole/framesize"
 #define SETTINGS_SOLOFRAME_SIZE     "virtualconsole/soloframesize"
+#define SETTINGS_AUDIOTRIGGERS_SIZE "virtualconsole/audiotriggerssize"
 
 class VirtualConsole;
 class QDomDocument;

@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  audiotriggerfactory.h
+  audiobar.h
 
   Copyright (c) Massimo Callegari
 
@@ -19,23 +19,23 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef AUDIOTRIGGERFACTORY_H
-#define AUDIOTRIGGERFACTORY_H
+#ifndef AUDIOBAR_H
+#define AUDIOBAR_H
 
-#include <QDialog>
-#include <QThread>
-
-#include "ui_audiotriggerfactory.h"
-#include "audiotriggerwidget.h"
 #include "scenevalue.h"
-#include "dmxsource.h"
-#include "function.h"
 #include "vcwidget.h"
-#include "doc.h"
+#include "function.h"
+#include "fixture.h"
 
-#define KXMLQLCAudioTriggerFactory "AudioTriggerFactory"
+#define KXMLQLCAudioBarIndex "Index"
+#define KXMLQLCAudioBarName "Name"
+#define KXMLQLCAudioBarType "Type"
+#define KXMLQLCAudioBarDMXChannels "DMXChannels"
+#define KXMLQLCAudioBarFunction "FunctionID"
+#define KXMLQLCAudioBarWidget "WidgetID"
 
-class AudioCapture;
+class QDomDocument;
+class QDomElement;
 
 class AudioBar
 {
@@ -92,60 +92,4 @@ public:
     uchar m_minThreshold, m_maxThreshold;
 };
 
-class AudioTriggerFactory : public QDialog, public Ui_AudioTriggerFactory, public DMXSource
-{
-    Q_OBJECT
-    
-public:
-    explicit AudioTriggerFactory(Doc* doc, QWidget *parent = 0);
-    ~AudioTriggerFactory();
-
-    /** Get the singleton instance */
-    static AudioTriggerFactory* instance();
-
-    /** Get a pointer to a single AudioBar by index.
-     *  Note that volume bar has index = 1000
-     */
-    AudioBar *getSpectrumBar(int index);
-
-    /** Get a list of pointers to all the current audio bars */
-    QList<AudioBar *> getAudioBars();
-
-    void setSpectrumBarsNumber(int num);
-    void setSpectrumBarType(int index, int type);
-    
-private:
-    static AudioTriggerFactory* s_instance;
-
-protected slots:
-    void slotEnableCapture(bool enable);
-    void slotDisplaySpectrum(double *spectrumBands, double maxMagnitude, quint32 power);
-    void slotConfiguration();
-
-private:
-    Doc *m_doc;
-    AudioCapture *m_inputCapture;
-    AudioTriggerWidget *m_spectrum;
-
-    AudioBar *m_volumeBar;
-    QList <AudioBar *> m_spectrumBars;
-
-    /*********************************************************************
-     * DMXSource
-     *********************************************************************/
-public:
-    /** @reimpl */
-    void writeDMX(MasterTimer* timer, UniverseArray* universes);
-
-    /*********************************************************************
-     * Load & Save
-     *********************************************************************/
-public:
-    /** Load properties and contents from an XML tree */
-    bool loadXML(const QDomElement& root);
-
-    /** Save properties and contents to an XML document */
-    bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
-};
-
-#endif // AUDIOTRIGGERFACTORY_H
+#endif // AUDIOBAR_H

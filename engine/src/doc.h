@@ -39,6 +39,7 @@
 #include "fixture.h"
 
 class QDomDocument;
+class AudioCapture;
 class QString;
 
 #define KXMLQLCEngine "Engine"
@@ -124,12 +125,16 @@ public:
     /** Get the input map object */
     InputMap* inputMap() const;
 
+    /** Get the audio input capture object */
+    AudioCapture* audioInputCapture();
+
 private:
     QLCFixtureDefCache* m_fixtureDefCache;
     IOPluginCache* m_ioPluginCache;
     OutputMap* m_outputMap;
     MasterTimer* m_masterTimer;
     InputMap* m_inputMap;
+    AudioCapture *m_inputCapture;
 
     /*********************************************************************
      * Main operating mode

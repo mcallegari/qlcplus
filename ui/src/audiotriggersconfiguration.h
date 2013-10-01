@@ -25,9 +25,10 @@
 #include <QDialog>
 
 #include "ui_audiotriggersconfiguration.h"
-#include "audiotriggerfactory.h"
 #include "audiocapture.h"
 #include "doc.h"
+
+class VCAudioTriggers;
 
 class AudioTriggersConfiguration : public QDialog, public Ui_AudioTriggersConfiguration
 {
@@ -53,7 +54,7 @@ private slots:
 
 private:
     Doc *m_doc;
-    AudioTriggerFactory *m_factory;
+    VCAudioTriggers *m_widget;
     AudioCapture *m_capture;
 };
 
