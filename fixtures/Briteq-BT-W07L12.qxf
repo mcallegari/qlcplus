@@ -2,11 +2,11 @@
 <FixtureDefinition>
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.4.1</Version>
+  <Version>4.4.2</Version>
   <Author>Joep Admiraal</Author>
  </Creator>
  <Manufacturer>Briteq</Manufacturer>
- <Model>BT-W12L10</Model>
+ <Model>BT-W07L12</Model>
  <Type>Moving Head</Type>
  <Channel Name="Pan">
   <Group Byte="0">Pan</Group>
@@ -171,8 +171,8 @@
  <Channel Name="Color Macro">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="7">Normal</Capability>
-  <Capability Min="8" Max="127">Color 1-32</Capability>
-  <Capability Min="128" Max="191">Color macro 1-16</Capability>
+  <Capability Min="8" Max="119">Color 1-32</Capability>
+  <Capability Min="120" Max="191">Color macro 1-16</Capability>
   <Capability Min="192" Max="255">Color fade 1-16</Capability>
  </Channel>
  <Channel Name="Strobe">
@@ -194,8 +194,8 @@
   <Capability Min="80" Max="89">Disable blackout while pan/tilt move</Capability>
   <Capability Min="90" Max="199">No function</Capability>
   <Capability Min="200" Max="209">Reset all</Capability>
-  <Capability Min="210" Max="239">No function</Capability>
-  <Capability Min="240" Max="255">Stand alone</Capability>
+  <Capability Min="210" Max="249">No function</Capability>
+  <Capability Min="250" Max="255">Stand alone</Capability>
  </Channel>
  <Channel Name="Pan/Tilt Speed">
   <Group Byte="0">Speed</Group>
@@ -283,9 +283,9 @@
  </Channel>
  <Mode Name="16 channel mode">
   <Physical>
-   <Bulb Lumens="4200" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="267" Height="322" Weight="6.5" Depth="167"/>
-   <Lens DegreesMax="20" Name="Other" DegreesMin="20"/>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="267" Height="322" Weight="5.6" Depth="154"/>
+   <Lens DegreesMax="10" Name="Other" DegreesMin="10"/>
    <Focus PanMax="630" Type="Fixed" TiltMax="200"/>
    <Technical PowerConsumption="150" DmxConnector="3-pin"/>
   </Physical>
@@ -308,9 +308,9 @@
  </Mode>
  <Mode Name="12 channel mode">
   <Physical>
-   <Bulb Lumens="4200" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="267" Height="322" Weight="6.5" Depth="167"/>
-   <Lens DegreesMax="20" Name="Other" DegreesMin="20"/>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="267" Height="322" Weight="5.6" Depth="154"/>
+   <Lens DegreesMax="10" Name="Other" DegreesMin="10"/>
    <Focus PanMax="630" Type="Fixed" TiltMax="200"/>
    <Technical PowerConsumption="150" DmxConnector="3-pin"/>
   </Physical>
@@ -329,9 +329,9 @@
  </Mode>
  <Mode Name="9 channel mode">
   <Physical>
-   <Bulb Lumens="4200" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="267" Height="322" Weight="6.5" Depth="167"/>
-   <Lens DegreesMax="20" Name="Other" DegreesMin="20"/>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="267" Height="322" Weight="5.6" Depth="154"/>
+   <Lens DegreesMax="10" Name="Other" DegreesMin="10"/>
    <Focus PanMax="630" Type="Fixed" TiltMax="200"/>
    <Technical PowerConsumption="150" DmxConnector="3-pin"/>
   </Physical>
@@ -347,9 +347,9 @@
  </Mode>
  <Mode Name="28 channel mode">
   <Physical>
-   <Bulb Lumens="4200" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="267" Height="322" Weight="6.5" Depth="167"/>
-   <Lens DegreesMax="20" Name="Other" DegreesMin="20"/>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="267" Height="322" Weight="5.6" Depth="154"/>
+   <Lens DegreesMax="10" Name="Other" DegreesMin="10"/>
    <Focus PanMax="630" Type="Fixed" TiltMax="200"/>
    <Technical PowerConsumption="150" DmxConnector="3-pin"/>
   </Physical>
