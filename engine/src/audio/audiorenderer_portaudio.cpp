@@ -134,6 +134,13 @@ qint64 AudioRendererPortAudio::latency()
     return 0;
 }
 
+QList<AudioDeviceInfo> AudioRendererPortAudio::getDevicesInfo()
+{
+    QList<AudioDeviceInfo> devList;
+
+    return devList;
+}
+
 qint64 AudioRendererPortAudio::writeAudio(unsigned char *data, qint64 maxSize)
 {
     if (m_buffer.size() > (8192 * 4))

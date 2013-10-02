@@ -94,13 +94,21 @@ private:
     void fillProfileTree();
     void updateProfileItem(const QString& name, QTreeWidgetItem* item);
     QString fullProfilePath(const QString& manufacturer, const QString& model) const;
-    void fillAudioTree();
 
 private slots:
     void slotProfileItemChanged(QTreeWidgetItem* item);
     void slotAddProfileClicked();
     void slotRemoveProfileClicked();
     void slotEditProfileClicked();
+
+    /************************************************************************
+     * Audio page
+     ************************************************************************/
+private:
+    void fillAudioTree();
+
+private slots:
+    void slotAudioDeviceItemChanged(QTreeWidgetItem* item, int col);
 };
 
 #endif /* INPUTOUTPUTPATCHEDITOR_H */

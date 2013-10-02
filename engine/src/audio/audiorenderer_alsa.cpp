@@ -27,6 +27,7 @@
  ******************************************************/
 
 #include <QString>
+#include <QSettings>
 
 #include "audiorenderer_alsa.h"
 
@@ -34,6 +35,11 @@ AudioRendererAlsa::AudioRendererAlsa(QObject * parent)
     : AudioRenderer(parent)
 {
     QString dev_name = "default";
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE);
+    if (var.isValid() == true)
+        dev_name = var.toString();
+
     m_use_mmap = false;
     pcm_name = strdup(dev_name.toAscii().data());
     pcm_handle = NULL;
@@ -257,6 +263,7 @@ QList<AudioDeviceInfo> AudioRendererAlsa::getDevicesInfo()
                 AudioDeviceInfo info;
                 info.deviceName = QString(snd_ctl_card_info_get_name(cardInfo)) + " - " +
                                   QString (snd_pcm_info_get_name( pcmInfo ));
+                info.privateName = QString(str);
                 info.capabilities = tmpCaps;
                 devList.append(info);
             }

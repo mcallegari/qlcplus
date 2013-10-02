@@ -30,12 +30,12 @@
 #define AUDIO_CAP_INPUT     1
 #define AUDIO_CAP_OUTPUT    2
 
-#define SETTINGS_AUDIO_INPUT_DEVICE  "audio/input"
 #define SETTINGS_AUDIO_OUTPUT_DEVICE "audio/output"
 
 typedef struct
 {
     QString deviceName;
+    QString privateName;
     int capabilities;
 } AudioDeviceInfo;
 
