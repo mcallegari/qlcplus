@@ -34,13 +34,12 @@ class VCButton;
 class VCSlider;
 class VCLabel;
 class VCFrame;
-class Doc;
 
 class WebAccess : public QObject
 {
     Q_OBJECT
 public:
-    explicit WebAccess(Doc *doc, VirtualConsole *vcInstance, QObject *parent = 0);
+    explicit WebAccess(VirtualConsole *vcInstance, QObject *parent = 0);
     /** Destructor */
     ~WebAccess();
 
@@ -78,7 +77,6 @@ protected:
     bool m_audioTriggersFound;
 
 protected:
-    Doc *m_doc;
     VirtualConsole *m_vc;
 
     struct mg_context *m_ctx;

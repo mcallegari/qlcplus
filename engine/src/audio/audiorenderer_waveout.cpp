@@ -27,6 +27,7 @@
  ******************************************************/
  
 #include <QtGlobal>
+#include <QSettings>
 
 #include <stdio.h>
 #include <string.h>
@@ -83,6 +84,7 @@ AudioRendererWaveOut::AudioRendererWaveOut(QObject * parent)
 	: AudioRenderer(parent)
 {
     deviceID = WAVE_MAPPER;
+    QSettings settings;
     QVariant var = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE);
     if (var.isValid() == true)
         deviceID = QString(var.toString()).toUInt();
@@ -170,7 +172,7 @@ QList<AudioDeviceInfo> AudioRendererWaveOut::getDevicesInfo()
             /* Display its Device ID and name */
             //printf("Device ID #%u: %s\r\n", i, wic.szPname);
             AudioDeviceInfo info;
-            info.deviceName = QString(wic.szPname);
+            info.deviceName = QString((const QChar *)wic.szPname);
             info.privateName = QString::number(i);
             info.capabilities = AUDIO_CAP_INPUT;
             devList.append(info);
@@ -189,7 +191,7 @@ QList<AudioDeviceInfo> AudioRendererWaveOut::getDevicesInfo()
             /* Display its Device ID and name */
             //printf("Device ID #%u: %s\r\n", i, woc.szPname);
             AudioDeviceInfo info;
-            info.deviceName = QString(woc.szPname);
+            info.deviceName = QString((const QChar *)woc.szPname);
             info.privateName = QString::number(i);
             info.capabilities = AUDIO_CAP_OUTPUT;
             devList.append(info);

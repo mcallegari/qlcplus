@@ -27,6 +27,7 @@
 #include <QVariant>
 #include <QLocale>
 #include <QString>
+#include <QObject>
 #include <QDebug>
 #include <QTimer>
 #include <QHash>
@@ -39,6 +40,8 @@
   #include "debugbox.h"
 #endif
 
+#include "virtualconsole.h"
+#include "webaccess.h"
 #include "app.h"
 #include "doc.h"
 
@@ -276,8 +279,16 @@ int main(int argc, char** argv)
         app.slotControlFullScreen(QLCArgs::fullScreenResize);
     if (QLCArgs::kioskMode == true && QLCArgs::closeButtonRect.isValid() == true)
         app.createKioskCloseButton(QLCArgs::closeButtonRect);
+
     if (QLCArgs::enableWebAccess == true)
-        app.enableWebAccess();
+    {
+        WebAccess *m_webAccess = new WebAccess(VirtualConsole::instance());
+
+        QObject::connect(m_webAccess, SIGNAL(toggleDocMode()),
+                &app, SLOT(slotModeToggle()));
+        QObject::connect(m_webAccess, SIGNAL(loadProject(QString)),
+                &app, SLOT(slotLoadDocFromMemory(QString)));
+    }
 
     return qapp.exec();
 }

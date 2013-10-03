@@ -76,7 +76,6 @@ App::App()
     , m_tab(NULL)
     , m_progressDialog(NULL)
     , m_doc(NULL)
-    , m_webAccess(NULL)
 
     , m_fileNewAction(NULL)
     , m_fileOpenAction(NULL)
@@ -142,9 +141,6 @@ App::~App()
 
     if (m_doc != NULL)
         delete m_doc;
-
-    if (m_webAccess != NULL)
-        delete m_webAccess;
 
     m_doc = NULL;
 }
@@ -451,16 +447,6 @@ void App::createKioskCloseButton(const QRect& rect)
     btn->setGeometry(rect);
     connect(btn, SIGNAL(clicked()), this, SLOT(close()));
     btn->show();
-}
-
-void App::enableWebAccess()
-{
-    m_webAccess = new WebAccess(m_doc, VirtualConsole::instance());
-
-    connect(m_webAccess, SIGNAL(toggleDocMode()),
-            this, SLOT(slotModeToggle()));
-    connect(m_webAccess, SIGNAL(loadProject(QString)),
-            this, SLOT(slotLoadDocFromMemory(QString)));
 }
 
 void App::slotModeOperate()

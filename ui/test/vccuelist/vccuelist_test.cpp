@@ -121,7 +121,7 @@ void VCCueList_Test::initial()
     QCOMPARE(cl.m_tree->topLevelItemCount(), 0);
     QCOMPARE(cl.m_tree->selectionMode(), QAbstractItemView::SingleSelection);
     QCOMPARE(cl.m_tree->rootIsDecorated(), false);
-    QCOMPARE(cl.chaser(), Function::invalidId());
+    QCOMPARE(cl.chaserID(), Function::invalidId());
 
     QCOMPARE(cl.m_nextLatestValue, quint32(0));
     QCOMPARE(cl.m_previousLatestValue, quint32(0));
@@ -144,12 +144,12 @@ void VCCueList_Test::chaser()
 
     // Try to put a non-chaser as the chaser
     cl.setChaser(c->steps().first().fid);
-    QCOMPARE(cl.chaser(), Function::invalidId());
+    QCOMPARE(cl.chaserID(), Function::invalidId());
     QCOMPARE(cl.m_tree->topLevelItemCount(), 0);
 
     // Put a real chaser as the chaser
     cl.setChaser(c->id());
-    QCOMPARE(cl.chaser(), c->id());
+    QCOMPARE(cl.chaserID(), c->id());
     QCOMPARE(cl.m_tree->topLevelItemCount(), 4);
     QCOMPARE(cl.m_tree->topLevelItem(0)->text(0), QString("1"));
     QCOMPARE(cl.m_tree->topLevelItem(1)->text(0), QString("2"));
@@ -181,7 +181,7 @@ void VCCueList_Test::functionRemoved()
     // Chaser is removed completely
     m_doc->deleteFunction(c->id());
     QCOMPARE(cl.m_tree->topLevelItemCount(), 0);
-    QCOMPARE(cl.chaser(), Function::invalidId());
+    QCOMPARE(cl.chaserID(), Function::invalidId());
 }
 
 void VCCueList_Test::functionChanged()
@@ -230,7 +230,7 @@ void VCCueList_Test::copy()
     QCOMPARE(cl2->nextKeySequence(), QKeySequence(keySequenceB));
     QCOMPARE(cl2->previousKeySequence(), QKeySequence(keySequenceA));
     QCOMPARE(cl2->playbackKeySequence(), QKeySequence(keySequenceC));
-    QCOMPARE(cl2->chaser(), c->id());
+    QCOMPARE(cl2->chaserID(), c->id());
     QCOMPARE(cl2->m_tree->topLevelItemCount(), 4);
 
     VCCueList cl3(&parent, m_doc);
@@ -240,7 +240,7 @@ void VCCueList_Test::copy()
 
     cl.copyFrom(&cl3);
     QCOMPARE(cl.caption(), cl3.caption());
-    QCOMPARE(cl.chaser(), Function::invalidId());
+    QCOMPARE(cl.chaserID(), Function::invalidId());
     QCOMPARE(cl.m_tree->topLevelItemCount(), 0);
     QCOMPARE(cl.nextKeySequence(), QKeySequence());
     QCOMPARE(cl.previousKeySequence(), QKeySequence());

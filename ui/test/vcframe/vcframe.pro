@@ -15,9 +15,6 @@ QMAKE_LIBDIR += ../../../engine/src
 QMAKE_LIBDIR += ../../src
 LIBS        += -lqlcplusengine -lqlcplusui
 
-QMAKE_LIBDIR += ../../../webaccess
-LIBS         += -lqlcpluswebaccess
-
 # Test sources
 SOURCES += vcframe_test.cpp
 HEADERS += vcframe_test.h

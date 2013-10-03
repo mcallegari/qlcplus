@@ -102,8 +102,11 @@ public:
     /** Set the chaser function that is used as cue list steps */
     void setChaser(quint32 fid);
 
+    /** Get the chaser ID that is used as cue list steps */
+    quint32 chaserID() const;
+
     /** Get the chaser function that is used as cue list steps */
-    quint32 chaser() const;
+    Chaser *chaser();
 
 private:
     /** Update the list of steps */
@@ -164,7 +167,7 @@ private:
      * Crossfade
      *************************************************************************/
 protected:
-    void setSlidersInfo(int pIndex, Chaser *chaser);
+    void setSlidersInfo(int pIndex, Chaser *chaserID);
 
 protected slots:
     void slotShowCrossfadePanel(bool enable);

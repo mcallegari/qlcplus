@@ -6,6 +6,7 @@ TARGET   = qlcplus
 
 INCLUDEPATH  += ../ui/src
 INCLUDEPATH  += ../engine/src
+INCLUDEPATH  += ../webaccess
 
 QMAKE_LIBDIR += ../ui/src
 QMAKE_LIBDIR += ../engine/src

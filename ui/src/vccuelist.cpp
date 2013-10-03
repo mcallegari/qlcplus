@@ -242,7 +242,7 @@ bool VCCueList::copyFrom(VCWidget* widget)
         return false;
 
     /* Function list contents */
-    setChaser(cuelist->chaser());
+    setChaser(cuelist->chaserID());
 
     /* Key sequence */
     setNextKeySequence(cuelist->nextKeySequence());
@@ -267,9 +267,17 @@ void VCCueList::setChaser(quint32 id)
     updateStepList();
 }
 
-quint32 VCCueList::chaser() const
+quint32 VCCueList::chaserID() const
 {
     return m_chaserID;
+}
+
+Chaser *VCCueList::chaser()
+{
+    if (m_chaserID == Function::invalidId())
+        return NULL;
+    Chaser *chaser = qobject_cast<Chaser*>(m_doc->function(m_chaserID));
+    return chaser;
 }
 
 void VCCueList::updateStepList()
@@ -1163,7 +1171,7 @@ bool VCCueList::saveXML(QDomDocument* doc, QDomElement* vc_root)
     /* Chaser */
     tag = doc->createElement(KXMLQLCVCCueListChaser);
     root.appendChild(tag);
-    text = doc->createTextNode(QString::number(chaser()));
+    text = doc->createTextNode(QString::number(chaserID()));
     tag.appendChild(text);
 
     /* Next cue */

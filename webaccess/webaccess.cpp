@@ -35,7 +35,6 @@
 #include "vclabel.h"
 #include "vcframe.h"
 #include "chaser.h"
-#include "doc.h"
 
 #define POST_DATA_SIZE 1024
 
@@ -429,26 +428,21 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
     str += "<div style=\"width: 100%; height: " + QString::number(cue->height() - 32) + "px; overflow: scroll;\" >\n";
     str += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
     str += "<tr><th>#</th><th>Name</th><th>Fade In</th><th>Fade Out</th><th>Duration</th><th>Notes</th></tr>\n";
-    quint32 chaserID = cue->chaser();
-    if (chaserID != Function::invalidId())
+    Chaser *chaser = cue->chaser();
+    if (chaser != NULL)
     {
-        Chaser *chaser = qobject_cast<Chaser*>(m_doc->function(chaserID));
-        if (chaser != NULL)
+        for (int i = 0; i < chaser->stepsCount(); i++)
         {
-            for (int i = 0; i < chaser->stepsCount(); i++)
-            {
-                str += "<tr onmouseover=\"this.style.backgroundColor='#92BDDF';\" "
-                        "onmouseout=\"this.style.backgroundColor='#ffffff';\">\n";
-                ChaserStep step = chaser->stepAt(i);
-                str += "<td>" + QString::number(i + 1) + "</td>" +
-                       "<td>" + Function::speedToString(step.fadeIn) + "</td>" +
-                       "<td>" + Function::speedToString(step.hold) + "</td>" +
-                       "<td>" + Function::speedToString(step.fadeOut) + "</td>" +
-                       "<td>" + Function::speedToString(step.duration) + "</td>" +
-                       "<td>" + step.note + "</td>\n";
-                str += "</td>\n";
-            }
-
+            str += "<tr onmouseover=\"this.style.backgroundColor='#92BDDF';\" "
+                    "onmouseout=\"this.style.backgroundColor='#ffffff';\">\n";
+            ChaserStep step = chaser->stepAt(i);
+            str += "<td>" + QString::number(i + 1) + "</td>" +
+                   "<td>" + Function::speedToString(step.fadeIn) + "</td>" +
+                   "<td>" + Function::speedToString(step.hold) + "</td>" +
+                   "<td>" + Function::speedToString(step.fadeOut) + "</td>" +
+                   "<td>" + Function::speedToString(step.duration) + "</td>" +
+                   "<td>" + step.note + "</td>\n";
+            str += "</td>\n";
         }
     }
     str += "</table>\n";
@@ -665,9 +659,8 @@ QString WebAccess::getVCHTML()
     return str;
 }
 
-WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, QObject *parent) :
+WebAccess::WebAccess(VirtualConsole *vcInstance, QObject *parent) :
     QObject(parent)
-  , m_doc(doc)
   , m_vc(vcInstance)
 {
     Q_ASSERT(s_instance == NULL);
