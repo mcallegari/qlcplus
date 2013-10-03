@@ -325,7 +325,7 @@ p, li { white-space: pre-wrap; }
         <location filename="editcapability.ui" line="154"/>
         <location filename="editcapability.ui" line="165"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="editcapability.ui" line="172"/>
@@ -336,7 +336,7 @@ p, li { white-space: pre-wrap; }
         <location filename="editcapability.ui" line="179"/>
         <location filename="editcapability.cpp" line="48"/>
         <source>Colour</source>
-        <translation type="unfinished">Väri</translation>
+        <translation>Väri</translation>
     </message>
     <message>
         <location filename="editcapability.ui" line="186"/>
@@ -355,7 +355,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="editcapability.cpp" line="144"/>
-        <source>Gobo pictures (*.jpg *.jpeg *.png *.bmp)</source>
+        <source>Gobo pictures</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

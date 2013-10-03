@@ -96,7 +96,7 @@
         <translation>Kompletter Name</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="81"/>
+        <location filename="configureartnet.cpp" line="79"/>
         <source>Universe %1</source>
         <translation>Universum %1</translation>
     </message>

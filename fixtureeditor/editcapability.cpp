@@ -141,7 +141,7 @@ void EditCapability::slotPictureButtonPressed()
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
     dialog.setDirectory(dir);
 
-    dialog.setFilter(tr("Gobo pictures (*.jpg *.jpeg *.png *.bmp)"));
+    dialog.setFilter(tr("Gobo pictures") + " (*.jpg *.jpeg *.png *.bmp)");
 
     /* Get file name */
     if (dialog.exec() != QDialog::Accepted)

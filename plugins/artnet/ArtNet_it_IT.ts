@@ -96,7 +96,7 @@
         <translation>Nome lungo</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="81"/>
+        <location filename="configureartnet.cpp" line="79"/>
         <source>Universe %1</source>
         <translation>Universo %1</translation>
     </message>
