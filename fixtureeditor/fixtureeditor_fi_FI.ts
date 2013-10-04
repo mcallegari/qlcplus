@@ -815,22 +815,32 @@ p, li { white-space: pre-wrap; }
         <translation>DMX-liitin</translation>
     </message>
     <message>
-        <location filename="editmode.cpp" line="172"/>
+        <location filename="editmode.ui" line="953"/>
+        <source>Copy physical information to clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editmode.ui" line="970"/>
+        <source>Paste physical information from clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editmode.cpp" line="177"/>
         <source>Add channel to mode</source>
         <translation>Lisää tilaan kanava</translation>
     </message>
     <message>
-        <location filename="editmode.cpp" line="173"/>
+        <location filename="editmode.cpp" line="178"/>
         <source>Select a channel to add</source>
         <translation>Valitse lisättävä kanava</translation>
     </message>
     <message>
-        <location filename="editmode.cpp" line="192"/>
+        <location filename="editmode.cpp" line="197"/>
         <source>No more available channels</source>
         <translation>Ei enää kanavia</translation>
     </message>
     <message>
-        <location filename="editmode.cpp" line="193"/>
+        <location filename="editmode.cpp" line="198"/>
         <source>All available channels are present in the mode.</source>
         <translation>Kaikki saatavilla olevat kanavat on jo lisätty tilaan.</translation>
     </message>
@@ -1059,7 +1069,7 @@ Valaisinta ei voida tallentaa.</translation>
     <message>
         <location filename="fixtureeditor.cpp" line="585"/>
         <location filename="fixtureeditor.cpp" line="620"/>
-        <location filename="fixtureeditor.cpp" line="825"/>
+        <location filename="fixtureeditor.cpp" line="828"/>
         <source>Edit</source>
         <translation>Muokkaa</translation>
     </message>
@@ -1078,7 +1088,7 @@ Valaisinta ei voida tallentaa.</translation>
     <message>
         <location filename="fixtureeditor.cpp" line="588"/>
         <location filename="fixtureeditor.cpp" line="626"/>
-        <location filename="fixtureeditor.cpp" line="831"/>
+        <location filename="fixtureeditor.cpp" line="834"/>
         <source>Remove</source>
         <translation>Poista</translation>
     </message>
@@ -1088,63 +1098,63 @@ Valaisinta ei voida tallentaa.</translation>
         <translation>Kanavat</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="688"/>
-        <location filename="fixtureeditor.cpp" line="697"/>
+        <location filename="fixtureeditor.cpp" line="689"/>
+        <location filename="fixtureeditor.cpp" line="698"/>
         <source>Unable to add mode</source>
         <translation>Tilaa ei voida lisätä</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="689"/>
+        <location filename="fixtureeditor.cpp" line="690"/>
         <source>Another mode by that name already exists</source>
         <translation>Toinen samanniminen tila on jo olemassa</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="698"/>
+        <location filename="fixtureeditor.cpp" line="699"/>
         <source>You must give a name to the mode</source>
         <translation>Tilalle on annettava nimi</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="730"/>
+        <location filename="fixtureeditor.cpp" line="732"/>
         <source>Remove Mode</source>
         <translation>Poista tila</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="731"/>
+        <location filename="fixtureeditor.cpp" line="733"/>
         <source>Are you sure you wish to remove mode: %1</source>
         <translation>Haluatko varmasti poistaa tilan: %1</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="771"/>
+        <location filename="fixtureeditor.cpp" line="774"/>
         <source>Rename new mode</source>
         <translation>Nimeä tila uudelleen</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="772"/>
+        <location filename="fixtureeditor.cpp" line="775"/>
         <source>Give a unique name for the mode</source>
         <translation>Anna tilalle yksilöllinen nimi</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="774"/>
+        <location filename="fixtureeditor.cpp" line="777"/>
         <source>Copy of %1</source>
         <translation>%1:n kopio</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="784"/>
+        <location filename="fixtureeditor.cpp" line="787"/>
         <source>Invalid name</source>
         <translation>Epäkelpo nimi</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="785"/>
+        <location filename="fixtureeditor.cpp" line="788"/>
         <source>Another mode by that name already exists.</source>
         <translation>Toinen samanniminen tila on jo olemassa.</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="828"/>
+        <location filename="fixtureeditor.cpp" line="831"/>
         <source>Clone</source>
         <translation>Kloonaa</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="836"/>
+        <location filename="fixtureeditor.cpp" line="839"/>
         <source>Modes</source>
         <translation>Tilat</translation>
     </message>

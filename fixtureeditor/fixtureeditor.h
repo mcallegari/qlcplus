@@ -25,6 +25,8 @@
 #include <QWidget>
 #include "ui_fixtureeditor.h"
 
+#include "qlcphysical.h"
+
 class QCloseEvent;
 class QString;
 
@@ -124,6 +126,9 @@ protected:
      *********************************************************************/
 public slots:
     void slotClipboardChanged();
+
+private:
+    QLCPhysical m_physicalCopy;
 };
 
 #endif

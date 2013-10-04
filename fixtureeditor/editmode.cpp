@@ -132,6 +132,11 @@ void EditMode::init()
     m_powerConsumptionSpin->setValue(physical.powerConsumption());
     m_dmxConnectorCombo->setEditText(physical.dmxConnector());
 
+    connect(copyClipboardButton, SIGNAL(clicked()),
+            this, SLOT(slotCopyToClipboard()));
+    connect(pasteClipboardButton, SIGNAL(clicked()),
+            this, SLOT(slotPasteFromClipboard()));
+
     // Close shortcut
     QAction* action = new QAction(this);
     action->setShortcut(QKeySequence(QKeySequence::Close));
@@ -446,6 +451,61 @@ void EditMode::selectHead(int index)
     QTreeWidgetItem* item = m_headList->topLevelItem(index);
     m_headList->setCurrentItem(item);
 }
+
+/*********************************************************************
+ * Clipboard
+ *********************************************************************/
+
+QLCPhysical EditMode::getClipboard()
+{
+    return m_clipboard;
+}
+
+void EditMode::setClipboard(QLCPhysical physical)
+{
+    m_clipboard = physical;
+}
+
+void EditMode::slotCopyToClipboard()
+{
+    m_clipboard.setBulbType(m_bulbTypeCombo->currentText());
+    m_clipboard.setBulbLumens(m_bulbLumensSpin->value());
+    m_clipboard.setBulbColourTemperature(m_bulbTempCombo->currentText().toInt());
+    m_clipboard.setWeight(m_weightSpin->value());
+    m_clipboard.setWidth(m_widthSpin->value());
+    m_clipboard.setHeight(m_heightSpin->value());
+    m_clipboard.setDepth(m_depthSpin->value());
+    m_clipboard.setLensName(m_lensNameCombo->currentText());
+    m_clipboard.setLensDegreesMin(m_lensDegreesMinSpin->value());
+    m_clipboard.setLensDegreesMax(m_lensDegreesMaxSpin->value());
+    m_clipboard.setFocusType(m_focusTypeCombo->currentText());
+    m_clipboard.setFocusPanMax(m_panMaxSpin->value());
+    m_clipboard.setFocusTiltMax(m_tiltMaxSpin->value());
+    m_clipboard.setPowerConsumption(m_powerConsumptionSpin->value());
+    m_clipboard.setDmxConnector(m_dmxConnectorCombo->currentText());
+}
+
+void EditMode::slotPasteFromClipboard()
+{
+    m_bulbLumensSpin->setValue(m_clipboard.bulbLumens());
+    m_weightSpin->setValue(m_clipboard.weight());
+    m_widthSpin->setValue(m_clipboard.width());
+    m_heightSpin->setValue(m_clipboard.height());
+    m_depthSpin->setValue(m_clipboard.depth());
+    m_lensDegreesMinSpin->setValue(m_clipboard.lensDegreesMin());
+    m_lensDegreesMaxSpin->setValue(m_clipboard.lensDegreesMax());
+    m_panMaxSpin->setValue(m_clipboard.focusPanMax());
+    m_tiltMaxSpin->setValue(m_clipboard.focusTiltMax());
+    m_powerConsumptionSpin->setValue(m_clipboard.powerConsumption());
+
+    m_bulbTypeCombo->setEditText(m_clipboard.bulbType());
+    m_bulbTempCombo->setEditText(QString::number(m_clipboard.bulbColourTemperature()));
+    m_lensNameCombo->setEditText(m_clipboard.lensName());
+    m_focusTypeCombo->setEditText(m_clipboard.focusType());
+    m_dmxConnectorCombo->setEditText(m_clipboard.dmxConnector());
+}
+
+
 
 /*****************************************************************************
  * Accept

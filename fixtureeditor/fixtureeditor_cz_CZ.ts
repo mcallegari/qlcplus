@@ -863,22 +863,32 @@ p, li { white-space: pre-wrap; }
         <translation>DMX konektor</translation>
     </message>
     <message>
-        <location filename="editmode.cpp" line="172"/>
+        <location filename="editmode.ui" line="953"/>
+        <source>Copy physical information to clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editmode.ui" line="970"/>
+        <source>Paste physical information from clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editmode.cpp" line="177"/>
         <source>Add channel to mode</source>
         <translation>Přidat kanál do režimu</translation>
     </message>
     <message>
-        <location filename="editmode.cpp" line="173"/>
+        <location filename="editmode.cpp" line="178"/>
         <source>Select a channel to add</source>
         <translation>Zvolit kanál pro přidání</translation>
     </message>
     <message>
-        <location filename="editmode.cpp" line="192"/>
+        <location filename="editmode.cpp" line="197"/>
         <source>No more available channels</source>
         <translation>Nejsou již žádné dostupné kanály</translation>
     </message>
     <message>
-        <location filename="editmode.cpp" line="193"/>
+        <location filename="editmode.cpp" line="198"/>
         <source>All available channels are present in the mode.</source>
         <translation>Všechny dostupné kanály jsou již obsaženy v tomto režimu.</translation>
     </message>
@@ -1106,7 +1116,7 @@ Nelze uložit zařízení.</translation>
     <message>
         <location filename="fixtureeditor.cpp" line="585"/>
         <location filename="fixtureeditor.cpp" line="620"/>
-        <location filename="fixtureeditor.cpp" line="825"/>
+        <location filename="fixtureeditor.cpp" line="828"/>
         <source>Edit</source>
         <translation>Upravit</translation>
     </message>
@@ -1125,7 +1135,7 @@ Nelze uložit zařízení.</translation>
     <message>
         <location filename="fixtureeditor.cpp" line="588"/>
         <location filename="fixtureeditor.cpp" line="626"/>
-        <location filename="fixtureeditor.cpp" line="831"/>
+        <location filename="fixtureeditor.cpp" line="834"/>
         <source>Remove</source>
         <translation>Odebrat</translation>
     </message>
@@ -1135,63 +1145,63 @@ Nelze uložit zařízení.</translation>
         <translation>Kanály</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="688"/>
-        <location filename="fixtureeditor.cpp" line="697"/>
+        <location filename="fixtureeditor.cpp" line="689"/>
+        <location filename="fixtureeditor.cpp" line="698"/>
         <source>Unable to add mode</source>
         <translation>Režim nelze přidat</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="689"/>
+        <location filename="fixtureeditor.cpp" line="690"/>
         <source>Another mode by that name already exists</source>
         <translation>Režim stejného jména již existuje</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="698"/>
+        <location filename="fixtureeditor.cpp" line="699"/>
         <source>You must give a name to the mode</source>
         <translation>Musíte zadat nejaké jméno pro tento režim</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="730"/>
+        <location filename="fixtureeditor.cpp" line="732"/>
         <source>Remove Mode</source>
         <translation>Odebrat režim</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="731"/>
+        <location filename="fixtureeditor.cpp" line="733"/>
         <source>Are you sure you wish to remove mode: %1</source>
         <translation>Opravdu chcete odebrat režim: %1</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="771"/>
+        <location filename="fixtureeditor.cpp" line="774"/>
         <source>Rename new mode</source>
         <translation>Přejmenovat nový režim</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="772"/>
+        <location filename="fixtureeditor.cpp" line="775"/>
         <source>Give a unique name for the mode</source>
         <translation>Zadejte jedinečné jméno pro tento režim</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="774"/>
+        <location filename="fixtureeditor.cpp" line="777"/>
         <source>Copy of %1</source>
         <translation>Kopie z %1</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="784"/>
+        <location filename="fixtureeditor.cpp" line="787"/>
         <source>Invalid name</source>
         <translation>Neplatné jméno</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="785"/>
+        <location filename="fixtureeditor.cpp" line="788"/>
         <source>Another mode by that name already exists.</source>
         <translation>Jiný režim tohoto jména již existuje.</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="828"/>
+        <location filename="fixtureeditor.cpp" line="831"/>
         <source>Clone</source>
         <translation>Duplikovat</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="836"/>
+        <location filename="fixtureeditor.cpp" line="839"/>
         <source>Modes</source>
         <translation>Režimy</translation>
     </message>
