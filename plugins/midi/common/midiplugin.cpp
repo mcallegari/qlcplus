@@ -40,6 +40,9 @@ void MidiPlugin::init()
     connect(m_enumerator, SIGNAL(configurationChanged()),
             this, SIGNAL(configurationChanged()));
     m_enumerator->rescan();
+
+    loadMidiTemplates(userMidiTemplateDirectory());
+    loadMidiTemplates(systemMidiTemplateDirectory());
 }
 
 MidiPlugin::~MidiPlugin()
@@ -72,8 +75,12 @@ void MidiPlugin::openOutput(quint32 output)
     if (dev != NULL)
         dev->open();
 
-    if (dev->initMessage() != "")
-        sendRaw(output, dev->initMessage());
+    if (dev->midiTemplateName() != "")
+    {
+        MidiTemplate* templ = midiTemplate(dev->midiTemplateName());
+        if (templ != NULL)
+            sendRaw(output, templ->midiMessage());
+    }
 }
 
 void MidiPlugin::closeOutput(quint32 output)
@@ -282,15 +289,14 @@ void MidiPlugin::sendRaw(quint32 output, const QString &data)
     list = data.split(" ");
 
     uchar message[12];
-    for (int i = 0; i < list.length(); ++i) {
+    for (int i = 0; i < list.length(); ++i)
+    {
         message[i] = list[i].toUInt(&ok,16);
     }
 
     MidiOutputDevice* dev = outputDevice(output);
     if (dev != NULL)
-    {
         dev->writeRaw(message);
-    }
 }
 
 MidiInputDevice* MidiPlugin::inputDevice(quint32 input) const
@@ -329,6 +335,120 @@ bool MidiPlugin::canConfigure()
 {
     qDebug() << Q_FUNC_INFO;
     return true;
+}
+
+/*****************************************************************************
+ * Midi templates
+ *****************************************************************************/
+
+QDir MidiPlugin::userMidiTemplateDirectory()
+{
+    QDir dir;
+
+#ifdef Q_WS_X11
+    // If the current user is root, return the system profile dir.
+    // Otherwise return the user's home dir.
+    if (geteuid() == 0)
+        dir = QDir(MIDITEMPLATEDIR);
+    else
+        dir.setPath(QString("%1/%2").arg(getenv("HOME")).arg(USERMIDITEMPLATEDIR));
+#elif __APPLE__
+    /* User's input profile directory on OSX */
+    dir.setPath(QString("%1/%2").arg(getenv("HOME")).arg(USERMIDITEMPLATEDIR));
+#else
+    /* User's input profile directory on Windows */
+    LPTSTR home = (LPTSTR) malloc(256 * sizeof(TCHAR));
+    GetEnvironmentVariable(TEXT("UserProfile"), home, 256);
+    dir.setPath(QString("%1/%2")
+                    .arg(QString::fromUtf16(reinterpret_cast<ushort*> (home)))
+                    .arg(USERMIDITEMPLATEDIR));
+    free(home);
+#endif
+
+    /* Ensure that the selected profile directory exists */
+    if (dir.exists() == false)
+        dir.mkpath(".");
+
+    dir.setFilter(QDir::Files);
+    dir.setNameFilters(QStringList() << QString("*%1").arg(KExtMidiTemplate));
+    return dir;
+}
+
+QDir MidiPlugin::systemMidiTemplateDirectory()
+{
+    QDir dir;
+
+#ifdef __APPLE__
+    dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
+                              .arg(MIDITEMPLATEDIR));
+#else
+    dir.setPath(MIDITEMPLATEDIR);
+#endif
+
+    dir.setFilter(QDir::Files);
+    dir.setNameFilters(QStringList() << QString("*%1").arg(KExtMidiTemplate));
+    return dir;
+}
+
+bool MidiPlugin::addMidiTemplate(MidiTemplate* templ)
+{
+    Q_ASSERT(templ != NULL);
+
+    /* Don't add the same temlate twice */
+    if (m_midiTemplates.contains(templ) == false)
+    {
+        m_midiTemplates.append(templ);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+MidiTemplate* MidiPlugin::midiTemplate(QString name)
+{
+    QListIterator <MidiTemplate*> it(m_midiTemplates);
+    while (it.hasNext() == true)
+    {
+        MidiTemplate* templ = it.next();
+        if (templ->name() == name)
+            return templ;
+    }
+
+    return NULL;
+}
+
+void MidiPlugin::loadMidiTemplates(const QDir& dir)
+{
+    if (dir.exists() == false || dir.isReadable() == false)
+        return;
+
+    /* Go thru all found file entries and attempt to load a midi
+       template from each of them. */
+    QStringListIterator it(dir.entryList());
+    while (it.hasNext() == true)
+    {
+        QString path = dir.absoluteFilePath(it.next());
+        qDebug() << "file: " << path;
+
+        MidiTemplate* templ;
+
+        templ = MidiTemplate::loader(path);
+
+        if (templ != NULL)
+        {
+            addMidiTemplate(templ);
+        } else
+        {
+            qWarning() << Q_FUNC_INFO << "Unable to load a midi template from" << path;
+        }
+    }
+}
+
+QList <MidiTemplate*> MidiPlugin::midiTemplates()
+{
+    return m_midiTemplates;
 }
 
 /*****************************************************************************

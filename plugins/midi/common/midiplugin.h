@@ -22,15 +22,22 @@
 #ifndef MIDIPLUGIN_H
 #define MIDIPLUGIN_H
 
+#define KExtMidiTemplate ".qxm" // 'Q'LC+ 'X'ml 'M'idi template
+#define MIDITEMPLATEDIR "Resources/MidiTemplates"
+#define USERMIDITEMPLATEDIR "Library/Application Support/QLC+/MidiTemplates"
+
 #include <QStringList>
 #include <QList>
+#include <QDir>
 
 #include "qlcioplugin.h"
+#include "miditemplate.h"
 
 class ConfigureMIDIPlugin;
 class MidiOutputDevice;
 class MidiInputDevice;
 class MidiEnumerator;
+class MidiTemplate;
 class QString;
 
 class MidiPlugin : public QLCIOPlugin
@@ -123,6 +130,26 @@ public:
 
     /** @reimp */
     bool canConfigure();
+
+    /*************************************************************************
+     * Midi templates
+     *************************************************************************/
+public:
+    QDir userMidiTemplateDirectory();
+
+    QDir systemMidiTemplateDirectory();
+
+    bool addMidiTemplate(MidiTemplate* templ);
+
+    MidiTemplate* midiTemplate(QString name);
+
+    void loadMidiTemplates(const QDir& dir);
+
+    QList <MidiTemplate*> midiTemplates();
+
+private:
+    /** List that contains all available midi templates */
+    QList <MidiTemplate*> m_midiTemplates;
 };
 
 #endif

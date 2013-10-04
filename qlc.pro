@@ -10,6 +10,7 @@ SUBDIRS      += fixtures
 SUBDIRS      += gobos
 SUBDIRS      += inputprofiles
 SUBDIRS      += rgbscripts
+SUBDIRS      += miditemplates
 SUBDIRS      += fixtureeditor
 SUBDIRS      += etc
 SUBDIRS      += docs

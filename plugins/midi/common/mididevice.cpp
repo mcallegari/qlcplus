@@ -116,17 +116,17 @@ MidiDevice::Mode MidiDevice::stringToMode(const QString& mode)
 }
 
 /****************************************************************************
- * Init Message
+ * Midi template
  ****************************************************************************/
 
-void MidiDevice::setInitMessage(QString initMessage)
+void MidiDevice::setMidiTemplateName(QString midiTemplateName)
 {
-    m_initMessage = initMessage;
+    m_midiTemplateName = midiTemplateName;
 }
 
-QString MidiDevice::initMessage() const
+QString MidiDevice::midiTemplateName() const
 {
-    return m_initMessage;
+    return m_midiTemplateName;
 }
 
 /****************************************************************************
@@ -154,9 +154,9 @@ void MidiDevice::loadSettings()
     key = QString(SETTINGS_INITMESSAGE).arg(uid().toString());
     value = settings.value(key);
     if (value.isValid() == true)
-        setInitMessage(value.toString());
+        setMidiTemplateName(value.toString());
     else
-        setInitMessage("");
+        setMidiTemplateName("");
 }
 
 void MidiDevice::saveSettings() const
@@ -170,7 +170,7 @@ void MidiDevice::saveSettings() const
     settings.setValue(key, MidiDevice::modeToString(mode()));
 
     key = QString(SETTINGS_INITMESSAGE).arg(uid().toString());
-    settings.setValue(key, initMessage());
+    settings.setValue(key, midiTemplateName());
 
-    qDebug() << "Saving mididevice: " << initMessage();
+    qDebug() << "Saving mididevice: " << midiTemplateName();
 }

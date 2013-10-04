@@ -104,12 +104,11 @@ void ConfigureMidiPlugin::slotInitMessageActivated(int index)
     MidiDevice* dev = (MidiDevice*) var.toULongLong();
     Q_ASSERT(dev != NULL);
 
-    QString initMessage = combo->itemData(index).toString();
-    qDebug() << "Saving init message" << initMessage;
-    dev->setInitMessage(initMessage);
+    QString initMessage = combo->itemText(index);
+    dev->setMidiTemplateName(initMessage);
 }
 
-void ConfigureMidiPlugin::slotInitMessageChanged(QString initMessage)
+void ConfigureMidiPlugin::slotInitMessageChanged(QString midiTemplateName)
 {
     QComboBox* combo = qobject_cast<QComboBox*> (QObject::sender());
     Q_ASSERT(combo != NULL);
@@ -119,9 +118,7 @@ void ConfigureMidiPlugin::slotInitMessageChanged(QString initMessage)
 
     MidiDevice* dev = (MidiDevice*) var.toULongLong();
     Q_ASSERT(dev != NULL);
-
-    qDebug() << "Saving init message with changed" << initMessage;
-    dev->setInitMessage(initMessage);
+    dev->setMidiTemplateName(midiTemplateName);
 }
 
 
@@ -147,7 +144,7 @@ void ConfigureMidiPlugin::slotUpdateTree()
         widget->setProperty(PROP_DEV, (qulonglong) dev);
         m_tree->setItemWidget(item, COL_MODE, widget);
 
-        widget = createInitMessageWidget(dev->initMessage());
+        widget = createInitMessageWidget(dev->midiTemplateName());
         widget->setProperty(PROP_DEV, (qulonglong) dev);
         m_tree->setItemWidget(item, COL_INITMESSAGE, widget);
     }
@@ -170,7 +167,7 @@ void ConfigureMidiPlugin::slotUpdateTree()
         widget->setProperty(PROP_DEV, (qulonglong) dev);
         m_tree->setItemWidget(item, COL_MODE, widget);
 
-        widget = createInitMessageWidget(dev->initMessage());
+        widget = createInitMessageWidget(dev->midiTemplateName());
         widget->setProperty(PROP_DEV, (qulonglong) dev);
         m_tree->setItemWidget(item, COL_INITMESSAGE, widget);
     }
@@ -211,21 +208,27 @@ QWidget* ConfigureMidiPlugin::createModeWidget(MidiDevice::Mode mode)
     return combo;
 }
 
-QWidget* ConfigureMidiPlugin::createInitMessageWidget(QString initMessage)
+QWidget* ConfigureMidiPlugin::createInitMessageWidget(QString midiTemplateName)
 {
-    //TODO: messages should come from an XML file
     QComboBox* combo = new QComboBox;
     combo->addItem("", "");
-    combo->addItem("APC20 init message", "F0 47 00 7B 60 00 04 41 09 00 05 F7");
-    combo->setEditable(true);
 
-    if (initMessage == "F0 47 00 7B 60 00 04 41 09 00 05 F7")
-        combo->setCurrentIndex(1);
-    else if (initMessage != "")
+    QListIterator <MidiTemplate*> it(m_plugin->midiTemplates());
+    while (it.hasNext() == true)
     {
-        combo->addItem(initMessage, initMessage);
-        combo->setCurrentIndex(combo->count() -1);
+        MidiTemplate* templ = it.next();
+        combo->addItem(templ->name(), templ->midiMessage());
+        qDebug() << "msg: " << templ->midiMessage();
     }
+
+    for (int i = 0; i < combo->count(); ++i)
+    {
+        if (combo->itemText(i) == midiTemplateName)
+            combo->setCurrentIndex(i);
+    }
+
+    //combo->setEditable(true);
+    qDebug() << "selected: " << midiTemplateName;
 
     connect(combo, SIGNAL(activated(int)), this, SLOT(slotInitMessageActivated(int)));
     connect(combo, SIGNAL(editTextChanged(QString)), this, SLOT(slotInitMessageChanged(QString)));

@@ -246,6 +246,4 @@ void CoreMidiOutputDevice::writeRaw(uchar* data)
     OSStatus s = MIDISend(m_outPort, m_destination, list);
     if (s != 0)
         qWarning() << Q_FUNC_INFO << "Unable to send MIDI data to" << name();
-
-    qDebug() << "writeRaw done";
 }
