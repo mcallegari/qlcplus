@@ -37,6 +37,7 @@ docs.files = \
              howto-input-profiles.html \
              howto-input-output-mapping.html \
              index.html \
+             liveedit.html \
              mainwindow.html \
              mainwindow2.png \
              midiplugin.html \
