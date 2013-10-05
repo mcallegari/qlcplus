@@ -8,6 +8,7 @@ qlcplus (4.5.0) stable; urgency=low
   * NEW: MIDI plugin can now receive Program Change and MIDI beat clock
   * NEW: Audio triggers turned to a Virtual Console widget. No backward compatibility. Please update your projects.
   * NEW: In Fixture Editor, it is now possible to copy/paste physical information
+  * NEW: "Stop all functions" now has 4 presets (1s, 5s, 10s, 30s) to fade out intensity channels before stopping
   * EXPERIMENTAL: added web interface to run QLC+ on a headless system. Default port is 9999. Run QLC+ with '-w' option to enable web access.
   * Cue List "Stop" input turned into "Playback", to handle start/stop of a cue with one key
   * Fixed channel groups remapping

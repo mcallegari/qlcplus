@@ -283,6 +283,9 @@ void SimpleDeskEngine::writeDMX(MasterTimer* timer, UniverseArray* ua)
     m_mutex.lock();
     foreach (CueStack* cueStack, m_cueStacks)
     {
+        if (cueStack == NULL)
+            continue;
+
         if (cueStack->isRunning() == true)
         {
             if (cueStack->isStarted() == false)

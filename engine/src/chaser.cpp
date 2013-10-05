@@ -589,11 +589,10 @@ void Chaser::write(MasterTimer* timer, UniverseArray* universes)
 
 void Chaser::postRun(MasterTimer* timer, UniverseArray* universes)
 {
-    if (m_useInternalRunner)
+    if (m_useInternalRunner && m_runner != NULL)
     {
         m_runner->postRun(timer, universes);
 
-        Q_ASSERT(m_runner != NULL);
         delete m_runner;
         m_runner = NULL;
     }
