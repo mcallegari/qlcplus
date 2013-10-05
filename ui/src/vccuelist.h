@@ -146,6 +146,9 @@ private slots:
         Note that only 'Notes" column is considered */
     void slotItemChanged(QTreeWidgetItem*item, int column);
 
+    /** Slot called whenever a function is stopped */
+    void slotFunctionStopped(quint32 fid);
+
 private:
     /** Create the runner that writes cue values to universes */
     void createRunner(int startIndex = -1);

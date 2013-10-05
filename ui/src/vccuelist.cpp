@@ -259,11 +259,23 @@ bool VCCueList::copyFrom(VCWidget* widget)
 
 void VCCueList::setChaser(quint32 id)
 {
-    Chaser* chaser = qobject_cast<Chaser*> (m_doc->function(id));
+    Function *old = m_doc->function(m_chaserID);
+    if (old != NULL)
+    {
+        disconnect(old, SIGNAL(stopped(quint32)),
+            this, SLOT(slotChaserStopped(quint32)));
+    }
+
+    Function *chaser = m_doc->function(id);
+
     if (chaser == NULL)
         m_chaserID = Function::invalidId();
     else
+    {
         m_chaserID = id;
+        connect(chaser, SIGNAL(stopped(quint32)),
+                    this, SLOT(slotFunctionStopped(quint32)));
+    }
     updateStepList();
 }
 
@@ -511,6 +523,18 @@ void VCCueList::slotItemChanged(QTreeWidgetItem *item, int column)
     updateStepList();
 }
 
+void VCCueList::slotFunctionStopped(quint32 fid)
+{
+    if (fid == m_chaserID && m_runner != NULL)
+    {
+        qDebug() << Q_FUNC_INFO << "Cue stopped";
+        Chaser* chaser = qobject_cast<Chaser*> (m_doc->function(m_chaserID));
+        if (chaser != NULL)
+            chaser->useInternalRunner(true);
+        slotStop();
+    }
+}
+
 void VCCueList::createRunner(int startIndex)
 {
     Q_ASSERT(m_runner == NULL);
@@ -518,7 +542,8 @@ void VCCueList::createRunner(int startIndex)
     Chaser* chaser = qobject_cast<Chaser*> (m_doc->function(m_chaserID));
     if (chaser != NULL)
     {
-        //m_runner = Chaser::createRunner(chaser, m_doc);
+        chaser->useInternalRunner(false);
+        chaser->start(m_doc->masterTimer());
         m_runner = new CueListRunner(m_doc, chaser);
         Q_ASSERT(m_runner != NULL);
         //m_runner->moveToThread(QCoreApplication::instance()->thread());
@@ -690,6 +715,12 @@ void VCCueList::writeDMX(MasterTimer* timer, UniverseArray* universes)
             delete m_runner;
             m_runner = NULL;
             m_stop = false;
+            Chaser* chaser = qobject_cast<Chaser*> (m_doc->function(m_chaserID));
+            if (chaser != NULL)
+            {
+                chaser->stop();
+                chaser->useInternalRunner(true);
+            }
         }
     }
     m_mutex.unlock();

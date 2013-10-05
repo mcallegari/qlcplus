@@ -452,332 +452,352 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>App</name>
     <message>
-        <location filename="app.cpp" line="211"/>
+        <location filename="app.cpp" line="212"/>
         <source>Fixtures</source>
         <translation>Zařízení</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="213"/>
+        <location filename="app.cpp" line="214"/>
         <source>Functions</source>
         <translation>Funkce</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="215"/>
+        <location filename="app.cpp" line="216"/>
         <source>Shows</source>
         <translation>Představení</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="217"/>
+        <location filename="app.cpp" line="218"/>
         <source>Virtual Console</source>
         <translation>Virtuální pracoviště</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="219"/>
+        <location filename="app.cpp" line="220"/>
         <source>Simple Desk</source>
         <translation>Jednoduchý pult</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="221"/>
+        <location filename="app.cpp" line="222"/>
         <source>Inputs/Outputs</source>
         <translation>Vstupy/výstupy</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="279"/>
+        <location filename="app.cpp" line="280"/>
         <source>Cannot exit in Operate mode</source>
         <translation>Nelze ukončit v režimu Provoz</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="280"/>
+        <location filename="app.cpp" line="281"/>
         <source>You must switch back to Design mode to close the application.</source>
         <translation>Pro uzavření aplikace se nejprve musíte se přepnout zpět do režimu Návrhu.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="288"/>
+        <location filename="app.cpp" line="289"/>
         <source>Close</source>
         <translation>Zavřít</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="289"/>
+        <location filename="app.cpp" line="290"/>
         <source>Do you wish to save the current workspace before closing the application?</source>
         <translation>Přejete si uložit rozdělanou práci před ukončením aplikace ?</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="313"/>
+        <location filename="app.cpp" line="314"/>
         <source>Close the application?</source>
         <translation>Zavřít aplikaci ?</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="314"/>
+        <location filename="app.cpp" line="315"/>
         <source>Do you wish to close the application?</source>
         <translation>Opravdu si přejete uzavřít aplikaci ?</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="356"/>
+        <location filename="app.cpp" line="357"/>
         <source>Starting Q Light Controller Plus</source>
         <translation>Startuje se Q Light Controller Plus</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="412"/>
+        <location filename="app.cpp" line="413"/>
         <source> - New Workspace</source>
         <translation>- Nové pracoviště</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="446"/>
+        <location filename="app.cpp" line="447"/>
         <source>Exit</source>
         <translation>Zavřít</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="463"/>
+        <location filename="app.cpp" line="464"/>
         <source>Switch to Design Mode</source>
         <translation>Přepnout do režimu Návrhu</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="464"/>
+        <location filename="app.cpp" line="465"/>
         <source>There are still running functions.
 Really stop them and switch back to Design mode?</source>
         <translation>Některé funkce stále běží.
 Opravdu si přejete běžící funkce zastavit a přejít zpět do režimu Návrhu?</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="497"/>
+        <location filename="app.cpp" line="498"/>
         <source>Design</source>
         <translation>Návrh</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="498"/>
+        <location filename="app.cpp" line="499"/>
         <source>Switch to design mode</source>
         <translation>Přepnout do režimu Návrhu</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="508"/>
+        <location filename="app.cpp" line="509"/>
         <source>Operate</source>
         <translation>Provoz</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="509"/>
-        <location filename="app.cpp" line="537"/>
+        <location filename="app.cpp" line="510"/>
+        <location filename="app.cpp" line="538"/>
         <source>Switch to operate mode</source>
         <translation>Přepnout do režimu Provoz</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="520"/>
+        <location filename="app.cpp" line="521"/>
         <source>&amp;New</source>
         <translation>&amp;Nový</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="521"/>
+        <location filename="app.cpp" line="522"/>
         <source>CTRL+N</source>
         <comment>File|New</comment>
         <translation>CTRL+N</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="524"/>
+        <location filename="app.cpp" line="525"/>
         <source>&amp;Open</source>
         <translation>&amp;Otevřít</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="525"/>
+        <location filename="app.cpp" line="526"/>
         <source>CTRL+O</source>
         <comment>File|Open</comment>
         <translation>CTRL+O</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="528"/>
+        <location filename="app.cpp" line="529"/>
         <source>&amp;Save</source>
         <translation>&amp;Uložit</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="529"/>
+        <location filename="app.cpp" line="530"/>
         <source>CTRL+S</source>
         <comment>File|Save</comment>
         <translation>CTRL+S</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="532"/>
+        <location filename="app.cpp" line="533"/>
         <source>Save &amp;As...</source>
         <translation>Uložit &amp;jako...</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="536"/>
+        <location filename="app.cpp" line="537"/>
         <source>&amp;Operate</source>
         <translation>&amp;Provoz</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="538"/>
+        <location filename="app.cpp" line="539"/>
         <source>CTRL+F12</source>
         <comment>Control|Toggle operate/design mode</comment>
         <translation>CTRL+F12</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="541"/>
+        <location filename="app.cpp" line="542"/>
         <source>&amp;Monitor</source>
         <translation>&amp;Monitor</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="542"/>
+        <location filename="app.cpp" line="543"/>
         <source>CTRL+M</source>
         <comment>Control|Monitor</comment>
         <translation>CTRL+M</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="545"/>
+        <location filename="app.cpp" line="546"/>
         <source>Address Tool</source>
         <translation>Pomocník adresace</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="548"/>
+        <location filename="app.cpp" line="549"/>
         <source>Toggle &amp;Blackout</source>
         <translation>Režim &amp;Blackout</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="553"/>
+        <location filename="app.cpp" line="554"/>
         <source>Live edit a function</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="557"/>
+        <location filename="app.cpp" line="558"/>
         <source>Dump DMX values to a function</source>
         <translation>Zachytit DMX hodnoty do funkce</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="558"/>
+        <location filename="app.cpp" line="559"/>
         <source>CTRL+D</source>
         <comment>Control|Dump DMX</comment>
         <translation>CTRL+D</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="561"/>
+        <location filename="app.cpp" line="562"/>
         <source>Stop ALL functions!</source>
         <translation>Zastavit VŠECHNY funkce!</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="565"/>
+        <location filename="app.cpp" line="567"/>
+        <source>Fade 1 second and stop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="app.cpp" line="572"/>
+        <source>Fade 5 seconds and stop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="app.cpp" line="577"/>
+        <source>Fade 10 second and stop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="app.cpp" line="582"/>
+        <source>Fade 30 second and stop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="app.cpp" line="589"/>
         <source>Toggle Full Screen</source>
         <translation>Přepnout na celou obrazovku</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="567"/>
+        <location filename="app.cpp" line="591"/>
         <source>CTRL+F11</source>
         <comment>Control|Toggle Full Screen</comment>
         <translation>CTRL+F11</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="571"/>
+        <location filename="app.cpp" line="595"/>
         <source>&amp;Index</source>
         <translation>&amp;Index</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="572"/>
+        <location filename="app.cpp" line="596"/>
         <source>SHIFT+F1</source>
         <comment>Help|Index</comment>
         <translation>SHIFT+F1</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="575"/>
+        <location filename="app.cpp" line="599"/>
         <source>&amp;About QLC+</source>
         <translation>&amp;O programu QLC+</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="581"/>
+        <location filename="app.cpp" line="605"/>
         <source>Workspace</source>
         <translation>Pracoviště</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="632"/>
+        <location filename="app.cpp" line="660"/>
         <source>Unable to read from file</source>
         <translation>Ze souboru nelze číst</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="635"/>
+        <location filename="app.cpp" line="663"/>
         <source>Unable to write to file</source>
         <translation>Do souboru nelze zapisovat</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="638"/>
+        <location filename="app.cpp" line="666"/>
         <source>A fatal error occurred</source>
         <translation>Nastala kritická chyba</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="641"/>
+        <location filename="app.cpp" line="669"/>
         <source>Unable to access resource</source>
         <translation>K tomuto zdroji se nepodařilo získat přístup</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="644"/>
+        <location filename="app.cpp" line="672"/>
         <source>Unable to open file for reading or writing</source>
         <translation>Nelze otevřít soubor pro čtení nebo zápis</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="647"/>
+        <location filename="app.cpp" line="675"/>
         <source>Operation was aborted</source>
         <translation>Operace byla zrušena</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="650"/>
+        <location filename="app.cpp" line="678"/>
         <source>Operation timed out</source>
         <translation>Časový limit operace vypršel</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="654"/>
+        <location filename="app.cpp" line="682"/>
         <source>An unspecified error has occurred. Nice.</source>
         <translation>No, nastala neočekávaná chyba. Co dodat, mrzí nás to.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="658"/>
+        <location filename="app.cpp" line="686"/>
         <source>File error</source>
         <translation>Chyba souboru</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="720"/>
-        <location filename="app.cpp" line="759"/>
-        <location filename="app.cpp" line="1036"/>
+        <location filename="app.cpp" line="748"/>
+        <location filename="app.cpp" line="787"/>
+        <location filename="app.cpp" line="1075"/>
         <source>Do you wish to save the current workspace?
 Changes will be lost if you don&apos;t save them.</source>
         <translation>Přejete si uložit rozdělanou práci?
 Veškeré změny budou zahozeny, pokud je teď neuložíte.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="722"/>
+        <location filename="app.cpp" line="750"/>
         <source>New Workspace</source>
         <translation>Nové Pracoviště</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="761"/>
-        <location filename="app.cpp" line="782"/>
-        <location filename="app.cpp" line="1038"/>
+        <location filename="app.cpp" line="789"/>
+        <location filename="app.cpp" line="810"/>
+        <location filename="app.cpp" line="1077"/>
         <source>Open Workspace</source>
         <translation>Otevřít Pracoviště</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="790"/>
-        <location filename="app.cpp" line="867"/>
+        <location filename="app.cpp" line="818"/>
+        <location filename="app.cpp" line="895"/>
         <source>Workspaces (*%1)</source>
         <translation>Pracoviště (*%1)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="792"/>
-        <location filename="app.cpp" line="869"/>
+        <location filename="app.cpp" line="820"/>
+        <location filename="app.cpp" line="897"/>
         <source>All Files (*.*)</source>
         <translation>Všechny soubory (*.*)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="794"/>
-        <location filename="app.cpp" line="871"/>
+        <location filename="app.cpp" line="822"/>
+        <location filename="app.cpp" line="899"/>
         <source>All Files (*)</source>
         <translation>Všechny soubory (*)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="861"/>
+        <location filename="app.cpp" line="889"/>
         <source>Save Workspace As</source>
         <translation>Uložit Pracoviště jako</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1027"/>
+        <location filename="app.cpp" line="1066"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1028"/>
+        <location filename="app.cpp" line="1067"/>
         <source>File not found !
 The selected file has been moved or deleted.</source>
         <translation>Soubor nebyl nalezen!
@@ -4197,22 +4217,22 @@ Délka: %3
         <translation>Seznam střihů</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="843"/>
+        <location filename="vccuelist.cpp" line="874"/>
         <source>Fade In</source>
         <translation>Zesílení</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="843"/>
+        <location filename="vccuelist.cpp" line="874"/>
         <source>Fade Out</source>
         <translation>Zeslabení</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="843"/>
+        <location filename="vccuelist.cpp" line="874"/>
         <source>Duration</source>
         <translation>Délka</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="843"/>
+        <location filename="vccuelist.cpp" line="874"/>
         <source>Notes</source>
         <translation>Poznámky</translation>
     </message>

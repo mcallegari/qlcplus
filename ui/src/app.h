@@ -132,6 +132,7 @@ public slots:
     void slotControlBlackout();
     void slotBlackoutChanged(bool state);
     void slotControlPanic();
+    void slotFadeAndStopAll();
     void slotRunningFunctionsChanged();
     void slotDumpDmxIntoFunction();
     void slotFunctionLiveEdit();
@@ -159,6 +160,7 @@ private:
     QAction* m_helpIndexAction;
     QAction* m_helpAboutAction;
     QMenu* m_fileOpenMenu;
+    QMenu* m_fadeAndStopMenu;
 
 private:
     QToolBar* m_toolbar;

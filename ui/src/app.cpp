@@ -94,6 +94,7 @@ App::App()
     , m_helpIndexAction(NULL)
     , m_helpAboutAction(NULL)
     , m_fileOpenMenu(NULL)
+    , m_fadeAndStopMenu(NULL)
 
     , m_toolbar(NULL)
 
@@ -562,6 +563,29 @@ void App::initActions()
     m_controlPanicAction->setShortcut(QKeySequence("CTRL+SHIFT+ESC"));
     connect(m_controlPanicAction, SIGNAL(triggered(bool)), this, SLOT(slotControlPanic()));
 
+    m_fadeAndStopMenu = new QMenu();
+    QAction *fade1 = new QAction(tr("Fade 1 second and stop"), this);
+    fade1->setData(QVariant(1000));
+    connect(fade1, SIGNAL(triggered()), this, SLOT(slotFadeAndStopAll()));
+    m_fadeAndStopMenu->addAction(fade1);
+
+    QAction *fade5 = new QAction(tr("Fade 5 seconds and stop"), this);
+    fade5->setData(QVariant(5000));
+    connect(fade5, SIGNAL(triggered()), this, SLOT(slotFadeAndStopAll()));
+    m_fadeAndStopMenu->addAction(fade5);
+
+    QAction *fade10 = new QAction(tr("Fade 10 second and stop"), this);
+    fade10->setData(QVariant(10000));
+    connect(fade10, SIGNAL(triggered()), this, SLOT(slotFadeAndStopAll()));
+    m_fadeAndStopMenu->addAction(fade10);
+
+    QAction *fade30 = new QAction(tr("Fade 30 second and stop"), this);
+    fade30->setData(QVariant(30000));
+    connect(fade30, SIGNAL(triggered()), this, SLOT(slotFadeAndStopAll()));
+    m_fadeAndStopMenu->addAction(fade30);
+
+    m_controlPanicAction->setMenu(m_fadeAndStopMenu);
+
     m_controlFullScreenAction = new QAction(QIcon(":/fullscreen.png"), tr("Toggle Full Screen"), this);
     m_controlFullScreenAction->setCheckable(true);
     m_controlFullScreenAction->setShortcut(QKeySequence(tr("CTRL+F11", "Control|Toggle Full Screen")));
@@ -613,6 +637,10 @@ void App::initToolBar()
     Q_ASSERT(btn != NULL);
     btn->setPopupMode(QToolButton::DelayedPopup);
     updateFileOpenMenu("");
+
+    btn = qobject_cast<QToolButton*> (m_toolbar->widgetForAction(m_controlPanicAction));
+    Q_ASSERT(btn != NULL);
+    btn->setPopupMode(QToolButton::DelayedPopup);
 }
 
 /*****************************************************************************
@@ -932,12 +960,23 @@ void App::slotControlPanic()
     m_doc->masterTimer()->stopAllFunctions();
 }
 
+void App::slotFadeAndStopAll()
+{
+    QAction *action = (QAction *)sender();
+    int timeout = action->data().toInt();
+
+    m_doc->masterTimer()->fadeAndStopAll(timeout);
+}
+
 void App::slotRunningFunctionsChanged()
 {
     if (m_doc->masterTimer()->runningFunctions() > 0)
         m_controlPanicAction->setEnabled(true);
     else
+    {
         m_controlPanicAction->setEnabled(false);
+        m_doc->masterTimer()->stopAllFunctions();
+    }
 }
 
 void App::slotDumpDmxIntoFunction()
