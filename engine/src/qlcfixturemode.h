@@ -139,6 +139,13 @@ public:
     bool removeChannel(const QLCChannel* channel);
 
     /**
+     * Remove all channels from this mode. The channels are only removed from
+     * m_channels list, but they are not deleted, since they might be used by
+     * other modes, and in any case, the fixtureDef owns the channel.
+     */
+    void removeAllChannels();
+
+    /**
      * Get a channel by its name. If there are more than one channels with
      * the same name in a mode, only the first one is returned (although
      * channel names should be unique and this should never happen).

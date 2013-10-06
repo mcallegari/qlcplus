@@ -33,6 +33,7 @@
 #include <QDebug>
 #include <QSize>
 
+#include "addchannelsdialog.h"
 #include "qlcfixturemode.h"
 #include "qlcfixturehead.h"
 #include "qlcfixturedef.h"
@@ -156,47 +157,21 @@ void EditMode::init()
 
 void EditMode::slotAddChannelClicked()
 {
-    QLCChannel* ch;
+    AddChannelsDialog ach(m_mode->fixtureDef()->channels(), m_mode->channels());
+    if (ach.exec() != QDialog::Accepted)
+        return;
 
-    /* Create a list of channels that haven't been added to this mode yet */
-    QStringList chlist;
-    QListIterator <QLCChannel*> it(m_mode->fixtureDef()->channels());
-    while (it.hasNext() == true)
-    {
-        ch = it.next();
-        if (m_mode->channel(ch->name()) != NULL)
-            continue;
-        else
-            chlist << ch->name();
-    }
+    QList <QLCChannel *> newChannelList = ach.getModeChannelsList();
 
-    if (chlist.size() > 0)
-    {
-        bool ok = false;
-        QString name = QInputDialog::getItem(this,
-                                             tr("Add channel to mode"),
-                                             tr("Select a channel to add"),
-                                             chlist, 0, false, &ok);
+    // clear the previous list
+    m_mode->removeAllChannels();
 
-        if (ok == true && name.isEmpty() == false)
-        {
-            ch = m_mode->fixtureDef()->channel(name);
+    // Append the channels
+    foreach(QLCChannel *ch, newChannelList)
+        m_mode->insertChannel(ch, m_mode->channels().size());
 
-            // Append the channel
-            m_mode->insertChannel(ch, m_mode->channels().size());
-
-            // Easier to refresh the whole list
-            refreshChannelList();
-
-            // Select the new channel
-            selectChannel(ch->name());
-        }
-    }
-    else
-    {
-        QMessageBox::information(this, tr("No more available channels"),
-                                 tr("All available channels are present in the mode."));
-    }
+    // Easier to refresh the whole list
+    refreshChannelList();
 }
 
 void EditMode::slotRemoveChannelClicked()

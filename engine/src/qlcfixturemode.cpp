@@ -167,6 +167,11 @@ bool QLCFixtureMode::removeChannel(const QLCChannel* channel)
     return false;
 }
 
+void QLCFixtureMode::removeAllChannels()
+{
+    m_channels.clear();
+}
+
 QLCChannel* QLCFixtureMode::channel(const QString& name) const
 {
     QListIterator <QLCChannel*> it(m_channels);
