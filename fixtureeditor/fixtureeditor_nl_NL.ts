@@ -83,6 +83,41 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>AddChannelsDialog</name>
+    <message>
+        <location filename="addchannelsdialog.ui" line="14"/>
+        <source>Fixture Mode Channels Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addchannelsdialog.ui" line="30"/>
+        <source>Available channels</source>
+        <oldsource>All channels</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addchannelsdialog.ui" line="52"/>
+        <source>&gt;&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addchannelsdialog.ui" line="65"/>
+        <source>&lt;&lt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addchannelsdialog.ui" line="94"/>
+        <location filename="addchannelsdialog.ui" line="116"/>
+        <source>Name</source>
+        <translation type="unfinished">Naam</translation>
+    </message>
+    <message>
+        <location filename="addchannelsdialog.ui" line="102"/>
+        <source>Mode channels</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>App</name>
     <message>
         <location filename="app.cpp" line="123"/>
@@ -181,17 +216,17 @@ p, li { white-space: pre-wrap; }
         <translation>Over Qt...</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="319"/>
+        <location filename="app.cpp" line="320"/>
         <source>&amp;File</source>
         <translation>&amp;Bestand</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="329"/>
+        <location filename="app.cpp" line="330"/>
         <source>&amp;Help</source>
         <translation>&amp;Help</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="367"/>
+        <location filename="app.cpp" line="368"/>
         <source>Open a fixture definition</source>
         <translation>Open een fixture definitie</translation>
     </message>
@@ -831,24 +866,20 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="editmode.cpp" line="177"/>
         <source>Add channel to mode</source>
-        <translation>Voeg channel toe aan mode</translation>
+        <translation type="obsolete">Voeg channel toe aan mode</translation>
     </message>
     <message>
-        <location filename="editmode.cpp" line="178"/>
         <source>Select a channel to add</source>
-        <translation>Selecteer een toe te voegen channel</translation>
+        <translation type="obsolete">Selecteer een toe te voegen channel</translation>
     </message>
     <message>
-        <location filename="editmode.cpp" line="197"/>
         <source>No more available channels</source>
-        <translation>Geen channels meer beschikbaar</translation>
+        <translation type="obsolete">Geen channels meer beschikbaar</translation>
     </message>
     <message>
-        <location filename="editmode.cpp" line="198"/>
         <source>All available channels are present in the mode.</source>
-        <translation>Alle beschikbare channels zijn aanwezig in deze mode.</translation>
+        <translation type="obsolete">Alle beschikbare channels zijn aanwezig in deze mode.</translation>
     </message>
 </context>
 <context>
