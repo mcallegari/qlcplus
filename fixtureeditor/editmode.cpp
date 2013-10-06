@@ -94,7 +94,6 @@ void EditMode::init()
 
     m_modeNameEdit->setText(m_mode->name());
     m_modeNameEdit->setValidator(CAPS_VALIDATOR(this));
-    m_channelList->header()->setResizeMode(QHeaderView::ResizeToContents);
     refreshChannelList();
 
     /* Heads page */
@@ -109,7 +108,6 @@ void EditMode::init()
     connect(m_lowerHeadButton, SIGNAL(clicked()),
             this, SLOT(slotLowerHeadClicked()));
 
-    m_headList->header()->setResizeMode(QHeaderView::ResizeToContents);
     refreshHeadList();
 
     /* Physical page */
@@ -262,6 +260,8 @@ void EditMode::refreshChannelList()
         item->setIcon(COL_NAME, ch->getIconFromGroup(ch->group()));
         item->setData(COL_NAME, PROP_PTR, (qulonglong) ch);
     }
+    m_channelList->resizeColumnToContents(COL_NUM);
+    m_channelList->resizeColumnToContents(COL_NAME);
 }
 
 QLCChannel* EditMode::currentChannel()
@@ -406,6 +406,7 @@ void EditMode::refreshHeadList()
 
         item->setText(0, QString("Head %1 (%2)").arg(i + 1).arg(summary));
     }
+    m_headList->resizeColumnToContents(0);
 }
 
 QLCFixtureHead EditMode::currentHead()

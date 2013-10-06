@@ -97,6 +97,7 @@ protected slots:
     void slotPasteChannel();
     void slotExpandChannels();
     void slotChannelListContextMenuRequested();
+    void slotChannelItemExpanded();
 
 protected:
     QLCChannel* currentChannel();
@@ -115,6 +116,7 @@ protected slots:
     void slotCloneMode();
     void slotExpandModes();
     void slotModeListContextMenuRequested();
+    void slotModeItemExpanded();
 
 protected:
     QLCFixtureMode* currentMode();

@@ -77,6 +77,8 @@ EFX::EFX(Doc* doc) : Function(doc, Function::EFX)
     registerAttribute(tr("Width"));
     registerAttribute(tr("Height"));
     registerAttribute(tr("Rotation"));
+    registerAttribute(tr("X Offset"));
+    registerAttribute(tr("Y Offset"));
 }
 
 EFX::~EFX()
@@ -262,8 +264,8 @@ void EFX::rotateAndScale(qreal* x, qreal* y) const
     qreal w = m_width * getAttributeValue(Width);
     qreal h = m_height * getAttributeValue(Height);
 
-    *x = m_xOffset + xx * m_cosR * w + yy * m_sinR * h;
-    *y = m_yOffset + -xx * m_sinR * w + yy * m_cosR * h;
+    *x = (m_xOffset * getAttributeValue(XOffset)) + xx * m_cosR * w + yy * m_sinR * h;
+    *y = (m_yOffset * getAttributeValue(YOffset)) + -xx * m_sinR * w + yy * m_cosR * h;
 }
 
 qreal EFX::calculateDirection(Function::Direction direction, qreal iterator) const
@@ -1016,6 +1018,8 @@ void EFX::adjustAttribute(qreal fraction, int attributeIndex)
 
         case Height:
         case Width:
+        case XOffset:
+        case YOffset:
         break;
 
         case Rotation:

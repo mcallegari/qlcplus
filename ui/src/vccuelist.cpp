@@ -132,7 +132,6 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_tree->header()->setSortIndicatorShown(false);
     m_tree->header()->setClickable(false);
     m_tree->header()->setMovable(false);
-    m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
 
     // Make only the notes column editable
     m_tree->setItemDelegateForColumn(COL_NUM, new NoEditDelegate(this));
@@ -362,6 +361,13 @@ void VCCueList::updateStepList()
     QTreeWidgetItem *item = m_tree->topLevelItem(0);
     if (item != NULL)
         m_defCol = item->background(COL_NUM);
+
+    m_tree->resizeColumnToContents(COL_NUM);
+    m_tree->resizeColumnToContents(COL_NAME);
+    m_tree->resizeColumnToContents(COL_FADEIN);
+    m_tree->resizeColumnToContents(COL_FADEOUT);
+    m_tree->resizeColumnToContents(COL_DURATION);
+    m_tree->resizeColumnToContents(COL_NOTES);
 
     m_listIsUpdating = false;
 }

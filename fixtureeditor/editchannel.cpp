@@ -149,7 +149,6 @@ void EditChannel::init()
             this, SLOT(slotWizardClicked()));
 
     /* Capability list connections */
-    m_capabilityList->header()->setResizeMode(QHeaderView::ResizeToContents);
     connect(m_capabilityList,
             SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),
             this,
@@ -407,6 +406,9 @@ void EditChannel::refreshCapabilities()
     }
 
     m_capabilityList->sortItems(COL_MIN, Qt::AscendingOrder);
+    m_capabilityList->resizeColumnToContents(COL_MIN);
+    m_capabilityList->resizeColumnToContents(COL_MAX);
+    m_capabilityList->resizeColumnToContents(COL_NAME);
 
     slotCapabilityListSelectionChanged(m_capabilityList->currentItem());
 }
