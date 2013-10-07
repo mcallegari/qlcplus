@@ -1,6 +1,6 @@
 INCLUDEPATH += ../../interfaces
 INCLUDEPATH += ../../../engine/src
-DEPENDPATH  += ../common
+INCLUDEPATH += ../common
 INCLUDEPATH += ../../../engine/src
 DEPENDPATH  += ../common
 

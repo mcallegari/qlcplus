@@ -19,6 +19,12 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
+#ifdef WIN32
+#	include <Windows.h>
+#else
+#   include <unistd.h>
+#endif
+
 #include <QDebug>
 
 #include "configuremidiplugin.h"
@@ -75,11 +81,17 @@ void MidiPlugin::openOutput(quint32 output)
     if (dev != NULL)
         dev->open();
 
+    qDebug() << "MidiPlugin::OpenOutput ----------------------";
+
     if (dev->midiTemplateName() != "")
     {
+        qDebug() << "Got template: " << dev->midiTemplateName();
         MidiTemplate* templ = midiTemplate(dev->midiTemplateName());
         if (templ != NULL)
             sendRaw(output, templ->midiMessage());
+    } else
+    {
+        qDebug() << "no template";
     }
 }
 
@@ -412,6 +424,7 @@ MidiTemplate* MidiPlugin::midiTemplate(QString name)
     while (it.hasNext() == true)
     {
         MidiTemplate* templ = it.next();
+        qDebug() << "add template param: " << name << " templ: " << templ->name();
         if (templ->name() == name)
             return templ;
     }
@@ -421,6 +434,7 @@ MidiTemplate* MidiPlugin::midiTemplate(QString name)
 
 void MidiPlugin::loadMidiTemplates(const QDir& dir)
 {
+    qDebug() << "loadMidiTemplates from " << dir.absolutePath();
     if (dir.exists() == false || dir.isReadable() == false)
         return;
 
