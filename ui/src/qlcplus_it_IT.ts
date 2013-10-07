@@ -210,7 +210,7 @@ p, li { white-space: pre-wrap; }
         <translation>Universo di ingresso</translation>
     </message>
     <message>
-        <location filename="addchannelsgroup.cpp" line="80"/>
+        <location filename="addchannelsgroup.cpp" line="79"/>
         <source>Universe %1</source>
         <translation>Universo %1</translation>
     </message>
@@ -974,97 +974,177 @@ Durata: %3
 <context>
     <name>AudioTriggersConfiguration</name>
     <message>
-        <location filename="audiotriggersconfiguration.ui" line="14"/>
+        <location filename="vcaudiotriggersproperties.ui" line="14"/>
         <source>Audio Triggers Configuration</source>
         <translation>Configurazione impulsi audio</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.ui" line="82"/>
+        <location filename="vcaudiotriggersproperties.ui" line="92"/>
         <source>Number of spectrum bars:</source>
         <translation>Numero di barre dello spettro:</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.ui" line="30"/>
+        <location filename="vcaudiotriggersproperties.ui" line="40"/>
         <source>Name</source>
         <translation>Nome</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.ui" line="22"/>
+        <location filename="vcaudiotriggersproperties.ui" line="24"/>
+        <source>Triggers</source>
+        <translation>Impulsi</translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.ui" line="32"/>
         <source>Widget name</source>
         <translation>Nome dell&apos;oggetto</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.ui" line="35"/>
+        <location filename="vcaudiotriggersproperties.ui" line="45"/>
         <source>Type</source>
         <translation>Tipo</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.ui" line="40"/>
+        <location filename="vcaudiotriggersproperties.ui" line="50"/>
         <source>Assign</source>
         <translation>Assegnazione</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.ui" line="45"/>
+        <location filename="vcaudiotriggersproperties.ui" line="55"/>
         <source>Info</source>
         <translation>Informazioni</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.ui" line="50"/>
+        <location filename="vcaudiotriggersproperties.ui" line="60"/>
         <source>Disable threshold</source>
         <translation>Soglia di disattivazione</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.ui" line="55"/>
+        <location filename="vcaudiotriggersproperties.ui" line="65"/>
         <source>Enable threshold</source>
         <translation>Soglia di attivazione</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.cpp" line="105"/>
+        <location filename="vcaudiotriggersproperties.ui" line="108"/>
+        <source>Input</source>
+        <translation>Ingresso</translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.ui" line="114"/>
+        <source>External Input</source>
+        <translation>Ingresso esterno</translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.ui" line="120"/>
+        <source>Input Universe</source>
+        <translation>Universo di ingresso</translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.ui" line="127"/>
+        <source>Input Channel</source>
+        <translation>Canale di ingresso</translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.ui" line="134"/>
+        <source>When toggled, you can click an external button to assign it to this widget.</source>
+        <oldsource>When toggled, you can click an external button to assign it to this virtual console button.</oldsource>
+        <translation>Se commutato, è possibile fare clic su un pulsante esterno per assegnarlo a questo oggetto.</translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.ui" line="137"/>
+        <source>Auto Detect</source>
+        <translation>Rileva automaticamente</translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.ui" line="153"/>
+        <source>The particular input channel within the input universe that sends data to this widget</source>
+        <translation>Il canale di ingresso all&apos;interno dell&apos;universo di Ingresso che invia i dati a questo oggetto</translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.ui" line="163"/>
+        <source>The input universe that sends data to this widget</source>
+        <translation>L&apos;universo di ingresso che invia i dati a questo oggetto</translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.ui" line="179"/>
+        <source>Choose an external input universe &amp; channel that this widget should listen to.</source>
+        <oldsource>Choose an external input universe &amp; channel that this button should listen to.</oldsource>
+        <translation>Scegli un universo di ingresso esterno con il relativo canale a cui questo oggetto deve rispondere.</translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.ui" line="182"/>
+        <source>Choose...</source>
+        <translation>Scegli...</translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.ui" line="205"/>
+        <source>Key combination</source>
+        <translation>Combinazione di tasti</translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.ui" line="220"/>
+        <source>Keyboard combination that toggles this widget</source>
+        <oldsource>Keyboard combination that toggles this button</oldsource>
+        <translation>Combinazione di tasti che attiva questo oggetto</translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.ui" line="230"/>
+        <source>Set a key combination for this widget</source>
+        <oldsource>Set a key combination for this button</oldsource>
+        <translation>Seleziona una combinazione di tasti per questo oggetto</translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.ui" line="250"/>
+        <source>Remove the widget&apos;s keyboard shortcut key</source>
+        <oldsource>Remove the button&apos;s keyboard shortcut key</oldsource>
+        <translation>Rimuovi la combinazione di tasti che attiva questo oggetto</translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.cpp" line="125"/>
         <source>None</source>
         <translation>Nessuno</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.cpp" line="106"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="126"/>
         <source>DMX</source>
         <translation>DMX</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.cpp" line="107"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="127"/>
         <source>Function</source>
         <translation>Funzione</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.cpp" line="108"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="128"/>
         <source>VC Widget</source>
         <translation>Oggetto VC</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.cpp" line="121"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="141"/>
         <source>%1 channels</source>
         <translation>%1 canali</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.cpp" line="152"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="172"/>
         <source>No function</source>
         <translation>Nessuna funzione</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.cpp" line="167"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="187"/>
         <source>No widget</source>
         <translation>Nessun oggetto</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.cpp" line="170"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="190"/>
         <source>Not assigned</source>
         <translation>Non assegnato</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.cpp" line="207"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="227"/>
         <source>Volume Bar</source>
         <translation>Barra del volume</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.cpp" line="216"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="236"/>
         <source>#%1 (%2Hz - %3Hz)</source>
         <translation>#%1 (%2Hz - %3Hz)</translation>
     </message>
@@ -4254,47 +4334,47 @@ Durata: %3
         <translation>Collega</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="159"/>
+        <location filename="vccuelist.cpp" line="158"/>
         <source>Show/Hide crossfade sliders</source>
         <translation>Mostra/Nascondi gli slider di crossfade</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="168"/>
+        <location filename="vccuelist.cpp" line="167"/>
         <source>Play/Stop Cue list</source>
         <translation>Riproduci/Interrompi la lista di azioni</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="177"/>
+        <location filename="vccuelist.cpp" line="176"/>
         <source>Go to previous step in the list</source>
         <translation>Vai al passo precedente nella lista</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="186"/>
+        <location filename="vccuelist.cpp" line="185"/>
         <source>Go to next step in the list</source>
         <translation>Vai al passo successivo nella lista</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="194"/>
+        <location filename="vccuelist.cpp" line="193"/>
         <source>Cue list</source>
         <translation>Lista di azioni</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="874"/>
+        <location filename="vccuelist.cpp" line="880"/>
         <source>Fade In</source>
         <translation>Fade In</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="874"/>
+        <location filename="vccuelist.cpp" line="880"/>
         <source>Fade Out</source>
         <translation>Fade Out</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="874"/>
+        <location filename="vccuelist.cpp" line="880"/>
         <source>Duration</source>
         <translation>Durata</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="874"/>
+        <location filename="vccuelist.cpp" line="880"/>
         <source>Notes</source>
         <translation>Note</translation>
     </message>

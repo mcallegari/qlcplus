@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -131,7 +131,7 @@
           <item row="2" column="1">
            <widget class="QPushButton" name="m_autoDetectInputButton">
             <property name="toolTip">
-             <string>When toggled, you can click an external button to assign it to this virtual console button.</string>
+             <string>When toggled, you can click an external button to assign it to this widget.</string>
             </property>
             <property name="text">
              <string>Auto Detect</string>
@@ -176,7 +176,7 @@
              </sizepolicy>
             </property>
             <property name="toolTip">
-             <string>Choose an external input universe &amp; channel that this button should listen to.</string>
+             <string>Choose an external input universe &amp; channel that this widget should listen to.</string>
             </property>
             <property name="text">
              <string>Choose...</string>
@@ -217,7 +217,7 @@
           <item>
            <widget class="QLineEdit" name="m_keyEdit">
             <property name="toolTip">
-             <string>Keyboard combination that toggles this button</string>
+             <string>Keyboard combination that toggles this widget</string>
             </property>
             <property name="readOnly">
              <bool>true</bool>
@@ -227,7 +227,7 @@
           <item>
            <widget class="QToolButton" name="m_attachKey">
             <property name="toolTip">
-             <string>Set a key combination for this button</string>
+             <string>Set a key combination for this widget</string>
             </property>
             <property name="text">
              <string notr="true">...</string>
@@ -247,7 +247,7 @@
           <item>
            <widget class="QToolButton" name="m_detachKey">
             <property name="toolTip">
-             <string>Remove the button's keyboard shortcut key</string>
+             <string>Remove the widget's keyboard shortcut key</string>
             </property>
             <property name="text">
              <string notr="true">...</string>

@@ -160,7 +160,7 @@ p, li { white-space: pre-wrap; }
         <translation>Větev vstupu</translation>
     </message>
     <message>
-        <location filename="addchannelsgroup.cpp" line="80"/>
+        <location filename="addchannelsgroup.cpp" line="79"/>
         <source>Universe %1</source>
         <translation>Větev %1</translation>
     </message>
@@ -418,7 +418,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="addvcslidermatrix.ui" line="69"/>
         <source>Width</source>
-        <translation type="unfinished">Šířka</translation>
+        <translation>Šířka</translation>
     </message>
 </context>
 <context>
@@ -923,97 +923,177 @@ Délka: %3
 <context>
     <name>AudioTriggersConfiguration</name>
     <message>
-        <location filename="audiotriggersconfiguration.ui" line="14"/>
+        <location filename="vcaudiotriggersproperties.ui" line="14"/>
         <source>Audio Triggers Configuration</source>
         <translation>Nastavení zvukových spouští</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.ui" line="82"/>
+        <location filename="vcaudiotriggersproperties.ui" line="92"/>
         <source>Number of spectrum bars:</source>
         <translation>Počet ukazatelů úrovní:</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.ui" line="30"/>
+        <location filename="vcaudiotriggersproperties.ui" line="40"/>
         <source>Name</source>
         <translation>Název</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.ui" line="22"/>
+        <location filename="vcaudiotriggersproperties.ui" line="24"/>
+        <source>Triggers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.ui" line="32"/>
         <source>Widget name</source>
         <translation type="unfinished">Název ovladače</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.ui" line="35"/>
+        <location filename="vcaudiotriggersproperties.ui" line="45"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.ui" line="40"/>
+        <location filename="vcaudiotriggersproperties.ui" line="50"/>
         <source>Assign</source>
         <translation>Přiřadit</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.ui" line="45"/>
+        <location filename="vcaudiotriggersproperties.ui" line="55"/>
         <source>Info</source>
         <translation>Informace</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.ui" line="50"/>
+        <location filename="vcaudiotriggersproperties.ui" line="60"/>
         <source>Disable threshold</source>
         <translation>Mez deaktivace</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.ui" line="55"/>
+        <location filename="vcaudiotriggersproperties.ui" line="65"/>
         <source>Enable threshold</source>
         <translation>Mez aktivace</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.cpp" line="105"/>
+        <location filename="vcaudiotriggersproperties.ui" line="108"/>
+        <source>Input</source>
+        <translation type="unfinished">Vstup</translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.ui" line="114"/>
+        <source>External Input</source>
+        <translation type="unfinished">Externí vstup</translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.ui" line="120"/>
+        <source>Input Universe</source>
+        <translation type="unfinished">Větev vstupu</translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.ui" line="127"/>
+        <source>Input Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.ui" line="134"/>
+        <source>When toggled, you can click an external button to assign it to this widget.</source>
+        <oldsource>When toggled, you can click an external button to assign it to this virtual console button.</oldsource>
+        <translation type="unfinished">Je-li aktivní, bude dostupná volba  externího tlačítka pro přiřazení k řízení tohoto virtuálního tlačítka.</translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.ui" line="137"/>
+        <source>Auto Detect</source>
+        <translation type="unfinished">Automaticky detekovat</translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.ui" line="153"/>
+        <source>The particular input channel within the input universe that sends data to this widget</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.ui" line="163"/>
+        <source>The input universe that sends data to this widget</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.ui" line="179"/>
+        <source>Choose an external input universe &amp; channel that this widget should listen to.</source>
+        <oldsource>Choose an external input universe &amp; channel that this button should listen to.</oldsource>
+        <translation type="unfinished">Zvolte větev  externího vstupu &amp; kanál, který by měl tento ovladač řídit.</translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.ui" line="182"/>
+        <source>Choose...</source>
+        <translation type="unfinished">Zvolit...</translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.ui" line="205"/>
+        <source>Key combination</source>
+        <translation type="unfinished">Kombinace kláves</translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.ui" line="220"/>
+        <source>Keyboard combination that toggles this widget</source>
+        <oldsource>Keyboard combination that toggles this button</oldsource>
+        <translation type="unfinished">Kombinace kláves která přepne toto tlačítko</translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.ui" line="230"/>
+        <source>Set a key combination for this widget</source>
+        <oldsource>Set a key combination for this button</oldsource>
+        <translation type="unfinished">Nastavit kombinaci kláves pro ovládání tohoto tlačítka</translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.ui" line="250"/>
+        <source>Remove the widget&apos;s keyboard shortcut key</source>
+        <oldsource>Remove the button&apos;s keyboard shortcut key</oldsource>
+        <translation type="unfinished">Odebrat zkratkovou klávesu přiřazenou k tlačítku</translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.cpp" line="125"/>
         <source>None</source>
         <translation>Nic</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.cpp" line="106"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="126"/>
         <source>DMX</source>
         <translation>DMX</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.cpp" line="107"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="127"/>
         <source>Function</source>
         <translation>Funkce</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.cpp" line="108"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="128"/>
         <source>VC Widget</source>
         <translation>Ovladač Virtuálního pracoviště</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.cpp" line="121"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="141"/>
         <source>%1 channels</source>
         <translation>%1 kanálů</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.cpp" line="152"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="172"/>
         <source>No function</source>
         <translation>Bez funkce</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.cpp" line="167"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="187"/>
         <source>No widget</source>
         <translation>Bez ovladače</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.cpp" line="170"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="190"/>
         <source>Not assigned</source>
         <translation>Nepřiřazeno</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.cpp" line="207"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="227"/>
         <source>Volume Bar</source>
         <translation>Regulace hlasitosti</translation>
     </message>
     <message>
-        <location filename="audiotriggersconfiguration.cpp" line="216"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="236"/>
         <source>#%1 (%2Hz - %3Hz)</source>
         <translation>#%1 (%2Hz - %3Hz)</translation>
     </message>
@@ -1474,17 +1554,17 @@ Délka: %3
     <message>
         <location filename="dmxdumpfactory.ui" line="89"/>
         <source>Chaser</source>
-        <translation type="unfinished">Prolínání</translation>
+        <translation>Prolínání</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="99"/>
         <source>Button</source>
-        <translation type="unfinished">Tlačítko</translation>
+        <translation>Tlačítko</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="106"/>
         <source>Slider</source>
-        <translation type="unfinished">Šavle</translation>
+        <translation>Šavle</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="125"/>
@@ -3988,7 +4068,7 @@ Délka: %3
     <message>
         <location filename="vcbutton.cpp" line="130"/>
         <source>Button %1</source>
-        <translation type="unfinished">Tlačítko %1</translation>
+        <translation>Tlačítko %1</translation>
     </message>
     <message>
         <location filename="vcbutton.cpp" line="304"/>
@@ -4192,47 +4272,47 @@ Délka: %3
         <translation>Spojit</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="159"/>
+        <location filename="vccuelist.cpp" line="158"/>
         <source>Show/Hide crossfade sliders</source>
         <translation>Zobrazit/Skrýt šavle prolínání</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="168"/>
+        <location filename="vccuelist.cpp" line="167"/>
         <source>Play/Stop Cue list</source>
         <translation>Přehrát/Zastavit seznam střihů</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="177"/>
+        <location filename="vccuelist.cpp" line="176"/>
         <source>Go to previous step in the list</source>
         <translation>Přejít na předchotí krok v seznamu</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="186"/>
+        <location filename="vccuelist.cpp" line="185"/>
         <source>Go to next step in the list</source>
         <translation>Přejít na další krok v seznamu</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="194"/>
+        <location filename="vccuelist.cpp" line="193"/>
         <source>Cue list</source>
         <translation>Seznam střihů</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="874"/>
+        <location filename="vccuelist.cpp" line="880"/>
         <source>Fade In</source>
         <translation>Zesílení</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="874"/>
+        <location filename="vccuelist.cpp" line="880"/>
         <source>Fade Out</source>
         <translation>Zeslabení</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="874"/>
+        <location filename="vccuelist.cpp" line="880"/>
         <source>Duration</source>
         <translation>Délka</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="874"/>
+        <location filename="vccuelist.cpp" line="880"/>
         <source>Notes</source>
         <translation>Poznámky</translation>
     </message>
@@ -4288,7 +4368,7 @@ Délka: %3
     <message>
         <location filename="vccuelistproperties.ui" line="128"/>
         <source>Playback</source>
-        <translation type="unfinished">Přehrávání</translation>
+        <translation>Přehrávání</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="280"/>
@@ -4482,7 +4562,7 @@ Délka: %3
         <location filename="vcframe.cpp" line="272"/>
         <location filename="vcframe.cpp" line="382"/>
         <source>Page: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Strana: %1</translation>
     </message>
     <message>
         <location filename="vcframe.cpp" line="997"/>
@@ -4546,7 +4626,7 @@ Délka: %3
         <location filename="vcframeproperties.ui" line="131"/>
         <location filename="vcframeproperties.ui" line="239"/>
         <source>Input universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Větev vstupu</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="138"/>
@@ -4558,7 +4638,7 @@ Délka: %3
         <location filename="vcframeproperties.ui" line="148"/>
         <location filename="vcframeproperties.ui" line="256"/>
         <source>Input channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstupní kanál</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="155"/>
@@ -4576,7 +4656,7 @@ Délka: %3
         <location filename="vcframeproperties.ui" line="168"/>
         <location filename="vcframeproperties.ui" line="219"/>
         <source>Choose...</source>
-        <translation type="unfinished">Zvolit...</translation>
+        <translation>Zvolit...</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="175"/>
@@ -4588,7 +4668,7 @@ Délka: %3
         <location filename="vcframeproperties.ui" line="178"/>
         <location filename="vcframeproperties.ui" line="276"/>
         <source>Auto Detect</source>
-        <translation type="unfinished">Automaticky detekovat</translation>
+        <translation>Automaticky detekovat</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="210"/>
@@ -4609,7 +4689,7 @@ Délka: %3
         <location filename="vcframeproperties.ui" line="296"/>
         <location filename="vcframeproperties.ui" line="355"/>
         <source>Key Combination</source>
-        <translation type="unfinished">Kombinace kláves</translation>
+        <translation>Kombinace kláves</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="302"/>
@@ -4792,7 +4872,7 @@ Délka: %3
         <location filename="vcproperties.ui" line="543"/>
         <location filename="vcproperties.ui" line="566"/>
         <source>px</source>
-        <translation type="unfinished">px</translation>
+        <translation>px</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="583"/>
@@ -4925,7 +5005,7 @@ Délka: %3
     <message>
         <location filename="vcslider.cpp" line="229"/>
         <source>Slider %1</source>
-        <translation type="unfinished">Šavle %1</translation>
+        <translation>Šavle %1</translation>
     </message>
 </context>
 <context>
@@ -5376,12 +5456,12 @@ Délka: %3
     <message>
         <location filename="vcspeeddialproperties.ui" line="276"/>
         <source>External Input</source>
-        <translation type="unfinished">Externí vstup</translation>
+        <translation>Externí vstup</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="322"/>
         <source>Key combination</source>
-        <translation type="unfinished">Kombinace kláves</translation>
+        <translation>Kombinace kláves</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="328"/>
