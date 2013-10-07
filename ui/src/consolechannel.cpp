@@ -213,15 +213,19 @@ void ConsoleChannel::slotInputValueChanged(quint32 channel, uchar value)
 
 void ConsoleChannel::setValue(uchar value, bool apply)
 {
+    if (apply == false)
+    {
+        disconnect(m_spin, SIGNAL(valueChanged(int)), this, SLOT(slotSpinChanged(int)));
+        disconnect(m_slider, SIGNAL(valueChanged(int)), this, SLOT(slotSliderChanged(int)));
+    }
+
     m_slider->setValue(int(value));
     m_spin->setValue(int(value));
 
-    if (apply == true)
+    if (apply == false)
     {
-        if (m_group == Fixture::invalidId())
-            emit valueChanged(m_fixture, m_channel, value);
-        else
-            emit groupValueChanged(m_group, value);
+        connect(m_slider, SIGNAL(valueChanged(int)), this, SLOT(slotSliderChanged(int)));
+        connect(m_spin, SIGNAL(valueChanged(int)), this, SLOT(slotSpinChanged(int)));
     }
 }
 
@@ -232,10 +236,8 @@ uchar ConsoleChannel::value() const
 
 void ConsoleChannel::slotSpinChanged(int value)
 {
-    if (value == m_slider->value())
-        return;
-
-    m_slider->setValue(value);
+    if (value != m_slider->value())
+        m_slider->setValue(value);
 
     if (m_group == Fixture::invalidId())
         emit valueChanged(m_fixture, m_channel, value);
@@ -245,12 +247,9 @@ void ConsoleChannel::slotSpinChanged(int value)
 
 void ConsoleChannel::slotSliderChanged(int value)
 {
-    if (value == m_spin->value())
-        return;
-
-    m_spin->setValue(value);
+    if (value != m_spin->value())
+        m_spin->setValue(value);
 }
-
 void ConsoleChannel::slotChecked(bool state)
 {
     emit checked(m_fixture, m_channel, state);
