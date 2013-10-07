@@ -84,11 +84,27 @@ public:
     /** @reimpl */
     void writeDMX(MasterTimer* timer, UniverseArray* universes);
 
+    /*********************************************************************
+     * Key sequence handler
+     *********************************************************************/
+public:
+    void setKeySequence(const QKeySequence& keySequence);
+    QKeySequence keySequence() const;
+
+protected slots:
+    void slotKeyPressed(const QKeySequence& keySequence);
+
+protected:
+    QKeySequence m_keySequence;
+
     /*************************************************************************
      * External Input
      *************************************************************************/
 public:
     void updateFeedback() { }
+
+protected slots:
+    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
 
     /*********************************************************************
      * Clipboard

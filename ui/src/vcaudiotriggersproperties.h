@@ -24,7 +24,7 @@
 
 #include <QDialog>
 
-#include "ui_audiotriggersconfiguration.h"
+#include "ui_vcaudiotriggersproperties.h"
 #include "audiocapture.h"
 #include "doc.h"
 
@@ -35,7 +35,7 @@ class AudioTriggersConfiguration : public QDialog, public Ui_AudioTriggersConfig
     Q_OBJECT
     
 public:
-    explicit AudioTriggersConfiguration(QWidget *parent = 0, Doc *doc = 0,
+    explicit AudioTriggersConfiguration(VCAudioTriggers *triggers = 0, Doc *doc = 0,
                                         AudioCapture *capture = 0);
     ~AudioTriggersConfiguration();
 
@@ -52,10 +52,27 @@ private slots:
     void slotMinThresholdChanged(int val);
     void slotMaxThresholdChanged(int val);
 
+    /*************************************************************************
+     * External Input
+     *************************************************************************/
+protected slots:
+    void slotAttachKey();
+    void slotDetachKey();
+
+    void slotAutoDetectInputToggled(bool checked);
+    void slotInputValueChanged(quint32 universe, quint32 channel);
+    void slotChooseInputClicked();
+
+protected:
+    void updateInputSource();
+
 private:
     Doc *m_doc;
-    VCAudioTriggers *m_widget;
+    VCAudioTriggers *m_triggers;
     AudioCapture *m_capture;
+
+    QKeySequence m_keySequence;
+    QLCInputSource m_inputSource;
 };
 
 #endif // AUDIOTRIGGERSCONFIGURATION_H

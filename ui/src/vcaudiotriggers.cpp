@@ -29,7 +29,7 @@
   #include "audiocapture_alsa.h"
 #endif
 
-#include "audiotriggersconfiguration.h"
+#include "vcaudiotriggersproperties.h"
 #include "vcpropertieseditor.h"
 #include "vcaudiotriggers.h"
 #include "virtualconsole.h"
@@ -37,7 +37,8 @@
 #include "apputil.h"
 #include "doc.h"
 
-#define KXMLQLCATBarsNumber "BarsNumber"
+#define KXMLQLCVCATKey "Key"
+#define KXMLQLCVCATBarsNumber "BarsNumber"
 
 #define KXMLQLCVolumeBar    "VolumeBar"
 #define KXMLQLCSpectrumBar  "SpectrumBar"
@@ -148,7 +149,9 @@ void VCAudioTriggers::enableCapture(bool enable)
     }
     else
     {
-        m_inputCapture->stop();
+        if (m_inputCapture->isRunning())
+            m_inputCapture->stop();
+
         m_button->setChecked(false);
         disconnect(m_inputCapture, SIGNAL(dataProcessed(double *, double, quint32)),
                 this, SLOT(slotDisplaySpectrum(double *, double, quint32)));
@@ -166,7 +169,7 @@ void VCAudioTriggers::slotEnableButtonToggled(bool toggle)
     }
     else
     {
-        m_inputCapture->stop();
+        enableCapture(false);
     }
 }
 
@@ -193,6 +196,11 @@ void VCAudioTriggers::slotDisplaySpectrum(double *spectrumBands, double maxMagni
     }
 }
 
+
+/*********************************************************************
+ * DMXSource
+ *********************************************************************/
+
 void VCAudioTriggers::writeDMX(MasterTimer *timer, UniverseArray *universes)
 {
     Q_UNUSED(timer);
@@ -215,6 +223,47 @@ void VCAudioTriggers::writeDMX(MasterTimer *timer, UniverseArray *universes)
     }
 }
 
+/*********************************************************************
+ * Key sequence handler
+ *********************************************************************/
+
+void VCAudioTriggers::setKeySequence(const QKeySequence& keySequence)
+{
+    m_keySequence = QKeySequence(keySequence);
+}
+
+QKeySequence VCAudioTriggers::keySequence() const
+{
+    return m_keySequence;
+}
+
+void VCAudioTriggers::slotKeyPressed(const QKeySequence& keySequence)
+{
+    if (m_keySequence == keySequence)
+    {
+        if (m_inputCapture->isRunning())
+            slotEnableButtonToggled(false);
+        else
+            slotEnableButtonToggled(true);
+    }
+}
+
+void VCAudioTriggers::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
+{
+    QLCInputSource src(universe, channel);
+    if (src == inputSource())
+    {
+        if (m_inputCapture->isRunning() == false && value > 0)
+            slotEnableButtonToggled(true);
+        else
+            slotEnableButtonToggled(false);
+    }
+}
+
+/*********************************************************************
+ * Clipboard
+ *********************************************************************/
+
 VCWidget *VCAudioTriggers::createCopy(VCWidget *parent)
 {
     Q_ASSERT(parent != NULL);
@@ -235,11 +284,16 @@ bool VCAudioTriggers::copyFrom(VCWidget *widget)
     if (triggers == NULL)
         return false;
 
-    /* Copy triggers-specific stuff */
+    /* TODO: Copy triggers-specific stuff */
 
     /* Copy common stuff */
     return VCWidget::copyFrom(widget);
 }
+
+
+/*************************************************************************
+ * VCWidget-inherited
+ *************************************************************************/
 
 void VCAudioTriggers::setCaption(const QString &text)
 {
@@ -369,6 +423,10 @@ void VCAudioTriggers::editProperties()
     m_inputCapture->setBandsNumber(m_spectrumBars.count());
 }
 
+/*********************************************************************
+ * Web access
+ *********************************************************************/
+
 QString VCAudioTriggers::getCSS()
 {
     QString str = "<style>\n"
@@ -430,6 +488,10 @@ QString VCAudioTriggers::getJS()
     return str;
 }
 
+/*********************************************************************
+ * Load & Save
+ *********************************************************************/
+
 bool VCAudioTriggers::loadXML(const QDomElement *root)
 {
     QDomNode node;
@@ -461,6 +523,14 @@ bool VCAudioTriggers::loadXML(const QDomElement *root)
         else if (tag.tagName() == KXMLQLCVCWidgetAppearance)
         {
             loadXMLAppearance(&tag);
+        }
+        else if (tag.tagName() == KXMLQLCVCWidgetInput)
+        {
+            loadXMLInput(&tag);
+        }
+        else if (tag.tagName() == KXMLQLCVCATKey)
+        {
+            setKeySequence(stripKeySequence(QKeySequence(tag.text())));
         }
         else if (tag.tagName() == KXMLQLCVolumeBar)
         {
@@ -531,8 +601,8 @@ bool VCAudioTriggers::loadXML(const QDomElement *root)
 bool VCAudioTriggers::saveXML(QDomDocument *doc, QDomElement *vc_root)
 {
     QDomElement root;
-    //QDomElement tag;
-    //QDomText text;
+    QDomElement tag;
+    QDomText text;
     //QString str;
 
     Q_ASSERT(doc != NULL);
@@ -540,7 +610,7 @@ bool VCAudioTriggers::saveXML(QDomDocument *doc, QDomElement *vc_root)
 
     /* VC button entry */
     root = doc->createElement(KXMLQLCVCAudioTriggers);
-    root.setAttribute(KXMLQLCATBarsNumber, m_spectrumBars.count());
+    root.setAttribute(KXMLQLCVCATBarsNumber, m_spectrumBars.count());
     vc_root->appendChild(root);
 
     saveXMLCommon(doc, &root);
@@ -550,6 +620,18 @@ bool VCAudioTriggers::saveXML(QDomDocument *doc, QDomElement *vc_root)
 
     /* Appearance */
     saveXMLAppearance(doc, &root);
+
+    /* Key sequence */
+    if (m_keySequence.isEmpty() == false)
+    {
+        tag = doc->createElement(KXMLQLCVCATKey);
+        root.appendChild(tag);
+        text = doc->createTextNode(m_keySequence.toString());
+        tag.appendChild(text);
+    }
+
+    /* External input */
+    saveXMLInput(doc, &root);
 
     /* Lookup for any assigned bar */
     bool hasAssignment = false;

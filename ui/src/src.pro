@@ -35,7 +35,6 @@ HEADERS += aboutbox.h \
            apputil.h \
            assignhotkey.h \
            audioeditor.h \
-           audiotriggersconfiguration.h \
            audiotriggerwidget.h \
            channelsselection.h \
            chasereditor.h \
@@ -86,6 +85,7 @@ HEADERS += aboutbox.h \
            speeddial.h \
            speeddialwidget.h \
            vcaudiotriggers.h \
+           vcaudiotriggersproperties.h \
            vcbutton.h \
            vcbuttonproperties.h \
            vccuelist.h \
@@ -120,7 +120,6 @@ FORMS += aboutbox.ui \
          addvcslidermatrix.ui \
          assignhotkey.ui \
          audioeditor.ui \
-         audiotriggersconfiguration.ui \
          chasereditor.ui \
          channelsselection.ui \
          collectioneditor.ui \
@@ -141,6 +140,7 @@ FORMS += aboutbox.ui \
          scripteditor.ui \
          selectinputchannel.ui \
          showeditor.ui \
+         vcaudiotriggersproperties.ui \
          vcbuttonproperties.ui \
          vccuelistproperties.ui \
          vcframeproperties.ui \
@@ -161,7 +161,6 @@ SOURCES += aboutbox.cpp \
            apputil.cpp \
            assignhotkey.cpp \
            audioeditor.cpp \
-           audiotriggersconfiguration.cpp \
            audiotriggerwidget.cpp \
            channelsselection.cpp \
            chasereditor.cpp \
@@ -212,6 +211,7 @@ SOURCES += aboutbox.cpp \
            speeddial.cpp \
            speeddialwidget.cpp \
            vcaudiotriggers.cpp \
+           vcaudiotriggersproperties.cpp \
            vcbutton.cpp \
            vcbuttonproperties.cpp \
            vccuelist.cpp \
