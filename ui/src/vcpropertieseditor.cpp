@@ -126,8 +126,8 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
     }
     else
     {
-        m_xypadWspin->setValue(200);
-        m_xypadHspin->setValue(200);
+        m_xypadWspin->setValue(230);
+        m_xypadHspin->setValue(230);
     }
     // ********************* CUE LIST **************************
     var = settings.value(SETTINGS_CUELIST_SIZE);

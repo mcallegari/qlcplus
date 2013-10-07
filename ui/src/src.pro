@@ -34,6 +34,7 @@ HEADERS += aboutbox.h \
            app.h \
            apputil.h \
            assignhotkey.h \
+           audiobar.h \
            audioeditor.h \
            audiotriggerwidget.h \
            channelsselection.h \
@@ -43,6 +44,7 @@ HEADERS += aboutbox.h \
            collectioneditor.h \
            consolechannel.h \
            createfixturegroup.h \
+           ctkrangeslider.h \
            cuestackmodel.h \
            docbrowser.h \
            dmxslider.h \
@@ -109,8 +111,7 @@ HEADERS += aboutbox.h \
            vcxypadfixture.h \
            vcxypadfixtureeditor.h \
            vcxypadproperties.h \
-           virtualconsole.h \
-    audiobar.h
+           virtualconsole.h
 
 FORMS += aboutbox.ui \
          addchannelsgroup.ui \
@@ -160,6 +161,7 @@ SOURCES += aboutbox.cpp \
            app.cpp \
            apputil.cpp \
            assignhotkey.cpp \
+           audiobar.cpp \
            audioeditor.cpp \
            audiotriggerwidget.cpp \
            channelsselection.cpp \
@@ -169,6 +171,7 @@ SOURCES += aboutbox.cpp \
            collectioneditor.cpp \
            consolechannel.cpp \
            createfixturegroup.cpp \
+           ctkrangeslider.cpp \
            cuestackmodel.cpp \
            docbrowser.cpp \
            dmxslider.cpp \
@@ -235,8 +238,7 @@ SOURCES += aboutbox.cpp \
            vcxypadfixture.cpp \
            vcxypadfixtureeditor.cpp \
            vcxypadproperties.cpp \
-           virtualconsole.cpp \
-    audiobar.cpp
+           virtualconsole.cpp
 
 
 TRANSLATIONS += qlcplus_fi_FI.ts

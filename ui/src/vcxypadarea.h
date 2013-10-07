@@ -72,11 +72,28 @@ private:
     QPixmap m_pixmap;
 
     /*************************************************************************
+     * Range window
+     *************************************************************************/
+public:
+    QRect rangeWindow();
+
+    void setRangeWindow(QRect rect);
+
+private:
+    void updateRangeWindow();
+private:
+    QRect m_rangeSrcRect;
+    QRect m_rangeDestRect;
+
+    /*************************************************************************
      * Event handlers
      *************************************************************************/
 protected:
     /** @reimp */
     void paintEvent(QPaintEvent* e);
+
+    /** @reimp */
+    void resizeEvent(QResizeEvent *e);
 
     /** @reimp */
     void mousePressEvent(QMouseEvent* e);
