@@ -600,82 +600,82 @@ void VCCueList_Test::nextPrevious()
     QVERIFY(cl.m_runner != NULL);
     timer->timerTick();
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1);
-    QCOMPARE(timer->m_functionList[0], s1);
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s1);
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1);
-    QCOMPARE(timer->m_functionList[0], s1);
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s1);
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1);
-    QCOMPARE(timer->m_functionList[0], s1);
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s1);
 
     cl.slotNextCue();
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1); // here there is still one function and the switch
-    QCOMPARE(timer->m_functionList[0], s1); // to the new one will be done in the next tick
+    QCOMPARE(timer->runningFunctions(), 2); // here there is still one function and the switch
+    QCOMPARE(timer->m_functionList[1], s1); // to the new one will be done in the next tick
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1);
-    QCOMPARE(timer->m_functionList[0], s2);
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s2);
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1);
-    QCOMPARE(timer->m_functionList[0], s2);
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s2);
 
     cl.slotNextCue();
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1); // here there is still one function and the switch
-    QCOMPARE(timer->m_functionList[0], s2); // to the new one will be done in the next tick
+    QCOMPARE(timer->runningFunctions(), 2); // here there is still one function and the switch
+    QCOMPARE(timer->m_functionList[1], s2); // to the new one will be done in the next tick
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1);
-    QCOMPARE(timer->m_functionList[0], s3);
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s3);
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1);
-    QCOMPARE(timer->m_functionList[0], s3);
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s3);
 
     cl.slotPreviousCue();
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1); // here there is still one function and the switch
-    QCOMPARE(timer->m_functionList[0], s3); // to the new one will be done in the next tick
+    QCOMPARE(timer->runningFunctions(), 2); // here there is still one function and the switch
+    QCOMPARE(timer->m_functionList[1], s3); // to the new one will be done in the next tick
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1);
-    QCOMPARE(timer->m_functionList[0], s2);
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s2);
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1);
-    QCOMPARE(timer->m_functionList[0], s2);
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s2);
 
     cl.slotPreviousCue();
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1); // here there is still one function and the switch
-    QCOMPARE(timer->m_functionList[0], s2); // to the new one will be done in the next tick
+    QCOMPARE(timer->runningFunctions(), 2); // here there is still one function and the switch
+    QCOMPARE(timer->m_functionList[1], s2); // to the new one will be done in the next tick
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1);
-    QCOMPARE(timer->m_functionList[0], s1);
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s1);
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1);
-    QCOMPARE(timer->m_functionList[0], s1);
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s1);
 
     // Wrap around to the last cue
     cl.slotPreviousCue();
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1); // here there is still one function and the switch
-    QCOMPARE(timer->m_functionList[0], s1); // to the new one will be done in the next tick
+    QCOMPARE(timer->runningFunctions(), 2); // here there is still one function and the switch
+    QCOMPARE(timer->m_functionList[1], s1); // to the new one will be done in the next tick
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1);
-    QCOMPARE(timer->m_functionList[0], s4);
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s4);
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1);
-    QCOMPARE(timer->m_functionList[0], s4);
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s4);
 
     // Wrap around to the next cue
     cl.slotNextCue();
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1); // here there is still one function and the switch
-    QCOMPARE(timer->m_functionList[0], s4); // to the new one will be done in the next tick
+    QCOMPARE(timer->runningFunctions(), 2); // here there is still one function and the switch
+    QCOMPARE(timer->m_functionList[1], s4); // to the new one will be done in the next tick
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1);
-    QCOMPARE(timer->m_functionList[0], s1);
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s1);
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1);
-    QCOMPARE(timer->m_functionList[0], s1);
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s1);
 }
 
 void VCCueList_Test::manualActivation()
@@ -700,50 +700,50 @@ void VCCueList_Test::manualActivation()
     QVERIFY(cl.m_runner != NULL);
     timer->timerTick();
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1);
-    QCOMPARE(timer->m_functionList[0], s3);
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s3);
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1);
-    QCOMPARE(timer->m_functionList[0], s3);
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s3);
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1);
-    QCOMPARE(timer->m_functionList[0], s3);
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s3);
 
     // Same item
     cl.slotItemActivated(cl.m_tree->topLevelItem(2));
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1);
-    QCOMPARE(timer->m_functionList[0], s3);
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s3);
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1);
-    QCOMPARE(timer->m_functionList[0], s3);
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s3);
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1);
-    QCOMPARE(timer->m_functionList[0], s3);
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s3);
 
     // Another item
     cl.slotItemActivated(cl.m_tree->topLevelItem(0));
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1); // DMX sources are run after functions, so
-    QCOMPARE(timer->m_functionList[0], s3); // the function will be removed in the next round
+    QCOMPARE(timer->runningFunctions(), 2); // DMX sources are run after functions, so
+    QCOMPARE(timer->m_functionList[1], s3); // the function will be removed in the next round
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1);
-    QCOMPARE(timer->m_functionList[0], s1);
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s1);
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1);
-    QCOMPARE(timer->m_functionList[0], s1);
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s1);
 
     // Crash check
     cl.slotItemActivated(NULL);
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1);
-    QCOMPARE(timer->m_functionList[0], s1);
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s1);
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1);
-    QCOMPARE(timer->m_functionList[0], s1);
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s1);
     timer->timerTick();
-    QCOMPARE(timer->runningFunctions(), 1);
-    QCOMPARE(timer->m_functionList[0], s1);
+    QCOMPARE(timer->runningFunctions(), 2);
+    QCOMPARE(timer->m_functionList[1], s1);
 }
 
 void VCCueList_Test::keyboardNextPrevious()

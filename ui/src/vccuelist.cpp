@@ -265,7 +265,7 @@ void VCCueList::setChaser(quint32 id)
             this, SLOT(slotChaserStopped(quint32)));
     }
 
-    Function *chaser = m_doc->function(id);
+    Chaser* chaser = qobject_cast<Chaser*> (m_doc->function(id));
 
     if (chaser == NULL)
         m_chaserID = Function::invalidId();
