@@ -17,8 +17,9 @@ include(libqtnetwork-nametool.pri)
 include(libqtscript-nametool.pri)
 include(libqlcplusengine-nametool.pri)
 include(libqlcplusui-nametool.pri)
+include(libqlcpluswebaccess-nametool.pri)
 
-INSTALLS += LIBQLCENGINE_ID LIBQLCUI_ID
+INSTALLS += LIBQLCENGINE_ID LIBQLCUI_ID LIBQLCWEBACCESS_ID
 INSTALLS += LIBUSB LIBUSB_ID
 INSTALLS += LIBFTDI LIBFTDI_ID
 INSTALLS += LIBMAD LIBMAD_ID

@@ -30,6 +30,7 @@ include(libqtscript-nametool.pri)
 include(imageformats-nametool.pri)
 include(libqlcplusengine-nametool.pri)
 include(libqlcplusui-nametool.pri)
+include(libqlcpluswebaccess-nametool.pri)
 
 # The contents of nametool.path don't matter; it only needs to be non-empty
 nametool.path = $$INSTALLROOT

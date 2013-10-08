@@ -24,6 +24,13 @@ INCLUDEPATH     += ../../webaccess
 # Resources
 RESOURCES    += qlcui.qrc
 
+macx {
+  CONFIG += link_pkgconfig
+  system(pkg-config --exists portaudio-2.0) {
+    PKGCONFIG += portaudio-2.0
+  }
+}
+
 # Sources
 HEADERS += aboutbox.h \
            addchannelsgroup.h \
