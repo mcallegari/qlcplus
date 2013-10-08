@@ -429,6 +429,7 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
     str += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
     str += "<tr><th>#</th><th>Name</th><th>Fade In</th><th>Fade Out</th><th>Duration</th><th>Notes</th></tr>\n";
     Chaser *chaser = cue->chaser();
+    Doc *doc = m_vc->getDoc();
     if (chaser != NULL)
     {
         for (int i = 0; i < chaser->stepsCount(); i++)
@@ -436,12 +437,57 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
             str += "<tr onmouseover=\"this.style.backgroundColor='#92BDDF';\" "
                     "onmouseout=\"this.style.backgroundColor='#ffffff';\">\n";
             ChaserStep step = chaser->stepAt(i);
-            str += "<td>" + QString::number(i + 1) + "</td>" +
-                   "<td>" + Function::speedToString(step.fadeIn) + "</td>" +
-                   "<td>" + Function::speedToString(step.hold) + "</td>" +
-                   "<td>" + Function::speedToString(step.fadeOut) + "</td>" +
-                   "<td>" + Function::speedToString(step.duration) + "</td>" +
-                   "<td>" + step.note + "</td>\n";
+            str += "<td>" + QString::number(i + 1) + "</td>";
+            Function* function = doc->function(step.fid);
+            if (function != NULL)
+            {
+                str += "<td>" + function->name() + "</td>";
+
+                switch (chaser->fadeInMode())
+                {
+                    case Chaser::Common:
+                        str += "<td>" + Function::speedToString(chaser->fadeInSpeed()) + "</td>";
+                        break;
+                    case Chaser::PerStep:
+                        str += "<td>" + Function::speedToString(step.fadeIn) + "</td>";
+                        break;
+                    default:
+                    case Chaser::Default:
+                        str += "<td></td>";
+                }
+
+                //if (step.hold != 0)
+                //    str +=  "<td>" + Function::speedToString(step.hold) + "</td>";
+                //else str += "<td></td>";
+
+                switch (chaser->fadeOutMode())
+                {
+                    case Chaser::Common:
+                        str += "<td>" + Function::speedToString(chaser->fadeOutSpeed()) + "</td>";
+                        break;
+                    case Chaser::PerStep:
+                        str += "<td>" + Function::speedToString(step.fadeOut) + "</td>";
+                        break;
+                    default:
+                    case Chaser::Default:
+                        str += "<td></td>";
+                }
+
+                switch (chaser->durationMode())
+                {
+                    case Chaser::Common:
+                        str += "<td>" + Function::speedToString(chaser->duration()) + "</td>";
+                        break;
+                    case Chaser::PerStep:
+                        str += "<td>" + Function::speedToString(step.duration) + "</td>";
+                        break;
+                    default:
+                    case Chaser::Default:
+                        str += "<td></td>";
+                }
+
+                str += "<td>" + step.note + "</td>\n";
+            }
             str += "</td>\n";
         }
     }

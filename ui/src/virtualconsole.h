@@ -60,6 +60,8 @@ public:
     /** Get the singleton instance */
     static VirtualConsole* instance();
 
+    Doc *getDoc();
+
 protected:
     static VirtualConsole* s_instance;
     Doc* m_doc;

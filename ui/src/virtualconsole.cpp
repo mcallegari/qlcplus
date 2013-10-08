@@ -172,6 +172,11 @@ VirtualConsole* VirtualConsole::instance()
     return s_instance;
 }
 
+Doc *VirtualConsole::getDoc()
+{
+    return m_doc;
+}
+
 quint32 VirtualConsole::newWidgetId()
 {
     quint32 currId = m_latestWidgetId;
