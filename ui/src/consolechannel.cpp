@@ -213,10 +213,14 @@ void ConsoleChannel::slotInputValueChanged(quint32 channel, uchar value)
 
 void ConsoleChannel::setValue(uchar value, bool apply)
 {
+    if (m_slider->value() == value &&
+        m_spin->value() == value)
+            return;
+
     if (apply == false)
     {
-        disconnect(m_spin, SIGNAL(valueChanged(int)), this, SLOT(slotSpinChanged(int)));
-        disconnect(m_slider, SIGNAL(valueChanged(int)), this, SLOT(slotSliderChanged(int)));
+        m_spin->blockSignals(true);
+        m_slider->blockSignals(true);
     }
 
     m_slider->setValue(int(value));
@@ -224,8 +228,8 @@ void ConsoleChannel::setValue(uchar value, bool apply)
 
     if (apply == false)
     {
-        connect(m_slider, SIGNAL(valueChanged(int)), this, SLOT(slotSliderChanged(int)));
-        connect(m_spin, SIGNAL(valueChanged(int)), this, SLOT(slotSpinChanged(int)));
+        m_spin->blockSignals(false);
+        m_slider->blockSignals(false);
     }
 }
 
