@@ -14,6 +14,7 @@ qlcplus (4.5.0) stable; urgency=low
   * Cue List "Stop" input turned into "Playback", to handle start/stop of a cue with one key
   * Improved Fixture Editor add mode channels procedure, to reduce fixture creation time
   * Fixed channel groups remapping
+  * Updated Spanish translation (thank to Luis García-Tornel)
   * Added Tap keyboard mapping to Speed Dial widget
   * Fixed Show Manager viewport scaling considering audio tracks too
   * Slider Matrix can now have a custom width
