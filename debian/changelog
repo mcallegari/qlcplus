@@ -24,7 +24,9 @@ qlcplus (4.5.0) stable; urgency=low
   * Added fixtures: American DJ Accu Spot Pro, Scanic Astute LED 108, Showtec Mini Max LED RGB, Showtec Phantom 250 (thanks to laserandi)
   * Added fixture: Eliminator Lighting Electro MH25R (thanks to Travis Cook)
   * Added fixtures: Geni OBY 5, Geni OBY 600, Griven Kolorado 2500, Coemar ProWash 250 LX (thanks to Goran)
-  * Added fixtures: Martin JEM ZR44, Briteq W07L12 (Thanks to Joep Admiraal)
+  * Added fixtures: Martin JEM ZR44, Briteq W07L12 (thanks to Joep Admiraal)
+  * Added fixture: Stairville LED BAR RGB 252 (thanks to Ralf Herold)
+  * Added fixture: Showtec Acrobat (thanks to OddSocks)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 12 October 2013 12:13:04 +0200
 
