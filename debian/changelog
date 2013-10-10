@@ -22,7 +22,7 @@ qlcplus (4.5.0) stable; urgency=low
   * Fixed dutch translation preventing to load pictures on Fixture Editor
   * Fixed Virtual Console knobs with Click & Go functionality
   * Added fixtures: American DJ Fog Storm (with FS-DMXT Remote Timer), Stellar Labs LED PAR38 RGB (thanks to X)
-  * Added fixtures: American DJ Accu Spot Pro, Scanic Astute LED 108, Showtec Mini Max LED RGB, Showtec Phantom 250 (thanks to laserandi)
+  * Added fixtures: American DJ Accu Spot Pro, Scanic Astute LED 108, Showtec Mini Max LED RGB, Showtec Phantom 250, lightmaXX LED MEGA PAR64 RGBW 18x8W (thanks to laserandi)
   * Added fixture: Eliminator Lighting Electro MH25R (thanks to Travis Cook)
   * Added fixtures: Geni OBY 5, Geni OBY 600, Griven Kolorado 2500, Coemar ProWash 250 LX (thanks to Goran)
   * Added fixtures: Martin JEM ZR44, Briteq W07L12 (thanks to Joep Admiraal)

@@ -167,6 +167,7 @@ fixtures.files += Lanta-Fireball-P64s.qxf
 fixtures.files += Lanta-Orion-Link-V2.qxf
 fixtures.files += Ledj-Alu-Quad-Par-64.qxf
 fixtures.files += Ledj-Colour-Storm-Quad.qxf
+fixtures.files += lightmaXX-LED-MEGA-PAR-64-RGBW-18x8-W.qxf
 fixtures.files += Litecraft-PowerBar-4.qxf
 fixtures.files += Lite-Works-ColorChanger.qxf
 fixtures.files += Look-Solutions-Unique-2.1.qxf
