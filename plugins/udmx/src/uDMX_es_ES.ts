@@ -11,7 +11,7 @@
     <message>
         <location filename="udmx.cpp" line="188"/>
         <source>Do you wish to re-scan your hardware?</source>
-        <translation>¿Desea re escanear su hardware?</translation>
+        <translation>¿Desea volver a escanear su hardware?</translation>
     </message>
 </context>
 <context>
