@@ -299,8 +299,10 @@ void MidiPlugin::sendRaw(quint32 output, const QString &data)
     bool ok;
     QStringList list;
     list = data.split(" ");
+    int dataSize = list.size();
+    qDebug() << "dataSize: " << dataSize;
 
-    uchar message[12];
+    uchar message[dataSize];
     for (int i = 0; i < list.length(); ++i)
     {
         message[i] = list[i].toUInt(&ok,16);
@@ -308,7 +310,7 @@ void MidiPlugin::sendRaw(quint32 output, const QString &data)
 
     MidiOutputDevice* dev = outputDevice(output);
     if (dev != NULL)
-        dev->writeRaw(message);
+        dev->writeRaw(message, dataSize);
 }
 
 MidiInputDevice* MidiPlugin::inputDevice(quint32 input) const

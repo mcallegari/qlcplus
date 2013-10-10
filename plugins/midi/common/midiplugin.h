@@ -23,7 +23,7 @@
 #define MIDIPLUGIN_H
 
 #define KExtMidiTemplate ".qxm" // 'Q'LC+ 'X'ml 'M'idi template
-#define MIDITEMPLATEDIR "/usr/share/qlcplus/miditemplates"
+#define MIDITEMPLATEDIR "/Resources/miditemplates"
 #define USERMIDITEMPLATEDIR ".qlcplus/miditemplates"
 
 #include <QStringList>

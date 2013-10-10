@@ -231,16 +231,15 @@ void AlsaMidiOutputDevice::writeFeedback(uchar cmd, uchar data1, uchar data2)
 }
 
 
-void AlsaMidiOutputDevice::writeRaw(uchar* data)
+void AlsaMidiOutputDevice::writeRaw(uchar* data, unsigned int count)
 {
     if(sizeof(data) == 0)
         return;
 
-    qDebug() << "-------------------------------writeraw: " << data;
-
-
     if (isOpen() == false)
         return;
+
+    qDebug() << "writeraw size: " << count << " data: " << data;
 
     snd_seq_event_t ev;
     snd_seq_ev_clear(&ev);
@@ -248,7 +247,7 @@ void AlsaMidiOutputDevice::writeRaw(uchar* data)
     snd_seq_ev_set_subs(&ev);
     snd_seq_ev_set_direct(&ev);
 
-    snd_seq_ev_set_sysex (&ev, 12, data);
+    snd_seq_ev_set_sysex (&ev, count, data);
 
     if (snd_seq_event_output(m_alsa, &ev) < 0)
         qDebug() << "snd_seq_event_output ERROR";
