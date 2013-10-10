@@ -530,7 +530,7 @@ Really stop them and switch back to Design mode?</source>
     <message>
         <location filename="app.cpp" line="554"/>
         <source>Live edit a function</source>
-        <translation type="unfinished"></translation>
+        <translation>Edita una función en vivo</translation>
     </message>
     <message>
         <location filename="app.cpp" line="589"/>
@@ -629,22 +629,22 @@ Really stop them and switch back to Design mode?</source>
     <message>
         <location filename="app.cpp" line="567"/>
         <source>Fade 1 second and stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Fade out de 1 segundo y detener</translation>
     </message>
     <message>
         <location filename="app.cpp" line="572"/>
         <source>Fade 5 seconds and stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Fade out de 5 segundos y detener</translation>
     </message>
     <message>
         <location filename="app.cpp" line="577"/>
         <source>Fade 10 second and stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Fade out de 10 segundos y detener</translation>
     </message>
     <message>
         <location filename="app.cpp" line="582"/>
         <source>Fade 30 second and stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Fade out de 30 segundos y detener</translation>
     </message>
     <message>
         <location filename="app.cpp" line="605"/>
@@ -889,7 +889,7 @@ Duración: %3
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="24"/>
         <source>Triggers</source>
-        <translation type="unfinished"></translation>
+        <translation>Disparos</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="32"/>
@@ -945,7 +945,7 @@ Duración: %3
         <location filename="vcaudiotriggersproperties.ui" line="134"/>
         <source>When toggled, you can click an external button to assign it to this widget.</source>
         <oldsource>When toggled, you can click an external button to assign it to this virtual console button.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Si está activo, puede presionar un botón externo para asignarlo a este widget.</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="137"/>
@@ -955,18 +955,18 @@ Duración: %3
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="153"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation type="unfinished"></translation>
+        <translation>El canal de Entrada dentro del universo de Entrada que manda datos a este widget</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="163"/>
         <source>The input universe that sends data to this widget</source>
-        <translation type="unfinished"></translation>
+        <translation>El universo de Entrada que manda datos a este widget</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="179"/>
         <source>Choose an external input universe &amp; channel that this widget should listen to.</source>
         <oldsource>Choose an external input universe &amp; channel that this button should listen to.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Eligir un universo de Entrada y un canal externos que este widget debe escuchar.</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="182"/>
@@ -982,19 +982,19 @@ Duración: %3
         <location filename="vcaudiotriggersproperties.ui" line="220"/>
         <source>Keyboard combination that toggles this widget</source>
         <oldsource>Keyboard combination that toggles this button</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Combinación de teclas que activa este widget</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="230"/>
         <source>Set a key combination for this widget</source>
         <oldsource>Set a key combination for this button</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar una combinacion de teclas para este widget</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="250"/>
         <source>Remove the widget&apos;s keyboard shortcut key</source>
         <oldsource>Remove the button&apos;s keyboard shortcut key</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Quitar el atajo de teclado para este widget</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.cpp" line="125"/>
@@ -2295,7 +2295,7 @@ Duración: %3
     <message>
         <location filename="functionliveeditdialog.cpp" line="45"/>
         <source>Function Live Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar la función en vivo</translation>
     </message>
 </context>
 <context>
@@ -4156,7 +4156,7 @@ Duración: %3
     <message>
         <location filename="vcbuttonproperties.ui" line="66"/>
         <source>Stop All Functions</source>
-        <translation>Detener Todas las funciones</translation>
+        <translation>Detiene Todas las funciones</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="147"/>
@@ -4196,27 +4196,27 @@ Duración: %3
     <message>
         <location filename="vcbuttonproperties.ui" line="30"/>
         <source>On button press...</source>
-        <translation>Cuando se presiona el botón...</translation>
+        <translation>Modalidad del Botón...</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="36"/>
         <source>Toggle the assigned function on/off with this button</source>
-        <translation>Activa (on/off) la función asignada con este botón</translation>
+        <translation>Activa o desactiva la función asignada cada vez que se presiona el botón</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="39"/>
         <source>Toggle function on/off</source>
-        <translation>Activa la función on/off</translation>
+        <translation>Modo Interruptor</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="49"/>
         <source>Flash the assigned function with this button</source>
-        <translation>Modo Flash para la función asignada con este botón</translation>
+        <translation>Activa la función asignada mientras el botón se encuentra presionado</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="52"/>
         <source>Flash function (only for scenes)</source>
-        <translation>Función Flash (sólo para escenas)</translation>
+        <translation>Modo Flash (sólo para escenas)</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.cpp" line="134"/>
@@ -4833,7 +4833,7 @@ Duración: %3
     <message>
         <location filename="vcproperties.ui" line="533"/>
         <source>Audio triggers size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño de los disparos:</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="543"/>
@@ -5793,7 +5793,7 @@ Duración: %3
     <message>
         <location filename="virtualconsole.cpp" line="329"/>
         <source>New Audio Triggers</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuevo Disparo de Audio</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="349"/>

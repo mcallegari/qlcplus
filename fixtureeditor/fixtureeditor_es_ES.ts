@@ -35,34 +35,34 @@
     <message>
         <location filename="addchannelsdialog.ui" line="14"/>
         <source>Fixture Mode Channels Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Editor de Canales del Modo del Fixture</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="30"/>
         <source>Available channels</source>
         <oldsource>All channels</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Canales disponibles</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="52"/>
         <source>&gt;&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&gt;&gt;</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="65"/>
         <source>&lt;&lt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;&lt;</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="94"/>
         <location filename="addchannelsdialog.ui" line="116"/>
         <source>Name</source>
-        <translation type="unfinished">Nombre</translation>
+        <translation>Nombre</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="102"/>
         <source>Mode channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Canales del modo</translation>
     </message>
 </context>
 <context>
@@ -800,12 +800,12 @@
     <message>
         <location filename="editmode.ui" line="953"/>
         <source>Copy physical information to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Copiar información física al portapapeles</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="970"/>
         <source>Paste physical information from clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Pegar información física del portapapeles</translation>
     </message>
 </context>
 <context>
