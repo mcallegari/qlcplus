@@ -68,7 +68,7 @@
     <message>
         <location filename="configureartnet.ui" line="24"/>
         <source>Network Mapping</source>
-        <translation>Mappeado de Red</translation>
+        <translation>Mapeado de Red</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="42"/>
@@ -96,7 +96,7 @@
         <translation>Nombre Largo</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="81"/>
+        <location filename="configureartnet.cpp" line="79"/>
         <source>Universe %1</source>
         <translation>Universo%1</translation>
     </message>

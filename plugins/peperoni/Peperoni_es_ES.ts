@@ -12,13 +12,13 @@
     <message>
         <location filename="win32/peperoni.cpp" line="136"/>
         <source>The shared library usbdmx.dll could not be found or is too old to be used with QLC.</source>
-        <translation>La librería compartida usbdmx.dll no puede ser encontrada o es muy antigua para ser usada con QLC+</translation>
+        <translation>La librería compartida usbdmx.dll no puede ser encontrada o es muy antigua para ser usada con QLC+.</translation>
     </message>
     <message>
         <location filename="win32/peperoni.cpp" line="216"/>
         <location filename="unix/peperoni.cpp" line="127"/>
         <source>Do you wish to re-scan your hardware?</source>
-        <translation>¿Desea re escanear su hardware?</translation>
+        <translation>¿Desea volver a escanear su hardware?</translation>
     </message>
 </context>
 <context>
@@ -58,7 +58,7 @@
     <message>
         <location filename="unix/peperonidevice.cpp" line="180"/>
         <source>Cannot connect to USB device.</source>
-        <translation type="unfinished">No se puede conectar con el dispositivo USB.</translation>
+        <translation>No se puede conectar con el dispositivo USB.</translation>
     </message>
 </context>
 </TS>
