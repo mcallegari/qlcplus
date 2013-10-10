@@ -49,7 +49,7 @@
     <message>
         <location filename="common/midiplugin.cpp" line="125"/>
         <source>No output support available.</source>
-        <translation>No hay soporte de Salida disponible.</translation>
+        <translation>Soporte de Salida no disponible.</translation>
     </message>
     <message>
         <location filename="common/midiplugin.cpp" line="133"/>
@@ -82,7 +82,7 @@
     <message>
         <location filename="common/midiplugin.cpp" line="227"/>
         <source>No input support available.</source>
-        <translation>No hay soporte de Entrada disponible.</translation>
+        <translation>Soporte de Entrada no disponible.</translation>
     </message>
     <message>
         <location filename="common/midiplugin.cpp" line="235"/>

@@ -16,12 +16,12 @@
     <message>
         <location filename="dmxusb.cpp" line="153"/>
         <source>No output support available.</source>
-        <translation>No está disponible soporte de Salida.</translation>
+        <translation>Soporte de Salida no disponible.</translation>
     </message>
     <message>
         <location filename="dmxusb.cpp" line="155"/>
         <source>Make sure that you have your hardware firmly plugged in. NOTE: FTDI VCP interface is not supported by this plugin.</source>
-        <translation>Asegúrese que tiene si hardware firmemente conectado. NOTA: las interfaces FTDI VCP no están soportadas por este plugin.</translation>
+        <translation>Asegúrese que tiene su hardware firmemente conectado. NOTA: las interfaces FTDI VCP no están soportadas por este plugin.</translation>
     </message>
     <message>
         <location filename="dmxusb.cpp" line="164"/>
@@ -32,7 +32,7 @@
     <message>
         <location filename="dmxusb.cpp" line="218"/>
         <source>No input support available.</source>
-        <translation>No está disponible el  soporte de Entrada.</translation>
+        <translation>Soporte de Entrada no disponible.</translation>
     </message>
 </context>
 <context>
