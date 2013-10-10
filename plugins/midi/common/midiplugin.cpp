@@ -33,6 +33,7 @@
 #include "midienumerator.h"
 #include "midiprotocol.h"
 #include "midiplugin.h"
+#include "qlcconfig.h"
 
 /*****************************************************************************
  * Initialization
