@@ -40,6 +40,8 @@ VCXYPadArea::VCXYPadArea(QWidget* parent)
     : QFrame(parent)
     , m_changed(false)
     , m_pixmap(QPixmap(":/xypad-point.png"))
+    , m_rangeSrcRect(QRect())
+    , m_rangeDestRect(QRect())
 {
     setFrameStyle(KVCFrameStyleSunken);
     setWindowTitle("XY Pad");
@@ -94,6 +96,30 @@ bool VCXYPadArea::hasPositionChanged()
     return changed;
 }
 
+/*************************************************************************
+ * Range window
+ *************************************************************************/
+
+QRect VCXYPadArea::rangeWindow()
+{
+    return m_rangeDestRect;
+}
+
+void VCXYPadArea::setRangeWindow(QRect rect)
+{
+    m_rangeSrcRect = rect;
+    updateRangeWindow();
+}
+
+void VCXYPadArea::updateRangeWindow()
+{
+    int x = (width() * m_rangeSrcRect.x()) / 255;
+    int y = (height() * m_rangeSrcRect.y()) / 255;
+    int w = (width() * m_rangeSrcRect.width()) / 255;
+    int h = (height() * m_rangeSrcRect.height()) / 255;
+    m_rangeDestRect = QRect(x, y, w - x, h - y);
+}
+
 /*****************************************************************************
  * Event handlers
  *****************************************************************************/
@@ -118,10 +144,34 @@ void VCXYPadArea::paintEvent(QPaintEvent* e)
     p.drawLine(width() / 2, 0, width() / 2, height());
     p.drawLine(0, height() / 2, width(), height() / 2);
 
+    /* Draw the range window if not full size */
+    if (m_rangeDestRect.isValid())
+    {
+        pen.setStyle(Qt::SolidLine);
+        pen.setColor(QColor(0, 120, 0, 170));
+        p.setPen(pen);
+        p.fillRect(m_rangeDestRect, QBrush(QColor(155, 200, 165, 130)));
+        p.drawRect(m_rangeDestRect);
+        if (m_mode == Doc::Operate)
+        {
+            QPoint pt(CLAMP(m_pos.x(), m_rangeDestRect.x(),
+                                       m_rangeDestRect.x() + m_rangeDestRect.width()),
+                      CLAMP(m_pos.y(), m_rangeDestRect.y(),
+                                       m_rangeDestRect.y() + m_rangeDestRect.height()));
+            setPosition(pt);
+        }
+    }
+
     /* Draw the current point pixmap */
     p.drawPixmap(m_pos.x() - (m_pixmap.width() / 2),
                  m_pos.y() - (m_pixmap.height() / 2),
                  m_pixmap);
+}
+
+void VCXYPadArea::resizeEvent(QResizeEvent *e)
+{
+    QFrame::resizeEvent(e);
+    updateRangeWindow();
 }
 
 void VCXYPadArea::mousePressEvent(QMouseEvent* e)
@@ -162,3 +212,4 @@ void VCXYPadArea::mouseMoveEvent(QMouseEvent* e)
 
     QFrame::mouseMoveEvent(e);
 }
+

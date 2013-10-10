@@ -54,6 +54,7 @@ protected:
 
 private:
     snd_pcm_t *m_captureHandle;
+    char *pcm_name;
 };
 
 #endif // AUDIOCAPTURE_ALSA_H

@@ -298,6 +298,7 @@ void App::initActions()
 void App::initToolBar()
 {
     m_toolBar = new QToolBar(App::longName(), this);
+    m_toolBar->setIconSize(QSize(24, 24));
     addToolBar(m_toolBar);
     m_toolBar->setMovable(false);
 

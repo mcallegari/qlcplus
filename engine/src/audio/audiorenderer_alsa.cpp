@@ -27,6 +27,7 @@
  ******************************************************/
 
 #include <QString>
+#include <QSettings>
 
 #include "audiorenderer_alsa.h"
 
@@ -34,6 +35,11 @@ AudioRendererAlsa::AudioRendererAlsa(QObject * parent)
     : AudioRenderer(parent)
 {
     QString dev_name = "default";
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE);
+    if (var.isValid() == true)
+        dev_name = var.toString();
+
     m_use_mmap = false;
     pcm_name = strdup(dev_name.toAscii().data());
     pcm_handle = NULL;
@@ -195,6 +201,84 @@ qint64 AudioRendererAlsa::latency()
 {
     //return m_prebuf_fill * 1000 / sampleRate() / channels() / sampleSize();
     return 0;
+}
+
+QList<AudioDeviceInfo> AudioRendererAlsa::getDevicesInfo()
+{
+    int err;
+    int cardIdx = -1;
+
+    QList<AudioDeviceInfo> devList;
+
+    while( snd_card_next( &cardIdx ) == 0 && cardIdx >= 0 )
+    {
+        snd_ctl_t *cardHandle;
+        snd_ctl_card_info_t *cardInfo;
+        char str[64];
+        int devIdx = -1;
+
+        // Open this card's control interface. We specify only the card number -- not
+        // any device nor sub-device too
+        sprintf(str, "hw:%i", cardIdx);
+        if ((err = snd_ctl_open(&cardHandle, str, 0)) < 0)
+        {
+            qWarning("Can't open card %d: %s\n", cardIdx, snd_strerror(err));
+            continue;
+        }
+
+        // We need to get a snd_ctl_card_info_t. Just alloc it on the stack
+        snd_ctl_card_info_alloca(&cardInfo);
+
+        // Tell ALSA to fill in our snd_ctl_card_info_t with info about this card
+        if ((err = snd_ctl_card_info(cardHandle, cardInfo)) < 0)
+        {
+            printf("Can't get info for card %i: %s\n", cardIdx, snd_strerror(err));
+            continue;
+        }
+
+        //printf("Card %i = %s\n", cardNum, snd_ctl_card_info_get_name(cardInfo));
+        while( snd_ctl_pcm_next_device( cardHandle, &devIdx ) == 0 && devIdx >= 0 )
+        {
+            //char *alsaDeviceName, *deviceName, *infoName;
+            snd_pcm_info_t *pcmInfo;
+            int tmpCaps = 0;
+
+            snd_pcm_info_alloca( &pcmInfo );
+
+            snprintf( str, sizeof (str), "hw:%d,%d", cardIdx, devIdx );
+
+            /* Obtain info about this particular device */
+            snd_pcm_info_set_device( pcmInfo, devIdx );
+            snd_pcm_info_set_subdevice( pcmInfo, 0 );
+            snd_pcm_info_set_stream( pcmInfo, SND_PCM_STREAM_CAPTURE );
+            if( snd_ctl_pcm_info( cardHandle, pcmInfo ) >= 0 )
+                tmpCaps |= AUDIO_CAP_INPUT;
+
+            snd_pcm_info_set_stream( pcmInfo, SND_PCM_STREAM_PLAYBACK );
+            if( snd_ctl_pcm_info( cardHandle, pcmInfo ) >= 0 )
+                tmpCaps |= AUDIO_CAP_OUTPUT;
+
+            if (tmpCaps != 0)
+            {
+                AudioDeviceInfo info;
+                info.deviceName = QString(snd_ctl_card_info_get_name(cardInfo)) + " - " +
+                                  QString (snd_pcm_info_get_name( pcmInfo ));
+                info.privateName = QString(str);
+                info.capabilities = tmpCaps;
+                devList.append(info);
+            }
+        }
+
+        // Close the card's control interface after we're done with it
+        snd_ctl_close(cardHandle);
+    }
+
+    // ALSA allocates some mem to load its config file when we call some of the
+    // above functions. Now that we're done getting the info, let's tell ALSA
+    // to unload the info and free up that mem
+    snd_config_update_free_global();
+
+    return devList;
 }
 
 qint64 AudioRendererAlsa::writeAudio(unsigned char *data, qint64 maxSize)

@@ -284,7 +284,7 @@
  <Mode Name="16 channel mode">
   <Physical>
    <Bulb Lumens="4200" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="267" Height="322" Weight="6,5" Depth="167"/>
+   <Dimensions Width="267" Height="322" Weight="6.5" Depth="167"/>
    <Lens DegreesMax="20" Name="Other" DegreesMin="20"/>
    <Focus PanMax="630" Type="Fixed" TiltMax="200"/>
    <Technical PowerConsumption="150" DmxConnector="3-pin"/>
@@ -309,7 +309,7 @@
  <Mode Name="12 channel mode">
   <Physical>
    <Bulb Lumens="4200" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="267" Height="322" Weight="6,5" Depth="167"/>
+   <Dimensions Width="267" Height="322" Weight="6.5" Depth="167"/>
    <Lens DegreesMax="20" Name="Other" DegreesMin="20"/>
    <Focus PanMax="630" Type="Fixed" TiltMax="200"/>
    <Technical PowerConsumption="150" DmxConnector="3-pin"/>
@@ -330,7 +330,7 @@
  <Mode Name="9 channel mode">
   <Physical>
    <Bulb Lumens="4200" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="267" Height="322" Weight="6,5" Depth="167"/>
+   <Dimensions Width="267" Height="322" Weight="6.5" Depth="167"/>
    <Lens DegreesMax="20" Name="Other" DegreesMin="20"/>
    <Focus PanMax="630" Type="Fixed" TiltMax="200"/>
    <Technical PowerConsumption="150" DmxConnector="3-pin"/>
@@ -348,7 +348,7 @@
  <Mode Name="28 channel mode">
   <Physical>
    <Bulb Lumens="4200" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="267" Height="322" Weight="6,5" Depth="167"/>
+   <Dimensions Width="267" Height="322" Weight="6.5" Depth="167"/>
    <Lens DegreesMax="20" Name="Other" DegreesMin="20"/>
    <Focus PanMax="630" Type="Fixed" TiltMax="200"/>
    <Technical PowerConsumption="150" DmxConnector="3-pin"/>
@@ -358,8 +358,8 @@
   <Channel Number="2">Tilt</Channel>
   <Channel Number="3">Tilt Fine</Channel>
   <Channel Number="4">Pan/Tilt Speed</Channel>
-  <Channel Number="5">Pan/Tilt Macro Speed</Channel>
-  <Channel Number="6">Pan/Tilt Macro</Channel>
+  <Channel Number="5">Pan/Tilt Macro</Channel>
+  <Channel Number="6">Pan/Tilt Macro Speed</Channel>
   <Channel Number="7">Function</Channel>
   <Channel Number="8">Dimmer</Channel>
   <Channel Number="9">Strobe</Channel>

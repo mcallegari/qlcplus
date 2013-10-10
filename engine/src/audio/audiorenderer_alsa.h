@@ -50,6 +50,8 @@ public:
     /** @reimpl */
     qint64 latency();
 
+    static QList<AudioDeviceInfo> getDevicesInfo();
+
 protected:
     /** @reimpl */
     qint64 writeAudio(unsigned char *data, qint64 maxSize);

@@ -15,7 +15,7 @@
 ;--------------------------------
 ;General
 Name "Q Light Controller Plus"
-OutFile "QLC+_4.4.2.exe"
+OutFile "QLC+_4.5.0.exe"
 InstallDir C:\QLC+
 InstallDirRegKey HKCU "Software\qlcplus" "Install_Dir"
 RequestExecutionLevel user
@@ -91,6 +91,7 @@ Section
 	File qlcplus-fixtureeditor.exe
 	File qlcplusengine.dll
 	File qlcplusui.dll
+	File qlcpluswebaccess.dll
 	File QtCore4.dll
 	File QtGui4.dll
 	File QtXml4.dll
@@ -130,6 +131,7 @@ Section "Uninstall"
 	Delete $INSTDIR\qlcplus-fixtureeditor.exe
 	Delete $INSTDIR\qlcplusengine.dll
 	Delete $INSTDIR\qlcplusui.dll
+	Delete $INSTDIR\qlcpluswebaccess.dll
 	Delete $INSTDIR\mingwm10.dll
 	Delete $INSTDIR\libgcc_s_dw2-1.dll
 	Delete $INSTDIR\libmad-0.dll

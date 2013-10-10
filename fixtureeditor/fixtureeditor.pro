@@ -31,7 +31,8 @@ HEADERS += ../ui/src/aboutbox.h \
            edithead.h \
            editmode.h \
            fixtureeditor.h \
-           util.h
+           util.h \
+    addchannelsdialog.h
 
 FORMS += ../ui/src/aboutbox.ui \
          capabilitywizard.ui \
@@ -39,7 +40,8 @@ FORMS += ../ui/src/aboutbox.ui \
          editchannel.ui \
          edithead.ui \
          editmode.ui \
-         fixtureeditor.ui
+         fixtureeditor.ui \
+    addchannelsdialog.ui
 
 SOURCES += ../ui/src/aboutbox.cpp \
            ../ui/src/docbrowser.cpp \
@@ -51,7 +53,8 @@ SOURCES += ../ui/src/aboutbox.cpp \
            edithead.cpp \
            editmode.cpp \
            fixtureeditor.cpp \
-           main.cpp
+           main.cpp \
+    addchannelsdialog.cpp
 
 TRANSLATIONS += fixtureeditor_fi_FI.ts
 TRANSLATIONS += fixtureeditor_fr_FR.ts

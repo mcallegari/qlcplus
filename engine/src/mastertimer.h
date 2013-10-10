@@ -77,6 +77,9 @@ private:
     /** The timer tick frequency in Hertz */
     static uint s_frequency;
 
+    /** Duration in milliseconds of a single tick */
+    static uint s_tick;
+
     /*********************************************************************
      * Functions
      *********************************************************************/
@@ -86,6 +89,9 @@ public:
 
     /** Stop all functions. Doesn't affect registered DMX sources. */
     void stopAllFunctions();
+
+    /** Fade all functions for a given time and then stop them all */
+    void fadeAndStopAll(int timeout);
 
     /** Get the number of currently running functions */
     int runningFunctions() const;
@@ -98,6 +104,11 @@ private:
     /** Execute one timer tick for each registered Function */
     void timerTickFunctions(UniverseArray* universes);
 
+    /** When a Fade+Stop sequence is completed, this function
+     *  is called to actually stop all functions and restore
+     *  the original Grand Master value stored in m_originalGMvalue */
+    void fadeSequenceCompleted();
+
 private:
     /** List of currently running functions */
     QList <Function*> m_functionList;
@@ -108,6 +119,20 @@ private:
 
     /** Flag for stopping all functions */
     bool m_stopAllFunctions;
+
+    /** Flag to fade all functions before stopping them all */
+    bool m_fadeAllSequence;
+
+    /** When m_fadeAllSequence is set, this value indicates how
+     *  long the fade sequence will take */
+    int m_fadeSequenceTimeout;
+
+    /** Temporary variable to count from m_fadeSequenceTimeout to 0 */
+    int m_fadeSequenceTimeoutCount;
+
+    /** When a fade+stop sequence is activated, record the original
+     *  Grand Master value to restore it later */
+    uchar m_originalGMvalue;
 
     /*************************************************************************
      * DMX Sources

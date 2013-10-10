@@ -19,6 +19,7 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
+#include <QSettings>
 #include <QString>
 #include <QDebug>
 
@@ -79,7 +80,13 @@ bool AudioRendererPortAudio::initialize(quint32 freq, int chan, AudioFormat form
     if( err != paNoError )
         return false;
 
-    outputParameters.device = Pa_GetDefaultOutputDevice(); /* default output device */
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE);
+    if (var.isValid() == true)
+        outputParameters.device = QString(var.toString()).toInt();
+    else
+        outputParameters.device = Pa_GetDefaultOutputDevice(); /* default output device */
+
     if (outputParameters.device == paNoDevice)
     {
         qDebug() << "Error: No default output device";
@@ -132,6 +139,48 @@ bool AudioRendererPortAudio::initialize(quint32 freq, int chan, AudioFormat form
 qint64 AudioRendererPortAudio::latency()
 {
     return 0;
+}
+
+QList<AudioDeviceInfo> AudioRendererPortAudio::getDevicesInfo()
+{
+    QList<AudioDeviceInfo> devList;
+
+    int numDevices, err, i;
+    const PaDeviceInfo *deviceInfo;
+
+    err = Pa_Initialize();
+    if( err != paNoError )
+        return devList;
+
+    numDevices = Pa_GetDeviceCount();
+    if( numDevices < 0 )
+    {
+        qWarning("ERROR: Pa_CountDevices returned 0x%x\n", numDevices );
+        return devList;
+    }
+
+    for (i = 0; i < numDevices; i++)
+    {
+        deviceInfo = Pa_GetDeviceInfo( i );
+        if (deviceInfo != NULL)
+        {
+            AudioDeviceInfo info;
+            info.deviceName = QString(deviceInfo->name);
+            info.privateName = QString::number(i);
+            info.capabilities = 0;
+            if (deviceInfo->maxInputChannels > 0)
+                info.capabilities |= AUDIO_CAP_INPUT;
+            if (deviceInfo->maxOutputChannels > 0)
+                info.capabilities |= AUDIO_CAP_OUTPUT;
+            devList.append(info);
+        }
+    }
+
+    err = Pa_Terminate();
+    if( err != paNoError )
+        qDebug() << "PortAudio error: " << Pa_GetErrorText( err );
+
+    return devList;
 }
 
 qint64 AudioRendererPortAudio::writeAudio(unsigned char *data, qint64 maxSize)

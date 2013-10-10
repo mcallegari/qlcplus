@@ -42,6 +42,7 @@
 #include "vcxypadproperties.h"
 #include "qlcinputchannel.h"
 #include "virtualconsole.h"
+#include "ctkrangeslider.h"
 #include "mastertimer.h"
 #include "vcxypadarea.h"
 #include "inputpatch.h"
@@ -63,38 +64,59 @@ VCXYPad::VCXYPad(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     setObjectName(VCXYPad::staticMetaObject.className());
 
     m_hbox = new QHBoxLayout(this);
-
     m_lvbox = new QVBoxLayout;
-    m_vSlider = new QSlider(this);
-    m_lvbox->addWidget(m_vSlider);
+    m_lvbox->addSpacing(20);
+    m_vRangeSlider = new ctkRangeSlider(this);
+    m_lvbox->addWidget(m_vRangeSlider);
+    m_lvbox->addSpacing(25);
+
     m_hbox->addLayout(m_lvbox);
+
+    m_cvbox = new QVBoxLayout;
+    m_hbox->addLayout(m_cvbox);
+
+    m_hRangeSlider = new ctkRangeSlider(Qt::Horizontal, this);
+    m_cvbox->addWidget(m_hRangeSlider);
+
+    m_area = new VCXYPadArea(this);
+    m_cvbox->addWidget(m_area);
+
+    m_hSlider = new QSlider(Qt::Horizontal, this);
+    m_cvbox->addWidget(m_hSlider);
 
     m_rvbox = new QVBoxLayout;
     m_hbox->addLayout(m_rvbox);
-
-    m_area = new VCXYPadArea(this);
-    m_rvbox->addWidget(m_area);
-
-    m_hSlider = new QSlider(Qt::Horizontal, this);
-    m_rvbox->addWidget(m_hSlider);
-
-    m_lvbox->addSpacing(20);
+    m_rvbox->addSpacing(20);
+    m_vSlider = new QSlider(this);
+    m_rvbox->addWidget(m_vSlider);
+    m_rvbox->addSpacing(25);
 
     m_vSlider->setRange(0, 255);
     m_hSlider->setRange(0, 255);
     m_vSlider->setInvertedAppearance(true);
-    m_vSlider->setTickPosition(QSlider::TicksRight);
+    m_vSlider->setTickPosition(QSlider::TicksLeft);
     m_vSlider->setTickInterval(16);
     m_hSlider->setTickPosition(QSlider::TicksAbove);
     m_hSlider->setTickInterval(16);
     m_vSlider->setStyle(AppUtil::saneStyle());
     m_hSlider->setStyle(AppUtil::saneStyle());
+
+    m_hRangeSlider->setRange(0, 255);
+    m_vRangeSlider->setInvertedAppearance(true);
+    m_vRangeSlider->setRange(0, 255);
+    m_hRangeSlider->setMaximumPosition(255);
+    m_vRangeSlider->setMaximumPosition(255);
+
     connect(m_area, SIGNAL(positionChanged(const QPoint&)),
             this, SLOT(slotPositionChanged(const QPoint&)));
     connect(m_vSlider, SIGNAL(valueChanged(int)),
             this, SLOT(slotSliderValueChanged()));
     connect(m_hSlider, SIGNAL(valueChanged(int)),
             this, SLOT(slotSliderValueChanged()));
+    connect(m_hRangeSlider, SIGNAL(positionsChanged(int,int)),
+            this, SLOT(slotRangeValueChanged()));
+    connect(m_vRangeSlider, SIGNAL(positionsChanged(int,int)),
+            this, SLOT(slotRangeValueChanged()));
 
     setFrameStyle(KVCFrameStyleSunken);
     setType(VCWidget::XYPadWidget);
@@ -106,7 +128,7 @@ VCXYPad::VCXYPad(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     if (var.isValid() == true)
         resize(var.toSize());
     else
-        resize(QSize(200, 200));
+        resize(QSize(230, 230));
     m_padInteraction = false;
     m_sliderInteraction = false;
     m_inputValueChanged = false;
@@ -308,6 +330,14 @@ void VCXYPad::slotSliderValueChanged()
     m_sliderInteraction = false;
 }
 
+void VCXYPad::slotRangeValueChanged()
+{
+    QRect rect(m_hRangeSlider->minimumPosition(), m_vRangeSlider->minimumPosition(),
+               m_hRangeSlider->maximumPosition(), m_vRangeSlider->maximumPosition());
+    m_area->setRangeWindow(rect);
+    m_area->update();
+}
+
 void VCXYPad::updateFeedback()
 {
     int Xfb = (int)SCALE(float(m_hSlider->value()), float(m_hSlider->minimum()),
@@ -334,19 +364,36 @@ void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
     QLCInputSource src(universe, channel);
     if (src == inputSource(panInputSourceId))
     {
-        x = int(SCALE(qreal(value), qreal(0), qreal(255),
-                      qreal(0), qreal(m_area->width())));
+
+        qreal areaWidth = m_area->width();
+        qreal xOffset = 0;
+        QRect rangeWindow = m_area->rangeWindow();
+        if (rangeWindow.isValid())
+        {
+            areaWidth = rangeWindow.width();
+            xOffset = rangeWindow.x();
+        }
+        x = xOffset + int(SCALE(qreal(value), qreal(0), qreal(255),
+                      qreal(0), qreal(areaWidth)));
         y = m_area->position().y();
     }
     else if (src == inputSource(tiltInputSourceId))
     {
+        qreal yOffset = 0;
+        qreal areaHeight = m_area->height();
+        QRect rangeWindow = m_area->rangeWindow();
+        if (rangeWindow.isValid())
+        {
+            areaHeight = rangeWindow.height();
+            yOffset = rangeWindow.y();
+        }
         x = m_area->position().x();
         if (invertedAppearance() == false)
-            y = int(SCALE(qreal(value), qreal(0), qreal(255),
-                          qreal(0), qreal(m_area->height())));
+            y = yOffset + int(SCALE(qreal(value), qreal(0), qreal(255),
+                          qreal(0), qreal(areaHeight)));
         else
-            y = int(SCALE(qreal(value), qreal(255), qreal(0),
-                          qreal(0), qreal(m_area->height())));
+            y = yOffset + int(SCALE(qreal(value), qreal(255), qreal(0),
+                          qreal(0), qreal(areaHeight)));
     }
     else
         return;
@@ -461,6 +508,18 @@ bool VCXYPad::loadXML(const QDomElement* root)
             if (loadXMLInput(tag.firstChild().toElement(), &uni, &ch) == true)
                 setInputSource(QLCInputSource(uni, ch), tiltInputSourceId);
         }
+        else if (tag.tagName() == KXMLQLCVCXYPadRangeWindow)
+        {
+            if (tag.hasAttribute(KXMLQLCVCXYPadRangeHorizMin))
+                m_hRangeSlider->setMinimumPosition(tag.attribute(KXMLQLCVCXYPadRangeHorizMin).toInt());
+            if (tag.hasAttribute(KXMLQLCVCXYPadRangeHorizMax))
+                m_hRangeSlider->setMaximumPosition(tag.attribute(KXMLQLCVCXYPadRangeHorizMax).toInt());
+            if (tag.hasAttribute(KXMLQLCVCXYPadRangeVertMin))
+                m_vRangeSlider->setMinimumPosition(tag.attribute(KXMLQLCVCXYPadRangeVertMin).toInt());
+            if (tag.hasAttribute(KXMLQLCVCXYPadRangeVertMax))
+                m_vRangeSlider->setMaximumPosition(tag.attribute(KXMLQLCVCXYPadRangeVertMax).toInt());
+            slotRangeValueChanged();
+        }
         else if (tag.tagName() == KXMLQLCVCXYPadPosition) // Legacy
         {
             str = tag.attribute(KXMLQLCVCXYPadPositionX);
@@ -514,6 +573,20 @@ bool VCXYPad::saveXML(QDomDocument* doc, QDomElement* vc_root)
 
     /* Current XY position */
     QPoint pt(m_area->position());
+
+    /* Custom range window */
+    if (m_hRangeSlider->minimumPosition() != 0 ||
+        m_hRangeSlider->maximumPosition() != 255 ||
+        m_vRangeSlider->minimumPosition() != 0 ||
+        m_vRangeSlider->maximumPosition() != 255)
+    {
+        tag = doc->createElement(KXMLQLCVCXYPadRangeWindow);
+        tag.setAttribute(KXMLQLCVCXYPadRangeHorizMin, QString::number(m_hRangeSlider->minimumPosition()));
+        tag.setAttribute(KXMLQLCVCXYPadRangeHorizMax, QString::number(m_hRangeSlider->maximumPosition()));
+        tag.setAttribute(KXMLQLCVCXYPadRangeVertMin, QString::number(m_vRangeSlider->minimumPosition()));
+        tag.setAttribute(KXMLQLCVCXYPadRangeVertMax, QString::number(m_vRangeSlider->maximumPosition()));
+        root.appendChild(tag);
+    }
 
     /* Pan */
     tag = doc->createElement(KXMLQLCVCXYPadPan);

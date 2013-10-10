@@ -75,7 +75,7 @@ void VCXYPad_Test::initial()
     QCOMPARE(pad.objectName(), QString("VCXYPad"));
     QCOMPARE(pad.caption(), QString("XY Pad"));
     QCOMPARE(pad.frameStyle(), QFrame::Panel | QFrame::Sunken);
-    QCOMPARE(pad.size(), QSize(200, 200));
+    QCOMPARE(pad.size(), QSize(230, 230));
     QVERIFY(pad.m_area != NULL);
     QVERIFY(pad.m_area->m_pixmap.isNull() == false);
     QCOMPARE(pad.m_area->position(), QPoint(0, 0));

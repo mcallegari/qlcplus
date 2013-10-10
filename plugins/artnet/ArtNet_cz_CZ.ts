@@ -95,7 +95,7 @@
         <translation>Dlouhý název</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="81"/>
+        <location filename="configureartnet.cpp" line="79"/>
         <source>Universe %1</source>
         <translation>Větev %1</translation>
     </message>

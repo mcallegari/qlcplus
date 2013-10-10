@@ -25,11 +25,15 @@
 #include <QSpinBox>
 
 
-#include "audiotriggersconfiguration.h"
+#include "vcaudiotriggersproperties.h"
+#include "selectinputchannel.h"
 #include "channelsselection.h"
 #include "functionselection.h"
 #include "vcwidgetselection.h"
+#include "vcaudiotriggers.h"
+#include "assignhotkey.h"
 #include "qlcmacros.h"
+#include "audiobar.h"
 #include "chaser.h"
 
 #define KColumnName             0
@@ -39,8 +43,8 @@
 #define KColumnMinThreshold     4
 #define KColumnMaxThreshold     5
 
-AudioTriggersConfiguration::AudioTriggersConfiguration(QWidget *parent, Doc *doc, AudioCapture *capture)
-    : QDialog(parent)
+AudioTriggersConfiguration::AudioTriggersConfiguration(VCAudioTriggers *triggers, Doc *doc, AudioCapture *capture)
+    : QDialog(triggers)
     , m_doc(doc)
     , m_capture(capture)
 {
@@ -48,7 +52,9 @@ AudioTriggersConfiguration::AudioTriggersConfiguration(QWidget *parent, Doc *doc
 
     Q_ASSERT(capture != NULL);
 
-    m_factory = (AudioTriggerFactory *)parent;
+    m_triggers = triggers;
+
+    m_nameEdit->setText(m_triggers->caption());
 
     m_barsNumSpin->setFixedWidth(70);
     m_barsNumSpin->setFixedHeight(30);
@@ -57,7 +63,22 @@ AudioTriggersConfiguration::AudioTriggersConfiguration(QWidget *parent, Doc *doc
     connect(m_barsNumSpin, SIGNAL(valueChanged(int)),
             this, SLOT(updateTree()));
 
-    m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
+    /* Key sequence */
+    m_keySequence = QKeySequence(triggers->keySequence());
+    m_keyEdit->setText(m_keySequence.toString(QKeySequence::NativeText));
+
+    /* External input */
+    m_inputSource = triggers->inputSource();
+    updateInputSource();
+
+    connect(m_attachKey, SIGNAL(clicked()), this, SLOT(slotAttachKey()));
+    connect(m_detachKey, SIGNAL(clicked()), this, SLOT(slotDetachKey()));
+
+    connect(m_autoDetectInputButton, SIGNAL(toggled(bool)),
+            this, SLOT(slotAutoDetectInputToggled(bool)));
+    connect(m_chooseInputButton, SIGNAL(clicked()),
+            this, SLOT(slotChooseInputClicked()));
+
     m_tree->setAlternatingRowColors(true);
     m_tree->setRootIsDecorated(false);
     m_tree->setSelectionMode(QAbstractItemView::NoSelection);
@@ -72,6 +93,10 @@ AudioTriggersConfiguration::~AudioTriggersConfiguration()
 
 void AudioTriggersConfiguration::accept()
 {
+    m_triggers->setCaption(m_nameEdit->text());
+    m_triggers->setKeySequence(m_keySequence);
+    m_triggers->setInputSource(m_inputSource);
+
     /* Close dialog */
     QDialog::accept();
 }
@@ -81,7 +106,7 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
     if (item == NULL)
         return;
 
-    AudioBar *bar = m_factory->getSpectrumBar(idx);
+    AudioBar *bar = m_triggers->getSpectrumBar(idx);
     bar->setName(item->text(KColumnName));
 
     bar->debugInfo();
@@ -195,7 +220,7 @@ void AudioTriggersConfiguration::updateTree()
             return;
 
     m_tree->clear();
-    m_factory->setSpectrumBarsNumber(m_barsNumSpin->value());
+    m_triggers->setSpectrumBarsNumber(m_barsNumSpin->value());
 
     // add volume item
     QTreeWidgetItem *volItem = new QTreeWidgetItem(m_tree);
@@ -212,6 +237,14 @@ void AudioTriggersConfiguration::updateTree()
         updateTreeItem(barItem, i);
         freqCount += freqIncr;
     }
+
+    m_tree->resizeColumnToContents(KColumnName);
+    m_tree->resizeColumnToContents(KColumnType);
+    m_tree->resizeColumnToContents(KColumnAssign);
+    m_tree->resizeColumnToContents(KColumnInfo);
+    m_tree->resizeColumnToContents(KColumnMinThreshold);
+    m_tree->resizeColumnToContents(KColumnMaxThreshold);
+
 }
 
 void AudioTriggersConfiguration::slotTypeComboChanged(int comboIndex)
@@ -224,7 +257,7 @@ void AudioTriggersConfiguration::slotTypeComboChanged(int comboIndex)
     else
         item = m_tree->topLevelItem(index + 1);
 
-    m_factory->setSpectrumBarType(index, comboIndex);
+    m_triggers->setSpectrumBarType(index, comboIndex);
 
     updateTreeItem(item, index);
 }
@@ -235,7 +268,7 @@ void AudioTriggersConfiguration::slotDmxSelectionClicked()
     QVariant prop = btn->property("index");
     if (prop.isValid())
     {
-        AudioBar *bar = m_factory->getSpectrumBar(prop.toInt());
+        AudioBar *bar = m_triggers->getSpectrumBar(prop.toInt());
         ChannelsSelection cfg(m_doc, this);
         if (bar != NULL)
             cfg.setChannelsList(bar->m_dmxChannels);
@@ -263,7 +296,7 @@ void AudioTriggersConfiguration::slotFunctionSelectionClicked()
         FunctionSelection fs(this, m_doc);
         if (fs.exec() == QDialog::Rejected)
             return; // User pressed cancel
-        AudioBar *bar = m_factory->getSpectrumBar(prop.toInt());
+        AudioBar *bar = m_triggers->getSpectrumBar(prop.toInt());
         Function *f = m_doc->function(fs.selection().first());
         if (bar != NULL && f != NULL)
             bar->attachFunction(f);
@@ -289,7 +322,7 @@ void AudioTriggersConfiguration::slotWidgetSelectionClicked()
         VCWidgetSelection ws(filters, this);
         if (ws.exec() == QDialog::Rejected)
             return; // User pressed cancel
-        AudioBar *bar = m_factory->getSpectrumBar(prop.toInt());
+        AudioBar *bar = m_triggers->getSpectrumBar(prop.toInt());
         if (bar != NULL)
             bar->attachWidget(ws.getSelectedWidget());
 
@@ -308,7 +341,7 @@ void AudioTriggersConfiguration::slotMinThresholdChanged(int val)
     QVariant prop = spin->property("index");
     if (prop.isValid())
     {
-        AudioBar *bar = m_factory->getSpectrumBar(prop.toInt());
+        AudioBar *bar = m_triggers->getSpectrumBar(prop.toInt());
         uchar scaledVal = SCALE(float(val), 0.0, 100.0, 0.0, 255.0);
         if (bar != NULL)
             bar->setMinThreshold(scaledVal);
@@ -321,9 +354,72 @@ void AudioTriggersConfiguration::slotMaxThresholdChanged(int val)
     QVariant prop = spin->property("index");
     if (prop.isValid())
     {
-        AudioBar *bar = m_factory->getSpectrumBar(prop.toInt());
+        AudioBar *bar = m_triggers->getSpectrumBar(prop.toInt());
         uchar scaledVal = SCALE(float(val), 0.0, 100.0, 0.0, 255.0);
         if (bar != NULL)
             bar->setMaxThreshold(scaledVal);
     }
+}
+
+void AudioTriggersConfiguration::slotAttachKey()
+{
+    AssignHotKey ahk(this, m_keySequence);
+    if (ahk.exec() == QDialog::Accepted)
+    {
+        m_keySequence = QKeySequence(ahk.keySequence());
+        m_keyEdit->setText(m_keySequence.toString(QKeySequence::NativeText));
+    }
+}
+
+void AudioTriggersConfiguration::slotDetachKey()
+{
+    m_keySequence = QKeySequence();
+    m_keyEdit->setText(m_keySequence.toString(QKeySequence::NativeText));
+}
+
+void AudioTriggersConfiguration::slotAutoDetectInputToggled(bool checked)
+{
+    if (checked == true)
+    {
+        connect(m_doc->inputMap(),
+                SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+                this, SLOT(slotInputValueChanged(quint32,quint32)));
+    }
+    else
+    {
+        disconnect(m_doc->inputMap(),
+                   SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+                   this, SLOT(slotInputValueChanged(quint32,quint32)));
+    }
+}
+
+void AudioTriggersConfiguration::slotInputValueChanged(quint32 universe, quint32 channel)
+{
+    m_inputSource = QLCInputSource(universe, channel);
+    updateInputSource();
+}
+
+void AudioTriggersConfiguration::slotChooseInputClicked()
+{
+    SelectInputChannel sic(this, m_doc->inputMap());
+    if (sic.exec() == QDialog::Accepted)
+    {
+        m_inputSource = QLCInputSource(sic.universe(), sic.channel());
+        updateInputSource();
+    }
+}
+
+void AudioTriggersConfiguration::updateInputSource()
+{
+    QString uniName;
+    QString chName;
+
+    if (m_doc->inputMap()->inputSourceNames(m_inputSource, uniName, chName) == false)
+    {
+        uniName = KInputNone;
+        chName = KInputNone;
+    }
+
+    m_inputUniverseEdit->setText(uniName);
+    m_inputChannelEdit->setText(chName);
 }

@@ -71,7 +71,6 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad* xypad, Doc* doc)
 
     slotSelectionChanged(NULL);
     fillTree();
-    m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
 
     QSettings settings;
     QVariant var = settings.value(SETTINGS_GEOMETRY);
@@ -103,6 +102,9 @@ void VCXYPadProperties::fillTree()
     while (it.hasNext() == true)
         updateFixtureItem(new QTreeWidgetItem(m_tree), it.next());
     m_tree->setCurrentItem(m_tree->topLevelItem(0));
+    m_tree->resizeColumnToContents(KColumnFixture);
+    m_tree->resizeColumnToContents(KColumnXAxis);
+    m_tree->resizeColumnToContents(KColumnYAxis);
 }
 
 void VCXYPadProperties::updateFixtureItem(QTreeWidgetItem* item,
@@ -233,6 +235,10 @@ void VCXYPadProperties::slotAddClicked()
 
     if (item != NULL)
         m_tree->setCurrentItem(item);
+
+    m_tree->resizeColumnToContents(KColumnFixture);
+    m_tree->resizeColumnToContents(KColumnXAxis);
+    m_tree->resizeColumnToContents(KColumnYAxis);
 }
 
 void VCXYPadProperties::slotRemoveClicked()

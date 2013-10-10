@@ -132,7 +132,6 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_tree->header()->setSortIndicatorShown(false);
     m_tree->header()->setClickable(false);
     m_tree->header()->setMovable(false);
-    m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
 
     // Make only the notes column editable
     m_tree->setItemDelegateForColumn(COL_NUM, new NoEditDelegate(this));
@@ -242,7 +241,7 @@ bool VCCueList::copyFrom(VCWidget* widget)
         return false;
 
     /* Function list contents */
-    setChaser(cuelist->chaser());
+    setChaser(cuelist->chaserID());
 
     /* Key sequence */
     setNextKeySequence(cuelist->nextKeySequence());
@@ -259,17 +258,37 @@ bool VCCueList::copyFrom(VCWidget* widget)
 
 void VCCueList::setChaser(quint32 id)
 {
+    Function *old = m_doc->function(m_chaserID);
+    if (old != NULL)
+    {
+        disconnect(old, SIGNAL(stopped(quint32)),
+            this, SLOT(slotChaserStopped(quint32)));
+    }
+
     Chaser* chaser = qobject_cast<Chaser*> (m_doc->function(id));
+
     if (chaser == NULL)
         m_chaserID = Function::invalidId();
     else
+    {
         m_chaserID = id;
+        connect(chaser, SIGNAL(stopped(quint32)),
+                    this, SLOT(slotFunctionStopped(quint32)));
+    }
     updateStepList();
 }
 
-quint32 VCCueList::chaser() const
+quint32 VCCueList::chaserID() const
 {
     return m_chaserID;
+}
+
+Chaser *VCCueList::chaser()
+{
+    if (m_chaserID == Function::invalidId())
+        return NULL;
+    Chaser *chaser = qobject_cast<Chaser*>(m_doc->function(m_chaserID));
+    return chaser;
 }
 
 void VCCueList::updateStepList()
@@ -342,6 +361,13 @@ void VCCueList::updateStepList()
     QTreeWidgetItem *item = m_tree->topLevelItem(0);
     if (item != NULL)
         m_defCol = item->background(COL_NUM);
+
+    m_tree->resizeColumnToContents(COL_NUM);
+    m_tree->resizeColumnToContents(COL_NAME);
+    m_tree->resizeColumnToContents(COL_FADEIN);
+    m_tree->resizeColumnToContents(COL_FADEOUT);
+    m_tree->resizeColumnToContents(COL_DURATION);
+    m_tree->resizeColumnToContents(COL_NOTES);
 
     m_listIsUpdating = false;
 }
@@ -503,6 +529,18 @@ void VCCueList::slotItemChanged(QTreeWidgetItem *item, int column)
     updateStepList();
 }
 
+void VCCueList::slotFunctionStopped(quint32 fid)
+{
+    if (fid == m_chaserID && m_runner != NULL)
+    {
+        qDebug() << Q_FUNC_INFO << "Cue stopped";
+        Chaser* chaser = qobject_cast<Chaser*> (m_doc->function(m_chaserID));
+        if (chaser != NULL)
+            chaser->useInternalRunner(true);
+        slotStop();
+    }
+}
+
 void VCCueList::createRunner(int startIndex)
 {
     Q_ASSERT(m_runner == NULL);
@@ -510,7 +548,8 @@ void VCCueList::createRunner(int startIndex)
     Chaser* chaser = qobject_cast<Chaser*> (m_doc->function(m_chaserID));
     if (chaser != NULL)
     {
-        //m_runner = Chaser::createRunner(chaser, m_doc);
+        chaser->useInternalRunner(false);
+        chaser->start(m_doc->masterTimer());
         m_runner = new CueListRunner(m_doc, chaser);
         Q_ASSERT(m_runner != NULL);
         //m_runner->moveToThread(QCoreApplication::instance()->thread());
@@ -682,6 +721,12 @@ void VCCueList::writeDMX(MasterTimer* timer, UniverseArray* universes)
             delete m_runner;
             m_runner = NULL;
             m_stop = false;
+            Chaser* chaser = qobject_cast<Chaser*> (m_doc->function(m_chaserID));
+            if (chaser != NULL)
+            {
+                chaser->stop();
+                chaser->useInternalRunner(true);
+            }
         }
     }
     m_mutex.unlock();
@@ -889,6 +934,67 @@ void VCCueList::editProperties()
     VCCueListProperties prop(this, m_doc);
     if (prop.exec() == QDialog::Accepted)
         m_doc->setModified();
+}
+
+QString VCCueList::getCSS()
+{
+    QString str = "<style>\n"
+            ".vccuelist {\n"
+            "position: absolute;\n"
+            "border: 1px solid #777777;\n"
+            "border-radius: 3px;\n"
+            "}\n"
+
+            "table.hovertable {\n"
+            " font-family: verdana,arial,sans-serif;\n"
+            " font-size:11px;\n"
+            " color:#333333;\n"
+            " border-width: 1px;\n"
+            " border-color: #999999;\n"
+            " border-collapse: collapse;\n"
+            "}\n"
+
+            "table.hovertable th {\n"
+            " background-color:#DCD9D6;\n"
+            " border-width: 1px;\n"
+            " padding: 3px;\n"
+            " border-style: solid;\n"
+            " border-color: #a9c6c9;\n"
+            "}\n"
+
+            "table.hovertable tr {\n"
+            " background-color:#ffffff;\n"
+            "}\n"
+
+            "table.hovertable td {\n"
+            " border-width: 1px;\n"
+            " padding: 3px;\n"
+            " border-style: solid;\n"
+            " border-color: #a9c6c9;\n"
+            "}\n"
+
+            "</style>\n";
+
+    return str;
+}
+
+QString VCCueList::getJS()
+{
+    QString str = "function sendCueCmd(id, cmd) {\n"
+                " if (cmd == \"PLAY\") {\n"
+                "   var obj = document.getElementById(id);\n"
+                "   if (obj.value == \"0\" || obj.value == undefined) {\n"
+                "     obj.value = \"255\";\n"
+                "     obj.innerHTML = \"Stop\";\n"
+                "   }\n"
+                "   else {\n"
+                "     obj.value = \"0\";\n"
+                "     obj.innerHTML = \"Play\";\n"
+                "   }\n"
+                " }\n"
+                " sendWSmessage(id + \"|\" + cmd);\n"
+                "};\n";
+    return str;
 }
 
 /*****************************************************************************
@@ -1102,7 +1208,7 @@ bool VCCueList::saveXML(QDomDocument* doc, QDomElement* vc_root)
     /* Chaser */
     tag = doc->createElement(KXMLQLCVCCueListChaser);
     root.appendChild(tag);
-    text = doc->createTextNode(QString::number(chaser()));
+    text = doc->createTextNode(QString::number(chaserID()));
     tag.appendChild(text);
 
     /* Next cue */

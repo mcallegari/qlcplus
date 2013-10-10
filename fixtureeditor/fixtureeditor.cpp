@@ -154,8 +154,9 @@ void QLCFixtureEditor::init()
             this, SLOT(slotChannelListContextMenuRequested()));
     connect(m_channelList, SIGNAL(itemActivated(QTreeWidgetItem*,int)),
             this, SLOT(slotEditChannel()));
+    connect(m_channelList, SIGNAL(expanded(QModelIndex)),
+            this, SLOT(slotChannelItemExpanded()));
 
-    m_channelList->header()->setResizeMode(QHeaderView::ResizeToContents);
     m_channelList->setContextMenuPolicy(Qt::CustomContextMenu);
     m_channelList->setIconSize(QSize(24, 24));
     refreshChannelList();
@@ -172,15 +173,15 @@ void QLCFixtureEditor::init()
     connect(m_expandModesButton, SIGNAL(clicked()),
             this, SLOT(slotExpandModes()));
 
-    connect(m_modeList, SIGNAL(currentItemChanged(QTreeWidgetItem*,
-                               QTreeWidgetItem*)),
+    connect(m_modeList, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)),
             this, SLOT(slotModeListSelectionChanged(QTreeWidgetItem*)));
     connect(m_modeList, SIGNAL(customContextMenuRequested(const QPoint&)),
             this, SLOT(slotModeListContextMenuRequested()));
     connect(m_modeList, SIGNAL(itemActivated(QTreeWidgetItem*,int)),
             this, SLOT(slotEditMode()));
+    connect(m_modeList, SIGNAL(expanded(QModelIndex)),
+            this, SLOT(slotModeItemExpanded()));
 
-    m_modeList->header()->setResizeMode(QHeaderView::ResizeToContents);
     m_modeList->setContextMenuPolicy(Qt::CustomContextMenu);
     refreshModeList();
 }
@@ -545,6 +546,9 @@ void QLCFixtureEditor::refreshChannelList()
         updateChannelItem(it.next(), new QTreeWidgetItem(m_channelList));
 
     slotChannelListSelectionChanged(m_channelList->currentItem());
+
+    m_channelList->resizeColumnToContents(CH_COL_NAME);
+    m_channelList->resizeColumnToContents(CH_COL_GRP);
 }
 
 void QLCFixtureEditor::updateChannelItem(const QLCChannel* channel, QTreeWidgetItem* item)
@@ -641,6 +645,12 @@ void QLCFixtureEditor::slotChannelListContextMenuRequested()
     }
 }
 
+void QLCFixtureEditor::slotChannelItemExpanded()
+{
+    m_channelList->resizeColumnToContents(CH_COL_NAME);
+    m_channelList->resizeColumnToContents(CH_COL_GRP);
+}
+
 QLCChannel* QLCFixtureEditor::currentChannel()
 {
     QLCChannel* ch = NULL;
@@ -677,6 +687,7 @@ void QLCFixtureEditor::slotModeListSelectionChanged(QTreeWidgetItem* item)
 void QLCFixtureEditor::slotAddMode()
 {
     EditMode em(_app, m_fixtureDef);
+    em.setClipboard(m_physicalCopy);
     bool ok = false;
     while (ok == false)
     {
@@ -721,6 +732,7 @@ void QLCFixtureEditor::slotAddMode()
             ok = true;
         }
     }
+    m_physicalCopy = em.getClipboard();
 }
 
 void QLCFixtureEditor::slotRemoveMode()
@@ -754,6 +766,7 @@ void QLCFixtureEditor::slotEditMode()
         updateModeItem(mode, item);
         setModified();
     }
+    m_physicalCopy = em.getClipboard();
 }
 
 void QLCFixtureEditor::slotCloneMode()
@@ -849,6 +862,11 @@ void QLCFixtureEditor::slotModeListContextMenuRequested()
     menu.exec(QCursor::pos());
 }
 
+void QLCFixtureEditor::slotModeItemExpanded()
+{
+    m_modeList->resizeColumnToContents(MODE_COL_NAME);
+}
+
 void QLCFixtureEditor::refreshModeList()
 {
     m_modeList->clear();
@@ -859,6 +877,10 @@ void QLCFixtureEditor::refreshModeList()
         updateModeItem(it.next(), new QTreeWidgetItem(m_modeList));
 
     slotModeListSelectionChanged(m_modeList->currentItem());
+
+    m_modeList->resizeColumnToContents(MODE_COL_NAME);
+    m_modeList->resizeColumnToContents(MODE_COL_HEAD);
+    m_modeList->resizeColumnToContents(MODE_COL_CHS);
 }
 
 void QLCFixtureEditor::updateModeItem(const QLCFixtureMode* mode,

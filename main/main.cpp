@@ -27,6 +27,7 @@
 #include <QVariant>
 #include <QLocale>
 #include <QString>
+#include <QObject>
 #include <QDebug>
 #include <QTimer>
 #include <QHash>
@@ -39,6 +40,8 @@
   #include "debugbox.h"
 #endif
 
+#include "virtualconsole.h"
+#include "webaccess.h"
 #include "app.h"
 #include "doc.h"
 
@@ -65,6 +68,9 @@ namespace QLCArgs
 
     /** If true, adjusts the main window geometry instead of instructing the windowing system to "maximize" */
     bool fullScreenResize = false;
+
+    /** If true, create and run a class to enable a web server for remote controlling */
+    bool enableWebAccess = false;
 
     /** If not null, defines the place for a close button that in virtual console */
     QRect closeButtonRect = QRect();
@@ -129,6 +135,7 @@ void printUsage()
     cout << "  -l or --locale <locale>\tForce a locale for translation" << endl;
     cout << "  -o or --open <file>\t\tOpen the specified workspace file" << endl;
     cout << "  -p or --operate\t\tStart in operate mode" << endl;
+    cout << "  -w or --web\t\tEnable remote web acess" << endl;
     cout << "  -v or --version\t\tPrint version information" << endl;
     cout << endl;
 }
@@ -195,6 +202,10 @@ bool parseArgs()
         else if (arg == "-p" || arg == "--operate")
         {
             QLCArgs::operate = true;
+        }
+        else if (arg == "-w" || arg == "--web")
+        {
+            QLCArgs::enableWebAccess = true;
         }
         else if (arg == "-v" || arg == "--version")
         {
@@ -268,6 +279,16 @@ int main(int argc, char** argv)
         app.slotControlFullScreen(QLCArgs::fullScreenResize);
     if (QLCArgs::kioskMode == true && QLCArgs::closeButtonRect.isValid() == true)
         app.createKioskCloseButton(QLCArgs::closeButtonRect);
+
+    if (QLCArgs::enableWebAccess == true)
+    {
+        WebAccess *m_webAccess = new WebAccess(VirtualConsole::instance());
+
+        QObject::connect(m_webAccess, SIGNAL(toggleDocMode()),
+                &app, SLOT(slotModeToggle()));
+        QObject::connect(m_webAccess, SIGNAL(loadProject(QString)),
+                &app, SLOT(slotLoadDocFromMemory(QString)));
+    }
 
     return qapp.exec();
 }

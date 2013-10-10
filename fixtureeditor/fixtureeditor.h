@@ -25,6 +25,8 @@
 #include <QWidget>
 #include "ui_fixtureeditor.h"
 
+#include "qlcphysical.h"
+
 class QCloseEvent;
 class QString;
 
@@ -95,6 +97,7 @@ protected slots:
     void slotPasteChannel();
     void slotExpandChannels();
     void slotChannelListContextMenuRequested();
+    void slotChannelItemExpanded();
 
 protected:
     QLCChannel* currentChannel();
@@ -113,6 +116,7 @@ protected slots:
     void slotCloneMode();
     void slotExpandModes();
     void slotModeListContextMenuRequested();
+    void slotModeItemExpanded();
 
 protected:
     QLCFixtureMode* currentMode();
@@ -124,6 +128,9 @@ protected:
      *********************************************************************/
 public slots:
     void slotClipboardChanged();
+
+private:
+    QLCPhysical m_physicalCopy;
 };
 
 #endif

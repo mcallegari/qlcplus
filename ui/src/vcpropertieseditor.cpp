@@ -126,8 +126,8 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
     }
     else
     {
-        m_xypadWspin->setValue(200);
-        m_xypadHspin->setValue(200);
+        m_xypadWspin->setValue(230);
+        m_xypadHspin->setValue(230);
     }
     // ********************* CUE LIST **************************
     var = settings.value(SETTINGS_CUELIST_SIZE);
@@ -167,6 +167,19 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
     {
         m_soloWspin->setValue(200);
         m_soloHspin->setValue(200);
+    }
+    // ***************** AUDIO TRIGGERS ************************
+    var = settings.value(SETTINGS_AUDIOTRIGGERS_SIZE);
+    if (var.isValid() == true)
+    {
+        QSize size = var.toSize();
+        m_audioWspin->setValue(size.width());
+        m_audioHspin->setValue(size.height());
+    }
+    else
+    {
+        m_audioWspin->setValue(200);
+        m_audioHspin->setValue(200);
     }
 
     /* Grand Master page */
@@ -261,6 +274,11 @@ QSize VCPropertiesEditor::frameSize()
 QSize VCPropertiesEditor::soloFrameSize()
 {
     return QSize(m_soloWspin->value(), m_soloHspin->value());
+}
+
+QSize VCPropertiesEditor::audioTriggersSize()
+{
+    return QSize(m_audioWspin->value(), m_audioHspin->value());
 }
 
 /*****************************************************************************

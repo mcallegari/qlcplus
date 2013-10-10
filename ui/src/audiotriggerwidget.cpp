@@ -48,6 +48,11 @@ void AudioTriggerWidget::setBarsNumber(int num)
     update();
 }
 
+int AudioTriggerWidget::barsNumber()
+{
+    return m_barsNumber;
+}
+
 void AudioTriggerWidget::setMaxFrequency(int freq)
 {
     m_maxFrequency = freq;
@@ -132,7 +137,8 @@ void AudioTriggerWidget::paintEvent(QPaintEvent *e)
     for (int i = 1; i < 11; i++)
     {
         float xpos = ((m_barWidth * m_barsNumber) / 10 * i);
-        painter.drawText(xpos - 50, height() - 5, QString("%1Hz").arg(freqIncr * i));
+        if (width() >= 500)
+            painter.drawText(xpos - 50, height() - 5, QString("%1Hz").arg(freqIncr * i));
         painter.drawLine(xpos - 2, m_spectrumHeight + 1, xpos - 2, height());
     }
     //painter.drawText(width() - 15, height() - 5, "V");

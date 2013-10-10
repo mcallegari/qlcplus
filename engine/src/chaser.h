@@ -290,6 +290,8 @@ public:
      */
     static ChaserRunner* createRunner(Chaser* self, Doc* doc, quint32 startTime = 0, int startStepIdx = 0);
 
+    void useInternalRunner(bool enable);
+
     /** @reimpl */
     void preRun(MasterTimer* timer);
 
@@ -305,6 +307,7 @@ signals:
 
 private:
     ChaserRunner* m_runner;
+    bool m_useInternalRunner;
 
     /*************************************************************************
      * Intensity

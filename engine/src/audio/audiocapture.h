@@ -26,6 +26,8 @@
 #include <QThread>
 #include <QMutex>
 
+#define SETTINGS_AUDIO_INPUT_DEVICE  "audio/input"
+
 #define FREQ_SUBBANDS_MAX_NUMBER        32
 #define FREQ_SUBBANDS_DEFAULT_NUMBER    16
 #define SPECTRUM_MAX_FREQUENCY          5000

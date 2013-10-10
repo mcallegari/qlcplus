@@ -32,6 +32,7 @@
 #include "dmxsource.h"
 #include "vcwidget.h"
 
+class ctkRangeSlider;
 class QDomDocument;
 class QDomElement;
 class QPaintEvent;
@@ -48,6 +49,12 @@ class Doc;
 #define KXMLQLCVCXYPadPan "Pan"
 #define KXMLQLCVCXYPadTilt "Tilt"
 #define KXMLQLCVCXYPadPosition "Position"
+#define KXMLQLCVCXYPadRangeWindow "Window"
+#define KXMLQLCVCXYPadRangeHorizMin "hMin"
+#define KXMLQLCVCXYPadRangeHorizMax "hMax"
+#define KXMLQLCVCXYPadRangeVertMin "vMin"
+#define KXMLQLCVCXYPadRangeVertMax "vMax"
+
 #define KXMLQLCVCXYPadPositionX "X" // Legacy
 #define KXMLQLCVCXYPadPositionY "Y" // Legacy
 
@@ -71,10 +78,13 @@ public:
 
 private:
     QHBoxLayout* m_hbox;
-    QVBoxLayout* m_lvbox;
-    QVBoxLayout* m_rvbox;
+    QVBoxLayout* m_lvbox; // left vertical box
+    QVBoxLayout* m_cvbox; // center vertical box
+    QVBoxLayout* m_rvbox; // right vertical box
     QSlider* m_vSlider;
     QSlider* m_hSlider;
+    ctkRangeSlider *m_vRangeSlider;
+    ctkRangeSlider *m_hRangeSlider;
     VCXYPadArea* m_area;
 
     /*************************************************************************
@@ -147,6 +157,7 @@ public:
 public slots:
     void slotPositionChanged(const QPoint& pt);
     void slotSliderValueChanged();
+    void slotRangeValueChanged();
 
 private:
     bool m_padInteraction;

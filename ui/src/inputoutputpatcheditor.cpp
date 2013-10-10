@@ -46,6 +46,17 @@
 #include "inputmap.h"
 #include "apputil.h"
 
+#if defined(__APPLE__)
+  #include "audiorenderer_portaudio.h"
+  #include "audiocapture_portaudio.h"
+#elif defined(WIN32)
+  #include "audiorenderer_waveout.h"
+  #include "audiocapture_wavein.h"
+#else
+  #include "audiorenderer_alsa.h"
+  #include "audiocapture_alsa.h"
+#endif
+
 /* Plugin column structure */
 #define KMapColumnPluginName    0
 #define KMapColumnDeviceName    1
@@ -54,6 +65,11 @@
 #define KMapColumnHasFeedback   4
 #define KMapColumnInputLine     5
 #define KMapColumnOutputLine    6
+
+#define KAudioColumnDeviceName  0
+#define KAudioColumnHasInput    1
+#define KAudioColumnHasOutput   2
+#define KAudioColumnPrivate     3
 
 /* Profile column structure */
 #define KProfileColumnName 0
@@ -92,13 +108,18 @@ InputOutputPatchEditor::InputOutputPatchEditor(QWidget* parent, quint32 universe
     m_currentFeedbackPluginName = feedbackPatch->pluginName();
     m_currentFeedback = feedbackPatch->output();
 
-    m_mapTree->header()->setResizeMode(QHeaderView::ResizeToContents);
     m_mapTree->setSortingEnabled(true);
     m_mapTree->sortByColumn(KMapColumnPluginName, Qt::AscendingOrder);
 
     /* Setup UI controls */
     setupMappingPage();
     setupProfilePage();
+
+    fillAudioTree();
+
+    /* Listen to itemChanged() signals to catch check state changes */
+    connect(m_audioMapTree, SIGNAL(itemChanged(QTreeWidgetItem*, int)),
+            this, SLOT(slotAudioDeviceItemChanged(QTreeWidgetItem*, int)));
 
     /* Select the top-most "None" item */
     m_mapTree->setCurrentItem(m_mapTree->topLevelItem(0));
@@ -269,6 +290,9 @@ void InputOutputPatchEditor::fillMappingTree()
             }
         }
     }
+
+    m_mapTree->resizeColumnToContents(KMapColumnPluginName);
+    m_mapTree->resizeColumnToContents(KMapColumnDeviceName);
 
     /* Enable check state change tracking after the tree has been filled */
     connect(m_mapTree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
@@ -760,4 +784,103 @@ edit:
                              .arg(QDir::toNativeSeparators(path)));
         goto edit;
     }
+}
+
+/****************************************************************************
+ * Audio tree
+ ****************************************************************************/
+
+void InputOutputPatchEditor::fillAudioTree()
+{
+    QList<AudioDeviceInfo> devList;
+#if defined(__APPLE__)
+    devList = AudioRendererPortAudio::getDevicesInfo();
+#elif defined(WIN32)
+    devList = AudioRendererWaveOut::getDevicesInfo();
+#else
+    devList = AudioRendererAlsa::getDevicesInfo();
+#endif
+
+    m_audioMapTree->clear();
+    QSettings settings;
+    QString inputName, outputName;
+
+    QVariant var = settings.value(SETTINGS_AUDIO_INPUT_DEVICE);
+    if (var.isValid() == true)
+        inputName = var.toString();
+
+    var = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE);
+    if (var.isValid() == true)
+        outputName = var.toString();
+
+    foreach( AudioDeviceInfo info, devList)
+    {
+        QTreeWidgetItem* item;
+
+        /* Add an option for having no profile at all */
+        item = new QTreeWidgetItem(m_audioMapTree);
+        item->setText(KAudioColumnDeviceName, info.deviceName);
+        item->setText(KAudioColumnPrivate, info.privateName);
+
+        if (info.capabilities & AUDIO_CAP_INPUT)
+        {
+            if (info.privateName == inputName)
+                item->setCheckState(KAudioColumnHasInput, Qt::Checked);
+            else
+                item->setCheckState(KAudioColumnHasInput, Qt::Unchecked);
+        }
+        if (info.capabilities & AUDIO_CAP_OUTPUT)
+        {
+            if (info.privateName == outputName)
+                item->setCheckState(KAudioColumnHasOutput, Qt::Checked);
+            else
+                item->setCheckState(KAudioColumnHasOutput, Qt::Unchecked);
+        }
+    }
+
+    m_audioMapTree->resizeColumnToContents(KAudioColumnDeviceName);
+}
+
+void InputOutputPatchEditor::slotAudioDeviceItemChanged(QTreeWidgetItem *item, int col)
+{
+    if (item == NULL)
+        return;
+
+    /* Temporarily disable this signal to prevent an endless loop */
+    disconnect(m_audioMapTree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
+               this, SLOT(slotMapItemChanged(QTreeWidgetItem*, int)));
+
+    if (item->checkState(col) == Qt::Checked)
+    {
+        /* Set all other items unchecked... */
+        QTreeWidgetItemIterator it(m_audioMapTree);
+        while ((*it) != NULL)
+        {
+            /* Don't touch the item that was just checked */
+            if (*it != item && (*it)->checkState(col))
+            {
+                /* Set all the rest of the nodes unchecked */
+                (*it)->setCheckState(col, Qt::Unchecked);
+            }
+            ++it;
+        }
+        QSettings settings;
+
+        if (col == KAudioColumnHasInput)
+            settings.setValue(SETTINGS_AUDIO_INPUT_DEVICE, QVariant(item->text(KAudioColumnPrivate)));
+        else if (col == KAudioColumnHasOutput)
+            settings.setValue(SETTINGS_AUDIO_OUTPUT_DEVICE, QVariant(item->text(KAudioColumnPrivate)));
+    }
+    else
+    {
+        QSettings settings;
+        if (col == KAudioColumnHasInput)
+            settings.remove(SETTINGS_AUDIO_INPUT_DEVICE);
+        else if (col == KAudioColumnHasOutput)
+            settings.remove(SETTINGS_AUDIO_OUTPUT_DEVICE);
+    }
+
+    /* Start listening to this signal once again */
+    connect(m_audioMapTree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
+            this, SLOT(slotMapItemChanged(QTreeWidgetItem*, int)));
 }

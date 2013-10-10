@@ -63,6 +63,7 @@ Chaser::Chaser(Doc* doc)
     , m_holdMode(Common)
     , m_startStepIndex(-1)
     , m_runner(NULL)
+    , m_useInternalRunner(true)
 {
     setName(tr("New Chaser"));
 
@@ -513,13 +514,13 @@ void Chaser::postLoad()
 
 void Chaser::tap()
 {
-    if (m_runner != NULL && durationMode() == Common)
+    if (m_useInternalRunner && m_runner != NULL && durationMode() == Common)
         m_runner->tap();
 }
 
 void Chaser::setStepIndex(int idx)
 {
-    if (m_runner != NULL)
+    if (m_useInternalRunner && m_runner != NULL)
         m_runner->setCurrentStep(idx);
     else
         m_startStepIndex = idx;
@@ -527,13 +528,13 @@ void Chaser::setStepIndex(int idx)
 
 void Chaser::previous()
 {
-    if (m_runner != NULL)
+    if (m_useInternalRunner && m_runner != NULL)
         m_runner->previous();
 }
 
 void Chaser::next()
 {
-    if (m_runner != NULL)
+    if (m_useInternalRunner && m_runner != NULL)
         m_runner->next();
 }
 
@@ -556,32 +557,45 @@ ChaserRunner* Chaser::createRunner(Chaser* self, Doc* doc, quint32 startTime, in
     return runner;
 }
 
+void Chaser::useInternalRunner(bool enable)
+{
+    m_useInternalRunner = enable;
+}
+
 void Chaser::preRun(MasterTimer* timer)
 {
-    Q_ASSERT(m_runner == NULL);
-    m_runner = createRunner(this, doc(), elapsed(), m_startStepIndex);
-    m_startStepIndex = -1;
-    connect(m_runner, SIGNAL(currentStepChanged(int)), this, SIGNAL(currentStepChanged(int)));
+    if (m_useInternalRunner)
+    {
+        Q_ASSERT(m_runner == NULL);
+        m_runner = createRunner(this, doc(), elapsed(), m_startStepIndex);
+        m_startStepIndex = -1;
+        connect(m_runner, SIGNAL(currentStepChanged(int)), this, SIGNAL(currentStepChanged(int)));
+    }
     Function::preRun(timer);
 }
 
 void Chaser::write(MasterTimer* timer, UniverseArray* universes)
 {
-    Q_ASSERT(m_runner != NULL);
+    if (m_useInternalRunner)
+    {
+        Q_ASSERT(m_runner != NULL);
 
-    if (m_runner->write(timer, universes) == false)
-        stop();
+        if (m_runner->write(timer, universes) == false)
+            stop();
+    }
 
     incrementElapsed();
 }
 
 void Chaser::postRun(MasterTimer* timer, UniverseArray* universes)
 {
-    m_runner->postRun(timer, universes);
+    if (m_useInternalRunner && m_runner != NULL)
+    {
+        m_runner->postRun(timer, universes);
 
-    Q_ASSERT(m_runner != NULL);
-    delete m_runner;
-    m_runner = NULL;
+        delete m_runner;
+        m_runner = NULL;
+    }
 
     Function::postRun(timer, universes);
 }
@@ -592,7 +606,7 @@ void Chaser::postRun(MasterTimer* timer, UniverseArray* universes)
 
 void Chaser::adjustAttribute(qreal fraction, int)
 {
-    if (m_runner != NULL)
+    if (m_useInternalRunner && m_runner != NULL)
         m_runner->adjustIntensity(fraction);
     Function::adjustAttribute(fraction);
 }

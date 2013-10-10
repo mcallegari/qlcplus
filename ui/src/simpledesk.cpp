@@ -594,19 +594,15 @@ void SimpleDesk::slotUniversesWritten(const QByteArray& ua)
     // add the universe bits to retrieve the absolute address (0 - 2048)
     start = start | (m_currentUniverse << 9);
 
-    for (quint32 i = 0; i < (quint32)ua.length(); i++)
+    // update current page sliders
+    for (quint32 i = start; i < start + (quint32)m_channelsPerPage; i++)
     {
-        //m_engine->setValue(i, ua.at(i));
-        // update current page sliders
-        if (i >= start && i < start + (quint32)m_channelsPerPage)
+        //const Fixture* fx = m_doc->fixture(m_doc->fixtureForAddress(i));
+        //if (fx != NULL)
         {
-            const Fixture* fx = m_doc->fixture(m_doc->fixtureForAddress(i));
-            if (fx != NULL)
-            {
-                ConsoleChannel *cc = m_universeSliders[i - start];
-                if (cc != NULL)
-                    cc->setValue(ua.at(i), false);
-            }
+            ConsoleChannel *cc = m_universeSliders[i - start];
+            if (cc != NULL)
+                cc->setValue(ua.at(i), false);
         }
     }
 }
