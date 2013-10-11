@@ -776,6 +776,15 @@ bool Function::unregisterAttribute(QString name)
     return false;
 }
 
+bool Function::renameAttribute(int idx, QString newName)
+{
+    if (idx < 0 || idx >= m_attributes.count())
+        return false;
+    m_attributes[idx].name = newName;
+
+    return true;
+}
+
 void Function::adjustAttribute(qreal fraction, int attributeIndex)
 {
     if (attributeIndex >= m_attributes.count())
@@ -798,6 +807,17 @@ qreal Function::getAttributeValue(int attributeIndex) const
         return 0.0;
 
     return m_attributes[attributeIndex].value;
+}
+
+int Function::getAttributeIndex(QString name) const
+{
+    for(int i = 0; i < m_attributes.count(); i++)
+    {
+        Attribute attr = m_attributes.at(i);
+        if(attr.name == name)
+            return i;
+    }
+    return -1;
 }
 
 QList<Attribute> Function::attributes()

@@ -1031,7 +1031,11 @@ void ShowManager::slotFunctionChanged(quint32 id)
             return;
         Track *trk = m_show->getTrackFromSceneID(id);
         if (trk != NULL)
+        {
+            int idx = m_show->getAttributeIndex(trk->name());
+            m_show->renameAttribute(idx, function->name());
             trk->setName(function->name());
+        }
     }
 }
 

@@ -136,8 +136,7 @@ void VCButtonProperties::slotSetFunction(quint32 fid)
     else
     {
         m_functionEdit->setText(func->name());
-        if (m_nameEdit->text().simplified().isEmpty() == true)
-            m_nameEdit->setText(func->name());
+        m_nameEdit->setText(func->name());
         foreach(Attribute attr, func->attributes())
         {
             QListWidgetItem *item = new QListWidgetItem(attr.name);
