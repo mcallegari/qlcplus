@@ -5,6 +5,7 @@ qlcplus (4.5.0) stable; urgency=low
   * NEW: DMX dump can now set a Scene on a Virtual Console button or slider
   * NEW: Added Live Edit functionality to modify functions while in operate mode
   * NEW: added Czech translation (thank to Jan Lachman)
+  * NEW: QLC+ GUI can be customized with an external CSS-like style file (see documentation)
   * NEW: MIDI plugin can now receive Program Change and MIDI beat clock
   * NEW: Audio triggers turned to a Virtual Console widget. No backward compatibility. Please update your projects.
   * NEW: In Fixture Editor, it is now possible to copy/paste physical information
