@@ -18,8 +18,18 @@ win32:QMAKE_LFLAGS += -shared
 # Types
 INCLUDEPATH += ../../plugins/interfaces
 
+# Web Access
+INCLUDEPATH     += ../../webaccess
+
 # Resources
 RESOURCES    += qlcui.qrc
+
+macx {
+  CONFIG += link_pkgconfig
+  system(pkg-config --exists portaudio-2.0) {
+    PKGCONFIG += portaudio-2.0
+  }
+}
 
 # Sources
 HEADERS += aboutbox.h \
@@ -31,9 +41,8 @@ HEADERS += aboutbox.h \
            app.h \
            apputil.h \
            assignhotkey.h \
+           audiobar.h \
            audioeditor.h \
-           audiotriggersconfiguration.h \
-           audiotriggerfactory.h \
            audiotriggerwidget.h \
            channelsselection.h \
            chasereditor.h \
@@ -42,6 +51,7 @@ HEADERS += aboutbox.h \
            collectioneditor.h \
            consolechannel.h \
            createfixturegroup.h \
+           ctkrangeslider.h \
            cuestackmodel.h \
            docbrowser.h \
            dmxslider.h \
@@ -54,6 +64,7 @@ HEADERS += aboutbox.h \
            fixtureselection.h \
            functionmanager.h \
            fixtureremap.h \
+           functionliveeditdialog.h \
            functionselection.h \
            functionwizard.h \
            grandmasterslider.h \
@@ -82,6 +93,8 @@ HEADERS += aboutbox.h \
            simpledeskengine.h \
            speeddial.h \
            speeddialwidget.h \
+           vcaudiotriggers.h \
+           vcaudiotriggersproperties.h \
            vcbutton.h \
            vcbuttonproperties.h \
            vccuelist.h \
@@ -115,8 +128,6 @@ FORMS += aboutbox.ui \
          addvcslidermatrix.ui \
          assignhotkey.ui \
          audioeditor.ui \
-         audiotriggersconfiguration.ui \
-         audiotriggerfactory.ui \
          chasereditor.ui \
          channelsselection.ui \
          collectioneditor.ui \
@@ -137,6 +148,7 @@ FORMS += aboutbox.ui \
          scripteditor.ui \
          selectinputchannel.ui \
          showeditor.ui \
+         vcaudiotriggersproperties.ui \
          vcbuttonproperties.ui \
          vccuelistproperties.ui \
          vcframeproperties.ui \
@@ -156,9 +168,8 @@ SOURCES += aboutbox.cpp \
            app.cpp \
            apputil.cpp \
            assignhotkey.cpp \
+           audiobar.cpp \
            audioeditor.cpp \
-           audiotriggersconfiguration.cpp \
-           audiotriggerfactory.cpp \
            audiotriggerwidget.cpp \
            channelsselection.cpp \
            chasereditor.cpp \
@@ -167,6 +178,7 @@ SOURCES += aboutbox.cpp \
            collectioneditor.cpp \
            consolechannel.cpp \
            createfixturegroup.cpp \
+           ctkrangeslider.cpp \
            cuestackmodel.cpp \
            docbrowser.cpp \
            dmxslider.cpp \
@@ -178,6 +190,7 @@ SOURCES += aboutbox.cpp \
            fixturemanager.cpp \
            fixtureremap.cpp \
            fixtureselection.cpp \
+           functionliveeditdialog.cpp \
            functionmanager.cpp \
            functionselection.cpp \
            functionwizard.cpp \
@@ -207,6 +220,8 @@ SOURCES += aboutbox.cpp \
            simpledeskengine.cpp \
            speeddial.cpp \
            speeddialwidget.cpp \
+           vcaudiotriggers.cpp \
+           vcaudiotriggersproperties.cpp \
            vcbutton.cpp \
            vcbuttonproperties.cpp \
            vccuelist.cpp \

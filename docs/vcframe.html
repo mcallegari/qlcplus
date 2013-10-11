@@ -16,7 +16,7 @@ all of its children (that don't have their own non-default style settings) also
 inherit their parent's style properties.
 </P>
 
-<H3>Configuration</H3>
+<H2>Configuration</H2>
 
 <P>
 Frames can be configured with the properties
@@ -24,7 +24,10 @@ Frames can be configured with the properties
 by double clicking the frame itself.<br><br>
 
 Other than the standard <A HREF="file:vcstylingplacement.html">styling &amp; placement options</A>,
-Frames have the following additional options:<br>
+Frames have the following additional options, divided into 2 tabs:<br>
+</P>
+
+<H3>Appearance tab</H3>
 <ul>
  <li><b>Frame name</b>: Allow you to assign an arbitrary label to the Frame. This will be displayed
     only when the "Show header" option is enabled (see below)</li>
@@ -34,7 +37,34 @@ Frames have the following additional options:<br>
     you to expand/collapse the Frame, to save a lot of Virtual Console space. On the label
     the Frame name will be displayed</li>
 </ul>
-</P>
 
+<H3>Pages tab</H3>
+<P>Starting from version 4.5.0, QLC+ gives the possibility to turn Virtual Console Frames 
+into multi-page widgets, useful when dealing with a lot of widgets or controllers supporting pages.<br>
+The multi-page functionality is disabled by default.<br>
+<B>Important note: this functionality will work only with an <A HREF="file:howto-input-profiles.html">input profile</A>
+with a previous page <IMG SRC="qrc:/back.png" ALIGN="absmiddle"> and 
+next page <IMG SRC="qrc:/forward.png" ALIGN="absmiddle">buttons set</B><br>
+Following the options to configure this functionality:
+</P>
+<ul>
+ <li><b>Enable</b>: This check box enable/disable the multi-page functionality. When enabled,
+     VC frames will display additional controls in the header bar (if enabled). 
+     These are: Previous page button, page number label, next page button.
+ </li>
+ <li><b>Number of pages</b>: With this counter it is possible to determine the number of pages the
+     frame will handle.
+ </li>
+ <li><b>Clone first page widgets</b>: When checked, QLC+ will clone the widgets of the frame's first
+     page into all the other new pages defined by the "Number of pages" field. This is a very useful
+     option to speed up an external controller mapping, where all the pages have the same widgets.
+ </li>
+ <li><b>External input - Previous page</b>: Here it is possible to set an external input signal or a 
+     keyboard combination to display the previous page of the frame.
+ </li>
+ <li><b>External input - Next page</b>: Here it is possible to set an external input signal or a 
+     keyboard combination to display the next page of the frame.
+ </li>
+</ul>
 </BODY>
 </HTML>

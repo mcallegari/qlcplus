@@ -29,7 +29,9 @@
   #include <windows.h>
 #endif
 
+#include "functionliveeditdialog.h"
 #include "inputoutputmanager.h"
+#include "functionselection.h"
 #include "functionmanager.h"
 #include "virtualconsole.h"
 #include "fixturemanager.h"
@@ -39,6 +41,7 @@
 #include "addresstool.h"
 #include "simpledesk.h"
 #include "docbrowser.h"
+#include "webaccess.h"
 #include "outputmap.h"
 #include "inputmap.h"
 #include "aboutbox.h"
@@ -82,20 +85,20 @@ App::App()
     , m_modeToggleAction(NULL)
     , m_controlMonitorAction(NULL)
     , m_addressToolAction(NULL)
-    , m_audioInputAction(NULL)
     , m_controlFullScreenAction(NULL)
     , m_controlBlackoutAction(NULL)
     , m_controlPanicAction(NULL)
     , m_dumpDmxAction(NULL)
+    , m_liveEditAction(NULL)
 
     , m_helpIndexAction(NULL)
     , m_helpAboutAction(NULL)
     , m_fileOpenMenu(NULL)
+    , m_fadeAndStopMenu(NULL)
 
     , m_toolbar(NULL)
 
     , m_dumpProperties(NULL)
-    , m_audioTriggers(NULL)
 {
     QCoreApplication::setOrganizationName("qlcplus");
     QCoreApplication::setOrganizationDomain("sf.net");
@@ -137,11 +140,9 @@ App::~App()
     if (m_dumpProperties != NULL)
         delete m_dumpProperties;
 
-    if (m_audioTriggers != NULL)
-        delete m_audioTriggers;
-
     if (m_doc != NULL)
         delete m_doc;
+
     m_doc = NULL;
 }
 
@@ -229,8 +230,6 @@ void App::init()
 
     // Start up in non-modified state
     m_doc->resetModified();
-
-    m_audioTriggers = new AudioTriggerFactory(m_doc);
 
     QString ssDir;
 
@@ -493,6 +492,7 @@ void App::slotModeChanged(Doc::Mode mode)
         /* Disable editing features */
         m_fileNewAction->setEnabled(false);
         m_fileOpenAction->setEnabled(false);
+        m_liveEditAction->setEnabled(true);
 
         m_modeToggleAction->setIcon(QIcon(":/design.png"));
         m_modeToggleAction->setText(tr("Design"));
@@ -503,6 +503,7 @@ void App::slotModeChanged(Doc::Mode mode)
         /* Enable editing features */
         m_fileNewAction->setEnabled(true);
         m_fileOpenAction->setEnabled(true);
+        m_liveEditAction->setEnabled(false);
 
         m_modeToggleAction->setIcon(QIcon(":/operate.png"));
         m_modeToggleAction->setText(tr("Operate"));
@@ -545,13 +546,14 @@ void App::initActions()
     m_addressToolAction = new QAction(QIcon(":/diptool.png"), tr("Address Tool"), this);
     connect(m_addressToolAction, SIGNAL(triggered()), this, SLOT(slotAddressTool()));
 
-    m_audioInputAction = new QAction(QIcon(":/audioinput.png"), tr("Audio Trigger Factory"), this);
-    connect(m_audioInputAction, SIGNAL(triggered()), this, SLOT(slotAudioInput()));
-
     m_controlBlackoutAction = new QAction(QIcon(":/blackout.png"), tr("Toggle &Blackout"), this);
     m_controlBlackoutAction->setCheckable(true);
     connect(m_controlBlackoutAction, SIGNAL(triggered(bool)), this, SLOT(slotControlBlackout()));
     m_controlBlackoutAction->setChecked(m_doc->outputMap()->blackout());
+
+    m_liveEditAction = new QAction(QIcon(":/liveedit.png"), tr("Live edit a function"), this);
+    connect(m_liveEditAction, SIGNAL(triggered()), this, SLOT(slotFunctionLiveEdit()));
+    m_liveEditAction->setEnabled(false);
 
     m_dumpDmxAction = new QAction(QIcon(":/add_dump.png"), tr("Dump DMX values to a function"), this);
     m_dumpDmxAction->setShortcut(QKeySequence(tr("CTRL+D", "Control|Dump DMX")));
@@ -560,6 +562,29 @@ void App::initActions()
     m_controlPanicAction = new QAction(QIcon(":/panic.png"), tr("Stop ALL functions!"), this);
     m_controlPanicAction->setShortcut(QKeySequence("CTRL+SHIFT+ESC"));
     connect(m_controlPanicAction, SIGNAL(triggered(bool)), this, SLOT(slotControlPanic()));
+
+    m_fadeAndStopMenu = new QMenu();
+    QAction *fade1 = new QAction(tr("Fade 1 second and stop"), this);
+    fade1->setData(QVariant(1000));
+    connect(fade1, SIGNAL(triggered()), this, SLOT(slotFadeAndStopAll()));
+    m_fadeAndStopMenu->addAction(fade1);
+
+    QAction *fade5 = new QAction(tr("Fade 5 seconds and stop"), this);
+    fade5->setData(QVariant(5000));
+    connect(fade5, SIGNAL(triggered()), this, SLOT(slotFadeAndStopAll()));
+    m_fadeAndStopMenu->addAction(fade5);
+
+    QAction *fade10 = new QAction(tr("Fade 10 second and stop"), this);
+    fade10->setData(QVariant(10000));
+    connect(fade10, SIGNAL(triggered()), this, SLOT(slotFadeAndStopAll()));
+    m_fadeAndStopMenu->addAction(fade10);
+
+    QAction *fade30 = new QAction(tr("Fade 30 second and stop"), this);
+    fade30->setData(QVariant(30000));
+    connect(fade30, SIGNAL(triggered()), this, SLOT(slotFadeAndStopAll()));
+    m_fadeAndStopMenu->addAction(fade30);
+
+    m_controlPanicAction->setMenu(m_fadeAndStopMenu);
 
     m_controlFullScreenAction = new QAction(QIcon(":/fullscreen.png"), tr("Toggle Full Screen"), this);
     m_controlFullScreenAction->setCheckable(true);
@@ -590,7 +615,6 @@ void App::initToolBar()
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_controlMonitorAction);
     m_toolbar->addAction(m_addressToolAction);
-    m_toolbar->addAction(m_audioInputAction);
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_controlFullScreenAction);
     m_toolbar->addAction(m_helpIndexAction);
@@ -601,6 +625,7 @@ void App::initToolBar()
     widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     m_toolbar->addWidget(widget);
     m_toolbar->addAction(m_dumpDmxAction);
+    m_toolbar->addAction(m_liveEditAction);
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_controlPanicAction);
     m_toolbar->addSeparator();
@@ -612,6 +637,10 @@ void App::initToolBar()
     Q_ASSERT(btn != NULL);
     btn->setPopupMode(QToolButton::DelayedPopup);
     updateFileOpenMenu("");
+
+    btn = qobject_cast<QToolButton*> (m_toolbar->widgetForAction(m_controlPanicAction));
+    Q_ASSERT(btn != NULL);
+    btn->setPopupMode(QToolButton::DelayedPopup);
 }
 
 /*****************************************************************************
@@ -916,12 +945,6 @@ void App::slotAddressTool()
     at.exec();
 }
 
-void App::slotAudioInput()
-{
-    if (m_audioTriggers)
-        m_audioTriggers->show();
-}
-
 void App::slotControlBlackout()
 {
     m_doc->outputMap()->setBlackout(!m_doc->outputMap()->blackout());
@@ -937,12 +960,23 @@ void App::slotControlPanic()
     m_doc->masterTimer()->stopAllFunctions();
 }
 
+void App::slotFadeAndStopAll()
+{
+    QAction *action = (QAction *)sender();
+    int timeout = action->data().toInt();
+
+    m_doc->masterTimer()->fadeAndStopAll(timeout);
+}
+
 void App::slotRunningFunctionsChanged()
 {
     if (m_doc->masterTimer()->runningFunctions() > 0)
         m_controlPanicAction->setEnabled(true);
     else
+    {
         m_controlPanicAction->setEnabled(false);
+        m_doc->masterTimer()->stopAllFunctions();
+    }
 }
 
 void App::slotDumpDmxIntoFunction()
@@ -950,6 +984,23 @@ void App::slotDumpDmxIntoFunction()
     DmxDumpFactory ddf(m_doc, m_dumpProperties, this);
     if (ddf.exec() != QDialog::Accepted)
         return;
+}
+
+void App::slotFunctionLiveEdit()
+{
+    FunctionSelection fs(this, m_doc);
+    fs.setMultiSelection(false);
+    fs.setFilter(Function::Scene | Function::Chaser | Function::EFX | Function::RGBMatrix);
+    fs.disableFilters(Function::Show | Function::Script | Function::Collection | Function::Audio);
+
+    if (fs.exec() == QDialog::Accepted)
+    {
+        if (fs.selection().count() > 0)
+        {
+            FunctionLiveEditDialog fle(m_doc, fs.selection().first(), this);
+            fle.exec();
+        }
+    }
 }
 
 void App::slotControlFullScreen()
@@ -1156,10 +1207,6 @@ bool App::loadXML(const QDomDocument& doc)
         {
             /* Ignore creator information */
         }
-        else if (tag.tagName() == KXMLQLCAudioTriggerFactory)
-        {
-            AudioTriggerFactory::instance()->loadXML(tag);
-        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown Workspace tag:" << tag.tagName();
@@ -1214,9 +1261,6 @@ QFile::FileError App::saveXML(const QString& fileName)
         /* Write Simple Desk to the XML document */
         SimpleDesk::instance()->saveXML(&doc, &root);
 
-        /* Write Audio Trigger Factory to the XML document */
-        AudioTriggerFactory::instance()->saveXML(&doc, &root);
-
         /* Write the XML document to the stream (=file) */
         stream << doc.toString() << "\n";
 
@@ -1235,4 +1279,17 @@ QFile::FileError App::saveXML(const QString& fileName)
     file.close();
 
     return retval;
+}
+
+void App::slotLoadDocFromMemory(QString xmlData)
+{
+    if (xmlData.isEmpty())
+        return;
+
+    /* Clear existing document data */
+    clearDocument();
+
+    QDomDocument doc;
+    doc.setContent(xmlData);
+    loadXML(doc);
 }

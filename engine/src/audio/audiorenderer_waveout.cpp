@@ -27,6 +27,7 @@
  ******************************************************/
  
 #include <QtGlobal>
+#include <QSettings>
 
 #include <stdio.h>
 #include <string.h>
@@ -82,8 +83,11 @@ free_memory (void)
 AudioRendererWaveOut::AudioRendererWaveOut(QObject * parent) 
 	: AudioRenderer(parent)
 {
-    //m_connection = 0;
-    //m_dev = 0;
+    deviceID = WAVE_MAPPER;
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE);
+    if (var.isValid() == true)
+        deviceID = QString(var.toString()).toUInt();
 }
 
 AudioRendererWaveOut::~AudioRendererWaveOut()
@@ -101,7 +105,6 @@ bool AudioRendererWaveOut::initialize(quint32 freq, int chan, AudioFormat format
         return false;
     }
     WAVEFORMATEX fmt;
-    UINT deviceID = WAVE_MAPPER;
 
     fmt.wFormatTag = WAVE_FORMAT_PCM;
     fmt.wBitsPerSample  = 16;
@@ -147,6 +150,55 @@ bool AudioRendererWaveOut::initialize(quint32 freq, int chan, AudioFormat format
 qint64 AudioRendererWaveOut::latency()
 {
     return 0;
+}
+
+QList<AudioDeviceInfo> AudioRendererWaveOut::getDevicesInfo()
+{
+    QList<AudioDeviceInfo> devList;
+
+    WAVEINCAPS wic;
+    WAVEOUTCAPS woc;
+    unsigned long iNumDevs, i;
+
+    /* Get the number of Digital Audio In devices in this computer */
+    iNumDevs = waveInGetNumDevs();
+
+    /* Go through all of those devices, displaying their names */
+    for (i = 0; i < iNumDevs; i++)
+    {
+        /* Get info about the next device */
+        if (!waveInGetDevCaps(i, &wic, sizeof(WAVEINCAPS)))
+        {
+            /* Display its Device ID and name */
+            //printf("Device ID #%u: %s\r\n", i, wic.szPname);
+            AudioDeviceInfo info;
+            info.deviceName = QString((const QChar *)wic.szPname);
+            info.privateName = QString::number(i);
+            info.capabilities = AUDIO_CAP_INPUT;
+            devList.append(info);
+        }
+    }
+
+    /* Get the number of Digital Audio Out devices in this computer */
+    iNumDevs = waveOutGetNumDevs();
+
+    /* Go through all of those devices, displaying their names */
+    for (i = 0; i < iNumDevs; i++)
+    {
+        /* Get info about the next device */
+        if (!waveOutGetDevCaps(i, &woc, sizeof(WAVEOUTCAPS)))
+        {
+            /* Display its Device ID and name */
+            //printf("Device ID #%u: %s\r\n", i, woc.szPname);
+            AudioDeviceInfo info;
+            info.deviceName = QString((const QChar *)woc.szPname);
+            info.privateName = QString::number(i);
+            info.capabilities = AUDIO_CAP_OUTPUT;
+            devList.append(info);
+        }
+    }
+
+    return devList;
 }
 
 qint64 AudioRendererWaveOut::writeAudio(unsigned char *data, qint64 len)

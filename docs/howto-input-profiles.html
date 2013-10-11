@@ -63,43 +63,63 @@ then click the <u>Channels</u> tab to edit the profile's channels.</B>
 </P>
 
 <P>
-Now you have two choices for adding channel definitions: <u>Manual</u> and
-<u>Automatic</u>:
+Now you have two choices for adding channel definitions: <u>Manual</u> and <u>Automatic</u>:
 </P>
 <HR>
 <P>
+<H3>Manual mode</H3>
+<P>
 <IMG SRC="qrc:/edit_add.png" ALIGN="absmiddle"> Click the add button to
 enter individual channel information by hand for each channel.<BR>
+<IMG SRC="qrc:/edit_remove.png"> Click to remove an existing channel<br>
+</P>
 
+<H3>Automatic mode</H3>
+<P>
 <IMG SRC="qrc:/wizard.png" ALIGN="absmiddle"> Click the automatic wizard
 button to attempt automatic channel detection. You'll receive further
-instructions from QLC+. You must have an input profile assigned to the current
+instructions from QLC+. You must have an 
+<A HREF="file:howto-input-output-mapping.html">input plugin</A> assigned to the current
 universe for this feature to work. Also, you must first stop the wizard to
 be able to navigate away from this dialog page.
 </P>
 <HR>
 
+<H3>Channel properties</H3>
 <P>
-You can edit the existing channels by selecting them and clicking the
-<IMG SRC="qrc:/edit.png"> edit button. To remove selected channels, click
-the <IMG SRC="qrc:/edit_remove.png"> remove button.
-</P>
-
-<P>
-When you <u>add</u> or <u>edit</u> a channel, you must enter the channel number,
-name and type (Slider, Knob or Button). Note that you cannot add the same
-channel multiple times to one profile.
-</P>
-
-<P>
-<B>When you're ready, click the OK button to accept changes and save the
-input profile. If you didn't enter a manufacturer/model for the profile,
-you'll be prompted to enter them before you can continue.</B>
+When you add <IMG SRC="qrc:/edit_add.png" ALIGN="absmiddle"> or 
+edit <IMG SRC="qrc:/edit.png" ALIGN="absmiddle"> a channel, a small window
+will be displayed, asking you to fill or change some parameters:
+<ul>
+ <li><b>Number</b>: The channel number. Since QLC+ supports a wide variety of
+     input plugins, the channel number might not be intuitive, so edit this if
+     you know what you're doing.
+ </li>
+ <li><b>Name</b>: The channel name. This is an arbitrary string to recognize 
+     the meaning of a channel.
+ </li>
+ <li><b>Type</b>: The channel type. This can be: 
+   <IMG SRC="qrc:/slider.png" ALIGN="absmiddle">Slider, 
+   <IMG SRC="qrc:/knob.png" ALIGN="absmiddle">Knob,
+   <IMG SRC="qrc:/button.png" ALIGN="absmiddle">Button,
+   <IMG SRC="qrc:/back.png" ALIGN="absmiddle">Previous page,
+   <IMG SRC="qrc:/forward.png" ALIGN="absmiddle">Next Page,
+   <IMG SRC="qrc:/star.png" ALIGN="absmiddle">Set Page<br>
+   Please note that the page change mapping must be used in conjunction with the
+   <A HREF="file:vcframe.html">Virtual Console Frame</A> multi-page functionality.
+ </li>
+</ul>
+<BR>
+<b>Note that you cannot add the same channel multiple times to one profile.</b>
 </P>
 
 <H2>Back to the input profile definitions panel</H2>
 
 <P>
+When you're done with channels mapping, click the OK button to accept changes and save the
+input profile. If you didn't enter a manufacturer/model for the profile,
+you'll be prompted to enter them before you can continue.<br>
+
 Now you should see the profile you just defined in the list of available input
 profiles. Remember how to assign it to the current universe? Scroll up to
 <u>Profile assignment</u> if you don't.

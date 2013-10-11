@@ -25,6 +25,8 @@
 #include <QDialog>
 #include "ui_editmode.h"
 
+#include "qlcphysical.h"
+
 class QLCFixtureMode;
 class QLCFixtureHead;
 class QLCFixtureDef;
@@ -88,6 +90,20 @@ private:
     void refreshHeadList();
     QLCFixtureHead currentHead();
     void selectHead(int index);
+
+    /*********************************************************************
+     * Clipboard
+     *********************************************************************/
+public:
+    QLCPhysical getClipboard();
+    void setClipboard(QLCPhysical physical);
+
+private slots:
+    void slotCopyToClipboard();
+    void slotPasteFromClipboard();
+
+private:
+    QLCPhysical m_clipboard;
 
     /*********************************************************************
      * Accept

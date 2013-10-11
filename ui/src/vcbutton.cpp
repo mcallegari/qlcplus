@@ -714,6 +714,48 @@ QMenu* VCButton::customMenu(QMenu* parentMenu)
     return menu;
 }
 
+/*********************************************************************
+ * Web access
+ *********************************************************************/
+
+QString VCButton::getCSS()
+{
+    QString str = "<style>\n"
+            ".vcbutton-wrapper {\n"
+            "position: absolute;\n"
+            "}\n\n"
+
+            ".vcbutton {\n"
+            "display: table-cell;\n"
+            "border: 3px solid #A0A0A0;\n"
+            "border-radius: 4px;\n"
+            "font-family: arial, verdana, sans-serif;\n"
+            " text-decoration: none;\n"
+            "text-align:center;\n"
+            "vertical-align: middle;\n"
+            "}\n"
+            "</style>\n";
+
+    return str;
+}
+
+QString VCButton::getJS()
+{
+    QString str = "function buttonClick(id) {\n"
+                " var obj = document.getElementById(id);\n"
+                " if (obj.value == \"0\" || obj.value == undefined) {\n"
+                "  obj.value = \"255\";\n"
+                "  obj.style.border = \"3px solid #00E600\";\n"
+                " }\n"
+                " else {\n"
+                "  obj.value = \"0\";\n"
+                "  obj.style.border = \"3px solid #A0A0A0\";\n"
+                " }\n"
+                " sendWSmessage(id + \"|\" + obj.value);\n"
+                "};\n";
+    return str;
+}
+
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
@@ -975,23 +1017,24 @@ void VCButton::mousePressEvent(QMouseEvent* e)
             foreach(Attribute attr, func->attributes())
             {
                 QString slStyle = "QSlider::groove:horizontal { border: 1px solid #999999; margin: 0; border-radius: 2px;"
-                        "height: 10px; background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #B1B1B1, stop:1 #c4c4c4); }"
+                        "height: 15px; background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #B1B1B1, stop:1 #c4c4c4); }"
 
                         "QSlider::handle:horizontal {"
                         "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #b4b4b4, stop:1 #8f8f8f);"
-                        "border: 1px solid #5c5c5c; width: 10px; border-radius: 2px; margin: -1px 0; }"
+                        "border: 1px solid #5c5c5c; width: 15px; border-radius: 2px; margin: -1px 0; }"
 
                         "QSlider::sub-page:horizontal { background: #114EA2; border-radius: 2px; }";
 
                 QWidget *entryWidget = new QWidget();
                 QHBoxLayout *hbox = new QHBoxLayout(menu);
+                hbox->setMargin(3);
                 QLabel *label = new QLabel(attr.name);
                 label->setAlignment(Qt::AlignLeft);
                 label->setFixedWidth(100);
                 ClickAndGoSlider *slider = new ClickAndGoSlider(menu);
                 slider->setOrientation(Qt::Horizontal);
                 slider->setStyleSheet(slStyle);
-                slider->setFixedSize(QSize(100, 15));
+                slider->setFixedSize(QSize(100, 18));
                 slider->setMinimum(0);
                 slider->setMaximum(100);
                 slider->setValue(attr.value * 100);

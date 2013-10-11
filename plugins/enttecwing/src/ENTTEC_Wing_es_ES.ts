@@ -6,17 +6,17 @@
     <message>
         <location filename="enttecwing.cpp" line="113"/>
         <source>This plugin provides input support for Enttec Playback and Enttec Shortcut Wings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este plugin provee soporte de Entrada para las alas Enttec Playback y Enttec Shortcut.</translation>
     </message>
     <message>
         <location filename="enttecwing.cpp" line="130"/>
         <source>Unable to bind to UDP port %1:</source>
-        <translation type="unfinished"></translation>
+        <translation>Imposible vincular al puerto UDP %1:</translation>
     </message>
     <message>
         <location filename="enttecwing.cpp" line="137"/>
         <source>Listening to UDP port %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Escuchando al puerto UDP %1.</translation>
     </message>
 </context>
 <context>
@@ -24,7 +24,7 @@
     <message>
         <location filename="playbackwing.cpp" line="182"/>
         <source>at</source>
-        <translation type="unfinished"></translation>
+        <translation>en</translation>
     </message>
 </context>
 <context>
@@ -32,7 +32,7 @@
     <message>
         <location filename="programwing.cpp" line="155"/>
         <source>at</source>
-        <translation type="unfinished"></translation>
+        <translation>en</translation>
     </message>
 </context>
 <context>
@@ -40,7 +40,7 @@
     <message>
         <location filename="shortcutwing.cpp" line="104"/>
         <source>at</source>
-        <translation type="unfinished"></translation>
+        <translation>en</translation>
     </message>
 </context>
 <context>
@@ -48,12 +48,12 @@
     <message>
         <location filename="wing.cpp" line="64"/>
         <source>Firmware version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Versión de Firmware %1</translation>
     </message>
     <message>
         <location filename="wing.cpp" line="66"/>
         <source>Device is operating correctly.</source>
-        <translation type="unfinished"></translation>
+        <translation>El dispositivo está funcionando correctamente.</translation>
     </message>
 </context>
 </TS>

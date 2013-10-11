@@ -61,7 +61,7 @@ VCCueListProperties::VCCueListProperties(VCCueList* cueList, Doc* doc)
     m_nameEdit->setSelection(0, cueList->caption().length());
 
     /* Chaser */
-    m_chaserId = cueList->chaser();
+    m_chaserId = cueList->chaserID();
     updateChaserName();
 
     /* Connections */

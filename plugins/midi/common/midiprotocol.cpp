@@ -40,8 +40,10 @@ bool QLCMIDIProtocol::midiToInput(uchar cmd, uchar data1, uchar data2,
     if (MIDI_IS_SYSCOMMON(cmd))
         return midiSysCommonToInput(cmd, data1, data2, channel, value);
 
+    uchar midi_ch = MIDI_CH(cmd);
+
     /* Check that the command came on the correct MIDI channel */
-    if (midiChannel <= 0xF && MIDI_CH(cmd) != midiChannel)
+    if (midiChannel <= 0xF && midi_ch != midiChannel)
         return false;
 
     switch(MIDI_CMD(cmd))
@@ -49,41 +51,48 @@ bool QLCMIDIProtocol::midiToInput(uchar cmd, uchar data1, uchar data2,
         case MIDI_NOTE_OFF:
             *channel = CHANNEL_OFFSET_NOTE + quint32(data1);
             *value = 0;
-            return true;
+        break;
 
         case MIDI_NOTE_ON:
             *channel = CHANNEL_OFFSET_NOTE + quint32(data1);
             *value = MIDI2DMX(data2);
-            return true;
+        break;
 
         case MIDI_NOTE_AFTERTOUCH:
             *channel = CHANNEL_OFFSET_NOTE_AFTERTOUCH + quint32(data1);
             *value = MIDI2DMX(data2);
-            return true;
+        break;
 
         case MIDI_CONTROL_CHANGE:
             *channel = CHANNEL_OFFSET_CONTROL_CHANGE + quint32(data1);
             *value = MIDI2DMX(data2);
-            return true;
+        break;
 
         case MIDI_PROGRAM_CHANGE:
-            *channel = quint32(data1); //CHANNEL_OFFSET_PROGRAM_CHANGE;
+            *channel = CHANNEL_OFFSET_PROGRAM_CHANGE + quint32(data1);
             *value = MIDI2DMX(data2);
-            return true;
+        break;
 
         case MIDI_CHANNEL_AFTERTOUCH:
             *channel = CHANNEL_OFFSET_CHANNEL_AFTERTOUCH;
             *value = MIDI2DMX(data1);
-            return true;
+        break;
 
         case MIDI_PITCH_WHEEL:
             *channel = CHANNEL_OFFSET_PITCH_WHEEL;
             *value = MIDI2DMX(data2);
-            return true;
+        break;
 
         default:
             return false;
+        break;
     }
+
+    // in OMNI mode, bitmask the MIDI channel in the 4 MSB bits
+    if (midiChannel == MAX_MIDI_CHANNELS)
+        *channel = ((quint32)midi_ch << 12) | *channel;
+
+    return true;
 }
 
 bool QLCMIDIProtocol::midiSysCommonToInput(uchar cmd, uchar data1, uchar data2,
@@ -116,7 +125,21 @@ bool QLCMIDIProtocol::feedbackToMidi(quint32 channel, uchar value,
                                      uchar* data1, uchar* data2,
                                      bool* data2Valid)
 {
-    if (channel >= CHANNEL_OFFSET_NOTE && channel <= CHANNEL_OFFSET_NOTE_MAX)
+    // for OMNI mode, retrieve the original MIDI channel where data was sent
+    if (midiChannel == MAX_MIDI_CHANNELS)
+        midiChannel = channel >> 12;
+
+    // Remove the 4 MSB bits to retrieve the QLC+ channel to be processed
+    channel = channel & 0x0FFF;
+
+    if (channel <= CHANNEL_OFFSET_CONTROL_CHANGE_MAX)
+    {
+        *cmd = MIDI_CONTROL_CHANGE | midiChannel;
+        *data1 = static_cast <uchar> (channel - CHANNEL_OFFSET_CONTROL_CHANGE);
+        *data2 = DMX2MIDI(value);
+        *data2Valid = true;
+    }
+    else if (channel >= CHANNEL_OFFSET_NOTE && channel <= CHANNEL_OFFSET_NOTE_MAX)
     {
         if (value == 0)
             *cmd = MIDI_NOTE_OFF;
@@ -128,14 +151,6 @@ bool QLCMIDIProtocol::feedbackToMidi(quint32 channel, uchar value,
         *data2 = DMX2MIDI(value);
         *data2Valid = true;
     }
-    else if (/*channel >= CHANNEL_OFFSET_CONTROL_CHANGE &&*/
-             channel <= CHANNEL_OFFSET_CONTROL_CHANGE_MAX)
-    {
-        *cmd = MIDI_CONTROL_CHANGE | midiChannel;
-        *data1 = static_cast <uchar> (channel - CHANNEL_OFFSET_CONTROL_CHANGE);
-        *data2 = DMX2MIDI(value);
-        *data2Valid = true;
-    }
     else if (channel >= CHANNEL_OFFSET_NOTE_AFTERTOUCH &&
              channel <= CHANNEL_OFFSET_NOTE_AFTERTOUCH_MAX)
     {
@@ -144,15 +159,16 @@ bool QLCMIDIProtocol::feedbackToMidi(quint32 channel, uchar value,
         *data2 = DMX2MIDI(value);
         *data2Valid = true;
     }
-    else if (channel == CHANNEL_OFFSET_CHANNEL_AFTERTOUCH)
+    else if (channel >= CHANNEL_OFFSET_PROGRAM_CHANGE &&
+             channel <= CHANNEL_OFFSET_PROGRAM_CHANGE_MAX)
     {
-        *cmd = MIDI_CHANNEL_AFTERTOUCH | midiChannel;
+        *cmd = MIDI_PROGRAM_CHANGE | midiChannel;
         *data1 = DMX2MIDI(value);
         *data2Valid = false;
     }
-    else if (channel == CHANNEL_OFFSET_PROGRAM_CHANGE)
+    else if (channel == CHANNEL_OFFSET_CHANNEL_AFTERTOUCH)
     {
-        *cmd = MIDI_PROGRAM_CHANGE | midiChannel;
+        *cmd = MIDI_CHANNEL_AFTERTOUCH | midiChannel;
         *data1 = DMX2MIDI(value);
         *data2Valid = false;
     }

@@ -29,11 +29,6 @@
 
 #include "vcwidget.h"
 
-class QDomDocument;
-class QDomElement;
-class QMouseEvent;
-class QString;
-
 #define KXMLQLCVCFrame "Frame"
 #define KXMLQLCVCFrameAllowChildren "AllowChildren"
 #define KXMLQLCVCFrameAllowResize   "AllowResize"
@@ -192,6 +187,13 @@ protected:
 public:
     /** @reimp */
     void editProperties();
+
+    /*********************************************************************
+     * Web access
+     *********************************************************************/
+public:
+    /** @reimpl */
+    QString getCSS();
 
     /*********************************************************************
      * Load & Save

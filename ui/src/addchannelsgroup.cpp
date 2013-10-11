@@ -50,7 +50,6 @@ AddChannelsGroup::AddChannelsGroup(QWidget* parent, Doc* doc, ChannelsGroup *gro
 
     m_tree->header()->setSectionHidden(KColumnID, true);
     m_tree->setSelectionMode(QAbstractItemView::MultiSelection);
-    m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
     m_tree->setAlternatingRowColors(true);
     m_tree->setIconSize(QSize(20, 20));
 
@@ -116,6 +115,9 @@ AddChannelsGroup::AddChannelsGroup(QWidget* parent, Doc* doc, ChannelsGroup *gro
             item->setText(KColumnChIdx, QString::number(c));
         }
     }
+    m_tree->resizeColumnToContents(KColumnName);
+    m_tree->resizeColumnToContents(KColumnType);
+    m_tree->resizeColumnToContents(KColumnGroup);
 
     m_inputSource = group->inputSource();
     updateInputSource();

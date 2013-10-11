@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>270</width>
-    <height>159</height>
+    <height>173</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -56,10 +56,33 @@
          <string/>
         </property>
         <property name="minimum">
-         <number>200</number>
+         <number>100</number>
         </property>
         <property name="maximum">
          <number>9999</number>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Width</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QSpinBox" name="m_widthSpin">
+        <property name="suffix">
+         <string>px</string>
+        </property>
+        <property name="minimum">
+         <number>10</number>
+        </property>
+        <property name="maximum">
+         <number>9999</number>
+        </property>
+        <property name="value">
+         <number>60</number>
         </property>
        </widget>
       </item>

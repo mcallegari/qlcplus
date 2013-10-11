@@ -41,6 +41,7 @@ public:
 
     void writeChannel(ushort channel, uchar value);
     void writeUniverse(const QByteArray& universe);
+    void writeFeedback(uchar cmd, uchar data1, uchar data2);
 
 private:
     MIDIClientRef m_client;

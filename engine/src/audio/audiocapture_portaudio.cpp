@@ -19,6 +19,7 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
+#include <QSettings>
 #include <QDebug>
 
 #include <portaudio.h>
@@ -63,7 +64,13 @@ bool AudioCapturePortAudio::initialize(unsigned int sampleRate, quint8 channels,
     if( err != paNoError )
         return false;
 
-    inputParameters.device = Pa_GetDefaultInputDevice(); /* default input device */
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_AUDIO_INPUT_DEVICE);
+    if (var.isValid() == true)
+        inputParameters.device = QString(var.toString()).toInt();
+    else
+        inputParameters.device = Pa_GetDefaultInputDevice(); /* default input device */
+
     if (inputParameters.device == paNoDevice)
     {
         qWarning("Error: No default input device found.\n");

@@ -5,6 +5,7 @@ TEMPLATE = subdirs
 SUBDIRS      += hotplugmonitor
 SUBDIRS      += engine
 SUBDIRS      += ui
+SUBDIRS      += webaccess
 SUBDIRS      += main
 SUBDIRS      += fixtures
 SUBDIRS      += gobos

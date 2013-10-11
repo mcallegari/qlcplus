@@ -57,7 +57,6 @@ int SceneSelection::exec()
             this, SLOT(slotItemDoubleClicked(QTreeWidgetItem*)));
 
     refillTree();
-    m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
 
     slotItemSelectionChanged();
 

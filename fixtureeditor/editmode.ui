@@ -547,7 +547,7 @@
              <bool>true</bool>
             </property>
             <property name="maximum">
-             <number>99999</number>
+             <number>999999</number>
             </property>
             <property name="value">
              <number>18000</number>
@@ -944,6 +944,44 @@
           </item>
          </layout>
         </widget>
+       </item>
+       <item row="2" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QToolButton" name="copyClipboardButton">
+           <property name="toolTip">
+            <string>Copy physical information to clipboard</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../ui/src/qlcui.qrc">
+             <normaloff>:/editcopy.png</normaloff>:/editcopy.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="pasteClipboardButton">
+           <property name="toolTip">
+            <string>Paste physical information from clipboard</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../ui/src/qlcui.qrc">
+             <normaloff>:/editpaste.png</normaloff>:/editpaste.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>

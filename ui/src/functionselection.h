@@ -90,8 +90,16 @@ public:
      */
     void setFilter(int types, bool constFilter = false);
 
+    /**
+     * Set a list of filters to be disabled
+     *
+     * @param filter An OR'ed combination of Function::Type to show
+     */
+    void disableFilters(int types);
+
 private:
     int m_filter;
+    int m_disableFilters;
     bool m_constFilter;
 
     /*********************************************************************

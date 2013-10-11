@@ -1,6 +1,7 @@
 usr/bin/*
 usr/lib/libqlcplusui*
 usr/lib/libqlcplusengine*
+usr/lib/libqlcpluswebaccess*
 usr/share/qlcplus/documents/*
 usr/share/applications/*
 usr/share/pixmaps/*

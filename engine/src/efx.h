@@ -76,7 +76,9 @@ class EFX : public Function
         Intensity = 0,
         Height,
         Width,
-        Rotation
+        Rotation,
+        XOffset,
+        YOffset
     };
 
     /*********************************************************************

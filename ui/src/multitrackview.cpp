@@ -135,6 +135,12 @@ void MultiTrackView::updateViewSize()
         if (item->x() + item->getWidth() > gWidth)
             gWidth = item->x() + item->getWidth();
     }
+    // find leftmost audio item
+    foreach (AudioItem *item, m_audio)
+    {
+        if (item->x() + item->getWidth() > gWidth)
+            gWidth = item->x() + item->getWidth();
+    }
 
     if ((m_tracks.count() * TRACK_HEIGHT) + HEADER_HEIGHT > VIEW_DEFAULT_HEIGHT)
     {

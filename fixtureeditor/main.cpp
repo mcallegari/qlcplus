@@ -59,6 +59,7 @@ void printVersion()
     cout << "This program is licensed under the terms of the GNU ";
     cout << "General Public License v2." << endl;
     cout << "Copyright (c) Heikki Junnila (hjunnila@users.sf.net)." << endl;
+    cout << "Copyright (c) Massimo Callegari (massimocallegari@yahoo.it)." << endl;
     cout << endl;
 }
 

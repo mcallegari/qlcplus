@@ -66,15 +66,15 @@ Let's make some examples:
 
 <H1>MIDI beat clock</H1>
 <P>
-Starting from version 4.4.2, QLC+ supports <A HREF="http://en.wikipedia.org/wiki/MIDI_beat_clock">MIDI beat clock</A><br>
+Starting from version 4.5.0, QLC+ supports <A HREF="http://en.wikipedia.org/wiki/MIDI_beat_clock">MIDI beat clock</A><br>
 Not to be confused with the <A HREF="http://en.wikipedia.org/wiki/MIDI_timecode">MIDI timecode</A>, the MIDI beat clock is 
 a useful signal to sync BPM-based devices such as a drum machine with your lights controlled by QLC+.<BR>
 Two special MIDI channels have been mapped in QLC+ to control your <A HREF="file:virtualconsole.html">Virtual Console</A> widgets
 with a beat clock.<BR>
 Here's a brief explanation of the special channels:
 <UL>
- <LI><B>Channel 388</B>: A signal is sent on this channel when a beat clock starts or stops.</LI>
- <LI><B>Channel 389</B>: This signal is sent every BPM. QLC+ doesn't consider measures (e.g. 3/4, 4/4, 7/8), so you need
+ <LI><B>Channel 530</B>: A signal is sent on this channel when a beat clock starts or stops.</LI>
+ <LI><B>Channel 531</B>: This signal is sent every BPM. QLC+ doesn't consider measures (e.g. 3/4, 4/4, 7/8), so you need
      to setup your MIDI clock considering how QLC+ will handle it.</LI>
 </UL>
 <BR>
@@ -82,8 +82,8 @@ Here's a brief explanation of the special channels:
 A trick to do this, is to catch the stop signal. Example:<br>
 <OL>
  <LI>Enable the QLC+ Virtual Console widget auto-detection</LI>
- <LI>Hit play on your device generating the MIDI beat clock. QLC+ will detect channel 388 and will switch very quickly to 389</LI>
- <LI>Stop the playback on your MIDI beat clock device. QLC+ will detect channel 388 again.</LI>
+ <LI>Hit play on your device generating the MIDI beat clock. QLC+ will detect channel 530 and will switch very quickly to 531</LI>
+ <LI>Stop the playback on your MIDI beat clock device. QLC+ will detect channel 530 again.</LI>
  <LI>Disable the QLC+ Virtual Console widget auto-detection</LI>
 </OL>
 In a similar way you can catch the beat signal as well. Just disable the auto-detection process before stopping the playback on your

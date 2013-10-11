@@ -42,6 +42,7 @@
 #include "vcpropertieseditor.h"
 #include "addvcbuttonmatrix.h"
 #include "addvcslidermatrix.h"
+#include "vcaudiotriggers.h"
 #include "virtualconsole.h"
 #include "dmxdumpfactory.h"
 #include "vcproperties.h"
@@ -94,6 +95,7 @@ VirtualConsole::VirtualConsole(QWidget* parent, Doc* doc)
     , m_addFrameAction(NULL)
     , m_addSoloFrameAction(NULL)
     , m_addLabelAction(NULL)
+    , m_addAudioTriggersAction(NULL)
 
     , m_toolsSettingsAction(NULL)
 
@@ -168,6 +170,11 @@ VirtualConsole::~VirtualConsole()
 VirtualConsole* VirtualConsole::instance()
 {
     return s_instance;
+}
+
+Doc *VirtualConsole::getDoc()
+{
+    return m_doc;
 }
 
 quint32 VirtualConsole::newWidgetId()
@@ -319,6 +326,9 @@ void VirtualConsole::initActions()
     m_addLabelAction = new QAction(QIcon(":/label.png"), tr("New Label"), this);
     connect(m_addLabelAction, SIGNAL(triggered(bool)), this, SLOT(slotAddLabel()), Qt::QueuedConnection);
 
+    m_addAudioTriggersAction = new QAction(QIcon(":/audioinput.png"), tr("New Audio Triggers"), this);
+    connect(m_addAudioTriggersAction, SIGNAL(triggered(bool)), this, SLOT(slotAddAudioTriggers()), Qt::QueuedConnection);
+
     /* Put add actions under the same group */
     m_addActionGroup = new QActionGroup(this);
     m_addActionGroup->setExclusive(false);
@@ -333,6 +343,7 @@ void VirtualConsole::initActions()
     m_addActionGroup->addAction(m_addFrameAction);
     m_addActionGroup->addAction(m_addSoloFrameAction);
     m_addActionGroup->addAction(m_addLabelAction);
+    m_addActionGroup->addAction(m_addAudioTriggersAction);
 
     /* Tools menu actions */
     m_toolsSettingsAction = new QAction(QIcon(":/configure.png"), tr("Virtual Console Settings"), this);
@@ -460,6 +471,7 @@ void VirtualConsole::initMenuBar()
     m_addMenu->addSeparator();
     m_addMenu->addAction(m_addXYPadAction);
     m_addMenu->addAction(m_addCueListAction);
+    m_addMenu->addAction(m_addAudioTriggersAction);
     m_addMenu->addSeparator();
     m_addMenu->addAction(m_addFrameAction);
     m_addMenu->addAction(m_addSoloFrameAction);
@@ -535,6 +547,7 @@ void VirtualConsole::initMenuBar()
     m_toolbar->addAction(m_addFrameAction);
     m_toolbar->addAction(m_addSoloFrameAction);
     m_toolbar->addAction(m_addLabelAction);
+    m_toolbar->addAction(m_addAudioTriggersAction);
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_editCutAction);
     m_toolbar->addAction(m_editCopyAction);
@@ -787,7 +800,7 @@ void VirtualConsole::slotAddSliderMatrix()
     if (avsm.exec() == QDialog::Rejected)
         return;
 
-    int width = VCSlider::defaultSize.width();
+    int width = avsm.width();
     int height = avsm.height();
     int count = avsm.amount();
 
@@ -941,6 +954,25 @@ void VirtualConsole::slotAddLabel()
     m_doc->setModified();
 }
 
+void VirtualConsole::slotAddAudioTriggers()
+{
+    VCWidget* parent(closestParent());
+    if (parent == NULL)
+        return;
+
+    VCAudioTriggers* triggers = new VCAudioTriggers(parent, m_doc);
+    Q_ASSERT(triggers != NULL);
+    triggers->setID(newWidgetId());
+    checkWidgetPage(triggers, parent);
+    triggers->show();
+    triggers->move(parent->lastClickPoint());
+    clearWidgetSelection();
+    setWidgetSelected(triggers, true);
+    connect(triggers, SIGNAL(enableRequest(quint32)),
+            this, SLOT(slotEnableAudioTriggers(quint32)));
+    m_doc->setModified();
+}
+
 /*****************************************************************************
  * Tools menu callbacks
  *****************************************************************************/
@@ -967,6 +999,7 @@ void VirtualConsole::slotToolsSettings()
         settings.setValue(SETTINGS_CUELIST_SIZE, vcpe.cuelistSize());
         settings.setValue(SETTINGS_FRAME_SIZE, vcpe.frameSize());
         settings.setValue(SETTINGS_SOLOFRAME_SIZE, vcpe.soloFrameSize());
+        settings.setValue(SETTINGS_AUDIOTRIGGERS_SIZE, vcpe.audioTriggersSize());
 
         m_doc->setModified();
     }
@@ -1351,6 +1384,25 @@ void VirtualConsole::slotStackingLower()
         widget->lower();
 }
 
+void VirtualConsole::slotEnableAudioTriggers(quint32 id)
+{
+    QList<VCWidget *> widgetsList = getChildren((VCWidget *)m_contents);
+    VCAudioTriggers *enableWidget = NULL;
+    foreach (VCWidget *widget, widgetsList)
+    {
+        if (widget->type() == VCWidget::AudioTriggersWidget)
+        {
+            VCAudioTriggers *triggers = (VCAudioTriggers *)widget;
+            if (widget->id() == id)
+                enableWidget = triggers;
+            else
+                triggers->enableCapture(false);
+        }
+    }
+    if (enableWidget != NULL)
+        enableWidget->enableCapture(true);
+}
+
 /*****************************************************************************
  * Frame menu callbacks
  *****************************************************************************/
@@ -1456,6 +1508,7 @@ void VirtualConsole::resetContents()
 
     m_clipboard.clear();
     m_selectedWidgets.clear();
+    m_latestWidgetId = 0;
 
     /* Update actions' enabled status */
     updateActions();
@@ -1572,6 +1625,7 @@ void VirtualConsole::slotModeChanged(Doc::Mode mode)
         m_addFrameAction->setShortcut(QKeySequence());
         m_addSoloFrameAction->setShortcut(QKeySequence());
         m_addLabelAction->setShortcut(QKeySequence());
+        m_addAudioTriggersAction->setShortcut(QKeySequence());
 
         m_editCutAction->setShortcut(QKeySequence());
         m_editCopyAction->setShortcut(QKeySequence());
@@ -1620,6 +1674,7 @@ void VirtualConsole::slotModeChanged(Doc::Mode mode)
         m_addFrameAction->setShortcut(QKeySequence("CTRL+SHIFT+F"));
         m_addSoloFrameAction->setShortcut(QKeySequence("CTRL+SHIFT+O"));
         m_addLabelAction->setShortcut(QKeySequence("CTRL+SHIFT+L"));
+        m_addAudioTriggersAction->setShortcut(QKeySequence("CTRL+SHIFT+A"));
 
         m_editCutAction->setShortcut(QKeySequence("CTRL+X"));
         m_editCopyAction->setShortcut(QKeySequence("CTRL+C"));
@@ -1725,7 +1780,6 @@ QList<VCWidget *> VirtualConsole::getChildren(VCWidget *obj)
 
 void VirtualConsole::postLoad()
 {
-    qDebug() << Q_FUNC_INFO << "---------------------------<<";
     m_contents->postLoad();
 
     /* apply GM values

@@ -33,6 +33,7 @@
 #include <QDebug>
 #include <QSize>
 
+#include "addchannelsdialog.h"
 #include "qlcfixturemode.h"
 #include "qlcfixturehead.h"
 #include "qlcfixturedef.h"
@@ -93,7 +94,6 @@ void EditMode::init()
 
     m_modeNameEdit->setText(m_mode->name());
     m_modeNameEdit->setValidator(CAPS_VALIDATOR(this));
-    m_channelList->header()->setResizeMode(QHeaderView::ResizeToContents);
     refreshChannelList();
 
     /* Heads page */
@@ -108,7 +108,6 @@ void EditMode::init()
     connect(m_lowerHeadButton, SIGNAL(clicked()),
             this, SLOT(slotLowerHeadClicked()));
 
-    m_headList->header()->setResizeMode(QHeaderView::ResizeToContents);
     refreshHeadList();
 
     /* Physical page */
@@ -132,6 +131,11 @@ void EditMode::init()
     m_powerConsumptionSpin->setValue(physical.powerConsumption());
     m_dmxConnectorCombo->setEditText(physical.dmxConnector());
 
+    connect(copyClipboardButton, SIGNAL(clicked()),
+            this, SLOT(slotCopyToClipboard()));
+    connect(pasteClipboardButton, SIGNAL(clicked()),
+            this, SLOT(slotPasteFromClipboard()));
+
     // Close shortcut
     QAction* action = new QAction(this);
     action->setShortcut(QKeySequence(QKeySequence::Close));
@@ -151,47 +155,21 @@ void EditMode::init()
 
 void EditMode::slotAddChannelClicked()
 {
-    QLCChannel* ch;
+    AddChannelsDialog ach(m_mode->fixtureDef()->channels(), m_mode->channels());
+    if (ach.exec() != QDialog::Accepted)
+        return;
 
-    /* Create a list of channels that haven't been added to this mode yet */
-    QStringList chlist;
-    QListIterator <QLCChannel*> it(m_mode->fixtureDef()->channels());
-    while (it.hasNext() == true)
-    {
-        ch = it.next();
-        if (m_mode->channel(ch->name()) != NULL)
-            continue;
-        else
-            chlist << ch->name();
-    }
+    QList <QLCChannel *> newChannelList = ach.getModeChannelsList();
 
-    if (chlist.size() > 0)
-    {
-        bool ok = false;
-        QString name = QInputDialog::getItem(this,
-                                             tr("Add channel to mode"),
-                                             tr("Select a channel to add"),
-                                             chlist, 0, false, &ok);
+    // clear the previous list
+    m_mode->removeAllChannels();
 
-        if (ok == true && name.isEmpty() == false)
-        {
-            ch = m_mode->fixtureDef()->channel(name);
+    // Append the channels
+    foreach(QLCChannel *ch, newChannelList)
+        m_mode->insertChannel(ch, m_mode->channels().size());
 
-            // Append the channel
-            m_mode->insertChannel(ch, m_mode->channels().size());
-
-            // Easier to refresh the whole list
-            refreshChannelList();
-
-            // Select the new channel
-            selectChannel(ch->name());
-        }
-    }
-    else
-    {
-        QMessageBox::information(this, tr("No more available channels"),
-                                 tr("All available channels are present in the mode."));
-    }
+    // Easier to refresh the whole list
+    refreshChannelList();
 }
 
 void EditMode::slotRemoveChannelClicked()
@@ -282,6 +260,8 @@ void EditMode::refreshChannelList()
         item->setIcon(COL_NAME, ch->getIconFromGroup(ch->group()));
         item->setData(COL_NAME, PROP_PTR, (qulonglong) ch);
     }
+    m_channelList->resizeColumnToContents(COL_NUM);
+    m_channelList->resizeColumnToContents(COL_NAME);
 }
 
 QLCChannel* EditMode::currentChannel()
@@ -426,6 +406,7 @@ void EditMode::refreshHeadList()
 
         item->setText(0, QString("Head %1 (%2)").arg(i + 1).arg(summary));
     }
+    m_headList->resizeColumnToContents(0);
 }
 
 QLCFixtureHead EditMode::currentHead()
@@ -446,6 +427,61 @@ void EditMode::selectHead(int index)
     QTreeWidgetItem* item = m_headList->topLevelItem(index);
     m_headList->setCurrentItem(item);
 }
+
+/*********************************************************************
+ * Clipboard
+ *********************************************************************/
+
+QLCPhysical EditMode::getClipboard()
+{
+    return m_clipboard;
+}
+
+void EditMode::setClipboard(QLCPhysical physical)
+{
+    m_clipboard = physical;
+}
+
+void EditMode::slotCopyToClipboard()
+{
+    m_clipboard.setBulbType(m_bulbTypeCombo->currentText());
+    m_clipboard.setBulbLumens(m_bulbLumensSpin->value());
+    m_clipboard.setBulbColourTemperature(m_bulbTempCombo->currentText().toInt());
+    m_clipboard.setWeight(m_weightSpin->value());
+    m_clipboard.setWidth(m_widthSpin->value());
+    m_clipboard.setHeight(m_heightSpin->value());
+    m_clipboard.setDepth(m_depthSpin->value());
+    m_clipboard.setLensName(m_lensNameCombo->currentText());
+    m_clipboard.setLensDegreesMin(m_lensDegreesMinSpin->value());
+    m_clipboard.setLensDegreesMax(m_lensDegreesMaxSpin->value());
+    m_clipboard.setFocusType(m_focusTypeCombo->currentText());
+    m_clipboard.setFocusPanMax(m_panMaxSpin->value());
+    m_clipboard.setFocusTiltMax(m_tiltMaxSpin->value());
+    m_clipboard.setPowerConsumption(m_powerConsumptionSpin->value());
+    m_clipboard.setDmxConnector(m_dmxConnectorCombo->currentText());
+}
+
+void EditMode::slotPasteFromClipboard()
+{
+    m_bulbLumensSpin->setValue(m_clipboard.bulbLumens());
+    m_weightSpin->setValue(m_clipboard.weight());
+    m_widthSpin->setValue(m_clipboard.width());
+    m_heightSpin->setValue(m_clipboard.height());
+    m_depthSpin->setValue(m_clipboard.depth());
+    m_lensDegreesMinSpin->setValue(m_clipboard.lensDegreesMin());
+    m_lensDegreesMaxSpin->setValue(m_clipboard.lensDegreesMax());
+    m_panMaxSpin->setValue(m_clipboard.focusPanMax());
+    m_tiltMaxSpin->setValue(m_clipboard.focusTiltMax());
+    m_powerConsumptionSpin->setValue(m_clipboard.powerConsumption());
+
+    m_bulbTypeCombo->setEditText(m_clipboard.bulbType());
+    m_bulbTempCombo->setEditText(QString::number(m_clipboard.bulbColourTemperature()));
+    m_lensNameCombo->setEditText(m_clipboard.lensName());
+    m_focusTypeCombo->setEditText(m_clipboard.focusType());
+    m_dmxConnectorCombo->setEditText(m_clipboard.dmxConnector());
+}
+
+
 
 /*****************************************************************************
  * Accept

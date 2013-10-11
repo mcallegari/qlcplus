@@ -663,6 +663,10 @@ void VCSlider::setClickAndGoWidgetFromLevel(uchar level)
         if (m_slider)
             f = SCALE(float(level), float(m_slider->minimum()),
                       float(m_slider->maximum()), float(0), float(200));
+        else if (m_knob)
+            f = SCALE(float(level), float(m_knob->minimum()),
+                      float(m_knob->maximum()), float(0), float(200));
+
         if ((uchar)f == 0)
         {
             px.fill(Qt::black);
@@ -682,6 +686,9 @@ void VCSlider::slotClickAndGoLevelChanged(uchar level)
 {
     if (m_slider)
         m_slider->setValue(level);
+    else if (m_knob)
+        m_knob->setValue(level);
+
     QColor col = m_cngWidget->getColorAt(level);
     QPixmap px(42, 42);
     px.fill(col);
@@ -695,15 +702,21 @@ void VCSlider::slotClickAndGoColorChanged(QRgb color)
     QPixmap px(42, 42);
     px.fill(col);
     m_cngButton->setIcon(px);
+
     // place the slider half way to reach white@255 and black@0
     if (m_slider)
         m_slider->setValue(128);
+    else if (m_knob)
+        m_knob->setValue(128);
 }
 
 void VCSlider::slotClickAndGoLevelAndPresetChanged(uchar level, QImage img)
 {
     if (m_slider)
         m_slider->setValue(level);
+    else if (m_knob)
+        m_knob->setValue(level);
+
     QPixmap px = QPixmap::fromImage(img);
     m_cngButton->setIcon(px);
 }
@@ -1206,7 +1219,7 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel,
                             (float) m_slider->maximum());
 
                 if (m_slider->invertedAppearance() == true)
-                    m_slider->setValue(m_slider->maximum() - (int) val);
+                    m_slider->setValue((m_slider->maximum() - (int) val) + m_slider->minimum());
                 else
                     m_slider->setValue((int) val);
             }
@@ -1219,6 +1232,65 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel,
             }
         }
     }
+}
+
+/*********************************************************************
+ * Web access
+ *********************************************************************/
+
+QString VCSlider::getCSS()
+{
+    QString str = "<style>\n"
+            ".vcslider {\n"
+            "position: absolute;\n"
+            "border: 1px solid #777777;\n"
+            "border-radius: 3px;\n"
+            "}\n"
+
+            ".vcslLabel {\n"
+            "height:20px;\n"
+            "text-align:center;\n"
+            "font:normal 16px sans-serif;\n"
+            "}\n"
+
+            "input[type=\"range\"].vVertical {\n"
+            "-webkit-appearance: none;\n"
+            "height: 4px;\n"
+            "border: 1px solid #8E8A86;\n"
+            "background-color: #888888;\n"
+            "-webkit-transform:rotate(270deg);\n"
+            "-webkit-transform-origin: 0% 50%;\n"
+            "-moz-transform:rotate(270deg);\n"
+            "-o-transform:rotate(270deg);\n"
+            "-ms-transform:rotate(270deg);\n"
+            "-ms-transform-origin:0% 50%;\n"
+            "transform:rotate(270deg);\n"
+            "transform-origin:0% 50%;\n"
+            "}\n"
+
+            "input[type=\"range\"]::-webkit-slider-thumb {\n"
+            "-webkit-appearance: none;\n"
+            "background-color: #999999;\n"
+            "border-radius: 4px;\n"
+            "border: 1px solid #5c5c5c;\n"
+            "width: 20px;\n"
+            "height: 36px;\n"
+            "}\n"
+            "</style>\n";
+
+    return str;
+}
+
+QString VCSlider::getJS()
+{
+    QString str = "function slVchange(id) {\n"
+            " var slObj = document.getElementById(id);\n"
+            " var obj = document.getElementById(\"slv\" + id);\n"
+            " obj.innerHTML = slObj.value;\n"
+            " var sldMsg = id + \"|\" + slObj.value;\n"
+            " sendWSmessage(sldMsg);\n"
+            "}\n";
+    return str;
 }
 
 /*****************************************************************************

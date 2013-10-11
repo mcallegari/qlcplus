@@ -6,11 +6,14 @@ TARGET   = qlcplus
 
 INCLUDEPATH  += ../ui/src
 INCLUDEPATH  += ../engine/src
+INCLUDEPATH  += ../webaccess
 
 QMAKE_LIBDIR += ../ui/src
 QMAKE_LIBDIR += ../engine/src
+QMAKE_LIBDIR += ../webaccess
 LIBS         += -lqlcplusengine
 LIBS         += -lqlcplusui
+LIBS         += -lqlcpluswebaccess
 
 win32:HEADERS += ../ui/src/debugbox.h
 macx:HEADERS += ../ui/src/debugbox.h

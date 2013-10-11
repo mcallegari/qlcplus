@@ -100,6 +100,15 @@ private slots:
     void slotAddProfileClicked();
     void slotRemoveProfileClicked();
     void slotEditProfileClicked();
+
+    /************************************************************************
+     * Audio page
+     ************************************************************************/
+private:
+    void fillAudioTree();
+
+private slots:
+    void slotAudioDeviceItemChanged(QTreeWidgetItem* item, int col);
 };
 
 #endif /* INPUTOUTPUTPATCHEDITOR_H */

@@ -102,8 +102,11 @@ public:
     /** Set the chaser function that is used as cue list steps */
     void setChaser(quint32 fid);
 
+    /** Get the chaser ID that is used as cue list steps */
+    quint32 chaserID() const;
+
     /** Get the chaser function that is used as cue list steps */
-    quint32 chaser() const;
+    Chaser *chaser();
 
 private:
     /** Update the list of steps */
@@ -112,13 +115,7 @@ private:
     /** Get the currently selected item index, otherwise 0 */
     int getCurrentIndex();
 
-private slots:
-    /** Removes destroyed functions from the list */
-    void slotFunctionRemoved(quint32 fid);
-
-    /** Updates name in the list if function got changed */
-    void slotFunctionChanged(quint32 fid);
-
+public slots:
     /** Play/stop the cue list from the current selection */
     void slotPlayback();
 
@@ -127,6 +124,13 @@ private slots:
 
     /** Skip to the previous cue */
     void slotPreviousCue();
+
+private slots:
+    /** Removes destroyed functions from the list */
+    void slotFunctionRemoved(quint32 fid);
+
+    /** Updates name in the list if function got changed */
+    void slotFunctionChanged(quint32 fid);
 
     /** Stop the cue list and return to start */
     void slotStop();
@@ -141,6 +145,9 @@ private slots:
     /** Slot that is called whenever an item field has been changed.
         Note that only 'Notes" column is considered */
     void slotItemChanged(QTreeWidgetItem*item, int column);
+
+    /** Slot called whenever a function is stopped */
+    void slotFunctionStopped(quint32 fid);
 
 private:
     /** Create the runner that writes cue values to universes */
@@ -163,7 +170,7 @@ private:
      * Crossfade
      *************************************************************************/
 protected:
-    void setSlidersInfo(int pIndex, Chaser *chaser);
+    void setSlidersInfo(int pIndex, Chaser *chaserID);
 
 protected slots:
     void slotShowCrossfadePanel(bool enable);
@@ -253,6 +260,16 @@ public:
 
     /** @reimp */
     void editProperties();
+
+    /*********************************************************************
+     * Web access
+     *********************************************************************/
+public:
+    /** @reimpl */
+    QString getCSS();
+
+    /** @reimpl */
+    QString getJS();
 
     /*************************************************************************
      * Load & Save

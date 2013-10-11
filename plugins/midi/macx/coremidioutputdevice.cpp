@@ -149,6 +149,11 @@ void CoreMidiOutputDevice::writeUniverse(const QByteArray& universe)
                 cmd[0] = MIDI_NOTE_ON;
             }
         }
+        else if (mode() == ProgramChange)
+        {
+            /* Program change */
+            cmd[0] = MIDI_PROGRAM_CHANGE;
+        }
         else
         {
             /* Control change */
@@ -165,6 +170,34 @@ void CoreMidiOutputDevice::writeUniverse(const QByteArray& universe)
             qWarning() << "MIDIOut buffer overflow";
             break;
         }
+    }
+
+    /* Send the MIDI packet list */
+    OSStatus s = MIDISend(m_outPort, m_destination, list);
+    if (s != 0)
+        qWarning() << Q_FUNC_INFO << "Unable to send MIDI data to" << name();
+}
+
+void CoreMidiOutputDevice::writeFeedback(uchar cmd, uchar data1, uchar data2)
+{
+    if (isOpen() == false)
+        return;
+
+    Byte buffer[128]; // Should be enough for 1 message
+    MIDIPacketList* list = (MIDIPacketList*) buffer;
+    MIDIPacket* packet = MIDIPacketListInit(list);
+
+    Byte message[3];
+    message[0] = cmd;
+    message[1] = data1;
+    message[2] = data2;
+
+    /* Add the MIDI command to the packet list */
+    packet = MIDIPacketListAdd(list, sizeof(buffer), packet, 0, sizeof(message), message);
+    if (packet == 0)
+    {
+        qWarning() << "MIDIOut buffer overflow";
+        return;
     }
 
     /* Send the MIDI packet list */

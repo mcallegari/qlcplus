@@ -613,6 +613,15 @@ public:
     bool unregisterAttribute(QString name);
 
     /**
+     * Rename an existing atribute
+     *
+     * @param idx the attribute index
+     * @param newName the new name for the attribute
+     * @return true on success, false on error
+     */
+    bool renameAttribute(int idx, QString newName);
+
+    /**
      * Adjust the intensity of the function by a fraction.
      *
      * @param fraction Intensity as a fraction (0.0 - 1.0)
@@ -631,6 +640,14 @@ public:
      * @return the requested attribute value (on error return 0.0)
      */
     qreal getAttributeValue(int attributeIndex = 0) const;
+
+    /**
+     * Get a specific function attribute by name
+     *
+     * @param name the attribute name
+     * @return the requested attribute index
+     */
+    int getAttributeIndex(QString name) const;
 
     /**
      * Get the function's attributes

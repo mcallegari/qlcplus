@@ -20,6 +20,7 @@
 */
 
 #include <QDebug>
+#include <QSettings>
 
 #include "audiocapture_alsa.h"
 
@@ -38,8 +39,15 @@ AudioCaptureAlsa::~AudioCaptureAlsa()
 bool AudioCaptureAlsa::initialize(unsigned int sampleRate, quint8 channels, quint16 bufferSize)
 {
     snd_pcm_hw_params_t *hw_params;
-    char pcm_name[] = "default";
+    QString dev_name = "default";
     int err;
+
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_AUDIO_INPUT_DEVICE);
+    if (var.isValid() == true)
+        dev_name = var.toString();
+
+    pcm_name = strdup(dev_name.toAscii().data());
 
     if ((err = snd_pcm_open (&m_captureHandle, pcm_name, SND_PCM_STREAM_CAPTURE, 0)) < 0)
     {

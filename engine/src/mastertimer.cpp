@@ -41,6 +41,7 @@
 
 /** The timer tick frequency in Hertz */
 uint MasterTimer::s_frequency = 50;
+uint MasterTimer::s_tick = 20;
 
 /*****************************************************************************
  * Initialization
@@ -49,6 +50,10 @@ uint MasterTimer::s_frequency = 50;
 MasterTimer::MasterTimer(Doc* doc)
     : QObject(doc)
     , m_stopAllFunctions(false)
+    , m_fadeAllSequence(false)
+    , m_fadeSequenceTimeout(0)
+    , m_fadeSequenceTimeoutCount(0)
+    , m_originalGMvalue(0)
     , m_fader(new GenericFader(doc))
     , d_ptr(new MasterTimerPrivate(this))
 {
@@ -59,6 +64,8 @@ MasterTimer::MasterTimer(Doc* doc)
     QVariant var = settings.value(MASTERTIMER_FREQUENCY);
     if (var.isValid() == true)
         s_frequency = var.toUInt();
+
+    s_tick = uint(double(1000) / double(s_frequency));
 }
 
 MasterTimer::~MasterTimer()
@@ -91,6 +98,20 @@ void MasterTimer::timerTick()
     UniverseArray* universes = doc->outputMap()->claimUniverses();
     universes->zeroIntensityChannels();
 
+    if (m_fadeAllSequence == true)
+    {
+        m_fadeSequenceTimeoutCount -= tick();
+        uchar newGMvalue = ((float)m_fadeSequenceTimeoutCount / (float)m_fadeSequenceTimeout) * m_originalGMvalue;
+        //qDebug() << "---> setting GM to" <<  newGMvalue << "timeout:" << m_fadeSequenceTimeoutCount;
+        universes->setGMValue(newGMvalue);
+
+        if (m_fadeSequenceTimeoutCount <= 0)
+        {
+            m_fadeAllSequence = false;
+            m_stopAllFunctions = true;
+        }
+    }
+
     timerTickFunctions(universes);
     timerTickDMXSources(universes);
     timerTickFader(universes);
@@ -106,7 +127,7 @@ uint MasterTimer::frequency()
 
 uint MasterTimer::tick()
 {
-    return uint(double(1000) / double(s_frequency));
+    return s_tick;
 }
 
 /*****************************************************************************
@@ -145,7 +166,32 @@ void MasterTimer::stopAllFunctions()
     m_dmxSourceListMutex.unlock();
     m_functionListMutex.unlock();
 
+    if (m_originalGMvalue != 0)
+    {
+        Doc* doc = qobject_cast<Doc*> (parent());
+        Q_ASSERT(doc != NULL);
+        UniverseArray* universes = doc->outputMap()->claimUniverses();
+        universes->setGMValue(m_originalGMvalue);
+        doc->outputMap()->releaseUniverses();
+        m_originalGMvalue = 0;
+    }
+
     m_stopAllFunctions = false;
+}
+
+void MasterTimer::fadeAndStopAll(int timeout)
+{
+    if (timeout == 0)
+        return;
+
+    Doc* doc = qobject_cast<Doc*> (parent());
+    Q_ASSERT(doc != NULL);
+    UniverseArray* universes = doc->outputMap()->claimUniverses();
+    m_originalGMvalue = universes->gMValue();
+    doc->outputMap()->releaseUniverses();
+    m_fadeSequenceTimeout = timeout;
+    m_fadeSequenceTimeoutCount = timeout;
+    m_fadeAllSequence = true;
 }
 
 int MasterTimer::runningFunctions() const
@@ -220,6 +266,10 @@ void MasterTimer::timerTickFunctions(UniverseArray* universes)
         }
         m_startQueue.removeOne(f);
     }
+}
+
+void MasterTimer::fadeSequenceCompleted()
+{
 }
 
 /****************************************************************************

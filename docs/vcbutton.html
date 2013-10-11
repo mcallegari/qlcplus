@@ -48,17 +48,14 @@ by double clicking the button itself.
  </TR>
  <TR>
   <TD>
-   <B>Key combination</B>
+   <B>Attributes</B>
   </TD>
   <TD>
-   You can attach a keyboard key (combination) to the button, which then acts
-   as if you clicked the button directly with your mouse.
-   <P>
-    <IMG SRC="qrc:/key_bindings.png" ALIGN="absmiddle"> Attach a keyboard key
-    to the button<BR/>
-    <IMG SRC="qrc:/fileclose.png" ALIGN="absmiddle"> Detach the current key
-    combination from the button
-   </P>
+   Shows you the list of attributes that the assigned function exposes. Attributes can be controlled
+   by right clicking on the button when in <A HREF="file:concept.html#Modes">Operate Mode</A>.<br>
+   A popup will display a number of sliders corresponding to the number of available attributes.<br>
+   In case the assigned function is a <A HREF="file:concept.html#Show">Show</A>, attributes correspond
+   to the Show tracks, so you can tune the intensity (or volume) of a whole track with just one click.
   </TD>
  </TR>
  <TR>
@@ -86,6 +83,21 @@ by double clicking the button itself.
  </TR>
  <TR>
   <TD>
+   <B>Key combination</B>
+  </TD>
+  <TD>
+   You can attach a keyboard key (combination) to the button, which then acts
+   as if you clicked the button directly with your mouse.
+   <P>
+    <IMG SRC="qrc:/key_bindings.png" ALIGN="absmiddle"> Attach a keyboard key
+    to the button<BR/>
+    <IMG SRC="qrc:/fileclose.png" ALIGN="absmiddle"> Detach the current key
+    combination from the button
+   </P>
+  </TD>
+ </TR>
+ <TR>
+  <TD>
    <B>On button press...</B>
   </TD>
   <TD>
@@ -97,7 +109,20 @@ by double clicking the button itself.
     <A HREF="file:concept.html#Scene">Scene</A> when you keep the button pressed. If
     another type of function is attached to the button, nothing happens when you
     click it.</LI>
+    <LI>Blackout on/off: When you click the button, QLC+ will toggle the 
+    <A HREF="file:concept.html#Blackout">blackout mode</A></LI>
+    <LI>Stop all functions: When you click the button, all the QLC+ running
+    functions will be stopped immediately</LI>
    </UL>
+  </TD>
+ </TR>
+ <TR>
+   <TD>
+   <B>Adjust function intensity</B>
+  </TD>
+  <TD>
+    If checked, this feature will adjust the assigned function intensity right before
+    playing it when the button is pressed.
   </TD>
  </TR>
 </TABLE>

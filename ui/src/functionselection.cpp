@@ -61,6 +61,7 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
     , m_multiSelection(true)
     , m_filter(Function::Scene | Function::Chaser | Function::Collection |
                Function::EFX | Function::Script | Function::RGBMatrix | Function::Show | Function::Audio)
+    , m_disableFilters(0)
     , m_constFilter(false)
 {
     Q_ASSERT(doc != NULL);
@@ -113,7 +114,7 @@ int FunctionSelection::exec()
     m_scriptCheck->setChecked(m_filter & Function::Script);
     m_rgbMatrixCheck->setChecked(m_filter & Function::RGBMatrix);
     m_showCheck->setChecked(m_filter & Function::Show);
-    m_audioCheck->setChecked(m_filter & Function::Audio);
+    m_audioCheck->setChecked(m_filter & Function::Audio);    
 
     if (m_constFilter == true)
     {
@@ -125,6 +126,17 @@ int FunctionSelection::exec()
         m_rgbMatrixCheck->setEnabled(false);
         m_showCheck->setEnabled(false);
         m_audioCheck->setEnabled(false);
+    }
+    else
+    {
+        m_sceneCheck->setDisabled(m_disableFilters & Function::Scene);
+        m_chaserCheck->setDisabled(m_disableFilters & Function::Chaser);
+        m_efxCheck->setDisabled(m_disableFilters & Function::EFX);
+        m_collectionCheck->setDisabled(m_disableFilters & Function::Collection);
+        m_scriptCheck->setDisabled(m_disableFilters & Function::Script);
+        m_rgbMatrixCheck->setDisabled(m_disableFilters & Function::RGBMatrix);
+        m_showCheck->setDisabled(m_disableFilters & Function::Show);
+        m_audioCheck->setDisabled(m_disableFilters & Function::Audio);
     }
 
     /* Multiple/single selection */
@@ -172,6 +184,11 @@ void FunctionSelection::setFilter(int types, bool constFilter)
 {
     m_filter = types;
     m_constFilter = constFilter;
+}
+
+void FunctionSelection::disableFilters(int types)
+{
+    m_disableFilters = types;
 }
 
 /*****************************************************************************

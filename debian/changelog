@@ -1,17 +1,36 @@
-qlcplus (4.4.2) stable; urgency=low
+qlcplus (4.5.0) stable; urgency=low
 
   * NEW: Functions now have attributes. They can be controlled by right clicking on a Virtual Console button in operate mode
   * NEW: Added multi-page support to Virtual Console frames
   * NEW: DMX dump can now set a Scene on a Virtual Console button or slider
+  * NEW: Added Live Edit functionality to modify functions while in operate mode
   * NEW: added Czech translation (thank to Jan Lachman)
+  * NEW: QLC+ GUI can be customized with an external CSS-like style file (see documentation)
   * NEW: MIDI plugin can now receive Program Change and MIDI beat clock
+  * NEW: Audio triggers turned to a Virtual Console widget. No backward compatibility. Please update your projects.
+  * NEW: In Fixture Editor, it is now possible to copy/paste physical information
+  * NEW: "Stop all functions" now has 4 presets (1s, 5s, 10s, 30s) to fade out intensity channels before stopping
+  * NEW: It is now possible to set a working range window in Virtual Console XY Pads (all credits for the CTK range slider go to the Common Toolkit team)
+  * EXPERIMENTAL: added web interface to run QLC+ on a headless system. Default port is 9999. Run QLC+ with '-w' option to enable web access.
   * Cue List "Stop" input turned into "Playback", to handle start/stop of a cue with one key
+  * Improved Fixture Editor add mode channels procedure, to reduce fixture creation time
   * Fixed channel groups remapping
+  * Updated Spanish translation (thank to Luis García-Tornel)
   * Added Tap keyboard mapping to Speed Dial widget
+  * Fixed Show Manager viewport scaling considering audio tracks too
+  * Slider Matrix can now have a custom width
+  * Fixed VC slider external control when minimum value is not 0
+  * Fixed dutch translation preventing to load pictures on Fixture Editor
+  * Fixed Virtual Console knobs with Click & Go functionality
   * Added fixtures: American DJ Fog Storm (with FS-DMXT Remote Timer), Stellar Labs LED PAR38 RGB (thanks to X)
-  * Added fixtures: American DJ Accu Spot Pro, Scanic Astute LED 108, Showtec Mini Max LED RGB (thanks to laserandi)
+  * Added fixtures: American DJ Accu Spot Pro, Scanic Astute LED 108, Showtec Mini Max LED RGB, Showtec Phantom 250, lightmaXX LED MEGA PAR64 RGBW 18x8W (thanks to laserandi)
+  * Added fixture: Eliminator Lighting Electro MH25R (thanks to Travis Cook)
+  * Added fixtures: Geni OBY 5, Geni OBY 600, Griven Kolorado 2500, Coemar ProWash 250 LX (thanks to Goran)
+  * Added fixtures: Martin JEM ZR44, Briteq W07L12 (thanks to Joep Admiraal)
+  * Added fixture: Stairville LED BAR RGB 252 (thanks to Ralf Herold)
+  * Added fixture: Showtec Acrobat (thanks to OddSocks)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Fri, 20 September 2013 12:13:04 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 12 October 2013 12:13:04 +0200
 
 qlcplus (4.4.1) stable; urgency=low
 

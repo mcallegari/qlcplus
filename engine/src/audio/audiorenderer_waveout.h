@@ -49,6 +49,8 @@ public:
     /** @reimpl */
     qint64 latency();
 
+    static QList<AudioDeviceInfo> getDevicesInfo();
+
 protected:
     /** @reimpl */
     qint64 writeAudio(unsigned char *data, qint64 maxSize);
@@ -69,6 +71,9 @@ private:
     // helper functions
     void status();
     void uninitialize();
+
+private:
+    UINT deviceID;
 };
 
 #endif // AUDIORENDERER_WAVEOUT_H

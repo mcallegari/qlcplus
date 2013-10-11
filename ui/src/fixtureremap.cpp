@@ -24,7 +24,7 @@
 #include <QScrollBar>
 #include <QDir>
 
-#include "audiotriggerfactory.h"
+#include "vcaudiotriggers.h"
 #include "virtualconsole.h"
 #include "qlcfixturedef.h"
 #include "channelsgroup.h"
@@ -35,6 +35,7 @@
 #include "efxfixture.h"
 #include "scenevalue.h"
 #include "chaserstep.h"
+#include "audiobar.h"
 #include "vcslider.h"
 #include "vcframe.h"
 #include "chaser.h"
@@ -629,24 +630,23 @@ void FixtureRemap::accept()
                     slider->addLevelChannel(rmpChan.fxi, rmpChan.channel);
             }
         }
-    }
-
-    /* **********************************************************************
-     * 7 - remap Audio Trigger channels
-     * ********************************************************************** */
-    AudioTriggerFactory *triggers = AudioTriggerFactory::instance();
-    foreach (AudioBar *bar, triggers->getAudioBars())
-    {
-        if (bar->m_type == AudioBar::DMXBar)
+        else if (widget->type() == VCWidget::AudioTriggersWidget)
         {
-            QList <SceneValue> newList = remapSceneValues(bar->m_dmxChannels, sourceList, targetList);
-            // this is crucial: here all the "unmapped" channels will be lost forever !
-            bar->attachDmxChannels(m_doc, newList);
+            VCAudioTriggers *triggers = (VCAudioTriggers *)object;
+            foreach (AudioBar *bar, triggers->getAudioBars())
+            {
+                if (bar->m_type == AudioBar::DMXBar)
+                {
+                    QList <SceneValue> newList = remapSceneValues(bar->m_dmxChannels, sourceList, targetList);
+                    // this is crucial: here all the "unmapped" channels will be lost forever !
+                    bar->attachDmxChannels(m_doc, newList);
+                }
+            }
         }
     }
 
     /* **********************************************************************
-     * 8 - save the remapped project into a new file
+     * 7 - save the remapped project into a new file
      * ********************************************************************** */
     App *mainApp = (App *)m_doc->parent();
     mainApp->setFileName(m_targetProjectLabel->text());

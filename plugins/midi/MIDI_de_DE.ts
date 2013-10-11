@@ -42,55 +42,55 @@
 <context>
     <name>MidiPlugin</name>
     <message>
-        <location filename="common/midiplugin.cpp" line="110"/>
+        <location filename="common/midiplugin.cpp" line="111"/>
         <source>This plugin provides input/output support for MIDI devices.</source>
         <translation>Dieses Plugin bietet Eingabe/Ausgabe Unterstützung für MIDI-Geräte.</translation>
     </message>
     <message>
-        <location filename="common/midiplugin.cpp" line="124"/>
+        <location filename="common/midiplugin.cpp" line="125"/>
         <source>No output support available.</source>
         <translation>Keine Ausgabe Unterstützung verfügbar.</translation>
     </message>
     <message>
-        <location filename="common/midiplugin.cpp" line="132"/>
+        <location filename="common/midiplugin.cpp" line="133"/>
         <source>Output</source>
         <translation>Ausgang</translation>
     </message>
     <message>
-        <location filename="common/midiplugin.cpp" line="135"/>
-        <location filename="common/midiplugin.cpp" line="237"/>
+        <location filename="common/midiplugin.cpp" line="136"/>
+        <location filename="common/midiplugin.cpp" line="238"/>
         <source>Open</source>
         <translation>Öffnen</translation>
     </message>
     <message>
-        <location filename="common/midiplugin.cpp" line="137"/>
-        <location filename="common/midiplugin.cpp" line="239"/>
+        <location filename="common/midiplugin.cpp" line="138"/>
+        <location filename="common/midiplugin.cpp" line="240"/>
         <source>Not Open</source>
         <translation>Nicht geöffnet</translation>
     </message>
     <message>
-        <location filename="common/midiplugin.cpp" line="138"/>
-        <location filename="common/midiplugin.cpp" line="240"/>
+        <location filename="common/midiplugin.cpp" line="139"/>
+        <location filename="common/midiplugin.cpp" line="241"/>
         <source>Status</source>
         <translation>Status</translation>
     </message>
     <message>
-        <location filename="common/midiplugin.cpp" line="144"/>
+        <location filename="common/midiplugin.cpp" line="145"/>
         <source>Invalid Output</source>
         <translation>Falscher Ausgang</translation>
     </message>
     <message>
-        <location filename="common/midiplugin.cpp" line="226"/>
+        <location filename="common/midiplugin.cpp" line="227"/>
         <source>No input support available.</source>
         <translation>Keine Eingangs Untestützung verfügbar.</translation>
     </message>
     <message>
-        <location filename="common/midiplugin.cpp" line="234"/>
+        <location filename="common/midiplugin.cpp" line="235"/>
         <source>Input</source>
         <translation>Eingang</translation>
     </message>
     <message>
-        <location filename="common/midiplugin.cpp" line="246"/>
+        <location filename="common/midiplugin.cpp" line="247"/>
         <source>Invalid Input</source>
         <translation>Falscher Eingang</translation>
     </message>
