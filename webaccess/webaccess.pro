@@ -12,7 +12,7 @@ QT     += core xml gui script
 INCLUDEPATH     += ../engine/src ../engine/src/audio ../ui/src
 DEPENDPATH      += ../engine/src ../ui/src
 QMAKE_LIBDIR    += ../engine/src ../ui/src
-DEFINES         += USE_WEBSOCKET
+DEFINES         += USE_WEBSOCKET NO_SSL NO_SSL_DL
 
 LIBS += -lqlcplusengine -lqlcplusui
 
