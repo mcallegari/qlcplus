@@ -434,6 +434,7 @@ void QLCFixtureEditor::slotAddChannel()
                 m_fixtureDef->addChannel(ch);
                 updateChannelItem(ch, item);
                 m_channelList->setCurrentItem(item);
+                m_channelList->resizeColumnToContents(CH_COL_NAME);
 
                 setModified();
                 ok = true;
@@ -721,6 +722,7 @@ void QLCFixtureEditor::slotAddMode()
                 m_fixtureDef->addMode(mode);
                 updateModeItem(mode, item);
                 m_modeList->setCurrentItem(item);
+                m_modeList->resizeColumnToContents(MODE_COL_NAME);
 
                 setModified();
                 ok = true;
@@ -758,6 +760,7 @@ void QLCFixtureEditor::slotEditMode()
         return;
 
     EditMode em(this, mode);
+    em.setClipboard(m_physicalCopy);
     if (em.exec() == QDialog::Accepted)
     {
         *mode = *(em.mode());
