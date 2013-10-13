@@ -1121,8 +1121,6 @@ void ShowManager::updateMultiTrackView()
             first = false;
         }
         m_showview->addTrack(track);
-        m_addSequenceAction->setEnabled(true);
-        m_addAudioAction->setEnabled(true);
 
         foreach(quint32 id, track->functionsID())
         {
@@ -1151,9 +1149,13 @@ void ShowManager::updateMultiTrackView()
         m_showview->activateTrack(firstTrack);
         showSceneEditor(m_scene);
         m_copyAction->setEnabled(true);
+        m_addSequenceAction->setEnabled(true);
+        m_addAudioAction->setEnabled(true);
     }
     else
     {
+        m_addSequenceAction->setEnabled(false);
+        m_addAudioAction->setEnabled(false);
         m_scene = NULL;
         showSceneEditor(NULL);
     }
