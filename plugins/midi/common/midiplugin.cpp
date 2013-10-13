@@ -79,20 +79,20 @@ void MidiPlugin::openOutput(quint32 output)
     qDebug() << "MIDI plugin open output: " << output;
 
     MidiOutputDevice* dev = outputDevice(output);
-    if (dev != NULL)
-        dev->open();
 
-    qDebug() << "MidiPlugin::OpenOutput ----------------------";
+    if (dev == NULL)
+        return;
+
+    dev->open();
 
     if (dev->midiTemplateName() != "")
     {
-        qDebug() << "Got template: " << dev->midiTemplateName();
+        qDebug() << "Opening device with Midi template: " << dev->midiTemplateName();
+
         MidiTemplate* templ = midiTemplate(dev->midiTemplateName());
+
         if (templ != NULL)
             sendRaw(output, templ->midiMessage());
-    } else
-    {
-        qDebug() << "no template";
     }
 }
 
@@ -427,7 +427,9 @@ MidiTemplate* MidiPlugin::midiTemplate(QString name)
     while (it.hasNext() == true)
     {
         MidiTemplate* templ = it.next();
+
         qDebug() << "add template param: " << name << " templ: " << templ->name();
+
         if (templ->name() == name)
             return templ;
     }
