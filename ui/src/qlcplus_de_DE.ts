@@ -366,7 +366,7 @@
     <message>
         <location filename="addvcslidermatrix.ui" line="69"/>
         <source>Width</source>
-        <translation type="unfinished">Breite</translation>
+        <translation>Breite</translation>
     </message>
 </context>
 <context>
@@ -539,22 +539,22 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
     <message>
         <location filename="app.cpp" line="567"/>
         <source>Fade 1 second and stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Blende 1 Sekunde und stoppe</translation>
     </message>
     <message>
         <location filename="app.cpp" line="572"/>
         <source>Fade 5 seconds and stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Blende 5 Sekunden und stoppe</translation>
     </message>
     <message>
         <location filename="app.cpp" line="577"/>
         <source>Fade 10 second and stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Blende 10 Sekunden und stoppe</translation>
     </message>
     <message>
         <location filename="app.cpp" line="582"/>
         <source>Fade 30 second and stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Blende 30 Sekunden und stoppe</translation>
     </message>
     <message>
         <location filename="app.cpp" line="1066"/>
@@ -641,7 +641,7 @@ Die ausgewählte Datei wurde verschoben oder gelöscht.</translation>
     <message>
         <location filename="app.cpp" line="554"/>
         <source>Live edit a function</source>
-        <translation type="unfinished"></translation>
+        <translation>Livebaearbeitung einer Funktion</translation>
     </message>
     <message>
         <location filename="app.cpp" line="558"/>
@@ -890,7 +890,7 @@ Dauer: %3
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="24"/>
         <source>Triggers</source>
-        <translation type="unfinished"></translation>
+        <translation>Auslöser</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="32"/>
@@ -946,56 +946,56 @@ Dauer: %3
         <location filename="vcaudiotriggersproperties.ui" line="134"/>
         <source>When toggled, you can click an external button to assign it to this widget.</source>
         <oldsource>When toggled, you can click an external button to assign it to this virtual console button.</oldsource>
-        <translation type="unfinished">Wenn betätigt kann ein externer Schalter betätigt werden um diesen dem virtuellen Konsolenschalter zuzuweisen.</translation>
+        <translation>Wenn betätigt kann ein externer Schalter betätigt werden um diesen dem virtuellen Konsolenschalter zuzuweisen.</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="137"/>
         <source>Auto Detect</source>
-        <translation type="unfinished">Automatische Erkennung</translation>
+        <translation>Automatische Erkennung</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="153"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation type="unfinished">Der bestimmte Eingangskanal im Eingangsuniversum der Daten zu diesem Assistenten sendet</translation>
+        <translation>Der bestimmte Eingangskanal im Eingangsuniversum der Daten zu diesem Assistenten sendet</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="163"/>
         <source>The input universe that sends data to this widget</source>
-        <translation type="unfinished">Das Eingangsuniversum, welches Daten zu diesem Assistenten sendet</translation>
+        <translation>Das Eingangsuniversum, welches Daten zu diesem Assistenten sendet</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="179"/>
         <source>Choose an external input universe &amp; channel that this widget should listen to.</source>
         <oldsource>Choose an external input universe &amp; channel that this button should listen to.</oldsource>
-        <translation type="unfinished">Wähle ein externes Universum &amp; einen Kanal auf den dieser Schalter hören soll.</translation>
+        <translation>Wähle ein externes Universum &amp; einen Kanal auf den dieser Schalter hören soll.</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="182"/>
         <source>Choose...</source>
-        <translation type="unfinished"></translation>
+        <translation>Auswahl...</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="205"/>
         <source>Key combination</source>
-        <translation type="unfinished">Tastenkombination</translation>
+        <translation>Tastenkombination</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="220"/>
         <source>Keyboard combination that toggles this widget</source>
         <oldsource>Keyboard combination that toggles this button</oldsource>
-        <translation type="unfinished">Tastenkombination die diesen Schalter umschaltet</translation>
+        <translation>Tastenkombination die diesen Schalter umschaltet</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="230"/>
         <source>Set a key combination for this widget</source>
         <oldsource>Set a key combination for this button</oldsource>
-        <translation type="unfinished">Setze eine Tastenkombination für diesen Schalter</translation>
+        <translation>Setze eine Tastenkombination für diesen Schalter</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="250"/>
         <source>Remove the widget&apos;s keyboard shortcut key</source>
         <oldsource>Remove the button&apos;s keyboard shortcut key</oldsource>
-        <translation type="unfinished">Tastenkombination des Schalters entfernen</translation>
+        <translation>Tastenkombination des Schalters entfernen</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.cpp" line="125"/>
@@ -2295,7 +2295,7 @@ Dauer: %3
     <message>
         <location filename="functionliveeditdialog.cpp" line="45"/>
         <source>Function Live Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Funktionslivebaerbeitung</translation>
     </message>
 </context>
 <context>
@@ -4834,7 +4834,7 @@ Dauer: %3
     <message>
         <location filename="vcproperties.ui" line="533"/>
         <source>Audio triggers size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Audiotrigger-Größe</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="543"/>
@@ -5796,7 +5796,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole.cpp" line="329"/>
         <source>New Audio Triggers</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Audio Trigger</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="349"/>
