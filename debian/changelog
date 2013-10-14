@@ -1,3 +1,10 @@
+qlcplus (4.5.1) stable; urgency=low
+
+  * Added fixture: Chauvet 4Play (thanks to Ryan Schaefer)
+  * Added fixtures: American DJ Fusion FX Bar 1, Chauvet Intimidator Scan LED 200 (thanks to synkajax)
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 12 October 2013 12:13:04 +0200
+
 qlcplus (4.5.0) stable; urgency=low
 
   * NEW: Functions now have attributes. They can be controlled by right clicking on a Virtual Console button in operate mode
