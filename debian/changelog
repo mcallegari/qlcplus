@@ -1,3 +1,10 @@
+qlcplus (4.5.1) stable; urgency=low
+
+  * Added fixture: Chauvet 4Play (thanks to Ryan Schaefer)
+  * Added fixtures: American DJ Fusion FX Bar 1, Chauvet Intimidator Scan LED 200 (thanks to synkajax)
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 12 October 2013 12:13:04 +0200
+
 qlcplus (4.5.0) stable; urgency=low
 
   * NEW: Functions now have attributes. They can be controlled by right clicking on a Virtual Console button in operate mode
@@ -11,6 +18,7 @@ qlcplus (4.5.0) stable; urgency=low
   * NEW: In Fixture Editor, it is now possible to copy/paste physical information
   * NEW: "Stop all functions" now has 4 presets (1s, 5s, 10s, 30s) to fade out intensity channels before stopping
   * NEW: It is now possible to set a working range window in Virtual Console XY Pads (all credits for the CTK range slider go to the Common Toolkit team)
+  * NEW: Audio input and output card can be selected from Input/Output panel
   * EXPERIMENTAL: added web interface to run QLC+ on a headless system. Default port is 9999. Run QLC+ with '-w' option to enable web access.
   * Cue List "Stop" input turned into "Playback", to handle start/stop of a cue with one key
   * Improved Fixture Editor add mode channels procedure, to reduce fixture creation time

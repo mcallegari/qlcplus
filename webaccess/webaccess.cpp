@@ -564,13 +564,9 @@ QString WebAccess::getVCHTML()
 
     m_JScode = "<script language=\"javascript\" type=\"text/javascript\">\n"
             "var websocket;\n"
-            "function sendWSmessage(msg) {\n"
-            " websocket.send(msg);\n"
-            "};\n\n"
-
             "function sendCMD(cmd)\n"
             "{\n"
-            " sendWSmessage(\"QLC+CMD|\" + cmd);\n"
+            " websocket.send(\"QLC+CMD|\" + cmd);\n"
             "};\n\n"
 
             "window.onload = function() {\n"
