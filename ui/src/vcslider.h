@@ -33,11 +33,9 @@
 
 class QDomDocument;
 class QDomElement;
-class QPushButton;
 class QToolButton;
 class QHBoxLayout;
 class QLabel;
-class QTime;
 
 class VCSliderProperties;
 
@@ -438,30 +436,6 @@ protected:
     QLabel* m_bottomLabel;
 
     /*********************************************************************
-     * Tap button
-     *********************************************************************/
-public:
-    /**
-     * Set the text for the tap button
-     */
-    void setTapButtonText(const QString& text);
-
-    /**
-     * Get the text in the tap button
-     */
-    QString tapButtonText();
-
-public slots:
-    /**
-     * Callback for tap button clicks
-     */
-    void slotTapButtonClicked();
-
-protected:
-    QPushButton* m_tapButton;
-    QTime* m_time;
-
-    /*********************************************************************
      * Click & Go Button
      *********************************************************************/
 public:
@@ -507,16 +481,6 @@ protected:
     /*********************************************************************
      * External input
      *********************************************************************/
-protected:
-    /**
-     * Check, whether the given channel's type is QLCInputProfile::Button.
-     * If no input profile has been assigned to the universe, this will
-     * always return false.
-     *
-     * @return true if the channel represents a button, otherwise false
-     */
-    bool isButton(quint32 universe, quint32 channel);
-
 protected slots:
     /** Called when an external input device produces input data */
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
