@@ -5,6 +5,7 @@ LANGUAGE = C++
 TARGET   = vcbutton_test
 
 QT      += testlib xml gui script
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 INCLUDEPATH += ../../../plugins/interfaces
 INCLUDEPATH += ../../../engine/src

@@ -312,7 +312,7 @@ void QLCPhysical_Test::save()
         else
         {
             QFAIL(QString("Unexpected tag: %1").arg(e.tagName())
-                  .toAscii());
+                  .toLatin1());
         }
 
         node = node.nextSibling();

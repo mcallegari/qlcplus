@@ -47,7 +47,7 @@ bool AudioCaptureAlsa::initialize(unsigned int sampleRate, quint8 channels, quin
     if (var.isValid() == true)
         dev_name = var.toString();
 
-    pcm_name = strdup(dev_name.toAscii().data());
+    pcm_name = strdup(dev_name.toLatin1().data());
 
     if ((err = snd_pcm_open (&m_captureHandle, pcm_name, SND_PCM_STREAM_CAPTURE, 0)) < 0)
     {

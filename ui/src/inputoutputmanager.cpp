@@ -79,7 +79,6 @@ InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
     m_tree->setItemsExpandable(false);
     m_tree->setSortingEnabled(false);
     m_tree->setAllColumnsShowFocus(true);
-    m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
 
     QWidget* gcontainer = new QWidget(this);
     m_splitter->addWidget(gcontainer);
@@ -158,6 +157,11 @@ void InputOutputManager::updateItem(QTreeWidgetItem* item, quint32 universe)
     item->setText(KColumnProfile, ip->profileName());
     item->setText(KColumnInputNum, QString::number(ip->input() + 1));
     item->setText(KColumnOutputNum, QString::number(op->output() + 1));
+
+    m_tree->resizeColumnToContents(KColumnUniverse);
+    m_tree->resizeColumnToContents(KColumnInput);
+    m_tree->resizeColumnToContents(KColumnOutput);
+    m_tree->resizeColumnToContents(KColumnProfile);
 }
 
 void InputOutputManager::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)

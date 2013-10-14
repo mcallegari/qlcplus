@@ -307,5 +307,6 @@ void EnttecWing::slotPageChanged(quint32 pagesize, quint32 page)
 /*****************************************************************************
  * Plugin export
  ****************************************************************************/
-
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 Q_EXPORT_PLUGIN2(enttecwing, EnttecWing)
+#endif

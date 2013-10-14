@@ -23,7 +23,7 @@
 #include <QPluginLoader>
 #include <QDebug>
 
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
 #   include <windows.h>
 #endif
 

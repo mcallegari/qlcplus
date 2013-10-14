@@ -26,6 +26,7 @@
 #include <QScrollArea>
 #include <QMessageBox>
 #include <QToolButton>
+#include <QFileDialog>
 #include <QTabWidget>
 #include <QSplitter>
 #include <QToolBar>
@@ -315,7 +316,6 @@ void FixtureManager::initDataView()
     m_fixtures_tree->sortByColumn(KColumnAddress, Qt::AscendingOrder);
     m_fixtures_tree->setContextMenuPolicy(Qt::CustomContextMenu);
     m_fixtures_tree->setSelectionMode(QAbstractItemView::ExtendedSelection);
-    m_fixtures_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
     QFont m_font = QApplication::font();
     m_font.setPixelSize(13);
     m_fixtures_tree->setFont(m_font);
@@ -329,6 +329,11 @@ void FixtureManager::initDataView()
     connect(m_fixtures_tree, SIGNAL(customContextMenuRequested(const QPoint&)),
             this, SLOT(slotContextMenuRequested(const QPoint&)));
 
+    connect(m_fixtures_tree, SIGNAL(expanded(QModelIndex)),
+            this, SLOT(slotFixtureItemExpanded()));
+
+    connect(m_fixtures_tree, SIGNAL(collapsed(QModelIndex)),
+            this, SLOT(slotFixtureItemExpanded()));
 
     tabs->addTab(m_fixtures_tree, tr("Fixtures Groups"));
 
@@ -340,7 +345,6 @@ void FixtureManager::initDataView()
     m_channel_groups_tree->setAllColumnsShowFocus(true);
     m_channel_groups_tree->setIconSize(QSize(32, 32));
     m_channel_groups_tree->setSelectionMode(QAbstractItemView::ExtendedSelection);
-    m_channel_groups_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
     m_channel_groups_tree->setFont(m_font);
 
     connect(m_channel_groups_tree, SIGNAL(itemSelectionChanged()),
@@ -422,6 +426,10 @@ void FixtureManager::updateView()
 
     updateGroupMenu();
     slotModeChanged(m_doc->mode());
+
+    m_fixtures_tree->resizeColumnToContents(KColumnName);
+    m_fixtures_tree->resizeColumnToContents(KColumnAddress);
+    m_fixtures_tree->resizeColumnToContents(KColumnUniverse);
 }
 
 void FixtureManager::updateChannelsGroupView()
@@ -465,6 +473,9 @@ void FixtureManager::updateChannelsGroupView()
     m_exportAction->setEnabled(false);
     m_importAction->setEnabled(false);
     m_remapAction->setEnabled(false);
+
+    m_channel_groups_tree->resizeColumnToContents(KColumnName);
+    m_channel_groups_tree->resizeColumnToContents(KColumnChannels);
 }
 
 QTreeWidgetItem* FixtureManager::fixtureItem(quint32 id) const
@@ -765,6 +776,13 @@ void FixtureManager::slotTabChanged(int index)
     }
 
     m_currentTabIndex = index;
+}
+
+void FixtureManager::slotFixtureItemExpanded()
+{
+    m_fixtures_tree->resizeColumnToContents(KColumnName);
+    m_fixtures_tree->resizeColumnToContents(KColumnAddress);
+    m_fixtures_tree->resizeColumnToContents(KColumnUniverse);
 }
 
 void FixtureManager::selectGroup(quint32 id)
@@ -1436,7 +1454,7 @@ QString FixtureManager::createDialog(bool import)
     /* Append file filters to the dialog */
     QStringList filters;
     filters << tr("Fixtures List (*%1)").arg(KExtFixtureList);
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
     filters << tr("All Files (*.*)");
 #else
     filters << tr("All Files (*)");

@@ -44,6 +44,10 @@ ChannelsSelection::ChannelsSelection(Doc *doc, QWidget *parent, ChannelSelection
 
     connect(m_channelsTree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
             this, SLOT(slotItemChecked(QTreeWidgetItem*, int)));
+    connect(m_channelsTree, SIGNAL(expanded(QModelIndex)),
+            this, SLOT(slotItemExpanded()));
+    connect(m_channelsTree, SIGNAL(collapsed(QModelIndex)),
+            this, SLOT(slotItemExpanded()));
 }
 
 ChannelsSelection::~ChannelsSelection()
@@ -67,7 +71,6 @@ QList<SceneValue> ChannelsSelection::channelsList()
 void ChannelsSelection::updateFixturesTree()
 {
     m_channelsTree->clear();
-    m_channelsTree->header()->setResizeMode(QHeaderView::ResizeToContents);
     m_channelsTree->setIconSize(QSize(24, 24));
     m_channelsTree->setAllColumnsShowFocus(true);
 
@@ -132,6 +135,9 @@ void ChannelsSelection::updateFixturesTree()
             item->setText(KColumnChIdx, QString::number(c));
         }
     }
+    m_channelsTree->resizeColumnToContents(KColumnName);
+    m_channelsTree->resizeColumnToContents(KColumnType);
+    m_channelsTree->resizeColumnToContents(KColumnSelection);
 }
 
 void ChannelsSelection::slotItemChecked(QTreeWidgetItem *item, int col)
@@ -184,6 +190,13 @@ void ChannelsSelection::slotItemChecked(QTreeWidgetItem *item, int col)
     }
 
     m_isUpdating = false;
+}
+
+void ChannelsSelection::slotItemExpanded()
+{
+    m_channelsTree->resizeColumnToContents(KColumnName);
+    m_channelsTree->resizeColumnToContents(KColumnType);
+    m_channelsTree->resizeColumnToContents(KColumnSelection);
 }
 
 void ChannelsSelection::accept()

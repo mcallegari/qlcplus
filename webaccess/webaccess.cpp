@@ -107,7 +107,7 @@ int WebAccess::beginRequestHandler(mg_connection *conn)
               QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n"
               "<script type=\"text/javascript\">\n"
               " window.location = \"/\"\n"
-              "</script></head></html>").toAscii();
+              "</script></head></html>").toLatin1();
       int post_size = postReply.length();
       mg_printf(conn, "HTTP/1.1 200 OK\r\n"
                 "Content-Type: text/html\r\n"
@@ -126,7 +126,7 @@ int WebAccess::beginRequestHandler(mg_connection *conn)
   // Prepare the message we're going to send
   QString content = getVCHTML();
   int content_length = content.length();
-  QByteArray contentArray = content.toAscii();
+  QByteArray contentArray = content.toLatin1();
 
   // Send HTTP reply to the client
   mg_printf(conn,

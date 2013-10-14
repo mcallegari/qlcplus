@@ -6,6 +6,7 @@ TARGET   = qlcplus-fixtureeditor
 
 CONFIG += qt
 QT     += xml script
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 INCLUDEPATH += ../plugins/interfaces
 
@@ -24,6 +25,7 @@ win32:RC_FILE = fixtureeditor.rc
 HEADERS += ../ui/src/aboutbox.h \
            ../ui/src/docbrowser.h \
            ../ui/src/apputil.h \
+           addchannelsdialog.h \
            app.h \
            capabilitywizard.h \
            editcapability.h \
@@ -31,21 +33,21 @@ HEADERS += ../ui/src/aboutbox.h \
            edithead.h \
            editmode.h \
            fixtureeditor.h \
-           util.h \
-    addchannelsdialog.h
+           util.h
 
 FORMS += ../ui/src/aboutbox.ui \
+         addchannelsdialog.ui \
          capabilitywizard.ui \
          editcapability.ui \
          editchannel.ui \
          edithead.ui \
          editmode.ui \
-         fixtureeditor.ui \
-    addchannelsdialog.ui
+         fixtureeditor.ui
 
 SOURCES += ../ui/src/aboutbox.cpp \
            ../ui/src/docbrowser.cpp \
            ../ui/src/apputil.cpp \
+           addchannelsdialog.cpp \
            app.cpp \
            capabilitywizard.cpp \
            editcapability.cpp \
@@ -53,8 +55,7 @@ SOURCES += ../ui/src/aboutbox.cpp \
            edithead.cpp \
            editmode.cpp \
            fixtureeditor.cpp \
-           main.cpp \
-    addchannelsdialog.cpp
+           main.cpp
 
 TRANSLATIONS += fixtureeditor_fi_FI.ts
 TRANSLATIONS += fixtureeditor_fr_FR.ts

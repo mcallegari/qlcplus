@@ -20,7 +20,7 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
 #   include <Windows.h>
 #   include "libusb_dyn.h"
 #else

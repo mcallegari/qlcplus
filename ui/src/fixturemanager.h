@@ -146,6 +146,9 @@ private slots:
     /** Callback for tab selection changes */
     void slotTabChanged(int index);
 
+    /** Callback for fixture tree item expand/collapse */
+    void slotFixtureItemExpanded();
+
 private:
     /** Select a fixture group */
     void selectGroup(quint32 id);

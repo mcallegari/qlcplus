@@ -154,9 +154,6 @@ void EFXEditor::initGeneralPage()
     m_nameEdit->setText(m_efx->name());
     m_nameEdit->setSelection(0, m_nameEdit->text().length());
 
-    /* Resize columns to fit contents */
-    m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
-
     /* Put all of the EFX's fixtures to the tree view */
     updateFixtureTree();
 
@@ -344,6 +341,11 @@ void EFXEditor::updateFixtureTree()
     QListIterator <EFXFixture*> it(m_efx->fixtures());
     while (it.hasNext() == true)
         addFixtureItem(it.next());
+    m_tree->resizeColumnToContents(KColumnNumber);
+    m_tree->resizeColumnToContents(KColumnName);
+    m_tree->resizeColumnToContents(KColumnReverse);
+    m_tree->resizeColumnToContents(KColumnStartOffset);
+    m_tree->resizeColumnToContents(KColumnIntensity);
 }
 
 QTreeWidgetItem* EFXEditor::fixtureItem(EFXFixture* ef)
@@ -423,6 +425,12 @@ void EFXEditor::addFixtureItem(EFXFixture* ef)
     /* Select newly-added fixtures so that they can be moved quickly */
     m_tree->setCurrentItem(item);
     redrawPreview();
+
+    m_tree->resizeColumnToContents(KColumnNumber);
+    m_tree->resizeColumnToContents(KColumnName);
+    m_tree->resizeColumnToContents(KColumnReverse);
+    m_tree->resizeColumnToContents(KColumnStartOffset);
+    m_tree->resizeColumnToContents(KColumnIntensity);
 }
 
 void EFXEditor::updateIntensityColumn(QTreeWidgetItem* item, EFXFixture* ef)
@@ -478,6 +486,12 @@ void EFXEditor::removeFixtureItem(EFXFixture* ef)
 
     updateIndices(from, m_tree->topLevelItemCount() - 1);
     redrawPreview();
+
+    m_tree->resizeColumnToContents(KColumnNumber);
+    m_tree->resizeColumnToContents(KColumnName);
+    m_tree->resizeColumnToContents(KColumnReverse);
+    m_tree->resizeColumnToContents(KColumnStartOffset);
+    m_tree->resizeColumnToContents(KColumnIntensity);
 }
 
 void EFXEditor::createSpeedDials()
@@ -607,7 +621,7 @@ void EFXEditor::slotAddFixtureClicked()
                 delete ef;
         }
 
-	redrawPreview();
+        redrawPreview();
 
         // Continue running if appropriate
         continueRunning(running);

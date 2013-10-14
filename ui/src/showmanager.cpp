@@ -574,7 +574,7 @@ void ShowManager::slotAddAudio()
     QStringList filters;
     qDebug() << Q_FUNC_INFO << "Extensions: " << extList.join(" ");
     filters << tr("Audio Files (%1)").arg(extList.join(" "));
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
     filters << tr("All Files (*.*)");
 #else
     filters << tr("All Files (*)");

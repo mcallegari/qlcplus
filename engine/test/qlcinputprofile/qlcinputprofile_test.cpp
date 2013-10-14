@@ -389,7 +389,7 @@ void QLCInputProfile_Test::save()
     QString path("test.qxi");
     QVERIFY(ip.saveXML(path) == true);
 
-#ifndef WIN32
+#if !defined(WIN32) && !defined(Q_OS_WIN)
     QFile::Permissions perm = QFile::permissions(path);
     QFile::setPermissions(path, 0);
     QVERIFY(ip.saveXML(path) == false);

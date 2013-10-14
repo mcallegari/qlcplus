@@ -151,7 +151,6 @@ int FunctionSelection::exec()
             this, SLOT(slotItemDoubleClicked(QTreeWidgetItem*)));
 
     refillTree();
-    m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
 
     slotItemSelectionChanged();
 
@@ -258,6 +257,8 @@ void FunctionSelection::refillTree()
                 item->setFlags(0); // Disables the item
         }
     }
+    m_tree->resizeColumnToContents(KColumnName);
+    m_tree->resizeColumnToContents(KColumnType);
 }
 
 void FunctionSelection::slotItemSelectionChanged()

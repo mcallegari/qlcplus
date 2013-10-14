@@ -70,8 +70,6 @@ AddFixture::AddFixture(QWidget* parent, const Doc* doc, const Fixture* fxi)
     connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
     addAction(action);
 
-    m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
-
     connect(m_tree, SIGNAL(itemSelectionChanged()),
             this, SLOT(slotSelectionChanged()));
     connect(m_tree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),

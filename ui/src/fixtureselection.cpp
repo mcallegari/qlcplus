@@ -199,9 +199,12 @@ void FixtureSelection::fillTree()
     else
     {
         m_tree->sortItems(KColumnName, Qt::AscendingOrder);
-        m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
         m_buttonBox->setStandardButtons(QDialogButtonBox::Cancel);
     }
+    m_tree->resizeColumnToContents(KColumnName);
+    m_tree->resizeColumnToContents(KColumnHeads);
+    m_tree->resizeColumnToContents(KColumnManufacturer);
+    m_tree->resizeColumnToContents(KColumnModel);
 }
 
 void FixtureSelection::slotItemDoubleClicked()

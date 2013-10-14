@@ -61,6 +61,7 @@ protected:
 protected slots:
     void slotDumpModeChanged(bool mode);
     void slotDumpNonZeroChanged(bool active);
+    void slotItemExpanded();
 
     /** Callback for OK button clicks */
     void accept();

@@ -20,6 +20,7 @@
 */
 
 #include <QDomDocument>
+#include <QFontMetrics>
 #include <QDomElement>
 #include <QtTest>
 

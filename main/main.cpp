@@ -87,6 +87,7 @@ namespace QLCArgs
 /**
  * Suppresses debug messages
  */
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 void qlcMessageHandler(QtMsgType type, const char* msg)
 {
     if (type >= QLCArgs::debugLevel)
@@ -100,6 +101,24 @@ void qlcMessageHandler(QtMsgType type, const char* msg)
 #endif
     }
 }
+#else
+void qlcMessageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+{
+    Q_UNUSED(context)
+
+    QByteArray localMsg = msg.toLocal8Bit();
+    if (type >= QLCArgs::debugLevel)
+    {
+#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
+        if (QLCArgs::dbgBox != NULL)
+            QLCArgs::dbgBox->addText(msg);
+#else
+        fprintf(stderr, "%s\n", localMsg.constData());
+        fflush(stderr);
+#endif
+    }
+}
+#endif
 
 /**
  * Prints the application version
@@ -254,7 +273,11 @@ int main(int argc, char** argv)
     QLCi18n::loadTranslation("qlcplus");
 
     /* Handle debug messages */
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     qInstallMsgHandler(qlcMessageHandler);
+#else
+    qInstallMessageHandler(qlcMessageHandler);
+#endif
 
     /* Create and initialize the QLC application object */
     App app;

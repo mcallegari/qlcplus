@@ -4,6 +4,8 @@ TEMPLATE = lib
 LANGUAGE = C++
 TARGET   = udmx
 
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
 CONFIG      += plugin
 INCLUDEPATH += ../../interfaces
 DEPENDPATH  += ../../interfaces

@@ -8,6 +8,7 @@ TARGET   = enttecwing
 INCLUDEPATH   += ../../interfaces
 CONFIG        += plugin
 QT            += network
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 win32:DEFINES += QLC_EXPORT
 QTPLUGIN       =
 

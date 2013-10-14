@@ -146,5 +146,6 @@ bool DMX4Linux::canConfigure()
 /*****************************************************************************
  * Plugin export
  ****************************************************************************/
-
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 Q_EXPORT_PLUGIN2(dmx4linux, DMX4Linux)
+#endif

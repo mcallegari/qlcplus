@@ -33,9 +33,9 @@ class QString;
 #define KExtFixtureList  ".qxfl" // 'Q'LC+ 'X'ml 'F'ixture 'L'ist
 #define KExtWorkspace    ".qxw" // 'Q'LC+ 'X'ml 'W'orkspace
 #define KExtInputProfile ".qxi" // 'Q'LC+ 'X'ml 'I'nput profile
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
 #   define KExtPlugin    ".dll" // Dynamic-Link Library
-#elif __APPLE__
+#elif defined(__APPLE__) || defined(Q_OS_MAC)
 #   define KExtPlugin  ".dylib" // DYnamic LIBrary
 #else
 #   define KExtPlugin    ".so"  // Shared Object

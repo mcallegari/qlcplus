@@ -22,7 +22,7 @@
 #include <QtTest>
 #include <QtXml>
 
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
 #else
 #   include <sys/types.h>
 #   include <sys/stat.h>
@@ -48,7 +48,7 @@ void QLCFile_Test::readXML()
     QCOMPARE(doc.firstChild().firstChild().toElement().tagName(), QString("Creator"));
 
 	QString path("readonly.xml");
-#ifndef WIN32
+#if !defined(WIN32) && !defined(Q_OS_WIN)
 	QFile::Permissions perms = QFile::permissions(path);
 	QFile::setPermissions(path, 0);
     doc = QLCFile::readXML(path);

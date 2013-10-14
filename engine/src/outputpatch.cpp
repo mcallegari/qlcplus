@@ -19,7 +19,7 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
 #   define WIN32_LEAN_AND_MEAN
 #   include <Windows.h>
 #else
@@ -74,7 +74,7 @@ void OutputPatch::reconnect()
     if (m_plugin != NULL && m_output != QLCIOPlugin::invalidLine())
     {
         m_plugin->closeOutput(m_output);
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
         Sleep(GRACE_MS);
 #else
         usleep(GRACE_MS * 1000);

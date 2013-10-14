@@ -22,10 +22,14 @@
 
 #include <QToolButton>
 #include <QtCore>
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 #include <QtGui>
+#else
+#include <QtWidgets>
+#endif
 #include <QtXml>
 
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
   #include <windows.h>
 #endif
 
@@ -233,7 +237,7 @@ void App::init()
 
     QString ssDir;
 
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
     /* User's input profile directory on Windows */
     LPTSTR home = (LPTSTR) malloc(256 * sizeof(TCHAR));
     GetEnvironmentVariable(TEXT("UserProfile"), home, 256);
@@ -816,7 +820,7 @@ QFile::FileError App::slotFileOpen()
     /* Append file filters to the dialog */
     QStringList filters;
     filters << tr("Workspaces (*%1)").arg(KExtWorkspace);
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
     filters << tr("All Files (*.*)");
 #else
     filters << tr("All Files (*)");
@@ -893,7 +897,7 @@ QFile::FileError App::slotFileSaveAs()
     /* Append file filters to the dialog */
     QStringList filters;
     filters << tr("Workspaces (*%1)").arg(KExtWorkspace);
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
     filters << tr("All Files (*.*)");
 #else
     filters << tr("All Files (*)");

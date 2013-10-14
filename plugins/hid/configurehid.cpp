@@ -46,7 +46,6 @@ ConfigureHID::ConfigureHID(QWidget* parent, HID* plugin)
 
     /* Setup UI controls */
     setupUi(this);
-    m_list->header()->setResizeMode(QHeaderView::ResizeToContents);
 
     connect(m_refreshButton, SIGNAL(clicked()),
             this, SLOT(slotRefreshClicked()));
@@ -93,6 +92,8 @@ void ConfigureHID::refreshList()
         item->setText(KColumnName, dev->name());
         item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
     }
+    m_list->resizeColumnToContents(KColumnNumber);
+    m_list->resizeColumnToContents(KColumnName);
 }
 
 void ConfigureHID::slotDeviceAdded(HIDDevice*)

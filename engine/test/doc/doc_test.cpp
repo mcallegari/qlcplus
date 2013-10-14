@@ -707,7 +707,7 @@ void Doc_Test::save()
             QFAIL("Bus tags should not be saved anymore!");
         else
             QFAIL(QString("Unexpected tag: %1")
-                  .arg(tag.tagName()).toAscii());
+                  .arg(tag.tagName()).toLatin1());
 
         node = node.nextSibling();
     }

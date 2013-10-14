@@ -19,6 +19,7 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
+#include <QGraphicsSceneMouseEvent>
 #include <QtGui>
 #include <QMenu>
 
@@ -281,11 +282,11 @@ TrackItem::TrackItem(Track *track, int number)
     , m_isMute(false)
     , m_isSolo(false)
 {
-    m_font = QApplication::font();
+    m_font = qApp->font(); // QApplication::font();
     m_font.setBold(true);
     m_font.setPixelSize(12);
 
-    m_btnFont = QApplication::font();
+    m_btnFont = qApp->font(); //QApplication::font();
     m_btnFont.setBold(true);
     m_btnFont.setPixelSize(12);
 
@@ -369,7 +370,7 @@ void TrackItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 void TrackItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
 {
     QMenu menu;
-    QFont menuFont = QApplication::font();
+    QFont menuFont = qApp->font(); // QApplication::font();
     menuFont.setPixelSize(14);
     menu.setFont(menuFont);
 
@@ -478,7 +479,7 @@ SequenceItem::SequenceItem(Chaser *seq)
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     m_color = m_chaser->getColor();
     calculateWidth();
-    m_font = QApplication::font();
+    m_font = qApp->font(); //QApplication::font();
     m_font.setBold(true);
     m_font.setPixelSize(12);
     connect(m_chaser, SIGNAL(changed(quint32)), this, SLOT(slotSequenceChanged(quint32)));
@@ -674,7 +675,7 @@ void SequenceItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 void SequenceItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
 {
     QMenu menu;
-    QFont menuFont = QApplication::font();
+    QFont menuFont = qApp->font(); //QApplication::font();
     menuFont.setPixelSize(14);
     menu.setFont(menuFont);
 
@@ -713,7 +714,7 @@ AudioItem::AudioItem(Audio *aud)
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     m_color = m_audio->getColor();
 
-    m_font = QApplication::font();
+    m_font = qApp->font(); //QApplication::font();
     m_font.setBold(true);
     m_font.setPixelSize(12);
 
@@ -1068,7 +1069,7 @@ void AudioItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 void AudioItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
 {
     QMenu menu;
-    QFont menuFont = QApplication::font();
+    QFont menuFont = qApp->font(); //QApplication::font();
     menuFont.setPixelSize(14);
     menu.setFont(menuFont);
 

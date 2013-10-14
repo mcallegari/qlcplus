@@ -41,7 +41,7 @@ AudioRendererAlsa::AudioRendererAlsa(QObject * parent)
         dev_name = var.toString();
 
     m_use_mmap = false;
-    pcm_name = strdup(dev_name.toAscii().data());
+    pcm_name = strdup(dev_name.toLatin1().data());
     pcm_handle = NULL;
     m_prebuf = NULL;
     m_prebuf_size = 0;
