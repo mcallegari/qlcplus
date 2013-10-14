@@ -34,34 +34,34 @@
     <message>
         <location filename="addchannelsdialog.ui" line="14"/>
         <source>Fixture Mode Channels Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerätemodus Kanaleditor</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="30"/>
         <source>Available channels</source>
         <oldsource>All channels</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Verfügbare Kanäle</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="52"/>
         <source>&gt;&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&gt;&gt;</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="65"/>
         <source>&lt;&lt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;&lt;</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="94"/>
         <location filename="addchannelsdialog.ui" line="116"/>
         <source>Name</source>
-        <translation type="unfinished">Name</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="102"/>
         <source>Mode channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Modus Kanäle</translation>
     </message>
 </context>
 <context>
@@ -803,12 +803,12 @@
     <message>
         <location filename="editmode.ui" line="953"/>
         <source>Copy physical information to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Phyische Informationen in die Zwischenablage kopieren</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="970"/>
         <source>Paste physical information from clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Physische Informationen aus der Zwischenablage einfügen</translation>
     </message>
 </context>
 <context>
