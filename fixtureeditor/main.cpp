@@ -130,7 +130,7 @@ void loadTranslation(const QString& locale, QApplication& app)
         lc = FXEDArgs::locale;
     QString file(QString("qlcplus_%1").arg(lc));
 
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(Q_OS_MAC)
     QString path(QString("%1/../%2").arg(QApplication::applicationDirPath())
                  .arg(TRANSLATIONDIR));
 #else
@@ -159,7 +159,7 @@ int main(int argc, char** argv)
     /* Create the Qt core application object */
     QApplication qapp(argc, argv);
 
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(Q_OS_MAC)
     /* Load plugins from within the bundle ONLY */
     QDir dir(QApplication::applicationDirPath());
     dir.cdUp();

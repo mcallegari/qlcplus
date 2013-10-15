@@ -156,7 +156,7 @@ DocBrowser::DocBrowser(QWidget* parent)
 
     /* Set document search paths */
     QStringList searchPaths;
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(Q_OS_MAC)
     searchPaths << QString("%1/../%2/html/")
     .arg(QApplication::applicationDirPath())
     .arg(DOCSDIR);

@@ -62,10 +62,14 @@ FixtureRemap::FixtureRemap(Doc *doc, QWidget *parent)
             this, SLOT(slotAddTargetFixture()));
     connect(m_removeButton, SIGNAL(clicked()),
             this, SLOT(slotRemoveTargetFixture()));
+    connect(m_cloneButton, SIGNAL(clicked()),
+            this, SLOT(slotCloneSourceFixture()));
     connect(m_remapButton, SIGNAL(clicked()),
             this, SLOT(slotAddRemap()));
     connect(m_unmapButton, SIGNAL(clicked()),
             this, SLOT(slotRemoveRemap()));
+
+    m_cloneButton->setEnabled(false);
 
     remapWidget = new RemapWidget(m_sourceTree, m_targetTree, this);
     remapWidget->show();
@@ -91,6 +95,8 @@ FixtureRemap::FixtureRemap(Doc *doc, QWidget *parent)
             this, SLOT(slotUpdateConnections()));
     connect(m_sourceTree, SIGNAL(collapsed(QModelIndex)),
             this, SLOT(slotUpdateConnections()));
+    connect(m_sourceTree, SIGNAL(itemSelectionChanged()),
+            this, SLOT(slotSourceSelectionChanged()));
 
     connect(m_targetTree->verticalScrollBar(), SIGNAL(valueChanged(int)),
             this, SLOT(slotUpdateConnections()));
@@ -118,31 +124,39 @@ FixtureRemap::~FixtureRemap()
     delete m_targetDoc;
 }
 
+QTreeWidgetItem *FixtureRemap::getUniverseItem(quint32 universe, QTreeWidget *tree)
+{
+    QTreeWidgetItem *topItem = NULL;
+
+    for (int i = 0; i < tree->topLevelItemCount(); i++)
+    {
+        QTreeWidgetItem* tItem = tree->topLevelItem(i);
+        quint32 tUni = tItem->text(KColumnUniverse).toUInt();
+        if (tUni == universe)
+        {
+            topItem = tItem;
+            break;
+        }
+    }
+
+    // Haven't found this universe node ? Create it.
+    if (topItem == NULL)
+    {
+        topItem = new QTreeWidgetItem(tree);
+        topItem->setText(KColumnName, tr("Universe %1").arg(universe + 1));
+        topItem->setText(KColumnUniverse, QString::number(universe));
+        topItem->setExpanded(true);
+    }
+
+    return topItem;
+}
+
 void FixtureRemap::fillFixturesTree(Doc *doc, QTreeWidget *tree)
 {
     foreach(Fixture *fxi, doc->fixtures())
     {
-        QTreeWidgetItem *topItem = NULL;
         quint32 uni = fxi->universe();
-        for (int i = 0; i < tree->topLevelItemCount(); i++)
-        {
-            QTreeWidgetItem* tItem = tree->topLevelItem(i);
-            quint32 tUni = tItem->text(KColumnUniverse).toUInt();
-            if (tUni == uni)
-            {
-                topItem = tItem;
-                break;
-            }
-        }
-
-        // Haven't found this universe node ? Create it.
-        if (topItem == NULL)
-        {
-            topItem = new QTreeWidgetItem(tree);
-            topItem->setText(KColumnName, tr("Universe %1").arg(uni + 1));
-            topItem->setText(KColumnUniverse, QString::number(uni));
-            topItem->setExpanded(true);
-        }
+        QTreeWidgetItem *topItem = getUniverseItem(uni, tree);
 
         quint32 baseAddr = fxi->address();
         QTreeWidgetItem *fItem = new QTreeWidgetItem(topItem);
@@ -219,25 +233,7 @@ void FixtureRemap::slotAddTargetFixture()
 
         m_targetDoc->addFixture(fxi);
 
-        QTreeWidgetItem *topItem = NULL;
-        for (int i = 0; i < m_targetTree->topLevelItemCount(); i++)
-        {
-            QTreeWidgetItem* tItem = m_targetTree->topLevelItem(i);
-            quint32 tUni = tItem->text(KColumnUniverse).toUInt();
-            if (tUni == universe)
-            {
-                topItem = tItem;
-                break;
-            }
-        }
-        // Haven't found this universe node ? Create it.
-        if (topItem == NULL)
-        {
-            topItem = new QTreeWidgetItem(m_targetTree);
-            topItem->setText(KColumnName, tr("Universe %1").arg(universe + 1));
-            topItem->setText(KColumnUniverse, QString::number(universe));
-            topItem->setExpanded(true);
-        }
+        QTreeWidgetItem *topItem = getUniverseItem(universe, m_targetTree);
 
         quint32 baseAddr = fxi->address();
         QTreeWidgetItem *fItem = new QTreeWidgetItem(topItem);
@@ -305,6 +301,80 @@ void FixtureRemap::slotRemoveTargetFixture()
     m_targetTree->resizeColumnToContents(KColumnName);
 
     qDebug() << "Fixtures in target doc:" << m_targetDoc->fixtures().count();
+}
+
+void FixtureRemap::slotCloneSourceFixture()
+{
+    if (m_sourceTree->selectedItems().count() == 0)
+        return; // popup here ??
+
+    QTreeWidgetItem *sItem = m_sourceTree->selectedItems().first();
+    quint32 fxID = sItem->text(KColumnID).toUInt();
+    Fixture *srcFix = m_doc->fixture(fxID);
+    if (srcFix == NULL)
+        return; // popup here ?
+
+    quint32 srcAddr = srcFix->universeAddress();
+    for (quint32 i = srcAddr; i < srcAddr + srcFix->channels(); i++)
+    {
+        quint32 fxCheck = m_targetDoc->fixtureForAddress(i);
+        if (fxCheck != Fixture::invalidId())
+        {
+            QMessageBox::warning(this,
+                                 tr("Invalid operation"),
+                                 tr("You are trying to clone a fixture on an address already in use. "
+                                    "Please fix the target list first."));
+            return;
+        }
+    }
+
+    // create a copy of the fixture and add it to the target document
+    /* Create the target fixture */
+    Fixture* tgtFix = new Fixture(m_targetDoc);
+
+    /* Add the first fixture without gap, at the given address */
+    tgtFix->setAddress(srcFix->address());
+    tgtFix->setUniverse(srcFix->universe());
+    tgtFix->setName(srcFix->name());
+
+    /* Set a fixture definition & mode if they were selected.
+       Otherwise assign channels to a generic dimmer. */
+    if (srcFix->fixtureDef() != NULL && srcFix->fixtureMode() != NULL)
+        tgtFix->setFixtureDefinition(srcFix->fixtureDef(), srcFix->fixtureMode());
+    else
+        tgtFix->setChannels(srcFix->channels());
+
+    m_targetDoc->addFixture(tgtFix);
+
+    // create the tree element and add it to the target tree
+    QTreeWidgetItem *topItem = getUniverseItem(tgtFix->universe(), m_targetTree);
+    quint32 baseAddr = tgtFix->address();
+    QTreeWidgetItem *fItem = new QTreeWidgetItem(topItem);
+    fItem->setText(KColumnName, tgtFix->name());
+    fItem->setIcon(KColumnName, tgtFix->getIconFromType(tgtFix->type()));
+    fItem->setText(KColumnAddress, QString("%1 - %2").arg(baseAddr + 1).arg(baseAddr + tgtFix->channels()));
+    fItem->setText(KColumnUniverse, QString::number(tgtFix->universe()));
+    fItem->setText(KColumnID, QString::number(tgtFix->id()));
+
+    for (quint32 c = 0; c < tgtFix->channels(); c++)
+    {
+        const QLCChannel* channel = tgtFix->channel(c);
+        QTreeWidgetItem *item = new QTreeWidgetItem(fItem);
+        item->setText(KColumnName, QString("%1:%2").arg(c + 1)
+                      .arg(channel->name()));
+        item->setIcon(KColumnName, channel->getIconFromGroup(channel->group()));
+        item->setText(KColumnUniverse, QString::number(tgtFix->universe()));
+        item->setText(KColumnID, QString::number(tgtFix->id()));
+        item->setText(KColumnChIdx, QString::number(c));
+    }
+
+    m_targetTree->resizeColumnToContents(KColumnName);
+
+    foreach(QTreeWidgetItem *it, m_targetTree->selectedItems())
+        it->setSelected(false);
+    fItem->setSelected(true);
+
+    slotAddRemap();
 }
 
 void FixtureRemap::slotAddRemap()
@@ -421,6 +491,23 @@ void FixtureRemap::slotRemoveRemap()
 void FixtureRemap::slotUpdateConnections()
 {
     remapWidget->update();
+}
+
+void FixtureRemap::slotSourceSelectionChanged()
+{
+    if (m_sourceTree->selectedItems().count() > 0)
+    {
+        QTreeWidgetItem *item = m_sourceTree->selectedItems().first();
+        bool fxOK = false, chOK = false;
+        item->text(KColumnID).toUInt(&fxOK);
+        item->text(KColumnChIdx).toInt(&chOK);
+        if (fxOK == true && chOK == false)
+            m_cloneButton->setEnabled(true);
+        else
+            m_cloneButton->setEnabled(false);
+    }
+    else
+        m_cloneButton->setEnabled(false);
 }
 
 QList<SceneValue> FixtureRemap::remapSceneValues(QList<SceneValue> funcList,

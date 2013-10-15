@@ -1,5 +1,5 @@
 #include <QCoreApplication>
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
 #   include "win32ioenumerator.h"
 #else
 #   include "unixioenumerator.h"

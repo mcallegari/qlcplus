@@ -192,7 +192,7 @@ bool QLCCapability::saveXML(QDomDocument* doc, QDomElement* root)
     {
         QString modFilename = m_resourceName;
         QDir dir;
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(Q_OS_MAC)
         dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
                     .arg(GOBODIR));
         dir = dir.cleanPath(dir.path());
@@ -262,7 +262,7 @@ bool QLCCapability::loadXML(const QDomElement& root)
         QString path = root.attribute(KXMLQLCCapabilityResource);
         if (QFileInfo(path).isRelative())
         {
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(Q_OS_MAC)
             QDir dir;
             dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
                         .arg(GOBODIR));

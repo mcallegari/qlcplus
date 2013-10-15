@@ -252,7 +252,7 @@ int main(int argc, char** argv)
     /* At least MIDI plugin requires this so best to declare it here for everyone */
     qRegisterMetaType<QVariant>("QVariant");
 
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(Q_OS_MAC)
     /* Load plugins from within the bundle ONLY */
     QDir dir(QApplication::applicationDirPath());
     dir.cdUp();

@@ -423,7 +423,7 @@ QDir InputMap::systemProfileDirectory()
 {
     QDir dir;
 
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(Q_OS_MAC)
     dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
                               .arg(INPUTPROFILEDIR));
 #else

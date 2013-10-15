@@ -328,7 +328,7 @@ QList <RGBScript> RGBScript::scripts(const QDir& dir)
 QDir RGBScript::systemScriptDirectory()
 {
     QDir dir;
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(Q_OS_MAC)
     dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
                                    .arg(RGBSCRIPTDIR));
 #else

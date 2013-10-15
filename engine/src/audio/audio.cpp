@@ -345,10 +345,10 @@ void Audio::preRun(MasterTimer* timer)
     {
         m_decoder->seek(elapsed());
         AudioParameters ap = m_decoder->audioParameters();
-#if defined(__APPLE__)
+#if defined(__APPLE__) || defined(Q_OS_MAC)
         //m_audio_out = new AudioRendererCoreAudio();
         m_audio_out = new AudioRendererPortAudio();
-#elif defined(WIN32)
+#elif defined(WIN32) || defined(Q_OS_WIN)
         m_audio_out = new AudioRendererWaveOut();
 #else
         m_audio_out = new AudioRendererAlsa();

@@ -54,18 +54,24 @@ private:
     QList <RemapInfo> m_remapList;
 
 protected:
+    QTreeWidgetItem *getUniverseItem(quint32 universe, QTreeWidget *tree);
+
     void fillFixturesTree(Doc *doc, QTreeWidget *tree);
+
     QList<SceneValue> remapSceneValues(QList<SceneValue> funcList,
                                        QList<SceneValue> &srcList,
                                        QList<SceneValue> &tgtList);
+
     QList<VCWidget *> getVCChildren(VCWidget *obj);
 
 protected slots:
     void slotAddTargetFixture();
     void slotRemoveTargetFixture();
+    void slotCloneSourceFixture();
     void slotAddRemap();
     void slotRemoveRemap();
     void slotUpdateConnections();
+    void slotSourceSelectionChanged();
 
     /** Callback for OK button clicks */
     void accept();

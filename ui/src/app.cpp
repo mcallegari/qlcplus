@@ -152,7 +152,7 @@ App::~App()
 
 void App::startup()
 {
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(Q_OS_MAC)
     createProgressDialog();
 #endif
 
@@ -160,7 +160,7 @@ void App::startup()
     slotModeDesign();
     slotDocModified(false);
 
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(Q_OS_MAC)
     destroyProgressDialog();
 #endif
 
