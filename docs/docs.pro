@@ -20,15 +20,12 @@ docs.files = \
              dmxdump.html \
              dmxusbplugin.html \
              efxeditor.html \
-             efx-general.png \
-             efx-movement.png \
              fixturedefinitioneditor.html \
              fixtureeditor.html \
              fixturegroupeditor.html \
              fixturemanager.html \
              fixturemonitor.html \
              fixturesremap.html \
-             fixremap.png \
              functionmanager.html \
              functionwizard.html \
              guicustomstyles.html \
@@ -39,7 +36,6 @@ docs.files = \
              index.html \
              liveedit.html \
              mainwindow.html \
-             mainwindow2.png \
              midiplugin.html \
              modeeditor.html \
              olaplugin.html \
@@ -57,9 +53,6 @@ docs.files = \
              showmanager.html \
              simpledesk.html \
              tutorial.html \
-             tutorial1_1.png \
-             tutorial1_2.png \
-             tutorial1_3.png \
              udmxoutput.html \
              vcbutton.html \
              vcbuttonmatrix.html \
@@ -74,5 +67,13 @@ docs.files = \
              vcxypad.html \
              vellemanoutput.html \
              virtualconsole.html
+             
+docs.files += images/efx-general.png \
+              images/efx-movement.png \
+              images/fixremap.png \
+              images/mainwindow.png \
+              images/tutorial1_1.png \
+              images/tutorial1_2.png \
+              images/tutorial1_3.png
 
 INSTALLS += docs
