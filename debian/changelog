@@ -2,7 +2,8 @@ qlcplus (4.5.1) stable; urgency=low
 
   * Fixtures remapping: added a button to clone and autopatch a fixture from the source list
   * Function selection: added radio buttons to show all or only the running functions
-  * Fixed regression on VC buttons name
+  * Virtual Console: fixed regression on buttons name auto assign
+  * Virtual Console: fixed multi page functionality for solo frames
   * Added fixture: Chauvet 4Play (thanks to Ryan Schaefer)
   * Added fixtures: American DJ Fusion FX Bar 1, Chauvet Intimidator Scan LED 200 (thanks to synkajax)
 

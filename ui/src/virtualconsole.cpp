@@ -692,6 +692,15 @@ void VirtualConsole::checkWidgetPage(VCWidget *widget, VCWidget *parent)
             frame->addWidgetToPageMap(widget);
         }
     }
+    else if (parent->type() == VCWidget::SoloFrameWidget)
+    {
+        VCSoloFrame *frame = (VCSoloFrame *)parent;
+        if (frame->multipageMode() == true)
+        {
+            widget->setPage(frame->currentPage());
+            frame->addWidgetToPageMap(widget);
+        }
+    }
 }
 
 void VirtualConsole::slotAddButton()
@@ -1150,6 +1159,12 @@ void VirtualConsole::slotEditDelete()
                 if (parent->type() == VCWidget::FrameWidget)
                 {
                     VCFrame *frame = (VCFrame *)parent;
+                    if (frame->multipageMode() == true)
+                        frame->removeWidgetFromPageMap(widget);
+                }
+                else if (parent->type() == VCWidget::SoloFrameWidget)
+                {
+                    VCSoloFrame *frame = (VCSoloFrame *)parent;
                     if (frame->multipageMode() == true)
                         frame->removeWidgetFromPageMap(widget);
                 }

@@ -109,15 +109,15 @@ protected:
      *********************************************************************/
 public:
     void setMultipageMode(bool enable);
-    bool multipageMode() const;
+    virtual bool multipageMode() const;
 
     void setTotalPagesNumber(int num);
     int totalPagesNumber();
 
-    int currentPage();
+    virtual int currentPage();
 
-    void addWidgetToPageMap(VCWidget *widget);
-    void removeWidgetFromPageMap(VCWidget *widget);
+    virtual void addWidgetToPageMap(VCWidget *widget);
+    virtual void removeWidgetFromPageMap(VCWidget *widget);
 
 protected slots:
     void slotPreviousPage();
