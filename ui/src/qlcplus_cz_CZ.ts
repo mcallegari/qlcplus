@@ -2460,87 +2460,97 @@ Délka: %3
         <translation>Volba funkce</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="36"/>
+        <location filename="functionselection.ui" line="22"/>
+        <source>All functions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="functionselection.ui" line="32"/>
+        <source>Running functions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="functionselection.ui" line="57"/>
         <source>Name</source>
         <translation>Název</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="41"/>
+        <location filename="functionselection.ui" line="62"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="49"/>
+        <location filename="functionselection.ui" line="70"/>
         <source>Filter</source>
         <translation>Filtr</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="55"/>
+        <location filename="functionselection.ui" line="76"/>
         <source>Display collections in the list</source>
         <translation>Zobrazit kolekce v seznamu</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="58"/>
+        <location filename="functionselection.ui" line="79"/>
         <source>Collections</source>
         <translation>Kolekce</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="65"/>
+        <location filename="functionselection.ui" line="86"/>
         <source>Display scripts in the list</source>
         <translation>Zobrazit skripty v seznamu</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="68"/>
+        <location filename="functionselection.ui" line="89"/>
         <source>Scripts</source>
         <translation>Skripty</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="75"/>
+        <location filename="functionselection.ui" line="96"/>
         <source>Display chasers in the list</source>
         <translation>Zobrazit prolínání v seznamu</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="78"/>
+        <location filename="functionselection.ui" line="99"/>
         <source>Chasers</source>
         <translation>Prolínání</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="85"/>
+        <location filename="functionselection.ui" line="106"/>
         <source>Display RGB Matrixes in the list</source>
         <translation>Zobrazit RGB šablony v seznamu</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="88"/>
+        <location filename="functionselection.ui" line="109"/>
         <source>RGB matrixes</source>
         <translation>RGB šablony</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="95"/>
+        <location filename="functionselection.ui" line="116"/>
         <source>Display EFX&apos;s in the list</source>
         <translation>Zobrazit EFX v seznamu</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="98"/>
+        <location filename="functionselection.ui" line="119"/>
         <source>EFX&apos;s</source>
         <translation>EFX</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="105"/>
+        <location filename="functionselection.ui" line="126"/>
         <source>Display scenes in the list</source>
         <translation>Zobrazit scény v seznamu</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="108"/>
+        <location filename="functionselection.ui" line="129"/>
         <source>Scenes</source>
         <translation>Scény</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="115"/>
+        <location filename="functionselection.ui" line="136"/>
         <source>Shows</source>
         <translation>Představení</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="122"/>
+        <location filename="functionselection.ui" line="143"/>
         <source>Audio</source>
         <translation>Zvuky</translation>
     </message>
@@ -4223,6 +4233,11 @@ Délka: %3
         <location filename="vcbuttonproperties.cpp" line="134"/>
         <source>No function</source>
         <translation>Bez funkce</translation>
+    </message>
+    <message>
+        <location filename="vcbuttonproperties.cpp" line="139"/>
+        <source>Button %1</source>
+        <translation type="unfinished">Tlačítko %1</translation>
     </message>
 </context>
 <context>

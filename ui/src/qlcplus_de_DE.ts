@@ -2468,87 +2468,97 @@ Dauer: %3
         <translation>Funktion auswählen</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="36"/>
+        <location filename="functionselection.ui" line="22"/>
+        <source>All functions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="functionselection.ui" line="32"/>
+        <source>Running functions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="functionselection.ui" line="57"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="41"/>
+        <location filename="functionselection.ui" line="62"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="49"/>
+        <location filename="functionselection.ui" line="70"/>
         <source>Filter</source>
         <translation>Filter</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="55"/>
+        <location filename="functionselection.ui" line="76"/>
         <source>Display collections in the list</source>
         <translation>Sammlungen in der Liste anzeigen</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="65"/>
+        <location filename="functionselection.ui" line="86"/>
         <source>Display scripts in the list</source>
         <translation>Skripte in der Liste anzeigen</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="68"/>
+        <location filename="functionselection.ui" line="89"/>
         <source>Scripts</source>
         <translation>Skripte</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="75"/>
+        <location filename="functionselection.ui" line="96"/>
         <source>Display chasers in the list</source>
         <translation>Chaser in der Liste anzeigen</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="85"/>
+        <location filename="functionselection.ui" line="106"/>
         <source>Display RGB Matrixes in the list</source>
         <translation>RGB Matrixen in der Liste anzeigen</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="88"/>
+        <location filename="functionselection.ui" line="109"/>
         <source>RGB matrixes</source>
         <translation>RGB Matrixen</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="95"/>
+        <location filename="functionselection.ui" line="116"/>
         <source>Display EFX&apos;s in the list</source>
         <translation>Effekte in der Liste anzeigen</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="105"/>
+        <location filename="functionselection.ui" line="126"/>
         <source>Display scenes in the list</source>
         <translation>Szenen in der Liste anzeigen</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="108"/>
+        <location filename="functionselection.ui" line="129"/>
         <source>Scenes</source>
         <translation>Szenen</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="115"/>
+        <location filename="functionselection.ui" line="136"/>
         <source>Shows</source>
         <translation>Shows</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="122"/>
+        <location filename="functionselection.ui" line="143"/>
         <source>Audio</source>
         <translation>Audio</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="78"/>
+        <location filename="functionselection.ui" line="99"/>
         <source>Chasers</source>
         <translation>Chasers</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="98"/>
+        <location filename="functionselection.ui" line="119"/>
         <source>EFX&apos;s</source>
         <translation>Effekte</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="58"/>
+        <location filename="functionselection.ui" line="79"/>
         <source>Collections</source>
         <translation>Sammlungen</translation>
     </message>
@@ -4237,6 +4247,11 @@ Dauer: %3
         <location filename="vcbuttonproperties.cpp" line="134"/>
         <source>No function</source>
         <translation>Keine Funktion</translation>
+    </message>
+    <message>
+        <location filename="vcbuttonproperties.cpp" line="139"/>
+        <source>Button %1</source>
+        <translation type="unfinished">Schalter %1</translation>
     </message>
 </context>
 <context>

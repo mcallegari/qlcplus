@@ -2147,7 +2147,7 @@ Durata: %3
     <message>
         <location filename="fixtureremap.ui" line="69"/>
         <source>Clone and auto-remap the selected source fixture</source>
-        <translation type="unfinished"></translation>
+        <translation>Clona e riassegna automaticamente la fixture sorgente selezionata</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="93"/>
@@ -2219,12 +2219,12 @@ Durata: %3
     <message>
         <location filename="fixtureremap.cpp" line="324"/>
         <source>Invalid operation</source>
-        <translation type="unfinished"></translation>
+        <translation>Operazione non valida</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="325"/>
         <source>You are trying to clone a fixture on an address already in use. Please fix the target list first.</source>
-        <translation type="unfinished"></translation>
+        <translation>Stai cercando di clonare una fixture su un indirizzo già in uso. Devi prima correggere la lista di destinazione.</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="386"/>
@@ -2468,87 +2468,97 @@ Durata: %3
         <translation>Seleziona una Funzione</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="36"/>
+        <location filename="functionselection.ui" line="22"/>
+        <source>All functions</source>
+        <translation>Tutte le funzioni</translation>
+    </message>
+    <message>
+        <location filename="functionselection.ui" line="32"/>
+        <source>Running functions</source>
+        <translation>Funzioni in esecuzione</translation>
+    </message>
+    <message>
+        <location filename="functionselection.ui" line="57"/>
         <source>Name</source>
         <translation>Nome</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="41"/>
+        <location filename="functionselection.ui" line="62"/>
         <source>Type</source>
         <translation>Tipo</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="49"/>
+        <location filename="functionselection.ui" line="70"/>
         <source>Filter</source>
         <translation>Filtro</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="55"/>
+        <location filename="functionselection.ui" line="76"/>
         <source>Display collections in the list</source>
         <translation>Mostra collezioni nella lista</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="65"/>
+        <location filename="functionselection.ui" line="86"/>
         <source>Display scripts in the list</source>
         <translation>Mostra script nella lista</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="68"/>
+        <location filename="functionselection.ui" line="89"/>
         <source>Scripts</source>
         <translation>Script</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="75"/>
+        <location filename="functionselection.ui" line="96"/>
         <source>Display chasers in the list</source>
         <translation>Mostra chaser nella lista</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="85"/>
+        <location filename="functionselection.ui" line="106"/>
         <source>Display RGB Matrixes in the list</source>
         <translation>Mostra Matrici RGB nella lista</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="88"/>
+        <location filename="functionselection.ui" line="109"/>
         <source>RGB matrixes</source>
         <translation>Matrici RGB</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="95"/>
+        <location filename="functionselection.ui" line="116"/>
         <source>Display EFX&apos;s in the list</source>
         <translation>Mostra EFX nella lista</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="105"/>
+        <location filename="functionselection.ui" line="126"/>
         <source>Display scenes in the list</source>
         <translation>Mostra scene nella lista</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="108"/>
+        <location filename="functionselection.ui" line="129"/>
         <source>Scenes</source>
         <translation>Scene</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="115"/>
+        <location filename="functionselection.ui" line="136"/>
         <source>Shows</source>
         <translation>Show</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="122"/>
+        <location filename="functionselection.ui" line="143"/>
         <source>Audio</source>
         <translation>Audio</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="78"/>
+        <location filename="functionselection.ui" line="99"/>
         <source>Chasers</source>
         <translation>Chasers</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="98"/>
+        <location filename="functionselection.ui" line="119"/>
         <source>EFX&apos;s</source>
         <translation>EFX&apos;s</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="58"/>
+        <location filename="functionselection.ui" line="79"/>
         <source>Collections</source>
         <translation>Collezione</translation>
     </message>
@@ -4236,6 +4246,11 @@ Durata: %3
         <location filename="vcbuttonproperties.cpp" line="134"/>
         <source>No function</source>
         <translation>Nessuna funzione</translation>
+    </message>
+    <message>
+        <location filename="vcbuttonproperties.cpp" line="139"/>
+        <source>Button %1</source>
+        <translation>Bottone %1</translation>
     </message>
 </context>
 <context>
