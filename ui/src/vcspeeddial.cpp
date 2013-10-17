@@ -172,6 +172,11 @@ QSet <quint32> VCSpeedDial::functions() const
     return m_functions;
 }
 
+void VCSpeedDial::tap()
+{
+    m_dial->tap();
+}
+
 void VCSpeedDial::slotDialValueChanged(int ms)
 {
     foreach (quint32 id, m_functions)

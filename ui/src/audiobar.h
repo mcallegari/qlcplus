@@ -78,6 +78,7 @@ public:
     QString m_name;
     int m_type;
     uchar m_value;
+    bool m_tapped;
 
     /** List of individual DMX channels when m_type == DMXBar */
     QList<SceneValue> m_dmxChannels;

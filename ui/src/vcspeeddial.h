@@ -132,6 +132,10 @@ public:
      */
     QSet <quint32> functions() const;
 
+    /** Simulate tap button press
+     */
+    void tap();
+
 private slots:
     /** Catch dial value changes and patch them to controlled functions */
     void slotDialValueChanged(int ms);

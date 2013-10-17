@@ -24,11 +24,13 @@
 #include "audiobar.h"
 #include "vcbutton.h"
 #include "vcslider.h"
+#include "vcspeeddial.h"
 
 AudioBar::AudioBar(int t, uchar v)
 {
     m_type = t;
     m_value = v;
+    m_tapped = false;
     m_dmxChannels.clear();
     m_absDmxChannels.clear();
     m_function = NULL;
@@ -43,6 +45,7 @@ AudioBar *AudioBar::createCopy()
     copy->m_type = m_type;
     copy->m_value = m_value;
     copy->m_name = m_name;
+    copy->m_tapped = m_tapped;
     copy->m_dmxChannels = m_dmxChannels;
     copy->m_absDmxChannels = m_absDmxChannels;
     copy->m_function = m_function;
@@ -99,6 +102,7 @@ void AudioBar::attachWidget(VCWidget *widget)
     {
         qDebug() << Q_FUNC_INFO << "Attaching widget:" << widget->caption();
         m_widget = widget;
+        m_tapped = false;
     }
 }
 
@@ -129,6 +133,19 @@ void AudioBar::checkWidgetFunctionality()
     {
         VCSlider *slider = (VCSlider *)m_widget;
         slider->setSliderValue(m_value);
+    }
+    else if (m_widget->type() == VCWidget::SpeedDialWidget)
+    {
+        VCSpeedDial *speedDial = (VCSpeedDial *)m_widget;
+        if (m_value >= m_maxThreshold && !m_tapped)
+        {
+            speedDial->tap();
+            m_tapped = true;
+        }
+        else if (m_value < m_minThreshold)
+        {
+            m_tapped = false;
+        }
     }
 }
 

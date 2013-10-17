@@ -41,7 +41,7 @@ showing the following options for the volume and spectrum bars:<br>
       <LI><img src="qrc:/uncheck.png"> None - No functionality assigned</LI>
       <LI><img src="qrc:/intensity.png"> DMX - Controls single DMX channels</LI>
       <LI><img src="qrc:/function.png"> Function - Controls a QLC+ function</LI>
-      <LI><img src="qrc:/virtualconsole.png"> VC Widget - Controls a Virtual Console widget (at the moment only buttons and sliders)</LI>
+      <LI><img src="qrc:/virtualconsole.png"> VC Widget - Controls a Virtual Console widget (at the moment only buttons, sliders and tapping of speed dials)</LI>
      </UL>
   </TD>
  </TR>
@@ -71,6 +71,32 @@ showing the following options for the volume and spectrum bars:<br>
   will be started/activated.</TD>
  </TR>
 </TABLE>
+</P>
+
+<H2>DMX channels</H2>
+<P>You can choose one or more channels of the currently patched fixtures. Those channels will be set proportionally 
+to total volume, or volume in respective frequency band.
+</P>
+
+<H2>Functions</H2>
+<P>You can select one or more functions. Those functions are started when volume goes above 
+Enable threshold in respective band, and stopped when it goes below Disable threshold.
+</P>
+
+<H2>VC Widgets</H2>
+<P>You can select only <B>ONE</B> widget here, either a button, a slider or a speed dial. Depending on the type:
+<UL>
+<LI><B>Button</B> is pressed when volume goes above Enable threshold, and released when the volume is 
+below Disable threshold (similar to functions).</LI>
+<LI><B>Slider</B> is moved proportionally to the volume (similar to DMX channels). For slider
+the thresholds do not apply.</LI>
+<LI><B>Speed dial</B> is tapped when the volume goes above Enable threshold, and won't be tapped again 
+until the volume falls below Disable threshold. That means you probably have to set the threshold 
+little closer to each other than for buttons.</LI>
+</UL>
+</P>
+
+<P>Note: Controlling widgets works now only if the audio triggers widget was created <B>later</B> than the controlled widget.
 </P>
 
 </BODY>

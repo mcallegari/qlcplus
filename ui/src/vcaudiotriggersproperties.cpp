@@ -319,6 +319,7 @@ void AudioTriggersConfiguration::slotWidgetSelectionClicked()
         QList<int> filters;
         filters.append(VCWidget::SliderWidget);
         filters.append(VCWidget::ButtonWidget);
+        filters.append(VCWidget::SpeedDialWidget);
         VCWidgetSelection ws(filters, this);
         if (ws.exec() == QDialog::Rejected)
             return; // User pressed cancel
