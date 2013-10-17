@@ -54,7 +54,7 @@ static void MidiInProc(const MIDIPacketList* pktList, void* readProcRefCon,
             cmd = packet->data[0];
             if (!MIDI_IS_CMD(cmd))
                 continue; // Not a MIDI command. Skip to the next byte.
-            if (MIDI_CMD(cmd) == MIDI_SYSEX)
+            if (cmd == MIDI_SYSEX)
                 break; // Sysex reserves the whole packet. Not interested.
 
             // 1 or 2 MIDI Data bytes
