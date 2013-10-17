@@ -37,6 +37,8 @@ AudioBar::AudioBar(int t, uchar v)
     m_widget = NULL;
     m_minThreshold = 51; // 20%
     m_maxThreshold = 204; // 80%
+    m_divisor = 1;
+    m_skippedBeats = 0;
 }
 
 AudioBar *AudioBar::createCopy()
@@ -52,6 +54,8 @@ AudioBar *AudioBar::createCopy()
     copy->m_widget = m_widget;
     copy->m_minThreshold = m_minThreshold;
     copy->m_maxThreshold = m_maxThreshold;
+    copy->m_divisor = m_divisor;
+    copy->m_skippedBeats = m_skippedBeats;
 
     return copy;
 }
@@ -69,6 +73,13 @@ void AudioBar::setMinThreshold(uchar value)
 void AudioBar::setMaxThreshold(uchar value)
 {
     m_maxThreshold = value;
+}
+
+void AudioBar::setDivisor(int value)
+{
+    m_divisor = value;
+    if (m_skippedBeats >= m_divisor)
+        m_skippedBeats = 0;
 }
 
 void AudioBar::attachDmxChannels(Doc *doc, QList<SceneValue> list)
@@ -139,8 +150,11 @@ void AudioBar::checkWidgetFunctionality()
         VCSpeedDial *speedDial = (VCSpeedDial *)m_widget;
         if (m_value >= m_maxThreshold && !m_tapped)
         {
-            speedDial->tap();
+            if (m_skippedBeats == 0)
+               speedDial->tap();
+            
             m_tapped = true;
+            m_skippedBeats = (m_skippedBeats + 1) % m_divisor;
         }
         else if (m_value < m_minThreshold)
         {
@@ -166,6 +180,7 @@ bool AudioBar::loadXML(const QDomElement &root)
         m_type = root.attribute(KXMLQLCAudioBarType).toInt();
         m_minThreshold = root.attribute(KXMLQLCAudioBarMinThreshold).toInt();
         m_maxThreshold = root.attribute(KXMLQLCAudioBarMaxThreshold).toInt();
+        m_divisor = root.attribute(KXMLQLCAudioBarDivisor).toInt();
 
         if (m_type == AudioBar::DMXBar)
         {
@@ -205,6 +220,7 @@ bool AudioBar::saveXML(QDomDocument *doc, QDomElement *atf_root, QString tagName
     ab_tag.setAttribute(KXMLQLCAudioBarType, m_type);
     ab_tag.setAttribute(KXMLQLCAudioBarMinThreshold, m_minThreshold);
     ab_tag.setAttribute(KXMLQLCAudioBarMaxThreshold, m_maxThreshold);
+    ab_tag.setAttribute(KXMLQLCAudioBarDivisor, m_divisor);
     ab_tag.setAttribute(KXMLQLCAudioBarIndex, index);
     if (m_type == AudioBar::DMXBar && m_dmxChannels.count() > 0)
     {

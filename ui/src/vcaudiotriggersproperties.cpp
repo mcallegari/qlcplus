@@ -42,6 +42,7 @@
 #define KColumnInfo             3
 #define KColumnMinThreshold     4
 #define KColumnMaxThreshold     5
+#define KColumnDivisor          6
 
 AudioTriggersConfiguration::AudioTriggersConfiguration(VCAudioTriggers *triggers, Doc *doc, AudioCapture *capture)
     : QDialog(triggers)
@@ -120,6 +121,7 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
     m_tree->removeItemWidget(item, KColumnAssign);
     m_tree->removeItemWidget(item, KColumnMinThreshold);
     m_tree->removeItemWidget(item, KColumnMaxThreshold);
+    m_tree->removeItemWidget(item, KColumnDivisor);
 
     QComboBox *combo = new QComboBox();
     combo->addItem(QIcon(":/uncheck.png"), tr("None"), idx);
@@ -212,6 +214,19 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
         connect(maxspin, SIGNAL(valueChanged(int)), this, SLOT(slotMaxThresholdChanged(int)));
         m_tree->setItemWidget(item, KColumnMaxThreshold, maxspin);
     }
+
+    if  (bar->m_type == AudioBar::VCWidgetBar && bar->m_widget != NULL && bar->m_widget->type() == VCWidget::SpeedDialWidget)
+    {
+        QSpinBox *divisor = new QSpinBox();
+        divisor->setMinimum(1);
+        divisor->setMaximum(64);
+        divisor->setSingleStep(1);
+        divisor->setValue(bar->m_divisor);
+        divisor->setProperty("index", idx);
+        connect(divisor, SIGNAL(valueChanged(int)), this, SLOT(slotDivisorChanged(int)));
+        m_tree->setItemWidget(item, KColumnDivisor, divisor);
+
+    }
 }
 
 void AudioTriggersConfiguration::updateTree()
@@ -245,6 +260,7 @@ void AudioTriggersConfiguration::updateTree()
     m_tree->resizeColumnToContents(KColumnInfo);
     m_tree->resizeColumnToContents(KColumnMinThreshold);
     m_tree->resizeColumnToContents(KColumnMaxThreshold);
+    m_tree->resizeColumnToContents(KColumnDivisor);
 
 }
 
@@ -360,6 +376,18 @@ void AudioTriggersConfiguration::slotMaxThresholdChanged(int val)
         uchar scaledVal = SCALE(float(val), 0.0, 100.0, 0.0, 255.0);
         if (bar != NULL)
             bar->setMaxThreshold(scaledVal);
+    }
+}
+
+void AudioTriggersConfiguration::slotDivisorChanged(int val)
+{
+    QSpinBox *spin = (QSpinBox *)sender();
+    QVariant prop = spin->property("index");
+    if (prop.isValid())
+    {
+        AudioBar *bar = m_triggers->getSpectrumBar(prop.toInt());
+        if (bar != NULL)
+            bar->setDivisor(val);
     }
 }
 
