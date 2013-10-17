@@ -33,6 +33,8 @@
 #define KXMLQLCAudioBarDMXChannels "DMXChannels"
 #define KXMLQLCAudioBarFunction "FunctionID"
 #define KXMLQLCAudioBarWidget "WidgetID"
+#define KXMLQLCAudioBarMinThreshold "MinThreshold"
+#define KXMLQLCAudioBarMaxThreshold "MaxThreshold"
 
 class QDomDocument;
 class QDomElement;

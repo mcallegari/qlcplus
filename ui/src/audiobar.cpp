@@ -164,6 +164,8 @@ bool AudioBar::loadXML(const QDomElement &root)
     if (root.hasAttribute(KXMLQLCAudioBarType))
     {
         m_type = root.attribute(KXMLQLCAudioBarType).toInt();
+        m_minThreshold = root.attribute(KXMLQLCAudioBarMinThreshold).toInt();
+        m_maxThreshold = root.attribute(KXMLQLCAudioBarMaxThreshold).toInt();
 
         if (m_type == AudioBar::DMXBar)
         {
@@ -201,6 +203,8 @@ bool AudioBar::saveXML(QDomDocument *doc, QDomElement *atf_root, QString tagName
     QDomElement ab_tag = doc->createElement(tagName);
     ab_tag.setAttribute(KXMLQLCAudioBarName, m_name);
     ab_tag.setAttribute(KXMLQLCAudioBarType, m_type);
+    ab_tag.setAttribute(KXMLQLCAudioBarMinThreshold, m_minThreshold);
+    ab_tag.setAttribute(KXMLQLCAudioBarMaxThreshold, m_maxThreshold);
     ab_tag.setAttribute(KXMLQLCAudioBarIndex, index);
     if (m_type == AudioBar::DMXBar && m_dmxChannels.count() > 0)
     {
