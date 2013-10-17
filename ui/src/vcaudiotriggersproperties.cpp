@@ -189,7 +189,8 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
     else
         item->setText(KColumnInfo, tr("Not assigned"));
 
-    if (bar->m_type == AudioBar::FunctionBar || bar->m_type == AudioBar::VCWidgetBar)
+    if (bar->m_type == AudioBar::FunctionBar 
+        || (bar->m_type == AudioBar::VCWidgetBar && ((bar->m_widget == NULL) || bar->m_widget->type() != VCWidget::SliderWidget)))
     {
         QSpinBox *minspin = new QSpinBox();
         minspin->setMinimum(5);
