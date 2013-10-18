@@ -11,6 +11,7 @@ wkhtmltopdf-i386 --footer-center "Page [page]" --image-quality 100 \
   index_pdf.html \
   concept.html \
   commandlineparameters.html \
+  kioskmode.html \
   parameterstuning.html \
   guicustomstyles.html \
   questionsandanswers.html \
