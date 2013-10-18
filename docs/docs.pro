@@ -69,7 +69,8 @@ docs.files = \
              vellemanoutput.html \
              virtualconsole.html
              
-docs.files += images/efx-general.png \
+imgs.path = $$INSTALLROOT/$$DOCSDIR/html/images
+imgs.files += images/efx-general.png \
               images/efx-movement.png \
               images/fixremap.png \
               images/mainwindow.png \
@@ -77,4 +78,4 @@ docs.files += images/efx-general.png \
               images/tutorial1_2.png \
               images/tutorial1_3.png
 
-INSTALLS += docs
+INSTALLS += docs imgs
