@@ -51,6 +51,7 @@ private slots:
     void slotWidgetSelectionClicked();
     void slotMinThresholdChanged(int val);
     void slotMaxThresholdChanged(int val);
+    void slotDivisorChanged(int val);
 
     /*************************************************************************
      * External Input

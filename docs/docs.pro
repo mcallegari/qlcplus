@@ -34,6 +34,7 @@ docs.files = \
              howto-input-profiles.html \
              howto-input-output-mapping.html \
              index.html \
+             kioskmode.html \
              liveedit.html \
              mainwindow.html \
              midiplugin.html \
