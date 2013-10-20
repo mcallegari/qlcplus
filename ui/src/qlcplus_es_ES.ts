@@ -877,7 +877,7 @@ Duración: %3
         <translation>Configuración de Disparos de Audio</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.ui" line="92"/>
+        <location filename="vcaudiotriggersproperties.ui" line="97"/>
         <source>Number of spectrum bars:</source>
         <translation>Cantidad de barras de espectro:</translation>
     </message>
@@ -922,127 +922,132 @@ Duración: %3
         <translation>Umbral de activación</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.ui" line="108"/>
+        <location filename="vcaudiotriggersproperties.ui" line="70"/>
+        <source>Divisor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggersproperties.ui" line="113"/>
         <source>Input</source>
         <translation>Entrada</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.ui" line="114"/>
+        <location filename="vcaudiotriggersproperties.ui" line="119"/>
         <source>External Input</source>
         <translation>Entrada Externa</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.ui" line="120"/>
+        <location filename="vcaudiotriggersproperties.ui" line="125"/>
         <source>Input Universe</source>
         <translation>Universo de Entrada</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.ui" line="127"/>
+        <location filename="vcaudiotriggersproperties.ui" line="132"/>
         <source>Input Channel</source>
         <translation>Canal de Entrada</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.ui" line="134"/>
+        <location filename="vcaudiotriggersproperties.ui" line="139"/>
         <source>When toggled, you can click an external button to assign it to this widget.</source>
         <oldsource>When toggled, you can click an external button to assign it to this virtual console button.</oldsource>
         <translation>Si está activo, puede presionar un botón externo para asignarlo a este widget.</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.ui" line="137"/>
+        <location filename="vcaudiotriggersproperties.ui" line="142"/>
         <source>Auto Detect</source>
         <translation>Detectar Automáticamente</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.ui" line="153"/>
+        <location filename="vcaudiotriggersproperties.ui" line="158"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
         <translation>El canal de Entrada dentro del universo de Entrada que manda datos a este widget</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.ui" line="163"/>
+        <location filename="vcaudiotriggersproperties.ui" line="168"/>
         <source>The input universe that sends data to this widget</source>
         <translation>El universo de Entrada que manda datos a este widget</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.ui" line="179"/>
+        <location filename="vcaudiotriggersproperties.ui" line="184"/>
         <source>Choose an external input universe &amp; channel that this widget should listen to.</source>
         <oldsource>Choose an external input universe &amp; channel that this button should listen to.</oldsource>
         <translation>Eligir un universo de Entrada y un canal externos que este widget debe escuchar.</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.ui" line="182"/>
+        <location filename="vcaudiotriggersproperties.ui" line="187"/>
         <source>Choose...</source>
         <translation>Elegir...</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.ui" line="205"/>
+        <location filename="vcaudiotriggersproperties.ui" line="210"/>
         <source>Key combination</source>
         <translation>Combinación de teclas</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.ui" line="220"/>
+        <location filename="vcaudiotriggersproperties.ui" line="225"/>
         <source>Keyboard combination that toggles this widget</source>
         <oldsource>Keyboard combination that toggles this button</oldsource>
         <translation>Combinación de teclas que activa este widget</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.ui" line="230"/>
+        <location filename="vcaudiotriggersproperties.ui" line="235"/>
         <source>Set a key combination for this widget</source>
         <oldsource>Set a key combination for this button</oldsource>
         <translation>Seleccionar una combinacion de teclas para este widget</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.ui" line="250"/>
+        <location filename="vcaudiotriggersproperties.ui" line="255"/>
         <source>Remove the widget&apos;s keyboard shortcut key</source>
         <oldsource>Remove the button&apos;s keyboard shortcut key</oldsource>
         <translation>Quitar el atajo de teclado para este widget</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.cpp" line="125"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="127"/>
         <source>None</source>
         <translation>Ninguno</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.cpp" line="126"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="128"/>
         <source>DMX</source>
         <translation>DMX</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.cpp" line="127"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="129"/>
         <source>Function</source>
         <translation>Función</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.cpp" line="128"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="130"/>
         <source>VC Widget</source>
         <translation>Widget de CV</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.cpp" line="141"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="143"/>
         <source>%1 channels</source>
         <translation>%1 canales</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.cpp" line="172"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="174"/>
         <source>No function</source>
         <translation>Ninguna función</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.cpp" line="187"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="189"/>
         <source>No widget</source>
         <translation>Ningún widget</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.cpp" line="190"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="192"/>
         <source>Not assigned</source>
         <translation>No asignado</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.cpp" line="227"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="243"/>
         <source>Volume Bar</source>
         <translation>Barra de volumen</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.cpp" line="236"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="252"/>
         <source>#%1 (%2Hz - %3Hz)</source>
         <translation>#%1 (%2Hz - %3Hz)</translation>
     </message>
@@ -1125,7 +1130,7 @@ Duración: %3
         <translation>Duración</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="571"/>
+        <location filename="chasereditor.ui" line="568"/>
         <source>Add step(s) to the current position</source>
         <translation>Añadir pasos a la posición actual</translation>
     </message>
@@ -1226,31 +1231,30 @@ Duración: %3
         <translation>Cada paso tiene su propia duración, establecida por el chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="431"/>
+        <location filename="chasereditor.ui" line="428"/>
         <source>See what the chaser does when it is run</source>
         <translation>Ver lo que hace el chaser cuando se ejecuta</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="451"/>
+        <location filename="chasereditor.ui" line="448"/>
         <source>Stop the chaser if running</source>
         <translation>Detener el chaser si está ejecutándose</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="491"/>
+        <location filename="chasereditor.ui" line="488"/>
         <source>Skip to the next step</source>
         <translation>Saltar al paso siguiente</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="471"/>
+        <location filename="chasereditor.ui" line="468"/>
         <source>Skip to the previous step</source>
         <translation>Saltar al paso anterior</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="404"/>
-        <location filename="chasereditor.ui" line="434"/>
-        <location filename="chasereditor.ui" line="454"/>
-        <location filename="chasereditor.ui" line="474"/>
-        <location filename="chasereditor.ui" line="494"/>
+        <location filename="chasereditor.ui" line="431"/>
+        <location filename="chasereditor.ui" line="451"/>
+        <location filename="chasereditor.ui" line="471"/>
+        <location filename="chasereditor.ui" line="491"/>
         <source>...</source>
         <translation>...</translation>
     </message>
@@ -1260,7 +1264,7 @@ Duración: %3
         <translation>Eliminar el paso seleccionado</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="591"/>
+        <location filename="chasereditor.ui" line="588"/>
         <source>Raise the selected step once</source>
         <translation>Subir el paso seleccionado</translation>
     </message>
@@ -3179,157 +3183,168 @@ Duración: %3
         <translation>Nombre de esta matriz RGB</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="52"/>
+        <location filename="rgbmatrixeditor.ui" line="58"/>
         <source>Fixture group</source>
         <translation>Grupo de fixtures</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="59"/>
+        <location filename="rgbmatrixeditor.ui" line="71"/>
         <source>The fixture group to use as the pixel matrix</source>
         <translation>El grupo de fixture que se usará como pixel de la matriz</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="79"/>
+        <location filename="rgbmatrixeditor.ui" line="88"/>
         <source>Pattern</source>
         <translation>Patrón</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="85"/>
+        <location filename="rgbmatrixeditor.ui" line="94"/>
         <source>The RGB matrix pattern</source>
         <translation>Patrón de la matriz RGB</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="92"/>
-        <source>Pixel colour</source>
-        <translation>Color del pixel</translation>
-    </message>
-    <message>
-        <location filename="rgbmatrixeditor.ui" line="111"/>
+        <location filename="rgbmatrixeditor.ui" line="133"/>
         <source>Animated Text</source>
         <translation>Texto animado</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="123"/>
+        <location filename="rgbmatrixeditor.ui" line="145"/>
         <source>Text to display</source>
         <translation>Texto a mostrar</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="130"/>
+        <location filename="rgbmatrixeditor.ui" line="152"/>
         <source>Choose the font</source>
         <translation>Escoger fuente</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="133"/>
+        <location filename="rgbmatrixeditor.ui" line="155"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="150"/>
+        <location filename="rgbmatrixeditor.ui" line="172"/>
         <source>Animation style</source>
         <translation>Estilo de la animación</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="160"/>
+        <location filename="rgbmatrixeditor.ui" line="182"/>
         <source>Offset</source>
         <translation>Desfase</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="166"/>
+        <location filename="rgbmatrixeditor.ui" line="188"/>
         <source>X</source>
         <translation>X</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="173"/>
+        <location filename="rgbmatrixeditor.ui" line="195"/>
         <source>Shift the pattern X pixels horizontally</source>
         <translation>Traslada el patrón X pixeles horizontalmente</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="186"/>
+        <location filename="rgbmatrixeditor.ui" line="208"/>
         <source>Y</source>
         <translation>Y</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="193"/>
+        <location filename="rgbmatrixeditor.ui" line="215"/>
         <source>Shift the pattern Y pixels vertically</source>
         <translation>Traslada el patrón Y pixeles verticalmente</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="233"/>
+        <location filename="rgbmatrixeditor.ui" line="312"/>
         <source>Run Order</source>
         <translation>Orden de Ejecución</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="239"/>
+        <location filename="rgbmatrixeditor.ui" line="318"/>
         <source>Run through over and over again</source>
         <translation>Ejecutar una vez tras otra</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="242"/>
+        <location filename="rgbmatrixeditor.ui" line="321"/>
         <source>Loop</source>
         <translation>Loop</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="252"/>
+        <location filename="rgbmatrixeditor.ui" line="331"/>
         <source>Run through once and stop</source>
         <translation>Ejecutar una vez y detener</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="255"/>
+        <location filename="rgbmatrixeditor.ui" line="334"/>
         <source>Single Shot</source>
         <translation>Una sola vez</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="262"/>
+        <location filename="rgbmatrixeditor.ui" line="341"/>
         <source>First run forwards, then backwards, again forwards, etc.</source>
         <translation>Primero ejecutar hacia adelante, después hacia atrás, otra vez adelante, etc.</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="265"/>
+        <location filename="rgbmatrixeditor.ui" line="344"/>
         <source>Ping Pong</source>
         <translation>Ping Pong</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="281"/>
+        <location filename="rgbmatrixeditor.ui" line="258"/>
         <source>Direction</source>
         <translation>Dirección</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="287"/>
+        <location filename="rgbmatrixeditor.ui" line="101"/>
+        <source>Matrix start colour</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="114"/>
+        <source>Matrix end colour</source>
+        <oldsource>Matrix end color</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="264"/>
         <source>Start from the first step</source>
         <translation>Empezar desde el primer paso</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="290"/>
+        <location filename="rgbmatrixeditor.ui" line="267"/>
         <source>Forward</source>
         <translation>Adelante</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="300"/>
+        <location filename="rgbmatrixeditor.ui" line="277"/>
         <source>Start from the last step</source>
         <translation>Empezar desde el último paso</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="303"/>
+        <location filename="rgbmatrixeditor.ui" line="280"/>
         <source>Backward</source>
         <translation>Atrás</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="329"/>
+        <location filename="rgbmatrixeditor.ui" line="354"/>
+        <source>Show/Hide speed dial window</source>
+        <translation type="unfinished">Mostrar/Ocultar ventana de selector de velocidad</translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="374"/>
         <source>See what the RGB Matrix does when it is run</source>
         <translation>Ver lo que hace la Matriz RGB cuando se ejecuta</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="332"/>
+        <location filename="rgbmatrixeditor.ui" line="377"/>
         <source>Test Run</source>
         <translation>Ejecutar Test</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="223"/>
+        <location filename="rgbmatrixeditor.cpp" line="236"/>
         <source>None</source>
         <translation>Ninguno</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="276"/>
+        <location filename="rgbmatrixeditor.cpp" line="289"/>
         <source>No fixture group to control</source>
         <translation>Ningún grupo para controlar</translation>
     </message>
@@ -5895,27 +5910,27 @@ Duración: %3
         <translation>Nueva Matriz de Sliders</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1134"/>
+        <location filename="virtualconsole.cpp" line="1143"/>
         <source>Do you wish to delete the selected widgets?</source>
         <translation>¿Desea eliminar el widget seleccionado?</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1135"/>
+        <location filename="virtualconsole.cpp" line="1144"/>
         <source>Delete widgets</source>
         <translation>Eliminar widgets</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1190"/>
+        <location filename="virtualconsole.cpp" line="1205"/>
         <source>Rename widgets</source>
         <translation>Renombrar widgets</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1190"/>
+        <location filename="virtualconsole.cpp" line="1205"/>
         <source>Caption:</source>
         <translation>Titulo:</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1243"/>
+        <location filename="virtualconsole.cpp" line="1258"/>
         <source>Select background image</source>
         <translation>Seleccione la imagen de fondo</translation>
     </message>

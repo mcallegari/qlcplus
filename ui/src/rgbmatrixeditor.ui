@@ -111,7 +111,7 @@
         <item>
          <widget class="QPushButton" name="m_endColorButton">
           <property name="toolTip">
-           <string>Matrix end color</string>
+           <string>Matrix end colour</string>
           </property>
           <property name="text">
            <string/>
