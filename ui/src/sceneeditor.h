@@ -113,6 +113,7 @@ private:
     QAction* m_tabViewAction;
 
     QComboBox* m_chaserCombo;
+    QLineEdit* m_nameEdit;
 
     /*********************************************************************
      * General tab

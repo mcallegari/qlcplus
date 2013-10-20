@@ -28,6 +28,7 @@
 #include <QTabWidget>
 #include <QComboBox>
 #include <QSettings>
+#include <QLineEdit>
 #include <QToolBar>
 #include <QLayout>
 #include <QLabel>
@@ -154,6 +155,7 @@ void SceneEditor::slotSetSceneValues(QList <SceneValue>&sceneValues)
 
 void SceneEditor::init(bool applyValues)
 {
+    this->layout()->setContentsMargins(8, 3, 8, 3);
     /* Actions */
     m_enableCurrentAction = new QAction(QIcon(":/check.png"),
                                         tr("Enable all channels in current fixture"), this);
@@ -225,6 +227,8 @@ void SceneEditor::init(bool applyValues)
             slotChaserComboActivated(index);
         }
     }
+    QLabel *m_nameLabel = new QLabel(tr("Scene name:"));
+    m_nameEdit = new QLineEdit();
 
     // Connections
     connect(m_enableCurrentAction, SIGNAL(triggered(bool)),
@@ -274,6 +278,9 @@ void SceneEditor::init(bool applyValues)
     toolBar->addSeparator();
     toolBar->addAction(m_recordAction);
     toolBar->addWidget(m_chaserCombo);
+    toolBar->addSeparator();
+    toolBar->addWidget(m_nameLabel);
+    toolBar->addWidget(m_nameEdit);
 
     /* Tab widget */
     connect(m_tab, SIGNAL(currentChanged(int)),

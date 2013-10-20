@@ -9,6 +9,7 @@ qlcplus (4.5.1) stable; urgency=low
   * Virtual Console: fixed audio triggers thresholds save/load on projects (thanks to Jano Svitok)
   * Virtual Console: fixed knobs rendering on OSX
   * MIDI plugin: fixed beat clock detection on OSX
+  * Show Manager: Improved to fit on a 1024x768 resolution
   * Added fixture: Chauvet 4Play (thanks to Ryan Schaefer)
   * Added fixtures: American DJ Fusion FX Bar 1, Chauvet Intimidator Scan LED 200 (thanks to synkajax)
 
