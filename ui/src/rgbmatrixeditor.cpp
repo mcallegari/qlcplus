@@ -98,7 +98,7 @@ void RGBMatrixEditor::slotFunctionManagerActive(bool active)
     if (active == true)
     {
         if (m_speedDials == NULL)
-            createSpeedDials();
+            updateSpeedDials();
     }
     else
     {
@@ -146,17 +146,27 @@ void RGBMatrixEditor::init()
     fillAnimationCombo();
 
     QPixmap pm(100, 26);
-    pm.fill(m_matrix->monoColor());
-    m_colorButton->setIcon(QIcon(pm));
+    pm.fill(m_matrix->startColor());
+    m_startColorButton->setIcon(QIcon(pm));
+
+    if (m_matrix->endColor().isValid())
+        pm.fill(m_matrix->endColor());
+    else
+        pm.fill(Qt::transparent);
+    m_endColorButton->setIcon(QIcon(pm));
 
     connect(m_nameEdit, SIGNAL(textEdited(const QString&)),
             this, SLOT(slotNameEdited(const QString&)));
+    connect(m_speedDialButton, SIGNAL(toggled(bool)),
+            this, SLOT(slotSpeedDialToggle(bool)));
     connect(m_patternCombo, SIGNAL(activated(const QString&)),
             this, SLOT(slotPatternActivated(const QString&)));
     connect(m_fixtureGroupCombo, SIGNAL(activated(int)),
             this, SLOT(slotFixtureGroupActivated(int)));
-    connect(m_colorButton, SIGNAL(clicked()),
-            this, SLOT(slotColorButtonClicked()));
+    connect(m_startColorButton, SIGNAL(clicked()),
+            this, SLOT(slotStartColorButtonClicked()));
+    connect(m_endColorButton, SIGNAL(clicked()),
+            this, SLOT(slotEndColorButtonClicked()));
     connect(m_textEdit, SIGNAL(textEdited(const QString&)),
             this, SLOT(slotTextEdited(const QString&)));
     connect(m_fontButton, SIGNAL(clicked()),
@@ -183,11 +193,14 @@ void RGBMatrixEditor::init()
     m_previewTimer->start(MasterTimer::tick());
 
     updateExtraOptions();
-    createSpeedDials();
+    updateSpeedDials();
 }
 
-void RGBMatrixEditor::createSpeedDials()
+void RGBMatrixEditor::updateSpeedDials()
 {
+    if (m_speedDialButton->isChecked() == false)
+        return;
+
     if (m_speedDials != NULL)
         return;
 
@@ -278,6 +291,7 @@ void RGBMatrixEditor::createPreviewItems()
         return;
     }
 
+    m_matrix->calculateColorDelta();
     m_previewMaps = m_matrix->previewMaps();
 
     for (int x = 0; x < grp->size().width(); x++)
@@ -302,9 +316,18 @@ void RGBMatrixEditor::createPreviewItems()
     }
 
     if (m_matrix->direction() == Function::Forward)
+    {
         m_previewStep = 0;
+        m_matrix->setStepColor(m_matrix->startColor());
+    }
     else
+    {
         m_previewStep = m_previewMaps.size() - 1;
+        if (m_matrix->endColor().isValid())
+            m_matrix->setStepColor(m_matrix->endColor());
+        else
+            m_matrix->setStepColor(m_matrix->startColor());
+    }
 }
 
 void RGBMatrixEditor::slotPreviewTimeout()
@@ -321,15 +344,28 @@ void RGBMatrixEditor::slotPreviewTimeout()
         {
             m_previewStep++;
             if (m_previewStep >= m_previewMaps.size())
+            {
                 m_previewStep = 0;
+                m_matrix->setStepColor(m_matrix->startColor());
+            }
+            else
+                m_matrix->updateStepColor(m_matrix->direction());
         }
         else
         {
             m_previewStep--;
             if (m_previewStep < 0)
+            {
                 m_previewStep = m_previewMaps.size() - 1;
+                if (m_matrix->endColor().isValid())
+                    m_matrix->setStepColor(m_matrix->endColor());
+                else
+                    m_matrix->setStepColor(m_matrix->startColor());
+            }
+            else
+                m_matrix->updateStepColor(m_matrix->direction());
         }
-
+        m_previewMaps = m_matrix->previewMaps();
         m_previewIterator = 0;
     }
 
@@ -364,10 +400,23 @@ void RGBMatrixEditor::slotNameEdited(const QString& text)
         m_speedDials->setWindowTitle(text);
 }
 
+void RGBMatrixEditor::slotSpeedDialToggle(bool state)
+{
+    if (state == true)
+        updateSpeedDials();
+    else
+    {
+        if (m_speedDials != NULL)
+            delete m_speedDials;
+        m_speedDials = NULL;
+    }
+}
+
 void RGBMatrixEditor::slotPatternActivated(const QString& text)
 {
     RGBAlgorithm* algo = RGBAlgorithm::algorithm(text);
     m_matrix->setAlgorithm(algo);
+    m_matrix->calculateColorDelta();
     updateExtraOptions();
     slotRestartTest();
 }
@@ -383,15 +432,31 @@ void RGBMatrixEditor::slotFixtureGroupActivated(int index)
     slotRestartTest();
 }
 
-void RGBMatrixEditor::slotColorButtonClicked()
+void RGBMatrixEditor::slotStartColorButtonClicked()
 {
-    QColor col = QColorDialog::getColor(m_matrix->monoColor());
+    QColor col = QColorDialog::getColor(m_matrix->startColor());
     if (col.isValid() == true)
     {
-        m_matrix->setMonoColor(col);
+        m_matrix->setStartColor(col);
+        m_matrix->calculateColorDelta();
         QPixmap pm(100, 26);
         pm.fill(col);
-        m_colorButton->setIcon(QIcon(pm));
+        m_startColorButton->setIcon(QIcon(pm));
+
+        slotRestartTest();
+    }
+}
+
+void RGBMatrixEditor::slotEndColorButtonClicked()
+{
+    QColor col = QColorDialog::getColor(m_matrix->endColor());
+    if (col.isValid() == true)
+    {
+        m_matrix->setEndColor(col);
+        m_matrix->calculateColorDelta();
+        QPixmap pm(100, 26);
+        pm.fill(col);
+        m_endColorButton->setIcon(QIcon(pm));
 
         slotRestartTest();
     }

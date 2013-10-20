@@ -38,7 +38,8 @@
 #include "rgbtext.h"
 #include "doc.h"
 
-#define KXMLQLCRGBMatrixMonoColor "MonoColor"
+#define KXMLQLCRGBMatrixStartColor "MonoColor"
+#define KXMLQLCRGBMatrixEndColor "EndColor"
 #define KXMLQLCRGBMatrixFixtureGroup "FixtureGroup"
 
 /****************************************************************************
@@ -49,10 +50,15 @@ RGBMatrix::RGBMatrix(Doc* doc)
     : Function(doc, Function::RGBMatrix)
     , m_fixtureGroup(FixtureGroup::invalidId())
     , m_algorithm(NULL)
-    , m_monoColor(Qt::red)
+    , m_startColor(Qt::red)
+    , m_endColor(QColor())
     , m_fader(NULL)
     , m_step(0)
     , m_roundTime(new QTime)
+    , m_stepColor(QColor())
+    , m_crDelta(0)
+    , m_cgDelta(0)
+    , m_cbDelta(0)
 {
     setName(tr("New RGB Matrix"));
     setDuration(500);
@@ -102,7 +108,7 @@ bool RGBMatrix::copyFrom(const Function* function)
         setAlgorithm(mtx->algorithm()->clone());
     else
         setAlgorithm(NULL);
-    setMonoColor(mtx->monoColor());
+    setStartColor(mtx->startColor());
 
     return Function::copyFrom(function);
 }
@@ -148,7 +154,7 @@ QList <RGBMap> RGBMatrix::previewMaps()
     if (grp != NULL)
     {
         for (int i = 0; i < m_algorithm->rgbMapStepCount(grp->size()); i++)
-            steps << m_algorithm->rgbMap(grp->size(), monoColor().rgb(), i);
+            steps << m_algorithm->rgbMap(grp->size(), m_stepColor.rgb(), i);
     }
 
     return steps;
@@ -158,15 +164,70 @@ QList <RGBMap> RGBMatrix::previewMaps()
  * Colour
  ****************************************************************************/
 
-void RGBMatrix::setMonoColor(const QColor& c)
+void RGBMatrix::setStartColor(const QColor& c)
 {
-    m_monoColor = c;
+    m_startColor = c;
 }
 
-QColor RGBMatrix::monoColor() const
+QColor RGBMatrix::startColor() const
 {
-    return m_monoColor;
+    return m_startColor;
 }
+
+void RGBMatrix::setEndColor(const QColor &c)
+{
+    m_endColor = c;
+}
+
+QColor RGBMatrix::endColor() const
+{
+    return m_endColor;
+}
+
+void RGBMatrix::calculateColorDelta()
+{
+    if (m_endColor.isValid())
+    {
+        FixtureGroup* grp = doc()->fixtureGroup(fixtureGroup());
+        if (grp != NULL && m_algorithm != NULL)
+        {
+            m_crDelta = (m_endColor.red() - m_startColor.red()) / (m_algorithm->rgbMapStepCount(grp->size()) - 1);
+            m_cgDelta = (m_endColor.green() - m_startColor.green()) / (m_algorithm->rgbMapStepCount(grp->size()) - 1);
+            m_cbDelta = (m_endColor.blue() - m_startColor.blue()) / (m_algorithm->rgbMapStepCount(grp->size()) - 1);
+        }
+    }
+    else
+    {
+        m_crDelta = 0;
+        m_cgDelta = 0;
+        m_cbDelta = 0;
+    }
+}
+
+void RGBMatrix::setStepColor(QColor color)
+{
+    m_stepColor = color;
+}
+
+QColor RGBMatrix::stepColor()
+{
+    return m_stepColor;
+}
+
+void RGBMatrix::updateStepColor(Function::Direction direction)
+{
+    if (direction == Forward)
+    {
+        m_stepColor = QColor(m_stepColor.red() + m_crDelta,
+                             m_stepColor.green() + m_cgDelta,
+                             m_stepColor.blue() + m_cbDelta);
+    }
+    else
+        m_stepColor = QColor(m_stepColor.red() - m_crDelta,
+                             m_stepColor.green() - m_cgDelta,
+                             m_stepColor.blue() - m_cbDelta);
+}
+
 
 /****************************************************************************
  * Load & Save
@@ -212,9 +273,13 @@ bool RGBMatrix::loadXML(const QDomElement& root)
         {
             loadXMLRunOrder(tag);
         }
-        else if (tag.tagName() == KXMLQLCRGBMatrixMonoColor)
+        else if (tag.tagName() == KXMLQLCRGBMatrixStartColor)
         {
-            setMonoColor(QColor::fromRgb(QRgb(tag.text().toUInt())));
+            setStartColor(QColor::fromRgb(QRgb(tag.text().toUInt())));
+        }
+        else if (tag.tagName() == KXMLQLCRGBMatrixEndColor)
+        {
+            setEndColor(QColor::fromRgb(QRgb(tag.text().toUInt())));
         }
         else
         {
@@ -258,10 +323,16 @@ bool RGBMatrix::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     if (m_algorithm != NULL)
         m_algorithm->saveXML(doc, &root);
 
-    /* Mono Color */
-    tag = doc->createElement(KXMLQLCRGBMatrixMonoColor);
+    /* Start Color */
+    tag = doc->createElement(KXMLQLCRGBMatrixStartColor);
     root.appendChild(tag);
-    text = doc->createTextNode(QString::number(monoColor().rgb()));
+    text = doc->createTextNode(QString::number(startColor().rgb()));
+    tag.appendChild(text);
+
+    /* End Color */
+    tag = doc->createElement(KXMLQLCRGBMatrixEndColor);
+    root.appendChild(tag);
+    text = doc->createTextNode(QString::number(endColor().rgb()));
     tag.appendChild(text);
 
     /* Fixture Group */
@@ -301,9 +372,17 @@ void RGBMatrix::preRun(MasterTimer* timer)
         m_fader = new GenericFader(doc());
 
         if (m_direction == Forward)
+        {
             m_step = 0;
+            m_stepColor = m_startColor.rgb();
+        }
         else
+        {
             m_step = m_algorithm->rgbMapStepCount(grp->size());
+            m_stepColor = m_endColor.rgb();
+        }
+
+        calculateColorDelta();
     }
 
     m_roundTime->start();
@@ -335,7 +414,8 @@ void RGBMatrix::write(MasterTimer* timer, UniverseArray* universes)
     // Get new map every time when elapsed is reset to zero
     if (elapsed() == 0)
     {
-        RGBMap map = m_algorithm->rgbMap(grp->size(), monoColor().rgb(), m_step);
+        qDebug() << "stepColor:" << QString::number(m_stepColor.rgb(), 16);
+        RGBMap map = m_algorithm->rgbMap(grp->size(), m_stepColor.rgb(), m_step);
         updateMapChannels(map, grp);
     }
 
@@ -373,11 +453,13 @@ void RGBMatrix::roundCheck(const QSize& size)
         {
             m_direction = Backward;
             m_step = m_algorithm->rgbMapStepCount(size) - 2;
+            updateStepColor(m_direction);
         }
         else if (m_direction == Backward && m_step <= 0)
         {
             m_direction = Forward;
             m_step = 1;
+            updateStepColor(m_direction);
         }
         else
         {
@@ -385,6 +467,7 @@ void RGBMatrix::roundCheck(const QSize& size)
                 m_step++;
             else
                 m_step--;
+            updateStepColor(m_direction);
         }
     }
     else if (runOrder() == SingleShot)
@@ -395,6 +478,7 @@ void RGBMatrix::roundCheck(const QSize& size)
                 stop();
             else
                 m_step++;
+            updateStepColor(m_direction);
         }
     }
     else
@@ -402,16 +486,29 @@ void RGBMatrix::roundCheck(const QSize& size)
         if (m_direction == Forward)
         {
             if (m_step >= m_algorithm->rgbMapStepCount(size) - 1)
+            {
                 m_step = 0;
+                m_stepColor = m_startColor;
+            }
             else
+            {
                 m_step++;
+                updateStepColor(m_direction);
+            }
         }
         else
         {
             if (m_step <= 0)
+            {
                 m_step = m_algorithm->rgbMapStepCount(size) - 1;
+                if (m_endColor.isValid())
+                    m_stepColor = m_endColor;
+            }
             else
+            {
                 m_step--;
+                updateStepColor(m_direction);
+            }
         }
     }
 

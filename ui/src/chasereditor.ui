@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>604</width>
+    <width>622</width>
     <height>553</height>
    </rect>
   </property>
@@ -399,9 +399,6 @@
       <widget class="QToolButton" name="m_speeddial">
        <property name="toolTip">
         <string>Show/Hide speed dial window</string>
-       </property>
-       <property name="text">
-        <string>...</string>
        </property>
        <property name="icon">
         <iconset resource="qlcui.qrc">

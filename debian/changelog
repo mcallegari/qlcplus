@@ -1,11 +1,12 @@
 qlcplus (4.5.1) stable; urgency=low
 
+  * NEW: Virtual Console: audio triggers can now control Speed Dials tapping (thanks to Jano Svitok)
+  * NEW: RGB Matrix now supports 2 colors
   * Fixtures remapping: added a button to clone and autopatch a fixture from the source list
   * Function selection: added radio buttons to show all or only the running functions
   * Virtual Console: fixed regression on buttons name auto assign
   * Virtual Console: fixed multi page functionality for solo frames
   * Virtual Console: fixed audio triggers thresholds save/load on projects (thanks to Jano Svitok)
-  * Virtual Console: audio triggers can now control Speed Dials tapping (thanks to Jano Svitok)
   * MIDI plugin: fixed beat clock detection on OSX
   * Added fixture: Chauvet 4Play (thanks to Ryan Schaefer)
   * Added fixtures: American DJ Fusion FX Bar 1, Chauvet Intimidator Scan LED 200 (thanks to synkajax)
