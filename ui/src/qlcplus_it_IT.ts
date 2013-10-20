@@ -5910,27 +5910,32 @@ Durata: %3
         <translation>Nuova Matrice di Fader</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1143"/>
+        <location filename="virtualconsole.cpp" line="856"/>
+        <source>Knob %1</source>
+        <translation>Manopola %1</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole.cpp" line="1144"/>
         <source>Do you wish to delete the selected widgets?</source>
         <translation>Vuoi cancellare gli oggetti selezionati?</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1144"/>
+        <location filename="virtualconsole.cpp" line="1145"/>
         <source>Delete widgets</source>
         <translation>Elimina oggetti</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1205"/>
+        <location filename="virtualconsole.cpp" line="1206"/>
         <source>Rename widgets</source>
         <translation>Rinomina gli oggetti</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1205"/>
+        <location filename="virtualconsole.cpp" line="1206"/>
         <source>Caption:</source>
         <translation>Titolo:</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1258"/>
+        <location filename="virtualconsole.cpp" line="1259"/>
         <source>Select background image</source>
         <translation>Selezione l&apos;immagine di fondo</translation>
     </message>

@@ -60,10 +60,10 @@ void KnobWidget::prepareCursor()
 
     QPainter fgP(m_cursor);
     fgP.setRenderHints(QPainter::Antialiasing);
-    fgP.setCompositionMode(QPainter::CompositionMode_DestinationIn);
-    fgP.fillRect(m_cursor->rect(), QColor(0, 0, 0, 0));
+    //fgP.setCompositionMode(QPainter::CompositionMode_DestinationIn);
+    fgP.fillRect(m_cursor->rect(), Qt::transparent);
 
-    fgP.setCompositionMode(QPainter::CompositionMode_Source);
+    //fgP.setCompositionMode(QPainter::CompositionMode_Source);
     if (isEnabled() == false)
         fgP.setBrush(Qt::gray);
     else
@@ -97,10 +97,10 @@ void KnobWidget::resizeEvent(QResizeEvent *e)
 
     QPainter bgP(m_background);
     bgP.setRenderHints(QPainter::Antialiasing);
-    bgP.setCompositionMode(QPainter::CompositionMode_DestinationIn);
-    bgP.fillRect(m_background->rect(), QColor(0, 0, 0, 0));
+    //bgP.setCompositionMode(QPainter::CompositionMode_DestinationIn);
+    bgP.fillRect(m_background->rect(), Qt::transparent);
 
-    bgP.setCompositionMode(QPainter::CompositionMode_Source);
+    //bgP.setCompositionMode(QPainter::CompositionMode_Source);
     bgP.setBrush(linearGrad);
     bgP.drawEllipse(QPointF(dialSize / 2, radius), radius, radius);
     bgP.setBrush(linearGrad2);

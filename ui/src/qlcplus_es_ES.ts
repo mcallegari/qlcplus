@@ -5910,27 +5910,32 @@ Duración: %3
         <translation>Nueva Matriz de Sliders</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1143"/>
+        <location filename="virtualconsole.cpp" line="856"/>
+        <source>Knob %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole.cpp" line="1144"/>
         <source>Do you wish to delete the selected widgets?</source>
         <translation>¿Desea eliminar el widget seleccionado?</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1144"/>
+        <location filename="virtualconsole.cpp" line="1145"/>
         <source>Delete widgets</source>
         <translation>Eliminar widgets</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1205"/>
+        <location filename="virtualconsole.cpp" line="1206"/>
         <source>Rename widgets</source>
         <translation>Renombrar widgets</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1205"/>
+        <location filename="virtualconsole.cpp" line="1206"/>
         <source>Caption:</source>
         <translation>Titulo:</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1258"/>
+        <location filename="virtualconsole.cpp" line="1259"/>
         <source>Select background image</source>
         <translation>Seleccione la imagen de fondo</translation>
     </message>

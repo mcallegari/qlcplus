@@ -853,6 +853,7 @@ void VirtualConsole::slotAddKnob()
     knob->setWidgetStyle(VCSlider::WKnob);
     Q_ASSERT(knob != NULL);
     knob->setID(newWidgetId());
+    knob->setCaption(tr("Knob %1").arg(knob->id()));
     checkWidgetPage(knob, parent);
     knob->show();
     knob->move(parent->lastClickPoint());

@@ -7,6 +7,7 @@ qlcplus (4.5.1) stable; urgency=low
   * Virtual Console: fixed regression on buttons name auto assign
   * Virtual Console: fixed multi page functionality for solo frames
   * Virtual Console: fixed audio triggers thresholds save/load on projects (thanks to Jano Svitok)
+  * Virtual Console: fixed knobs rendering on OSX
   * MIDI plugin: fixed beat clock detection on OSX
   * Added fixture: Chauvet 4Play (thanks to Ryan Schaefer)
   * Added fixtures: American DJ Fusion FX Bar 1, Chauvet Intimidator Scan LED 200 (thanks to synkajax)
