@@ -13,7 +13,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 INCLUDEPATH     += ../engine/src ../engine/src/audio ../ui/src
 DEPENDPATH      += ../engine/src ../ui/src
 QMAKE_LIBDIR    += ../engine/src ../ui/src
-DEFINES         += USE_WEBSOCKET NO_SSL NO_SSL_DL
+DEFINES         += USE_WEBSOCKET NO_SSL
 
 LIBS += -lqlcplusengine -lqlcplusui
 
