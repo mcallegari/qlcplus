@@ -86,7 +86,7 @@ public slots:
 
 protected:
     QList <quint32> m_functions;
-    QMutex m_functionListMutex;
+    mutable QMutex m_functionListMutex;
 
     /*********************************************************************
      * Save & Load
