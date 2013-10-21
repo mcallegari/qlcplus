@@ -20,6 +20,7 @@
 */
 
 #include <QDebug>
+#include <QMutexLocker>
 
 #if defined(WIN32) || defined(Q_OS_WIN)
 #   include "mastertimer-win32.h"
@@ -139,10 +140,9 @@ void MasterTimer::startFunction(Function* function)
     if (function == NULL)
         return;
 
-    m_functionListMutex.lock();
+    QMutexLocker locker(&m_functionListMutex);
     if (m_startQueue.contains(function) == false)
         m_startQueue.append(function);
-    m_functionListMutex.unlock();
 }
 
 void MasterTimer::stopAllFunctions()
