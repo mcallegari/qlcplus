@@ -22,7 +22,6 @@
 #include <QWidgetAction>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QPushButton>
 #include <QMessageBox>
 #include <QPaintEvent>
 #include <QPainter>
@@ -31,7 +30,6 @@
 #include <QDebug>
 #include <QLabel>
 #include <QMenu>
-#include <QTime>
 #include <QSize>
 #include <QtXml>
 #include <QPen>
@@ -92,7 +90,6 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_slider = NULL;
     m_knob = NULL;
     m_bottomLabel = NULL;
-    m_tapButton = NULL;
 
     m_valueDisplayStyle = ExactValue;
 
@@ -105,8 +102,6 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_playbackFunction = Function::invalidId();
     m_playbackValue = 0;
     m_playbackValueChanged = false;
-
-    m_time = NULL;
 
     m_widgetMode = WSlider;
 
@@ -149,13 +144,6 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_hbox->addStretch();
 
     layout()->addItem(m_hbox);
-
-    /* Tap button */
-    m_tapButton = new QPushButton(this);
-    layout()->addWidget(m_tapButton);
-    connect(m_tapButton, SIGNAL(clicked()),
-            this, SLOT(slotTapButtonClicked()));
-    m_time = new QTime();
 
     /* Click & Go button */
     m_cngType = ClickAndGoWidget::None;
@@ -211,10 +199,6 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
 VCSlider::~VCSlider()
 {
-    if (m_time != NULL)
-        delete m_time;
-    m_time = NULL;
-
     /* When application exits these are already NULL and unregistration
        is no longer necessary. But a normal deletion of a VCSlider in
        design mode must unregister the slider. */
@@ -289,9 +273,6 @@ void VCSlider::setCaption(const QString& text)
 
     if (m_bottomLabel != NULL)
         setBottomLabelText(text);
-
-    if (m_tapButton != NULL)
-        setTapButtonText(text);
 }
 
 /*****************************************************************************
@@ -327,7 +308,6 @@ void VCSlider::slotModeChanged(Doc::Mode mode)
         if (m_knob)
             m_knob->setEnabled(true);
         m_bottomLabel->setEnabled(true);
-        m_tapButton->setEnabled(true);
         m_cngButton->setEnabled(true);
 
         if (sliderMode() == Playback)
@@ -354,7 +334,6 @@ void VCSlider::slotModeChanged(Doc::Mode mode)
         if (m_knob)
             m_knob->setEnabled(false);
         m_bottomLabel->setEnabled(false);
-        m_tapButton->setEnabled(false);
         m_cngButton->setEnabled(false);
 
         if (sliderMode() == Playback)
@@ -500,7 +479,6 @@ void VCSlider::setSliderMode(SliderMode mode)
         slotSliderMoved(level);
 
         m_bottomLabel->show();
-        m_tapButton->hide();
         if (m_cngType != ClickAndGoWidget::None)
         {
             setClickAndGoType(m_cngType);
@@ -517,7 +495,6 @@ void VCSlider::setSliderMode(SliderMode mode)
     else if (mode == Playback)
     {
         m_bottomLabel->show();
-        m_tapButton->hide();
         m_cngButton->hide();
 
         uchar level = playbackValue();
@@ -1146,52 +1123,8 @@ QString VCSlider::bottomLabelText()
 }
 
 /*****************************************************************************
- * Tap button
- *****************************************************************************/
-
-void VCSlider::setTapButtonText(const QString& text)
-{
-    m_tapButton->setText(QString(text).replace(" ", "\n"));
-}
-
-QString VCSlider::tapButtonText()
-{
-    return m_tapButton->text();
-}
-
-void VCSlider::slotTapButtonClicked()
-{
-    int t = m_time->elapsed();
-    qDebug() << "TODO!" << t;
-    m_time->restart();
-}
-
-/*****************************************************************************
  * External input
  *****************************************************************************/
-
-bool VCSlider::isButton(quint32 universe, quint32 channel)
-{
-    InputPatch* patch = NULL;
-    QLCInputProfile* profile = NULL;
-    QLCInputChannel* ch = NULL;
-
-    patch = m_doc->inputMap()->patch(universe);
-    if (patch != NULL)
-    {
-        profile = patch->profile();
-        if (profile != NULL)
-        {
-            ch = profile->channels()[channel];
-            if (ch != NULL)
-            {
-                return (ch->type() == QLCInputChannel::Button);
-            }
-        }
-    }
-
-    return false;
-}
 
 void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel,
                                      uchar value)
@@ -1202,34 +1135,25 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel,
 
     if (inputSource() == QLCInputSource(universe, channel))
     {
-        if (isButton(universe, channel) == true)
+        /* Scale from input value range to this slider's range */
+        float val;
+        if (m_slider)
         {
-            // Check value here so that value == 0 won't end up in the else branch
-            if (value > 0)
-                slotTapButtonClicked();
-        }
-        else
-        {
-            /* Scale from input value range to this slider's range */
-            float val;
-            if (m_slider)
-            {
-                val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
-                            (float) m_slider->minimum(),
-                            (float) m_slider->maximum());
+            val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
+                        (float) m_slider->minimum(),
+                        (float) m_slider->maximum());
 
-                if (m_slider->invertedAppearance() == true)
-                    m_slider->setValue((m_slider->maximum() - (int) val) + m_slider->minimum());
-                else
-                    m_slider->setValue((int) val);
-            }
-            else if (m_knob)
-            {
-                val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
-                            (float) m_knob->minimum(),
-                            (float) m_knob->maximum());
-                m_knob->setValue((int) val);
-            }
+            if (m_slider->invertedAppearance() == true)
+                m_slider->setValue((m_slider->maximum() - (int) val) + m_slider->minimum());
+            else
+                m_slider->setValue((int) val);
+        }
+        else if (m_knob)
+        {
+            val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
+                        (float) m_knob->minimum(),
+                        (float) m_knob->maximum());
+            m_knob->setValue((int) val);
         }
     }
 }

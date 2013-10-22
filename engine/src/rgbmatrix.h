@@ -90,11 +90,20 @@ private:
      * Colour
      ************************************************************************/
 public:
-    void setMonoColor(const QColor& c);
-    QColor monoColor() const;
+    void setStartColor(const QColor& c);
+    QColor startColor() const;
+
+    void setEndColor(const QColor& c);
+    QColor endColor() const;
+
+    void calculateColorDelta();
+    void setStepColor(QColor color);
+    QColor stepColor();
+    void updateStepColor(Function::Direction direction);
 
 private:
-    QColor m_monoColor;
+    QColor m_startColor;
+    QColor m_endColor;
 
     /************************************************************************
      * Load & Save
@@ -137,6 +146,9 @@ private:
     GenericFader* m_fader;
     int m_step;
     QTime* m_roundTime;
+    QColor m_stepColor;
+    int m_crDelta, m_cgDelta, m_cbDelta;
+
 };
 
 #endif

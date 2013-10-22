@@ -67,9 +67,8 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc)
 
     setupUi(this);
 
-    /* Resize columns to fit contents */
-    m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
-    m_tree->setItemDelegateForColumn(COL_NUM, new NoEditDelegate(this)); // disable editing of steps number
+    /* Disable editing of steps number */
+    m_tree->setItemDelegateForColumn(COL_NUM, new NoEditDelegate(this));
     if (m_chaser->isSequence() == true)
     {
         m_tree->header()->setSectionHidden(COL_NAME, true);
@@ -492,7 +491,10 @@ void ChaserEditor::slotItemChanged(QTreeWidgetItem *item, int column)
     else if (column == COL_HOLD)
     {
         step.hold = newValue;
-        step.duration = step.fadeIn + step.hold;
+        if (m_chaser->fadeInMode() == Chaser::Common)
+            step.duration = m_chaser->fadeInSpeed() + step.hold;
+        else
+            step.duration = step.fadeIn + step.hold;
     }
     else if (column == COL_FADEOUT)
     {
@@ -1030,6 +1032,14 @@ void ChaserEditor::updateTree(bool clear)
         ChaserStep step(m_chaser->steps().at(i));
         updateItem(item, step);
     }
+
+    m_tree->resizeColumnToContents(COL_NUM);
+    m_tree->resizeColumnToContents(COL_NAME);
+    m_tree->resizeColumnToContents(COL_FADEIN);
+    m_tree->resizeColumnToContents(COL_HOLD);
+    m_tree->resizeColumnToContents(COL_FADEOUT);
+    m_tree->resizeColumnToContents(COL_DURATION);
+    m_tree->resizeColumnToContents(COL_NOTES);
 }
 
 void ChaserEditor::updateItem(QTreeWidgetItem* item, ChaserStep& step)
@@ -1084,7 +1094,10 @@ void ChaserEditor::updateItem(QTreeWidgetItem* item, ChaserStep& step)
     case Chaser::Common:
         step.duration = m_chaser->duration();
         step.hold = step.duration - m_chaser->fadeInSpeed();
-        item->setText(COL_HOLD, Function::speedToString(step.hold));
+        if (step.duration == Function::infiniteSpeed())
+            item->setText(COL_HOLD, Function::speedToString(step.duration));
+        else
+            item->setText(COL_HOLD, Function::speedToString(step.hold));
         item->setText(COL_DURATION, Function::speedToString(m_chaser->duration()));
         break;
     case Chaser::PerStep:

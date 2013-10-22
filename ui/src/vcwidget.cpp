@@ -555,7 +555,7 @@ QKeySequence VCWidget::stripKeySequence(const QKeySequence& seq)
     /* In QLC 3.2.x it is possible to set shortcuts like CTRL+X, but since
        CTRL is now the tap modifier, it must be stripped away. */
     int keys[4] = { 0, 0, 0, 0 };
-    for (uint i = 0; i < seq.count() && i < 4; i++)
+    for (int i = 0; i < (int)seq.count() && i < 4; i++)
     {
         if ((seq[i] & Qt::ControlModifier) != 0)
             keys[i] = seq[i] & (~Qt::ControlModifier);

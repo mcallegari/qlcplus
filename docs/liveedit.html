@@ -3,6 +3,7 @@
 <HEAD>
 <TITLE>Q Light Controller Plus - Live Edit</TITLE>
 <SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
 </HEAD>
 <BODY onLoad="replaceqrc()">
 
@@ -14,13 +15,16 @@
 The Live Edit icon <img src="qrc:/liveedit.png" width=32> is located in the QLC+
 top bar, beside the <A HREF="file:dmxdump.html">DMX Dump</A> icon <img src="qrc:/add_dump.png" width=32>
 and it is activated only when the user switch to Operate Mode.<br>
-When clicking on the Live Edit icon, a Function selection panel will be displayed,
-allowing to select the function you are willing to adjust. When pressing OK,
-the proper editor will be displayed for function editing.<br>
+When clicking on the Live Edit icon, a <a href="selectfunction.html">Function selection</a> panel 
+will be displayed, allowing to select the function you are willing to adjust.<br>
+When pressing OK, the proper editor will be displayed for function editing.<br>
 At the moment the following functions are supported for live editing:
 <UL>
  <LI><img src="qrc:/scene.png" width=32> <A HREF="file:concept.html#Scene">Scene</A> 
-    will open a <A HREF="file:sceneeditor.html">Scene Editor</A></LI>
+    will open a <A HREF="file:sceneeditor.html">Scene Editor</A><br>
+    Note that by default the editor will be set in "Blind mode" in case you want to 
+    make the changes effective only the next time the Scene is being played.
+ </LI>
  <LI><img src="qrc:/chaser.png" width=32> <A HREF="file:concept.html#Chaser">Chaser</A> 
     will open a <A HREF="file:chasereditor.html">Chaser Editor</A></LI>
  <LI><img src="qrc:/efx.png" width=32> <A HREF="file:concept.html#EFX">EFX</A> 

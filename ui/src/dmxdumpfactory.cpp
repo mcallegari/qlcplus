@@ -54,6 +54,11 @@ DmxDumpFactory::DmxDumpFactory(Doc *doc, DmxDumpFactoryProperties *props, QWidge
     m_fixturesCount = 0;
     m_channelsCount = 0;
 
+    connect(m_fixturesTree, SIGNAL(expanded(QModelIndex)),
+            this, SLOT(slotItemExpanded()));
+    connect(m_fixturesTree, SIGNAL(collapsed(QModelIndex)),
+            this, SLOT(slotItemExpanded()));
+
     updateFixturesTree();
 
     if (m_properties->selectedTarget() == 1)
@@ -84,7 +89,6 @@ void DmxDumpFactory::updateFixturesTree()
 {
     QByteArray chMask = m_properties->channelsMask();
     m_fixturesTree->clear();
-    m_fixturesTree->header()->setResizeMode(QHeaderView::ResizeToContents);
     m_fixturesTree->setIconSize(QSize(24, 24));
 
     foreach(Fixture *fxi, m_doc->fixtures())
@@ -142,6 +146,8 @@ void DmxDumpFactory::updateFixturesTree()
         }
         m_fixturesCount++;
     }
+    m_fixturesTree->resizeColumnToContents(KColumnName);
+    m_fixturesTree->resizeColumnToContents(KColumnType);
 }
 
 void DmxDumpFactory::slotUpdateChasersTree()
@@ -221,6 +227,12 @@ void DmxDumpFactory::slotDumpModeChanged(bool mode)
 void DmxDumpFactory::slotDumpNonZeroChanged(bool active)
 {
     m_properties->setNonZeroValuesMode(active);
+}
+
+void DmxDumpFactory::slotItemExpanded()
+{
+    m_fixturesTree->resizeColumnToContents(KColumnName);
+    m_fixturesTree->resizeColumnToContents(KColumnType);
 }
 
 void DmxDumpFactory::accept()

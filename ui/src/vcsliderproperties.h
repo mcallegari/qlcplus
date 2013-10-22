@@ -132,6 +132,9 @@ protected slots:
     /** Callback for "channel selection by group" button clicks */
     void slotLevelByGroupClicked();
 
+    /** Callback for tree item expanded/collapsed */
+    void slotItemExpanded();
+
     /*************************************************************************
      * Playback page
      *************************************************************************/

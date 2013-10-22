@@ -25,7 +25,7 @@
 #include <QDebug>
 #include <QFile>
 
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
 #   include <windows.h>
 #endif
 
@@ -170,5 +170,6 @@ bool Velleman::canConfigure()
 /*****************************************************************************
  * Plugin export
  ****************************************************************************/
-
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 Q_EXPORT_PLUGIN2(velleman, Velleman)
+#endif

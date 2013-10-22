@@ -8,6 +8,8 @@ TARGET   = qlcplusengine
 
 CONFIG  += qt
 QT      += core xml script gui
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
 # Uncomment to enable Phonon audio support
 #QT += phonon
 CONFIG += link_pkgconfig

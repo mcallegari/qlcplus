@@ -33,7 +33,7 @@ QString QLCi18n::s_translationFilePath = QString();
 
 void QLCi18n::init()
 {
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(Q_OS_MAC)
     // Set the default translation file path before parsing args
     QLCi18n::setTranslationFilePath(QString("%1/../%2")
                                     .arg(QCoreApplication::applicationDirPath())

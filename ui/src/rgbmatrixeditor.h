@@ -55,7 +55,7 @@ public slots:
 private:
     void init();
 
-    void createSpeedDials();
+    void updateSpeedDials();
     void fillPatternCombo();
     void fillFixtureGroupCombo();
     void fillAnimationCombo();
@@ -66,9 +66,11 @@ private:
 private slots:
     void slotPreviewTimeout();
     void slotNameEdited(const QString& text);
+    void slotSpeedDialToggle(bool state);
     void slotPatternActivated(const QString& text);
     void slotFixtureGroupActivated(int index);
-    void slotColorButtonClicked();
+    void slotStartColorButtonClicked();
+    void slotEndColorButtonClicked();
 
     void slotTextEdited(const QString& text);
     void slotFontButtonClicked();

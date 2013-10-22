@@ -81,7 +81,7 @@ void RGBMatrix_Test::initial()
     RGBMatrix mtx(m_doc);
     QCOMPARE(mtx.type(), Function::RGBMatrix);
     QCOMPARE(mtx.fixtureGroup(), FixtureGroup::invalidId());
-    QCOMPARE(mtx.monoColor(), QColor(Qt::red));
+    QCOMPARE(mtx.startColor(), QColor(Qt::red));
     QVERIFY(mtx.m_fader == NULL);
     QCOMPARE(mtx.m_step, 0);
     QCOMPARE(mtx.name(), tr("New RGB Matrix"));
@@ -106,24 +106,24 @@ void RGBMatrix_Test::group()
 void RGBMatrix_Test::color()
 {
     RGBMatrix mtx(m_doc);
-    mtx.setMonoColor(Qt::blue);
-    QCOMPARE(mtx.monoColor(), QColor(Qt::blue));
+    mtx.setStartColor(Qt::blue);
+    QCOMPARE(mtx.startColor(), QColor(Qt::blue));
 
-    mtx.setMonoColor(QColor());
-    QCOMPARE(mtx.monoColor(), QColor());
+    mtx.setStartColor(QColor());
+    QCOMPARE(mtx.startColor(), QColor());
 }
 
 void RGBMatrix_Test::copy()
 {
     RGBMatrix mtx(m_doc);
-    mtx.setMonoColor(Qt::magenta);
+    mtx.setStartColor(Qt::magenta);
     mtx.setFixtureGroup(0);
     mtx.setAlgorithm(RGBAlgorithm::algorithm("Full Columns"));
     QVERIFY(mtx.algorithm() != NULL);
 
     RGBMatrix* copyMtx = qobject_cast<RGBMatrix*> (mtx.createCopy(m_doc));
     QVERIFY(copyMtx != NULL);
-    QCOMPARE(copyMtx->monoColor(), QColor(Qt::magenta));
+    QCOMPARE(copyMtx->startColor(), QColor(Qt::magenta));
     QCOMPARE(copyMtx->fixtureGroup(), uint(0));
     QVERIFY(copyMtx->algorithm() != NULL);
     QVERIFY(copyMtx->algorithm() != mtx.algorithm()); // Different object pointer!
@@ -160,7 +160,7 @@ void RGBMatrix_Test::previewMaps()
 void RGBMatrix_Test::loadSave()
 {
     RGBMatrix* mtx = new RGBMatrix(m_doc);
-    mtx->setMonoColor(Qt::magenta);
+    mtx->setStartColor(Qt::magenta);
     mtx->setFixtureGroup(42);
     mtx->setAlgorithm(RGBAlgorithm::algorithm("Full Rows"));
     QVERIFY(mtx->algorithm() != NULL);
@@ -244,7 +244,7 @@ void RGBMatrix_Test::loadSave()
     QVERIFY(mtx2.loadXML(root.firstChild().toElement()) == true);
     QCOMPARE(mtx2.direction(), Function::Backward);
     QCOMPARE(mtx2.runOrder(), Function::PingPong);
-    QCOMPARE(mtx2.monoColor(), QColor(Qt::magenta));
+    QCOMPARE(mtx2.startColor(), QColor(Qt::magenta));
     QCOMPARE(mtx2.fixtureGroup(), uint(42));
     QVERIFY(mtx2.algorithm() != NULL);
     QCOMPARE(mtx2.algorithm()->name(), mtx->algorithm()->name());

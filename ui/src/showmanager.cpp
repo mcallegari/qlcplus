@@ -574,7 +574,7 @@ void ShowManager::slotAddAudio()
     QStringList filters;
     qDebug() << Q_FUNC_INFO << "Extensions: " << extList.join(" ");
     filters << tr("Audio Files (%1)").arg(extList.join(" "));
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
     filters << tr("All Files (*.*)");
 #else
     filters << tr("All Files (*)");
@@ -1031,7 +1031,11 @@ void ShowManager::slotFunctionChanged(quint32 id)
             return;
         Track *trk = m_show->getTrackFromSceneID(id);
         if (trk != NULL)
+        {
+            int idx = m_show->getAttributeIndex(trk->name());
+            m_show->renameAttribute(idx, function->name());
             trk->setName(function->name());
+        }
     }
 }
 
@@ -1117,8 +1121,6 @@ void ShowManager::updateMultiTrackView()
             first = false;
         }
         m_showview->addTrack(track);
-        m_addSequenceAction->setEnabled(true);
-        m_addAudioAction->setEnabled(true);
 
         foreach(quint32 id, track->functionsID())
         {
@@ -1147,9 +1149,13 @@ void ShowManager::updateMultiTrackView()
         m_showview->activateTrack(firstTrack);
         showSceneEditor(m_scene);
         m_copyAction->setEnabled(true);
+        m_addSequenceAction->setEnabled(true);
+        m_addAudioAction->setEnabled(true);
     }
     else
     {
+        m_addSequenceAction->setEnabled(false);
+        m_addAudioAction->setEnabled(false);
         m_scene = NULL;
         showSceneEditor(NULL);
     }

@@ -79,6 +79,17 @@ private:
     bool m_multiSelection;
 
     /*********************************************************************
+     * Functions filter
+     *********************************************************************/
+
+protected slots:
+    void slotAllFunctionsChecked();
+    void slotRunningFunctionsChecked();
+
+private:
+    bool m_runningOnlyFlag;
+
+    /*********************************************************************
      * Type filter
      *********************************************************************/
 public:
@@ -96,6 +107,16 @@ public:
      * @param filter An OR'ed combination of Function::Type to show
      */
     void disableFilters(int types);
+
+protected slots:
+    void slotCollectionChecked(bool state);
+    void slotEFXChecked(bool state);
+    void slotChaserChecked(bool state);
+    void slotSceneChecked(bool state);
+    void slotScriptChecked(bool state);
+    void slotRGBMatrixChecked(bool state);
+    void slotShowChecked(bool state);
+    void slotAudioChecked(bool state);
 
 private:
     int m_filter;
@@ -140,14 +161,6 @@ protected slots:
     void slotItemSelectionChanged();
     void slotItemDoubleClicked(QTreeWidgetItem* item);
 
-    void slotCollectionChecked(bool state);
-    void slotEFXChecked(bool state);
-    void slotChaserChecked(bool state);
-    void slotSceneChecked(bool state);
-    void slotScriptChecked(bool state);
-    void slotRGBMatrixChecked(bool state);
-    void slotShowChecked(bool state);
-    void slotAudioChecked(bool state);
 };
 
 #endif

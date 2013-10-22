@@ -20,7 +20,7 @@
 */
 
 #include <stdlib.h>
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
 #       include <stdint.h> // int32_t
 #endif
 

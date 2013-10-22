@@ -21,9 +21,9 @@
 
 #include <QtXml>
 
-#if defined(__APPLE__)
+#if defined( __APPLE__) || defined(Q_OS_MAC)
   #include "audiocapture_portaudio.h"
-#elif defined(WIN32)
+#elif defined(WIN32) || defined(Q_OS_WIN)
   #include "audiocapture_wavein.h"
 #else
   #include "audiocapture_alsa.h"

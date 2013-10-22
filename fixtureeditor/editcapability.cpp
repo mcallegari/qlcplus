@@ -130,7 +130,7 @@ void EditCapability::slotPictureButtonPressed()
 {
     QFileDialog dialog(this);
     QDir dir;
-#ifdef __APPLE__
+#if defined (__APPLE__) || defined(Q_OS_MAC)
     dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
                 .arg(GOBODIR));
 #else
@@ -140,8 +140,7 @@ void EditCapability::slotPictureButtonPressed()
     dialog.setWindowTitle(tr("Open Gobo File"));
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
     dialog.setDirectory(dir);
-
-    dialog.setFilter(tr("Gobo pictures") + " (*.jpg *.jpeg *.png *.bmp)");
+    dialog.setNameFilter((tr("Gobo pictures") + " (*.jpg *.jpeg *.png *.bmp)"));
 
     /* Get file name */
     if (dialog.exec() != QDialog::Accepted)

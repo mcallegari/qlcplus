@@ -23,7 +23,7 @@
 #include <QPluginLoader>
 #include <QDebug>
 
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
 #   include <windows.h>
 #endif
 
@@ -125,7 +125,7 @@ void IOPluginCache::slotConfigurationChanged()
 QDir IOPluginCache::systemPluginDirectory()
 {
     QDir dir;
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(Q_OS_MAC)
     dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
                                    .arg(PLUGINDIR));
 #else

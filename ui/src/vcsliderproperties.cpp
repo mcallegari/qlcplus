@@ -158,12 +158,14 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
     m_levelLowLimitSpin->setValue(m_slider->levelLowLimit());
     m_levelHighLimitSpin->setValue(m_slider->levelHighLimit());
 
-    /* Tree widget columns */
-    m_levelList->header()->setResizeMode(QHeaderView::ResizeToContents);
-
     /* Tree widget contents */
     levelUpdateFixtures();
     levelUpdateChannelSelections();
+
+    connect(m_levelList, SIGNAL(expanded(QModelIndex)),
+            this, SLOT(slotItemExpanded()));
+    connect(m_levelList, SIGNAL(collapsed(QModelIndex)),
+            this, SLOT(slotItemExpanded()));
 
     /*********************************************************************
      * Playback page
@@ -314,6 +316,8 @@ void VCSliderProperties::levelUpdateFixtures()
         Q_ASSERT(fixture != NULL);
         levelUpdateFixtureNode(fixture->id());
     }
+    m_levelList->resizeColumnToContents(KColumnName);
+    m_levelList->resizeColumnToContents(KColumnType);
 }
 
 void VCSliderProperties::levelUpdateFixtureNode(quint32 id)
@@ -338,6 +342,7 @@ void VCSliderProperties::levelUpdateFixtureNode(quint32 id)
     item->setText(KColumnType, fxi->type());
 
     levelUpdateChannels(item, fxi);
+
 }
 
 QTreeWidgetItem* VCSliderProperties::levelFixtureNode(quint32 id)
@@ -630,6 +635,12 @@ void VCSliderProperties::slotLevelByGroupClicked()
 
     if (ok == true)
         levelSelectChannelsByGroup(group);
+}
+
+void VCSliderProperties::slotItemExpanded()
+{
+    m_levelList->resizeColumnToContents(KColumnName);
+    m_levelList->resizeColumnToContents(KColumnType);
 }
 
 /*****************************************************************************

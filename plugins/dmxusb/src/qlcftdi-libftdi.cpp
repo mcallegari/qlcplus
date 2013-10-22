@@ -269,7 +269,7 @@ bool QLCFTDI::open()
         return true;
 
     if (ftdi_usb_open_desc(&m_handle, QLCFTDI::VID, QLCFTDI::PID,
-                           name().toAscii(), serial().toAscii()) < 0)
+                           name().toLatin1(), serial().toLatin1()) < 0)
     {
         qWarning() << Q_FUNC_INFO << name() << ftdi_get_error_string(&m_handle);
         return false;

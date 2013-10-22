@@ -21,7 +21,7 @@
 
 #include <QDebug>
 
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
 #   include "mastertimer-win32.h"
 #else
 #   include <unistd.h>
@@ -152,7 +152,7 @@ void MasterTimer::stopAllFunctions()
     /* Wait until all functions have been stopped */
     while (runningFunctions() > 0)
     {
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
         Sleep(10);
 #else
         usleep(10000);

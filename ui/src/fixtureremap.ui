@@ -64,6 +64,30 @@
         </widget>
        </item>
        <item>
+        <widget class="QToolButton" name="m_cloneButton">
+         <property name="toolTip">
+          <string>Clone and auto-remap the selected source fixture</string>
+         </property>
+         <property name="icon">
+          <iconset resource="qlcui.qrc">
+           <normaloff>:/editcopy.png</normaloff>:/editcopy.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="line_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QToolButton" name="m_remapButton">
          <property name="toolTip">
           <string>Connect selections...</string>
@@ -204,9 +228,18 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <property name="spacing">
-         <number>-1</number>
+         <number>6</number>
         </property>
-        <property name="margin">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
          <number>0</number>
         </property>
         <item>

@@ -24,7 +24,7 @@
 #include <QDebug>
 #include <QSet>
 
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
 #   include <windows.h>
 #else
 #   include <unistd.h>
@@ -146,7 +146,7 @@ void QLCFixtureDefCache::clear()
 QDir QLCFixtureDefCache::systemDefinitionDirectory()
 {
     QDir dir;
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(Q_OS_MAC)
     dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
                                    .arg(FIXTUREDIR));
 #else
@@ -163,14 +163,15 @@ QDir QLCFixtureDefCache::userDefinitionDirectory()
 {
     QDir dir;
 
-#ifdef Q_WS_X11
+
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     // If the current user is root, return the system fixture dir.
     // Otherwise return a path under user's home dir.
     if (geteuid() == 0)
         dir = QDir(FIXTUREDIR);
     else
         dir.setPath(QString("%1/%2").arg(getenv("HOME")).arg(USERFIXTUREDIR));
-#elif __APPLE__
+#elif defined(__APPLE__) || defined (Q_OS_MAC)
     /* User's input profile directory on OSX */
     dir.setPath(QString("%1/%2").arg(getenv("HOME")).arg(USERFIXTUREDIR));
 #else

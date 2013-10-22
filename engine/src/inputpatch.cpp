@@ -19,7 +19,7 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
 #   include <Windows.h>
 #else
 #   include <unistd.h>
@@ -110,7 +110,7 @@ void InputPatch::reconnect()
     if (m_plugin != NULL && m_input != QLCIOPlugin::invalidLine())
     {
         m_plugin->closeInput(m_input);
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
         Sleep(GRACE_MS);
 #else
         usleep(GRACE_MS * 1000);

@@ -136,6 +136,7 @@ void VCSpeedDial::slotModeChanged(Doc::Mode mode)
     if (mode == Doc::Operate)
     {
         m_dial->setEnabled(true);
+        updateFeedback();
     }
     else
     {
@@ -171,6 +172,11 @@ QSet <quint32> VCSpeedDial::functions() const
     return m_functions;
 }
 
+void VCSpeedDial::tap()
+{
+    m_dial->tap();
+}
+
 void VCSpeedDial::slotDialValueChanged(int ms)
 {
     foreach (quint32 id, m_functions)
@@ -186,6 +192,7 @@ void VCSpeedDial::slotDialValueChanged(int ms)
                 function->setFadeOutSpeed(ms);
         }
     }
+    updateFeedback();
 }
 
 void VCSpeedDial::slotDialTapped()

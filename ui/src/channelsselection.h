@@ -59,6 +59,7 @@ protected:
 protected slots:
 
     void slotItemChecked(QTreeWidgetItem *item, int col);
+    void slotItemExpanded();
 
     /** Callback for OK button clicks */
     void accept();

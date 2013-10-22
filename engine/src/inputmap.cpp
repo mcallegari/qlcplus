@@ -19,7 +19,7 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
 #	include <Windows.h>
 #else
 #   include <unistd.h>
@@ -423,7 +423,7 @@ QDir InputMap::systemProfileDirectory()
 {
     QDir dir;
 
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(Q_OS_MAC)
     dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
                               .arg(INPUTPROFILEDIR));
 #else
@@ -439,14 +439,14 @@ QDir InputMap::userProfileDirectory()
 {
     QDir dir;
 
-#ifdef Q_WS_X11
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     // If the current user is root, return the system profile dir.
     // Otherwise return the user's home dir.
     if (geteuid() == 0)
         dir = QDir(INPUTPROFILEDIR);
     else
         dir.setPath(QString("%1/%2").arg(getenv("HOME")).arg(USERINPUTPROFILEDIR));
-#elif __APPLE__
+#elif defined(__APPLE__) || defined(Q_OS_MAC)
     /* User's input profile directory on OSX */
     dir.setPath(QString("%1/%2").arg(getenv("HOME")).arg(USERINPUTPROFILEDIR));
 #else

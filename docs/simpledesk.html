@@ -3,6 +3,7 @@
 <HEAD>
 <TITLE>Q Light Controller Plus - Simple Desk</TITLE>
 <SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
 </HEAD>
 <BODY onLoad="replaceqrc()">
 
@@ -25,7 +26,7 @@ time, they have been divided into pages. By default, each page contains 32 slide
 that can be <A HREF="#Tuning">tuned</A>.
 </P>
 
-<TABLE BORDER="1">
+<TABLE BORDER=1 class="qlcTable">
  <TR>
   <TD><IMG SRC="qrc:/tabview.png"/></TD>
   <TD>Switch the view mode from all channels to fixture channels. Please note that if 
@@ -62,7 +63,7 @@ The playbacks can be used to "play back" the contents of their cue stacks and th
 be used to adjust their overall cue intensity.
 </P>
 
-<TABLE BORDER="1">
+<TABLE BORDER=1 class="qlcTable">
  <TR>
   <TD><IMG SRC="qrc:/check.png"/></TD>
   <TD>Select the currently-active playback, whose cue stack is shown on the right side of the screen.</TD>
@@ -85,7 +86,7 @@ be used to adjust their overall cue intensity.
 The cue stack box shows the currently selected playback's cue stack contents.
 </P>
 
-<TABLE BORDER="1">
+<TABLE BORDER=1 class="qlcTable">
  <TR>
   <TD><IMG SRC="qrc:/goprevious.png"/></TD>
   <TD>Skip to the previous cue (or start playback on the last cue in the cue stack with full intensity).</TD>

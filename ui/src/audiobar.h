@@ -33,6 +33,9 @@
 #define KXMLQLCAudioBarDMXChannels "DMXChannels"
 #define KXMLQLCAudioBarFunction "FunctionID"
 #define KXMLQLCAudioBarWidget "WidgetID"
+#define KXMLQLCAudioBarMinThreshold "MinThreshold"
+#define KXMLQLCAudioBarMaxThreshold "MaxThreshold"
+#define KXMLQLCAudioBarDivisor "Divisor"
 
 class QDomDocument;
 class QDomElement;
@@ -58,6 +61,7 @@ public:
     void setName(QString nme);
     void setMinThreshold(uchar value);
     void setMaxThreshold(uchar value);
+    void setDivisor(int value);
 
     void attachDmxChannels(Doc *doc, QList<SceneValue>list);
     void attachFunction(Function *func);
@@ -78,6 +82,7 @@ public:
     QString m_name;
     int m_type;
     uchar m_value;
+    bool m_tapped;
 
     /** List of individual DMX channels when m_type == DMXBar */
     QList<SceneValue> m_dmxChannels;
@@ -90,6 +95,9 @@ public:
     VCWidget *m_widget;
 
     uchar m_minThreshold, m_maxThreshold;
+    int m_divisor;
+
+    int m_skippedBeats;
 };
 
 #endif // AUDIOBAR_H

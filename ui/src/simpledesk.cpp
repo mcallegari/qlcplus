@@ -735,7 +735,6 @@ void SimpleDesk::initCueStack()
     qDebug() << Q_FUNC_INFO;
     CueStackModel* model = new CueStackModel(this);
     m_cueStackView->setModel(model);
-    m_cueStackView->header()->setResizeMode(QHeaderView::ResizeToContents);
 
     connect(m_previousCueButton, SIGNAL(clicked()), this, SLOT(slotPreviousCueClicked()));
     connect(m_nextCueButton, SIGNAL(clicked()), this, SLOT(slotNextCueClicked()));

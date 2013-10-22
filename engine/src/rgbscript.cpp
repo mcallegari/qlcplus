@@ -31,7 +31,7 @@
 #include <QSize>
 #include <QDir>
 
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
 #   include <windows.h>
 #else
 #   include <unistd.h>
@@ -328,7 +328,7 @@ QList <RGBScript> RGBScript::scripts(const QDir& dir)
 QDir RGBScript::systemScriptDirectory()
 {
     QDir dir;
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(Q_OS_MAC)
     dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
                                    .arg(RGBSCRIPTDIR));
 #else
@@ -345,14 +345,14 @@ QDir RGBScript::userScriptDirectory()
 {
     QDir dir;
 
-#ifdef Q_WS_X11
+#if defined (Q_WS_X11) || defined(Q_OS_LINUX)
     // If the current user is root, return the system profile dir.
     // Otherwise return the user's home dir.
     if (geteuid() == 0)
         dir = QDir(RGBSCRIPTDIR);
     else
         dir.setPath(QString("%1/%2").arg(getenv("HOME")).arg(USERRGBSCRIPTDIR));
-#elif __APPLE__
+#elif defined(__APPLE__) || defined(Q_OS_MAC)
     /* User's input profile directory on OSX */
     dir.setPath(QString("%1/%2").arg(getenv("HOME")).arg(USERRGBSCRIPTDIR));
 #else

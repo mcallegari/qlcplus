@@ -692,6 +692,15 @@ void VirtualConsole::checkWidgetPage(VCWidget *widget, VCWidget *parent)
             frame->addWidgetToPageMap(widget);
         }
     }
+    else if (parent->type() == VCWidget::SoloFrameWidget)
+    {
+        VCSoloFrame *frame = (VCSoloFrame *)parent;
+        if (frame->multipageMode() == true)
+        {
+            widget->setPage(frame->currentPage());
+            frame->addWidgetToPageMap(widget);
+        }
+    }
 }
 
 void VirtualConsole::slotAddButton()
@@ -844,6 +853,7 @@ void VirtualConsole::slotAddKnob()
     knob->setWidgetStyle(VCSlider::WKnob);
     Q_ASSERT(knob != NULL);
     knob->setID(newWidgetId());
+    knob->setCaption(tr("Knob %1").arg(knob->id()));
     checkWidgetPage(knob, parent);
     knob->show();
     knob->move(parent->lastClickPoint());
@@ -1150,6 +1160,12 @@ void VirtualConsole::slotEditDelete()
                 if (parent->type() == VCWidget::FrameWidget)
                 {
                     VCFrame *frame = (VCFrame *)parent;
+                    if (frame->multipageMode() == true)
+                        frame->removeWidgetFromPageMap(widget);
+                }
+                else if (parent->type() == VCWidget::SoloFrameWidget)
+                {
+                    VCSoloFrame *frame = (VCSoloFrame *)parent;
                     if (frame->multipageMode() == true)
                         frame->removeWidgetFromPageMap(widget);
                 }
@@ -1508,6 +1524,7 @@ void VirtualConsole::resetContents()
 
     m_clipboard.clear();
     m_selectedWidgets.clear();
+    m_latestWidgetId = 0;
 
     /* Update actions' enabled status */
     updateActions();

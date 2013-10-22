@@ -45,7 +45,6 @@ ConfigureMidiPlugin::ConfigureMidiPlugin(MidiPlugin* plugin, QWidget* parent)
 {
     Q_ASSERT(plugin != NULL);
     setupUi(this);
-    m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
 
     connect(plugin, SIGNAL(configurationChanged()), this, SLOT(slotUpdateTree()));
     slotUpdateTree();
@@ -174,6 +173,9 @@ void ConfigureMidiPlugin::slotUpdateTree()
 
     outputs->setExpanded(true);
     inputs->setExpanded(true);
+
+    m_tree->resizeColumnToContents(COL_NAME);
+    m_tree->resizeColumnToContents(COL_CHANNEL);
 }
 
 QWidget* ConfigureMidiPlugin::createMidiChannelWidget(int select)

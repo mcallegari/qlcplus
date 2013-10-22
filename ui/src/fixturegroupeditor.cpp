@@ -67,8 +67,13 @@ FixtureGroupEditor::FixtureGroupEditor(FixtureGroup* grp, Doc* doc, QWidget* par
     connect(m_removeButton, SIGNAL(clicked()),
             this, SLOT(slotRemoveFixtureClicked()));
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     m_table->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
     m_table->verticalHeader()->setResizeMode(QHeaderView::Stretch);
+#else
+    m_table->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    m_table->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+#endif
 
     updateTable();
 }

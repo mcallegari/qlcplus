@@ -55,7 +55,6 @@ DMXUSBConfig::DMXUSBConfig(DMXUSB* plugin, QWidget* parent)
     header << tr("Name") << tr("Serial") << QString("Mode");
     m_tree->setHeaderLabels(header);
     m_tree->setSelectionMode(QAbstractItemView::NoSelection);
-    m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
 
     QVBoxLayout* vbox = new QVBoxLayout(this);
     vbox->addWidget(m_tree);
@@ -116,6 +115,9 @@ void DMXUSBConfig::slotRefresh()
         item->setText(COL_SERIAL, widget->serial());
         m_tree->setItemWidget(item, COL_TYPE, createTypeCombo(widget));
     }
+
+    m_tree->resizeColumnToContents(COL_NAME);
+    m_tree->resizeColumnToContents(COL_SERIAL);
 
     m_ignoreItemChanged = false;
 }

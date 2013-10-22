@@ -22,13 +22,13 @@
 #include <QFile>
 #include <QtXml>
 
-#ifndef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
+#   include <windows.h>
+#   include <lmcons.h>
+#else
 #   include <sys/types.h>
 #   include <unistd.h>
 #   include <pwd.h>
-#else
-#   include <windows.h>
-#   include <lmcons.h>
 #endif
 
 #include "qlcconfig.h"
@@ -151,18 +151,18 @@ QString QLCFile::errorString(QFile::FileError error)
 
 QString QLCFile::currentUserName()
 {
-#ifndef WIN32
-    struct passwd* passwd = getpwuid(getuid());
-    if (passwd == NULL)
-        return QString(getenv("USER"));
-    else
-        return QString(passwd->pw_gecos);
-#else
+#if defined(WIN32) || defined(Q_OS_WIN)
     DWORD length = UNLEN + 1;
     TCHAR name[length];
     if (GetUserName(name, &length))
         return QString::fromUtf16((ushort*) name);
     else
         return QString("Unknown windows user");
+#else
+    struct passwd* passwd = getpwuid(getuid());
+    if (passwd == NULL)
+        return QString(getenv("USER"));
+    else
+        return QString(passwd->pw_gecos);
 #endif
 }

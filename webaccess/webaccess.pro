@@ -7,12 +7,13 @@ TARGET   = qlcpluswebaccess
 
 CONFIG += qt
 QT     += core xml gui script
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 # Engine
 INCLUDEPATH     += ../engine/src ../engine/src/audio ../ui/src
 DEPENDPATH      += ../engine/src ../ui/src
 QMAKE_LIBDIR    += ../engine/src ../ui/src
-DEFINES         += USE_WEBSOCKET
+DEFINES         += USE_WEBSOCKET NO_SSL
 
 LIBS += -lqlcplusengine -lqlcplusui
 

@@ -65,6 +65,11 @@
              <string>Enable threshold</string>
             </property>
            </column>
+           <column>
+            <property name="text">
+             <string>Divisor</string>
+            </property>
+           </column>
           </widget>
          </item>
          <item row="0" column="3">

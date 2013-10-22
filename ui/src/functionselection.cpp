@@ -59,6 +59,7 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
     : QDialog(parent)
     , m_doc(doc)
     , m_multiSelection(true)
+    , m_runningOnlyFlag(false)
     , m_filter(Function::Scene | Function::Chaser | Function::Collection |
                Function::EFX | Function::Script | Function::RGBMatrix | Function::Show | Function::Audio)
     , m_disableFilters(0)
@@ -72,6 +73,12 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
     action->setShortcut(QKeySequence(QKeySequence::Close));
     connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
     addAction(action);
+
+    connect(m_allFunctionsRadio, SIGNAL(clicked()),
+            this, SLOT(slotAllFunctionsChecked()));
+
+    connect(m_runningFunctionsRadio, SIGNAL(clicked()),
+            this, SLOT(slotRunningFunctionsChecked()));
 
     connect(m_sceneCheck, SIGNAL(toggled(bool)),
             this, SLOT(slotSceneChecked(bool)));
@@ -151,7 +158,6 @@ int FunctionSelection::exec()
             this, SLOT(slotItemDoubleClicked(QTreeWidgetItem*)));
 
     refillTree();
-    m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
 
     slotItemSelectionChanged();
 
@@ -174,6 +180,22 @@ FunctionSelection::~FunctionSelection()
 void FunctionSelection::setMultiSelection(bool multi)
 {
     m_multiSelection = multi;
+}
+
+/*********************************************************************
+ * Functions filter
+ *********************************************************************/
+
+void FunctionSelection::slotAllFunctionsChecked()
+{
+    m_runningOnlyFlag = false;
+    refillTree();
+}
+
+void FunctionSelection::slotRunningFunctionsChecked()
+{
+    m_runningOnlyFlag = true;
+    refillTree();
 }
 
 /*****************************************************************************
@@ -251,6 +273,9 @@ void FunctionSelection::refillTree()
     {
         if (m_filter & function->type())
         {
+            if (m_runningOnlyFlag == true && function->isRunning() == false)
+                continue;
+
             QTreeWidgetItem* item = new QTreeWidgetItem(m_tree);
             updateFunctionItem(item, function);
 
@@ -258,6 +283,8 @@ void FunctionSelection::refillTree()
                 item->setFlags(0); // Disables the item
         }
     }
+    m_tree->resizeColumnToContents(KColumnName);
+    m_tree->resizeColumnToContents(KColumnType);
 }
 
 void FunctionSelection::slotItemSelectionChanged()

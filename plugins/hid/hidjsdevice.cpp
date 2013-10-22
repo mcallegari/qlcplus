@@ -22,7 +22,7 @@
 #include <linux/joystick.h>
 #include <linux/input.h>
 #include <errno.h>
-#ifndef WIN32
+#if !defined(WIN32) && !defined(Q_OS_WIN)
   #include <unistd.h>
 #endif
 

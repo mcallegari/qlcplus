@@ -4,6 +4,8 @@ TEMPLATE = lib
 LANGUAGE = C++
 TARGET   = osc
 
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
 CONFIG      += plugin
 CONFIG      += link_pkgconfig
 INCLUDEPATH += ../interfaces

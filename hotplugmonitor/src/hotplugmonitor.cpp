@@ -26,9 +26,9 @@
 
 #include "hotplugmonitor.h"
 
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
 #   include "hpmprivate-win32.h"
-#elif __APPLE__
+#elif defined( __APPLE__) || defined(Q_OS_MAC)
 #   include "hpmprivate-iokit.h"
 #else
 #   include "hpmprivate-udev.h"

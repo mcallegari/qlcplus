@@ -150,7 +150,7 @@ void UnixPeperoniDevice::writeUniverse(const QByteArray& universe)
     /* Choose write method based on firmware version. One has to unplug
        and then re-plug the dongle in apple for bulk write to work,
        so disable it for apple, since control msg should work for all. */
-#ifndef __APPLE__
+#if !defined(__APPLE__) && !defined(Q_OS_MAC)
     if (m_firmwareVersion < PEPERONI_FW_BULK_SUPPORT)
     {
 #endif
@@ -167,7 +167,7 @@ void UnixPeperoniDevice::writeUniverse(const QByteArray& universe)
 
         if (r < 0)
             qWarning() << Q_FUNC_INFO << "Failed control transfer:" << r;
-#ifndef __APPLE__
+#if !defined(__APPLE__) && !defined(Q_OS_MAC)
     }
     else
     {

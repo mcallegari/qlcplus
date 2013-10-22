@@ -3,6 +3,7 @@
 <HEAD>
 <TITLE>Q Light Controller Plus - Virtual Console Speed Dial</TITLE>
 <SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
 </HEAD>
 <BODY onLoad="replaceqrc()">
 
@@ -50,6 +51,10 @@ the elapsed time between clicks and sets this time to the controlled functions a
 was adjusted accordingly.
 </P>
 
+<P>For cuelists/chasers and RGBMatrixes, the tap button advances to next scene/position when
+speed dial is set to adjust duration, and the tapped tempo is more than 1/4 of the original duration.
+</P>
+
 <H3>Configuration</H3>
 <P>
 Speed dials can be configured with the properties
@@ -57,7 +62,7 @@ Speed dials can be configured with the properties
 by double clicking the speed dial itself.
 </P>
 
-<TABLE BORDER="1">
+<TABLE BORDER=1 class="qlcTable">
  <TR>
   <TD>
    <B>Speed Dial Name</B>
