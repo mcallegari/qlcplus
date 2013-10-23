@@ -354,6 +354,11 @@ void SceneEditor::setSceneValue(const SceneValue& scv)
         fc->setSceneValue(scv);
 }
 
+void SceneEditor::setBlindModeEnabled(bool active)
+{
+    m_blindAction->setChecked(active);
+}
+
 /*****************************************************************************
  * Common
  *****************************************************************************/

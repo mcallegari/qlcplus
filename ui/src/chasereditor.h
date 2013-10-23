@@ -172,6 +172,7 @@ private:
 
 private:
     bool m_itemIsUpdating;
+    bool m_liveEdit;
 };
 
 #endif

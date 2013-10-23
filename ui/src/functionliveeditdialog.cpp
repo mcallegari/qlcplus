@@ -63,7 +63,11 @@ FunctionLiveEditDialog::FunctionLiveEditDialog(Doc *doc, quint32 fid, QWidget *p
     switch(func->type())
     {
         case Function::Scene:
-            m_editor = new SceneEditor(m_scrollArea, qobject_cast<Scene*> (func), m_doc, true);
+        {
+            SceneEditor *sceneEditor = new SceneEditor(m_scrollArea, qobject_cast<Scene*> (func), m_doc, true);
+            sceneEditor->setBlindModeEnabled(false);
+            m_editor = sceneEditor;
+        }
         break;
         case Function::Chaser:
             m_editor = new ChaserEditor(m_scrollArea, qobject_cast<Chaser*> (func), m_doc);

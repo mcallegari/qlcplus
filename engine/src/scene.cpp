@@ -111,6 +111,21 @@ void Scene::setValue(const SceneValue& scv)
     else
         m_values.replace(index, scv);
     qSort(m_values.begin(), m_values.end());
+
+    // if the scene is running, we must
+    // update/add the changed channel
+    if (m_fader != NULL)
+    {
+        FadeChannel fc;
+        fc.setFixture(scv.fxi);
+        fc.setChannel(scv.channel);
+        fc.setStart(scv.value);
+        fc.setTarget(scv.value);
+        fc.setCurrent(scv.value);
+        //fc.setFadeTime(0);
+        m_fader->add(fc);
+    }
+
     m_valueListMutex.unlock();
 
     emit changed(this->id());

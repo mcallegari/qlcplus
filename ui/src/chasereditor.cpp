@@ -61,6 +61,7 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc)
     , m_doc(doc)
     , m_chaser(chaser)
     , m_itemIsUpdating(false)
+    , m_liveEdit(false)
 {
     Q_ASSERT(chaser != NULL);
     Q_ASSERT(doc != NULL);
@@ -230,6 +231,9 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc)
     updateClipboardButtons();
     updateSpeedDials();
 
+    if (m_doc->mode() == Doc::Operate)
+        m_liveEdit = true;
+
     slotModeChanged(m_doc->mode());
 
     // Set focus to the editor
@@ -246,7 +250,8 @@ ChaserEditor::~ChaserEditor()
     m_speedDials = NULL;
 
     // double check that the Chaser still exists !
-    if (m_doc->functions().contains(m_chaser) == true &&
+    if (m_liveEdit == false &&
+        m_doc->functions().contains(m_chaser) == true &&
         m_chaser->stopped() == false)
             m_chaser->stopAndWait();
 }
@@ -969,7 +974,7 @@ void ChaserEditor::slotModeChanged(Doc::Mode mode)
     {
         m_testPlayButton->setEnabled(false);
         m_testStopButton->setEnabled(false);
-        if (m_chaser->stopped() == false)
+        if (m_liveEdit == false && m_chaser->stopped() == false)
             m_chaser->stop();
     }
     else
