@@ -70,7 +70,7 @@ FunctionLiveEditDialog::FunctionLiveEditDialog(Doc *doc, quint32 fid, QWidget *p
         }
         break;
         case Function::Chaser:
-            m_editor = new ChaserEditor(m_scrollArea, qobject_cast<Chaser*> (func), m_doc);
+            m_editor = new ChaserEditor(m_scrollArea, qobject_cast<Chaser*> (func), m_doc, true);
         break;
         case Function::EFX:
             m_editor = new EFXEditor(m_scrollArea, qobject_cast<EFX*> (func), m_doc);
