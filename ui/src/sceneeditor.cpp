@@ -635,12 +635,12 @@ void SceneEditor::slotModeChanged(Doc::Mode mode)
     if (mode == Doc::Operate)
     {
         m_blindAction->setChecked(true);
-        m_tab->widget(0)->setEnabled(false);
+        //m_tab->widget(0)->setEnabled(false);
     }
     else
     {
         m_blindAction->setChecked(false);
-        m_tab->widget(0)->setEnabled(true);
+        //m_tab->widget(0)->setEnabled(true);
     }
 }
 

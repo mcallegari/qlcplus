@@ -64,8 +64,11 @@ FunctionLiveEditDialog::FunctionLiveEditDialog(Doc *doc, quint32 fid, QWidget *p
     {
         case Function::Scene:
         {
+            bool blindMode = true;
+            if (func->isRunning() == true)
+                blindMode = false;
             SceneEditor *sceneEditor = new SceneEditor(m_scrollArea, qobject_cast<Scene*> (func), m_doc, true);
-            sceneEditor->setBlindModeEnabled(false);
+            sceneEditor->setBlindModeEnabled(blindMode);
             m_editor = sceneEditor;
         }
         break;
