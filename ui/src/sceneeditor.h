@@ -74,6 +74,9 @@ private:
     /*********************************************************************
      * Common
      *********************************************************************/
+public:
+    void setBlindModeEnabled(bool active);
+
 private slots:
     void slotTabChanged(int tab);
 
