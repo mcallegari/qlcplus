@@ -556,18 +556,29 @@ void Scene::postRun(MasterTimer* timer, UniverseArray* ua)
         it.next();
         FadeChannel fc = it.value();
 
-        if (fc.group(doc()) == QLCChannel::Intensity)
+        bool canFade = true;
+        Fixture *fixture = doc()->fixture(fc.fixture());
+        if (fixture != NULL)
+            canFade = fixture->channelCanFade(fc.channel());
+        fc.setStart(fc.current(getAttributeValue()));
+
+        fc.setElapsed(0);
+        fc.setReady(false);
+        if (canFade == false)
         {
-            fc.setStart(fc.current(getAttributeValue()));
-            fc.setTarget(0);
-            fc.setElapsed(0);
-            fc.setReady(false);
+            fc.setFadeTime(0);
+            fc.setTarget(fc.current(getAttributeValue()));
+        }
+        else
+        {
             if (overrideFadeOutSpeed() == defaultSpeed())
                 fc.setFadeTime(fadeOutSpeed());
             else
                 fc.setFadeTime(overrideFadeOutSpeed());
-            timer->fader()->add(fc);
+            fc.setTarget(0);
         }
+        timer->fader()->add(fc);
+
     }
 
     Q_ASSERT(m_fader != NULL);

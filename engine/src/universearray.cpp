@@ -91,6 +91,18 @@ void UniverseArray::zeroIntensityChannels()
     }
 }
 
+QHash<int, uchar> UniverseArray::intensityChannels()
+{
+    QHash <int, uchar> intensityList;
+    QSetIterator <int> it(m_gMIntensityChannels);
+    while (it.hasNext() == true)
+    {
+        int channel(it.next());
+        intensityList[channel] = m_preGMValues->data()[channel];
+    }
+    return intensityList;
+}
+
 bool UniverseArray::checkHTP(int channel, uchar value, QLCChannel::Group group) const
 {
     QByteArray pGM = preGMValues();
