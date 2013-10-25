@@ -46,7 +46,7 @@ class ChaserEditor : public QWidget, public Ui_ChaserEditor
      * Initialization
      ************************************************************************/
 public:
-    ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc);
+    ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc, bool liveMode = false);
     ~ChaserEditor();
 
 signals:
@@ -172,6 +172,7 @@ private:
 
 private:
     bool m_itemIsUpdating;
+    bool m_liveMode;
 };
 
 #endif
