@@ -480,7 +480,7 @@ void ChaserEditor::slotItemChanged(QTreeWidgetItem *item, int column)
     quint32 newValue = 0;
     int idx = m_tree->indexOfTopLevelItem(item);
 
-    if (itemText.contains("."))
+    if (itemText.contains(".") || itemText.contains("s") || itemText.contains("m"))
         newValue = Function::stringToSpeed(itemText);
     else
         newValue = (itemText.toDouble() * 1000);
@@ -518,6 +518,14 @@ void ChaserEditor::slotItemChanged(QTreeWidgetItem *item, int column)
     }
     m_chaser->replaceStep(step, idx);
     updateItem(item, step);
+
+    m_tree->resizeColumnToContents(COL_NUM);
+    m_tree->resizeColumnToContents(COL_NAME);
+    m_tree->resizeColumnToContents(COL_FADEIN);
+    m_tree->resizeColumnToContents(COL_HOLD);
+    m_tree->resizeColumnToContents(COL_FADEOUT);
+    m_tree->resizeColumnToContents(COL_DURATION);
+    m_tree->resizeColumnToContents(COL_NOTES);
 }
 
 /****************************************************************************
@@ -711,6 +719,8 @@ void ChaserEditor::slotFadeInDialChanged(int ms)
     case Chaser::Default:
         break;
     }
+
+    m_tree->resizeColumnToContents(COL_FADEIN);
 }
 
 void ChaserEditor::slotFadeOutDialChanged(int ms)
@@ -736,6 +746,8 @@ void ChaserEditor::slotFadeOutDialChanged(int ms)
     case Chaser::Default:
         break;
     }
+
+    m_tree->resizeColumnToContents(COL_FADEOUT);
 }
 
 void ChaserEditor::slotHoldDialChanged(int ms)
@@ -767,6 +779,8 @@ void ChaserEditor::slotHoldDialChanged(int ms)
     case Chaser::Default:
         break;
     }
+
+    m_tree->resizeColumnToContents(COL_HOLD);
 }
 
 void ChaserEditor::createSpeedDials()
