@@ -24,6 +24,7 @@
 #include <QFile>
 #include <QList>
 #include <QtXml>
+#include <QMutexLocker>
 
 #include "qlcfile.h"
 
@@ -48,9 +49,8 @@ Collection::Collection(Doc* doc) : Function(doc, Function::Collection)
 
 Collection::~Collection()
 {
-    m_functionListMutex.lock();
+    QMutexLocker locker(&m_functionListMutex);
     m_functions.clear();
-    m_functionListMutex.unlock();
 }
 
 /*****************************************************************************
@@ -96,9 +96,10 @@ bool Collection::addFunction(quint32 fid)
 {
     if (fid != this->id() && m_functions.contains(fid) == false)
     {
-        m_functionListMutex.lock();
-        m_functions.append(fid);
-        m_functionListMutex.unlock();
+        {
+            QMutexLocker locker(&m_functionListMutex);
+            m_functions.append(fid);
+        }
 
         emit changed(this->id());
         return true;
@@ -111,9 +112,11 @@ bool Collection::addFunction(quint32 fid)
 
 bool Collection::removeFunction(quint32 fid)
 {
-    m_functionListMutex.lock();
-    int num = m_functions.removeAll(fid);
-    m_functionListMutex.unlock();
+    int num = 0;
+    {
+        QMutexLocker locker(&m_functionListMutex);
+        num = m_functions.removeAll(fid);
+    }
 
     if (num > 0)
     {
@@ -128,6 +131,7 @@ bool Collection::removeFunction(quint32 fid)
 
 QList <quint32> Collection::functions() const
 {
+    QMutexLocker locker(&m_functionListMutex);
     return m_functions;
 }
 
@@ -233,7 +237,10 @@ void Collection::postLoad()
 
 void Collection::preRun(MasterTimer* timer)
 {
-    m_runningChildren.clear();
+    {
+        QMutexLocker locker(&m_functionListMutex);
+        m_runningChildren.clear();
+    }
     Function::preRun(timer);
 }
 
@@ -246,7 +253,7 @@ void Collection::write(MasterTimer* timer, UniverseArray* universes)
         Doc* doc = qobject_cast <Doc*> (parent());
         Q_ASSERT(doc != NULL);
 
-        m_functionListMutex.lock();
+        QMutexLocker locker(&m_functionListMutex);
         QListIterator <quint32> it(m_functions);
         while (it.hasNext() == true)
         {
@@ -265,13 +272,17 @@ void Collection::write(MasterTimer* timer, UniverseArray* universes)
 
             function->start(timer, true, 0, overrideFadeInSpeed(), overrideFadeOutSpeed(), overrideDuration());
         }
-        m_functionListMutex.unlock();
     }
 
     incrementElapsed();
 
-    if (m_runningChildren.size() == 0)
-        stop();
+    {
+        QMutexLocker locker(&m_functionListMutex);
+        if (m_runningChildren.size() > 0)
+          return;
+    }
+
+    stop();
 }
 
 void Collection::postRun(MasterTimer* timer, UniverseArray* universes)
@@ -279,17 +290,21 @@ void Collection::postRun(MasterTimer* timer, UniverseArray* universes)
     Doc* doc = qobject_cast <Doc*> (parent());
     Q_ASSERT(doc != NULL);
 
-    /** Stop the member functions only if they have been started by this
-        collection. */
-    QSetIterator <quint32> it(m_runningChildren);
-    while (it.hasNext() == true)
     {
-        Function* function = doc->function(it.next());
-        Q_ASSERT(function != NULL);
-        function->stop();
+        QMutexLocker locker(&m_functionListMutex);
+        /** Stop the member functions only if they have been started by this
+            collection. */
+        QSetIterator <quint32> it(m_runningChildren);
+        while (it.hasNext() == true)
+        {
+            Function* function = doc->function(it.next());
+            Q_ASSERT(function != NULL);
+            function->stop();
+        }
+
+        m_runningChildren.clear();
     }
 
-    m_runningChildren.clear();
     Function::postRun(timer, universes);
 }
 
@@ -302,5 +317,6 @@ void Collection::slotChildStopped(quint32 fid)
     disconnect(function, SIGNAL(stopped(quint32)),
                this, SLOT(slotChildStopped(quint32)));
 
+    QMutexLocker locker(&m_functionListMutex);
     m_runningChildren.remove(fid);
 }

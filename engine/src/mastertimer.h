@@ -114,7 +114,7 @@ private:
     QList <Function*> m_functionList;
     QList <Function*> m_startQueue;
 
-    /** Mutex that guards access to m_functionList */
+    /** Mutex that guards access to m_functionList & m_startQueue */
     QMutex m_functionListMutex;
 
     /** Flag for stopping all functions */
@@ -160,10 +160,14 @@ private:
     void timerTickDMXSources(UniverseArray* universes);
 
 private:
-    /** List of currently running functions */
+    /** List of currently registered DMX sources */
     QList <DMXSource*> m_dmxSourceList;
 
-    /** Mutex that guards access to m_functionList */
+    /** Mutex that guards access to m_dmxSourceList 
+     *
+     * In case both m_functionListMutex and m_dmxSourceListMutex are needed,
+     * always lock m_functionListMutex first!
+     */
     QMutex m_dmxSourceListMutex;
 
     /*************************************************************************
