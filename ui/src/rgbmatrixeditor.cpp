@@ -291,8 +291,28 @@ void RGBMatrixEditor::createPreviewItems()
         return;
     }
 
+    m_previewDirection = m_matrix->direction();
+
+    if (m_previewDirection == Function::Forward)
+    {
+        m_previewStep = 0;
+        m_matrix->setStepColor(m_matrix->startColor());
+    }
+    else
+    {
+        m_previewStep = m_previewMaps.size() - 1;
+        if (m_matrix->endColor().isValid())
+            m_matrix->setStepColor(m_matrix->endColor());
+        else
+            m_matrix->setStepColor(m_matrix->startColor());
+    }
+
     m_matrix->calculateColorDelta();
     m_previewMaps = m_matrix->previewMaps();
+
+    RGBMap map;
+    if (m_previewStep < m_previewMaps.size())
+        map = m_previewMaps[m_previewStep];
 
     for (int x = 0; x < grp->size().width(); x++)
     {
@@ -307,26 +327,12 @@ void RGBMatrixEditor::createPreviewItems()
                               y * RECT_SIZE + RECT_PADDING + ITEM_PADDING,
                               ITEM_SIZE - (2 * ITEM_PADDING),
                               ITEM_SIZE - (2 * ITEM_PADDING));
-                item->setColor(Qt::black);
+                item->setColor(map[y][x]);
                 item->draw(0);
                 m_scene->addItem(item);
                 m_previewHash[pt] = item;
             }
         }
-    }
-
-    if (m_matrix->direction() == Function::Forward)
-    {
-        m_previewStep = 0;
-        m_matrix->setStepColor(m_matrix->startColor());
-    }
-    else
-    {
-        m_previewStep = m_previewMaps.size() - 1;
-        if (m_matrix->endColor().isValid())
-            m_matrix->setStepColor(m_matrix->endColor());
-        else
-            m_matrix->setStepColor(m_matrix->startColor());
     }
 }
 
@@ -340,7 +346,16 @@ void RGBMatrixEditor::slotPreviewTimeout()
     m_previewIterator += MasterTimer::tick();
     if (m_previewIterator >= m_matrix->duration())
     {
-        if (m_matrix->direction() == Function::Forward)
+        qDebug() << "previewTimeout. Step:" << m_previewStep;
+        if (m_matrix->runOrder() == RGBMatrix::PingPong)
+        {
+            if (m_previewDirection == Function::Forward && (m_previewStep + 1) == m_previewMaps.size())
+                m_previewDirection = Function::Backward;
+            else if (m_previewDirection == Function::Backward && (m_previewStep - 1) < 0)
+                m_previewDirection = Function::Forward;
+        }
+
+        if (m_previewDirection == Function::Forward)
         {
             m_previewStep++;
             if (m_previewStep >= m_previewMaps.size())
@@ -349,7 +364,7 @@ void RGBMatrixEditor::slotPreviewTimeout()
                 m_matrix->setStepColor(m_matrix->startColor());
             }
             else
-                m_matrix->updateStepColor(m_matrix->direction());
+                m_matrix->updateStepColor(m_previewDirection);
         }
         else
         {
@@ -363,7 +378,7 @@ void RGBMatrixEditor::slotPreviewTimeout()
                     m_matrix->setStepColor(m_matrix->startColor());
             }
             else
-                m_matrix->updateStepColor(m_matrix->direction());
+                m_matrix->updateStepColor(m_previewDirection);
         }
         m_previewMaps = m_matrix->previewMaps();
         m_previewIterator = 0;
@@ -418,6 +433,7 @@ void RGBMatrixEditor::slotPatternActivated(const QString& text)
     m_matrix->setAlgorithm(algo);
     m_matrix->calculateColorDelta();
     updateExtraOptions();
+
     slotRestartTest();
 }
 
@@ -428,7 +444,6 @@ void RGBMatrixEditor::slotFixtureGroupActivated(int index)
         m_matrix->setFixtureGroup(var.toUInt());
     else
         m_matrix->setFixtureGroup(FixtureGroup::invalidId());
-    createPreviewItems();
     slotRestartTest();
 }
 
@@ -442,7 +457,6 @@ void RGBMatrixEditor::slotStartColorButtonClicked()
         QPixmap pm(100, 26);
         pm.fill(col);
         m_startColorButton->setIcon(QIcon(pm));
-
         slotRestartTest();
     }
 }
@@ -457,7 +471,6 @@ void RGBMatrixEditor::slotEndColorButtonClicked()
         QPixmap pm(100, 26);
         pm.fill(col);
         m_endColorButton->setIcon(QIcon(pm));
-
         slotRestartTest();
     }
 }
@@ -516,26 +529,36 @@ void RGBMatrixEditor::slotOffsetSpinChanged()
 void RGBMatrixEditor::slotLoopClicked()
 {
     m_matrix->setRunOrder(Function::Loop);
+    m_matrix->calculateColorDelta();
+    slotRestartTest();
 }
 
 void RGBMatrixEditor::slotPingPongClicked()
 {
     m_matrix->setRunOrder(Function::PingPong);
+    m_matrix->calculateColorDelta();
+    slotRestartTest();
 }
 
 void RGBMatrixEditor::slotSingleShotClicked()
 {
     m_matrix->setRunOrder(Function::SingleShot);
+    m_matrix->calculateColorDelta();
+    slotRestartTest();
 }
 
 void RGBMatrixEditor::slotForwardClicked()
 {
     m_matrix->setDirection(Function::Forward);
+    m_matrix->calculateColorDelta();
+    slotRestartTest();
 }
 
 void RGBMatrixEditor::slotBackwardClicked()
 {
     m_matrix->setDirection(Function::Backward);
+    m_matrix->calculateColorDelta();
+    slotRestartTest();
 }
 
 void RGBMatrixEditor::slotFadeInChanged(int ms)
@@ -574,6 +597,7 @@ void RGBMatrixEditor::slotTestClicked()
     {
         m_matrix->stopAndWait();
         m_previewIterator = 0;
+        createPreviewItems();
         m_previewTimer->start(MasterTimer::tick());
     }
 }
@@ -588,6 +612,8 @@ void RGBMatrixEditor::slotRestartTest()
         m_testButton->click();
         m_testButton->click();
     }
+    else
+        createPreviewItems();
 }
 
 void RGBMatrixEditor::slotModeChanged(Doc::Mode mode)

@@ -27,7 +27,7 @@
 #include "aboutbox.h"
 #undef protected
 
-#define CONTRIBCOUNT 16
+#define CONTRIBCOUNT 15
 
 void AboutBox_Test::initial()
 {

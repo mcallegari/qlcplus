@@ -142,6 +142,8 @@ void MasterTimer::stopAllFunctions()
 #endif
     }
 
+    // WARNING: the following brackets are fundamental for
+    // the scope of this piece of code !!
     {
         /* Remove all generic fader's channels */
         QMutexLocker functionLocker(&m_functionListMutex);
