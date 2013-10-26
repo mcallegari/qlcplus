@@ -4,7 +4,7 @@ Copyright (c) Heikki Junnila
 	      Massimo Callegari
 
 EMail: massimocallegari@yahoo.it
-QLC+ on SourceForge: http://qlcplus.sourceforge.net/
+QLC+ on SourceForge: http://qlcplus.sourceforge.net/index.shtml
 QLC+ on GitHub: https://github.com/mcallegari/qlcplus
 
 DEVELOPERS AT WORK
@@ -114,9 +114,13 @@ http://sourceforge.net/p/qlcplus/discussion/
 Contributors
 ------------
 QLC+:
-Jano Svitok (Bugfixes)
+Jano Svitok (Bugfixes, new features)
+Thomas Achtner (ENTTEC wing improvements)
 Heiko Fanieng (German translation)
-Daniel Nyström (OSX test & support)
+NiKoyes (French translation)
+Raymond Van Laake (Dutch translation)
+Luis García Tornel (Spanish translation)
+Jan Lachman (Czech translation)
 
 QLC:
 Stefan Krumm <stefankrumm@users.sf.net> (Bugfixes, new features)
@@ -127,4 +131,3 @@ Simon Newton <newtons@iinet.net> (OLA plugin)
 Lutz Hillebrand <lutz.h@hagen.de> (uDMX plugin)
 Matthew Jaggard <matthew@jaggard.org.uk> (Velleman plugin)
 Ptit Vachon <6ril@no-log.org> (French translation)
-NiKoyes (French translation)

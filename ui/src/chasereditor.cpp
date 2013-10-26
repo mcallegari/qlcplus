@@ -480,10 +480,12 @@ void ChaserEditor::slotItemChanged(QTreeWidgetItem *item, int column)
     quint32 newValue = 0;
     int idx = m_tree->indexOfTopLevelItem(item);
 
-    if (itemText.contains(".") || itemText.contains("s") || itemText.contains("m"))
-        newValue = Function::stringToSpeed(itemText);
+    if (itemText.contains(".") || itemText.contains("s") ||
+        itemText.contains("m") || itemText.contains("h"))
+            newValue = Function::stringToSpeed(itemText);
     else
         newValue = (itemText.toDouble() * 1000);
+
     ChaserStep step = m_chaser->steps().at(idx);
     if (column == COL_FADEIN)
     {
