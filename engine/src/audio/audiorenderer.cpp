@@ -72,6 +72,7 @@ void AudioRenderer::run()
             if (audioDataRead == 0)
             {
                 m_mutex.unlock();
+                emit endOfStreamReached();
                 return;
             }
             if (m_intensity != 1.0)

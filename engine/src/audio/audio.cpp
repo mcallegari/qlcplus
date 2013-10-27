@@ -250,6 +250,22 @@ void Audio::adjustAttribute(qreal fraction, int)
     Function::adjustAttribute(fraction);
 }
 
+void Audio::slotEndOfStream()
+{
+#ifdef QT_PHONON_LIB
+    if (m_object != NULL)
+        m_object->stop();
+#endif
+    if (m_audio_out != NULL)
+    {
+        m_audio_out->stop();
+        delete m_audio_out;
+        m_audio_out = NULL;
+        m_decoder->seek(0);
+    }
+    Function::postRun(NULL, NULL);
+}
+
 void Audio::slotTotalTimeChanged(qint64)
 {
 #ifdef QT_PHONON_LIB
@@ -263,6 +279,10 @@ void Audio::slotFunctionRemoved(quint32 fid)
 {
     Q_UNUSED(fid)
 }
+
+/*********************************************************************
+ * Save & Load
+ *********************************************************************/
 
 bool Audio::saveXML(QDomDocument* doc, QDomElement* wksp_root)
 {
@@ -357,6 +377,8 @@ void Audio::preRun(MasterTimer* timer)
         m_audio_out->initialize(ap.sampleRate(), ap.channels(), ap.format());
         m_audio_out->start();
         m_audio_out->adjustIntensity(getAttributeValue());
+        connect(m_audio_out, SIGNAL(endOfStreamReached()),
+                this, SLOT(slotEndOfStream()));
     }
     Function::preRun(timer);
 }
@@ -371,16 +393,5 @@ void Audio::postRun(MasterTimer* timer, UniverseArray* universes)
 {
     Q_UNUSED(timer)
     Q_UNUSED(universes)
-#ifdef QT_PHONON_LIB
-    if (m_object != NULL)
-        m_object->stop();
-#endif
-    if (m_audio_out != NULL)
-    {
-        m_audio_out->stop();
-        delete m_audio_out;
-        m_audio_out = NULL;
-        m_decoder->seek(0);
-    }
-    Function::postRun(timer, universes);
+    slotEndOfStream();
 }
