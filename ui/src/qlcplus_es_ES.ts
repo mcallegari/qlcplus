@@ -699,7 +699,7 @@ Really stop them and switch back to Design mode?</source>
     <message>
         <location filename="app.cpp" line="752"/>
         <location filename="app.cpp" line="791"/>
-        <location filename="app.cpp" line="1079"/>
+        <location filename="app.cpp" line="1076"/>
         <source>Do you wish to save the current workspace?
 Changes will be lost if you don&apos;t save them.</source>
         <translation>¿Desea guardar el espacio de trabajo actual?
@@ -713,7 +713,7 @@ Los cambios se perderán si no los guarda.</translation>
     <message>
         <location filename="app.cpp" line="793"/>
         <location filename="app.cpp" line="814"/>
-        <location filename="app.cpp" line="1081"/>
+        <location filename="app.cpp" line="1078"/>
         <source>Open Workspace</source>
         <translation>Abrir Espacio de Trabajo</translation>
     </message>
@@ -741,12 +741,12 @@ Los cambios se perderán si no los guarda.</translation>
         <translation>Guardar el espacio de trabajo como</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1070"/>
+        <location filename="app.cpp" line="1067"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1071"/>
+        <location filename="app.cpp" line="1068"/>
         <source>File not found !
 The selected file has been moved or deleted.</source>
         <translation>¡Archivo no encontrado!
@@ -1093,284 +1093,284 @@ Duración: %3
         <translation>Editor de Chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="111"/>
+        <location filename="chasereditor.ui" line="126"/>
         <source>Chaser name</source>
         <translation>Nombre del Chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="124"/>
+        <location filename="chasereditor.ui" line="139"/>
         <source>Name of the chaser being edited</source>
         <translation>Edite el nombre del chaser actual</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="45"/>
+        <location filename="chasereditor.ui" line="60"/>
         <source>Step</source>
         <translation>Paso</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="50"/>
+        <location filename="chasereditor.ui" line="65"/>
         <source>Function</source>
         <translation>Función</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="55"/>
-        <location filename="chasereditor.cpp" line="793"/>
+        <location filename="chasereditor.ui" line="70"/>
+        <location filename="chasereditor.cpp" line="811"/>
         <source>Fade In</source>
         <translation>Fade In</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="65"/>
-        <location filename="chasereditor.cpp" line="794"/>
+        <location filename="chasereditor.ui" line="80"/>
+        <location filename="chasereditor.cpp" line="812"/>
         <source>Fade Out</source>
         <translation>Fade Out</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="70"/>
+        <location filename="chasereditor.ui" line="85"/>
         <source>Duration</source>
         <translation>Duración</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="568"/>
+        <location filename="chasereditor.ui" line="739"/>
         <source>Add step(s) to the current position</source>
         <translation>Añadir pasos a la posición actual</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="401"/>
+        <location filename="chasereditor.ui" line="572"/>
         <source>Show/Hide speed dial window</source>
         <translation>Mostrar/Ocultar ventana de selector de velocidad</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="60"/>
-        <location filename="chasereditor.cpp" line="795"/>
+        <location filename="chasereditor.ui" line="75"/>
+        <location filename="chasereditor.cpp" line="813"/>
         <source>Hold</source>
         <translation>Espera</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="75"/>
+        <location filename="chasereditor.ui" line="90"/>
         <source>Notes</source>
         <translation>Notas</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="164"/>
+        <location filename="chasereditor.ui" line="212"/>
         <source>Switch direction at both ends</source>
         <translation>Cambiar dirección en ambos extremos</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="225"/>
+        <location filename="chasereditor.ui" line="300"/>
         <source>Fade In Speed</source>
         <translation>Tiempo de Fade In</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="231"/>
+        <location filename="chasereditor.ui" line="327"/>
         <source>All steps have common fade in speed set by the chaser</source>
         <translation>Todos los pasos tienen un tiempo de Fade In común, establecido por el chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="234"/>
-        <location filename="chasereditor.ui" line="276"/>
-        <location filename="chasereditor.ui" line="318"/>
+        <location filename="chasereditor.ui" line="330"/>
+        <location filename="chasereditor.ui" line="405"/>
+        <location filename="chasereditor.ui" line="483"/>
         <source>Common</source>
         <translation>Común</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="241"/>
+        <location filename="chasereditor.ui" line="343"/>
         <source>Each step has its own fade in speed set by the chaser</source>
         <translation>Cada paso tiene su propio tiempo de Fade In, establecido por el chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="244"/>
-        <location filename="chasereditor.ui" line="286"/>
-        <location filename="chasereditor.ui" line="331"/>
+        <location filename="chasereditor.ui" line="346"/>
+        <location filename="chasereditor.ui" line="421"/>
+        <location filename="chasereditor.ui" line="502"/>
         <source>Per Step</source>
         <translation>Por Paso</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="251"/>
+        <location filename="chasereditor.ui" line="359"/>
         <source>Use each function&apos;s own fade in speed</source>
         <translation>Usar el tiempo de Fade In propio de cada función</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="254"/>
-        <location filename="chasereditor.ui" line="296"/>
+        <location filename="chasereditor.ui" line="362"/>
+        <location filename="chasereditor.ui" line="437"/>
         <source>Default</source>
         <translation>Por Defecto</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="267"/>
+        <location filename="chasereditor.ui" line="375"/>
         <source>Fade Out Speed</source>
         <translation>Tiempo de Fade Out</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="273"/>
+        <location filename="chasereditor.ui" line="402"/>
         <source>All steps have common fade out speed set by the chaser</source>
         <translation>Todos los pasos tienen un tiempo de Fade Out común, establecido por el chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="283"/>
+        <location filename="chasereditor.ui" line="418"/>
         <source>Each step has its own fade out speed set by the chaser</source>
         <translation>Cada paso tiene su propio tiempo Fade Out, establecido por el chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="293"/>
+        <location filename="chasereditor.ui" line="434"/>
         <source>Use each function&apos;s own fade out speed</source>
         <translation>Usar el tiempo de Fade Out propio de cada función</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="309"/>
+        <location filename="chasereditor.ui" line="450"/>
         <source>Step Duration</source>
         <translation>Duración del Paso</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="315"/>
+        <location filename="chasereditor.ui" line="480"/>
         <source>All steps have common step duration set by the chaser</source>
         <translation>Todos los pasos tienen una duración común, establecida por el chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="328"/>
+        <location filename="chasereditor.ui" line="499"/>
         <source>Each step has its own duration set by the chaser</source>
         <translation>Cada paso tiene su propia duración, establecida por el chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="428"/>
+        <location filename="chasereditor.ui" line="599"/>
         <source>See what the chaser does when it is run</source>
         <translation>Ver lo que hace el chaser cuando se ejecuta</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="448"/>
+        <location filename="chasereditor.ui" line="619"/>
         <source>Stop the chaser if running</source>
         <translation>Detener el chaser si está ejecutándose</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="488"/>
+        <location filename="chasereditor.ui" line="659"/>
         <source>Skip to the next step</source>
         <translation>Saltar al paso siguiente</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="468"/>
+        <location filename="chasereditor.ui" line="639"/>
         <source>Skip to the previous step</source>
         <translation>Saltar al paso anterior</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="431"/>
-        <location filename="chasereditor.ui" line="451"/>
-        <location filename="chasereditor.ui" line="471"/>
-        <location filename="chasereditor.ui" line="491"/>
+        <location filename="chasereditor.ui" line="602"/>
+        <location filename="chasereditor.ui" line="622"/>
+        <location filename="chasereditor.ui" line="642"/>
+        <location filename="chasereditor.ui" line="662"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="83"/>
+        <location filename="chasereditor.ui" line="98"/>
         <source>Remove the selected step</source>
         <translation>Eliminar el paso seleccionado</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="588"/>
+        <location filename="chasereditor.ui" line="759"/>
         <source>Raise the selected step once</source>
         <translation>Subir el paso seleccionado</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="359"/>
+        <location filename="chasereditor.ui" line="530"/>
         <source>Lower the selected step once</source>
         <translation>Bajar el paso seleccionado</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="135"/>
+        <location filename="chasereditor.ui" line="150"/>
         <source>Run Order</source>
         <translation>Orden de Ejecución</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="141"/>
+        <location filename="chasereditor.ui" line="177"/>
         <source>Run through over and over again</source>
         <translatorcomment>???</translatorcomment>
         <translation>Ejecutar una vez tras otra</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="144"/>
+        <location filename="chasereditor.ui" line="180"/>
         <source>Loop</source>
         <translation>Loop</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="154"/>
+        <location filename="chasereditor.ui" line="196"/>
         <source>Run through once and stop</source>
         <translation>Ejecutar una vez y parar</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="157"/>
+        <location filename="chasereditor.ui" line="199"/>
         <source>Single Shot</source>
         <translation>Una sola vez</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="167"/>
+        <location filename="chasereditor.ui" line="215"/>
         <source>Ping Pong</source>
         <translation>Ping Pong</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="177"/>
+        <location filename="chasereditor.ui" line="225"/>
         <source>Direction</source>
         <translation>Dirección</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="183"/>
+        <location filename="chasereditor.ui" line="252"/>
         <source>Start from the first step</source>
         <translation>Empieza desde el primer paso</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="186"/>
+        <location filename="chasereditor.ui" line="255"/>
         <source>Forward</source>
         <translation>Adelante</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="196"/>
+        <location filename="chasereditor.ui" line="271"/>
         <source>Start from the last step</source>
         <translation>Empieza desde el último paso</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="199"/>
+        <location filename="chasereditor.ui" line="274"/>
         <source>Backward</source>
         <translation>Atrás</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="80"/>
+        <location filename="chasereditor.cpp" line="81"/>
         <source>Cut</source>
         <translation>Cortar</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="85"/>
+        <location filename="chasereditor.cpp" line="86"/>
         <source>Copy</source>
         <translation>Copiar</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="90"/>
+        <location filename="chasereditor.cpp" line="91"/>
         <source>Paste</source>
         <translation>Pegar</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="577"/>
+        <location filename="chasereditor.cpp" line="589"/>
         <source>Paste error</source>
         <translation>Error de pegado</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="577"/>
+        <location filename="chasereditor.cpp" line="589"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
         <translation>Intentando pegar en una Escena incompatible. Operación cancelada.</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="796"/>
+        <location filename="chasereditor.cpp" line="814"/>
         <source>Common Fade In</source>
         <translation>Tiempo de Fade In común</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="797"/>
+        <location filename="chasereditor.cpp" line="815"/>
         <source>Common Fade Out</source>
         <translation>Tiempo de Fade Out común</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="798"/>
+        <location filename="chasereditor.cpp" line="816"/>
         <source>Common Hold</source>
         <translation>Espera común</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="814"/>
+        <location filename="chasereditor.cpp" line="832"/>
         <source>Multiple Steps</source>
         <translation>Pasos múltiples</translation>
     </message>
@@ -3357,159 +3357,155 @@ Duración: %3
         <translation>Editor de Escenas</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="42"/>
         <location filename="sceneeditor.ui" line="45"/>
+        <location filename="sceneeditor.ui" line="48"/>
         <source>General</source>
         <translation>General</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="91"/>
+        <location filename="sceneeditor.ui" line="107"/>
         <source>Enable all channel groups</source>
         <translation>Habilitar todos los grupos de canales</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="51"/>
+        <location filename="sceneeditor.ui" line="67"/>
         <source>Disable all channel groups</source>
         <translation>Deshabilitar todos los grupos de canales</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="139"/>
-        <source>Scene name</source>
-        <translation>Nombre de la Escena</translation>
-    </message>
-    <message>
         <location filename="sceneeditor.ui" line="152"/>
-        <source>Name of this scene</source>
-        <translation>Nombre de esta escena</translation>
+        <source>Fixtures used in this scene</source>
+        <oldsource>Name of this scene</oldsource>
+        <translation type="unfinished">Nombre de esta escena</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="236"/>
+        <location filename="sceneeditor.ui" line="202"/>
         <source>Channel groups used in this scene</source>
         <translation>Grupos de canales usados en esta escena</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="186"/>
-        <source>Fixtures used in this scene</source>
-        <translation>Fixtures usados en esta escena</translation>
-    </message>
-    <message>
-        <location filename="sceneeditor.ui" line="71"/>
+        <location filename="sceneeditor.ui" line="87"/>
         <source>Add a new fixture to this scene</source>
         <translation>Añadir fixture a esta Escena</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="54"/>
-        <location filename="sceneeditor.ui" line="94"/>
-        <location filename="sceneeditor.ui" line="254"/>
-        <location filename="sceneeditor.ui" line="274"/>
+        <location filename="sceneeditor.ui" line="70"/>
+        <location filename="sceneeditor.ui" line="110"/>
+        <location filename="sceneeditor.ui" line="220"/>
+        <location filename="sceneeditor.ui" line="240"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="194"/>
+        <location filename="sceneeditor.ui" line="160"/>
         <source>Remove the selected fixture(s) from this scene</source>
         <translation>Eliminar los fixtures seleccionados de esta escena</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="271"/>
+        <location filename="sceneeditor.ui" line="237"/>
         <source>Enable all fixtures&apos; channels</source>
         <translation>Activar todos los canales de todos los fixtures</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="251"/>
+        <location filename="sceneeditor.ui" line="217"/>
         <source>Disable all fixtures&apos; channels</source>
         <translation>Desactivar todos los canales de todos los fixtures</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="159"/>
+        <location filename="sceneeditor.cpp" line="161"/>
         <source>Enable all channels in current fixture</source>
         <translation>Activar todos los canales de este fixture</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="161"/>
+        <location filename="sceneeditor.cpp" line="163"/>
         <source>Disable all channels in current fixture</source>
         <translation>Desactivar todos los canales de este fixture</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="163"/>
+        <location filename="sceneeditor.cpp" line="165"/>
         <source>Copy current values to clipboard</source>
         <translation>Copiar los valores actuales en el portapapeles</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="165"/>
+        <location filename="sceneeditor.cpp" line="167"/>
         <source>Paste clipboard values to current fixture</source>
         <translation>Pegar los valores del portapapeles al fixture actual</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="167"/>
+        <location filename="sceneeditor.cpp" line="169"/>
         <source>Copy current values to all fixtures</source>
         <translation>Copiar los valores actuales a todos los fixtures</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="169"/>
+        <location filename="sceneeditor.cpp" line="171"/>
         <source>Color tool for CMY/RGB-capable fixtures</source>
         <translation>Herramienta de color para fixtures con capacidad CMY/RGB</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="171"/>
+        <location filename="sceneeditor.cpp" line="173"/>
         <source>Switch between tab view and all channels view</source>
         <translation>Pasar de la vista de pestañas a la vista de canales</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="173"/>
+        <location filename="sceneeditor.cpp" line="175"/>
         <source>Toggle blind mode</source>
         <translation>Activar/Desactivar Modo Blind </translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="175"/>
+        <location filename="sceneeditor.cpp" line="177"/>
         <source>Show/Hide speed dial window</source>
         <translation>Mostrar/Ocultar ventana de selector de velocidad</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="177"/>
+        <location filename="sceneeditor.cpp" line="179"/>
         <source>Clone this scene and append as a new step to the selected chaser</source>
         <translation>Clonar esta escena y añadirla como un nuevo paso en el chaser selecionado</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="179"/>
+        <location filename="sceneeditor.cpp" line="181"/>
         <source>Go to next fixture tab</source>
         <translation>Ir a la pestaña del siguiente fixture</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="183"/>
+        <location filename="sceneeditor.cpp" line="185"/>
         <source>Go to previous fixture tab</source>
         <translation>Ir a la pestaña del fixture anterior</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="216"/>
+        <location filename="sceneeditor.cpp" line="218"/>
         <source>None</source>
         <translation>Ninguno</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="654"/>
-        <location filename="sceneeditor.cpp" line="655"/>
+        <location filename="sceneeditor.cpp" line="230"/>
+        <source>Scene name:</source>
+        <translation type="unfinished">Nombre de la Escena:</translation>
+    </message>
+    <message>
+        <location filename="sceneeditor.cpp" line="666"/>
+        <location filename="sceneeditor.cpp" line="667"/>
         <source>All fixtures</source>
         <translation>Todos los fixtures</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1130"/>
-        <location filename="sceneeditor.cpp" line="1131"/>
+        <location filename="sceneeditor.cpp" line="1142"/>
+        <location filename="sceneeditor.cpp" line="1143"/>
         <source>Channels Groups</source>
         <translation>Grupos de Canales</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="909"/>
-        <location filename="sceneeditor.cpp" line="910"/>
+        <location filename="sceneeditor.cpp" line="921"/>
+        <location filename="sceneeditor.cpp" line="922"/>
         <source>Generic</source>
         <translation>Genérico</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="978"/>
+        <location filename="sceneeditor.cpp" line="990"/>
         <source>Remove fixtures</source>
         <translation>Eliminar fixtures</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="979"/>
+        <location filename="sceneeditor.cpp" line="991"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>¿Desea eliminar los fixtures seleccionados?</translation>
     </message>
@@ -3948,42 +3944,42 @@ Duración: %3
         <translation>Guardar Cue</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="684"/>
+        <location filename="simpledesk.cpp" line="700"/>
         <source>Cue Stack - Playback %1</source>
         <translation>Cue Stack - Playback %1</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="801"/>
+        <location filename="simpledesk.cpp" line="817"/>
         <source>No selection</source>
         <translation>Ninguna selección</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="824"/>
+        <location filename="simpledesk.cpp" line="840"/>
         <source>Cue name</source>
         <translation>Nombre del Cue</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="831"/>
+        <location filename="simpledesk.cpp" line="847"/>
         <source>Multiple Cues</source>
         <translation>Múltiples Cues</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="928"/>
+        <location filename="simpledesk.cpp" line="944"/>
         <source>Delete cue</source>
         <translation>Borrar Cue</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="982"/>
+        <location filename="simpledesk.cpp" line="998"/>
         <source>Clone Cue Stack</source>
         <translation>Clonar Cue stack</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="982"/>
+        <location filename="simpledesk.cpp" line="998"/>
         <source>Clone To Playback#</source>
         <translation>Clonar a Playback#</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1055"/>
+        <location filename="simpledesk.cpp" line="1071"/>
         <source>Cue %1</source>
         <translation>Cue %1</translation>
     </message>

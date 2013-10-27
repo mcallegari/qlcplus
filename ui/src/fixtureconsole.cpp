@@ -220,11 +220,11 @@ void FixtureConsole::setValues(const QList <SceneValue>& list, bool fromSelectio
     }
 }
 
-void FixtureConsole::setValue(quint32 ch, uchar value)
+void FixtureConsole::setValue(quint32 ch, uchar value, bool apply)
 {
     ConsoleChannel* cc = channel(ch);
     if (cc != NULL)
-        cc->setValue(value);
+        cc->setValue(value, apply);
 }
 
 uchar FixtureConsole::value(quint32 ch) const

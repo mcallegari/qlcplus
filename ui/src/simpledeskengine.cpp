@@ -116,16 +116,12 @@ Cue SimpleDeskEngine::cue() const
 
 void SimpleDeskEngine::resetUniverse(int universe)
 {
-    Q_UNUSED(universe)
     qDebug() << Q_FUNC_INFO;
 
-    /*
-    // for some reason this doesn't work. Probably there are too many
-    //   asynchronous events that will write the "old" values back
+    m_mutex.lock();
     for (int i = 0; i < 512; i++)
-        m_values.remove((universe * 512) + i)
-    */
-    m_values.clear();
+        setValue((universe * 512) + i, 0);
+    m_mutex.unlock();
 }
 
 /****************************************************************************
@@ -258,6 +254,8 @@ bool SimpleDeskEngine::saveXML(QDomDocument* doc, QDomElement* wksp_root) const
 
 void SimpleDeskEngine::writeDMX(MasterTimer* timer, UniverseArray* ua)
 {
+    m_mutex.lock();
+
     QHashIterator <uint,uchar> it(m_values);
     while (it.hasNext() == true)
     {
@@ -280,7 +278,6 @@ void SimpleDeskEngine::writeDMX(MasterTimer* timer, UniverseArray* ua)
         }
     }
 
-    m_mutex.lock();
     foreach (CueStack* cueStack, m_cueStacks)
     {
         if (cueStack == NULL)
