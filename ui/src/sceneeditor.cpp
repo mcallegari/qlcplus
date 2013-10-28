@@ -504,6 +504,23 @@ void SceneEditor::slotCopyToAll()
 
 void SceneEditor::slotColorTool()
 {
+    QColor color = slotColorSelectorChanged(QColor());
+
+    QColorDialog dialog(color);
+    connect(&dialog, SIGNAL(currentColorChanged(const QColor&)),
+            this, SLOT(slotColorSelectorChanged(const QColor&)));
+
+    int result = dialog.exec();
+    if (result == QDialog::Rejected)
+    {
+        slotColorSelectorChanged(color); // reset color to what it previously was
+    }
+}
+
+QColor SceneEditor::slotColorSelectorChanged(const QColor& color)
+{
+    QColor returnColor = QColor();
+
     /* QObject cast fails unless the widget is a FixtureConsole */
     FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
     if (fc != NULL)
@@ -511,22 +528,19 @@ void SceneEditor::slotColorTool()
         Fixture* fxi = m_doc->fixture(fc->fixture());
         Q_ASSERT(fxi != NULL);
 
-        QSet <quint32> cyan = fxi->channels(CYAN, Qt::CaseInsensitive, QLCChannel::Intensity);
+        QSet <quint32> cyan    = fxi->channels(CYAN,    Qt::CaseInsensitive, QLCChannel::Intensity);
         QSet <quint32> magenta = fxi->channels(MAGENTA, Qt::CaseInsensitive, QLCChannel::Intensity);
-        QSet <quint32> yellow = fxi->channels(YELLOW, Qt::CaseInsensitive, QLCChannel::Intensity);
-        QSet <quint32> red = fxi->channels(RED, Qt::CaseInsensitive, QLCChannel::Intensity);
-        QSet <quint32> green = fxi->channels(GREEN, Qt::CaseInsensitive, QLCChannel::Intensity);
-        QSet <quint32> blue = fxi->channels(BLUE, Qt::CaseInsensitive, QLCChannel::Intensity);
+        QSet <quint32> yellow  = fxi->channels(YELLOW,  Qt::CaseInsensitive, QLCChannel::Intensity);
+        QSet <quint32> red     = fxi->channels(RED,     Qt::CaseInsensitive, QLCChannel::Intensity);
+        QSet <quint32> green   = fxi->channels(GREEN,   Qt::CaseInsensitive, QLCChannel::Intensity);
+        QSet <quint32> blue    = fxi->channels(BLUE,    Qt::CaseInsensitive, QLCChannel::Intensity);
 
         if (!cyan.isEmpty() && !magenta.isEmpty() && !yellow.isEmpty())
         {
-            QColor color;
-            color.setCmyk(fc->value(*cyan.begin()),
-                          fc->value(*magenta.begin()),
-                          fc->value(*yellow.begin()),
-                          0);
-
-            color = QColorDialog::getColor(color);
+            returnColor.setCmyk(fc->value(*cyan.begin()),
+                                fc->value(*magenta.begin()),
+                                fc->value(*yellow.begin()),
+                                0);
             if (color.isValid() == true)
             {
                 foreach (quint32 ch, cyan)
@@ -550,13 +564,11 @@ void SceneEditor::slotColorTool()
         }
         else if (!red.isEmpty() && !green.isEmpty() && !blue.isEmpty())
         {
-            QColor color;
-            color.setRgb(fc->value(*red.begin()),
-                         fc->value(*green.begin()),
-                         fc->value(*blue.begin()),
-                         0);
+            returnColor.setRgb(fc->value(*red.begin()),
+                               fc->value(*green.begin()),
+                               fc->value(*blue.begin()),
+                               0);
 
-            color = QColorDialog::getColor(color);
             if (color.isValid() == true)
             {
                 foreach (quint32 ch, red)
@@ -578,14 +590,13 @@ void SceneEditor::slotColorTool()
                 }
             }
         }
-        return;
+        return returnColor;
     }
 
     /* QObject cast fails unless the widget is a GroupsConsole */
     GroupsConsole* gc = groupConsoleTab(m_currentTab);
     if (gc != NULL)
     {
-        QColor color = QColorDialog::getColor(color);
         foreach(ConsoleChannel *cc, gc->groups())
         {
             Fixture* fxi = m_doc->fixture(cc->fixture());
@@ -609,6 +620,7 @@ void SceneEditor::slotColorTool()
         }
     }
 
+    return returnColor;
 }
 
 void SceneEditor::slotSpeedDialToggle(bool state)
