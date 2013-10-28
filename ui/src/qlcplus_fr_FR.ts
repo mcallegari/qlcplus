@@ -532,7 +532,7 @@ Voulez-vous vraiement les arrêter et basculer vers le Mode Design?</translation
     <message>
         <location filename="app.cpp" line="558"/>
         <source>Live edit a function</source>
-        <translation type="unfinished"></translation>
+        <translation>Edition Live de fonctions</translation>
     </message>
     <message>
         <location filename="app.cpp" line="593"/>
@@ -631,22 +631,22 @@ Voulez-vous vraiement les arrêter et basculer vers le Mode Design?</translation
     <message>
         <location filename="app.cpp" line="571"/>
         <source>Fade 1 second and stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Fondu 1s et Stop</translation>
     </message>
     <message>
         <location filename="app.cpp" line="576"/>
         <source>Fade 5 seconds and stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Fondu 5s et Stop</translation>
     </message>
     <message>
         <location filename="app.cpp" line="581"/>
         <source>Fade 10 second and stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Fondu 10s et Stop</translation>
     </message>
     <message>
         <location filename="app.cpp" line="586"/>
         <source>Fade 30 second and stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Fondu 30s et Stop</translation>
     </message>
     <message>
         <location filename="app.cpp" line="609"/>
@@ -893,7 +893,7 @@ Durée : %3
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="24"/>
         <source>Triggers</source>
-        <translation type="unfinished"></translation>
+        <translation>Déclencheurs</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="32"/>
@@ -928,7 +928,7 @@ Durée : %3
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="70"/>
         <source>Divisor</source>
-        <translation type="unfinished"></translation>
+        <translation>Diviseur</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="113"/>
@@ -954,7 +954,7 @@ Durée : %3
         <location filename="vcaudiotriggersproperties.ui" line="139"/>
         <source>When toggled, you can click an external button to assign it to this widget.</source>
         <oldsource>When toggled, you can click an external button to assign it to this virtual console button.</oldsource>
-        <translation type="unfinished">Bougez un fader externe afin de l&apos;assigner à ce fader de la console virtuelle.</translation>
+        <translation>Bougez un fader externe afin de l&apos;assigner à ce widget.</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="142"/>
@@ -964,18 +964,18 @@ Durée : %3
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="158"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation type="unfinished"></translation>
+        <translation>Le canal d&apos;entrée au sein de l&apos;univers qui envoie des données au widget</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="168"/>
         <source>The input universe that sends data to this widget</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;univers d&apos;entrée qui envoie des données au widget</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="184"/>
         <source>Choose an external input universe &amp; channel that this widget should listen to.</source>
         <oldsource>Choose an external input universe &amp; channel that this button should listen to.</oldsource>
-        <translation>Choisir l&apos;univers d&apos;entrée externe &amp; le canal que ce widget devra écouter</translation>
+        <translation>Choisir l&apos;univers d&apos;entrée externe &amp; le canal que ce widget devra écouter.</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="187"/>
@@ -991,19 +991,19 @@ Durée : %3
         <location filename="vcaudiotriggersproperties.ui" line="225"/>
         <source>Keyboard combination that toggles this widget</source>
         <oldsource>Keyboard combination that toggles this button</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Raccourci clavier qui enclenche ce widget</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="235"/>
         <source>Set a key combination for this widget</source>
         <oldsource>Set a key combination for this button</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Définir une combinaison de touches pour ce widget</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="255"/>
         <source>Remove the widget&apos;s keyboard shortcut key</source>
         <oldsource>Remove the button&apos;s keyboard shortcut key</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Désaffecter le raccourci clavier</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.cpp" line="127"/>
@@ -2156,7 +2156,7 @@ Durée : %3
     <message>
         <location filename="fixtureremap.ui" line="69"/>
         <source>Clone and auto-remap the selected source fixture</source>
-        <translation type="unfinished"></translation>
+        <translation>Cloner et réadresser automatiquement les projecteurs sélectionnés</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="93"/>
@@ -2197,7 +2197,7 @@ Durée : %3
     <message>
         <location filename="fixtureremap.ui" line="268"/>
         <source>Destination project name:</source>
-        <translation type="unfinished">Nom du Projet de destination :</translation>
+        <translation>Nom du Projet de destination :</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="115"/>
@@ -2228,12 +2228,12 @@ Durée : %3
     <message>
         <location filename="fixtureremap.cpp" line="324"/>
         <source>Invalid operation</source>
-        <translation type="unfinished"></translation>
+        <translation>Opération invalide</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="325"/>
         <source>You are trying to clone a fixture on an address already in use. Please fix the target list first.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vous essayez de réadresser un projecteur sur une adresse déjà utilisée. Merci de corriger la liste des projecteurs réadressés.</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="386"/>
@@ -2318,7 +2318,7 @@ Durée : %3
     <message>
         <location filename="functionliveeditdialog.cpp" line="45"/>
         <source>Function Live Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Edition Live de fonctions</translation>
     </message>
 </context>
 <context>
@@ -2479,12 +2479,12 @@ Durée : %3
     <message>
         <location filename="functionselection.ui" line="22"/>
         <source>All functions</source>
-        <translation type="unfinished"></translation>
+        <translation>Toutes les fonctions</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="32"/>
         <source>Running functions</source>
-        <translation type="unfinished"></translation>
+        <translation>Fonctions actives</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="57"/>
@@ -3300,13 +3300,13 @@ Durée : %3
     <message>
         <location filename="rgbmatrixeditor.ui" line="101"/>
         <source>Matrix start colour</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur de départ</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="114"/>
         <source>Matrix end colour</source>
         <oldsource>Matrix end color</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Couleur de fin</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="264"/>
@@ -3331,7 +3331,7 @@ Durée : %3
     <message>
         <location filename="rgbmatrixeditor.ui" line="354"/>
         <source>Show/Hide speed dial window</source>
-        <translation type="unfinished">Afficher/Cacher la fenêtre des vitesses</translation>
+        <translation>Afficher/Cacher la fenêtre des vitesses</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="374"/>
@@ -3381,7 +3381,7 @@ Durée : %3
         <location filename="sceneeditor.ui" line="152"/>
         <source>Fixtures used in this scene</source>
         <oldsource>Name of this scene</oldsource>
-        <translation type="unfinished">Nom de cette scène</translation>
+        <translation>Projecteurs utilisés dans cette scène</translation>
     </message>
     <message>
         <location filename="sceneeditor.ui" line="202"/>
@@ -3484,7 +3484,7 @@ Durée : %3
     <message>
         <location filename="sceneeditor.cpp" line="230"/>
         <source>Scene name:</source>
-        <translation type="unfinished">Nom de la scène :</translation>
+        <translation>Nom de la scène :</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="666"/>
@@ -4266,7 +4266,7 @@ Durée : %3
     <message>
         <location filename="vcbuttonproperties.cpp" line="139"/>
         <source>Button %1</source>
-        <translation type="unfinished">Bouton %1</translation>
+        <translation>Bouton %1</translation>
     </message>
 </context>
 <context>
@@ -4878,7 +4878,7 @@ Durée : %3
     <message>
         <location filename="vcproperties.ui" line="533"/>
         <source>Audio triggers size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Taille des Déclencheurs :</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="543"/>
@@ -5838,7 +5838,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole.cpp" line="329"/>
         <source>New Audio Triggers</source>
-        <translation type="unfinished"></translation>
+        <translation>Nouveau Déclencheur Audio</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="349"/>
@@ -5913,7 +5913,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole.cpp" line="856"/>
         <source>Knob %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotatif %1</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="1144"/>
