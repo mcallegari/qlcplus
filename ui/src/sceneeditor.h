@@ -87,6 +87,7 @@ private slots:
     void slotPaste();
     void slotCopyToAll();
     void slotColorTool();
+    QColor slotColorSelectorChanged(const QColor &color);
     void slotSpeedDialToggle(bool state);
     void slotBlindToggled(bool state);
     void slotRecord();
