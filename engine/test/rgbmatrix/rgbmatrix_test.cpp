@@ -149,7 +149,7 @@ void RGBMatrix_Test::previewMaps()
             for (int x = 0; x < 5; x++)
             {
                 if (x == z)
-                    QCOMPARE(maps[z][y][x], QColor(Qt::red).rgb());
+                    QCOMPARE(maps[z][y][x], QColor(Qt::black).rgb());
                 else
                     QCOMPARE(maps[z][y][x], uint(0));
             }
@@ -182,7 +182,7 @@ void RGBMatrix_Test::loadSave()
     QCOMPARE(root.firstChild().toElement().attribute("ID"), QString::number(mtx->id()));
     QCOMPARE(root.firstChild().toElement().attribute("Name"), QString("Xyzzy"));
 
-    int speed = 0, dir = 0, run = 0, algo = 0, monocolor = 0, grp = 0;
+    int speed = 0, dir = 0, run = 0, algo = 0, monocolor = 0, endcolor = 0, grp = 0;
 
     QDomNode node = root.firstChild().firstChild();
     while (node.isNull() == false)
@@ -215,6 +215,11 @@ void RGBMatrix_Test::loadSave()
             QCOMPARE(tag.text().toUInt(), QColor(Qt::magenta).rgb());
             monocolor++;
         }
+        else if (tag.tagName() == "EndColor")
+        {
+            QCOMPARE(tag.text().toUInt(), QColor().rgb());
+            endcolor++;
+        }
         else if (tag.tagName() == "FixtureGroup")
         {
             QCOMPARE(tag.text(), QString("42"));
@@ -233,6 +238,7 @@ void RGBMatrix_Test::loadSave()
     QCOMPARE(run, 1);
     QCOMPARE(algo, 1);
     QCOMPARE(monocolor, 1);
+    QCOMPARE(endcolor, 1);
     QCOMPARE(grp, 1);
 
     // Put some extra garbage in

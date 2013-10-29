@@ -385,7 +385,7 @@ void RGBMatrixEditor::slotPreviewTimeout()
     }
 
     RGBMap map;
-    if (m_previewStep < m_previewMaps.size())
+    if (m_previewStep >= 0 && m_previewStep < m_previewMaps.size())
         map = m_previewMaps[m_previewStep];
 
     for (int y = 0; y < map.size(); y++)
