@@ -2,6 +2,7 @@ qlcplus (4.5.1) stable; urgency=low
 
   * NEW: Virtual Console: audio triggers can now control Speed Dials tapping (thanks to Jano Svitok)
   * NEW: RGB Matrix now supports 2 colors
+  * NEW: Scene Editor: color selection tool live tracking (thanks to Stefan Riemens)
   * Live Edit: Improved live editing of Scenes and Chasers
   * Fixtures remapping: added a button to clone and autopatch a fixture from the source list
   * Function selection: added radio buttons to show all or only the running functions
@@ -18,6 +19,7 @@ qlcplus (4.5.1) stable; urgency=low
   * Simple Desk: channels are now updated in full view mode too
   * Added fixture: Chauvet 4Play (thanks to Ryan Schaefer)
   * Added fixtures: American DJ Fusion FX Bar 1, Chauvet Intimidator Scan LED 200 (thanks to synkajax)
+  * Added fixtures: Stairville PAR64 CX-3 RGBW, Stairville TRI LED Bundle Complete (thanks to Lars Kildholt)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 5 November 2013 12:13:04 +0200
 
