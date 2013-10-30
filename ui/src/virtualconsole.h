@@ -166,6 +166,7 @@ protected:
     QAction* m_addSoloFrameAction;
     QAction* m_addLabelAction;
     QAction* m_addAudioTriggersAction;
+    QAction* m_addClockAction;
 
     QAction* m_toolsSettingsAction;
 
@@ -229,6 +230,7 @@ public slots:
     void slotAddSoloFrame();
     void slotAddLabel();
     void slotAddAudioTriggers();
+    void slotAddClock();
 
     /*********************************************************************
      * Tools menu callbacks

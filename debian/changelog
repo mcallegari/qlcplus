@@ -1,6 +1,7 @@
 qlcplus (4.5.1) stable; urgency=low
 
   * NEW: Virtual Console: audio triggers can now control Speed Dials tapping (thanks to Jano Svitok)
+  * NEW: Virtual Console: added clock widget
   * NEW: RGB Matrix now supports 2 colors
   * NEW: Scene Editor: color selection tool live tracking (thanks to Stefan Riemens)
   * Live Edit: Improved live editing of Scenes and Chasers

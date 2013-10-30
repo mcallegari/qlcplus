@@ -48,6 +48,7 @@
 #include "vcframe.h"
 #include "vclabel.h"
 #include "vcxypad.h"
+#include "vcclock.h"
 #include "apputil.h"
 #include "doc.h"
 
@@ -826,6 +827,19 @@ bool VCFrame::loadXML(const QDomElement* root)
                 triggers->show();
                 connect(triggers, SIGNAL(enableRequest(quint32)),
                         VirtualConsole::instance(), SLOT(slotEnableAudioTriggers(quint32)));
+            }
+        }
+        else if (tag.tagName() == KXMLQLCVCClock)
+        {
+            /* Create a new label into its parent */
+            VCClock* clock = new VCClock(this, m_doc);
+            if (clock->loadXML(&tag) == false)
+                delete clock;
+            else
+            {
+                if (multipageMode() == true)
+                    addWidgetToPageMap(clock);
+                clock->show();
             }
         }
         else
