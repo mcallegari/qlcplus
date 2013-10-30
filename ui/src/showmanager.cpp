@@ -43,6 +43,9 @@
 #include "qlcmacros.h"
 #include "chaser.h"
 
+#define SETTINGS_HSPLITTER "showmanager/hsplitter"
+#define SETTINGS_VSPLITTER "showmanager/vsplitter"
+
 ShowManager* ShowManager::s_instance = NULL;
 
 ShowManager::ShowManager(QWidget* parent, Doc* doc)
@@ -137,10 +140,27 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
     connect(m_doc, SIGNAL(functionChanged(quint32)), this, SLOT(slotFunctionChanged(quint32)));
     connect(m_doc, SIGNAL(functionRemoved(quint32)), this, SLOT(slotFunctionRemoved(quint32)));
     connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
+
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_HSPLITTER);
+    if (var.isValid() == true)
+        m_splitter->restoreState(var.toByteArray());
+    else
+        m_splitter->setSizes(QList <int> () << int(this->width() / 2) << int(this->width() / 2));
+
+    QVariant var2 = settings.value(SETTINGS_VSPLITTER);
+    if (var2.isValid() == true)
+        m_vsplitter->restoreState(var2.toByteArray());
+    else
+        m_vsplitter->setSizes(QList <int> () << int(this->width() / 2) << int(this->width() / 2));
 }
 
 ShowManager::~ShowManager()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_HSPLITTER, m_splitter->saveState());
+    settings.setValue(SETTINGS_VSPLITTER, m_vsplitter->saveState());
+
     ShowManager::s_instance = NULL;
 }
 
