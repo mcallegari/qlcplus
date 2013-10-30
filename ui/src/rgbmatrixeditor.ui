@@ -166,6 +166,13 @@
       </widget>
      </item>
      <item>
+      <widget class="QCheckBox" name="m_preferIntensityChannels">
+       <property name="text">
+        <string>Intensity</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <spacer name="verticalSpacer_4">
        <property name="orientation">
         <enum>Qt::Vertical</enum>

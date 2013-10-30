@@ -99,9 +99,13 @@ public:
     QColor stepColor();
     void updateStepColor(Function::Direction direction);
 
+    void setPreferIntensityChannels(bool preferIntensityChannels);
+    bool preferIntensityChannels() const;
+
 private:
     QColor m_startColor;
     QColor m_endColor;
+    bool m_preferIntensityChannels;
 
     /************************************************************************
      * Load & Save

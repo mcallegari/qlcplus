@@ -38,6 +38,7 @@
 
 #define KXMLQLCRGBMatrixStartColor "MonoColor"
 #define KXMLQLCRGBMatrixEndColor "EndColor"
+#define KXMLQLCRGBMatrixPreferIntensityChannels "PreferIntensityChannels"
 #define KXMLQLCRGBMatrixFixtureGroup "FixtureGroup"
 
 /****************************************************************************
@@ -50,6 +51,7 @@ RGBMatrix::RGBMatrix(Doc* doc)
     , m_algorithm(NULL)
     , m_startColor(Qt::red)
     , m_endColor(QColor())
+    , m_preferIntensityChannels(false)
     , m_fader(NULL)
     , m_step(0)
     , m_roundTime(new QTime)
@@ -108,6 +110,8 @@ bool RGBMatrix::copyFrom(const Function* function)
         setAlgorithm(NULL);
     setStartColor(mtx->startColor());
     setEndColor(mtx->endColor());
+    setEndColor(mtx->endColor());
+    setPreferIntensityChannels(mtx->preferIntensityChannels());
 
     return Function::copyFrom(function);
 }
@@ -181,6 +185,16 @@ void RGBMatrix::setEndColor(const QColor &c)
 QColor RGBMatrix::endColor() const
 {
     return m_endColor;
+}
+
+void RGBMatrix::setPreferIntensityChannels(bool preferIntensityChannels)
+{
+    m_preferIntensityChannels = preferIntensityChannels;
+}
+
+bool RGBMatrix::preferIntensityChannels() const
+{
+    return m_preferIntensityChannels;
 }
 
 void RGBMatrix::calculateColorDelta()
@@ -281,6 +295,10 @@ bool RGBMatrix::loadXML(const QDomElement& root)
         {
             setEndColor(QColor::fromRgb(QRgb(tag.text().toUInt())));
         }
+        else if (tag.tagName() == KXMLQLCRGBMatrixPreferIntensityChannels)
+        {
+            setPreferIntensityChannels(tag.text().toUInt() == 1);
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown RGB matrix tag:" << tag.tagName();
@@ -335,6 +353,15 @@ bool RGBMatrix::saveXML(QDomDocument* doc, QDomElement* wksp_root)
         tag = doc->createElement(KXMLQLCRGBMatrixEndColor);
         root.appendChild(tag);
         text = doc->createTextNode(QString::number(endColor().rgb()));
+        tag.appendChild(text);
+    }
+
+    /* Prefer Intensity Channels */
+    if (preferIntensityChannels())
+    {
+        tag = doc->createElement(KXMLQLCRGBMatrixPreferIntensityChannels);
+        root.appendChild(tag);
+        text = doc->createTextNode(QString::number(preferIntensityChannels()));
         tag.appendChild(text);
     }
 
@@ -540,6 +567,14 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
 
             QList <quint32> rgb = head.rgbChannels();
             QList <quint32> cmy = head.cmyChannels();
+            quint32 mi = head.masterIntensityChannel();
+
+            if(preferIntensityChannels() && mi != QLCChannel::invalid())
+            {
+                rgb.clear();
+                cmy.clear();
+            }
+
             if (rgb.size() == 3)
             {
                 // RGB color mixing
@@ -584,13 +619,13 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
                 insertStartValues(fc);
                 m_fader->add(fc);
             }
-            else if (head.masterIntensityChannel() != QLCChannel::invalid())
+            else if (mi != QLCChannel::invalid())
             {
                 // Simple intensity (dimmer) channel
                 QColor col(map[y][x]);
                 FadeChannel fc;
                 fc.setFixture(grpHead.fxi);
-                fc.setChannel(head.masterIntensityChannel());
+                fc.setChannel(mi);
                 fc.setTarget(col.value());
                 insertStartValues(fc);
                 m_fader->add(fc);
