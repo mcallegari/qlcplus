@@ -102,7 +102,7 @@ bool Scene::copyFrom(const Function* function)
  * Values
  *****************************************************************************/
 
-void Scene::setValue(const SceneValue& scv)
+void Scene::setValue(const SceneValue& scv, bool checkHTP)
 {
     m_valueListMutex.lock();
     int index = m_values.indexOf(scv);
@@ -122,8 +122,11 @@ void Scene::setValue(const SceneValue& scv)
         fc.setStart(scv.value);
         fc.setTarget(scv.value);
         fc.setCurrent(scv.value);
-        //fc.setFadeTime(0);
-        m_fader->add(fc);
+        fc.setFadeTime(0);
+        if (checkHTP == false)
+            m_fader->forceAdd(fc);
+        else
+            m_fader->add(fc);
     }
 
     m_valueListMutex.unlock();

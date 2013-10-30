@@ -51,6 +51,18 @@ FadeChannel::FadeChannel(const FadeChannel& ch)
 {
 }
 
+FadeChannel::FadeChannel(quint32 fxi, quint32 channel)
+    : m_fixture(fxi)
+    , m_channel(channel)
+    , m_start(0)
+    , m_target(0)
+    , m_current(0)
+    , m_ready(false)
+    , m_fadeTime(0)
+    , m_elapsed(0)
+{
+}
+
 FadeChannel::~FadeChannel()
 {
 }

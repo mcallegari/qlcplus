@@ -74,7 +74,7 @@ SceneEditor::SceneEditor(QWidget* parent, Scene* scene, Doc* doc, bool applyValu
     : QWidget(parent)
     , m_doc(doc)
     , m_scene(scene)
-    , m_source(new GenericDMXSource(doc))
+    , m_source(NULL)
     , m_initFinished(false)
     , m_speedDials(NULL)
     , m_channelGroupsTab(-1)
@@ -108,8 +108,11 @@ SceneEditor::~SceneEditor()
 {
     qDebug() << Q_FUNC_INFO;
 
-    delete m_source;
-    m_source = NULL;
+    if (m_source != NULL)
+    {
+        delete m_source;
+        m_source = NULL;
+    }
 
     QSettings settings;
     quint32 id = m_chaserCombo->itemData(m_chaserCombo->currentIndex()).toUInt();
@@ -192,18 +195,6 @@ void SceneEditor::init(bool applyValues)
 
     // Blind initial state
     m_blindAction->setCheckable(true);
-    if (m_doc->mode() == Doc::Operate)
-    {
-        m_blindAction->setChecked(true);
-        if (m_source != NULL)
-            m_source->setOutputEnabled(false);
-    }
-    else
-    {
-        m_blindAction->setChecked(false);
-        if (m_source != NULL)
-            m_source->setOutputEnabled(true);
-    }
 
     m_tabViewAction->setCheckable(true);
     m_tabViewAction->setChecked(m_scene->viewMode());
@@ -317,6 +308,9 @@ void SceneEditor::init(bool applyValues)
             this, SLOT(slotChannelGroupsChanged(QTreeWidgetItem*,int)));
     updateChannelsGroupsTab();
 
+    // Apply any mode related change
+    slotModeChanged(m_doc->mode());
+
     // Fixtures & tabs
     // Fill the fixtures list from the Scene values
     QListIterator <SceneValue> it(m_scene->values());
@@ -336,9 +330,6 @@ void SceneEditor::init(bool applyValues)
 
     // Create the actual tab view
     slotViewModeChanged(m_scene->viewMode(), applyValues);
-
-    // Apply any mode related change
-    slotModeChanged(m_doc->mode());
 }
 
 void SceneEditor::setSceneValue(const SceneValue& scv)
@@ -647,12 +638,19 @@ void SceneEditor::slotModeChanged(Doc::Mode mode)
     if (mode == Doc::Operate)
     {
         m_blindAction->setChecked(true);
-        //m_tab->widget(0)->setEnabled(false);
+        if (m_source != NULL)
+        {
+            delete m_source;
+            m_source = NULL;
+        }
     }
     else
     {
         m_blindAction->setChecked(false);
-        //m_tab->widget(0)->setEnabled(true);
+        if (m_source != NULL)
+            delete m_source;
+        m_source = new GenericDMXSource(m_doc);
+        m_source->setOutputEnabled(true);
     }
 }
 
@@ -1297,7 +1295,10 @@ void SceneEditor::slotValueChanged(quint32 fxi, quint32 channel, uchar value)
     if (m_initFinished == true)
     {
         Q_ASSERT(m_scene != NULL);
-        m_scene->setValue(SceneValue(fxi, channel, value));
+        if (m_doc->mode() == Doc::Operate)
+            m_scene->setValue(SceneValue(fxi, channel, value), false);
+        else
+            m_scene->setValue(SceneValue(fxi, channel, value), true);
         emit fixtureValueChanged(SceneValue(fxi, channel, value));
     }
 

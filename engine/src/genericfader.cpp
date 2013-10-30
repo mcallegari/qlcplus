@@ -42,6 +42,7 @@ void GenericFader::add(const FadeChannel& ch)
 {
     if (m_channels.contains(ch) == true)
     {
+        // perform a HTP check
         if (m_channels[ch].current() <= ch.current())
             m_channels[ch] = ch;
     }
@@ -49,6 +50,11 @@ void GenericFader::add(const FadeChannel& ch)
     {
         m_channels[ch] = ch;
     }
+}
+
+void GenericFader::forceAdd(const FadeChannel &ch)
+{
+    m_channels[ch] = ch;
 }
 
 void GenericFader::remove(const FadeChannel& ch)

@@ -49,6 +49,9 @@ public:
      */
     void add(const FadeChannel& ch);
 
+    /** Replace an existing FaderChannel */
+    void forceAdd(const FadeChannel& ch);
+
     /** Remove a channel whose fixture & channel match with $fc's */
     void remove(const FadeChannel& fc);
 

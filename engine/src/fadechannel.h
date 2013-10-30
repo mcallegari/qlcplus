@@ -46,6 +46,9 @@ public:
     /** Copy constructor */
     FadeChannel(const FadeChannel& ch);
 
+    /** Create a new FadeChannel and set fixture ID and channel */
+    FadeChannel(quint32 fxi, quint32 channel);
+
     /** Destructor */
     virtual ~FadeChannel();
 
