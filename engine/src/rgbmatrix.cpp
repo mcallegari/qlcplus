@@ -109,6 +109,7 @@ bool RGBMatrix::copyFrom(const Function* function)
     else
         setAlgorithm(NULL);
     setStartColor(mtx->startColor());
+    setEndColor(mtx->endColor());
 
     return Function::copyFrom(function);
 }
