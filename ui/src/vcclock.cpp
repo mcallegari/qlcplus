@@ -21,6 +21,7 @@
 
 #include <QtXml>
 #include <QtGui>
+#include <QStyle>
 
 #include "qlcfile.h"
 
