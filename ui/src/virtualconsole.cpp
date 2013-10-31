@@ -664,6 +664,9 @@ void VirtualConsole::updateActions()
             m_editPasteAction->setEnabled(false);
         }
     }
+
+    if (contents()->children().count() == 0)
+        m_latestWidgetId = 0;
 }
 
 /*****************************************************************************
@@ -749,7 +752,7 @@ void VirtualConsole::slotAddButtonMatrix()
         frame = new VCSoloFrame(parent, m_doc);
     Q_ASSERT(frame != NULL);
     frame->setID(newWidgetId());
-    frame->setShowHeader(false);
+    frame->setHeaderVisible(false);
     checkWidgetPage(frame, parent);
 
     // Resize the parent frame to fit the buttons nicely and toggle resizing off
@@ -824,7 +827,7 @@ void VirtualConsole::slotAddSliderMatrix()
     VCFrame* frame = new VCFrame(parent, m_doc);
     Q_ASSERT(frame != NULL);
     frame->setID(newWidgetId());
-    frame->setShowHeader(false);
+    frame->setHeaderVisible(false);
     checkWidgetPage(frame, parent);
 
     // Resize the parent frame to fit the sliders nicely

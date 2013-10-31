@@ -42,9 +42,14 @@ VCFrameProperties::VCFrameProperties(QWidget* parent, VCFrame* frame, Doc *doc)
     m_allowResizeCheck->setChecked(frame->allowResize());
     m_showHeaderCheck->setChecked(frame->isHeaderVisible());
     m_enablePaging->setChecked(frame->multipageMode());
+    if (frame->multipageMode() == true)
+        m_showHeaderCheck->setEnabled(false);
     m_totalPagesSpin->setValue(frame->totalPagesNumber());
     if (frame->totalPagesNumber() != 1)
         m_cloneFirstPageCheck->setEnabled(false);
+
+    connect(m_enablePaging, SIGNAL(toggled(bool)),
+            this, SLOT(slotMultipageChecked(bool)));
 
     /************************************************************************
      * Next page
@@ -125,12 +130,43 @@ bool VCFrameProperties::cloneWidgets() const
     return m_cloneFirstPageCheck->isChecked();
 }
 
+void VCFrameProperties::slotMultipageChecked(bool enable)
+{
+    if (enable == true)
+    {
+        m_showHeaderCheck->setChecked(true);
+        m_showHeaderCheck->setEnabled(false);
+    }
+}
+
 void VCFrameProperties::accept()
 {
+    bool hasHeader = m_frame->isHeaderVisible();
+
     m_frame->setCaption(m_frameName->text());
     m_frame->setAllowChildren(m_allowChildrenCheck->isChecked());
     m_frame->setAllowResize(m_allowResizeCheck->isChecked());
-    m_frame->setShowHeader(m_showHeaderCheck->isChecked());
+
+    /* If the frame is coming from a headerless state,
+     * all the children widgets must be moved down */
+    if (m_showHeaderCheck->isChecked() && hasHeader == false)
+    {
+        QListIterator <VCWidget*> it(m_frame->findChildren<VCWidget*>());
+
+        // resize the frame too if it contains children
+        if (it.hasNext())
+            m_frame->resize(QSize(m_frame->width(), m_frame->height() + 40));
+
+        while (it.hasNext() == true)
+        {
+            VCWidget* child = it.next();
+
+            // move only first level children
+            if (child->parentWidget() == m_frame)
+                child->move(QPoint(child->x(), child->y() + 40));
+        }
+    }
+    m_frame->setHeaderVisible(m_showHeaderCheck->isChecked());
     m_frame->setMultipageMode(m_enablePaging->isChecked());
     m_frame->setTotalPagesNumber(m_totalPagesSpin->value());
 

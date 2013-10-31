@@ -87,7 +87,7 @@ public:
     /** @reimp */
     QColor foregroundColor() const;
 
-    void setShowHeader(bool enable);
+    void setHeaderVisible(bool enable);
 
     bool isHeaderVisible() const;
 
@@ -95,6 +95,9 @@ public:
 
 protected slots:
     void slotCollapseButtonToggled(bool toggle);
+
+protected:
+    void createHeader();
 
 protected:
     QHBoxLayout *m_hbox;
