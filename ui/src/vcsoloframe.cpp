@@ -40,7 +40,7 @@
 #include "qlcfile.h"
 #include "doc.h"
 
-VCSoloFrame::VCSoloFrame(QWidget* parent, Doc* doc, bool canCollapse) : VCFrame(parent, doc, canCollapse)
+VCSoloFrame::VCSoloFrame(QWidget* parent, Doc* doc, bool isMainConsole) : VCFrame(parent, doc, isMainConsole)
 {
     /* Set the class name "VCSoloFrame" as the object name as well */
     setObjectName(VCSoloFrame::staticMetaObject.className());
@@ -48,7 +48,7 @@ VCSoloFrame::VCSoloFrame(QWidget* parent, Doc* doc, bool canCollapse) : VCFrame(
 
     m_frameStyle = KVCFrameStyleSunken;
 
-    if(canCollapse == true)
+    if(isMainConsole == false)
     {
         QString txtColor = "white";
         if (m_hasCustomForegroundColor)

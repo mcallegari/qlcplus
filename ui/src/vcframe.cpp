@@ -57,7 +57,7 @@ const QSize VCFrame::defaultSize(QSize(200, 200));
 const quint8 VCFrame::nextPageInputSourceId = 0;
 const quint8 VCFrame::previousPageInputSourceId = 1;
 
-VCFrame::VCFrame(QWidget* parent, Doc* doc, bool canCollapse) : VCWidget(parent, doc)
+VCFrame::VCFrame(QWidget* parent, Doc* doc, bool isMainConsole) : VCWidget(parent, doc)
     , m_hbox(NULL)
     , m_button(NULL)
     , m_label(NULL)
@@ -76,7 +76,7 @@ VCFrame::VCFrame(QWidget* parent, Doc* doc, bool canCollapse) : VCWidget(parent,
     setAllowChildren(true);
     setType(VCWidget::FrameWidget);
 
-    if (canCollapse == true)
+    if (isMainConsole == false)
     {
         QVBoxLayout *vbox = new QVBoxLayout(this);
         /* Main HBox */
