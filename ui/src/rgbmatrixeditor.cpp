@@ -25,6 +25,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QColorDialog>
+#include <QFileDialog>
 #include <QFontDialog>
 #include <QGradient>
 #include <QSettings>
@@ -37,6 +38,7 @@
 #include "rgbmatrix.h"
 #include "rgbitem.h"
 #include "rgbtext.h"
+#include "rgbimage.h"
 #include "apputil.h"
 #include "doc.h"
 
@@ -144,6 +146,7 @@ void RGBMatrixEditor::init()
     fillPatternCombo();
     fillFixtureGroupCombo();
     fillAnimationCombo();
+    fillImageAnimationCombo();
 
     QPixmap pm(100, 26);
     pm.fill(m_matrix->startColor());
@@ -173,6 +176,12 @@ void RGBMatrixEditor::init()
             this, SLOT(slotFontButtonClicked()));
     connect(m_animationCombo, SIGNAL(activated(const QString&)),
             this, SLOT(slotAnimationActivated(const QString&)));
+    connect(m_imageEdit, SIGNAL(textEdited(const QString&)),
+            this, SLOT(slotImageEdited(const QString&)));
+    connect(m_imageButton, SIGNAL(clicked()),
+            this, SLOT(slotImageButtonClicked()));
+    connect(m_imageAnimationCombo, SIGNAL(activated(const QString&)),
+            this, SLOT(slotImageAnimationActivated(const QString&)));
     connect(m_xOffsetSpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotOffsetSpinChanged()));
     connect(m_yOffsetSpin, SIGNAL(valueChanged(int)),
@@ -251,17 +260,42 @@ void RGBMatrixEditor::fillAnimationCombo()
     m_animationCombo->addItems(RGBText::animationStyles());
 }
 
+void RGBMatrixEditor::fillImageAnimationCombo()
+{
+    m_imageAnimationCombo->addItems(RGBImage::animationStyles());
+}
+
 void RGBMatrixEditor::updateExtraOptions()
 {
-    if (m_matrix->algorithm() == NULL || m_matrix->algorithm()->type() != RGBAlgorithm::Text)
+    if (m_matrix->algorithm() == NULL || (m_matrix->algorithm()->type() == RGBAlgorithm::Script))
     {
         m_textGroup->hide();
+        m_imageGroup->hide();
         m_offsetGroup->hide();
     }
-    else
+    else if (m_matrix->algorithm()->type() == RGBAlgorithm::Image)
+    {
+        m_textGroup->hide();
+        m_imageGroup->show();
+        m_offsetGroup->show();
+
+        RGBImage* image = static_cast<RGBImage*> (m_matrix->algorithm());
+        Q_ASSERT(image != NULL);
+        m_imageEdit->setText(image->filename());
+
+        int index = m_imageAnimationCombo->findText(RGBImage::animationStyleToString(image->animationStyle()));
+        if (index != -1)
+            m_imageAnimationCombo->setCurrentIndex(index);
+
+        m_xOffsetSpin->setValue(image->xOffset());
+        m_yOffsetSpin->setValue(image->yOffset());
+
+    }
+    else if (m_matrix->algorithm()->type() == RGBAlgorithm::Text)
     {
         m_textGroup->show();
         m_offsetGroup->show();
+        m_imageGroup->hide();
 
         RGBText* text = static_cast<RGBText*> (m_matrix->algorithm());
         Q_ASSERT(text != NULL);
@@ -514,11 +548,63 @@ void RGBMatrixEditor::slotAnimationActivated(const QString& text)
     }
 }
 
+void RGBMatrixEditor::slotImageEdited(const QString& text)
+{
+    if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Image)
+    {
+        RGBImage* algo = static_cast<RGBImage*> (m_matrix->algorithm());
+        Q_ASSERT(algo != NULL);
+        algo->setFilename(text);
+        slotRestartTest();
+    }
+}
+
+void RGBMatrixEditor::slotImageButtonClicked()
+{
+    if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Image)
+    {
+        RGBImage* algo = static_cast<RGBImage*> (m_matrix->algorithm());
+        Q_ASSERT(algo != NULL);
+
+        QString path = algo->filename();
+        path = QFileDialog::getOpenFileName(this,
+                                            tr("Select image"),
+                                            path,
+                                            "Images (*.jpg *.xpm *.png *.gif)");
+        if (path.isEmpty() == false)
+        {
+            algo->setFilename(path);
+            m_imageEdit->setText(path);
+            slotRestartTest();
+        }
+    }
+}
+
+void RGBMatrixEditor::slotImageAnimationActivated(const QString& text)
+{
+    if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Image)
+    {
+        RGBImage* algo = static_cast<RGBImage*> (m_matrix->algorithm());
+        Q_ASSERT(algo != NULL);
+        algo->setAnimationStyle(RGBImage::stringToAnimationStyle(text));
+        slotRestartTest();
+    }
+}
+
 void RGBMatrixEditor::slotOffsetSpinChanged()
 {
     if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Text)
     {
         RGBText* algo = static_cast<RGBText*> (m_matrix->algorithm());
+        Q_ASSERT(algo != NULL);
+        algo->setXOffset(m_xOffsetSpin->value());
+        algo->setYOffset(m_yOffsetSpin->value());
+        slotRestartTest();
+    }
+
+    if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Image)
+    {
+        RGBImage* algo = static_cast<RGBImage*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
         algo->setXOffset(m_xOffsetSpin->value());
         algo->setYOffset(m_yOffsetSpin->value());
