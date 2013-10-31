@@ -57,6 +57,7 @@ private:
     void fillPatternCombo();
     void fillFixtureGroupCombo();
     void fillAnimationCombo();
+    void fillImageAnimationCombo();
     void updateExtraOptions();
 
     void createPreviewItems();
@@ -74,6 +75,10 @@ private slots:
     void slotFontButtonClicked();
     void slotAnimationActivated(const QString& text);
     void slotOffsetSpinChanged();
+
+    void slotImageEdited(const QString& filename);
+    void slotImageButtonClicked();
+    void slotImageAnimationActivated(const QString& text);
 
     void slotLoopClicked();
     void slotPingPongClicked();

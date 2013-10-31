@@ -152,7 +152,9 @@ QList <RGBMap> RGBMatrix::previewMaps()
     FixtureGroup* grp = doc()->fixtureGroup(fixtureGroup());
     if (grp != NULL)
     {
-        for (int i = 0; i < m_algorithm->rgbMapStepCount(grp->size()); i++)
+        int stepCount = m_algorithm->rgbMapStepCount(grp->size());
+        qDebug() << "Steps: " << stepCount;
+        for (int i = 0; i < stepCount; i++)
             steps << m_algorithm->rgbMap(grp->size(), m_stepColor.rgb(), i);
     }
 

@@ -88,6 +88,7 @@ HEADERS += bus.h \
            qlcpoint.h \
            rgbalgorithm.h \
            rgbmatrix.h \
+           rgbimage.h \
            rgbscript.h \
            rgbtext.h \
            scene.h \
@@ -168,6 +169,7 @@ SOURCES += bus.cpp \
            qlcpoint.cpp \
            rgbalgorithm.cpp \
            rgbmatrix.cpp \
+           rgbimage.cpp \
            rgbscript.cpp \
            rgbtext.cpp \
            scene.cpp \
