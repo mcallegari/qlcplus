@@ -927,7 +927,7 @@ void VirtualConsole::slotAddFrame()
     if (parent == NULL)
         return;
 
-    VCFrame* frame = new VCFrame(parent, m_doc, true);
+    VCFrame* frame = new VCFrame(parent, m_doc);
     Q_ASSERT(frame != NULL);
     frame->setID(newWidgetId());
     checkWidgetPage(frame, parent);
@@ -944,7 +944,7 @@ void VirtualConsole::slotAddSoloFrame()
     if (parent == NULL)
         return;
 
-    VCSoloFrame* soloframe = new VCSoloFrame(parent, m_doc, true);
+    VCSoloFrame* soloframe = new VCSoloFrame(parent, m_doc);
     Q_ASSERT(soloframe != NULL);
     soloframe->setID(newWidgetId());
     checkWidgetPage(soloframe, parent);
@@ -1523,7 +1523,8 @@ void VirtualConsole::resetContents()
         delete m_contents;
 
     Q_ASSERT(m_scrollArea != NULL);
-    m_contents = new VCFrame(m_scrollArea, m_doc);
+    // This is the only one frame with true in the last argument
+    m_contents = new VCFrame(m_scrollArea, m_doc, true); 
     m_contents->setFrameStyle(0);
 
     // Get virtual console size from properties
