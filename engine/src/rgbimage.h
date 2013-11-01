@@ -63,7 +63,7 @@ private:
      * Animation
      ************************************************************************/
 public:
-    enum AnimationStyle { Static, Horizontal, Vertical };
+    enum AnimationStyle { Static, Horizontal, Vertical, Animation };
 
     void setAnimationStyle(AnimationStyle ani);
     AnimationStyle animationStyle() const;
@@ -77,11 +77,6 @@ public:
 
     void setYOffset(int offset);
     int yOffset() const;
-
-private:
-
-    int scrollingImageStepCount() const;
-    RGBMap renderImage(const QSize& size, uint rgb, int step) const;
 
 private:
     AnimationStyle m_animationStyle;

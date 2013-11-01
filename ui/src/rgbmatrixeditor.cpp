@@ -329,12 +329,10 @@ void RGBMatrixEditor::createPreviewItems()
 
     if (m_previewDirection == Function::Forward)
     {
-        m_previewStep = 0;
         m_matrix->setStepColor(m_matrix->startColor());
     }
     else
     {
-        m_previewStep = m_previewMaps.size() - 1;
         if (m_matrix->endColor().isValid())
             m_matrix->setStepColor(m_matrix->endColor());
         else
@@ -343,6 +341,15 @@ void RGBMatrixEditor::createPreviewItems()
 
     m_matrix->calculateColorDelta();
     m_previewMaps = m_matrix->previewMaps();
+
+    if (m_previewDirection == Function::Forward || m_previewMaps.isEmpty())
+    {
+        m_previewStep = 0;
+    }
+    else
+    {
+        m_previewStep = m_previewMaps.size() - 1;
+    }
 
     RGBMap map;
     if (m_previewStep < m_previewMaps.size())

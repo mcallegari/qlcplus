@@ -26,6 +26,7 @@
 #include <QDebug>
 
 #include "rgbimage.h"
+#include "qlcmacros.h"
 
 #define KXMLQLCRGBImageFilename      "Filename"
 #define KXMLQLCRGBImageAnimationStyle "Animation"
@@ -98,7 +99,7 @@ void RGBImage::reloadImage()
 
 void RGBImage::setAnimationStyle(RGBImage::AnimationStyle ani)
 {
-    if (ani >= Static && ani <= Vertical)
+    if (ani >= Static && ani <= Animation)
         m_animationStyle = ani;
     else
         m_animationStyle = Static;
@@ -120,6 +121,8 @@ QString RGBImage::animationStyleToString(RGBImage::AnimationStyle ani)
         return QString("Horizontal");
     case Vertical:
         return QString("Vertical");
+    case Animation:
+        return QString("Animation");
     }
 }
 
@@ -129,6 +132,8 @@ RGBImage::AnimationStyle RGBImage::stringToAnimationStyle(const QString& str)
         return Horizontal;
     else if (str == QString("Vertical"))
         return Vertical;
+    else if (str == QString("Animation"))
+        return Animation;
     else
         return Static;
 }
@@ -139,6 +144,7 @@ QStringList RGBImage::animationStyles()
     list << animationStyleToString(Static);
     list << animationStyleToString(Horizontal);
     list << animationStyleToString(Vertical);
+    list << animationStyleToString(Animation);
     return list;
 }
 
@@ -162,16 +168,28 @@ int RGBImage::yOffset() const
     return m_yOffset;
 }
 
-int RGBImage::scrollingImageStepCount() const
+/****************************************************************************
+ * RGBAlgorithm
+ ****************************************************************************/
+
+int RGBImage::rgbMapStepCount(const QSize& size)
 {
-    
-    if (animationStyle() == Vertical)
-        return m_image.height();
-    else
+    switch (animationStyle())
+    {
+    default:
+    case Static:
+        return 1;
+    case Horizontal:
         return m_image.width();
+    case Vertical:
+        return m_image.height();
+    case Animation:
+        qDebug() << m_image.width() << " " << size.width() << " " << (m_image.width() / size.width());
+        return MAX(1, m_image.width() / size.width());
+    }
 }
 
-RGBMap RGBImage::renderImage(const QSize& size, uint rgb, int step) const
+RGBMap RGBImage::rgbMap(const QSize& size, uint rgb, int step)
 {
     Q_UNUSED(rgb);
 
@@ -180,6 +198,7 @@ RGBMap RGBImage::renderImage(const QSize& size, uint rgb, int step) const
 
     switch(animationStyle()) 
     {
+    default:
     case Static:
         break;
     case Horizontal:
@@ -187,6 +206,9 @@ RGBMap RGBImage::renderImage(const QSize& size, uint rgb, int step) const
         break;
     case Vertical:
         yOffs += step;
+        break;
+    case Animation:
+        xOffs += step * size.width();
         break;
     }
 
@@ -202,29 +224,10 @@ RGBMap RGBImage::renderImage(const QSize& size, uint rgb, int step) const
             map[y][x] = m_image.pixel(x1,y1);
             if (qAlpha(map[y][x]) == 0)
                 map[y][x] = 0;
-            qDebug() << map[y][x];
         }
     }
 
     return map;
-}
-
-/****************************************************************************
- * RGBAlgorithm
- ****************************************************************************/
-
-int RGBImage::rgbMapStepCount(const QSize& size)
-{
-    Q_UNUSED(size);
-    if (animationStyle() == Static)
-        return 1;
-    else
-        return scrollingImageStepCount();
-}
-
-RGBMap RGBImage::rgbMap(const QSize& size, uint rgb, int step)
-{
-    return renderImage(size, rgb, step);
 }
 
 QString RGBImage::name() const
