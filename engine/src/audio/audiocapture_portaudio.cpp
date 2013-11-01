@@ -122,8 +122,7 @@ void AudioCapturePortAudio::resume()
 
 bool AudioCapturePortAudio::readAudio(int maxSize)
 {
-    int err;
-    err = Pa_ReadStream( stream, m_audioBuffer, maxSize / 2 );
+    int err = Pa_ReadStream( stream, m_audioBuffer, maxSize );
     if( err )
     {
         qWarning("read from audio interface failed (%s)\n", Pa_GetErrorText (err));

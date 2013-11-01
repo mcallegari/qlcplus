@@ -39,17 +39,21 @@ AboutBox::AboutBox(QWidget* parent) : QDialog (parent)
     m_versionLabel->setText(APPVERSION);
     m_copyrightLabel->setText(QString("Copyright &copy; <B>Heikki Junnila, Massimo Callegari</B> %1")
                               .arg(tr("and contributors:")));
-    m_websiteLabel->setText(tr("Website: %1").arg("<A HREF=\"http://sourceforge.net/projects/qlcplus/\">http://sourceforge.net/projects/qlcplus/</A>"));
+    m_websiteLabel->setText(tr("Website: %1").arg("<A HREF=\"http://qlcplus.sourceforge.net/index.shtml\">http://qlcplus.sourceforge.net/index.shtml</A>"));
 
     connect(m_contributors, SIGNAL(itemClicked(QListWidgetItem*)),
             this, SLOT(slotItemClicked()));
     m_contributors->clear();
     m_contributors->addItem("Contributors:");
+    m_contributors->addItem("Jano Svitok");
     m_contributors->addItem("Thomas Achtner");
     m_contributors->addItem("Oliver Ruempelein");
     m_contributors->addItem("Jannis Achstetter");
-    m_contributors->addItem(QString::fromUtf8("Daniel Nyström"));
-    m_contributors->addItem("Jano Svitok");
+    m_contributors->addItem("Stefan Riemens");
+    m_contributors->addItem("NiKoyes");
+    m_contributors->addItem("Raymond Van Laake");
+    m_contributors->addItem(QString::fromUtf8("Luis García Tornel"));
+    m_contributors->addItem("Jan Lachman");
     m_contributors->addItem("Klaus Weidenbach");
     m_contributors->addItem("Stefan Krumm");
     m_contributors->addItem(QString::fromUtf8("Christian Sühs"));
@@ -58,7 +62,6 @@ AboutBox::AboutBox(QWidget* parent) : QDialog (parent)
     m_contributors->addItem("Lutz Hillebrand");
     m_contributors->addItem("Matthew Jaggard");
     m_contributors->addItem("Ptit Vachon");
-    m_contributors->addItem("NiKoyes");
     m_contributors->addItem("Tolmino");
 
     m_timer = new QTimer(this);

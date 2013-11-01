@@ -14,11 +14,11 @@ Here you can find the direct answer or a help to point you in the right directio
 
 <TABLE BORDER=1 class="qlcTable">
  <TR>
-  <TD><B>Q:</B></TD>
+  <TD><H2>Q:</H2></TD>
   <TD>QLC+ cannot detect my USB device</TD>
  </TR>
  <TR>
-  <TD><B>A:</B></TD>
+  <TD><H2>A:</H2></TD>
   <TD>QLC+ supports a wide variety of USB devices. First of all you should check if the physical connection
       is OK. Usually a LED on your device should indicate if it is powered up and working correctly.<BR>
       If you are using Windows and your device is manufactured by Peperoni or Velleman, please read the information on how to get
@@ -30,23 +30,41 @@ Here you can find the direct answer or a help to point you in the right directio
  </TR>
  <TR></TR>
  <TR>
-  <TD><B>Q:</B></TD>
+  <TD><H2>Q:</H2></TD>
   <TD>I've got several <A HREF="vcbutton.html">buttons</A> in my Virtual Console. I need a way to disable the currently
       active button when I enable another one. How do I do that ?
   </TD>
  </TR>
  <TR>
-  <TD><B>A:</B></TD>
+  <TD><H2>A:</H2></TD>
   <TD>Simply place your buttons inside a <A HREF="vcsoloframe.html">Solo Frame</A>. It does exactly that.</TD>
  </TR>
  <TR></TR>
  <TR>
-  <TD><B>Q:</B></TD>
+  <TD><H2>Q:</H2></TD>
   <TD>When I start EFX, all fixtures are at full intensity and I can't make them dimmer.</TD>
  </TR>
  <TR>
-  <TD><B>A:</B></TD>
+  <TD><H2>A:</H2></TD>
   <TD>See <A HREF="file:efxeditor.html#efx-intensity">this note</A>.</TD>
+ </TR>
+ <TR></TR>
+ <TR>
+  <TD><H2>Q:</H2></TD>
+  <TD>I just upgraded my Mac to OSX Mavericks but my Open USB DMX adapter doesn't work anymore.</TD>
+ </TR>
+ <TR>
+  <TD><H2>A:</H2></TD>
+  <TD>The problem is in a new Apple USB driver. Following the procedure to disable it.<br>
+      <B>Please note that this can compromise the behaviour of other USB devices, so do it
+      only if you know what you're doing !</B><br>
+      From a terminal type the following commands:<br>
+      <PRE>
+      cd /System/Library/Extensions/IOUSBFamily.kext/Contents/PlugIns
+      sudo mv AppleUSBFTDI.kext AppleUSBFTDI.disabled
+      sudo touch /System/Library/Extensions
+      </PRE>
+  </TD>
  </TR>
 </TABLE> 
 

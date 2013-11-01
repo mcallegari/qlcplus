@@ -977,10 +977,7 @@ void App::slotRunningFunctionsChanged()
     if (m_doc->masterTimer()->runningFunctions() > 0)
         m_controlPanicAction->setEnabled(true);
     else
-    {
         m_controlPanicAction->setEnabled(false);
-        m_doc->masterTimer()->stopAllFunctions();
-    }
 }
 
 void App::slotDumpDmxIntoFunction()

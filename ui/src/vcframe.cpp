@@ -48,6 +48,7 @@
 #include "vcframe.h"
 #include "vclabel.h"
 #include "vcxypad.h"
+#include "vcclock.h"
 #include "apputil.h"
 #include "doc.h"
 
@@ -76,50 +77,7 @@ VCFrame::VCFrame(QWidget* parent, Doc* doc, bool canCollapse) : VCWidget(parent,
     setType(VCWidget::FrameWidget);
 
     if (canCollapse == true)
-    {
-        QVBoxLayout *vbox = new QVBoxLayout(this);
-        /* Main HBox */
-        m_hbox = new QHBoxLayout();
-        m_hbox->setGeometry(QRect(0, 0, 200, 40));
-
-        layout()->setSpacing(2);
-        layout()->setContentsMargins(4, 4, 4, 4);
-        layout()->addItem(m_hbox);
-        vbox->addStretch();
-
-        m_button = new QToolButton(this);
-        m_button->setStyle(AppUtil::saneStyle());
-        m_button->setIconSize(QSize(32, 32));
-        m_button->setMinimumSize(QSize(32, 32));
-        m_button->setMaximumSize(QSize(32, 32));
-        m_button->setIcon(QIcon(":/expand.png"));
-        m_button->setCheckable(true);
-        QString btnSS = "QToolButton { background-color: #E0DFDF; border: 1px solid gray; border-radius: 3px; padding: 3px; } ";
-        btnSS += "QToolButton:pressed { background-color: #919090; border: 1px solid gray; border-radius: 3px; padding: 3px; } ";
-        m_button->setStyleSheet(btnSS);
-
-        m_hbox->addWidget(m_button);
-        connect(m_button, SIGNAL(toggled(bool)), this, SLOT(slotCollapseButtonToggled(bool)));
-
-        m_label = new QLabel(this);
-        m_label->setText(this->caption());
-        QString txtColor = "white";
-        if (m_hasCustomForegroundColor)
-            txtColor = this->foregroundColor().name();
-        m_label->setStyleSheet("QLabel { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #666666, stop: 1 #000000); "
-                               "color: " + txtColor + "; border-radius: 3px; padding: 3px; margin-left: 2px; }");
-
-        if (m_hasCustomFont)
-            m_label->setFont(font());
-        else
-        {
-            QFont m_font = QApplication::font();
-            m_font.setBold(true);
-            m_font.setPixelSize(12);
-            m_label->setFont(m_font);
-        }
-        m_hbox->addWidget(m_label);
-    }
+        createHeader();
 
     QSettings settings;
     QVariant var = settings.value(SETTINGS_FRAME_SIZE);
@@ -185,12 +143,12 @@ QColor VCFrame::foregroundColor() const
         return VCWidget::foregroundColor();
 }
 
-void VCFrame::setShowHeader(bool enable)
+void VCFrame::setHeaderVisible(bool enable)
 {
     m_showHeader = enable;
 
-    if (m_button == NULL)
-        return;
+    if (m_hbox == NULL)
+        createHeader();
 
     if (enable == false)
     {
@@ -241,6 +199,55 @@ void VCFrame::slotCollapseButtonToggled(bool toggle)
         m_collapsed = false;
     }
     m_doc->setModified();
+}
+
+void VCFrame::createHeader()
+{
+    if (m_hbox != NULL)
+        return;
+
+    QVBoxLayout *vbox = new QVBoxLayout(this);
+    /* Main HBox */
+    m_hbox = new QHBoxLayout();
+    m_hbox->setGeometry(QRect(0, 0, 200, 40));
+
+    layout()->setSpacing(2);
+    layout()->setContentsMargins(4, 4, 4, 4);
+    layout()->addItem(m_hbox);
+    vbox->addStretch();
+
+    m_button = new QToolButton(this);
+    m_button->setStyle(AppUtil::saneStyle());
+    m_button->setIconSize(QSize(32, 32));
+    m_button->setMinimumSize(QSize(32, 32));
+    m_button->setMaximumSize(QSize(32, 32));
+    m_button->setIcon(QIcon(":/expand.png"));
+    m_button->setCheckable(true);
+    QString btnSS = "QToolButton { background-color: #E0DFDF; border: 1px solid gray; border-radius: 3px; padding: 3px; } ";
+    btnSS += "QToolButton:pressed { background-color: #919090; border: 1px solid gray; border-radius: 3px; padding: 3px; } ";
+    m_button->setStyleSheet(btnSS);
+
+    m_hbox->addWidget(m_button);
+    connect(m_button, SIGNAL(toggled(bool)), this, SLOT(slotCollapseButtonToggled(bool)));
+
+    m_label = new QLabel(this);
+    m_label->setText(this->caption());
+    QString txtColor = "white";
+    if (m_hasCustomForegroundColor)
+        txtColor = this->foregroundColor().name();
+    m_label->setStyleSheet("QLabel { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #666666, stop: 1 #000000); "
+                           "color: " + txtColor + "; border-radius: 3px; padding: 3px; margin-left: 2px; }");
+
+    if (m_hasCustomFont)
+        m_label->setFont(font());
+    else
+    {
+        QFont m_font = QApplication::font();
+        m_font.setBold(true);
+        m_font.setPixelSize(12);
+        m_label->setFont(m_font);
+    }
+    m_hbox->addWidget(m_label);
 }
 
 /*********************************************************************
@@ -490,7 +497,7 @@ bool VCFrame::copyFrom(VCWidget* widget)
     if (frame == NULL)
         return false;
 
-    setShowHeader(frame->m_showHeader);
+    setHeaderVisible(frame->m_showHeader);
 
     QListIterator <VCWidget*> it(widget->findChildren<VCWidget*>());
     while (it.hasNext() == true)
@@ -649,9 +656,9 @@ bool VCFrame::loadXML(const QDomElement* root)
         else if (tag.tagName() == KXMLQLCVCFrameShowHeader)
         {
             if (tag.text() == KXMLQLCTrue)
-                setShowHeader(true);
+                setHeaderVisible(true);
             else
-                setShowHeader(false);
+                setHeaderVisible(false);
         }
         else if (tag.tagName() == KXMLQLCVCFrameMultipage)
         {
@@ -826,6 +833,19 @@ bool VCFrame::loadXML(const QDomElement* root)
                 triggers->show();
                 connect(triggers, SIGNAL(enableRequest(quint32)),
                         VirtualConsole::instance(), SLOT(slotEnableAudioTriggers(quint32)));
+            }
+        }
+        else if (tag.tagName() == KXMLQLCVCClock)
+        {
+            /* Create a new label into its parent */
+            VCClock* clock = new VCClock(this, m_doc);
+            if (clock->loadXML(&tag) == false)
+                delete clock;
+            else
+            {
+                if (multipageMode() == true)
+                    addWidgetToPageMap(clock);
+                clock->show();
             }
         }
         else

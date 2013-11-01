@@ -10,10 +10,6 @@ wkhtmltopdf-i386 --footer-center "Page [page]" --image-quality 100 \
   pdf_cover.html \
   index_pdf.html \
   concept.html \
-  commandlineparameters.html \
-  kioskmode.html \
-  parameterstuning.html \
-  guicustomstyles.html \
   questionsandanswers.html \
   mainwindow.html \
   fixturemonitor.html \
@@ -71,4 +67,8 @@ wkhtmltopdf-i386 --footer-center "Page [page]" --image-quality 100 \
   fixtureeditor.html \
   modeeditor.html \
   headeditor.html \
+  commandlineparameters.html \
+  kioskmode.html \
+  parameterstuning.html \
+  guicustomstyles.html \
   QLC+.pdf

@@ -380,6 +380,8 @@ void SimpleDesk::resetUniverseSliders()
 
 void SimpleDesk::initSliderView(bool fullMode)
 {
+    m_consoleList.clear();
+
     if (fullMode == true)
     {
         scrollArea = new QScrollArea();
@@ -413,6 +415,7 @@ void SimpleDesk::initSliderView(bool fullMode)
             connect(console, SIGNAL(valueChanged(quint32,quint32,uchar)),
                     this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
             c++;
+            m_consoleList.append(console);
         }
         fixturesLayout->addStretch(1);
         scrollArea->setWidget(grpBox);
@@ -557,8 +560,8 @@ void SimpleDesk::slotUniversePageChanged(int page)
 void SimpleDesk::slotUniverseResetClicked()
 {
     qDebug() << Q_FUNC_INFO;
-    resetUniverseSliders();
     m_engine->resetUniverse(m_currentUniverse);
+    //resetUniverseSliders();
     m_universePageSpin->setValue(1);
     if (m_viewModeButton->isChecked() == false)
         slotUniversePageChanged(1);
@@ -590,19 +593,32 @@ void SimpleDesk::slotUniverseSliderValueChanged(quint32 fid, quint32 chan, uchar
 
 void SimpleDesk::slotUniversesWritten(const QByteArray& ua)
 {
-    quint32 start = (m_universePageSpin->value() - 1) * m_channelsPerPage;
-    // add the universe bits to retrieve the absolute address (0 - 2048)
-    start = start | (m_currentUniverse << 9);
-
-    // update current page sliders
-    for (quint32 i = start; i < start + (quint32)m_channelsPerPage; i++)
+    if (m_viewModeButton->isChecked() == false)
     {
-        //const Fixture* fx = m_doc->fixture(m_doc->fixtureForAddress(i));
-        //if (fx != NULL)
+        quint32 start = (m_universePageSpin->value() - 1) * m_channelsPerPage;
+        // add the universe bits to retrieve the absolute address (0 - 2048)
+        start = start | (m_currentUniverse << 9);
+
+        // update current page sliders
+        for (quint32 i = start; i < start + (quint32)m_channelsPerPage; i++)
         {
             ConsoleChannel *cc = m_universeSliders[i - start];
             if (cc != NULL)
                 cc->setValue(ua.at(i), false);
+        }
+    }
+    else
+    {
+        foreach(FixtureConsole *fc, m_consoleList)
+        {
+            quint32 fxi = fc->fixture();
+            Fixture *fixture = m_doc->fixture(fxi);
+            if (fixture != NULL)
+            {
+                quint32 startAddr = fixture->universeAddress();
+                for (quint32 c = 0; c < fixture->channels(); c++)
+                    fc->setValue(c, ua[startAddr + c], false);
+            }
         }
     }
 }

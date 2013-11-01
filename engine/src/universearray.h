@@ -62,6 +62,9 @@ public:
     /** Set all intensity channel values to zero */
     void zeroIntensityChannels();
 
+    /** Return a list with intesity channels and their values */
+    QHash <int, uchar> intensityChannels();
+
     /** Check if new $value for $channel & $group pass HTP criteria. */
     bool checkHTP(int channel, uchar value, QLCChannel::Group group) const;
 

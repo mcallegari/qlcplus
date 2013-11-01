@@ -82,6 +82,7 @@ void RGBMatrix_Test::initial()
     QCOMPARE(mtx.type(), Function::RGBMatrix);
     QCOMPARE(mtx.fixtureGroup(), FixtureGroup::invalidId());
     QCOMPARE(mtx.startColor(), QColor(Qt::red));
+    QCOMPARE(mtx.endColor(), QColor());
     QVERIFY(mtx.m_fader == NULL);
     QCOMPARE(mtx.m_step, 0);
     QCOMPARE(mtx.name(), tr("New RGB Matrix"));
@@ -111,12 +112,19 @@ void RGBMatrix_Test::color()
 
     mtx.setStartColor(QColor());
     QCOMPARE(mtx.startColor(), QColor());
+
+    mtx.setEndColor(Qt::green);
+    QCOMPARE(mtx.endColor(), QColor(Qt::green));
+
+    mtx.setEndColor(QColor());
+    QCOMPARE(mtx.endColor(), QColor());
 }
 
 void RGBMatrix_Test::copy()
 {
     RGBMatrix mtx(m_doc);
     mtx.setStartColor(Qt::magenta);
+    mtx.setEndColor(Qt::yellow);
     mtx.setFixtureGroup(0);
     mtx.setAlgorithm(RGBAlgorithm::algorithm("Full Columns"));
     QVERIFY(mtx.algorithm() != NULL);
@@ -124,6 +132,7 @@ void RGBMatrix_Test::copy()
     RGBMatrix* copyMtx = qobject_cast<RGBMatrix*> (mtx.createCopy(m_doc));
     QVERIFY(copyMtx != NULL);
     QCOMPARE(copyMtx->startColor(), QColor(Qt::magenta));
+    QCOMPARE(copyMtx->endColor(), QColor(Qt::yellow));
     QCOMPARE(copyMtx->fixtureGroup(), uint(0));
     QVERIFY(copyMtx->algorithm() != NULL);
     QVERIFY(copyMtx->algorithm() != mtx.algorithm()); // Different object pointer!
@@ -149,7 +158,7 @@ void RGBMatrix_Test::previewMaps()
             for (int x = 0; x < 5; x++)
             {
                 if (x == z)
-                    QCOMPARE(maps[z][y][x], QColor(Qt::red).rgb());
+                    QCOMPARE(maps[z][y][x], QColor(Qt::black).rgb());
                 else
                     QCOMPARE(maps[z][y][x], uint(0));
             }
@@ -182,7 +191,7 @@ void RGBMatrix_Test::loadSave()
     QCOMPARE(root.firstChild().toElement().attribute("ID"), QString::number(mtx->id()));
     QCOMPARE(root.firstChild().toElement().attribute("Name"), QString("Xyzzy"));
 
-    int speed = 0, dir = 0, run = 0, algo = 0, monocolor = 0, grp = 0;
+    int speed = 0, dir = 0, run = 0, algo = 0, monocolor = 0, endcolor = 0, grp = 0;
 
     QDomNode node = root.firstChild().firstChild();
     while (node.isNull() == false)
@@ -215,6 +224,11 @@ void RGBMatrix_Test::loadSave()
             QCOMPARE(tag.text().toUInt(), QColor(Qt::magenta).rgb());
             monocolor++;
         }
+        else if (tag.tagName() == "EndColor")
+        {
+            QCOMPARE(tag.text().toUInt(), QColor().rgb());
+            endcolor++;
+        }
         else if (tag.tagName() == "FixtureGroup")
         {
             QCOMPARE(tag.text(), QString("42"));
@@ -233,6 +247,7 @@ void RGBMatrix_Test::loadSave()
     QCOMPARE(run, 1);
     QCOMPARE(algo, 1);
     QCOMPARE(monocolor, 1);
+    QCOMPARE(endcolor, 1);
     QCOMPARE(grp, 1);
 
     // Put some extra garbage in
@@ -245,6 +260,7 @@ void RGBMatrix_Test::loadSave()
     QCOMPARE(mtx2.direction(), Function::Backward);
     QCOMPARE(mtx2.runOrder(), Function::PingPong);
     QCOMPARE(mtx2.startColor(), QColor(Qt::magenta));
+    QCOMPARE(mtx2.endColor(), QColor());
     QCOMPARE(mtx2.fixtureGroup(), uint(42));
     QVERIFY(mtx2.algorithm() != NULL);
     QCOMPARE(mtx2.algorithm()->name(), mtx->algorithm()->name());

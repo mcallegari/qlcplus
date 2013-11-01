@@ -102,6 +102,7 @@ private:
 
     QList <RGBScript> m_scripts;
     QList <RGBMap> m_previewMaps;
+    Function::Direction m_previewDirection;
 
     QPointer<SpeedDialWidget> m_speedDials;
 

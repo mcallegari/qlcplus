@@ -58,6 +58,7 @@
 #include "vcframe.h"
 #include "vclabel.h"
 #include "vcxypad.h"
+#include "vcclock.h"
 #include "doc.h"
 
 #define SETTINGS_VC_SIZE "virtualconsole/size"
@@ -96,6 +97,7 @@ VirtualConsole::VirtualConsole(QWidget* parent, Doc* doc)
     , m_addSoloFrameAction(NULL)
     , m_addLabelAction(NULL)
     , m_addAudioTriggersAction(NULL)
+    , m_addClockAction(NULL)
 
     , m_toolsSettingsAction(NULL)
 
@@ -329,6 +331,9 @@ void VirtualConsole::initActions()
     m_addAudioTriggersAction = new QAction(QIcon(":/audioinput.png"), tr("New Audio Triggers"), this);
     connect(m_addAudioTriggersAction, SIGNAL(triggered(bool)), this, SLOT(slotAddAudioTriggers()), Qt::QueuedConnection);
 
+    m_addClockAction = new QAction(QIcon(":/clock.png"), tr("New Clock"), this);
+    connect(m_addClockAction, SIGNAL(triggered(bool)), this, SLOT(slotAddClock()), Qt::QueuedConnection);
+
     /* Put add actions under the same group */
     m_addActionGroup = new QActionGroup(this);
     m_addActionGroup->setExclusive(false);
@@ -344,6 +349,7 @@ void VirtualConsole::initActions()
     m_addActionGroup->addAction(m_addSoloFrameAction);
     m_addActionGroup->addAction(m_addLabelAction);
     m_addActionGroup->addAction(m_addAudioTriggersAction);
+    m_addActionGroup->addAction(m_addClockAction);
 
     /* Tools menu actions */
     m_toolsSettingsAction = new QAction(QIcon(":/configure.png"), tr("Virtual Console Settings"), this);
@@ -476,6 +482,7 @@ void VirtualConsole::initMenuBar()
     m_addMenu->addAction(m_addFrameAction);
     m_addMenu->addAction(m_addSoloFrameAction);
     m_addMenu->addAction(m_addLabelAction);
+    m_addMenu->addAction(m_addClockAction);
 
     /* Edit menu */
     m_editMenu = new QMenu(this);
@@ -548,6 +555,7 @@ void VirtualConsole::initMenuBar()
     m_toolbar->addAction(m_addSoloFrameAction);
     m_toolbar->addAction(m_addLabelAction);
     m_toolbar->addAction(m_addAudioTriggersAction);
+    m_toolbar->addAction(m_addClockAction);
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_editCutAction);
     m_toolbar->addAction(m_editCopyAction);
@@ -656,6 +664,9 @@ void VirtualConsole::updateActions()
             m_editPasteAction->setEnabled(false);
         }
     }
+
+    if (contents()->children().count() == 0)
+        m_latestWidgetId = 0;
 }
 
 /*****************************************************************************
@@ -741,7 +752,7 @@ void VirtualConsole::slotAddButtonMatrix()
         frame = new VCSoloFrame(parent, m_doc);
     Q_ASSERT(frame != NULL);
     frame->setID(newWidgetId());
-    frame->setShowHeader(false);
+    frame->setHeaderVisible(false);
     checkWidgetPage(frame, parent);
 
     // Resize the parent frame to fit the buttons nicely and toggle resizing off
@@ -816,7 +827,7 @@ void VirtualConsole::slotAddSliderMatrix()
     VCFrame* frame = new VCFrame(parent, m_doc);
     Q_ASSERT(frame != NULL);
     frame->setID(newWidgetId());
-    frame->setShowHeader(false);
+    frame->setHeaderVisible(false);
     checkWidgetPage(frame, parent);
 
     // Resize the parent frame to fit the sliders nicely
@@ -980,6 +991,23 @@ void VirtualConsole::slotAddAudioTriggers()
     setWidgetSelected(triggers, true);
     connect(triggers, SIGNAL(enableRequest(quint32)),
             this, SLOT(slotEnableAudioTriggers(quint32)));
+    m_doc->setModified();
+}
+
+void VirtualConsole::slotAddClock()
+{
+    VCWidget* parent(closestParent());
+    if (parent == NULL)
+        return;
+
+    VCClock* clock = new VCClock(parent, m_doc);
+    Q_ASSERT(clock != NULL);
+    clock->setID(newWidgetId());
+    checkWidgetPage(clock, parent);
+    clock->show();
+    clock->move(parent->lastClickPoint());
+    clearWidgetSelection();
+    setWidgetSelected(clock, true);
     m_doc->setModified();
 }
 
@@ -1642,6 +1670,7 @@ void VirtualConsole::slotModeChanged(Doc::Mode mode)
         m_addSoloFrameAction->setShortcut(QKeySequence());
         m_addLabelAction->setShortcut(QKeySequence());
         m_addAudioTriggersAction->setShortcut(QKeySequence());
+        m_addClockAction->setShortcut(QKeySequence());
 
         m_editCutAction->setShortcut(QKeySequence());
         m_editCopyAction->setShortcut(QKeySequence());
@@ -1691,6 +1720,7 @@ void VirtualConsole::slotModeChanged(Doc::Mode mode)
         m_addSoloFrameAction->setShortcut(QKeySequence("CTRL+SHIFT+O"));
         m_addLabelAction->setShortcut(QKeySequence("CTRL+SHIFT+L"));
         m_addAudioTriggersAction->setShortcut(QKeySequence("CTRL+SHIFT+A"));
+        m_addClockAction->setShortcut(QKeySequence("CTRL+SHIFT+T"));
 
         m_editCutAction->setShortcut(QKeySequence("CTRL+X"));
         m_editCopyAction->setShortcut(QKeySequence("CTRL+C"));

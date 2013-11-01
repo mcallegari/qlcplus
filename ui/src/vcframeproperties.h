@@ -45,6 +45,9 @@ public:
     bool multipageEnabled() const;
     bool cloneWidgets() const;
 
+protected slots:
+    void slotMultipageChecked(bool enable);
+
 protected:
     VCFrame *m_frame;
     Doc* m_doc;

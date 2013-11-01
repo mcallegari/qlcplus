@@ -34,34 +34,34 @@
     <message>
         <location filename="addchannelsdialog.ui" line="14"/>
         <source>Fixture Mode Channels Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Editeur de Modes</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="30"/>
         <source>Available channels</source>
         <oldsource>All channels</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Canaux disponibles</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="52"/>
         <source>&gt;&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="65"/>
         <source>&lt;&lt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="94"/>
         <location filename="addchannelsdialog.ui" line="116"/>
         <source>Name</source>
-        <translation type="unfinished">Nom</translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="102"/>
         <source>Mode channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Canaux du Mode</translation>
     </message>
 </context>
 <context>
@@ -799,12 +799,12 @@
     <message>
         <location filename="editmode.ui" line="953"/>
         <source>Copy physical information to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Copier les informations physiques dans le presse papier</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="970"/>
         <source>Paste physical information from clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Coller les informations physiques dans le presse papier</translation>
     </message>
 </context>
 <context>

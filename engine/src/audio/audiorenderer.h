@@ -112,6 +112,9 @@ protected:
      */
     virtual qint64 writeAudio(unsigned char *data, qint64 maxSize) = 0;
 
+signals:
+    void endOfStreamReached();
+
 private:
     /** Reference to the decoder to be used as data source */
     AudioDecoder *m_adec;

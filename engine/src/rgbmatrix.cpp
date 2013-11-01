@@ -109,6 +109,7 @@ bool RGBMatrix::copyFrom(const Function* function)
     else
         setAlgorithm(NULL);
     setStartColor(mtx->startColor());
+    setEndColor(mtx->endColor());
 
     return Function::copyFrom(function);
 }
@@ -186,21 +187,22 @@ QColor RGBMatrix::endColor() const
 
 void RGBMatrix::calculateColorDelta()
 {
+    m_crDelta = 0;
+    m_cgDelta = 0;
+    m_cbDelta = 0;
+
     if (m_endColor.isValid())
     {
         FixtureGroup* grp = doc()->fixtureGroup(fixtureGroup());
         if (grp != NULL && m_algorithm != NULL)
         {
-            m_crDelta = (m_endColor.red() - m_startColor.red()) / (m_algorithm->rgbMapStepCount(grp->size()) - 1);
-            m_cgDelta = (m_endColor.green() - m_startColor.green()) / (m_algorithm->rgbMapStepCount(grp->size()) - 1);
-            m_cbDelta = (m_endColor.blue() - m_startColor.blue()) / (m_algorithm->rgbMapStepCount(grp->size()) - 1);
+            if (m_algorithm->rgbMapStepCount(grp->size()) > 1)
+            {
+                m_crDelta = (m_endColor.red() - m_startColor.red()) / (m_algorithm->rgbMapStepCount(grp->size()) - 1);
+                m_cgDelta = (m_endColor.green() - m_startColor.green()) / (m_algorithm->rgbMapStepCount(grp->size()) - 1);
+                m_cbDelta = (m_endColor.blue() - m_startColor.blue()) / (m_algorithm->rgbMapStepCount(grp->size()) - 1);
+            }
         }
-    }
-    else
-    {
-        m_crDelta = 0;
-        m_cgDelta = 0;
-        m_cbDelta = 0;
     }
 }
 
@@ -449,16 +451,20 @@ void RGBMatrix::roundCheck(const QSize& size)
 
     if (runOrder() == PingPong)
     {
-        if (m_direction == Forward && m_step >= m_algorithm->rgbMapStepCount(size))
+        if (m_direction == Forward && (m_step + 1) == m_algorithm->rgbMapStepCount(size))
         {
             m_direction = Backward;
             m_step = m_algorithm->rgbMapStepCount(size) - 2;
+            if (m_endColor.isValid())
+                m_stepColor = m_endColor;
+
             updateStepColor(m_direction);
         }
-        else if (m_direction == Backward && m_step <= 0)
+        else if (m_direction == Backward && (m_step - 1) < 0)
         {
             m_direction = Forward;
             m_step = 1;
+            m_stepColor = m_startColor;
             updateStepColor(m_direction);
         }
         else

@@ -102,7 +102,7 @@ bool Scene::copyFrom(const Function* function)
  * Values
  *****************************************************************************/
 
-void Scene::setValue(const SceneValue& scv)
+void Scene::setValue(const SceneValue& scv, bool blind, bool checkHTP)
 {
     m_valueListMutex.lock();
     int index = m_values.indexOf(scv);
@@ -114,7 +114,7 @@ void Scene::setValue(const SceneValue& scv)
 
     // if the scene is running, we must
     // update/add the changed channel
-    if (m_fader != NULL)
+    if (blind == false && m_fader != NULL)
     {
         FadeChannel fc;
         fc.setFixture(scv.fxi);
@@ -122,8 +122,11 @@ void Scene::setValue(const SceneValue& scv)
         fc.setStart(scv.value);
         fc.setTarget(scv.value);
         fc.setCurrent(scv.value);
-        //fc.setFadeTime(0);
-        m_fader->add(fc);
+        fc.setFadeTime(0);
+        if (checkHTP == false)
+            m_fader->forceAdd(fc);
+        else
+            m_fader->add(fc);
     }
 
     m_valueListMutex.unlock();
@@ -556,18 +559,29 @@ void Scene::postRun(MasterTimer* timer, UniverseArray* ua)
         it.next();
         FadeChannel fc = it.value();
 
-        if (fc.group(doc()) == QLCChannel::Intensity)
+        bool canFade = true;
+        Fixture *fixture = doc()->fixture(fc.fixture());
+        if (fixture != NULL)
+            canFade = fixture->channelCanFade(fc.channel());
+        fc.setStart(fc.current(getAttributeValue()));
+
+        fc.setElapsed(0);
+        fc.setReady(false);
+        if (canFade == false)
         {
-            fc.setStart(fc.current(getAttributeValue()));
-            fc.setTarget(0);
-            fc.setElapsed(0);
-            fc.setReady(false);
+            fc.setFadeTime(0);
+            fc.setTarget(fc.current(getAttributeValue()));
+        }
+        else
+        {
             if (overrideFadeOutSpeed() == defaultSpeed())
                 fc.setFadeTime(fadeOutSpeed());
             else
                 fc.setFadeTime(overrideFadeOutSpeed());
-            timer->fader()->add(fc);
+            fc.setTarget(0);
         }
+        timer->fader()->add(fc);
+
     }
 
     Q_ASSERT(m_fader != NULL);

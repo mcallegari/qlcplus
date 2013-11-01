@@ -773,7 +773,7 @@ void Scene_Test::writeLTPReady()
     doc->outputMap()->releaseUniverses(false);
 
     QVERIFY(s1->stopped() == true);
-    QVERIFY(s1->isRunning() == false);
+    QVERIFY(s1->isRunning() == true);
 
     // LTP values stay on
     timer.timerTick();

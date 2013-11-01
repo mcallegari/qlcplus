@@ -94,7 +94,7 @@ public:
     /**
      * Set the value of one fixture channel, using a predefined SceneValue
      */
-    void setValue(const SceneValue& scv);
+    void setValue(const SceneValue& scv, bool blind = false, bool checkHTP = true);
 
     /**
      * Set the value of one fixture channel, specify parameters separately

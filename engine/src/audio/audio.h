@@ -122,6 +122,9 @@ public:
 
     void adjustAttribute(qreal fraction, int attributeIndex = 0);
 
+protected slots:
+    void slotEndOfStream();
+
 private:
 #ifdef QT_PHONON_LIB
     Phonon::MediaObject *m_object;

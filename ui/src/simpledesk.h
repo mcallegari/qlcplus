@@ -36,6 +36,7 @@ class SimpleDeskEngine;
 class SpeedDialWidget;
 class PlaybackSlider;
 class ConsoleChannel;
+class FixtureConsole;
 class QDomDocument;
 class QDomElement;
 class QToolButton;
@@ -116,6 +117,7 @@ private:
     QScrollArea* scrollArea;
 
     QList <ConsoleChannel*> m_universeSliders;
+    QList <FixtureConsole *> m_consoleList;
 
     /** Currently selected universe. Basically the index of m_universesCombo */
     int m_currentUniverse;

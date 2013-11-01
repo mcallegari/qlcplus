@@ -1,20 +1,31 @@
 qlcplus (4.5.1) stable; urgency=low
 
   * NEW: Virtual Console: audio triggers can now control Speed Dials tapping (thanks to Jano Svitok)
+  * NEW: Virtual Console: added clock widget
   * NEW: RGB Matrix now supports 2 colors
-  * General: Improved live edit functionality for Scenes and Chasers
+  * NEW: Scene Editor: color selection tool live tracking (thanks to Stefan Riemens)
+  * Live Edit: Improved live editing of Scenes and Chasers
   * Fixtures remapping: added a button to clone and autopatch a fixture from the source list
   * Function selection: added radio buttons to show all or only the running functions
   * Virtual Console: fixed regression on buttons name auto assign
   * Virtual Console: fixed multi page functionality for solo frames
   * Virtual Console: fixed audio triggers thresholds save/load on projects (thanks to Jano Svitok)
   * Virtual Console: fixed knobs rendering on OSX
+  * Virtual Console: fixed crash when enabling multipage on headerless frames
   * MIDI plugin: fixed beat clock detection on OSX
   * Show Manager: Improved to fit on a 1024x768 resolution
+  * Engine: fixed Collection potential crash (thanks to Jano Svitok)
+  * Engine: fixed Scene fade out when only one function is running
+  * Engine: fixed end of audio playback not notified
+  * Engine: fixed audio capture limited signal on OSX
+  * Simple Desk: universe reset is now performed also on non intensity channels
+  * Simple Desk: channels are now updated in full view mode too
   * Added fixture: Chauvet 4Play (thanks to Ryan Schaefer)
   * Added fixtures: American DJ Fusion FX Bar 1, Chauvet Intimidator Scan LED 200 (thanks to synkajax)
+  * Added fixtures: Stairville PAR64 CX-3 RGBW, Stairville TRI LED Bundle Complete (thanks to Lars Kildholt)
+  * Added fixture: Monacor CPL-3DMX (thanks to Marcus)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 12 October 2013 12:13:04 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 5 November 2013 12:13:04 +0200
 
 qlcplus (4.5.0) stable; urgency=low
 

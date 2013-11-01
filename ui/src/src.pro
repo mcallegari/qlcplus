@@ -99,6 +99,7 @@ HEADERS += aboutbox.h \
            vcaudiotriggersproperties.h \
            vcbutton.h \
            vcbuttonproperties.h \
+           vcclock.h \
            vccuelist.h \
            vccuelistproperties.h \
            vcdockarea.h \
@@ -226,6 +227,7 @@ SOURCES += aboutbox.cpp \
            vcaudiotriggersproperties.cpp \
            vcbutton.cpp \
            vcbuttonproperties.cpp \
+           vcclock.cpp \
            vccuelist.cpp \
            vccuelistproperties.cpp \
            vcdockarea.cpp \

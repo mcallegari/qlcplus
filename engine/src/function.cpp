@@ -455,21 +455,30 @@ uint Function::stringToSpeed(QString speed)
 {
     uint value = 0;
 
-    QStringList msecs = speed.split(".");
-    if (msecs.count() > 0)
-        value += (msecs.at(msecs.count() - 1).toUInt() * 10);
-
-    QStringList secs = speed.split("s");
-    if (secs.count() > 1)
-        value += (secs.at(0).toUInt() * 1000);
+    QStringList hours = speed.split("h");
+    if (hours.count() > 1)
+    {
+        value += (hours.at(0).toUInt() * 60 * 60 * 1000);
+        speed.remove(0, speed.indexOf("h") + 1);
+    }
 
     QStringList mins = speed.split("m");
     if (mins.count() > 1)
+    {
         value += (mins.at(0).toUInt() * 60 * 1000);
+        speed.remove(0, speed.indexOf("m") + 1);
+    }
 
-    QStringList hours = speed.split("h");
-    if (hours.count() > 1)
-        value += (hours.at(0).toUInt() * 60 * 60 * 1000);
+    QStringList secs = speed.split("s");
+    if (secs.count() > 1)
+    {
+        value += (secs.at(0).toUInt() * 1000);
+        speed.remove(0, speed.indexOf("s") + 1);
+    }
+
+    QStringList msecs = speed.split(".");
+    if (msecs.count() > 0)
+        value += (msecs.at(msecs.count() - 1).toUInt() * 10);
 
     return value;
 }

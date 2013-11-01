@@ -99,7 +99,7 @@ public:
     void setValues(const QList <SceneValue>& list, bool fromSelection);
 
     /** Set the value of one channel (doesn't enable it) */
-    void setValue(quint32 ch, uchar value);
+    void setValue(quint32 ch, uchar value, bool apply = true);
 
     /** Get the value of one channel (regardless of whether it's enabled) */
     uchar value(quint32 ch) const;
