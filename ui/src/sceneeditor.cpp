@@ -629,6 +629,27 @@ void SceneEditor::slotSpeedDialToggle(bool state)
 
 void SceneEditor::slotBlindToggled(bool state)
 {
+    if (m_doc->mode() == Doc::Operate)
+    {
+        if (m_source != NULL)
+        {
+            delete m_source;
+            m_source = NULL;
+        }
+
+        if (m_scene != NULL && m_scene->isRunning() == false)
+        {
+            m_source = new GenericDMXSource(m_doc);
+            foreach(SceneValue scv, m_scene->values())
+                m_source->set(scv.fxi, scv.channel, scv.value);
+        }
+    }
+    else
+    {
+        if (m_source == NULL)
+            m_source = new GenericDMXSource(m_doc);
+    }
+
     if (m_source != NULL)
         m_source->setOutputEnabled(!state);
 }
@@ -638,20 +659,14 @@ void SceneEditor::slotModeChanged(Doc::Mode mode)
     if (mode == Doc::Operate)
     {
         m_blindAction->setChecked(true);
-        if (m_source != NULL)
-        {
-            delete m_source;
-            m_source = NULL;
-        }
+        slotBlindToggled(true);
     }
     else
     {
         m_blindAction->setChecked(false);
-        if (m_source != NULL)
-            delete m_source;
-        m_source = new GenericDMXSource(m_doc);
-        m_source->setOutputEnabled(true);
+        slotBlindToggled(false);
     }
+
 }
 
 void SceneEditor::slotViewModeChanged(bool toggled, bool applyValues)
