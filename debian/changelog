@@ -23,6 +23,7 @@ qlcplus (4.5.1) stable; urgency=low
   * Added fixture: Chauvet 4Play (thanks to Ryan Schaefer)
   * Added fixtures: American DJ Fusion FX Bar 1, Chauvet Intimidator Scan LED 200 (thanks to synkajax)
   * Added fixtures: Stairville PAR64 CX-3 RGBW, Stairville TRI LED Bundle Complete (thanks to Lars Kildholt)
+  * Added fixture: Monacor CPL-3DMX (thanks to Marcus)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 5 November 2013 12:13:04 +0200
 

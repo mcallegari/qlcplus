@@ -205,6 +205,7 @@ fixtures.files += Martin-SCX-600.qxf
 fixtures.files += Martin-SCX-700.qxf
 fixtures.files += Martin-SCX-800.qxf
 fixtures.files += Microh-Firefly-RGY-II.qxf
+fixtures.files += Monacor-CPL-3DMX.qxf
 fixtures.files += Movitec-SL-250.qxf
 fixtures.files += Movitec-SL-575.qxf
 fixtures.files += Movitec-WL-250.qxf
