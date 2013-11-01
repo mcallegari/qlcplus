@@ -168,17 +168,14 @@ void Win32MidiOutputDevice::sendData(BYTE command, BYTE channel, BYTE value)
     midiOutShortMsg(m_handle, msg.dwData);
 }
 
-void Win32MidiOutputDevice::writeRaw(uchar* data, unsigned int count)
+void Win32MidiOutputDevice::writeSysEx(uchar* data, unsigned int count)
 {
-    qDebug() << "writeRaw";
-
     if(sizeof(data) == 0)
         return;
 
     if (isOpen() == false)
         return;
 
-    qDebug() << "writeRaw 2";
     MIDIHDR midiHdr;
 
     /* Store pointer in MIDIHDR */

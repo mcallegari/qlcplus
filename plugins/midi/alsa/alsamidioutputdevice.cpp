@@ -231,15 +231,13 @@ void AlsaMidiOutputDevice::writeFeedback(uchar cmd, uchar data1, uchar data2)
 }
 
 
-void AlsaMidiOutputDevice::writeRaw(uchar* data, unsigned int count)
+void AlsaMidiOutputDevice::writeSysEx(uchar* data, unsigned int count)
 {
     if(sizeof(data) == 0)
         return;
 
     if (isOpen() == false)
         return;
-
-    qDebug() << "writeraw size: " << count << " data: " << data;
 
     snd_seq_event_t ev;
     snd_seq_ev_clear(&ev);

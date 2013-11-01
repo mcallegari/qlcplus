@@ -92,7 +92,7 @@ void MidiPlugin::openOutput(quint32 output)
         MidiTemplate* templ = midiTemplate(dev->midiTemplateName());
 
         if (templ != NULL)
-            sendRaw(output, templ->midiMessage());
+            sendSysEx(output, templ->midiMessage());
     }
 }
 
@@ -294,9 +294,9 @@ void MidiPlugin::sendFeedBack(quint32 output, quint32 channel, uchar value, cons
     }
 }
 
-void MidiPlugin::sendRaw(quint32 output, const QString &data)
+void MidiPlugin::sendSysEx(quint32 output, const QString &data)
 {
-    qDebug() << "sendRaw data: " << data;
+    qDebug() << "sendSysEx data: " << data;
     bool ok;
 
     //Remove spaces newlines etc.
@@ -311,7 +311,7 @@ void MidiPlugin::sendRaw(quint32 output, const QString &data)
 
     MidiOutputDevice* dev = outputDevice(output);
     if (dev != NULL)
-        dev->writeRaw(message, dataSize);
+        dev->writeSysEx(message, dataSize);
 }
 
 MidiInputDevice* MidiPlugin::inputDevice(quint32 input) const

@@ -206,7 +206,7 @@ void CoreMidiOutputDevice::writeFeedback(uchar cmd, uchar data1, uchar data2)
         qWarning() << Q_FUNC_INFO << "Unable to send MIDI data to" << name();
 }
 
-void CoreMidiOutputDevice::writeRaw(uchar* data, unsigned int count)
+void CoreMidiOutputDevice::writeSysEx(uchar* data, unsigned int count)
 {
     if(sizeof(data) == 0)
         return;

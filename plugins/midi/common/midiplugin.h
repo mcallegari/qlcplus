@@ -112,7 +112,7 @@ public:
     /** @reimp */
     void sendFeedBack(quint32 output, quint32 channel, uchar value, const QString& key);
 
-    void sendRaw(quint32 output, const QString &data);
+    void sendSysEx(quint32 output, const QString &data);
 
 private:
     /** Get an output device by its output index */

@@ -42,7 +42,7 @@ public:
     void writeChannel(ushort channel, uchar value);
     void writeUniverse(const QByteArray& universe);
     void writeFeedback(uchar cmd, uchar data1, uchar data2);
-    void writeRaw(uchar* data, unsigned int count);
+    void writeSysEx(uchar* data, unsigned int count);
 
 private:
     void sendData(BYTE command, BYTE channel, BYTE value);
