@@ -17,6 +17,7 @@ qlcplus (4.5.1) stable; urgency=low
   * Engine: fixed Collection potential crash (thanks to Jano Svitok)
   * Engine: fixed Scene fade out when only one function is running
   * Engine: fixed end of audio playback not notified
+  * Engine: fixed audio capture limited signal on OSX
   * Simple Desk: universe reset is now performed also on non intensity channels
   * Simple Desk: channels are now updated in full view mode too
   * Added fixture: Chauvet 4Play (thanks to Ryan Schaefer)
