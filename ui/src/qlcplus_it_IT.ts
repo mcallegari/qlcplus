@@ -3412,100 +3412,100 @@ Durata: %3
         <translation>Disattiva tutti i canali di tutte le fixture</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="161"/>
+        <location filename="sceneeditor.cpp" line="164"/>
         <source>Enable all channels in current fixture</source>
         <translation>Abilita tutti i canali di questa fixture</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="163"/>
+        <location filename="sceneeditor.cpp" line="166"/>
         <source>Disable all channels in current fixture</source>
         <translation>Disabilita tutti i canali di questa fixture</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="165"/>
+        <location filename="sceneeditor.cpp" line="168"/>
         <source>Copy current values to clipboard</source>
         <translation>Copia i valori correnti in memoria</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="167"/>
+        <location filename="sceneeditor.cpp" line="170"/>
         <source>Paste clipboard values to current fixture</source>
         <translation>Incolla i valori copiati in memoria su questa fixture</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="169"/>
+        <location filename="sceneeditor.cpp" line="172"/>
         <source>Copy current values to all fixtures</source>
         <translation>Copia questi valori a tutte le fixture</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="171"/>
+        <location filename="sceneeditor.cpp" line="174"/>
         <source>Color tool for CMY/RGB-capable fixtures</source>
         <translation>Ruota colori per fixture con miscelazione CMY/RGB</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="173"/>
+        <location filename="sceneeditor.cpp" line="176"/>
         <source>Switch between tab view and all channels view</source>
         <translation>Passa dalla vista a tab alla vista a canali</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="175"/>
+        <location filename="sceneeditor.cpp" line="178"/>
         <source>Toggle blind mode</source>
         <translation>Modalità blind on/off</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="177"/>
+        <location filename="sceneeditor.cpp" line="180"/>
         <source>Show/Hide speed dial window</source>
         <translation>Mostra/Nascondi finestra speed dial</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="179"/>
+        <location filename="sceneeditor.cpp" line="182"/>
         <source>Clone this scene and append as a new step to the selected chaser</source>
         <translation>Clona questa scena e aggiungi un nuovo passo al chaser selezionato</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="181"/>
+        <location filename="sceneeditor.cpp" line="184"/>
         <source>Go to next fixture tab</source>
         <translation>Vai al tab della fixture successiva</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="185"/>
+        <location filename="sceneeditor.cpp" line="188"/>
         <source>Go to previous fixture tab</source>
         <translation>Vai al tab della fixture precedente</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="218"/>
+        <location filename="sceneeditor.cpp" line="209"/>
         <source>None</source>
         <translation>Nessuno</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="230"/>
+        <location filename="sceneeditor.cpp" line="221"/>
         <source>Scene name:</source>
         <translation>Nome della scena:</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="666"/>
-        <location filename="sceneeditor.cpp" line="667"/>
+        <location filename="sceneeditor.cpp" line="676"/>
+        <location filename="sceneeditor.cpp" line="677"/>
         <source>All fixtures</source>
         <translation>Tutte le fixture</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1142"/>
-        <location filename="sceneeditor.cpp" line="1143"/>
+        <location filename="sceneeditor.cpp" line="1152"/>
+        <location filename="sceneeditor.cpp" line="1153"/>
         <source>Channels Groups</source>
         <translation>Gruppi di Canali</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="921"/>
-        <location filename="sceneeditor.cpp" line="922"/>
+        <location filename="sceneeditor.cpp" line="931"/>
+        <location filename="sceneeditor.cpp" line="932"/>
         <source>Generic</source>
         <translation>Generico</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="990"/>
+        <location filename="sceneeditor.cpp" line="1000"/>
         <source>Remove fixtures</source>
         <translation>Elimina Fixture</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="991"/>
+        <location filename="sceneeditor.cpp" line="1001"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Vuoi eliminare le fixture selezionate?</translation>
     </message>
@@ -3722,151 +3722,151 @@ Durata: %3
 <context>
     <name>ShowManager</name>
     <message>
-        <location filename="showmanager.cpp" line="156"/>
+        <location filename="showmanager.cpp" line="176"/>
         <source>New s&amp;how</source>
         <translation>Nuovo S&amp;how</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="162"/>
+        <location filename="showmanager.cpp" line="182"/>
         <source>New &amp;track</source>
         <translation>Nuova &amp;traccia</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="168"/>
+        <location filename="showmanager.cpp" line="188"/>
         <source>New s&amp;equence</source>
         <translation>Nuova s&amp;equenza</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="174"/>
+        <location filename="showmanager.cpp" line="194"/>
         <source>New &amp;audio</source>
         <translation>Nuovo &amp;audio</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="180"/>
+        <location filename="showmanager.cpp" line="200"/>
         <source>&amp;Copy</source>
         <translation>&amp;Copia</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="187"/>
+        <location filename="showmanager.cpp" line="207"/>
         <source>&amp;Paste</source>
         <translation>&amp;Incolla</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="193"/>
+        <location filename="showmanager.cpp" line="213"/>
         <source>&amp;Delete</source>
         <translation>&amp;Elimina</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="200"/>
+        <location filename="showmanager.cpp" line="220"/>
         <source>Change Co&amp;lor</source>
         <translation>Cambia Co&amp;lore</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="207"/>
+        <location filename="showmanager.cpp" line="227"/>
         <source>Snap to &amp;Grid</source>
         <translation>Allinea alla &amp;griglia</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="214"/>
+        <location filename="showmanager.cpp" line="234"/>
         <source>St&amp;op</source>
         <translation>St&amp;op</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="220"/>
+        <location filename="showmanager.cpp" line="240"/>
         <source>&amp;Play</source>
         <translation>&amp;Play</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="276"/>
+        <location filename="showmanager.cpp" line="296"/>
         <source>Time division:</source>
         <translation>Marcatori di tempo:</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="281"/>
+        <location filename="showmanager.cpp" line="301"/>
         <source>Time</source>
         <translation>Tempo</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="430"/>
+        <location filename="showmanager.cpp" line="450"/>
         <source>New Show</source>
         <translation>Nuovo Show</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="432"/>
+        <location filename="showmanager.cpp" line="452"/>
         <source>Show name setup</source>
         <translation>Immissione nome Show</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="433"/>
+        <location filename="showmanager.cpp" line="453"/>
         <source>Show name:</source>
         <translation>Nome Show:</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="469"/>
+        <location filename="showmanager.cpp" line="489"/>
         <source>New Scene</source>
         <translation>Nuova Scena</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="500"/>
-        <location filename="showmanager.cpp" line="536"/>
+        <location filename="showmanager.cpp" line="520"/>
+        <location filename="showmanager.cpp" line="556"/>
         <source>New Sequence</source>
         <translation>Nuova Sequenza</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="524"/>
-        <location filename="showmanager.cpp" line="609"/>
+        <location filename="showmanager.cpp" line="544"/>
+        <location filename="showmanager.cpp" line="629"/>
         <source>Overlapping error</source>
         <translation>Errore di sovrapposizione</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="524"/>
-        <location filename="showmanager.cpp" line="609"/>
+        <location filename="showmanager.cpp" line="544"/>
+        <location filename="showmanager.cpp" line="629"/>
         <source>Overlapping not allowed. Operation cancelled.</source>
         <translation>Sovrapposizione non consentita. Operazione annullata.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="550"/>
+        <location filename="showmanager.cpp" line="570"/>
         <source>Open Audio File</source>
         <translation>Apri File Audio</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="576"/>
+        <location filename="showmanager.cpp" line="596"/>
         <source>Audio Files (%1)</source>
         <translation>File Audio (%1)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="578"/>
+        <location filename="showmanager.cpp" line="598"/>
         <source>All Files (*.*)</source>
         <translation>Tutti i file (*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="580"/>
+        <location filename="showmanager.cpp" line="600"/>
         <source>All Files (*)</source>
         <translation>Tutti i File (*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="602"/>
+        <location filename="showmanager.cpp" line="622"/>
         <source>Unsupported audio file</source>
         <translation>File audio non supportato</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="602"/>
+        <location filename="showmanager.cpp" line="622"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation>Questo file audio non può essere riprodotto da QLC+. Spiacente.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="670"/>
-        <location filename="showmanager.cpp" line="692"/>
+        <location filename="showmanager.cpp" line="690"/>
+        <location filename="showmanager.cpp" line="712"/>
         <source>Paste error</source>
         <translation>Errore di incolla</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="670"/>
+        <location filename="showmanager.cpp" line="690"/>
         <source>Overlapping paste not allowed. Operation cancelled.</source>
         <translation>Sovrapposizione non consentita. Operazione annullata.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="692"/>
+        <location filename="showmanager.cpp" line="712"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
         <translation>Stai cercando di incollare su una traccia non compatibile. Operazione annullata.</translation>
     </message>
@@ -4560,13 +4560,13 @@ Durata: %3
 <context>
     <name>VCFrame</name>
     <message>
-        <location filename="vcframe.cpp" line="272"/>
-        <location filename="vcframe.cpp" line="382"/>
+        <location filename="vcframe.cpp" line="279"/>
+        <location filename="vcframe.cpp" line="389"/>
         <source>Page: %1</source>
         <translation>Pagina %1</translation>
     </message>
     <message>
-        <location filename="vcframe.cpp" line="997"/>
+        <location filename="vcframe.cpp" line="1017"/>
         <source>Add</source>
         <translation>Aggiungi</translation>
     </message>
@@ -5724,214 +5724,219 @@ Durata: %3
 <context>
     <name>VirtualConsole</name>
     <message>
-        <location filename="virtualconsole.cpp" line="356"/>
+        <location filename="virtualconsole.cpp" line="362"/>
         <source>Cut</source>
         <translation>Taglia</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="359"/>
+        <location filename="virtualconsole.cpp" line="365"/>
         <source>Copy</source>
         <translation>Copia</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="362"/>
+        <location filename="virtualconsole.cpp" line="368"/>
         <source>Paste</source>
         <translation>Incolla</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="366"/>
+        <location filename="virtualconsole.cpp" line="372"/>
         <source>Delete</source>
         <translation>Elimina</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="392"/>
-        <location filename="virtualconsole.cpp" line="406"/>
-        <location filename="virtualconsole.cpp" line="419"/>
+        <location filename="virtualconsole.cpp" line="398"/>
+        <location filename="virtualconsole.cpp" line="412"/>
+        <location filename="virtualconsole.cpp" line="425"/>
         <source>Default</source>
         <translation>Default</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="416"/>
+        <location filename="virtualconsole.cpp" line="422"/>
         <source>Font</source>
         <translation>Font</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="429"/>
+        <location filename="virtualconsole.cpp" line="435"/>
         <source>Sunken</source>
         <translation>Sunken/Cavo</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="432"/>
+        <location filename="virtualconsole.cpp" line="438"/>
         <source>Raised</source>
         <translation>Aumentare</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="435"/>
+        <location filename="virtualconsole.cpp" line="441"/>
         <source>None</source>
         <translation>Nessuno</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="463"/>
+        <location filename="virtualconsole.cpp" line="469"/>
         <source>&amp;Add</source>
         <translation>&amp;Aggiungi</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="482"/>
+        <location filename="virtualconsole.cpp" line="489"/>
         <source>&amp;Edit</source>
         <translation>&amp;Edita</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="296"/>
+        <location filename="virtualconsole.cpp" line="298"/>
         <source>New Button</source>
         <translation>Nuovo Bottone</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="299"/>
+        <location filename="virtualconsole.cpp" line="301"/>
         <source>New Button Matrix</source>
         <translation>Nuova Matrice di Bottoni</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="302"/>
+        <location filename="virtualconsole.cpp" line="304"/>
         <source>New Slider</source>
         <translation>Nuovo Fader</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="308"/>
+        <location filename="virtualconsole.cpp" line="310"/>
         <source>New Knob</source>
         <translation>Nuova Manopola</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="311"/>
+        <location filename="virtualconsole.cpp" line="313"/>
         <source>New Speed Dial</source>
         <translation>Nuovo Speed Dial</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="314"/>
+        <location filename="virtualconsole.cpp" line="316"/>
         <source>New XY pad</source>
         <translation>Nuovo pad XY</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="317"/>
+        <location filename="virtualconsole.cpp" line="319"/>
         <source>New Cue list</source>
         <translation>Nuova Lista Azioni</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="320"/>
+        <location filename="virtualconsole.cpp" line="322"/>
         <source>New Frame</source>
         <translation>Nuova Cornice</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="323"/>
+        <location filename="virtualconsole.cpp" line="325"/>
         <source>New Solo frame</source>
         <translation>Nuovo frame Solo</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="326"/>
+        <location filename="virtualconsole.cpp" line="328"/>
         <source>New Label</source>
         <translation>Nuova Etichetta</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="329"/>
+        <location filename="virtualconsole.cpp" line="331"/>
         <source>New Audio Triggers</source>
         <translation>Nuovo Impulsi Audio</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="349"/>
+        <location filename="virtualconsole.cpp" line="334"/>
+        <source>New Clock</source>
+        <translation>Nuovo Orologio</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole.cpp" line="355"/>
         <source>Virtual Console Settings</source>
         <translation>Impostazioni della Console Virtuale</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="369"/>
+        <location filename="virtualconsole.cpp" line="375"/>
         <source>Widget Properties</source>
         <translation>Proprietà Oggetto</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="372"/>
+        <location filename="virtualconsole.cpp" line="378"/>
         <source>Rename Widget</source>
         <translation>Rinomina Oggetto</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="386"/>
+        <location filename="virtualconsole.cpp" line="392"/>
         <source>Background Color</source>
         <translation>Colore di sfondo</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="389"/>
+        <location filename="virtualconsole.cpp" line="395"/>
         <source>Background Image</source>
         <translation>Immagine di sfondo</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="403"/>
+        <location filename="virtualconsole.cpp" line="409"/>
         <source>Font Colour</source>
         <translation>Colore Font</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="446"/>
+        <location filename="virtualconsole.cpp" line="452"/>
         <source>Bring to front</source>
         <translation>Porta in primo piano</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="449"/>
+        <location filename="virtualconsole.cpp" line="455"/>
         <source>Send to back</source>
         <translation>Porta in secondo piano</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="494"/>
+        <location filename="virtualconsole.cpp" line="501"/>
         <source>&amp;Background</source>
         <translation>In &amp;Secondo Piano</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="502"/>
+        <location filename="virtualconsole.cpp" line="509"/>
         <source>&amp;Foreground</source>
         <translation>In &amp;Primo Plano</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="509"/>
+        <location filename="virtualconsole.cpp" line="516"/>
         <source>F&amp;ont</source>
         <translation>F&amp;ont</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="516"/>
+        <location filename="virtualconsole.cpp" line="523"/>
         <source>F&amp;rame</source>
         <translation>Co&amp;rnice</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="524"/>
+        <location filename="virtualconsole.cpp" line="531"/>
         <source>Stacking &amp;order</source>
         <translation>&amp;Ordine di Sovrapposizione</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="305"/>
+        <location filename="virtualconsole.cpp" line="307"/>
         <source>New Slider Matrix</source>
         <translation>Nuova Matrice di Fader</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="856"/>
+        <location filename="virtualconsole.cpp" line="867"/>
         <source>Knob %1</source>
         <translation>Manopola %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1144"/>
+        <location filename="virtualconsole.cpp" line="1172"/>
         <source>Do you wish to delete the selected widgets?</source>
         <translation>Vuoi cancellare gli oggetti selezionati?</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1145"/>
+        <location filename="virtualconsole.cpp" line="1173"/>
         <source>Delete widgets</source>
         <translation>Elimina oggetti</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1206"/>
+        <location filename="virtualconsole.cpp" line="1234"/>
         <source>Rename widgets</source>
         <translation>Rinomina gli oggetti</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1206"/>
+        <location filename="virtualconsole.cpp" line="1234"/>
         <source>Caption:</source>
         <translation>Titolo:</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1259"/>
+        <location filename="virtualconsole.cpp" line="1287"/>
         <source>Select background image</source>
         <translation>Selezione l&apos;immagine di fondo</translation>
     </message>
