@@ -215,7 +215,6 @@ void CoreMidiOutputDevice::writeRaw(uchar* data, unsigned int count)
         return;
 
     int bufferSize = count + 100; // Todo this is not correct
-    qDebug() << "incomming sizse: " << count << " bufferSize: " << bufferSize;
 
     Byte buffer[bufferSize];    // osx max=65536
     MIDIPacketList* list = (MIDIPacketList*) buffer;

@@ -298,16 +298,16 @@ void MidiPlugin::sendRaw(quint32 output, const QString &data)
 {
     qDebug() << "sendRaw data: " << data;
     bool ok;
-    QStringList list;
-    list = data.split(" ");
-    int dataSize = list.size();
-    qDebug() << "dataSize: " << dataSize;
 
+    //Remove spaces newlines etc.
+    QString tempData = data.simplified();
+    tempData.replace(QString(" "), QString(""));
+
+    int dataSize = tempData.size() / 2;
     uchar message[dataSize];
-    for (int i = 0; i < list.length(); ++i)
-    {
-        message[i] = list[i].toUInt(&ok,16);
-    }
+
+    for (int i = 0; i < dataSize; ++i)
+        message[i] = tempData.mid(i * 2, 2).toUInt(&ok,16);
 
     MidiOutputDevice* dev = outputDevice(output);
     if (dev != NULL)
