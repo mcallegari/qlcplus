@@ -42,7 +42,8 @@ public:
     enum Type
     {
         Text,
-        Script
+        Script,
+        Image
     };
 
     /** Create a clone of the algorithm. Caller takes ownership of the pointer. */
