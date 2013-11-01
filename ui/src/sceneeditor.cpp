@@ -1295,10 +1295,11 @@ void SceneEditor::slotValueChanged(quint32 fxi, quint32 channel, uchar value)
     if (m_initFinished == true)
     {
         Q_ASSERT(m_scene != NULL);
+
         if (m_doc->mode() == Doc::Operate)
-            m_scene->setValue(SceneValue(fxi, channel, value), false);
+            m_scene->setValue(SceneValue(fxi, channel, value), m_blindAction->isChecked(), false);
         else
-            m_scene->setValue(SceneValue(fxi, channel, value), true);
+            m_scene->setValue(SceneValue(fxi, channel, value), m_blindAction->isChecked(), true);
         emit fixtureValueChanged(SceneValue(fxi, channel, value));
     }
 

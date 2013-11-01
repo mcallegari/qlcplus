@@ -102,7 +102,7 @@ bool Scene::copyFrom(const Function* function)
  * Values
  *****************************************************************************/
 
-void Scene::setValue(const SceneValue& scv, bool checkHTP)
+void Scene::setValue(const SceneValue& scv, bool blind, bool checkHTP)
 {
     m_valueListMutex.lock();
     int index = m_values.indexOf(scv);
@@ -114,7 +114,7 @@ void Scene::setValue(const SceneValue& scv, bool checkHTP)
 
     // if the scene is running, we must
     // update/add the changed channel
-    if (m_fader != NULL)
+    if (blind == false && m_fader != NULL)
     {
         FadeChannel fc;
         fc.setFixture(scv.fxi);
