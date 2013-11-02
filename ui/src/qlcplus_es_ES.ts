@@ -924,7 +924,7 @@ Duración: %3
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="70"/>
         <source>Divisor</source>
-        <translation type="unfinished"></translation>
+        <translation>Divisor</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="113"/>
@@ -2151,7 +2151,7 @@ Duración: %3
     <message>
         <location filename="fixtureremap.ui" line="69"/>
         <source>Clone and auto-remap the selected source fixture</source>
-        <translation type="unfinished"></translation>
+        <translation>Clona y reasigna automáticamente el fixture de origen seleccionado</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="93"/>
@@ -2223,12 +2223,12 @@ Duración: %3
     <message>
         <location filename="fixtureremap.cpp" line="324"/>
         <source>Invalid operation</source>
-        <translation type="unfinished"></translation>
+        <translation>Operación inválida</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="325"/>
         <source>You are trying to clone a fixture on an address already in use. Please fix the target list first.</source>
-        <translation type="unfinished"></translation>
+        <translation>Está tratando de clonar un fixture en una dirección en uso. Por favor arregle la lista de destino primero.</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="386"/>
@@ -2474,12 +2474,12 @@ Duración: %3
     <message>
         <location filename="functionselection.ui" line="22"/>
         <source>All functions</source>
-        <translation type="unfinished"></translation>
+        <translation>Todas las funciones</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="32"/>
         <source>Running functions</source>
-        <translation type="unfinished"></translation>
+        <translation>Funciones en ejecución</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="57"/>
@@ -3295,13 +3295,13 @@ Duración: %3
     <message>
         <location filename="rgbmatrixeditor.ui" line="101"/>
         <source>Matrix start colour</source>
-        <translation type="unfinished"></translation>
+        <translation>Color de inicio de la matriz</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="114"/>
         <source>Matrix end colour</source>
         <oldsource>Matrix end color</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Color de finalización de la matriz</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="264"/>
@@ -3326,7 +3326,7 @@ Duración: %3
     <message>
         <location filename="rgbmatrixeditor.ui" line="354"/>
         <source>Show/Hide speed dial window</source>
-        <translation type="unfinished">Mostrar/Ocultar ventana de selector de velocidad</translation>
+        <translation>Mostrar/Ocultar ventana de selector de velocidad</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="374"/>
@@ -3376,7 +3376,7 @@ Duración: %3
         <location filename="sceneeditor.ui" line="152"/>
         <source>Fixtures used in this scene</source>
         <oldsource>Name of this scene</oldsource>
-        <translation type="unfinished">Nombre de esta escena</translation>
+        <translation>Fixtures usados en esta escena</translation>
     </message>
     <message>
         <location filename="sceneeditor.ui" line="202"/>
@@ -3479,7 +3479,7 @@ Duración: %3
     <message>
         <location filename="sceneeditor.cpp" line="221"/>
         <source>Scene name:</source>
-        <translation type="unfinished">Nombre de la Escena:</translation>
+        <translation>Nombre de la Escena:</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="676"/>
@@ -4261,7 +4261,7 @@ Duración: %3
     <message>
         <location filename="vcbuttonproperties.cpp" line="139"/>
         <source>Button %1</source>
-        <translation type="unfinished">Botón %1</translation>
+        <translation>Botón %1</translation>
     </message>
 </context>
 <context>
@@ -5838,7 +5838,7 @@ Duración: %3
     <message>
         <location filename="virtualconsole.cpp" line="334"/>
         <source>New Clock</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuevo Reloj</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="355"/>
@@ -5913,7 +5913,7 @@ Duración: %3
     <message>
         <location filename="virtualconsole.cpp" line="867"/>
         <source>Knob %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Perilla %1</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="1172"/>
