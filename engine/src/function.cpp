@@ -63,6 +63,7 @@ Function::Function(Doc* doc, Type t)
     : QObject(doc)
     , m_id(Function::invalidId())
     , m_type(t)
+    , m_path(QString())
     , m_runOrder(Loop)
     , m_direction(Forward)
     , m_fadeInSpeed(0)
@@ -209,6 +210,22 @@ Function::Type Function::stringToType(const QString& string)
         return Audio;
     else
         return Undefined;
+}
+
+/*********************************************************************
+ * Path
+ *********************************************************************/
+void Function::setPath(QString path)
+{
+    m_path = path;
+}
+
+QString Function::path(bool simplified) const
+{
+    if (simplified == true)
+        return m_path;
+    else
+        return QString("%1/%2").arg(typeToString(m_type)).arg(m_path);
 }
 
 /*****************************************************************************

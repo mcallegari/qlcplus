@@ -213,6 +213,19 @@ private:
     Type m_type;
 
     /*********************************************************************
+     * Path
+     *********************************************************************/
+public:
+    /** Set the function path for folder grouping */
+    void setPath(QString path);
+
+    /** Retrieve the currently set path */
+    QString path(bool simplified = false) const;
+
+private:
+    QString m_path;
+
+    /*********************************************************************
      * Running order
      *********************************************************************/
 public:

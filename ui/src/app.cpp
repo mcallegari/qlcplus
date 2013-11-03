@@ -858,8 +858,8 @@ QFile::FileError App::slotFileOpen()
 
     /* Update these in any case, since they are at least emptied now as
        a result of calling clearDocument() a few lines ago. */
-    if (FunctionManager::instance() != NULL)
-        FunctionManager::instance()->updateTree();
+    //if (FunctionManager::instance() != NULL)
+    //    FunctionManager::instance()->updateTree();
     if (FixtureManager::instance() != NULL)
         FixtureManager::instance()->updateView();
     if (InputOutputManager::instance() != NULL)
@@ -1112,8 +1112,8 @@ void App::slotRecentFileClicked(QAction *recent)
 
     /* Update these in any case, since they are at least emptied now as
        a result of calling clearDocument() a few lines ago. */
-    if (FunctionManager::instance() != NULL)
-        FunctionManager::instance()->updateTree();
+    //if (FunctionManager::instance() != NULL)
+    //    FunctionManager::instance()->updateTree();
     if (FixtureManager::instance() != NULL)
         FixtureManager::instance()->updateView();
     if (InputOutputManager::instance() != NULL)
