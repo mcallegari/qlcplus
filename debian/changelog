@@ -12,6 +12,7 @@ qlcplus (4.5.1) stable; urgency=low
   * Virtual Console: fixed audio triggers thresholds save/load on projects (thanks to Jano Svitok)
   * Virtual Console: fixed knobs rendering on OSX
   * Virtual Console: fixed crash when enabling multipage on headerless frames
+  * Virtual Console: fixed copy of Click & Go feature when cloning sliders/knobs 
   * MIDI plugin: fixed beat clock detection on OSX
   * Show Manager: Improved to fit on a 1024x768 resolution
   * Engine: fixed Collection potential crash (thanks to Jano Svitok)

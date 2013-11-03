@@ -449,12 +449,12 @@ public:
     /**
      * Returns the Click & Go type
      */
-    ClickAndGoWidget::ClickAndGo getClickAndGoType();
+    ClickAndGoWidget::ClickAndGo clickAndGoType();
 
     /**
      * Create or update the Click And Go widget (if applicable)
      */
-    void setupClickAndGoWidegt();
+    void setupClickAndGoWidget();
 
     /**
      * Returns the Click & Go widget. Used by

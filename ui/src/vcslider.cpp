@@ -252,6 +252,9 @@ bool VCSlider::copyFrom(VCWidget* widget)
     setValueDisplayStyle(slider->valueDisplayStyle());
     setInvertedAppearance(slider->invertedAppearance());
 
+    /* Copy Click & Go feature */
+    setClickAndGoType(slider->clickAndGoType());
+
     /* Copy mode & current value */
     setSliderMode(slider->sliderMode());
     if (m_slider)
@@ -482,7 +485,7 @@ void VCSlider::setSliderMode(SliderMode mode)
         if (m_cngType != ClickAndGoWidget::None)
         {
             setClickAndGoType(m_cngType);
-            setupClickAndGoWidegt();
+            setupClickAndGoWidget();
             m_cngButton->show();
             if (m_slider)
                 setClickAndGoWidgetFromLevel(m_slider->value());
@@ -598,12 +601,12 @@ void VCSlider::setClickAndGoType(ClickAndGoWidget::ClickAndGo type)
     m_cngType = type;
 }
 
-ClickAndGoWidget::ClickAndGo VCSlider::getClickAndGoType()
+ClickAndGoWidget::ClickAndGo VCSlider::clickAndGoType()
 {
     return m_cngType;
 }
 
-void VCSlider::setupClickAndGoWidegt()
+void VCSlider::setupClickAndGoWidget()
 {
     if (m_cngWidget != NULL)
     {

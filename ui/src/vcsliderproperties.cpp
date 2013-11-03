@@ -208,7 +208,7 @@ void VCSliderProperties::slotModeLevelClicked()
     m_levelSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
     m_playbackSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
 
-    int cngType = m_slider->getClickAndGoType();
+    int cngType = m_slider->clickAndGoType();
     switch(cngType)
     {
         case ClickAndGoWidget::Red:
