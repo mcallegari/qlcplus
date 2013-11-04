@@ -431,9 +431,9 @@ ClickAndGoWidget::PresetResource::PresetResource(QString path, QString text, uch
     m_max = max;
     QImage px(path);
     m_thumbnail = QImage(40, 40, QImage::Format_RGB32);
+    m_thumbnail.fill(Qt::white);
     QPainter painter(&m_thumbnail);
     painter.setRenderHint(QPainter::SmoothPixmapTransform);
-    painter.fillRect(QRect(0,0,40,40), Qt::white);
     painter.drawImage(QRect(0,0,40,40), px);
     //qDebug() << "PATH: adding " << path << ", descr: " << text;
 }
