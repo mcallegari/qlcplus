@@ -630,7 +630,7 @@ void FunctionManager::initTree()
 
     // Add two columns for function and type
     QStringList labels;
-    labels << tr("Function");
+    labels << tr("Function") << "Path";
     m_tree->setHeaderLabels(labels);
     m_tree->setRootIsDecorated(true);
     m_tree->setAllColumnsShowFocus(true);
@@ -638,6 +638,9 @@ void FunctionManager::initTree()
     m_tree->setContextMenuPolicy(Qt::CustomContextMenu);
     m_tree->setSortingEnabled(true);
     m_tree->sortByColumn(COL_NAME, Qt::AscendingOrder);
+    m_tree->setDragEnabled(true);
+    m_tree->setAcceptDrops(true);
+    m_tree->setDragDropMode(QAbstractItemView::InternalMove);
 
     // Catch selection changes
     connect(m_tree, SIGNAL(itemSelectionChanged()),

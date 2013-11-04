@@ -29,6 +29,7 @@
 #include <QContextMenuEvent>
 
 #define COL_NAME 0
+#define COL_PATH 1
 
 FunctionsTreeWidget::FunctionsTreeWidget(Doc *doc, QWidget *parent) :
     QTreeWidget(parent)
@@ -36,9 +37,6 @@ FunctionsTreeWidget::FunctionsTreeWidget(Doc *doc, QWidget *parent) :
   , m_draggedItem(NULL)
 {
     sortItems(COL_NAME, Qt::AscendingOrder);
-    setDragEnabled(true);
-    setAcceptDrops(true);
-    setDragDropMode(QAbstractItemView::InternalMove);
 
     QTreeWidgetItem *root = invisibleRootItem();
     root->setFlags(root->flags() & ~Qt::ItemIsDropEnabled);
@@ -126,6 +124,7 @@ QTreeWidgetItem* FunctionsTreeWidget::parentItem(const Function* function)
     item->setIcon(COL_NAME, functionIcon(function));
     item->setData(COL_NAME, Qt::UserRole, Function::invalidId());
     item->setData(COL_NAME, Qt::UserRole + 1, function->type());
+    item->setText(COL_PATH, function->path());
     item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDropEnabled);
     m_foldersMap[function->path()] = item;
     return item;
@@ -215,15 +214,17 @@ void FunctionsTreeWidget::addFolder()
 
     int type = item->data(COL_NAME, Qt::UserRole + 1).toInt();
 
+    QString fullPath = item->text(COL_PATH) + "/New folder";
+
     QTreeWidgetItem *folder = new QTreeWidgetItem(item);
     folder->setText(COL_NAME, tr("New folder"));
     folder->setIcon(COL_NAME, QIcon(":/folder.png"));
     folder->setData(COL_NAME, Qt::UserRole, Function::invalidId());
     folder->setData(COL_NAME, Qt::UserRole + 1, type);
-    folder->setData(COL_NAME, Qt::UserRole + 2, QVariant("New folder"));
+    folder->setText(COL_PATH, fullPath);
     folder->setFlags(folder->flags() | Qt::ItemIsDropEnabled | Qt::ItemIsEditable);
 
-    m_foldersMap[tr("New folder")] = folder;
+    m_foldersMap[fullPath] = folder;
 }
 
 void FunctionsTreeWidget::deleteFolder(QString name)
@@ -250,20 +251,17 @@ void FunctionsTreeWidget::mousePressEvent(QMouseEvent *event)
 
 void FunctionsTreeWidget::dropEvent(QDropEvent *event)
 {
-    if (m_draggedItem == NULL)
-        return;
+    QTreeWidgetItem *dropItem = itemAt(event->pos());
 
-    QTreeWidgetItem *dropItem = this->itemAt(event->pos());
+    if (m_draggedItem == NULL || dropItem == NULL)
+        return;
 
     QVariant var = dropItem->data(COL_NAME, Qt::UserRole + 1);
     if (var.isValid() == false)
         return;
 
     int dropType = var.toInt();
-    QString folderName;
-    QVariant var2 = dropItem->data(COL_NAME, Qt::UserRole + 2);
-    if (var2.isValid())
-        folderName = var2.toString();
+    //QString folderName = dropItem->text(COL_PATH);
 
     quint32 dragFID = m_draggedItem->data(COL_NAME, Qt::UserRole).toUInt();
     Function *dragFunc = m_doc->function(dragFID);
