@@ -330,10 +330,13 @@ bool RGBMatrix::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     tag.appendChild(text);
 
     /* End Color */
-    tag = doc->createElement(KXMLQLCRGBMatrixEndColor);
-    root.appendChild(tag);
-    text = doc->createTextNode(QString::number(endColor().rgb()));
-    tag.appendChild(text);
+    if (endColor().isValid())
+    {
+        tag = doc->createElement(KXMLQLCRGBMatrixEndColor);
+        root.appendChild(tag);
+        text = doc->createTextNode(QString::number(endColor().rgb()));
+        tag.appendChild(text);
+    }
 
     /* Fixture Group */
     tag = doc->createElement(KXMLQLCRGBMatrixFixtureGroup);
