@@ -4,12 +4,12 @@
 <context>
     <name>UDMX</name>
     <message>
-        <location filename="udmx.cpp" line="96"/>
+        <location filename="udmx.cpp" line="94"/>
         <source>This plugin provides DMX output support for Anyma uDMX devices.</source>
         <translation type="unfinished">Tämä liitännäinen tuottaa DMX-ulostulotuen Anyma uDMX-laitteille.</translation>
     </message>
     <message>
-        <location filename="udmx.cpp" line="188"/>
+        <location filename="udmx.cpp" line="186"/>
         <source>Do you wish to re-scan your hardware?</source>
         <translation type="unfinished">Etsitäänkö lisää laitteita?</translation>
     </message>
@@ -17,42 +17,42 @@
 <context>
     <name>UDMXDevice</name>
     <message>
-        <location filename="udmxdevice.cpp" line="116"/>
+        <location filename="udmxdevice.cpp" line="114"/>
         <source>Unknown</source>
         <translation>Tuntematon</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="137"/>
+        <location filename="udmxdevice.cpp" line="135"/>
         <source>DMX Frame Frequency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="140"/>
+        <location filename="udmxdevice.cpp" line="138"/>
         <source>Bad</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="142"/>
+        <location filename="udmxdevice.cpp" line="140"/>
         <source>Good</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="144"/>
+        <location filename="udmxdevice.cpp" line="142"/>
         <source>Patch this device to a universe to find out.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="145"/>
+        <location filename="udmxdevice.cpp" line="143"/>
         <source>System Timer Accuracy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="150"/>
+        <location filename="udmxdevice.cpp" line="148"/>
         <source>Unknown device</source>
         <translation>Tuntematon laite</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="152"/>
+        <location filename="udmxdevice.cpp" line="150"/>
         <source>Cannot connect to USB device.</source>
         <translation>USB-laitteeseen ei saada yhteyttä.</translation>
     </message>
