@@ -28,9 +28,9 @@ RequestExecutionLevel user
 !insertmacro MUI_LANGUAGE "Spanish"
 !insertmacro MUI_LANGUAGE "SpanishInternational"
 
-!define MUI_LICENSEPAGE_TEXT_TOP "Do you accept the following statement of the GNU GPLv2 license ?"
+!define MUI_LICENSEPAGE_TEXT_TOP "Do you accept the following statement of the Apache 2.0 license ?"
 
-!insertmacro MUI_PAGE_LICENSE "${QLCPLUS_HOME}\etc\License-gpl-2.txt"
+!insertmacro MUI_PAGE_LICENSE "${QLCPLUS_HOME}\etc\apache_2.0.txt"
 
 ;--------------------------------
 ; Pages

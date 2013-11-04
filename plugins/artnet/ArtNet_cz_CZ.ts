@@ -4,50 +4,50 @@
 <context>
     <name>ArtNetPlugin</name>
     <message>
-        <location filename="artnetplugin.cpp" line="109"/>
+        <location filename="artnetplugin.cpp" line="107"/>
         <source>This plugin provides DMX output for devices supporting the ArtNet communication protocol.</source>
         <translation>Tento plugin přidává podporu DMX výstupů pro zařízení podporující komunikační protokol ArtNet.</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="125"/>
-        <location filename="artnetplugin.cpp" line="247"/>
+        <location filename="artnetplugin.cpp" line="123"/>
+        <location filename="artnetplugin.cpp" line="245"/>
         <source>%1: [%2] Universe: %3</source>
         <translation>%1: [%2] Větev: %3</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="138"/>
+        <location filename="artnetplugin.cpp" line="136"/>
         <source>Output</source>
         <translation>Výstup</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="142"/>
-        <location filename="artnetplugin.cpp" line="337"/>
+        <location filename="artnetplugin.cpp" line="140"/>
+        <location filename="artnetplugin.cpp" line="335"/>
         <source>Status: Not open</source>
         <translation>Stav: Neotevřený</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="145"/>
-        <location filename="artnetplugin.cpp" line="340"/>
+        <location filename="artnetplugin.cpp" line="143"/>
+        <location filename="artnetplugin.cpp" line="338"/>
         <source>Status: Open</source>
         <translation>Stav: Otevřený</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="147"/>
+        <location filename="artnetplugin.cpp" line="145"/>
         <source>Nodes discovered: </source>
         <translation>Nalezené uzly:</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="150"/>
+        <location filename="artnetplugin.cpp" line="148"/>
         <source>Packets sent: </source>
         <translation>Odeslané pakety:</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="333"/>
+        <location filename="artnetplugin.cpp" line="331"/>
         <source>Input</source>
         <translation>Vstup</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="342"/>
+        <location filename="artnetplugin.cpp" line="340"/>
         <source>Packets received: </source>
         <translation>Přijaté pakety:</translation>
     </message>
@@ -95,7 +95,7 @@
         <translation>Dlouhý název</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="79"/>
+        <location filename="configureartnet.cpp" line="77"/>
         <source>Universe %1</source>
         <translation>Větev %1</translation>
     </message>
