@@ -18,7 +18,7 @@
         <location filename="aboutbox.ui" line="116"/>
         <source>This application is licensed under the terms of the Apache 2.0 license.</source>
         <oldsource>This application is licensed under the terms of GNU GPL version 2.</oldsource>
-        <translation type="unfinished">Tämä sovellus on lisensoitu GNU GPL versio 2:n alla.</translation>
+        <translation>Tämä sovellus on lisensoitu Apache versio 2.0:n alla.</translation>
     </message>
     <message>
         <location filename="aboutbox.cpp" line="39"/>
@@ -1407,7 +1407,7 @@ Duration: %3
 <context>
     <name>ConsoleChannel</name>
     <message>
-        <location filename="consolechannel.cpp" line="160"/>
+        <location filename="consolechannel.cpp" line="158"/>
         <source>Intensity</source>
         <translation type="unfinished">Intensiteetti</translation>
     </message>

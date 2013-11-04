@@ -17,7 +17,7 @@
         <location filename="aboutbox.ui" line="116"/>
         <source>This application is licensed under the terms of the Apache 2.0 license.</source>
         <oldsource>This application is licensed under the terms of GNU GPL version 2.</oldsource>
-        <translation type="unfinished">Dit programma valt onder de GNU GPL versie 2 licentie.</translation>
+        <translation>Dit programma valt onder de Apache versie 2.0 licentie.</translation>
     </message>
     <message>
         <location filename="aboutbox.cpp" line="39"/>
@@ -1406,7 +1406,7 @@ Duur: %3
 <context>
     <name>ConsoleChannel</name>
     <message>
-        <location filename="consolechannel.cpp" line="160"/>
+        <location filename="consolechannel.cpp" line="158"/>
         <source>Intensity</source>
         <translation>Intensiteit</translation>
     </message>
