@@ -124,8 +124,9 @@ void Doc::clearContents()
     while (grpit.hasNext() == true)
     {
         FixtureGroup* grp = m_fixtureGroups.take(grpit.next());
-        emit fixtureGroupRemoved(grp->id());
+        quint32 grpID = grp->id();
         delete grp;
+        emit fixtureGroupRemoved(grpID);
     }
 
     // Delete all channels groups
