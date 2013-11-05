@@ -18,7 +18,7 @@ fixture type to replace the previous one, but if their channels don't match
 each other exactly, any <A HREF="file:concept.html#Scene">Scene</A> functions you
 may have created, will very probably do things that you don't want. Also, if
 the channel counts don't match, you might end up having fixtures with overlapping
-channels, which results also to unwanted behaviour.
+channels, which also results in unwanted behaviour.
 <A HREF="file:concept.html#RGBMatrix">RGB Matrix</A>, <A HREF="file:concept.html#EFX">EFX</A>,
 <A HREF="file:concept.html#Chaser">Chaser</A> and <A HREF="file:concept.html#Collection">Collection</A>
 functions remain unaffected since they don't directly address specific channels, but are more
@@ -47,14 +47,14 @@ dynamic in nature.
   <TD>
    <UL>
     <LI>Name: The friendly name you wish to assign to the fixture</LI>
-    <LI>Mode: The <A HREF="file:concept.html#FixtureMode">mode</A> you have configured to the fixture</LI>
-    <LI>Universe: The DMX universe where the newly-added fixture(s) are connected to</LI>
+    <LI>Mode: The <A HREF="file:concept.html#FixtureMode">mode</A> you have configured for the fixture</LI>
+    <LI>Universe: The DMX universe that the newly-added fixture(s) are connected to</LI>
     <LI>Address: The address of the (first) fixture you are adding. If you are
     adding multiple fixtures, each consecutive fixture will be assigned an 
-    address immediately after the previous fixture's channels, unless address gap
+    address immediately after the previous fixture's channels, unless the address gap
     (see below) is non-zero.</LI>
     <LI>Channels: If you have selected the <B>Generic</B> dimmer device, you
-    can define its channel count to this field. Otherwise this field is read-only
+    can define its channel count in this field. Otherwise this field is read-only
     and it just tells you how many channels the currently selected fixture needs
     in its currently selected mode.</LI>
     <LI>Channel list: This field displays a more detailed list of individual
@@ -70,11 +70,11 @@ dynamic in nature.
   </TD>
   <TD>
    You can also add more than one fixture at the same time if your setup
-   consists of multiple fixtures that are of the same make &amp; model.
+   consists of multiple fixtures that are of the same make and model.
    These features are disabled when you are editing an existing fixture.
    <UL>
-    <LI>Amount: Number of new fixtures to create. Each newly-added fixture
-    includes also a number after its assigned name when adding more than one
+    <LI>Amount: The number of new fixtures to create. Each newly-added fixture
+    also includes a number after its assigned name when you add more than one
     fixture at a time.</LI>
     <LI>Address gap: Leave this many empty channels between each new fixture</LI>
    </UL>
