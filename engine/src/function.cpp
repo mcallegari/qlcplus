@@ -215,6 +215,9 @@ Function::Type Function::stringToType(const QString& string)
  *********************************************************************/
 void Function::setPath(QString path)
 {
+    if (path.contains(typeToString(type())))
+        path.remove(typeToString(type()) + "/");
+    qDebug() << "Function " << name() << "path set to:" << path;
     m_path = path;
 }
 
@@ -223,7 +226,24 @@ QString Function::path(bool simplified) const
     if (simplified == true)
         return m_path;
     else
-        return QString("%1/%2").arg(typeToString(m_type)).arg(m_path);
+        return QString("%1/%2").arg(typeToString(type())).arg(m_path);
+}
+
+/*********************************************************************
+ * Common
+ *********************************************************************/
+
+bool Function::saveXMLCommon(QDomElement *root) const
+{
+    Q_ASSERT(root != NULL);
+
+    root->setAttribute(KXMLQLCFunctionID, id());
+    root->setAttribute(KXMLQLCFunctionType, Function::typeToString(type()));
+    root->setAttribute(KXMLQLCFunctionName, name());
+    if (path(true).isEmpty() == false)
+        root->setAttribute(KXMLQLCFunctionPath, path(true));
+
+    return true;
 }
 
 /*****************************************************************************
@@ -562,6 +582,9 @@ bool Function::loader(const QDomElement& root, Doc* doc)
     quint32 id = root.attribute(KXMLQLCFunctionID).toUInt();
     QString name = root.attribute(KXMLQLCFunctionName);
     Type type = Function::stringToType(root.attribute(KXMLQLCFunctionType));
+    QString path;
+    if (root.hasAttribute(KXMLQLCFunctionPath))
+        path = root.attribute(KXMLQLCFunctionPath);
 
     /* Check for ID validity before creating the function */
     if (id == Function::invalidId())
@@ -592,6 +615,7 @@ bool Function::loader(const QDomElement& root, Doc* doc)
         return false;
 
     function->setName(name);
+    function->setPath(path);
     if (function->loadXML(root) == true)
     {
         if (doc->addFunction(function, id) == true)

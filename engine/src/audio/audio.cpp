@@ -294,9 +294,8 @@ bool Audio::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     root = doc->createElement(KXMLQLCFunction);
     wksp_root->appendChild(root);
 
-    root.setAttribute(KXMLQLCFunctionID, id());
-    root.setAttribute(KXMLQLCFunctionType, Function::typeToString(type()));
-    root.setAttribute(KXMLQLCFunctionName, name());
+    /* Common attributes */
+    saveXMLCommon(&root);
 
     QDomElement source = doc->createElement(KXMLQLCAudioSource);
     source.setAttribute(KXMLQLCAudioStartTime, m_startTime);

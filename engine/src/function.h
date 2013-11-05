@@ -40,6 +40,7 @@ class Doc;
 #define KXMLQLCFunctionID "ID"
 #define KXMLQLCFunctionType "Type"
 #define KXMLQLCFunctionData "Data"
+#define KXMLQLCFunctionPath "Path"
 
 #define KXMLQLCFunctionValue "Value"
 #define KXMLQLCFunctionValueType "Type"
@@ -222,6 +223,13 @@ public:
 
 private:
     QString m_path;
+
+    /*********************************************************************
+     * Common XML
+     *********************************************************************/
+protected:
+    /** Save function's common attributes in $doc, under $root */
+    bool saveXMLCommon(QDomElement* root) const;
 
     /*********************************************************************
      * Running order
