@@ -42,6 +42,7 @@ class Fixture;
 #define KXMLQLCEFXHeight "Height"
 #define KXMLQLCEFXRotation "Rotation"
 #define KXMLQLCEFXStartOffset "StartOffset"
+#define KXMLQLCEFXIsRelative "IsRelative"
 #define KXMLQLCEFXAxis "Axis"
 #define KXMLQLCEFXOffset "Offset"
 #define KXMLQLCEFXFrequency "Frequency"
@@ -309,6 +310,30 @@ private:
      * Pattern start offset, see setStartOffset()
      */
     int m_startOffset;
+
+    /*********************************************************************
+     * IsRelative
+     *********************************************************************/
+public:
+    /**
+     * Set whether the efx is relative
+     *
+     * @param isRelative if true, the position is relative to current position
+     */
+    void setIsRelative(bool isRelative);
+
+    /**
+     * Is pattern relative?
+     *
+     * @return true if pattern is relative
+     */
+    bool isRelative() const;
+
+private:
+    /**
+     * Whether the pattern is relative, see setIsRelative()
+     */
+    int m_isRelative;
 
     /*********************************************************************
      * Offset

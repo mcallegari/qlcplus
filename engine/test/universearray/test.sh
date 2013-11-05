@@ -1,4 +1,4 @@
 #!/bin/sh
 export LD_LIBRARY_PATH=../../src
 export DYLD_FALLBACK_LIBRARY_PATH=../../src
-./universearray_test
+./universearray_test -iterations 5000

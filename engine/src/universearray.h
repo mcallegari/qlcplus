@@ -169,6 +169,8 @@ public:
      */
     const QByteArray preGMValues() const;
 
+    void zeroRelativeValues();
+
 protected:
     /**
      * Apply Grand Master to the value.
@@ -189,6 +191,8 @@ protected:
     QSet <int> m_gMNonIntensityChannels;
     QByteArray* m_preGMValues;
     QByteArray* m_postGMValues;
+    QVector<short> m_relativeValues;
+    bool m_doRelative;
 
     /************************************************************************
      * Writing
@@ -204,7 +208,7 @@ public:
      * @return true if successful, otherwise false
      */
     bool write(int channel, uchar value,
-               QLCChannel::Group group = QLCChannel::NoGroup);
+               QLCChannel::Group group = QLCChannel::NoGroup, bool isRelative = false);
 };
 
 #endif

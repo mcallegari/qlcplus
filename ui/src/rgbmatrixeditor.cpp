@@ -446,10 +446,16 @@ void RGBMatrixEditor::slotFixtureGroupActivated(int index)
 {
     QVariant var = m_fixtureGroupCombo->itemData(index);
     if (var.isValid() == true)
+    {
         m_matrix->setFixtureGroup(var.toUInt());
+        slotRestartTest();
+    }
     else
+    {
         m_matrix->setFixtureGroup(FixtureGroup::invalidId());
-    slotRestartTest();
+        m_previewTimer->stop();
+        m_scene->clear();
+    }
 }
 
 void RGBMatrixEditor::slotStartColorButtonClicked()
@@ -609,6 +615,7 @@ void RGBMatrixEditor::slotTestClicked()
 
 void RGBMatrixEditor::slotRestartTest()
 {
+    m_previewTimer->stop();
     m_previewMaps = m_matrix->previewMaps();
 
     if (m_testButton->isChecked() == true)
@@ -619,6 +626,7 @@ void RGBMatrixEditor::slotRestartTest()
     }
     else
         createPreviewItems();
+    m_previewTimer->start(MasterTimer::tick());
 }
 
 void RGBMatrixEditor::slotModeChanged(Doc::Mode mode)
@@ -633,7 +641,7 @@ void RGBMatrixEditor::slotModeChanged(Doc::Mode mode)
     }
     else
     {
-        m_previewTimer->start();
+        m_previewTimer->start(MasterTimer::tick());
         m_testButton->setEnabled(true);
     }
 }
