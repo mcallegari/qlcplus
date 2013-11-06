@@ -22,11 +22,15 @@
 
 #include <QObject>
 
+class Doc;
 class RGBText_Test : public QObject
 {
     Q_OBJECT
 
 private slots:
+    void initTestCase();
+    void cleanupTestCase();
+
     void initial();
     void text();
     void font();
@@ -38,6 +42,9 @@ private slots:
     void staticLetters();
     void horizontalScroll();
     void verticalScroll();
+
+private:
+   Doc * m_doc;
 };
 
 #endif

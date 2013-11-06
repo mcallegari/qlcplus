@@ -61,7 +61,7 @@ RGBMatrix::RGBMatrix(Doc* doc)
     setName(tr("New RGB Matrix"));
     setDuration(500);
 
-    RGBScript scr = RGBScript::script("Full Columns");
+    RGBScript scr = RGBScript::script(doc, "Full Columns");
     setAlgorithm(scr.clone());
 }
 
@@ -261,7 +261,7 @@ bool RGBMatrix::loadXML(const QDomElement& root)
         }
         else if (tag.tagName() == KXMLQLCRGBAlgorithm)
         {
-            setAlgorithm(RGBAlgorithm::loader(tag));
+            setAlgorithm(RGBAlgorithm::loader(doc(), tag));
         }
         else if (tag.tagName() == KXMLQLCRGBMatrixFixtureGroup)
         {

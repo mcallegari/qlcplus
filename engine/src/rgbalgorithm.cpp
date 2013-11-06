@@ -27,38 +27,43 @@
 #include "rgbscript.h"
 #include "rgbtext.h"
 
+RGBAlgorithm::RGBAlgorithm(const Doc * doc)
+    : m_doc(doc)
+{
+}
+
 /****************************************************************************
  * Available algorithms
  ****************************************************************************/
 
-QStringList RGBAlgorithm::algorithms()
+QStringList RGBAlgorithm::algorithms(const Doc * doc)
 {
     QStringList list;
-    RGBText text;
-    RGBImage image;
+    RGBText text(doc);
+    RGBImage image(doc);
     list << text.name();
     list << image.name();
-    list << RGBScript::scriptNames();
+    list << RGBScript::scriptNames(doc);
     return list;
 }
 
-RGBAlgorithm* RGBAlgorithm::algorithm(const QString& name)
+RGBAlgorithm* RGBAlgorithm::algorithm(const Doc * doc, const QString& name)
 {
-    RGBText text;
-    RGBImage image;
+    RGBText text(doc);
+    RGBImage image(doc);
     if (name == text.name())
         return text.clone();
     else if (name == image.name())
         return image.clone();
     else
-        return RGBScript::script(name).clone();
+        return RGBScript::script(doc, name).clone();
 }
 
 /****************************************************************************
  * Load & Save
  ****************************************************************************/
 
-RGBAlgorithm* RGBAlgorithm::loader(const QDomElement& root)
+RGBAlgorithm* RGBAlgorithm::loader(const Doc * doc, const QDomElement& root)
 {
     RGBAlgorithm* algo = NULL;
 
@@ -71,19 +76,19 @@ RGBAlgorithm* RGBAlgorithm::loader(const QDomElement& root)
     QString type = root.attribute(KXMLQLCRGBAlgorithmType);
     if (type == KXMLQLCRGBImage)
     {
-        RGBImage image;
+        RGBImage image(doc);
         if (image.loadXML(root) == true)
             algo = image.clone();
     }
     else if (type == KXMLQLCRGBText)
     {
-        RGBText text;
+        RGBText text(doc);
         if (text.loadXML(root) == true)
             algo = text.clone();
     }
     else if (type == KXMLQLCRGBScript)
     {
-        RGBScript scr = RGBScript::script(root.text());
+        RGBScript scr = RGBScript::script(doc, root.text());
         if (scr.apiVersion() > 0 && scr.name().isEmpty() == false)
             algo = scr.clone();
     }

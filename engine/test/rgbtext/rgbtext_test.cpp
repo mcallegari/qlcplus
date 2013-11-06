@@ -27,9 +27,21 @@
 #include "rgbtext.h"
 #undef private
 
+#include "doc.h"
+
+void RGBText_Test::initTestCase()
+{
+    m_doc = new Doc(this);
+}
+
+void RGBText_Test::cleanupTestCase()
+{
+    delete m_doc;
+}
+
 void RGBText_Test::initial()
 {
-    RGBText text;
+    RGBText text(m_doc);
     QCOMPARE(text.text(), QString(" Q LIGHT CONTROLLER "));
     QCOMPARE(text.animationStyle(), RGBText::Horizontal);
     QCOMPARE(text.xOffset(), 0);
@@ -42,14 +54,14 @@ void RGBText_Test::initial()
 
 void RGBText_Test::text()
 {
-    RGBText text;
+    RGBText text(m_doc);
     text.setText("Foo");
     QCOMPARE(text.text(), QString("Foo"));
 }
 
 void RGBText_Test::font()
 {
-    RGBText text;
+    RGBText text(m_doc);
     QFont font(text.font());
     font.setPixelSize(font.pixelSize() + 5);
     text.setFont(font);
@@ -74,7 +86,7 @@ void RGBText_Test::animationStyle()
     QVERIFY(styles.contains("Horizontal") == true);
     QVERIFY(styles.contains("Letters") == true);
 
-    RGBText text;
+    RGBText text(m_doc);
     text.setAnimationStyle(RGBText::Vertical);
     QCOMPARE(text.animationStyle(), RGBText::Vertical);
 
@@ -93,7 +105,7 @@ void RGBText_Test::animationStyle()
 
 void RGBText_Test::offset()
 {
-    RGBText text;
+    RGBText text(m_doc);
     text.setXOffset(5);
     QCOMPARE(text.xOffset(), 5);
 
@@ -103,7 +115,7 @@ void RGBText_Test::offset()
 
 void RGBText_Test::clone()
 {
-    RGBText text;
+    RGBText text(m_doc);
     text.setText("Foo");
     QFont font(text.font());
     font.setPixelSize(font.pixelSize() + 5);
@@ -134,7 +146,7 @@ void RGBText_Test::clone()
 
 void RGBText_Test::save()
 {
-    RGBText text;
+    RGBText text(m_doc);
     text.setText("Foo");
     text.setAnimationStyle(RGBText::Vertical);
     text.setXOffset(1);
@@ -223,7 +235,7 @@ void RGBText_Test::load()
     QDomElement foo = doc.createElement("Foobar");
     root.appendChild(foo);
 
-    RGBText text;
+    RGBText text(m_doc);
     QVERIFY(text.loadXML(root) == true);
     QCOMPARE(text.text(), QString("Foobar"));
     QCOMPARE(text.font(), fn);
@@ -253,7 +265,7 @@ void RGBText_Test::load()
 
 void RGBText_Test::staticLetters()
 {
-    RGBText text;
+    RGBText text(m_doc);
     text.setText("QLC");
     text.setAnimationStyle(RGBText::StaticLetters);
     QCOMPARE(text.rgbMapStepCount(QSize()), 3); // Q, L, C
@@ -294,7 +306,7 @@ void RGBText_Test::staticLetters()
 
 void RGBText_Test::horizontalScroll()
 {
-    RGBText text;
+    RGBText text(m_doc);
     text.setText("QLC");
     text.setAnimationStyle(RGBText::Horizontal);
 
@@ -328,7 +340,7 @@ void RGBText_Test::horizontalScroll()
 
 void RGBText_Test::verticalScroll()
 {
-    RGBText text;
+    RGBText text(m_doc);
     text.setText("QLC");
     text.setAnimationStyle(RGBText::Vertical);
 

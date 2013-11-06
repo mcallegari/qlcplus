@@ -25,6 +25,7 @@
 
 #include "rgbimage.h"
 #include "qlcmacros.h"
+#include "doc.h"
 
 #define KXMLQLCRGBImageFilename      "Filename"
 #define KXMLQLCRGBImageAnimationStyle "Animation"
@@ -32,8 +33,8 @@
 #define KXMLQLCRGBImageOffsetX        "X"
 #define KXMLQLCRGBImageOffsetY        "Y"
 
-RGBImage::RGBImage()
-    : RGBAlgorithm()
+RGBImage::RGBImage(const Doc * doc)
+    : RGBAlgorithm(doc)
     , m_filename("")
     , m_animationStyle(Static)
     , m_xOffset(0)
@@ -42,7 +43,7 @@ RGBImage::RGBImage()
 }
 
 RGBImage::RGBImage(const RGBImage& i)
-    : RGBAlgorithm()
+    : RGBAlgorithm( i.doc())
     , m_filename(i.filename())
     , m_animationStyle(i.animationStyle())
     , m_xOffset(i.xOffset())
@@ -268,7 +269,7 @@ bool RGBImage::loadXML(const QDomElement& root)
         QDomElement tag = node.toElement();
         if (tag.tagName() == KXMLQLCRGBImageFilename)
         {
-            setFilename(tag.text());
+            setFilename(doc()->denormalizeComponentPath(tag.text()));
         }
         else if (tag.tagName() == KXMLQLCRGBImageAnimationStyle)
         {
@@ -317,7 +318,8 @@ bool RGBImage::saveXML(QDomDocument* doc, QDomElement* mtx_root) const
     mtx_root->appendChild(root);
 
     QDomElement filename = doc->createElement(KXMLQLCRGBImageFilename);
-    QDomText filenameText = doc->createTextNode(m_filename);
+    QDomText filenameText =
+       doc->createTextNode(this->doc()->normalizeComponentPath(m_filename));
     filename.appendChild(filenameText);
     root.appendChild(filename);
 

@@ -48,14 +48,14 @@ QScriptEngine* RGBScript::s_engine = NULL;
  * Initialization
  ****************************************************************************/
 
-RGBScript::RGBScript()
-    : RGBAlgorithm()
+RGBScript::RGBScript(const Doc * doc)
+    : RGBAlgorithm(doc)
     , m_apiVersion(0)
 {
 }
 
 RGBScript::RGBScript(const RGBScript& s)
-    : RGBAlgorithm()
+    : RGBAlgorithm(s.doc())
     , m_fileName(s.m_fileName)
     , m_contents(s.m_contents)
     , m_apiVersion(0)
@@ -277,9 +277,9 @@ bool RGBScript::saveXML(QDomDocument* doc, QDomElement* mtx_root) const
  * System & User Scripts
  ****************************************************************************/
 
-RGBScript RGBScript::script(const QString& name)
+RGBScript RGBScript::script(const Doc * doc, const QString& name)
 {
-    QListIterator <RGBScript> it(scripts());
+    QListIterator <RGBScript> it(scripts(doc));
     while (it.hasNext() == true)
     {
         RGBScript script(it.next());
@@ -287,35 +287,35 @@ RGBScript RGBScript::script(const QString& name)
             return script;
     }
 
-    return RGBScript();
+    return RGBScript(doc);
 }
 
-QStringList RGBScript::scriptNames()
+QStringList RGBScript::scriptNames(const Doc * doc)
 {
     QStringList names;
 
-    QListIterator <RGBScript> it(scripts());
+    QListIterator <RGBScript> it(scripts(doc));
     while (it.hasNext() == true)
         names << it.next().name();
 
     return names;
 }
 
-QList <RGBScript> RGBScript::scripts()
+QList <RGBScript> RGBScript::scripts(const Doc * doc)
 {
     QList <RGBScript> list;
-    list << scripts(userScriptDirectory());
-    list << scripts(systemScriptDirectory());
-    list << scripts(customScriptDirectory());
+    list << scripts(doc, userScriptDirectory());
+    list << scripts(doc, systemScriptDirectory());
+    list << scripts(doc, customScriptDirectory());
     return list;
 }
 
-QList <RGBScript> RGBScript::scripts(const QDir& dir)
+QList <RGBScript> RGBScript::scripts(const Doc * doc, const QDir& dir)
 {
     QList <RGBScript> list;
     foreach (QString file, dir.entryList())
     {
-        RGBScript script;
+        RGBScript script(doc);
         if (script.load(dir, file) == true && list.contains(script) == false)
             list << script;
     }

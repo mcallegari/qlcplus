@@ -30,7 +30,7 @@
 class RGBText : public RGBAlgorithm
 {
 public:
-    RGBText();
+    RGBText(const Doc * doc);
     RGBText(const RGBText& t);
     ~RGBText();
 

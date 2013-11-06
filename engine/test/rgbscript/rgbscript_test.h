@@ -22,11 +22,15 @@
 
 #include <QObject>
 
+class Doc;
 class RGBScript_Test : public QObject
 {
     Q_OBJECT
 
 private slots:
+    void initTestCase();
+    void cleanupTestCase();
+
     void initial();
     void directories();
     void scripts();
@@ -37,6 +41,9 @@ private slots:
     void evaluateInvalidApiVersion();
     void rgbMapStepCount();
     void rgbMap();
+
+private:
+    Doc * m_doc;
 };
 
 #endif

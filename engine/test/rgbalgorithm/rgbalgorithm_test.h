@@ -22,15 +22,21 @@
 
 #include <QObject>
 
+class Doc;
+
 class RGBAlgorithm_Test : public QObject
 {
     Q_OBJECT
 
 private slots:
     void initTestCase();
+    void cleanupTestCase();
+
     void algorithms();
     void algorithm();
     void loader();
+private:
+   Doc * m_doc;
 };
 
 #endif

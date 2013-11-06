@@ -35,7 +35,7 @@ class RGBScript : public RGBAlgorithm
      * Initialization
      ************************************************************************/
 public:
-    RGBScript();
+    RGBScript(const Doc * doc);
     RGBScript(const RGBScript& s);
     ~RGBScript();
 
@@ -89,7 +89,7 @@ public:
     bool loadXML(const QDomElement& root);
 
     /** @reimp */
-    bool saveXML(QDomDocument* doc, QDomElement* mtx_root) const;
+    bool saveXML(QDomDocument* Doc, QDomElement* mtx_root) const;
 
 private:
     int m_apiVersion;               //! The API version that the script uses
@@ -102,16 +102,16 @@ private:
      ************************************************************************/
 public:
     /** Get a script by its public name */
-    static RGBScript script(const QString& name);
+    static RGBScript script(const Doc * doc, const QString& name);
 
     /** Get available (user, system and custom) script names */
-    static QStringList scriptNames();
+    static QStringList scriptNames(const Doc * doc);
 
     /** Get available (user, system and custom) scripts */
-    static QList <RGBScript> scripts();
+    static QList <RGBScript> scripts(const Doc * doc);
 
     /** Get available scripts from the given directory path */
-    static QList <RGBScript> scripts(const QDir& path);
+    static QList <RGBScript> scripts(const Doc * doc, const QDir& path);
 
     /** The system RGBScript directory */
     static QDir systemScriptDirectory();

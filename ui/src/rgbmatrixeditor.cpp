@@ -228,7 +228,7 @@ void RGBMatrixEditor::updateSpeedDials()
 
 void RGBMatrixEditor::fillPatternCombo()
 {
-    m_patternCombo->addItems(RGBAlgorithm::algorithms());
+    m_patternCombo->addItems(RGBAlgorithm::algorithms(m_doc));
     if (m_matrix->algorithm() != NULL)
     {
         int index = m_patternCombo->findText(m_matrix->algorithm()->name());
@@ -468,7 +468,7 @@ void RGBMatrixEditor::slotSpeedDialToggle(bool state)
 
 void RGBMatrixEditor::slotPatternActivated(const QString& text)
 {
-    RGBAlgorithm* algo = RGBAlgorithm::algorithm(text);
+    RGBAlgorithm* algo = RGBAlgorithm::algorithm(m_doc, text);
     m_matrix->setAlgorithm(algo);
     m_matrix->calculateColorDelta();
     updateExtraOptions();

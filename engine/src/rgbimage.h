@@ -31,7 +31,7 @@
 class RGBImage : public RGBAlgorithm
 {
 public:
-    RGBImage();
+    RGBImage(const Doc * doc);
     RGBImage(const RGBImage& t);
     ~RGBImage();
 
