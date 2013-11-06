@@ -1,6 +1,6 @@
 qlcplus (4.6.0) stable; urgency=low
 
-  * Virtual Console: fixed audio triggers loading wrong number of bars
+  * Virtual Console: fixed audio triggers incorrect loading
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 15 Dicember 2013 12:13:04 +0200
 

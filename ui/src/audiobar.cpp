@@ -168,7 +168,7 @@ void AudioBar::debugInfo()
 
 }
 
-bool AudioBar::loadXML(const QDomElement &root)
+bool AudioBar::loadXML(const QDomElement &root, Doc *doc)
 {
     if (root.hasAttribute(KXMLQLCAudioBarName))
         m_name = root.attribute(KXMLQLCAudioBarName);
@@ -191,13 +191,14 @@ bool AudioBar::loadXML(const QDomElement &root)
                     QString dmxValues = tag.text();
                     if (dmxValues.isEmpty() == false)
                     {
-                        m_dmxChannels.clear();
+                        QList<SceneValue> channels;
                         QStringList varray = dmxValues.split(",");
                         for (int i = 0; i < varray.count(); i+=2)
                         {
-                            m_dmxChannels.append(SceneValue(QString(varray.at(i)).toUInt(),
+                            channels.append(SceneValue(QString(varray.at(i)).toUInt(),
                                                          QString(varray.at(i + 1)).toUInt(), 0));
                         }
+                        attachDmxChannels(doc, channels);
                     }
                 }
             }

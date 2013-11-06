@@ -539,7 +539,7 @@ bool VCAudioTriggers::loadXML(const QDomElement *root)
         }
         else if (tag.tagName() == KXMLQLCVolumeBar)
         {
-            m_volumeBar->loadXML(tag);
+            m_volumeBar->loadXML(tag, m_doc);
             if (m_volumeBar->m_type == AudioBar::FunctionBar)
             {
                 if (tag.hasAttribute(KXMLQLCAudioBarFunction))
@@ -568,7 +568,7 @@ bool VCAudioTriggers::loadXML(const QDomElement *root)
                 int idx = tag.attribute(KXMLQLCAudioBarIndex).toInt();
                 if (idx >= 0 && idx < m_spectrumBars.count())
                 {
-                    m_spectrumBars[idx]->loadXML(tag);
+                    m_spectrumBars[idx]->loadXML(tag, m_doc);
                     if (m_spectrumBars[idx]->m_type == AudioBar::FunctionBar)
                     {
                         if (tag.hasAttribute(KXMLQLCAudioBarFunction))

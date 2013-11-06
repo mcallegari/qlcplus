@@ -71,7 +71,7 @@ public:
     void debugInfo();
 
     /** Load properties and contents from an XML tree */
-    bool loadXML(const QDomElement& root);
+    bool loadXML(const QDomElement& root, Doc *doc);
 
     /** Save properties and contents to an XML document */
     bool saveXML(QDomDocument* doc, QDomElement* atf_root, QString tagName, int index);
