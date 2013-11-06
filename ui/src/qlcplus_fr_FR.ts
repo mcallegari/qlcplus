@@ -2016,7 +2016,7 @@ Durée : %3
     <message>
         <location filename="fixturemanager.cpp" line="900"/>
         <source>Add fixture to group...</source>
-        <translation>Grouper ce(s) ojecteur(s)...</translation>
+        <translation>Grouper ce(s) projecteur(s)...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="903"/>
@@ -4295,7 +4295,7 @@ Durée : %3
     <message>
         <location filename="vccuelist.cpp" line="196"/>
         <source>Cue list</source>
-        <translation>Liste de mémoires</translation>
+        <translation>Séquentiel</translation>
     </message>
     <message>
         <location filename="vccuelist.cpp" line="883"/>
@@ -4364,7 +4364,7 @@ Durée : %3
     <message>
         <location filename="vccuelistproperties.ui" line="128"/>
         <source>Playback</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="280"/>
@@ -4517,7 +4517,7 @@ Durée : %3
     <message>
         <location filename="vccuelistproperties.ui" line="584"/>
         <source>Crossfade</source>
-        <translation>Curseur Linéaire</translation>
+        <translation>Crossfader</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="590"/>
@@ -5519,7 +5519,7 @@ Durée : %3
     <message>
         <location filename="vcwidget.cpp" line="149"/>
         <source>Cue list</source>
-        <translation>Liste de mémoires</translation>
+        <translation>Séquentiel</translation>
     </message>
     <message>
         <location filename="vcwidget.cpp" line="150"/>
@@ -5839,7 +5839,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole.cpp" line="332"/>
         <source>New Clock</source>
-        <translation type="unfinished"></translation>
+        <translation>Nouvelle Horloge</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="353"/>
