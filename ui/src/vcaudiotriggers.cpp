@@ -351,7 +351,7 @@ void VCAudioTriggers::slotModeChanged(Doc::Mode mode)
 
 AudioBar *VCAudioTriggers::getSpectrumBar(int index)
 {
-    if (index == 1000)
+    if (index == volumeBarIndex())
         return m_volumeBar;
     if (index >= 0 && index < m_spectrumBars.size())
         return m_spectrumBars.at(index);
@@ -391,7 +391,7 @@ void VCAudioTriggers::setSpectrumBarsNumber(int num)
 
 void VCAudioTriggers::setSpectrumBarType(int index, int type)
 {
-    if (index == 1000)
+    if (index == volumeBarIndex())
     {
         m_volumeBar->setType(type);
         return;
@@ -657,7 +657,7 @@ bool VCAudioTriggers::saveXML(QDomDocument *doc, QDomElement *vc_root)
 
     if (m_volumeBar->m_type != AudioBar::None)
     {
-        m_volumeBar->saveXML(doc, &root, KXMLQLCVolumeBar, 1000);
+        m_volumeBar->saveXML(doc, &root, KXMLQLCVolumeBar, volumeBarIndex());
     }
     int idx = 0;
     foreach (AudioBar *bar, m_spectrumBars)
