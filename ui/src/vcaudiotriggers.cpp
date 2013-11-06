@@ -381,10 +381,12 @@ void VCAudioTriggers::setSpectrumBarsNumber(int num)
     else if (num < m_spectrumBars.count())
     {
         for (int i = 0 ; i < m_spectrumBars.count() - num; i++)
-            m_spectrumBars.takeLast();
+            m_spectrumBars.removeLast();
     }
     if (m_inputCapture != NULL)
         m_inputCapture->setBandsNumber(num);
+    if (m_spectrum != NULL)
+        m_spectrum->setBarsNumber(num);
 }
 
 void VCAudioTriggers::setSpectrumBarType(int index, int type)
@@ -501,6 +503,11 @@ bool VCAudioTriggers::loadXML(const QDomElement *root)
     {
         qWarning() << Q_FUNC_INFO << "Audio Triggers node not found";
         return false;
+    }
+    if (root->hasAttribute(KXMLQLCVCATBarsNumber))
+    {
+        int barsNum = root->attribute(KXMLQLCVCATBarsNumber).toInt();
+        setSpectrumBarsNumber(barsNum);
     }
 
     /* Widget commons */
