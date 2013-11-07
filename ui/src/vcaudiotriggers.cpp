@@ -393,11 +393,13 @@ void VCAudioTriggers::setSpectrumBarType(int index, int type)
 {
     if (index == 1000)
     {
-        m_volumeBar->m_type = type;
+        m_volumeBar->setType(type);
         return;
     }
     if (index >= 0 && index < m_spectrumBars.size())
-        m_spectrumBars[index]->m_type = type;
+    {
+        m_spectrumBars[index]->setType(type);
+    }
 }
 
 
@@ -555,9 +557,7 @@ bool VCAudioTriggers::loadXML(const QDomElement *root)
                 if (tag.hasAttribute(KXMLQLCAudioBarWidget))
                 {
                     quint32 wid = tag.attribute(KXMLQLCAudioBarWidget).toUInt();
-                    VCWidget *widget = VirtualConsole::instance()->widget(wid);
-                    if (widget != NULL)
-                        m_volumeBar->m_widget = widget;
+                    m_volumeBar->m_widgetID = wid;
                 }
             }
         }
@@ -584,9 +584,7 @@ bool VCAudioTriggers::loadXML(const QDomElement *root)
                         if (tag.hasAttribute(KXMLQLCAudioBarWidget))
                         {
                             quint32 wid = tag.attribute(KXMLQLCAudioBarWidget).toUInt();
-                            VCWidget *widget = VirtualConsole::instance()->widget(wid);
-                            if (widget != NULL)
-                                m_spectrumBars[idx]->m_widget = widget;
+                            m_spectrumBars[idx]->m_widgetID = wid;
                         }
                     }
                 }

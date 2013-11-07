@@ -315,6 +315,8 @@ public:
     /** Reset the Virtual Console contents to an initial state */
     void resetContents();
 
+    void setupWidget(VCWidget *widget, VCWidget *parent);
+
     VCWidget *widget(quint32 id);
 
 protected:
@@ -327,6 +329,7 @@ protected:
     QVBoxLayout* m_contentsLayout;
     QScrollArea* m_scrollArea;
     VCFrame* m_contents;
+    QHash <quint32, VCWidget *> m_widgetsMap;
 
     /*********************************************************************
      * Key press handler

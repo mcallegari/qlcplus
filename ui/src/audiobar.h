@@ -57,13 +57,14 @@ public:
 
     AudioBar *createCopy();
     void setName(QString nme);
+    void setType(int type);
     void setMinThreshold(uchar value);
     void setMaxThreshold(uchar value);
     void setDivisor(int value);
 
     void attachDmxChannels(Doc *doc, QList<SceneValue>list);
     void attachFunction(Function *func);
-    void attachWidget(VCWidget *widget);
+    void attachWidget(quint32 wID);
 
     void checkFunctionThresholds(Doc *doc);
     void checkWidgetFunctionality();
@@ -84,11 +85,17 @@ public:
 
     /** List of individual DMX channels when m_type == DMXBar */
     QList<SceneValue> m_dmxChannels;
+
     /** List of absolute DMX channel addresses when m_type == DMXBar.
       * This is precalculated to speed up writeDMX */
     QList<int> m_absDmxChannels;
+
     /** Reference to an attached Function when m_type == FunctionBar */
     Function *m_function;
+
+    /** ID of the attchaed VCWidget when m_type == VCWidgetBar */
+    quint32 m_widgetID;
+
     /** Reference to an attached VCWidget when m_type == VCWidgetBar */
     VCWidget *m_widget;
 

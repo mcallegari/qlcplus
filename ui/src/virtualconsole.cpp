@@ -719,13 +719,7 @@ void VirtualConsole::slotAddButton()
         return;
 
     VCButton* button = new VCButton(parent, m_doc);
-    Q_ASSERT(button != NULL);
-    button->setID(newWidgetId());
-    checkWidgetPage(button, parent);
-    button->show();
-    button->move(parent->lastClickPoint());
-    clearWidgetSelection();
-    setWidgetSelected(button, true);
+    setupWidget(button, parent);
     m_doc->setModified();
 }
 
@@ -798,13 +792,7 @@ void VirtualConsole::slotAddSlider()
         return;
 
     VCSlider* slider = new VCSlider(parent, m_doc);
-    Q_ASSERT(slider != NULL);
-    slider->setID(newWidgetId());
-    checkWidgetPage(slider, parent);
-    slider->show();
-    slider->move(parent->lastClickPoint());
-    clearWidgetSelection();
-    setWidgetSelected(slider, true);
+    setupWidget(slider, parent);
     m_doc->setModified();
 }
 
@@ -858,16 +846,10 @@ void VirtualConsole::slotAddKnob()
         return;
 
     VCSlider* knob = new VCSlider(parent, m_doc);
+    setupWidget(knob, parent);
     knob->resize(QSize(60, 90));
     knob->setWidgetStyle(VCSlider::WKnob);
-    Q_ASSERT(knob != NULL);
-    knob->setID(newWidgetId());
     knob->setCaption(tr("Knob %1").arg(knob->id()));
-    checkWidgetPage(knob, parent);
-    knob->show();
-    knob->move(parent->lastClickPoint());
-    clearWidgetSelection();
-    setWidgetSelected(knob, true);
     m_doc->setModified();
 }
 
@@ -878,13 +860,7 @@ void VirtualConsole::slotAddSpeedDial()
         return;
 
     VCSpeedDial* dial = new VCSpeedDial(parent, m_doc);
-    Q_ASSERT(dial != NULL);
-    dial->setID(newWidgetId());
-    checkWidgetPage(dial, parent);
-    dial->show();
-    dial->move(parent->lastClickPoint());
-    clearWidgetSelection();
-    setWidgetSelected(dial, true);
+    setupWidget(dial, parent);
     m_doc->setModified();
 }
 
@@ -895,13 +871,7 @@ void VirtualConsole::slotAddXYPad()
         return;
 
     VCXYPad* xypad = new VCXYPad(parent, m_doc);
-    Q_ASSERT(xypad != NULL);
-    xypad->setID(newWidgetId());
-    checkWidgetPage(xypad, parent);
-    xypad->show();
-    xypad->move(parent->lastClickPoint());
-    clearWidgetSelection();
-    setWidgetSelected(xypad, true);
+    setupWidget(xypad, parent);
     m_doc->setModified();
 }
 
@@ -912,13 +882,7 @@ void VirtualConsole::slotAddCueList()
         return;
 
     VCCueList* cuelist = new VCCueList(parent, m_doc);
-    Q_ASSERT(cuelist != NULL);
-    cuelist->setID(newWidgetId());
-    checkWidgetPage(cuelist, parent);
-    cuelist->show();
-    cuelist->move(parent->lastClickPoint());
-    clearWidgetSelection();
-    setWidgetSelected(cuelist, true);
+    setupWidget(cuelist, parent);
     m_doc->setModified();
 }
 
@@ -929,13 +893,7 @@ void VirtualConsole::slotAddFrame()
         return;
 
     VCFrame* frame = new VCFrame(parent, m_doc, true);
-    Q_ASSERT(frame != NULL);
-    frame->setID(newWidgetId());
-    checkWidgetPage(frame, parent);
-    frame->show();
-    frame->move(parent->lastClickPoint());
-    clearWidgetSelection();
-    setWidgetSelected(frame, true);
+    setupWidget(frame, parent);
     m_doc->setModified();
 }
 
@@ -946,13 +904,7 @@ void VirtualConsole::slotAddSoloFrame()
         return;
 
     VCSoloFrame* soloframe = new VCSoloFrame(parent, m_doc, true);
-    Q_ASSERT(soloframe != NULL);
-    soloframe->setID(newWidgetId());
-    checkWidgetPage(soloframe, parent);
-    soloframe->show();
-    soloframe->move(parent->lastClickPoint());
-    clearWidgetSelection();
-    setWidgetSelected(soloframe, true);
+    setupWidget(soloframe, parent);
     m_doc->setModified();
 }
 
@@ -963,13 +915,7 @@ void VirtualConsole::slotAddLabel()
         return;
 
     VCLabel* label = new VCLabel(parent, m_doc);
-    Q_ASSERT(label != NULL);
-    label->setID(newWidgetId());
-    checkWidgetPage(label, parent);
-    label->show();
-    label->move(parent->lastClickPoint());
-    clearWidgetSelection();
-    setWidgetSelected(label, true);
+    setupWidget(label, parent);
     m_doc->setModified();
 }
 
@@ -980,13 +926,7 @@ void VirtualConsole::slotAddAudioTriggers()
         return;
 
     VCAudioTriggers* triggers = new VCAudioTriggers(parent, m_doc);
-    Q_ASSERT(triggers != NULL);
-    triggers->setID(newWidgetId());
-    checkWidgetPage(triggers, parent);
-    triggers->show();
-    triggers->move(parent->lastClickPoint());
-    clearWidgetSelection();
-    setWidgetSelected(triggers, true);
+    setupWidget(triggers, parent);
     connect(triggers, SIGNAL(enableRequest(quint32)),
             this, SLOT(slotEnableAudioTriggers(quint32)));
     m_doc->setModified();
@@ -999,13 +939,7 @@ void VirtualConsole::slotAddClock()
         return;
 
     VCClock* clock = new VCClock(parent, m_doc);
-    Q_ASSERT(clock != NULL);
-    clock->setID(newWidgetId());
-    checkWidgetPage(clock, parent);
-    clock->show();
-    clock->move(parent->lastClickPoint());
-    clearWidgetSelection();
-    setWidgetSelected(clock, true);
+    setupWidget(clock, parent);
     m_doc->setModified();
 }
 
@@ -1179,8 +1113,10 @@ void VirtualConsole::slotEditDelete()
             /* Consume the selected list until it is empty and
                delete each widget. */
             VCWidget* widget = m_selectedWidgets.takeFirst();
+            m_widgetsMap.remove(widget->id());
             VCWidget* parent = qobject_cast<VCWidget*> (widget->parentWidget());
             widget->deleteLater();
+
             if (parent != NULL)
             {
                 if (parent->type() == VCWidget::FrameWidget)
@@ -1562,11 +1498,26 @@ void VirtualConsole::resetContents()
     m_properties.setGrandMasterInputSource(InputMap::invalidUniverse(), InputMap::invalidChannel());
 }
 
+void VirtualConsole::setupWidget(VCWidget *widget, VCWidget *parent)
+{
+    Q_ASSERT(widget != NULL);
+    Q_ASSERT(parent != NULL);
+
+    widget->setID(newWidgetId());
+    checkWidgetPage(widget, parent);
+    widget->show();
+    widget->move(parent->lastClickPoint());
+    clearWidgetSelection();
+    setWidgetSelected(widget, true);
+}
+
 VCWidget *VirtualConsole::widget(quint32 id)
 {
     if (id == VCWidget::invalidId())
         return NULL;
 
+    return m_widgetsMap[id];
+/*
     QList<VCWidget *> widgetsList = getChildren((VCWidget *)m_contents);
 
     foreach (QObject *object, widgetsList)
@@ -1578,6 +1529,7 @@ VCWidget *VirtualConsole::widget(quint32 id)
     }
 
     return NULL;
+*/
 }
 
 void VirtualConsole::initContents()
@@ -1833,18 +1785,19 @@ void VirtualConsole::postLoad()
     m_doc->outputMap()->setGrandMasterValueMode(m_properties.grandMasterValueMode());
     m_doc->outputMap()->setGrandMasterChannelMode(m_properties.grandMasterChannelMode());
 
-    /* Go through widgets and check IDs */
+    /* Go through widgets, check IDs and register */
+    /* widgets to the map */
     QList<VCWidget *> widgetsList = getChildren((VCWidget *)m_contents);
 
-    foreach (QObject *object, widgetsList)
+    foreach (VCWidget *widget, widgetsList)
     {
-        VCWidget *widget = (VCWidget *)object;
         quint32 wid = widget->id();
         if(wid == VCWidget::invalidId())
             widget->setID(newWidgetId());
         else
             if (wid >= m_latestWidgetId)
                 m_latestWidgetId = wid + 1;
+        m_widgetsMap[widget->id()] = widget;
     }
     qDebug() << "Next ID to assign:" << m_latestWidgetId;
 }
