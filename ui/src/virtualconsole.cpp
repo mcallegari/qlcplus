@@ -1487,6 +1487,7 @@ void VirtualConsole::resetContents()
     m_clipboard.clear();
     m_selectedWidgets.clear();
     m_latestWidgetId = 0;
+    m_widgetsMap.clear();
 
     /* Update actions' enabled status */
     updateActions();
