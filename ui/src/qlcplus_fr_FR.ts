@@ -1980,7 +1980,7 @@ Durée : %3
     <message>
         <location filename="fixturemanager.cpp" line="732"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple groups selected&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; to remove the selected groups.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
-        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Plusieur Groupes sélectionnés&lt;/H1&gt;&lt;P&gt;Cliquez sur &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; afin d&apos;effacer ces groupes.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
+        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Plusieur Groupes sélectionnés&lt;/H1&gt;&lt;P&gt;Cliquez sur &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; afin de supprimer ces groupes.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="740"/>
@@ -2016,7 +2016,7 @@ Durée : %3
     <message>
         <location filename="fixturemanager.cpp" line="900"/>
         <source>Add fixture to group...</source>
-        <translation>Grouper ce(s) ojecteur(s)...</translation>
+        <translation>Grouper ce(s) projecteur(s)...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="903"/>
@@ -2124,7 +2124,7 @@ Durée : %3
     <message>
         <location filename="fixturemanager.cpp" line="1103"/>
         <source>Delete Fixtures</source>
-        <translation>Effacer des projecteurs</translation>
+        <translation>Supprimer des projecteurs</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1148"/>
@@ -2219,7 +2219,7 @@ Durée : %3
     <message>
         <location filename="fixtureremap.cpp" line="273"/>
         <source>Delete Fixtures</source>
-        <translation>Effacer des projecteurs</translation>
+        <translation>Supprimer des projecteurs</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="274"/>
@@ -2392,7 +2392,7 @@ Durée : %3
     <message>
         <location filename="functionmanager.cpp" line="298"/>
         <source>&amp;Delete</source>
-        <translation>&amp;Effacer</translation>
+        <translation>Supprimer (&amp;D)</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="304"/>
@@ -2799,7 +2799,7 @@ Durée : %3
     <message>
         <location filename="inputoutputpatcheditor.ui" line="167"/>
         <source>Delete the selected input profile</source>
-        <translation>Effacer ce profil d&apos;Entrée</translation>
+        <translation>Supprmer ce profil d&apos;Entrée</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="187"/>
@@ -2861,12 +2861,12 @@ Durée : %3
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="680"/>
         <source>Delete profile</source>
-        <translation>Effacer le profil</translation>
+        <translation>Supprimer le profil</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="681"/>
         <source>Do you wish to permanently delete profile &quot;%1&quot;?</source>
-        <translation>Voulez-vous effacer définitivement le profil &quot;%1&quot;?</translation>
+        <translation>Voulez-vous supprimer définitivement le profil &quot;%1&quot;?</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="709"/>
@@ -2876,7 +2876,7 @@ Durée : %3
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="710"/>
         <source>Unable to delete file %1</source>
-        <translation>Impossible d&apos;effacer le fichier %1</translation>
+        <translation>Impossible de supprimer le fichier %1</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="780"/>
@@ -3002,12 +3002,12 @@ Durée : %3
     <message>
         <location filename="inputprofileeditor.cpp" line="251"/>
         <source>Delete channels</source>
-        <translation>Effacer les canaux</translation>
+        <translation>Supprimer les canaux</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="252"/>
         <source>Delete all %1 selected channels?</source>
-        <translation>Effacer tous les %1 canaux sélectionnés?</translation>
+        <translation>Supprimer tous les %1 canaux sélectionnés?</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="365"/>
@@ -3102,29 +3102,29 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="multitrackview.cpp" line="261"/>
         <source>Do you want to DELETE sequence:</source>
-        <translation>Voulez vous effacer la séquence :</translation>
+        <translation>Voulez vous SUPPRIMER la séquence :</translation>
     </message>
     <message>
         <location filename="multitrackview.cpp" line="264"/>
         <location filename="multitrackview.cpp" line="284"/>
         <location filename="multitrackview.cpp" line="318"/>
         <source>Delete Functions</source>
-        <translation>Effacer les Fonctions</translation>
+        <translation>Supprimer les Fonctions</translation>
     </message>
     <message>
         <location filename="multitrackview.cpp" line="280"/>
         <source>Do you want to DELETE audio (the source file will NOT be removed):</source>
-        <translation>Voulez vous supprimer la piste audio de la timeline (le fichier ne sera pas détruit) :</translation>
+        <translation>Voulez vous SUPPRIMER la piste audio de la timeline (le fichier ne sera pas détruit) :</translation>
     </message>
     <message>
         <location filename="multitrackview.cpp" line="305"/>
         <source>Do you want to DELETE scene:</source>
-        <translation>Voulez vous EFFACER la scène :</translation>
+        <translation>Voulez vous SUPPRIMER la scène :</translation>
     </message>
     <message>
         <location filename="multitrackview.cpp" line="308"/>
         <source>This operation will also DELETE:</source>
-        <translation>Ceci effacera aussi :</translation>
+        <translation>Ceci supprimera aussi :</translation>
     </message>
     <message>
         <location filename="multitrackview.cpp" line="404"/>
@@ -3760,7 +3760,7 @@ Durée : %3
     <message>
         <location filename="showmanager.cpp" line="211"/>
         <source>&amp;Delete</source>
-        <translation>Effacer (&amp;D)</translation>
+        <translation>Supprimer (&amp;D)</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="218"/>
@@ -4295,7 +4295,7 @@ Durée : %3
     <message>
         <location filename="vccuelist.cpp" line="196"/>
         <source>Cue list</source>
-        <translation>Liste de mémoires</translation>
+        <translation>Séquentiel</translation>
     </message>
     <message>
         <location filename="vccuelist.cpp" line="883"/>
@@ -4364,7 +4364,7 @@ Durée : %3
     <message>
         <location filename="vccuelistproperties.ui" line="128"/>
         <source>Playback</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="280"/>
@@ -4517,7 +4517,7 @@ Durée : %3
     <message>
         <location filename="vccuelistproperties.ui" line="584"/>
         <source>Crossfade</source>
-        <translation>Curseur Linéaire</translation>
+        <translation>Crossfader</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="590"/>
@@ -5519,7 +5519,7 @@ Durée : %3
     <message>
         <location filename="vcwidget.cpp" line="149"/>
         <source>Cue list</source>
-        <translation>Liste de mémoires</translation>
+        <translation>Séquentiel</translation>
     </message>
     <message>
         <location filename="vcwidget.cpp" line="150"/>
@@ -5742,7 +5742,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole.cpp" line="370"/>
         <source>Delete</source>
-        <translation>Effacer</translation>
+        <translation>Supprimer</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="396"/>
@@ -5839,7 +5839,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole.cpp" line="332"/>
         <source>New Clock</source>
-        <translation type="unfinished"></translation>
+        <translation>Nouvelle Horloge</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="353"/>
@@ -5919,7 +5919,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole.cpp" line="1170"/>
         <source>Do you wish to delete the selected widgets?</source>
-        <translation>Voulez-vous effacer les widgets sélectionnés?</translation>
+        <translation>Voulez-vous supprimer les widgets sélectionnés?</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="1171"/>
