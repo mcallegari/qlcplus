@@ -76,7 +76,7 @@ private slots:
     void slotAnimationActivated(const QString& text);
     void slotOffsetSpinChanged();
 
-    void slotImageEdited(const QString& filename);
+    void slotImageEdited();
     void slotImageButtonClicked();
     void slotImageAnimationActivated(const QString& text);
 

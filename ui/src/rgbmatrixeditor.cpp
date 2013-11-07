@@ -177,8 +177,8 @@ void RGBMatrixEditor::init()
             this, SLOT(slotFontButtonClicked()));
     connect(m_animationCombo, SIGNAL(activated(const QString&)),
             this, SLOT(slotAnimationActivated(const QString&)));
-    connect(m_imageEdit, SIGNAL(textEdited(const QString&)),
-            this, SLOT(slotImageEdited(const QString&)));
+    connect(m_imageEdit, SIGNAL(editingFinished()),
+            this, SLOT(slotImageEdited()));
     connect(m_imageButton, SIGNAL(clicked()),
             this, SLOT(slotImageButtonClicked()));
     connect(m_imageAnimationCombo, SIGNAL(activated(const QString&)),
@@ -559,13 +559,13 @@ void RGBMatrixEditor::slotAnimationActivated(const QString& text)
     }
 }
 
-void RGBMatrixEditor::slotImageEdited(const QString& text)
+void RGBMatrixEditor::slotImageEdited()
 {
     if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->type() == RGBAlgorithm::Image)
     {
         RGBImage* algo = static_cast<RGBImage*> (m_matrix->algorithm());
         Q_ASSERT(algo != NULL);
-        algo->setFilename(text);
+        algo->setFilename(m_imageEdit->text());
         slotRestartTest();
     }
 }

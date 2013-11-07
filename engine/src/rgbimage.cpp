@@ -192,6 +192,9 @@ RGBMap RGBImage::rgbMap(const QSize& size, uint rgb, int step)
 {
     Q_UNUSED(rgb);
 
+    if (m_image.width() == 0 || m_image.height() == 0)
+        return RGBMap();
+
     int xOffs = xOffset();
     int yOffs = yOffset();
 
