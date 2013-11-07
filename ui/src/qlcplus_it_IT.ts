@@ -1681,178 +1681,183 @@ Durata: %3
         <translation>Parametri</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="294"/>
+        <location filename="efxeditor.ui" line="310"/>
         <source>Width</source>
         <translation>Larghezza</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="301"/>
+        <location filename="efxeditor.ui" line="317"/>
         <source>Value width of the pattern</source>
         <translation>Valore di larghezza del modello</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="314"/>
+        <location filename="efxeditor.ui" line="330"/>
         <source>Height</source>
         <translation>Altezza</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="321"/>
+        <location filename="efxeditor.ui" line="337"/>
         <source>Value height of the pattern</source>
         <translation>Valore di altezza del modello</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="334"/>
+        <location filename="efxeditor.ui" line="350"/>
         <source>X offset</source>
         <translation>Posizione della X</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="341"/>
+        <location filename="efxeditor.ui" line="357"/>
         <source>Pattern&apos;s center point on the X axis</source>
         <translation>Punto centrale del modello sull&apos;asse X</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="354"/>
+        <location filename="efxeditor.ui" line="370"/>
         <source>Y offset</source>
         <translation>Posizione Y</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="361"/>
+        <location filename="efxeditor.ui" line="377"/>
         <source>Pattern&apos;s center point on the Y axis</source>
         <translation>Punto centrale del modello sull&apos;asse Y</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="374"/>
+        <location filename="efxeditor.ui" line="390"/>
         <source>Rotation</source>
         <translation>Rotazione</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="381"/>
+        <location filename="efxeditor.ui" line="397"/>
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>Punto di partenza della rotazione del modello</translation>
     </message>
     <message utf8="true">
-        <location filename="efxeditor.ui" line="384"/>
+        <location filename="efxeditor.ui" line="400"/>
         <location filename="efxeditor.ui" line="511"/>
         <source>°</source>
         <translation>°</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="397"/>
+        <location filename="efxeditor.ui" line="413"/>
         <source>X frequency</source>
         <translation>Frequenza X</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="407"/>
+        <location filename="efxeditor.ui" line="423"/>
         <source>Lissajous pattern&apos;s X frequency</source>
         <translation>Frequenza asse X del modello di Lissajous</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="423"/>
+        <location filename="efxeditor.ui" line="439"/>
         <source>Y frequency</source>
         <translation>Frequenza Y</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="433"/>
+        <location filename="efxeditor.ui" line="449"/>
         <source>Lissajous pattern&apos;s Y frequency</source>
         <translation>Frequenza asse Y del modello di Lissajous</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="449"/>
+        <location filename="efxeditor.ui" line="465"/>
         <source>X phase</source>
         <translation>Fase della X</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="459"/>
+        <location filename="efxeditor.ui" line="488"/>
         <source>Lissajous pattern&apos;s X phase</source>
         <translation>Fase X del modello di Lissajou</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="475"/>
+        <location filename="efxeditor.ui" line="504"/>
         <source>Y phase</source>
         <translation>Fase della Y</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="498"/>
+        <location filename="efxeditor.ui" line="290"/>
         <source>Lissajous pattern&apos;s Y phase</source>
         <translation>Fase Y del modello di Lissajou</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="534"/>
+        <location filename="efxeditor.ui" line="531"/>
+        <source>Relative</source>
+        <translation>Relativo</translation>
+    </message>
+    <message>
+        <location filename="efxeditor.ui" line="541"/>
         <source>Direction</source>
         <translation>Direzione</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="540"/>
+        <location filename="efxeditor.ui" line="547"/>
         <source>Run the pattern forwards</source>
         <translation>Gira il modello in avanti</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="543"/>
+        <location filename="efxeditor.ui" line="550"/>
         <source>Forward</source>
         <translation>Avanti</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="553"/>
+        <location filename="efxeditor.ui" line="560"/>
         <source>Run the pattern backwards</source>
         <translation>Gira il modello indietro</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="556"/>
+        <location filename="efxeditor.ui" line="563"/>
         <source>Backward</source>
         <translation>Indietro</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="582"/>
+        <location filename="efxeditor.ui" line="589"/>
         <source>Run order</source>
         <translation>Ordine di esecuzione</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="588"/>
+        <location filename="efxeditor.ui" line="595"/>
         <source>Run through over and over again</source>
         <translation>Esegui sequenzialmente</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="591"/>
+        <location filename="efxeditor.ui" line="598"/>
         <source>Loop</source>
         <translation>Loop</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="601"/>
+        <location filename="efxeditor.ui" line="608"/>
         <source>Run through once and stop</source>
         <translation>Esegui una volta e poi fermati</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="604"/>
+        <location filename="efxeditor.ui" line="611"/>
         <source>Single shot</source>
         <translation>Singola esecuzione</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="611"/>
+        <location filename="efxeditor.ui" line="618"/>
         <source>First run forwards, then backwards, again forwards, etc...</source>
         <translation>Esegui prima in avanti, poi indietro, poi di nuovo avanti, ecc...</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="614"/>
+        <location filename="efxeditor.ui" line="621"/>
         <source>Ping pong</source>
         <translation>Ping Pong</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="644"/>
+        <location filename="efxeditor.ui" line="651"/>
         <source>See what the EFX does when it is run</source>
         <translation>Guarda cosa fa l&apos;EFX quando è in esecuzione</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="647"/>
+        <location filename="efxeditor.ui" line="654"/>
         <source>&amp;Test Run</source>
         <translation>&amp;Prova esecuzione</translation>
     </message>
     <message>
-        <location filename="efxeditor.cpp" line="632"/>
+        <location filename="efxeditor.cpp" line="635"/>
         <source>Remove fixtures</source>
         <translation>Rimuovi fixture</translation>
     </message>
     <message>
-        <location filename="efxeditor.cpp" line="633"/>
+        <location filename="efxeditor.cpp" line="636"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Vuoi rimuovere le fixture selezionate?</translation>
     </message>
@@ -2877,6 +2882,11 @@ Durata: %3
         <location filename="inputoutputpatcheditor.cpp" line="780"/>
         <source>Unable to save %1 to %2</source>
         <translation>Impossibile salvare %1 in %2</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.cpp" line="809"/>
+        <source>Default device</source>
+        <translation>Dispositivo predefinito</translation>
     </message>
 </context>
 <context>
@@ -5907,32 +5917,32 @@ Durata: %3
         <translation>Nuova Matrice di Fader</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="865"/>
+        <location filename="virtualconsole.cpp" line="852"/>
         <source>Knob %1</source>
         <translation>Manopola %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1170"/>
+        <location filename="virtualconsole.cpp" line="1104"/>
         <source>Do you wish to delete the selected widgets?</source>
         <translation>Vuoi cancellare gli oggetti selezionati?</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1171"/>
+        <location filename="virtualconsole.cpp" line="1105"/>
         <source>Delete widgets</source>
         <translation>Elimina oggetti</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1232"/>
+        <location filename="virtualconsole.cpp" line="1168"/>
         <source>Rename widgets</source>
         <translation>Rinomina gli oggetti</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1232"/>
+        <location filename="virtualconsole.cpp" line="1168"/>
         <source>Caption:</source>
         <translation>Titolo:</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1285"/>
+        <location filename="virtualconsole.cpp" line="1221"/>
         <source>Select background image</source>
         <translation>Selezione l&apos;immagine di fondo</translation>
     </message>
