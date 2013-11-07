@@ -156,6 +156,9 @@ void RGBMatrixEditor::init()
         pm.fill(Qt::transparent);
     m_endColorButton->setIcon(QIcon(pm));
 
+    updateExtraOptions();
+    updateSpeedDials();
+
     connect(m_nameEdit, SIGNAL(textEdited(const QString&)),
             this, SLOT(slotNameEdited(const QString&)));
     connect(m_speedDialButton, SIGNAL(toggled(bool)),
@@ -198,9 +201,6 @@ void RGBMatrixEditor::init()
     createPreviewItems();
     m_preview->setScene(m_scene);
     m_previewTimer->start(MasterTimer::tick());
-
-    updateExtraOptions();
-    updateSpeedDials();
 }
 
 void RGBMatrixEditor::updateSpeedDials()
