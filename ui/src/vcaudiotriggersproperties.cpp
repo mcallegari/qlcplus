@@ -340,7 +340,7 @@ void AudioTriggersConfiguration::slotWidgetSelectionClicked()
             return; // User pressed cancel
         AudioBar *bar = m_triggers->getSpectrumBar(prop.toInt());
         if (bar != NULL)
-            bar->attachWidget(ws.getSelectedWidget());
+            bar->attachWidget(ws.getSelectedWidget()->id());
 
         QTreeWidgetItem *item = NULL;
         if (prop.toInt() == 1000)

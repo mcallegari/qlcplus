@@ -791,6 +791,7 @@ edit:
 void InputOutputPatchEditor::fillAudioTree()
 {
     QList<AudioDeviceInfo> devList;
+
 #if defined( __APPLE__) || defined(Q_OS_MAC)
     devList = AudioRendererPortAudio::getDevicesInfo();
 #elif defined(WIN32) || defined(Q_OS_WIN)
@@ -802,6 +803,11 @@ void InputOutputPatchEditor::fillAudioTree()
     m_audioMapTree->clear();
     QSettings settings;
     QString inputName, outputName;
+    bool inputFound = false, outputFound = false;
+
+    QTreeWidgetItem* defItem = new QTreeWidgetItem(m_audioMapTree);
+    defItem->setText(KAudioColumnDeviceName, tr("Default device"));
+    defItem->setText(KAudioColumnPrivate, "__qlcplusdefault__");
 
     QVariant var = settings.value(SETTINGS_AUDIO_INPUT_DEVICE);
     if (var.isValid() == true)
@@ -813,28 +819,41 @@ void InputOutputPatchEditor::fillAudioTree()
 
     foreach( AudioDeviceInfo info, devList)
     {
-        QTreeWidgetItem* item;
-
-        /* Add an option for having no profile at all */
-        item = new QTreeWidgetItem(m_audioMapTree);
+        QTreeWidgetItem* item = new QTreeWidgetItem(m_audioMapTree);
         item->setText(KAudioColumnDeviceName, info.deviceName);
         item->setText(KAudioColumnPrivate, info.privateName);
 
         if (info.capabilities & AUDIO_CAP_INPUT)
         {
             if (info.privateName == inputName)
+            {
                 item->setCheckState(KAudioColumnHasInput, Qt::Checked);
+                inputFound = true;
+            }
             else
                 item->setCheckState(KAudioColumnHasInput, Qt::Unchecked);
         }
         if (info.capabilities & AUDIO_CAP_OUTPUT)
         {
             if (info.privateName == outputName)
+            {
                 item->setCheckState(KAudioColumnHasOutput, Qt::Checked);
+                outputFound = true;
+            }
             else
                 item->setCheckState(KAudioColumnHasOutput, Qt::Unchecked);
         }
     }
+
+    if (inputFound == true)
+        defItem->setCheckState(KAudioColumnHasInput, Qt::Unchecked);
+    else
+        defItem->setCheckState(KAudioColumnHasInput, Qt::Checked);
+
+    if (outputFound == true)
+        defItem->setCheckState(KAudioColumnHasOutput, Qt::Unchecked);
+    else
+        defItem->setCheckState(KAudioColumnHasOutput, Qt::Checked);
 
     m_audioMapTree->resizeColumnToContents(KAudioColumnDeviceName);
 }
@@ -845,8 +864,8 @@ void InputOutputPatchEditor::slotAudioDeviceItemChanged(QTreeWidgetItem *item, i
         return;
 
     /* Temporarily disable this signal to prevent an endless loop */
-    disconnect(m_audioMapTree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
-               this, SLOT(slotMapItemChanged(QTreeWidgetItem*, int)));
+    disconnect(m_audioMapTree, SIGNAL(itemChanged(QTreeWidgetItem*, int)),
+               this, SLOT(slotAudioDeviceItemChanged(QTreeWidgetItem*, int)));
 
     if (item->checkState(col) == Qt::Checked)
     {
@@ -865,20 +884,38 @@ void InputOutputPatchEditor::slotAudioDeviceItemChanged(QTreeWidgetItem *item, i
         QSettings settings;
 
         if (col == KAudioColumnHasInput)
-            settings.setValue(SETTINGS_AUDIO_INPUT_DEVICE, QVariant(item->text(KAudioColumnPrivate)));
+        {
+            if (item == m_audioMapTree->topLevelItem(0))
+                settings.remove(SETTINGS_AUDIO_INPUT_DEVICE);
+            else
+                settings.setValue(SETTINGS_AUDIO_INPUT_DEVICE, QVariant(item->text(KAudioColumnPrivate)));
+        }
         else if (col == KAudioColumnHasOutput)
-            settings.setValue(SETTINGS_AUDIO_OUTPUT_DEVICE, QVariant(item->text(KAudioColumnPrivate)));
+        {
+            if (item == m_audioMapTree->topLevelItem(0))
+                settings.remove(SETTINGS_AUDIO_OUTPUT_DEVICE);
+            else
+                settings.setValue(SETTINGS_AUDIO_OUTPUT_DEVICE, QVariant(item->text(KAudioColumnPrivate)));
+        }
     }
     else
     {
         QSettings settings;
+        QTreeWidgetItem* defItem = m_audioMapTree->topLevelItem(0);
+
         if (col == KAudioColumnHasInput)
+        {
             settings.remove(SETTINGS_AUDIO_INPUT_DEVICE);
+            defItem->setCheckState(KAudioColumnHasInput, Qt::Checked);
+        }
         else if (col == KAudioColumnHasOutput)
+        {
             settings.remove(SETTINGS_AUDIO_OUTPUT_DEVICE);
+            defItem->setCheckState(KAudioColumnHasOutput, Qt::Checked);
+        }
     }
 
     /* Start listening to this signal once again */
-    connect(m_audioMapTree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
-            this, SLOT(slotMapItemChanged(QTreeWidgetItem*, int)));
+    connect(m_audioMapTree, SIGNAL(itemChanged(QTreeWidgetItem*, int)),
+            this, SLOT(slotAudioDeviceItemChanged(QTreeWidgetItem*, int)));
 }

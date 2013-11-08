@@ -1,5 +1,10 @@
 qlcplus (4.6.0) stable; urgency=low
 
+  * NEW: EFX Editor: added relative position settings (thank to Jano Svitok)
+  * Virtual Console: fixed audio triggers incorrect loading
+  * Input/Output: improved audio device selection
+  * Added fixtures: Pro-Lights LedPar 64363 RGB, Pro-Lights LumiPar 7QPro (thanks to Lorenzo Andreani)
+
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 15 Dicember 2013 12:13:04 +0200
 
 qlcplus (4.5.1) stable; urgency=low

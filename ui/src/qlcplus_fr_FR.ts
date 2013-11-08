@@ -1686,178 +1686,183 @@ Durée : %3
         <translation>Paramètres</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="294"/>
+        <location filename="efxeditor.ui" line="310"/>
         <source>Width</source>
         <translation>Largeur</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="301"/>
+        <location filename="efxeditor.ui" line="317"/>
         <source>Value width of the pattern</source>
         <translation>Valeur de la largeur du motif</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="314"/>
+        <location filename="efxeditor.ui" line="330"/>
         <source>Height</source>
         <translation>Hauteur</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="321"/>
+        <location filename="efxeditor.ui" line="337"/>
         <source>Value height of the pattern</source>
         <translation>Valeur de la hauteur du motif</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="334"/>
+        <location filename="efxeditor.ui" line="350"/>
         <source>X offset</source>
         <translation>Décalage de X</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="341"/>
+        <location filename="efxeditor.ui" line="357"/>
         <source>Pattern&apos;s center point on the X axis</source>
         <translation>Point central du motif sur l&apos;axe des X</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="354"/>
+        <location filename="efxeditor.ui" line="370"/>
         <source>Y offset</source>
         <translation>Décalage de Y</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="361"/>
+        <location filename="efxeditor.ui" line="377"/>
         <source>Pattern&apos;s center point on the Y axis</source>
         <translation>Point central du motif sur l&apos;axe des Y</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="374"/>
+        <location filename="efxeditor.ui" line="390"/>
         <source>Rotation</source>
         <translation>Rotation</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="381"/>
+        <location filename="efxeditor.ui" line="397"/>
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>Rotation du point de départ du motif</translation>
     </message>
     <message utf8="true">
-        <location filename="efxeditor.ui" line="384"/>
+        <location filename="efxeditor.ui" line="400"/>
         <location filename="efxeditor.ui" line="511"/>
         <source>°</source>
         <translation>°</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="397"/>
+        <location filename="efxeditor.ui" line="413"/>
         <source>X frequency</source>
         <translation>Fréquence de X</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="407"/>
+        <location filename="efxeditor.ui" line="423"/>
         <source>Lissajous pattern&apos;s X frequency</source>
         <translation>Fréquence Lissajous de X du motif</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="423"/>
+        <location filename="efxeditor.ui" line="439"/>
         <source>Y frequency</source>
         <translation>Fréquence de Y</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="433"/>
+        <location filename="efxeditor.ui" line="449"/>
         <source>Lissajous pattern&apos;s Y frequency</source>
         <translation>Fréquence Lissajous de Y du motif</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="449"/>
+        <location filename="efxeditor.ui" line="465"/>
         <source>X phase</source>
         <translation>Phase de X</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="459"/>
+        <location filename="efxeditor.ui" line="488"/>
         <source>Lissajous pattern&apos;s X phase</source>
         <translation>Phase Lissajous de X du motif</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="475"/>
+        <location filename="efxeditor.ui" line="504"/>
         <source>Y phase</source>
         <translation>Phase de Y</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="498"/>
+        <location filename="efxeditor.ui" line="290"/>
         <source>Lissajous pattern&apos;s Y phase</source>
         <translation>Phase Lissajous de Y du motif</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="534"/>
+        <location filename="efxeditor.ui" line="531"/>
+        <source>Relative</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="efxeditor.ui" line="541"/>
         <source>Direction</source>
         <translation>Direction</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="540"/>
+        <location filename="efxeditor.ui" line="547"/>
         <source>Run the pattern forwards</source>
         <translation>Jouer le motif en avant</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="543"/>
+        <location filename="efxeditor.ui" line="550"/>
         <source>Forward</source>
         <translation>En avant</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="553"/>
+        <location filename="efxeditor.ui" line="560"/>
         <source>Run the pattern backwards</source>
         <translation>Jouer le motif en arrière</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="556"/>
+        <location filename="efxeditor.ui" line="563"/>
         <source>Backward</source>
         <translation>En arrière</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="582"/>
+        <location filename="efxeditor.ui" line="589"/>
         <source>Run order</source>
         <translation>Ordre de lancement</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="588"/>
+        <location filename="efxeditor.ui" line="595"/>
         <source>Run through over and over again</source>
         <translation>Répéter indéfiniment</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="591"/>
+        <location filename="efxeditor.ui" line="598"/>
         <source>Loop</source>
         <translation>Boucle</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="601"/>
+        <location filename="efxeditor.ui" line="608"/>
         <source>Run through once and stop</source>
         <translation>Lire une seule fois</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="604"/>
+        <location filename="efxeditor.ui" line="611"/>
         <source>Single shot</source>
         <translation>Une seule fois</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="611"/>
+        <location filename="efxeditor.ui" line="618"/>
         <source>First run forwards, then backwards, again forwards, etc...</source>
         <translation>Jouer le chaser en avant, puis en arrière, encore en avant, etc...</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="614"/>
+        <location filename="efxeditor.ui" line="621"/>
         <source>Ping pong</source>
         <translation>Ping Pong</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="644"/>
+        <location filename="efxeditor.ui" line="651"/>
         <source>See what the EFX does when it is run</source>
         <translation>Prévisualiser l&apos;EFX</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="647"/>
+        <location filename="efxeditor.ui" line="654"/>
         <source>&amp;Test Run</source>
         <translation>Prévisualiser (&amp;T)</translation>
     </message>
     <message>
-        <location filename="efxeditor.cpp" line="632"/>
+        <location filename="efxeditor.cpp" line="635"/>
         <source>Remove fixtures</source>
         <translation>Enlever des projecteurs</translation>
     </message>
     <message>
-        <location filename="efxeditor.cpp" line="633"/>
+        <location filename="efxeditor.cpp" line="636"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Voulez-vous enlever le ou les projecteurs sélectionnés?</translation>
     </message>
@@ -1980,7 +1985,7 @@ Durée : %3
     <message>
         <location filename="fixturemanager.cpp" line="732"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple groups selected&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; to remove the selected groups.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
-        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Plusieur Groupes sélectionnés&lt;/H1&gt;&lt;P&gt;Cliquez sur &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; afin d&apos;effacer ces groupes.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
+        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Plusieur Groupes sélectionnés&lt;/H1&gt;&lt;P&gt;Cliquez sur &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; afin de supprimer ces groupes.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="740"/>
@@ -2016,7 +2021,7 @@ Durée : %3
     <message>
         <location filename="fixturemanager.cpp" line="900"/>
         <source>Add fixture to group...</source>
-        <translation>Grouper ce(s) ojecteur(s)...</translation>
+        <translation>Grouper ce(s) projecteur(s)...</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="903"/>
@@ -2124,7 +2129,7 @@ Durée : %3
     <message>
         <location filename="fixturemanager.cpp" line="1103"/>
         <source>Delete Fixtures</source>
-        <translation>Effacer des projecteurs</translation>
+        <translation>Supprimer des projecteurs</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1148"/>
@@ -2219,7 +2224,7 @@ Durée : %3
     <message>
         <location filename="fixtureremap.cpp" line="273"/>
         <source>Delete Fixtures</source>
-        <translation>Effacer des projecteurs</translation>
+        <translation>Supprimer des projecteurs</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="274"/>
@@ -2392,7 +2397,7 @@ Durée : %3
     <message>
         <location filename="functionmanager.cpp" line="298"/>
         <source>&amp;Delete</source>
-        <translation>&amp;Effacer</translation>
+        <translation>Supprimer (&amp;D)</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="304"/>
@@ -2799,7 +2804,7 @@ Durée : %3
     <message>
         <location filename="inputoutputpatcheditor.ui" line="167"/>
         <source>Delete the selected input profile</source>
-        <translation>Effacer ce profil d&apos;Entrée</translation>
+        <translation>Supprmer ce profil d&apos;Entrée</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="187"/>
@@ -2861,12 +2866,12 @@ Durée : %3
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="680"/>
         <source>Delete profile</source>
-        <translation>Effacer le profil</translation>
+        <translation>Supprimer le profil</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="681"/>
         <source>Do you wish to permanently delete profile &quot;%1&quot;?</source>
-        <translation>Voulez-vous effacer définitivement le profil &quot;%1&quot;?</translation>
+        <translation>Voulez-vous supprimer définitivement le profil &quot;%1&quot;?</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="709"/>
@@ -2876,12 +2881,17 @@ Durée : %3
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="710"/>
         <source>Unable to delete file %1</source>
-        <translation>Impossible d&apos;effacer le fichier %1</translation>
+        <translation>Impossible de supprimer le fichier %1</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="780"/>
         <source>Unable to save %1 to %2</source>
         <translation>Impossible d&apos;enregistrer %1 vers %2</translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.cpp" line="809"/>
+        <source>Default device</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3002,12 +3012,12 @@ Durée : %3
     <message>
         <location filename="inputprofileeditor.cpp" line="251"/>
         <source>Delete channels</source>
-        <translation>Effacer les canaux</translation>
+        <translation>Supprimer les canaux</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="252"/>
         <source>Delete all %1 selected channels?</source>
-        <translation>Effacer tous les %1 canaux sélectionnés?</translation>
+        <translation>Supprimer tous les %1 canaux sélectionnés?</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="365"/>
@@ -3102,29 +3112,29 @@ Notez que cette l&apos;assistant ne peut pas faire la différence entre un poten
     <message>
         <location filename="multitrackview.cpp" line="261"/>
         <source>Do you want to DELETE sequence:</source>
-        <translation>Voulez vous effacer la séquence :</translation>
+        <translation>Voulez vous SUPPRIMER la séquence :</translation>
     </message>
     <message>
         <location filename="multitrackview.cpp" line="264"/>
         <location filename="multitrackview.cpp" line="284"/>
         <location filename="multitrackview.cpp" line="318"/>
         <source>Delete Functions</source>
-        <translation>Effacer les Fonctions</translation>
+        <translation>Supprimer les Fonctions</translation>
     </message>
     <message>
         <location filename="multitrackview.cpp" line="280"/>
         <source>Do you want to DELETE audio (the source file will NOT be removed):</source>
-        <translation>Voulez vous supprimer la piste audio de la timeline (le fichier ne sera pas détruit) :</translation>
+        <translation>Voulez vous SUPPRIMER la piste audio de la timeline (le fichier ne sera pas détruit) :</translation>
     </message>
     <message>
         <location filename="multitrackview.cpp" line="305"/>
         <source>Do you want to DELETE scene:</source>
-        <translation>Voulez vous EFFACER la scène :</translation>
+        <translation>Voulez vous SUPPRIMER la scène :</translation>
     </message>
     <message>
         <location filename="multitrackview.cpp" line="308"/>
         <source>This operation will also DELETE:</source>
-        <translation>Ceci effacera aussi :</translation>
+        <translation>Ceci supprimera aussi :</translation>
     </message>
     <message>
         <location filename="multitrackview.cpp" line="404"/>
@@ -3760,7 +3770,7 @@ Durée : %3
     <message>
         <location filename="showmanager.cpp" line="211"/>
         <source>&amp;Delete</source>
-        <translation>Effacer (&amp;D)</translation>
+        <translation>Supprimer (&amp;D)</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="218"/>
@@ -4295,7 +4305,7 @@ Durée : %3
     <message>
         <location filename="vccuelist.cpp" line="196"/>
         <source>Cue list</source>
-        <translation>Liste de mémoires</translation>
+        <translation>Séquentiel</translation>
     </message>
     <message>
         <location filename="vccuelist.cpp" line="883"/>
@@ -4364,7 +4374,7 @@ Durée : %3
     <message>
         <location filename="vccuelistproperties.ui" line="128"/>
         <source>Playback</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="280"/>
@@ -4517,7 +4527,7 @@ Durée : %3
     <message>
         <location filename="vccuelistproperties.ui" line="584"/>
         <source>Crossfade</source>
-        <translation>Curseur Linéaire</translation>
+        <translation>Crossfader</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="590"/>
@@ -5519,7 +5529,7 @@ Durée : %3
     <message>
         <location filename="vcwidget.cpp" line="149"/>
         <source>Cue list</source>
-        <translation>Liste de mémoires</translation>
+        <translation>Séquentiel</translation>
     </message>
     <message>
         <location filename="vcwidget.cpp" line="150"/>
@@ -5742,7 +5752,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole.cpp" line="370"/>
         <source>Delete</source>
-        <translation>Effacer</translation>
+        <translation>Supprimer</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="396"/>
@@ -5839,7 +5849,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole.cpp" line="332"/>
         <source>New Clock</source>
-        <translation type="unfinished"></translation>
+        <translation>Nouvelle Horloge</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="353"/>
@@ -5912,32 +5922,32 @@ Durée : %3
         <translation>Nouvelle Matrice de Curseurs</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="865"/>
+        <location filename="virtualconsole.cpp" line="852"/>
         <source>Knob %1</source>
         <translation>Rotatif %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1170"/>
+        <location filename="virtualconsole.cpp" line="1104"/>
         <source>Do you wish to delete the selected widgets?</source>
-        <translation>Voulez-vous effacer les widgets sélectionnés?</translation>
+        <translation>Voulez-vous supprimer les widgets sélectionnés?</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1171"/>
+        <location filename="virtualconsole.cpp" line="1105"/>
         <source>Delete widgets</source>
         <translation>Éffacer les widgets</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1232"/>
+        <location filename="virtualconsole.cpp" line="1168"/>
         <source>Rename widgets</source>
         <translation>Renommer les widgets</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1232"/>
+        <location filename="virtualconsole.cpp" line="1168"/>
         <source>Caption:</source>
         <translation>Légende:</translation>
     </message>
     <message>
-        <location filename="virtualconsole.cpp" line="1285"/>
+        <location filename="virtualconsole.cpp" line="1221"/>
         <source>Select background image</source>
         <translation>Choisir une image d&apos;arrière plan</translation>
     </message>
