@@ -122,6 +122,20 @@ QTreeWidgetItem* FunctionsTreeWidget::parentItem(const Function* function)
         }
     }
 
+    QString basePath = Function::typeToString(function->type());
+    if (m_foldersMap.contains(QString(basePath + "/")) == false)
+    {
+        // Parent item for the given type doesn't exist yet so create one
+        QTreeWidgetItem* item = new QTreeWidgetItem(this);
+        item->setText(COL_NAME, basePath);
+        item->setIcon(COL_NAME, functionIcon(function));
+        item->setData(COL_NAME, Qt::UserRole, Function::invalidId());
+        item->setData(COL_NAME, Qt::UserRole + 1, function->type());
+        item->setText(COL_PATH, QString(basePath + "/"));
+        item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDropEnabled);
+        m_foldersMap[QString(basePath + "/")] = item;
+    }
+
     QTreeWidgetItem *pItem = folderItem(function->path());
 
     if (pItem != NULL)
@@ -130,16 +144,8 @@ QTreeWidgetItem* FunctionsTreeWidget::parentItem(const Function* function)
         return pItem;
     }
 
-    // Parent item for the given type doesn't exist yet so create one
-    QTreeWidgetItem* item = new QTreeWidgetItem(this);
-    item->setText(COL_NAME, Function::typeToString(function->type()));
-    item->setIcon(COL_NAME, functionIcon(function));
-    item->setData(COL_NAME, Qt::UserRole, Function::invalidId());
-    item->setData(COL_NAME, Qt::UserRole + 1, function->type());
-    item->setText(COL_PATH, function->path());
-    item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDropEnabled);
-    m_foldersMap[function->path()] = item;
-    return item;
+
+    return NULL;
 }
 
 quint32 FunctionsTreeWidget::itemFunctionId(const QTreeWidgetItem* item) const
@@ -231,10 +237,19 @@ void FunctionsTreeWidget::addFolder()
     if (fullPath.endsWith('/') == false)
         fullPath.append("/");
 
-    fullPath += "New folder";
+    QString newName = "New folder";
+
+    int folderCount = 1;
+
+    while (m_foldersMap.contains(fullPath + newName))
+    {
+        newName = "New Folder " + QString::number(folderCount++);
+    }
+
+    fullPath += newName;
 
     QTreeWidgetItem *folder = new QTreeWidgetItem(item);
-    folder->setText(COL_NAME, "New folder");
+    folder->setText(COL_NAME, newName);
     folder->setIcon(COL_NAME, QIcon(":/folder.png"));
     folder->setData(COL_NAME, Qt::UserRole, Function::invalidId());
     folder->setData(COL_NAME, Qt::UserRole + 1, type);
@@ -247,14 +262,46 @@ void FunctionsTreeWidget::addFolder()
     blockSignals(false);
 }
 
-void FunctionsTreeWidget::deleteFolder(QString name)
+void FunctionsTreeWidget::deleteFolder(QTreeWidgetItem *item)
 {
+    if (item == NULL)
+        return;
+
+    QList<QTreeWidgetItem*> childrenList;
+    for (int i = 0; i < item->childCount(); i++)
+        childrenList.append(item->child(i));
+
+    QListIterator <QTreeWidgetItem*> it(childrenList);
+    while (it.hasNext() == true)
+    {
+        QTreeWidgetItem *child = it.next();
+        quint32 fid = child->data(COL_NAME, Qt::UserRole).toUInt();
+        if (fid != Function::invalidId())
+        {
+            m_doc->deleteFunction(fid);
+            delete child;
+        }
+        else
+            deleteFolder(child);
+    }
+
+    QString name = item->text(COL_NAME);
+
     if (m_foldersMap.contains(name))
         m_foldersMap.remove(name);
+
+    delete item;
 }
 
 QTreeWidgetItem *FunctionsTreeWidget::folderItem(QString name)
 {
+    if (selectedItems().count() > 0)
+    {
+        QString currFolder = selectedItems().first()->text(COL_PATH);
+        if (m_foldersMap.contains(currFolder))
+            return m_foldersMap[currFolder];
+    }
+
     if (m_foldersMap.contains(name))
         return m_foldersMap[name];
 

@@ -90,7 +90,7 @@ private:
 public:
     void addFolder();
 
-    void deleteFolder(QString name);
+    void deleteFolder(QTreeWidgetItem *item);
 
 private:
     QTreeWidgetItem *folderItem(QString name);

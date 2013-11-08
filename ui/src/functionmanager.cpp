@@ -522,6 +522,7 @@ void FunctionManager::slotClone()
 
 void FunctionManager::slotDelete()
 {
+    bool isFolder = false;
     QListIterator <QTreeWidgetItem*> it(m_tree->selectedItems());
     if (it.hasNext() == false)
         return;
@@ -530,14 +531,35 @@ void FunctionManager::slotDelete()
 
     // Append functions' names to the message
     while (it.hasNext() == true)
-        msg += it.next()->text(COL_NAME) + QString(", ");
+    {
+        QTreeWidgetItem *item = it.next();
+        msg.append(item->text(COL_NAME));
+        if (it.hasNext())
+            msg.append(", ");
+
+        if (item->childCount() > 0)
+        {
+            msg.append("\n" + tr("(This will also DELETE: "));
+            for(int i = 0; i < item->childCount(); i++)
+            {
+                QTreeWidgetItem *child = item->child(i);
+                if (i > 0) msg.append(", ");
+                msg.append(child->text(COL_NAME));
+            }
+            msg.append(")");
+            isFolder = true;
+        }
+    }
 
     // Ask for user's confirmation
     if (QMessageBox::question(this, tr("Delete Functions"), msg,
                               QMessageBox::Yes, QMessageBox::No)
             == QMessageBox::Yes)
     {
-        deleteSelectedFunctions();
+        if (isFolder)
+            m_tree->deleteFolder(m_tree->selectedItems().first());
+        else
+            deleteSelectedFunctions();
         updateActionStatus();
         deleteCurrentEditor();
     }
@@ -561,13 +583,15 @@ void FunctionManager::updateActionStatus()
         quint32 fid = m_tree->itemFunctionId(firstItem);
         if (fid != Function::invalidId())
             validSelection = true;
-        /*
-        if (m_tree->indexOfTopLevelItem(firstItem) >= 0)
-            m_addFolderAction->setEnabled(true);
-        else
-            m_addFolderAction->setEnabled(false);
-        */
+
+        // check if this is a folder
+        if (m_tree->selectedItems().count() == 1 && m_tree->indexOfTopLevelItem(firstItem) < 0)
+            validSelection = true;
+
+        m_addFolderAction->setEnabled(true);
     }
+    else
+        m_addFolderAction->setEnabled(false);
 
     if (validSelection == true)
     {
@@ -678,8 +702,8 @@ void FunctionManager::deleteSelectedFunctions()
         delete item;
         if (parent != NULL && parent->childCount() == 0 && isSequence == false)
         {
-            delete parent;
-            m_tree->deleteFolder(func->path());
+            if (m_tree->indexOfTopLevelItem(parent) >= 0)
+                m_tree->deleteFolder(parent);
         }
     }
 }
