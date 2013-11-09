@@ -62,6 +62,7 @@
 #include <QFileDialog>
 
 #define COL_NAME 0
+#define COL_PATH 1
 
 #define SETTINGS_SPLITTER "functionmanager/splitter"
 
@@ -527,7 +528,16 @@ void FunctionManager::slotDelete()
     if (it.hasNext() == false)
         return;
 
-    QString msg = tr("Do you want to DELETE functions:") + QString("\n");
+    QString msg;
+    QTreeWidgetItem *firstItem = m_tree->selectedItems().first();
+
+    if (firstItem->childCount() > 0 || firstItem->text(COL_PATH).isEmpty() == false)
+        isFolder = true;
+
+    if (isFolder == true)
+        msg = tr("Do you want to DELETE foler:") + QString("\n");
+    else
+        msg = tr("Do you want to DELETE functions:") + QString("\n");
 
     // Append functions' names to the message
     while (it.hasNext() == true)
@@ -547,7 +557,6 @@ void FunctionManager::slotDelete()
                 msg.append(child->text(COL_NAME));
             }
             msg.append(")");
-            isFolder = true;
         }
     }
 
@@ -654,7 +663,7 @@ void FunctionManager::initTree()
 
     // Add two columns for function and type
     QStringList labels;
-    labels << tr("Function"); // << "Path";
+    labels << tr("Function") << "Path";
     m_tree->setHeaderLabels(labels);
     m_tree->setRootIsDecorated(true);
     m_tree->setAllColumnsShowFocus(true);
@@ -694,6 +703,9 @@ void FunctionManager::deleteSelectedFunctions()
         QTreeWidgetItem* item(it.next());
         quint32 fid = m_tree->itemFunctionId(item);
         Function *func = m_doc->function(fid);
+        if (func == NULL)
+            continue;
+
         if (func->type() == Function::Chaser && qobject_cast<const Chaser*>(func)->isSequence() == true)
             isSequence = true;
         m_doc->deleteFunction(fid);

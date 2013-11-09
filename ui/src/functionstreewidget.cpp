@@ -285,7 +285,7 @@ void FunctionsTreeWidget::deleteFolder(QTreeWidgetItem *item)
             deleteFolder(child);
     }
 
-    QString name = item->text(COL_NAME);
+    QString name = item->text(COL_PATH);
 
     if (m_foldersMap.contains(name))
         m_foldersMap.remove(name);
