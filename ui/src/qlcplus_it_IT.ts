@@ -2325,147 +2325,162 @@ Durata: %3
 <context>
     <name>FunctionManager</name>
     <message>
-        <location filename="functionmanager.cpp" line="236"/>
+        <location filename="functionmanager.cpp" line="229"/>
         <source>New &amp;scene</source>
         <translation>Nuova &amp;scena</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="242"/>
+        <location filename="functionmanager.cpp" line="235"/>
         <source>New c&amp;haser</source>
         <translation>Nuovo c&amp;haser</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="248"/>
+        <location filename="functionmanager.cpp" line="241"/>
         <source>New se&amp;quence</source>
         <translation>Nuova se&amp;quenza</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="255"/>
+        <location filename="functionmanager.cpp" line="248"/>
         <source>New c&amp;ollection</source>
         <translation>Nuova c&amp;ollezione</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="261"/>
+        <location filename="functionmanager.cpp" line="254"/>
         <source>New E&amp;FX</source>
         <translation>Nuovo E&amp;FX</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="267"/>
+        <location filename="functionmanager.cpp" line="260"/>
         <source>New &amp;RGB Matrix</source>
         <translation>Nuova Matrice &amp;RGB</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="273"/>
+        <location filename="functionmanager.cpp" line="266"/>
         <source>New scrip&amp;t</source>
         <translation>Nuovo Scrip&amp;t</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="340"/>
+        <location filename="functionmanager.cpp" line="341"/>
         <source>New Scene</source>
         <translation>Nuova Scena</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="353"/>
+        <location filename="functionmanager.cpp" line="354"/>
         <source>New Chaser</source>
         <translation>Nuovo Chaser</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="376"/>
+        <location filename="functionmanager.cpp" line="377"/>
         <source>New Sequence</source>
         <translation>Nuova Sequenza</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="292"/>
+        <location filename="functionmanager.cpp" line="291"/>
         <source>&amp;Clone</source>
         <translation>&amp;Clona</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="279"/>
+        <location filename="functionmanager.cpp" line="272"/>
         <source>New au&amp;dio</source>
         <translation>Nuovo au&amp;dio</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="285"/>
+        <location filename="functionmanager.cpp" line="278"/>
+        <source>New fo&amp;lder</source>
+        <translation>Nuova carte&amp;lla</translation>
+    </message>
+    <message>
+        <location filename="functionmanager.cpp" line="284"/>
         <source>Function &amp;Wizard</source>
         <translation>Assistente per le &amp;funzioni</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="298"/>
+        <location filename="functionmanager.cpp" line="297"/>
         <source>&amp;Delete</source>
         <translation>&amp;Elimina</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="304"/>
+        <location filename="functionmanager.cpp" line="303"/>
         <source>Select &amp;all</source>
         <translation>Seleziona &amp;Tutto</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="389"/>
+        <location filename="functionmanager.cpp" line="390"/>
         <source>New Collection</source>
         <translation>Nuova Collezione</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="402"/>
+        <location filename="functionmanager.cpp" line="403"/>
         <source>New EFX</source>
         <translation>Nuovo EFX</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="415"/>
+        <location filename="functionmanager.cpp" line="416"/>
         <source>New RGB Matrix</source>
         <translation>Nuova Matrice RGB</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="428"/>
+        <location filename="functionmanager.cpp" line="429"/>
         <source>New Script</source>
         <translation>Nuovo Script</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="440"/>
+        <location filename="functionmanager.cpp" line="441"/>
         <source>Open Audio File</source>
         <translation>Apri File Audio</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="466"/>
+        <location filename="functionmanager.cpp" line="467"/>
         <source>Audio Files (%1)</source>
         <translation>File Audio (%1)</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="468"/>
+        <location filename="functionmanager.cpp" line="469"/>
         <source>All Files (*.*)</source>
         <translation>Tutti i file (*.*)</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="470"/>
+        <location filename="functionmanager.cpp" line="471"/>
         <source>All Files (*)</source>
         <translation>Tutti i file (*)</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="492"/>
+        <location filename="functionmanager.cpp" line="493"/>
         <source>Unsupported audio file</source>
         <translation>File audio non supportato</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="492"/>
+        <location filename="functionmanager.cpp" line="493"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation>Questo file audio non può essere riprodotto da QLC+. Spiacente.</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="524"/>
-        <source>Do you want to DELETE functions:</source>
-        <translation>Vuoi CANCELLARE le funzioni:</translation>
+        <location filename="functionmanager.cpp" line="539"/>
+        <source>Do you want to DELETE foler:</source>
+        <translation>Vuoi ELIMINARE la cartella:</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="531"/>
+        <location filename="functionmanager.cpp" line="541"/>
+        <source>Do you want to DELETE functions:</source>
+        <translation>Vuoi ELIMINARE le funzioni:</translation>
+    </message>
+    <message>
+        <location filename="functionmanager.cpp" line="553"/>
+        <source>(This will also DELETE: </source>
+        <translation>(Questo ELIMINERA&apos; anche: </translation>
+    </message>
+    <message>
+        <location filename="functionmanager.cpp" line="565"/>
         <source>Delete Functions</source>
         <translation>CAncella Funzioni</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="612"/>
+        <location filename="functionmanager.cpp" line="667"/>
         <source>Function</source>
         <translation>Funzione</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="899"/>
+        <location filename="functionmanager.cpp" line="778"/>
         <source> (Copy)</source>
         <translation> (Copia)</translation>
     </message>

@@ -505,6 +505,7 @@ void FunctionManager::slotAddAudio()
 void FunctionManager::slotAddFolder()
 {
     m_tree->addFolder();
+    m_doc->setModified();
 }
 
 void FunctionManager::slotWizard()
@@ -566,7 +567,10 @@ void FunctionManager::slotDelete()
             == QMessageBox::Yes)
     {
         if (isFolder)
+        {
             m_tree->deleteFolder(m_tree->selectedItems().first());
+            m_doc->setModified();
+        }
         else
             deleteSelectedFunctions();
         updateActionStatus();

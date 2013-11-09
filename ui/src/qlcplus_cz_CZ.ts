@@ -2317,147 +2317,162 @@ Délka: %3
 <context>
     <name>FunctionManager</name>
     <message>
-        <location filename="functionmanager.cpp" line="236"/>
+        <location filename="functionmanager.cpp" line="229"/>
         <source>New &amp;scene</source>
         <translation>Nová Scéna (CTRL+&amp;s)</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="242"/>
+        <location filename="functionmanager.cpp" line="235"/>
         <source>New c&amp;haser</source>
         <translation>Nové Prolínání (CTRL+&amp;h)</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="248"/>
+        <location filename="functionmanager.cpp" line="241"/>
         <source>New se&amp;quence</source>
         <translation>Nová Sekvence (CTRL+&amp;q)</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="255"/>
+        <location filename="functionmanager.cpp" line="248"/>
         <source>New c&amp;ollection</source>
         <translation>Nová Kolekce(CTRL+&amp;o)</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="261"/>
+        <location filename="functionmanager.cpp" line="254"/>
         <source>New E&amp;FX</source>
         <translation>Nový EFX(CTRL+&amp;f)</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="267"/>
+        <location filename="functionmanager.cpp" line="260"/>
         <source>New &amp;RGB Matrix</source>
         <translation>Nová RGB šablona (CTRL+&amp;R)</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="273"/>
+        <location filename="functionmanager.cpp" line="266"/>
         <source>New scrip&amp;t</source>
         <translation>Nový skript (CTRL+&amp;t)</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="279"/>
+        <location filename="functionmanager.cpp" line="272"/>
         <source>New au&amp;dio</source>
         <translation>Nový zvuk (CTRL+&amp;d)</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="285"/>
+        <location filename="functionmanager.cpp" line="278"/>
+        <source>New fo&amp;lder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="functionmanager.cpp" line="284"/>
         <source>Function &amp;Wizard</source>
         <translation>Tvorba funkcí (CTRL+&amp;W)</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="292"/>
+        <location filename="functionmanager.cpp" line="291"/>
         <source>&amp;Clone</source>
         <translation>Duplikovat (CTRL+&amp;C)</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="298"/>
+        <location filename="functionmanager.cpp" line="297"/>
         <source>&amp;Delete</source>
         <translation>Smazat (CTRL+&amp;D)</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="304"/>
+        <location filename="functionmanager.cpp" line="303"/>
         <source>Select &amp;all</source>
         <translation>Označit vše (CTRL+&amp;a)</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="340"/>
+        <location filename="functionmanager.cpp" line="341"/>
         <source>New Scene</source>
         <translation>Nová Scéna</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="353"/>
+        <location filename="functionmanager.cpp" line="354"/>
         <source>New Chaser</source>
         <translation>Nové Prolínání</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="376"/>
+        <location filename="functionmanager.cpp" line="377"/>
         <source>New Sequence</source>
         <translation>Nová Sekvence</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="389"/>
+        <location filename="functionmanager.cpp" line="390"/>
         <source>New Collection</source>
         <translation>Nová Kolekce</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="402"/>
+        <location filename="functionmanager.cpp" line="403"/>
         <source>New EFX</source>
         <translation>Nový EFX</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="415"/>
+        <location filename="functionmanager.cpp" line="416"/>
         <source>New RGB Matrix</source>
         <translation>Nový RGB šablona</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="428"/>
+        <location filename="functionmanager.cpp" line="429"/>
         <source>New Script</source>
         <translation>Nový Skript</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="440"/>
+        <location filename="functionmanager.cpp" line="441"/>
         <source>Open Audio File</source>
         <translation>Otevřít soubor zvuku</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="466"/>
+        <location filename="functionmanager.cpp" line="467"/>
         <source>Audio Files (%1)</source>
         <translation>Zvukové soubory (%1)</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="468"/>
+        <location filename="functionmanager.cpp" line="469"/>
         <source>All Files (*.*)</source>
         <translation>Všechny soubory (*.*)</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="470"/>
+        <location filename="functionmanager.cpp" line="471"/>
         <source>All Files (*)</source>
         <translation>Všechny soubory (*)</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="492"/>
+        <location filename="functionmanager.cpp" line="493"/>
         <source>Unsupported audio file</source>
         <translation>Nepodporovaný soubor zvuku</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="492"/>
+        <location filename="functionmanager.cpp" line="493"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation>Tento soubor zvuku nemůže být přehrán v QLC+. Je nám to moc líto.</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="524"/>
+        <location filename="functionmanager.cpp" line="539"/>
+        <source>Do you want to DELETE foler:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="functionmanager.cpp" line="541"/>
         <source>Do you want to DELETE functions:</source>
         <translation>Opravdu si přejete SMAZAT funkce: </translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="531"/>
+        <location filename="functionmanager.cpp" line="553"/>
+        <source>(This will also DELETE: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="functionmanager.cpp" line="565"/>
         <source>Delete Functions</source>
         <translation>Smazat funkce</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="612"/>
+        <location filename="functionmanager.cpp" line="667"/>
         <source>Function</source>
         <translation>Funkce</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="899"/>
+        <location filename="functionmanager.cpp" line="778"/>
         <source> (Copy)</source>
         <translation>(kopie)</translation>
     </message>
