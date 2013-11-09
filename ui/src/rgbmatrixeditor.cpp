@@ -353,6 +353,9 @@ void RGBMatrixEditor::createPreviewItems()
     if (m_previewStep < m_previewMaps.size())
         map = m_previewMaps[m_previewStep];
 
+    if (map.isEmpty())
+        return;
+
     for (int x = 0; x < grp->size().width(); x++)
     {
         for (int y = 0; y < grp->size().height(); y++)
