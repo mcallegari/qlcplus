@@ -663,7 +663,7 @@ void FunctionManager::initTree()
 
     // Add two columns for function and type
     QStringList labels;
-    labels << tr("Function") << "Path";
+    labels << tr("Function"); // << "Path";
     m_tree->setHeaderLabels(labels);
     m_tree->setRootIsDecorated(true);
     m_tree->setAllColumnsShowFocus(true);

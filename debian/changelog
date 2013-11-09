@@ -1,6 +1,7 @@
 qlcplus (4.6.0) stable; urgency=low
 
   * NEW: EFX Editor: added relative position settings (thank to Jano Svitok)
+  * NEW: Function Manager: added folders with drag & drop functionality
   * Virtual Console: fixed audio triggers incorrect loading
   * Input/Output: improved audio device selection
   * Added fixtures: Pro-Lights LedPar 64363 RGB, Pro-Lights LumiPar 7QPro (thanks to Lorenzo Andreani)
