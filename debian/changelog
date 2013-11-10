@@ -5,7 +5,7 @@ qlcplus (4.6.0) stable; urgency=low
   * Virtual Console: fixed audio triggers incorrect loading
   * Input/Output: improved audio device selection
   * Fixture Editor: set previously selected color when editing a color macro
-  * Added fixtures: Pro-Lights LedPar 64363 RGB, Pro-Lights LumiPar 7QPro (thanks to Lorenzo Andreani)
+  * Added fixtures: Pro-Lights LedPar 64363 RGB, Pro-Lights LumiPar 7QPro, Pro-Lights Strobo 1500DMX, Pro-Lights Explo 3000D (thanks to Lorenzo Andreani)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 15 Dicember 2013 12:13:04 +0200
 
