@@ -155,6 +155,8 @@ void EditCapability::slotPictureButtonPressed()
 void EditCapability::slotColor1ButtonPressed()
 {
     QColorDialog dialog(this);
+    if (m_capability->resourceColor1().isValid())
+        dialog.setCurrentColor(m_capability->resourceColor1());
     if (dialog.exec() != QDialog::Accepted)
         return;
 
@@ -169,6 +171,8 @@ void EditCapability::slotColor1ButtonPressed()
 void EditCapability::slotColor2ButtonPressed()
 {
     QColorDialog dialog(this);
+    if (m_capability->resourceColor2().isValid())
+        dialog.setCurrentColor(m_capability->resourceColor2());
     if (dialog.exec() != QDialog::Accepted)
         return;
 
