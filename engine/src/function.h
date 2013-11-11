@@ -25,6 +25,7 @@
 #include <QString>
 #include <QMutex>
 #include <QList>
+#include <QIcon>
 
 class QDomDocument;
 class QDomElement;
@@ -207,6 +208,13 @@ public:
      * @param str The string to convert
      */
     static Type stringToType(const QString& str);
+
+    /**
+     * Convert a type to an icon
+     *
+     * @param type The type to convert
+     */
+    static QIcon typeToIcon(Function::Type type);
 
 private:
     Type m_type;

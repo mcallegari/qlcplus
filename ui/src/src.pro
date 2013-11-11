@@ -81,6 +81,7 @@ HEADERS += aboutbox.h \
            monitorfixture.h \
            monitorlayout.h \
            multitrackview.h \
+           palettegenerator.h \
            playbackslider.h \
            remapwidget.h \
            rgbmatrixeditor.h \
@@ -210,6 +211,7 @@ SOURCES += aboutbox.cpp \
            monitorfixture.cpp \
            monitorlayout.cpp \
            multitrackview.cpp \
+           palettegenerator.cpp \
            playbackslider.cpp \
            remapwidget.cpp \
            rgbmatrixeditor.cpp \
