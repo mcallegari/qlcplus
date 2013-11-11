@@ -71,6 +71,35 @@ public:
     /** Destructor */
     ~PaletteGenerator();
 
+    /********************************************************************
+     * Name
+     ********************************************************************/
+
+    /** Set a human readable (and translated) name for this palette */
+    void setName(QString name);
+
+    /** Get the palette name */
+    QString name();
+
+    /** Get the palette full name, including the fixture model */
+    QString fullName();
+
+    /** Get the palette fixture model */
+    QString model();
+
+    /********************************************************************
+     * Type
+     ********************************************************************/
+
+    PaletteType type();
+
+    PaletteSubType subType();
+
+    QString typetoString(PaletteType type);
+
+    /********************************************************************
+     * Contents
+     ********************************************************************/
     static QStringList getCapabilities(const Fixture* fixture);
 
     QList<Scene *> scenes();
@@ -101,6 +130,9 @@ private:
 
 private:
     Doc* m_doc;
+    QString m_name;
+    PaletteType m_type;
+    PaletteSubType m_subType;
     QList <Fixture*> m_fixtures;
     QString m_model;
     QList <Scene*> m_scenes;

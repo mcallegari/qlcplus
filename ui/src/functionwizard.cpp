@@ -22,13 +22,10 @@
 #include <QDebug>
 #include <QHash>
 
-#include <cstdlib>
-
-#include "intensitygenerator.h"
 #include "palettegenerator.h"
 #include "fixtureselection.h"
 #include "functionwizard.h"
-#include "chaserstep.h"
+#include "vcwidget.h"
 #include "fixture.h"
 #include "chaser.h"
 #include "scene.h"
@@ -45,6 +42,8 @@
 
 #define KFunctionName               0
 #define KFunctionOddEven            1
+
+#define KWidgetName                 0
 
 FunctionWizard::FunctionWizard(QWidget* parent, Doc* doc)
     : QDialog(parent)
@@ -114,7 +113,6 @@ void FunctionWizard::checkTabsAndButtons()
         break;
         case 1:
         {
-            updateAvailableFunctionsTree();
             if (m_allFuncsTree->topLevelItemCount() == 0)
             {
                 m_nextButton->setEnabled(false);
@@ -128,7 +126,18 @@ void FunctionWizard::checkTabsAndButtons()
         }
         break;
         case 2:
-            updateAvailableFunctionsTree();
+        {
+            if (m_paletteList.isEmpty() == false)
+            {
+                m_tabWidget->setTabEnabled(3, true);
+                m_nextButton->setEnabled(true);
+            }
+            else
+            {
+                m_tabWidget->setTabEnabled(3, false);
+                m_nextButton->setEnabled(false);
+            }
+        }
         break;
         case 3:
             m_nextButton->setEnabled(false);
@@ -195,6 +204,9 @@ void FunctionWizard::slotAddClicked()
         QListIterator <quint32> it(fs.selection());
         while (it.hasNext() == true)
             addFixture(it.next());
+
+        if (m_fixtureTree->topLevelItemCount() > 0)
+            updateAvailableFunctionsTree();
     }
     checkTabsAndButtons();
 }
@@ -381,4 +393,42 @@ void FunctionWizard::slotFunctionItemChanged(QTreeWidgetItem *item, int col)
     Q_ASSERT(item != NULL);
 
     updateResultFunctionsTree();
+
+    if (m_paletteList.isEmpty() == false)
+        updateWidgetsTree();
+
+    checkTabsAndButtons();
+}
+
+/********************************************************************
+ * Widgets
+ ********************************************************************/
+
+void FunctionWizard::updateWidgetsTree()
+{
+    m_widgetsTree->clear();
+
+    foreach(PaletteGenerator *palette, m_paletteList)
+    {
+        QTreeWidgetItem *frame = new QTreeWidgetItem(m_widgetsTree);
+        frame->setText(KWidgetName, palette->fullName());
+        frame->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::FrameWidget));
+        frame->setData(KWidgetName, Qt::UserRole, VCWidget::FrameWidget);
+        foreach(Scene *scene, palette->scenes())
+        {
+            QTreeWidgetItem *item = new QTreeWidgetItem(frame);
+            QString toRemove = " - " + palette->model();
+            item->setText(KWidgetName, scene->name().remove(toRemove));
+            item->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::ButtonWidget));
+            item->setData(KWidgetName, Qt::UserRole, VCWidget::ButtonWidget);
+        }
+        foreach(Chaser *chaser, palette->chasers())
+        {
+            QTreeWidgetItem *item = new QTreeWidgetItem(frame);
+            QString toRemove = " - " + palette->model();
+            item->setText(KWidgetName, chaser->name().remove(toRemove));
+            item->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::CueListWidget));
+            item->setData(KWidgetName, Qt::UserRole, VCWidget::CueListWidget);
+        }
+    }
 }

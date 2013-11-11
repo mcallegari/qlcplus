@@ -91,6 +91,14 @@ protected slots:
 
 protected:
     QList<PaletteGenerator *> m_paletteList;
+
+    /********************************************************************
+     * Widgets
+     ********************************************************************/
+protected:
+
+    /** Populate the widgets tree based on selected preset functions */
+    void updateWidgetsTree();
 };
 
 #endif

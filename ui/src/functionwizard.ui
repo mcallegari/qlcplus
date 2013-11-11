@@ -70,7 +70,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="m_tabWidget">
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="m_introTab">
       <attribute name="title">
@@ -322,7 +322,7 @@ p, li { white-space: pre-wrap; }
         </widget>
        </item>
        <item>
-        <widget class="QTreeWidget" name="treeWidget">
+        <widget class="QTreeWidget" name="m_widgetsTree">
          <column>
           <property name="text">
            <string>Widgets</string>

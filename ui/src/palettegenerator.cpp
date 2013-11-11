@@ -35,10 +35,14 @@
 PaletteGenerator::PaletteGenerator(Doc* doc, const QList <Fixture*>& fxList,
                                    PaletteType type, PaletteSubType subType)
         : m_doc(doc)
+        , m_name(QString())
+        , m_type(type)
+        , m_subType(subType)
         , m_fixtures(fxList)
 {
     if (m_fixtures.count() > 0)
     {
+        m_name = typetoString(type);
         m_model = m_fixtures.at(0)->fixtureDef()->model();
         if (type != Undefined)
             createFunctions(type, subType);
@@ -49,6 +53,51 @@ PaletteGenerator::~PaletteGenerator()
 {
     m_scenes.clear();
     m_chasers.clear();
+}
+
+void PaletteGenerator::setName(QString name)
+{
+    m_name = name;
+}
+
+QString PaletteGenerator::name()
+{
+    return m_name;
+}
+
+QString PaletteGenerator::fullName()
+{
+    return m_name + " - " + m_model;
+}
+
+QString PaletteGenerator::model()
+{
+    return m_model;
+}
+
+PaletteGenerator::PaletteType PaletteGenerator::type()
+{
+    return m_type;
+}
+
+PaletteGenerator::PaletteSubType PaletteGenerator::subType()
+{
+    return m_subType;
+}
+
+QString PaletteGenerator::typetoString(PaletteGenerator::PaletteType type)
+{
+    switch(type)
+    {
+        case PrimaryColors: return tr("Primary colors"); break;
+        case SixteenColors: return tr("16 Colors"); break;
+        case Shutter: return tr("Shutter macros");
+        case Gobos: return tr("Gobo macros");
+        case Undefined:
+        default:
+            return tr("Unknown");
+        break;
+    }
 }
 
 QStringList PaletteGenerator::getCapabilities(const Fixture *fixture)
@@ -341,7 +390,7 @@ void PaletteGenerator::createChaser(QString name)
     chaser->setFadeOutSpeed(0);
     chaser->setDurationMode(Chaser::Common);
     chaser->setDuration(10000);
-    chaser->setName(name + " " + tr("Chaser") + " - " + m_model);
+    chaser->setName(name + " " + tr("chaser") + " - " + m_model);
 
     // that's all here. I need to add an empty Chaser cause
     // scene's IDs have not been assigned yet
@@ -416,7 +465,7 @@ void PaletteGenerator::createFunctions(PaletteGenerator::PaletteType type,
         createColorScene(m_magentaList, tr("Magenta scene"), subType);
         createColorScene(m_yellowList, tr("Yellow scene"), subType);
         createColorScene(m_whiteList, tr("White scene"), subType);
-        createChaser(tr("Primary Colors"));
+        createChaser(typetoString(type));
     }
     else if (type == SixteenColors)
     {
@@ -424,16 +473,16 @@ void PaletteGenerator::createFunctions(PaletteGenerator::PaletteType type,
             createRGBCMYScene(m_redList, m_greenList, m_blueList, tr("Scene"), true, subType);
         else if (m_cyanList.size() > 0 && m_magentaList.size() == m_cyanList.size() && m_yellowList.size() ==  m_cyanList.size())
             createRGBCMYScene(m_cyanList, m_magentaList, m_yellowList, tr("Scene"), false, subType);
-        createChaser(tr("16 Colors"));
+        createChaser(typetoString(type));
     }
     else if (type == Gobos)
     {
         createCapabilityScene(m_goboList, subType);
-        createChaser(tr("Gobos"));
+        createChaser(typetoString(type));
     }
     else if (type == Shutter)
     {
         createCapabilityScene(m_shutterList, subType);
-        createChaser(tr("Shutter"));
+        createChaser(typetoString(type));
     }
 }
