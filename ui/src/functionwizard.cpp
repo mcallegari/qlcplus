@@ -97,6 +97,8 @@ void FunctionWizard::accept()
     foreach (PaletteGenerator *palette, m_paletteList)
         palette->addToDoc();
 
+    addWidgetsToVirtualConsole();
+
     QDialog::accept();
 }
 
@@ -160,7 +162,7 @@ QTreeWidgetItem *FunctionWizard::getFixtureGroupItem(QString manufacturer, QStri
     }
     // if we're here then the group doesn't exist. Create it
     QTreeWidgetItem* newGrp = new QTreeWidgetItem(m_fixtureTree);
-    newGrp->setText(KFixtureColumnName, tr("Group %1").arg(m_fixtureTree->topLevelItemCount()));
+    newGrp->setText(KFixtureColumnName, tr("%1 group").arg(model));
     newGrp->setIcon(KFixtureColumnName, QIcon(":/group.png"));
     newGrp->setText(KFixtureColumnManufacturer, manufacturer);
     newGrp->setText(KFixtureColumnModel, model);
@@ -414,6 +416,9 @@ void FunctionWizard::updateWidgetsTree()
         frame->setText(KWidgetName, palette->fullName());
         frame->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::FrameWidget));
         frame->setData(KWidgetName, Qt::UserRole, VCWidget::FrameWidget);
+        frame->setFlags(frame->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsTristate);
+        frame->setCheckState(KWidgetName, Qt::Unchecked);
+
         foreach(Scene *scene, palette->scenes())
         {
             QTreeWidgetItem *item = new QTreeWidgetItem(frame);
@@ -421,6 +426,7 @@ void FunctionWizard::updateWidgetsTree()
             item->setText(KWidgetName, scene->name().remove(toRemove));
             item->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::ButtonWidget));
             item->setData(KWidgetName, Qt::UserRole, VCWidget::ButtonWidget);
+            item->setCheckState(KWidgetName, Qt::Unchecked);
         }
         foreach(Chaser *chaser, palette->chasers())
         {
@@ -429,6 +435,12 @@ void FunctionWizard::updateWidgetsTree()
             item->setText(KWidgetName, chaser->name().remove(toRemove));
             item->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::CueListWidget));
             item->setData(KWidgetName, Qt::UserRole, VCWidget::CueListWidget);
+            item->setCheckState(KWidgetName, Qt::Unchecked);
         }
     }
+}
+
+void FunctionWizard::addWidgetsToVirtualConsole()
+{
+
 }

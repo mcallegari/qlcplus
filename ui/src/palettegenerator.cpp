@@ -230,8 +230,8 @@ void PaletteGenerator::createColorScene(QHash<quint32, quint32> chMap, QString n
     m_scenes.append(scene);
     if (subType == OddEven)
     {
-        evenScene->setName(name + " - " + m_model + tr(" - Even"));
-        oddScene->setName(name + " - " + m_model + tr(" - Odd"));
+        evenScene->setName(tr("%1 - %2 (Even)").arg(name).arg(m_model));
+        oddScene->setName(tr("%1 - %2 (Odd)").arg(name).arg(m_model));
         m_scenes.append(evenScene);
         m_scenes.append(oddScene);
     }
@@ -310,12 +310,12 @@ void PaletteGenerator::createRGBCMYScene(QHash<quint32, quint32> rcMap,
         }
         qDebug() << "color name:" << m_colNames.at(i) << "i:" << i << "count:" << m_colNames.count();
 
-        scene->setName(name + " " + m_colNames.at(i) + " - " + m_model);
+        scene->setName(tr("%1 %2 - %3").arg(name).arg(m_colNames.at(i)).arg(m_model));
         m_scenes.append(scene);
         if (subType == OddEven)
         {
-            evenScene->setName(name + " " + m_colNames.at(i) + " - " + m_model + tr(" - Even"));
-            oddScene->setName(name + " " + m_colNames.at(i) + " - " + m_model + tr(" - Odd"));
+            evenScene->setName(tr("%1 %2 - %3 (Even)").arg(name).arg(m_colNames.at(i)).arg(m_model));
+            oddScene->setName(tr("%1 %2 - %3 (Odd)").arg(name).arg(m_colNames.at(i)).arg(m_model));
             m_scenes.append(evenScene);
             m_scenes.append(oddScene);
         }
@@ -390,7 +390,7 @@ void PaletteGenerator::createChaser(QString name)
     chaser->setFadeOutSpeed(0);
     chaser->setDurationMode(Chaser::Common);
     chaser->setDuration(10000);
-    chaser->setName(name + " " + tr("chaser") + " - " + m_model);
+    chaser->setName(tr("%1 chaser - %2").arg(name).arg(m_model));
 
     // that's all here. I need to add an empty Chaser cause
     // scene's IDs have not been assigned yet

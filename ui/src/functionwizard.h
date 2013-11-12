@@ -99,6 +99,8 @@ protected:
 
     /** Populate the widgets tree based on selected preset functions */
     void updateWidgetsTree();
+
+    void addWidgetsToVirtualConsole();
 };
 
 #endif
