@@ -63,6 +63,7 @@ INSTALL_ROOT=$RPM_BUILD_ROOT make install
 /usr/share/pixmaps/qlcplus-fixtureeditor.png
 /usr/share/qlcplus/fixtures/*
 /usr/share/qlcplus/inputprofiles/*
+/usr/share/qlcplus/rgbscripts/*
 /usr/share/qlcplus/Sample.qxw
 /usr/share/mime/packages/qlcplus.xml
 %doc /usr/share/qlcplus/documents/*
