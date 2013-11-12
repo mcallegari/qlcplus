@@ -3,7 +3,6 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 INCLUDEPATH += ../../interfaces
 INCLUDEPATH += ../../../engine/src
 INCLUDEPATH += ../common
-INCLUDEPATH += ../../../engine/src
 DEPENDPATH  += ../common
 
 CONFIG  += qt
