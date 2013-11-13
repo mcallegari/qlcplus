@@ -74,6 +74,7 @@ private slots:
     void slotFontButtonClicked();
     void slotAnimationActivated(const QString& text);
     void slotOffsetSpinChanged();
+    void slotPreferIntensityChannelsChanged(int state);
 
     void slotLoopClicked();
     void slotPingPongClicked();

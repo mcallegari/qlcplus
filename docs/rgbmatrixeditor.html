@@ -78,6 +78,20 @@ The RGB matrix editor, as its name suggests, is used to edit
  </TR>
  <TR>
   <TD>
+   <B>Intensity</B>
+  </TD>
+  <TD>
+   <P>This checkbox is useful for fixtures that have both RGB/CMY channels and an intensity channel and you want to do some effects with intensity.</P>
+   <UL>
+    <LI>When NOT checked: QLC+ tries to set color of the fixture head (either RGB or CMY, whichever is available). For monochrome/fixed color fixtures (e.g. PAR cans), it sets intensity.</LI>
+    <LI>When checked: it's the other way round: if the head has intensity channel, it is used. Otherwise the color channels are used.</LI>
+   </UL>
+   <P><B>Tip:</B> Create scenes/buttons for various colors, and create RGB Matrix (e.g. Full Column) with this checkbox checked and white color.
+   Now you can change the color of the RGB Matrix in operate mode with those color buttons. Obviously, you'll need fixtures with both RGB and intensity channel (e.g. LED PAR).</P>
+  </TD>
+ </TR>
+ <TR>
+  <TD>
    <B>Run Order</B>
   </TD>
   <TD>

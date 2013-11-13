@@ -153,6 +153,8 @@ void RGBMatrixEditor::init()
         pm.fill(Qt::transparent);
     m_endColorButton->setIcon(QIcon(pm));
 
+    m_preferIntensityChannels->setChecked(m_matrix->preferIntensityChannels());
+
     connect(m_nameEdit, SIGNAL(textEdited(const QString&)),
             this, SLOT(slotNameEdited(const QString&)));
     connect(m_speedDialButton, SIGNAL(toggled(bool)),
@@ -175,6 +177,8 @@ void RGBMatrixEditor::init()
             this, SLOT(slotOffsetSpinChanged()));
     connect(m_yOffsetSpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotOffsetSpinChanged()));
+    connect(m_preferIntensityChannels, SIGNAL(stateChanged(int)),
+            this, SLOT(slotPreferIntensityChannelsChanged(int)));
 
     connect(m_loop, SIGNAL(clicked()), this, SLOT(slotLoopClicked()));
     connect(m_pingPong, SIGNAL(clicked()), this, SLOT(slotPingPongClicked()));
@@ -535,6 +539,12 @@ void RGBMatrixEditor::slotOffsetSpinChanged()
         algo->setYOffset(m_yOffsetSpin->value());
         slotRestartTest();
     }
+}
+
+void RGBMatrixEditor::slotPreferIntensityChannelsChanged(int state)
+{
+    m_matrix->setPreferIntensityChannels(state == Qt::Checked);
+    slotRestartTest();
 }
 
 void RGBMatrixEditor::slotLoopClicked()
