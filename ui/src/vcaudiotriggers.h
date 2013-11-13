@@ -148,8 +148,10 @@ public:
      * Configuration
      *************************************************************************/
 public:
+
+    static int volumeBarIndex() { return 1000; }
+
     /** Get a pointer to a single AudioBar by index.
-     *  Note that volume bar has index = 1000
      */
     AudioBar *getSpectrumBar(int index);
 
