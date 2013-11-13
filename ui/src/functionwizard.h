@@ -29,6 +29,7 @@
 #include "function.h"
 
 class QLCChannel;
+class VCWidget;
 class Fixture;
 class Scene;
 class Doc;
@@ -99,6 +100,8 @@ protected:
 
     /** Populate the widgets tree based on selected preset functions */
     void updateWidgetsTree();
+
+    VCWidget *createWidget(int type, VCWidget *parent, int xpos, int ypos);
 
     void addWidgetsToVirtualConsole();
 };

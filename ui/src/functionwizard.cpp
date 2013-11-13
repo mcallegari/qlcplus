@@ -25,7 +25,10 @@
 #include "palettegenerator.h"
 #include "fixtureselection.h"
 #include "functionwizard.h"
+#include "virtualconsole.h"
 #include "vcwidget.h"
+#include "vcbutton.h"
+#include "vcframe.h"
 #include "fixture.h"
 #include "chaser.h"
 #include "scene.h"
@@ -98,6 +101,8 @@ void FunctionWizard::accept()
         palette->addToDoc();
 
     addWidgetsToVirtualConsole();
+
+    m_doc->setModified();
 
     QDialog::accept();
 }
@@ -440,7 +445,117 @@ void FunctionWizard::updateWidgetsTree()
     }
 }
 
+VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int ypos)
+{
+    VirtualConsole *vc = VirtualConsole::instance();
+    VCWidget *widget = NULL;
+
+    if (parent == NULL)
+        return NULL;
+
+    switch(type)
+    {
+        case VCWidget::FrameWidget:
+        {
+            VCFrame* frame = new VCFrame(parent, m_doc, true);
+            vc->setupWidget(frame, parent);
+            frame->move(QPoint(xpos, ypos));
+            widget = frame;
+        }
+        break;
+        case VCWidget::ButtonWidget:
+        {
+            VCButton* button = new VCButton(parent, m_doc);
+            vc->setupWidget(button, parent);
+            button->move(QPoint(xpos, ypos));
+            widget = button;
+        }
+        break;
+        default:
+        break;
+    }
+
+    return widget;
+}
+
 void FunctionWizard::addWidgetsToVirtualConsole()
 {
+    int xPos = 10;
+    int yPos = 10;
 
+    VirtualConsole *vc = VirtualConsole::instance();
+    VCFrame *mainFrame = vc->contents();
+    Q_ASSERT(mainFrame != NULL);
+
+    for (int i = 0; i < m_widgetsTree->topLevelItemCount(); i++)
+    {
+        QTreeWidgetItem *wItem = m_widgetsTree->topLevelItem(i);
+        int frameWidth = 100;
+        int frameHeight = 50;
+
+        if (wItem->checkState(KWidgetName) == Qt::Checked)
+        {
+            PaletteGenerator *pal = NULL;
+            int wType = wItem->data(KWidgetName, Qt::UserRole).toInt();
+            VCWidget *widget = createWidget(wType, mainFrame, xPos, yPos);
+            if (widget == NULL)
+                continue;
+            widget->resize(QSize(1000, 1000));
+
+            if (i >= 0 && i < m_paletteList.count())
+            {
+                pal = m_paletteList.at(i);
+                widget->setCaption(pal->name());
+            }
+
+            int subX = 10, subY = 40;
+            QList <Scene *> sceneList = pal->scenes();
+
+            for (int c = 0; c < wItem->childCount(); c++)
+            {
+                QTreeWidgetItem *childItem = wItem->child(c);
+
+                if (childItem->checkState(KWidgetName) == Qt::Checked)
+                {
+                    int cType = childItem->data(KWidgetName, Qt::UserRole).toInt();
+                    VCWidget *childWidget = createWidget(cType, widget, subX, subY);
+                    if (childWidget != NULL)
+                    {
+                        Scene *scene = NULL;
+                        if (c >= 0 && c < sceneList.count())
+                            scene = sceneList.at(c);
+                        if (scene != NULL)
+                        {
+                            childWidget->setCaption(scene->name());
+                            QColor col = scene->colorValue();
+                            if (col.isValid())
+                                childWidget->setBackgroundColor(col);
+                            if (cType == VCWidget::ButtonWidget)
+                            {
+                                VCButton *btn = (VCButton *)childWidget;
+                                btn->setFunction(scene->id());
+                            }
+                        }
+
+                        if (subX + childWidget->width() > frameWidth)
+                            frameWidth = subX + childWidget->width() + 10;
+                        if (subY + childWidget->height() > frameHeight)
+                            frameHeight = subY + childWidget->height() + 10;
+
+                        if (c > 0 && (c + 1)%4 == 0)
+                        {
+                            subX = 10;
+                            subY += childWidget->height() + 10;
+                        }
+                        else
+                            subX += childWidget->width() + 10;
+
+                    }
+                }
+            }
+
+            widget->resize(QSize(frameWidth, frameHeight));
+            xPos += widget->width() + 10;
+        }
+    }
 }

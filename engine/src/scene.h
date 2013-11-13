@@ -120,6 +120,13 @@ public:
     QList <SceneValue> values() const;
 
     /**
+     * Try to retrieve a RGB/CMY color if the Scene has RGB/CMY channels set.
+     * A fixture ID can be specified to retrieve a single fixture color.
+     * If none, an empty color will be returned.
+     */
+    QColor colorValue(quint32 fxi = Fixture::invalidId());
+
+    /**
      * Clear all values
      */
     void clear();
