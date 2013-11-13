@@ -30,7 +30,7 @@ class PaletteGenerator_Test : public QObject
 private slots:
     void initTestCase();
     void initial();
-    void findChannels();
+    void capabilities();
     void createColours();
     void createGobos();
     void createShutters();

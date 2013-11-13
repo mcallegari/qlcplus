@@ -24,8 +24,12 @@
 #include <QList>
 
 #include "ui_functionwizard.h"
+#include "palettegenerator.h"
+#include "scenevalue.h"
+#include "function.h"
 
 class QLCChannel;
+class VCWidget;
 class Fixture;
 class Scene;
 class Doc;
@@ -39,9 +43,12 @@ public:
     ~FunctionWizard();
 
 protected slots:
-    void slotAddClicked();
-    void slotRemoveClicked();
+    void slotNextPageClicked();
+    void slotTabClicked();
     void accept();
+
+private:
+    void checkTabsAndButtons();
 
 private:
     Doc* m_doc;
@@ -50,14 +57,53 @@ private:
      * Fixtures
      ********************************************************************/
 protected:
+    /** Create or retrieve an existing item to group fixtures of the same type */
+    QTreeWidgetItem *getFixtureGroupItem(QString manufacturer, QString model);
+
     /** Add a fixture to the tree widget */
     void addFixture(quint32 fxi_id);
 
-    /** Get a list of currently selected fixtures */
-    QList <Fixture*> fixtures() const;
-
     /** Get a list of currently selected fixture ids */
     QList <quint32> fixtureIds() const;
+
+protected slots:
+    void slotAddClicked();
+    void slotRemoveClicked();
+
+    /********************************************************************
+     * Functions
+     ********************************************************************/
+protected:
+
+    void addFunctionsGroup(QTreeWidgetItem *fxGrpItem, QTreeWidgetItem *grpItem,
+                           QString name, PaletteGenerator::PaletteType type);
+
+    /** Populate the available functions tree based on the available fixtures */
+    void updateAvailableFunctionsTree();
+
+    /** Create or retrieve an existing item to group functions of the same type */
+    QTreeWidgetItem *getFunctionGroupItem(Function::Type type);
+
+    /** Populate the result functions tree based on selected preset functions */
+    void updateResultFunctionsTree();
+
+protected slots:
+    void slotFunctionItemChanged(QTreeWidgetItem* item, int col);
+
+protected:
+    QList<PaletteGenerator *> m_paletteList;
+
+    /********************************************************************
+     * Widgets
+     ********************************************************************/
+protected:
+
+    /** Populate the widgets tree based on selected preset functions */
+    void updateWidgetsTree();
+
+    VCWidget *createWidget(int type, VCWidget *parent, int xpos, int ypos, Function *func);
+
+    void addWidgetsToVirtualConsole();
 };
 
 #endif

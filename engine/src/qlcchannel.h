@@ -32,6 +32,14 @@
 #define KXMLQLCChannelGroupByte QString("Byte")
 #define KXMLQLCChannelColour    QString("Colour")
 
+/* Compound strings used by PaletteGenerator to identify
+ * special fixture modes
+ */
+#define KQLCChannelMovement  QString("Movement")
+#define KQLCChannelRGB       QString("RGB")
+#define KQLCChannelCMY       QString("CMY")
+#define KQLCChannelWhite     QString("White")
+
 class QFile;
 class QString;
 class QDomDocument;

@@ -30,9 +30,10 @@
 #include "doc.h"
 
 #define KColumnName         0
-#define KColumnHeads        1
-#define KColumnManufacturer 2
-#define KColumnModel        3
+#define KColumnUniverse     1
+#define KColumnHeads        2
+#define KColumnManufacturer 3
+#define KColumnModel        4
 
 #define PROP_ID             Qt::UserRole
 #define PROP_HEAD           Qt::UserRole + 1
@@ -144,6 +145,8 @@ void FixtureSelection::fillTree()
         QTreeWidgetItem* item = new QTreeWidgetItem(m_tree);
         item->setData(0, PROP_ID, fixture->id());
         item->setText(KColumnName, fixture->name());
+        item->setIcon(KColumnName, fixture->getIconFromType(fixture->type()));
+        item->setText(KColumnUniverse, QString::number(fixture->universe() + 1));
         item->setText(KColumnHeads, QString::number(fixture->heads()));
 
         if (fixture->fixtureDef() == NULL)
@@ -196,10 +199,11 @@ void FixtureSelection::fillTree()
     }
     else
     {
-        m_tree->sortItems(KColumnName, Qt::AscendingOrder);
+        m_tree->sortItems(KColumnUniverse, Qt::AscendingOrder);
         m_buttonBox->setStandardButtons(QDialogButtonBox::Cancel);
     }
     m_tree->resizeColumnToContents(KColumnName);
+    m_tree->resizeColumnToContents(KColumnUniverse);
     m_tree->resizeColumnToContents(KColumnHeads);
     m_tree->resizeColumnToContents(KColumnManufacturer);
     m_tree->resizeColumnToContents(KColumnModel);

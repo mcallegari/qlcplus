@@ -21,7 +21,6 @@ SUBDIRS += intensitygenerator
 SUBDIRS += mastertimer
 SUBDIRS += outputmap
 SUBDIRS += outputpatch
-SUBDIRS += palettegenerator
 SUBDIRS += qlccapability
 SUBDIRS += qlcchannel
 SUBDIRS += qlcfile

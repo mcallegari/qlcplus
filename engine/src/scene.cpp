@@ -170,6 +170,55 @@ QList <SceneValue> Scene::values() const
     return m_values;
 }
 
+QColor Scene::colorValue(quint32 fxi)
+{
+    int rVal = 0, gVal = 0, bVal = 0;
+    int cVal = -1, mVal = -1, yVal = -1;
+    bool found = false;
+    QColor CMYcol;
+
+    foreach(SceneValue scv, m_values)
+    {
+        if (fxi != Fixture::invalidId() && fxi != scv.fxi)
+            continue;
+
+        Fixture *fixture = doc()->fixture(scv.fxi);
+        if (fixture == NULL)
+            continue;
+
+        const QLCChannel* channel(fixture->channel(scv.channel));
+        if (channel->group() == QLCChannel::Intensity)
+        {
+            QLCChannel::PrimaryColour col = channel->colour();
+            switch (col)
+            {
+                case QLCChannel::Red: rVal = scv.value; found = true; break;
+                case QLCChannel::Green: gVal = scv.value; found = true; break;
+                case QLCChannel::Blue: bVal = scv.value; found = true; break;
+                case QLCChannel::Cyan: cVal = scv.value; break;
+                case QLCChannel::Magenta: mVal = scv.value; break;
+                case QLCChannel::Yellow: yVal = scv.value; break;
+                case QLCChannel::White: rVal = gVal = bVal = scv.value; found = true; break;
+                default: break;
+            }
+        }
+
+        if (cVal >= 0 && mVal >= 0 && yVal >= 0)
+        {
+            CMYcol.setCmyk(cVal, mVal, yVal, 0);
+            rVal = CMYcol.red();
+            gVal = CMYcol.green();
+            bVal = CMYcol.blue();
+            found = true;
+        }
+    }
+
+    if (found)
+        return QColor(rVal, gVal, bVal);
+
+    return QColor();
+}
+
 void Scene::clear()
 {
     m_values.clear();

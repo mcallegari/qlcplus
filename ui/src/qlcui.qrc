@@ -125,6 +125,7 @@
         <file alias="up.png">../../gfx/up.png</file>
         <file alias="virtualconsole.png">../../gfx/virtualconsole.png</file>
         <file alias="wizard.png">../../gfx/wizard.png</file>
+        <file alias="wizard_256.png">../../gfx/wizard_256.png</file>
         <file alias="xypad-point.png">../../gfx/xypad-point.png</file>
         <file alias="xypad.png">../../gfx/xypad.png</file>
     </qresource>
