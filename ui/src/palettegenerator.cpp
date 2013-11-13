@@ -43,7 +43,8 @@ PaletteGenerator::PaletteGenerator(Doc* doc, const QList <Fixture*>& fxList,
     if (m_fixtures.count() > 0)
     {
         m_name = typetoString(type);
-        m_model = m_fixtures.at(0)->fixtureDef()->model();
+        if (m_fixtures.at(0)->fixtureDef() != NULL)
+            m_model = m_fixtures.at(0)->fixtureDef()->model();
         if (type != Undefined)
             createFunctions(type, subType);
     }
@@ -93,6 +94,7 @@ QString PaletteGenerator::typetoString(PaletteGenerator::PaletteType type)
         case SixteenColors: return tr("16 Colors"); break;
         case Shutter: return tr("Shutter macros");
         case Gobos: return tr("Gobo macros");
+        case ColorMacro: return tr("Color macros");
         case Undefined:
         default:
             return tr("Unknown");
@@ -416,6 +418,7 @@ void PaletteGenerator::createFunctions(PaletteGenerator::PaletteType type,
     QHash<quint32, quint32> m_whiteList;
     QHash<quint32, quint32> m_goboList;
     QHash<quint32, quint32> m_shutterList;
+    QHash<quint32, quint32> m_colorMacroList;
 
     for(int i = 0; i < m_fixtures.count(); i++)
     {
@@ -434,6 +437,7 @@ void PaletteGenerator::createFunctions(PaletteGenerator::PaletteType type,
                 case QLCChannel::Tilt: m_tiltList[fxID] = ch; break;
                 case QLCChannel::Gobo: m_goboList[fxID] = ch; break;
                 case QLCChannel::Shutter: m_shutterList[fxID] = ch; break;
+                case QLCChannel::Colour: m_colorMacroList[fxID] = ch; break;
                 case QLCChannel::Intensity:
                 {
                     QLCChannel::PrimaryColour col = channel->colour();
@@ -485,4 +489,10 @@ void PaletteGenerator::createFunctions(PaletteGenerator::PaletteType type,
         createCapabilityScene(m_shutterList, subType);
         createChaser(typetoString(type));
     }
+    else if (type == ColorMacro)
+    {
+        createCapabilityScene(m_colorMacroList, subType);
+        createChaser(typetoString(type));
+    }
+
 }

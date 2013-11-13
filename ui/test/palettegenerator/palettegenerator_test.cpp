@@ -61,7 +61,7 @@ void PaletteGenerator_Test::initial()
     QCOMPARE(pg.m_scenes.size(), 0);
 }
 
-void PaletteGenerator_Test::findChannels()
+void PaletteGenerator_Test::capabilities()
 {
     Doc doc(this);
 
@@ -75,23 +75,25 @@ void PaletteGenerator_Test::findChannels()
     Fixture* fxi = new Fixture(&doc);
     fxi->setFixtureDefinition(fixtureDef, fixtureMode);
 
-    QList <quint32> chs;
-    chs = PaletteGenerator::findChannels(fxi, QLCChannel::Colour);
-    QCOMPARE(chs.size(), 1);
-    chs = PaletteGenerator::findChannels(fxi, QLCChannel::Gobo);
-    QCOMPARE(chs.size(), 1);
-    chs = PaletteGenerator::findChannels(fxi, QLCChannel::Intensity);
-    QCOMPARE(chs.size(), 1);
+    QStringList caps = PaletteGenerator::getCapabilities(fxi);
+    QCOMPARE(caps.count(), 3);
+    QCOMPARE(caps.at(0), QLCChannel::groupToString(QLCChannel::Colour));
+    QCOMPARE(caps.at(1), QLCChannel::groupToString(QLCChannel::Gobo));
+    QCOMPARE(caps.at(2), KQLCChannelMovement);
 
     fixtureDef = m_fixtureDefCache.fixtureDef("Martin", "MAC300");
     Q_ASSERT(fixtureDef != NULL);
     fixtureMode = fixtureDef->modes().at(0);
     Q_ASSERT(fixtureMode != NULL);
-    chs = PaletteGenerator::findChannels(fxi, QLCChannel::Gobo);
-    QCOMPARE(chs.size(), 1);
-    chs = PaletteGenerator::findChannels(fxi, QLCChannel::Colour);
-    // MAC300 has 4 colour channels but only one with a fixed colour wheel
-    QCOMPARE(chs.size(), 1);
+
+    fxi->setFixtureDefinition(fixtureDef, fixtureMode);
+
+    QStringList caps2 = PaletteGenerator::getCapabilities(fxi);
+    QCOMPARE(caps2.count(), 4);
+    QCOMPARE(caps2.at(0), QLCChannel::groupToString(QLCChannel::Shutter));
+    QCOMPARE(caps2.at(1), QLCChannel::groupToString(QLCChannel::Colour));
+    QCOMPARE(caps2.at(2), KQLCChannelMovement);
+    QCOMPARE(caps2.at(3), KQLCChannelCMY);
 }
 
 void PaletteGenerator_Test::createColours()
@@ -116,9 +118,9 @@ void PaletteGenerator_Test::createColours()
     list << fxi2;
     doc.addFixture(fxi2);
 
-    PaletteGenerator pg(&doc, list);
-    pg.createColours();
-    QCOMPARE(doc.functions().size(), 10); // 10 colours
+    PaletteGenerator pg(&doc, list, PaletteGenerator::ColorMacro);
+    pg.addToDoc();
+    QCOMPARE(doc.functions().size(), 11); // 10 colours
     for (quint32 i = 0; i < 10; i++)
     {
         Scene* s = qobject_cast<Scene*> (doc.function(i));
@@ -153,9 +155,9 @@ void PaletteGenerator_Test::createGobos()
     list << fxi2;
     doc.addFixture(fxi2);
 
-    PaletteGenerator pg(&doc, list);
-    pg.createGobos();
-    QCOMPARE(doc.functions().size(), 10); // 10 "gobos"
+    PaletteGenerator pg(&doc, list, PaletteGenerator::Gobos);
+    pg.addToDoc();
+    QCOMPARE(doc.functions().size(), 11); // 10 "gobos"
     for (quint32 i = 0; i < 10; i++)
     {
         Scene* s = qobject_cast<Scene*> (doc.function(i));
@@ -190,11 +192,11 @@ void PaletteGenerator_Test::createShutters()
     list << fxi2;
     doc.addFixture(fxi2);
 
-    PaletteGenerator pg(&doc, list);
-    pg.createShutters();
+    PaletteGenerator pg(&doc, list, PaletteGenerator::Shutter);
+    pg.addToDoc();
     // There are 19 shutter capabilities, but "Shutter open" happens with multiple values
-    QCOMPARE(doc.functions().size(), 13);
-    for (quint32 i = 0; i < 13; i++)
+    QCOMPARE(doc.functions().size(), 20);
+    for (quint32 i = 0; i < 19; i++)
     {
         Scene* s = qobject_cast<Scene*> (doc.function(i));
         QVERIFY(s != NULL);

@@ -49,7 +49,8 @@ public:
         PrimaryColors,
         SixteenColors,
         Shutter,
-        Gobos
+        Gobos,
+        ColorMacro
     };
 
     enum PaletteSubType

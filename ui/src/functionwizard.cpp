@@ -311,6 +311,8 @@ void FunctionWizard::updateAvailableFunctionsTree()
                 addFunctionsGroup(fxGrpItem, grpItem, tr("Gobos"), PaletteGenerator::Gobos);
             else if (cap == QLCChannel::groupToString(QLCChannel::Shutter))
                 addFunctionsGroup(fxGrpItem, grpItem, tr("Shutters"), PaletteGenerator::Shutter);
+            else if (cap == QLCChannel::groupToString(QLCChannel::Colour))
+                addFunctionsGroup(fxGrpItem, grpItem, tr("Color macros"), PaletteGenerator::ColorMacro);
         }
     }
 
