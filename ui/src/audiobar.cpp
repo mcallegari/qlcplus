@@ -4,19 +4,17 @@
 
   Copyright (c) Massimo Callegari
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QtXml>
@@ -25,6 +23,7 @@
 #include "vcbutton.h"
 #include "vcslider.h"
 #include "vcspeeddial.h"
+#include "virtualconsole.h"
 
 AudioBar::AudioBar(int t, uchar v)
 {
@@ -35,6 +34,7 @@ AudioBar::AudioBar(int t, uchar v)
     m_absDmxChannels.clear();
     m_function = NULL;
     m_widget = NULL;
+    m_widgetID = VCWidget::invalidId();
     m_minThreshold = 51; // 20%
     m_maxThreshold = 204; // 80%
     m_divisor = 1;
@@ -63,6 +63,25 @@ AudioBar *AudioBar::createCopy()
 void AudioBar::setName(QString nme)
 {
     m_name = nme;
+}
+
+void AudioBar::setType(int type)
+{
+    m_type = type;
+    if (m_type == None)
+    {
+        m_value = 0;
+        m_tapped = false;
+        m_dmxChannels.clear();
+        m_absDmxChannels.clear();
+        m_function = NULL;
+        m_widget = NULL;
+        m_widgetID = VCWidget::invalidId();
+        m_minThreshold = 51; // 20%
+        m_maxThreshold = 204; // 80%
+        m_divisor = 1;
+        m_skippedBeats = 0;
+    }
 }
 
 void AudioBar::setMinThreshold(uchar value)
@@ -107,14 +126,15 @@ void AudioBar::attachFunction(Function *func)
     }
 }
 
-void AudioBar::attachWidget(VCWidget *widget)
+void AudioBar::attachWidget(quint32 wID)
 {
-    if (widget != NULL)
-    {
-        qDebug() << Q_FUNC_INFO << "Attaching widget:" << widget->caption();
-        m_widget = widget;
-        m_tapped = false;
-    }
+    if (wID == VCWidget::invalidId())
+        return;
+
+    qDebug() << Q_FUNC_INFO << "Attaching widget with ID" << wID;
+    m_widgetID = wID;
+    m_widget = NULL;
+    m_tapped = false;
 }
 
 void AudioBar::checkFunctionThresholds(Doc *doc)
@@ -129,8 +149,15 @@ void AudioBar::checkFunctionThresholds(Doc *doc)
 
 void AudioBar::checkWidgetFunctionality()
 {
-    if (m_widget == NULL)
+    if (m_widgetID == VCWidget::invalidId())
         return;
+
+    if (m_widget == NULL)
+    {
+        m_widget = VirtualConsole::instance()->widget(m_widgetID);
+        if (m_widget == NULL)
+            return;
+    }
 
     if (m_widget->type() == VCWidget::ButtonWidget)
     {
@@ -170,7 +197,7 @@ void AudioBar::debugInfo()
 
 }
 
-bool AudioBar::loadXML(const QDomElement &root)
+bool AudioBar::loadXML(const QDomElement &root, Doc *doc)
 {
     if (root.hasAttribute(KXMLQLCAudioBarName))
         m_name = root.attribute(KXMLQLCAudioBarName);
@@ -193,13 +220,14 @@ bool AudioBar::loadXML(const QDomElement &root)
                     QString dmxValues = tag.text();
                     if (dmxValues.isEmpty() == false)
                     {
-                        m_dmxChannels.clear();
+                        QList<SceneValue> channels;
                         QStringList varray = dmxValues.split(",");
                         for (int i = 0; i < varray.count(); i+=2)
                         {
-                            m_dmxChannels.append(SceneValue(QString(varray.at(i)).toUInt(),
+                            channels.append(SceneValue(QString(varray.at(i)).toUInt(),
                                                          QString(varray.at(i + 1)).toUInt(), 0));
                         }
+                        attachDmxChannels(doc, channels);
                     }
                 }
             }

@@ -9,6 +9,8 @@ usr/share/qlcplus/fixtures/*
 usr/share/qlcplus/inputprofiles/*
 usr/share/qlcplus/translations/*
 usr/share/qlcplus/gobos/*
+usr/share/qlcplus/rgbscripts/*
+usr/share/qlcplus/Sample.qxw
 usr/share/mime/packages/qlcplus.xml
 
 # Plugins

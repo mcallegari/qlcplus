@@ -3,20 +3,19 @@
   functionmanager.cpp
 
   Copyright (C) Heikki Junnila
+  Copyright (C) Massimo Callegari
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QTreeWidgetItemIterator>
@@ -37,6 +36,7 @@
 #include <QList>
 #include <QIcon>
 
+#include "functionstreewidget.h"
 #include "collectioneditor.h"
 #include "functionmanager.h"
 #include "rgbmatrixeditor.h"
@@ -61,8 +61,8 @@
 #include "efx.h"
 #include <QFileDialog>
 
-#define PROP_ID Qt::UserRole
 #define COL_NAME 0
+#define COL_PATH 1
 
 #define SETTINGS_SPLITTER "functionmanager/splitter"
 
@@ -87,6 +87,7 @@ FunctionManager::FunctionManager(QWidget* parent, Doc* doc)
     , m_addScriptAction(NULL)
     , m_addAudioAction(NULL)
     , m_wizardAction(NULL)
+    , m_addFolderAction(NULL)
     , m_cloneAction(NULL)
     , m_deleteAction(NULL)
     , m_selectAllAction(NULL)
@@ -108,9 +109,7 @@ FunctionManager::FunctionManager(QWidget* parent, Doc* doc)
     updateActionStatus();
 
     connect(m_doc, SIGNAL(modeChanged(Doc::Mode)), this, SLOT(slotModeChanged()));
-    updateTree();
-
-    m_tree->sortItems(COL_NAME, Qt::AscendingOrder);
+    m_tree->updateTree();
 
     connect(m_doc, SIGNAL(cleared()), this, SLOT(slotDocClearing()));
     connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
@@ -146,7 +145,7 @@ void FunctionManager::slotModeChanged()
 void FunctionManager::slotDocClearing()
 {
     deleteCurrentEditor();
-    m_tree->clear();
+    m_tree->clearTree();
 }
 
 void FunctionManager::slotDocLoaded()
@@ -157,15 +156,18 @@ void FunctionManager::slotDocLoaded()
         Chaser *chaser = qobject_cast<Chaser *>(f);
         if (chaser->isSequence() && chaser->getBoundSceneID() != Scene::invalidId())
         {
-            Function *f = m_doc->function(chaser->getBoundSceneID());
-            Scene *s = qobject_cast<Scene*>(f);
+            Function *sceneFunc = m_doc->function(chaser->getBoundSceneID());
+            Q_ASSERT(sceneFunc != NULL);
+
+            Scene *scene = qobject_cast<Scene*>(sceneFunc);
+            scene->setChildrenFlag(true);
             int i = 0;
             foreach(ChaserStep step, chaser->steps())
             {
                 // Since I saved only the non-zero values in the XML files, at the first chance I need
                 // to fix the values against the bound scene, and restore all the zero values previously there
                 //qDebug() << Q_FUNC_INFO << "Scene values: " << s->values().count() << ", step values: " <<  step.values.count();
-                if (s->values().count() != step.values.count())
+                if (scene->values().count() != step.values.count())
                 {
                     int j = 0;
                     // 1- copy the list
@@ -173,7 +175,7 @@ void FunctionManager::slotDocLoaded()
                     // 2- clear it
                     step.values.clear();
                     // 3- fix it
-                    QListIterator <SceneValue> it(s->values());
+                    QListIterator <SceneValue> it(scene->values());
                     while (it.hasNext() == true)
                     {
                         SceneValue scv(it.next());
@@ -194,23 +196,12 @@ void FunctionManager::slotDocLoaded()
 
 void FunctionManager::slotFunctionChanged(quint32 id)
 {
-    Function* function = m_doc->function(id);
-    if (function == NULL)
-        return;
-
-    QTreeWidgetItem* item = functionItem(function);
-    if (item != NULL)
-        updateFunctionItem(item, function);
+    m_tree->functionChanged(id);
 }
 
 void FunctionManager::slotFunctionAdded(quint32 id)
 {
-    Function* function = m_doc->function(id);
-    if (function == NULL)
-        return;
-
-    QTreeWidgetItem* item = new QTreeWidgetItem(parentItem(function));
-    updateFunctionItem(item, function);
+    m_tree->functionAdded(id);
 }
 
 void FunctionManager::showEvent(QShowEvent* ev)
@@ -283,6 +274,12 @@ void FunctionManager::initActions()
     connect(m_addAudioAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddAudio()));
 
+    m_addFolderAction = new QAction(QIcon(":/folder.png"),
+                                   tr("New fo&lder"), this);
+    m_addFolderAction->setShortcut(QKeySequence("CTRL+L"));
+    connect(m_addFolderAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotAddFolder()));
+
     m_wizardAction = new QAction(QIcon(":/wizard.png"),
                                  tr("Function &Wizard"), this);
     m_wizardAction->setShortcut(QKeySequence("CTRL+W"));
@@ -325,6 +322,8 @@ void FunctionManager::initToolbar()
     m_toolbar->addAction(m_addScriptAction);
     m_toolbar->addAction(m_addAudioAction);
     m_toolbar->addSeparator();
+    m_toolbar->addAction(m_addFolderAction);
+    m_toolbar->addSeparator();
     m_toolbar->addAction(m_wizardAction);
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_cloneAction);
@@ -337,7 +336,7 @@ void FunctionManager::slotAddScene()
     Function* f = new Scene(m_doc);
     if (m_doc->addFunction(f) == true)
     {
-        QTreeWidgetItem* item = functionItem(f);
+        QTreeWidgetItem* item = m_tree->functionItem(f);
         Q_ASSERT(item != NULL);
         f->setName(QString("%1 %2").arg(tr("New Scene")).arg(f->id()));
         m_tree->scrollToItem(item);
@@ -350,7 +349,7 @@ void FunctionManager::slotAddChaser()
     Function* f = new Chaser(m_doc);
     if (m_doc->addFunction(f) == true)
     {
-        QTreeWidgetItem* item = functionItem(f);
+        QTreeWidgetItem* item = m_tree->functionItem(f);
         Q_ASSERT(item != NULL);
         f->setName(QString("%1 %2").arg(tr("New Chaser")).arg(f->id()));
         m_tree->scrollToItem(item);
@@ -365,15 +364,15 @@ void FunctionManager::slotAddSequence()
     if (selection.size() == 1)
     {
         Chaser *chs = qobject_cast<Chaser*>(f);
-        Scene *boundScene = qobject_cast<Scene*>(m_doc->function(itemFunctionId(selection.first())));
+        Scene *boundScene = qobject_cast<Scene*>(m_doc->function(m_tree->itemFunctionId(selection.first())));
         boundScene->setChildrenFlag(true);
-        chs->enableSequenceMode(itemFunctionId(selection.first()));
+        chs->enableSequenceMode(m_tree->itemFunctionId(selection.first()));
         chs->setRunOrder(Function::SingleShot);
     }
 
     if (m_doc->addFunction(f) == true)
     {
-        QTreeWidgetItem* item = functionItem(f);
+        QTreeWidgetItem* item = m_tree->functionItem(f);
         Q_ASSERT(item != NULL);
         f->setName(QString("%1 %2").arg(tr("New Sequence")).arg(f->id()));
         m_tree->scrollToItem(item);
@@ -386,7 +385,7 @@ void FunctionManager::slotAddCollection()
     Function* f = new Collection(m_doc);
     if (m_doc->addFunction(f) == true)
     {
-        QTreeWidgetItem* item = functionItem(f);
+        QTreeWidgetItem* item = m_tree->functionItem(f);
         Q_ASSERT(item != NULL);
         f->setName(QString("%1 %2").arg(tr("New Collection")).arg(f->id()));
         m_tree->scrollToItem(item);
@@ -399,7 +398,7 @@ void FunctionManager::slotAddEFX()
     Function* f = new EFX(m_doc);
     if (m_doc->addFunction(f) == true)
     {
-        QTreeWidgetItem* item = functionItem(f);
+        QTreeWidgetItem* item = m_tree->functionItem(f);
         Q_ASSERT(item != NULL);
         f->setName(QString("%1 %2").arg(tr("New EFX")).arg(f->id()));
         m_tree->scrollToItem(item);
@@ -412,7 +411,7 @@ void FunctionManager::slotAddRGBMatrix()
     Function* f = new RGBMatrix(m_doc);
     if (m_doc->addFunction(f) == true)
     {
-        QTreeWidgetItem* item = functionItem(f);
+        QTreeWidgetItem* item = m_tree->functionItem(f);
         Q_ASSERT(item != NULL);
         f->setName(QString("%1 %2").arg(tr("New RGB Matrix")).arg(f->id()));
         m_tree->scrollToItem(item);
@@ -425,7 +424,7 @@ void FunctionManager::slotAddScript()
     Function* f = new Script(m_doc);
     if (m_doc->addFunction(f) == true)
     {
-        QTreeWidgetItem* item = functionItem(f);
+        QTreeWidgetItem* item = m_tree->functionItem(f);
         Q_ASSERT(item != NULL);
         f->setName(QString("%1 %2").arg(tr("New Script")).arg(f->id()));
         m_tree->scrollToItem(item);
@@ -496,45 +495,84 @@ void FunctionManager::slotAddAudio()
     }
     if (m_doc->addFunction(f) == true)
     {
-        QTreeWidgetItem* item = functionItem(f);
+        QTreeWidgetItem* item = m_tree->functionItem(f);
         Q_ASSERT(item != NULL);
         m_tree->scrollToItem(item);
         m_tree->setCurrentItem(item);
     }
 }
 
+void FunctionManager::slotAddFolder()
+{
+    m_tree->addFolder();
+    m_doc->setModified();
+}
+
 void FunctionManager::slotWizard()
 {
     FunctionWizard fw(this, m_doc);
     if (fw.exec() == QDialog::Accepted)
-        updateTree();
+        m_tree->updateTree();
 }
 
 void FunctionManager::slotClone()
 {
     QListIterator <QTreeWidgetItem*> it(m_tree->selectedItems());
     while (it.hasNext() == true)
-        copyFunction(itemFunctionId(it.next()));
+        copyFunction(m_tree->itemFunctionId(it.next()));
 }
 
 void FunctionManager::slotDelete()
 {
+    bool isFolder = false;
     QListIterator <QTreeWidgetItem*> it(m_tree->selectedItems());
     if (it.hasNext() == false)
         return;
 
-    QString msg = tr("Do you want to DELETE functions:") + QString("\n");
+    QString msg;
+    QTreeWidgetItem *firstItem = m_tree->selectedItems().first();
+
+    if (firstItem->childCount() > 0 || firstItem->text(COL_PATH).isEmpty() == false)
+        isFolder = true;
+
+    if (isFolder == true)
+        msg = tr("Do you want to DELETE foler:") + QString("\n");
+    else
+        msg = tr("Do you want to DELETE functions:") + QString("\n");
 
     // Append functions' names to the message
     while (it.hasNext() == true)
-        msg += it.next()->text(COL_NAME) + QString(", ");
+    {
+        QTreeWidgetItem *item = it.next();
+        msg.append(item->text(COL_NAME));
+        if (it.hasNext())
+            msg.append(", ");
+
+        if (item->childCount() > 0)
+        {
+            msg.append("\n" + tr("(This will also DELETE: "));
+            for(int i = 0; i < item->childCount(); i++)
+            {
+                QTreeWidgetItem *child = item->child(i);
+                if (i > 0) msg.append(", ");
+                msg.append(child->text(COL_NAME));
+            }
+            msg.append(")");
+        }
+    }
 
     // Ask for user's confirmation
     if (QMessageBox::question(this, tr("Delete Functions"), msg,
                               QMessageBox::Yes, QMessageBox::No)
             == QMessageBox::Yes)
     {
-        deleteSelectedFunctions();
+        if (isFolder)
+        {
+            m_tree->deleteFolder(m_tree->selectedItems().first());
+            m_doc->setModified();
+        }
+        else
+            deleteSelectedFunctions();
         updateActionStatus();
         deleteCurrentEditor();
     }
@@ -550,7 +588,25 @@ void FunctionManager::slotSelectAll()
 
 void FunctionManager::updateActionStatus()
 {
+    bool validSelection = false;
+
     if (m_tree->selectedItems().isEmpty() == false)
+    {
+        QTreeWidgetItem *firstItem = m_tree->selectedItems().first();
+        quint32 fid = m_tree->itemFunctionId(firstItem);
+        if (fid != Function::invalidId())
+            validSelection = true;
+
+        // check if this is a folder
+        if (m_tree->selectedItems().count() == 1 && m_tree->indexOfTopLevelItem(firstItem) < 0)
+            validSelection = true;
+
+        m_addFolderAction->setEnabled(true);
+    }
+    else
+        m_addFolderAction->setEnabled(false);
+
+    if (validSelection == true)
     {
         /* At least one function has been selected, so
            editing is possible. */
@@ -605,13 +661,13 @@ void FunctionManager::initSplitterView()
 
 void FunctionManager::initTree()
 {
-    m_tree = new QTreeWidget(this);
+    m_tree = new FunctionsTreeWidget(m_doc, this);
     Q_ASSERT(m_hsplitter != NULL);
     m_hsplitter->addWidget(m_tree);
 
     // Add two columns for function and type
     QStringList labels;
-    labels << tr("Function");
+    labels << tr("Function"); // << "Path";
     m_tree->setHeaderLabels(labels);
     m_tree->setRootIsDecorated(true);
     m_tree->setAllColumnsShowFocus(true);
@@ -619,6 +675,9 @@ void FunctionManager::initTree()
     m_tree->setContextMenuPolicy(Qt::CustomContextMenu);
     m_tree->setSortingEnabled(true);
     m_tree->sortByColumn(COL_NAME, Qt::AscendingOrder);
+    m_tree->setDragEnabled(true);
+    m_tree->setAcceptDrops(true);
+    m_tree->setDragDropMode(QAbstractItemView::InternalMove);
 
     // Catch selection changes
     connect(m_tree, SIGNAL(itemSelectionChanged()),
@@ -629,159 +688,14 @@ void FunctionManager::initTree()
             this, SLOT(slotTreeContextMenuRequested()));
 }
 
-void FunctionManager::updateTree()
-{
-    m_tree->clear();
-    foreach (Function* function, m_doc->functions())
-        updateFunctionItem(new QTreeWidgetItem(parentItem(function)), function);
-    /** Set hasChildren flag for scenes with children */
-    for (int t = 0; t < m_tree->topLevelItemCount(); t++)
-    {
-        QTreeWidgetItem *topLevelItem = m_tree->topLevelItem(t);
-        for (int f = 0; f < topLevelItem->childCount(); f++)
-        {
-            QTreeWidgetItem *item = topLevelItem->child(f);
-            Function *function = m_doc->function(itemFunctionId(item));
-
-            if (function != NULL && function->type() == Function::Scene &&
-                item->childCount() > 0)
-            {
-                Scene *scene = qobject_cast<Scene*>(function);
-                scene->setChildrenFlag(true);
-                qDebug() << Q_FUNC_INFO << "Scene -" << function->name() << "has children !";
-            }
-        }
-    }
-}
-
 void FunctionManager::selectFunction(quint32 id)
 {
     Function* function = m_doc->function(id);
     if (function == NULL)
         return;
-    QTreeWidgetItem* item = functionItem(function);
+    QTreeWidgetItem* item = m_tree->functionItem(function);
     if (item != NULL)
         m_tree->setCurrentItem(item);
-}
-
-void FunctionManager::updateFunctionItem(QTreeWidgetItem* item, const Function* function)
-{
-    Q_ASSERT(item != NULL);
-    Q_ASSERT(function != NULL);
-    item->setText(COL_NAME, function->name());
-    item->setIcon(COL_NAME, functionIcon(function));
-    item->setData(COL_NAME, PROP_ID, function->id());
-}
-
-QTreeWidgetItem* FunctionManager::parentItem(const Function* function)
-{
-    Q_ASSERT(function != NULL);
-
-    // Search for a parent item for function->type()
-    for (int i = 0; i < m_tree->topLevelItemCount(); i++)
-    {
-        QTreeWidgetItem* item = m_tree->topLevelItem(i);
-        Q_ASSERT(item != NULL);
-        QVariant var = item->data(COL_NAME, Qt::UserRole);
-        if (var.isValid() == false)
-            continue;
-        Function::Type type = (Function::Type) var.toInt();
-        if (function->type() == Function::Chaser && qobject_cast<const Chaser*>(function)->isSequence() == true)
-        {
-            if (type == Function::Scene)
-            {
-                quint32 sid = qobject_cast<const Chaser*>(function)->getBoundSceneID();
-                for (int c = 0; c < item->childCount(); c++)
-                {
-                    QTreeWidgetItem* child = item->child(c);
-                    QVariant var2 = child->data(COL_NAME, Qt::UserRole);
-
-                    if (var2.isValid() == false)
-                        continue;
-                    quint32 cid = var2.toInt();
-
-                    if (sid == cid)
-                        return child;
-                }
-            }
-        }
-        else
-        {
-            if (type == function->type())
-                return item;
-        }
-    }
-
-    // Parent item for the given type doesn't exist yet so create one
-    QTreeWidgetItem* item = new QTreeWidgetItem(m_tree);
-    item->setText(COL_NAME, Function::typeToString(function->type()));
-    item->setIcon(COL_NAME, functionIcon(function));
-    item->setData(COL_NAME, Qt::UserRole, function->type());
-    item->setFlags(Qt::ItemIsEnabled);
-    return item;
-}
-
-quint32 FunctionManager::itemFunctionId(const QTreeWidgetItem* item) const
-{
-    if (item == NULL || item->parent() == NULL)
-        return Function::invalidId();
-    else
-        return item->data(COL_NAME, PROP_ID).toUInt();
-}
-
-QTreeWidgetItem* FunctionManager::functionItem(const Function* function)
-{
-    Q_ASSERT(function != NULL);
-
-    QTreeWidgetItem* parent = parentItem(function);
-    Q_ASSERT(parent != NULL);
-
-    for (int i = 0; i < parent->childCount(); i++)
-    {
-        QTreeWidgetItem* item = parent->child(i);
-        if (itemFunctionId(item) == function->id())
-            return item;
-        // Sequences are in a further sublevel. Check if there is any
-        if (item->childCount() > 0)
-        {
-            for (int j = 0; j < item->childCount(); j++)
-            {
-                QTreeWidgetItem* seqItem = item->child(j);
-                if (itemFunctionId(seqItem) == function->id())
-                    return item;
-            }
-        }
-    }
-
-    return NULL;
-}
-
-QIcon FunctionManager::functionIcon(const Function* function) const
-{
-    switch (function->type())
-    {
-    case Function::Scene:
-        return QIcon(":/scene.png");
-    case Function::Chaser:
-        if (qobject_cast<const Chaser*>(function)->isSequence() == true)
-            return QIcon(":/sequence.png");
-        else
-            return QIcon(":/chaser.png");
-    case Function::EFX:
-        return QIcon(":/efx.png");
-    case Function::Collection:
-        return QIcon(":/collection.png");
-    case Function::RGBMatrix:
-        return QIcon(":/rgbmatrix.png");
-    case Function::Script:
-        return QIcon(":/script.png");
-    case Function::Show:
-        return QIcon(":/show.png");
-    case Function::Audio:
-        return QIcon(":/audio.png");
-    default:
-        return QIcon(":/function.png");
-    }
 }
 
 void FunctionManager::deleteSelectedFunctions()
@@ -791,8 +705,11 @@ void FunctionManager::deleteSelectedFunctions()
     {
         bool isSequence = false;
         QTreeWidgetItem* item(it.next());
-        quint32 fid = itemFunctionId(item);
+        quint32 fid = m_tree->itemFunctionId(item);
         Function *func = m_doc->function(fid);
+        if (func == NULL)
+            continue;
+
         if (func->type() == Function::Chaser && qobject_cast<const Chaser*>(func)->isSequence() == true)
             isSequence = true;
         m_doc->deleteFunction(fid);
@@ -800,50 +717,11 @@ void FunctionManager::deleteSelectedFunctions()
         QTreeWidgetItem* parent = item->parent();
         delete item;
         if (parent != NULL && parent->childCount() == 0 && isSequence == false)
-            delete parent;
-    }
-/*
-    QListIterator <QTreeWidgetItem*> it(m_tree->selectedItems());
-    while (it.hasNext() == true)
-    {
-        QTreeWidgetItem* item(it.next());
-        quint32 fid = itemFunctionId(item);
-
-        Function *f = m_doc->function(fid);
-        if (f != NULL && f->type() == Function::Scene)
         {
-            foreach (Function* function, m_doc->functions())
-            {
-                // Search for Show tracks associated to Scenes
-                if (function->type() == Function::Show)
-                {
-                    Show *show = qobject_cast<Show*>(function);
-                    foreach (Track *track, show->tracks())
-                    {
-                        if (track->getSceneID() == fid)
-                            show->removeTrack(track->id());
-                    }
-                }
-                // Search for Sequences associated to Scenes
-                if (function->type() == Function::Chaser)
-                {
-                    Chaser *chaser = qobject_cast<Chaser*>(function);
-                    if (chaser->isSequence() && chaser->getBoundSceneID() == fid)
-                    {
-                        m_doc->deleteFunction(chaser->id());
-                    }
-                }
-            }
+            if (m_tree->indexOfTopLevelItem(parent) >= 0)
+                m_tree->deleteFolder(parent);
         }
-
-        m_doc->deleteFunction(fid);
-
-        QTreeWidgetItem* parent = item->parent();
-        delete item;
-        if (parent != NULL && parent->childCount() == 0)
-            delete parent;
     }
-*/
 }
 
 void FunctionManager::slotTreeSelectionChanged()
@@ -853,9 +731,11 @@ void FunctionManager::slotTreeSelectionChanged()
     QList <QTreeWidgetItem*> selection(m_tree->selectedItems());
     if (selection.size() == 1)
     {
-        Function* function = m_doc->function(itemFunctionId(selection.first()));
+        Function* function = m_doc->function(m_tree->itemFunctionId(selection.first()));
         if (function != NULL)
             editFunction(function);
+        else
+            deleteCurrentEditor();
     }
     else
     {
@@ -899,7 +779,7 @@ void FunctionManager::copyFunction(quint32 fid)
     if (copy != NULL)
     {
         copy->setName(copy->name() + tr(" (Copy)"));
-        QTreeWidgetItem* item = functionItem(copy);
+        QTreeWidgetItem* item = m_tree->functionItem(copy);
         m_tree->setCurrentItem(item);
     }
 }

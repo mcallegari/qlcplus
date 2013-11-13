@@ -1,3 +1,14 @@
+qlcplus (4.6.0) stable; urgency=low
+
+  * NEW: EFX Editor: added relative position settings (thank to Jano Svitok)
+  * NEW: Function Manager: added folders with drag & drop functionality
+  * Virtual Console: fixed audio triggers incorrect loading
+  * Input/Output: improved audio device selection
+  * Fixture Editor: set previously selected color when editing a color macro
+  * Added fixtures: Pro-Lights LedPar 64363 RGB, Pro-Lights LumiPar 7QPro, Pro-Lights Strobo 1500DMX, Pro-Lights Explo 3000D (thanks to Lorenzo Andreani)
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 15 Dicember 2013 12:13:04 +0200
+
 qlcplus (4.5.1) stable; urgency=low
 
   * NEW: Virtual Console: audio triggers can now control Speed Dials tapping (thanks to Jano Svitok)
@@ -12,6 +23,7 @@ qlcplus (4.5.1) stable; urgency=low
   * Virtual Console: fixed audio triggers thresholds save/load on projects (thanks to Jano Svitok)
   * Virtual Console: fixed knobs rendering on OSX
   * Virtual Console: fixed crash when enabling multipage on headerless frames
+  * Virtual Console: fixed copy of Click & Go feature when cloning sliders/knobs 
   * MIDI plugin: fixed beat clock detection on OSX
   * Show Manager: Improved to fit on a 1024x768 resolution
   * Engine: fixed Collection potential crash (thanks to Jano Svitok)
@@ -24,6 +36,7 @@ qlcplus (4.5.1) stable; urgency=low
   * Added fixtures: American DJ Fusion FX Bar 1, Chauvet Intimidator Scan LED 200 (thanks to synkajax)
   * Added fixtures: Stairville PAR64 CX-3 RGBW, Stairville TRI LED Bundle Complete (thanks to Lars Kildholt)
   * Added fixture: Monacor CPL-3DMX (thanks to Marcus)
+  * Added fixtures: Pro-Lights CromoSpot 150, Evolight Colours SL3 (thanks to Lorenzo Andreani)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 5 November 2013 12:13:04 +0200
 

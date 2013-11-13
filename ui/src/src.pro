@@ -68,6 +68,7 @@ HEADERS += aboutbox.h \
            fixtureremap.h \
            functionliveeditdialog.h \
            functionselection.h \
+           functionstreewidget.h \
            functionwizard.h \
            grandmasterslider.h \
            groupsconsole.h \
@@ -196,6 +197,7 @@ SOURCES += aboutbox.cpp \
            functionliveeditdialog.cpp \
            functionmanager.cpp \
            functionselection.cpp \
+           functionstreewidget.cpp \
            functionwizard.cpp \
            grandmasterslider.cpp \
            groupsconsole.cpp \
@@ -250,7 +252,6 @@ SOURCES += aboutbox.cpp \
            vcxypadfixtureeditor.cpp \
            vcxypadproperties.cpp \
            virtualconsole.cpp
-
 
 TRANSLATIONS += qlcplus_fi_FI.ts
 TRANSLATIONS += qlcplus_fr_FR.ts

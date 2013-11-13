@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QString>
@@ -63,6 +61,7 @@ Function::Function(Doc* doc, Type t)
     : QObject(doc)
     , m_id(Function::invalidId())
     , m_type(t)
+    , m_path(QString())
     , m_runOrder(Loop)
     , m_direction(Forward)
     , m_fadeInSpeed(0)
@@ -209,6 +208,42 @@ Function::Type Function::stringToType(const QString& string)
         return Audio;
     else
         return Undefined;
+}
+
+/*********************************************************************
+ * Path
+ *********************************************************************/
+void Function::setPath(QString path)
+{
+    if (path.contains(typeToString(type())))
+        path.remove(typeToString(type()) + "/");
+    qDebug() << "Function " << name() << "path set to:" << path;
+    m_path = path;
+}
+
+QString Function::path(bool simplified) const
+{
+    if (simplified == true)
+        return m_path;
+    else
+        return QString("%1/%2").arg(typeToString(type())).arg(m_path);
+}
+
+/*********************************************************************
+ * Common
+ *********************************************************************/
+
+bool Function::saveXMLCommon(QDomElement *root) const
+{
+    Q_ASSERT(root != NULL);
+
+    root->setAttribute(KXMLQLCFunctionID, id());
+    root->setAttribute(KXMLQLCFunctionType, Function::typeToString(type()));
+    root->setAttribute(KXMLQLCFunctionName, name());
+    if (path(true).isEmpty() == false)
+        root->setAttribute(KXMLQLCFunctionPath, path(true));
+
+    return true;
 }
 
 /*****************************************************************************
@@ -547,6 +582,9 @@ bool Function::loader(const QDomElement& root, Doc* doc)
     quint32 id = root.attribute(KXMLQLCFunctionID).toUInt();
     QString name = root.attribute(KXMLQLCFunctionName);
     Type type = Function::stringToType(root.attribute(KXMLQLCFunctionType));
+    QString path;
+    if (root.hasAttribute(KXMLQLCFunctionPath))
+        path = root.attribute(KXMLQLCFunctionPath);
 
     /* Check for ID validity before creating the function */
     if (id == Function::invalidId())
@@ -577,6 +615,7 @@ bool Function::loader(const QDomElement& root, Doc* doc)
         return false;
 
     function->setName(name);
+    function->setPath(path);
     if (function->loadXML(root) == true)
     {
         if (doc->addFunction(function, id) == true)

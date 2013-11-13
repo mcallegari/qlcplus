@@ -48,7 +48,6 @@ wkhtmltopdf-i386 --footer-center "Page [page]" --image-quality 100 \
   audiotriggers.html \
   selectinputchannel.html \
   vcstylingplacement.html \
-  tutorial.html \
   simpledesk.html \
   howto-input-output-mapping.html \
   howto-input-profiles.html \
@@ -67,6 +66,7 @@ wkhtmltopdf-i386 --footer-center "Page [page]" --image-quality 100 \
   fixtureeditor.html \
   modeeditor.html \
   headeditor.html \
+  tutorial.html \
   commandlineparameters.html \
   kioskmode.html \
   parameterstuning.html \

@@ -4,19 +4,17 @@
 
   Copyright (C) 2004 Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #ifndef FUNCTION_H
@@ -42,6 +40,7 @@ class Doc;
 #define KXMLQLCFunctionID "ID"
 #define KXMLQLCFunctionType "Type"
 #define KXMLQLCFunctionData "Data"
+#define KXMLQLCFunctionPath "Path"
 
 #define KXMLQLCFunctionValue "Value"
 #define KXMLQLCFunctionValueType "Type"
@@ -211,6 +210,26 @@ public:
 
 private:
     Type m_type;
+
+    /*********************************************************************
+     * Path
+     *********************************************************************/
+public:
+    /** Set the function path for folder grouping */
+    void setPath(QString path);
+
+    /** Retrieve the currently set path */
+    QString path(bool simplified = false) const;
+
+private:
+    QString m_path;
+
+    /*********************************************************************
+     * Common XML
+     *********************************************************************/
+protected:
+    /** Save function's common attributes in $doc, under $root */
+    bool saveXMLCommon(QDomElement* root) const;
 
     /*********************************************************************
      * Running order

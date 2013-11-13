@@ -4,19 +4,17 @@
 
   Copyright (c) Massimo Callegari
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #ifndef AUDIOBAR_H
@@ -59,13 +57,14 @@ public:
 
     AudioBar *createCopy();
     void setName(QString nme);
+    void setType(int type);
     void setMinThreshold(uchar value);
     void setMaxThreshold(uchar value);
     void setDivisor(int value);
 
     void attachDmxChannels(Doc *doc, QList<SceneValue>list);
     void attachFunction(Function *func);
-    void attachWidget(VCWidget *widget);
+    void attachWidget(quint32 wID);
 
     void checkFunctionThresholds(Doc *doc);
     void checkWidgetFunctionality();
@@ -73,7 +72,7 @@ public:
     void debugInfo();
 
     /** Load properties and contents from an XML tree */
-    bool loadXML(const QDomElement& root);
+    bool loadXML(const QDomElement& root, Doc *doc);
 
     /** Save properties and contents to an XML document */
     bool saveXML(QDomDocument* doc, QDomElement* atf_root, QString tagName, int index);
@@ -86,11 +85,17 @@ public:
 
     /** List of individual DMX channels when m_type == DMXBar */
     QList<SceneValue> m_dmxChannels;
+
     /** List of absolute DMX channel addresses when m_type == DMXBar.
       * This is precalculated to speed up writeDMX */
     QList<int> m_absDmxChannels;
+
     /** Reference to an attached Function when m_type == FunctionBar */
     Function *m_function;
+
+    /** ID of the attchaed VCWidget when m_type == VCWidgetBar */
+    quint32 m_widgetID;
+
     /** Reference to an attached VCWidget when m_type == VCWidgetBar */
     VCWidget *m_widget;
 

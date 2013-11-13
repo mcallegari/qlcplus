@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software;you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY;without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program;if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QtTest>
@@ -2333,6 +2331,7 @@ void EFX_Test::save()
     e1.setHeight(42);
     e1.setRotation(78);
     e1.setStartOffset(91);
+    e1.setIsRelative(false);
     e1.setXOffset(34);
     e1.setYOffset(27);
     e1.setXFrequency(5);
@@ -2364,7 +2363,7 @@ void EFX_Test::save()
     QVERIFY(root.firstChild().toElement().attribute("Name") == "First");
 
     bool dir = false, off = false, run = false, algo = false, w = false,
-         h = false, rot = false, xoff = false, yoff = false,
+         h = false, rot = false, isRelative = false, xoff = false, yoff = false,
          xfreq = false, yfreq = false, xpha = false, ypha = false,
          prop = false, intensity = false, speed = false;
     int fixtureid = 0, fixturedirection = 0, fixtureStartOffset = 0;
@@ -2419,6 +2418,11 @@ void EFX_Test::save()
         {
             QVERIFY(tag.text() == "78");
             rot = true;
+        }
+        else if (tag.tagName() == "IsRelative")
+        {
+            QVERIFY(tag.text() == "0");
+            isRelative = true;
         }
         else if (tag.tagName() == "PropagationMode")
         {
@@ -2568,6 +2572,7 @@ void EFX_Test::save()
     QVERIFY(w == true);
     QVERIFY(h == true);
     QVERIFY(rot == true);
+    QVERIFY(isRelative == true);
     QVERIFY(xoff == true);
     QVERIFY(yoff == true);
     QVERIFY(xfreq == true);
