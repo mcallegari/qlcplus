@@ -337,6 +337,7 @@ void VCSliderProperties::levelUpdateFixtureNode(quint32 id)
     }
 
     item->setText(KColumnName, fxi->name());
+    item->setIcon(KColumnName, fxi->getIconFromType(fxi->type()));
     item->setText(KColumnType, fxi->type());
 
     levelUpdateChannels(item, fxi);
@@ -395,11 +396,13 @@ void VCSliderProperties::levelUpdateChannelNode(QTreeWidgetItem* parent,
 
     item->setText(KColumnName, QString("%1:%2").arg(ch + 1)
                   .arg(channel->name()));
+    item->setIcon(KColumnName, channel->getIconFromGroup(channel->group()));
     if (channel->group() == QLCChannel::Intensity &&
         channel->colour() != QLCChannel::NoColour)
         item->setText(KColumnType, QLCChannel::colourToString(channel->colour()));
     else
         item->setText(KColumnType, QLCChannel::groupToString(channel->group()));
+
 
     levelUpdateCapabilities(item, channel);
 }

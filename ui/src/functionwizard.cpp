@@ -26,8 +26,10 @@
 #include "fixtureselection.h"
 #include "functionwizard.h"
 #include "virtualconsole.h"
+#include "vccuelist.h"
 #include "vcwidget.h"
 #include "vcbutton.h"
+#include "vcslider.h"
 #include "vcframe.h"
 #include "fixture.h"
 #include "chaser.h"
@@ -420,9 +422,10 @@ void FunctionWizard::updateWidgetsTree()
         QTreeWidgetItem *frame = new QTreeWidgetItem(m_widgetsTree);
         frame->setText(KWidgetName, palette->fullName());
         frame->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::FrameWidget));
-        frame->setData(KWidgetName, Qt::UserRole, VCWidget::FrameWidget);
         frame->setFlags(frame->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsTristate);
         frame->setCheckState(KWidgetName, Qt::Unchecked);
+        frame->setData(KWidgetName, Qt::UserRole, VCWidget::FrameWidget);
+        frame->setData(KWidgetName, Qt::UserRole + 1, qVariantFromValue((void *)palette));
 
         foreach(Scene *scene, palette->scenes())
         {
@@ -430,8 +433,10 @@ void FunctionWizard::updateWidgetsTree()
             QString toRemove = " - " + palette->model();
             item->setText(KWidgetName, scene->name().remove(toRemove));
             item->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::ButtonWidget));
-            item->setData(KWidgetName, Qt::UserRole, VCWidget::ButtonWidget);
             item->setCheckState(KWidgetName, Qt::Unchecked);
+            item->setData(KWidgetName, Qt::UserRole, VCWidget::ButtonWidget);
+            item->setData(KWidgetName, Qt::UserRole + 1, qVariantFromValue((void *)scene));
+
         }
         foreach(Chaser *chaser, palette->chasers())
         {
@@ -439,16 +444,29 @@ void FunctionWizard::updateWidgetsTree()
             QString toRemove = " - " + palette->model();
             item->setText(KWidgetName, chaser->name().remove(toRemove));
             item->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::CueListWidget));
-            item->setData(KWidgetName, Qt::UserRole, VCWidget::CueListWidget);
             item->setCheckState(KWidgetName, Qt::Unchecked);
+            item->setData(KWidgetName, Qt::UserRole, VCWidget::CueListWidget);
+            item->setData(KWidgetName, Qt::UserRole + 1, qVariantFromValue((void *)chaser));
+        }
+        if (palette->type() == PaletteGenerator::PrimaryColors ||
+            palette->type() == PaletteGenerator::SixteenColors)
+        {
+            QTreeWidgetItem *item = new QTreeWidgetItem(frame);
+            item->setText(KWidgetName, tr("Click & Go RGB"));
+            item->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::SliderWidget));
+            item->setCheckState(KWidgetName, Qt::Unchecked);
+            item->setData(KWidgetName, Qt::UserRole, VCWidget::SliderWidget);
+            Scene *firstScene = palette->scenes().at(0);
+            item->setData(KWidgetName, Qt::UserRole + 1, qVariantFromValue((void *)firstScene));
         }
     }
 }
 
-VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int ypos)
+VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int ypos, Function *func)
 {
     VirtualConsole *vc = VirtualConsole::instance();
     VCWidget *widget = NULL;
+    bool setColor = false;
 
     if (parent == NULL)
         return NULL;
@@ -468,11 +486,52 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
             VCButton* button = new VCButton(parent, m_doc);
             vc->setupWidget(button, parent);
             button->move(QPoint(xpos, ypos));
+            if (func != NULL)
+                button->setFunction(func->id());
+            setColor = true;
+
             widget = button;
+        }
+        break;
+        case VCWidget::CueListWidget:
+        {
+            VCCueList* cuelist = new VCCueList(parent, m_doc);
+            vc->setupWidget(cuelist, parent);
+            cuelist->move(QPoint(xpos, ypos));
+            if (func != NULL)
+                cuelist->setChaser(func->id());
+            widget = cuelist;
+        }
+        break;
+        case VCWidget::SliderWidget:
+        {
+            VCSlider* slider = new VCSlider(parent, m_doc);
+            vc->setupWidget(slider, parent);
+            slider->move(QPoint(xpos, ypos));
+            if (func != NULL)
+            {
+                slider->setClickAndGoType(ClickAndGoWidget::RGB);
+                slider->setSliderMode(VCSlider::Level);
+                Scene *scene = qobject_cast<Scene*> (func);
+                foreach (SceneValue scv, scene->values())
+                    slider->addLevelChannel(scv.fxi, scv.channel);
+            }
+            widget = slider;
         }
         break;
         default:
         break;
+    }
+
+    if (widget != NULL && func != NULL)
+    {
+        if (func->type() == Function::Scene && setColor == true)
+        {
+            Scene *scene = qobject_cast<Scene*> (func);
+            QColor col = scene->colorValue();
+            if (col.isValid())
+                widget->setBackgroundColor(col);
+        }
     }
 
     return widget;
@@ -495,21 +554,17 @@ void FunctionWizard::addWidgetsToVirtualConsole()
 
         if (wItem->checkState(KWidgetName) == Qt::Checked)
         {
-            PaletteGenerator *pal = NULL;
             int wType = wItem->data(KWidgetName, Qt::UserRole).toInt();
-            VCWidget *widget = createWidget(wType, mainFrame, xPos, yPos);
+            VCWidget *widget = createWidget(wType, mainFrame, xPos, yPos, NULL);
             if (widget == NULL)
                 continue;
-            widget->resize(QSize(1000, 1000));
 
-            if (i >= 0 && i < m_paletteList.count())
-            {
-                pal = m_paletteList.at(i);
-                widget->setCaption(pal->name());
-            }
+            widget->resize(QSize(1000, 1000));
+            //PaletteGenerator *pal = (PaletteGenerator *) wItem->data(KWidgetName, Qt::UserRole + 1).value<void *>();
+
+            widget->setCaption(wItem->text(KWidgetName));
 
             int subX = 10, subY = 40;
-            QList <Scene *> sceneList = pal->scenes();
 
             for (int c = 0; c < wItem->childCount(); c++)
             {
@@ -518,24 +573,12 @@ void FunctionWizard::addWidgetsToVirtualConsole()
                 if (childItem->checkState(KWidgetName) == Qt::Checked)
                 {
                     int cType = childItem->data(KWidgetName, Qt::UserRole).toInt();
-                    VCWidget *childWidget = createWidget(cType, widget, subX, subY);
+                    Function *func = (Function *) childItem->data(KWidgetName, Qt::UserRole + 1).value<void *>();
+
+                    VCWidget *childWidget = createWidget(cType, widget, subX, subY, func);
                     if (childWidget != NULL)
                     {
-                        Scene *scene = NULL;
-                        if (c >= 0 && c < sceneList.count())
-                            scene = sceneList.at(c);
-                        if (scene != NULL)
-                        {
-                            childWidget->setCaption(scene->name());
-                            QColor col = scene->colorValue();
-                            if (col.isValid())
-                                childWidget->setBackgroundColor(col);
-                            if (cType == VCWidget::ButtonWidget)
-                            {
-                                VCButton *btn = (VCButton *)childWidget;
-                                btn->setFunction(scene->id());
-                            }
-                        }
+                        childWidget->setCaption(childItem->text(KWidgetName));
 
                         if (subX + childWidget->width() > frameWidth)
                             frameWidth = subX + childWidget->width() + 10;
@@ -549,7 +592,6 @@ void FunctionWizard::addWidgetsToVirtualConsole()
                         }
                         else
                             subX += childWidget->width() + 10;
-
                     }
                 }
             }

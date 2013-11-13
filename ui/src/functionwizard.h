@@ -101,7 +101,7 @@ protected:
     /** Populate the widgets tree based on selected preset functions */
     void updateWidgetsTree();
 
-    VCWidget *createWidget(int type, VCWidget *parent, int xpos, int ypos);
+    VCWidget *createWidget(int type, VCWidget *parent, int xpos, int ypos, Function *func);
 
     void addWidgetsToVirtualConsole();
 };
