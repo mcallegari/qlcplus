@@ -103,6 +103,7 @@ Section
 	File /r Fixtures
 	File /r Gobos
 	File /r InputProfiles
+	File /r MidiTemplates
 	File /r Plugins
 	File /r RGBScripts
 
@@ -155,6 +156,7 @@ Section "Uninstall"
 	RMDir /r $INSTDIR\Fixtures
 	RMDir /r $INSTDIR\Gobos
 	RMDir /r $INSTDIR\InputProfiles
+	RMDir /r $INSTDIR\MidiTemplates
 	RMDir /r $INSTDIR\Plugins
 	RMDir /r $INSTDIR\RBGScripts
 

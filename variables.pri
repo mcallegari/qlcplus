@@ -89,7 +89,7 @@ unix:!macx:MIDITEMPLATEDIR = $$DATADIR/miditemplates
 macx:MIDITEMPLATEDIR       = $$DATADIR/MidiTemplates
 
 # User midi templates
-win32:USERMIDITEMPLATEDIR      = $$USERDATADIR/Miditemplates
+win32:USERMIDITEMPLATEDIR      = $$USERDATADIR/MidiTemplates
 unix:!macx:USERMIDITEMPLATEDIR = $$USERDATADIR/miditemplates
 macx:USERMIDITEMPLATEDIR       = $$USERDATADIR/MidiTemplates
 
