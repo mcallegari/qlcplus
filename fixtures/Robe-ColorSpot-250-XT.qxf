@@ -17,11 +17,11 @@
   <Capability Min="0" Max="255">Tilt 280°</Capability>
  </Channel>
  <Channel Name="Pan Fine">
-  <Group Byte="0">Pan</Group>
+  <Group Byte="1">Pan</Group>
   <Capability Min="0" Max="255"></Capability>
  </Channel>
  <Channel Name="Tilt Fine">
-  <Group Byte="0">Tilt</Group>
+  <Group Byte="1">Tilt</Group>
   <Capability Min="0" Max="255"></Capability>
  </Channel>
  <Channel Name="Speed Movement">

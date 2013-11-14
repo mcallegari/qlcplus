@@ -17,11 +17,11 @@
   <Capability Min="0" Max="255">Tilt</Capability>
  </Channel>
  <Channel Name="Pan 16bit">
-  <Group Byte="0">Pan</Group>
+  <Group Byte="1">Pan</Group>
   <Capability Min="0" Max="255">Pan 16bit</Capability>
  </Channel>
  <Channel Name="Tilt 16bit">
-  <Group Byte="0">Tilt</Group>
+  <Group Byte="1">Tilt</Group>
   <Capability Min="0" Max="255">Tilt 16bit</Capability>
  </Channel>
  <Channel Name="Speed">
