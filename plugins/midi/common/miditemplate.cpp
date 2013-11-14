@@ -69,12 +69,12 @@ QString MidiTemplate::name() const
     return m_description;
 }
 
-void MidiTemplate::setInitMessage(const QString& message)
+void MidiTemplate::setInitMessage(const QByteArray& message)
 {
     m_initMessage = message;
 }
 
-QString MidiTemplate::initMessage() const
+QByteArray MidiTemplate::initMessage() const
 {
     return m_initMessage;
 }
@@ -125,7 +125,9 @@ bool MidiTemplate::loadXML(const QDomDocument& doc)
             }
             else if (tag.tagName() == KXMLMidiTemplateInitMessage)
             {
-                setInitMessage(tag.text());
+                QByteArray initMessage;
+                initMessage.append(tag.text());
+                setInitMessage(initMessage);
             }
 
             node = node.nextSibling();

@@ -65,12 +65,12 @@ public:
     void setName(const QString& name);
     QString name() const;
 
-    void setInitMessage(const QString& message);
-    QString initMessage() const;
+    void setInitMessage(const QByteArray& message);
+    QByteArray initMessage() const;
 
 protected:
     QString m_description;
-    QString m_initMessage;
+    QByteArray m_initMessage;
 
     /********************************************************************
      * Load & Save
