@@ -411,7 +411,7 @@ void FunctionWizard::updateResultFunctionsTree()
 void FunctionWizard::slotFunctionItemChanged(QTreeWidgetItem *item, int col)
 {
     Q_UNUSED(col)
-    Q_ASSERT(item != NULL);
+    Q_UNUSED(item)
 
     updateResultFunctionsTree();
 
