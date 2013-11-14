@@ -21,6 +21,7 @@
 #include <QTreeWidget>
 #include <QComboBox>
 #include <QSpinBox>
+#include <QDebug>
 
 #include "configuremidiplugin.h"
 #include "midioutputdevice.h"
@@ -30,10 +31,11 @@
 #include "mididevice.h"
 #include "midiplugin.h"
 
-#define PROP_DEV    "dev"
-#define COL_NAME    0
-#define COL_CHANNEL 1
-#define COL_MODE    2
+#define PROP_DEV        "dev"
+#define COL_NAME        0
+#define COL_CHANNEL     1
+#define COL_MODE        2
+#define COL_INITMESSAGE 3
 
 ConfigureMidiPlugin::ConfigureMidiPlugin(MidiPlugin* plugin, QWidget* parent)
     : QDialog(parent)
@@ -88,6 +90,35 @@ void ConfigureMidiPlugin::slotModeActivated(int index)
     dev->setMode(mode);
 }
 
+void ConfigureMidiPlugin::slotInitMessageActivated(int index)
+{
+    QComboBox* combo = qobject_cast<QComboBox*> (QObject::sender());
+    Q_ASSERT(combo != NULL);
+
+    QVariant var = combo->property(PROP_DEV);
+    Q_ASSERT(var.isValid() == true);
+
+    MidiDevice* dev = (MidiDevice*) var.toULongLong();
+    Q_ASSERT(dev != NULL);
+
+    QString initMessage = combo->itemText(index);
+    dev->setMidiTemplateName(initMessage);
+}
+
+void ConfigureMidiPlugin::slotInitMessageChanged(QString midiTemplateName)
+{
+    QComboBox* combo = qobject_cast<QComboBox*> (QObject::sender());
+    Q_ASSERT(combo != NULL);
+
+    QVariant var = combo->property(PROP_DEV);
+    Q_ASSERT(var.isValid() == true);
+
+    MidiDevice* dev = (MidiDevice*) var.toULongLong();
+    Q_ASSERT(dev != NULL);
+    dev->setMidiTemplateName(midiTemplateName);
+}
+
+
 void ConfigureMidiPlugin::slotUpdateTree()
 {
     m_tree->clear();
@@ -109,6 +140,10 @@ void ConfigureMidiPlugin::slotUpdateTree()
         widget = createModeWidget(dev->mode());
         widget->setProperty(PROP_DEV, (qulonglong) dev);
         m_tree->setItemWidget(item, COL_MODE, widget);
+
+        widget = createInitMessageWidget(dev->midiTemplateName());
+        widget->setProperty(PROP_DEV, (qulonglong) dev);
+        m_tree->setItemWidget(item, COL_INITMESSAGE, widget);
     }
 
     QTreeWidgetItem* inputs = new QTreeWidgetItem(m_tree);
@@ -128,6 +163,10 @@ void ConfigureMidiPlugin::slotUpdateTree()
         widget = createModeWidget(dev->mode());
         widget->setProperty(PROP_DEV, (qulonglong) dev);
         m_tree->setItemWidget(item, COL_MODE, widget);
+
+        widget = createInitMessageWidget(dev->midiTemplateName());
+        widget->setProperty(PROP_DEV, (qulonglong) dev);
+        m_tree->setItemWidget(item, COL_INITMESSAGE, widget);
     }
 
     outputs->setExpanded(true);
@@ -165,6 +204,34 @@ QWidget* ConfigureMidiPlugin::createModeWidget(MidiDevice::Mode mode)
         combo->setCurrentIndex(0);
 
     connect(combo, SIGNAL(activated(int)), this, SLOT(slotModeActivated(int)));
+
+    return combo;
+}
+
+QWidget* ConfigureMidiPlugin::createInitMessageWidget(QString midiTemplateName)
+{
+    QComboBox* combo = new QComboBox;
+    combo->addItem("", "");
+
+    QListIterator <MidiTemplate*> it(m_plugin->midiTemplates());
+    while (it.hasNext() == true)
+    {
+        MidiTemplate* templ = it.next();
+        combo->addItem(templ->name(), templ->midiMessage());
+        qDebug() << "msg: " << templ->midiMessage();
+    }
+
+    for (int i = 0; i < combo->count(); ++i)
+    {
+        if (combo->itemText(i) == midiTemplateName)
+            combo->setCurrentIndex(i);
+    }
+
+    //combo->setEditable(true);
+    qDebug() << "selected: " << midiTemplateName;
+
+    connect(combo, SIGNAL(activated(int)), this, SLOT(slotInitMessageActivated(int)));
+    connect(combo, SIGNAL(editTextChanged(QString)), this, SLOT(slotInitMessageChanged(QString)));
 
     return combo;
 }

@@ -227,3 +227,27 @@ void AlsaMidiOutputDevice::writeFeedback(uchar cmd, uchar data1, uchar data2)
     // Make sure that all values go to the MIDI endpoint
     snd_seq_drain_output(m_alsa);
 }
+
+
+void AlsaMidiOutputDevice::writeSysEx(uchar* data, unsigned int count)
+{
+    if(sizeof(data) == 0)
+        return;
+
+    if (isOpen() == false)
+        return;
+
+    snd_seq_event_t ev;
+    snd_seq_ev_clear(&ev);
+    snd_seq_ev_set_dest(&ev, m_receiver_address->client, m_receiver_address->port);
+    snd_seq_ev_set_subs(&ev);
+    snd_seq_ev_set_direct(&ev);
+
+    snd_seq_ev_set_sysex (&ev, count, data);
+
+    if (snd_seq_event_output(m_alsa, &ev) < 0)
+        qDebug() << "snd_seq_event_output ERROR";
+
+    // Make sure that all values go to the MIDI endpoint
+    snd_seq_drain_output(m_alsa);
+}

@@ -19,9 +19,11 @@
 
 #include <QSettings>
 #include "mididevice.h"
+#include <QDebug>
 
 #define SETTINGS_MIDICHANNEL "midiplugin/%1/midichannel"
 #define SETTINGS_MODE "midiplugin/%1/mode"
+#define SETTINGS_INITMESSAGE "midiplugin/%1/initmessage"
 
 #define NOTE_VELOCITY "Note Velocity"
 #define CONTROL_CHANGE "Control Change"
@@ -112,6 +114,20 @@ MidiDevice::Mode MidiDevice::stringToMode(const QString& mode)
 }
 
 /****************************************************************************
+ * Midi template
+ ****************************************************************************/
+
+void MidiDevice::setMidiTemplateName(QString midiTemplateName)
+{
+    m_midiTemplateName = midiTemplateName;
+}
+
+QString MidiDevice::midiTemplateName() const
+{
+    return m_midiTemplateName;
+}
+
+/****************************************************************************
  * Private API
  ****************************************************************************/
 
@@ -132,6 +148,13 @@ void MidiDevice::loadSettings()
         setMode(stringToMode(value.toString()));
     else
         setMode(ControlChange);
+
+    key = QString(SETTINGS_INITMESSAGE).arg(uid().toString());
+    value = settings.value(key);
+    if (value.isValid() == true)
+        setMidiTemplateName(value.toString());
+    else
+        setMidiTemplateName("");
 }
 
 void MidiDevice::saveSettings() const
@@ -143,4 +166,9 @@ void MidiDevice::saveSettings() const
 
     key = QString(SETTINGS_MODE).arg(uid().toString());
     settings.setValue(key, MidiDevice::modeToString(mode()));
+
+    key = QString(SETTINGS_INITMESSAGE).arg(uid().toString());
+    settings.setValue(key, midiTemplateName());
+
+    qDebug() << "Saving mididevice with template name: " << midiTemplateName();
 }

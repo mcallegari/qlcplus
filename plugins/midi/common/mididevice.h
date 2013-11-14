@@ -23,6 +23,8 @@
 #include <QVariant>
 #include <QObject>
 
+#include "miditemplate.h"
+
 class MidiDevice : public QObject
 {
     Q_OBJECT
@@ -69,6 +71,17 @@ public:
 
 private:
     Mode m_mode;
+
+
+    /************************************************************************
+     * Midi template
+     ************************************************************************/
+public:
+    void setMidiTemplateName(QString midiTemplateName);
+    QString midiTemplateName() const;
+
+private:
+    QString m_midiTemplateName;
 
     /************************************************************************
      * Virtual Open/Close

@@ -203,3 +203,31 @@ void CoreMidiOutputDevice::writeFeedback(uchar cmd, uchar data1, uchar data2)
     if (s != 0)
         qWarning() << Q_FUNC_INFO << "Unable to send MIDI data to" << name();
 }
+
+void CoreMidiOutputDevice::writeSysEx(uchar* data, unsigned int count)
+{
+    if(sizeof(data) == 0)
+        return;
+
+    if (isOpen() == false)
+        return;
+
+    int bufferSize = count + 100; // Todo this is not correct
+
+    Byte buffer[bufferSize];    // osx max=65536
+    MIDIPacketList* list = (MIDIPacketList*) buffer;
+    MIDIPacket* packet = MIDIPacketListInit(list);
+
+    /* Add the MIDI command to the packet list */
+    packet = MIDIPacketListAdd(list, bufferSize, packet, 0, count, data);
+    if (packet == 0)
+    {
+        qWarning() << "MIDIOut buffer overflow";
+        return;
+    }
+
+    /* Send the MIDI packet list */
+    OSStatus s = MIDISend(m_outPort, m_destination, list);
+    if (s != 0)
+        qWarning() << Q_FUNC_INFO << "Unable to send MIDI data to" << name();
+}

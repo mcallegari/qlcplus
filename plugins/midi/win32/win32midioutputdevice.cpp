@@ -165,3 +165,43 @@ void Win32MidiOutputDevice::sendData(BYTE command, BYTE channel, BYTE value)
     /* Push the message out */
     midiOutShortMsg(m_handle, msg.dwData);
 }
+
+void Win32MidiOutputDevice::writeSysEx(uchar* data, unsigned int count)
+{
+    if(sizeof(data) == 0)
+        return;
+
+    if (isOpen() == false)
+        return;
+
+    MIDIHDR midiHdr;
+
+    /* Store pointer in MIDIHDR */
+    midiHdr.lpData = (LPSTR)data;//(LPBYTE)&sysEx[0];
+
+    /* Store its size in the MIDIHDR */
+    midiHdr.dwBufferLength = count;
+
+    /* Flags must be set to 0 */
+    midiHdr.dwFlags = 0;
+
+    UINT err;
+    /* Prepare the buffer and MIDIHDR */
+    err = midiOutPrepareHeader(m_handle,  &midiHdr, sizeof(MIDIHDR));
+    if (!err)
+    {
+        /* Output the SysEx message */
+        err = midiOutLongMsg(m_handle, &midiHdr, sizeof(MIDIHDR));
+        if (err)
+            qDebug() << "Error while sending SysEx message";
+
+        /* Unprepare the buffer and MIDIHDR */
+        while (MIDIERR_STILLPLAYING == midiOutUnprepareHeader(m_handle, &midiHdr, sizeof(MIDIHDR)))
+        {
+            /* Should put a delay in here rather than a busy-wait */
+        }
+    }
+
+    /* Close the MIDI device */
+    midiOutClose(m_handle);
+}

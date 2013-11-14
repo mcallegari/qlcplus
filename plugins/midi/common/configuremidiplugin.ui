@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>422</width>
+    <width>619</width>
     <height>300</height>
    </rect>
   </property>
@@ -14,6 +14,23 @@
    <string>Configure MIDI Plugin</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="0">
+    <widget class="QPushButton" name="m_refresh">
+     <property name="text">
+      <string>Refresh</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QDialogButtonBox" name="m_buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Close</set>
+     </property>
+    </widget>
+   </item>
    <item row="0" column="0" colspan="2">
     <widget class="QTreeWidget" name="m_tree">
      <property name="selectionMode">
@@ -40,23 +57,11 @@
        <string>Mode</string>
       </property>
      </column>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <widget class="QPushButton" name="m_refresh">
-     <property name="text">
-      <string>Refresh</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="QDialogButtonBox" name="m_buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Close</set>
-     </property>
+     <column>
+      <property name="text">
+       <string>Init Message</string>
+      </property>
+     </column>
     </widget>
    </item>
   </layout>
