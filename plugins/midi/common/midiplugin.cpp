@@ -90,7 +90,7 @@ void MidiPlugin::openOutput(quint32 output)
         MidiTemplate* templ = midiTemplate(dev->midiTemplateName());
 
         if (templ != NULL)
-            sendSysEx(output, templ->midiMessage());
+            sendSysEx(output, templ->initMessage());
     }
 }
 

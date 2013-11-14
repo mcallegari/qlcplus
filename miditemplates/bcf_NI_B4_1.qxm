@@ -4,7 +4,7 @@
   <Author>Joep Admiraal</Author>
  </Creator>
  <Name>Behringer B4_1</Name>
- <MidiMessage>
+ <InitMessage>
  f000 2032 7f7f 2000 0024 7265 7620 4631
  f7f0 0020 327f 7f20 0001 2470 7265 7365
  74f7 f000 2032 7f7f 2000 0220 202e 6e61
@@ -286,6 +286,6 @@
  2032 7f7f 2001 2120 202e 6b65 796f 7665
  7272 6964 6520 206f 6666 f7f0 0020 327f
  7f20 0122 2465 6e64 f7
- </MidiMessage>
+ </InitMessage>
 </MidiTemplate>
 
