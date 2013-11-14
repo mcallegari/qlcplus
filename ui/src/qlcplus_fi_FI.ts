@@ -2457,7 +2457,8 @@ Duration: %3
     </message>
     <message>
         <location filename="functionmanager.cpp" line="539"/>
-        <source>Do you want to DELETE foler:</source>
+        <source>Do you want to DELETE folder:</source>
+        <oldsource>Do you want to DELETE foler:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>

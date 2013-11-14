@@ -536,7 +536,7 @@ void FunctionManager::slotDelete()
         isFolder = true;
 
     if (isFolder == true)
-        msg = tr("Do you want to DELETE foler:") + QString("\n");
+        msg = tr("Do you want to DELETE folder:") + QString("\n");
     else
         msg = tr("Do you want to DELETE functions:") + QString("\n");
 

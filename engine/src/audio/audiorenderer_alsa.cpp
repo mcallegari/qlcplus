@@ -24,6 +24,7 @@
  *   forkotov02@hotmail.ru                            *
  ******************************************************/
 
+#include <QDebug>
 #include <QString>
 #include <QSettings>
 
@@ -234,10 +235,10 @@ QList<AudioDeviceInfo> AudioRendererAlsa::getDevicesInfo()
             continue;
         }
 
-        //printf("Card %i = %s\n", cardNum, snd_ctl_card_info_get_name(cardInfo));
+        qDebug() << "[getDevicesInfo] Card" << cardIdx << "=" << snd_ctl_card_info_get_name(cardInfo);
+
         while( snd_ctl_pcm_next_device( cardHandle, &devIdx ) == 0 && devIdx >= 0 )
         {
-            //char *alsaDeviceName, *deviceName, *infoName;
             snd_pcm_info_t *pcmInfo;
             int tmpCaps = 0;
 

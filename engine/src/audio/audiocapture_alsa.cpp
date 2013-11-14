@@ -47,6 +47,14 @@ bool AudioCaptureAlsa::initialize(unsigned int sampleRate, quint8 channels, quin
 
     pcm_name = strdup(dev_name.toLatin1().data());
 
+    qDebug() << "AudioCaptureAlsa: initializing device " << pcm_name;
+
+    if (m_captureHandle)
+    {
+        snd_pcm_close (m_captureHandle);
+        m_captureHandle = NULL;
+    }
+
     if ((err = snd_pcm_open (&m_captureHandle, pcm_name, SND_PCM_STREAM_CAPTURE, 0)) < 0)
     {
         qWarning("cannot open audio device (%s)\n", snd_strerror (err));
