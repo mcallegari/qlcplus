@@ -53,6 +53,9 @@ signals:
     /** Tells that the mapping settings have changed */
     void mappingChanged();
 
+    /** Tells that the audio input device has changed */
+    void audioInputDeviceChanged();
+
 private:
     InputMap* m_inputMap;
     OutputMap* m_outputMap;

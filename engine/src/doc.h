@@ -126,6 +126,9 @@ public:
     /** Get the audio input capture object */
     AudioCapture* audioInputCapture();
 
+    /** Destroy a previously created audio capture instance */
+    void destroyAudioCapture();
+
 private:
     QLCFixtureDefCache* m_fixtureDefCache;
     IOPluginCache* m_ioPluginCache;

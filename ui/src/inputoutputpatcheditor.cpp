@@ -889,6 +889,7 @@ void InputOutputPatchEditor::slotAudioDeviceItemChanged(QTreeWidgetItem *item, i
                 settings.remove(SETTINGS_AUDIO_INPUT_DEVICE);
             else
                 settings.setValue(SETTINGS_AUDIO_INPUT_DEVICE, QVariant(item->text(KAudioColumnPrivate)));
+            emit audioInputDeviceChanged();
         }
         else if (col == KAudioColumnHasOutput)
         {
@@ -907,6 +908,7 @@ void InputOutputPatchEditor::slotAudioDeviceItemChanged(QTreeWidgetItem *item, i
         {
             settings.remove(SETTINGS_AUDIO_INPUT_DEVICE);
             defItem->setCheckState(KAudioColumnHasInput, Qt::Checked);
+            emit audioInputDeviceChanged();
         }
         else if (col == KAudioColumnHasOutput)
         {

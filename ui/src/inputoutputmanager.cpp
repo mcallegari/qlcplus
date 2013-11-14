@@ -52,6 +52,7 @@ InputOutputManager* InputOutputManager::s_instance = NULL;
 
 InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
     : QWidget(parent)
+    , m_doc(doc)
     , m_editor(NULL)
 {
     Q_ASSERT(s_instance == NULL);
@@ -106,7 +107,7 @@ InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
 
     updateTree();
     m_tree->setCurrentItem(m_tree->topLevelItem(0));
-    slotCurrentItemChanged();
+    //slotCurrentItemChanged();
 
     QSettings settings;
     QVariant var = settings.value(SETTINGS_SPLITTER);
@@ -212,6 +213,7 @@ void InputOutputManager::slotCurrentItemChanged()
     m_editor = new InputOutputPatchEditor(this, universe, m_inputMap, m_outputMap);
     m_splitter->widget(1)->layout()->addWidget(m_editor);
     connect(m_editor, SIGNAL(mappingChanged()), this, SLOT(slotMappingChanged()));
+    connect(m_editor, SIGNAL(audioInputDeviceChanged()), this, SLOT(slotAudioInputChanged()));
     m_editor->show();
 }
 
@@ -223,6 +225,11 @@ void InputOutputManager::slotMappingChanged()
         uint universe = item->text(KColumnUniverse).toUInt() - 1;
         updateItem(item, universe);
     }
+}
+
+void InputOutputManager::slotAudioInputChanged()
+{
+    m_doc->destroyAudioCapture();
 }
 
 

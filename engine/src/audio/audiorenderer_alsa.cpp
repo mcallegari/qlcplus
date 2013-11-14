@@ -204,10 +204,9 @@ qint64 AudioRendererAlsa::latency()
 
 QList<AudioDeviceInfo> AudioRendererAlsa::getDevicesInfo()
 {
+    QList<AudioDeviceInfo> devList;
     int err;
     int cardIdx = -1;
-
-    QList<AudioDeviceInfo> devList;
 
     while( snd_card_next( &cardIdx ) == 0 && cardIdx >= 0 )
     {
@@ -244,7 +243,7 @@ QList<AudioDeviceInfo> AudioRendererAlsa::getDevicesInfo()
 
             snd_pcm_info_alloca( &pcmInfo );
 
-            snprintf( str, sizeof (str), "hw:%d,%d", cardIdx, devIdx );
+            snprintf( str, sizeof (str), "plughw:%d,%d", cardIdx, devIdx );
 
             /* Obtain info about this particular device */
             snd_pcm_info_set_device( pcmInfo, devIdx );

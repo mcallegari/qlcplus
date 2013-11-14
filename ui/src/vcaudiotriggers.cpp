@@ -135,6 +135,9 @@ void VCAudioTriggers::enableCapture(bool enable)
 {
     if (enable == true)
     {
+        // in case the audio input device has been changed in the meantime...
+        m_inputCapture = m_doc->audioInputCapture();
+
         if (m_inputCapture->isRunning())
             return;
 

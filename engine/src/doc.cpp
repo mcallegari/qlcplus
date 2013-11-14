@@ -228,6 +228,18 @@ AudioCapture *Doc::audioInputCapture()
     return m_inputCapture;
 }
 
+void Doc::destroyAudioCapture()
+{
+    qDebug() << "Destroying audio capture";
+    if (m_inputCapture != NULL)
+    {
+        if (m_inputCapture->isRunning())
+            m_inputCapture->stop();
+        delete m_inputCapture;
+    }
+    m_inputCapture = NULL;
+}
+
 /*****************************************************************************
  * Modified status
  *****************************************************************************/

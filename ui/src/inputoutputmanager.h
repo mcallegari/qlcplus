@@ -81,7 +81,11 @@ private slots:
     /** Updates the current item */
     void slotMappingChanged();
 
+    /** Destroy the current audio input instance */
+    void slotAudioInputChanged();
+
 private:
+    Doc *m_doc;
     QSplitter* m_splitter;
     QTreeWidget* m_tree;
     QIcon m_icon;
