@@ -35,6 +35,7 @@ class QDomElement;
 
 #define KXMLMidiTemplate "MidiTemplate"
 #define KXMLMidiTemplateName "Name"
+#define KXMLMidiTemplateDescription "Description"
 #define KXMLMidiTemplateInitMessage "InitMessage"
 
 

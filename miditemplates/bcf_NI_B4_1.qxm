@@ -3,6 +3,11 @@
  <Creator>
   <Author>Joep Admiraal</Author>
  </Creator>
+ <Description>
+   Basic Setup for controlling
+   Native Instruments B4 Organ
+   (Preset 1 – Pedal Keyboard)
+ </Description>
  <Name>Behringer B4_1</Name>
  <InitMessage>
  f000 2032 7f7f 2000 0024 7265 7620 4631

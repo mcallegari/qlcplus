@@ -115,6 +115,10 @@ bool MidiTemplate::loadXML(const QDomDocument& doc)
             {
                 /* Ignore */
             }
+            if (tag.tagName() == KXMLMidiTemplateDescription)
+            {
+                /* Ignore */
+            }
             if (tag.tagName() == KXMLMidiTemplateName)
             {
                 setName(tag.text());
