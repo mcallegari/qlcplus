@@ -383,7 +383,8 @@
     </message>
     <message>
         <location filename="addresstool.ui" line="35"/>
-        <source>Color</source>
+        <source>Colour</source>
+        <oldsource>Color</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
