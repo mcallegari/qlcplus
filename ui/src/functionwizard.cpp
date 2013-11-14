@@ -304,15 +304,25 @@ void FunctionWizard::updateAvailableFunctionsTree()
         {
             if (cap == KQLCChannelRGB || cap == KQLCChannelCMY)
             {
-                addFunctionsGroup(fxGrpItem, grpItem, tr("Primary Colors"), PaletteGenerator::PrimaryColors);
-                addFunctionsGroup(fxGrpItem, grpItem, tr("16 Colors"), PaletteGenerator::SixteenColors);
+                addFunctionsGroup(fxGrpItem, grpItem,
+                                  PaletteGenerator::typetoString(PaletteGenerator::PrimaryColors),
+                                  PaletteGenerator::PrimaryColors);
+                addFunctionsGroup(fxGrpItem, grpItem,
+                                  PaletteGenerator::typetoString(PaletteGenerator::SixteenColors),
+                                  PaletteGenerator::SixteenColors);
             }
             else if (cap == QLCChannel::groupToString(QLCChannel::Gobo))
-                addFunctionsGroup(fxGrpItem, grpItem, tr("Gobos"), PaletteGenerator::Gobos);
+                addFunctionsGroup(fxGrpItem, grpItem,
+                                  PaletteGenerator::typetoString(PaletteGenerator::Gobos),
+                                  PaletteGenerator::Gobos);
             else if (cap == QLCChannel::groupToString(QLCChannel::Shutter))
-                addFunctionsGroup(fxGrpItem, grpItem, tr("Shutters"), PaletteGenerator::Shutter);
+                addFunctionsGroup(fxGrpItem, grpItem,
+                                  PaletteGenerator::typetoString(PaletteGenerator::Shutter),
+                                  PaletteGenerator::Shutter);
             else if (cap == QLCChannel::groupToString(QLCChannel::Colour))
-                addFunctionsGroup(fxGrpItem, grpItem, tr("Color macros"), PaletteGenerator::ColorMacro);
+                addFunctionsGroup(fxGrpItem, grpItem,
+                                  PaletteGenerator::typetoString(PaletteGenerator::ColourMacro),
+                                  PaletteGenerator::ColourMacro);
         }
     }
 

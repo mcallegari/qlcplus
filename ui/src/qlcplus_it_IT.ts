@@ -2740,11 +2740,6 @@ p, li { white-space: pre-wrap; }
         <translation>Capacità Supportate</translation>
     </message>
     <message>
-        <location filename="functionwizard.cpp" line="311"/>
-        <source>Gobos</source>
-        <translation>Gobos</translation>
-    </message>
-    <message>
         <location filename="functionwizard.ui" line="159"/>
         <source>Select fixtures that will be included in the automatically created functions</source>
         <translation>Seleziona le fixture da includere nelle funzioni create automaticamente</translation>
@@ -2780,27 +2775,7 @@ p, li { white-space: pre-wrap; }
         <translation>%1 non ha funzionalità supportate da questo wizard.</translation>
     </message>
     <message>
-        <location filename="functionwizard.cpp" line="307"/>
-        <source>Primary Colors</source>
-        <translation>Colori primari</translation>
-    </message>
-    <message>
-        <location filename="functionwizard.cpp" line="308"/>
-        <source>16 Colors</source>
-        <translation>16 Colori</translation>
-    </message>
-    <message>
-        <location filename="functionwizard.cpp" line="313"/>
-        <source>Shutters</source>
-        <translation>Shutter</translation>
-    </message>
-    <message>
-        <location filename="functionwizard.cpp" line="315"/>
-        <source>Color macros</source>
-        <translation>Macro colori</translation>
-    </message>
-    <message>
-        <location filename="functionwizard.cpp" line="457"/>
+        <location filename="functionwizard.cpp" line="467"/>
         <source>Click &amp; Go RGB</source>
         <translation>Click &amp; Go RGB</translation>
     </message>
@@ -3292,12 +3267,14 @@ Durata: %3
     <name>PaletteGenerator</name>
     <message>
         <location filename="palettegenerator.cpp" line="93"/>
-        <source>Primary colors</source>
+        <source>Primary colours</source>
+        <oldsource>Primary colors</oldsource>
         <translation>Colori primari</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="94"/>
-        <source>16 Colors</source>
+        <source>16 Colours</source>
+        <oldsource>16 Colors</oldsource>
         <translation>16 Colori</translation>
     </message>
     <message>
@@ -3312,7 +3289,8 @@ Durata: %3
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="97"/>
-        <source>Color macros</source>
+        <source>Colour macros</source>
+        <oldsource>Color macros</oldsource>
         <translation>Macro colori</translation>
     </message>
     <message>

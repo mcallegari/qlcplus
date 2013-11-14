@@ -50,7 +50,7 @@ public:
         SixteenColors,
         Shutter,
         Gobos,
-        ColorMacro
+        ColourMacro
     };
 
     enum PaletteSubType

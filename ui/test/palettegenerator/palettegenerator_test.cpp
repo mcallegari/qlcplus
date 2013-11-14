@@ -118,7 +118,7 @@ void PaletteGenerator_Test::createColours()
     list << fxi2;
     doc.addFixture(fxi2);
 
-    PaletteGenerator pg(&doc, list, PaletteGenerator::ColorMacro);
+    PaletteGenerator pg(&doc, list, PaletteGenerator::ColourMacro);
     pg.addToDoc();
     QCOMPARE(doc.functions().size(), 11); // 10 colours
     for (quint32 i = 0; i < 10; i++)

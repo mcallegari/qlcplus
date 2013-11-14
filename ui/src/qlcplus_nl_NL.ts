@@ -2726,11 +2726,6 @@ p, li { white-space: pre-wrap; }
         <translation>Verwijderen</translation>
     </message>
     <message>
-        <location filename="functionwizard.cpp" line="311"/>
-        <source>Gobos</source>
-        <translation>Gobos</translation>
-    </message>
-    <message>
         <location filename="functionwizard.cpp" line="172"/>
         <source>%1 group</source>
         <translation type="unfinished"></translation>
@@ -2746,27 +2741,7 @@ p, li { white-space: pre-wrap; }
         <translation>%1 heeft geen funkties die ondersteund worden door deze wizard.</translation>
     </message>
     <message>
-        <location filename="functionwizard.cpp" line="307"/>
-        <source>Primary Colors</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="functionwizard.cpp" line="308"/>
-        <source>16 Colors</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="functionwizard.cpp" line="313"/>
-        <source>Shutters</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="functionwizard.cpp" line="315"/>
-        <source>Color macros</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="functionwizard.cpp" line="457"/>
+        <location filename="functionwizard.cpp" line="467"/>
         <source>Click &amp; Go RGB</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3259,12 +3234,14 @@ Duur: %3
     <name>PaletteGenerator</name>
     <message>
         <location filename="palettegenerator.cpp" line="93"/>
-        <source>Primary colors</source>
+        <source>Primary colours</source>
+        <oldsource>Primary colors</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="94"/>
-        <source>16 Colors</source>
+        <source>16 Colours</source>
+        <oldsource>16 Colors</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3279,7 +3256,8 @@ Duur: %3
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="97"/>
-        <source>Color macros</source>
+        <source>Colour macros</source>
+        <oldsource>Color macros</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>

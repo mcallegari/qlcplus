@@ -90,11 +90,11 @@ QString PaletteGenerator::typetoString(PaletteGenerator::PaletteType type)
 {
     switch(type)
     {
-        case PrimaryColors: return tr("Primary colors"); break;
-        case SixteenColors: return tr("16 Colors"); break;
+        case PrimaryColors: return tr("Primary colours"); break;
+        case SixteenColors: return tr("16 Colours"); break;
         case Shutter: return tr("Shutter macros");
         case Gobos: return tr("Gobo macros");
-        case ColorMacro: return tr("Color macros");
+        case ColourMacro: return tr("Colour macros");
         case Undefined:
         default:
             return tr("Unknown");
@@ -489,7 +489,7 @@ void PaletteGenerator::createFunctions(PaletteGenerator::PaletteType type,
         createCapabilityScene(m_shutterList, subType);
         createChaser(typetoString(type));
     }
-    else if (type == ColorMacro)
+    else if (type == ColourMacro)
     {
         createCapabilityScene(m_colorMacroList, subType);
         createChaser(typetoString(type));

@@ -2711,11 +2711,6 @@ p, li { white-space: pre-wrap; }
         <translation>Tuetut kyvyt</translation>
     </message>
     <message>
-        <location filename="functionwizard.cpp" line="311"/>
-        <source>Gobos</source>
-        <translation>Kuviot</translation>
-    </message>
-    <message>
         <location filename="functionwizard.ui" line="159"/>
         <source>Select fixtures that will be included in the automatically created functions</source>
         <translation>Valitse valaisimet, jotka otetaan mukaan automaattiseen funktioiden luontiin</translation>
@@ -2751,27 +2746,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.cpp" line="307"/>
-        <source>Primary Colors</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="functionwizard.cpp" line="308"/>
-        <source>16 Colors</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="functionwizard.cpp" line="313"/>
-        <source>Shutters</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="functionwizard.cpp" line="315"/>
-        <source>Color macros</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="functionwizard.cpp" line="457"/>
+        <location filename="functionwizard.cpp" line="467"/>
         <source>Click &amp; Go RGB</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3260,12 +3235,14 @@ Duration: %3
     <name>PaletteGenerator</name>
     <message>
         <location filename="palettegenerator.cpp" line="93"/>
-        <source>Primary colors</source>
+        <source>Primary colours</source>
+        <oldsource>Primary colors</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="94"/>
-        <source>16 Colors</source>
+        <source>16 Colours</source>
+        <oldsource>16 Colors</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3280,7 +3257,8 @@ Duration: %3
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="97"/>
-        <source>Color macros</source>
+        <source>Colour macros</source>
+        <oldsource>Color macros</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
