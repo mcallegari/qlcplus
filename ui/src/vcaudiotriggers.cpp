@@ -18,6 +18,7 @@
 */
 
 #include <QtXml>
+#include <QMessageBox>
 
 #if defined( __APPLE__) || defined(Q_OS_MAC)
   #include "audiocapture_portaudio.h"
@@ -139,7 +140,16 @@ void VCAudioTriggers::enableCapture(bool enable)
 
         m_inputCapture->setBandsNumber(m_spectrum->barsNumber());
         if (m_inputCapture->isInitialized() == false)
-            m_inputCapture->initialize(44100, 1, 2048);
+        {
+            if (m_inputCapture->initialize(44100, 1, 2048) == false)
+            {
+                QMessageBox::warning(this, tr("Audio open error"),
+                                     tr("An error occurred while initializing the selected audio device. Please review your audio input settings."));
+                m_button->setChecked(false);
+                return;
+            }
+        }
+
         m_inputCapture->start();
         m_button->setChecked(true);
         connect(m_inputCapture, SIGNAL(dataProcessed(double *, double, quint32)),

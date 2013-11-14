@@ -96,7 +96,7 @@ public:
 
     PaletteSubType subType();
 
-    QString typetoString(PaletteType type);
+    static QString typetoString(PaletteType type);
 
     /********************************************************************
      * Contents

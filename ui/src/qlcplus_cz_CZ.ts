@@ -4340,6 +4340,19 @@ Délka: %3
     </message>
 </context>
 <context>
+    <name>VCAudioTriggers</name>
+    <message>
+        <location filename="vcaudiotriggers.cpp" line="146"/>
+        <source>Audio open error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggers.cpp" line="147"/>
+        <source>An error occurred while initializing the selected audio device. Please review your audio input settings.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>VCButton</name>
     <message>
         <location filename="vcbutton.cpp" line="86"/>

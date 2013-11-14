@@ -4377,6 +4377,19 @@ Durata: %3
     </message>
 </context>
 <context>
+    <name>VCAudioTriggers</name>
+    <message>
+        <location filename="vcaudiotriggers.cpp" line="146"/>
+        <source>Audio open error</source>
+        <translation>Errore di apertura dell&apos;audio</translation>
+    </message>
+    <message>
+        <location filename="vcaudiotriggers.cpp" line="147"/>
+        <source>An error occurred while initializing the selected audio device. Please review your audio input settings.</source>
+        <translation>Si è verificato un errore durante l&apos;inizializzazione del dispositivo audio selezionato. Controlla le impostazioni di ingresso audio.</translation>
+    </message>
+</context>
+<context>
     <name>VCButton</name>
     <message>
         <location filename="vcbutton.cpp" line="86"/>
