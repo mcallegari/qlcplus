@@ -79,7 +79,7 @@ bool AudioCaptureAlsa::initialize(unsigned int sampleRate, quint8 channels, quin
     }
     if ((err = snd_pcm_hw_params_set_channels (m_captureHandle, hw_params, channels)) < 0)
     {
-        qWarning("cannot set channel count (%s)\n", snd_strerror (err));
+        qWarning("cannot set channel count to %d (%s)\n", channels, snd_strerror (err));
         return false;
     }
     if ((err = snd_pcm_hw_params (m_captureHandle, hw_params)) < 0)

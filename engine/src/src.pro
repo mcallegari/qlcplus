@@ -79,7 +79,6 @@ HEADERS += bus.h \
            grouphead.h \
            inputmap.h \
            inputpatch.h \
-           intensitygenerator.h \
            ioplugincache.h \
            mastertimer.h \
            universearray.h \
@@ -160,7 +159,6 @@ SOURCES += bus.cpp \
            grouphead.cpp \
            inputmap.cpp \
            inputpatch.cpp \
-           intensitygenerator.cpp \
            ioplugincache.cpp \
            mastertimer.cpp \
            universearray.cpp \

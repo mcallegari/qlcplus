@@ -17,7 +17,6 @@ SUBDIRS += function
 SUBDIRS += genericfader
 SUBDIRS += inputmap
 SUBDIRS += inputpatch
-SUBDIRS += intensitygenerator
 SUBDIRS += mastertimer
 SUBDIRS += outputmap
 SUBDIRS += outputpatch

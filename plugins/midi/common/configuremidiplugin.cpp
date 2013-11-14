@@ -211,7 +211,7 @@ QWidget* ConfigureMidiPlugin::createModeWidget(MidiDevice::Mode mode)
 QWidget* ConfigureMidiPlugin::createInitMessageWidget(QString midiTemplateName)
 {
     QComboBox* combo = new QComboBox;
-    combo->addItem("", "");
+    combo->addItem(tr("None"), "");
 
     QListIterator <MidiTemplate*> it(m_plugin->midiTemplates());
     while (it.hasNext() == true)

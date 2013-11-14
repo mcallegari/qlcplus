@@ -35,6 +35,9 @@ AudioCapture::AudioCapture (QObject* parent)
     , m_userStop(true)
     , m_pause(false)
     , m_isInitialized(false)
+    , m_captureSize(0)
+    , m_sampleRate(0)
+    , m_channels(0)
     , m_audioBuffer(NULL)
     , m_fftInputBuffer(NULL)
     , m_fftOutputBuffer(NULL)
@@ -177,7 +180,7 @@ void AudioCapture::run()
     while (!m_userStop)
     {
         m_mutex.lock();
-        if (m_pause == false)
+        if (m_pause == false && m_captureSize != 0)
         {
             if (readAudio(m_captureSize) == true)
             {

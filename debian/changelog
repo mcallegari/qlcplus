@@ -3,8 +3,10 @@ qlcplus (4.6.0) stable; urgency=low
   * NEW: EFX Editor: added relative position settings (thank to Jano Svitok)
   * NEW: Function Manager: added folders with drag & drop functionality
   * NEW: Function Wizard has been completely rewritten
+  * NEW: MIDI plugin: added the possibility to send a SysEx initialization message on an input or output line (thanks to Joep Admiraal)
   * Virtual Console: fixed audio triggers incorrect loading
   * Input/Output: improved audio device selection
+  * Audio Input: fixed crash occurring on Linux for unusable audio devices
   * Fixture Editor: set previously selected color when editing a color macro
   * Package: Fixed installation of RGB scripts and Windows associations (thanks to Jano Svitok)
   * Added fixtures: Pro-Lights LedPar 64363 RGB, Pro-Lights LumiPar 7QPro, Pro-Lights Strobo 1500DMX, Pro-Lights Explo 3000D (thanks to Lorenzo Andreani)
