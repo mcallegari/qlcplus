@@ -24,6 +24,7 @@
 
 #include "vcaudiotriggers.h"
 #include "virtualconsole.h"
+#include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
 #include "channelsgroup.h"
 #include "fixtureremap.h"
@@ -421,6 +422,11 @@ void FixtureRemap::slotAddRemap()
         quint32 tgtFxiID = newRemap.target->text(KColumnID).toUInt();
         Fixture *tgtFxi = m_targetDoc->fixture(tgtFxiID);
         Q_ASSERT(tgtFxi != NULL);
+        const QLCFixtureDef *srcFxiDef = srcFxi->fixtureDef();
+        const QLCFixtureDef *tgtFxiDef = tgtFxi->fixtureDef();
+        const QLCFixtureMode *srcFxiMode = srcFxi->fixtureMode();
+        const QLCFixtureMode *tgtFxiMode = tgtFxi->fixtureMode();
+        bool oneToOneRemap = false;
 
         if (m_remapNamesCheck->isChecked())
         {
@@ -428,24 +434,52 @@ void FixtureRemap::slotAddRemap()
             newRemap.target->setText(KColumnName, srcFxi->name());
         }
 
+        // 1-to-1 channel remapping is required for fixtures with
+        // the same definition and mode
+        if (srcFxiDef != NULL && tgtFxiDef != NULL &&
+            srcFxiMode != NULL && tgtFxiMode != NULL)
+        {
+            if (srcFxiDef->name() == tgtFxiDef->name() &&
+                srcFxiMode->name() == tgtFxiMode->name())
+                    oneToOneRemap = true;
+        }
+        // 1-to-1 channel remapping is required for
+        // generic dimmer packs
+        else if (srcFxiDef == NULL && tgtFxiDef == NULL &&
+                 srcFxiMode == NULL && tgtFxiMode == NULL)
+                    oneToOneRemap = true;
+
         for (quint32 s = 0; s < srcFxi->channels(); s++)
         {
-            const QLCChannel* srcCh = srcFxi->channel(s);
-
-            for (quint32 t = 0; t < tgtFxi->channels(); t++)
+            if (oneToOneRemap == true)
             {
-                const QLCChannel* tgtCh = tgtFxi->channel(t);
-                if ((tgtCh->group() == srcCh->group()) &&
-                    (tgtCh->controlByte() == srcCh->controlByte()))
+                if (s < tgtFxi->channels())
                 {
-                    if (tgtCh->group() == QLCChannel::Intensity &&
-                        tgtCh->colour() != srcCh->colour())
-                            continue;
                     RemapInfo matchInfo;
                     matchInfo.source = newRemap.source->child(s);
-                    matchInfo.target = newRemap.target->child(t);
+                    matchInfo.target = newRemap.target->child(s);
                     m_remapList.append(matchInfo);
-                    break;
+                }
+            }
+            else
+            {
+                const QLCChannel* srcCh = srcFxi->channel(s);
+
+                for (quint32 t = 0; t < tgtFxi->channels(); t++)
+                {
+                    const QLCChannel* tgtCh = tgtFxi->channel(t);
+                    if ((tgtCh->group() == srcCh->group()) &&
+                        (tgtCh->controlByte() == srcCh->controlByte()))
+                    {
+                        if (tgtCh->group() == QLCChannel::Intensity &&
+                            tgtCh->colour() != srcCh->colour())
+                                continue;
+                        RemapInfo matchInfo;
+                        matchInfo.source = newRemap.source->child(s);
+                        matchInfo.target = newRemap.target->child(t);
+                        m_remapList.append(matchInfo);
+                        break;
+                    }
                 }
             }
         }
@@ -489,6 +523,8 @@ void FixtureRemap::slotRemoveRemap()
 void FixtureRemap::slotUpdateConnections()
 {
     remapWidget->update();
+    m_sourceTree->resizeColumnToContents(KColumnName);
+    m_targetTree->resizeColumnToContents(KColumnName);
 }
 
 void FixtureRemap::slotSourceSelectionChanged()
