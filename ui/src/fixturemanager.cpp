@@ -136,6 +136,9 @@ FixtureManager::FixtureManager(QWidget* parent, Doc* doc)
     connect(m_doc, SIGNAL(fixtureGroupChanged(quint32)),
             this, SLOT(slotFixtureGroupChanged(quint32)));
 
+    connect(m_doc, SIGNAL(loaded()),
+            this, SLOT(slotTabChanged()));
+
     slotModeChanged(m_doc->mode());
 
     QSettings settings;

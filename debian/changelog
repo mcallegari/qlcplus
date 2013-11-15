@@ -9,6 +9,7 @@ qlcplus (4.6.0) stable; urgency=low
   * Audio Input: fixed crash occurring on Linux for unusable audio devices
   * Fixture Editor: set previously selected color when editing a color macro
   * Fixture Remap: improved remapping of fixtures with of the same type
+  * Fixture Manager: refresh fixtures list when loading a project on startup
   * Package: Fixed installation of RGB scripts and Windows associations (thanks to Jano Svitok)
   * Added fixtures: Pro-Lights LedPar 64363 RGB, Pro-Lights LumiPar 7QPro, Pro-Lights Strobo 1500DMX, Pro-Lights Explo 3000D (thanks to Lorenzo Andreani)
 

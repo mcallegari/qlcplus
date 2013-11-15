@@ -142,7 +142,7 @@ private slots:
     void slotChannelsGroupDoubleClicked(QTreeWidgetItem*);
 
     /** Callback for tab selection changes */
-    void slotTabChanged(int index);
+    void slotTabChanged(int index = 0);
 
     /** Callback for fixture tree item expand/collapse */
     void slotFixtureItemExpanded();
