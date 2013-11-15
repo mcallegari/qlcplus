@@ -336,6 +336,7 @@ void PaletteGenerator::createCapabilityScene(QHash<quint32, quint32> chMap,
 
     quint32 ch = it.next().value();
     const QLCChannel* channel = fxi->channel(ch);
+    QStringList tmpCapList;
 
     for (int cIdx = 0; cIdx < channel->capabilities().count(); cIdx++)
     {
@@ -346,6 +347,12 @@ void PaletteGenerator::createCapabilityScene(QHash<quint32, quint32> chMap,
         QLCCapability *cap = channel->capabilities().at(cIdx);
         uchar value = cap->middle();
         QString name = cap->name();
+
+        // Do not add the same capability twice
+        if (tmpCapList.contains(name))
+            continue;
+
+        tmpCapList.append(name);
 
         if (subType == OddEven)
         {

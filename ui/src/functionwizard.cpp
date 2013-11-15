@@ -460,21 +460,27 @@ void FunctionWizard::updateWidgetsTree()
             item->setData(KWidgetName, Qt::UserRole, VCWidget::CueListWidget);
             item->setData(KWidgetName, Qt::UserRole + 1, qVariantFromValue((void *)chaser));
         }
-        if (palette->type() == PaletteGenerator::PrimaryColors ||
-            palette->type() == PaletteGenerator::SixteenColors)
-        {
-            QTreeWidgetItem *item = new QTreeWidgetItem(frame);
-            item->setText(KWidgetName, tr("Click & Go RGB"));
-            item->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::SliderWidget));
-            item->setCheckState(KWidgetName, Qt::Unchecked);
-            item->setData(KWidgetName, Qt::UserRole, VCWidget::SliderWidget);
-            Scene *firstScene = palette->scenes().at(0);
-            item->setData(KWidgetName, Qt::UserRole + 1, qVariantFromValue((void *)firstScene));
-        }
+
+        int pType = palette->type();
+        QTreeWidgetItem *item = new QTreeWidgetItem(frame);
+        if (pType == PaletteGenerator::PrimaryColors ||
+            pType == PaletteGenerator::SixteenColors)
+                item->setText(KWidgetName, tr("Click & Go RGB"));
+        else if (pType == PaletteGenerator::Gobos ||
+                 pType == PaletteGenerator::Shutter ||
+                 pType == PaletteGenerator::ColourMacro)
+                    item->setText(KWidgetName, tr("Click & Go Macro"));
+
+        item->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::SliderWidget));
+        item->setCheckState(KWidgetName, Qt::Unchecked);
+        item->setData(KWidgetName, Qt::UserRole, VCWidget::SliderWidget);
+        Scene *firstScene = palette->scenes().at(0);
+        item->setData(KWidgetName, Qt::UserRole + 1, qVariantFromValue((void *)firstScene));
     }
 }
 
-VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int ypos, Function *func)
+VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int ypos,
+                                       Function *func, int pType)
 {
     VirtualConsole *vc = VirtualConsole::instance();
     VCWidget *widget = NULL;
@@ -522,11 +528,16 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
             slider->move(QPoint(xpos, ypos));
             if (func != NULL)
             {
-                slider->setClickAndGoType(ClickAndGoWidget::RGB);
-                slider->setSliderMode(VCSlider::Level);
                 Scene *scene = qobject_cast<Scene*> (func);
                 foreach (SceneValue scv, scene->values())
                     slider->addLevelChannel(scv.fxi, scv.channel);
+
+                if (pType == PaletteGenerator::PrimaryColors ||
+                    pType == PaletteGenerator::SixteenColors)
+                        slider->setClickAndGoType(ClickAndGoWidget::RGB);
+                else
+                    slider->setClickAndGoType(ClickAndGoWidget::Preset);
+                slider->setSliderMode(VCSlider::Level);
             }
             widget = slider;
         }
@@ -567,12 +578,13 @@ void FunctionWizard::addWidgetsToVirtualConsole()
         if (wItem->checkState(KWidgetName) == Qt::Checked)
         {
             int wType = wItem->data(KWidgetName, Qt::UserRole).toInt();
-            VCWidget *widget = createWidget(wType, mainFrame, xPos, yPos, NULL);
+            VCWidget *widget = createWidget(wType, mainFrame, xPos, yPos);
             if (widget == NULL)
                 continue;
 
             widget->resize(QSize(1000, 1000));
-            //PaletteGenerator *pal = (PaletteGenerator *) wItem->data(KWidgetName, Qt::UserRole + 1).value<void *>();
+            PaletteGenerator *pal = (PaletteGenerator *) wItem->data(KWidgetName, Qt::UserRole + 1).value<void *>();
+            int pType = pal->type();
 
             widget->setCaption(wItem->text(KWidgetName));
 
@@ -587,7 +599,7 @@ void FunctionWizard::addWidgetsToVirtualConsole()
                     int cType = childItem->data(KWidgetName, Qt::UserRole).toInt();
                     Function *func = (Function *) childItem->data(KWidgetName, Qt::UserRole + 1).value<void *>();
 
-                    VCWidget *childWidget = createWidget(cType, widget, subX, subY, func);
+                    VCWidget *childWidget = createWidget(cType, widget, subX, subY, func, pType);
                     if (childWidget != NULL)
                     {
                         childWidget->setCaption(childItem->text(KWidgetName));

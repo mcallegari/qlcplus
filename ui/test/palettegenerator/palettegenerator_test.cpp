@@ -195,8 +195,8 @@ void PaletteGenerator_Test::createShutters()
     PaletteGenerator pg(&doc, list, PaletteGenerator::Shutter);
     pg.addToDoc();
     // There are 19 shutter capabilities, but "Shutter open" happens with multiple values
-    QCOMPARE(doc.functions().size(), 20);
-    for (quint32 i = 0; i < 19; i++)
+    QCOMPARE(doc.functions().size(), 14);
+    for (quint32 i = 0; i < 13; i++)
     {
         Scene* s = qobject_cast<Scene*> (doc.function(i));
         QVERIFY(s != NULL);
