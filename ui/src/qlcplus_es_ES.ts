@@ -18,7 +18,7 @@
         <location filename="aboutbox.ui" line="116"/>
         <source>This application is licensed under the terms of the Apache 2.0 license.</source>
         <oldsource>This application is licensed under the terms of GNU GPL version 2.</oldsource>
-        <translation>Esta aplicación está licenciada bajo  los términos de Apache version 2.0.</translation>
+        <translation>Esta aplicación está licenciada bajo los términos de la licencia Apache 2.0.</translation>
     </message>
     <message>
         <location filename="aboutbox.cpp" line="39"/>
@@ -385,7 +385,7 @@
         <location filename="addresstool.ui" line="35"/>
         <source>Colour</source>
         <oldsource>Color</oldsource>
-        <translation type="unfinished">Color</translation>
+        <translation>Color</translation>
     </message>
     <message>
         <location filename="addresstool.ui" line="51"/>
@@ -1537,7 +1537,7 @@ Duración: %3
         <location filename="dmxdumpfactory.cpp" line="69"/>
         <source>Dump all channels (%1 Universes, %2 Fixtures, %3 Channels)</source>
         <oldsource>Dump all DMX values (%1 Universes, %2 Fixtures, %3 Channels)</oldsource>
-        <translation>Volcar todos los canales (%1 Universos, %2 Proyectores, %3 Canales)</translation>
+        <translation>Volcar todos los canales (%1 Universos, %2 Fixtures, %3 Canales)</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.cpp" line="72"/>
@@ -1780,7 +1780,7 @@ Duración: %3
     <message>
         <location filename="efxeditor.ui" line="531"/>
         <source>Relative</source>
-        <translation type="unfinished"></translation>
+        <translation>Relativo</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="541"/>
@@ -1971,7 +1971,7 @@ Duración: %3
     <message>
         <location filename="fixturemanager.cpp" line="674"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;No fixtures&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
-        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Ningún fixture&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; para añadir proyectores.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
+        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Ningún fixture&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; para añadir fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="680"/>
@@ -2253,7 +2253,7 @@ Duración: %3
     <message>
         <location filename="fixtureremap.cpp" line="412"/>
         <source>To perform a fixture remap, please select fixtures on both lists.</source>
-        <translation>Para realizar la reasignación de fixtures, por favor seleccione proyectores en ambas listas.</translation>
+        <translation>Para realizar la reasignación de fixtures, por favor seleccione fixtures en ambas listas.</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="572"/>
@@ -2281,7 +2281,7 @@ Duración: %3
     <message>
         <location filename="fixtureselection.ui" line="44"/>
         <source>Universe</source>
-        <translation type="unfinished">Universo</translation>
+        <translation>Universo</translation>
     </message>
     <message>
         <location filename="fixtureselection.ui" line="49"/>
@@ -2393,7 +2393,7 @@ Duración: %3
     <message>
         <location filename="functionmanager.cpp" line="278"/>
         <source>New fo&amp;lder</source>
-        <translation type="unfinished"></translation>
+        <translation>Nueva Car&amp;peta</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="284"/>
@@ -2464,7 +2464,7 @@ Duración: %3
         <location filename="functionmanager.cpp" line="539"/>
         <source>Do you want to DELETE folder:</source>
         <oldsource>Do you want to DELETE foler:</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Desea ELIMINAR la carpeta:</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="541"/>
@@ -2474,7 +2474,7 @@ Duración: %3
     <message>
         <location filename="functionmanager.cpp" line="553"/>
         <source>(This will also DELETE: </source>
-        <translation type="unfinished"></translation>
+        <translation>(Esto ELIMINARÁ también:</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="565"/>
@@ -2605,22 +2605,22 @@ Duración: %3
     <message>
         <location filename="functionwizard.ui" line="38"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Siguiente</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="49"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="60"/>
         <source>Cancel</source>
-        <translation type="unfinished">Cancelar</translation>
+        <translation>Cancelar</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="77"/>
         <source>Introduction</source>
-        <translation type="unfinished"></translation>
+        <translation>Introducción</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="86"/>
@@ -2637,7 +2637,19 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3- add widgets to the Virtual Console&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;To move from a step to another press the &amp;quot;Next&amp;quot; button&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;¡Bienvenido al Asistente de QLC+ !&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Esta es una quía que le permitirá empezar a usar QLC+ en unos pocos minutos.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Básicamente consiste en tres simples pasos:&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1- añadir fixtures&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2- elegir capacidades para crear funciones&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3- añadir widgets a la Consola Virtual&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Para moverse al siguiente paso haga click en el botón &amp;quot;Siguiente&amp;quot;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="179"/>
@@ -2651,27 +2663,31 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Add the fixtures for which you want to create functions and widgets&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Añada los fixtures para los cuales quiere crear funciones y widgets&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="238"/>
         <source>Functions</source>
-        <translation type="unfinished">Funciones</translation>
+        <translation>Funciones</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="245"/>
         <source>Results</source>
-        <translation type="unfinished"></translation>
+        <translation>Resultados</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="254"/>
         <source>Available</source>
-        <translation type="unfinished"></translation>
+        <translation>Disponible</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="259"/>
         <source>Odd/Even</source>
-        <translation type="unfinished"></translation>
+        <translation>Par/Impar</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="279"/>
@@ -2680,17 +2696,21 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Based on the fixtures you added, I can create the functions listed on the left. Just select what you need and see the results on the right !&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Basado en los fixtures que añadió, puedo crear las funciones que se muestran a la izquierda. ¡Seleccione lo que necesite y vea los resultados a la derecha!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="290"/>
         <source>Advanced</source>
-        <translation type="unfinished"></translation>
+        <translation>Avanzado</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="298"/>
         <source>Virtual Console</source>
-        <translation type="unfinished">Consola Virtual</translation>
+        <translation>Consola Virtual</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="316"/>
@@ -2699,12 +2719,21 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Based on the functions you selected, I can create the following widgets on your Virtual Console. Just check which ones you need.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Basado en las funciones elegidas, puedo crear los siguientes widgets en la Consola Virtual. Marque los que necesite.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translatorcomment>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Based on the functions you selected, I can create the following widgets on your Virtual Console. Just check which ones you need.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="328"/>
         <source>Widgets</source>
-        <translation type="unfinished">Widget</translation>
+        <translation>Widgets</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="120"/>
@@ -2740,7 +2769,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="functionwizard.cpp" line="172"/>
         <source>%1 group</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 grupo</translation>
     </message>
     <message>
         <location filename="functionwizard.cpp" line="189"/>
@@ -2755,7 +2784,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="functionwizard.cpp" line="467"/>
         <source>Click &amp; Go RGB</source>
-        <translation type="unfinished"></translation>
+        <translation>RGB Click &amp; Go</translation>
     </message>
 </context>
 <context>
@@ -2983,7 +3012,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="809"/>
         <source>Default device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositivo por defecto</translation>
     </message>
 </context>
 <context>
@@ -3247,195 +3276,195 @@ Duración: %3
         <location filename="palettegenerator.cpp" line="93"/>
         <source>Primary colours</source>
         <oldsource>Primary colors</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Colores primarios</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="94"/>
         <source>16 Colours</source>
         <oldsource>16 Colors</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>16 Colores</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="95"/>
         <source>Shutter macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Macros de Shutter</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="96"/>
         <source>Gobo macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Macros de Gobo</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="97"/>
         <source>Colour macros</source>
         <oldsource>Color macros</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Macros de Color</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="100"/>
         <source>Unknown</source>
-        <translation type="unfinished">Desconocido</translation>
+        <translation>Desconocido</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="235"/>
         <source>%1 - %2 (Even)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 - %2 (Par)</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="236"/>
         <source>%1 - %2 (Odd)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 - %2 (Impar)</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="260"/>
         <source>Black</source>
-        <translation type="unfinished"></translation>
+        <translation>Negro</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="260"/>
         <source>Dark Blue</source>
-        <translation type="unfinished"></translation>
+        <translation>Azul Oscuro</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="260"/>
         <source>Blue</source>
-        <translation type="unfinished"></translation>
+        <translation>Azul</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="260"/>
         <source>Dark Green</source>
-        <translation type="unfinished"></translation>
+        <translation>Verde Oscuro</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="261"/>
         <source>Dark Cyan</source>
-        <translation type="unfinished"></translation>
+        <translation>Cyan Oscuro</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="261"/>
         <source>Green</source>
-        <translation type="unfinished"></translation>
+        <translation>Verde</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="261"/>
         <source>Cyan</source>
-        <translation type="unfinished"></translation>
+        <translation>Cyan</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="261"/>
         <source>Dark Red</source>
-        <translation type="unfinished"></translation>
+        <translation>Rojo Oscuro</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="262"/>
         <source>Dark Magenta</source>
-        <translation type="unfinished"></translation>
+        <translation>Magenta Oscuro</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="262"/>
         <source>Dark Yellow</source>
-        <translation type="unfinished"></translation>
+        <translation>Amarillo Oscuro</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="262"/>
         <source>Dark Gray</source>
-        <translation type="unfinished"></translation>
+        <translation>Gris Oscuro</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="262"/>
         <source>Light Gray</source>
-        <translation type="unfinished"></translation>
+        <translation>Gris Claro</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="263"/>
         <source>Red</source>
-        <translation type="unfinished"></translation>
+        <translation>Rojo</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="263"/>
         <source>Magenta</source>
-        <translation type="unfinished"></translation>
+        <translation>Magenta</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="263"/>
         <source>Yellow</source>
-        <translation type="unfinished"></translation>
+        <translation>Amarillo</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="263"/>
         <source>White</source>
-        <translation type="unfinished"></translation>
+        <translation>Blanco</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="315"/>
         <source>%1 %2 - %3</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %2 - %3</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="319"/>
         <source>%1 %2 - %3 (Even)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %2 - %3 (Par)</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="320"/>
         <source>%1 %2 - %3 (Odd)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %2 - %3 (Impar)</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="375"/>
         <source> - Even</source>
-        <translation type="unfinished"></translation>
+        <translation> - Par</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="376"/>
         <source> - Odd</source>
-        <translation type="unfinished"></translation>
+        <translation> - Impar</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="395"/>
         <source>%1 chaser - %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 chaser - %2</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="465"/>
         <source>Red scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Escena roja</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="466"/>
         <source>Green scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Escena verde</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="467"/>
         <source>Blue scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Escena azul</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="468"/>
         <source>Cyan scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Escena Cyan</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="469"/>
         <source>Magenta scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Escena magenta</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="470"/>
         <source>Yellow scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Escena amarilla</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="471"/>
         <source>White scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Escena blanca</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="477"/>
         <location filename="palettegenerator.cpp" line="479"/>
         <source>Scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Escena</translation>
     </message>
 </context>
 <context>
@@ -4358,12 +4387,12 @@ Duración: %3
     <message>
         <location filename="vcaudiotriggers.cpp" line="146"/>
         <source>Audio open error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error al abrir audio</translation>
     </message>
     <message>
         <location filename="vcaudiotriggers.cpp" line="147"/>
         <source>An error occurred while initializing the selected audio device. Please review your audio input settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ocurrió un error al inicializar el dispositivo de audio. Por favor, revise la configuración de entrada de audio.</translation>
     </message>
 </context>
 <context>
