@@ -52,6 +52,7 @@ PaletteGenerator::PaletteGenerator(Doc* doc, const QList <Fixture*>& fxList,
 
 PaletteGenerator::~PaletteGenerator()
 {
+    m_fixtures.clear();
     m_scenes.clear();
     m_chasers.clear();
 }

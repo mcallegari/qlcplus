@@ -11,7 +11,8 @@ qlcplus (4.6.0) stable; urgency=low
   * Fixture Remap: improved remapping of fixtures with of the same type
   * Fixture Manager: refresh fixtures list when loading a project on startup
   * Package: Fixed installation of RGB scripts and Windows associations (thanks to Jano Svitok)
-  * Added fixtures: Pro-Lights LedPar 64363 RGB, Pro-Lights LumiPar 7QPro, Pro-Lights Strobo 1500DMX, Pro-Lights Explo 3000D (thanks to Lorenzo Andreani)
+  * Added fixtures: Pro-Lights LedPar 64363 RGB, Pro-Lights LumiPar 7QPro, Pro-Lights Strobo 1500DMX, Pro-Lights Explo 3000D, Pro-Lights LumiPar 18 Tri (thanks to Lorenzo Andreani)
+  * Added fixture: American DJ Mega Tri Par
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 15 December 2013 12:13:04 +0200
 

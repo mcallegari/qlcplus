@@ -79,6 +79,7 @@ FunctionWizard::FunctionWizard(QWidget* parent, Doc* doc)
 
 FunctionWizard::~FunctionWizard()
 {
+    m_paletteList.clear();
 }
 
 void FunctionWizard::slotNextPageClicked()
