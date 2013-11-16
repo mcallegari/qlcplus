@@ -24,11 +24,23 @@
 #include "rgbscript.h"
 #undef private
 
+#include "doc.h"
+
 #define INTERNAL_SCRIPTDIR "../../../rgbscripts"
+
+void RGBScript_Test::initTestCase()
+{
+    m_doc = new Doc(this);
+}
+
+void RGBScript_Test::cleanupTestCase()
+{
+    delete m_doc;
+}
 
 void RGBScript_Test::initial()
 {
-    RGBScript script;
+    RGBScript script(m_doc);
     QVERIFY(script.s_engine == NULL);
     QCOMPARE(script.m_apiVersion, 0);
     QCOMPARE(script.m_fileName, QString());
@@ -81,7 +93,7 @@ void RGBScript_Test::scripts()
     QVERIFY(dir.entryList().size() > 0);
 
     RGBScript::setCustomScriptDirectory(INTERNAL_SCRIPTDIR);
-    QList <RGBScript> list = RGBScript::scripts();
+    QList <RGBScript> list = RGBScript::scripts(m_doc);
     QVERIFY(list.size() >= 0);
 }
 
@@ -89,7 +101,7 @@ void RGBScript_Test::script()
 {
     RGBScript::setCustomScriptDirectory(INTERNAL_SCRIPTDIR);
 
-    RGBScript s = RGBScript::script("A script that should not exist");
+    RGBScript s = RGBScript::script(m_doc, "A script that should not exist");
     QCOMPARE(s.fileName(), QString());
     QCOMPARE(s.m_contents, QString());
     QCOMPARE(s.apiVersion(), 0);
@@ -99,7 +111,7 @@ void RGBScript_Test::script()
     QVERIFY(s.m_rgbMap.isValid() == false);
     QVERIFY(s.m_rgbMapStepCount.isValid() == false);
 
-    s = RGBScript::script("Full Rows");
+    s = RGBScript::script(m_doc, "Full Rows");
     QCOMPARE(s.fileName(), QString("fullrows.js"));
     QVERIFY(s.m_contents.isEmpty() == false);
     QVERIFY(s.apiVersion() > 0);
@@ -114,7 +126,7 @@ void RGBScript_Test::evaluateException()
 {
     // Should be    function()
     QString code("( function { return 5; } )()");
-    RGBScript s;
+    RGBScript s(m_doc);
     s.m_contents = code;
     QCOMPARE(s.evaluate(), false);
 }
@@ -123,7 +135,7 @@ void RGBScript_Test::evaluateNoRgbMapFunction()
 {
     // No rgbMap() function present
     QString code("( function() { return 5; } )()");
-    RGBScript s;
+    RGBScript s(m_doc);
     s.m_contents = code;
     QCOMPARE(s.evaluate(), false);
     QCOMPARE(s.rgbMap(QSize(5, 5), 1, 0), RGBMap());
@@ -133,7 +145,7 @@ void RGBScript_Test::evaluateNoRgbMapStepCountFunction()
 {
     // No rgbMapStepCount() function present
     QString code("( function() { var foo = new Object; foo.rgbMap = function() { return 0; }; return foo; } )()");
-    RGBScript s;
+    RGBScript s(m_doc);
     s.m_contents = code;
     QCOMPARE(s.evaluate(), false);
     QCOMPARE(s.rgbMapStepCount(QSize(5, 5)), -1);
@@ -143,20 +155,20 @@ void RGBScript_Test::evaluateInvalidApiVersion()
 {
     // No apiVersion property
     QString code("( function() { var foo = new Object; foo.rgbMap = function() { return 0; }; foo.rgbMapStepCount = function(width, height) { return 0; }; return foo; } )()");
-    RGBScript s;
+    RGBScript s(m_doc);
     s.m_contents = code;
     QCOMPARE(s.evaluate(), false);
 }
 
 void RGBScript_Test::rgbMapStepCount()
 {
-    RGBScript s = RGBScript::script("Full Rows");
+    RGBScript s = RGBScript::script(m_doc, "Full Rows");
     QCOMPARE(s.rgbMapStepCount(QSize(10, 15)), 15);
 }
 
 void RGBScript_Test::rgbMap()
 {
-    RGBScript s = RGBScript::script("Full Rows");
+    RGBScript s = RGBScript::script(m_doc, "Full Rows");
     QVERIFY(s.rgbMap(QSize(3, 4), 0, 0).isEmpty() == false);
 
     for (int z = 0; z < 5; z++)

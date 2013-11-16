@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
-  rgbtext.h
+  Q Light Controller Plus
+  rgbimage.h
 
   Copyright (c) Heikki Junnila
+  Copyright (c) Jano Svitok
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,51 +18,49 @@
   limitations under the License.
 */
 
-#ifndef RGBTEXT_H
-#define RGBTEXT_H
+#ifndef RGBIMAGE_H
+#define RGBIMAGE_H
 
 #include <QString>
-#include <QFont>
+#include <QImage>
 
 #include "rgbalgorithm.h"
 
-#define KXMLQLCRGBText               "Text"
+#define KXMLQLCRGBImage "Image"
 
-class RGBText : public RGBAlgorithm
+class RGBImage : public RGBAlgorithm
 {
 public:
-    RGBText(const Doc * doc);
-    RGBText(const RGBText& t);
-    ~RGBText();
+    RGBImage(const Doc * doc);
+    RGBImage(const RGBImage& t);
+    ~RGBImage();
 
     /** @reimp */
     RGBAlgorithm* clone() const;
 
     /************************************************************************
-     * Text & Font
+     * Image file
      ************************************************************************/
 public:
-    /** Set the text to be rendered */
-    void setText(const QString& str);
+    /** Set filename of the image */
+    void setFilename(const QString& fileName);
 
-    /** Get the text to be rendered */
-    QString text() const;
-
-    /** Set the font with which to render the text */
-    void setFont(const QFont& font);
-
-    /** Get the font with which to render the text */
-    QFont font() const;
+    /** Get filename of the image */
+    QString filename() const;
 
 private:
-    QString m_text;
-    QFont m_font;
+
+    void reloadImage();
+
+private:
+    QString m_filename;
+    QImage m_image;
 
     /************************************************************************
      * Animation
      ************************************************************************/
 public:
-    enum AnimationStyle { StaticLetters, Horizontal, Vertical };
+    enum AnimationStyle { Static, Horizontal, Vertical, Animation };
 
     void setAnimationStyle(AnimationStyle ani);
     AnimationStyle animationStyle() const;
@@ -75,11 +74,6 @@ public:
 
     void setYOffset(int offset);
     int yOffset() const;
-
-private:
-    int scrollingTextStepCount() const;
-    RGBMap renderScrollingText(const QSize& size, uint rgb, int step) const;
-    RGBMap renderStaticLetters(const QSize& size, uint rgb, int step) const;
 
 private:
     AnimationStyle m_animationStyle;

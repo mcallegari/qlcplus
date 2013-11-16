@@ -66,10 +66,33 @@ The RGB matrix editor, as its name suggests, is used to edit
  </TR>
  <TR>
   <TD>
+   <B>Image</B>
+  </TD>
+  <TD>
+   Available only when <B>Image</B> is the selected pattern.
+   <UL>
+    <LI>The text edit field is used to edit the image filename</LI>
+    <LI>The image button <IMG SRC="qrc:/image.png"/> is used to select the image</LI>
+    <LI>The drop-down box is used to select the animation style (Static, Horizontal, Vertical or Animation)</LI>
+   </UL>
+   <P>Supported formats: PNG, XPM, JPG, GIF (for animated gifs only first frame is used).</P>
+   <P>Styles:</P>
+   <UL>
+    <LI><B>Static</B> - the image is statically displayed on the matrix. If the image is smaller than the matrix, 
+     it is repeated in both directions. (Tip: for stripes, use 1-point-high images)</LI>
+    <LI><B>Horizontal</B> - the image is scrolled horizontaly. Again, image is repeated in both directions.</LI>
+    <LI><B>Vertical</B> - same as <B>Horizontal</B>, but in vertical direction.</LI>
+    <LI><B>Animation</B> - play animation. Stack the frames (of width equal to matrix's) side by side in one image.
+     For example, when matrix is 8x8 and you want to have 4 frames, make image 32x8. The image is still repeated
+     vertically.</LI>
+  </TD>
+ </TR>
+ <TR>
+  <TD>
    <B>Offset</B>
   </TD>
   <TD>
-   Available only when <B>Text</B> is the selected pattern.
+   Available only when <B>Text</B> or <B>Image</B> is the selected pattern.
    <UL>
     <LI>X: Used to shift the pattern along the horizontal x-axis (negative values go left, positive values go right)</LI>
     <LI>Y: Used to shift the pattern along the vertical y-axis (negative values go up, positive values go down)</LI>

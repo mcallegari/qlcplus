@@ -66,7 +66,7 @@ void RGBMatrix_Test::initTestCase()
     }
 
     RGBScript::setCustomScriptDirectory(INTERNAL_SCRIPTDIR);
-    QVERIFY(RGBScript::scripts().size() != 0);
+    QVERIFY(RGBScript::scripts(m_doc).size() != 0);
 }
 
 void RGBMatrix_Test::cleanupTestCase()
@@ -124,7 +124,7 @@ void RGBMatrix_Test::copy()
     mtx.setStartColor(Qt::magenta);
     mtx.setEndColor(Qt::yellow);
     mtx.setFixtureGroup(0);
-    mtx.setAlgorithm(RGBAlgorithm::algorithm("Full Columns"));
+    mtx.setAlgorithm(RGBAlgorithm::algorithm(m_doc, "Full Columns"));
     QVERIFY(mtx.algorithm() != NULL);
 
     RGBMatrix* copyMtx = qobject_cast<RGBMatrix*> (mtx.createCopy(m_doc));
@@ -170,7 +170,7 @@ void RGBMatrix_Test::loadSave()
     mtx->setStartColor(Qt::magenta);
     mtx->setEndColor(Qt::blue);
     mtx->setFixtureGroup(42);
-    mtx->setAlgorithm(RGBAlgorithm::algorithm("Full Rows"));
+    mtx->setAlgorithm(RGBAlgorithm::algorithm(m_doc, "Full Rows"));
     QVERIFY(mtx->algorithm() != NULL);
     QCOMPARE(mtx->algorithm()->name(), QString("Full Rows"));
 

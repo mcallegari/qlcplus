@@ -27,6 +27,8 @@
 class QDomDocument;
 class QDomElement;
 
+class Doc;
+
 typedef QVector<QVector<uint> > RGBMap;
 
 #define KXMLQLCRGBAlgorithm "Algorithm"
@@ -35,16 +37,24 @@ typedef QVector<QVector<uint> > RGBMap;
 class RGBAlgorithm
 {
 public:
+    RGBAlgorithm(const Doc* doc);
     virtual ~RGBAlgorithm() { /* NOP */ }
 
     enum Type
     {
         Text,
-        Script
+        Script,
+        Image
     };
 
     /** Create a clone of the algorithm. Caller takes ownership of the pointer. */
     virtual RGBAlgorithm* clone() const = 0;
+
+    const Doc * doc() const { return m_doc; }
+ 
+private:
+
+    const Doc * m_doc;
 
     /************************************************************************
      * RGB API
@@ -72,15 +82,15 @@ public:
      * Available algorithms
      ************************************************************************/
 public:
-    static QStringList algorithms();
-    static RGBAlgorithm* algorithm(const QString& name);
+    static QStringList algorithms(const Doc * doc);
+    static RGBAlgorithm* algorithm(const Doc * doc, const QString& name);
 
     /************************************************************************
      * Load & Save
      ************************************************************************/
 public:
     /** Load an RGBAlgorithm from a workspace file and return it as a new pointer. */
-    static RGBAlgorithm* loader(const QDomElement& root);
+    static RGBAlgorithm* loader(const Doc *doc, const QDomElement& root);
 
     /** Save the contents of an RGBAlgorithm (run-time info) to a workspace file. */
     virtual bool saveXML(QDomDocument* doc, QDomElement* root) const = 0;

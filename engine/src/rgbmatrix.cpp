@@ -61,7 +61,7 @@ RGBMatrix::RGBMatrix(Doc* doc)
     setName(tr("New RGB Matrix"));
     setDuration(500);
 
-    RGBScript scr = RGBScript::script("Full Columns");
+    RGBScript scr = RGBScript::script(doc, "Full Columns");
     setAlgorithm(scr.clone());
 }
 
@@ -152,7 +152,9 @@ QList <RGBMap> RGBMatrix::previewMaps()
     FixtureGroup* grp = doc()->fixtureGroup(fixtureGroup());
     if (grp != NULL)
     {
-        for (int i = 0; i < m_algorithm->rgbMapStepCount(grp->size()); i++)
+        int stepCount = m_algorithm->rgbMapStepCount(grp->size());
+        qDebug() << "Steps: " << stepCount;
+        for (int i = 0; i < stepCount; i++)
             steps << m_algorithm->rgbMap(grp->size(), m_stepColor.rgb(), i);
     }
 
@@ -259,7 +261,7 @@ bool RGBMatrix::loadXML(const QDomElement& root)
         }
         else if (tag.tagName() == KXMLQLCRGBAlgorithm)
         {
-            setAlgorithm(RGBAlgorithm::loader(tag));
+            setAlgorithm(RGBAlgorithm::loader(doc(), tag));
         }
         else if (tag.tagName() == KXMLQLCRGBMatrixFixtureGroup)
         {
