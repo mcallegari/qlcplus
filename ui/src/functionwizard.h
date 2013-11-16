@@ -104,6 +104,8 @@ protected:
     VCWidget *createWidget(int type, VCWidget *parent, int xpos, int ypos,
                            Function *func = NULL, int pType = 0);
 
+    QSize recursiveCreateWidget(QTreeWidgetItem *item, VCWidget *parent, int type);
+
     void addWidgetsToVirtualConsole();
 };
 
