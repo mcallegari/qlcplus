@@ -30,7 +30,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="m_nextButton">
+      <widget class="QToolButton" name="m_nextButton">
        <property name="layoutDirection">
         <enum>Qt::RightToLeft</enum>
        </property>
@@ -41,10 +41,13 @@
         <iconset resource="qlcui.qrc">
          <normaloff>:/forward.png</normaloff>:/forward.png</iconset>
        </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextBesideIcon</enum>
+       </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="m_okButton">
+      <widget class="QToolButton" name="m_okButton">
        <property name="text">
         <string>OK</string>
        </property>
@@ -52,16 +55,22 @@
         <iconset resource="qlcui.qrc">
          <normaloff>:/check.png</normaloff>:/check.png</iconset>
        </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextBesideIcon</enum>
+       </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="m_cancelButton">
+      <widget class="QToolButton" name="m_cancelButton">
        <property name="text">
         <string>Cancel</string>
        </property>
        <property name="icon">
         <iconset resource="qlcui.qrc">
          <normaloff>:/uncheck.png</normaloff>:/uncheck.png</iconset>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextBesideIcon</enum>
        </property>
       </widget>
      </item>
@@ -348,8 +357,8 @@ p, li { white-space: pre-wrap; }
    <slot>slotAddClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>523</x>
-     <y>23</y>
+     <x>591</x>
+     <y>100</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -364,8 +373,8 @@ p, li { white-space: pre-wrap; }
    <slot>slotRemoveClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>522</x>
-     <y>54</y>
+     <x>591</x>
+     <y>171</y>
     </hint>
     <hint type="destinationlabel">
      <x>518</x>
@@ -380,12 +389,12 @@ p, li { white-space: pre-wrap; }
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>475</x>
-     <y>424</y>
+     <x>493</x>
+     <y>509</y>
     </hint>
     <hint type="destinationlabel">
-     <x>305</x>
-     <y>223</y>
+     <x>159</x>
+     <y>641</y>
     </hint>
    </hints>
   </connection>
@@ -396,12 +405,12 @@ p, li { white-space: pre-wrap; }
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>561</x>
-     <y>424</y>
+     <x>564</x>
+     <y>507</y>
     </hint>
     <hint type="destinationlabel">
-     <x>305</x>
-     <y>223</y>
+     <x>288</x>
+     <y>650</y>
     </hint>
    </hints>
   </connection>
