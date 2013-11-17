@@ -4,6 +4,7 @@ qlcplus (4.6.0) stable; urgency=low
   * NEW: Function Manager: added folders with drag & drop functionality
   * NEW: Function Wizard has been completely rewritten
   * NEW: MIDI plugin: added the possibility to send a SysEx initialization message on an input or output line (thanks to Joep Admiraal)
+  * NEW: Added Audio fade in/out support (also in Show Manager)
   * Virtual Console: fixed audio triggers incorrect loading
   * Input/Output: improved audio device selection
   * Audio Input: fixed crash occurring on Linux for unusable audio devices

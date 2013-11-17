@@ -37,11 +37,19 @@ AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
 
     setupUi(this);
 
+    m_nameEdit->setText(m_audio->name());
+    m_nameEdit->setSelection(0, m_nameEdit->text().length());
+
+    m_fadeInEdit->setText(Function::speedToString(audio->fadeInSpeed()));
+    m_fadeOutEdit->setText(Function::speedToString(audio->fadeOutSpeed()));
+
     connect(m_nameEdit, SIGNAL(textEdited(const QString&)),
             this, SLOT(slotNameEdited(const QString&)));
 
-    m_nameEdit->setText(m_audio->name());
-    m_nameEdit->setSelection(0, m_nameEdit->text().length());
+    connect(m_fadeInEdit, SIGNAL(returnPressed()),
+            this, SLOT(slotFadeInEdited()));
+    connect(m_fadeOutEdit, SIGNAL(returnPressed()),
+            this, SLOT(slotFadeOutEdited()));
 
     AudioDecoder *adec = m_audio->getAudioDecoder();
 
@@ -66,4 +74,39 @@ AudioEditor::~AudioEditor()
 void AudioEditor::slotNameEdited(const QString& text)
 {
     m_audio->setName(text);
+    m_doc->setModified();
+}
+
+void AudioEditor::slotFadeInEdited()
+{
+    uint newValue;
+    QString text = m_fadeInEdit->text();
+    if (text.contains(".") || text.contains("s") ||
+        text.contains("m") || text.contains("h"))
+            newValue = Function::stringToSpeed(text);
+    else
+    {
+        newValue = (text.toDouble() * 1000);
+        m_fadeInEdit->setText(Function::speedToString(newValue));
+    }
+
+    m_audio->setFadeInSpeed(newValue);
+    m_doc->setModified();
+}
+
+void AudioEditor::slotFadeOutEdited()
+{
+    uint newValue;
+    QString text = m_fadeOutEdit->text();
+    if (text.contains(".") || text.contains("s") ||
+        text.contains("m") || text.contains("h"))
+            newValue = Function::stringToSpeed(text);
+    else
+    {
+        newValue = (text.toDouble() * 1000);
+        m_fadeOutEdit->setText(Function::speedToString(newValue));
+    }
+
+    m_audio->setFadeOutSpeed(newValue);
+    m_doc->setModified();
 }

@@ -155,13 +155,14 @@ When a track has been activated, it is possible to add a <A HREF="file:concept.h
 and <A HREF="file:concept.html#Audio">Audio</A> item to it.<br>
 A new item will be placed at the cursor position, but it is always possible to move it to the desired time
 just by dragging it along the timeline.<br>
-A show item cannot be moved to another track, since it is bound to the track where it has originally been created.<br>
-A show item can be copied <IMG SRC="qrc:/editcopy.png">, pasted <IMG SRC="qrc:/editpaste.png"> or deleted <IMG SRC="qrc:/editdelete.png"> with the toolbar icons.
-The pasted item will be placed at the current cursor position.<br>
-The background color can be changed with the toolbar icon <IMG SRC="qrc:/color.png">. The assigned color will be saved
+An item cannot be moved to another track, since it is bound to the track where it has originally been created.<br>
+An item can be copied <IMG SRC="qrc:/editcopy.png">, pasted <IMG SRC="qrc:/editpaste.png"> or 
+deleted <IMG SRC="qrc:/editdelete.png"> with the toolbar icons. The pasted item will be placed at the current cursor position.<br>
+The item background color can be changed with the toolbar icon <IMG SRC="qrc:/color.png">. The assigned color will be saved
 in your project file.<br>
-Once selected, a sequence will display its <A HREF="file:chasereditor.html">Chaser Editor</A> on the right side of the screen.
-When right clicking an item a contextual menu will be displayd, showing the following option:
+Once selected, a sequence will display its <A HREF="file:chasereditor.html">Chaser Editor</A> and an audio will diaplay 
+its Audio editor on the right side of the screen.
+When right clicking an item a contextual menu will be displayed, showing the following options:
 <ul>
 <li>Preview: This option is available only on audio items. It will display the waveform preview for right, left or stereo channels when available</li>
 <li>Align to cursor: This option will move the selected item to the cursor position</li>
@@ -171,9 +172,9 @@ Follow step 4 to understand how to fill a Sequence<br>
 <H3><LI>Add some steps <IMG SRC="qrc:/edit_add.png"></LI></H3>
 Once a sequence has been created, it is now the time to add steps to it.<br>
 <b>Please note</b> that the difference between a Chaser and a Sequence is that a Sequence is bound to the Track (so the Scene)
-where it has been created. So, when adding a step, QLC+ will not ask the Function to associate, but will always use the
+where it has been created. So, when adding a step, QLC+ will not ask to select a particular function, but will always use the
 channels of the same Scene.<br>
-When modifying a step duration, fade in or fade out time, you will see the sequence changing on the multitrack view,
+When modifying a step hold, fade in or fade out time, you will see the sequence changing on the multitrack view,
 giving an immediate feedback for aligning to other sequences or certain points in time.<br>
 Fade In and Fade Out times will be displayed as diagonal lines over the sequence item on the multitrack view, while
 different steps will be divided by vertical lines.<br>

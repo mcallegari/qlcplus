@@ -35,6 +35,7 @@
 #include "multitrackview.h"
 #include "sceneselection.h"
 #include "chasereditor.h"
+#include "audioeditor.h"
 #include "showmanager.h"
 #include "sceneeditor.h"
 #include "sceneitems.h"
@@ -52,7 +53,7 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
     , m_show(NULL)
     , m_scene(NULL)
     , m_scene_editor(NULL)
-    , m_sequence_editor(NULL)
+    , m_current_editor(NULL)
     , m_selectedShowIndex(0)
     , m_splitter(NULL)
     , m_vsplitter(NULL)
@@ -372,7 +373,7 @@ void ShowManager::slotShowsComboChanged(int idx)
     if (m_selectedShowIndex != idx)
     {
         m_selectedShowIndex = idx;
-        showSequenceEditor(NULL);
+        hideRightEditor();
         updateMultiTrackView();
     }
 }
@@ -405,36 +406,60 @@ void ShowManager::showSceneEditor(Scene *scene)
     }
 }
 
-void ShowManager::showSequenceEditor(Chaser *chaser)
+void ShowManager::hideRightEditor()
 {
-    if (m_sequence_editor != NULL)
+    if (m_current_editor != NULL)
     {
-        m_vsplitter->widget(1)->layout()->removeWidget(m_sequence_editor);
+        m_vsplitter->widget(1)->layout()->removeWidget(m_current_editor);
         m_vsplitter->widget(1)->hide();
-        m_sequence_editor->deleteLater();
-        m_sequence_editor = NULL;
+        m_current_editor->deleteLater();
+        m_current_editor = NULL;
     }
+}
+
+void ShowManager::showRightEditor(Chaser *chaser)
+{
+    hideRightEditor();
 
     if (chaser == NULL)
         return;
 
     if (this->isVisible())
     {
-        m_sequence_editor = new ChaserEditor(m_vsplitter->widget(1), chaser, m_doc);
-        if (m_sequence_editor != NULL)
+        m_current_editor = new ChaserEditor(m_vsplitter->widget(1), chaser, m_doc);
+        if (m_current_editor != NULL)
         {
-            m_vsplitter->widget(1)->layout()->addWidget(m_sequence_editor);
+            m_vsplitter->widget(1)->layout()->addWidget(m_current_editor);
             /** Signal from chaser editor to scene editor. When a step is clicked apply values immediately */
-            connect(m_sequence_editor, SIGNAL(applyValues(QList<SceneValue>&)),
+            connect(m_current_editor, SIGNAL(applyValues(QList<SceneValue>&)),
                     m_scene_editor, SLOT(slotSetSceneValues(QList <SceneValue>&)));
             /** Signal from scene editor to chaser editor. When a fixture value is changed, update the selected chaser step */
             connect(m_scene_editor, SIGNAL(fixtureValueChanged(SceneValue)),
-                    m_sequence_editor, SLOT(slotUpdateCurrentStep(SceneValue)));
-            connect(m_sequence_editor, SIGNAL(stepSelectionChanged(int)),
+                    m_current_editor, SLOT(slotUpdateCurrentStep(SceneValue)));
+            connect(m_current_editor, SIGNAL(stepSelectionChanged(int)),
                     this, SLOT(slotStepSelectionChanged(int)));
 
             m_vsplitter->widget(1)->show();
-            m_sequence_editor->show();
+            m_current_editor->show();
+        }
+    }
+}
+
+void ShowManager::showRightEditor(Audio *audio)
+{
+    hideRightEditor();
+
+    if (audio == NULL)
+        return;
+
+    if (this->isVisible())
+    {
+        m_current_editor = new AudioEditor(m_vsplitter->widget(1), audio, m_doc);
+        if (m_current_editor != NULL)
+        {
+            m_vsplitter->widget(1)->layout()->addWidget(m_current_editor);
+            m_vsplitter->widget(1)->show();
+            m_current_editor->show();
         }
     }
 }
@@ -552,7 +577,7 @@ void ShowManager::slotAddSequence()
         chaser->setRunOrder(Function::SingleShot);
         m_scene->setChildrenFlag(true);
         f->setName(QString("%1 %2").arg(tr("New Sequence")).arg(f->id()));
-        showSequenceEditor(chaser);
+        showRightEditor(chaser);
         Track *track = m_show->getTrackFromSceneID(m_scene->id());
         track->addFunctionID(chaser->id());
         m_showview->addSequence(chaser);
@@ -775,7 +800,10 @@ void ShowManager::slotDelete()
         {
             Track *currTrack = m_show->getTrackFromSceneID(m_scene->id());
             if (currTrack != NULL)
+            {
                 currTrack->removeFunctionID(deleteID);
+                hideRightEditor();
+            }
         }
         else
         {
@@ -838,7 +866,7 @@ void ShowManager::slotViewClicked(QMouseEvent *event)
 {
     Q_UNUSED(event)
     //qDebug() << Q_FUNC_INFO << "View clicked at pos: " << event->pos().x() << event->pos().y();
-    showSequenceEditor(NULL);
+    hideRightEditor();
     m_colorAction->setEnabled(false);
     if (m_show != NULL && m_show->getTracksCount() == 0)
         m_deleteAction->setEnabled(false);
@@ -863,7 +891,7 @@ void ShowManager::slotSequenceMoved(SequenceItem *item)
         Track *track = m_show->getTrackFromSceneID(newSceneID);
         m_showview->activateTrack(track);
     }
-    showSequenceEditor(chaser);
+    showRightEditor(chaser);
     m_copyAction->setEnabled(true);
     m_deleteAction->setEnabled(true);
     m_colorAction->setEnabled(true);
@@ -893,7 +921,7 @@ void ShowManager::slotAudioMoved(AudioItem *item)
         }
     }
 
-    showSequenceEditor(NULL);
+    showRightEditor(audio);
     m_copyAction->setEnabled(true);
     m_deleteAction->setEnabled(true);
     m_colorAction->setEnabled(true);
@@ -1003,11 +1031,11 @@ void ShowManager::slotDocClearing()
     if (m_showview != NULL)
         m_showview->resetView();
 
-    if (m_sequence_editor != NULL)
+    if (m_current_editor != NULL)
     {
-        m_vsplitter->widget(1)->layout()->removeWidget(m_sequence_editor);
-        m_sequence_editor->deleteLater();
-        m_sequence_editor = NULL;
+        m_vsplitter->widget(1)->layout()->removeWidget(m_current_editor);
+        m_current_editor->deleteLater();
+        m_current_editor = NULL;
     }
     m_vsplitter->widget(1)->hide();
 
@@ -1238,12 +1266,12 @@ void ShowManager::hideEvent(QHideEvent* ev)
     emit functionManagerActive(false);
     QWidget::hideEvent(ev);
     
-    if (m_sequence_editor != NULL)
+    if (m_current_editor != NULL)
     {
-        m_vsplitter->widget(1)->layout()->removeWidget(m_sequence_editor);
+        m_vsplitter->widget(1)->layout()->removeWidget(m_current_editor);
         m_vsplitter->widget(1)->hide();
-        m_sequence_editor->deleteLater();
-        m_sequence_editor = NULL;
+        m_current_editor->deleteLater();
+        m_current_editor = NULL;
     }
 
     if (m_scene_editor != NULL)

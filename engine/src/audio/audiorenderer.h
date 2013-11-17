@@ -90,17 +90,32 @@ public:
     void adjustIntensity(qreal fraction);
 
     /*********************************************************************
+     * Fade sequences
+     *********************************************************************/
+public:
+    void setFadeIn(uint fadeTime);
+
+    void setFadeOut(uint fadeTime);
+
+private:
+    qreal m_fadeStep;
+
+    /*********************************************************************
      * Thread functions
      *********************************************************************/
+public:
     /** @reimpl */
     void run(); //thread run function
 
     void stop();
 
 private:
-
+    /** State machine variables */
     bool m_userStop, m_pause;
+
+    /** Local copy of the audio function intensity */
     qreal m_intensity;
+    qreal m_currentIntensity;
 
 protected:
     /*!

@@ -76,7 +76,7 @@ protected:
     /* Scene editor instance reference */
     QWidget* m_scene_editor;
     /* Chaser editor instance reference */
-    QWidget* m_sequence_editor;
+    QWidget* m_current_editor;
 
     /* Index of the currently selected Show
      * (basically the m_showsCombo index) */
@@ -84,7 +84,9 @@ protected:
 
 private:
     void showSceneEditor(Scene *scene);
-    void showSequenceEditor(Chaser *chaser);
+    void hideRightEditor();
+    void showRightEditor(Chaser *chaser);
+    void showRightEditor(Audio *audio);
 
 private:
     QSplitter* m_splitter; // main view splitter (horizontal)

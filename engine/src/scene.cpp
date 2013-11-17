@@ -301,7 +301,6 @@ bool Scene::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     QDomElement root;
     QDomElement tag;
     QDomText text;
-    QString str;
 
     Q_ASSERT(doc != NULL);
     Q_ASSERT(wksp_root != NULL);

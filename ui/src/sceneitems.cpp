@@ -773,6 +773,8 @@ void AudioItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
+    float timeScale = 50/(float)m_timeScale;
+
     if (this->isSelected() == true)
         painter->setPen(QPen(Qt::white, 3));
     else
@@ -789,11 +791,25 @@ void AudioItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         painter->drawPixmap(0, 0, waveform);
     }
 
+    if (m_audio->fadeInSpeed() != 0)
+    {
+        int fadeXpos = (timeScale * (float)m_audio->fadeInSpeed()) / 1000;
+        painter->setPen(QPen(Qt::gray, 1));
+        painter->drawLine(1, TRACK_HEIGHT - 4, fadeXpos, 2);
+    }
+
+    if (m_audio->fadeOutSpeed() != 0)
+    {
+        int fadeXpos = (timeScale * (float)m_audio->fadeOutSpeed()) / 1000;
+        painter->setPen(QPen(Qt::gray, 1));
+        painter->drawLine(m_width - fadeXpos, 2, m_width - 1, TRACK_HEIGHT - 4);
+    }
+
     // draw shadow
     painter->setPen(QPen(QColor(10, 10, 10, 150), 2));
     painter->drawText(QRect(6, 6, m_width - 6, 71), Qt::AlignLeft | Qt::TextWordWrap, m_audio->name());
 
-    // draw chaser name
+    // draw audio name
     painter->setPen(QPen(QColor(220, 220, 220, 255), 2));
     painter->drawText(QRect(5, 5, m_width - 5, 72), Qt::AlignLeft | Qt::TextWordWrap, m_audio->name());
 

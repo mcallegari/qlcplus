@@ -297,6 +297,9 @@ bool Audio::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     /* Common attributes */
     saveXMLCommon(&root);
 
+    /* Speed */
+    saveXMLSpeed(doc, &root);
+
     QDomElement source = doc->createElement(KXMLQLCAudioSource);
     source.setAttribute(KXMLQLCAudioStartTime, m_startTime);
     source.setAttribute(KXMLQLCAudioColor, m_color.name());
@@ -336,6 +339,10 @@ bool Audio::loadXML(const QDomElement& root)
                 m_color = QColor(tag.attribute(KXMLQLCAudioColor));
             setSourceFileName(m_doc->denormalizeComponentPath(tag.text()));
         }
+        else if (tag.tagName() == KXMLQLCFunctionSpeed)
+        {
+            loadXMLSpeed(tag);
+        }
         node = node.nextSibling();
     }
 
@@ -372,6 +379,7 @@ void Audio::preRun(MasterTimer* timer)
 #endif
         m_audio_out->setDecoder(m_decoder);
         m_audio_out->initialize(ap.sampleRate(), ap.channels(), ap.format());
+        m_audio_out->setFadeIn(fadeInSpeed());
         m_audio_out->start();
         m_audio_out->adjustIntensity(getAttributeValue());
         connect(m_audio_out, SIGNAL(endOfStreamReached()),
@@ -384,6 +392,15 @@ void Audio::write(MasterTimer* timer, UniverseArray* universes)
 {
     Q_UNUSED(timer)
     Q_UNUSED(universes)
+
+    incrementElapsed();
+
+    if (fadeOutSpeed() != 0)
+    {
+        qDebug() << "elapsed:" << elapsed() << ", duration:" << getDuration();
+        if (getDuration() - elapsed() <= fadeOutSpeed())
+            m_audio_out->setFadeOut(fadeOutSpeed());
+    }
 }
 
 void Audio::postRun(MasterTimer* timer, UniverseArray* universes)

@@ -40,6 +40,8 @@ private:
 
 private slots:
     void slotNameEdited(const QString& text);
+    void slotFadeInEdited();
+    void slotFadeOutEdited();
 };
 
 #endif
