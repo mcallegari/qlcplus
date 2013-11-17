@@ -397,7 +397,6 @@ void Audio::write(MasterTimer* timer, UniverseArray* universes)
 
     if (fadeOutSpeed() != 0)
     {
-        qDebug() << "elapsed:" << elapsed() << ", duration:" << getDuration();
         if (getDuration() - elapsed() <= fadeOutSpeed())
             m_audio_out->setFadeOut(fadeOutSpeed());
     }
