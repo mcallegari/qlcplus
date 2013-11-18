@@ -10,13 +10,13 @@
 <H1>Scene tutorial</H1>
 
 <P>
-This tutorial covers just the basic chain of creating a fixture, a scene and a
+This tutorial covers just the basic procedure of creating a fixture, a scene and a
 button and how to make them work. The point is to give the user a quick yet
-complete here-hold-my-hand-experience on how the Q Light Controller Plus is thought
+complete here-hold-my-hand-experience on how the Q Light Controller Plus is planned
 to work as a software for DMX lighting automation.
 </P>
 
-<P>Before you start reading this tutorial, please familiarize yourself with the 
+<P>Before you start reading this tutorial, please familiarise yourself with the 
 <A HREF="mainwindow.html">Main window</A> and its parts.</P>
 
 <P>Now we can really start!</P>
@@ -30,12 +30,11 @@ to work as a software for DMX lighting automation.
 
 <P>
 The fixture manager is the heart of QLC+ fixture-oriented architecture. As its
-name already says, you can manage (add, remove and edit) your lighting fixtures
-from the fixture manager. On the left side of the manager there is a list that
-contains all of the fixtures in the current workspace (it will be empty until 
-you have added some fixtures).
-On the right side you can see some common information related to the currently
-selected fixture. At the top of the fixture manager there is again another toolbar,
+name implies, you can manage (add, remove and edit) your lighting fixtures
+from the fixture manager. On the left hand side of the manager there is a list that
+contains all of the fixtures in the current workspace (at the moment it will be empty).
+On the right hand side you can see some information related to the currently
+selected fixture. On the top of the fixture manager there is again another toolbar,
 containing the following buttons (from left to right):
 </P>
 
@@ -60,11 +59,11 @@ containing the following buttons (from left to right):
 
 <P>
 On the left side of the dialog you can see a list of available fixture
-manufacturers. Each manufacturer item is actually a folder containing a number
-of fixture models produced by the manufacturer. You can find for example a
+manufacturers. Each manufacturer's name is actually a folder containing a number
+of different fixture models produced by that manufacturer. You can find, for example, a
 "DJScan250" under the "Futurelight" folder. As you click a fixture from the
-list, you can see the <u>Channels</u> field on the right side change to
-display the number of DMX channels required by the selected fixture. There is
+list, you can see the <u>Channels</u> field on the right hand side change to
+display the number of DMX channels required by the selected fixture. There's
 also a list of the fixture's channels just under the <u>Channels</u> box.
 </P>
 
@@ -85,7 +84,7 @@ output universe. Usually each universe has its own cable coming from the PC.
 
 <P>
 If you wish to add multiple fixtures of the same type, you can increase the
-value in the <u>Amount</u> box. If you wish to leave a gap between each
+value in the <u>Amount</u> box. If you wish to leave some gaps between each
 fixture's address space, you can change the value in the <u>Address gap</u>
 box. <B>Let's leave these be for now.</B>
 </P>
@@ -93,7 +92,7 @@ box. <B>Let's leave these be for now.</B>
 <P>
 If you don't understand the DMX addressing principles, please consult your
 lighting equipment manuals for more information. In short, a DMX address is
-the first DMX channel of a fixture. In the case of a DJScan250 (which uses
+the first DMX channel of a particular fixture. In the case of a DJScan250 (which uses
 6 channels), assigning for example 1 as its DMX address, reserves channels
 1, 2, 3, 4, 5, and 6 for the fixture. The next fixture must then be assigned
 to DMX address 7 to prevent channel overlapping. <B>Let's use address 1 now.</B>
@@ -108,10 +107,10 @@ workspace.</B>
 
 <P>
 On the left side of the fixture manager you can now see the fixture that we
-just added. On the right side, you can see the fixture's information. You can
+just added. On the right side, you can see the information about the fixture. You can
 edit the fixture's name, address and universe by clicking the Configure button.
-You can also change the fixture definition thru the configuration dialog, but
-since we're quite happy with the fixture's information, we don't go there.
+You can also change the fixture definition through the configuration dialog, but
+since we're quite happy with the fixture's information, we are not going go there.
 </P>
 
 <p>
@@ -130,7 +129,7 @@ since we're quite happy with the fixture's information, we don't go there.
 <P>
 If the fixture manager was the heart, function manager must be the brain of QLC+.
 With it, you can add, remove and edit various functions that perform the actual
-light automation for you. Let's look at the view first. There's again a toolbar
+light automation for you. Let's look at the view first. There is, once again, a toolbar
 containing the following icons (from left to right):
 </P>
 
@@ -154,7 +153,7 @@ containing the following icons (from left to right):
 
 <P>
 Below the toolbar, there is a list of functions within the current workspace.
-Since we haven't yet created any, it's very much empty.
+Since we haven't yet created any, it's still empty.
 </P>
 
 <H2>Scene editor</H2>
@@ -166,12 +165,12 @@ Since we haven't yet created any, it's very much empty.
 
 <P>
 With the scene editor, you can create scene functions that basically contain
-values for a number of channels that relate to certain fixtures. On the left
+values for a number of channels that relate to certain fixtures. On the left hand
 side of the editor there is a list of fixtures used in the scene, which is
-empty (but not for long). There are also some buttons to add/remove fixtures 
+empty (but not for much longer). There are also some buttons to add/remove fixtures 
 and enable/disable all the selected fixtures channels.<br>
-On the right side of the editor the is a list of channel groups used in the 
-scene. This will not be used in this tutorial.
+On the right hand side of the editor there is a list of channel groups used in the 
+scene. Channel groups will not be used in this tutorial.
 </P>
 
 <P>
@@ -194,7 +193,7 @@ of the buttons (the ones with icons) there is yet another box which, when
 checked, enables the corresponding channel in the scene. If a box is not
 checked, that channel will not be touched by the scene at all. This is very
 useful when you wish to create for example a function that just sets the
-color of a scanner, without touching the gobo, intensity, pan, tilt and other
+colour of a scanner, without touching the gobo, intensity, pan, tilt and other
 features that you might wish to stay the way they are.
 </P>
 
@@ -207,15 +206,15 @@ You'll see that channels 3 and 4 changed their appearance and are no longer
 grayed out. You can also move their sliders and click their buttons. When you
 click on a button, you get a list of available capabilities that the fixture
 can do when a certain value is set to the channel. In the case of a DJScan250,
-channel 3 controls the color wheel, channel 4 controls gobo selection and
+channel 3 controls the colour wheel, channel 4 controls gobo selection and
 channel 6 controls the fixture's shutter.
 </P>
 
 <P>
-If you click the button on channel 3, you get a list of available colors that
+If you click the button on channel 3, you get a list of available colours that
 the fixture supports. Since many of these capabilities are specified by the
 manufacturer as a value range rather than a single value, many of these
-capabilities contain yet another sub-menu. Let's try setting a color.
+capabilities contain yet another sub-menu. Let's try setting a colour.
 </P>
 
 <P>
@@ -227,7 +226,7 @@ by clicking on that value.</B>
 <P>
 Notice that the slider on channel 3 also moved up and the value above it now
 shows 80. If you have already patched an output plugin to the first universe,
-you may already see some action going on in your DMX equipment, since the
+you may already see some action going on with your DMX equipment, since the
 scene editor also sends real DMX data to your fixtures as you edit the values.
 If you haven't done any mappings, don't feel bad, we'll get to it.
 </P>
@@ -241,7 +240,7 @@ and choose "Gobo 7", value 126 and then click the
 
 <P>
 Now we have a scene function that sets the value of DJScan250's channel 3 to
-80, channel 4 to 126 and channel 6 to 255. Now all we need is a nice and
+80, channel 4 to 126 and channel 6 to 255. Now all we need is a nice
 descriptive name for the scene. Click the <u>General</u> tab to go to the
 general page where we started with the scene editor.
 </P>
@@ -299,7 +298,7 @@ some actual work for us.
 
 <P>
 You can close the function manager and the fixture manager now, if you want to
-make up some room but it's not necessary.
+make some room but it's not necessary.
 </P>
 
 <P>
@@ -315,7 +314,7 @@ There's a toolbar at the top of the panel, with icons to <u>Add</u> new
 widgets, <u>Edit</u> for editing widget properties and <u>Tools</u> for various
 tools to control the virtual console behaviour. You can also click the right
 mouse button on any virtual console widget to access a menu that contains
-most (but not all) of the options that are accessible thru the menu bar.
+most (but not all) of the options that are accessible through the menu bar.
 </P>
 
 <P>
@@ -379,7 +378,7 @@ icon. Select an orange-tinted color from this dialog and click OK.</B>
 <P>
 Now the button should have an orange background color. Move the button a bit
 to the side so that the next button won't appear on top of it. Well, there's no
-harm in that, it's just an inconvenience -- you want to be able to see both
+harm in that, it's just an inconvenience - you want to be able to see both
 buttons, do you not?
 </P>
 
@@ -388,7 +387,7 @@ buttons, do you not?
 <P>
 <B>Create another button just like the first one, but attach the function
 <I>"DJScan250 Zero"</I> to the second button and set the button background
-color to black and foreground (text) color to white.</B>
+colour to black and foreground (text) colour to white.</B>
 </P>
 
 <HR>
@@ -397,22 +396,22 @@ color to black and foreground (text) color to white.</B>
 
 <P>
 Since we haven't covered DMX output patching at all, you probably have a
-no output plugin assigned to all output universes and you can't get any
-real DMX out from your computer. This is OK for now. If you're interested in
+dummy output plugin assigned to all output universes and you can't get any
+real DMX output from your computer. This is OK for now. If you're interested in
 output mapping details, refer to the <A HREF="file:howto-output-mapping.html">Output
 mapping howto</A>.
 </P>
 
 <P>
 <B>Click the <IMG SRC="qrc:/monitor.png" align="absmiddle"> monitor button on
-the main application toolbar to bring up the DMX monitor window up.</B>
+the main application toolbar to bring up the DMX monitor window.</B>
 </P>
 
 <P>
 You should see a bunch of numbers, and the name of our fixture "DJScan250"
 inside a bar over numbers 001 - 006. These numbers represent DMX channels and
-the values below them represent these channels' values. Since we're operating
-on the dummy output plugin, the monitor is all that we see for now.
+the values below them represent those channels' values. Since we're operating
+on with a dummy output plugin, the monitor is all that we see for now.
 </P>
 
 <B>
