@@ -10,10 +10,10 @@
 <H1><IMG SRC="qrc:/frame.png" ALIGN="absmiddle"> Virtual Console Frame</H1>
 
 <P>
-A Frame is a container that can hold other widgets and other frames inside. In
+A Frame is a container that can hold a variety of widgets, including other frames, inside. In
 fact, the whole Virtual Console is already your bottom-most frame. Also, if you
 apply some <A HREF="file:vcstylingplacement.html">styling attributes</A> to a frame,
-all of its children (that don't have their own non-default style settings) also
+all of its children (which have not had their own non-default style settings applied) also
 inherit their parent's style properties.
 </P>
 
@@ -31,40 +31,40 @@ Frames have the following additional options, divided into 2 tabs:<br>
 <H3>Appearance tab</H3>
 <ul>
  <li><b>Frame name</b>: Allow you to assign an arbitrary label to the Frame. This will be displayed
-    only when the "Show header" option is enabled (see below)</li>
- <li><b>Accept child widgets</b>: Allow you to add widgets to the Frame</li>
- <li><b>Allow resizing</b>: Allow the Frame geometry to be resized</li>
- <li><b>Show header</b>: Display a useful header composed by a button and a label. The button allows
-    you to expand/collapse the Frame, to save a lot of Virtual Console space. On the label
-    the Frame name will be displayed</li>
+    only when the "Show header" option is enabled (see below).</li>
+ <li><b>Accept child widgets</b>: Allow you to add widgets to the Frame.</li>
+ <li><b>Allow resizing</b>: Allow the Frame height and width to be changed.</li>
+ <li><b>Show header</b>: Display a useful header made up of a button and a label. The button allows
+    you to expand/collapse the Frame which can save a lot of Virtual Console space. The label
+    will display the name of the Frame.</li>
 </ul>
 
 <H3>Pages tab</H3>
-<P>Starting from version 4.5.0, QLC+ gives the possibility to turn Virtual Console Frames 
+<P>Starting from version 4.5.0, QLC+ gives the possibility of turning Virtual Console Frames 
 into multi-page widgets, useful when dealing with a lot of widgets or controllers supporting pages.<br>
 The multi-page functionality is disabled by default.<br>
 <B>Important note: this functionality will work only with an <A HREF="file:howto-input-profiles.html">input profile</A>
-with a previous page <IMG SRC="qrc:/back.png" ALIGN="absmiddle"> and 
-next page <IMG SRC="qrc:/forward.png" ALIGN="absmiddle">buttons set</B><br>
-Following the options to configure this functionality:
+with a previous page <IMG SRC="qrc:/back.png" ALIGN="absmiddle"> and a
+next page <IMG SRC="qrc:/forward.png" ALIGN="absmiddle">button set.</B><br>
+Following these options to configure this functionality:
 </P>
 <ul>
- <li><b>Enable</b>: This check box enable/disable the multi-page functionality. When enabled,
-     VC frames will display additional controls in the header bar (if enabled). 
+ <li><b>Enable</b>: This check box enables/disables the multi-page functionality. When enabled,
+     VC frames will display additional controls in the header bar (if the header bar is also enabled). 
      These are: Previous page button, page number label, next page button.
  </li>
  <li><b>Number of pages</b>: With this counter it is possible to determine the number of pages the
-     frame will handle.
+     frame is going to handle.
  </li>
  <li><b>Clone first page widgets</b>: When checked, QLC+ will clone the widgets of the frame's first
      page into all the other new pages defined by the "Number of pages" field. This is a very useful
-     option to speed up an external controller mapping, where all the pages have the same widgets.
+     option to speed up the mapping of an external controller where all the pages have the same widgets.
  </li>
- <li><b>External input - Previous page</b>: Here it is possible to set an external input signal or a 
-     keyboard combination to display the previous page of the frame.
+ <li><b>External input - Previous page</b>: You can set an external input signal or a 
+     keyboard combination here which will cause the previous page of the frame to be displayed.
  </li>
- <li><b>External input - Next page</b>: Here it is possible to set an external input signal or a 
-     keyboard combination to display the next page of the frame.
+ <li><b>External input - Next page</b>: You can set an external input signal or a 
+     keyboard combination here which will cause the previous page of the frame to be displayed.
  </li>
 </ul>
 </BODY>

@@ -13,7 +13,7 @@
 Speed dials are meant for adjusting the speed of a set of functions from virtual console,
 much like bus-mode sliders in the previous versions of QLC+. While the bus concept relied on
 assigning functions and a slider to the same bus, the speed dial's method is a simpler and
-more straightforward one: User directly selects a set of functions whose speed properties are
+more straightforward one: The user directly selects a set of functions whose speed properties are
 controlled with the dial, thus removing the need for buses in the middle.
 </P>
 
@@ -22,15 +22,15 @@ controlled with the dial, thus removing the need for buses in the middle.
 <P>
 The speed dial itself looks and works just the same as the speed dials in various function
 editors: There is a <B>big dial</B> in the middle that increases the time when rotated clockwise
-and respectively, decreases it when rotated counter-clockwise. The plus
+and decreases it when rotated counter-clockwise. The plus
 <IMG SRC="qrc:/edit_add.png" HEIGHT="16"/> and minus
-<IMG SRC="qrc:/edit_remove.png" HEIGHT="16"/> buttons perform the same thing.
+<IMG SRC="qrc:/edit_remove.png" HEIGHT="16"/> buttons are an alternative way of adjusting the speed.
 </P>
 
 <P>
 The <B>current time</B> value is displayed in four parts. When any of these fields is clicked,
-the dial and the plus/minus buttons will increase/decrease that part of the time. The mouse
-wheel can also be used in place of the dial/buttons and the fields accept also values written
+the dial and the plus/minus buttons will increase/decrease that unit of time. The mouse
+wheel can also be used instead of the dial/buttons and the fields also accept values entered
 on the numeric keypad.
 <LI><B>h</B>: Hours</LI>
 <LI><B>m</B>: Minutes</LI>
@@ -40,19 +40,19 @@ on the numeric keypad.
 
 <P>
 Clicking the <B>infinite</B> button disables all of the dial's controls and sets the
-currently adjusted functions' speed to infinity. For example, to a 
+currently adjusted functions' speed to infinity. For example, with a 
 <A HREF="file:concept.html#Chaser">Chaser</A>, an infinite duration means that it will never
 switch to the next step unless manually instructed to (see <A HREF="file:vccuelist.html">Cue List</A>).
 </P>
 
 <P>
-The <B>tap</B> button can be used to adjust the time to a beat. Practically the dial measures
-the elapsed time between clicks and sets this time to the controlled functions as if the dial
-was adjusted accordingly.
+The <B>tap</B> button can be used to match the time to a beat. 
+The elapsed time between clicks is measured and this time is set for the controlled functions, just as if the dial
+had been adjusted to that particular time.
 </P>
 
-<P>For cuelists/chasers and RGBMatrixes, the tap button advances to next scene/position when
-speed dial is set to adjust duration, and the tapped tempo is more than 1/4 of the original duration.
+<P>For cuelists/chasers and RGBMatrixes, the tap button advances things to next step/position when
+speed dial is set to adjust duration. The tapped tempo must be more than 1/4 of the original duration.
 </P>
 
 <H3>Configuration</H3>
