@@ -35,7 +35,8 @@ class QDomElement;
 
 #define KXMLMidiTemplate "MidiTemplate"
 #define KXMLMidiTemplateName "Name"
-#define KXMLMidiTemplateMidiMessage "MidiMessage"
+#define KXMLMidiTemplateDescription "Description"
+#define KXMLMidiTemplateInitMessage "InitMessage"
 
 
 class MidiTemplate
@@ -64,12 +65,12 @@ public:
     void setName(const QString& name);
     QString name() const;
 
-    void setMidiMessage(const QString& message);
-    QString midiMessage() const;
+    void setInitMessage(const QByteArray& message);
+    QByteArray initMessage() const;
 
 protected:
     QString m_description;
-    QString m_midiMessage;
+    QByteArray m_initMessage;
 
     /********************************************************************
      * Load & Save

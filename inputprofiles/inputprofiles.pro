@@ -3,6 +3,7 @@ include(../variables.pri)
 TEMPLATE = subdirs
 TARGET = profiles
 
+profiles.files += Akai-APC20.qxi
 profiles.files += Behringer-BCF2000.qxi
 profiles.files += Behringer-LC2412.qxi
 profiles.files += Enttec-PlaybackWing.qxi

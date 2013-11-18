@@ -90,7 +90,7 @@ void MidiPlugin::openOutput(quint32 output)
         MidiTemplate* templ = midiTemplate(dev->midiTemplateName());
 
         if (templ != NULL)
-            sendSysEx(output, templ->midiMessage());
+            sendSysEx(output, templ->initMessage());
     }
 }
 
@@ -292,14 +292,14 @@ void MidiPlugin::sendFeedBack(quint32 output, quint32 channel, uchar value, cons
     }
 }
 
-void MidiPlugin::sendSysEx(quint32 output, const QString &data)
+void MidiPlugin::sendSysEx(quint32 output, const QByteArray &data)
 {
     qDebug() << "sendSysEx data: " << data;
     bool ok;
 
     //Remove spaces newlines etc.
-    QString tempData = data.simplified();
-    tempData.replace(QString(" "), QString(""));
+    QByteArray tempData = data.simplified();
+    tempData.replace(QByteArray(" "), QByteArray(""));
 
     int dataSize = tempData.size() / 2;
     uchar message[dataSize];

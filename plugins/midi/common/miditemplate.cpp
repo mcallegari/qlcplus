@@ -53,7 +53,7 @@ MidiTemplate& MidiTemplate::operator=(const MidiTemplate& templ)
     {
         /* Copy basic properties */
         m_description = templ.m_description;
-        m_midiMessage = templ.m_midiMessage;
+        m_initMessage = templ.m_initMessage;
     }
 
     return *this;
@@ -69,14 +69,14 @@ QString MidiTemplate::name() const
     return m_description;
 }
 
-void MidiTemplate::setMidiMessage(const QString& message)
+void MidiTemplate::setInitMessage(const QByteArray& message)
 {
-    m_midiMessage = message;
+    m_initMessage = message;
 }
 
-QString MidiTemplate::midiMessage() const
+QByteArray MidiTemplate::initMessage() const
 {
-    return m_midiMessage;
+    return m_initMessage;
 }
 
 /****************************************************************************
@@ -115,13 +115,19 @@ bool MidiTemplate::loadXML(const QDomDocument& doc)
             {
                 /* Ignore */
             }
+            if (tag.tagName() == KXMLMidiTemplateDescription)
+            {
+                /* Ignore */
+            }
             if (tag.tagName() == KXMLMidiTemplateName)
             {
                 setName(tag.text());
             }
-            else if (tag.tagName() == KXMLMidiTemplateMidiMessage)
+            else if (tag.tagName() == KXMLMidiTemplateInitMessage)
             {
-                setMidiMessage(tag.text());
+                QByteArray initMessage;
+                initMessage.append(tag.text());
+                setInitMessage(initMessage);
             }
 
             node = node.nextSibling();
