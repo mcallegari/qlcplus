@@ -12,9 +12,12 @@ usr/share/qlcplus/translations/*
 usr/share/qlcplus/gobos/*
 usr/share/qlcplus/rgbscripts/*
 usr/share/qlcplus/Sample.qxw
+<<<<<<< HEAD
 usr/share/qlcplus/RGBImage.qxw
 usr/share/qlcplus/anim1.png
 usr/share/qlcplus/anim2.png
+=======
+>>>>>>> 181c786c5fed0f3ee1f166687805d7db4d9460f8
 usr/share/mime/packages/qlcplus.xml
 
 # Plugins
