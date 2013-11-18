@@ -13,8 +13,8 @@ usr/share/qlcplus/gobos/*
 usr/share/qlcplus/rgbscripts/*
 usr/share/qlcplus/Sample.qxw
 usr/share/qlcplus/RGBImage.qxw
-usr/share/qlcplus/anim1.qxw
-usr/share/qlcplus/anim2.qxw
+usr/share/qlcplus/anim1.png
+usr/share/qlcplus/anim2.png
 usr/share/mime/packages/qlcplus.xml
 
 # Plugins
