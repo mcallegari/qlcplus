@@ -65,9 +65,6 @@ INSTALL_ROOT=$RPM_BUILD_ROOT make install
 /usr/share/qlcplus/inputprofiles/*
 /usr/share/qlcplus/rgbscripts/*
 /usr/share/qlcplus/Sample.qxw
-/usr/share/qlcplus/RGBImage.qxw
-/usr/share/qlcplus/anim1.png
-/usr/share/qlcplus/anim2.png
 /usr/share/mime/packages/qlcplus.xml
 %doc /usr/share/qlcplus/documents/*
 /usr/lib/qt4/plugins/qlcplus/libartnet.so

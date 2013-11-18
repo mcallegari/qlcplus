@@ -109,9 +109,6 @@ win32 {
     INSTALLS  += nsis
 }
 
-samples.files += Sample.qxw \
-                 RGBImage.qxw \
-                 anim1.png \
-                 anim2.png
+samples.files += Sample.qxw
 samples.path   = $$INSTALLROOT/$$DATADIR
 INSTALLS      += samples

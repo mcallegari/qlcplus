@@ -98,9 +98,6 @@ Section
 	File QtNetwork4.dll
 	File QtScript4.dll
 	File Sample.qxw
-	File RGBImage.qxw
-	File anim1.png
-	File anim2.png
 	File *.qm
 	File /r Documents
 	File /r Fixtures
@@ -154,9 +151,6 @@ Section "Uninstall"
 	Delete $INSTDIR\QtNetwork4.dll
 	Delete $INSTDIR\QtScript4.dll
 	Delete $INSTDIR\Sample.qxw
-	Delete $INSTDIR\RGBSample.qxw
-	Delete $INSTDIR\anim1.qxw
-	Delete $INSTDIR\anim2.qxw
 	Delete $INSTDIR\*.qm
 	RMDir /r $INSTDIR\Documents
 	RMDir /r $INSTDIR\Fixtures
