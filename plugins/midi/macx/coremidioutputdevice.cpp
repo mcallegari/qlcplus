@@ -204,9 +204,9 @@ void CoreMidiOutputDevice::writeFeedback(uchar cmd, uchar data1, uchar data2)
         qWarning() << Q_FUNC_INFO << "Unable to send MIDI data to" << name();
 }
 
-void CoreMidiOutputDevice::writeSysEx(uchar* data, unsigned int count)
+void CoreMidiOutputDevice::writeSysEx(QByteArray message)
 {
-    if(sizeof(data) == 0)
+    if(message.isEmpty())
         return;
 
     if (isOpen() == false)
@@ -219,7 +219,7 @@ void CoreMidiOutputDevice::writeSysEx(uchar* data, unsigned int count)
     MIDIPacket* packet = MIDIPacketListInit(list);
 
     /* Add the MIDI command to the packet list */
-    packet = MIDIPacketListAdd(list, bufferSize, packet, 0, count, data);
+    packet = MIDIPacketListAdd(list, bufferSize, packet, 0, message.count(), message.data());
     if (packet == 0)
     {
         qWarning() << "MIDIOut buffer overflow";

@@ -166,9 +166,9 @@ void Win32MidiOutputDevice::sendData(BYTE command, BYTE channel, BYTE value)
     midiOutShortMsg(m_handle, msg.dwData);
 }
 
-void Win32MidiOutputDevice::writeSysEx(uchar* data, unsigned int count)
+void Win32MidiOutputDevice::writeSysEx(QByteArray message)
 {
-    if(sizeof(data) == 0)
+    if(message.isEmpty())
         return;
 
     if (isOpen() == false)
@@ -177,10 +177,10 @@ void Win32MidiOutputDevice::writeSysEx(uchar* data, unsigned int count)
     MIDIHDR midiHdr;
 
     /* Store pointer in MIDIHDR */
-    midiHdr.lpData = (LPSTR)data;//(LPBYTE)&sysEx[0];
+    midiHdr.lpData = (LPSTR)message.data();
 
     /* Store its size in the MIDIHDR */
-    midiHdr.dwBufferLength = count;
+    midiHdr.dwBufferLength = message.count();
 
     /* Flags must be set to 0 */
     midiHdr.dwFlags = 0;

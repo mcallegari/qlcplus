@@ -229,9 +229,9 @@ void AlsaMidiOutputDevice::writeFeedback(uchar cmd, uchar data1, uchar data2)
 }
 
 
-void AlsaMidiOutputDevice::writeSysEx(uchar* data, unsigned int count)
+void AlsaMidiOutputDevice::writeSysEx(QByteArray message)
 {
-    if(sizeof(data) == 0)
+    if(message.isEmpty())
         return;
 
     if (isOpen() == false)
@@ -243,7 +243,7 @@ void AlsaMidiOutputDevice::writeSysEx(uchar* data, unsigned int count)
     snd_seq_ev_set_subs(&ev);
     snd_seq_ev_set_direct(&ev);
 
-    snd_seq_ev_set_sysex (&ev, count, data);
+    snd_seq_ev_set_sysex (&ev, message.count(), message.data());
 
     if (snd_seq_event_output(m_alsa, &ev) < 0)
         qDebug() << "snd_seq_event_output ERROR";

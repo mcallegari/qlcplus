@@ -34,7 +34,7 @@ public:
     virtual void writeChannel(ushort channel, uchar value) = 0;
     virtual void writeUniverse(const QByteArray& universe) = 0;
     virtual void writeFeedback(uchar cmd, uchar data1, uchar data2) = 0;
-    virtual void writeSysEx(uchar* data, unsigned int count) = 0;
+    virtual void writeSysEx(QByteArray message) = 0;
 };
 
 #endif

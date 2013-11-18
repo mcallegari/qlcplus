@@ -295,21 +295,10 @@ void MidiPlugin::sendFeedBack(quint32 output, quint32 channel, uchar value, cons
 void MidiPlugin::sendSysEx(quint32 output, const QByteArray &data)
 {
     qDebug() << "sendSysEx data: " << data;
-    bool ok;
-
-    //Remove spaces newlines etc.
-    QByteArray tempData = data.simplified();
-    tempData.replace(QByteArray(" "), QByteArray(""));
-
-    int dataSize = tempData.size() / 2;
-    uchar message[dataSize];
-
-    for (int i = 0; i < dataSize; ++i)
-        message[i] = tempData.mid(i * 2, 2).toUInt(&ok,16);
 
     MidiOutputDevice* dev = outputDevice(output);
     if (dev != NULL)
-        dev->writeSysEx(message, dataSize);
+        dev->writeSysEx(data);
 }
 
 MidiInputDevice* MidiPlugin::inputDevice(quint32 input) const

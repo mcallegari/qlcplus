@@ -43,7 +43,7 @@ public:
     void writeChannel(ushort channel, uchar value);
     void writeUniverse(const QByteArray& universe);
     void writeFeedback(uchar cmd, uchar data1, uchar data2);
-    void writeSysEx(uchar* data, unsigned int count);
+    void writeSysEx(QByteArray message);
 
 private:
     snd_seq_t* m_alsa;

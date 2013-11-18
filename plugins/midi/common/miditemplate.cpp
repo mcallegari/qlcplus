@@ -126,8 +126,15 @@ bool MidiTemplate::loadXML(const QDomDocument& doc)
             else if (tag.tagName() == KXMLMidiTemplateInitMessage)
             {
                 QByteArray initMessage;
-                initMessage.append(tag.text());
+                QStringList byteList = tag.text().split(' ');
+                for (int i = 0; i < byteList.count(); i++)
+                {
+                    bool ok;
+                    int byte = byteList.at(i).toInt(&ok , 16);
+                    initMessage.append((char)byte);
+                }
                 setInitMessage(initMessage);
+                qDebug() << Q_FUNC_INFO << "Loaded message with size:" << initMessage.count();
             }
 
             node = node.nextSibling();
