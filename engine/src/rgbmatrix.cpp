@@ -193,6 +193,9 @@ void RGBMatrix::calculateColorDelta()
 
     if (m_endColor.isValid())
     {
+        if (doc() == NULL)
+            return;
+
         FixtureGroup* grp = doc()->fixtureGroup(fixtureGroup());
         if (grp != NULL && m_algorithm != NULL)
         {
@@ -627,4 +630,17 @@ void RGBMatrix::insertStartValues(FadeChannel& fc) const
         fc.setFadeTime(fadeOutSpeed());
     else
         fc.setFadeTime(fadeInSpeed());
+}
+
+/*********************************************************************
+ * Attributes
+ *********************************************************************/
+
+void RGBMatrix::adjustAttribute(qreal intensity, int attributeIndex)
+{
+    Q_UNUSED(attributeIndex)
+
+    if (m_fader != NULL)
+        m_fader->adjustIntensity(intensity);
+    Function::adjustAttribute(intensity);
 }

@@ -103,10 +103,10 @@
       <item row="0" column="2">
        <widget class="QCheckBox" name="m_rgbMatrixCheck">
         <property name="toolTip">
-         <string>Display RGB Matrixes in the list</string>
+         <string>Display RGB Matrices in the list</string>
         </property>
         <property name="text">
-         <string>RGB matrixes</string>
+         <string>RGB matrices</string>
         </property>
        </widget>
       </item>
