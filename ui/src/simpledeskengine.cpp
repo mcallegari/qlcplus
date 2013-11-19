@@ -21,6 +21,7 @@
 #include <QDomElement>
 #include <QVariant>
 #include <QDebug>
+#include <QMutexLocker>
 
 #include "simpledeskengine.h"
 #include "universearray.h"
@@ -68,12 +69,12 @@ void SimpleDeskEngine::clearContents()
         while (cs->isStarted() == true) { /* NOP */ }
     }
 
-    m_mutex.lock();
+    QMutexLocker locker(&m_mutex);
     foreach (CueStack* cs, m_cueStacks.values())
         delete cs;
     m_cueStacks.clear();
     m_values.clear();
-    m_mutex.unlock();
+    m_resetValues.clear();
 }
 
 /****************************************************************************
@@ -82,19 +83,20 @@ void SimpleDeskEngine::clearContents()
 
 void SimpleDeskEngine::setValue(uint channel, uchar value)
 {
-    // Use FadeChannel's reverse-lookup to dig up the channel's group
-    FadeChannel fc;
-    fc.setChannel(channel);
-    QLCChannel::Group group = fc.group(doc());
+    QLCChannel::Group group = getGroupForChannel(channel);
 
+    QMutexLocker locker(&m_mutex);
     if (value == 0 && group == QLCChannel::Intensity)
         m_values.remove(channel);
     else
         m_values[channel] = value;
+
+    m_resetValues.remove(channel);
 }
 
 uchar SimpleDeskEngine::value(uint channel) const
 {
+    QMutexLocker locker(&m_mutex);
     if (m_values.contains(channel) == true)
         return m_values[channel];
     else
@@ -104,11 +106,17 @@ uchar SimpleDeskEngine::value(uint channel) const
 void SimpleDeskEngine::setCue(const Cue& cue)
 {
     qDebug() << Q_FUNC_INFO;
+
+    QMutexLocker locker(&m_mutex);
     m_values = cue.values();
+
+    foreach (uint channel, m_values.keys())
+        m_resetValues.remove(channel);
 }
 
 Cue SimpleDeskEngine::cue() const
 {
+    QMutexLocker locker(&m_mutex);
     return Cue(m_values);
 }
 
@@ -116,10 +124,21 @@ void SimpleDeskEngine::resetUniverse(int universe)
 {
     qDebug() << Q_FUNC_INFO;
 
-    m_mutex.lock();
+    QMutexLocker locker(&m_mutex);
     for (int i = 0; i < 512; i++)
-        setValue((universe * 512) + i, 0);
-    m_mutex.unlock();
+    {
+        m_values.remove(i);
+	if (getGroupForChannel(i) != QLCChannel::Intensity)
+             m_resetValues[(universe * 512) + i] = 0;
+    }
+}
+
+QLCChannel::Group SimpleDeskEngine::getGroupForChannel(uint channel) const
+{
+    // Use FadeChannel's reverse-lookup to dig up the channel's group
+    FadeChannel fc;
+    fc.setChannel(channel);
+    return fc.group(doc());
 }
 
 /****************************************************************************
@@ -252,9 +271,35 @@ bool SimpleDeskEngine::saveXML(QDomDocument* doc, QDomElement* wksp_root) const
 
 void SimpleDeskEngine::writeDMX(MasterTimer* timer, UniverseArray* ua)
 {
-    m_mutex.lock();
+    QMutexLocker locker(&m_mutex);
 
-    QHashIterator <uint,uchar> it(m_values);
+    writeValuesHash(m_resetValues, ua);
+    m_resetValues.clear();
+    writeValuesHash(m_values, ua);
+
+    foreach (CueStack* cueStack, m_cueStacks)
+    {
+        if (cueStack == NULL)
+            continue;
+
+        if (cueStack->isRunning() == true)
+        {
+            if (cueStack->isStarted() == false)
+                cueStack->preRun();
+
+            cueStack->write(ua);
+        }
+        else
+        {
+            if (cueStack->isStarted() == true)
+                cueStack->postRun(timer);
+        }
+    }
+}
+
+void SimpleDeskEngine::writeValuesHash(QHash<uint, uchar> & hash, UniverseArray* ua)
+{
+    QHashIterator <uint,uchar> it(hash);
     while (it.hasNext() == true)
     {
         it.next();
@@ -275,24 +320,5 @@ void SimpleDeskEngine::writeDMX(MasterTimer* timer, UniverseArray* ua)
             ua->write(it.key(), it.value(), grp);
         }
     }
-
-    foreach (CueStack* cueStack, m_cueStacks)
-    {
-        if (cueStack == NULL)
-            continue;
-
-        if (cueStack->isRunning() == true)
-        {
-            if (cueStack->isStarted() == false)
-                cueStack->preRun();
-
-            cueStack->write(ua);
-        }
-        else
-        {
-            if (cueStack->isStarted() == true)
-                cueStack->postRun(timer);
-        }
-    }
-    m_mutex.unlock();
 }
+

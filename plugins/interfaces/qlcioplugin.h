@@ -261,6 +261,8 @@ signals:
     void configurationChanged();
 };
 
-Q_DECLARE_INTERFACE(QLCIOPlugin, "QLCIOPlugin")
+#define QLCIOPlugin_iid "net.sourceforge.qlcplus.QLCIOPlugin"
+
+Q_DECLARE_INTERFACE(QLCIOPlugin, QLCIOPlugin_iid)
 
 #endif
