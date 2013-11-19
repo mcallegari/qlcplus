@@ -21,6 +21,7 @@
 #include <QDomElement>
 #include <QVariant>
 #include <QDebug>
+#include <QMutexLocker>
 
 #include "simpledeskengine.h"
 #include "universearray.h"
@@ -68,12 +69,11 @@ void SimpleDeskEngine::clearContents()
         while (cs->isStarted() == true) { /* NOP */ }
     }
 
-    m_mutex.lock();
+    QMutexLocker locker(&m_mutex);
     foreach (CueStack* cs, m_cueStacks.values())
         delete cs;
     m_cueStacks.clear();
     m_values.clear();
-    m_mutex.unlock();
 }
 
 /****************************************************************************
@@ -87,6 +87,7 @@ void SimpleDeskEngine::setValue(uint channel, uchar value)
     fc.setChannel(channel);
     QLCChannel::Group group = fc.group(doc());
 
+    QMutexLocker locker(&m_mutex);
     if (value == 0 && group == QLCChannel::Intensity)
         m_values.remove(channel);
     else
@@ -95,6 +96,7 @@ void SimpleDeskEngine::setValue(uint channel, uchar value)
 
 uchar SimpleDeskEngine::value(uint channel) const
 {
+    QMutexLocker locker(&m_mutex);
     if (m_values.contains(channel) == true)
         return m_values[channel];
     else
@@ -104,11 +106,14 @@ uchar SimpleDeskEngine::value(uint channel) const
 void SimpleDeskEngine::setCue(const Cue& cue)
 {
     qDebug() << Q_FUNC_INFO;
+
+    QMutexLocker locker(&m_mutex);
     m_values = cue.values();
 }
 
 Cue SimpleDeskEngine::cue() const
 {
+    QMutexLocker locker(&m_mutex);
     return Cue(m_values);
 }
 
@@ -116,10 +121,9 @@ void SimpleDeskEngine::resetUniverse(int universe)
 {
     qDebug() << Q_FUNC_INFO;
 
-    m_mutex.lock();
+    QMutexLocker locker(&m_mutex);
     for (int i = 0; i < 512; i++)
         setValue((universe * 512) + i, 0);
-    m_mutex.unlock();
 }
 
 /****************************************************************************
@@ -252,7 +256,7 @@ bool SimpleDeskEngine::saveXML(QDomDocument* doc, QDomElement* wksp_root) const
 
 void SimpleDeskEngine::writeDMX(MasterTimer* timer, UniverseArray* ua)
 {
-    m_mutex.lock();
+    QMutexLocker locker(&m_mutex);
 
     QHashIterator <uint,uchar> it(m_values);
     while (it.hasNext() == true)
@@ -294,5 +298,4 @@ void SimpleDeskEngine::writeDMX(MasterTimer* timer, UniverseArray* ua)
                 cueStack->postRun(timer);
         }
     }
-    m_mutex.unlock();
 }

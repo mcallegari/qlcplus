@@ -104,7 +104,7 @@ private slots:
 
 private:
     QHash <uint,CueStack*> m_cueStacks;
-    QMutex m_mutex;
+    mutable QMutex m_mutex;
 
     /************************************************************************
      * Save & Load
