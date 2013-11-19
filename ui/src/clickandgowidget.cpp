@@ -186,6 +186,8 @@ void ClickAndGoWidget::setType(int type, const QLCChannel *chan)
         setupGradient(Qt::magenta);
     else if (type == Yellow)
         setupGradient(Qt::yellow);
+    else if (type == Amber)
+        setupGradient(0xFFFF7E00);
     else if (type == White)
         setupGradient(Qt::white);
     else if (type == RGB || type == CMY)
@@ -218,6 +220,7 @@ QString ClickAndGoWidget::clickAndGoTypeToString(ClickAndGoWidget::ClickAndGo ty
         case Cyan: return "Cyan"; break;
         case Magenta: return "Magenta"; break;
         case Yellow: return "Yellow"; break;
+        case Amber: return "Amber"; break;
         case White: return "White"; break;
         case RGB: return "RGB"; break;
         case CMY: return "CMY"; break;
@@ -233,6 +236,7 @@ ClickAndGoWidget::ClickAndGo ClickAndGoWidget::stringToClickAndGoType(QString st
     else if (str == "Cyan") return Cyan;
     else if (str == "Magenta") return Magenta;
     else if (str == "Yellow") return Yellow;
+    else if (str == "Amber") return Amber;
     else if (str == "White") return White;
     else if (str == "RGB") return RGB;
     else if (str == "CMY") return CMY;

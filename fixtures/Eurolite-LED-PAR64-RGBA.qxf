@@ -25,6 +25,7 @@
  </Channel>
  <Channel Name="Amber">
   <Group Byte="0">Intensity</Group>
+  <Colour>Amber</Colour>
   <Capability Min="0" Max="255">Amber</Capability>
  </Channel>
  <Channel Name="Dimmer">

@@ -166,6 +166,7 @@ public:
         Cyan        = 0x00FFFF,
         Magenta     = 0xFF00FF,
         Yellow      = 0xFFFF00,
+        Amber       = 0xFF7E00,
         White       = 0xFFFFFF
     };
 

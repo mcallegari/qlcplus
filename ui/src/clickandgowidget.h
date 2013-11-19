@@ -39,6 +39,7 @@ public:
         Cyan,
         Magenta,
         Yellow,
+        Amber,
         White,
         RGB,
         CMY,
