@@ -248,6 +248,7 @@ fixtures.files += Robe-Robin-600E-Spot.qxf
 fixtures.files += Robe-Robin-600E-Wash.qxf
 fixtures.files += Robe-Scan-575-XT.qxf
 fixtures.files += Robe-Wash-575-XT.qxf
+fixtures.files += Robe_ColorMix_240_AT.qxf
 fixtures.files += Rosco-I-Cue.qxf
 fixtures.files += Sagitter-Miniscan-2001.qxf
 fixtures.files += Scanic-Astute-LED-108.qxf

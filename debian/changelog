@@ -14,7 +14,8 @@ qlcplus (4.6.0) stable; urgency=low
   * Fixture Manager: refresh fixtures list when loading a project on startup
   * RGB Matrix Editor: fixed crash when opening a project with the RGB Matrix editor open
   * Package: Fixed installation of RGB scripts and Windows associations (thanks to Jano Svitok)
-  * Added fixtures: Pro-Lights LedPar 64363 RGB, Pro-Lights LumiPar 7QPro, Pro-Lights Strobo 1500DMX, Pro-Lights Explo 3000D, Pro-Lights LumiPar 18 Tri (thanks to Lorenzo Andreani)
+  * Added fixtures: Pro-Lights LedPar 64363 RGB, Pro-Lights LumiPar 7QPro, Pro-Lights Strobo 1500DMX (thanks to Lorenzo Andreani)
+  * Added fixtures: Pro-Lights Explo 3000D, Pro-Lights LumiPar 18 Tri, Robe_ColorMix_240_AT (thanks to Lorenzo Andreani)
   * Added fixture: American DJ Mega Tri Par
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 15 December 2013 12:13:04 +0200
