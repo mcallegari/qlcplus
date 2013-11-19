@@ -32,7 +32,6 @@
 #undef private
 
 #define TESTPLUGINDIR "../outputpluginstub"
-#define OUTPUT_TESTPLUGINDIR "../inputpluginstub"
 #define ENGINEDIR "../../src"
 #define PROFILEDIR "../../../inputprofiles"
 

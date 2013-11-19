@@ -31,7 +31,7 @@ class QLC_DECLSPEC Velleman : public QLCIOPlugin
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)
 #if QT_VERSION > QT_VERSION_CHECK(5, 0, 0)
-    Q_PLUGIN_METADATA(IID "qlcplus.sourceforge.net" FILE "velleman.json")
+    Q_PLUGIN_METADATA(IID QLCIOPlugin_iid)
 #endif
 
     /*************************************************************************
