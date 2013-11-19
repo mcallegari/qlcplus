@@ -5,12 +5,14 @@ qlcplus (4.6.0) stable; urgency=low
   * NEW: Function Wizard has been completely rewritten
   * NEW: MIDI plugin: added the possibility to send a SysEx initialization message on an input or output line (thanks to Joep Admiraal)
   * NEW: Added Audio fade in/out support (also in Show Manager)
+  * NEW: It is now possible to control RGB Matrices intensity
   * Virtual Console: fixed audio triggers incorrect loading
   * Input/Output: improved audio device selection
-  * Audio Input: fixed crash occurring on Linux for unusable audio devices
+  * Audio Input: fixed crash occurring on Linux for unsupported audio devices
   * Fixture Editor: set previously selected color when editing a color macro
   * Fixture Remap: improved remapping of fixtures with of the same type
   * Fixture Manager: refresh fixtures list when loading a project on startup
+  * RGB Matrix Editor: fixed crash when opening a project with the RGB Matrix editor open
   * Package: Fixed installation of RGB scripts and Windows associations (thanks to Jano Svitok)
   * Added fixtures: Pro-Lights LedPar 64363 RGB, Pro-Lights LumiPar 7QPro, Pro-Lights Strobo 1500DMX, Pro-Lights Explo 3000D, Pro-Lights LumiPar 18 Tri (thanks to Lorenzo Andreani)
   * Added fixture: American DJ Mega Tri Par

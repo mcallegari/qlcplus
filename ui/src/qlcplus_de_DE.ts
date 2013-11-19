@@ -792,39 +792,49 @@ Changes will be lost if you don&apos;t save them.</source>
         <translation>Audioeditor</translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="22"/>
+        <location filename="audioeditor.ui" line="109"/>
         <source>Bitrate:</source>
         <translation>Bitrate:</translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="29"/>
+        <location filename="audioeditor.ui" line="63"/>
         <source>Duration:</source>
         <translation>Dauer:</translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="68"/>
+        <location filename="audioeditor.ui" line="102"/>
         <source>Audio name</source>
         <translation>Audioname</translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="88"/>
+        <location filename="audioeditor.ui" line="35"/>
         <source>Sample rate:</source>
         <translation>Samplerate:</translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="95"/>
+        <location filename="audioeditor.ui" line="42"/>
         <source>Name of the function being edited</source>
         <translation>Name der zu bearbeitenden Sammlung</translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="115"/>
+        <location filename="audioeditor.ui" line="49"/>
         <source>Channels:</source>
         <translation>Kanäle:</translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="142"/>
+        <location filename="audioeditor.ui" line="129"/>
         <source>File name:</source>
         <translation>Dateiname:</translation>
+    </message>
+    <message>
+        <location filename="audioeditor.ui" line="165"/>
+        <source>Fade in:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="audioeditor.ui" line="189"/>
+        <source>Fade out:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -847,7 +857,7 @@ Dauer: %3
     </message>
     <message>
         <location filename="sceneitems.cpp" line="723"/>
-        <location filename="sceneitems.cpp" line="1084"/>
+        <location filename="sceneitems.cpp" line="1100"/>
         <source>Preview Left Channel</source>
         <translation>Vorschau linker Kanal</translation>
     </message>
@@ -867,7 +877,7 @@ Dauer: %3
         <translation>Am Cursor ausrichten</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="1080"/>
+        <location filename="sceneitems.cpp" line="1096"/>
         <source>Preview Mono</source>
         <translation>Vorschaue Mono</translation>
     </message>
@@ -1917,223 +1927,223 @@ Dauer: %3
 <context>
     <name>FixtureManager</name>
     <message>
-        <location filename="fixturemanager.cpp" line="308"/>
+        <location filename="fixturemanager.cpp" line="311"/>
         <source>Universe</source>
         <translation>Universum</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="308"/>
+        <location filename="fixturemanager.cpp" line="311"/>
         <source>Address</source>
         <translation>Adresse</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="308"/>
-        <location filename="fixturemanager.cpp" line="340"/>
+        <location filename="fixturemanager.cpp" line="311"/>
+        <location filename="fixturemanager.cpp" line="343"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="336"/>
+        <location filename="fixturemanager.cpp" line="339"/>
         <source>Fixtures Groups</source>
         <translation>Gerätegruppen</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="340"/>
+        <location filename="fixturemanager.cpp" line="343"/>
         <source>Channels</source>
         <translation>Kanäle</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="353"/>
+        <location filename="fixturemanager.cpp" line="356"/>
         <source>Channels Groups</source>
         <translation>Kanalgruppen</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="403"/>
-        <location filename="fixturemanager.cpp" line="647"/>
+        <location filename="fixturemanager.cpp" line="406"/>
+        <location filename="fixturemanager.cpp" line="650"/>
         <source>All fixtures</source>
         <translation>Alle Geräte</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="647"/>
+        <location filename="fixturemanager.cpp" line="650"/>
         <source>This group contains all fixtures.</source>
         <translation>Diese Gruppe enthält alle Geräte.</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="659"/>
+        <location filename="fixturemanager.cpp" line="662"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple fixtures selected&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; to remove the selected fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Mehrere Geräte ausgewählt&lt;/H1&gt;&lt;P&gt;Klick &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; zum Entfernen der ausgewählten Geräte.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="665"/>
+        <location filename="fixturemanager.cpp" line="668"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple fixtures selected&lt;/H1&gt;&lt;P&gt;Fixture list modification is not permitted in operate mode.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Mehrere Geräte ausgewählt&lt;/H1&gt;&lt;P&gt;Gerätelistenänderungen sind während der Laufzeit nicht zulässig.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="674"/>
+        <location filename="fixturemanager.cpp" line="677"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;No fixtures&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Keine Geräte&lt;/H1&gt;&lt;P&gt;Klick &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; um Geräte hinzuzufügen.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="680"/>
+        <location filename="fixturemanager.cpp" line="683"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a fixture from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Keine Auswahl&lt;/H1&gt;&lt;P&gt;Gerät aus der Liste wählen oder Klick &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; um Geräte hinzuzufügen.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="732"/>
+        <location filename="fixturemanager.cpp" line="735"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple groups selected&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; to remove the selected groups.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Mehrere Gruppen ausgewähtl&lt;/H1&gt;&lt;P&gt;Klick &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; zum Entfernen der ausgewählten Gruppe.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="740"/>
+        <location filename="fixturemanager.cpp" line="743"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a channel group from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add a new channels group.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Keine Auswahl&lt;/H1&gt;&lt;P&gt;Kanlgruppe aus der Liste wählen oder Klick &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; um Kanalgruppe hinzuzufügen.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="765"/>
+        <location filename="fixturemanager.cpp" line="768"/>
         <source>Add group...</source>
         <translation>Gruppe hinzufügen...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="771"/>
-        <location filename="fixturemanager.cpp" line="879"/>
+        <location filename="fixturemanager.cpp" line="774"/>
+        <location filename="fixturemanager.cpp" line="882"/>
         <source>Add fixture...</source>
         <translation>Gerät hinzufügen ...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="884"/>
+        <location filename="fixturemanager.cpp" line="887"/>
         <source>Delete items</source>
         <translation>Objekte löschen</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="889"/>
+        <location filename="fixturemanager.cpp" line="892"/>
         <source>Properties...</source>
         <translation>Eigenschaften...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="894"/>
+        <location filename="fixturemanager.cpp" line="897"/>
         <source>Channels Fade Configuration...</source>
         <translation>Kanalfader-Einstellungen...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="900"/>
+        <location filename="fixturemanager.cpp" line="903"/>
         <source>Add fixture to group...</source>
         <translation>Gerät zur Gruppe hinzufügen...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="903"/>
+        <location filename="fixturemanager.cpp" line="906"/>
         <source>Remove fixture from group</source>
         <translation>Gerät aus Gruppe entfernen</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="907"/>
+        <location filename="fixturemanager.cpp" line="910"/>
         <source>New Group...</source>
         <translation>Neue Gruppe...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="910"/>
+        <location filename="fixturemanager.cpp" line="913"/>
         <source>Move group up...</source>
         <translation>Gruppe aufwärts verschieben...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="916"/>
+        <location filename="fixturemanager.cpp" line="919"/>
         <source>Move group down...</source>
         <translation>Gruppe abwärts verschieben...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="922"/>
+        <location filename="fixturemanager.cpp" line="925"/>
         <source>Import fixtures...</source>
         <translation>Gerätedefinitionen importieren...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="927"/>
+        <location filename="fixturemanager.cpp" line="930"/>
         <source>Export fixtures...</source>
         <translation>Gerätedefinitionen exportieren...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="933"/>
+        <location filename="fixturemanager.cpp" line="936"/>
         <source>Remap fixtures...</source>
         <translation>Geräte neu zuweisen...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1104"/>
+        <location filename="fixturemanager.cpp" line="1107"/>
         <source>Do you want to delete the selected items?</source>
         <translation>Ausgewählte Objekte löschen?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1147"/>
+        <location filename="fixturemanager.cpp" line="1150"/>
         <source>Delete Channels Group</source>
         <translation>Kanalgruppe löschen</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1250"/>
+        <location filename="fixturemanager.cpp" line="1253"/>
         <source>Error</source>
         <translation>Fehler</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1251"/>
+        <location filename="fixturemanager.cpp" line="1254"/>
         <source>Please enter a valid address</source>
         <translation>Bitte gültige Adresse eingeben</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1327"/>
+        <location filename="fixturemanager.cpp" line="1330"/>
         <source>Ungroup fixtures?</source>
         <translation>Geräte-Gruppierung aufheben?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1328"/>
+        <location filename="fixturemanager.cpp" line="1331"/>
         <source>Do you want to ungroup the selected fixtures?</source>
         <translation>Gruppierung der ausgewählten Geräte aufheben?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1443"/>
+        <location filename="fixturemanager.cpp" line="1446"/>
         <source>Import Fixtures List</source>
         <oldsource>Import Fixture Definition</oldsource>
         <translation>Gerätedefinitionsliste importieren</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1448"/>
+        <location filename="fixturemanager.cpp" line="1451"/>
         <source>Export Fixtures List As</source>
         <oldsource>Export Fixture Definition As</oldsource>
         <translation>Gerätedefinitionsliste exportieren unter</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1454"/>
+        <location filename="fixturemanager.cpp" line="1457"/>
         <source>Fixtures List (*%1)</source>
         <oldsource>Fixture Definitions (*%1)</oldsource>
         <translation>Gerätedefinitionsliste (*%1)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1456"/>
+        <location filename="fixturemanager.cpp" line="1459"/>
         <source>All Files (*.*)</source>
         <translation>Alle Dateien (*.*)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1458"/>
+        <location filename="fixturemanager.cpp" line="1461"/>
         <source>All Files (*)</source>
         <translation>Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="966"/>
+        <location filename="fixturemanager.cpp" line="969"/>
         <source>Fixture manager</source>
         <translation>Gerätemanager</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1033"/>
+        <location filename="fixturemanager.cpp" line="1036"/>
         <source>Generic Dimmer</source>
         <translation>Generischer Dimmer</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1103"/>
+        <location filename="fixturemanager.cpp" line="1106"/>
         <source>Delete Fixtures</source>
         <translation>Geräte löschen</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1148"/>
+        <location filename="fixturemanager.cpp" line="1151"/>
         <source>Do you want to delete the selected groups?</source>
         <translation>Willst du die ausgewählten Gruppen entfernen?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1213"/>
+        <location filename="fixturemanager.cpp" line="1216"/>
         <source>Change fixture properties</source>
         <translation>Geräteeigenschaften ändern</translation>
     </message>
@@ -2202,66 +2212,66 @@ Dauer: %3
         <translation>Zielname des Projekts:</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="113"/>
-        <location filename="fixtureremap.cpp" line="115"/>
+        <location filename="fixtureremap.cpp" line="114"/>
+        <location filename="fixtureremap.cpp" line="116"/>
         <source> (remapped)</source>
         <translation>-(neu zugewiesen)</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="144"/>
+        <location filename="fixtureremap.cpp" line="145"/>
         <source>Universe %1</source>
         <translation>Universum %1</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="207"/>
+        <location filename="fixtureremap.cpp" line="208"/>
         <source>Generic Dimmer</source>
         <translation>Generischer Dimmer</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="273"/>
+        <location filename="fixtureremap.cpp" line="274"/>
         <source>Delete Fixtures</source>
         <translation>Geräte löschen</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="274"/>
+        <location filename="fixtureremap.cpp" line="275"/>
         <source>Do you want to delete the selected items?</source>
         <translation>Ausgewählte Objekte löschen?</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="322"/>
+        <location filename="fixtureremap.cpp" line="323"/>
         <source>Invalid operation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="323"/>
+        <location filename="fixtureremap.cpp" line="324"/>
         <source>You are trying to clone a fixture on an address already in use. Please fix the target list first.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="384"/>
-        <location filename="fixtureremap.cpp" line="411"/>
-        <location filename="fixtureremap.cpp" line="468"/>
+        <location filename="fixtureremap.cpp" line="385"/>
+        <location filename="fixtureremap.cpp" line="412"/>
+        <location filename="fixtureremap.cpp" line="502"/>
         <source>Invalid selection</source>
         <translation>Ungültige Auswahl</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="385"/>
-        <location filename="fixtureremap.cpp" line="469"/>
+        <location filename="fixtureremap.cpp" line="386"/>
+        <location filename="fixtureremap.cpp" line="503"/>
         <source>Please select a source and a target fixture or channel to perform this operation.</source>
         <translation>Bitte Quell- und Zielgerät oder Kanal zur Ausführung auswählen.</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="412"/>
+        <location filename="fixtureremap.cpp" line="413"/>
         <source>To perform a fixture remap, please select fixtures on both lists.</source>
         <translation>Zur Änderung der Gerätezuweisung bitte Geräte in beiden Listen auswählen</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="572"/>
+        <location filename="fixtureremap.cpp" line="608"/>
         <source>This might take a while...</source>
         <translation>Hierzu wird einige Zeit benötigt...</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="572"/>
+        <location filename="fixtureremap.cpp" line="608"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
@@ -2546,13 +2556,15 @@ Dauer: %3
     </message>
     <message>
         <location filename="functionselection.ui" line="106"/>
-        <source>Display RGB Matrixes in the list</source>
-        <translation>RGB Matrixen in der Liste anzeigen</translation>
+        <source>Display RGB Matrices in the list</source>
+        <oldsource>Display RGB Matrixes in the list</oldsource>
+        <translation type="unfinished">RGB Matrixen in der Liste anzeigen</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="109"/>
-        <source>RGB matrixes</source>
-        <translation>RGB Matrixen</translation>
+        <source>RGB matrices</source>
+        <oldsource>RGB matrixes</oldsource>
+        <translation type="unfinished">RGB Matrixen</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="116"/>
@@ -2608,22 +2620,22 @@ Dauer: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="49"/>
+        <location filename="functionwizard.ui" line="52"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="60"/>
+        <location filename="functionwizard.ui" line="66"/>
         <source>Cancel</source>
         <translation type="unfinished">Abbrechen</translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="77"/>
+        <location filename="functionwizard.ui" line="86"/>
         <source>Introduction</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="86"/>
+        <location filename="functionwizard.ui" line="95"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -2640,12 +2652,12 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="179"/>
+        <location filename="functionwizard.ui" line="188"/>
         <source>Fixtures that will be included in automatic function creation</source>
         <translation>Geräte für die automatische Funktionserstellung</translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="226"/>
+        <location filename="functionwizard.ui" line="235"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -2654,27 +2666,27 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="238"/>
+        <location filename="functionwizard.ui" line="247"/>
         <source>Functions</source>
         <translation type="unfinished">Funktionen</translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="245"/>
+        <location filename="functionwizard.ui" line="254"/>
         <source>Results</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="254"/>
+        <location filename="functionwizard.ui" line="263"/>
         <source>Available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="259"/>
+        <location filename="functionwizard.ui" line="268"/>
         <source>Odd/Even</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="279"/>
+        <location filename="functionwizard.ui" line="288"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -2683,17 +2695,17 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="290"/>
+        <location filename="functionwizard.ui" line="299"/>
         <source>Advanced</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="298"/>
+        <location filename="functionwizard.ui" line="307"/>
         <source>Virtual Console</source>
         <translation type="unfinished">Virtuelle Konsole</translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="316"/>
+        <location filename="functionwizard.ui" line="325"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -2702,59 +2714,69 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="328"/>
+        <location filename="functionwizard.ui" line="337"/>
         <source>Widgets</source>
         <translation type="unfinished">Assistenten</translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="120"/>
-        <location filename="functionwizard.ui" line="195"/>
+        <location filename="functionwizard.ui" line="129"/>
+        <location filename="functionwizard.ui" line="204"/>
         <source>Fixtures</source>
         <translation>Geräte</translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="200"/>
+        <location filename="functionwizard.ui" line="209"/>
         <source>Supported capabilities</source>
         <translation>Unterstütze Fähigkeiten</translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="159"/>
+        <location filename="functionwizard.ui" line="168"/>
         <source>Select fixtures that will be included in the automatically created functions</source>
         <translation>Wähle Geräte für die automatische Funktionserstellung</translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="162"/>
+        <location filename="functionwizard.ui" line="171"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="126"/>
+        <location filename="functionwizard.ui" line="135"/>
         <source>Don&apos;t include selected fixtures in the created functions</source>
         <translation>Ausgewählte Geräte nicht in den zu erstellenden Funktionen aufnehmen</translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="129"/>
+        <location filename="functionwizard.ui" line="138"/>
         <source>Remove</source>
         <translation>Entfernen</translation>
     </message>
     <message>
-        <location filename="functionwizard.cpp" line="172"/>
+        <location filename="functionwizard.cpp" line="174"/>
         <source>%1 group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.cpp" line="189"/>
+        <location filename="functionwizard.cpp" line="191"/>
         <source>Error</source>
         <translation>Fehler</translation>
     </message>
     <message>
-        <location filename="functionwizard.cpp" line="189"/>
+        <location filename="functionwizard.cpp" line="191"/>
         <source>%1 has no capability supported by this wizard.</source>
         <translation>%1 keine von diesem Assistenten unterstützte Fähigkeit.</translation>
     </message>
     <message>
-        <location filename="functionwizard.cpp" line="467"/>
+        <location filename="functionwizard.cpp" line="448"/>
+        <source>Presets solo frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="functionwizard.cpp" line="484"/>
         <source>Click &amp; Go RGB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="functionwizard.cpp" line="488"/>
+        <source>Click &amp; Go Macro</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2817,27 +2839,27 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>InputOutputManager</name>
     <message>
-        <location filename="inputoutputmanager.cpp" line="87"/>
+        <location filename="inputoutputmanager.cpp" line="88"/>
         <source>Universe</source>
         <translation>Universum</translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="87"/>
+        <location filename="inputoutputmanager.cpp" line="88"/>
         <source>Input</source>
         <translation>Eingang</translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="87"/>
+        <location filename="inputoutputmanager.cpp" line="88"/>
         <source>Output</source>
         <translation>Ausgang</translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="87"/>
+        <location filename="inputoutputmanager.cpp" line="88"/>
         <source>Feedback</source>
         <translation>Rückmeldung</translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="87"/>
+        <location filename="inputoutputmanager.cpp" line="88"/>
         <source>Profile</source>
         <translation>Profil</translation>
     </message>
@@ -2861,19 +2883,19 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="66"/>
-        <location filename="inputoutputpatcheditor.ui" line="228"/>
+        <location filename="inputoutputpatcheditor.ui" line="231"/>
         <source>Device</source>
         <translation>Gerät</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="71"/>
-        <location filename="inputoutputpatcheditor.ui" line="233"/>
+        <location filename="inputoutputpatcheditor.ui" line="236"/>
         <source>Input</source>
         <translation>Eingang</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="79"/>
-        <location filename="inputoutputpatcheditor.ui" line="238"/>
+        <location filename="inputoutputpatcheditor.ui" line="241"/>
         <source>Output</source>
         <translation>Ausgang</translation>
     </message>
@@ -3243,196 +3265,196 @@ Dauer: %3
 <context>
     <name>PaletteGenerator</name>
     <message>
-        <location filename="palettegenerator.cpp" line="93"/>
+        <location filename="palettegenerator.cpp" line="94"/>
         <source>Primary colours</source>
         <oldsource>Primary colors</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="94"/>
+        <location filename="palettegenerator.cpp" line="95"/>
         <source>16 Colours</source>
         <oldsource>16 Colors</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="95"/>
+        <location filename="palettegenerator.cpp" line="96"/>
         <source>Shutter macros</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="96"/>
+        <location filename="palettegenerator.cpp" line="97"/>
         <source>Gobo macros</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="97"/>
+        <location filename="palettegenerator.cpp" line="98"/>
         <source>Colour macros</source>
         <oldsource>Color macros</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="100"/>
+        <location filename="palettegenerator.cpp" line="101"/>
         <source>Unknown</source>
         <translation type="unfinished">Unbekannt</translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="235"/>
+        <location filename="palettegenerator.cpp" line="236"/>
         <source>%1 - %2 (Even)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="236"/>
+        <location filename="palettegenerator.cpp" line="237"/>
         <source>%1 - %2 (Odd)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="260"/>
+        <location filename="palettegenerator.cpp" line="261"/>
         <source>Black</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="260"/>
+        <location filename="palettegenerator.cpp" line="261"/>
         <source>Dark Blue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="260"/>
+        <location filename="palettegenerator.cpp" line="261"/>
         <source>Blue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="260"/>
+        <location filename="palettegenerator.cpp" line="261"/>
         <source>Dark Green</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="261"/>
+        <location filename="palettegenerator.cpp" line="262"/>
         <source>Dark Cyan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="261"/>
+        <location filename="palettegenerator.cpp" line="262"/>
         <source>Green</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="261"/>
+        <location filename="palettegenerator.cpp" line="262"/>
         <source>Cyan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="261"/>
+        <location filename="palettegenerator.cpp" line="262"/>
         <source>Dark Red</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="262"/>
+        <location filename="palettegenerator.cpp" line="263"/>
         <source>Dark Magenta</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="262"/>
+        <location filename="palettegenerator.cpp" line="263"/>
         <source>Dark Yellow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="262"/>
+        <location filename="palettegenerator.cpp" line="263"/>
         <source>Dark Gray</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="262"/>
+        <location filename="palettegenerator.cpp" line="263"/>
         <source>Light Gray</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="263"/>
+        <location filename="palettegenerator.cpp" line="264"/>
         <source>Red</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="263"/>
+        <location filename="palettegenerator.cpp" line="264"/>
         <source>Magenta</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="263"/>
+        <location filename="palettegenerator.cpp" line="264"/>
         <source>Yellow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="263"/>
+        <location filename="palettegenerator.cpp" line="264"/>
         <source>White</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="315"/>
+        <location filename="palettegenerator.cpp" line="316"/>
         <source>%1 %2 - %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="319"/>
+        <location filename="palettegenerator.cpp" line="320"/>
         <source>%1 %2 - %3 (Even)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="320"/>
+        <location filename="palettegenerator.cpp" line="321"/>
         <source>%1 %2 - %3 (Odd)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="375"/>
+        <location filename="palettegenerator.cpp" line="383"/>
         <source> - Even</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="376"/>
+        <location filename="palettegenerator.cpp" line="384"/>
         <source> - Odd</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="395"/>
+        <location filename="palettegenerator.cpp" line="403"/>
         <source>%1 chaser - %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="465"/>
+        <location filename="palettegenerator.cpp" line="473"/>
         <source>Red scene</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="466"/>
+        <location filename="palettegenerator.cpp" line="474"/>
         <source>Green scene</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="467"/>
+        <location filename="palettegenerator.cpp" line="475"/>
         <source>Blue scene</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="468"/>
+        <location filename="palettegenerator.cpp" line="476"/>
         <source>Cyan scene</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="469"/>
+        <location filename="palettegenerator.cpp" line="477"/>
         <source>Magenta scene</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="470"/>
+        <location filename="palettegenerator.cpp" line="478"/>
         <source>Yellow scene</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="471"/>
+        <location filename="palettegenerator.cpp" line="479"/>
         <source>White scene</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="477"/>
-        <location filename="palettegenerator.cpp" line="479"/>
+        <location filename="palettegenerator.cpp" line="485"/>
+        <location filename="palettegenerator.cpp" line="487"/>
         <source>Scene</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3477,22 +3499,22 @@ Dauer: %3
         <translation>RGB Matrix Editor</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="315"/>
+        <location filename="rgbmatrixeditor.ui" line="354"/>
         <source>RGB matrix name</source>
         <translation>RGB-Matrix-Name</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="328"/>
+        <location filename="rgbmatrixeditor.ui" line="367"/>
         <source>The name of this RGB matrix function</source>
         <translation>Name dieser RGB-Matrix-Funktion</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="365"/>
+        <location filename="rgbmatrixeditor.ui" line="404"/>
         <source>Fixture group</source>
         <translation>Gerätegruppe</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="378"/>
+        <location filename="rgbmatrixeditor.ui" line="417"/>
         <source>The fixture group to use as the pixel matrix</source>
         <translation>Diese Gerätegruppe als Pixel-Matrix verwenden</translation>
     </message>
@@ -3523,6 +3545,7 @@ Dauer: %3
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="95"/>
+        <location filename="rgbmatrixeditor.ui" line="138"/>
         <source>...</source>
         <translation>...</translation>
     </message>
@@ -3533,66 +3556,71 @@ Dauer: %3
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="122"/>
+        <source>Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="161"/>
         <source>Offset</source>
         <translation>Abstand</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="128"/>
+        <location filename="rgbmatrixeditor.ui" line="167"/>
         <source>X</source>
         <translation>X</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="135"/>
+        <location filename="rgbmatrixeditor.ui" line="174"/>
         <source>Shift the pattern X pixels horizontally</source>
         <translation>Muster X Pixel horizontal verschieben</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="148"/>
+        <location filename="rgbmatrixeditor.ui" line="187"/>
         <source>Y</source>
         <translation>Y</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="155"/>
+        <location filename="rgbmatrixeditor.ui" line="194"/>
         <source>Shift the pattern Y pixels vertically</source>
         <translation>Muster Y Pixel vertikal verschieben</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="252"/>
+        <location filename="rgbmatrixeditor.ui" line="291"/>
         <source>Run Order</source>
         <translation>Laufrichtung</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="258"/>
+        <location filename="rgbmatrixeditor.ui" line="297"/>
         <source>Run through over and over again</source>
         <translation>Läuft immer weiter durch</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="261"/>
+        <location filename="rgbmatrixeditor.ui" line="300"/>
         <source>Loop</source>
         <translation>Wiederholen</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="271"/>
+        <location filename="rgbmatrixeditor.ui" line="310"/>
         <source>Run through once and stop</source>
         <translation>Läuft nur einmal durch und stoppt dann</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="274"/>
+        <location filename="rgbmatrixeditor.ui" line="313"/>
         <source>Single Shot</source>
         <translation>Einmal</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="281"/>
+        <location filename="rgbmatrixeditor.ui" line="320"/>
         <source>First run forwards, then backwards, again forwards, etc.</source>
         <translation>Läuft erst vorwärts, dann rückwärts, dann wieder vorwärts, etc.</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="284"/>
+        <location filename="rgbmatrixeditor.ui" line="323"/>
         <source>Ping Pong</source>
         <translation>Hin und Her</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="198"/>
+        <location filename="rgbmatrixeditor.ui" line="237"/>
         <source>Direction</source>
         <translation>Richtung</translation>
     </message>
@@ -3608,49 +3636,54 @@ Dauer: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="204"/>
+        <location filename="rgbmatrixeditor.ui" line="243"/>
         <source>Start from the first step</source>
         <translation>Vom ersten Punkt starten</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="207"/>
+        <location filename="rgbmatrixeditor.ui" line="246"/>
         <source>Forward</source>
         <translation>Vorwärts</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="217"/>
+        <location filename="rgbmatrixeditor.ui" line="256"/>
         <source>Start from the last step</source>
         <translation>Vom letzten Punkt starten</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="220"/>
+        <location filename="rgbmatrixeditor.ui" line="259"/>
         <source>Backward</source>
         <translation>Rückwärts</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="339"/>
+        <location filename="rgbmatrixeditor.ui" line="378"/>
         <source>Show/Hide speed dial window</source>
         <translation type="unfinished">Anzeigen/Ausblenden des Schnellwahlfensters</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="294"/>
+        <location filename="rgbmatrixeditor.ui" line="333"/>
         <source>See what the RGB Matrix does when it is run</source>
         <translation>Vorschau der RGB-Matrix</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="297"/>
+        <location filename="rgbmatrixeditor.ui" line="336"/>
         <source>Test Run</source>
         <translation>Testlauf</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="234"/>
+        <location filename="rgbmatrixeditor.cpp" line="243"/>
         <source>None</source>
         <translation>Nichts</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="287"/>
+        <location filename="rgbmatrixeditor.cpp" line="321"/>
         <source>No fixture group to control</source>
         <translation>Keine Gerätegruppe zu steuern</translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.cpp" line="585"/>
+        <source>Select image</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4026,152 +4059,152 @@ Dauer: %3
 <context>
     <name>ShowManager</name>
     <message>
-        <location filename="showmanager.cpp" line="174"/>
+        <location filename="showmanager.cpp" line="175"/>
         <source>New s&amp;how</source>
         <translation>Neue S&amp;how</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="180"/>
+        <location filename="showmanager.cpp" line="181"/>
         <source>New &amp;track</source>
         <translation>Neuer &amp;Track</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="186"/>
+        <location filename="showmanager.cpp" line="187"/>
         <source>New s&amp;equence</source>
         <translation>Neue S&amp;equenz</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="192"/>
+        <location filename="showmanager.cpp" line="193"/>
         <source>New &amp;audio</source>
         <translation>Neues &amp;Audio</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="198"/>
+        <location filename="showmanager.cpp" line="199"/>
         <source>&amp;Copy</source>
         <translation>&amp;Kopieren</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="205"/>
+        <location filename="showmanager.cpp" line="206"/>
         <source>&amp;Paste</source>
         <translation>&amp;Einfügen</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="211"/>
+        <location filename="showmanager.cpp" line="212"/>
         <source>&amp;Delete</source>
         <translation>&amp;Löschen</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="218"/>
+        <location filename="showmanager.cpp" line="219"/>
         <source>Change Co&amp;lor</source>
         <translation>&amp;Farbe ändern</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="225"/>
+        <location filename="showmanager.cpp" line="226"/>
         <source>Snap to &amp;Grid</source>
         <translation>Am &amp;Gitter einrasten</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="232"/>
+        <location filename="showmanager.cpp" line="233"/>
         <source>St&amp;op</source>
         <translation>St&amp;op</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="238"/>
+        <location filename="showmanager.cpp" line="239"/>
         <source>&amp;Play</source>
         <translation>Abs&amp;pielen</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="294"/>
+        <location filename="showmanager.cpp" line="295"/>
         <source>Time division:</source>
         <translatorcomment>Maybe &quot;Zeit-Einteilung&quot;?</translatorcomment>
         <translation>Zeit-Aufteilung:</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="299"/>
+        <location filename="showmanager.cpp" line="300"/>
         <source>Time</source>
         <translation>Zeit</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="448"/>
+        <location filename="showmanager.cpp" line="473"/>
         <source>New Show</source>
         <translation>Neue Show</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="450"/>
+        <location filename="showmanager.cpp" line="475"/>
         <source>Show name setup</source>
         <translation>Shownameneinstellung</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="451"/>
+        <location filename="showmanager.cpp" line="476"/>
         <source>Show name:</source>
         <translation>Show-Name:</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="487"/>
+        <location filename="showmanager.cpp" line="512"/>
         <source>New Scene</source>
         <translation>Neue Szene</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="518"/>
-        <location filename="showmanager.cpp" line="554"/>
+        <location filename="showmanager.cpp" line="543"/>
+        <location filename="showmanager.cpp" line="579"/>
         <source>New Sequence</source>
         <translation>Neue Sequenz</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="542"/>
-        <location filename="showmanager.cpp" line="627"/>
+        <location filename="showmanager.cpp" line="567"/>
+        <location filename="showmanager.cpp" line="652"/>
         <source>Overlapping error</source>
         <translation>Überlappungsfehler</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="542"/>
-        <location filename="showmanager.cpp" line="627"/>
+        <location filename="showmanager.cpp" line="567"/>
+        <location filename="showmanager.cpp" line="652"/>
         <source>Overlapping not allowed. Operation cancelled.</source>
         <translation>Überlappen nicht zulässig. Ausführung abgebrochen.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="568"/>
+        <location filename="showmanager.cpp" line="593"/>
         <source>Open Audio File</source>
         <translation>Audio-Datei-öffnen</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="594"/>
+        <location filename="showmanager.cpp" line="619"/>
         <source>Audio Files (%1)</source>
         <translation>Audio Dateien (%1)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="596"/>
+        <location filename="showmanager.cpp" line="621"/>
         <source>All Files (*.*)</source>
         <translation>Alle Dateien (*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="598"/>
+        <location filename="showmanager.cpp" line="623"/>
         <source>All Files (*)</source>
         <translation>Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="620"/>
+        <location filename="showmanager.cpp" line="645"/>
         <source>Unsupported audio file</source>
         <translation>Nicht unterstützte Audio-Datei</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="620"/>
+        <location filename="showmanager.cpp" line="645"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation>Diese Audiodatei kann mit QLC+ nicht wiedergegeben werden. Sorry.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="688"/>
-        <location filename="showmanager.cpp" line="710"/>
+        <location filename="showmanager.cpp" line="713"/>
+        <location filename="showmanager.cpp" line="735"/>
         <source>Paste error</source>
         <translation>Einfügefehler</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="688"/>
+        <location filename="showmanager.cpp" line="713"/>
         <source>Overlapping paste not allowed. Operation cancelled.</source>
         <translation>Überlappendes Einfügen nicht zulässig Ausführung abgebrochen.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="710"/>
+        <location filename="showmanager.cpp" line="735"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
         <translation>Einfügen in eine inkompatible Szene. Ausführung abgebrochen.</translation>
     </message>
@@ -4356,12 +4389,12 @@ Dauer: %3
 <context>
     <name>VCAudioTriggers</name>
     <message>
-        <location filename="vcaudiotriggers.cpp" line="146"/>
+        <location filename="vcaudiotriggers.cpp" line="149"/>
         <source>Audio open error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcaudiotriggers.cpp" line="147"/>
+        <location filename="vcaudiotriggers.cpp" line="150"/>
         <source>An error occurred while initializing the selected audio device. Please review your audio input settings.</source>
         <translation type="unfinished"></translation>
     </message>

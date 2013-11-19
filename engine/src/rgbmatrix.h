@@ -147,6 +147,12 @@ private:
     QColor m_stepColor;
     int m_crDelta, m_cgDelta, m_cbDelta;
 
+    /*********************************************************************
+     * Attributes
+     *********************************************************************/
+public:
+    /** @reimpl */
+    void adjustAttribute(qreal intensity, int attributeIndex = 0);
 };
 
 #endif
