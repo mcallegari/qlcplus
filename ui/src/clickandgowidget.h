@@ -79,9 +79,9 @@ public:
 protected:
     /**
      * Prepare the widget to display a linear gradient
-     * from black to a primary color (end)
+     * from either black or white (begin) to a primary color (end)
      */
-    void setupGradient(QColor end);
+    void setupGradient(QColor begin, QColor end);
 
     /**
      * Helper function to draw a vertical gradient from
