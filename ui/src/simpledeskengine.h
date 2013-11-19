@@ -75,7 +75,11 @@ public:
     void resetUniverse(int universe);
 
 private:
+    QLCChannel::Group getGroupForChannel(uint channel) const;
+
+private:
     QHash <uint,uchar> m_values;
+    QHash <uint,uchar> m_resetValues;
 
     /************************************************************************
      * Cue Stacks
@@ -104,7 +108,7 @@ private slots:
 
 private:
     QHash <uint,CueStack*> m_cueStacks;
-    QMutex m_mutex;
+    mutable QMutex m_mutex;
 
     /************************************************************************
      * Save & Load
@@ -122,6 +126,9 @@ public:
 public:
     /** @reimpl */
     void writeDMX(MasterTimer* timer, UniverseArray* ua);
+
+private:
+    void writeValuesHash(QHash<uint, uchar> & hash, UniverseArray* ua);
 
 };
 

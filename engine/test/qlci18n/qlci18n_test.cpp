@@ -38,6 +38,9 @@ void QLCi18n_Test::translationFilePath()
 
 void QLCi18n_Test::loadTranslation()
 {
+    // so that 
+    QString dummy = tr("dummy");
+
     QLCi18n::setDefaultLocale(QString());
     QLCi18n::setTranslationFilePath(".");
 
