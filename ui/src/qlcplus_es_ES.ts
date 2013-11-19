@@ -842,7 +842,7 @@ Duración: %3
     <message>
         <location filename="sceneitems.cpp" line="708"/>
         <source>Click to move this audio across the timeline</source>
-        <translation>Click para mover este audio a lo largo de la línea de tiempo</translation>
+        <translation>Haga click para mover este audio a lo largo de la línea de tiempo</translation>
     </message>
     <message>
         <location filename="sceneitems.cpp" line="723"/>
@@ -1961,7 +1961,7 @@ Duración: %3
     <message>
         <location filename="fixturemanager.cpp" line="659"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple fixtures selected&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; to remove the selected fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
-        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Múltiples fixtures seleccionados&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; para quitar los fixtures seleccionados.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
+        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Múltiples fixtures seleccionados&lt;/H1&gt;&lt;P&gt;Haga click en &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; para quitar los fixtures seleccionados.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="665"/>
@@ -1971,22 +1971,22 @@ Duración: %3
     <message>
         <location filename="fixturemanager.cpp" line="674"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;No fixtures&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
-        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Ningún fixture&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; para añadir fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
+        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Ningún fixture&lt;/H1&gt;&lt;P&gt;Haga click en &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; para añadir fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="680"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a fixture from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
-        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nada seleccionado&lt;/H1&gt;&lt;P&gt;Selecciona un fixture de la lista o click&lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; para añadir fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
+        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nada seleccionado&lt;/H1&gt;&lt;P&gt;Seleccione un fixture de la lista o haga click en &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; para añadir fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="732"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple groups selected&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; to remove the selected groups.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
-        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Múltiples grupos seccionados&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; para quitar los grupos seleccionados.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
+        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Múltiples grupos seccionados&lt;/H1&gt;&lt;P&gt;Haga click en &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; para quitar los grupos seleccionados.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="740"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a channel group from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add a new channels group.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
-        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nada seleccionado&lt;/H1&gt;&lt;P&gt;Selecciona un grupo de canales de la lista o click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; para añadir un nuevo grupo de canales.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
+        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nada seleccionado&lt;/H1&gt;&lt;P&gt;Seleccione un grupo de canales de la lista o haga click en &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; para añadir un nuevo grupo de canales.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="765"/>
@@ -3218,12 +3218,12 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="multitrackview.cpp" line="408"/>
         <source>Click to move this sequence across the timeline</source>
-        <translation>Click para mover esta secuencia a lo largo de la línea de tiempo</translation>
+        <translation>Haga click para mover esta secuencia a lo largo de la línea de tiempo</translation>
     </message>
     <message>
         <location filename="multitrackview.cpp" line="418"/>
         <source>Click to move this audio across the timeline</source>
-        <translation>Click para mover este audio a lo largo de la línea de tiempo</translation>
+        <translation>Haga click para mover este audio a lo largo de la línea de tiempo</translation>
     </message>
     <message>
         <location filename="multitrackview.cpp" line="261"/>
@@ -3970,7 +3970,7 @@ Duración: %3
     <message>
         <location filename="selectinputchannel.cpp" line="167"/>
         <source>&lt;Double click here to enter channel number manually&gt;</source>
-        <translation>&lt;Doble click aqui para ingresar manualmente el número del canal&gt;</translation>
+        <translation>&lt;Haga doble click aqui para ingresar manualmente el número del canal&gt;</translation>
     </message>
 </context>
 <context>
@@ -3992,7 +3992,7 @@ Duración: %3
     <message>
         <location filename="sceneitems.cpp" line="473"/>
         <source>Click to move this sequence across the timeline</source>
-        <translation>Click para mover esta secuencia a lo largo de la línea de tiempo</translation>
+        <translation>Haga click para mover esta secuencia a lo largo de la línea de tiempo</translation>
     </message>
     <message>
         <location filename="sceneitems.cpp" line="485"/>
