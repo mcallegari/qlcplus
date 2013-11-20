@@ -20,6 +20,8 @@
 #include <QDebug>
 #include <QLabel>
 #include <QTimer>
+#include <QDesktopServices>
+#include <QUrl>
 
 #include "qlcconfig.h"
 #include "aboutbox.h"
@@ -37,7 +39,9 @@ AboutBox::AboutBox(QWidget* parent) : QDialog (parent)
     m_versionLabel->setText(APPVERSION);
     m_copyrightLabel->setText(QString("Copyright &copy; <B>Heikki Junnila, Massimo Callegari</B> %1")
                               .arg(tr("and contributors:")));
-    m_websiteLabel->setText(tr("Website: %1").arg("<A HREF=\"http://qlcplus.sourceforge.net/index.shtml\">http://qlcplus.sourceforge.net/index.shtml</A>"));
+    m_websiteLabel->setText(tr("Website: %1").arg("<A HREF=\"http://qlcplus.sourceforge.net/">http://qlcplus.sourceforge.net/</A>"));
+    connect(m_websiteLabel, SIGNAL(itemClicked(m_websiteLabel)),
+            this, SLOT(QDesktopServices::openUrl(QUrl("http://qlcplus.sourceforge.net/"))));
 
     connect(m_contributors, SIGNAL(itemClicked(QListWidgetItem*)),
             this, SLOT(slotItemClicked()));
