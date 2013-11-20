@@ -828,12 +828,12 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="audioeditor.ui" line="165"/>
         <source>Fade in:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fade in:</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="189"/>
         <source>Fade out:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fade out:</translation>
     </message>
 </context>
 <context>
@@ -2558,13 +2558,13 @@ Duración: %3
         <location filename="functionselection.ui" line="106"/>
         <source>Display RGB Matrices in the list</source>
         <oldsource>Display RGB Matrixes in the list</oldsource>
-        <translation type="unfinished">Mostrar Matrices RGB en la lista</translation>
+        <translation>Mostrar Matrices RGB en la lista</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="109"/>
         <source>RGB matrices</source>
         <oldsource>RGB matrixes</oldsource>
-        <translation type="unfinished">Matrices RGB</translation>
+        <translation>Matrices RGB</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="116"/>
@@ -2791,7 +2791,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="functionwizard.cpp" line="448"/>
         <source>Presets solo frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Marco solo de presets</translation>
     </message>
     <message>
         <location filename="functionwizard.cpp" line="484"/>
@@ -2801,7 +2801,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="functionwizard.cpp" line="488"/>
         <source>Click &amp; Go Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Macro Click &amp; Go</translation>
     </message>
 </context>
 <context>
@@ -3440,7 +3440,7 @@ Duración: %3
     <message>
         <location filename="palettegenerator.cpp" line="403"/>
         <source>%1 chaser - %2</source>
-        <translation>%1 chaser - %2</translation>
+        <translation>Chaser de %1 - %2</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="473"/>
@@ -3582,7 +3582,7 @@ Duración: %3
     <message>
         <location filename="rgbmatrixeditor.ui" line="122"/>
         <source>Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Imagen</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="161"/>
@@ -3708,7 +3708,7 @@ Duración: %3
     <message>
         <location filename="rgbmatrixeditor.cpp" line="585"/>
         <source>Select image</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar imagen</translation>
     </message>
 </context>
 <context>
