@@ -417,6 +417,16 @@ void ConsoleChannel::setIntensityButton(const QLCChannel* channel)
         m_cngWidget = new ClickAndGoWidget();
         m_cngWidget->setType(ClickAndGoWidget::Yellow);
     }
+    else if (channel->colour() == QLCChannel::Amber ||
+             channel->name().contains("amber", Qt::CaseInsensitive) == true)
+    {
+        QPalette pal = m_presetButton->palette();
+        pal.setColor(QPalette::Button, 0xFFFF7E00);
+        m_presetButton->setPalette(pal);
+        m_presetButton->setText("A"); // Don't localize
+        m_cngWidget = new ClickAndGoWidget();
+        m_cngWidget->setType(ClickAndGoWidget::Amber);
+    }
     else if (channel->colour() == QLCChannel::White ||
              channel->name().contains("white", Qt::CaseInsensitive) == true)
     {

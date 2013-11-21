@@ -48,6 +48,7 @@
 #define KXMLQLCChannelColourCyan       QString("Cyan")
 #define KXMLQLCChannelColourMagenta    QString("Magenta")
 #define KXMLQLCChannelColourYellow     QString("Yellow")
+#define KXMLQLCChannelColourAmber      QString("Amber")
 #define KXMLQLCChannelColourWhite      QString("White")
 
 QLCChannel::QLCChannel()
@@ -236,6 +237,9 @@ QIcon QLCChannel::getIntensityIcon() const
     else if (m_colour == QLCChannel::Yellow ||
              m_name.contains("yellow", Qt::CaseInsensitive) == true)
                 pm = drawIntensity(Qt::yellow, "Y");
+    else if (m_colour == QLCChannel::Amber ||
+             m_name.contains("amber", Qt::CaseInsensitive) == true)
+                pm = drawIntensity(QColor(0xFFFF7E00), "A");
     else if (m_colour == QLCChannel::White ||
              m_name.contains("white", Qt::CaseInsensitive) == true)
                 pm = drawIntensity(Qt::white, "W");
@@ -308,6 +312,7 @@ QStringList QLCChannel::colourList()
     list << KXMLQLCChannelColourCyan;
     list << KXMLQLCChannelColourMagenta;
     list << KXMLQLCChannelColourYellow;
+    list << KXMLQLCChannelColourAmber;
     list << KXMLQLCChannelColourWhite;
     return list;
 }
@@ -328,6 +333,8 @@ QString QLCChannel::colourToString(PrimaryColour colour)
         return KXMLQLCChannelColourMagenta;
     case Yellow:
         return KXMLQLCChannelColourYellow;
+    case Amber:
+        return KXMLQLCChannelColourAmber;
     case White:
         return KXMLQLCChannelColourWhite;
     case NoColour:
@@ -350,6 +357,8 @@ QLCChannel::PrimaryColour QLCChannel::stringToColour(const QString& str)
         return Magenta;
     else if (str == KXMLQLCChannelColourYellow)
         return Yellow;
+    else if (str == KXMLQLCChannelColourAmber)
+        return Amber;
     else if (str == KXMLQLCChannelColourWhite)
         return White;
     else

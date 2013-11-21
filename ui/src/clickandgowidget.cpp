@@ -49,10 +49,8 @@ ClickAndGoWidget::ClickAndGoWidget(QWidget *parent) :
     m_cellBarWidth = 0;
 }
 
-void ClickAndGoWidget::setupGradient(QColor end)
+void ClickAndGoWidget::setupGradient(QColor begin, QColor end)
 {
-    QColor begin = Qt::black;
-
     QLinearGradient linearGrad(QPointF(10,0), QPointF(266, 0));
     linearGrad.setColorAt(0, begin);
     linearGrad.setColorAt(1, end);
@@ -175,19 +173,21 @@ void ClickAndGoWidget::setType(int type, const QLCChannel *chan)
         m_image = QImage();
     }
     else if (type == Red)
-        setupGradient(Qt::red);
+        setupGradient(Qt::black, Qt::red);
     else if (type == Green)
-        setupGradient(Qt::green);
+        setupGradient(Qt::black, Qt::green);
     else if (type == Blue)
-        setupGradient(Qt::blue);
+        setupGradient(Qt::black, Qt::blue);
     else if (type == Cyan)
-        setupGradient(Qt::cyan);
+        setupGradient(Qt::white, Qt::cyan);
     else if (type == Magenta)
-        setupGradient(Qt::magenta);
+        setupGradient(Qt::white, Qt::magenta);
     else if (type == Yellow)
-        setupGradient(Qt::yellow);
+        setupGradient(Qt::white, Qt::yellow);
+    else if (type == Amber)
+        setupGradient(Qt::black, 0xFFFF7E00);
     else if (type == White)
-        setupGradient(Qt::white);
+        setupGradient(Qt::black, Qt::white);
     else if (type == RGB || type == CMY)
     {
         setupColorPicker();
@@ -218,6 +218,7 @@ QString ClickAndGoWidget::clickAndGoTypeToString(ClickAndGoWidget::ClickAndGo ty
         case Cyan: return "Cyan"; break;
         case Magenta: return "Magenta"; break;
         case Yellow: return "Yellow"; break;
+        case Amber: return "Amber"; break;
         case White: return "White"; break;
         case RGB: return "RGB"; break;
         case CMY: return "CMY"; break;
@@ -233,6 +234,7 @@ ClickAndGoWidget::ClickAndGo ClickAndGoWidget::stringToClickAndGoType(QString st
     else if (str == "Cyan") return Cyan;
     else if (str == "Magenta") return Magenta;
     else if (str == "Yellow") return Yellow;
+    else if (str == "Amber") return Amber;
     else if (str == "White") return White;
     else if (str == "RGB") return RGB;
     else if (str == "CMY") return CMY;
