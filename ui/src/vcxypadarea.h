@@ -57,6 +57,9 @@ public:
     /** Set the pad's current position (i.e. move the point) */
     void setPosition(const QPoint& point);
 
+    /** Move the current position by some relative amount */
+    void nudgePosition(int dx, int dy);
+
     /** Check if the position has changed since the last currentXYPosition() call */
     bool hasPositionChanged();
 
@@ -101,6 +104,12 @@ protected:
 
     /** @reimp */
     void mouseMoveEvent(QMouseEvent* e);
+
+    /** @reimp */
+    void keyPressEvent(QKeyEvent *e);
+
+    /** @reimp */
+    void keyReleaseEvent (QKeyEvent * e);
 };
 
 #endif
