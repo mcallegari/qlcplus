@@ -88,7 +88,7 @@ void QLCChannel_Test::colourList()
 {
     QStringList list(QLCChannel::colourList());
 
-    QVERIFY(list.size() == 8);
+    QVERIFY(list.size() == 9);
     QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::NoColour)));
     QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::Red)));
     QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::Green)));
