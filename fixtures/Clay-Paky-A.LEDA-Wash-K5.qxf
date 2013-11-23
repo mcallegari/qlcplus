@@ -3,7 +3,7 @@
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.6.0</Version>
-  <Author>dragon,,,</Author>
+  <Author>Massimo Callegari</Author>
  </Creator>
  <Manufacturer>Clay Paky</Manufacturer>
  <Model>A.LEDA Wash K5</Model>
@@ -571,6 +571,48 @@
   <Channel Number="37">Red LED 7</Channel>
   <Channel Number="38">Green LED 7</Channel>
   <Channel Number="39">Blue LED 7</Channel>
+  <Head>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+  </Head>
+  <Head>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+   <Channel>11</Channel>
+  </Head>
  </Mode>
  <Mode Name="Extended RGBW">
   <Physical>
@@ -627,5 +669,54 @@
   <Channel Number="44">Green LED 7</Channel>
   <Channel Number="45">Blue LED 7</Channel>
   <Channel Number="46">White LED 7</Channel>
+  <Head>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>27</Channel>
+   <Channel>11</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+  </Head>
+  <Head>
+   <Channel>34</Channel>
+   <Channel>11</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+  </Head>
+  <Head>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+   <Channel>11</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+  </Head>
  </Mode>
 </FixtureDefinition>
