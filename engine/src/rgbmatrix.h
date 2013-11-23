@@ -152,7 +152,7 @@ private:
      *********************************************************************/
 public:
     /** @reimpl */
-    void adjustAttribute(qreal intensity, int attributeIndex = 0);
+    void adjustAttribute(qreal fraction, int attributeIndex);
 };
 
 #endif

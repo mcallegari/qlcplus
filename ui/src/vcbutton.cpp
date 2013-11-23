@@ -600,7 +600,7 @@ void VCButton::pressFunction()
                 f->start(m_doc->masterTimer());
 
                 if (adjustIntensity() == true)
-                    f->adjustAttribute(intensityAdjustment());
+                    f->adjustAttribute(intensityAdjustment(), Function::Intensity);
             }
         }
     }

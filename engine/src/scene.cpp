@@ -532,7 +532,7 @@ void Scene::preRun(MasterTimer* timer)
 
     Q_ASSERT(m_fader == NULL);
     m_fader = new GenericFader(doc());
-    m_fader->adjustIntensity(getAttributeValue());
+    m_fader->adjustIntensity(getAttributeValue(Intensity));
     Function::preRun(timer);
 }
 
@@ -608,14 +608,14 @@ void Scene::postRun(MasterTimer* timer, UniverseArray* ua)
         Fixture *fixture = doc()->fixture(fc.fixture());
         if (fixture != NULL)
             canFade = fixture->channelCanFade(fc.channel());
-        fc.setStart(fc.current(getAttributeValue()));
+        fc.setStart(fc.current(getAttributeValue(Intensity)));
 
         fc.setElapsed(0);
         fc.setReady(false);
         if (canFade == false)
         {
             fc.setFadeTime(0);
-            fc.setTarget(fc.current(getAttributeValue()));
+            fc.setTarget(fc.current(getAttributeValue(Intensity)));
         }
         else
         {
@@ -664,9 +664,9 @@ void Scene::insertStartValue(FadeChannel& fc, const MasterTimer* timer,
  * Intensity
  ****************************************************************************/
 
-void Scene::adjustAttribute(qreal intensity, int)
+void Scene::adjustAttribute(qreal fraction, int attributeIndex)
 {
-    if (m_fader != NULL)
-        m_fader->adjustIntensity(intensity);
-    Function::adjustAttribute(intensity);
+    if (m_fader != NULL && attributeIndex == Intensity)
+        m_fader->adjustIntensity(fraction);
+    Function::adjustAttribute(fraction, attributeIndex);
 }

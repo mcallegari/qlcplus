@@ -661,7 +661,7 @@ void Scene_Test::writeHTPTwoTicksIntensity()
     QVERIFY(ua->preGMValues()[0] == (char) 0);
     doc->outputMap()->releaseUniverses(false);
 
-    s1->adjustAttribute(0.5);
+    s1->adjustAttribute(0.5, Function::Intensity);
 
     QVERIFY(s1->stopped() == true);
     s1->start(&timer);
@@ -674,7 +674,7 @@ void Scene_Test::writeHTPTwoTicksIntensity()
     QVERIFY(ua->preGMValues()[0] == (char) 50); // Intensity affects only HTP channels
     doc->outputMap()->releaseUniverses(false);
 
-    s1->adjustAttribute(1.0);
+    s1->adjustAttribute(1.0, Function::Intensity);
 
     timer.timerTick();
     ua = doc->outputMap()->claimUniverses();
@@ -683,7 +683,7 @@ void Scene_Test::writeHTPTwoTicksIntensity()
     QVERIFY(s1->stopped() == false);
     doc->outputMap()->releaseUniverses(false);
 
-    s1->adjustAttribute(0.2);
+    s1->adjustAttribute(0.2, Function::Intensity);
 
     // Values stay up
     timer.timerTick();

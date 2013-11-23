@@ -90,6 +90,14 @@ public:
         Audio      = 1 << 7
     };
 
+    /**
+     * Common attributes
+     */
+    enum Attr
+    {
+        Intensity = 0,
+    };
+
     /*********************************************************************
      * Initialization
      *********************************************************************/
@@ -653,7 +661,7 @@ public:
      *
      * @param fraction Intensity as a fraction (0.0 - 1.0)
      */
-    virtual void adjustAttribute(qreal fraction, int attributeIndex = 0);
+    virtual void adjustAttribute(qreal fraction, int attributeIndex);
 
     /**
      * Reset intensity to the default value (1.0).
@@ -666,7 +674,7 @@ public:
      * @param attributeIndex the attribute index
      * @return the requested attribute value (on error return 0.0)
      */
-    qreal getAttributeValue(int attributeIndex = 0) const;
+    qreal getAttributeValue(int attributeIndex) const;
 
     /**
      * Get a specific function attribute by name
