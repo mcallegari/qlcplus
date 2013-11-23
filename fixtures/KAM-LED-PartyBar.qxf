@@ -2,7 +2,7 @@
 <FixtureDefinition>
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.5.0</Version>
+  <Version>4.6.0</Version>
   <Author>Administrator</Author>
  </Creator>
  <Manufacturer>KAM</Manufacturer>
@@ -114,21 +114,25 @@
   <Channel Number="13">Spot4 - Green</Channel>
   <Channel Number="14">Spot4 - Blue</Channel>
   <Head>
+   <Channel>1</Channel>
    <Channel>3</Channel>
    <Channel>4</Channel>
    <Channel>5</Channel>
   </Head>
   <Head>
+   <Channel>1</Channel>
    <Channel>6</Channel>
    <Channel>7</Channel>
    <Channel>8</Channel>
   </Head>
   <Head>
+   <Channel>1</Channel>
    <Channel>9</Channel>
    <Channel>10</Channel>
    <Channel>11</Channel>
   </Head>
   <Head>
+   <Channel>1</Channel>
    <Channel>12</Channel>
    <Channel>13</Channel>
    <Channel>14</Channel>

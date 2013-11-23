@@ -328,10 +328,18 @@ quint32 Fixture::masterIntensityChannel(int head) const
 {
     if (m_fixtureMode != NULL)
     {
+        quint32 dimmerCh = QLCChannel::invalid();
         if (head < m_fixtureMode->heads().size())
-            return m_fixtureMode->heads().at(head).masterIntensityChannel();
-        else
-            return QLCChannel::invalid();
+            dimmerCh = m_fixtureMode->heads().at(head).masterIntensityChannel();
+
+        if (dimmerCh == QLCChannel::invalid())
+        {
+            QList <quint32> dList = channels("dimmer", Qt::CaseInsensitive, QLCChannel::Intensity).toList();
+
+            if (dList.count() > 0)
+                dimmerCh = dList.at(0);
+        }
+        return dimmerCh;
     }
     else
     {

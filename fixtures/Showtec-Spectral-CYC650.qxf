@@ -2,13 +2,13 @@
 <FixtureDefinition>
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.3.0</Version>
+  <Version>4.6.0</Version>
   <Author>NiKoyes</Author>
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
  <Model>Spectral CYC650</Model>
  <Type>Effect</Type>
- <Channel Name="Master">
+ <Channel Name="Dimmer">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="255">Dimmer</Capability>
  </Channel>
@@ -326,7 +326,7 @@
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="65" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Master</Channel>
+  <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
   <Channel Number="3">Blue</Channel>
@@ -368,7 +368,7 @@
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="65" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Master</Channel>
+  <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
   <Channel Number="3">Blue</Channel>

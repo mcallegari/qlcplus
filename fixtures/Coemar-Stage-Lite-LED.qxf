@@ -1,8 +1,8 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition>
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.3.0-r2754</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.6.0</Version>
   <Author>Huw Evans</Author>
  </Creator>
  <Manufacturer>Coemar</Manufacturer>
@@ -342,12 +342,14 @@
   <Channel Number="14">Effects movement</Channel>
   <Channel Number="15">Motors reset / special functions</Channel>
   <Head>
+   <Channel>0</Channel>
    <Channel>1</Channel>
    <Channel>2</Channel>
    <Channel>3</Channel>
    <Channel>4</Channel>
   </Head>
   <Head>
+   <Channel>0</Channel>
    <Channel>5</Channel>
    <Channel>6</Channel>
    <Channel>7</Channel>
@@ -383,6 +385,7 @@
   <Channel Number="18">Effects movement</Channel>
   <Channel Number="19">Motors reset / special functions</Channel>
   <Head>
+   <Channel>0</Channel>
    <Channel>1</Channel>
    <Channel>2</Channel>
    <Channel>3</Channel>
@@ -390,6 +393,7 @@
    <Channel>14</Channel>
   </Head>
   <Head>
+   <Channel>0</Channel>
    <Channel>5</Channel>
    <Channel>6</Channel>
    <Channel>7</Channel>
@@ -397,6 +401,7 @@
    <Channel>15</Channel>
   </Head>
   <Head>
+   <Channel>0</Channel>
    <Channel>9</Channel>
    <Channel>10</Channel>
    <Channel>11</Channel>

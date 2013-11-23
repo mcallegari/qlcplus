@@ -14,7 +14,7 @@ function replaceqrc()
     for (var i = 0; i < links.length; i++)     
     {
         var href = links[i].href;
-        links[i].href = href.replace("file:///", "");
+        links[i].href = href.replace("file://", "");
     }
 }
 

@@ -2,7 +2,7 @@
 <FixtureDefinition>
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.4.1</Version>
+  <Version>4.6.0</Version>
   <Author>Lars Kildholt</Author>
  </Creator>
  <Manufacturer>Stairville</Manufacturer>
@@ -40,9 +40,5 @@
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Patterne/Chase</Channel>
   <Channel Number="3">Strobe</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-  </Head>
  </Mode>
 </FixtureDefinition>

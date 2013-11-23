@@ -2,7 +2,7 @@
 <FixtureDefinition>
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.3.2</Version>
+  <Version>4.6.0</Version>
   <Author>Tim</Author>
  </Creator>
  <Manufacturer>Lanta</Manufacturer>
@@ -66,7 +66,7 @@
   <Capability Min="100" Max="200">Percentage</Capability>
   <Capability Min="201" Max="255">Full on</Capability>
  </Channel>
- <Channel Name="Master Dimming">
+ <Channel Name="Master Dimmer">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="255">Master dimming</Capability>
  </Channel>
@@ -243,7 +243,7 @@
   <Channel Number="0">Red %</Channel>
   <Channel Number="1">Green %</Channel>
   <Channel Number="2">Blue %</Channel>
-  <Channel Number="3">Master Dimming</Channel>
+  <Channel Number="3">Master Dimmer</Channel>
  </Mode>
  <Mode Name="7 Channel">
   <Physical>
@@ -259,7 +259,7 @@
   <Channel Number="3">Program Selection</Channel>
   <Channel Number="4">Speed / Sensitivity</Channel>
   <Channel Number="5">Flash</Channel>
-  <Channel Number="6">Master Dimming</Channel>
+  <Channel Number="6">Master Dimmer</Channel>
  </Mode>
  <Mode Name="14 Channel">
   <Physical>
@@ -282,26 +282,30 @@
   <Channel Number="10">Green 4</Channel>
   <Channel Number="11">Blue 4</Channel>
   <Channel Number="12">Flash</Channel>
-  <Channel Number="13">Master Dimming</Channel>
+  <Channel Number="13">Master Dimmer</Channel>
   <Head>
    <Channel>0</Channel>
    <Channel>1</Channel>
    <Channel>2</Channel>
+   <Channel>13</Channel>
   </Head>
   <Head>
    <Channel>3</Channel>
    <Channel>4</Channel>
    <Channel>5</Channel>
+   <Channel>13</Channel>
   </Head>
   <Head>
    <Channel>6</Channel>
    <Channel>7</Channel>
    <Channel>8</Channel>
+   <Channel>13</Channel>
   </Head>
   <Head>
    <Channel>9</Channel>
    <Channel>10</Channel>
    <Channel>11</Channel>
+   <Channel>13</Channel>
   </Head>
  </Mode>
  <Mode Name="26 Channel">
@@ -337,34 +341,40 @@
   <Channel Number="22">Green 8</Channel>
   <Channel Number="23">Blue 8</Channel>
   <Channel Number="24">Flash</Channel>
-  <Channel Number="25">Master Dimming</Channel>
+  <Channel Number="25">Master Dimmer</Channel>
   <Head>
    <Channel>0</Channel>
    <Channel>1</Channel>
    <Channel>2</Channel>
+   <Channel>25</Channel>
   </Head>
   <Head>
    <Channel>3</Channel>
    <Channel>4</Channel>
    <Channel>5</Channel>
+   <Channel>25</Channel>
   </Head>
   <Head>
    <Channel>6</Channel>
    <Channel>7</Channel>
    <Channel>8</Channel>
+   <Channel>25</Channel>
   </Head>
   <Head>
+   <Channel>25</Channel>
    <Channel>9</Channel>
    <Channel>10</Channel>
    <Channel>11</Channel>
   </Head>
   <Head>
+   <Channel>25</Channel>
    <Channel>12</Channel>
    <Channel>13</Channel>
    <Channel>14</Channel>
   </Head>
   <Head>
    <Channel>17</Channel>
+   <Channel>25</Channel>
    <Channel>15</Channel>
    <Channel>16</Channel>
   </Head>
@@ -372,11 +382,13 @@
    <Channel>18</Channel>
    <Channel>19</Channel>
    <Channel>20</Channel>
+   <Channel>25</Channel>
   </Head>
   <Head>
    <Channel>21</Channel>
    <Channel>22</Channel>
    <Channel>23</Channel>
+   <Channel>25</Channel>
   </Head>
  </Mode>
 </FixtureDefinition>

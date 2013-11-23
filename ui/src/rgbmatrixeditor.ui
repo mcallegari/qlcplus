@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>488</width>
-    <height>558</height>
+    <height>581</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -149,7 +149,7 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
+        <item row="1" column="0" colspan="2">
          <widget class="QComboBox" name="m_imageAnimationCombo"/>
         </item>
        </layout>

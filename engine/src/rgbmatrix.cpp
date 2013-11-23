@@ -588,14 +588,17 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
                 insertStartValues(fc);
                 m_fader->add(fc);
             }
-            else if (head.masterIntensityChannel() != QLCChannel::invalid())
+
+            if (head.masterIntensityChannel() != QLCChannel::invalid())
             {
+                qDebug() << "RGBMatrix: found dimmer at" << head.masterIntensityChannel();
                 // Simple intensity (dimmer) channel
                 QColor col(map[y][x]);
                 FadeChannel fc;
                 fc.setFixture(grpHead.fxi);
                 fc.setChannel(head.masterIntensityChannel());
-                fc.setTarget(col.value());
+                //fc.setTarget(col.value());
+                fc.setTarget(255);
                 insertStartValues(fc);
                 m_fader->add(fc);
             }

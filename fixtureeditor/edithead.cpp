@@ -65,7 +65,9 @@ void EditHead::fillChannelTree(const QLCFixtureMode* mode)
         item->setText(0, QString::number(i + 1));
         item->setText(1, ch->name());
 
-        if (m_head.channels().contains(i) == false && mode->headForChannel(i) != -1)
+        if (ch->group() == QLCChannel::Intensity && ch->colour() == QLCChannel::NoColour)
+            item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+        else if (m_head.channels().contains(i) == false && mode->headForChannel(i) != -1)
             item->setFlags(0);
         else
             item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
