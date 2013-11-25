@@ -16,7 +16,7 @@
     <message>
         <location filename="../ui/src/aboutbox.ui" line="116"/>
         <source>This application is licensed under the terms of the Apache 2.0 license.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Deze applicatie is gelicencieert onder de voorwaarden van de Apache 2.0 licentie.</translation>
     </message>
     <message>
         <location filename="../ui/src/aboutbox.cpp" line="39"/>
@@ -34,34 +34,34 @@
     <message>
         <location filename="addchannelsdialog.ui" line="14"/>
         <source>Fixture Mode Channels Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Fixture Mode Channels Editor</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="30"/>
         <source>Available channels</source>
         <oldsource>All channels</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Beschikbare channels</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="52"/>
         <source>&gt;&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&gt;&gt;&gt;</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="65"/>
         <source>&lt;&lt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;&lt;&lt;</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="94"/>
         <location filename="addchannelsdialog.ui" line="116"/>
         <source>Name</source>
-        <translation type="unfinished">Naam</translation>
+        <translation>Naam</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="102"/>
         <source>Mode channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode channels</translation>
     </message>
 </context>
 <context>
@@ -805,12 +805,12 @@
     <message>
         <location filename="editmode.ui" line="953"/>
         <source>Copy physical information to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopieer de fysieke informatie naar het clipboard</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="970"/>
         <source>Paste physical information from clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Plak de fysieke informatie van het clipboard</translation>
     </message>
 </context>
 <context>
