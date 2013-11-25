@@ -16,7 +16,7 @@
     <message>
         <location filename="../ui/src/aboutbox.ui" line="116"/>
         <source>This application is licensed under the terms of the Apache 2.0 license.</source>
-        <translation type="unfinished">Deze applicatie is gelicencieert onder de voorwaarden van de Apache 2.0 licentie.</translation>
+        <translation>Deze applicatie is gelicentieert onder de voorwaarden van de Apache 2.0 licentie.</translation>
     </message>
     <message>
         <location filename="../ui/src/aboutbox.cpp" line="39"/>
@@ -1026,7 +1026,7 @@ Unable to save fixture.</source>
     <message>
         <location filename="fixtureeditor.cpp" line="455"/>
         <source>Are you sure you wish to remove channel: %1</source>
-        <translation>Channel %1 verwijderen?</translation>
+        <translation>Channel %1 verwijderen</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="588"/>
@@ -1083,7 +1083,7 @@ Unable to save fixture.</source>
     <message>
         <location filename="fixtureeditor.cpp" line="743"/>
         <source>Are you sure you wish to remove mode: %1</source>
-        <translation>Verwijder mode %1?</translation>
+        <translation>Verwijder mode %1</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="785"/>
