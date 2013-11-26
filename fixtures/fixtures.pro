@@ -14,6 +14,7 @@ fixtures.files += American-DJ-FREQ-16-Strobe.qxf
 fixtures.files += American-DJ-Fusion-FX-Bar-1.qxf
 fixtures.files += American-DJ-Galaxian-3D.qxf
 fixtures.files += American-DJ-Hypnotic-RGB.qxf
+fixtures.files += American-DJ-Inno-Color-Beam-Quad-7.qxf
 fixtures.files += American-DJ-Mega-Bar-50RGB.qxf
 fixtures.files += American-DJ-Mega-Bar-LED.qxf
 fixtures.files += American-DJ-Mega-Flash-DMX.qxf
