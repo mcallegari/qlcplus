@@ -18,6 +18,7 @@ qlcplus (4.6.0) stable; urgency=low
   * Added fixtures: Pro-Lights Explo 3000D, Pro-Lights LumiPar 18 Tri, Robe_ColorMix_240_AT (thanks to Lorenzo Andreani)
   * Added fixtures: American DJ Mega Tri Par, Clay Paky A.LEDA Wash K5, Clay Paky A.LEDA Wash K10, Clay Paky A.LEDA Wash K20
   * Added fixtures: American DJ Sweeper Beam Quad LED, American DJ Ultra Bar 6/9/12, American DJ Inno Color Beam Quad 7
+  * Added fixture: American DJ Inno Color Beam LED (thanks to Louis Gutenschwafe)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 15 December 2013 12:13:04 +0200
 
