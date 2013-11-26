@@ -19,12 +19,12 @@
         <translation>Deze applicatie is gelicentieert onder de voorwaarden van de Apache 2.0 licentie.</translation>
     </message>
     <message>
-        <location filename="../ui/src/aboutbox.cpp" line="39"/>
+        <location filename="../ui/src/aboutbox.cpp" line="41"/>
         <source>and contributors:</source>
         <translation>en bijdragers:</translation>
     </message>
     <message>
-        <location filename="../ui/src/aboutbox.cpp" line="40"/>
+        <location filename="../ui/src/aboutbox.cpp" line="42"/>
         <source>Website: %1</source>
         <translation>Website: %1</translation>
     </message>
@@ -41,16 +41,6 @@
         <source>Available channels</source>
         <oldsource>All channels</oldsource>
         <translation>Beschikbare channels</translation>
-    </message>
-    <message>
-        <location filename="addchannelsdialog.ui" line="52"/>
-        <source>&gt;&gt;</source>
-        <translation>&gt;&gt;</translation>
-    </message>
-    <message>
-        <location filename="addchannelsdialog.ui" line="65"/>
-        <source>&lt;&lt;</source>
-        <translation>&lt;&lt;</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="94"/>

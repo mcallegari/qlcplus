@@ -49,7 +49,7 @@
      <item>
       <widget class="QToolButton" name="m_addChannel">
        <property name="text">
-        <string>&gt;&gt;</string>
+        <string notr="true">&gt;&gt;</string>
        </property>
        <property name="iconSize">
         <size>
@@ -62,7 +62,7 @@
      <item>
       <widget class="QToolButton" name="m_removeChannel">
        <property name="text">
-        <string>&lt;&lt;</string>
+        <string notr="true">&lt;&lt;</string>
        </property>
       </widget>
      </item>
