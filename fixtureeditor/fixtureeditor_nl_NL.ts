@@ -45,12 +45,12 @@
     <message>
         <location filename="addchannelsdialog.ui" line="52"/>
         <source>&gt;&gt;</source>
-        <translation>&gt;&gt;&gt;</translation>
+        <translation>&gt;&gt;</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="65"/>
         <source>&lt;&lt;</source>
-        <translation>&lt;&lt;&lt;</translation>
+        <translation>&lt;&lt;</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="94"/>
