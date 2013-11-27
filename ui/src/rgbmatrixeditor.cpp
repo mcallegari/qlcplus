@@ -835,6 +835,7 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
         chaser->enableSequenceMode(grpScene->id());
         chaser->setDurationMode(Chaser::PerStep);
         chaser->setDuration(m_matrix->duration());
+        chaser->setStartTime(0);
         if (m_matrix->fadeInSpeed() != 0)
         {
             chaser->setFadeInMode(Chaser::PerStep);
@@ -853,6 +854,7 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
             RGBMap map = m_previewMaps[currentStep];
             ChaserStep step;
             step.fid = grpScene->id();
+            step.hold = m_matrix->duration() - m_matrix->fadeInSpeed() - m_matrix->fadeOutSpeed();
             step.duration = m_matrix->duration();
             step.fadeIn = m_matrix->fadeInSpeed();
             step.fadeOut = m_matrix->fadeOutSpeed();

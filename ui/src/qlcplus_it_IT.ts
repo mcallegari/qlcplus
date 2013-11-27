@@ -3536,7 +3536,7 @@ Durata: %3
     <message>
         <location filename="rgbmatrixeditor.ui" line="398"/>
         <source>Save this matrix to a sequence</source>
-        <translation type="unfinished"></translation>
+        <translation>Salva questa matrice come una sequenza</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="424"/>
