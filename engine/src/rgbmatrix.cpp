@@ -153,7 +153,6 @@ QList <RGBMap> RGBMatrix::previewMaps()
     if (grp != NULL)
     {
         int stepCount = m_algorithm->rgbMapStepCount(grp->size());
-        qDebug() << "Steps: " << stepCount;
         for (int i = 0; i < stepCount; i++)
             steps << m_algorithm->rgbMap(grp->size(), m_stepColor.rgb(), i);
     }
@@ -421,7 +420,7 @@ void RGBMatrix::write(MasterTimer* timer, UniverseArray* universes)
     // Get new map every time when elapsed is reset to zero
     if (elapsed() == 0)
     {
-        qDebug() << "stepColor:" << QString::number(m_stepColor.rgb(), 16);
+        qDebug() << "RGBMatrix stepColor:" << QString::number(m_stepColor.rgb(), 16);
         RGBMap map = m_algorithm->rgbMap(grp->size(), m_stepColor.rgb(), m_step);
         updateMapChannels(map, grp);
     }

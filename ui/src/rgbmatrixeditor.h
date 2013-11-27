@@ -60,7 +60,7 @@ private:
     void fillImageAnimationCombo();
     void updateExtraOptions();
 
-    void createPreviewItems();
+    bool createPreviewItems();
 
 private slots:
     void slotPreviewTimeout();
@@ -98,6 +98,8 @@ private slots:
     void slotFixtureGroupAdded();
     void slotFixtureGroupRemoved();
     void slotFixtureGroupChanged(quint32 id);
+
+    void slotSaveToSequenceClicked();
 
 private:
     Doc* m_doc;
