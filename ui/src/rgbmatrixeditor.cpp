@@ -833,15 +833,16 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
         Chaser *chaser = new Chaser(m_doc);
         chaser->setName(m_matrix->name());
         chaser->enableSequenceMode(grpScene->id());
+        chaser->setDurationMode(Chaser::PerStep);
         chaser->setDuration(m_matrix->duration());
         if (m_matrix->fadeInSpeed() != 0)
         {
-            chaser->setFadeInMode(Chaser::Common);
+            chaser->setFadeInMode(Chaser::PerStep);
             chaser->setFadeInSpeed(m_matrix->fadeInSpeed());
         }
         if (m_matrix->fadeOutSpeed() != 0)
         {
-            chaser->setFadeOutMode(Chaser::Common);
+            chaser->setFadeOutMode(Chaser::PerStep);
             chaser->setFadeOutSpeed(m_matrix->fadeOutSpeed());
         }
 
@@ -852,9 +853,9 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
             RGBMap map = m_previewMaps[currentStep];
             ChaserStep step;
             step.fid = grpScene->id();
-            //step.duration = m_matrix->duration();
-            //step.fadeIn = m_matrix->fadeInSpeed();
-            //step.fadeOut = m_matrix->fadeOutSpeed();
+            step.duration = m_matrix->duration();
+            step.fadeIn = m_matrix->fadeInSpeed();
+            step.fadeOut = m_matrix->fadeOutSpeed();
 
             for (int y = 0; y < map.size(); y++)
             {
