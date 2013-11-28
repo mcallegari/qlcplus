@@ -169,7 +169,6 @@ private:
     void printSteps();
 
 private:
-    bool m_itemIsUpdating;
     bool m_liveMode;
 };
 

@@ -58,7 +58,6 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc, bool liveM
     : QWidget(parent)
     , m_doc(doc)
     , m_chaser(chaser)
-    , m_itemIsUpdating(false)
     , m_liveMode(liveMode)
 {
     Q_ASSERT(chaser != NULL);
@@ -471,9 +470,6 @@ void ChaserEditor::slotItemSelectionChanged()
 
 void ChaserEditor::slotItemChanged(QTreeWidgetItem *item, int column)
 {
-    if (m_itemIsUpdating == true)
-        return;
-
     QString itemText = item->text(column);
     quint32 newValue = 0;
     int idx = m_tree->indexOfTopLevelItem(item);
@@ -1064,7 +1060,7 @@ void ChaserEditor::updateItem(QTreeWidgetItem* item, ChaserStep& step)
     Q_ASSERT(function != NULL);
     Q_ASSERT(item != NULL);
 
-    m_itemIsUpdating = true;
+    m_tree->blockSignals(true);
 
     item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
     item->setText(COL_NUM, QString("%1").arg(m_tree->indexOfTopLevelItem(item) + 1));
@@ -1122,7 +1118,7 @@ void ChaserEditor::updateItem(QTreeWidgetItem* item, ChaserStep& step)
         break;
     }
 
-    m_itemIsUpdating = false;
+    m_tree->blockSignals(false);
 }
 
 void ChaserEditor::updateStepNumbers()

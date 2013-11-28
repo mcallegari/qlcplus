@@ -529,25 +529,45 @@ void ShowManager::slotAddTrack()
         showSceneEditor(m_scene);
         m_showview->addTrack(newTrack);
 
-        // When adding an existing Scene, create a default 10 seconds Sequence
+        // When adding an existing Scene
         if (ss.getSelectedID() != Scene::invalidId())
         {
-            Function* f = new Chaser(m_doc);
-            if (m_doc->addFunction(f) == true)
+            bool childrenFound = false;
+            // See if the Scene has children Sequences
+            foreach (Function *f, m_doc->functionsByType(Function::Chaser))
             {
-                Chaser *chaser = qobject_cast<Chaser*> (f);
-                chaser->enableSequenceMode(m_scene->id());
-                chaser->setRunOrder(Function::SingleShot);
-                chaser->setDurationMode(Chaser::PerStep);
-                m_scene->setChildrenFlag(true);
-                f->setName(QString("%1 %2").arg(tr("New Sequence")).arg(f->id()));
-                Track *track = m_show->getTrackFromSceneID(m_scene->id());
-                track->addFunctionID(chaser->id());
-                m_showview->addSequence(chaser);
-                ChaserStep step(m_scene->id(), m_scene->fadeInSpeed(), 10000, m_scene->fadeOutSpeed());
-                step.note = QString();
-                step.values.append(m_scene->values());
-                chaser->addStep(step);
+                Chaser *chs = qobject_cast<Chaser*>(f);
+                if (chs->isSequence())
+                {
+                    if (chs->getBoundSceneID() == ss.getSelectedID())
+                    {
+                        newTrack->addFunctionID(chs->id());
+                        m_showview->addSequence(chs);
+                        childrenFound = true;
+                    }
+                }
+            }
+
+            // If an existing Scene does not have sequunce children,
+            // then create a default 10 seconds Sequence
+            if (childrenFound == false)
+            {
+                Function* f = new Chaser(m_doc);
+                if (m_doc->addFunction(f) == true)
+                {
+                    Chaser *chaser = qobject_cast<Chaser*> (f);
+                    chaser->enableSequenceMode(m_scene->id());
+                    chaser->setRunOrder(Function::SingleShot);
+                    chaser->setDurationMode(Chaser::PerStep);
+                    m_scene->setChildrenFlag(true);
+                    f->setName(QString("%1 %2").arg(tr("New Sequence")).arg(f->id()));
+                    newTrack->addFunctionID(chaser->id());
+                    m_showview->addSequence(chaser);
+                    ChaserStep step(m_scene->id(), m_scene->fadeInSpeed(), 10000, m_scene->fadeOutSpeed());
+                    step.note = QString();
+                    step.values.append(m_scene->values());
+                    chaser->addStep(step);
+                }
             }
         }
 

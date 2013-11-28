@@ -21,12 +21,12 @@
         <translation>Dieses Programm ist unter den Bedingungen der Apache-Version 2.0 lizensiert.</translation>
     </message>
     <message>
-        <location filename="aboutbox.cpp" line="39"/>
+        <location filename="aboutbox.cpp" line="41"/>
         <source>and contributors:</source>
         <translation>und Mitwirkende:</translation>
     </message>
     <message>
-        <location filename="aboutbox.cpp" line="40"/>
+        <location filename="aboutbox.cpp" line="42"/>
         <source>Website: %1</source>
         <translation>Webseite: %1</translation>
     </message>
@@ -3509,12 +3509,17 @@ Dauer: %3
         <translation>Name dieser RGB-Matrix-Funktion</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="404"/>
+        <location filename="rgbmatrixeditor.ui" line="398"/>
+        <source>Save this matrix to a sequence</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="424"/>
         <source>Fixture group</source>
         <translation>Gerätegruppe</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="417"/>
+        <location filename="rgbmatrixeditor.ui" line="437"/>
         <source>The fixture group to use as the pixel matrix</source>
         <translation>Diese Gerätegruppe als Pixel-Matrix verwenden</translation>
     </message>
@@ -3671,17 +3676,17 @@ Dauer: %3
         <translation>Testlauf</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="243"/>
+        <location filename="rgbmatrixeditor.cpp" line="247"/>
         <source>None</source>
         <translation>Nichts</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="321"/>
+        <location filename="rgbmatrixeditor.cpp" line="323"/>
         <source>No fixture group to control</source>
         <translation>Keine Gerätegruppe zu steuern</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="585"/>
+        <location filename="rgbmatrixeditor.cpp" line="589"/>
         <source>Select image</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4145,66 +4150,66 @@ Dauer: %3
         <translation>Neue Szene</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="543"/>
-        <location filename="showmanager.cpp" line="579"/>
+        <location filename="showmanager.cpp" line="563"/>
+        <location filename="showmanager.cpp" line="599"/>
         <source>New Sequence</source>
         <translation>Neue Sequenz</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="567"/>
-        <location filename="showmanager.cpp" line="652"/>
+        <location filename="showmanager.cpp" line="587"/>
+        <location filename="showmanager.cpp" line="672"/>
         <source>Overlapping error</source>
         <translation>Überlappungsfehler</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="567"/>
-        <location filename="showmanager.cpp" line="652"/>
+        <location filename="showmanager.cpp" line="587"/>
+        <location filename="showmanager.cpp" line="672"/>
         <source>Overlapping not allowed. Operation cancelled.</source>
         <translation>Überlappen nicht zulässig. Ausführung abgebrochen.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="593"/>
+        <location filename="showmanager.cpp" line="613"/>
         <source>Open Audio File</source>
         <translation>Audio-Datei-öffnen</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="619"/>
+        <location filename="showmanager.cpp" line="639"/>
         <source>Audio Files (%1)</source>
         <translation>Audio Dateien (%1)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="621"/>
+        <location filename="showmanager.cpp" line="641"/>
         <source>All Files (*.*)</source>
         <translation>Alle Dateien (*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="623"/>
+        <location filename="showmanager.cpp" line="643"/>
         <source>All Files (*)</source>
         <translation>Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="645"/>
+        <location filename="showmanager.cpp" line="665"/>
         <source>Unsupported audio file</source>
         <translation>Nicht unterstützte Audio-Datei</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="645"/>
+        <location filename="showmanager.cpp" line="665"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation>Diese Audiodatei kann mit QLC+ nicht wiedergegeben werden. Sorry.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="713"/>
-        <location filename="showmanager.cpp" line="735"/>
+        <location filename="showmanager.cpp" line="733"/>
+        <location filename="showmanager.cpp" line="755"/>
         <source>Paste error</source>
         <translation>Einfügefehler</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="713"/>
+        <location filename="showmanager.cpp" line="733"/>
         <source>Overlapping paste not allowed. Operation cancelled.</source>
         <translation>Überlappendes Einfügen nicht zulässig Ausführung abgebrochen.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="735"/>
+        <location filename="showmanager.cpp" line="755"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
         <translation>Einfügen in eine inkompatible Szene. Ausführung abgebrochen.</translation>
     </message>
@@ -5648,17 +5653,17 @@ Dauer: %3
         <translation>Zum Wiedergabemodus wechseln</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.cpp" line="632"/>
+        <location filename="vcsliderproperties.cpp" line="633"/>
         <source>Select channels by group</source>
         <translation>Kanäle nach Gruppe auswählen</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.cpp" line="633"/>
+        <location filename="vcsliderproperties.cpp" line="634"/>
         <source>Select a channel group</source>
         <translation>Kanalgruppe auswählen</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.cpp" line="685"/>
+        <location filename="vcsliderproperties.cpp" line="686"/>
         <source>No function</source>
         <translation>Keine Funktion</translation>
     </message>

@@ -20,12 +20,12 @@
         <translation>Tato aplikace je licencována dle podmínek Apache verze 2.0.</translation>
     </message>
     <message>
-        <location filename="aboutbox.cpp" line="39"/>
+        <location filename="aboutbox.cpp" line="41"/>
         <source>and contributors:</source>
         <translation>a spolupracovníci:</translation>
     </message>
     <message>
-        <location filename="aboutbox.cpp" line="40"/>
+        <location filename="aboutbox.cpp" line="42"/>
         <source>Website: %1</source>
         <translation>Web: %1</translation>
     </message>
@@ -3500,12 +3500,17 @@ Délka: %3
         <translation>Název této RGB šablony funkce</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="404"/>
+        <location filename="rgbmatrixeditor.ui" line="398"/>
+        <source>Save this matrix to a sequence</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="424"/>
         <source>Fixture group</source>
         <translation>Skupina zařízení</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="417"/>
+        <location filename="rgbmatrixeditor.ui" line="437"/>
         <source>The fixture group to use as the pixel matrix</source>
         <translation>Skupina zařízení k použití jako šablonlona bodů</translation>
     </message>
@@ -3662,17 +3667,17 @@ Délka: %3
         <translation>Otestovat běh</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="243"/>
+        <location filename="rgbmatrixeditor.cpp" line="247"/>
         <source>None</source>
         <translation>Nic</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="321"/>
+        <location filename="rgbmatrixeditor.cpp" line="323"/>
         <source>No fixture group to control</source>
         <translation>Žádná skupina zařízení k ovládání</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="585"/>
+        <location filename="rgbmatrixeditor.cpp" line="589"/>
         <source>Select image</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4132,66 +4137,66 @@ Délka: %3
         <translation>Nová Scéna</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="543"/>
-        <location filename="showmanager.cpp" line="579"/>
+        <location filename="showmanager.cpp" line="563"/>
+        <location filename="showmanager.cpp" line="599"/>
         <source>New Sequence</source>
         <translation>Nová Sekvence</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="567"/>
-        <location filename="showmanager.cpp" line="652"/>
+        <location filename="showmanager.cpp" line="587"/>
+        <location filename="showmanager.cpp" line="672"/>
         <source>Overlapping error</source>
         <translation>Chyba překrývání</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="567"/>
-        <location filename="showmanager.cpp" line="652"/>
+        <location filename="showmanager.cpp" line="587"/>
+        <location filename="showmanager.cpp" line="672"/>
         <source>Overlapping not allowed. Operation cancelled.</source>
         <translation>Překrývání není možné. Operace zrušena.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="593"/>
+        <location filename="showmanager.cpp" line="613"/>
         <source>Open Audio File</source>
         <translation>Otevřít soubor zvuku</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="619"/>
+        <location filename="showmanager.cpp" line="639"/>
         <source>Audio Files (%1)</source>
         <translation>Zvukové soubory (%1)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="621"/>
+        <location filename="showmanager.cpp" line="641"/>
         <source>All Files (*.*)</source>
         <translation>Všechny soubory (*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="623"/>
+        <location filename="showmanager.cpp" line="643"/>
         <source>All Files (*)</source>
         <translation>Všechny soubory (*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="645"/>
+        <location filename="showmanager.cpp" line="665"/>
         <source>Unsupported audio file</source>
         <translation>Nepodporovaný soubor zvuku</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="645"/>
+        <location filename="showmanager.cpp" line="665"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation>Tento soubor zvuku nemůže být přehrán v QLC+. Je nám to moc líto.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="713"/>
-        <location filename="showmanager.cpp" line="735"/>
+        <location filename="showmanager.cpp" line="733"/>
+        <location filename="showmanager.cpp" line="755"/>
         <source>Paste error</source>
         <translation>Chyba vložení</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="713"/>
+        <location filename="showmanager.cpp" line="733"/>
         <source>Overlapping paste not allowed. Operation cancelled.</source>
         <translation>Překrývání není možné. Operace zrušena.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="735"/>
+        <location filename="showmanager.cpp" line="755"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
         <translation>Pokoušíte se vložit nekompatibilní Scénu. Operace byla zrušena.</translation>
     </message>
@@ -5630,17 +5635,17 @@ Délka: %3
         <translation>Přepnout do režimu přehrávání</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.cpp" line="632"/>
+        <location filename="vcsliderproperties.cpp" line="633"/>
         <source>Select channels by group</source>
         <translation>Zvolit kanály podle skupiny</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.cpp" line="633"/>
+        <location filename="vcsliderproperties.cpp" line="634"/>
         <source>Select a channel group</source>
         <translation>Zvolist skupinu kanálů</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.cpp" line="685"/>
+        <location filename="vcsliderproperties.cpp" line="686"/>
         <source>No function</source>
         <translation>Bez funkce</translation>
     </message>

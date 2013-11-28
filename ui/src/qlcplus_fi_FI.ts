@@ -21,12 +21,12 @@
         <translation>Tämä sovellus on lisensoitu Apache versio 2.0:n alla.</translation>
     </message>
     <message>
-        <location filename="aboutbox.cpp" line="39"/>
+        <location filename="aboutbox.cpp" line="41"/>
         <source>and contributors:</source>
         <translation>ja avustajat:</translation>
     </message>
     <message>
-        <location filename="aboutbox.cpp" line="40"/>
+        <location filename="aboutbox.cpp" line="42"/>
         <source>Website: %1</source>
         <translation>Web-osoite: %1</translation>
     </message>
@@ -3502,12 +3502,17 @@ Duration: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="404"/>
+        <location filename="rgbmatrixeditor.ui" line="398"/>
+        <source>Save this matrix to a sequence</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="424"/>
         <source>Fixture group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="417"/>
+        <location filename="rgbmatrixeditor.ui" line="437"/>
         <source>The fixture group to use as the pixel matrix</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3664,17 +3669,17 @@ Duration: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="243"/>
+        <location filename="rgbmatrixeditor.cpp" line="247"/>
         <source>None</source>
         <translation type="unfinished">Ei mitään</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="321"/>
+        <location filename="rgbmatrixeditor.cpp" line="323"/>
         <source>No fixture group to control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="585"/>
+        <location filename="rgbmatrixeditor.cpp" line="589"/>
         <source>Select image</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4134,66 +4139,66 @@ Duration: %2
         <translation type="unfinished">Uusi tilanne</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="543"/>
-        <location filename="showmanager.cpp" line="579"/>
+        <location filename="showmanager.cpp" line="563"/>
+        <location filename="showmanager.cpp" line="599"/>
         <source>New Sequence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="567"/>
-        <location filename="showmanager.cpp" line="652"/>
+        <location filename="showmanager.cpp" line="587"/>
+        <location filename="showmanager.cpp" line="672"/>
         <source>Overlapping error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="567"/>
-        <location filename="showmanager.cpp" line="652"/>
+        <location filename="showmanager.cpp" line="587"/>
+        <location filename="showmanager.cpp" line="672"/>
         <source>Overlapping not allowed. Operation cancelled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="593"/>
+        <location filename="showmanager.cpp" line="613"/>
         <source>Open Audio File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="619"/>
+        <location filename="showmanager.cpp" line="639"/>
         <source>Audio Files (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="621"/>
+        <location filename="showmanager.cpp" line="641"/>
         <source>All Files (*.*)</source>
         <translation type="unfinished">Kaikki tiedostot (*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="623"/>
+        <location filename="showmanager.cpp" line="643"/>
         <source>All Files (*)</source>
         <translation type="unfinished">Kaikki tiedostot (*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="645"/>
+        <location filename="showmanager.cpp" line="665"/>
         <source>Unsupported audio file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="645"/>
+        <location filename="showmanager.cpp" line="665"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="713"/>
-        <location filename="showmanager.cpp" line="735"/>
+        <location filename="showmanager.cpp" line="733"/>
+        <location filename="showmanager.cpp" line="755"/>
         <source>Paste error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="713"/>
+        <location filename="showmanager.cpp" line="733"/>
         <source>Overlapping paste not allowed. Operation cancelled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="735"/>
+        <location filename="showmanager.cpp" line="755"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5636,17 +5641,17 @@ Duration: %2
         <translation>Vaihda taso-tilaan</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.cpp" line="632"/>
+        <location filename="vcsliderproperties.cpp" line="633"/>
         <source>Select channels by group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.cpp" line="633"/>
+        <location filename="vcsliderproperties.cpp" line="634"/>
         <source>Select a channel group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.cpp" line="685"/>
+        <location filename="vcsliderproperties.cpp" line="686"/>
         <source>No function</source>
         <translation>Ei funktiota</translation>
     </message>

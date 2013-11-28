@@ -38,6 +38,8 @@
 #include "rgbtext.h"
 #include "rgbimage.h"
 #include "apputil.h"
+#include "chaser.h"
+#include "scene.h"
 #include "doc.h"
 
 #define SETTINGS_GEOMETRY "rgbmatrixeditor/geometry"
@@ -187,6 +189,8 @@ void RGBMatrixEditor::init()
             this, SLOT(slotOffsetSpinChanged()));
     connect(m_yOffsetSpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotOffsetSpinChanged()));
+    connect(m_saveToSequenceButton, SIGNAL(clicked()),
+            this, SLOT(slotSaveToSequenceClicked()));
 
     connect(m_loop, SIGNAL(clicked()), this, SLOT(slotLoopClicked()));
     connect(m_pingPong, SIGNAL(clicked()), this, SLOT(slotPingPongClicked()));
@@ -198,9 +202,9 @@ void RGBMatrixEditor::init()
     connect(m_testButton, SIGNAL(clicked(bool)),
             this, SLOT(slotTestClicked()));
 
-    createPreviewItems();
     m_preview->setScene(m_scene);
-    m_previewTimer->start(MasterTimer::tick());
+    if (createPreviewItems() == true)
+        m_previewTimer->start(MasterTimer::tick());
 }
 
 void RGBMatrixEditor::updateSpeedDials()
@@ -308,19 +312,18 @@ void RGBMatrixEditor::updateExtraOptions()
     }
 }
 
-void RGBMatrixEditor::createPreviewItems()
+bool RGBMatrixEditor::createPreviewItems()
 {
     m_previewHash.clear();
     m_scene->clear();
-
-    QPalette pal(this->palette());
 
     FixtureGroup* grp = m_doc->fixtureGroup(m_matrix->fixtureGroup());
     if (grp == NULL)
     {
         QGraphicsTextItem* text = new QGraphicsTextItem(tr("No fixture group to control"));
+        text->setDefaultTextColor(Qt::white);
         m_scene->addItem(text);
-        return;
+        return false;
     }
 
     m_previewDirection = m_matrix->direction();
@@ -354,7 +357,7 @@ void RGBMatrixEditor::createPreviewItems()
         map = m_previewMaps[m_previewStep];
 
     if (map.isEmpty())
-        return;
+        return false;
 
     for (int x = 0; x < grp->size().width(); x++)
     {
@@ -376,6 +379,7 @@ void RGBMatrixEditor::createPreviewItems()
             }
         }
     }
+    return true;
 }
 
 void RGBMatrixEditor::slotPreviewTimeout()
@@ -388,7 +392,7 @@ void RGBMatrixEditor::slotPreviewTimeout()
     m_previewIterator += MasterTimer::tick();
     if (m_previewIterator >= m_matrix->duration())
     {
-        qDebug() << "previewTimeout. Step:" << m_previewStep;
+        //qDebug() << "previewTimeout. Step:" << m_previewStep;
         if (m_matrix->runOrder() == RGBMatrix::PingPong)
         {
             if (m_previewDirection == Function::Forward && (m_previewStep + 1) == m_previewMaps.size())
@@ -697,8 +701,8 @@ void RGBMatrixEditor::slotTestClicked()
     {
         m_matrix->stopAndWait();
         m_previewIterator = 0;
-        createPreviewItems();
-        m_previewTimer->start(MasterTimer::tick());
+        if (createPreviewItems() == true)
+            m_previewTimer->start(MasterTimer::tick());
     }
 }
 
@@ -714,8 +718,10 @@ void RGBMatrixEditor::slotRestartTest()
         m_testButton->click();
     }
     else
-        createPreviewItems();
-    m_previewTimer->start(MasterTimer::tick());
+    {
+        if (createPreviewItems() == true)
+            m_previewTimer->start(MasterTimer::tick());
+    }
 }
 
 void RGBMatrixEditor::slotModeChanged(Doc::Mode mode)
@@ -763,5 +769,135 @@ void RGBMatrixEditor::slotFixtureGroupChanged(quint32 id)
             FixtureGroup* grp = m_doc->fixtureGroup(id);
             m_fixtureGroupCombo->setItemText(index, grp->name());
         }
+    }
+}
+
+void RGBMatrixEditor::slotSaveToSequenceClicked()
+{
+    if (m_matrix == NULL || m_matrix->fixtureGroup() == FixtureGroup::invalidId())
+        return;
+
+    FixtureGroup* grp = m_doc->fixtureGroup(m_matrix->fixtureGroup());
+    if (grp != NULL && m_matrix->algorithm() != NULL)
+    {
+        bool testRunning = false;
+
+        if (m_testButton->isChecked() == true)
+        {
+            m_testButton->click();
+            testRunning = true;
+        }
+        else
+            m_previewTimer->stop();
+
+        Scene *grpScene = new Scene(m_doc);
+        grpScene->setName(grp->name());
+        QList<GroupHead> headList = grp->headList();
+        foreach (GroupHead head, headList)
+        {
+            Fixture *fxi = m_doc->fixture(head.fxi);
+            if (fxi == NULL)
+                continue;
+            QList<quint32> rgbCh = fxi->rgbChannels(head.head);
+            if (rgbCh.count() == 3)
+            {
+                grpScene->setValue(head.fxi, rgbCh.at(0), 0);
+                grpScene->setValue(head.fxi, rgbCh.at(1), 0);
+                grpScene->setValue(head.fxi, rgbCh.at(2), 0);
+            }
+
+            quint32 master = fxi->masterIntensityChannel(head.head);
+            if (master != QLCChannel::invalid())
+                grpScene->setValue(head.fxi, master, 0);
+        }
+        m_doc->addFunction(grpScene);
+
+        int mapSize = m_previewMaps.size();
+        int totalSteps = mapSize;
+        int increment = 1;
+        int currentStep = 0;
+        m_matrix->setStepColor(m_matrix->startColor());
+
+        if (m_matrix->direction() == Function::Backward)
+        {
+            currentStep = mapSize - 1;
+            increment = -1;
+            if (m_matrix->endColor().isValid())
+                m_matrix->setStepColor(m_matrix->endColor());
+        }
+        m_matrix->calculateColorDelta();
+
+        if (m_matrix->runOrder() == RGBMatrix::PingPong)
+            totalSteps = (totalSteps * 2) - 1;
+
+        Chaser *chaser = new Chaser(m_doc);
+        chaser->setName(m_matrix->name());
+        chaser->enableSequenceMode(grpScene->id());
+        chaser->setDurationMode(Chaser::PerStep);
+        chaser->setDuration(m_matrix->duration());
+        chaser->setStartTime(0);
+        if (m_matrix->fadeInSpeed() != 0)
+        {
+            chaser->setFadeInMode(Chaser::PerStep);
+            chaser->setFadeInSpeed(m_matrix->fadeInSpeed());
+        }
+        if (m_matrix->fadeOutSpeed() != 0)
+        {
+            chaser->setFadeOutMode(Chaser::PerStep);
+            chaser->setFadeOutSpeed(m_matrix->fadeOutSpeed());
+        }
+
+        for (int i = 0; i < totalSteps; i++)
+        {
+            m_previewMaps = m_matrix->previewMaps();
+
+            RGBMap map = m_previewMaps[currentStep];
+            ChaserStep step;
+            step.fid = grpScene->id();
+            step.hold = m_matrix->duration() - m_matrix->fadeInSpeed() - m_matrix->fadeOutSpeed();
+            step.duration = m_matrix->duration();
+            step.fadeIn = m_matrix->fadeInSpeed();
+            step.fadeOut = m_matrix->fadeOutSpeed();
+
+            for (int y = 0; y < map.size(); y++)
+            {
+                for (int x = 0; x < map[y].size(); x++)
+                {
+                    QColor rgb = QColor(map[y][x]);
+                    GroupHead head = grp->head(QLCPoint(x, y));
+
+                    Fixture *fxi = m_doc->fixture(head.fxi);
+                    if (fxi == NULL)
+                        continue;
+                    QList<quint32> rgbCh = fxi->rgbChannels(head.head);
+                    if (rgbCh.count() == 3)
+                    {
+                        step.values.append(SceneValue(head.fxi, rgbCh.at(0), rgb.red()));
+                        step.values.append(SceneValue(head.fxi, rgbCh.at(1), rgb.green()));
+                        step.values.append(SceneValue(head.fxi, rgbCh.at(2), rgb.blue()));
+                    }
+
+                    quint32 master = fxi->masterIntensityChannel(head.head);
+                    if (master != QLCChannel::invalid())
+                        step.values.append(SceneValue(head.fxi, master, 255));
+                }
+            }
+            chaser->addStep(step);
+            currentStep += increment;
+            if (currentStep == mapSize && m_matrix->runOrder() == RGBMatrix::PingPong)
+            {
+                currentStep = mapSize - 2;
+                increment = -1;
+            }
+            m_previewMaps = m_matrix->previewMaps();
+            m_matrix->updateStepColor(m_matrix->direction());
+        }
+
+        m_doc->addFunction(chaser);
+
+        if (testRunning == true)
+            m_testButton->click();
+        else if (createPreviewItems() == true)
+            m_previewTimer->start(MasterTimer::tick());
     }
 }
