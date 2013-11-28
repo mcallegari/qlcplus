@@ -86,7 +86,7 @@
     <message>
         <location filename="addchannelsgroup.ui" line="119"/>
         <source>Choose an external input universe and channel that this group should listen to</source>
-        <translation>Elegir el universo y el canal de Entrada  que este grupo debe escuchar</translation>
+        <translation>Elegir el universo y el canal de Entrada que este grupo debe escuchar</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="122"/>
@@ -585,7 +585,7 @@ Really stop them and switch back to Design mode?</source>
     <message>
         <location filename="app.cpp" line="222"/>
         <source>Simple Desk</source>
-        <translation>Mesa  Simple</translation>
+        <translation>Mesa Simple</translation>
     </message>
     <message>
         <location filename="app.cpp" line="224"/>
@@ -666,7 +666,7 @@ Really stop them and switch back to Design mode?</source>
     <message>
         <location filename="app.cpp" line="668"/>
         <source>A fatal error occurred</source>
-        <translation>Error fatal</translation>
+        <translation>Ocurrió un error fatal</translation>
     </message>
     <message>
         <location filename="app.cpp" line="671"/>
@@ -3272,7 +3272,7 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="multitrackview.cpp" line="308"/>
         <source>This operation will also DELETE:</source>
-        <translation>Esta operación  BORRARÁ también:</translation>
+        <translation>Esta operación BORRARÁ también:</translation>
     </message>
     <message>
         <location filename="multitrackview.cpp" line="404"/>
@@ -4443,7 +4443,7 @@ Duración: %3
     <message>
         <location filename="vcbutton.cpp" line="302"/>
         <source>Select button icon</source>
-        <translation>Selecciona el icono del boton</translation>
+        <translation>Seleccione el ícono del botón</translation>
     </message>
     <message>
         <location filename="vcbutton.cpp" line="303"/>
@@ -5294,12 +5294,12 @@ Duración: %3
     <message>
         <location filename="vcproperties.ui" line="627"/>
         <source>Reduce</source>
-        <translation>Reduce</translation>
+        <translation>Reducir</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="634"/>
         <source>Make Grand Master limit the maximum channel values.</source>
-        <translation>Hace que el Gran Master limite el valor  máximo de los canales.</translation>
+        <translation>Hace que el Gran Master limite el valor máximo de los canales.</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="637"/>
@@ -5577,7 +5577,7 @@ Duración: %3
     <message>
         <location filename="vcsliderproperties.ui" line="281"/>
         <source>Highest DMX value that can be set with this slider</source>
-        <translation>El valor DMX más alto que se puede establecer con  este slider</translation>
+        <translation>El valor DMX más alto que se puede establecer con este slider</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="310"/>
