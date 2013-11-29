@@ -1316,59 +1316,59 @@ void ChaserRunner_Test::adjustIntensity()
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene1);
-    QCOMPARE(m_scene1->getAttributeValue(), qreal(0.5));
-    QCOMPARE(m_scene2->getAttributeValue(), qreal(1.0));
-    QCOMPARE(m_scene3->getAttributeValue(), qreal(1.0));
+    QCOMPARE(m_scene1->getAttributeValue(Function::Intensity), qreal(0.5));
+    QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(1.0));
+    QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(1.0));
 
     QVERIFY(cr.write(&timer, NULL) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene2);
-    QCOMPARE(m_scene1->getAttributeValue(), qreal(1.0));
-    QCOMPARE(m_scene2->getAttributeValue(), qreal(0.5));
-    QCOMPARE(m_scene3->getAttributeValue(), qreal(1.0));
+    QCOMPARE(m_scene1->getAttributeValue(Function::Intensity), qreal(1.0));
+    QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(0.5));
+    QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(1.0));
 
     QVERIFY(cr.write(&timer, NULL) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene3);
-    QCOMPARE(m_scene1->getAttributeValue(), qreal(1.0));
-    QCOMPARE(m_scene2->getAttributeValue(), qreal(1.0));
-    QCOMPARE(m_scene3->getAttributeValue(), qreal(0.5));
+    QCOMPARE(m_scene1->getAttributeValue(Function::Intensity), qreal(1.0));
+    QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(1.0));
+    QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(0.5));
 
     cr.adjustIntensity(0.7);
-    QCOMPARE(m_scene1->getAttributeValue(), qreal(1.0));
-    QCOMPARE(m_scene2->getAttributeValue(), qreal(1.0));
-    QCOMPARE(m_scene3->getAttributeValue(), qreal(0.7));
+    QCOMPARE(m_scene1->getAttributeValue(Function::Intensity), qreal(1.0));
+    QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(1.0));
+    QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(0.7));
 
     QVERIFY(cr.write(&timer, NULL) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene1);
-    QCOMPARE(m_scene1->getAttributeValue(), qreal(0.7));
-    QCOMPARE(m_scene2->getAttributeValue(), qreal(1.0));
-    QCOMPARE(m_scene3->getAttributeValue(), qreal(1.0));
+    QCOMPARE(m_scene1->getAttributeValue(Function::Intensity), qreal(0.7));
+    QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(1.0));
+    QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(1.0));
 
     QVERIFY(cr.write(&timer, NULL) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene2);
-    QCOMPARE(m_scene1->getAttributeValue(), qreal(1.0));
-    QCOMPARE(m_scene2->getAttributeValue(), qreal(0.7));
-    QCOMPARE(m_scene3->getAttributeValue(), qreal(1.0));
+    QCOMPARE(m_scene1->getAttributeValue(Function::Intensity), qreal(1.0));
+    QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(0.7));
+    QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(1.0));
 
     cr.adjustIntensity(1.5);
-    QCOMPARE(m_scene1->getAttributeValue(), qreal(1.0));
-    QCOMPARE(m_scene2->getAttributeValue(), qreal(1.0));
-    QCOMPARE(m_scene3->getAttributeValue(), qreal(1.0));
+    QCOMPARE(m_scene1->getAttributeValue(Function::Intensity), qreal(1.0));
+    QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(1.0));
+    QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(1.0));
 
     QVERIFY(cr.write(&timer, NULL) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene3);
-    QCOMPARE(m_scene1->getAttributeValue(), qreal(1.0));
-    QCOMPARE(m_scene2->getAttributeValue(), qreal(1.0));
-    QCOMPARE(m_scene3->getAttributeValue(), qreal(1.0));
+    QCOMPARE(m_scene1->getAttributeValue(Function::Intensity), qreal(1.0));
+    QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(1.0));
+    QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(1.0));
 }
 
 QTEST_APPLESS_MAIN(ChaserRunner_Test)

@@ -192,7 +192,7 @@ void ShowRunner::write()
             {
                 if (track->functionsID().contains(f->id()))
                 {
-                    f->adjustAttribute(m_intensityMap[track->id()]);
+                    f->adjustAttribute(m_intensityMap[track->id()], Function::Intensity);
                     break;
                 }
             }
@@ -236,12 +236,12 @@ void ShowRunner::adjustIntensity(qreal fraction, Track *track)
             if (f->type() == Function::Chaser)
             {
                 Chaser *chaser = qobject_cast<Chaser*>(f);
-                chaser->adjustAttribute(fraction);
+                chaser->adjustAttribute(fraction, Function::Intensity);
             }
             else if (f->type() == Function::Audio)
             {
                 Audio *audio = qobject_cast<Audio*>(f);
-                audio->adjustAttribute(fraction);
+                audio->adjustAttribute(fraction, Function::Intensity);
             }
         }
     }

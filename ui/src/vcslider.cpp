@@ -885,7 +885,7 @@ void VCSlider::writeDMXPlayback(MasterTimer* timer, UniverseArray* ua)
         {
             if (function->stopped() == true)
                 function->start(timer);
-            function->adjustAttribute(intensity);
+            function->adjustAttribute(intensity, Function::Intensity);
         }
     }
 }

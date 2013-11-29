@@ -241,11 +241,11 @@ AudioDecoder* Audio::getAudioDecoder()
     return m_decoder;
 }
 
-void Audio::adjustAttribute(qreal fraction, int)
+void Audio::adjustAttribute(qreal fraction, int attributeIndex)
 {
-    if (m_audio_out != NULL)
+    if (m_audio_out != NULL && attributeIndex == Intensity)
         m_audio_out->adjustIntensity(fraction);
-    Function::adjustAttribute(fraction);
+    Function::adjustAttribute(fraction, attributeIndex);
 }
 
 void Audio::slotEndOfStream()
@@ -381,7 +381,7 @@ void Audio::preRun(MasterTimer* timer)
         m_audio_out->initialize(ap.sampleRate(), ap.channels(), ap.format());
         m_audio_out->setFadeIn(fadeInSpeed());
         m_audio_out->start();
-        m_audio_out->adjustIntensity(getAttributeValue());
+        m_audio_out->adjustIntensity(getAttributeValue(Intensity));
         connect(m_audio_out, SIGNAL(endOfStreamReached()),
                 this, SLOT(slotEndOfStream()));
     }

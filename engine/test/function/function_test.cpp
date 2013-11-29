@@ -210,19 +210,19 @@ void Function_Test::adjustIntensity()
     Doc doc(this);
 
     Function_Stub* stub = new Function_Stub(&doc);
-    QCOMPARE(stub->getAttributeValue(), qreal(1.0));
+    QCOMPARE(stub->getAttributeValue(Function::Intensity), qreal(1.0));
 
-    stub->adjustAttribute(0.5);
-    QCOMPARE(stub->getAttributeValue(), qreal(0.5));
+    stub->adjustAttribute(0.5, Function::Intensity);
+    QCOMPARE(stub->getAttributeValue(Function::Intensity), qreal(0.5));
 
-    stub->adjustAttribute(1.5);
-    QCOMPARE(stub->getAttributeValue(), qreal(1.0));
+    stub->adjustAttribute(1.5, Function::Intensity);
+    QCOMPARE(stub->getAttributeValue(Function::Intensity), qreal(1.0));
 
-    stub->adjustAttribute(-7.0);
-    QCOMPARE(stub->getAttributeValue(), qreal(0));
+    stub->adjustAttribute(-7.0, Function::Intensity);
+    QCOMPARE(stub->getAttributeValue(Function::Intensity), qreal(0));
 
     stub->resetAttributes();
-    QCOMPARE(stub->getAttributeValue(), qreal(1.0));
+    QCOMPARE(stub->getAttributeValue(Function::Intensity), qreal(1.0));
 }
 
 void Function_Test::slotFixtureRemoved()

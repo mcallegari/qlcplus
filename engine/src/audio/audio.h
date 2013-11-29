@@ -118,7 +118,7 @@ public:
      */
     AudioDecoder* getAudioDecoder();
 
-    void adjustAttribute(qreal fraction, int attributeIndex = 0);
+    void adjustAttribute(qreal fraction, int attributeIndex);
 
 protected slots:
     void slotEndOfStream();
