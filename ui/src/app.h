@@ -86,6 +86,8 @@ private:
 public:
     void clearDocument();
 
+    Doc *doc();
+
 private slots:
     void slotDocModified(bool state);
 

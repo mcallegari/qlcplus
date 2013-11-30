@@ -43,7 +43,6 @@
 #include "addresstool.h"
 #include "simpledesk.h"
 #include "docbrowser.h"
-#include "webaccess.h"
 #include "outputmap.h"
 #include "inputmap.h"
 #include "aboutbox.h"
@@ -373,6 +372,11 @@ void App::clearDocument()
     m_doc->outputMap()->resetUniverses();
     setFileName(QString());
     m_doc->resetModified();
+}
+
+Doc *App::doc()
+{
+    return m_doc;
 }
 
 void App::initDoc()

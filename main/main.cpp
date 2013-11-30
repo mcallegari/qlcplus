@@ -303,7 +303,7 @@ int main(int argc, char** argv)
 
     if (QLCArgs::enableWebAccess == true)
     {
-        WebAccess *m_webAccess = new WebAccess(VirtualConsole::instance());
+        WebAccess *m_webAccess = new WebAccess(app.doc(), VirtualConsole::instance());
 
         QObject::connect(m_webAccess, SIGNAL(toggleDocMode()),
                 &app, SLOT(slotModeToggle()));
