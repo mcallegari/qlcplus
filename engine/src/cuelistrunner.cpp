@@ -250,7 +250,7 @@ void CueListRunner::adjustIntensity(qreal fraction, int stepIndex)
     {
         if (stepIndex == step->m_index && step->m_function != NULL)
         {
-            step->m_function->adjustAttribute(m_intensity);
+            step->m_function->adjustAttribute(m_intensity, Function::Intensity);
             return;
         }
     }
@@ -295,7 +295,7 @@ void CueListRunner::startNewStep(int index, MasterTimer* timer, bool manualFade)
 
         // Set intensity before starting the function. Otherwise the intensity
         // might momentarily jump too high.
-        newStep->m_function->adjustAttribute(m_intensity);
+        newStep->m_function->adjustAttribute(m_intensity, Function::Intensity);
         // Start the fire up !
         newStep->m_function->start(timer, true, 0, newStep->m_fadeIn, newStep->m_fadeOut);
         m_runnerSteps.append(newStep);

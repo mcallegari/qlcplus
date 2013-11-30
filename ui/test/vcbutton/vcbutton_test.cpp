@@ -505,7 +505,7 @@ void VCButton_Test::toggle()
     m_doc->masterTimer()->timerTick();
     QCOMPARE(m_doc->masterTimer()->m_functionList.size(), 1);
     QCOMPARE(m_doc->masterTimer()->m_functionList[0], sc);
-    QCOMPARE(sc->getAttributeValue(), btn.intensityAdjustment());
+    QCOMPARE(sc->getAttributeValue(Function::Intensity), btn.intensityAdjustment());
     btn.slotKeyReleased(QKeySequence(keySequenceB));
     m_doc->masterTimer()->timerTick(); // Allow MasterTimer to take the function under execution
     QCOMPARE(sc->stopped(), false);
@@ -548,7 +548,7 @@ void VCButton_Test::flash()
     btn.slotKeyPressed(QKeySequence(keySequenceB));
     QCOMPARE(m_doc->masterTimer()->m_functionList.size(), 0);
     QCOMPARE(btn.isOn(), true);
-    QCOMPARE(sc->getAttributeValue(), qreal(1.0));
+    QCOMPARE(sc->getAttributeValue(Function::Intensity), qreal(1.0));
     QCOMPARE(spy.size(), 1);
     QCOMPARE(spy[0][0].toUInt(), sc->id());
     QCOMPARE(spy[0][1].toBool(), true);
@@ -611,7 +611,7 @@ void VCButton_Test::input()
     btn.slotInputValueChanged(0, 0, 255);
     m_doc->masterTimer()->timerTick();
     QCOMPARE(btn.isOn(), true);
-    QCOMPARE(sc->getAttributeValue(), btn.intensityAdjustment());
+    QCOMPARE(sc->getAttributeValue(Function::Intensity), btn.intensityAdjustment());
 
     btn.slotInputValueChanged(0, 0, 0);
     QCOMPARE(sc->m_stop, false);

@@ -1046,12 +1046,12 @@ void EFX::adjustAttribute(qreal fraction, int attributeIndex)
         case Width:
         case XOffset:
         case YOffset:
-        break;
-
         case Rotation:
-            updateRotationCache();
         break;
     }
 
-    Function::adjustAttribute(fraction);
+    Function::adjustAttribute(fraction, attributeIndex);
+
+    if (attributeIndex == Rotation)
+        updateRotationCache();
 }

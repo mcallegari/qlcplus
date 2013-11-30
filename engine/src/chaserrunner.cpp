@@ -262,7 +262,7 @@ void ChaserRunner::adjustIntensity(qreal fraction)
 {
     m_intensity = CLAMP(fraction, qreal(0.0), qreal(1.0));
     if (m_currentFunction != NULL)
-        m_currentFunction->adjustAttribute(m_intensity);
+        m_currentFunction->adjustAttribute(m_intensity, Function::Intensity);
 }
 
 /****************************************************************************
@@ -434,7 +434,7 @@ void ChaserRunner::switchFunctions(MasterTimer* timer)
 
         // Set intensity before starting the function. Otherwise the intensity
         // might momentarily jump too high.
-        m_currentFunction->adjustAttribute(m_intensity);
+        m_currentFunction->adjustAttribute(m_intensity, Function::Intensity);
 
         // Start function using step-specific or global speed settings
         // Don't override duration because that would mess up everything when

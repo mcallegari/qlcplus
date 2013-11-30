@@ -638,11 +638,9 @@ void RGBMatrix::insertStartValues(FadeChannel& fc) const
  * Attributes
  *********************************************************************/
 
-void RGBMatrix::adjustAttribute(qreal intensity, int attributeIndex)
+void RGBMatrix::adjustAttribute(qreal fraction, int attributeIndex)
 {
-    Q_UNUSED(attributeIndex)
-
-    if (m_fader != NULL)
-        m_fader->adjustIntensity(intensity);
-    Function::adjustAttribute(intensity);
+    if (m_fader != NULL && attributeIndex == Function::Intensity)
+        m_fader->adjustIntensity(fraction);
+    Function::adjustAttribute(fraction, attributeIndex);
 }
