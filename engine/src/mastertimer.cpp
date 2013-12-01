@@ -33,6 +33,7 @@
 #include "mastertimer.h"
 #include "outputmap.h"
 #include "dmxsource.h"
+#include "dmxsubmaster.h"
 #include "qlcmacros.h"
 #include "function.h"
 #include "doc.h"
@@ -98,6 +99,7 @@ void MasterTimer::timerTick()
     timerTickFunctions(universes);
     timerTickDMXSources(universes);
     timerTickFader(universes);
+    timerTickSubmasters(universes);
 
     doc->outputMap()->releaseUniverses();
     doc->outputMap()->dumpUniverses();
@@ -321,4 +323,45 @@ void MasterTimer::timerTickFader(UniverseArray* universes)
     QMutexLocker dmxLOcker(&m_dmxSourceListMutex);
 
     fader()->write(universes);
+}
+
+void MasterTimer::registerDMXSubmaster(DMXSubmaster *submaster)
+{
+    Q_ASSERT(submaster != 0);
+
+    QMutexLocker lock(&m_submastersListMutex);
+    if (m_submastersList.contains(submaster) == false)
+        m_submastersList.append(submaster);
+
+}
+
+void MasterTimer::unregisterDMXSubmaster(DMXSubmaster *submaster)
+{
+    Q_ASSERT(submaster != 0);
+
+    QMutexLocker lock(&m_submastersListMutex);
+    m_submastersList.removeAll(submaster);
+}
+
+/****************************************************************************
+ * Generic Fader
+ ****************************************************************************/
+void MasterTimer::timerTickSubmasters(UniverseArray *universes)
+{
+    m_submastersListMutex.lock();
+    for (int i = 0; i < m_submastersList.length(); ++i)
+    {
+        DMXSubmaster* submaster = m_submastersList.at(i);
+        Q_ASSERT(submaster != 0);
+
+        // No need to acces the list anymore (this round)
+        m_submastersListMutex.unlock();
+        submaster->perform(this, universes);
+
+        //lock for the next round
+        m_submastersListMutex.lock();
+    }
+
+    // no more submasters
+    m_submastersListMutex.unlock();
 }

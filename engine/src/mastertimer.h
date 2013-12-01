@@ -30,6 +30,7 @@ class UniverseArray;
 class GenericFader;
 class OutputMap;
 class DMXSource;
+class DMXSubmaster;
 class Function;
 class Doc;
 
@@ -166,6 +167,37 @@ private:
 
 private:
     GenericFader* m_fader;
+
+    /*************************************************************************
+     * Submasters
+     *************************************************************************/
+public:
+    /**
+     * Register a DMXSubmaster (slider). Each DMXSubmaster instance
+     * can be registered exactly once.
+     *
+     * @param source The DMXSubmaster to register
+     */
+    virtual void registerDMXSubmaster(DMXSubmaster* submaster);
+
+    /**
+     * Unregister a previously registered DMXSubmaster. This should be called
+     * in the DMXSubmaster's destructor (at the latest).
+     *
+     * @param source The DMXSubmaster to unregister
+     */
+    virtual void unregisterDMXSubmaster(DMXSubmaster* submaster);
+
+private:
+    /** execute one timer tick for the submasters */
+    void timerTickSubmasters(UniverseArray* universes);
+
+private:
+    /** List of currently registered submasters */
+    QList<DMXSubmaster*> m_submastersList;
+
+    /** Mutex to guard submasters list */
+    QMutex m_submastersListMutex;
 
 private:
     MasterTimerPrivate* d_ptr;

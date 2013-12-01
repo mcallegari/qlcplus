@@ -68,6 +68,7 @@ HEADERS += bus.h \
            cuestack.h \
            doc.h \
            dmxdumpfactoryproperties.h \
+           dmxsubmaster.h \
            efx.h \
            efxfixture.h \
            fadechannel.h \
@@ -149,6 +150,7 @@ SOURCES += bus.cpp \
            cuestack.cpp \
            doc.cpp \
            dmxdumpfactoryproperties.cpp \
+           dmxsubmaster.cpp \
            efx.cpp \
            efxfixture.cpp \
            fadechannel.cpp \
