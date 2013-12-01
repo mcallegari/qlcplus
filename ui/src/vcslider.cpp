@@ -1213,7 +1213,7 @@ QString VCSlider::getJS()
             " var obj = document.getElementById(\"slv\" + id);\n"
             " obj.innerHTML = slObj.value;\n"
             " var sldMsg = id + \"|\" + slObj.value;\n"
-            " sendWSmessage(sldMsg);\n"
+            " websocket.send(sldMsg);\n"
             "}\n";
     return str;
 }

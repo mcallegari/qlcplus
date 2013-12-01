@@ -40,6 +40,17 @@
 #include "chaser.h"
 #include "doc.h"
 
+#if defined( __APPLE__) || defined(Q_OS_MAC)
+  #include "audiorenderer_portaudio.h"
+  #include "audiocapture_portaudio.h"
+#elif defined(WIN32) || defined(Q_OS_WIN)
+  #include "audiorenderer_waveout.h"
+  #include "audiocapture_wavein.h"
+#else
+  #include "audiorenderer_alsa.h"
+  #include "audiocapture_alsa.h"
+#endif
+
 #define POST_DATA_SIZE 1024
 
 WebAccess* s_instance = NULL;
@@ -223,6 +234,29 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
             m_doc->outputMap()->setPatch(universe, cmdList[3], cmdList[4].toUInt(), false);
         else if (cmdList[1] == "FB")
             m_doc->outputMap()->setPatch(universe, cmdList[3], cmdList[4].toUInt(), true);
+        //else if (cmdList[1] == "PROFILE")
+        //    m_doc->outputMap()->setPatch(universe, cmdList[3], cmdList[4].toUInt(), true);
+        else if (cmdList[1] == "AUDIOIN")
+        {
+            QSettings settings;
+            if (cmdList[2] == "__qlcplusdefault__")
+                settings.remove(SETTINGS_AUDIO_INPUT_DEVICE);
+            else
+            {
+                settings.setValue(SETTINGS_AUDIO_INPUT_DEVICE, cmdList[2]);
+                m_doc->destroyAudioCapture();
+            }
+        }
+        else if (cmdList[1] == "AUDIOOUT")
+        {
+            QSettings settings;
+            if (cmdList[2] == "__qlcplusdefault__")
+                settings.remove(SETTINGS_AUDIO_OUTPUT_DEVICE);
+            else
+                settings.setValue(SETTINGS_AUDIO_OUTPUT_DEVICE, cmdList[2]);
+        }
+        else
+            qDebug() << "[webaccess] Command" << cmdList[1] << "not supported !";
 
         return 1;
     }
@@ -757,6 +791,39 @@ QString WebAccess::getConfigHTML()
 
         bodyHTML += "</tr>\n";
     }
+    bodyHTML += "</table>\n";
+
+    // ********************* audio devices ********************
+    QList<AudioDeviceInfo> devList;
+
+#if defined( __APPLE__) || defined(Q_OS_MAC)
+    devList = AudioRendererPortAudio::getDevicesInfo();
+#elif defined(WIN32) || defined(Q_OS_WIN)
+    devList = AudioRendererWaveOut::getDevicesInfo();
+#else
+    devList = AudioRendererAlsa::getDevicesInfo();
+#endif
+
+    bodyHTML += "<div style=\"margin: 30px 7% 30px 7%; width: 86%; height: 300px;\" >\n";
+    bodyHTML += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
+    bodyHTML += "<tr><th>Input</th><th>Output</th></tr>\n";
+    bodyHTML += "<tr>";
+
+    QString audioInSelect = "<td><select onchange=\"ioChanged('AUDIOIN', this.value);\">\n"
+                            "<option value=\"__qlcplusdefault__\">Default device</option>\n";
+    QString audioOutSelect = "<td><select onchange=\"ioChanged('AUDIOOUT', this.value);\">\n"
+                             "<option value=\"__qlcplusdefault__\">Default device</option>\n";
+
+    foreach( AudioDeviceInfo info, devList)
+    {
+        if (info.capabilities & AUDIO_CAP_INPUT)
+            audioInSelect += "<option value=\"" + info.privateName + "\">" + info.deviceName + "</option>\n";
+        if (info.capabilities & AUDIO_CAP_OUTPUT)
+            audioOutSelect += "<option value=\"" + info.privateName + "\">" + info.deviceName + "</option>\n";
+    }
+    audioInSelect += "</select></td>\n";
+    audioOutSelect += "</select></td>\n";
+    bodyHTML += audioInSelect + audioOutSelect + "</tr>\n</table>\n";
 
     QString str = HTML_HEADER + m_JScode + m_CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";
 
