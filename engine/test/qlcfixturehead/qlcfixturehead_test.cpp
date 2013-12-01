@@ -282,6 +282,45 @@ void QLCFixtureHead_Test::cacheChannelsPanTilt()
     delete mode;
 }
 
+void QLCFixtureHead_Test::doublePanTilt()
+{
+    // Test that the first found Pan/Tilt channel is used
+    // - for the case the user forgets to set the latter to LSB
+    // - in most cases the Pan MSB channel comes first
+    QLCFixtureMode* mode = new QLCFixtureMode(m_fixtureDef);
+    QCOMPARE(mode->channels().size(), 0);
+
+    m_ch1->setGroup(QLCChannel::Pan);
+    m_ch1->setControlByte(QLCChannel::MSB);
+    mode->insertChannel(m_ch1, 0);
+
+    m_ch2->setGroup(QLCChannel::Pan);
+    m_ch2->setControlByte(QLCChannel::MSB);
+    mode->insertChannel(m_ch2, 1);
+
+    m_ch3->setGroup(QLCChannel::Tilt);
+    m_ch3->setControlByte(QLCChannel::MSB);
+    mode->insertChannel(m_ch3, 2);
+
+    m_ch4->setGroup(QLCChannel::Tilt);
+    m_ch4->setControlByte(QLCChannel::MSB);
+    mode->insertChannel(m_ch4, 3);
+
+    QLCFixtureHead head;
+    head.addChannel(0);
+    head.addChannel(1);
+    head.addChannel(2);
+    head.addChannel(3);
+    head.cacheChannels(mode);
+
+    QCOMPARE(head.panMsbChannel(), quint32(0));
+    QCOMPARE(head.panLsbChannel(), QLCChannel::invalid());
+    QCOMPARE(head.tiltMsbChannel(), quint32(2));
+    QCOMPARE(head.tiltLsbChannel(), QLCChannel::invalid());
+
+    delete mode;
+}
+
 void QLCFixtureHead_Test::dimmerHead()
 {
     QLCDimmerHead dh(5);
