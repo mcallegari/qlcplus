@@ -431,6 +431,10 @@ QString VCSlider::sliderModeToString(SliderMode mode)
         return QString("Playback");
         break;
 
+    case Submaster:
+        return QString("Submaster");
+        break;
+
     default:
         return QString("Unknown");
         break;
@@ -441,8 +445,10 @@ VCSlider::SliderMode VCSlider::stringToSliderMode(const QString& mode)
 {
     if (mode == QString("Level"))
         return Level;
-    else // if (mode == QString("Playback"))
-        return Playback;
+    else  if (mode == QString("Playback"))
+       return Playback;
+    else //if (mode == QString("Submaster"))
+        return Submaster;
 }
 
 VCSlider::SliderMode VCSlider::sliderMode()
@@ -452,11 +458,10 @@ VCSlider::SliderMode VCSlider::sliderMode()
 
 void VCSlider::setSliderMode(SliderMode mode)
 {
-    Q_ASSERT(mode >= Level && mode <= Playback);
+    Q_ASSERT(mode >= Level && mode <= Submaster);
 
     /* Unregister this as a DMX source if the new mode is not "Level" or "Playback" */
-    if ((m_sliderMode == Level && mode != Level) ||
-        (m_sliderMode == Playback && mode != Playback))
+    if (m_sliderMode != Submaster && mode == Submaster)
     {
         m_doc->masterTimer()->unregisterDMXSource(this);
     }
@@ -512,6 +517,25 @@ void VCSlider::setSliderMode(SliderMode mode)
         slotSliderMoved(level);
 
         m_doc->masterTimer()->registerDMXSource(this);
+    }
+    else if (mode == Submaster)
+    {
+        m_bottomLabel->show();
+        if (m_slider)
+        {
+            m_slider->setRange(0, UCHAR_MAX);
+            m_slider->setValue(UCHAR_MAX);
+        }
+        else if (m_knob)
+        {
+            m_knob->setRange(0, UCHAR_MAX);
+            m_knob->setValue(UCHAR_MAX);
+        }
+
+        m_cngButton->hide();
+        slotSliderMoved(UCHAR_MAX);
+
+        // TODO: implement submaster logic
     }
 }
 
@@ -758,6 +782,23 @@ void VCSlider::slotPlaybackFunctionIntensityChanged(int attrIndex, qreal fractio
     else if (m_knob)
         m_knob->setValue(int(floor((qreal(m_knob->maximum()) * fraction) + 0.5)));
     m_externalMovement = false;
+}
+
+QList<quint32> VCSlider::channelGroups() const
+{
+    return m_channelGroups;
+}
+
+void VCSlider::clearChannelGroups()
+{
+    m_channelGroups.clear();
+    // TODO, actually implement submaster behavior
+}
+
+void VCSlider::addChannelGroup(quint32 channelGroupId)
+{
+    m_channelGroups.append(channelGroupId);
+    // TODO, actually implement submaster behavior
 }
 
 /*****************************************************************************
@@ -1294,6 +1335,10 @@ bool VCSlider::loadXML(const QDomElement* root)
         {
             loadXMLPlayback(&tag);
         }
+        else if (tag.tagName() == KXMLQLCVCSliderSubmaster)
+        {
+            loadXMLSubmaster(&tag);
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown slider tag:" << tag.tagName();
@@ -1392,6 +1437,41 @@ bool VCSlider::loadXMLPlayback(const QDomElement* pb_root)
     return true;
 }
 
+bool VCSlider::loadXMLSubmaster(const QDomElement *sm_root)
+{
+    QDomNode node;
+    QDomElement tag;
+
+    Q_ASSERT(sm_root != 0);
+
+    if (sm_root->tagName() != KXMLQLCVCSliderSubmaster)
+    {
+        qWarning() << Q_FUNC_INFO << "Slider submaster node not found";
+        return false;
+    }
+
+    /* Children */
+    clearChannelGroups();
+
+    node = sm_root->firstChild();
+    while (node.isNull() == false)
+    {
+        tag = node.toElement();
+        if (tag.tagName() == KXMLQLCVCSliderSubmasterChannelGroup)
+        {
+            addChannelGroup(tag.text().toUInt());
+        }
+        else
+        {
+            qWarning() << Q_FUNC_INFO << "Unknown slider submaster tag: " << tag.tagName();
+        }
+
+        node = node.nextSibling();
+    }
+
+    return true;
+}
+
 bool VCSlider::saveXML(QDomDocument* doc, QDomElement* vc_root)
 {
     QDomElement root;
@@ -1474,6 +1554,21 @@ bool VCSlider::saveXML(QDomDocument* doc, QDomElement* vc_root)
     text = doc->createTextNode(QString::number(playbackFunction()));
     subtag.appendChild(text);
     tag.appendChild(subtag);
+
+    /* Submaster */
+    tag = doc->createElement(KXMLQLCVCSliderSubmaster);
+    root.appendChild(tag);
+
+    /* submaster channel groups */
+    QListIterator<quint32> chg_it(m_channelGroups);
+    while (chg_it.hasNext() == true)
+    {
+        subtag = doc->createElement(KXMLQLCVCSliderSubmasterChannelGroup);
+
+        text = doc->createTextNode(QString::number(chg_it.next()));
+        subtag.appendChild(text);
+        tag.appendChild(subtag);
+    }
 
     return true;
 }

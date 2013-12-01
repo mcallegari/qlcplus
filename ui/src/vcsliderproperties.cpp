@@ -93,6 +93,10 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
     connect(m_detachPlaybackFunctionButton, SIGNAL(clicked()),
             this, SLOT(slotDetachPlaybackFunctionClicked()));
 
+    /* Submaster page connections */
+    connect(m_switchToSubmasterModeButton, SIGNAL(clicked()),
+            this, SLOT(slotModeSubmasterClicked()));
+
     /*********************************************************************
      * General page
      *********************************************************************/
@@ -116,6 +120,9 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
         break;
     case VCSlider::Playback:
         slotModePlaybackClicked();
+        break;
+    case VCSlider::Submaster:
+        slotModeSubmasterClicked();
         break;
     }
 
@@ -173,7 +180,10 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
     m_playbackFunctionId = m_slider->playbackFunction();
     updatePlaybackFunctionName();
 
-
+    /*********************************************************************
+     * Submaster page
+     *********************************************************************/
+    submasterUpdateChannelGroups();
 }
 
 VCSliderProperties::~VCSliderProperties()
@@ -184,9 +194,40 @@ VCSliderProperties::~VCSliderProperties()
  * General page
  *****************************************************************************/
 
+void VCSliderProperties::disableLevelTabWidgets()
+{
+    m_levelValueRangeGroup->hide();
+    m_levelList->hide();
+    m_levelAllButton->hide();
+    m_levelNoneButton->hide();
+    m_levelInvertButton->hide();
+    m_levelByGroupButton->hide();
+    m_clickngoGroup->hide();
+
+    m_levelSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
+    m_switchToLevelModeButton->show();
+}
+
+void VCSliderProperties::disablePlaybackTabWidgets()
+{
+    m_playbackFunctionGroup->hide();
+    m_playbackSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
+
+    m_switchToPlaybackModeButton->show();
+}
+
+void VCSliderProperties::disableSubmasterTabWidgets()
+{
+    m_channelGroupbox->hide();
+    m_switchToSubmasterModeButton->show();
+}
+
 void VCSliderProperties::slotModeLevelClicked()
 {
     m_sliderMode = VCSlider::Level;
+
+    disablePlaybackTabWidgets();
+    disableSubmasterTabWidgets();
 
     m_nameEdit->setEnabled(true);
 
@@ -198,13 +239,9 @@ void VCSliderProperties::slotModeLevelClicked()
     m_levelByGroupButton->show();
     m_clickngoGroup->show();
 
-    m_playbackFunctionGroup->hide();
-
     m_switchToLevelModeButton->hide();
-    m_switchToPlaybackModeButton->show();
 
     m_levelSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
-    m_playbackSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
 
     int cngType = m_slider->clickAndGoType();
     switch(cngType)
@@ -240,23 +277,27 @@ void VCSliderProperties::slotModePlaybackClicked()
 {
     m_sliderMode = VCSlider::Playback;
 
-    m_nameEdit->setEnabled(true);
+    disableLevelTabWidgets();
+    disableSubmasterTabWidgets();
 
-    m_levelValueRangeGroup->hide();
-    m_levelList->hide();
-    m_levelAllButton->hide();
-    m_levelNoneButton->hide();
-    m_levelInvertButton->hide();
-    m_levelByGroupButton->hide();
-    m_clickngoGroup->hide();
+    m_nameEdit->setEnabled(true);
 
     m_playbackFunctionGroup->show();
 
-    m_switchToLevelModeButton->show();
     m_switchToPlaybackModeButton->hide();
 
-    m_levelSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
     m_playbackSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Expanding);
+}
+
+void VCSliderProperties::slotModeSubmasterClicked()
+{
+    m_sliderMode = VCSlider::Submaster;
+
+    disableLevelTabWidgets();
+    disablePlaybackTabWidgets();
+
+    m_channelGroupbox->show();
+    m_switchToSubmasterModeButton->hide();
 }
 
 void VCSliderProperties::slotAutoDetectInputToggled(bool checked)
@@ -687,6 +728,27 @@ void VCSliderProperties::updatePlaybackFunctionName()
     }
 }
 
+void VCSliderProperties::submasterUpdateChannelGroups()
+{
+    // copy paste from sceneeditor.cpp line 289 FIXME
+    // Channels groups tab
+    QList<quint32> chGrpIds = m_slider->channelGroups();
+    QListIterator <ChannelsGroup*> scg(m_doc->channelsGroups());
+    while (scg.hasNext() == true)
+    {
+        QTreeWidgetItem* item = new QTreeWidgetItem(m_channelGroupTreeWidget);
+        ChannelsGroup *grp = scg.next();
+        item->setText(KColumnName, grp->name());
+        item->setData(KColumnName, Qt::UserRole, grp->id());
+
+        item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+        if (chGrpIds.contains(grp->id()))
+            item->setCheckState(KColumnName, Qt::Checked);
+        else
+            item->setCheckState(KColumnName, Qt::Unchecked);
+    }
+}
+
 /*****************************************************************************
  * OK & Cancel
  *****************************************************************************/
@@ -779,6 +841,21 @@ void VCSliderProperties::storeLevelChannels()
     }
 }
 
+void VCSliderProperties::storeSubmasterChannelGroups()
+{
+    m_slider->clearChannelGroups();
+    for (int i = 0; i < m_channelGroupTreeWidget->topLevelItemCount(); i++)
+    {
+        QTreeWidgetItem* chg_item = m_channelGroupTreeWidget->topLevelItem(i);
+        Q_ASSERT(chg_item != 0);
+        if (chg_item->checkState(KColumnName) == Qt::Checked)
+        {
+            QVariant id = chg_item->data(KColumnName, Qt::UserRole);
+            m_slider->addChannelGroup(id.toUInt());
+        }
+    }
+}
+
 void VCSliderProperties::accept()
 {
     /* Widget appearance */
@@ -806,6 +883,9 @@ void VCSliderProperties::accept()
 
     /* Playback page */
     m_slider->setPlaybackFunction(m_playbackFunctionId);
+
+    /* Submaster page*/
+    storeSubmasterChannelGroups();
 
     /* Slider mode */
     m_slider->setSliderMode(VCSlider::SliderMode(m_sliderMode));

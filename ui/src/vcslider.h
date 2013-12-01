@@ -64,6 +64,8 @@ class VCSliderProperties;
 #define KXMLQLCVCSliderPlayback "Playback"
 #define KXMLQLCVCSliderPlaybackFunction "Function"
 
+#define KXMLQLCVCSliderSubmaster "Submaster"
+#define KXMLQLCVCSliderSubmasterChannelGroup "ChannelGroup"
 
 class VCSlider : public VCWidget, public DMXSource
 {
@@ -129,7 +131,8 @@ public:
     enum SliderMode
     {
         Level,
-        Playback
+        Playback,
+        Submaster
     };
 
 public:
@@ -350,6 +353,18 @@ protected:
     bool m_playbackValueChanged;
     QMutex m_playbackValueMutex;
 
+
+    /*********************************************************************
+     * Submaster
+     *********************************************************************/
+public:
+    QList<quint32> channelGroups() const;
+    void clearChannelGroups();
+    void addChannelGroup(quint32 channelGroupId);
+
+protected:
+    QList<quint32> m_channelGroups;
+
     /*********************************************************************
      * DMXSource
      *********************************************************************/
@@ -500,6 +515,7 @@ public:
     bool loadXML(const QDomElement* root);
     bool loadXMLLevel(const QDomElement* level_root);
     bool loadXMLPlayback(const QDomElement* pb_root);
+    bool loadXMLSubmaster(const QDomElement* sm_root);
 
     bool saveXML(QDomDocument* doc, QDomElement* vc_root);
 };
