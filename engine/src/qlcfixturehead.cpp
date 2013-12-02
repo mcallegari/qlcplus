@@ -121,6 +121,11 @@ void QLCFixtureHead::cacheChannels(const QLCFixtureMode* mode)
 
     quint32 r, g, b, c, m, y;
     r = g = b = c = m = y = QLCChannel::invalid();
+    m_panMsbChannel = QLCChannel::invalid();
+    m_tiltMsbChannel = QLCChannel::invalid();
+    m_panLsbChannel = QLCChannel::invalid();
+    m_tiltLsbChannel = QLCChannel::invalid();
+    m_masterIntensityChannel = QLCChannel::invalid();
 
     QSetIterator <quint32> it(m_channels);
     while (it.hasNext() == true)
@@ -132,7 +137,7 @@ void QLCFixtureHead::cacheChannels(const QLCFixtureMode* mode)
         if (ch->group() == QLCChannel::Pan)
         {
             if (ch->controlByte() == QLCChannel::MSB &&
-                m_panMsbChannel == QLCChannel::invalid())
+                m_panMsbChannel > i)
             {
                 m_panMsbChannel = i;
             }
@@ -145,55 +150,55 @@ void QLCFixtureHead::cacheChannels(const QLCFixtureMode* mode)
         else if (ch->group() == QLCChannel::Tilt)
         {
             if (ch->controlByte() == QLCChannel::MSB &&
-                m_tiltMsbChannel == QLCChannel::invalid())
+                m_tiltMsbChannel > i)
             {
                 m_tiltMsbChannel = i;
             }
             else if (ch->controlByte() == QLCChannel::LSB &&
-                     m_tiltLsbChannel == QLCChannel::invalid())
+                     m_tiltLsbChannel > i)
             {
                 m_tiltLsbChannel = i;
             }
         }
         else if (ch->group() == QLCChannel::Intensity &&
                  ch->colour() == QLCChannel::NoColour &&
-                 m_masterIntensityChannel == QLCChannel::invalid())
+                 m_masterIntensityChannel > i)
         {
             m_masterIntensityChannel = i;
         }
         else if (ch->group() == QLCChannel::Intensity &&
                  ch->colour() == QLCChannel::Red &&
-                 r == QLCChannel::invalid())
+                 r > i)
         {
             r = i;
         }
         else if (ch->group() == QLCChannel::Intensity &&
                  ch->colour() == QLCChannel::Green &&
-                 g == QLCChannel::invalid())
+                 g > i)
         {
             g = i;
         }
         else if (ch->group() == QLCChannel::Intensity &&
                  ch->colour() == QLCChannel::Blue &&
-                 b == QLCChannel::invalid())
+                 b > i)
         {
             b = i;
         }
         else if (ch->group() == QLCChannel::Intensity &&
                  ch->colour() == QLCChannel::Cyan &&
-                 c == QLCChannel::invalid())
+                 c > i)
         {
             c = i;
         }
         else if (ch->group() == QLCChannel::Intensity &&
                  ch->colour() == QLCChannel::Magenta &&
-                 m == QLCChannel::invalid())
+                 m > i)
         {
             m = i;
         }
         else if (ch->group() == QLCChannel::Intensity &&
                  ch->colour() == QLCChannel::Yellow &&
-                 y == QLCChannel::invalid())
+                 y > i)
         {
             y = i;
         }
