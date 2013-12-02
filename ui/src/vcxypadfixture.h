@@ -24,6 +24,8 @@
 #include <QVariant>
 #include <QString>
 
+#include "grouphead.h"
+
 class VCXYPadFixture;
 class UniverseArray;
 class QDomDocument;
@@ -32,6 +34,7 @@ class Doc;
 
 #define KXMLQLCVCXYPadFixture "Fixture"
 #define KXMLQLCVCXYPadFixtureID "ID"
+#define KXMLQLCVCXYPadFixtureHead "Head"
 
 #define KXMLQLCVCXYPadFixtureAxis "Axis"
 #define KXMLQLCVCXYPadFixtureAxisID "ID"
@@ -64,16 +67,16 @@ private:
     Doc* m_doc;
 
     /********************************************************************
-     * Fixture
+     * Fixture Head
      ********************************************************************/
 public:
-    void setFixture(quint32 fxi_id);
-    quint32 fixture() const;
+    void setHead(GroupHead const & head);
+    GroupHead const & head() const;
 
     QString name() const;
 
 private:
-    quint32 m_fixture;
+    GroupHead m_head;
 
     /********************************************************************
      * X-Axis

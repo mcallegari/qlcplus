@@ -681,7 +681,7 @@ void FixtureRemap::accept()
 
                 foreach( EFXFixture *efxFix, fixListCopy)
                 {
-                    quint32 fxID = efxFix->fixture();
+                    quint32 fxID = efxFix->head().fxi;
                     for (int i = 0; i < sourceList.count(); i++)
                     {
                         SceneValue val = sourceList.at(i);
@@ -696,7 +696,7 @@ void FixtureRemap::accept()
                             {
                                 EFXFixture* ef = new EFXFixture(e);
                                 ef->copyFrom(efxFix);
-                                ef->setFixture(tgtVal.fxi);
+                                ef->setHead(GroupHead(tgtVal.fxi)); // TODO!!! head!!!
                                 if (e->addFixture(ef) == false)
                                     delete ef;
                                 qDebug() << "EFX remap" << val.fxi << "to" << tgtVal.fxi;

@@ -71,12 +71,12 @@ void VCXYPadFixtureEditor_Test::initial()
 
     VCXYPadFixture fxi(m_doc);
 
-    fxi.setFixture(0);
+    fxi.setHead(GroupHead(0, 0));
     fxi.setX(0.1, 0.2, false);
     fxi.setY(0.3, 0.4, true);
     list << fxi;
 
-    fxi.setFixture(1);
+    fxi.setHead(GroupHead(1, 0));
     fxi.setX(0, 1, true);
     fxi.setY(0, 1, false);
     list << fxi;
@@ -132,12 +132,12 @@ void VCXYPadFixtureEditor_Test::accept()
 
     VCXYPadFixture fxi(m_doc);
 
-    fxi.setFixture(0);
+    fxi.setHead(GroupHead(0, 0));
     fxi.setX(0, 1, false);
     fxi.setY(0, 1, false);
     list << fxi;
 
-    fxi.setFixture(1);
+    fxi.setHead(GroupHead(1, 0));
     fxi.setX(0.5, 0.6, true);
     fxi.setY(0.5, 0.6, true);
     list << fxi;
@@ -154,12 +154,14 @@ void VCXYPadFixtureEditor_Test::accept()
     QCOMPARE(fe.m_yMax->value(), 40);
 
     list = fe.fixtures();
-    QCOMPARE(list[0].fixture(), quint32(0));
+    QCOMPARE(list[0].head().fxi, quint32(0));
+    QCOMPARE(list[0].head().head, 0);
     QCOMPARE(list[0].xMin(), qreal(0.1));
     QCOMPARE(list[0].xMax(), qreal(0.2));
     QCOMPARE(list[0].yMin(), qreal(0.3));
     QCOMPARE(list[0].yMax(), qreal(0.4));
-    QCOMPARE(list[1].fixture(), quint32(1));
+    QCOMPARE(list[1].head().fxi, quint32(1));
+    QCOMPARE(list[1].head().head, 0);
     QCOMPARE(list[1].xMin(), qreal(0.1));
     QCOMPARE(list[1].xMax(), qreal(0.2));
     QCOMPARE(list[1].yMin(), qreal(0.3));

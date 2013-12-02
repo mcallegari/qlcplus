@@ -79,7 +79,8 @@ void EFXFixture_Test::initial()
     EFX e(m_doc);
 
     EFXFixture ef(&e);
-    QVERIFY(ef.fixture() == Fixture::invalidId());
+    QVERIFY(ef.head().fxi == Fixture::invalidId());
+    QVERIFY(ef.head().head == -1);
     QVERIFY(ef.direction() == EFX::Forward);
     QVERIFY(ef.serialNumber() == 0);
     QVERIFY(ef.fadeIntensity() == uchar(255));
@@ -98,7 +99,8 @@ void EFXFixture_Test::copyFrom()
     EFX e(m_doc);
 
     EFXFixture ef(&e);
-    ef.m_fixture = 15;
+    ef.m_head.fxi = 15;
+    ef.m_head.head = 16;
     ef.m_direction = EFX::Backward;
     ef.m_serialNumber = 25;
     ef.m_runTimeDirection = EFX::Backward;
@@ -109,7 +111,8 @@ void EFXFixture_Test::copyFrom()
 
     EFXFixture copy(&e);
     copy.copyFrom(&ef);
-    QVERIFY(copy.m_fixture == 15);
+    QVERIFY(copy.m_head.fxi == 15);
+    QVERIFY(copy.m_head.head == 16);
     QVERIFY(copy.m_direction == EFX::Backward);
     QVERIFY(copy.m_serialNumber == 25);
     QVERIFY(copy.m_runTimeDirection == EFX::Backward);
@@ -124,11 +127,12 @@ void EFXFixture_Test::publicProperties()
     EFX e(m_doc);
     EFXFixture ef(&e);
 
-    ef.setFixture(19);
-    QVERIFY(ef.fixture() == 19);
+    ef.setHead(GroupHead(19, 5));
+    QVERIFY(ef.head().fxi == 19);
+    QVERIFY(ef.head().head == 5);
 
-    ef.setFixture(Fixture::invalidId());
-    QVERIFY(ef.fixture() == Fixture::invalidId());
+    ef.setHead(GroupHead());
+    QVERIFY(ef.head().fxi == Fixture::invalidId());
 
     ef.setDirection(EFX::Backward);
     QVERIFY(ef.direction() == EFX::Backward);
@@ -153,6 +157,11 @@ void EFXFixture_Test::loadSuccess()
     id.appendChild(idText);
     root.appendChild(id);
 
+    QDomElement head = doc.createElement("Head");
+    QDomText headText = doc.createTextNode("76");
+    head.appendChild(headText);
+    root.appendChild(head);
+
     QDomElement dir = doc.createElement("Direction");
     QDomText dirText = doc.createTextNode("Backward");
     dir.appendChild(dirText);
@@ -166,7 +175,8 @@ void EFXFixture_Test::loadSuccess()
     EFX e(m_doc);
     EFXFixture ef(&e);
     QVERIFY(ef.loadXML(root) == true);
-    QVERIFY(ef.fixture() == 83);
+    QVERIFY(ef.head().fxi == 83);
+    QVERIFY(ef.head().head == 76);
     QVERIFY(ef.direction() == EFX::Backward);
     QVERIFY(ef.fadeIntensity() == 91);
 }
@@ -190,7 +200,7 @@ void EFXFixture_Test::loadWrongRoot()
     EFX e(m_doc);
     EFXFixture ef(&e);
     QVERIFY(ef.loadXML(root) == false);
-    QVERIFY(ef.fixture() == Fixture::invalidId());
+    QVERIFY(!ef.head().isValid());
     QVERIFY(ef.direction() == EFX::Forward);
 }
 
@@ -213,7 +223,7 @@ void EFXFixture_Test::loadWrongDirection()
     EFX e(m_doc);
     EFXFixture ef(&e);
     QVERIFY(ef.loadXML(root) == true);
-    QVERIFY(ef.fixture() == 97);
+    QVERIFY(ef.head().fxi == 97);
     QVERIFY(ef.direction() == EFX::Forward);
 }
 
@@ -241,7 +251,7 @@ void EFXFixture_Test::loadExtraTag()
     EFX e(m_doc);
     EFXFixture ef(&e);
     QVERIFY(ef.loadXML(root) == true);
-    QVERIFY(ef.fixture() == 108);
+    QVERIFY(ef.head().fxi == 108);
     QVERIFY(ef.direction() == EFX::Forward);
 }
 
@@ -249,7 +259,7 @@ void EFXFixture_Test::save()
 {
     EFX e(m_doc);
     EFXFixture ef(&e);
-    ef.setFixture(56);
+    ef.setHead(GroupHead(56, 7));
     ef.setDirection(EFX::Backward);
 
     QDomDocument doc;
@@ -263,6 +273,10 @@ void EFXFixture_Test::save()
     tag = tag.firstChild().toElement();
     QVERIFY(tag.tagName() == "ID");
     QVERIFY(tag.text() == "56");
+
+    tag = tag.nextSibling().toElement();
+    QVERIFY(tag.tagName() == "Head");
+    QVERIFY(tag.text() == "7");
 
     tag = tag.nextSibling().toElement();
     QVERIFY(tag.tagName() == "Direction");
@@ -285,7 +299,7 @@ void EFXFixture_Test::isValid()
 
     QVERIFY(ef.isValid() == false);
 
-    ef.setFixture(0);
+    ef.setHead(GroupHead(0,0));
     QVERIFY(ef.isValid() == true);
 }
 
@@ -294,7 +308,7 @@ void EFXFixture_Test::reset()
     EFX e(m_doc);
 
     EFXFixture* ef1 = new EFXFixture(&e);
-    ef1->setFixture(1);
+    ef1->setHead(GroupHead(1,0));
     ef1->setSerialNumber(0);
     ef1->m_runTimeDirection = EFX::Forward;
     ef1->m_ready = true;
@@ -302,7 +316,7 @@ void EFXFixture_Test::reset()
     e.addFixture(ef1);
 
     EFXFixture* ef2 = new EFXFixture(&e);
-    ef2->setFixture(2);
+    ef2->setHead(GroupHead(2,0));
     ef2->setSerialNumber(1);
     ef2->m_runTimeDirection = EFX::Forward;
     ef2->m_ready = true;
@@ -310,7 +324,7 @@ void EFXFixture_Test::reset()
     e.addFixture(ef2);
 
     EFXFixture* ef3 = new EFXFixture(&e);
-    ef3->setFixture(3);
+    ef3->setHead(GroupHead(3,0));
     ef3->setSerialNumber(2);
     ef3->setDirection(EFX::Forward);
     ef3->m_runTimeDirection = EFX::Backward;
@@ -319,7 +333,7 @@ void EFXFixture_Test::reset()
     e.addFixture(ef3);
 
     EFXFixture* ef4 = new EFXFixture(&e);
-    ef4->setFixture(4);
+    ef4->setHead(GroupHead(4,0));
     ef4->setSerialNumber(3);
     ef4->setDirection(EFX::Forward);
     ef4->m_runTimeDirection = EFX::Backward;
@@ -328,7 +342,7 @@ void EFXFixture_Test::reset()
     e.addFixture(ef4);
 
     ef1->reset();
-    QVERIFY(ef1->m_fixture == 1);
+    QVERIFY(ef1->m_head.fxi == 1);
     QVERIFY(ef1->m_direction == EFX::Forward);
     QVERIFY(ef1->m_serialNumber == 0);
     QVERIFY(ef1->m_runTimeDirection == EFX::Forward);
@@ -336,7 +350,7 @@ void EFXFixture_Test::reset()
     QVERIFY(ef1->m_elapsed == 0);
 
     ef2->reset();
-    QVERIFY(ef2->m_fixture == 2);
+    QVERIFY(ef2->m_head.fxi == 2);
     QVERIFY(ef2->m_direction == EFX::Forward);
     QVERIFY(ef2->m_serialNumber == 1);
     QVERIFY(ef2->m_runTimeDirection == EFX::Forward);
@@ -344,7 +358,7 @@ void EFXFixture_Test::reset()
     QVERIFY(ef2->m_elapsed == 0);
 
     ef3->reset();
-    QVERIFY(ef3->m_fixture == 3);
+    QVERIFY(ef3->m_head.fxi == 3);
     QVERIFY(ef3->m_direction == EFX::Forward);
     QVERIFY(ef3->m_serialNumber == 2);
     QVERIFY(ef3->m_runTimeDirection == EFX::Forward);
@@ -352,7 +366,7 @@ void EFXFixture_Test::reset()
     QVERIFY(ef3->m_elapsed == 0);
 
     ef4->reset();
-    QVERIFY(ef4->m_fixture == 4);
+    QVERIFY(ef4->m_head.fxi == 4);
     QVERIFY(ef4->m_direction == EFX::Forward);
     QVERIFY(ef4->m_serialNumber == 3);
     QVERIFY(ef4->m_runTimeDirection == EFX::Forward);
@@ -364,7 +378,7 @@ void EFXFixture_Test::startOffset()
 {
     EFX e(m_doc);
     EFXFixture ef(&e);
-    ef.setFixture(0);
+    ef.setHead(GroupHead(0,0));
 
     QCOMPARE(0, ef.startOffset());
     for(int i = 0; i < 360; i += 90)
@@ -387,7 +401,7 @@ void EFXFixture_Test::setPoint8bit()
 
     EFX e(m_doc);
     EFXFixture ef(&e);
-    ef.setFixture(fxi->id());
+    ef.setHead(GroupHead(fxi->id(),0));
 
     UniverseArray array(512 * 4);
     ef.setPoint(&array, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
@@ -403,7 +417,7 @@ void EFXFixture_Test::setPoint16bit()
 {
     EFX e(m_doc);
     EFXFixture ef(&e);
-    ef.setFixture(0);
+    ef.setHead(GroupHead(0,0));
 
     UniverseArray array(512 * 4);
     ef.setPoint(&array, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
@@ -422,7 +436,7 @@ void EFXFixture_Test::nextStepLoop()
     e.setDuration(1000); // 1s
 
     EFXFixture* ef = new EFXFixture(&e);
-    ef->setFixture(0);
+    ef->setHead(GroupHead(0,0));
     e.addFixture(ef);
 
     /* Initialize the EFXFixture so that it can do math */
@@ -460,7 +474,7 @@ void EFXFixture_Test::nextStepLoopZeroDuration()
     e.setDuration(0); // 0s
 
     EFXFixture* ef = new EFXFixture(&e);
-    ef->setFixture(0);
+    ef->setHead(GroupHead(0,0));
     e.addFixture(ef);
 
     /* Initialize the EFXFixture so that it can do math */
@@ -499,7 +513,7 @@ void EFXFixture_Test::nextStepSingleShot()
     e.setRunOrder(EFX::SingleShot);
 
     EFXFixture* ef = new EFXFixture(&e);
-    ef->setFixture(0);
+    ef->setHead(GroupHead(0,0));
     e.addFixture(ef);
 
     /* Initialize the EFXFixture so that it can do math */
@@ -538,7 +552,7 @@ void EFXFixture_Test::start()
     e.setFadeInSpeed(1000);
     e.setFadeOutSpeed(2000);
     EFXFixture* ef = new EFXFixture(&e);
-    ef->setFixture(0);
+    ef->setHead(GroupHead(0,0));
     e.addFixture(ef);
 
     Fixture* fxi = m_doc->fixture(0);
@@ -575,7 +589,7 @@ void EFXFixture_Test::stop()
     e.setFadeInSpeed(1000);
     e.setFadeOutSpeed(2000);
     EFXFixture* ef = new EFXFixture(&e);
-    ef->setFixture(0);
+    ef->setHead(GroupHead(0,0));
     e.addFixture(ef);
 
     Fixture* fxi = m_doc->fixture(0);

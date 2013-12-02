@@ -54,7 +54,7 @@ void VCXYPadFixture_Test::cleanup()
 void VCXYPadFixture_Test::initial()
 {
     VCXYPadFixture fxi(m_doc);
-    QCOMPARE(fxi.m_fixture, Fixture::invalidId());
+    QVERIFY(!fxi.m_head.isValid());
     QCOMPARE(fxi.m_doc, m_doc);
 
     QCOMPARE(fxi.m_xMin, qreal(0));
@@ -99,6 +99,7 @@ void VCXYPadFixture_Test::fromVariantBelowZero()
 {
     QStringList list;
     list << QString("12");
+    list << QString("7");
     list << QString("-0.1");
     list << QString("-0.2");
     list << QString("0");
@@ -107,7 +108,8 @@ void VCXYPadFixture_Test::fromVariantBelowZero()
     list << QString("0");
 
     VCXYPadFixture fxi(m_doc, list);
-    QCOMPARE(fxi.m_fixture, quint32(12));
+    QCOMPARE(fxi.m_head.fxi, quint32(12));
+    QCOMPARE(fxi.m_head.head, 7);
 
     QCOMPARE(fxi.m_xMin, qreal(0));
     QCOMPARE(fxi.m_xMax, qreal(0));
@@ -127,6 +129,7 @@ void VCXYPadFixture_Test::fromVariantAboveOne()
 {
     QStringList list;
     list << QString("12");
+    list << QString("0");
     list << QString("1.1");
     list << QString("1.2");
     list << QString("2");
@@ -135,7 +138,8 @@ void VCXYPadFixture_Test::fromVariantAboveOne()
     list << QString("3");
 
     VCXYPadFixture fxi(m_doc, list);
-    QCOMPARE(fxi.m_fixture, quint32(12));
+    QCOMPARE(fxi.m_head.fxi, quint32(12));
+    QCOMPARE(fxi.m_head.head, 0);
 
     QCOMPARE(fxi.m_xMin, qreal(1));
     QCOMPARE(fxi.m_xMax, qreal(1));
@@ -155,6 +159,7 @@ void VCXYPadFixture_Test::fromVariantWithinRange()
 {
     QStringList list;
     list << QString("12");
+    list << QString("0");
     list << QString("0.3");
     list << QString("0.4");
     list << QString("1");
@@ -163,7 +168,8 @@ void VCXYPadFixture_Test::fromVariantWithinRange()
     list << QString("1");
 
     VCXYPadFixture fxi(m_doc, list);
-    QCOMPARE(fxi.m_fixture, quint32(12));
+    QCOMPARE(fxi.m_head.fxi, quint32(12));
+    QCOMPARE(fxi.m_head.head, 0);
 
     QCOMPARE(fxi.m_xMin, qreal(0.3));
     QCOMPARE(fxi.m_xMax, qreal(0.4));
@@ -183,6 +189,7 @@ void VCXYPadFixture_Test::fromVariantWrongSize()
 {
     QStringList list;
     list << QString("12");
+    list << QString("0");
     list << QString("0.3");
     list << QString("0.4");
     list << QString("1");
@@ -192,7 +199,7 @@ void VCXYPadFixture_Test::fromVariantWrongSize()
     list.takeLast();
 
     VCXYPadFixture fxi(m_doc, list);
-    QCOMPARE(fxi.m_fixture, Fixture::invalidId());
+    QVERIFY(!fxi.m_head.isValid());
 
     QCOMPARE(fxi.m_xMin, qreal(0));
     QCOMPARE(fxi.m_xMax, qreal(1));
@@ -211,7 +218,7 @@ void VCXYPadFixture_Test::fromVariantWrongSize()
 void VCXYPadFixture_Test::fromVariantWrongVariant()
 {
     VCXYPadFixture fxi(m_doc, QVariant(42));
-    QCOMPARE(fxi.m_fixture, Fixture::invalidId());
+    QVERIFY(!fxi.m_head.isValid());
 
     QCOMPARE(fxi.m_xMin, qreal(0));
     QCOMPARE(fxi.m_xMax, qreal(1));
@@ -230,15 +237,16 @@ void VCXYPadFixture_Test::fromVariantWrongVariant()
 void VCXYPadFixture_Test::toVariant()
 {
     VCXYPadFixture fxi(m_doc);
-    fxi.setFixture(3000);
+    fxi.setHead(GroupHead(3000, 178));
     fxi.setX(0.1, 0.2, true);
     fxi.setY(0.3, 0.4, false);
 
     QVariant var(fxi);
     QVERIFY(var.canConvert<QStringList>() == true);
     QStringList list = var.toStringList();
-    QCOMPARE(list.size(), 7);
+    QCOMPARE(list.size(), 8);
     QCOMPARE(list.takeFirst(), QString("3000"));
+    QCOMPARE(list.takeFirst(), QString("178"));
     QCOMPARE(list.takeFirst(), QString("0.1"));
     QCOMPARE(list.takeFirst(), QString("0.2"));
     QCOMPARE(list.takeFirst(), QString("1"));
@@ -250,13 +258,13 @@ void VCXYPadFixture_Test::toVariant()
 void VCXYPadFixture_Test::copy()
 {
     VCXYPadFixture fxi(m_doc);
-    fxi.setFixture(3000);
+    fxi.setHead(GroupHead(3000, 178));
     fxi.setX(0.1, 0.2, true);
     fxi.setY(0.3, 0.4, false);
 
     VCXYPadFixture fxi2 = fxi;
     QCOMPARE(fxi2.m_doc, fxi.m_doc);
-    QCOMPARE(fxi2.fixture(), fxi.fixture());
+    QCOMPARE(fxi2.head(), fxi.head());
 
     QCOMPARE(fxi2.xMin(), fxi.xMin());
     QCOMPARE(fxi2.xMax(), fxi.xMax());
@@ -270,14 +278,14 @@ void VCXYPadFixture_Test::copy()
 void VCXYPadFixture_Test::compare()
 {
     VCXYPadFixture fxi(m_doc);
-    fxi.setFixture(42);
+    fxi.setHead(GroupHead(42, 13));
 
     VCXYPadFixture fxi2(m_doc);
-    fxi2.setFixture(24);
+    fxi2.setHead(GroupHead(24, 31));
 
     QVERIFY((fxi == fxi2) == false);
 
-    fxi2.setFixture(42);
+    fxi2.setHead(GroupHead(42, 13));
     QVERIFY(fxi == fxi2);
 }
 
@@ -291,10 +299,10 @@ void VCXYPadFixture_Test::name()
     VCXYPadFixture xy(m_doc);
     QCOMPARE(xy.name(), QString());
 
-    xy.setFixture(fxi->id());
+    xy.setHead(GroupHead(fxi->id(), 0));
     QCOMPARE(xy.name(), QString("Test fixture"));
 
-    xy.setFixture(fxi->id() + 1);
+    xy.setHead(GroupHead(fxi->id() + 1, 0));
     QCOMPARE(xy.name(), QString());
 
     m_doc->deleteFixture(fxi->id());
@@ -305,6 +313,7 @@ void VCXYPadFixture_Test::loadXMLWrongRoot()
     QDomDocument doc;
     QDomElement root = doc.createElement("Fixteru");
     root.setAttribute("ID", "69");
+    root.setAttribute("Head", "0");
     doc.appendChild(root);
 
     VCXYPadFixture fxi(m_doc);
@@ -316,6 +325,7 @@ void VCXYPadFixture_Test::loadXMLHappy()
     QDomDocument doc;
     QDomElement root = doc.createElement("Fixture");
     root.setAttribute("ID", "69");
+    root.setAttribute("Head", "0");
     doc.appendChild(root);
 
     QDomElement x = doc.createElement("Axis");
@@ -348,7 +358,8 @@ void VCXYPadFixture_Test::loadXMLHappy()
 
     VCXYPadFixture fxi(m_doc);
     QVERIFY(fxi.loadXML(root) == true);
-    QCOMPARE(fxi.fixture(), quint32(69));
+    QCOMPARE(fxi.head().fxi, quint32(69));
+    QCOMPARE(fxi.head().head, 0);
 
     QCOMPARE(fxi.xMin(), qreal(0.1));
     QCOMPARE(fxi.xMax(), qreal(0.5));
@@ -364,6 +375,7 @@ void VCXYPadFixture_Test::loadXMLSad()
     QDomDocument doc;
     QDomElement root = doc.createElement("Fixture");
     root.setAttribute("ID", "69");
+    root.setAttribute("Head", "0");
     doc.appendChild(root);
 
     QDomElement x = doc.createElement("Axis");
@@ -396,7 +408,8 @@ void VCXYPadFixture_Test::loadXMLSad()
 
     VCXYPadFixture fxi(m_doc);
     QVERIFY(fxi.loadXML(root) == true);
-    QCOMPARE(fxi.fixture(), quint32(69));
+    QCOMPARE(fxi.head().fxi, quint32(69));
+    QCOMPARE(fxi.head().head, 0);
 
     QCOMPARE(fxi.xMin(), qreal(0.1));
     QCOMPARE(fxi.xMax(), qreal(0.5));
@@ -410,7 +423,7 @@ void VCXYPadFixture_Test::loadXMLSad()
 void VCXYPadFixture_Test::saveXMLHappy()
 {
     VCXYPadFixture fxi(m_doc);
-    fxi.setFixture(54);
+    fxi.setHead(GroupHead(54,32));
     fxi.setX(0.1, 0.2, true);
     fxi.setY(0.3, 0.4, true);
 
@@ -422,6 +435,7 @@ void VCXYPadFixture_Test::saveXMLHappy()
     QDomNode node = root.firstChild();
     QCOMPARE(node.toElement().tagName(), QString("Fixture"));
     QCOMPARE(node.toElement().attribute("ID"), QString("54"));
+    QCOMPARE(node.toElement().attribute("Head"), QString("32"));
 
     bool x = false, y = false;
     node = node.firstChild();
@@ -468,7 +482,7 @@ void VCXYPadFixture_Test::saveXMLHappy()
 void VCXYPadFixture_Test::saveXMLSad()
 {
     VCXYPadFixture fxi(m_doc);
-    fxi.setFixture(54);
+    fxi.setHead(GroupHead(54,32));
     fxi.setX(0.1, 0.2, false);
     fxi.setY(0.3, 0.4, false);
 
@@ -480,6 +494,7 @@ void VCXYPadFixture_Test::saveXMLSad()
     QDomNode node = root.firstChild();
     QCOMPARE(node.toElement().tagName(), QString("Fixture"));
     QCOMPARE(node.toElement().attribute("ID"), QString("54"));
+    QCOMPARE(node.toElement().attribute("Head"), QString("32"));
 
     bool x = false, y = false;
     node = node.firstChild();
@@ -540,7 +555,7 @@ void VCXYPadFixture_Test::armDimmer()
     m_doc->addFixture(fxi);
 
     VCXYPadFixture xy(m_doc);
-    xy.setFixture(fxi->id());
+    xy.setHead(GroupHead(fxi->id(), 0));
     xy.arm();
     QCOMPARE(xy.m_xMSB, QLCChannel::invalid());
     QCOMPARE(xy.m_xLSB, QLCChannel::invalid());
@@ -561,7 +576,7 @@ void VCXYPadFixture_Test::arm8bit()
     m_doc->addFixture(fxi);
 
     VCXYPadFixture xy(m_doc);
-    xy.setFixture(fxi->id());
+    xy.setHead(GroupHead(fxi->id(), 0));
     xy.arm();
     QCOMPARE(xy.m_xMSB, quint32(0));
     QCOMPARE(xy.m_xLSB, QLCChannel::invalid());
@@ -582,7 +597,7 @@ void VCXYPadFixture_Test::arm16bit()
     m_doc->addFixture(fxi);
 
     VCXYPadFixture xy(m_doc);
-    xy.setFixture(fxi->id());
+    xy.setHead(GroupHead(fxi->id(), 0));
     xy.arm();
     QCOMPARE(xy.m_xMSB, quint32(0));
     QCOMPARE(xy.m_xLSB, quint32(1));
@@ -636,7 +651,7 @@ void VCXYPadFixture_Test::write8bitNoReverse()
     m_doc->addFixture(fxi);
 
     VCXYPadFixture xy(m_doc);
-    xy.setFixture(fxi->id());
+    xy.setHead(GroupHead(fxi->id(), 0));
     xy.setX(0, 1, false);
     xy.setY(0, 1, false);
     xy.arm();
@@ -667,7 +682,7 @@ void VCXYPadFixture_Test::write8bitReverse()
     m_doc->addFixture(fxi);
 
     VCXYPadFixture xy(m_doc);
-    xy.setFixture(fxi->id());
+    xy.setHead(GroupHead(fxi->id(), 0));
     xy.setX(0, 1, true);
     xy.setY(0, 1, true);
     xy.arm();
@@ -698,7 +713,7 @@ void VCXYPadFixture_Test::write16bitNoReverse()
     m_doc->addFixture(fxi);
 
     VCXYPadFixture xy(m_doc);
-    xy.setFixture(fxi->id());
+    xy.setHead(GroupHead(fxi->id(), 0));
     xy.setX(0, 1, false);
     xy.setY(0, 1, false);
     xy.arm();
@@ -729,7 +744,7 @@ void VCXYPadFixture_Test::write16bitReverse()
     m_doc->addFixture(fxi);
 
     VCXYPadFixture xy(m_doc);
-    xy.setFixture(fxi->id());
+    xy.setHead(GroupHead(fxi->id(), 0));
     xy.setX(0.1, 0.9, true);
     xy.setY(0.2, 0.8, true);
     xy.arm();

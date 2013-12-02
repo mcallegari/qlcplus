@@ -403,12 +403,20 @@ void EFXEditor::addFixtureItem(EFXFixture* ef)
 
     Q_ASSERT(ef != NULL);
 
-    fxi = m_doc->fixture(ef->fixture());
+    fxi = m_doc->fixture(ef->head().fxi);
     if (fxi == NULL)
         return;
 
     item = new QTreeWidgetItem(m_tree);
-    item->setText(KColumnName, fxi->name());
+
+    if (fxi->heads() > 1)
+    {
+        item->setText(KColumnName, QString("%1 [%2]").arg(fxi->name()).arg(ef->head().head));
+    }
+    else
+    {
+        item->setText(KColumnName, fxi->name());
+    }
     item->setData(0, Qt::UserRole, QVariant(reinterpret_cast<qulonglong> (ef)));
     item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
 
@@ -564,7 +572,7 @@ void EFXEditor::slotAddFixtureClicked()
 {
     /* Put all fixtures already present into a list of fixtures that
        will be disabled in the fixture selection dialog */
-    QList <quint32> disabled;
+    QList <GroupHead> disabled;
     QTreeWidgetItemIterator twit(m_tree);
     while (*twit != NULL)
     {
@@ -572,7 +580,7 @@ void EFXEditor::slotAddFixtureClicked()
                          ((*twit)->data(0, Qt::UserRole).toULongLong());
         Q_ASSERT(ef != NULL);
 
-        disabled.append(ef->fixture());
+        disabled.append(ef->head());
         twit++;
     }
 
@@ -604,17 +612,18 @@ void EFXEditor::slotAddFixtureClicked()
     /* Get a list of new fixtures to add to the scene */
     FixtureSelection fs(this, m_doc);
     fs.setMultiSelection(true);
-    fs.setDisabledFixtures(disabled);
+    fs.setSelectionMode(FixtureSelection::Heads);
+    fs.setDisabledHeads(disabled);
     if (fs.exec() == QDialog::Accepted)
     {
         // Stop running while adding fixtures
         bool running = interruptRunning();
 
-        QListIterator <quint32> it(fs.selection());
+        QListIterator <GroupHead> it(fs.selectedHeads());
         while (it.hasNext() == true)
         {
             EFXFixture* ef = new EFXFixture(m_efx);
-            ef->setFixture(it.next());
+            ef->setHead(it.next());
 
             if (m_efx->addFixture(ef) == true)
                 addFixtureItem(ef);
