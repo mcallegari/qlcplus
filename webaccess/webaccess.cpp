@@ -22,10 +22,15 @@
 
 #include "vcaudiotriggers.h"
 #include "virtualconsole.h"
+#include "commonjscss.h"
 #include "vcsoloframe.h"
+#include "outputpatch.h"
+#include "inputpatch.h"
 #include "qlcconfig.h"
 #include "webaccess.h"
 #include "vccuelist.h"
+#include "outputmap.h"
+#include "inputmap.h"
 #include "mongoose.h"
 #include "vcbutton.h"
 #include "vcslider.h"
@@ -33,6 +38,18 @@
 #include "vclabel.h"
 #include "vcframe.h"
 #include "chaser.h"
+#include "doc.h"
+
+#if defined( __APPLE__) || defined(Q_OS_MAC)
+  #include "audiorenderer_portaudio.h"
+  #include "audiocapture_portaudio.h"
+#elif defined(WIN32) || defined(Q_OS_WIN)
+  #include "audiorenderer_waveout.h"
+  #include "audiocapture_wavein.h"
+#else
+  #include "audiorenderer_alsa.h"
+  #include "audiocapture_alsa.h"
+#endif
 
 #define POST_DATA_SIZE 1024
 
@@ -54,6 +71,35 @@ static int websocket_data_handler(struct mg_connection *conn, int flags,
     return s_instance->websocketDataHandler(conn, flags, data, data_len);
 }
 
+WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, QObject *parent) :
+    QObject(parent)
+  , m_doc(doc)
+  , m_vc(vcInstance)
+{
+    Q_ASSERT(s_instance == NULL);
+    Q_ASSERT(m_doc != NULL);
+    Q_ASSERT(m_vc != NULL);
+
+    s_instance = this;
+
+    // List of options. Last element must be NULL.
+    const char *options[] = {"listening_ports", "9999", NULL};
+
+    // Prepare callbacks structure. We have only one callback, the rest are NULL.
+    memset(&m_callbacks, 0, sizeof(m_callbacks));
+    m_callbacks.begin_request = begin_request_handler;
+    m_callbacks.websocket_ready = websocket_ready_handler;
+    m_callbacks.websocket_data = websocket_data_handler;
+
+    // Start the web server.
+    m_ctx = mg_start(&m_callbacks, NULL, options);
+}
+
+WebAccess::~WebAccess()
+{
+    mg_stop(m_ctx);
+}
+
 // This function will be called by mongoose on every new request.
 int WebAccess::beginRequestHandler(mg_connection *conn)
 {
@@ -68,6 +114,8 @@ int WebAccess::beginRequestHandler(mg_connection *conn)
   m_xyPadFound = false;
   m_speedDialFound = false;
   m_audioTriggersFound = false;
+
+  QString content;
 
   const struct mg_request_info *ri = mg_get_request_info(conn);
   qDebug() << Q_FUNC_INFO << ri->request_method << ri->uri;
@@ -117,12 +165,16 @@ int WebAccess::beginRequestHandler(mg_connection *conn)
 
       return 1;
   }
-
-  if (QString(ri->uri) != "/")
+  else if (QString(ri->uri) == "/config")
+  {
+      content = getConfigHTML();
+  }
+  else if (QString(ri->uri) != "/")
       return 1;
+  else
+      content = getVCHTML();
 
   // Prepare the message we're going to send
-  QString content = getVCHTML();
   int content_length = content.length();
   QByteArray contentArray = content.toLatin1();
 
@@ -165,9 +217,46 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
             return 0;
 
         if(cmdList[1] == "opMode")
-        {
             emit toggleDocMode();
+
+        return 1;
+    }
+    else if (cmdList[0] == "QLC+IO")
+    {
+        if (cmdList.count() < 2)
+            return 0;
+
+        int universe = cmdList[2].toInt();
+
+        if (cmdList[1] == "INPUT")
+            m_doc->inputMap()->setPatch(universe, cmdList[3], cmdList[4].toUInt());
+        else if (cmdList[1] == "OUTPUT")
+            m_doc->outputMap()->setPatch(universe, cmdList[3], cmdList[4].toUInt(), false);
+        else if (cmdList[1] == "FB")
+            m_doc->outputMap()->setPatch(universe, cmdList[3], cmdList[4].toUInt(), true);
+        //else if (cmdList[1] == "PROFILE")
+        //    m_doc->outputMap()->setPatch(universe, cmdList[3], cmdList[4].toUInt(), true);
+        else if (cmdList[1] == "AUDIOIN")
+        {
+            QSettings settings;
+            if (cmdList[2] == "__qlcplusdefault__")
+                settings.remove(SETTINGS_AUDIO_INPUT_DEVICE);
+            else
+            {
+                settings.setValue(SETTINGS_AUDIO_INPUT_DEVICE, cmdList[2]);
+                m_doc->destroyAudioCapture();
+            }
         }
+        else if (cmdList[1] == "AUDIOOUT")
+        {
+            QSettings settings;
+            if (cmdList[2] == "__qlcplusdefault__")
+                settings.remove(SETTINGS_AUDIO_OUTPUT_DEVICE);
+            else
+                settings.setValue(SETTINGS_AUDIO_OUTPUT_DEVICE, cmdList[2]);
+        }
+        else
+            qDebug() << "[webaccess] Command" << cmdList[1] << "not supported !";
 
         return 1;
     }
@@ -556,33 +645,7 @@ QString WebAccess::getChildrenHTML(VCWidget *frame)
 
 QString WebAccess::getVCHTML()
 {
-    QString mainHTML = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n"
-                  "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-                  "<head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n";
-
-    m_JScode = "<script language=\"javascript\" type=\"text/javascript\">\n"
-            "var websocket;\n"
-            "function sendCMD(cmd)\n"
-            "{\n"
-            " websocket.send(\"QLC+CMD|\" + cmd);\n"
-            "};\n\n"
-
-            "window.onload = function() {\n"
-            " var url = 'ws://' + window.location.host + '/qlcplusWS';\n"
-            " websocket = new WebSocket(url);\n"
-
-            " websocket.onopen = function(ev) {\n"
-            "  //alert(\"Websocket open!\");\n"
-            " };\n\n"
-
-            " websocket.onclose = function(ev) {\n"
-            "  //alert(\"Websocket close!\");\n"
-            " };\n\n"
-
-            " websocket.onerror = function(ev) {\n"
-            "  alert(\"Websocket error!\");\n"
-            " };\n"
-            "};\n";
+    m_JScode = "<script language=\"javascript\" type=\"text/javascript\">\n" WEBSOCKET_JS;
 
     m_CSScode = "<style>\n"
             "body { margin: 0px; }\n"
@@ -593,81 +656,12 @@ QString WebAccess::getVCHTML()
             " visibility: hidden;\n"
             "}\n\n"
 
-            ".controlBar {\n"
-            " width: 100%;\n"
-            " height: 40px;\n"
-            " background: linear-gradient(to bottom, #B2D360 0%, #4B9002 100%);\n"
-            " background: -ms-linear-gradient(top, #B2D360 0%, #4B9002 100%);\n"
-            " background: -moz-linear-gradient(top, #B2D360 0%, #4B9002 100%);\n"
-            " background: -o-linear-gradient(top, #B2D360 0%, #4B9002 100%);\n"
-            " background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #B2D360), color-stop(1, #4B9002));\n"
-            " background: -webkit-linear-gradient(top, #B2D360 0%, #4B9002 100%);\n"
-            " font:bold 24px/1.2em sans-serif;\n"
-            " color: #ffffff;\n"
-            "}\n\n"
-
-            ".button\n"
-            "{\n"
-            " height: 36px;\n"
-            " margin-left: 5px;"
-            " text-decoration: none;\n"
-            " font: bold 27px/1.2em 'Trebuchet MS',Arial, Helvetica;\n"
-            " display: inline-block;\n"
-            " text-align: center;\n"
-            " color: #fff;\n"
-            " border: 1px solid #9c9c9c;\n"
-            " border: 1px solid rgba(0, 0, 0, 0.3);\n"
-            " text-shadow: 0 1px 0 rgba(0,0,0,0.4);\n"
-            " box-shadow: 0 0 .05em rgba(0,0,0,0.4);\n"
-            " -moz-box-shadow: 0 0 .05em rgba(0,0,0,0.4);\n"
-            " -webkit-box-shadow: 0 0 .05em rgba(0,0,0,0.4);\n"
-            "}\n\n"
-
-            ".button, .button span  {\n"
-            " -moz-border-radius: .3em;\n"
-            " border-radius: .3em;\n"
-            "}\n\n"
-
-            ".button span {\n"
-            " border-top: 1px solid #fff;\n"
-            " border-top: 1px solid rgba(255, 255, 255, 0.5);\n"
-            " display: block;\n"
-            " padding: 0 10px 0 10px;\n"
-            " background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(.25, rgba(0, 0, 0, 0.05)), color-stop(.25, transparent), to(transparent)),\n"
-            " background-image: -moz-linear-gradient(45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%, transparent),\n"
-            "}\n\n"
-
-            ".button:hover {\n"
-            " box-shadow: 0 0 .1em rgba(0,0,0,0.4);\n"
-            " -moz-box-shadow: 0 0 .1em rgba(0,0,0,0.4);\n"
-            " -webkit-box-shadow: 0 0 .1em rgba(0,0,0,0.4);\n"
-            "}\n\n"
-
-            ".button:active {\n"
-            " position: relative;\n"
-            " top: 1px;\n"
-            "}\n\n"
-
-            ".button-blue {\n"
-            " background: #4477a1;\n"
-            " background: -webkit-gradient(linear, left top, left bottom, from(#81a8cb), to(#4477a1) );\n"
-            " background: -moz-linear-gradient(-90deg, #81a8cb, #4477a1);\n"
-            "}\n\n"
-
-            ".button-blue:hover {\n"
-            " background: #81a8cb;\n"
-            " background: -webkit-gradient(linear, left top, left bottom, from(#4477a1), to(#81a8cb) );\n"
-            " background: -moz-linear-gradient(-90deg, #4477a1, #81a8cb);\n"
-            "}\n\n"
-
-            ".button-blue:active { background: #4477a1; }\n\n"
-
-            ".swInfo {\n"
-            " position: absolute;\n"
-            " right: 0;\n"
-            " top: 0;\n"
-            " font-size: 20px;\n"
-            "}\n"
+            CONTROL_BAR_CSS
+            BUTTON_BASE_CSS
+            BUTTON_SPAN_CSS
+            BUTTON_STATE_CSS
+            BUTTON_BLUE_CSS
+            SWINFO_CSS
             "</style>\n";
 
     VCFrame *mainFrame = m_vc->contents();
@@ -682,7 +676,7 @@ QString WebAccess::getVCHTML()
             "<a class=\"button button-blue\" href=\"javascript:document.getElementById('loadTrigger').click();\">\n"
             "<span>Load project</span></a>\n"
 
-            //"<a class=\"button button-blue\" href=\"javascript:sendCMD('opMode');\"><span>Operate mode</span></a>\n"
+            "<a class=\"button button-blue\" href=\"/config\"><span>Configuration</span></a>\n"
 
             "<div class=\"swInfo\">" + QString(APPNAME) + " " + QString(APPVERSION) + "</div>"
             "</div>\n"
@@ -695,32 +689,144 @@ QString WebAccess::getVCHTML()
 
     m_JScode += "\n</script>\n";
 
-    QString str = mainHTML + m_JScode + m_CSScode + "</head>\n<body>\n" + widgetsHTML + "</body>\n</html>";
+    QString str = HTML_HEADER + m_JScode + m_CSScode + "</head>\n<body>\n" + widgetsHTML + "</body>\n</html>";
     return str;
 }
 
-WebAccess::WebAccess(VirtualConsole *vcInstance, QObject *parent) :
-    QObject(parent)
-  , m_vc(vcInstance)
+QString WebAccess::getConfigHTML()
 {
-    Q_ASSERT(s_instance == NULL);
-    s_instance = this;
 
-    // List of options. Last element must be NULL.
-    const char *options[] = {"listening_ports", "9999", NULL};
+    m_JScode = "<script language=\"javascript\" type=\"text/javascript\">\n" WEBSOCKET_JS;
+    m_JScode += "function ioChanged(cmd, uni, val)\n"
+            "{\n"
+            " websocket.send(\"QLC+IO|\" + cmd + \"|\" + uni + \"|\" + val);\n"
+            "};\n\n";
+    m_JScode += "</script>\n";
 
-    // Prepare callbacks structure. We have only one callback, the rest are NULL.
-    memset(&m_callbacks, 0, sizeof(m_callbacks));
-    m_callbacks.begin_request = begin_request_handler;
-    m_callbacks.websocket_ready = websocket_ready_handler;
-    m_callbacks.websocket_data = websocket_data_handler;
+    m_CSScode = "<style>\n"
+            "html { height: 100%; }\n"
+            "body {\n"
+            " margin: 0px;\n"
+            " height: 100%;\n"
+            " background: linear-gradient(to bottom, #45484d 0%, #000000 100%);\n"
+            " background: -webkit-linear-gradient(top, #45484d 0%, #000000 100%);\n"
+            "}\n"
+            CONTROL_BAR_CSS
+            SWINFO_CSS
+            TABLE_CSS
+            "</style>\n";
 
-    // Start the web server.
-    m_ctx = mg_start(&m_callbacks, NULL, options);
-}
+    QString bodyHTML = "<div class=\"controlBar\">\n"
+                       "<div class=\"swInfo\">" + QString(APPNAME) + " " + QString(APPVERSION) + "</div>"
+                       "</div>\n";
 
-WebAccess::~WebAccess()
-{
-    mg_stop(m_ctx);
+    InputMap *inMap = m_doc->inputMap();
+    OutputMap *outMap = m_doc->outputMap();
+    //InputPatch *inPatch = m_doc->inputMap()->patch(0);
+    //OutputPatch *outPatch = m_doc->outputMap()->patch(0);
+
+    QStringList IOplugins = inMap->pluginNames();
+    foreach (QString out, outMap->pluginNames())
+        if (IOplugins.contains(out) == false)
+            IOplugins.append(out);
+
+    QStringList inputLines, outputLines, feedbackLines;
+    QStringList profiles = inMap->profileNames();
+
+    foreach (QString pluginName, IOplugins)
+    {
+        QStringList inputs = inMap->pluginInputs(pluginName);
+        QStringList outputs = outMap->pluginOutputs(pluginName);
+        bool hasFeedback = outMap->pluginSupportsFeedback(pluginName);
+
+        for (int i = 0; i < inputs.count(); i++)
+            inputLines.append(QString("%1,%2,%3").arg(pluginName).arg(inputs.at(i)).arg(i));
+        for (int i = 0; i < outputs.count(); i++)
+        {
+            outputLines.append(QString("%1,%2,%3").arg(pluginName).arg(outputs.at(i)).arg(i));
+            if (hasFeedback)
+                feedbackLines.append(QString("%1,%2,%3").arg(pluginName).arg(outputs.at(i)).arg(i));
+        }
+    }
+    inputLines.prepend("None, None, -1");
+    outputLines.prepend("None, None, -1");
+    feedbackLines.prepend("None, None, -1");
+    profiles.prepend("None");
+
+    bodyHTML += "<div style=\"margin: 30px 7% 30px 7%; width: 86%; height: 300px;\" >\n";
+    bodyHTML += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
+    bodyHTML += "<tr><th>Universe</th><th>Input</th><th>Output</th><th>Feedback</th><th>Profile</th></tr>\n";
+
+    for (int i = 0; i < 4; i++)
+    {
+        bodyHTML += "<tr><td>Universe " + QString::number(i+1) + "</td>\n";
+        bodyHTML += "<td><select onchange=\"ioChanged('INPUT', " + QString::number(i) + ", this.value);\">\n";
+        for (int in = 0; in < inputLines.count(); in++)
+        {
+            QStringList strList = inputLines.at(in).split(",");
+            bodyHTML += "<option value=\"" + QString("%1|%2").arg(strList.at(0)).arg(strList.at(2)) + "\">" +
+                    QString("[%1] %2").arg(strList.at(0)).arg(strList.at(1)) + "</option>\n";
+        }
+        bodyHTML += "</select></td>\n";
+        bodyHTML += "<td><select onchange=\"ioChanged('OUTPUT', " + QString::number(i) + ", this.value);\">\n";
+        for (int in = 0; in < outputLines.count(); in++)
+        {
+            QStringList strList = outputLines.at(in).split(",");
+            bodyHTML += "<option value=\"" + QString("%1|%2").arg(strList.at(0)).arg(strList.at(2)) + "\">" +
+                    QString("[%1] %2").arg(strList.at(0)).arg(strList.at(1)) + "</option>\n";
+        }
+        bodyHTML += "</select></td>\n";
+        bodyHTML += "<td><select onchange=\"ioChanged('FB', " + QString::number(i) + ", this.value);\">\n";
+        for (int in = 0; in < feedbackLines.count(); in++)
+        {
+            QStringList strList = feedbackLines.at(in).split(",");
+            bodyHTML += "<option value=\"" + QString("%1|%2").arg(strList.at(0)).arg(strList.at(2)) + "\">" +
+                    QString("[%1] %2").arg(strList.at(0)).arg(strList.at(1)) + "</option>\n";
+        }
+        bodyHTML += "</select></td>\n";
+        bodyHTML += "<td><select onchange=\"ioChanged('PROFILE', " + QString::number(i) + ", this.value);\">\n";
+        for (int p = 0; p < profiles.count(); p++)
+            bodyHTML += "<option value=\"" + QString::number(p) + "\">" + profiles.at(p) + "</option>\n";
+        bodyHTML += "</select></td>\n";
+
+        bodyHTML += "</tr>\n";
+    }
+    bodyHTML += "</table>\n";
+
+    // ********************* audio devices ********************
+    QList<AudioDeviceInfo> devList;
+
+#if defined( __APPLE__) || defined(Q_OS_MAC)
+    devList = AudioRendererPortAudio::getDevicesInfo();
+#elif defined(WIN32) || defined(Q_OS_WIN)
+    devList = AudioRendererWaveOut::getDevicesInfo();
+#else
+    devList = AudioRendererAlsa::getDevicesInfo();
+#endif
+
+    bodyHTML += "<div style=\"margin: 30px 7% 30px 7%; width: 86%; height: 300px;\" >\n";
+    bodyHTML += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
+    bodyHTML += "<tr><th>Input</th><th>Output</th></tr>\n";
+    bodyHTML += "<tr>";
+
+    QString audioInSelect = "<td><select onchange=\"ioChanged('AUDIOIN', this.value);\">\n"
+                            "<option value=\"__qlcplusdefault__\">Default device</option>\n";
+    QString audioOutSelect = "<td><select onchange=\"ioChanged('AUDIOOUT', this.value);\">\n"
+                             "<option value=\"__qlcplusdefault__\">Default device</option>\n";
+
+    foreach( AudioDeviceInfo info, devList)
+    {
+        if (info.capabilities & AUDIO_CAP_INPUT)
+            audioInSelect += "<option value=\"" + info.privateName + "\">" + info.deviceName + "</option>\n";
+        if (info.capabilities & AUDIO_CAP_OUTPUT)
+            audioOutSelect += "<option value=\"" + info.privateName + "\">" + info.deviceName + "</option>\n";
+    }
+    audioInSelect += "</select></td>\n";
+    audioOutSelect += "</select></td>\n";
+    bodyHTML += audioInSelect + audioOutSelect + "</tr>\n</table>\n";
+
+    QString str = HTML_HEADER + m_JScode + m_CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";
+
+    return str;
 }
 

@@ -867,6 +867,8 @@ void InputOutputPatchEditor::slotAudioDeviceItemChanged(QTreeWidgetItem *item, i
     disconnect(m_audioMapTree, SIGNAL(itemChanged(QTreeWidgetItem*, int)),
                this, SLOT(slotAudioDeviceItemChanged(QTreeWidgetItem*, int)));
 
+    QSettings settings;
+
     if (item->checkState(col) == Qt::Checked)
     {
         /* Set all other items unchecked... */
@@ -881,7 +883,6 @@ void InputOutputPatchEditor::slotAudioDeviceItemChanged(QTreeWidgetItem *item, i
             }
             ++it;
         }
-        QSettings settings;
 
         if (col == KAudioColumnHasInput)
         {
@@ -901,7 +902,6 @@ void InputOutputPatchEditor::slotAudioDeviceItemChanged(QTreeWidgetItem *item, i
     }
     else
     {
-        QSettings settings;
         QTreeWidgetItem* defItem = m_audioMapTree->topLevelItem(0);
 
         if (col == KAudioColumnHasInput)

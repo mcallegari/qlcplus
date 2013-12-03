@@ -995,7 +995,7 @@ QString VCCueList::getJS()
                 "     obj.innerHTML = \"Play\";\n"
                 "   }\n"
                 " }\n"
-                " sendWSmessage(id + \"|\" + cmd);\n"
+                " websocket.send(id + \"|\" + cmd);\n"
                 "};\n";
     return str;
 }
