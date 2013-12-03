@@ -53,9 +53,15 @@ private:
     /*********************************************************************
      * General page
      *********************************************************************/
+private:
+    void disableLevelTabWidgets();
+    void disablePlaybackTabWidgets();
+    void disableSubmasterTabWidgets();
+
 protected slots:
     void slotModeLevelClicked();
     void slotModePlaybackClicked();
+    void slotModeSubmasterClicked();
 
     void slotAutoDetectInputToggled(bool checked);
     void slotInputValueChanged(quint32 universe, quint32 channel);
@@ -151,6 +157,12 @@ protected:
     /** The currently selected playback function */
     quint32 m_playbackFunctionId;
 
+    /*************************************************************************
+     * Submaster page
+     *************************************************************************/
+protected:
+    void submasterUpdateChannelGroups();
+
     /*********************************************************************
      * OK & Cancel
      *********************************************************************/
@@ -161,6 +173,9 @@ protected:
 
     /** Store selected channels to the slider */
     void storeLevelChannels();
+
+    /** Store selected channel groups to the slider */
+    void storeSubmasterChannelGroups();
 
 protected slots:
     /** Callback for OK button clicks */

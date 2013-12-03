@@ -20,8 +20,11 @@
 #ifndef VCSLIDER_H
 #define VCSLIDER_H
 
+#include <QSharedPointer>
 #include <QMutex>
 #include <QList>
+
+#include "dmxsubmaster.h"
 
 #include "clickandgoslider.h"
 #include "clickandgowidget.h"
@@ -64,6 +67,8 @@ class VCSliderProperties;
 #define KXMLQLCVCSliderPlayback "Playback"
 #define KXMLQLCVCSliderPlaybackFunction "Function"
 
+#define KXMLQLCVCSliderSubmaster "Submaster"
+#define KXMLQLCVCSliderSubmasterChannelGroup "ChannelGroup"
 
 class VCSlider : public VCWidget, public DMXSource
 {
@@ -129,7 +134,8 @@ public:
     enum SliderMode
     {
         Level,
-        Playback
+        Playback,
+        Submaster
     };
 
 public:
@@ -351,6 +357,24 @@ protected:
     QMutex m_playbackValueMutex;
 
     /*********************************************************************
+     * Submaster
+     *********************************************************************/
+public:
+    QList<quint32> channelGroups() const;
+    void clearChannelGroups();
+    void addChannelGroup(quint32 channelGroupId);
+
+    void setSubmasterValue(uchar value);
+    uchar submasterValue() const;
+
+protected slots:
+    void slotChannelsGroupRemoved(quint32 channelGroupId);
+
+protected:
+    uchar m_submasterValue;
+    QList<QSharedPointer<DMXSubmaster> > m_submasters;
+
+    /*********************************************************************
      * DMXSource
      *********************************************************************/
 public:
@@ -500,6 +524,7 @@ public:
     bool loadXML(const QDomElement* root);
     bool loadXMLLevel(const QDomElement* level_root);
     bool loadXMLPlayback(const QDomElement* pb_root);
+    bool loadXMLSubmaster(const QDomElement* sm_root);
 
     bool saveXML(QDomDocument* doc, QDomElement* vc_root);
 };

@@ -101,6 +101,8 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_playbackValue = 0;
     m_playbackValueChanged = false;
 
+    m_submasterValue = UCHAR_MAX;
+
     m_widgetMode = WSlider;
 
     setType(VCWidget::SliderWidget);
@@ -193,6 +195,11 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
        they no longer point to an existing fixture->channel */
     connect(m_doc, SIGNAL(fixtureRemoved(quint32)),
             this, SLOT(slotFixtureRemoved(quint32)));
+
+    /* Listen to channelgroup removals so that submasters can be removed when
+     * they no longer point to an existing ChannelsGroup */
+    connect(m_doc, SIGNAL(channelsGroupRemoved(quint32)),
+            this, SLOT(slotChannelsGroupRemoved(quint32)));
 }
 
 VCSlider::~VCSlider()
@@ -431,6 +438,10 @@ QString VCSlider::sliderModeToString(SliderMode mode)
         return QString("Playback");
         break;
 
+    case Submaster:
+        return QString("Submaster");
+        break;
+
     default:
         return QString("Unknown");
         break;
@@ -441,8 +452,10 @@ VCSlider::SliderMode VCSlider::stringToSliderMode(const QString& mode)
 {
     if (mode == QString("Level"))
         return Level;
-    else // if (mode == QString("Playback"))
-        return Playback;
+    else  if (mode == QString("Playback"))
+       return Playback;
+    else //if (mode == QString("Submaster"))
+        return Submaster;
 }
 
 VCSlider::SliderMode VCSlider::sliderMode()
@@ -452,11 +465,10 @@ VCSlider::SliderMode VCSlider::sliderMode()
 
 void VCSlider::setSliderMode(SliderMode mode)
 {
-    Q_ASSERT(mode >= Level && mode <= Playback);
+    Q_ASSERT(mode >= Level && mode <= Submaster);
 
     /* Unregister this as a DMX source if the new mode is not "Level" or "Playback" */
-    if ((m_sliderMode == Level && mode != Level) ||
-        (m_sliderMode == Playback && mode != Playback))
+    if (m_sliderMode != Submaster && mode == Submaster)
     {
         m_doc->masterTimer()->unregisterDMXSource(this);
     }
@@ -512,6 +524,23 @@ void VCSlider::setSliderMode(SliderMode mode)
         slotSliderMoved(level);
 
         m_doc->masterTimer()->registerDMXSource(this);
+    }
+    else if (mode == Submaster)
+    {        
+        m_bottomLabel->show();
+        if (m_slider)
+        {
+            m_slider->setRange(0, UCHAR_MAX);
+            m_slider->setValue(UCHAR_MAX);
+        }
+        else if (m_knob)
+        {
+            m_knob->setRange(0, UCHAR_MAX);
+            m_knob->setValue(UCHAR_MAX);
+        }
+
+        m_cngButton->hide();
+        slotSliderMoved(UCHAR_MAX);
     }
 }
 
@@ -758,6 +787,54 @@ void VCSlider::slotPlaybackFunctionIntensityChanged(int attrIndex, qreal fractio
     else if (m_knob)
         m_knob->setValue(int(floor((qreal(m_knob->maximum()) * fraction) + 0.5)));
     m_externalMovement = false;
+}
+
+QList<quint32> VCSlider::channelGroups() const
+{
+    QList<quint32> groups;
+    foreach (QSharedPointer<DMXSubmaster> submaster, m_submasters)
+    {
+        groups.append(submaster->channelGroup());
+    }
+
+    return groups;
+}
+
+void VCSlider::clearChannelGroups()
+{
+    m_submasters.clear();
+}
+
+void VCSlider::addChannelGroup(quint32 channelGroupId)
+{
+    m_submasters.append(QSharedPointer<DMXSubmaster>(new DMXSubmaster(m_doc, channelGroupId)));
+}
+
+void VCSlider::setSubmasterValue(uchar value)
+{
+    foreach (QSharedPointer<DMXSubmaster> submaster, m_submasters)
+    {
+        submaster->setValue(value);
+    }
+    m_submasterValue = value;
+}
+
+uchar VCSlider::submasterValue() const
+{
+    return m_submasterValue;
+}
+
+void VCSlider::slotChannelsGroupRemoved(quint32 channelGroupId)
+{
+    QMutableListIterator<QSharedPointer<DMXSubmaster> > it(m_submasters);
+    while (it.hasNext())
+    {
+        QSharedPointer<DMXSubmaster> submaster = it.next();
+        if (submaster->channelGroup() == channelGroupId)
+        {
+            it.remove();
+        }
+    }
 }
 
 /*****************************************************************************
@@ -1049,63 +1126,49 @@ void VCSlider::updateFeedback()
 
 void VCSlider::slotSliderMoved(int value)
 {
-    QString num;
-
     switch (sliderMode())
     {
     case Level:
     {
         setLevelValue(value);
         setClickAndGoWidgetFromLevel(value);
-
-        /* Set text for the top label */
-        if (valueDisplayStyle() == ExactValue)
-        {
-            num.sprintf("%.3d", value);
-        }
-        else
-        {
-
-            float f = 0;
-            if (m_slider)
-                f = SCALE(float(value), float(m_slider->minimum()),
-                          float(m_slider->maximum()), float(0), float(100));
-            else if (m_knob)
-                f = SCALE(float(value), float(m_knob->minimum()),
-                          float(m_knob->maximum()), float(0), float(100));
-            num.sprintf("%.3d%%", static_cast<int> (f));
-        }
-        setTopLabelText(num);
     }
     break;
 
     case Playback:
     {
         setPlaybackValue(value);
+    }
+    break;
 
-        /* Set text for the top label */
-        if (valueDisplayStyle() == ExactValue)
-        {
-            num.sprintf("%.3d", value);
-        }
-        else
-        {
-            float f = 0;
-            if (m_slider)
-                f = SCALE(float(value), float(m_slider->minimum()),
-                          float(m_slider->maximum()), float(0), float(100));
-            else if (m_knob)
-                f = SCALE(float(value), float(m_knob->minimum()),
-                          float(m_knob->maximum()), float(0), float(100));
-            num.sprintf("%.3d%%", static_cast<int> (f));
-        }
-        setTopLabelText(num);
+    case Submaster:
+    {
+        setSubmasterValue(value);
     }
     break;
 
     default:
         break;
     }
+
+    QString num;
+    /* Set text for the top label */
+    if (valueDisplayStyle() == ExactValue)
+    {
+        num.sprintf("%.3d", value);
+    }
+    else
+    {
+        float f = 0;
+        if (m_slider)
+            f = SCALE(float(value), float(m_slider->minimum()),
+                      float(m_slider->maximum()), float(0), float(100));
+        else if (m_knob)
+            f = SCALE(float(value), float(m_knob->minimum()),
+                      float(m_knob->maximum()), float(0), float(100));
+        num.sprintf("%.3d%%", static_cast<int> (f));
+    }
+    setTopLabelText(num);
 
     updateFeedback();
 }
@@ -1294,6 +1357,10 @@ bool VCSlider::loadXML(const QDomElement* root)
         {
             loadXMLPlayback(&tag);
         }
+        else if (tag.tagName() == KXMLQLCVCSliderSubmaster)
+        {
+            loadXMLSubmaster(&tag);
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown slider tag:" << tag.tagName();
@@ -1392,6 +1459,41 @@ bool VCSlider::loadXMLPlayback(const QDomElement* pb_root)
     return true;
 }
 
+bool VCSlider::loadXMLSubmaster(const QDomElement *sm_root)
+{
+    QDomNode node;
+    QDomElement tag;
+
+    Q_ASSERT(sm_root != 0);
+
+    if (sm_root->tagName() != KXMLQLCVCSliderSubmaster)
+    {
+        qWarning() << Q_FUNC_INFO << "Slider submaster node not found";
+        return false;
+    }
+
+    /* Children */
+    clearChannelGroups();
+
+    node = sm_root->firstChild();
+    while (node.isNull() == false)
+    {
+        tag = node.toElement();
+        if (tag.tagName() == KXMLQLCVCSliderSubmasterChannelGroup)
+        {
+            addChannelGroup(tag.text().toUInt());
+        }
+        else
+        {
+            qWarning() << Q_FUNC_INFO << "Unknown slider submaster tag: " << tag.tagName();
+        }
+
+        node = node.nextSibling();
+    }
+
+    return true;
+}
+
 bool VCSlider::saveXML(QDomDocument* doc, QDomElement* vc_root)
 {
     QDomElement root;
@@ -1474,6 +1576,21 @@ bool VCSlider::saveXML(QDomDocument* doc, QDomElement* vc_root)
     text = doc->createTextNode(QString::number(playbackFunction()));
     subtag.appendChild(text);
     tag.appendChild(subtag);
+
+    /* Submaster */
+    tag = doc->createElement(KXMLQLCVCSliderSubmaster);
+    root.appendChild(tag);
+
+    /* submaster channel groups */
+    QListIterator<quint32> chg_it(channelGroups());
+    while (chg_it.hasNext() == true)
+    {
+        subtag = doc->createElement(KXMLQLCVCSliderSubmasterChannelGroup);
+
+        text = doc->createTextNode(QString::number(chg_it.next()));
+        subtag.appendChild(text);
+        tag.appendChild(subtag);
+    }
 
     return true;
 }
