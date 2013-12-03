@@ -7,6 +7,7 @@ qlcplus (4.6.0) stable; urgency=low
   * NEW: Added Audio fade in/out support (also in Show Manager)
   * NEW: It is now possible to control RGB Matrices intensity
   * NEW: RGB Matrices can now be converted to Sequences and imported into Shows 
+  * NEW: It is now possible to control fixture heads in EFX and XY Pad (Jano Svitok)
   * Virtual Console: fixed audio triggers incorrect loading
   * Input/Output: improved audio device selection
   * Audio Input: fixed crash occurring on Linux for unsupported audio devices
@@ -22,6 +23,7 @@ qlcplus (4.6.0) stable; urgency=low
   * Added fixtures: American DJ Mega Tri Par, Clay Paky A.LEDA Wash K5, Clay Paky A.LEDA Wash K10, Clay Paky A.LEDA Wash K20
   * Added fixtures: American DJ Sweeper Beam Quad LED, American DJ Ultra Bar 6/9/12, American DJ Inno Color Beam Quad 7
   * Added fixture: American DJ Inno Color Beam LED (thanks to Louis Gutenschwafe)
+  * Added fixture: American DJ/Elation Event Bar LED, American DJ Micro Wash RGBW (thanks to George Qualley)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 15 December 2013 12:13:04 +0200
 

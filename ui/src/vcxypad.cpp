@@ -219,14 +219,14 @@ void VCXYPad::editProperties()
 
 void VCXYPad::appendFixture(const VCXYPadFixture& fxi)
 {
-    if (fxi.fixture() != Fixture::invalidId() && m_fixtures.indexOf(fxi) == -1)
+    if (fxi.head().isValid() && m_fixtures.indexOf(fxi) == -1)
         m_fixtures.append(fxi);
 }
 
-void VCXYPad::removeFixture(quint32 fxi_id)
+void VCXYPad::removeFixture(GroupHead const & head)
 {
     VCXYPadFixture fixture(m_doc);
-    fixture.setFixture(fxi_id);
+    fixture.setHead(head);
 
     m_fixtures.removeAll(fixture);
 }

@@ -21,6 +21,7 @@
 #define EFXFIXTURE_H
 
 #include "function.h"
+#include "grouphead.h"
 
 class MasterTimer;
 class FadeChannel;
@@ -31,6 +32,7 @@ class Doc;
 
 #define KXMLQLCEFXFixture "Fixture"
 #define KXMLQLCEFXFixtureID "ID"
+#define KXMLQLCEFXFixtureHead "Head"
 #define KXMLQLCEFXFixtureDirection "Direction"
 #define KXMLQLCEFXFixtureStartOffset "StartOffset"
 #define KXMLQLCEFXFixtureIntensity "Intensity"
@@ -60,11 +62,11 @@ private:
      * Public properties
      *************************************************************************/
 public:
-    /** Set the Fixture that this EFXFixture represents. */
-    void setFixture(quint32 id);
+    /** Set the Fixture Head that this EFXFixture represents. */
+    void setHead(GroupHead const & head);
 
-    /** Get the Fixture that this EFXFixture represents. */
-    quint32 fixture() const;
+    /** Get the Fixture Head that this EFXFixture represents. */
+    GroupHead const & head() const;
 
     /** Set this fixture's initial direction. */
     void setDirection(Function::Direction dir);
@@ -97,7 +99,7 @@ public:
     bool isValid() const;
 
 private:
-    quint32 m_fixture;
+    GroupHead m_head;
     Function::Direction m_direction;
     int m_startOffset;
     uchar m_fadeIntensity;

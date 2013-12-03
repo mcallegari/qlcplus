@@ -130,7 +130,7 @@ public:
     /**
      * Remove a fixture by its ID from the XY pad's control list
      */
-    void removeFixture(quint32 fxi);
+    void removeFixture(GroupHead const & head);
 
     /**
      * Remove all currently controlled fixtures from the XY pad
