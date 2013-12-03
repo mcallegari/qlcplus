@@ -20,22 +20,65 @@
 #include <qglobal.h> // Q_UNUSED
 
 #include "dmxsubmaster.h"
+#include "channelsgroup.h"
+#include "doc.h"
 
-DMXSubmaster::DMXSubmaster()
+DMXSubmaster::DMXSubmaster(Doc* doc, quint32 channelGroup) :
+      m_doc(doc)
+    , m_channelGroup(channelGroup)
 {
-    // register
+    m_doc->masterTimer()->registerDMXSubmaster(this);
 }
 
 DMXSubmaster::~DMXSubmaster()
 {
-    // unregister
+    m_doc->masterTimer()->unregisterDMXSubmaster(this);
 }
 
-void DMXSubmaster::perform(MasterTimer *timer, UniverseArray *universes)
+void DMXSubmaster::perform(MasterTimer *timer, UniverseArray *universes) const
 {
     Q_UNUSED(timer);
-    Q_UNUSED(universes);
 
-    // TODO
+    ChannelsGroup* channelGroup = m_doc->channelsGroup(m_channelGroup);
+    quint32 submasterValue = m_value;
+
+    if (channelGroup != 0)
+    {
+        QByteArray values = universes->preGMValues();
+
+        foreach (SceneValue sv, channelGroup->getChannels())
+        {
+            Fixture* fixture = m_doc->fixture(sv.fxi);
+            if (fixture != 0)
+            {
+                int channel = fixture->channelAddress(sv.channel);
+                if ((channel >= universes->size()) == false)
+                {
+                    quint32 currentValue = values.at(channel);
+                    quint32 targetValue = quint32((submasterValue / double(UCHAR_MAX)) * currentValue);
+
+                    // NoGroup is LTP, forcing the value down
+                    universes->write(channel, targetValue, QLCChannel::NoGroup);
+
+                    // If the channel actually was HTP, this allows Grand Master to affect it again
+                    universes->write(channel, targetValue, fixture->channel(sv.channel)->group());
+                }
+            }
+        }
+    }
 }
 
+void DMXSubmaster::setValue(uchar value)
+{
+    m_value = value;
+}
+
+uchar DMXSubmaster::value() const
+{
+    return m_value;
+}
+
+quint32 DMXSubmaster::channelGroup() const
+{
+    return m_channelGroup;
+}

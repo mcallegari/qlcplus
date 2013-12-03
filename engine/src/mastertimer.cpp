@@ -320,7 +320,7 @@ GenericFader* MasterTimer::fader() const
 void MasterTimer::timerTickFader(UniverseArray* universes)
 {
     QMutexLocker functionLocker(&m_functionListMutex);
-    QMutexLocker dmxLOcker(&m_dmxSourceListMutex);
+    QMutexLocker dmxLocker(&m_dmxSourceListMutex);
 
     fader()->write(universes);
 }

@@ -23,11 +23,12 @@
 class MasterTimer;
 class UniverseArray;
 class ChannelsGroup;
+class Doc;
 
 class DMXSubmaster
 {
 public:
-    DMXSubmaster();
+    DMXSubmaster(Doc *doc, quint32 channelGroup);
     virtual ~DMXSubmaster();
 
     /**
@@ -35,10 +36,18 @@ public:
      * @param timer The timer sending the request
      * @param universes The universes array, on which to apply the submaster
      */
-    void perform(MasterTimer* timer, UniverseArray* universes);
+    void perform(MasterTimer* timer, UniverseArray* universes) const;
+
+    void setValue(uchar value);
+    uchar value() const;
+
+    quint32 channelGroup() const;
 
 private:
-    ChannelsGroup* m_channelGroup;
+    Doc* m_doc;
+
+    quint32 m_channelGroup;
+    uchar m_value;
 };
 
 #endif // DMXSUBMASTER_H

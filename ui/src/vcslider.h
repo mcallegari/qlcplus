@@ -20,8 +20,11 @@
 #ifndef VCSLIDER_H
 #define VCSLIDER_H
 
+#include <QSharedPointer>
 #include <QMutex>
 #include <QList>
+
+#include "dmxsubmaster.h"
 
 #include "clickandgoslider.h"
 #include "clickandgowidget.h"
@@ -353,7 +356,6 @@ protected:
     bool m_playbackValueChanged;
     QMutex m_playbackValueMutex;
 
-
     /*********************************************************************
      * Submaster
      *********************************************************************/
@@ -362,8 +364,15 @@ public:
     void clearChannelGroups();
     void addChannelGroup(quint32 channelGroupId);
 
+    void setSubmasterValue(uchar value);
+    uchar submasterValue() const;
+
+protected slots:
+    void slotChannelsGroupRemoved(quint32 channelGroupId);
+
 protected:
-    QList<quint32> m_channelGroups;
+    uchar m_submasterValue;
+    QList<QSharedPointer<DMXSubmaster> > m_submasters;
 
     /*********************************************************************
      * DMXSource
