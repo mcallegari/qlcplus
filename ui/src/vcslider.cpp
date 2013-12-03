@@ -1107,6 +1107,8 @@ void VCSlider::slotSliderMoved(int value)
         break;
     }
 
+    emit valueChanged(num);
+
     updateFeedback();
 }
 

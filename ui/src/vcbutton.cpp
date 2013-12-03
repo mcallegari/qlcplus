@@ -409,6 +409,8 @@ void VCButton::setOn(bool on)
 {
     m_on = on;
 
+    emit pressedState(m_on);
+
     updateFeedback();
 
     update();

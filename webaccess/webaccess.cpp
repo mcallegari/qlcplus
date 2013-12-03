@@ -194,7 +194,8 @@ int WebAccess::beginRequestHandler(mg_connection *conn)
 void WebAccess::websocketReadyHandler(mg_connection *conn)
 {
     qDebug() << Q_FUNC_INFO;
-    static const char *message = "server ready";
+    m_conn = conn;
+    static const char *message = "QLC+ is ready";
     mg_websocket_write(conn, WEBSOCKET_OPCODE_TEXT, message, strlen(message));
 }
 
@@ -383,6 +384,18 @@ QString WebAccess::getSoloFrameHTML(VCSoloFrame *frame)
     return str;
 }
 
+void WebAccess::slotButtonToggled(bool on)
+{
+    VCButton *btn = (VCButton *)sender();
+
+    QString wsMessage = QString::number(btn->id());
+    if (on == true)
+        wsMessage.append("|BUTTON|1");
+    else
+        wsMessage.append("|BUTTON|0");
+
+    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
+}
 
 QString WebAccess::getButtonHTML(VCButton *btn)
 {
@@ -393,6 +406,10 @@ QString WebAccess::getButtonHTML(VCButton *btn)
         m_buttonFound = true;
     }
 
+    QString onCSS = "";
+    if (btn->isOn())
+        onCSS = "border: 3px solid #00E600;";
+
     QString str = "<div class=\"vcbutton-wrapper\" style=\""
             "left: " + QString::number(btn->x()) + "px; "
             "top: " + QString::number(btn->y()) + "px;\">\n";
@@ -402,9 +419,22 @@ QString WebAccess::getButtonHTML(VCButton *btn)
             "width: " + QString::number(btn->width()) + "px; "
             "height: " + QString::number(btn->height()) + "px; "
             "color: " + btn->foregroundColor().name() + "; "
-            "background-color: " + btn->backgroundColor().name() + "\">" +
+            "background-color: " + btn->backgroundColor().name() + "; " + onCSS + "\">" +
             btn->caption() + "</a>\n</div>\n";
+
+    connect(btn, SIGNAL(pressedState(bool)),
+            this, SLOT(slotButtonToggled(bool)));
+
     return str;
+}
+
+void WebAccess::slotSliderValueChanged(QString val)
+{
+    VCSlider *slider = (VCSlider *)sender();
+
+    QString wsMessage = QString("%1|SLIDER|%2").arg(slider->id()).arg(val);
+
+    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
 }
 
 QString WebAccess::getSliderHTML(VCSlider *slider)
@@ -442,6 +472,9 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
             "class=\"vcslLabel\" style=\"bottom:0px;\">" +
             slider->caption() + "</div>\n"
             "</div>\n";
+
+    connect(slider, SIGNAL(valueChanged(QString)),
+            this, SLOT(slotSliderValueChanged(QString)));
     return str;
 }
 
@@ -829,4 +862,5 @@ QString WebAccess::getConfigHTML()
 
     return str;
 }
+
 

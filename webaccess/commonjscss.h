@@ -25,6 +25,20 @@
     " websocket.onerror = function(ev) {\n" \
     "  alert(\"Websocket error!\");\n" \
     " };\n" \
+    " websocket.onmessage = function(ev) {\n" \
+    "  //alert(ev.data);\n" \
+    "  var msgParams = ev.data.split('|');\n" \
+    "  var obj = document.getElementById(msgParams[0]);\n" \
+    "  if (msgParams[1] == \"BUTTON\") {\n" \
+    "   if (msgParams[2] == 1) { obj.value = \"255\";\n obj.style.border = \"3px solid #00E600\"; }\n" \
+    "   else { obj.value = \"0\";\n obj.style.border = \"3px solid #A0A0A0\"; }\n" \
+    "  }\n" \
+    "  if (msgParams[1] == \"SLIDER\") {\n" \
+    "    obj.value = msgParams[2];\n" \
+    "    var labelObj = document.getElementById(\"slv\" + msgParams[0]);\n" \
+    "    labelObj.innerHTML = msgParams[2];\n" \
+    "  }\n" \
+    " };\n" \
     "};\n"
 
 #define CONTROL_BAR_CSS \
