@@ -261,6 +261,8 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
 
         return 1;
     }
+    else if(cmdList[0] == "POLL")
+        return 1;
 
     quint32 widgetID = cmdList[0].toUInt();
     VCWidget *widget = m_vc->widget(widgetID);
@@ -298,6 +300,8 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
                     cue->slotPreviousCue();
                 else if (cmdList[1] == "NEXT")
                     cue->slotNextCue();
+                else if (cmdList[1] == "STEP")
+                    cue->playCueAtIndex(cmdList[2].toInt());
             }
             break;
             default:
@@ -530,6 +534,15 @@ QString WebAccess::getAudioTriggersHTML(VCAudioTriggers *triggers)
     return str;
 }
 
+void WebAccess::slotCueIndexChanged(int idx)
+{
+    VCCueList *cue = (VCCueList *)sender();
+
+    QString wsMessage = QString("%1|CUE|%2").arg(cue->id()).arg(idx);
+
+    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
+}
+
 QString WebAccess::getCueListHTML(VCCueList *cue)
 {
     if (m_cueListFound == false)
@@ -539,7 +552,8 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
         m_cueListFound = true;
     }
 
-    QString str = "<div class=\"vccuelist\" style=\"left: " + QString::number(cue->x()) +
+    QString str = "<div id=\"" + QString::number(cue->id()) + "\" "
+            "class=\"vccuelist\" style=\"left: " + QString::number(cue->x()) +
             "px; top: " + QString::number(cue->y()) + "px; width: " +
              QString::number(cue->width()) +
             "px; height: " + QString::number(cue->height()) + "px; "
@@ -554,8 +568,11 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
     {
         for (int i = 0; i < chaser->stepsCount(); i++)
         {
-            str += "<tr onmouseover=\"this.style.backgroundColor='#92BDDF';\" "
-                    "onmouseout=\"this.style.backgroundColor='#ffffff';\">\n";
+            QString stepID = QString::number(cue->id()) + "_" + QString::number(i);
+            str += "<tr id=\"" + stepID + "\" "
+                    "onclick=\"enableCue(" + QString::number(cue->id()) + ", " + QString::number(i) + ");\" "
+                    "onmouseover=\"this.style.backgroundColor='#CCD9FF';\" "
+                    "onmouseout=\"checkMouseOut(" + QString::number(cue->id()) + ", " + QString::number(i) + ");\">\n";
             ChaserStep step = chaser->stepAt(i);
             str += "<td>" + QString::number(i + 1) + "</td>";
             Function* function = doc->function(step.fid);
@@ -616,7 +633,7 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
 
     str += "<a class=\"button button-blue\" style=\"height: 29px; font-size: 24px;\" "
             "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'PLAY');\">\n"
-            "<span id=\"" + QString::number(cue->id()) + "\">Play</span></a>\n";
+            "<span id=\"play" + QString::number(cue->id()) + "\">Play</span></a>\n";
     str += "<a class=\"button button-blue\" style=\"height: 29px; font-size: 24px;\" "
             "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'PREV');\">\n"
             "<span>Previous</span></a>\n";
@@ -624,6 +641,9 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
             "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'NEXT');\">\n"
             "<span>Next</span></a>\n";
     str += "</div>\n";
+
+    connect(cue, SIGNAL(stepChanged(int)),
+            this, SLOT(slotCueIndexChanged(int)));
 
     return str;
 }

@@ -752,7 +752,7 @@ QString VCButton::getJS()
                 "  obj.style.border = \"3px solid #A0A0A0\";\n"
                 " }\n"
                 " websocket.send(id + \"|\" + obj.value);\n"
-                "};\n";
+                "}\n";
     return str;
 }
 

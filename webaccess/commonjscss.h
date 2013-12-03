@@ -12,7 +12,7 @@
     "function sendCMD(cmd)\n" \
     "{\n" \
     " websocket.send(\"QLC+CMD|\" + cmd);\n" \
-    "};\n\n" \
+    "}\n\n" \
     "window.onload = function() {\n" \
     " var url = 'ws://' + window.location.host + '/qlcplusWS';\n" \
     " websocket = new WebSocket(url);\n" \
@@ -20,10 +20,10 @@
     "  //alert(\"Websocket open!\");\n" \
     " };\n\n" \
     " websocket.onclose = function(ev) {\n" \
-    "  //alert(\"Websocket close!\");\n" \
+    "  alert(\"QLC+ connection lost !\");\n" \
     " };\n\n" \
     " websocket.onerror = function(ev) {\n" \
-    "  alert(\"Websocket error!\");\n" \
+    "  alert(\"QLC+ connection error!\");\n" \
     " };\n" \
     " websocket.onmessage = function(ev) {\n" \
     "  //alert(ev.data);\n" \
@@ -38,7 +38,13 @@
     "    var labelObj = document.getElementById(\"slv\" + msgParams[0]);\n" \
     "    labelObj.innerHTML = msgParams[2];\n" \
     "  }\n" \
+    "  if (msgParams[1] == \"CUE\") {\n" \
+    "    setCueIndex(msgParams[0], msgParams[2]);\n" \
+    "    var playBbj = document.getElementById(\"play\" + msgParams[0]);\n" \
+    "    playBbj.innerHTML = \"Stop\";\n" \
+    "  }\n" \
     " };\n" \
+    " window.setInterval(function(){ websocket.send(\"POLL\"); }, 10000);\n" \
     "};\n"
 
 #define CONTROL_BAR_CSS \

@@ -269,6 +269,12 @@ public:
     /** @reimpl */
     QString getJS();
 
+    /** Play a specific cue at the given index */
+    void playCueAtIndex(int idx);
+
+signals:
+    void stepChanged(int idx);
+
     /*************************************************************************
      * Load & Save
      *************************************************************************/

@@ -64,6 +64,7 @@ private:
 protected slots:
     void slotButtonToggled(bool on);
     void slotSliderValueChanged(QString val);
+    void slotCueIndexChanged(int idx);
 
 protected:
     QString m_JScode;
