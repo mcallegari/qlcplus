@@ -18,7 +18,6 @@
 */
 
 #include <QDebug>
-#include <QDomDocument>
 
 #include "vcaudiotriggers.h"
 #include "virtualconsole.h"
