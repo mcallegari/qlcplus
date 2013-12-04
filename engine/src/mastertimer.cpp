@@ -325,6 +325,9 @@ void MasterTimer::timerTickFader(UniverseArray* universes)
     fader()->write(universes);
 }
 
+/****************************************************************************
+ * Submasters
+ ****************************************************************************/
 void MasterTimer::registerDMXSubmaster(DMXSubmaster *submaster)
 {
     Q_ASSERT(submaster != 0);
@@ -343,9 +346,6 @@ void MasterTimer::unregisterDMXSubmaster(DMXSubmaster *submaster)
     m_submastersList.removeAll(submaster);
 }
 
-/****************************************************************************
- * Generic Fader
- ****************************************************************************/
 void MasterTimer::timerTickSubmasters(UniverseArray *universes)
 {
     m_submastersListMutex.lock();
