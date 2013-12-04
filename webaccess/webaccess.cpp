@@ -235,8 +235,12 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
             m_doc->outputMap()->setPatch(universe, cmdList[3], cmdList[4].toUInt(), false);
         else if (cmdList[1] == "FB")
             m_doc->outputMap()->setPatch(universe, cmdList[3], cmdList[4].toUInt(), true);
-        //else if (cmdList[1] == "PROFILE")
-        //    m_doc->outputMap()->setPatch(universe, cmdList[3], cmdList[4].toUInt(), true);
+        else if (cmdList[1] == "PROFILE")
+        {
+            InputPatch *inPatch = m_doc->inputMap()->patch(universe);
+            if (inPatch != NULL)
+                m_doc->inputMap()->setPatch(universe, inPatch->pluginName(), inPatch->input(), cmdList[3]);
+        }
         else if (cmdList[1] == "AUDIOIN")
         {
             QSettings settings;
@@ -765,18 +769,21 @@ QString WebAccess::getConfigHTML()
             " background: -webkit-linear-gradient(top, #45484d 0%, #000000 100%);\n"
             "}\n"
             CONTROL_BAR_CSS
+            BUTTON_BASE_CSS
+            BUTTON_SPAN_CSS
+            BUTTON_STATE_CSS
+            BUTTON_BLUE_CSS
             SWINFO_CSS
             TABLE_CSS
             "</style>\n";
 
     QString bodyHTML = "<div class=\"controlBar\">\n"
+                       "<a class=\"button button-blue\" href=\"/\"><span>Back</span></a>\n"
                        "<div class=\"swInfo\">" + QString(APPNAME) + " " + QString(APPVERSION) + "</div>"
                        "</div>\n";
 
     InputMap *inMap = m_doc->inputMap();
     OutputMap *outMap = m_doc->outputMap();
-    //InputPatch *inPatch = m_doc->inputMap()->patch(0);
-    //OutputPatch *outPatch = m_doc->outputMap()->patch(0);
 
     QStringList IOplugins = inMap->pluginNames();
     foreach (QString out, outMap->pluginNames())
@@ -807,17 +814,30 @@ QString WebAccess::getConfigHTML()
     profiles.prepend("None");
 
     bodyHTML += "<div style=\"margin: 30px 7% 30px 7%; width: 86%; height: 300px;\" >\n";
+    bodyHTML += "<div style=\"font-family: verdana,arial,sans-serif; font-size:20px; text-align:center; color:#CCCCCC;\">";
+    bodyHTML += "Universes configuration</div><br>\n";
     bodyHTML += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
     bodyHTML += "<tr><th>Universe</th><th>Input</th><th>Output</th><th>Feedback</th><th>Profile</th></tr>\n";
 
     for (int i = 0; i < 4; i++)
     {
-        bodyHTML += "<tr><td>Universe " + QString::number(i+1) + "</td>\n";
+        QString currentInputPluginName = inMap->patch(i)->pluginName();
+        quint32 currentInput = inMap->patch(i)->input();
+        QString currentOutputPluginName = outMap->patch(i)->pluginName();
+        quint32 currentOutput = outMap->patch(i)->output();
+        QString currentFeedbackPluginName = outMap->feedbackPatch(i)->pluginName();
+        quint32 currentFeedback = outMap->feedbackPatch(i)->output();
+        QString currentProfileName = inMap->patch(i)->profileName();
+
+        bodyHTML += "<tr align=center><td>Universe " + QString::number(i+1) + "</td>\n";
         bodyHTML += "<td><select onchange=\"ioChanged('INPUT', " + QString::number(i) + ", this.value);\">\n";
         for (int in = 0; in < inputLines.count(); in++)
         {
             QStringList strList = inputLines.at(in).split(",");
-            bodyHTML += "<option value=\"" + QString("%1|%2").arg(strList.at(0)).arg(strList.at(2)) + "\">" +
+            QString selected = "";
+            if (currentInputPluginName == strList.at(0) && currentInput == strList.at(2).toUInt())
+                selected = "selected";
+            bodyHTML += "<option value=\"" + QString("%1|%2").arg(strList.at(0)).arg(strList.at(2)) + "\" " + selected + ">" +
                     QString("[%1] %2").arg(strList.at(0)).arg(strList.at(1)) + "</option>\n";
         }
         bodyHTML += "</select></td>\n";
@@ -825,7 +845,10 @@ QString WebAccess::getConfigHTML()
         for (int in = 0; in < outputLines.count(); in++)
         {
             QStringList strList = outputLines.at(in).split(",");
-            bodyHTML += "<option value=\"" + QString("%1|%2").arg(strList.at(0)).arg(strList.at(2)) + "\">" +
+            QString selected = "";
+            if (currentOutputPluginName == strList.at(0) && currentOutput == strList.at(2).toUInt())
+                selected = "selected";
+            bodyHTML += "<option value=\"" + QString("%1|%2").arg(strList.at(0)).arg(strList.at(2)) + "\" " + selected + ">" +
                     QString("[%1] %2").arg(strList.at(0)).arg(strList.at(1)) + "</option>\n";
         }
         bodyHTML += "</select></td>\n";
@@ -833,13 +856,21 @@ QString WebAccess::getConfigHTML()
         for (int in = 0; in < feedbackLines.count(); in++)
         {
             QStringList strList = feedbackLines.at(in).split(",");
-            bodyHTML += "<option value=\"" + QString("%1|%2").arg(strList.at(0)).arg(strList.at(2)) + "\">" +
+            QString selected = "";
+            if (currentFeedbackPluginName == strList.at(0) && currentFeedback == strList.at(2).toUInt())
+                selected = "selected";
+            bodyHTML += "<option value=\"" + QString("%1|%2").arg(strList.at(0)).arg(strList.at(2)) + "\" " + selected + ">" +
                     QString("[%1] %2").arg(strList.at(0)).arg(strList.at(1)) + "</option>\n";
         }
         bodyHTML += "</select></td>\n";
         bodyHTML += "<td><select onchange=\"ioChanged('PROFILE', " + QString::number(i) + ", this.value);\">\n";
         for (int p = 0; p < profiles.count(); p++)
-            bodyHTML += "<option value=\"" + QString::number(p) + "\">" + profiles.at(p) + "</option>\n";
+        {
+            QString selected = "";
+            if (currentProfileName == profiles.at(p))
+                selected = "selected";
+            bodyHTML += "<option value=\"" + profiles.at(p) + "\" " + selected + ">" + profiles.at(p) + "</option>\n";
+        }
         bodyHTML += "</select></td>\n";
 
         bodyHTML += "</tr>\n";
@@ -858,21 +889,37 @@ QString WebAccess::getConfigHTML()
 #endif
 
     bodyHTML += "<div style=\"margin: 30px 7% 30px 7%; width: 86%; height: 300px;\" >\n";
+    bodyHTML += "<div style=\"font-family: verdana,arial,sans-serif; font-size:20px; text-align:center; color:#CCCCCC;\">";
+    bodyHTML += "Audio configuration</div><br>\n";
     bodyHTML += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
     bodyHTML += "<tr><th>Input</th><th>Output</th></tr>\n";
-    bodyHTML += "<tr>";
+    bodyHTML += "<tr align=center>";
 
     QString audioInSelect = "<td><select onchange=\"ioChanged('AUDIOIN', this.value);\">\n"
                             "<option value=\"__qlcplusdefault__\">Default device</option>\n";
     QString audioOutSelect = "<td><select onchange=\"ioChanged('AUDIOOUT', this.value);\">\n"
                              "<option value=\"__qlcplusdefault__\">Default device</option>\n";
 
+    QString inputName, outputName;
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_AUDIO_INPUT_DEVICE);
+    if (var.isValid() == true)
+        inputName = var.toString();
+
+    var = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE);
+    if (var.isValid() == true)
+        outputName = var.toString();
+
     foreach( AudioDeviceInfo info, devList)
     {
         if (info.capabilities & AUDIO_CAP_INPUT)
-            audioInSelect += "<option value=\"" + info.privateName + "\">" + info.deviceName + "</option>\n";
+            audioInSelect += "<option value=\"" + info.privateName + "\" " +
+                             ((info.privateName == inputName)?"selected":"") + ">" +
+                             info.deviceName + "</option>\n";
         if (info.capabilities & AUDIO_CAP_OUTPUT)
-            audioOutSelect += "<option value=\"" + info.privateName + "\">" + info.deviceName + "</option>\n";
+            audioOutSelect += "<option value=\"" + info.privateName + "\" " +
+                    ((info.privateName == outputName)?"selected":"") + ">" +
+                    info.deviceName + "</option>\n";
     }
     audioInSelect += "</select></td>\n";
     audioOutSelect += "</select></td>\n";
