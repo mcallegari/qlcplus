@@ -889,7 +889,7 @@ void VCSliderProperties::accept()
 
     /* Slider mode */
     m_slider->setSliderMode(VCSlider::SliderMode(m_sliderMode));
-    if (m_sliderMode == VCSlider::Level || m_sliderMode == VCSlider::Playback)
+    if (m_sliderMode == VCSlider::Level || m_sliderMode == VCSlider::Playback || m_sliderMode == VCSlider::Submaster)
         m_slider->setCaption(m_nameEdit->text());
 
     /* Value style */
