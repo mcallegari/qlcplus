@@ -61,7 +61,7 @@ void DMXSubmaster::perform(MasterTimer *timer, UniverseArray *universes) const
                     // NoGroup is LTP, forcing the value down
                     universes->write(channel, targetValue, QLCChannel::NoGroup);
 
-                    // If the channel actually was HTP, this allows Grand Master to affect it again
+                    // Restore the group attribute, this allows Grand Master to affect it again
                     universes->write(channel, targetValue, group);
                 }
             }
