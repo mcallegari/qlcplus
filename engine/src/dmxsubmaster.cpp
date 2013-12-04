@@ -52,7 +52,8 @@ void DMXSubmaster::perform(MasterTimer *timer, UniverseArray *universes) const
             if (fixture != 0)
             {
                 int channel = fixture->channelAddress(sv.channel);
-                if ((channel >= universes->size()) == false)
+                QLCChannel::Group group = fixture->channel(sv.channel)->group();
+                if (group == QLCChannel::Intensity && (channel >= universes->size()) == false)
                 {
                     quint32 currentValue = values.at(channel);
                     quint32 targetValue = quint32((submasterValue / double(UCHAR_MAX)) * currentValue);
@@ -61,7 +62,7 @@ void DMXSubmaster::perform(MasterTimer *timer, UniverseArray *universes) const
                     universes->write(channel, targetValue, QLCChannel::NoGroup);
 
                     // If the channel actually was HTP, this allows Grand Master to affect it again
-                    universes->write(channel, targetValue, fixture->channel(sv.channel)->group());
+                    universes->write(channel, targetValue, group);
                 }
             }
         }
