@@ -54,6 +54,7 @@ docs.files = \
              showmanager.html \
              simpledesk.html \
              tutorial.html \
+             tutorial-multipage.html \
              udmxoutput.html \
              vcbutton.html \
              vcbuttonmatrix.html \
@@ -76,6 +77,10 @@ imgs.files += images/efx-general.png \
               images/mainwindow.png \
               images/tutorial1_1.png \
               images/tutorial1_2.png \
-              images/tutorial1_3.png
+              images/tutorial1_3.png \
+              images/multipage1.png \
+              images/multipage2.png \
+              images/multipage3.png \
+              images/multipage4.png
 
 INSTALLS += docs imgs
