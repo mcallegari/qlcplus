@@ -55,6 +55,7 @@ docs.files = \
              simpledesk.html \
              tutorial.html \
              tutorial-multipage.html \
+             tutorial-bcf-lc2412.html \
              udmxoutput.html \
              vcbutton.html \
              vcbuttonmatrix.html \
