@@ -1,5 +1,6 @@
 qlcplus (4.6.0) stable; urgency=low
 
+  * NEW: Plugins: Added E1.31 protocol input/output plugin
   * NEW: EFX Editor: added relative position settings (thank to Jano Svitok)
   * NEW: Function Manager: added folders with drag & drop functionality
   * NEW: Function Wizard has been completely rewritten

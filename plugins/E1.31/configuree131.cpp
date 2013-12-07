@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  configureartnet.cpp
+  configuree131.cpp
 
   Copyright (c) Massimo Callegari
 
@@ -21,8 +21,8 @@
 #include <QString>
 #include <QDebug>
 
-#include "configureartnet.h"
-#include "artnetplugin.h"
+#include "configuree131.h"
+#include "e131plugin.h"
 
 #define UNIVERSES_PER_ADDRESS   4
 
@@ -37,7 +37,7 @@
  * Initialization
  *****************************************************************************/
 
-ConfigureArtNet::ConfigureArtNet(ArtNetPlugin* plugin, QWidget* parent)
+ConfigureE131::ConfigureE131(E131Plugin* plugin, QWidget* parent)
         : QDialog(parent)
 {
     Q_ASSERT(plugin != NULL);
@@ -49,13 +49,12 @@ ConfigureArtNet::ConfigureArtNet(ArtNetPlugin* plugin, QWidget* parent)
     this->resize(400, 300);
 
     fillOutputTree();
-    fillNodesTree();
 }
 
-void ConfigureArtNet::fillOutputTree()
+void ConfigureE131::fillOutputTree()
 {
     QList<QNetworkAddressEntry> ifaces = m_plugin->interfaces();
-    QList<ArtNetIO> IOmap = m_plugin->getIOMapping();
+    QList<E131IO> IOmap = m_plugin->getIOMapping();
 
     foreach (QNetworkAddressEntry entry, ifaces)
     {
@@ -82,41 +81,7 @@ void ConfigureArtNet::fillOutputTree()
     m_outputTree->resizeColumnToContents(KOutputColumnNetwork);
 }
 
-void ConfigureArtNet::fillNodesTree()
-{
-    ArtNetController *prevController = NULL;
-
-    QList<ArtNetIO> IOmap = m_plugin->getIOMapping();
-
-    for (int i = 0; i < IOmap.length(); i++)
-    {
-        ArtNetController *controller = IOmap.at(i).controller;
-
-        if (controller != NULL && controller != prevController)
-        {
-            QTreeWidgetItem* pitem = new QTreeWidgetItem(m_nodesTree);
-            pitem->setText(KNodesColumnIP, controller->getNetworkIP() + " nodes");
-            QHash<QHostAddress, ArtNetNodeInfo> nodesList = controller->getNodesList();
-            QHashIterator<QHostAddress, ArtNetNodeInfo> it(nodesList);
-            while (it.hasNext())
-            {
-                it.next();
-                QTreeWidgetItem* nitem = new QTreeWidgetItem(pitem);
-                ArtNetNodeInfo nInfo = it.value();
-                nitem->setText(KNodesColumnIP, it.key().toString());
-                nitem->setText(KNodesColumnShortName, nInfo.shortName);
-                nitem->setText(KNodesColumnLongName, nInfo.longName);
-            }
-            prevController = controller;
-        }
-    }
-
-    m_nodesTree->resizeColumnToContents(KNodesColumnIP);
-    m_nodesTree->resizeColumnToContents(KNodesColumnShortName);
-    m_nodesTree->resizeColumnToContents(KNodesColumnLongName);
-}
-
-ConfigureArtNet::~ConfigureArtNet()
+ConfigureE131::~ConfigureE131()
 {
 }
 
@@ -124,7 +89,7 @@ ConfigureArtNet::~ConfigureArtNet()
  * Dialog actions
  *****************************************************************************/
 
-void ConfigureArtNet::accept()
+void ConfigureE131::accept()
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -144,7 +109,7 @@ void ConfigureArtNet::accept()
     QDialog::accept();
 }
 
-int ConfigureArtNet::exec()
+int ConfigureE131::exec()
 {
     return QDialog::exec();
 }

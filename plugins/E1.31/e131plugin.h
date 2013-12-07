@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  artnetplugin.h
+  e131plugin.h
 
   Copyright (c) Massimo Callegari
 
@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-#ifndef ARTNETPLUGIN_H
-#define ARTNETPLUGIN_H
+#ifndef E131PLUGIN_H
+#define E131PLUGIN_H
 
 #include <QNetworkAddressEntry>
 #include <QNetworkInterface>
@@ -27,20 +27,18 @@
 #include <QHash>
 #include <QFile>
 
-//#include <artnet/artnet.h>
-
 #include "qlcioplugin.h"
-#include "artnetcontroller.h"
+#include "e131controller.h"
 
 typedef struct
 {
     QString IPAddress;
     int port;
-    ArtNetController* controller;
-    ArtNetController::Type type;
-} ArtNetIO;
+    E131Controller* controller;
+    E131Controller::Type type;
+} E131IO;
 
-class ArtNetPlugin : public QLCIOPlugin
+class E131Plugin : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)
@@ -53,7 +51,7 @@ class ArtNetPlugin : public QLCIOPlugin
      *********************************************************************/
 public:
     /** @reimp */
-    virtual ~ArtNetPlugin();
+    virtual ~E131Plugin();
 
     /** @reimp */
     void init();
@@ -122,7 +120,7 @@ public:
     QList<QNetworkAddressEntry> interfaces();
 
     /** Get a list of the available Input/Output lines */
-    QList<ArtNetIO> getIOMapping();
+    QList<E131IO> getIOMapping();
 
     void remapOutputs(QList<QString> IPs, QList<int> ports);
 
@@ -133,8 +131,8 @@ private:
     /** List holding the detected system network interfaces MAC Address */
     QList<QString>m_netMACAddresses;
 
-    /** Map of the ArtNet plugin Input/Output lines */
-    QList<ArtNetIO>m_IOmapping;
+    /** Map of the E131 plugin Input/Output lines */
+    QList<E131IO>m_IOmapping;
 
 private slots:
     void slotInputValueChanged(quint32 input, int channel, uchar value);

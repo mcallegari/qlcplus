@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  artnetnode.h
+  e131node.h
 
   Copyright (c) Massimo Callegari
 
@@ -17,17 +17,17 @@
   limitations under the License.
 */
 
-#ifndef ARTNETNODE_H
-#define ARTNETNODE_H
+#ifndef E131NODE_H
+#define E131NODE_H
 
-#include "artnetpacketizer.h"
+#include "e131packetizer.h"
 
 #include <QtNetwork>
 #include <QObject>
 
-#define ARTNET_DEFAULT_PORT     6454
+#define E131_DEFAULT_PORT     5568
 
-class ArtNetController : public QObject
+class E131Controller : public QObject
 {
     Q_OBJECT
 
@@ -37,19 +37,16 @@ class ArtNetController : public QObject
 public:
     enum Type { Unknown = 0x0, Input = 0x01, Output = 0x02 };
 
-    ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> interfaces,
+    E131Controller(QString ipaddr, QList<QNetworkAddressEntry> interfaces,
                      QList<QString>macAddrList, Type type, QObject *parent = 0);
 
-    ~ArtNetController();
+    ~E131Controller();
 
     /** Send DMX data to a specific port/universe */
     void sendDmx(const int& universe, const QByteArray& data);
 
     /** Return the controller IP address */
     QString getNetworkIP();
-
-    /** Returns the map of Nodes discovered by ArtPoll */
-    QHash<QHostAddress, ArtNetNodeInfo> getNodesList();
 
     /** add an output port to this controller (in DMX words, a universe */
     void addUniverse(quint32 line, int uni);
@@ -73,9 +70,9 @@ private:
     /** The controller IP address as QHostAddress */
     QHostAddress m_ipAddr;
 
-    /** The controller broadcast address as QHostAddress */
-    /** This is where all ArtNet packets are sent to */
-    QHostAddress m_broadcastAddr;
+    /** The controller multicast addresses map as QHostAddress */
+    /** This is where all E131 packets are sent to */
+    QHash<int, QHostAddress> m_multicastAddr;
 
     /** The controller interface MAC address. Used only for ArtPollReply */
     QString m_MACAddress;
@@ -91,14 +88,11 @@ private:
     /** A controller can be only output or only input */
     Type m_type;
 
-    /** The UDP socket used to send/receive ArtNet packets */
+    /** The UDP socket used to send/receive E131 packets */
     QUdpSocket *m_UdpSocket;
 
-    /** Helper class used to create or parse ArtNet packets */
-    ArtNetPacketizer *m_packetizer;
-
-    /** Map of the ArtNet nodes discovered with ArtPoll */
-    QHash<QHostAddress, ArtNetNodeInfo> m_nodesList;
+    /** Helper class used to create or parse E131 packets */
+    E131Packetizer *m_packetizer;
 
     /** Keeps the current dmx values to send only the ones that changed */
     /** It holds values for a whole 4 universes address (512 * 4) */

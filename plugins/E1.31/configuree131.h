@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  configureartnet.h
+  configuree131.h
 
   Copyright (c) Massimo Callegari
 
@@ -17,14 +17,14 @@
   limitations under the License.
 */
 
-#ifndef CONFIGUREARTNET_H
-#define CONFIGUREARTNET_H
+#ifndef CONFIGUREE131_H
+#define CONFIGUREE131_H
 
-#include "ui_configureartnet.h"
+#include "ui_configuree131.h"
 
-class ArtNetPlugin;
+class E131Plugin;
 
-class ConfigureArtNet : public QDialog, public Ui_ConfigureArtNet
+class ConfigureE131 : public QDialog, public Ui_ConfigureE131
 {
     Q_OBJECT
 
@@ -32,8 +32,8 @@ class ConfigureArtNet : public QDialog, public Ui_ConfigureArtNet
      * Initialization
      *********************************************************************/
 public:
-    ConfigureArtNet(ArtNetPlugin* plugin, QWidget* parent = 0);
-    virtual ~ConfigureArtNet();
+    ConfigureE131(E131Plugin* plugin, QWidget* parent = 0);
+    virtual ~ConfigureE131();
 
     /** @reimp */
     void accept();
@@ -46,7 +46,7 @@ private:
     void fillNodesTree();
 
 private:
-    ArtNetPlugin* m_plugin;
+    E131Plugin* m_plugin;
 
 };
 

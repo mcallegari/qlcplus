@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  artnetplugin.cpp
+  e131plugin.cpp
 
   Copyright (c) Massimo Callegari
 
@@ -17,17 +17,17 @@
   limitations under the License.
 */
 
-#include "artnetplugin.h"
-#include "configureartnet.h"
+#include "e131plugin.h"
+#include "configuree131.h"
 
 #include <QSettings>
 #include <QDebug>
 
-ArtNetPlugin::~ArtNetPlugin()
+E131Plugin::~E131Plugin()
 {
 }
 
-void ArtNetPlugin::init()
+void E131Plugin::init()
 {
     QSettings settings;
 
@@ -43,13 +43,13 @@ void ArtNetPlugin::init()
             }
         }
     }
-    QString key = QString("ArtNetPlugin/outputs");
+    QString key = QString("E131Plugin/outputs");
     QVariant outNum = settings.value(key);
     if (outNum.isValid() == true)
     {
         for (int o = 0; o < outNum.toInt(); o++)
         {
-            QString outKey = QString("ArtNetPlugin/Output%1").arg(o);
+            QString outKey = QString("E131Plugin/Output%1").arg(o);
             QVariant value = settings.value(outKey);
             if (value.isValid() == true)
             {
@@ -58,11 +58,11 @@ void ArtNetPlugin::init()
                 QStringList outMapList = outMapStr.split("#");
                 if (outMapList.length() == 2)
                 {
-                    ArtNetIO tmpIO;
+                    E131IO tmpIO;
                     tmpIO.IPAddress = outMapList.at(0);
                     tmpIO.port = outMapList.at(1).toInt();
                     tmpIO.controller = NULL;
-                    tmpIO.type = ArtNetController::Unknown;
+                    tmpIO.type = E131Controller::Unknown;
                     m_IOmapping.append(tmpIO);
                 }
             }
@@ -72,27 +72,27 @@ void ArtNetPlugin::init()
     {
         foreach (QNetworkAddressEntry entry, m_netInterfaces)
         {
-            ArtNetIO tmpIO;
+            E131IO tmpIO;
             tmpIO.IPAddress = entry.ip().toString();
             tmpIO.port = 0;
             tmpIO.controller = NULL;
-            tmpIO.type = ArtNetController::Unknown;
+            tmpIO.type = E131Controller::Unknown;
             m_IOmapping.append(tmpIO);
         }
     }
 }
 
-QString ArtNetPlugin::name()
+QString E131Plugin::name()
 {
-    return QString("ArtNet");
+    return QString("E1.31");
 }
 
-int ArtNetPlugin::capabilities() const
+int E131Plugin::capabilities() const
 {
     return QLCIOPlugin::Output | QLCIOPlugin::Input;
 }
 
-QString ArtNetPlugin::pluginInfo()
+QString E131Plugin::pluginInfo()
 {
     QString str;
 
@@ -104,7 +104,7 @@ QString ArtNetPlugin::pluginInfo()
 
     str += QString("<P>");
     str += QString("<H3>%1</H3>").arg(name());
-    str += tr("This plugin provides DMX output for devices supporting the ArtNet communication protocol.");
+    str += tr("This plugin provides DMX output for devices supporting the E1.31 communication protocol.");
     str += QString("</P>");
 
     return str;
@@ -113,20 +113,20 @@ QString ArtNetPlugin::pluginInfo()
 /*********************************************************************
  * Outputs
  *********************************************************************/
-QStringList ArtNetPlugin::outputs()
+QStringList E131Plugin::outputs()
 {
     QStringList list;
     int j = 0;
-    foreach (ArtNetIO line, m_IOmapping)
+    foreach (E131IO line, m_IOmapping)
     {
-        if(line.type != ArtNetController::Input)
+        if(line.type != E131Controller::Input)
             list << QString(tr("%1: [%2] Universe: %3")).arg(j + 1).arg(line.IPAddress).arg(line.port);
         j++;
     }
     return list;
 }
 
-QString ArtNetPlugin::outputInfo(quint32 output)
+QString E131Plugin::outputInfo(quint32 output)
 {
     if (output >= (quint32)m_IOmapping.length())
         return QString();
@@ -135,15 +135,12 @@ QString ArtNetPlugin::outputInfo(quint32 output)
 
     str += QString("<H3>%1 %2</H3>").arg(tr("Output")).arg(outputs()[output]);
     str += QString("<P>");
-    ArtNetController *ctrl = m_IOmapping.at(output).controller;
-    if (ctrl == NULL || ctrl->getType() == ArtNetController::Input)
+    E131Controller *ctrl = m_IOmapping.at(output).controller;
+    if (ctrl == NULL || ctrl->getType() == E131Controller::Input)
         str += tr("Status: Not open");
     else
     {
         str += tr("Status: Open");
-        str += QString("<BR>");
-        str += tr("Nodes discovered: ");
-        str += QString("%1").arg(ctrl->getNodesList().size());
         str += QString("<BR>");
         str += tr("Packets sent: ");
         str += QString("%1").arg(ctrl->getPacketSentNumber());
@@ -155,7 +152,7 @@ QString ArtNetPlugin::outputInfo(quint32 output)
     return str;
 }
 
-void ArtNetPlugin::openOutput(quint32 output)
+void E131Plugin::openOutput(quint32 output)
 {
     int i = 0;
     if (output >= (quint32)m_IOmapping.length())
@@ -163,12 +160,12 @@ void ArtNetPlugin::openOutput(quint32 output)
 
     qDebug() << "Open output with address :" << m_IOmapping.at(output).IPAddress;
 
-    // scan for an already opened ArtNetController over the same network
+    // scan for an already opened E131Controller over the same network
     for (i = 0; i < m_IOmapping.length(); i++)
     {
         if ((quint32)i != output && m_IOmapping.at(i).controller != NULL)
         {
-            ArtNetController *controller = m_IOmapping.at(i).controller;
+            E131Controller *controller = m_IOmapping.at(i).controller;
             if (controller->getNetworkIP() == m_IOmapping.at(output).IPAddress)
             {
                 m_IOmapping[output].controller = controller;
@@ -178,33 +175,25 @@ void ArtNetPlugin::openOutput(quint32 output)
         }
     }
 
-    // not found ? Create a new ArtNetController
+    // not found ? Create a new E131Controller
     if (i == m_IOmapping.length())
     {
-        ArtNetController *controller = new ArtNetController(m_IOmapping.at(output).IPAddress,
+        E131Controller *controller = new E131Controller(m_IOmapping.at(output).IPAddress,
                                                             m_netInterfaces, m_netMACAddresses,
-                                                            ArtNetController::Output, this);
+                                                            E131Controller::Output, this);
         controller->addUniverse(output, m_IOmapping.at(output).port);
         m_IOmapping[output].controller = controller;
-        // mark all the outputs with this IP address as output lines
-        /*
-        for (i = 0; i < m_IOmapping.length(); i++)
-        {
-            if (m_IOmapping.at(i).IPAddress == m_IOmapping.at(output).IPAddress)
-                m_IOmapping[i].type = ArtNetController::Output;
-        }
-        */
     }
 }
 
-void ArtNetPlugin::closeOutput(quint32 output)
+void E131Plugin::closeOutput(quint32 output)
 {
     if (output >= (quint32)m_IOmapping.length())
         return;
-    ArtNetController *controller = m_IOmapping.at(output).controller;
+    E131Controller *controller = m_IOmapping.at(output).controller;
     if (controller != NULL)
     {
-        // if a ArtNetController is managing more than one universe
+        // if a E131Controller is managing more than one universe
         // then just remove an output interface
         if (controller->getUniversesNumber() > 1)
         {
@@ -217,7 +206,7 @@ void ArtNetPlugin::closeOutput(quint32 output)
             for (int i = 0; i < m_IOmapping.length(); i++)
             {
                 if (m_IOmapping.at(i).IPAddress == m_IOmapping.at(output).IPAddress)
-                    m_IOmapping[i].type = ArtNetController::Unknown;
+                    m_IOmapping[i].type = E131Controller::Unknown;
             }
             delete m_IOmapping[output].controller;
             m_IOmapping[output].controller = NULL;
@@ -225,9 +214,9 @@ void ArtNetPlugin::closeOutput(quint32 output)
     }
 }
 
-void ArtNetPlugin::writeUniverse(quint32 output, const QByteArray& universe)
+void E131Plugin::writeUniverse(quint32 output, const QByteArray& universe)
 {
-    ArtNetController *controller = m_IOmapping[output].controller;
+    E131Controller *controller = m_IOmapping[output].controller;
     if (controller != NULL)
         controller->sendDmx(m_IOmapping.at(output).port, universe);
 }
@@ -235,20 +224,20 @@ void ArtNetPlugin::writeUniverse(quint32 output, const QByteArray& universe)
 /*************************************************************************
   * Inputs
   *************************************************************************/  
-QStringList ArtNetPlugin::inputs()
+QStringList E131Plugin::inputs()
 {
     QStringList list;
     int j = 0;
-    foreach (ArtNetIO line, m_IOmapping)
+    foreach (E131IO line, m_IOmapping)
     {
-        if(line.type != ArtNetController::Output)
+        if(line.type != E131Controller::Output)
             list << QString(tr("%1: [%2] Universe: %3")).arg(j + 1).arg(line.IPAddress).arg(line.port);
         j++;
     }
     return list;
 }
 
-void ArtNetPlugin::openInput(quint32 input)
+void E131Plugin::openInput(quint32 input)
 {
     int i = 0;
     if (input >= (quint32)m_IOmapping.length())
@@ -256,12 +245,12 @@ void ArtNetPlugin::openInput(quint32 input)
 
     qDebug() << "Open input with address :" << m_IOmapping.at(input).IPAddress;
 
-    // scan for an already opened ArtNetController over the same network
+    // scan for an already opened E131Controller over the same network
     for (i = 0; i < m_IOmapping.length(); i++)
     {
         if ((quint32)i != input && m_IOmapping.at(i).controller != NULL)
         {
-            ArtNetController *controller = m_IOmapping.at(i).controller;
+            E131Controller *controller = m_IOmapping.at(i).controller;
             if (controller->getNetworkIP() == m_IOmapping.at(input).IPAddress)
             {
                 m_IOmapping[input].controller = controller;
@@ -271,36 +260,28 @@ void ArtNetPlugin::openInput(quint32 input)
         }
     }
 
-    // not found ? Create a new ArtNetController
+    // not found ? Create a new E131Controller
     if (i == m_IOmapping.length())
     {
-        ArtNetController *controller = new ArtNetController(m_IOmapping.at(input).IPAddress,
+        E131Controller *controller = new E131Controller(m_IOmapping.at(input).IPAddress,
                                                             m_netInterfaces, m_netMACAddresses,
-                                                            ArtNetController::Input, this);
+                                                            E131Controller::Input, this);
         controller->addUniverse(input, m_IOmapping.at(input).port);
         connect(controller, SIGNAL(valueChanged(quint32,int,uchar)),
                 this, SLOT(slotInputValueChanged(quint32,int,uchar)));
         m_IOmapping[input].controller = controller;
-        // mark all the inputs with this IP address as input lines
-        /*
-        for (i = 0; i < m_IOmapping.length(); i++)
-        {
-            if (m_IOmapping.at(i).IPAddress == m_IOmapping.at(input).IPAddress)
-                m_IOmapping[i].type = ArtNetController::Input;
-        }
-        */
     }
 
 }
 
-void ArtNetPlugin::closeInput(quint32 input)
+void E131Plugin::closeInput(quint32 input)
 {
     if (input >= (quint32)m_IOmapping.length())
         return;
-    ArtNetController *controller = m_IOmapping.at(input).controller;
+    E131Controller *controller = m_IOmapping.at(input).controller;
     if (controller != NULL)
     {
-        // if a ArtNetController is managing more than one universe
+        // if a E131Controller is managing more than one universe
         // then just remove an output interface
         if (controller->getUniversesNumber() > 1)
         {
@@ -313,7 +294,7 @@ void ArtNetPlugin::closeInput(quint32 input)
             for (int i = 0; i < m_IOmapping.length(); i++)
             {
                 if (m_IOmapping.at(i).IPAddress == m_IOmapping.at(input).IPAddress)
-                    m_IOmapping[i].type = ArtNetController::Unknown;
+                    m_IOmapping[i].type = E131Controller::Unknown;
             }
             delete m_IOmapping[input].controller;
             m_IOmapping[input].controller = NULL;
@@ -321,7 +302,7 @@ void ArtNetPlugin::closeInput(quint32 input)
     }
 }
 
-QString ArtNetPlugin::inputInfo(quint32 input)
+QString E131Plugin::inputInfo(quint32 input)
 {
     if (input >= (quint32)m_IOmapping.length())
         return QString();
@@ -330,8 +311,8 @@ QString ArtNetPlugin::inputInfo(quint32 input)
 
     str += QString("<H3>%1 %2</H3>").arg(tr("Input")).arg(inputs()[input]);
     str += QString("<P>");
-    ArtNetController *ctrl = m_IOmapping.at(input).controller;
-    if (ctrl == NULL || ctrl->getType() == ArtNetController::Output)
+    E131Controller *ctrl = m_IOmapping.at(input).controller;
+    if (ctrl == NULL || ctrl->getType() == E131Controller::Output)
         str += tr("Status: Not open");
     else
     {
@@ -347,7 +328,7 @@ QString ArtNetPlugin::inputInfo(quint32 input)
     return str;
 }
 
-void ArtNetPlugin::slotInputValueChanged(quint32 input, int channel, uchar value)
+void E131Plugin::slotInputValueChanged(quint32 input, int channel, uchar value)
 {
     qDebug() << "Sending input:" << input << ", channel:" << channel << ", value:" << value;
     emit valueChanged(input, (quint32)channel, value);
@@ -356,36 +337,36 @@ void ArtNetPlugin::slotInputValueChanged(quint32 input, int channel, uchar value
 /*********************************************************************
  * Configuration
  *********************************************************************/
-void ArtNetPlugin::configure()
+void E131Plugin::configure()
 {
-    ConfigureArtNet conf(this);
+    ConfigureE131 conf(this);
     conf.exec();
 }
 
-bool ArtNetPlugin::canConfigure()
+bool E131Plugin::canConfigure()
 {
     return true;
 }
 
-QList<QNetworkAddressEntry> ArtNetPlugin::interfaces()
+QList<QNetworkAddressEntry> E131Plugin::interfaces()
 {
     return m_netInterfaces;
 }
 
-QList<ArtNetIO> ArtNetPlugin::getIOMapping()
+QList<E131IO> E131Plugin::getIOMapping()
 {
     return m_IOmapping;
 }
 
-void ArtNetPlugin::remapOutputs(QList<QString> IPs, QList<int> ports)
+void E131Plugin::remapOutputs(QList<QString> IPs, QList<int> ports)
 {
     if (IPs.length() > 0 && ports.length() > 0)
     {
         int oldIdx = 0;
-        QList<ArtNetIO> newIOMapping;
+        QList<E131IO> newIOMapping;
         for (int i = 0; i < IPs.length(); i++)
         {
-            ArtNetIO tmpIO;
+            E131IO tmpIO;
             tmpIO.IPAddress = IPs.at(i);
             tmpIO.port = ports.at(i);
             if (oldIdx < m_IOmapping.length() &&
@@ -394,15 +375,15 @@ void ArtNetPlugin::remapOutputs(QList<QString> IPs, QList<int> ports)
             {
                 tmpIO.controller = m_IOmapping.at(oldIdx).controller;
                 if (tmpIO.controller != NULL)
-                    tmpIO.type = (ArtNetController::Type)tmpIO.controller->getType();
+                    tmpIO.type = (E131Controller::Type)tmpIO.controller->getType();
                 else
-                    tmpIO.type = ArtNetController::Unknown;
+                    tmpIO.type = E131Controller::Unknown;
                 oldIdx++;
             }
             else
             {
                 tmpIO.controller = NULL;
-                tmpIO.type = ArtNetController::Unknown;
+                tmpIO.type = E131Controller::Unknown;
             }
             newIOMapping.append(tmpIO);
         }
@@ -411,13 +392,13 @@ void ArtNetPlugin::remapOutputs(QList<QString> IPs, QList<int> ports)
 
         QSettings settings;
         // reset the previous state first
-        settings.remove("ArtNetPlugin");
-        QString countKey = QString("ArtNetPlugin/outputs");
+        settings.remove("E131Plugin");
+        QString countKey = QString("E131Plugin/outputs");
         settings.setValue(countKey, QVariant(m_IOmapping.length()));
 
         for (int i = 0; i < m_IOmapping.length(); i++)
         {
-            QString key = QString("ArtNetPlugin/Output%1").arg(i);
+            QString key = QString("E131Plugin/Output%1").arg(i);
             QString value = m_IOmapping.at(i).IPAddress + "#" + QString("%1").arg(m_IOmapping.at(i).port);
             settings.setValue(key, QVariant(value));
         }
@@ -430,5 +411,5 @@ void ArtNetPlugin::remapOutputs(QList<QString> IPs, QList<int> ports)
  * Plugin export
  ****************************************************************************/
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-Q_EXPORT_PLUGIN2(artnetplugin, ArtNetPlugin)
+Q_EXPORT_PLUGIN2(e131plugin, E131Plugin)
 #endif
