@@ -140,7 +140,7 @@ QTreeWidgetItem* FunctionsTreeWidget::parentItem(const Function* function)
 
     if (pItem != NULL)
     {
-        qDebug() << "Found item for function:" << function->name() << ", path: " << function->path();
+        //qDebug() << "Found item for function:" << function->name() << ", path: " << function->path();
         return pItem;
     }
 

@@ -574,11 +574,12 @@ QList<SceneValue> FixtureRemap::remapSceneValues(QList<SceneValue> funcList,
             if (val == srcList.at(v))
             {
                 SceneValue tgtVal = tgtList.at(v);
-                qDebug() << "[Scene] Remapping" << val.fxi << val.channel << " to " << tgtVal.fxi << tgtVal.channel;
+                //qDebug() << "[Scene] Remapping" << val.fxi << val.channel << " to " << tgtVal.fxi << tgtVal.channel;
                 newValuesList.append(SceneValue(tgtVal.fxi, tgtVal.channel, val.value));
             }
         }
     }
+    qSort(newValuesList.begin(), newValuesList.end());
     return newValuesList;
 }
 
@@ -674,10 +675,10 @@ void FixtureRemap::accept()
                     {
                         ChaserStep cs = c->stepAt(idx);
                         QList <SceneValue> newList = remapSceneValues(cs.values, sourceList, targetList);
+                        //qDebug() << "Step" << idx << "remapped" << cs.values.count() << "to" << newList.count();
                         // this is crucial: here all the "unmapped" channels will be lost forever !
                         cs.values.clear();
-                        for (int i = 0; i < newList.count(); i++)
-                            cs.values.append(newList.at(i));
+                        cs.values = newList;
                         c->replaceStep(cs, idx);
                     }
                 }

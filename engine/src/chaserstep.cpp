@@ -182,11 +182,9 @@ bool ChaserStep::saveXML(QDomDocument* doc, QDomElement* root, int stepNumber, b
     {
         /* it's a sequence step. Save values accordingly */
         tag.setAttribute(KXMLQLCSequenceSceneValues, values.count());
-        QListIterator <SceneValue> it(values);
         QString stepValues;
-        while (it.hasNext() == true)
+        foreach(SceneValue scv, values)
         {
-            SceneValue scv(it.next());
             if (scv.value != 0)
             {
                 if (stepValues.isEmpty() == false)
