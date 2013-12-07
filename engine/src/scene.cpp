@@ -105,10 +105,12 @@ void Scene::setValue(const SceneValue& scv, bool blind, bool checkHTP)
     m_valueListMutex.lock();
     int index = m_values.indexOf(scv);
     if (index == -1)
+    {
         m_values.append(scv);
+        qSort(m_values.begin(), m_values.end());
+    }
     else
         m_values.replace(index, scv);
-    qSort(m_values.begin(), m_values.end());
 
     // if the scene is running, we must
     // update/add the changed channel

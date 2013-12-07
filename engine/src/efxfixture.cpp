@@ -38,7 +38,7 @@
 
 EFXFixture::EFXFixture(const EFX* parent)
     : m_parent(parent)
-    , m_fixture(Fixture::invalidId())
+    , m_head()
     , m_direction(Function::Forward)
     , m_startOffset(0)
     , m_fadeIntensity(255)
@@ -58,7 +58,7 @@ void EFXFixture::copyFrom(const EFXFixture* ef)
 {
     // Don't copy m_parent because it is already assigned in constructor and might
     // be different than $ef's
-    m_fixture = ef->m_fixture;
+    m_head = ef->m_head;
     m_direction = ef->m_direction;
     m_startOffset = ef->m_startOffset;
     m_fadeIntensity = ef->m_fadeIntensity;
@@ -80,14 +80,14 @@ EFXFixture::~EFXFixture()
  * Public properties
  ****************************************************************************/
 
-void EFXFixture::setFixture(quint32 id)
+void EFXFixture::setHead(GroupHead const & head)
 {
-    m_fixture = id;
+    m_head = head;
 }
 
-quint32 EFXFixture::fixture() const
+GroupHead const & EFXFixture::head() const
 {
-    return m_fixture;
+    return m_head;
 }
 
 void EFXFixture::setDirection(Function::Direction dir)
@@ -123,11 +123,13 @@ uchar EFXFixture::fadeIntensity() const
 
 bool EFXFixture::isValid() const
 {
-    Fixture* fxi = doc()->fixture(fixture());
+    Fixture* fxi = doc()->fixture(head().fxi);
     if (fxi == NULL)
         return false;
-    else if (fxi->panMsbChannel() == QLCChannel::invalid() && // Maybe a device can pan OR tilt
-             fxi->tiltMsbChannel() == QLCChannel::invalid())   // but not both. Teh sux0r.
+    else if (head().head >= fxi->heads())
+        return false;
+    else if (fxi->panMsbChannel(head().head) == QLCChannel::invalid() && // Maybe a device can pan OR tilt
+             fxi->tiltMsbChannel(head().head) == QLCChannel::invalid())   // but not both. Teh sux0r.
         return false;
     else
         return true;
@@ -145,6 +147,9 @@ bool EFXFixture::loadXML(const QDomElement& root)
         return false;
     }
 
+    GroupHead head;
+    head.head = 0;
+
     /* New file format contains sub tags */
     QDomNode node = root.firstChild();
     while (node.isNull() == false)
@@ -153,7 +158,12 @@ bool EFXFixture::loadXML(const QDomElement& root)
         if (tag.tagName() == KXMLQLCEFXFixtureID)
         {
             /* Fixture ID */
-            setFixture(tag.text().toInt());
+            head.fxi = tag.text().toInt();
+        }
+        else if (tag.tagName() == KXMLQLCEFXFixtureHead)
+        {
+            /* Fixture Head */
+            head.head = tag.text().toInt();
         }
         else if (tag.tagName() == KXMLQLCEFXFixtureDirection)
         {
@@ -175,9 +185,11 @@ bool EFXFixture::loadXML(const QDomElement& root)
         {
             qWarning() << "Unknown EFX Fixture tag:" << tag.tagName();
         }
-
         node = node.nextSibling();
     }
+
+    if (head.fxi != Fixture::invalidId())
+       setHead(head);
 
     return true;
 }
@@ -198,7 +210,13 @@ bool EFXFixture::saveXML(QDomDocument* doc, QDomElement* efx_root) const
     /* Fixture ID */
     subtag = doc->createElement(KXMLQLCEFXFixtureID);
     tag.appendChild(subtag);
-    text = doc->createTextNode(QString("%1").arg(fixture()));
+    text = doc->createTextNode(QString("%1").arg(head().fxi));
+    subtag.appendChild(text);
+
+    /* Fixture Head */
+    subtag = doc->createElement(KXMLQLCEFXFixtureHead);
+    tag.appendChild(subtag);
+    text = doc->createTextNode(QString("%1").arg(head().head));
     subtag.appendChild(text);
 
     /* Direction */
@@ -336,30 +354,30 @@ void EFXFixture::setPoint(UniverseArray* universes, qreal pan, qreal tilt)
 {
     Q_ASSERT(universes != NULL);
 
-    Fixture* fxi = doc()->fixture(fixture());
+    Fixture* fxi = doc()->fixture(head().fxi);
     Q_ASSERT(fxi != NULL);
 
     /* Write coarse point data to universes */
-    if (fxi->panMsbChannel() != QLCChannel::invalid())
-        universes->write(fxi->universeAddress() + fxi->panMsbChannel(),
+    if (fxi->panMsbChannel(head().head) != QLCChannel::invalid())
+        universes->write(fxi->universeAddress() + fxi->panMsbChannel(head().head),
                          static_cast<char>(pan), QLCChannel::Pan, m_parent->isRelative());
-    if (fxi->tiltMsbChannel() != QLCChannel::invalid())
-        universes->write(fxi->universeAddress() + fxi->tiltMsbChannel(),
+    if (fxi->tiltMsbChannel(head().head) != QLCChannel::invalid())
+        universes->write(fxi->universeAddress() + fxi->tiltMsbChannel(head().head),
                          static_cast<char> (tilt), QLCChannel::Tilt, m_parent->isRelative());
 
     /* Write fine point data to universes if applicable */
-    if (fxi->panLsbChannel() != QLCChannel::invalid())
+    if (fxi->panLsbChannel(head().head) != QLCChannel::invalid())
     {
         /* Leave only the fraction */
         char value = static_cast<char> ((pan - floor(pan)) * double(UCHAR_MAX));
-        universes->write(fxi->universeAddress() + fxi->panLsbChannel(), value, QLCChannel::Pan, m_parent->isRelative());
+        universes->write(fxi->universeAddress() + fxi->panLsbChannel(head().head), value, QLCChannel::Pan, m_parent->isRelative());
     }
 
-    if (fxi->tiltLsbChannel() != QLCChannel::invalid())
+    if (fxi->tiltLsbChannel(head().head) != QLCChannel::invalid())
     {
         /* Leave only the fraction */
         char value = static_cast<char> ((tilt - floor(tilt)) * double(UCHAR_MAX));
-        universes->write(fxi->universeAddress() + fxi->tiltLsbChannel(), value, QLCChannel::Tilt, m_parent->isRelative());
+        universes->write(fxi->universeAddress() + fxi->tiltLsbChannel(head().head), value, QLCChannel::Tilt, m_parent->isRelative());
     }
 }
 
@@ -370,14 +388,14 @@ void EFXFixture::start(MasterTimer* timer, UniverseArray* universes)
 
     if (fadeIntensity() > 0 && m_started == false)
     {
-        Fixture* fxi = doc()->fixture(fixture());
+        Fixture* fxi = doc()->fixture(head().fxi);
         Q_ASSERT(fxi != NULL);
 
-        if (fxi->masterIntensityChannel() != QLCChannel::invalid())
+        if (fxi->masterIntensityChannel(head().head) != QLCChannel::invalid())
         {
             FadeChannel fc;
-            fc.setFixture(fixture());
-            fc.setChannel(fxi->masterIntensityChannel());
+            fc.setFixture(head().fxi);
+            fc.setChannel(fxi->masterIntensityChannel(head().head));
             if (m_parent->overrideFadeInSpeed() != Function::defaultSpeed())
                 fc.setFadeTime(m_parent->overrideFadeInSpeed());
             else
@@ -401,14 +419,14 @@ void EFXFixture::stop(MasterTimer* timer, UniverseArray* universes)
 
     if (fadeIntensity() > 0 && m_started == true)
     {
-        Fixture* fxi = doc()->fixture(fixture());
+        Fixture* fxi = doc()->fixture(head().fxi);
         Q_ASSERT(fxi != NULL);
 
-        if (fxi->masterIntensityChannel() != QLCChannel::invalid())
+        if (fxi->masterIntensityChannel(head().head) != QLCChannel::invalid())
         {
             FadeChannel fc;
-            fc.setFixture(fixture());
-            fc.setChannel(fxi->masterIntensityChannel());
+            fc.setFixture(head().fxi);
+            fc.setChannel(fxi->masterIntensityChannel(head().head));
 
             if (m_parent->overrideFadeOutSpeed() != Function::defaultSpeed())
                 fc.setFadeTime(m_parent->overrideFadeOutSpeed());

@@ -1,5 +1,5 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   artnetplugin.h
 
   Copyright (c) Massimo Callegari

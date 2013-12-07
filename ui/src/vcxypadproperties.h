@@ -51,12 +51,11 @@ private:
      ********************************************************************/
 private:
     void fillTree();
-    QList <quint32> selectedFixtureIDs() const;
     QList <VCXYPadFixture> selectedFixtures() const;
     QTreeWidgetItem* fixtureItem(const VCXYPadFixture& fxi);
 
     void updateFixtureItem(QTreeWidgetItem* item, const VCXYPadFixture& fxi);
-    void removeFixtureItem(quint32 fxi_id);
+    void removeFixtureItem(GroupHead const & head);
 
 private slots:
     void slotAddClicked();

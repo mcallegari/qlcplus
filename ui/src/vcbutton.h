@@ -313,6 +313,9 @@ signals:
     /** Signal telling the buttons function was started as a result of a toggle action */
     void functionStarting ();
 
+    /** Signal emitted when the button has actually changed the graphic state */
+    void pressedState(bool on);
+
     /*********************************************************************
     * Custom menu
     *********************************************************************/

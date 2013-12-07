@@ -61,6 +61,11 @@ private:
     QString getVCHTML();
     QString getConfigHTML();
 
+protected slots:
+    void slotButtonToggled(bool on);
+    void slotSliderValueChanged(QString val);
+    void slotCueIndexChanged(int idx);
+
 protected:
     QString m_JScode;
     QString m_CSScode;
@@ -82,6 +87,7 @@ protected:
     VirtualConsole *m_vc;
 
     struct mg_context *m_ctx;
+    struct mg_connection *m_conn;
     struct mg_callbacks m_callbacks;
 
 signals:

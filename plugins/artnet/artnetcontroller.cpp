@@ -1,5 +1,5 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   artnetnode.cpp
 
   Copyright (c) Massimo Callegari
@@ -38,14 +38,6 @@ ArtNetController::ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> i
         }
         i++;
     }
-
-    /*
-    // calculate the broadcast address
-    quint32 ip = m_ipAddr.toIPv4Address();
-    quint32 mask = QHostAddress("255.255.255.0").toIPv4Address(); // will it work in all cases ?
-    quint32 broadcast = (ip & mask) | (0xFFFFFFFFU & ~mask);
-    m_broadcastAddr = QHostAddress(broadcast);
-    */
 
     qDebug() << "[ArtNetController] Broadcast address:" << m_broadcastAddr.toString() << "(MAC:" << m_MACAddress << ")";
     qDebug() << "[ArtNetController] type: " << type;

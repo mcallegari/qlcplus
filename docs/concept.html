@@ -44,7 +44,7 @@ values</U> of all channels are sent to each universe.
 <P>
 Some channels in intelligent fixtures provide many kinds of functions, or
 <I>capabilities</I> like switching the lamp on when the channel value is [240-255],
-setting a red color on a color wheel when the value is exactly [15], or simply
+setting a red colour on a colour wheel when the value is exactly [15], or simply
 controlling the fixture's dimmer intensity with values [0-255]. Each of these
 individual function is called a <U>capability</U> and each of them has these
 three properties:
@@ -206,7 +206,7 @@ in a fixture library that contains the following properties for each fixture:
 <LI>Physical properties (bulb type, beam angle, dimensions...)</LI>
 <LI>Channels:
 <UL>
- <LI>Channel group (Intensity, Pan, Tilt, Gobo, Color, Speed etc.)</LI>
+ <LI>Channel group (Intensity, Pan, Tilt, Gobo, Colour, Speed etc.)</LI>
  <LI>8bit and 16bit channel bindings for pan &amp; tilt groups</LI>
  <LI>Optional primary colour for intensity channels (RGB/CMY)
  <LI>Value ranges for channel features (e.g. 0-5:Lamp on, 6-15:Strobe etc..)</LI>
@@ -346,8 +346,11 @@ heads simultaneously.
 <P>
 All channels that have been assigned to the <B>Intensity</B> group obey the very simple
 HTP rule: The highest value (nearer 100%) that is currently set on the channel is the one
-that gets sent out to the DMX universe. This is particularly useful for dimmer channels
-that control the <I>light intensity</I>. Let's say you have two sliders that control
+that gets sent out to the DMX universe. The generic intensity channels will normaly be used for dimmers
+that control the <I>light intensity</I>, but there is also the option to identify the channels as controlling the intensity of a colour, typically in a LED fixture.
+</P>
+<P>
+Let's say you have two sliders that control
 the same intensity channel. First, you set slider 1 to 50% and then move slider 2 from zero to 75%; as long
 as slider 2 is below 50% nothing happens, but after crossing the 50% value set by slider 1,
 the light intensity increased up to 75%. If you drag slider 2 again to 0%, the light
@@ -388,7 +391,7 @@ Korg nanoKONTROL, an Enttec Playback Wing...
 <A NAME="LTP" HREF="#LTP"><H3>LTP (Latest Takes Precedence)</H3></A>
 
 <P>
-All channels that have not been assigned to the <B>Intensity</B> group obey the very simple
+All channels, other than those that have been assigned to the <B>Intensity</B> group, obey the very simple
 LTP rule: The latest value that was set by a function or a slider gets sent out to the DMX
 universe. This scheme is useful for <I>intelligent fixture parameters</I> not related to
 <I>intensity</I>. For example, a gobo change is expected to happen immediately, regardless

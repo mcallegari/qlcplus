@@ -18,7 +18,6 @@
 */
 
 #include <QDebug>
-#include <QDomDocument>
 
 #include "vcaudiotriggers.h"
 #include "virtualconsole.h"
@@ -194,7 +193,8 @@ int WebAccess::beginRequestHandler(mg_connection *conn)
 void WebAccess::websocketReadyHandler(mg_connection *conn)
 {
     qDebug() << Q_FUNC_INFO;
-    static const char *message = "server ready";
+    m_conn = conn;
+    static const char *message = "QLC+ is ready";
     mg_websocket_write(conn, WEBSOCKET_OPCODE_TEXT, message, strlen(message));
 }
 
@@ -234,8 +234,12 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
             m_doc->outputMap()->setPatch(universe, cmdList[3], cmdList[4].toUInt(), false);
         else if (cmdList[1] == "FB")
             m_doc->outputMap()->setPatch(universe, cmdList[3], cmdList[4].toUInt(), true);
-        //else if (cmdList[1] == "PROFILE")
-        //    m_doc->outputMap()->setPatch(universe, cmdList[3], cmdList[4].toUInt(), true);
+        else if (cmdList[1] == "PROFILE")
+        {
+            InputPatch *inPatch = m_doc->inputMap()->patch(universe);
+            if (inPatch != NULL)
+                m_doc->inputMap()->setPatch(universe, inPatch->pluginName(), inPatch->input(), cmdList[3]);
+        }
         else if (cmdList[1] == "AUDIOIN")
         {
             QSettings settings;
@@ -260,6 +264,8 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
 
         return 1;
     }
+    else if(cmdList[0] == "POLL")
+        return 1;
 
     quint32 widgetID = cmdList[0].toUInt();
     VCWidget *widget = m_vc->widget(widgetID);
@@ -297,6 +303,8 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
                     cue->slotPreviousCue();
                 else if (cmdList[1] == "NEXT")
                     cue->slotNextCue();
+                else if (cmdList[1] == "STEP")
+                    cue->playCueAtIndex(cmdList[2].toInt());
             }
             break;
             default:
@@ -383,6 +391,18 @@ QString WebAccess::getSoloFrameHTML(VCSoloFrame *frame)
     return str;
 }
 
+void WebAccess::slotButtonToggled(bool on)
+{
+    VCButton *btn = (VCButton *)sender();
+
+    QString wsMessage = QString::number(btn->id());
+    if (on == true)
+        wsMessage.append("|BUTTON|1");
+    else
+        wsMessage.append("|BUTTON|0");
+
+    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
+}
 
 QString WebAccess::getButtonHTML(VCButton *btn)
 {
@@ -393,6 +413,10 @@ QString WebAccess::getButtonHTML(VCButton *btn)
         m_buttonFound = true;
     }
 
+    QString onCSS = "";
+    if (btn->isOn())
+        onCSS = "border: 3px solid #00E600;";
+
     QString str = "<div class=\"vcbutton-wrapper\" style=\""
             "left: " + QString::number(btn->x()) + "px; "
             "top: " + QString::number(btn->y()) + "px;\">\n";
@@ -402,9 +426,22 @@ QString WebAccess::getButtonHTML(VCButton *btn)
             "width: " + QString::number(btn->width()) + "px; "
             "height: " + QString::number(btn->height()) + "px; "
             "color: " + btn->foregroundColor().name() + "; "
-            "background-color: " + btn->backgroundColor().name() + "\">" +
+            "background-color: " + btn->backgroundColor().name() + "; " + onCSS + "\">" +
             btn->caption() + "</a>\n</div>\n";
+
+    connect(btn, SIGNAL(pressedState(bool)),
+            this, SLOT(slotButtonToggled(bool)));
+
     return str;
+}
+
+void WebAccess::slotSliderValueChanged(QString val)
+{
+    VCSlider *slider = (VCSlider *)sender();
+
+    QString wsMessage = QString("%1|SLIDER|%2").arg(slider->id()).arg(val);
+
+    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
 }
 
 QString WebAccess::getSliderHTML(VCSlider *slider)
@@ -442,6 +479,9 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
             "class=\"vcslLabel\" style=\"bottom:0px;\">" +
             slider->caption() + "</div>\n"
             "</div>\n";
+
+    connect(slider, SIGNAL(valueChanged(QString)),
+            this, SLOT(slotSliderValueChanged(QString)));
     return str;
 }
 
@@ -497,6 +537,15 @@ QString WebAccess::getAudioTriggersHTML(VCAudioTriggers *triggers)
     return str;
 }
 
+void WebAccess::slotCueIndexChanged(int idx)
+{
+    VCCueList *cue = (VCCueList *)sender();
+
+    QString wsMessage = QString("%1|CUE|%2").arg(cue->id()).arg(idx);
+
+    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
+}
+
 QString WebAccess::getCueListHTML(VCCueList *cue)
 {
     if (m_cueListFound == false)
@@ -506,7 +555,8 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
         m_cueListFound = true;
     }
 
-    QString str = "<div class=\"vccuelist\" style=\"left: " + QString::number(cue->x()) +
+    QString str = "<div id=\"" + QString::number(cue->id()) + "\" "
+            "class=\"vccuelist\" style=\"left: " + QString::number(cue->x()) +
             "px; top: " + QString::number(cue->y()) + "px; width: " +
              QString::number(cue->width()) +
             "px; height: " + QString::number(cue->height()) + "px; "
@@ -521,8 +571,11 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
     {
         for (int i = 0; i < chaser->stepsCount(); i++)
         {
-            str += "<tr onmouseover=\"this.style.backgroundColor='#92BDDF';\" "
-                    "onmouseout=\"this.style.backgroundColor='#ffffff';\">\n";
+            QString stepID = QString::number(cue->id()) + "_" + QString::number(i);
+            str += "<tr id=\"" + stepID + "\" "
+                    "onclick=\"enableCue(" + QString::number(cue->id()) + ", " + QString::number(i) + ");\" "
+                    "onmouseover=\"this.style.backgroundColor='#CCD9FF';\" "
+                    "onmouseout=\"checkMouseOut(" + QString::number(cue->id()) + ", " + QString::number(i) + ");\">\n";
             ChaserStep step = chaser->stepAt(i);
             str += "<td>" + QString::number(i + 1) + "</td>";
             Function* function = doc->function(step.fid);
@@ -583,7 +636,7 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
 
     str += "<a class=\"button button-blue\" style=\"height: 29px; font-size: 24px;\" "
             "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'PLAY');\">\n"
-            "<span id=\"" + QString::number(cue->id()) + "\">Play</span></a>\n";
+            "<span id=\"play" + QString::number(cue->id()) + "\">Play</span></a>\n";
     str += "<a class=\"button button-blue\" style=\"height: 29px; font-size: 24px;\" "
             "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'PREV');\">\n"
             "<span>Previous</span></a>\n";
@@ -591,6 +644,9 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
             "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'NEXT');\">\n"
             "<span>Next</span></a>\n";
     str += "</div>\n";
+
+    connect(cue, SIGNAL(stepChanged(int)),
+            this, SLOT(slotCueIndexChanged(int)));
 
     return str;
 }
@@ -712,18 +768,21 @@ QString WebAccess::getConfigHTML()
             " background: -webkit-linear-gradient(top, #45484d 0%, #000000 100%);\n"
             "}\n"
             CONTROL_BAR_CSS
+            BUTTON_BASE_CSS
+            BUTTON_SPAN_CSS
+            BUTTON_STATE_CSS
+            BUTTON_BLUE_CSS
             SWINFO_CSS
             TABLE_CSS
             "</style>\n";
 
     QString bodyHTML = "<div class=\"controlBar\">\n"
+                       "<a class=\"button button-blue\" href=\"/\"><span>Back</span></a>\n"
                        "<div class=\"swInfo\">" + QString(APPNAME) + " " + QString(APPVERSION) + "</div>"
                        "</div>\n";
 
     InputMap *inMap = m_doc->inputMap();
     OutputMap *outMap = m_doc->outputMap();
-    //InputPatch *inPatch = m_doc->inputMap()->patch(0);
-    //OutputPatch *outPatch = m_doc->outputMap()->patch(0);
 
     QStringList IOplugins = inMap->pluginNames();
     foreach (QString out, outMap->pluginNames())
@@ -754,17 +813,30 @@ QString WebAccess::getConfigHTML()
     profiles.prepend("None");
 
     bodyHTML += "<div style=\"margin: 30px 7% 30px 7%; width: 86%; height: 300px;\" >\n";
+    bodyHTML += "<div style=\"font-family: verdana,arial,sans-serif; font-size:20px; text-align:center; color:#CCCCCC;\">";
+    bodyHTML += "Universes configuration</div><br>\n";
     bodyHTML += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
     bodyHTML += "<tr><th>Universe</th><th>Input</th><th>Output</th><th>Feedback</th><th>Profile</th></tr>\n";
 
     for (int i = 0; i < 4; i++)
     {
-        bodyHTML += "<tr><td>Universe " + QString::number(i+1) + "</td>\n";
+        QString currentInputPluginName = inMap->patch(i)->pluginName();
+        quint32 currentInput = inMap->patch(i)->input();
+        QString currentOutputPluginName = outMap->patch(i)->pluginName();
+        quint32 currentOutput = outMap->patch(i)->output();
+        QString currentFeedbackPluginName = outMap->feedbackPatch(i)->pluginName();
+        quint32 currentFeedback = outMap->feedbackPatch(i)->output();
+        QString currentProfileName = inMap->patch(i)->profileName();
+
+        bodyHTML += "<tr align=center><td>Universe " + QString::number(i+1) + "</td>\n";
         bodyHTML += "<td><select onchange=\"ioChanged('INPUT', " + QString::number(i) + ", this.value);\">\n";
         for (int in = 0; in < inputLines.count(); in++)
         {
             QStringList strList = inputLines.at(in).split(",");
-            bodyHTML += "<option value=\"" + QString("%1|%2").arg(strList.at(0)).arg(strList.at(2)) + "\">" +
+            QString selected = "";
+            if (currentInputPluginName == strList.at(0) && currentInput == strList.at(2).toUInt())
+                selected = "selected";
+            bodyHTML += "<option value=\"" + QString("%1|%2").arg(strList.at(0)).arg(strList.at(2)) + "\" " + selected + ">" +
                     QString("[%1] %2").arg(strList.at(0)).arg(strList.at(1)) + "</option>\n";
         }
         bodyHTML += "</select></td>\n";
@@ -772,7 +844,10 @@ QString WebAccess::getConfigHTML()
         for (int in = 0; in < outputLines.count(); in++)
         {
             QStringList strList = outputLines.at(in).split(",");
-            bodyHTML += "<option value=\"" + QString("%1|%2").arg(strList.at(0)).arg(strList.at(2)) + "\">" +
+            QString selected = "";
+            if (currentOutputPluginName == strList.at(0) && currentOutput == strList.at(2).toUInt())
+                selected = "selected";
+            bodyHTML += "<option value=\"" + QString("%1|%2").arg(strList.at(0)).arg(strList.at(2)) + "\" " + selected + ">" +
                     QString("[%1] %2").arg(strList.at(0)).arg(strList.at(1)) + "</option>\n";
         }
         bodyHTML += "</select></td>\n";
@@ -780,13 +855,21 @@ QString WebAccess::getConfigHTML()
         for (int in = 0; in < feedbackLines.count(); in++)
         {
             QStringList strList = feedbackLines.at(in).split(",");
-            bodyHTML += "<option value=\"" + QString("%1|%2").arg(strList.at(0)).arg(strList.at(2)) + "\">" +
+            QString selected = "";
+            if (currentFeedbackPluginName == strList.at(0) && currentFeedback == strList.at(2).toUInt())
+                selected = "selected";
+            bodyHTML += "<option value=\"" + QString("%1|%2").arg(strList.at(0)).arg(strList.at(2)) + "\" " + selected + ">" +
                     QString("[%1] %2").arg(strList.at(0)).arg(strList.at(1)) + "</option>\n";
         }
         bodyHTML += "</select></td>\n";
         bodyHTML += "<td><select onchange=\"ioChanged('PROFILE', " + QString::number(i) + ", this.value);\">\n";
         for (int p = 0; p < profiles.count(); p++)
-            bodyHTML += "<option value=\"" + QString::number(p) + "\">" + profiles.at(p) + "</option>\n";
+        {
+            QString selected = "";
+            if (currentProfileName == profiles.at(p))
+                selected = "selected";
+            bodyHTML += "<option value=\"" + profiles.at(p) + "\" " + selected + ">" + profiles.at(p) + "</option>\n";
+        }
         bodyHTML += "</select></td>\n";
 
         bodyHTML += "</tr>\n";
@@ -805,21 +888,37 @@ QString WebAccess::getConfigHTML()
 #endif
 
     bodyHTML += "<div style=\"margin: 30px 7% 30px 7%; width: 86%; height: 300px;\" >\n";
+    bodyHTML += "<div style=\"font-family: verdana,arial,sans-serif; font-size:20px; text-align:center; color:#CCCCCC;\">";
+    bodyHTML += "Audio configuration</div><br>\n";
     bodyHTML += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
     bodyHTML += "<tr><th>Input</th><th>Output</th></tr>\n";
-    bodyHTML += "<tr>";
+    bodyHTML += "<tr align=center>";
 
     QString audioInSelect = "<td><select onchange=\"ioChanged('AUDIOIN', this.value);\">\n"
                             "<option value=\"__qlcplusdefault__\">Default device</option>\n";
     QString audioOutSelect = "<td><select onchange=\"ioChanged('AUDIOOUT', this.value);\">\n"
                              "<option value=\"__qlcplusdefault__\">Default device</option>\n";
 
+    QString inputName, outputName;
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_AUDIO_INPUT_DEVICE);
+    if (var.isValid() == true)
+        inputName = var.toString();
+
+    var = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE);
+    if (var.isValid() == true)
+        outputName = var.toString();
+
     foreach( AudioDeviceInfo info, devList)
     {
         if (info.capabilities & AUDIO_CAP_INPUT)
-            audioInSelect += "<option value=\"" + info.privateName + "\">" + info.deviceName + "</option>\n";
+            audioInSelect += "<option value=\"" + info.privateName + "\" " +
+                             ((info.privateName == inputName)?"selected":"") + ">" +
+                             info.deviceName + "</option>\n";
         if (info.capabilities & AUDIO_CAP_OUTPUT)
-            audioOutSelect += "<option value=\"" + info.privateName + "\">" + info.deviceName + "</option>\n";
+            audioOutSelect += "<option value=\"" + info.privateName + "\" " +
+                    ((info.privateName == outputName)?"selected":"") + ">" +
+                    info.deviceName + "</option>\n";
     }
     audioInSelect += "</select></td>\n";
     audioOutSelect += "</select></td>\n";
@@ -829,4 +928,5 @@ QString WebAccess::getConfigHTML()
 
     return str;
 }
+
 
