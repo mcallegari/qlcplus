@@ -16,15 +16,15 @@
     <message>
         <location filename="../ui/src/aboutbox.ui" line="116"/>
         <source>This application is licensed under the terms of the Apache 2.0 license.</source>
-        <translation type="unfinished"></translation>
+        <translation>Deze applicatie is gelicentieert onder de voorwaarden van de Apache 2.0 licentie.</translation>
     </message>
     <message>
-        <location filename="../ui/src/aboutbox.cpp" line="39"/>
+        <location filename="../ui/src/aboutbox.cpp" line="41"/>
         <source>and contributors:</source>
         <translation>en bijdragers:</translation>
     </message>
     <message>
-        <location filename="../ui/src/aboutbox.cpp" line="40"/>
+        <location filename="../ui/src/aboutbox.cpp" line="42"/>
         <source>Website: %1</source>
         <translation>Website: %1</translation>
     </message>
@@ -34,34 +34,24 @@
     <message>
         <location filename="addchannelsdialog.ui" line="14"/>
         <source>Fixture Mode Channels Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Fixture Mode Channels Editor</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="30"/>
         <source>Available channels</source>
         <oldsource>All channels</oldsource>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="addchannelsdialog.ui" line="52"/>
-        <source>&gt;&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="addchannelsdialog.ui" line="65"/>
-        <source>&lt;&lt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Beschikbare channels</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="94"/>
         <location filename="addchannelsdialog.ui" line="116"/>
         <source>Name</source>
-        <translation type="unfinished">Naam</translation>
+        <translation>Naam</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="102"/>
         <source>Mode channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode channels</translation>
     </message>
 </context>
 <context>
@@ -805,12 +795,12 @@
     <message>
         <location filename="editmode.ui" line="953"/>
         <source>Copy physical information to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopieer de fysieke informatie naar het clipboard</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="970"/>
         <source>Paste physical information from clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Plak de fysieke informatie van het clipboard</translation>
     </message>
 </context>
 <context>
@@ -1026,7 +1016,7 @@ Unable to save fixture.</source>
     <message>
         <location filename="fixtureeditor.cpp" line="455"/>
         <source>Are you sure you wish to remove channel: %1</source>
-        <translation>Channel %1 verwijderen?</translation>
+        <translation>Channel %1 verwijderen</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="588"/>
@@ -1083,7 +1073,7 @@ Unable to save fixture.</source>
     <message>
         <location filename="fixtureeditor.cpp" line="743"/>
         <source>Are you sure you wish to remove mode: %1</source>
-        <translation>Verwijder mode %1?</translation>
+        <translation>Verwijder mode %1</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="785"/>

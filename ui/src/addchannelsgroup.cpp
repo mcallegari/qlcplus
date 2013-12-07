@@ -1,6 +1,6 @@
 /*
   Q Light Controller
-  channelselection.cpp
+  addchannelsgroup.cpp
 
   Copyright (c) Massimo Callegari
 
@@ -19,6 +19,7 @@
 
 #include <QPushButton>
 #include <QDebug>
+#include <QSettings>
 
 #include "selectinputchannel.h"
 #include "addchannelsgroup.h"
@@ -33,6 +34,8 @@
 #define KColumnGroup 2
 #define KColumnChIdx 3
 #define KColumnID    4
+
+#define SETTINGS_APPLYALL "addchannelsgroup/applyall"
 
 AddChannelsGroup::AddChannelsGroup(QWidget* parent, Doc* doc, ChannelsGroup *group)
     : QDialog(parent)
@@ -117,6 +120,13 @@ AddChannelsGroup::AddChannelsGroup(QWidget* parent, Doc* doc, ChannelsGroup *gro
     m_tree->resizeColumnToContents(KColumnType);
     m_tree->resizeColumnToContents(KColumnGroup);
 
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_APPLYALL);
+    if (var.isValid() == true)
+    {
+       m_applyAllCheck->setChecked(var.toBool());
+    }
+
     m_inputSource = group->inputSource();
     updateInputSource();
 
@@ -134,6 +144,8 @@ AddChannelsGroup::AddChannelsGroup(QWidget* parent, Doc* doc, ChannelsGroup *gro
 
 AddChannelsGroup::~AddChannelsGroup()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_APPLYALL, m_applyAllCheck->isChecked());
 }
 
 void AddChannelsGroup::accept()

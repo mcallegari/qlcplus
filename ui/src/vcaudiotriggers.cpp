@@ -498,7 +498,7 @@ QString VCAudioTriggers::getJS()
                 "  obj.style.backgroundColor = \"#D6D2D0\";\n"
                 " }\n"
                 " var btnMsg = id + \"|\" + obj.value;\n"
-                " sendWSmessage(btnMsg);\n"
+                " websocket.send(btnMsg);\n"
                 "};\n";
     return str;
 }

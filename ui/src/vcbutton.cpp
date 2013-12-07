@@ -409,6 +409,8 @@ void VCButton::setOn(bool on)
 {
     m_on = on;
 
+    emit pressedState(m_on);
+
     updateFeedback();
 
     update();
@@ -600,7 +602,7 @@ void VCButton::pressFunction()
                 f->start(m_doc->masterTimer());
 
                 if (adjustIntensity() == true)
-                    f->adjustAttribute(intensityAdjustment());
+                    f->adjustAttribute(intensityAdjustment(), Function::Intensity);
             }
         }
     }
@@ -728,7 +730,7 @@ QString VCButton::getCSS()
             "border: 3px solid #A0A0A0;\n"
             "border-radius: 4px;\n"
             "font-family: arial, verdana, sans-serif;\n"
-            " text-decoration: none;\n"
+            "text-decoration: none;\n"
             "text-align:center;\n"
             "vertical-align: middle;\n"
             "}\n"
@@ -749,8 +751,8 @@ QString VCButton::getJS()
                 "  obj.value = \"0\";\n"
                 "  obj.style.border = \"3px solid #A0A0A0\";\n"
                 " }\n"
-                " sendWSmessage(id + \"|\" + obj.value);\n"
-                "};\n";
+                " websocket.send(id + \"|\" + obj.value);\n"
+                "}\n";
     return str;
 }
 

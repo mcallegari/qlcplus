@@ -941,18 +941,18 @@ void Chaser_Test::adjustIntensity()
     MasterTimerStub timer(m_doc, ua);
 
     c->preRun(&timer);
-    c->adjustAttribute(0.5);
+    c->adjustAttribute(0.5, Function::Intensity);
     QCOMPARE(c->m_runner->m_intensity, qreal(0.5));
-    c->adjustAttribute(0.8);
+    c->adjustAttribute(0.8, Function::Intensity);
     QCOMPARE(c->m_runner->m_intensity, qreal(0.8));
-    c->adjustAttribute(1.5);
+    c->adjustAttribute(1.5, Function::Intensity);
     QCOMPARE(c->m_runner->m_intensity, qreal(1.0));
-    c->adjustAttribute(-0.1);
+    c->adjustAttribute(-0.1, Function::Intensity);
     QCOMPARE(c->m_runner->m_intensity, qreal(0.0));
     c->postRun(&timer, &ua);
 
     // Mustn't crash after postRun
-    c->adjustAttribute(1.0);
+    c->adjustAttribute(1.0, Function::Intensity);
 }
 
 QTEST_MAIN(Chaser_Test)

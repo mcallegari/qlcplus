@@ -2,7 +2,7 @@
 <FixtureDefinition>
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.3.2</Version>
+  <Version>4.6.0</Version>
   <Author>daniel,,,</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -130,20 +130,6 @@
   <Channel Number="9">Frost</Channel>
   <Channel Number="10">Pan / Tilt Speed</Channel>
   <Channel Number="11">Maintenance</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-   <Channel>3</Channel>
-   <Channel>4</Channel>
-   <Channel>5</Channel>
-   <Channel>6</Channel>
-   <Channel>7</Channel>
-   <Channel>8</Channel>
-   <Channel>9</Channel>
-   <Channel>10</Channel>
-   <Channel>11</Channel>
-  </Head>
  </Mode>
  <Mode Name="10 Channel">
   <Physical>
@@ -163,17 +149,5 @@
   <Channel Number="7">Frost</Channel>
   <Channel Number="8">Pan / Tilt Speed</Channel>
   <Channel Number="9">Maintenance</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-   <Channel>3</Channel>
-   <Channel>4</Channel>
-   <Channel>5</Channel>
-   <Channel>6</Channel>
-   <Channel>7</Channel>
-   <Channel>8</Channel>
-   <Channel>9</Channel>
-  </Head>
  </Mode>
 </FixtureDefinition>

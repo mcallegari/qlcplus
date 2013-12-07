@@ -89,7 +89,7 @@ void VCXYPad_Test::fixtures()
     VCXYPad pad(&w, m_doc);
 
     VCXYPadFixture xyf1(m_doc);
-    xyf1.setFixture(1);
+    xyf1.setHead(GroupHead(1,0));
 
     pad.appendFixture(xyf1);
     QCOMPARE(pad.m_fixtures.size(), 1);
@@ -97,7 +97,7 @@ void VCXYPad_Test::fixtures()
     QCOMPARE(pad.m_fixtures.size(), 1);
 
     VCXYPadFixture xyf2(m_doc);
-    xyf2.setFixture(2);
+    xyf2.setHead(GroupHead(2,5));
 
     pad.appendFixture(xyf2);
     QCOMPARE(pad.m_fixtures.size(), 2);
@@ -106,12 +106,13 @@ void VCXYPad_Test::fixtures()
     pad.appendFixture(xyf1);
     QCOMPARE(pad.m_fixtures.size(), 2);
 
-    pad.removeFixture(3);
+    pad.removeFixture(GroupHead(3,0));
     QCOMPARE(pad.m_fixtures.size(), 2);
 
-    pad.removeFixture(1);
+    pad.removeFixture(GroupHead(1,0));
     QCOMPARE(pad.m_fixtures.size(), 1);
-    QCOMPARE(pad.m_fixtures[0].fixture(), quint32(2));
+    QCOMPARE(pad.m_fixtures[0].head().fxi, quint32(2));
+    QCOMPARE(pad.m_fixtures[0].head().head, 5);
 
     pad.appendFixture(xyf1);
     QCOMPARE(pad.m_fixtures.size(), 2);
@@ -137,15 +138,15 @@ void VCXYPad_Test::copy()
     pad.m_area->setPosition(pt);
 
     VCXYPadFixture xyf1(m_doc);
-    xyf1.setFixture(1);
+    xyf1.setHead(GroupHead(1,5));
     pad.appendFixture(xyf1);
 
     VCXYPadFixture xyf2(m_doc);
-    xyf2.setFixture(2);
+    xyf2.setHead(GroupHead(2,7));
     pad.appendFixture(xyf2);
 
     VCXYPadFixture xyf3(m_doc);
-    xyf3.setFixture(3);
+    xyf3.setHead(GroupHead(3,9));
     pad.appendFixture(xyf3);
 
     VCXYPad* copy = qobject_cast<VCXYPad*> (pad.createCopy(&parent));
@@ -179,6 +180,7 @@ void VCXYPad_Test::loadXML()
 
     QDomElement fxi = xmldoc.createElement("Fixture");
     fxi.setAttribute("ID", "69");
+    fxi.setAttribute("Head", "96");
     root.appendChild(fxi);
 
     QDomElement x = xmldoc.createElement("Axis");
@@ -197,6 +199,7 @@ void VCXYPad_Test::loadXML()
 
     QDomElement fxi2 = xmldoc.createElement("Fixture");
     fxi2.setAttribute("ID", "50");
+    fxi2.setAttribute("Head", "55");
     root.appendChild(fxi2);
 
     QDomElement x2 = xmldoc.createElement("Axis");
@@ -241,9 +244,9 @@ void VCXYPad_Test::loadXML()
     QCOMPARE(pad.m_area->position(), QPoint(10, 20));
 
     VCXYPadFixture fixture(m_doc);
-    fixture.setFixture(69);
+    fixture.setHead(GroupHead(69, 96));
     QVERIFY(pad.m_fixtures.contains(fixture) == true);
-    fixture.setFixture(50);
+    fixture.setHead(GroupHead(50, 55));
     QVERIFY(pad.m_fixtures.contains(fixture) == true);
 
     root.setTagName("YXPad");
@@ -267,11 +270,11 @@ void VCXYPad_Test::saveXML()
     QCOMPARE(pad.m_area->position(), QPoint(23, 45));
 
     VCXYPadFixture fixture1(m_doc);
-    fixture1.setFixture(11);
+    fixture1.setHead(GroupHead(11, 0));
     pad.appendFixture(fixture1);
 
     VCXYPadFixture fixture2(m_doc);
-    fixture2.setFixture(22);
+    fixture2.setHead(GroupHead(22, 0));
     pad.appendFixture(fixture2);
 
     QDomDocument xmldoc;
@@ -293,6 +296,7 @@ void VCXYPad_Test::saveXML()
             fixture++;
             QVERIFY(tag.attribute("ID") == QString("11") ||
                     tag.attribute("ID") == QString("22"));
+            QVERIFY(tag.attribute("Head") == QString("0"));
             QCOMPARE(tag.childNodes().count(), 2);
         }
         else if (tag.tagName() == "Position")
@@ -357,7 +361,7 @@ void VCXYPad_Test::modeChange()
     pad.resize(QSize(200, 200));
 
     VCXYPadFixture xy(m_doc);
-    xy.setFixture(fxi->id());
+    xy.setHead(GroupHead(fxi->id(), 0));
     pad.appendFixture(xy);
     QCOMPARE(pad.fixtures().size(), 1);
     QCOMPARE(pad.fixtures()[0].m_xMSB, QLCChannel::invalid());

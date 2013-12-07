@@ -153,7 +153,6 @@ QList <RGBMap> RGBMatrix::previewMaps()
     if (grp != NULL)
     {
         int stepCount = m_algorithm->rgbMapStepCount(grp->size());
-        qDebug() << "Steps: " << stepCount;
         for (int i = 0; i < stepCount; i++)
             steps << m_algorithm->rgbMap(grp->size(), m_stepColor.rgb(), i);
     }
@@ -421,7 +420,7 @@ void RGBMatrix::write(MasterTimer* timer, UniverseArray* universes)
     // Get new map every time when elapsed is reset to zero
     if (elapsed() == 0)
     {
-        qDebug() << "stepColor:" << QString::number(m_stepColor.rgb(), 16);
+        qDebug() << "RGBMatrix stepColor:" << QString::number(m_stepColor.rgb(), 16);
         RGBMap map = m_algorithm->rgbMap(grp->size(), m_stepColor.rgb(), m_step);
         updateMapChannels(map, grp);
     }
@@ -588,14 +587,17 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
                 insertStartValues(fc);
                 m_fader->add(fc);
             }
-            else if (head.masterIntensityChannel() != QLCChannel::invalid())
+
+            if (head.masterIntensityChannel() != QLCChannel::invalid())
             {
+                qDebug() << "RGBMatrix: found dimmer at" << head.masterIntensityChannel();
                 // Simple intensity (dimmer) channel
                 QColor col(map[y][x]);
                 FadeChannel fc;
                 fc.setFixture(grpHead.fxi);
                 fc.setChannel(head.masterIntensityChannel());
-                fc.setTarget(col.value());
+                //fc.setTarget(col.value());
+                fc.setTarget(255);
                 insertStartValues(fc);
                 m_fader->add(fc);
             }
@@ -636,11 +638,9 @@ void RGBMatrix::insertStartValues(FadeChannel& fc) const
  * Attributes
  *********************************************************************/
 
-void RGBMatrix::adjustAttribute(qreal intensity, int attributeIndex)
+void RGBMatrix::adjustAttribute(qreal fraction, int attributeIndex)
 {
-    Q_UNUSED(attributeIndex)
-
-    if (m_fader != NULL)
-        m_fader->adjustIntensity(intensity);
-    Function::adjustAttribute(intensity);
+    if (m_fader != NULL && attributeIndex == Function::Intensity)
+        m_fader->adjustIntensity(fraction);
+    Function::adjustAttribute(fraction, attributeIndex);
 }

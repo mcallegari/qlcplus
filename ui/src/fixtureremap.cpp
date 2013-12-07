@@ -508,10 +508,28 @@ void FixtureRemap::slotRemoveRemap()
     delRemap.source = m_sourceTree->selectedItems().first();
     delRemap.target = m_targetTree->selectedItems().first();
 
+    bool tgtFxiSelected = false;
+    bool fxok = false, chok = false;
+    quint32 fxid = delRemap.target->text(KColumnID).toUInt(&fxok);
+    delRemap.target->text(KColumnChIdx).toInt(&chok);
+    if (fxok == true && chok == false)
+        tgtFxiSelected = true;
+
     for (int i = 0; i < m_remapList.count(); i++)
     {
         RemapInfo info = m_remapList.at(i);
-        if (info.source == delRemap.source && info.target == delRemap.target)
+        // full fixture remap delete
+        if (tgtFxiSelected == true)
+        {
+            quint32 rmpFxID = info.target->text(KColumnID).toUInt();
+            if (rmpFxID == fxid)
+            {
+                m_remapList.takeAt(i);
+                i--;
+            }
+        }
+        // single channel remap delete. Source and target must match
+        else if (info.source == delRemap.source && info.target == delRemap.target)
         {
             m_remapList.takeAt(i);
             i--;
@@ -681,7 +699,7 @@ void FixtureRemap::accept()
 
                 foreach( EFXFixture *efxFix, fixListCopy)
                 {
-                    quint32 fxID = efxFix->fixture();
+                    quint32 fxID = efxFix->head().fxi;
                     for (int i = 0; i < sourceList.count(); i++)
                     {
                         SceneValue val = sourceList.at(i);
@@ -696,7 +714,7 @@ void FixtureRemap::accept()
                             {
                                 EFXFixture* ef = new EFXFixture(e);
                                 ef->copyFrom(efxFix);
-                                ef->setFixture(tgtVal.fxi);
+                                ef->setHead(GroupHead(tgtVal.fxi)); // TODO!!! head!!!
                                 if (e->addFixture(ef) == false)
                                     delete ef;
                                 qDebug() << "EFX remap" << val.fxi << "to" << tgtVal.fxi;

@@ -67,6 +67,8 @@ wkhtmltopdf-i386 --footer-center "Page [page]" --image-quality 100 \
   modeeditor.html \
   headeditor.html \
   tutorial.html \
+  tutorial-multipage.html \
+  tutorial-bcf-lc2412.html \
   commandlineparameters.html \
   kioskmode.html \
   parameterstuning.html \

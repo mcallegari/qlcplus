@@ -78,6 +78,9 @@ public slots:
     /** Callback that listens to fixture group modifications */
     void slotFixtureGroupChanged(quint32 id);
 
+    /** Callback that listens to workspace loading */
+    void slotDocLoaded();
+
 private:
     Doc* m_doc;
 

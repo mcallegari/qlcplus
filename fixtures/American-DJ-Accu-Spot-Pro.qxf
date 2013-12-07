@@ -2,7 +2,7 @@
 <FixtureDefinition>
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.4.2</Version>
+  <Version>4.6.0</Version>
   <Author>laserandi</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -169,21 +169,5 @@
   <Channel Number="11">Dimmer</Channel>
   <Channel Number="12">Speed Pan Tilt</Channel>
   <Channel Number="13">Lamp on/off, Reset, internal Programs</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-   <Channel>3</Channel>
-   <Channel>4</Channel>
-   <Channel>5</Channel>
-   <Channel>6</Channel>
-   <Channel>7</Channel>
-   <Channel>8</Channel>
-   <Channel>9</Channel>
-   <Channel>10</Channel>
-   <Channel>11</Channel>
-   <Channel>12</Channel>
-   <Channel>13</Channel>
-  </Head>
  </Mode>
 </FixtureDefinition>

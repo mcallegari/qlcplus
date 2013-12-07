@@ -885,7 +885,7 @@ void VCSlider::writeDMXPlayback(MasterTimer* timer, UniverseArray* ua)
         {
             if (function->stopped() == true)
                 function->start(timer);
-            function->adjustAttribute(intensity);
+            function->adjustAttribute(intensity, Function::Intensity);
         }
     }
 }
@@ -1107,6 +1107,8 @@ void VCSlider::slotSliderMoved(int value)
         break;
     }
 
+    emit valueChanged(num);
+
     updateFeedback();
 }
 
@@ -1213,7 +1215,7 @@ QString VCSlider::getJS()
             " var obj = document.getElementById(\"slv\" + id);\n"
             " obj.innerHTML = slObj.value;\n"
             " var sldMsg = id + \"|\" + slObj.value;\n"
-            " sendWSmessage(sldMsg);\n"
+            " websocket.send(sldMsg);\n"
             "}\n";
     return str;
 }

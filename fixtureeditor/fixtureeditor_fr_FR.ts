@@ -19,12 +19,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/src/aboutbox.cpp" line="39"/>
+        <location filename="../ui/src/aboutbox.cpp" line="41"/>
         <source>and contributors:</source>
         <translation>et participants :</translation>
     </message>
     <message>
-        <location filename="../ui/src/aboutbox.cpp" line="40"/>
+        <location filename="../ui/src/aboutbox.cpp" line="42"/>
         <source>Website: %1</source>
         <translation>Site Web : %1</translation>
     </message>
@@ -41,16 +41,6 @@
         <source>Available channels</source>
         <oldsource>All channels</oldsource>
         <translation>Canaux disponibles</translation>
-    </message>
-    <message>
-        <location filename="addchannelsdialog.ui" line="52"/>
-        <source>&gt;&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="addchannelsdialog.ui" line="65"/>
-        <source>&lt;&lt;</source>
-        <translation></translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="94"/>

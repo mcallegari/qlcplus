@@ -429,13 +429,13 @@ void EFX_Test::fixtures()
 
     /* Add first fixture */
     EFXFixture* ef1 = new EFXFixture(e);
-    ef1->setFixture(12);
+    ef1->setHead(GroupHead(12,0));
     QVERIFY(e->addFixture(ef1));
     QCOMPARE(e->fixtures().size(), 1);
 
     /* Add second fixture */
     EFXFixture* ef2 = new EFXFixture(e);
-    ef2->setFixture(34);
+    ef2->setHead(GroupHead(34,0));
     QVERIFY(e->addFixture(ef2));
     QCOMPARE(e->fixtures().size(), 2);
 
@@ -446,7 +446,7 @@ void EFX_Test::fixtures()
 
     /* Try to remove a non-member fixture */
     EFXFixture* ef3 = new EFXFixture(e);
-    ef3->setFixture(56);
+    ef3->setHead(GroupHead(56,0));
     QVERIFY(!e->removeFixture(ef3));
     QCOMPARE(e->fixtures().size(), 2);
 
@@ -459,7 +459,7 @@ void EFX_Test::fixtures()
 
     /* Add fourth fixture */
     EFXFixture* ef4 = new EFXFixture(e);
-    ef4->setFixture(78);
+    ef4->setHead(GroupHead(78,0));
     e->addFixture(ef4);
     QCOMPARE(e->fixtures().size(), 4);
     QCOMPARE(e->fixtures().at(0), ef1);
@@ -1649,10 +1649,10 @@ void EFX_Test::copyFrom()
     e1.setDuration(1337);
 
     EFXFixture* ef1 = new EFXFixture(&e1);
-    ef1->setFixture(12);
+    ef1->setHead(GroupHead(12, 3));
     e1.addFixture(ef1);
     EFXFixture* ef2 = new EFXFixture(&e1);
-    ef2->setFixture(34);
+    ef2->setHead(GroupHead(34, 7));
     e1.addFixture(ef2);
 
     /* Verify that EFX contents are copied */
@@ -1678,8 +1678,10 @@ void EFX_Test::copyFrom()
     QCOMPARE(e2.fadeOutSpeed(), uint(69));
     QCOMPARE(e2.duration(), uint(1337));
     QVERIFY(e2.fixtures().size() == 2);
-    QVERIFY(e2.fixtures().at(0)->fixture() == 12);
-    QVERIFY(e2.fixtures().at(1)->fixture() == 34);
+    QVERIFY(e2.fixtures().at(0)->head().fxi == 12);
+    QVERIFY(e2.fixtures().at(0)->head().head == 3);
+    QVERIFY(e2.fixtures().at(1)->head().fxi == 34);
+    QVERIFY(e2.fixtures().at(1)->head().head == 7);
     QVERIFY(e2.fixtures().at(0) != ef1);
     QVERIFY(e2.fixtures().at(1) != ef2);
 
@@ -1707,10 +1709,10 @@ void EFX_Test::copyFrom()
     e3.setFadeOutSpeed(1337);
     e3.setDuration(42);
     EFXFixture* ef3 = new EFXFixture(&e3);
-    ef3->setFixture(56);
+    ef3->setHead(GroupHead(56, 8));
     e3.addFixture(ef3);
     EFXFixture* ef4 = new EFXFixture(&e3);
-    ef4->setFixture(78);
+    ef4->setHead(GroupHead(78, 9));
     e3.addFixture(ef4);
 
     /* Verify that copying to the same EFX a second time succeeds */
@@ -1733,8 +1735,10 @@ void EFX_Test::copyFrom()
     QCOMPARE(e2.fadeOutSpeed(), uint(1337));
     QCOMPARE(e2.duration(), uint(42));
     QVERIFY(e2.fixtures().size() == 2);
-    QVERIFY(e2.fixtures().at(0)->fixture() == 56);
-    QVERIFY(e2.fixtures().at(1)->fixture() == 78);
+    QVERIFY(e2.fixtures().at(0)->head().fxi == 56);
+    QVERIFY(e2.fixtures().at(0)->head().head == 8);
+    QVERIFY(e2.fixtures().at(1)->head().fxi == 78);
+    QVERIFY(e2.fixtures().at(1)->head().head == 9);
     QVERIFY(e2.fixtures().at(0) != ef1);
     QVERIFY(e2.fixtures().at(0) != ef3);
     QVERIFY(e2.fixtures().at(1) != ef2);
@@ -1764,10 +1768,10 @@ void EFX_Test::createCopy()
     e1->setFadeOutSpeed(69);
     e1->setDuration(1337);
     EFXFixture* ef1 = new EFXFixture(e1);
-    ef1->setFixture(12);
+    ef1->setHead(GroupHead(12, 3));
     e1->addFixture(ef1);
     EFXFixture* ef2 = new EFXFixture(e1);
-    ef2->setFixture(34);
+    ef2->setHead(GroupHead(34, 7));
     e1->addFixture(ef2);
 
     doc.addFunction(e1);
@@ -1798,8 +1802,10 @@ void EFX_Test::createCopy()
     QCOMPARE(copy->fadeOutSpeed(), uint(69));
     QCOMPARE(copy->duration(), uint(1337));
     QVERIFY(copy->fixtures().size() == 2);
-    QVERIFY(copy->fixtures().at(0)->fixture() == 12);
-    QVERIFY(copy->fixtures().at(1)->fixture() == 34);
+    QVERIFY(copy->fixtures().at(0)->head().fxi == 12);
+    QVERIFY(copy->fixtures().at(0)->head().head == 3);
+    QVERIFY(copy->fixtures().at(1)->head().fxi == 34);
+    QVERIFY(copy->fixtures().at(1)->head().head == 7);
     QVERIFY(copy->fixtures().at(0) != ef1);
     QVERIFY(copy->fixtures().at(1) != ef2);
 }
@@ -2075,13 +2081,13 @@ void EFX_Test::loadSuccessLegacy()
     QVERIFY(e.yPhase() == 80);
 
     QVERIFY(e.propagationMode() == EFX::Serial);
-    QVERIFY(e.fixtures().size() == 3);
-    QVERIFY(e.fixtures().at(0)->fixture() == 33);
-    QVERIFY(e.fixtures().at(0)->direction() == EFX::Forward);
-    QVERIFY(e.fixtures().at(1)->fixture() == 11);
-    QVERIFY(e.fixtures().at(1)->direction() == EFX::Backward);
-    QVERIFY(e.fixtures().at(2)->fixture() == 45);
-    QVERIFY(e.fixtures().at(2)->direction() == EFX::Backward);
+    QCOMPARE(e.fixtures().size(), 3);
+    QCOMPARE(e.fixtures().at(0)->head().fxi, quint32(33));
+    QCOMPARE(e.fixtures().at(0)->direction(), EFX::Forward);
+    QCOMPARE(e.fixtures().at(1)->head().fxi, quint32(11));
+    QCOMPARE(e.fixtures().at(1)->direction(), EFX::Backward);
+    QCOMPARE(e.fixtures().at(2)->head().fxi, quint32(45));
+    QCOMPARE(e.fixtures().at(2)->direction(), EFX::Backward);
 
     Bus::instance()->setValue(12, 50);
     Bus::instance()->setValue(13, 100);
@@ -2242,11 +2248,11 @@ void EFX_Test::loadSuccess()
 
     QVERIFY(e.propagationMode() == EFX::Serial);
     QVERIFY(e.fixtures().size() == 3);
-    QVERIFY(e.fixtures().at(0)->fixture() == 33);
+    QVERIFY(e.fixtures().at(0)->head().fxi == 33);
     QVERIFY(e.fixtures().at(0)->direction() == EFX::Forward);
-    QVERIFY(e.fixtures().at(1)->fixture() == 11);
+    QVERIFY(e.fixtures().at(1)->head().fxi == 11);
     QVERIFY(e.fixtures().at(1)->direction() == EFX::Backward);
-    QVERIFY(e.fixtures().at(2)->fixture() == 45);
+    QVERIFY(e.fixtures().at(2)->head().fxi == 45);
     QVERIFY(e.fixtures().at(2)->direction() == EFX::Backward);
 
     QVERIFY(e.fadeInSpeed() == uint(1300));
@@ -2341,17 +2347,17 @@ void EFX_Test::save()
     e1.setPropagationMode(EFX::Serial);
 
     EFXFixture* ef1 = new EFXFixture(&e1);
-    ef1->setFixture(12);
+    ef1->setHead(GroupHead(12, 3));
     ef1->setFadeIntensity(128);
     e1.addFixture(ef1);
     EFXFixture* ef2 = new EFXFixture(&e1);
-    ef2->setFixture(34);
+    ef2->setHead(GroupHead(34, 5));
     ef2->setDirection(EFX::Backward);
     ef2->setStartOffset(27);
     ef2->setFadeIntensity(64);
     e1.addFixture(ef2);
     EFXFixture* ef3 = new EFXFixture(&e1);
-    ef3->setFixture(56);
+    ef3->setHead(GroupHead(56,7));
     e1.addFixture(ef3);
 
     QDomDocument doc;
@@ -2366,7 +2372,7 @@ void EFX_Test::save()
          h = false, rot = false, isRelative = false, xoff = false, yoff = false,
          xfreq = false, yfreq = false, xpha = false, ypha = false,
          prop = false, intensity = false, speed = false;
-    int fixtureid = 0, fixturedirection = 0, fixtureStartOffset = 0;
+    int fixtureid = 0, fixturehead = 0, fixturedirection = 0, fixtureStartOffset = 0;
     QList <QString> fixtures;
 
     QDomNode node = root.firstChild().firstChild();
@@ -2492,6 +2498,7 @@ void EFX_Test::save()
         }
         else if (tag.tagName() == "Fixture")
         {
+            int expectHead = 0;
             bool expectBackward = false;
             int expectIntensity = 255;
             int expectStartOffset = 0;
@@ -2509,6 +2516,7 @@ void EFX_Test::save()
 
                     if (subtag.text() == "34")
                     {
+                        expectHead = 5;
                         expectIntensity = 64;
                         expectBackward = true;
                         expectStartOffset = 27;
@@ -2516,14 +2524,25 @@ void EFX_Test::save()
                     else
                     {
                         if (subtag.text() == "12")
+                        {
+                            expectHead = 3;
                             expectIntensity = 128;
+                        }
                         else
+                        {
+                            expectHead = 7;
                             expectIntensity = 255;
+                        }
                         expectBackward = false;
                         expectStartOffset = 0;
                     }
 
                     fixtureid++;
+                }
+                else if (subtag.tagName() == "Head")
+                {
+                    QCOMPARE(subtag.text().toInt(), expectHead);
+                    fixturehead++;
                 }
                 else if (subtag.tagName() == "Direction")
                 {
@@ -2631,15 +2650,15 @@ void EFX_Test::adjustIntensity()
     e->setName("Test EFX");
 
     EFXFixture* ef1 = new EFXFixture(e);
-    ef1->setFixture(fxi1->id());
+    ef1->setHead(GroupHead(fxi1->id(), 0));
     e->addFixture(ef1);
 
     EFXFixture* ef2 = new EFXFixture(e);
-    ef2->setFixture(fxi2->id());
+    ef2->setHead(GroupHead(fxi2->id(), 0));
     e->addFixture(ef2);
 
     e->adjustAttribute(0.2);
-    QCOMPARE(e->getAttributeValue(), 0.2);
+    QCOMPARE(e->getAttributeValue(Function::Intensity), 0.2);
     QCOMPARE(ef1->m_intensity, 0.2);
     QCOMPARE(ef2->m_intensity, 0.2);
 

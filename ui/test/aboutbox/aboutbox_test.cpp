@@ -43,7 +43,7 @@ void AboutBox_Test::initial()
     QVERIFY(ab.m_copyrightLabel->text().contains("Copyright &copy; <B>Heikki Junnila, Massimo Callegari</B>"));
 
     QVERIFY(ab.m_websiteLabel != NULL);
-    QVERIFY(ab.m_websiteLabel->text().contains("<A HREF=\"http://qlcplus.sourceforge.net/index.shtml\">http://qlcplus.sourceforge.net/index.shtml</A>"));
+    QVERIFY(ab.m_websiteLabel->text().contains("<A HREF=\"http://qlcplus.sourceforge.net/\">http://qlcplus.sourceforge.net/</A>"));
 
     QVERIFY(ab.m_contributors != NULL);
     QCOMPARE(ab.m_contributors->count(), CONTRIBCOUNT);

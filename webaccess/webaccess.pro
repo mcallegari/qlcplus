@@ -6,7 +6,7 @@ LANGUAGE = C++
 TARGET   = qlcpluswebaccess
 
 CONFIG += qt
-QT     += core xml gui script
+QT     += core gui script
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 # Engine
@@ -22,10 +22,11 @@ win32:QMAKE_LFLAGS += -shared
 win32:INCLUDEPATH += ./
 
 HEADERS += mongoose.h \
-    webaccess.h
+           commonjscss.h \
+           webaccess.h
 
 SOURCES += mongoose.c \
-    webaccess.cpp
+           webaccess.cpp
     
 macx {
     # This must be after "TARGET = " and before target installation so that

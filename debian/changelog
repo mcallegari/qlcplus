@@ -6,6 +6,8 @@ qlcplus (4.6.0) stable; urgency=low
   * NEW: MIDI plugin: added the possibility to send a SysEx initialization message on an input or output line (thanks to Joep Admiraal)
   * NEW: Added Audio fade in/out support (also in Show Manager)
   * NEW: It is now possible to control RGB Matrices intensity
+  * NEW: RGB Matrices can now be converted to Sequences and imported into Shows 
+  * NEW: It is now possible to control fixture heads in EFX and XY Pad (Jano Svitok)
   * Virtual Console: fixed audio triggers incorrect loading
   * Input/Output: improved audio device selection
   * Audio Input: fixed crash occurring on Linux for unsupported audio devices
@@ -14,9 +16,14 @@ qlcplus (4.6.0) stable; urgency=low
   * Fixture Manager: refresh fixtures list when loading a project on startup
   * RGB Matrix Editor: fixed crash when opening a project with the RGB Matrix editor open
   * Package: Fixed installation of RGB scripts and Windows associations (thanks to Jano Svitok)
+  * Documentation: reviewed and turned into proper english (thanks to Michael Clements)
+  * Web access: improved to reflect the live situation of the Virtual Console
   * Added fixtures: Pro-Lights LedPar 64363 RGB, Pro-Lights LumiPar 7QPro, Pro-Lights Strobo 1500DMX (thanks to Lorenzo Andreani)
   * Added fixtures: Pro-Lights Explo 3000D, Pro-Lights LumiPar 18 Tri, Robe_ColorMix_240_AT (thanks to Lorenzo Andreani)
-  * Added fixture: American DJ Mega Tri Par
+  * Added fixtures: American DJ Mega Tri Par, Clay Paky A.LEDA Wash K5, Clay Paky A.LEDA Wash K10, Clay Paky A.LEDA Wash K20
+  * Added fixtures: American DJ Sweeper Beam Quad LED, American DJ Ultra Bar 6/9/12, American DJ Inno Color Beam Quad 7
+  * Added fixture: American DJ Inno Color Beam LED (thanks to Louis Gutenschwafe)
+  * Added fixture: American DJ/Elation Event Bar LED, American DJ Micro Wash RGBW (thanks to George Qualley)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 15 December 2013 12:13:04 +0200
 

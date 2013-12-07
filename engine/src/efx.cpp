@@ -516,7 +516,7 @@ bool EFX::addFixture(EFXFixture* ef)
     while (it.hasNext() == true)
     {
         /* Found the same fixture. Don't add the new one. */
-        if (it.next()->fixture() == ef->fixture())
+        if (it.next()->head() == ef->head())
             return false;
     }
 
@@ -594,7 +594,7 @@ void EFX::slotFixtureRemoved(quint32 fxi_id)
     {
         it.next();
 
-        if (it.value()->fixture() == fxi_id)
+        if (it.value()->head().fxi == fxi_id)
         {
             delete it.value();
             it.remove();
@@ -817,7 +817,7 @@ bool EFX::loadXML(const QDomElement& root)
         {
             EFXFixture* ef = new EFXFixture(this);
             ef->loadXML(tag);
-            if (ef->fixture() != Fixture::invalidId())
+            if (ef->head().isValid())
             {
                 if (addFixture(ef) == false)
                     delete ef;
@@ -1046,12 +1046,12 @@ void EFX::adjustAttribute(qreal fraction, int attributeIndex)
         case Width:
         case XOffset:
         case YOffset:
-        break;
-
         case Rotation:
-            updateRotationCache();
         break;
     }
 
-    Function::adjustAttribute(fraction);
+    Function::adjustAttribute(fraction, attributeIndex);
+
+    if (attributeIndex == Rotation)
+        updateRotationCache();
 }

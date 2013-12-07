@@ -158,31 +158,31 @@ void QLCFixtureHead_Test::channels()
 
 void QLCFixtureHead_Test::cacheChannelsRgbMaster()
 {
-    QLCFixtureMode* mode = new QLCFixtureMode(m_fixtureDef);
-    QCOMPARE(mode->channels().size(), 0);
+    QLCFixtureMode mode(m_fixtureDef);
+    QCOMPARE(mode.channels().size(), 0);
 
     m_ch1->setGroup(QLCChannel::Intensity);
     m_ch1->setColour(QLCChannel::Red);
-    mode->insertChannel(m_ch1, 0);
+    mode.insertChannel(m_ch1, 0);
 
     m_ch2->setGroup(QLCChannel::Intensity);
     m_ch2->setColour(QLCChannel::Green);
-    mode->insertChannel(m_ch2, 1);
+    mode.insertChannel(m_ch2, 1);
 
     m_ch3->setGroup(QLCChannel::Intensity);
     m_ch3->setColour(QLCChannel::Blue);
-    mode->insertChannel(m_ch3, 2);
+    mode.insertChannel(m_ch3, 2);
 
     m_ch4->setGroup(QLCChannel::Intensity);
     m_ch4->setColour(QLCChannel::NoColour);
-    mode->insertChannel(m_ch4, 3);
+    mode.insertChannel(m_ch4, 3);
 
     QLCFixtureHead head;
     head.addChannel(0);
     head.addChannel(1);
     head.addChannel(2);
     head.addChannel(3);
-    head.cacheChannels(mode);
+    head.cacheChannels(&mode);
 
     QCOMPARE(head.panMsbChannel(), QLCChannel::invalid());
     QCOMPARE(head.panLsbChannel(), QLCChannel::invalid());
@@ -191,37 +191,35 @@ void QLCFixtureHead_Test::cacheChannelsRgbMaster()
     QCOMPARE(head.rgbChannels(), QList <quint32> () << 0 << 1 << 2);
     QCOMPARE(head.cmyChannels(), QList <quint32> ());
     QCOMPARE(head.masterIntensityChannel(), quint32(3));
-
-    delete mode;
 }
 
 void QLCFixtureHead_Test::cacheChannelsCmyMaster()
 {
-    QLCFixtureMode* mode = new QLCFixtureMode(m_fixtureDef);
-    QCOMPARE(mode->channels().size(), 0);
+    QLCFixtureMode mode(m_fixtureDef);
+    QCOMPARE(mode.channels().size(), 0);
 
     m_ch1->setGroup(QLCChannel::Intensity);
     m_ch1->setColour(QLCChannel::Cyan);
-    mode->insertChannel(m_ch1, 0);
+    mode.insertChannel(m_ch1, 0);
 
     m_ch2->setGroup(QLCChannel::Intensity);
     m_ch2->setColour(QLCChannel::Magenta);
-    mode->insertChannel(m_ch2, 1);
+    mode.insertChannel(m_ch2, 1);
 
     m_ch3->setGroup(QLCChannel::Intensity);
     m_ch3->setColour(QLCChannel::NoColour);
-    mode->insertChannel(m_ch3, 2);
+    mode.insertChannel(m_ch3, 2);
 
     m_ch4->setGroup(QLCChannel::Intensity);
     m_ch4->setColour(QLCChannel::Yellow);
-    mode->insertChannel(m_ch4, 3);
+    mode.insertChannel(m_ch4, 3);
 
     QLCFixtureHead head;
     head.addChannel(0);
     head.addChannel(1);
     head.addChannel(2);
     head.addChannel(3);
-    head.cacheChannels(mode);
+    head.cacheChannels(&mode);
 
     QCOMPARE(head.panMsbChannel(), QLCChannel::invalid());
     QCOMPARE(head.panLsbChannel(), QLCChannel::invalid());
@@ -230,37 +228,35 @@ void QLCFixtureHead_Test::cacheChannelsCmyMaster()
     QCOMPARE(head.rgbChannels(), QList <quint32> ());
     QCOMPARE(head.cmyChannels(), QList <quint32> () << 0 << 1 << 3);
     QCOMPARE(head.masterIntensityChannel(), quint32(2));
-
-    delete mode;
 }
 
 void QLCFixtureHead_Test::cacheChannelsPanTilt()
 {
-    QLCFixtureMode* mode = new QLCFixtureMode(m_fixtureDef);
-    QCOMPARE(mode->channels().size(), 0);
+    QLCFixtureMode mode(m_fixtureDef);
+    QCOMPARE(mode.channels().size(), 0);
 
     m_ch1->setGroup(QLCChannel::Pan);
     m_ch1->setControlByte(QLCChannel::MSB);
-    mode->insertChannel(m_ch1, 0);
+    mode.insertChannel(m_ch1, 0);
 
     m_ch2->setGroup(QLCChannel::Pan);
     m_ch2->setControlByte(QLCChannel::LSB);
-    mode->insertChannel(m_ch2, 1);
+    mode.insertChannel(m_ch2, 1);
 
     m_ch3->setGroup(QLCChannel::Tilt);
     m_ch3->setControlByte(QLCChannel::MSB);
-    mode->insertChannel(m_ch3, 2);
+    mode.insertChannel(m_ch3, 2);
 
     m_ch4->setGroup(QLCChannel::Tilt);
     m_ch4->setControlByte(QLCChannel::LSB);
-    mode->insertChannel(m_ch4, 3);
+    mode.insertChannel(m_ch4, 3);
 
     QLCFixtureHead head;
     head.addChannel(0);
     head.addChannel(1);
     head.addChannel(2);
     head.addChannel(3);
-    head.cacheChannels(mode);
+    head.cacheChannels(&mode);
 
     QCOMPARE(head.panMsbChannel(), quint32(0));
     QCOMPARE(head.panLsbChannel(), quint32(1));
@@ -278,8 +274,43 @@ void QLCFixtureHead_Test::cacheChannelsPanTilt()
     QCOMPARE(head.rgbChannels(), QList <quint32> ());
     QCOMPARE(head.cmyChannels(), QList <quint32> ());
     QCOMPARE(head.masterIntensityChannel(), QLCChannel::invalid());
+}
 
-    delete mode;
+void QLCFixtureHead_Test::doublePanTilt()
+{
+    // Test that the first found Pan/Tilt channel is used
+    // - for the case the user forgets to set the latter to LSB
+    // - in most cases the Pan MSB channel comes first
+    QLCFixtureMode mode(m_fixtureDef);
+    QCOMPARE(mode.channels().size(), 0);
+
+    m_ch1->setGroup(QLCChannel::Pan);
+    m_ch1->setControlByte(QLCChannel::MSB);
+    mode.insertChannel(m_ch1, 0);
+
+    m_ch2->setGroup(QLCChannel::Pan);
+    m_ch2->setControlByte(QLCChannel::MSB);
+    mode.insertChannel(m_ch2, 1);
+
+    m_ch3->setGroup(QLCChannel::Tilt);
+    m_ch3->setControlByte(QLCChannel::MSB);
+    mode.insertChannel(m_ch3, 2);
+
+    m_ch4->setGroup(QLCChannel::Tilt);
+    m_ch4->setControlByte(QLCChannel::MSB);
+    mode.insertChannel(m_ch4, 3);
+
+    QLCFixtureHead head;
+    head.addChannel(0);
+    head.addChannel(1);
+    head.addChannel(2);
+    head.addChannel(3);
+    head.cacheChannels(&mode);
+
+    QCOMPARE(head.panMsbChannel(), quint32(0));
+    QCOMPARE(head.panLsbChannel(), QLCChannel::invalid());
+    QCOMPARE(head.tiltMsbChannel(), quint32(2));
+    QCOMPARE(head.tiltLsbChannel(), QLCChannel::invalid());
 }
 
 void QLCFixtureHead_Test::dimmerHead()

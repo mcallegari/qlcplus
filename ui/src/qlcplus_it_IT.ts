@@ -21,12 +21,12 @@
         <translation>Questa applicazione è distribuita secondo i termini della licenza Apache 2.0.</translation>
     </message>
     <message>
-        <location filename="aboutbox.cpp" line="39"/>
+        <location filename="aboutbox.cpp" line="41"/>
         <source>and contributors:</source>
         <translation>e collaboratori:</translation>
     </message>
     <message>
-        <location filename="aboutbox.cpp" line="40"/>
+        <location filename="aboutbox.cpp" line="42"/>
         <source>Website: %1</source>
         <translation>Sito Web: %1</translation>
     </message>
@@ -3534,12 +3534,17 @@ Durata: %3
         <translation>Il nome di questa matrice RGB</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="404"/>
+        <location filename="rgbmatrixeditor.ui" line="398"/>
+        <source>Save this matrix to a sequence</source>
+        <translation>Salva questa matrice come una sequenza</translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="424"/>
         <source>Fixture group</source>
         <translation>Gruppo di fixture</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="417"/>
+        <location filename="rgbmatrixeditor.ui" line="437"/>
         <source>The fixture group to use as the pixel matrix</source>
         <translation>Il gruppo di fixture da usare per la matrice di pixel</translation>
     </message>
@@ -3696,17 +3701,17 @@ Durata: %3
         <translation>Prova esecuzione</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="243"/>
+        <location filename="rgbmatrixeditor.cpp" line="247"/>
         <source>None</source>
         <translation>Nessuno</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="321"/>
+        <location filename="rgbmatrixeditor.cpp" line="323"/>
         <source>No fixture group to control</source>
         <translation>Nessun gruppo di fixture da controllare</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="585"/>
+        <location filename="rgbmatrixeditor.cpp" line="589"/>
         <source>Select image</source>
         <translation>Seleziona un&apos;immagine</translation>
     </message>
@@ -4169,66 +4174,66 @@ Durata: %3
         <translation>Nuova Scena</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="543"/>
-        <location filename="showmanager.cpp" line="579"/>
+        <location filename="showmanager.cpp" line="563"/>
+        <location filename="showmanager.cpp" line="599"/>
         <source>New Sequence</source>
         <translation>Nuova Sequenza</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="567"/>
-        <location filename="showmanager.cpp" line="652"/>
+        <location filename="showmanager.cpp" line="587"/>
+        <location filename="showmanager.cpp" line="672"/>
         <source>Overlapping error</source>
         <translation>Errore di sovrapposizione</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="567"/>
-        <location filename="showmanager.cpp" line="652"/>
+        <location filename="showmanager.cpp" line="587"/>
+        <location filename="showmanager.cpp" line="672"/>
         <source>Overlapping not allowed. Operation cancelled.</source>
         <translation>Sovrapposizione non consentita. Operazione annullata.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="593"/>
+        <location filename="showmanager.cpp" line="613"/>
         <source>Open Audio File</source>
         <translation>Apri File Audio</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="619"/>
+        <location filename="showmanager.cpp" line="639"/>
         <source>Audio Files (%1)</source>
         <translation>File Audio (%1)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="621"/>
+        <location filename="showmanager.cpp" line="641"/>
         <source>All Files (*.*)</source>
         <translation>Tutti i file (*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="623"/>
+        <location filename="showmanager.cpp" line="643"/>
         <source>All Files (*)</source>
         <translation>Tutti i File (*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="645"/>
+        <location filename="showmanager.cpp" line="665"/>
         <source>Unsupported audio file</source>
         <translation>File audio non supportato</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="645"/>
+        <location filename="showmanager.cpp" line="665"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation>Questo file audio non può essere riprodotto da QLC+. Spiacente.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="713"/>
-        <location filename="showmanager.cpp" line="735"/>
+        <location filename="showmanager.cpp" line="733"/>
+        <location filename="showmanager.cpp" line="755"/>
         <source>Paste error</source>
         <translation>Errore di incolla</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="713"/>
+        <location filename="showmanager.cpp" line="733"/>
         <source>Overlapping paste not allowed. Operation cancelled.</source>
         <translation>Sovrapposizione non consentita. Operazione annullata.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="735"/>
+        <location filename="showmanager.cpp" line="755"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
         <translation>Stai cercando di incollare su una traccia non compatibile. Operazione annullata.</translation>
     </message>
@@ -5671,17 +5676,17 @@ Durata: %3
         <translation>Passa a modo Livello</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.cpp" line="632"/>
+        <location filename="vcsliderproperties.cpp" line="633"/>
         <source>Select channels by group</source>
         <translation>Seleziona i canali per gruppo</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.cpp" line="633"/>
+        <location filename="vcsliderproperties.cpp" line="634"/>
         <source>Select a channel group</source>
         <translation>Seleziona un gruppo di canali</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.cpp" line="685"/>
+        <location filename="vcsliderproperties.cpp" line="686"/>
         <source>No function</source>
         <translation>Nessuna Funzione</translation>
     </message>

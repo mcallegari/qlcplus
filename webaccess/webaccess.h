@@ -32,12 +32,13 @@ class VCButton;
 class VCSlider;
 class VCLabel;
 class VCFrame;
+class Doc;
 
 class WebAccess : public QObject
 {
     Q_OBJECT
 public:
-    explicit WebAccess(VirtualConsole *vcInstance, QObject *parent = 0);
+    explicit WebAccess(Doc *doc, VirtualConsole *vcInstance, QObject *parent = 0);
     /** Destructor */
     ~WebAccess();
 
@@ -58,6 +59,13 @@ private:
 
     QString getChildrenHTML(VCWidget *frame);
     QString getVCHTML();
+    QString getConfigHTML();
+
+protected slots:
+    void slotButtonToggled(bool on);
+    void slotSliderValueChanged(QString val);
+    void slotCueIndexChanged(int idx);
+
 protected:
     QString m_JScode;
     QString m_CSScode;
@@ -75,9 +83,11 @@ protected:
     bool m_audioTriggersFound;
 
 protected:
+    Doc *m_doc;
     VirtualConsole *m_vc;
 
     struct mg_context *m_ctx;
+    struct mg_connection *m_conn;
     struct mg_callbacks m_callbacks;
 
 signals:

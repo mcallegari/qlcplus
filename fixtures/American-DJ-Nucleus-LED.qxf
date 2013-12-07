@@ -1,9 +1,9 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition>
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.3.0-r2741</Version>
-  <Author>qualleyiv</Author>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.6.0</Version>
+  <Author>George Qualley IV</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
  <Model>Nucleus LED</Model>
@@ -401,5 +401,35 @@
   <Channel Number="19">Pan &amp; Tilt Speed</Channel>
   <Channel Number="20">Color Macro</Channel>
   <Channel Number="21">Color Macro Speed</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>1</Channel>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>10</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>14</Channel>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>16</Channel>
+   <Channel>15</Channel>
+  </Head>
  </Mode>
 </FixtureDefinition>

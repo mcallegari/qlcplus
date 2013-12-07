@@ -20,12 +20,12 @@
         <translation>Dit programma valt onder de Apache versie 2.0 licentie.</translation>
     </message>
     <message>
-        <location filename="aboutbox.cpp" line="39"/>
+        <location filename="aboutbox.cpp" line="41"/>
         <source>and contributors:</source>
         <translation>en co-auteurs:</translation>
     </message>
     <message>
-        <location filename="aboutbox.cpp" line="40"/>
+        <location filename="aboutbox.cpp" line="42"/>
         <source>Website: %1</source>
         <translation>Website: %1</translation>
     </message>
@@ -384,7 +384,7 @@
         <location filename="addresstool.ui" line="35"/>
         <source>Colour</source>
         <oldsource>Color</oldsource>
-        <translation type="unfinished">Kleur</translation>
+        <translation>Kleur</translation>
     </message>
     <message>
         <location filename="addresstool.ui" line="51"/>
@@ -580,7 +580,7 @@ Deze stoppen en naar Design Mode gaan?</translation>
     <message>
         <location filename="app.cpp" line="556"/>
         <source>Live edit a function</source>
-        <translation type="unfinished"></translation>
+        <translation>Bewerk een functie live</translation>
     </message>
     <message>
         <location filename="app.cpp" line="560"/>
@@ -601,22 +601,22 @@ Deze stoppen en naar Design Mode gaan?</translation>
     <message>
         <location filename="app.cpp" line="569"/>
         <source>Fade 1 second and stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Fade 1 seconde en stop</translation>
     </message>
     <message>
         <location filename="app.cpp" line="574"/>
         <source>Fade 5 seconds and stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Fade 5 seconden en stop</translation>
     </message>
     <message>
         <location filename="app.cpp" line="579"/>
         <source>Fade 10 second and stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Fade 10 seconden en stop</translation>
     </message>
     <message>
         <location filename="app.cpp" line="584"/>
         <source>Fade 30 second and stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Fade 30 seconden en stop</translation>
     </message>
     <message>
         <location filename="app.cpp" line="591"/>
@@ -823,12 +823,12 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="audioeditor.ui" line="165"/>
         <source>Fade in:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fade in:</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="189"/>
         <source>Fade out:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fade out:</translation>
     </message>
 </context>
 <context>
@@ -896,7 +896,7 @@ Duur: %3
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="24"/>
         <source>Triggers</source>
-        <translation type="unfinished"></translation>
+        <translation>Triggers</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="32"/>
@@ -957,7 +957,7 @@ Duur: %3
         <location filename="vcaudiotriggersproperties.ui" line="139"/>
         <source>When toggled, you can click an external button to assign it to this widget.</source>
         <oldsource>When toggled, you can click an external button to assign it to this virtual console button.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Indine aangezet is het mogelijk een externe knop te koppelen aan deze widget.</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="142"/>
@@ -967,18 +967,18 @@ Duur: %3
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="158"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation type="unfinished">De specifieke input channel in de input universe die data stuurt naar deze widget</translation>
+        <translation>De specifieke input channel in de input universe die data stuurt naar deze widget</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="168"/>
         <source>The input universe that sends data to this widget</source>
-        <translation type="unfinished">De input universe die data stuurt naar deze widget</translation>
+        <translation>De input universe die data stuurt naar deze widget</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="184"/>
         <source>Choose an external input universe &amp; channel that this widget should listen to.</source>
         <oldsource>Choose an external input universe &amp; channel that this button should listen to.</oldsource>
-        <translation type="unfinished">Kies een externe input universe en channel waarnaar deze group moet luisteren.</translation>
+        <translation>Kies een externe input universe en channel waarnaar deze widget moet luisteren.</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="187"/>
@@ -994,19 +994,19 @@ Duur: %3
         <location filename="vcaudiotriggersproperties.ui" line="225"/>
         <source>Keyboard combination that toggles this widget</source>
         <oldsource>Keyboard combination that toggles this button</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Toets combinatie die deze widget aan/uit zet</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="235"/>
         <source>Set a key combination for this widget</source>
         <oldsource>Set a key combination for this button</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Definieer een toets combinaite voor deze widget</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="255"/>
         <source>Remove the widget&apos;s keyboard shortcut key</source>
         <oldsource>Remove the button&apos;s keyboard shortcut key</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Verwijder de toets combinatie van deze widget</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.cpp" line="125"/>
@@ -1783,7 +1783,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="efxeditor.ui" line="531"/>
         <source>Relative</source>
-        <translation type="unfinished"></translation>
+        <translation>Relatief</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="541"/>
@@ -2158,7 +2158,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="fixtureremap.ui" line="69"/>
         <source>Clone and auto-remap the selected source fixture</source>
-        <translation type="unfinished"></translation>
+        <translation>Klone en auto remap de geselecteerde bron fixture</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="93"/>
@@ -2230,12 +2230,12 @@ Maak Fixture Group</translation>
     <message>
         <location filename="fixtureremap.cpp" line="323"/>
         <source>Invalid operation</source>
-        <translation type="unfinished"></translation>
+        <translation>Ongeldige bewerking</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="324"/>
         <source>You are trying to clone a fixture on an address already in use. Please fix the target list first.</source>
-        <translation type="unfinished"></translation>
+        <translation>U probeert een fixture te klonen op een adres dat al in gebruik is. Pas eerst de doel lijst aan.</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="385"/>
@@ -2281,7 +2281,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="fixtureselection.ui" line="44"/>
         <source>Universe</source>
-        <translation type="unfinished">Universe</translation>
+        <translation>Universe</translation>
     </message>
     <message>
         <location filename="fixtureselection.ui" line="49"/>
@@ -2325,7 +2325,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="functionliveeditdialog.cpp" line="43"/>
         <source>Function Live Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Bewerk een functie live</translation>
     </message>
 </context>
 <context>
@@ -2373,7 +2373,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="functionmanager.cpp" line="278"/>
         <source>New fo&amp;lder</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieuwe map (fo&amp;lder)</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="284"/>
@@ -2464,7 +2464,7 @@ Maak Fixture Group</translation>
         <location filename="functionmanager.cpp" line="539"/>
         <source>Do you want to DELETE folder:</source>
         <oldsource>Do you want to DELETE foler:</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>VERWIJDER map:</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="541"/>
@@ -2474,7 +2474,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="functionmanager.cpp" line="553"/>
         <source>(This will also DELETE: </source>
-        <translation type="unfinished"></translation>
+        <translation>Dit VERWIJDERT tevens: </translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="565"/>
@@ -2502,12 +2502,12 @@ Maak Fixture Group</translation>
     <message>
         <location filename="functionselection.ui" line="22"/>
         <source>All functions</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle functies</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="32"/>
         <source>Running functions</source>
-        <translation type="unfinished"></translation>
+        <translation>Actieve functies</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="57"/>
@@ -2602,27 +2602,27 @@ Maak Fixture Group</translation>
     <message>
         <location filename="functionwizard.ui" line="14"/>
         <source>Function Wizard</source>
-        <translation>Function Wizard</translation>
+        <translation>Functie Wizzard</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="38"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Volgende</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="52"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="66"/>
         <source>Cancel</source>
-        <translation type="unfinished">Annuleren</translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="86"/>
         <source>Introduction</source>
-        <translation type="unfinished"></translation>
+        <translation>Introductie</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="95"/>
@@ -2639,7 +2639,19 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3- add widgets to the Virtual Console&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;To move from a step to another press the &amp;quot;Next&amp;quot; button&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Welkom bij de QLC+ wizard !&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Dit is een begeleid process dat er voor zorgt dat U QLC+ binnen een paar minuten kunt gebruiken.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Het bestaat uit drie stappen:&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1- fixtures toevoegen&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2- selecteer de mogelijkheden om funkties mee te maken.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3- voeg widgets toe aan de Virtual Console&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Clik op de &amp;quot;Next&amp;quot; knop om naar de volgende stap te gaan&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="188"/>
@@ -2653,27 +2665,31 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Add the fixtures for which you want to create functions and widgets&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Voeg de fixtures toe waar U funkties en widgets voor wilt maken&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="247"/>
         <source>Functions</source>
-        <translation type="unfinished">Functions</translation>
+        <translation>Functies</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="254"/>
         <source>Results</source>
-        <translation type="unfinished"></translation>
+        <translation>Resultaten</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="263"/>
         <source>Available</source>
-        <translation type="unfinished"></translation>
+        <translation>Beschikbaar</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="268"/>
         <source>Odd/Even</source>
-        <translation type="unfinished"></translation>
+        <translation>Oneven/Even</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="288"/>
@@ -2682,17 +2698,21 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Based on the fixtures you added, I can create the functions listed on the left. Just select what you need and see the results on the right !&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Met de fixtures die U toegevoegd hebt, kan ik de funkties die links getoond worden maken. Selecteer de funkties die U nodig hebt en zie het resultaat aan de rechter kant!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="299"/>
         <source>Advanced</source>
-        <translation type="unfinished"></translation>
+        <translation>Geavanceerd</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="307"/>
         <source>Virtual Console</source>
-        <translation type="unfinished">Virtuele Console</translation>
+        <translation>Virtual Console</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="325"/>
@@ -2701,12 +2721,16 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Based on the functions you selected, I can create the following widgets on your Virtual Console. Just check which ones you need.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Met de funkties die U geselecteerd heeft, kan ik de volgende widgets aanmaken in de Virtual Console.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="337"/>
         <source>Widgets</source>
-        <translation type="unfinished">Widgets</translation>
+        <translation>Widgets</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="129"/>
@@ -2742,7 +2766,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="functionwizard.cpp" line="174"/>
         <source>%1 group</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 groep</translation>
     </message>
     <message>
         <location filename="functionwizard.cpp" line="191"/>
@@ -2762,12 +2786,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="functionwizard.cpp" line="484"/>
         <source>Click &amp; Go RGB</source>
-        <translation type="unfinished"></translation>
+        <translation>Click &amp; Go RGB</translation>
     </message>
     <message>
         <location filename="functionwizard.cpp" line="488"/>
         <source>Click &amp; Go Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Click &amp; Go Macro</translation>
     </message>
 </context>
 <context>
@@ -2996,7 +3020,7 @@ Terugkoppeling</translation>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="809"/>
         <source>Default device</source>
-        <translation type="unfinished"></translation>
+        <translation>Standaard apparaat</translation>
     </message>
 </context>
 <context>
@@ -3260,195 +3284,196 @@ Duur: %3
         <location filename="palettegenerator.cpp" line="94"/>
         <source>Primary colours</source>
         <oldsource>Primary colors</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Primaire kleuren</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="95"/>
         <source>16 Colours</source>
         <oldsource>16 Colors</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>16 kleuren</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="96"/>
         <source>Shutter macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Shutter macros</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="97"/>
         <source>Gobo macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Gobo macros</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="98"/>
         <source>Colour macros</source>
         <oldsource>Color macros</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Kleur macros</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="101"/>
         <source>Unknown</source>
-        <translation type="unfinished">Onbekend</translation>
+        <translation>Onbekend</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="236"/>
         <source>%1 - %2 (Even)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 - %2 (Even)</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="237"/>
         <source>%1 - %2 (Odd)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 - %2 (Oneven)</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="261"/>
         <source>Black</source>
-        <translation type="unfinished"></translation>
+        <translation>Zwart</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="261"/>
         <source>Dark Blue</source>
-        <translation type="unfinished"></translation>
+        <translation>Donker Blauw</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="261"/>
         <source>Blue</source>
-        <translation type="unfinished"></translation>
+        <translation>Blauw</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="261"/>
         <source>Dark Green</source>
-        <translation type="unfinished"></translation>
+        <translation>Donker Groen</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="262"/>
         <source>Dark Cyan</source>
-        <translation type="unfinished"></translation>
+        <translation>Donder Cyaan</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="262"/>
         <source>Green</source>
-        <translation type="unfinished"></translation>
+        <translation>Groen</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="262"/>
         <source>Cyan</source>
-        <translation type="unfinished"></translation>
+        <translation>Cyaan</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="262"/>
         <source>Dark Red</source>
-        <translation type="unfinished"></translation>
+        <translation>Donker Rood</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="263"/>
         <source>Dark Magenta</source>
-        <translation type="unfinished"></translation>
+        <translation>Donker Magenta</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="263"/>
         <source>Dark Yellow</source>
-        <translation type="unfinished"></translation>
+        <translation>Donker Geel</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="263"/>
         <source>Dark Gray</source>
-        <translation type="unfinished"></translation>
+        <translation>Donker Grijs</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="263"/>
         <source>Light Gray</source>
-        <translation type="unfinished"></translation>
+        <translation>Licht Grijs</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="264"/>
         <source>Red</source>
-        <translation type="unfinished"></translation>
+        <translation>Rood</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="264"/>
         <source>Magenta</source>
-        <translation type="unfinished"></translation>
+        <translation>Magenta</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="264"/>
         <source>Yellow</source>
-        <translation type="unfinished"></translation>
+        <translation>Geel</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="264"/>
         <source>White</source>
-        <translation type="unfinished"></translation>
+        <translation>Wit</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="316"/>
         <source>%1 %2 - %3</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %2 - %3</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="320"/>
         <source>%1 %2 - %3 (Even)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %2 - %3 (Even)</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="321"/>
         <source>%1 %2 - %3 (Odd)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %2 - %3 (Oneven)</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="383"/>
         <source> - Even</source>
-        <translation type="unfinished"></translation>
+        <translation> - Even</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="384"/>
         <source> - Odd</source>
-        <translation type="unfinished"></translation>
+        <translation> - Oneven</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="403"/>
         <source>%1 chaser - %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 chaser - %2</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="473"/>
         <source>Red scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Rode scene</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="474"/>
         <source>Green scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Groene scene</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="475"/>
         <source>Blue scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Blauwe scene</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="476"/>
         <source>Cyan scene</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Is het cyane scene of cyaane scene?</translatorcomment>
+        <translation type="unfinished">Cyane scene</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="477"/>
         <source>Magenta scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Magenta scene</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="478"/>
         <source>Yellow scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Gele scene</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="479"/>
         <source>White scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Witte scene</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="485"/>
         <location filename="palettegenerator.cpp" line="487"/>
         <source>Scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Scene</translation>
     </message>
 </context>
 <context>
@@ -3501,12 +3526,17 @@ Duur: %3
         <translation>Naam van deze RGB Matrix function</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="404"/>
+        <location filename="rgbmatrixeditor.ui" line="398"/>
+        <source>Save this matrix to a sequence</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="424"/>
         <source>Fixture group</source>
         <translation>Fixture Group</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="417"/>
+        <location filename="rgbmatrixeditor.ui" line="437"/>
         <source>The fixture group to use as the pixel matrix</source>
         <translation>De fixture group om als pixel matrix te gebruiken</translation>
     </message>
@@ -3549,7 +3579,7 @@ Duur: %3
     <message>
         <location filename="rgbmatrixeditor.ui" line="122"/>
         <source>Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Afbeelding</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="161"/>
@@ -3619,13 +3649,13 @@ Duur: %3
     <message>
         <location filename="rgbmatrixeditor.ui" line="41"/>
         <source>Matrix start colour</source>
-        <translation type="unfinished"></translation>
+        <translation>Matrix start kleur</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="54"/>
         <source>Matrix end colour</source>
         <oldsource>Matrix end color</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Matrix eind kleur</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="243"/>
@@ -3650,7 +3680,7 @@ Duur: %3
     <message>
         <location filename="rgbmatrixeditor.ui" line="378"/>
         <source>Show/Hide speed dial window</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon/verberg speed dial scherm</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="333"/>
@@ -3663,19 +3693,19 @@ Duur: %3
         <translation>Test Run</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="243"/>
+        <location filename="rgbmatrixeditor.cpp" line="247"/>
         <source>None</source>
         <translation>Geen</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="321"/>
+        <location filename="rgbmatrixeditor.cpp" line="323"/>
         <source>No fixture group to control</source>
         <translation>Geen fixture group om te bedienen</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="585"/>
+        <location filename="rgbmatrixeditor.cpp" line="589"/>
         <source>Select image</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecteer afbeelding</translation>
     </message>
 </context>
 <context>
@@ -3718,7 +3748,7 @@ Duur: %3
         <location filename="sceneeditor.ui" line="152"/>
         <source>Fixtures used in this scene</source>
         <oldsource>Name of this scene</oldsource>
-        <translation type="unfinished">Scene naam</translation>
+        <translation>Fixtures in gebruik in deze scene</translation>
     </message>
     <message>
         <location filename="sceneeditor.ui" line="160"/>
@@ -3808,7 +3838,7 @@ Duur: %3
     <message>
         <location filename="sceneeditor.cpp" line="219"/>
         <source>Scene name:</source>
-        <translation type="unfinished">Scene naam:</translation>
+        <translation>Scene naam:</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="689"/>
@@ -4133,66 +4163,66 @@ Duur: %3
         <translation>Nieuwe Scene</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="543"/>
-        <location filename="showmanager.cpp" line="579"/>
+        <location filename="showmanager.cpp" line="563"/>
+        <location filename="showmanager.cpp" line="599"/>
         <source>New Sequence</source>
         <translation>Nieuwe Sequence</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="567"/>
-        <location filename="showmanager.cpp" line="652"/>
+        <location filename="showmanager.cpp" line="587"/>
+        <location filename="showmanager.cpp" line="672"/>
         <source>Overlapping error</source>
         <translation>Overlap fout</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="567"/>
-        <location filename="showmanager.cpp" line="652"/>
+        <location filename="showmanager.cpp" line="587"/>
+        <location filename="showmanager.cpp" line="672"/>
         <source>Overlapping not allowed. Operation cancelled.</source>
         <translation>Overlappen niet toegestaan. Bewerking geannuleerd.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="593"/>
+        <location filename="showmanager.cpp" line="613"/>
         <source>Open Audio File</source>
         <translation>Open Audio bestand</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="619"/>
+        <location filename="showmanager.cpp" line="639"/>
         <source>Audio Files (%1)</source>
         <translation>Audio Bestanden (%1)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="621"/>
+        <location filename="showmanager.cpp" line="641"/>
         <source>All Files (*.*)</source>
         <translation>Alle bestanden(*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="623"/>
+        <location filename="showmanager.cpp" line="643"/>
         <source>All Files (*)</source>
         <translation>Alle bestanden (*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="645"/>
+        <location filename="showmanager.cpp" line="665"/>
         <source>Unsupported audio file</source>
         <translation>Niet ondersteunde audio besatnd</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="645"/>
+        <location filename="showmanager.cpp" line="665"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation>Dit audio bestand kan niet worden afgespeeld met QLC+. Excuus.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="713"/>
-        <location filename="showmanager.cpp" line="735"/>
+        <location filename="showmanager.cpp" line="733"/>
+        <location filename="showmanager.cpp" line="755"/>
         <source>Paste error</source>
         <translation>Fout bij plakken</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="713"/>
+        <location filename="showmanager.cpp" line="733"/>
         <source>Overlapping paste not allowed. Operation cancelled.</source>
         <translation>Overlappen niet toegestaan. Bewerking geannuleerd.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="735"/>
+        <location filename="showmanager.cpp" line="755"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
         <translation>Poging om een niet compatibele scene te plannen geannuleerd.</translation>
     </message>
@@ -4379,12 +4409,12 @@ Duur: %3
     <message>
         <location filename="vcaudiotriggers.cpp" line="149"/>
         <source>Audio open error</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio open fout</translation>
     </message>
     <message>
         <location filename="vcaudiotriggers.cpp" line="150"/>
         <source>An error occurred while initializing the selected audio device. Please review your audio input settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Er is een fout opgetreden tijdens het openen van de geselecteerde audio device. Controleer uw audio input instellingen.</translation>
     </message>
 </context>
 <context>
@@ -5200,7 +5230,7 @@ Duur: %3
     <message>
         <location filename="vcproperties.ui" line="533"/>
         <source>Audio triggers size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio triggers grootte:</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="543"/>
@@ -5632,17 +5662,17 @@ Kies...</translation>
         <translation>Ga naar Playback Mode</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.cpp" line="632"/>
+        <location filename="vcsliderproperties.cpp" line="633"/>
         <source>Select channels by group</source>
         <translation>Selecteer channels per group</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.cpp" line="633"/>
+        <location filename="vcsliderproperties.cpp" line="634"/>
         <source>Select a channel group</source>
         <translation>Selecteer een channel group</translation>
     </message>
     <message>
-        <location filename="vcsliderproperties.cpp" line="685"/>
+        <location filename="vcsliderproperties.cpp" line="686"/>
         <source>No function</source>
         <translation>Geen function</translation>
     </message>
@@ -6112,12 +6142,12 @@ Kies...</translation>
     <message>
         <location filename="virtualconsole.cpp" line="329"/>
         <source>New Audio Triggers</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieuwe Audio Trigger</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="332"/>
         <source>New Clock</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieuwe klok</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="353"/>
@@ -6244,7 +6274,7 @@ Kies...</translation>
     <message>
         <location filename="virtualconsole.cpp" line="852"/>
         <source>Knob %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Knop %1</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="1104"/>

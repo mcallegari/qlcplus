@@ -38,6 +38,7 @@ private slots:
     void cacheChannelsRgbMaster();
     void cacheChannelsCmyMaster();
     void cacheChannelsPanTilt();
+    void doublePanTilt();
     void dimmerHead();
 
     void cleanupTestCase();

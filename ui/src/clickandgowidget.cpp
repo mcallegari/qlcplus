@@ -390,7 +390,16 @@ void ClickAndGoWidget::mousePressEvent(QMouseEvent *event)
 
 void ClickAndGoWidget::mouseMoveEvent(QMouseEvent *event)
 {
-    if ((m_type == RGB || m_type == CMY) && event->buttons() == Qt::LeftButton)
+    if (m_linearColor == true && event->buttons() == Qt::LeftButton)
+    {
+        if (event->x() <= 10)
+            emit levelChanged(0);
+        else if (event->x() > 10 && event->x() < 256)
+            emit levelChanged((uchar)(event->x() - 10));
+        else
+            emit levelChanged(255);
+    }
+    else if ((m_type == RGB || m_type == CMY) && event->buttons() == Qt::LeftButton)
     {
         emit colorChanged(m_image.pixel(event->x(), event->y()));
     }

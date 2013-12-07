@@ -137,7 +137,7 @@ FixtureManager::FixtureManager(QWidget* parent, Doc* doc)
             this, SLOT(slotFixtureGroupChanged(quint32)));
 
     connect(m_doc, SIGNAL(loaded()),
-            this, SLOT(slotTabChanged()));
+            this, SLOT(slotDocLoaded()));
 
     slotModeChanged(m_doc->mode());
 
@@ -287,6 +287,11 @@ void FixtureManager::slotFixtureGroupChanged(quint32 id)
     FixtureGroup* grp = m_doc->fixtureGroup(id);
     Q_ASSERT(grp != NULL);
     updateGroupItem(item, grp);
+}
+
+void FixtureManager::slotDocLoaded()
+{
+    slotTabChanged(m_currentTabIndex);
 }
 
 /*****************************************************************************
