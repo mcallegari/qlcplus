@@ -34,7 +34,6 @@
 FunctionsTreeWidget::FunctionsTreeWidget(Doc *doc, QWidget *parent) :
     QTreeWidget(parent)
   , m_doc(doc)
-  , m_draggedItem(NULL)
 {
     sortItems(COL_NAME, Qt::AscendingOrder);
 
@@ -399,9 +398,9 @@ void FunctionsTreeWidget::slotUpdateChildrenPath(QTreeWidgetItem *root)
 
 void FunctionsTreeWidget::mousePressEvent(QMouseEvent *event)
 {
-    m_draggedItem = itemAt(event->pos());
-
     QTreeWidget::mousePressEvent(event);
+
+    m_draggedItems = selectedItems(); //itemAt(event->pos());
 }
 
 
@@ -409,7 +408,7 @@ void FunctionsTreeWidget::dropEvent(QDropEvent *event)
 {
     QTreeWidgetItem *dropItem = itemAt(event->pos());
 
-    if (m_draggedItem == NULL || dropItem == NULL)
+    if (m_draggedItems.count() == 0 || dropItem == NULL)
         return;
 
     QVariant var = dropItem->data(COL_NAME, Qt::UserRole + 1);
@@ -419,22 +418,27 @@ void FunctionsTreeWidget::dropEvent(QDropEvent *event)
     int dropType = var.toInt();
     //QString folderName = dropItem->text(COL_PATH);
 
-    quint32 dragFID = m_draggedItem->data(COL_NAME, Qt::UserRole).toUInt();
-    Function *dragFunc = m_doc->function(dragFID);
-    if (dragFunc != NULL && dragFunc->type() == dropType)
+    foreach (QTreeWidgetItem *item, m_draggedItems)
     {
-        QTreeWidget::dropEvent(event);
-        quint32 fid = m_draggedItem->data(COL_NAME, Qt::UserRole).toUInt();
-        Function *func = m_doc->function(fid);
-        if (func != NULL)
-            func->setPath(dropItem->text(COL_PATH));
-    }
-    else
-    {
-        // m_draggedItem is a folder
-        int dragType = m_draggedItem->data(COL_NAME, Qt::UserRole + 1).toInt();
-        if (dragType == dropType)
+        quint32 dragFID = item->data(COL_NAME, Qt::UserRole).toUInt();
+        Function *dragFunc = m_doc->function(dragFID);
+        if (dragFunc != NULL && dragFunc->type() == dropType)
+        {
             QTreeWidget::dropEvent(event);
-        slotItemChanged(m_draggedItem);
+            quint32 fid = item->data(COL_NAME, Qt::UserRole).toUInt();
+            Function *func = m_doc->function(fid);
+            if (func != NULL)
+                func->setPath(dropItem->text(COL_PATH));
+        }
+        else
+        {
+            // m_draggedItem is a folder
+            int dragType = item->data(COL_NAME, Qt::UserRole + 1).toInt();
+            if (dragType == dropType)
+                QTreeWidget::dropEvent(event);
+            slotItemChanged(item);
+        }
     }
+
+    m_draggedItems.clear();
 }
