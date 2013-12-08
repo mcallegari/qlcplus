@@ -20,6 +20,7 @@ qlcplus (4.6.0) stable; urgency=low
   * Package: Fixed installation of RGB scripts and Windows associations (thanks to Jano Svitok)
   * Documentation: reviewed and turned into proper english (thanks to Michael Clements)
   * Web access: improved to reflect the live situation of the Virtual Console
+  * Virtual Console: fixed widgets paste into a multipage frame
   * Added fixtures: Pro-Lights LedPar 64363 RGB, Pro-Lights LumiPar 7QPro, Pro-Lights Strobo 1500DMX (thanks to Lorenzo Andreani)
   * Added fixtures: Pro-Lights Explo 3000D, Pro-Lights LumiPar 18 Tri, Robe_ColorMix_240_AT (thanks to Lorenzo Andreani)
   * Added fixtures: American DJ Mega Tri Par, Clay Paky A.LEDA Wash K5, Clay Paky A.LEDA Wash K10, Clay Paky A.LEDA Wash K20

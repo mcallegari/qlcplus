@@ -1072,6 +1072,7 @@ void VirtualConsole::slotEditPaste()
 
             /* Reparent and move to the correct place */
             widget->setParent(parent);
+            checkWidgetPage(widget, parent);
             widget->move(p);
             widget->show();
         }
@@ -1097,6 +1098,7 @@ void VirtualConsole::slotEditPaste()
             /* Create a copy and move to correct place */
             VCWidget* copy = widget->createCopy(parent);
             Q_ASSERT(copy != NULL);
+            checkWidgetPage(copy, parent);
             copy->move(p);
             copy->show();
         }
