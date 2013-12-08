@@ -93,6 +93,10 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
     connect(m_detachPlaybackFunctionButton, SIGNAL(clicked()),
             this, SLOT(slotDetachPlaybackFunctionClicked()));
 
+    /* Submaster page connections */
+    connect(m_switchToSubmasterModeButton, SIGNAL(clicked()),
+            this, SLOT(slotModeSubmasterClicked()));
+
     /*********************************************************************
      * General page
      *********************************************************************/
@@ -116,6 +120,9 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
         break;
     case VCSlider::Playback:
         slotModePlaybackClicked();
+        break;
+    case VCSlider::Submaster:
+        slotModeSubmasterClicked();
         break;
     }
 
@@ -190,21 +197,9 @@ void VCSliderProperties::slotModeLevelClicked()
 
     m_nameEdit->setEnabled(true);
 
-    m_levelValueRangeGroup->show();
-    m_levelList->show();
-    m_levelAllButton->show();
-    m_levelNoneButton->show();
-    m_levelInvertButton->show();
-    m_levelByGroupButton->show();
-    m_clickngoGroup->show();
-
-    m_playbackFunctionGroup->hide();
-
-    m_switchToLevelModeButton->hide();
-    m_switchToPlaybackModeButton->show();
-
-    m_levelSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
-    m_playbackSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
+    setLevelPageVisibility(true);
+    setPlaybackPageVisibility(false);
+    setSubmasterPageVisibility(false);
 
     int cngType = m_slider->clickAndGoType();
     switch(cngType)
@@ -242,21 +237,18 @@ void VCSliderProperties::slotModePlaybackClicked()
 
     m_nameEdit->setEnabled(true);
 
-    m_levelValueRangeGroup->hide();
-    m_levelList->hide();
-    m_levelAllButton->hide();
-    m_levelNoneButton->hide();
-    m_levelInvertButton->hide();
-    m_levelByGroupButton->hide();
-    m_clickngoGroup->hide();
+    setLevelPageVisibility(false);
+    setPlaybackPageVisibility(true);
+    setSubmasterPageVisibility(false);
+}
 
-    m_playbackFunctionGroup->show();
+void VCSliderProperties::slotModeSubmasterClicked()
+{
+    m_sliderMode = VCSlider::Submaster;
 
-    m_switchToLevelModeButton->show();
-    m_switchToPlaybackModeButton->hide();
-
-    m_levelSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
-    m_playbackSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Expanding);
+    setLevelPageVisibility(false);
+    setPlaybackPageVisibility(false);
+    setSubmasterPageVisibility(true);
 }
 
 void VCSliderProperties::slotAutoDetectInputToggled(bool checked)
@@ -302,6 +294,60 @@ void VCSliderProperties::updateInputSource()
 
     m_inputUniverseEdit->setText(uniName);
     m_inputChannelEdit->setText(chName);
+}
+
+void VCSliderProperties::setLevelPageVisibility(bool visible)
+{
+    m_levelValueRangeGroup->setVisible(visible);
+    m_levelList->setVisible(visible);
+    m_levelAllButton->setVisible(visible);
+    m_levelNoneButton->setVisible(visible);
+    m_levelInvertButton->setVisible(visible);
+    m_levelByGroupButton->setVisible(visible);
+    m_clickngoGroup->setVisible(visible);
+
+    if (visible == true)
+    {
+        m_switchToLevelModeButton->hide();
+        m_levelSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Expanding);
+    }
+    else
+    {
+        m_switchToLevelModeButton->show();
+        m_levelSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
+    }
+}
+
+void VCSliderProperties::setPlaybackPageVisibility(bool visible)
+{
+    m_playbackFunctionGroup->setVisible(visible);
+
+    if (visible == true)
+    {
+        m_switchToPlaybackModeButton->hide();
+        m_playbackSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Expanding);
+    }
+    else
+    {
+        m_switchToPlaybackModeButton->show();
+        m_playbackSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
+    }
+}
+
+void VCSliderProperties::setSubmasterPageVisibility(bool visible)
+{
+    m_submasterInfo->setVisible(visible);
+
+    if (visible == true)
+    {
+        m_switchToSubmasterModeButton->hide();
+        m_submasterSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Expanding);
+    }
+    else
+    {
+        m_switchToSubmasterModeButton->show();
+        m_submasterSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
+    }
 }
 
 /*****************************************************************************

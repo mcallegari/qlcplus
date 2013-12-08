@@ -117,7 +117,7 @@ public:
     void editProperties();
 
     /*********************************************************************
-     * QLC Mode
+     * QLC+ Mode
      *********************************************************************/
 public slots:
     void slotModeChanged(Doc::Mode mode);
@@ -129,7 +129,8 @@ public:
     enum SliderMode
     {
         Level,
-        Playback
+        Playback,
+        Submaster
     };
 
 public:
@@ -351,6 +352,15 @@ protected:
     QMutex m_playbackValueMutex;
 
     /*********************************************************************
+     * Submaster
+     *********************************************************************/
+protected:
+    qreal m_submasterValue;
+
+signals:
+    void submasterValueChanged(qreal value);
+
+    /*********************************************************************
      * DMXSource
      *********************************************************************/
 public:
@@ -482,6 +492,13 @@ protected:
 protected slots:
     /** Called when an external input device produces input data */
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
+
+    /*********************************************************************
+     * Intensity
+     *********************************************************************/
+public:
+    /** @reimp */
+    void adjustIntensity(qreal val);
 
     /*********************************************************************
      * Web access

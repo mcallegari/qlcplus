@@ -82,8 +82,8 @@ VCButtonProperties::VCButtonProperties(VCButton* button, Doc* doc)
 
     /* Intensity adjustment */
     m_intensityEdit->setValidator(new QIntValidator(0, 100, this));
-    m_intensityGroup->setChecked(m_button->adjustIntensity());
-    int intensity = int(floor(m_button->intensityAdjustment() * double(100)));
+    m_intensityGroup->setChecked(m_button->isStartupIntensityEnabled());
+    int intensity = int(floor(m_button->startupIntensity() * double(100)));
     m_intensityEdit->setText(QString::number(intensity));
     m_intensitySlider->setValue(intensity);
 
@@ -239,8 +239,8 @@ void VCButtonProperties::accept()
     m_button->setFunction(m_function);
     m_button->setKeySequence(m_keySequence);
     m_button->setInputSource(m_inputSource);
-    m_button->setAdjustIntensity(m_intensityGroup->isChecked());
-    m_button->setIntensityAdjustment(double(m_intensitySlider->value()) / double(100));
+    m_button->enableStartupIntensity(m_intensityGroup->isChecked());
+    m_button->enableStartupIntensity(double(m_intensitySlider->value()) / double(100));
 
     if (m_toggle->isChecked() == true)
         m_button->setAction(VCButton::Toggle);

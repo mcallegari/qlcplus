@@ -302,7 +302,20 @@ private:
      * Properties
      *********************************************************************/
 public:
+    /** Invoke the property dialog if the widget has one */
     virtual void editProperties();
+
+    /*********************************************************************
+     * Intensity
+     *********************************************************************/
+public:
+    /** Set the widget intensity value. This is mostly used by submasters */
+    virtual void adjustIntensity(qreal val);
+
+    virtual qreal intensity();
+
+private:
+    qreal m_intensity;
 
     /*********************************************************************
      * External input
@@ -445,7 +458,7 @@ protected:
                             int* w, int* h, bool* visible);
 
     /*********************************************************************
-     * QLC Mode change
+     * QLC+ Mode change
      *********************************************************************/
 protected slots:
     /** Listens to Doc mode changes */

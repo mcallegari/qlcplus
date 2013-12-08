@@ -244,7 +244,7 @@ protected:
     Action m_action;
 
     /*********************************************************************
-     * Intensity adjustment
+     * Startup intensity adjustment
      *********************************************************************/
 public:
     /**
@@ -254,24 +254,24 @@ public:
      * @param adjust true to make the button adjust intensity, false to disable
      *               intensity adjustment
      */
-    void setAdjustIntensity(bool adjust);
+    void enableStartupIntensity(bool enable);
 
     /** Check, whether the button adjusts intensity */
-    bool adjustIntensity() const;
+    bool isStartupIntensityEnabled() const;
 
     /**
      * Set the amount of intensity adjustment.
      *
      * @param fraction Intensity adjustment amount (0.0 - 1.0)
      */
-    void setIntensityAdjustment(qreal fraction);
+    void enableStartupIntensity(qreal fraction);
 
     /** Get the amount of intensity adjustment. */
-    qreal intensityAdjustment() const;
+    qreal startupIntensity() const;
 
 protected:
-    bool m_adjustIntensity;
-    qreal m_intensityAdjustment;
+    bool m_startupIntensityEnabled;
+    qreal m_startupIntensity;
 
 protected slots:
     void slotAttributeChanged(int value);
@@ -322,6 +322,13 @@ signals:
 public:
     /** Get a custom menu specific to this widget. Must be deleted. */
     QMenu* customMenu(QMenu* parentMenu);
+
+    /*********************************************************************
+     * Intensity
+     *********************************************************************/
+public:
+    /** @reimp */
+    void adjustIntensity(qreal val);
 
     /*********************************************************************
      * Web access
