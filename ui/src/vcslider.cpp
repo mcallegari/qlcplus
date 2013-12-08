@@ -405,6 +405,10 @@ VCSlider::ValueDisplayStyle VCSlider::stringToValueDisplayStyle(QString style)
 void VCSlider::setValueDisplayStyle(VCSlider::ValueDisplayStyle style)
 {
     m_valueDisplayStyle = style;
+    if (m_slider)
+        setTopLabelText(m_slider->value());
+    else if (m_knob)
+        setTopLabelText(m_knob->value());
 }
 
 VCSlider::ValueDisplayStyle VCSlider::valueDisplayStyle()
@@ -930,9 +934,29 @@ void VCSlider::writeDMXPlayback(MasterTimer* timer, UniverseArray* ua)
  * Top label
  *****************************************************************************/
 
-void VCSlider::setTopLabelText(const QString& text)
+void VCSlider::setTopLabelText(int value)
 {
+    QString text;
+
+    if (valueDisplayStyle() == ExactValue)
+    {
+        text.sprintf("%.3d", value);
+    }
+    else
+    {
+
+        float f = 0;
+        if (m_slider)
+            f = SCALE(float(value), float(m_slider->minimum()),
+                      float(m_slider->maximum()), float(0), float(100));
+        else if (m_knob)
+            f = SCALE(float(value), float(m_knob->minimum()),
+                      float(m_knob->maximum()), float(0), float(100));
+        text.sprintf("%.3d%%", static_cast<int> (f));
+    }
     m_topLabel->setText(text);
+
+    emit valueChanged(text);
 }
 
 QString VCSlider::topLabelText()
@@ -1085,67 +1109,22 @@ void VCSlider::updateFeedback()
 
 void VCSlider::slotSliderMoved(int value)
 {
-    QString num;
-
     switch (sliderMode())
     {
     case Level:
     {
         setLevelValue(value);
         setClickAndGoWidgetFromLevel(value);
-
-        /* Set text for the top label */
-        if (valueDisplayStyle() == ExactValue)
-        {
-            num.sprintf("%.3d", value);
-        }
-        else
-        {
-
-            float f = 0;
-            if (m_slider)
-                f = SCALE(float(value), float(m_slider->minimum()),
-                          float(m_slider->maximum()), float(0), float(100));
-            else if (m_knob)
-                f = SCALE(float(value), float(m_knob->minimum()),
-                          float(m_knob->maximum()), float(0), float(100));
-            num.sprintf("%.3d%%", static_cast<int> (f));
-        }
-        setTopLabelText(num);
     }
     break;
 
     case Playback:
     {
         setPlaybackValue(value);
-
-        /* Set text for the top label */
-        if (valueDisplayStyle() == ExactValue)
-        {
-            num.sprintf("%.3d", value);
-        }
-        else
-        {
-            float f = 0;
-            if (m_slider)
-                f = SCALE(float(value), float(m_slider->minimum()),
-                          float(m_slider->maximum()), float(0), float(100));
-            else if (m_knob)
-                f = SCALE(float(value), float(m_knob->minimum()),
-                          float(m_knob->maximum()), float(0), float(100));
-            num.sprintf("%.3d%%", static_cast<int> (f));
-        }
-        setTopLabelText(num);
     }
     break;
 
-    default:
-        break;
-    }
-
-    emit valueChanged(num);
-
-    if (sliderMode() == Submaster)
+    case Submaster:
     {
         float f = 0;
         if (m_slider)
@@ -1156,6 +1135,14 @@ void VCSlider::slotSliderMoved(int value)
                       float(m_knob->maximum()), float(0), float(1));
         emit submasterValueChanged((qreal)f * intensity());
     }
+    break;
+
+    default:
+        break;
+    }
+
+    /* Set text for the top label */
+    setTopLabelText(value);
 
     updateFeedback();
 }

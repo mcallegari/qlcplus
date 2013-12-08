@@ -381,7 +381,7 @@ public:
     /**
      * Set the text for the top label
      */
-    void setTopLabelText(const QString& text);
+    void setTopLabelText(int value);
 
     /**
      * Get the text in the top label
