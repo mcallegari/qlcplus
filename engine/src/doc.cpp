@@ -448,6 +448,7 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
         }
         else
             newFixture->setChannels(fixture->channels());
+        newFixture->setExcludeFadeChannels(fixture->excludeFadeChannels());
         m_fixtures[id] = newFixture;
 
         /* Patch fixture change signals thru Doc */

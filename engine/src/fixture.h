@@ -276,6 +276,9 @@ public:
     /** Get the list of channel indexes to exclude from fade transitions */
     QList<int> excludeFadeChannels();
 
+    /** Add a channel index to exclude from fade transitions */
+    void setChannelCanFade(int idx, bool canFade);
+
     /** Check if a channel can be faded or not */
     bool channelCanFade(int index);
 

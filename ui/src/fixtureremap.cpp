@@ -144,6 +144,7 @@ QTreeWidgetItem *FixtureRemap::getUniverseItem(quint32 universe, QTreeWidget *tr
         topItem = new QTreeWidgetItem(tree);
         topItem->setText(KColumnName, tr("Universe %1").arg(universe + 1));
         topItem->setText(KColumnUniverse, QString::number(universe));
+        topItem->setText(KColumnID, QString::number(Function::invalidId()));
         topItem->setExpanded(true);
     }
 
@@ -382,8 +383,8 @@ void FixtureRemap::slotAddRemap()
         m_targetTree->selectedItems().count() == 0)
     {
         QMessageBox::warning(this,
-                             tr("Invalid selection"),
-                             tr("Please select a source and a target fixture or channel to perform this operation."));
+                tr("Invalid selection"),
+                tr("Please select a source and a target fixture or channel to perform this operation."));
         return;
     }
 
@@ -391,19 +392,31 @@ void FixtureRemap::slotAddRemap()
     newRemap.source = m_sourceTree->selectedItems().first();
     newRemap.target = m_targetTree->selectedItems().first();
 
+    quint32 srcFxiID = newRemap.source->text(KColumnID).toUInt();
+    Fixture *srcFxi = m_doc->fixture(srcFxiID);
+    quint32 tgtFxiID = newRemap.target->text(KColumnID).toUInt();
+    Fixture *tgtFxi = m_targetDoc->fixture(tgtFxiID);
+    if (srcFxi == NULL || tgtFxi == NULL)
+    {
+        QMessageBox::warning(this,
+                tr("Invalid selection"),
+                tr("Please select a source and a target fixture or channel to perform this operation."));
+        return;
+    }
+
     bool srcFxiSelected = false;
     bool tgtFxiSelected = false;
 
     bool ok = false;
-    int chIdx = newRemap.source->text(KColumnChIdx).toInt(&ok);
+    int srcIdx = newRemap.source->text(KColumnChIdx).toInt(&ok);
     if (ok == false)
         srcFxiSelected = true;
     ok = false;
-    chIdx = newRemap.target->text(KColumnChIdx).toInt(&ok);
+    int tgtIdx = newRemap.target->text(KColumnChIdx).toInt(&ok);
     if (ok == false)
         tgtFxiSelected = true;
 
-    qDebug() << "Idx:" << chIdx << ", src:" << srcFxiSelected << ", tgt:" << tgtFxiSelected;
+    qDebug() << "Idx:" << srcIdx << ", src:" << srcFxiSelected << ", tgt:" << tgtFxiSelected;
 
     if ((srcFxiSelected == true && tgtFxiSelected == false) ||
         (srcFxiSelected == false && tgtFxiSelected == true) )
@@ -416,12 +429,6 @@ void FixtureRemap::slotAddRemap()
     else if (srcFxiSelected == true && tgtFxiSelected == true)
     {
         // perform a full fixture remap
-        quint32 srcFxiID = newRemap.source->text(KColumnID).toUInt();
-        Fixture *srcFxi = m_doc->fixture(srcFxiID);
-        Q_ASSERT(srcFxi != NULL);
-        quint32 tgtFxiID = newRemap.target->text(KColumnID).toUInt();
-        Fixture *tgtFxi = m_targetDoc->fixture(tgtFxiID);
-        Q_ASSERT(tgtFxi != NULL);
         const QLCFixtureDef *srcFxiDef = srcFxi->fixtureDef();
         const QLCFixtureDef *tgtFxiDef = tgtFxi->fixtureDef();
         const QLCFixtureMode *srcFxiMode = srcFxi->fixtureMode();
@@ -459,6 +466,8 @@ void FixtureRemap::slotAddRemap()
                     matchInfo.source = newRemap.source->child(s);
                     matchInfo.target = newRemap.target->child(s);
                     m_remapList.append(matchInfo);
+                    if (srcFxi->channelCanFade(s) == false)
+                        tgtFxi->setChannelCanFade(s, false);
                 }
             }
             else
@@ -478,6 +487,8 @@ void FixtureRemap::slotAddRemap()
                         matchInfo.source = newRemap.source->child(s);
                         matchInfo.target = newRemap.target->child(t);
                         m_remapList.append(matchInfo);
+                        if (srcFxi->channelCanFade(s) == false)
+                            tgtFxi->setChannelCanFade(t, false);
                         break;
                     }
                 }
@@ -488,6 +499,8 @@ void FixtureRemap::slotAddRemap()
     {
         // perform a single channel remap
         m_remapList.append(newRemap);
+        if (srcFxi->channelCanFade(srcIdx) == false)
+            tgtFxi->setChannelCanFade(tgtIdx, false);
     }
 
     remapWidget->setRemapList(m_remapList);
