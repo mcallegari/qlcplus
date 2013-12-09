@@ -56,6 +56,7 @@ private:
 protected slots:
     void slotModeLevelClicked();
     void slotModePlaybackClicked();
+    void slotModeSubmasterClicked();
 
     void slotAutoDetectInputToggled(bool checked);
     void slotInputValueChanged(quint32 universe, quint32 channel);
@@ -63,6 +64,9 @@ protected slots:
 
 protected:
     void updateInputSource();
+    void setLevelPageVisibility(bool visible);
+    void setPlaybackPageVisibility(bool visible);
+    void setSubmasterPageVisibility(bool visible);
 
 protected:
     QLCInputSource m_inputSource;
@@ -150,6 +154,10 @@ protected:
 protected:
     /** The currently selected playback function */
     quint32 m_playbackFunctionId;
+
+    /*************************************************************************
+     * Submaster page
+     *************************************************************************/
 
     /*********************************************************************
      * OK & Cancel

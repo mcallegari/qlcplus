@@ -53,26 +53,42 @@
 
 const QSize VCSlider::defaultSize(QSize(60, 200));
 
+#define SLIDER_SS_COMMON  \
+    "QSlider::groove:vertical { background: transparent; position: absolute; left: 4px; right: 4px; } " \
+    "QSlider::sub-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #888, stop: 1 #ddd );" \
+    "border: 1px solid #8E8A86; margin: 0 9px; }" \
+    "QSlider::handle:vertical:disabled { background: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:0.45 #888, stop:0.50 #444, stop:0.55 #888, stop:1 #999);" \
+    "border: 1px solid #666; }"
+
 const QString sliderStyleSheet =
-        "QSlider::groove:vertical { background: transparent; position: absolute; left: 4px; right: 4px; } "
+    SLIDER_SS_COMMON
 
-        "QSlider::handle:vertical { "
-        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:0.45 #888, stop:0.50 #000, stop:0.55 #888, stop:1 #999);"
-        "border: 1px solid #5c5c5c;"
-        "border-radius: 4px; margin: 0 -4px; height: 20px; }"
+    "QSlider::handle:vertical { "
+    "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:0.45 #888, stop:0.50 #000, stop:0.55 #888, stop:1 #999);"
+    "border: 1px solid #5c5c5c;"
+    "border-radius: 4px; margin: 0 -4px; height: 20px; }"
 
-        "QSlider::handle:vertical:hover {"
-        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #eee, stop:0.45 #999, stop:0.50 #ff0000, stop:0.55 #999, stop:1 #ccc);"
-        "border: 1px solid #000; }"
+    "QSlider::handle:vertical:hover {"
+    "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #eee, stop:0.45 #999, stop:0.50 #ff0000, stop:0.55 #999, stop:1 #ccc);"
+    "border: 1px solid #000; }"
 
-        "QSlider::add-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #78d, stop: 1 #97CDEC );"
-        "border: 1px solid #5288A7; margin: 0 9px; }"
+    "QSlider::add-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #78d, stop: 1 #97CDEC );"
+    "border: 1px solid #5288A7; margin: 0 9px; }";
 
-        "QSlider::sub-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #888, stop: 1 #ddd );"
-        "border: 1px solid #8E8A86; margin: 0 9px; }"
+const QString submasterStyleSheet =
+    SLIDER_SS_COMMON
 
-        "QSlider::handle:vertical:disabled { background: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:0.45 #888, stop:0.50 #444, stop:0.55 #888, stop:1 #999);"
-        "border: 1px solid #666; }";
+    "QSlider::handle:vertical { "
+    "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #4c4c4c, stop:0.45 #2c2c2c, stop:0.50 #000, stop:0.55 #111111, stop:1 #131313);"
+    "border: 1px solid #5c5c5c;"
+    "border-radius: 4px; margin: 0 -4px; height: 20px; }"
+
+    "QSlider::handle:vertical:hover {"
+    "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #6c6c6c, stop:0.45 #4c4c4c, stop:0.50 #ffff00, stop:0.55 #313131, stop:1 #333333);"
+    "border: 1px solid #000; }"
+
+    "QSlider::add-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #77DD73, stop: 1 #A5EC98 );"
+    "border: 1px solid #5288A7; margin: 0 9px; }";
 
 /*****************************************************************************
  * Initialization
@@ -100,6 +116,8 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_playbackFunction = Function::invalidId();
     m_playbackValue = 0;
     m_playbackValueChanged = false;
+
+    m_submasterValue = UCHAR_MAX;
 
     m_widgetMode = WSlider;
 
@@ -387,6 +405,10 @@ VCSlider::ValueDisplayStyle VCSlider::stringToValueDisplayStyle(QString style)
 void VCSlider::setValueDisplayStyle(VCSlider::ValueDisplayStyle style)
 {
     m_valueDisplayStyle = style;
+    if (m_slider)
+        setTopLabelText(m_slider->value());
+    else if (m_knob)
+        setTopLabelText(m_knob->value());
 }
 
 VCSlider::ValueDisplayStyle VCSlider::valueDisplayStyle()
@@ -431,6 +453,10 @@ QString VCSlider::sliderModeToString(SliderMode mode)
         return QString("Playback");
         break;
 
+    case Submaster:
+        return QString("Submaster");
+        break;
+
     default:
         return QString("Unknown");
         break;
@@ -441,8 +467,10 @@ VCSlider::SliderMode VCSlider::stringToSliderMode(const QString& mode)
 {
     if (mode == QString("Level"))
         return Level;
-    else // if (mode == QString("Playback"))
-        return Playback;
+    else  if (mode == QString("Playback"))
+       return Playback;
+    else //if (mode == QString("Submaster"))
+        return Submaster;
 }
 
 VCSlider::SliderMode VCSlider::sliderMode()
@@ -452,7 +480,7 @@ VCSlider::SliderMode VCSlider::sliderMode()
 
 void VCSlider::setSliderMode(SliderMode mode)
 {
-    Q_ASSERT(mode >= Level && mode <= Playback);
+    Q_ASSERT(mode >= Level && mode <= Submaster);
 
     /* Unregister this as a DMX source if the new mode is not "Level" or "Playback" */
     if ((m_sliderMode == Level && mode != Level) ||
@@ -471,6 +499,7 @@ void VCSlider::setSliderMode(SliderMode mode)
         {
             m_slider->setRange(levelLowLimit(), levelHighLimit());
             m_slider->setValue(level);
+            m_slider->setStyleSheet(sliderStyleSheet);
         }
         else if(m_knob)
         {
@@ -503,6 +532,7 @@ void VCSlider::setSliderMode(SliderMode mode)
         {
             m_slider->setRange(0, UCHAR_MAX);
             m_slider->setValue(level);
+            m_slider->setStyleSheet(sliderStyleSheet);
         }
         else if (m_knob)
         {
@@ -512,6 +542,16 @@ void VCSlider::setSliderMode(SliderMode mode)
         slotSliderMoved(level);
 
         m_doc->masterTimer()->registerDMXSource(this);
+    }
+    else if (mode == Submaster)
+    {
+        if (m_slider)
+        {
+            m_slider->setStyleSheet(submasterStyleSheet);
+            m_slider->setValue(UCHAR_MAX);
+        }
+        else if (m_knob)
+            m_knob->setValue(UCHAR_MAX);
     }
 }
 
@@ -851,7 +891,7 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, UniverseArray* universes)
             }
 
             quint32 dmx_ch = fxi->channelAddress(lch.channel);
-            universes->write(dmx_ch, modLevel, qlcch->group());
+            universes->write(dmx_ch, modLevel * intensity(), qlcch->group());
         }
     }
     m_levelValueChanged = false;
@@ -870,7 +910,7 @@ void VCSlider::writeDMXPlayback(MasterTimer* timer, UniverseArray* ua)
     m_playbackValueMutex.lock();
     uchar value = m_playbackValue;
     bool changed = m_playbackValueChanged;
-    qreal intensity = qreal(value) / qreal(UCHAR_MAX);
+    qreal pIntensity = qreal(value) / qreal(UCHAR_MAX);
     m_playbackValueChanged = false;
     m_playbackValueMutex.unlock();
 
@@ -885,7 +925,7 @@ void VCSlider::writeDMXPlayback(MasterTimer* timer, UniverseArray* ua)
         {
             if (function->stopped() == true)
                 function->start(timer);
-            function->adjustAttribute(intensity, Function::Intensity);
+            function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
         }
     }
 }
@@ -894,9 +934,29 @@ void VCSlider::writeDMXPlayback(MasterTimer* timer, UniverseArray* ua)
  * Top label
  *****************************************************************************/
 
-void VCSlider::setTopLabelText(const QString& text)
+void VCSlider::setTopLabelText(int value)
 {
+    QString text;
+
+    if (valueDisplayStyle() == ExactValue)
+    {
+        text.sprintf("%.3d", value);
+    }
+    else
+    {
+
+        float f = 0;
+        if (m_slider)
+            f = SCALE(float(value), float(m_slider->minimum()),
+                      float(m_slider->maximum()), float(0), float(100));
+        else if (m_knob)
+            f = SCALE(float(value), float(m_knob->minimum()),
+                      float(m_knob->maximum()), float(0), float(100));
+        text.sprintf("%.3d%%", static_cast<int> (f));
+    }
     m_topLabel->setText(text);
+
+    emit valueChanged(text);
 }
 
 QString VCSlider::topLabelText()
@@ -1049,57 +1109,31 @@ void VCSlider::updateFeedback()
 
 void VCSlider::slotSliderMoved(int value)
 {
-    QString num;
-
     switch (sliderMode())
     {
     case Level:
     {
         setLevelValue(value);
         setClickAndGoWidgetFromLevel(value);
-
-        /* Set text for the top label */
-        if (valueDisplayStyle() == ExactValue)
-        {
-            num.sprintf("%.3d", value);
-        }
-        else
-        {
-
-            float f = 0;
-            if (m_slider)
-                f = SCALE(float(value), float(m_slider->minimum()),
-                          float(m_slider->maximum()), float(0), float(100));
-            else if (m_knob)
-                f = SCALE(float(value), float(m_knob->minimum()),
-                          float(m_knob->maximum()), float(0), float(100));
-            num.sprintf("%.3d%%", static_cast<int> (f));
-        }
-        setTopLabelText(num);
     }
     break;
 
     case Playback:
     {
         setPlaybackValue(value);
+    }
+    break;
 
-        /* Set text for the top label */
-        if (valueDisplayStyle() == ExactValue)
-        {
-            num.sprintf("%.3d", value);
-        }
-        else
-        {
-            float f = 0;
-            if (m_slider)
-                f = SCALE(float(value), float(m_slider->minimum()),
-                          float(m_slider->maximum()), float(0), float(100));
-            else if (m_knob)
-                f = SCALE(float(value), float(m_knob->minimum()),
-                          float(m_knob->maximum()), float(0), float(100));
-            num.sprintf("%.3d%%", static_cast<int> (f));
-        }
-        setTopLabelText(num);
+    case Submaster:
+    {
+        float f = 0;
+        if (m_slider)
+            f = SCALE(float(value), float(m_slider->minimum()),
+                      float(m_slider->maximum()), float(0), float(1));
+        else if (m_knob)
+            f = SCALE(float(value), float(m_knob->minimum()),
+                      float(m_knob->maximum()), float(0), float(1));
+        emit submasterValueChanged((qreal)f * intensity());
     }
     break;
 
@@ -1107,7 +1141,8 @@ void VCSlider::slotSliderMoved(int value)
         break;
     }
 
-    emit valueChanged(num);
+    /* Set text for the top label */
+    setTopLabelText(value);
 
     updateFeedback();
 }
@@ -1158,6 +1193,21 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel,
                         (float) m_knob->maximum());
             m_knob->setValue((int) val);
         }
+    }
+}
+
+void VCSlider::adjustIntensity(qreal val)
+{
+    VCWidget::adjustIntensity(val);
+
+    if (sliderMode() == Playback)
+    {
+        Function* function = m_doc->function(m_playbackFunction);
+        if (function == NULL || mode() == Doc::Design)
+            return;
+
+        qreal pIntensity = qreal(m_playbackValue) / qreal(UCHAR_MAX);
+        function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
     }
 }
 

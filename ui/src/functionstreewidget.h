@@ -112,7 +112,7 @@ protected:
     void dropEvent(QDropEvent *event);
 
 private:
-    QTreeWidgetItem *m_draggedItem;
+    QList<QTreeWidgetItem *>m_draggedItems;
 };
 
 #endif // FUNCTIONSTREEWIDGET_H

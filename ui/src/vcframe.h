@@ -65,7 +65,6 @@ public:
     /* Check if this is the virtual console's draw area */
     bool isBottomFrame();
 
-
     /*********************************************************************
      * GUI
      *********************************************************************/
@@ -135,6 +134,19 @@ protected:
     /** Here's where the magic takes place. This holds a map
      *  of pages/widgets to be shown/hidden when page is changed */
     QMap <VCWidget *, int> m_pagesMap;
+
+    /*********************************************************************
+     * Submasters
+     *********************************************************************/
+protected slots:
+    void slotSubmasterValueChanged(qreal value);
+
+    /*********************************************************************
+     * Intensity
+     *********************************************************************/
+public:
+    /** @reimp */
+    void adjustIntensity(qreal val);
 
     /*************************************************************************
      * Key sequences

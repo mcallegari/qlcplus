@@ -794,6 +794,8 @@ void VirtualConsole::slotAddSlider()
     VCSlider* slider = new VCSlider(parent, m_doc);
     setupWidget(slider, parent);
     m_doc->setModified();
+    connect(slider, SIGNAL(submasterValueChanged(qreal)),
+            parent, SLOT(slotSubmasterValueChanged(qreal)));
 }
 
 void VirtualConsole::slotAddSliderMatrix()
@@ -828,6 +830,8 @@ void VirtualConsole::slotAddSliderMatrix()
         slider->move(QPoint(10 + (width * i), 10));
         slider->resize(QSize(width, height));
         slider->show();
+        connect(slider, SIGNAL(submasterValueChanged(qreal)),
+                frame, SLOT(slotSubmasterValueChanged(qreal)));
     }
 
     // Show the frame after adding buttons to prevent flickering
@@ -850,6 +854,8 @@ void VirtualConsole::slotAddKnob()
     knob->resize(QSize(60, 90));
     knob->setWidgetStyle(VCSlider::WKnob);
     knob->setCaption(tr("Knob %1").arg(knob->id()));
+    connect(knob, SIGNAL(submasterValueChanged(qreal)),
+            parent, SLOT(slotSubmasterValueChanged(qreal)));
     m_doc->setModified();
 }
 
@@ -1066,6 +1072,7 @@ void VirtualConsole::slotEditPaste()
 
             /* Reparent and move to the correct place */
             widget->setParent(parent);
+            checkWidgetPage(widget, parent);
             widget->move(p);
             widget->show();
         }
@@ -1091,6 +1098,7 @@ void VirtualConsole::slotEditPaste()
             /* Create a copy and move to correct place */
             VCWidget* copy = widget->createCopy(parent);
             Q_ASSERT(copy != NULL);
+            checkWidgetPage(copy, parent);
             copy->move(p);
             copy->show();
         }

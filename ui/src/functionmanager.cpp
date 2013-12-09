@@ -758,6 +758,8 @@ void FunctionManager::slotTreeContextMenuRequested()
     menu.addAction(m_addRGBMatrixAction);
     menu.addAction(m_addScriptAction);
     menu.addSeparator();
+    menu.addAction(m_addFolderAction);
+    menu.addSeparator();
     menu.addAction(m_wizardAction);
 
     updateActionStatus();

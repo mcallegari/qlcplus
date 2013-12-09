@@ -389,6 +389,19 @@ QList<int> Fixture::excludeFadeChannels()
     return m_excludeFadeIndexes;
 }
 
+void Fixture::setChannelCanFade(int idx, bool canFade)
+{
+    if (canFade == false && m_excludeFadeIndexes.contains(idx) == false)
+    {
+        m_excludeFadeIndexes.append(idx);
+        qSort(m_excludeFadeIndexes.begin(), m_excludeFadeIndexes.end());
+    }
+    else if (canFade == true && m_excludeFadeIndexes.contains(idx) == true)
+    {
+        m_excludeFadeIndexes.removeOne(idx);
+    }
+}
+
 bool Fixture::channelCanFade(int index)
 {
     if (m_excludeFadeIndexes.contains(index))

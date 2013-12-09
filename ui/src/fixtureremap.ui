@@ -154,7 +154,7 @@
         </size>
        </property>
        <property name="indentation">
-        <number>8</number>
+        <number>10</number>
        </property>
        <property name="allColumnsShowFocus">
         <bool>true</bool>
@@ -186,7 +186,7 @@
         </size>
        </property>
        <property name="indentation">
-        <number>8</number>
+        <number>10</number>
        </property>
        <property name="allColumnsShowFocus">
         <bool>true</bool>

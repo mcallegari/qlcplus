@@ -67,8 +67,8 @@ const QSize VCButton::defaultSize(QSize(50, 50));
 
 VCButton::VCButton(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     , m_iconPath()
-    , m_adjustIntensity(false)
-    , m_intensityAdjustment(1.0)
+    , m_startupIntensityEnabled(false)
+    , m_startupIntensity(1.0)
 {
     /* Set the class name "VCButton" as the object name as well */
     setObjectName(VCButton::staticMetaObject.className());
@@ -156,8 +156,8 @@ bool VCButton::copyFrom(VCWidget* widget)
     setIconPath(button->iconPath());
     setKeySequence(button->keySequence());
     setFunction(button->function());
-    setAdjustIntensity(button->adjustIntensity());
-    setIntensityAdjustment(button->intensityAdjustment());
+    enableStartupIntensity(button->isStartupIntensityEnabled());
+    enableStartupIntensity(button->startupIntensity());
     setAction(button->action());
 
     /* Copy common stuff */
@@ -532,24 +532,24 @@ VCButton::Action VCButton::stringToAction(const QString& str)
  * Intensity adjustment
  *****************************************************************************/
 
-void VCButton::setAdjustIntensity(bool adjust)
+void VCButton::enableStartupIntensity(bool enable)
 {
-    m_adjustIntensity = adjust;
+    m_startupIntensityEnabled = enable;
 }
 
-bool VCButton::adjustIntensity() const
+bool VCButton::isStartupIntensityEnabled() const
 {
-    return m_adjustIntensity;
+    return m_startupIntensityEnabled;
 }
 
-void VCButton::setIntensityAdjustment(qreal fraction)
+void VCButton::enableStartupIntensity(qreal fraction)
 {
-    m_intensityAdjustment = CLAMP(fraction, qreal(0), qreal(1));
+    m_startupIntensity = CLAMP(fraction, qreal(0), qreal(1));
 }
 
-qreal VCButton::intensityAdjustment() const
+qreal VCButton::startupIntensity() const
 {
-    return m_intensityAdjustment;
+    return m_startupIntensity;
 }
 
 void VCButton::slotAttributeChanged(int value)
@@ -601,8 +601,8 @@ void VCButton::pressFunction()
                 emit functionStarting();
                 f->start(m_doc->masterTimer());
 
-                if (adjustIntensity() == true)
-                    f->adjustAttribute(intensityAdjustment(), Function::Intensity);
+                if (isStartupIntensityEnabled() == true)
+                    f->adjustAttribute(startupIntensity() * intensity(), Function::Intensity);
             }
         }
     }
@@ -712,6 +712,15 @@ QMenu* VCButton::customMenu(QMenu* parentMenu)
     menu->addAction(m_resetIconAction);
 
     return menu;
+}
+
+void VCButton::adjustIntensity(qreal val)
+{
+    Function* func = m_doc->function(m_function);
+    if (func != NULL)
+        func->adjustAttribute(startupIntensity() * val, Function::Intensity);
+
+    VCWidget::adjustIntensity(val);
 }
 
 /*********************************************************************
@@ -824,8 +833,8 @@ bool VCButton::loadXML(const QDomElement* root)
                 adjust = true;
             else
                 adjust = false;
-            setIntensityAdjustment(double(tag.text().toInt()) / double(100));
-            setAdjustIntensity(adjust);
+            enableStartupIntensity(double(tag.text().toInt()) / double(100));
+            enableStartupIntensity(adjust);
         }
         else
         {
@@ -884,9 +893,9 @@ bool VCButton::saveXML(QDomDocument* doc, QDomElement* vc_root)
     /* Intensity adjustment */
     tag = doc->createElement(KXMLQLCVCButtonIntensity);
     tag.setAttribute(KXMLQLCVCButtonIntensityAdjust,
-                     adjustIntensity() ? KXMLQLCTrue : KXMLQLCFalse);
+                     isStartupIntensityEnabled() ? KXMLQLCTrue : KXMLQLCFalse);
     root.appendChild(tag);
-    text = doc->createTextNode(QString::number(int(intensityAdjustment() * 100)));
+    text = doc->createTextNode(QString::number(int(startupIntensity() * 100)));
     tag.appendChild(text);
 
     /* External input */

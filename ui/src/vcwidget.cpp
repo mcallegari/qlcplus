@@ -60,6 +60,7 @@ VCWidget::VCWidget(QWidget* parent, Doc* doc)
     , m_page(0)
     , m_allowChildren(false)
     , m_allowResize(true)
+    , m_intensity(1.0)
 {
     Q_ASSERT(parent != NULL);
     Q_ASSERT(doc != NULL);
@@ -470,6 +471,20 @@ void VCWidget::editProperties()
 {
     QMessageBox::information(this, staticMetaObject.className(),
                              tr("This widget has no properties"));
+}
+
+/*********************************************************************
+ * Intensity
+ *********************************************************************/
+
+void VCWidget::adjustIntensity(qreal val)
+{
+    m_intensity = val;
+}
+
+qreal VCWidget::intensity()
+{
+    return m_intensity;
 }
 
 /*****************************************************************************
