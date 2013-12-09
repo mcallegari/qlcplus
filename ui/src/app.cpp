@@ -65,7 +65,6 @@
 
 #define KModeTextOperate QObject::tr("Operate")
 #define KModeTextDesign QObject::tr("Design")
-#define KInputUniverseCount 4
 #define KUniverseCount 4
 
 /*****************************************************************************

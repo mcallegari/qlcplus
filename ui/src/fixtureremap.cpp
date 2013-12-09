@@ -36,6 +36,7 @@
 #include "chaserstep.h"
 #include "audiobar.h"
 #include "vcslider.h"
+#include "vcxypad.h"
 #include "vcframe.h"
 #include "chaser.h"
 #include "scene.h"
@@ -795,6 +796,37 @@ void FixtureRemap::accept()
                     bar->attachDmxChannels(m_doc, newList);
                 }
             }
+        }
+        else if (widget->type() == VCWidget::XYPadWidget)
+        {
+            VCXYPad *xypad = (VCXYPad *)object;
+            QList<VCXYPadFixture> copyFixtures;
+            foreach (VCXYPadFixture fix, xypad->fixtures())
+            {
+                quint32 srxFxID = fix.head().fxi; // TODO: heads !!
+                for (int i = 0; i < sourceList.count(); i++)
+                {
+                    SceneValue val = sourceList.at(i);
+                    if (val.fxi == srxFxID)
+                    {
+                        SceneValue tgtVal = targetList.at(i);
+                        Fixture *docFix = m_doc->fixture(tgtVal.fxi);
+                        quint32 fxCh = tgtVal.channel;
+                        const QLCChannel *chan = docFix->channel(fxCh);
+                        if (chan->group() == QLCChannel::Pan ||
+                            chan->group() == QLCChannel::Tilt)
+                        {
+                            VCXYPadFixture tgtFix(m_doc);
+                            tgtFix.setHead(fix.head());
+                            copyFixtures.append(tgtFix);
+                        }
+                    }
+                }
+            }
+            // this is crucial: here all the "unmapped" fixtures will be lost forever !
+            xypad->clearFixtures();
+            foreach (VCXYPadFixture fix, copyFixtures)
+                xypad->appendFixture(fix);
         }
     }
 

@@ -473,7 +473,7 @@ bool VCXYPad::loadXML(const QDomElement* root)
 
     if (root->hasAttribute(KXMLQLCVCXYPadInvertedAppearance))
     {
-        if (root->attribute(KXMLQLCVCXYPadInvertedAppearance) == "false")
+        if (root->attribute(KXMLQLCVCXYPadInvertedAppearance) == "0")
             setInvertedAppearance(false);
         else
             setInvertedAppearance(true);
