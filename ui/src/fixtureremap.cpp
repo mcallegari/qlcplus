@@ -817,7 +817,8 @@ void FixtureRemap::accept()
                             chan->group() == QLCChannel::Tilt)
                         {
                             VCXYPadFixture tgtFix(m_doc);
-                            tgtFix.setHead(fix.head());
+                            GroupHead head(tgtVal.fxi, 0);
+                            tgtFix.setHead(head);
                             copyFixtures.append(tgtFix);
                         }
                     }
