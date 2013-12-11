@@ -82,8 +82,10 @@ void FunctionsTreeWidget::functionAdded(quint32 fid)
     if (function == NULL)
         return;
 
-    QTreeWidgetItem* item = new QTreeWidgetItem(parentItem(function));
+    QTreeWidgetItem* parent = parentItem(function);
+    QTreeWidgetItem* item = new QTreeWidgetItem(parent);
     updateFunctionItem(item, function);
+    function->setPath(parent->text(COL_PATH));
     blockSignals(false);
 }
 

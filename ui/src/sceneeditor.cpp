@@ -204,6 +204,7 @@ void SceneEditor::init(bool applyValues)
     if (var.isValid() == true)
         selectId = var.toUInt();
     m_chaserCombo = new QComboBox(this);
+    m_chaserCombo->setMaximumWidth(250);
     m_chaserCombo->addItem(tr("None"), Function::invalidId());
     slotChaserComboActivated(0);
     foreach (Function *function, m_doc->functionsByType(Function::Chaser))
