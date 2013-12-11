@@ -723,7 +723,7 @@ void App::updateFileOpenMenu(QString addRecent)
         for (int i = 0; i < menuRecentList.count(); i++)
         {
             settings.setValue(QString("%1%2").arg(SETTINGS_RECENTFILE).arg(i), menuRecentList.at(i));
-            /*QAction* a =*/ m_fileOpenMenu->addAction(menuRecentList.at(i));
+            m_fileOpenMenu->addAction(menuRecentList.at(i));
         }
     }
     else

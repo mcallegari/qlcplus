@@ -259,6 +259,8 @@ void FunctionsTreeWidget::addFolder()
     item->setExpanded(true);
 
     blockSignals(false);
+
+    scrollToItem(folder, QAbstractItemView::PositionAtCenter);
 }
 
 void FunctionsTreeWidget::deleteFolder(QTreeWidgetItem *item)
