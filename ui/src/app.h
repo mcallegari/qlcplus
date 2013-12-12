@@ -117,7 +117,6 @@ private:
     void initActions();
     void initToolBar();
     bool handleFileError(QFile::FileError error);
-    void updateFileOpenMenu(QString addRecent);
 
 public slots:
     bool slotFileNew();
@@ -184,6 +183,11 @@ public:
      * Get the name of the current workspace file
      */
     QString fileName() const;
+
+    /**
+     * Update the recent file drop down menu
+     */
+    void updateFileOpenMenu(QString addRecent);
 
     /**
      * Load workspace contents from a file with the given name.

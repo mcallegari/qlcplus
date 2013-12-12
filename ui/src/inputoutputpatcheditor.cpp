@@ -174,6 +174,10 @@ void InputOutputPatchEditor::setupMappingPage()
     /* Configure button */
     connect(m_configureButton, SIGNAL(clicked()),
             this, SLOT(slotConfigureInputClicked()));
+
+    /* Double click acts as edit button click */
+    connect(m_mapTree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),
+            this, SLOT(slotConfigureInputClicked()));
 }
 
 void InputOutputPatchEditor::fillMappingTree()

@@ -124,15 +124,16 @@ int WebAccess::beginRequestHandler(mg_connection *conn)
 
   if (QString(ri->uri) == "/loadProject")
   {
-      char post_data[POST_DATA_SIZE];
+      char post_data[POST_DATA_SIZE + 10];
       QString projectXML = "";
       bool done = false;
 
       while(!done)
       {
-          int read = mg_read(conn, post_data, sizeof(post_data));
+          int read = mg_read(conn, post_data, POST_DATA_SIZE);
 
           qDebug() << "POST: received: " << read << "bytes";
+          post_data[read] = '\0';
 
           QString recv(post_data);
 

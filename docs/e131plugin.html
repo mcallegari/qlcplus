@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - E1.31 Plugin</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>E1.31 input/output plugin</H1>
+
+<H1>Introduction</H1>
+
+<P>
+QLC+ supports the <a href="http://www.opendmx.net/index.php/E1.31">E1.31 protocol</a> (also known as sACN)
+through an input/output plugin that receives and transmits packets on the network.<br>
+No extra requirements are needed, since QLC+ has a native implementation of the E1.31 protocol
+that works on Linux, Windows and OSX systems.
+</P>
+
+<H1>Configuration</H1>
+
+<P>
+The E1.31 plugin can be configured to send and receive packets from multiple network cards, virtual addresses
+and multiple universes per network card.<br>
+The desired configuration can be achieved quite easily by opening the plugin configuration panel.<br>
+The dialog will show all the possible choices depending on the network interfaces that QLC+ detects
+when opened.<br>
+The dialog will display two lists:
+<ul>
+ <li>The available networks and universes. Just click on the corresponding checkbox to enable
+     the one you are going to use and it will be listed in QLC+ input/output manager.<br>
+     Networks and universes are displayed in the following form:</li>
+   <ul>
+    <li>Network 1 - Universe 0</li>
+    <li>Network 1 - Universe 1</li>
+    <li>Network 1 - Universe 2</li>
+    <li>Network 1 - Universe 3</li>
+    <li>Network 2 - Universe 0</li>
+    <li>...</li>
+    <li>Network 2 - Universe 3</li>
+    <li>...</li>
+   </ul>
+</ul>
+Networks are displayed as the IP addresses of your network interfaces. It means
+that E1.31 packets will be sent from those addresses, to the multicast address 239.255.0.x, 
+where 'x' is the universe number.
+</P>
+
+</BODY>
+</HTML>

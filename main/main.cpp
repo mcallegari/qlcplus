@@ -291,7 +291,10 @@ int main(int argc, char** argv)
     app.show();
 
     if (QLCArgs::workspace.isEmpty() == false)
-        app.loadXML(QLCArgs::workspace);
+    {
+        if (app.loadXML(QLCArgs::workspace) == QFile::NoError)
+            app.updateFileOpenMenu(QLCArgs::workspace);
+    }
     if (QLCArgs::operate == true)
         app.slotModeOperate();
     if (QLCArgs::kioskMode == true)

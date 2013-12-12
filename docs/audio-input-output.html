@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus Plus Documentation</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>Audio Input/Output device selection</H1>
+
+<p>This page describes how to select an input or output audio device
+to be used inside QLC+.</p>
+
+<P>
+To access the Input/Output Manager, just click on the tab with the <img src="qrc:/input_output.png" width=32> icon
+placed on the bottom of the QLC+ main screen.<br>
+Select the desired universe on the left hand side of the screen and then click the
+<u>Audio</u> tab placed beside the <u>Profile</u> tab on the top right hand side of the screen.
+</P>
+
+<P>
+The list of audio devices detected by QLC+ is displayed. Each device has a checkbox
+depending on if it supports input capture or audio output capabilities.<br>
+The first entry of the list is always <B>"Default device"</B>, and it is selected as input
+and output by default. In this way QLC+ will work in most of the cases out of the box.<br>
+The default device is the one that you currently use to listen
+to music or to record audio with a microphone.<br><br>
+If in your system there are additional audio cards (PCI or USB), it is possible
+to select them in this panel as the preferred QLC+ input or output device.<br>
+Basically an input device is used by <A HREF="file:audiotriggers.html">Virtual Console Audio Triggers</A>
+while an output device is used by <A HREF="file:concept.html#audio">audio functions</A>.<br><br>
+The selection of an audio input/output line should take immediate effect in QLC+. If not
+you are invited to restart QLC+ to allow a complete initialization of the internal audio engine.
+</P>
+
+</BODY>
+</HTML>

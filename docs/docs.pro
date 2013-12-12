@@ -9,6 +9,7 @@ docs.files = \
              addvcbuttonmatrix.html \
              artnetplugin.html \
              audiotriggers.html \
+             audio-input-output.html \
              capabilityeditor.html \
              capabilitywizard.html \
              channeleditor.html \
@@ -19,6 +20,7 @@ docs.files = \
              concept.html \
              dmxdump.html \
              dmxusbplugin.html \
+             e131plugin.html \
              efxeditor.html \
              fixturedefinitioneditor.html \
              fixtureeditor.html \
