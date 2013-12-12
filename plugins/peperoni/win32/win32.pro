@@ -9,6 +9,7 @@ INCLUDEPATH += ../../interfaces
 DEPENDPATH  += peperoni
 CONFIG      += plugin
 QMAKE_LFLAGS += -shared
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 # Headers
 HEADERS += peperoni/usbdmx-dynamic.h \

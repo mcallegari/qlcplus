@@ -24,7 +24,12 @@
 #include <Windows.h>
 #include <Dbt.h>
 
-#include <QWidget>
+#include <QtCore>
+#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
+#include <QtGui>
+#else
+#include <QtWidgets>
+#endif
 #include <QDebug>
 
 #include "hotplugmonitor.h"
@@ -64,7 +69,7 @@ void HPMPrivate::start()
     notificationFilter.dbcc_devicetype = DBT_DEVTYP_DEVICEINTERFACE;
     notificationFilter.dbcc_classguid = USBClassGUID;
 
-    m_hDeviceNotify = RegisterDeviceNotification(winId(),
+    m_hDeviceNotify = RegisterDeviceNotification((HANDLE)winId(),
                                                  &notificationFilter,
                                                  DEVICE_NOTIFY_WINDOW_HANDLE |
                                                  DEVICE_NOTIFY_ALL_INTERFACE_CLASSES);

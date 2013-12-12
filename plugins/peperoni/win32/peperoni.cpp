@@ -17,7 +17,12 @@
   limitations under the License.
 */
 
-#include <QMessageBox>
+#include <QtCore>
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+ #include <QMessageBox>
+#else
+ #include <QtWidgets/QMessageBox>
+#endif
 #include <QStringList>
 #include <windows.h>
 #include <QDebug>
