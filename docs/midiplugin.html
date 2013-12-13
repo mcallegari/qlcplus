@@ -93,5 +93,65 @@ In a similar way you can catch the beat signal as well. Just disable the auto-de
 beat controller (invert steps 3 and 4).
 </P>
 
+<H1>Channel list</H1>
+
+<P>These are channels numbers to use in <a href="file:howto-input-profiles.html">Input Profile editor</a></P>:
+
+<table>
+<tr>
+<th>Channel</th><th>MIDI message</th>
+</tr>
+<tr>
+<td>0</td><td>Control Change 0</td>
+<tr>
+<td>...</td><td>...</td>
+</tr>
+<tr>
+<td>127</td><td>Control Change 127</td>
+</tr>
+<tr>
+<td>128</td><td>NOTE ON/NOTE OFF 0</td>
+</tr>
+<tr>
+<td>...</td><td>...</td>
+</tr>
+<tr>
+<td>255</td><td>NOTE ON/NOTE OFF 127</td>
+</tr>
+<tr>
+<td>256</td><td>NOTE AFTERTOUCH 0</td>
+</tr>
+<tr>
+<td>...</td><td>...</td>
+</tr>
+<tr>
+<td>383</td><td>NOTE AFTERTOUCH 127</td>
+</tr>
+<tr>
+<td>384</td><td>Program Change 0</td>
+</tr>
+<tr>
+<td>...</td><td>...</td>
+</tr>
+<tr>
+<td>511</td><td>Program Change 127</td>
+</tr>
+<tr>
+<td>512</td><td>Channel Aftertouch</td>
+</tr>
+<tr>
+<td>513</td><td>Pitch Wheel</td>
+</tr>
+
+<tr>
+<td>529</td><td>MIDI Beat Clock: Start/Stop/Continue</td>
+</tr>
+<tr>
+<td>530</td><td>MIDI Beat Clock: Beat</td>
+</tr>
+</table>
+
+<p>In OMNI mode, add 4096 * Channel number</p>
+
 </BODY>
 </HTML>
