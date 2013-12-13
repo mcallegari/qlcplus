@@ -28,6 +28,7 @@
 #include "virtualconsole.h"
 #include "vcsoloframe.h"
 #include "vccuelist.h"
+#include "rgbmatrix.h"
 #include "vcwidget.h"
 #include "vcbutton.h"
 #include "vcslider.h"
@@ -312,6 +313,9 @@ void FunctionWizard::updateAvailableFunctionsTree()
                 addFunctionsGroup(fxGrpItem, grpItem,
                                   PaletteGenerator::typetoString(PaletteGenerator::SixteenColors),
                                   PaletteGenerator::SixteenColors);
+                addFunctionsGroup(fxGrpItem, grpItem,
+                                  PaletteGenerator::typetoString(PaletteGenerator::Animation),
+                                  PaletteGenerator::Animation);
             }
             else if (cap == QLCChannel::groupToString(QLCChannel::Gobo))
                 addFunctionsGroup(fxGrpItem, grpItem,
@@ -405,6 +409,12 @@ void FunctionWizard::updateResultFunctionsTree()
                     item->setText(KFunctionName, chaser->name());
                     item->setIcon(KFunctionName, Function::typeToIcon(Function::Chaser));
                 }
+                foreach(RGBMatrix *matrix, palette->matrices())
+                {
+                    QTreeWidgetItem *item = new QTreeWidgetItem(getFunctionGroupItem(Function::RGBMatrix));
+                    item->setText(KFunctionName, matrix->name());
+                    item->setIcon(KFunctionName, Function::typeToIcon(Function::RGBMatrix));
+                }
             }
         }
     }
@@ -435,11 +445,19 @@ void FunctionWizard::updateWidgetsTree()
     {
         QTreeWidgetItem *frame = new QTreeWidgetItem(m_widgetsTree);
         frame->setText(KWidgetName, palette->fullName());
-        frame->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::FrameWidget));
+        if (palette->type() == PaletteGenerator::Animation)
+        {
+            frame->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::SoloFrameWidget));
+            frame->setData(KWidgetName, Qt::UserRole, VCWidget::SoloFrameWidget);
+        }
+        else
+        {
+            frame->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::FrameWidget));
+            frame->setData(KWidgetName, Qt::UserRole, VCWidget::FrameWidget);
+        }
+        frame->setData(KWidgetName, Qt::UserRole + 1, qVariantFromValue((void *)palette));
         frame->setFlags(frame->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsTristate);
         frame->setCheckState(KWidgetName, Qt::Unchecked);
-        frame->setData(KWidgetName, Qt::UserRole, VCWidget::FrameWidget);
-        frame->setData(KWidgetName, Qt::UserRole + 1, qVariantFromValue((void *)palette));
 
         QTreeWidgetItem *soloFrameItem = NULL;
         if (palette->scenes().count() > 0)
@@ -477,21 +495,39 @@ void FunctionWizard::updateWidgetsTree()
             item->setData(KWidgetName, Qt::UserRole + 1, qVariantFromValue((void *)chaser));
         }
 
-        int pType = palette->type();
-        QTreeWidgetItem *item = new QTreeWidgetItem(frame);
-        if (pType == PaletteGenerator::PrimaryColors ||
-            pType == PaletteGenerator::SixteenColors)
-                item->setText(KWidgetName, tr("Click & Go RGB"));
-        else if (pType == PaletteGenerator::Gobos ||
-                 pType == PaletteGenerator::Shutter ||
-                 pType == PaletteGenerator::ColourMacro)
-                    item->setText(KWidgetName, tr("Click & Go Macro"));
+        foreach(RGBMatrix *matrix, palette->matrices())
+        {
+            QTreeWidgetItem *item = NULL;
+            if (soloFrameItem != NULL)
+                item = new QTreeWidgetItem(soloFrameItem);
+            else
+                item = new QTreeWidgetItem(frame);
+            QString toRemove = " - " + palette->model();
+            item->setText(KWidgetName, matrix->name().remove(toRemove));
+            item->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::ButtonWidget));
+            item->setCheckState(KWidgetName, Qt::Unchecked);
+            item->setData(KWidgetName, Qt::UserRole, VCWidget::ButtonWidget);
+            item->setData(KWidgetName, Qt::UserRole + 1, qVariantFromValue((void *)matrix));
+        }
 
-        item->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::SliderWidget));
-        item->setCheckState(KWidgetName, Qt::Unchecked);
-        item->setData(KWidgetName, Qt::UserRole, VCWidget::SliderWidget);
-        Scene *firstScene = palette->scenes().at(0);
-        item->setData(KWidgetName, Qt::UserRole + 1, qVariantFromValue((void *)firstScene));
+        if (palette->scenes().count() > 0)
+        {
+            int pType = palette->type();
+            QTreeWidgetItem *item = new QTreeWidgetItem(frame);
+            if (pType == PaletteGenerator::PrimaryColors ||
+                pType == PaletteGenerator::SixteenColors)
+                    item->setText(KWidgetName, tr("Click & Go RGB"));
+            else if (pType == PaletteGenerator::Gobos ||
+                     pType == PaletteGenerator::Shutter ||
+                     pType == PaletteGenerator::ColourMacro)
+                        item->setText(KWidgetName, tr("Click & Go Macro"));
+
+            item->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::SliderWidget));
+            item->setCheckState(KWidgetName, Qt::Unchecked);
+            item->setData(KWidgetName, Qt::UserRole, VCWidget::SliderWidget);
+            Scene *firstScene = palette->scenes().at(0);
+            item->setData(KWidgetName, Qt::UserRole + 1, qVariantFromValue((void *)firstScene));
+        }
     }
 }
 

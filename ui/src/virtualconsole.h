@@ -58,15 +58,14 @@ public:
     /** Get the singleton instance */
     static VirtualConsole* instance();
 
+    /** Create a new channels group ID */
+    quint32 newWidgetId();
+
     Doc *getDoc();
 
 protected:
     static VirtualConsole* s_instance;
     Doc* m_doc;
-
-private:
-    /** Create a new channels group ID */
-    quint32 newWidgetId();
 
 private:
     /** Latest assigned fixture group ID */

@@ -1,8 +1,8 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   palettegenerator.cpp
 
-  Copyright (C) Heikki Junnila
+  Copyright (C) Massimo Callegari
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License
@@ -22,11 +22,13 @@
 #include <QString>
 
 #include "qlccapability.h"
+#include "qlcfixturedef.h"
 #include "qlcchannel.h"
 
 #include "palettegenerator.h"
-#include "qlcfixturedef.h"
+#include "fixturegroup.h"
 #include "chaserstep.h"
+#include "rgbmatrix.h"
 #include "fixture.h"
 #include "chaser.h"
 #include "scene.h"
@@ -39,6 +41,7 @@ PaletteGenerator::PaletteGenerator(Doc* doc, const QList <Fixture*>& fxList,
         , m_type(type)
         , m_subType(subType)
         , m_fixtures(fxList)
+        , m_fixtureGroup(NULL)
 {
     if (m_fixtures.count() > 0)
     {
@@ -55,6 +58,7 @@ PaletteGenerator::~PaletteGenerator()
     m_fixtures.clear();
     m_scenes.clear();
     m_chasers.clear();
+    m_matrices.clear();
 }
 
 void PaletteGenerator::setName(QString name)
@@ -96,6 +100,7 @@ QString PaletteGenerator::typetoString(PaletteGenerator::PaletteType type)
         case Shutter: return tr("Shutter macros");
         case Gobos: return tr("Gobo macros");
         case ColourMacro: return tr("Colour macros");
+        case Animation: return tr("Animations");
         case Undefined:
         default:
             return tr("Unknown");
@@ -183,6 +188,11 @@ QList<Chaser *> PaletteGenerator::chasers()
     return m_chasers;
 }
 
+QList<RGBMatrix *> PaletteGenerator::matrices()
+{
+    return m_matrices;
+}
+
 void PaletteGenerator::addToDoc()
 {
     foreach(Scene *scene, m_scenes)
@@ -196,6 +206,15 @@ void PaletteGenerator::addToDoc()
             chaser->addStep(ChaserStep(scene->id()));
         }
         m_doc->addFunction(chaser);
+    }
+
+    if (m_fixtureGroup != NULL)
+        m_doc->addFixtureGroup(m_fixtureGroup);
+
+    foreach(RGBMatrix *matrix, m_matrices)
+    {
+        matrix->setFixtureGroup(m_fixtureGroup->id());
+        m_doc->addFunction(matrix);
     }
 }
 
@@ -388,6 +407,29 @@ void PaletteGenerator::createCapabilityScene(QHash<quint32, quint32> chMap,
     }
 }
 
+void PaletteGenerator::createRGBMatrices(QHash<quint32, quint32> rgbMap)
+{
+    m_fixtureGroup = new FixtureGroup(m_doc);
+    m_fixtureGroup->setSize(QSize(rgbMap.size(), 1));
+
+    QHashIterator <quint32, quint32> it(rgbMap);
+    while (it.hasNext() == true)
+    {
+        it.next();
+        m_fixtureGroup->assignFixture(it.key());
+        m_fixtureGroup->setName(m_model + tr(" - RGB Group"));
+    }
+    QStringList algoList = RGBScript::scriptNames(m_doc);
+    foreach(QString algo, algoList)
+    {
+        RGBMatrix *matrix = new RGBMatrix(m_doc);
+        matrix->setName(tr("Animation %1").arg(algo) + " - " + m_model);
+        //matrix->setFixtureGroup();
+        matrix->setAlgorithm(RGBAlgorithm::algorithm(m_doc, algo));
+        m_matrices.append(matrix);
+    }
+}
+
 void PaletteGenerator::createChaser(QString name)
 {
     if (m_scenes.count() == 0)
@@ -468,39 +510,57 @@ void PaletteGenerator::createFunctions(PaletteGenerator::PaletteType type,
         }
     }
 
-    if (type == PrimaryColors)
+    switch (type)
     {
-        createColorScene(m_redList, tr("Red scene"), subType);
-        createColorScene(m_greenList, tr("Green scene"), subType);
-        createColorScene(m_blueList, tr("Blue scene"), subType);
-        createColorScene(m_cyanList, tr("Cyan scene"), subType);
-        createColorScene(m_magentaList, tr("Magenta scene"), subType);
-        createColorScene(m_yellowList, tr("Yellow scene"), subType);
-        createColorScene(m_whiteList, tr("White scene"), subType);
-        createChaser(typetoString(type));
-    }
-    else if (type == SixteenColors)
-    {
-        if (m_redList.size() > 0 && m_greenList.size() == m_redList.size() && m_blueList.size() ==  m_redList.size())
-            createRGBCMYScene(m_redList, m_greenList, m_blueList, tr("Scene"), true, subType);
-        else if (m_cyanList.size() > 0 && m_magentaList.size() == m_cyanList.size() && m_yellowList.size() ==  m_cyanList.size())
-            createRGBCMYScene(m_cyanList, m_magentaList, m_yellowList, tr("Scene"), false, subType);
-        createChaser(typetoString(type));
-    }
-    else if (type == Gobos)
-    {
-        createCapabilityScene(m_goboList, subType);
-        createChaser(typetoString(type));
-    }
-    else if (type == Shutter)
-    {
-        createCapabilityScene(m_shutterList, subType);
-        createChaser(typetoString(type));
-    }
-    else if (type == ColourMacro)
-    {
-        createCapabilityScene(m_colorMacroList, subType);
-        createChaser(typetoString(type));
+        case PrimaryColors:
+        {
+            createColorScene(m_redList, tr("Red scene"), subType);
+            createColorScene(m_greenList, tr("Green scene"), subType);
+            createColorScene(m_blueList, tr("Blue scene"), subType);
+            createColorScene(m_cyanList, tr("Cyan scene"), subType);
+            createColorScene(m_magentaList, tr("Magenta scene"), subType);
+            createColorScene(m_yellowList, tr("Yellow scene"), subType);
+            createColorScene(m_whiteList, tr("White scene"), subType);
+            createChaser(typetoString(type));
+        }
+        break;
+        case SixteenColors:
+        {
+            if (m_redList.size() > 0 && m_greenList.size() == m_redList.size() && m_blueList.size() ==  m_redList.size())
+                createRGBCMYScene(m_redList, m_greenList, m_blueList, tr("Scene"), true, subType);
+            else if (m_cyanList.size() > 0 && m_magentaList.size() == m_cyanList.size() && m_yellowList.size() ==  m_cyanList.size())
+                createRGBCMYScene(m_cyanList, m_magentaList, m_yellowList, tr("Scene"), false, subType);
+            createChaser(typetoString(type));
+        }
+        break;
+        case Animation:
+        {
+            if (m_redList.size() > 1 && m_greenList.size() == m_redList.size() && m_blueList.size() ==  m_redList.size())
+                createRGBMatrices(m_redList);
+        }
+        break;
+        case Gobos:
+        {
+            createCapabilityScene(m_goboList, subType);
+            createChaser(typetoString(type));
+        }
+        break;
+        case Shutter:
+        {
+            createCapabilityScene(m_shutterList, subType);
+            createChaser(typetoString(type));
+        }
+        break;
+        case ColourMacro:
+        {
+            createCapabilityScene(m_colorMacroList, subType);
+            createChaser(typetoString(type));
+        }
+        break;
+        case Undefined:
+        default:
+        break;
+
     }
 
 }

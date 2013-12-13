@@ -25,6 +25,7 @@
 #include <QHeaderView>
 #include <QMessageBox>
 #include <QVBoxLayout>
+#include <QFileDialog>
 #include <QCheckBox>
 #include <QSplitter>
 #include <QSettings>
@@ -59,7 +60,6 @@
 #include "show.h"
 #include "doc.h"
 #include "efx.h"
-#include <QFileDialog>
 
 #define COL_NAME 0
 #define COL_PATH 1

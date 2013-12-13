@@ -566,7 +566,8 @@ void VCFrame::editProperties()
                     VCWidget* child = it.next();
                     if (child->page() == 0 && child->parentWidget() == this)
                     {
-                        VCWidget *newWidget = child->createCopy(this);;
+                        VCWidget *newWidget = child->createCopy(this);
+                        newWidget->setID(VirtualConsole::instance()->newWidgetId());
                         newWidget->setPage(pg);
                         newWidget->remapInputSources(pg);
                         newWidget->show();
