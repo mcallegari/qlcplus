@@ -156,85 +156,69 @@
         <translation>Naam</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="119"/>
-        <location filename="addfixture.ui" line="142"/>
-        <source>px</source>
-        <translation type="unfinished">px</translation>
-    </message>
-    <message>
-        <location filename="addfixture.ui" line="135"/>
-        <source>Size</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="addfixture.ui" line="177"/>
+        <location filename="addfixture.ui" line="97"/>
         <source>A friendly name for the new fixture</source>
         <translation>Gebruiksvriendelijke naam voor de nieuwe fixture</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="91"/>
+        <location filename="addfixture.ui" line="104"/>
         <source>Mode</source>
         <translation>Mode</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="164"/>
+        <location filename="addfixture.ui" line="117"/>
         <source>Selected fixture mode</source>
         <translation>Geselecteerde fixture mode</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="105"/>
+        <location filename="addfixture.ui" line="131"/>
         <source>Universe</source>
         <translation>Universe</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="98"/>
+        <location filename="addfixture.ui" line="148"/>
         <source>Address</source>
         <translation>Adres</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="200"/>
+        <location filename="addfixture.ui" line="161"/>
         <source>The starting address of the (first) added fixture</source>
         <translation>Het start adres van de (eerst) toegevoegde fixture</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="112"/>
+        <location filename="addfixture.ui" line="174"/>
         <source>Channels</source>
         <translation>Channels</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="229"/>
+        <location filename="addfixture.ui" line="190"/>
         <source>Number of channels in the selected fixture</source>
         <translation>Aantal channels in de geselecteerde fixture</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="245"/>
+        <location filename="addfixture.ui" line="206"/>
         <source>List of channels in the selected fixture mode</source>
         <translation>Lijst van channels in de geselecteerde fixture mode</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="213"/>
+        <location filename="addfixture.ui" line="219"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;FOUT: Adres al in gebruik!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="275"/>
+        <location filename="addfixture.ui" line="236"/>
         <source>Fixture Model</source>
         <translation>Fixture model</translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="100"/>
+        <location filename="addfixture.cpp" line="96"/>
         <source>Fixtures found: %1</source>
         <translation>Fixtures gevonden: %1</translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="616"/>
+        <location filename="addfixture.cpp" line="593"/>
         <source>Dimmers</source>
         <translation>Dimmers</translation>
-    </message>
-    <message>
-        <location filename="addfixture.cpp" line="637"/>
-        <source>Generic RGB Matrix</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2723,10 +2707,6 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Met de fixtures die U toegevoegd hebt, kan ik de funkties die links getoond worden maken. Selecteer de funkties die U nodig hebt en zie het resultaat aan de rechter kant!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>Advanced</source>
-        <translation type="obsolete">Geavanceerd</translation>
-    </message>
-    <message>
         <location filename="functionwizard.ui" line="300"/>
         <source>Virtual Console</source>
         <translation>Virtual Console</translation>
@@ -2796,17 +2776,17 @@ p, li { white-space: pre-wrap; }
         <translation>%1 heeft geen funkties die ondersteund worden door deze wizard.</translation>
     </message>
     <message>
-        <location filename="functionwizard.cpp" line="458"/>
+        <location filename="functionwizard.cpp" line="466"/>
         <source>Presets solo frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.cpp" line="511"/>
+        <location filename="functionwizard.cpp" line="519"/>
         <source>Click &amp; Go RGB</source>
         <translation>Click &amp; Go RGB</translation>
     </message>
     <message>
-        <location filename="functionwizard.cpp" line="515"/>
+        <location filename="functionwizard.cpp" line="523"/>
         <source>Click &amp; Go Macro</source>
         <translation>Click &amp; Go Macro</translation>
     </message>

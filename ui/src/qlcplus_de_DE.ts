@@ -122,23 +122,12 @@
         <translation>Gerät hinzufügen</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="119"/>
-        <location filename="addfixture.ui" line="142"/>
-        <source>px</source>
-        <translation type="unfinished">px</translation>
-    </message>
-    <message>
-        <location filename="addfixture.ui" line="135"/>
-        <source>Size</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="addfixture.ui" line="213"/>
+        <location filename="addfixture.ui" line="219"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;Fehler: Addresse wird bereits verwendet !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="275"/>
+        <location filename="addfixture.ui" line="236"/>
         <source>Fixture Model</source>
         <translation>Gerätemodel</translation>
     </message>
@@ -153,47 +142,47 @@
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="177"/>
+        <location filename="addfixture.ui" line="97"/>
         <source>A friendly name for the new fixture</source>
         <translation>Eine Bezeichung für das neue Gerät</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="91"/>
+        <location filename="addfixture.ui" line="104"/>
         <source>Mode</source>
         <translation>Modus</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="164"/>
+        <location filename="addfixture.ui" line="117"/>
         <source>Selected fixture mode</source>
         <translation>Den Gerätemodus auswählen</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="98"/>
+        <location filename="addfixture.ui" line="148"/>
         <source>Address</source>
         <translation>Adresse</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="200"/>
+        <location filename="addfixture.ui" line="161"/>
         <source>The starting address of the (first) added fixture</source>
         <translation>Die Startadresse vom (ersten) hinzugefügten Gerät</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="112"/>
+        <location filename="addfixture.ui" line="174"/>
         <source>Channels</source>
         <translation>Kanäle</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="229"/>
+        <location filename="addfixture.ui" line="190"/>
         <source>Number of channels in the selected fixture</source>
         <translation>Anzahl der Kanäle vom ausgewählten Gerät</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="245"/>
+        <location filename="addfixture.ui" line="206"/>
         <source>List of channels in the selected fixture mode</source>
         <translation>Liste der Kanäle vom ausgewählten Gerät</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="105"/>
+        <location filename="addfixture.ui" line="131"/>
         <source>Universe</source>
         <translation>Universum</translation>
     </message>
@@ -223,19 +212,14 @@
         <translation>Anzahl an leeren Kanälen zwischen den hinzugefügten Geräten</translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="100"/>
+        <location filename="addfixture.cpp" line="96"/>
         <source>Fixtures found: %1</source>
         <translation>Gefundene Geräte: %1</translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="616"/>
+        <location filename="addfixture.cpp" line="593"/>
         <source>Dimmers</source>
         <translation>Dimmer</translation>
-    </message>
-    <message>
-        <location filename="addfixture.cpp" line="637"/>
-        <source>Generic RGB Matrix</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2778,17 +2762,17 @@ p, li { white-space: pre-wrap; }
         <translation>%1 keine von diesem Assistenten unterstützte Fähigkeit.</translation>
     </message>
     <message>
-        <location filename="functionwizard.cpp" line="458"/>
+        <location filename="functionwizard.cpp" line="466"/>
         <source>Presets solo frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.cpp" line="511"/>
+        <location filename="functionwizard.cpp" line="519"/>
         <source>Click &amp; Go RGB</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.cpp" line="515"/>
+        <location filename="functionwizard.cpp" line="523"/>
         <source>Click &amp; Go Macro</source>
         <translation type="unfinished"></translation>
     </message>

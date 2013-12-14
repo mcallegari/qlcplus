@@ -28,6 +28,7 @@ TRANSLATIONS += OSC_fr_FR.ts
 TRANSLATIONS += OSC_it_IT.ts
 TRANSLATIONS += OSC_nl_NL.ts
 TRANSLATIONS += OSC_cz_CZ.ts
+TRANSLATIONS += OSC_pt_BR.ts
 
 HEADERS += ../interfaces/qlcioplugin.h
 HEADERS += oscplugin.h \
