@@ -731,9 +731,9 @@ QString WebAccess::getVCHTML()
 
             "<div class=\"controlBar\">\n"
             "<a class=\"button button-blue\" href=\"javascript:document.getElementById('loadTrigger').click();\">\n"
-            "<span>Load project</span></a>\n"
+            "<span>" + tr("Load project") + "</span></a>\n"
 
-            "<a class=\"button button-blue\" href=\"/config\"><span>Configuration</span></a>\n"
+            "<a class=\"button button-blue\" href=\"/config\"><span>" + tr("Configuration") + "</span></a>\n"
 
             "<div class=\"swInfo\">" + QString(APPNAME) + " " + QString(APPVERSION) + "</div>"
             "</div>\n"
@@ -778,7 +778,7 @@ QString WebAccess::getConfigHTML()
             "</style>\n";
 
     QString bodyHTML = "<div class=\"controlBar\">\n"
-                       "<a class=\"button button-blue\" href=\"/\"><span>Back</span></a>\n"
+                       "<a class=\"button button-blue\" href=\"/\"><span>" + tr("Back") + "</span></a>\n"
                        "<div class=\"swInfo\">" + QString(APPNAME) + " " + QString(APPVERSION) + "</div>"
                        "</div>\n";
 
@@ -815,7 +815,7 @@ QString WebAccess::getConfigHTML()
 
     bodyHTML += "<div style=\"margin: 30px 7% 30px 7%; width: 86%; height: 300px;\" >\n";
     bodyHTML += "<div style=\"font-family: verdana,arial,sans-serif; font-size:20px; text-align:center; color:#CCCCCC;\">";
-    bodyHTML += "Universes configuration</div><br>\n";
+    bodyHTML += tr("Universes configuration") + "</div><br>\n";
     bodyHTML += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
     bodyHTML += "<tr><th>Universe</th><th>Input</th><th>Output</th><th>Feedback</th><th>Profile</th></tr>\n";
 
@@ -890,7 +890,7 @@ QString WebAccess::getConfigHTML()
 
     bodyHTML += "<div style=\"margin: 30px 7% 30px 7%; width: 86%; height: 300px;\" >\n";
     bodyHTML += "<div style=\"font-family: verdana,arial,sans-serif; font-size:20px; text-align:center; color:#CCCCCC;\">";
-    bodyHTML += "Audio configuration</div><br>\n";
+    bodyHTML += tr("Audio configuration") + "</div><br>\n";
     bodyHTML += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
     bodyHTML += "<tr><th>Input</th><th>Output</th></tr>\n";
     bodyHTML += "<tr align=center>";
