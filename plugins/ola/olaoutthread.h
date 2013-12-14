@@ -24,7 +24,7 @@
 #include <QThread>
 
 #include <ola/DmxBuffer.h>
-#include <ola/OlaClient.h>
+#include <ola/client/OlaClient.h>
 #include <ola/io/Descriptor.h>
 #include <ola/io/SelectServer.h>
 #include <ola/network/Socket.h>
@@ -72,6 +72,7 @@ public:
     int write_dmx(unsigned int universe, const QByteArray& data);
     void new_pipe_data();
     void pipe_closed();
+    void callback_sendDMX(const ola::client::Result &result);
 
 protected:
     bool setup_client(ola::io::ConnectedDescriptor *descriptor);
@@ -82,7 +83,7 @@ private:
     virtual bool init() = 0;
     virtual void cleanup() {};
     ola::io::LoopbackDescriptor *m_pipe; // the pipe to get new dmx data on
-    ola::OlaClient *m_client;
+    ola::client::OlaClient *m_client;
     dmx_data m_data;
     ola::DmxBuffer m_buffer;
 };
