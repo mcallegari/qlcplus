@@ -22,6 +22,7 @@
 #ifndef PALETTEGENERATOR_H
 #define PALETTEGENERATOR_H
 
+#include <QObject>
 #include <QString>
 #include <QList>
 #include <QHash>
