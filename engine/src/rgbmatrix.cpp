@@ -528,6 +528,9 @@ void RGBMatrix::roundCheck(const QSize& size)
 
 void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
 {
+    quint32 mdAssigned = QLCChannel::invalid();
+    quint32 mdFxi = Fixture::invalidId();
+
     // Create/modify fade channels for ALL pixels in the color map.
     for (int y = 0; y < map.size(); y++)
     {
@@ -538,6 +541,12 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
             Fixture* fxi = doc()->fixture(grpHead.fxi);
             if (fxi == NULL)
                 continue;
+
+            if (grpHead.fxi != mdFxi)
+            {
+                mdAssigned = QLCChannel::invalid();
+                mdFxi = grpHead.fxi;
+            }
 
             QLCFixtureHead head = fxi->head(grpHead.head);
 
@@ -596,8 +605,14 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
                 FadeChannel fc;
                 fc.setFixture(grpHead.fxi);
                 fc.setChannel(head.masterIntensityChannel());
-                //fc.setTarget(col.value());
-                fc.setTarget(255);
+                if (col.value() == 0 && mdAssigned != head.masterIntensityChannel())
+                    fc.setTarget(0);
+                else
+                {
+                    fc.setTarget(255);
+                    if (mdAssigned == QLCChannel::invalid())
+                        mdAssigned = head.masterIntensityChannel();
+                }
                 insertStartValues(fc);
                 m_fader->add(fc);
             }
