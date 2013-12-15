@@ -114,6 +114,23 @@ bool QLCFixtureDefCache::addFixtureDef(QLCFixtureDef* fixtureDef)
     }
 }
 
+bool QLCFixtureDefCache::storeFixtureDef(QString filename, QString data)
+{
+    QDir userFolder = userDefinitionDirectory();
+
+    QFile file(userFolder.absoluteFilePath(filename));
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text) == false)
+        return false;
+
+    file.write(data.toLatin1());
+    file.close();
+
+    // reload user definitions
+    load(userDefinitionDirectory());
+
+    return true;
+}
+
 bool QLCFixtureDefCache::load(const QDir& dir)
 {
     qDebug() << Q_FUNC_INFO << dir.path();

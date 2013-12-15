@@ -92,11 +92,48 @@ WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, QObject *parent) :
 
     // Start the web server.
     m_ctx = mg_start(&m_callbacks, NULL, options);
+
+    connect(m_vc, SIGNAL(loaded()),
+            this, SLOT(slotVCLoaded()));
 }
 
 WebAccess::~WebAccess()
 {
     mg_stop(m_ctx);
+}
+
+QString WebAccess::loadXMLPost(mg_connection *conn, QString &filename)
+{
+    char post_data[POST_DATA_SIZE + 10];
+    QString XMLdata = "";
+    bool done = false;
+
+    while(!done)
+    {
+        int read = mg_read(conn, post_data, POST_DATA_SIZE);
+
+        qDebug() << "POST: received: " << read << "bytes";
+        post_data[read] = '\0';
+
+        QString recv(post_data);
+
+        if (read < POST_DATA_SIZE)
+        {
+            recv.truncate(read);
+            done = true;
+        }
+        XMLdata += recv;
+    }
+
+    //qDebug() << "Complete XML data:\n\n" << XMLdata;
+    int fnameStart = XMLdata.indexOf("filename=") + 10;
+    int fnameEnd = XMLdata.indexOf("\"", fnameStart);
+    filename = XMLdata.mid(fnameStart, fnameEnd - fnameStart);
+
+    XMLdata.remove(0, XMLdata.indexOf("\n\r") + 2);
+    XMLdata.truncate(XMLdata.indexOf("\n\r"));
+
+    return XMLdata;
 }
 
 // This function will be called by mongoose on every new request.
@@ -124,36 +161,18 @@ int WebAccess::beginRequestHandler(mg_connection *conn)
 
   if (QString(ri->uri) == "/loadProject")
   {
-      char post_data[POST_DATA_SIZE + 10];
-      QString projectXML = "";
-      bool done = false;
-
-      while(!done)
-      {
-          int read = mg_read(conn, post_data, POST_DATA_SIZE);
-
-          qDebug() << "POST: received: " << read << "bytes";
-          post_data[read] = '\0';
-
-          QString recv(post_data);
-
-          if (read < POST_DATA_SIZE)
-          {
-              recv.truncate(read);
-              done = true;
-          }
-          projectXML += recv;
-      }
-
-      projectXML.remove(0, projectXML.indexOf("\n\r") + 2);
-      projectXML.truncate(projectXML.indexOf("\n\r"));
+      QString prjname;
+      QString projectXML = loadXMLPost(conn, prjname);
       qDebug() << "Project XML:\n\n" << projectXML << "\n\n";
 
       QByteArray postReply =
               QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n"
-              "<script type=\"text/javascript\">\n"
-              " window.location = \"/\"\n"
-              "</script></head></html>").toLatin1();
+              "<script type=\"text/javascript\">\n" WEBSOCKET_JS
+              "</script></head><body style=\"background-color: #45484d;\">"
+              "<div style=\"position: absolute; width: 100%; height: 30px; top: 50%; background-color: #888888;"
+              "text-align: center; font:bold 24px/1.2em sans-serif;\">"
+              + tr("Loading project...") +
+              "</div></body></html>").toLatin1();
       int post_size = postReply.length();
       mg_printf(conn, "HTTP/1.1 200 OK\r\n"
                 "Content-Type: text/html\r\n"
@@ -168,6 +187,30 @@ int WebAccess::beginRequestHandler(mg_connection *conn)
   else if (QString(ri->uri) == "/config")
   {
       content = getConfigHTML();
+  }
+  else if (QString(ri->uri) == "/loadFixture")
+  {
+      QString fxName;
+      QString fixtureXML = loadXMLPost(conn, fxName);
+      qDebug() << "Fixture name:" << fxName;
+      qDebug() << "Fixture XML:\n\n" << fixtureXML << "\n\n";
+
+      m_doc->fixtureDefCache()->storeFixtureDef(fxName, fixtureXML);
+
+      QByteArray postReply =
+                    QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n"
+                    "<script type=\"text/javascript\">\n"
+                    " alert(\"" + tr("Fixture stored and loaded") + "\");"
+                    " window.location = \"/config\"\n"
+                    "</script></head></html>").toLatin1();
+      int post_size = postReply.length();
+      mg_printf(conn, "HTTP/1.1 200 OK\r\n"
+                      "Content-Type: text/html\r\n"
+                      "Content-Length: %d\r\n\r\n"
+                      "%s",
+                      post_size, postReply.data());
+
+      return 1;
   }
   else if (QString(ri->uri) != "/")
       return 1;
@@ -706,13 +749,7 @@ QString WebAccess::getVCHTML()
 
     m_CSScode = "<style>\n"
             "body { margin: 0px; }\n"
-
-            "form {\n"
-            " position: absolute;\n"
-            " top: -100px;\n"
-            " visibility: hidden;\n"
-            "}\n\n"
-
+            HIDDEN_FORM_CSS
             CONTROL_BAR_CSS
             BUTTON_BASE_CSS
             BUTTON_SPAN_CSS
@@ -768,6 +805,7 @@ QString WebAccess::getConfigHTML()
             " background: linear-gradient(to bottom, #45484d 0%, #000000 100%);\n"
             " background: -webkit-linear-gradient(top, #45484d 0%, #000000 100%);\n"
             "}\n"
+            HIDDEN_FORM_CSS
             CONTROL_BAR_CSS
             BUTTON_BASE_CSS
             BUTTON_SPAN_CSS
@@ -777,8 +815,15 @@ QString WebAccess::getConfigHTML()
             TABLE_CSS
             "</style>\n";
 
-    QString bodyHTML = "<div class=\"controlBar\">\n"
+    QString bodyHTML = "<form action=\"/loadFixture\" method=\"POST\" enctype=\"multipart/form-data\">\n"
+                       "<input id=\"loadTrigger\" type=\"file\" "
+                       "onchange=\"document.getElementById('submitTrigger').click();\" name=\"qlcfxi\" />\n"
+                       "<input id=\"submitTrigger\" type=\"submit\"/></form>"
+
+                       "<div class=\"controlBar\">\n"
                        "<a class=\"button button-blue\" href=\"/\"><span>" + tr("Back") + "</span></a>\n"
+                       "<a class=\"button button-blue\" href=\"javascript:document.getElementById('loadTrigger').click();\">\n"
+                        "<span>" + tr("Load fixture") + "</span></a>\n"
                        "<div class=\"swInfo\">" + QString(APPNAME) + " " + QString(APPVERSION) + "</div>"
                        "</div>\n";
 
@@ -928,6 +973,12 @@ QString WebAccess::getConfigHTML()
     QString str = HTML_HEADER + m_JScode + m_CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";
 
     return str;
+}
+
+void WebAccess::slotVCLoaded()
+{
+    QString wsMessage = QString("URL|/");
+    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
 }
 
 

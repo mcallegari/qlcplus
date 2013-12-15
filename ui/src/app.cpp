@@ -1166,7 +1166,7 @@ QFile::FileError App::loadXML(const QString& fileName)
     return retval;
 }
 
-bool App::loadXML(const QDomDocument& doc)
+bool App::loadXML(const QDomDocument& doc, bool goToConsole)
 {
     Q_ASSERT(m_doc != NULL);
 
@@ -1221,8 +1221,12 @@ bool App::loadXML(const QDomDocument& doc)
     // Perform post-load operations
     VirtualConsole::instance()->postLoad();
 
-    // Set the active window to what was saved in the workspace file
-    setActiveWindow(activeWindowName);
+    if (goToConsole == true)
+        // Force the active window to be Virtual Console
+        setActiveWindow(VirtualConsole::staticMetaObject.className());
+    else
+        // Set the active window to what was saved in the workspace file
+        setActiveWindow(activeWindowName);
 
     return true;
 }
@@ -1294,5 +1298,5 @@ void App::slotLoadDocFromMemory(QString xmlData)
 
     QDomDocument doc;
     doc.setContent(xmlData);
-    loadXML(doc);
+    loadXML(doc, true);
 }

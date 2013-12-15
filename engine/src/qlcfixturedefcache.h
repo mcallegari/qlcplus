@@ -90,6 +90,17 @@ public:
     bool addFixtureDef(QLCFixtureDef* fixtureDef);
 
     /**
+     * Store a fixture in the fixtures user data folder
+     * if a fixture with the same name already exists, it
+     * will be overwritten
+     *
+     * @param filename the target fixture file name
+     * @param data the content of a fixture XML data
+     * @return
+     */
+    bool storeFixtureDef(QString filename, QString data);
+
+    /**
      * Load fixture definitions from the given path. Ignores duplicates.
      * Returns true even if $fixturePath doesn't contain any fixtures,
      * if it is still accessible (and exists).

@@ -30,22 +30,32 @@
     "  var msgParams = ev.data.split('|');\n" \
     "  var obj = document.getElementById(msgParams[0]);\n" \
     "  if (msgParams[1] == \"BUTTON\") {\n" \
-    "   if (msgParams[2] == 1) { obj.value = \"255\";\n obj.style.border = \"3px solid #00E600\"; }\n" \
-    "   else { obj.value = \"0\";\n obj.style.border = \"3px solid #A0A0A0\"; }\n" \
+    "    if (msgParams[2] == 1) { obj.value = \"255\";\n obj.style.border = \"3px solid #00E600\"; }\n" \
+    "    else { obj.value = \"0\";\n obj.style.border = \"3px solid #A0A0A0\"; }\n" \
     "  }\n" \
-    "  if (msgParams[1] == \"SLIDER\") {\n" \
+    "  else if (msgParams[1] == \"SLIDER\") {\n" \
     "    obj.value = msgParams[2];\n" \
     "    var labelObj = document.getElementById(\"slv\" + msgParams[0]);\n" \
     "    labelObj.innerHTML = msgParams[2];\n" \
     "  }\n" \
-    "  if (msgParams[1] == \"CUE\") {\n" \
+    "  else if (msgParams[1] == \"CUE\") {\n" \
     "    setCueIndex(msgParams[0], msgParams[2]);\n" \
     "    var playBbj = document.getElementById(\"play\" + msgParams[0]);\n" \
     "    playBbj.innerHTML = \"Stop\";\n" \
     "  }\n" \
+    "  else if (msgParams[0] == \"URL\") {\n" \
+    "    window.location = msgParams[1];\n" \
+    "  }\n" \
     " };\n" \
     " window.setInterval(function(){ websocket.send(\"POLL\"); }, 10000);\n" \
     "};\n"
+
+#define HIDDEN_FORM_CSS \
+    "form {\n" \
+    " position: absolute;\n" \
+    " top: -100px;\n" \
+    " visibility: hidden;\n" \
+    "}\n\n"
 
 #define CONTROL_BAR_CSS \
     ".controlBar {\n" \
@@ -64,7 +74,7 @@
 #define BUTTON_BASE_CSS \
     ".button\n" \
     "{\n" \
-    " height: 36px;\n" \
+    " height: 35px;\n" \
     " margin-left: 5px;" \
     " text-decoration: none;\n" \
     " font: bold 27px/1.2em 'Trebuchet MS',Arial, Helvetica;\n" \

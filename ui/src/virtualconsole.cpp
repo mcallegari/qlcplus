@@ -1809,4 +1809,6 @@ void VirtualConsole::postLoad()
         m_widgetsMap[widget->id()] = widget;
     }
     qDebug() << "Next ID to assign:" << m_latestWidgetId;
+
+    emit loaded();
 }

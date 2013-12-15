@@ -373,6 +373,9 @@ public:
 
     /** Do post-load cleanup & checks */
     void postLoad();
+
+signals:
+    void loaded();
 };
 
 #endif
