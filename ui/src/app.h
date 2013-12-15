@@ -62,6 +62,7 @@ private:
     void init();
     void closeEvent(QCloseEvent*);
     void setActiveWindow(const QString& name);
+    bool isRaspberry();
 
 private:
     QTabWidget* m_tab;

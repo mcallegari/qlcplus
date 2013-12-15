@@ -186,7 +186,19 @@ void App::init()
         if (size.isValid() == true)
             resize(size);
         else
-            resize(800, 600);
+        {
+            if (isRaspberry())
+            {
+                QRect geometry = qApp->desktop()->availableGeometry();
+                // if we're on a Raspberry Pi, introduce a 5% margin
+                int w = (float)geometry.width() * 0.9;
+                int h = (float)geometry.height() * 0.9;
+                setGeometry((geometry.width() - w) / 2, (geometry.height() - h) / 2,
+                            w, h);
+            }
+            else
+                resize(800, 600);
+        }
 
         QVariant state = settings.value("/workspace/state", Qt::WindowNoState);
         if (state.isValid() == true)
@@ -268,6 +280,24 @@ void App::setActiveWindow(const QString& name)
             break;
         }
     }
+}
+
+bool App::isRaspberry()
+{
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+    QFile cpuInfoFile("/proc/cpuinfo");
+    if (cpuInfoFile.exists() == true)
+    {
+        cpuInfoFile.open(QFile::ReadOnly);
+        QString content = QLatin1String(cpuInfoFile.readAll());
+        cpuInfoFile.close();
+        if (content.contains("BCM2708"))
+            return true;
+    }
+    return false;
+#else
+    return false;
+#endif
 }
 
 void App::closeEvent(QCloseEvent* e)
@@ -1218,8 +1248,6 @@ bool App::loadXML(const QDomDocument& doc, bool goToConsole)
         node = node.nextSibling();
     }
 
-    // Perform post-load operations
-    VirtualConsole::instance()->postLoad();
 
     if (goToConsole == true)
         // Force the active window to be Virtual Console
@@ -1227,6 +1255,9 @@ bool App::loadXML(const QDomDocument& doc, bool goToConsole)
     else
         // Set the active window to what was saved in the workspace file
         setActiveWindow(activeWindowName);
+
+    // Perform post-load operations
+    VirtualConsole::instance()->postLoad();
 
     return true;
 }
