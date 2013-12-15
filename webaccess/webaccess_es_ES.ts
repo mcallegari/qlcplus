@@ -6,37 +6,37 @@
     <message>
         <location filename="webaccess.cpp" line="334"/>
         <source>Widget not supported (yet) for web access</source>
-        <translation type="unfinished"></translation>
+        <translation>Widget no soportado (todavía) para acceso web</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="534"/>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Activar</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="734"/>
         <source>Load project</source>
-        <translation type="unfinished"></translation>
+        <translation>Cargar proyecto</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="736"/>
         <source>Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuración</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="781"/>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Atrás</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="818"/>
         <source>Universes configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuración de universos</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="893"/>
         <source>Audio configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuración de audio</translation>
     </message>
 </context>
 </TS>

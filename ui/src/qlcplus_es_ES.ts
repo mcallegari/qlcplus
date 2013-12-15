@@ -125,12 +125,12 @@
         <location filename="addfixture.ui" line="119"/>
         <location filename="addfixture.ui" line="142"/>
         <source>px</source>
-        <translation type="unfinished">px</translation>
+        <translation>px</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="135"/>
         <source>Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="213"/>
@@ -235,7 +235,7 @@
     <message>
         <location filename="addfixture.cpp" line="637"/>
         <source>Generic RGB Matrix</source>
-        <translation type="unfinished"></translation>
+        <translation>Matriz RGB genérica</translation>
     </message>
 </context>
 <context>
@@ -3337,7 +3337,7 @@ Duración: %3
     <message>
         <location filename="palettegenerator.cpp" line="103"/>
         <source>Animations</source>
-        <translation type="unfinished"></translation>
+        <translation>Animaciones</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="106"/>
@@ -3462,12 +3462,12 @@ Duración: %3
     <message>
         <location filename="palettegenerator.cpp" line="420"/>
         <source> - RGB Group</source>
-        <translation type="unfinished"></translation>
+        <translation> -  Grupo RGB</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="426"/>
         <source>Animation %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Animación %1</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="445"/>
