@@ -68,7 +68,7 @@ public:
      * @param model The fixture definition's model
      * @return A matching fixture definition or NULL if not found
      */
-    const QLCFixtureDef* fixtureDef(const QString& manufacturer,
+    QLCFixtureDef* fixtureDef(const QString& manufacturer,
                                     const QString& model) const;
 
     /**
@@ -98,6 +98,15 @@ public:
      * @return true, if the path could be accessed, otherwise false.
      */
     bool load(const QDir& dir);
+
+    /**
+     * Load a map of hardcoded fixture definitions that represent
+     * the minimum information to cache a fixture when it is required
+     *
+     * @param dir The directory to load definitions from.
+     * @return true, if the path could be accessed, otherwise false.
+     */
+    bool loadMap(const QDir& dir);
 
     /**
      * Cleans the contents of the fixture definition cache, deleting

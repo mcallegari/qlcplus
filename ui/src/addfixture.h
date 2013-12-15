@@ -61,10 +61,10 @@ public:
      *********************************************************************/
 public:
     /** Get the selected QLCFixtureDef */
-    const QLCFixtureDef* fixtureDef() const;
+    QLCFixtureDef *fixtureDef() const;
 
     /** Get the selected QLCFixtureMode */
-    const QLCFixtureMode* mode() const;
+    QLCFixtureMode* mode() const;
 
     /** Get the assigned friendly name */
     QString name() const;
@@ -89,8 +89,8 @@ public:
 
 protected:
     const Doc* m_doc;
-    const QLCFixtureDef* m_fixtureDef;
-    const QLCFixtureMode* m_mode;
+    QLCFixtureDef* m_fixtureDef;
+    QLCFixtureMode* m_mode;
     quint32 m_fixtureID;
 
     QString m_nameValue;

@@ -388,7 +388,8 @@ void App::initDoc()
 
     /* Load user fixtures first so that they override system fixtures */
     m_doc->fixtureDefCache()->load(QLCFixtureDefCache::userDefinitionDirectory());
-    m_doc->fixtureDefCache()->load(QLCFixtureDefCache::systemDefinitionDirectory());
+    //m_doc->fixtureDefCache()->load(QLCFixtureDefCache::systemDefinitionDirectory());
+    m_doc->fixtureDefCache()->loadMap(QLCFixtureDefCache::systemDefinitionDirectory());
 
     /* Load plugins */
     connect(m_doc->ioPluginCache(), SIGNAL(pluginLoaded(const QString&)),

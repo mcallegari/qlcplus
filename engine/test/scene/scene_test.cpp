@@ -544,10 +544,10 @@ void Scene_Test::writeHTPTwoTicks()
     MasterTimer timer(doc);
     UniverseArray* ua = NULL;
 
-    const QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
 
-    const QLCFixtureMode* mode = def->mode("Mode 1");
+    QLCFixtureMode* mode = def->mode("Mode 1");
     QVERIFY(mode != NULL);
 
     Fixture* fxi = new Fixture(doc);
@@ -634,10 +634,10 @@ void Scene_Test::writeHTPTwoTicksIntensity()
     MasterTimer timer(doc);
     UniverseArray* ua = NULL;
 
-    const QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
 
-    const QLCFixtureMode* mode = def->mode("Mode 1");
+    QLCFixtureMode* mode = def->mode("Mode 1");
     QVERIFY(mode != NULL);
 
     Fixture* fxi = new Fixture(doc);
@@ -730,10 +730,10 @@ void Scene_Test::writeLTPReady()
     MasterTimer timer(doc);
     UniverseArray* ua = NULL;
 
-    const QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
 
-    const QLCFixtureMode* mode = def->mode("Mode 1");
+    QLCFixtureMode* mode = def->mode("Mode 1");
     QVERIFY(mode != NULL);
 
     Fixture* fxi = new Fixture(doc);

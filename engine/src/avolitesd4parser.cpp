@@ -632,7 +632,7 @@ AvolitesD4Parser::Attributes AvolitesD4Parser::stringToAttributeEnum(const QStri
         return AvolitesD4Parser::SPECIAL;
 }
 
-QString AvolitesD4Parser::guessType(const QLCFixtureDef* def) const
+QString AvolitesD4Parser::guessType(QLCFixtureDef* def) const
 {
     Q_ASSERT(def != NULL);
 

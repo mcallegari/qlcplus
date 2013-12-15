@@ -117,7 +117,7 @@ private:
     void initDataView();
 
     /** Update a single fixture's data into a QTreeWidgetItem */
-    void updateFixtureItem(QTreeWidgetItem* item, const Fixture* fxi);
+    void updateFixtureItem(QTreeWidgetItem* item, Fixture *fxi);
 
     /** Update a group's data to and under $item */
     void updateGroupItem(QTreeWidgetItem* item, const FixtureGroup* grp);

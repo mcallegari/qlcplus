@@ -131,7 +131,7 @@ public:
      *
      * @return Fixture type
      */
-    QString type() const;
+    QString type();
 
     /**
      * Check, whether the fixture is a dimmer-type fixture (i.e. without
@@ -313,22 +313,22 @@ public:
      * @param fixtureDef The new fixture definition
      * @param fixtureMode The new fixture mode (member of $fixtureDef)
      */
-    void setFixtureDefinition(const QLCFixtureDef* fixtureDef,
-                              const QLCFixtureMode* fixtureMode);
+    void setFixtureDefinition(QLCFixtureDef *fixtureDef,
+                              QLCFixtureMode *fixtureMode);
 
     /**
      * Get the fixture definition that this fixture instance is based on.
      *
      * @return A QLCFixture definition
      */
-    const QLCFixtureDef* fixtureDef() const;
+    QLCFixtureDef *fixtureDef() const;
 
     /**
      * Get the fixture mode that this fixture instance is based on.
      *
      * @return A QLCFixtureMode definition
      */
-    const QLCFixtureMode* fixtureMode() const;
+    QLCFixtureMode* fixtureMode() const;
 
     /**
      * Return the number of heads used by the fixture. If the fixture is a
@@ -354,10 +354,10 @@ public:
 
 protected:
     /** The fixture definition that this instance is based on */
-    const QLCFixtureDef* m_fixtureDef;
+    QLCFixtureDef* m_fixtureDef;
 
     /** The mode within the fixture definition that this instance uses */
-    const QLCFixtureMode* m_fixtureMode;
+    QLCFixtureMode* m_fixtureMode;
 
     /*********************************************************************
      * Load & Save

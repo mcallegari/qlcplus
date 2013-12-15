@@ -65,10 +65,10 @@ void PaletteGenerator_Test::capabilities()
 {
     Doc doc(this);
 
-    const QLCFixtureDef* fixtureDef;
+    QLCFixtureDef* fixtureDef;
     fixtureDef = m_fixtureDefCache.fixtureDef("Showtec", "MiniMax 250");
     Q_ASSERT(fixtureDef != NULL);
-    const QLCFixtureMode* fixtureMode;
+    QLCFixtureMode* fixtureMode;
     fixtureMode = fixtureDef->modes().at(0);
     Q_ASSERT(fixtureMode != NULL);
 
@@ -100,10 +100,10 @@ void PaletteGenerator_Test::createColours()
 {
     Doc doc(this);
 
-    const QLCFixtureDef* fixtureDef;
+    QLCFixtureDef* fixtureDef;
     fixtureDef = m_fixtureDefCache.fixtureDef("Futurelight", "DJScan250");
     Q_ASSERT(fixtureDef != NULL);
-    const QLCFixtureMode* fixtureMode;
+    QLCFixtureMode* fixtureMode;
     fixtureMode = fixtureDef->modes().at(0);
     Q_ASSERT(fixtureMode != NULL);
 
@@ -137,10 +137,10 @@ void PaletteGenerator_Test::createGobos()
 {
     Doc doc(this);
 
-    const QLCFixtureDef* fixtureDef;
+    QLCFixtureDef* fixtureDef;
     fixtureDef = m_fixtureDefCache.fixtureDef("Futurelight", "DJScan250");
     Q_ASSERT(fixtureDef != NULL);
-    const QLCFixtureMode* fixtureMode;
+    QLCFixtureMode* fixtureMode;
     fixtureMode = fixtureDef->modes().at(0);
     Q_ASSERT(fixtureMode != NULL);
 
@@ -174,10 +174,10 @@ void PaletteGenerator_Test::createShutters()
 {
     Doc doc(this);
 
-    const QLCFixtureDef* fixtureDef;
+    QLCFixtureDef* fixtureDef;
     fixtureDef = m_fixtureDefCache.fixtureDef("Martin", "MAC300");
     Q_ASSERT(fixtureDef != NULL);
-    const QLCFixtureMode* fixtureMode;
+    QLCFixtureMode* fixtureMode;
     fixtureMode = fixtureDef->modes().at(0);
     Q_ASSERT(fixtureMode != NULL);
 

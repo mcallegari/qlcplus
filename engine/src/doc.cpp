@@ -439,9 +439,9 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
         newFixture->setUniverse(fixture->universe());
         if (fixture->fixtureDef() != NULL && fixture->fixtureMode() != NULL)
         {
-            const QLCFixtureDef *def = fixtureDefCache()->fixtureDef(fixture->fixtureDef()->manufacturer(),
-                                                                     fixture->fixtureDef()->model());
-            const QLCFixtureMode *mode = NULL;
+            QLCFixtureDef *def = fixtureDefCache()->fixtureDef(fixture->fixtureDef()->manufacturer(),
+                                                               fixture->fixtureDef()->model());
+            QLCFixtureMode *mode = NULL;
             if (def != NULL)
                 mode = def->mode(fixture->fixtureMode()->name());
             newFixture->setFixtureDefinition(def, mode);

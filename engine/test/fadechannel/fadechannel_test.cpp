@@ -93,10 +93,10 @@ void FadeChannel_Test::group()
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
     QVERIFY(doc.fixtureDefCache()->load(dir) == true);
 
-    const QLCFixtureDef* def = doc.fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    QLCFixtureDef* def = doc.fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
 
-    const QLCFixtureMode* mode = def->modes().first();
+    QLCFixtureMode* mode = def->modes().first();
     QVERIFY(mode != NULL);
 
     fxi = new Fixture(&doc);

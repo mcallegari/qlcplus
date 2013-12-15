@@ -54,9 +54,9 @@ void EFXFixture_Test::initTestCase()
 
 void EFXFixture_Test::init()
 {
-    const QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "MH-440");
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "MH-440");
     QVERIFY(def != NULL);
-    const QLCFixtureMode* mode = def->modes().first();
+    QLCFixtureMode* mode = def->modes().first();
     QVERIFY(mode != NULL);
 
     Fixture* fxi = new Fixture(m_doc);
@@ -390,9 +390,9 @@ void EFXFixture_Test::startOffset()
 
 void EFXFixture_Test::setPoint8bit()
 {
-    const QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
-    const QLCFixtureMode* mode = def->modes().first();
+    QLCFixtureMode* mode = def->modes().first();
     QVERIFY(mode != NULL);
 
     Fixture* fxi = new Fixture(m_doc);

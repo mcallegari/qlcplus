@@ -112,7 +112,7 @@ private:
     Attributes stringToAttributeEnum(const QString& attr);
 
     /** Attempt to guess the fixture type from the channels/capabilities in $def */
-    QString guessType(const QLCFixtureDef* def) const;
+    QString guessType(QLCFixtureDef *def) const;
 
 private:
     QString m_lastError;

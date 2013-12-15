@@ -324,10 +324,10 @@ void Doc_Test::totalPowerConsumption()
     int fuzzy = 0;
 
     /* Load Showtec - MiniMax 250 with 250W power consumption */
-    const QLCFixtureDef* fixtureDef;
+    QLCFixtureDef* fixtureDef;
     fixtureDef = m_doc->fixtureDefCache()->fixtureDef("Showtec", "MiniMax 250");
     Q_ASSERT(fixtureDef != NULL);
-    const QLCFixtureMode* fixtureMode;
+    QLCFixtureMode* fixtureMode;
     fixtureMode = fixtureDef->modes().at(0);
     Q_ASSERT(fixtureMode != NULL);
 

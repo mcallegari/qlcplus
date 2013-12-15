@@ -2626,10 +2626,10 @@ void EFX_Test::adjustIntensity()
     /* Basically any fixture with 16bit pan & tilt channels will do, but
        then the exact channel numbers and mode name has to be changed
        below. */
-    const QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Martin", "MAC250+");
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Martin", "MAC250+");
     QVERIFY(def != NULL);
 
-    const QLCFixtureMode* mode = def->mode("Mode 4");
+    QLCFixtureMode* mode = def->mode("Mode 4");
     QVERIFY(mode != NULL);
 
     Fixture* fxi1 = new Fixture(m_doc);

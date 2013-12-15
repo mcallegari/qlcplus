@@ -193,8 +193,8 @@ void FixtureRemap::slotAddTargetFixture()
     quint32 address = af.address();
     quint32 universe = af.universe();
     quint32 channels = af.channels();
-    const QLCFixtureDef* fixtureDef = af.fixtureDef();
-    const QLCFixtureMode* mode = af.mode();
+    QLCFixtureDef* fixtureDef = af.fixtureDef();
+    QLCFixtureMode* mode = af.mode();
     int gap = af.gap();
 
     for(int i = 0; i < af.amount(); i++)

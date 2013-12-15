@@ -84,6 +84,9 @@ public:
      * Fixture information
      *********************************************************************/
 public:
+    /** Set the temporary definition file absolute path */
+    void setDefinitionSourceFile(const QString& absPath);
+
     /** Get the fixture's name string (=="manufacturer model") */
     QString name() const;
 
@@ -103,15 +106,20 @@ public:
     void setType(const QString& type);
 
     /** Get the fixture's type string */
-    QString type() const;
+    QString type();
 
     /** Set the definition's author */
     void setAuthor(const QString& author);
 
     /** Get the definition's author */
-    QString author() const;
+    QString author();
+
+private:
+    void checkLoaded();
 
 protected:
+    bool m_isLoaded;
+    QString m_defFileAbsolutePath;
     QString m_manufacturer;
     QString m_model;
     QString m_type;
@@ -154,11 +162,11 @@ public:
     bool removeMode(QLCFixtureMode* mode);
 
     /** Get a certain mode by its name */
-    const QLCFixtureMode* mode(const QString& name) const;
+    QLCFixtureMode* mode(const QString& name);
 
     /** Get all modes in this fixture. Changes to the list won't end
         up into the fixture definition. */
-    QList <QLCFixtureMode*> modes() const;
+    QList <QLCFixtureMode*> modes();
 
 protected:
     /** Modes (i.e. ordered collections of channels) */

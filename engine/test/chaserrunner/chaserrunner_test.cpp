@@ -58,9 +58,9 @@ void ChaserRunner_Test::cleanupTestCase()
 
 void ChaserRunner_Test::init()
 {
-    const QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
-    const QLCFixtureMode* mode = def->mode("Mode 1");
+    QLCFixtureMode* mode = def->mode("Mode 1");
     QVERIFY(mode != NULL);
 
     Fixture* fxi = new Fixture(m_doc);

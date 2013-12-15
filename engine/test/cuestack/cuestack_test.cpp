@@ -649,10 +649,10 @@ void CueStack_Test::insertStartValue()
     QCOMPARE(fc.start(), uchar(0));
     QCOMPARE(fc.current(), uchar(0));
 
-    const QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
 
-    const QLCFixtureMode* mode = def->modes().first();
+    QLCFixtureMode* mode = def->modes().first();
     QVERIFY(mode != NULL);
 
     Fixture* fxi = new Fixture(m_doc);
@@ -674,10 +674,10 @@ void CueStack_Test::insertStartValue()
 
 void CueStack_Test::switchCue()
 {
-    const QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
 
-    const QLCFixtureMode* mode = def->modes().first();
+    QLCFixtureMode* mode = def->modes().first();
     QVERIFY(mode != NULL);
 
     Fixture* fxi = new Fixture(m_doc);
@@ -835,10 +835,10 @@ void CueStack_Test::switchCue()
 
 void CueStack_Test::postRun()
 {
-    const QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
 
-    const QLCFixtureMode* mode = def->modes().first();
+    QLCFixtureMode* mode = def->modes().first();
     QVERIFY(mode != NULL);
 
     Fixture* fxi = new Fixture(m_doc);

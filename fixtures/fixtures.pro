@@ -3,6 +3,7 @@ include(../variables.pri)
 TEMPLATE = subdirs
 TARGET = fixtures
 
+fixtures.files += FixturesMap.xml
 fixtures.files += American-DJ-64B-LED-PRO.qxf
 fixtures.files += American-DJ-Accu-Spot-250-II.qxf
 fixtures.files += American-DJ-Accu-Spot-Pro.qxf

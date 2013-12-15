@@ -180,12 +180,12 @@ AddFixture::~AddFixture()
  * Value getters
  *****************************************************************************/
 
-const QLCFixtureDef* AddFixture::fixtureDef() const
+QLCFixtureDef* AddFixture::fixtureDef() const
 {
     return m_fixtureDef;
 }
 
-const QLCFixtureMode* AddFixture::mode() const
+QLCFixtureMode *AddFixture::mode() const
 {
     return m_mode;
 }

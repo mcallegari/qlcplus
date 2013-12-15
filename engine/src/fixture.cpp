@@ -103,7 +103,7 @@ QString Fixture::name() const
  * Fixture type
  *****************************************************************************/
 
-QString Fixture::type() const
+QString Fixture::type()
 {
     if (m_fixtureDef != NULL)
         return m_fixtureDef->type();
@@ -427,8 +427,8 @@ void Fixture::createGenericChannel()
  * Fixture definition
  *****************************************************************************/
 
-void Fixture::setFixtureDefinition(const QLCFixtureDef* fixtureDef,
-                                   const QLCFixtureMode* fixtureMode)
+void Fixture::setFixtureDefinition(QLCFixtureDef* fixtureDef,
+                                   QLCFixtureMode* fixtureMode)
 {
     if (fixtureDef != NULL && fixtureMode != NULL)
     {
@@ -465,12 +465,12 @@ void Fixture::setFixtureDefinition(const QLCFixtureDef* fixtureDef,
     emit changed(m_id);
 }
 
-const QLCFixtureDef* Fixture::fixtureDef() const
+QLCFixtureDef* Fixture::fixtureDef() const
 {
     return m_fixtureDef;
 }
 
-const QLCFixtureMode* Fixture::fixtureMode() const
+QLCFixtureMode* Fixture::fixtureMode() const
 {
     return m_fixtureMode;
 }
@@ -567,8 +567,8 @@ bool Fixture::loader(const QDomElement& root, Doc* doc)
 bool Fixture::loadXML(const QDomElement& root,
                       const QLCFixtureDefCache* fixtureDefCache)
 {
-    const QLCFixtureDef* fixtureDef = NULL;
-    const QLCFixtureMode* fixtureMode = NULL;
+    QLCFixtureDef* fixtureDef = NULL;
+    QLCFixtureMode* fixtureMode = NULL;
     QString manufacturer;
     QString model;
     QString modeName;

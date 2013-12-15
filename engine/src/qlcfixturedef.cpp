@@ -30,11 +30,15 @@
 
 QLCFixtureDef::QLCFixtureDef()
 {
+    m_isLoaded = false;
+    m_defFileAbsolutePath = QString();
     m_type = QString("Dimmer");
 }
 
 QLCFixtureDef::QLCFixtureDef(const QLCFixtureDef* fixtureDef)
 {
+    m_isLoaded = false;
+    m_defFileAbsolutePath = QString();
     m_type = QString("Dimmer");
 
     if (fixtureDef != NULL)
@@ -82,6 +86,12 @@ QLCFixtureDef& QLCFixtureDef::operator=(const QLCFixtureDef& fixture)
     return *this;
 }
 
+void QLCFixtureDef::setDefinitionSourceFile(const QString &absPath)
+{
+    m_defFileAbsolutePath = absPath;
+    m_isLoaded = false;
+}
+
 /****************************************************************************
  * General properties
  ****************************************************************************/
@@ -116,8 +126,9 @@ void QLCFixtureDef::setType(const QString& type)
     m_type = type;
 }
 
-QString QLCFixtureDef::type() const
+QString QLCFixtureDef::type()
 {
+    checkLoaded();
     return m_type;
 }
 
@@ -126,9 +137,33 @@ void QLCFixtureDef::setAuthor(const QString& author)
     m_author = author;
 }
 
-QString QLCFixtureDef::author() const
+QString QLCFixtureDef::author()
 {
+    checkLoaded();
     return m_author;
+}
+
+void QLCFixtureDef::checkLoaded()
+{
+    // Already loaded ? Nothing to do
+    if (m_isLoaded == true)
+        return;
+
+    if (m_isLoaded == false)
+    {
+        if (m_defFileAbsolutePath.isEmpty())
+        {
+            qWarning() << Q_FUNC_INFO << "Empty file path provided ! This is a trouble.";
+            return;
+        }
+        qDebug() << "Loading fixture definition now... " << m_defFileAbsolutePath;
+        bool error = loadXML(m_defFileAbsolutePath);
+        if (error == false)
+        {
+            m_isLoaded = true;
+            m_defFileAbsolutePath = QString();
+        }
+    }
 }
 
 /****************************************************************************
@@ -223,8 +258,9 @@ bool QLCFixtureDef::removeMode(QLCFixtureMode* mode)
     return false;
 }
 
-const QLCFixtureMode* QLCFixtureDef::mode(const QString& name) const
+QLCFixtureMode *QLCFixtureDef::mode(const QString& name)
 {
+    checkLoaded();
     QListIterator <QLCFixtureMode*> it(m_modes);
     QLCFixtureMode* mode = NULL;
 
@@ -238,8 +274,9 @@ const QLCFixtureMode* QLCFixtureDef::mode(const QString& name) const
     return NULL;
 }
 
-QList <QLCFixtureMode*> QLCFixtureDef::modes() const
+QList <QLCFixtureMode*> QLCFixtureDef::modes()
 {
+    checkLoaded();
     return m_modes;
 }
 
@@ -324,6 +361,7 @@ QFile::FileError QLCFixtureDef::loadXML(const QString& fileName)
 
     if (doc.doctype().name() == KXMLQLCFixtureDefDocument)
     {
+        qDebug() << Q_FUNC_INFO << "Loading " << fileName;
         if (loadXML(doc) == true)
             error = QFile::NoError;
         else
@@ -418,6 +456,8 @@ bool QLCFixtureDef::loadXML(const QDomDocument& doc)
         retval = false;
     }
 
+    if (retval == true)
+        m_isLoaded = true;
     return retval;
 }
 

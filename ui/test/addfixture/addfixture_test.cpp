@@ -300,11 +300,11 @@ void AddFixture_Test::initialScanner()
     Fixture* fxi = new Fixture(m_doc);
     fxi->setName("My scanner");
 
-    const QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Martin", "MAC300");
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Martin", "MAC300");
     Q_ASSERT(def != NULL);
     Q_ASSERT(def != NULL);
     Q_ASSERT(def->channels().size() > 0);
-    const QLCFixtureMode* mode = def->modes().first();
+    QLCFixtureMode* mode = def->modes().first();
     Q_ASSERT(def->modes().size() > 1);
 
     fxi->setFixtureDefinition(def, mode);

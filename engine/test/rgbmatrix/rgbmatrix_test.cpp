@@ -46,9 +46,9 @@ void RGBMatrix_Test::initTestCase()
     fxiDir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
     QVERIFY(m_doc->fixtureDefCache()->load(fxiDir) == true);
 
-    const QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Stairville", "LED PAR56");
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Stairville", "LED PAR56");
     QVERIFY(def != NULL);
-    const QLCFixtureMode* mode = def->modes().first();
+    QLCFixtureMode* mode = def->modes().first();
     QVERIFY(mode != NULL);
 
     FixtureGroup* grp = new FixtureGroup(m_doc);

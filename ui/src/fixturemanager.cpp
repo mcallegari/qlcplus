@@ -514,7 +514,7 @@ QTreeWidgetItem* FixtureManager::groupItem(quint32 id) const
     return NULL;
 }
 
-void FixtureManager::updateFixtureItem(QTreeWidgetItem* item, const Fixture* fxi)
+void FixtureManager::updateFixtureItem(QTreeWidgetItem* item, Fixture* fxi)
 {
     QString s;
 
@@ -1009,8 +1009,8 @@ void FixtureManager::addFixture()
     quint32 channels = af.channels();
     int gap = af.gap();
 
-    const QLCFixtureDef* fixtureDef = af.fixtureDef();
-    const QLCFixtureMode* mode = af.mode();
+    QLCFixtureDef* fixtureDef = af.fixtureDef();
+    QLCFixtureMode* mode = af.mode();
 
     FixtureGroup* addToGroup = NULL;
     QTreeWidgetItem* current = m_fixtures_tree->currentItem();

@@ -34,6 +34,9 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
+#define FIXTURES_MAP_NAME "FixturesMap.xml"
+#define KXMLQLCFixtureMap "FixturesMap"
+
 QLCFixtureDefCache::QLCFixtureDefCache()
 {
 }
@@ -43,13 +46,13 @@ QLCFixtureDefCache::~QLCFixtureDefCache()
     clear();
 }
 
-const QLCFixtureDef* QLCFixtureDefCache::fixtureDef(
+QLCFixtureDef* QLCFixtureDefCache::fixtureDef(
     const QString& manufacturer, const QString& model) const
 {
     QListIterator <QLCFixtureDef*> it(m_defs);
     while (it.hasNext() == true)
     {
-        const QLCFixtureDef* def = it.next();
+        QLCFixtureDef* def = it.next();
         if (def->manufacturer() == manufacturer && def->model() == model)
             return def;
     }
@@ -130,6 +133,89 @@ bool QLCFixtureDefCache::load(const QDir& dir)
             loadD4(path);
         else
             qWarning() << Q_FUNC_INFO << "Unrecognized fixture extension:" << path;
+    }
+
+    return true;
+}
+
+bool QLCFixtureDefCache::loadMap(const QDir &dir)
+{
+    qDebug() << Q_FUNC_INFO << dir.path();
+
+    if (dir.exists() == false || dir.isReadable() == false)
+        return false;
+
+    QString mapPath(dir.absoluteFilePath(FIXTURES_MAP_NAME));
+
+    if (mapPath.isEmpty() == true)
+        return false;
+
+    QDomDocument doc = QLCFile::readXML(mapPath);
+    if (doc.isNull() == true)
+    {
+        qWarning() << Q_FUNC_INFO << "Unable to read from" << mapPath;
+        return QFile::ReadError;
+    }
+
+    if (doc.doctype().name() == KXMLQLCFixtureMap)
+    {
+        QDomElement root = doc.documentElement();
+        if (root.tagName() == KXMLQLCFixtureMap)
+        {
+            QDomNode node = root.firstChild();
+            while (node.isNull() == false)
+            {
+                QString defFile= "";
+                QString manufacturer = "";
+                QString model = "";
+
+                QDomElement tag = node.toElement();
+                if (tag.tagName() == "fixture")
+                {
+                    if (tag.hasAttribute("path"))
+                        defFile = QString(dir.absoluteFilePath(tag.attribute("path")));
+                    if(tag.hasAttribute("mf"))
+                        manufacturer = tag.attribute("mf");
+                    if(tag.hasAttribute("md"))
+                        model = tag.attribute("md");
+
+                    if (defFile.isEmpty() == false &&
+                        manufacturer.isEmpty() == false &&
+                        model.isEmpty() == false)
+                    {
+                        QLCFixtureDef* fxi = new QLCFixtureDef();
+                        Q_ASSERT(fxi != NULL);
+
+                        fxi->setDefinitionSourceFile(defFile);
+                        fxi->setManufacturer(manufacturer);
+                        fxi->setModel(model);
+
+                        /* Delete the def if it's a duplicate. */
+                        if (addFixtureDef(fxi) == false)
+                            delete fxi;
+                        fxi = NULL;
+                    }
+                }
+                else
+                {
+                    qWarning() << Q_FUNC_INFO << "Unknown Fixture Map tag: " << tag.tagName();
+                }
+
+                node = node.nextSibling();
+            }
+        }
+        else
+        {
+            qWarning() << Q_FUNC_INFO << mapPath
+                       << "is not a fixture map file";
+            return false;
+        }
+    }
+    else
+    {
+        qWarning() << Q_FUNC_INFO << mapPath
+                   << "is not a fixture map file";
+        return false;
     }
 
     return true;

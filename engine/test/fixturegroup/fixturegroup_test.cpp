@@ -160,9 +160,9 @@ void FixtureGroup_Test::assignFixtureNoSize()
     QVERIFY(grp.headHash()[QLCPoint(0, 1)] == GroupHead(0, 1));
     QVERIFY(grp.headHash()[QLCPoint(0, 2)] == GroupHead(1, 0));
 
-    const QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
-    const QLCFixtureMode* mode = def->modes().first();
+    QLCFixtureMode* mode = def->modes().first();
     QVERIFY(mode != NULL);
 
     fxi = new Fixture(m_doc);
@@ -210,9 +210,9 @@ void FixtureGroup_Test::assignFixture4x2()
 
     for (int i = 0; i < 11; i++)
     {
-        const QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+        QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
         QVERIFY(def != NULL);
-        const QLCFixtureMode* mode = def->modes().first();
+        QLCFixtureMode* mode = def->modes().first();
         QVERIFY(mode != NULL);
 
         Fixture* fxi = new Fixture(m_doc);
