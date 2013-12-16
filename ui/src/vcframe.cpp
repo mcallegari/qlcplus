@@ -518,9 +518,9 @@ VCWidget* VCFrame::createCopy(VCWidget* parent)
     return frame;
 }
 
-bool VCFrame::copyFrom(VCWidget* widget)
+bool VCFrame::copyFrom(const VCWidget* widget)
 {
-    VCFrame* frame = qobject_cast<VCFrame*> (widget);
+    const VCFrame* frame = qobject_cast<const VCFrame*> (widget);
     if (frame == NULL)
         return false;
 

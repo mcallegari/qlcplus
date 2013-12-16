@@ -47,7 +47,6 @@ public:
     Type type() const;
 
 private:
-    Type m_type;
     int m_port;
 
     /************************************************************************

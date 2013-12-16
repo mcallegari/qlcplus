@@ -157,9 +157,9 @@ VCWidget* VCXYPad::createCopy(VCWidget* parent)
     return xypad;
 }
 
-bool VCXYPad::copyFrom(VCWidget* widget)
+bool VCXYPad::copyFrom(const VCWidget* widget)
 {
-    VCXYPad* xypad = qobject_cast <VCXYPad*> (widget);
+    const VCXYPad* xypad = qobject_cast <const VCXYPad*> (widget);
     if (xypad == NULL)
         return false;
     resize(xypad->size());

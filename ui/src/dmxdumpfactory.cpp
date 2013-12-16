@@ -258,7 +258,7 @@ void DmxDumpFactory::accept()
                 for (int c = 0; c < fixItem->childCount(); c++)
                 {
                     QTreeWidgetItem *chanItem = fixItem->child(c);
-                    SceneValue sv();
+                    SceneValue sv;
                     if (m_dumpAllRadio->isChecked())
                     {
                         dumpMask[baseAddress + c] = 1;
