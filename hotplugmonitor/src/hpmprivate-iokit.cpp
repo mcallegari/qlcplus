@@ -122,7 +122,7 @@ void HPMPrivate::run()
     kern_return_t kr = IOMasterPort(MACH_PORT_NULL, &masterPort);
     if (kr || !masterPort)
     {
-        qWarning() << Q_FUNC_INFO << "Unable to create a master I/O Kit port" << (void*) kr;
+        qWarning() << Q_FUNC_INFO << "Unable to create a master I/O Kit port" << kr;
         return;
     }
 

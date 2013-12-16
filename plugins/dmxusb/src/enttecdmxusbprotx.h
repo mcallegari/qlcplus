@@ -1,4 +1,5 @@
 /*
+VCSlider::ValueDisplayStyle VCSlider::valueDisplayStyle()
   Q Light Controller
   enttecdmxusbprotx.h
 
@@ -40,7 +41,6 @@ private:
     bool configurePort(int port);
 
 private:
-    Type m_type;
     int m_port;
 
     /************************************************************************

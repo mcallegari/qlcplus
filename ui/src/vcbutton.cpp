@@ -146,9 +146,9 @@ VCWidget* VCButton::createCopy(VCWidget* parent)
     return button;
 }
 
-bool VCButton::copyFrom(VCWidget* widget)
+bool VCButton::copyFrom(const VCWidget* widget)
 {
-    VCButton* button = qobject_cast <VCButton*> (widget);
+    const VCButton* button = qobject_cast <const VCButton*> (widget);
     if (button == NULL)
         return false;
 

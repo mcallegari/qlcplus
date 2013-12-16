@@ -237,9 +237,9 @@ VCWidget* VCCueList::createCopy(VCWidget* parent)
     return cuelist;
 }
 
-bool VCCueList::copyFrom(VCWidget* widget)
+bool VCCueList::copyFrom(const VCWidget* widget)
 {
-    VCCueList* cuelist = qobject_cast<VCCueList*> (widget);
+    const VCCueList* cuelist = qobject_cast<const VCCueList*> (widget);
     if (cuelist == NULL)
         return false;
 

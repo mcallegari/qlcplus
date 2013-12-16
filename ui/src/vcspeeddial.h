@@ -63,7 +63,7 @@ public:
 
 protected:
     /** @reimp */
-    bool copyFrom(VCWidget* widget);
+    bool copyFrom(const VCWidget* widget);
 
     /*************************************************************************
      * Caption

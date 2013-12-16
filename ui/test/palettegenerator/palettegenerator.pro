@@ -8,7 +8,9 @@ QT      += testlib xml script
 CONFIG  -= app_bundle
 
 INCLUDEPATH += ../../src
+INCLUDEPATH += $${OUT_PWD}/../../src/
 INCLUDEPATH += ../../../engine/src
+
 DEPENDPATH  += ../../src
 
 QMAKE_LIBDIR += ../../src
