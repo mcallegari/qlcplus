@@ -2561,7 +2561,7 @@ void EFX_Test::save()
                 else if (subtag.tagName() == "Intensity")
                 {
                     QCOMPARE(subtag.text().toInt(), expectIntensity);
-                    intensity = !intensity;
+                    intensity = true;
                 }
                 else
                 {

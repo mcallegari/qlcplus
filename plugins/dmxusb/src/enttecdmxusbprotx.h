@@ -1,5 +1,4 @@
 /*
-VCSlider::ValueDisplayStyle VCSlider::valueDisplayStyle()
   Q Light Controller
   enttecdmxusbprotx.h
 
