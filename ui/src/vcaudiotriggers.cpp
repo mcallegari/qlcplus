@@ -289,9 +289,9 @@ VCWidget *VCAudioTriggers::createCopy(VCWidget *parent)
     return triggers;
 }
 
-bool VCAudioTriggers::copyFrom(VCWidget *widget)
+bool VCAudioTriggers::copyFrom(const VCWidget *widget)
 {
-    VCAudioTriggers* triggers = qobject_cast <VCAudioTriggers*> (widget);
+    const VCAudioTriggers* triggers = qobject_cast <const VCAudioTriggers*> (widget);
     if (triggers == NULL)
         return false;
 

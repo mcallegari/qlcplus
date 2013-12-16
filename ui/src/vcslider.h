@@ -101,7 +101,7 @@ public:
 
 protected:
     /** Copy the contents for this widget from another widget */
-    bool copyFrom(VCWidget* widget);
+    bool copyFrom(const VCWidget* widget);
 
     /*********************************************************************
      * Caption
@@ -154,7 +154,7 @@ public:
     /**
      * Get the slider's current SliderMode
      */
-    SliderMode sliderMode();
+    SliderMode sliderMode() const;
 
     /**
      * Change the slider's current SliderMode
@@ -178,7 +178,7 @@ public:
     static ValueDisplayStyle stringToValueDisplayStyle(QString style);
 
     void setValueDisplayStyle(ValueDisplayStyle style);
-    ValueDisplayStyle valueDisplayStyle();
+    ValueDisplayStyle valueDisplayStyle() const;
 
 protected:
     ValueDisplayStyle m_valueDisplayStyle;
@@ -264,7 +264,7 @@ public:
      * Get low limit for levels set thru the slider
      *
      */
-    uchar levelLowLimit();
+    uchar levelLowLimit() const;
 
     /**
      * Set high limit for levels set thru the slider
@@ -277,7 +277,7 @@ public:
      * Get high limit for levels set thru the slider
      *
      */
-    uchar levelHighLimit();
+    uchar levelHighLimit() const;
 
 protected:
     /**
@@ -408,7 +408,7 @@ public:
 
     void setWidgetStyle(SliderWidgetStyle mode);
 
-    SliderWidgetStyle widgetStyle();
+    SliderWidgetStyle widgetStyle() const;
 
     QString widgetStyleToString(SliderWidgetStyle style);
 
@@ -457,7 +457,7 @@ public:
     /**
      * Returns the Click & Go type
      */
-    ClickAndGoWidget::ClickAndGo clickAndGoType();
+    ClickAndGoWidget::ClickAndGo clickAndGoType() const;
 
     /**
      * Create or update the Click And Go widget (if applicable)

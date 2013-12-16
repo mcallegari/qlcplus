@@ -35,7 +35,6 @@ extern "C"
 
 MidiEnumeratorPrivate::MidiEnumeratorPrivate(MidiEnumerator* parent)
     : QObject(parent)
-    , m_client(NULL)
 {
     qDebug() << Q_FUNC_INFO;
 
