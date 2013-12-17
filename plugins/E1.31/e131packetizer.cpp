@@ -208,7 +208,7 @@ bool E131Packetizer::fillDMXdata(QByteArray& data, QByteArray &dmx, int &univers
         return false;
     dmx.clear();
 
-    universe = data[114] - 1;
+    universe = (data[113] << 8) + data[114] - 1;
 
     unsigned int msb = (data[123] & 0xff);
     unsigned int lsb = (data[124] & 0xff);

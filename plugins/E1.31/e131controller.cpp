@@ -42,20 +42,31 @@ E131Controller::E131Controller(QString ipaddr, QList<QNetworkAddressEntry> inter
     m_packetizer = new E131Packetizer();
     m_packetSent = 0;
     m_packetReceived = 0;
+    m_type = type;
 
     m_UdpSocket = new QUdpSocket(this);
 
-    if (m_UdpSocket->bind(m_ipAddr, E131_DEFAULT_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint) == false)
-        return;
+    // reset initial DMX values if we're an input
+    if (type == Input)
+    {
+        m_dmxValues.fill(0, 2048);
+        if (m_UdpSocket->bind(E131_DEFAULT_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint) == false)
+        {
+            qDebug() << Q_FUNC_INFO << "Socket input bind failed !!";
+            return;
+        }
+    }
+    else
+    {
+        if (m_UdpSocket->bind(m_ipAddr, E131_DEFAULT_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint) == false)
+        {
+            qDebug() << Q_FUNC_INFO << "Socket output bind failed !!";
+            return;
+        }
+    }
 
     connect(m_UdpSocket, SIGNAL(readyRead()),
             this, SLOT(processPendingPackets()));
-
-    // reset initial DMX values if we're an input
-    if (type == Input)
-        m_dmxValues.fill(0, 2048);
-
-    m_type = type;
 }
 
 E131Controller::~E131Controller()
@@ -75,6 +86,8 @@ void E131Controller::addUniverse(quint32 line, int uni)
         qDebug() << "[E131Controller] Universe:" << uni <<
                  ", multicast address:" << m_multicastAddr[uni].toString() <<
                  "(MAC:" << m_MACAddress << ")";
+        if (m_type == Input)
+            m_UdpSocket->joinMulticastGroup(m_multicastAddr[uni]);
     }
 }
 
