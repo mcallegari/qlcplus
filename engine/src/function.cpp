@@ -105,6 +105,7 @@ bool Function::copyFrom(const Function* function)
     m_fadeInSpeed = function->fadeInSpeed();
     m_fadeOutSpeed = function->fadeOutSpeed();
     m_duration = function->duration();
+    m_path = function->path(true);
 
     emit changed(m_id);
 

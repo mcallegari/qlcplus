@@ -157,7 +157,8 @@ void FunctionManager::slotDocLoaded()
         if (chaser->isSequence() && chaser->getBoundSceneID() != Scene::invalidId())
         {
             Function *sceneFunc = m_doc->function(chaser->getBoundSceneID());
-            Q_ASSERT(sceneFunc != NULL);
+            if (sceneFunc == NULL)
+                continue;
 
             Scene *scene = qobject_cast<Scene*>(sceneFunc);
             scene->setChildrenFlag(true);
@@ -589,13 +590,17 @@ void FunctionManager::slotSelectAll()
 void FunctionManager::updateActionStatus()
 {
     bool validSelection = false;
+    m_cloneAction->setEnabled(false);
 
     if (m_tree->selectedItems().isEmpty() == false)
     {
         QTreeWidgetItem *firstItem = m_tree->selectedItems().first();
         quint32 fid = m_tree->itemFunctionId(firstItem);
         if (fid != Function::invalidId())
+        {
+            m_cloneAction->setEnabled(true);
             validSelection = true;
+        }
 
         // check if this is a folder
         if (m_tree->selectedItems().count() == 1 && m_tree->indexOfTopLevelItem(firstItem) < 0)
@@ -610,7 +615,6 @@ void FunctionManager::updateActionStatus()
     {
         /* At least one function has been selected, so
            editing is possible. */
-        m_cloneAction->setEnabled(true);
         m_selectAllAction->setEnabled(true);
         if (m_doc->mode() == Doc::Operate)
             m_deleteAction->setEnabled(false);
@@ -620,7 +624,6 @@ void FunctionManager::updateActionStatus()
     else
     {
         /* No functions selected */
-        m_cloneAction->setEnabled(false);
         m_selectAllAction->setEnabled(false);
         m_deleteAction->setEnabled(false);
     }

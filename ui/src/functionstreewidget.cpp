@@ -108,17 +108,20 @@ QTreeWidgetItem* FunctionsTreeWidget::parentItem(const Function* function)
     if (function->type() == Function::Chaser && qobject_cast<const Chaser*>(function)->isSequence() == true)
     {
         quint32 sid = qobject_cast<const Chaser*>(function)->getBoundSceneID();
-
-        QTreeWidgetItem *sceneTopItem = folderItem("Scene/");
-        if (sceneTopItem != NULL)
+        Function *sceneFunc = m_doc->function(sid);
+        if (sceneFunc != NULL)
         {
-            for (int i = 0; i < sceneTopItem->childCount(); i++)
+            QTreeWidgetItem *sceneTopItem = folderItem(sceneFunc->path());
+            if (sceneTopItem != NULL)
             {
-                QTreeWidgetItem *child = sceneTopItem->child(i);
-                Q_ASSERT(child != NULL);
+                for (int i = 0; i < sceneTopItem->childCount(); i++)
+                {
+                    QTreeWidgetItem *child = sceneTopItem->child(i);
+                    Q_ASSERT(child != NULL);
 
-                if (sid == itemFunctionId(child))
-                    return child;
+                    if (sid == itemFunctionId(child))
+                        return child;
+                }
             }
         }
     }
@@ -433,6 +436,19 @@ void FunctionsTreeWidget::dropEvent(QDropEvent *event)
             Function *func = m_doc->function(fid);
             if (func != NULL)
                 func->setPath(dropItem->text(COL_PATH));
+            // if item is a Scene with Sequence children attached,
+            // set the new path of children too
+            if (item->childCount() > 0)
+            {
+                for (int i = 0; i < item->childCount(); i++)
+                {
+                    QTreeWidgetItem *child = item->child(i);
+                    quint32 childFID = child->data(COL_NAME, Qt::UserRole).toUInt();
+                    Function *childFunc = m_doc->function(childFID);
+                    if (childFunc != NULL)
+                        childFunc->setPath(dropItem->text(COL_PATH));
+                }
+            }
         }
         else
         {
