@@ -171,7 +171,7 @@ bool VCClock::loadXML(const QDomElement* root)
 
     if (root->tagName() != KXMLQLCVCClock)
     {
-        qWarning() << Q_FUNC_INFO << "Label node not found";
+        qWarning() << Q_FUNC_INFO << "Clock node not found";
         return false;
     }
 
@@ -180,7 +180,7 @@ bool VCClock::loadXML(const QDomElement* root)
         setClockType(stringToType(root->attribute(KXMLQLCVCClockType)));
         if (clockType() == Countdown)
         {
-            int h, m, s;
+            int h = 0, m = 0, s = 0;
             if (root->hasAttribute(KXMLQLCVCClockHours))
                 h = root->attribute(KXMLQLCVCClockHours).toInt();
             if (root->hasAttribute(KXMLQLCVCClockMinutes))
@@ -212,7 +212,7 @@ bool VCClock::loadXML(const QDomElement* root)
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown label tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown clock tag:" << tag.tagName();
         }
 
         node = node.nextSibling();
@@ -224,14 +224,11 @@ bool VCClock::loadXML(const QDomElement* root)
 bool VCClock::saveXML(QDomDocument* doc, QDomElement* vc_root)
 {
     QDomElement root;
-    QDomElement tag;
-    QDomText text;
-    QString str;
 
     Q_ASSERT(doc != NULL);
     Q_ASSERT(vc_root != NULL);
 
-    /* VC Label entry */
+    /* VC Clock entry */
     root = doc->createElement(KXMLQLCVCClock);
     vc_root->appendChild(root);
 
