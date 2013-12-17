@@ -40,7 +40,6 @@ private:
     bool configurePort(int port);
 
 private:
-    Type m_type;
     int m_port;
 
     /************************************************************************

@@ -90,9 +90,9 @@ VCWidget* VCSpeedDial::createCopy(VCWidget* parent)
     return dial;
 }
 
-bool VCSpeedDial::copyFrom(VCWidget* widget)
+bool VCSpeedDial::copyFrom(const VCWidget* widget)
 {
-    VCSpeedDial* dial = qobject_cast<VCSpeedDial*> (widget);
+    const VCSpeedDial* dial = qobject_cast<const VCSpeedDial*> (widget);
     if (dial == NULL)
         return false;
 

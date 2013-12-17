@@ -247,9 +247,9 @@ VCWidget* VCSlider::createCopy(VCWidget* parent)
     return slider;
 }
 
-bool VCSlider::copyFrom(VCWidget* widget)
+bool VCSlider::copyFrom(const VCWidget* widget)
 {
-    VCSlider* slider = qobject_cast<VCSlider*> (widget);
+    const VCSlider* slider = qobject_cast<const VCSlider*> (widget);
     if (slider == NULL)
         return false;
 
@@ -411,7 +411,7 @@ void VCSlider::setValueDisplayStyle(VCSlider::ValueDisplayStyle style)
         setTopLabelText(m_knob->value());
 }
 
-VCSlider::ValueDisplayStyle VCSlider::valueDisplayStyle()
+VCSlider::ValueDisplayStyle VCSlider::valueDisplayStyle() const
 {
     return m_valueDisplayStyle;
 }
@@ -473,7 +473,7 @@ VCSlider::SliderMode VCSlider::stringToSliderMode(const QString& mode)
         return Submaster;
 }
 
-VCSlider::SliderMode VCSlider::sliderMode()
+VCSlider::SliderMode VCSlider::sliderMode() const
 {
     return m_sliderMode;
 }
@@ -591,7 +591,7 @@ void VCSlider::setLevelLowLimit(uchar value)
     m_levelLowLimit = value;
 }
 
-uchar VCSlider::levelLowLimit()
+uchar VCSlider::levelLowLimit() const
 {
     return m_levelLowLimit;
 }
@@ -601,7 +601,7 @@ void VCSlider::setLevelHighLimit(uchar value)
     m_levelHighLimit = value;
 }
 
-uchar VCSlider::levelHighLimit()
+uchar VCSlider::levelHighLimit() const
 {
     return m_levelHighLimit;
 }
@@ -639,7 +639,7 @@ void VCSlider::setClickAndGoType(ClickAndGoWidget::ClickAndGo type)
     m_cngType = type;
 }
 
-ClickAndGoWidget::ClickAndGo VCSlider::clickAndGoType()
+ClickAndGoWidget::ClickAndGo VCSlider::clickAndGoType() const
 {
     return m_cngType;
 }
@@ -1062,7 +1062,7 @@ void VCSlider::setWidgetStyle(SliderWidgetStyle mode)
     update();
 }
 
-VCSlider::SliderWidgetStyle VCSlider::widgetStyle()
+VCSlider::SliderWidgetStyle VCSlider::widgetStyle() const
 {
     return m_widgetMode;
 }
