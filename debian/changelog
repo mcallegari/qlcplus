@@ -10,6 +10,7 @@ qlcplus (4.6.0) stable; urgency=low
   * NEW: It is now possible to control RGB Matrices intensity
   * NEW: RGB Matrices can now be converted to Sequences and imported into Shows 
   * NEW: It is now possible to control fixture heads in EFX and XY Pad (thanks to Jano Svitok)
+  * NEW: Virtual Console clock can be used also as a stopwatch or a countdown
   * Virtual Console: fixed audio triggers incorrect loading
   * Input/Output: improved audio device selection
   * Audio Input: fixed crash occurring on Linux for unsupported audio devices

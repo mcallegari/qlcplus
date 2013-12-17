@@ -23,12 +23,26 @@
 
 #include "qlcfile.h"
 
+#include "vcclockproperties.h"
 #include "virtualconsole.h"
 #include "inputmap.h"
 #include "vcclock.h"
 #include "doc.h"
 
-VCClock::VCClock(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
+#define KXMLQLCVCClockType "Type"
+#define KXMLQLCVCClockHours "Hours"
+#define KXMLQLCVCClockMinutes "Minutes"
+#define KXMLQLCVCClockSeconds "Seconds"
+
+VCClock::VCClock(QWidget* parent, Doc* doc)
+    : VCWidget(parent, doc)
+    , m_clocktype(Clock)
+    , m_hh(0)
+    , m_mm(0)
+    , m_ss(0)
+    , m_targetTime(0)
+    , m_currentTime(0)
+    , m_isPaused(false)
 {
     /* Set the class name "VCClock" as the object name as well */
     setObjectName(VCClock::staticMetaObject.className());
@@ -42,12 +56,78 @@ VCClock::VCClock(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     setFont(font);
 
     QTimer *timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(update()));
+    connect(timer, SIGNAL(timeout()), this, SLOT(slotUpdateTime()));
     timer->start(1000);
 }
 
 VCClock::~VCClock()
 {
+}
+
+/*********************************************************************
+ * Type
+ *********************************************************************/
+
+void VCClock::setClockType(VCClock::ClockType type)
+{
+    m_clocktype = type;
+    update();
+}
+
+VCClock::ClockType VCClock::clockType()
+{
+    return m_clocktype;
+}
+
+QString VCClock::typeToString(VCClock::ClockType type)
+{
+    if (type == Stopwatch)
+        return "Stopwatch";
+    else if (type == Countdown)
+        return "Countdown";
+    else
+        return "Clock";
+}
+
+VCClock::ClockType VCClock::stringToType(QString str)
+{
+    if (str == "Stopwatch")
+        return Stopwatch;
+    else if (str == "Countdown")
+        return Countdown;
+    else
+        return Clock;
+}
+
+void VCClock::setCountdown(int h, int m, int s)
+{
+    m_hh = h;
+    m_mm = m;
+    m_ss = s;
+    m_targetTime = (m_hh * 3600) + (m_mm * 60) + m_ss;
+    m_currentTime = m_targetTime;
+}
+
+void VCClock::resetTime()
+{
+    if (m_clocktype == Stopwatch)
+        m_currentTime = 0;
+    else if (m_clocktype == Countdown)
+        m_currentTime = m_targetTime;
+
+    update();
+}
+
+void VCClock::slotUpdateTime()
+{
+    if (mode() == Doc::Operate && m_isPaused == false)
+    {
+        if (m_clocktype == Stopwatch)
+            m_currentTime++;
+        else if (m_clocktype == Countdown && m_currentTime > 0)
+            m_currentTime--;
+    }
+    update();
 }
 
 /*****************************************************************************
@@ -74,13 +154,11 @@ VCWidget* VCClock::createCopy(VCWidget* parent)
 
 void VCClock::editProperties()
 {
-    /*
-    bool ok = false;
-    QString text = QInputDialog::getText(NULL, tr("Rename Label"), tr("Caption:"),
-                                         QLineEdit::Normal, caption(), &ok);
-    if (ok == true)
-        setCaption(text);
-    */
+    VCClockProperties vccp(this);
+    if (vccp.exec() == QDialog::Rejected)
+        return;
+
+    m_doc->setModified();
 }
 
 /*****************************************************************************
@@ -95,6 +173,22 @@ bool VCClock::loadXML(const QDomElement* root)
     {
         qWarning() << Q_FUNC_INFO << "Label node not found";
         return false;
+    }
+
+    if (root->hasAttribute(KXMLQLCVCClockType))
+    {
+        setClockType(stringToType(root->attribute(KXMLQLCVCClockType)));
+        if (clockType() == Countdown)
+        {
+            int h, m, s;
+            if (root->hasAttribute(KXMLQLCVCClockHours))
+                h = root->attribute(KXMLQLCVCClockHours).toInt();
+            if (root->hasAttribute(KXMLQLCVCClockMinutes))
+                m = root->attribute(KXMLQLCVCClockMinutes).toInt();
+            if (root->hasAttribute(KXMLQLCVCClockSeconds))
+                s = root->attribute(KXMLQLCVCClockSeconds).toInt();
+            setCountdown(h, m ,s);
+        }
     }
 
     /* Widget commons */
@@ -141,6 +235,16 @@ bool VCClock::saveXML(QDomDocument* doc, QDomElement* vc_root)
     root = doc->createElement(KXMLQLCVCClock);
     vc_root->appendChild(root);
 
+    /* Type */
+    ClockType type = clockType();
+    root.setAttribute(KXMLQLCVCClockType, typeToString(type));
+    if (type == Countdown)
+    {
+        root.setAttribute(KXMLQLCVCClockHours, getHours());
+        root.setAttribute(KXMLQLCVCClockMinutes, getMinutes());
+        root.setAttribute(KXMLQLCVCClockSeconds, getSeconds());
+    }
+
     saveXMLCommon(doc, &root);
 
     /* Window state */
@@ -159,11 +263,54 @@ bool VCClock::saveXML(QDomDocument* doc, QDomElement* vc_root)
 void VCClock::paintEvent(QPaintEvent* e)
 {
     QPainter painter(this);
-    QDateTime currTime = QDateTime::currentDateTime();
 
-    style()->drawItemText(&painter, rect(), Qt::AlignCenter | Qt::TextWordWrap, palette(),
-                          true, currTime.time().toString(), foregroundRole());
+    if (clockType() == Clock)
+    {
+        QDateTime currTime = QDateTime::currentDateTime();
+        style()->drawItemText(&painter, rect(), Qt::AlignCenter | Qt::TextWordWrap, palette(),
+                              true, currTime.time().toString(), foregroundRole());
+    }
+    else
+    {
+        quint32 secTime = m_currentTime;
+        uint h, m;
+
+        h = secTime / 3600;
+        secTime -= (h * 3600);
+
+        m = secTime / 60;
+        secTime -= (m * 60);
+        style()->drawItemText(&painter, rect(), Qt::AlignCenter | Qt::TextWordWrap, palette(),
+                              true, QString("%1:%2:%3").arg(h, 2, 10, QChar('0'))
+                              .arg(m, 2, 10, QChar('0')).arg(secTime, 2, 10, QChar('0')), foregroundRole());
+    }
     painter.end();
 
     VCWidget::paintEvent(e);
+}
+
+void VCClock::mousePressEvent(QMouseEvent *e)
+{
+    if (mode() == Doc::Design)
+    {
+        VCWidget::mousePressEvent(e);
+        return;
+    }
+
+    if (e->button() == Qt::RightButton)
+    {
+        if (clockType() == Stopwatch)
+            m_currentTime = 0;
+        else if (clockType() == Countdown)
+            m_currentTime = m_targetTime;
+        update();
+    }
+    else if (e->button() == Qt::LeftButton)
+    {
+        if (clockType() == Stopwatch || clockType() == Countdown)
+            m_isPaused = !m_isPaused;
+
+        update();
+    }
+    VCWidget::mousePressEvent(e);
 }

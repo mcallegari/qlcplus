@@ -43,6 +43,47 @@ public:
     ~VCClock();
 
     /*********************************************************************
+     * Type
+     *********************************************************************/
+public:
+    enum ClockType
+    {
+        Clock,
+        Stopwatch,
+        Countdown
+    };
+
+    void setClockType(ClockType type);
+    ClockType clockType();
+
+    QString typeToString(ClockType type);
+    ClockType stringToType(QString str);
+
+private:
+    ClockType m_clocktype;
+
+    /*********************************************************************
+     * Time
+     *********************************************************************/
+
+public:
+    void setCountdown(int h, int m, int s);
+    long currentTime() { return m_currentTime; }
+    void resetTime();
+    int getHours() { return m_hh; }
+    int getMinutes() { return m_mm; }
+    int getSeconds() { return m_ss; }
+
+protected slots:
+    void slotUpdateTime();
+
+private:
+    int m_hh, m_mm, m_ss;
+    quint32 m_targetTime;
+    quint32 m_currentTime;
+    bool m_isPaused;
+
+    /*********************************************************************
      * Clipboard
      *********************************************************************/
 public:
@@ -72,6 +113,7 @@ public:
      *********************************************************************/
 protected:
     void paintEvent(QPaintEvent* e);
+    void mousePressEvent(QMouseEvent* e);
 };
 
 #endif

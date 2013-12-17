@@ -102,6 +102,7 @@ HEADERS += aboutbox.h \
            vcbutton.h \
            vcbuttonproperties.h \
            vcclock.h \
+           vcclockproperties.h \
            vccuelist.h \
            vccuelistproperties.h \
            vcdockarea.h \
@@ -155,6 +156,7 @@ FORMS += aboutbox.ui \
          showeditor.ui \
          vcaudiotriggersproperties.ui \
          vcbuttonproperties.ui \
+         vcclockproperties.ui \
          vccuelistproperties.ui \
          vcframeproperties.ui \
          vcproperties.ui \
@@ -232,6 +234,7 @@ SOURCES += aboutbox.cpp \
            vcbutton.cpp \
            vcbuttonproperties.cpp \
            vcclock.cpp \
+           vcclockproperties.cpp \
            vccuelist.cpp \
            vccuelistproperties.cpp \
            vcdockarea.cpp \
