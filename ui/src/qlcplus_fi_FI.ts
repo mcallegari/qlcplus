@@ -122,10 +122,6 @@
         <translation>Lisää valaisin</translation>
     </message>
     <message>
-        <source>px</source>
-        <translation type="obsolete">px</translation>
-    </message>
-    <message>
         <location filename="addfixture.ui" line="219"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>

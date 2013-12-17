@@ -122,14 +122,6 @@
         <translation>Aggiungi fixture</translation>
     </message>
     <message>
-        <source>px</source>
-        <translation type="obsolete">px</translation>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation type="obsolete">Dimensione</translation>
-    </message>
-    <message>
         <location filename="addfixture.ui" line="219"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERRORE: Indirizzo già usato !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
@@ -228,10 +220,6 @@
         <location filename="addfixture.cpp" line="593"/>
         <source>Dimmers</source>
         <translation>Dimmer</translation>
-    </message>
-    <message>
-        <source>Generic RGB Matrix</source>
-        <translation type="obsolete">Matrice RGB generica</translation>
     </message>
 </context>
 <context>
@@ -2727,10 +2715,6 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Basandomi sulle fixture che hai aggiunto, posso creare le funzioni elencate a sinistra. Devi solo selezionare quelle che ti servono e verificare i risultati a destra !&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>Advanced</source>
-        <translation type="obsolete">Avanzate</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="300"/>

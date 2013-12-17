@@ -156,10 +156,6 @@
         <translation>Název</translation>
     </message>
     <message>
-        <source>px</source>
-        <translation type="obsolete">px</translation>
-    </message>
-    <message>
         <location filename="addfixture.ui" line="97"/>
         <source>A friendly name for the new fixture</source>
         <translation>Zvolte si, jak se má zařízení jmenovat (libovolně, pro snadnou identifikaci)</translation>

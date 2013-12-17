@@ -156,10 +156,6 @@
         <translation>Naam</translation>
     </message>
     <message>
-        <source>px</source>
-        <translation type="obsolete">px</translation>
-    </message>
-    <message>
         <location filename="addfixture.ui" line="97"/>
         <source>A friendly name for the new fixture</source>
         <translation>Gebruiksvriendelijke naam voor de nieuwe fixture</translation>
@@ -2709,10 +2705,6 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Met de fixtures die U toegevoegd hebt, kan ik de funkties die links getoond worden maken. Selecteer de funkties die U nodig hebt en zie het resultaat aan de rechter kant!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>Advanced</source>
-        <translation type="obsolete">Geavanceerd</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="300"/>
