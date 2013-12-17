@@ -2778,7 +2778,8 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="functionwizard.cpp" line="466"/>
         <source>Presets solo frame</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Should we translate presets?</translatorcomment>
+        <translation type="unfinished">Presets solo frame</translation>
     </message>
     <message>
         <location filename="functionwizard.cpp" line="519"/>
@@ -3308,7 +3309,7 @@ Duur: %3
     <message>
         <location filename="palettegenerator.cpp" line="103"/>
         <source>Animations</source>
-        <translation type="unfinished"></translation>
+        <translation>Animaties</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="106"/>
@@ -3433,12 +3434,12 @@ Duur: %3
     <message>
         <location filename="palettegenerator.cpp" line="420"/>
         <source> - RGB Group</source>
-        <translation type="unfinished"></translation>
+        <translation>- RGB Group</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="426"/>
         <source>Animation %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Animatie %1</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="445"/>
@@ -3540,7 +3541,7 @@ Duur: %3
     <message>
         <location filename="rgbmatrixeditor.ui" line="398"/>
         <source>Save this matrix to a sequence</source>
-        <translation type="unfinished"></translation>
+        <translation>Sla deze matrix op naar een sequence</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="424"/>
@@ -4645,42 +4646,42 @@ Duur: %3
     <message>
         <location filename="vcclockproperties.ui" line="14"/>
         <source>Clock properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Klok eigenschappen</translation>
     </message>
     <message>
         <location filename="vcclockproperties.ui" line="24"/>
         <source>Clock type</source>
-        <translation type="unfinished"></translation>
+        <translation>Klok type</translation>
     </message>
     <message>
         <location filename="vcclockproperties.ui" line="30"/>
         <source>Stopwatch</source>
-        <translation type="unfinished"></translation>
+        <translation>Stopwatch</translation>
     </message>
     <message>
         <location filename="vcclockproperties.ui" line="37"/>
         <source>h</source>
-        <translation type="unfinished"></translation>
+        <translation>u</translation>
     </message>
     <message>
         <location filename="vcclockproperties.ui" line="47"/>
         <source>Countdown</source>
-        <translation type="unfinished"></translation>
+        <translation>Countdown</translation>
     </message>
     <message>
         <location filename="vcclockproperties.ui" line="54"/>
         <source>m</source>
-        <translation type="unfinished"></translation>
+        <translation>m</translation>
     </message>
     <message>
         <location filename="vcclockproperties.ui" line="64"/>
         <source>s</source>
-        <translation type="unfinished">s</translation>
+        <translation>s</translation>
     </message>
     <message>
         <location filename="vcclockproperties.ui" line="74"/>
         <source>Clock</source>
-        <translation type="unfinished"></translation>
+        <translation>Klok</translation>
     </message>
 </context>
 <context>
@@ -5719,22 +5720,22 @@ Kies...</translation>
     <message>
         <location filename="vcsliderproperties.ui" line="574"/>
         <source>Submaster</source>
-        <translation type="unfinished"></translation>
+        <translation>Submaster</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="580"/>
         <source>Slider submaster mode is active</source>
-        <translation type="unfinished"></translation>
+        <translation>Slider submaster mode is actief</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="603"/>
         <source>Make the slider act as a submaster</source>
-        <translation type="unfinished"></translation>
+        <translation>Laat slider als een submaster werken</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="606"/>
         <source>Switch to Submaster Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Ga naar Submaster Mode</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.cpp" line="679"/>
