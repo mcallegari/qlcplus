@@ -144,14 +144,14 @@ void OlaOutThread::new_pipe_data()
 
 
 /*
- * Setup the OlaClient to communicate with the server.
+ * Setup the OlaCallbackClient to communicate with the server.
  * @return true if the setup worked corectly.
  */
 bool OlaOutThread::setup_client(ola::io::ConnectedDescriptor *descriptor)
 {
     if (!m_client)
     {
-        m_client = new ola::OlaClient(descriptor);
+        m_client = new ola::OlaCallbackClient(descriptor);
         if (!m_client->Setup())
         {
             qWarning() << "olaout: client setup failed";

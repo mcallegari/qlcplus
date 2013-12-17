@@ -24,7 +24,7 @@
 #include <QThread>
 
 #include <ola/DmxBuffer.h>
-#include <ola/OlaClient.h>
+#include <ola/OlaCallbackClient.h>
 #include <ola/io/Descriptor.h>
 #include <ola/io/SelectServer.h>
 #include <ola/network/Socket.h>
@@ -45,18 +45,18 @@ typedef struct
  *
  * Basic design: qlc plugins aren't allowed to block in calls, so we start a
  * new thread which runs a select server. Calls to write_dmx in the plugin send
- * data over a pipe which the OLA thread listens on. It then uses the OlaClient
- * api to send the data to the OLA Server.
+ * data over a pipe which the OLA thread listens on. It then uses the
+ * OlaCallbackClient api to send the data to the OLA Server.
  *
  * The thread can either run as a OLA Client or embed the OLA server. As a
  * client, we connect to the OLA server using a TCP socket.
  *
  *   OlaOut --pipe-> OlaOutThread --tcp socket-> olad (separate process)
  *
- * When embedded the server, we still use the OlaClient class and setup a pipe
- * to send the rpcs over. Yes, this results in copying the data twice over a
- * pipe but we can't use a single pipe because the OlaClient needs to
- * response to events.
+ * When embedded the server, we still use the OlaCallbackClient class and setup
+ * a pipe to send the rpcs over. Yes, this results in copying the data twice
+ * over a pipe but we can't use a single pipe because the OlaClient needs to
+ * respond to events.
  *
  * OlaOut --pipe-> OlaOutThread --pipe-> OlaServer
  */
@@ -82,7 +82,7 @@ private:
     virtual bool init() = 0;
     virtual void cleanup() {};
     ola::io::LoopbackDescriptor *m_pipe; // the pipe to get new dmx data on
-    ola::OlaClient *m_client;
+    ola::OlaCallbackClient *m_client;
     dmx_data m_data;
     ola::DmxBuffer m_buffer;
 };
