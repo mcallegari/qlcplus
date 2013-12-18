@@ -5,19 +5,17 @@
   Copyright (c) Simon Newton
                 Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #ifndef OLAOUTTHREAD_H
@@ -26,7 +24,7 @@
 #include <QThread>
 
 #include <ola/DmxBuffer.h>
-#include <ola/OlaClient.h>
+#include <ola/OlaCallbackClient.h>
 #include <ola/io/Descriptor.h>
 #include <ola/io/SelectServer.h>
 #include <ola/network/Socket.h>
@@ -47,18 +45,18 @@ typedef struct
  *
  * Basic design: qlc plugins aren't allowed to block in calls, so we start a
  * new thread which runs a select server. Calls to write_dmx in the plugin send
- * data over a pipe which the OLA thread listens on. It then uses the OlaClient
- * api to send the data to the OLA Server.
+ * data over a pipe which the OLA thread listens on. It then uses the
+ * OlaCallbackClient api to send the data to the OLA Server.
  *
  * The thread can either run as a OLA Client or embed the OLA server. As a
  * client, we connect to the OLA server using a TCP socket.
  *
  *   OlaOut --pipe-> OlaOutThread --tcp socket-> olad (separate process)
  *
- * When embedded the server, we still use the OlaClient class and setup a pipe
- * to send the rpcs over. Yes, this results in copying the data twice over a
- * pipe but we can't use a single pipe because the OlaClient needs to
- * response to events.
+ * When embedded the server, we still use the OlaCallbackClient class and setup
+ * a pipe to send the rpcs over. Yes, this results in copying the data twice
+ * over a pipe but we can't use a single pipe because the OlaClient needs to
+ * respond to events.
  *
  * OlaOut --pipe-> OlaOutThread --pipe-> OlaServer
  */
@@ -84,7 +82,7 @@ private:
     virtual bool init() = 0;
     virtual void cleanup() {};
     ola::io::LoopbackDescriptor *m_pipe; // the pipe to get new dmx data on
-    ola::OlaClient *m_client;
+    ola::OlaCallbackClient *m_client;
     dmx_data m_data;
     ola::DmxBuffer m_buffer;
 };

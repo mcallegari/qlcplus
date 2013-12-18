@@ -25,6 +25,7 @@
  </Channel>
  <Channel Name="Amber">
   <Group Byte="0">Intensity</Group>
+  <Colour>Amber</Colour>
   <Capability Min="0" Max="255">Amber 0 - 100%</Capability>
  </Channel>
  <Channel Name="Master Int">
@@ -82,25 +83,26 @@
   <Group Byte="0">Effect</Group>
  </Channel>
  <Channel Name="Red (fine)">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Colour>Red</Colour>
  </Channel>
  <Channel Name="Green (fine)">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Colour>Green</Colour>
  </Channel>
  <Channel Name="Blue (fine)">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Colour>Blue</Colour>
  </Channel>
  <Channel Name="Amber (fine)">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
+  <Colour>Amber</Colour>
  </Channel>
  <Channel Name="Red + Amber">
   <Group Byte="0">Intensity</Group>
  </Channel>
  <Channel Name="Red + Amber (fine)">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
  </Channel>
  <Mode Name="DMX (res=3Ch)">
   <Physical>

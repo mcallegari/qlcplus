@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QTreeWidgetItem>
@@ -59,6 +57,7 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
     : QDialog(parent)
     , m_doc(doc)
     , m_multiSelection(true)
+    , m_runningOnlyFlag(false)
     , m_filter(Function::Scene | Function::Chaser | Function::Collection |
                Function::EFX | Function::Script | Function::RGBMatrix | Function::Show | Function::Audio)
     , m_disableFilters(0)
@@ -72,6 +71,12 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
     action->setShortcut(QKeySequence(QKeySequence::Close));
     connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
     addAction(action);
+
+    connect(m_allFunctionsRadio, SIGNAL(clicked()),
+            this, SLOT(slotAllFunctionsChecked()));
+
+    connect(m_runningFunctionsRadio, SIGNAL(clicked()),
+            this, SLOT(slotRunningFunctionsChecked()));
 
     connect(m_sceneCheck, SIGNAL(toggled(bool)),
             this, SLOT(slotSceneChecked(bool)));
@@ -151,7 +156,6 @@ int FunctionSelection::exec()
             this, SLOT(slotItemDoubleClicked(QTreeWidgetItem*)));
 
     refillTree();
-    m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
 
     slotItemSelectionChanged();
 
@@ -174,6 +178,22 @@ FunctionSelection::~FunctionSelection()
 void FunctionSelection::setMultiSelection(bool multi)
 {
     m_multiSelection = multi;
+}
+
+/*********************************************************************
+ * Functions filter
+ *********************************************************************/
+
+void FunctionSelection::slotAllFunctionsChecked()
+{
+    m_runningOnlyFlag = false;
+    refillTree();
+}
+
+void FunctionSelection::slotRunningFunctionsChecked()
+{
+    m_runningOnlyFlag = true;
+    refillTree();
 }
 
 /*****************************************************************************
@@ -251,6 +271,9 @@ void FunctionSelection::refillTree()
     {
         if (m_filter & function->type())
         {
+            if (m_runningOnlyFlag == true && function->isRunning() == false)
+                continue;
+
             QTreeWidgetItem* item = new QTreeWidgetItem(m_tree);
             updateFunctionItem(item, function);
 
@@ -258,6 +281,8 @@ void FunctionSelection::refillTree()
                 item->setFlags(0); // Disables the item
         }
     }
+    m_tree->resizeColumnToContents(KColumnName);
+    m_tree->resizeColumnToContents(KColumnType);
 }
 
 void FunctionSelection::slotItemSelectionChanged()

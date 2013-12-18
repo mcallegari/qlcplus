@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QCoreApplication>
@@ -24,7 +22,7 @@
 #include <QDebug>
 #include <QSet>
 
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
 #   include <windows.h>
 #else
 #   include <unistd.h>
@@ -36,6 +34,9 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
+#define FIXTURES_MAP_NAME "FixturesMap.xml"
+#define KXMLQLCFixtureMap "FixturesMap"
+
 QLCFixtureDefCache::QLCFixtureDefCache()
 {
 }
@@ -45,13 +46,13 @@ QLCFixtureDefCache::~QLCFixtureDefCache()
     clear();
 }
 
-const QLCFixtureDef* QLCFixtureDefCache::fixtureDef(
+QLCFixtureDef* QLCFixtureDefCache::fixtureDef(
     const QString& manufacturer, const QString& model) const
 {
     QListIterator <QLCFixtureDef*> it(m_defs);
     while (it.hasNext() == true)
     {
-        const QLCFixtureDef* def = it.next();
+        QLCFixtureDef* def = it.next();
         if (def->manufacturer() == manufacturer && def->model() == model)
             return def;
     }
@@ -113,6 +114,23 @@ bool QLCFixtureDefCache::addFixtureDef(QLCFixtureDef* fixtureDef)
     }
 }
 
+bool QLCFixtureDefCache::storeFixtureDef(QString filename, QString data)
+{
+    QDir userFolder = userDefinitionDirectory();
+
+    QFile file(userFolder.absoluteFilePath(filename));
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text) == false)
+        return false;
+
+    file.write(data.toLatin1());
+    file.close();
+
+    // reload user definitions
+    load(userDefinitionDirectory());
+
+    return true;
+}
+
 bool QLCFixtureDefCache::load(const QDir& dir)
 {
     qDebug() << Q_FUNC_INFO << dir.path();
@@ -137,6 +155,89 @@ bool QLCFixtureDefCache::load(const QDir& dir)
     return true;
 }
 
+bool QLCFixtureDefCache::loadMap(const QDir &dir)
+{
+    qDebug() << Q_FUNC_INFO << dir.path();
+
+    if (dir.exists() == false || dir.isReadable() == false)
+        return false;
+
+    QString mapPath(dir.absoluteFilePath(FIXTURES_MAP_NAME));
+
+    if (mapPath.isEmpty() == true)
+        return false;
+
+    QDomDocument doc = QLCFile::readXML(mapPath);
+    if (doc.isNull() == true)
+    {
+        qWarning() << Q_FUNC_INFO << "Unable to read from" << mapPath;
+        return QFile::ReadError;
+    }
+
+    if (doc.doctype().name() == KXMLQLCFixtureMap)
+    {
+        QDomElement root = doc.documentElement();
+        if (root.tagName() == KXMLQLCFixtureMap)
+        {
+            QDomNode node = root.firstChild();
+            while (node.isNull() == false)
+            {
+                QString defFile= "";
+                QString manufacturer = "";
+                QString model = "";
+
+                QDomElement tag = node.toElement();
+                if (tag.tagName() == "fixture")
+                {
+                    if (tag.hasAttribute("path"))
+                        defFile = QString(dir.absoluteFilePath(tag.attribute("path")));
+                    if(tag.hasAttribute("mf"))
+                        manufacturer = tag.attribute("mf");
+                    if(tag.hasAttribute("md"))
+                        model = tag.attribute("md");
+
+                    if (defFile.isEmpty() == false &&
+                        manufacturer.isEmpty() == false &&
+                        model.isEmpty() == false)
+                    {
+                        QLCFixtureDef* fxi = new QLCFixtureDef();
+                        Q_ASSERT(fxi != NULL);
+
+                        fxi->setDefinitionSourceFile(defFile);
+                        fxi->setManufacturer(manufacturer);
+                        fxi->setModel(model);
+
+                        /* Delete the def if it's a duplicate. */
+                        if (addFixtureDef(fxi) == false)
+                            delete fxi;
+                        fxi = NULL;
+                    }
+                }
+                else
+                {
+                    qWarning() << Q_FUNC_INFO << "Unknown Fixture Map tag: " << tag.tagName();
+                }
+
+                node = node.nextSibling();
+            }
+        }
+        else
+        {
+            qWarning() << Q_FUNC_INFO << mapPath
+                       << "is not a fixture map file";
+            return false;
+        }
+    }
+    else
+    {
+        qWarning() << Q_FUNC_INFO << mapPath
+                   << "is not a fixture map file";
+        return false;
+    }
+
+    return true;
+}
+
 void QLCFixtureDefCache::clear()
 {
     while (m_defs.isEmpty() == false)
@@ -146,7 +247,7 @@ void QLCFixtureDefCache::clear()
 QDir QLCFixtureDefCache::systemDefinitionDirectory()
 {
     QDir dir;
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(Q_OS_MAC)
     dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
                                    .arg(FIXTUREDIR));
 #else
@@ -163,14 +264,15 @@ QDir QLCFixtureDefCache::userDefinitionDirectory()
 {
     QDir dir;
 
-#ifdef Q_WS_X11
+
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     // If the current user is root, return the system fixture dir.
     // Otherwise return a path under user's home dir.
     if (geteuid() == 0)
         dir = QDir(FIXTUREDIR);
     else
         dir.setPath(QString("%1/%2").arg(getenv("HOME")).arg(USERFIXTUREDIR));
-#elif __APPLE__
+#elif defined(__APPLE__) || defined (Q_OS_MAC)
     /* User's input profile directory on OSX */
     dir.setPath(QString("%1/%2").arg(getenv("HOME")).arg(USERFIXTUREDIR));
 #else

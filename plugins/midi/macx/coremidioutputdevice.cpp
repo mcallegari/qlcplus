@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QDebug>
@@ -194,6 +192,34 @@ void CoreMidiOutputDevice::writeFeedback(uchar cmd, uchar data1, uchar data2)
 
     /* Add the MIDI command to the packet list */
     packet = MIDIPacketListAdd(list, sizeof(buffer), packet, 0, sizeof(message), message);
+    if (packet == 0)
+    {
+        qWarning() << "MIDIOut buffer overflow";
+        return;
+    }
+
+    /* Send the MIDI packet list */
+    OSStatus s = MIDISend(m_outPort, m_destination, list);
+    if (s != 0)
+        qWarning() << Q_FUNC_INFO << "Unable to send MIDI data to" << name();
+}
+
+void CoreMidiOutputDevice::writeSysEx(QByteArray message)
+{
+    if(message.isEmpty())
+        return;
+
+    if (isOpen() == false)
+        return;
+
+    int bufferSize = message.count() + 100; // Todo this is not correct
+
+    Byte buffer[bufferSize];    // osx max=65536
+    MIDIPacketList* list = (MIDIPacketList*) buffer;
+    MIDIPacket* packet = MIDIPacketListInit(list);
+
+    /* Add the MIDI command to the packet list */
+    packet = MIDIPacketListAdd(list, bufferSize, packet, 0, message.count(), (Byte *)message.data());
     if (packet == 0)
     {
         qWarning() << "MIDIOut buffer overflow";

@@ -4,19 +4,17 @@
 
   Copyright (c) Massimo Callegari
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QLineEdit>
@@ -39,11 +37,19 @@ AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
 
     setupUi(this);
 
+    m_nameEdit->setText(m_audio->name());
+    m_nameEdit->setSelection(0, m_nameEdit->text().length());
+
+    m_fadeInEdit->setText(Function::speedToString(audio->fadeInSpeed()));
+    m_fadeOutEdit->setText(Function::speedToString(audio->fadeOutSpeed()));
+
     connect(m_nameEdit, SIGNAL(textEdited(const QString&)),
             this, SLOT(slotNameEdited(const QString&)));
 
-    m_nameEdit->setText(m_audio->name());
-    m_nameEdit->setSelection(0, m_nameEdit->text().length());
+    connect(m_fadeInEdit, SIGNAL(returnPressed()),
+            this, SLOT(slotFadeInEdited()));
+    connect(m_fadeOutEdit, SIGNAL(returnPressed()),
+            this, SLOT(slotFadeOutEdited()));
 
     AudioDecoder *adec = m_audio->getAudioDecoder();
 
@@ -68,4 +74,39 @@ AudioEditor::~AudioEditor()
 void AudioEditor::slotNameEdited(const QString& text)
 {
     m_audio->setName(text);
+    m_doc->setModified();
+}
+
+void AudioEditor::slotFadeInEdited()
+{
+    uint newValue;
+    QString text = m_fadeInEdit->text();
+    if (text.contains(".") || text.contains("s") ||
+        text.contains("m") || text.contains("h"))
+            newValue = Function::stringToSpeed(text);
+    else
+    {
+        newValue = (text.toDouble() * 1000);
+        m_fadeInEdit->setText(Function::speedToString(newValue));
+    }
+
+    m_audio->setFadeInSpeed(newValue);
+    m_doc->setModified();
+}
+
+void AudioEditor::slotFadeOutEdited()
+{
+    uint newValue;
+    QString text = m_fadeOutEdit->text();
+    if (text.contains(".") || text.contains("s") ||
+        text.contains("m") || text.contains("h"))
+            newValue = Function::stringToSpeed(text);
+    else
+    {
+        newValue = (text.toDouble() * 1000);
+        m_fadeOutEdit->setText(Function::speedToString(newValue));
+    }
+
+    m_audio->setFadeOutSpeed(newValue);
+    m_doc->setModified();
 }

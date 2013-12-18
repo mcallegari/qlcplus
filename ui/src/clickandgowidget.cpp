@@ -4,19 +4,17 @@
 
   Copyright (c) Massimo Callegari
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QApplication>
@@ -51,10 +49,8 @@ ClickAndGoWidget::ClickAndGoWidget(QWidget *parent) :
     m_cellBarWidth = 0;
 }
 
-void ClickAndGoWidget::setupGradient(QColor end)
+void ClickAndGoWidget::setupGradient(QColor begin, QColor end)
 {
-    QColor begin = Qt::black;
-
     QLinearGradient linearGrad(QPointF(10,0), QPointF(266, 0));
     linearGrad.setColorAt(0, begin);
     linearGrad.setColorAt(1, end);
@@ -177,19 +173,21 @@ void ClickAndGoWidget::setType(int type, const QLCChannel *chan)
         m_image = QImage();
     }
     else if (type == Red)
-        setupGradient(Qt::red);
+        setupGradient(Qt::black, Qt::red);
     else if (type == Green)
-        setupGradient(Qt::green);
+        setupGradient(Qt::black, Qt::green);
     else if (type == Blue)
-        setupGradient(Qt::blue);
+        setupGradient(Qt::black, Qt::blue);
     else if (type == Cyan)
-        setupGradient(Qt::cyan);
+        setupGradient(Qt::white, Qt::cyan);
     else if (type == Magenta)
-        setupGradient(Qt::magenta);
+        setupGradient(Qt::white, Qt::magenta);
     else if (type == Yellow)
-        setupGradient(Qt::yellow);
+        setupGradient(Qt::white, Qt::yellow);
+    else if (type == Amber)
+        setupGradient(Qt::black, 0xFFFF7E00);
     else if (type == White)
-        setupGradient(Qt::white);
+        setupGradient(Qt::black, Qt::white);
     else if (type == RGB || type == CMY)
     {
         setupColorPicker();
@@ -220,6 +218,7 @@ QString ClickAndGoWidget::clickAndGoTypeToString(ClickAndGoWidget::ClickAndGo ty
         case Cyan: return "Cyan"; break;
         case Magenta: return "Magenta"; break;
         case Yellow: return "Yellow"; break;
+        case Amber: return "Amber"; break;
         case White: return "White"; break;
         case RGB: return "RGB"; break;
         case CMY: return "CMY"; break;
@@ -235,6 +234,7 @@ ClickAndGoWidget::ClickAndGo ClickAndGoWidget::stringToClickAndGoType(QString st
     else if (str == "Cyan") return Cyan;
     else if (str == "Magenta") return Magenta;
     else if (str == "Yellow") return Yellow;
+    else if (str == "Amber") return Amber;
     else if (str == "White") return White;
     else if (str == "RGB") return RGB;
     else if (str == "CMY") return CMY;
@@ -390,7 +390,16 @@ void ClickAndGoWidget::mousePressEvent(QMouseEvent *event)
 
 void ClickAndGoWidget::mouseMoveEvent(QMouseEvent *event)
 {
-    if ((m_type == RGB || m_type == CMY) && event->buttons() == Qt::LeftButton)
+    if (m_linearColor == true && event->buttons() == Qt::LeftButton)
+    {
+        if (event->x() <= 10)
+            emit levelChanged(0);
+        else if (event->x() > 10 && event->x() < 256)
+            emit levelChanged((uchar)(event->x() - 10));
+        else
+            emit levelChanged(255);
+    }
+    else if ((m_type == RGB || m_type == CMY) && event->buttons() == Qt::LeftButton)
     {
         emit colorChanged(m_image.pixel(event->x(), event->y()));
     }
@@ -433,6 +442,7 @@ ClickAndGoWidget::PresetResource::PresetResource(QString path, QString text, uch
     m_max = max;
     QImage px(path);
     m_thumbnail = QImage(40, 40, QImage::Format_RGB32);
+    m_thumbnail.fill(Qt::white);
     QPainter painter(&m_thumbnail);
     painter.setRenderHint(QPainter::SmoothPixmapTransform);
     painter.drawImage(QRect(0,0,40,40), px);

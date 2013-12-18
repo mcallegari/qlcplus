@@ -8,6 +8,8 @@ TARGET   = qlcplusengine
 
 CONFIG  += qt
 QT      += core xml script gui
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
 # Uncomment to enable Phonon audio support
 #QT += phonon
 CONFIG += link_pkgconfig
@@ -77,17 +79,16 @@ HEADERS += bus.h \
            grouphead.h \
            inputmap.h \
            inputpatch.h \
-           intensitygenerator.h \
            ioplugincache.h \
            mastertimer.h \
            universearray.h \
            outputmap.h \
            outputpatch.h \
-           palettegenerator.h \
            qlcclipboard.h \
            qlcpoint.h \
            rgbalgorithm.h \
            rgbmatrix.h \
+           rgbimage.h \
            rgbscript.h \
            rgbtext.h \
            scene.h \
@@ -159,17 +160,16 @@ SOURCES += bus.cpp \
            grouphead.cpp \
            inputmap.cpp \
            inputpatch.cpp \
-           intensitygenerator.cpp \
            ioplugincache.cpp \
            mastertimer.cpp \
            universearray.cpp \
            outputmap.cpp \
            outputpatch.cpp \
-           palettegenerator.cpp \
            qlcclipboard.cpp \
            qlcpoint.cpp \
            rgbalgorithm.cpp \
            rgbmatrix.cpp \
+           rgbimage.cpp \
            rgbscript.cpp \
            rgbtext.cpp \
            scene.cpp \
@@ -241,6 +241,8 @@ macx {
     conf.commands += echo \"$$LITERAL_HASH define INPUTPROFILEDIR \\\"$$INPUTPROFILEDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define USERQLCPLUSDIR \\\"$$USERDATADIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define USERINPUTPROFILEDIR \\\"$$USERINPUTPROFILEDIR\\\"\" >> $$CONFIGFILE &&
+    conf.commands += echo \"$$LITERAL_HASH define MIDITEMPLATEDIR \\\"$$MIDITEMPLATEDIR\\\"\" >> $$CONFIGFILE &&
+    conf.commands += echo \"$$LITERAL_HASH define USERMIDITEMPLATEDIR \\\"$$USERMIDITEMPLATEDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define FIXTUREDIR \\\"$$FIXTUREDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define USERFIXTUREDIR \\\"$$USERFIXTUREDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define PLUGINDIR \\\"$$PLUGINDIR\\\"\" >> $$CONFIGFILE &&
@@ -260,6 +262,8 @@ unix:!macx {
     conf.commands += echo \"$$LITERAL_HASH define INPUTPROFILEDIR \\\"$$INSTALLROOT/$$INPUTPROFILEDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define USERQLCPLUSDIR \\\"$$USERDATADIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define USERINPUTPROFILEDIR \\\"$$USERINPUTPROFILEDIR\\\"\" >> $$CONFIGFILE &&
+    conf.commands += echo \"$$LITERAL_HASH define MIDITEMPLATEDIR \\\"$$INSTALLROOT/$$MIDITEMPLATEDIR\\\"\" >> $$CONFIGFILE &&
+    conf.commands += echo \"$$LITERAL_HASH define USERMIDITEMPLATEDIR \\\"$$USERMIDITEMPLATEDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define FIXTUREDIR \\\"$$INSTALLROOT/$$FIXTUREDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define USERFIXTUREDIR \\\"$$USERFIXTUREDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define PLUGINDIR \\\"$$INSTALLROOT/$$PLUGINDIR\\\"\" >> $$CONFIGFILE &&
@@ -279,6 +283,8 @@ win32 {
     conf.commands += @echo $$LITERAL_HASH define INPUTPROFILEDIR \"$$INPUTPROFILEDIR\" >> $$CONFIGFILE &&
     conf.commands += @echo $$LITERAL_HASH define USERQLCPLUSDIR \"$$USERDATADIR\" >> $$CONFIGFILE &&
     conf.commands += @echo $$LITERAL_HASH define USERINPUTPROFILEDIR \"$$USERINPUTPROFILEDIR\" >> $$CONFIGFILE &&
+    conf.commands += @echo $$LITERAL_HASH define MIDITEMPLATEDIR \"$$MIDITEMPLATEDIR\" >> $$CONFIGFILE &&
+    conf.commands += @echo $$LITERAL_HASH define USERMIDITEMPLATEDIR \"$$USERMIDITEMPLATEDIR\" >> $$CONFIGFILE &&
     conf.commands += @echo $$LITERAL_HASH define FIXTUREDIR \"$$FIXTUREDIR\" >> $$CONFIGFILE &&
     conf.commands += @echo $$LITERAL_HASH define USERFIXTUREDIR \"$$USERFIXTUREDIR\" >> $$CONFIGFILE &&
     conf.commands += @echo $$LITERAL_HASH define PLUGINDIR \"$$PLUGINDIR\" >> $$CONFIGFILE &&

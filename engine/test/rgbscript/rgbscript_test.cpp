@@ -4,19 +4,17 @@
 
   Copyright (C) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QtTest>
@@ -26,11 +24,23 @@
 #include "rgbscript.h"
 #undef private
 
+#include "doc.h"
+
 #define INTERNAL_SCRIPTDIR "../../../rgbscripts"
+
+void RGBScript_Test::initTestCase()
+{
+    m_doc = new Doc(this);
+}
+
+void RGBScript_Test::cleanupTestCase()
+{
+    delete m_doc;
+}
 
 void RGBScript_Test::initial()
 {
-    RGBScript script;
+    RGBScript script(m_doc);
     QVERIFY(script.s_engine == NULL);
     QCOMPARE(script.m_apiVersion, 0);
     QCOMPARE(script.m_fileName, QString());
@@ -42,11 +52,11 @@ void RGBScript_Test::directories()
     QDir dir = RGBScript::systemScriptDirectory();
     QCOMPARE(dir.filter(), QDir::Files);
     QCOMPARE(dir.nameFilters(), QStringList() << QString("*.js"));
-#ifdef __APPLE__
+#if defined( __APPLE__) || defined(Q_OS_MAC)
     QString path("%1/../%2");
     QCOMPARE(dir.path(), path.arg(QCoreApplication::applicationDirPath())
                              .arg("Resources/RGBScripts"));
-#elif WIN32
+#elif defined(WIN32) || defined(Q_OS_WIN)
     QVERIFY(dir.path().endsWith("RGBScripts"));
 #else
     QVERIFY(dir.path().endsWith("qlcplus/rgbscripts"));
@@ -55,9 +65,9 @@ void RGBScript_Test::directories()
     dir = RGBScript::userScriptDirectory();
     QCOMPARE(dir.filter(), QDir::Files);
     QCOMPARE(dir.nameFilters(), QStringList() << QString("*.js"));
-#ifdef __APPLE__
+#if defined( __APPLE__) || defined(Q_OS_MAC)
     QVERIFY(dir.path().endsWith("Library/Application Support/QLC+/RGBScripts"));
-#elif WIN32
+#elif defined(WIN32) || defined(Q_OS_WIN)
     QVERIFY(dir.path().endsWith("RGBScripts"));
 #else
     QVERIFY(dir.path().endsWith(".qlcplus/rgbscripts"));
@@ -83,7 +93,7 @@ void RGBScript_Test::scripts()
     QVERIFY(dir.entryList().size() > 0);
 
     RGBScript::setCustomScriptDirectory(INTERNAL_SCRIPTDIR);
-    QList <RGBScript> list = RGBScript::scripts();
+    QList <RGBScript> list = RGBScript::scripts(m_doc);
     QVERIFY(list.size() >= 0);
 }
 
@@ -91,7 +101,7 @@ void RGBScript_Test::script()
 {
     RGBScript::setCustomScriptDirectory(INTERNAL_SCRIPTDIR);
 
-    RGBScript s = RGBScript::script("A script that should not exist");
+    RGBScript s = RGBScript::script(m_doc, "A script that should not exist");
     QCOMPARE(s.fileName(), QString());
     QCOMPARE(s.m_contents, QString());
     QCOMPARE(s.apiVersion(), 0);
@@ -101,7 +111,7 @@ void RGBScript_Test::script()
     QVERIFY(s.m_rgbMap.isValid() == false);
     QVERIFY(s.m_rgbMapStepCount.isValid() == false);
 
-    s = RGBScript::script("Full Rows");
+    s = RGBScript::script(m_doc, "Full Rows");
     QCOMPARE(s.fileName(), QString("fullrows.js"));
     QVERIFY(s.m_contents.isEmpty() == false);
     QVERIFY(s.apiVersion() > 0);
@@ -116,7 +126,7 @@ void RGBScript_Test::evaluateException()
 {
     // Should be    function()
     QString code("( function { return 5; } )()");
-    RGBScript s;
+    RGBScript s(m_doc);
     s.m_contents = code;
     QCOMPARE(s.evaluate(), false);
 }
@@ -125,7 +135,7 @@ void RGBScript_Test::evaluateNoRgbMapFunction()
 {
     // No rgbMap() function present
     QString code("( function() { return 5; } )()");
-    RGBScript s;
+    RGBScript s(m_doc);
     s.m_contents = code;
     QCOMPARE(s.evaluate(), false);
     QCOMPARE(s.rgbMap(QSize(5, 5), 1, 0), RGBMap());
@@ -135,7 +145,7 @@ void RGBScript_Test::evaluateNoRgbMapStepCountFunction()
 {
     // No rgbMapStepCount() function present
     QString code("( function() { var foo = new Object; foo.rgbMap = function() { return 0; }; return foo; } )()");
-    RGBScript s;
+    RGBScript s(m_doc);
     s.m_contents = code;
     QCOMPARE(s.evaluate(), false);
     QCOMPARE(s.rgbMapStepCount(QSize(5, 5)), -1);
@@ -145,20 +155,20 @@ void RGBScript_Test::evaluateInvalidApiVersion()
 {
     // No apiVersion property
     QString code("( function() { var foo = new Object; foo.rgbMap = function() { return 0; }; foo.rgbMapStepCount = function(width, height) { return 0; }; return foo; } )()");
-    RGBScript s;
+    RGBScript s(m_doc);
     s.m_contents = code;
     QCOMPARE(s.evaluate(), false);
 }
 
 void RGBScript_Test::rgbMapStepCount()
 {
-    RGBScript s = RGBScript::script("Full Rows");
+    RGBScript s = RGBScript::script(m_doc, "Full Rows");
     QCOMPARE(s.rgbMapStepCount(QSize(10, 15)), 15);
 }
 
 void RGBScript_Test::rgbMap()
 {
-    RGBScript s = RGBScript::script("Full Rows");
+    RGBScript s = RGBScript::script(m_doc, "Full Rows");
     QVERIFY(s.rgbMap(QSize(3, 4), 0, 0).isEmpty() == false);
 
     for (int z = 0; z < 5; z++)

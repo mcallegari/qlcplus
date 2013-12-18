@@ -3,20 +3,21 @@
 <HEAD>
 <TITLE>Q Light Controller Plus - Channel Editor</TITLE>
 <SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
 </HEAD>
 <BODY onLoad="replaceqrc()">
 
 <H1>Channel Editor</H1>
 <P>
-The Channel Editor is used to edit individual channels and the value ranges of
+The Channel Editor is used to edit individual channels and the DMX value ranges of
 each capability (a green colour, a certain gobo, prism rotation, etc..) that a
 fixture channel provides. Refer to your fixture's manual to get a detailed
-list of the fixture's channels and values.
+list of the fixture's channels and DMX values.
 </P>
 
 <H3>Controls</H3>
 
-<TABLE BORDER="1">
+<TABLE BORDER=1 class="qlcTable">
  <TR>
   <TD>
    <B>Name</B>
@@ -30,7 +31,7 @@ list of the fixture's channels and values.
    <B>Group</B>
   </TD>
   <TD>
-   <P>The channel's logical group (role in the fixture). </P>
+   <P>The channel's logical group (its role in the fixture). </P>
 
    <LI>Assign a channel to the <B>Colour</B> group if the channel controls a fixed colour
        wheel or pre-defined colour macros. <I>Don't</I> assign individual RGB/CMY colour channels
@@ -86,7 +87,7 @@ list of the fixture's channels and values.
    <B>Colour</B>
   </TD>
   <TD>
-   Only available when the channel has been assigned to the <B>Intensity</B> group. Tells,
+   Only available when the channel has been assigned to the <B>Intensity</B> group. It indicates
    whether the channel controls a specific colour out of the primary colours
    <B>Red, Green, Blue</B> or <B>Cyan, Magenta, Yellow</B>. If the channel controls the
    fixture's master intensity, the <B>Generic</B> colour setting should be used.
@@ -98,10 +99,10 @@ list of the fixture's channels and values.
   </TD>
   <TD>
    Only available when the channle has been assigned either to the <B>Pan</B> or <B>Tilt</B> group.
-   If the fixture supports only 8bit movement (only one channel for each), assign the <B>Coarse MSB</B> control byte to the
-   both of them. If, however, the fixture supports 16bit movement (two channels for each),
+   If the fixture supports only 8bit movement (only one channel for each movement), assign the <B>Coarse MSB</B> control byte to the
+   both of them. If, however, the fixture supports 16bit movement (two channels for each movement),
    you should assign the <B>Coarse MSB</B> byte to the channels that provide coarse head/mirror
-   movement and the <B>Fine LSB</B> byte to the channels that provide subtle head/mirror adjustment.</LI>
+   movement and the <B>Fine LSB</B> byte to the channels that provide fine head/mirror adjustment.</LI>
   </TD>
  </TR>
  <TR>
@@ -109,7 +110,7 @@ list of the fixture's channels and values.
    <B>Capability list</B>
   </TD>
   <TD>
-   Shows you a list of value ranges for the currently edited channel. If a
+   Shows you a list of DMX value ranges for the currently edited channel. If a
    channel provides only one capability (for example pan or dimmer) the only
    thing needed in the list is one capability with a range of 0 to 255.
    For more elaborate capabilities, such as colours or gobos, you should create

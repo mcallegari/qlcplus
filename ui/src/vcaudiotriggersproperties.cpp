@@ -4,19 +4,17 @@
 
   Copyright (c) Massimo Callegari
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QTreeWidgetItem>
@@ -42,6 +40,7 @@
 #define KColumnInfo             3
 #define KColumnMinThreshold     4
 #define KColumnMaxThreshold     5
+#define KColumnDivisor          6
 
 AudioTriggersConfiguration::AudioTriggersConfiguration(VCAudioTriggers *triggers, Doc *doc, AudioCapture *capture)
     : QDialog(triggers)
@@ -120,6 +119,7 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
     m_tree->removeItemWidget(item, KColumnAssign);
     m_tree->removeItemWidget(item, KColumnMinThreshold);
     m_tree->removeItemWidget(item, KColumnMaxThreshold);
+    m_tree->removeItemWidget(item, KColumnDivisor);
 
     QComboBox *combo = new QComboBox();
     combo->addItem(QIcon(":/uncheck.png"), tr("None"), idx);
@@ -189,7 +189,8 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
     else
         item->setText(KColumnInfo, tr("Not assigned"));
 
-    if (bar->m_type == AudioBar::FunctionBar || bar->m_type == AudioBar::VCWidgetBar)
+    if (bar->m_type == AudioBar::FunctionBar 
+        || (bar->m_type == AudioBar::VCWidgetBar && ((bar->m_widget == NULL) || bar->m_widget->type() != VCWidget::SliderWidget)))
     {
         QSpinBox *minspin = new QSpinBox();
         minspin->setMinimum(5);
@@ -210,6 +211,19 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
         maxspin->setProperty("index", idx);
         connect(maxspin, SIGNAL(valueChanged(int)), this, SLOT(slotMaxThresholdChanged(int)));
         m_tree->setItemWidget(item, KColumnMaxThreshold, maxspin);
+    }
+
+    if  (bar->m_type == AudioBar::VCWidgetBar && bar->m_widget != NULL && bar->m_widget->type() == VCWidget::SpeedDialWidget)
+    {
+        QSpinBox *divisor = new QSpinBox();
+        divisor->setMinimum(1);
+        divisor->setMaximum(64);
+        divisor->setSingleStep(1);
+        divisor->setValue(bar->m_divisor);
+        divisor->setProperty("index", idx);
+        connect(divisor, SIGNAL(valueChanged(int)), this, SLOT(slotDivisorChanged(int)));
+        m_tree->setItemWidget(item, KColumnDivisor, divisor);
+
     }
 }
 
@@ -244,6 +258,7 @@ void AudioTriggersConfiguration::updateTree()
     m_tree->resizeColumnToContents(KColumnInfo);
     m_tree->resizeColumnToContents(KColumnMinThreshold);
     m_tree->resizeColumnToContents(KColumnMaxThreshold);
+    m_tree->resizeColumnToContents(KColumnDivisor);
 
 }
 
@@ -319,12 +334,13 @@ void AudioTriggersConfiguration::slotWidgetSelectionClicked()
         QList<int> filters;
         filters.append(VCWidget::SliderWidget);
         filters.append(VCWidget::ButtonWidget);
+        filters.append(VCWidget::SpeedDialWidget);
         VCWidgetSelection ws(filters, this);
         if (ws.exec() == QDialog::Rejected)
             return; // User pressed cancel
         AudioBar *bar = m_triggers->getSpectrumBar(prop.toInt());
         if (bar != NULL)
-            bar->attachWidget(ws.getSelectedWidget());
+            bar->attachWidget(ws.getSelectedWidget()->id());
 
         QTreeWidgetItem *item = NULL;
         if (prop.toInt() == 1000)
@@ -358,6 +374,18 @@ void AudioTriggersConfiguration::slotMaxThresholdChanged(int val)
         uchar scaledVal = SCALE(float(val), 0.0, 100.0, 0.0, 255.0);
         if (bar != NULL)
             bar->setMaxThreshold(scaledVal);
+    }
+}
+
+void AudioTriggersConfiguration::slotDivisorChanged(int val)
+{
+    QSpinBox *spin = (QSpinBox *)sender();
+    QVariant prop = spin->property("index");
+    if (prop.isValid())
+    {
+        AudioBar *bar = m_triggers->getSpectrumBar(prop.toInt());
+        if (bar != NULL)
+            bar->setDivisor(val);
     }
 }
 

@@ -4,19 +4,17 @@
 
   Copyright (C) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QApplication>
@@ -50,6 +48,7 @@
 #define KXMLQLCChannelColourCyan       QString("Cyan")
 #define KXMLQLCChannelColourMagenta    QString("Magenta")
 #define KXMLQLCChannelColourYellow     QString("Yellow")
+#define KXMLQLCChannelColourAmber      QString("Amber")
 #define KXMLQLCChannelColourWhite      QString("White")
 
 QLCChannel::QLCChannel()
@@ -238,6 +237,9 @@ QIcon QLCChannel::getIntensityIcon() const
     else if (m_colour == QLCChannel::Yellow ||
              m_name.contains("yellow", Qt::CaseInsensitive) == true)
                 pm = drawIntensity(Qt::yellow, "Y");
+    else if (m_colour == QLCChannel::Amber ||
+             m_name.contains("amber", Qt::CaseInsensitive) == true)
+                pm = drawIntensity(QColor(0xFFFF7E00), "A");
     else if (m_colour == QLCChannel::White ||
              m_name.contains("white", Qt::CaseInsensitive) == true)
                 pm = drawIntensity(Qt::white, "W");
@@ -310,6 +312,7 @@ QStringList QLCChannel::colourList()
     list << KXMLQLCChannelColourCyan;
     list << KXMLQLCChannelColourMagenta;
     list << KXMLQLCChannelColourYellow;
+    list << KXMLQLCChannelColourAmber;
     list << KXMLQLCChannelColourWhite;
     return list;
 }
@@ -330,6 +333,8 @@ QString QLCChannel::colourToString(PrimaryColour colour)
         return KXMLQLCChannelColourMagenta;
     case Yellow:
         return KXMLQLCChannelColourYellow;
+    case Amber:
+        return KXMLQLCChannelColourAmber;
     case White:
         return KXMLQLCChannelColourWhite;
     case NoColour:
@@ -352,6 +357,8 @@ QLCChannel::PrimaryColour QLCChannel::stringToColour(const QString& str)
         return Magenta;
     else if (str == KXMLQLCChannelColourYellow)
         return Yellow;
+    else if (str == KXMLQLCChannelColourAmber)
+        return Amber;
     else if (str == KXMLQLCChannelColourWhite)
         return White;
     else

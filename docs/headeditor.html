@@ -3,6 +3,7 @@
 <HEAD>
 <TITLE>Q Light Controller Plus - Head Editor</TITLE>
 <SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
 </HEAD>
 <BODY onLoad="replaceqrc()">
 
@@ -10,17 +11,21 @@
 <P>
 The Head Editor is used to create and edit <A HREF="file:concept.html#Head">heads</A>
 by picking sets of <B>Channels</B> that are dedicated to a single head (as defined by the
-fixture's manufacturer). 
+fixture's manufacturer).
 </P>
 
 <H3>Controls</H3>
 
 <P>
 The controls are very simple: place a checkmark on each channel that is used ONLY by the
-head you are currently editing. To add a head, see <A HREF="modeeditor.html">Mode Editor</A>.
+head you are currently editing. To add a head, see <A HREF="modeeditor.html">Mode Editor</A>.<BR>
+When adding heads in a <A HREF="file:concept.html#FixtureMode">fixture mode</A> that provides 
+a master dimmer channel, you can include that channel on each head. In this way a
+<A HREF="file:concept.html#RGBMatrix">RGB matrix</A> function will be able to control
+your heads out of the box, with no need to manual dim your matrices.
 </P>
 
-<TABLE BORDER="1">
+<TABLE BORDER=1 class="qlcTable">
  <TR>
   <TD>
    <B>Channel list</B>
@@ -28,7 +33,7 @@ head you are currently editing. To add a head, see <A HREF="modeeditor.html">Mod
   <TD>
    Displays the list of all fixture channels available in the current mode. Channels that
    have been assigned to another head are disabled and cannot be selected because each
-   channel can belong to one head at a time.
+   channel can only belong to one head at a time.
   </TD>
  </TR>
 </TABLE>

@@ -4,19 +4,17 @@
 
   Copyright (C) Stefan Krumm, Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QTreeWidgetItem>
@@ -118,22 +116,6 @@ void VCXYPadProperties::updateFixtureItem(QTreeWidgetItem* item,
     item->setData(KColumnFixture, Qt::UserRole, QVariant(fxi));
 }
 
-QList <quint32> VCXYPadProperties::selectedFixtureIDs() const
-{
-    QListIterator <QTreeWidgetItem*> it(m_tree->selectedItems());
-    QList <quint32> list;
-
-    /* Put all selected fixture IDs to a list and return it */
-    while (it.hasNext() == true)
-    {
-        QVariant var(it.next()->data(KColumnFixture, Qt::UserRole));
-        VCXYPadFixture fxi(m_doc, var);
-        list << fxi.fixture();
-    }
-
-    return list;
-}
-
 QList <VCXYPadFixture> VCXYPadProperties::selectedFixtures() const
 {
     QListIterator <QTreeWidgetItem*> it(m_tree->selectedItems());
@@ -153,7 +135,7 @@ QTreeWidgetItem* VCXYPadProperties::fixtureItem(const VCXYPadFixture& fxi)
     {
         QVariant var((*it)->data(KColumnFixture, Qt::UserRole));
         VCXYPadFixture another(m_doc, var);
-        if (fxi.fixture() == another.fixture())
+        if (fxi.head() == another.head())
             return *it;
         else
             ++it;
@@ -162,14 +144,14 @@ QTreeWidgetItem* VCXYPadProperties::fixtureItem(const VCXYPadFixture& fxi)
     return NULL;
 }
 
-void VCXYPadProperties::removeFixtureItem(quint32 fxi_id)
+void VCXYPadProperties::removeFixtureItem(GroupHead const & head)
 {
     QTreeWidgetItemIterator it(m_tree);
     while (*it != NULL)
     {
         QVariant var((*it)->data(KColumnFixture, Qt::UserRole));
         VCXYPadFixture fxi(m_doc, var);
-        if (fxi.fixture() == fxi_id)
+        if (fxi.head() == head)
         {
             delete (*it);
             break;
@@ -183,13 +165,13 @@ void VCXYPadProperties::slotAddClicked()
 {
     /* Put all fixtures already present into a list of fixtures that
        will be disabled in the fixture selection dialog */
-    QList <quint32> disabled;
+    QList <GroupHead> disabled;
     QTreeWidgetItemIterator twit(m_tree);
     while (*twit != NULL)
     {
         QVariant var((*twit)->data(KColumnFixture, Qt::UserRole));
         VCXYPadFixture fxi(m_doc, var);
-        disabled << fxi.fixture();
+        disabled << fxi.head();
         ++twit;
     }
 
@@ -220,14 +202,15 @@ void VCXYPadProperties::slotAddClicked()
     QTreeWidgetItem* item = NULL;
     FixtureSelection fs(this, m_doc);
     fs.setMultiSelection(true);
-    fs.setDisabledFixtures(disabled);
+    fs.setSelectionMode(FixtureSelection::Heads);
+    fs.setDisabledHeads(disabled);
     if (fs.exec() == QDialog::Accepted)
     {
-        QListIterator <quint32> it(fs.selection());
+        QListIterator <GroupHead> it(fs.selectedHeads());
         while (it.hasNext() == true)
         {
             VCXYPadFixture fxi(m_doc);
-            fxi.setFixture(it.next());
+            fxi.setHead(it.next());
             item = new QTreeWidgetItem(m_tree);
             updateFixtureItem(item, fxi);
         }

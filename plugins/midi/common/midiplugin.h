@@ -4,39 +4,45 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #ifndef MIDIPLUGIN_H
 #define MIDIPLUGIN_H
 
+#define KExtMidiTemplate ".qxm" // 'Q'LC+ 'X'ml 'M'idi template
+
 #include <QStringList>
 #include <QList>
+#include <QDir>
 
 #include "qlcioplugin.h"
+#include "miditemplate.h"
 
 class ConfigureMIDIPlugin;
 class MidiOutputDevice;
 class MidiInputDevice;
 class MidiEnumerator;
+class MidiTemplate;
 class QString;
 
 class MidiPlugin : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)
+#if QT_VERSION > QT_VERSION_CHECK(5, 0, 0)
+    Q_PLUGIN_METADATA(IID QLCIOPlugin_iid)
+#endif
 
     friend class ConfigureMidiPlugin;
 
@@ -104,6 +110,8 @@ public:
     /** @reimp */
     void sendFeedBack(quint32 output, quint32 channel, uchar value, const QString& key);
 
+    void sendSysEx(quint32 output, const QByteArray &data);
+
 private:
     /** Get an output device by its output index */
     MidiInputDevice* inputDevice(quint32 input) const;
@@ -121,6 +129,26 @@ public:
 
     /** @reimp */
     bool canConfigure();
+
+    /*************************************************************************
+     * Midi templates
+     *************************************************************************/
+public:
+    QDir userMidiTemplateDirectory();
+
+    QDir systemMidiTemplateDirectory();
+
+    bool addMidiTemplate(MidiTemplate* templ);
+
+    MidiTemplate* midiTemplate(QString name);
+
+    void loadMidiTemplates(const QDir& dir);
+
+    QList <MidiTemplate*> midiTemplates();
+
+private:
+    /** List that contains all available midi templates */
+    QList <MidiTemplate*> m_midiTemplates;
 };
 
 #endif

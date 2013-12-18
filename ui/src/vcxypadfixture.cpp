@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QStringList>
@@ -40,10 +38,9 @@
 
 VCXYPadFixture::VCXYPadFixture(Doc* doc)
     : m_doc(doc)
+    , m_head()
 {
     Q_ASSERT(m_doc != NULL);
-
-    m_fixture = Fixture::invalidId();
 
     m_xMin = 0;
     m_xMax = 1;
@@ -67,9 +64,10 @@ VCXYPadFixture::VCXYPadFixture(Doc* doc, const QVariant& variant)
     if (variant.canConvert(QVariant::StringList) == true)
     {
         QStringList list(variant.toStringList());
-        if (list.size() == 7)
+        if (list.size() == 8)
         {
-            m_fixture = list.takeFirst().toUInt();
+            m_head.fxi = list.takeFirst().toUInt();
+            m_head.head = list.takeFirst().toInt();
 
             m_xMin = qreal(list.takeFirst().toDouble());
             m_xMin = CLAMP(m_xMin, qreal(0), qreal(1));
@@ -111,7 +109,7 @@ VCXYPadFixture& VCXYPadFixture::operator=(const VCXYPadFixture& fxi)
     m_doc = fxi.m_doc;
     Q_ASSERT(m_doc != NULL);
 
-    m_fixture = fxi.m_fixture;
+    m_head = fxi.m_head;
 
     m_xMin = fxi.m_xMin;
     m_xMax = fxi.m_xMax;
@@ -132,7 +130,7 @@ VCXYPadFixture& VCXYPadFixture::operator=(const VCXYPadFixture& fxi)
 
 bool VCXYPadFixture::operator==(const VCXYPadFixture& fxi) const
 {
-    if (m_fixture == fxi.m_fixture)
+    if (m_head == fxi.m_head)
         return true;
     else
         return false;
@@ -142,7 +140,8 @@ VCXYPadFixture::operator QVariant() const
 {
     QStringList list;
 
-    list << QString("%1").arg(m_fixture);
+    list << QString("%1").arg(m_head.fxi);
+    list << QString("%1").arg(m_head.head);
 
     list << QString("%1").arg(m_xMin);
     list << QString("%1").arg(m_xMax);
@@ -159,26 +158,32 @@ VCXYPadFixture::operator QVariant() const
  * Fixture
  ****************************************************************************/
 
-void VCXYPadFixture::setFixture(quint32 fxi_id)
+void VCXYPadFixture::setHead(GroupHead const & head)
 {
-    m_fixture = fxi_id;
+    m_head = head;
 }
 
-quint32 VCXYPadFixture::fixture() const
+GroupHead const & VCXYPadFixture::head() const
 {
-    return m_fixture;
+    return m_head;
 }
 
 QString VCXYPadFixture::name() const
 {
-    if (m_fixture == Fixture::invalidId())
+    if (!m_head.isValid())
         return QString();
 
-    Fixture* fxi = m_doc->fixture(m_fixture);
-    if (fxi != NULL)
-        return fxi->name();
-    else
+    Fixture* fxi = m_doc->fixture(m_head.fxi);
+    if (fxi == NULL)
         return QString();
+
+    if (m_head.head >= fxi->heads())
+        return QString();
+
+    if (fxi->heads() == 1)
+        return fxi->name();
+
+    return QString("%1 [%2]").arg(fxi->name()).arg(m_head.head);
 }
 
 /****************************************************************************
@@ -264,7 +269,10 @@ bool VCXYPadFixture::loadXML(const QDomElement& root)
     }
 
     /* Fixture ID */
-    setFixture(root.attribute(KXMLQLCVCXYPadFixtureID).toInt());
+    GroupHead head;
+    head.fxi = root.attribute(KXMLQLCVCXYPadFixtureID).toInt();
+    head.head = root.attribute(KXMLQLCVCXYPadFixtureHead).toInt();
+    setHead(head);
 
     /* Children */
     QDomNode node = root.firstChild();
@@ -319,7 +327,8 @@ bool VCXYPadFixture::saveXML(QDomDocument* doc, QDomElement* pad_root) const
 
     /* VCXYPad Fixture */
     root = doc->createElement(KXMLQLCVCXYPadFixture);
-    root.setAttribute(KXMLQLCVCXYPadFixtureID, QString("%1").arg(m_fixture));
+    root.setAttribute(KXMLQLCVCXYPadFixtureID, QString("%1").arg(m_head.fxi));
+    root.setAttribute(KXMLQLCVCXYPadFixtureHead, QString("%1").arg(m_head.head));
     root.appendChild(text);
     pad_root->appendChild(root);
 
@@ -354,50 +363,20 @@ bool VCXYPadFixture::saveXML(QDomDocument* doc, QDomElement* pad_root) const
 
 void VCXYPadFixture::arm()
 {
-    Fixture* fxi = m_doc->fixture(m_fixture);
+    Fixture* fxi = m_doc->fixture(m_head.fxi);
     if (fxi == NULL)
     {
-        m_xLSB = QLCChannel::invalid();
         m_xMSB = QLCChannel::invalid();
-        m_yLSB = QLCChannel::invalid();
+        m_xLSB = QLCChannel::invalid();
         m_yMSB = QLCChannel::invalid();
+        m_yLSB = QLCChannel::invalid();
     }
     else
     {
-        /* If this fixture has no mode, it's a generic dimmer that
-           can't do pan&tilt anyway. */
-        const QLCFixtureMode* mode = fxi->fixtureMode();
-        if (mode == NULL)
-        {
-            m_xLSB = QLCChannel::invalid();
-            m_xMSB = QLCChannel::invalid();
-            m_yLSB = QLCChannel::invalid();
-            m_yMSB = QLCChannel::invalid();
-
-            return;
-        }
-
-        /* Find exact channel numbers for MSB/LSB pan and tilt */
-        for (quint32 i = 0; i < quint32(mode->channels().size()); i++)
-        {
-            const QLCChannel* ch = mode->channel(i);
-            Q_ASSERT(ch != NULL);
-
-            if (ch->group() == QLCChannel::Pan)
-            {
-                if (ch->controlByte() == QLCChannel::MSB)
-                    m_xMSB = fxi->universeAddress() + i;
-                else if (ch->controlByte() == QLCChannel::LSB)
-                    m_xLSB = fxi->universeAddress() + i;
-            }
-            else if (ch->group() == QLCChannel::Tilt)
-            {
-                if (ch->controlByte() == QLCChannel::MSB)
-                    m_yMSB = fxi->universeAddress() + i;
-                else if (ch->controlByte() == QLCChannel::LSB)
-                    m_yLSB = fxi->universeAddress() + i;
-            }
-        }
+       m_xMSB = fxi->panMsbChannel(m_head.head) + fxi->universeAddress();
+       m_xLSB = fxi->panLsbChannel(m_head.head) + fxi->universeAddress();
+       m_yMSB = fxi->tiltMsbChannel(m_head.head) + fxi->universeAddress();
+       m_yLSB = fxi->tiltLsbChannel(m_head.head) + fxi->universeAddress();
     }
 }
 

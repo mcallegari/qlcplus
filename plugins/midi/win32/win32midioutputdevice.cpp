@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QDebug>
@@ -166,4 +164,44 @@ void Win32MidiOutputDevice::sendData(BYTE command, BYTE channel, BYTE value)
 
     /* Push the message out */
     midiOutShortMsg(m_handle, msg.dwData);
+}
+
+void Win32MidiOutputDevice::writeSysEx(QByteArray message)
+{
+    if(message.isEmpty())
+        return;
+
+    if (isOpen() == false)
+        return;
+
+    MIDIHDR midiHdr;
+
+    /* Store pointer in MIDIHDR */
+    midiHdr.lpData = (LPSTR)message.data();
+
+    /* Store its size in the MIDIHDR */
+    midiHdr.dwBufferLength = message.count();
+
+    /* Flags must be set to 0 */
+    midiHdr.dwFlags = 0;
+
+    UINT err;
+    /* Prepare the buffer and MIDIHDR */
+    err = midiOutPrepareHeader(m_handle,  &midiHdr, sizeof(MIDIHDR));
+    if (!err)
+    {
+        /* Output the SysEx message */
+        err = midiOutLongMsg(m_handle, &midiHdr, sizeof(MIDIHDR));
+        if (err)
+            qDebug() << "Error while sending SysEx message";
+
+        /* Unprepare the buffer and MIDIHDR */
+        while (MIDIERR_STILLPLAYING == midiOutUnprepareHeader(m_handle, &midiHdr, sizeof(MIDIHDR)))
+        {
+            /* Should put a delay in here rather than a busy-wait */
+        }
+    }
+
+    /* Close the MIDI device */
+    midiOutClose(m_handle);
 }

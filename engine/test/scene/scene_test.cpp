@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QtTest>
@@ -546,10 +544,10 @@ void Scene_Test::writeHTPTwoTicks()
     MasterTimer timer(doc);
     UniverseArray* ua = NULL;
 
-    const QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
 
-    const QLCFixtureMode* mode = def->mode("Mode 1");
+    QLCFixtureMode* mode = def->mode("Mode 1");
     QVERIFY(mode != NULL);
 
     Fixture* fxi = new Fixture(doc);
@@ -636,10 +634,10 @@ void Scene_Test::writeHTPTwoTicksIntensity()
     MasterTimer timer(doc);
     UniverseArray* ua = NULL;
 
-    const QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
 
-    const QLCFixtureMode* mode = def->mode("Mode 1");
+    QLCFixtureMode* mode = def->mode("Mode 1");
     QVERIFY(mode != NULL);
 
     Fixture* fxi = new Fixture(doc);
@@ -663,7 +661,7 @@ void Scene_Test::writeHTPTwoTicksIntensity()
     QVERIFY(ua->preGMValues()[0] == (char) 0);
     doc->outputMap()->releaseUniverses(false);
 
-    s1->adjustAttribute(0.5);
+    s1->adjustAttribute(0.5, Function::Intensity);
 
     QVERIFY(s1->stopped() == true);
     s1->start(&timer);
@@ -676,7 +674,7 @@ void Scene_Test::writeHTPTwoTicksIntensity()
     QVERIFY(ua->preGMValues()[0] == (char) 50); // Intensity affects only HTP channels
     doc->outputMap()->releaseUniverses(false);
 
-    s1->adjustAttribute(1.0);
+    s1->adjustAttribute(1.0, Function::Intensity);
 
     timer.timerTick();
     ua = doc->outputMap()->claimUniverses();
@@ -685,7 +683,7 @@ void Scene_Test::writeHTPTwoTicksIntensity()
     QVERIFY(s1->stopped() == false);
     doc->outputMap()->releaseUniverses(false);
 
-    s1->adjustAttribute(0.2);
+    s1->adjustAttribute(0.2, Function::Intensity);
 
     // Values stay up
     timer.timerTick();
@@ -732,10 +730,10 @@ void Scene_Test::writeLTPReady()
     MasterTimer timer(doc);
     UniverseArray* ua = NULL;
 
-    const QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
 
-    const QLCFixtureMode* mode = def->mode("Mode 1");
+    QLCFixtureMode* mode = def->mode("Mode 1");
     QVERIFY(mode != NULL);
 
     Fixture* fxi = new Fixture(doc);
@@ -773,7 +771,7 @@ void Scene_Test::writeLTPReady()
     doc->outputMap()->releaseUniverses(false);
 
     QVERIFY(s1->stopped() == true);
-    QVERIFY(s1->isRunning() == false);
+    QVERIFY(s1->isRunning() == true);
 
     // LTP values stay on
     timer.timerTick();

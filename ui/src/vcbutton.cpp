@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QStyleOptionButton>
@@ -69,8 +67,8 @@ const QSize VCButton::defaultSize(QSize(50, 50));
 
 VCButton::VCButton(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     , m_iconPath()
-    , m_adjustIntensity(false)
-    , m_intensityAdjustment(1.0)
+    , m_startupIntensityEnabled(false)
+    , m_startupIntensity(1.0)
 {
     /* Set the class name "VCButton" as the object name as well */
     setObjectName(VCButton::staticMetaObject.className());
@@ -148,9 +146,9 @@ VCWidget* VCButton::createCopy(VCWidget* parent)
     return button;
 }
 
-bool VCButton::copyFrom(VCWidget* widget)
+bool VCButton::copyFrom(const VCWidget* widget)
 {
-    VCButton* button = qobject_cast <VCButton*> (widget);
+    const VCButton* button = qobject_cast <const VCButton*> (widget);
     if (button == NULL)
         return false;
 
@@ -158,8 +156,8 @@ bool VCButton::copyFrom(VCWidget* widget)
     setIconPath(button->iconPath());
     setKeySequence(button->keySequence());
     setFunction(button->function());
-    setAdjustIntensity(button->adjustIntensity());
-    setIntensityAdjustment(button->intensityAdjustment());
+    enableStartupIntensity(button->isStartupIntensityEnabled());
+    enableStartupIntensity(button->startupIntensity());
     setAction(button->action());
 
     /* Copy common stuff */
@@ -411,6 +409,8 @@ void VCButton::setOn(bool on)
 {
     m_on = on;
 
+    emit pressedState(m_on);
+
     updateFeedback();
 
     update();
@@ -532,24 +532,24 @@ VCButton::Action VCButton::stringToAction(const QString& str)
  * Intensity adjustment
  *****************************************************************************/
 
-void VCButton::setAdjustIntensity(bool adjust)
+void VCButton::enableStartupIntensity(bool enable)
 {
-    m_adjustIntensity = adjust;
+    m_startupIntensityEnabled = enable;
 }
 
-bool VCButton::adjustIntensity() const
+bool VCButton::isStartupIntensityEnabled() const
 {
-    return m_adjustIntensity;
+    return m_startupIntensityEnabled;
 }
 
-void VCButton::setIntensityAdjustment(qreal fraction)
+void VCButton::enableStartupIntensity(qreal fraction)
 {
-    m_intensityAdjustment = CLAMP(fraction, qreal(0), qreal(1));
+    m_startupIntensity = CLAMP(fraction, qreal(0), qreal(1));
 }
 
-qreal VCButton::intensityAdjustment() const
+qreal VCButton::startupIntensity() const
 {
-    return m_intensityAdjustment;
+    return m_startupIntensity;
 }
 
 void VCButton::slotAttributeChanged(int value)
@@ -601,8 +601,8 @@ void VCButton::pressFunction()
                 emit functionStarting();
                 f->start(m_doc->masterTimer());
 
-                if (adjustIntensity() == true)
-                    f->adjustAttribute(intensityAdjustment());
+                if (isStartupIntensityEnabled() == true)
+                    f->adjustAttribute(startupIntensity() * intensity(), Function::Intensity);
             }
         }
     }
@@ -714,6 +714,15 @@ QMenu* VCButton::customMenu(QMenu* parentMenu)
     return menu;
 }
 
+void VCButton::adjustIntensity(qreal val)
+{
+    Function* func = m_doc->function(m_function);
+    if (func != NULL)
+        func->adjustAttribute(startupIntensity() * val, Function::Intensity);
+
+    VCWidget::adjustIntensity(val);
+}
+
 /*********************************************************************
  * Web access
  *********************************************************************/
@@ -730,7 +739,7 @@ QString VCButton::getCSS()
             "border: 3px solid #A0A0A0;\n"
             "border-radius: 4px;\n"
             "font-family: arial, verdana, sans-serif;\n"
-            " text-decoration: none;\n"
+            "text-decoration: none;\n"
             "text-align:center;\n"
             "vertical-align: middle;\n"
             "}\n"
@@ -751,8 +760,8 @@ QString VCButton::getJS()
                 "  obj.value = \"0\";\n"
                 "  obj.style.border = \"3px solid #A0A0A0\";\n"
                 " }\n"
-                " sendWSmessage(id + \"|\" + obj.value);\n"
-                "};\n";
+                " websocket.send(id + \"|\" + obj.value);\n"
+                "}\n";
     return str;
 }
 
@@ -824,8 +833,8 @@ bool VCButton::loadXML(const QDomElement* root)
                 adjust = true;
             else
                 adjust = false;
-            setIntensityAdjustment(double(tag.text().toInt()) / double(100));
-            setAdjustIntensity(adjust);
+            enableStartupIntensity(double(tag.text().toInt()) / double(100));
+            enableStartupIntensity(adjust);
         }
         else
         {
@@ -884,9 +893,9 @@ bool VCButton::saveXML(QDomDocument* doc, QDomElement* vc_root)
     /* Intensity adjustment */
     tag = doc->createElement(KXMLQLCVCButtonIntensity);
     tag.setAttribute(KXMLQLCVCButtonIntensityAdjust,
-                     adjustIntensity() ? KXMLQLCTrue : KXMLQLCFalse);
+                     isStartupIntensityEnabled() ? KXMLQLCTrue : KXMLQLCFalse);
     root.appendChild(tag);
-    text = doc->createTextNode(QString::number(int(intensityAdjustment() * 100)));
+    text = doc->createTextNode(QString::number(int(startupIntensity() * 100)));
     tag.appendChild(text);
 
     /* External input */

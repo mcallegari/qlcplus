@@ -27,6 +27,7 @@ win32:FORMS += ../ui/src/debugbox.ui
 macx:FORMS += ../ui/src/debugbox.ui
 
 QT += xml gui core script
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 macx {
     # This must be after "TARGET = " and before target installation so that

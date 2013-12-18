@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #ifndef VCBUTTON_H
@@ -86,7 +84,7 @@ public:
 
 protected:
     /** Copy the contents for this widget from another widget */
-    bool copyFrom(VCWidget* widget);
+    bool copyFrom(const VCWidget* widget);
 
     /*********************************************************************
      * Properties
@@ -246,7 +244,7 @@ protected:
     Action m_action;
 
     /*********************************************************************
-     * Intensity adjustment
+     * Startup intensity adjustment
      *********************************************************************/
 public:
     /**
@@ -256,24 +254,24 @@ public:
      * @param adjust true to make the button adjust intensity, false to disable
      *               intensity adjustment
      */
-    void setAdjustIntensity(bool adjust);
+    void enableStartupIntensity(bool enable);
 
     /** Check, whether the button adjusts intensity */
-    bool adjustIntensity() const;
+    bool isStartupIntensityEnabled() const;
 
     /**
      * Set the amount of intensity adjustment.
      *
      * @param fraction Intensity adjustment amount (0.0 - 1.0)
      */
-    void setIntensityAdjustment(qreal fraction);
+    void enableStartupIntensity(qreal fraction);
 
     /** Get the amount of intensity adjustment. */
-    qreal intensityAdjustment() const;
+    qreal startupIntensity() const;
 
 protected:
-    bool m_adjustIntensity;
-    qreal m_intensityAdjustment;
+    bool m_startupIntensityEnabled;
+    qreal m_startupIntensity;
 
 protected slots:
     void slotAttributeChanged(int value);
@@ -315,12 +313,22 @@ signals:
     /** Signal telling the buttons function was started as a result of a toggle action */
     void functionStarting ();
 
+    /** Signal emitted when the button has actually changed the graphic state */
+    void pressedState(bool on);
+
     /*********************************************************************
     * Custom menu
     *********************************************************************/
 public:
     /** Get a custom menu specific to this widget. Must be deleted. */
     QMenu* customMenu(QMenu* parentMenu);
+
+    /*********************************************************************
+     * Intensity
+     *********************************************************************/
+public:
+    /** @reimp */
+    void adjustIntensity(qreal val);
 
     /*********************************************************************
      * Web access

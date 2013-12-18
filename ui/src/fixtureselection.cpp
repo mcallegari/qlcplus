@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QTreeWidgetItem>
@@ -32,9 +30,10 @@
 #include "doc.h"
 
 #define KColumnName         0
-#define KColumnHeads        1
-#define KColumnManufacturer 2
-#define KColumnModel        3
+#define KColumnUniverse     1
+#define KColumnHeads        2
+#define KColumnManufacturer 3
+#define KColumnModel        4
 
 #define PROP_ID             Qt::UserRole
 #define PROP_HEAD           Qt::UserRole + 1
@@ -146,6 +145,8 @@ void FixtureSelection::fillTree()
         QTreeWidgetItem* item = new QTreeWidgetItem(m_tree);
         item->setData(0, PROP_ID, fixture->id());
         item->setText(KColumnName, fixture->name());
+        item->setIcon(KColumnName, fixture->getIconFromType(fixture->type()));
+        item->setText(KColumnUniverse, QString::number(fixture->universe() + 1));
         item->setText(KColumnHeads, QString::number(fixture->heads()));
 
         if (fixture->fixtureDef() == NULL)
@@ -198,10 +199,14 @@ void FixtureSelection::fillTree()
     }
     else
     {
-        m_tree->sortItems(KColumnName, Qt::AscendingOrder);
-        m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
+        m_tree->sortItems(KColumnUniverse, Qt::AscendingOrder);
         m_buttonBox->setStandardButtons(QDialogButtonBox::Cancel);
     }
+    m_tree->resizeColumnToContents(KColumnName);
+    m_tree->resizeColumnToContents(KColumnUniverse);
+    m_tree->resizeColumnToContents(KColumnHeads);
+    m_tree->resizeColumnToContents(KColumnManufacturer);
+    m_tree->resizeColumnToContents(KColumnModel);
 }
 
 void FixtureSelection::slotItemDoubleClicked()

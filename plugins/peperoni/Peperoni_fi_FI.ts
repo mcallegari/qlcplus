@@ -4,19 +4,19 @@
 <context>
     <name>Peperoni</name>
     <message>
-        <location filename="win32/peperoni.cpp" line="122"/>
-        <location filename="unix/peperoni.cpp" line="93"/>
+        <location filename="win32/peperoni.cpp" line="120"/>
+        <location filename="unix/peperoni.cpp" line="91"/>
         <source>This plugin provides DMX output support for Peperoni DMX devices.</source>
         <translation type="unfinished">Tämä liitännäinen tuottaa DMX-ulostulotuen Peperoni DMX-laitteille.</translation>
     </message>
     <message>
-        <location filename="win32/peperoni.cpp" line="136"/>
+        <location filename="win32/peperoni.cpp" line="134"/>
         <source>The shared library usbdmx.dll could not be found or is too old to be used with QLC.</source>
         <translation type="unfinished">Jaettua kirjastoa usbdmx.dll ei löytynyt tai nykyinen versio on liian vanha QLC:n kanssa käytetäväksi.</translation>
     </message>
     <message>
-        <location filename="win32/peperoni.cpp" line="216"/>
-        <location filename="unix/peperoni.cpp" line="127"/>
+        <location filename="win32/peperoni.cpp" line="214"/>
+        <location filename="unix/peperoni.cpp" line="125"/>
         <source>Do you wish to re-scan your hardware?</source>
         <translation type="unfinished">Etsitäänkö lisää laitteita?</translation>
     </message>
@@ -24,39 +24,39 @@
 <context>
     <name>PeperoniDevice</name>
     <message>
-        <location filename="win32/peperonidevice.cpp" line="72"/>
-        <location filename="unix/peperonidevice.cpp" line="169"/>
+        <location filename="win32/peperonidevice.cpp" line="70"/>
+        <location filename="unix/peperonidevice.cpp" line="167"/>
         <source>Device is working correctly.</source>
         <translation>Laite toimii oikein.</translation>
     </message>
     <message>
-        <location filename="win32/peperonidevice.cpp" line="74"/>
+        <location filename="win32/peperonidevice.cpp" line="72"/>
         <source>Device might not work correctly.</source>
         <translation>Laite ei ehkä toimi oikein.</translation>
     </message>
     <message>
-        <location filename="win32/peperonidevice.cpp" line="96"/>
+        <location filename="win32/peperonidevice.cpp" line="94"/>
         <source>Nothing</source>
         <translation>Ei mitään</translation>
     </message>
     <message>
-        <location filename="win32/peperonidevice.cpp" line="113"/>
-        <location filename="unix/peperonidevice.cpp" line="149"/>
+        <location filename="win32/peperonidevice.cpp" line="111"/>
+        <location filename="unix/peperonidevice.cpp" line="147"/>
         <source>Unknown</source>
         <translation>Tuntematon</translation>
     </message>
     <message>
-        <location filename="unix/peperonidevice.cpp" line="171"/>
+        <location filename="unix/peperonidevice.cpp" line="169"/>
         <source>Firmware version: %1</source>
         <translation>Laitteen ohjelmistoversio: %1</translation>
     </message>
     <message>
-        <location filename="unix/peperonidevice.cpp" line="177"/>
+        <location filename="unix/peperonidevice.cpp" line="175"/>
         <source>Unknown device</source>
         <translation>Tuntematon laite</translation>
     </message>
     <message>
-        <location filename="unix/peperonidevice.cpp" line="180"/>
+        <location filename="unix/peperonidevice.cpp" line="178"/>
         <source>Cannot connect to USB device.</source>
         <translation>USB-laitteeseen ei saada yhteyttä.</translation>
     </message>

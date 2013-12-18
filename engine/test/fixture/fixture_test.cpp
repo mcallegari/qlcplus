@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QtTest>
@@ -159,11 +157,11 @@ void Fixture_Test::type()
     Fixture fxi(this);
     QCOMPARE(fxi.type(), QString(KXMLFixtureDimmer));
 
-    const QLCFixtureDef* fixtureDef;
+    QLCFixtureDef* fixtureDef;
     fixtureDef = m_doc->fixtureDefCache()->fixtureDef("Martin", "MAC250+");
     QVERIFY(fixtureDef != NULL);
 
-    const QLCFixtureMode* fixtureMode;
+    QLCFixtureMode* fixtureMode;
     fixtureMode = fixtureDef->modes().at(0);
     QVERIFY(fixtureMode != NULL);
 
@@ -218,7 +216,7 @@ void Fixture_Test::fixtureDef()
     QCOMPARE(fxi.tiltLsbChannel(), QLCChannel::invalid());
     QCOMPARE(fxi.masterIntensityChannel(), QLCChannel::invalid());
 
-    const QLCFixtureDef* fixtureDef;
+    QLCFixtureDef* fixtureDef;
     fixtureDef = m_doc->fixtureDefCache()->fixtureDef("Martin", "MAC300");
     Q_ASSERT(fixtureDef != NULL);
 
@@ -226,7 +224,7 @@ void Fixture_Test::fixtureDef()
     QVERIFY(fxi.fixtureDef() == NULL);
     QVERIFY(fxi.fixtureMode() == NULL);
 
-    const QLCFixtureMode* fixtureMode;
+    QLCFixtureMode* fixtureMode;
     fixtureMode = fixtureDef->modes().last();
     Q_ASSERT(fixtureMode != NULL);
 
@@ -269,9 +267,9 @@ void Fixture_Test::fixtureDef()
 void Fixture_Test::channels()
 {
     Fixture fxi(this);
-    const QLCFixtureDef* fixtureDef = m_doc->fixtureDefCache()->fixtureDef("i-Pix", "BB4");
+    QLCFixtureDef* fixtureDef = m_doc->fixtureDefCache()->fixtureDef("i-Pix", "BB4");
     QVERIFY(fixtureDef != NULL);
-    const QLCFixtureMode* fixtureMode = fixtureDef->modes().last();
+    QLCFixtureMode* fixtureMode = fixtureDef->modes().last();
     QVERIFY(fixtureMode != NULL);
     fxi.setFixtureDefinition(fixtureDef, fixtureMode);
 
@@ -705,11 +703,11 @@ void Fixture_Test::loader()
 
 void Fixture_Test::save()
 {
-    const QLCFixtureDef* fixtureDef;
+    QLCFixtureDef* fixtureDef;
     fixtureDef = m_doc->fixtureDefCache()->fixtureDef("Martin", "MAC250+");
     Q_ASSERT(fixtureDef != NULL);
 
-    const QLCFixtureMode* fixtureMode;
+    QLCFixtureMode* fixtureMode;
     fixtureMode = fixtureDef->modes().at(0);
     Q_ASSERT(fixtureMode != NULL);
 
@@ -778,7 +776,7 @@ void Fixture_Test::save()
         else
         {
             QFAIL(QString("Unexpected tag: %1").arg(e.tagName())
-                  .toAscii());
+                  .toLatin1());
         }
 
         node = node.nextSibling();
@@ -818,11 +816,11 @@ void Fixture_Test::status()
     fxi.setChannels(12);
     info = fxi.status();
 
-    const QLCFixtureDef* fixtureDef;
+    QLCFixtureDef* fixtureDef;
     fixtureDef = m_doc->fixtureDefCache()->fixtureDef("Martin", "MAC250+");
     Q_ASSERT(fixtureDef != NULL);
 
-    const QLCFixtureMode* fixtureMode;
+    QLCFixtureMode* fixtureMode;
     fixtureMode = fixtureDef->modes().at(0);
     Q_ASSERT(fixtureMode != NULL);
 

@@ -1,8 +1,8 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition>
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.3.0-r2741</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.6.0</Version>
   <Author>eklynx</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -156,16 +156,19 @@
    <Channel>0</Channel>
    <Channel>1</Channel>
    <Channel>2</Channel>
+   <Channel>10</Channel>
   </Head>
   <Head>
    <Channel>3</Channel>
    <Channel>4</Channel>
    <Channel>5</Channel>
+   <Channel>10</Channel>
   </Head>
   <Head>
    <Channel>6</Channel>
    <Channel>7</Channel>
    <Channel>8</Channel>
+   <Channel>10</Channel>
   </Head>
  </Mode>
  <Mode Name="2 Channels">

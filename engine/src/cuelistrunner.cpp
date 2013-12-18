@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QDebug>
@@ -252,7 +250,7 @@ void CueListRunner::adjustIntensity(qreal fraction, int stepIndex)
     {
         if (stepIndex == step->m_index && step->m_function != NULL)
         {
-            step->m_function->adjustAttribute(m_intensity);
+            step->m_function->adjustAttribute(m_intensity, Function::Intensity);
             return;
         }
     }
@@ -297,7 +295,7 @@ void CueListRunner::startNewStep(int index, MasterTimer* timer, bool manualFade)
 
         // Set intensity before starting the function. Otherwise the intensity
         // might momentarily jump too high.
-        newStep->m_function->adjustAttribute(m_intensity);
+        newStep->m_function->adjustAttribute(m_intensity, Function::Intensity);
         // Start the fire up !
         newStep->m_function->start(timer, true, 0, newStep->m_fadeIn, newStep->m_fadeOut);
         m_runnerSteps.append(newStep);

@@ -4,19 +4,17 @@
 
   Copyright (c) Massimo Callegari
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QDebug>
@@ -47,7 +45,15 @@ bool AudioCaptureAlsa::initialize(unsigned int sampleRate, quint8 channels, quin
     if (var.isValid() == true)
         dev_name = var.toString();
 
-    pcm_name = strdup(dev_name.toAscii().data());
+    pcm_name = strdup(dev_name.toLatin1().data());
+
+    qDebug() << "AudioCaptureAlsa: initializing device " << pcm_name;
+
+    if (m_captureHandle)
+    {
+        snd_pcm_close (m_captureHandle);
+        m_captureHandle = NULL;
+    }
 
     if ((err = snd_pcm_open (&m_captureHandle, pcm_name, SND_PCM_STREAM_CAPTURE, 0)) < 0)
     {
@@ -81,7 +87,7 @@ bool AudioCaptureAlsa::initialize(unsigned int sampleRate, quint8 channels, quin
     }
     if ((err = snd_pcm_hw_params_set_channels (m_captureHandle, hw_params, channels)) < 0)
     {
-        qWarning("cannot set channel count (%s)\n", snd_strerror (err));
+        qWarning("cannot set channel count to %d (%s)\n", channels, snd_strerror (err));
         return false;
     }
     if ((err = snd_pcm_hw_params (m_captureHandle, hw_params)) < 0)

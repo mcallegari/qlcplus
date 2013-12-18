@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QDomDocument>
@@ -102,15 +100,35 @@ bool Scene::copyFrom(const Function* function)
  * Values
  *****************************************************************************/
 
-void Scene::setValue(const SceneValue& scv)
+void Scene::setValue(const SceneValue& scv, bool blind, bool checkHTP)
 {
     m_valueListMutex.lock();
     int index = m_values.indexOf(scv);
     if (index == -1)
+    {
         m_values.append(scv);
+        qSort(m_values.begin(), m_values.end());
+    }
     else
         m_values.replace(index, scv);
-    qSort(m_values.begin(), m_values.end());
+
+    // if the scene is running, we must
+    // update/add the changed channel
+    if (blind == false && m_fader != NULL)
+    {
+        FadeChannel fc;
+        fc.setFixture(scv.fxi);
+        fc.setChannel(scv.channel);
+        fc.setStart(scv.value);
+        fc.setTarget(scv.value);
+        fc.setCurrent(scv.value);
+        fc.setFadeTime(0);
+        if (checkHTP == false)
+            m_fader->forceAdd(fc);
+        else
+            m_fader->add(fc);
+    }
+
     m_valueListMutex.unlock();
 
     emit changed(this->id());
@@ -152,6 +170,55 @@ bool Scene::checkValue(SceneValue val)
 QList <SceneValue> Scene::values() const
 {
     return m_values;
+}
+
+QColor Scene::colorValue(quint32 fxi)
+{
+    int rVal = 0, gVal = 0, bVal = 0;
+    int cVal = -1, mVal = -1, yVal = -1;
+    bool found = false;
+    QColor CMYcol;
+
+    foreach(SceneValue scv, m_values)
+    {
+        if (fxi != Fixture::invalidId() && fxi != scv.fxi)
+            continue;
+
+        Fixture *fixture = doc()->fixture(scv.fxi);
+        if (fixture == NULL)
+            continue;
+
+        const QLCChannel* channel(fixture->channel(scv.channel));
+        if (channel->group() == QLCChannel::Intensity)
+        {
+            QLCChannel::PrimaryColour col = channel->colour();
+            switch (col)
+            {
+                case QLCChannel::Red: rVal = scv.value; found = true; break;
+                case QLCChannel::Green: gVal = scv.value; found = true; break;
+                case QLCChannel::Blue: bVal = scv.value; found = true; break;
+                case QLCChannel::Cyan: cVal = scv.value; break;
+                case QLCChannel::Magenta: mVal = scv.value; break;
+                case QLCChannel::Yellow: yVal = scv.value; break;
+                case QLCChannel::White: rVal = gVal = bVal = scv.value; found = true; break;
+                default: break;
+            }
+        }
+
+        if (cVal >= 0 && mVal >= 0 && yVal >= 0)
+        {
+            CMYcol.setCmyk(cVal, mVal, yVal, 0);
+            rVal = CMYcol.red();
+            gVal = CMYcol.green();
+            bVal = CMYcol.blue();
+            found = true;
+        }
+    }
+
+    if (found)
+        return QColor(rVal, gVal, bVal);
+
+    return QColor();
 }
 
 void Scene::clear()
@@ -236,7 +303,6 @@ bool Scene::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     QDomElement root;
     QDomElement tag;
     QDomText text;
-    QString str;
 
     Q_ASSERT(doc != NULL);
     Q_ASSERT(wksp_root != NULL);
@@ -245,9 +311,8 @@ bool Scene::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     root = doc->createElement(KXMLQLCFunction);
     wksp_root->appendChild(root);
 
-    root.setAttribute(KXMLQLCFunctionID, id());
-    root.setAttribute(KXMLQLCFunctionType, Function::typeToString(type()));
-    root.setAttribute(KXMLQLCFunctionName, name());
+    /* Common attributes */
+    saveXMLCommon(&root);
 
     /* Speed */
     saveXMLSpeed(doc, &root);
@@ -469,7 +534,7 @@ void Scene::preRun(MasterTimer* timer)
 
     Q_ASSERT(m_fader == NULL);
     m_fader = new GenericFader(doc());
-    m_fader->adjustIntensity(getAttributeValue());
+    m_fader->adjustIntensity(getAttributeValue(Intensity));
     Function::preRun(timer);
 }
 
@@ -541,18 +606,29 @@ void Scene::postRun(MasterTimer* timer, UniverseArray* ua)
         it.next();
         FadeChannel fc = it.value();
 
-        if (fc.group(doc()) == QLCChannel::Intensity)
+        bool canFade = true;
+        Fixture *fixture = doc()->fixture(fc.fixture());
+        if (fixture != NULL)
+            canFade = fixture->channelCanFade(fc.channel());
+        fc.setStart(fc.current(getAttributeValue(Intensity)));
+
+        fc.setElapsed(0);
+        fc.setReady(false);
+        if (canFade == false)
         {
-            fc.setStart(fc.current(getAttributeValue()));
-            fc.setTarget(0);
-            fc.setElapsed(0);
-            fc.setReady(false);
+            fc.setFadeTime(0);
+            fc.setTarget(fc.current(getAttributeValue(Intensity)));
+        }
+        else
+        {
             if (overrideFadeOutSpeed() == defaultSpeed())
                 fc.setFadeTime(fadeOutSpeed());
             else
                 fc.setFadeTime(overrideFadeOutSpeed());
-            timer->fader()->add(fc);
+            fc.setTarget(0);
         }
+        timer->fader()->add(fc);
+
     }
 
     Q_ASSERT(m_fader != NULL);
@@ -590,9 +666,9 @@ void Scene::insertStartValue(FadeChannel& fc, const MasterTimer* timer,
  * Intensity
  ****************************************************************************/
 
-void Scene::adjustAttribute(qreal intensity, int)
+void Scene::adjustAttribute(qreal fraction, int attributeIndex)
 {
-    if (m_fader != NULL)
-        m_fader->adjustIntensity(intensity);
-    Function::adjustAttribute(intensity);
+    if (m_fader != NULL && attributeIndex == Intensity)
+        m_fader->adjustIntensity(fraction);
+    Function::adjustAttribute(fraction, attributeIndex);
 }

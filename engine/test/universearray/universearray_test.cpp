@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QtTest>
@@ -210,6 +208,70 @@ void UniverseArray_Test::write()
     QCOMPARE(ua.postGMValues()->at(9), char(127));
     QCOMPARE(ua.postGMValues()->at(4), char(100));
     QCOMPARE(ua.postGMValues()->at(0), char(127));
+}
+
+void UniverseArray_Test::writeRelative()
+{
+    UniverseArray ua(10);
+
+    // past the end of the array
+    QVERIFY(ua.write(10, 255, QLCChannel::Pan, true) == false);
+    QCOMPARE(ua. m_relativeValues[9], short(0));
+    QCOMPARE(ua.m_relativeValues[4], short(0));
+    QCOMPARE(ua.m_relativeValues[0], short(0));
+    QCOMPARE(ua.postGMValues()->at(9), char(0));
+    QCOMPARE(ua.postGMValues()->at(4), char(0));
+    QCOMPARE(ua.postGMValues()->at(0), char(0));
+
+    // 127 == 0
+    QVERIFY(ua.write(9, 127, QLCChannel::Pan, true) == true);
+    QCOMPARE(ua.m_relativeValues[9], short(0));
+    QCOMPARE(ua.m_relativeValues[4], short(0));
+    QCOMPARE(ua.m_relativeValues[0], short(0));
+    QCOMPARE(int(ua.postGMValues()->at(9)), 0);
+    QCOMPARE(int(ua.postGMValues()->at(4)), 0);
+    QCOMPARE(int(ua.postGMValues()->at(0)), 0);
+
+    // 255 == -128
+    QVERIFY(ua.write(9, 255, QLCChannel::Pan, true) == true);
+    QCOMPARE(ua.m_relativeValues[9], short(128));
+    QCOMPARE(ua.m_relativeValues[4], short(0));
+    QCOMPARE(ua.m_relativeValues[0], short(0));
+    QCOMPARE(ua.postGMValues()->at(9), char(128));
+    QCOMPARE(ua.postGMValues()->at(4), char(0));
+    QCOMPARE(ua.postGMValues()->at(0), char(0));
+
+    // 0 == -127
+    QVERIFY(ua.write(9, 0, QLCChannel::Pan, true) == true);
+    QCOMPARE(ua.m_relativeValues[9], short(1));
+    QCOMPARE(ua.m_relativeValues[4], short(0));
+    QCOMPARE(ua.m_relativeValues[0], short(0));
+    QCOMPARE(ua.postGMValues()->at(9), char(1));
+    QCOMPARE(ua.postGMValues()->at(4), char(0));
+    QCOMPARE(ua.postGMValues()->at(0), char(0));
+
+    ua.reset();
+
+    QVERIFY(ua.write(9, 85, QLCChannel::Pan, false) == true);
+    QCOMPARE(ua.postGMValues()->at(9), char(85));
+    QVERIFY(ua.write(9, 117, QLCChannel::Pan, true) == true);
+    QCOMPARE(ua.postGMValues()->at(9), char(75));
+    QVERIFY(ua.write(9, 75, QLCChannel::Pan, false) == true);
+    QCOMPARE(ua.postGMValues()->at(9), char(65));
+
+    ua.reset();
+
+    QVERIFY(ua.write(9, 255, QLCChannel::Pan, false) == true);
+    QCOMPARE(ua.postGMValues()->at(9), char(255));
+    QVERIFY(ua.write(9, 255, QLCChannel::Pan, true) == true);
+    QCOMPARE(ua.postGMValues()->at(9), char(255));
+
+    ua.reset();
+
+    QVERIFY(ua.write(9, 0, QLCChannel::Pan, false) == true);
+    QCOMPARE(ua.postGMValues()->at(9), char(0));
+    QVERIFY(ua.write(9, 0, QLCChannel::Pan, true) == true);
+    QCOMPARE(ua.postGMValues()->at(9), char(0));
 }
 
 void UniverseArray_Test::reset()

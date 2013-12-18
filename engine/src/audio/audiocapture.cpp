@@ -5,19 +5,17 @@
   Copyright (c) Massimo Callegari
   based on libbeat code by Maximilian Güntner
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QDebug>
@@ -37,6 +35,9 @@ AudioCapture::AudioCapture (QObject* parent)
     , m_userStop(true)
     , m_pause(false)
     , m_isInitialized(false)
+    , m_captureSize(0)
+    , m_sampleRate(0)
+    , m_channels(0)
     , m_audioBuffer(NULL)
     , m_fftInputBuffer(NULL)
     , m_fftOutputBuffer(NULL)
@@ -179,7 +180,7 @@ void AudioCapture::run()
     while (!m_userStop)
     {
         m_mutex.lock();
-        if (m_pause == false)
+        if (m_pause == false && m_captureSize != 0)
         {
             if (readAudio(m_captureSize) == true)
             {

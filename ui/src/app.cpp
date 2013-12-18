@@ -5,27 +5,29 @@
   Copyright (c) Heikki Junnila,
                 Christopher Staite
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QToolButton>
 #include <QtCore>
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 #include <QtGui>
+#else
+#include <QtWidgets>
+#endif
 #include <QtXml>
 
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
   #include <windows.h>
 #endif
 
@@ -41,7 +43,6 @@
 #include "addresstool.h"
 #include "simpledesk.h"
 #include "docbrowser.h"
-#include "webaccess.h"
 #include "outputmap.h"
 #include "inputmap.h"
 #include "aboutbox.h"
@@ -64,7 +65,6 @@
 
 #define KModeTextOperate QObject::tr("Operate")
 #define KModeTextDesign QObject::tr("Design")
-#define KInputUniverseCount 4
 #define KUniverseCount 4
 
 /*****************************************************************************
@@ -148,7 +148,7 @@ App::~App()
 
 void App::startup()
 {
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(Q_OS_MAC)
     createProgressDialog();
 #endif
 
@@ -156,7 +156,7 @@ void App::startup()
     slotModeDesign();
     slotDocModified(false);
 
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(Q_OS_MAC)
     destroyProgressDialog();
 #endif
 
@@ -186,7 +186,19 @@ void App::init()
         if (size.isValid() == true)
             resize(size);
         else
-            resize(800, 600);
+        {
+            if (isRaspberry())
+            {
+                QRect geometry = qApp->desktop()->availableGeometry();
+                // if we're on a Raspberry Pi, introduce a 5% margin
+                int w = (float)geometry.width() * 0.9;
+                int h = (float)geometry.height() * 0.9;
+                setGeometry((geometry.width() - w) / 2, (geometry.height() - h) / 2,
+                            w, h);
+            }
+            else
+                resize(800, 600);
+        }
 
         QVariant state = settings.value("/workspace/state", Qt::WindowNoState);
         if (state.isValid() == true)
@@ -233,7 +245,7 @@ void App::init()
 
     QString ssDir;
 
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
     /* User's input profile directory on Windows */
     LPTSTR home = (LPTSTR) malloc(256 * sizeof(TCHAR));
     GetEnvironmentVariable(TEXT("UserProfile"), home, 256);
@@ -268,6 +280,24 @@ void App::setActiveWindow(const QString& name)
             break;
         }
     }
+}
+
+bool App::isRaspberry()
+{
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+    QFile cpuInfoFile("/proc/cpuinfo");
+    if (cpuInfoFile.exists() == true)
+    {
+        cpuInfoFile.open(QFile::ReadOnly);
+        QString content = QLatin1String(cpuInfoFile.readAll());
+        cpuInfoFile.close();
+        if (content.contains("BCM2708"))
+            return true;
+    }
+    return false;
+#else
+    return false;
+#endif
 }
 
 void App::closeEvent(QCloseEvent* e)
@@ -373,6 +403,11 @@ void App::clearDocument()
     m_doc->resetModified();
 }
 
+Doc *App::doc()
+{
+    return m_doc;
+}
+
 void App::initDoc()
 {
     Q_ASSERT(m_doc == NULL);
@@ -383,7 +418,8 @@ void App::initDoc()
 
     /* Load user fixtures first so that they override system fixtures */
     m_doc->fixtureDefCache()->load(QLCFixtureDefCache::userDefinitionDirectory());
-    m_doc->fixtureDefCache()->load(QLCFixtureDefCache::systemDefinitionDirectory());
+    //m_doc->fixtureDefCache()->load(QLCFixtureDefCache::systemDefinitionDirectory());
+    m_doc->fixtureDefCache()->loadMap(QLCFixtureDefCache::systemDefinitionDirectory());
 
     /* Load plugins */
     connect(m_doc->ioPluginCache(), SIGNAL(pluginLoaded(const QString&)),
@@ -718,7 +754,7 @@ void App::updateFileOpenMenu(QString addRecent)
         for (int i = 0; i < menuRecentList.count(); i++)
         {
             settings.setValue(QString("%1%2").arg(SETTINGS_RECENTFILE).arg(i), menuRecentList.at(i));
-            /*QAction* a =*/ m_fileOpenMenu->addAction(menuRecentList.at(i));
+            m_fileOpenMenu->addAction(menuRecentList.at(i));
         }
     }
     else
@@ -816,7 +852,7 @@ QFile::FileError App::slotFileOpen()
     /* Append file filters to the dialog */
     QStringList filters;
     filters << tr("Workspaces (*%1)").arg(KExtWorkspace);
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
     filters << tr("All Files (*.*)");
 #else
     filters << tr("All Files (*)");
@@ -854,8 +890,8 @@ QFile::FileError App::slotFileOpen()
 
     /* Update these in any case, since they are at least emptied now as
        a result of calling clearDocument() a few lines ago. */
-    if (FunctionManager::instance() != NULL)
-        FunctionManager::instance()->updateTree();
+    //if (FunctionManager::instance() != NULL)
+    //    FunctionManager::instance()->updateTree();
     if (FixtureManager::instance() != NULL)
         FixtureManager::instance()->updateView();
     if (InputOutputManager::instance() != NULL)
@@ -893,7 +929,7 @@ QFile::FileError App::slotFileSaveAs()
     /* Append file filters to the dialog */
     QStringList filters;
     filters << tr("Workspaces (*%1)").arg(KExtWorkspace);
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
     filters << tr("All Files (*.*)");
 #else
     filters << tr("All Files (*)");
@@ -973,10 +1009,7 @@ void App::slotRunningFunctionsChanged()
     if (m_doc->masterTimer()->runningFunctions() > 0)
         m_controlPanicAction->setEnabled(true);
     else
-    {
         m_controlPanicAction->setEnabled(false);
-        m_doc->masterTimer()->stopAllFunctions();
-    }
 }
 
 void App::slotDumpDmxIntoFunction()
@@ -1111,8 +1144,8 @@ void App::slotRecentFileClicked(QAction *recent)
 
     /* Update these in any case, since they are at least emptied now as
        a result of calling clearDocument() a few lines ago. */
-    if (FunctionManager::instance() != NULL)
-        FunctionManager::instance()->updateTree();
+    //if (FunctionManager::instance() != NULL)
+    //    FunctionManager::instance()->updateTree();
     if (FixtureManager::instance() != NULL)
         FixtureManager::instance()->updateView();
     if (InputOutputManager::instance() != NULL)
@@ -1163,7 +1196,7 @@ QFile::FileError App::loadXML(const QString& fileName)
     return retval;
 }
 
-bool App::loadXML(const QDomDocument& doc)
+bool App::loadXML(const QDomDocument& doc, bool goToConsole)
 {
     Q_ASSERT(m_doc != NULL);
 
@@ -1215,11 +1248,16 @@ bool App::loadXML(const QDomDocument& doc)
         node = node.nextSibling();
     }
 
+
+    if (goToConsole == true)
+        // Force the active window to be Virtual Console
+        setActiveWindow(VirtualConsole::staticMetaObject.className());
+    else
+        // Set the active window to what was saved in the workspace file
+        setActiveWindow(activeWindowName);
+
     // Perform post-load operations
     VirtualConsole::instance()->postLoad();
-
-    // Set the active window to what was saved in the workspace file
-    setActiveWindow(activeWindowName);
 
     return true;
 }
@@ -1291,5 +1329,5 @@ void App::slotLoadDocFromMemory(QString xmlData)
 
     QDomDocument doc;
     doc.setContent(xmlData);
-    loadXML(doc);
+    loadXML(doc, true);
 }

@@ -4,6 +4,8 @@ TEMPLATE = lib
 LANGUAGE = C++
 TARGET   = hid
 
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
 INCLUDEPATH += ../interfaces
 CONFIG      += plugin
 

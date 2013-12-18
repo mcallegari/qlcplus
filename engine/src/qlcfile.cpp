@@ -4,31 +4,29 @@
 
   Copyright (C) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QFile>
 #include <QtXml>
 
-#ifndef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
+#   include <windows.h>
+#   include <lmcons.h>
+#else
 #   include <sys/types.h>
 #   include <unistd.h>
 #   include <pwd.h>
-#else
-#   include <windows.h>
-#   include <lmcons.h>
 #endif
 
 #include "qlcconfig.h"
@@ -151,18 +149,18 @@ QString QLCFile::errorString(QFile::FileError error)
 
 QString QLCFile::currentUserName()
 {
-#ifndef WIN32
-    struct passwd* passwd = getpwuid(getuid());
-    if (passwd == NULL)
-        return QString(getenv("USER"));
-    else
-        return QString(passwd->pw_gecos);
-#else
+#if defined(WIN32) || defined(Q_OS_WIN)
     DWORD length = UNLEN + 1;
     TCHAR name[length];
     if (GetUserName(name, &length))
         return QString::fromUtf16((ushort*) name);
     else
         return QString("Unknown windows user");
+#else
+    struct passwd* passwd = getpwuid(getuid());
+    if (passwd == NULL)
+        return QString(getenv("USER"));
+    else
+        return QString(passwd->pw_gecos);
 #endif
 }

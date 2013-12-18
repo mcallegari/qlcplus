@@ -3,11 +3,12 @@
 <HEAD>
 <TITLE>Q Light Controller Plus - Virtual Console Button</TITLE>
 <SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
 </HEAD>
 <BODY onLoad="replaceqrc()">
 
-<H1>Virtual Console Button</H1>
-<IMG SRC="qrc:/button.png" ALIGN="absmiddle">
+<H1><IMG SRC="qrc:/button.png" ALIGN="absmiddle"> Virtual Console Button</H1>
+
 <P>
 A Button is the simplest and at the same time the most powerful widget in QLC+;
 with it, you can start, stop and flash your functions.
@@ -21,7 +22,7 @@ Buttons can be configured with the properties
 by double clicking the button itself.
 </P>
 
-<TABLE BORDER="1">
+<TABLE BORDER=1 class="qlcTable">
  <TR>
   <TD>
    <B>Button label</B>
@@ -29,8 +30,7 @@ by double clicking the button itself.
   <TD>
    Set the friendly name of the button. The name appears on the button in
    Virtual Console. <B>NOTE:</B> If you set an icon to a button with the
-   <B>Edit -&gt; Icon -&gt; Choose</B> menu, the icon overrides this label.
-   second column title.
+   <B>Edit -&gt; Icon -&gt; Choose</B> menu, the icon will override this label.
   </TD>
  </TR>
  <TR>
@@ -39,7 +39,7 @@ by double clicking the button itself.
   </TD>
   <TD>
    Shows you the name of the <A HREF="file:concept.html#Function">Function</A> that
-   has been currently assigned to the button.
+   is currently assigned to the button.
    <P>
     <IMG SRC="qrc:/attach.png" ALIGN="absmiddle"> Attach a function to the button<BR>
     <IMG SRC="qrc:/detach.png" ALIGN="absmiddle"> Detach the current function from the button
@@ -51,11 +51,11 @@ by double clicking the button itself.
    <B>Attributes</B>
   </TD>
   <TD>
-   Shows you the list of attributes that the assigned function exposes. Attributes can be controlled
+   Shows you the list of attributes of the assigned function that can be adjusted. Attributes can be controlled
    by right clicking on the button when in <A HREF="file:concept.html#Modes">Operate Mode</A>.<br>
    A popup will display a number of sliders corresponding to the number of available attributes.<br>
-   In case the assigned function is a <A HREF="file:concept.html#Show">Show</A>, attributes correspond
-   to the Show tracks, so you can tune the intensity (or volume) of a whole track with just one click.
+   If the assigned function is a <A HREF="file:concept.html#Show">Show</A>, attributes correspond
+   to the Show tracks, so you can adjust the intensity (or volume) of a whole track with just one click.
   </TD>
  </TR>
  <TR>
@@ -64,7 +64,7 @@ by double clicking the button itself.
   </TD>
   <TD>
    You can attach an external input channel from an input device (like a slider
-   board) to buttons so that you don't always have to use the mouse, touch or
+   board) to buttons so that you don't always have to use the mouse, touch screen or
    keyboard to access the buttons.
    <UL>
     <LI>Input universe: The input universe that you wish to provide input data to
@@ -73,7 +73,7 @@ by double clicking the button itself.
     universe that you wish to use for controlling the button.</LI>
     <LI>Auto Detect: When toggled, you can just press a button on your external
     input hardware and it will be automatically assigned to the button. The
-    latest combination is shown on the text boxes when QLC+ receives input data.
+    latest combination is shown in the text boxes when QLC+ receives input data.
     If you don't see anything in the boxes, your input connection might have a
     problem that you need to fix first.</LI>
     <LI>Choose...: Shows the <A HREF="file:selectinputchannel.html">Select Input Channel</A>
@@ -86,10 +86,10 @@ by double clicking the button itself.
    <B>Key combination</B>
   </TD>
   <TD>
-   You can attach a keyboard key (combination) to the button, which then acts
+   You can attach a keyboard key (or key combination) to the button, which then acts
    as if you clicked the button directly with your mouse.
    <P>
-    <IMG SRC="qrc:/key_bindings.png" ALIGN="absmiddle"> Attach a keyboard key
+    <IMG SRC="qrc:/key_bindings.png" ALIGN="absmiddle"> Attach a keyboard key (or key combination) 
     to the button<BR/>
     <IMG SRC="qrc:/fileclose.png" ALIGN="absmiddle"> Detach the current key
     combination from the button
@@ -111,8 +111,8 @@ by double clicking the button itself.
     click it.</LI>
     <LI>Blackout on/off: When you click the button, QLC+ will toggle the 
     <A HREF="file:concept.html#Blackout">blackout mode</A></LI>
-    <LI>Stop all functions: When you click the button, all the QLC+ running
-    functions will be stopped immediately</LI>
+    <LI>Stop all functions: When you click the button, all the functions that are running
+    in QLC+  will be stopped immediately</LI>
    </UL>
   </TD>
  </TR>
@@ -121,7 +121,7 @@ by double clicking the button itself.
    <B>Adjust function intensity</B>
   </TD>
   <TD>
-    If checked, this feature will adjust the assigned function intensity right before
+    If checked, this feature will adjust the intensity of the assigned function just before
     playing it when the button is pressed.
   </TD>
  </TR>

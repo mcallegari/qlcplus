@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QTreeWidgetItem>
@@ -95,6 +93,10 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
     connect(m_detachPlaybackFunctionButton, SIGNAL(clicked()),
             this, SLOT(slotDetachPlaybackFunctionClicked()));
 
+    /* Submaster page connections */
+    connect(m_switchToSubmasterModeButton, SIGNAL(clicked()),
+            this, SLOT(slotModeSubmasterClicked()));
+
     /*********************************************************************
      * General page
      *********************************************************************/
@@ -118,6 +120,9 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
         break;
     case VCSlider::Playback:
         slotModePlaybackClicked();
+        break;
+    case VCSlider::Submaster:
+        slotModeSubmasterClicked();
         break;
     }
 
@@ -158,12 +163,14 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
     m_levelLowLimitSpin->setValue(m_slider->levelLowLimit());
     m_levelHighLimitSpin->setValue(m_slider->levelHighLimit());
 
-    /* Tree widget columns */
-    m_levelList->header()->setResizeMode(QHeaderView::ResizeToContents);
-
     /* Tree widget contents */
     levelUpdateFixtures();
     levelUpdateChannelSelections();
+
+    connect(m_levelList, SIGNAL(expanded(QModelIndex)),
+            this, SLOT(slotItemExpanded()));
+    connect(m_levelList, SIGNAL(collapsed(QModelIndex)),
+            this, SLOT(slotItemExpanded()));
 
     /*********************************************************************
      * Playback page
@@ -190,23 +197,11 @@ void VCSliderProperties::slotModeLevelClicked()
 
     m_nameEdit->setEnabled(true);
 
-    m_levelValueRangeGroup->show();
-    m_levelList->show();
-    m_levelAllButton->show();
-    m_levelNoneButton->show();
-    m_levelInvertButton->show();
-    m_levelByGroupButton->show();
-    m_clickngoGroup->show();
+    setLevelPageVisibility(true);
+    setPlaybackPageVisibility(false);
+    setSubmasterPageVisibility(false);
 
-    m_playbackFunctionGroup->hide();
-
-    m_switchToLevelModeButton->hide();
-    m_switchToPlaybackModeButton->show();
-
-    m_levelSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
-    m_playbackSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
-
-    int cngType = m_slider->getClickAndGoType();
+    int cngType = m_slider->clickAndGoType();
     switch(cngType)
     {
         case ClickAndGoWidget::Red:
@@ -215,6 +210,7 @@ void VCSliderProperties::slotModeLevelClicked()
         case ClickAndGoWidget::Cyan:
         case ClickAndGoWidget::Magenta:
         case ClickAndGoWidget::Yellow:
+        case ClickAndGoWidget::Amber:
         case ClickAndGoWidget::White:
             m_cngColorCheck->setChecked(true);
         break;
@@ -241,21 +237,18 @@ void VCSliderProperties::slotModePlaybackClicked()
 
     m_nameEdit->setEnabled(true);
 
-    m_levelValueRangeGroup->hide();
-    m_levelList->hide();
-    m_levelAllButton->hide();
-    m_levelNoneButton->hide();
-    m_levelInvertButton->hide();
-    m_levelByGroupButton->hide();
-    m_clickngoGroup->hide();
+    setLevelPageVisibility(false);
+    setPlaybackPageVisibility(true);
+    setSubmasterPageVisibility(false);
+}
 
-    m_playbackFunctionGroup->show();
+void VCSliderProperties::slotModeSubmasterClicked()
+{
+    m_sliderMode = VCSlider::Submaster;
 
-    m_switchToLevelModeButton->show();
-    m_switchToPlaybackModeButton->hide();
-
-    m_levelSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
-    m_playbackSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Expanding);
+    setLevelPageVisibility(false);
+    setPlaybackPageVisibility(false);
+    setSubmasterPageVisibility(true);
 }
 
 void VCSliderProperties::slotAutoDetectInputToggled(bool checked)
@@ -303,6 +296,60 @@ void VCSliderProperties::updateInputSource()
     m_inputChannelEdit->setText(chName);
 }
 
+void VCSliderProperties::setLevelPageVisibility(bool visible)
+{
+    m_levelValueRangeGroup->setVisible(visible);
+    m_levelList->setVisible(visible);
+    m_levelAllButton->setVisible(visible);
+    m_levelNoneButton->setVisible(visible);
+    m_levelInvertButton->setVisible(visible);
+    m_levelByGroupButton->setVisible(visible);
+    m_clickngoGroup->setVisible(visible);
+
+    if (visible == true)
+    {
+        m_switchToLevelModeButton->hide();
+        m_levelSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Expanding);
+    }
+    else
+    {
+        m_switchToLevelModeButton->show();
+        m_levelSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
+    }
+}
+
+void VCSliderProperties::setPlaybackPageVisibility(bool visible)
+{
+    m_playbackFunctionGroup->setVisible(visible);
+
+    if (visible == true)
+    {
+        m_switchToPlaybackModeButton->hide();
+        m_playbackSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Expanding);
+    }
+    else
+    {
+        m_switchToPlaybackModeButton->show();
+        m_playbackSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
+    }
+}
+
+void VCSliderProperties::setSubmasterPageVisibility(bool visible)
+{
+    m_submasterInfo->setVisible(visible);
+
+    if (visible == true)
+    {
+        m_switchToSubmasterModeButton->hide();
+        m_submasterSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Expanding);
+    }
+    else
+    {
+        m_switchToSubmasterModeButton->show();
+        m_submasterSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
+    }
+}
+
 /*****************************************************************************
  * Level page
  *****************************************************************************/
@@ -314,6 +361,8 @@ void VCSliderProperties::levelUpdateFixtures()
         Q_ASSERT(fixture != NULL);
         levelUpdateFixtureNode(fixture->id());
     }
+    m_levelList->resizeColumnToContents(KColumnName);
+    m_levelList->resizeColumnToContents(KColumnType);
 }
 
 void VCSliderProperties::levelUpdateFixtureNode(quint32 id)
@@ -335,9 +384,11 @@ void VCSliderProperties::levelUpdateFixtureNode(quint32 id)
     }
 
     item->setText(KColumnName, fxi->name());
+    item->setIcon(KColumnName, fxi->getIconFromType(fxi->type()));
     item->setText(KColumnType, fxi->type());
 
     levelUpdateChannels(item, fxi);
+
 }
 
 QTreeWidgetItem* VCSliderProperties::levelFixtureNode(quint32 id)
@@ -392,11 +443,13 @@ void VCSliderProperties::levelUpdateChannelNode(QTreeWidgetItem* parent,
 
     item->setText(KColumnName, QString("%1:%2").arg(ch + 1)
                   .arg(channel->name()));
+    item->setIcon(KColumnName, channel->getIconFromGroup(channel->group()));
     if (channel->group() == QLCChannel::Intensity &&
         channel->colour() != QLCChannel::NoColour)
         item->setText(KColumnType, QLCChannel::colourToString(channel->colour()));
     else
         item->setText(KColumnType, QLCChannel::groupToString(channel->group()));
+
 
     levelUpdateCapabilities(item, channel);
 }
@@ -632,6 +685,12 @@ void VCSliderProperties::slotLevelByGroupClicked()
         levelSelectChannelsByGroup(group);
 }
 
+void VCSliderProperties::slotItemExpanded()
+{
+    m_levelList->resizeColumnToContents(KColumnName);
+    m_levelList->resizeColumnToContents(KColumnType);
+}
+
 /*****************************************************************************
  * Playback page
  *****************************************************************************/
@@ -640,7 +699,7 @@ void VCSliderProperties::slotAttachPlaybackFunctionClicked()
 {
     FunctionSelection fs(this, m_doc);
     fs.setMultiSelection(false);
-    fs.setFilter(Function::Scene | Function::Chaser | Function::EFX | Function::Audio, true);
+    fs.setFilter(Function::Scene | Function::Chaser | Function::EFX | Function::Audio | Function::RGBMatrix, true);
 
     if (fs.exec() != QDialog::Accepted)
         return;
@@ -690,7 +749,7 @@ void VCSliderProperties::checkMajorColor(int *comp, int *max, int type)
 void VCSliderProperties::storeLevelChannels()
 {
     int red = 0, green = 0, blue = 0;
-    int cyan = 0, magenta = 0, yellow = 0, white = 0;
+    int cyan = 0, magenta = 0, yellow = 0, amber = 0, white = 0;
     int majorColor = 0;
     /* Clear all channels from the slider first */
     m_slider->clearLevelChannels();
@@ -747,6 +806,11 @@ void VCSliderProperties::storeLevelChannels()
                         {
                             yellow++;
                             checkMajorColor(&yellow, &majorColor, ClickAndGoWidget::Yellow);
+                        }
+                        else if (ch->colour() == QLCChannel::Amber)
+                        {
+                            amber++;
+                            checkMajorColor(&amber, &majorColor, ClickAndGoWidget::Amber);
                         }
                         else if (ch->colour() == QLCChannel::White)
                         {

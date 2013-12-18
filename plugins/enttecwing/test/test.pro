@@ -5,6 +5,7 @@ LANGUAGE = C++
 TARGET   = enttecwing_test
 
 QT     += core gui network testlib
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 INCLUDEPATH += ../../interfaces
 INCLUDEPATH += ../src

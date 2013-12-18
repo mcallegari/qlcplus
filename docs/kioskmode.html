@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - Kiosk mode</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>Kiosk Mode</H1>
+
+<P>QLC+ has a special mode when your lighting needs to be operated by inexperienced people, or you just want to prevent unwanted changes. It's called the Kiosk mode.
+In this mode only the Virtual Console is displayed, so no editing is possible. 
+<P>
+
+<P>When you want to start QLC+ in kiosk mode, run:
+<BLOCKQUOTE>
+<TT>qlcplus -k -f -o workspace.qxw -p -c 500,10,32,32</TT>
+</BLOCKQUOTE>
+
+<UL>
+<LI><B>-k</B> enables the kiosk mode</LI>
+<LI><B>-f</B> puts QLC+ in fullscreen mode</LI>
+<LI><B>-o workspace.qxw</B> opens specified workspace</LI>
+<LI><B>-p</B> starts operate mode</LI>
+<LI><B>-c 500,10,32,32</B> creates a close button with size of 32x32 pixels, 500 pixels from left and 10 pixels from top.</LI>
+</UL>
+</P>
+
+<P>You can of course specify your own workspace file for <B>-o</B>, and size/position for <B>-c</B>.
+</P>
+
+<P>
+You can omit any of the paramteres if you need to - for example, omit <B>-c 500,10,32,32</B> if you don't want close button,
+and omit <B>-f</B> if you don't want fullscreen.
+</P>
+
+<P>All command-line parameters are described <A HREF="file:commandlineparameters.html">here</a>.
+</BODY>
+</HTML>

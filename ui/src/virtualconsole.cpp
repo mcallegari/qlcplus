@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QDesktopWidget>
@@ -58,6 +56,7 @@
 #include "vcframe.h"
 #include "vclabel.h"
 #include "vcxypad.h"
+#include "vcclock.h"
 #include "doc.h"
 
 #define SETTINGS_VC_SIZE "virtualconsole/size"
@@ -96,6 +95,7 @@ VirtualConsole::VirtualConsole(QWidget* parent, Doc* doc)
     , m_addSoloFrameAction(NULL)
     , m_addLabelAction(NULL)
     , m_addAudioTriggersAction(NULL)
+    , m_addClockAction(NULL)
 
     , m_toolsSettingsAction(NULL)
 
@@ -329,6 +329,9 @@ void VirtualConsole::initActions()
     m_addAudioTriggersAction = new QAction(QIcon(":/audioinput.png"), tr("New Audio Triggers"), this);
     connect(m_addAudioTriggersAction, SIGNAL(triggered(bool)), this, SLOT(slotAddAudioTriggers()), Qt::QueuedConnection);
 
+    m_addClockAction = new QAction(QIcon(":/clock.png"), tr("New Clock"), this);
+    connect(m_addClockAction, SIGNAL(triggered(bool)), this, SLOT(slotAddClock()), Qt::QueuedConnection);
+
     /* Put add actions under the same group */
     m_addActionGroup = new QActionGroup(this);
     m_addActionGroup->setExclusive(false);
@@ -344,6 +347,7 @@ void VirtualConsole::initActions()
     m_addActionGroup->addAction(m_addSoloFrameAction);
     m_addActionGroup->addAction(m_addLabelAction);
     m_addActionGroup->addAction(m_addAudioTriggersAction);
+    m_addActionGroup->addAction(m_addClockAction);
 
     /* Tools menu actions */
     m_toolsSettingsAction = new QAction(QIcon(":/configure.png"), tr("Virtual Console Settings"), this);
@@ -476,6 +480,7 @@ void VirtualConsole::initMenuBar()
     m_addMenu->addAction(m_addFrameAction);
     m_addMenu->addAction(m_addSoloFrameAction);
     m_addMenu->addAction(m_addLabelAction);
+    m_addMenu->addAction(m_addClockAction);
 
     /* Edit menu */
     m_editMenu = new QMenu(this);
@@ -548,6 +553,7 @@ void VirtualConsole::initMenuBar()
     m_toolbar->addAction(m_addSoloFrameAction);
     m_toolbar->addAction(m_addLabelAction);
     m_toolbar->addAction(m_addAudioTriggersAction);
+    m_toolbar->addAction(m_addClockAction);
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_editCutAction);
     m_toolbar->addAction(m_editCopyAction);
@@ -656,6 +662,9 @@ void VirtualConsole::updateActions()
             m_editPasteAction->setEnabled(false);
         }
     }
+
+    if (contents()->children().count() == 0)
+        m_latestWidgetId = 0;
 }
 
 /*****************************************************************************
@@ -692,6 +701,15 @@ void VirtualConsole::checkWidgetPage(VCWidget *widget, VCWidget *parent)
             frame->addWidgetToPageMap(widget);
         }
     }
+    else if (parent->type() == VCWidget::SoloFrameWidget)
+    {
+        VCSoloFrame *frame = (VCSoloFrame *)parent;
+        if (frame->multipageMode() == true)
+        {
+            widget->setPage(frame->currentPage());
+            frame->addWidgetToPageMap(widget);
+        }
+    }
 }
 
 void VirtualConsole::slotAddButton()
@@ -701,13 +719,7 @@ void VirtualConsole::slotAddButton()
         return;
 
     VCButton* button = new VCButton(parent, m_doc);
-    Q_ASSERT(button != NULL);
-    button->setID(newWidgetId());
-    checkWidgetPage(button, parent);
-    button->show();
-    button->move(parent->lastClickPoint());
-    clearWidgetSelection();
-    setWidgetSelected(button, true);
+    setupWidget(button, parent);
     m_doc->setModified();
 }
 
@@ -732,7 +744,7 @@ void VirtualConsole::slotAddButtonMatrix()
         frame = new VCSoloFrame(parent, m_doc);
     Q_ASSERT(frame != NULL);
     frame->setID(newWidgetId());
-    frame->setShowHeader(false);
+    frame->setHeaderVisible(false);
     checkWidgetPage(frame, parent);
 
     // Resize the parent frame to fit the buttons nicely and toggle resizing off
@@ -780,14 +792,10 @@ void VirtualConsole::slotAddSlider()
         return;
 
     VCSlider* slider = new VCSlider(parent, m_doc);
-    Q_ASSERT(slider != NULL);
-    slider->setID(newWidgetId());
-    checkWidgetPage(slider, parent);
-    slider->show();
-    slider->move(parent->lastClickPoint());
-    clearWidgetSelection();
-    setWidgetSelected(slider, true);
+    setupWidget(slider, parent);
     m_doc->setModified();
+    connect(slider, SIGNAL(submasterValueChanged(qreal)),
+            parent, SLOT(slotSubmasterValueChanged(qreal)));
 }
 
 void VirtualConsole::slotAddSliderMatrix()
@@ -807,7 +815,7 @@ void VirtualConsole::slotAddSliderMatrix()
     VCFrame* frame = new VCFrame(parent, m_doc);
     Q_ASSERT(frame != NULL);
     frame->setID(newWidgetId());
-    frame->setShowHeader(false);
+    frame->setHeaderVisible(false);
     checkWidgetPage(frame, parent);
 
     // Resize the parent frame to fit the sliders nicely
@@ -822,6 +830,8 @@ void VirtualConsole::slotAddSliderMatrix()
         slider->move(QPoint(10 + (width * i), 10));
         slider->resize(QSize(width, height));
         slider->show();
+        connect(slider, SIGNAL(submasterValueChanged(qreal)),
+                frame, SLOT(slotSubmasterValueChanged(qreal)));
     }
 
     // Show the frame after adding buttons to prevent flickering
@@ -840,15 +850,12 @@ void VirtualConsole::slotAddKnob()
         return;
 
     VCSlider* knob = new VCSlider(parent, m_doc);
+    setupWidget(knob, parent);
     knob->resize(QSize(60, 90));
     knob->setWidgetStyle(VCSlider::WKnob);
-    Q_ASSERT(knob != NULL);
-    knob->setID(newWidgetId());
-    checkWidgetPage(knob, parent);
-    knob->show();
-    knob->move(parent->lastClickPoint());
-    clearWidgetSelection();
-    setWidgetSelected(knob, true);
+    knob->setCaption(tr("Knob %1").arg(knob->id()));
+    connect(knob, SIGNAL(submasterValueChanged(qreal)),
+            parent, SLOT(slotSubmasterValueChanged(qreal)));
     m_doc->setModified();
 }
 
@@ -859,13 +866,7 @@ void VirtualConsole::slotAddSpeedDial()
         return;
 
     VCSpeedDial* dial = new VCSpeedDial(parent, m_doc);
-    Q_ASSERT(dial != NULL);
-    dial->setID(newWidgetId());
-    checkWidgetPage(dial, parent);
-    dial->show();
-    dial->move(parent->lastClickPoint());
-    clearWidgetSelection();
-    setWidgetSelected(dial, true);
+    setupWidget(dial, parent);
     m_doc->setModified();
 }
 
@@ -876,13 +877,7 @@ void VirtualConsole::slotAddXYPad()
         return;
 
     VCXYPad* xypad = new VCXYPad(parent, m_doc);
-    Q_ASSERT(xypad != NULL);
-    xypad->setID(newWidgetId());
-    checkWidgetPage(xypad, parent);
-    xypad->show();
-    xypad->move(parent->lastClickPoint());
-    clearWidgetSelection();
-    setWidgetSelected(xypad, true);
+    setupWidget(xypad, parent);
     m_doc->setModified();
 }
 
@@ -893,13 +888,7 @@ void VirtualConsole::slotAddCueList()
         return;
 
     VCCueList* cuelist = new VCCueList(parent, m_doc);
-    Q_ASSERT(cuelist != NULL);
-    cuelist->setID(newWidgetId());
-    checkWidgetPage(cuelist, parent);
-    cuelist->show();
-    cuelist->move(parent->lastClickPoint());
-    clearWidgetSelection();
-    setWidgetSelected(cuelist, true);
+    setupWidget(cuelist, parent);
     m_doc->setModified();
 }
 
@@ -910,13 +899,7 @@ void VirtualConsole::slotAddFrame()
         return;
 
     VCFrame* frame = new VCFrame(parent, m_doc, true);
-    Q_ASSERT(frame != NULL);
-    frame->setID(newWidgetId());
-    checkWidgetPage(frame, parent);
-    frame->show();
-    frame->move(parent->lastClickPoint());
-    clearWidgetSelection();
-    setWidgetSelected(frame, true);
+    setupWidget(frame, parent);
     m_doc->setModified();
 }
 
@@ -927,13 +910,7 @@ void VirtualConsole::slotAddSoloFrame()
         return;
 
     VCSoloFrame* soloframe = new VCSoloFrame(parent, m_doc, true);
-    Q_ASSERT(soloframe != NULL);
-    soloframe->setID(newWidgetId());
-    checkWidgetPage(soloframe, parent);
-    soloframe->show();
-    soloframe->move(parent->lastClickPoint());
-    clearWidgetSelection();
-    setWidgetSelected(soloframe, true);
+    setupWidget(soloframe, parent);
     m_doc->setModified();
 }
 
@@ -944,13 +921,7 @@ void VirtualConsole::slotAddLabel()
         return;
 
     VCLabel* label = new VCLabel(parent, m_doc);
-    Q_ASSERT(label != NULL);
-    label->setID(newWidgetId());
-    checkWidgetPage(label, parent);
-    label->show();
-    label->move(parent->lastClickPoint());
-    clearWidgetSelection();
-    setWidgetSelected(label, true);
+    setupWidget(label, parent);
     m_doc->setModified();
 }
 
@@ -961,15 +932,20 @@ void VirtualConsole::slotAddAudioTriggers()
         return;
 
     VCAudioTriggers* triggers = new VCAudioTriggers(parent, m_doc);
-    Q_ASSERT(triggers != NULL);
-    triggers->setID(newWidgetId());
-    checkWidgetPage(triggers, parent);
-    triggers->show();
-    triggers->move(parent->lastClickPoint());
-    clearWidgetSelection();
-    setWidgetSelected(triggers, true);
+    setupWidget(triggers, parent);
     connect(triggers, SIGNAL(enableRequest(quint32)),
             this, SLOT(slotEnableAudioTriggers(quint32)));
+    m_doc->setModified();
+}
+
+void VirtualConsole::slotAddClock()
+{
+    VCWidget* parent(closestParent());
+    if (parent == NULL)
+        return;
+
+    VCClock* clock = new VCClock(parent, m_doc);
+    setupWidget(clock, parent);
     m_doc->setModified();
 }
 
@@ -1096,6 +1072,7 @@ void VirtualConsole::slotEditPaste()
 
             /* Reparent and move to the correct place */
             widget->setParent(parent);
+            checkWidgetPage(widget, parent);
             widget->move(p);
             widget->show();
         }
@@ -1121,6 +1098,7 @@ void VirtualConsole::slotEditPaste()
             /* Create a copy and move to correct place */
             VCWidget* copy = widget->createCopy(parent);
             Q_ASSERT(copy != NULL);
+            checkWidgetPage(copy, parent);
             copy->move(p);
             copy->show();
         }
@@ -1143,13 +1121,21 @@ void VirtualConsole::slotEditDelete()
             /* Consume the selected list until it is empty and
                delete each widget. */
             VCWidget* widget = m_selectedWidgets.takeFirst();
+            m_widgetsMap.remove(widget->id());
             VCWidget* parent = qobject_cast<VCWidget*> (widget->parentWidget());
             widget->deleteLater();
+
             if (parent != NULL)
             {
                 if (parent->type() == VCWidget::FrameWidget)
                 {
                     VCFrame *frame = (VCFrame *)parent;
+                    if (frame->multipageMode() == true)
+                        frame->removeWidgetFromPageMap(widget);
+                }
+                else if (parent->type() == VCWidget::SoloFrameWidget)
+                {
+                    VCSoloFrame *frame = (VCSoloFrame *)parent;
                     if (frame->multipageMode() == true)
                         frame->removeWidgetFromPageMap(widget);
                 }
@@ -1509,6 +1495,7 @@ void VirtualConsole::resetContents()
     m_clipboard.clear();
     m_selectedWidgets.clear();
     m_latestWidgetId = 0;
+    m_widgetsMap.clear();
 
     /* Update actions' enabled status */
     updateActions();
@@ -1520,11 +1507,26 @@ void VirtualConsole::resetContents()
     m_properties.setGrandMasterInputSource(InputMap::invalidUniverse(), InputMap::invalidChannel());
 }
 
+void VirtualConsole::setupWidget(VCWidget *widget, VCWidget *parent)
+{
+    Q_ASSERT(widget != NULL);
+    Q_ASSERT(parent != NULL);
+
+    widget->setID(newWidgetId());
+    checkWidgetPage(widget, parent);
+    widget->show();
+    widget->move(parent->lastClickPoint());
+    clearWidgetSelection();
+    setWidgetSelected(widget, true);
+}
+
 VCWidget *VirtualConsole::widget(quint32 id)
 {
     if (id == VCWidget::invalidId())
         return NULL;
 
+    return m_widgetsMap[id];
+/*
     QList<VCWidget *> widgetsList = getChildren((VCWidget *)m_contents);
 
     foreach (QObject *object, widgetsList)
@@ -1536,6 +1538,7 @@ VCWidget *VirtualConsole::widget(quint32 id)
     }
 
     return NULL;
+*/
 }
 
 void VirtualConsole::initContents()
@@ -1626,6 +1629,7 @@ void VirtualConsole::slotModeChanged(Doc::Mode mode)
         m_addSoloFrameAction->setShortcut(QKeySequence());
         m_addLabelAction->setShortcut(QKeySequence());
         m_addAudioTriggersAction->setShortcut(QKeySequence());
+        m_addClockAction->setShortcut(QKeySequence());
 
         m_editCutAction->setShortcut(QKeySequence());
         m_editCopyAction->setShortcut(QKeySequence());
@@ -1675,6 +1679,7 @@ void VirtualConsole::slotModeChanged(Doc::Mode mode)
         m_addSoloFrameAction->setShortcut(QKeySequence("CTRL+SHIFT+O"));
         m_addLabelAction->setShortcut(QKeySequence("CTRL+SHIFT+L"));
         m_addAudioTriggersAction->setShortcut(QKeySequence("CTRL+SHIFT+A"));
+        m_addClockAction->setShortcut(QKeySequence("CTRL+SHIFT+T"));
 
         m_editCutAction->setShortcut(QKeySequence("CTRL+X"));
         m_editCopyAction->setShortcut(QKeySequence("CTRL+C"));
@@ -1789,18 +1794,21 @@ void VirtualConsole::postLoad()
     m_doc->outputMap()->setGrandMasterValueMode(m_properties.grandMasterValueMode());
     m_doc->outputMap()->setGrandMasterChannelMode(m_properties.grandMasterChannelMode());
 
-    /* Go through widgets and check IDs */
+    /* Go through widgets, check IDs and register */
+    /* widgets to the map */
     QList<VCWidget *> widgetsList = getChildren((VCWidget *)m_contents);
 
-    foreach (QObject *object, widgetsList)
+    foreach (VCWidget *widget, widgetsList)
     {
-        VCWidget *widget = (VCWidget *)object;
         quint32 wid = widget->id();
         if(wid == VCWidget::invalidId())
             widget->setID(newWidgetId());
         else
             if (wid >= m_latestWidgetId)
                 m_latestWidgetId = wid + 1;
+        m_widgetsMap[widget->id()] = widget;
     }
     qDebug() << "Next ID to assign:" << m_latestWidgetId;
+
+    emit loaded();
 }

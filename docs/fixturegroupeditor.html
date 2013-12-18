@@ -3,6 +3,7 @@
 <HEAD>
 <TITLE>Q Light Controller Plus - Fixture Group Editor</TITLE>
 <SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
 </HEAD>
 <BODY onLoad="replaceqrc()">
 
@@ -11,7 +12,7 @@
 The Fixture Group Editor is used when you select a <A HREF="file:concept.html#FixtureGroup">Fixture
 Group</A> in the <A HREF="file:fixturemanager.html">Fixture Manager</A>. This editor can be used
 to describe the physical arrangement of the <A HREF="file:concept.html#Fixtures">fixtures</A> and
-their <A HREF="file:concept.html#Head">heads</A> assigned to the group.
+their <A HREF="file:concept.html#Head">heads</A> that are assigned to the group.
 </P>
 
 <H3>Controls</H3>
@@ -22,7 +23,7 @@ unlimited [X,Y] grid. You can adjust the size of the grid as well as the placeme
 individual fixture heads on the grid.
 </P>
 
-<TABLE BORDER="1">
+<TABLE BORDER=1 class="qlcTable">
  <TR>
   <TD>
    <B>Fixture Group Name</B>
@@ -66,11 +67,11 @@ individual fixture heads on the grid.
   <TD>
    <P>
     The fixture grid displays the current fixture/head arrangement in the selected group. You
-    can switch places with two heads as well as fill up or create empty space between heads
+    can switch places between two heads as well as fill up spaces or create empty spaces between heads
     simply by dragging the heads on top of each other in the grid.
    </P>
    <P>
-    When using fixture groups in RGB Matrixes, each cell in the grid represents one colored
+    When using fixture groups in RGB Matrices, each cell in the grid represents one colored
     (or monochrome) pixel in a graphic scene rendered by the RGB Matrix.
    </P>
    <P>

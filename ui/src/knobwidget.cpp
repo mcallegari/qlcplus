@@ -4,19 +4,17 @@
 
   Copyright (c) Massimo Callegari
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QDebug>
@@ -60,10 +58,10 @@ void KnobWidget::prepareCursor()
 
     QPainter fgP(m_cursor);
     fgP.setRenderHints(QPainter::Antialiasing);
-    fgP.setCompositionMode(QPainter::CompositionMode_DestinationIn);
-    fgP.fillRect(m_cursor->rect(), QColor(0, 0, 0, 0));
+    //fgP.setCompositionMode(QPainter::CompositionMode_DestinationIn);
+    fgP.fillRect(m_cursor->rect(), Qt::transparent);
 
-    fgP.setCompositionMode(QPainter::CompositionMode_Source);
+    //fgP.setCompositionMode(QPainter::CompositionMode_Source);
     if (isEnabled() == false)
         fgP.setBrush(Qt::gray);
     else
@@ -97,10 +95,10 @@ void KnobWidget::resizeEvent(QResizeEvent *e)
 
     QPainter bgP(m_background);
     bgP.setRenderHints(QPainter::Antialiasing);
-    bgP.setCompositionMode(QPainter::CompositionMode_DestinationIn);
-    bgP.fillRect(m_background->rect(), QColor(0, 0, 0, 0));
+    //bgP.setCompositionMode(QPainter::CompositionMode_DestinationIn);
+    bgP.fillRect(m_background->rect(), Qt::transparent);
 
-    bgP.setCompositionMode(QPainter::CompositionMode_Source);
+    //bgP.setCompositionMode(QPainter::CompositionMode_Source);
     bgP.setBrush(linearGrad);
     bgP.drawEllipse(QPointF(dialSize / 2, radius), radius, radius);
     bgP.setBrush(linearGrad2);

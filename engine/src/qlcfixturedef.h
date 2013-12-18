@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #ifndef QLCFIXTUREDEF_H
@@ -86,6 +84,9 @@ public:
      * Fixture information
      *********************************************************************/
 public:
+    /** Set the temporary definition file absolute path */
+    void setDefinitionSourceFile(const QString& absPath);
+
     /** Get the fixture's name string (=="manufacturer model") */
     QString name() const;
 
@@ -105,15 +106,20 @@ public:
     void setType(const QString& type);
 
     /** Get the fixture's type string */
-    QString type() const;
+    QString type();
 
     /** Set the definition's author */
     void setAuthor(const QString& author);
 
     /** Get the definition's author */
-    QString author() const;
+    QString author();
+
+private:
+    void checkLoaded();
 
 protected:
+    bool m_isLoaded;
+    QString m_defFileAbsolutePath;
     QString m_manufacturer;
     QString m_model;
     QString m_type;
@@ -156,11 +162,11 @@ public:
     bool removeMode(QLCFixtureMode* mode);
 
     /** Get a certain mode by its name */
-    const QLCFixtureMode* mode(const QString& name) const;
+    QLCFixtureMode* mode(const QString& name);
 
     /** Get all modes in this fixture. Changes to the list won't end
         up into the fixture definition. */
-    QList <QLCFixtureMode*> modes() const;
+    QList <QLCFixtureMode*> modes();
 
 protected:
     /** Modes (i.e. ordered collections of channels) */

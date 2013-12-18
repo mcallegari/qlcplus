@@ -4,19 +4,17 @@
 
   Copyright (C) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QDomDocument>
@@ -76,8 +74,8 @@ void VCButton_Test::initial()
     QCOMPARE(btn.caption(), QString());
     QCOMPARE(btn.size(), QSize(50, 50));
     QCOMPARE(btn.function(), Function::invalidId());
-    QCOMPARE(btn.intensityAdjustment(), qreal(1.0));
-    QCOMPARE(btn.adjustIntensity(), false);
+    QCOMPARE(btn.startupIntensity(), qreal(1.0));
+    QCOMPARE(btn.isStartupIntensityEnabled(), false);
     QCOMPARE(btn.isOn(), false);
     QCOMPARE(btn.action(), VCButton::Toggle);
     QCOMPARE(btn.iconPath(), QString());
@@ -150,15 +148,15 @@ void VCButton_Test::intensity()
     QWidget w;
 
     VCButton btn(&w, m_doc);
-    btn.setAdjustIntensity(true);
-    QCOMPARE(btn.adjustIntensity(), true);
-    btn.setAdjustIntensity(false);
-    QCOMPARE(btn.adjustIntensity(), false);
+    btn.enableStartupIntensity(true);
+    QCOMPARE(btn.isStartupIntensityEnabled(), true);
+    btn.enableStartupIntensity(false);
+    QCOMPARE(btn.isStartupIntensityEnabled(), false);
 
     for (qreal i = -0.5; i < 1.2; i += 0.01)
     {
-        btn.setIntensityAdjustment(i);
-        QCOMPARE(btn.intensityAdjustment(), CLAMP(i, qreal(0.0), qreal(1.0)));
+        btn.enableStartupIntensity(i);
+        QCOMPARE(btn.startupIntensity(), CLAMP(i, qreal(0.0), qreal(1.0)));
     }
 }
 
@@ -288,8 +286,8 @@ void VCButton_Test::copy()
     btn.setFunction(sc->id());
     btn.setAction(VCButton::Flash);
     btn.setKeySequence(QKeySequence(keySequenceB));
-    btn.setAdjustIntensity(true);
-    btn.setIntensityAdjustment(0.2);
+    btn.enableStartupIntensity(true);
+    btn.enableStartupIntensity(0.2);
 
     VCFrame parent(&w, m_doc);
     VCButton* copy = qobject_cast<VCButton*> (btn.createCopy(&parent));
@@ -299,8 +297,8 @@ void VCButton_Test::copy()
     QCOMPARE(copy->function(), sc->id());
     QCOMPARE(copy->action(), VCButton::Flash);
     QCOMPARE(copy->keySequence(), QKeySequence(keySequenceB));
-    QCOMPARE(copy->adjustIntensity(), true);
-    QCOMPARE(copy->intensityAdjustment(), qreal(0.2));
+    QCOMPARE(copy->isStartupIntensityEnabled(), true);
+    QCOMPARE(copy->startupIntensity(), qreal(0.2));
     delete copy;
 }
 
@@ -362,8 +360,8 @@ void VCButton_Test::load()
     QCOMPARE(btn.function(), sc->id());
     QCOMPARE(btn.action(), VCButton::Flash);
     QCOMPARE(btn.keySequence(), QKeySequence(keySequenceA));
-    QCOMPARE(btn.adjustIntensity(), true);
-    QCOMPARE(btn.intensityAdjustment(), qreal(0.6));
+    QCOMPARE(btn.isStartupIntensityEnabled(), true);
+    QCOMPARE(btn.startupIntensity(), qreal(0.6));
     QCOMPARE(btn.pos(), QPoint(20, 20));
     QCOMPARE(btn.size(), QSize(60, 60));
 
@@ -374,8 +372,8 @@ void VCButton_Test::load()
     QCOMPARE(btn.function(), sc->id());
     QCOMPARE(btn.action(), VCButton::Flash);
     QCOMPARE(btn.keySequence(), QKeySequence(keySequenceA));
-    QCOMPARE(btn.adjustIntensity(), false);
-    QCOMPARE(btn.intensityAdjustment(), qreal(0.6));
+    QCOMPARE(btn.isStartupIntensityEnabled(), false);
+    QCOMPARE(btn.startupIntensity(), qreal(0.6));
     QCOMPARE(btn.pos(), QPoint(20, 20));
     QCOMPARE(btn.size(), QSize(60, 60));
 
@@ -397,8 +395,8 @@ void VCButton_Test::save()
     btn.setFunction(sc->id());
     btn.setAction(VCButton::Flash);
     btn.setKeySequence(QKeySequence(keySequenceB));
-    btn.setAdjustIntensity(true);
-    btn.setIntensityAdjustment(0.2);
+    btn.enableStartupIntensity(true);
+    btn.enableStartupIntensity(0.2);
 
     QDomDocument xmldoc;
     QDomElement root = xmldoc.createElement("Root");
@@ -488,8 +486,8 @@ void VCButton_Test::toggle()
     btn.setFunction(sc->id());
     btn.setAction(VCButton::Toggle);
     btn.setKeySequence(QKeySequence(keySequenceB));
-    btn.setAdjustIntensity(true);
-    btn.setIntensityAdjustment(0.2);
+    btn.enableStartupIntensity(true);
+    btn.enableStartupIntensity(0.2);
 
     // Mouse button press in design mode doesn't toggle the function
     QCOMPARE(m_doc->mode(), Doc::Design);
@@ -507,7 +505,7 @@ void VCButton_Test::toggle()
     m_doc->masterTimer()->timerTick();
     QCOMPARE(m_doc->masterTimer()->m_functionList.size(), 1);
     QCOMPARE(m_doc->masterTimer()->m_functionList[0], sc);
-    QCOMPARE(sc->getAttributeValue(), btn.intensityAdjustment());
+    QCOMPARE(sc->getAttributeValue(Function::Intensity), btn.startupIntensity());
     btn.slotKeyReleased(QKeySequence(keySequenceB));
     m_doc->masterTimer()->timerTick(); // Allow MasterTimer to take the function under execution
     QCOMPARE(sc->stopped(), false);
@@ -541,8 +539,8 @@ void VCButton_Test::flash()
     btn.setFunction(sc->id());
     btn.setAction(VCButton::Flash);
     btn.setKeySequence(QKeySequence(keySequenceB));
-    btn.setAdjustIntensity(false);
-    btn.setIntensityAdjustment(0.2);
+    btn.enableStartupIntensity(false);
+    btn.enableStartupIntensity(0.2);
 
     QSignalSpy spy(sc, SIGNAL(flashing(quint32,bool)));
 
@@ -550,7 +548,7 @@ void VCButton_Test::flash()
     btn.slotKeyPressed(QKeySequence(keySequenceB));
     QCOMPARE(m_doc->masterTimer()->m_functionList.size(), 0);
     QCOMPARE(btn.isOn(), true);
-    QCOMPARE(sc->getAttributeValue(), qreal(1.0));
+    QCOMPARE(sc->getAttributeValue(Function::Intensity), qreal(1.0));
     QCOMPARE(spy.size(), 1);
     QCOMPARE(spy[0][0].toUInt(), sc->id());
     QCOMPARE(spy[0][1].toBool(), true);
@@ -581,8 +579,8 @@ void VCButton_Test::input()
     btn.setCaption("Foobar");
     btn.setFunction(sc->id());
     btn.setAction(VCButton::Flash);
-    btn.setAdjustIntensity(true);
-    btn.setIntensityAdjustment(1.0);
+    btn.enableStartupIntensity(true);
+    btn.enableStartupIntensity(1.0);
     btn.setInputSource(QLCInputSource(0, 0));
 
     btn.slotInputValueChanged(0, 0, 255);
@@ -613,7 +611,7 @@ void VCButton_Test::input()
     btn.slotInputValueChanged(0, 0, 255);
     m_doc->masterTimer()->timerTick();
     QCOMPARE(btn.isOn(), true);
-    QCOMPARE(sc->getAttributeValue(), btn.intensityAdjustment());
+    QCOMPARE(sc->getAttributeValue(Function::Intensity), btn.startupIntensity());
 
     btn.slotInputValueChanged(0, 0, 0);
     QCOMPARE(sc->m_stop, false);

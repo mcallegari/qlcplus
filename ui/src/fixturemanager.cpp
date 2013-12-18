@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QTreeWidgetItem>
@@ -26,6 +24,7 @@
 #include <QScrollArea>
 #include <QMessageBox>
 #include <QToolButton>
+#include <QFileDialog>
 #include <QTabWidget>
 #include <QSplitter>
 #include <QToolBar>
@@ -136,6 +135,9 @@ FixtureManager::FixtureManager(QWidget* parent, Doc* doc)
 
     connect(m_doc, SIGNAL(fixtureGroupChanged(quint32)),
             this, SLOT(slotFixtureGroupChanged(quint32)));
+
+    connect(m_doc, SIGNAL(loaded()),
+            this, SLOT(slotDocLoaded()));
 
     slotModeChanged(m_doc->mode());
 
@@ -287,6 +289,11 @@ void FixtureManager::slotFixtureGroupChanged(quint32 id)
     updateGroupItem(item, grp);
 }
 
+void FixtureManager::slotDocLoaded()
+{
+    slotTabChanged(m_currentTabIndex);
+}
+
 /*****************************************************************************
  * Data view
  *****************************************************************************/
@@ -315,7 +322,6 @@ void FixtureManager::initDataView()
     m_fixtures_tree->sortByColumn(KColumnAddress, Qt::AscendingOrder);
     m_fixtures_tree->setContextMenuPolicy(Qt::CustomContextMenu);
     m_fixtures_tree->setSelectionMode(QAbstractItemView::ExtendedSelection);
-    m_fixtures_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
     QFont m_font = QApplication::font();
     m_font.setPixelSize(13);
     m_fixtures_tree->setFont(m_font);
@@ -329,6 +335,11 @@ void FixtureManager::initDataView()
     connect(m_fixtures_tree, SIGNAL(customContextMenuRequested(const QPoint&)),
             this, SLOT(slotContextMenuRequested(const QPoint&)));
 
+    connect(m_fixtures_tree, SIGNAL(expanded(QModelIndex)),
+            this, SLOT(slotFixtureItemExpanded()));
+
+    connect(m_fixtures_tree, SIGNAL(collapsed(QModelIndex)),
+            this, SLOT(slotFixtureItemExpanded()));
 
     tabs->addTab(m_fixtures_tree, tr("Fixtures Groups"));
 
@@ -340,7 +351,6 @@ void FixtureManager::initDataView()
     m_channel_groups_tree->setAllColumnsShowFocus(true);
     m_channel_groups_tree->setIconSize(QSize(32, 32));
     m_channel_groups_tree->setSelectionMode(QAbstractItemView::ExtendedSelection);
-    m_channel_groups_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
     m_channel_groups_tree->setFont(m_font);
 
     connect(m_channel_groups_tree, SIGNAL(itemSelectionChanged()),
@@ -422,6 +432,10 @@ void FixtureManager::updateView()
 
     updateGroupMenu();
     slotModeChanged(m_doc->mode());
+
+    m_fixtures_tree->resizeColumnToContents(KColumnName);
+    m_fixtures_tree->resizeColumnToContents(KColumnAddress);
+    m_fixtures_tree->resizeColumnToContents(KColumnUniverse);
 }
 
 void FixtureManager::updateChannelsGroupView()
@@ -465,6 +479,9 @@ void FixtureManager::updateChannelsGroupView()
     m_exportAction->setEnabled(false);
     m_importAction->setEnabled(false);
     m_remapAction->setEnabled(false);
+
+    m_channel_groups_tree->resizeColumnToContents(KColumnName);
+    m_channel_groups_tree->resizeColumnToContents(KColumnChannels);
 }
 
 QTreeWidgetItem* FixtureManager::fixtureItem(quint32 id) const
@@ -497,7 +514,7 @@ QTreeWidgetItem* FixtureManager::groupItem(quint32 id) const
     return NULL;
 }
 
-void FixtureManager::updateFixtureItem(QTreeWidgetItem* item, const Fixture* fxi)
+void FixtureManager::updateFixtureItem(QTreeWidgetItem* item, Fixture* fxi)
 {
     QString s;
 
@@ -767,6 +784,13 @@ void FixtureManager::slotTabChanged(int index)
     m_currentTabIndex = index;
 }
 
+void FixtureManager::slotFixtureItemExpanded()
+{
+    m_fixtures_tree->resizeColumnToContents(KColumnName);
+    m_fixtures_tree->resizeColumnToContents(KColumnAddress);
+    m_fixtures_tree->resizeColumnToContents(KColumnUniverse);
+}
+
 void FixtureManager::selectGroup(quint32 id)
 {
     for (int i = 0; i < m_fixtures_tree->topLevelItemCount(); i++)
@@ -985,8 +1009,8 @@ void FixtureManager::addFixture()
     quint32 channels = af.channels();
     int gap = af.gap();
 
-    const QLCFixtureDef* fixtureDef = af.fixtureDef();
-    const QLCFixtureMode* mode = af.mode();
+    QLCFixtureDef* fixtureDef = af.fixtureDef();
+    QLCFixtureMode* mode = af.mode();
 
     FixtureGroup* addToGroup = NULL;
     QTreeWidgetItem* current = m_fixtures_tree->currentItem();
@@ -1436,7 +1460,7 @@ QString FixtureManager::createDialog(bool import)
     /* Append file filters to the dialog */
     QStringList filters;
     filters << tr("Fixtures List (*%1)").arg(KExtFixtureList);
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
     filters << tr("All Files (*.*)");
 #else
     filters << tr("All Files (*)");

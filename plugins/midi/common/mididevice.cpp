@@ -4,26 +4,26 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QSettings>
 #include "mididevice.h"
+#include <QDebug>
 
 #define SETTINGS_MIDICHANNEL "midiplugin/%1/midichannel"
 #define SETTINGS_MODE "midiplugin/%1/mode"
+#define SETTINGS_INITMESSAGE "midiplugin/%1/initmessage"
 
 #define NOTE_VELOCITY "Note Velocity"
 #define CONTROL_CHANGE "Control Change"
@@ -114,6 +114,20 @@ MidiDevice::Mode MidiDevice::stringToMode(const QString& mode)
 }
 
 /****************************************************************************
+ * Midi template
+ ****************************************************************************/
+
+void MidiDevice::setMidiTemplateName(QString midiTemplateName)
+{
+    m_midiTemplateName = midiTemplateName;
+}
+
+QString MidiDevice::midiTemplateName() const
+{
+    return m_midiTemplateName;
+}
+
+/****************************************************************************
  * Private API
  ****************************************************************************/
 
@@ -134,6 +148,13 @@ void MidiDevice::loadSettings()
         setMode(stringToMode(value.toString()));
     else
         setMode(ControlChange);
+
+    key = QString(SETTINGS_INITMESSAGE).arg(uid().toString());
+    value = settings.value(key);
+    if (value.isValid() == true)
+        setMidiTemplateName(value.toString());
+    else
+        setMidiTemplateName("");
 }
 
 void MidiDevice::saveSettings() const
@@ -145,4 +166,9 @@ void MidiDevice::saveSettings() const
 
     key = QString(SETTINGS_MODE).arg(uid().toString());
     settings.setValue(key, MidiDevice::modeToString(mode()));
+
+    key = QString(SETTINGS_INITMESSAGE).arg(uid().toString());
+    settings.setValue(key, midiTemplateName());
+
+    qDebug() << "Saving mididevice with template name: " << midiTemplateName();
 }

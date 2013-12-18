@@ -4,26 +4,25 @@
 
   Copyright (c) Massimo Callegari
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QtXml>
+#include <QMessageBox>
 
-#if defined(__APPLE__)
+#if defined( __APPLE__) || defined(Q_OS_MAC)
   #include "audiocapture_portaudio.h"
-#elif defined(WIN32)
+#elif defined(WIN32) || defined(Q_OS_WIN)
   #include "audiocapture_wavein.h"
 #else
   #include "audiocapture_alsa.h"
@@ -136,12 +135,24 @@ void VCAudioTriggers::enableCapture(bool enable)
 {
     if (enable == true)
     {
+        // in case the audio input device has been changed in the meantime...
+        m_inputCapture = m_doc->audioInputCapture();
+
         if (m_inputCapture->isRunning())
             return;
 
         m_inputCapture->setBandsNumber(m_spectrum->barsNumber());
         if (m_inputCapture->isInitialized() == false)
-            m_inputCapture->initialize(44100, 1, 2048);
+        {
+            if (m_inputCapture->initialize(44100, 1, 2048) == false)
+            {
+                QMessageBox::warning(this, tr("Audio open error"),
+                                     tr("An error occurred while initializing the selected audio device. Please review your audio input settings."));
+                m_button->setChecked(false);
+                return;
+            }
+        }
+
         m_inputCapture->start();
         m_button->setChecked(true);
         connect(m_inputCapture, SIGNAL(dataProcessed(double *, double, quint32)),
@@ -278,9 +289,9 @@ VCWidget *VCAudioTriggers::createCopy(VCWidget *parent)
     return triggers;
 }
 
-bool VCAudioTriggers::copyFrom(VCWidget *widget)
+bool VCAudioTriggers::copyFrom(const VCWidget *widget)
 {
-    VCAudioTriggers* triggers = qobject_cast <VCAudioTriggers*> (widget);
+    const VCAudioTriggers* triggers = qobject_cast <const VCAudioTriggers*> (widget);
     if (triggers == NULL)
         return false;
 
@@ -353,7 +364,7 @@ void VCAudioTriggers::slotModeChanged(Doc::Mode mode)
 
 AudioBar *VCAudioTriggers::getSpectrumBar(int index)
 {
-    if (index == 1000)
+    if (index == volumeBarIndex())
         return m_volumeBar;
     if (index >= 0 && index < m_spectrumBars.size())
         return m_spectrumBars.at(index);
@@ -383,21 +394,25 @@ void VCAudioTriggers::setSpectrumBarsNumber(int num)
     else if (num < m_spectrumBars.count())
     {
         for (int i = 0 ; i < m_spectrumBars.count() - num; i++)
-            m_spectrumBars.takeLast();
+            m_spectrumBars.removeLast();
     }
     if (m_inputCapture != NULL)
         m_inputCapture->setBandsNumber(num);
+    if (m_spectrum != NULL)
+        m_spectrum->setBarsNumber(num);
 }
 
 void VCAudioTriggers::setSpectrumBarType(int index, int type)
 {
-    if (index == 1000)
+    if (index == volumeBarIndex())
     {
-        m_volumeBar->m_type = type;
+        m_volumeBar->setType(type);
         return;
     }
     if (index >= 0 && index < m_spectrumBars.size())
-        m_spectrumBars[index]->m_type = type;
+    {
+        m_spectrumBars[index]->setType(type);
+    }
 }
 
 
@@ -483,7 +498,7 @@ QString VCAudioTriggers::getJS()
                 "  obj.style.backgroundColor = \"#D6D2D0\";\n"
                 " }\n"
                 " var btnMsg = id + \"|\" + obj.value;\n"
-                " sendWSmessage(btnMsg);\n"
+                " websocket.send(btnMsg);\n"
                 "};\n";
     return str;
 }
@@ -503,6 +518,11 @@ bool VCAudioTriggers::loadXML(const QDomElement *root)
     {
         qWarning() << Q_FUNC_INFO << "Audio Triggers node not found";
         return false;
+    }
+    if (root->hasAttribute(KXMLQLCVCATBarsNumber))
+    {
+        int barsNum = root->attribute(KXMLQLCVCATBarsNumber).toInt();
+        setSpectrumBarsNumber(barsNum);
     }
 
     /* Widget commons */
@@ -534,7 +554,7 @@ bool VCAudioTriggers::loadXML(const QDomElement *root)
         }
         else if (tag.tagName() == KXMLQLCVolumeBar)
         {
-            m_volumeBar->loadXML(tag);
+            m_volumeBar->loadXML(tag, m_doc);
             if (m_volumeBar->m_type == AudioBar::FunctionBar)
             {
                 if (tag.hasAttribute(KXMLQLCAudioBarFunction))
@@ -550,9 +570,7 @@ bool VCAudioTriggers::loadXML(const QDomElement *root)
                 if (tag.hasAttribute(KXMLQLCAudioBarWidget))
                 {
                     quint32 wid = tag.attribute(KXMLQLCAudioBarWidget).toUInt();
-                    VCWidget *widget = VirtualConsole::instance()->widget(wid);
-                    if (widget != NULL)
-                        m_volumeBar->m_widget = widget;
+                    m_volumeBar->m_widgetID = wid;
                 }
             }
         }
@@ -563,7 +581,7 @@ bool VCAudioTriggers::loadXML(const QDomElement *root)
                 int idx = tag.attribute(KXMLQLCAudioBarIndex).toInt();
                 if (idx >= 0 && idx < m_spectrumBars.count())
                 {
-                    m_spectrumBars[idx]->loadXML(tag);
+                    m_spectrumBars[idx]->loadXML(tag, m_doc);
                     if (m_spectrumBars[idx]->m_type == AudioBar::FunctionBar)
                     {
                         if (tag.hasAttribute(KXMLQLCAudioBarFunction))
@@ -579,9 +597,7 @@ bool VCAudioTriggers::loadXML(const QDomElement *root)
                         if (tag.hasAttribute(KXMLQLCAudioBarWidget))
                         {
                             quint32 wid = tag.attribute(KXMLQLCAudioBarWidget).toUInt();
-                            VCWidget *widget = VirtualConsole::instance()->widget(wid);
-                            if (widget != NULL)
-                                m_spectrumBars[idx]->m_widget = widget;
+                            m_spectrumBars[idx]->m_widgetID = wid;
                         }
                     }
                 }
@@ -654,7 +670,7 @@ bool VCAudioTriggers::saveXML(QDomDocument *doc, QDomElement *vc_root)
 
     if (m_volumeBar->m_type != AudioBar::None)
     {
-        m_volumeBar->saveXML(doc, &root, KXMLQLCVolumeBar, 1000);
+        m_volumeBar->saveXML(doc, &root, KXMLQLCVolumeBar, volumeBarIndex());
     }
     int idx = 0;
     foreach (AudioBar *bar, m_spectrumBars)

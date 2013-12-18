@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <alsa/asoundlib.h>
@@ -225,6 +223,30 @@ void AlsaMidiOutputDevice::writeFeedback(uchar cmd, uchar data1, uchar data2)
         if (snd_seq_event_output(m_alsa, &ev) < 0)
             qDebug() << "snd_seq_event_output ERROR";
     }
+
+    // Make sure that all values go to the MIDI endpoint
+    snd_seq_drain_output(m_alsa);
+}
+
+
+void AlsaMidiOutputDevice::writeSysEx(QByteArray message)
+{
+    if(message.isEmpty())
+        return;
+
+    if (isOpen() == false)
+        return;
+
+    snd_seq_event_t ev;
+    snd_seq_ev_clear(&ev);
+    snd_seq_ev_set_dest(&ev, m_receiver_address->client, m_receiver_address->port);
+    snd_seq_ev_set_subs(&ev);
+    snd_seq_ev_set_direct(&ev);
+
+    snd_seq_ev_set_sysex (&ev, message.count(), message.data());
+
+    if (snd_seq_event_output(m_alsa, &ev) < 0)
+        qDebug() << "snd_seq_event_output ERROR";
 
     // Make sure that all values go to the MIDI endpoint
     snd_seq_drain_output(m_alsa);

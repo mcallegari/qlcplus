@@ -4,19 +4,17 @@
 
   Copyright (c) Massimo Callegari
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 /******************************************************
@@ -26,6 +24,7 @@
  *   forkotov02@hotmail.ru                            *
  ******************************************************/
 
+#include <QDebug>
 #include <QString>
 #include <QSettings>
 
@@ -41,7 +40,7 @@ AudioRendererAlsa::AudioRendererAlsa(QObject * parent)
         dev_name = var.toString();
 
     m_use_mmap = false;
-    pcm_name = strdup(dev_name.toAscii().data());
+    pcm_name = strdup(dev_name.toLatin1().data());
     pcm_handle = NULL;
     m_prebuf = NULL;
     m_prebuf_size = 0;
@@ -205,10 +204,9 @@ qint64 AudioRendererAlsa::latency()
 
 QList<AudioDeviceInfo> AudioRendererAlsa::getDevicesInfo()
 {
+    QList<AudioDeviceInfo> devList;
     int err;
     int cardIdx = -1;
-
-    QList<AudioDeviceInfo> devList;
 
     while( snd_card_next( &cardIdx ) == 0 && cardIdx >= 0 )
     {
@@ -236,16 +234,16 @@ QList<AudioDeviceInfo> AudioRendererAlsa::getDevicesInfo()
             continue;
         }
 
-        //printf("Card %i = %s\n", cardNum, snd_ctl_card_info_get_name(cardInfo));
+        qDebug() << "[getDevicesInfo] Card" << cardIdx << "=" << snd_ctl_card_info_get_name(cardInfo);
+
         while( snd_ctl_pcm_next_device( cardHandle, &devIdx ) == 0 && devIdx >= 0 )
         {
-            //char *alsaDeviceName, *deviceName, *infoName;
             snd_pcm_info_t *pcmInfo;
             int tmpCaps = 0;
 
             snd_pcm_info_alloca( &pcmInfo );
 
-            snprintf( str, sizeof (str), "hw:%d,%d", cardIdx, devIdx );
+            snprintf( str, sizeof (str), "plughw:%d,%d", cardIdx, devIdx );
 
             /* Obtain info about this particular device */
             snd_pcm_info_set_device( pcmInfo, devIdx );

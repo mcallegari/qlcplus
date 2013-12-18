@@ -11,7 +11,7 @@
 void loadTranslation(const QString& locale, QApplication& app)
 {
     QString file(QString("launcher_%1").arg(locale));
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(Q_OS_MAC)
     QString path(QString("%1/../%2").arg(QApplication::applicationDirPath())
                  .arg(TRANSLATIONDIR));
 #else

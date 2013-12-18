@@ -4,22 +4,21 @@
 
   Copyright (C) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QDomDocument>
+#include <QFontMetrics>
 #include <QDomElement>
 #include <QtTest>
 
@@ -28,9 +27,21 @@
 #include "rgbtext.h"
 #undef private
 
+#include "doc.h"
+
+void RGBText_Test::initTestCase()
+{
+    m_doc = new Doc(this);
+}
+
+void RGBText_Test::cleanupTestCase()
+{
+    delete m_doc;
+}
+
 void RGBText_Test::initial()
 {
-    RGBText text;
+    RGBText text(m_doc);
     QCOMPARE(text.text(), QString(" Q LIGHT CONTROLLER "));
     QCOMPARE(text.animationStyle(), RGBText::Horizontal);
     QCOMPARE(text.xOffset(), 0);
@@ -43,14 +54,14 @@ void RGBText_Test::initial()
 
 void RGBText_Test::text()
 {
-    RGBText text;
+    RGBText text(m_doc);
     text.setText("Foo");
     QCOMPARE(text.text(), QString("Foo"));
 }
 
 void RGBText_Test::font()
 {
-    RGBText text;
+    RGBText text(m_doc);
     QFont font(text.font());
     font.setPixelSize(font.pixelSize() + 5);
     text.setFont(font);
@@ -75,7 +86,7 @@ void RGBText_Test::animationStyle()
     QVERIFY(styles.contains("Horizontal") == true);
     QVERIFY(styles.contains("Letters") == true);
 
-    RGBText text;
+    RGBText text(m_doc);
     text.setAnimationStyle(RGBText::Vertical);
     QCOMPARE(text.animationStyle(), RGBText::Vertical);
 
@@ -94,7 +105,7 @@ void RGBText_Test::animationStyle()
 
 void RGBText_Test::offset()
 {
-    RGBText text;
+    RGBText text(m_doc);
     text.setXOffset(5);
     QCOMPARE(text.xOffset(), 5);
 
@@ -104,7 +115,7 @@ void RGBText_Test::offset()
 
 void RGBText_Test::clone()
 {
-    RGBText text;
+    RGBText text(m_doc);
     text.setText("Foo");
     QFont font(text.font());
     font.setPixelSize(font.pixelSize() + 5);
@@ -135,7 +146,7 @@ void RGBText_Test::clone()
 
 void RGBText_Test::save()
 {
-    RGBText text;
+    RGBText text(m_doc);
     text.setText("Foo");
     text.setAnimationStyle(RGBText::Vertical);
     text.setXOffset(1);
@@ -224,7 +235,7 @@ void RGBText_Test::load()
     QDomElement foo = doc.createElement("Foobar");
     root.appendChild(foo);
 
-    RGBText text;
+    RGBText text(m_doc);
     QVERIFY(text.loadXML(root) == true);
     QCOMPARE(text.text(), QString("Foobar"));
     QCOMPARE(text.font(), fn);
@@ -254,7 +265,7 @@ void RGBText_Test::load()
 
 void RGBText_Test::staticLetters()
 {
-    RGBText text;
+    RGBText text(m_doc);
     text.setText("QLC");
     text.setAnimationStyle(RGBText::StaticLetters);
     QCOMPARE(text.rgbMapStepCount(QSize()), 3); // Q, L, C
@@ -295,7 +306,7 @@ void RGBText_Test::staticLetters()
 
 void RGBText_Test::horizontalScroll()
 {
-    RGBText text;
+    RGBText text(m_doc);
     text.setText("QLC");
     text.setAnimationStyle(RGBText::Horizontal);
 
@@ -329,7 +340,7 @@ void RGBText_Test::horizontalScroll()
 
 void RGBText_Test::verticalScroll()
 {
-    RGBText text;
+    RGBText text(m_doc);
     text.setText("QLC");
     text.setAnimationStyle(RGBText::Vertical);
 

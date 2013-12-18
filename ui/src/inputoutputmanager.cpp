@@ -4,19 +4,17 @@
 
   Copyright (c) Massimo Callegari
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QTreeWidgetItem>
@@ -54,6 +52,7 @@ InputOutputManager* InputOutputManager::s_instance = NULL;
 
 InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
     : QWidget(parent)
+    , m_doc(doc)
     , m_editor(NULL)
 {
     Q_ASSERT(s_instance == NULL);
@@ -79,7 +78,6 @@ InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
     m_tree->setItemsExpandable(false);
     m_tree->setSortingEnabled(false);
     m_tree->setAllColumnsShowFocus(true);
-    m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
 
     QWidget* gcontainer = new QWidget(this);
     m_splitter->addWidget(gcontainer);
@@ -109,7 +107,7 @@ InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
 
     updateTree();
     m_tree->setCurrentItem(m_tree->topLevelItem(0));
-    slotCurrentItemChanged();
+    //slotCurrentItemChanged();
 
     QSettings settings;
     QVariant var = settings.value(SETTINGS_SPLITTER);
@@ -158,6 +156,11 @@ void InputOutputManager::updateItem(QTreeWidgetItem* item, quint32 universe)
     item->setText(KColumnProfile, ip->profileName());
     item->setText(KColumnInputNum, QString::number(ip->input() + 1));
     item->setText(KColumnOutputNum, QString::number(op->output() + 1));
+
+    m_tree->resizeColumnToContents(KColumnUniverse);
+    m_tree->resizeColumnToContents(KColumnInput);
+    m_tree->resizeColumnToContents(KColumnOutput);
+    m_tree->resizeColumnToContents(KColumnProfile);
 }
 
 void InputOutputManager::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
@@ -210,6 +213,7 @@ void InputOutputManager::slotCurrentItemChanged()
     m_editor = new InputOutputPatchEditor(this, universe, m_inputMap, m_outputMap);
     m_splitter->widget(1)->layout()->addWidget(m_editor);
     connect(m_editor, SIGNAL(mappingChanged()), this, SLOT(slotMappingChanged()));
+    connect(m_editor, SIGNAL(audioInputDeviceChanged()), this, SLOT(slotAudioInputChanged()));
     m_editor->show();
 }
 
@@ -221,6 +225,11 @@ void InputOutputManager::slotMappingChanged()
         uint universe = item->text(KColumnUniverse).toUInt() - 1;
         updateItem(item, universe);
     }
+}
+
+void InputOutputManager::slotAudioInputChanged()
+{
+    m_doc->destroyAudioCapture();
 }
 
 

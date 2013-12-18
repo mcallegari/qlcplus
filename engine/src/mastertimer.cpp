@@ -4,24 +4,23 @@
 
   Copyright (C) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QDebug>
+#include <QMutexLocker>
 
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
 #   include "mastertimer-win32.h"
 #else
 #   include <unistd.h>
@@ -30,6 +29,7 @@
 
 #include "universearray.h"
 #include "genericfader.h"
+#include "fadechannel.h"
 #include "mastertimer.h"
 #include "outputmap.h"
 #include "dmxsource.h"
@@ -50,10 +50,6 @@ uint MasterTimer::s_tick = 20;
 MasterTimer::MasterTimer(Doc* doc)
     : QObject(doc)
     , m_stopAllFunctions(false)
-    , m_fadeAllSequence(false)
-    , m_fadeSequenceTimeout(0)
-    , m_fadeSequenceTimeoutCount(0)
-    , m_originalGMvalue(0)
     , m_fader(new GenericFader(doc))
     , d_ptr(new MasterTimerPrivate(this))
 {
@@ -97,20 +93,7 @@ void MasterTimer::timerTick()
 
     UniverseArray* universes = doc->outputMap()->claimUniverses();
     universes->zeroIntensityChannels();
-
-    if (m_fadeAllSequence == true)
-    {
-        m_fadeSequenceTimeoutCount -= tick();
-        uchar newGMvalue = ((float)m_fadeSequenceTimeoutCount / (float)m_fadeSequenceTimeout) * m_originalGMvalue;
-        //qDebug() << "---> setting GM to" <<  newGMvalue << "timeout:" << m_fadeSequenceTimeoutCount;
-        universes->setGMValue(newGMvalue);
-
-        if (m_fadeSequenceTimeoutCount <= 0)
-        {
-            m_fadeAllSequence = false;
-            m_stopAllFunctions = true;
-        }
-    }
+    universes->zeroRelativeValues();
 
     timerTickFunctions(universes);
     timerTickDMXSources(universes);
@@ -139,10 +122,9 @@ void MasterTimer::startFunction(Function* function)
     if (function == NULL)
         return;
 
-    m_functionListMutex.lock();
+    QMutexLocker locker(&m_functionListMutex);
     if (m_startQueue.contains(function) == false)
         m_startQueue.append(function);
-    m_functionListMutex.unlock();
 }
 
 void MasterTimer::stopAllFunctions()
@@ -152,28 +134,20 @@ void MasterTimer::stopAllFunctions()
     /* Wait until all functions have been stopped */
     while (runningFunctions() > 0)
     {
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
         Sleep(10);
 #else
         usleep(10000);
 #endif
     }
 
-    /* Remove all generic fader's channels */
-    m_functionListMutex.lock();
-    m_dmxSourceListMutex.lock();
-    fader()->removeAll();
-    m_dmxSourceListMutex.unlock();
-    m_functionListMutex.unlock();
-
-    if (m_originalGMvalue != 0)
+    // WARNING: the following brackets are fundamental for
+    // the scope of this piece of code !!
     {
-        Doc* doc = qobject_cast<Doc*> (parent());
-        Q_ASSERT(doc != NULL);
-        UniverseArray* universes = doc->outputMap()->claimUniverses();
-        universes->setGMValue(m_originalGMvalue);
-        doc->outputMap()->releaseUniverses();
-        m_originalGMvalue = 0;
+        /* Remove all generic fader's channels */
+        QMutexLocker functionLocker(&m_functionListMutex);
+        QMutexLocker dmxLocker(&m_dmxSourceListMutex);
+        fader()->removeAll();
     }
 
     m_stopAllFunctions = false;
@@ -186,12 +160,31 @@ void MasterTimer::fadeAndStopAll(int timeout)
 
     Doc* doc = qobject_cast<Doc*> (parent());
     Q_ASSERT(doc != NULL);
+
     UniverseArray* universes = doc->outputMap()->claimUniverses();
-    m_originalGMvalue = universes->gMValue();
+    QHashIterator <int,uchar> it(universes->intensityChannels());
+    while (it.hasNext() == true)
+    {
+        it.next();
+
+        Fixture* fxi = doc->fixture(doc->fixtureForAddress(it.key()));
+        if (fxi != NULL)
+        {
+            uint ch = it.key() - fxi->universeAddress();
+            if (fxi->channelCanFade(ch))
+            {
+                FadeChannel fc;
+                fc.setFixture(fxi->id());
+                fc.setChannel(ch);
+                fc.setStart(it.value());
+                fc.setTarget(0);
+                fc.setFadeTime(timeout);
+                fader()->add(fc);
+            }
+        }
+    }
     doc->outputMap()->releaseUniverses();
-    m_fadeSequenceTimeout = timeout;
-    m_fadeSequenceTimeoutCount = timeout;
-    m_fadeAllSequence = true;
+    m_stopAllFunctions = true;
 }
 
 int MasterTimer::runningFunctions() const
@@ -218,9 +211,10 @@ void MasterTimer::timerTickFunctions(UniverseArray* universes)
         {
             /* Run the function unless it's supposed to be stopped */
             if (function->stopped() == false && m_stopAllFunctions == false)
+            {
                 function->write(this, universes);
-
-            if (function->stopped() == true || m_stopAllFunctions == true)
+            }
+            else
             {
                 /* Function should be stopped instead */
                 m_functionListMutex.lock();
@@ -248,28 +242,24 @@ void MasterTimer::timerTickFunctions(UniverseArray* universes)
     while (it.hasPrevious() == true)
         m_functionList.removeAt(it.previous());
 
-    /* No more functions. Get out and wait for next timer event. */
-    m_functionListMutex.unlock();
-
     foreach (Function* f, m_startQueue)
     {
         //qDebug() << "[MasterTimer] Processing ID: " << f->id();
         if (m_functionList.contains(f) == false)
         {
-            m_functionListMutex.lock();
             m_functionList.append(f);
             m_functionListMutex.unlock();
             //qDebug() << "[MasterTimer] Starting up ID: " << f->id();
             f->preRun(this);
             f->write(this, universes);
             emit functionListChanged();
+            m_functionListMutex.lock();
         }
         m_startQueue.removeOne(f);
     }
-}
 
-void MasterTimer::fadeSequenceCompleted()
-{
+    /* No more functions. Get out and wait for next timer event. */
+    m_functionListMutex.unlock();
 }
 
 /****************************************************************************
@@ -280,24 +270,22 @@ void MasterTimer::registerDMXSource(DMXSource* source)
 {
     Q_ASSERT(source != NULL);
 
-    m_dmxSourceListMutex.lock();
+    QMutexLocker lock(&m_dmxSourceListMutex);
     if (m_dmxSourceList.contains(source) == false)
         m_dmxSourceList.append(source);
-    m_dmxSourceListMutex.unlock();
 }
 
 void MasterTimer::unregisterDMXSource(DMXSource* source)
 {
     Q_ASSERT(source != NULL);
 
-    m_dmxSourceListMutex.lock();
+    QMutexLocker lock(&m_dmxSourceListMutex);
     m_dmxSourceList.removeAll(source);
-    m_dmxSourceListMutex.unlock();
 }
 
 void MasterTimer::timerTickDMXSources(UniverseArray* universes)
 {
-    /* Lock before accessing the running functions list. */
+    /* Lock before accessing the DMX sources list. */
     m_dmxSourceListMutex.lock();
     for (int i = 0; i < m_dmxSourceList.size(); i++)
     {
@@ -329,11 +317,8 @@ GenericFader* MasterTimer::fader() const
 
 void MasterTimer::timerTickFader(UniverseArray* universes)
 {
-    m_functionListMutex.lock();
-    m_dmxSourceListMutex.lock();
+    QMutexLocker functionLocker(&m_functionListMutex);
+    QMutexLocker dmxLOcker(&m_dmxSourceListMutex);
 
     fader()->write(universes);
-
-    m_dmxSourceListMutex.unlock();
-    m_functionListMutex.unlock();
 }

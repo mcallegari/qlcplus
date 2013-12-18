@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #ifndef VCFRAME_H
@@ -67,7 +65,6 @@ public:
     /* Check if this is the virtual console's draw area */
     bool isBottomFrame();
 
-
     /*********************************************************************
      * GUI
      *********************************************************************/
@@ -87,7 +84,7 @@ public:
     /** @reimp */
     QColor foregroundColor() const;
 
-    void setShowHeader(bool enable);
+    void setHeaderVisible(bool enable);
 
     bool isHeaderVisible() const;
 
@@ -95,6 +92,9 @@ public:
 
 protected slots:
     void slotCollapseButtonToggled(bool toggle);
+
+protected:
+    void createHeader();
 
 protected:
     QHBoxLayout *m_hbox;
@@ -109,15 +109,15 @@ protected:
      *********************************************************************/
 public:
     void setMultipageMode(bool enable);
-    bool multipageMode() const;
+    virtual bool multipageMode() const;
 
     void setTotalPagesNumber(int num);
     int totalPagesNumber();
 
-    int currentPage();
+    virtual int currentPage();
 
-    void addWidgetToPageMap(VCWidget *widget);
-    void removeWidgetFromPageMap(VCWidget *widget);
+    virtual void addWidgetToPageMap(VCWidget *widget);
+    virtual void removeWidgetFromPageMap(VCWidget *widget);
 
 protected slots:
     void slotPreviousPage();
@@ -134,6 +134,19 @@ protected:
     /** Here's where the magic takes place. This holds a map
      *  of pages/widgets to be shown/hidden when page is changed */
     QMap <VCWidget *, int> m_pagesMap;
+
+    /*********************************************************************
+     * Submasters
+     *********************************************************************/
+protected slots:
+    void slotSubmasterValueChanged(qreal value);
+
+    /*********************************************************************
+     * Intensity
+     *********************************************************************/
+public:
+    /** @reimp */
+    void adjustIntensity(qreal val);
 
     /*************************************************************************
      * Key sequences
@@ -176,7 +189,7 @@ public:
 
 protected:
     /** Copy the contents for this widget from another widget */
-    bool copyFrom(VCWidget* widget);
+    bool copyFrom(const VCWidget* widget);
 
     /*********************************************************************
      * Properties

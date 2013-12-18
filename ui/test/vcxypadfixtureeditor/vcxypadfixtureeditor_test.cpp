@@ -4,19 +4,17 @@
 
   Copyright (C) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QtTest>
@@ -46,9 +44,9 @@ void VCXYPadFixtureEditor_Test::initTestCase()
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
     QVERIFY(m_doc->fixtureDefCache()->load(dir) == true);
 
-    const QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
-    const QLCFixtureMode* mode = def->modes()[0];
+    QLCFixtureMode* mode = def->modes()[0];
     QVERIFY(mode != NULL);
 
     Fixture* fxi = new Fixture(m_doc);
@@ -73,12 +71,12 @@ void VCXYPadFixtureEditor_Test::initial()
 
     VCXYPadFixture fxi(m_doc);
 
-    fxi.setFixture(0);
+    fxi.setHead(GroupHead(0, 0));
     fxi.setX(0.1, 0.2, false);
     fxi.setY(0.3, 0.4, true);
     list << fxi;
 
-    fxi.setFixture(1);
+    fxi.setHead(GroupHead(1, 0));
     fxi.setX(0, 1, true);
     fxi.setY(0, 1, false);
     list << fxi;
@@ -134,12 +132,12 @@ void VCXYPadFixtureEditor_Test::accept()
 
     VCXYPadFixture fxi(m_doc);
 
-    fxi.setFixture(0);
+    fxi.setHead(GroupHead(0, 0));
     fxi.setX(0, 1, false);
     fxi.setY(0, 1, false);
     list << fxi;
 
-    fxi.setFixture(1);
+    fxi.setHead(GroupHead(1, 0));
     fxi.setX(0.5, 0.6, true);
     fxi.setY(0.5, 0.6, true);
     list << fxi;
@@ -156,12 +154,14 @@ void VCXYPadFixtureEditor_Test::accept()
     QCOMPARE(fe.m_yMax->value(), 40);
 
     list = fe.fixtures();
-    QCOMPARE(list[0].fixture(), quint32(0));
+    QCOMPARE(list[0].head().fxi, quint32(0));
+    QCOMPARE(list[0].head().head, 0);
     QCOMPARE(list[0].xMin(), qreal(0.1));
     QCOMPARE(list[0].xMax(), qreal(0.2));
     QCOMPARE(list[0].yMin(), qreal(0.3));
     QCOMPARE(list[0].yMax(), qreal(0.4));
-    QCOMPARE(list[1].fixture(), quint32(1));
+    QCOMPARE(list[1].head().fxi, quint32(1));
+    QCOMPARE(list[1].head().head, 0);
     QCOMPARE(list[1].xMin(), qreal(0.1));
     QCOMPARE(list[1].xMax(), qreal(0.2));
     QCOMPARE(list[1].yMin(), qreal(0.3));

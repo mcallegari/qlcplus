@@ -4,19 +4,17 @@
 
   Copyright (C) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #ifndef MASTERTIMER_H
@@ -104,35 +102,16 @@ private:
     /** Execute one timer tick for each registered Function */
     void timerTickFunctions(UniverseArray* universes);
 
-    /** When a Fade+Stop sequence is completed, this function
-     *  is called to actually stop all functions and restore
-     *  the original Grand Master value stored in m_originalGMvalue */
-    void fadeSequenceCompleted();
-
 private:
     /** List of currently running functions */
     QList <Function*> m_functionList;
     QList <Function*> m_startQueue;
 
-    /** Mutex that guards access to m_functionList */
+    /** Mutex that guards access to m_functionList & m_startQueue */
     QMutex m_functionListMutex;
 
     /** Flag for stopping all functions */
     bool m_stopAllFunctions;
-
-    /** Flag to fade all functions before stopping them all */
-    bool m_fadeAllSequence;
-
-    /** When m_fadeAllSequence is set, this value indicates how
-     *  long the fade sequence will take */
-    int m_fadeSequenceTimeout;
-
-    /** Temporary variable to count from m_fadeSequenceTimeout to 0 */
-    int m_fadeSequenceTimeoutCount;
-
-    /** When a fade+stop sequence is activated, record the original
-     *  Grand Master value to restore it later */
-    uchar m_originalGMvalue;
 
     /*************************************************************************
      * DMX Sources
@@ -160,10 +139,14 @@ private:
     void timerTickDMXSources(UniverseArray* universes);
 
 private:
-    /** List of currently running functions */
+    /** List of currently registered DMX sources */
     QList <DMXSource*> m_dmxSourceList;
 
-    /** Mutex that guards access to m_functionList */
+    /** Mutex that guards access to m_dmxSourceList 
+     *
+     * In case both m_functionListMutex and m_dmxSourceListMutex are needed,
+     * always lock m_functionListMutex first!
+     */
     QMutex m_dmxSourceListMutex;
 
     /*************************************************************************

@@ -4,19 +4,17 @@
 
   Copyright (c) Massimo Callegari
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QDebug>
@@ -26,6 +24,7 @@
 
 AudioRenderer::AudioRenderer (QObject* parent)
     : QThread (parent)
+    , m_fadeStep(0.0)
     , m_userStop(true)
     , m_pause(false)
     , m_intensity(1.0)
@@ -44,6 +43,35 @@ void AudioRenderer::adjustIntensity(qreal fraction)
     m_intensity = CLAMP(fraction, 0.0, 1.0);
 }
 
+void AudioRenderer::setFadeIn(uint fadeTime)
+{
+    if (fadeTime == 0)
+        return;
+
+    quint32 sampleRate = m_adec->audioParameters().sampleRate();
+    int channels = m_adec->audioParameters().channels();
+    qreal stepsCount = (qreal)fadeTime * ((qreal)(sampleRate * channels) / 1000);
+    m_fadeStep = m_intensity / stepsCount;
+    m_currentIntensity = 0;
+
+    qDebug() << Q_FUNC_INFO << "stepsCount:" << stepsCount << ", fadeStep:" << m_fadeStep;
+}
+
+void AudioRenderer::setFadeOut(uint fadeTime)
+{
+    if (fadeTime == 0 || m_fadeStep != 0)
+        return;
+
+    quint32 sampleRate = m_adec->audioParameters().sampleRate();
+    int channels = m_adec->audioParameters().channels();
+    qreal stepsCount = (qreal)fadeTime * ((qreal)(sampleRate * channels) / 1000);
+    m_fadeStep = m_intensity / stepsCount;
+    m_fadeStep = -m_fadeStep;
+    m_currentIntensity = m_intensity;
+
+    qDebug() << Q_FUNC_INFO << "stepsCount:" << stepsCount << ", fadeStep:" << m_fadeStep;
+}
+
 void AudioRenderer::stop()
 {
     m_userStop = true;
@@ -56,8 +84,7 @@ void AudioRenderer::run()
 {
     m_userStop = false;
     audioDataRead = 0;
-    AudioParameters params = m_adec->audioParameters();
-    int sampleSize = params.format() + 1;
+    int sampleSize = m_adec->audioParameters().sampleSize();
 
     while (!m_userStop)
     {
@@ -72,23 +99,33 @@ void AudioRenderer::run()
             if (audioDataRead == 0)
             {
                 m_mutex.unlock();
+                emit endOfStreamReached();
                 return;
             }
-            if (m_intensity != 1.0)
+            if (m_intensity != 1.0 || m_fadeStep != 0)
             {
                 for (int i = 0; i < audioDataRead; i+=sampleSize)
                 {
+                    qreal scaleFactor = m_intensity;
+                    if (m_fadeStep != 0)
+                    {
+                        m_currentIntensity += m_fadeStep;
+                        scaleFactor = m_currentIntensity;
+                        if ((m_fadeStep > 0 && m_currentIntensity >= m_intensity) ||
+                            (m_fadeStep < 0 && m_currentIntensity <= 0))
+                                m_fadeStep = 0;
+                    }
                     if (sampleSize == 2)
                     {
                         short sample = ((short)audioData[i+1] << 8) + (short)audioData[i];
-                        sample *= m_intensity;
+                        sample *= scaleFactor;
                         audioData[i+1] = (sample >> 8) & 0x00FF;
                         audioData[i] = sample & 0x00FF;
                     }
                     else if (sampleSize == 3)
                     {
                         long sample = ((long)audioData[i+2] << 16) + ((long)audioData[i+1] << 8) + (short)audioData[i];
-                        sample *= m_intensity;
+                        sample *= scaleFactor;
                         audioData[i+2] = (sample >> 16) & 0x000000FF;
                         audioData[i+1] = (sample >> 8) & 0x000000FF;
                         audioData[i] = sample & 0x000000FF;
@@ -97,14 +134,14 @@ void AudioRenderer::run()
                     {
                         long sample = ((long)audioData[i+3] << 24) + ((long)audioData[i+2] << 16) +
                                       ((long)audioData[i+1] << 8) + (short)audioData[i];
-                        sample *= m_intensity;
+                        sample *= scaleFactor;
                         audioData[i+3] = (sample >> 24) & 0x000000FF;
                         audioData[i+2] = (sample >> 16) & 0x000000FF;
                         audioData[i+1] = (sample >> 8) & 0x000000FF;
                         audioData[i] = sample & 0x000000FF;
                     }
                     else // this can be PCM_S8 or unknown. In any case perform byte per byte scaling
-                        audioData[i] = (unsigned char)((char)audioData[i] * m_intensity);
+                        audioData[i] = (unsigned char)((char)audioData[i] * scaleFactor);
                 }
             }
             audioDataWritten = writeAudio(audioData, audioDataRead);

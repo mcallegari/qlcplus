@@ -4,19 +4,17 @@
 
   Copyright (C) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QString>
@@ -105,7 +103,7 @@ QString Fixture::name() const
  * Fixture type
  *****************************************************************************/
 
-QString Fixture::type() const
+QString Fixture::type()
 {
     if (m_fixtureDef != NULL)
         return m_fixtureDef->type();
@@ -330,10 +328,18 @@ quint32 Fixture::masterIntensityChannel(int head) const
 {
     if (m_fixtureMode != NULL)
     {
+        quint32 dimmerCh = QLCChannel::invalid();
         if (head < m_fixtureMode->heads().size())
-            return m_fixtureMode->heads().at(head).masterIntensityChannel();
-        else
-            return QLCChannel::invalid();
+            dimmerCh = m_fixtureMode->heads().at(head).masterIntensityChannel();
+
+        if (dimmerCh == QLCChannel::invalid())
+        {
+            QList <quint32> dList = channels("dimmer", Qt::CaseInsensitive, QLCChannel::Intensity).toList();
+
+            if (dList.count() > 0)
+                dimmerCh = dList.at(0);
+        }
+        return dimmerCh;
     }
     else
     {
@@ -383,6 +389,19 @@ QList<int> Fixture::excludeFadeChannels()
     return m_excludeFadeIndexes;
 }
 
+void Fixture::setChannelCanFade(int idx, bool canFade)
+{
+    if (canFade == false && m_excludeFadeIndexes.contains(idx) == false)
+    {
+        m_excludeFadeIndexes.append(idx);
+        qSort(m_excludeFadeIndexes.begin(), m_excludeFadeIndexes.end());
+    }
+    else if (canFade == true && m_excludeFadeIndexes.contains(idx) == true)
+    {
+        m_excludeFadeIndexes.removeOne(idx);
+    }
+}
+
 bool Fixture::channelCanFade(int index)
 {
     if (m_excludeFadeIndexes.contains(index))
@@ -408,8 +427,8 @@ void Fixture::createGenericChannel()
  * Fixture definition
  *****************************************************************************/
 
-void Fixture::setFixtureDefinition(const QLCFixtureDef* fixtureDef,
-                                   const QLCFixtureMode* fixtureMode)
+void Fixture::setFixtureDefinition(QLCFixtureDef* fixtureDef,
+                                   QLCFixtureMode* fixtureMode)
 {
     if (fixtureDef != NULL && fixtureMode != NULL)
     {
@@ -446,12 +465,12 @@ void Fixture::setFixtureDefinition(const QLCFixtureDef* fixtureDef,
     emit changed(m_id);
 }
 
-const QLCFixtureDef* Fixture::fixtureDef() const
+QLCFixtureDef* Fixture::fixtureDef() const
 {
     return m_fixtureDef;
 }
 
-const QLCFixtureMode* Fixture::fixtureMode() const
+QLCFixtureMode* Fixture::fixtureMode() const
 {
     return m_fixtureMode;
 }
@@ -548,8 +567,8 @@ bool Fixture::loader(const QDomElement& root, Doc* doc)
 bool Fixture::loadXML(const QDomElement& root,
                       const QLCFixtureDefCache* fixtureDefCache)
 {
-    const QLCFixtureDef* fixtureDef = NULL;
-    const QLCFixtureMode* fixtureMode = NULL;
+    QLCFixtureDef* fixtureDef = NULL;
+    QLCFixtureMode* fixtureMode = NULL;
     QString manufacturer;
     QString model;
     QString modeName;

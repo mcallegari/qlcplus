@@ -4,19 +4,17 @@
 
   Copyright (c) Massimo Callegari
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QDomDocument>
@@ -41,10 +39,10 @@
 
 #include "audiorenderer.h"
 
-#if defined(__APPLE__)
+#if defined(__APPLE__) || defined(Q_OS_MAC)
   //#include "audiorenderer_coreaudio.h"
   #include "audiorenderer_portaudio.h"
-#elif defined(WIN32)
+#elif defined(WIN32) || defined(Q_OS_WIN)
   #include "audiorenderer_waveout.h"
 #else
   #include "audiorenderer_alsa.h"
@@ -243,11 +241,27 @@ AudioDecoder* Audio::getAudioDecoder()
     return m_decoder;
 }
 
-void Audio::adjustAttribute(qreal fraction, int)
+void Audio::adjustAttribute(qreal fraction, int attributeIndex)
 {
-    if (m_audio_out != NULL)
+    if (m_audio_out != NULL && attributeIndex == Intensity)
         m_audio_out->adjustIntensity(fraction);
-    Function::adjustAttribute(fraction);
+    Function::adjustAttribute(fraction, attributeIndex);
+}
+
+void Audio::slotEndOfStream()
+{
+#ifdef QT_PHONON_LIB
+    if (m_object != NULL)
+        m_object->stop();
+#endif
+    if (m_audio_out != NULL)
+    {
+        m_audio_out->stop();
+        delete m_audio_out;
+        m_audio_out = NULL;
+        m_decoder->seek(0);
+    }
+    Function::postRun(NULL, NULL);
 }
 
 void Audio::slotTotalTimeChanged(qint64)
@@ -264,6 +278,10 @@ void Audio::slotFunctionRemoved(quint32 fid)
     Q_UNUSED(fid)
 }
 
+/*********************************************************************
+ * Save & Load
+ *********************************************************************/
+
 bool Audio::saveXML(QDomDocument* doc, QDomElement* wksp_root)
 {
     QDomElement root;
@@ -276,9 +294,11 @@ bool Audio::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     root = doc->createElement(KXMLQLCFunction);
     wksp_root->appendChild(root);
 
-    root.setAttribute(KXMLQLCFunctionID, id());
-    root.setAttribute(KXMLQLCFunctionType, Function::typeToString(type()));
-    root.setAttribute(KXMLQLCFunctionName, name());
+    /* Common attributes */
+    saveXMLCommon(&root);
+
+    /* Speed */
+    saveXMLSpeed(doc, &root);
 
     QDomElement source = doc->createElement(KXMLQLCAudioSource);
     source.setAttribute(KXMLQLCAudioStartTime, m_startTime);
@@ -319,6 +339,10 @@ bool Audio::loadXML(const QDomElement& root)
                 m_color = QColor(tag.attribute(KXMLQLCAudioColor));
             setSourceFileName(m_doc->denormalizeComponentPath(tag.text()));
         }
+        else if (tag.tagName() == KXMLQLCFunctionSpeed)
+        {
+            loadXMLSpeed(tag);
+        }
         node = node.nextSibling();
     }
 
@@ -345,18 +369,21 @@ void Audio::preRun(MasterTimer* timer)
     {
         m_decoder->seek(elapsed());
         AudioParameters ap = m_decoder->audioParameters();
-#if defined(__APPLE__)
+#if defined(__APPLE__) || defined(Q_OS_MAC)
         //m_audio_out = new AudioRendererCoreAudio();
         m_audio_out = new AudioRendererPortAudio();
-#elif defined(WIN32)
+#elif defined(WIN32) || defined(Q_OS_WIN)
         m_audio_out = new AudioRendererWaveOut();
 #else
         m_audio_out = new AudioRendererAlsa();
 #endif
         m_audio_out->setDecoder(m_decoder);
         m_audio_out->initialize(ap.sampleRate(), ap.channels(), ap.format());
+        m_audio_out->setFadeIn(fadeInSpeed());
         m_audio_out->start();
-        m_audio_out->adjustIntensity(getAttributeValue());
+        m_audio_out->adjustIntensity(getAttributeValue(Intensity));
+        connect(m_audio_out, SIGNAL(endOfStreamReached()),
+                this, SLOT(slotEndOfStream()));
     }
     Function::preRun(timer);
 }
@@ -365,22 +392,19 @@ void Audio::write(MasterTimer* timer, UniverseArray* universes)
 {
     Q_UNUSED(timer)
     Q_UNUSED(universes)
+
+    incrementElapsed();
+
+    if (fadeOutSpeed() != 0)
+    {
+        if (getDuration() - elapsed() <= fadeOutSpeed())
+            m_audio_out->setFadeOut(fadeOutSpeed());
+    }
 }
 
 void Audio::postRun(MasterTimer* timer, UniverseArray* universes)
 {
     Q_UNUSED(timer)
     Q_UNUSED(universes)
-#ifdef QT_PHONON_LIB
-    if (m_object != NULL)
-        m_object->stop();
-#endif
-    if (m_audio_out != NULL)
-    {
-        m_audio_out->stop();
-        delete m_audio_out;
-        m_audio_out = NULL;
-        m_decoder->seek(0);
-    }
-    Function::postRun(timer, universes);
+    slotEndOfStream();
 }

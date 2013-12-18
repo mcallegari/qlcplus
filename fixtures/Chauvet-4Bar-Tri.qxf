@@ -1,8 +1,8 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition>
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.3.0-r2968</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.6.0</Version>
   <Author>Nicholas Fazio</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -25,7 +25,7 @@
   <Capability Min="230" Max="230">PS12</Capability>
   <Capability Min="250" Max="250">SOUND</Capability>
  </Channel>
- <Channel Name="Master">
+ <Channel Name="Dimmer">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="0">BO</Capability>
   <Capability Min="10" Max="255">1-100%</Capability>
@@ -104,7 +104,7 @@
    <Technical PowerConsumption="0" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Mode</Channel>
-  <Channel Number="1">Master</Channel>
+  <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Strobe</Channel>
   <Channel Number="3">1Red</Channel>
   <Channel Number="4">1Green</Channel>
@@ -119,21 +119,25 @@
   <Channel Number="13">4Green</Channel>
   <Channel Number="14">4Blue</Channel>
   <Head>
+   <Channel>1</Channel>
    <Channel>3</Channel>
    <Channel>4</Channel>
    <Channel>5</Channel>
   </Head>
   <Head>
+   <Channel>1</Channel>
    <Channel>6</Channel>
    <Channel>7</Channel>
    <Channel>8</Channel>
   </Head>
   <Head>
+   <Channel>1</Channel>
    <Channel>9</Channel>
    <Channel>10</Channel>
    <Channel>11</Channel>
   </Head>
   <Head>
+   <Channel>1</Channel>
    <Channel>12</Channel>
    <Channel>13</Channel>
    <Channel>14</Channel>

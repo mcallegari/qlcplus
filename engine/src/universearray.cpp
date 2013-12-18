@@ -4,25 +4,25 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <math.h>
 
 #include "universearray.h"
 #include "qlcmacros.h"
+
+#include <QDebug>
 
 #define KXMLQLCGMValueModeLimit "Limit"
 #define KXMLQLCGMValueModeReduce "Reduce"
@@ -39,11 +39,13 @@ UniverseArray::UniverseArray(int size)
     : m_size(size)
     , m_preGMValues(new QByteArray(size, char(0)))
     , m_postGMValues(new QByteArray(size, char(0)))
+    , m_doRelative( false )
 {
     m_gMChannelMode = GMIntensity;
     m_gMValueMode = GMReduce;
     m_gMValue = 255;
     m_gMFraction = 1.0;
+    m_relativeValues.fill(0, size);
 }
 
 UniverseArray::~UniverseArray()
@@ -63,6 +65,8 @@ void UniverseArray::reset()
     m_postGMValues->fill(0);
     m_gMIntensityChannels.clear();
     m_gMNonIntensityChannels.clear();
+    m_relativeValues.fill(0);
+    m_doRelative = false;
 }
 
 void UniverseArray::reset(int address, int range)
@@ -73,6 +77,7 @@ void UniverseArray::reset(int address, int range)
         m_postGMValues->data()[i] = 0;
         m_gMIntensityChannels.remove(i);
         m_gMNonIntensityChannels.remove(i);
+        m_relativeValues[i] = 0;
     }
 }
 
@@ -88,7 +93,20 @@ void UniverseArray::zeroIntensityChannels()
         int channel(it.next());
         m_preGMValues->data()[channel] = 0;
         m_postGMValues->data()[channel] = 0;
+        m_relativeValues[channel] = 0;
     }
+}
+
+QHash<int, uchar> UniverseArray::intensityChannels()
+{
+    QHash <int, uchar> intensityList;
+    QSetIterator <int> it(m_gMIntensityChannels);
+    while (it.hasNext() == true)
+    {
+        int channel(it.next());
+        intensityList[channel] = m_preGMValues->data()[channel];
+    }
+    return intensityList;
 }
 
 bool UniverseArray::checkHTP(int channel, uchar value, QLCChannel::Group group) const
@@ -252,6 +270,11 @@ const QByteArray* UniverseArray::postGMValues() const
     return m_postGMValues;
 }
 
+void UniverseArray::zeroRelativeValues()
+{
+    m_relativeValues.fill(0);
+}
+
 const QByteArray UniverseArray::preGMValues() const
 {
     if (m_preGMValues->isNull())
@@ -291,16 +314,37 @@ uchar UniverseArray::applyGM(int channel, uchar value, QLCChannel::Group group)
  * Writing
  ****************************************************************************/
 
-bool UniverseArray::write(int channel, uchar value, QLCChannel::Group group)
+bool UniverseArray::write(int channel, uchar value, QLCChannel::Group group, bool isRelative)
 {
     if (channel >= size())
         return false;
 
-    if (checkHTP(channel, value, group) == false)
-        return false;
+    if (isRelative)
+    {
+        if (value == 127)
+            return true;
 
-    if (m_preGMValues != NULL)
-        m_preGMValues->data()[channel] = char(value);
+        m_doRelative = true;
+        m_relativeValues[channel] += value - 127;
+    }
+    else
+    {
+        if (checkHTP(channel, value, group) == false)
+            return false;
+
+        if (m_preGMValues != NULL)
+            m_preGMValues->data()[channel] = char(value);
+    }
+
+
+    if (m_doRelative)
+    {
+        int val = m_relativeValues[channel];
+        if (m_preGMValues != NULL)
+            val += (uchar)m_preGMValues->data()[channel];
+        value = CLAMP(val, 0, UCHAR_MAX);
+    }
+
     value = applyGM(channel, value, group);
     m_postGMValues->data()[channel] = char(value);
 

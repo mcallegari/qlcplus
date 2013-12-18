@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QStringList>
@@ -42,9 +40,9 @@
 #include "doc.h"
 #include "bus.h"
 
-#if defined(__APPLE__)
+#if defined(__APPLE__) || defined(Q_OS_MAC)
   #include "audiocapture_portaudio.h"
-#elif defined(WIN32)
+#elif defined(WIN32) || defined (Q_OS_WIN)
   #include "audiocapture_wavein.h"
 #else
   #include "audiocapture_alsa.h"
@@ -112,22 +110,24 @@ void Doc::clearContents()
         delete func;
     }
 
-    // Delete all fixture instances
-    QListIterator <quint32> fxit(m_fixtures.keys());
-    while (fxit.hasNext() == true)
-    {
-        Fixture* fxi = m_fixtures.take(fxit.next());
-        emit fixtureRemoved(fxi->id());
-        delete fxi;
-    }
-
     // Delete all fixture groups
     QListIterator <quint32> grpit(m_fixtureGroups.keys());
     while (grpit.hasNext() == true)
     {
         FixtureGroup* grp = m_fixtureGroups.take(grpit.next());
-        emit fixtureGroupRemoved(grp->id());
+        quint32 grpID = grp->id();
         delete grp;
+        emit fixtureGroupRemoved(grpID);
+    }
+
+    // Delete all fixture instances
+    QListIterator <quint32> fxit(m_fixtures.keys());
+    while (fxit.hasNext() == true)
+    {
+        Fixture* fxi = m_fixtures.take(fxit.next());
+        quint32 fxID = fxi->id();
+        delete fxi;
+        emit fixtureRemoved(fxID);
     }
 
     // Delete all channels groups
@@ -218,15 +218,27 @@ AudioCapture *Doc::audioInputCapture()
 {
     if (m_inputCapture == NULL)
     {
-#if defined(__APPLE__)
+#if defined(__APPLE__) || defined(Q_OS_MAC)
         m_inputCapture = new AudioCapturePortAudio();
-#elif defined(WIN32)
+#elif defined(WIN32) || defined (Q_OS_WIN)
         m_inputCapture = new AudioCaptureWaveIn();
 #else
         m_inputCapture = new AudioCaptureAlsa();
 #endif
     }
     return m_inputCapture;
+}
+
+void Doc::destroyAudioCapture()
+{
+    qDebug() << "Destroying audio capture";
+    if (m_inputCapture != NULL)
+    {
+        if (m_inputCapture->isRunning())
+            m_inputCapture->stop();
+        delete m_inputCapture;
+    }
+    m_inputCapture = NULL;
 }
 
 /*****************************************************************************
@@ -427,15 +439,16 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
         newFixture->setUniverse(fixture->universe());
         if (fixture->fixtureDef() != NULL && fixture->fixtureMode() != NULL)
         {
-            const QLCFixtureDef *def = fixtureDefCache()->fixtureDef(fixture->fixtureDef()->manufacturer(),
-                                                                     fixture->fixtureDef()->model());
-            const QLCFixtureMode *mode = NULL;
+            QLCFixtureDef *def = fixtureDefCache()->fixtureDef(fixture->fixtureDef()->manufacturer(),
+                                                               fixture->fixtureDef()->model());
+            QLCFixtureMode *mode = NULL;
             if (def != NULL)
                 mode = def->mode(fixture->fixtureMode()->name());
             newFixture->setFixtureDefinition(def, mode);
         }
         else
             newFixture->setChannels(fixture->channels());
+        newFixture->setExcludeFadeChannels(fixture->excludeFadeChannels());
         m_fixtures[id] = newFixture;
 
         /* Patch fixture change signals thru Doc */

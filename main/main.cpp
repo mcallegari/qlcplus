@@ -4,19 +4,17 @@
 
   Copyright (C) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QApplication>
@@ -87,6 +85,7 @@ namespace QLCArgs
 /**
  * Suppresses debug messages
  */
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 void qlcMessageHandler(QtMsgType type, const char* msg)
 {
     if (type >= QLCArgs::debugLevel)
@@ -100,6 +99,24 @@ void qlcMessageHandler(QtMsgType type, const char* msg)
 #endif
     }
 }
+#else
+void qlcMessageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+{
+    Q_UNUSED(context)
+
+    QByteArray localMsg = msg.toLocal8Bit();
+    if (type >= QLCArgs::debugLevel)
+    {
+#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
+        if (QLCArgs::dbgBox != NULL)
+            QLCArgs::dbgBox->addText(msg);
+#else
+        fprintf(stderr, "%s\n", localMsg.constData());
+        fflush(stderr);
+#endif
+    }
+}
+#endif
 
 /**
  * Prints the application version
@@ -110,8 +127,8 @@ void printVersion()
 
     cout << endl;
     cout << APPNAME << " " << "version " << APPVERSION << endl;
-    cout << "This program is licensed under the terms of the GNU ";
-    cout << "General Public License v2." << endl;
+    cout << "This program is licensed under the terms of the ";
+    cout << "Apache 2.0 license." << endl;
     cout << "Copyright (c) Heikki Junnila (hjunnila@users.sf.net)" << endl;
     cout << "Copyright (c) Massimo Callegari (massimocallegari@yahoo.it)" << endl;
     cout << endl;
@@ -233,7 +250,7 @@ int main(int argc, char** argv)
     /* At least MIDI plugin requires this so best to declare it here for everyone */
     qRegisterMetaType<QVariant>("QVariant");
 
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(Q_OS_MAC)
     /* Load plugins from within the bundle ONLY */
     QDir dir(QApplication::applicationDirPath());
     dir.cdUp();
@@ -254,7 +271,11 @@ int main(int argc, char** argv)
     QLCi18n::loadTranslation("qlcplus");
 
     /* Handle debug messages */
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     qInstallMsgHandler(qlcMessageHandler);
+#else
+    qInstallMessageHandler(qlcMessageHandler);
+#endif
 
     /* Create and initialize the QLC application object */
     App app;
@@ -270,7 +291,10 @@ int main(int argc, char** argv)
     app.show();
 
     if (QLCArgs::workspace.isEmpty() == false)
-        app.loadXML(QLCArgs::workspace);
+    {
+        if (app.loadXML(QLCArgs::workspace) == QFile::NoError)
+            app.updateFileOpenMenu(QLCArgs::workspace);
+    }
     if (QLCArgs::operate == true)
         app.slotModeOperate();
     if (QLCArgs::kioskMode == true)
@@ -282,7 +306,7 @@ int main(int argc, char** argv)
 
     if (QLCArgs::enableWebAccess == true)
     {
-        WebAccess *m_webAccess = new WebAccess(VirtualConsole::instance());
+        WebAccess *m_webAccess = new WebAccess(app.doc(), VirtualConsole::instance());
 
         QObject::connect(m_webAccess, SIGNAL(toggleDocMode()),
                 &app, SLOT(slotModeToggle()));

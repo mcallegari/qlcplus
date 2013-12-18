@@ -4,19 +4,17 @@
 
   Copyright (C) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QVector>
@@ -53,6 +51,7 @@ EFX::EFX(Doc* doc) : Function(doc, Function::EFX)
     m_yOffset = 127;
     m_rotation = 0;
     m_startOffset = 0;
+    m_isRelative = false;
 
     updateRotationCache();
 
@@ -135,6 +134,7 @@ bool EFX::copyFrom(const Function* function)
     m_yOffset = efx->m_yOffset;
     m_rotation = efx->m_rotation;
     m_startOffset = efx->m_startOffset;
+    m_isRelative = efx->m_isRelative;
 
     updateRotationCache();
 
@@ -394,6 +394,21 @@ qreal EFX::convertOffset(int offset) const
 }
 
 /*****************************************************************************
+ * Is Relative
+ *****************************************************************************/
+
+void EFX::setIsRelative(bool isRelative)
+{
+    m_isRelative = isRelative;
+    emit changed(this->id());
+}
+
+bool EFX::isRelative() const
+{
+    return m_isRelative;
+}
+
+/*****************************************************************************
  * Offset
  *****************************************************************************/
 
@@ -501,7 +516,7 @@ bool EFX::addFixture(EFXFixture* ef)
     while (it.hasNext() == true)
     {
         /* Found the same fixture. Don't add the new one. */
-        if (it.next()->fixture() == ef->fixture())
+        if (it.next()->head() == ef->head())
             return false;
     }
 
@@ -579,7 +594,7 @@ void EFX::slotFixtureRemoved(quint32 fxi_id)
     {
         it.next();
 
-        if (it.value()->fixture() == fxi_id)
+        if (it.value()->head().fxi == fxi_id)
         {
             delete it.value();
             it.remove();
@@ -642,9 +657,8 @@ bool EFX::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     root = doc->createElement(KXMLQLCFunction);
     wksp_root->appendChild(root);
 
-    root.setAttribute(KXMLQLCFunctionID, id());
-    root.setAttribute(KXMLQLCFunctionType, Function::typeToString(type()));
-    root.setAttribute(KXMLQLCFunctionName, name());
+    /* Common attributes */
+    saveXMLCommon(&root);
 
     /* Fixtures */
     QListIterator <EFXFixture*> it(m_fixtures);
@@ -697,6 +711,13 @@ bool EFX::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     tag = doc->createElement(KXMLQLCEFXStartOffset);
     root.appendChild(tag);
     str.setNum(startOffset());
+    text = doc->createTextNode(str);
+    tag.appendChild(text);
+
+    /* IsRelative */
+    tag = doc->createElement(KXMLQLCEFXIsRelative);
+    root.appendChild(tag);
+    str.setNum(isRelative() ? 1 : 0);
     text = doc->createTextNode(str);
     tag.appendChild(text);
 
@@ -796,7 +817,7 @@ bool EFX::loadXML(const QDomElement& root)
         {
             EFXFixture* ef = new EFXFixture(this);
             ef->loadXML(tag);
-            if (ef->fixture() != Fixture::invalidId())
+            if (ef->head().isValid())
             {
                 if (addFixture(ef) == false)
                     delete ef;
@@ -839,6 +860,11 @@ bool EFX::loadXML(const QDomElement& root)
         {
             /* StartOffset */
             setStartOffset(tag.text().toInt());
+        }
+        else if (tag.tagName() == KXMLQLCEFXIsRelative)
+        {
+            /* IsRelative */
+            setIsRelative(tag.text().toInt() != 0);
         }
         else if (tag.tagName() == KXMLQLCEFXAxis)
         {
@@ -1020,12 +1046,12 @@ void EFX::adjustAttribute(qreal fraction, int attributeIndex)
         case Width:
         case XOffset:
         case YOffset:
-        break;
-
         case Rotation:
-            updateRotationCache();
         break;
     }
 
-    Function::adjustAttribute(fraction);
+    Function::adjustAttribute(fraction, attributeIndex);
+
+    if (attributeIndex == Rotation)
+        updateRotationCache();
 }

@@ -3,15 +3,18 @@
 <HEAD>
 <TITLE>Q Light Controller Plus - ArtNet Plugin</TITLE>
 <SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
 </HEAD>
 <BODY onLoad="replaceqrc()">
+
+<H1>ArtNet input/output plugin</H1>
 
 <H1>Introduction</H1>
 
 <P>
 QLC+ supports the <a href="http://en.wikipedia.org/wiki/Art-Net">ArtNet protocol</a> through an input/output plugin 
 that receives and transmits packets on the network.<br>
-No extra requirement is needed, since QLC+ has a native implementation of the ArtNet protocol
+No extra requirements are needed, since QLC+ has a native implementation of the ArtNet protocol
 that works on Linux, Windows and OSX systems.
 </P>
 
@@ -26,7 +29,7 @@ when opened.<br>
 The dialog will display two lists:
 <ul>
  <li>The available networks and universes. Just click on the corresponding checkbox to enable
-     the one you're going to use and it will be listed in QLC+ input/output manager.<br>
+     the one you are going to use and it will be listed in QLC+ input/output manager.<br>
      Networks and universes are displayed in the following form:</li>
    <ul>
     <li>Network 1 - Universe 0</li>
@@ -41,6 +44,10 @@ The dialog will display two lists:
   <li>A simple node inspector that will display the available ArtNet nodes 
       discovered on the network</li>
 </ul>
+Networks are displayed as the IP addresses of your network interfaces. It means
+that ArtNet packets will be sent from those addresses, to the corresponding broadcast addresses.<br>
+For example if your network card has IP address 192.168.0.100, all the ArtNet packets will 
+be sent to the network to the address 192.168.0.255.
 </P>
 
 <H1>Compatibility</H1>

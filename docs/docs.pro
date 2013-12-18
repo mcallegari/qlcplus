@@ -9,6 +9,7 @@ docs.files = \
              addvcbuttonmatrix.html \
              artnetplugin.html \
              audiotriggers.html \
+             audio-input-output.html \
              capabilityeditor.html \
              capabilitywizard.html \
              channeleditor.html \
@@ -19,16 +20,14 @@ docs.files = \
              concept.html \
              dmxdump.html \
              dmxusbplugin.html \
+             e131plugin.html \
              efxeditor.html \
-             efx-general.png \
-             efx-movement.png \
              fixturedefinitioneditor.html \
              fixtureeditor.html \
              fixturegroupeditor.html \
              fixturemanager.html \
              fixturemonitor.html \
              fixturesremap.html \
-             fixremap.png \
              functionmanager.html \
              functionwizard.html \
              guicustomstyles.html \
@@ -37,9 +36,9 @@ docs.files = \
              howto-input-profiles.html \
              howto-input-output-mapping.html \
              index.html \
+             kioskmode.html \
              liveedit.html \
              mainwindow.html \
-             mainwindow2.png \
              midiplugin.html \
              modeeditor.html \
              olaplugin.html \
@@ -57,9 +56,8 @@ docs.files = \
              showmanager.html \
              simpledesk.html \
              tutorial.html \
-             tutorial1_1.png \
-             tutorial1_2.png \
-             tutorial1_3.png \
+             tutorial-multipage.html \
+             tutorial-bcf-lc2412.html \
              udmxoutput.html \
              vcbutton.html \
              vcbuttonmatrix.html \
@@ -74,5 +72,18 @@ docs.files = \
              vcxypad.html \
              vellemanoutput.html \
              virtualconsole.html
+             
+imgs.path = $$INSTALLROOT/$$DOCSDIR/html/images
+imgs.files += images/efx-general.png \
+              images/efx-movement.png \
+              images/fixremap.png \
+              images/mainwindow.png \
+              images/tutorial1_1.png \
+              images/tutorial1_2.png \
+              images/tutorial1_3.png \
+              images/multipage1.png \
+              images/multipage2.png \
+              images/multipage3.png \
+              images/multipage4.png
 
-INSTALLS += docs
+INSTALLS += docs imgs

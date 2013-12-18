@@ -3,6 +3,7 @@
 <HEAD>
 <TITLE>Q Light Controller Plus - Function Wizard</TITLE>
 <SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
 </HEAD>
 <BODY onLoad="replaceqrc()">
 
@@ -14,7 +15,7 @@ quick start.
 
 <H3>Controls</H3>
 
-<TABLE BORDER="1">
+<TABLE BORDER=1 class="qlcTable">
  <TR>
   <TD>
    <B>Fixture List</B>
@@ -22,7 +23,7 @@ quick start.
   <TD>
    List of fixtures that will be included in the functions created with the
    wizard. You can see each fixture's capabilities for Colour-, Gobo- and Shutter-
-   type scenes on the <B>Supported capabilities</B> column.
+   type scenes in the <B>Supported capabilities</B> column.
   </TD>
  </TR>
  <TR>
@@ -48,14 +49,14 @@ quick start.
   </TD>
   <TD>
    <UL>
-    <LI>Colours: Create scenes for changing the colour simultaneously to all
+    <LI>Colours: Create scenes for changing the colour simultaneously on all
     currently included fixtures. For this to work, the fixtures must have at least
     one colour channel that controls a fixed-color wheel.</LI>
-    <LI>Gobos: Create scenes for changing the gobo simultaneously to all currently
+    <LI>Gobos: Create scenes for changing the gobo simultaneously on all currently
     included fixtures. For this to work, the fixtures must have at least one gobo
     channel.</LI>
     <LI>Shutter: Create scenes for changing the shutter position simultaneously
-    to all currently included fixtures. For this to work, the fixtures must have
+    on all currently included fixtures. For this to work, the fixtures must have
     at least one shutter channel.</LI>
    </UL>
   </TD>
@@ -73,7 +74,7 @@ quick start.
       <LI>Even - Odd: Fade all even intensity channels on, while odd channels fade to off and vice versa.</LI>
       <LI>Sequence forwards: Fade each intensity channel on in a consecutive sequence.</LI>
       <LI>Sequence backwards: The same as above, but in reverse.</LI>
-      <LI>Random Multi: Fade multiple channels on & off in a random sequence.</LI>
+      <LI>Random Multi: Fade multiple channels on and off in a random sequence.</LI>
       <LI>Random Single: Fade one channel on at a time in a random sequence.</LI>
      </UL>
     </LI>

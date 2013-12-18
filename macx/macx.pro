@@ -69,6 +69,10 @@ qtnametool.commands += && $$LIBFFTW_INSTALL_NAME_TOOL \
 qtnametool.commands += && $$LIBPORTAUDIO_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBQLCUI_FILE
 
+# libqlcpluswebaccess depends on libportaudio
+qtnametool.commands += && $$LIBPORTAUDIO_INSTALL_NAME_TOOL \
+    $$INSTALLROOT/$$LIBSDIR/$$LIBQLCWEBACCESS_FILE
+
 # libsndfile depends on flac, libvorbis, libvorbisenc and libogg
 qtnametool.commands += && $$LIBOGG_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBSNDFILE_FILE

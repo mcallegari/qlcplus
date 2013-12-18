@@ -3,6 +3,7 @@
 <HEAD>
 <TITLE>Q Light Controller Plus - EFX Editor</TITLE>
 <SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
 </HEAD>
 <BODY onLoad="replaceqrc()">
 
@@ -19,10 +20,10 @@ The EFX editor, as its name suggests, is used to edit
 <H3>General Tab Controls</H3>
 
 <P>
-<IMG SRC="efx-general.png" />
+<IMG SRC="file:images/efx-general.png" />
 </P>
 
-<TABLE BORDER="1">
+<TABLE BORDER=1 class="qlcTable">
  <TR>
   <TD>
    <B>EFX name</B>
@@ -102,10 +103,10 @@ The EFX editor, as its name suggests, is used to edit
 <H3>Movement Tab Controls</H3>
 
 <P>
-<IMG SRC="efx-movement.png" />
+<IMG SRC="file:images/efx-movement.png" />
 </P>
 
-<TABLE BORDER="1">
+<TABLE BORDER=1 class="qlcTable">
  <TR>
   <TD>
    <B>Pattern area</B>
@@ -169,6 +170,13 @@ The EFX editor, as its name suggests, is used to edit
   </TD>
  </TR>
 </TABLE>
+
+<A NAME="efx-intensity" />
+<P><B>Note</B>: when EFX is started, it will set the intensity of all included fixtures to the preset value.
+That usually means it set them full on. If you don't want this, just set the preset intensity to something
+lower, perhaps 0. That way you can control intensity of the fixture using other means like VC sliders for
+the intensity/dimmer channels, or by another chaser.
+</P>
 
 </BODY>
 </HTML>

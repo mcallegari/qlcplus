@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QDomDocument>
@@ -380,6 +378,8 @@ void SimpleDesk::resetUniverseSliders()
 
 void SimpleDesk::initSliderView(bool fullMode)
 {
+    m_consoleList.clear();
+
     if (fullMode == true)
     {
         scrollArea = new QScrollArea();
@@ -413,6 +413,7 @@ void SimpleDesk::initSliderView(bool fullMode)
             connect(console, SIGNAL(valueChanged(quint32,quint32,uchar)),
                     this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
             c++;
+            m_consoleList.append(console);
         }
         fixturesLayout->addStretch(1);
         scrollArea->setWidget(grpBox);
@@ -557,8 +558,8 @@ void SimpleDesk::slotUniversePageChanged(int page)
 void SimpleDesk::slotUniverseResetClicked()
 {
     qDebug() << Q_FUNC_INFO;
-    resetUniverseSliders();
     m_engine->resetUniverse(m_currentUniverse);
+    //resetUniverseSliders();
     m_universePageSpin->setValue(1);
     if (m_viewModeButton->isChecked() == false)
         slotUniversePageChanged(1);
@@ -590,19 +591,32 @@ void SimpleDesk::slotUniverseSliderValueChanged(quint32 fid, quint32 chan, uchar
 
 void SimpleDesk::slotUniversesWritten(const QByteArray& ua)
 {
-    quint32 start = (m_universePageSpin->value() - 1) * m_channelsPerPage;
-    // add the universe bits to retrieve the absolute address (0 - 2048)
-    start = start | (m_currentUniverse << 9);
-
-    // update current page sliders
-    for (quint32 i = start; i < start + (quint32)m_channelsPerPage; i++)
+    if (m_viewModeButton->isChecked() == false)
     {
-        //const Fixture* fx = m_doc->fixture(m_doc->fixtureForAddress(i));
-        //if (fx != NULL)
+        quint32 start = (m_universePageSpin->value() - 1) * m_channelsPerPage;
+        // add the universe bits to retrieve the absolute address (0 - 2048)
+        start = start | (m_currentUniverse << 9);
+
+        // update current page sliders
+        for (quint32 i = start; i < start + (quint32)m_channelsPerPage; i++)
         {
             ConsoleChannel *cc = m_universeSliders[i - start];
             if (cc != NULL)
                 cc->setValue(ua.at(i), false);
+        }
+    }
+    else
+    {
+        foreach(FixtureConsole *fc, m_consoleList)
+        {
+            quint32 fxi = fc->fixture();
+            Fixture *fixture = m_doc->fixture(fxi);
+            if (fixture != NULL)
+            {
+                quint32 startAddr = fixture->universeAddress();
+                for (quint32 c = 0; c < fixture->channels(); c++)
+                    fc->setValue(c, ua[startAddr + c], false);
+            }
         }
     }
 }
@@ -735,7 +749,6 @@ void SimpleDesk::initCueStack()
     qDebug() << Q_FUNC_INFO;
     CueStackModel* model = new CueStackModel(this);
     m_cueStackView->setModel(model);
-    m_cueStackView->header()->setResizeMode(QHeaderView::ResizeToContents);
 
     connect(m_previousCueButton, SIGNAL(clicked()), this, SLOT(slotPreviousCueClicked()));
     connect(m_nextCueButton, SIGNAL(clicked()), this, SLOT(slotNextCueClicked()));

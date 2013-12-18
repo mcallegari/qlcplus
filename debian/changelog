@@ -1,9 +1,66 @@
+qlcplus (4.6.0) stable; urgency=low
+
+  * NEW: Plugins: Added E1.31 protocol input/output plugin
+  * NEW: Virtual Console: Sliders can now be used as submasters of a frame
+  * NEW: Function Manager: added folders with drag & drop functionality
+  * NEW: Function Wizard has been completely rewritten
+  * NEW: EFX Editor: added relative position settings (thanks to Jano Svitok)
+  * NEW: MIDI plugin: added the possibility to send a SysEx initialization message on an input or output line (thanks to Joep Admiraal)
+  * NEW: Added Audio fade in/out support (also in Show Manager)
+  * NEW: It is now possible to control RGB Matrices intensity
+  * NEW: RGB Matrices can now be converted to Sequences and imported into Shows 
+  * NEW: It is now possible to control fixture heads in EFX and XY Pad (thanks to Jano Svitok)
+  * NEW: Virtual Console clock can be used also as a stopwatch or a countdown
+  * Virtual Console: fixed audio triggers incorrect loading
+  * Input/Output: improved audio device selection
+  * Audio Input: fixed crash occurring on Linux for unsupported audio devices
+  * Fixture Editor: set previously selected color when editing a color macro
+  * Fixture Remap: improved remapping of fixtures with of the same type
+  * Fixture Manager: refresh fixtures list when loading a project on startup
+  * RGB Matrix Editor: fixed crash when opening a project with the RGB Matrix editor open
+  * Package: Fixed installation of RGB scripts and Windows associations (thanks to Jano Svitok)
+  * Documentation: reviewed and turned into proper english (thanks to Michael Clements)
+  * Web access: improved to reflect the live situation of the Virtual Console
+  * Virtual Console: fixed widgets paste into a multipage frame
+  * Added fixtures: Pro-Lights LedPar 64363 RGB, Pro-Lights LumiPar 7QPro, Pro-Lights Strobo 1500DMX (thanks to Lorenzo Andreani)
+  * Added fixtures: Pro-Lights Explo 3000D, Pro-Lights LumiPar 18 Tri, Robe_ColorMix_240_AT (thanks to Lorenzo Andreani)
+  * Added fixtures: American DJ Mega Tri Par, Clay Paky A.LEDA Wash K5, Clay Paky A.LEDA Wash K10, Clay Paky A.LEDA Wash K20
+  * Added fixtures: American DJ Sweeper Beam Quad LED, American DJ Ultra Bar 6/9/12, American DJ Inno Color Beam Quad 7
+  * Added fixture: American DJ Inno Color Beam LED (thanks to Louis Gutenschwafe)
+  * Added fixtures: American DJ/Elation Event Bar LED, American DJ Micro Wash RGBW (thanks to George Qualley)
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 15 December 2013 12:13:04 +0200
+
 qlcplus (4.5.1) stable; urgency=low
 
+  * NEW: Virtual Console: audio triggers can now control Speed Dials tapping (thanks to Jano Svitok)
+  * NEW: Virtual Console: added clock widget
+  * NEW: RGB Matrix now supports 2 colors
+  * NEW: Scene Editor: color selection tool live tracking (thanks to Stefan Riemens)
+  * Live Edit: Improved live editing of Scenes and Chasers
+  * Fixtures remapping: added a button to clone and autopatch a fixture from the source list
+  * Function selection: added radio buttons to show all or only the running functions
+  * Virtual Console: fixed regression on buttons name auto assign
+  * Virtual Console: fixed multi page functionality for solo frames
+  * Virtual Console: fixed audio triggers thresholds save/load on projects (thanks to Jano Svitok)
+  * Virtual Console: fixed knobs rendering on OSX
+  * Virtual Console: fixed crash when enabling multipage on headerless frames
+  * Virtual Console: fixed copy of Click & Go feature when cloning sliders/knobs 
+  * MIDI plugin: fixed beat clock detection on OSX
+  * Show Manager: Improved to fit on a 1024x768 resolution
+  * Engine: fixed Collection potential crash (thanks to Jano Svitok)
+  * Engine: fixed Scene fade out when only one function is running
+  * Engine: fixed end of audio playback not notified
+  * Engine: fixed audio capture limited signal on OSX
+  * Simple Desk: universe reset is now performed also on non intensity channels
+  * Simple Desk: channels are now updated in full view mode too
   * Added fixture: Chauvet 4Play (thanks to Ryan Schaefer)
   * Added fixtures: American DJ Fusion FX Bar 1, Chauvet Intimidator Scan LED 200 (thanks to synkajax)
+  * Added fixtures: Stairville PAR64 CX-3 RGBW, Stairville TRI LED Bundle Complete (thanks to Lars Kildholt)
+  * Added fixture: Monacor CPL-3DMX (thanks to Marcus)
+  * Added fixtures: Pro-Lights CromoSpot 150, Evolight Colours SL3 (thanks to Lorenzo Andreani)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 12 October 2013 12:13:04 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Tue, 5 November 2013 12:13:04 +0200
 
 qlcplus (4.5.0) stable; urgency=low
 

@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila, Stefan Krumm
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QTreeWidgetItem>
@@ -28,6 +26,7 @@
 #include <QTabWidget>
 #include <QComboBox>
 #include <QSettings>
+#include <QLineEdit>
 #include <QToolBar>
 #include <QLayout>
 #include <QLabel>
@@ -73,7 +72,7 @@ SceneEditor::SceneEditor(QWidget* parent, Scene* scene, Doc* doc, bool applyValu
     : QWidget(parent)
     , m_doc(doc)
     , m_scene(scene)
-    , m_source(new GenericDMXSource(doc))
+    , m_source(NULL)
     , m_initFinished(false)
     , m_speedDials(NULL)
     , m_channelGroupsTab(-1)
@@ -107,8 +106,11 @@ SceneEditor::~SceneEditor()
 {
     qDebug() << Q_FUNC_INFO;
 
-    delete m_source;
-    m_source = NULL;
+    if (m_source != NULL)
+    {
+        delete m_source;
+        m_source = NULL;
+    }
 
     QSettings settings;
     quint32 id = m_chaserCombo->itemData(m_chaserCombo->currentIndex()).toUInt();
@@ -154,6 +156,7 @@ void SceneEditor::slotSetSceneValues(QList <SceneValue>&sceneValues)
 
 void SceneEditor::init(bool applyValues)
 {
+    this->layout()->setContentsMargins(8, 3, 8, 3);
     /* Actions */
     m_enableCurrentAction = new QAction(QIcon(":/check.png"),
                                         tr("Enable all channels in current fixture"), this);
@@ -190,18 +193,6 @@ void SceneEditor::init(bool applyValues)
 
     // Blind initial state
     m_blindAction->setCheckable(true);
-    if (m_doc->mode() == Doc::Operate)
-    {
-        m_blindAction->setChecked(true);
-        if (m_source != NULL)
-            m_source->setOutputEnabled(false);
-    }
-    else
-    {
-        m_blindAction->setChecked(false);
-        if (m_source != NULL)
-            m_source->setOutputEnabled(true);
-    }
 
     m_tabViewAction->setCheckable(true);
     m_tabViewAction->setChecked(m_scene->viewMode());
@@ -213,6 +204,7 @@ void SceneEditor::init(bool applyValues)
     if (var.isValid() == true)
         selectId = var.toUInt();
     m_chaserCombo = new QComboBox(this);
+    m_chaserCombo->setMaximumWidth(250);
     m_chaserCombo->addItem(tr("None"), Function::invalidId());
     slotChaserComboActivated(0);
     foreach (Function *function, m_doc->functionsByType(Function::Chaser))
@@ -225,6 +217,8 @@ void SceneEditor::init(bool applyValues)
             slotChaserComboActivated(index);
         }
     }
+    QLabel *m_nameLabel = new QLabel(tr("Scene name:"));
+    m_nameEdit = new QLineEdit();
 
     // Connections
     connect(m_enableCurrentAction, SIGNAL(triggered(bool)),
@@ -274,6 +268,9 @@ void SceneEditor::init(bool applyValues)
     toolBar->addSeparator();
     toolBar->addAction(m_recordAction);
     toolBar->addWidget(m_chaserCombo);
+    toolBar->addSeparator();
+    toolBar->addWidget(m_nameLabel);
+    toolBar->addWidget(m_nameEdit);
 
     /* Tab widget */
     connect(m_tab, SIGNAL(currentChanged(int)),
@@ -310,6 +307,9 @@ void SceneEditor::init(bool applyValues)
             this, SLOT(slotChannelGroupsChanged(QTreeWidgetItem*,int)));
     updateChannelsGroupsTab();
 
+    // Apply any mode related change
+    slotModeChanged(m_doc->mode());
+
     // Fixtures & tabs
     // Fill the fixtures list from the Scene values
     QListIterator <SceneValue> it(m_scene->values());
@@ -329,9 +329,6 @@ void SceneEditor::init(bool applyValues)
 
     // Create the actual tab view
     slotViewModeChanged(m_scene->viewMode(), applyValues);
-
-    // Apply any mode related change
-    slotModeChanged(m_doc->mode());
 }
 
 void SceneEditor::setSceneValue(const SceneValue& scv)
@@ -345,6 +342,11 @@ void SceneEditor::setSceneValue(const SceneValue& scv)
     fc = fixtureConsole(fixture);
     if (fc != NULL)
         fc->setSceneValue(scv);
+}
+
+void SceneEditor::setBlindModeEnabled(bool active)
+{
+    m_blindAction->setChecked(active);
 }
 
 /*****************************************************************************
@@ -492,6 +494,23 @@ void SceneEditor::slotCopyToAll()
 
 void SceneEditor::slotColorTool()
 {
+    QColor color = slotColorSelectorChanged(QColor());
+
+    QColorDialog dialog(color);
+    connect(&dialog, SIGNAL(currentColorChanged(const QColor&)),
+            this, SLOT(slotColorSelectorChanged(const QColor&)));
+
+    int result = dialog.exec();
+    if (result == QDialog::Rejected)
+    {
+        slotColorSelectorChanged(color); // reset color to what it previously was
+    }
+}
+
+QColor SceneEditor::slotColorSelectorChanged(const QColor& color)
+{
+    QColor returnColor = QColor();
+
     /* QObject cast fails unless the widget is a FixtureConsole */
     FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
     if (fc != NULL)
@@ -499,22 +518,19 @@ void SceneEditor::slotColorTool()
         Fixture* fxi = m_doc->fixture(fc->fixture());
         Q_ASSERT(fxi != NULL);
 
-        QSet <quint32> cyan = fxi->channels(CYAN, Qt::CaseInsensitive, QLCChannel::Intensity);
+        QSet <quint32> cyan    = fxi->channels(CYAN,    Qt::CaseInsensitive, QLCChannel::Intensity);
         QSet <quint32> magenta = fxi->channels(MAGENTA, Qt::CaseInsensitive, QLCChannel::Intensity);
-        QSet <quint32> yellow = fxi->channels(YELLOW, Qt::CaseInsensitive, QLCChannel::Intensity);
-        QSet <quint32> red = fxi->channels(RED, Qt::CaseInsensitive, QLCChannel::Intensity);
-        QSet <quint32> green = fxi->channels(GREEN, Qt::CaseInsensitive, QLCChannel::Intensity);
-        QSet <quint32> blue = fxi->channels(BLUE, Qt::CaseInsensitive, QLCChannel::Intensity);
+        QSet <quint32> yellow  = fxi->channels(YELLOW,  Qt::CaseInsensitive, QLCChannel::Intensity);
+        QSet <quint32> red     = fxi->channels(RED,     Qt::CaseInsensitive, QLCChannel::Intensity);
+        QSet <quint32> green   = fxi->channels(GREEN,   Qt::CaseInsensitive, QLCChannel::Intensity);
+        QSet <quint32> blue    = fxi->channels(BLUE,    Qt::CaseInsensitive, QLCChannel::Intensity);
 
         if (!cyan.isEmpty() && !magenta.isEmpty() && !yellow.isEmpty())
         {
-            QColor color;
-            color.setCmyk(fc->value(*cyan.begin()),
-                          fc->value(*magenta.begin()),
-                          fc->value(*yellow.begin()),
-                          0);
-
-            color = QColorDialog::getColor(color);
+            returnColor.setCmyk(fc->value(*cyan.begin()),
+                                fc->value(*magenta.begin()),
+                                fc->value(*yellow.begin()),
+                                0);
             if (color.isValid() == true)
             {
                 foreach (quint32 ch, cyan)
@@ -538,13 +554,11 @@ void SceneEditor::slotColorTool()
         }
         else if (!red.isEmpty() && !green.isEmpty() && !blue.isEmpty())
         {
-            QColor color;
-            color.setRgb(fc->value(*red.begin()),
-                         fc->value(*green.begin()),
-                         fc->value(*blue.begin()),
-                         0);
+            returnColor.setRgb(fc->value(*red.begin()),
+                               fc->value(*green.begin()),
+                               fc->value(*blue.begin()),
+                               0);
 
-            color = QColorDialog::getColor(color);
             if (color.isValid() == true)
             {
                 foreach (quint32 ch, red)
@@ -566,14 +580,13 @@ void SceneEditor::slotColorTool()
                 }
             }
         }
-        return;
+        return returnColor;
     }
 
     /* QObject cast fails unless the widget is a GroupsConsole */
     GroupsConsole* gc = groupConsoleTab(m_currentTab);
     if (gc != NULL)
     {
-        QColor color = QColorDialog::getColor(color);
         foreach(ConsoleChannel *cc, gc->groups())
         {
             Fixture* fxi = m_doc->fixture(cc->fixture());
@@ -597,6 +610,7 @@ void SceneEditor::slotColorTool()
         }
     }
 
+    return returnColor;
 }
 
 void SceneEditor::slotSpeedDialToggle(bool state)
@@ -614,6 +628,27 @@ void SceneEditor::slotSpeedDialToggle(bool state)
 
 void SceneEditor::slotBlindToggled(bool state)
 {
+    if (m_doc->mode() == Doc::Operate)
+    {
+        if (m_source != NULL)
+        {
+            delete m_source;
+            m_source = NULL;
+        }
+
+        if (m_scene != NULL && m_scene->isRunning() == false)
+        {
+            m_source = new GenericDMXSource(m_doc);
+            foreach(SceneValue scv, m_scene->values())
+                m_source->set(scv.fxi, scv.channel, scv.value);
+        }
+    }
+    else
+    {
+        if (m_source == NULL)
+            m_source = new GenericDMXSource(m_doc);
+    }
+
     if (m_source != NULL)
         m_source->setOutputEnabled(!state);
 }
@@ -623,13 +658,14 @@ void SceneEditor::slotModeChanged(Doc::Mode mode)
     if (mode == Doc::Operate)
     {
         m_blindAction->setChecked(true);
-        m_tab->widget(0)->setEnabled(false);
+        slotBlindToggled(true);
     }
     else
     {
         m_blindAction->setChecked(false);
-        m_tab->widget(0)->setEnabled(true);
+        slotBlindToggled(false);
     }
+
 }
 
 void SceneEditor::slotViewModeChanged(bool toggled, bool applyValues)
@@ -1273,7 +1309,11 @@ void SceneEditor::slotValueChanged(quint32 fxi, quint32 channel, uchar value)
     if (m_initFinished == true)
     {
         Q_ASSERT(m_scene != NULL);
-        m_scene->setValue(SceneValue(fxi, channel, value));
+
+        if (m_doc->mode() == Doc::Operate)
+            m_scene->setValue(SceneValue(fxi, channel, value), m_blindAction->isChecked(), false);
+        else
+            m_scene->setValue(SceneValue(fxi, channel, value), m_blindAction->isChecked(), true);
         emit fixtureValueChanged(SceneValue(fxi, channel, value));
     }
 

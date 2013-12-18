@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #ifndef VCSLIDER_H
@@ -33,11 +31,9 @@
 
 class QDomDocument;
 class QDomElement;
-class QPushButton;
 class QToolButton;
 class QHBoxLayout;
 class QLabel;
-class QTime;
 
 class VCSliderProperties;
 
@@ -105,7 +101,7 @@ public:
 
 protected:
     /** Copy the contents for this widget from another widget */
-    bool copyFrom(VCWidget* widget);
+    bool copyFrom(const VCWidget* widget);
 
     /*********************************************************************
      * Caption
@@ -121,7 +117,7 @@ public:
     void editProperties();
 
     /*********************************************************************
-     * QLC Mode
+     * QLC+ Mode
      *********************************************************************/
 public slots:
     void slotModeChanged(Doc::Mode mode);
@@ -133,7 +129,8 @@ public:
     enum SliderMode
     {
         Level,
-        Playback
+        Playback,
+        Submaster
     };
 
 public:
@@ -157,7 +154,7 @@ public:
     /**
      * Get the slider's current SliderMode
      */
-    SliderMode sliderMode();
+    SliderMode sliderMode() const;
 
     /**
      * Change the slider's current SliderMode
@@ -181,7 +178,7 @@ public:
     static ValueDisplayStyle stringToValueDisplayStyle(QString style);
 
     void setValueDisplayStyle(ValueDisplayStyle style);
-    ValueDisplayStyle valueDisplayStyle();
+    ValueDisplayStyle valueDisplayStyle() const;
 
 protected:
     ValueDisplayStyle m_valueDisplayStyle;
@@ -267,7 +264,7 @@ public:
      * Get low limit for levels set thru the slider
      *
      */
-    uchar levelLowLimit();
+    uchar levelLowLimit() const;
 
     /**
      * Set high limit for levels set thru the slider
@@ -280,7 +277,7 @@ public:
      * Get high limit for levels set thru the slider
      *
      */
-    uchar levelHighLimit();
+    uchar levelHighLimit() const;
 
 protected:
     /**
@@ -355,6 +352,15 @@ protected:
     QMutex m_playbackValueMutex;
 
     /*********************************************************************
+     * Submaster
+     *********************************************************************/
+protected:
+    qreal m_submasterValue;
+
+signals:
+    void submasterValueChanged(qreal value);
+
+    /*********************************************************************
      * DMXSource
      *********************************************************************/
 public:
@@ -375,7 +381,7 @@ public:
     /**
      * Set the text for the top label
      */
-    void setTopLabelText(const QString& text);
+    void setTopLabelText(int value);
 
     /**
      * Get the text in the top label
@@ -402,7 +408,7 @@ public:
 
     void setWidgetStyle(SliderWidgetStyle mode);
 
-    SliderWidgetStyle widgetStyle();
+    SliderWidgetStyle widgetStyle() const;
 
     QString widgetStyleToString(SliderWidgetStyle style);
 
@@ -438,30 +444,6 @@ protected:
     QLabel* m_bottomLabel;
 
     /*********************************************************************
-     * Tap button
-     *********************************************************************/
-public:
-    /**
-     * Set the text for the tap button
-     */
-    void setTapButtonText(const QString& text);
-
-    /**
-     * Get the text in the tap button
-     */
-    QString tapButtonText();
-
-public slots:
-    /**
-     * Callback for tap button clicks
-     */
-    void slotTapButtonClicked();
-
-protected:
-    QPushButton* m_tapButton;
-    QTime* m_time;
-
-    /*********************************************************************
      * Click & Go Button
      *********************************************************************/
 public:
@@ -475,12 +457,12 @@ public:
     /**
      * Returns the Click & Go type
      */
-    ClickAndGoWidget::ClickAndGo getClickAndGoType();
+    ClickAndGoWidget::ClickAndGo clickAndGoType() const;
 
     /**
      * Create or update the Click And Go widget (if applicable)
      */
-    void setupClickAndGoWidegt();
+    void setupClickAndGoWidget();
 
     /**
      * Returns the Click & Go widget. Used by
@@ -507,19 +489,16 @@ protected:
     /*********************************************************************
      * External input
      *********************************************************************/
-protected:
-    /**
-     * Check, whether the given channel's type is QLCInputProfile::Button.
-     * If no input profile has been assigned to the universe, this will
-     * always return false.
-     *
-     * @return true if the channel represents a button, otherwise false
-     */
-    bool isButton(quint32 universe, quint32 channel);
-
 protected slots:
     /** Called when an external input device produces input data */
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
+
+    /*********************************************************************
+     * Intensity
+     *********************************************************************/
+public:
+    /** @reimp */
+    void adjustIntensity(qreal val);
 
     /*********************************************************************
      * Web access
@@ -530,6 +509,9 @@ public:
 
     /** @reimpl */
     QString getJS();
+
+signals:
+    void valueChanged(QString val);
 
     /*********************************************************************
      * Load & Save

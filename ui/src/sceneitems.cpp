@@ -4,21 +4,20 @@
 
   Copyright (C) Massimo Callegari
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
+#include <QGraphicsSceneMouseEvent>
 #include <QtGui>
 #include <QMenu>
 
@@ -281,11 +280,11 @@ TrackItem::TrackItem(Track *track, int number)
     , m_isMute(false)
     , m_isSolo(false)
 {
-    m_font = QApplication::font();
+    m_font = qApp->font(); // QApplication::font();
     m_font.setBold(true);
     m_font.setPixelSize(12);
 
-    m_btnFont = QApplication::font();
+    m_btnFont = qApp->font(); //QApplication::font();
     m_btnFont.setBold(true);
     m_btnFont.setPixelSize(12);
 
@@ -369,7 +368,7 @@ void TrackItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 void TrackItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
 {
     QMenu menu;
-    QFont menuFont = QApplication::font();
+    QFont menuFont = qApp->font(); // QApplication::font();
     menuFont.setPixelSize(14);
     menu.setFont(menuFont);
 
@@ -478,7 +477,7 @@ SequenceItem::SequenceItem(Chaser *seq)
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     m_color = m_chaser->getColor();
     calculateWidth();
-    m_font = QApplication::font();
+    m_font = qApp->font(); //QApplication::font();
     m_font.setBold(true);
     m_font.setPixelSize(12);
     connect(m_chaser, SIGNAL(changed(quint32)), this, SLOT(slotSequenceChanged(quint32)));
@@ -674,7 +673,7 @@ void SequenceItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 void SequenceItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
 {
     QMenu menu;
-    QFont menuFont = QApplication::font();
+    QFont menuFont = qApp->font(); //QApplication::font();
     menuFont.setPixelSize(14);
     menu.setFont(menuFont);
 
@@ -713,7 +712,7 @@ AudioItem::AudioItem(Audio *aud)
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     m_color = m_audio->getColor();
 
-    m_font = QApplication::font();
+    m_font = qApp->font(); //QApplication::font();
     m_font.setBold(true);
     m_font.setPixelSize(12);
 
@@ -774,6 +773,8 @@ void AudioItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
+    float timeScale = 50/(float)m_timeScale;
+
     if (this->isSelected() == true)
         painter->setPen(QPen(Qt::white, 3));
     else
@@ -790,11 +791,25 @@ void AudioItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         painter->drawPixmap(0, 0, waveform);
     }
 
+    if (m_audio->fadeInSpeed() != 0)
+    {
+        int fadeXpos = (timeScale * (float)m_audio->fadeInSpeed()) / 1000;
+        painter->setPen(QPen(Qt::gray, 1));
+        painter->drawLine(1, TRACK_HEIGHT - 4, fadeXpos, 2);
+    }
+
+    if (m_audio->fadeOutSpeed() != 0)
+    {
+        int fadeXpos = (timeScale * (float)m_audio->fadeOutSpeed()) / 1000;
+        painter->setPen(QPen(Qt::gray, 1));
+        painter->drawLine(m_width - fadeXpos, 2, m_width - 1, TRACK_HEIGHT - 4);
+    }
+
     // draw shadow
     painter->setPen(QPen(QColor(10, 10, 10, 150), 2));
     painter->drawText(QRect(6, 6, m_width - 6, 71), Qt::AlignLeft | Qt::TextWordWrap, m_audio->name());
 
-    // draw chaser name
+    // draw audio name
     painter->setPen(QPen(QColor(220, 220, 220, 255), 2));
     painter->drawText(QRect(5, 5, m_width - 5, 72), Qt::AlignLeft | Qt::TextWordWrap, m_audio->name());
 
@@ -1068,7 +1083,7 @@ void AudioItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 void AudioItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
 {
     QMenu menu;
-    QFont menuFont = QApplication::font();
+    QFont menuFont = qApp->font(); //QApplication::font();
     menuFont.setPixelSize(14);
     menu.setFont(menuFont);
 

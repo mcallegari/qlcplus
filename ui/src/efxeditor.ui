@@ -20,7 +20,7 @@
       <string/>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="General">
       <attribute name="title">
@@ -281,7 +281,23 @@
           <string>Parameters</string>
          </property>
          <layout class="QGridLayout" name="gridLayout">
-          <item row="6" column="0" colspan="2">
+          <item row="12" column="1">
+           <widget class="QSpinBox" name="m_yPhaseSpin">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="toolTip">
+             <string>Lissajous pattern's Y phase</string>
+            </property>
+            <property name="maximum">
+             <number>360</number>
+            </property>
+            <property name="value">
+             <number>90</number>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="0" colspan="2">
            <widget class="Line" name="line_2">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
@@ -388,7 +404,7 @@
             </property>
            </widget>
           </item>
-          <item row="8" column="0">
+          <item row="9" column="0">
            <widget class="QLabel" name="m_xFrequencyLabel">
             <property name="enabled">
              <bool>false</bool>
@@ -398,7 +414,7 @@
             </property>
            </widget>
           </item>
-          <item row="8" column="1">
+          <item row="9" column="1">
            <widget class="QSpinBox" name="m_xFrequencySpin">
             <property name="enabled">
              <bool>false</bool>
@@ -414,7 +430,7 @@
             </property>
            </widget>
           </item>
-          <item row="9" column="0">
+          <item row="10" column="0">
            <widget class="QLabel" name="m_yFrequencyLabel">
             <property name="enabled">
              <bool>false</bool>
@@ -424,7 +440,7 @@
             </property>
            </widget>
           </item>
-          <item row="9" column="1">
+          <item row="10" column="1">
            <widget class="QSpinBox" name="m_yFrequencySpin">
             <property name="enabled">
              <bool>false</bool>
@@ -440,7 +456,7 @@
             </property>
            </widget>
           </item>
-          <item row="10" column="0">
+          <item row="11" column="0">
            <widget class="QLabel" name="m_xPhaseLabel">
             <property name="enabled">
              <bool>false</bool>
@@ -450,7 +466,20 @@
             </property>
            </widget>
           </item>
-          <item row="10" column="1">
+          <item row="13" column="0" colspan="2">
+           <spacer name="verticalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="11" column="1">
            <widget class="QSpinBox" name="m_xPhaseSpin">
             <property name="enabled">
              <bool>false</bool>
@@ -466,42 +495,13 @@
             </property>
            </widget>
           </item>
-          <item row="11" column="0">
+          <item row="12" column="0">
            <widget class="QLabel" name="m_yPhaseLabel">
             <property name="enabled">
              <bool>false</bool>
             </property>
             <property name="text">
              <string>Y phase</string>
-            </property>
-           </widget>
-          </item>
-          <item row="12" column="0" colspan="2">
-           <spacer name="verticalSpacer_4">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="11" column="1">
-           <widget class="QSpinBox" name="m_yPhaseSpin">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="toolTip">
-             <string>Lissajous pattern's Y phase</string>
-            </property>
-            <property name="maximum">
-             <number>360</number>
-            </property>
-            <property name="value">
-             <number>90</number>
             </property>
            </widget>
           </item>
@@ -522,6 +522,13 @@
             </property>
             <property name="textFormat">
              <enum>Qt::AutoText</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="0">
+           <widget class="QCheckBox" name="m_isRelativeCheckbox">
+            <property name="text">
+             <string>Relative</string>
             </property>
            </widget>
           </item>

@@ -3,13 +3,14 @@
 <HEAD>
 <TITLE>Q Light Controller Plus - Parameters Tuning</TITLE>
 <SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
 </HEAD>
 <BODY onLoad="replaceqrc()">
 
 <H1>Parameters tuning</H1>
 <P>
-This section explains how to manually reach and tune some QLC+ parameters not reachable from the UI.<br>
-Keep in mind that if you cannot change them from the UI it means there is a good reason.
+This section explains how to manually get at and tune some QLC+ parameters not available from the UI.<br>
+Keep in mind that if you cannot change them from the UI, it means there is a good reason for it.
 <H2>Warning: DO NOT edit the configuration files manually unless you know what you're doing. Any misplaced change can cause
 program crashes or awkward instability.</H2>
 </P>
@@ -41,7 +42,7 @@ configuration file is called <code>net.sf.Fixture Definition Editor.plist</code>
 
 <H1>2 Configuration Reset</H1>
 <P>
-Sometimes it might be necessary to reset QLC+ configuration and bring QLC+ to a "Factory defaults" state.<br>
+Sometimes it might be necessary to reset the QLC+ configuration and bring QLC+ to a "Factory defaults" state.<br>
 To do so, locate the configuration as explained in the first paragraph, then do the following:
 <ul>
  <li>On Linux and OSX use the <code>rm 'filename'</code> command to delete the configuration file</li>
@@ -51,7 +52,7 @@ To do so, locate the configuration as explained in the first paragraph, then do 
 
 <H1>3 Parameters syntax</H1>
 <P>
-Due to Qt diversity on different platforms, parameters are stored in different ways depending on
+Due to Qt differences on different platforms, parameters are stored in different ways depending on
 your Operating System.
 
 <H2>Linux</H2>
@@ -67,7 +68,7 @@ Parameters are stored in the Windows registry and can be modified with the reged
 included in every Windows version. They are presented as follows:
 <PRE>
     "category" is displayed as a folder
-    "parameter" is contained in "category" and is represented as a key. Most likely all QLC+ keys are an integer type.
+    "parameter" is contained in "category" and is represented as a key. It is most likely that all QLC+ keys are an integer type.
     "value" is the actual value of "parameter"
 </PRE>
 
@@ -92,12 +93,14 @@ of your configuration file.
 <B>Name:</B> channelsperpage
 <B>Type:</B> integer
 <B>Description:</B> Set the number of DMX channel sliders displayed per page
+<B>Default:</B> 32
 </PRE>
 <PRE>
 <B>Category:</B> simpledesk
 <B>Name:</B> playbacksperpage
 <B>Type:</B> integer
 <B>Description:</B> set the number of playback sliders displayed per page
+<B>Default:</B> 15
 </PRE>
 
 <H3><A NAME="EnttecOpen" HREF="#EnttecOpen"></A>4.2 DMX USB Enttec Open frequency</H3>
@@ -105,7 +108,8 @@ of your configuration file.
 <B>Category:</B> enttecdmxusbopen
 <B>Name:</B> frequency
 <B>Type:</B> integer
-<B>Description:</B> Set the DMX frame frequency for Enttec Open (and like) devices
+<B>Description:</B> Set the DMX frame frequency in Hertz for Enttec Open (and similar) devices
+<B>Default:</B> 30
 </PRE>
 
 <H3><A NAME="uDMX" HREF="#uDMX"></A>4.3 uDMX frequency</H3>
@@ -113,7 +117,8 @@ of your configuration file.
 <B>Category:</B> udmx
 <B>Name:</B> frequency
 <B>Type:</B> integer
-<B>Description:</B> Set the DMX frame frequency for uDMX devices
+<B>Description:</B> Set the DMX frame frequency in Hertz for uDMX devices
+<B>Default:</B> 30
 </PRE>
 
 <H3><A NAME="MasterTimer" HREF="#MasterTimer"></A>4.4 Master Timer frequency</H3>
@@ -121,7 +126,8 @@ of your configuration file.
 <B>Category:</B> mastertimer
 <B>Name:</B> frequency
 <B>Type:</B> integer
-<B>Description:</B> Set the QLC+ core timer frequency in Hertz (default is 50)
+<B>Description:</B> Set the QLC+ core timer frequency in Hertz
+<B>Default:</B> 50
 </PRE>
 
 </BODY>

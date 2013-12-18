@@ -4,7 +4,7 @@
 
 APPNAME    = Q Light Controller Plus
 FXEDNAME   = Fixture Definition Editor
-APPVERSION = 4.5.1
+APPVERSION = 4.6.0
 
 #############################################################################
 # Compiler & linker configuration
@@ -82,6 +82,16 @@ macx:INPUTPROFILEDIR       = $$DATADIR/InputProfiles
 win32:USERINPUTPROFILEDIR      = $$USERDATADIR/InputProfiles
 unix:!macx:USERINPUTPROFILEDIR = $$USERDATADIR/inputprofiles
 macx:USERINPUTPROFILEDIR       = $$USERDATADIR/InputProfiles
+
+# Midi templates
+win32:MIDITEMPLATEDIR      = MidiTemplates
+unix:!macx:MIDITEMPLATEDIR = $$DATADIR/miditemplates
+macx:MIDITEMPLATEDIR       = $$DATADIR/MidiTemplates
+
+# User midi templates
+win32:USERMIDITEMPLATEDIR      = $$USERDATADIR/MidiTemplates
+unix:!macx:USERMIDITEMPLATEDIR = $$USERDATADIR/miditemplates
+macx:USERMIDITEMPLATEDIR       = $$USERDATADIR/MidiTemplates
 
 # Fixtures
 win32:FIXTUREDIR      = Fixtures

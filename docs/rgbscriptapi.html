@@ -3,6 +3,7 @@
 <HEAD>
 <TITLE>Q Light Controller Plus - RGB Script API</TITLE>
 <SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
 </HEAD>
 <BODY onLoad="replaceqrc()">
 
@@ -12,7 +13,7 @@ Users can write their own RGB scripts to produce custom graphics projection with
 <A HREF="file:concept.html#RGBMatrix">RGB Matrix</A> function. The scripts' operation principle
 is to produce a number of RGB maps that each represent one step in the graphics animation.
 The principle is basically the same as in movies: the audience observes a moving picture,
-which in reality is only a sequentially-played stream of static images that only produce
+which in reality is only a sequentially-played stream of static images that produce
 an illusion of movement.
 </P>
 
@@ -109,7 +110,7 @@ The current API version uses two functions to achieve this:
  <LI>rgbMap(width, height, rgb, step)</LI>
 </UL>
 No assumptions on the calling order or argument immutability should be made, i.e. do not
-cache the values from either function and assume that they are valid until the worlds end.
+cache the values from either function and assume that they are valid until the end of the world.
 The parameters might change at any point (usually when the user changes the matrix size,
 color or direction) thus invalidating any cached values.
 </P>
@@ -163,9 +164,9 @@ So, now we add this support function to the script:
 This function is the actual brains of the script. It produces two-dimensional arrays whose
 size MUST be <B>height</B> times <B>width</B>. I.e. the array returned from this function
 must contain <B>height</B> items and each of these items must be an array that contains
-<B>width</B> items that must be 32bit integers, representing an RGB color as understood by
+<B>width</B> items that must be 32bit integers, representing an RGB colour as understood by
 <A HREF="http://doc.trolltech.com/4.7/qcolor.html#QRgb-typedef">QRgb</A> without alpha
-channel (0x00RRGGBB). The <B>rgb</B> parameter is an integer-representation of the color
+channel (0x00RRGGBB). The <B>rgb</B> parameter is an integer-representation of the colour
 selected by user in the <A HREF="file:rgbmatrixeditor.html">RGB Matrix Editor</A>. The <B>step</B>
 parameter tells the step number requested by the RGB Matrix function and is guaranteed
 to be within (0, rgbMapStepCount(w, h) - 1).
@@ -176,7 +177,7 @@ to be within (0, rgbMapStepCount(w, h) - 1).
 <UL>
  <LI><B>width: </B> The width of the grid</LI>
  <LI><B>height:</B> The height of the grid</LI>
- <LI><B>rgb:</B> The color selected by user</LI>
+ <LI><B>rgb:</B> The colour selected by user</LI>
  <LI><B>step:</B> Current step number to produce (between 0 and rgbMapStepCount(w, h) - 1)</LI>
  <LI><B>Return value:</B> An array containing [height] arrays each containing [width] integers</LI>
 </UL>
@@ -218,7 +219,7 @@ full and ready template for any RGB script for your indulgence.
 
 <P>
 There is a development tool available in the QLC+ source repository that makes it easier
-to debug & test your custom scripts with a web browser. To use the tool, you must download
+to debug and test your custom scripts with a web browser. To use the tool, you must download
 the following two files to a directory on your hard disk, open the <B>devtool.html</B>
 file with your browser and follow its instructions:
 <UL>
@@ -240,19 +241,17 @@ file with your browser and follow its instructions:
 
       Copyright (c) Heikki Junnila
 
-      This program is free software; you can redistribute it and/or
-      modify it under the terms of the GNU General Public License
-      Version 2 as published by the Free Software Foundation.
+      Licensed under the Apache License, Version 2.0 (the "License");
+      you may not use this file except in compliance with the License.
+      You may obtain a copy of the License at
 
-      This program is distributed in the hope that it will be useful,
-      but WITHOUT ANY WARRANTY; without even the implied warranty of
-      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-      GNU General Public License for more details. The license is
-      in the file "COPYING".
+          http://www.apache.org/licenses/LICENSE-2.0.txt
 
-      You should have received a copy of the GNU General Public License
-      along with this program; if not, write to the Free Software
-      Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
     */</FONT>
 
     (

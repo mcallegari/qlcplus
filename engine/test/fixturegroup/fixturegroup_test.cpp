@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QtTest>
@@ -162,9 +160,9 @@ void FixtureGroup_Test::assignFixtureNoSize()
     QVERIFY(grp.headHash()[QLCPoint(0, 1)] == GroupHead(0, 1));
     QVERIFY(grp.headHash()[QLCPoint(0, 2)] == GroupHead(1, 0));
 
-    const QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
-    const QLCFixtureMode* mode = def->modes().first();
+    QLCFixtureMode* mode = def->modes().first();
     QVERIFY(mode != NULL);
 
     fxi = new Fixture(m_doc);
@@ -212,9 +210,9 @@ void FixtureGroup_Test::assignFixture4x2()
 
     for (int i = 0; i < 11; i++)
     {
-        const QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+        QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
         QVERIFY(def != NULL);
-        const QLCFixtureMode* mode = def->modes().first();
+        QLCFixtureMode* mode = def->modes().first();
         QVERIFY(mode != NULL);
 
         Fixture* fxi = new Fixture(m_doc);

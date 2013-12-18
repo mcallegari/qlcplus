@@ -20,6 +20,9 @@
    <string>Scene editor</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>2</number>
+   </property>
    <property name="leftMargin">
     <number>9</number>
    </property>
@@ -45,7 +48,20 @@
        <string>General</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="9" column="4">
+       <item row="9" column="3" rowspan="5">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="8" column="3">
         <widget class="QToolButton" name="m_deselectAllGroups">
          <property name="toolTip">
           <string>Disable all channel groups</string>
@@ -59,13 +75,13 @@
          </property>
          <property name="iconSize">
           <size>
-           <width>24</width>
-           <height>24</height>
+           <width>22</width>
+           <height>22</height>
           </size>
          </property>
         </widget>
        </item>
-       <item row="8" column="0">
+       <item row="7" column="0">
         <widget class="QToolButton" name="m_addFixtureButton">
          <property name="toolTip">
           <string>Add a new fixture to this scene</string>
@@ -79,13 +95,13 @@
          </property>
          <property name="iconSize">
           <size>
-           <width>24</width>
-           <height>24</height>
+           <width>22</width>
+           <height>22</height>
           </size>
          </property>
         </widget>
        </item>
-       <item row="8" column="4">
+       <item row="7" column="3">
         <widget class="QToolButton" name="m_selectAllGroups">
          <property name="toolTip">
           <string>Enable all channel groups</string>
@@ -99,63 +115,13 @@
          </property>
          <property name="iconSize">
           <size>
-           <width>24</width>
-           <height>24</height>
+           <width>22</width>
+           <height>22</height>
           </size>
          </property>
         </widget>
        </item>
-       <item row="10" column="4" rowspan="5">
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="13" column="0" rowspan="2">
-        <spacer name="verticalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="1" column="1" colspan="3">
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <item>
-          <widget class="QLabel" name="m_nameLabel">
-           <property name="text">
-            <string>Scene name</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="m_nameEdit">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-             <horstretch>1</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="toolTip">
-            <string>Name of this scene</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="8" column="1" rowspan="7">
+       <item row="7" column="1" rowspan="7">
         <widget class="QTreeWidget" name="m_tree">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -188,7 +154,7 @@
          </column>
         </widget>
        </item>
-       <item row="9" column="0">
+       <item row="8" column="0">
         <widget class="QToolButton" name="m_removeFixtureButton">
          <property name="toolTip">
           <string>Remove the selected fixture(s) from this scene</string>
@@ -202,13 +168,13 @@
          </property>
          <property name="iconSize">
           <size>
-           <width>24</width>
-           <height>24</height>
+           <width>22</width>
+           <height>22</height>
           </size>
          </property>
         </widget>
        </item>
-       <item row="8" column="3" rowspan="7">
+       <item row="7" column="2" rowspan="7">
         <widget class="QTreeWidget" name="m_channelGroupsTree">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -238,14 +204,14 @@
          </column>
         </widget>
        </item>
-       <item row="10" column="0">
+       <item row="9" column="0">
         <widget class="Line" name="line">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </item>
-       <item row="12" column="0">
+       <item row="11" column="0">
         <widget class="QToolButton" name="m_disableChannelsButton">
          <property name="toolTip">
           <string>Disable all fixtures' channels</string>
@@ -259,13 +225,13 @@
          </property>
          <property name="iconSize">
           <size>
-           <width>24</width>
-           <height>24</height>
+           <width>22</width>
+           <height>22</height>
           </size>
          </property>
         </widget>
        </item>
-       <item row="11" column="0">
+       <item row="10" column="0">
         <widget class="QToolButton" name="m_enableChannelsButton">
          <property name="toolTip">
           <string>Enable all fixtures' channels</string>
@@ -279,11 +245,24 @@
          </property>
          <property name="iconSize">
           <size>
-           <width>24</width>
-           <height>24</height>
+           <width>22</width>
+           <height>22</height>
           </size>
          </property>
         </widget>
+       </item>
+       <item row="12" column="0" rowspan="2">
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </widget>

@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QTreeWidgetItem>
@@ -56,20 +54,19 @@
 #define COL_DURATION 5
 #define COL_NOTES    6
 
-ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc)
+ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc, bool liveMode)
     : QWidget(parent)
     , m_doc(doc)
     , m_chaser(chaser)
-    , m_itemIsUpdating(false)
+    , m_liveMode(liveMode)
 {
     Q_ASSERT(chaser != NULL);
     Q_ASSERT(doc != NULL);
 
     setupUi(this);
 
-    /* Resize columns to fit contents */
-    m_tree->header()->setResizeMode(QHeaderView::ResizeToContents);
-    m_tree->setItemDelegateForColumn(COL_NUM, new NoEditDelegate(this)); // disable editing of steps number
+    /* Disable editing of steps number */
+    m_tree->setItemDelegateForColumn(COL_NUM, new NoEditDelegate(this));
     if (m_chaser->isSequence() == true)
     {
         m_tree->header()->setSectionHidden(COL_NAME, true);
@@ -247,7 +244,8 @@ ChaserEditor::~ChaserEditor()
     m_speedDials = NULL;
 
     // double check that the Chaser still exists !
-    if (m_doc->functions().contains(m_chaser) == true &&
+    if (m_liveMode == false &&
+        m_doc->functions().contains(m_chaser) == true &&
         m_chaser->stopped() == false)
             m_chaser->stopAndWait();
 }
@@ -472,17 +470,16 @@ void ChaserEditor::slotItemSelectionChanged()
 
 void ChaserEditor::slotItemChanged(QTreeWidgetItem *item, int column)
 {
-    if (m_itemIsUpdating == true)
-        return;
-
     QString itemText = item->text(column);
     quint32 newValue = 0;
     int idx = m_tree->indexOfTopLevelItem(item);
 
-    if (itemText.contains("."))
-        newValue = Function::stringToSpeed(itemText);
+    if (itemText.contains(".") || itemText.contains("s") ||
+        itemText.contains("m") || itemText.contains("h"))
+            newValue = Function::stringToSpeed(itemText);
     else
         newValue = (itemText.toDouble() * 1000);
+
     ChaserStep step = m_chaser->steps().at(idx);
     if (column == COL_FADEIN)
     {
@@ -517,6 +514,14 @@ void ChaserEditor::slotItemChanged(QTreeWidgetItem *item, int column)
     }
     m_chaser->replaceStep(step, idx);
     updateItem(item, step);
+
+    m_tree->resizeColumnToContents(COL_NUM);
+    m_tree->resizeColumnToContents(COL_NAME);
+    m_tree->resizeColumnToContents(COL_FADEIN);
+    m_tree->resizeColumnToContents(COL_HOLD);
+    m_tree->resizeColumnToContents(COL_FADEOUT);
+    m_tree->resizeColumnToContents(COL_DURATION);
+    m_tree->resizeColumnToContents(COL_NOTES);
 }
 
 /****************************************************************************
@@ -710,6 +715,8 @@ void ChaserEditor::slotFadeInDialChanged(int ms)
     case Chaser::Default:
         break;
     }
+
+    m_tree->resizeColumnToContents(COL_FADEIN);
 }
 
 void ChaserEditor::slotFadeOutDialChanged(int ms)
@@ -735,6 +742,8 @@ void ChaserEditor::slotFadeOutDialChanged(int ms)
     case Chaser::Default:
         break;
     }
+
+    m_tree->resizeColumnToContents(COL_FADEOUT);
 }
 
 void ChaserEditor::slotHoldDialChanged(int ms)
@@ -766,6 +775,8 @@ void ChaserEditor::slotHoldDialChanged(int ms)
     case Chaser::Default:
         break;
     }
+
+    m_tree->resizeColumnToContents(COL_HOLD);
 }
 
 void ChaserEditor::createSpeedDials()
@@ -970,7 +981,7 @@ void ChaserEditor::slotModeChanged(Doc::Mode mode)
     {
         m_testPlayButton->setEnabled(false);
         m_testStopButton->setEnabled(false);
-        if (m_chaser->stopped() == false)
+        if (m_liveMode == false && m_chaser->stopped() == false)
             m_chaser->stop();
     }
     else
@@ -1033,6 +1044,14 @@ void ChaserEditor::updateTree(bool clear)
         ChaserStep step(m_chaser->steps().at(i));
         updateItem(item, step);
     }
+
+    m_tree->resizeColumnToContents(COL_NUM);
+    m_tree->resizeColumnToContents(COL_NAME);
+    m_tree->resizeColumnToContents(COL_FADEIN);
+    m_tree->resizeColumnToContents(COL_HOLD);
+    m_tree->resizeColumnToContents(COL_FADEOUT);
+    m_tree->resizeColumnToContents(COL_DURATION);
+    m_tree->resizeColumnToContents(COL_NOTES);
 }
 
 void ChaserEditor::updateItem(QTreeWidgetItem* item, ChaserStep& step)
@@ -1041,7 +1060,7 @@ void ChaserEditor::updateItem(QTreeWidgetItem* item, ChaserStep& step)
     Q_ASSERT(function != NULL);
     Q_ASSERT(item != NULL);
 
-    m_itemIsUpdating = true;
+    m_tree->blockSignals(true);
 
     item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
     item->setText(COL_NUM, QString("%1").arg(m_tree->indexOfTopLevelItem(item) + 1));
@@ -1099,7 +1118,7 @@ void ChaserEditor::updateItem(QTreeWidgetItem* item, ChaserStep& step)
         break;
     }
 
-    m_itemIsUpdating = false;
+    m_tree->blockSignals(false);
 }
 
 void ChaserEditor::updateStepNumbers()

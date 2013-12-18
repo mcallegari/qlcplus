@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #ifndef VIRTUALCONSOLE_H
@@ -60,15 +58,14 @@ public:
     /** Get the singleton instance */
     static VirtualConsole* instance();
 
+    /** Create a new channels group ID */
+    quint32 newWidgetId();
+
     Doc *getDoc();
 
 protected:
     static VirtualConsole* s_instance;
     Doc* m_doc;
-
-private:
-    /** Create a new channels group ID */
-    quint32 newWidgetId();
 
 private:
     /** Latest assigned fixture group ID */
@@ -166,6 +163,7 @@ protected:
     QAction* m_addSoloFrameAction;
     QAction* m_addLabelAction;
     QAction* m_addAudioTriggersAction;
+    QAction* m_addClockAction;
 
     QAction* m_toolsSettingsAction;
 
@@ -229,6 +227,7 @@ public slots:
     void slotAddSoloFrame();
     void slotAddLabel();
     void slotAddAudioTriggers();
+    void slotAddClock();
 
     /*********************************************************************
      * Tools menu callbacks
@@ -315,6 +314,8 @@ public:
     /** Reset the Virtual Console contents to an initial state */
     void resetContents();
 
+    void setupWidget(VCWidget *widget, VCWidget *parent);
+
     VCWidget *widget(quint32 id);
 
 protected:
@@ -327,6 +328,7 @@ protected:
     QVBoxLayout* m_contentsLayout;
     QScrollArea* m_scrollArea;
     VCFrame* m_contents;
+    QHash <quint32, VCWidget *> m_widgetsMap;
 
     /*********************************************************************
      * Key press handler
@@ -371,6 +373,9 @@ public:
 
     /** Do post-load cleanup & checks */
     void postLoad();
+
+signals:
+    void loaded();
 };
 
 #endif

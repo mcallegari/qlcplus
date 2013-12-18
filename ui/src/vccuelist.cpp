@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila, Massimo Callegari
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QStyledItemDelegate>
@@ -130,8 +128,13 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_tree->setRootIsDecorated(false);
     m_tree->setItemsExpandable(false);
     m_tree->header()->setSortIndicatorShown(false);
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     m_tree->header()->setClickable(false);
     m_tree->header()->setMovable(false);
+#else
+    m_tree->header()->setSectionsClickable(false);
+    m_tree->header()->setSectionsMovable(false);
+#endif
 
     // Make only the notes column editable
     m_tree->setItemDelegateForColumn(COL_NUM, new NoEditDelegate(this));
@@ -234,9 +237,9 @@ VCWidget* VCCueList::createCopy(VCWidget* parent)
     return cuelist;
 }
 
-bool VCCueList::copyFrom(VCWidget* widget)
+bool VCCueList::copyFrom(const VCWidget* widget)
 {
-    VCCueList* cuelist = qobject_cast<VCCueList*> (widget);
+    const VCCueList* cuelist = qobject_cast<const VCCueList*> (widget);
     if (cuelist == NULL)
         return false;
 
@@ -492,6 +495,7 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
     m_tree->setCurrentItem(item);
     m_primaryIndex = stepNumber;
     setSlidersInfo(m_primaryIndex, NULL);
+    emit stepChanged(m_primaryIndex);
 }
 
 void VCCueList::slotItemActivated(QTreeWidgetItem* item)
@@ -980,21 +984,67 @@ QString VCCueList::getCSS()
 
 QString VCCueList::getJS()
 {
-    QString str = "function sendCueCmd(id, cmd) {\n"
-                " if (cmd == \"PLAY\") {\n"
-                "   var obj = document.getElementById(id);\n"
-                "   if (obj.value == \"0\" || obj.value == undefined) {\n"
-                "     obj.value = \"255\";\n"
-                "     obj.innerHTML = \"Stop\";\n"
-                "   }\n"
-                "   else {\n"
-                "     obj.value = \"0\";\n"
-                "     obj.innerHTML = \"Play\";\n"
-                "   }\n"
-                " }\n"
-                " sendWSmessage(id + \"|\" + cmd);\n"
-                "};\n";
+    QString str =
+      "var cueListsIndices = new Array();\n\n"
+
+      "function setCueIndex(id, idx) {\n"
+      " var oldIdx = cueListsIndices[id];\n"
+      " if (oldIdx != undefined) {\n"
+      "   var oldCueObj = document.getElementById(id + \"_\" + oldIdx);\n"
+      "   oldCueObj.style.backgroundColor='#FFFFFF';\n"
+      " }\n"
+      " cueListsIndices[id] = idx;\n"
+      " var currCueObj = document.getElementById(id + \"_\" + idx);\n"
+      " if (idx != \"-1\")\n"
+      "   currCueObj.style.backgroundColor='#5E7FDF';\n"
+      "}\n"
+
+      "function sendCueCmd(id, cmd) {\n"
+      " if (cmd == \"PLAY\") {\n"
+      "   var obj = document.getElementById(\"play\" + id);\n"
+      "   if (obj.innerHTML == \"Play\") {\n"
+      "     obj.innerHTML = \"Stop\";\n"
+      "     setCueIndex(id, 0);\n"
+      "   }\n"
+      "   else {\n"
+      "     obj.innerHTML = \"Play\";\n"
+      "     setCueIndex(id, -1);\n"
+      "   }\n"
+      " }\n"
+      " websocket.send(id + \"|\" + cmd);\n"
+      "}\n"
+
+      "function checkMouseOut(id, idx) {\n"
+      " var obj = document.getElementById(id + \"_\" + idx);\n"
+      " if(idx == cueListsIndices[id])\n"
+      "   obj.style.backgroundColor='#5E7FDF';\n"
+      " else\n"
+      "   obj.style.backgroundColor='#FFFFFF';\n"
+      " }\n"
+
+      "function enableCue(id, idx) {\n"
+      " var btnObj = document.getElementById(\"play\" + id);\n"
+      " btnObj.innerHTML = \"Stop\";\n"
+      " setCueIndex(id, idx);\n"
+      " websocket.send(id + \"|STEP|\" + idx);\n"
+      "}\n";
     return str;
+}
+
+void VCCueList::playCueAtIndex(int idx)
+{
+    if (mode() != Doc::Operate)
+        return;
+
+    m_mutex.lock();
+    m_primaryIndex = idx;
+    if (m_runner == NULL)
+        createRunner(m_primaryIndex);
+    else
+        m_runner->setCurrentStep(m_primaryIndex, (qreal)m_slider1->value() / 100);
+
+    setSlidersInfo(m_primaryIndex, NULL);
+    m_mutex.unlock();
 }
 
 /*****************************************************************************

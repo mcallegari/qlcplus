@@ -6,6 +6,7 @@ TARGET   = dmxusb
 
 CONFIG      += plugin
 QT          += gui core
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 INCLUDEPATH += ../../interfaces
 
 exists( $$[QT_INSTALL_LIBS]/libQtSerialPort.a ) {

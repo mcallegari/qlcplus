@@ -7,6 +7,8 @@ TARGET   = qlcplusui
 
 CONFIG += qt
 QT     += core xml gui script
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
 
 # Engine
 INCLUDEPATH     += ../../engine/src ../../engine/src/audio
@@ -66,6 +68,7 @@ HEADERS += aboutbox.h \
            fixtureremap.h \
            functionliveeditdialog.h \
            functionselection.h \
+           functionstreewidget.h \
            functionwizard.h \
            grandmasterslider.h \
            groupsconsole.h \
@@ -78,6 +81,7 @@ HEADERS += aboutbox.h \
            monitorfixture.h \
            monitorlayout.h \
            multitrackview.h \
+           palettegenerator.h \
            playbackslider.h \
            remapwidget.h \
            rgbmatrixeditor.h \
@@ -97,6 +101,8 @@ HEADERS += aboutbox.h \
            vcaudiotriggersproperties.h \
            vcbutton.h \
            vcbuttonproperties.h \
+           vcclock.h \
+           vcclockproperties.h \
            vccuelist.h \
            vccuelistproperties.h \
            vcdockarea.h \
@@ -150,6 +156,7 @@ FORMS += aboutbox.ui \
          showeditor.ui \
          vcaudiotriggersproperties.ui \
          vcbuttonproperties.ui \
+         vcclockproperties.ui \
          vccuelistproperties.ui \
          vcframeproperties.ui \
          vcproperties.ui \
@@ -193,6 +200,7 @@ SOURCES += aboutbox.cpp \
            functionliveeditdialog.cpp \
            functionmanager.cpp \
            functionselection.cpp \
+           functionstreewidget.cpp \
            functionwizard.cpp \
            grandmasterslider.cpp \
            groupsconsole.cpp \
@@ -205,6 +213,7 @@ SOURCES += aboutbox.cpp \
            monitorfixture.cpp \
            monitorlayout.cpp \
            multitrackview.cpp \
+           palettegenerator.cpp \
            playbackslider.cpp \
            remapwidget.cpp \
            rgbmatrixeditor.cpp \
@@ -224,6 +233,8 @@ SOURCES += aboutbox.cpp \
            vcaudiotriggersproperties.cpp \
            vcbutton.cpp \
            vcbuttonproperties.cpp \
+           vcclock.cpp \
+           vcclockproperties.cpp \
            vccuelist.cpp \
            vccuelistproperties.cpp \
            vcdockarea.cpp \
@@ -246,7 +257,6 @@ SOURCES += aboutbox.cpp \
            vcxypadfixtureeditor.cpp \
            vcxypadproperties.cpp \
            virtualconsole.cpp
-
 
 TRANSLATIONS += qlcplus_fi_FI.ts
 TRANSLATIONS += qlcplus_fr_FR.ts

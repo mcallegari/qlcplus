@@ -1,26 +1,25 @@
 /*
   Q Light Controller
-  channelselection.cpp
+  addchannelsgroup.cpp
 
   Copyright (c) Massimo Callegari
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QPushButton>
 #include <QDebug>
+#include <QSettings>
 
 #include "selectinputchannel.h"
 #include "addchannelsgroup.h"
@@ -35,6 +34,8 @@
 #define KColumnGroup 2
 #define KColumnChIdx 3
 #define KColumnID    4
+
+#define SETTINGS_APPLYALL "addchannelsgroup/applyall"
 
 AddChannelsGroup::AddChannelsGroup(QWidget* parent, Doc* doc, ChannelsGroup *group)
     : QDialog(parent)
@@ -119,6 +120,13 @@ AddChannelsGroup::AddChannelsGroup(QWidget* parent, Doc* doc, ChannelsGroup *gro
     m_tree->resizeColumnToContents(KColumnType);
     m_tree->resizeColumnToContents(KColumnGroup);
 
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_APPLYALL);
+    if (var.isValid() == true)
+    {
+       m_applyAllCheck->setChecked(var.toBool());
+    }
+
     m_inputSource = group->inputSource();
     updateInputSource();
 
@@ -136,6 +144,8 @@ AddChannelsGroup::AddChannelsGroup(QWidget* parent, Doc* doc, ChannelsGroup *gro
 
 AddChannelsGroup::~AddChannelsGroup()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_APPLYALL, m_applyAllCheck->isChecked());
 }
 
 void AddChannelsGroup::accept()

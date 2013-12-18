@@ -4,19 +4,17 @@
 
   Copyright (C) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QtTest>
@@ -48,9 +46,9 @@ void RGBMatrix_Test::initTestCase()
     fxiDir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
     QVERIFY(m_doc->fixtureDefCache()->load(fxiDir) == true);
 
-    const QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Stairville", "LED PAR56");
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Stairville", "LED PAR56");
     QVERIFY(def != NULL);
-    const QLCFixtureMode* mode = def->modes().first();
+    QLCFixtureMode* mode = def->modes().first();
     QVERIFY(mode != NULL);
 
     FixtureGroup* grp = new FixtureGroup(m_doc);
@@ -68,7 +66,7 @@ void RGBMatrix_Test::initTestCase()
     }
 
     RGBScript::setCustomScriptDirectory(INTERNAL_SCRIPTDIR);
-    QVERIFY(RGBScript::scripts().size() != 0);
+    QVERIFY(RGBScript::scripts(m_doc).size() != 0);
 }
 
 void RGBMatrix_Test::cleanupTestCase()
@@ -81,7 +79,8 @@ void RGBMatrix_Test::initial()
     RGBMatrix mtx(m_doc);
     QCOMPARE(mtx.type(), Function::RGBMatrix);
     QCOMPARE(mtx.fixtureGroup(), FixtureGroup::invalidId());
-    QCOMPARE(mtx.monoColor(), QColor(Qt::red));
+    QCOMPARE(mtx.startColor(), QColor(Qt::red));
+    QCOMPARE(mtx.endColor(), QColor());
     QVERIFY(mtx.m_fader == NULL);
     QCOMPARE(mtx.m_step, 0);
     QCOMPARE(mtx.name(), tr("New RGB Matrix"));
@@ -106,24 +105,32 @@ void RGBMatrix_Test::group()
 void RGBMatrix_Test::color()
 {
     RGBMatrix mtx(m_doc);
-    mtx.setMonoColor(Qt::blue);
-    QCOMPARE(mtx.monoColor(), QColor(Qt::blue));
+    mtx.setStartColor(Qt::blue);
+    QCOMPARE(mtx.startColor(), QColor(Qt::blue));
 
-    mtx.setMonoColor(QColor());
-    QCOMPARE(mtx.monoColor(), QColor());
+    mtx.setStartColor(QColor());
+    QCOMPARE(mtx.startColor(), QColor());
+
+    mtx.setEndColor(Qt::green);
+    QCOMPARE(mtx.endColor(), QColor(Qt::green));
+
+    mtx.setEndColor(QColor());
+    QCOMPARE(mtx.endColor(), QColor());
 }
 
 void RGBMatrix_Test::copy()
 {
     RGBMatrix mtx(m_doc);
-    mtx.setMonoColor(Qt::magenta);
+    mtx.setStartColor(Qt::magenta);
+    mtx.setEndColor(Qt::yellow);
     mtx.setFixtureGroup(0);
-    mtx.setAlgorithm(RGBAlgorithm::algorithm("Full Columns"));
+    mtx.setAlgorithm(RGBAlgorithm::algorithm(m_doc, "Full Columns"));
     QVERIFY(mtx.algorithm() != NULL);
 
     RGBMatrix* copyMtx = qobject_cast<RGBMatrix*> (mtx.createCopy(m_doc));
     QVERIFY(copyMtx != NULL);
-    QCOMPARE(copyMtx->monoColor(), QColor(Qt::magenta));
+    QCOMPARE(copyMtx->startColor(), QColor(Qt::magenta));
+    QCOMPARE(copyMtx->endColor(), QColor(Qt::yellow));
     QCOMPARE(copyMtx->fixtureGroup(), uint(0));
     QVERIFY(copyMtx->algorithm() != NULL);
     QVERIFY(copyMtx->algorithm() != mtx.algorithm()); // Different object pointer!
@@ -149,7 +156,7 @@ void RGBMatrix_Test::previewMaps()
             for (int x = 0; x < 5; x++)
             {
                 if (x == z)
-                    QCOMPARE(maps[z][y][x], QColor(Qt::red).rgb());
+                    QCOMPARE(maps[z][y][x], QColor(Qt::black).rgb());
                 else
                     QCOMPARE(maps[z][y][x], uint(0));
             }
@@ -160,9 +167,10 @@ void RGBMatrix_Test::previewMaps()
 void RGBMatrix_Test::loadSave()
 {
     RGBMatrix* mtx = new RGBMatrix(m_doc);
-    mtx->setMonoColor(Qt::magenta);
+    mtx->setStartColor(Qt::magenta);
+    mtx->setEndColor(Qt::blue);
     mtx->setFixtureGroup(42);
-    mtx->setAlgorithm(RGBAlgorithm::algorithm("Full Rows"));
+    mtx->setAlgorithm(RGBAlgorithm::algorithm(m_doc, "Full Rows"));
     QVERIFY(mtx->algorithm() != NULL);
     QCOMPARE(mtx->algorithm()->name(), QString("Full Rows"));
 
@@ -182,7 +190,7 @@ void RGBMatrix_Test::loadSave()
     QCOMPARE(root.firstChild().toElement().attribute("ID"), QString::number(mtx->id()));
     QCOMPARE(root.firstChild().toElement().attribute("Name"), QString("Xyzzy"));
 
-    int speed = 0, dir = 0, run = 0, algo = 0, monocolor = 0, grp = 0;
+    int speed = 0, dir = 0, run = 0, algo = 0, monocolor = 0, endcolor = 0, grp = 0;
 
     QDomNode node = root.firstChild().firstChild();
     while (node.isNull() == false)
@@ -215,6 +223,11 @@ void RGBMatrix_Test::loadSave()
             QCOMPARE(tag.text().toUInt(), QColor(Qt::magenta).rgb());
             monocolor++;
         }
+        else if (tag.tagName() == "EndColor")
+        {
+            QCOMPARE(tag.text().toUInt(), QColor(Qt::blue).rgb());
+            endcolor++;
+        }
         else if (tag.tagName() == "FixtureGroup")
         {
             QCOMPARE(tag.text(), QString("42"));
@@ -233,6 +246,7 @@ void RGBMatrix_Test::loadSave()
     QCOMPARE(run, 1);
     QCOMPARE(algo, 1);
     QCOMPARE(monocolor, 1);
+    QCOMPARE(endcolor, 1);
     QCOMPARE(grp, 1);
 
     // Put some extra garbage in
@@ -244,7 +258,8 @@ void RGBMatrix_Test::loadSave()
     QVERIFY(mtx2.loadXML(root.firstChild().toElement()) == true);
     QCOMPARE(mtx2.direction(), Function::Backward);
     QCOMPARE(mtx2.runOrder(), Function::PingPong);
-    QCOMPARE(mtx2.monoColor(), QColor(Qt::magenta));
+    QCOMPARE(mtx2.startColor(), QColor(Qt::magenta));
+    QCOMPARE(mtx2.endColor(), QColor(Qt::blue));
     QCOMPARE(mtx2.fixtureGroup(), uint(42));
     QVERIFY(mtx2.algorithm() != NULL);
     QCOMPARE(mtx2.algorithm()->name(), mtx->algorithm()->name());

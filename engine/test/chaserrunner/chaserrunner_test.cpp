@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QtTest>
@@ -60,9 +58,9 @@ void ChaserRunner_Test::cleanupTestCase()
 
 void ChaserRunner_Test::init()
 {
-    const QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
-    const QLCFixtureMode* mode = def->mode("Mode 1");
+    QLCFixtureMode* mode = def->mode("Mode 1");
     QVERIFY(mode != NULL);
 
     Fixture* fxi = new Fixture(m_doc);
@@ -1318,59 +1316,59 @@ void ChaserRunner_Test::adjustIntensity()
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene1);
-    QCOMPARE(m_scene1->getAttributeValue(), qreal(0.5));
-    QCOMPARE(m_scene2->getAttributeValue(), qreal(1.0));
-    QCOMPARE(m_scene3->getAttributeValue(), qreal(1.0));
+    QCOMPARE(m_scene1->getAttributeValue(Function::Intensity), qreal(0.5));
+    QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(1.0));
+    QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(1.0));
 
     QVERIFY(cr.write(&timer, NULL) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene2);
-    QCOMPARE(m_scene1->getAttributeValue(), qreal(1.0));
-    QCOMPARE(m_scene2->getAttributeValue(), qreal(0.5));
-    QCOMPARE(m_scene3->getAttributeValue(), qreal(1.0));
+    QCOMPARE(m_scene1->getAttributeValue(Function::Intensity), qreal(1.0));
+    QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(0.5));
+    QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(1.0));
 
     QVERIFY(cr.write(&timer, NULL) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene3);
-    QCOMPARE(m_scene1->getAttributeValue(), qreal(1.0));
-    QCOMPARE(m_scene2->getAttributeValue(), qreal(1.0));
-    QCOMPARE(m_scene3->getAttributeValue(), qreal(0.5));
+    QCOMPARE(m_scene1->getAttributeValue(Function::Intensity), qreal(1.0));
+    QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(1.0));
+    QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(0.5));
 
     cr.adjustIntensity(0.7);
-    QCOMPARE(m_scene1->getAttributeValue(), qreal(1.0));
-    QCOMPARE(m_scene2->getAttributeValue(), qreal(1.0));
-    QCOMPARE(m_scene3->getAttributeValue(), qreal(0.7));
+    QCOMPARE(m_scene1->getAttributeValue(Function::Intensity), qreal(1.0));
+    QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(1.0));
+    QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(0.7));
 
     QVERIFY(cr.write(&timer, NULL) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene1);
-    QCOMPARE(m_scene1->getAttributeValue(), qreal(0.7));
-    QCOMPARE(m_scene2->getAttributeValue(), qreal(1.0));
-    QCOMPARE(m_scene3->getAttributeValue(), qreal(1.0));
+    QCOMPARE(m_scene1->getAttributeValue(Function::Intensity), qreal(0.7));
+    QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(1.0));
+    QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(1.0));
 
     QVERIFY(cr.write(&timer, NULL) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene2);
-    QCOMPARE(m_scene1->getAttributeValue(), qreal(1.0));
-    QCOMPARE(m_scene2->getAttributeValue(), qreal(0.7));
-    QCOMPARE(m_scene3->getAttributeValue(), qreal(1.0));
+    QCOMPARE(m_scene1->getAttributeValue(Function::Intensity), qreal(1.0));
+    QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(0.7));
+    QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(1.0));
 
     cr.adjustIntensity(1.5);
-    QCOMPARE(m_scene1->getAttributeValue(), qreal(1.0));
-    QCOMPARE(m_scene2->getAttributeValue(), qreal(1.0));
-    QCOMPARE(m_scene3->getAttributeValue(), qreal(1.0));
+    QCOMPARE(m_scene1->getAttributeValue(Function::Intensity), qreal(1.0));
+    QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(1.0));
+    QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(1.0));
 
     QVERIFY(cr.write(&timer, NULL) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene3);
-    QCOMPARE(m_scene1->getAttributeValue(), qreal(1.0));
-    QCOMPARE(m_scene2->getAttributeValue(), qreal(1.0));
-    QCOMPARE(m_scene3->getAttributeValue(), qreal(1.0));
+    QCOMPARE(m_scene1->getAttributeValue(Function::Intensity), qreal(1.0));
+    QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(1.0));
+    QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(1.0));
 }
 
 QTEST_APPLESS_MAIN(ChaserRunner_Test)

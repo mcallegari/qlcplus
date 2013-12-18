@@ -4,19 +4,17 @@
 
   Copyright (C) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QCoreApplication>
@@ -130,7 +128,7 @@ void EditCapability::slotPictureButtonPressed()
 {
     QFileDialog dialog(this);
     QDir dir;
-#ifdef __APPLE__
+#if defined (__APPLE__) || defined(Q_OS_MAC)
     dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
                 .arg(GOBODIR));
 #else
@@ -140,8 +138,7 @@ void EditCapability::slotPictureButtonPressed()
     dialog.setWindowTitle(tr("Open Gobo File"));
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
     dialog.setDirectory(dir);
-
-    dialog.setFilter(tr("Gobo pictures") + " (*.jpg *.jpeg *.png *.bmp)");
+    dialog.setNameFilter((tr("Gobo pictures") + " (*.jpg *.jpeg *.png *.bmp)"));
 
     /* Get file name */
     if (dialog.exec() != QDialog::Accepted)
@@ -158,6 +155,8 @@ void EditCapability::slotPictureButtonPressed()
 void EditCapability::slotColor1ButtonPressed()
 {
     QColorDialog dialog(this);
+    if (m_capability->resourceColor1().isValid())
+        dialog.setCurrentColor(m_capability->resourceColor1());
     if (dialog.exec() != QDialog::Accepted)
         return;
 
@@ -172,6 +171,8 @@ void EditCapability::slotColor1ButtonPressed()
 void EditCapability::slotColor2ButtonPressed()
 {
     QColorDialog dialog(this);
+    if (m_capability->resourceColor2().isValid())
+        dialog.setCurrentColor(m_capability->resourceColor2());
     if (dialog.exec() != QDialog::Accepted)
         return;
 

@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QStyleOptionFrameV2>
@@ -48,6 +46,7 @@
 #include "vcframe.h"
 #include "vclabel.h"
 #include "vcxypad.h"
+#include "vcclock.h"
 #include "apputil.h"
 #include "doc.h"
 
@@ -76,50 +75,7 @@ VCFrame::VCFrame(QWidget* parent, Doc* doc, bool canCollapse) : VCWidget(parent,
     setType(VCWidget::FrameWidget);
 
     if (canCollapse == true)
-    {
-        QVBoxLayout *vbox = new QVBoxLayout(this);
-        /* Main HBox */
-        m_hbox = new QHBoxLayout();
-        m_hbox->setGeometry(QRect(0, 0, 200, 40));
-
-        layout()->setSpacing(2);
-        layout()->setContentsMargins(4, 4, 4, 4);
-        layout()->addItem(m_hbox);
-        vbox->addStretch();
-
-        m_button = new QToolButton(this);
-        m_button->setStyle(AppUtil::saneStyle());
-        m_button->setIconSize(QSize(32, 32));
-        m_button->setMinimumSize(QSize(32, 32));
-        m_button->setMaximumSize(QSize(32, 32));
-        m_button->setIcon(QIcon(":/expand.png"));
-        m_button->setCheckable(true);
-        QString btnSS = "QToolButton { background-color: #E0DFDF; border: 1px solid gray; border-radius: 3px; padding: 3px; } ";
-        btnSS += "QToolButton:pressed { background-color: #919090; border: 1px solid gray; border-radius: 3px; padding: 3px; } ";
-        m_button->setStyleSheet(btnSS);
-
-        m_hbox->addWidget(m_button);
-        connect(m_button, SIGNAL(toggled(bool)), this, SLOT(slotCollapseButtonToggled(bool)));
-
-        m_label = new QLabel(this);
-        m_label->setText(this->caption());
-        QString txtColor = "white";
-        if (m_hasCustomForegroundColor)
-            txtColor = this->foregroundColor().name();
-        m_label->setStyleSheet("QLabel { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #666666, stop: 1 #000000); "
-                               "color: " + txtColor + "; border-radius: 3px; padding: 3px; margin-left: 2px; }");
-
-        if (m_hasCustomFont)
-            m_label->setFont(font());
-        else
-        {
-            QFont m_font = QApplication::font();
-            m_font.setBold(true);
-            m_font.setPixelSize(12);
-            m_label->setFont(m_font);
-        }
-        m_hbox->addWidget(m_label);
-    }
+        createHeader();
 
     QSettings settings;
     QVariant var = settings.value(SETTINGS_FRAME_SIZE);
@@ -185,12 +141,12 @@ QColor VCFrame::foregroundColor() const
         return VCWidget::foregroundColor();
 }
 
-void VCFrame::setShowHeader(bool enable)
+void VCFrame::setHeaderVisible(bool enable)
 {
     m_showHeader = enable;
 
-    if (m_button == NULL)
-        return;
+    if (m_hbox == NULL)
+        createHeader();
 
     if (enable == false)
     {
@@ -241,6 +197,55 @@ void VCFrame::slotCollapseButtonToggled(bool toggle)
         m_collapsed = false;
     }
     m_doc->setModified();
+}
+
+void VCFrame::createHeader()
+{
+    if (m_hbox != NULL)
+        return;
+
+    QVBoxLayout *vbox = new QVBoxLayout(this);
+    /* Main HBox */
+    m_hbox = new QHBoxLayout();
+    m_hbox->setGeometry(QRect(0, 0, 200, 40));
+
+    layout()->setSpacing(2);
+    layout()->setContentsMargins(4, 4, 4, 4);
+    layout()->addItem(m_hbox);
+    vbox->addStretch();
+
+    m_button = new QToolButton(this);
+    m_button->setStyle(AppUtil::saneStyle());
+    m_button->setIconSize(QSize(32, 32));
+    m_button->setMinimumSize(QSize(32, 32));
+    m_button->setMaximumSize(QSize(32, 32));
+    m_button->setIcon(QIcon(":/expand.png"));
+    m_button->setCheckable(true);
+    QString btnSS = "QToolButton { background-color: #E0DFDF; border: 1px solid gray; border-radius: 3px; padding: 3px; } ";
+    btnSS += "QToolButton:pressed { background-color: #919090; border: 1px solid gray; border-radius: 3px; padding: 3px; } ";
+    m_button->setStyleSheet(btnSS);
+
+    m_hbox->addWidget(m_button);
+    connect(m_button, SIGNAL(toggled(bool)), this, SLOT(slotCollapseButtonToggled(bool)));
+
+    m_label = new QLabel(this);
+    m_label->setText(this->caption());
+    QString txtColor = "white";
+    if (m_hasCustomForegroundColor)
+        txtColor = this->foregroundColor().name();
+    m_label->setStyleSheet("QLabel { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #666666, stop: 1 #000000); "
+                           "color: " + txtColor + "; border-radius: 3px; padding: 3px; margin-left: 2px; }");
+
+    if (m_hasCustomFont)
+        m_label->setFont(font());
+    else
+    {
+        QFont m_font = QApplication::font();
+        m_font.setBold(true);
+        m_font.setPixelSize(12);
+        m_label->setFont(m_font);
+    }
+    m_hbox->addWidget(m_label);
 }
 
 /*********************************************************************
@@ -399,6 +404,35 @@ void VCFrame::slotSetPage(int pageNum)
     }
 }
 
+/*********************************************************************
+ * Submasters
+ *********************************************************************/
+
+void VCFrame::slotSubmasterValueChanged(qreal value)
+{
+    qDebug() << Q_FUNC_INFO << "val:" << value;
+    VCSlider *submaster = (VCSlider *)sender();
+    QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
+    while (it.hasNext() == true)
+    {
+        VCWidget* child = it.next();
+        if (child->parent() == this && child != submaster)
+            child->adjustIntensity(value);
+    }
+}
+
+void VCFrame::adjustIntensity(qreal val)
+{
+    QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
+    while (it.hasNext() == true)
+    {
+        VCWidget* child = it.next();
+        if (child->parent() == this)
+            child->adjustIntensity(val);
+    }
+    VCWidget::adjustIntensity(val);
+}
+
 /*****************************************************************************
  * Key Sequences
  *****************************************************************************/
@@ -484,13 +518,13 @@ VCWidget* VCFrame::createCopy(VCWidget* parent)
     return frame;
 }
 
-bool VCFrame::copyFrom(VCWidget* widget)
+bool VCFrame::copyFrom(const VCWidget* widget)
 {
-    VCFrame* frame = qobject_cast<VCFrame*> (widget);
+    const VCFrame* frame = qobject_cast<const VCFrame*> (widget);
     if (frame == NULL)
         return false;
 
-    setShowHeader(frame->m_showHeader);
+    setHeaderVisible(frame->m_showHeader);
 
     QListIterator <VCWidget*> it(widget->findChildren<VCWidget*>());
     while (it.hasNext() == true)
@@ -532,7 +566,8 @@ void VCFrame::editProperties()
                     VCWidget* child = it.next();
                     if (child->page() == 0 && child->parentWidget() == this)
                     {
-                        VCWidget *newWidget = child->createCopy(this);;
+                        VCWidget *newWidget = child->createCopy(this);
+                        newWidget->setID(VirtualConsole::instance()->newWidgetId());
                         newWidget->setPage(pg);
                         newWidget->remapInputSources(pg);
                         newWidget->show();
@@ -649,9 +684,9 @@ bool VCFrame::loadXML(const QDomElement* root)
         else if (tag.tagName() == KXMLQLCVCFrameShowHeader)
         {
             if (tag.text() == KXMLQLCTrue)
-                setShowHeader(true);
+                setHeaderVisible(true);
             else
-                setShowHeader(false);
+                setHeaderVisible(false);
         }
         else if (tag.tagName() == KXMLQLCVCFrameMultipage)
         {
@@ -773,6 +808,11 @@ bool VCFrame::loadXML(const QDomElement* root)
                 if (multipageMode() == true)
                     addWidgetToPageMap(slider);
                 slider->show();
+                // always connect a slider as it it was a submaster
+                // cause this signal is emitted only when a slider is
+                // a submaster
+                connect(slider, SIGNAL(submasterValueChanged(qreal)),
+                        this, SLOT(slotSubmasterValueChanged(qreal)));
             }
         }
         else if (tag.tagName() == KXMLQLCVCSoloFrame)
@@ -826,6 +866,19 @@ bool VCFrame::loadXML(const QDomElement* root)
                 triggers->show();
                 connect(triggers, SIGNAL(enableRequest(quint32)),
                         VirtualConsole::instance(), SLOT(slotEnableAudioTriggers(quint32)));
+            }
+        }
+        else if (tag.tagName() == KXMLQLCVCClock)
+        {
+            /* Create a new label into its parent */
+            VCClock* clock = new VCClock(this, m_doc);
+            if (clock->loadXML(&tag) == false)
+                delete clock;
+            else
+            {
+                if (multipageMode() == true)
+                    addWidgetToPageMap(clock);
+                clock->show();
             }
         }
         else

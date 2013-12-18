@@ -4,7 +4,7 @@ Copyright (c) Heikki Junnila
 	      Massimo Callegari
 
 EMail: massimocallegari@yahoo.it
-QLC+ on SourceForge: http://qlcplus.sourceforge.net/
+QLC+ on SourceForge: http://qlcplus.sourceforge.net/index.shtml
 QLC+ on GitHub: https://github.com/mcallegari/qlcplus
 
 DEVELOPERS AT WORK
@@ -25,22 +25,19 @@ of the source directory. In those cases, you might try going to the libs
 directory, compile it with "make" and install with "make install" and then
 attempt to re-compile the whole package with "make".
 
-License
--------
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-Version 2 as published by the Free Software Foundation.
+Apache 2.0 License
+------------------
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details. The license is
-in the file "COPYING".
+    http://www.apache.org/licenses/LICENSE-2.0
 
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 
 Requirements - Linux
 --------------------
@@ -76,7 +73,7 @@ Requirements - Windows
 Requirements - Mac OS X
 -----------------------
 * XCode (http://developer.apple.com/technologies/tools/xcode.html)
-* Qt SDK >= 4.6 (http://qt.nokia.com/downloads/qt-for-open-source-cpp-development-on-mac-os-x)
+* Qt SDK >= 4.8.x (http://qt.nokia.com/downloads/qt-for-open-source-cpp-development-on-mac-os-x)
 
 * Enttec DMX USB plugin: macports, libftdi-dev, pkg-config
 * HID plugin: Not available
@@ -114,9 +111,15 @@ http://sourceforge.net/p/qlcplus/discussion/
 Contributors
 ------------
 QLC+:
-Jano Svitok (Bugfixes)
+Jano Svitok (Bugfixes, new features)
+Thomas Achtner (ENTTEC wing improvements)
+Joep Admiraal (MIDI SysEx init messages)
+Stefan Riemens (new features)
 Heiko Fanieng (German translation)
-Daniel Nyström (OSX test & support)
+NiKoyes (French translation)
+Raymond Van Laake (Dutch translation)
+Luis García Tornel (Spanish translation)
+Jan Lachman (Czech translation)
 
 QLC:
 Stefan Krumm <stefankrumm@users.sf.net> (Bugfixes, new features)
@@ -127,4 +130,3 @@ Simon Newton <newtons@iinet.net> (OLA plugin)
 Lutz Hillebrand <lutz.h@hagen.de> (uDMX plugin)
 Matthew Jaggard <matthew@jaggard.org.uk> (Velleman plugin)
 Ptit Vachon <6ril@no-log.org> (French translation)
-NiKoyes (French translation)

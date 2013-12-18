@@ -4,19 +4,17 @@
 
   Copyright (C) Massimo Callegari
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QInputDialog>
@@ -37,11 +35,15 @@
 #include "multitrackview.h"
 #include "sceneselection.h"
 #include "chasereditor.h"
+#include "audioeditor.h"
 #include "showmanager.h"
 #include "sceneeditor.h"
 #include "sceneitems.h"
 #include "qlcmacros.h"
 #include "chaser.h"
+
+#define SETTINGS_HSPLITTER "showmanager/hsplitter"
+#define SETTINGS_VSPLITTER "showmanager/vsplitter"
 
 ShowManager* ShowManager::s_instance = NULL;
 
@@ -51,7 +53,7 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
     , m_show(NULL)
     , m_scene(NULL)
     , m_scene_editor(NULL)
-    , m_sequence_editor(NULL)
+    , m_current_editor(NULL)
     , m_selectedShowIndex(0)
     , m_splitter(NULL)
     , m_vsplitter(NULL)
@@ -137,10 +139,27 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
     connect(m_doc, SIGNAL(functionChanged(quint32)), this, SLOT(slotFunctionChanged(quint32)));
     connect(m_doc, SIGNAL(functionRemoved(quint32)), this, SLOT(slotFunctionRemoved(quint32)));
     connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
+
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_HSPLITTER);
+    if (var.isValid() == true)
+        m_splitter->restoreState(var.toByteArray());
+    else
+        m_splitter->setSizes(QList <int> () << int(this->width() / 2) << int(this->width() / 2));
+
+    QVariant var2 = settings.value(SETTINGS_VSPLITTER);
+    if (var2.isValid() == true)
+        m_vsplitter->restoreState(var2.toByteArray());
+    else
+        m_vsplitter->setSizes(QList <int> () << int(this->width() / 2) << int(this->width() / 2));
 }
 
 ShowManager::~ShowManager()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_HSPLITTER, m_splitter->saveState());
+    settings.setValue(SETTINGS_VSPLITTER, m_vsplitter->saveState());
+
     ShowManager::s_instance = NULL;
 }
 
@@ -354,7 +373,7 @@ void ShowManager::slotShowsComboChanged(int idx)
     if (m_selectedShowIndex != idx)
     {
         m_selectedShowIndex = idx;
-        showSequenceEditor(NULL);
+        hideRightEditor();
         updateMultiTrackView();
     }
 }
@@ -387,36 +406,60 @@ void ShowManager::showSceneEditor(Scene *scene)
     }
 }
 
-void ShowManager::showSequenceEditor(Chaser *chaser)
+void ShowManager::hideRightEditor()
 {
-    if (m_sequence_editor != NULL)
+    if (m_current_editor != NULL)
     {
-        m_vsplitter->widget(1)->layout()->removeWidget(m_sequence_editor);
+        m_vsplitter->widget(1)->layout()->removeWidget(m_current_editor);
         m_vsplitter->widget(1)->hide();
-        m_sequence_editor->deleteLater();
-        m_sequence_editor = NULL;
+        m_current_editor->deleteLater();
+        m_current_editor = NULL;
     }
+}
+
+void ShowManager::showRightEditor(Chaser *chaser)
+{
+    hideRightEditor();
 
     if (chaser == NULL)
         return;
 
     if (this->isVisible())
     {
-        m_sequence_editor = new ChaserEditor(m_vsplitter->widget(1), chaser, m_doc);
-        if (m_sequence_editor != NULL)
+        m_current_editor = new ChaserEditor(m_vsplitter->widget(1), chaser, m_doc);
+        if (m_current_editor != NULL)
         {
-            m_vsplitter->widget(1)->layout()->addWidget(m_sequence_editor);
+            m_vsplitter->widget(1)->layout()->addWidget(m_current_editor);
             /** Signal from chaser editor to scene editor. When a step is clicked apply values immediately */
-            connect(m_sequence_editor, SIGNAL(applyValues(QList<SceneValue>&)),
+            connect(m_current_editor, SIGNAL(applyValues(QList<SceneValue>&)),
                     m_scene_editor, SLOT(slotSetSceneValues(QList <SceneValue>&)));
             /** Signal from scene editor to chaser editor. When a fixture value is changed, update the selected chaser step */
             connect(m_scene_editor, SIGNAL(fixtureValueChanged(SceneValue)),
-                    m_sequence_editor, SLOT(slotUpdateCurrentStep(SceneValue)));
-            connect(m_sequence_editor, SIGNAL(stepSelectionChanged(int)),
+                    m_current_editor, SLOT(slotUpdateCurrentStep(SceneValue)));
+            connect(m_current_editor, SIGNAL(stepSelectionChanged(int)),
                     this, SLOT(slotStepSelectionChanged(int)));
 
             m_vsplitter->widget(1)->show();
-            m_sequence_editor->show();
+            m_current_editor->show();
+        }
+    }
+}
+
+void ShowManager::showRightEditor(Audio *audio)
+{
+    hideRightEditor();
+
+    if (audio == NULL)
+        return;
+
+    if (this->isVisible())
+    {
+        m_current_editor = new AudioEditor(m_vsplitter->widget(1), audio, m_doc);
+        if (m_current_editor != NULL)
+        {
+            m_vsplitter->widget(1)->layout()->addWidget(m_current_editor);
+            m_vsplitter->widget(1)->show();
+            m_current_editor->show();
         }
     }
 }
@@ -486,25 +529,45 @@ void ShowManager::slotAddTrack()
         showSceneEditor(m_scene);
         m_showview->addTrack(newTrack);
 
-        // When adding an existing Scene, create a default 10 seconds Sequence
+        // When adding an existing Scene
         if (ss.getSelectedID() != Scene::invalidId())
         {
-            Function* f = new Chaser(m_doc);
-            if (m_doc->addFunction(f) == true)
+            bool childrenFound = false;
+            // See if the Scene has children Sequences
+            foreach (Function *f, m_doc->functionsByType(Function::Chaser))
             {
-                Chaser *chaser = qobject_cast<Chaser*> (f);
-                chaser->enableSequenceMode(m_scene->id());
-                chaser->setRunOrder(Function::SingleShot);
-                chaser->setDurationMode(Chaser::PerStep);
-                m_scene->setChildrenFlag(true);
-                f->setName(QString("%1 %2").arg(tr("New Sequence")).arg(f->id()));
-                Track *track = m_show->getTrackFromSceneID(m_scene->id());
-                track->addFunctionID(chaser->id());
-                m_showview->addSequence(chaser);
-                ChaserStep step(m_scene->id(), m_scene->fadeInSpeed(), 10000, m_scene->fadeOutSpeed());
-                step.note = QString();
-                step.values.append(m_scene->values());
-                chaser->addStep(step);
+                Chaser *chs = qobject_cast<Chaser*>(f);
+                if (chs->isSequence())
+                {
+                    if (chs->getBoundSceneID() == ss.getSelectedID())
+                    {
+                        newTrack->addFunctionID(chs->id());
+                        m_showview->addSequence(chs);
+                        childrenFound = true;
+                    }
+                }
+            }
+
+            // If an existing Scene does not have sequunce children,
+            // then create a default 10 seconds Sequence
+            if (childrenFound == false)
+            {
+                Function* f = new Chaser(m_doc);
+                if (m_doc->addFunction(f) == true)
+                {
+                    Chaser *chaser = qobject_cast<Chaser*> (f);
+                    chaser->enableSequenceMode(m_scene->id());
+                    chaser->setRunOrder(Function::SingleShot);
+                    chaser->setDurationMode(Chaser::PerStep);
+                    m_scene->setChildrenFlag(true);
+                    f->setName(QString("%1 %2").arg(tr("New Sequence")).arg(f->id()));
+                    newTrack->addFunctionID(chaser->id());
+                    m_showview->addSequence(chaser);
+                    ChaserStep step(m_scene->id(), m_scene->fadeInSpeed(), 10000, m_scene->fadeOutSpeed());
+                    step.note = QString();
+                    step.values.append(m_scene->values());
+                    chaser->addStep(step);
+                }
             }
         }
 
@@ -534,7 +597,7 @@ void ShowManager::slotAddSequence()
         chaser->setRunOrder(Function::SingleShot);
         m_scene->setChildrenFlag(true);
         f->setName(QString("%1 %2").arg(tr("New Sequence")).arg(f->id()));
-        showSequenceEditor(chaser);
+        showRightEditor(chaser);
         Track *track = m_show->getTrackFromSceneID(m_scene->id());
         track->addFunctionID(chaser->id());
         m_showview->addSequence(chaser);
@@ -574,7 +637,7 @@ void ShowManager::slotAddAudio()
     QStringList filters;
     qDebug() << Q_FUNC_INFO << "Extensions: " << extList.join(" ");
     filters << tr("Audio Files (%1)").arg(extList.join(" "));
-#ifdef WIN32
+#if defined(WIN32) || defined(Q_OS_WIN)
     filters << tr("All Files (*.*)");
 #else
     filters << tr("All Files (*)");
@@ -757,7 +820,10 @@ void ShowManager::slotDelete()
         {
             Track *currTrack = m_show->getTrackFromSceneID(m_scene->id());
             if (currTrack != NULL)
+            {
                 currTrack->removeFunctionID(deleteID);
+                hideRightEditor();
+            }
         }
         else
         {
@@ -820,7 +886,7 @@ void ShowManager::slotViewClicked(QMouseEvent *event)
 {
     Q_UNUSED(event)
     //qDebug() << Q_FUNC_INFO << "View clicked at pos: " << event->pos().x() << event->pos().y();
-    showSequenceEditor(NULL);
+    hideRightEditor();
     m_colorAction->setEnabled(false);
     if (m_show != NULL && m_show->getTracksCount() == 0)
         m_deleteAction->setEnabled(false);
@@ -845,7 +911,7 @@ void ShowManager::slotSequenceMoved(SequenceItem *item)
         Track *track = m_show->getTrackFromSceneID(newSceneID);
         m_showview->activateTrack(track);
     }
-    showSequenceEditor(chaser);
+    showRightEditor(chaser);
     m_copyAction->setEnabled(true);
     m_deleteAction->setEnabled(true);
     m_colorAction->setEnabled(true);
@@ -875,7 +941,7 @@ void ShowManager::slotAudioMoved(AudioItem *item)
         }
     }
 
-    showSequenceEditor(NULL);
+    showRightEditor(audio);
     m_copyAction->setEnabled(true);
     m_deleteAction->setEnabled(true);
     m_colorAction->setEnabled(true);
@@ -985,11 +1051,11 @@ void ShowManager::slotDocClearing()
     if (m_showview != NULL)
         m_showview->resetView();
 
-    if (m_sequence_editor != NULL)
+    if (m_current_editor != NULL)
     {
-        m_vsplitter->widget(1)->layout()->removeWidget(m_sequence_editor);
-        m_sequence_editor->deleteLater();
-        m_sequence_editor = NULL;
+        m_vsplitter->widget(1)->layout()->removeWidget(m_current_editor);
+        m_current_editor->deleteLater();
+        m_current_editor = NULL;
     }
     m_vsplitter->widget(1)->hide();
 
@@ -1220,12 +1286,12 @@ void ShowManager::hideEvent(QHideEvent* ev)
     emit functionManagerActive(false);
     QWidget::hideEvent(ev);
     
-    if (m_sequence_editor != NULL)
+    if (m_current_editor != NULL)
     {
-        m_vsplitter->widget(1)->layout()->removeWidget(m_sequence_editor);
+        m_vsplitter->widget(1)->layout()->removeWidget(m_current_editor);
         m_vsplitter->widget(1)->hide();
-        m_sequence_editor->deleteLater();
-        m_sequence_editor = NULL;
+        m_current_editor->deleteLater();
+        m_current_editor = NULL;
     }
 
     if (m_scene_editor != NULL)

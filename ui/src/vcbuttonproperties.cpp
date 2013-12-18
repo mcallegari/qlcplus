@@ -4,19 +4,17 @@
 
   Copyright (c) Heikki Junnila
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QIntValidator>
@@ -84,8 +82,8 @@ VCButtonProperties::VCButtonProperties(VCButton* button, Doc* doc)
 
     /* Intensity adjustment */
     m_intensityEdit->setValidator(new QIntValidator(0, 100, this));
-    m_intensityGroup->setChecked(m_button->adjustIntensity());
-    int intensity = int(floor(m_button->intensityAdjustment() * double(100)));
+    m_intensityGroup->setChecked(m_button->isStartupIntensityEnabled());
+    int intensity = int(floor(m_button->startupIntensity() * double(100)));
     m_intensityEdit->setText(QString::number(intensity));
     m_intensitySlider->setValue(intensity);
 
@@ -136,7 +134,9 @@ void VCButtonProperties::slotSetFunction(quint32 fid)
     else
     {
         m_functionEdit->setText(func->name());
-        m_nameEdit->setText(func->name());
+        if (m_nameEdit->text().simplified().contains(QString::number(m_button->id())))
+            m_nameEdit->setText(func->name());
+
         foreach(Attribute attr, func->attributes())
         {
             QListWidgetItem *item = new QListWidgetItem(attr.name);
@@ -239,8 +239,8 @@ void VCButtonProperties::accept()
     m_button->setFunction(m_function);
     m_button->setKeySequence(m_keySequence);
     m_button->setInputSource(m_inputSource);
-    m_button->setAdjustIntensity(m_intensityGroup->isChecked());
-    m_button->setIntensityAdjustment(double(m_intensitySlider->value()) / double(100));
+    m_button->enableStartupIntensity(m_intensityGroup->isChecked());
+    m_button->enableStartupIntensity(double(m_intensitySlider->value()) / double(100));
 
     if (m_toggle->isChecked() == true)
         m_button->setAction(VCButton::Toggle);

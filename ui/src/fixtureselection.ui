@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>453</width>
+    <width>600</width>
     <height>345</height>
    </rect>
   </property>
@@ -37,6 +37,11 @@
      <column>
       <property name="text">
        <string>Name</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Universe</string>
       </property>
      </column>
      <column>
