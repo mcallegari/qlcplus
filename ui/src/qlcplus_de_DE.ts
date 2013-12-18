@@ -386,7 +386,7 @@
         <location filename="addresstool.ui" line="35"/>
         <source>Colour</source>
         <oldsource>Color</oldsource>
-        <translation type="unfinished">Farbe</translation>
+        <translation>Farbe</translation>
     </message>
     <message>
         <location filename="addresstool.ui" line="51"/>
@@ -829,12 +829,12 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="audioeditor.ui" line="165"/>
         <source>Fade in:</source>
-        <translation type="unfinished"></translation>
+        <translation>Einblenden:</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="189"/>
         <source>Fade out:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausblenden:</translation>
     </message>
 </context>
 <context>
@@ -937,7 +937,7 @@ Dauer: %3
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="70"/>
         <source>Divisor</source>
-        <translation type="unfinished"></translation>
+        <translation>Divisor</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="113"/>
@@ -1790,7 +1790,7 @@ Dauer: %3
     <message>
         <location filename="efxeditor.ui" line="531"/>
         <source>Relative</source>
-        <translation type="unfinished"></translation>
+        <translation>Relativ</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="541"/>
@@ -2168,7 +2168,7 @@ Dauer: %3
     <message>
         <location filename="fixtureremap.ui" line="69"/>
         <source>Clone and auto-remap the selected source fixture</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewähltes Gerät klonen und ausgewähltes Quellgerät neu zuordnen</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="93"/>
@@ -2240,12 +2240,12 @@ Dauer: %3
     <message>
         <location filename="fixtureremap.cpp" line="325"/>
         <source>Invalid operation</source>
-        <translation type="unfinished"></translation>
+        <translation>Ungültiger Vorgang</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="326"/>
         <source>You are trying to clone a fixture on an address already in use. Please fix the target list first.</source>
-        <translation type="unfinished"></translation>
+        <translation>Geräteadresse für das Klonen bereits belegt. Bitte die Zielliste korrigieren.</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="387"/>
@@ -2293,7 +2293,7 @@ Dauer: %3
     <message>
         <location filename="fixtureselection.ui" line="44"/>
         <source>Universe</source>
-        <translation type="unfinished">Universum</translation>
+        <translation>Universum</translation>
     </message>
     <message>
         <location filename="fixtureselection.ui" line="49"/>
@@ -2405,7 +2405,7 @@ Dauer: %3
     <message>
         <location filename="functionmanager.cpp" line="279"/>
         <source>New fo&amp;lder</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuer Ordner</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="285"/>
@@ -2476,7 +2476,7 @@ Dauer: %3
         <location filename="functionmanager.cpp" line="540"/>
         <source>Do you want to DELETE folder:</source>
         <oldsource>Do you want to DELETE foler:</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Soll der Ordner GELÖSCHT werden:</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="542"/>
@@ -2486,7 +2486,7 @@ Dauer: %3
     <message>
         <location filename="functionmanager.cpp" line="554"/>
         <source>(This will also DELETE: </source>
-        <translation type="unfinished"></translation>
+        <translation>(Ebenfalls GELÖSCHT wird:</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="566"/>
@@ -2514,12 +2514,12 @@ Dauer: %3
     <message>
         <location filename="functionselection.ui" line="22"/>
         <source>All functions</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle Funktionen</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="32"/>
         <source>Running functions</source>
-        <translation type="unfinished"></translation>
+        <translation>Laufende Funktionen</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="57"/>
@@ -2560,13 +2560,13 @@ Dauer: %3
         <location filename="functionselection.ui" line="106"/>
         <source>Display RGB Matrices in the list</source>
         <oldsource>Display RGB Matrixes in the list</oldsource>
-        <translation type="unfinished">RGB Matrixen in der Liste anzeigen</translation>
+        <translation>RGB Matrixen in der Liste anzeigen</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="109"/>
         <source>RGB matrices</source>
         <oldsource>RGB matrixes</oldsource>
-        <translation type="unfinished">RGB Matrixen</translation>
+        <translation>RGB Matrixen</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="116"/>
@@ -2619,22 +2619,22 @@ Dauer: %3
     <message>
         <location filename="functionwizard.ui" line="38"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Nächste</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="52"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="66"/>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="86"/>
         <source>Introduction</source>
-        <translation type="unfinished"></translation>
+        <translation>Einleitung</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="95"/>
@@ -2651,7 +2651,19 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3- add widgets to the Virtual Console&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;To move from a step to another press the &amp;quot;Next&amp;quot; button&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Wilkommen beim QLC+ Assistenten !&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Diese geführte Einleitung hilft beim Start von QLC+ in ein paar Minuten.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Sie besteht aus 3 einachen Schritten:&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1- Geräte hinzufügen&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2- Auswahl der Möglichkeiten zur Funktionserstellung&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3- Hinzufügen von Assistenten zur Virtuellen Konsole&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Von Schritt zu Schritt die &amp;quot;Nächste&amp;quot; Taste verwenden&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="188"/>
@@ -2665,27 +2677,31 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Add the fixtures for which you want to create functions and widgets&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Hinzufügen der Geräte für die Erstellung von Funktionen und Assistenten&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="247"/>
         <source>Functions</source>
-        <translation type="unfinished">Funktionen</translation>
+        <translation>Funktionen</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="254"/>
         <source>Results</source>
-        <translation type="unfinished"></translation>
+        <translation>Ergebnisse</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="263"/>
         <source>Available</source>
-        <translation type="unfinished"></translation>
+        <translation>Verfügbar</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="268"/>
         <source>Odd/Even</source>
-        <translation type="unfinished"></translation>
+        <translation>Ungerade/Gerade</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="288"/>
@@ -2694,12 +2710,16 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Based on the fixtures you added, I can create the functions listed on the left. Just select what you need and see the results on the right !&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Basierend auf den hinzugefügten Geräten, kann ich die links gelisteten Funktionen erstellen. Benötigte  auswählen, Anzeige erfolgt auf der rechten Seite !&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="300"/>
         <source>Virtual Console</source>
-        <translation type="unfinished">Virtuelle Konsole</translation>
+        <translation>Virtuelle Konsole</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="318"/>
@@ -2708,12 +2728,16 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Based on the functions you selected, I can create the following widgets on your Virtual Console. Just check which ones you need.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Basierend auf den ausgewählten Funktionen können folgende Assistenten zur virtuellen Konsole hinzugefügt werden. Bitte die benötigten Assistenten auswählen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="330"/>
         <source>Widgets</source>
-        <translation type="unfinished">Assistenten</translation>
+        <translation>Assistenten</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="129"/>
@@ -2749,7 +2773,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="functionwizard.cpp" line="175"/>
         <source>%1 group</source>
-        <translation type="unfinished"></translation>
+        <translation>%1-Gruppe</translation>
     </message>
     <message>
         <location filename="functionwizard.cpp" line="192"/>
@@ -2764,17 +2788,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="functionwizard.cpp" line="466"/>
         <source>Presets solo frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Voreinstellungen Einzelrahmen</translation>
     </message>
     <message>
         <location filename="functionwizard.cpp" line="519"/>
         <source>Click &amp; Go RGB</source>
-        <translation type="unfinished"></translation>
+        <translation>Click &amp; Go RGB</translation>
     </message>
     <message>
         <location filename="functionwizard.cpp" line="523"/>
         <source>Click &amp; Go Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Click &amp; Go Makro</translation>
     </message>
 </context>
 <context>
@@ -3002,7 +3026,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="813"/>
         <source>Default device</source>
-        <translation type="unfinished"></translation>
+        <translation>Standardgerät</translation>
     </message>
 </context>
 <context>
@@ -3265,210 +3289,210 @@ Dauer: %3
         <location filename="palettegenerator.cpp" line="98"/>
         <source>Primary colours</source>
         <oldsource>Primary colors</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Primärfarben</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="99"/>
         <source>16 Colours</source>
         <oldsource>16 Colors</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>16 Farben</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="100"/>
         <source>Shutter macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Shutter-Makros</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="101"/>
         <source>Gobo macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Gobo-Makros</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="102"/>
         <source>Colour macros</source>
         <oldsource>Color macros</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Farb-Makros</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="103"/>
         <source>Animations</source>
-        <translation type="unfinished"></translation>
+        <translation>Animationen</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="106"/>
         <source>Unknown</source>
-        <translation type="unfinished">Unbekannt</translation>
+        <translation>Unbekannt</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="255"/>
         <source>%1 - %2 (Even)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 - %2 (Gerade)</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="256"/>
         <source>%1 - %2 (Odd)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 - %2 (Ungerade)</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="280"/>
         <source>Black</source>
-        <translation type="unfinished"></translation>
+        <translation>Schwarz</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="280"/>
         <source>Dark Blue</source>
-        <translation type="unfinished"></translation>
+        <translation>Dunkelblau</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="280"/>
         <source>Blue</source>
-        <translation type="unfinished"></translation>
+        <translation>Blau</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="280"/>
         <source>Dark Green</source>
-        <translation type="unfinished"></translation>
+        <translation>Dunkelgrün</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="281"/>
         <source>Dark Cyan</source>
-        <translation type="unfinished"></translation>
+        <translation>Dunkelblaugrün</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="281"/>
         <source>Green</source>
-        <translation type="unfinished"></translation>
+        <translation>Grün</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="281"/>
         <source>Cyan</source>
-        <translation type="unfinished"></translation>
+        <translation>Blaugrün</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="281"/>
         <source>Dark Red</source>
-        <translation type="unfinished"></translation>
+        <translation>Dunkelrot</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="282"/>
         <source>Dark Magenta</source>
-        <translation type="unfinished"></translation>
+        <translation>Dunkelpink</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="282"/>
         <source>Dark Yellow</source>
-        <translation type="unfinished"></translation>
+        <translation>Dunkelgelb</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="282"/>
         <source>Dark Gray</source>
-        <translation type="unfinished"></translation>
+        <translation>Dunkelgrau</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="282"/>
         <source>Light Gray</source>
-        <translation type="unfinished"></translation>
+        <translation>Hellgrau</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="283"/>
         <source>Red</source>
-        <translation type="unfinished"></translation>
+        <translation>Rot</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="283"/>
         <source>Magenta</source>
-        <translation type="unfinished"></translation>
+        <translation>Pink</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="283"/>
         <source>Yellow</source>
-        <translation type="unfinished"></translation>
+        <translation>Gelb</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="283"/>
         <source>White</source>
-        <translation type="unfinished"></translation>
+        <translation>Weiß</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="335"/>
         <source>%1 %2 - %3</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %2 - %3</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="339"/>
         <source>%1 %2 - %3 (Even)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %2 - %3 (Gerade)</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="340"/>
         <source>%1 %2 - %3 (Odd)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %2 - %3 (Ungerade)</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="402"/>
         <source> - Even</source>
-        <translation type="unfinished"></translation>
+        <translation> - Gerade</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="403"/>
         <source> - Odd</source>
-        <translation type="unfinished"></translation>
+        <translation> - Ungerade</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="420"/>
         <source> - RGB Group</source>
-        <translation type="unfinished"></translation>
+        <translation> - RGB Gruppe</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="426"/>
         <source>Animation %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Animation %1</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="445"/>
         <source>%1 chaser - %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 chaser - %2</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="517"/>
         <source>Red scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Rote Szene</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="518"/>
         <source>Green scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Grüne Szene</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="519"/>
         <source>Blue scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Blaue Szene</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="520"/>
         <source>Cyan scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Blaugrüne Szene</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="521"/>
         <source>Magenta scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Pinke Szene</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="522"/>
         <source>Yellow scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Gelbe Szene</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="523"/>
         <source>White scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Weiße Szene</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="530"/>
         <location filename="palettegenerator.cpp" line="532"/>
         <source>Scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Szene</translation>
     </message>
 </context>
 <context>
@@ -3523,7 +3547,7 @@ Dauer: %3
     <message>
         <location filename="rgbmatrixeditor.ui" line="398"/>
         <source>Save this matrix to a sequence</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese Matrix als Sequenz speichern</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="424"/>
@@ -3574,7 +3598,7 @@ Dauer: %3
     <message>
         <location filename="rgbmatrixeditor.ui" line="122"/>
         <source>Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Bild</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="161"/>
@@ -3644,13 +3668,13 @@ Dauer: %3
     <message>
         <location filename="rgbmatrixeditor.ui" line="41"/>
         <source>Matrix start colour</source>
-        <translation type="unfinished"></translation>
+        <translation>Matrix-Startfarbe</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="54"/>
         <source>Matrix end colour</source>
         <oldsource>Matrix end color</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Matrix-Endfarbe</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="243"/>
@@ -3675,7 +3699,7 @@ Dauer: %3
     <message>
         <location filename="rgbmatrixeditor.ui" line="378"/>
         <source>Show/Hide speed dial window</source>
-        <translation type="unfinished">Anzeigen/Ausblenden des Schnellwahlfensters</translation>
+        <translation>Anzeigen/Ausblenden des Schnellwahlfensters</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="333"/>
@@ -3700,7 +3724,7 @@ Dauer: %3
     <message>
         <location filename="rgbmatrixeditor.cpp" line="589"/>
         <source>Select image</source>
-        <translation type="unfinished"></translation>
+        <translation>Bildauswahl</translation>
     </message>
 </context>
 <context>
@@ -3743,7 +3767,7 @@ Dauer: %3
         <location filename="sceneeditor.ui" line="152"/>
         <source>Fixtures used in this scene</source>
         <oldsource>Name of this scene</oldsource>
-        <translation type="unfinished">Name dieser Szene</translation>
+        <translation>Name dieser Szene</translation>
     </message>
     <message>
         <location filename="sceneeditor.ui" line="87"/>
@@ -3833,7 +3857,7 @@ Dauer: %3
     <message>
         <location filename="sceneeditor.cpp" line="220"/>
         <source>Scene name:</source>
-        <translation type="unfinished">Szenenname:</translation>
+        <translation>Szenenname:</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="690"/>
@@ -4408,12 +4432,12 @@ Dauer: %3
     <message>
         <location filename="vcaudiotriggers.cpp" line="149"/>
         <source>Audio open error</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehle beim Öffnen von Audio</translation>
     </message>
     <message>
         <location filename="vcaudiotriggers.cpp" line="150"/>
         <source>An error occurred while initializing the selected audio device. Please review your audio input settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bein Initialisieren des ausgewählten Audiogerätes ist ein Fehler aufgetreten. Bitte Audioeingangseinstellungen prüfen.</translation>
     </message>
 </context>
 <context>
@@ -4632,42 +4656,42 @@ Dauer: %3
     <message>
         <location filename="vcclockproperties.ui" line="14"/>
         <source>Clock properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Uhr-Eigenschaften</translation>
     </message>
     <message>
         <location filename="vcclockproperties.ui" line="24"/>
         <source>Clock type</source>
-        <translation type="unfinished"></translation>
+        <translation>Uhr-Typ</translation>
     </message>
     <message>
         <location filename="vcclockproperties.ui" line="30"/>
         <source>Stopwatch</source>
-        <translation type="unfinished"></translation>
+        <translation>Stopuhr</translation>
     </message>
     <message>
         <location filename="vcclockproperties.ui" line="37"/>
         <source>h</source>
-        <translation type="unfinished"></translation>
+        <translation>h</translation>
     </message>
     <message>
         <location filename="vcclockproperties.ui" line="47"/>
         <source>Countdown</source>
-        <translation type="unfinished"></translation>
+        <translation>Countdown</translation>
     </message>
     <message>
         <location filename="vcclockproperties.ui" line="54"/>
         <source>m</source>
-        <translation type="unfinished"></translation>
+        <translation>m</translation>
     </message>
     <message>
         <location filename="vcclockproperties.ui" line="64"/>
         <source>s</source>
-        <translation type="unfinished">s</translation>
+        <translation>s</translation>
     </message>
     <message>
         <location filename="vcclockproperties.ui" line="74"/>
         <source>Clock</source>
-        <translation type="unfinished"></translation>
+        <translation>Uhr</translation>
     </message>
 </context>
 <context>
@@ -5710,22 +5734,22 @@ Dauer: %3
     <message>
         <location filename="vcsliderproperties.ui" line="574"/>
         <source>Submaster</source>
-        <translation type="unfinished"></translation>
+        <translation>Submaster</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="580"/>
         <source>Slider submaster mode is active</source>
-        <translation type="unfinished"></translation>
+        <translation>Submaster Schieberegler Modus aktiv</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="603"/>
         <source>Make the slider act as a submaster</source>
-        <translation type="unfinished"></translation>
+        <translation>Schieberegler als Submasterfunktion festlegen</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="606"/>
         <source>Switch to Submaster Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>In den Submastermodus wechseln</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.cpp" line="679"/>
@@ -6266,7 +6290,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole.cpp" line="332"/>
         <source>New Clock</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Uhr</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="353"/>
@@ -6341,7 +6365,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole.cpp" line="856"/>
         <source>Knob %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Knopf %1</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="1112"/>
