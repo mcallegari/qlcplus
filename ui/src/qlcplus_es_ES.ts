@@ -4656,42 +4656,42 @@ Duración: %3
     <message>
         <location filename="vcclockproperties.ui" line="14"/>
         <source>Clock properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Propiedades del reloj</translation>
     </message>
     <message>
         <location filename="vcclockproperties.ui" line="24"/>
         <source>Clock type</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo de reloj</translation>
     </message>
     <message>
         <location filename="vcclockproperties.ui" line="30"/>
         <source>Stopwatch</source>
-        <translation type="unfinished"></translation>
+        <translation>Cronómetro</translation>
     </message>
     <message>
         <location filename="vcclockproperties.ui" line="37"/>
         <source>h</source>
-        <translation type="unfinished"></translation>
+        <translation>h</translation>
     </message>
     <message>
         <location filename="vcclockproperties.ui" line="47"/>
         <source>Countdown</source>
-        <translation type="unfinished"></translation>
+        <translation>Cuenta atrás</translation>
     </message>
     <message>
         <location filename="vcclockproperties.ui" line="54"/>
         <source>m</source>
-        <translation type="unfinished"></translation>
+        <translation>m</translation>
     </message>
     <message>
         <location filename="vcclockproperties.ui" line="64"/>
         <source>s</source>
-        <translation type="unfinished">s</translation>
+        <translation>s</translation>
     </message>
     <message>
         <location filename="vcclockproperties.ui" line="74"/>
         <source>Clock</source>
-        <translation type="unfinished"></translation>
+        <translation>Reloj</translation>
     </message>
 </context>
 <context>
