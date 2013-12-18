@@ -6,12 +6,12 @@
     <message>
         <location filename="webaccess.cpp" line="174"/>
         <source>Loading project...</source>
-        <translation type="unfinished"></translation>
+        <translation>Cargando proyecto...</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="203"/>
         <source>Fixture stored and loaded</source>
-        <translation type="unfinished"></translation>
+        <translation>Fixture guardado y cargado</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="377"/>
@@ -41,7 +41,7 @@
     <message>
         <location filename="webaccess.cpp" line="826"/>
         <source>Load fixture</source>
-        <translation type="unfinished"></translation>
+        <translation>Cargar fixture</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="863"/>
