@@ -6,52 +6,52 @@
     <message>
         <location filename="webaccess.cpp" line="174"/>
         <source>Loading project...</source>
-        <translation type="unfinished"></translation>
+        <translation>Lade Projekt...</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="203"/>
         <source>Fixture stored and loaded</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerät gespeichert und geladen</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="377"/>
         <source>Widget not supported (yet) for web access</source>
-        <translation type="unfinished"></translation>
+        <translation>Assistent wird (zur Zeit) für Webzugriff nicht unterstützt</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="577"/>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivieren</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="771"/>
         <source>Load project</source>
-        <translation type="unfinished"></translation>
+        <translation>Lade Projekt</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="773"/>
         <source>Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Einstellungen</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="824"/>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Zurück</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="826"/>
         <source>Load fixture</source>
-        <translation type="unfinished"></translation>
+        <translation>Lade Gerät</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="863"/>
         <source>Universes configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Universen-Einstellungen</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="938"/>
         <source>Audio configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio-Einstellungen</translation>
     </message>
 </context>
 </TS>

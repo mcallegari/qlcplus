@@ -16,7 +16,7 @@
     <message>
         <location filename="../ui/src/aboutbox.ui" line="116"/>
         <source>This application is licensed under the terms of the Apache 2.0 license.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieses Programm ist unter Apache 2.0 Bedingungen lizensiert</translation>
     </message>
     <message>
         <location filename="../ui/src/aboutbox.cpp" line="41"/>
