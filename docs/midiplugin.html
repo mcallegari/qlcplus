@@ -25,15 +25,15 @@ shows (metronome controlled gigs using an audio sequencer)
 <P>
 When you click on the configuration button a window will appear, showing all the MIDI input and output lines
 detected.<br>
-Each line has two options that can be changed depending on your needs:
+Each line has three options that can be changed depending on your needs:
 <ul>
  <li><b>MIDI Channel</b>: This is the channel where QLC+ will receive or send data through the MIDI system. MIDI channels can go
      from 1 to 16. The special "1-16" channel will tell QLC+ to receive or send data on any MIDI channel.
  </li>
- <li><b>Mode</b>: This is the MIDI mode that QLC+ will use to receive/send data through the MIDI system. 
-     This parameter can assume two possible values:
+ <li><b>Mode</b>: This is the MIDI mode that QLC+ will use to send data through the MIDI system. 
+     This parameter can assume three possible values:
      <ul>
-      <li><b>Note velocity</b>: in this mode, QLC+ will receive/send data using MIDI notes velocity. MIDI notes can go from 21 (A0) to 108 (C8) and 
+      <li><b>Note velocity</b>: in this mode, QLC+ will send data using MIDI notes velocity. MIDI notes can go from 21 (A0) to 108 (C8) and 
           each note can have a velocity going from 0 to 127, which will be doubled inside QLC+ to match the DMX range (0-255).
       </li>
       <li><b>Control Change</b>: this is one of the MIDI protocol messages (like Program Change) frequently used by MIDI controllers.
@@ -45,6 +45,10 @@ Each line has two options that can be changed depending on your needs:
       from 0 to 127 and can have values from 0 to 127, which will be doubled inside QLC+ to match the DMX range (0-255).
       </li>
      </ul>
+ </li>
+ <li><b>Initialization message</b>: This is a list of presets (templates) containing the intialization message 
+        that QLC+ will send when opening a MIDI device before using it. A detailed explanation of this functionality
+        is written below.
  </li>
 </ul>
 </P>
@@ -93,61 +97,85 @@ In a similar way you can catch the beat signal as well. Just disable the auto-de
 beat controller (invert steps 3 and 4).
 </P>
 
-<H1>Channel list</H1>
+<H1>MIDI initialization message</H1>
+<P>
+There might be cases where your MIDI device needs some commands to turn into a specific operating mode<br>
+The MIDI protocol can handle this through SysEx. These are particular messages to instruct a MIDI device how to behave.<br>
+QLC+ can use a XML template to achieve this that can be selected in the MIDI configuration panel.<br>
+Here's an example of how a template looks like:<br>
+<PRE>
+&lt;!DOCTYPE MidiTemplate&gt;
+&lt;MidiTemplate&gt;
+ &lt;Creator&gt;
+  &lt;Author&gt;Your name&lt;/Author&gt;
+ &lt;/Creator&gt;
+ &lt;Description&gt;A brief description of that the template does.&lt;/Description&gt;
+ &lt;Name&gt;Template name to be displayed by QLC+&lt;/Name&gt;
+ &lt;InitMessage&gt;F0 47 00 7B 60 00 04 41 09 00 05 F7&lt;/InitMessage&gt;
+&lt;/MidiTemplate&gt;
+</PRE>
 
-<P>These are channels numbers to use in <a href="file:howto-input-profiles.html">Input Profile editor</a></P>:
+You can create the ones you need and place them in your MidiTemplates folder.<br>
+You are welcome to submit them in the QLC+ forum.
+</P>
+
+<H1>QLC+ Channels map</H1>
+
+<P>To handle a mix of various MIDI messages (Notes, PC, CC, etc..), QLC+ remaps them into a sequential order.<br>
+Following, the channel numbers to be used in the <a href="file:howto-input-profiles.html">Input Profile editor</a>:
+</P>
 
 <table>
 <tr>
 <th>Channel</th><th>MIDI message</th>
 </tr>
 <tr>
-<td>0</td><td>Control Change 0</td>
+<td>1</td><td>Control Change 1</td>
 <tr>
 <td>...</td><td>...</td>
 </tr>
 <tr>
-<td>127</td><td>Control Change 127</td>
+<td>128</td><td>Control Change 128</td>
 </tr>
 <tr>
-<td>128</td><td>NOTE ON/NOTE OFF 0</td>
-</tr>
-<tr>
-<td>...</td><td>...</td>
-</tr>
-<tr>
-<td>255</td><td>NOTE ON/NOTE OFF 127</td>
-</tr>
-<tr>
-<td>256</td><td>NOTE AFTERTOUCH 0</td>
+<td>129</td><td>NOTE ON/NOTE OFF 1</td>
 </tr>
 <tr>
 <td>...</td><td>...</td>
 </tr>
 <tr>
-<td>383</td><td>NOTE AFTERTOUCH 127</td>
+<td>256</td><td>NOTE ON/NOTE OFF 128</td>
 </tr>
 <tr>
-<td>384</td><td>Program Change 0</td>
+<td>257</td><td>NOTE AFTERTOUCH 1</td>
 </tr>
 <tr>
 <td>...</td><td>...</td>
 </tr>
 <tr>
-<td>511</td><td>Program Change 127</td>
+<td>384</td><td>NOTE AFTERTOUCH 128</td>
 </tr>
 <tr>
-<td>512</td><td>Channel Aftertouch</td>
+<td>385</td><td>Program Change 1</td>
 </tr>
 <tr>
-<td>513</td><td>Pitch Wheel</td>
+<td>...</td><td>...</td>
+</tr>
+<tr>
+<td>512</td><td>Program Change 128</td>
+</tr>
+<tr>
+<td>513</td><td>Channel Aftertouch</td>
+</tr>
+<tr>
+<td>514</td><td>Pitch Wheel</td>
 </tr>
 
 <tr>
-<td>529</td><td>MIDI Beat Clock: Start/Stop/Continue</td>
+<td>530</td><td>MIDI Beat Clock: Start/Stop/Continue</td>
 </tr>
 <tr>
-<td>530</td><td>MIDI Beat Clock: Beat</td>
+<td>531</td><td>MIDI Beat Clock: Beat</td>
 </tr>
 </table>
 
