@@ -44,6 +44,7 @@ VCXYPadArea::VCXYPadArea(QWidget* parent)
     setFrameStyle(KVCFrameStyleSunken);
     setWindowTitle("XY Pad");
     setMode(Doc::Design);
+    setFocusPolicy(Qt::ClickFocus);
 }
 
 VCXYPadArea::~VCXYPadArea()
@@ -84,6 +85,19 @@ void VCXYPadArea::setPosition(const QPoint& point)
     m_mutex.unlock();
 
     emit positionChanged(point);
+}
+
+void VCXYPadArea::nudgePosition(int dx, int dy)
+{
+    m_mutex.lock();
+    m_pos.setX(CLAMP(m_pos.x() + dx, 0, width()));
+    m_pos.setY(CLAMP(m_pos.y() + dy, 0, height()));
+
+    m_changed = true;
+
+    m_mutex.unlock();
+
+    emit positionChanged(m_pos);
 }
 
 bool VCXYPadArea::hasPositionChanged()
@@ -209,5 +223,44 @@ void VCXYPadArea::mouseMoveEvent(QMouseEvent* e)
     }
 
     QFrame::mouseMoveEvent(e);
+}
+
+void VCXYPadArea::keyPressEvent(QKeyEvent *e)
+{
+    if (m_mode == Doc::Operate)
+    {
+        if (e->key() == Qt::Key_Left)
+        {
+            nudgePosition(-1, 0);
+            update();
+        }
+        else if (e->key() == Qt::Key_Right)
+        {
+            nudgePosition(1, 0);
+            update();
+        }
+        else if (e->key() == Qt::Key_Up)
+        {
+            nudgePosition(0, -1);
+            update();
+        }
+        else if (e->key() == Qt::Key_Down)
+        {
+            nudgePosition(0, 1);
+            update();
+        }
+        else
+        {
+            QFrame::keyPressEvent(e);
+        }
+    }
+
+    else QFrame::keyPressEvent(e);
+}
+
+
+void VCXYPadArea::keyReleaseEvent (QKeyEvent * e)
+{
+    QFrame::keyReleaseEvent(e);
 }
 
