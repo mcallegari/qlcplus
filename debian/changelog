@@ -30,7 +30,7 @@ qlcplus (4.6.0) stable; urgency=low
   * Added fixture: American DJ Inno Color Beam LED (thanks to Louis Gutenschwafe)
   * Added fixtures: American DJ/Elation Event Bar LED, American DJ Micro Wash RGBW (thanks to George Qualley)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Fri, 20 December 2013 12:13:04 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Thu, 19 December 2013 12:13:04 +0200
 
 qlcplus (4.5.1) stable; urgency=low
 
