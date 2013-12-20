@@ -178,6 +178,7 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
         btn->setProperty("index", idx);
         m_tree->setItemWidget(item, KColumnAssign, btn);
         connect(btn, SIGNAL(clicked()), this, SLOT(slotWidgetSelectionClicked()));
+        bar->checkWidgetFunctionality();
         if (bar->m_widget != NULL)
         {
             item->setText(KColumnInfo, bar->m_widget->caption());
@@ -340,7 +341,10 @@ void AudioTriggersConfiguration::slotWidgetSelectionClicked()
             return; // User pressed cancel
         AudioBar *bar = m_triggers->getSpectrumBar(prop.toInt());
         if (bar != NULL)
+        {
             bar->attachWidget(ws.getSelectedWidget()->id());
+            bar->checkWidgetFunctionality();
+        }
 
         QTreeWidgetItem *item = NULL;
         if (prop.toInt() == 1000)

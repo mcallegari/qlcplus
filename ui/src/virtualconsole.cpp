@@ -1513,6 +1513,7 @@ void VirtualConsole::setupWidget(VCWidget *widget, VCWidget *parent)
     Q_ASSERT(parent != NULL);
 
     widget->setID(newWidgetId());
+    m_widgetsMap[widget->id()] = widget;
     checkWidgetPage(widget, parent);
     widget->show();
     widget->move(parent->lastClickPoint());
