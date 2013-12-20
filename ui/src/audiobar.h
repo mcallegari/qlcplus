@@ -66,6 +66,9 @@ public:
     void attachFunction(Function *func);
     void attachWidget(quint32 wID);
 
+    /** Get widget, sets m_widget to proper value if necessary */
+    VCWidget * widget();
+
     void checkFunctionThresholds(Doc *doc);
     void checkWidgetFunctionality();
 
@@ -96,13 +99,16 @@ public:
     /** ID of the attchaed VCWidget when m_type == VCWidgetBar */
     quint32 m_widgetID;
 
-    /** Reference to an attached VCWidget when m_type == VCWidgetBar */
-    VCWidget *m_widget;
-
     uchar m_minThreshold, m_maxThreshold;
     int m_divisor;
 
     int m_skippedBeats;
+
+private:
+
+    /** Reference to an attached VCWidget when m_type == VCWidgetBar */
+    VCWidget *m_widget;
+
 };
 
 #endif // AUDIOBAR_H
