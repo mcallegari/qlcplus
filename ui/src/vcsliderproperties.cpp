@@ -857,8 +857,7 @@ void VCSliderProperties::accept()
     if (m_slider->sliderMode() != m_sliderMode)
         m_slider->setSliderMode(VCSlider::SliderMode(m_sliderMode));
 
-    if (m_sliderMode == VCSlider::Level || m_sliderMode == VCSlider::Playback)
-        m_slider->setCaption(m_nameEdit->text());
+    m_slider->setCaption(m_nameEdit->text());
 
     /* Value style */
     if (m_valueExactRadio->isChecked() == true)
