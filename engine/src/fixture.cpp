@@ -171,6 +171,7 @@ quint32 Fixture::universeAddress() const
 void Fixture::setChannels(quint32 channels)
 {
     m_channels = channels;
+    emit changed(m_id);
 }
 
 quint32 Fixture::channels() const
