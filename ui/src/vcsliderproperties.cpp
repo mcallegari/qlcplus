@@ -854,7 +854,9 @@ void VCSliderProperties::accept()
     m_slider->setPlaybackFunction(m_playbackFunctionId);
 
     /* Slider mode */
-    m_slider->setSliderMode(VCSlider::SliderMode(m_sliderMode));
+    if (m_slider->sliderMode() != m_sliderMode)
+        m_slider->setSliderMode(VCSlider::SliderMode(m_sliderMode));
+
     if (m_sliderMode == VCSlider::Level || m_sliderMode == VCSlider::Playback)
         m_slider->setCaption(m_nameEdit->text());
 
