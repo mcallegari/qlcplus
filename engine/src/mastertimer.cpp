@@ -161,6 +161,8 @@ void MasterTimer::fadeAndStopAll(int timeout)
     Doc* doc = qobject_cast<Doc*> (parent());
     Q_ASSERT(doc != NULL);
 
+    QList<FadeChannel> fcList;
+
     UniverseArray* universes = doc->outputMap()->claimUniverses();
     QHashIterator <int,uchar> it(universes->intensityChannels());
     while (it.hasNext() == true)
@@ -179,12 +181,19 @@ void MasterTimer::fadeAndStopAll(int timeout)
                 fc.setStart(it.value());
                 fc.setTarget(0);
                 fc.setFadeTime(timeout);
-                fader()->add(fc);
+                fcList.append(fc);
             }
         }
     }
     doc->outputMap()->releaseUniverses();
-    m_stopAllFunctions = true;
+
+    // Stop all functions first
+    stopAllFunctions();
+
+    // Instruct mastertimer to do a fade out of all
+    // the intensity channels that can fade
+    foreach(FadeChannel fade, fcList)
+        fader()->add(fade);
 }
 
 int MasterTimer::runningFunctions() const
@@ -318,7 +327,7 @@ GenericFader* MasterTimer::fader() const
 void MasterTimer::timerTickFader(UniverseArray* universes)
 {
     QMutexLocker functionLocker(&m_functionListMutex);
-    QMutexLocker dmxLOcker(&m_dmxSourceListMutex);
+    QMutexLocker dmxLocker(&m_dmxSourceListMutex);
 
     fader()->write(universes);
 }

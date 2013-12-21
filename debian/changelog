@@ -1,3 +1,11 @@
+qlcplus (4.6.1) stable; urgency=low
+
+  * VC Audio triggers: fixed divisors behaviour
+  * VC Slider: fixed submaster renaming
+  * Engine: restored timed fade out + stop all functions functionality
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 25 January 2014 12:13:04 +0200
+
 qlcplus (4.6.0) stable; urgency=low
 
   * NEW: Plugins: Added E1.31 protocol input/output plugin
