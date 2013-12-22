@@ -710,7 +710,7 @@ void Function::preRun(MasterTimer* timer)
     emit running(m_id);
 }
 
-void Function::postRun(MasterTimer* timer, UniverseArray* universes)
+void Function::postRun(MasterTimer* timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer);
     Q_UNUSED(universes);

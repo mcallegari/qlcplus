@@ -29,7 +29,6 @@
 #include "vcxypadfixtureeditor_test.h"
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
-#include "universearray.h"
 #include "qlcfile.h"
 #include "doc.h"
 

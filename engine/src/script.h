@@ -25,9 +25,9 @@
 #include <QMap>
 #include "function.h"
 
-class UniverseArray;
 class GenericFader;
 class MasterTimer;
+class Universe;
 class Doc;
 
 class Script : public Function
@@ -97,10 +97,10 @@ public:
     void preRun(MasterTimer* timer);
 
     /** @reimpl */
-    void write(MasterTimer* timer, UniverseArray* universes);
+    void write(MasterTimer* timer, QList<Universe*> universes);
 
     /** @reimpl */
-    void postRun(MasterTimer* timer, UniverseArray* universes);
+    void postRun(MasterTimer* timer, QList<Universe*> universes);
 
 private:
     /**
@@ -112,7 +112,7 @@ private:
      * @return true to continue loop immediately, false to return control back
      *         to MasterTimer.
      */
-    bool executeCommand(int index, MasterTimer* timer, UniverseArray* universes);
+    bool executeCommand(int index, MasterTimer* timer, QList<Universe*> universes);
 
     /**
      * Check, if the script should still wait or if it should proceed to executing
@@ -163,7 +163,7 @@ private:
      * @param universes The universe array to write DMX data
      * @return An empty string if successful. Otherwise an error string.
      */
-    QString handleSetFixture(const QList<QStringList>& tokens, UniverseArray* universes);
+    QString handleSetFixture(const QList<QStringList>& tokens, QList<Universe*> universes);
 
     /**
      * Handle "label" command.

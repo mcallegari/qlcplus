@@ -25,7 +25,7 @@
 
 #include "function.h"
 
-class UniverseArray;
+class Universe;
 class FadeChannel;
 class ChaserStep;
 class Function;
@@ -141,7 +141,7 @@ public:
      * @param universes DMX address space
      * @return true if the chaser should continue, otherwise false
      */
-    bool write(MasterTimer* timer, UniverseArray* universes);
+    bool write(MasterTimer* timer, QList<Universe *> universes);
 
     /**
      * Perform postRun operations. Call this from the parent function's postRun().
@@ -149,7 +149,7 @@ public:
      * @param timer The MasterTimer that runs the show
      * @param universes DMX address space
      */
-    void postRun(MasterTimer* timer, UniverseArray* universes);
+    void postRun(MasterTimer* timer, QList<Universe *> universes);
 
 private:
     /** Ran at each end of m_steps. Returns false only when SingleShot has been

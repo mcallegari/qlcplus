@@ -25,7 +25,6 @@
 
 #include "grandmasterslider.h"
 #include "virtualconsole.h"
-#include "universearray.h"
 #include "vcproperties.h"
 #include "outputmap.h"
 #include "inputmap.h"
@@ -72,8 +71,8 @@ GrandMasterSlider::GrandMasterSlider(QWidget* parent, OutputMap* outputMap, Inpu
     /* Listen to GM value changes */
     connect(m_outputMap, SIGNAL(grandMasterValueChanged(uchar)),
             this, SLOT(slotGrandMasterValueChanged(uchar)));
-    connect(m_outputMap, SIGNAL(grandMasterValueModeChanged(UniverseArray::GMValueMode)),
-            this, SLOT(slotGrandMasterValueModeChanged(UniverseArray::GMValueMode)));
+    connect(m_outputMap, SIGNAL(grandMasterValueModeChanged(GrandMaster::GMValueMode)),
+            this, SLOT(slotGrandMasterValueModeChanged(GrandMaster::GMValueMode)));
 
     /* External input connection */
     connect(m_inputMap, SIGNAL(inputValueChanged(quint32, quint32, uchar)),
@@ -119,10 +118,10 @@ void GrandMasterSlider::updateTooltip()
 
     switch (m_outputMap->grandMasterValueMode())
     {
-        case UniverseArray::GMLimit:
+        case GrandMaster::GMLimit:
             tooltip += tr("Grand Master <B>limits</B> the maximum value of");
             break;
-        case UniverseArray::GMReduce:
+        case GrandMaster::GMReduce:
             tooltip += tr("Grand Master <B>reduces</B> the current value of");
             break;
     }
@@ -131,10 +130,10 @@ void GrandMasterSlider::updateTooltip()
 
     switch (m_outputMap->grandMasterChannelMode())
     {
-        case UniverseArray::GMIntensity:
+        case GrandMaster::GMIntensity:
             tooltip += tr("intensity channels");
             break;
-        case UniverseArray::GMAllChannels:
+        case GrandMaster::GMAllChannels:
             tooltip += tr("all channels");
             break;
     }
@@ -146,7 +145,7 @@ void GrandMasterSlider::updateDisplayValue()
 {
     int value = m_slider->value();
     QString str;
-    if (m_outputMap->grandMasterValueMode() == UniverseArray::GMLimit)
+    if (m_outputMap->grandMasterValueMode() == GrandMaster::GMLimit)
     {
         str = QString("%1").arg(value, 3, 10, QChar('0'));
     }
@@ -163,7 +162,7 @@ void GrandMasterSlider::slotGrandMasterValueChanged(uchar value)
     m_slider->setValue(value);
 }
 
-void GrandMasterSlider::slotGrandMasterValueModeChanged(UniverseArray::GMValueMode mode)
+void GrandMasterSlider::slotGrandMasterValueModeChanged(GrandMaster::GMValueMode mode)
 {
     Q_UNUSED(mode);
     updateTooltip();

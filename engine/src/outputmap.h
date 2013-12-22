@@ -27,16 +27,17 @@
 #include <QHash>
 #include <QDir>
 
-#include "universearray.h"
+#include "grandmaster.h"
 
 class OutputPatchEditor;
 class OutputMapEditor;
-class UniverseArray;
-class QLCIOPlugin;
 class QDomDocument;
+class QLCIOPlugin;
 class QDomElement;
 class OutputPatch;
+class GrandMaster;
 class OutputMap;
+class Universe;
 class QString;
 class Doc;
 
@@ -121,13 +122,13 @@ private:
      *********************************************************************/
 public:
     /**
-     * Claim access to all universes. This is declared virtual to make
+     * Claim access to a universe. This is declared virtual to make
      * unit testing a bit easier.
      */
-    virtual UniverseArray* claimUniverses();
+    virtual QList<Universe*> claimUniverses();
 
     /**
-     * Release access to all universes. This is declared virtual to make
+     * Release access to a universe. This is declared virtual to make
      * unit testing a bit easier.
      *
      * @param changed Set to true if DMX values were changed
@@ -137,22 +138,22 @@ public:
     /**
      * Set grand master channel mode (intensity or all channels)
      */
-    void setGrandMasterChannelMode(UniverseArray::GMChannelMode mode);
+    void setGrandMasterChannelMode(GrandMaster::GMChannelMode mode);
 
     /**
      * Get grand master channel mode (intensity or all channels)
      */
-    UniverseArray::GMChannelMode grandMasterChannelMode();
+    GrandMaster::GMChannelMode grandMasterChannelMode();
 
     /**
      * Set grand master value mode (limit or reduce)
      */
-    void setGrandMasterValueMode(UniverseArray::GMValueMode mode);
+    void setGrandMasterValueMode(GrandMaster::GMValueMode mode);
 
     /**
      * Set grand master value mode (limit or reduce)
      */
-    UniverseArray::GMValueMode grandMasterValueMode();
+    GrandMaster::GMValueMode grandMasterValueMode();
 
     /**
      * Set grand master value (0-255)
@@ -178,11 +179,15 @@ public:
 signals:
     void universesWritten(const QByteArray& universes);
     void grandMasterValueChanged(uchar value);
-    void grandMasterValueModeChanged(UniverseArray::GMValueMode mode);
+    void grandMasterValueModeChanged(GrandMaster::GMValueMode mode);
 
 private:
+    /** The Grand Master reference */
+    GrandMaster *m_grandMaster;
+
     /** The values of all universes */
-    UniverseArray* m_universeArray;
+    //UniverseArray* m_universeArray;
+    QList<Universe *> m_universeArray;
 
     /** When true, universes are dumped. Otherwise not. */
     bool m_universeChanged;

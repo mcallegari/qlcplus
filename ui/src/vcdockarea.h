@@ -20,7 +20,7 @@
 #ifndef VCDOCKAREA_H
 #define VCDOCKAREA_H
 
-#include "universearray.h"
+#include "grandmaster.h"
 
 #include <qframe.h>
 
@@ -42,7 +42,7 @@ public:
     VCDockArea(QWidget* parent, OutputMap* outputMap, InputMap* inputMap);
     ~VCDockArea();
 
-    void setGrandMasterInvertedAppearance(UniverseArray::GMSliderMode mode);
+    void setGrandMasterInvertedAppearance(GrandMaster::GMSliderMode mode);
 
 signals:
     void visibilityChanged(bool isVisible);

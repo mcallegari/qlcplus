@@ -161,10 +161,10 @@ public:
     void preRun(MasterTimer*);
 
     /** @reimpl */
-    void write(MasterTimer* timer, UniverseArray* universes);
+    void write(MasterTimer* timer, QList<Universe*> universes);
 
     /** @reimpl */
-    void postRun(MasterTimer* timer, UniverseArray* universes);
+    void postRun(MasterTimer* timer, QList<Universe *> universes);
 
 protected slots:
     void slotTotalTimeChanged(qint64);

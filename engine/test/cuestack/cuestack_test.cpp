@@ -26,10 +26,10 @@
 #define protected public
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
-#include "universearray.h"
 #include "genericfader.h"
 #include "fadechannel.h"
 #include "mastertimer.h"
+#include "universe.h"
 #include "cuestack.h"
 #include "fixture.h"
 #include "qlcfile.h"
@@ -544,29 +544,30 @@ void CueStack_Test::flash()
     cue.setValue(128, 42);
     cs.appendCue(cue);
 
-    UniverseArray ua(512);
+    QList<Universe*> ua;
+    ua.append(new Universe(new GrandMaster()));
     cs.setFlashing(true);
     QCOMPARE(m_doc->masterTimer()->m_dmxSourceList.size(), 1);
     QCOMPARE(cs.isFlashing(), true);
-    cs.writeDMX(m_doc->masterTimer(), &ua);
-    QCOMPARE(ua.preGMValues()[0], (char) 255);
-    QCOMPARE(ua.preGMValues()[128], (char) 42);
-    ua.zeroIntensityChannels();
+    cs.writeDMX(m_doc->masterTimer(), ua);
+    QCOMPARE(ua[0]->preGMValues()[0], (char) 255);
+    QCOMPARE(ua[0]->preGMValues()[128], (char) 42);
+    ua[0]->zeroIntensityChannels();
 
     cs.setFlashing(true);
     QCOMPARE(m_doc->masterTimer()->m_dmxSourceList.size(), 1);
-    cs.writeDMX(m_doc->masterTimer(), &ua);
-    QCOMPARE(ua.preGMValues()[0], (char) 255);
-    QCOMPARE(ua.preGMValues()[128], (char) 42);
-    ua.zeroIntensityChannels();
+    cs.writeDMX(m_doc->masterTimer(), ua);
+    QCOMPARE(ua[0]->preGMValues()[0], (char) 255);
+    QCOMPARE(ua[0]->preGMValues()[128], (char) 42);
+    ua[0]->zeroIntensityChannels();
 
     cs.setFlashing(false);
     QCOMPARE(cs.isFlashing(), false);
     QCOMPARE(m_doc->masterTimer()->m_dmxSourceList.size(), 0);
-    cs.writeDMX(m_doc->masterTimer(), &ua);
-    QCOMPARE(ua.preGMValues()[0], (char) 0);
-    QCOMPARE(ua.preGMValues()[128], (char) 0);
-    ua.zeroIntensityChannels();
+    cs.writeDMX(m_doc->masterTimer(), ua);
+    QCOMPARE(ua[0]->preGMValues()[0], (char) 0);
+    QCOMPARE(ua[0]->preGMValues()[128], (char) 0);
+    ua[0]->zeroIntensityChannels();
 }
 
 void CueStack_Test::startStop()
@@ -624,7 +625,8 @@ void CueStack_Test::nextPrevious()
 
 void CueStack_Test::insertStartValue()
 {
-    UniverseArray ua(512);
+    QList<Universe*> ua;
+    ua.append(new Universe(new GrandMaster()));
     CueStack cs(m_doc);
     cs.preRun();
 
@@ -637,15 +639,15 @@ void CueStack_Test::insertStartValue()
     cs.m_fader->add(fc);
 
     fc.setTarget(64);
-    cs.insertStartValue(fc, &ua);
+    cs.insertStartValue(fc, ua);
     QCOMPARE(fc.start(), uchar(127));
     QCOMPARE(fc.current(), uchar(127));
 
     cs.m_fader->remove(fc);
 
     // HTP channel in universes
-    ua.write(0, 192);
-    cs.insertStartValue(fc, &ua);
+    ua[0]->write(0, 192);
+    cs.insertStartValue(fc, ua);
     QCOMPARE(fc.start(), uchar(0));
     QCOMPARE(fc.current(), uchar(0));
 
@@ -663,8 +665,8 @@ void CueStack_Test::insertStartValue()
     m_doc->addFixture(fxi);
 
     // LTP channel (Pan) in universes
-    ua.write(0, 192);
-    cs.insertStartValue(fc, &ua);
+    ua[0]->write(0, 192);
+    cs.insertStartValue(fc, ua);
     QCOMPARE(fc.start(), uchar(192));
     QCOMPARE(fc.current(), uchar(192));
 
@@ -687,7 +689,8 @@ void CueStack_Test::switchCue()
     fxi->setUniverse(0);
     m_doc->addFixture(fxi);
 
-    UniverseArray ua(512);
+    QList<Universe*> ua;
+    ua.append(new Universe(new GrandMaster()));
     CueStack cs(m_doc);
     cs.setFadeInSpeed(100);
     cs.setFadeOutSpeed(200);
@@ -718,13 +721,13 @@ void CueStack_Test::switchCue()
     cs.preRun();
 
     // Do nothing with invalid cue indices
-    cs.switchCue(-1, -1, &ua);
+    cs.switchCue(-1, -1, ua);
     QCOMPARE(cs.m_fader->channels().size(), 0);
-    cs.switchCue(-1, 3, &ua);
+    cs.switchCue(-1, 3, ua);
     QCOMPARE(cs.m_fader->channels().size(), 0);
 
     // Switch to cue one
-    cs.switchCue(3, 0, &ua);
+    cs.switchCue(3, 0, ua);
     QCOMPARE(cs.m_fader->channels().size(), 5);
 
     FadeChannel fc;
@@ -780,7 +783,7 @@ void CueStack_Test::switchCue()
     cs.m_fader->m_channels[fc].setCurrent(127);
 
     // Switch to cue two
-    cs.switchCue(0, 1, &ua);
+    cs.switchCue(0, 1, ua);
     QCOMPARE(cs.m_fader->channels().size(), 7);
 
     fc.setChannel(0);
@@ -826,7 +829,7 @@ void CueStack_Test::switchCue()
     QCOMPARE(cs.m_fader->channels()[fc].fadeTime(), uint(60));
 
     // Stop
-    cs.switchCue(1, -1, &ua);
+    cs.switchCue(1, -1, ua);
     QCOMPARE(cs.m_fader->channels().size(), 7);
 
     MasterTimer mt(m_doc);
@@ -849,7 +852,8 @@ void CueStack_Test::postRun()
     m_doc->addFixture(fxi);
 
     MasterTimer mt(m_doc);
-    UniverseArray ua(512);
+    QList<Universe*> ua;
+    ua.append(new Universe(new GrandMaster()));
     CueStack cs(m_doc);
     cs.setFadeInSpeed(100);
     cs.setFadeOutSpeed(200);
@@ -876,7 +880,7 @@ void CueStack_Test::postRun()
     cs.preRun();
 
     // Switch to cue one
-    cs.switchCue(-1, 0, &ua);
+    cs.switchCue(-1, 0, ua);
     QCOMPARE(cs.m_fader->channels().size(), 5);
 
     QSignalSpy cueSpy(&cs, SIGNAL(currentCueChanged(int)));
@@ -903,7 +907,8 @@ void CueStack_Test::postRun()
 
 void CueStack_Test::write()
 {
-    UniverseArray ua(512);
+    QList<Universe*> ua;
+    ua.append(new Universe(new GrandMaster()));
 
     CueStack cs(m_doc);
 
@@ -924,16 +929,16 @@ void CueStack_Test::write()
     cs.preRun();
     QVERIFY(cs.m_fader != NULL);
 
-    cs.write(&ua);
+    cs.write(ua);
     QCOMPARE(cs.currentIndex(), -1);
 
     cs.start();
-    cs.write(&ua);
+    cs.write(ua);
     QCOMPARE(cs.currentIndex(), -1);
 
     cs.nextCue();
     QCOMPARE(cs.currentIndex(), -1);
-    cs.write(&ua);
+    cs.write(ua);
     QCOMPARE(cs.currentIndex(), 0);
     QCOMPARE(cs.m_fader->channels().size(), 1);
     FadeChannel fc;
@@ -943,7 +948,7 @@ void CueStack_Test::write()
 
     cs.previousCue();
     QCOMPARE(cs.currentIndex(), 0);
-    cs.write(&ua);
+    cs.write(ua);
     QCOMPARE(cs.currentIndex(), 1);
 
     fc.setChannel(0);

@@ -226,7 +226,7 @@ public:
     void setFlashing(bool enable);
     bool isFlashing() const;
 
-    void writeDMX(MasterTimer* timer, UniverseArray* ua);
+    void writeDMX(MasterTimer* timer, QList<Universe *> ua);
 
 private:
     bool m_flashing;
@@ -238,14 +238,14 @@ public:
     bool isStarted() const;
 
     void preRun();
-    void write(UniverseArray* ua);
+    void write(QList<Universe *> ua);
     void postRun(MasterTimer* timer);
 
 private:
     int next();
     int previous();
-    void switchCue(int from, int to, const UniverseArray* ua);
-    void insertStartValue(FadeChannel& fc, const UniverseArray* ua);
+    void switchCue(int from, int to, const QList<Universe *> ua);
+    void insertStartValue(FadeChannel& fc, const QList<Universe*> ua);
 
 private:
     GenericFader* m_fader;

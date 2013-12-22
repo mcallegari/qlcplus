@@ -28,7 +28,6 @@
 #include "qlcinputsource.h"
 #include "virtualconsole.h"
 #include "qlcfixturedef.h"
-#include "universearray.h"
 #include "vcxypad_test.h"
 #include "mastertimer.h"
 #include "vcxypadarea.h"

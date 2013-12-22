@@ -31,7 +31,6 @@
 
 #include "monitorfixture.h"
 #include "monitorlayout.h"
-#include "universearray.h"
 #include "outputmap.h"
 #include "monitor.h"
 #include "apputil.h"

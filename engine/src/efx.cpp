@@ -31,7 +31,6 @@
 #include "qlcmacros.h"
 #include "qlcfile.h"
 
-#include "universearray.h"
 #include "mastertimer.h"
 #include "fixture.h"
 #include "scene.h"
@@ -986,7 +985,7 @@ void EFX::preRun(MasterTimer* timer)
     Function::preRun(timer);
 }
 
-void EFX::write(MasterTimer* timer, UniverseArray* universes)
+void EFX::write(MasterTimer* timer, QList<Universe*> universes)
 {
     int ready = 0;
 
@@ -1010,7 +1009,7 @@ void EFX::write(MasterTimer* timer, UniverseArray* universes)
     m_fader->write(universes);
 }
 
-void EFX::postRun(MasterTimer* timer, UniverseArray* universes)
+void EFX::postRun(MasterTimer* timer, QList<Universe *> universes)
 {
     /* Reset all fixtures */
     QListIterator <EFXFixture*> it(m_fixtures);

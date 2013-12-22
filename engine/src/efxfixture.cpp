@@ -22,12 +22,12 @@
 #include <QDebug>
 #include <math.h>
 
-#include "universearray.h"
 #include "genericfader.h"
 #include "mastertimer.h"
 #include "efxfixture.h"
 #include "qlcmacros.h"
 #include "function.h"
+#include "universe.h"
 #include "scene.h"
 #include "efx.h"
 #include "doc.h"
@@ -290,7 +290,7 @@ uint EFXFixture::timeOffset() const
  * Running
  *****************************************************************************/
 
-void EFXFixture::nextStep(MasterTimer* timer, UniverseArray* universes)
+void EFXFixture::nextStep(MasterTimer* timer, QList<Universe *> universes)
 {
     m_elapsed += MasterTimer::tick();
 
@@ -350,38 +350,50 @@ void EFXFixture::nextStep(MasterTimer* timer, UniverseArray* universes)
     }
 }
 
-void EFXFixture::setPoint(UniverseArray* universes, qreal pan, qreal tilt)
+void EFXFixture::setPoint(QList<Universe *> universes, qreal pan, qreal tilt)
 {
-    Q_ASSERT(universes != NULL);
-
     Fixture* fxi = doc()->fixture(head().fxi);
     Q_ASSERT(fxi != NULL);
 
     /* Write coarse point data to universes */
     if (fxi->panMsbChannel(head().head) != QLCChannel::invalid())
-        universes->write(fxi->universeAddress() + fxi->panMsbChannel(head().head),
-                         static_cast<char>(pan), QLCChannel::Pan, m_parent->isRelative());
+    {
+        if (m_parent->isRelative())
+            universes[fxi->universe()]->writeRelative(fxi->address() + fxi->panMsbChannel(head().head), static_cast<char>(pan));
+        else
+            universes[fxi->universe()]->write(fxi->address() + fxi->panMsbChannel(head().head), static_cast<char>(pan));
+    }
     if (fxi->tiltMsbChannel(head().head) != QLCChannel::invalid())
-        universes->write(fxi->universeAddress() + fxi->tiltMsbChannel(head().head),
-                         static_cast<char> (tilt), QLCChannel::Tilt, m_parent->isRelative());
+    {
+        if (m_parent->isRelative())
+            universes[fxi->universe()]->writeRelative(fxi->address() + fxi->tiltMsbChannel(head().head), static_cast<char> (tilt));
+        else
+            universes[fxi->universe()]->write(fxi->address() + fxi->tiltMsbChannel(head().head), static_cast<char> (tilt));
+    }
 
     /* Write fine point data to universes if applicable */
     if (fxi->panLsbChannel(head().head) != QLCChannel::invalid())
     {
         /* Leave only the fraction */
         char value = static_cast<char> ((pan - floor(pan)) * double(UCHAR_MAX));
-        universes->write(fxi->universeAddress() + fxi->panLsbChannel(head().head), value, QLCChannel::Pan, m_parent->isRelative());
+        if (m_parent->isRelative())
+            universes[fxi->universe()]->writeRelative(fxi->address() + fxi->panLsbChannel(head().head), value);
+        else
+            universes[fxi->universe()]->write(fxi->address() + fxi->panLsbChannel(head().head), value);
     }
 
     if (fxi->tiltLsbChannel(head().head) != QLCChannel::invalid())
     {
         /* Leave only the fraction */
         char value = static_cast<char> ((tilt - floor(tilt)) * double(UCHAR_MAX));
-        universes->write(fxi->universeAddress() + fxi->tiltLsbChannel(head().head), value, QLCChannel::Tilt, m_parent->isRelative());
+        if (m_parent->isRelative())
+            universes[fxi->universe()]->writeRelative(fxi->address() + fxi->tiltLsbChannel(head().head), value);
+        else
+            universes[fxi->universe()]->write(fxi->address() + fxi->tiltLsbChannel(head().head), value);
     }
 }
 
-void EFXFixture::start(MasterTimer* timer, UniverseArray* universes)
+void EFXFixture::start(MasterTimer* timer, QList<Universe *> universes)
 {
     Q_UNUSED(universes);
     Q_UNUSED(timer);
@@ -394,7 +406,7 @@ void EFXFixture::start(MasterTimer* timer, UniverseArray* universes)
         if (fxi->masterIntensityChannel(head().head) != QLCChannel::invalid())
         {
             FadeChannel fc;
-            fc.setFixture(head().fxi);
+            fc.setFixture(doc(), head().fxi);
             fc.setChannel(fxi->masterIntensityChannel(head().head));
             if (m_parent->overrideFadeInSpeed() != Function::defaultSpeed())
                 fc.setFadeTime(m_parent->overrideFadeInSpeed());
@@ -413,7 +425,7 @@ void EFXFixture::start(MasterTimer* timer, UniverseArray* universes)
     m_started = true;
 }
 
-void EFXFixture::stop(MasterTimer* timer, UniverseArray* universes)
+void EFXFixture::stop(MasterTimer* timer, QList<Universe *> universes)
 {
     Q_UNUSED(universes);
 
@@ -425,7 +437,7 @@ void EFXFixture::stop(MasterTimer* timer, UniverseArray* universes)
         if (fxi->masterIntensityChannel(head().head) != QLCChannel::invalid())
         {
             FadeChannel fc;
-            fc.setFixture(head().fxi);
+            fc.setFixture(doc(), head().fxi);
             fc.setChannel(fxi->masterIntensityChannel(head().head));
 
             if (m_parent->overrideFadeOutSpeed() != Function::defaultSpeed())

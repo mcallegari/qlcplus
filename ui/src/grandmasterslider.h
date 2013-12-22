@@ -22,7 +22,7 @@
 
 #include <QFrame>
 
-#include "../../engine/src/universearray.h"
+#include "grandmaster.h"
 
 class OutputMap;
 class InputMap;
@@ -48,7 +48,7 @@ private:
 protected slots:
     void slotValueChanged(int value);
     void slotGrandMasterValueChanged(uchar value);
-    void slotGrandMasterValueModeChanged(UniverseArray::GMValueMode mode);
+    void slotGrandMasterValueModeChanged(GrandMaster::GMValueMode mode);
 
 protected:
     QLabel* m_valueLabel;

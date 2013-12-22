@@ -24,8 +24,8 @@
 
 #include "ui_vcproperties.h"
 #include "vcwidgetproperties.h"
-#include "universearray.h"
 #include "vcproperties.h"
+#include "universe.h"
 
 #define SETTINGS_BUTTON_SIZE        "virtualconsole/buttonsize"
 #define SETTINGS_BUTTON_STATUSLED   "virtualconsole/buttonstatusled"

@@ -261,7 +261,7 @@ void Audio::slotEndOfStream()
         m_audio_out = NULL;
         m_decoder->seek(0);
     }
-    Function::postRun(NULL, NULL);
+    Function::postRun(NULL, QList<Universe *>());
 }
 
 void Audio::slotTotalTimeChanged(qint64)
@@ -388,7 +388,7 @@ void Audio::preRun(MasterTimer* timer)
     Function::preRun(timer);
 }
 
-void Audio::write(MasterTimer* timer, UniverseArray* universes)
+void Audio::write(MasterTimer* timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer)
     Q_UNUSED(universes)
@@ -402,7 +402,7 @@ void Audio::write(MasterTimer* timer, UniverseArray* universes)
     }
 }
 
-void Audio::postRun(MasterTimer* timer, UniverseArray* universes)
+void Audio::postRun(MasterTimer* timer, QList<Universe*> universes)
 {
     Q_UNUSED(timer)
     Q_UNUSED(universes)

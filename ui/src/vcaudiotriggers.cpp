@@ -32,6 +32,7 @@
 #include "vcpropertieseditor.h"
 #include "vcaudiotriggers.h"
 #include "virtualconsole.h"
+#include "universe.h"
 #include "audiobar.h"
 #include "apputil.h"
 #include "doc.h"
@@ -212,7 +213,7 @@ void VCAudioTriggers::slotDisplaySpectrum(double *spectrumBands, double maxMagni
  * DMXSource
  *********************************************************************/
 
-void VCAudioTriggers::writeDMX(MasterTimer *timer, UniverseArray *universes)
+void VCAudioTriggers::writeDMX(MasterTimer *timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer);
 
@@ -222,14 +223,24 @@ void VCAudioTriggers::writeDMX(MasterTimer *timer, UniverseArray *universes)
     if (m_volumeBar->m_type == AudioBar::DMXBar)
     {
         for(int i = 0; i < m_volumeBar->m_absDmxChannels.count(); i++)
-            universes->write(m_volumeBar->m_absDmxChannels.at(i), m_volumeBar->m_value, QLCChannel::Intensity);
+        {
+            quint32 address = m_volumeBar->m_absDmxChannels.at(i) & 0x01FF;
+            int uni = m_volumeBar->m_absDmxChannels.at(i) >> 9;
+            if (uni < universes.count())
+                universes[uni]->write(address, m_volumeBar->m_value);
+        }
     }
     foreach(AudioBar *sb, m_spectrumBars)
     {
         if (sb->m_type == AudioBar::DMXBar)
         {
             for(int i = 0; i < sb->m_absDmxChannels.count(); i++)
-                universes->write(sb->m_absDmxChannels.at(i), sb->m_value, QLCChannel::Intensity);
+            {
+                quint32 address = sb->m_absDmxChannels.at(i) & 0x01FF;
+                int uni = sb->m_absDmxChannels.at(i) >> 9;
+                if (uni < universes.count())
+                    universes[uni]->write(address, sb->m_value);
+            }
         }
     }
 }

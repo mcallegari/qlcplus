@@ -184,10 +184,10 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
     switch (properties.grandMasterChannelMode())
     {
     default:
-    case UniverseArray::GMIntensity:
+    case GrandMaster::GMIntensity:
         m_gmIntensityRadio->setChecked(true);
         break;
-    case UniverseArray::GMAllChannels:
+    case GrandMaster::GMAllChannels:
         m_gmAllChannelsRadio->setChecked(true);
         break;
     }
@@ -195,10 +195,10 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
     switch (properties.grandMasterValueMode())
     {
     default:
-    case UniverseArray::GMReduce:
+    case GrandMaster::GMReduce:
         m_gmReduceRadio->setChecked(true);
         break;
-    case UniverseArray::GMLimit:
+    case GrandMaster::GMLimit:
         m_gmLimitRadio->setChecked(true);
         break;
     }
@@ -206,10 +206,10 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
     switch (properties.grandMasterSlideMode())
     {
     default:
-    case UniverseArray::GMNormal:
+    case GrandMaster::GMNormal:
         m_gmSliderModeNormalRadio->setChecked(true);
         break;
-    case UniverseArray::GMInverted:
+    case GrandMaster::GMInverted:
         m_gmSliderModeInvertedRadio->setChecked(true);
         break;
     }
@@ -342,25 +342,25 @@ void VCPropertiesEditor::slotSpeedDialConfirmed()
 void VCPropertiesEditor::slotGrandMasterIntensityToggled(bool checked)
 {
     if (checked == true)
-        m_properties.setGrandMasterChannelMode(UniverseArray::GMIntensity);
+        m_properties.setGrandMasterChannelMode(GrandMaster::GMIntensity);
     else
-        m_properties.setGrandMasterChannelMode(UniverseArray::GMAllChannels);
+        m_properties.setGrandMasterChannelMode(GrandMaster::GMAllChannels);
 }
 
 void VCPropertiesEditor::slotGrandMasterReduceToggled(bool checked)
 {
     if (checked == true)
-        m_properties.setGrandMasterValueMode(UniverseArray::GMReduce);
+        m_properties.setGrandMasterValueMode(GrandMaster::GMReduce);
     else
-        m_properties.setGrandMasterValueMode(UniverseArray::GMLimit);
+        m_properties.setGrandMasterValueMode(GrandMaster::GMLimit);
 }
 
 void VCPropertiesEditor::slotGrandMasterSliderNormalToggled(bool checked)
 {
     if (checked == true)
-        m_properties.setGrandMasterSliderMode(UniverseArray::GMNormal);
+        m_properties.setGrandMasterSliderMode(GrandMaster::GMNormal);
     else
-        m_properties.setGrandMasterSliderMode(UniverseArray::GMInverted);
+        m_properties.setGrandMasterSliderMode(GrandMaster::GMInverted);
 }
 
 void VCPropertiesEditor::slotAutoDetectGrandMasterInputToggled(bool checked)

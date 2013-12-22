@@ -38,8 +38,8 @@ public:
     bool loadXML(const QDomElement& root);
 
     void preRun(MasterTimer* timer);
-    void write(MasterTimer* timer, UniverseArray* universes);
-    void postRun(MasterTimer* timer, UniverseArray* universes);
+    void write(MasterTimer* timer, QList<Universe*> universes);
+    void postRun(MasterTimer* timer, QList<Universe*> universes);
 
 public slots:
     void slotFixtureRemoved(quint32 id);

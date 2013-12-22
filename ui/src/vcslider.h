@@ -365,14 +365,14 @@ signals:
      *********************************************************************/
 public:
     /** @reimpl */
-    void writeDMX(MasterTimer* timer, UniverseArray* universes);
+    void writeDMX(MasterTimer* timer, QList<Universe*> universes);
 
 protected:
     /** writeDMX for Level mode */
-    void writeDMXLevel(MasterTimer* timer, UniverseArray* universes);
+    void writeDMXLevel(MasterTimer* timer, QList<Universe*> universes);
 
     /** writeDMX for Playback mode */
-    void writeDMXPlayback(MasterTimer* timer, UniverseArray* universes);
+    void writeDMXPlayback(MasterTimer* timer, QList<Universe*> universes);
 
     /*********************************************************************
      * Top label

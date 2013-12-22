@@ -27,11 +27,11 @@
 #include "efxfixture_test.h"
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
-#include "universearray.h"
 #include "genericfader.h"
 #include "fadechannel.h"
 #include "efxfixture.h"
 #include "qlcchannel.h"
+#include "universe.h"
 #include "function.h"
 #include "fixture.h"
 #include "qlcfile.h"
@@ -403,12 +403,13 @@ void EFXFixture_Test::setPoint8bit()
     EFXFixture ef(&e);
     ef.setHead(GroupHead(fxi->id(),0));
 
-    UniverseArray array(512 * 4);
-    ef.setPoint(&array, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
-    QVERIFY(array.preGMValues()[0] == (char) 5);
-    QVERIFY(array.preGMValues()[1] == (char) 1);
-    QVERIFY(array.preGMValues()[2] == (char) 0); /* No LSB channels */
-    QVERIFY(array.preGMValues()[3] == (char) 0); /* No LSB channels */
+    QList<Universe*> ua;
+    ua.append(new Universe(new GrandMaster()));
+    ef.setPoint(ua, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
+    QVERIFY(ua[0]->preGMValues()[0] == (char) 5);
+    QVERIFY(ua[0]->preGMValues()[1] == (char) 1);
+    QVERIFY(ua[0]->preGMValues()[2] == (char) 0); /* No LSB channels */
+    QVERIFY(ua[0]->preGMValues()[3] == (char) 0); /* No LSB channels */
 
     m_doc->deleteFixture(fxi->id());
 }
@@ -419,18 +420,20 @@ void EFXFixture_Test::setPoint16bit()
     EFXFixture ef(&e);
     ef.setHead(GroupHead(0,0));
 
-    UniverseArray array(512 * 4);
-    ef.setPoint(&array, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
-    QVERIFY(array.preGMValues()[0] == (char) 5);
-    QVERIFY(array.preGMValues()[1] == (char) 1);
-    QVERIFY(array.preGMValues()[2] == (char) 102); /* 255 * 0.4 */
-    QVERIFY(array.preGMValues()[3] == (char) 127); /* 255 * 0.5 */
+    QList<Universe*> ua;
+    ua.append(new Universe(new GrandMaster()));
+    ef.setPoint(ua, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
+    QVERIFY(ua[0]->preGMValues()[0] == (char) 5);
+    QVERIFY(ua[0]->preGMValues()[1] == (char) 1);
+    QVERIFY(ua[0]->preGMValues()[2] == (char) 102); /* 255 * 0.4 */
+    QVERIFY(ua[0]->preGMValues()[3] == (char) 127); /* 255 * 0.5 */
 }
 
 void EFXFixture_Test::nextStepLoop()
 {
-    UniverseArray array(512 * 4);
-    MasterTimerStub mts(m_doc, array);
+    QList<Universe*> ua;
+    ua.append(new Universe(new GrandMaster()));
+    MasterTimerStub mts(m_doc, ua);
 
     EFX e(m_doc);
     e.setDuration(1000); // 1s
@@ -454,7 +457,7 @@ void EFXFixture_Test::nextStepLoop()
     {
         for (; i < max; i += MasterTimer::tick())
         {
-            ef->nextStep(&mts, &array);
+            ef->nextStep(&mts, ua);
             QVERIFY(ef->isReady() == false); // Loop is never ready
             QCOMPARE(ef->m_elapsed, i);
         }
@@ -462,13 +465,14 @@ void EFXFixture_Test::nextStepLoop()
         i = 0; // m_elapsed is zeroed after a full pass
     }
 
-    e.postRun(&mts, &array);
+    e.postRun(&mts, ua);
 }
 
 void EFXFixture_Test::nextStepLoopZeroDuration()
 {
-    UniverseArray array(512 * 4);
-    MasterTimerStub mts(m_doc, array);
+    QList<Universe*> ua;
+    ua.append(new Universe(new GrandMaster()));
+    MasterTimerStub mts(m_doc, ua);
 
     EFX e(m_doc);
     e.setDuration(0); // 0s
@@ -492,7 +496,7 @@ void EFXFixture_Test::nextStepLoopZeroDuration()
     {
         for (; i < max; i += MasterTimer::tick())
         {
-            ef->nextStep(&mts, &array);
+            ef->nextStep(&mts, ua);
             QVERIFY(ef->isReady() == false); // Loop is never ready
             QCOMPARE(ef->m_elapsed, i);
         }
@@ -500,13 +504,14 @@ void EFXFixture_Test::nextStepLoopZeroDuration()
         // m_elapsed is NOT zeroed since there are no "rounds" when duration == 0
     }
 
-    e.postRun(&mts, &array);
+    e.postRun(&mts, ua);
 }
 
 void EFXFixture_Test::nextStepSingleShot()
 {
-    UniverseArray array(512 * 4);
-    MasterTimerStub mts(m_doc, array);
+    QList<Universe*> ua;
+    ua.append(new Universe(new GrandMaster()));
+    MasterTimerStub mts(m_doc, ua);
 
     EFX e(m_doc);
     e.setDuration(1000); // 1s
@@ -530,23 +535,24 @@ void EFXFixture_Test::nextStepSingleShot()
     uint max = MasterTimer::tick() * MasterTimer::frequency();
     for (uint i = MasterTimer::tick(); i < max; i += MasterTimer::tick())
     {
-        ef->nextStep(&mts, &array);
+        ef->nextStep(&mts, ua);
         QVERIFY(ef->isReady() == false);
         QCOMPARE(ef->m_elapsed, i);
     }
 
-    ef->nextStep(&mts, &array);
+    ef->nextStep(&mts, ua);
 
     /* Single-shot EFX should now be ready */
     QVERIFY(ef->isReady() == true);
 
-    e.postRun(&mts, &array);
+    e.postRun(&mts, ua);
 }
 
 void EFXFixture_Test::start()
 {
-    UniverseArray array(512 * 4);
-    MasterTimerStub mts(m_doc, array);
+    QList<Universe*> ua;
+    ua.append(new Universe(new GrandMaster()));
+    MasterTimerStub mts(m_doc, ua);
 
     EFX e(m_doc);
     e.setFadeInSpeed(1000);
@@ -562,28 +568,29 @@ void EFXFixture_Test::start()
 
     // Fade intensity == 0, no need to do fade-in
     ef->setFadeIntensity(0);
-    ef->start(&mts, &array);
+    ef->start(&mts, ua);
     QCOMPARE(e.m_fader->m_channels.size(), 0);
     ef->m_started = false;
 
     // Fade intensity > 0, need to do fade-in
     ef->setFadeIntensity(1);
-    ef->start(&mts, &array);
+    ef->start(&mts, ua);
     QCOMPARE(e.m_fader->m_channels.size(), 1);
 
     FadeChannel fc;
-    fc.setFixture(fxi->id());
+    fc.setFixture(m_doc, fxi->id());
     fc.setChannel(fxi->masterIntensityChannel());
     QVERIFY(e.m_fader->m_channels.contains(fc) == true);
     QCOMPARE(e.m_fader->m_channels[fc].fadeTime(), uint(1000));
 
-    e.postRun(&mts, &array);
+    e.postRun(&mts, ua);
 }
 
 void EFXFixture_Test::stop()
 {
-    UniverseArray array(512 * 4);
-    MasterTimerStub mts(m_doc, array);
+    QList<Universe*> ua;
+    ua.append(new Universe(new GrandMaster()));
+    MasterTimerStub mts(m_doc, ua);
 
     EFX e(m_doc);
     e.setFadeInSpeed(1000);
@@ -598,20 +605,20 @@ void EFXFixture_Test::stop()
     e.preRun(&mts);
 
     // Not started yet
-    ef->stop(&mts, &array);
+    ef->stop(&mts, ua);
     QCOMPARE(e.m_fader->m_channels.size(), 0);
     QCOMPARE(mts.fader()->m_channels.size(), 0);
 
     // Start
-    ef->start(&mts, &array);
+    ef->start(&mts, ua);
     QCOMPARE(e.m_fader->m_channels.size(), 1);
     FadeChannel fc;
-    fc.setFixture(fxi->id());
+    fc.setFixture(m_doc, fxi->id());
     fc.setChannel(fxi->masterIntensityChannel());
     QVERIFY(e.m_fader->m_channels.contains(fc) == true);
 
     // Then stop
-    ef->stop(&mts, &array);
+    ef->stop(&mts, ua);
     QCOMPARE(e.m_fader->m_channels.size(), 0);
 
     // FadeChannels are handed over to MasterTimer's GenericFader
@@ -620,7 +627,7 @@ void EFXFixture_Test::stop()
     QVERIFY(mts.m_fader->m_channels.contains(fc) == true);
     QCOMPARE(mts.m_fader->m_channels[fc].fadeTime(), uint(2000));
 
-    e.postRun(&mts, &array);
+    e.postRun(&mts, ua);
 }
 
 QTEST_APPLESS_MAIN(EFXFixture_Test)

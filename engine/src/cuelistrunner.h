@@ -25,10 +25,10 @@
 
 #include "function.h"
 
-class UniverseArray;
 class FadeChannel;
 class ChaserStep;
 class Function;
+class Universe;
 class Chaser;
 class QTime;
 class Doc;
@@ -165,7 +165,7 @@ public:
      * @param universes DMX address space
      * @return true if the chaser should continue, otherwise false
      */
-    bool write(MasterTimer* timer, UniverseArray* universes);
+    bool write(MasterTimer* timer, QList<Universe*> universes);
 
     /**
      * Perform postRun operations. Call this from the parent function's postRun().
@@ -173,7 +173,7 @@ public:
      * @param timer The MasterTimer that runs the show
      * @param universes DMX address space
      */
-    void postRun(MasterTimer* timer, UniverseArray* universes);
+    void postRun(MasterTimer* timer, QList<Universe *> universes);
 };
 
 #endif
