@@ -28,11 +28,12 @@
 #include <QDir>
 
 #include "hotplugmonitor.h"
-#include "universearray.h"
 #include "qlcioplugin.h"
 #include "outputpatch.h"
+#include "grandmaster.h"
 #include "qlcconfig.h"
 #include "outputmap.h"
+#include "universe.h"
 #include "qlci18n.h"
 #include "qlcfile.h"
 #include "doc.h"
@@ -45,9 +46,12 @@ OutputMap::OutputMap(Doc* doc, quint32 universes)
     : QObject(doc)
     , m_universes(universes)
     , m_blackout(false)
-    , m_universeArray(new UniverseArray(512 * universes))
     , m_universeChanged(false)
 {
+    m_grandMaster = new GrandMaster(this);
+    for (quint32 i = 0; i < universes; i++)
+        m_universeArray.append(new Universe(m_grandMaster, this));
+
     initPatch();
 
     connect(doc->ioPluginCache(), SIGNAL(pluginConfigurationChanged(QLCIOPlugin*)),
@@ -56,8 +60,10 @@ OutputMap::OutputMap(Doc* doc, quint32 universes)
 
 OutputMap::~OutputMap()
 {
-    delete m_universeArray;
-    m_universeArray = NULL;
+    for (int i = 0; i < m_universeArray.size(); i++)
+        m_universeArray.takeAt(i);
+
+    delete m_grandMaster;
 
     for (quint32 i = 0; i < m_universes; i++)
     {
@@ -116,7 +122,7 @@ bool OutputMap::blackout() const
  * Values
  *****************************************************************************/
 
-UniverseArray* OutputMap::claimUniverses()
+QList<Universe*> OutputMap::claimUniverses()
 {
     m_universeMutex.lock();
     return m_universeArray;
@@ -128,105 +134,99 @@ void OutputMap::releaseUniverses(bool changed)
     m_universeMutex.unlock();
 }
 
-void OutputMap::setGrandMasterChannelMode(UniverseArray::GMChannelMode mode)
+void OutputMap::setGrandMasterChannelMode(GrandMaster::GMChannelMode mode)
 {
-    bool changed = false;
-    UniverseArray* ua = claimUniverses();
-    if(ua->gMChannelMode() != mode)
+    Q_ASSERT(m_grandMaster != NULL);
+
+    if(m_grandMaster->gMChannelMode() != mode)
     {
-        ua->setGMChannelMode(mode);
-        changed = true;
+        m_grandMaster->setGMChannelMode(mode);
+        m_universeChanged = true;
     }
-    releaseUniverses(changed);
 }
 
-UniverseArray::GMChannelMode OutputMap::grandMasterChannelMode()
+GrandMaster::GMChannelMode OutputMap::grandMasterChannelMode()
 {
-    UniverseArray* ua = claimUniverses();
-    UniverseArray::GMChannelMode mode = ua->gMChannelMode();
-    releaseUniverses(false);
+    Q_ASSERT(m_grandMaster != NULL);
+
+    GrandMaster::GMChannelMode mode = m_grandMaster->gMChannelMode();
     return mode;
 }
 
-void OutputMap::setGrandMasterValueMode(UniverseArray::GMValueMode mode)
+void OutputMap::setGrandMasterValueMode(GrandMaster::GMValueMode mode)
 {
-    bool changed = false;
-    UniverseArray* ua = claimUniverses();
-    if(ua->gMValueMode() != mode)
+    Q_ASSERT(m_grandMaster != NULL);
+
+    if(m_grandMaster->gMValueMode() != mode)
     {
-        ua->setGMValueMode(mode);
-        changed = true;
+        m_grandMaster->setGMValueMode(mode);
+        m_universeChanged = true;
     }
-    releaseUniverses(changed);
 
     emit grandMasterValueModeChanged(mode);
 }
 
-UniverseArray::GMValueMode OutputMap::grandMasterValueMode()
+GrandMaster::GMValueMode OutputMap::grandMasterValueMode()
 {
-    UniverseArray* ua = claimUniverses();
-    UniverseArray::GMValueMode mode = ua->gMValueMode();
-    releaseUniverses(false);
-    return mode;
+    Q_ASSERT(m_grandMaster != NULL);
+
+    return m_grandMaster->gMValueMode();
 }
 
 void OutputMap::setGrandMasterValue(uchar value)
 {
-    bool changed = false;
+    Q_ASSERT(m_grandMaster != NULL);
 
-    UniverseArray* ua = claimUniverses();
-    if (ua->gMValue() != value)
+    if (m_grandMaster->gMValue() != value)
     {
-        ua->setGMValue(value);
-        changed = true;
+        m_grandMaster->setGMValue(value);
+        m_universeChanged = true;
     }
-    releaseUniverses(changed);
 
-    if (changed == true)
+    if (m_universeChanged == true)
         emit grandMasterValueChanged(value);
 }
 
 uchar OutputMap::grandMasterValue()
 {
-    UniverseArray* ua = claimUniverses();
-    uchar value = ua->gMValue();
-    releaseUniverses(false);
-    return value;
+    Q_ASSERT(m_grandMaster != NULL);
+
+    return m_grandMaster->gMValue();
 }
 
 void OutputMap::dumpUniverses()
 {
-    QByteArray ba;
-
     m_universeMutex.lock();
-    if (m_universeChanged == true && m_blackout == false)
+    if (m_blackout == false)
     {
-        const QByteArray* postGM = m_universeArray->postGMValues();
-        for (quint32 i = 0; i < m_universes; i++)
-            m_patch[i]->dump(postGM->mid(i * 512, 512));
+        int i = 0;
+        foreach (Universe *universe, m_universeArray)
+        {
+            if (universe->hasChanged())
+            {
+                const QByteArray postGM = universe->postGMValues()->mid(0);
+                m_patch[i++]->dump(postGM);
 
-        // Grab a copy of universe values to prevent timer thread blocking
-        ba = *postGM;
-
-        m_universeChanged = false;
+                m_universeMutex.unlock();
+                emit universesWritten(postGM);
+                m_universeMutex.lock();
+            }
+        }
     }
     m_universeMutex.unlock();
-
-    // Emit new values
-    if (ba.isEmpty() == false)
-        emit universesWritten(ba);
 }
 
 void OutputMap::resetUniverses()
 {
-    claimUniverses();
-    m_universeArray->reset();
-    releaseUniverses();
+    m_universeMutex.lock();
+    for (int i = 0; i < m_universeArray.size(); i++)
+        m_universeArray.at(i)->reset();
+    m_universeMutex.unlock();
 
     /* Reset Grand Master parameters */
     setGrandMasterValue(255);
-    setGrandMasterValueMode(UniverseArray::GMReduce);
-    setGrandMasterChannelMode(UniverseArray::GMIntensity);
+    setGrandMasterValueMode(GrandMaster::GMReduce);
+    setGrandMasterChannelMode(GrandMaster::GMIntensity);
 }
 
 /*****************************************************************************

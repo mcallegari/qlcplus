@@ -25,7 +25,6 @@
 #include "qlcfixturedef.h"
 #include "qlcfile.h"
 
-#include "universearray.h"
 #include "chaserrunner.h"
 #include "mastertimer.h"
 #include "chaserstep.h"
@@ -571,7 +570,7 @@ void Chaser::preRun(MasterTimer* timer)
     Function::preRun(timer);
 }
 
-void Chaser::write(MasterTimer* timer, UniverseArray* universes)
+void Chaser::write(MasterTimer* timer, QList<Universe *> universes)
 {
     if (m_useInternalRunner)
     {
@@ -584,7 +583,7 @@ void Chaser::write(MasterTimer* timer, UniverseArray* universes)
     incrementElapsed();
 }
 
-void Chaser::postRun(MasterTimer* timer, UniverseArray* universes)
+void Chaser::postRun(MasterTimer* timer, QList<Universe *> universes)
 {
     if (m_useInternalRunner && m_runner != NULL)
     {

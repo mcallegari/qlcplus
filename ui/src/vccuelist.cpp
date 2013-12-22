@@ -710,7 +710,7 @@ void VCCueList::slotSlider2ValueChanged(int value)
  * DMX Source
  *****************************************************************************/
 
-void VCCueList::writeDMX(MasterTimer* timer, UniverseArray* universes)
+void VCCueList::writeDMX(MasterTimer* timer, QList<Universe*> universes)
 {
     m_mutex.lock();
     if (m_runner != NULL)

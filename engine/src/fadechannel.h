@@ -45,7 +45,7 @@ public:
     FadeChannel(const FadeChannel& ch);
 
     /** Create a new FadeChannel and set fixture ID and channel */
-    FadeChannel(quint32 fxi, quint32 channel);
+    FadeChannel(const Doc *doc, quint32 fxi, quint32 channel);
 
     /** Destructor */
     virtual ~FadeChannel();
@@ -58,10 +58,13 @@ public:
      ************************************************************************/
 public:
     /** Set the Fixture that is being controlled. */
-    void setFixture(quint32 id);
+    void setFixture(const Doc *doc, quint32 id);
 
     /** Get the Fixture that is being controlled. */
     quint32 fixture() const;
+
+    /** Get the universe of the Fixture that is being controlled. */
+    quint32 universe();
 
     /** Set channel within the Fixture. */
     void setChannel(quint32 num);
@@ -70,7 +73,7 @@ public:
     quint32 channel() const;
 
     /** Get the absolute address for this channel. */
-    quint32 address(const Doc* doc) const;
+    quint32 address() const;
 
     /** Get the channel group. */
     QLCChannel::Group group(const Doc* doc) const;
@@ -139,7 +142,9 @@ public:
 
 private:
     quint32 m_fixture;
+    quint32 m_universe;
     quint32 m_channel;
+    quint32 m_address;
 
     int m_start;
     int m_target;

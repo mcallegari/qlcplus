@@ -24,6 +24,7 @@
 #include "virtualconsole.h"
 #include "dmxdumpfactory.h"
 #include "chaserstep.h"
+#include "universe.h"
 #include "function.h"
 #include "vcwidget.h"
 #include "vcbutton.h"
@@ -236,8 +237,10 @@ void DmxDumpFactory::slotItemExpanded()
 void DmxDumpFactory::accept()
 {
     QByteArray dumpMask = m_properties->channelsMask();
-    UniverseArray *ua = m_doc->outputMap()->claimUniverses();
-    const QByteArray preGMValues = ua->preGMValues();
+    QList<Universe*> ua = m_doc->outputMap()->claimUniverses();
+    QByteArray preGMValues; //= ua->preGMValues();
+    for (int i = 0; i < ua.count(); i++)
+        preGMValues.append(ua.at(i)->preGMValues());
     m_doc->outputMap()->releaseUniverses(false);
     Scene *newScene = NULL;
     for (int t = 0; t < m_fixturesTree->topLevelItemCount(); t++)
@@ -258,7 +261,7 @@ void DmxDumpFactory::accept()
                 for (int c = 0; c < fixItem->childCount(); c++)
                 {
                     QTreeWidgetItem *chanItem = fixItem->child(c);
-                    SceneValue sv;
+
                     if (m_dumpAllRadio->isChecked())
                     {
                         dumpMask[baseAddress + c] = 1;

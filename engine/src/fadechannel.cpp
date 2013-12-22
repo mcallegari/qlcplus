@@ -23,11 +23,14 @@
 #include "fadechannel.h"
 #include "qlcchannel.h"
 #include "qlcmacros.h"
+#include "universe.h"
 #include "fixture.h"
 
 FadeChannel::FadeChannel()
     : m_fixture(Fixture::invalidId())
+    , m_universe(Universe::invalid())
     , m_channel(QLCChannel::invalid())
+    , m_address(QLCChannel::invalid())
     , m_start(0)
     , m_target(0)
     , m_current(0)
@@ -39,7 +42,9 @@ FadeChannel::FadeChannel()
 
 FadeChannel::FadeChannel(const FadeChannel& ch)
     : m_fixture(ch.m_fixture)
+    , m_universe(ch.m_universe)
     , m_channel(ch.m_channel)
+    , m_address(ch.m_address)
     , m_start(ch.m_start)
     , m_target(ch.m_target)
     , m_current(ch.m_current)
@@ -49,7 +54,7 @@ FadeChannel::FadeChannel(const FadeChannel& ch)
 {
 }
 
-FadeChannel::FadeChannel(quint32 fxi, quint32 channel)
+FadeChannel::FadeChannel(const Doc *doc, quint32 fxi, quint32 channel)
     : m_fixture(fxi)
     , m_channel(channel)
     , m_start(0)
@@ -59,6 +64,17 @@ FadeChannel::FadeChannel(quint32 fxi, quint32 channel)
     , m_fadeTime(0)
     , m_elapsed(0)
 {
+    Fixture* fixture = doc->fixture(fxi);
+    if (fixture == NULL)
+    {
+        m_universe = Universe::invalid();
+        m_address = QLCChannel::invalid();
+    }
+    else
+    {
+        m_universe = fixture->universe();
+        m_address = fixture->address();
+    }
 }
 
 FadeChannel::~FadeChannel()
@@ -70,14 +86,30 @@ bool FadeChannel::operator==(const FadeChannel& ch) const
     return (m_fixture == ch.m_fixture && m_channel == ch.m_channel);
 }
 
-void FadeChannel::setFixture(quint32 id)
+void FadeChannel::setFixture(const Doc *doc, quint32 id)
 {
     m_fixture = id;
+    Fixture* fixture = doc->fixture(id);
+    if (fixture == NULL)
+    {
+        m_universe = Universe::invalid();
+        m_address = QLCChannel::invalid();
+    }
+    else
+    {
+        m_universe = fixture->universe();
+        m_address = fixture->address();
+    }
 }
 
 quint32 FadeChannel::fixture() const
 {
     return m_fixture;
+}
+
+quint32 FadeChannel::universe()
+{
+    return m_universe;
 }
 
 void FadeChannel::setChannel(quint32 num)
@@ -90,16 +122,12 @@ quint32 FadeChannel::channel() const
     return m_channel;
 }
 
-quint32 FadeChannel::address(const Doc* doc) const
+quint32 FadeChannel::address() const
 {
-    if (fixture() == Fixture::invalidId())
-        return channel(); // No fixture, assume absolute DMX address
+    if (m_address == QLCChannel::invalid())
+        return m_address;
 
-    Fixture* fxi = doc->fixture(fixture());
-    if (fxi == NULL)
-        return QLCChannel::invalid();
-    else
-        return (fxi->universeAddress() + channel());
+    return (m_address + channel());
 }
 
 QLCChannel::Group FadeChannel::group(const Doc* doc) const

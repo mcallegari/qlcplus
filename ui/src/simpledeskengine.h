@@ -125,10 +125,10 @@ public:
      ************************************************************************/
 public:
     /** @reimpl */
-    void writeDMX(MasterTimer* timer, UniverseArray* ua);
+    void writeDMX(MasterTimer* timer, QList<Universe*> ua);
 
 private:
-    void writeValuesHash(QHash<uint, uchar> & hash, UniverseArray* ua);
+    void writeValuesHash(QHash<uint, uchar> & hash, QList<Universe*> ua);
 
 };
 

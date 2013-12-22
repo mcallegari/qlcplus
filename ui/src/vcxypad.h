@@ -150,7 +150,7 @@ private:
      *************************************************************************/
 public:
     /** @reimp */
-    void writeDMX(MasterTimer* timer, UniverseArray* universes);
+    void writeDMX(MasterTimer* timer, QList<Universe*> universes);
 
 public slots:
     void slotPositionChanged(const QPoint& pt);

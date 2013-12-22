@@ -40,7 +40,7 @@ SUBDIRS += rgbtext
 SUBDIRS += scene
 SUBDIRS += scenevalue
 SUBDIRS += script
-SUBDIRS += universearray
+#SUBDIRS += universearray
 
 # Stubs
 SUBDIRS += outputpluginstub

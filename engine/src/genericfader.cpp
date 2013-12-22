@@ -20,9 +20,9 @@
 #include <cmath>
 #include <QDebug>
 
-#include "universearray.h"
 #include "genericfader.h"
 #include "fadechannel.h"
+#include "universe.h"
 #include "doc.h"
 
 GenericFader::GenericFader(Doc* doc)
@@ -71,14 +71,15 @@ const QHash <FadeChannel,FadeChannel>& GenericFader::channels() const
     return m_channels;
 }
 
-void GenericFader::write(UniverseArray* ua)
+void GenericFader::write(QList<Universe*> ua)
 {
     QMutableHashIterator <FadeChannel,FadeChannel> it(m_channels);
     while (it.hasNext() == true)
     {
         FadeChannel& fc(it.next().value());
         QLCChannel::Group grp = fc.group(m_doc);
-        quint32 addr = fc.address(m_doc);
+        quint32 addr = fc.address();
+        quint32 universe = fc.universe();
         bool canFade = fc.canFade(m_doc);
 
         // Calculate the next step
@@ -88,7 +89,7 @@ void GenericFader::write(UniverseArray* ua)
         if (grp == QLCChannel::Intensity && canFade == true)
             value = fc.current(intensity());
 
-        ua->write(addr, value, grp);
+        ua[universe]->write(addr, value);
 
         if (grp == QLCChannel::Intensity)
         {

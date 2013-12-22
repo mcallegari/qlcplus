@@ -1502,8 +1502,8 @@ void VirtualConsole::resetContents()
 
     /* Reset all properties but size */
     m_properties.setTapModifier(Qt::ControlModifier);
-    m_properties.setGrandMasterChannelMode(UniverseArray::GMIntensity);
-    m_properties.setGrandMasterValueMode(UniverseArray::GMReduce);
+    m_properties.setGrandMasterChannelMode(GrandMaster::GMIntensity);
+    m_properties.setGrandMasterValueMode(GrandMaster::GMReduce);
     m_properties.setGrandMasterInputSource(InputMap::invalidUniverse(), InputMap::invalidChannel());
 }
 

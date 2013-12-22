@@ -20,7 +20,6 @@
 #include <QDebug>
 #include <QTime>
 
-#include "universearray.h"
 #include "cuelistrunner.h"
 #include "genericfader.h"
 #include "mastertimer.h"
@@ -372,7 +371,7 @@ int CueListRunner::getNextStepIndex()
     return m_lastRunStepIdx;
 }
 
-bool CueListRunner::write(MasterTimer* timer, UniverseArray* universes)
+bool CueListRunner::write(MasterTimer* timer, QList<Universe *> universes)
 {
     Q_UNUSED(universes);
 
@@ -444,7 +443,7 @@ bool CueListRunner::write(MasterTimer* timer, UniverseArray* universes)
     return true;
 }
 
-void CueListRunner::postRun(MasterTimer* timer, UniverseArray* universes)
+void CueListRunner::postRun(MasterTimer* timer, QList<Universe*> universes)
 {
     Q_UNUSED(universes);
     Q_UNUSED(timer);

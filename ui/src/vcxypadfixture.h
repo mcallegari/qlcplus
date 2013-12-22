@@ -27,9 +27,9 @@
 #include "grouphead.h"
 
 class VCXYPadFixture;
-class UniverseArray;
 class QDomDocument;
 class QDomElement;
+class Universe;
 class Doc;
 
 #define KXMLQLCVCXYPadFixture "Fixture"
@@ -133,7 +133,7 @@ public:
     void disarm();
 
     /** Write the value using x & y multipliers for the actual range */
-    void writeDMX(qreal xmul, qreal ymul, UniverseArray* universes);
+    void writeDMX(qreal xmul, qreal ymul, QList<Universe*> universes);
 };
 
 #endif

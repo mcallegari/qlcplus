@@ -80,7 +80,7 @@ protected:
      *********************************************************************/
 public:
     /** @reimpl */
-    void writeDMX(MasterTimer* timer, UniverseArray* universes);
+    void writeDMX(MasterTimer* timer, QList<Universe*> universes);
 
     /*********************************************************************
      * Key sequence handler

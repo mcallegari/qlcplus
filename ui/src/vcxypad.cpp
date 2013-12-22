@@ -245,7 +245,7 @@ QList <VCXYPadFixture> VCXYPad::fixtures() const
  * Current XY position
  *****************************************************************************/
 
-void VCXYPad::writeDMX(MasterTimer* timer, UniverseArray* universes)
+void VCXYPad::writeDMX(MasterTimer* timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer);
 

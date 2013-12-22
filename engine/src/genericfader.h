@@ -23,8 +23,8 @@
 #include <QList>
 #include <QHash>
 
-class UniverseArray;
 class FadeChannel;
+class Universe;
 class Doc;
 
 class GenericFader
@@ -67,7 +67,7 @@ public:
      *
      * @param universes The universe array that receives channel data.
      */
-    void write(UniverseArray* universes);
+    void write(QList<Universe *> universes);
 
     /**
      * Adjust the intensities of all channels by $fraction

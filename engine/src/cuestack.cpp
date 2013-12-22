@@ -22,12 +22,12 @@
 #include <QDebug>
 #include <QHash>
 
-#include "universearray.h"
 #include "genericfader.h"
 #include "fadechannel.h"
 #include "mastertimer.h"
 #include "qlcmacros.h"
 #include "cuestack.h"
+#include "universe.h"
 #include "cue.h"
 #include "doc.h"
 
@@ -421,7 +421,7 @@ bool CueStack::isFlashing() const
     return m_flashing;
 }
 
-void CueStack::writeDMX(MasterTimer* timer, UniverseArray* ua)
+void CueStack::writeDMX(MasterTimer* timer, QList<Universe*> ua)
 {
     Q_UNUSED(timer);
     if (isFlashing() == true && m_cues.size() > 0)
@@ -433,7 +433,9 @@ void CueStack::writeDMX(MasterTimer* timer, UniverseArray* ua)
             FadeChannel fc;
             fc.setChannel(it.key());
             fc.setTarget(it.value());
-            ua->write(fc.channel(), fc.target(), fc.group(doc()));
+            int uni = floor(fc.channel() / 512);
+            if (uni < ua.size())
+                ua[uni]->write(fc.channel() - (uni * 512), fc.target());
         }
     }
 }
@@ -461,10 +463,9 @@ void CueStack::preRun()
     emit started();
 }
 
-void CueStack::write(UniverseArray* ua)
+void CueStack::write(QList<Universe*> ua)
 {
     Q_ASSERT(m_fader != NULL);
-    Q_ASSERT(ua != NULL);
 
     if (m_cues.size() == 0 || isRunning() == false)
         return;
@@ -568,7 +569,7 @@ int CueStack::next()
     return m_currentIndex;
 }
 
-void CueStack::switchCue(int from, int to, const UniverseArray* ua)
+void CueStack::switchCue(int from, int to, const QList<Universe *> ua)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -588,7 +589,7 @@ void CueStack::switchCue(int from, int to, const UniverseArray* ua)
         oldit.next();
 
         FadeChannel fc;
-        fc.setFixture(Fixture::invalidId());
+        fc.setFixture(doc(), Fixture::invalidId());
         fc.setChannel(oldit.key());
 
         if (fc.group(doc()) == QLCChannel::Intensity)
@@ -609,7 +610,7 @@ void CueStack::switchCue(int from, int to, const UniverseArray* ua)
         newit.next();
         FadeChannel fc;
 
-        fc.setFixture(Fixture::invalidId());
+        fc.setFixture(doc(), Fixture::invalidId());
         fc.setChannel(newit.key());
         fc.setTarget(newit.value());
         fc.setElapsed(0);
@@ -620,7 +621,7 @@ void CueStack::switchCue(int from, int to, const UniverseArray* ua)
     }
 }
 
-void CueStack::insertStartValue(FadeChannel& fc, const UniverseArray* ua)
+void CueStack::insertStartValue(FadeChannel& fc, const QList<Universe *> ua)
 {
     qDebug() << Q_FUNC_INFO;
     const QHash <FadeChannel,FadeChannel>& channels(m_fader->channels());
@@ -635,11 +636,14 @@ void CueStack::insertStartValue(FadeChannel& fc, const UniverseArray* ua)
     else
     {
         // GenericFader didn't have the channel. Grab the starting value from UniverseArray.
-        quint32 address = fc.address(doc());
-        if (fc.group(doc()) != QLCChannel::Intensity)
-            fc.setStart(ua->preGMValues()[address]);
-        else
-            fc.setStart(0); // HTP channels must start at zero
+        quint32 uni = fc.universe();
+        if (uni != Universe::invalid())
+        {
+            if (fc.group(doc()) != QLCChannel::Intensity)
+                fc.setStart(ua[uni]->preGMValues()[fc.address()]);
+            else
+                fc.setStart(0); // HTP channels must start at zero
+        }
         fc.setCurrent(fc.start());
     }
 }

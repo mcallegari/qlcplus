@@ -24,11 +24,11 @@
 #include <QMutexLocker>
 
 #include "simpledeskengine.h"
-#include "universearray.h"
 #include "mastertimer.h"
 #include "fadechannel.h"
 #include "outputmap.h"
 #include "cuestack.h"
+#include "universe.h"
 #include "doc.h"
 
 #define PROP_ID "id"
@@ -269,7 +269,7 @@ bool SimpleDeskEngine::saveXML(QDomDocument* doc, QDomElement* wksp_root) const
  * DMXSource
  ****************************************************************************/
 
-void SimpleDeskEngine::writeDMX(MasterTimer* timer, UniverseArray* ua)
+void SimpleDeskEngine::writeDMX(MasterTimer* timer, QList<Universe *> ua)
 {
     QMutexLocker locker(&m_mutex);
 
@@ -297,7 +297,7 @@ void SimpleDeskEngine::writeDMX(MasterTimer* timer, UniverseArray* ua)
     }
 }
 
-void SimpleDeskEngine::writeValuesHash(QHash<uint, uchar> & hash, UniverseArray* ua)
+void SimpleDeskEngine::writeValuesHash(QHash<uint, uchar> & hash, QList<Universe *> ua)
 {
     QHashIterator <uint,uchar> it(hash);
     while (it.hasNext() == true)
@@ -307,17 +307,22 @@ void SimpleDeskEngine::writeValuesHash(QHash<uint, uchar> & hash, UniverseArray*
         Fixture* fxi = doc()->fixture(doc()->fixtureForAddress(it.key()));
         if (fxi == NULL || fxi->isDimmer() == true)
         {
-            ua->write(it.key(), it.value(), QLCChannel::Intensity);
+            int uni = it.key() >> 9;
+            int address = it.key() & 0x01FF;
+            ua[uni]->write(address, it.value());
         }
         else
         {
-            uint ch = it.key() - fxi->universeAddress();
+            //uint ch = it.key() - fxi->universeAddress();
+            int uni = fxi->universe();
+            /*
             QLCChannel::Group grp = QLCChannel::NoGroup;
             if (ch < fxi->channels())
                 grp = fxi->channel(ch)->group();
             else
                 grp = QLCChannel::Intensity;
-            ua->write(it.key(), it.value(), grp);
+            */
+            ua[uni]->write(fxi->address(), it.value());
         }
     }
 }

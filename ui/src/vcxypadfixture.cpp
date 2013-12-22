@@ -28,7 +28,7 @@
 #include "qlcfile.h"
 
 #include "vcxypadfixture.h"
-#include "universearray.h"
+#include "universe.h"
 #include "fixture.h"
 #include "doc.h"
 
@@ -388,10 +388,8 @@ void VCXYPadFixture::disarm()
     m_yMSB = QLCChannel::invalid();
 }
 
-void VCXYPadFixture::writeDMX(qreal xmul, qreal ymul, UniverseArray* universes)
+void VCXYPadFixture::writeDMX(qreal xmul, qreal ymul, QList<Universe *> universes)
 {
-    Q_ASSERT(universes != NULL);
-
     if (m_xMSB == QLCChannel::invalid() || m_yMSB == QLCChannel::invalid())
         return;
 
@@ -406,12 +404,26 @@ void VCXYPadFixture::writeDMX(qreal xmul, qreal ymul, UniverseArray* universes)
     ushort x = floor((qreal(USHRT_MAX) * xmul) + 0.5);
     ushort y = floor((qreal(USHRT_MAX) * ymul) + 0.5);
 
-    universes->write(m_xMSB, char(x >> 8), QLCChannel::Pan);
-    universes->write(m_yMSB, char(y >> 8), QLCChannel::Tilt);
+    quint32 address = m_xMSB & 0x01FF;
+    int uni = m_xMSB >> 9;
+    if (uni < universes.count())
+        universes[uni]->write(address, char(x >> 8));
+
+    address = m_yMSB & 0x01FF;
+    uni = m_yMSB >> 9;
+    if (uni < universes.count())
+        universes[uni]->write(m_yMSB, char(y >> 8));
 
     if (m_xLSB != QLCChannel::invalid() && m_yLSB != QLCChannel::invalid())
     {
-        universes->write(m_xLSB, char(x & 0xFF), QLCChannel::Pan);
-        universes->write(m_yLSB, char(y & 0xFF), QLCChannel::Tilt);
+        address = m_xLSB & 0x01FF;
+        uni = m_xLSB >> 9;
+        if (uni < universes.count())
+            universes[uni]->write(address, char(x & 0xFF));
+
+        address = m_yLSB & 0x01FF;
+        uni = m_yLSB >> 9;
+        if (uni < universes.count())
+            universes[uni]->write(address, char(y & 0xFF));
     }
 }

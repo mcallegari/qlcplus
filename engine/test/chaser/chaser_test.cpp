@@ -23,13 +23,13 @@
 #define protected public
 #define private public
 #include "mastertimer_stub.h"
-#include "universearray.h"
 #include "chaserrunner.h"
 #include "chaser_test.h"
 #include "chaserstep.h"
 #include "collection.h"
 #include "function.h"
 #include "fixture.h"
+#include "universe.h"
 #include "chaser.h"
 #include "scene.h"
 #include "doc.h"
@@ -843,7 +843,7 @@ void Chaser_Test::tap()
     c->preRun(m_doc->masterTimer());
     QVERIFY(c->m_runner != NULL);
     QCOMPARE(c->duration(), uint(0));
-    c->write(m_doc->masterTimer(), NULL);
+    c->write(m_doc->masterTimer(), QList<Universe*>());
     QCOMPARE(c->m_runner->m_next, false);
     c->tap();
     QTest::qWait(MasterTimer::tick());
@@ -856,7 +856,8 @@ void Chaser_Test::preRun()
     Chaser* c = new Chaser(m_doc);
     m_doc->addFunction(c);
 
-    UniverseArray ua(512);
+    QList<Universe*> ua;
+    ua.append(new Universe(new GrandMaster()));
     MasterTimerStub timer(m_doc, ua);
 
     c->m_stop = true;
@@ -865,7 +866,7 @@ void Chaser_Test::preRun()
     QVERIFY(c->m_runner != NULL);
     QCOMPARE(c->isRunning(), true); // Make sure Function::preRun() is called
     QCOMPARE(c->m_runner->m_elapsed, uint(0)); // Make sure ChaserRunner::reset() is called
-    c->postRun(&timer, &ua);
+    c->postRun(&timer, ua);
 }
 
 void Chaser_Test::write()
@@ -921,14 +922,15 @@ void Chaser_Test::postRun()
     Chaser* c = new Chaser(m_doc);
     m_doc->addFunction(c);
 
-    UniverseArray ua(512);
+    QList<Universe*> ua;
+    ua.append(new Universe(new GrandMaster()));
     MasterTimerStub timer(m_doc, ua);
 
     c->preRun(&timer);
     QCOMPARE(c->isRunning(), true);
 
     // The chaser has no steps so ChaserRunner::postrun() shouldn't do much
-    c->postRun(&timer, &ua);
+    c->postRun(&timer, ua);
     QCOMPARE(c->isRunning(), false); // Make sure Function::postRun() is called
 }
 
@@ -937,7 +939,8 @@ void Chaser_Test::adjustIntensity()
     Chaser* c = new Chaser(m_doc);
     m_doc->addFunction(c);
 
-    UniverseArray ua(512);
+    QList<Universe*> ua;
+    ua.append(new Universe(new GrandMaster()));
     MasterTimerStub timer(m_doc, ua);
 
     c->preRun(&timer);
@@ -949,7 +952,7 @@ void Chaser_Test::adjustIntensity()
     QCOMPARE(c->m_runner->m_intensity, qreal(1.0));
     c->adjustAttribute(-0.1, Function::Intensity);
     QCOMPARE(c->m_runner->m_intensity, qreal(0.0));
-    c->postRun(&timer, &ua);
+    c->postRun(&timer, ua);
 
     // Mustn't crash after postRun
     c->adjustAttribute(1.0, Function::Intensity);

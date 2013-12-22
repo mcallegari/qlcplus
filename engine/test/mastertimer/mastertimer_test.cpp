@@ -23,9 +23,9 @@
 #include "mastertimer_test.h"
 #include "dmxsource_stub.h"
 #include "function_stub.h"
-#include "universearray.h"
 #include "mastertimer.h"
 #include "qlcchannel.h"
+#include "universe.h"
 #include "qlcfile.h"
 #include "doc.h"
 #undef private

@@ -37,13 +37,13 @@
 #include "qlcinputchannel.h"
 #include "virtualconsole.h"
 #include "qlcinputsource.h"
-#include "universearray.h"
 #include "mastertimer.h"
 #include "collection.h"
 #include "inputpatch.h"
+#include "qlcmacros.h"
+#include "universe.h"
 #include "inputmap.h"
 #include "vcslider.h"
-#include "qlcmacros.h"
 #include "qlcfile.h"
 #include "apputil.h"
 #include "chaser.h"
@@ -804,7 +804,7 @@ void VCSlider::slotPlaybackFunctionIntensityChanged(int attrIndex, qreal fractio
  * DMXSource
  *****************************************************************************/
 
-void VCSlider::writeDMX(MasterTimer* timer, UniverseArray* universes)
+void VCSlider::writeDMX(MasterTimer* timer, QList<Universe *> universes)
 {
     if (sliderMode() == Level)
         writeDMXLevel(timer, universes);
@@ -812,7 +812,7 @@ void VCSlider::writeDMX(MasterTimer* timer, UniverseArray* universes)
         writeDMXPlayback(timer, universes);
 }
 
-void VCSlider::writeDMXLevel(MasterTimer* timer, UniverseArray* universes)
+void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer);
 
@@ -890,15 +890,17 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, UniverseArray* universes)
                 }
             }
 
-            quint32 dmx_ch = fxi->channelAddress(lch.channel);
-            universes->write(dmx_ch, modLevel * intensity(), qlcch->group());
+            quint32 dmx_ch = fxi->address() + lch.channel;
+            int uni = fxi->universe();
+            if (uni < universes.count())
+                universes[uni]->write(dmx_ch, modLevel * intensity());
         }
     }
     m_levelValueChanged = false;
     m_levelValueMutex.unlock();
 }
 
-void VCSlider::writeDMXPlayback(MasterTimer* timer, UniverseArray* ua)
+void VCSlider::writeDMXPlayback(MasterTimer* timer, QList<Universe *> ua)
 {
     Q_UNUSED(ua);
 

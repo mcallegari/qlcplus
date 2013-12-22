@@ -54,7 +54,7 @@ public:
     bool isOutputEnabled() const;
 
     /** @reimp */
-    void writeDMX(MasterTimer* timer, UniverseArray* ua);
+    void writeDMX(MasterTimer* timer, QList<Universe*> ua);
 
 private:
     Doc* m_doc;

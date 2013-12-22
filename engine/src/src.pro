@@ -76,12 +76,12 @@ HEADERS += bus.h \
            function.h \
            genericdmxsource.h \
            genericfader.h \
+           grandmaster.h \
            grouphead.h \
            inputmap.h \
            inputpatch.h \
            ioplugincache.h \
            mastertimer.h \
-           universearray.h \
            outputmap.h \
            outputpatch.h \
            qlcclipboard.h \
@@ -96,7 +96,8 @@ HEADERS += bus.h \
            script.h \
            show.h \
            showrunner.h \
-           track.h
+           track.h \
+           universe.h
 
 win32:HEADERS += mastertimer-win32.h
 unix:HEADERS  += mastertimer-unix.h
@@ -157,12 +158,12 @@ SOURCES += bus.cpp \
            function.cpp \
            genericdmxsource.cpp \
            genericfader.cpp \
+           grandmaster.cpp \
            grouphead.cpp \
            inputmap.cpp \
            inputpatch.cpp \
            ioplugincache.cpp \
            mastertimer.cpp \
-           universearray.cpp \
            outputmap.cpp \
            outputpatch.cpp \
            qlcclipboard.cpp \
@@ -177,7 +178,8 @@ SOURCES += bus.cpp \
            script.cpp \
            show.cpp \
            showrunner.cpp \
-           track.cpp
+           track.cpp \
+           universe.cpp
 
 win32:SOURCES += mastertimer-win32.cpp
 unix:SOURCES  += mastertimer-unix.cpp

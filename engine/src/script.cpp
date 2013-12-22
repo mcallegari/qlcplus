@@ -23,11 +23,11 @@
 #include <QDebug>
 #include <QUrl>
 
-#include "universearray.h"
 #include "genericfader.h"
 #include "fadechannel.h"
 #include "mastertimer.h"
 #include "qlcmacros.h"
+#include "universe.h"
 #include "script.h"
 #include "doc.h"
 
@@ -230,7 +230,7 @@ void Script::preRun(MasterTimer* timer)
     Function::preRun(timer);
 }
 
-void Script::write(MasterTimer* timer, UniverseArray* universes)
+void Script::write(MasterTimer* timer, QList<Universe *> universes)
 {
     incrementElapsed();
 
@@ -258,7 +258,7 @@ void Script::write(MasterTimer* timer, UniverseArray* universes)
     }
 }
 
-void Script::postRun(MasterTimer* timer, UniverseArray* universes)
+void Script::postRun(MasterTimer* timer, QList<Universe *> universes)
 {
     // Stop all functions started by this script
     foreach (Function* function, m_startedFunctions)
@@ -288,7 +288,7 @@ bool Script::waiting()
     }
 }
 
-bool Script::executeCommand(int index, MasterTimer* timer, UniverseArray* universes)
+bool Script::executeCommand(int index, MasterTimer* timer, QList<Universe *> universes)
 {
     if (index < 0 || index >= m_lines.size())
     {
@@ -457,7 +457,7 @@ QString Script::handleWaitKey(const QList<QStringList>& tokens)
     return QString();
 }
 
-QString Script::handleSetFixture(const QList<QStringList>& tokens, UniverseArray* universes)
+QString Script::handleSetFixture(const QList<QStringList>& tokens, QList<Universe *> universes)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -503,14 +503,14 @@ QString Script::handleSetFixture(const QList<QStringList>& tokens, UniverseArray
     {
         if (ch < fxi->channels())
         {
-            int address = fxi->universeAddress() + ch;
-            if (address < universes->size())
+            int address = fxi->address() + ch;
+            if (address < 512)
             {
                 GenericFader* gf = fader();
                 Q_ASSERT(gf != NULL);
 
                 FadeChannel fc;
-                fc.setFixture(fxi->id());
+                fc.setFixture(doc, fxi->id());
                 fc.setChannel(ch);
                 fc.setTarget(value);
                 fc.setFadeTime(time);
@@ -518,10 +518,11 @@ QString Script::handleSetFixture(const QList<QStringList>& tokens, UniverseArray
                 // If the script has used the channel previously, it might still be in
                 // the bowels of GenericFader so get the starting value from there.
                 // Otherwise get it from universes (HTP channels are always 0 then).
+                quint32 uni = fc.universe();
                 if (gf->channels().contains(fc) == true)
                     fc.setStart(gf->channels()[fc].current());
                 else
-                    fc.setStart(universes->preGMValues()[address]);
+                    fc.setStart(universes[uni]->preGMValues()[address]);
                 fc.setCurrent(fc.start());
 
                 gf->add(fc);
