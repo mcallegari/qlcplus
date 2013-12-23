@@ -163,13 +163,7 @@ const QByteArray Universe::preGMValues() const
 uchar Universe::applyGM(int channel, uchar value)
 {
     if (value == 0)
-    {
-        if (m_channelsMask->at(channel) & Intensity)
-            m_gMIntensityChannels.remove(channel);
-        else
-            m_gMNonIntensityChannels.remove(channel);
-        return value;
-    }
+        return 0;
 
     if ((m_grandMaster->gMChannelMode() == GrandMaster::GMIntensity && m_channelsMask->at(channel) & Intensity) ||
         (m_grandMaster->gMChannelMode() == GrandMaster::GMAllChannels))
@@ -180,12 +174,44 @@ uchar Universe::applyGM(int channel, uchar value)
             value = char(floor((double(value) * m_grandMaster->gMFraction()) + 0.5));
     }
 
-    if (m_channelsMask->at(channel) & Intensity)
-        m_gMIntensityChannels << channel;
-    else
-        m_gMNonIntensityChannels << channel;
-
     return value;
+}
+
+/************************************************************************
+ * Channels capabilities
+ ************************************************************************/
+
+void Universe::setChannelCapability(ushort channel, QLCChannel::Group group, bool isHTP)
+{
+    if (channel >= (ushort)m_channelsMask->count())
+        return;
+
+    if (isHTP == true)
+    {
+        m_channelsMask->data()[channel] = char(HTP);
+    }
+    else
+    {
+        if (group == QLCChannel::Intensity)
+        {
+            m_channelsMask->data()[channel] = char(HTP & Intensity);
+            m_gMIntensityChannels << channel;
+        }
+        else
+        {
+            m_channelsMask->data()[channel] = char(LTP);
+            m_gMNonIntensityChannels << channel;
+        }
+    }
+    return;
+}
+
+uchar Universe::channelCapabilities(ushort channel)
+{
+    if (channel >= (ushort)m_channelsMask->count())
+        return Undefined;
+
+    return m_channelsMask->data()[channel];
 }
 
 /****************************************************************************
@@ -200,7 +226,7 @@ bool Universe::write(int channel, uchar value)
     if (channel > m_usedChannels)
         m_usedChannels = channel + 1;
 
-    if ((m_channelsMask->at(channel) & HTP) == 0 && value < m_preGMValues->at(channel))
+    if ((m_channelsMask->data()[channel] & HTP) == 0 && value < m_preGMValues->data()[channel])
         return false;
 
     if (m_preGMValues != NULL)

@@ -118,9 +118,19 @@ private:
     bool m_blackout;
 
     /*********************************************************************
-     * Values
+     * Universes
      *********************************************************************/
 public:
+
+    bool addUniverse();
+
+    bool removeUniverse();
+
+    /**
+     * Retrieve the number of universe in the output map
+     */
+    int universesCount();
+
     /**
      * Claim access to a universe. This is declared virtual to make
      * unit testing a bit easier.
@@ -135,6 +145,34 @@ public:
      */
     virtual void releaseUniverses(bool changed = true);
 
+    /**
+     * Write current universe array data to plugins, each universe within
+     * the array to its assigned plugin.
+     */
+    void dumpUniverses();
+
+    /**
+     * Reset all universes (useful when starting from scratch)
+     */
+    void resetUniverses();
+
+signals:
+    void universesWritten(const QByteArray& universes);
+
+private:
+    /** The values of all universes */
+    QList<Universe *> m_universeArray;
+
+    /** When true, universes are dumped. Otherwise not. */
+    bool m_universeChanged;
+
+    /** Mutex guarding m_universeArray */
+    QMutex m_universeMutex;
+
+    /*********************************************************************
+     * Grand Master
+     *********************************************************************/
+public:
     /**
      * Set grand master channel mode (intensity or all channels)
      */
@@ -165,35 +203,13 @@ public:
      */
     uchar grandMasterValue();
 
-    /**
-     * Write current universe array data to plugins, each universe within
-     * the array to its assigned plugin.
-     */
-    void dumpUniverses();
-
-    /**
-     * Reset all universes (useful when starting from scratch)
-     */
-    void resetUniverses();
-
 signals:
-    void universesWritten(const QByteArray& universes);
     void grandMasterValueChanged(uchar value);
     void grandMasterValueModeChanged(GrandMaster::GMValueMode mode);
 
 private:
     /** The Grand Master reference */
     GrandMaster *m_grandMaster;
-
-    /** The values of all universes */
-    //UniverseArray* m_universeArray;
-    QList<Universe *> m_universeArray;
-
-    /** When true, universes are dumped. Otherwise not. */
-    bool m_universeChanged;
-
-    /** Mutex guarding m_universeArray */
-    QMutex m_universeMutex;
 
     /*********************************************************************
      * Patch

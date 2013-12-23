@@ -32,6 +32,7 @@
 #include "channelsgroup.h"
 #include "collection.h"
 #include "function.h"
+#include "universe.h"
 #include "fixture.h"
 #include "chaser.h"
 #include "scene.h"
@@ -346,6 +347,19 @@ bool Doc::addFixture(Fixture* fixture, quint32 id)
         {
             m_addresses[i] = id;
         }
+
+        // Add the fixture channels capabilities to the universe they belong
+        QList<Universe *> universes = outputMap()->claimUniverses();
+        int uni = fixture->universe();
+
+        // TODO !!! if a universe for this fixture doesn't exist, add it !!!
+
+        for (quint32 i = 0 ; i < fixture->channels(); i++)
+        {
+            const QLCChannel* channel(fixture->channel(i));
+            universes.at(uni)->setChannelCapability(fixture->address() + i, channel->group());
+        }
+        outputMap()->releaseUniverses(true);
 
         emit fixtureAdded(id);
         setModified();
