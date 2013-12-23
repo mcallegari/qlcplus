@@ -110,14 +110,17 @@ public:
     /**
      * Define the capabilities of a channel in this universe
      *
-     * @param channel absolute index of the channel
+     * @param channel The channel absolute index in the universe
      * @param group The group this channel belongs to
      * @param isHTP Flag to force HTP/LTP behaviour
      */
-    void setChannelCapability(int channel, QLCChannel::Group group, bool isHTP = false);
+    void setChannelCapability(ushort channel, QLCChannel::Group group, bool isHTP = false);
 
-    /** Retrieve the capability mask of the given channel index */
-    uchar channelCapabilities(int channel);
+    /** Retrieve the capability mask of the given channel index
+     *
+     * @param channel The channel absolute index in the universe
+     */
+    uchar channelCapabilities(ushort channel);
 
     /************************************************************************
      * Values

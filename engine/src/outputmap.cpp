@@ -119,8 +119,31 @@ bool OutputMap::blackout() const
 }
 
 /*****************************************************************************
- * Values
+ * Universes
  *****************************************************************************/
+
+bool OutputMap::addUniverse()
+{
+    m_universeMutex.lock();
+    m_universeArray.append(new Universe(m_grandMaster));
+    m_universeMutex.unlock();
+    return true;
+}
+
+bool OutputMap::removeUniverse()
+{
+    m_universeMutex.lock();
+    Universe *delUni = m_universeArray.takeLast();
+    delete delUni;
+    m_universeMutex.unlock();
+
+    return true;
+}
+
+int OutputMap::universesCount()
+{
+    return m_universeArray.count();
+}
 
 QList<Universe*> OutputMap::claimUniverses()
 {
@@ -133,6 +156,45 @@ void OutputMap::releaseUniverses(bool changed)
     m_universeChanged = changed;
     m_universeMutex.unlock();
 }
+
+void OutputMap::dumpUniverses()
+{
+    m_universeMutex.lock();
+    if (m_blackout == false)
+    {
+        int i = 0;
+        foreach (Universe *universe, m_universeArray)
+        {
+            if (universe->hasChanged())
+            {
+                const QByteArray postGM = universe->postGMValues()->mid(0);
+                m_patch[i++]->dump(postGM);
+
+                m_universeMutex.unlock();
+                emit universesWritten(postGM);
+                m_universeMutex.lock();
+            }
+        }
+    }
+    m_universeMutex.unlock();
+}
+
+void OutputMap::resetUniverses()
+{
+    m_universeMutex.lock();
+    for (int i = 0; i < m_universeArray.size(); i++)
+        m_universeArray.at(i)->reset();
+    m_universeMutex.unlock();
+
+    /* Reset Grand Master parameters */
+    setGrandMasterValue(255);
+    setGrandMasterValueMode(GrandMaster::GMReduce);
+    setGrandMasterChannelMode(GrandMaster::GMIntensity);
+}
+
+/*********************************************************************
+ * Grand Master
+ *********************************************************************/
 
 void OutputMap::setGrandMasterChannelMode(GrandMaster::GMChannelMode mode)
 {
@@ -192,41 +254,6 @@ uchar OutputMap::grandMasterValue()
     Q_ASSERT(m_grandMaster != NULL);
 
     return m_grandMaster->gMValue();
-}
-
-void OutputMap::dumpUniverses()
-{
-    m_universeMutex.lock();
-    if (m_blackout == false)
-    {
-        int i = 0;
-        foreach (Universe *universe, m_universeArray)
-        {
-            if (universe->hasChanged())
-            {
-                const QByteArray postGM = universe->postGMValues()->mid(0);
-                m_patch[i++]->dump(postGM);
-
-                m_universeMutex.unlock();
-                emit universesWritten(postGM);
-                m_universeMutex.lock();
-            }
-        }
-    }
-    m_universeMutex.unlock();
-}
-
-void OutputMap::resetUniverses()
-{
-    m_universeMutex.lock();
-    for (int i = 0; i < m_universeArray.size(); i++)
-        m_universeArray.at(i)->reset();
-    m_universeMutex.unlock();
-
-    /* Reset Grand Master parameters */
-    setGrandMasterValue(255);
-    setGrandMasterValueMode(GrandMaster::GMReduce);
-    setGrandMasterChannelMode(GrandMaster::GMIntensity);
 }
 
 /*****************************************************************************
@@ -496,3 +523,4 @@ void OutputMap::saveDefaults()
         settings.setValue(key, str.setNum(fbPatch->output()));
     }
 }
+
