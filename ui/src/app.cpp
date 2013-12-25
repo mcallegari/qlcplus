@@ -895,7 +895,7 @@ QFile::FileError App::slotFileOpen()
     if (FixtureManager::instance() != NULL)
         FixtureManager::instance()->updateView();
     if (InputOutputManager::instance() != NULL)
-        InputOutputManager::instance()->updateTree();
+        InputOutputManager::instance()->updateList();
 
     updateFileOpenMenu(fn);
 
@@ -1149,7 +1149,7 @@ void App::slotRecentFileClicked(QAction *recent)
     if (FixtureManager::instance() != NULL)
         FixtureManager::instance()->updateView();
     if (InputOutputManager::instance() != NULL)
-        InputOutputManager::instance()->updateTree();
+        InputOutputManager::instance()->updateList();
 
 }
 

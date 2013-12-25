@@ -126,6 +126,8 @@ public:
 
     bool removeUniverse();
 
+    QString getUniverseName(int index);
+
     /**
      * Retrieve the number of universe in the output map
      */
