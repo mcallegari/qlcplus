@@ -96,8 +96,8 @@ Monitor::Monitor(QWidget* parent, Doc* doc, Qt::WindowFlags f)
     connect(m_doc, SIGNAL(fixtureRemoved(quint32)),
             this, SLOT(slotFixtureRemoved(quint32)));
 
-    connect(m_doc->outputMap(), SIGNAL(universesWritten(const QByteArray&)),
-            this, SLOT(slotUniversesWritten(const QByteArray&)));
+    connect(m_doc->outputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
+            this, SLOT(slotUniversesWritten(int, const QByteArray&)));
 }
 
 Monitor::~Monitor()
@@ -374,9 +374,9 @@ void Monitor::slotFixtureRemoved(quint32 fxi_id)
     }
 }
 
-void Monitor::slotUniversesWritten(const QByteArray& ua)
+void Monitor::slotUniversesWritten(int index, const QByteArray& ua)
 {
     QListIterator <MonitorFixture*> it(m_monitorFixtures);
     while (it.hasNext() == true)
-        it.next()->updateValues(ua);
+        it.next()->updateValues(index, ua);
 }

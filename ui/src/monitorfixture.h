@@ -69,7 +69,7 @@ protected:
      * Values
      ********************************************************************/
 public:
-    void updateValues(const QByteArray& universes);
+    void updateValues(int index, const QByteArray& universes);
 
 public slots:
     void slotValueStyleChanged(Monitor::ValueStyle style);

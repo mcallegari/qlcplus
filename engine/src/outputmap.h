@@ -157,7 +157,7 @@ public:
     void resetUniverses();
 
 signals:
-    void universesWritten(const QByteArray& universes);
+    void universesWritten(int index, const QByteArray& universes);
 
 private:
     /** The values of all universes */

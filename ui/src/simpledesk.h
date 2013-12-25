@@ -101,7 +101,7 @@ private slots:
     void slotUniverseResetClicked();
     void slotUniverseSliderValueChanged(quint32, quint32, uchar value);
     void slotUpdateUniverseSliders();
-    void slotUniversesWritten(const QByteArray& ua);
+    void slotUniversesWritten(int idx, const QByteArray& ua);
 
 private:
     QGroupBox* m_universeGroup;

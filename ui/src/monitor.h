@@ -122,7 +122,7 @@ protected slots:
     void slotFixtureRemoved(quint32 fxi_id);
 
     /** Slot for getting the latest values from OutputMap */
-    void slotUniversesWritten(const QByteArray& ua);
+    void slotUniversesWritten(int index, const QByteArray& ua);
 
 signals:
     void channelStyleChanged(Monitor::ChannelStyle style);
