@@ -140,6 +140,14 @@ bool OutputMap::removeUniverse()
     return true;
 }
 
+QString OutputMap::getUniverseName(int index)
+{
+    if (index < m_universeArray.count())
+        return m_universeArray.at(index)->name();
+
+    return QString();
+}
+
 int OutputMap::universesCount()
 {
     return m_universeArray.count();

@@ -214,7 +214,7 @@ void MonitorFixture_Test::updateValues()
     for (int i = 0; i < 10; i++)
         ba[i] = 127 + i;
 
-    mof.updateValues(ba);
+    mof.updateValues(0, ba);
     for (int i = 0; i < mof.m_valueLabels.size(); i++)
     {
         QString str;
@@ -222,7 +222,7 @@ void MonitorFixture_Test::updateValues()
     }
 
     mof.slotValueStyleChanged(Monitor::PercentageValues);
-    mof.updateValues(ba);
+    mof.updateValues(0, ba);
     for (int i = 0; i < mof.m_valueLabels.size(); i++)
     {
         QString str;

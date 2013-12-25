@@ -26,6 +26,7 @@
 
 Universe::Universe(GrandMaster *gm, QObject *parent)
     : QObject(parent)
+    , m_name(QString())
     , m_grandMaster(gm)
     , m_usedChannels(0)
     , m_hasChanged(false)

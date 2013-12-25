@@ -97,6 +97,7 @@ HEADERS += aboutbox.h \
            simpledeskengine.h \
            speeddial.h \
            speeddialwidget.h \
+           universeitemwidget.h \
            vcaudiotriggers.h \
            vcaudiotriggersproperties.h \
            vcbutton.h \
@@ -229,6 +230,7 @@ SOURCES += aboutbox.cpp \
            simpledeskengine.cpp \
            speeddial.cpp \
            speeddialwidget.cpp \
+           universeitemwidget.cpp \
            vcaudiotriggers.cpp \
            vcaudiotriggersproperties.cpp \
            vcbutton.cpp \

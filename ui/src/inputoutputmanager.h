@@ -24,8 +24,8 @@
 #include <QIcon>
 
 class InputOutputPatchEditor;
-class QTreeWidgetItem;
-class QTreeWidget;
+class QListWidgetItem;
+class QListWidget;
 class QSplitter;
 class QTimer;
 class QIcon;
@@ -60,12 +60,12 @@ private:
      * Tree widget
      *************************************************************************/
 public slots:
-    /** Update the input mapping tree */
-    void updateTree();
+    /** Update the input/output mapping list */
+    void updateList();
 
 private:
     /** Update the contents of the input universe to the item */
-    void updateItem(QTreeWidgetItem* item, quint32 universe);
+    void updateItem(QListWidgetItem *item, quint32 universe);
 
 private slots:
     /** Listens to input data and displays a small icon to indicate a
@@ -87,7 +87,8 @@ private slots:
 private:
     Doc *m_doc;
     QSplitter* m_splitter;
-    QTreeWidget* m_tree;
+    //QTreeWidget* m_tree;
+    QListWidget *m_list;
     QIcon m_icon;
     QTimer* m_timer;
     InputOutputPatchEditor *m_editor;
