@@ -59,7 +59,6 @@ void OutputMap_Test::cleanupTestCase()
 void OutputMap_Test::initial()
 {
     OutputMap om(m_doc, 4);
-    QVERIFY(om.m_universes == 4);
     QVERIFY(om.universes() == 4);
     QVERIFY(om.m_blackout == false);
     QVERIFY(om.blackout() == false);

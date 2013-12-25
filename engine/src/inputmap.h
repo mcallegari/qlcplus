@@ -76,6 +76,17 @@ signals:
      *************************************************************************/
 public:
     /**
+     * Add a new universe and append it at the end of the
+     * current universes list
+     */
+    bool addUniverse();
+
+    /**
+     * Remove the last universe in the current universes list
+     */
+    bool removeUniverse();
+
+    /**
      * Invalid universe number (for comparison etc.)
      */
     static quint32 invalidUniverse();
@@ -148,7 +159,7 @@ private:
 private:
     /** Vector containing all active input plugins and the internal
         universes that they are associated to. */
-    QVector <InputPatch*> m_patch;
+    QList <InputPatch*> m_patch;
 
     /*************************************************************************
      * Plugins

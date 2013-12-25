@@ -27,6 +27,8 @@ class InputOutputPatchEditor;
 class QListWidgetItem;
 class QListWidget;
 class QSplitter;
+class QLineEdit;
+class QToolBar;
 class QTimer;
 class QIcon;
 
@@ -84,10 +86,17 @@ private slots:
     /** Destroy the current audio input instance */
     void slotAudioInputChanged();
 
+    void slotAddUniverse();
+    void slotDeleteUniverse();
+    void slotUniverseNameChanged(QString name);
+
 private:
     Doc *m_doc;
     QSplitter* m_splitter;
-    //QTreeWidget* m_tree;
+    QToolBar *m_toolbar;
+    QAction* m_addUniverseAction;
+    QAction* m_deleteUniverseAction;
+    QLineEdit *m_uniNameEdit;
     QListWidget *m_list;
     QIcon m_icon;
     QTimer* m_timer;
