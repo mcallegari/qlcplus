@@ -64,13 +64,15 @@ void UniverseItemWidget::paint(QPainter *painter, const QStyleOptionViewItem &op
     else
         painter->setPen(QPen(QColor(0, 0, 0, 255), 2));
 
+    // draw universe name
     painter->setFont(font);
-    painter->drawText(QRect(10, r.top() + 10, 150, r.height() - 15),
+    painter->drawText(QRect(10, r.top() + 5, 150, r.height() - 10),
                       Qt::AlignLeft | Qt::TextWordWrap | Qt::AlignVCenter, index.data(Qt::DisplayRole).toString());
 
     font.setPixelSize(12);
     painter->setFont(font);
 
+    // draw input output labels
     int midPos = (r.width() - 10 - 150) / 2;
     midPos += 170;
     QString inStr = tr("Input:");
@@ -91,6 +93,7 @@ void UniverseItemWidget::paint(QPainter *painter, const QStyleOptionViewItem &op
     font.setBold(false);
     painter->setFont(font);
 
+    // draw input output plugin/profile names
     QString inputName = index.data(Qt::UserRole + 1).toString();
     if (inputName == "None") inputName = tr("None");
     QString profileName = index.data(Qt::UserRole + 2).toString();

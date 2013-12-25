@@ -76,10 +76,6 @@ private:
     /** Get the doc object */
     Doc* doc() const;
 
-private:
-    /** Total number of supported universes */
-    quint32 m_universes;
-
     /*********************************************************************
      * Blackout
      *********************************************************************/
@@ -122,16 +118,35 @@ private:
      *********************************************************************/
 public:
 
+    /**
+     * Add a new universe and append it at the end of the
+     * current universes list
+     */
     bool addUniverse();
 
+    /**
+     * Remove the last universe in the current universes list
+     */
     bool removeUniverse();
 
+    /**
+     * Retrieve the friendly name of the universe at the given index
+     * @param index The universe index
+     * @return The universe name or an empty string
+     */
     QString getUniverseName(int index);
+
+    /**
+     * Set a friendly name of the universe with the given index
+     * @param index The universe index
+     * @param name The universe new name
+     */
+    void setUniverseName(int index, QString name);
 
     /**
      * Retrieve the number of universe in the output map
      */
-    int universesCount();
+    quint32 universes() const;
 
     /**
      * Claim access to a universe. This is declared virtual to make
@@ -229,13 +244,6 @@ public:
     static quint32 invalidUniverse();
 
     /**
-     * Get the total number of supported universes
-     *
-     * @return Universe count supported by QLC
-     */
-    quint32 universes() const;
-
-    /**
      * Patch the given universe to go thru the given plugin
      *
      * @param universe The universe to patch
@@ -278,10 +286,10 @@ public:
 
 private:
     /** Vector containing ouput plugins for each universe */
-    QVector <OutputPatch*> m_patch;
+    QList <OutputPatch*> m_patch;
 
     /** Vector containing feedback plugins for each universe */
-    QVector <OutputPatch*> m_fb_patch;
+    QList <OutputPatch*> m_fb_patch;
 
     /*********************************************************************
      * Plugins

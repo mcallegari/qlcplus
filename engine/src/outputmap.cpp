@@ -44,7 +44,6 @@
 
 OutputMap::OutputMap(Doc* doc, quint32 universes)
     : QObject(doc)
-    , m_universes(universes)
     , m_blackout(false)
     , m_universeChanged(false)
 {
@@ -60,12 +59,13 @@ OutputMap::OutputMap(Doc* doc, quint32 universes)
 
 OutputMap::~OutputMap()
 {
+    quint32 universeCount = universes();
     for (int i = 0; i < m_universeArray.size(); i++)
         m_universeArray.takeAt(i);
 
     delete m_grandMaster;
 
-    for (quint32 i = 0; i < m_universes; i++)
+    for (quint32 i = 0; i < universeCount; i++)
     {
         delete m_patch[i];
         m_patch[i] = NULL;
@@ -101,7 +101,7 @@ void OutputMap::setBlackout(bool blackout)
     if (blackout == true)
     {
         QByteArray zeros(512, 0);
-        for (quint32 i = 0; i < m_universes; i++)
+        for (quint32 i = 0; i < universes(); i++)
             m_patch[i]->dump(zeros);
     }
     else
@@ -126,6 +126,8 @@ bool OutputMap::addUniverse()
 {
     m_universeMutex.lock();
     m_universeArray.append(new Universe(m_grandMaster));
+    m_patch.append(new OutputPatch(this));
+    m_fb_patch.append(new OutputPatch(this));
     m_universeMutex.unlock();
     return true;
 }
@@ -135,6 +137,10 @@ bool OutputMap::removeUniverse()
     m_universeMutex.lock();
     Universe *delUni = m_universeArray.takeLast();
     delete delUni;
+    OutputPatch *delOutPatch = m_patch.takeLast();
+    delete delOutPatch;
+    OutputPatch *delFbPatch = m_fb_patch.takeLast();
+    delete delFbPatch;
     m_universeMutex.unlock();
 
     return true;
@@ -148,9 +154,16 @@ QString OutputMap::getUniverseName(int index)
     return QString();
 }
 
-int OutputMap::universesCount()
+void OutputMap::setUniverseName(int index, QString name)
 {
-    return m_universeArray.count();
+    if (index < 0 || index < m_universeArray.count())
+        return;
+    m_universeArray.at(index)->setName(name);
+}
+
+quint32 OutputMap::universes() const
+{
+    return (quint32)m_universeArray.count();
 }
 
 QList<Universe*> OutputMap::claimUniverses()
@@ -270,20 +283,15 @@ uchar OutputMap::grandMasterValue()
 
 void OutputMap::initPatch()
 {
-    for (quint32 i = 0; i < m_universes; i++)
-        m_patch.insert(i, new OutputPatch(this));
-    for (quint32 i = 0; i < m_universes; i++)
-        m_fb_patch.insert(i, new OutputPatch(this));
+    for (quint32 i = 0; i < universes(); i++)
+        m_patch.append(new OutputPatch(this));
+    for (quint32 i = 0; i < universes(); i++)
+        m_fb_patch.append(new OutputPatch(this));
 }
 
 quint32 OutputMap::invalidUniverse()
 {
     return UINT_MAX;
-}
-
-quint32 OutputMap::universes() const
-{
-    return m_universes;
 }
 
 bool OutputMap::setPatch(quint32 universe, const QString& pluginName,
@@ -308,7 +316,7 @@ bool OutputMap::setPatch(quint32 universe, const QString& pluginName,
 OutputPatch* OutputMap::patch(quint32 universe) const
 {
     if (universe < universes())
-        return m_patch[universe];
+        return m_patch.at(universe);
     else
         return NULL;
 }
@@ -316,7 +324,7 @@ OutputPatch* OutputMap::patch(quint32 universe) const
 OutputPatch* OutputMap::feedbackPatch(quint32 universe) const
 {
     if (universe < universes())
-        return m_fb_patch[universe];
+        return m_fb_patch.at(universe);
     else
         return NULL;
 }

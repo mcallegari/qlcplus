@@ -82,6 +82,24 @@ Doc* InputMap::doc() const
  * Universes
  *****************************************************************************/
 
+bool InputMap::addUniverse()
+{
+    InputPatch* patch = new InputPatch(m_universes, this);
+    m_patch.append(patch);
+    connect(patch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
+            this, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)));
+    m_universes++;
+    return true;
+}
+
+bool InputMap::removeUniverse()
+{
+    InputPatch *delPatch = m_patch.takeLast();
+    delete delPatch;
+    m_universes--;
+    return true;
+}
+
 quint32 InputMap::invalidUniverse()
 {
     return UINT_MAX;
@@ -545,3 +563,4 @@ void InputMap::saveDefaults()
         settings.setValue(key, pat->profileName());
     }
 }
+
