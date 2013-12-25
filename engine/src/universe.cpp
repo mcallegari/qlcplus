@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include <QDebug>
 #include <math.h>
 
 #include "universe.h"
@@ -223,11 +224,16 @@ bool Universe::write(int channel, uchar value)
     if (channel >= 512)
         return false;
 
+    qDebug() << "Universe write channel" << channel << ", value:" << value;
+
     if (channel > m_usedChannels)
         m_usedChannels = channel + 1;
 
     if ((m_channelsMask->data()[channel] & HTP) == 0 && value < m_preGMValues->data()[channel])
+    {
+        qDebug() << "Universe HTP check not passed";
         return false;
+    }
 
     if (m_preGMValues != NULL)
         m_preGMValues->data()[channel] = char(value);

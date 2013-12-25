@@ -162,16 +162,16 @@ void OutputMap::dumpUniverses()
     m_universeMutex.lock();
     if (m_blackout == false)
     {
-        int i = 0;
-        foreach (Universe *universe, m_universeArray)
+        for (int i = 0; i < m_universeArray.count(); i++)
         {
+            Universe *universe = m_universeArray.at(i);
             if (universe->hasChanged())
             {
                 const QByteArray postGM = universe->postGMValues()->mid(0);
-                m_patch[i++]->dump(postGM);
+                m_patch[i]->dump(postGM);
 
                 m_universeMutex.unlock();
-                emit universesWritten(postGM);
+                emit universesWritten(i, postGM);
                 m_universeMutex.lock();
             }
         }

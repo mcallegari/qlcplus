@@ -101,8 +101,8 @@ SimpleDesk::SimpleDesk(QWidget* parent, Doc* doc)
 
     slotSelectPlayback(0);
 
-    connect(m_doc->outputMap(), SIGNAL(universesWritten(const QByteArray&)),
-            this, SLOT(slotUniversesWritten(const QByteArray&)));
+    connect(m_doc->outputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
+            this, SLOT(slotUniversesWritten(int, const QByteArray&)));
 }
 
 SimpleDesk::~SimpleDesk()
@@ -589,13 +589,16 @@ void SimpleDesk::slotUniverseSliderValueChanged(quint32 fid, quint32 chan, uchar
     }
 }
 
-void SimpleDesk::slotUniversesWritten(const QByteArray& ua)
+void SimpleDesk::slotUniversesWritten(int idx, const QByteArray& ua)
 {
+    if (idx != m_currentUniverse)
+        return;
+
     if (m_viewModeButton->isChecked() == false)
     {
         quint32 start = (m_universePageSpin->value() - 1) * m_channelsPerPage;
         // add the universe bits to retrieve the absolute address (0 - 2048)
-        start = start | (m_currentUniverse << 9);
+        //quint32 absAddress = start | (m_currentUniverse << 9);
 
         // update current page sliders
         for (quint32 i = start; i < start + (quint32)m_channelsPerPage; i++)
@@ -613,7 +616,7 @@ void SimpleDesk::slotUniversesWritten(const QByteArray& ua)
             Fixture *fixture = m_doc->fixture(fxi);
             if (fixture != NULL)
             {
-                quint32 startAddr = fixture->universeAddress();
+                quint32 startAddr = fixture->address();
                 for (quint32 c = 0; c < fixture->channels(); c++)
                     fc->setValue(c, ua[startAddr + c], false);
             }
