@@ -189,6 +189,12 @@ void OutputMap::dumpUniverses()
             if (universe->hasChanged())
             {
                 const QByteArray postGM = universe->postGMValues()->mid(0);
+                /*
+                fprintf(stderr, "---- ");
+                for (int d = 0; d < universe->usedChannels(); d++)
+                    fprintf(stderr, "%d ", (unsigned char)postGM.at(d));
+                fprintf(stderr, " ----\n");
+                */
                 m_patch[i]->dump(postGM);
 
                 m_universeMutex.unlock();

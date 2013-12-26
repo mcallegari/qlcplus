@@ -190,21 +190,25 @@ void Universe::setChannelCapability(ushort channel, QLCChannel::Group group, boo
 
     if (isHTP == true)
     {
+        qDebug() << "--- Forced HTP";
         m_channelsMask->data()[channel] = char(HTP);
     }
     else
     {
         if (group == QLCChannel::Intensity)
         {
-            m_channelsMask->data()[channel] = char(HTP & Intensity);
+            qDebug() << "--- Intensity + HTP";
+            m_channelsMask->data()[channel] = char(HTP | Intensity);
             m_gMIntensityChannels << channel;
         }
         else
         {
+            qDebug() << "--- LTP";
             m_channelsMask->data()[channel] = char(LTP);
             m_gMNonIntensityChannels << channel;
         }
     }
+    qDebug() << Q_FUNC_INFO << "Channel:" << channel << "mask:" << QString::number(m_channelsMask->at(channel), 16);
     return;
 }
 
@@ -225,12 +229,12 @@ bool Universe::write(int channel, uchar value)
     if (channel >= 512)
         return false;
 
-    qDebug() << "Universe write channel" << channel << ", value:" << value;
+    //qDebug() << "Universe write channel" << channel << ", value:" << value;
 
     if (channel > m_usedChannels)
         m_usedChannels = channel + 1;
 
-    if ((m_channelsMask->data()[channel] & HTP) == 0 && value < m_preGMValues->data()[channel])
+    if ((m_channelsMask->at(channel) & HTP) && value < (uchar)m_preGMValues->at(channel))
     {
         qDebug() << "Universe HTP check not passed";
         return false;

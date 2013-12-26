@@ -641,7 +641,6 @@ void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)
             fc.setTarget(0);
         }
         timer->fader()->add(fc);
-
     }
 
     Q_ASSERT(m_fader != NULL);
