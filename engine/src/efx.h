@@ -56,6 +56,7 @@ class Fixture;
 #define KXMLQLCEFXCircleAlgorithmName "Circle"
 #define KXMLQLCEFXEightAlgorithmName "Eight"
 #define KXMLQLCEFXLineAlgorithmName "Line"
+#define KXMLQLCEFXLine2AlgorithmName "Line2"
 #define KXMLQLCEFXDiamondAlgorithmName "Diamond"
 #define KXMLQLCEFXLissajousAlgorithmName "Lissajous"
 
@@ -106,6 +107,7 @@ public:
         Circle,
         Eight,
         Line,
+        Line2,
         Diamond,
         Lissajous
     };
