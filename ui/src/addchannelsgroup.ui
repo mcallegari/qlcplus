@@ -63,7 +63,7 @@
    <item>
     <widget class="QCheckBox" name="m_applyAllCheck">
      <property name="text">
-      <string>Apply changes to fixtures of the same type</string>
+      <string>Apply changes to fixtures of the same type and mode</string>
      </property>
     </widget>
    </item>
