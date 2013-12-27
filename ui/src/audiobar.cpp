@@ -23,6 +23,7 @@
 #include "vcbutton.h"
 #include "vcslider.h"
 #include "vcspeeddial.h"
+#include "vccuelist.h"
 #include "virtualconsole.h"
 
 AudioBar::AudioBar(int t, uchar v)
@@ -191,6 +192,20 @@ void AudioBar::checkWidgetFunctionality()
         {
             m_tapped = false;
         }
+    }
+    else if (m_widget->type() == VCWidget::CueListWidget)
+    {
+        VCCueList *cueList = (VCCueList *)m_widget;
+        if (m_value >= m_maxThreshold && !m_tapped)
+        {
+            if (m_skippedBeats == 0)
+                cueList->slotNextCue();
+
+            m_tapped = true;
+            m_skippedBeats = (m_skippedBeats + 1) % m_divisor;
+        }
+        else if (m_value < m_minThreshold)
+            m_tapped = false;
     }
 }
 

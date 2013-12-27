@@ -213,7 +213,9 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
         m_tree->setItemWidget(item, KColumnMaxThreshold, maxspin);
     }
 
-    if  (bar->m_type == AudioBar::VCWidgetBar && bar->widget() != NULL && bar->widget()->type() == VCWidget::SpeedDialWidget)
+    if (bar->m_type == AudioBar::VCWidgetBar
+        && bar->widget() != NULL 
+        && (bar->widget()->type() == VCWidget::SpeedDialWidget || bar->widget()->type() == VCWidget::CueListWidget))
     {
         QSpinBox *divisor = new QSpinBox();
         divisor->setMinimum(1);
@@ -223,7 +225,6 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
         divisor->setProperty("index", idx);
         connect(divisor, SIGNAL(valueChanged(int)), this, SLOT(slotDivisorChanged(int)));
         m_tree->setItemWidget(item, KColumnDivisor, divisor);
-
     }
 }
 
@@ -335,6 +336,7 @@ void AudioTriggersConfiguration::slotWidgetSelectionClicked()
         filters.append(VCWidget::SliderWidget);
         filters.append(VCWidget::ButtonWidget);
         filters.append(VCWidget::SpeedDialWidget);
+        filters.append(VCWidget::CueListWidget);
         VCWidgetSelection ws(filters, this);
         if (ws.exec() == QDialog::Rejected)
             return; // User pressed cancel
