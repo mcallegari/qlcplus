@@ -240,7 +240,9 @@ void AlsaMidiInputThread::readEvent()
         }
         else if (snd_seq_ev_is_note_type(ev))
         {
-            if (ev->data.note.velocity == 0 && ev->data.note.off_velocity == 0)
+            if (ev->type == SND_SEQ_EVENT_NOTEOFF)
+                cmd = MIDI_NOTE_OFF | ev->data.note.channel;
+            else if (ev->data.note.velocity == 0 && ev->data.note.off_velocity == 0)
                 cmd = MIDI_NOTE_OFF | ev->data.note.channel;
             else
                 cmd = MIDI_NOTE_ON | ev->data.note.channel;
