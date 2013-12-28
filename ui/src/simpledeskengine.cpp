@@ -42,7 +42,7 @@ SimpleDeskEngine::SimpleDeskEngine(Doc* doc)
 {
     qDebug() << Q_FUNC_INFO;
     Q_ASSERT(doc != NULL);
-    doc->masterTimer()->registerDMXSource(this);
+    doc->masterTimer()->registerDMXSource(this, "SimpleDesk");
 }
 
 SimpleDeskEngine::~SimpleDeskEngine()
@@ -74,7 +74,6 @@ void SimpleDeskEngine::clearContents()
         delete cs;
     m_cueStacks.clear();
     m_values.clear();
-    m_resetValues.clear();
 }
 
 /****************************************************************************
@@ -83,15 +82,10 @@ void SimpleDeskEngine::clearContents()
 
 void SimpleDeskEngine::setValue(uint channel, uchar value)
 {
-    QLCChannel::Group group = getGroupForChannel(channel);
+    qDebug() << Q_FUNC_INFO << "channel:" << channel << ", value:" << value;
 
     QMutexLocker locker(&m_mutex);
-    if (value == 0 && group == QLCChannel::Intensity)
-        m_values.remove(channel);
-    else
-        m_values[channel] = value;
-
-    m_resetValues.remove(channel);
+    m_values[channel] = value;
 }
 
 uchar SimpleDeskEngine::value(uint channel) const
@@ -103,15 +97,18 @@ uchar SimpleDeskEngine::value(uint channel) const
         return 0;
 }
 
+bool SimpleDeskEngine::hasChannel(uint channel)
+{
+    QMutexLocker locker(&m_mutex);
+    return m_values.contains(channel);
+}
+
 void SimpleDeskEngine::setCue(const Cue& cue)
 {
     qDebug() << Q_FUNC_INFO;
 
     QMutexLocker locker(&m_mutex);
     m_values = cue.values();
-
-    foreach (uint channel, m_values.keys())
-        m_resetValues.remove(channel);
 }
 
 Cue SimpleDeskEngine::cue() const
@@ -125,20 +122,14 @@ void SimpleDeskEngine::resetUniverse(int universe)
     qDebug() << Q_FUNC_INFO;
 
     QMutexLocker locker(&m_mutex);
-    for (int i = 0; i < 512; i++)
+    QHashIterator <uint,uchar> it(m_values);
+    while (it.hasNext() == true)
     {
-        m_values.remove(i);
-	if (getGroupForChannel(i) != QLCChannel::Intensity)
-             m_resetValues[(universe * 512) + i] = 0;
+        it.next();
+        int uni = it.key() >> 9;
+        if (uni == universe)
+            m_values.remove(it.key());
     }
-}
-
-QLCChannel::Group SimpleDeskEngine::getGroupForChannel(uint channel) const
-{
-    // Use FadeChannel's reverse-lookup to dig up the channel's group
-    FadeChannel fc;
-    fc.setChannel(channel);
-    return fc.group(doc());
 }
 
 /****************************************************************************
@@ -273,9 +264,14 @@ void SimpleDeskEngine::writeDMX(MasterTimer* timer, QList<Universe *> ua)
 {
     QMutexLocker locker(&m_mutex);
 
-    writeValuesHash(m_resetValues, ua);
-    m_resetValues.clear();
-    writeValuesHash(m_values, ua);
+    QHashIterator <uint,uchar> it(m_values);
+    while (it.hasNext() == true)
+    {
+        it.next();
+        int uni = it.key() >> 9;
+        int address = it.key() & 0x01FF;
+        ua[uni]->write(address, it.value(), true);
+    }
 
     foreach (CueStack* cueStack, m_cueStacks)
     {
@@ -296,34 +292,3 @@ void SimpleDeskEngine::writeDMX(MasterTimer* timer, QList<Universe *> ua)
         }
     }
 }
-
-void SimpleDeskEngine::writeValuesHash(QHash<uint, uchar> & hash, QList<Universe *> ua)
-{
-    QHashIterator <uint,uchar> it(hash);
-    while (it.hasNext() == true)
-    {
-        it.next();
-
-        Fixture* fxi = doc()->fixture(doc()->fixtureForAddress(it.key()));
-        if (fxi == NULL || fxi->isDimmer() == true)
-        {
-            int uni = it.key() >> 9;
-            int address = it.key() & 0x01FF;
-            ua[uni]->write(address, it.value());
-        }
-        else
-        {
-            //uint ch = it.key() - fxi->universeAddress();
-            int uni = fxi->universe();
-            /*
-            QLCChannel::Group grp = QLCChannel::NoGroup;
-            if (ch < fxi->channels())
-                grp = fxi->channel(ch)->group();
-            else
-                grp = QLCChannel::Intensity;
-            */
-            ua[uni]->write(fxi->address(), it.value());
-        }
-    }
-}
-

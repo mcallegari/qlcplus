@@ -597,15 +597,20 @@ void SimpleDesk::slotUniversesWritten(int idx, const QByteArray& ua)
     if (m_viewModeButton->isChecked() == false)
     {
         quint32 start = (m_universePageSpin->value() - 1) * m_channelsPerPage;
-        // add the universe bits to retrieve the absolute address (0 - 2048)
-        //quint32 absAddress = start | (m_currentUniverse << 9);
 
         // update current page sliders
         for (quint32 i = start; i < start + (quint32)m_channelsPerPage; i++)
         {
+            if (m_engine->hasChannel(i + (idx << 9)) == true)
+                continue;
+
             ConsoleChannel *cc = m_universeSliders[i - start];
             if (cc != NULL)
+            {
+                cc->blockSignals(true);
                 cc->setValue(ua.at(i), false);
+                cc->blockSignals(false);
+            }
         }
     }
     else
@@ -618,7 +623,14 @@ void SimpleDesk::slotUniversesWritten(int idx, const QByteArray& ua)
             {
                 quint32 startAddr = fixture->address();
                 for (quint32 c = 0; c < fixture->channels(); c++)
-                    fc->setValue(c, ua[startAddr + c], false);
+                {
+                    if (m_engine->hasChannel((startAddr + c) + (idx << 9)) == true)
+                        continue;
+
+                    fc->blockSignals(true);
+                    fc->setValue(c, ua.at(startAddr + c), false);
+                    fc->blockSignals(false);
+                }
             }
         }
     }

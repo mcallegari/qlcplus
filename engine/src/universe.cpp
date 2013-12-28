@@ -224,7 +224,7 @@ uchar Universe::channelCapabilities(ushort channel)
  * Writing
  ****************************************************************************/
 
-bool Universe::write(int channel, uchar value)
+bool Universe::write(int channel, uchar value, bool forceLTP)
 {
     if (channel >= 512)
         return false;
@@ -234,7 +234,7 @@ bool Universe::write(int channel, uchar value)
     if (channel > m_usedChannels)
         m_usedChannels = channel + 1;
 
-    if ((m_channelsMask->at(channel) & HTP) && value < (uchar)m_preGMValues->at(channel))
+    if (forceLTP == false && (m_channelsMask->at(channel) & HTP) && value < (uchar)m_preGMValues->at(channel))
     {
         qDebug() << "Universe HTP check not passed";
         return false;

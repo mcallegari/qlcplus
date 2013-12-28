@@ -281,13 +281,18 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
  * DMX Sources
  ****************************************************************************/
 
-void MasterTimer::registerDMXSource(DMXSource* source)
+void MasterTimer::registerDMXSource(DMXSource* source, QString name)
 {
     Q_ASSERT(source != NULL);
 
     QMutexLocker lock(&m_dmxSourceListMutex);
     if (m_dmxSourceList.contains(source) == false)
-        m_dmxSourceList.append(source);
+    {
+        if (name == "SimpleDesk")
+            m_dmxSourceList.append(source);
+        else
+            m_dmxSourceList.insert(m_dmxSourceList.count() - 1, source);
+    }
 }
 
 void MasterTimer::unregisterDMXSource(DMXSource* source)

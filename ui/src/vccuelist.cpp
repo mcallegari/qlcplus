@@ -891,7 +891,7 @@ void VCCueList::slotModeChanged(Doc::Mode mode)
     if (mode == Doc::Operate)
     {
         Q_ASSERT(m_runner == NULL);
-        m_doc->masterTimer()->registerDMXSource(this);
+        m_doc->masterTimer()->registerDMXSource(this, "CueList");
         enable = true;
         // send the initial feedback for the current step slider
         updateFeedback();
