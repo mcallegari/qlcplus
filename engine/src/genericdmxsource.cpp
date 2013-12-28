@@ -29,7 +29,7 @@ GenericDMXSource::GenericDMXSource(Doc* doc)
     , m_outputEnabled(false)
 {
     Q_ASSERT(m_doc != NULL);
-    m_doc->masterTimer()->registerDMXSource(this);
+    m_doc->masterTimer()->registerDMXSource(this, "Generic");
 }
 
 GenericDMXSource::~GenericDMXSource()

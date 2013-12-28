@@ -199,7 +199,7 @@ public:
      *
      * @return true if successful, otherwise false
      */
-    bool write(int channel, uchar value);
+    bool write(int channel, uchar value, bool forceLTP = false);
 
     /**
      * Write a relative value to a DMX channel, taking Grand Master and HTP into

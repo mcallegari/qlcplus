@@ -65,6 +65,8 @@ public:
     /** Get the value of a single channel */
     uchar value(uint channel) const;
 
+    bool hasChannel(uint channel);
+
     /** Set a complete cue to universe */
     void setCue(const Cue& cue);
 
@@ -75,11 +77,7 @@ public:
     void resetUniverse(int universe);
 
 private:
-    QLCChannel::Group getGroupForChannel(uint channel) const;
-
-private:
     QHash <uint,uchar> m_values;
-    QHash <uint,uchar> m_resetValues;
 
     /************************************************************************
      * Cue Stacks
@@ -126,9 +124,6 @@ public:
 public:
     /** @reimpl */
     void writeDMX(MasterTimer* timer, QList<Universe*> ua);
-
-private:
-    void writeValuesHash(QHash<uint, uchar> & hash, QList<Universe*> ua);
 
 };
 

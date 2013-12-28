@@ -520,7 +520,7 @@ void VCSlider::setSliderMode(SliderMode mode)
                 setClickAndGoWidgetFromLevel(m_knob->value());
         }
 
-        m_doc->masterTimer()->registerDMXSource(this);
+        m_doc->masterTimer()->registerDMXSource(this, "Slider");
     }
     else if (mode == Playback)
     {
@@ -541,7 +541,7 @@ void VCSlider::setSliderMode(SliderMode mode)
         }
         slotSliderMoved(level);
 
-        m_doc->masterTimer()->registerDMXSource(this);
+        m_doc->masterTimer()->registerDMXSource(this, "Slider");
     }
     else if (mode == Submaster)
     {
