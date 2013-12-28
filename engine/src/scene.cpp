@@ -26,6 +26,7 @@
 #include "qlcfixturedef.h"
 #include "qlcmacros.h"
 #include "qlcfile.h"
+#include "qlccapability.h"
 
 #include "universearray.h"
 #include "genericfader.h"
@@ -202,6 +203,18 @@ QColor Scene::colorValue(quint32 fxi)
                 case QLCChannel::Yellow: yVal = scv.value; break;
                 case QLCChannel::White: rVal = gVal = bVal = scv.value; found = true; break;
                 default: break;
+            }
+        }
+        else if (channel->group() == QLCChannel::Colour)
+        {
+            QLCCapability *cap = channel->searchCapability(scv.value);
+            if (cap && cap->resourceColor1() != QColor())
+            {
+                QColor col = cap->resourceColor1();
+                rVal = col.red();
+                gVal = col.green();
+                bVal = col.blue();
+                found = true;
             }
         }
 
