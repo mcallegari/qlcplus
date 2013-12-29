@@ -175,7 +175,7 @@ void ChannelsGroup::setInputSource(const QLCInputSource& source)
     m_input = source;
     // Connect when the first valid input source is set
     if (source.isValid() == true)
-        connect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+        connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                 this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
 }
 

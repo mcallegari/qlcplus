@@ -24,8 +24,7 @@
 
 #include "grandmaster.h"
 
-class OutputMap;
-class InputMap;
+class InputOutputMap;
 class QSlider;
 class QLabel;
 
@@ -35,7 +34,7 @@ class GrandMasterSlider : public QFrame
     Q_DISABLE_COPY(GrandMasterSlider)
 
 public:
-    GrandMasterSlider(QWidget* parent, OutputMap* outputMap, InputMap* inputMap);
+    GrandMasterSlider(QWidget* parent, InputOutputMap* ioMap);
     virtual ~GrandMasterSlider();
 
     bool invertedAppearance() const;
@@ -54,8 +53,7 @@ protected:
     QLabel* m_valueLabel;
     QSlider* m_slider;
     QLabel* m_nameLabel;
-    OutputMap* m_outputMap;
-    InputMap* m_inputMap;
+    InputOutputMap* m_ioMap;
 
     /*************************************************************************
      * External input

@@ -31,7 +31,6 @@
 #include "virtualconsole.h"
 #include "vcproperties.h"
 #include "inputpatch.h"
-#include "inputmap.h"
 #include "vcframe.h"
 
 /*****************************************************************************
@@ -39,11 +38,11 @@
  *****************************************************************************/
 
 VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& properties,
-                                       InputMap* inputMap)
+                                       InputOutputMap *ioMap)
     : QDialog(parent)
-    , m_inputMap(inputMap)
+    , m_ioMap(ioMap)
 {
-    Q_ASSERT(inputMap != NULL);
+    Q_ASSERT(ioMap != NULL);
 
     setupUi(this);
 
@@ -367,12 +366,12 @@ void VCPropertiesEditor::slotAutoDetectGrandMasterInputToggled(bool checked)
 {
     if (checked == true)
     {
-        connect(m_inputMap, SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+        connect(m_ioMap, SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                 this, SLOT(slotGrandMasterInputValueChanged(quint32,quint32)));
     }
     else
     {
-        disconnect(m_inputMap, SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+        disconnect(m_ioMap, SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                    this, SLOT(slotGrandMasterInputValueChanged(quint32,quint32)));
     }
 }
@@ -386,7 +385,7 @@ void VCPropertiesEditor::slotGrandMasterInputValueChanged(quint32 universe,
 
 void VCPropertiesEditor::slotChooseGrandMasterInputClicked()
 {
-    SelectInputChannel sic(this, m_inputMap);
+    SelectInputChannel sic(this, m_ioMap);
     if (sic.exec() == QDialog::Accepted)
     {
         m_properties.setGrandMasterInputSource(sic.universe(), sic.channel());
@@ -421,13 +420,13 @@ void VCPropertiesEditor::updateGrandMasterInputSource()
 bool VCPropertiesEditor::inputSourceNames(quint32 universe, quint32 channel,
                                           QString& uniName, QString& chName) const
 {
-    if (universe == InputMap::invalidUniverse() || channel == InputMap::invalidChannel())
+    if (universe == InputOutputMap::invalidUniverse() || channel == QLCChannel::invalid())
     {
         /* Nothing selected for input universe and/or channel */
         return false;
     }
 
-    InputPatch* patch = m_inputMap->patch(universe);
+    InputPatch* patch = m_ioMap->inputPatch(universe);
     if (patch == NULL || patch->plugin() == NULL)
     {
         /* There is no patch for the given universe */

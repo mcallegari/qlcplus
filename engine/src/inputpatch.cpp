@@ -30,7 +30,6 @@
 #include "qlcinputchannel.h"
 #include "qlcioplugin.h"
 #include "inputpatch.h"
-#include "inputmap.h"
 
 #define GRACE_MS 1
 

@@ -616,7 +616,7 @@ void ChaserRunner_Test::writeNoSteps()
     ChaserRunner cr(m_doc, &chaser);
 
     QList<Universe*> ua;
-    ua.append(new Universe(new GrandMaster()));
+    ua.append(new Universe(0, new GrandMaster()));
     MasterTimerStub timer(m_doc, ua);
 
     QVERIFY(cr.write(&timer, ua) == false);

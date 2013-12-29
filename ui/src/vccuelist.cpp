@@ -40,7 +40,6 @@
 #include "vccuelist.h"
 #include "qlcmacros.h"
 #include "function.h"
-#include "inputmap.h"
 #include "qlcfile.h"
 #include "apputil.h"
 #include "chaser.h"

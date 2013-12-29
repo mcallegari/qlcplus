@@ -26,7 +26,7 @@
 
 class QLCInputChannel;
 class QLCInputProfile;
-class InputMap;
+class InputOutputMap;
 class QTimer;
 
 class InputProfileEditor : public QDialog, public Ui_InputProfileEditor
@@ -38,7 +38,7 @@ class InputProfileEditor : public QDialog, public Ui_InputProfileEditor
      * Initialization
      ************************************************************************/
 public:
-    InputProfileEditor(QWidget* parent, QLCInputProfile* profile, InputMap* inputMap);
+    InputProfileEditor(QWidget* parent, QLCInputProfile* profile, InputOutputMap* ioMap);
     virtual ~InputProfileEditor();
 
 protected:
@@ -46,7 +46,7 @@ protected:
     void updateChannelItem(QTreeWidgetItem* item, QLCInputChannel* ch);
 
 private:
-    InputMap* m_inputMap;
+    InputOutputMap* m_ioMap;
 
     /************************************************************************
      * OK & Cancel

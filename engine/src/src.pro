@@ -78,11 +78,10 @@ HEADERS += bus.h \
            genericfader.h \
            grandmaster.h \
            grouphead.h \
-           inputmap.h \
+           inputoutputmap.h \
            inputpatch.h \
            ioplugincache.h \
            mastertimer.h \
-           outputmap.h \
            outputpatch.h \
            qlcclipboard.h \
            qlcpoint.h \
@@ -160,11 +159,10 @@ SOURCES += bus.cpp \
            genericfader.cpp \
            grandmaster.cpp \
            grouphead.cpp \
-           inputmap.cpp \
+           inputoutputmap.cpp \
            inputpatch.cpp \
            ioplugincache.cpp \
            mastertimer.cpp \
-           outputmap.cpp \
            outputpatch.cpp \
            qlcclipboard.cpp \
            qlcpoint.cpp \

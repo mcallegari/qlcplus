@@ -26,6 +26,8 @@
 
 class QLCIOPlugin;
 
+#define KInputNone QObject::tr("None")
+
 #define KXMLQLCInputPatchProfile "Profile"
 #define KXMLQLCInputPatchUniverse "Universe"
 #define KXMLQLCInputPatchPluginNone "None"

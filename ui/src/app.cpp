@@ -35,6 +35,7 @@
 #include "inputoutputmanager.h"
 #include "functionselection.h"
 #include "functionmanager.h"
+#include "inputoutputmap.h"
 #include "virtualconsole.h"
 #include "fixturemanager.h"
 #include "dmxdumpfactory.h"
@@ -43,8 +44,6 @@
 #include "addresstool.h"
 #include "simpledesk.h"
 #include "docbrowser.h"
-#include "outputmap.h"
-#include "inputmap.h"
 #include "aboutbox.h"
 #include "monitor.h"
 #include "vcframe.h"
@@ -233,7 +232,7 @@ void App::init()
     m_tab->addTab(w, QIcon(":/input_output.png"), tr("Inputs/Outputs"));
 
     // Listen to blackout changes and toggle m_controlBlackoutAction
-    connect(m_doc->outputMap(), SIGNAL(blackoutChanged(bool)), this, SLOT(slotBlackoutChanged(bool)));
+    connect(m_doc->inputOutputMap(), SIGNAL(blackoutChanged(bool)), this, SLOT(slotBlackoutChanged(bool)));
 
     // Enable/Disable panic button
     connect(m_doc->masterTimer(), SIGNAL(functionListChanged()), this, SLOT(slotRunningFunctionsChanged()));
@@ -379,7 +378,7 @@ void App::clearDocument()
     m_doc->clearContents();
     VirtualConsole::instance()->resetContents();
     SimpleDesk::instance()->clearContents();
-    m_doc->outputMap()->resetUniverses();
+    m_doc->inputOutputMap()->resetUniverses();
     setFileName(QString());
     m_doc->resetModified();
 }
@@ -408,14 +407,13 @@ void App::initDoc()
     m_doc->ioPluginCache()->load(IOPluginCache::systemPluginDirectory());
 
     /* Restore outputmap settings */
-    Q_ASSERT(m_doc->outputMap() != NULL);
-    m_doc->outputMap()->loadDefaults();
+    Q_ASSERT(m_doc->inputOutputMap() != NULL);
 
     /* Load input plugins & profiles */
-    Q_ASSERT(m_doc->inputMap() != NULL);
-    m_doc->inputMap()->loadProfiles(InputMap::userProfileDirectory());
-    m_doc->inputMap()->loadProfiles(InputMap::systemProfileDirectory());
-    m_doc->inputMap()->loadDefaults();
+    m_doc->inputOutputMap()->loadProfiles(InputOutputMap::userProfileDirectory());
+    m_doc->inputOutputMap()->loadProfiles(InputOutputMap::systemProfileDirectory());
+    // TODO: is this still needed ??
+    //m_doc->inputOutputMap()->loadDefaults();
 
     m_doc->masterTimer()->start();
 }
@@ -570,7 +568,7 @@ void App::initActions()
     m_controlBlackoutAction = new QAction(QIcon(":/blackout.png"), tr("Toggle &Blackout"), this);
     m_controlBlackoutAction->setCheckable(true);
     connect(m_controlBlackoutAction, SIGNAL(triggered(bool)), this, SLOT(slotControlBlackout()));
-    m_controlBlackoutAction->setChecked(m_doc->outputMap()->blackout());
+    m_controlBlackoutAction->setChecked(m_doc->inputOutputMap()->blackout());
 
     m_liveEditAction = new QAction(QIcon(":/liveedit.png"), tr("Live edit a function"), this);
     connect(m_liveEditAction, SIGNAL(triggered()), this, SLOT(slotFunctionLiveEdit()));
@@ -968,7 +966,7 @@ void App::slotAddressTool()
 
 void App::slotControlBlackout()
 {
-    m_doc->outputMap()->setBlackout(!m_doc->outputMap()->blackout());
+    m_doc->inputOutputMap()->setBlackout(!m_doc->inputOutputMap()->blackout());
 }
 
 void App::slotBlackoutChanged(bool state)

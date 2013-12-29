@@ -26,7 +26,6 @@
 
 #include "vcclockproperties.h"
 #include "virtualconsole.h"
-#include "inputmap.h"
 #include "vcclock.h"
 #include "doc.h"
 

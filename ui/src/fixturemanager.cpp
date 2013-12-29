@@ -52,8 +52,6 @@
 #include "outputpatch.h"
 #include "addfixture.h"
 #include "collection.h"
-#include "outputmap.h"
-#include "inputmap.h"
 #include "universe.h"
 #include "fixture.h"
 #include "apputil.h"
@@ -1131,11 +1129,11 @@ void FixtureManager::removeFixture()
                 so it's rather safe to reset the fixture's address space here. */
             Fixture* fxi = m_doc->fixture(id);
             Q_ASSERT(fxi != NULL);
-            QList<Universe*> ua = m_doc->outputMap()->claimUniverses();
+            QList<Universe*> ua = m_doc->inputOutputMap()->claimUniverses();
             int universe = fxi->universe();
             if (universe < ua.count())
                 ua[universe]->reset(fxi->address(), fxi->channels());
-            m_doc->outputMap()->releaseUniverses();
+            m_doc->inputOutputMap()->releaseUniverses();
 
             m_doc->deleteFixture(id);
         }

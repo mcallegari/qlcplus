@@ -30,8 +30,6 @@
 #include "assignhotkey.h"
 #include "scripteditor.h"
 #include "mastertimer.h"
-#include "outputmap.h"
-#include "inputmap.h"
 #include "script.h"
 #include "doc.h"
 

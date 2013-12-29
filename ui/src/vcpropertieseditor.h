@@ -39,9 +39,9 @@
 #define SETTINGS_AUDIOTRIGGERS_SIZE "virtualconsole/audiotriggerssize"
 
 class VirtualConsole;
+class InputOutputMap;
 class QDomDocument;
 class QDomElement;
-class InputMap;
 class VCFrame;
 
 class VCPropertiesEditor : public QDialog, public Ui_VCPropertiesEditor
@@ -54,7 +54,7 @@ class VCPropertiesEditor : public QDialog, public Ui_VCPropertiesEditor
      *************************************************************************/
 public:
     VCPropertiesEditor(QWidget* parent, const VCProperties& properties,
-                       InputMap* inputMap);
+                       InputOutputMap* ioMap);
     ~VCPropertiesEditor();
 
     VCProperties properties() const;
@@ -72,7 +72,7 @@ public:
 
 private:
     VCProperties m_properties;
-    InputMap* m_inputMap;
+    InputOutputMap* m_ioMap;
 
     /*************************************************************************
      * Layout page

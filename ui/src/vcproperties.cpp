@@ -23,9 +23,8 @@
 #include "qlcfile.h"
 
 #include "virtualconsole.h"
+#include "inputoutputmap.h"
 #include "vcproperties.h"
-#include "outputmap.h"
-#include "inputmap.h"
 #include "vcframe.h"
 #include "doc.h"
 
@@ -41,8 +40,8 @@ VCProperties::VCProperties()
     , m_gmChannelMode(GrandMaster::GMIntensity)
     , m_gmValueMode(GrandMaster::GMReduce)
     , m_gmSliderMode(GrandMaster::GMNormal)
-    , m_gmInputUniverse(InputMap::invalidUniverse())
-    , m_gmInputChannel(InputMap::invalidChannel())
+    , m_gmInputUniverse(InputOutputMap::invalidUniverse())
+    , m_gmInputChannel(QLCChannel::invalid())
 {
 }
 
@@ -185,8 +184,8 @@ bool VCProperties::loadXML(const QDomElement& root)
         }
         else if (tag.tagName() == KXMLQLCVCPropertiesGrandMaster)
         {
-            quint32 universe = InputMap::invalidUniverse();
-            quint32 channel = InputMap::invalidChannel();
+            quint32 universe = InputOutputMap::invalidUniverse();
+            quint32 channel = QLCChannel::invalid();
 
             str = tag.attribute(KXMLQLCVCPropertiesGrandMasterChannelMode);
             setGrandMasterChannelMode(GrandMaster::stringToGMChannelMode(str));
@@ -262,8 +261,8 @@ bool VCProperties::saveXML(QDomDocument* doc, QDomElement* wksp_root) const
                      GrandMaster::gMSliderModeToString(m_gmSliderMode));
 
     /* Grand Master external input */
-    if (m_gmInputUniverse != InputMap::invalidUniverse() &&
-        m_gmInputChannel != InputMap::invalidChannel())
+    if (m_gmInputUniverse != InputOutputMap::invalidUniverse() &&
+        m_gmInputChannel != QLCChannel::invalid())
     {
         subtag = doc->createElement(KXMLQLCVCPropertiesInput);
         tag.appendChild(subtag);
@@ -287,18 +286,18 @@ bool VCProperties::loadXMLInput(const QDomElement& tag, quint32* universe, quint
     if (str.isEmpty() == false)
         *universe = str.toUInt();
     else
-        *universe = InputMap::invalidUniverse();
+        *universe = InputOutputMap::invalidUniverse();
 
     /* Channel */
     str = tag.attribute(KXMLQLCVCPropertiesInputChannel);
     if (str.isEmpty() == false)
         *channel = str.toUInt();
     else
-        *channel = InputMap::invalidChannel();
+        *channel = QLCChannel::invalid();
 
     /* Verdict */
-    if (*universe != InputMap::invalidUniverse() &&
-        *channel != InputMap::invalidChannel()) {
+    if (*universe != InputOutputMap::invalidUniverse() &&
+        *channel != QLCChannel::invalid()) {
         return true;
     } else {
         return false;

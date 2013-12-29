@@ -402,7 +402,7 @@ void Collection_Test::write()
     c->addFunction(s2->id());
 
     QList<Universe*> ua;
-    ua.append(new Universe(new GrandMaster()));
+    ua.append(new Universe(0, new GrandMaster()));
     MasterTimerStub* mts = new MasterTimerStub(m_doc, ua);
 
     /* Collection starts all of its members immediately when it is started
@@ -484,7 +484,7 @@ void Collection_Test::stopNotOwnChildren()
     doc->addFunction(c);
 
     QList<Universe*> ua;
-    ua.append(new Universe(new GrandMaster()));
+    ua.append(new Universe(0, new GrandMaster()));
     MasterTimerStub* mts = new MasterTimerStub(m_doc, ua);
 
     QVERIFY(c->stopped() == true);

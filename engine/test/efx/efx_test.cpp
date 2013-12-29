@@ -2607,7 +2607,7 @@ void EFX_Test::save()
 void EFX_Test::preRunPostRun()
 {
     QList<Universe*> ua;
-    ua.append(new Universe(new GrandMaster()));
+    ua.append(new Universe(0, new GrandMaster()));
     MasterTimerStub timer(m_doc, ua);
 
     EFX* e = new EFX(m_doc);
@@ -2673,7 +2673,7 @@ void EFX_Test::adjustIntensity()
     QCOMPARE(ef2->intensity(), 0.5);
 
     QList<Universe*> ua;
-    ua.append(new Universe(new GrandMaster()));
+    ua.append(new Universe(0, new GrandMaster()));
     e->postRun(m_doc->masterTimer(), ua);
 }
 

@@ -237,11 +237,11 @@ void DmxDumpFactory::slotItemExpanded()
 void DmxDumpFactory::accept()
 {
     QByteArray dumpMask = m_properties->channelsMask();
-    QList<Universe*> ua = m_doc->outputMap()->claimUniverses();
+    QList<Universe*> ua = m_doc->inputOutputMap()->claimUniverses();
     QByteArray preGMValues; //= ua->preGMValues();
     for (int i = 0; i < ua.count(); i++)
         preGMValues.append(ua.at(i)->preGMValues());
-    m_doc->outputMap()->releaseUniverses(false);
+    m_doc->inputOutputMap()->releaseUniverses(false);
     Scene *newScene = NULL;
     for (int t = 0; t < m_fixturesTree->topLevelItemCount(); t++)
     {

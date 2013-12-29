@@ -27,10 +27,10 @@
 #   include "mastertimer-unix.h"
 #endif
 
+#include "inputoutputmap.h"
 #include "genericfader.h"
 #include "fadechannel.h"
 #include "mastertimer.h"
-#include "outputmap.h"
 #include "dmxsource.h"
 #include "qlcmacros.h"
 #include "function.h"
@@ -91,7 +91,7 @@ void MasterTimer::timerTick()
     Doc* doc = qobject_cast<Doc*> (parent());
     Q_ASSERT(doc != NULL);
 
-    QList<Universe *> universes = doc->outputMap()->claimUniverses();
+    QList<Universe *> universes = doc->inputOutputMap()->claimUniverses();
     for (int i = 0 ; i < universes.count(); i++)
     {
         universes[i]->zeroIntensityChannels();
@@ -102,8 +102,8 @@ void MasterTimer::timerTick()
     timerTickDMXSources(universes);
     timerTickFader(universes);
 
-    doc->outputMap()->releaseUniverses();
-    doc->outputMap()->dumpUniverses();
+    doc->inputOutputMap()->releaseUniverses();
+    doc->inputOutputMap()->dumpUniverses();
 }
 
 uint MasterTimer::frequency()
@@ -166,7 +166,7 @@ void MasterTimer::fadeAndStopAll(int timeout)
 
     QList<FadeChannel> fcList;
 
-    QList<Universe *> universes = doc->outputMap()->claimUniverses();
+    QList<Universe *> universes = doc->inputOutputMap()->claimUniverses();
     for (int i = 0; i < universes.count(); i++)
     {
         QHashIterator <int,uchar> it(universes[i]->intensityChannels());
@@ -191,7 +191,7 @@ void MasterTimer::fadeAndStopAll(int timeout)
             }
         }
     }
-    doc->outputMap()->releaseUniverses();
+    doc->inputOutputMap()->releaseUniverses();
 
     // Stop all functions first
     stopAllFunctions();

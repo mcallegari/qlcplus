@@ -26,8 +26,6 @@ class VirtualConsole;
 class QDomDocument;
 class QDomElement;
 class MasterTimer;
-class OutputMap;
-class InputMap;
 class VCFrame;
 class QWidget;
 class Doc;

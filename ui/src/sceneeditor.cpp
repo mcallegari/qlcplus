@@ -45,8 +45,6 @@
 #include "mastertimer.h"
 #include "qlcchannel.h"
 #include "chaserstep.h"
-#include "outputmap.h"
-#include "inputmap.h"
 #include "fixture.h"
 #include "chaser.h"
 #include "scene.h"

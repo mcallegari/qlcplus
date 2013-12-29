@@ -31,8 +31,6 @@
 #include "vcxypad_test.h"
 #include "mastertimer.h"
 #include "vcxypadarea.h"
-#include "outputmap.h"
-#include "inputmap.h"
 #include "vcwidget.h"
 #include "vcxypad.h"
 #include "vcframe.h"

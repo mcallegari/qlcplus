@@ -27,7 +27,6 @@
 
 #include "fixtureconsole.h"
 #include "consolechannel.h"
-#include "inputmap.h"
 #include "fixture.h"
 #include "doc.h"
 

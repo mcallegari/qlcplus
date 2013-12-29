@@ -25,8 +25,6 @@
 #include "qlcfixturedefcache.h"
 #include "vcproperties_test.h"
 #include "mastertimer.h"
-#include "outputmap.h"
-#include "inputmap.h"
 #include "vcwidget.h"
 #include "vcframe.h"
 #include "doc.h"
@@ -51,8 +49,8 @@ void VCProperties_Test::initial()
     QCOMPARE(p.m_tapModifier, Qt::ControlModifier);
     QCOMPARE(p.m_gmChannelMode, GrandMaster::GMIntensity);
     QCOMPARE(p.m_gmValueMode, GrandMaster::GMReduce);
-    QCOMPARE(p.m_gmInputUniverse, InputMap::invalidUniverse());
-    QCOMPARE(p.m_gmInputChannel, InputMap::invalidChannel());
+    QCOMPARE(p.m_gmInputUniverse, InputOutputMap::invalidUniverse());
+    QCOMPARE(p.m_gmInputChannel, QLCChannel::invalid());
 }
 
 void VCProperties_Test::copy()
@@ -173,8 +171,8 @@ void VCProperties_Test::loadXMLInput()
     root.removeAttribute("Universe");
     root.removeAttribute("Channel");
     QVERIFY(VCProperties::loadXMLInput(root, &universe, &channel) == false);
-    QCOMPARE(universe, InputMap::invalidUniverse());
-    QCOMPARE(channel, InputMap::invalidChannel());
+    QCOMPARE(universe, InputOutputMap::invalidUniverse());
+    QCOMPARE(channel, QLCChannel::invalid());
 }
 
 void VCProperties_Test::saveXML()

@@ -857,7 +857,7 @@ void Chaser_Test::preRun()
     m_doc->addFunction(c);
 
     QList<Universe*> ua;
-    ua.append(new Universe(new GrandMaster()));
+    ua.append(new Universe(0, new GrandMaster()));
     MasterTimerStub timer(m_doc, ua);
 
     c->m_stop = true;
@@ -923,7 +923,7 @@ void Chaser_Test::postRun()
     m_doc->addFunction(c);
 
     QList<Universe*> ua;
-    ua.append(new Universe(new GrandMaster()));
+    ua.append(new Universe(0, new GrandMaster()));
     MasterTimerStub timer(m_doc, ua);
 
     c->preRun(&timer);
@@ -940,7 +940,7 @@ void Chaser_Test::adjustIntensity()
     m_doc->addFunction(c);
 
     QList<Universe*> ua;
-    ua.append(new Universe(new GrandMaster()));
+    ua.append(new Universe(0, new GrandMaster()));
     MasterTimerStub timer(m_doc, ua);
 
     c->preRun(&timer);

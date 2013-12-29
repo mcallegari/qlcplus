@@ -28,8 +28,6 @@
 
 class Chaser;
 class Function;
-class InputMap;
-class OutputMap;
 class ChaserStep;
 class MasterTimer;
 class SpeedDialWidget;

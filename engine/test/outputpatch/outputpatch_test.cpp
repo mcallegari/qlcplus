@@ -24,7 +24,6 @@
 #include "outputpluginstub.h"
 #include "outputpatch_test.h"
 #include "outputpatch.h"
-#include "outputmap.h"
 #include "qlcfile.h"
 #include "doc.h"
 #undef private
@@ -63,7 +62,7 @@ void OutputPatch_Test::defaults()
 
 void OutputPatch_Test::patch()
 {
-    OutputMap om(m_doc, 4);
+    InputOutputMap om(m_doc, 4);
 
     OutputPluginStub* stub = static_cast<OutputPluginStub*>
                                 (m_doc->ioPluginCache()->plugins().at(0));
@@ -105,7 +104,7 @@ void OutputPatch_Test::dump()
     uni[169] = 50;
     uni[511] = 25;
 
-    OutputMap om(m_doc, 4);
+    InputOutputMap om(m_doc, 4);
     OutputPatch* op = new OutputPatch(this);
 
     OutputPluginStub* stub = static_cast<OutputPluginStub*>

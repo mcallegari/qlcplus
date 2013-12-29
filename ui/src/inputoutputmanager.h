@@ -32,10 +32,9 @@ class QToolBar;
 class QTimer;
 class QIcon;
 
-class InputPatch;
-class InputMap;
+class InputOutputMap;
 class OutputPatch;
-class OutputMap;
+class InputPatch;
 class Doc;
 
 class InputOutputManager : public QWidget
@@ -55,8 +54,7 @@ public:
 
 private:
     static InputOutputManager* s_instance;
-    InputMap* m_inputMap;
-    OutputMap* m_outputMap;
+    InputOutputMap* m_ioMap;
 
     /*************************************************************************
      * Tree widget

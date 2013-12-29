@@ -545,7 +545,7 @@ void CueStack_Test::flash()
     cs.appendCue(cue);
 
     QList<Universe*> ua;
-    ua.append(new Universe(new GrandMaster()));
+    ua.append(new Universe(0, new GrandMaster()));
     cs.setFlashing(true);
     QCOMPARE(m_doc->masterTimer()->m_dmxSourceList.size(), 1);
     QCOMPARE(cs.isFlashing(), true);
@@ -626,7 +626,7 @@ void CueStack_Test::nextPrevious()
 void CueStack_Test::insertStartValue()
 {
     QList<Universe*> ua;
-    ua.append(new Universe(new GrandMaster()));
+    ua.append(new Universe(0, new GrandMaster()));
     CueStack cs(m_doc);
     cs.preRun();
 
@@ -690,7 +690,7 @@ void CueStack_Test::switchCue()
     m_doc->addFixture(fxi);
 
     QList<Universe*> ua;
-    ua.append(new Universe(new GrandMaster()));
+    ua.append(new Universe(0, new GrandMaster()));
     CueStack cs(m_doc);
     cs.setFadeInSpeed(100);
     cs.setFadeOutSpeed(200);
@@ -853,7 +853,7 @@ void CueStack_Test::postRun()
 
     MasterTimer mt(m_doc);
     QList<Universe*> ua;
-    ua.append(new Universe(new GrandMaster()));
+    ua.append(new Universe(0, new GrandMaster()));
     CueStack cs(m_doc);
     cs.setFadeInSpeed(100);
     cs.setFadeOutSpeed(200);
@@ -908,7 +908,7 @@ void CueStack_Test::postRun()
 void CueStack_Test::write()
 {
     QList<Universe*> ua;
-    ua.append(new Universe(new GrandMaster()));
+    ua.append(new Universe(0, new GrandMaster()));
 
     CueStack cs(m_doc);
 

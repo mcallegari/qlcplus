@@ -27,8 +27,6 @@
 class FunctionSelection;
 class MasterTimer;
 class Collection;
-class OutputMap;
-class InputMap;
 class Doc;
 
 class CollectionEditor : public QWidget, public Ui_CollectionEditor

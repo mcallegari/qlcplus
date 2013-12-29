@@ -25,7 +25,6 @@
 #include "inputpatch_test.h"
 #include "qlcioplugin.h"
 #include "inputpatch.h"
-#include "inputmap.h"
 #include "qlcfile.h"
 #include "doc.h"
 #undef private
@@ -66,7 +65,7 @@ void InputPatch_Test::defaults()
 
 void InputPatch_Test::patch()
 {
-    InputMap im(m_doc, 4);
+    InputOutputMap im(m_doc, 4);
 
     QCOMPARE(m_doc->ioPluginCache()->plugins().size(), 1);
     OutputPluginStub* stub = static_cast<OutputPluginStub*> (m_doc->ioPluginCache()->plugins().at(0));

@@ -29,6 +29,7 @@
 #include "outputpatch.h"
 #include "inputpatch.h"
 #include "qlcconfig.h"
+#include "webaccess.h"
 #include "vccuelist.h"
 #include "outputmap.h"
 #include "inputmap.h"
@@ -285,28 +286,16 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
         int universe = cmdList[2].toInt();
 
         if (cmdList[1] == "INPUT")
-        {
             m_doc->inputMap()->setPatch(universe, cmdList[3], cmdList[4].toUInt());
-            m_doc->inputMap()->saveDefaults();
-        }
         else if (cmdList[1] == "OUTPUT")
-        {
             m_doc->outputMap()->setPatch(universe, cmdList[3], cmdList[4].toUInt(), false);
-            m_doc->outputMap()->saveDefaults();
-        }
         else if (cmdList[1] == "FB")
-        {
             m_doc->outputMap()->setPatch(universe, cmdList[3], cmdList[4].toUInt(), true);
-            m_doc->outputMap()->saveDefaults();
-        }
         else if (cmdList[1] == "PROFILE")
         {
             InputPatch *inPatch = m_doc->inputMap()->patch(universe);
             if (inPatch != NULL)
-            {
                 m_doc->inputMap()->setPatch(universe, inPatch->pluginName(), inPatch->input(), cmdList[3]);
-                m_doc->inputMap()->saveDefaults();
-            }
         }
         else if (cmdList[1] == "AUDIOIN")
         {
