@@ -42,7 +42,6 @@
 #include "inputpatch.h"
 #include "qlcmacros.h"
 #include "universe.h"
-#include "inputmap.h"
 #include "vcslider.h"
 #include "qlcfile.h"
 #include "apputil.h"

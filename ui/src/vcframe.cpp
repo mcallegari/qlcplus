@@ -375,7 +375,7 @@ void VCFrame::slotSetPage(int pageNum)
         QLCInputSource src = inputSource(nextPageInputSourceId);
         if (src.universe() != QLCInputSource::invalidUniverse)
         {
-            InputPatch *patch = m_doc->inputMap()->patch(src.universe());
+            InputPatch *patch = m_doc->inputOutputMap()->inputPatch(src.universe());
             if (patch != NULL)
                 patch->setPage(m_currentPage);
         }

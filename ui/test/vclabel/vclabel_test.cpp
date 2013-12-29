@@ -33,8 +33,6 @@
 #include "qlcfixturedefcache.h"
 #include "vclabel_test.h"
 #include "mastertimer.h"
-#include "outputmap.h"
-#include "inputmap.h"
 #include "doc.h"
 
 #undef private

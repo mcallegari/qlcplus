@@ -89,7 +89,7 @@ SimpleDesk::SimpleDesk(QWidget* parent, Doc* doc)
         m_playbacksPerPage = var.toUInt();
 
     // default all the universes pages to 1
-    for (quint32 i = 0; i < m_doc->outputMap()->universes(); i++)
+    for (quint32 i = 0; i < m_doc->inputOutputMap()->universes(); i++)
         m_universesPage.append(1);
 
     initEngine();
@@ -101,7 +101,7 @@ SimpleDesk::SimpleDesk(QWidget* parent, Doc* doc)
 
     slotSelectPlayback(0);
 
-    connect(m_doc->outputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
+    connect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
             this, SLOT(slotUniversesWritten(int, const QByteArray&)));
 }
 
@@ -236,7 +236,7 @@ void SimpleDesk::initTopSide()
     lay->addWidget(m_universeGroup);
 
     QVBoxLayout* vbox = new QVBoxLayout;
-    m_grandMasterSlider = new GrandMasterSlider(this, m_doc->outputMap(), m_doc->inputMap());
+    m_grandMasterSlider = new GrandMasterSlider(this, m_doc->inputOutputMap());
     vbox->addWidget(m_grandMasterSlider);
 
     grpLay->addLayout(vbox);
@@ -323,7 +323,7 @@ void SimpleDesk::initUniversesCombo()
             this, SLOT(slotUniversesComboChanged(int)));
     int currIdx = m_universesCombo->currentIndex();
     m_universesCombo->clear();
-    m_universesCombo->addItems(m_doc->outputMap()->universeNames());
+    m_universesCombo->addItems(m_doc->inputOutputMap()->universeNames());
     if (currIdx != -1)
         m_universesCombo->setCurrentIndex(currIdx);
     connect(m_universesCombo, SIGNAL(currentIndexChanged(int)),

@@ -24,6 +24,8 @@
 
 class QLCIOPlugin;
 
+#define KOutputNone QObject::tr("None")
+
 #define KXMLQLCOutputPatch "Patch"
 #define KXMLQLCOutputPatchUniverse "Universe"
 #define KXMLQLCOutputPatchPlugin "Plugin"

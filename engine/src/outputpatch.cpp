@@ -29,7 +29,6 @@
 
 #include "qlcioplugin.h"
 #include "outputpatch.h"
-#include "outputmap.h"
 
 #define GRACE_MS 1
 

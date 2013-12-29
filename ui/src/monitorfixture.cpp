@@ -28,7 +28,6 @@
 
 #include "monitorfixture.h"
 #include "outputpatch.h"
-#include "outputmap.h"
 #include "qlcmacros.h"
 #include "fixture.h"
 #include "doc.h"

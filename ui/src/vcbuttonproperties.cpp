@@ -37,7 +37,6 @@
 #include "virtualconsole.h"
 #include "assignhotkey.h"
 #include "inputpatch.h"
-#include "inputmap.h"
 #include "function.h"
 #include "fixture.h"
 #include "doc.h"
@@ -166,13 +165,13 @@ void VCButtonProperties::slotAutoDetectInputToggled(bool checked)
 {
     if (checked == true)
     {
-        connect(m_doc->inputMap(),
+        connect(m_doc->inputOutputMap(),
                 SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                 this, SLOT(slotInputValueChanged(quint32,quint32)));
     }
     else
     {
-        disconnect(m_doc->inputMap(),
+        disconnect(m_doc->inputOutputMap(),
                    SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                    this, SLOT(slotInputValueChanged(quint32,quint32)));
     }
@@ -186,7 +185,7 @@ void VCButtonProperties::slotInputValueChanged(quint32 universe, quint32 channel
 
 void VCButtonProperties::slotChooseInputClicked()
 {
-    SelectInputChannel sic(this, m_doc->inputMap());
+    SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
         m_inputSource = QLCInputSource(sic.universe(), sic.channel());
@@ -199,7 +198,7 @@ void VCButtonProperties::updateInputSource()
     QString uniName;
     QString chName;
 
-    if (m_doc->inputMap()->inputSourceNames(m_inputSource, uniName, chName) == false)
+    if (m_doc->inputOutputMap()->inputSourceNames(m_inputSource, uniName, chName) == false)
     {
         uniName = KInputNone;
         chName = KInputNone;

@@ -38,7 +38,6 @@ class VCCueListProperties;
 class ClickAndGoSlider;
 class CueListRunner;
 class MasterTimer;
-class InputMap;
 class Chaser;
 class Doc;
 

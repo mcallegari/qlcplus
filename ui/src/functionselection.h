@@ -28,8 +28,6 @@
 
 class QTreeWidgetItem;
 class MasterTimer;
-class OutputMap;
-class InputMap;
 class QToolBar;
 class QAction;
 class QWidget;

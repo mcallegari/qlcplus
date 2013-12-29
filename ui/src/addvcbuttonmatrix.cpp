@@ -23,8 +23,6 @@
 #include "addvcbuttonmatrix.h"
 #include "functionselection.h"
 #include "mastertimer.h"
-#include "outputmap.h"
-#include "inputmap.h"
 #include "vcbutton.h"
 #include "function.h"
 #include "doc.h"

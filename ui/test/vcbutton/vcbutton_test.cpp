@@ -31,8 +31,6 @@
 #include "vcbutton_test.h"
 #include "mastertimer.h"
 #include "qlcmacros.h"
-#include "outputmap.h"
-#include "inputmap.h"
 #include "vcbutton.h"
 #include "vcframe.h"
 #include "scene.h"
@@ -622,13 +620,13 @@ void VCButton_Test::input()
     // Test that blackout gets toggled thru ext input
     btn.setAction(VCButton::Blackout);
     btn.slotInputValueChanged(0, 0, 1);
-    QCOMPARE(m_doc->outputMap()->blackout(), true);
+    QCOMPARE(m_doc->inputOutputMap()->blackout(), true);
     btn.slotInputValueChanged(0, 0, 0);
-    QCOMPARE(m_doc->outputMap()->blackout(), true);
+    QCOMPARE(m_doc->inputOutputMap()->blackout(), true);
     btn.slotInputValueChanged(0, 0, 255);
-    QCOMPARE(m_doc->outputMap()->blackout(), false);
+    QCOMPARE(m_doc->inputOutputMap()->blackout(), false);
     btn.slotInputValueChanged(0, 0, 0);
-    QCOMPARE(m_doc->outputMap()->blackout(), false);
+    QCOMPARE(m_doc->inputOutputMap()->blackout(), false);
 
     // Test that panic gets toggled thru ext input
     m_doc->masterTimer()->startFunction(sc);

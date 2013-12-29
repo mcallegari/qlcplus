@@ -27,7 +27,6 @@
 
 class MasterTimerPrivate;
 class GenericFader;
-class OutputMap;
 class DMXSource;
 class Function;
 class Universe;

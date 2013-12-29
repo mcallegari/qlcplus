@@ -49,14 +49,13 @@
   #include "audiocapture_alsa.h"
 #endif
 
-Doc::Doc(QObject* parent, int outputUniverses, int inputUniverses)
+Doc::Doc(QObject* parent, int universes)
     : QObject(parent)
     , m_wsPath("")
     , m_fixtureDefCache(new QLCFixtureDefCache)
     , m_ioPluginCache(new IOPluginCache(this))
-    , m_outputMap(new OutputMap(this, outputUniverses))
+    , m_ioMap(new InputOutputMap(this, universes))
     , m_masterTimer(new MasterTimer(this))
-    , m_inputMap(new InputMap(this, inputUniverses))
     , m_inputCapture(NULL)
     , m_mode(Design)
     , m_kiosk(false)
@@ -78,14 +77,12 @@ Doc::~Doc()
     clearContents();
 
     if (isKiosk() == false)
-        m_outputMap->saveDefaults();
-    delete m_outputMap;
-    m_outputMap = NULL;
-
-    if (isKiosk() == false)
-        m_inputMap->saveDefaults();
-    delete m_inputMap;
-    m_inputMap = NULL;
+    {
+        // TODO: is this still needed ??
+        //m_ioMap->saveDefaults();
+    }
+    delete m_ioMap;
+    m_ioMap = NULL;
 
     delete m_ioPluginCache;
     m_ioPluginCache = NULL;
@@ -200,19 +197,14 @@ IOPluginCache* Doc::ioPluginCache() const
     return m_ioPluginCache;
 }
 
-OutputMap* Doc::outputMap() const
+InputOutputMap* Doc::inputOutputMap() const
 {
-    return m_outputMap;
+    return m_ioMap;
 }
 
 MasterTimer* Doc::masterTimer() const
 {
     return m_masterTimer;
-}
-
-InputMap* Doc::inputMap() const
-{
-    return m_inputMap;
 }
 
 AudioCapture *Doc::audioInputCapture()
@@ -349,7 +341,7 @@ bool Doc::addFixture(Fixture* fixture, quint32 id)
         }
 
         // Add the fixture channels capabilities to the universe they belong
-        QList<Universe *> universes = outputMap()->claimUniverses();
+        QList<Universe *> universes = inputOutputMap()->claimUniverses();
         int uni = fixture->universe();
 
         // TODO !!! if a universe for this fixture doesn't exist, add it !!!
@@ -359,7 +351,7 @@ bool Doc::addFixture(Fixture* fixture, quint32 id)
             const QLCChannel* channel(fixture->channel(i));
             universes.at(uni)->setChannelCapability(fixture->address() + i, channel->group());
         }
-        outputMap()->releaseUniverses(true);
+        inputOutputMap()->releaseUniverses(true);
 
         emit fixtureAdded(id);
         setModified();
@@ -932,6 +924,8 @@ bool Doc::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     /* Create the master Engine node */
     root = doc->createElement(KXMLQLCEngine);
     wksp_root->appendChild(root);
+
+    m_ioMap->saveXML(doc, &root);
 
     /* Write fixtures into an XML document */
     QListIterator <Fixture*> fxit(fixtures());

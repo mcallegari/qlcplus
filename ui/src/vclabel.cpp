@@ -31,7 +31,6 @@
 
 #include "virtualconsole.h"
 #include "mastertimer.h"
-#include "inputmap.h"
 #include "vclabel.h"
 #include "doc.h"
 

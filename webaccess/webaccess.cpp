@@ -21,6 +21,7 @@
 
 #include "vcaudiotriggers.h"
 #include "virtualconsole.h"
+#include "inputoutputmap.h"
 #include "commonjscss.h"
 #include "vcsoloframe.h"
 #include "outputpatch.h"
@@ -28,8 +29,6 @@
 #include "qlcconfig.h"
 #include "webaccess.h"
 #include "vccuelist.h"
-#include "outputmap.h"
-#include "inputmap.h"
 #include "mongoose.h"
 #include "vcbutton.h"
 #include "vcslider.h"
@@ -273,16 +272,16 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
         int universe = cmdList[2].toInt();
 
         if (cmdList[1] == "INPUT")
-            m_doc->inputMap()->setPatch(universe, cmdList[3], cmdList[4].toUInt());
+            m_doc->inputOutputMap()->setInputPatch(universe, cmdList[3], cmdList[4].toUInt());
         else if (cmdList[1] == "OUTPUT")
-            m_doc->outputMap()->setPatch(universe, cmdList[3], cmdList[4].toUInt(), false);
+            m_doc->inputOutputMap()->setOutputPatch(universe, cmdList[3], cmdList[4].toUInt(), false);
         else if (cmdList[1] == "FB")
-            m_doc->outputMap()->setPatch(universe, cmdList[3], cmdList[4].toUInt(), true);
+            m_doc->inputOutputMap()->setOutputPatch(universe, cmdList[3], cmdList[4].toUInt(), true);
         else if (cmdList[1] == "PROFILE")
         {
-            InputPatch *inPatch = m_doc->inputMap()->patch(universe);
+            InputPatch *inPatch = m_doc->inputOutputMap()->inputPatch(universe);
             if (inPatch != NULL)
-                m_doc->inputMap()->setPatch(universe, inPatch->pluginName(), inPatch->input(), cmdList[3]);
+                m_doc->inputOutputMap()->setInputPatch(universe, inPatch->pluginName(), inPatch->input(), cmdList[3]);
         }
         else if (cmdList[1] == "AUDIOIN")
         {
@@ -827,22 +826,21 @@ QString WebAccess::getConfigHTML()
                        "<div class=\"swInfo\">" + QString(APPNAME) + " " + QString(APPVERSION) + "</div>"
                        "</div>\n";
 
-    InputMap *inMap = m_doc->inputMap();
-    OutputMap *outMap = m_doc->outputMap();
+    InputOutputMap *ioMap = m_doc->inputOutputMap();
 
-    QStringList IOplugins = inMap->pluginNames();
-    foreach (QString out, outMap->pluginNames())
+    QStringList IOplugins = ioMap->inputPluginNames();
+    foreach (QString out, ioMap->outputPluginNames())
         if (IOplugins.contains(out) == false)
             IOplugins.append(out);
 
     QStringList inputLines, outputLines, feedbackLines;
-    QStringList profiles = inMap->profileNames();
+    QStringList profiles = ioMap->profileNames();
 
     foreach (QString pluginName, IOplugins)
     {
-        QStringList inputs = inMap->pluginInputs(pluginName);
-        QStringList outputs = outMap->pluginOutputs(pluginName);
-        bool hasFeedback = outMap->pluginSupportsFeedback(pluginName);
+        QStringList inputs = ioMap->pluginInputs(pluginName);
+        QStringList outputs = ioMap->pluginOutputs(pluginName);
+        bool hasFeedback = ioMap->pluginSupportsFeedback(pluginName);
 
         for (int i = 0; i < inputs.count(); i++)
             inputLines.append(QString("%1,%2,%3").arg(pluginName).arg(inputs.at(i)).arg(i));
@@ -866,13 +864,31 @@ QString WebAccess::getConfigHTML()
 
     for (int i = 0; i < 4; i++)
     {
-        QString currentInputPluginName = inMap->patch(i)->pluginName();
-        quint32 currentInput = inMap->patch(i)->input();
-        QString currentOutputPluginName = outMap->patch(i)->pluginName();
-        quint32 currentOutput = outMap->patch(i)->output();
-        QString currentFeedbackPluginName = outMap->feedbackPatch(i)->pluginName();
-        quint32 currentFeedback = outMap->feedbackPatch(i)->output();
-        QString currentProfileName = inMap->patch(i)->profileName();
+        QString currentInputPluginName = KInputNone;
+        quint32 currentInput = QLCChannel::invalid();
+        QString currentProfileName = "";
+        if (ioMap->inputPatch(i) != NULL)
+        {
+            currentInputPluginName = ioMap->inputPatch(i)->pluginName();
+            currentInput = ioMap->inputPatch(i)->input();
+            currentProfileName = ioMap->inputPatch(i)->profileName();
+        }
+        QString currentOutputPluginName = KOutputNone;
+        quint32 currentOutput = QLCChannel::invalid();
+        if (ioMap->outputPatch(i) != NULL)
+        {
+            currentOutputPluginName = ioMap->outputPatch(i)->pluginName();
+            currentOutput = ioMap->outputPatch(i)->output();
+        }
+
+        QString currentFeedbackPluginName = KOutputNone;
+        quint32 currentFeedback = QLCChannel::invalid();
+
+        if (ioMap->feedbackPatch(i) != NULL)
+        {
+            currentFeedbackPluginName = ioMap->feedbackPatch(i)->pluginName();
+            currentFeedback = ioMap->feedbackPatch(i)->output();
+        }
 
         bodyHTML += "<tr align=center><td>Universe " + QString::number(i+1) + "</td>\n";
         bodyHTML += "<td><select onchange=\"ioChanged('INPUT', " + QString::number(i) + ", this.value);\">\n";

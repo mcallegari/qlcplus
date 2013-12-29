@@ -26,7 +26,6 @@ class QDomDocument;
 class QDomElement;
 class QPaintEvent;
 class MasterTimer;
-class InputMap;
 class Doc;
 
 #define KXMLQLCVCLabel "Label"

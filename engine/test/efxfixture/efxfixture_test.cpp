@@ -404,7 +404,7 @@ void EFXFixture_Test::setPoint8bit()
     ef.setHead(GroupHead(fxi->id(),0));
 
     QList<Universe*> ua;
-    ua.append(new Universe(new GrandMaster()));
+    ua.append(new Universe(0, new GrandMaster()));
     ef.setPoint(ua, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
     QVERIFY(ua[0]->preGMValues()[0] == (char) 5);
     QVERIFY(ua[0]->preGMValues()[1] == (char) 1);
@@ -421,7 +421,7 @@ void EFXFixture_Test::setPoint16bit()
     ef.setHead(GroupHead(0,0));
 
     QList<Universe*> ua;
-    ua.append(new Universe(new GrandMaster()));
+    ua.append(new Universe(0, new GrandMaster()));
     ef.setPoint(ua, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
     QVERIFY(ua[0]->preGMValues()[0] == (char) 5);
     QVERIFY(ua[0]->preGMValues()[1] == (char) 1);
@@ -432,7 +432,7 @@ void EFXFixture_Test::setPoint16bit()
 void EFXFixture_Test::nextStepLoop()
 {
     QList<Universe*> ua;
-    ua.append(new Universe(new GrandMaster()));
+    ua.append(new Universe(0, new GrandMaster()));
     MasterTimerStub mts(m_doc, ua);
 
     EFX e(m_doc);
@@ -471,7 +471,7 @@ void EFXFixture_Test::nextStepLoop()
 void EFXFixture_Test::nextStepLoopZeroDuration()
 {
     QList<Universe*> ua;
-    ua.append(new Universe(new GrandMaster()));
+    ua.append(new Universe(0, new GrandMaster()));
     MasterTimerStub mts(m_doc, ua);
 
     EFX e(m_doc);
@@ -510,7 +510,7 @@ void EFXFixture_Test::nextStepLoopZeroDuration()
 void EFXFixture_Test::nextStepSingleShot()
 {
     QList<Universe*> ua;
-    ua.append(new Universe(new GrandMaster()));
+    ua.append(new Universe(0, new GrandMaster()));
     MasterTimerStub mts(m_doc, ua);
 
     EFX e(m_doc);
@@ -551,7 +551,7 @@ void EFXFixture_Test::nextStepSingleShot()
 void EFXFixture_Test::start()
 {
     QList<Universe*> ua;
-    ua.append(new Universe(new GrandMaster()));
+    ua.append(new Universe(0, new GrandMaster()));
     MasterTimerStub mts(m_doc, ua);
 
     EFX e(m_doc);
@@ -589,7 +589,7 @@ void EFXFixture_Test::start()
 void EFXFixture_Test::stop()
 {
     QList<Universe*> ua;
-    ua.append(new Universe(new GrandMaster()));
+    ua.append(new Universe(0, new GrandMaster()));
     MasterTimerStub mts(m_doc, ua);
 
     EFX e(m_doc);

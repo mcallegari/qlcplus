@@ -22,6 +22,7 @@
 #include "functionselection.h"
 #include "assignhotkey.h"
 #include "vcspeeddial.h"
+#include "inputpatch.h"
 #include "doc.h"
 
 #define COL_NAME 0
@@ -169,7 +170,7 @@ void VCSpeedDialProperties::updateInputSources()
     QString chName;
 
     // Absolute
-    if (m_doc->inputMap()->inputSourceNames(m_absoluteInputSource, uniName, chName) == false)
+    if (m_doc->inputOutputMap()->inputSourceNames(m_absoluteInputSource, uniName, chName) == false)
     {
         uniName = KInputNone;
         chName = KInputNone;
@@ -178,7 +179,7 @@ void VCSpeedDialProperties::updateInputSources()
     m_absoluteInputChannelEdit->setText(chName);
 
     // Tap
-    if (m_doc->inputMap()->inputSourceNames(m_tapInputSource, uniName, chName) == false)
+    if (m_doc->inputOutputMap()->inputSourceNames(m_tapInputSource, uniName, chName) == false)
     {
         uniName = KInputNone;
         chName = KInputNone;
@@ -204,19 +205,19 @@ void VCSpeedDialProperties::slotAutoDetectAbsoluteInputSourceToggled(bool checke
 {
     if (checked == true)
     {
-        connect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+        connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                 this, SLOT(slotAbsoluteInputValueChanged(quint32,quint32)));
     }
     else
     {
-        disconnect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                    this, SLOT(slotAbsoluteInputValueChanged(quint32,quint32)));
     }
 }
 
 void VCSpeedDialProperties::slotChooseAbsoluteInputSourceClicked()
 {
-    SelectInputChannel sic(this, m_doc->inputMap());
+    SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
         m_absoluteInputSource = QLCInputSource(sic.universe(), sic.channel());
@@ -228,19 +229,19 @@ void VCSpeedDialProperties::slotAutoDetectTapInputSourceToggled(bool checked)
 {
     if (checked == true)
     {
-        connect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+        connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                 this, SLOT(slotTapInputValueChanged(quint32,quint32)));
     }
     else
     {
-        disconnect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                    this, SLOT(slotTapInputValueChanged(quint32,quint32)));
     }
 }
 
 void VCSpeedDialProperties::slotChooseTapInputSourceClicked()
 {
-    SelectInputChannel sic(this, m_doc->inputMap());
+    SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
         m_tapInputSource = QLCInputSource(sic.universe(), sic.channel());

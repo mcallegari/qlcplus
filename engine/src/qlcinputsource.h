@@ -22,8 +22,6 @@
 
 #include <QtCore>
 
-class InputMap;
-
 class QLCInputSource
 {
 public:

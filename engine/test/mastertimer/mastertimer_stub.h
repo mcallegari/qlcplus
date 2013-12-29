@@ -23,7 +23,6 @@
 #include <QObject>
 
 #include "mastertimer.h"
-#include "outputmap.h"
 #include "dmxsource.h"
 
 /****************************************************************************

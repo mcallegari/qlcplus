@@ -26,13 +26,12 @@
 #include <QMap>
 
 #include "qlcfixturedefcache.h"
+#include "inputoutputmap.h"
 #include "ioplugincache.h"
 #include "channelsgroup.h"
 #include "fixturegroup.h"
 #include "qlcclipboard.h"
 #include "mastertimer.h"
-#include "outputmap.h"
-#include "inputmap.h"
 #include "function.h"
 #include "fixture.h"
 
@@ -58,7 +57,7 @@ public:
      * @param outputUniverses Number of output (DMX) universes
      * @param inputUniverses Number of input universes
      */
-    Doc(QObject* parent, int outputUniverses = 4, int inputUniverses = 4);
+    Doc(QObject* parent, int universes = 4);
 
     /** Destructor */
     ~Doc();
@@ -115,13 +114,10 @@ public:
     IOPluginCache* ioPluginCache() const;
 
     /** Get the DMX output map object */
-    OutputMap* outputMap() const;
+    InputOutputMap* inputOutputMap() const;
 
     /** Get the MasterTimer object that runs the show */
     MasterTimer* masterTimer() const;
-
-    /** Get the input map object */
-    InputMap* inputMap() const;
 
     /** Get the audio input capture object */
     AudioCapture* audioInputCapture();
@@ -132,9 +128,8 @@ public:
 private:
     QLCFixtureDefCache* m_fixtureDefCache;
     IOPluginCache* m_ioPluginCache;
-    OutputMap* m_outputMap;
+    InputOutputMap *m_ioMap;
     MasterTimer* m_masterTimer;
-    InputMap* m_inputMap;
     AudioCapture *m_inputCapture;
 
     /*********************************************************************

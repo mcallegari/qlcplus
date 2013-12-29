@@ -28,7 +28,6 @@
 
 #include "monitorfixture_test.h"
 #include "qlcfixturedefcache.h"
-#include "outputmap.h"
 #include "qlcmacros.h"
 #include "doc.h"
 

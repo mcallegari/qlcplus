@@ -125,7 +125,7 @@ void GenericFader_Test::addRemove()
 void GenericFader_Test::writeZeroFade()
 {
     QList<Universe*> ua;
-    ua.append(new Universe(new GrandMaster()));
+    ua.append(new Universe(0, new GrandMaster()));
     GenericFader fader(m_doc);
 
     FadeChannel fc;
@@ -144,7 +144,7 @@ void GenericFader_Test::writeZeroFade()
 void GenericFader_Test::writeLoop()
 {
     QList<Universe*> ua;
-    ua.append(new Universe(new GrandMaster()));
+    ua.append(new Universe(0, new GrandMaster()));
     GenericFader fader(m_doc);
 
     FadeChannel fc;
@@ -172,7 +172,7 @@ void GenericFader_Test::writeLoop()
 void GenericFader_Test::adjustIntensity()
 {
     QList<Universe*> ua;
-    ua.append(new Universe(new GrandMaster()));
+    ua.append(new Universe(0, new GrandMaster()));
     GenericFader fader(m_doc);
 
     FadeChannel fc;

@@ -23,7 +23,7 @@
 #include "qlcinputprofile_test.h"
 #include "qlcinputprofile.h"
 #include "qlcinputchannel.h"
-#include "inputmap.h"
+#include "qlcchannel.h"
 
 #define PROFILEDIR "../../../inputprofiles/"
 
@@ -196,7 +196,7 @@ void QLCInputProfile_Test::channelNumber()
     QLCInputChannel* ich3 = new QLCInputChannel();
     ip.insertChannel(5, ich3);
 
-    QCOMPARE(ip.channelNumber(NULL), InputMap::invalidChannel());
+    QCOMPARE(ip.channelNumber(NULL), QLCChannel::invalid());
     QCOMPARE(ip.channelNumber(ich1), quint32(0));
     QCOMPARE(ip.channelNumber(ich2), quint32(6510));
     QCOMPARE(ip.channelNumber(ich3), quint32(5));

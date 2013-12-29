@@ -36,9 +36,9 @@
 #include "inputoutputpatcheditor.h"
 #include "universeitemwidget.h"
 #include "inputoutputmanager.h"
+#include "inputoutputmap.h"
 #include "outputpatch.h"
 #include "inputpatch.h"
-#include "inputmap.h"
 #include "apputil.h"
 #include "doc.h"
 
@@ -68,8 +68,7 @@ InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
 
     Q_ASSERT(doc != NULL);
     
-    m_inputMap = doc->inputMap();
-    m_outputMap = doc->outputMap();
+    m_ioMap = doc->inputOutputMap();
 
     /* Create a new layout for this widget */
     new QVBoxLayout(this);
@@ -140,11 +139,11 @@ InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
     connect(m_timer, SIGNAL(timeout()), this, SLOT(slotTimerTimeout()));
 
     /* Listen to input map's input data signals */
-    connect(m_inputMap, SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+    connect(m_ioMap, SIGNAL(inputValueChanged(quint32,quint32,uchar)),
             this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
 
     /* Listen to plugin configuration changes */
-    connect(m_inputMap, SIGNAL(pluginConfigurationChanged(const QString&)),
+    connect(m_ioMap, SIGNAL(pluginConfigurationChanged(const QString&)),
             this, SLOT(updateList()));
 
     updateList();
@@ -176,12 +175,12 @@ InputOutputManager* InputOutputManager::instance()
 void InputOutputManager::updateList()
 {
     m_list->clear();
-    for (quint32 uni = 0; uni < m_outputMap->universes(); uni++)
+    for (quint32 uni = 0; uni < m_ioMap->universes(); uni++)
         updateItem(new QListWidgetItem(m_list), uni);
     m_list->setCurrentItem(m_list->item(0));
     m_uniNameEdit->setText(m_list->item(0)->data(Qt::DisplayRole).toString());
 
-    if (m_outputMap->universes() == 4)
+    if (m_ioMap->universes() == 4)
         m_deleteUniverseAction->setEnabled(false);
     else
         m_deleteUniverseAction->setEnabled(true);
@@ -191,22 +190,39 @@ void InputOutputManager::updateItem(QListWidgetItem* item, quint32 universe)
 {
     Q_ASSERT(item != NULL);
 
-    InputPatch* ip = m_inputMap->patch(universe);
-    OutputPatch* op = m_outputMap->patch(universe);
-    OutputPatch* fp = m_outputMap->feedbackPatch(universe);
-    Q_ASSERT(ip != NULL);
+    InputPatch* ip = m_ioMap->inputPatch(universe);
+    OutputPatch* op = m_ioMap->outputPatch(universe);
+    OutputPatch* fp = m_ioMap->feedbackPatch(universe);
 
-    QString uniName = m_outputMap->getUniverseName(universe);
+    QString uniName = m_ioMap->getUniverseName(universe);
     if (uniName.isEmpty())
-        item->setData(Qt::DisplayRole, tr("Universe %1").arg(universe + 1));
+    {
+        QString defUniName = tr("Universe %1").arg(universe + 1);
+        m_ioMap->setUniverseName(universe, defUniName);
+        item->setData(Qt::DisplayRole, defUniName);
+    }
     else
         item->setData(Qt::DisplayRole, uniName);
     item->setSizeHint(QSize(m_list->width(), 50));
     item->setData(Qt::UserRole, universe);
-    item->setData(Qt::UserRole + 1, ip->inputName());
-    item->setData(Qt::UserRole + 2, ip->profileName());
-    item->setData(Qt::UserRole + 3, op->outputName());
-    item->setData(Qt::UserRole + 4, fp->outputName());
+    if (ip != NULL)
+    {
+        item->setData(Qt::UserRole + 1, ip->inputName());
+        item->setData(Qt::UserRole + 2, ip->profileName());
+    }
+    else
+    {
+        item->setData(Qt::UserRole + 1, KInputNone);
+        item->setData(Qt::UserRole + 2, KInputNone);
+    }
+    if (op != NULL)
+        item->setData(Qt::UserRole + 3, op->outputName());
+    else
+        item->setData(Qt::UserRole + 3, KOutputNone);
+    if (fp != NULL)
+        item->setData(Qt::UserRole + 4, fp->outputName());
+    else
+        item->setData(Qt::UserRole + 4, KOutputNone);
 }
 
 void InputOutputManager::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
@@ -255,7 +271,7 @@ void InputOutputManager::slotCurrentItemChanged()
     }
 
     quint32 universe = item->data(Qt::UserRole).toInt();
-    m_editor = new InputOutputPatchEditor(this, universe, m_inputMap, m_outputMap);
+    m_editor = new InputOutputPatchEditor(this, universe, m_ioMap);
     m_splitter->widget(1)->layout()->addWidget(m_editor);
     connect(m_editor, SIGNAL(mappingChanged()), this, SLOT(slotMappingChanged()));
     connect(m_editor, SIGNAL(audioInputDeviceChanged()), this, SLOT(slotAudioInputChanged()));
@@ -280,15 +296,13 @@ void InputOutputManager::slotAudioInputChanged()
 
 void InputOutputManager::slotAddUniverse()
 {
-    m_outputMap->addUniverse();
-    m_inputMap->addUniverse();
+    m_ioMap->addUniverse();
     updateList();
 }
 
 void InputOutputManager::slotDeleteUniverse()
 {
-    m_outputMap->removeUniverse();
-    m_inputMap->removeUniverse();
+    m_ioMap->removeUniverse();
     updateList();
 }
 
@@ -298,7 +312,7 @@ void InputOutputManager::slotUniverseNameChanged(QString name)
     int uniIdx = m_list->currentRow();
     if (name.isEmpty())
         name = tr("Universe %1").arg(uniIdx + 1);
-    m_outputMap->setUniverseName(uniIdx, name);
+    m_ioMap->setUniverseName(uniIdx, name);
     currItem->setData(Qt::DisplayRole, name);
 }
 

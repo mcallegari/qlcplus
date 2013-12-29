@@ -24,11 +24,10 @@
 
 #include "ui_inputoutputpatcheditor.h"
 
+class InputOutputMap;
 class QStringList;
 class OutputPatch;
 class InputPatch;
-class InputMap;
-class OutputMap;
 
 class InputOutputPatchEditor : public QWidget, public Ui_InputOutputPatchEditor
 {
@@ -46,7 +45,7 @@ public:
      * @param universe The universe whose settings to edit
      * @param outputMap The output map object that handles DMX output
      */
-    InputOutputPatchEditor(QWidget* parent, quint32 universe, InputMap* inputMap, OutputMap* outputMap);
+    InputOutputPatchEditor(QWidget* parent, quint32 universe, InputOutputMap* ioMap);
     ~InputOutputPatchEditor();
 
 signals:
@@ -57,8 +56,7 @@ signals:
     void audioInputDeviceChanged();
 
 private:
-    InputMap* m_inputMap;
-    OutputMap* m_outputMap;
+    InputOutputMap* m_ioMap;
 
     quint32 m_universe; //! The input universe that is being edited
 

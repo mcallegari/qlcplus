@@ -22,7 +22,6 @@
 #include "qlcinputchannel.h"
 #include "qlcinputsource.h"
 #include "inputpatch.h"
-#include "inputmap.h"
 
 quint32 QLCInputSource::invalidUniverse = UINT_MAX;
 quint32 QLCInputSource::invalidChannel = UINT_MAX;

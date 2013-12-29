@@ -24,7 +24,6 @@
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
 #include "outputpatch.h"
-#include "outputmap.h"
 #include "qlcfile.h"
 #include "fixture.h"
 #include "doc.h"

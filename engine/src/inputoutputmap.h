@@ -1,8 +1,8 @@
 /*
-  Q Light Controller
-  outputmap.h
+  Q Light Controller Plus
+  inputoutputmap.h
 
-  Copyright (c) Heikki Junnila
+  Copyright (c) Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,53 +17,50 @@
   limitations under the License.
 */
 
-#ifndef OUTPUTMAP_H
-#define OUTPUTMAP_H
+#ifndef INPUTOUTPUTMAP_H
+#define INPUTOUTPUTMAP_H
 
 #include <QObject>
-#include <QVector>
 #include <QMutex>
-#include <QList>
-#include <QHash>
 #include <QDir>
 
+#include "qlcinputprofile.h"
 #include "grandmaster.h"
 
-class OutputPatchEditor;
-class OutputMapEditor;
-class QDomDocument;
+#define KXMLIOMap "InputOutputMap"
+
+
+class QLCInputSource;
 class QLCIOPlugin;
-class QDomElement;
 class OutputPatch;
-class GrandMaster;
-class OutputMap;
+class InputPatch;
 class Universe;
-class QString;
 class Doc;
 
-#define KOutputNone QObject::tr("None")
-#define KXMLQLCOutputMap "OutputMap"
-
-class OutputMap : public QObject
+class InputOutputMap : public QObject
 {
     Q_OBJECT
-    Q_DISABLE_COPY(OutputMap)
+    Q_DISABLE_COPY(InputOutputMap)
+
+    friend class InputPatch;
 
     /*********************************************************************
      * Initialization
      *********************************************************************/
+
 public:
     /**
-     * Create a new OutputMap object
+     * Create a new InputOutputMap object
      *
+     * @param doc The QLC+ project reference
      * @param universes Number of universes
      */
-    OutputMap(Doc* doc, quint32 universes);
+    InputOutputMap(Doc* doc, quint32 universes);
 
     /**
-     * Destroy a OutputMap object
+     * Destroy a InputOutputMap object
      */
-    ~OutputMap();
+    ~InputOutputMap();
 
     /**
      * Load all output plugins from the given directory, using QDir filters.
@@ -71,7 +68,7 @@ public:
      * @param dir The directory to load plugins from
      */
     void loadPlugins(const QDir& dir);
-
+    
 private:
     /** Get the doc object */
     Doc* doc() const;
@@ -117,6 +114,11 @@ private:
      * Universes
      *********************************************************************/
 public:
+
+    /**
+     * Invalid universe number (for comparison etc.)
+     */
+    static quint32 invalidUniverse();
 
     /**
      * Add a new universe and append it at the end of the
@@ -231,20 +233,22 @@ private:
     /*********************************************************************
      * Patch
      *********************************************************************/
-private:
-    /**
-     * Initialize the patching table
-     */
-    void initPatch();
 
 public:
     /**
-     * Invalid universe number (for comparison etc.)
+     * Patch the given universe to go through the given input plugin
+     *
+     * @param universe The input universe to patch
+     * @param pluginName The name of the plugin to patch to the universe
+     * @param input An input universe provided by the plugin to patch to
+     * @param profileName The name of an input profile
+     * @return true if successful, otherwise false
      */
-    static quint32 invalidUniverse();
+    bool setInputPatch(quint32 universe, const QString& pluginName,
+                       quint32 input, const QString& profileName = QString());
 
     /**
-     * Patch the given universe to go thru the given plugin
+     * Patch the given universe to go through the given output plugin
      *
      * @param universe The universe to patch
      * @param pluginName The name of the plugin to patch to the universe
@@ -252,14 +256,22 @@ public:
      * @param isFeedback Determine if this line is a feedback output
      * @return true if successful, otherwise false
      */
-    bool setPatch(quint32 universe, const QString& pluginName, quint32 output = 0, bool isFeedback = false);
+    bool setOutputPatch(quint32 universe, const QString& pluginName,
+                        quint32 output = 0, bool isFeedback = false);
+
+    /**
+     * Get mapping for an input universe.
+     *
+     * @param universe The internal input universe to get mapping for
+     */
+    InputPatch* inputPatch(quint32 universe) const;
 
     /**
      * Get the output mapping for a QLC universe.
      *
      * @param universe The internal universe to get mapping for
      */
-    OutputPatch* patch(quint32 universe) const;
+    OutputPatch* outputPatch(quint32 universe) const;
 
     /**
      * Get the feedback mapping for a QLC universe.
@@ -274,34 +286,60 @@ public:
     QStringList universeNames() const;
 
     /**
+     * Check, whether a certain input in a certain plugin has been mapped
+     * to a universe. Returns the mapped universe number or QLCIOPlugin::invalidLine()
+     * if not mapped.
+     *
+     * @param pluginName The name of the plugin to check for
+     * @param input The particular input to check for
+     * @return Mapped universe number or -1 if not mapped
+     */
+    quint32 inputMapping(const QString& pluginName, quint32 input) const;
+
+    /**
      * Check, whether a certain output in a certain plugin has been mapped
-     * to a universe. Returns the mapped universe number or QLCChannel::invalid()
+     * to a universe. Returns the mapped universe number or QLCIOPlugin::invalidLine()
      * if not mapped.
      *
      * @param pluginName The name of the plugin to check for
      * @param output The particular output to check for
      * @return Mapped universe number or -1 if not mapped
      */
-    quint32 mapping(const QString& pluginName, quint32 output) const;
-
-private:
-    /** Vector containing ouput plugins for each universe */
-    QList <OutputPatch*> m_patch;
-
-    /** Vector containing feedback plugins for each universe */
-    QList <OutputPatch*> m_fb_patch;
+    quint32 outputMapping(const QString& pluginName, quint32 output) const;
 
     /*********************************************************************
      * Plugins
      *********************************************************************/
 public:
     /**
+     * Get a description text for the given plugin.
+     */
+    QString pluginDescription(const QString& pluginName);
+
+    /**
+     * Get a list of available input plugins as a string list
+     * containing the plugins' names
+     *
+     * @return QStringList containing plugins' names
+     */
+    QStringList inputPluginNames();
+
+    /**
      * Get a list of available Output output plugins as a string list
      * containing the plugins' names
      *
      * @return QStringList containing plugins' names
      */
-    QStringList pluginNames();
+    QStringList outputPluginNames();
+
+    /**
+     * Get the names of all input lines provided by the given plugin.
+     *
+     * @param pluginName Name of the plugin, whose input count to get
+     * @return A QStringList containing the names of each input line
+     *
+     */
+    QStringList pluginInputs(const QString& pluginName);
 
     /**
      * Get the number of universes provided by the given plugin.
@@ -335,17 +373,27 @@ public:
     bool canConfigurePlugin(const QString& pluginName);
 
     /**
+     * Get a status text for the given plugin.
+     *
+     * @param pluginName Name of the plugin, whose status to get
+     * @param input A specific input identifier
+     */
+    QString inputPluginStatus(const QString& pluginName, quint32 input);
+
+    /**
      * Get a status text for the given plugin. If no plugin name is
      * given, an overall mapping status of all universes is returned.
      *
      * @param pluginName Name of the plugin, whose status to get
      * @param output Plugin's output line for getting more specific info
      */
-    QString pluginStatus(const QString& pluginName, quint32 output);
+    QString outputPluginStatus(const QString& pluginName, quint32 output);
 
-    /** Send feedback value to the input profile e.g. to move a motorized
-        sliders & knobs, set indicator leds etc. */
-    bool feedBack(quint32 universe, quint32 channel, uchar value, const QString& key = 0);
+    /**
+     * Send feedback value to the input profile e.g. to move a motorized
+     * sliders & knobs, set indicator leds etc.
+     */
+    bool sendFeedBack(quint32 universe, quint32 channel, uchar value, const QString& key = 0);
 
 private slots:
    /** Slot that catches plugin configuration change notifications from UIPluginCache */
@@ -354,6 +402,60 @@ private slots:
 signals:
     /** Notifies (OutputManager) of plugin configuration changes */
     void pluginConfigurationChanged(const QString& pluginName);
+
+    /** Everyone interested in input data should connect to this signal */
+    void inputValueChanged(quint32 universe, quint32 channel, uchar value, const QString& key = 0);
+
+    /*************************************************************************
+     * Input profiles
+     *************************************************************************/
+public:
+    /** Load all input profiles from the given directory using QDir filters */
+    void loadProfiles(const QDir& dir);
+
+    /** Get a list of available profile names */
+    QStringList profileNames();
+
+    /** Get a profile by its name */
+    QLCInputProfile* profile(const QString& name);
+
+    /** Add a new profile */
+    bool addProfile(QLCInputProfile* profile);
+
+    /** Remove an existing profile by its name and delete it */
+    bool removeProfile(const QString& name);
+
+    /**
+     * Get input source names for the given input universe and channel.
+     *
+     * @param src (IN) The input source, whose universe & channel names to get
+     * @param uniName (OUT) The name of the universe, if available
+     * @param chName (OUT) The name of the channel, if available
+     *
+     * @return true if uniName & chName contain something, otherwise false
+     */
+    bool inputSourceNames(const QLCInputSource& src,
+                          QString& uniName, QString& chName) const;
+
+    /**
+     * Get the default system input profile directory that contains installed
+     * input profiles. The location varies greatly between platforms.
+     *
+     * @return System profile directory
+     */
+    static QDir systemProfileDirectory();
+
+    /**
+     * Get the user's own default input profile directory that is used to save
+     * custom input profiles. The location varies greatly between platforms.
+     *
+     * @return User profile directory
+     */
+    static QDir userProfileDirectory();
+
+private:
+    /** List that contains all available profiles */
+    QList <QLCInputProfile*> m_profiles;
 
     /*********************************************************************
      * Defaults
@@ -365,9 +467,14 @@ public:
     void loadDefaults();
 
     /**
-     * Save default settings for output mapper into QLC global settings
+     * Save the input/output map instance into an XML document, under the given
+     * XML element (tag).
+     *
+     * @param doc The master XML document to save to.
+     * @param wksp_root The workspace root element
      */
-    void saveDefaults();
+    bool saveXML(QDomDocument* doc, QDomElement* wksp_root) const;
+
 };
 
-#endif
+#endif // INPUTOUTPUTMAP_H

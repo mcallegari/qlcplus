@@ -26,7 +26,28 @@
 
 #include "qlcchannel.h"
 
+#define KXMLQLCUniverse "Universe"
+#define KXMLQLCUniverseName "Name"
+#define KXMLQLCUniverseID "ID"
+
+#define KXMLQLCUniverseInputPatch "Input"
+#define KXMLQLCUniverseInputPlugin "Plugin"
+#define KXMLQLCUniverseInputLine "Line"
+#define KXMLQLCUniverseInputProfileName "Profile"
+
+#define KXMLQLCUniverseOutputPatch "Output"
+#define KXMLQLCUniverseOutputPlugin "Plugin"
+#define KXMLQLCUniverseOutputLine "Line"
+
+#define KXMLQLCUniverseFeedbackPatch "Feedback"
+#define KXMLQLCUniverseFeedbackPlugin "Plugin"
+#define KXMLQLCUniverseFeedbackLine "Line"
+
+class QLCInputProfile;
+class QLCIOPlugin;
 class GrandMaster;
+class OutputPatch;
+class InputPatch;
 
 class Universe: public QObject
 {
@@ -35,7 +56,7 @@ class Universe: public QObject
 
 public:
     /** Construct a new Universe */
-    Universe(GrandMaster *gm, QObject* parent = 0);
+    Universe(quint32 id, GrandMaster *gm, QObject* parent = 0);
 
     /** Destructor */
     virtual ~Universe();
@@ -62,7 +83,17 @@ public:
     /**
      * Retrieve the universe friendly name
      */
-    QString name();
+    QString name() const;
+
+    /**
+     * Set the universe ID (or index)
+     */
+    void setID(quint32 id);
+
+    /**
+     * Retrieve the universe ID
+     */
+    quint32 id() const;
 
     /**
      * Retrieve the number of used channels in this universe
@@ -97,10 +128,55 @@ protected:
     uchar applyGM(int channel, uchar value);
 
 protected:
+    /** The universe ID */
+    quint32 m_id;
     /** The universe friendly name */
     QString m_name;
     /** Reference to the Grand Master to perform values scaling */
     GrandMaster *m_grandMaster;
+
+    /************************************************************************
+     * Patches
+     ************************************************************************/
+public:
+    bool setInputPatch(QLCIOPlugin *plugin, quint32 input,
+                       QLCInputProfile *profile = NULL);
+
+    bool setOutputPatch(QLCIOPlugin *plugin, quint32 output);
+
+    bool setFeedbackPatch(QLCIOPlugin *plugin, quint32 output);
+
+    /**
+     * Get the reference to the input plugin associated to this universe.
+     * If not present NULL is returned.
+     */
+    InputPatch* inputPatch() const;
+
+    /**
+     * Get the reference to the output plugin associated to this universe.
+     * If not present NULL is returned.
+     */
+    OutputPatch* outputPatch() const;
+
+    /**
+     * Get the reference to the feedback plugin associated to this universe.
+     * If not present NULL is returned.
+     */
+    OutputPatch* feedbackPatch() const;
+
+signals:
+    /** Everyone interested in input data should connect to this signal */
+    void inputValueChanged(quint32 universe, quint32 channel, uchar value, const QString& key = 0);
+
+private:
+    /** Reference to the input patch associated to this universe. */
+    InputPatch* m_inputPatch;
+
+    /** Reference to the output patch associated to this universe. */
+    OutputPatch* m_outputPatch;
+
+    /** Reference to the feedback patch associated to this universe. */
+    OutputPatch* m_fbPatch;
 
     /************************************************************************
      * Channels capabilities
@@ -211,6 +287,20 @@ public:
      * @return true if successful, otherwise false
      */
     bool writeRelative(int channel, uchar value);
+
+    /*********************************************************************
+     * Load & Save
+     *********************************************************************/
+public:
+
+    /**
+     * Save the universe instance into an XML document, under the given
+     * XML element (tag).
+     *
+     * @param doc The master XML document to save to.
+     * @param wksp_root The workspace root element
+     */
+    bool saveXML(QDomDocument* doc, QDomElement* wksp_root) const;
 };
 
 #endif

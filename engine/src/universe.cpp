@@ -18,16 +18,23 @@
 */
 
 #include <QDebug>
+#include <QDomElement>
 #include <math.h>
 
 #include "universe.h"
+#include "inputpatch.h"
+#include "outputpatch.h"
 #include "grandmaster.h"
 #include "qlcmacros.h"
 
-Universe::Universe(GrandMaster *gm, QObject *parent)
+Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
     : QObject(parent)
+    , m_id(id)
     , m_name(QString())
     , m_grandMaster(gm)
+    , m_inputPatch(NULL)
+    , m_outputPatch(NULL)
+    , m_fbPatch(NULL)
     , m_usedChannels(0)
     , m_hasChanged(false)
     , m_channelsMask(new QByteArray(512, char(0)))
@@ -44,6 +51,16 @@ Universe::~Universe()
 {
     delete m_preGMValues;
     delete m_postGMValues;
+    if (m_inputPatch != NULL)
+        delete m_inputPatch;
+    if (m_outputPatch != NULL)
+        delete m_outputPatch;
+    if (m_fbPatch != NULL)
+        delete m_fbPatch;
+
+    m_inputPatch = NULL;
+    m_outputPatch = NULL;
+    m_fbPatch = NULL;
 }
 
 void Universe::setName(QString name)
@@ -51,9 +68,19 @@ void Universe::setName(QString name)
     m_name = name;
 }
 
-QString Universe::name()
+QString Universe::name() const
 {
     return m_name;
+}
+
+void Universe::setID(quint32 id)
+{
+    m_id = id;
+}
+
+quint32 Universe::id() const
+{
+    return m_id;
 }
 
 short Universe::usedChannels()
@@ -179,6 +206,54 @@ uchar Universe::applyGM(int channel, uchar value)
     return value;
 }
 
+bool Universe::setInputPatch(QLCIOPlugin *plugin,
+                             quint32 input, QLCInputProfile *profile)
+{
+    if (m_inputPatch == NULL)
+    {
+        m_inputPatch = new InputPatch(m_id, this);
+        connect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
+                this, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)));
+    }
+    m_inputPatch->set(plugin, input, profile);
+    return true;
+}
+
+bool Universe::setOutputPatch(QLCIOPlugin *plugin, quint32 output)
+{
+    if (m_outputPatch == NULL)
+        m_outputPatch = new OutputPatch(this);
+    m_outputPatch->set(plugin, output);
+    return true;
+}
+
+bool Universe::setFeedbackPatch(QLCIOPlugin *plugin, quint32 output)
+{
+    if (m_fbPatch == NULL)
+        m_fbPatch = new OutputPatch(this);
+    m_fbPatch->set(plugin, output);
+    return true;
+}
+
+/************************************************************************
+ * Patches
+ ************************************************************************/
+
+InputPatch *Universe::inputPatch() const
+{
+    return m_inputPatch;
+}
+
+OutputPatch *Universe::outputPatch() const
+{
+    return m_outputPatch;
+}
+
+OutputPatch *Universe::feedbackPatch() const
+{
+    return m_fbPatch;
+}
+
 /************************************************************************
  * Channels capabilities
  ************************************************************************/
@@ -273,6 +348,48 @@ bool Universe::writeRelative(int channel, uchar value)
     m_postGMValues->data()[channel] = char(value);
 
     m_hasChanged = true;
+
+    return true;
+}
+
+/*********************************************************************
+ * Load & Save
+ *********************************************************************/
+
+bool Universe::saveXML(QDomDocument *doc, QDomElement *wksp_root) const
+{
+    Q_ASSERT(doc != NULL);
+    Q_ASSERT(wksp_root != NULL);
+
+    QDomElement root = doc->createElement(KXMLQLCUniverse);
+    root.setAttribute(KXMLQLCUniverseName, name());
+    root.setAttribute(KXMLQLCUniverseID, id());
+
+    if (inputPatch() != NULL)
+    {
+        QDomElement ip = doc->createElement(KXMLQLCUniverseInputPatch);
+        ip.setAttribute(KXMLQLCUniverseInputPlugin, inputPatch()->pluginName());
+        ip.setAttribute(KXMLQLCUniverseInputLine, inputPatch()->input());
+        ip.setAttribute(KXMLQLCUniverseInputProfileName, inputPatch()->profileName());
+        root.appendChild(ip);
+    }
+    if (outputPatch() != NULL)
+    {
+        QDomElement op = doc->createElement(KXMLQLCUniverseOutputPatch);
+        op.setAttribute(KXMLQLCUniverseOutputPlugin, outputPatch()->pluginName());
+        op.setAttribute(KXMLQLCUniverseOutputLine, outputPatch()->output());
+        root.appendChild(op);
+    }
+    if (feedbackPatch() != NULL)
+    {
+        QDomElement fbp = doc->createElement(KXMLQLCUniverseFeedbackPatch);
+        fbp.setAttribute(KXMLQLCUniverseFeedbackPlugin, feedbackPatch()->pluginName());
+        fbp.setAttribute(KXMLQLCUniverseFeedbackLine, feedbackPatch()->output());
+        root.appendChild(fbp);
+    }
+
+    // append universe element
+    wksp_root->appendChild(root);
 
     return true;
 }
