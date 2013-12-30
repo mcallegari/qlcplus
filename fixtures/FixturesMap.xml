@@ -48,6 +48,7 @@
   <fixture path="Chauvet-4Bar-Tri.qxf" mf="Chauvet" md="4Bar Tri"/>
   <fixture path="Chauvet-4Play.qxf" mf="Chauvet" md="4Play"/>
   <fixture path="Chauvet-6-Spot.qxf" mf="Chauvet" md="6 Spot"/>
+  <fixture path="Chauvet-Circus-2.qxf" mf="Chauvet" md="Circus 2.0"/>
   <fixture path="Chauvet-COLORado-1-Tour.qxf" mf="Chauvet" md="COLORado 1 Tour"/>
   <fixture path="Chauvet-ColorBand-Pix-IP.qxf" mf="Chauvet" md="ColorBand Pix IP"/>
   <fixture path="Chauvet-COLORdash-Batten.qxf" mf="Chauvet" md="COLORdash Batten"/>
@@ -60,6 +61,7 @@
   <fixture path="Chauvet-Intimidator-Scan-LED-200.qxf" mf="Chauvet" md="Intimidator Scan LED 200"/>
   <fixture path="Chauvet-Intimidator-Spot-250.qxf" mf="Chauvet" md="Intimidator Spot 250"/>
   <fixture path="Chauvet-LED-Splash-86b.qxf" mf="Chauvet" md="LED Splash 86b"/>
+  <fixture path="Chauvet-LED-Techno-Strobe-RGB.qxf" mf="Chauvet" md="LED Techno Strobe RGB"/>
   <fixture path="Chauvet-LEDrain64.qxf" mf="Chauvet" md="LEDrain64"/>
   <fixture path="Chauvet-LEDSplash-Jr.qxf" mf="Chauvet" md="LEDSplash Jr"/>
   <fixture path="Chauvet-Q-Spot-260-LED.qxf" mf="Chauvet" md="Q-Spot 260 LED"/>
@@ -92,6 +94,7 @@
   <fixture path="Eurolite-LED-PAR64-RGBA.qxf" mf="Eurolite" md="LED PAR64 RGBA"/>
   <fixture path="Eurolite-LED-PAR64-White.qxf" mf="Eurolite" md="LED PAR64 White"/>
   <fixture path="Eurolite-LED-Z-200-TCL.qxf" mf="Eurolite" md="LED Z-200 TCL"/>
+  <fixture path="Eurolite-PST-9W-RGB.qxf" mf="Eurolite" md="LED PST-9W RGB"/>
   <fixture path="Eurolite-TC-150.qxf" mf="Eurolite" md="TC-150"/>
   <fixture path="Eurolite-TC-200.qxf" mf="Eurolite" md="TC-200"/>
   <fixture path="Eurolite-TC-250.qxf" mf="Eurolite" md="TC-250"/>
@@ -181,6 +184,7 @@
   <fixture path="Lanta-Orion-Link-V2.qxf" mf="Lanta" md="Orion Link V2"/>
   <fixture path="Ledj-Alu-Quad-Par-64.qxf" mf="Ledj" md="Alu Quad Par 64"/>
   <fixture path="Ledj-Colour-Storm-Quad.qxf" mf="Ledj" md="Colour Storm Quad"/>
+  <fixture path="Ledj-Tri-LED-back-drop-controller.qxf" mf="Ledj" md="Pro Tri LED back drop controller"/>
   <fixture path="lightmaXX-LED-MEGA-PAR-64-RGBW-18x8-W.qxf" mf="lightmaXX" md="LED MEGA PAR 64 RGBW 18x8 W"/>
   <fixture path="Lite-Works-ColorChanger.qxf" mf="Lite-Works" md="ColorChanger"/>
   <fixture path="Litecraft-PowerBar-4.qxf" mf="Litecraft" md="PowerBar 4"/>
@@ -234,6 +238,7 @@
   <fixture path="Pro-Lights-XP250.qxf" mf="Pro-Lights" md="XP250"/>
   <fixture path="Pro-Lights-XP575-Spot.qxf" mf="Pro-Lights" md="XP575 Spot"/>
   <fixture path="Pro-Lights-XP575-Wash.qxf" mf="Pro-Lights" md="XP575 Wash"/>
+  <fixture path="Proel-Analogue-Dimmer-6Ch.qxf" mf="Proel" md="Analogue Dimmer 6Ch"/>
   <fixture path="Proel-Dreamlight-250-Eclipse-Spot.qxf" mf="Proel" md="Dreamlight 250 Eclipse Spot"/>
   <fixture path="Proel-Moving-Head-3Wx108-LED-RGBW.qxf" mf="Proel" md="Moving Head 3Wx108 LED RGBW"/>
   <fixture path="Proel-Tarkus-575-Spot.qxf" mf="Proel" md="Tarkus 575 Spot"/>

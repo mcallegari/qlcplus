@@ -5,6 +5,11 @@ qlcplus (4.6.1) stable; urgency=low
   * Engine: restored timed fade out + stop all functions functionality
   * Show Manager: do not add a Show on popup cancel
   * Added fixture: Showtec ZIPP LED DMX (thanks to Marek Pleva)
+  * Added fixture: Chauvet Circus 2.0 (thanks to Anthony King)
+  * Added fixture: Proel Analogue Dimmer 6Ch (thanks to Lorenzo Andreani)
+  * Added fixture: Ledj Tri LED back drop controller (thanks to Michael Clements)
+  * Added fixture: Eurolite PST 9W RGB (thanks to Joa Palmer)
+  * Added fixture: Chauvet LED Techno Strobe RGB (thanks to Davey Daytona)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 25 January 2014 12:13:04 +0200
 
