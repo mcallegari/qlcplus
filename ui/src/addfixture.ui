@@ -14,7 +14,7 @@
    <string>Add fixture</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
-   <item row="1" column="1">
+   <item row="2" column="2">
     <widget class="QGroupBox" name="m_multipleGroup">
      <property name="title">
       <string>Multiple Fixtures</string>
@@ -72,7 +72,7 @@
      </layout>
     </widget>
    </item>
-   <item row="0" column="1">
+   <item row="0" column="2" rowspan="2">
     <widget class="QGroupBox" name="m_propertiesGroup">
      <property name="title">
       <string>Fixture Properties</string>
@@ -223,22 +223,7 @@
      </layout>
     </widget>
    </item>
-   <item row="0" column="0" rowspan="2">
-    <widget class="QTreeWidget" name="m_tree">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <column>
-      <property name="text">
-       <string>Fixture Model</string>
-      </property>
-     </column>
-    </widget>
-   </item>
-   <item row="3" column="0" colspan="2">
+   <item row="4" column="0" colspan="3">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QLabel" name="m_fixturesCount">
@@ -258,6 +243,31 @@
       </widget>
      </item>
     </layout>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Quick search:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLineEdit" name="m_searchEdit"/>
+   </item>
+   <item row="1" column="0" rowspan="2" colspan="2">
+    <widget class="QTreeWidget" name="m_tree">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <column>
+      <property name="text">
+       <string>Fixture Model</string>
+      </property>
+     </column>
+    </widget>
    </item>
   </layout>
  </widget>

@@ -60,8 +60,9 @@
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="66"/>
-        <source>Apply changes to fixtures of the same type</source>
-        <translation>Appliquer à tous les projecteurs du même type</translation>
+        <source>Apply changes to fixtures of the same type and mode</source>
+        <oldsource>Apply changes to fixtures of the same type</oldsource>
+        <translation type="unfinished">Appliquer à tous les projecteurs du même type</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="73"/>
@@ -127,7 +128,12 @@
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERREUR: Cette addresse est utilisée !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="236"/>
+        <location filename="addfixture.ui" line="250"/>
+        <source>Quick search:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addfixture.ui" line="267"/>
         <source>Fixture Model</source>
         <translatorcomment>Fixture est traduit ici par projecteur et regoupe tous les types de projecteurs: asservis et traditionnels.</translatorcomment>
         <translation>Modèle de projecteur</translation>
@@ -214,12 +220,12 @@
         <translation>Nombre de canaux vides à laisser entre les projecteurs</translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="96"/>
+        <location filename="addfixture.cpp" line="98"/>
         <source>Fixtures found: %1</source>
         <translation>%1 projecteurs dans la bibliothèque</translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="593"/>
+        <location filename="addfixture.cpp" line="615"/>
         <source>Dimmers</source>
         <translation>Gradateurs</translation>
     </message>
@@ -1058,12 +1064,12 @@ Durée : %3
         <translation>Non assigné</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.cpp" line="241"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="242"/>
         <source>Volume Bar</source>
         <translation>Barre de Volume</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.cpp" line="250"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="251"/>
         <source>#%1 (%2Hz - %3Hz)</source>
         <translation></translation>
     </message>
@@ -4171,86 +4177,86 @@ Durée : %3
         <translation>m:s</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="473"/>
+        <location filename="showmanager.cpp" line="470"/>
         <source>New Show</source>
         <translation>Nouveau Show</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="475"/>
+        <location filename="showmanager.cpp" line="471"/>
         <source>Show name setup</source>
         <translation>Définition du nom du Show</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="476"/>
+        <location filename="showmanager.cpp" line="472"/>
         <source>Show name:</source>
         <translation>Nom du Show :</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="512"/>
+        <location filename="showmanager.cpp" line="518"/>
         <source>New Scene</source>
         <translation>Nouvelle Scène</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="563"/>
-        <location filename="showmanager.cpp" line="599"/>
+        <location filename="showmanager.cpp" line="569"/>
+        <location filename="showmanager.cpp" line="605"/>
         <source>New Sequence</source>
         <translation>Nouvelle Séquence</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="587"/>
-        <location filename="showmanager.cpp" line="672"/>
+        <location filename="showmanager.cpp" line="593"/>
+        <location filename="showmanager.cpp" line="678"/>
         <source>Overlapping error</source>
         <translation>Erreur de recouvrement</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="587"/>
-        <location filename="showmanager.cpp" line="672"/>
+        <location filename="showmanager.cpp" line="593"/>
+        <location filename="showmanager.cpp" line="678"/>
         <source>Overlapping not allowed. Operation cancelled.</source>
         <translation>Recouvrement interdit. Opération annulée.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="613"/>
+        <location filename="showmanager.cpp" line="619"/>
         <source>Open Audio File</source>
         <translation>Ouvrir un fichier audio</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="639"/>
+        <location filename="showmanager.cpp" line="645"/>
         <source>Audio Files (%1)</source>
         <translation>Fichiers Audio (%1)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="641"/>
+        <location filename="showmanager.cpp" line="647"/>
         <source>All Files (*.*)</source>
         <translation>Tous les fichiers (*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="643"/>
+        <location filename="showmanager.cpp" line="649"/>
         <source>All Files (*)</source>
         <translation>Tous les fichiers (*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="665"/>
+        <location filename="showmanager.cpp" line="671"/>
         <source>Unsupported audio file</source>
         <translation>Fichier audio non pris en charge</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="665"/>
+        <location filename="showmanager.cpp" line="671"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation>QLC+ n&apos;arrive pas à lire ce fichier audio. Désolé.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="733"/>
-        <location filename="showmanager.cpp" line="755"/>
+        <location filename="showmanager.cpp" line="739"/>
+        <location filename="showmanager.cpp" line="761"/>
         <source>Paste error</source>
         <translation>Erreur de collage</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="733"/>
+        <location filename="showmanager.cpp" line="739"/>
         <source>Overlapping paste not allowed. Operation cancelled.</source>
         <translation>Le collage va chevaucher. Opération annulée.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="755"/>
+        <location filename="showmanager.cpp" line="761"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
         <translation>Scene incompatible avec la copie. Opération annulée.</translation>
     </message>
@@ -5874,25 +5880,25 @@ Durée : %3
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="198"/>
-        <location filename="vcspeeddialproperties.ui" line="282"/>
+        <location filename="vcspeeddialproperties.ui" line="285"/>
         <source>Input Universe</source>
         <translation>Univers d&apos;Entrée</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="212"/>
-        <location filename="vcspeeddialproperties.ui" line="292"/>
+        <location filename="vcspeeddialproperties.ui" line="295"/>
         <source>Input Channel</source>
         <translation>Canal d&apos;Entrée</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="226"/>
-        <location filename="vcspeeddialproperties.ui" line="302"/>
+        <location filename="vcspeeddialproperties.ui" line="305"/>
         <source>Auto Detect</source>
         <translation>Auto-détection</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="236"/>
-        <location filename="vcspeeddialproperties.ui" line="312"/>
+        <location filename="vcspeeddialproperties.ui" line="315"/>
         <source>Choose...</source>
         <translation>Choisissez...</translation>
     </message>
@@ -5908,32 +5914,32 @@ Durée : %3
         <translation>s</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="270"/>
+        <location filename="vcspeeddialproperties.ui" line="273"/>
         <source>Tap</source>
         <translation>Tap Tempo</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="276"/>
+        <location filename="vcspeeddialproperties.ui" line="279"/>
         <source>External Input</source>
         <translation>Entrée externe</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="322"/>
+        <location filename="vcspeeddialproperties.ui" line="325"/>
         <source>Key combination</source>
         <translation>Raccourci</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="328"/>
+        <location filename="vcspeeddialproperties.ui" line="331"/>
         <source>Keyboard combination to control the dial tap</source>
         <translation>Raccourci controllant le tap</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="338"/>
+        <location filename="vcspeeddialproperties.ui" line="341"/>
         <source>Set a key combination for this dial</source>
         <translation>Définissez un raccourci pour ce dialogue</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="358"/>
+        <location filename="vcspeeddialproperties.ui" line="361"/>
         <source>Remove the dial&apos;s keyboard shortcut key</source>
         <translation>Supprimez ce raccourci</translation>
     </message>

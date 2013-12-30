@@ -4,6 +4,7 @@ qlcplus (4.6.1) stable; urgency=low
   * VC Slider: fixed submaster renaming
   * Engine: restored timed fade out + stop all functions functionality
   * Show Manager: do not add a Show on popup cancel
+  * Fixture Manager: add quick search bar on fixture add (suggested by NiKoyes)
   * Added fixture: Showtec ZIPP LED DMX (thanks to Marek Pleva)
   * Added fixture: Chauvet Circus 2.0 (thanks to Anthony King)
   * Added fixture: Proel Analogue Dimmer 6Ch (thanks to Lorenzo Andreani)

@@ -181,6 +181,9 @@ protected slots:
 
     /** Callback for address gap value changes */
     void slotGapSpinChanged(int value);
+
+    /** Callback for fixture search filter changes */
+    void slotSearchFilterChanged(QString filter);
 };
 
 #endif

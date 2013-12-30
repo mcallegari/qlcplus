@@ -59,8 +59,9 @@
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="66"/>
-        <source>Apply changes to fixtures of the same type</source>
-        <translation>Pas wijzigingen toe op fixtures van dezelfde type</translation>
+        <source>Apply changes to fixtures of the same type and mode</source>
+        <oldsource>Apply changes to fixtures of the same type</oldsource>
+        <translation type="unfinished">Pas wijzigingen toe op fixtures van dezelfde type</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="73"/>
@@ -206,17 +207,22 @@
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;FOUT: Adres al in gebruik!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="236"/>
+        <location filename="addfixture.ui" line="250"/>
+        <source>Quick search:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addfixture.ui" line="267"/>
         <source>Fixture Model</source>
         <translation>Fixture model</translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="96"/>
+        <location filename="addfixture.cpp" line="98"/>
         <source>Fixtures found: %1</source>
         <translation>Fixtures gevonden: %1</translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="593"/>
+        <location filename="addfixture.cpp" line="615"/>
         <source>Dimmers</source>
         <translation>Dimmers</translation>
     </message>
@@ -1049,12 +1055,12 @@ Duur: %3
         <translation>Niet toegewezen</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.cpp" line="241"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="242"/>
         <source>Volume Bar</source>
         <translation>Volume Meter</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggersproperties.cpp" line="250"/>
+        <location filename="vcaudiotriggersproperties.cpp" line="251"/>
         <source>#%1 (%2Hz - %3Hz)</source>
         <translation>#%1 (%2Hz - %3Hz)</translation>
     </message>
@@ -4156,86 +4162,86 @@ Duur: %3
         <translation>Tijd</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="473"/>
+        <location filename="showmanager.cpp" line="470"/>
         <source>New Show</source>
         <translation>Nieuwe show</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="475"/>
+        <location filename="showmanager.cpp" line="471"/>
         <source>Show name setup</source>
         <translation>Show name setup</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="476"/>
+        <location filename="showmanager.cpp" line="472"/>
         <source>Show name:</source>
         <translation>Show naam:</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="512"/>
+        <location filename="showmanager.cpp" line="518"/>
         <source>New Scene</source>
         <translation>Nieuwe Scene</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="563"/>
-        <location filename="showmanager.cpp" line="599"/>
+        <location filename="showmanager.cpp" line="569"/>
+        <location filename="showmanager.cpp" line="605"/>
         <source>New Sequence</source>
         <translation>Nieuwe Sequence</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="587"/>
-        <location filename="showmanager.cpp" line="672"/>
+        <location filename="showmanager.cpp" line="593"/>
+        <location filename="showmanager.cpp" line="678"/>
         <source>Overlapping error</source>
         <translation>Overlap fout</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="587"/>
-        <location filename="showmanager.cpp" line="672"/>
+        <location filename="showmanager.cpp" line="593"/>
+        <location filename="showmanager.cpp" line="678"/>
         <source>Overlapping not allowed. Operation cancelled.</source>
         <translation>Overlappen niet toegestaan. Bewerking geannuleerd.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="613"/>
+        <location filename="showmanager.cpp" line="619"/>
         <source>Open Audio File</source>
         <translation>Open Audio bestand</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="639"/>
+        <location filename="showmanager.cpp" line="645"/>
         <source>Audio Files (%1)</source>
         <translation>Audio Bestanden (%1)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="641"/>
+        <location filename="showmanager.cpp" line="647"/>
         <source>All Files (*.*)</source>
         <translation>Alle bestanden(*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="643"/>
+        <location filename="showmanager.cpp" line="649"/>
         <source>All Files (*)</source>
         <translation>Alle bestanden (*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="665"/>
+        <location filename="showmanager.cpp" line="671"/>
         <source>Unsupported audio file</source>
         <translation>Niet ondersteunde audio besatnd</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="665"/>
+        <location filename="showmanager.cpp" line="671"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation>Dit audio bestand kan niet worden afgespeeld met QLC+. Excuus.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="733"/>
-        <location filename="showmanager.cpp" line="755"/>
+        <location filename="showmanager.cpp" line="739"/>
+        <location filename="showmanager.cpp" line="761"/>
         <source>Paste error</source>
         <translation>Fout bij plakken</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="733"/>
+        <location filename="showmanager.cpp" line="739"/>
         <source>Overlapping paste not allowed. Operation cancelled.</source>
         <translation>Overlappen niet toegestaan. Bewerking geannuleerd.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="755"/>
+        <location filename="showmanager.cpp" line="761"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
         <translation>Poging om een niet compatibele scene te plannen geannuleerd.</translation>
     </message>
@@ -5856,25 +5862,25 @@ Kies...</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="198"/>
-        <location filename="vcspeeddialproperties.ui" line="282"/>
+        <location filename="vcspeeddialproperties.ui" line="285"/>
         <source>Input Universe</source>
         <translation>Input Universe</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="212"/>
-        <location filename="vcspeeddialproperties.ui" line="292"/>
+        <location filename="vcspeeddialproperties.ui" line="295"/>
         <source>Input Channel</source>
         <translation>Input Channel</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="226"/>
-        <location filename="vcspeeddialproperties.ui" line="302"/>
+        <location filename="vcspeeddialproperties.ui" line="305"/>
         <source>Auto Detect</source>
         <translation>Auto Detectie</translation>
     </message>
     <message>
         <location filename="vcspeeddialproperties.ui" line="236"/>
-        <location filename="vcspeeddialproperties.ui" line="312"/>
+        <location filename="vcspeeddialproperties.ui" line="315"/>
         <source>Choose...</source>
         <translation>Kies...</translation>
     </message>
@@ -5890,32 +5896,32 @@ Kies...</translation>
         <translation>s</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="270"/>
+        <location filename="vcspeeddialproperties.ui" line="273"/>
         <source>Tap</source>
         <translation>Tap</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="276"/>
+        <location filename="vcspeeddialproperties.ui" line="279"/>
         <source>External Input</source>
         <translation>Externe Input</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="322"/>
+        <location filename="vcspeeddialproperties.ui" line="325"/>
         <source>Key combination</source>
         <translation>Toetscombinatie</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="328"/>
+        <location filename="vcspeeddialproperties.ui" line="331"/>
         <source>Keyboard combination to control the dial tap</source>
         <translation>Toets combinatie om de dial tap aan te sturen</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="338"/>
+        <location filename="vcspeeddialproperties.ui" line="341"/>
         <source>Set a key combination for this dial</source>
         <translation>Definieer een toets combinatie voor deze dial</translation>
     </message>
     <message>
-        <location filename="vcspeeddialproperties.ui" line="358"/>
+        <location filename="vcspeeddialproperties.ui" line="361"/>
         <source>Remove the dial&apos;s keyboard shortcut key</source>
         <translation>Verwijder de toets combinatie van deze dial</translation>
     </message>
