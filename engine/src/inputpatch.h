@@ -98,6 +98,8 @@ public:
     /** Name of the assigned input profile (empty if none) */
     QString profileName() const;
 
+    bool isPatched() const;
+
 signals:
     void inputValueChanged(quint32 inputUniverse, quint32 channel, uchar value, const QString& key = 0);
 

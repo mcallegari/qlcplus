@@ -114,6 +114,11 @@ quint32 OutputPatch::output() const
         return QLCIOPlugin::invalidLine();
 }
 
+bool OutputPatch::isPatched() const
+{
+    return output() != QLCIOPlugin::invalidLine();
+}
+
 /*****************************************************************************
  * Value dump
  *****************************************************************************/

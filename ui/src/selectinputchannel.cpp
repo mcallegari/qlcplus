@@ -121,7 +121,7 @@ void SelectInputChannel::fillTree()
         uniItem = new QTreeWidgetItem(m_tree);
         updateUniverseItem(uniItem, uni, patch);
 
-        if (patch->plugin() != NULL && patch->input() != QLCIOPlugin::invalidLine())
+        if (patch->isPatched())
         {
             /* Add a manual option to each patched universe */
             chItem = new QTreeWidgetItem(uniItem);
@@ -200,8 +200,12 @@ void SelectInputChannel::updateUniverseItem(QTreeWidgetItem* item,
     {
         /* The current universe doesn't have a profile assigned to it */
         name = QString("%1: %2").arg(universe + 1).arg(KInputNone);
-        item->setFlags(item->flags() & ~Qt::ItemIsSelectable);
-        item->setFlags(item->flags() & ~Qt::ItemIsEnabled);
+
+        if (patch == NULL || !patch->isPatched())
+	{
+            item->setFlags(item->flags() & ~Qt::ItemIsSelectable);
+            item->setFlags(item->flags() & ~Qt::ItemIsEnabled);
+        }
     }
     else
     {

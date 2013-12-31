@@ -159,6 +159,11 @@ QString InputPatch::profileName() const
         return KInputNone;
 }
 
+bool InputPatch::isPatched() const
+{
+    return input() != QLCIOPlugin::invalidLine();
+}
+ 
 void InputPatch::slotValueChanged(quint32 input, quint32 channel, uchar value, const QString& key)
 {
     // In case we have several lines connected from the same plugin, emit only

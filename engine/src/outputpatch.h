@@ -60,6 +60,8 @@ public:
     quint32 output() const;
     QString outputName() const;
 
+    bool isPatched() const;
+
 private:
     QLCIOPlugin* m_plugin;
     quint32 m_output;
