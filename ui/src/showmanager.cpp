@@ -559,10 +559,10 @@ void ShowManager::slotAddTrack()
             if (childrenFound == false)
             {
                 Function* f = new Chaser(m_doc);
+                Chaser *chaser = qobject_cast<Chaser*> (f);
+                chaser->enableSequenceMode(m_scene->id());
                 if (m_doc->addFunction(f) == true)
                 {
-                    Chaser *chaser = qobject_cast<Chaser*> (f);
-                    chaser->enableSequenceMode(m_scene->id());
                     chaser->setRunOrder(Function::SingleShot);
                     chaser->setDurationMode(Chaser::PerStep);
                     m_scene->setChildrenFlag(true);

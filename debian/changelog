@@ -4,6 +4,7 @@ qlcplus (4.6.1) stable; urgency=low
   * VC Slider: fixed submaster renaming
   * Engine: restored timed fade out + stop all functions functionality
   * Show Manager: do not add a Show on popup cancel
+  * Show Manager: when using an existing Scene as track create a sequence instead of a chaser
   * Fixture Manager: add quick search bar on fixture add (suggested by NiKoyes)
   * Engine: Fixed Show playback not respecting fade times
   * Added fixture: Showtec ZIPP LED DMX (thanks to Marek Pleva)
