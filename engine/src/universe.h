@@ -43,6 +43,7 @@
 #define KXMLQLCUniverseFeedbackPlugin "Plugin"
 #define KXMLQLCUniverseFeedbackLine "Line"
 
+class InputOutputMap;
 class QLCInputProfile;
 class QLCIOPlugin;
 class GrandMaster;
@@ -292,6 +293,14 @@ public:
      * Load & Save
      *********************************************************************/
 public:
+
+    /**
+     * Load a universe contents from the given XML node.
+     *
+     * @param root An XML subtree containing the universe contents
+     * @return true if the map was loaded successfully, otherwise false
+     */
+    bool loadXML(const QDomElement& root, int index, InputOutputMap* ioMap);
 
     /**
      * Save the universe instance into an XML document, under the given

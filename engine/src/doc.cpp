@@ -899,6 +899,10 @@ bool Doc::loadXML(const QDomElement& root)
             /* LEGACY */
             Bus::instance()->loadXML(tag);
         }
+        else if (tag.tagName() == KXMLIOMap)
+        {
+            m_ioMap->loadXML(tag);
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown engine tag:" << tag.tagName();
