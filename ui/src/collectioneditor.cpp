@@ -109,5 +109,6 @@ void CollectionEditor::updateFunctionList()
         QTreeWidgetItem* item = new QTreeWidgetItem(m_tree);
         item->setText(0, function->name());
         item->setData(0, PROP_ID, function->id());
+        item->setIcon(0, Function::typeToIcon(function->type()));
     }
 }
