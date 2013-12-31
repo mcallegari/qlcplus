@@ -198,8 +198,11 @@ void SelectInputChannel::updateUniverseItem(QTreeWidgetItem* item,
     {
         /* The current universe doesn't have a profile assigned to it */
         name = QString("%1: %2").arg(universe + 1).arg(KInputNone);
-        item->setFlags(item->flags() & ~Qt::ItemIsSelectable);
-        item->setFlags(item->flags() & ~Qt::ItemIsEnabled);
+        if (patch == NULL || patch->input() == QLCIOPlugin::invalidLine())
+	{
+            item->setFlags(item->flags() & ~Qt::ItemIsSelectable);
+            item->setFlags(item->flags() & ~Qt::ItemIsEnabled);
+        }
     }
     else
     {
