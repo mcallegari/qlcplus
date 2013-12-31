@@ -428,8 +428,10 @@ void ChaserRunner::switchFunctions(MasterTimer* timer)
         if (m_chaser->isSequence())
         {
             Scene *s = qobject_cast<Scene*>(m_currentFunction);
+            // blind == true is a workaround to reuse the same scene
+            // without messing up the previous values
             for (int i = 0; i < step.values.count(); i++)
-                s->setValue(step.values.at(i));
+                s->setValue(step.values.at(i), true);
         }
 
         // Set intensity before starting the function. Otherwise the intensity
