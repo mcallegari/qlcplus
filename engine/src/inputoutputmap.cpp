@@ -39,6 +39,7 @@
 InputOutputMap::InputOutputMap(Doc *doc, quint32 universes)
   : QObject(doc)
   , m_blackout(false)
+  , m_latestUniverseId(InputOutputMap::invalidUniverse())
   , m_universeChanged(false)
 {
     m_grandMaster = new GrandMaster(this);
@@ -51,12 +52,7 @@ InputOutputMap::InputOutputMap(Doc *doc, quint32 universes)
 
 InputOutputMap::~InputOutputMap()
 {
-    for (quint32 i = 0; i < universes(); i++)
-    {
-        Universe *uni = m_universeArray.takeAt(i);
-        delete uni;
-    }
-
+    removeAllUniverses();
     delete m_grandMaster;
 }
 
@@ -118,10 +114,13 @@ quint32 InputOutputMap::invalidUniverse()
     return UINT_MAX;
 }
 
-bool InputOutputMap::addUniverse()
+bool InputOutputMap::addUniverse(quint32 id)
 {
     m_universeMutex.lock();
-    m_universeArray.append(new Universe(universes(), m_grandMaster));
+    if (id == InputOutputMap::invalidUniverse())
+        id = ++m_latestUniverseId;
+
+    m_universeArray.append(new Universe(id, m_grandMaster));
     m_universeMutex.unlock();
     return true;
 }
@@ -136,9 +135,21 @@ bool InputOutputMap::removeUniverse()
     return true;
 }
 
+bool InputOutputMap::removeAllUniverses()
+{
+    quint32 uniCount = universes();
+    for (quint32 i = 0; i < uniCount; i++)
+    {
+        Universe *uni = m_universeArray.takeLast();
+        delete uni;
+    }
+    m_latestUniverseId = invalidUniverse();
+    return true;
+}
+
 QString InputOutputMap::getUniverseName(int index)
 {
-    if (index < m_universeArray.count())
+    if (index >= 0 && index < m_universeArray.count())
         return m_universeArray.at(index)->name();
 
     return QString();
@@ -832,6 +843,39 @@ void InputOutputMap::loadDefaults()
                 setOutputPatch(i, fb_plugin, feedback.toInt(), true);
         }
     }
+}
+
+bool InputOutputMap::loadXML(const QDomElement &root)
+{
+    if (root.tagName() != KXMLIOMap)
+    {
+        qWarning() << Q_FUNC_INFO << "InputOutputMap node not found";
+        return false;
+    }
+
+    /** Reset the current universe list and read the new one */
+    removeAllUniverses();
+
+    QDomNode node = root.firstChild();
+    while (node.isNull() == false)
+    {
+        QDomElement tag = node.toElement();
+
+        if (tag.tagName() == KXMLQLCUniverse)
+        {
+            quint32 id = InputOutputMap::invalidUniverse();
+            QString name = "";
+            if (tag.hasAttribute(KXMLQLCUniverseID))
+                id = tag.attribute(KXMLQLCUniverseID).toUInt();
+            addUniverse(id);
+            Universe *uni = m_universeArray.last();
+            uni->loadXML(tag, m_universeArray.count() - 1, this);
+        }
+
+        node = node.nextSibling();
+    }
+
+    return true;
 }
 
 bool InputOutputMap::saveXML(QDomDocument *doc, QDomElement *wksp_root) const

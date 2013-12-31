@@ -412,8 +412,7 @@ void App::initDoc()
     /* Load input plugins & profiles */
     m_doc->inputOutputMap()->loadProfiles(InputOutputMap::userProfileDirectory());
     m_doc->inputOutputMap()->loadProfiles(InputOutputMap::systemProfileDirectory());
-    // TODO: is this still needed ??
-    //m_doc->inputOutputMap()->loadDefaults();
+    m_doc->inputOutputMap()->loadDefaults();
 
     m_doc->masterTimer()->start();
 }

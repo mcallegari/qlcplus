@@ -124,12 +124,17 @@ public:
      * Add a new universe and append it at the end of the
      * current universes list
      */
-    bool addUniverse();
+    bool addUniverse(quint32 id = InputOutputMap::invalidUniverse());
 
     /**
      * Remove the last universe in the current universes list
      */
     bool removeUniverse();
+
+    /**
+     * Remove all the universes in the current universes list
+     */
+    bool removeAllUniverses();
 
     /**
      * Retrieve the friendly name of the universe at the given index
@@ -179,6 +184,9 @@ signals:
     void universesWritten(int index, const QByteArray& universes);
 
 private:
+    /** Keep track of the lastest asigned universe ID */
+    quint32 m_latestUniverseId;
+
     /** The values of all universes */
     QList<Universe *> m_universeArray;
 
@@ -465,6 +473,14 @@ public:
      * Load default settings for output mapper from QLC global settings
      */
     void loadDefaults();
+
+    /**
+     * Load the input/output map map contents from the given XML node.
+     *
+     * @param root An XML subtree containing the input/output map contents
+     * @return true if the map was loaded successfully, otherwise false
+     */
+    bool loadXML(const QDomElement& root);
 
     /**
      * Save the input/output map instance into an XML document, under the given

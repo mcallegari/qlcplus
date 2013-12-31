@@ -22,6 +22,7 @@
 #include <math.h>
 
 #include "universe.h"
+#include "inputoutputmap.h"
 #include "inputpatch.h"
 #include "outputpatch.h"
 #include "grandmaster.h"
@@ -348,6 +349,63 @@ bool Universe::writeRelative(int channel, uchar value)
     m_postGMValues->data()[channel] = char(value);
 
     m_hasChanged = true;
+
+    return true;
+}
+
+bool Universe::loadXML(const QDomElement &root, int index, InputOutputMap *ioMap)
+{
+    if (root.tagName() != KXMLQLCUniverse)
+    {
+        qWarning() << Q_FUNC_INFO << "Universe node not found";
+        return false;
+    }
+
+    if (root.hasAttribute(KXMLQLCUniverseName))
+        setName(root.attribute(KXMLQLCUniverseName));
+
+    QDomNode node = root.firstChild();
+    while (node.isNull() == false)
+    {
+        QDomElement tag = node.toElement();
+
+        if (tag.tagName() == KXMLQLCUniverseInputPatch)
+        {
+            QString plugin = KInputNone;
+            quint32 input = QLCChannel::invalid();
+            QString profile = KInputNone;
+
+            if (tag.hasAttribute(KXMLQLCUniverseInputPlugin))
+                plugin = tag.attribute(KXMLQLCUniverseInputPlugin);
+            if (tag.hasAttribute(KXMLQLCUniverseInputLine))
+                input = tag.attribute(KXMLQLCUniverseInputLine).toUInt();
+            if (tag.hasAttribute(KXMLQLCUniverseInputProfileName))
+                profile = tag.attribute(KXMLQLCUniverseInputProfileName);
+            ioMap->setInputPatch(index, plugin, input, profile);
+        }
+        else if (tag.tagName() == KXMLQLCUniverseOutputPatch)
+        {
+            QString plugin = KOutputNone;
+            quint32 output = QLCChannel::invalid();
+            if (tag.hasAttribute(KXMLQLCUniverseOutputPlugin))
+                plugin = tag.attribute(KXMLQLCUniverseOutputPlugin);
+            if (tag.hasAttribute(KXMLQLCUniverseOutputLine))
+                output = tag.attribute(KXMLQLCUniverseOutputLine).toUInt();
+            ioMap->setOutputPatch(index, plugin, output, false);
+        }
+        else if (tag.tagName() == KXMLQLCUniverseFeedbackPatch)
+        {
+            QString plugin = KOutputNone;
+            quint32 output = QLCChannel::invalid();
+            if (tag.hasAttribute(KXMLQLCUniverseFeedbackPlugin))
+                plugin = tag.attribute(KXMLQLCUniverseFeedbackPlugin);
+            if (tag.hasAttribute(KXMLQLCUniverseFeedbackLine))
+                output = tag.attribute(KXMLQLCUniverseFeedbackLine).toUInt();
+            ioMap->setOutputPatch(index, plugin, output, true);
+        }
+
+        node = node.nextSibling();
+    }
 
     return true;
 }
