@@ -536,7 +536,7 @@ bool InputOutputMap::sendFeedBack(quint32 universe, quint32 channel, uchar value
 
     OutputPatch* patch = m_universeArray.at(universe)->feedbackPatch();
 
-    if (patch != NULL && patch->plugin() != NULL && patch->output() != QLCIOPlugin::invalidLine())
+    if (patch != NULL && patch->isPatched())
     {
         patch->plugin()->sendFeedBack(patch->output(), channel, value, key);
         return true;
