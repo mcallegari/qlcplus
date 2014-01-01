@@ -100,10 +100,11 @@ void EFX_Test::initial()
 void EFX_Test::algorithmNames()
 {
     QStringList list = EFX::algorithmList();
-    QCOMPARE(list.size(), 5);
+    QCOMPARE(list.size(), 6);
     QVERIFY(list.contains("Circle"));
     QVERIFY(list.contains("Eight"));
     QVERIFY(list.contains("Line"));
+    QVERIFY(list.contains("Line2"));
     QVERIFY(list.contains("Diamond"));
     QVERIFY(list.contains("Lissajous"));
 
@@ -135,6 +136,7 @@ void EFX_Test::stringToAlgorithm()
     QCOMPARE(EFX::stringToAlgorithm("Circle"), EFX::Circle);
     QCOMPARE(EFX::stringToAlgorithm("Lissajous"), EFX::Lissajous);
     QCOMPARE(EFX::stringToAlgorithm("Line"), EFX::Line);
+    QCOMPARE(EFX::stringToAlgorithm("Line2"), EFX::Line2);
     QCOMPARE(EFX::stringToAlgorithm("Foobar"), EFX::Circle);
 }
 
