@@ -1,5 +1,9 @@
 #!/usr/bin/env ruby
 
+# Script to automatically update the fixtures map.
+# Run it every time some fixtures are added to this folder.
+# The packages 'ruby' and 'ruby-libxml' are required to run this
+
 require 'libxml'
 
 class FixtureDef

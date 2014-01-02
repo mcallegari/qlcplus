@@ -11,6 +11,7 @@
   <fixture path="American-DJ-Fog-Storm.qxf" mf="American DJ" md="Fog Storm (with FS-DMXT Timer Remote)"/>
   <fixture path="American-DJ-FREQ-16-Strobe.qxf" mf="American DJ" md="FREQ 16 Strobe"/>
   <fixture path="American-DJ-Fusion-FX-Bar-1.qxf" mf="American DJ" md="Fusion FX Bar 1"/>
+  <fixture path="American-DJ-Fusion-FX-Bar-5.qxf" mf="American DJ" md="Fusion FX Bar 5"/>
   <fixture path="American-DJ-Galaxian-3D.qxf" mf="American DJ" md="Galaxian 3D"/>
   <fixture path="American-DJ-Hypnotic-RGB.qxf" mf="American DJ" md="Hypnotic RGB"/>
   <fixture path="American-DJ-Inno-Color-Beam-LED.qxf" mf="American DJ" md="Inno Color Beam LED"/>
@@ -232,6 +233,7 @@
   <fixture path="Pro-Lights-LedPar-64363-RGB.qxf" mf="Pro-Lights" md="LedPar 64363 RGB"/>
   <fixture path="Pro-Lights-LumiPar-18-Tri.qxf" mf="Pro-Lights" md="LumiPar 18 Tri"/>
   <fixture path="Pro-Lights-LumiPar-7QPro.qxf" mf="Pro-Lights" md="LumiPar 7QPro"/>
+  <fixture path="Pro-Lights-LumiPAR12Q.qxf" mf="Pro-Lights" md="LumiPAR12Q"/>
   <fixture path="Pro-Lights-LumiPAR18QPRO.qxf" mf="Pro-Lights" md="LumiPAR18QPRO"/>
   <fixture path="Pro-Lights-Strobo-1500DMX.qxf" mf="Pro-Lights" md="Strobo 1500DMX"/>
   <fixture path="Pro-Lights-V200.qxf" mf="Pro-Lights" md="V200"/>
