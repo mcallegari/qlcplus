@@ -21,14 +21,14 @@
 #include <QtXml>
 
 #define private public
-#include "outputpluginstub.h"
+#include "iopluginstub.h"
 #include "outputpatch_test.h"
 #include "outputpatch.h"
 #include "qlcfile.h"
 #include "doc.h"
 #undef private
 
-#define TESTPLUGINDIR "../outputpluginstub"
+#define TESTPLUGINDIR "../iopluginstub"
 
 static QDir testPluginDir()
 {
@@ -64,7 +64,7 @@ void OutputPatch_Test::patch()
 {
     InputOutputMap om(m_doc, 4);
 
-    OutputPluginStub* stub = static_cast<OutputPluginStub*>
+    IOPluginStub* stub = static_cast<IOPluginStub*>
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
@@ -107,7 +107,7 @@ void OutputPatch_Test::dump()
     InputOutputMap om(m_doc, 4);
     OutputPatch* op = new OutputPatch(this);
 
-    OutputPluginStub* stub = static_cast<OutputPluginStub*>
+    IOPluginStub* stub = static_cast<IOPluginStub*>
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 

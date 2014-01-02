@@ -21,7 +21,7 @@
 #include <QtTest>
 
 #define private public
-#include "outputpluginstub.h"
+#include "iopluginstub.h"
 #include "inputmap_test.h"
 #include "qlcinputsource.h"
 #include "inputpatch.h"
@@ -31,7 +31,7 @@
 #include "doc.h"
 #undef private
 
-#define TESTPLUGINDIR "../outputpluginstub"
+#define TESTPLUGINDIR "../iopluginstub"
 #define ENGINEDIR "../../src"
 #define PROFILEDIR "../../../inputprofiles"
 
@@ -97,7 +97,7 @@ void InputMap_Test::pluginInputs()
 
     QVERIFY(im.pluginInputs("Foo").size() == 0);
 
-    OutputPluginStub* stub = static_cast<OutputPluginStub*>
+    IOPluginStub* stub = static_cast<IOPluginStub*>
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
@@ -111,7 +111,7 @@ void InputMap_Test::configurePlugin()
 
     QCOMPARE(im.canConfigurePlugin("Foo"), false);
 
-    OutputPluginStub* stub = static_cast<OutputPluginStub*>
+    IOPluginStub* stub = static_cast<IOPluginStub*>
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
@@ -139,7 +139,7 @@ void InputMap_Test::pluginStatus()
     QVERIFY(im.pluginStatus("Xyzzy", 2).contains("Nothing selected"));
     QVERIFY(im.pluginStatus("AYBABTU", 3).contains("Nothing selected"));
 
-    OutputPluginStub* stub = static_cast<OutputPluginStub*>
+    IOPluginStub* stub = static_cast<IOPluginStub*>
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
@@ -178,7 +178,7 @@ void InputMap_Test::setPatch()
 {
     InputMap im(m_doc, 4);
 
-    OutputPluginStub* stub = static_cast<OutputPluginStub*>
+    IOPluginStub* stub = static_cast<IOPluginStub*>
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
@@ -278,7 +278,7 @@ void InputMap_Test::slotValueChanged()
 {
     InputMap im(m_doc, 4);
 
-    OutputPluginStub* stub = static_cast<OutputPluginStub*>
+    IOPluginStub* stub = static_cast<IOPluginStub*>
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
@@ -321,7 +321,7 @@ void InputMap_Test::slotConfigurationChanged()
 {
     InputMap im(m_doc, 4);
 
-    OutputPluginStub* stub = static_cast<OutputPluginStub*>
+    IOPluginStub* stub = static_cast<IOPluginStub*>
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
@@ -365,7 +365,7 @@ void InputMap_Test::inputSourceNames()
 {
     InputMap im(m_doc, 4);
 
-    OutputPluginStub* stub = static_cast<OutputPluginStub*> (m_doc->ioPluginCache()->plugins().at(0));
+    IOPluginStub* stub = static_cast<IOPluginStub*> (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
     QDir dir(PROFILEDIR);

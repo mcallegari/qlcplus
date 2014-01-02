@@ -2,7 +2,7 @@ include(../../../variables.pri)
 
 TEMPLATE = lib
 LANGUAGE = C++
-TARGET   = outputpluginstub
+TARGET   = iopluginstub
 
 QT          += xml script
 CONFIG      += plugin
@@ -12,5 +12,5 @@ win32:QMAKE_LFLAGS += -shared
 
 HEADERS += ../../../plugins/interfaces/qlcioplugin.h
 
-HEADERS += outputpluginstub.h
-SOURCES += outputpluginstub.cpp
+HEADERS += iopluginstub.h
+SOURCES += iopluginstub.cpp
