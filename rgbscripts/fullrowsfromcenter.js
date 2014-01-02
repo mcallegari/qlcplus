@@ -6,7 +6,7 @@ var testAlgo;
     {
         var algo = new Object;
         algo.apiVersion = 1;
-        algo.name = "full rows from center";
+        algo.name = "Full Rows From Center";
         algo.author = "plg";
 
         algo.rgbMap = function(width, height, rgb, step)

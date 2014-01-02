@@ -6,7 +6,7 @@ var testAlgo;
     {
         var algo = new Object;
         algo.apiVersion = 1;
-        algo.name = "fill columns from center";
+        algo.name = "Fill Columns From Center";
         algo.author = "plg";
 
         algo.rgbMap = function(width, height, rgb, step)

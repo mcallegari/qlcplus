@@ -6,7 +6,7 @@ var testAlgo;
     {
         var algo = new Object;
         algo.apiVersion = 1;
-        algo.name = "fill unfill columns";
+        algo.name = "Fill Unfill Columns";
         algo.author = "plg";
 
         algo.rgbMap = function(width, height, rgb, step)
