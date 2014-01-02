@@ -1,6 +1,6 @@
 /*
   Q Light Controller - Unit test
-  universearray_test.h
+  universe_test.h
 
   Copyright (c) Heikki Junnila
 
@@ -17,20 +17,24 @@
   limitations under the License.
 */
 
-#ifndef UNIVERSEARRAY_TEST_H
-#define UNIVERSEARRAY_TEST_H
+#ifndef UNIVERSE_TEST_H
+#define UNIVERSE_TEST_H
 
 #include <QObject>
 
-class UniverseArray_Test : public QObject
+class GrandMaster;
+class Universe;
+
+class Universe_Test : public QObject
 {
     Q_OBJECT
 
 private slots:
+
+    void initTestCase();
+    void cleanupTestCase();
+
     void initial();
-    void gMChannelMode();
-    void gMValueMode();
-    void gMValue();
     void applyGM();
     void setGMValue();
     void write();
@@ -38,6 +42,11 @@ private slots:
     void reset();
     void setGMValueEfficiency();
     void writeEfficiency();
+
+private:
+
+    GrandMaster *m_gm;
+    Universe *m_uni;
 };
 
 #endif

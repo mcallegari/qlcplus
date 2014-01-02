@@ -54,6 +54,8 @@ class InputPatch;
 #define KXMLQLCUniverseFeedbackPlugin "Plugin"
 #define KXMLQLCUniverseFeedbackLine "Line"
 
+/** Universe class contains input/output data for one DMX universe
+ */
 class Universe: public QObject
 {
     Q_OBJECT

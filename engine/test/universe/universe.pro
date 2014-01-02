@@ -2,7 +2,7 @@ include(../../../variables.pri)
 include(../../../coverage.pri)
 TEMPLATE = app
 LANGUAGE = C++
-TARGET   = universearray_test
+TARGET   = universe_test
 
 QT      += testlib xml script
 CONFIG  -= app_bundle
@@ -13,5 +13,5 @@ INCLUDEPATH  += ../../src
 QMAKE_LIBDIR += ../../src
 LIBS         += -lqlcplusengine
 
-SOURCES += universearray_test.cpp
-HEADERS += universearray_test.h
+SOURCES += universe_test.cpp
+HEADERS += universe_test.h

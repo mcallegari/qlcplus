@@ -28,6 +28,9 @@
 #include "grandmaster.h"
 #include "qlcmacros.h"
 
+#define UNIVERSE_SIZE 512
+#define RELATIVE_ZERO 127
+
 Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
     : QObject(parent)
     , m_id(id)
@@ -38,11 +41,11 @@ Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
     , m_fbPatch(NULL)
     , m_usedChannels(0)
     , m_hasChanged(false)
-    , m_channelsMask(new QByteArray(512, char(0)))
-    , m_preGMValues(new QByteArray(512, char(0)))
-    , m_postGMValues(new QByteArray(512, char(0)))
+    , m_channelsMask(new QByteArray(UNIVERSE_SIZE, char(0)))
+    , m_preGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
+    , m_postGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
 {
-    m_relativeValues.fill(0, 512);
+    m_relativeValues.fill(0, UNIVERSE_SIZE);
 
     connect(m_grandMaster, SIGNAL(valueChanged(uchar)),
             this, SLOT(slotGMValueChanged()));
@@ -138,7 +141,7 @@ void Universe::reset()
 
 void Universe::reset(int address, int range)
 {
-    for (int i = address; i < address + range && i < 512; i++)
+    for (int i = address; i < address + range && i < UNIVERSE_SIZE; i++)
     {
         m_preGMValues->data()[i] = 0;
         m_postGMValues->data()[i] = 0;
@@ -147,7 +150,6 @@ void Universe::reset(int address, int range)
         m_relativeValues[i] = 0;
     }
 }
-
 
 void Universe::zeroIntensityChannels()
 {
@@ -302,7 +304,7 @@ uchar Universe::channelCapabilities(ushort channel)
 
 bool Universe::write(int channel, uchar value, bool forceLTP)
 {
-    if (channel >= 512)
+    if (channel >= UNIVERSE_SIZE)
         return false;
 
     //qDebug() << "Universe write channel" << channel << ", value:" << value;
@@ -329,16 +331,16 @@ bool Universe::write(int channel, uchar value, bool forceLTP)
 
 bool Universe::writeRelative(int channel, uchar value)
 {
-    if (channel >= 512)
+    if (channel >= UNIVERSE_SIZE)
         return false;
 
     if (channel > m_usedChannels)
         m_usedChannels = channel + 1;
 
-    if (value == 127)
+    if (value == RELATIVE_ZERO)
         return true;
 
-    m_relativeValues[channel] += value - 127;
+    m_relativeValues[channel] += value - RELATIVE_ZERO;
 
     int val = m_relativeValues[channel];
     if (m_preGMValues != NULL)
