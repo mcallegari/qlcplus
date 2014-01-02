@@ -21,7 +21,7 @@
 #include <QtTest>
 
 #define private public
-#include "outputpluginstub.h"
+#include "iopluginstub.h"
 #include "outputmap_test.h"
 #include "qlcioplugin.h"
 #include "outputpatch.h"
@@ -31,8 +31,7 @@
 #include "doc.h"
 #undef private
 
-#define TESTPLUGINDIR "../outputpluginstub"
-#define INPUT_TESTPLUGINDIR "../inputpluginstub"
+#define TESTPLUGINDIR "../iopluginstub"
 #define ENGINEDIR "../../src"
 
 static QDir testPluginDir()
@@ -79,7 +78,7 @@ void OutputMap_Test::setPatch()
 {
     OutputMap om(m_doc, 4);
 
-    OutputPluginStub* stub = static_cast<OutputPluginStub*>
+    IOPluginStub* stub = static_cast<IOPluginStub*>
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
@@ -134,7 +133,7 @@ void OutputMap_Test::claimReleaseDumpReset()
 {
     OutputMap om(m_doc, 4);
 
-    OutputPluginStub* stub = static_cast<OutputPluginStub*>
+    IOPluginStub* stub = static_cast<IOPluginStub*>
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
@@ -180,7 +179,7 @@ void OutputMap_Test::blackout()
 {
     OutputMap om(m_doc, 4);
 
-    OutputPluginStub* stub = static_cast<OutputPluginStub*>
+    IOPluginStub* stub = static_cast<IOPluginStub*>
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
@@ -260,7 +259,7 @@ void OutputMap_Test::pluginOutputs()
 {
     OutputMap om(m_doc, 4);
 
-    OutputPluginStub* stub = static_cast<OutputPluginStub*>
+    IOPluginStub* stub = static_cast<IOPluginStub*>
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
@@ -280,7 +279,7 @@ void OutputMap_Test::universeNames()
     QVERIFY(om.universeNames().at(2).contains("None"));
     QVERIFY(om.universeNames().at(3).contains("None"));
 
-    OutputPluginStub* stub = static_cast<OutputPluginStub*>
+    IOPluginStub* stub = static_cast<IOPluginStub*>
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
@@ -303,7 +302,7 @@ void OutputMap_Test::configure()
 {
     OutputMap om(m_doc, 4);
 
-    OutputPluginStub* stub = static_cast<OutputPluginStub*>
+    IOPluginStub* stub = static_cast<IOPluginStub*>
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
@@ -322,7 +321,7 @@ void OutputMap_Test::slotConfigurationChanged()
 {
     OutputMap om(m_doc, 4);
 
-    OutputPluginStub* stub = static_cast<OutputPluginStub*>
+    IOPluginStub* stub = static_cast<IOPluginStub*>
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
@@ -340,7 +339,7 @@ void OutputMap_Test::mapping()
     for (quint32 i = 0; i < 20; i++)
         QCOMPARE(om.mapping("Dummy Output", i), QLCIOPlugin::invalidLine());
 
-    OutputPluginStub* stub = static_cast<OutputPluginStub*>
+    IOPluginStub* stub = static_cast<IOPluginStub*>
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
@@ -365,7 +364,7 @@ void OutputMap_Test::pluginStatus()
     QVERIFY(om.pluginStatus("Xyzzy", 2).contains("Nothing selected"));
     QVERIFY(om.pluginStatus("AYBABTU", 3).contains("Nothing selected"));
 
-    OutputPluginStub* stub = static_cast<OutputPluginStub*>
+    IOPluginStub* stub = static_cast<IOPluginStub*>
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
