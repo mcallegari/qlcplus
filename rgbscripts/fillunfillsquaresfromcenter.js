@@ -6,7 +6,7 @@ var testAlgo;
     {
         var algo = new Object;
         algo.apiVersion = 1;
-        algo.name = "Fill Unfill From Center";
+        algo.name = "Fill Unfill Squares From Center";
         algo.author = "plg";
 
         algo.rgbMap = function(width, height, rgb, step)
