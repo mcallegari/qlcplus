@@ -25,11 +25,14 @@
 #include <QHash>
 #include <QMap>
 
-
 class QLCInputChannel;
 class QLCInputProfile;
 class QDomDocument;
 class QDomElement;
+
+/** @addtogroup engine Engine
+ * @{
+ */
 
 #define KXMLQLCInputProfile "InputProfile"
 #define KXMLQLCInputProfileManufacturer "Manufacturer"
@@ -158,5 +161,7 @@ public:
     /** Load an input profile from the given document */
     bool loadXML(const QDomDocument& doc);
 };
+
+/** @} */
 
 #endif

@@ -29,6 +29,10 @@ class InputOutputMap;
 class QShowEvent;
 class QHideEvent;
 
+/** @addtogroup ui_vc
+ * @{
+ */
+
 class VCDockArea : public QFrame
 {
     Q_OBJECT
@@ -56,5 +60,7 @@ protected:
     void showEvent(QShowEvent* event);
     void hideEvent(QHideEvent* event);
 };
+
+/** @} */
 
 #endif

@@ -27,6 +27,10 @@
 class QDomDocument;
 class QDomElement;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 #define KXMLQLCSceneValue "Value"
 #define KXMLQLCSceneValueFixture "Fixture"
 #define KXMLQLCSceneValueChannel "Channel"
@@ -79,9 +83,12 @@ public:
     bool saveXML(QDomDocument* doc, QDomElement* scene_root) const;
 
 public:
+    /** Fixture ID */
     quint32 fxi;
     quint32 channel;
     uchar value;
 };
+
+/** @} */
 
 #endif

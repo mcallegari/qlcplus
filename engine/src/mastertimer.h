@@ -32,6 +32,10 @@ class Function;
 class Universe;
 class Doc;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 class MasterTimer : public QObject
 {
     Q_OBJECT
@@ -169,5 +173,7 @@ private:
 private:
     MasterTimerPrivate* d_ptr;
 };
+
+/** @} */
 
 #endif

@@ -37,6 +37,10 @@ class QLabel;
 
 class VCSliderProperties;
 
+/** @addtogroup ui_vc_widgets
+ * @{
+ */
+
 #define KXMLQLCVCSlider "Slider"
 #define KXMLQLCVCSliderMode "SliderMode"
 #define KXMLQLCVCSliderWidgetStyle "WidgetStyle"
@@ -63,7 +67,6 @@ class VCSliderProperties;
 
 #define KXMLQLCVCSliderPlayback "Playback"
 #define KXMLQLCVCSliderPlaybackFunction "Function"
-
 
 class VCSlider : public VCWidget, public DMXSource
 {
@@ -523,5 +526,7 @@ public:
 
     bool saveXML(QDomDocument* doc, QDomElement* vc_root);
 };
+
+/** @} */
 
 #endif

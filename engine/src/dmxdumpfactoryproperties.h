@@ -23,6 +23,10 @@
 #include <QByteArray>
 #include <QList>
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 class DmxDumpFactoryProperties
 {
 public:
@@ -56,5 +60,7 @@ private:
 
     int m_selectedTarget;
 };
+
+/** @} */
 
 #endif // DMXDUMPFACTORYPROPERTIES_H

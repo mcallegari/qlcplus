@@ -23,6 +23,10 @@
 class MasterTimer;
 class Universe;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 /**
  * DMXSource should be inherited/implemented by such object that wish to
  * write DMX data to QLC's DMX universes. Each DMXSource is polled periodically
@@ -41,5 +45,7 @@ public:
      */
     virtual void writeDMX(MasterTimer* timer, QList<Universe*> universes) = 0;
 };
+
+/** @} */
 
 #endif

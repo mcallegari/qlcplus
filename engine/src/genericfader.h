@@ -27,6 +27,10 @@ class FadeChannel;
 class Universe;
 class Doc;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 class GenericFader
 {
 public:
@@ -88,5 +92,7 @@ private:
     qreal m_intensity;
     Doc* m_doc;
 };
+
+/** @} */
 
 #endif

@@ -28,6 +28,10 @@ class QPaintEvent;
 class InputMap;
 class Doc;
 
+/** @addtogroup ui_vc_widgets
+ * @{
+ */
+
 #define KXMLQLCVCClock "Clock"
 
 class VCClock : public VCWidget
@@ -116,5 +120,6 @@ protected:
     void mousePressEvent(QMouseEvent* e);
 };
 
-#endif
+/** @} */
 
+#endif

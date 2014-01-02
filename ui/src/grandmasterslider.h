@@ -28,6 +28,10 @@ class InputOutputMap;
 class QSlider;
 class QLabel;
 
+/** @addtogroup ui
+ * @{
+ */
+
 class GrandMasterSlider : public QFrame
 {
     Q_OBJECT
@@ -61,5 +65,7 @@ protected:
 protected slots:
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
 };
+
+/** @} */
 
 #endif

@@ -27,6 +27,10 @@
 class VCFrame;
 class Doc;
 
+/** @addtogroup ui_vc_props
+ * @{
+ */
+
 class VCFrameProperties : public QDialog, public Ui_VCFrameProperties
 {
     Q_OBJECT
@@ -87,5 +91,7 @@ protected:
 public slots:
     void accept();
 };
+
+/** @} */
 
 #endif

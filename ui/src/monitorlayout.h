@@ -27,6 +27,10 @@
 
 class MonitorFixture;
 
+/** @addtogroup ui UI
+ * @{
+ */
+
 /****************************************************************************
  * MonitorLayoutItem
  ****************************************************************************/
@@ -82,5 +86,7 @@ public:
 protected:
     int doLayout(const QRect &rect, bool testOnly) const;
 };
+
+/** @} */
 
 #endif

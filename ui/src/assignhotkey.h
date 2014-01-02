@@ -27,6 +27,10 @@
 
 class QKeyEvent;
 
+/** @addtogroup ui UI
+ * @{
+ */
+
 class AssignHotKey : public QDialog, public Ui_AssignHotKey
 {
     Q_OBJECT
@@ -53,5 +57,7 @@ protected:
     /** @reimp */
     void keyPressEvent(QKeyEvent* event);
 };
+
+/** @} */
 
 #endif

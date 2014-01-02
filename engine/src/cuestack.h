@@ -27,13 +27,6 @@
 #include "dmxsource.h"
 #include "cue.h"
 
-#define KXMLQLCCueStack "CueStack"
-#define KXMLQLCCueStackID "ID"
-#define KXMLQLCCueStackSpeed "Speed"
-#define KXMLQLCCueStackSpeedFadeIn "FadeIn"
-#define KXMLQLCCueStackSpeedFadeOut "FadeOut"
-#define KXMLQLCCueStackSpeedDuration "Duration"
-
 class UniverseArray;
 class GenericFader;
 class QDomDocument;
@@ -41,6 +34,17 @@ class QDomElement;
 class MasterTimer;
 class FadeChannel;
 class Doc;
+
+/** @addtogroup engine Engine
+ * @{
+ */
+
+#define KXMLQLCCueStack "CueStack"
+#define KXMLQLCCueStackID "ID"
+#define KXMLQLCCueStackSpeed "Speed"
+#define KXMLQLCCueStackSpeedFadeIn "FadeIn"
+#define KXMLQLCCueStackSpeedFadeOut "FadeOut"
+#define KXMLQLCCueStackSpeedDuration "Duration"
 
 class CueStack : public QObject, public DMXSource
 {
@@ -253,5 +257,7 @@ private:
     bool m_previous;
     bool m_next;
 };
+
+/** @} */
 
 #endif

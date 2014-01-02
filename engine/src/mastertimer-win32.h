@@ -24,6 +24,10 @@
 
 class MasterTimer;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 class MasterTimerPrivate
 {
 public:
@@ -42,5 +46,7 @@ private:
     HANDLE m_phTimer;
     bool m_run;
 };
+
+/** @} */
 
 #endif

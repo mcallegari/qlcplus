@@ -36,6 +36,10 @@ class Monitor;
 class QTimer;
 class Doc;
 
+/** @addtogroup ui UI
+ * @{
+ */
+
 class Monitor : public QWidget
 {
     Q_OBJECT
@@ -134,5 +138,7 @@ protected:
     MonitorLayout* m_monitorLayout;
     QList <MonitorFixture*> m_monitorFixtures;
 };
+
+/** @} */
 
 #endif

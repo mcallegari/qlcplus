@@ -29,6 +29,10 @@ class QStringList;
 class OutputPatch;
 class InputPatch;
 
+/** @addtogroup ui_io
+ * @{
+ */
+
 class InputOutputPatchEditor : public QWidget, public Ui_InputOutputPatchEditor
 {
     Q_OBJECT
@@ -109,5 +113,7 @@ private:
 private slots:
     void slotAudioDeviceItemChanged(QTreeWidgetItem* item, int col);
 };
+
+/** @} */
 
 #endif /* INPUTOUTPUTPATCHEDITOR_H */

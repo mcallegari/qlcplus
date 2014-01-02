@@ -39,6 +39,10 @@ class QDomDocument;
 class AudioCapture;
 class QString;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 #define KXMLQLCEngine "Engine"
 
 class Doc : public QObject
@@ -518,5 +522,7 @@ private:
      */
     void postLoad();
 };
+
+/** @} */
 
 #endif

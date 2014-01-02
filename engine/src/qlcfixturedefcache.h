@@ -27,6 +27,10 @@
 
 class QLCFixtureDef;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 /**
  * QLCFixtureDefCache is a cache of fixture definitions that are currently
  * available to the application. Application can get a list of available
@@ -153,5 +157,7 @@ private:
 private:
     QList <QLCFixtureDef*> m_defs;
 };
+
+/** @} */
 
 #endif

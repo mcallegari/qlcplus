@@ -27,6 +27,10 @@
 
 class QLCInputChannel;
 
+/** @addtogroup ui_io
+ * @{
+ */
+
 class InputChannelEditor : public QDialog, public Ui_InputChannelEditor
 {
     Q_OBJECT
@@ -59,5 +63,7 @@ protected:
     QString m_name;
     QLCInputChannel::Type m_type;
 };
+
+/** @} */
 
 #endif

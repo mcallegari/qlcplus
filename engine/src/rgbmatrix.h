@@ -36,6 +36,10 @@ class FadeChannel;
 class QTime;
 class QDir;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 class RGBMatrix : public Function
 {
     Q_OBJECT
@@ -154,5 +158,7 @@ public:
     /** @reimpl */
     void adjustAttribute(qreal fraction, int attributeIndex);
 };
+
+/** @} */
 
 #endif

@@ -29,6 +29,10 @@ class OutputMap;
 class InputMap;
 class Doc;
 
+/** @addtogroup ui_vc_props
+ * @{
+ */
+
 class AddVCButtonMatrix : public QDialog, public Ui_AddVCButtonMatrix
 {
     Q_OBJECT
@@ -85,5 +89,7 @@ private:
     InputMap* m_inputMap;
     MasterTimer* m_masterTimer;
 };
+
+/** @} */
 
 #endif

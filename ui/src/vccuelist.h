@@ -41,6 +41,10 @@ class MasterTimer;
 class Chaser;
 class Doc;
 
+/** @addtogroup ui_vc_widgets
+ * @{
+ */
+
 #define KXMLQLCVCCueList "CueList"
 #define KXMLQLCVCCueListFunction "Function" // Legacy
 #define KXMLQLCVCCueListChaser "Chaser"
@@ -284,5 +288,7 @@ public:
     /** @reimp */
     bool saveXML(QDomDocument* doc, QDomElement* vc_root);
 };
+
+/** @} */
 
 #endif

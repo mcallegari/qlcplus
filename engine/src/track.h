@@ -28,6 +28,10 @@
 class QDomDocument;
 class QDomElement;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 #define KXMLQLCTrack "Track"
 
 class Track : public QObject
@@ -127,5 +131,9 @@ public:
     bool loadXML(const QDomElement& root);
 
 };
+
+/** @} */
+
+/** @} */
 
 #endif

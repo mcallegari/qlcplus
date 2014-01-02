@@ -23,6 +23,10 @@
 #include <QGraphicsEllipseItem>
 #include <QColor>
 
+/** @addtogroup ui_functions
+ * @{
+ */
+
 class RGBItem : public QGraphicsEllipseItem
 {
 public:
@@ -39,5 +43,7 @@ private:
     QColor m_oldColor;
     uint m_elapsed;
 };
+
+/** @} */
 
 #endif

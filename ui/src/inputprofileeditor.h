@@ -29,6 +29,10 @@ class QLCInputProfile;
 class InputOutputMap;
 class QTimer;
 
+/** @addtogroup ui_io
+ * @{
+ */
+
 class InputProfileEditor : public QDialog, public Ui_InputProfileEditor
 {
     Q_OBJECT
@@ -81,5 +85,7 @@ public:
 protected:
     QLCInputProfile* m_profile;
 };
+
+/** @} */
 
 #endif

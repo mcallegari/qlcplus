@@ -29,6 +29,10 @@ class MasterTimer;
 class Collection;
 class Doc;
 
+/** @addtogroup ui_functions
+ * @{
+ */
+
 class CollectionEditor : public QWidget, public Ui_CollectionEditor
 {
     Q_OBJECT
@@ -50,6 +54,8 @@ private slots:
 private:
     void updateFunctionList();
 };
+
+/** @} */
 
 #endif
 

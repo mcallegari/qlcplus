@@ -43,6 +43,10 @@ class QByteArray;
 class QSlider;
 class Doc;
 
+/** @addtogroup ui_vc_widgets
+ * @{
+ */
+
 #define KXMLQLCVCXYPad "XYPad"
 #define KXMLQLCVCXYPadPan "Pan"
 #define KXMLQLCVCXYPadTilt "Tilt"
@@ -189,5 +193,7 @@ public:
     /** @reimp */
     bool saveXML(QDomDocument* doc, QDomElement* root);
 };
+
+/** @} */
 
 #endif

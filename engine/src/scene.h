@@ -30,11 +30,15 @@
 #include "function.h"
 #include "fixture.h"
 
-#define KXMLQLCFixtureValues "FixtureVal"
-#define KXMLQLCSceneChannelGroups "ChannelGroups"
-
 class QDomDocument;
 class QDomElement;
+
+/** @addtogroup engine Engine
+ * @{
+ */
+
+#define KXMLQLCFixtureValues "FixtureVal"
+#define KXMLQLCSceneChannelGroups "ChannelGroups"
 
 /**
  * Scene encapsulates the values of selected channels from one or more fixture
@@ -239,5 +243,7 @@ public:
     /** @reimpl */
     void adjustAttribute(qreal fraction, int attributeIndex);
 };
+
+/** @} */
 
 #endif

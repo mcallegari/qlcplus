@@ -30,6 +30,10 @@
 class QDomDocument;
 class ShowRunner;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 class Show : public Function
 {
     Q_OBJECT
@@ -159,5 +163,7 @@ public:
     /** @reimpl */
     void adjustAttribute(qreal fraction, int attributeIndex = 0);
 };
+
+/** @} */
 
 #endif

@@ -43,6 +43,10 @@ class QAction;
 class KeyBind;
 class QMenu;
 
+/** @addtogroup ui_vc
+ * @{
+ */
+
 class VirtualConsole : public QWidget
 {
     Q_OBJECT
@@ -377,5 +381,7 @@ public:
 signals:
     void loaded();
 };
+
+/** @} */
 
 #endif

@@ -34,6 +34,10 @@ class InputMap;
 class Function;
 class Doc;
 
+/** @addtogroup ui_vc_props
+ * @{
+ */
+
 class VCCueListProperties : public QDialog, public Ui_VCCueListProperties
 {
     Q_OBJECT
@@ -135,5 +139,7 @@ protected:
     QLCInputSource m_cf2InputSource;
 
 };
+
+/** @} */
 
 #endif

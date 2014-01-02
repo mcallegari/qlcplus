@@ -31,6 +31,10 @@
 class FunctionManager;
 class KeyBind;
 
+/** @addtogroup ui_vc_props
+ * @{
+ */
+
 class VCButtonProperties : public QDialog, public Ui_VCButtonProperties
 {
     Q_OBJECT
@@ -69,5 +73,7 @@ protected:
     quint32 m_function;
     QLCInputSource m_inputSource;
 };
+
+/** @} */
 
 #endif

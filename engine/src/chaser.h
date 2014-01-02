@@ -34,6 +34,10 @@ class MasterTimer;
 class ChaserRunner;
 class QDomDocument;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 /**
  * Chaser is a meta-function; it consists of other functions that are run in a
  * sequential order. Chaser contains information only on the running order,
@@ -314,5 +318,7 @@ public:
     /** @reimpl */
     void adjustAttribute(qreal fraction, int attributeIndex);
 };
+
+/** @} */
 
 #endif

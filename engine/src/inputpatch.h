@@ -26,6 +26,10 @@
 
 class QLCIOPlugin;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 #define KInputNone QObject::tr("None")
 
 #define KXMLQLCInputPatchProfile "Profile"
@@ -117,5 +121,7 @@ private:
     ushort m_nextPageCh, m_prevPageCh, m_pageSetCh;
 
 };
+
+/** @} */
 
 #endif

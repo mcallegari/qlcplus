@@ -43,6 +43,10 @@ class QAction;
 class QLabel;
 class App;
 
+/** @addtogroup ui UI
+ * @{
+ */
+
 #define KXMLQLCWorkspace "Workspace"
 
 class App : public QMainWindow
@@ -220,5 +224,7 @@ public slots:
 private:
     QString m_fileName;
 };
+
+/** @} */
 
 #endif

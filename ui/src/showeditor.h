@@ -25,6 +25,10 @@
 class Show;
 class Doc;
 
+/** @addtogroup ui_shows
+ * @{
+ */
+
 class ShowEditor : public QWidget, public Ui_ShowEditor
 {
     Q_OBJECT
@@ -46,5 +50,7 @@ private slots:
 private:
     void updateFunctionList();
 };
+
+/** @} */
 
 #endif

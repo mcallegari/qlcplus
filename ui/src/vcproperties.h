@@ -30,6 +30,10 @@ class VCFrame;
 class QWidget;
 class Doc;
 
+/** @addtogroup ui_vc_props
+ * @{
+ */
+
 #define KXMLQLCVirtualConsole "VirtualConsole"
 
 #define KXMLQLCVCProperties "Properties"
@@ -125,5 +129,7 @@ private:
     /** Load the properties of a default slider */
     static bool loadXMLInput(const QDomElement& tag, quint32* universe, quint32* channel);
 };
+
+/** @} */
 
 #endif

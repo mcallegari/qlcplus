@@ -28,6 +28,10 @@ class DmxDumpFactoryProperties;
 class VCWidget;
 class Doc;
 
+/** @addtogroup ui UI
+ * @{
+ */
+
 class DmxDumpFactory : public QDialog, public Ui_DmxDumpFactory
 {
     Q_OBJECT
@@ -65,5 +69,7 @@ protected slots:
     void accept();
 
 };
+
+/** @} */
 
 #endif // DMXDUMPFACTORY_H

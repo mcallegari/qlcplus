@@ -28,14 +28,18 @@
 #include "dmxsource.h"
 #include "cue.h"
 
-#define KXMLQLCSimpleDeskEngine "Engine"
-
 class UniverseArray;
 class QDomDocument;
 class QDomElement;
 class MasterTimer;
 class CueStack;
 class Doc;
+
+/** @addtogroup ui_simpledesk
+ * @{
+ */
+
+#define KXMLQLCSimpleDeskEngine "Engine"
 
 class SimpleDeskEngine : public QObject, public DMXSource
 {
@@ -126,5 +130,7 @@ public:
     void writeDMX(MasterTimer* timer, QList<Universe*> ua);
 
 };
+
+/** @} */
 
 #endif

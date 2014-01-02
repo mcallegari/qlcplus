@@ -25,6 +25,13 @@
 #include "function.h"
 #include "fixture.h"
 
+class QDomDocument;
+class QDomElement;
+
+/** @addtogroup ui_vc_widgets
+ * @{
+ */
+
 #define KXMLQLCAudioBarIndex "Index"
 #define KXMLQLCAudioBarName "Name"
 #define KXMLQLCAudioBarType "Type"
@@ -34,9 +41,6 @@
 #define KXMLQLCAudioBarMinThreshold "MinThreshold"
 #define KXMLQLCAudioBarMaxThreshold "MaxThreshold"
 #define KXMLQLCAudioBarDivisor "Divisor"
-
-class QDomDocument;
-class QDomElement;
 
 class AudioBar
 {
@@ -110,5 +114,7 @@ private:
     VCWidget *m_widget;
 
 };
+
+/** @} */
 
 #endif // AUDIOBAR_H

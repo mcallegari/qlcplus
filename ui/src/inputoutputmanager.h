@@ -37,6 +37,10 @@ class OutputPatch;
 class InputPatch;
 class Doc;
 
+/** @addtogroup ui_io
+ * @{
+ */
+
 class InputOutputManager : public QWidget
 {
     Q_OBJECT
@@ -100,5 +104,7 @@ private:
     QTimer* m_timer;
     InputOutputPatchEditor *m_editor;
 };
+
+/** @} */
 
 #endif

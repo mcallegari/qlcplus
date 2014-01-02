@@ -39,6 +39,10 @@ class QAction;
 class QLabel;
 class Doc;
 
+/** @addtogroup ui_shows
+ * @{
+ */
+
 class ShowManager : public QWidget
 {
     Q_OBJECT
@@ -169,5 +173,7 @@ protected slots:
     void slotFunctionChanged(quint32 id);
     void slotFunctionRemoved(quint32 id);
 };
+
+/** @} */
 
 #endif
