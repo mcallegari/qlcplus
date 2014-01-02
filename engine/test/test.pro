@@ -41,7 +41,7 @@ SUBDIRS += rgbtext
 SUBDIRS += scene
 SUBDIRS += scenevalue
 SUBDIRS += script
-#SUBDIRS += universearray
+SUBDIRS += universe
 
 # Stubs
 SUBDIRS += iopluginstub
