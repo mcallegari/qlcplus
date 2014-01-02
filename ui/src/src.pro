@@ -56,7 +56,6 @@ HEADERS += aboutbox.h \
            ctkrangeslider.h \
            cuestackmodel.h \
            docbrowser.h \
-           dmxslider.h \
            dmxdumpfactory.h \
            efxeditor.h \
            efxpreviewarea.h \
@@ -189,7 +188,6 @@ SOURCES += aboutbox.cpp \
            ctkrangeslider.cpp \
            cuestackmodel.cpp \
            docbrowser.cpp \
-           dmxslider.cpp \
            dmxdumpfactory.cpp \
            efxeditor.cpp \
            efxpreviewarea.cpp \
