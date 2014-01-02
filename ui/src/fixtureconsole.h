@@ -34,6 +34,10 @@ class OutputMap;
 class InputMap;
 class Doc;
 
+/** @addtogroup ui_fixtures
+ * @{
+ */
+
 #define KXMLQLCFixtureConsole "Console"
 
 class FixtureConsole : public QGroupBox
@@ -119,5 +123,7 @@ private:
 private:
     QList<ConsoleChannel*> m_channels;
 };
+
+/** @} */
 
 #endif

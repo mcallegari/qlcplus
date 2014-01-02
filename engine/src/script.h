@@ -30,6 +30,10 @@ class MasterTimer;
 class Universe;
 class Doc;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 class Script : public Function
 {
     Q_OBJECT
@@ -203,5 +207,7 @@ private:
 
     GenericFader* m_fader;
 };
+
+/** @} */
 
 #endif

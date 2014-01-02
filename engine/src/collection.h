@@ -28,6 +28,10 @@
 
 class QDomDocument;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 class Collection : public Function
 {
     Q_OBJECT
@@ -120,5 +124,7 @@ protected:
     /** Number of currently running children */
     QSet <quint32> m_runningChildren;
 };
+
+/** @} */
 
 #endif

@@ -68,6 +68,7 @@ HEADERS += bus.h \
            cuestack.h \
            doc.h \
            dmxdumpfactoryproperties.h \
+           dmxsource.h \
            efx.h \
            efxfixture.h \
            fadechannel.h \

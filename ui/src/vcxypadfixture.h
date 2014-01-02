@@ -32,6 +32,10 @@ class QDomElement;
 class Universe;
 class Doc;
 
+/** @addtogroup ui_vc_widgets
+ * @{
+ */
+
 #define KXMLQLCVCXYPadFixture "Fixture"
 #define KXMLQLCVCXYPadFixtureID "ID"
 #define KXMLQLCVCXYPadFixtureHead "Head"
@@ -135,5 +139,7 @@ public:
     /** Write the value using x & y multipliers for the actual range */
     void writeDMX(qreal xmul, qreal ymul, QList<Universe*> universes);
 };
+
+/** @} */
 
 #endif

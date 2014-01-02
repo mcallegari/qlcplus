@@ -30,6 +30,10 @@
 #include "audio.h"
 #include "track.h"
 
+/** @addtogroup ui_functions
+ * @{
+ */
+
 #define HEADER_HEIGHT       35
 #define TRACK_HEIGHT        80
 #define TRACK_WIDTH         150
@@ -343,5 +347,7 @@ private:
 
     bool m_pressed;
 };
+
+/** @} */
 
 #endif

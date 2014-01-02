@@ -24,6 +24,10 @@
 
 #include "ui_createfixturegroup.h"
 
+/** @addtogroup ui_fixtures
+ * @{
+ */
+
 class CreateFixtureGroup : public QDialog, public Ui_CreateFixtureGroup
 {
     Q_OBJECT
@@ -38,5 +42,7 @@ public:
     void setSize(const QSize& size);
     QSize size() const;
 };
+
+/** @} */
 
 #endif

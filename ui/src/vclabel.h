@@ -28,6 +28,10 @@ class QPaintEvent;
 class MasterTimer;
 class Doc;
 
+/** @addtogroup ui_vc_widgets
+ * @{
+ */
+
 #define KXMLQLCVCLabel "Label"
 
 class VCLabel : public VCWidget
@@ -81,5 +85,6 @@ protected:
     void paintEvent(QPaintEvent* e);
 };
 
-#endif
+/** @} */
 
+#endif

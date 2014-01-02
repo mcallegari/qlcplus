@@ -35,6 +35,10 @@ class VCSlider;
 class Fixture;
 class Doc;
 
+/** @addtogroup ui_vc_props
+ * @{
+ */
+
 class VCSliderProperties : public QDialog, public Ui_VCSliderProperties
 {
     Q_OBJECT
@@ -178,5 +182,7 @@ protected:
     /** The slider, whose properties are being edited */
     VCSlider* m_slider;
 };
+
+/** @} */
 
 #endif

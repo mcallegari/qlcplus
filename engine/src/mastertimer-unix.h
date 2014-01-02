@@ -24,6 +24,10 @@
 
 class MasterTimer;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 class MasterTimerPrivate : public QThread
 {
 public:
@@ -38,5 +42,7 @@ private:
 private:
     bool m_run;
 };
+
+/** @} */
 
 #endif

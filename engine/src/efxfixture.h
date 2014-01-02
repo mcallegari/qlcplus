@@ -30,6 +30,10 @@ class Scene;
 class EFX;
 class Doc;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 #define KXMLQLCEFXFixture "Fixture"
 #define KXMLQLCEFXFixtureID "ID"
 #define KXMLQLCEFXFixtureHead "Head"
@@ -188,5 +192,7 @@ public:
 private:
     qreal m_intensity;
 };
+
+/** @} */
 
 #endif

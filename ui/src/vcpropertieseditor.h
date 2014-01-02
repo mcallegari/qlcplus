@@ -27,6 +27,16 @@
 #include "vcproperties.h"
 #include "universe.h"
 
+class VirtualConsole;
+class InputOutputMap;
+class QDomDocument;
+class QDomElement;
+class VCFrame;
+
+/** @addtogroup ui_vc_props
+ * @{
+ */
+
 #define SETTINGS_BUTTON_SIZE        "virtualconsole/buttonsize"
 #define SETTINGS_BUTTON_STATUSLED   "virtualconsole/buttonstatusled"
 #define SETTINGS_SLIDER_SIZE        "virtualconsole/slidersize"
@@ -37,12 +47,6 @@
 #define SETTINGS_FRAME_SIZE         "virtualconsole/framesize"
 #define SETTINGS_SOLOFRAME_SIZE     "virtualconsole/soloframesize"
 #define SETTINGS_AUDIOTRIGGERS_SIZE "virtualconsole/audiotriggerssize"
-
-class VirtualConsole;
-class InputOutputMap;
-class QDomDocument;
-class QDomElement;
-class VCFrame;
 
 class VCPropertiesEditor : public QDialog, public Ui_VCPropertiesEditor
 {
@@ -112,5 +116,7 @@ private:
     bool inputSourceNames(quint32 universe, quint32 channel,
                           QString& uniName, QString& chName) const;
 };
+
+/** @} */
 
 #endif

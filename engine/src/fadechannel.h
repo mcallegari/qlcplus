@@ -26,6 +26,10 @@
 #include "fixture.h"
 #include "doc.h"
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 /**
  * FadeChannel represents one fixture channel that is to be faded from $start to
  * $target, with X steps between, determined by $fadeTime. The actual fading process
@@ -160,5 +164,7 @@ private:
  * correctly.
  */
 uint qHash(const FadeChannel& key);
+
+/** @} */
 
 #endif

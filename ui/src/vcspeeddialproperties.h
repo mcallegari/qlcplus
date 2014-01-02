@@ -27,6 +27,10 @@
 class VCSpeedDial;
 class Doc;
 
+/** @addtogroup ui_vc_props
+ * @{
+ */
+
 class VCSpeedDialProperties : public QDialog, public Ui_VCSpeedDialProperties
 {
     Q_OBJECT
@@ -80,5 +84,7 @@ private:
     QLCInputSource m_tapInputSource;
     QKeySequence m_tapKeySequence;
 };
+
+/** @} */
 
 #endif

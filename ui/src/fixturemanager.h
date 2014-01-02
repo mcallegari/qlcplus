@@ -37,6 +37,10 @@ class QSplitter;
 class QAction;
 class QMenu;
 
+/** @addtogroup ui_fixtures
+ * @{
+ */
+
 #define KXMLQLCFixtureManager "FixtureManager"
 #define KXMLQLCFixtureManagerSplitterSize "SplitterSize"
 
@@ -226,5 +230,7 @@ private:
     QAction* m_exportAction;
     QMenu* m_groupMenu;
 };
+
+/** @} */
 
 #endif

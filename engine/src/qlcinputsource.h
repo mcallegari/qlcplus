@@ -22,6 +22,10 @@
 
 #include <QtCore>
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 class QLCInputSource
 {
 public:
@@ -50,5 +54,7 @@ private:
     quint32 m_universe;
     quint32 m_channel;
 };
+
+/** @} */
 
 #endif

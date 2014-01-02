@@ -26,16 +26,6 @@
 
 #include "qlcchannel.h"
 
-#define KXMLFixture "Fixture"
-#define KXMLFixtureName "Name"
-#define KXMLFixtureUniverse "Universe"
-#define KXMLFixtureAddress "Address"
-#define KXMLFixtureID "ID"
-#define KXMLFixtureGeneric "Generic"
-#define KXMLFixtureChannels "Channels"
-#define KXMLFixtureDimmer "Dimmer"
-#define KXMLFixtureExcludeFade "ExcludeFade"
-
 class QDomDocument;
 class QDomElement;
 class QString;
@@ -46,6 +36,20 @@ class QLCFixtureHead;
 class FixtureConsole;
 class QLCFixtureDef;
 class Doc;
+
+/** @addtogroup engine Engine
+ * @{
+ */
+
+#define KXMLFixture "Fixture"
+#define KXMLFixtureName "Name"
+#define KXMLFixtureUniverse "Universe"
+#define KXMLFixtureAddress "Address"
+#define KXMLFixtureID "ID"
+#define KXMLFixtureGeneric "Generic"
+#define KXMLFixtureChannels "Channels"
+#define KXMLFixtureDimmer "Dimmer"
+#define KXMLFixtureExcludeFade "ExcludeFade"
 
 class Fixture : public QObject
 {
@@ -401,6 +405,8 @@ public:
      */
     QString status() const;
 };
+
+/** @} */
 
 #endif
 

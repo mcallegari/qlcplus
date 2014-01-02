@@ -24,6 +24,11 @@
 #include <qglobal.h>
 
 class CueStack;
+
+/** @addtogroup ui_vc_widgets
+ * @{
+ */
+
 class CueStackModel : public QAbstractItemModel
 {
     Q_OBJECT
@@ -81,5 +86,7 @@ private:
     /** Convert $ms milliseconds to a nicer seconds.milliseconds figure */
     QString speedText(uint ms) const;
 };
+
+/** @} */
 
 #endif

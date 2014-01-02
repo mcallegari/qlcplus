@@ -28,6 +28,10 @@
 class QSlider;
 class QSpinBox;
 
+/** @addtogroup ui UI
+ * @{
+ */
+
 class GroupsConsole : public QWidget
 {
     Q_OBJECT
@@ -56,5 +60,7 @@ signals:
     /** Emitted when the value of a channels group object changes (continuous) */
     void groupValueChanged(quint32 group, uchar value);
 };
+
+/** @} */
 
 #endif

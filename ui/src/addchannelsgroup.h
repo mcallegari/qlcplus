@@ -28,6 +28,10 @@
 class ChannelsGroup;
 class Doc;
 
+/** @addtogroup ui_fixtures
+ * @{
+ */
+
 class AddChannelsGroup : public QDialog, public Ui_AddChannelsGroup
 {
     Q_OBJECT
@@ -67,5 +71,7 @@ protected slots:
     void slotInputValueChanged(quint32 universe, quint32 channel);
     void slotChooseInputClicked();
 };
+
+/** @} */
 
 #endif

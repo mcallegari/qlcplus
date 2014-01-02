@@ -34,6 +34,10 @@ class OutputMap;
 class QString;
 class Doc;
 
+/** @addtogroup ui_fixtures
+ * @{
+ */
+
 #define SETTINGS_EXPANDED "addfixture/expanded"
 
 class AddFixture : public QDialog, public Ui_AddFixture
@@ -185,5 +189,7 @@ protected slots:
     /** Callback for fixture search filter changes */
     void slotSearchFilterChanged(QString filter);
 };
+
+/** @} */
 
 #endif

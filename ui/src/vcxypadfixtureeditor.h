@@ -25,6 +25,10 @@
 #include "ui_vcxypadfixtureeditor.h"
 #include "vcxypadfixture.h"
 
+/** @addtogroup ui_vc_props
+ * @{
+ */
+
 class VCXYPadFixtureEditor : public QDialog, public Ui_VCXYPadFixtureEditor
 {
     Q_OBJECT
@@ -54,5 +58,7 @@ public:
 protected:
     QList <VCXYPadFixture> m_fixtures;
 };
+
+/** @} */
 
 #endif

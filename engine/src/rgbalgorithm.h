@@ -29,6 +29,10 @@ class QDomElement;
 
 class Doc;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 typedef QVector<QVector<uint> > RGBMap;
 
 #define KXMLQLCRGBAlgorithm "Algorithm"
@@ -95,5 +99,7 @@ public:
     /** Save the contents of an RGBAlgorithm (run-time info) to a workspace file. */
     virtual bool saveXML(QDomDocument* doc, QDomElement* root) const = 0;
 };
+
+/** @} */
 
 #endif

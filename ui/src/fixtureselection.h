@@ -30,6 +30,10 @@ class GroupHead;
 class QWidget;
 class Doc;
 
+/** @addtogroup ui UI
+ * @{
+ */
+
 class FixtureSelection : public QDialog, public Ui_FixtureSelection
 {
     Q_OBJECT
@@ -107,5 +111,7 @@ private slots:
     /** OK button click */
     void accept();
 };
+
+/** @} */
 
 #endif

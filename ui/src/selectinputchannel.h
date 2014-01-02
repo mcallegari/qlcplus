@@ -30,6 +30,10 @@ class QLCInputChannel;
 class InputOutputMap;
 class InputPatch;
 
+/** @addtogroup ui UI
+ * @{
+ */
+
 class SelectInputChannel : public QDialog, public Ui_SelectInputChannel
 {
     Q_OBJECT
@@ -87,5 +91,7 @@ protected slots:
     /** Receives item double clicks */
     void slotItemDoubleClicked(QTreeWidgetItem* item, int column);
 };
+
+/** @} */
 
 #endif

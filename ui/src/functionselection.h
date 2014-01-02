@@ -35,6 +35,10 @@ class QWidget;
 class Fixture;
 class Doc;
 
+/** @addtogroup ui UI
+ * @{
+ */
+
 #define SETTINGS_FILTER "functionselection/filter"
 
 class FunctionSelection : public QDialog, public Ui_FunctionSelection
@@ -167,5 +171,7 @@ protected slots:
     void slotItemDoubleClicked(QTreeWidgetItem* item);
 
 };
+
+/** @} */
 
 #endif

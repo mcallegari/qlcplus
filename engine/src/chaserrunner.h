@@ -33,6 +33,10 @@ class Chaser;
 class QTime;
 class Doc;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 class ChaserRunner : public QObject
 {
     Q_OBJECT
@@ -163,5 +167,7 @@ private:
      */
     void switchFunctions(MasterTimer* timer);
 };
+
+/** @} */
 
 #endif

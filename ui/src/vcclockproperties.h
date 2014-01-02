@@ -25,6 +25,10 @@
 #include "ui_vcclockproperties.h"
 #include "vcclock.h"
 
+/** @addtogroup ui_vc_props
+ * @{
+ */
+
 class VCClockProperties : public QDialog, public Ui_VCClockProperties
 {
     Q_OBJECT
@@ -47,5 +51,7 @@ private:
     VCClock *m_clock;
     Doc* m_doc;
 };
+
+/** @} */
 
 #endif // VCCLOCKPROPERTIES_H

@@ -27,6 +27,10 @@ class QScriptEngine;
 class QSize;
 class QDir;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 #define KXMLQLCRGBScript "Script"
 
 class RGBScript : public RGBAlgorithm
@@ -128,5 +132,7 @@ public:
 private:
     static QDir s_customScriptDirectory;
 };
+
+/** @} */
 
 #endif

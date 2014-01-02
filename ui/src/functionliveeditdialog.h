@@ -25,6 +25,10 @@
 
 class Doc;
 
+/** @addtogroup ui_functions
+ * @{
+ */
+
 class FunctionLiveEditDialog : public QDialog
 {
     Q_OBJECT
@@ -45,5 +49,7 @@ signals:
 public slots:
     
 };
+
+/** @} */
 
 #endif // FUNCTIONLIVEEDITDIALOG_H

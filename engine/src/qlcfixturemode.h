@@ -28,11 +28,6 @@
 #include "qlcphysical.h"
 #include "qlcchannel.h"
 
-#define KXMLQLCFixtureMode              "Mode"
-#define KXMLQLCFixtureModeName          "Name"
-#define KXMLQLCFixtureModeChannel       "Channel"
-#define KXMLQLCFixtureModeChannelNumber "Number"
-
 class QDomDocument;
 class QDomElement;
 class QLCFixtureHead;
@@ -40,6 +35,15 @@ class QLCFixtureMode;
 class QLCFixtureDef;
 class QLCPhysical;
 class QLCChannel;
+
+/** @addtogroup engine Engine
+ * @{
+ */
+
+#define KXMLQLCFixtureMode              "Mode"
+#define KXMLQLCFixtureModeName          "Name"
+#define KXMLQLCFixtureModeChannel       "Channel"
+#define KXMLQLCFixtureModeChannelNumber "Number"
 
 /**
  * QLCFixtureMode is essentially a collection of QLCChannels, arranged in such
@@ -264,5 +268,7 @@ public:
     /** Save a mode to an XML document */
     bool saveXML(QDomDocument* doc, QDomElement* root);
 };
+
+/** @} */
 
 #endif

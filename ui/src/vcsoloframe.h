@@ -30,6 +30,10 @@ class QMouseEvent;
 class QString;
 class Doc;
 
+/** @addtogroup ui_vc_widgets
+ * @{
+ */
+
 #define KXMLQLCVCSoloFrame "SoloFrame"
 
 class VCSoloFrame : public VCFrame
@@ -82,5 +86,7 @@ protected:
     virtual void paintEvent(QPaintEvent* e);
 
 };
+
+/** @} */
 
 #endif

@@ -24,6 +24,10 @@
 
 class QLCIOPlugin;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 #define KOutputNone QObject::tr("None")
 
 #define KXMLQLCOutputPatch "Patch"
@@ -68,5 +72,7 @@ public:
       * Called periodically by OutputMap. No need to call manually. */
     void dump(const QByteArray& universe);
 };
+
+/** @} */
 
 #endif

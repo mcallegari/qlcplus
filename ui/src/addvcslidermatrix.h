@@ -23,6 +23,10 @@
 #include <QDialog>
 #include "ui_addvcslidermatrix.h"
 
+/** @addtogroup ui_vc_props
+ * @{
+ */
+
 class AddVCSliderMatrix : public QDialog, public Ui_AddVCSliderMatrix
 {
     Q_OBJECT
@@ -43,5 +47,7 @@ protected:
     int m_height;
     int m_width;
 };
+
+/** @} */
 
 #endif

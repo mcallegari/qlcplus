@@ -26,6 +26,17 @@
 
 #include "qlcchannel.h"
 
+class InputOutputMap;
+class QLCInputProfile;
+class QLCIOPlugin;
+class GrandMaster;
+class OutputPatch;
+class InputPatch;
+
+/** @addtogroup engine Engine
+ * @{
+ */
+
 #define KXMLQLCUniverse "Universe"
 #define KXMLQLCUniverseName "Name"
 #define KXMLQLCUniverseID "ID"
@@ -42,13 +53,6 @@
 #define KXMLQLCUniverseFeedbackPatch "Feedback"
 #define KXMLQLCUniverseFeedbackPlugin "Plugin"
 #define KXMLQLCUniverseFeedbackLine "Line"
-
-class InputOutputMap;
-class QLCInputProfile;
-class QLCIOPlugin;
-class GrandMaster;
-class OutputPatch;
-class InputPatch;
 
 class Universe: public QObject
 {
@@ -311,5 +315,7 @@ public:
      */
     bool saveXML(QDomDocument* doc, QDomElement* wksp_root) const;
 };
+
+/** @} */
 
 #endif

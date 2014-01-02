@@ -33,6 +33,10 @@ class MasterTimer;
 class SpeedDialWidget;
 class QTreeWidgetItem;
 
+/** @addtogroup ui_functions
+ * @{
+ */
+
 class ChaserEditor : public QWidget, public Ui_ChaserEditor
 {
     Q_OBJECT
@@ -169,5 +173,7 @@ private:
 private:
     bool m_liveMode;
 };
+
+/** @} */
 
 #endif

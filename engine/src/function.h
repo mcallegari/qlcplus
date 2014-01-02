@@ -36,6 +36,10 @@ class Function;
 class Universe;
 class Doc;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 #define KXMLQLCFunction "Function"
 #define KXMLQLCFunctionName "Name"
 #define KXMLQLCFunctionID "ID"
@@ -700,5 +704,7 @@ private:
     //qreal m_intensity;
     QList <Attribute> m_attributes;
 };
+
+/** @} */
 
 #endif

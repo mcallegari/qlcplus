@@ -27,15 +27,18 @@
 #include "qlcinputprofile.h"
 #include "grandmaster.h"
 
-#define KXMLIOMap "InputOutputMap"
-
-
 class QLCInputSource;
 class QLCIOPlugin;
 class OutputPatch;
 class InputPatch;
 class Universe;
 class Doc;
+
+/** @addtogroup engine Engine
+ * @{
+ */
+
+#define KXMLIOMap "InputOutputMap"
 
 class InputOutputMap : public QObject
 {
@@ -492,5 +495,7 @@ public:
     bool saveXML(QDomDocument* doc, QDomElement* wksp_root) const;
 
 };
+
+/** @} */
 
 #endif // INPUTOUTPUTMAP_H

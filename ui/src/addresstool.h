@@ -27,6 +27,10 @@ namespace Ui {
 class AddressTool;
 }
 
+/** @addtogroup ui UI
+ * @{
+ */
+
 class DIPSwitchWidget: public QWidget
 {
     Q_OBJECT
@@ -69,5 +73,7 @@ protected slots:
     void slotChangeColor();
 
 };
+
+/** @} */
 
 #endif // ADDRESSTOOL_H

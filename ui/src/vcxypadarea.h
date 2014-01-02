@@ -30,6 +30,10 @@
 class QPaintEvent;
 class QMouseEvent;
 
+/** @addtogroup ui_vc_widgets
+ * @{
+ */
+
 class VCXYPadArea : public QFrame
 {
     Q_OBJECT
@@ -111,5 +115,7 @@ protected:
     /** @reimp */
     void keyReleaseEvent (QKeyEvent * e);
 };
+
+/** @} */
 
 #endif

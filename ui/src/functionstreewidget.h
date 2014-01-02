@@ -28,6 +28,10 @@
 class Function;
 class Doc;
 
+/** @addtogroup ui UI
+ * @{
+ */
+
 /**
  * FunctionsTreeWidget represents the tree of QLC+ functions,
  * including categories and folders.
@@ -114,5 +118,7 @@ protected:
 private:
     QList<QTreeWidgetItem *>m_draggedItems;
 };
+
+/** @} */
 
 #endif // FUNCTIONSTREEWIDGET_H

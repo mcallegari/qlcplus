@@ -23,6 +23,10 @@
 #include <QPainter>
 #include <QItemDelegate>
 
+/** @addtogroup ui_io
+ * @{
+ */
+
 class UniverseItemWidget : public QItemDelegate
 {
     Q_OBJECT
@@ -41,5 +45,7 @@ protected:
     //QSize sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & index ) const;
 
 };
+
+/** @} */
 
 #endif

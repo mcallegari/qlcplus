@@ -32,6 +32,10 @@ class QFrame;
 class QLabel;
 class Doc;
 
+/** @addtogroup ui UI
+ * @{
+ */
+
 class MonitorFixture : public QFrame
 {
     Q_OBJECT
@@ -78,5 +82,7 @@ protected:
     QList <QLabel*> m_valueLabels;
     Monitor::ValueStyle m_valueStyle;
 };
+
+/** @} */
 
 #endif

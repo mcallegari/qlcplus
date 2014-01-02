@@ -33,6 +33,10 @@ class GenericFader;
 class QString;
 class Fixture;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 #define KXMLQLCEFXPropagationMode "PropagationMode"
 #define KXMLQLCEFXPropagationModeParallel "Parallel"
 #define KXMLQLCEFXPropagationModeSerial "Serial"
@@ -571,5 +575,7 @@ public:
     /** @reimp */
     void adjustAttribute(qreal fraction, int attributeIndex = 0);
 };
+
+/** @} */
 
 #endif

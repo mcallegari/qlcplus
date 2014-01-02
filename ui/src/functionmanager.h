@@ -35,6 +35,10 @@ class Fixture;
 class QMenu;
 class Doc;
 
+/** @addtogroup ui_functions
+ * @{
+ */
+
 class FunctionManager : public QWidget
 {
     Q_OBJECT
@@ -165,5 +169,7 @@ private:
     QWidget* m_editor;
     QWidget* m_scene_editor;
 };
+
+/** @} */
 
 #endif

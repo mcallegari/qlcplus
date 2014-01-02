@@ -41,6 +41,10 @@ class QAction;
 class Chaser;
 class Doc;
 
+/** @addtogroup ui_functions
+ * @{
+ */
+
 class SceneEditor : public QWidget, public Ui_SceneEditor
 {
     Q_OBJECT
@@ -197,5 +201,7 @@ private:
      *  manually selected and copied to clipboard */
     bool m_copyFromSelection;
 };
+
+/** @} */
 
 #endif

@@ -39,6 +39,10 @@ class QDomDocument;
 class AudioCapture;
 class QString;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 #define KXMLQLCEngine "Engine"
 #define KXMLQLCStartupFunction "Autostart"
 
@@ -555,5 +559,7 @@ private:
 
     QString m_errorLog;
 };
+
+/** @} */
 
 #endif

@@ -30,6 +30,10 @@ class VCWidget;
 class RemapWidget;
 class SceneValue;
 
+/** @addtogroup ui_fixtures
+ * @{
+ */
+
 struct RemapInfo
 {
     QTreeWidgetItem *source;
@@ -75,5 +79,7 @@ protected slots:
     void accept();
 
 };
+
+/** @} */
 
 #endif // FIXTUREREMAP_H
