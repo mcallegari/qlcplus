@@ -37,32 +37,32 @@ public:
     virtual ~GrandMaster();
     
 public:
-    enum GMValueMode
+    enum ValueMode
     {
-        GMLimit, /** Limit maximum values to current GM value */
-        GMReduce /** Reduce channel values by a fraction (0-100%) */
+        Limit, /** Limit maximum values to current GM value */
+        Reduce /** Reduce channel values by a fraction (0-100%) */
     };
 
-    enum GMChannelMode
+    enum ChannelMode
     {
-        GMIntensity,  /** GM applied only for Intensity channels */
-        GMAllChannels /** GM applied for all channels */
+        Intensity,  /** GM applied only for Intensity channels */
+        AllChannels /** GM applied for all channels */
     };
 
-    enum GMSliderMode
+    enum SliderMode
     {
-        GMNormal,     /** GM slider in normal mode 0-255 */
-        GMInverted    /** GM Slider inverted mode 255-0 */
+        Normal,     /** GM slider in normal mode 0-255 */
+        Inverted    /** GM Slider inverted mode 255-0 */
     };
 
-    static GMValueMode stringToGMValueMode(const QString& str);
-    static QString gMValueModeToString(GMValueMode mode);
+    static ValueMode stringToValueMode(const QString& str);
+    static QString valueModeToString(ValueMode mode);
 
-    static GMChannelMode stringToGMChannelMode(const QString& str);
-    static QString gMChannelModeToString(GMChannelMode mode);
+    static ChannelMode stringToChannelMode(const QString& str);
+    static QString channelModeToString(ChannelMode mode);
 
-    static GMSliderMode stringToGMSliderMode(const QString& str);
-    static QString gMSliderModeToString(GMSliderMode mode);
+    static SliderMode stringToSliderMode(const QString& str);
+    static QString sliderModeToString(SliderMode mode);
 
     /**
      * Set the way how Grand Master should treat its value. @See enum
@@ -70,15 +70,15 @@ public:
      *
      * @param mode The mode to set
      */
-    void setGMValueMode(GMValueMode mode);
+    void setValueMode(ValueMode mode);
 
     /**
      * Get the Grand Master value mode.
-     * @See setGMValueMode() and enum GMValueMode.
+     * @See setValueMode() and enum GMValueMode.
      *
      * @return Current value mode
      */
-    GMValueMode gMValueMode() const;
+    ValueMode valueMode() const;
 
     /**
      * Set the way how Grand Master should treat channels. @See enum
@@ -86,45 +86,44 @@ public:
      *
      * @param mode The mode to set
      */
-    void setGMChannelMode(GMChannelMode mode);
+    void setChannelMode(ChannelMode mode);
 
     /**
      * Get the Grand Master channel mode.
-     * @See setGMChannelMode() and enum GMChannelMode.
+     * @See setChannelMode() and enum GMChannelMode.
      *
      * @return Current channel mode
      */
-    GMChannelMode gMChannelMode() const;
+    ChannelMode channelMode() const;
 
     /**
      * Set the Grand Master value as a DMX value 0-255. This value is
      * converted to a fraction according to the current mode.
      */
-    void setGMValue(uchar value);
+    void setValue(uchar value);
 
     /**
      * Get the current Grand Master value as a DMX value (0 - 255)
      *
      * @return Current Grand Master value in DMX
      */
-    uchar gMValue() const;
+    uchar value() const;
 
     /**
      * Get the current Grand Master value as a fraction 0.0 - 1.0
      *
      * @return Current Grand Master value as a fraction
      */
-    double gMFraction() const;
+    double fraction() const;
 
 signals:
     void valueChanged(uchar value);
     
 protected:
-    GMValueMode m_gMValueMode;
-    GMChannelMode m_gMChannelMode;
-    uchar m_gMValue;
-    double m_gMFraction;
-    
+    ValueMode m_valueMode;
+    ChannelMode m_channelMode;
+    uchar m_value;
+    double m_fraction;
 };
 
 #endif

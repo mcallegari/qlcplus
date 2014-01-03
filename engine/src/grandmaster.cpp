@@ -30,96 +30,96 @@
 GrandMaster::GrandMaster(QObject *parent)
     : QObject(parent)
 {
-    m_gMChannelMode = GMIntensity;
-    m_gMValueMode = GMReduce;
-    m_gMValue = 255;
-    m_gMFraction = 1.0;
+    m_channelMode = Intensity;
+    m_valueMode = Reduce;
+    m_value = 255;
+    m_fraction = 1.0;
 }
 
 GrandMaster::~GrandMaster()
 {
 }
 
-GrandMaster::GMValueMode GrandMaster::stringToGMValueMode(const QString& str)
+GrandMaster::ValueMode GrandMaster::stringToValueMode(const QString& str)
 {
     if (str == KXMLQLCGMValueModeLimit)
-        return GrandMaster::GMLimit;
+        return GrandMaster::Limit;
     else
-        return GrandMaster::GMReduce;
+        return GrandMaster::Reduce;
 }
 
-QString GrandMaster::gMValueModeToString(GrandMaster::GMValueMode mode)
+QString GrandMaster::valueModeToString(GrandMaster::ValueMode mode)
 {
     switch (mode)
     {
-    case GrandMaster::GMLimit:
+    case GrandMaster::Limit:
         return KXMLQLCGMValueModeLimit;
     default:
-    case GrandMaster::GMReduce:
+    case GrandMaster::Reduce:
         return KXMLQLCGMValueModeReduce;
     }
 }
 
-GrandMaster::GMChannelMode GrandMaster::stringToGMChannelMode(const QString& str)
+GrandMaster::ChannelMode GrandMaster::stringToChannelMode(const QString& str)
 {
     if (str == KXMLQLCGMChannelModeAllChannels)
-        return GrandMaster::GMAllChannels;
+        return GrandMaster::AllChannels;
     else
-        return GrandMaster::GMIntensity;
+        return GrandMaster::Intensity;
 }
 
-QString GrandMaster::gMChannelModeToString(GrandMaster::GMChannelMode mode)
+QString GrandMaster::channelModeToString(GrandMaster::ChannelMode mode)
 {
     switch (mode)
     {
-    case GrandMaster::GMAllChannels:
+    case GrandMaster::AllChannels:
         return KXMLQLCGMChannelModeAllChannels;
     default:
-    case GrandMaster::GMIntensity:
+    case GrandMaster::Intensity:
         return KXMLQLCGMChannelModeIntensity;
     }
 }
 
-GrandMaster::GMSliderMode GrandMaster::stringToGMSliderMode(const QString &str)
+GrandMaster::SliderMode GrandMaster::stringToSliderMode(const QString &str)
 {
     if (str == KXMLQLCGMSliderModeInverted)
-        return GrandMaster::GMInverted;
+        return GrandMaster::Inverted;
     else
-        return GrandMaster::GMNormal;
+        return GrandMaster::Normal;
 }
 
-QString GrandMaster::gMSliderModeToString(GrandMaster::GMSliderMode mode)
+QString GrandMaster::sliderModeToString(GrandMaster::SliderMode mode)
 {
     switch (mode)
     {
-    case GrandMaster::GMInverted:
+    case GrandMaster::Inverted:
         return KXMLQLCGMSliderModeInverted;
     default:
-    case GrandMaster::GMNormal:
+    case GrandMaster::Normal:
         return KXMLQLCGMSliderModeNormal;
     }
 }
 
-void GrandMaster::setGMValueMode(GrandMaster::GMValueMode mode)
+void GrandMaster::setValueMode(GrandMaster::ValueMode mode)
 {
-    if (m_gMValueMode != mode)
+    if (m_valueMode != mode)
     {
-        m_gMValueMode = mode;
-        setGMValue(gMValue());
+        m_valueMode = mode;
+        setValue(value());
     }
 }
 
-GrandMaster::GMValueMode GrandMaster::gMValueMode() const
+GrandMaster::ValueMode GrandMaster::valueMode() const
 {
-    return m_gMValueMode;
+    return m_valueMode;
 }
 
-void GrandMaster::setGMChannelMode(GrandMaster::GMChannelMode mode)
+void GrandMaster::setChannelMode(GrandMaster::ChannelMode mode)
 {
-    if (m_gMChannelMode != mode)
+    if (m_channelMode != mode)
     {
-        m_gMChannelMode = mode;
-        setGMValue(gMValue());
+        m_channelMode = mode;
+        setValue(value());
     }
 /*
     if (gMChannelMode() == GMIntensity)
@@ -135,28 +135,26 @@ void GrandMaster::setGMChannelMode(GrandMaster::GMChannelMode mode)
 */
 }
 
-GrandMaster::GMChannelMode GrandMaster::gMChannelMode() const
+GrandMaster::ChannelMode GrandMaster::channelMode() const
 {
-    return m_gMChannelMode;
+    return m_channelMode;
 }
 
-void GrandMaster::setGMValue(uchar value)
+void GrandMaster::setValue(uchar value)
 {
-    m_gMValue = value;
-    m_gMFraction = CLAMP(double(value) / double(UCHAR_MAX), 0.0, 1.0);
+    m_value = value;
+    m_fraction = CLAMP(double(value) / double(UCHAR_MAX), 0.0, 1.0);
 
     emit valueChanged(value);
 }
 
-uchar GrandMaster::gMValue() const
+uchar GrandMaster::value() const
 {
-    return m_gMValue;
+    return m_value;
 }
 
-double GrandMaster::gMFraction() const
+double GrandMaster::fraction() const
 {
-    return m_gMFraction;
+    return m_fraction;
 }
-
-
 

@@ -51,7 +51,7 @@ private:
 protected slots:
     void slotValueChanged(int value);
     void slotGrandMasterValueChanged(uchar value);
-    void slotGrandMasterValueModeChanged(GrandMaster::GMValueMode mode);
+    void slotGrandMasterValueModeChanged(GrandMaster::ValueMode mode);
 
 protected:
     QLabel* m_valueLabel;

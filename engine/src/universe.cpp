@@ -101,7 +101,7 @@ bool Universe::hasChanged()
 
 void Universe::slotGMValueChanged()
 {
-    if (m_grandMaster->gMChannelMode() == GrandMaster::GMIntensity)
+    if (m_grandMaster->channelMode() == GrandMaster::Intensity)
     {
         QSetIterator <int> it(m_gMIntensityChannels);
         while (it.hasNext() == true)
@@ -112,7 +112,7 @@ void Universe::slotGMValueChanged()
         }
     }
 
-    if (m_grandMaster->gMChannelMode() == GrandMaster::GMAllChannels)
+    if (m_grandMaster->channelMode() == GrandMaster::AllChannels)
     {
         QSetIterator <int> it(m_gMNonIntensityChannels);
         while (it.hasNext() == true)
@@ -195,13 +195,13 @@ uchar Universe::applyGM(int channel, uchar value)
     if (value == 0)
         return 0;
 
-    if ((m_grandMaster->gMChannelMode() == GrandMaster::GMIntensity && m_channelsMask->at(channel) & Intensity) ||
-        (m_grandMaster->gMChannelMode() == GrandMaster::GMAllChannels))
+    if ((m_grandMaster->channelMode() == GrandMaster::Intensity && m_channelsMask->at(channel) & Intensity) ||
+        (m_grandMaster->channelMode() == GrandMaster::AllChannels))
     {
-        if (m_grandMaster->gMValueMode() == GrandMaster::GMLimit)
-            value = MIN(value, m_grandMaster->gMValue());
+        if (m_grandMaster->valueMode() == GrandMaster::Limit)
+            value = MIN(value, m_grandMaster->value());
         else
-            value = char(floor((double(value) * m_grandMaster->gMFraction()) + 0.5));
+            value = char(floor((double(value) * m_grandMaster->fraction()) + 0.5));
     }
 
     return value;
