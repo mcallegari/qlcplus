@@ -257,9 +257,9 @@ protected:
     /** Flag to indicate if the universe has changed */
     bool m_hasChanged;
     /** A list of intensity channels to optimize operations on HTP/LTP channels */
-    QSet <int> m_gMIntensityChannels;
+    QSet <int> m_intensityChannels;
     /** A list of non-intensity channels to optimize operations on HTP/LTP channels */
-    QSet <int> m_gMNonIntensityChannels;
+    QSet <int> m_nonIntensityChannels;
     /** An array of each channel's capabilities. This helps to optimize HTP/LTP/Relative checks */
     QByteArray* m_channelsMask;
     /** Array of values BEFORE the Grand Master changes */

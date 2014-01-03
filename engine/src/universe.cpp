@@ -106,7 +106,7 @@ void Universe::slotGMValueChanged()
 {
     if (m_grandMaster->channelMode() == GrandMaster::Intensity)
     {
-        QSetIterator <int> it(m_gMIntensityChannels);
+        QSetIterator <int> it(m_intensityChannels);
         while (it.hasNext() == true)
         {
             int channel(it.next());
@@ -117,7 +117,7 @@ void Universe::slotGMValueChanged()
 
     if (m_grandMaster->channelMode() == GrandMaster::AllChannels)
     {
-        QSetIterator <int> it(m_gMNonIntensityChannels);
+        QSetIterator <int> it(m_nonIntensityChannels);
         while (it.hasNext() == true)
         {
             int channel(it.next());
@@ -145,15 +145,15 @@ void Universe::reset(int address, int range)
     {
         m_preGMValues->data()[i] = 0;
         m_postGMValues->data()[i] = 0;
-        m_gMIntensityChannels.remove(i);
-        m_gMNonIntensityChannels.remove(i);
+        m_intensityChannels.remove(i);
+        m_nonIntensityChannels.remove(i);
         m_relativeValues[i] = 0;
     }
 }
 
 void Universe::zeroIntensityChannels()
 {
-    QSetIterator <int> it(m_gMIntensityChannels);
+    QSetIterator <int> it(m_intensityChannels);
     while (it.hasNext() == true)
     {
         int channel(it.next());
@@ -166,7 +166,7 @@ void Universe::zeroIntensityChannels()
 QHash<int, uchar> Universe::intensityChannels()
 {
     QHash <int, uchar> intensityList;
-    QSetIterator <int> it(m_gMIntensityChannels);
+    QSetIterator <int> it(m_intensityChannels);
     while (it.hasNext() == true)
     {
         int channel(it.next());
@@ -277,13 +277,13 @@ void Universe::setChannelCapability(ushort channel, QLCChannel::Group group, boo
         {
             qDebug() << "--- Intensity + HTP";
             m_channelsMask->data()[channel] = char(HTP | Intensity);
-            m_gMIntensityChannels << channel;
+            m_intensityChannels << channel;
         }
         else
         {
             qDebug() << "--- LTP";
             m_channelsMask->data()[channel] = char(LTP);
-            m_gMNonIntensityChannels << channel;
+            m_nonIntensityChannels << channel;
         }
     }
     qDebug() << Q_FUNC_INFO << "Channel:" << channel << "mask:" << QString::number(m_channelsMask->at(channel), 16);
