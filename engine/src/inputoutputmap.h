@@ -206,22 +206,22 @@ public:
     /**
      * Set grand master channel mode (intensity or all channels)
      */
-    void setGrandMasterChannelMode(GrandMaster::GMChannelMode mode);
+    void setGrandMasterChannelMode(GrandMaster::ChannelMode mode);
 
     /**
      * Get grand master channel mode (intensity or all channels)
      */
-    GrandMaster::GMChannelMode grandMasterChannelMode();
+    GrandMaster::ChannelMode grandMasterChannelMode();
 
     /**
      * Set grand master value mode (limit or reduce)
      */
-    void setGrandMasterValueMode(GrandMaster::GMValueMode mode);
+    void setGrandMasterValueMode(GrandMaster::ValueMode mode);
 
     /**
      * Set grand master value mode (limit or reduce)
      */
-    GrandMaster::GMValueMode grandMasterValueMode();
+    GrandMaster::ValueMode grandMasterValueMode();
 
     /**
      * Set grand master value (0-255)
@@ -235,7 +235,7 @@ public:
 
 signals:
     void grandMasterValueChanged(uchar value);
-    void grandMasterValueModeChanged(GrandMaster::GMValueMode mode);
+    void grandMasterValueModeChanged(GrandMaster::ValueMode mode);
 
 private:
     /** The Grand Master reference */

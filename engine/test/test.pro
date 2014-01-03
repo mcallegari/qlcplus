@@ -15,6 +15,7 @@ SUBDIRS += fixture
 SUBDIRS += fixturegroup
 SUBDIRS += function
 SUBDIRS += genericfader
+SUBDIRS += grandmaster
 #SUBDIRS += inputmap
 SUBDIRS += inputpatch
 SUBDIRS += mastertimer

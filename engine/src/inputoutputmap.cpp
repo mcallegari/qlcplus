@@ -216,60 +216,59 @@ void InputOutputMap::resetUniverses()
 
     /* Reset Grand Master parameters */
     setGrandMasterValue(255);
-    setGrandMasterValueMode(GrandMaster::GMReduce);
-    setGrandMasterChannelMode(GrandMaster::GMIntensity);
+    setGrandMasterValueMode(GrandMaster::Reduce);
+    setGrandMasterChannelMode(GrandMaster::Intensity);
 }
 
 /*********************************************************************
  * Grand Master
  *********************************************************************/
 
-void InputOutputMap::setGrandMasterChannelMode(GrandMaster::GMChannelMode mode)
+void InputOutputMap::setGrandMasterChannelMode(GrandMaster::ChannelMode mode)
 {
     Q_ASSERT(m_grandMaster != NULL);
 
-    if(m_grandMaster->gMChannelMode() != mode)
+    if(m_grandMaster->channelMode() != mode)
     {
-        m_grandMaster->setGMChannelMode(mode);
+        m_grandMaster->setChannelMode(mode);
         m_universeChanged = true;
     }
 }
 
-GrandMaster::GMChannelMode InputOutputMap::grandMasterChannelMode()
+GrandMaster::ChannelMode InputOutputMap::grandMasterChannelMode()
 {
     Q_ASSERT(m_grandMaster != NULL);
 
-    GrandMaster::GMChannelMode mode = m_grandMaster->gMChannelMode();
-    return mode;
+    return m_grandMaster->channelMode();
 }
 
-void InputOutputMap::setGrandMasterValueMode(GrandMaster::GMValueMode mode)
+void InputOutputMap::setGrandMasterValueMode(GrandMaster::ValueMode mode)
 {
     Q_ASSERT(m_grandMaster != NULL);
 
-    if(m_grandMaster->gMValueMode() != mode)
+    if(m_grandMaster->valueMode() != mode)
     {
-        m_grandMaster->setGMValueMode(mode);
+        m_grandMaster->setValueMode(mode);
         m_universeChanged = true;
     }
 
     emit grandMasterValueModeChanged(mode);
 }
 
-GrandMaster::GMValueMode InputOutputMap::grandMasterValueMode()
+GrandMaster::ValueMode InputOutputMap::grandMasterValueMode()
 {
     Q_ASSERT(m_grandMaster != NULL);
 
-    return m_grandMaster->gMValueMode();
+    return m_grandMaster->valueMode();
 }
 
 void InputOutputMap::setGrandMasterValue(uchar value)
 {
     Q_ASSERT(m_grandMaster != NULL);
 
-    if (m_grandMaster->gMValue() != value)
+    if (m_grandMaster->value() != value)
     {
-        m_grandMaster->setGMValue(value);
+        m_grandMaster->setValue(value);
         m_universeChanged = true;
     }
 
@@ -281,7 +280,7 @@ uchar InputOutputMap::grandMasterValue()
 {
     Q_ASSERT(m_grandMaster != NULL);
 
-    return m_grandMaster->gMValue();
+    return m_grandMaster->value();
 }
 
 /*********************************************************************

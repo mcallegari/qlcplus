@@ -45,7 +45,7 @@ public:
     VCDockArea(QWidget* parent, InputOutputMap* ioMap);
     ~VCDockArea();
 
-    void setGrandMasterInvertedAppearance(GrandMaster::GMSliderMode mode);
+    void setGrandMasterInvertedAppearance(GrandMaster::SliderMode mode);
 
 signals:
     void visibilityChanged(bool isVisible);

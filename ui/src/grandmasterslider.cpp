@@ -67,8 +67,8 @@ GrandMasterSlider::GrandMasterSlider(QWidget* parent, InputOutputMap *ioMap)
     /* Listen to GM value changes */
     connect(m_ioMap, SIGNAL(grandMasterValueChanged(uchar)),
             this, SLOT(slotGrandMasterValueChanged(uchar)));
-    connect(m_ioMap, SIGNAL(grandMasterValueModeChanged(GrandMaster::GMValueMode)),
-            this, SLOT(slotGrandMasterValueModeChanged(GrandMaster::GMValueMode)));
+    connect(m_ioMap, SIGNAL(grandMasterValueModeChanged(GrandMaster::ValueMode)),
+            this, SLOT(slotGrandMasterValueModeChanged(GrandMaster::ValueMode)));
 
     /* External input connection */
     connect(m_ioMap, SIGNAL(inputValueChanged(quint32, quint32, uchar)),
@@ -114,10 +114,10 @@ void GrandMasterSlider::updateTooltip()
 
     switch (m_ioMap->grandMasterValueMode())
     {
-        case GrandMaster::GMLimit:
+        case GrandMaster::Limit:
             tooltip += tr("Grand Master <B>limits</B> the maximum value of");
             break;
-        case GrandMaster::GMReduce:
+        case GrandMaster::Reduce:
             tooltip += tr("Grand Master <B>reduces</B> the current value of");
             break;
     }
@@ -126,10 +126,10 @@ void GrandMasterSlider::updateTooltip()
 
     switch (m_ioMap->grandMasterChannelMode())
     {
-        case GrandMaster::GMIntensity:
+        case GrandMaster::Intensity:
             tooltip += tr("intensity channels");
             break;
-        case GrandMaster::GMAllChannels:
+        case GrandMaster::AllChannels:
             tooltip += tr("all channels");
             break;
     }
@@ -141,7 +141,7 @@ void GrandMasterSlider::updateDisplayValue()
 {
     int value = m_slider->value();
     QString str;
-    if (m_ioMap->grandMasterValueMode() == GrandMaster::GMLimit)
+    if (m_ioMap->grandMasterValueMode() == GrandMaster::Limit)
     {
         str = QString("%1").arg(value, 3, 10, QChar('0'));
     }
@@ -158,7 +158,7 @@ void GrandMasterSlider::slotGrandMasterValueChanged(uchar value)
     m_slider->setValue(value);
 }
 
-void GrandMasterSlider::slotGrandMasterValueModeChanged(GrandMaster::GMValueMode mode)
+void GrandMasterSlider::slotGrandMasterValueModeChanged(GrandMaster::ValueMode mode)
 {
     Q_UNUSED(mode);
     updateTooltip();

@@ -47,8 +47,8 @@ void VCProperties_Test::initial()
 
     QCOMPARE(p.m_size, QSize(1920, 1080));
     QCOMPARE(p.m_tapModifier, Qt::ControlModifier);
-    QCOMPARE(p.m_gmChannelMode, GrandMaster::GMIntensity);
-    QCOMPARE(p.m_gmValueMode, GrandMaster::GMReduce);
+    QCOMPARE(p.m_gmChannelMode, GrandMaster::Intensity);
+    QCOMPARE(p.m_gmValueMode, GrandMaster::Reduce);
     QCOMPARE(p.m_gmInputUniverse, InputOutputMap::invalidUniverse());
     QCOMPARE(p.m_gmInputChannel, QLCChannel::invalid());
 }
@@ -58,8 +58,8 @@ void VCProperties_Test::copy()
     VCProperties p;
     p.m_size = QSize(1, 2);
     p.m_tapModifier = Qt::ShiftModifier;
-    p.m_gmChannelMode = GrandMaster::GMAllChannels;
-    p.m_gmValueMode = GrandMaster::GMLimit;
+    p.m_gmChannelMode = GrandMaster::AllChannels;
+    p.m_gmValueMode = GrandMaster::Limit;
     p.m_gmInputUniverse = 5;
     p.m_gmInputChannel = 6;
 
@@ -139,8 +139,8 @@ void VCProperties_Test::loadXMLHappy()
     QVERIFY(p.loadXML(root) == true);
     QCOMPARE(p.size(), QSize(10, 20));
     QCOMPARE(p.tapModifier(), Qt::AltModifier);
-    QCOMPARE(p.grandMasterChannelMode(), GrandMaster::GMAllChannels);
-    QCOMPARE(p.grandMasterValueMode(), GrandMaster::GMLimit);
+    QCOMPARE(p.grandMasterChannelMode(), GrandMaster::AllChannels);
+    QCOMPARE(p.grandMasterValueMode(), GrandMaster::Limit);
     QCOMPARE(p.grandMasterInputUniverse(), quint32(2));
     QCOMPARE(p.grandMasterInputChannel(), quint32(15));
 }
@@ -182,8 +182,8 @@ void VCProperties_Test::saveXML()
     VCProperties p;
     p.m_size = QSize(33, 44);
     p.m_tapModifier = Qt::MetaModifier;
-    p.m_gmChannelMode = GrandMaster::GMAllChannels;
-    p.m_gmValueMode = GrandMaster::GMLimit;
+    p.m_gmChannelMode = GrandMaster::AllChannels;
+    p.m_gmValueMode = GrandMaster::Limit;
     p.m_gmInputUniverse = 3;
     p.m_gmInputChannel = 42;
 
@@ -196,8 +196,8 @@ void VCProperties_Test::saveXML()
     QVERIFY(p2.loadXML(root.firstChild().toElement()) == true);
     QCOMPARE(p2.size(), QSize(33, 44));
     QCOMPARE(p2.tapModifier(), Qt::MetaModifier);
-    QCOMPARE(p2.grandMasterChannelMode(), GrandMaster::GMAllChannels);
-    QCOMPARE(p2.grandMasterValueMode(), GrandMaster::GMLimit);
+    QCOMPARE(p2.grandMasterChannelMode(), GrandMaster::AllChannels);
+    QCOMPARE(p2.grandMasterValueMode(), GrandMaster::Limit);
     QCOMPARE(p2.grandMasterInputUniverse(), quint32(3));
     QCOMPARE(p2.grandMasterInputChannel(), quint32(42));
 }
