@@ -75,7 +75,7 @@
  <Mode Name="normal">
   <Physical>
    <Bulb Lumens="0" Type="MSD 250W" ColourTemperature="6500"/>
-   <Dimensions Width="368" Height="305" Weight="8,800000000000001" Depth="457"/>
+   <Dimensions Width="368" Height="305" Weight="8.80" Depth="457"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="540" Type="Fixed" TiltMax="265"/>
    <Technical PowerConsumption="350" DmxConnector="3-pin"/>
