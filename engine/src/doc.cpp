@@ -64,6 +64,7 @@ Doc::Doc(QObject* parent, int outputUniverses, int inputUniverses)
     , m_latestFixtureGroupId(0)
     , m_latestChannelsGroupId(0)
     , m_latestFunctionId(0)
+    , m_startupFunctionId(Function::invalidId())
 {
     Bus::init(this);
     resetModified();
@@ -272,6 +273,12 @@ void Doc::setMode(Doc::Mode mode)
     if (m_mode == mode)
         return;
     m_mode = mode;
+    if (mode == Operate && m_startupFunctionId != Function::invalidId())
+    {
+        Function *func = function(m_startupFunctionId);
+        if (func != NULL)
+           func->start(masterTimer());
+    }
 
     emit modeChanged(m_mode);
 }
@@ -849,6 +856,16 @@ quint32 Doc::nextFunctionID()
     return tmpFID;
 }
 
+void Doc::setStartupFunction(quint32 fid)
+{
+    m_startupFunctionId = fid;
+}
+
+quint32 Doc::startupFunction()
+{
+    return m_startupFunctionId;
+}
+
 void Doc::slotFunctionChanged(quint32 fid)
 {
     setModified();
@@ -865,6 +882,13 @@ bool Doc::loadXML(const QDomElement& root)
     {
         qWarning() << Q_FUNC_INFO << "Engine node not found";
         return false;
+    }
+
+    if (root.hasAttribute(KXMLQLCStartupFunction))
+    {
+        quint32 sID = root.attribute(KXMLQLCStartupFunction).toUInt();
+        if (sID != Function::invalidId())
+            setStartupFunction(sID);
     }
 
     QDomNode node = root.firstChild();
@@ -917,6 +941,10 @@ bool Doc::saveXML(QDomDocument* doc, QDomElement* wksp_root)
 
     /* Create the master Engine node */
     root = doc->createElement(KXMLQLCEngine);
+    if (startupFunction() != Function::invalidId())
+    {
+        root.setAttribute(KXMLQLCStartupFunction, QString::number(startupFunction()));
+    }
     wksp_root->appendChild(root);
 
     /* Write fixtures into an XML document */

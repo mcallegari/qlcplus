@@ -26,6 +26,7 @@
 #include "ui_functionselection.h"
 #include "function.h"
 
+class FunctionsTreeWidget;
 class QTreeWidgetItem;
 class MasterTimer;
 class OutputMap;
@@ -61,6 +62,16 @@ public slots:
 
 private:
     Doc* m_doc;
+    FunctionsTreeWidget *m_funcTree;
+
+    /*********************************************************************
+     * None entry
+     *********************************************************************/
+public:
+    void showNone(bool show = false);
+
+private:
+    bool m_none;
 
     /*********************************************************************
      * Multi-selection
@@ -149,8 +160,6 @@ protected:
      * Internal
      *********************************************************************/
 protected:
-    /** Update the contents of the given function to the tree item */
-    void updateFunctionItem(QTreeWidgetItem* item, Function* function);
 
     /** Clear & (re)fill the tree */
     void refillTree();

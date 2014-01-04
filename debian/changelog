@@ -1,8 +1,10 @@
 qlcplus (4.6.1) stable; urgency=low
 
+  * NEW: Function Manager: it is now possible to set a startup function that is started every time QLC+ switches to operate mode
   * VC Audio triggers: fixed divisors behaviour
   * VC Slider: fixed submaster renaming
   * Engine: restored timed fade out + stop all functions functionality
+  * Function selection dialog now looks like function manager (with categories and folders)
   * Show Manager: do not add a Show on popup cancel
   * Show Manager: when using an existing Scene as track create a sequence instead of a chaser
   * Fixture Manager: add quick search bar on fixture add (suggested by NiKoyes)

@@ -26,6 +26,7 @@
 #include <QSettings>
 
 #include "functionselection.h"
+#include "functionstreewidget.h"
 #include "collectioneditor.h"
 #include "rgbmatrixeditor.h"
 #include "chasereditor.h"
@@ -46,8 +47,6 @@
 #include "doc.h"
 
 #define KColumnName 0
-#define KColumnType 1
-#define KColumnID   2
 
 /*****************************************************************************
  * Initialization
@@ -66,6 +65,16 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
     Q_ASSERT(doc != NULL);
 
     setupUi(this);
+
+    m_funcTree = new FunctionsTreeWidget(m_doc, this);
+    QStringList labels;
+    labels << tr("Functions");
+    m_funcTree->setHeaderLabels(labels);
+    m_funcTree->setRootIsDecorated(true);
+    m_funcTree->setAllColumnsShowFocus(true);
+    m_funcTree->setSortingEnabled(true);
+    m_funcTree->sortByColumn(KColumnName, Qt::AscendingOrder);
+    m_treeVbox->addWidget(m_funcTree);
 
     QAction* action = new QAction(this);
     action->setShortcut(QKeySequence(QKeySequence::Close));
@@ -119,7 +128,7 @@ int FunctionSelection::exec()
     m_scriptCheck->setChecked(m_filter & Function::Script);
     m_rgbMatrixCheck->setChecked(m_filter & Function::RGBMatrix);
     m_showCheck->setChecked(m_filter & Function::Show);
-    m_audioCheck->setChecked(m_filter & Function::Audio);    
+    m_audioCheck->setChecked(m_filter & Function::Audio);
 
     if (m_constFilter == true)
     {
@@ -146,13 +155,13 @@ int FunctionSelection::exec()
 
     /* Multiple/single selection */
     if (m_multiSelection == true)
-        m_tree->setSelectionMode(QAbstractItemView::ExtendedSelection);
+        m_funcTree->setSelectionMode(QAbstractItemView::ExtendedSelection);
     else
-        m_tree->setSelectionMode(QAbstractItemView::SingleSelection);
+        m_funcTree->setSelectionMode(QAbstractItemView::SingleSelection);
 
-    connect(m_tree, SIGNAL(itemSelectionChanged()),
+    connect(m_funcTree, SIGNAL(itemSelectionChanged()),
             this, SLOT(slotItemSelectionChanged()));
-    connect(m_tree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),
+    connect(m_funcTree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),
             this, SLOT(slotItemDoubleClicked(QTreeWidgetItem*)));
 
     refillTree();
@@ -160,6 +169,13 @@ int FunctionSelection::exec()
     slotItemSelectionChanged();
 
     return QDialog::exec();
+}
+
+void FunctionSelection::showNone(bool show)
+{
+    m_none = show;
+
+    refillTree();
 }
 
 FunctionSelection::~FunctionSelection()
@@ -238,33 +254,18 @@ const QList <quint32> FunctionSelection::selection() const
  * Tree
  *****************************************************************************/
 
-void FunctionSelection::updateFunctionItem(QTreeWidgetItem* item, Function* function)
-{
-    item->setText(KColumnName, function->name());
-    item->setText(KColumnType, function->typeString());
-    item->setText(KColumnID, QString::number(function->id()));
-    switch (function->type())
-    {
-    case Function::Scene: item->setIcon(KColumnName, QIcon(":/scene.png")); break;
-    case Function::Chaser:
-        if (qobject_cast<const Chaser*>(function)->isSequence() == true)
-            item->setIcon(KColumnName, QIcon(":/sequence.png"));
-        else
-            item->setIcon(KColumnName, QIcon(":/chaser.png"));
-    break;
-    case Function::EFX:item->setIcon(KColumnName, QIcon(":/efx.png")); break;
-    case Function::Collection:item->setIcon(KColumnName, QIcon(":/collection.png")); break;
-    case Function::RGBMatrix:item->setIcon(KColumnName, QIcon(":/rgbmatrix.png")); break;
-    case Function::Script:item->setIcon(KColumnName, QIcon(":/script.png")); break;
-    case Function::Show:item->setIcon(KColumnName, QIcon(":/show.png")); break;
-    case Function::Audio:item->setIcon(KColumnName, QIcon(":/audio.png")); break;
-    default: item->setIcon(KColumnName, QIcon(":/function.png")); break;
-    }
-}
-
 void FunctionSelection::refillTree()
 {
-    m_tree->clear();
+    m_funcTree->clearTree();
+
+    // Show a "none" entry
+    if (m_none == true)
+    {
+        QTreeWidgetItem* item = new QTreeWidgetItem(m_funcTree);
+        item->setText(KColumnName, tr("<No function>"));
+        item->setIcon(KColumnName, QIcon(":/uncheck.png"));
+        item->setData(KColumnName, Qt::UserRole, Function::invalidId());
+    }
 
     /* Fill the tree */
     foreach (Function* function, m_doc->functions())
@@ -274,25 +275,27 @@ void FunctionSelection::refillTree()
             if (m_runningOnlyFlag == true && function->isRunning() == false)
                 continue;
 
-            QTreeWidgetItem* item = new QTreeWidgetItem(m_tree);
-            updateFunctionItem(item, function);
-
+            QTreeWidgetItem* item = m_funcTree->functionAdded(function->id());
             if (disabledFunctions().contains(function->id()))
                 item->setFlags(0); // Disables the item
         }
     }
-    m_tree->resizeColumnToContents(KColumnName);
-    m_tree->resizeColumnToContents(KColumnType);
+    m_funcTree->resizeColumnToContents(KColumnName);
+    for (int i = 0; i < m_funcTree->topLevelItemCount(); i++)
+    {
+        QTreeWidgetItem *item = m_funcTree->topLevelItem(i);
+        m_funcTree->expandItem(item);
+    }
 }
 
 void FunctionSelection::slotItemSelectionChanged()
 {
     QList <quint32> removeList(m_selection);
 
-    QListIterator <QTreeWidgetItem*> it(m_tree->selectedItems());
+    QListIterator <QTreeWidgetItem*> it(m_funcTree->selectedItems());
     while (it.hasNext() == true)
     {
-        quint32 id = it.next()->text(KColumnID).toUInt();
+        quint32 id = it.next()->data(KColumnName, Qt::UserRole).toUInt();
         if (m_selection.contains(id) == false)
             m_selection.append(id);
 

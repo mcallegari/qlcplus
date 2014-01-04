@@ -75,18 +75,19 @@ void FunctionsTreeWidget::functionChanged(quint32 fid)
     blockSignals(false);
 }
 
-void FunctionsTreeWidget::functionAdded(quint32 fid)
+QTreeWidgetItem *FunctionsTreeWidget::functionAdded(quint32 fid)
 {
     blockSignals(true);
     Function* function = m_doc->function(fid);
     if (function == NULL)
-        return;
+        return NULL;
 
     QTreeWidgetItem* parent = parentItem(function);
     QTreeWidgetItem* item = new QTreeWidgetItem(parent);
     updateFunctionItem(item, function);
     function->setPath(parent->text(COL_PATH));
     blockSignals(false);
+    return item;
 }
 
 void FunctionsTreeWidget::updateFunctionItem(QTreeWidgetItem* item, const Function* function)

@@ -41,6 +41,7 @@ class AudioCapture;
 class QString;
 
 #define KXMLQLCEngine "Engine"
+#define KXMLQLCStartupFunction "Autostart"
 
 class Doc : public QObject
 {
@@ -458,6 +459,19 @@ public:
      */
     quint32 nextFunctionID();
 
+    /**
+     * Set the ID of a function to start everytime QLC+ goes
+     * in operate mode
+     *
+     * @param fid The ID of the function
+     */
+    void setStartupFunction(quint32 fid);
+
+    /**
+     * Retrieve the QLC+ startup function
+     */
+    quint32 startupFunction();
+
 protected:
     /**
      * Create a new function Id
@@ -494,6 +508,9 @@ protected:
 
     /** Latest assigned function ID */
     quint32 m_latestFunctionId;
+
+    /** Startup function ID */
+    quint32 m_startupFunctionId;
 
     /*********************************************************************
      * Load & Save

@@ -119,6 +119,8 @@ protected slots:
     void slotAddScript();
     void slotAddAudio();
     void slotAddFolder();
+
+    void slotSelectAutostartFunction();
     void slotWizard();
 
     void slotClone();
@@ -140,6 +142,7 @@ protected:
     QAction* m_addScriptAction;
     QAction* m_addAudioAction;
 
+    QAction* m_autostartAction;
     QAction* m_wizardAction;
     QAction* m_addFolderAction;
     QAction* m_cloneAction;

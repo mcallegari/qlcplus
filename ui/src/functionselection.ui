@@ -36,32 +36,36 @@
     </layout>
    </item>
    <item>
-    <widget class="QTreeWidget" name="m_tree">
-     <property name="alternatingRowColors">
-      <bool>true</bool>
+    <widget class="QFrame" name="frame">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
-     <property name="rootIsDecorated">
-      <bool>false</bool>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
      </property>
-     <property name="itemsExpandable">
-      <bool>false</bool>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
      </property>
-     <property name="sortingEnabled">
-      <bool>true</bool>
-     </property>
-     <property name="allColumnsShowFocus">
-      <bool>true</bool>
-     </property>
-     <column>
-      <property name="text">
-       <string>Name</string>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <property name="leftMargin">
+       <number>0</number>
       </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Type</string>
+      <property name="topMargin">
+       <number>0</number>
       </property>
-     </column>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <layout class="QVBoxLayout" name="m_treeVbox"/>
+      </item>
+     </layout>
     </widget>
    </item>
    <item>
