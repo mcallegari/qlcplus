@@ -302,7 +302,7 @@ void Fixture_Test::loadWrongRoot()
 
     QDomElement root = doc.createElement("Function");
     doc.appendChild(root);
-    QVERIFY(fxi.loadXML(root, m_doc->fixtureDefCache()) == false);
+    QVERIFY(fxi.loadXML(root, m_doc, m_doc->fixtureDefCache()) == false);
 }
 
 void Fixture_Test::loadFixtureDef()
@@ -353,7 +353,7 @@ void Fixture_Test::loadFixtureDef()
     root.appendChild(addr);
 
     Fixture fxi(this);
-    QVERIFY(fxi.loadXML(root, m_doc->fixtureDefCache()) == true);
+    QVERIFY(fxi.loadXML(root, m_doc, m_doc->fixtureDefCache()) == true);
     QVERIFY(fxi.name() == "Foobar");
     QVERIFY(fxi.channels() == 9);
     QVERIFY(fxi.address() == 21);
@@ -410,7 +410,7 @@ void Fixture_Test::loadFixtureDefWrongChannels()
     root.appendChild(addr);
 
     Fixture fxi(this);
-    QVERIFY(fxi.loadXML(root, m_doc->fixtureDefCache()) == true);
+    QVERIFY(fxi.loadXML(root, m_doc, m_doc->fixtureDefCache()) == true);
     QVERIFY(fxi.name() == "Foobar");
     QVERIFY(fxi.channels() == 9);
     QVERIFY(fxi.address() == 21);
@@ -467,7 +467,7 @@ void Fixture_Test::loadDimmer()
     root.appendChild(addr);
 
     Fixture fxi(this);
-    QVERIFY(fxi.loadXML(root, m_doc->fixtureDefCache()) == true);
+    QVERIFY(fxi.loadXML(root, m_doc, m_doc->fixtureDefCache()) == true);
     QVERIFY(fxi.name() == "Foobar");
     QVERIFY(fxi.channels() == 18);
     QVERIFY(fxi.address() == 21);
@@ -524,7 +524,7 @@ void Fixture_Test::loadWrongAddress()
     root.appendChild(addr);
 
     Fixture fxi(this);
-    QVERIFY(fxi.loadXML(root, m_doc->fixtureDefCache()) == true);
+    QVERIFY(fxi.loadXML(root, m_doc, m_doc->fixtureDefCache()) == true);
     QVERIFY(fxi.name() == "Foobar");
     QVERIFY(fxi.channels() == 18);
     QVERIFY(fxi.address() == 0);
@@ -579,7 +579,7 @@ void Fixture_Test::loadWrongUniverse()
     root.appendChild(addr);
 
     Fixture fxi(this);
-    QVERIFY(fxi.loadXML(root, m_doc->fixtureDefCache()) == true);
+    QVERIFY(fxi.loadXML(root, m_doc, m_doc->fixtureDefCache()) == true);
     QVERIFY(fxi.name() == "Foobar");
     QVERIFY(fxi.channels() == 18);
     QVERIFY(fxi.address() == 25);
@@ -634,7 +634,7 @@ void Fixture_Test::loadWrongID()
     root.appendChild(addr);
 
     Fixture fxi(this);
-    QVERIFY(fxi.loadXML(root, m_doc->fixtureDefCache()) == false);
+    QVERIFY(fxi.loadXML(root, m_doc, m_doc->fixtureDefCache()) == false);
 }
 
 void Fixture_Test::loader()

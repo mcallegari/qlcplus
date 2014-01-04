@@ -878,6 +878,8 @@ void Doc::slotFunctionChanged(quint32 fid)
 
 bool Doc::loadXML(const QDomElement& root)
 {
+    m_errorLog = "";
+
     if (root.tagName() != KXMLQLCEngine)
     {
         qWarning() << Q_FUNC_INFO << "Engine node not found";
@@ -984,6 +986,20 @@ bool Doc::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     }
 
     return true;
+}
+
+void Doc::appendToErrorLog(QString error)
+{
+    if (m_errorLog.contains(error))
+        return;
+
+    m_errorLog.append(error);
+    m_errorLog.append("\n");
+}
+
+QString Doc::errorLog()
+{
+    return m_errorLog;
 }
 
 void Doc::postLoad()

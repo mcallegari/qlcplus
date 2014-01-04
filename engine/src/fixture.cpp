@@ -541,7 +541,7 @@ bool Fixture::loader(const QDomElement& root, Doc* doc)
     Fixture* fxi = new Fixture(doc);
     Q_ASSERT(fxi != NULL);
 
-    if (fxi->loadXML(root, doc->fixtureDefCache()) == true)
+    if (fxi->loadXML(root, doc, doc->fixtureDefCache()) == true)
     {
         if (doc->addFixture(fxi, fxi->id()) == true)
         {
@@ -565,7 +565,7 @@ bool Fixture::loader(const QDomElement& root, Doc* doc)
     return result;
 }
 
-bool Fixture::loadXML(const QDomElement& root,
+bool Fixture::loadXML(const QDomElement& root, Doc *doc,
                       const QLCFixtureDefCache* fixtureDefCache)
 {
     QLCFixtureDef* fixtureDef = NULL;
@@ -645,8 +645,9 @@ bool Fixture::loadXML(const QDomElement& root,
         fixtureDef = fixtureDefCache->fixtureDef(manufacturer, model);
         if (fixtureDef == NULL)
         {
-            qWarning() << Q_FUNC_INFO << "No fixture definition for"
-                       << manufacturer << model;
+            doc->appendToErrorLog(QString("No fixture definition found for <%1> <%2>")
+                                  .arg(manufacturer)
+                                  .arg(model));
         }
         else
         {
@@ -654,8 +655,8 @@ bool Fixture::loadXML(const QDomElement& root,
             fixtureMode = fixtureDef->mode(modeName);
             if (fixtureMode == NULL)
             {
-                qWarning() << Q_FUNC_INFO << "Fixture mode" << modeName
-                           << "for" << manufacturer << model << "not found";
+                doc->appendToErrorLog(QString("Fixture mode <%1> not found for <%2> <%3>")
+                                      .arg(modeName).arg(manufacturer).arg(model));
 
                 /* Set this also NULL so that a generic dimmer will be
                    created instead as a backup. */
@@ -667,16 +668,18 @@ bool Fixture::loadXML(const QDomElement& root,
     /* Number of channels */
     if (channels <= 0)
     {
-        qWarning() << Q_FUNC_INFO << "Fixture" << name << "channels"
-                   << channels << "out of bounds";
+        doc->appendToErrorLog(QString("%1 channels of fixture <%2> are our of bounds")
+                              .arg(QString::number(channels))
+                              .arg(name));
         channels = 1;
     }
 
     /* Make sure that address is something sensible */
     if (address > 511 || address + (channels - 1) > 511)
     {
-        qWarning() << Q_FUNC_INFO << "Fixture address range" << address << "-"
-                   << address + channels - 1 << "out of DMX bounds";
+        doc->appendToErrorLog(QString("Fixture address range %1-%2 is out of DMX bounds")
+                              .arg(QString::number(address))
+                              .arg(QString::number(address + channels - 1)));
         address = 0;
     }
 

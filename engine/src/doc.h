@@ -533,12 +533,25 @@ public:
      */
     bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
 
+    /**
+     * Append a message to the Doc error log. This can be used to display
+     * errors once a project is loaded.
+     */
+    void appendToErrorLog(QString error);
+
+    /**
+     * Retrieve the error log string, filled during a project load
+     */
+    QString errorLog();
+
 private:
     /**
      * Calls postLoad() for each Function after everything has been loaded
      * to do post-load cleanup & mappings.
      */
     void postLoad();
+
+    QString m_errorLog;
 };
 
 #endif

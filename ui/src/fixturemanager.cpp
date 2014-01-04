@@ -1513,7 +1513,7 @@ void FixtureManager::slotImport()
                     Fixture* fxi = new Fixture(m_doc);
                     Q_ASSERT(fxi != NULL);
 
-                    if (fxi->loadXML(tag, m_doc->fixtureDefCache()) == true)
+                    if (fxi->loadXML(tag, m_doc, m_doc->fixtureDefCache()) == true)
                     {
                         if (m_doc->addFixture(fxi /*, fxi->id()*/) == true)
                         {

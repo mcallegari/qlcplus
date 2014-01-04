@@ -378,7 +378,7 @@ public:
      * @param root An XML subtree containing a single fixture instance
      * @return true if the fixture was loaded successfully, otherwise false
      */
-    bool loadXML(const QDomElement& root,
+    bool loadXML(const QDomElement& root, Doc* doc,
                  const QLCFixtureDefCache* fixtureDefCache);
 
     /**

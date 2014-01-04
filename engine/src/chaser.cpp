@@ -254,7 +254,7 @@ void Chaser::enableSequenceMode(quint32 sceneID)
 {
     m_isSequence = true;
     m_boundSceneID = sceneID;
-    qDebug() << "[enableSequenceMode] bounded to scene ID:" << m_boundSceneID;
+    //qDebug() << "[enableSequenceMode] Sequence" << id() << "bound to scene ID:" << m_boundSceneID;
 }
 
 bool Chaser::isSequence() const

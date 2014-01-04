@@ -1248,7 +1248,6 @@ bool App::loadXML(const QDomDocument& doc, bool goToConsole)
         node = node.nextSibling();
     }
 
-
     if (goToConsole == true)
         // Force the active window to be Virtual Console
         setActiveWindow(VirtualConsole::staticMetaObject.className());
@@ -1258,6 +1257,14 @@ bool App::loadXML(const QDomDocument& doc, bool goToConsole)
 
     // Perform post-load operations
     VirtualConsole::instance()->postLoad();
+
+    if (m_doc->errorLog().isEmpty() == false)
+    {
+        QMessageBox msg(QMessageBox::Warning, tr("Warning"),
+                        tr("Some errors occurred while loading the project:") + "\n\n" + m_doc->errorLog(),
+                        QMessageBox::Ok);
+        msg.exec();
+    }
 
     return true;
 }

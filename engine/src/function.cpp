@@ -244,7 +244,7 @@ void Function::setPath(QString path)
 {
     if (path.contains(typeToString(type())))
         path.remove(typeToString(type()) + "/");
-    qDebug() << "Function " << name() << "path set to:" << path;
+    //qDebug() << "Function " << name() << "path set to:" << path;
     m_path = path;
 }
 
