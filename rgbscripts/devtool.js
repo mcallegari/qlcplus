@@ -103,6 +103,21 @@ function writeCurrentStep()
     var w = document.getElementById("width");
     var h = document.getElementById("height");
     var currentStep = document.getElementById("currentstep");
+    var stepCount = document.getElementById("stepcount");
+    var bicolor = document.getElementById("bicolor");
+
+    var currentRgb = "ff00ff";
+
+    if (bicolor.checked)
+    {
+        var stepCountMinusOne = parseInt(stepCount.value) - 1;
+        stepCountMinusOne = stepCountMinusOne == 0 ? 1 : stepCountMinusOne;
+        var currentR = ((stepCountMinusOne - parseInt(currentStep.value)) / stepCountMinusOne) * 255;
+        var currentG = 0;
+        var currentB = (parseInt(currentStep.value) / stepCountMinusOne) * 255;
+        currentRgb = (Math.round(currentR) * 256 * 256 + Math.round(currentG) * 256 + Math.round(currentB)).toString(16);
+        currentRgb = "000000".substr(0, 6 - currentRgb.length) + currentRgb;
+    }
 
     if (w && h && map && currentStep)
     {
@@ -113,7 +128,7 @@ function writeCurrentStep()
         for (var i = map.rows.length - 1; i >= 0; i--)
             map.deleteRow(i);
 
-        var rgb = testAlgo.rgbMap(width, height, 0x7070FF, step);
+        var rgb = testAlgo.rgbMap(width, height, currentRgb, step);
 
         for (var y = 0; y < height; y++)
         {
