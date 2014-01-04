@@ -631,11 +631,21 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
                 switch (chaser->fadeInMode())
                 {
                     case Chaser::Common:
-                        str += "<td>" + Function::speedToString(chaser->fadeInSpeed()) + "</td>";
-                        break;
+                    {
+                        if (chaser->fadeInSpeed() == Function::infiniteSpeed())
+                            str += "<td>&#8734;</td>";
+                        else
+                            str += "<td>" + Function::speedToString(chaser->fadeInSpeed()) + "</td>";
+                    }
+                    break;
                     case Chaser::PerStep:
-                        str += "<td>" + Function::speedToString(step.fadeIn) + "</td>";
-                        break;
+                    {
+                        if (step.fadeIn == Function::infiniteSpeed())
+                            str += "<td>&#8734;</td>";
+                        else
+                            str += "<td>" + Function::speedToString(step.fadeIn) + "</td>";
+                    }
+                    break;
                     default:
                     case Chaser::Default:
                         str += "<td></td>";
@@ -648,11 +658,21 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
                 switch (chaser->fadeOutMode())
                 {
                     case Chaser::Common:
-                        str += "<td>" + Function::speedToString(chaser->fadeOutSpeed()) + "</td>";
-                        break;
+                    {
+                        if (chaser->fadeOutSpeed() == Function::infiniteSpeed())
+                            str += "<td>&#8734;</td>";
+                        else
+                            str += "<td>" + Function::speedToString(chaser->fadeOutSpeed()) + "</td>";
+                    }
+                    break;
                     case Chaser::PerStep:
-                        str += "<td>" + Function::speedToString(step.fadeOut) + "</td>";
-                        break;
+                    {
+                        if (step.fadeOut == Function::infiniteSpeed())
+                            str += "<td>&#8734;</td>";
+                        else
+                            str += "<td>" + Function::speedToString(step.fadeOut) + "</td>";
+                    }
+                    break;
                     default:
                     case Chaser::Default:
                         str += "<td></td>";
@@ -661,11 +681,21 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
                 switch (chaser->durationMode())
                 {
                     case Chaser::Common:
-                        str += "<td>" + Function::speedToString(chaser->duration()) + "</td>";
-                        break;
+                    {
+                        if (chaser->duration() == Function::infiniteSpeed())
+                            str += "<td>&#8734;</td>";
+                        else
+                            str += "<td>" + Function::speedToString(chaser->duration()) + "</td>";
+                    }
+                    break;
                     case Chaser::PerStep:
-                        str += "<td>" + Function::speedToString(step.duration) + "</td>";
-                        break;
+                    {
+                        if (step.fadeOut == Function::infiniteSpeed())
+                            str += "<td>&#8734;</td>";
+                        else
+                            str += "<td>" + Function::speedToString(step.duration) + "</td>";
+                    }
+                    break;
                     default:
                     case Chaser::Default:
                         str += "<td></td>";
