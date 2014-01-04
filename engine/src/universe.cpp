@@ -104,7 +104,7 @@ bool Universe::hasChanged()
 
 void Universe::slotGMValueChanged()
 {
-    if (m_grandMaster->channelMode() == GrandMaster::Intensity)
+//  if (m_grandMaster->channelMode() == GrandMaster::Intensity)
     {
         QSetIterator <int> it(m_intensityChannels);
         while (it.hasNext() == true)
@@ -135,8 +135,7 @@ void Universe::reset()
 {
     m_preGMValues->fill(0);
     m_postGMValues->fill(0);
-    m_relativeValues.fill(0);
-    //m_doRelative = false;
+    zeroRelativeValues();
 }
 
 void Universe::reset(int address, int range)
@@ -145,8 +144,6 @@ void Universe::reset(int address, int range)
     {
         m_preGMValues->data()[i] = 0;
         m_postGMValues->data()[i] = 0;
-        m_intensityChannels.remove(i);
-        m_nonIntensityChannels.remove(i);
         m_relativeValues[i] = 0;
     }
 }
@@ -268,25 +265,25 @@ void Universe::setChannelCapability(ushort channel, QLCChannel::Group group, boo
 
     if (isHTP == true)
     {
-        qDebug() << "--- Forced HTP";
+        // qDebug() << "--- Forced HTP";
         m_channelsMask->data()[channel] = char(HTP);
     }
     else
     {
         if (group == QLCChannel::Intensity)
         {
-            qDebug() << "--- Intensity + HTP";
+            // qDebug() << "--- Intensity + HTP";
             m_channelsMask->data()[channel] = char(HTP | Intensity);
             m_intensityChannels << channel;
         }
         else
         {
-            qDebug() << "--- LTP";
+            // qDebug() << "--- LTP";
             m_channelsMask->data()[channel] = char(LTP);
             m_nonIntensityChannels << channel;
         }
     }
-    qDebug() << Q_FUNC_INFO << "Channel:" << channel << "mask:" << QString::number(m_channelsMask->at(channel), 16);
+    // qDebug() << Q_FUNC_INFO << "Channel:" << channel << "mask:" << QString::number(m_channelsMask->at(channel), 16);
     return;
 }
 
@@ -320,6 +317,11 @@ bool Universe::write(int channel, uchar value, bool forceLTP)
 
     if (m_preGMValues != NULL)
         m_preGMValues->data()[channel] = char(value);
+
+    int val = m_relativeValues[channel];
+    if (m_preGMValues != NULL)
+        val += (uchar)m_preGMValues->data()[channel];
+    value = CLAMP(val, 0, UCHAR_MAX);
 
     value = applyGM(channel, value);
     m_postGMValues->data()[channel] = char(value);

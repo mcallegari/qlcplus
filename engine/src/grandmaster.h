@@ -24,6 +24,12 @@
 #include <QString>
 #include <QSet>
 
+/** Contains settings for Grand Master
+ *  
+ *  Changing properties in Operate mode is not supported.
+ *  If the need arises, Universe::slotGMValueChanged() needs to be fixed (recompute
+ *  all channels, for the case when mode is changed from AllChannels to Intensity)
+ */
 class GrandMaster: public QObject
 {
     Q_OBJECT

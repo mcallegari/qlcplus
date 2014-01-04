@@ -31,12 +31,16 @@ class Universe_Test : public QObject
 
 private slots:
 
-    void initTestCase();
-    void cleanupTestCase();
+    void init();
+    void cleanup();
 
     void initial();
+    void channelCapabilities();
+    void grandMasterIntensityReduce();
+    void grandMasterIntensityLimit();
+    void grandMasterAllChannelsReduce();
+    void grandMasterAllChannelsLimit();
     void applyGM();
-    void setGMValue();
     void write();
     void writeRelative();
     void reset();
