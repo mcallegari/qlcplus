@@ -19,6 +19,8 @@
 
 #include <QDebug>
 
+#include "webaccess.h"
+
 #include "vcaudiotriggers.h"
 #include "virtualconsole.h"
 #include "commonjscss.h"
@@ -26,7 +28,6 @@
 #include "outputpatch.h"
 #include "inputpatch.h"
 #include "qlcconfig.h"
-#include "webaccess.h"
 #include "vccuelist.h"
 #include "outputmap.h"
 #include "inputmap.h"
@@ -787,46 +788,9 @@ QString WebAccess::getVCHTML()
     return str;
 }
 
-QString WebAccess::getConfigHTML()
+QString WebAccess::getIOConfigHTML()
 {
-
-    m_JScode = "<script language=\"javascript\" type=\"text/javascript\">\n" WEBSOCKET_JS;
-    m_JScode += "function ioChanged(cmd, uni, val)\n"
-            "{\n"
-            " websocket.send(\"QLC+IO|\" + cmd + \"|\" + uni + \"|\" + val);\n"
-            "};\n\n";
-    m_JScode += "</script>\n";
-
-    m_CSScode = "<style>\n"
-            "html { height: 100%; }\n"
-            "body {\n"
-            " margin: 0px;\n"
-            " height: 100%;\n"
-            " background: linear-gradient(to bottom, #45484d 0%, #000000 100%);\n"
-            " background: -webkit-linear-gradient(top, #45484d 0%, #000000 100%);\n"
-            "}\n"
-            HIDDEN_FORM_CSS
-            CONTROL_BAR_CSS
-            BUTTON_BASE_CSS
-            BUTTON_SPAN_CSS
-            BUTTON_STATE_CSS
-            BUTTON_BLUE_CSS
-            SWINFO_CSS
-            TABLE_CSS
-            "</style>\n";
-
-    QString bodyHTML = "<form action=\"/loadFixture\" method=\"POST\" enctype=\"multipart/form-data\">\n"
-                       "<input id=\"loadTrigger\" type=\"file\" "
-                       "onchange=\"document.getElementById('submitTrigger').click();\" name=\"qlcfxi\" />\n"
-                       "<input id=\"submitTrigger\" type=\"submit\"/></form>"
-
-                       "<div class=\"controlBar\">\n"
-                       "<a class=\"button button-blue\" href=\"/\"><span>" + tr("Back") + "</span></a>\n"
-                       "<a class=\"button button-blue\" href=\"javascript:document.getElementById('loadTrigger').click();\">\n"
-                        "<span>" + tr("Load fixture") + "</span></a>\n"
-                       "<div class=\"swInfo\">" + QString(APPNAME) + " " + QString(APPVERSION) + "</div>"
-                       "</div>\n";
-
+    QString html = "";
     InputMap *inMap = m_doc->inputMap();
     OutputMap *outMap = m_doc->outputMap();
 
@@ -858,11 +822,8 @@ QString WebAccess::getConfigHTML()
     feedbackLines.prepend("None, None, -1");
     profiles.prepend("None");
 
-    bodyHTML += "<div style=\"margin: 30px 7% 30px 7%; width: 86%; height: 300px;\" >\n";
-    bodyHTML += "<div style=\"font-family: verdana,arial,sans-serif; font-size:20px; text-align:center; color:#CCCCCC;\">";
-    bodyHTML += tr("Universes configuration") + "</div><br>\n";
-    bodyHTML += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
-    bodyHTML += "<tr><th>Universe</th><th>Input</th><th>Output</th><th>Feedback</th><th>Profile</th></tr>\n";
+    html += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
+    html += "<tr><th>Universe</th><th>Input</th><th>Output</th><th>Feedback</th><th>Profile</th></tr>\n";
 
     for (int i = 0; i < 4; i++)
     {
@@ -874,55 +835,60 @@ QString WebAccess::getConfigHTML()
         quint32 currentFeedback = outMap->feedbackPatch(i)->output();
         QString currentProfileName = inMap->patch(i)->profileName();
 
-        bodyHTML += "<tr align=center><td>Universe " + QString::number(i+1) + "</td>\n";
-        bodyHTML += "<td><select onchange=\"ioChanged('INPUT', " + QString::number(i) + ", this.value);\">\n";
+        html += "<tr align=center><td>Universe " + QString::number(i+1) + "</td>\n";
+        html += "<td><select onchange=\"ioChanged('INPUT', " + QString::number(i) + ", this.value);\">\n";
         for (int in = 0; in < inputLines.count(); in++)
         {
             QStringList strList = inputLines.at(in).split(",");
             QString selected = "";
             if (currentInputPluginName == strList.at(0) && currentInput == strList.at(2).toUInt())
                 selected = "selected";
-            bodyHTML += "<option value=\"" + QString("%1|%2").arg(strList.at(0)).arg(strList.at(2)) + "\" " + selected + ">" +
+            html += "<option value=\"" + QString("%1|%2").arg(strList.at(0)).arg(strList.at(2)) + "\" " + selected + ">" +
                     QString("[%1] %2").arg(strList.at(0)).arg(strList.at(1)) + "</option>\n";
         }
-        bodyHTML += "</select></td>\n";
-        bodyHTML += "<td><select onchange=\"ioChanged('OUTPUT', " + QString::number(i) + ", this.value);\">\n";
+        html += "</select></td>\n";
+        html += "<td><select onchange=\"ioChanged('OUTPUT', " + QString::number(i) + ", this.value);\">\n";
         for (int in = 0; in < outputLines.count(); in++)
         {
             QStringList strList = outputLines.at(in).split(",");
             QString selected = "";
             if (currentOutputPluginName == strList.at(0) && currentOutput == strList.at(2).toUInt())
                 selected = "selected";
-            bodyHTML += "<option value=\"" + QString("%1|%2").arg(strList.at(0)).arg(strList.at(2)) + "\" " + selected + ">" +
+            html += "<option value=\"" + QString("%1|%2").arg(strList.at(0)).arg(strList.at(2)) + "\" " + selected + ">" +
                     QString("[%1] %2").arg(strList.at(0)).arg(strList.at(1)) + "</option>\n";
         }
-        bodyHTML += "</select></td>\n";
-        bodyHTML += "<td><select onchange=\"ioChanged('FB', " + QString::number(i) + ", this.value);\">\n";
+        html += "</select></td>\n";
+        html += "<td><select onchange=\"ioChanged('FB', " + QString::number(i) + ", this.value);\">\n";
         for (int in = 0; in < feedbackLines.count(); in++)
         {
             QStringList strList = feedbackLines.at(in).split(",");
             QString selected = "";
             if (currentFeedbackPluginName == strList.at(0) && currentFeedback == strList.at(2).toUInt())
                 selected = "selected";
-            bodyHTML += "<option value=\"" + QString("%1|%2").arg(strList.at(0)).arg(strList.at(2)) + "\" " + selected + ">" +
+            html += "<option value=\"" + QString("%1|%2").arg(strList.at(0)).arg(strList.at(2)) + "\" " + selected + ">" +
                     QString("[%1] %2").arg(strList.at(0)).arg(strList.at(1)) + "</option>\n";
         }
-        bodyHTML += "</select></td>\n";
-        bodyHTML += "<td><select onchange=\"ioChanged('PROFILE', " + QString::number(i) + ", this.value);\">\n";
+        html += "</select></td>\n";
+        html += "<td><select onchange=\"ioChanged('PROFILE', " + QString::number(i) + ", this.value);\">\n";
         for (int p = 0; p < profiles.count(); p++)
         {
             QString selected = "";
             if (currentProfileName == profiles.at(p))
                 selected = "selected";
-            bodyHTML += "<option value=\"" + profiles.at(p) + "\" " + selected + ">" + profiles.at(p) + "</option>\n";
+            html += "<option value=\"" + profiles.at(p) + "\" " + selected + ">" + profiles.at(p) + "</option>\n";
         }
-        bodyHTML += "</select></td>\n";
+        html += "</select></td>\n";
 
-        bodyHTML += "</tr>\n";
+        html += "</tr>\n";
     }
-    bodyHTML += "</table>\n";
+    html += "</table>\n";
 
-    // ********************* audio devices ********************
+    return html;
+}
+
+QString WebAccess::getAudioConfigHTML()
+{
+    QString html = "";
     QList<AudioDeviceInfo> devList;
 
 #if defined( __APPLE__) || defined(Q_OS_MAC)
@@ -933,12 +899,9 @@ QString WebAccess::getConfigHTML()
     devList = AudioRendererAlsa::getDevicesInfo();
 #endif
 
-    bodyHTML += "<div style=\"margin: 30px 7% 30px 7%; width: 86%; height: 300px;\" >\n";
-    bodyHTML += "<div style=\"font-family: verdana,arial,sans-serif; font-size:20px; text-align:center; color:#CCCCCC;\">";
-    bodyHTML += tr("Audio configuration") + "</div><br>\n";
-    bodyHTML += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
-    bodyHTML += "<tr><th>Input</th><th>Output</th></tr>\n";
-    bodyHTML += "<tr align=center>";
+    html += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
+    html += "<tr><th>Input</th><th>Output</th></tr>\n";
+    html += "<tr align=center>";
 
     QString audioInSelect = "<td><select onchange=\"ioChanged('AUDIOIN', this.value);\">\n"
                             "<option value=\"__qlcplusdefault__\">Default device</option>\n";
@@ -968,7 +931,94 @@ QString WebAccess::getConfigHTML()
     }
     audioInSelect += "</select></td>\n";
     audioOutSelect += "</select></td>\n";
-    bodyHTML += audioInSelect + audioOutSelect + "</tr>\n</table>\n";
+    html += audioInSelect + audioOutSelect + "</tr>\n</table>\n";
+
+    return html;
+}
+
+QString WebAccess::getUserFixturesConfigHTML()
+{
+    QString html = "";
+    QDir userFx = QLCFixtureDefCache::userDefinitionDirectory();
+
+    if (userFx.exists() == false || userFx.isReadable() == false)
+        return "";
+
+    //html += "<div style=\"width: 100%; height: " + QString::number(cue->height() - 32) + "px; overflow: scroll;\" >\n";
+    html += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
+    html += "<tr><th>File name</th></tr>\n";
+
+    /* Attempt to read all specified files from the given directory */
+    QStringListIterator it(userFx.entryList());
+    while (it.hasNext() == true)
+    {
+        QString path(it.next());
+
+        if (path.toLower().endsWith(".qxf") == true ||
+            path.toLower().endsWith(".d4"))
+                html += "<tr><td>" + path + "</td></tr>\n";
+    }
+    html += "</table>\n";
+
+    return html;
+}
+
+QString WebAccess::getConfigHTML()
+{
+    m_JScode = "<script language=\"javascript\" type=\"text/javascript\">\n" WEBSOCKET_JS;
+    m_JScode += "function ioChanged(cmd, uni, val)\n"
+            "{\n"
+            " websocket.send(\"QLC+IO|\" + cmd + \"|\" + uni + \"|\" + val);\n"
+            "};\n\n";
+    m_JScode += "</script>\n";
+
+    m_CSScode = "<style>\n"
+            "html { height: 100%; background-color: #111; }\n"
+            "body {\n"
+            " margin: 0px;\n"
+            " background-image: linear-gradient(to bottom, #45484d 0%, #111 100%);\n"
+            " background-image: -webkit-linear-gradient(top, #45484d 0%, #111 100%);\n"
+            "}\n"
+            HIDDEN_FORM_CSS
+            CONTROL_BAR_CSS
+            BUTTON_BASE_CSS
+            BUTTON_SPAN_CSS
+            BUTTON_STATE_CSS
+            BUTTON_BLUE_CSS
+            SWINFO_CSS
+            TABLE_CSS
+            "</style>\n";
+
+    QString bodyHTML = "<form action=\"/loadFixture\" method=\"POST\" enctype=\"multipart/form-data\">\n"
+                       "<input id=\"loadTrigger\" type=\"file\" "
+                       "onchange=\"document.getElementById('submitTrigger').click();\" name=\"qlcfxi\" />\n"
+                       "<input id=\"submitTrigger\" type=\"submit\"/></form>"
+
+                       "<div class=\"controlBar\">\n"
+                       "<a class=\"button button-blue\" href=\"/\"><span>" + tr("Back") + "</span></a>\n"
+                       "<a class=\"button button-blue\" href=\"javascript:document.getElementById('loadTrigger').click();\">\n"
+                        "<span>" + tr("Load fixture") + "</span></a>\n"
+                       "<div class=\"swInfo\">" + QString(APPNAME) + " " + QString(APPVERSION) + "</div>"
+                       "</div>\n";
+
+    // ********************* IO mapping ***********************
+    bodyHTML += "<div style=\"margin: 30px 7% 30px 7%; width: 86%; height: 300px;\" >\n";
+    bodyHTML += "<div style=\"font-family: verdana,arial,sans-serif; font-size:20px; text-align:center; color:#CCCCCC;\">";
+    bodyHTML += tr("Universes configuration") + "</div><br>\n";
+    bodyHTML += getIOConfigHTML();
+
+    // ********************* audio devices ********************
+    bodyHTML += "<div style=\"margin: 30px 7% 30px 7%; width: 86%; height: 300px;\" >\n";
+    bodyHTML += "<div style=\"font-family: verdana,arial,sans-serif; font-size:20px; text-align:center; color:#CCCCCC;\">";
+    bodyHTML += tr("Audio configuration") + "</div><br>\n";
+    bodyHTML += getAudioConfigHTML();
+
+    // **************** User loaded fixtures ******************
+
+    bodyHTML += "<div style=\"margin: 30px 7% 30px 7%; width: 86%; height: 300px;\" >\n";
+    bodyHTML += "<div style=\"font-family: verdana,arial,sans-serif; font-size:20px; text-align:center; color:#CCCCCC;\">";
+    bodyHTML += tr("User loaded fixtures") + "</div><br>\n";
+    bodyHTML += getUserFixturesConfigHTML();
 
     QString str = HTML_HEADER + m_JScode + m_CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";
 

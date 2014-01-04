@@ -60,6 +60,10 @@ private:
 
     QString getChildrenHTML(VCWidget *frame);
     QString getVCHTML();
+
+    QString getIOConfigHTML();
+    QString getAudioConfigHTML();
+    QString getUserFixturesConfigHTML();
     QString getConfigHTML();
 
 protected slots:

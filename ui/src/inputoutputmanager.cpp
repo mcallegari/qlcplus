@@ -224,6 +224,8 @@ void InputOutputManager::slotMappingChanged()
     {
         uint universe = item->text(KColumnUniverse).toUInt() - 1;
         updateItem(item, universe);
+        m_doc->outputMap()->saveDefaults();
+        m_doc->inputMap()->saveDefaults();
     }
 }
 
