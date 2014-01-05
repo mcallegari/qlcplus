@@ -82,7 +82,7 @@
         <file alias="input_output.png">../../gfx/input_output.png</file>
         <file alias="intensity.png">../../gfx/intensity.png</file>
         <file alias="laser.png">../../gfx/laser.png</file>
-	    <file alias="liveedit.png">../../gfx/liveedit.png</file>
+        <file alias="liveedit.png">../../gfx/liveedit.png</file>
         <file alias="keyboard.png">../../gfx/keyboard.png</file>
         <file alias="key_bindings.png">../../gfx/key_bindings.png</file>
         <file alias="knob.png">../../gfx/knob.png</file>
@@ -90,7 +90,6 @@
         <file alias="monitor.png">../../gfx/monitor.png</file>
         <file alias="movinghead.png">../../gfx/movinghead.png</file>
         <file alias="operate.png">../../gfx/operate.png</file>
-        <file alias="output.png">../../gfx/output.png</file>
         <file alias="other.png">../../gfx/other.png</file>
         <file alias="pan.png">../../gfx/pan.png</file>
         <file alias="panic.png">../../gfx/panic.png</file>

@@ -346,39 +346,60 @@ heads simultaneously.
 <A NAME="HTP" HREF="#HTP"><H3>HTP (Highest Takes Precedence)</H3></A>
 
 <P>
-All channels that have been assigned to the <B>Intensity</B> group obey the very simple
-HTP rule: The highest value (nearer 100%) that is currently set on the channel is the one
-that gets sent out to the DMX universe. The generic intensity channels will normaly be used for dimmers
-that control the <I>light intensity</I>, but there is also the option to identify the channels as controlling the intensity of a colour, typically in a LED fixture.
+HTP is a rule that decides what level is sent to out to a DMX universe by a channel when the channel is being controlled by more than 
+one <A HREF="#Functions">function</A> or Virtual Console widget. Generally, intensity channels obey the HTP rule. This includes generic intensity channels used to control <I>light intensity</I> with dimmers and also channels controlling the intensity of a colour, typically in an LED fixture.
+</P>
+<P>
+The HTP rule is simple: the highest level (nearer 100%) that is currently being sent to a channel is the one
+that gets sent out to the DMX universe.
+
 </P>
 <P>
 Let's say you have two sliders that control
-the same intensity channel. First, you set slider 1 to 50% and then move slider 2 from zero to 75%; as long
-as slider 2 is below 50% nothing happens, but after crossing the 50% value set by slider 1,
-the light intensity increased up to 75%. If you drag slider 2 again to 0%, the light
-intensity decreases until it reaches the 50% set by slider 1 and stays there until slider 1
-is dragged down. See also <A HREF="concept.html#LTP">LTP</A>.
+the same intensity channel. First, you set slider 1 to 50% and then move slider 2 from 0% to 75%. As long
+as slider 2 is below 50% nothing happens, but after crossing the 50% level set by slider 1,
+the light intensity increases up to 75%. If you drag slider 2 again towards 0%, the light
+intensity decreases until it reaches the 50% set by slider 1 and stays at 50% until slider 1
+is dragged down. 
+</P>
+<P>
+A crossfade between 2 <A HREF="file:concept.html#Scene">Scenes</A>  will replace the HTP levels in the first scene with the HTP levels of the second.
+The new HTP levels will be combined with HTP levels from other functions and virtual console widgets as above.
+See also <A HREF="concept.html#LTP">LTP</A>.
 </P>
 
-<H3><IMG SRC="qrc:/input.png"> <A NAME="InputPlugins" HREF="#InputPlugins">Input plugins</A></H3>
+<H3><IMG SRC="qrc:/input_output.png"> <A NAME="InputOutputPlugins" HREF="#InputOutputPlugins">Input/Output plugins</A></H3>
 
+<P>
+QLC+ supports a variety of plugins to send and receive data from/to the external world.<br>
+A plugin can be an interface to physical devices (such as DMX adapters or MIDI controllers) or
+to a network protocol (such as <A HREF="file:artnetplugin.html">ArtNet</A>, 
+<A HREF="file:oscplugin.html">OSC</A> or <A HREF="file:e131plugin.html">E1.31</A>).<br>
+Plugins support input, output or feedback capabilities depending on the device or the protocol they're
+controlling.<BR>
+</P>
 <P>
 The primary input methods for QLC+ are naturally the keyboard and mouse. Users can
-attach keyboard keys to virtual console buttons and drag sliders and do pretty
-much everything with a mouse. It is possible to attach additional input devices
-to one's computer to alleviate the rather clumsy and slow user experience that
-is achieved with a regular mouse and a keyboard. Special input plugins provide
-capabilities for getting external devices (mainly slider boards) to produce
-input data to various QLC+ elements.
+assign keyboard keys to virtual console buttons and drag sliders and do pretty
+much everything with a mouse.
 </P>
-
-<A NAME="Input" HREF="#Input"><H3>Input (line)</H3></A>
-
 <P>
-An input is a physical input line provided by some hardware which is accessed
+Although, with plugins it is possible to attach additional input devices
+to one's computer to alleviate the rather clumsy and slow user experience that
+is achieved with a regular mouse and a keyboard. Plugins supporting an input line provide
+capabilities for getting external devices to produce input data to various QLC+ elements.
+</P>
+<P>
+An input line is a connection provided by some hardware or network which is accessed
 through an input plugin. It can be, for example, a MIDI IN connector in the user's
 computer (or peripheral) to which users can connect MIDI-capable input devices
 like slider boards etc.
+</P>
+<P>
+An output line is a connection provided by a hardware or network which is accessed
+through an output plugin. In other words, it is a real DMX universe, but has been
+dubbed <u>output</u> to separate it from QLC+'s internal universes. You could
+think of them as individual XLR output connectors in your DMX hardware.
 </P>
 
 <A NAME="InputProfiles" HREF="#InputProfiles"><H3>Input profiles</H3></A>
@@ -393,11 +414,15 @@ Korg nanoKONTROL, an Enttec Playback Wing...
 <A NAME="LTP" HREF="#LTP"><H3>LTP (Latest Takes Precedence)</H3></A>
 
 <P>
-All channels, other than those that have been assigned to the <B>Intensity</B> group, obey the very simple
-LTP rule: The latest value that was set by a function or a slider gets sent out to the DMX
-universe. This scheme is useful for <I>intelligent fixture parameters</I> not related to
-<I>intensity</I>. For example, a gobo change is expected to happen immediately, regardless
-of what some other control has done to it. See also <A HREF="concept.html#HTP">HTP</A>.
+LTP is a rule that decides what level is sent to out to a DMX universe by a channel when the channel is being controlled by more than 
+one <A HREF="#Functions">function</A> or Virtual Console widget. Generally, it is used for channels that have been assigned to groups other than the <B>Intensity</B> group, such as pan, tilt, gobo, strobe speed and other <I>intelligent fixture parameters</I>
+</P>
+<P>
+The LTP rule is simple: the latest level that has been set by a function or a Virtual Console widget gets sent out to the DMX
+universe. 
+</P>
+<P>
+During a crossfade between <A HREF="file:concept.html#Scene">Scenes</A> , LTP levels will often be changed. This has to be handled with some care as some LTP levels need to jump immediately to a new level, for example, changing from one gobo to another. LTP groups such as pan and tilt, however, might need to change gradually from one level to another during a crossfade. Different timings can be achieved by combining scenes in a <A HREF="#Collection">Collection</A> . See also <A HREF="concept.html#HTP">HTP</A>.
 </P>
 
 <H3><IMG SRC="qrc:/operate.png"> <A NAME="Modes" HREF="#Modes">Modes</A></H3>
@@ -414,23 +439,6 @@ create and edit <A HREF="#Functions">functions</A> and
 <LI><U>Operate mode</U> is meant to execute the created functions that
 eventually control the user's lighting fixtures.</LI>
 </UL>
-
-<H3><IMG SRC="qrc:/output.png"> <A NAME="Output" HREF="#OutputPlugins">Output plugins</A></H3>
-
-<P>
-DMX output is achieved through output plugins that can support one or more
-output lines. It is also possible to run QLC+ without actual DMX
-hardware.
-</P>
-
-<A NAME="Output" HREF="#Output"><H3>Output (line)</H3></A>
-
-<P>
-An output is a physical output line provided by a hardware device which is accessed
-through an output plugin. In other words, it is a real DMX universe, but has been
-dubbed <u>output</u> to separate it from QLC+'s internal universes. You could
-think of them as individual XLR output connectors in your DMX hardware.
-</P>
 
 <H3><IMG SRC="qrc:/rgbmatrix.png"> <A NAME="RGBMatrix" HREF="#RGBMatrix">RGB Matrix</A></H3>
 
