@@ -440,7 +440,7 @@ QDir InputMap::userProfileDirectory()
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     // If the current user is root, return the system profile dir.
     // Otherwise return the user's home dir.
-    if (geteuid() == 0)
+    if (geteuid() == 0 && QLCFile::isRaspberry() == false)
         dir = QDir(INPUTPROFILEDIR);
     else
         dir.setPath(QString("%1/%2").arg(getenv("HOME")).arg(USERINPUTPROFILEDIR));

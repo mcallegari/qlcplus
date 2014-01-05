@@ -264,11 +264,10 @@ QDir QLCFixtureDefCache::userDefinitionDirectory()
 {
     QDir dir;
 
-
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     // If the current user is root, return the system fixture dir.
     // Otherwise return a path under user's home dir.
-    if (geteuid() == 0)
+    if (geteuid() == 0 && QLCFile::isRaspberry() == false)
         dir = QDir(FIXTUREDIR);
     else
         dir.setPath(QString("%1/%2").arg(getenv("HOME")).arg(USERFIXTUREDIR));

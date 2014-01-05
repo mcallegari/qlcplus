@@ -103,7 +103,6 @@ App::App()
     QCoreApplication::setOrganizationName("qlcplus");
     QCoreApplication::setOrganizationDomain("sf.net");
     QCoreApplication::setApplicationName(APPNAME);
-
 }
 
 App::~App()
@@ -187,7 +186,7 @@ void App::init()
             resize(size);
         else
         {
-            if (isRaspberry())
+            if (QLCFile::isRaspberry())
             {
                 QRect geometry = qApp->desktop()->availableGeometry();
                 // if we're on a Raspberry Pi, introduce a 5% margin
@@ -280,24 +279,6 @@ void App::setActiveWindow(const QString& name)
             break;
         }
     }
-}
-
-bool App::isRaspberry()
-{
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-    QFile cpuInfoFile("/proc/cpuinfo");
-    if (cpuInfoFile.exists() == true)
-    {
-        cpuInfoFile.open(QFile::ReadOnly);
-        QString content = QLatin1String(cpuInfoFile.readAll());
-        cpuInfoFile.close();
-        if (content.contains("BCM2708"))
-            return true;
-    }
-    return false;
-#else
-    return false;
-#endif
 }
 
 void App::closeEvent(QCloseEvent* e)
