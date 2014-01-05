@@ -373,10 +373,21 @@ void VCXYPadFixture::arm()
     }
     else
     {
-       m_xMSB = fxi->panMsbChannel(m_head.head) + fxi->universeAddress();
-       m_xLSB = fxi->panLsbChannel(m_head.head) + fxi->universeAddress();
-       m_yMSB = fxi->tiltMsbChannel(m_head.head) + fxi->universeAddress();
-       m_yLSB = fxi->tiltLsbChannel(m_head.head) + fxi->universeAddress();
+       m_xMSB = fxi->panMsbChannel(m_head.head);
+       if (m_xMSB != QLCChannel::invalid() )
+           m_xMSB += fxi->universeAddress();
+
+       m_xLSB = fxi->panLsbChannel(m_head.head);
+       if (m_xLSB != QLCChannel::invalid() )
+           m_xLSB += fxi->universeAddress();
+
+       m_yMSB = fxi->tiltMsbChannel(m_head.head);
+       if (m_yMSB != QLCChannel::invalid() )
+           m_yMSB += fxi->universeAddress();
+
+       m_yLSB = fxi->tiltLsbChannel(m_head.head);
+       if (m_yLSB != QLCChannel::invalid() )
+           m_yLSB += fxi->universeAddress();
     }
 }
 
