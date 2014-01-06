@@ -298,6 +298,7 @@ fixtures.files += Stairville-LED-PAR56.qxf
 fixtures.files += Stairville-LED_BAR_RGB_252.qxf
 fixtures.files += Stairville-Matrixx-FL-110-DMX.qxf
 fixtures.files += Stairville-MH-360.qxf
+fixtures.files += Stairville-MH-X20.qxf
 fixtures.files += Stairville-MH-X25.qxf
 fixtures.files += Stairville-MH-X50.qxf
 fixtures.files += Stairville-PAR64-CX-3-RGBW.qxf
@@ -314,7 +315,7 @@ fixtures.files += Varytec-Easy-Move-LED-XS-Wash.qxf
 fixtures.files += Varytec-Gigabar-II.qxf
 fixtures.files += Varytec-RGB-LED-Spot-38.qxf
 fixtures.files += Venue-LEDPAR64.qxf
-
+fixtures.files += Venue-Scanner-4.qxf
 
 fixtures.path = $$INSTALLROOT/$$FIXTUREDIR
 INSTALLS += fixtures

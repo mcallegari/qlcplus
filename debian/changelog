@@ -17,9 +17,10 @@ qlcplus (4.6.1) stable; urgency=low
   * Added fixture: Proel Analogue Dimmer 6Ch (thanks to Lorenzo Andreani)
   * Added fixture: Ledj Tri LED back drop controller (thanks to Michael Clements)
   * Added fixture: Eurolite PST 9W RGB (thanks to Joa Palmer)
-  * Added fixture: Chauvet LED Techno Strobe RGB (thanks to Davey Daytona)
+  * Added fixtures: Chauvet LED Techno Strobe RGB, Venue Scanner 4 (thanks to Davey Daytona)
   * Added fixture: American DJ Fusion FX Bar 5 (thanks to DJ Drew)
   * Added fixture: Pro-Lights LumiPAR 12Q (thanks to Alessandro Grechi)
+  * Added fixture: Stairville MH-X20 (thanks to Kristo)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 25 January 2014 12:13:04 +0200
 
