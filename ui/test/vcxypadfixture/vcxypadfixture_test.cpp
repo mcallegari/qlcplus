@@ -573,14 +573,15 @@ void VCXYPadFixture_Test::arm8bit()
     QLCFixtureMode* mode = def->modes().first();
     QVERIFY(mode != NULL);
     fxi->setFixtureDefinition(def, mode);
+    fxi->setAddress(50);
     m_doc->addFixture(fxi);
 
     VCXYPadFixture xy(m_doc);
     xy.setHead(GroupHead(fxi->id(), 0));
     xy.arm();
-    QCOMPARE(xy.m_xMSB, quint32(0));
+    QCOMPARE(xy.m_xMSB, quint32(50));
     QCOMPARE(xy.m_xLSB, QLCChannel::invalid());
-    QCOMPARE(xy.m_yMSB, quint32(1));
+    QCOMPARE(xy.m_yMSB, quint32(51));
     QCOMPARE(xy.m_yLSB, QLCChannel::invalid());
 
     m_doc->deleteFixture(fxi->id());
@@ -668,6 +669,8 @@ void VCXYPadFixture_Test::write8bitNoReverse()
         QCOMPARE(ua.preGMValues()[1], char(y >> 8));
         QCOMPARE(ua.preGMValues()[2], char(0));
         QCOMPARE(ua.preGMValues()[3], char(0));
+        QCOMPARE(ua.preGMValues()[4], char(0));
+        QCOMPARE(ua.preGMValues()[5], char(0));
     }
 }
 
@@ -699,6 +702,8 @@ void VCXYPadFixture_Test::write8bitReverse()
         QCOMPARE(ua.preGMValues()[1], char(y >> 8));
         QCOMPARE(ua.preGMValues()[2], char(0));
         QCOMPARE(ua.preGMValues()[3], char(0));
+        QCOMPARE(ua.preGMValues()[4], char(0));
+        QCOMPARE(ua.preGMValues()[5], char(0));
     }
 }
 

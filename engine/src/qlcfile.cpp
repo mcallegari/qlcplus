@@ -164,3 +164,21 @@ QString QLCFile::currentUserName()
         return QString(passwd->pw_gecos);
 #endif
 }
+
+bool QLCFile::isRaspberry()
+{
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+    QFile cpuInfoFile("/proc/cpuinfo");
+    if (cpuInfoFile.exists() == true)
+    {
+        cpuInfoFile.open(QFile::ReadOnly);
+        QString content = QLatin1String(cpuInfoFile.readAll());
+        cpuInfoFile.close();
+        if (content.contains("BCM2708"))
+            return true;
+    }
+    return false;
+#else
+    return false;
+#endif
+}

@@ -234,7 +234,7 @@ bool AddFixture::invalidAddress()
 void AddFixture::fillTree(const QString& selectManufacturer,
                           const QString& selectModel)
 {
-    QTreeWidgetItem* parent;
+    QTreeWidgetItem* parent = NULL;
     QTreeWidgetItem* child;
     QString manuf;
     QString model;

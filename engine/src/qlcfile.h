@@ -88,6 +88,11 @@ public:
      * @return Current user name.
      */
     static QString currentUserName();
+
+    /**
+     * Return if the current platform is a Raspberry Pi
+     */
+    static bool isRaspberry();
 };
 
 #endif
