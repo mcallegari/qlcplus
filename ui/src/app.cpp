@@ -444,6 +444,8 @@ void App::enableKioskMode()
     // Turn on operate mode
     m_doc->setKiosk(true);
     m_doc->setMode(Doc::Operate);
+    if (VirtualConsole::instance()->checkStartupFunction(m_doc->startupFunction()) == false)
+        m_doc->checkStartupFunction();
 
     // No need for these
     m_tab->removeTab(m_tab->indexOf(FixtureManager::instance()));
@@ -470,6 +472,8 @@ void App::createKioskCloseButton(const QRect& rect)
 void App::slotModeOperate()
 {
     m_doc->setMode(Doc::Operate);
+    if (VirtualConsole::instance()->checkStartupFunction(m_doc->startupFunction()) == false)
+        m_doc->checkStartupFunction();
 }
 
 void App::slotModeDesign()

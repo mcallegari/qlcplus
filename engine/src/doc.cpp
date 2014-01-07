@@ -273,12 +273,6 @@ void Doc::setMode(Doc::Mode mode)
     if (m_mode == mode)
         return;
     m_mode = mode;
-    if (mode == Operate && m_startupFunctionId != Function::invalidId())
-    {
-        Function *func = function(m_startupFunctionId);
-        if (func != NULL)
-           func->start(masterTimer());
-    }
 
     emit modeChanged(m_mode);
 }
@@ -864,6 +858,20 @@ void Doc::setStartupFunction(quint32 fid)
 quint32 Doc::startupFunction()
 {
     return m_startupFunctionId;
+}
+
+bool Doc::checkStartupFunction()
+{
+    if (m_mode == Operate && m_startupFunctionId != Function::invalidId())
+    {
+        Function *func = function(m_startupFunctionId);
+        if (func != NULL)
+        {
+            func->start(masterTimer());
+            return true;
+        }
+    }
+    return false;
 }
 
 void Doc::slotFunctionChanged(quint32 fid)
