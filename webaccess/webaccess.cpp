@@ -18,6 +18,7 @@
 */
 
 #include <QDebug>
+#include <QProcess>
 
 #include "webaccess.h"
 
@@ -37,6 +38,7 @@
 #include "function.h"
 #include "vclabel.h"
 #include "vcframe.h"
+#include "qlcfile.h"
 #include "chaser.h"
 #include "doc.h"
 
@@ -52,6 +54,7 @@
 #endif
 
 #define POST_DATA_SIZE 1024
+#define IFACES_SYSTEM_FILE "/etc/network/interfaces"
 
 WebAccess* s_instance = NULL;
 
@@ -101,6 +104,7 @@ WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, QObject *parent) :
 WebAccess::~WebAccess()
 {
     mg_stop(m_ctx);
+    m_interfaces.clear();
 }
 
 QString WebAccess::loadXMLPost(mg_connection *conn, QString &filename)
@@ -189,6 +193,10 @@ int WebAccess::beginRequestHandler(mg_connection *conn)
   {
       content = getConfigHTML();
   }
+  else if (QString(ri->uri) == "/system")
+  {
+      content = getSystemConfigHTML();
+  }
   else if (QString(ri->uri) == "/loadFixture")
   {
       QString fxName;
@@ -274,16 +282,28 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
         int universe = cmdList[2].toInt();
 
         if (cmdList[1] == "INPUT")
+        {
             m_doc->inputMap()->setPatch(universe, cmdList[3], cmdList[4].toUInt());
+            m_doc->inputMap()->saveDefaults();
+        }
         else if (cmdList[1] == "OUTPUT")
+        {
             m_doc->outputMap()->setPatch(universe, cmdList[3], cmdList[4].toUInt(), false);
+            m_doc->outputMap()->saveDefaults();
+        }
         else if (cmdList[1] == "FB")
+        {
             m_doc->outputMap()->setPatch(universe, cmdList[3], cmdList[4].toUInt(), true);
+            m_doc->outputMap()->saveDefaults();
+        }
         else if (cmdList[1] == "PROFILE")
         {
             InputPatch *inPatch = m_doc->inputMap()->patch(universe);
             if (inPatch != NULL)
+            {
                 m_doc->inputMap()->setPatch(universe, inPatch->pluginName(), inPatch->input(), cmdList[3]);
+                m_doc->inputMap()->saveDefaults();
+            }
         }
         else if (cmdList[1] == "AUDIOIN")
         {
@@ -308,6 +328,35 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
             qDebug() << "[webaccess] Command" << cmdList[1] << "not supported !";
 
         return 1;
+    }
+    else if(cmdList[0] == "QLC+SYS")
+    {
+        if (cmdList.at(1) == "NETWORK")
+        {
+            for (int i = 0; i < m_interfaces.count(); i++)
+            {
+                if (m_interfaces.at(i).name == cmdList.at(2))
+                {
+                    if (cmdList.at(3) == "static")
+                        m_interfaces[i].isStatic = true;
+                    else
+                        m_interfaces[i].isStatic = false;
+                    m_interfaces[i].address = cmdList.at(4);
+                    m_interfaces[i].netmask = cmdList.at(5);
+                    m_interfaces[i].gateway = cmdList.at(6);
+                    if (writeNetworkFile() == false)
+                        qDebug() << "[webaccess] Error writing network configuration file !";
+                    return 1;
+                }
+            }
+            qDebug() << "[webaccess] Error: interface" << cmdList.at(2) << "not found !";
+            return 1;
+        }
+        else if (cmdList.at(1) == "REBOOT")
+        {
+            QProcess *rebootProcess = new QProcess();
+            rebootProcess->start("reboot", QStringList());
+        }
     }
     else if(cmdList[0] == "POLL")
         return 1;
@@ -974,7 +1023,6 @@ QString WebAccess::getUserFixturesConfigHTML()
     if (userFx.exists() == false || userFx.isReadable() == false)
         return "";
 
-    //html += "<div style=\"width: 100%; height: " + QString::number(cue->height() - 32) + "px; overflow: scroll;\" >\n";
     html += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
     html += "<tr><th>File name</th></tr>\n";
 
@@ -989,6 +1037,8 @@ QString WebAccess::getUserFixturesConfigHTML()
                 html += "<tr><td>" + path + "</td></tr>\n";
     }
     html += "</table>\n";
+    html += "<br><a class=\"button button-blue\" href=\"javascript:document.getElementById('loadTrigger').click();\">\n"
+     "<span>" + tr("Load fixture") + "</span></a>\n";
 
     return html;
 }
@@ -1019,15 +1069,20 @@ QString WebAccess::getConfigHTML()
             TABLE_CSS
             "</style>\n";
 
+    QString extraButtons = "";
+    if (QLCFile::isRaspberry() == true)
+    {
+        extraButtons = "<a class=\"button button-blue\" href=\"/system\"><span>" + tr("System") + "</span></a>\n";
+    }
+
     QString bodyHTML = "<form action=\"/loadFixture\" method=\"POST\" enctype=\"multipart/form-data\">\n"
                        "<input id=\"loadTrigger\" type=\"file\" "
                        "onchange=\"document.getElementById('submitTrigger').click();\" name=\"qlcfxi\" />\n"
                        "<input id=\"submitTrigger\" type=\"submit\"/></form>"
 
                        "<div class=\"controlBar\">\n"
-                       "<a class=\"button button-blue\" href=\"/\"><span>" + tr("Back") + "</span></a>\n"
-                       "<a class=\"button button-blue\" href=\"javascript:document.getElementById('loadTrigger').click();\">\n"
-                        "<span>" + tr("Load fixture") + "</span></a>\n"
+                       "<a class=\"button button-blue\" href=\"/\"><span>" + tr("Back") + "</span></a>\n" +
+                       extraButtons +
                        "<div class=\"swInfo\">" + QString(APPNAME) + " " + QString(APPVERSION) + "</div>"
                        "</div>\n";
 
@@ -1053,6 +1108,209 @@ QString WebAccess::getConfigHTML()
     QString str = HTML_HEADER + m_JScode + m_CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";
 
     return str;
+}
+
+void WebAccess::resetInterface(InterfaceInfo *iface)
+{
+    iface->name = "";
+    iface->isStatic = false;
+    iface->address = "";
+    iface->gateway = "";
+    iface->gateway = "";
+}
+
+void WebAccess::appendInterface(InterfaceInfo iface)
+{
+    m_interfaces.append(iface);
+}
+
+QString WebAccess::getInterfaceHTML(InterfaceInfo *iface)
+{
+    QString dhcpChk = iface->isStatic?QString():QString("checked");
+    QString staticChk = iface->isStatic?QString("checked"):QString();
+    QString visibility = iface->isStatic?QString("visible"):QString("hidden");
+    QString html = "<div style=\"margin: 20px 7% 20px 7%; width: 86%;\" >\n";
+    html += "<div style=\"font-family: verdana,arial,sans-serif; padding: 5px 7px; font-size:20px; "
+            "color:#CCCCCC; background:#222; border-radius: 7px;\">";
+    html += tr("Network interface: ") + iface->name + "<br>\n";
+
+    html += "<form style=\"margin: 5px 15px; color:#FFF;\">\n";
+    html += "<input type=\"radio\" name=" + iface->name + "NetGroup onclick=\"showStatic('" + iface->name + "', false);\" value=\"dhcp\" " +
+            dhcpChk + ">" + tr("Dynamic (DHCP)") + "<br>\n";
+    html += "<input type=\"radio\" name=" + iface->name + "NetGroup onclick=\"showStatic('" + iface->name + "', true);\" value=\"static\" " +
+            staticChk + ">" + tr("Static") + "<br>\n";
+    html += "<div id=\"" + iface->name + "StaticFields\" style=\"padding: 5px 30px; visibility:" + visibility + ";\">\n";
+    html += tr("IP Address: ") + "<input type=\"text\" id=\"" + iface->name + "IPaddr\" size=\"15\" value=\"" + iface->address + "\"><br>\n";
+    html += tr("Netmask: ") + "<input type=\"text\" id=\"" + iface->name + "Netmask\" size=\"15\" value=\"" + iface->netmask + "\"><br>\n";
+    html += tr("Gateway: ") + "<input type=\"text\" size=\"15\" id=\"" + iface->name + "Gateway\" value=\"" + iface->gateway + "\"><br>\n";
+    html += "</div>\n";
+    html += "<input type=\"button\" value=\"" + tr("Apply changes") + "\" onclick=\"applyParams('" + iface->name + "');\" >\n";
+    html += "</form></div></div>";
+
+    return html;
+}
+
+QString WebAccess::getNetworkHTML()
+{
+    QFile netFile(IFACES_SYSTEM_FILE);
+    if (netFile.open(QIODevice::ReadOnly | QIODevice::Text) == false)
+        return "";
+
+    m_interfaces.clear();
+    InterfaceInfo currInterface;
+    resetInterface(&currInterface);
+
+    QString html = "";
+
+    QTextStream in(&netFile);
+    while ( !in.atEnd() )
+    {
+        QString line = in.readLine();
+        line = line.simplified();
+        // ignore comments
+        if (line.startsWith('#'))
+            continue;
+
+        QStringList ifaceRow = line.split(" ");
+        if (ifaceRow.count() == 0)
+            continue;
+
+        QString keyword = ifaceRow.at(0);
+        if (keyword == "iface")
+        {
+            if (currInterface.isStatic == true)
+            {
+                html += getInterfaceHTML(&currInterface);
+                appendInterface(currInterface);
+                resetInterface(&currInterface);
+            }
+
+            if (ifaceRow.count() < 4)
+                continue;
+            currInterface.name = ifaceRow.at(1);
+            if (ifaceRow.at(3) == "dhcp")
+            {
+                html += getInterfaceHTML(&currInterface);
+                appendInterface(currInterface);
+                resetInterface(&currInterface);
+            }
+            else if (ifaceRow.at(3) == "static")
+                currInterface.isStatic = true;
+        }
+        else if (keyword == "address")
+            currInterface.address = ifaceRow.at(1);
+        else if (keyword == "netmask")
+            currInterface.netmask = ifaceRow.at(1);
+        else if (keyword == "gateway")
+            currInterface.gateway = ifaceRow.at(1);
+    }
+
+    netFile.close();
+
+    if (currInterface.isStatic == true)
+    {
+        html += getInterfaceHTML(&currInterface);
+        appendInterface(currInterface);
+    }
+
+    foreach (InterfaceInfo info, m_interfaces)
+    {
+        qDebug() << "Interface:" << info.name << "isstatic:" << info.isStatic;
+    }
+
+    return html;
+}
+
+QString WebAccess::getSystemConfigHTML()
+{
+    m_JScode = "<script language=\"javascript\" type=\"text/javascript\">\n" WEBSOCKET_JS;
+    m_JScode += "function systemCmd(cmd, iface, mode, addr, mask, gw)\n"
+            "{\n"
+            " websocket.send(\"QLC+SYS|\" + cmd + \"|\" + iface + \"|\" + mode + \"|\" + addr + \"|\" + mask + \"|\" + gw);\n"
+            "};\n"
+            "function showStatic(iface, enable) {\n"
+            " var divName = iface + \"StaticFields\";\n"
+            " var obj=document.getElementById(divName);\n"
+            " if (enable == true)\n"
+            "   obj.style.visibility='visible';\n"
+            " else\n"
+            "   obj.style.visibility='hidden';\n"
+            "}\n"
+            "function applyParams(iface) {\n"
+            " var radioGroup = iface + \"NetGroup\";\n"
+            " var radios = document.getElementsByName(radioGroup);\n"
+            " if (radios[0].checked)\n"
+            "   systemCmd(\"NETWORK\", iface, \"dhcp\", '', '', '');\n"
+            " else if (radios[1].checked) {\n"
+            "   var addrName=iface+\"IPaddr\";\n"
+            "   var maskName=iface+\"Netmask\";\n"
+            "   var gwName=iface+\"Gateway\";\n"
+            "   systemCmd(\"NETWORK\", iface, \"static\", document.getElementById(addrName).value,"
+            " document.getElementById(maskName).value, document.getElementById(gwName).value);\n"
+            " }\n"
+            "}\n\n";
+
+    m_JScode += "</script>\n";
+
+    m_CSScode = "<style>\n"
+            "html { height: 100%; background-color: #111; }\n"
+            "body {\n"
+            " margin: 0px;\n"
+            " background-image: linear-gradient(to bottom, #45484d 0%, #111 100%);\n"
+            " background-image: -webkit-linear-gradient(top, #45484d 0%, #111 100%);\n"
+            "}\n"
+            CONTROL_BAR_CSS
+            BUTTON_BASE_CSS
+            BUTTON_SPAN_CSS
+            BUTTON_STATE_CSS
+            BUTTON_BLUE_CSS
+            SWINFO_CSS
+            "</style>\n";
+
+    QString bodyHTML = "<div class=\"controlBar\">\n"
+                       "<a class=\"button button-blue\" href=\"/\"><span>" + tr("Back") + "</span></a>\n"
+                       "<div class=\"swInfo\">" + QString(APPNAME) + " " + QString(APPVERSION) + "</div>"
+                       "</div>\n";
+
+    bodyHTML += "<div style=\"margin: 15px 7% 0px 7%; width: 86%; font-family: verdana,arial,sans-serif;"
+                "font-size:20px; text-align:center; color:#CCCCCC;\">";
+    bodyHTML += tr("Network configuration") + "</div>\n";
+    bodyHTML += getNetworkHTML();
+    bodyHTML += "<div style=\"margin:5px 7%;\">\n";
+    bodyHTML += "<a class=\"button button-blue\" href=\"\" onclick=\"javascript:websocket.send('QLC+SYS|REBOOT');\"><span>" + tr("Reboot") + "</span></a>\n";
+    bodyHTML += "</div>\n";
+
+    QString str = HTML_HEADER + m_JScode + m_CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";
+
+    return str;
+}
+
+bool WebAccess::writeNetworkFile()
+{
+    QFile netFile(IFACES_SYSTEM_FILE);
+    if (netFile.open(QIODevice::WriteOnly | QIODevice::Text) == false)
+        return false;
+
+    netFile.write(QString("auto lo\n").toLatin1());
+    netFile.write(QString("iface lo inet loopback\n").toLatin1());
+    netFile.write(QString("allow-hotplug eth0\n").toLatin1());
+
+    foreach (InterfaceInfo iface, m_interfaces)
+    {
+        if (iface.isStatic == false)
+            netFile.write((QString("iface %1 inet dhcp\n").arg(iface.name)).toLatin1());
+        else
+        {
+            netFile.write((QString("iface %1 inet static\n").arg(iface.name)).toLatin1());
+            netFile.write((QString("  address %1\n").arg(iface.address)).toLatin1());
+            netFile.write((QString("  netmask %1\n").arg(iface.netmask)).toLatin1());
+            netFile.write((QString("  gateway %1\n").arg(iface.gateway)).toLatin1());
+        }
+    }
+
+    netFile.close();
+
+    return true;
 }
 
 void WebAccess::slotVCLoaded()

@@ -190,8 +190,8 @@ void App::init()
             {
                 QRect geometry = qApp->desktop()->availableGeometry();
                 // if we're on a Raspberry Pi, introduce a 5% margin
-                int w = (float)geometry.width() * 0.9;
-                int h = (float)geometry.height() * 0.9;
+                int w = (float)geometry.width() * 0.95;
+                int h = (float)geometry.height() * 0.95;
                 setGeometry((geometry.width() - w) / 2, (geometry.height() - h) / 2,
                             w, h);
             }

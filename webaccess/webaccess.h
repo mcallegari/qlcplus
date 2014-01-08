@@ -34,6 +34,15 @@ class VCLabel;
 class VCFrame;
 class Doc;
 
+typedef struct
+{
+    QString name;
+    bool isStatic;
+    QString address;
+    QString netmask;
+    QString gateway;
+} InterfaceInfo;
+
 class WebAccess : public QObject
 {
     Q_OBJECT
@@ -66,6 +75,14 @@ private:
     QString getUserFixturesConfigHTML();
     QString getConfigHTML();
 
+    void resetInterface(InterfaceInfo *iface);
+    void appendInterface(InterfaceInfo iface);
+    QString getInterfaceHTML(InterfaceInfo *iface);
+    QString getNetworkHTML();
+    QString getSystemConfigHTML();
+
+    bool writeNetworkFile();
+
 protected slots:
     void slotVCLoaded();
     void slotButtonToggled(bool on);
@@ -87,6 +104,7 @@ protected:
     bool m_xyPadFound;
     bool m_speedDialFound;
     bool m_audioTriggersFound;
+    QList<InterfaceInfo>m_interfaces;
 
 protected:
     Doc *m_doc;
