@@ -62,7 +62,7 @@
         <location filename="addchannelsgroup.ui" line="66"/>
         <source>Apply changes to fixtures of the same type and mode</source>
         <oldsource>Apply changes to fixtures of the same type</oldsource>
-        <translation type="unfinished">Aplicar cambios a fixtures del mismo tipo</translation>
+        <translation>Aplicar cambios a fixtures del mismo tipo y modo</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="73"/>
@@ -130,7 +130,7 @@
     <message>
         <location filename="addfixture.ui" line="250"/>
         <source>Quick search:</source>
-        <translation type="unfinished"></translation>
+        <translation>Búsqueda rápida:</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="267"/>
@@ -763,12 +763,12 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="app.cpp" line="1263"/>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Atención</translation>
     </message>
     <message>
         <location filename="app.cpp" line="1264"/>
         <source>Some errors occurred while loading the project:</source>
-        <translation type="unfinished"></translation>
+        <translation>Algunos errores ocurrieron al cargar el proyecto:</translation>
     </message>
 </context>
 <context>
@@ -2426,7 +2426,7 @@ Duración: %3
     <message>
         <location filename="functionmanager.cpp" line="287"/>
         <source>Select Startup Function</source>
-        <translation type="unfinished"></translation>
+        <translation>Función de arranque</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="292"/>
@@ -2622,12 +2622,12 @@ Duración: %3
     <message>
         <location filename="functionselection.cpp" line="71"/>
         <source>Functions</source>
-        <translation type="unfinished">Funciones</translation>
+        <translation>Funciones</translation>
     </message>
     <message>
         <location filename="functionselection.cpp" line="265"/>
         <source>&lt;No function&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;Ninguna función&gt;</translation>
     </message>
 </context>
 <context>
