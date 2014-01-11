@@ -78,6 +78,8 @@ WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, QObject *parent) :
     QObject(parent)
   , m_doc(doc)
   , m_vc(vcInstance)
+  , m_ctx(NULL)
+  , m_conn(NULL)
 {
     Q_ASSERT(s_instance == NULL);
     Q_ASSERT(m_doc != NULL);
@@ -1315,6 +1317,9 @@ bool WebAccess::writeNetworkFile()
 
 void WebAccess::slotVCLoaded()
 {
+    if (m_conn == NULL)
+        return;
+
     QString wsMessage = QString("URL|/");
     mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
 }
