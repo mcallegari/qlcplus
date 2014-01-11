@@ -13,6 +13,7 @@ qlcplus (4.6.1) stable; urgency=low
   * UI: added warning message when fixture definitions are not found during project loading
   * VC XY Pad: fixed behavior for 8bit Pan/tilt fixtures (Jano Svitok, found by Cinguligu)
   * Webaccess: fixed behaviour of buttons in solo frames
+  * Virtual Console: multipage frames input associations are now contextual
   * Added input profile: KORG nano PAD (thanks to Alessandro Grechi)
   * Added fixture: Showtec ZIPP LED DMX (thanks to Marek Pleva)
   * Added fixture: Chauvet Circus 2.0 (thanks to Anthony King)

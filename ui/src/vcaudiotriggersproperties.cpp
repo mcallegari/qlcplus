@@ -427,7 +427,7 @@ void AudioTriggersConfiguration::slotAutoDetectInputToggled(bool checked)
 
 void AudioTriggersConfiguration::slotInputValueChanged(quint32 universe, quint32 channel)
 {
-    m_inputSource = QLCInputSource(universe, channel);
+    m_inputSource = QLCInputSource(universe, (m_triggers->page() << 16) | channel);
     updateInputSource();
 }
 

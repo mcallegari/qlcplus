@@ -456,7 +456,10 @@ void VCButton::updateFeedback()
 
 void VCButton::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
-    QLCInputSource src(universe, channel);
+    if (isEnabled() == false)
+        return;
+
+    QLCInputSource src(universe, (page() << 16) | channel);
     if (src == inputSource())
     {
         if (m_action == Flash)

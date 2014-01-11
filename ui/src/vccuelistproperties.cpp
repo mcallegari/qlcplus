@@ -271,7 +271,7 @@ void VCCueListProperties::slotNextAutoDetectInputToggled(bool checked)
 
 void VCCueListProperties::slotNextInputValueChanged(quint32 uni, quint32 ch)
 {
-    m_nextInputSource = QLCInputSource(uni, ch);
+    m_nextInputSource = QLCInputSource(uni, (m_cueList->page() << 16) | ch);
     updateNextInputSource();
 }
 
@@ -339,7 +339,7 @@ void VCCueListProperties::slotPreviousAutoDetectInputToggled(bool checked)
 
 void VCCueListProperties::slotPreviousInputValueChanged(quint32 uni, quint32 ch)
 {
-    m_previousInputSource = QLCInputSource(uni, ch);
+    m_previousInputSource = QLCInputSource(uni, (m_cueList->page() << 16) | ch);
     updatePreviousInputSource();
 }
 
@@ -407,7 +407,7 @@ void VCCueListProperties::slotPlaybackAutoDetectInputToggled(bool checked)
 
 void VCCueListProperties::slotPlaybackInputValueChanged(quint32 uni, quint32 ch)
 {
-    m_playbackInputSource = QLCInputSource(uni, ch);
+    m_playbackInputSource = QLCInputSource(uni, (m_cueList->page() << 16) | ch);
     updatePlaybackInputSource();
 }
 
@@ -461,7 +461,7 @@ void VCCueListProperties::slotCF1AutoDetectInputToggled(bool checked)
 
 void VCCueListProperties::slotCF1InputValueChanged(quint32 uni, quint32 ch)
 {
-    m_cf1InputSource = QLCInputSource(uni, ch);
+    m_cf1InputSource = QLCInputSource(uni, (m_cueList->page() << 16) | ch);
     updateCrossfadeInputSource();
 }
 
@@ -493,7 +493,7 @@ void VCCueListProperties::slotCF2AutoDetectInputToggled(bool checked)
 
 void VCCueListProperties::slotCF2InputValueChanged(quint32 uni, quint32 ch)
 {
-    m_cf2InputSource = QLCInputSource(uni, ch);
+    m_cf2InputSource = QLCInputSource(uni, (m_cueList->page() << 16) | ch);
     updateCrossfadeInputSource();
 }
 

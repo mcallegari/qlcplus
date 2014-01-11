@@ -190,13 +190,13 @@ void VCSpeedDialProperties::updateInputSources()
 void VCSpeedDialProperties::slotAbsoluteInputValueChanged(quint32 universe, quint32 channel)
 {
     qDebug() << "Signal received !";
-    m_absoluteInputSource = QLCInputSource(universe, channel);
+    m_absoluteInputSource = QLCInputSource(universe, (m_dial->page() << 16) | channel);
     updateInputSources();
 }
 
 void VCSpeedDialProperties::slotTapInputValueChanged(quint32 universe, quint32 channel)
 {
-    m_tapInputSource = QLCInputSource(universe, channel);
+    m_tapInputSource = QLCInputSource(universe, (m_dial->page() << 16) | channel);
     updateInputSources();
 }
 

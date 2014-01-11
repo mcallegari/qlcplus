@@ -261,7 +261,10 @@ void VCAudioTriggers::slotKeyPressed(const QKeySequence& keySequence)
 
 void VCAudioTriggers::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
-    QLCInputSource src(universe, channel);
+    if (isEnabled() == false)
+        return;
+
+    QLCInputSource src(universe, (page() << 16) | channel);
     if (src == inputSource())
     {
         if (m_inputCapture->isRunning() == false && value > 0)

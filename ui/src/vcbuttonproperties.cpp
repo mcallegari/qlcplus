@@ -180,7 +180,7 @@ void VCButtonProperties::slotAutoDetectInputToggled(bool checked)
 
 void VCButtonProperties::slotInputValueChanged(quint32 universe, quint32 channel)
 {
-    m_inputSource = QLCInputSource(universe, channel);
+    m_inputSource = QLCInputSource(universe, (m_button->page() << 16) | channel);
     updateInputSource();
 }
 

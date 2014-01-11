@@ -44,7 +44,6 @@ InputPatch::InputPatch(quint32 inputUniverse, QObject* parent)
     , m_plugin(NULL)
     , m_input(QLCIOPlugin::invalidLine())
     , m_profile(NULL)
-    , m_currentPage(0)
     , m_nextPageCh(USHRT_MAX)
     , m_prevPageCh(USHRT_MAX)
     , m_pageSetCh(USHRT_MAX)
@@ -165,37 +164,5 @@ void InputPatch::slotValueChanged(quint32 input, quint32 channel, uchar value, c
     // In case we have several lines connected from the same plugin, emit only
     // such values that belong to this particular patch.
     if (input == m_input)
-    {
-        if (channel == m_nextPageCh)
-        {
-            if (value > 0)
-            {
-                m_currentPage++;
-                emit inputValueChanged(m_inputUniverse, channel, m_currentPage);
-            }
-        }
-        else if(channel == m_prevPageCh && m_currentPage > 0)
-        {
-            if (value > 0)
-            {
-                m_currentPage--;
-                emit inputValueChanged(m_inputUniverse, channel, m_currentPage);
-            }
-        }
-        else if(channel == m_pageSetCh)
-        {
-            if (value > 0)
-            {
-                m_currentPage = value;
-                emit inputValueChanged(m_inputUniverse, channel, m_currentPage);
-            }
-        }
-        else
-            emit inputValueChanged(m_inputUniverse, ((quint32)m_currentPage << 16) | channel, value, key);
-    }
-}
-
-void InputPatch::setPage(int pageNum)
-{
-    m_currentPage = pageNum;
+        emit inputValueChanged(m_inputUniverse, channel, value, key);
 }

@@ -267,7 +267,7 @@ void VCSliderProperties::slotAutoDetectInputToggled(bool checked)
 
 void VCSliderProperties::slotInputValueChanged(quint32 universe, quint32 channel)
 {
-    m_inputSource = QLCInputSource(universe, channel);
+    m_inputSource = QLCInputSource(universe, (m_slider->page() << 16) | channel);
     updateInputSource();
 }
 

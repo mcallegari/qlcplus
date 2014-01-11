@@ -354,12 +354,12 @@ void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
                                      uchar value)
 {
     /* Don't let input data thru in design mode */
-    if (mode() == Doc::Design)
+    if (mode() == Doc::Design || isEnabled() == false)
         return;
 
     int x = 0, y = 0;
 
-    QLCInputSource src(universe, channel);
+    QLCInputSource src(universe, (page() << 16) | channel);
     if (src == inputSource(panInputSourceId))
     {
 

@@ -106,12 +106,7 @@ private:
     /************************************************************************
      * Pages
      ************************************************************************/
-public:
-    /** Set the internal page number to keep in sync with higher level widgets/objects */
-    void setPage(int pageNum);
-
 private:
-    int m_currentPage;
     ushort m_nextPageCh, m_prevPageCh, m_pageSetCh;
 
 };

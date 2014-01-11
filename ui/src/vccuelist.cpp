@@ -794,10 +794,10 @@ void VCCueList::updateFeedback()
 
 void VCCueList::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
-    if (m_doc->mode() == Doc::Design)
+    if (m_doc->mode() == Doc::Design || isEnabled() == false)
         return;
 
-    QLCInputSource src(universe, channel);
+    QLCInputSource src(universe, (page() << 16) | channel);
 
     if (src == inputSource(nextInputSourceId))
     {
