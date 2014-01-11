@@ -200,6 +200,7 @@ class Fixtures
       f << <<-EOF
 <html>
 <head>
+    <meta charset='utf-8'>
 </head>
 <body>
   <table border=1>
@@ -208,6 +209,7 @@ class Fixtures
       <th rowspan=3>Model</th>
       <th rowspan=3>Version</th>
       <th rowspan=3>Author</th>
+      <th rowspan=3>Type</th>
       <th rowspan=3>Mode</th>
       <th rowspan=3>Heads</th>
       <th colspan=15>Physical</th>
@@ -244,6 +246,7 @@ EOF
       <td rowspan=#{fix.modes.size}>#{fix.model}</td>
       <td rowspan=#{fix.modes.size}>#{fix.creator.version}</td>
       <td rowspan=#{fix.modes.size}>#{fix.creator.author}</td>
+      <td rowspan=#{fix.modes.size}>#{fix.type}</td>
 
 EOF
         fix.modes.each_with_index do |m, i|
