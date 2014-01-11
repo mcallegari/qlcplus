@@ -281,6 +281,7 @@ fixtures.files += SGM-Victory-II-250.qxf
 fixtures.files += SGM-Victory-II-Pro150.qxf
 fixtures.files += Showtec-Acrobat.qxf
 fixtures.files += Showtec-Atmos-F350.qxf
+fixtures.files += Showtec-Indigo-4600.qxf
 fixtures.files += Showtec-Indigo-6500.qxf
 fixtures.files += Showtec-LED-Light-Bar-RGB-V3.qxf
 fixtures.files += Showtec-LED-Par-56.qxf

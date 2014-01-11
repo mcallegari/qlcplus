@@ -21,6 +21,7 @@ qlcplus (4.6.1) stable; urgency=low
   * Added fixture: American DJ Fusion FX Bar 5 (thanks to DJ Drew)
   * Added fixture: Pro-Lights LumiPAR 12Q (thanks to Alessandro Grechi)
   * Added fixture: Stairville MH-X20 (thanks to Kristo)
+  * Added fixture: Showtec Indigo 4600 (Jano Svitok)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 25 January 2014 12:13:04 +0200
 
