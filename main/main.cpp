@@ -312,6 +312,8 @@ int main(int argc, char** argv)
                 &app, SLOT(slotModeToggle()));
         QObject::connect(m_webAccess, SIGNAL(loadProject(QString)),
                 &app, SLOT(slotLoadDocFromMemory(QString)));
+        QObject::connect(m_webAccess, SIGNAL(storeAutostartProject(QString)),
+                &app, SLOT(slotSaveAutostart(QString)));
     }
 
     return qapp.exec();

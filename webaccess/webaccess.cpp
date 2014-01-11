@@ -55,6 +55,7 @@
 
 #define POST_DATA_SIZE 1024
 #define IFACES_SYSTEM_FILE "/etc/network/interfaces"
+#define AUTOSTART_PROJECT_NAME "autostart.qxw"
 
 WebAccess* s_instance = NULL;
 
@@ -278,7 +279,7 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
     }
     else if (cmdList[0] == "QLC+IO")
     {
-        if (cmdList.count() < 2)
+        if (cmdList.count() < 3)
             return 0;
 
         int universe = cmdList[2].toInt();
@@ -352,6 +353,20 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
                 }
             }
             qDebug() << "[webaccess] Error: interface" << cmdList.at(2) << "not found !";
+            return 1;
+        }
+        else if (cmdList.at(1) == "AUTOSTART")
+        {
+            if (cmdList.count() < 3)
+                return 0;
+
+            QString asName = QString("%1/%2/%3").arg(getenv("HOME")).arg(USERQLCPLUSDIR).arg(AUTOSTART_PROJECT_NAME);
+            if (cmdList.at(2) == "none")
+                QFile::remove(asName);
+            else
+                emit storeAutostartProject(asName);
+            QString wsMessage = QString("ALERT|" + tr("Autostart configuration changed"));
+            mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
             return 1;
         }
         else if (cmdList.at(1) == "REBOOT")
@@ -1230,6 +1245,7 @@ QString WebAccess::getSystemConfigHTML()
             "{\n"
             " websocket.send(\"QLC+SYS|\" + cmd + \"|\" + iface + \"|\" + mode + \"|\" + addr + \"|\" + mask + \"|\" + gw);\n"
             "};\n"
+
             "function showStatic(iface, enable) {\n"
             " var divName = iface + \"StaticFields\";\n"
             " var obj=document.getElementById(divName);\n"
@@ -1238,6 +1254,7 @@ QString WebAccess::getSystemConfigHTML()
             " else\n"
             "   obj.style.visibility='hidden';\n"
             "}\n"
+
             "function applyParams(iface) {\n"
             " var radioGroup = iface + \"NetGroup\";\n"
             " var radios = document.getElementsByName(radioGroup);\n"
@@ -1250,6 +1267,14 @@ QString WebAccess::getSystemConfigHTML()
             "   systemCmd(\"NETWORK\", iface, \"static\", document.getElementById(addrName).value,"
             " document.getElementById(maskName).value, document.getElementById(gwName).value);\n"
             " }\n"
+            "}\n"
+
+            "function setAutostart() {\n"
+            " var radios = document.getElementsByName('autostart');\n"
+            " if (radios[0].checked)\n"
+            "   websocket.send('QLC+SYS|AUTOSTART|none');\n"
+            " else\n"
+            "   websocket.send('QLC+SYS|AUTOSTART|current');\n"
             "}\n\n";
 
     m_JScode += "</script>\n";
@@ -1278,6 +1303,18 @@ QString WebAccess::getSystemConfigHTML()
                 "font-size:20px; text-align:center; color:#CCCCCC;\">";
     bodyHTML += tr("Network configuration") + "</div>\n";
     bodyHTML += getNetworkHTML();
+
+    bodyHTML += "<div style=\"margin: 15px 7% 0px 7%; width: 86%; font-family: verdana,arial,sans-serif;"
+                "font-size:20px; text-align:center; color:#CCCCCC;\">";
+    bodyHTML += tr("Project autostart") + "</div>\n";
+    bodyHTML += "<div style=\"margin: 15px 7% 0px 7%; width: 86%; font-family: verdana,arial,sans-serif;"
+                "font-size:18px; padding: 5px 0px; color:#CCCCCC; background:#222; border-radius: 7px;\">";
+    bodyHTML += "<form style=\"margin: 5px 15px; color:#FFF;\">\n";
+    bodyHTML += "<input type=\"radio\" name=autostart value=\"none\">" + tr("No project") + "\n";
+    bodyHTML += "<input type=\"radio\" name=autostart value=\"current\" checked>" + tr("Use current project") + "\n";
+    bodyHTML += "<input type=\"button\" value=\"" + tr("Apply changes") + "\" onclick=\"setAutostart();\" >\n";
+    bodyHTML += "</form></div>\n";
+
     bodyHTML += "<div style=\"margin:5px 7%;\">\n";
     bodyHTML += "<a class=\"button button-blue\" href=\"\" onclick=\"javascript:websocket.send('QLC+SYS|REBOOT');\"><span>" + tr("Reboot") + "</span></a>\n";
     bodyHTML += "</div>\n";

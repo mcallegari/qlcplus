@@ -1323,3 +1323,14 @@ void App::slotLoadDocFromMemory(QString xmlData)
     doc.setContent(xmlData);
     loadXML(doc, true);
 }
+
+void App::slotSaveAutostart(QString fileName)
+{
+    /* Set the workspace path before saving the new XML. In this way local files
+       can be loaded even if the workspace file will be moved */
+    m_doc->setWorkspacePath(QFileInfo(fileName).absolutePath());
+
+    /* Save the document and set workspace name */
+    QFile::FileError error = saveXML(fileName);
+    handleFileError(error);
+}

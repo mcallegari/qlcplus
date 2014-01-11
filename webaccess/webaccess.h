@@ -117,6 +117,7 @@ protected:
 signals:
     void toggleDocMode();
     void loadProject(QString xmlData);
+    void storeAutostartProject(QString filename);
     
 public slots:
     

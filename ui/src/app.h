@@ -216,6 +216,8 @@ public:
 public slots:
     void slotLoadDocFromMemory(QString xmlData);
 
+    void slotSaveAutostart(QString fileName);
+
 private:
     QString m_fileName;
 };
