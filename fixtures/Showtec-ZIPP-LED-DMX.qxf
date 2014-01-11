@@ -21,12 +21,12 @@
   <Capability Color2="#00007f" Min="104" Max="116" Color="#00aa00">Green + Blue</Capability>
   <Capability Color2="#ffffff" Min="117" Max="129" Color="#00aa00">Green + White</Capability>
   <Capability Color2="#ffffff" Min="130" Max="142" Color="#00007f">Blue + White</Capability>
-  <Capability Res="C:/Program Files (x86)/QLC+/Gobos/Others/rainbow.png" Min="143" Max="155">Green + Blue + White</Capability>
-  <Capability Res="C:/Program Files (x86)/QLC+/Gobos/Others/rainbow.png" Min="156" Max="168">Red + Blue + White</Capability>
-  <Capability Res="C:/Program Files (x86)/QLC+/Gobos/Others/rainbow.png" Min="169" Max="181">Red + Green + White</Capability>
-  <Capability Res="C:/Program Files (x86)/QLC+/Gobos/Others/rainbow.png" Min="182" Max="194">Red + Green + Blue</Capability>
-  <Capability Res="C:/Program Files (x86)/QLC+/Gobos/Others/rainbow.png" Min="195" Max="207">Red + Greeen + Blue + White</Capability>
-  <Capability Res="C:/Program Files (x86)/QLC+/Gobos/Others/rainbow.png" Min="208" Max="255">Colour chase</Capability>
+  <Capability Res="Others/rainbow.png" Min="143" Max="155">Green + Blue + White</Capability>
+  <Capability Res="Others/rainbow.png" Min="156" Max="168">Red + Blue + White</Capability>
+  <Capability Res="Others/rainbow.png" Min="169" Max="181">Red + Green + White</Capability>
+  <Capability Res="Others/rainbow.png" Min="182" Max="194">Red + Green + Blue</Capability>
+  <Capability Res="Others/rainbow.png" Min="195" Max="207">Red + Greeen + Blue + White</Capability>
+  <Capability Res="Others/rainbow.png" Min="208" Max="255">Colour chase</Capability>
  </Channel>
  <Channel Name="Colour 2">
   <Group Byte="0">Colour</Group>
@@ -41,12 +41,12 @@
   <Capability Color2="#00007f" Min="104" Max="116" Color="#00aa00">Green + Blue</Capability>
   <Capability Color2="#ffffff" Min="117" Max="129" Color="#00aa00">Green + White</Capability>
   <Capability Color2="#ffffff" Min="130" Max="142" Color="#00007f">Blue + White</Capability>
-  <Capability Res="C:/Program Files (x86)/QLC+/Gobos/Others/rainbow.png" Min="143" Max="155">Green + Blue + White</Capability>
-  <Capability Res="C:/Program Files (x86)/QLC+/Gobos/Others/rainbow.png" Min="156" Max="168">Red + Blue + White</Capability>
-  <Capability Res="C:/Program Files (x86)/QLC+/Gobos/Others/rainbow.png" Min="169" Max="181">Red + Green + White</Capability>
-  <Capability Res="C:/Program Files (x86)/QLC+/Gobos/Others/rainbow.png" Min="182" Max="194">Red + Green + Blue</Capability>
-  <Capability Res="C:/Program Files (x86)/QLC+/Gobos/Others/rainbow.png" Min="195" Max="207">Red + Greeen + Blue + White</Capability>
-  <Capability Res="C:/Program Files (x86)/QLC+/Gobos/Others/rainbow.png" Min="208" Max="255">Colour chase</Capability>
+  <Capability Res="Others/rainbow.png" Min="143" Max="155">Green + Blue + White</Capability>
+  <Capability Res="Others/rainbow.png" Min="156" Max="168">Red + Blue + White</Capability>
+  <Capability Res="Others/rainbow.png" Min="169" Max="181">Red + Green + White</Capability>
+  <Capability Res="Others/rainbow.png" Min="182" Max="194">Red + Green + Blue</Capability>
+  <Capability Res="Others/rainbow.png" Min="195" Max="207">Red + Greeen + Blue + White</Capability>
+  <Capability Res="Others/rainbow.png" Min="208" Max="255">Colour chase</Capability>
  </Channel>
  <Channel Name="Strobo">
   <Group Byte="0">Beam</Group>
