@@ -1,6 +1,7 @@
 qlcplus (4.6.1) stable; urgency=low
 
   * NEW: Function Manager: it is now possible to set a startup function that is started every time QLC+ switches to operate mode
+  * NEW: Clock widget can now be used to schedule a function startup
   * VC Audio triggers: fixed divisors behaviour
   * VC Slider: fixed submaster renaming
   * Engine: restored timed fade out + stop all functions functionality

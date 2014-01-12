@@ -30,6 +30,28 @@ class Doc;
 
 #define KXMLQLCVCClock "Clock"
 
+class VCClockSchedule
+{
+public:
+    VCClockSchedule() { }
+
+    void setFunction(quint32 id) { m_id = id; }
+    quint32 function() const { return m_id; }
+    void setTime(QDateTime time) { m_time = time; }
+    QDateTime time() const { return m_time; }
+
+    /** Sorting operator */
+    bool operator<(const VCClockSchedule& sch) const;
+
+    /** Load & Save */
+    bool loadXML(const QDomElement* root);
+    bool saveXML(QDomDocument* doc, QDomElement* root);
+
+private:
+    quint32 m_id;
+    QDateTime m_time;
+};
+
 class VCClock : public VCWidget
 {
     Q_OBJECT
@@ -41,6 +63,12 @@ class VCClock : public VCWidget
 public:
     VCClock(QWidget* parent, Doc* doc);
     ~VCClock();
+
+    /*********************************************************************
+     * QLC+ Mode
+     *********************************************************************/
+public slots:
+    void slotModeChanged(Doc::Mode mode);
 
     /*********************************************************************
      * Type
@@ -59,8 +87,20 @@ public:
     QString typeToString(ClockType type);
     ClockType stringToType(QString str);
 
+
+    /*********************************************************************
+     * Functions scheduling
+     *********************************************************************/
+public:
+    void addSchedule(VCClockSchedule schedule);
+    void removeSchedule(int index);
+    void removeAllSchedule();
+    QList<VCClockSchedule> schedules();
+
 private:
     ClockType m_clocktype;
+    QList<VCClockSchedule>m_scheduleList;
+    int m_scheduleIndex;
 
     /*********************************************************************
      * Time

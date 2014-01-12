@@ -20,6 +20,7 @@
 #include <QtXml>
 #include <QtGui>
 #include <QStyle>
+#include <QDateTime>
 
 #include "qlcfile.h"
 
@@ -34,15 +35,20 @@
 #define KXMLQLCVCClockMinutes "Minutes"
 #define KXMLQLCVCClockSeconds "Seconds"
 
+#define KXMLQLCVCClockSchedule "Schedule"
+#define KXMLQLCVCClockScheduleFunc "Function"
+#define KXMLQLCVCClockScheduleTime "Time"
+
 VCClock::VCClock(QWidget* parent, Doc* doc)
     : VCWidget(parent, doc)
     , m_clocktype(Clock)
+    , m_scheduleIndex(-1)
     , m_hh(0)
     , m_mm(0)
     , m_ss(0)
     , m_targetTime(0)
     , m_currentTime(0)
-    , m_isPaused(false)
+    , m_isPaused(true)
 {
     /* Set the class name "VCClock" as the object name as well */
     setObjectName(VCClock::staticMetaObject.className());
@@ -55,6 +61,9 @@ VCClock::VCClock(QWidget* parent, Doc* doc)
     font.setPixelSize(28);
     setFont(font);
 
+    connect(doc, SIGNAL(modeChanged(Doc::Mode)),
+            this, SLOT(slotModeChanged(Doc::Mode)));
+
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(slotUpdateTime()));
     timer->start(1000);
@@ -62,6 +71,30 @@ VCClock::VCClock(QWidget* parent, Doc* doc)
 
 VCClock::~VCClock()
 {
+}
+
+void VCClock::slotModeChanged(Doc::Mode mode)
+{
+    qDebug() << Q_FUNC_INFO;
+
+    if (mode == Doc::Operate)
+    {
+        if (m_scheduleList.count() > 0)
+        {
+            QTime currTime = QDateTime::currentDateTime().time();
+            for(int i = 0; i < m_scheduleList.count(); i++)
+            {
+                VCClockSchedule sch = m_scheduleList.at(i);
+                if (sch.time().time() >= currTime)
+                {
+                    m_scheduleIndex = i;
+                    qDebug() << "VC Clock set to play index:" << i;
+                    break;
+                }
+            }
+        }
+    }
+    VCWidget::slotModeChanged(mode);
 }
 
 /*********************************************************************
@@ -99,6 +132,32 @@ VCClock::ClockType VCClock::stringToType(QString str)
         return Clock;
 }
 
+void VCClock::addSchedule(VCClockSchedule schedule)
+{
+    qDebug() << Q_FUNC_INFO << "--- ID:" << schedule.function() << ", time:" << schedule.time().time().toString();
+    if (schedule.function() != Function::invalidId())
+        m_scheduleList.append(schedule);
+    qSort(m_scheduleList);
+}
+
+void VCClock::removeSchedule(int index)
+{
+    if (index < 0 || index > m_scheduleList.count())
+        return;
+
+    m_scheduleList.removeAt(index);
+}
+
+void VCClock::removeAllSchedule()
+{
+    m_scheduleList.clear();
+}
+
+QList<VCClockSchedule> VCClock::schedules()
+{
+    return m_scheduleList;
+}
+
 void VCClock::setCountdown(int h, int m, int s)
 {
     m_hh = h;
@@ -120,12 +179,40 @@ void VCClock::resetTime()
 
 void VCClock::slotUpdateTime()
 {
-    if (mode() == Doc::Operate && m_isPaused == false)
+    if (mode() == Doc::Operate)
     {
-        if (m_clocktype == Stopwatch)
-            m_currentTime++;
-        else if (m_clocktype == Countdown && m_currentTime > 0)
-            m_currentTime--;
+        if (m_isPaused == false)
+        {
+            if (m_clocktype == Stopwatch)
+                m_currentTime++;
+            else if (m_clocktype == Countdown && m_currentTime > 0)
+                m_currentTime--;
+        }
+        else
+        {
+            if (m_clocktype == Clock)
+            {
+                if (m_scheduleIndex != -1 && m_scheduleIndex < m_scheduleList.count())
+                {
+                    QTime currTime = QDateTime::currentDateTime().time();
+                    VCClockSchedule sch = m_scheduleList.at(m_scheduleIndex);
+                    //qDebug() << "--- > currTime:" << currTime.toString() << ", schTime:" << sch.time().time().toString();
+                    if (sch.time().time().toString() == currTime.toString())
+                    {
+                        quint32 fid = sch.function();
+                        Function *func = m_doc->function(fid);
+                        if (func != NULL)
+                        {
+                            func->start(m_doc->masterTimer());
+                            qDebug() << "VC Clock starting function:" << func->name();
+                        }
+                        m_scheduleIndex++;
+                        if (m_scheduleIndex == m_scheduleList.count())
+                            m_scheduleIndex = 0;
+                    }
+                }
+            }
+        }
     }
     update();
 }
@@ -154,7 +241,7 @@ VCWidget* VCClock::createCopy(VCWidget* parent)
 
 void VCClock::editProperties()
 {
-    VCClockProperties vccp(this);
+    VCClockProperties vccp(this, m_doc);
     if (vccp.exec() == QDialog::Rejected)
         return;
 
@@ -210,6 +297,12 @@ bool VCClock::loadXML(const QDomElement* root)
         {
             loadXMLAppearance(&tag);
         }
+        else if (tag.tagName() == KXMLQLCVCClockSchedule)
+        {
+            VCClockSchedule sch;
+            if (sch.loadXML(&tag) == true)
+                addSchedule(sch);
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown clock tag:" << tag.tagName();
@@ -249,6 +342,9 @@ bool VCClock::saveXML(QDomDocument* doc, QDomElement* vc_root)
 
     /* Appearance */
     saveXMLAppearance(doc, &root);
+
+    foreach(VCClockSchedule sch, schedules())
+        sch.saveXML(doc, &root);
 
     return true;
 }
@@ -310,4 +406,55 @@ void VCClock::mousePressEvent(QMouseEvent *e)
         update();
     }
     VCWidget::mousePressEvent(e);
+}
+
+/*********************************************************************
+ * VCClockSchedule Class methods
+ *********************************************************************/
+
+bool VCClockSchedule::operator <(const VCClockSchedule &sch) const
+{
+    if (sch.time() < time())
+        return false;
+    return true;
+}
+
+bool VCClockSchedule::loadXML(const QDomElement *root)
+{
+    Q_ASSERT(root != NULL);
+
+    if (root->tagName() != KXMLQLCVCClockSchedule)
+    {
+        qWarning() << Q_FUNC_INFO << "Clock Schedule node not found";
+        return false;
+    }
+
+    if (root->hasAttribute(KXMLQLCVCClockScheduleFunc))
+    {
+        setFunction(root->attribute(KXMLQLCVCClockScheduleFunc).toUInt());
+        if (root->hasAttribute(KXMLQLCVCClockScheduleTime))
+        {
+            QDateTime dt;
+            dt.setTime(QTime::fromString(root->attribute(KXMLQLCVCClockScheduleTime), "HH:mm:ss"));
+            setTime(dt);
+        }
+    }
+
+    return true;
+}
+
+bool VCClockSchedule::saveXML(QDomDocument *doc, QDomElement *root)
+{
+    QDomElement tag;
+
+    /* Schedule tag */
+    tag = doc->createElement(KXMLQLCVCClockSchedule);
+    root->appendChild(tag);
+
+    /* Schedule function */
+    tag.setAttribute(KXMLQLCVCClockScheduleFunc, function());
+    /* Schedule time */
+    tag.setAttribute(KXMLQLCVCClockScheduleTime, time().time().toString());
+
+    return true;
 }
