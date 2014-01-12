@@ -2,66 +2,66 @@
 <InputProfile>
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.5.1</Version>
+  <Version>4.6.0</Version>
   <Author>Alessandro Grechi</Author>
  </Creator>
  <Manufacturer>KORG</Manufacturer>
  <Model>nanoPAD</Model>
  <Type>MIDI</Type>
  <Channel Number="1">
-  <Name>Pad X Axis</Name>
+  <Name>PAD Y Axis</Name>
   <Type>Slider</Type>
  </Channel>
  <Channel Number="2">
-  <Name>Pad Y Axis</Name>
+  <Name>PAD X Axis</Name>
   <Type>Slider</Type>
  </Channel>
  <Channel Number="164">
-  <Name>Button 1 - Scene 1</Name>
-  <Type>Button</Type>
- </Channel>
- <Channel Number="166">
-  <Name>Button 2 - Scene 1</Name>
-  <Type>Button</Type>
- </Channel>
- <Channel Number="167">
-  <Name>Button 3 - Scene 1</Name>
-  <Type>Button</Type>
- </Channel>
- <Channel Number="168">
-  <Name>Button 4 - Scene 1</Name>
-  <Type>Button</Type>
- </Channel>
- <Channel Number="170">
-  <Name>Button 5 - Scene 1</Name>
-  <Type>Button</Type>
- </Channel>
- <Channel Number="171">
-  <Name>Button 6 - Scene 1</Name>
-  <Type>Button</Type>
- </Channel>
- <Channel Number="172">
   <Name>Button 7 - Scene 1</Name>
   <Type>Button</Type>
  </Channel>
- <Channel Number="173">
+ <Channel Number="166">
   <Name>Button 8 - Scene 1</Name>
   <Type>Button</Type>
  </Channel>
- <Channel Number="174">
+ <Channel Number="167">
+  <Name>Button 1 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="168">
   <Name>Button 9 - Scene 1</Name>
   <Type>Button</Type>
  </Channel>
- <Channel Number="176">
+ <Channel Number="170">
   <Name>Button 10 - Scene 1</Name>
   <Type>Button</Type>
  </Channel>
- <Channel Number="177">
+ <Channel Number="171">
+  <Name>Button 4 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="172">
   <Name>Button 11 - Scene 1</Name>
   <Type>Button</Type>
  </Channel>
- <Channel Number="179">
+ <Channel Number="173">
+  <Name>Button 3 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="174">
   <Name>Button 12 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="176">
+  <Name>Button 2 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="177">
+  <Name>Button 6 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="179">
+  <Name>Button 5 - Scene 1</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="188">
