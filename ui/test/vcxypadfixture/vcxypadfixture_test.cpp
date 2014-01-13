@@ -626,7 +626,7 @@ void VCXYPadFixture_Test::writeDimmer()
 {
     VCXYPadFixture xy(m_doc);
     QList<Universe*> ua;
-    ua.append(new Universe(new GrandMaster()));
+    ua.append(new Universe(0, new GrandMaster()));
 
     xy.writeDMX(1, 1, ua);
     QCOMPARE(ua[0]->preGMValues()[0], char(0));
@@ -659,7 +659,7 @@ void VCXYPadFixture_Test::write8bitNoReverse()
     xy.arm();
 
     QList<Universe*> ua;
-    ua.append(new Universe(new GrandMaster()));
+    ua.append(new Universe(0, new GrandMaster()));
 
     for (qreal i = 0; i <= 1.01; i += (qreal(1) / qreal(USHRT_MAX)))
     {
@@ -694,7 +694,7 @@ void VCXYPadFixture_Test::write8bitReverse()
     xy.arm();
 
     QList<Universe*> ua;
-    ua.append(new Universe(new GrandMaster()));
+    ua.append(new Universe(0, new GrandMaster()));
 
     for (qreal i = 0; i <= 1.01; i += (qreal(1) / qreal(USHRT_MAX)))
     {
@@ -729,7 +729,7 @@ void VCXYPadFixture_Test::write16bitNoReverse()
     xy.arm();
 
     QList<Universe*> ua;
-    ua.append(new Universe(new GrandMaster()));
+    ua.append(new Universe(0, new GrandMaster()));
 
     for (qreal i = 0; i <= 1.01; i += (qreal(1) / qreal(USHRT_MAX)))
     {
@@ -762,7 +762,7 @@ void VCXYPadFixture_Test::write16bitReverse()
     xy.arm();
 
     QList<Universe*> ua;
-    ua.append(new Universe(new GrandMaster()));
+    ua.append(new Universe(0, new GrandMaster()));
 
     for (qreal i = 0; i <= 1.01; i += (qreal(1) / qreal(USHRT_MAX)))
     {

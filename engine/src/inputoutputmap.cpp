@@ -844,6 +844,61 @@ void InputOutputMap::loadDefaults()
     }
 }
 
+void InputOutputMap::saveDefaults()
+{
+    /* ************************ INPUT *********************************** */
+    QSettings settings;
+    QString key;
+    QString str;
+
+    for (quint32 i = 0; i < universes(); i++)
+    {
+        InputPatch* pat = inputPatch(i);
+        Q_ASSERT(pat != NULL);
+
+        /* Plugin name */
+        key = QString("/inputmap/universe%2/plugin/").arg(i);
+        if (pat->plugin() != NULL)
+            settings.setValue(key, pat->plugin()->name());
+        else
+            settings.setValue(key, "None");
+
+        /* Plugin input */
+        key = QString("/inputmap/universe%2/input/").arg(i);
+        settings.setValue(key, str.setNum(pat->input()));
+
+        /* Input profile */
+        key = QString("/inputmap/universe%2/profile/").arg(i);
+        settings.setValue(key, pat->profileName());
+    }
+
+    /* ************************ OUTPUT *********************************** */
+
+    for (quint32 i = 0; i < universes(); i++)
+    {
+        OutputPatch* outPatch = outputPatch(i);
+        OutputPatch* fbPatch = feedbackPatch(i);
+        Q_ASSERT(outPatch != NULL);
+        Q_ASSERT(fbPatch != NULL);
+
+        /* Plugin name */
+        key = QString("/outputmap/universe%2/plugin/").arg(i);
+        settings.setValue(key, outPatch->pluginName());
+
+        /* Plugin output */
+        key = QString("/outputmap/universe%2/output/").arg(i);
+        settings.setValue(key, str.setNum(outPatch->output()));
+
+        /* Plugin name */
+        key = QString("/outputmap/universe%2/feedbackplugin/").arg(i);
+        settings.setValue(key, fbPatch->pluginName());
+
+        /* Plugin output */
+        key = QString("/outputmap/universe%2/feedback/").arg(i);
+        settings.setValue(key, str.setNum(fbPatch->output()));
+    }
+}
+
 bool InputOutputMap::loadXML(const QDomElement &root)
 {
     if (root.tagName() != KXMLIOMap)

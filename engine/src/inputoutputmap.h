@@ -473,9 +473,14 @@ private:
      *********************************************************************/
 public:
     /**
-     * Load default settings for output mapper from QLC global settings
+     * Load default settings for input/output mapper from QLC+ global settings
      */
     void loadDefaults();
+
+    /**
+     * Save default settings for input/output mapper into QLC+ global settings
+     */
+    void saveDefaults();
 
     /**
      * Load the input/output map map contents from the given XML node.

@@ -286,8 +286,7 @@ void InputOutputManager::slotMappingChanged()
     {
         uint universe = item->data(Qt::UserRole).toInt();
         updateItem(item, universe);
-        m_doc->outputMap()->saveDefaults();
-        m_doc->inputMap()->saveDefaults();
+        m_doc->inputOutputMap()->saveDefaults();
     }
 }
 
