@@ -72,6 +72,14 @@ void UniverseItemWidget::paint(QPainter *painter, const QStyleOptionViewItem &op
     font.setPixelSize(12);
     painter->setFont(font);
 
+    QVariant var = index.data(Qt::DecorationRole);
+    if (var.isValid())
+    {
+        QIcon icon = var.value<QIcon>();
+        if (icon.isNull() == false)
+            painter->drawPixmap(r.width() - 36, r.top() + 9, 32, 32, icon.pixmap(32, 32));
+    }
+
     // draw input output labels
     int midPos = (r.width() - 10 - 150) / 2;
     midPos += 170;

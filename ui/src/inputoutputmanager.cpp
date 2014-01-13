@@ -235,10 +235,10 @@ void InputOutputManager::slotInputValueChanged(quint32 universe, quint32 channel
         return;
 
     /* Show an icon on a universe row that received input data */
-    item->setIcon(m_icon);
+    item->setData(Qt::DecorationRole, m_icon);
 
     /* Restart the timer */
-    m_timer->start(250);
+    m_timer->start(300);
 }
 
 void InputOutputManager::slotTimerTimeout()
@@ -246,7 +246,7 @@ void InputOutputManager::slotTimerTimeout()
     for (int i = 0; i < m_list->count(); i++)
     {
         QListWidgetItem *item = m_list->item(i);
-        item->setIcon(QIcon());
+        item->setData(Qt::DecorationRole, QIcon());
     }
 }
 
