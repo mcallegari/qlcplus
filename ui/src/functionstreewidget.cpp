@@ -67,11 +67,15 @@ void FunctionsTreeWidget::functionChanged(quint32 fid)
     blockSignals(true);
     Function* function = m_doc->function(fid);
     if (function == NULL)
+    {
+        blockSignals(false);
         return;
+    }
 
     QTreeWidgetItem* item = functionItem(function);
     if (item != NULL)
         updateFunctionItem(item, function);
+
     blockSignals(false);
 }
 
@@ -80,7 +84,10 @@ QTreeWidgetItem *FunctionsTreeWidget::functionAdded(quint32 fid)
     blockSignals(true);
     Function* function = m_doc->function(fid);
     if (function == NULL)
+    {
+        blockSignals(false);
         return NULL;
+    }
 
     QTreeWidgetItem* parent = parentItem(function);
     QTreeWidgetItem* item = new QTreeWidgetItem(parent);
@@ -230,7 +237,10 @@ void FunctionsTreeWidget::addFolder()
 {
     blockSignals(true);
     if (selectedItems().isEmpty())
+    {
+        blockSignals(false);
         return;
+    }
 
     QTreeWidgetItem *item = selectedItems().first();
     if (item->text(COL_PATH).isEmpty())
@@ -361,7 +371,10 @@ void FunctionsTreeWidget::slotItemChanged(QTreeWidgetItem *item)
     blockSignals(true);
     qDebug() << "TREE item changed";
     if (item->text(COL_PATH).isEmpty())
+    {
+        blockSignals(false);
         return;
+    }
 
     QTreeWidgetItem *parent = item->parent();
     if (parent != NULL)
