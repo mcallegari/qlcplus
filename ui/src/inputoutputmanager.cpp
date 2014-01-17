@@ -230,6 +230,10 @@ void InputOutputManager::slotInputValueChanged(quint32 universe, quint32 channel
     Q_UNUSED(channel);
     Q_UNUSED(value);
 
+    // If the manager is not visible, don't even waste CPU
+    if (isVisible() == false)
+        return;
+
     QListWidgetItem *item = m_list->item(universe);
     if (item == NULL)
         return;
