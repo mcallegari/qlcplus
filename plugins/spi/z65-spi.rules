@@ -1,0 +1,2 @@
+SUBSYSTEM=="spidev", MODE="0666"
+

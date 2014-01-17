@@ -12,3 +12,4 @@ SUBDIRS              += enttecwing
 SUBDIRS              += osc
 SUBDIRS              += artnet
 SUBDIRS              += E1.31
+!macx:!win32:SUBDIRS += spi
