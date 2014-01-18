@@ -155,7 +155,9 @@ void GrandMasterSlider::updateDisplayValue()
 
 void GrandMasterSlider::slotGrandMasterValueChanged(uchar value)
 {
+    m_slider->blockSignals(true);
     m_slider->setValue(value);
+    m_slider->blockSignals(false);
 }
 
 void GrandMasterSlider::slotGrandMasterValueModeChanged(GrandMaster::ValueMode mode)

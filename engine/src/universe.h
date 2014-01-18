@@ -146,6 +146,8 @@ protected:
      * Patches
      ************************************************************************/
 public:
+    bool isPatched();
+
     bool setInputPatch(QLCIOPlugin *plugin, quint32 input,
                        QLCInputProfile *profile = NULL);
 

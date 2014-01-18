@@ -132,12 +132,19 @@ public:
     /**
      * Remove the last universe in the current universes list
      */
-    bool removeUniverse();
+    bool removeUniverse(int index);
 
     /**
      * Remove all the universes in the current universes list
      */
     bool removeAllUniverses();
+
+    /**
+     * Get the unique ID of the universe at the given index
+     * @param index The universe index
+     * @return The universe ID or invalidUniverse()
+     */
+    quint32 getUniverseID(int index);
 
     /**
      * Retrieve the friendly name of the universe at the given index
@@ -152,6 +159,14 @@ public:
      * @param name The universe new name
      */
     void setUniverseName(int index, QString name);
+
+    /**
+     * Return if a universe is patched with any input, output or
+     * feedback line
+     * @param index The universe index
+     * @return true = patched, false = not patched
+     */
+    bool isUniversePatched(int index);
 
     /**
      * Retrieve the number of universe in the output map

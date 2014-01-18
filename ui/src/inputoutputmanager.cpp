@@ -177,13 +177,26 @@ void InputOutputManager::updateList()
     m_list->clear();
     for (quint32 uni = 0; uni < m_ioMap->universes(); uni++)
         updateItem(new QListWidgetItem(m_list), uni);
-    m_list->setCurrentItem(m_list->item(0));
-    m_uniNameEdit->setText(m_list->item(0)->data(Qt::DisplayRole).toString());
 
-    if (m_ioMap->universes() == 4)
+    if (m_ioMap->universes() == 0)
+    {
+        if (m_editor != NULL)
+        {
+            m_splitter->widget(1)->layout()->removeWidget(m_editor);
+            m_editor->deleteLater();
+            m_editor = NULL;
+        }
         m_deleteUniverseAction->setEnabled(false);
+        m_uniNameEdit->setText("");
+        m_uniNameEdit->setEnabled(false);
+    }
     else
+    {
         m_deleteUniverseAction->setEnabled(true);
+        m_list->setCurrentItem(m_list->item(0));
+        m_uniNameEdit->setEnabled(true);
+        m_uniNameEdit->setText(m_list->item(0)->data(Qt::DisplayRole).toString());
+    }
 }
 
 void InputOutputManager::updateItem(QListWidgetItem* item, quint32 universe)
@@ -259,10 +272,12 @@ void InputOutputManager::slotCurrentItemChanged()
     QListWidgetItem* item = m_list->currentItem();
     if (item == NULL)
     {
+        if (m_ioMap->universes() == 0)
+            return;
+
         m_list->setCurrentItem(m_list->item(0));
         item = m_list->currentItem();
     }
-    //Q_ASSERT(item != NULL);
     if (item == NULL)
         return;
 
@@ -271,7 +286,6 @@ void InputOutputManager::slotCurrentItemChanged()
         m_splitter->widget(1)->layout()->removeWidget(m_editor);
         m_editor->deleteLater();
         m_editor = NULL;
-        //delete currentEditor();
     }
 
     quint32 universe = item->data(Qt::UserRole).toInt();
@@ -302,18 +316,59 @@ void InputOutputManager::slotAudioInputChanged()
 void InputOutputManager::slotAddUniverse()
 {
     m_ioMap->addUniverse();
+    m_doc->setModified();
     updateList();
 }
 
 void InputOutputManager::slotDeleteUniverse()
 {
-    m_ioMap->removeUniverse();
+    int uniIdx = m_list->currentRow();
+
+    // Check if the universe is patched
+    if (m_ioMap->isUniversePatched(uniIdx) == true)
+    {
+        // Ask for user's confirmation
+        if (QMessageBox::question(
+                    this, tr("Delete Universe"),
+                    tr("The universe you are trying to delete is patched. Are you sure you want to delete it ?"),
+                    QMessageBox::Yes, QMessageBox::No) == QMessageBox::No)
+        {
+            return;
+        }
+    }
+
+    // Check if there are fixtures using this universe
+    quint32 uniID = m_ioMap->getUniverseID(uniIdx);
+    if (uniID == m_ioMap->invalidUniverse())
+        return;
+
+    foreach(Fixture *fx, m_doc->fixtures())
+    {
+        if (fx->universe() == uniID)
+        {
+            // Ask for user's confirmation
+            if (QMessageBox::question(
+                        this, tr("Delete Universe"),
+                        tr("There are some fixtures using the universe you are trying to delete. Are you sure you want to delete it ?"),
+                        QMessageBox::Yes, QMessageBox::No) == QMessageBox::No)
+            {
+                return;
+            }
+            break;
+        }
+    }
+
+    m_ioMap->removeUniverse(uniIdx);
+    m_doc->setModified();
     updateList();
 }
 
 void InputOutputManager::slotUniverseNameChanged(QString name)
 {
     QListWidgetItem *currItem = m_list->currentItem();
+    if (currItem == NULL)
+        return;
+
     int uniIdx = m_list->currentRow();
     if (name.isEmpty())
         name = tr("Universe %1").arg(uniIdx + 1);

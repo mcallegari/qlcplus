@@ -206,32 +206,90 @@ uchar Universe::applyGM(int channel, uchar value)
     return value;
 }
 
+/************************************************************************
+ * Patches
+ ************************************************************************/
+
+bool Universe::isPatched()
+{
+    if (m_inputPatch != NULL || m_outputPatch != NULL || m_fbPatch != NULL)
+        return true;
+
+    return false;
+}
+
 bool Universe::setInputPatch(QLCIOPlugin *plugin,
                              quint32 input, QLCInputProfile *profile)
 {
+    qDebug() << Q_FUNC_INFO << "plugin:" << plugin << "input:" << input << "profile:" << profile;
     if (m_inputPatch == NULL)
     {
+        if (input == QLCChannel::invalid())
+            return false;
         m_inputPatch = new InputPatch(m_id, this);
         connect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
                 this, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)));
     }
-    m_inputPatch->set(plugin, input, profile);
+    else
+    {
+        if (input == QLCChannel::invalid())
+        {
+            disconnect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
+                    this, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)));
+            delete m_inputPatch;
+            m_inputPatch = NULL;
+            return false;
+        }
+    }
+
+    if (m_inputPatch != NULL)
+        m_inputPatch->set(plugin, input, profile);
     return true;
 }
 
 bool Universe::setOutputPatch(QLCIOPlugin *plugin, quint32 output)
 {
+    qDebug() << Q_FUNC_INFO << "plugin:" << plugin << "output:" << output;
     if (m_outputPatch == NULL)
+    {
+        if (output == QLCChannel::invalid())
+            return false;
         m_outputPatch = new OutputPatch(this);
-    m_outputPatch->set(plugin, output);
+    }
+    else
+    {
+        if (output == QLCChannel::invalid())
+        {
+            delete m_outputPatch;
+            m_outputPatch = NULL;
+            return false;
+        }
+    }
+    if (m_outputPatch != NULL)
+        m_outputPatch->set(plugin, output);
     return true;
 }
 
 bool Universe::setFeedbackPatch(QLCIOPlugin *plugin, quint32 output)
 {
+    qDebug() << Q_FUNC_INFO << "plugin:" << plugin << "output:" << output;
     if (m_fbPatch == NULL)
+    {
+        if (output == QLCChannel::invalid())
+            return false;
         m_fbPatch = new OutputPatch(this);
-    m_fbPatch->set(plugin, output);
+    }
+    else
+    {
+        if (output == QLCChannel::invalid())
+        {
+            delete m_fbPatch;
+            m_fbPatch = NULL;
+            return false;
+        }
+    }
+    if (m_fbPatch != NULL)
+        m_fbPatch->set(plugin, output);
     return true;
 }
 
@@ -318,10 +376,13 @@ bool Universe::write(int channel, uchar value, bool forceLTP)
     if (m_preGMValues != NULL)
         m_preGMValues->data()[channel] = char(value);
 
-    int val = m_relativeValues[channel];
-    if (m_preGMValues != NULL)
-        val += (uchar)m_preGMValues->data()[channel];
-    value = CLAMP(val, 0, UCHAR_MAX);
+    if (m_relativeValues[channel] != 0)
+    {
+        int val = m_relativeValues[channel];
+        if (m_preGMValues != NULL)
+            val += (uchar)m_preGMValues->data()[channel];
+        value = CLAMP(val, 0, UCHAR_MAX);
+    }
 
     value = applyGM(channel, value);
     m_postGMValues->data()[channel] = char(value);
