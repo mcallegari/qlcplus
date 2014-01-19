@@ -36,6 +36,7 @@ Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
     , m_id(id)
     , m_name(QString())
     , m_grandMaster(gm)
+    , m_passthrough(false)
     , m_inputPatch(NULL)
     , m_outputPatch(NULL)
     , m_fbPatch(NULL)
@@ -100,6 +101,16 @@ void Universe::resetChanged()
 bool Universe::hasChanged()
 {
     return m_hasChanged;
+}
+
+void Universe::setPassthrough(bool enable)
+{
+    m_passthrough = enable;
+}
+
+bool Universe::passthrough() const
+{
+    return m_passthrough;
 }
 
 void Universe::slotGMValueChanged()
@@ -228,14 +239,14 @@ bool Universe::setInputPatch(QLCIOPlugin *plugin,
             return false;
         m_inputPatch = new InputPatch(m_id, this);
         connect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
-                this, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)));
+                this, SLOT(slotInputValueChanged(quint32,quint32,uchar,const QString&)));
     }
     else
     {
         if (input == QLCChannel::invalid())
         {
             disconnect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
-                    this, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)));
+                    this, SLOT(slotInputValueChanged(quint32,quint32,uchar,const QString&)));
             delete m_inputPatch;
             m_inputPatch = NULL;
             return false;
@@ -293,10 +304,6 @@ bool Universe::setFeedbackPatch(QLCIOPlugin *plugin, quint32 output)
     return true;
 }
 
-/************************************************************************
- * Patches
- ************************************************************************/
-
 InputPatch *Universe::inputPatch() const
 {
     return m_inputPatch;
@@ -310,6 +317,16 @@ OutputPatch *Universe::outputPatch() const
 OutputPatch *Universe::feedbackPatch() const
 {
     return m_fbPatch;
+}
+
+void Universe::slotInputValueChanged(quint32 universe, quint32 channel, uchar value, const QString &key)
+{
+    if (m_passthrough == true)
+    {
+        write(channel, value);
+    }
+    else
+        emit inputValueChanged(universe, channel, value, key);
 }
 
 /************************************************************************
@@ -429,6 +446,14 @@ bool Universe::loadXML(const QDomElement &root, int index, InputOutputMap *ioMap
     if (root.hasAttribute(KXMLQLCUniverseName))
         setName(root.attribute(KXMLQLCUniverseName));
 
+    if (root.hasAttribute(KXMLQLCUniversePassthrough))
+    {
+        if (root.attribute(KXMLQLCUniversePassthrough) == "true")
+            setPassthrough(true);
+        else
+            setPassthrough(false);
+    }
+
     QDomNode node = root.firstChild();
     while (node.isNull() == false)
     {
@@ -487,6 +512,7 @@ bool Universe::saveXML(QDomDocument *doc, QDomElement *wksp_root) const
     QDomElement root = doc->createElement(KXMLQLCUniverse);
     root.setAttribute(KXMLQLCUniverseName, name());
     root.setAttribute(KXMLQLCUniverseID, id());
+    root.setAttribute(KXMLQLCUniversePassthrough, passthrough());
 
     if (inputPatch() != NULL)
     {

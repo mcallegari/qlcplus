@@ -87,7 +87,12 @@ public:
     virtual QString name() = 0;
 
     /** Plugin's I/O capabilities */
-    enum Capability { Output = 0x1, Input = 0x2, Feedback = 0x4 };
+    enum Capability {
+        Output      = 1 << 0,
+        Input       = 1 << 1,
+        Feedback    = 1 << 2,
+        Infinte     = 1 << 3
+    };
 
     /**
      * Get plugin capabilities as an OR'ed bitmask

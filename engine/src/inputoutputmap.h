@@ -161,6 +161,20 @@ public:
     void setUniverseName(int index, QString name);
 
     /**
+     * Set/unset the universe with the given index in passthrough mode
+     * @param index The universe index
+     * @param enable true = passthrough, false = normal mode
+     */
+    void setUniversePassthrough(int index, bool enable);
+
+    /**
+     * Retrieve the passthrough mode of the universe at the given index
+     * @param index The universe index
+     * @return true = passthrough, false = normal mode
+     */
+    bool getUniversePassthrough(int index);
+
+    /**
      * Return if a universe is patched with any input, output or
      * feedback line
      * @param index The universe index

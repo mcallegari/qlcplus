@@ -175,6 +175,20 @@ void InputOutputMap::setUniverseName(int index, QString name)
     m_universeArray.at(index)->setName(name);
 }
 
+void InputOutputMap::setUniversePassthrough(int index, bool enable)
+{
+    if (index < 0 || index >= m_universeArray.count())
+        return;
+    m_universeArray.at(index)->setPassthrough(enable);
+}
+
+bool InputOutputMap::getUniversePassthrough(int index)
+{
+    if (index < 0 || index >= m_universeArray.count())
+        return false;
+    return m_universeArray.at(index)->passthrough();
+}
+
 bool InputOutputMap::isUniversePatched(int index)
 {
     if (index < 0 || index >= m_universeArray.count())

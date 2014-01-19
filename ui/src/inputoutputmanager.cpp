@@ -26,6 +26,7 @@
 #include <QSettings>
 #include <QSplitter>
 #include <QLineEdit>
+#include <QCheckBox>
 #include <QToolBar>
 #include <QAction>
 #include <QTimer>
@@ -61,6 +62,7 @@ InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
     , m_addUniverseAction(NULL)
     , m_deleteUniverseAction(NULL)
     , m_uniNameEdit(NULL)
+    , m_uniPassthroughCheck(NULL)
     , m_editor(NULL)
 {
     Q_ASSERT(s_instance == NULL);
@@ -114,10 +116,18 @@ InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
     m_toolbar->addWidget(uniLabel);
     m_toolbar->addWidget(m_uniNameEdit);
 
+    m_uniPassthroughCheck = new QCheckBox(tr("Passthrough"), this);
+    m_uniPassthroughCheck->setLayoutDirection(Qt::RightToLeft);
+    m_uniPassthroughCheck->setFont(font);
+    m_toolbar->addWidget(m_uniPassthroughCheck);
+
     m_splitter->widget(0)->layout()->addWidget(m_toolbar);
 
     connect(m_uniNameEdit, SIGNAL(textChanged(QString)),
             this, SLOT(slotUniverseNameChanged(QString)));
+
+    connect(m_uniPassthroughCheck, SIGNAL(toggled(bool)),
+            this, SLOT(slotPassthroughChanged(bool)));
 
     /* Universes list */
     m_list = new QListWidget(this);
@@ -195,7 +205,8 @@ void InputOutputManager::updateList()
         m_deleteUniverseAction->setEnabled(true);
         m_list->setCurrentItem(m_list->item(0));
         m_uniNameEdit->setEnabled(true);
-        m_uniNameEdit->setText(m_list->item(0)->data(Qt::DisplayRole).toString());
+        m_uniNameEdit->setText(m_ioMap->getUniverseName(0));
+        m_uniPassthroughCheck->setChecked(m_ioMap->getUniversePassthrough(0));
     }
 }
 
@@ -294,7 +305,9 @@ void InputOutputManager::slotCurrentItemChanged()
     connect(m_editor, SIGNAL(mappingChanged()), this, SLOT(slotMappingChanged()));
     connect(m_editor, SIGNAL(audioInputDeviceChanged()), this, SLOT(slotAudioInputChanged()));
     m_editor->show();
-    m_uniNameEdit->setText(item->data(Qt::DisplayRole).toString());
+    int uniIdx = m_list->currentRow();
+    m_uniNameEdit->setText(m_ioMap->getUniverseName(uniIdx));
+    m_uniPassthroughCheck->setChecked(m_ioMap->getUniversePassthrough(uniIdx));
 }
 
 void InputOutputManager::slotMappingChanged()
@@ -376,5 +389,13 @@ void InputOutputManager::slotUniverseNameChanged(QString name)
     currItem->setData(Qt::DisplayRole, name);
 }
 
+void InputOutputManager::slotPassthroughChanged(bool checked)
+{
+    QListWidgetItem *currItem = m_list->currentItem();
+    if (currItem == NULL)
+        return;
 
+    int uniIdx = m_list->currentRow();
+    m_ioMap->setUniversePassthrough(uniIdx, checked);
+}
 

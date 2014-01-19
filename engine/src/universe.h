@@ -40,6 +40,7 @@ class InputPatch;
 #define KXMLQLCUniverse "Universe"
 #define KXMLQLCUniverseName "Name"
 #define KXMLQLCUniverseID "ID"
+#define KXMLQLCUniversePassthrough "Passthrough"
 
 #define KXMLQLCUniverseInputPatch "Input"
 #define KXMLQLCUniverseInputPlugin "Plugin"
@@ -117,6 +118,16 @@ public:
      */
     bool hasChanged();
 
+    /**
+     * Enable or disable the passthrough mode for this universe
+     */
+    void setPassthrough(bool enable);
+
+    /**
+     * Returns if the universe is in passthrough mode
+     */
+    bool passthrough() const;
+
 protected slots:
     /**
      * Called every time the Grand Master changed value
@@ -141,6 +152,8 @@ protected:
     QString m_name;
     /** Reference to the Grand Master to perform values scaling */
     GrandMaster *m_grandMaster;
+    /** Variable that determine if a universe is in passthrough mode */
+    bool m_passthrough;
 
     /************************************************************************
      * Patches
@@ -172,6 +185,10 @@ public:
      * If not present NULL is returned.
      */
     OutputPatch* feedbackPatch() const;
+
+protected slots:
+    /** Slot called every time an input patch sends data */
+    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value, const QString& key = 0);
 
 signals:
     /** Everyone interested in input data should connect to this signal */

@@ -1,6 +1,7 @@
 qlcplus (4.7.0) stable; urgency=low
 
   * NEW: Input/Output: QLC+ now supports infinite universes
+  * NEW: Input/Output: added universe passthrough mode
   * Function Selection: fixed Collection selection
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 15 February 2014 12:13:14 +0200
