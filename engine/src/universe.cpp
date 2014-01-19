@@ -381,7 +381,7 @@ bool Universe::write(int channel, uchar value, bool forceLTP)
 
     //qDebug() << "Universe write channel" << channel << ", value:" << value;
 
-    if (channel > m_usedChannels)
+    if (channel >= m_usedChannels)
         m_usedChannels = channel + 1;
 
     if (forceLTP == false && (m_channelsMask->at(channel) & HTP) && value < (uchar)m_preGMValues->at(channel))
@@ -414,7 +414,7 @@ bool Universe::writeRelative(int channel, uchar value)
     if (channel >= UNIVERSE_SIZE)
         return false;
 
-    if (channel > m_usedChannels)
+    if (channel >= m_usedChannels)
         m_usedChannels = channel + 1;
 
     if (value == RELATIVE_ZERO)
