@@ -239,7 +239,7 @@ void VCButtonProperties::accept()
     m_button->setKeySequence(m_keySequence);
     m_button->setInputSource(m_inputSource);
     m_button->enableStartupIntensity(m_intensityGroup->isChecked());
-    m_button->enableStartupIntensity(double(m_intensitySlider->value()) / double(100));
+    m_button->enableStartupIntensity(qreal(m_intensitySlider->value()) / qreal(100));
 
     if (m_toggle->isChecked() == true)
         m_button->setAction(VCButton::Toggle);
