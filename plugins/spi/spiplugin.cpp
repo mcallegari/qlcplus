@@ -142,8 +142,10 @@ QString SPIPlugin::outputInfo(quint32 output)
     return str;
 }
 
-void SPIPlugin::writeUniverse(quint32 output, const QByteArray& universe)
+void SPIPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
 {
+    Q_UNUSED(universe)
+
     if (output != 0 || m_spifd == -1)
         return;
 
@@ -151,8 +153,8 @@ void SPIPlugin::writeUniverse(quint32 output, const QByteArray& universe)
     int retVal = -1;
 
     memset(&spi, 0, sizeof(spi));
-    spi.tx_buf        = reinterpret_cast<__u64>(universe.data());
-    spi.len           = universe.size();
+    spi.tx_buf        = reinterpret_cast<__u64>(data.data());
+    spi.len           = data.size();
     spi.delay_usecs   = 0;
     spi.speed_hz      = m_speed;
     spi.bits_per_word = m_bitsPerWord;

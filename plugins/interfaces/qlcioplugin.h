@@ -91,7 +91,7 @@ public:
         Output      = 1 << 0,
         Input       = 1 << 1,
         Feedback    = 1 << 2,
-        Infinte     = 1 << 3
+        Infinite    = 1 << 3
     };
 
     /**
@@ -162,7 +162,7 @@ public:
      * @param output The output universe to write to
      * @param universe The universe data to write
      */
-    virtual void writeUniverse(quint32 output, const QByteArray& universe) = 0;
+    virtual void writeUniverse(quint32 universe, quint32 output, const QByteArray& data) = 0;
 
     /*************************************************************************
      * Inputs

@@ -104,7 +104,6 @@ void OutputPatch_Test::dump()
     uni[169] = 50;
     uni[511] = 25;
 
-    InputOutputMap om(m_doc, 4);
     OutputPatch* op = new OutputPatch(this);
 
     IOPluginStub* stub = static_cast<IOPluginStub*>
@@ -116,7 +115,7 @@ void OutputPatch_Test::dump()
     QVERIFY(stub->m_universe[169] == (char) 0);
     QVERIFY(stub->m_universe[511] == (char) 0);
 
-    op->dump(uni);
+    op->dump(0, uni);
     QVERIFY(stub->m_universe[0] == (char) 100);
     QVERIFY(stub->m_universe[169] == (char) 50);
     QVERIFY(stub->m_universe[511] == (char) 25);

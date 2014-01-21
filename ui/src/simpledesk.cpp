@@ -326,6 +326,11 @@ void SimpleDesk::initUniversesCombo()
     m_universesCombo->addItems(m_doc->inputOutputMap()->universeNames());
     if (currIdx != -1)
         m_universesCombo->setCurrentIndex(currIdx);
+    if (m_universesPage.length() < m_universesCombo->count())
+    {
+        for (int i = 0; i < m_universesCombo->count() - m_universesPage.length(); i++)
+            m_universesPage.append(1);
+    }
     connect(m_universesCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(slotUniversesComboChanged(int)));
 }
@@ -602,6 +607,8 @@ void SimpleDesk::slotUniversesWritten(int idx, const QByteArray& ua)
         for (quint32 i = start; i < start + (quint32)m_channelsPerPage; i++)
         {
             if (m_engine->hasChannel(i + (idx << 9)) == true)
+                continue;
+            if (i >= (quint32)ua.length())
                 continue;
 
             ConsoleChannel *cc = m_universeSliders[i - start];

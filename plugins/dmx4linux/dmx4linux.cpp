@@ -117,13 +117,15 @@ QString DMX4Linux::outputInfo(quint32 output)
     return str;
 }
 
-void DMX4Linux::writeUniverse(quint32 output, const QByteArray& universe)
+void DMX4Linux::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
 {
+    Q_UNUSED(universe)
+
     if (output != 0 || m_file.isOpen() == false)
         return;
 
     m_file.seek(0);
-    if (m_file.write(universe) == -1)
+    if (m_file.write(data) == -1)
         qWarning() << "DMX4Linux: Unable to write:" << m_file.errorString();
 }
 

@@ -172,12 +172,14 @@ QString OlaIO::outputInfo(quint32 output)
     return str;
 }
 
-void OlaIO::writeUniverse(quint32 output, const QByteArray& universe)
+void OlaIO::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
 {
+    Q_UNUSED(universe)
+
     if (output > UNIVERSE_COUNT || !m_thread)
         return;
     else
-        m_thread->write_dmx(m_outputs[output], universe);
+        m_thread->write_dmx(m_outputs[output], data);
 }
 
 QList <uint> OlaIO::outputMapping() const

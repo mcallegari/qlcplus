@@ -77,8 +77,8 @@ public:
     QStringList outputs() { return QStringList(); }
 
     /** @reimp */
-    void writeUniverse(quint32 output, const QByteArray& universe)
-        { Q_UNUSED(output); Q_UNUSED(universe); }
+    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data)
+    { Q_UNUSED(output); Q_UNUSED(universe); Q_UNUSED(data); }
 
     /** @reimp */
     QString outputInfo(quint32 output) { Q_UNUSED(output); return QString(); }

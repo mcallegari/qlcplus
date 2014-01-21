@@ -208,20 +208,22 @@ QString OSCPlugin::outputInfo(quint32 output)
     return str;
 }
 
-void OSCPlugin::writeUniverse(quint32 output, const QByteArray &universe)
+void OSCPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
 {
+    Q_UNUSED(universe)
+
     if (output >= QLCIOPLUGINS_UNIVERSES)
         return;
 
-    for (int i = 0; i < universe.length(); i++)
+    for (int i = 0; i < data.length(); i++)
     {
-        if (universe[i] != m_nodes[output].m_dmxValues[i])
+        if (data[i] != m_nodes[output].m_dmxValues[i])
         {
             //send data here
-            m_nodes[output].m_dmxValues[i] = universe[i];
+            m_nodes[output].m_dmxValues[i] = data[i];
             QString str = QString("/%1/dmx/%2").arg(output).arg(i);
             //qDebug() << "[OSC writeUniverse] Send channel : " << str << ", value: " << universe[i];
-            lo_send(m_nodes[output].m_outAddr, str.toStdString().c_str(), "f", (float)((uchar)universe[i]) / 255);
+            lo_send(m_nodes[output].m_outAddr, str.toStdString().c_str(), "f", (float)((uchar)data[i]) / 255);
         }
     }
 }

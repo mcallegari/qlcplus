@@ -150,10 +150,12 @@ QString Peperoni::outputInfo(quint32 output)
     return str;
 }
 
-void Peperoni::writeUniverse(quint32 output, const QByteArray& universe)
+void Peperoni::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
 {
+    Q_UNUSED(universe)
+
     if (output < quint32(m_devices.size()))
-        m_devices.at(output)->outputDMX(universe);
+        m_devices.at(output)->outputDMX(data);
 }
 
 void Peperoni::rescanDevices()

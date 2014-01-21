@@ -300,7 +300,7 @@ void InputOutputManager::slotCurrentItemChanged()
     }
 
     quint32 universe = item->data(Qt::UserRole).toInt();
-    m_editor = new InputOutputPatchEditor(this, universe, m_ioMap);
+    m_editor = new InputOutputPatchEditor(this, universe, m_ioMap, m_doc);
     m_splitter->widget(1)->layout()->addWidget(m_editor);
     connect(m_editor, SIGNAL(mappingChanged()), this, SLOT(slotMappingChanged()));
     connect(m_editor, SIGNAL(audioInputDeviceChanged()), this, SLOT(slotAudioInputChanged()));

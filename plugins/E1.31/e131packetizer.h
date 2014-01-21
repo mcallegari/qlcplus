@@ -49,7 +49,7 @@ public:
     /** Verify the validity of an E1.31 packet and store the opCode in 'code' */
     bool checkPacket(QByteArray& data);
 
-    bool fillDMXdata(QByteArray& data, QByteArray& dmx, int& universe);
+    bool fillDMXdata(QByteArray& data, QByteArray& dmx, quint32 &universe);
 
 private:
     QByteArray m_commonHeader;

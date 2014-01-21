@@ -87,8 +87,9 @@ void InputOutputMap::setBlackout(bool blackout)
         QByteArray zeros(512, 0);
         for (quint32 i = 0; i < universes(); i++)
         {
-            if (m_universeArray.at(i)->outputPatch() != NULL)
-                m_universeArray.at(i)->outputPatch()->dump(zeros);
+            Universe *universe = m_universeArray.at(i);
+            if (universe->outputPatch() != NULL)
+                universe->outputPatch()->dump(universe->id(), zeros);
         }
     }
     else
@@ -224,14 +225,14 @@ void InputOutputMap::dumpUniverses()
             Universe *universe = m_universeArray.at(i);
             if (universe->hasChanged() && universe->outputPatch() != NULL)
             {
-                const QByteArray postGM = universe->postGMValues()->mid(0);
+                const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
                 /*
                 fprintf(stderr, "---- ");
                 for (int d = 0; d < universe->usedChannels(); d++)
                     fprintf(stderr, "%d ", (unsigned char)postGM.at(d));
                 fprintf(stderr, " ----\n");
                 */
-                universe->outputPatch()->dump(postGM);
+                universe->outputPatch()->dump(universe->id(), postGM);
 
                 m_universeMutex.unlock();
                 emit universesWritten(i, postGM);
