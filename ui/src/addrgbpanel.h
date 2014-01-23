@@ -36,6 +36,14 @@ public:
     AddRGBPanel(QWidget *parent, const Doc* doc);
     ~AddRGBPanel();
 
+    enum Orientation {
+        None,
+        TopLeft,
+        TopRight,
+        BottomLeft,
+        BottomRight
+    };
+
     enum Type {
         Unknown,
         Snake,
@@ -47,10 +55,8 @@ public:
     int address();
     int columns();
     int rows();
+    Orientation orientation();
     Type type();
-
-    QLCFixtureDef *rowDefinition();
-    QLCFixtureMode *rowMode(QLCFixtureDef *def);
     
 protected slots:
     void slotSizeChanged(int val);

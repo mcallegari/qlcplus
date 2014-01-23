@@ -365,6 +365,16 @@ protected:
     QLCFixtureMode* m_fixtureMode;
 
     /*********************************************************************
+     * Generic RGB panel
+     *********************************************************************/
+public:
+    /** Creates and returns a definition for a generic RGB panel row */
+    QLCFixtureDef *genericRGBPanelDef(int columns);
+
+    /** Creates and returns a fixture mode for a generic RGB panel row */
+    QLCFixtureMode *genericRGBPanelMode(QLCFixtureDef *def);
+
+    /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>453</width>
-    <height>367</height>
+    <height>427</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,6 +24,12 @@
       <string>Panel properties</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
       <item>
        <layout class="QGridLayout" name="gridLayout">
         <item row="1" column="0">
@@ -78,6 +84,12 @@
       <string>Size</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
       <item>
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="0" column="0">
@@ -129,6 +141,46 @@
          </widget>
         </item>
        </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_4">
+     <property name="title">
+      <string>Orientation</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="1">
+       <widget class="QRadioButton" name="m_oriTopRightRadio">
+        <property name="text">
+         <string>Top-Right</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QRadioButton" name="m_oriTopLeftRadio">
+        <property name="text">
+         <string>Top-Left</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QRadioButton" name="m_oriBottomLeftRadio">
+        <property name="text">
+         <string>Bottom-Left</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QRadioButton" name="m_oriBottomRightRadio">
+        <property name="text">
+         <string>Bottom-Right</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

@@ -1117,6 +1117,7 @@ void FixtureManager::slotAddRGBPanel()
     if (rgb.exec() == QDialog::Accepted)
     {
         int rows = rgb.rows();
+        int columns = rgb.columns();
 
         FixtureGroup *grp = new FixtureGroup(m_doc);
         Q_ASSERT(grp != NULL);
@@ -1126,8 +1127,8 @@ void FixtureManager::slotAddRGBPanel()
         m_doc->addFixtureGroup(grp);
         updateGroupMenu();
 
-        QLCFixtureDef *rowDef = rgb.rowDefinition();
-        QLCFixtureMode *rowMode = rgb.rowMode(rowDef);
+        QLCFixtureDef *rowDef = NULL;
+        QLCFixtureMode *rowMode = NULL;
         quint32 address = (quint32)rgb.address();
 
         for (int i = 0; i < rows; i++)
@@ -1135,6 +1136,10 @@ void FixtureManager::slotAddRGBPanel()
             Fixture *fxi = new Fixture(m_doc);
             Q_ASSERT(fxi != NULL);
             fxi->setName(tr("%1 - Row %2").arg(rgb.name()).arg(i + 1));
+            if (rowDef == NULL)
+                rowDef = fxi->genericRGBPanelDef(columns);
+            if (rowMode == NULL)
+                rowMode = fxi->genericRGBPanelMode(rowDef);
             fxi->setFixtureDefinition(rowDef, rowMode);
             fxi->setAddress(address);
             address += fxi->channels();

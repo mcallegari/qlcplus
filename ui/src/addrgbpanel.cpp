@@ -67,6 +67,20 @@ int AddRGBPanel::rows()
     return m_rowSpin->value();
 }
 
+AddRGBPanel::Orientation AddRGBPanel::orientation()
+{
+    if (m_oriTopLeftRadio->isChecked())
+        return TopLeft;
+    else if (m_oriTopRightRadio->isChecked())
+        return TopRight;
+    else if (m_oriBottomLeftRadio->isChecked())
+        return BottomLeft;
+    else if (m_oriBottomRightRadio->isChecked())
+        return BottomRight;
+
+    return None;
+}
+
 AddRGBPanel::Type AddRGBPanel::type()
 {
     if (m_snakeRadio->isChecked())
@@ -75,61 +89,6 @@ AddRGBPanel::Type AddRGBPanel::type()
         return ZigZag;
 
     return Unknown;
-}
-
-QLCFixtureDef *AddRGBPanel::rowDefinition()
-{
-    QLCFixtureDef *def = new QLCFixtureDef();
-    def->setManufacturer(KXMLFixtureGeneric);
-    def->setModel(KXMLFixtureRGBPanel);
-    def->setType("LED Bar");
-    def->setAuthor("QLC+");
-    for (int i = 0; i < m_columnSpin->value(); i++)
-    {
-        QLCChannel* red = new QLCChannel();
-        red->setName(QString("Red %1").arg(i + 1));
-        red->setGroup(QLCChannel::Intensity);
-        red->setColour(QLCChannel::Red);
-
-        QLCChannel* green = new QLCChannel();
-        green->setName(QString("Green %1").arg(i + 1));
-        green->setGroup(QLCChannel::Intensity);
-        green->setColour(QLCChannel::Green);
-
-        QLCChannel* blue = new QLCChannel();
-        blue->setName(QString("Blue %1").arg(i + 1));
-        blue->setGroup(QLCChannel::Intensity);
-        blue->setColour(QLCChannel::Blue);
-
-        def->addChannel(red);
-        def->addChannel(green);
-        def->addChannel(blue);
-    }
-
-    return def;
-}
-
-QLCFixtureMode *AddRGBPanel::rowMode(QLCFixtureDef *def)
-{
-    Q_ASSERT(def != NULL);
-    QLCFixtureMode *mode = new QLCFixtureMode(def);
-    mode->setName("Default");
-    QList<QLCChannel *>channels = def->channels();
-    for (int i = 0; i < channels.count(); i++)
-    {
-        QLCChannel *ch = channels.at(i);
-        mode->insertChannel(ch, i);
-        if (i%3 == 0)
-        {
-            QLCFixtureHead head;
-            head.addChannel(i);
-            head.addChannel(i+1);
-            head.addChannel(i+2);
-            mode->insertHead(-1, head);
-        }
-    }
-
-    return mode;
 }
 
 void AddRGBPanel::slotSizeChanged(int)
