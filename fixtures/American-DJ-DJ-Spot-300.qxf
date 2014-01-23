@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.4.2</Version>
@@ -52,8 +53,8 @@
  </Channel>
  <Channel Name="Gobo spin">
   <Group Byte="1">Speed</Group>
-  <Capability Min="0" Max="85">Fast -> slow</Capability>
-  <Capability Min="86" Max="170">Slow -> fast</Capability>
+  <Capability Min="0" Max="85">Fast -&gt; slow</Capability>
+  <Capability Min="86" Max="170">Slow -&gt; fast</Capability>
   <Capability Min="171" Max="178">No rotation</Capability>
   <Capability Min="179" Max="255">Random rotation</Capability>
  </Channel>

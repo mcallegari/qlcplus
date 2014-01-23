@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.3.2</Version>
@@ -112,7 +113,7 @@
   <Capability Min="0" Max="0">Open</Capability>
   <Capability Min="1" Max="179">Open to Min</Capability>
   <Capability Min="180" Max="191">Closed</Capability>
-  <Capability Min="192" Max="223">Pulse Closing >>></Capability>
+  <Capability Min="192" Max="223">Pulse Closing &gt;&gt;&gt;</Capability>
   <Capability Min="224" Max="255">Pulse Opening &lt;&lt;&lt;</Capability>
  </Channel>
  <Channel Name="Focus">
@@ -123,11 +124,11 @@
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="31">Shutter Closed</Capability>
   <Capability Min="32" Max="63">Open</Capability>
-  <Capability Min="64" Max="95">Strobe >></Capability>
+  <Capability Min="64" Max="95">Strobe &gt;&gt;</Capability>
   <Capability Min="96" Max="127">Open</Capability>
   <Capability Min="128" Max="159">Pulse</Capability>
   <Capability Min="160" Max="191">Open</Capability>
-  <Capability Min="192" Max="223">Strobe Random >></Capability>
+  <Capability Min="192" Max="223">Strobe Random &gt;&gt;</Capability>
   <Capability Min="224" Max="255">Open</Capability>
  </Channel>
  <Channel Name="Dimmer">

@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.5.1</Version>
@@ -35,7 +36,7 @@ via integrated microphone</Capability>
  <Mode Name="Default mode">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="193" Height="40" Weight="0,46" Depth="72"/>
+   <Dimensions Width="193" Height="40" Weight="0.46" Depth="72"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="108" DmxConnector="3-pin"/>

@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller</Name>
   <Version>3.0.7</Version>
@@ -12,7 +13,7 @@
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="7">Off</Capability>
   <Capability Min="8" Max="15">On</Capability>
-  <Capability Min="16" Max="239">Strobe Slow->Fast</Capability>
+  <Capability Min="16" Max="239">Strobe Slow-&gt;Fast</Capability>
   <Capability Min="240" Max="247">Sound Active</Capability>
   <Capability Min="248" Max="255">On</Capability>
  </Channel>
@@ -20,23 +21,23 @@
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="7">Off</Capability>
   <Capability Min="8" Max="15">On</Capability>
-  <Capability Min="16" Max="239">Strobe Slow->Fast</Capability>
+  <Capability Min="16" Max="239">Strobe Slow-&gt;Fast</Capability>
   <Capability Min="240" Max="247">Sound Active</Capability>
   <Capability Min="248" Max="255">On</Capability>
  </Channel>
  <Channel Name="Laser Rotation 1">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="127">Location</Capability>
-  <Capability Min="128" Max="189">Counter-Clockwise Fast -> Slow</Capability>
+  <Capability Min="128" Max="189">Counter-Clockwise Fast -&gt; Slow</Capability>
   <Capability Min="190" Max="193">No Rotation</Capability>
-  <Capability Min="194" Max="255">Clockiwse Slow-> Fast</Capability>
+  <Capability Min="194" Max="255">Clockiwse Slow-&gt; Fast</Capability>
  </Channel>
  <Channel Name="Laser Rotation 2">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="127">Location</Capability>
-  <Capability Min="128" Max="189">Counter-Clockwise Fast -> Slow</Capability>
+  <Capability Min="128" Max="189">Counter-Clockwise Fast -&gt; Slow</Capability>
   <Capability Min="190" Max="193">No Rotation</Capability>
-  <Capability Min="194" Max="255">Clockiwse Slow-> Fast</Capability>
+  <Capability Min="194" Max="255">Clockiwse Slow-&gt; Fast</Capability>
  </Channel>
  <Channel Name="Macros">
   <Group Byte="0">Effect</Group>
@@ -73,4 +74,3 @@
   <Channel Number="4">Macros</Channel>
  </Mode>
 </FixtureDefinition>
-

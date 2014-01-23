@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller</Name>
   <Version>3.0.7</Version>
@@ -11,7 +12,7 @@
  <Channel Name="Fog Output">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="5">Off</Capability>
-  <Capability Min="6" Max="255">Fog Output 0% -> 100%</Capability>
+  <Capability Min="6" Max="255">Fog Output 0% -&gt; 100%</Capability>
  </Channel>
  <Mode Name="DMX Mode">
   <Physical>
@@ -24,4 +25,3 @@
   <Channel Number="0">Fog Output</Channel>
  </Mode>
 </FixtureDefinition>
-

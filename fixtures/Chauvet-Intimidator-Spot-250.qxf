@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.1.3</Version>
@@ -10,7 +11,7 @@
  <Type>Moving Head</Type>
  <Channel Name="Pan Coarse 0-540">
   <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Tilt Coarse 0-270">
   <Group Byte="0">Tilt</Group>

@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.5.1</Version>
@@ -11,7 +12,7 @@
  <Channel Name="Flash Intensity">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="5">Blackout</Capability>
-  <Capability Min="6" Max="255">Flash Intensity Min. > Max.</Capability>
+  <Capability Min="6" Max="255">Flash Intensity Min. &gt; Max.</Capability>
  </Channel>
  <Channel Name="Flash Duration (0-650 ms @ 50Hz or 0-530 ms @ 60Hz)">
   <Group Byte="0">Effect</Group>

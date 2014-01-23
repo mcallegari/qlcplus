@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.3.2</Version>
@@ -123,7 +124,7 @@
  <Mode Name="8 channels">
   <Physical>
    <Bulb Lumens="0" Type="HTI 150W" ColourTemperature="5500"/>
-   <Dimensions Width="276" Height="369" Weight="11,5" Depth="266"/>
+   <Dimensions Width="276" Height="369" Weight="11.5" Depth="266"/>
    <Lens DegreesMax="14" Name="Other" DegreesMin="14"/>
    <Focus PanMax="540" Type="Head" TiltMax="270"/>
    <Technical PowerConsumption="200" DmxConnector="3-pin"/>
@@ -140,7 +141,7 @@
  <Mode Name="13 channels">
   <Physical>
    <Bulb Lumens="0" Type="HTI 150W" ColourTemperature="5500"/>
-   <Dimensions Width="276" Height="369" Weight="11,5" Depth="266"/>
+   <Dimensions Width="276" Height="369" Weight="11.5" Depth="266"/>
    <Lens DegreesMax="14" Name="Other" DegreesMin="14"/>
    <Focus PanMax="540" Type="Head" TiltMax="270"/>
    <Technical PowerConsumption="200" DmxConnector="3-pin"/>

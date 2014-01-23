@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.3.2</Version>
@@ -63,7 +64,7 @@
  </Channel>
  <Channel Name="CTC">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="255">CTB -> CTO</Capability>
+  <Capability Min="0" Max="255">CTB -&gt; CTO</Capability>
  </Channel>
  <Channel Name="Colours">
   <Group Byte="0">Colour</Group>
@@ -76,17 +77,17 @@
   <Capability Min="10" Max="12" Color="#ffffff">5600K White</Capability>
   <Capability Min="13" Max="15">8000K White</Capability>
   <Capability Min="16" Max="16" Color="#0000ff">Blue</Capability>
-  <Capability Min="17" Max="55">Blue -> Cyan</Capability>
+  <Capability Min="17" Max="55">Blue -&gt; Cyan</Capability>
   <Capability Min="56" Max="56" Color="#00ffff">Cyan</Capability>
-  <Capability Min="57" Max="95">Cyan -> Green</Capability>
+  <Capability Min="57" Max="95">Cyan -&gt; Green</Capability>
   <Capability Min="96" Max="96" Color="#00ff00">Green</Capability>
-  <Capability Min="97" Max="134">Green -> Yellow</Capability>
+  <Capability Min="97" Max="134">Green -&gt; Yellow</Capability>
   <Capability Min="135" Max="135" Color="#ffff00">Yellow</Capability>
-  <Capability Min="136" Max="174">Yellow -> Red</Capability>
+  <Capability Min="136" Max="174">Yellow -&gt; Red</Capability>
   <Capability Min="175" Max="175" Color="#ff0000">Red</Capability>
-  <Capability Min="176" Max="214">Red -> Magenta</Capability>
+  <Capability Min="176" Max="214">Red -&gt; Magenta</Capability>
   <Capability Min="215" Max="215" Color="#ff00ff">Magenta</Capability>
-  <Capability Min="216" Max="246">Magenta -> Blue</Capability>
+  <Capability Min="216" Max="246">Magenta -&gt; Blue</Capability>
   <Capability Min="247" Max="247" Color="#0000ff">Blue</Capability>
   <Capability Min="248" Max="248">Rainbow (Fade)</Capability>
   <Capability Min="249" Max="249">Rainbow</Capability>
@@ -103,15 +104,15 @@
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="31">Closed</Capability>
-  <Capability Min="32" Max="63">Strobe >> (Z3)</Capability>
-  <Capability Min="64" Max="95">Strobe >> (All Zones)</Capability>
-  <Capability Min="96" Max="111">Effects >></Capability>
+  <Capability Min="32" Max="63">Strobe &gt;&gt; (Z3)</Capability>
+  <Capability Min="64" Max="95">Strobe &gt;&gt; (All Zones)</Capability>
+  <Capability Min="96" Max="111">Effects &gt;&gt;</Capability>
   <Capability Min="112" Max="127">Effects &lt;&lt;</Capability>
-  <Capability Min="128" Max="143">Opening Pulse ></Capability>
+  <Capability Min="128" Max="143">Opening Pulse &gt;</Capability>
   <Capability Min="144" Max="159">Closing Pulse &lt;</Capability>
-  <Capability Min="160" Max="175">Rnd Strobe >> (Rndm Zone)</Capability>
-  <Capability Min="176" Max="191">Random Strobe >> (Rndm Strb+Zone)</Capability>
-  <Capability Min="192" Max="223">Random Strobe >> (All Zones)</Capability>
+  <Capability Min="160" Max="175">Rnd Strobe &gt;&gt; (Rndm Zone)</Capability>
+  <Capability Min="176" Max="191">Random Strobe &gt;&gt; (Rndm Strb+Zone)</Capability>
+  <Capability Min="192" Max="223">Random Strobe &gt;&gt; (All Zones)</Capability>
   <Capability Min="224" Max="255">Open</Capability>
  </Channel>
  <Channel Name="Dimmer">
@@ -270,7 +271,7 @@
  <Mode Name="Mode 1">
   <Physical>
    <Bulb Lumens="37000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="343" Height="444" Weight="10,6" Depth="203"/>
+   <Dimensions Width="343" Height="444" Weight="10.6" Depth="203"/>
    <Lens DegreesMax="60" Name="Other" DegreesMin="15"/>
    <Focus PanMax="450" Type="Head" TiltMax="300"/>
    <Technical PowerConsumption="415" DmxConnector="3-pin and 5-pin"/>
@@ -316,7 +317,7 @@
  <Mode Name="Mode 2">
   <Physical>
    <Bulb Lumens="37000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="343" Height="444" Weight="10,6" Depth="203"/>
+   <Dimensions Width="343" Height="444" Weight="10.6" Depth="203"/>
    <Lens DegreesMax="60" Name="Other" DegreesMin="15"/>
    <Focus PanMax="450" Type="Head" TiltMax="300"/>
    <Technical PowerConsumption="415" DmxConnector="3-pin and 5-pin"/>
@@ -346,7 +347,7 @@
  <Mode Name="Mode 3">
   <Physical>
    <Bulb Lumens="37000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="343" Height="444" Weight="10,6" Depth="203"/>
+   <Dimensions Width="343" Height="444" Weight="10.6" Depth="203"/>
    <Lens DegreesMax="60" Name="Other" DegreesMin="15"/>
    <Focus PanMax="450" Type="Head" TiltMax="300"/>
    <Technical PowerConsumption="415" DmxConnector="3-pin and 5-pin"/>
@@ -370,7 +371,7 @@
  <Mode Name="Mode 4">
   <Physical>
    <Bulb Lumens="37000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="343" Height="444" Weight="10,6" Depth="203"/>
+   <Dimensions Width="343" Height="444" Weight="10.6" Depth="203"/>
    <Lens DegreesMax="60" Name="Other" DegreesMin="15"/>
    <Focus PanMax="450" Type="Head" TiltMax="300"/>
    <Technical PowerConsumption="415" DmxConnector="3-pin and 5-pin"/>
@@ -389,7 +390,7 @@
  <Mode Name="Mode 5">
   <Physical>
    <Bulb Lumens="37000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="343" Height="444" Weight="10,6" Depth="203"/>
+   <Dimensions Width="343" Height="444" Weight="10.6" Depth="203"/>
    <Lens DegreesMax="60" Name="Other" DegreesMin="15"/>
    <Focus PanMax="450" Type="Head" TiltMax="300"/>
    <Technical PowerConsumption="415" DmxConnector="3-pin and 5-pin"/>

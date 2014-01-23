@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.5.1</Version>
@@ -70,7 +71,7 @@
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="15">Nothing</Capability>
-  <Capability Min="16" Max="255">Strobe (Slow -> Fast)</Capability>
+  <Capability Min="16" Max="255">Strobe (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Programs">
   <Group Byte="0">Effect</Group>

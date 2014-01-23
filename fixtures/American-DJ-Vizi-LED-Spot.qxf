@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller</Name>
   <Version>3.0.7</Version>
-  <Author>hjunnila</Author>
+  <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
  <Model>Vizi LED Spot</Model>

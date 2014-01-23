@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.3.0</Version>
@@ -165,7 +166,7 @@
  </Channel>
  <Channel Name="Speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Slow -> Fast</Capability>
+  <Capability Min="0" Max="255">Slow -&gt; Fast</Capability>
  </Channel>
  <Mode Name="3 Channel">
   <Physical>

@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.6.0</Version>
@@ -60,7 +61,7 @@
  <Channel Name="Strobe Speed">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">Slow -> Fast</Capability>
+  <Capability Min="1" Max="255">Slow -&gt; Fast</Capability>
  </Channel>
  <Channel Name="Macros / Progams">
   <Group Byte="0">Effect</Group>
@@ -85,19 +86,19 @@
  </Channel>
  <Channel Name="Speed/Sound Sensitivity Control">
   <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Slow -> Fast</Capability>
+  <Capability Min="0" Max="255">Slow -&gt; Fast</Capability>
  </Channel>
  <Channel Name="Strobe (6Ch)">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="15">Off</Capability>
-  <Capability Min="16" Max="255">Slow -> Fast</Capability>
+  <Capability Min="16" Max="255">Slow -&gt; Fast</Capability>
  </Channel>
  <Channel Name="Dimmer (6Ch)">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="31">Off</Capability>
-  <Capability Min="32" Max="63">Dim -> Bright</Capability>
-  <Capability Min="64" Max="95">Bright -> Dim</Capability>
-  <Capability Min="96" Max="127">Dim -> Bright -> Dim</Capability>
+  <Capability Min="32" Max="63">Dim -&gt; Bright</Capability>
+  <Capability Min="64" Max="95">Bright -&gt; Dim</Capability>
+  <Capability Min="96" Max="127">Dim -&gt; Bright -&gt; Dim</Capability>
   <Capability Min="128" Max="159">Color Mixing</Capability>
   <Capability Min="160" Max="191">3 Color Changing</Capability>
   <Capability Min="192" Max="223">7 Color Changing</Capability>
@@ -106,7 +107,7 @@
  <Channel Name="Dimmer">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -> 100%</Capability>
+  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
  </Channel>
  <Mode Name="3 Channel">
   <Physical>

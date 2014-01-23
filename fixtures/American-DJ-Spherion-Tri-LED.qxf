@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller</Name>
   <Version>3.2.0-1-r2501</Version>
-  <Author>jlgriffin</Author>
+  <Author>JL Griffin</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
  <Model>Spherion Tri LED</Model>
@@ -22,17 +23,17 @@
  <Channel Name="Rotation">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="9">Stop</Capability>
-  <Capability Min="10" Max="113">Clockwise [Fast > Slow]</Capability>
+  <Capability Min="10" Max="113">Clockwise [Fast &gt; Slow]</Capability>
   <Capability Min="114" Max="141">Stop</Capability>
-  <Capability Min="142" Max="245">Counter Clockwise [Fast > Slow]</Capability>
+  <Capability Min="142" Max="245">Counter Clockwise [Fast &gt; Slow]</Capability>
   <Capability Min="246" Max="247">Stop</Capability>
   <Capability Min="248" Max="255">Sound Active</Capability>
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="7">Off</Capability>
-  <Capability Min="8" Max="199">Dimmer [0% > 100%]</Capability>
-  <Capability Min="200" Max="247">Strobe [Fast > Slow]</Capability>
+  <Capability Min="8" Max="199">Dimmer [0% &gt; 100%]</Capability>
+  <Capability Min="200" Max="247">Strobe [Fast &gt; Slow]</Capability>
   <Capability Min="248" Max="255">On</Capability>
  </Channel>
  <Channel Name="Color Macros">

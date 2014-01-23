@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.4.2</Version>
@@ -33,7 +34,7 @@
  <Channel Name="Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="10">No Function</Capability>
-  <Capability Min="11" Max="100">Fast > Slow</Capability>
+  <Capability Min="11" Max="100">Fast &gt; Slow</Capability>
   <Capability Min="101" Max="150">No Function</Capability>
   <Capability Min="151" Max="255">Speed set by unit - Mic (sw4=1), Pot (sw4=0)</Capability>
  </Channel>

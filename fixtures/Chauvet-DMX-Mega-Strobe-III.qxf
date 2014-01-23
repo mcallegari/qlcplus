@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller</Name>
   <Version>3.0.7</Version>
@@ -10,12 +11,12 @@
  <Type>Strobe</Type>
  <Channel Name="Speed / Mode (DMX)">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="211">Slow -> Fast</Capability>
+  <Capability Min="0" Max="211">Slow -&gt; Fast</Capability>
   <Capability Min="212" Max="255">Sound Triggered</Capability>
  </Channel>
  <Channel Name="Dimmer (DMX)">
   <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Low -> High</Capability>
+  <Capability Min="0" Max="255">Low -&gt; High</Capability>
  </Channel>
  <Channel Name="Speed / Mode (Blinder)">
   <Group Byte="0">Speed</Group>
@@ -48,4 +49,3 @@
   <Channel Number="1">Dimmer (Blinder)</Channel>
  </Mode>
 </FixtureDefinition>
-

@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.1.3</Version>
@@ -55,7 +56,7 @@
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="3">Shutter closed</Capability>
   <Capability Min="4" Max="7">Shutter open</Capability>
-  <Capability Min="8" Max="215">Strobe (slow -> fast)</Capability>
+  <Capability Min="8" Max="215">Strobe (slow -&gt; fast)</Capability>
   <Capability Min="216" Max="255">Shutter open</Capability>
  </Channel>
  <Channel Name="Dimmer intensity">
@@ -86,8 +87,8 @@
  <Channel Name="Gobo Rotation">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="7">No Rotation</Capability>
-  <Capability Min="8" Max="119">CW Slow -> Fast</Capability>
-  <Capability Min="120" Max="231">CCW Slow -> Fast</Capability>
+  <Capability Min="8" Max="119">CW Slow -&gt; Fast</Capability>
+  <Capability Min="120" Max="231">CCW Slow -&gt; Fast</Capability>
   <Capability Min="232" Max="255">Gobo Bounce</Capability>
  </Channel>
  <Channel Name="Prism">
@@ -131,7 +132,7 @@
   <Capability Min="200" Max="215">Sound Control 5</Capability>
   <Capability Min="216" Max="231">Sound Control 6</Capability>
   <Capability Min="232" Max="247">Sound Control 7</Capability>
-  <Capability Min="248" Max="255"></Capability>
+  <Capability Min="248" Max="255"/>
  </Channel>
  <Mode Name="13ch - Advanced">
   <Physical>

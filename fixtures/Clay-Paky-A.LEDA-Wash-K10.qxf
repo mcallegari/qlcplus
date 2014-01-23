@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.6.0</Version>
@@ -703,7 +704,7 @@
  <Mode Name="Standard">
   <Physical>
    <Bulb Lumens="5500" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="358" Height="479" Weight="14,1" Depth="253"/>
+   <Dimensions Width="358" Height="479" Weight="14.1" Depth="253"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
    <Technical PowerConsumption="360" DmxConnector="3-pin"/>
@@ -732,7 +733,7 @@
  <Mode Name="Shapes">
   <Physical>
    <Bulb Lumens="5500" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="358" Height="479" Weight="14,1" Depth="253"/>
+   <Dimensions Width="358" Height="479" Weight="14.1" Depth="253"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
    <Technical PowerConsumption="360" DmxConnector="3-pin"/>
@@ -772,7 +773,7 @@
  <Mode Name="Extended">
   <Physical>
    <Bulb Lumens="5500" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="358" Height="479" Weight="14,1" Depth="253"/>
+   <Dimensions Width="358" Height="479" Weight="14.1" Depth="253"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
    <Technical PowerConsumption="360" DmxConnector="3-pin"/>
@@ -972,7 +973,7 @@
  <Mode Name="Extended RGBW">
   <Physical>
    <Bulb Lumens="5500" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="358" Height="479" Weight="14,1" Depth="253"/>
+   <Dimensions Width="358" Height="479" Weight="14.1" Depth="253"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
    <Technical PowerConsumption="360" DmxConnector="3-pin"/>

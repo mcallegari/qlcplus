@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.6.1</Version>
@@ -34,13 +35,13 @@
   <Capability Min="50" Max="59" Color="#ffaa00">Orange</Capability>
   <Capability Min="60" Max="69" Color="#aa557f">Magenta</Capability>
   <Capability Min="70" Max="79" Color="#5ebcce">Light Blue</Capability>
-  <Capability Color2="#aa557f" Min="80" Max="99" Color="#5ebcce">Light Blue -> Magenta</Capability>
-  <Capability Color2="#ffaa00" Min="100" Max="119" Color="#aa557f">Magenta -> Orange</Capability>
-  <Capability Color2="#00aaff" Min="120" Max="139" Color="#ffaa00">Orange -> Blue</Capability>
-  <Capability Color2="#ffff00" Min="140" Max="159" Color="#00aaff">Blue -> Yellow</Capability>
-  <Capability Color2="#00aa00" Min="160" Max="179" Color="#ffff00">Yellow -> Green</Capability>
-  <Capability Color2="#ff0000" Min="180" Max="199" Color="#009c00">Green -> Red</Capability>
-  <Capability Color2="#ffffff" Min="200" Max="219" Color="#ff0000">Red -> Open/White</Capability>
+  <Capability Color2="#aa557f" Min="80" Max="99" Color="#5ebcce">Light Blue -&gt; Magenta</Capability>
+  <Capability Color2="#ffaa00" Min="100" Max="119" Color="#aa557f">Magenta -&gt; Orange</Capability>
+  <Capability Color2="#00aaff" Min="120" Max="139" Color="#ffaa00">Orange -&gt; Blue</Capability>
+  <Capability Color2="#ffff00" Min="140" Max="159" Color="#00aaff">Blue -&gt; Yellow</Capability>
+  <Capability Color2="#00aa00" Min="160" Max="179" Color="#ffff00">Yellow -&gt; Green</Capability>
+  <Capability Color2="#ff0000" Min="180" Max="199" Color="#009c00">Green -&gt; Red</Capability>
+  <Capability Color2="#ffffff" Min="200" Max="219" Color="#ff0000">Red -&gt; Open/White</Capability>
   <Capability Res="Others/rainbow.png" Min="220" Max="255">Forwards (CW) Rainbow slow to fast</Capability>
  </Channel>
  <Channel Name="Static Gobo">

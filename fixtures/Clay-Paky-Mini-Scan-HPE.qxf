@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.1.0</Version>
-  <Author>jlgriffin</Author>
+  <Author>JL Griffin</Author>
  </Creator>
  <Manufacturer>Clay Paky</Manufacturer>
  <Model>Mini Scan HPE</Model>
@@ -29,9 +30,9 @@
   <Capability Min="84" Max="104">360° Position</Capability>
   <Capability Min="105" Max="126">450° Position</Capability>
   <Capability Min="127" Max="127">540° Position</Capability>
-  <Capability Min="128" Max="190">Rotation Speed [Fast->Slow]</Capability>
+  <Capability Min="128" Max="190">Rotation Speed [Fast-&gt;Slow]</Capability>
   <Capability Min="191" Max="192">Stop Rotation</Capability>
-  <Capability Min="193" Max="255">Rotation Speed [Slow->Fast]</Capability>
+  <Capability Min="193" Max="255">Rotation Speed [Slow-&gt;Fast]</Capability>
  </Channel>
  <Channel Name="Gobo Change">
   <Group Byte="0">Gobo</Group>

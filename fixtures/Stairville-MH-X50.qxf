@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.4.0 beta2</Version>
-  <Author>Guillaume Rousseau,,,</Author>
+  <Author>Guillaume Rousseau</Author>
  </Creator>
  <Manufacturer>Stairville</Manufacturer>
  <Model>MH-X50+</Model>
@@ -139,12 +140,12 @@
  </Channel>
  <Channel Name="Focus">
   <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Infinity -> 2m</Capability>
+  <Capability Min="0" Max="255">Infinity -&gt; 2m</Capability>
  </Channel>
  <Mode Name="8ch">
   <Physical>
    <Bulb Lumens="20000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="240" Height="280" Weight="10,3" Depth="370"/>
+   <Dimensions Width="240" Height="280" Weight="10.3" Depth="370"/>
    <Lens DegreesMax="0" Name="PC" DegreesMin="0"/>
    <Focus PanMax="540" Type="Head" TiltMax="270"/>
    <Technical PowerConsumption="135" DmxConnector="3-pin"/>
@@ -161,7 +162,7 @@
  <Mode Name="14ch">
   <Physical>
    <Bulb Lumens="20000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="240" Height="280" Weight="10,3" Depth="370"/>
+   <Dimensions Width="240" Height="280" Weight="10.3" Depth="370"/>
    <Lens DegreesMax="0" Name="PC" DegreesMin="0"/>
    <Focus PanMax="540" Type="Head" TiltMax="270"/>
    <Technical PowerConsumption="135" DmxConnector="3-pin"/>

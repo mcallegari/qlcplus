@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.3.3</Version>
@@ -66,9 +67,9 @@
  <Channel Name="Slow - Fast">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="31">Nothing</Capability>
-  <Capability Min="32" Max="63">Dim > Bright</Capability>
-  <Capability Min="64" Max="95">Bright > Dim</Capability>
-  <Capability Min="96" Max="127">Dim > Bright > Dim</Capability>
+  <Capability Min="32" Max="63">Dim &gt; Bright</Capability>
+  <Capability Min="64" Max="95">Bright &gt; Dim</Capability>
+  <Capability Min="96" Max="127">Dim &gt; Bright &gt; Dim</Capability>
   <Capability Min="128" Max="159">Colour Mixing</Capability>
   <Capability Min="160" Max="191">3 Colour Change</Capability>
   <Capability Min="192" Max="223">7 Colour Change</Capability>

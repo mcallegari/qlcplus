@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.4.2</Version>
-  <Author>LightOp,,,</Author>
+  <Author>LightOp</Author>
  </Creator>
  <Manufacturer>Eliminator Lighting</Manufacturer>
  <Model>Electro MH25R</Model>
@@ -26,7 +27,7 @@
  </Channel>
  <Channel Name="Pan/Tilt Speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">SLOW > FAST</Capability>
+  <Capability Min="0" Max="255">SLOW &gt; FAST</Capability>
  </Channel>
  <Channel Name="Color wheel">
   <Group Byte="0">Colour</Group>
@@ -46,12 +47,12 @@
  <Channel Name="Strobing">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="39">ON</Capability>
-  <Capability Min="40" Max="249">Strobing Slow > Fast</Capability>
+  <Capability Min="40" Max="249">Strobing Slow &gt; Fast</Capability>
   <Capability Min="250" Max="255">ON</Capability>
  </Channel>
  <Channel Name="Master dimmer">
   <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% > 100%</Capability>
+  <Capability Min="0" Max="255">0% &gt; 100%</Capability>
  </Channel>
  <Channel Name="Gobo wheel">
   <Group Byte="0">Gobo</Group>
@@ -71,8 +72,8 @@
   <Capability Res="ClayPaky/gobo00060.png" Min="115" Max="129">Gobo 5 Shake</Capability>
   <Capability Res="Others/gobo00040.png" Min="130" Max="144">Gobo 6 Shake</Capability>
   <Capability Res="Others/gobo00041.png" Min="145" Max="159">Gobo 7 Shake</Capability>
-  <Capability Min="160" Max="207">Gobo Wheel Clockwise Slow > Fast</Capability>
-  <Capability Min="208" Max="255">Gobo Wheel Counter-Clockwise Slow > Fast</Capability>
+  <Capability Min="160" Max="207">Gobo Wheel Clockwise Slow &gt; Fast</Capability>
+  <Capability Min="208" Max="255">Gobo Wheel Counter-Clockwise Slow &gt; Fast</Capability>
  </Channel>
  <Channel Name="Gobo rotation">
   <Group Byte="0">Effect</Group>
@@ -97,13 +98,13 @@
  <Channel Name="Program function">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="10">Controller</Capability>
-  <Capability Min="11" Max="250">Program Auto Run Slow > Fast</Capability>
+  <Capability Min="11" Max="250">Program Auto Run Slow &gt; Fast</Capability>
   <Capability Min="251" Max="255">Program Runs By Sound Active</Capability>
  </Channel>
  <Mode Name="12 Channels">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="10" Height="12" Weight="18,6" Depth="10"/>
+   <Dimensions Width="10" Height="12" Weight="18.6" Depth="10"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
    <Technical PowerConsumption="250" DmxConnector="3-pin"/>
@@ -124,7 +125,7 @@
  <Mode Name="8 Channels">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="10" Height="12" Weight="18,6" Depth="10"/>
+   <Dimensions Width="10" Height="12" Weight="18.6" Depth="10"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
    <Technical PowerConsumption="250" DmxConnector="3-pin"/>
