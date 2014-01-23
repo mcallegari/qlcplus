@@ -1130,6 +1130,25 @@ void FixtureManager::slotAddRGBPanel()
         QLCFixtureDef *rowDef = NULL;
         QLCFixtureMode *rowMode = NULL;
         quint32 address = (quint32)rgb.address();
+        int currRow = 0;
+        int rowInc = 1;
+        int xPosStart = 0;
+        int xPosEnd = columns - 1;
+        int xPosInc = 1;
+
+        if (rgb.orientation() == AddRGBPanel::BottomLeft ||
+            rgb.orientation() == AddRGBPanel::BottomRight)
+        {
+            currRow = rows -1;
+            rowInc = -1;
+        }
+        if (rgb.orientation() == AddRGBPanel::TopRight ||
+            rgb.orientation() == AddRGBPanel::BottomRight)
+        {
+            xPosStart = columns - 1;
+            xPosEnd = 0;
+            xPosInc = -1;
+        }
 
         for (int i = 0; i < rows; i++)
         {
@@ -1144,18 +1163,38 @@ void FixtureManager::slotAddRGBPanel()
             fxi->setAddress(address);
             address += fxi->channels();
             m_doc->addFixture(fxi);
+
             if (rgb.type() == AddRGBPanel::ZigZag)
-                grp->assignFixture(fxi->id());
+            {
+                int xPos = xPosStart;
+                for (int h = 0; h < fxi->heads(); h++)
+                {
+                    grp->assignHead(QLCPoint(xPos, currRow), GroupHead(fxi->id(), h));
+                    xPos += xPosInc;
+                }
+            }
             else if (rgb.type() == AddRGBPanel::Snake)
             {
                 if (i%2 == 0)
-                    grp->assignFixture(fxi->id());
+                {
+                    int xPos = xPosStart;
+                    for (int h = 0; h < fxi->heads(); h++)
+                    {
+                        grp->assignHead(QLCPoint(xPos, currRow), GroupHead(fxi->id(), h));
+                        xPos += xPosInc;
+                    }
+                }
                 else
                 {
-                    for (int h = 0, xPos = fxi->heads() - 1; h < fxi->heads(); h++, xPos--)
-                        grp->assignHead(QLCPoint(xPos, i), GroupHead(fxi->id(), h));
+                    int xPos = xPosEnd;
+                    for (int h = 0; h < fxi->heads(); h++)
+                    {
+                        grp->assignHead(QLCPoint(xPos, currRow), GroupHead(fxi->id(), h));
+                        xPos += (-xPosInc);
+                    }
                 }
             }
+            currRow += rowInc;
         }
 
         updateView();
