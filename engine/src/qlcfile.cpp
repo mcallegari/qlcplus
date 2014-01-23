@@ -32,6 +32,8 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
+#define KXMLQlcplusNamespace "http://qlcplus.sourceforge.net/"
+
 QDomDocument QLCFile::readXML(const QString& path)
 {
     if (path.isEmpty() == true)
@@ -72,12 +74,19 @@ QDomDocument QLCFile::getXMLHeader(const QString& content, const QString& author
     QDomImplementation dom;
     QDomDocument doc(dom.createDocumentType(content, QString(), QString()));
 
+    QDomProcessingInstruction instr = doc.createProcessingInstruction( 
+        "xml", "version='1.0' encoding='UTF-8'");
+
+    doc.appendChild(instr);
+
     QDomElement root;
     QDomElement tag;
     QDomElement subtag;
     QDomText text;
 
     root = doc.createElement(content);
+    root.setAttribute("xmlns", KXMLQlcplusNamespace + content);
+
     doc.appendChild(root);
 
     /* Creator tag */
