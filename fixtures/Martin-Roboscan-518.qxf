@@ -126,7 +126,7 @@
    <Dimensions Width="280" Height="533" Weight="14" Depth="325"/>
    <Lens DegreesMax="16" Name="Other" DegreesMin="16"/>
    <Focus TiltMax="85" PanMax="176" Type="Mirror"/>
-   <Technical PowerConsumption="335" DmxConnector="3-pin"/><Technical PowerConsumption="335" DmxConnector="3-pin"/>
+   <Technical PowerConsumption="335" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Strobe, Stand-alone, Reset, Lamp</Channel>
   <Channel Number="1">Dimmer</Channel>
