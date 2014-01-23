@@ -9,14 +9,16 @@
 
 require 'libxml'
 
+NS = ['xmlns:http://qlcplus.sourceforge.net/FixtureDefinition']
+
 class FixtureDef
   class Creator 
     attr_accessor :name, :version, :author
     def initialize(node)
       return if node.empty?
-      @name = node.find_first('Name').content 
-      @version = node.find_first('Version').content 
-      @author = node.find_first('Author').content 
+      @name = node.find_first('xmlns:Name', NS).content 
+      @version = node.find_first('xmlns:Version', NS).content 
+      @author = node.find_first('xmlns:Author', NS).content 
     end
   end
 
@@ -46,10 +48,10 @@ class FixtureDef
     def initialize(node)
       return if node.empty?
       @name = node.attributes['Name'] 
-      @group = Group.new(node.find_first('Group'))
-      n = node.find_first('Colour')
+      @group = Group.new(node.find_first('xmlns:Group', NS))
+      n = node.find_first('xmlns:Colour', NS)
       @color = n.content unless n.nil?
-      n = node.find('Capability')
+      n = node.find('xmlns:Capability', NS)
       @capabilities = n.nil? ? [] : n.map {|c| Capability.new(c) }
     end
   end
@@ -109,11 +111,11 @@ class FixtureDef
     attr_accessor :bulb, :dimensions, :lens, :focus, :technical
     def initialize(node)
       return if node.empty?
-      @bulb = Bulb.new(node.find_first('Bulb'))
-      @dimensions = Dimensions.new(node.find_first('Dimensions'))
-      @lens = Lens.new(node.find_first('Lens'))
-      @focus = Focus.new(node.find_first('Focus'))
-      @technical = Technical.new(node.find_first('Technical'))
+      @bulb = Bulb.new(node.find_first('xmlns:Bulb', NS))
+      @dimensions = Dimensions.new(node.find_first('xmlns:Dimensions', NS))
+      @lens = Lens.new(node.find_first('xmlns:Lens', NS))
+      @focus = Focus.new(node.find_first('xmlns:Focus', NS))
+      @technical = Technical.new(node.find_first('xmlns:Technical', NS))
     end
   end
 
@@ -130,7 +132,7 @@ class FixtureDef
     attr_accessor :channels
     def initialize(node)
       return if node.empty?
-      @channels = node.find("Channel").map {|c| c.content.to_i }
+      @channels = node.find("xmlns:Channel", NS).map {|c| c.content.to_i }
     end
   end
 
@@ -141,10 +143,10 @@ class FixtureDef
       @heads = []
       return if node.empty?
       @name = node.attributes['Name']
-      @physical = Physical.new(node.find_first('Physical'))
-      n = node.find('Channel')
+      @physical = Physical.new(node.find_first('xmlns:Physical', NS))
+      n = node.find('xmlns:Channel', NS)
       @channels = n.empty? ? [] : n.map {|c| ChannelRef.new(c) }
-      n = node.find('Head')
+      n = node.find('xmlns:Head', NS)
       @heads = n.empty? ? [] : n.map {|h| Head.new(h) }
     end
   end
@@ -158,12 +160,12 @@ class FixtureDef
   def load(path)
     doc = LibXML::XML::Document.file(path)
     @path = path
-    @manufacturer = doc.find_first('/FixtureDefinition/Manufacturer').content
-    @model = doc.find_first('/FixtureDefinition/Model').content
-    @type = doc.find_first('/FixtureDefinition/Type').content
-    @creator = Creator.new(doc.find_first('/FixtureDefinition/Creator'))
-    @channels = doc.find('/FixtureDefinition/Channel').map {|c| Channel.new(c) }
-    @modes = doc.find('/FixtureDefinition/Mode').map {|m| Mode.new(m) }
+    @manufacturer = doc.find_first('/xmlns:FixtureDefinition/xmlns:Manufacturer', NS).content
+    @model = doc.find_first('/xmlns:FixtureDefinition/xmlns:Model', NS).content
+    @type = doc.find_first('/xmlns:FixtureDefinition/xmlns:Type', NS).content
+    @creator = Creator.new(doc.find_first('/xmlns:FixtureDefinition/xmlns:Creator', NS))
+    @channels = doc.find('/xmlns:FixtureDefinition/xmlns:Channel', NS).map {|c| Channel.new(c) }
+    @modes = doc.find('/xmlns:FixtureDefinition/xmlns:Mode', NS).map {|m| Mode.new(m) }
   end
 end
 
