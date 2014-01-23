@@ -1,8 +1,8 @@
 /*
-  Q Light Controller
-  iopluginstub.h
+  Q Light Controller Plus
+  spiplugin.h
 
-  Copyright (c) Heikki Junnila
+  Copyright (c) Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,16 +17,15 @@
   limitations under the License.
 */
 
-#ifndef IOPLUGINSTUB_H
-#define IOPLUGINSTUB_H
+#ifndef SPIPLUGIN_H
+#define SPIPLUGIN_H
 
-#include <QStringList>
 #include <QString>
-#include <QList>
+#include <QFile>
 
 #include "qlcioplugin.h"
 
-class IOPluginStub : public QLCIOPlugin
+class SPIPlugin : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)
@@ -39,7 +38,7 @@ class IOPluginStub : public QLCIOPlugin
      *********************************************************************/
 public:
     /** @reimp */
-    virtual ~IOPluginStub();
+    virtual ~SPIPlugin();
 
     /** @reimp */
     void init();
@@ -71,42 +70,32 @@ public:
 
     /** @reimp */
     void writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
-    
+
+protected:
+    /** File handle for /dev/spidev0.0 */
+    int m_spifd;
+    int m_bitsPerWord;
+    int m_speed;
+
+    /*************************************************************************
+     * Inputs
+     *************************************************************************/
+public:
+    /** @reimp */
+    void openInput(quint32 input) { Q_UNUSED(input); }
+
+    /** @reimp */
+    void closeInput(quint32 input) { Q_UNUSED(input); }
+
+    /** @reimp */
+    QStringList inputs() { return QStringList(); }
+
+    /** @reimp */
+    QString inputInfo(quint32 input) { Q_UNUSED(input); return QString(); }
+
     /** @reimp */
     void sendFeedBack(quint32 input, quint32 channel, uchar value, const QString& key)
         { Q_UNUSED(input); Q_UNUSED(channel); Q_UNUSED(value); Q_UNUSED(key); }
-
-public:
-    /** List of outputs that have been opened */
-    QList <quint32> m_openOutputs;
-
-    /** Fake universe buffer */
-    QByteArray m_universe;
-
-    /*********************************************************************
-     * Inputs
-     *********************************************************************/
-public:
-    /** @reimp */
-    void openInput(quint32 input);
-
-    /** @reimp */
-    void closeInput(quint32 input);
-
-    /** @reimp */
-    QStringList inputs();
-
-    /** @reimp */
-    QString inputInfo(quint32 input);
-
-    /** Tell the plugin to emit valueChanged signal */
-    void emitValueChanged(quint32 input, quint32 channel, uchar value) {
-        emit valueChanged(input, channel, value);
-    }
-
-public:
-    /** List of inputs that have been opened */
-    QList <quint32> m_openInputs;
 
     /*********************************************************************
      * Configuration
@@ -117,10 +106,6 @@ public:
 
     /** @reimp */
     bool canConfigure();
-
-public:
-    int m_configureCalled;
-    bool m_canConfigure;
 };
 
 #endif

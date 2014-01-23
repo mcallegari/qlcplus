@@ -1,3 +1,12 @@
+qlcplus (4.7.0) stable; urgency=low
+
+  * NEW: Input/Output: QLC+ now supports infinite universes
+  * NEW: Input/Output: added universe passthrough mode
+  * NEW: Plugins: ArtNet and E1.31 plugins support up to 65535 universes
+  * Function Selection: fixed Collection selection
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 15 February 2014 12:13:14 +0200
+
 qlcplus (4.6.1) stable; urgency=low
 
   * NEW: Function Manager: it is now possible to set a startup function that is started every time QLC+ switches to operate mode

@@ -28,6 +28,7 @@ class QListWidgetItem;
 class QListWidget;
 class QSplitter;
 class QLineEdit;
+class QCheckBox;
 class QToolBar;
 class QTimer;
 class QIcon;
@@ -91,6 +92,7 @@ private slots:
     void slotAddUniverse();
     void slotDeleteUniverse();
     void slotUniverseNameChanged(QString name);
+    void slotPassthroughChanged(bool checked);
 
 private:
     Doc *m_doc;
@@ -99,6 +101,7 @@ private:
     QAction* m_addUniverseAction;
     QAction* m_deleteUniverseAction;
     QLineEdit *m_uniNameEdit;
+    QCheckBox *m_uniPassthroughCheck;
     QListWidget *m_list;
     QIcon m_icon;
     QTimer* m_timer;

@@ -42,6 +42,7 @@
 #include "outputpatch.h"
 #include "inputpatch.h"
 #include "apputil.h"
+#include "doc.h"
 
 #if defined( __APPLE__) || defined(Q_OS_MAC)
   #include "audiorenderer_portaudio.h"
@@ -71,9 +72,10 @@
 /* Profile column structure */
 #define KProfileColumnName 0
 
-InputOutputPatchEditor::InputOutputPatchEditor(QWidget* parent, quint32 universe, InputOutputMap *ioMap)
+InputOutputPatchEditor::InputOutputPatchEditor(QWidget* parent, quint32 universe, InputOutputMap *ioMap, Doc *doc)
     : QWidget(parent)
     , m_ioMap(ioMap)
+    , m_doc(doc)
     , m_universe(universe)
     , m_currentInputPluginName(KInputNone)
     , m_currentInput(QLCIOPlugin::invalidLine())
@@ -213,6 +215,7 @@ void InputOutputPatchEditor::fillMappingTree()
         QStringList inputs = m_ioMap->pluginInputs(pluginName);
         QStringList outputs = m_ioMap->pluginOutputs(pluginName);
         bool hasFeedback = m_ioMap->pluginSupportsFeedback(pluginName);
+        QLCIOPlugin *plugin = m_doc->ioPluginCache()->plugin(pluginName);
 
         // 1st case: this plugin has no input or output
         if (inputs.length() == 0 && outputs.length() == 0)
@@ -230,7 +233,8 @@ void InputOutputPatchEditor::fillMappingTree()
             {
                 quint32 uni = m_ioMap->inputMapping(pluginName, inputId);
                 //qDebug() << "Plugin: " << pluginName << ", input: " << id << ", universe:" << uni;
-                if (uni == InputOutputMap::invalidUniverse() || uni == m_universe)
+                if (uni == InputOutputMap::invalidUniverse() ||
+                   (uni == m_universe || plugin->capabilities() & QLCIOPlugin::Infinite))
                 {
                     QTreeWidgetItem* pitem = new QTreeWidgetItem(m_mapTree);
                     pitem->setText(KMapColumnPluginName, pluginName);
@@ -247,7 +251,8 @@ void InputOutputPatchEditor::fillMappingTree()
                     if (outputs.contains(inputs.at(l)))
                     {
                         quint32 outUni = m_ioMap->outputMapping(pluginName, outputId);
-                        if (outUni == InputOutputMap::invalidUniverse() || outUni == m_universe)
+                        if (outUni == InputOutputMap::invalidUniverse() ||
+                           (outUni == m_universe || plugin->capabilities() & QLCIOPlugin::Infinite))
                         {
                             if (m_currentOutputPluginName == pluginName && m_currentOutput == outputId)
                                 pitem->setCheckState(KMapColumnHasOutput, Qt::Checked);

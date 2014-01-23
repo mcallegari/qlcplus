@@ -28,6 +28,7 @@ class InputOutputMap;
 class QStringList;
 class OutputPatch;
 class InputPatch;
+class Doc;
 
 /** @addtogroup ui_io
  * @{
@@ -49,7 +50,7 @@ public:
      * @param universe The universe whose settings to edit
      * @param outputMap The output map object that handles DMX output
      */
-    InputOutputPatchEditor(QWidget* parent, quint32 universe, InputOutputMap* ioMap);
+    InputOutputPatchEditor(QWidget* parent, quint32 universe, InputOutputMap* ioMap, Doc* doc);
     ~InputOutputPatchEditor();
 
 signals:
@@ -61,6 +62,7 @@ signals:
 
 private:
     InputOutputMap* m_ioMap;
+    Doc *m_doc;
 
     quint32 m_universe; //! The input universe that is being edited
 

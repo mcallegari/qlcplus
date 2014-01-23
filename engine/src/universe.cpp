@@ -36,6 +36,7 @@ Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
     , m_id(id)
     , m_name(QString())
     , m_grandMaster(gm)
+    , m_passthrough(false)
     , m_inputPatch(NULL)
     , m_outputPatch(NULL)
     , m_fbPatch(NULL)
@@ -100,6 +101,16 @@ void Universe::resetChanged()
 bool Universe::hasChanged()
 {
     return m_hasChanged;
+}
+
+void Universe::setPassthrough(bool enable)
+{
+    m_passthrough = enable;
+}
+
+bool Universe::passthrough() const
+{
+    return m_passthrough;
 }
 
 void Universe::slotGMValueChanged()
@@ -206,38 +217,92 @@ uchar Universe::applyGM(int channel, uchar value)
     return value;
 }
 
+/************************************************************************
+ * Patches
+ ************************************************************************/
+
+bool Universe::isPatched()
+{
+    if (m_inputPatch != NULL || m_outputPatch != NULL || m_fbPatch != NULL)
+        return true;
+
+    return false;
+}
+
 bool Universe::setInputPatch(QLCIOPlugin *plugin,
                              quint32 input, QLCInputProfile *profile)
 {
+    qDebug() << Q_FUNC_INFO << "plugin:" << plugin << "input:" << input << "profile:" << profile;
     if (m_inputPatch == NULL)
     {
+        if (input == QLCChannel::invalid())
+            return false;
         m_inputPatch = new InputPatch(m_id, this);
         connect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
-                this, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)));
+                this, SLOT(slotInputValueChanged(quint32,quint32,uchar,const QString&)));
     }
-    m_inputPatch->set(plugin, input, profile);
+    else
+    {
+        if (input == QLCChannel::invalid())
+        {
+            disconnect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
+                    this, SLOT(slotInputValueChanged(quint32,quint32,uchar,const QString&)));
+            delete m_inputPatch;
+            m_inputPatch = NULL;
+            return false;
+        }
+    }
+
+    if (m_inputPatch != NULL)
+        m_inputPatch->set(plugin, input, profile);
     return true;
 }
 
 bool Universe::setOutputPatch(QLCIOPlugin *plugin, quint32 output)
 {
+    qDebug() << Q_FUNC_INFO << "plugin:" << plugin << "output:" << output;
     if (m_outputPatch == NULL)
+    {
+        if (output == QLCChannel::invalid())
+            return false;
         m_outputPatch = new OutputPatch(this);
-    m_outputPatch->set(plugin, output);
+    }
+    else
+    {
+        if (output == QLCChannel::invalid())
+        {
+            delete m_outputPatch;
+            m_outputPatch = NULL;
+            return false;
+        }
+    }
+    if (m_outputPatch != NULL)
+        m_outputPatch->set(plugin, output);
     return true;
 }
 
 bool Universe::setFeedbackPatch(QLCIOPlugin *plugin, quint32 output)
 {
+    qDebug() << Q_FUNC_INFO << "plugin:" << plugin << "output:" << output;
     if (m_fbPatch == NULL)
+    {
+        if (output == QLCChannel::invalid())
+            return false;
         m_fbPatch = new OutputPatch(this);
-    m_fbPatch->set(plugin, output);
+    }
+    else
+    {
+        if (output == QLCChannel::invalid())
+        {
+            delete m_fbPatch;
+            m_fbPatch = NULL;
+            return false;
+        }
+    }
+    if (m_fbPatch != NULL)
+        m_fbPatch->set(plugin, output);
     return true;
 }
-
-/************************************************************************
- * Patches
- ************************************************************************/
 
 InputPatch *Universe::inputPatch() const
 {
@@ -252,6 +317,16 @@ OutputPatch *Universe::outputPatch() const
 OutputPatch *Universe::feedbackPatch() const
 {
     return m_fbPatch;
+}
+
+void Universe::slotInputValueChanged(quint32 universe, quint32 channel, uchar value, const QString &key)
+{
+    if (m_passthrough == true)
+    {
+        write(channel, value);
+    }
+    else
+        emit inputValueChanged(universe, channel, value, key);
 }
 
 /************************************************************************
@@ -306,7 +381,7 @@ bool Universe::write(int channel, uchar value, bool forceLTP)
 
     //qDebug() << "Universe write channel" << channel << ", value:" << value;
 
-    if (channel > m_usedChannels)
+    if (channel >= m_usedChannels)
         m_usedChannels = channel + 1;
 
     if (forceLTP == false && (m_channelsMask->at(channel) & HTP) && value < (uchar)m_preGMValues->at(channel))
@@ -318,10 +393,13 @@ bool Universe::write(int channel, uchar value, bool forceLTP)
     if (m_preGMValues != NULL)
         m_preGMValues->data()[channel] = char(value);
 
-    int val = m_relativeValues[channel];
-    if (m_preGMValues != NULL)
-        val += (uchar)m_preGMValues->data()[channel];
-    value = CLAMP(val, 0, UCHAR_MAX);
+    if (m_relativeValues[channel] != 0)
+    {
+        int val = m_relativeValues[channel];
+        if (m_preGMValues != NULL)
+            val += (uchar)m_preGMValues->data()[channel];
+        value = CLAMP(val, 0, UCHAR_MAX);
+    }
 
     value = applyGM(channel, value);
     m_postGMValues->data()[channel] = char(value);
@@ -336,7 +414,7 @@ bool Universe::writeRelative(int channel, uchar value)
     if (channel >= UNIVERSE_SIZE)
         return false;
 
-    if (channel > m_usedChannels)
+    if (channel >= m_usedChannels)
         m_usedChannels = channel + 1;
 
     if (value == RELATIVE_ZERO)
@@ -367,6 +445,14 @@ bool Universe::loadXML(const QDomElement &root, int index, InputOutputMap *ioMap
 
     if (root.hasAttribute(KXMLQLCUniverseName))
         setName(root.attribute(KXMLQLCUniverseName));
+
+    if (root.hasAttribute(KXMLQLCUniversePassthrough))
+    {
+        if (root.attribute(KXMLQLCUniversePassthrough) == "true")
+            setPassthrough(true);
+        else
+            setPassthrough(false);
+    }
 
     QDomNode node = root.firstChild();
     while (node.isNull() == false)
@@ -426,6 +512,7 @@ bool Universe::saveXML(QDomDocument *doc, QDomElement *wksp_root) const
     QDomElement root = doc->createElement(KXMLQLCUniverse);
     root.setAttribute(KXMLQLCUniverseName, name());
     root.setAttribute(KXMLQLCUniverseID, id());
+    root.setAttribute(KXMLQLCUniversePassthrough, passthrough());
 
     if (inputPatch() != NULL)
     {

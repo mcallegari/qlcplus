@@ -87,8 +87,9 @@ void InputOutputMap::setBlackout(bool blackout)
         QByteArray zeros(512, 0);
         for (quint32 i = 0; i < universes(); i++)
         {
-            if (m_universeArray.at(i)->outputPatch() != NULL)
-                m_universeArray.at(i)->outputPatch()->dump(zeros);
+            Universe *universe = m_universeArray.at(i);
+            if (universe->outputPatch() != NULL)
+                universe->outputPatch()->dump(universe->id(), zeros);
         }
     }
     else
@@ -125,11 +126,16 @@ bool InputOutputMap::addUniverse(quint32 id)
     return true;
 }
 
-bool InputOutputMap::removeUniverse()
+bool InputOutputMap::removeUniverse(int index)
 {
+    if (index < 0 || index >= m_universeArray.count())
+        return false;
+
     m_universeMutex.lock();
-    Universe *delUni = m_universeArray.takeLast();
+    Universe *delUni = m_universeArray.takeAt(index);
     delete delUni;
+    if (m_universeArray.count() == 0)
+        m_latestUniverseId = invalidUniverse();
     m_universeMutex.unlock();
 
     return true;
@@ -147,6 +153,14 @@ bool InputOutputMap::removeAllUniverses()
     return true;
 }
 
+quint32 InputOutputMap::getUniverseID(int index)
+{
+    if (index < 0 || index >= m_universeArray.count())
+        return invalidUniverse();
+
+    return m_universeArray.at(index)->id();
+}
+
 QString InputOutputMap::getUniverseName(int index)
 {
     if (index >= 0 && index < m_universeArray.count())
@@ -160,6 +174,28 @@ void InputOutputMap::setUniverseName(int index, QString name)
     if (index < 0 || index >= m_universeArray.count())
         return;
     m_universeArray.at(index)->setName(name);
+}
+
+void InputOutputMap::setUniversePassthrough(int index, bool enable)
+{
+    if (index < 0 || index >= m_universeArray.count())
+        return;
+    m_universeArray.at(index)->setPassthrough(enable);
+}
+
+bool InputOutputMap::getUniversePassthrough(int index)
+{
+    if (index < 0 || index >= m_universeArray.count())
+        return false;
+    return m_universeArray.at(index)->passthrough();
+}
+
+bool InputOutputMap::isUniversePatched(int index)
+{
+    if (index < 0 || index >= m_universeArray.count())
+        return false;
+
+    return m_universeArray.at(index)->isPatched();
 }
 
 quint32 InputOutputMap::universes() const
@@ -189,14 +225,14 @@ void InputOutputMap::dumpUniverses()
             Universe *universe = m_universeArray.at(i);
             if (universe->hasChanged() && universe->outputPatch() != NULL)
             {
-                const QByteArray postGM = universe->postGMValues()->mid(0);
+                const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
                 /*
                 fprintf(stderr, "---- ");
                 for (int d = 0; d < universe->usedChannels(); d++)
                     fprintf(stderr, "%d ", (unsigned char)postGM.at(d));
                 fprintf(stderr, " ----\n");
                 */
-                universe->outputPatch()->dump(postGM);
+                universe->outputPatch()->dump(universe->id(), postGM);
 
                 m_universeMutex.unlock();
                 emit universesWritten(i, postGM);
@@ -796,10 +832,10 @@ void InputOutputMap::loadDefaults()
         {
             /* Check that the same plugin & input are not mapped
                to more than one universe at a time. */
-            quint32 m = inputMapping(plugin, input.toInt());
+            quint32 m = inputMapping(plugin, input.toUInt());
             if (m == InputOutputMap::invalidUniverse() || m == i)
             {
-                setInputPatch(i, plugin, input.toInt(), profileName);
+                setInputPatch(i, plugin, input.toUInt(), profileName);
             }
         }
     }
@@ -831,15 +867,15 @@ void InputOutputMap::loadDefaults()
         {
             /* Check that the same plugin & output are not mapped
                to more than one universe at a time. */
-            quint32 m = outputMapping(plugin, output.toInt());
+            quint32 m = outputMapping(plugin, output.toUInt());
             if (m == InputOutputMap::invalidUniverse() || m == i)
-                setOutputPatch(i, plugin, output.toInt());
+                setOutputPatch(i, plugin, output.toUInt());
         }
         if (fb_plugin.length() > 0 && feedback.length() > 0)
         {
-            quint32 m = outputMapping(feedback, fb_plugin.toInt());
+            quint32 m = outputMapping(feedback, fb_plugin.toUInt());
             if (m == InputOutputMap::invalidUniverse() || m == i)
-                setOutputPatch(i, fb_plugin, feedback.toInt(), true);
+                setOutputPatch(i, fb_plugin, feedback.toUInt(), true);
         }
     }
 }
@@ -854,7 +890,8 @@ void InputOutputMap::saveDefaults()
     for (quint32 i = 0; i < universes(); i++)
     {
         InputPatch* pat = inputPatch(i);
-        Q_ASSERT(pat != NULL);
+        if (pat == NULL)
+            continue;
 
         /* Plugin name */
         key = QString("/inputmap/universe%2/plugin/").arg(i);
@@ -878,24 +915,27 @@ void InputOutputMap::saveDefaults()
     {
         OutputPatch* outPatch = outputPatch(i);
         OutputPatch* fbPatch = feedbackPatch(i);
-        Q_ASSERT(outPatch != NULL);
-        Q_ASSERT(fbPatch != NULL);
+        if (outPatch != NULL)
+        {
+            /* Plugin name */
+            key = QString("/outputmap/universe%2/plugin/").arg(i);
+            settings.setValue(key, outPatch->pluginName());
 
-        /* Plugin name */
-        key = QString("/outputmap/universe%2/plugin/").arg(i);
-        settings.setValue(key, outPatch->pluginName());
+            /* Plugin output */
+            key = QString("/outputmap/universe%2/output/").arg(i);
+            settings.setValue(key, str.setNum(outPatch->output()));
+        }
 
-        /* Plugin output */
-        key = QString("/outputmap/universe%2/output/").arg(i);
-        settings.setValue(key, str.setNum(outPatch->output()));
+        if (fbPatch != NULL)
+        {
+            /* Plugin name */
+            key = QString("/outputmap/universe%2/feedbackplugin/").arg(i);
+            settings.setValue(key, fbPatch->pluginName());
 
-        /* Plugin name */
-        key = QString("/outputmap/universe%2/feedbackplugin/").arg(i);
-        settings.setValue(key, fbPatch->pluginName());
-
-        /* Plugin output */
-        key = QString("/outputmap/universe%2/feedback/").arg(i);
-        settings.setValue(key, str.setNum(fbPatch->output()));
+            /* Plugin output */
+            key = QString("/outputmap/universe%2/feedback/").arg(i);
+            settings.setValue(key, str.setNum(fbPatch->output()));
+        }
     }
 }
 

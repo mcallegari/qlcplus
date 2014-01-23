@@ -834,7 +834,7 @@ bool VCButton::loadXML(const QDomElement* root)
                 adjust = true;
             else
                 adjust = false;
-            enableStartupIntensity(double(tag.text().toInt()) / double(100));
+            enableStartupIntensity(qreal(tag.text().toInt()) / qreal(100));
             enableStartupIntensity(adjust);
         }
         else

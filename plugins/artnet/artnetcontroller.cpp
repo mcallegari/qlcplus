@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  artnetnode.cpp
+  artnetcontroller.cpp
 
   Copyright (c) Massimo Callegari
 
@@ -22,10 +22,11 @@
 #include <QDebug>
 
 ArtNetController::ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> interfaces,
-                                   QList<QString> macAddrList, Type type, QObject *parent)
+                                   QString macAddress, Type type, QObject *parent)
     : QObject(parent)
 {
     m_ipAddr = QHostAddress(ipaddr);
+    m_MACAddress = macAddress;
 
     int i = 0;
     foreach(QNetworkAddressEntry iface, interfaces)
@@ -33,7 +34,6 @@ ArtNetController::ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> i
         if (iface.ip() == m_ipAddr)
         {
             m_broadcastAddr = iface.broadcast();
-            m_MACAddress = macAddrList.at(i);
             break;
         }
         i++;
@@ -85,32 +85,12 @@ ArtNetController::~ArtNetController()
     m_UdpSocket->close();
 }
 
-void ArtNetController::addUniverse(quint32 line, int uni)
+void ArtNetController::setType(Type type)
 {
-    if (m_universes.contains(uni) == false)
-    {
-        m_universes[uni] = line;
-        qDebug() << "[ArtNetController::addUniverse] Added new universe: " << uni;
-    }
+    m_type = type;
 }
 
-int ArtNetController::getUniversesNumber()
-{
-    return m_universes.size();
-}
-
-bool ArtNetController::removeUniverse(int uni)
-{
-    if (m_universes.contains(uni))
-    {
-
-        qDebug() << Q_FUNC_INFO << "Removing universe " << uni;
-        return m_universes.remove(uni);
-    }
-    return false;
-}
-
-int ArtNetController::getType()
+ArtNetController::Type ArtNetController::type()
 {
     return m_type;
 }
@@ -135,7 +115,7 @@ QHash<QHostAddress, ArtNetNodeInfo> ArtNetController::getNodesList()
     return m_nodesList;
 }
 
-void ArtNetController::sendDmx(const int &universe, const QByteArray &data)
+void ArtNetController::sendDmx(const quint32 universe, const QByteArray &data)
 {
     QByteArray dmxPacket;
     m_packetizer->setupArtNetDmx(dmxPacket, universe, data);
@@ -199,23 +179,18 @@ void ArtNetController::processPendingPackets()
                     {
                         qDebug() << "DMX data received";
                         QByteArray dmxData;
-                        int universe;
-                        if (this->getType() == Input)
+                        quint32 universe;
+                        if (this->type() == Input)
                         {
                             m_packetReceived++;
                             if (m_packetizer->fillDMXdata(datagram, dmxData, universe) == true)
                             {
-                                if ((universe * 512) > m_dmxValues.length() || m_universes.contains(universe) == false)
-                                {
-                                    qDebug() << "Universe " << universe << "not supported !";
-                                    break;
-                                }
                                 for (int i = 0; i < dmxData.length(); i++)
                                 {
                                     if (m_dmxValues.at(i + (universe * 512)) != dmxData.at(i))
                                     {
                                         m_dmxValues[i + (universe * 512)] =  dmxData[i];
-                                        emit valueChanged(m_universes[universe], i, (uchar)dmxData.at(i));
+                                        emit valueChanged(universe, i, (uchar)dmxData.at(i));
                                     }
                                 }
                             }

@@ -202,7 +202,7 @@ bool E131Packetizer::checkPacket(QByteArray &data)
  * Receiver functions
  *********************************************************************/
 
-bool E131Packetizer::fillDMXdata(QByteArray& data, QByteArray &dmx, int &universe)
+bool E131Packetizer::fillDMXdata(QByteArray& data, QByteArray &dmx, quint32 &universe)
 {
     if (data.isNull())
         return false;

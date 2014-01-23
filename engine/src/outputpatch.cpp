@@ -123,9 +123,9 @@ bool OutputPatch::isPatched() const
  * Value dump
  *****************************************************************************/
 
-void OutputPatch::dump(const QByteArray& universe)
+void OutputPatch::dump(quint32 universe, const QByteArray& data)
 {
     /* Don't do anything if there is no plugin and/or output line. */
     if (m_plugin != NULL && m_output != QLCIOPlugin::invalidLine())
-        m_plugin->writeUniverse(m_output, universe);
+        m_plugin->writeUniverse(universe, m_output, data);
 }

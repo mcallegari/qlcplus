@@ -42,7 +42,6 @@ public slots:
     int exec();
 
 private:
-    void fillOutputTree();
     void fillNodesTree();
 
 private:

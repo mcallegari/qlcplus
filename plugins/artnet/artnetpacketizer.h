@@ -100,7 +100,7 @@ public:
 
     bool fillArtPollReplyInfo(QByteArray& data, ArtNetNodeInfo &info);
 
-    bool fillDMXdata(QByteArray& data, QByteArray& dmx, int& universe);
+    bool fillDMXdata(QByteArray& data, QByteArray& dmx, quint32 &universe);
 
 private:
     QByteArray m_commonHeader;

@@ -80,9 +80,11 @@ QString IOPluginStub::outputInfo(quint32 output)
     return QString("This is a plugin stub for testing.");
 }
 
-void IOPluginStub::writeUniverse(quint32 output, const QByteArray& universe)
+void IOPluginStub::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
 {
-    m_universe = m_universe.replace(output * 512, universe.size(), universe);
+    Q_UNUSED(universe)
+
+    m_universe = m_universe.replace(output * 512, data.size(), data);
 }
 
 /*****************************************************************************
