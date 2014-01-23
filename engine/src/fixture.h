@@ -47,6 +47,7 @@ class Doc;
 #define KXMLFixtureAddress "Address"
 #define KXMLFixtureID "ID"
 #define KXMLFixtureGeneric "Generic"
+#define KXMLFixtureRGBPanel "RGBPanel"
 #define KXMLFixtureChannels "Channels"
 #define KXMLFixtureDimmer "Dimmer"
 #define KXMLFixtureExcludeFade "ExcludeFade"

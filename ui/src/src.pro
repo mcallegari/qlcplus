@@ -38,6 +38,7 @@ HEADERS += aboutbox.h \
            addchannelsgroup.h \
            addfixture.h \
            addresstool.h \
+           addrgbpanel.h \
            addvcbuttonmatrix.h \
            addvcslidermatrix.h \
            app.h \
@@ -130,6 +131,7 @@ FORMS += aboutbox.ui \
          addchannelsgroup.ui \
          addfixture.ui \
          addresstool.ui \
+         addrgbpanel.ui \
          addvcbuttonmatrix.ui \
          addvcslidermatrix.ui \
          assignhotkey.ui \
@@ -170,6 +172,7 @@ SOURCES += aboutbox.cpp \
            addchannelsgroup.cpp \
            addfixture.cpp \
            addresstool.cpp \
+           addrgbpanel.cpp \
            addvcbuttonmatrix.cpp \
            addvcslidermatrix.cpp \
            app.cpp \
