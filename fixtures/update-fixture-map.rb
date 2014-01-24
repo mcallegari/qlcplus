@@ -26,8 +26,8 @@ class FixtureDef
     attr_accessor :min, :max, :name, :color, :colour2
     def initialize(node)
       return if node.empty?
-      @min = node.attributes['Min'] 
-      @max = node.attributes['Max'] 
+      @min = node.attributes['Min'].to_i 
+      @max = node.attributes['Max'].to_i
       @color = node.attributes['Color'] 
       @color2 = node.attributes['Color2'] 
       @name = node.content 
@@ -39,7 +39,7 @@ class FixtureDef
     def initialize(node)
       return if node.empty?
       @name = node.content 
-      @byte = node.attributes['Byte'] 
+      @byte = node.attributes['Byte'].to_i
     end
   end
 
@@ -124,13 +124,14 @@ class FixtureDef
     def initialize(node)
       return if node.empty?
       @name = node.content 
-      @number = node.attributes['Number'] 
+      @number = node.attributes['Number'].to_i
     end
   end
   
   class Head
-    attr_accessor :channels
+    attr_accessor :channels, :index
     def initialize(node)
+      channels = []
       return if node.empty?
       @channels = node.find("xmlns:Channel", NS).map {|c| c.content.to_i }
     end
@@ -148,6 +149,7 @@ class FixtureDef
       @channels = n.empty? ? [] : n.map {|c| ChannelRef.new(c) }
       n = node.find('xmlns:Head', NS)
       @heads = n.empty? ? [] : n.map {|h| Head.new(h) }
+      @heads.each_with_index {|h, i| h.index = i + 1}
     end
   end
 
@@ -158,14 +160,14 @@ class FixtureDef
   end
 
   def load(path)
-    doc = LibXML::XML::Document.file(path)
+    @doc = LibXML::XML::Document.file(path)
     @path = path
-    @manufacturer = doc.find_first('/xmlns:FixtureDefinition/xmlns:Manufacturer', NS).content
-    @model = doc.find_first('/xmlns:FixtureDefinition/xmlns:Model', NS).content
-    @type = doc.find_first('/xmlns:FixtureDefinition/xmlns:Type', NS).content
-    @creator = Creator.new(doc.find_first('/xmlns:FixtureDefinition/xmlns:Creator', NS))
-    @channels = doc.find('/xmlns:FixtureDefinition/xmlns:Channel', NS).map {|c| Channel.new(c) }
-    @modes = doc.find('/xmlns:FixtureDefinition/xmlns:Mode', NS).map {|m| Mode.new(m) }
+    @manufacturer = @doc.find_first('/xmlns:FixtureDefinition/xmlns:Manufacturer', NS).content
+    @model = @doc.find_first('/xmlns:FixtureDefinition/xmlns:Model', NS).content
+    @type = @doc.find_first('/xmlns:FixtureDefinition/xmlns:Type', NS).content
+    @creator = Creator.new(@doc.find_first('/xmlns:FixtureDefinition/xmlns:Creator', NS))
+    @channels = @doc.find('/xmlns:FixtureDefinition/xmlns:Channel', NS).map {|c| Channel.new(c) }
+    @modes = @doc.find('/xmlns:FixtureDefinition/xmlns:Mode', NS).map {|m| Mode.new(m) }
   end
 end
 
@@ -253,7 +255,7 @@ EOF
 EOF
         fix.modes.each_with_index do |m, i|
         if i > 0
-          f << "</tr></tr>"
+          f << "    <tr>\n"
         end
           f << <<-EOF
       <td>#{m.name}</td>
@@ -274,9 +276,52 @@ EOF
       <td>#{m.physical.technical.power_consumption}</td>
       <td>#{m.physical.technical.dmx_connector}</td>
     </tr>
-
 EOF
         end
+
+        f << <<-EOF
+    <tr>
+      <td colspan=22>
+        <table border=1>
+          <tr>
+            <th>&nbsp;</th>
+            <th>group</th>
+            <th>byte</th>
+            <th>color</th>
+EOF
+        fix.modes.each do |m|
+          f << "            <th colspan=2> #{m.name}</th>\n"  
+        end
+        
+        f << "          </tr>\n"
+        
+        fix.channels.each do |ch|
+          f << "          <tr>\n"
+          f << "            <td>#{ch.name}</td>\n"
+          f << "            <td>#{ch.group.name}</td>\n"
+          f << "            <td>#{ch.group.byte > 0 ? ch.group.byte : nil}</td>\n"
+          f << "            <td>#{ch.color}</td>\n"
+
+          fix.modes.each do |m|
+            mch = m.channels.find {|mc| mc.name == ch.name}
+            if mch.nil?
+              f << "            <td></td>\n"
+              f << "            <td></td>\n"
+            else
+              heads = m.heads.map {|h| h.index if h.channels.include? mch.number }.compact
+              f << "            <td>#{mch.number}</td>\n"
+              f << "            <td>#{ heads.join(',') }</td>\n"
+            end
+          end
+
+          f << "          </tr>\n"
+        end
+
+        f << <<-EOF
+          </tr>
+        </table>
+      <td>
+EOF
       end
 
       f << <<-EOF
