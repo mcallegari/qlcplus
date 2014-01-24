@@ -1,11 +1,29 @@
 <HTML>
 <HEAD>
-<TITLE>Q Light Controller - RGBScript Development Tool</TITLE>
+<TITLE>Q Light Controller Plus - RGBScript Development Tool</TITLE>
 <!-- Include your script on the following line, replace "oppositerows.js" -->
 <SCRIPT SRC="oppositerows.js"></SCRIPT>
 <SCRIPT SRC="devtool.js"></SCRIPT>
+
+<SCRIPT type="text/javascript">
+
+var testTimer;
+
+function startTest()
+{
+    var speed = document.getElementById("speed").value;
+    testTimer = window.setInterval("nextStep()", speed);
+}
+
+function stopTest()
+{
+    window.clearInterval(testTimer)
+}
+
+</SCRIPT>
+
 </HEAD>
-<BODY onLoad="init()">
+<BODY onLoad="init()" style="font-family:Arial;">
 
 <H1>Q Light Controller - RGB Script Development Tool</H1>
 
@@ -60,6 +78,12 @@ Height: <INPUT TYPE="text" ID="height" SIZE="3" onChange="updateStepCount()"/>
 <INPUT TYPE="button" value="Update" onClick="updateStepCount()"/><BR>
 </FORM>
 
+<H2>Pixel colors</H2>
+<FORM>
+Primary color:<INPUT TYPE="text" ID="color1" value="FF0000" SIZE="6" onChange="updateStepCount()"/>
+Secondary color:<INPUT TYPE="checkbox" ID="bicolor" onClick="writeCurrentStep()"/>
+</FORM>
+
 <H2>Algorithm Functions</H2>
 <FORM>
 <TABLE>
@@ -77,17 +101,11 @@ Height: <INPUT TYPE="text" ID="height" SIZE="3" onChange="updateStepCount()"/>
    <FORM>
    <INPUT TYPE="button" value="Previous" onClick="previousStep()"/>
    <INPUT TYPE="text" ID="currentstep" size="3" onChange="writeCurrentStep()"/>
-   <INPUT TYPE="button" value="Next" onClick="nextStep()"/>
+   <INPUT TYPE="button" value="Next" onClick="nextStep()"/><BR>
+   <INPUT TYPE="button" value="Start test" onClick="startTest()"/>
+   <INPUT TYPE="button" value="Stop test" onClick="stopTest()"/>
+   Speed (ms):<INPUT TYPE="text" ID="speed" size="5" value="500"/>
    </FORM>
-  </TD>
- </TR>
-</TABLE>
-
-<TABLE>
- <TR>
-  <TD>bicolor</TD>
-  <TD>
-   <INPUT TYPE="checkbox" ID="bicolor" onClick="writeCurrentStep()"/>
   </TD>
  </TR>
 </TABLE>
