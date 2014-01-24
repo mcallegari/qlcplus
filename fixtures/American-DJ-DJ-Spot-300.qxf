@@ -18,7 +18,7 @@
   <Capability Min="0" Max="255">Tilt</Capability>
  </Channel>
  <Channel Name="Color">
-  <Group Byte="1">Colour</Group>
+  <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7" Color="#ffffff">White</Capability>
   <Capability Min="8" Max="14" Color="#ff0000">Red</Capability>
   <Capability Color2="#ffff00" Min="15" Max="21" Color="#ff0000">Red/yellow</Capability>
@@ -40,7 +40,7 @@
   <Capability Res="Others/rainbow.png" Min="128" Max="255">Rainbow effect</Capability>
  </Channel>
  <Channel Name="Gobo">
-  <Group Byte="1">Gobo</Group>
+  <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="15">Spot</Capability>
   <Capability Min="16" Max="31">Gobo 1</Capability>
   <Capability Min="32" Max="47">Gobo 2</Capability>
@@ -52,7 +52,7 @@
   <Capability Min="128" Max="255">Gobo scroll</Capability>
  </Channel>
  <Channel Name="Gobo spin">
-  <Group Byte="1">Speed</Group>
+  <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="85">Fast -&gt; slow</Capability>
   <Capability Min="86" Max="170">Slow -&gt; fast</Capability>
   <Capability Min="171" Max="178">No rotation</Capability>
@@ -65,7 +65,7 @@
   <Capability Min="254" Max="255">Shutter open</Capability>
  </Channel>
  <Channel Name="Gobo shake / reset">
-  <Group Byte="1">Effect</Group>
+  <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="190">Gobo shake</Capability>
   <Capability Min="191" Max="255">Reset</Capability>
  </Channel>

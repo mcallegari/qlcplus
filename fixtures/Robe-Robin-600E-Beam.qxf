@@ -79,7 +79,7 @@
   <Capability Min="250" Max="255">Auto Rndm selection &lt;&lt;&lt;</Capability>
  </Channel>
  <Channel Name="Colour Wheel Fine">
-  <Group Byte="0">Colour</Group>
+  <Group Byte="1">Colour</Group>
   <Capability Min="0" Max="255">Fine Positioning</Capability>
  </Channel>
  <Channel Name="Cyan">
@@ -170,7 +170,7 @@
   <Capability Min="250" Max="255">Auto Random Gobo &lt;&lt;&lt;</Capability>
  </Channel>
  <Channel Name="Static Gobo Fine">
-  <Group Byte="0">Gobo</Group>
+  <Group Byte="1">Gobo</Group>
   <Capability Min="0" Max="255">Fine Positioning</Capability>
  </Channel>
  <Channel Name="Rotating Gobos">
@@ -247,7 +247,7 @@
   <Capability Min="0" Max="255">Dimmer 0% to 100%</Capability>
  </Channel>
  <Channel Name="Dimmer Fine">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Capability Min="0" Max="255">Fine Dimming</Capability>
  </Channel>
  <Channel Name="Frost">
@@ -260,11 +260,11 @@
   <Capability Min="234" Max="255">Ramping &lt;&lt;</Capability>
  </Channel>
  <Channel Name="Gobo Rotation Fine">
-  <Group Byte="0">Gobo</Group>
+  <Group Byte="1">Gobo</Group>
   <Capability Min="0" Max="255">Fine Indexing (Rotation)</Capability>
  </Channel>
  <Channel Name="Iris Fine">
-  <Group Byte="0">Beam</Group>
+  <Group Byte="1">Beam</Group>
   <Capability Min="0" Max="255">Fine Iris Movement</Capability>
  </Channel>
  <Channel Name="Focus">
@@ -272,7 +272,7 @@
   <Capability Min="0" Max="255">Far to Near</Capability>
  </Channel>
  <Channel Name="Focus Fine">
-  <Group Byte="0">Beam</Group>
+  <Group Byte="1">Beam</Group>
   <Capability Min="0" Max="255">Fine Focusing</Capability>
  </Channel>
  <Mode Name="Mode 1">

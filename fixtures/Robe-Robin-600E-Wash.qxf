@@ -78,7 +78,7 @@
   <Capability Min="250" Max="255">Auto Rndm selection &lt;&lt;&lt;</Capability>
  </Channel>
  <Channel Name="Colour Wheel Fine">
-  <Group Byte="0">Colour</Group>
+  <Group Byte="1">Colour</Group>
   <Capability Min="0" Max="255">Fine Positioning</Capability>
  </Channel>
  <Channel Name="Cyan">
@@ -145,7 +145,7 @@
   <Capability Min="0" Max="255">Min to Max</Capability>
  </Channel>
  <Channel Name="Zoom Fine">
-  <Group Byte="0">Beam</Group>
+  <Group Byte="1">Beam</Group>
   <Capability Min="0" Max="255">Fine Zooming</Capability>
  </Channel>
  <Channel Name="Shutter">
@@ -165,7 +165,7 @@
   <Capability Min="0" Max="255">Dimmer 0% to 100%</Capability>
  </Channel>
  <Channel Name="Dimmer Fine">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Capability Min="0" Max="255">Fine Dimming</Capability>
  </Channel>
  <Mode Name="Mode 1">

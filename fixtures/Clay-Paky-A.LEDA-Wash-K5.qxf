@@ -15,7 +15,7 @@
   <Capability Min="0" Max="255">Red (0% to 100%)</Capability>
  </Channel>
  <Channel Name="Red fine">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Colour>Red</Colour>
   <Capability Min="0" Max="255">Red fine (0% to 100%)</Capability>
  </Channel>
@@ -25,7 +25,7 @@
   <Capability Min="0" Max="255">Green (0% to 100%)</Capability>
  </Channel>
  <Channel Name="Green fine">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Colour>Green</Colour>
   <Capability Min="0" Max="255">Green fine (0% to 100%)</Capability>
  </Channel>
@@ -35,7 +35,7 @@
   <Capability Min="0" Max="255">Blue (0% to 100%)</Capability>
  </Channel>
  <Channel Name="Blue fine">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Colour>Blue</Colour>
   <Capability Min="0" Max="255">Blue fine (0% to 100%)</Capability>
  </Channel>
@@ -45,7 +45,7 @@
   <Capability Min="0" Max="255">White (0% to 100%)</Capability>
  </Channel>
  <Channel Name="White fine">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Colour>White</Colour>
   <Capability Min="0" Max="255">White fine (0% to 100%)</Capability>
  </Channel>
@@ -193,7 +193,7 @@
   <Capability Min="0" Max="255">Dimmer (0% to 100%)</Capability>
  </Channel>
  <Channel Name="Dimmer fine">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Capability Min="0" Max="255">Dimmer fine (0% to 100%)</Capability>
  </Channel>
  <Channel Name="Pan">

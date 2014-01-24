@@ -41,7 +41,7 @@
   <Capability Min="1" Max="255">Near - Far</Capability>
  </Channel>
  <Channel Name="Focus Fine">
-  <Group Byte="0">Effect</Group>
+  <Group Byte="1">Effect</Group>
  </Channel>
  <Channel Name="Function">
   <Group Byte="0">Maintenance</Group>

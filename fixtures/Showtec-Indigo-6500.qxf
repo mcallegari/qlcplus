@@ -137,7 +137,7 @@
   <Capability Min="0" Max="255">Near-&gt;Far</Capability>
  </Channel>
  <Channel Name="Focus Fine">
-  <Group Byte="0">Beam</Group>
+  <Group Byte="1">Beam</Group>
   <Capability Min="0" Max="255">Near-&gt;Far</Capability>
  </Channel>
  <Channel Name="Dimmer Intensity">

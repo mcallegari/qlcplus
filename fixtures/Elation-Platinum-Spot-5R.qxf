@@ -41,7 +41,7 @@
   <Capability Min="194" Max="255">Scroll Backwards (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Color Fine">
-  <Group Byte="0">Colour</Group>
+  <Group Byte="1">Colour</Group>
   <Capability Min="0" Max="255">Change to Any Position Fine</Capability>
  </Channel>
  <Channel Name="Rotating Gobos (Continuous Rotation)">
@@ -73,7 +73,7 @@
   <Capability Min="194" Max="255">Backward Gobo Rotation (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Rotating Gobo (Indexing) Fine">
-  <Group Byte="0">Gobo</Group>
+  <Group Byte="1">Gobo</Group>
   <Capability Min="0" Max="255">Fine Indexing</Capability>
  </Channel>
  <Channel Name="Fixed Gobos">
@@ -110,7 +110,7 @@
   <Capability Min="218" Max="255">Gobo Wheel Rotation (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Fixed Gobo (Indexing) Fine">
-  <Group Byte="0">Gobo</Group>
+  <Group Byte="1">Gobo</Group>
   <Capability Min="0" Max="255">Fixed Gobo Indexing</Capability>
  </Channel>
  <Channel Name="3 Facet Prism / Gobo Macros">
@@ -142,7 +142,7 @@
   <Capability Min="194" Max="255">Backwards Prism Rotation (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Rotating Prism Indexing Fine">
-  <Group Byte="0">Prism</Group>
+  <Group Byte="1">Prism</Group>
   <Capability Min="0" Max="255">Fine Indexing</Capability>
  </Channel>
  <Channel Name="Focus">
@@ -150,7 +150,7 @@
   <Capability Min="0" Max="255">Near -&gt; Far</Capability>
  </Channel>
  <Channel Name="Focus Fine">
-  <Group Byte="0">Beam</Group>
+  <Group Byte="1">Beam</Group>
   <Capability Min="0" Max="255">Fine</Capability>
  </Channel>
  <Channel Name="Shutter">
@@ -169,7 +169,7 @@
   <Capability Min="0" Max="255">0% - 100%</Capability>
  </Channel>
  <Channel Name="Dimmer Fine">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Capability Min="0" Max="255">Intensity Fine</Capability>
  </Channel>
  <Channel Name="Iris">
@@ -179,7 +179,7 @@
   <Capability Min="224" Max="255">Pulse Open (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Iris Fine">
-  <Group Byte="0">Beam</Group>
+  <Group Byte="1">Beam</Group>
   <Capability Min="0" Max="255">Fine</Capability>
  </Channel>
  <Channel Name="Frost">
