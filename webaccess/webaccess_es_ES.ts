@@ -16,7 +16,7 @@
     <message>
         <location filename="webaccess.cpp" line="368"/>
         <source>Autostart configuration changed</source>
-        <translation type="unfinished"></translation>
+        <translation>La configuración de inicio automático ha cambiado</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="444"/>
@@ -41,7 +41,7 @@
     <message>
         <location filename="webaccess.cpp" line="1091"/>
         <source>System</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistema</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1100"/>
@@ -52,63 +52,63 @@
     <message>
         <location filename="webaccess.cpp" line="1151"/>
         <source>Network interface: </source>
-        <translation type="unfinished"></translation>
+        <translation>Interfaz de red:</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1155"/>
         <source>Dynamic (DHCP)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dinámico (DHCP)</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1157"/>
         <source>Static</source>
-        <translation type="unfinished"></translation>
+        <translation>Estático</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1159"/>
         <source>IP Address: </source>
-        <translation type="unfinished"></translation>
+        <translation>Dirección IP:</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1160"/>
         <source>Netmask: </source>
-        <translation type="unfinished"></translation>
+        <translation>Máscara de red:</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1161"/>
         <source>Gateway: </source>
-        <translation type="unfinished"></translation>
+        <translation>Puerta de enlace:</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1163"/>
         <location filename="webaccess.cpp" line="1314"/>
         <source>Apply changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplicar cambios</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1303"/>
         <source>Network configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuración de red</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1308"/>
         <source>Project autostart</source>
-        <translation type="unfinished"></translation>
+        <translation>Inicio automático de proyecto</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1312"/>
         <source>No project</source>
-        <translation type="unfinished"></translation>
+        <translation>Ningún proyecto</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1313"/>
         <source>Use current project</source>
-        <translation type="unfinished"></translation>
+        <translation>Usar el proyecto actual</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1318"/>
         <source>Reboot</source>
-        <translation type="unfinished"></translation>
+        <translation>Reiniciar</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1057"/>
@@ -128,7 +128,7 @@
     <message>
         <location filename="webaccess.cpp" line="1121"/>
         <source>User loaded fixtures</source>
-        <translation type="unfinished"></translation>
+        <translation>Fixtures cargados por el usuario</translation>
     </message>
 </context>
 </TS>

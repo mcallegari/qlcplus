@@ -2883,40 +2883,40 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputmanager.cpp" line="82"/>
         <source>Add U&amp;niverse</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir U&amp;niverso</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="88"/>
         <source>&amp;Delete Universe</source>
         <oldsource>Universe</oldsource>
-        <translation type="unfinished">Universo</translation>
+        <translation>&amp;Borrar Universo</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="107"/>
         <source>Universe name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre del Universo:</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="200"/>
         <location filename="inputoutputmanager.cpp" line="355"/>
         <source>Universe %1</source>
-        <translation type="unfinished">Universo %1</translation>
+        <translation>Universo %1</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="317"/>
         <location filename="inputoutputmanager.cpp" line="336"/>
         <source>Delete Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar Universo</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="318"/>
         <source>The universe you are trying to delete is patched. Are you sure you want to delete it ?</source>
-        <translation type="unfinished"></translation>
+        <translation>El universo que está tratando de borrar está patcheado. ¿Está seguro de querer borrarlo?</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="337"/>
         <source>There are some fixtures using the universe you are trying to delete. Are you sure you want to delete it ?</source>
-        <translation type="unfinished"></translation>
+        <translation>Algunos fixtures están usando el universo que está tratando de borrar. ¿Está seguro de querer borrarlo?</translation>
     </message>
 </context>
 <context>
@@ -4466,22 +4466,23 @@ Duración: %3
     <message>
         <location filename="universeitemwidget.cpp" line="86"/>
         <source>Input:</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrada:
+</translation>
     </message>
     <message>
         <location filename="universeitemwidget.cpp" line="87"/>
         <source>Profile:</source>
-        <translation type="unfinished"></translation>
+        <translation>Perfil:</translation>
     </message>
     <message>
         <location filename="universeitemwidget.cpp" line="88"/>
         <source>Output:</source>
-        <translation type="unfinished"></translation>
+        <translation>Salida:</translation>
     </message>
     <message>
         <location filename="universeitemwidget.cpp" line="89"/>
         <source>Feedback:</source>
-        <translation type="unfinished"></translation>
+        <translation>Feedback:</translation>
     </message>
     <message>
         <location filename="universeitemwidget.cpp" line="106"/>
@@ -4489,7 +4490,7 @@ Duración: %3
         <location filename="universeitemwidget.cpp" line="110"/>
         <location filename="universeitemwidget.cpp" line="112"/>
         <source>None</source>
-        <translation type="unfinished">Ninguno</translation>
+        <translation>Ninguno</translation>
     </message>
 </context>
 <context>
@@ -4761,17 +4762,17 @@ Duración: %3
     <message>
         <location filename="vcclockproperties.ui" line="87"/>
         <source>Schedule</source>
-        <translation type="unfinished"></translation>
+        <translation>Calendario</translation>
     </message>
     <message>
         <location filename="vcclockproperties.ui" line="153"/>
         <source>Function</source>
-        <translation type="unfinished">Función</translation>
+        <translation>Función</translation>
     </message>
     <message>
         <location filename="vcclockproperties.ui" line="158"/>
         <source>Time</source>
-        <translation type="unfinished">Tiempo</translation>
+        <translation>Hora</translation>
     </message>
 </context>
 <context>
