@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller</Name>
   <Version>3.2.0-3-r2623</Version>
@@ -87,7 +88,7 @@
  </Channel>
  <Channel Name="Tilt Fine">
   <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Rotating Prism">
   <Group Byte="0">Prism</Group>

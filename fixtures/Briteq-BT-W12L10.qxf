@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.4.1</Version>
@@ -18,25 +19,25 @@
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="19">Shutter closed</Capability>
   <Capability Min="20" Max="49">Shutter open</Capability>
-  <Capability Min="50" Max="64">Strobe 1 (fast -> slow)</Capability>
+  <Capability Min="50" Max="64">Strobe 1 (fast -&gt; slow)</Capability>
   <Capability Min="65" Max="69">Shutter open</Capability>
-  <Capability Min="70" Max="84">Strobe 2: opening pulse (fast -> slow)</Capability>
+  <Capability Min="70" Max="84">Strobe 2: opening pulse (fast -&gt; slow)</Capability>
   <Capability Min="85" Max="89">Shutter open</Capability>
-  <Capability Min="90" Max="104">Strobe 3: closing pulse (fast -> slow)</Capability>
+  <Capability Min="90" Max="104">Strobe 3: closing pulse (fast -&gt; slow)</Capability>
   <Capability Min="105" Max="109">Shutter open</Capability>
-  <Capability Min="110" Max="124">Strobe 4: random strobe (fast -> slow)</Capability>
+  <Capability Min="110" Max="124">Strobe 4: random strobe (fast -&gt; slow)</Capability>
   <Capability Min="125" Max="129">Shutter open</Capability>
-  <Capability Min="130" Max="144">Strobe 5: random opening pulse (fast -> slow)</Capability>
+  <Capability Min="130" Max="144">Strobe 5: random opening pulse (fast -&gt; slow)</Capability>
   <Capability Min="145" Max="149">Shutter open</Capability>
-  <Capability Min="150" Max="164">Strobe 6: random closing pulse (fast -> slow)</Capability>
+  <Capability Min="150" Max="164">Strobe 6: random closing pulse (fast -&gt; slow)</Capability>
   <Capability Min="165" Max="169">Shutter open</Capability>
-  <Capability Min="170" Max="184">Strobe 7: burst pulse (fast -> slow)</Capability>
+  <Capability Min="170" Max="184">Strobe 7: burst pulse (fast -&gt; slow)</Capability>
   <Capability Min="185" Max="189">Shutter open</Capability>
-  <Capability Min="190" Max="204">Strobe 8: random burst pulse (fast -> slow)</Capability>
+  <Capability Min="190" Max="204">Strobe 8: random burst pulse (fast -&gt; slow)</Capability>
   <Capability Min="205" Max="209">Shutter open</Capability>
-  <Capability Min="210" Max="224">Strobe 9: sine wave (fast -> slow)</Capability>
+  <Capability Min="210" Max="224">Strobe 9: sine wave (fast -&gt; slow)</Capability>
   <Capability Min="225" Max="229">Shutter open</Capability>
-  <Capability Min="230" Max="244">Strobe 10: burst (fast -> slow)</Capability>
+  <Capability Min="230" Max="244">Strobe 10: burst (fast -&gt; slow)</Capability>
   <Capability Min="245" Max="255">Shutter open</Capability>
  </Channel>
  <Channel Name="Fixture Control">
@@ -103,9 +104,9 @@
   <Capability Min="165" Max="169" Color="#ff5f00">Deep golden amber</Capability>
   <Capability Min="170" Max="174" Color="#ff3200">Flame red</Capability>
   <Capability Min="175" Max="179">Open</Capability>
-  <Capability Min="180" Max="201">Rotation clockwise (Fast -> Slow)</Capability>
+  <Capability Min="180" Max="201">Rotation clockwise (Fast -&gt; Slow)</Capability>
   <Capability Min="202" Max="207">Rotation stop</Capability>
-  <Capability Min="208" Max="229">Rotation counter-clockwise (Slow -> Fast)</Capability>
+  <Capability Min="208" Max="229">Rotation counter-clockwise (Slow -&gt; Fast)</Capability>
   <Capability Min="230" Max="234">Open</Capability>
   <Capability Min="235" Max="239">Random color fast</Capability>
   <Capability Min="240" Max="244">Random color medium</Capability>
@@ -178,7 +179,7 @@
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="15">Shutter open</Capability>
-  <Capability Min="16" Max="131">Strobe (fast -> slow)</Capability>
+  <Capability Min="16" Max="131">Strobe (fast -&gt; slow)</Capability>
   <Capability Min="132" Max="139">Shutter open</Capability>
   <Capability Min="140" Max="181">Shutter fast close slow open</Capability>
   <Capability Min="182" Max="189">Shutter open</Capability>

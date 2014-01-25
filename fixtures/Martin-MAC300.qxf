@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller</Name>
   <Version>3.1.0</Version>
@@ -12,12 +13,12 @@
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="19">Shutter closed</Capability>
   <Capability Min="20" Max="49">Shutter open</Capability>
-  <Capability Min="50" Max="72">Strobe, fast -> slow</Capability>
+  <Capability Min="50" Max="72">Strobe, fast -&gt; slow</Capability>
   <Capability Min="73" Max="79">Shutter open</Capability>
-  <Capability Min="80" Max="99">Opening pulse, fast -> slow</Capability>
-  <Capability Min="100" Max="119">Closing pulse, fast -> slow</Capability>
+  <Capability Min="80" Max="99">Opening pulse, fast -&gt; slow</Capability>
+  <Capability Min="100" Max="119">Closing pulse, fast -&gt; slow</Capability>
   <Capability Min="120" Max="127">Shutter open</Capability>
-  <Capability Min="128" Max="187">Random strobe, fast -> slow</Capability>
+  <Capability Min="128" Max="187">Random strobe, fast -&gt; slow</Capability>
   <Capability Min="188" Max="190">Shutter open</Capability>
   <Capability Min="191" Max="193">Random opening pulse, fast</Capability>
   <Capability Min="194" Max="196">Random opening pulse, slow</Capability>
@@ -94,7 +95,7 @@
  <Channel Name="Pan/tilt speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="2">Tracking mode</Capability>
-  <Capability Min="3" Max="245">Fast -> slow</Capability>
+  <Capability Min="3" Max="245">Fast -&gt; slow</Capability>
   <Capability Min="246" Max="248">Tracking, PTSP NORM</Capability>
   <Capability Min="249" Max="251">Tracking, PTSP FAST</Capability>
   <Capability Min="252" Max="255">Blackout while moving</Capability>
@@ -102,7 +103,7 @@
  <Channel Name="Effect speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="2">Tracking mode</Capability>
-  <Capability Min="3" Max="245">Fast -> slow</Capability>
+  <Capability Min="3" Max="245">Fast -&gt; slow</Capability>
   <Capability Min="246" Max="248">Tracking, SCUT OFF</Capability>
   <Capability Min="249" Max="251">Tracking, SCUT ON</Capability>
   <Capability Min="252" Max="255">Blackout while moving</Capability>

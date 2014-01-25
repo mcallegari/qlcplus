@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.6.0</Version>
-  <Author>Clem,,,</Author>
+  <Author>Clem</Author>
  </Creator>
  <Manufacturer>Ledj</Manufacturer>
  <Model>Colour Storm Quad</Model>

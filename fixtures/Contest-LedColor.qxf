@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.4.1</Version>
-  <Author>jacques,,,</Author>
+  <Author>jacques</Author>
  </Creator>
  <Manufacturer>Contest</Manufacturer>
  <Model>LedColor</Model>
@@ -57,7 +58,7 @@
  <Mode Name="C &amp; B">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="420" Height="366" Weight="5,7" Depth="255"/>
+   <Dimensions Width="420" Height="366" Weight="5.7" Depth="255"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="63" DmxConnector="3-pin"/>
@@ -68,7 +69,7 @@
  <Mode Name="RGB &amp; B">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="420" Height="366" Weight="5,7" Depth="255"/>
+   <Dimensions Width="420" Height="366" Weight="5.7" Depth="255"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="63" DmxConnector="3-pin"/>
@@ -81,7 +82,7 @@
  <Mode Name="RGB &amp; B &amp; F">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="420" Height="366" Weight="5,7" Depth="255"/>
+   <Dimensions Width="420" Height="366" Weight="5.7" Depth="255"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="63" DmxConnector="3-pin"/>

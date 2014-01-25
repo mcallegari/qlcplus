@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.5.1</Version>
@@ -24,7 +25,7 @@
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="0">Open</Capability>
   <Capability Min="1" Max="5">Reset</Capability>
-  <Capability Min="6" Max="255">Strobe (Slow -> Fast)</Capability>
+  <Capability Min="6" Max="255">Strobe (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Pan 1 (Fine)">
   <Group Byte="1">Pan</Group>
@@ -53,7 +54,7 @@
  </Channel>
  <Channel Name="Movement Speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Slow -> Fast</Capability>
+  <Capability Min="0" Max="255">Slow -&gt; Fast</Capability>
  </Channel>
  <Channel Name="Movement (Fine)">
   <Group Byte="0">Speed</Group>
@@ -122,7 +123,7 @@
  </Channel>
  <Channel Name="Master Dimmer">
   <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% -> 100%</Capability>
+  <Capability Min="0" Max="255">0% -&gt; 100%</Capability>
  </Channel>
  <Mode Name="12 Channel Mode">
   <Physical>

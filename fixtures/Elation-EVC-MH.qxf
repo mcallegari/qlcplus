@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.3.1</Version>
@@ -40,7 +41,7 @@
   <Capability Min="1" Max="255">Near - Far</Capability>
  </Channel>
  <Channel Name="Focus Fine">
-  <Group Byte="0">Effect</Group>
+  <Group Byte="1">Effect</Group>
  </Channel>
  <Channel Name="Function">
   <Group Byte="0">Maintenance</Group>

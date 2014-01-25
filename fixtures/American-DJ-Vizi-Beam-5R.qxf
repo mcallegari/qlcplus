@@ -1,24 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.6.0</Version>
-  <Author>daniel,,,</Author>
+  <Author>daniel</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
  <Model>Vizi Beam 5R</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan Coarse">
+ <Channel Name="Pan">
   <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan Coarse</Capability>
+  <Capability Min="0" Max="255">Pan</Capability>
  </Channel>
  <Channel Name="Pan Fine">
   <Group Byte="1">Pan</Group>
   <Capability Min="0" Max="255">Pan Fine</Capability>
  </Channel>
- <Channel Name="Tilt Coarse">
+ <Channel Name="Tilt">
   <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Coarse</Capability>
+  <Capability Min="0" Max="255">Tilt</Capability>
  </Channel>
  <Channel Name="Tilt Fine">
   <Group Byte="1">Tilt</Group>
@@ -118,9 +119,9 @@
    <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
    <Technical PowerConsumption="0" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Pan Coarse</Channel>
+  <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
-  <Channel Number="2">Tilt Coarse</Channel>
+  <Channel Number="2">Tilt</Channel>
   <Channel Number="3">Tilt Fine</Channel>
   <Channel Number="4">Colour</Channel>
   <Channel Number="5">Gobos</Channel>
@@ -139,8 +140,8 @@
    <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
    <Technical PowerConsumption="0" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Pan Coarse</Channel>
-  <Channel Number="1">Tilt Coarse</Channel>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Colour</Channel>
   <Channel Number="3">Gobos</Channel>
   <Channel Number="4">Prism</Channel>

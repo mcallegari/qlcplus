@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.3.2</Version>
@@ -39,12 +40,12 @@
  <Channel Name="Auto Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="9">No Function</Capability>
-  <Capability Min="10" Max="255">Slow -> Fast</Capability>
+  <Capability Min="10" Max="255">Slow -&gt; Fast</Capability>
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="9">No Function</Capability>
-  <Capability Min="10" Max="255">Slow -> Fast</Capability>
+  <Capability Min="10" Max="255">Slow -&gt; Fast</Capability>
  </Channel>
  <Channel Name="Dimmer">
   <Group Byte="0">Intensity</Group>

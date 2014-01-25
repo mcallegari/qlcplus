@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.6.0</Version>
@@ -11,12 +12,12 @@
  <Channel Name="Dimmer">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="15">Off</Capability>
-  <Capability Min="16" Max="255">On, Dim -> Bright</Capability>
+  <Capability Min="16" Max="255">On, Dim -&gt; Bright</Capability>
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="15">Strobe off (open)</Capability>
-  <Capability Min="16" Max="255">Strobe speed Slow -> Fast</Capability>
+  <Capability Min="16" Max="255">Strobe speed Slow -&gt; Fast</Capability>
  </Channel>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
@@ -51,7 +52,7 @@
   <Capability Min="110" Max="113" Color="#800080">Red+Blue+Amber+White</Capability>
   <Capability Min="114" Max="117" Color="#ffffc0">Green+Blue+Amber+White</Capability>
   <Capability Min="118" Max="120" Color="#ffffff">Red+Green+Blue+Amber+White</Capability>
-  <Capability Min="121" Max="255">Chase Slow -> Fast</Capability>
+  <Capability Min="121" Max="255">Chase Slow -&gt; Fast</Capability>
  </Channel>
  <Channel Name="Red">
   <Group Byte="0">Intensity</Group>
@@ -85,7 +86,7 @@
  </Channel>
  <Channel Name="Snap Speed">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="255">Snap Slow -> Fast</Capability>
+  <Capability Min="0" Max="255">Snap Slow -&gt; Fast</Capability>
  </Channel>
  <Channel Name="Color Fade">
   <Group Byte="0">Effect</Group>
@@ -94,7 +95,7 @@
  </Channel>
  <Channel Name="Fade Speed">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="255">Fade Slow -> Fast</Capability>
+  <Capability Min="0" Max="255">Fade Slow -&gt; Fast</Capability>
  </Channel>
  <Channel Name="Sound Active">
   <Group Byte="0">Effect</Group>

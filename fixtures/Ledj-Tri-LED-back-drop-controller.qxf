@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.6.0</Version>
@@ -185,7 +186,7 @@
  <Mode Name="7 channel">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="271" Height="178" Weight="1,2" Depth="61"/>
+   <Dimensions Width="271" Height="178" Weight="1.2" Depth="61"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="34" DmxConnector="3-pin and 5-pin"/>
@@ -201,7 +202,7 @@
  <Mode Name="28 channel">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="271" Height="178" Weight="1,2" Depth="61"/>
+   <Dimensions Width="271" Height="178" Weight="1.2" Depth="61"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="34" DmxConnector="3-pin and 5-pin"/>

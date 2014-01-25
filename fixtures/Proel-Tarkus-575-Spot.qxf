@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.3.2</Version>
@@ -10,8 +11,8 @@
  <Type>Moving Head</Type>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="127">Dimmer 0>100%</Capability>
-  <Capability Min="128" Max="247">Strobe (slow>fast)</Capability>
+  <Capability Min="0" Max="127">Dimmer 0&gt;100%</Capability>
+  <Capability Min="128" Max="247">Strobe (slow&gt;fast)</Capability>
   <Capability Min="248" Max="255">White</Capability>
  </Channel>
  <Channel Name="Colors">
@@ -24,7 +25,7 @@
   <Capability Min="80" Max="95" Color="#ff0000">Red</Capability>
   <Capability Min="96" Max="111" Color="#00ffff">Cyan</Capability>
   <Capability Min="112" Max="127" Color="#c000c0">Purple</Capability>
-  <Capability Res="Others/rainbow.png" Min="128" Max="255">Rainbow (slow>fast)</Capability>
+  <Capability Res="Others/rainbow.png" Min="128" Max="255">Rainbow (slow&gt;fast)</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
@@ -40,8 +41,8 @@
  <Channel Name="RotoGobo">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7">Static</Capability>
-  <Capability Min="8" Max="131">Clockwise rotation (slow>fast)</Capability>
-  <Capability Min="132" Max="255">Counter clockwise rotation (slow>fast)</Capability>
+  <Capability Min="8" Max="131">Clockwise rotation (slow&gt;fast)</Capability>
+  <Capability Min="132" Max="255">Counter clockwise rotation (slow&gt;fast)</Capability>
  </Channel>
  <Channel Name="Focus">
   <Group Byte="0">Beam</Group>
@@ -57,8 +58,8 @@
  <Channel Name="RotoPrism">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="63">Static</Capability>
-  <Capability Min="64" Max="159">Clockwise rotation (slow>fast)</Capability>
-  <Capability Min="160" Max="255">Counter clockwise rotation (slow>fast)</Capability>
+  <Capability Min="64" Max="159">Clockwise rotation (slow&gt;fast)</Capability>
+  <Capability Min="160" Max="255">Counter clockwise rotation (slow&gt;fast)</Capability>
  </Channel>
  <Channel Name="Speed">
   <Group Byte="0">Speed</Group>

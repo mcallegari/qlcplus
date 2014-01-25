@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.3.1</Version>
@@ -24,9 +25,9 @@
  <Channel Name="Rotation">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="9">No rotation</Capability>
-  <Capability Min="10" Max="120">Counter-Clockwise Fast -> Slow</Capability>
+  <Capability Min="10" Max="120">Counter-Clockwise Fast -&gt; Slow</Capability>
   <Capability Min="121" Max="134">No rotation</Capability>
-  <Capability Min="135" Max="245">Clockwise Slow -> Fast</Capability>
+  <Capability Min="135" Max="245">Clockwise Slow -&gt; Fast</Capability>
   <Capability Min="246" Max="255">No rotation</Capability>
  </Channel>
  <Mode Name="DMX">

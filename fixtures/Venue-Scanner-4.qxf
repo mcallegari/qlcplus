@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.6.1</Version>
@@ -10,11 +11,11 @@
  <Type>Scanner</Type>
  <Channel Name="pan">
   <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">pan 0 > 100</Capability>
+  <Capability Min="0" Max="255">pan 0 &gt; 100</Capability>
  </Channel>
  <Channel Name="tilt">
   <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">tilt 0 > 100</Capability>
+  <Capability Min="0" Max="255">tilt 0 &gt; 100</Capability>
  </Channel>
  <Channel Name="gobo">
   <Group Byte="0">Gobo</Group>
@@ -67,7 +68,7 @@
  <Mode Name="4 channel">
   <Physical>
    <Bulb Lumens="0" Type="HTI 250W" ColourTemperature="0"/>
-   <Dimensions Width="152" Height="562" Weight="4,53" Depth="152"/>
+   <Dimensions Width="152" Height="562" Weight="4.53" Depth="152"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="170" Type="Mirror" TiltMax="110"/>
    <Technical PowerConsumption="250" DmxConnector="3-pin"/>

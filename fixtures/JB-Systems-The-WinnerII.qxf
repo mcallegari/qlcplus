@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller</Name>
   <Version>3.0.7</Version>
@@ -74,4 +75,3 @@
   <Channel Number="4">Tilt</Channel>
  </Mode>
 </FixtureDefinition>
-

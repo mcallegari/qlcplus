@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.6.1</Version>
@@ -56,7 +57,7 @@
  <Mode Name="8 Ch Mode">
   <Physical>
    <Bulb Lumens="3000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="270" Height="205" Weight="2,4" Depth="210"/>
+   <Dimensions Width="270" Height="205" Weight="2.4" Depth="210"/>
    <Lens DegreesMax="34" Name="Other" DegreesMin="34"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="132" DmxConnector="3-pin"/>
@@ -73,7 +74,7 @@
  <Mode Name="4 Ch Mode">
   <Physical>
    <Bulb Lumens="3000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="270" Height="205" Weight="2,4" Depth="210"/>
+   <Dimensions Width="270" Height="205" Weight="2.4" Depth="210"/>
    <Lens DegreesMax="34" Name="Other" DegreesMin="34"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="132" DmxConnector="3-pin"/>

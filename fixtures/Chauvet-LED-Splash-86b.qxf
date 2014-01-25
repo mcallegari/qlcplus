@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller</Name>
   <Version>3.3.0-r3028</Version>
@@ -11,7 +12,7 @@
  <Channel Name="Red">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red (0% -> 100%)</Capability>
+  <Capability Min="0" Max="255">Red (0% -&gt; 100%)</Capability>
  </Channel>
  <Channel Name="Green">
   <Group Byte="0">Intensity</Group>
@@ -30,12 +31,12 @@
  </Channel>
  <Channel Name="Speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Slow -> Fast</Capability>
+  <Capability Min="0" Max="255">Slow -&gt; Fast</Capability>
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="15">No Function</Capability>
-  <Capability Min="16" Max="255">Slow -> Fast</Capability>
+  <Capability Min="16" Max="255">Slow -&gt; Fast</Capability>
  </Channel>
  <Channel Name="Mode">
   <Group Byte="0">Effect</Group>
@@ -50,7 +51,7 @@
  </Channel>
  <Channel Name="Dimmer">
   <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% -> 100%</Capability>
+  <Capability Min="0" Max="255">0% -&gt; 100%</Capability>
  </Channel>
  <Mode Name="3 Channel">
   <Physical>

@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller</Name>
   <Version>3.3.0-r2754</Version>
-  <Author>griffinwebnet &amp; hjunnila</Author>
+  <Author>JL Griffin &amp; Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Martin</Manufacturer>
  <Model>MAC500</Model>
@@ -28,7 +29,7 @@
  </Channel>
  <Channel Name="Intensity">
   <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% > 100%</Capability>
+  <Capability Min="0" Max="255">0% &gt; 100%</Capability>
  </Channel>
  <Channel Name="Color1">
   <Group Byte="0">Colour</Group>
@@ -50,8 +51,8 @@
   <Capability Min="173" Max="176">Red</Capability>
   <Capability Min="177" Max="180">Navy</Capability>
   <Capability Min="181" Max="184">White</Capability>
-  <Capability Min="185" Max="215">CW [Fast > Slow]</Capability>
-  <Capability Min="216" Max="245">CCW [Slow > Fast]</Capability>
+  <Capability Min="185" Max="215">CW [Fast &gt; Slow]</Capability>
+  <Capability Min="216" Max="245">CCW [Slow &gt; Fast]</Capability>
   <Capability Min="246" Max="255">Other (For Manual On Color 2)</Capability>
  </Channel>
  <Channel Name="Color2">
@@ -97,7 +98,7 @@
  </Channel>
  <Channel Name="Gobo Index">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Fixed Gobo">
   <Group Byte="0">Gobo</Group>
@@ -124,7 +125,7 @@
  </Channel>
  <Channel Name="Focus">
   <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Far > Near</Capability>
+  <Capability Min="0" Max="255">Far &gt; Near</Capability>
  </Channel>
  <Channel Name="Iris">
   <Group Byte="0">Beam</Group>
@@ -180,14 +181,14 @@
  <Channel Name="Pan/Tilt Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="2">Tracking</Capability>
-  <Capability Min="3" Max="245">Fast > Slow</Capability>
+  <Capability Min="3" Max="245">Fast &gt; Slow</Capability>
   <Capability Min="246" Max="248">Tracking Normal [Override]</Capability>
   <Capability Min="249" Max="251">Tracking Fast [Override]</Capability>
   <Capability Min="252" Max="255">Blackout While Moving</Capability>
  </Channel>
  <Channel Name="Effects Speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="2">Tracking Fast > Slow</Capability>
+  <Capability Min="0" Max="2">Tracking Fast &gt; Slow</Capability>
   <Capability Min="3" Max="245">SCUT ON [Override]</Capability>
   <Capability Min="246" Max="248">SCUT OFF [Override]</Capability>
   <Capability Min="252" Max="255">???????</Capability>
