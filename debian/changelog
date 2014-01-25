@@ -4,6 +4,7 @@ qlcplus (4.7.0) stable; urgency=low
   * NEW: Input/Output: added universe passthrough mode
   * NEW: Plugins: ArtNet and E1.31 plugins support up to 65535 universes
   * Function Selection: fixed Collection selection
+  * Documentation: Added Sound Control tutorial (Jano Svitok)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 15 February 2014 12:13:14 +0200
 
