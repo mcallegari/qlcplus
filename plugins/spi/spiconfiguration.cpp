@@ -20,11 +20,8 @@
 #include <QSettings>
 #include <QString>
 
-
 #include "spiconfiguration.h"
 #include "spiplugin.h"
-
-#define UNIVERSES_PER_ADDRESS   4
 
 /*****************************************************************************
  * Initialization
@@ -39,7 +36,6 @@ SPIConfiguration::SPIConfiguration(SPIPlugin* plugin, QWidget* parent)
     /* Setup UI controls */
     setupUi(this);
 }
-
 
 SPIConfiguration::~SPIConfiguration()
 {
