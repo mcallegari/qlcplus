@@ -18,6 +18,7 @@
 */
 
 #include <QStringList>
+#include <QSettings>
 #include <QString>
 #include <QDebug>
 #include <QFile>
@@ -28,6 +29,7 @@
 #include <linux/spi/spidev.h>
 
 #include "spiplugin.h"
+#include "spiconfiguration.h"
 
 #define SPI_DEFAULT_DEVICE  "/dev/spidev0.0"
 
@@ -43,7 +45,14 @@ SPIPlugin::~SPIPlugin()
 
 void SPIPlugin::init()
 {
+    QSettings settings;
     m_spifd = -1;
+
+    QVariant value = settings.value("SPIPlugin/frequency");
+    if (value.isValid() == true)
+        m_speed = value.toUInt();
+    else
+        m_speed = 1000000;
 }
 
 QString SPIPlugin::name()
@@ -76,7 +85,6 @@ void SPIPlugin::openOutput(quint32 output)
 
     int mode = SPI_MODE_0;
     m_bitsPerWord = 8;
-    m_speed = 1000000;
 
     status = ioctl (m_spifd, SPI_IOC_WR_MODE, &mode);
     if(status < 0)
@@ -172,12 +180,17 @@ void SPIPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray
 
 void SPIPlugin::configure()
 {
-    /* NOP */
+    SPIConfiguration conf(this);
+    if (conf.exec() == QDialog::Accepted)
+    {
+        QSettings settings;
+        settings.setValue("SPIPlugin/frequency", QVariant(conf.frequency()));
+    }
 }
 
 bool SPIPlugin::canConfigure()
 {
-    return false;
+    return true;
 }
 
 /*****************************************************************************

@@ -24,11 +24,6 @@
 #include "configureartnet.h"
 #include "artnetplugin.h"
 
-#define UNIVERSES_PER_ADDRESS   4
-
-#define KOutputColumnNetwork   0
-#define KOutputColumnUniverse  1
-
 #define KNodesColumnIP          0
 #define KNodesColumnShortName   1
 #define KNodesColumnLongName    2

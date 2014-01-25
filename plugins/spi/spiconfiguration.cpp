@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  configuree131.cpp
+  spiconfiguration.cpp
 
   Copyright (c) Massimo Callegari
 
@@ -17,22 +17,20 @@
   limitations under the License.
 */
 
-#include <QTreeWidgetItem>
+#include <QSettings>
 #include <QString>
-#include <QDebug>
 
-#include "configuree131.h"
-#include "e131plugin.h"
 
-#define KNodesColumnIP          0
-#define KNodesColumnShortName   1
-#define KNodesColumnLongName    2
+#include "spiconfiguration.h"
+#include "spiplugin.h"
+
+#define UNIVERSES_PER_ADDRESS   4
 
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
 
-ConfigureE131::ConfigureE131(E131Plugin* plugin, QWidget* parent)
+SPIConfiguration::SPIConfiguration(SPIPlugin* plugin, QWidget* parent)
         : QDialog(parent)
 {
     Q_ASSERT(plugin != NULL);
@@ -40,11 +38,10 @@ ConfigureE131::ConfigureE131(E131Plugin* plugin, QWidget* parent)
 
     /* Setup UI controls */
     setupUi(this);
-
-    this->resize(400, 300);
 }
 
-ConfigureE131::~ConfigureE131()
+
+SPIConfiguration::~SPIConfiguration()
 {
 }
 
@@ -52,12 +49,25 @@ ConfigureE131::~ConfigureE131()
  * Dialog actions
  *****************************************************************************/
 
-void ConfigureE131::accept()
+void SPIConfiguration::accept()
 {
     QDialog::accept();
 }
 
-int ConfigureE131::exec()
+quint32 SPIConfiguration::frequency()
+{
+    int fIdx = m_freqCombo->currentIndex();
+    switch(fIdx)
+    {
+        default:
+        case 0: return 1000000; break;
+        case 1: return 2000000; break;
+        case 2: return 4000000; break;
+        case 3: return 8000000; break;
+    }
+}
+
+int SPIConfiguration::exec()
 {
     return QDialog::exec();
 }

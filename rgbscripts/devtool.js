@@ -106,7 +106,7 @@ function writeCurrentStep()
     var stepCount = document.getElementById("stepcount");
     var bicolor = document.getElementById("bicolor");
 
-    var currentRgb = document.getElementById("color1").value;
+    var currentRgb = parseInt(document.getElementById("color1").value, 16);
 
     if (bicolor.checked)
     {
