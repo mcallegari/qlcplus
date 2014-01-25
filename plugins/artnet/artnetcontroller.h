@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  artnetnode.h
+  artnetcontroller.h
 
   Copyright (c) Massimo Callegari
 
@@ -38,12 +38,12 @@ public:
     enum Type { Unknown = 0x0, Input = 0x01, Output = 0x02 };
 
     ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> interfaces,
-                     QList<QString>macAddrList, Type type, QObject *parent = 0);
+                     QString macAddress, Type type, QObject *parent = 0);
 
     ~ArtNetController();
 
     /** Send DMX data to a specific port/universe */
-    void sendDmx(const int& universe, const QByteArray& data);
+    void sendDmx(const quint32 universe, const QByteArray& data);
 
     /** Return the controller IP address */
     QString getNetworkIP();
@@ -51,17 +51,11 @@ public:
     /** Returns the map of Nodes discovered by ArtPoll */
     QHash<QHostAddress, ArtNetNodeInfo> getNodesList();
 
-    /** add an output port to this controller (in DMX words, a universe */
-    void addUniverse(quint32 line, int uni);
-
-    /** Returns the number of universes managed by this controller */
-    int getUniversesNumber();
-
-    /** Remove a universe managed by this controller */
-    bool removeUniverse(int uni);
+    /** Set the controller type */
+    void setType(Type type);
 
     /** Get the type of this controller */
-    int getType();
+    Type type();
 
     /** Get the number of packets sent by this controller */
     quint64 getPacketSentNumber();
@@ -82,10 +76,6 @@ private:
 
     quint64 m_packetSent;
     quint64 m_packetReceived;
-
-    /** List of universes managed by this controller */
-    /** Coupled as universe/QLC+ line */
-    QHash<int, quint32> m_universes;
 
     /** Type of this controller */
     /** A controller can be only output or only input */

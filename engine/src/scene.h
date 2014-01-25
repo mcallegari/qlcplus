@@ -30,11 +30,15 @@
 #include "function.h"
 #include "fixture.h"
 
-#define KXMLQLCFixtureValues "FixtureVal"
-#define KXMLQLCSceneChannelGroups "ChannelGroups"
-
 class QDomDocument;
 class QDomElement;
+
+/** @addtogroup engine Engine
+ * @{
+ */
+
+#define KXMLQLCFixtureValues "FixtureVal"
+#define KXMLQLCSceneChannelGroups "ChannelGroups"
 
 /**
  * Scene encapsulates the values of selected channels from one or more fixture
@@ -210,7 +214,7 @@ public:
     void unFlash(MasterTimer* timer);
 
     /** @reimpl from DMXSource */
-    void writeDMX(MasterTimer* timer, UniverseArray* ua);
+    void writeDMX(MasterTimer* timer, QList<Universe*> ua);
 
     /*********************************************************************
      * Running
@@ -220,14 +224,14 @@ public:
     void preRun(MasterTimer* timer);
 
     /** @reimpl */
-    void write(MasterTimer* timer, UniverseArray* ua);
+    void write(MasterTimer* timer, QList<Universe*> ua);
 
     /** @reimpl */
-    void postRun(MasterTimer* timer, UniverseArray* ua);
+    void postRun(MasterTimer* timer, QList<Universe*> ua);
 
 private:
     /** Insert starting values to $fc, either from $timer->fader() or $ua */
-    void insertStartValue(FadeChannel& fc, const MasterTimer* timer, const UniverseArray* ua);
+    void insertStartValue(FadeChannel& fc, const MasterTimer* timer, const QList<Universe *> ua);
 
 private:
     GenericFader* m_fader;
@@ -239,5 +243,7 @@ public:
     /** @reimpl */
     void adjustAttribute(qreal fraction, int attributeIndex);
 };
+
+/** @} */
 
 #endif

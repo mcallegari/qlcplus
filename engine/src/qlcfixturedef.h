@@ -25,6 +25,10 @@
 #include <QFile>
 
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 // Fixture document type
 #define KXMLQLCFixtureDefDocument "FixtureDefinition"
 
@@ -189,5 +193,7 @@ protected:
     /** Load <Creator> information */
     bool loadCreator(const QDomElement& creator);
 };
+
+/** @} */
 
 #endif

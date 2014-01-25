@@ -349,14 +349,14 @@ void Show::preRun(MasterTimer* timer)
     m_runner->start();
 }
 
-void Show::write(MasterTimer* timer, UniverseArray* universes)
+void Show::write(MasterTimer* timer, QList<Universe *> universes)
 {
     Q_UNUSED(universes);
     Q_UNUSED(timer);
     m_runner->write();
 }
 
-void Show::postRun(MasterTimer* timer, UniverseArray* universes)
+void Show::postRun(MasterTimer* timer, QList<Universe *> universes)
 {
     if (m_runner != NULL)
     {

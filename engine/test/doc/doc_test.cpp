@@ -101,8 +101,7 @@ void Doc_Test::denormalizeComponentPath()
 void Doc_Test::defaults()
 {
     QVERIFY(m_doc->m_fixtureDefCache != NULL);
-    QVERIFY(m_doc->m_outputMap != NULL);
-    QVERIFY(m_doc->m_inputMap != NULL);
+    QVERIFY(m_doc->m_ioMap != NULL);
     QVERIFY(m_doc->m_masterTimer != NULL);
 
     QVERIFY(m_doc->m_modified == false);

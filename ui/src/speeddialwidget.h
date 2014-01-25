@@ -26,6 +26,10 @@ class SpeedDial;
 class QGroupBox;
 class QLineEdit;
 
+/** @addtogroup ui
+ * @{
+ */
+
 #define SPEED_DIAL_FLAGS Qt::WindowFlags( \
     (Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::Window | Qt::WindowStaysOnTopHint | \
      Qt::WindowMinimizeButtonHint) & (~Qt::WindowCloseButtonHint))
@@ -92,5 +96,7 @@ private:
     QGroupBox* m_optionalTextGroup;
     QLineEdit* m_optionalTextEdit;
 };
+
+/** @} */
 
 #endif

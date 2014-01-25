@@ -33,6 +33,10 @@ class GenericFader;
 class QString;
 class Fixture;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 #define KXMLQLCEFXPropagationMode "PropagationMode"
 #define KXMLQLCEFXPropagationModeParallel "Parallel"
 #define KXMLQLCEFXPropagationModeSerial "Serial"
@@ -559,10 +563,10 @@ public:
     void preRun(MasterTimer* timer);
 
     /** @reimpl */
-    void write(MasterTimer* timer, UniverseArray* universes);
+    void write(MasterTimer* timer, QList<Universe *> universes);
 
     /** @reimpl */
-    void postRun(MasterTimer* timer, UniverseArray* universes);
+    void postRun(MasterTimer* timer, QList<Universe*> universes);
 
     /*********************************************************************
      * Intensity
@@ -571,5 +575,7 @@ public:
     /** @reimp */
     void adjustAttribute(qreal fraction, int attributeIndex = 0);
 };
+
+/** @} */
 
 #endif

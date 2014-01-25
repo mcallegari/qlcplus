@@ -25,23 +25,21 @@
 #include "qlcfile.h"
 
 #include "grandmasterslider.h"
+#include "inputoutputmap.h"
 #include "virtualconsole.h"
 #include "vcproperties.h"
 #include "vcdockarea.h"
-#include "outputmap.h"
-#include "inputmap.h"
 
-VCDockArea::VCDockArea(QWidget* parent, OutputMap* outputMap, InputMap* inputMap)
+VCDockArea::VCDockArea(QWidget* parent, InputOutputMap *ioMap)
     : QFrame(parent)
 {
-    Q_ASSERT(outputMap != NULL);
-    Q_ASSERT(inputMap != NULL);
+    Q_ASSERT(ioMap != NULL);
 
     new QHBoxLayout(this);
     layout()->setMargin(0);
     layout()->setSpacing(1);
 
-    m_gm = new GrandMasterSlider(this, outputMap, inputMap);
+    m_gm = new GrandMasterSlider(this, ioMap);
     layout()->addWidget(m_gm);
 }
 
@@ -49,10 +47,10 @@ VCDockArea::~VCDockArea()
 {
 }
 
-void VCDockArea::setGrandMasterInvertedAppearance(UniverseArray::GMSliderMode mode)
+void VCDockArea::setGrandMasterInvertedAppearance(GrandMaster::SliderMode mode)
 {
     Q_ASSERT(m_gm != NULL);
-    if (mode == UniverseArray::GMNormal)
+    if (mode == GrandMaster::Normal)
         m_gm->setInvertedAppearance(false);
     else
         m_gm->setInvertedAppearance(true);

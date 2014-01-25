@@ -55,7 +55,7 @@ void RGBAlgorithm_Test::algorithms()
     QVERIFY(list.contains("Full Rows"));
     QVERIFY(list.contains("Opposite Columns"));
     QVERIFY(list.contains("Opposite Rows"));
-    QVERIFY(list.contains("Single Random"));
+    QVERIFY(list.contains("Random Single"));
 }
 
 void RGBAlgorithm_Test::algorithm()

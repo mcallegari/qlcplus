@@ -47,14 +47,13 @@
 #include "channelsselection.h"
 #include "addchannelsgroup.h"
 #include "fixturemanager.h"
-#include "universearray.h"
 #include "fixtureremap.h"
 #include "mastertimer.h"
 #include "outputpatch.h"
+#include "addrgbpanel.h"
 #include "addfixture.h"
 #include "collection.h"
-#include "outputmap.h"
-#include "inputmap.h"
+#include "universe.h"
 #include "fixture.h"
 #include "apputil.h"
 #include "doc.h"
@@ -88,6 +87,7 @@ FixtureManager::FixtureManager(QWidget* parent, Doc* doc)
     , m_groupEditor(NULL)
     , m_currentTabIndex(0)
     , m_addAction(NULL)
+    , m_addRGBAction(NULL)
     , m_removeAction(NULL)
     , m_propertiesAction(NULL)
     , m_fadeConfigAction(NULL)
@@ -888,6 +888,11 @@ void FixtureManager::initActions()
     connect(m_addAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAdd()));
 
+    m_addRGBAction = new QAction(QIcon(":/rgbpanel.png"),
+                              tr("Add fixture..."), this);
+    connect(m_addRGBAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotAddRGBPanel()));
+
     m_removeAction = new QAction(QIcon(":/edit_remove.png"),
                                  tr("Delete items"), this);
     connect(m_removeAction, SIGNAL(triggered(bool)),
@@ -976,6 +981,7 @@ void FixtureManager::initToolBar()
     toolbar->setMovable(false);
     layout()->setMenuBar(toolbar);
     toolbar->addAction(m_addAction);
+    toolbar->addAction(m_addRGBAction);
     toolbar->addAction(m_removeAction);
     toolbar->addAction(m_propertiesAction);
     toolbar->addAction(m_fadeConfigAction);
@@ -1105,6 +1111,97 @@ void FixtureManager::slotAdd()
         addFixture();
 }
 
+void FixtureManager::slotAddRGBPanel()
+{
+    AddRGBPanel rgb(this, m_doc);
+    if (rgb.exec() == QDialog::Accepted)
+    {
+        int rows = rgb.rows();
+        int columns = rgb.columns();
+
+        FixtureGroup *grp = new FixtureGroup(m_doc);
+        Q_ASSERT(grp != NULL);
+        grp->setName(rgb.name());
+        QSize panelSize(rgb.columns(), rows);
+        grp->setSize(panelSize);
+        m_doc->addFixtureGroup(grp);
+        updateGroupMenu();
+
+        QLCFixtureDef *rowDef = NULL;
+        QLCFixtureMode *rowMode = NULL;
+        quint32 address = (quint32)rgb.address();
+        int currRow = 0;
+        int rowInc = 1;
+        int xPosStart = 0;
+        int xPosEnd = columns - 1;
+        int xPosInc = 1;
+
+        if (rgb.orientation() == AddRGBPanel::BottomLeft ||
+            rgb.orientation() == AddRGBPanel::BottomRight)
+        {
+            currRow = rows -1;
+            rowInc = -1;
+        }
+        if (rgb.orientation() == AddRGBPanel::TopRight ||
+            rgb.orientation() == AddRGBPanel::BottomRight)
+        {
+            xPosStart = columns - 1;
+            xPosEnd = 0;
+            xPosInc = -1;
+        }
+
+        for (int i = 0; i < rows; i++)
+        {
+            Fixture *fxi = new Fixture(m_doc);
+            Q_ASSERT(fxi != NULL);
+            fxi->setName(tr("%1 - Row %2").arg(rgb.name()).arg(i + 1));
+            if (rowDef == NULL)
+                rowDef = fxi->genericRGBPanelDef(columns);
+            if (rowMode == NULL)
+                rowMode = fxi->genericRGBPanelMode(rowDef);
+            fxi->setFixtureDefinition(rowDef, rowMode);
+            fxi->setAddress(address);
+            address += fxi->channels();
+            m_doc->addFixture(fxi);
+
+            if (rgb.type() == AddRGBPanel::ZigZag)
+            {
+                int xPos = xPosStart;
+                for (int h = 0; h < fxi->heads(); h++)
+                {
+                    grp->assignHead(QLCPoint(xPos, currRow), GroupHead(fxi->id(), h));
+                    xPos += xPosInc;
+                }
+            }
+            else if (rgb.type() == AddRGBPanel::Snake)
+            {
+                if (i%2 == 0)
+                {
+                    int xPos = xPosStart;
+                    for (int h = 0; h < fxi->heads(); h++)
+                    {
+                        grp->assignHead(QLCPoint(xPos, currRow), GroupHead(fxi->id(), h));
+                        xPos += xPosInc;
+                    }
+                }
+                else
+                {
+                    int xPos = xPosEnd;
+                    for (int h = 0; h < fxi->heads(); h++)
+                    {
+                        grp->assignHead(QLCPoint(xPos, currRow), GroupHead(fxi->id(), h));
+                        xPos += (-xPosInc);
+                    }
+                }
+            }
+            currRow += rowInc;
+        }
+
+        updateView();
+        m_doc->setModified();
+    }
+}
+
 void FixtureManager::removeFixture()
 {
     // Ask before deletion
@@ -1131,9 +1228,11 @@ void FixtureManager::removeFixture()
                 so it's rather safe to reset the fixture's address space here. */
             Fixture* fxi = m_doc->fixture(id);
             Q_ASSERT(fxi != NULL);
-            UniverseArray* ua = m_doc->outputMap()->claimUniverses();
-            ua->reset(fxi->address(), fxi->channels());
-            m_doc->outputMap()->releaseUniverses();
+            QList<Universe*> ua = m_doc->inputOutputMap()->claimUniverses();
+            int universe = fxi->universe();
+            if (universe < ua.count())
+                ua[universe]->reset(fxi->address(), fxi->channels());
+            m_doc->inputOutputMap()->releaseUniverses();
 
             m_doc->deleteFixture(id);
         }

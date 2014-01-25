@@ -24,17 +24,23 @@
 #include <QIcon>
 
 class InputOutputPatchEditor;
-class QTreeWidgetItem;
-class QTreeWidget;
+class QListWidgetItem;
+class QListWidget;
 class QSplitter;
+class QLineEdit;
+class QCheckBox;
+class QToolBar;
 class QTimer;
 class QIcon;
 
-class InputPatch;
-class InputMap;
+class InputOutputMap;
 class OutputPatch;
-class OutputMap;
+class InputPatch;
 class Doc;
+
+/** @addtogroup ui_io
+ * @{
+ */
 
 class InputOutputManager : public QWidget
 {
@@ -53,19 +59,18 @@ public:
 
 private:
     static InputOutputManager* s_instance;
-    InputMap* m_inputMap;
-    OutputMap* m_outputMap;
+    InputOutputMap* m_ioMap;
 
     /*************************************************************************
      * Tree widget
      *************************************************************************/
 public slots:
-    /** Update the input mapping tree */
-    void updateTree();
+    /** Update the input/output mapping list */
+    void updateList();
 
 private:
     /** Update the contents of the input universe to the item */
-    void updateItem(QTreeWidgetItem* item, quint32 universe);
+    void updateItem(QListWidgetItem *item, quint32 universe);
 
 private slots:
     /** Listens to input data and displays a small icon to indicate a
@@ -84,13 +89,25 @@ private slots:
     /** Destroy the current audio input instance */
     void slotAudioInputChanged();
 
+    void slotAddUniverse();
+    void slotDeleteUniverse();
+    void slotUniverseNameChanged(QString name);
+    void slotPassthroughChanged(bool checked);
+
 private:
     Doc *m_doc;
     QSplitter* m_splitter;
-    QTreeWidget* m_tree;
+    QToolBar *m_toolbar;
+    QAction* m_addUniverseAction;
+    QAction* m_deleteUniverseAction;
+    QLineEdit *m_uniNameEdit;
+    QCheckBox *m_uniPassthroughCheck;
+    QListWidget *m_list;
     QIcon m_icon;
     QTimer* m_timer;
     InputOutputPatchEditor *m_editor;
 };
+
+/** @} */
 
 #endif

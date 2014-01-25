@@ -1,6 +1,6 @@
 /*
   Q Light Controller
-  outputplugin_stub.cpp
+  ioplugin_stub.cpp
 
   Copyright (c) Heikki Junnila
 
@@ -18,29 +18,29 @@
 */
 
 #include <QtPlugin>
-#include "outputpluginstub.h"
+#include "iopluginstub.h"
 
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
 
-OutputPluginStub::~OutputPluginStub()
+IOPluginStub::~IOPluginStub()
 {
 }
 
-void OutputPluginStub::init()
+void IOPluginStub::init()
 {
     m_configureCalled = 0;
     m_canConfigure = false;
     m_universe = QByteArray(int(4 * 512), char(0));
 }
 
-QString OutputPluginStub::name()
+QString IOPluginStub::name()
 {
-    return QString("Output Plugin Stub");
+    return QString("I/O Plugin Stub");
 }
 
-int OutputPluginStub::capabilities() const
+int IOPluginStub::capabilities() const
 {
     return QLCIOPlugin::Output | QLCIOPlugin::Input;
 }
@@ -49,18 +49,18 @@ int OutputPluginStub::capabilities() const
  * Outputs
  *****************************************************************************/
 
-void OutputPluginStub::openOutput(quint32 output)
+void IOPluginStub::openOutput(quint32 output)
 {
     if (m_openOutputs.contains(output) == false && output < 4)
         m_openOutputs.append(output);
 }
 
-void OutputPluginStub::closeOutput(quint32 output)
+void IOPluginStub::closeOutput(quint32 output)
 {
     m_openOutputs.removeAll(output);
 }
 
-QStringList OutputPluginStub::outputs()
+QStringList IOPluginStub::outputs()
 {
     QStringList list;
     for (quint32 i = 0; i < 4; i++)
@@ -69,38 +69,40 @@ QStringList OutputPluginStub::outputs()
 }
 
 
-QString OutputPluginStub::pluginInfo()
+QString IOPluginStub::pluginInfo()
 {
     return QString("This is a plugin stub for testing.");
 }
 
-QString OutputPluginStub::outputInfo(quint32 output)
+QString IOPluginStub::outputInfo(quint32 output)
 {
     Q_UNUSED(output);
     return QString("This is a plugin stub for testing.");
 }
 
-void OutputPluginStub::writeUniverse(quint32 output, const QByteArray& universe)
+void IOPluginStub::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
 {
-    m_universe = m_universe.replace(output * 512, universe.size(), universe);
+    Q_UNUSED(universe)
+
+    m_universe = m_universe.replace(output * 512, data.size(), data);
 }
 
 /*****************************************************************************
  * Inputs
  *****************************************************************************/
 
-void OutputPluginStub::openInput(quint32 input)
+void IOPluginStub::openInput(quint32 input)
 {
     if (m_openInputs.contains(input) == false && input < 4)
         m_openInputs.append(input);
 }
 
-void OutputPluginStub::closeInput(quint32 input)
+void IOPluginStub::closeInput(quint32 input)
 {
     m_openInputs.removeAll(input);
 }
 
-QStringList OutputPluginStub::inputs()
+QStringList IOPluginStub::inputs()
 {
     QStringList list;
     for (quint32 i = 0; i < 4; i++)
@@ -108,7 +110,7 @@ QStringList OutputPluginStub::inputs()
     return list;
 }
 
-QString OutputPluginStub::inputInfo(quint32 input)
+QString IOPluginStub::inputInfo(quint32 input)
 {
     Q_UNUSED(input);
     return QString("This is a plugin stub for testing.");
@@ -118,13 +120,13 @@ QString OutputPluginStub::inputInfo(quint32 input)
  * Configuration
  *****************************************************************************/
 
-void OutputPluginStub::configure()
+void IOPluginStub::configure()
 {
     m_configureCalled++;
     emit configurationChanged();
 }
 
-bool OutputPluginStub::canConfigure()
+bool IOPluginStub::canConfigure()
 {
     return m_canConfigure;
 }
@@ -133,5 +135,5 @@ bool OutputPluginStub::canConfigure()
  * Plugin export
  *****************************************************************************/
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-Q_EXPORT_PLUGIN2(outputpluginstub, OutputPluginStub)
+Q_EXPORT_PLUGIN2(iopluginstub, IOPluginStub)
 #endif

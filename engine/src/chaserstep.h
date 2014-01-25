@@ -27,6 +27,10 @@
 class QDomDocument;
 class QDomElement;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 /**
  * A ChaserStep encapsulates a function ID with fade in, fade out and duration
  * speeds (in milliseconds). Thus, each step can optionally use step-specific
@@ -81,5 +85,7 @@ public:
     QList <SceneValue> values;   //! specific DMX values for this step (chaser in sequence mode)
     QString note;
 };
+
+/** @} */
 
 #endif

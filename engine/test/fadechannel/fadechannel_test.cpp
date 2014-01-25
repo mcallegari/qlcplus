@@ -42,27 +42,29 @@ void FadeChannel_Test::address()
 
     FadeChannel fc;
     fc.setChannel(2);
-    QCOMPARE(fc.address(&doc), quint32(2));
+    QCOMPARE(fc.address(), quint32(2));
 
-    fc.setFixture(fxi->id());
-    QCOMPARE(fc.address(&doc), quint32(402));
+    fc.setFixture(&doc, fxi->id());
+    QCOMPARE(fc.address(), quint32(402));
 
-    fc.setFixture(12345);
-    QCOMPARE(fc.address(&doc), QLCChannel::invalid());
+    fc.setFixture(&doc, 12345);
+    QCOMPARE(fc.address(), QLCChannel::invalid());
 }
 
 void FadeChannel_Test::comparison()
 {
+    Doc doc(this);
+
     FadeChannel ch1;
-    ch1.setFixture(0);
+    ch1.setFixture(&doc, 0);
     ch1.setChannel(0);
 
     FadeChannel ch2;
-    ch2.setFixture(1);
+    ch2.setFixture(&doc, 1);
     ch2.setChannel(0);
     QVERIFY((ch1 == ch2) == false);
 
-    ch1.setFixture(1);
+    ch1.setFixture(&doc, 1);
     QVERIFY((ch1 == ch2) == true);
 
     ch1.setChannel(1);
@@ -85,7 +87,7 @@ void FadeChannel_Test::group()
     doc.addFixture(fxi);
 
     // Fixture and channel given, fixture is a dimmer -> intensity
-    fc.setFixture(fxi->id());
+    fc.setFixture(&doc, fxi->id());
     QCOMPARE(fc.group(&doc), QLCChannel::Intensity);
 
     QDir dir(INTERNAL_FIXTUREDIR);
@@ -105,18 +107,18 @@ void FadeChannel_Test::group()
     doc.addFixture(fxi);
 
     // Fixture and channel given, but channel is beyond fixture's channels -> intensity
-    fc.setFixture(fxi->id());
+    fc.setFixture(&doc, fxi->id());
     fc.setChannel(50);
     QCOMPARE(fc.group(&doc), QLCChannel::Intensity);
 
     // Only a channel given, no fixture given but a fixture occupies the address.
     // Check that reverse address -> fixture lookup works.
-    fc.setFixture(Fixture::invalidId());
+    fc.setFixture(&doc, Fixture::invalidId());
     fc.setChannel(2);
     QCOMPARE(fc.group(&doc), QLCChannel::Colour);
 
     // Fixture and channel given, but fixture doesn't exist -> intensity
-    fc.setFixture(12345);
+    fc.setFixture(&doc, 12345);
     fc.setChannel(2);
     QCOMPARE(fc.group(&doc), QLCChannel::Intensity);
 }

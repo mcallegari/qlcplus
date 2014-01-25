@@ -1,8 +1,8 @@
 /*
-  Q Light Controller - Unit test
-  universearray_test.h
+  Q Light Controller Plus - Unit test
+  grandmaster_test.h
 
-  Copyright (c) Heikki Junnila
+  Copyright (c) Jano Svitok
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,27 +17,30 @@
   limitations under the License.
 */
 
-#ifndef UNIVERSEARRAY_TEST_H
-#define UNIVERSEARRAY_TEST_H
+#ifndef GRANDMASTER_TEST_H
+#define GRANDMASTER_TEST_H
 
 #include <QObject>
 
-class UniverseArray_Test : public QObject
+class GrandMaster;
+
+class GrandMaster_Test : public QObject
 {
     Q_OBJECT
 
 private slots:
+
+    void initTestCase();
+    void cleanupTestCase();
+
     void initial();
-    void gMChannelMode();
-    void gMValueMode();
-    void gMValue();
-    void applyGM();
-    void setGMValue();
-    void write();
-    void writeRelative();
-    void reset();
-    void setGMValueEfficiency();
-    void writeEfficiency();
+    void channelMode();
+    void valueMode();
+    void value();
+
+private:
+
+    GrandMaster *m_gm;
 };
 
 #endif

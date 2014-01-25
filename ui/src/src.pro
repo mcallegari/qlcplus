@@ -38,6 +38,7 @@ HEADERS += aboutbox.h \
            addchannelsgroup.h \
            addfixture.h \
            addresstool.h \
+           addrgbpanel.h \
            addvcbuttonmatrix.h \
            addvcslidermatrix.h \
            app.h \
@@ -56,7 +57,6 @@ HEADERS += aboutbox.h \
            ctkrangeslider.h \
            cuestackmodel.h \
            docbrowser.h \
-           dmxslider.h \
            dmxdumpfactory.h \
            efxeditor.h \
            efxpreviewarea.h \
@@ -97,6 +97,7 @@ HEADERS += aboutbox.h \
            simpledeskengine.h \
            speeddial.h \
            speeddialwidget.h \
+           universeitemwidget.h \
            vcaudiotriggers.h \
            vcaudiotriggersproperties.h \
            vcbutton.h \
@@ -130,6 +131,7 @@ FORMS += aboutbox.ui \
          addchannelsgroup.ui \
          addfixture.ui \
          addresstool.ui \
+         addrgbpanel.ui \
          addvcbuttonmatrix.ui \
          addvcslidermatrix.ui \
          assignhotkey.ui \
@@ -170,6 +172,7 @@ SOURCES += aboutbox.cpp \
            addchannelsgroup.cpp \
            addfixture.cpp \
            addresstool.cpp \
+           addrgbpanel.cpp \
            addvcbuttonmatrix.cpp \
            addvcslidermatrix.cpp \
            app.cpp \
@@ -188,7 +191,6 @@ SOURCES += aboutbox.cpp \
            ctkrangeslider.cpp \
            cuestackmodel.cpp \
            docbrowser.cpp \
-           dmxslider.cpp \
            dmxdumpfactory.cpp \
            efxeditor.cpp \
            efxpreviewarea.cpp \
@@ -229,6 +231,7 @@ SOURCES += aboutbox.cpp \
            simpledeskengine.cpp \
            speeddial.cpp \
            speeddialwidget.cpp \
+           universeitemwidget.cpp \
            vcaudiotriggers.cpp \
            vcaudiotriggersproperties.cpp \
            vcbutton.cpp \

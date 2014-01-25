@@ -48,9 +48,7 @@
 #include "vcsoloframe.h"
 #include "mastertimer.h"
 #include "vcdockarea.h"
-#include "outputmap.h"
 #include "vccuelist.h"
-#include "inputmap.h"
 #include "vcbutton.h"
 #include "vcslider.h"
 #include "vcframe.h"
@@ -955,13 +953,13 @@ void VirtualConsole::slotAddClock()
 
 void VirtualConsole::slotToolsSettings()
 {
-    VCPropertiesEditor vcpe(this, m_properties, m_doc->inputMap());
+    VCPropertiesEditor vcpe(this, m_properties, m_doc->inputOutputMap());
     if (vcpe.exec() == QDialog::Accepted)
     {
         m_properties = vcpe.properties();
         contents()->resize(m_properties.size());
-        m_doc->outputMap()->setGrandMasterChannelMode(m_properties.grandMasterChannelMode());
-        m_doc->outputMap()->setGrandMasterValueMode(m_properties.grandMasterValueMode());
+        m_doc->inputOutputMap()->setGrandMasterChannelMode(m_properties.grandMasterChannelMode());
+        m_doc->inputOutputMap()->setGrandMasterValueMode(m_properties.grandMasterValueMode());
         if (m_dockArea != NULL)
             m_dockArea->setGrandMasterInvertedAppearance(m_properties.grandMasterSlideMode());
 
@@ -1443,7 +1441,7 @@ void VirtualConsole::initDockArea()
     if (m_dockArea != NULL)
         delete m_dockArea;
 
-    m_dockArea = new VCDockArea(this, m_doc->outputMap(), m_doc->inputMap());
+    m_dockArea = new VCDockArea(this, m_doc->inputOutputMap());
     m_dockArea->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Expanding);
 
     // Add the dock area into the master horizontal layout
@@ -1502,9 +1500,9 @@ void VirtualConsole::resetContents()
 
     /* Reset all properties but size */
     m_properties.setTapModifier(Qt::ControlModifier);
-    m_properties.setGrandMasterChannelMode(UniverseArray::GMIntensity);
-    m_properties.setGrandMasterValueMode(UniverseArray::GMReduce);
-    m_properties.setGrandMasterInputSource(InputMap::invalidUniverse(), InputMap::invalidChannel());
+    m_properties.setGrandMasterChannelMode(GrandMaster::Intensity);
+    m_properties.setGrandMasterValueMode(GrandMaster::Reduce);
+    m_properties.setGrandMasterInputSource(InputOutputMap::invalidUniverse(), QLCChannel::invalid());
 }
 
 void VirtualConsole::setupWidget(VCWidget *widget, VCWidget *parent)
@@ -1791,9 +1789,9 @@ void VirtualConsole::postLoad()
     /* apply GM values
       this should probably be placed in another place, but at the moment m_properties
       is just loaded in VirtualConsole */
-    m_doc->outputMap()->setGrandMasterValue(255);
-    m_doc->outputMap()->setGrandMasterValueMode(m_properties.grandMasterValueMode());
-    m_doc->outputMap()->setGrandMasterChannelMode(m_properties.grandMasterChannelMode());
+    m_doc->inputOutputMap()->setGrandMasterValue(255);
+    m_doc->inputOutputMap()->setGrandMasterValueMode(m_properties.grandMasterValueMode());
+    m_doc->inputOutputMap()->setGrandMasterChannelMode(m_properties.grandMasterChannelMode());
 
     /* Go through widgets, check IDs and register */
     /* widgets to the map */

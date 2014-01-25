@@ -32,6 +32,10 @@ class QFrame;
 class QLabel;
 class Doc;
 
+/** @addtogroup ui UI
+ * @{
+ */
+
 class MonitorFixture : public QFrame
 {
     Q_OBJECT
@@ -69,7 +73,7 @@ protected:
      * Values
      ********************************************************************/
 public:
-    void updateValues(const QByteArray& universes);
+    void updateValues(int index, const QByteArray& universes);
 
 public slots:
     void slotValueStyleChanged(Monitor::ValueStyle style);
@@ -78,5 +82,7 @@ protected:
     QList <QLabel*> m_valueLabels;
     Monitor::ValueStyle m_valueStyle;
 };
+
+/** @} */
 
 #endif

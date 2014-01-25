@@ -26,8 +26,6 @@
 #include "vcframeproperties.h"
 #include "virtualconsole.h"
 #include "mastertimer.h"
-#include "outputmap.h"
-#include "inputmap.h"
 #include "vcwidget.h"
 #include "vcframe.h"
 #include "doc.h"

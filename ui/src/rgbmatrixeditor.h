@@ -35,6 +35,10 @@ class RGBMatrix;
 class QTimer;
 class Doc;
 
+/** @addtogroup ui_functions
+ * @{
+ */
+
 class RGBMatrixEditor : public QWidget, public Ui_RGBMatrixEditor
 {
     Q_OBJECT
@@ -117,5 +121,7 @@ private:
     int m_previewStep;
     QHash <QLCPoint,QGraphicsItem*> m_previewHash;
 };
+
+/** @} */
 
 #endif

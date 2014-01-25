@@ -30,11 +30,15 @@
 class QDomDocument;
 class QDomElement;
 
-class UniverseArray;
 class GenericFader;
 class MasterTimer;
 class Function;
+class Universe;
 class Doc;
+
+/** @addtogroup engine Engine
+ * @{
+ */
 
 #define KXMLQLCFunction "Function"
 #define KXMLQLCFunctionName "Name"
@@ -502,7 +506,7 @@ public:
      * @param timer The MasterTimer that is running the function
      * @param universes The DMX universe buffer to write values into
      */
-    virtual void write(MasterTimer* timer, UniverseArray* universes) = 0;
+    virtual void write(MasterTimer* timer, QList<Universe*> universes) = 0;
 
     /**
      * Called by MasterTimer when the function is stopped. No more write()
@@ -517,7 +521,7 @@ public:
      * @param timer The MasterTimer that has stopped running the function
      * @param universes Universe buffer to write the function's exit data
      */
-    virtual void postRun(MasterTimer* timer, UniverseArray* universes);
+    virtual void postRun(MasterTimer* timer, QList<Universe*> universes);
 
 signals:
     /**
@@ -700,5 +704,7 @@ private:
     //qreal m_intensity;
     QList <Attribute> m_attributes;
 };
+
+/** @} */
 
 #endif

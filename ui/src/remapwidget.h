@@ -25,6 +25,10 @@
 
 struct RemapInfo;
 
+/** @addtogroup ui_functions
+ * @{
+ */
+
 class RemapWidget : public QWidget
 {
     Q_OBJECT
@@ -46,5 +50,7 @@ private:
     QTreeWidget *m_targetTree;
     QList<RemapInfo> m_list;
 };
+
+/** @} */
 
 #endif

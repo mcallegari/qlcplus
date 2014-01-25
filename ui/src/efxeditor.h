@@ -34,6 +34,10 @@ class SpeedDialWidget;
 class EFXPreviewArea;
 class Doc;
 
+/** @addtogroup ui_functions
+ * @{
+ */
+
 class EFXEditor : public QWidget, public Ui_EFXEditor
 {
     Q_OBJECT
@@ -142,5 +146,7 @@ private slots:
 private:
     void redrawPreview();
 };
+
+/** @} */
 
 #endif

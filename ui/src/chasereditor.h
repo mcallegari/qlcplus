@@ -28,12 +28,14 @@
 
 class Chaser;
 class Function;
-class InputMap;
-class OutputMap;
 class ChaserStep;
 class MasterTimer;
 class SpeedDialWidget;
 class QTreeWidgetItem;
+
+/** @addtogroup ui_functions
+ * @{
+ */
 
 class ChaserEditor : public QWidget, public Ui_ChaserEditor
 {
@@ -171,5 +173,7 @@ private:
 private:
     bool m_liveMode;
 };
+
+/** @} */
 
 #endif

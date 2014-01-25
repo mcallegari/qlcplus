@@ -18,10 +18,10 @@
 */
 
 #include "genericdmxsource.h"
-#include "universearray.h"
 #include "mastertimer.h"
 #include "fadechannel.h"
 #include "qlcchannel.h"
+#include "universe.h"
 #include "doc.h"
 
 GenericDMXSource::GenericDMXSource(Doc* doc)
@@ -29,7 +29,7 @@ GenericDMXSource::GenericDMXSource(Doc* doc)
     , m_outputEnabled(false)
 {
     Q_ASSERT(m_doc != NULL);
-    m_doc->masterTimer()->registerDMXSource(this);
+    m_doc->masterTimer()->registerDMXSource(this, "Generic");
 }
 
 GenericDMXSource::~GenericDMXSource()
@@ -63,7 +63,7 @@ bool GenericDMXSource::isOutputEnabled() const
     return m_outputEnabled;
 }
 
-void GenericDMXSource::writeDMX(MasterTimer* timer, UniverseArray* ua)
+void GenericDMXSource::writeDMX(MasterTimer* timer, QList<Universe *> ua)
 {
     Q_UNUSED(timer);
 
@@ -74,14 +74,15 @@ void GenericDMXSource::writeDMX(MasterTimer* timer, UniverseArray* ua)
         it.next();
 
         FadeChannel fc;
-        fc.setFixture(it.key().first);
+        fc.setFixture(m_doc, it.key().first);
         fc.setChannel(it.key().second);
 
         QLCChannel::Group grp = fc.group(m_doc);
-        quint32 address = fc.address(m_doc);
+        quint32 address = fc.address();
+        quint32 universe = fc.universe();
 
         if (address != QLCChannel::invalid())
-            ua->write(address, it.value(), grp);
+            ua[universe]->write(address, it.value());
         if (grp != QLCChannel::Intensity)
             it.remove();
     }

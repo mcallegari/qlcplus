@@ -26,6 +26,10 @@ class QDomDocument;
 class QDomElement;
 class QString;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 // File extensions
 #define KExtFixture      ".qxf" // 'Q'LC+ 'X'ml 'F'ixture
 #define KExtFixtureList  ".qxfl" // 'Q'LC+ 'X'ml 'F'ixture 'L'ist
@@ -94,5 +98,7 @@ public:
      */
     static bool isRaspberry();
 };
+
+/** @} */
 
 #endif

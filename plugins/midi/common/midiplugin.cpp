@@ -172,11 +172,13 @@ QString MidiPlugin::outputInfo(quint32 output)
     return str;
 }
 
-void MidiPlugin::writeUniverse(quint32 output, const QByteArray& universe)
+void MidiPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
 {
+    Q_UNUSED(universe)
+
     MidiOutputDevice* dev = outputDevice(output);
     if (dev != NULL)
-        dev->writeUniverse(universe);
+        dev->writeUniverse(data);
 }
 
 MidiOutputDevice* MidiPlugin::outputDevice(quint32 output) const

@@ -26,12 +26,15 @@
 #include <QTime>
 
 class MasterTimerPrivate;
-class UniverseArray;
 class GenericFader;
-class OutputMap;
 class DMXSource;
 class Function;
+class Universe;
 class Doc;
+
+/** @addtogroup engine Engine
+ * @{
+ */
 
 class MasterTimer : public QObject
 {
@@ -100,7 +103,7 @@ signals:
 
 private:
     /** Execute one timer tick for each registered Function */
-    void timerTickFunctions(UniverseArray* universes);
+    void timerTickFunctions(QList<Universe *> universes);
 
 private:
     /** List of currently running functions */
@@ -124,7 +127,7 @@ public:
      *
      * @param source The DMXSource to register
      */
-    virtual void registerDMXSource(DMXSource* source);
+    virtual void registerDMXSource(DMXSource* source, QString name);
 
     /**
      * Unregister a previously registered DMXSource. This should be called
@@ -136,7 +139,7 @@ public:
 
 private:
     /** Execute one timer tick for each registered DMXSource */
-    void timerTickDMXSources(UniverseArray* universes);
+    void timerTickDMXSources(QList<Universe *> universes);
 
 private:
     /** List of currently registered DMX sources */
@@ -162,7 +165,7 @@ public:
 
 private:
     /** Execute one timer tick for the GenericFader */
-    void timerTickFader(UniverseArray* universes);
+    void timerTickFader(QList<Universe *> universes);
 
 private:
     GenericFader* m_fader;
@@ -170,5 +173,7 @@ private:
 private:
     MasterTimerPrivate* d_ptr;
 };
+
+/** @} */
 
 #endif

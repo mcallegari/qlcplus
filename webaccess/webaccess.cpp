@@ -24,14 +24,14 @@
 
 #include "vcaudiotriggers.h"
 #include "virtualconsole.h"
+#include "inputoutputmap.h"
 #include "commonjscss.h"
 #include "vcsoloframe.h"
 #include "outputpatch.h"
 #include "inputpatch.h"
 #include "qlcconfig.h"
+#include "webaccess.h"
 #include "vccuelist.h"
-#include "outputmap.h"
-#include "inputmap.h"
 #include "mongoose.h"
 #include "vcbutton.h"
 #include "vcslider.h"
@@ -55,6 +55,7 @@
 
 #define POST_DATA_SIZE 1024
 #define IFACES_SYSTEM_FILE "/etc/network/interfaces"
+#define AUTOSTART_PROJECT_NAME "autostart.qxw"
 
 WebAccess* s_instance = NULL;
 
@@ -78,6 +79,8 @@ WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, QObject *parent) :
     QObject(parent)
   , m_doc(doc)
   , m_vc(vcInstance)
+  , m_ctx(NULL)
+  , m_conn(NULL)
 {
     Q_ASSERT(s_instance == NULL);
     Q_ASSERT(m_doc != NULL);
@@ -276,33 +279,33 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
     }
     else if (cmdList[0] == "QLC+IO")
     {
-        if (cmdList.count() < 2)
+        if (cmdList.count() < 3)
             return 0;
 
         int universe = cmdList[2].toInt();
 
         if (cmdList[1] == "INPUT")
         {
-            m_doc->inputMap()->setPatch(universe, cmdList[3], cmdList[4].toUInt());
-            m_doc->inputMap()->saveDefaults();
+            m_doc->inputOutputMap()->setInputPatch(universe, cmdList[3], cmdList[4].toUInt());
+            m_doc->inputOutputMap()->saveDefaults();
         }
         else if (cmdList[1] == "OUTPUT")
         {
-            m_doc->outputMap()->setPatch(universe, cmdList[3], cmdList[4].toUInt(), false);
-            m_doc->outputMap()->saveDefaults();
+            m_doc->inputOutputMap()->setOutputPatch(universe, cmdList[3], cmdList[4].toUInt(), false);
+            m_doc->inputOutputMap()->saveDefaults();
         }
         else if (cmdList[1] == "FB")
         {
-            m_doc->outputMap()->setPatch(universe, cmdList[3], cmdList[4].toUInt(), true);
-            m_doc->outputMap()->saveDefaults();
+            m_doc->inputOutputMap()->setOutputPatch(universe, cmdList[3], cmdList[4].toUInt(), true);
+            m_doc->inputOutputMap()->saveDefaults();
         }
         else if (cmdList[1] == "PROFILE")
         {
-            InputPatch *inPatch = m_doc->inputMap()->patch(universe);
+            InputPatch *inPatch = m_doc->inputOutputMap()->inputPatch(universe);
             if (inPatch != NULL)
             {
-                m_doc->inputMap()->setPatch(universe, inPatch->pluginName(), inPatch->input(), cmdList[3]);
-                m_doc->inputMap()->saveDefaults();
+                m_doc->inputOutputMap()->setInputPatch(universe, inPatch->pluginName(), inPatch->input(), cmdList[3]);
+                m_doc->inputOutputMap()->saveDefaults();
             }
         }
         else if (cmdList[1] == "AUDIOIN")
@@ -350,6 +353,20 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
                 }
             }
             qDebug() << "[webaccess] Error: interface" << cmdList.at(2) << "not found !";
+            return 1;
+        }
+        else if (cmdList.at(1) == "AUTOSTART")
+        {
+            if (cmdList.count() < 3)
+                return 0;
+
+            QString asName = QString("%1/%2/%3").arg(getenv("HOME")).arg(USERQLCPLUSDIR).arg(AUTOSTART_PROJECT_NAME);
+            if (cmdList.at(2) == "none")
+                QFile::remove(asName);
+            else
+                emit storeAutostartProject(asName);
+            QString wsMessage = QString("ALERT|" + tr("Autostart configuration changed"));
+            mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
             return 1;
         }
         else if (cmdList.at(1) == "REBOOT")
@@ -870,22 +887,21 @@ QString WebAccess::getVCHTML()
 QString WebAccess::getIOConfigHTML()
 {
     QString html = "";
-    InputMap *inMap = m_doc->inputMap();
-    OutputMap *outMap = m_doc->outputMap();
+    InputOutputMap *ioMap = m_doc->inputOutputMap();
 
-    QStringList IOplugins = inMap->pluginNames();
-    foreach (QString out, outMap->pluginNames())
+    QStringList IOplugins = ioMap->inputPluginNames();
+    foreach (QString out, ioMap->outputPluginNames())
         if (IOplugins.contains(out) == false)
             IOplugins.append(out);
 
     QStringList inputLines, outputLines, feedbackLines;
-    QStringList profiles = inMap->profileNames();
+    QStringList profiles = ioMap->profileNames();
 
     foreach (QString pluginName, IOplugins)
     {
-        QStringList inputs = inMap->pluginInputs(pluginName);
-        QStringList outputs = outMap->pluginOutputs(pluginName);
-        bool hasFeedback = outMap->pluginSupportsFeedback(pluginName);
+        QStringList inputs = ioMap->pluginInputs(pluginName);
+        QStringList outputs = ioMap->pluginOutputs(pluginName);
+        bool hasFeedback = ioMap->pluginSupportsFeedback(pluginName);
 
         for (int i = 0; i < inputs.count(); i++)
             inputLines.append(QString("%1,%2,%3").arg(pluginName).arg(inputs.at(i)).arg(i));
@@ -906,13 +922,13 @@ QString WebAccess::getIOConfigHTML()
 
     for (int i = 0; i < 4; i++)
     {
-        QString currentInputPluginName = inMap->patch(i)->pluginName();
-        quint32 currentInput = inMap->patch(i)->input();
-        QString currentOutputPluginName = outMap->patch(i)->pluginName();
-        quint32 currentOutput = outMap->patch(i)->output();
-        QString currentFeedbackPluginName = outMap->feedbackPatch(i)->pluginName();
-        quint32 currentFeedback = outMap->feedbackPatch(i)->output();
-        QString currentProfileName = inMap->patch(i)->profileName();
+        QString currentInputPluginName = ioMap->inputPatch(i)->pluginName();
+        quint32 currentInput = ioMap->inputPatch(i)->input();
+        QString currentOutputPluginName = ioMap->outputPatch(i)->pluginName();
+        quint32 currentOutput = ioMap->outputPatch(i)->output();
+        QString currentFeedbackPluginName = ioMap->feedbackPatch(i)->pluginName();
+        quint32 currentFeedback = ioMap->feedbackPatch(i)->output();
+        QString currentProfileName = ioMap->inputPatch(i)->profileName();
 
         html += "<tr align=center><td>Universe " + QString::number(i+1) + "</td>\n";
         html += "<td><select onchange=\"ioChanged('INPUT', " + QString::number(i) + ", this.value);\">\n";
@@ -1228,6 +1244,7 @@ QString WebAccess::getSystemConfigHTML()
             "{\n"
             " websocket.send(\"QLC+SYS|\" + cmd + \"|\" + iface + \"|\" + mode + \"|\" + addr + \"|\" + mask + \"|\" + gw);\n"
             "};\n"
+
             "function showStatic(iface, enable) {\n"
             " var divName = iface + \"StaticFields\";\n"
             " var obj=document.getElementById(divName);\n"
@@ -1236,6 +1253,7 @@ QString WebAccess::getSystemConfigHTML()
             " else\n"
             "   obj.style.visibility='hidden';\n"
             "}\n"
+
             "function applyParams(iface) {\n"
             " var radioGroup = iface + \"NetGroup\";\n"
             " var radios = document.getElementsByName(radioGroup);\n"
@@ -1248,6 +1266,14 @@ QString WebAccess::getSystemConfigHTML()
             "   systemCmd(\"NETWORK\", iface, \"static\", document.getElementById(addrName).value,"
             " document.getElementById(maskName).value, document.getElementById(gwName).value);\n"
             " }\n"
+            "}\n"
+
+            "function setAutostart() {\n"
+            " var radios = document.getElementsByName('autostart');\n"
+            " if (radios[0].checked)\n"
+            "   websocket.send('QLC+SYS|AUTOSTART|none');\n"
+            " else\n"
+            "   websocket.send('QLC+SYS|AUTOSTART|current');\n"
             "}\n\n";
 
     m_JScode += "</script>\n";
@@ -1276,6 +1302,18 @@ QString WebAccess::getSystemConfigHTML()
                 "font-size:20px; text-align:center; color:#CCCCCC;\">";
     bodyHTML += tr("Network configuration") + "</div>\n";
     bodyHTML += getNetworkHTML();
+
+    bodyHTML += "<div style=\"margin: 15px 7% 0px 7%; width: 86%; font-family: verdana,arial,sans-serif;"
+                "font-size:20px; text-align:center; color:#CCCCCC;\">";
+    bodyHTML += tr("Project autostart") + "</div>\n";
+    bodyHTML += "<div style=\"margin: 15px 7% 0px 7%; width: 86%; font-family: verdana,arial,sans-serif;"
+                "font-size:18px; padding: 5px 0px; color:#CCCCCC; background:#222; border-radius: 7px;\">";
+    bodyHTML += "<form style=\"margin: 5px 15px; color:#FFF;\">\n";
+    bodyHTML += "<input type=\"radio\" name=autostart value=\"none\">" + tr("No project") + "\n";
+    bodyHTML += "<input type=\"radio\" name=autostart value=\"current\" checked>" + tr("Use current project") + "\n";
+    bodyHTML += "<input type=\"button\" value=\"" + tr("Apply changes") + "\" onclick=\"setAutostart();\" >\n";
+    bodyHTML += "</form></div>\n";
+
     bodyHTML += "<div style=\"margin:5px 7%;\">\n";
     bodyHTML += "<a class=\"button button-blue\" href=\"\" onclick=\"javascript:websocket.send('QLC+SYS|REBOOT');\"><span>" + tr("Reboot") + "</span></a>\n";
     bodyHTML += "</div>\n";
@@ -1315,6 +1353,9 @@ bool WebAccess::writeNetworkFile()
 
 void WebAccess::slotVCLoaded()
 {
+    if (m_conn == NULL)
+        return;
+
     QString wsMessage = QString("URL|/");
     mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
 }

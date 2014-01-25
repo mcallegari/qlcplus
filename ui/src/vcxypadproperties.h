@@ -30,6 +30,10 @@ class InputMap;
 class VCXYPad;
 class Doc;
 
+/** @addtogroup ui_vc_props
+ * @{
+ */
+
 class VCXYPadProperties : public QDialog, public Ui_VCXYPadProperties
 {
     Q_OBJECT
@@ -89,5 +93,7 @@ private:
 public slots:
     void accept();
 };
+
+/** @} */
 
 #endif

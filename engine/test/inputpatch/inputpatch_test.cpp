@@ -21,16 +21,15 @@
 #include <QtXml>
 
 #define private public
-#include "outputpluginstub.h"
+#include "iopluginstub.h"
 #include "inputpatch_test.h"
 #include "qlcioplugin.h"
 #include "inputpatch.h"
-#include "inputmap.h"
 #include "qlcfile.h"
 #include "doc.h"
 #undef private
 
-#define TESTPLUGINDIR "../outputpluginstub"
+#define TESTPLUGINDIR "../iopluginstub"
 
 static QDir testPluginDir()
 {
@@ -66,10 +65,10 @@ void InputPatch_Test::defaults()
 
 void InputPatch_Test::patch()
 {
-    InputMap im(m_doc, 4);
+    InputOutputMap im(m_doc, 4);
 
     QCOMPARE(m_doc->ioPluginCache()->plugins().size(), 1);
-    OutputPluginStub* stub = static_cast<OutputPluginStub*> (m_doc->ioPluginCache()->plugins().at(0));
+    IOPluginStub* stub = static_cast<IOPluginStub*> (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
     QLCInputProfile prof1;

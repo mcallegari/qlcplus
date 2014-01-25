@@ -35,8 +35,6 @@
 #include "chasereditor.h"
 #include "mastertimer.h"
 #include "chaserstep.h"
-#include "outputmap.h"
-#include "inputmap.h"
 #include "apputil.h"
 #include "fixture.h"
 #include "chaser.h"

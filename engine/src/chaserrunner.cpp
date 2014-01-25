@@ -20,7 +20,6 @@
 #include <QDebug>
 #include <QTime>
 
-#include "universearray.h"
 #include "chaserrunner.h"
 #include "genericfader.h"
 #include "mastertimer.h"
@@ -269,7 +268,7 @@ void ChaserRunner::adjustIntensity(qreal fraction)
  * Running
  ****************************************************************************/
 
-bool ChaserRunner::write(MasterTimer* timer, UniverseArray* universes)
+bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
 {
     Q_UNUSED(universes);
 
@@ -357,7 +356,7 @@ bool ChaserRunner::write(MasterTimer* timer, UniverseArray* universes)
     return true;
 }
 
-void ChaserRunner::postRun(MasterTimer* timer, UniverseArray* universes)
+void ChaserRunner::postRun(MasterTimer* timer, QList<Universe *> universes)
 {
     Q_UNUSED(universes);
     Q_UNUSED(timer);

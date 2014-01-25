@@ -24,6 +24,10 @@
 
 class QWidget;
 
+/** @addtogroup ui_vc_props
+ * @{
+ */
+
 #define KXMLQLCWidgetProperties "WidgetProperties"
 #define KXMLQLCWidgetX "X"
 #define KXMLQLCWidgetY "Y"
@@ -72,5 +76,7 @@ protected:
     int m_width;
     int m_height;
 };
+
+/** @} */
 
 #endif

@@ -22,6 +22,10 @@
 
 #include <QWidget>
 
+/** @addtogroup ui_vc_widgets
+ * @{
+ */
+
 class AudioTriggerWidget : public QWidget
 {
     Q_OBJECT
@@ -54,5 +58,7 @@ private:
     float m_barWidth;
     int m_maxFrequency;
 };
+
+/** @} */
 
 #endif // AUDIOTRIGGERWIDGET_H

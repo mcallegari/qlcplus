@@ -23,12 +23,16 @@
 #include <QList>
 #include <QSet>
 
-#define KXMLQLCFixtureHead          "Head"
-#define KXMLQLCFixtureHeadChannel   "Channel"
-
 class QLCFixtureMode;
 class QDomDocument;
 class QDomElement;
+
+/** @addtogroup engine Engine
+ * @{
+ */
+
+#define KXMLQLCFixtureHead          "Head"
+#define KXMLQLCFixtureHeadChannel   "Channel"
 
 class QLCFixtureHead
 {
@@ -167,5 +171,7 @@ public:
      */
     QLCDimmerHead(int head);
 };
+
+/** @} */
 
 #endif

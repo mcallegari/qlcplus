@@ -1,6 +1,17 @@
+qlcplus (4.7.0) stable; urgency=low
+
+  * NEW: Input/Output: QLC+ now supports infinite universes
+  * NEW: Input/Output: added universe passthrough mode
+  * NEW: Plugins: ArtNet and E1.31 plugins support up to 65535 universes
+  * Function Selection: fixed Collection selection
+  * Documentation: Added Sound Control tutorial (Jano Svitok)
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 15 February 2014 12:13:14 +0200
+
 qlcplus (4.6.1) stable; urgency=low
 
   * NEW: Function Manager: it is now possible to set a startup function that is started every time QLC+ switches to operate mode
+  * NEW: Clock widget can now be used to schedule a function startup
   * VC Audio triggers: fixed divisors behaviour
   * VC Slider: fixed submaster renaming
   * Engine: restored timed fade out + stop all functions functionality
@@ -11,7 +22,10 @@ qlcplus (4.6.1) stable; urgency=low
   * Engine: fixed Show playback not respecting fade times
   * RGB Matrix: added a whole lot of new scripts (many thanks to Plugz)
   * UI: added warning message when fixture definitions are not found during project loading
-  * VC XY Pad: Fixed behavior for 8bit Pan/tilt fixtures (Jano Svitok, found by Cinguligu)
+  * VC XY Pad: fixed behavior for 8bit Pan/tilt fixtures (Jano Svitok, found by Cinguligu)
+  * Webaccess: fixed behaviour of buttons in solo frames
+  * Virtual Console: multipage frames input associations are now contextual
+  * Added input profile: KORG nano PAD (thanks to Alessandro Grechi)
   * Added fixture: Showtec ZIPP LED DMX (thanks to Marek Pleva)
   * Added fixture: Chauvet Circus 2.0 (thanks to Anthony King)
   * Added fixture: Proel Analogue Dimmer 6Ch (thanks to Lorenzo Andreani)
@@ -21,8 +35,9 @@ qlcplus (4.6.1) stable; urgency=low
   * Added fixture: American DJ Fusion FX Bar 5 (thanks to DJ Drew)
   * Added fixture: Pro-Lights LumiPAR 12Q (thanks to Alessandro Grechi)
   * Added fixture: Stairville MH-X20 (thanks to Kristo)
+  * Added fixture: Showtec Indigo 4600 (Jano Svitok)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 25 January 2014 12:13:04 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 12 January 2014 12:13:04 +0200
 
 qlcplus (4.6.0) stable; urgency=low
 

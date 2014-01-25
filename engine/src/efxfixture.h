@@ -30,6 +30,10 @@ class Scene;
 class EFX;
 class Doc;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 #define KXMLQLCEFXFixture "Fixture"
 #define KXMLQLCEFXFixtureID "ID"
 #define KXMLQLCEFXFixtureHead "Head"
@@ -156,16 +160,16 @@ private:
      *************************************************************************/
 private:
     /** Calculate the next step data for this fixture */
-    void nextStep(MasterTimer* timer, UniverseArray* universes);
+    void nextStep(MasterTimer* timer, QList<Universe *> universes);
 
     /** Write this EFXFixture's channel data to universes */
-    void setPoint(UniverseArray* universes, qreal pan, qreal tilt);
+    void setPoint(QList<Universe *> universes, qreal pan, qreal tilt);
 
     /* Run the start scene if necessary */
-    void start(MasterTimer* timer, UniverseArray* universes);
+    void start(MasterTimer* timer, QList<Universe *> universes);
 
     /* Run the stop scene if necessary */
-    void stop(MasterTimer* timer, UniverseArray* universes);
+    void stop(MasterTimer* timer, QList<Universe *> universes);
 
     /*************************************************************************
      * Intensity adjustment
@@ -188,5 +192,7 @@ public:
 private:
     qreal m_intensity;
 };
+
+/** @} */
 
 #endif

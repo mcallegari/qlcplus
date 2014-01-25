@@ -22,6 +22,10 @@
 
 #include <QPoint>
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 class QLCPoint : public QPoint
 {
 public:
@@ -30,5 +34,7 @@ public:
 };
 
 uint qHash(const QLCPoint& key);
+
+/** @} */
 
 #endif

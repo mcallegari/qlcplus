@@ -34,10 +34,8 @@
 #include "sceneeditor.h"
 #include "mastertimer.h"
 #include "collection.h"
-#include "outputmap.h"
 #include "rgbmatrix.h"
 #include "efxeditor.h"
-#include "inputmap.h"
 #include "function.h"
 #include "fixture.h"
 #include "chaser.h"
@@ -55,6 +53,7 @@
 FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
     : QDialog(parent)
     , m_doc(doc)
+    , m_none(false)
     , m_multiSelection(true)
     , m_runningOnlyFlag(false)
     , m_filter(Function::Scene | Function::Chaser | Function::Collection |

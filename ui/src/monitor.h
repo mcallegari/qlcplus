@@ -36,6 +36,10 @@ class Monitor;
 class QTimer;
 class Doc;
 
+/** @addtogroup ui UI
+ * @{
+ */
+
 class Monitor : public QWidget
 {
     Q_OBJECT
@@ -122,7 +126,7 @@ protected slots:
     void slotFixtureRemoved(quint32 fxi_id);
 
     /** Slot for getting the latest values from OutputMap */
-    void slotUniversesWritten(const QByteArray& ua);
+    void slotUniversesWritten(int index, const QByteArray& ua);
 
 signals:
     void channelStyleChanged(Monitor::ChannelStyle style);
@@ -134,5 +138,7 @@ protected:
     MonitorLayout* m_monitorLayout;
     QList <MonitorFixture*> m_monitorFixtures;
 };
+
+/** @} */
 
 #endif

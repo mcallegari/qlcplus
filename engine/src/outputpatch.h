@@ -24,6 +24,12 @@
 
 class QLCIOPlugin;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
+#define KOutputNone QObject::tr("None")
+
 #define KXMLQLCOutputPatch "Patch"
 #define KXMLQLCOutputPatchUniverse "Universe"
 #define KXMLQLCOutputPatchPlugin "Plugin"
@@ -54,6 +60,8 @@ public:
     quint32 output() const;
     QString outputName() const;
 
+    bool isPatched() const;
+
 private:
     QLCIOPlugin* m_plugin;
     quint32 m_output;
@@ -64,7 +72,9 @@ private:
 public:
     /** Write the contents of a 512 channel value buffer to the plugin.
       * Called periodically by OutputMap. No need to call manually. */
-    void dump(const QByteArray& universe);
+    void dump(quint32 universe, const QByteArray &data);
 };
+
+/** @} */
 
 #endif

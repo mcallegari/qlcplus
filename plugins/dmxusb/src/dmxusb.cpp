@@ -172,10 +172,12 @@ QString DMXUSB::outputInfo(quint32 output)
     return str;
 }
 
-void DMXUSB::writeUniverse(quint32 output, const QByteArray& universe)
+void DMXUSB::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
 {
+    Q_UNUSED(universe)
+
     if (output < quint32(m_outputs.size()))
-        m_outputs.at(output)->writeUniverse(universe);
+        m_outputs.at(output)->writeUniverse(data);
 }
 
 /****************************************************************************

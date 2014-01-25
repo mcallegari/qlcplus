@@ -51,8 +51,6 @@
 #include "mastertimer.h"
 #include "vcsoloframe.h"
 #include "inputpatch.h"
-#include "outputmap.h"
-#include "inputmap.h"
 #include "vcbutton.h"
 #include "function.h"
 #include "fixture.h"
@@ -456,7 +454,10 @@ void VCButton::updateFeedback()
 
 void VCButton::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
-    QLCInputSource src(universe, channel);
+    if (isEnabled() == false)
+        return;
+
+    QLCInputSource src(universe, (page() << 16) | channel);
     if (src == inputSource())
     {
         if (m_action == Flash)
@@ -484,10 +485,10 @@ void VCButton::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
 void VCButton::setAction(Action action)
 {
     if (m_action == Blackout && action != Blackout)
-        disconnect(m_doc->outputMap(), SIGNAL(blackoutChanged(bool)),
+        disconnect(m_doc->inputOutputMap(), SIGNAL(blackoutChanged(bool)),
                    this, SLOT(slotBlackoutChanged(bool)));
     else if (m_action != Blackout && action == Blackout)
-        connect(m_doc->outputMap(), SIGNAL(blackoutChanged(bool)),
+        connect(m_doc->inputOutputMap(), SIGNAL(blackoutChanged(bool)),
                 this, SLOT(slotBlackoutChanged(bool)));
 
     m_action = action;
@@ -614,7 +615,7 @@ void VCButton::pressFunction()
     }
     else if (m_action == Blackout)
     {
-        m_doc->outputMap()->toggleBlackout();
+        m_doc->inputOutputMap()->toggleBlackout();
     }
     else if (m_action == StopAll)
     {
@@ -833,7 +834,7 @@ bool VCButton::loadXML(const QDomElement* root)
                 adjust = true;
             else
                 adjust = false;
-            enableStartupIntensity(double(tag.text().toInt()) / double(100));
+            enableStartupIntensity(qreal(tag.text().toInt()) / qreal(100));
             enableStartupIntensity(adjust);
         }
         else

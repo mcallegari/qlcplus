@@ -22,6 +22,10 @@
 
 #include <QDial>
 
+/** @addtogroup ui UI
+ * @{
+ */
+
 class KnobWidget : public QDial
 {
     Q_OBJECT
@@ -46,5 +50,7 @@ private:
     QPixmap* m_background;
     QPixmap* m_cursor;
 };
+
+/** @} */
 
 #endif

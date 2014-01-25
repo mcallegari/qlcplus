@@ -22,12 +22,15 @@
 
 #include <QFrame>
 
-#include "../../engine/src/universearray.h"
+#include "grandmaster.h"
 
-class OutputMap;
-class InputMap;
+class InputOutputMap;
 class QSlider;
 class QLabel;
+
+/** @addtogroup ui
+ * @{
+ */
 
 class GrandMasterSlider : public QFrame
 {
@@ -35,7 +38,7 @@ class GrandMasterSlider : public QFrame
     Q_DISABLE_COPY(GrandMasterSlider)
 
 public:
-    GrandMasterSlider(QWidget* parent, OutputMap* outputMap, InputMap* inputMap);
+    GrandMasterSlider(QWidget* parent, InputOutputMap* ioMap);
     virtual ~GrandMasterSlider();
 
     bool invertedAppearance() const;
@@ -48,14 +51,13 @@ private:
 protected slots:
     void slotValueChanged(int value);
     void slotGrandMasterValueChanged(uchar value);
-    void slotGrandMasterValueModeChanged(UniverseArray::GMValueMode mode);
+    void slotGrandMasterValueModeChanged(GrandMaster::ValueMode mode);
 
 protected:
     QLabel* m_valueLabel;
     QSlider* m_slider;
     QLabel* m_nameLabel;
-    OutputMap* m_outputMap;
-    InputMap* m_inputMap;
+    InputOutputMap* m_ioMap;
 
     /*************************************************************************
      * External input
@@ -63,5 +65,7 @@ protected:
 protected slots:
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
 };
+
+/** @} */
 
 #endif

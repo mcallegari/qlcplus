@@ -20,8 +20,8 @@
 #include <QtTest>
 
 #include "dmxsource_stub.h"
-#include "universearray.h"
 #include "mastertimer.h"
+#include "universe.h"
 
 DMXSource_Stub::DMXSource_Stub()
         : m_writeCalls(0)
@@ -32,7 +32,7 @@ DMXSource_Stub::~DMXSource_Stub()
 {
 }
 
-void DMXSource_Stub::writeDMX(MasterTimer* timer, UniverseArray* universes)
+void DMXSource_Stub::writeDMX(MasterTimer* timer, QList<Universe*> universes)
 {
     Q_UNUSED(timer);
     Q_UNUSED(universes);

@@ -37,6 +37,10 @@ class QLabel;
 
 class VCSliderProperties;
 
+/** @addtogroup ui_vc_widgets
+ * @{
+ */
+
 #define KXMLQLCVCSlider "Slider"
 #define KXMLQLCVCSliderMode "SliderMode"
 #define KXMLQLCVCSliderWidgetStyle "WidgetStyle"
@@ -63,7 +67,6 @@ class VCSliderProperties;
 
 #define KXMLQLCVCSliderPlayback "Playback"
 #define KXMLQLCVCSliderPlaybackFunction "Function"
-
 
 class VCSlider : public VCWidget, public DMXSource
 {
@@ -365,14 +368,14 @@ signals:
      *********************************************************************/
 public:
     /** @reimpl */
-    void writeDMX(MasterTimer* timer, UniverseArray* universes);
+    void writeDMX(MasterTimer* timer, QList<Universe*> universes);
 
 protected:
     /** writeDMX for Level mode */
-    void writeDMXLevel(MasterTimer* timer, UniverseArray* universes);
+    void writeDMXLevel(MasterTimer* timer, QList<Universe*> universes);
 
     /** writeDMX for Playback mode */
-    void writeDMXPlayback(MasterTimer* timer, UniverseArray* universes);
+    void writeDMXPlayback(MasterTimer* timer, QList<Universe*> universes);
 
     /*********************************************************************
      * Top label
@@ -523,5 +526,7 @@ public:
 
     bool saveXML(QDomDocument* doc, QDomElement* vc_root);
 };
+
+/** @} */
 
 #endif

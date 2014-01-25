@@ -19,33 +19,6 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="tab">
-      <attribute name="title">
-       <string>Network Mapping</string>
-      </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <widget class="QTreeWidget" name="m_outputTree">
-         <property name="alternatingRowColors">
-          <bool>true</bool>
-         </property>
-         <property name="rootIsDecorated">
-          <bool>false</bool>
-         </property>
-         <column>
-          <property name="text">
-           <string>Network</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Universe</string>
-          </property>
-         </column>
-        </widget>
-       </item>
-      </layout>
-     </widget>
      <widget class="QWidget" name="tab_2">
       <attribute name="title">
        <string>Nodes Tree</string>

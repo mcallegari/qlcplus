@@ -31,7 +31,6 @@
 #include "virtualconsole.h"
 #include "vcproperties.h"
 #include "inputpatch.h"
-#include "inputmap.h"
 #include "vcframe.h"
 
 /*****************************************************************************
@@ -39,11 +38,11 @@
  *****************************************************************************/
 
 VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& properties,
-                                       InputMap* inputMap)
+                                       InputOutputMap *ioMap)
     : QDialog(parent)
-    , m_inputMap(inputMap)
+    , m_ioMap(ioMap)
 {
-    Q_ASSERT(inputMap != NULL);
+    Q_ASSERT(ioMap != NULL);
 
     setupUi(this);
 
@@ -184,10 +183,10 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
     switch (properties.grandMasterChannelMode())
     {
     default:
-    case UniverseArray::GMIntensity:
+    case GrandMaster::Intensity:
         m_gmIntensityRadio->setChecked(true);
         break;
-    case UniverseArray::GMAllChannels:
+    case GrandMaster::AllChannels:
         m_gmAllChannelsRadio->setChecked(true);
         break;
     }
@@ -195,10 +194,10 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
     switch (properties.grandMasterValueMode())
     {
     default:
-    case UniverseArray::GMReduce:
+    case GrandMaster::Reduce:
         m_gmReduceRadio->setChecked(true);
         break;
-    case UniverseArray::GMLimit:
+    case GrandMaster::Limit:
         m_gmLimitRadio->setChecked(true);
         break;
     }
@@ -206,10 +205,10 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
     switch (properties.grandMasterSlideMode())
     {
     default:
-    case UniverseArray::GMNormal:
+    case GrandMaster::Normal:
         m_gmSliderModeNormalRadio->setChecked(true);
         break;
-    case UniverseArray::GMInverted:
+    case GrandMaster::Inverted:
         m_gmSliderModeInvertedRadio->setChecked(true);
         break;
     }
@@ -342,37 +341,37 @@ void VCPropertiesEditor::slotSpeedDialConfirmed()
 void VCPropertiesEditor::slotGrandMasterIntensityToggled(bool checked)
 {
     if (checked == true)
-        m_properties.setGrandMasterChannelMode(UniverseArray::GMIntensity);
+        m_properties.setGrandMasterChannelMode(GrandMaster::Intensity);
     else
-        m_properties.setGrandMasterChannelMode(UniverseArray::GMAllChannels);
+        m_properties.setGrandMasterChannelMode(GrandMaster::AllChannels);
 }
 
 void VCPropertiesEditor::slotGrandMasterReduceToggled(bool checked)
 {
     if (checked == true)
-        m_properties.setGrandMasterValueMode(UniverseArray::GMReduce);
+        m_properties.setGrandMasterValueMode(GrandMaster::Reduce);
     else
-        m_properties.setGrandMasterValueMode(UniverseArray::GMLimit);
+        m_properties.setGrandMasterValueMode(GrandMaster::Limit);
 }
 
 void VCPropertiesEditor::slotGrandMasterSliderNormalToggled(bool checked)
 {
     if (checked == true)
-        m_properties.setGrandMasterSliderMode(UniverseArray::GMNormal);
+        m_properties.setGrandMasterSliderMode(GrandMaster::Normal);
     else
-        m_properties.setGrandMasterSliderMode(UniverseArray::GMInverted);
+        m_properties.setGrandMasterSliderMode(GrandMaster::Inverted);
 }
 
 void VCPropertiesEditor::slotAutoDetectGrandMasterInputToggled(bool checked)
 {
     if (checked == true)
     {
-        connect(m_inputMap, SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+        connect(m_ioMap, SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                 this, SLOT(slotGrandMasterInputValueChanged(quint32,quint32)));
     }
     else
     {
-        disconnect(m_inputMap, SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+        disconnect(m_ioMap, SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                    this, SLOT(slotGrandMasterInputValueChanged(quint32,quint32)));
     }
 }
@@ -386,7 +385,7 @@ void VCPropertiesEditor::slotGrandMasterInputValueChanged(quint32 universe,
 
 void VCPropertiesEditor::slotChooseGrandMasterInputClicked()
 {
-    SelectInputChannel sic(this, m_inputMap);
+    SelectInputChannel sic(this, m_ioMap);
     if (sic.exec() == QDialog::Accepted)
     {
         m_properties.setGrandMasterInputSource(sic.universe(), sic.channel());
@@ -421,13 +420,13 @@ void VCPropertiesEditor::updateGrandMasterInputSource()
 bool VCPropertiesEditor::inputSourceNames(quint32 universe, quint32 channel,
                                           QString& uniName, QString& chName) const
 {
-    if (universe == InputMap::invalidUniverse() || channel == InputMap::invalidChannel())
+    if (universe == InputOutputMap::invalidUniverse() || channel == QLCChannel::invalid())
     {
         /* Nothing selected for input universe and/or channel */
         return false;
     }
 
-    InputPatch* patch = m_inputMap->patch(universe);
+    InputPatch* patch = m_ioMap->inputPatch(universe);
     if (patch == NULL || patch->plugin() == NULL)
     {
         /* There is no patch for the given universe */

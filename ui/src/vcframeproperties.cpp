@@ -22,6 +22,7 @@
 #include "selectinputchannel.h"
 #include "vcframeproperties.h"
 #include "assignhotkey.h"
+#include "inputpatch.h"
 #include "vcframe.h"
 #include "doc.h"
 
@@ -201,7 +202,7 @@ void VCFrameProperties::slotNextDetachClicked()
 
 void VCFrameProperties::slotNextChooseInputClicked()
 {
-    SelectInputChannel sic(this, m_doc->inputMap());
+    SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
         m_nextInputSource = QLCInputSource(sic.universe(), sic.channel());
@@ -213,12 +214,12 @@ void VCFrameProperties::slotNextAutoDetectInputToggled(bool checked)
 {
     if (checked == true)
     {
-        connect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+        connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                 this, SLOT(slotNextInputValueChanged(quint32,quint32)));
     }
     else
     {
-        disconnect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                    this, SLOT(slotNextInputValueChanged(quint32,quint32)));
     }
 }
@@ -234,7 +235,7 @@ void VCFrameProperties::updateNextInputSource()
     QString uniName;
     QString chName;
 
-    if (m_doc->inputMap()->inputSourceNames(m_nextInputSource, uniName, chName) == true)
+    if (m_doc->inputOutputMap()->inputSourceNames(m_nextInputSource, uniName, chName) == true)
     {
         /* Display the gathered information */
         m_nextInputUniverseEdit->setText(uniName);
@@ -269,7 +270,7 @@ void VCFrameProperties::slotPreviousDetachClicked()
 
 void VCFrameProperties::slotPreviousChooseInputClicked()
 {
-    SelectInputChannel sic(this, m_doc->inputMap());
+    SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
         m_previousInputSource = QLCInputSource(sic.universe(), sic.channel());
@@ -281,12 +282,12 @@ void VCFrameProperties::slotPreviousAutoDetectInputToggled(bool checked)
 {
     if (checked == true)
     {
-        connect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+        connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                 this, SLOT(slotPreviousInputValueChanged(quint32,quint32)));
     }
     else
     {
-        disconnect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                    this, SLOT(slotPreviousInputValueChanged(quint32,quint32)));
     }
 }
@@ -302,7 +303,7 @@ void VCFrameProperties::updatePreviousInputSource()
     QString uniName;
     QString chName;
 
-    if (m_doc->inputMap()->inputSourceNames(m_previousInputSource, uniName, chName) == true)
+    if (m_doc->inputOutputMap()->inputSourceNames(m_previousInputSource, uniName, chName) == true)
     {
         /* Display the gathered information */
         m_previousInputUniverseEdit->setText(uniName);

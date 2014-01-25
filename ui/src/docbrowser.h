@@ -27,6 +27,10 @@
 class QToolBar;
 class QAction;
 
+/** @addtogroup ui UI
+ * @{
+ */
+
 /****************************************************************************
  * QLCTextBrowser
  ****************************************************************************/
@@ -76,5 +80,7 @@ private:
     QAction* m_homeAction;
     QAction* m_aboutQtAction;
 };
+
+/** @} */
 
 #endif

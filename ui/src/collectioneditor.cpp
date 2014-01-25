@@ -29,8 +29,6 @@
 #include "collectioneditor.h"
 #include "mastertimer.h"
 #include "collection.h"
-#include "outputmap.h"
-#include "inputmap.h"
 #include "function.h"
 #include "fixture.h"
 #include "apputil.h"

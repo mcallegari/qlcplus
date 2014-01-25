@@ -23,6 +23,10 @@
 class QCoreApplication;
 class QString;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 class QLCi18n
 {
 public:
@@ -56,5 +60,7 @@ private:
     static QString s_defaultLocale;
     static QString s_translationFilePath;
 };
+
+/** @} */
 
 #endif

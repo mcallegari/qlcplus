@@ -25,6 +25,8 @@
 
 namespace ola {
 
+using std::string;
+
 const string QLCLogDestination::PREFIX = "OLA: ";
 
 void QLCLogDestination::Write(log_level level, const string &log_line) {

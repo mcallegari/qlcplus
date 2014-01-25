@@ -24,8 +24,18 @@
 
 #include "ui_vcproperties.h"
 #include "vcwidgetproperties.h"
-#include "universearray.h"
 #include "vcproperties.h"
+#include "universe.h"
+
+class VirtualConsole;
+class InputOutputMap;
+class QDomDocument;
+class QDomElement;
+class VCFrame;
+
+/** @addtogroup ui_vc_props
+ * @{
+ */
 
 #define SETTINGS_BUTTON_SIZE        "virtualconsole/buttonsize"
 #define SETTINGS_BUTTON_STATUSLED   "virtualconsole/buttonstatusled"
@@ -38,12 +48,6 @@
 #define SETTINGS_SOLOFRAME_SIZE     "virtualconsole/soloframesize"
 #define SETTINGS_AUDIOTRIGGERS_SIZE "virtualconsole/audiotriggerssize"
 
-class VirtualConsole;
-class QDomDocument;
-class QDomElement;
-class InputMap;
-class VCFrame;
-
 class VCPropertiesEditor : public QDialog, public Ui_VCPropertiesEditor
 {
     Q_OBJECT
@@ -54,7 +58,7 @@ class VCPropertiesEditor : public QDialog, public Ui_VCPropertiesEditor
      *************************************************************************/
 public:
     VCPropertiesEditor(QWidget* parent, const VCProperties& properties,
-                       InputMap* inputMap);
+                       InputOutputMap* ioMap);
     ~VCPropertiesEditor();
 
     VCProperties properties() const;
@@ -72,7 +76,7 @@ public:
 
 private:
     VCProperties m_properties;
-    InputMap* m_inputMap;
+    InputOutputMap* m_ioMap;
 
     /*************************************************************************
      * Layout page
@@ -112,5 +116,7 @@ private:
     bool inputSourceNames(quint32 universe, quint32 channel,
                           QString& uniName, QString& chName) const;
 };
+
+/** @} */
 
 #endif

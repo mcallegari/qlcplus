@@ -29,13 +29,15 @@
 class FunctionsTreeWidget;
 class QTreeWidgetItem;
 class MasterTimer;
-class OutputMap;
-class InputMap;
 class QToolBar;
 class QAction;
 class QWidget;
 class Fixture;
 class Doc;
+
+/** @addtogroup ui UI
+ * @{
+ */
 
 #define SETTINGS_FILTER "functionselection/filter"
 
@@ -169,5 +171,7 @@ protected slots:
     void slotItemDoubleClicked(QTreeWidgetItem* item);
 
 };
+
+/** @} */
 
 #endif

@@ -21,18 +21,17 @@
 #include <QtTest>
 
 #define private public
-#include "outputpluginstub.h"
+#include "iopluginstub.h"
 #include "outputmap_test.h"
-#include "universearray.h"
 #include "qlcioplugin.h"
 #include "outputpatch.h"
 #include "outputmap.h"
+#include "universe.h"
 #include "qlcfile.h"
 #include "doc.h"
 #undef private
 
-#define TESTPLUGINDIR "../outputpluginstub"
-#define INPUT_TESTPLUGINDIR "../inputpluginstub"
+#define TESTPLUGINDIR "../iopluginstub"
 #define ENGINEDIR "../../src"
 
 static QDir testPluginDir()
@@ -59,25 +58,27 @@ void OutputMap_Test::cleanupTestCase()
 void OutputMap_Test::initial()
 {
     OutputMap om(m_doc, 4);
-    QVERIFY(om.m_universes == 4);
     QVERIFY(om.universes() == 4);
     QVERIFY(om.m_blackout == false);
     QVERIFY(om.blackout() == false);
-    QVERIFY(om.m_universeArray->size() == 512 * 4);
+    QVERIFY(om.m_universeArray.size() == 4);
     QVERIFY(om.m_universeChanged == false);
     QVERIFY(om.m_patch.size() == 4);
     QVERIFY(om.m_universeMutex.tryLock() == true);
     om.m_universeMutex.unlock();
 
-    for (quint32 i = 0; i < 512 * om.universes(); i++)
-        QVERIFY(om.m_universeArray->preGMValues().data()[i] == 0);
+    for (int u = 0; u < om.m_universeArray.size(); u++)
+    {
+        for (quint32 i = 0; i < 512; i++)
+            QVERIFY(om.m_universeArray[u]->preGMValues().data()[i] == 0);
+    }
 }
 
 void OutputMap_Test::setPatch()
 {
     OutputMap om(m_doc, 4);
 
-    OutputPluginStub* stub = static_cast<OutputPluginStub*>
+    IOPluginStub* stub = static_cast<IOPluginStub*>
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
@@ -132,7 +133,7 @@ void OutputMap_Test::claimReleaseDumpReset()
 {
     OutputMap om(m_doc, 4);
 
-    OutputPluginStub* stub = static_cast<OutputPluginStub*>
+    IOPluginStub* stub = static_cast<IOPluginStub*>
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
@@ -141,15 +142,15 @@ void OutputMap_Test::claimReleaseDumpReset()
     om.setPatch(2, stub->name(), 2);
     om.setPatch(3, stub->name(), 3);
 
-    UniverseArray* unis = om.claimUniverses();
+    QList<Universe*> unis = om.claimUniverses();
     for (int i = 0; i < 512; i++)
-        unis->write(i, 'a', QLCChannel::Intensity);
-    for (int i = 512; i < 1024; i++)
-        unis->write(i, 'b', QLCChannel::Intensity);
-    for (int i = 1024; i < 1536; i++)
-        unis->write(i, 'c', QLCChannel::Intensity);
-    for (int i = 1536; i < 2048; i++)
-        unis->write(i, 'd', QLCChannel::Intensity);
+        unis[0]->write(i, 'a');
+    for (int i = 0; i < 512; i++)
+        unis[1]->write(i, 'b');
+    for (int i = 0; i < 512; i++)
+        unis[2]->write(i, 'c');
+    for (int i = 0; i < 512; i++)
+        unis[3]->write(i, 'd');
     om.releaseUniverses();
 
     om.dumpUniverses();
@@ -167,15 +168,18 @@ void OutputMap_Test::claimReleaseDumpReset()
         QCOMPARE(stub->m_universe.data()[i], 'd');
 
     om.resetUniverses();
-    for (quint32 i = 0; i < 512 * om.universes(); i++)
-        QVERIFY(om.m_universeArray->preGMValues().data()[i] == 0);
+    for (int u = 0; u < om.m_universeArray.size(); u++)
+    {
+        for (quint32 i = 0; i < 512; i++)
+            QVERIFY(om.m_universeArray.at(u)->preGMValues().data()[i] == 0);
+    }
 }
 
 void OutputMap_Test::blackout()
 {
     OutputMap om(m_doc, 4);
 
-    OutputPluginStub* stub = static_cast<OutputPluginStub*>
+    IOPluginStub* stub = static_cast<IOPluginStub*>
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
@@ -184,15 +188,15 @@ void OutputMap_Test::blackout()
     om.setPatch(2, stub->name(), 2);
     om.setPatch(3, stub->name(), 3);
 
-    UniverseArray* unis = om.claimUniverses();
+    QList<Universe*> unis = om.claimUniverses();
     for (int i = 0; i < 512; i++)
-        unis->write(i, 'a', QLCChannel::Intensity);
-    for (int i = 512; i < 1024; i++)
-        unis->write(i, 'b', QLCChannel::Intensity);
-    for (int i = 1024; i < 1536; i++)
-        unis->write(i, 'c', QLCChannel::Intensity);
-    for (int i = 1536; i < 2048; i++)
-        unis->write(i, 'd', QLCChannel::Intensity);
+        unis[0]->write(i, 'a');
+    for (int i = 0; i < 512; i++)
+        unis[1]->write(i, 'b');
+    for (int i = 0; i < 512; i++)
+        unis[2]->write(i, 'c');
+    for (int i = 0; i < 512; i++)
+        unis[3]->write(i, 'd');
     om.releaseUniverses();
     om.dumpUniverses();
 
@@ -255,7 +259,7 @@ void OutputMap_Test::pluginOutputs()
 {
     OutputMap om(m_doc, 4);
 
-    OutputPluginStub* stub = static_cast<OutputPluginStub*>
+    IOPluginStub* stub = static_cast<IOPluginStub*>
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
@@ -275,7 +279,7 @@ void OutputMap_Test::universeNames()
     QVERIFY(om.universeNames().at(2).contains("None"));
     QVERIFY(om.universeNames().at(3).contains("None"));
 
-    OutputPluginStub* stub = static_cast<OutputPluginStub*>
+    IOPluginStub* stub = static_cast<IOPluginStub*>
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
@@ -298,7 +302,7 @@ void OutputMap_Test::configure()
 {
     OutputMap om(m_doc, 4);
 
-    OutputPluginStub* stub = static_cast<OutputPluginStub*>
+    IOPluginStub* stub = static_cast<IOPluginStub*>
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
@@ -317,7 +321,7 @@ void OutputMap_Test::slotConfigurationChanged()
 {
     OutputMap om(m_doc, 4);
 
-    OutputPluginStub* stub = static_cast<OutputPluginStub*>
+    IOPluginStub* stub = static_cast<IOPluginStub*>
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
@@ -335,7 +339,7 @@ void OutputMap_Test::mapping()
     for (quint32 i = 0; i < 20; i++)
         QCOMPARE(om.mapping("Dummy Output", i), QLCIOPlugin::invalidLine());
 
-    OutputPluginStub* stub = static_cast<OutputPluginStub*>
+    IOPluginStub* stub = static_cast<IOPluginStub*>
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
@@ -360,7 +364,7 @@ void OutputMap_Test::pluginStatus()
     QVERIFY(om.pluginStatus("Xyzzy", 2).contains("Nothing selected"));
     QVERIFY(om.pluginStatus("AYBABTU", 3).contains("Nothing selected"));
 
-    OutputPluginStub* stub = static_cast<OutputPluginStub*>
+    IOPluginStub* stub = static_cast<IOPluginStub*>
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 

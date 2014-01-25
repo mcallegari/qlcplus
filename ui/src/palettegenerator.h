@@ -34,6 +34,10 @@ class Chaser;
 class Scene;
 class Doc;
 
+/** @addtogroup ui_functions
+ * @{
+ */
+
 /**
  * This class can be used on intelligent lights (scanners, moving heads..)
  * to automatically generate functions for their capabilities (color, gobo..)
@@ -147,5 +151,6 @@ private:
     QList <RGBMatrix*> m_matrices;
 };
 
-#endif
+/** @} */
 
+#endif

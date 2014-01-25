@@ -22,9 +22,9 @@
 #define private public
 
 #include "qlcfixturedefcache.h"
-#include "universearray.h"
 #include "mastertimer.h"
 #include "script_test.h"
+#include "universe.h"
 #include "script.h"
 #include "doc.h"
 
@@ -48,13 +48,18 @@ void Script_Test::initTestCase()
 void Script_Test::initial()
 {
     Doc doc(this);
-    UniverseArray ua(512 * 4);
+    GrandMaster *gm = new GrandMaster();
+    QList<Universe*> ua;
+    ua.append(new Universe(0, gm));
+    ua.append(new Universe(1, gm));
+    ua.append(new Universe(2, gm));
+    ua.append(new Universe(3, gm));
 
     Script scr(&doc);
     scr.setData(script0);
 
     for (int i = 0; i < 9; i++)
-        scr.executeCommand(i, doc.masterTimer(), &ua);
+        scr.executeCommand(i, doc.masterTimer(), ua);
 }
 
 QTEST_APPLESS_MAIN(Script_Test)

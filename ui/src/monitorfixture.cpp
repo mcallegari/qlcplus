@@ -28,7 +28,6 @@
 
 #include "monitorfixture.h"
 #include "outputpatch.h"
-#include "outputmap.h"
 #include "qlcmacros.h"
 #include "fixture.h"
 #include "doc.h"
@@ -175,7 +174,7 @@ void MonitorFixture::slotChannelStyleChanged(Monitor::ChannelStyle style)
  * Values
  ****************************************************************************/
 
-void MonitorFixture::updateValues(const QByteArray& ua)
+void MonitorFixture::updateValues(int index, const QByteArray& ua)
 {
     QLabel* label;
     uchar value;
@@ -192,13 +191,16 @@ void MonitorFixture::updateValues(const QByteArray& ua)
     if (fxi == NULL)
         return;
 
+    if (fxi->universe() != (quint32)index)
+        return;
+
     QListIterator <QLabel*> it(m_valueLabels);
     while (it.hasNext() == true)
     {
         label = it.next();
         Q_ASSERT(label != NULL);
 
-        value = uchar(ua.at(fxi->universeAddress() + i));
+        value = uchar(ua.at(fxi->address() + i));
         i++;
 
         /* Set the label's text to reflect the changed value */

@@ -25,6 +25,10 @@
 class QDomElement;
 class QDomDocument;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 #define KXMLQLCPhysical "Physical"
 
 #define KXMLQLCPhysicalBulb "Bulb"
@@ -149,5 +153,7 @@ public:
     /** Save physical values to the given XML tag in the given document */
     bool saveXML(QDomDocument* doc, QDomElement* root);
 };
+
+/** @} */
 
 #endif

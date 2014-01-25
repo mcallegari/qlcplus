@@ -1,6 +1,6 @@
 /*
   Q Light Controller
-  outputpluginstub.h
+  iopluginstub.h
 
   Copyright (c) Heikki Junnila
 
@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-#ifndef OUTPUTPLUGINSTUB_H
-#define OUTPUTPLUGINSTUB_H
+#ifndef IOPLUGINSTUB_H
+#define IOPLUGINSTUB_H
 
 #include <QStringList>
 #include <QString>
@@ -26,7 +26,7 @@
 
 #include "qlcioplugin.h"
 
-class OutputPluginStub : public QLCIOPlugin
+class IOPluginStub : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)
@@ -39,7 +39,7 @@ class OutputPluginStub : public QLCIOPlugin
      *********************************************************************/
 public:
     /** @reimp */
-    virtual ~OutputPluginStub();
+    virtual ~IOPluginStub();
 
     /** @reimp */
     void init();
@@ -70,7 +70,7 @@ public:
     QString outputInfo(quint32 output);
 
     /** @reimp */
-    void writeUniverse(quint32 output, const QByteArray& universe);
+    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
     
     /** @reimp */
     void sendFeedBack(quint32 input, quint32 channel, uchar value, const QString& key)

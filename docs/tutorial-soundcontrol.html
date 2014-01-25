@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus Documentation - Soundcontrol Tutorial</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>Sound Control Tutorial</H1>
+
+<P>This tutorial covers how to set up sound control for chasers.</P>
+
+<H2>The steps</H2>
+
+<OL>
+
+<LI>In <IMG SRC="qrc:/function.png" ALIGN="absmiddle">Function Manager, create
+    <IMG SRC="qrc:/chaser.png" ALIGN="absmiddle"> <A NAME="Chaser" HREF="concept.html#Chaser">Chaser</A>,
+    set steps to have infinite hold time</LI>
+
+<LI>In the <IMG SRC="qrc:/virtualconsole.png" ALIGN="absmiddle">Virtual Console,
+    create <IMG SRC="qrc:/cuelist.png" ALIGN="absmiddle"><A HREF="file:vccuelist.html">cue list</A>
+    for that chaser</LI>
+
+<LI>Add <IMG SRC="qrc:/audioinput.png" ALIGN="absmiddle"><A HREF="file:audiotriggers.html">audio triggers</A>
+    widget</LI>
+
+<LI>In the audio trigger properties: choose proper frequency band (or use volume band), set type to 
+    <IMG SRC="qrc:/virtualconsole.png" ALIGN="absmiddle">VC Widget and select your
+    <IMG SRC="qrc:/cuelist.png" ALIGN="absmiddle">cue list. Audio trigger will press
+    <IMG src="qrc:/forward.png" ALIGN="absmiddle">"next" button on the cuelist.</LI>
+
+<LI>now adjust parameters:
+    <UL>
+    <LI>enable threshold - when the volume goes over enable threshold, the button will be pushed.</LI>
+    <LI>disable threshold - when the button is pushed, it won't be pushed again before the volume goes
+        below this level. This is so that the button is pushed only once per beat</LI>
+    <LI>divisor - the button will be pushed every x-th beat - when you want to advance the chaser
+        every other beat, put here 2, every 4-th beat - put 4, etc.</LI>
+    </UL>
+</LI>
+
+<LI>close properties, start Operate mode, enable audiotriggers and that's it.</LI>
+
+</OL>
+
+<P>The whole process is described in this <A HREF="https://www.youtube.com/watch?v=ITnbZgXqfU0">video</A>.</P>
+
+<P>Audio Trigger widget offers more ways of sound control. For details, see <A HREF="file:audiotriggers.html">the description</A>.</P>
+</BODY>
+</HTML>

@@ -26,6 +26,10 @@ class QDomDocument;
 class QDomElement;
 class QString;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 #define KXMLQLCInputChannel "Channel"
 #define KXMLQLCInputChannelName "Name"
 #define KXMLQLCInputChannelType "Type"
@@ -123,5 +127,7 @@ public:
     bool saveXML(QDomDocument* doc, QDomElement* root,
                  quint32 channelNumber) const;
 };
+
+/** @} */
 
 #endif

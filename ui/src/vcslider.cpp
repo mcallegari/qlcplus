@@ -37,13 +37,12 @@
 #include "qlcinputchannel.h"
 #include "virtualconsole.h"
 #include "qlcinputsource.h"
-#include "universearray.h"
 #include "mastertimer.h"
 #include "collection.h"
 #include "inputpatch.h"
-#include "inputmap.h"
-#include "vcslider.h"
 #include "qlcmacros.h"
+#include "universe.h"
+#include "vcslider.h"
 #include "qlcfile.h"
 #include "apputil.h"
 #include "chaser.h"
@@ -520,7 +519,7 @@ void VCSlider::setSliderMode(SliderMode mode)
                 setClickAndGoWidgetFromLevel(m_knob->value());
         }
 
-        m_doc->masterTimer()->registerDMXSource(this);
+        m_doc->masterTimer()->registerDMXSource(this, "Slider");
     }
     else if (mode == Playback)
     {
@@ -541,7 +540,7 @@ void VCSlider::setSliderMode(SliderMode mode)
         }
         slotSliderMoved(level);
 
-        m_doc->masterTimer()->registerDMXSource(this);
+        m_doc->masterTimer()->registerDMXSource(this, "Slider");
     }
     else if (mode == Submaster)
     {
@@ -804,7 +803,7 @@ void VCSlider::slotPlaybackFunctionIntensityChanged(int attrIndex, qreal fractio
  * DMXSource
  *****************************************************************************/
 
-void VCSlider::writeDMX(MasterTimer* timer, UniverseArray* universes)
+void VCSlider::writeDMX(MasterTimer* timer, QList<Universe *> universes)
 {
     if (sliderMode() == Level)
         writeDMXLevel(timer, universes);
@@ -812,7 +811,7 @@ void VCSlider::writeDMX(MasterTimer* timer, UniverseArray* universes)
         writeDMXPlayback(timer, universes);
 }
 
-void VCSlider::writeDMXLevel(MasterTimer* timer, UniverseArray* universes)
+void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer);
 
@@ -890,15 +889,17 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, UniverseArray* universes)
                 }
             }
 
-            quint32 dmx_ch = fxi->channelAddress(lch.channel);
-            universes->write(dmx_ch, modLevel * intensity(), qlcch->group());
+            quint32 dmx_ch = fxi->address() + lch.channel;
+            int uni = fxi->universe();
+            if (uni < universes.count())
+                universes[uni]->write(dmx_ch, modLevel * intensity());
         }
     }
     m_levelValueChanged = false;
     m_levelValueMutex.unlock();
 }
 
-void VCSlider::writeDMXPlayback(MasterTimer* timer, UniverseArray* ua)
+void VCSlider::writeDMXPlayback(MasterTimer* timer, QList<Universe *> ua)
 {
     Q_UNUSED(ua);
 
@@ -1168,10 +1169,10 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel,
                                      uchar value)
 {
     /* Don't let input data thru in design mode */
-    if (mode() == Doc::Design)
+    if (mode() == Doc::Design || isEnabled() == false)
         return;
 
-    if (inputSource() == QLCInputSource(universe, channel))
+    if (inputSource() == QLCInputSource(universe, (page() << 16) | channel))
     {
         /* Scale from input value range to this slider's range */
         float val;

@@ -24,6 +24,10 @@
 #include <QMouseEvent>
 #include <QSlider>
 
+/** @addtogroup ui UI
+ * @{
+ */
+
 class ClickAndGoSlider : public QSlider
 {
     Q_OBJECT
@@ -36,6 +40,8 @@ protected:
 signals:
     void controlClicked();
 };
+
+/** @} */
 
 #endif
 

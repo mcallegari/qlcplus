@@ -24,9 +24,10 @@
 #include "selectinputchannel.h"
 #include "qlcinputchannel.h"
 #include "qlcinputprofile.h"
+#include "inputoutputmap.h"
 #include "qlcioplugin.h"
+#include "qlcchannel.h"
 #include "inputpatch.h"
-#include "inputmap.h"
 
 #define KColumnName     0
 #define KColumnUniverse 1
@@ -36,14 +37,14 @@
  * Initialization
  ****************************************************************************/
 
-SelectInputChannel::SelectInputChannel(QWidget* parent, InputMap* inputMap)
+SelectInputChannel::SelectInputChannel(QWidget* parent, InputOutputMap *ioMap)
     : QDialog(parent)
-    , m_inputMap(inputMap)
+    , m_ioMap(ioMap)
 {
-    Q_ASSERT(inputMap != NULL);
+    Q_ASSERT(ioMap != NULL);
 
-    m_universe = InputMap::invalidUniverse();
-    m_channel = InputMap::invalidChannel();
+    m_universe = InputOutputMap::invalidUniverse();
+    m_channel = QLCChannel::invalid();
 
     setupUi(this);
 
@@ -105,15 +106,16 @@ void SelectInputChannel::fillTree()
     chItem = new QTreeWidgetItem(m_tree);
     chItem->setText(KColumnName, KInputNone);
     chItem->setText(KColumnUniverse, QString("%1")
-                    .arg(InputMap::invalidUniverse()));
+                    .arg(InputOutputMap::invalidUniverse()));
     chItem->setText(KColumnChannel, QString("%1")
-                    .arg(InputMap::invalidChannel()));
+                    .arg(QLCChannel::invalid()));
 
-    for (uni = 0; uni < m_inputMap->universes(); uni++)
+    for (uni = 0; uni < m_ioMap->universes(); uni++)
     {
         /* Get the patch associated to the current universe */
-        patch = m_inputMap->patch(uni);
-        Q_ASSERT(patch != NULL);
+        patch = m_ioMap->inputPatch(uni);
+        if (patch == NULL)
+            continue;
 
         /* Make an item for each universe */
         uniItem = new QTreeWidgetItem(m_tree);
@@ -166,7 +168,7 @@ void SelectInputChannel::updateChannelItem(QTreeWidgetItem* item,
         item->setText(KColumnName,
                       tr("<Double click here to enter channel number manually>"));
         item->setText(KColumnChannel,
-                      QString("%1").arg(InputMap::invalidChannel()));
+                      QString("%1").arg(QLCChannel::invalid()));
     }
     else
     {
@@ -223,7 +225,7 @@ void SelectInputChannel::updateUniverseItem(QTreeWidgetItem* item,
 
     item->setText(KColumnName, name);
     item->setText(KColumnUniverse, QString("%1").arg(universe));
-    item->setText(KColumnChannel, QString("%1").arg(InputMap::invalidChannel()));
+    item->setText(KColumnChannel, QString("%1").arg(QLCChannel::invalid()));
 }
 
 void SelectInputChannel::slotItemChanged(QTreeWidgetItem* item, int column)

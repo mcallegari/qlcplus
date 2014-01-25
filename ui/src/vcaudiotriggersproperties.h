@@ -28,6 +28,10 @@
 
 class VCAudioTriggers;
 
+/** @addtogroup ui_vc_props
+ * @{
+ */
+
 class AudioTriggersConfiguration : public QDialog, public Ui_AudioTriggersConfiguration
 {
     Q_OBJECT
@@ -73,5 +77,7 @@ private:
     QKeySequence m_keySequence;
     QLCInputSource m_inputSource;
 };
+
+/** @} */
 
 #endif // AUDIOTRIGGERSCONFIGURATION_H

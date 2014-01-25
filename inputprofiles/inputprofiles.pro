@@ -10,6 +10,7 @@ profiles.files += Enttec-PlaybackWing.qxi
 profiles.files += Enttec-ShortcutWing.qxi
 profiles.files += KORG-nanoKONTROL.qxi
 profiles.files += KORG-nanoKONTROL2.qxi
+profiles.files += KORG-nanoPAD.qxi
 profiles.files += Logitech-WingManAttack2.qxi
 profiles.files += Generic-MIDI.qxi
 profiles.files += ShowTec-ShowMaster24.qxi
