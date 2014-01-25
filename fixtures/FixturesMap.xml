@@ -80,6 +80,8 @@
   <fixture path="Coemar-ProWash-250-LX.qxf" mf="Coemar" md="ProWash 250 LX"/>
   <fixture path="Coemar-Stage-Lite-LED.qxf" mf="Coemar" md="Stage Lite LED"/>
   <fixture path="Contest-LedColor.qxf" mf="Contest" md="LedColor"/>
+  <fixture path="DTS-Max-FAR.qxf" mf="DTS" md="Max FAR"/>
+  <fixture path="DTS-Nick-NRG1201.qxf" mf="DTS" md="Nick NRG1201"/>
   <fixture path="Dune-Lighting-MOVLED60W.qxf" mf="Dune Lighting" md="MOV-LED/60W"/>
   <fixture path="Elation-Color-Spot-150.qxf" mf="Elation" md="Color Spot 150"/>
   <fixture path="Elation-EVC-MH.qxf" mf="Elation" md="EVC MH"/>
