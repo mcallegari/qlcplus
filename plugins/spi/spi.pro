@@ -4,6 +4,8 @@ TEMPLATE = lib
 LANGUAGE = C++
 TARGET   = spi
 
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
 INCLUDEPATH += ../interfaces
 INCLUDEPATH += /usr/include
 CONFIG      += plugin
