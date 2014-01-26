@@ -213,6 +213,8 @@ public:
     void resetUniverses();
 
 signals:
+    void universeAdded(quint32 id);
+    void universeRemoved(quint32 id);
     void universesWritten(int index, const QByteArray& universes);
 
 private:

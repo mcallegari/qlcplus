@@ -80,11 +80,15 @@ private:
     void initTopSide();
     void initBottomSide();
 
+protected slots:
+    void slotDocChanged();
+
 private:
     static SimpleDesk* s_instance;
     SimpleDeskEngine* m_engine;
     QSplitter* m_splitter;
     Doc* m_doc;
+    bool m_docChanged;
 
     /*********************************************************************
      * Universe controls

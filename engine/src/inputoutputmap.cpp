@@ -123,6 +123,7 @@ bool InputOutputMap::addUniverse(quint32 id)
 
     m_universeArray.append(new Universe(id, m_grandMaster));
     m_universeMutex.unlock();
+    emit universeAdded(id);
     return true;
 }
 
@@ -133,11 +134,13 @@ bool InputOutputMap::removeUniverse(int index)
 
     m_universeMutex.lock();
     Universe *delUni = m_universeArray.takeAt(index);
+    quint32 id = delUni->id();
     delete delUni;
     if (m_universeArray.count() == 0)
         m_latestUniverseId = invalidUniverse();
     m_universeMutex.unlock();
 
+    emit universeRemoved(id);
     return true;
 }
 
