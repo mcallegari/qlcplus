@@ -83,6 +83,8 @@ QStringList ArtNetPlugin::outputs()
 {
     QStringList list;
     int j = 0;
+    if (m_IOmapping.count() == 0)
+        init();
     foreach (ArtNetIO line, m_IOmapping)
     {
         list << QString(tr("%1: %2")).arg(j + 1).arg(line.IPAddress);
@@ -93,6 +95,9 @@ QStringList ArtNetPlugin::outputs()
 
 QString ArtNetPlugin::outputInfo(quint32 output)
 {
+    if (m_IOmapping.count() == 0)
+        init();
+
     if (output >= (quint32)m_IOmapping.length())
         return QString();
 
@@ -122,6 +127,9 @@ QString ArtNetPlugin::outputInfo(quint32 output)
 
 void ArtNetPlugin::openOutput(quint32 output)
 {
+    if (m_IOmapping.count() == 0)
+        init();
+
     if (output >= (quint32)m_IOmapping.length())
         return;
 
@@ -178,6 +186,8 @@ QStringList ArtNetPlugin::inputs()
 {
     QStringList list;
     int j = 0;
+    if (m_IOmapping.count() == 0)
+        init();
     foreach (ArtNetIO line, m_IOmapping)
     {
         list << QString(tr("%1: %2")).arg(j + 1).arg(line.IPAddress);
@@ -188,6 +198,8 @@ QStringList ArtNetPlugin::inputs()
 
 void ArtNetPlugin::openInput(quint32 input)
 {
+    if (m_IOmapping.count() == 0)
+        init();
     if (input >= (quint32)m_IOmapping.length())
         return;
 
@@ -233,6 +245,8 @@ void ArtNetPlugin::closeInput(quint32 input)
 
 QString ArtNetPlugin::inputInfo(quint32 input)
 {
+    if (m_IOmapping.count() == 0)
+        init();
     if (input >= (quint32)m_IOmapping.length())
         return QString();
 

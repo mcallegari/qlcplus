@@ -106,6 +106,7 @@ void SPIPlugin::closeOutput(quint32 output)
 
     if (m_spifd != -1)
         close(m_spifd);
+    m_spifd = -1;
 }
 
 QStringList SPIPlugin::outputs()
