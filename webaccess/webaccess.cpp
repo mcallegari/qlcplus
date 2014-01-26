@@ -920,17 +920,22 @@ QString WebAccess::getIOConfigHTML()
     html += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
     html += "<tr><th>Universe</th><th>Input</th><th>Output</th><th>Feedback</th><th>Profile</th></tr>\n";
 
-    for (int i = 0; i < 4; i++)
+    for (quint32 i = 0; i < ioMap->universes(); i++)
     {
-        QString currentInputPluginName = ioMap->inputPatch(i)->pluginName();
-        quint32 currentInput = ioMap->inputPatch(i)->input();
-        QString currentOutputPluginName = ioMap->outputPatch(i)->pluginName();
-        quint32 currentOutput = ioMap->outputPatch(i)->output();
-        QString currentFeedbackPluginName = ioMap->feedbackPatch(i)->pluginName();
-        quint32 currentFeedback = ioMap->feedbackPatch(i)->output();
-        QString currentProfileName = ioMap->inputPatch(i)->profileName();
+        InputPatch* ip = ioMap->inputPatch(i);
+        OutputPatch* op = ioMap->outputPatch(i);
+        OutputPatch* fp = ioMap->feedbackPatch(i);
+        QString uniName = ioMap->getUniverseName(i);
 
-        html += "<tr align=center><td>Universe " + QString::number(i+1) + "</td>\n";
+        QString currentInputPluginName = (ip == NULL)?KInputNone:ip->pluginName();
+        quint32 currentInput = (ip == NULL)?QLCChannel::invalid():ip->input();
+        QString currentOutputPluginName = (op == NULL)?KOutputNone:op->pluginName();
+        quint32 currentOutput = (op == NULL)?QLCChannel::invalid():op->output();
+        QString currentFeedbackPluginName = (fp == NULL)?KOutputNone:fp->pluginName();
+        quint32 currentFeedback = (fp == NULL)?QLCChannel::invalid():fp->output();
+        QString currentProfileName = (ip == NULL)?KInputNone:ip->profileName();
+
+        html += "<tr align=center><td>" + uniName + "</td>\n";
         html += "<td><select onchange=\"ioChanged('INPUT', " + QString::number(i) + ", this.value);\">\n";
         for (int in = 0; in < inputLines.count(); in++)
         {
