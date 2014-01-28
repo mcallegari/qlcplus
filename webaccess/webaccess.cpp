@@ -308,6 +308,14 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
                 m_doc->inputOutputMap()->saveDefaults();
             }
         }
+        else if (cmdList[1] == "PASSTHROUGH")
+        {
+            quint32 uniIdx = cmdList[2].toUInt();
+            if (cmdList[3] == "true")
+                m_doc->inputOutputMap()->setUniversePassthrough(uniIdx, true);
+            else
+                m_doc->inputOutputMap()->setUniversePassthrough(uniIdx, false);
+        }
         else if (cmdList[1] == "AUDIOIN")
         {
             QSettings settings;
@@ -926,6 +934,7 @@ QString WebAccess::getIOConfigHTML()
         OutputPatch* op = ioMap->outputPatch(i);
         OutputPatch* fp = ioMap->feedbackPatch(i);
         QString uniName = ioMap->getUniverseName(i);
+        bool uniPass = ioMap->getUniversePassthrough(i);
 
         QString currentInputPluginName = (ip == NULL)?KInputNone:ip->pluginName();
         quint32 currentInput = (ip == NULL)?QLCChannel::invalid():ip->input();
@@ -978,6 +987,11 @@ QString WebAccess::getIOConfigHTML()
             html += "<option value=\"" + profiles.at(p) + "\" " + selected + ">" + profiles.at(p) + "</option>\n";
         }
         html += "</select></td>\n";
+        html += "<td><label><input type=\"checkbox\" ";
+        if (uniPass == true)
+            html +="checked=\"checked\"";
+        html += " onchange=\"ioChanged('PASSTHROUGH', " + QString::number(i) + ", this.checked);\">";
+        html += tr("Passthrough") + "</label></td>\n";
 
         html += "</tr>\n";
     }
