@@ -138,7 +138,7 @@ QString WebAccess::loadXMLPost(mg_connection *conn, QString &filename)
     int fnameEnd = XMLdata.indexOf("\"", fnameStart);
     filename = XMLdata.mid(fnameStart, fnameEnd - fnameStart);
 
-    XMLdata.remove(0, XMLdata.indexOf("\n\r") + 2);
+    XMLdata.remove(0, XMLdata.indexOf("\n\r") + 3);
     XMLdata.truncate(XMLdata.indexOf("\n\r"));
 
     return XMLdata;

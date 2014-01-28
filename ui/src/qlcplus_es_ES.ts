@@ -229,6 +229,104 @@
     </message>
 </context>
 <context>
+    <name>AddRGBPanel</name>
+    <message>
+        <location filename="addrgbpanel.ui" line="14"/>
+        <source>Add RGB Panel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="24"/>
+        <source>Panel properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="38"/>
+        <source>Universe:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="45"/>
+        <source>RGB Panel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="52"/>
+        <source>Name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="62"/>
+        <source>Address:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="84"/>
+        <source>Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="98"/>
+        <source>Columns:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="105"/>
+        <source>Rows:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="112"/>
+        <source>Total pixels:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="139"/>
+        <source>100</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="151"/>
+        <source>Orientation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="157"/>
+        <source>Top-Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="164"/>
+        <source>Top-Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="174"/>
+        <source>Bottom-Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="181"/>
+        <source>Bottom-Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="191"/>
+        <source>Displacement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="197"/>
+        <source>Snake</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="207"/>
+        <source>Zig Zag</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AddVCButtonMatrix</name>
     <message>
         <location filename="addvcbuttonmatrix.ui" line="14"/>
@@ -1943,223 +2041,229 @@ Duración: %3
 <context>
     <name>FixtureManager</name>
     <message>
-        <location filename="fixturemanager.cpp" line="314"/>
+        <location filename="fixturemanager.cpp" line="316"/>
         <source>Universe</source>
         <translation>Universo</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="314"/>
+        <location filename="fixturemanager.cpp" line="316"/>
         <source>Address</source>
         <translation>Dirección</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="314"/>
-        <location filename="fixturemanager.cpp" line="346"/>
+        <location filename="fixturemanager.cpp" line="316"/>
+        <location filename="fixturemanager.cpp" line="348"/>
         <source>Name</source>
         <translation>Nombre</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="342"/>
+        <location filename="fixturemanager.cpp" line="344"/>
         <source>Fixtures Groups</source>
         <translation>Grupos de Fixtures</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="346"/>
+        <location filename="fixturemanager.cpp" line="348"/>
         <source>Channels</source>
         <translation>Canales</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="359"/>
+        <location filename="fixturemanager.cpp" line="361"/>
         <source>Channels Groups</source>
         <translation>Grupos de Canales</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="409"/>
-        <location filename="fixturemanager.cpp" line="653"/>
+        <location filename="fixturemanager.cpp" line="411"/>
+        <location filename="fixturemanager.cpp" line="655"/>
         <source>All fixtures</source>
         <translation>Todos los fixtures</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="653"/>
+        <location filename="fixturemanager.cpp" line="655"/>
         <source>This group contains all fixtures.</source>
         <translation>Este grupo contiene todos los fixtures.</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="665"/>
+        <location filename="fixturemanager.cpp" line="667"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple fixtures selected&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; to remove the selected fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Múltiples fixtures seleccionados&lt;/H1&gt;&lt;P&gt;Haga click en &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; para quitar los fixtures seleccionados.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="671"/>
+        <location filename="fixturemanager.cpp" line="673"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple fixtures selected&lt;/H1&gt;&lt;P&gt;Fixture list modification is not permitted in operate mode.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Múltiples fixtures seleccionados&lt;/H1&gt;&lt;P&gt;No está permitido modificar la lista de fixtures en Modo Operación.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="680"/>
+        <location filename="fixturemanager.cpp" line="682"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;No fixtures&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Ningún fixture&lt;/H1&gt;&lt;P&gt;Haga click en &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; para añadir fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="686"/>
+        <location filename="fixturemanager.cpp" line="688"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a fixture from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nada seleccionado&lt;/H1&gt;&lt;P&gt;Seleccione un fixture de la lista o haga click en &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; para añadir fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="738"/>
+        <location filename="fixturemanager.cpp" line="740"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple groups selected&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; to remove the selected groups.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Múltiples grupos seccionados&lt;/H1&gt;&lt;P&gt;Haga click en &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; para quitar los grupos seleccionados.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="746"/>
+        <location filename="fixturemanager.cpp" line="748"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a channel group from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add a new channels group.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nada seleccionado&lt;/H1&gt;&lt;P&gt;Seleccione un grupo de canales de la lista o haga click en &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; para añadir un nuevo grupo de canales.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="771"/>
+        <location filename="fixturemanager.cpp" line="773"/>
         <source>Add group...</source>
         <translation>Añadir grupo...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="777"/>
-        <location filename="fixturemanager.cpp" line="885"/>
+        <location filename="fixturemanager.cpp" line="779"/>
+        <location filename="fixturemanager.cpp" line="887"/>
+        <location filename="fixturemanager.cpp" line="892"/>
         <source>Add fixture...</source>
         <translation>Añadir fixture...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="890"/>
+        <location filename="fixturemanager.cpp" line="897"/>
         <source>Delete items</source>
         <translation>Borrar ítems</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="895"/>
+        <location filename="fixturemanager.cpp" line="902"/>
         <source>Properties...</source>
         <translation>Propiedades...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="900"/>
+        <location filename="fixturemanager.cpp" line="907"/>
         <source>Channels Fade Configuration...</source>
         <translation>Configuración de Fade de Canales...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="906"/>
+        <location filename="fixturemanager.cpp" line="913"/>
         <source>Add fixture to group...</source>
         <translation>Añadir fixture a grupo...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="909"/>
+        <location filename="fixturemanager.cpp" line="916"/>
         <source>Remove fixture from group</source>
         <translation>Quitar fixture del grupo</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="913"/>
+        <location filename="fixturemanager.cpp" line="920"/>
         <source>New Group...</source>
         <translation>Nuevo Grupo...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="916"/>
+        <location filename="fixturemanager.cpp" line="923"/>
         <source>Move group up...</source>
         <translation>Mover grupo hacia arriba...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="922"/>
+        <location filename="fixturemanager.cpp" line="929"/>
         <source>Move group down...</source>
         <translation>Mover grupo hacia abajo...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="928"/>
+        <location filename="fixturemanager.cpp" line="935"/>
         <source>Import fixtures...</source>
         <translation>Importar fixtures...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="933"/>
+        <location filename="fixturemanager.cpp" line="940"/>
         <source>Export fixtures...</source>
         <translation>Exportar fixtures...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="939"/>
+        <location filename="fixturemanager.cpp" line="946"/>
         <source>Remap fixtures...</source>
         <translation>Reasignar fixtures...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1110"/>
+        <location filename="fixturemanager.cpp" line="1157"/>
+        <source>%1 - Row %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="1209"/>
         <source>Do you want to delete the selected items?</source>
         <translation>¿Desea borrar los ítems seleccionados?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1155"/>
+        <location filename="fixturemanager.cpp" line="1254"/>
         <source>Delete Channels Group</source>
         <translation>Borrar Grupo de Canales</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1258"/>
+        <location filename="fixturemanager.cpp" line="1357"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1259"/>
+        <location filename="fixturemanager.cpp" line="1358"/>
         <source>Please enter a valid address</source>
         <translation>Por favor, ingrese una dirección válida</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1335"/>
+        <location filename="fixturemanager.cpp" line="1434"/>
         <source>Ungroup fixtures?</source>
         <translation>¿Desagrupar fixtures?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1336"/>
+        <location filename="fixturemanager.cpp" line="1435"/>
         <source>Do you want to ungroup the selected fixtures?</source>
         <translation>¿Desea desagrupar los fixtures seleccionados?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1451"/>
+        <location filename="fixturemanager.cpp" line="1550"/>
         <source>Import Fixtures List</source>
         <oldsource>Import Fixture Definition</oldsource>
         <translation>Importar lista de Fixtures</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1456"/>
+        <location filename="fixturemanager.cpp" line="1555"/>
         <source>Export Fixtures List As</source>
         <oldsource>Export Fixture Definition As</oldsource>
         <translation>Exportar Lista de Fixtures como</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1462"/>
+        <location filename="fixturemanager.cpp" line="1561"/>
         <source>Fixtures List (*%1)</source>
         <oldsource>Fixture Definitions (*%1)</oldsource>
         <translation>Lista de Fixtures (*%1)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1464"/>
+        <location filename="fixturemanager.cpp" line="1563"/>
         <source>All Files (*.*)</source>
         <translation>Todos los archivos (*.*)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1466"/>
+        <location filename="fixturemanager.cpp" line="1565"/>
         <source>All Files (*)</source>
         <translation>Todos los archivos (*)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="972"/>
+        <location filename="fixturemanager.cpp" line="979"/>
         <source>Fixture manager</source>
         <translation>Gestor de Fixtures</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1039"/>
+        <location filename="fixturemanager.cpp" line="1047"/>
         <source>Generic Dimmer</source>
         <translation>Dimmer genérico</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1109"/>
+        <location filename="fixturemanager.cpp" line="1208"/>
         <source>Delete Fixtures</source>
         <translation>Eliminar Fixtures</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1156"/>
+        <location filename="fixturemanager.cpp" line="1255"/>
         <source>Do you want to delete the selected groups?</source>
         <translation>¿Desea eliminar los grupos seleccionados?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1221"/>
+        <location filename="fixturemanager.cpp" line="1320"/>
         <source>Change fixture properties</source>
         <translation>Cambiar las propiedades del fixture</translation>
     </message>
@@ -2881,40 +2985,45 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>InputOutputManager</name>
     <message>
-        <location filename="inputoutputmanager.cpp" line="82"/>
+        <location filename="inputoutputmanager.cpp" line="84"/>
         <source>Add U&amp;niverse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="88"/>
+        <location filename="inputoutputmanager.cpp" line="90"/>
         <source>&amp;Delete Universe</source>
         <oldsource>Universe</oldsource>
         <translation type="unfinished">Universo</translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="107"/>
+        <location filename="inputoutputmanager.cpp" line="109"/>
         <source>Universe name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="200"/>
-        <location filename="inputoutputmanager.cpp" line="355"/>
+        <location filename="inputoutputmanager.cpp" line="119"/>
+        <source>Passthrough</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputoutputmanager.cpp" line="224"/>
+        <location filename="inputoutputmanager.cpp" line="387"/>
         <source>Universe %1</source>
         <translation type="unfinished">Universo %1</translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="317"/>
-        <location filename="inputoutputmanager.cpp" line="336"/>
+        <location filename="inputoutputmanager.cpp" line="345"/>
+        <location filename="inputoutputmanager.cpp" line="364"/>
         <source>Delete Universe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="318"/>
+        <location filename="inputoutputmanager.cpp" line="346"/>
         <source>The universe you are trying to delete is patched. Are you sure you want to delete it ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="337"/>
+        <location filename="inputoutputmanager.cpp" line="365"/>
         <source>There are some fixtures using the universe you are trying to delete. Are you sure you want to delete it ?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2986,79 +3095,79 @@ p, li { white-space: pre-wrap; }
         <translation>Audio</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="390"/>
-        <location filename="inputoutputpatcheditor.cpp" line="408"/>
+        <location filename="inputoutputpatcheditor.cpp" line="395"/>
+        <location filename="inputoutputpatcheditor.cpp" line="413"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="391"/>
-        <location filename="inputoutputpatcheditor.cpp" line="409"/>
+        <location filename="inputoutputpatcheditor.cpp" line="396"/>
+        <location filename="inputoutputpatcheditor.cpp" line="414"/>
         <source>Output line already assigned</source>
         <translation>Línea de Salida ya asignada</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="631"/>
-        <location filename="inputoutputpatcheditor.cpp" line="765"/>
+        <location filename="inputoutputpatcheditor.cpp" line="636"/>
+        <location filename="inputoutputpatcheditor.cpp" line="770"/>
         <source>Existing Input Profile</source>
         <translation>Perfil de Entrada existente</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="632"/>
-        <location filename="inputoutputpatcheditor.cpp" line="766"/>
+        <location filename="inputoutputpatcheditor.cpp" line="637"/>
+        <location filename="inputoutputpatcheditor.cpp" line="771"/>
         <source>An input profile at %1 already exists. Do you wish to overwrite it?</source>
         <translation>Un perfil de Entrada en %1 ya existe. ¿Desea sobreescribirlo?</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="641"/>
-        <location filename="inputoutputpatcheditor.cpp" line="775"/>
+        <location filename="inputoutputpatcheditor.cpp" line="646"/>
+        <location filename="inputoutputpatcheditor.cpp" line="780"/>
         <source>Save Input Profile</source>
         <translation>Guardar el perfil de Entrada</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="642"/>
-        <location filename="inputoutputpatcheditor.cpp" line="776"/>
+        <location filename="inputoutputpatcheditor.cpp" line="647"/>
+        <location filename="inputoutputpatcheditor.cpp" line="781"/>
         <source>Input Profiles (*.qxi)</source>
         <translation>Perfil de Entrada (*.qxi)</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="655"/>
-        <location filename="inputoutputpatcheditor.cpp" line="792"/>
+        <location filename="inputoutputpatcheditor.cpp" line="660"/>
+        <location filename="inputoutputpatcheditor.cpp" line="797"/>
         <source>Saving failed</source>
         <translation>Error al Guardar</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="656"/>
+        <location filename="inputoutputpatcheditor.cpp" line="661"/>
         <source>Unable to save the profile to %1</source>
         <translation>Imposible guardar el perfil en %1</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="693"/>
+        <location filename="inputoutputpatcheditor.cpp" line="698"/>
         <source>Delete profile</source>
         <translation>Eliminar perfil</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="694"/>
+        <location filename="inputoutputpatcheditor.cpp" line="699"/>
         <source>Do you wish to permanently delete profile &quot;%1&quot;?</source>
         <translation>¿Desea borrar permanentemente este perfil &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="722"/>
+        <location filename="inputoutputpatcheditor.cpp" line="727"/>
         <source>File deletion failed</source>
         <translation>Error al eliminar archivo</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="723"/>
+        <location filename="inputoutputpatcheditor.cpp" line="728"/>
         <source>Unable to delete file %1</source>
         <translation>Imposible borrar el archivo %1</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="793"/>
+        <location filename="inputoutputpatcheditor.cpp" line="798"/>
         <source>Unable to save %1 to %2</source>
         <translation>Imposible guardar %1 en %2</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="822"/>
+        <location filename="inputoutputpatcheditor.cpp" line="827"/>
         <source>Default device</source>
         <translation>Dispositivo por defecto</translation>
     </message>
@@ -4287,112 +4396,112 @@ Duración: %3
 <context>
     <name>SimpleDesk</name>
     <message>
-        <location filename="simpledesk.cpp" line="217"/>
+        <location filename="simpledesk.cpp" line="230"/>
         <source>Universe</source>
         <translation>Universo</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="204"/>
+        <location filename="simpledesk.cpp" line="217"/>
         <source>Next page</source>
         <translation>Página Siguiente</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="196"/>
+        <location filename="simpledesk.cpp" line="209"/>
         <source>Current page</source>
         <translation>Página Actual</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="188"/>
+        <location filename="simpledesk.cpp" line="201"/>
         <source>Previous page</source>
         <translation>Página Anterior</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="179"/>
+        <location filename="simpledesk.cpp" line="192"/>
         <source>View mode</source>
         <translation>Modo Vista</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="212"/>
+        <location filename="simpledesk.cpp" line="225"/>
         <source>Reset universe</source>
         <translation>Reiniciar universo</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="253"/>
+        <location filename="simpledesk.cpp" line="266"/>
         <source>Playback</source>
         <translation>Reproducir</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="260"/>
+        <location filename="simpledesk.cpp" line="273"/>
         <source>Cue Stack</source>
         <translation>Cue Stack</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="270"/>
+        <location filename="simpledesk.cpp" line="283"/>
         <source>Previous cue</source>
         <translation>Cue Anterior</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="276"/>
+        <location filename="simpledesk.cpp" line="289"/>
         <source>Stop cue stack</source>
         <translation>Detener cue stack</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="282"/>
+        <location filename="simpledesk.cpp" line="295"/>
         <source>Next cue</source>
         <translation>Siguiente Cue</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="290"/>
+        <location filename="simpledesk.cpp" line="303"/>
         <source>Clone cue stack</source>
         <translation>Clonar cue stack</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="296"/>
+        <location filename="simpledesk.cpp" line="309"/>
         <source>Edit cue stack</source>
         <translation>Editar Cue Stack</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="303"/>
+        <location filename="simpledesk.cpp" line="316"/>
         <source>Record cue</source>
         <translation>Guardar Cue</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="713"/>
+        <location filename="simpledesk.cpp" line="740"/>
         <source>Cue Stack - Playback %1</source>
         <translation>Cue Stack - Playback %1</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="830"/>
+        <location filename="simpledesk.cpp" line="857"/>
         <source>No selection</source>
         <translation>Ninguna selección</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="853"/>
+        <location filename="simpledesk.cpp" line="880"/>
         <source>Cue name</source>
         <translation>Nombre del Cue</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="860"/>
+        <location filename="simpledesk.cpp" line="887"/>
         <source>Multiple Cues</source>
         <translation>Múltiples Cues</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="957"/>
+        <location filename="simpledesk.cpp" line="984"/>
         <source>Delete cue</source>
         <translation>Borrar Cue</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1011"/>
+        <location filename="simpledesk.cpp" line="1038"/>
         <source>Clone Cue Stack</source>
         <translation>Clonar Cue stack</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1011"/>
+        <location filename="simpledesk.cpp" line="1038"/>
         <source>Clone To Playback#</source>
         <translation>Clonar a Playback#</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1084"/>
+        <location filename="simpledesk.cpp" line="1111"/>
         <source>Cue %1</source>
         <translation>Cue %1</translation>
     </message>

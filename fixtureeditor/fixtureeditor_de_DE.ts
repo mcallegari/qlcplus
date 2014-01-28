@@ -564,7 +564,7 @@
     </message>
     <message>
         <location filename="editmode.ui" line="313"/>
-        <location filename="editmode.ui" line="819"/>
+        <location filename="editmode.ui" line="825"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
@@ -751,52 +751,52 @@
         <translation>Min Grad</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="793"/>
+        <location filename="editmode.ui" line="783"/>
         <source>Max Degrees</source>
         <translation>Max Grad</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="813"/>
+        <location filename="editmode.ui" line="819"/>
         <source>Focus</source>
         <translation>Fokus</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="853"/>
+        <location filename="editmode.ui" line="859"/>
         <source>Pan Max Degrees</source>
         <translation>Pan max. Grad</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="870"/>
+        <location filename="editmode.ui" line="876"/>
         <source>Tilt Max Degrees</source>
         <translation>Tilt max. Grad</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="890"/>
+        <location filename="editmode.ui" line="896"/>
         <source>Electrical</source>
         <translation>Anschlussdaten</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="896"/>
+        <location filename="editmode.ui" line="902"/>
         <source>Power Consumption</source>
         <translation>Leistung</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="906"/>
+        <location filename="editmode.ui" line="912"/>
         <source>W</source>
         <translation>W</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="916"/>
+        <location filename="editmode.ui" line="922"/>
         <source>DMX Connector</source>
         <translation>DMX-Anschluss</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="953"/>
+        <location filename="editmode.ui" line="969"/>
         <source>Copy physical information to clipboard</source>
         <translation>Phyische Informationen in die Zwischenablage kopieren</translation>
     </message>
     <message>
-        <location filename="editmode.ui" line="970"/>
+        <location filename="editmode.ui" line="986"/>
         <source>Paste physical information from clipboard</source>
         <translation>Physische Informationen aus der Zwischenablage einfügen</translation>
     </message>

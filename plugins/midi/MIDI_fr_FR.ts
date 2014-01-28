@@ -68,19 +68,19 @@
     </message>
     <message>
         <location filename="common/midiplugin.cpp" line="157"/>
-        <location filename="common/midiplugin.cpp" line="259"/>
+        <location filename="common/midiplugin.cpp" line="261"/>
         <source>Open</source>
         <translation>Ouvert</translation>
     </message>
     <message>
         <location filename="common/midiplugin.cpp" line="159"/>
-        <location filename="common/midiplugin.cpp" line="261"/>
+        <location filename="common/midiplugin.cpp" line="263"/>
         <source>Not Open</source>
         <translation>Non Ouvert</translation>
     </message>
     <message>
         <location filename="common/midiplugin.cpp" line="160"/>
-        <location filename="common/midiplugin.cpp" line="262"/>
+        <location filename="common/midiplugin.cpp" line="264"/>
         <source>Status</source>
         <translation>État</translation>
     </message>
@@ -90,17 +90,17 @@
         <translation>Sortie Invalide</translation>
     </message>
     <message>
-        <location filename="common/midiplugin.cpp" line="248"/>
+        <location filename="common/midiplugin.cpp" line="250"/>
         <source>No input support available.</source>
         <translation>Pas d&apos;entrées MIDI.</translation>
     </message>
     <message>
-        <location filename="common/midiplugin.cpp" line="256"/>
+        <location filename="common/midiplugin.cpp" line="258"/>
         <source>Input</source>
         <translation>Entrée</translation>
     </message>
     <message>
-        <location filename="common/midiplugin.cpp" line="268"/>
+        <location filename="common/midiplugin.cpp" line="270"/>
         <source>Invalid Input</source>
         <translation>Entrée Invalide</translation>
     </message>
@@ -108,82 +108,82 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="116"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="125"/>
         <source>No error occurred.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="118"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="127"/>
         <source>An error occurred when reading from the file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="120"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="129"/>
         <source>An error occurred when writing to the file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="122"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="131"/>
         <source>A fatal error occurred.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="124"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="133"/>
         <source>Resource error occurred.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="126"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="135"/>
         <source>The file could not be opened.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="128"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="137"/>
         <source>The operation was aborted.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="130"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="139"/>
         <source>A timeout occurred.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="132"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="141"/>
         <source>An unspecified error occurred.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="134"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="143"/>
         <source>The file could not be removed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="136"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="145"/>
         <source>The file could not be renamed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="138"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="147"/>
         <source>The position in the file could not be changed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="140"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="149"/>
         <source>The file could not be resized.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="142"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="151"/>
         <source>The file could not be accessed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="144"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="153"/>
         <source>The file could not be copied.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="146"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="155"/>
         <source>An unknown error occurred.</source>
         <translation type="unfinished"></translation>
     </message>

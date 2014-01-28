@@ -4,50 +4,50 @@
 <context>
     <name>ArtNetPlugin</name>
     <message>
-        <location filename="artnetplugin.cpp" line="107"/>
+        <location filename="artnetplugin.cpp" line="73"/>
         <source>This plugin provides DMX output for devices supporting the ArtNet communication protocol.</source>
         <translation>Tento plugin přidává podporu DMX výstupů pro zařízení podporující komunikační protokol ArtNet.</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="123"/>
-        <location filename="artnetplugin.cpp" line="245"/>
-        <source>%1: [%2] Universe: %3</source>
-        <translation>%1: [%2] Větev: %3</translation>
+        <location filename="artnetplugin.cpp" line="90"/>
+        <location filename="artnetplugin.cpp" line="193"/>
+        <source>%1: %2</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="136"/>
+        <location filename="artnetplugin.cpp" line="106"/>
         <source>Output</source>
         <translation>Výstup</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="140"/>
-        <location filename="artnetplugin.cpp" line="335"/>
+        <location filename="artnetplugin.cpp" line="110"/>
+        <location filename="artnetplugin.cpp" line="259"/>
         <source>Status: Not open</source>
         <translation>Stav: Neotevřený</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="143"/>
-        <location filename="artnetplugin.cpp" line="338"/>
+        <location filename="artnetplugin.cpp" line="113"/>
+        <location filename="artnetplugin.cpp" line="262"/>
         <source>Status: Open</source>
         <translation>Stav: Otevřený</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="145"/>
+        <location filename="artnetplugin.cpp" line="115"/>
         <source>Nodes discovered: </source>
         <translation>Nalezené uzly:</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="148"/>
+        <location filename="artnetplugin.cpp" line="118"/>
         <source>Packets sent: </source>
         <translation>Odeslané pakety:</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="331"/>
+        <location filename="artnetplugin.cpp" line="255"/>
         <source>Input</source>
         <translation>Vstup</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="340"/>
+        <location filename="artnetplugin.cpp" line="264"/>
         <source>Packets received: </source>
         <translation>Přijaté pakety:</translation>
     </message>
@@ -61,43 +61,23 @@
     </message>
     <message>
         <location filename="configureartnet.ui" line="24"/>
-        <source>Network Mapping</source>
-        <translation>Přiřazení sítě</translation>
-    </message>
-    <message>
-        <location filename="configureartnet.ui" line="37"/>
-        <source>Network</source>
-        <translation>Síť</translation>
-    </message>
-    <message>
-        <location filename="configureartnet.ui" line="42"/>
-        <source>Universe</source>
-        <translation>Větev</translation>
-    </message>
-    <message>
-        <location filename="configureartnet.ui" line="51"/>
         <source>Nodes Tree</source>
         <translation>Strom uzlů</translation>
     </message>
     <message>
-        <location filename="configureartnet.ui" line="61"/>
+        <location filename="configureartnet.ui" line="34"/>
         <source>IP</source>
         <translation>IP</translation>
     </message>
     <message>
-        <location filename="configureartnet.ui" line="66"/>
+        <location filename="configureartnet.ui" line="39"/>
         <source>Short Name</source>
         <translation>Zkrácený název</translation>
     </message>
     <message>
-        <location filename="configureartnet.ui" line="71"/>
+        <location filename="configureartnet.ui" line="44"/>
         <source>Long Name</source>
         <translation>Dlouhý název</translation>
-    </message>
-    <message>
-        <location filename="configureartnet.cpp" line="77"/>
-        <source>Universe %1</source>
-        <translation>Větev %1</translation>
     </message>
 </context>
 </TS>

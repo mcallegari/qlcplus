@@ -39,94 +39,94 @@
         <translation>Configurazione</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1091"/>
+        <location filename="webaccess.cpp" line="1096"/>
         <source>System</source>
         <translation>Sistema</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1100"/>
-        <location filename="webaccess.cpp" line="1297"/>
+        <location filename="webaccess.cpp" line="1105"/>
+        <location filename="webaccess.cpp" line="1302"/>
         <source>Back</source>
         <translation>Indietro</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1151"/>
+        <location filename="webaccess.cpp" line="1156"/>
         <source>Network interface: </source>
         <translation>Interfaccia di rete:</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1155"/>
+        <location filename="webaccess.cpp" line="1160"/>
         <source>Dynamic (DHCP)</source>
         <translation>Dinamico (DHCP)</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1157"/>
+        <location filename="webaccess.cpp" line="1162"/>
         <source>Static</source>
         <translation>Statico</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1159"/>
+        <location filename="webaccess.cpp" line="1164"/>
         <source>IP Address: </source>
         <translation>Indirizzo IP:</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1160"/>
+        <location filename="webaccess.cpp" line="1165"/>
         <source>Netmask: </source>
         <translation>Maschera:</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1161"/>
+        <location filename="webaccess.cpp" line="1166"/>
         <source>Gateway: </source>
         <translation>Gateway:</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1163"/>
-        <location filename="webaccess.cpp" line="1314"/>
+        <location filename="webaccess.cpp" line="1168"/>
+        <location filename="webaccess.cpp" line="1319"/>
         <source>Apply changes</source>
         <translation>Applica le modifiche</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1303"/>
+        <location filename="webaccess.cpp" line="1308"/>
         <source>Network configuration</source>
         <translation>Configurazione di rete</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1308"/>
+        <location filename="webaccess.cpp" line="1313"/>
         <source>Project autostart</source>
         <translation>Progetto di avvio automatico</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1312"/>
+        <location filename="webaccess.cpp" line="1317"/>
         <source>No project</source>
         <translation>Nessun progetto</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1313"/>
+        <location filename="webaccess.cpp" line="1318"/>
         <source>Use current project</source>
         <translation>Usa il progetto corrente</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1318"/>
+        <location filename="webaccess.cpp" line="1323"/>
         <source>Reboot</source>
         <translation>Riavvia</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1057"/>
+        <location filename="webaccess.cpp" line="1062"/>
         <source>Load fixture</source>
         <translation>Carica fixture</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1108"/>
+        <location filename="webaccess.cpp" line="1113"/>
         <source>Universes configuration</source>
         <translation>Configurazione degli universi</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1114"/>
+        <location filename="webaccess.cpp" line="1119"/>
         <source>Audio configuration</source>
         <translation>Configurazione audio</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1121"/>
+        <location filename="webaccess.cpp" line="1126"/>
         <source>User loaded fixtures</source>
         <translation>Fixture caricate dall&apos;utente</translation>
     </message>
