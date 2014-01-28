@@ -48,6 +48,8 @@ EFXFixture::EFXFixture(const EFX* parent)
     , m_ready(false)
     , m_started(false)
     , m_elapsed(0)
+    , m_startAngle(0)
+    , m_currentAngle(0)
 
     , m_intensity(1.0)
 {
@@ -68,6 +70,8 @@ void EFXFixture::copyFrom(const EFXFixture* ef)
     m_ready = ef->m_ready;
     m_started = ef->m_started;
     m_elapsed = ef->m_elapsed;
+    m_startAngle = ef->m_startAngle;
+    m_currentAngle = ef->m_currentAngle;
 
     m_intensity = ef->m_intensity;
 }
@@ -133,6 +137,12 @@ bool EFXFixture::isValid() const
         return false;
     else
         return true;
+}
+
+void EFXFixture::durationChanged()
+{
+    m_startAngle = m_currentAngle;
+    m_elapsed = 0;
 }
 
 /*****************************************************************************
@@ -266,6 +276,8 @@ void EFXFixture::reset()
     m_runTimeDirection = m_direction;
     m_started = false;
     m_elapsed = 0;
+    m_startAngle = 0;
+    m_currentAngle = 0;
 }
 
 bool EFXFixture::isReady() const
@@ -313,9 +325,15 @@ void EFXFixture::nextStep(MasterTimer* timer, QList<Universe *> universes)
 
     // Scale from elapsed time in relation to overall duration to a point in a circle
     uint pos = (m_elapsed + timeOffset()) % m_parent->duration();
-    qreal iterator = SCALE(qreal(pos),
+    m_currentAngle = m_startAngle + SCALE(qreal(pos),
                            qreal(0), qreal(m_parent->duration()),
                            qreal(0), qreal(M_PI * 2));
+
+    if (m_currentAngle > (M_PI * 2))
+    {
+        m_startAngle = 0;
+        m_currentAngle -= M_PI * 2;
+    }
 
     qreal pan = 0;
     qreal tilt = 0;
@@ -324,7 +342,7 @@ void EFXFixture::nextStep(MasterTimer* timer, QList<Universe *> universes)
         m_elapsed < (m_parent->duration() + timeOffset()))
         || m_elapsed < m_parent->duration())
     {
-        m_parent->calculatePoint(m_runTimeDirection, m_startOffset, iterator, &pan, &tilt);
+        m_parent->calculatePoint(m_runTimeDirection, m_startOffset, m_currentAngle, &pan, &tilt);
 
         /* Write this fixture's data to universes. */
         setPoint(universes, pan, tilt);
