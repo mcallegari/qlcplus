@@ -79,6 +79,8 @@ HEADERS += aboutbox.h \
            knobwidget.h \
            monitor.h \
            monitorfixture.h \
+           monitorfixtureitem.h \
+           monitorgraphicsview.h \
            monitorlayout.h \
            multitrackview.h \
            palettegenerator.h \
@@ -213,6 +215,8 @@ SOURCES += aboutbox.cpp \
            knobwidget.cpp \
            monitor.cpp \
            monitorfixture.cpp \
+           monitorfixtureitem.cpp \
+           monitorgraphicsview.cpp \
            monitorlayout.cpp \
            multitrackview.cpp \
            palettegenerator.cpp \
