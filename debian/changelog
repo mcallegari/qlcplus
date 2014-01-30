@@ -6,6 +6,7 @@ qlcplus (4.7.0) stable; urgency=low
   * Function Selection: fixed Collection selection
   * Documentation: Added Sound Control tutorial (Jano Svitok)
   * Added fixtures: DTS Max FAR, DTS Nick NRG1201 (thanks to Vasily Leushin)
+  * MIDI plugin: Linux support for pitch wheel and note/channel aftertouch (Jano Svitok)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 15 February 2014 12:13:14 +0200
 
