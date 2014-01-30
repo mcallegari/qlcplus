@@ -147,6 +147,15 @@ bool EFX::copyFrom(const Function* function)
     return Function::copyFrom(function);
 }
 
+void EFX::setDuration(uint ms)
+{
+    Function::setDuration(ms);
+    for(int i = 0; i < m_fixtures.size(); ++i)
+    {
+        m_fixtures[i]->durationChanged();
+    }
+}
+
 /*****************************************************************************
  * Algorithm
  *****************************************************************************/

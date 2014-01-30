@@ -200,7 +200,12 @@ void MonitorFixture::updateValues(int index, const QByteArray& ua)
         label = it.next();
         Q_ASSERT(label != NULL);
 
-        value = uchar(ua.at(fxi->address() + i));
+        int address = fxi->address() + i;
+        if (address < ua.size())
+            value = uchar(ua.at(address));
+        else 
+            value = 0;
+
         i++;
 
         /* Set the label's text to reflect the changed value */
