@@ -78,7 +78,7 @@ bool QLCMIDIProtocol::midiToInput(uchar cmd, uchar data1, uchar data2,
 
         case MIDI_PITCH_WHEEL:
             *channel = CHANNEL_OFFSET_PITCH_WHEEL;
-            *value = MIDI2DMX(data2);
+            *value = (data2 << 1) | ((data1 >> 6) & 0x01); // get 8-bit value from MSB/LSB
         break;
 
         default:
@@ -173,8 +173,9 @@ bool QLCMIDIProtocol::feedbackToMidi(quint32 channel, uchar value,
     else if (channel == CHANNEL_OFFSET_PITCH_WHEEL)
     {
         *cmd = MIDI_PITCH_WHEEL | midiChannel;
-        *data1 = DMX2MIDI(value);
-        *data2Valid = false;
+        *data1 = ((value & 0x01) << 6);             // LSB (low bit of value)
+        *data2 = DMX2MIDI(value);                   // MSB (high 7 bits of value)
+        *data2Valid = true;
     }
     //else if (channel == MIDI_BEATC_CLOCK)
     //{
