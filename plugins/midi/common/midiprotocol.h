@@ -62,12 +62,11 @@ namespace QLCMIDIProtocol
      * @param cmd MIDI command byte
      * @param data1 MIDI first data byte
      * @param data2 MIDI second data byte
-     * @param data2Valid true if $data2 contains data, otherwise false
      * @return true if the values were parsed successfully, otherwise false
      */
     bool feedbackToMidi(quint32 channel, uchar value, uchar midiChannel,
                         uchar* cmd, uchar* data1,
-                        uchar* data2, bool* data2Valid);
+                        uchar* data2);
 }
 
 /****************************************************************************
