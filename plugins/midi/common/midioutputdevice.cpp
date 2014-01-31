@@ -21,7 +21,7 @@
 #include "midioutputdevice.h"
 
 MidiOutputDevice::MidiOutputDevice(const QVariant& uid, const QString& name, QObject* parent)
-    : MidiDevice(uid, name, parent)
+    : MidiDevice(uid, name, true, parent)
 {
     //qDebug() << Q_FUNC_INFO;
 }
