@@ -125,6 +125,7 @@ void MonitorGraphicsView::addFixture(quint32 id, QPointF pos)
         return;
 
     MonitorFixtureItem *item = new MonitorFixtureItem(m_doc, id);
+    item->setZValue(1);
     item->setRealPosition(pos);
     m_fixtures[id] = item;
     m_scene->addItem(item);

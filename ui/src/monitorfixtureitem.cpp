@@ -113,7 +113,6 @@ void MonitorFixtureItem::updateValues(const QByteArray &ua)
             if (head.m_rgb.at(2) < (quint32)ua.count())
                 b = ua.at(head.m_rgb.at(2));
             head.m_item->setBrush(QBrush(QColor(r, g, b)));
-            head.m_item->update();
         }
         else if (head.m_cmy.count() > 0)
         {
@@ -125,7 +124,6 @@ void MonitorFixtureItem::updateValues(const QByteArray &ua)
             if (head.m_cmy.at(2) < (quint32)ua.count())
                 y = ua.at(head.m_cmy.at(2));
             head.m_item->setBrush(QBrush(QColor::fromCmyk(c, m, y, 0)));
-            head.m_item->update();
         }
     }
 }
