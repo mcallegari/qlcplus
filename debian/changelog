@@ -3,11 +3,12 @@ qlcplus (4.7.0) stable; urgency=low
   * NEW: Input/Output: QLC+ now supports infinite universes
   * NEW: Input/Output: added universe passthrough mode
   * NEW: Plugins: ArtNet and E1.31 plugins support up to 65535 universes
-  * NEW: Input profile for BCF2000 in Mackie Control mode - all buttons are usable (Jano Svitok)
+  * NEW: Monitor: preliminary support of 2D preview
   * Function Selection: fixed Collection selection
-  * Documentation: Added Sound Control tutorial (Jano Svitok)
-  * Added fixtures: DTS Max FAR, DTS Nick NRG1201 (thanks to Vasily Leushin)
   * MIDI plugin: Linux support for pitch wheel and note/channel aftertouch (Jano Svitok)
+  * Documentation: Added Sound Control tutorial (Jano Svitok)
+  * Added input profile: BCF2000 in Mackie Control mode - all buttons are usable (Jano Svitok)
+  * Added fixtures: DTS Max FAR, DTS Nick NRG1201 (thanks to Vasily Leushin)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 15 February 2014 12:13:14 +0200
 
