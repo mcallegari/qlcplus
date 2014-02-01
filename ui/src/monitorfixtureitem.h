@@ -32,6 +32,9 @@ class MonitorFixtureItem : public QObject, public QGraphicsItem
 public:
     MonitorFixtureItem(Doc *doc, quint32 fid);
 
+    void setRealPosition(QPointF pos) { m_realPos = pos; }
+    QPointF realPosition() { return m_realPos; }
+
     void setSize(QSize size);
 
 protected:
@@ -43,7 +46,7 @@ protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *);
 
 signals:
-    void itemDropped(QGraphicsSceneMouseEvent *, MonitorFixtureItem *);
+    void itemDropped(MonitorFixtureItem *);
 
 private:
     Doc *m_doc;
@@ -56,8 +59,10 @@ private:
     /** Height of the item */
     int m_height;
 
-    /** Position of the item top-left corner. This is used to handle unwanted dragging */
-    QPointF m_pos;
+    /** Position of the item top-left corner in millimeters */
+    QPointF m_realPos;
+
+    QList <QGraphicsEllipseItem *> m_heads;
 };
 
 #endif // MONITORFIXTUREITEM_H

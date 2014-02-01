@@ -26,6 +26,7 @@
 #include <QMap>
 
 #include "qlcfixturedefcache.h"
+#include "monitorproperties.h"
 #include "inputoutputmap.h"
 #include "ioplugincache.h"
 #include "channelsgroup.h"
@@ -136,6 +137,7 @@ private:
     InputOutputMap *m_ioMap;
     MasterTimer* m_masterTimer;
     AudioCapture *m_inputCapture;
+    MonitorProperties *m_monitorProps;
 
     /*********************************************************************
      * Main operating mode
@@ -517,6 +519,12 @@ protected:
 
     /** Startup function ID */
     quint32 m_startupFunctionId;
+
+    /*********************************************************************
+     * Monitor Properties
+     *********************************************************************/
+public:
+    MonitorProperties *monitorProperties();
 
     /*********************************************************************
      * Load & Save

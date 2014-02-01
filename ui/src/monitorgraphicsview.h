@@ -28,6 +28,8 @@ class Doc;
 
 class MonitorGraphicsView : public QGraphicsView
 {
+    Q_OBJECT
+
 public:
     MonitorGraphicsView(Doc *doc, QWidget *parent = 0);
 
@@ -37,7 +39,7 @@ public:
 
     QList <quint32> fixturesID() const;
 
-    void addFixtureItem(quint32 id);
+    void addFixtureItem(quint32 id, QPointF pos = QPointF(0, 0));
 
 protected:
 
@@ -45,7 +47,16 @@ protected:
 
     void updateFixtureSize(quint32 id);
 
+    /** Event caught when the GraphicsView is resized */
     void resizeEvent( QResizeEvent *event );
+
+protected slots:
+    /** Slot called when a MonitorFixtureItem is dropped after a drag */
+    void slotFixtureMoved(MonitorFixtureItem * item);
+
+signals:
+    /** Signal emitted after fixture point -> metrics conversion */
+    void fixtureMoved(quint32 id, QPointF pos);
 
 private:
     Doc *m_doc;

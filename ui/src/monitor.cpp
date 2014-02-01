@@ -43,10 +43,6 @@
 #include "qlcfile.h"
 
 #define SETTINGS_GEOMETRY "monitor/geometry"
-#define SETTINGS_DISPLAYMODE "monitor/displaymode"
-#define SETTINGS_FONT "monitor/font"
-#define SETTINGS_VALUESTYLE "monitor/valuestyle"
-#define SETTINGS_CHANNELSTYLE "monitor/channelstyle"
 
 Monitor* Monitor::s_instance = NULL;
 
@@ -57,20 +53,16 @@ Monitor* Monitor::s_instance = NULL;
 Monitor::Monitor(QWidget* parent, Doc* doc, Qt::WindowFlags f)
     : QWidget(parent, f)
     , m_doc(doc)
-    , m_displayMode(DMX)
-    , m_channelStyle(DMXChannels)
-    , m_valueStyle(DMXValues)
     , m_toolBar(NULL)
     , m_scrollArea(NULL)
     , m_monitorWidget(NULL)
 {
     Q_ASSERT(doc != NULL);
 
+    m_props = m_doc->monitorProperties();
+
     /* Master layout for toolbar and scroll area */
     new QVBoxLayout(this);
-
-    /* Load global settings */
-    loadSettings();
 
     initView();
 
@@ -88,10 +80,10 @@ Monitor::Monitor(QWidget* parent, Doc* doc, Qt::WindowFlags f)
 
 Monitor::~Monitor()
 {
-    disconnect(m_doc->inputOutputMap(), SIGNAL(universesWritten(const QByteArray&)),
-               this, SLOT(slotUniversesWritten(const QByteArray&)));
+    disconnect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
+               this, SLOT(slotUniversesWritten(int, const QByteArray&)));
 
-    if (m_displayMode == DMX)
+    if (m_props->displayMode() == MonitorProperties::DMX)
     {
         while (m_monitorFixtures.isEmpty() == false)
             delete m_monitorFixtures.takeFirst();
@@ -105,7 +97,7 @@ Monitor::~Monitor()
 
 void Monitor::initView()
 {
-    if (m_displayMode == DMX)
+    if (m_props->displayMode() == MonitorProperties::DMX)
     {
         initDMXToolbar();
         initDMXView();
@@ -130,6 +122,7 @@ void Monitor::initDMXView()
     m_monitorLayout = new MonitorLayout(m_monitorWidget);
     m_monitorLayout->setSpacing(1);
     m_monitorLayout->setMargin(1);
+    m_monitorWidget->setFont(m_props->font());
 
     /* Create a bunch of MonitorFixtures for each fixture */
     foreach(Fixture* fxi, m_doc->fixtures())
@@ -151,8 +144,19 @@ void Monitor::initGraphicsView()
     m_graphicsView->setAcceptDrops(true);
     m_graphicsView->setAlignment(Qt::AlignLeft | Qt::AlignTop);
     m_graphicsView->setBackgroundBrush(QBrush(QColor(11, 11, 11, 255), Qt::SolidPattern));
-    m_graphicsView->setGridMetrics(1000);
     layout()->addWidget(m_graphicsView);
+
+    if (m_props->gridUnits() == MonitorProperties::Meters)
+        m_graphicsView->setGridMetrics(1000.0);
+    else if (m_props->gridUnits() == MonitorProperties::Feet)
+        m_graphicsView->setGridMetrics(304.8);
+    m_graphicsView->setGridSize(m_props->gridSize());
+
+    foreach (quint32 fid, m_props->fixtureItemsID())
+        m_graphicsView->addFixtureItem(fid, m_props->fixturePosition(fid));
+
+    connect(m_graphicsView, SIGNAL(fixtureMoved(quint32,QPointF)),
+            this, SLOT(slotFixtureMoved(quint32,QPointF)));
 }
 
 Monitor* Monitor::instance()
@@ -160,52 +164,13 @@ Monitor* Monitor::instance()
     return s_instance;
 }
 
-void Monitor::loadSettings()
-{
-    QSettings settings;
-    QVariant var;
-
-    // Load font
-    var = settings.value(SETTINGS_FONT);
-    if (var.isValid() == true)
-    {
-        QFont fn;
-        fn.fromString(var.toString());
-        if (fn != QApplication::font())
-            m_monitorWidget->setFont(fn);
-    }
-
-    // Load display mode
-    var = settings.value(SETTINGS_DISPLAYMODE);
-    if (var.isValid() == true)
-        m_displayMode = DisplayMode(var.toInt());
-    else
-        m_displayMode = DMX;
-
-    // Load channel style
-    var = settings.value(SETTINGS_CHANNELSTYLE);
-    if (var.isValid() == true)
-        m_channelStyle = ChannelStyle(var.toInt());
-    else
-        m_channelStyle = DMXChannels;
-
-    // Load value style
-    var = settings.value(SETTINGS_VALUESTYLE);
-    if (var.isValid() == true)
-        m_valueStyle = ValueStyle(var.toInt());
-    else
-        m_valueStyle = DMXValues;
-}
-
 void Monitor::saveSettings()
 {
     QSettings settings;
     settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
-    settings.setValue(SETTINGS_DISPLAYMODE, displayMode());
+
     if (m_monitorWidget != NULL)
-        settings.setValue(SETTINGS_FONT, m_monitorWidget->font().toString());
-    settings.setValue(SETTINGS_VALUESTYLE, valueStyle());
-    settings.setValue(SETTINGS_CHANNELSTYLE, channelStyle());
+        m_props->setFont(m_monitorWidget->font());
 }
 
 void Monitor::createAndShow(QWidget* parent, Doc* doc)
@@ -241,25 +206,6 @@ void Monitor::createAndShow(QWidget* parent, Doc* doc)
 }
 
 /****************************************************************************
- * Channel & Value styles
- ****************************************************************************/
-
-Monitor::DisplayMode Monitor::displayMode() const
-{
-    return m_displayMode;
-}
-
-Monitor::ValueStyle Monitor::valueStyle() const
-{
-    return m_valueStyle;
-}
-
-Monitor::ChannelStyle Monitor::channelStyle() const
-{
-    return m_channelStyle;
-}
-
-/****************************************************************************
  * Menu
  ****************************************************************************/
 
@@ -275,7 +221,7 @@ void Monitor::initDMXToolbar()
 
     action = m_toolBar->addAction(tr("2D View"));
     m_toolBar->addSeparator();
-    action->setData(Graphics);
+    action->setData(MonitorProperties::Graphics);
     connect(action, SIGNAL(triggered(bool)),
             this, SLOT(slotSwitchMode()));
 
@@ -292,23 +238,23 @@ void Monitor::initDMXToolbar()
     action = m_toolBar->addAction(tr("DMX Channels"));
     action->setToolTip(tr("Show absolute DMX channel numbers"));
     action->setCheckable(true);
-    action->setData(DMXChannels);
+    action->setData(MonitorProperties::DMXChannels);
     connect(action, SIGNAL(triggered(bool)),
             this, SLOT(slotChannelStyleTriggered()));
     m_toolBar->addAction(action);
     group->addAction(action);
-    if (channelStyle() == DMXChannels)
+    if (m_props->channelStyle() == MonitorProperties::DMXChannels)
         action->setChecked(true);
 
     action = m_toolBar->addAction(tr("Relative Channels"));
     action->setToolTip(tr("Show channel numbers relative to fixture"));
     action->setCheckable(true);
-    action->setData(RelativeChannels);
+    action->setData(MonitorProperties::RelativeChannels);
     connect(action, SIGNAL(triggered(bool)),
             this, SLOT(slotChannelStyleTriggered()));
     m_toolBar->addAction(action);
     group->addAction(action);
-    if (channelStyle() == RelativeChannels)
+    if (m_props->channelStyle() == MonitorProperties::RelativeChannels)
         action->setChecked(true);
 
     m_toolBar->addSeparator();
@@ -320,24 +266,24 @@ void Monitor::initDMXToolbar()
     action = m_toolBar->addAction(tr("DMX Values"));
     action->setToolTip(tr("Show DMX values 0-255"));
     action->setCheckable(true);
-    action->setData(DMXValues);
+    action->setData(MonitorProperties::DMXValues);
     connect(action, SIGNAL(triggered(bool)),
             this, SLOT(slotValueStyleTriggered()));
     m_toolBar->addAction(action);
     group->addAction(action);
     action->setChecked(true);
-    if (valueStyle() == DMXValues)
+    if (m_props->valueStyle() == MonitorProperties::DMXValues)
         action->setChecked(true);
 
     action = m_toolBar->addAction(tr("Percent Values"));
     action->setToolTip(tr("Show percentage values 0-100%"));
     action->setCheckable(true);
-    action->setData(PercentageValues);
+    action->setData(MonitorProperties::PercentageValues);
     connect(action, SIGNAL(triggered(bool)),
             this, SLOT(slotValueStyleTriggered()));
     m_toolBar->addAction(action);
     group->addAction(action);
-    if (valueStyle() == PercentageValues)
+    if (m_props->valueStyle() == MonitorProperties::PercentageValues)
         action->setChecked(true);
 }
 
@@ -353,7 +299,7 @@ void Monitor::initGraphicsToolbar()
 
     action = m_toolBar->addAction(tr("DMX View"));
     m_toolBar->addSeparator();
-    action->setData(DMX);
+    action->setData(MonitorProperties::DMX);
     connect(action, SIGNAL(triggered(bool)),
             this, SLOT(slotSwitchMode()));
 
@@ -361,9 +307,11 @@ void Monitor::initGraphicsToolbar()
     label->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     m_toolBar->addWidget(label);
 
+    QSize gridSize = m_props->gridSize();
+
     m_gridWSpin = new QSpinBox();
     m_gridWSpin->setMinimum(1);
-    m_gridWSpin->setValue(5);
+    m_gridWSpin->setValue(gridSize.width());
     m_toolBar->addWidget(m_gridWSpin);
     connect(m_gridWSpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotGridWidthChanged(int)));
@@ -373,17 +321,19 @@ void Monitor::initGraphicsToolbar()
     m_toolBar->addWidget(xlabel);
     m_gridHSpin = new QSpinBox();
     m_gridHSpin->setMinimum(1);
-    m_gridHSpin->setValue(5);
+    m_gridHSpin->setValue(gridSize.height());
     m_toolBar->addWidget(m_gridHSpin);
     connect(m_gridHSpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotGridHeightChanged(int)));
 
     m_unitsCombo = new QComboBox();
-    m_unitsCombo->addItem(tr("Meters"));
-    m_unitsCombo->addItem(tr("Feet"));
+    m_unitsCombo->addItem(tr("Meters"), MonitorProperties::Meters);
+    m_unitsCombo->addItem(tr("Feet"), MonitorProperties::Feet);
+    if (m_props->gridUnits() == MonitorProperties::Feet)
+        m_unitsCombo->setCurrentIndex(1);
     m_toolBar->addWidget(m_unitsCombo);
     connect(m_unitsCombo, SIGNAL(currentIndexChanged(int)),
-            this, SLOT(slotMetricsChanged(int)));
+            this, SLOT(slotGridUnitsChanged(int)));
 
     m_toolBar->addSeparator();
 
@@ -406,8 +356,8 @@ void Monitor::slotChannelStyleTriggered()
     Q_ASSERT(action != NULL);
 
     action->setChecked(true);
-    m_channelStyle = ChannelStyle(action->data().toInt());
-    emit channelStyleChanged(channelStyle());
+    m_props->setChannelStyle(MonitorProperties::ChannelStyle(action->data().toInt()));
+    emit channelStyleChanged(m_props->channelStyle());
 }
 
 void Monitor::slotValueStyleTriggered()
@@ -416,8 +366,8 @@ void Monitor::slotValueStyleTriggered()
     Q_ASSERT(action != NULL);
 
     action->setChecked(true);
-    m_valueStyle = ValueStyle(action->data().toInt());
-    emit valueStyleChanged(valueStyle());
+    m_props->setValueStyle(MonitorProperties::ValueStyle(action->data().toInt()));
+    emit valueStyleChanged(m_props->valueStyle());
 }
 
 void Monitor::slotSwitchMode()
@@ -425,10 +375,10 @@ void Monitor::slotSwitchMode()
     QAction* action = qobject_cast<QAction*> (QObject::sender());
     Q_ASSERT(action != NULL);
 
-    disconnect(m_doc->inputOutputMap(), SIGNAL(universesWritten(const QByteArray&)),
-               this, SLOT(slotUniversesWritten(const QByteArray&)));
+    disconnect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
+               this, SLOT(slotUniversesWritten(int, const QByteArray&)));
 
-    if (m_displayMode == DMX)
+    if (m_props->displayMode() == MonitorProperties::DMX)
     {
         while (m_monitorFixtures.isEmpty() == false)
             delete m_monitorFixtures.takeFirst();
@@ -446,12 +396,12 @@ void Monitor::slotSwitchMode()
     }
     m_toolBar = NULL;
 
-    m_displayMode = DisplayMode(action->data().toInt());
+    m_props->setDisplayMode(MonitorProperties::DisplayMode(action->data().toInt()));
 
     initView();
 
-    connect(m_doc->inputOutputMap(), SIGNAL(universesWritten(const QByteArray&)),
-            this, SLOT(slotUniversesWritten(const QByteArray&)));
+    connect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
+            this, SLOT(slotUniversesWritten(int, const QByteArray&)));
 }
 
 /****************************************************************************
@@ -469,15 +419,15 @@ void Monitor::createMonitorFixture(Fixture* fxi)
 {
     MonitorFixture* mof = new MonitorFixture(m_monitorWidget, m_doc);
     mof->setFixture(fxi->id());
-    mof->slotChannelStyleChanged(channelStyle());
-    mof->slotValueStyleChanged(valueStyle());
+    mof->slotChannelStyleChanged(m_props->channelStyle());
+    mof->slotValueStyleChanged(m_props->valueStyle());
     mof->show();
 
     /* Make mof listen to value & channel style changes */
-    connect(this, SIGNAL(valueStyleChanged(Monitor::ValueStyle)),
-            mof, SLOT(slotValueStyleChanged(Monitor::ValueStyle)));
-    connect(this, SIGNAL(channelStyleChanged(Monitor::ChannelStyle)),
-            mof, SLOT(slotChannelStyleChanged(Monitor::ChannelStyle)));
+    connect(this, SIGNAL(valueStyleChanged(MonitorProperties::ValueStyle)),
+            mof, SLOT(slotValueStyleChanged(MonitorProperties::ValueStyle)));
+    connect(this, SIGNAL(channelStyleChanged(MonitorProperties::ChannelStyle)),
+            mof, SLOT(slotChannelStyleChanged(MonitorProperties::ChannelStyle)));
 
     m_monitorLayout->addItem(new MonitorLayoutItem(mof));
     m_monitorFixtures.append(mof);
@@ -534,23 +484,37 @@ void Monitor::slotUniversesWritten(int index, const QByteArray& ua)
 void Monitor::slotGridWidthChanged(int value)
 {
     if (m_graphicsView != NULL)
+    {
         m_graphicsView->setGridSize(QSize(value, m_gridHSpin->value()));
+        m_props->setGridSize(QSize(value, m_gridHSpin->value()));
+    }
 }
 
 void Monitor::slotGridHeightChanged(int value)
 {
     if (m_graphicsView != NULL)
+    {
         m_graphicsView->setGridSize(QSize(m_gridWSpin->value(), value));
+        m_props->setGridSize(QSize(m_gridWSpin->value(), value));
+    }
 }
 
-void Monitor::slotMetricsChanged(int index)
+void Monitor::slotGridUnitsChanged(int index)
 {
     if (m_graphicsView != NULL)
     {
-        if (index == 0)
+        MonitorProperties::GridUnits units = MonitorProperties::Meters;
+
+        QVariant var = m_unitsCombo->itemData(index);
+        if (var.isValid())
+            units = MonitorProperties::GridUnits(var.toInt());
+
+        if (units == MonitorProperties::Meters)
             m_graphicsView->setGridMetrics(1000.0);
-        else if (index == 1)
+        else if (units == MonitorProperties::Feet)
             m_graphicsView->setGridMetrics(304.8);
+
+        m_props->setGridUnits(units);
     }
 }
 
@@ -568,6 +532,15 @@ void Monitor::slotAddFixture()
     {
         QListIterator <quint32> it(fs.selection());
         while (it.hasNext() == true)
-            m_graphicsView->addFixtureItem(it.next());
+        {
+            quint32 fid = it.next();
+            m_graphicsView->addFixtureItem(fid);
+            m_props->setFixturePosition(fid, QPointF(0, 0));
+        }
     }
+}
+
+void Monitor::slotFixtureMoved(quint32 fid, QPointF pos)
+{
+    m_props->setFixturePosition(fid, pos);
 }

@@ -24,6 +24,8 @@
 #include <QHash>
 #include <QList>
 
+#include "monitorproperties.h"
+
 class MonitorGraphicsView;
 class MonitorFixture;
 class MonitorLayout;
@@ -71,7 +73,6 @@ public:
     void initGraphicsView();
 
 protected:
-    void loadSettings();
     void saveSettings();
 
     /** Protected constructor to prevent multiple instances. */
@@ -81,28 +82,7 @@ protected:
     /** The singleton Monitor instance */
     static Monitor* s_instance;
     Doc* m_doc;
-
-    /*********************************************************************
-     * Channel & Value styles
-     *********************************************************************/
-public:
-    enum DisplayMode { DMX, Graphics };
-    enum ChannelStyle { DMXChannels, RelativeChannels };
-    enum ValueStyle { DMXValues, PercentageValues };
-
-    /** Get the display mode used to render the monitor */
-    DisplayMode displayMode() const;
-
-    /** Get the style used to draw DMX values in monitor fixtures */
-    ValueStyle valueStyle() const;
-
-    /** Get the style used to draw channel numbers in monitor fixtures */
-    ChannelStyle channelStyle() const;
-
-private:
-    DisplayMode m_displayMode;
-    ChannelStyle m_channelStyle;
-    ValueStyle m_valueStyle;
+    MonitorProperties *m_props;
 
     /*********************************************************************
      * Menu
@@ -152,8 +132,8 @@ protected slots:
     void slotUniversesWritten(int index, const QByteArray& ua);
 
 signals:
-    void channelStyleChanged(Monitor::ChannelStyle style);
-    void valueStyleChanged(Monitor::ValueStyle style);
+    void channelStyleChanged(MonitorProperties::ChannelStyle style);
+    void valueStyleChanged(MonitorProperties::ValueStyle style);
 
 protected:
     QToolBar* m_toolBar;
@@ -174,12 +154,14 @@ protected slots:
     void slotGridHeightChanged(int value);
 
     /** Slot called when the unit metrics changes */
-    void slotMetricsChanged(int index);
+    void slotGridUnitsChanged(int index);
 
     /** Slot called when the user wants to add
-     *  a fixture to the graphics view
-     */
+     *  a fixture to the graphics view */
     void slotAddFixture();
+
+    /** Slot called when a fixture is moved in the graphics view */
+    void slotFixtureMoved(quint32 fid, QPointF pos);
 
 protected:
     MonitorGraphicsView* m_graphicsView;

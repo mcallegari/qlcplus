@@ -83,6 +83,7 @@ HEADERS += bus.h \
            inputpatch.h \
            ioplugincache.h \
            mastertimer.h \
+           monitorproperties.h \
            outputpatch.h \
            qlcclipboard.h \
            qlcpoint.h \
@@ -116,6 +117,7 @@ SOURCES += avolitesd4parser.cpp \
            qlcinputprofile.cpp \
            qlcinputsource.cpp \
            qlcphysical.cpp
+
 # Audio
 SOURCES += audio/audio.cpp \
            audio/audiodecoder.cpp \
@@ -164,6 +166,7 @@ SOURCES += bus.cpp \
            inputpatch.cpp \
            ioplugincache.cpp \
            mastertimer.cpp \
+           monitorproperties.cpp \
            outputpatch.cpp \
            qlcclipboard.cpp \
            qlcpoint.cpp \

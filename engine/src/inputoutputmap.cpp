@@ -978,9 +978,6 @@ bool InputOutputMap::loadXML(const QDomElement &root)
 bool InputOutputMap::saveXML(QDomDocument *doc, QDomElement *wksp_root) const
 {
     QDomElement root;
-    QDomElement tag;
-    QDomText text;
-    QString str;
 
     Q_ASSERT(doc != NULL);
 

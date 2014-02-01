@@ -57,6 +57,7 @@ Doc::Doc(QObject* parent, int universes)
     , m_ioMap(new InputOutputMap(this, universes))
     , m_masterTimer(new MasterTimer(this))
     , m_inputCapture(NULL)
+    , m_monitorProps(NULL)
     , m_mode(Design)
     , m_kiosk(false)
     , m_clipboard(new QLCClipboard(this))
@@ -886,6 +887,18 @@ void Doc::slotFunctionChanged(quint32 fid)
     emit functionChanged(fid);
 }
 
+/*********************************************************************
+ * Monitor Properties
+ *********************************************************************/
+
+MonitorProperties *Doc::monitorProperties()
+{
+    if (m_monitorProps == NULL)
+        m_monitorProps = new MonitorProperties();
+
+    return m_monitorProps;
+}
+
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
@@ -936,6 +949,12 @@ bool Doc::loadXML(const QDomElement& root)
         else if (tag.tagName() == KXMLIOMap)
         {
             m_ioMap->loadXML(tag);
+        }
+        else if (tag.tagName() == KXMLQLCMonitorProperties)
+        {
+            if (m_monitorProps == NULL)
+                m_monitorProps = new MonitorProperties();
+            m_monitorProps->loadXML(tag);
         }
         else
         {
@@ -1004,6 +1023,9 @@ bool Doc::saveXML(QDomDocument* doc, QDomElement* wksp_root)
         Q_ASSERT(func != NULL);
         func->saveXML(doc, &root);
     }
+
+    if (m_monitorProps != NULL)
+        m_monitorProps->saveXML(doc, &root);
 
     return true;
 }
