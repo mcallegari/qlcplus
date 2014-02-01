@@ -160,6 +160,10 @@ protected slots:
      *  a fixture to the graphics view */
     void slotAddFixture();
 
+    /** Slot called when the user wants to remove
+     *  a fixture from the graphics view */
+    void slotRemoveFixture();
+
     /** Slot called when a fixture is moved in the graphics view */
     void slotFixtureMoved(quint32 fid, QPointF pos);
 

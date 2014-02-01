@@ -23,6 +23,7 @@
 #include <QDebug>
 
 #include "monitorfixtureitem.h"
+#include "qlcfixturehead.h"
 #include "fixture.h"
 #include "doc.h"
 
@@ -43,10 +44,24 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
 
     for (int i = 0; i < fxi->heads(); i++)
     {
-        QGraphicsEllipseItem *head = new QGraphicsEllipseItem(this);
-        head->setPen(QPen(Qt::white, 1));
-        head->setBrush(QBrush(Qt::black));
-        m_heads.append(head);
+        FixtureHead fxiItem;
+        fxiItem.m_item = new QGraphicsEllipseItem(this);
+        fxiItem.m_item->setPen(QPen(Qt::white, 1));
+        fxiItem.m_item->setBrush(QBrush(Qt::black));
+
+        QLCFixtureHead head = fxi->head(i);
+        foreach (quint32 rgbComp, head.rgbChannels())
+        {
+            fxiItem.m_rgb.append(rgbComp + fxi->address());
+            qDebug() << "Add RGB comp at address:" << rgbComp + fxi->address();
+        }
+        foreach (quint32 cmyComp, head.cmyChannels())
+        {
+            fxiItem.m_cmy.append(cmyComp + fxi->address());
+            qDebug() << "Add CMY comp at address:" << cmyComp + fxi->address();
+        }
+
+        m_heads.append(fxiItem);
     }
 }
 
@@ -55,6 +70,9 @@ void MonitorFixtureItem::setSize(QSize size)
     prepareGeometryChange();
     m_width = size.width();
     m_height = size.height();
+
+    if (m_width < 5 || m_height < 5)
+        return;
 
     // calculate the diameter of every single head
     double headArea = (m_width * m_height) / m_heads.count();
@@ -72,13 +90,32 @@ void MonitorFixtureItem::setSize(QSize size)
         int xpos = (cellWidth - headDiam) / 2;
         for (int j = 0; j < columns; j++)
         {
-            QGraphicsEllipseItem *head = m_heads.at((i * j) + j);
+            QGraphicsEllipseItem *head = m_heads.at((i * j) + j).m_item;
             head->setRect(xpos, ypos, headDiam, headDiam);
             xpos += cellWidth;
         }
         ypos += cellHeight;
     }
     update();
+}
+
+void MonitorFixtureItem::updateValues(const QByteArray &ua)
+{
+    foreach(FixtureHead head, m_heads)
+    {
+        if (head.m_rgb.count() > 0)
+        {
+            uchar r = 0, g = 0, b = 0;
+            if (head.m_rgb.at(0) < (quint32)ua.count())
+                r = ua.at(head.m_rgb.at(0));
+            if (head.m_rgb.at(1) < (quint32)ua.count())
+                g = ua.at(head.m_rgb.at(1));
+            if (head.m_rgb.at(2) < (quint32)ua.count())
+                b = ua.at(head.m_rgb.at(2));
+            head.m_item->setBrush(QBrush(QColor(r, g, b)));
+            head.m_item->update();
+        }
+    }
 }
 
 QRectF MonitorFixtureItem::boundingRect() const
@@ -99,8 +136,8 @@ void MonitorFixtureItem::paint(QPainter *painter, const QStyleOptionGraphicsItem
     // draw chaser background
     painter->setBrush(QBrush(QColor(33, 33, 33)));
     painter->drawRect(0, 0, m_width, m_height);
-    foreach (QGraphicsEllipseItem *head, m_heads)
-        head->update();
+    foreach (FixtureHead head, m_heads)
+        head.m_item->update();
 }
 
 void MonitorFixtureItem::mousePressEvent(QGraphicsSceneMouseEvent *event)

@@ -20,7 +20,6 @@
 #include "monitorgraphicsview.h"
 #include "monitorfixtureitem.h"
 #include "qlcfixturemode.h"
-#include "fixture.h"
 #include "doc.h"
 
 MonitorGraphicsView::MonitorGraphicsView(Doc *doc, QWidget *parent)
@@ -47,7 +46,7 @@ void MonitorGraphicsView::setGridSize(QSize size)
     while (it.hasNext() == true)
     {
         it.next();
-        updateFixtureSize(it.key());
+        updateFixture(it.key());
     }
 }
 
@@ -58,7 +57,7 @@ void MonitorGraphicsView::setGridMetrics(float value)
     while (it.hasNext() == true)
     {
         it.next();
-        updateFixtureSize(it.key());
+        updateFixture(it.key());
     }
 }
 
@@ -67,7 +66,7 @@ QList<quint32> MonitorGraphicsView::fixturesID() const
     return m_fixtures.keys();
 }
 
-void MonitorGraphicsView::updateFixtureSize(quint32 id)
+void MonitorGraphicsView::updateFixture(quint32 id)
 {
     Fixture *fxi = m_doc->fixture(id);
     if (fxi == NULL || m_fixtures.contains(id) == false)
@@ -88,7 +87,39 @@ void MonitorGraphicsView::updateFixtureSize(quint32 id)
     item->setPos(realX, realY);
 }
 
-void MonitorGraphicsView::addFixtureItem(quint32 id, QPointF pos)
+void MonitorGraphicsView::writeUniverse(int index, const QByteArray &ua)
+{
+    QHashIterator <quint32, MonitorFixtureItem*> it(m_fixtures);
+    while (it.hasNext() == true)
+    {
+        it.next();
+        quint32 fid = it.key();
+        Fixture *fxi = m_doc->fixture(fid);
+        // preliminary validity checks
+        if (fxi == NULL ||
+            fxi->universe() != (quint32)index ||
+            fxi->address() > (quint32)ua.size())
+                continue;
+
+        MonitorFixtureItem *item = it.value();
+        item->updateValues(ua);
+    }
+}
+
+MonitorFixtureItem *MonitorGraphicsView::getSelectedItem()
+{
+    QHashIterator <quint32, MonitorFixtureItem*> it(m_fixtures);
+    while (it.hasNext() == true)
+    {
+        it.next();
+        MonitorFixtureItem *item = it.value();
+        if (item->isSelected() == true)
+            return item;
+    }
+    return NULL;
+}
+
+void MonitorGraphicsView::addFixture(quint32 id, QPointF pos)
 {
     if (id == Fixture::invalidId() || m_fixtures.contains(id) == true)
         return;
@@ -97,9 +128,30 @@ void MonitorGraphicsView::addFixtureItem(quint32 id, QPointF pos)
     item->setRealPosition(pos);
     m_fixtures[id] = item;
     m_scene->addItem(item);
-    updateFixtureSize(id);
+    updateFixture(id);
     connect(item, SIGNAL(itemDropped(MonitorFixtureItem*)),
             this, SLOT(slotFixtureMoved(MonitorFixtureItem*)));
+}
+
+void MonitorGraphicsView::removeFixture(quint32 id)
+{
+    MonitorFixtureItem *item = NULL;
+
+    if (id == Fixture::invalidId())
+    {
+        item = getSelectedItem();
+        if (item != NULL)
+            id = item->fixtureID();
+    }
+    else
+        item = m_fixtures[id];
+
+    if (item == NULL)
+        return;
+
+    m_scene->removeItem(item);
+    m_fixtures.take(id);
+    delete item;
 }
 
 void MonitorGraphicsView::updateGrid()
@@ -129,7 +181,7 @@ void MonitorGraphicsView::updateGrid()
         for (int i = 0; i < m_gridSize.width() + 1; i++)
         {
             QGraphicsLineItem *item = m_scene->addLine(xPos, m_yOffset, xPos, this->height() - m_yOffset,
-                                                       QPen( QColor(50, 50, 50, 255) ));
+                                                       QPen( QColor(40, 40, 40, 255) ));
             item->setZValue(0);
             xPos += m_cellPixels;
             m_gridItems.append(item);
@@ -138,7 +190,7 @@ void MonitorGraphicsView::updateGrid()
         for (int i = 0; i < m_gridSize.height() + 1; i++)
         {
             QGraphicsLineItem *item = m_scene->addLine(m_xOffset, yPos, this->width() - m_xOffset, yPos,
-                                                       QPen( QColor(50, 50, 50, 255) ));
+                                                       QPen( QColor(40, 40, 40, 255) ));
             item->setZValue(0);
             yPos += m_cellPixels;
             m_gridItems.append(item);
@@ -154,7 +206,7 @@ void MonitorGraphicsView::resizeEvent(QResizeEvent *event)
     while (it.hasNext() == true)
     {
         it.next();
-        updateFixtureSize(it.key());
+        updateFixture(it.key());
     }
 }
 

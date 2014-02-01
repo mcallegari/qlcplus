@@ -153,7 +153,7 @@ void Monitor::initGraphicsView()
     m_graphicsView->setGridSize(m_props->gridSize());
 
     foreach (quint32 fid, m_props->fixtureItemsID())
-        m_graphicsView->addFixtureItem(fid, m_props->fixturePosition(fid));
+        m_graphicsView->addFixture(fid, m_props->fixturePosition(fid));
 
     connect(m_graphicsView, SIGNAL(fixtureMoved(quint32,QPointF)),
             this, SLOT(slotFixtureMoved(quint32,QPointF)));
@@ -339,7 +339,8 @@ void Monitor::initGraphicsToolbar()
 
     m_toolBar->addAction(QIcon(":/edit_add.png"), tr("Add fixture"),
                        this, SLOT(slotAddFixture()));
-
+    m_toolBar->addAction(QIcon(":/edit_remove.png"), tr("Remove fixture"),
+                       this, SLOT(slotRemoveFixture()));
 }
 
 void Monitor::slotChooseFont()
@@ -435,46 +436,71 @@ void Monitor::createMonitorFixture(Fixture* fxi)
 
 void Monitor::slotFixtureAdded(quint32 fxi_id)
 {
-    Fixture* fxi = m_doc->fixture(fxi_id);
-    if (fxi != NULL)
-        createMonitorFixture(fxi);
+    if (m_props->displayMode() == MonitorProperties::DMX)
+    {
+        Fixture* fxi = m_doc->fixture(fxi_id);
+        if (fxi != NULL)
+            createMonitorFixture(fxi);
+    }
 }
 
 void Monitor::slotFixtureChanged(quint32 fxi_id)
 {
-    Q_UNUSED(fxi_id);
-
-    QListIterator <MonitorFixture*> it(m_monitorFixtures);
-    while (it.hasNext() == true)
+    if (m_props->displayMode() == MonitorProperties::DMX)
     {
-        MonitorFixture* mof = it.next();
-        if (mof->fixture() == fxi_id)
-            mof->setFixture(fxi_id);
-    }
+        QListIterator <MonitorFixture*> it(m_monitorFixtures);
+        while (it.hasNext() == true)
+        {
+            MonitorFixture* mof = it.next();
+            if (mof->fixture() == fxi_id)
+                mof->setFixture(fxi_id);
+        }
 
-    m_monitorLayout->sort();
-    m_monitorWidget->updateGeometry();
+        m_monitorLayout->sort();
+        m_monitorWidget->updateGeometry();
+    }
+    else if (m_props->displayMode() == MonitorProperties::Graphics)
+    {
+        if (m_graphicsView != NULL)
+            m_graphicsView->updateFixture(fxi_id);
+    }
 }
 
 void Monitor::slotFixtureRemoved(quint32 fxi_id)
 {
-    QMutableListIterator <MonitorFixture*> it(m_monitorFixtures);
-    while (it.hasNext() == true)
+    if (m_props->displayMode() == MonitorProperties::DMX)
     {
-        MonitorFixture* mof = it.next();
-        if (mof->fixture() == fxi_id)
+        QMutableListIterator <MonitorFixture*> it(m_monitorFixtures);
+        while (it.hasNext() == true)
         {
-            it.remove();
-            delete mof;
+            MonitorFixture* mof = it.next();
+            if (mof->fixture() == fxi_id)
+            {
+                it.remove();
+                delete mof;
+            }
         }
+    }
+    else if (m_props->displayMode() == MonitorProperties::Graphics)
+    {
+        if (m_graphicsView != NULL)
+            m_graphicsView->removeFixture(fxi_id);
     }
 }
 
 void Monitor::slotUniversesWritten(int index, const QByteArray& ua)
 {
-    QListIterator <MonitorFixture*> it(m_monitorFixtures);
-    while (it.hasNext() == true)
-        it.next()->updateValues(index, ua);
+    if (m_props->displayMode() == MonitorProperties::DMX)
+    {
+        QListIterator <MonitorFixture*> it(m_monitorFixtures);
+        while (it.hasNext() == true)
+            it.next()->updateValues(index, ua);
+    }
+    else if (m_props->displayMode() == MonitorProperties::Graphics)
+    {
+        if (m_graphicsView != NULL)
+            m_graphicsView->writeUniverse(index, ua);
+    }
 }
 
 /********************************************************************
@@ -534,10 +560,16 @@ void Monitor::slotAddFixture()
         while (it.hasNext() == true)
         {
             quint32 fid = it.next();
-            m_graphicsView->addFixtureItem(fid);
+            m_graphicsView->addFixture(fid);
             m_props->setFixturePosition(fid, QPointF(0, 0));
         }
     }
+}
+
+void Monitor::slotRemoveFixture()
+{
+    if (m_graphicsView != NULL)
+        m_graphicsView->removeFixture();
 }
 
 void Monitor::slotFixtureMoved(quint32 fid, QPointF pos)

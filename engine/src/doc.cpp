@@ -99,6 +99,12 @@ void Doc::clearContents()
 
     m_clipboard->resetContents();
 
+    if (m_monitorProps != NULL)
+        delete m_monitorProps;
+    m_monitorProps = NULL;
+
+    destroyAudioCapture();
+
     // Delete all function instances
     QListIterator <quint32> funcit(m_functions.keys());
     while (funcit.hasNext() == true)

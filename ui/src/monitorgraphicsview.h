@@ -23,6 +23,8 @@
 #include <QGraphicsView>
 #include <QHash>
 
+#include "fixture.h"
+
 class MonitorFixtureItem;
 class Doc;
 
@@ -39,13 +41,21 @@ public:
 
     QList <quint32> fixturesID() const;
 
-    void addFixtureItem(quint32 id, QPointF pos = QPointF(0, 0));
+    void addFixture(quint32 id, QPointF pos = QPointF(0, 0));
+
+    void removeFixture(quint32 id = Fixture::invalidId());
+
+    void updateFixture(quint32 id);
+
+    void writeUniverse(int index, const QByteArray& ua);
 
 protected:
 
     void updateGrid();
 
-    void updateFixtureSize(quint32 id);
+    /** Retrieve the currently selected MonitorFixtureItem.
+     *  Return NULL if none */
+    MonitorFixtureItem *getSelectedItem();
 
     /** Event caught when the GraphicsView is resized */
     void resizeEvent( QResizeEvent *event );
@@ -80,8 +90,10 @@ private:
     /** List of Fixture items represented graphically */
     QList <QGraphicsLineItem *> m_gridItems;
 
+    /** Flag to enable/disable the grid rendering */
     bool m_gridEnabled;
 
+    /** Map of the rendered MonitorFixtureItem with their ID */
     QHash <quint32, MonitorFixtureItem*> m_fixtures;
 };
 

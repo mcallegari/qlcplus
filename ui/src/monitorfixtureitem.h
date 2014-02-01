@@ -24,6 +24,13 @@
 
 class Doc;
 
+typedef struct
+{
+    QGraphicsEllipseItem *m_item;
+    QList <quint32> m_rgb;
+    QList <quint32> m_cmy;
+} FixtureHead;
+
 class MonitorFixtureItem : public QObject, public QGraphicsItem
 {
     Q_OBJECT
@@ -36,6 +43,12 @@ public:
     QPointF realPosition() { return m_realPos; }
 
     void setSize(QSize size);
+
+    quint32 fixtureID() { return m_fid; }
+
+    int headsCount() { return m_heads.count(); }
+
+    void updateValues(const QByteArray& ua);
 
 protected:
     QRectF boundingRect() const;
@@ -62,7 +75,7 @@ private:
     /** Position of the item top-left corner in millimeters */
     QPointF m_realPos;
 
-    QList <QGraphicsEllipseItem *> m_heads;
+    QList <FixtureHead> m_heads;
 };
 
 #endif // MONITORFIXTUREITEM_H
