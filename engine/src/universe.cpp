@@ -34,7 +34,6 @@
 Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
     : QObject(parent)
     , m_id(id)
-    , m_name(QString())
     , m_grandMaster(gm)
     , m_passthrough(false)
     , m_inputPatch(NULL)
@@ -47,6 +46,7 @@ Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
     , m_postGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
 {
     m_relativeValues.fill(0, UNIVERSE_SIZE);
+    m_name = QString("Universe %1").arg(id + 1);
 
     connect(m_grandMaster, SIGNAL(valueChanged(uchar)),
             this, SLOT(slotGMValueChanged()));
@@ -70,7 +70,10 @@ Universe::~Universe()
 
 void Universe::setName(QString name)
 {
-    m_name = name;
+    if (name.isEmpty())
+        m_name = QString("Universe %1").arg(m_id + 1);
+    else
+        m_name = name;
 }
 
 QString Universe::name() const

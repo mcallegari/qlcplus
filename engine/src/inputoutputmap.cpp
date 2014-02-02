@@ -44,7 +44,7 @@ InputOutputMap::InputOutputMap(Doc *doc, quint32 universes)
 {
     m_grandMaster = new GrandMaster(this);
     for (quint32 i = 0; i < universes; i++)
-        m_universeArray.append(new Universe(i, m_grandMaster, this));
+        addUniverse();
 
     connect(doc->ioPluginCache(), SIGNAL(pluginConfigurationChanged(QLCIOPlugin*)),
             this, SLOT(slotPluginConfigurationChanged(QLCIOPlugin*)));
