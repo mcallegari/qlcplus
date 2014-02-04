@@ -27,8 +27,6 @@
 #include <QHash>
 #include <QFile>
 
-//#include <artnet/artnet.h>
-
 #include "qlcioplugin.h"
 #include "artnetcontroller.h"
 
@@ -131,10 +129,6 @@ private:
 
     /** Map of the ArtNet plugin Input/Output lines */
     QList<ArtNetIO>m_IOmapping;
-
-private slots:
-    void slotInputValueChanged(quint32 input, int channel, uchar value);
-
 };
 
 #endif

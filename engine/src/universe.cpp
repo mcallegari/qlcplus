@@ -108,7 +108,32 @@ bool Universe::hasChanged()
 
 void Universe::setPassthrough(bool enable)
 {
+    if (enable == m_passthrough)
+        return;
+
+    qDebug() << "Set universe passthrough to" << enable;
+
+    if (m_inputPatch != NULL)
+    {
+        if (m_passthrough == false)
+            disconnect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
+                       this, SIGNAL(inputValueChanged(quint32,quint32,uchar,QString)));
+        else
+            disconnect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
+                       this, SLOT(slotInputValueChanged(quint32,quint32,uchar,const QString&)));
+    }
+
     m_passthrough = enable;
+
+    if (m_inputPatch != NULL)
+    {
+        if (m_passthrough == false)
+            connect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
+                    this, SIGNAL(inputValueChanged(quint32,quint32,uchar,QString)));
+        else
+            connect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
+                    this, SLOT(slotInputValueChanged(quint32,quint32,uchar,const QString&)));
+    }
 }
 
 bool Universe::passthrough() const
@@ -241,15 +266,23 @@ bool Universe::setInputPatch(QLCIOPlugin *plugin,
         if (input == QLCChannel::invalid())
             return false;
         m_inputPatch = new InputPatch(m_id, this);
-        connect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
-                this, SLOT(slotInputValueChanged(quint32,quint32,uchar,const QString&)));
+        if (passthrough() == false)
+            connect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
+                    this, SIGNAL(inputValueChanged(quint32,quint32,uchar,QString)));
+        else
+            connect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
+                    this, SLOT(slotInputValueChanged(quint32,quint32,uchar,const QString&)));
     }
     else
     {
         if (input == QLCChannel::invalid())
         {
-            disconnect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
-                    this, SLOT(slotInputValueChanged(quint32,quint32,uchar,const QString&)));
+            if (passthrough() == false)
+                disconnect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
+                        this, SIGNAL(inputValueChanged(quint32,quint32,uchar,QString)));
+            else
+                disconnect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
+                           this, SLOT(slotInputValueChanged(quint32,quint32,uchar,const QString&)));
             delete m_inputPatch;
             m_inputPatch = NULL;
             return false;

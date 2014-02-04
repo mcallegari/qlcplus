@@ -217,8 +217,8 @@ void ArtNetPlugin::openInput(quint32 input)
     ArtNetController *controller = new ArtNetController(m_IOmapping.at(input).IPAddress,
                                                         m_netInterfaces, m_IOmapping.at(input).MACAddress,
                                                         ArtNetController::Input, this);
-    connect(controller, SIGNAL(valueChanged(quint32,int,uchar)),
-            this, SLOT(slotInputValueChanged(quint32,int,uchar)));
+    connect(controller, SIGNAL(valueChanged(quint32,quint32,uchar)),
+            this, SIGNAL(valueChanged(quint32,quint32,uchar)));
     m_IOmapping[input].controller = controller;
 }
 
@@ -269,12 +269,6 @@ QString ArtNetPlugin::inputInfo(quint32 input)
     str += QString("</HTML>");
 
     return str;
-}
-
-void ArtNetPlugin::slotInputValueChanged(quint32 input, int channel, uchar value)
-{
-    qDebug() << "Sending input:" << input << ", channel:" << channel << ", value:" << value;
-    emit valueChanged(input, (quint32)channel, value);
 }
 
 /*********************************************************************

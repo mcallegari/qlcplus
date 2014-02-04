@@ -185,13 +185,27 @@ void ArtNetController::processPendingPackets()
                             m_packetReceived++;
                             if (m_packetizer->fillDMXdata(datagram, dmxData, universe) == true)
                             {
-                                for (int i = 0; i < dmxData.length(); i++)
+                                quint32 uniAddr = universe * 512;
+                                //quint32 emitStartAddr = UINT_MAX;
+                                for (quint32 i = 0; i < (quint32)dmxData.length(); i++)
                                 {
-                                    if (m_dmxValues.at(i + (universe * 512)) != dmxData.at(i))
+                                    if (m_dmxValues.at(uniAddr + i) != dmxData.at(i))
                                     {
-                                        m_dmxValues[i + (universe * 512)] =  dmxData[i];
+                                        m_dmxValues[uniAddr + i] =  dmxData[i];
+                                        //if (emitStartAddr == UINT_MAX)
+                                        //    emitStartAddr = (quint32)i;
                                         emit valueChanged(universe, i, (uchar)dmxData.at(i));
                                     }
+                                    /*
+                                    else
+                                    {
+                                        if (emitStartAddr != UINT_MAX)
+                                        {
+                                            // SIGNAL is: void valuesChanged(quint32 input, quint32 startChannel, QByteArray &values);
+                                            emit valuesChanged(universe, emitStartAddr, m_dmxValues.mid(emitStartAddr, i - emitStartAddr));
+                                        }
+                                    }
+                                    */
                                 }
                             }
                         }

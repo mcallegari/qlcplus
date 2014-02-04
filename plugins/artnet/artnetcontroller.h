@@ -91,7 +91,7 @@ private:
     QHash<QHostAddress, ArtNetNodeInfo> m_nodesList;
 
     /** Keeps the current dmx values to send only the ones that changed */
-    /** It holds values for a whole 4 universes address (512 * 4) */
+    /** It holds values for all the handled universes (512 * n) */
     QByteArray m_dmxValues;
 
 private slots:
@@ -99,7 +99,7 @@ private slots:
     void processPendingPackets();
 
 signals:
-    void valueChanged(quint32 input, int channel, uchar value);
+    void valueChanged(quint32 input, quint32 channel, uchar value);
 };
 
 #endif
