@@ -4,6 +4,7 @@ TEMPLATE = subdirs
 TARGET = fixtures
 
 fixtures.files += FixturesMap.xml
+fixtures.files += AGPtek-RGB-6ch-crystal-ball.qxf
 fixtures.files += American-DJ-64B-LED-PRO.qxf
 fixtures.files += American-DJ-Accu-Spot-250-II.qxf
 fixtures.files += American-DJ-Accu-Spot-Pro.qxf
@@ -38,6 +39,7 @@ fixtures.files += American-DJ-Revo-4-256.qxf
 fixtures.files += American-DJ-Spherion-Tri-LED.qxf
 fixtures.files += American-DJ-Sweeper-Beam-Quad-LED.qxf
 fixtures.files += American-DJ-TRI64-Profile.qxf
+fixtures.files += American-DJ-Tribar-Spot2.qxf
 fixtures.files += American-DJ-Ultra-Bar-12.qxf
 fixtures.files += American-DJ-Ultra-Bar-6.qxf
 fixtures.files += American-DJ-Ultra-Bar-9.qxf

@@ -9,6 +9,8 @@ qlcplus (4.7.0) stable; urgency=low
   * Documentation: Added Sound Control tutorial (Jano Svitok)
   * Added input profile: BCF2000 in Mackie Control mode - all buttons are usable (Jano Svitok)
   * Added fixtures: DTS Max FAR, DTS Nick NRG1201 (thanks to Vasily Leushin)
+  * Added fixture: AGPtek RGB 6ch Crystal Ball (thanks to Davey Daytona)
+  * Added fixture: American DJ Tribar Spot2 (thanks to Rob Goudriaan)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 15 February 2014 12:13:14 +0200
 
