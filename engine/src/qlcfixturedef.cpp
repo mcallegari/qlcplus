@@ -361,7 +361,7 @@ QFile::FileError QLCFixtureDef::loadXML(const QString& fileName)
 
     if (doc.doctype().name() == KXMLQLCFixtureDefDocument)
     {
-        qDebug() << Q_FUNC_INFO << "Loading " << fileName;
+        // qDebug() << Q_FUNC_INFO << "Loading " << fileName;
         if (loadXML(doc) == true)
             error = QFile::NoError;
         else
