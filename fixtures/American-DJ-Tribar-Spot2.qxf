@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.6.1</Version>
@@ -267,7 +268,7 @@
  <Mode Name="3 Channel DMX Mode">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="800" Height="230" Weight="4,9" Depth="90"/>
+   <Dimensions Width="800" Height="230" Weight="4.9" Depth="90"/>
    <Lens DegreesMax="12" Name="Other" DegreesMin="12"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
@@ -279,7 +280,7 @@
  <Mode Name="5 Channel DMX Mode">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="800" Height="230" Weight="4,9" Depth="90"/>
+   <Dimensions Width="800" Height="230" Weight="4.9" Depth="90"/>
    <Lens DegreesMax="12" Name="Other" DegreesMin="12"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
@@ -293,7 +294,7 @@
  <Mode Name="6 Channel DMX Mode">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="800" Height="230" Weight="4,9" Depth="90"/>
+   <Dimensions Width="800" Height="230" Weight="4.9" Depth="90"/>
    <Lens DegreesMax="12" Name="Other" DegreesMin="12"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
@@ -308,7 +309,7 @@
  <Mode Name="8 Channel DMX Mode">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="800" Height="230" Weight="4,9" Depth="90"/>
+   <Dimensions Width="800" Height="230" Weight="4.9" Depth="90"/>
    <Lens DegreesMax="12" Name="Other" DegreesMin="12"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
@@ -325,7 +326,7 @@
  <Mode Name="8 Channek DMX Mode 2">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="800" Height="230" Weight="4,9" Depth="90"/>
+   <Dimensions Width="800" Height="230" Weight="4.9" Depth="90"/>
    <Lens DegreesMax="12" Name="Other" DegreesMin="12"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
@@ -352,7 +353,7 @@
  <Mode Name="11 Channel DMX Mode">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="800" Height="230" Weight="4,9" Depth="90"/>
+   <Dimensions Width="800" Height="230" Weight="4.9" Depth="90"/>
    <Lens DegreesMax="12" Name="Other" DegreesMin="12"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
@@ -387,7 +388,7 @@
  <Mode Name="20 Channel DMX Mode">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="800" Height="230" Weight="4,9" Depth="90"/>
+   <Dimensions Width="800" Height="230" Weight="4.9" Depth="90"/>
    <Lens DegreesMax="12" Name="Other" DegreesMin="12"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
