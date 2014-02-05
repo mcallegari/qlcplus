@@ -90,8 +90,12 @@ void MonitorFixtureItem::setSize(QSize size)
         int xpos = (cellWidth - headDiam) / 2;
         for (int j = 0; j < columns; j++)
         {
-            QGraphicsEllipseItem *head = m_heads.at((i * j) + j).m_item;
-            head->setRect(xpos, ypos, headDiam, headDiam);
+            int index = i * columns + j;
+            if (index < m_heads.size())
+            {
+                QGraphicsEllipseItem *head = m_heads.at(index).m_item;
+                head->setRect(xpos, ypos, headDiam, headDiam);
+            }
             xpos += cellWidth;
         }
         ypos += cellHeight;

@@ -73,9 +73,16 @@ void MonitorGraphicsView::updateFixture(quint32 id)
         return;
 
     const QLCFixtureMode *mode = fxi->fixtureMode();
-    int width = mode->physical().width();
+    int width = 0;
+    int height = 0;
+
+    if (mode != 0)
+    {
+        width = mode->physical().width();
+        height = mode->physical().height();
+    }
+
     if (width == 0) width = 300;
-    int height = mode->physical().height();
     if (height == 0) height = 300;
 
     MonitorFixtureItem *item = m_fixtures[id];
@@ -99,7 +106,9 @@ void MonitorGraphicsView::writeUniverse(int index, const QByteArray &ua)
         if (fxi == NULL ||
             fxi->universe() != (quint32)index ||
             fxi->address() > (quint32)ua.size())
-                continue;
+        {
+            continue;
+        }
 
         MonitorFixtureItem *item = it.value();
         item->updateValues(ua);
