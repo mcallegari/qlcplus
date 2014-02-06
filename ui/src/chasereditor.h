@@ -115,6 +115,8 @@ private slots:
     void slotFadeOutToggled();
     void slotDurationToggled();
 
+    void slotDialDestroyed(QObject* dial);
+
 private:
     void createSpeedDials();
     void updateSpeedDials();
