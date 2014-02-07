@@ -216,6 +216,7 @@ void RGBMatrixEditor::updateSpeedDials()
         return;
 
     m_speedDials = new SpeedDialWidget(this);
+    m_speedDials->setAttribute(Qt::WA_DeleteOnClose);
     m_speedDials->setWindowTitle(m_matrix->name());
     m_speedDials->show();
     m_speedDials->setFadeInSpeed(m_matrix->fadeInSpeed());
@@ -228,6 +229,7 @@ void RGBMatrixEditor::updateSpeedDials()
     connect(m_speedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotFadeOutChanged(int)));
     connect(m_speedDials, SIGNAL(holdChanged(int)), this, SLOT(slotHoldChanged(int)));
     connect(m_speedDials, SIGNAL(durationTapped()), this, SLOT(slotDurationTapped()));
+    connect(m_speedDials, SIGNAL(destroyed(QObject*)), this, SLOT(slotDialDestroyed(QObject*)));
 }
 
 void RGBMatrixEditor::fillPatternCombo()
@@ -471,6 +473,11 @@ void RGBMatrixEditor::slotSpeedDialToggle(bool state)
             delete m_speedDials;
         m_speedDials = NULL;
     }
+}
+
+void RGBMatrixEditor::slotDialDestroyed(QObject *)
+{
+    m_speedDialButton->setChecked(false);
 }
 
 void RGBMatrixEditor::slotPatternActivated(const QString& text)

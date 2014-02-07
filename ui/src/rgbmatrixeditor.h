@@ -95,6 +95,7 @@ private slots:
     void slotFadeOutChanged(int ms);
     void slotHoldChanged(int ms);
     void slotDurationTapped();
+    void slotDialDestroyed(QObject* dial);
 
     void slotTestClicked();
     void slotRestartTest();
