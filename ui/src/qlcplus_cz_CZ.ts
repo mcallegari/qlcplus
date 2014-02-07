@@ -261,67 +261,72 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="84"/>
+        <location filename="addrgbpanel.ui" line="79"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;CHYBA: Tato adresa je již použita u jiného zařízení&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="91"/>
         <source>Size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="98"/>
+        <location filename="addrgbpanel.ui" line="105"/>
         <source>Columns:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="105"/>
+        <location filename="addrgbpanel.ui" line="112"/>
         <source>Rows:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="112"/>
+        <location filename="addrgbpanel.ui" line="119"/>
         <source>Total pixels:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="139"/>
+        <location filename="addrgbpanel.ui" line="146"/>
         <source>100</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="151"/>
+        <location filename="addrgbpanel.ui" line="158"/>
         <source>Orientation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="157"/>
+        <location filename="addrgbpanel.ui" line="164"/>
         <source>Top-Right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="164"/>
+        <location filename="addrgbpanel.ui" line="171"/>
         <source>Top-Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="174"/>
+        <location filename="addrgbpanel.ui" line="181"/>
         <source>Bottom-Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="181"/>
+        <location filename="addrgbpanel.ui" line="188"/>
         <source>Bottom-Right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="191"/>
+        <location filename="addrgbpanel.ui" line="198"/>
         <source>Displacement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="197"/>
+        <location filename="addrgbpanel.ui" line="204"/>
         <source>Snake</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="207"/>
+        <location filename="addrgbpanel.ui" line="214"/>
         <source>Zig Zag</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1228,19 +1233,19 @@ Délka: %3
     </message>
     <message>
         <location filename="chasereditor.ui" line="70"/>
-        <location filename="chasereditor.cpp" line="803"/>
+        <location filename="chasereditor.cpp" line="810"/>
         <source>Fade In</source>
         <translation>Zesílení</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="75"/>
-        <location filename="chasereditor.cpp" line="805"/>
+        <location filename="chasereditor.cpp" line="812"/>
         <source>Hold</source>
         <translation>Podržet</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="80"/>
-        <location filename="chasereditor.cpp" line="804"/>
+        <location filename="chasereditor.cpp" line="811"/>
         <source>Fade Out</source>
         <translation>Zeslabení</translation>
     </message>
@@ -1478,22 +1483,22 @@ Délka: %3
         <translation>Pokoušíte se vložit nekompatibilní Scénu. Operace byla zrušena.</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="806"/>
+        <location filename="chasereditor.cpp" line="813"/>
         <source>Common Fade In</source>
         <translation>Společné zesílení</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="807"/>
+        <location filename="chasereditor.cpp" line="814"/>
         <source>Common Fade Out</source>
         <translation>Společné zeslabení</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="808"/>
+        <location filename="chasereditor.cpp" line="815"/>
         <source>Common Hold</source>
         <translation>Společné pozastavení</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="824"/>
+        <location filename="chasereditor.cpp" line="831"/>
         <source>Multiple Steps</source>
         <translation>Kroky</translation>
     </message>
@@ -1705,259 +1710,269 @@ Délka: %3
         <translation>Editor EFX </translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="27"/>
+        <location filename="efxeditor.ui" line="34"/>
         <source>General</source>
         <translation>Obecné</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="39"/>
+        <location filename="efxeditor.ui" line="644"/>
         <source>EFX name</source>
         <translation>Název EFX</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="46"/>
+        <location filename="efxeditor.ui" line="20"/>
         <source>The name of the function being edited</source>
         <translation>Název funkce k editaci</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="78"/>
+        <location filename="efxeditor.ui" line="195"/>
         <source>Step</source>
         <translation>Krok</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="83"/>
+        <location filename="efxeditor.ui" line="200"/>
         <source>Fixture</source>
         <translation>Zařízení</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="88"/>
+        <location filename="efxeditor.ui" line="205"/>
         <source>Reverse</source>
         <translation>Zrcadlově</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="93"/>
-        <location filename="efxeditor.ui" line="521"/>
+        <location filename="efxeditor.ui" line="210"/>
+        <location filename="efxeditor.ui" line="508"/>
         <source>Start Offset</source>
         <translation>Posunutí počátku</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="98"/>
+        <location filename="efxeditor.ui" line="215"/>
         <source>Intensity</source>
         <translation>Intenzita</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="194"/>
+        <location filename="efxeditor.ui" line="121"/>
         <source>Fixture order</source>
         <translation>Způsob řízení zařízení</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="200"/>
+        <location filename="efxeditor.ui" line="127"/>
         <source>All fixtures move in parallel</source>
         <translation>Všechna zařízení se pohybují praralelně</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="203"/>
+        <location filename="efxeditor.ui" line="130"/>
         <source>Parallel</source>
         <translation>Paralelně</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="213"/>
+        <location filename="efxeditor.ui" line="140"/>
         <source>The pattern propagates to each fixture in a sequential order</source>
         <translation>Vzor se propaguje do každého zařízení dle pořadí</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="216"/>
+        <location filename="efxeditor.ui" line="143"/>
         <source>Serial</source>
         <translation>Sériově</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="223"/>
+        <location filename="efxeditor.ui" line="150"/>
         <source>Each fixture starts moving immediately with an offset</source>
         <translation>Každé zařízení se začne pohybovat s návazností na posunutí počátku</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="226"/>
+        <location filename="efxeditor.ui" line="153"/>
         <source>Asymmetric</source>
         <translation>Asymetricky</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="237"/>
+        <location filename="efxeditor.ui" line="224"/>
         <source>Movement</source>
         <translation>Pohyb</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="265"/>
+        <location filename="efxeditor.ui" line="252"/>
         <source>Pattern</source>
         <translation>Vzor</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="271"/>
+        <location filename="efxeditor.ui" line="258"/>
         <source>Pattern for moving the mirror/head</source>
         <translation>Vzor pro pohyb zrcada/hlavy</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="281"/>
+        <location filename="efxeditor.ui" line="268"/>
         <source>Parameters</source>
         <translation>Parametry</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="310"/>
+        <location filename="efxeditor.ui" line="297"/>
         <source>Width</source>
         <translation>Šířka</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="317"/>
+        <location filename="efxeditor.ui" line="304"/>
         <source>Value width of the pattern</source>
         <translation>Šířka vzoru</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="330"/>
+        <location filename="efxeditor.ui" line="317"/>
         <source>Height</source>
         <translation>Výška</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="337"/>
+        <location filename="efxeditor.ui" line="324"/>
         <source>Value height of the pattern</source>
         <translation>Výška vzoru</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="350"/>
+        <location filename="efxeditor.ui" line="337"/>
         <source>X offset</source>
         <translation>Posunutí osy X</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="357"/>
+        <location filename="efxeditor.ui" line="344"/>
         <source>Pattern&apos;s center point on the X axis</source>
         <translation>Středový bod vzoru na ose X</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="370"/>
+        <location filename="efxeditor.ui" line="357"/>
         <source>Y offset</source>
         <translation>Posunutí osy Y</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="377"/>
+        <location filename="efxeditor.ui" line="364"/>
         <source>Pattern&apos;s center point on the Y axis</source>
         <translation>Středový bod vzoru na ose Y</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="390"/>
+        <location filename="efxeditor.ui" line="377"/>
         <source>Rotation</source>
         <translation>Rotace</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="397"/>
+        <location filename="efxeditor.ui" line="384"/>
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>Počáteční bod rozace vzoru</translation>
     </message>
     <message utf8="true">
-        <location filename="efxeditor.ui" line="400"/>
-        <location filename="efxeditor.ui" line="511"/>
+        <location filename="efxeditor.ui" line="387"/>
+        <location filename="efxeditor.ui" line="498"/>
         <source>°</source>
         <translation>°</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="413"/>
+        <location filename="efxeditor.ui" line="400"/>
         <source>X frequency</source>
         <translation>Frekvence osy X</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="423"/>
+        <location filename="efxeditor.ui" line="410"/>
         <source>Lissajous pattern&apos;s X frequency</source>
         <translation>Frekvence oscilace osy X pro Lissajousovy křivky</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="439"/>
+        <location filename="efxeditor.ui" line="426"/>
         <source>Y frequency</source>
         <translation>Frekvence osy Y</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="449"/>
+        <location filename="efxeditor.ui" line="436"/>
         <source>Lissajous pattern&apos;s Y frequency</source>
         <translation>Frekvence oscilace osy Y pro Lissajousovy křivky</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="465"/>
+        <location filename="efxeditor.ui" line="452"/>
         <source>X phase</source>
         <translation>Fáze osy X</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="488"/>
+        <location filename="efxeditor.ui" line="475"/>
         <source>Lissajous pattern&apos;s X phase</source>
         <translation>Fáze oscilace osy X pro Lissajousovy křivky</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="504"/>
+        <location filename="efxeditor.ui" line="491"/>
         <source>Y phase</source>
         <translation>Fáze osy Y</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="290"/>
+        <location filename="efxeditor.ui" line="664"/>
+        <source>Show/Hide speed dial window</source>
+        <translation type="unfinished">Zobrazit/Skrýt okno rychlé volby</translation>
+    </message>
+    <message>
+        <location filename="efxeditor.ui" line="667"/>
+        <source>...</source>
+        <translation type="unfinished">...</translation>
+    </message>
+    <message>
+        <location filename="efxeditor.ui" line="277"/>
         <source>Lissajous pattern&apos;s Y phase</source>
         <translation>Fáze oscilace osy Y pro Lissajousovy křivky</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="531"/>
+        <location filename="efxeditor.ui" line="518"/>
         <source>Relative</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="541"/>
+        <location filename="efxeditor.ui" line="528"/>
         <source>Direction</source>
         <translation>Směr</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="547"/>
+        <location filename="efxeditor.ui" line="534"/>
         <source>Run the pattern forwards</source>
         <translation>Vzor běží dopředu</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="550"/>
+        <location filename="efxeditor.ui" line="537"/>
         <source>Forward</source>
         <translation>Dopředu</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="560"/>
+        <location filename="efxeditor.ui" line="547"/>
         <source>Run the pattern backwards</source>
         <translation>Vzor běží pozadu</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="563"/>
+        <location filename="efxeditor.ui" line="550"/>
         <source>Backward</source>
         <translation>Pozadu</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="589"/>
+        <location filename="efxeditor.ui" line="576"/>
         <source>Run order</source>
         <translation>Režim běhu</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="595"/>
+        <location filename="efxeditor.ui" line="582"/>
         <source>Run through over and over again</source>
         <translation>Běží v nekonečné smičce</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="598"/>
+        <location filename="efxeditor.ui" line="585"/>
         <source>Loop</source>
         <translation>Smyčka</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="608"/>
+        <location filename="efxeditor.ui" line="595"/>
         <source>Run through once and stop</source>
         <translation>Jednou proběhne a ukončí se</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="611"/>
+        <location filename="efxeditor.ui" line="598"/>
         <source>Single shot</source>
         <translation>Jednorázově</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="618"/>
+        <location filename="efxeditor.ui" line="605"/>
         <source>First run forwards, then backwards, again forwards, etc...</source>
         <translation>Nejprve jede dopředu, pak zpět a opět dopředu, atp...</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="621"/>
+        <location filename="efxeditor.ui" line="608"/>
         <source>Ping pong</source>
         <translation>Kyvadlo</translation>
     </message>
@@ -1972,12 +1987,12 @@ Délka: %3
         <translation>O&amp;testovat běh</translation>
     </message>
     <message>
-        <location filename="efxeditor.cpp" line="644"/>
+        <location filename="efxeditor.cpp" line="677"/>
         <source>Remove fixtures</source>
         <translation>Odebrat zařízení</translation>
     </message>
     <message>
-        <location filename="efxeditor.cpp" line="645"/>
+        <location filename="efxeditor.cpp" line="678"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Opravdu si přejete odebrat označená zařízení? </translation>
     </message>
@@ -2185,77 +2200,77 @@ Délka: %3
         <translation>Obecný stmívač</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1157"/>
+        <location filename="fixturemanager.cpp" line="1158"/>
         <source>%1 - Row %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1208"/>
+        <location filename="fixturemanager.cpp" line="1220"/>
         <source>Delete Fixtures</source>
         <translation>Smazat zařízení</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1209"/>
+        <location filename="fixturemanager.cpp" line="1221"/>
         <source>Do you want to delete the selected items?</source>
         <translation>Opravdu si přejete SMAZAT zvolené položky? </translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1254"/>
+        <location filename="fixturemanager.cpp" line="1266"/>
         <source>Delete Channels Group</source>
         <translation>Smazat skupinu kanálů</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1255"/>
+        <location filename="fixturemanager.cpp" line="1267"/>
         <source>Do you want to delete the selected groups?</source>
         <translation>Opravdu si přejete SMAZAT zvolené skupiny? </translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1320"/>
+        <location filename="fixturemanager.cpp" line="1332"/>
         <source>Change fixture properties</source>
         <translation>Změnit parametry zařízení</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1357"/>
+        <location filename="fixturemanager.cpp" line="1369"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1358"/>
+        <location filename="fixturemanager.cpp" line="1370"/>
         <source>Please enter a valid address</source>
         <translation>Prosím zadejte platnou adresu</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1434"/>
+        <location filename="fixturemanager.cpp" line="1446"/>
         <source>Ungroup fixtures?</source>
         <translation>Oddělit zařízení ze skupiny?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1435"/>
+        <location filename="fixturemanager.cpp" line="1447"/>
         <source>Do you want to ungroup the selected fixtures?</source>
         <translation>Opravdu si přejete oddělit zvolená zařízení ze skupiny?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1550"/>
+        <location filename="fixturemanager.cpp" line="1562"/>
         <source>Import Fixtures List</source>
         <translation>Importovat seznam zařízení</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1555"/>
+        <location filename="fixturemanager.cpp" line="1567"/>
         <source>Export Fixtures List As</source>
         <translation>Exportovat seznam zařízení jako</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1561"/>
+        <location filename="fixturemanager.cpp" line="1573"/>
         <source>Fixtures List (*%1)</source>
         <translation>Seznam zařízení (*%1)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1563"/>
+        <location filename="fixturemanager.cpp" line="1575"/>
         <source>All Files (*.*)</source>
         <translation>Všechny soubory (*.*)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1565"/>
+        <location filename="fixturemanager.cpp" line="1577"/>
         <source>All Files (*)</source>
         <translation>Všechny soubory (*)</translation>
     </message>
@@ -2974,24 +2989,24 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="224"/>
-        <location filename="inputoutputmanager.cpp" line="387"/>
+        <location filename="inputoutputmanager.cpp" line="227"/>
+        <location filename="inputoutputmanager.cpp" line="390"/>
         <source>Universe %1</source>
         <translation type="unfinished">Větev %1</translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="345"/>
-        <location filename="inputoutputmanager.cpp" line="364"/>
+        <location filename="inputoutputmanager.cpp" line="348"/>
+        <location filename="inputoutputmanager.cpp" line="367"/>
         <source>Delete Universe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="346"/>
+        <location filename="inputoutputmanager.cpp" line="349"/>
         <source>The universe you are trying to delete is patched. Are you sure you want to delete it ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="365"/>
+        <location filename="inputoutputmanager.cpp" line="368"/>
         <source>There are some fixtures using the universe you are trying to delete. Are you sure you want to delete it ?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3291,88 +3306,123 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
 <context>
     <name>Monitor</name>
     <message>
-        <location filename="monitor.cpp" line="174"/>
+        <location filename="monitor.cpp" line="190"/>
         <source>Fixture Monitor</source>
         <translation>Sledování zařízení</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="221"/>
+        <location filename="monitor.cpp" line="222"/>
+        <source>2D View</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="monitor.cpp" line="229"/>
         <source>Font</source>
         <translation>Styl písma</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="230"/>
+        <location filename="monitor.cpp" line="238"/>
         <source>DMX Channels</source>
         <translation>DMX kanály</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="231"/>
+        <location filename="monitor.cpp" line="239"/>
         <source>Show absolute DMX channel numbers</source>
         <translation>Zobrazit absolutní číslo DMX kanálu</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="241"/>
+        <location filename="monitor.cpp" line="249"/>
         <source>Relative Channels</source>
         <translation>Relativní kanály</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="242"/>
+        <location filename="monitor.cpp" line="250"/>
         <source>Show channel numbers relative to fixture</source>
         <translation>Zobrazit číslo kanálu relativně k zařízení</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="258"/>
+        <location filename="monitor.cpp" line="266"/>
         <source>DMX Values</source>
         <translation>DMX hodnoty</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="259"/>
+        <location filename="monitor.cpp" line="267"/>
         <source>Show DMX values 0-255</source>
         <translation>Zobrazit hodnoty DMX 0-255</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="270"/>
+        <location filename="monitor.cpp" line="278"/>
         <source>Percent Values</source>
         <translation>Procentuální hodnoty</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="271"/>
+        <location filename="monitor.cpp" line="279"/>
         <source>Show percentage values 0-100%</source>
         <translation>Zobrazit procentuální hodnoty 0-100%</translation>
+    </message>
+    <message>
+        <location filename="monitor.cpp" line="300"/>
+        <source>DMX View</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="monitor.cpp" line="306"/>
+        <source>Size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="monitor.cpp" line="330"/>
+        <source>Meters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="monitor.cpp" line="331"/>
+        <source>Feet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="monitor.cpp" line="340"/>
+        <source>Add fixture</source>
+        <translation type="unfinished">Přidat zařízení</translation>
+    </message>
+    <message>
+        <location filename="monitor.cpp" line="342"/>
+        <source>Remove fixture</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>MultiTrackView</name>
     <message>
-        <location filename="multitrackview.cpp" line="261"/>
+        <location filename="multitrackview.cpp" line="262"/>
         <source>Do you want to DELETE sequence:</source>
         <translation>Opravdu si přejete SMAZAT sekvenci: </translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="264"/>
-        <location filename="multitrackview.cpp" line="284"/>
-        <location filename="multitrackview.cpp" line="318"/>
+        <location filename="multitrackview.cpp" line="265"/>
+        <location filename="multitrackview.cpp" line="285"/>
+        <location filename="multitrackview.cpp" line="319"/>
         <source>Delete Functions</source>
         <translation>Smazat funkce</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="280"/>
+        <location filename="multitrackview.cpp" line="281"/>
         <source>Do you want to DELETE audio (the source file will NOT be removed):</source>
         <translation>Přejete si SMAZAT zvuk (zdrojový soubor NEBUDE odebrán):</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="305"/>
+        <location filename="multitrackview.cpp" line="306"/>
         <source>Do you want to DELETE scene:</source>
         <translation>Opravdu si přejete si SMAZAT scénu:</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="308"/>
+        <location filename="multitrackview.cpp" line="309"/>
         <source>This operation will also DELETE:</source>
         <translation>Tato operace také VYMAŽE:</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="404"/>
-        <location filename="multitrackview.cpp" line="414"/>
+        <location filename="multitrackview.cpp" line="405"/>
+        <location filename="multitrackview.cpp" line="415"/>
         <source>Name: %1
 Start time: %2
 Duration: %3
@@ -3383,12 +3433,12 @@ Délka: %3
 %4</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="408"/>
+        <location filename="multitrackview.cpp" line="409"/>
         <source>Click to move this sequence across the timeline</source>
         <translation>Klikněte pro přesunutí této sekvence na časové ose</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="418"/>
+        <location filename="multitrackview.cpp" line="419"/>
         <source>Click to move this audio across the timeline</source>
         <translation>Klikněte pro přesunutí tohoto zvuku na časové ose</translation>
     </message>
@@ -3822,17 +3872,17 @@ Délka: %3
         <translation>Otestovat běh</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="247"/>
+        <location filename="rgbmatrixeditor.cpp" line="249"/>
         <source>None</source>
         <translation>Nic</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="323"/>
+        <location filename="rgbmatrixeditor.cpp" line="325"/>
         <source>No fixture group to control</source>
         <translation>Žádná skupina zařízení k ovládání</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="589"/>
+        <location filename="rgbmatrixeditor.cpp" line="596"/>
         <source>Select image</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3976,24 +4026,24 @@ Délka: %3
         <translation>Všechna zařízení</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="943"/>
-        <location filename="sceneeditor.cpp" line="944"/>
+        <location filename="sceneeditor.cpp" line="948"/>
+        <location filename="sceneeditor.cpp" line="949"/>
         <source>Generic</source>
         <translation>Obecný</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1012"/>
+        <location filename="sceneeditor.cpp" line="1017"/>
         <source>Remove fixtures</source>
         <translation>Odebrat zařízení</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1013"/>
+        <location filename="sceneeditor.cpp" line="1018"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Opravdu si přejete odebrat označená zařízení? </translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1164"/>
-        <location filename="sceneeditor.cpp" line="1165"/>
+        <location filename="sceneeditor.cpp" line="1169"/>
+        <location filename="sceneeditor.cpp" line="1170"/>
         <source>Channels Groups</source>
         <translation>Skupiny kanálů</translation>
     </message>

@@ -136,7 +136,7 @@ void E131Controller::processPendingPackets()
                     m_packetReceived++;
                     if (m_packetizer->fillDMXdata(datagram, dmxData, universe) == true)
                     {
-                        quint32 uniAddr = universe * 512;
+                        quint32 uniAddr = universe << 9;
                         for (quint32 i = 0; i < (quint32)dmxData.length(); i++)
                         {
                             if (m_dmxValues.at(uniAddr + i) != dmxData.at(i))

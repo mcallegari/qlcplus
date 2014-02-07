@@ -6,6 +6,7 @@ qlcplus (4.7.0) stable; urgency=low
   * NEW: Monitor: preliminary support of 2D preview
   * Function Selection: fixed Collection selection
   * MIDI plugin: Linux support for pitch wheel and note/channel aftertouch (Jano Svitok)
+  * MIDI plugin: improved pitch wheel and input/output settings (Robert Scheffler)
   * Documentation: Added Sound Control tutorial (Jano Svitok)
   * Added input profile: BCF2000 in Mackie Control mode - all buttons are usable (Jano Svitok)
   * Added fixtures: DTS Max FAR, DTS Nick NRG1201 (thanks to Vasily Leushin)

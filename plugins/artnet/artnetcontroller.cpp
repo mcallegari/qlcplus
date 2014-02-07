@@ -185,7 +185,7 @@ void ArtNetController::processPendingPackets()
                             m_packetReceived++;
                             if (m_packetizer->fillDMXdata(datagram, dmxData, universe) == true)
                             {
-                                quint32 uniAddr = universe * 512;
+                                quint32 uniAddr = universe << 9;
                                 //quint32 emitStartAddr = UINT_MAX;
                                 for (quint32 i = 0; i < (quint32)dmxData.length(); i++)
                                 {
