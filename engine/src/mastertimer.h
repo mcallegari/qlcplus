@@ -151,6 +151,7 @@ private:
      * always lock m_functionListMutex first!
      */
     QMutex m_dmxSourceListMutex;
+    bool m_simpleDeskRegistered;
 
     /*************************************************************************
      * Generic Fader

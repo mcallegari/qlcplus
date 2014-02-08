@@ -43,7 +43,7 @@ void Universe_Test::cleanup()
 
 void Universe_Test::initial()
 {
-    QCOMPARE(m_uni->name(), QString());
+    QCOMPARE(m_uni->name(), QString("Universe 1"));
     QCOMPARE(m_uni->id(), quint32(0));
     QCOMPARE(m_uni->usedChannels(), short(0));
     QCOMPARE(m_uni->hasChanged(), false);

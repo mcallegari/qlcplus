@@ -74,6 +74,7 @@ void QLCFile_Test::getXMLHeader()
     QCOMPARE(doc.doctype().name(), QString("Settings"));
 
     QDomNode node(doc.firstChild());
+    node = node.nextSibling();
     QCOMPARE(node.toElement().tagName(), QString("Settings"));
     node = node.firstChild();
     QCOMPARE(node.toElement().tagName(), QString("Creator"));

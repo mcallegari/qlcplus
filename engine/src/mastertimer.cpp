@@ -50,6 +50,7 @@ uint MasterTimer::s_tick = 20;
 MasterTimer::MasterTimer(Doc* doc)
     : QObject(doc)
     , m_stopAllFunctions(false)
+    , m_simpleDeskRegistered(false)
     , m_fader(new GenericFader(doc))
     , d_ptr(new MasterTimerPrivate(this))
 {
@@ -289,9 +290,17 @@ void MasterTimer::registerDMXSource(DMXSource* source, QString name)
     if (m_dmxSourceList.contains(source) == false)
     {
         if (name == "SimpleDesk")
+        {
             m_dmxSourceList.append(source);
+            m_simpleDeskRegistered = true;
+        }
         else
-            m_dmxSourceList.insert(m_dmxSourceList.count() - 1, source);
+        {
+            if (m_simpleDeskRegistered == true)
+                m_dmxSourceList.insert(m_dmxSourceList.count() - 1, source);
+            else
+                m_dmxSourceList.append(source);
+        }
     }
 }
 
