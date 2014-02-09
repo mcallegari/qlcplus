@@ -546,6 +546,8 @@ void CueStack_Test::flash()
 
     QList<Universe*> ua;
     ua.append(new Universe(0, new GrandMaster()));
+    ua.at(0)->setChannelCapability(0, QLCChannel::Intensity);
+    ua.at(0)->setChannelCapability(128, QLCChannel::Intensity);
     cs.setFlashing(true);
     QCOMPARE(m_doc->masterTimer()->m_dmxSourceList.size(), 1);
     QCOMPARE(cs.isFlashing(), true);
@@ -627,6 +629,7 @@ void CueStack_Test::insertStartValue()
 {
     QList<Universe*> ua;
     ua.append(new Universe(0, new GrandMaster()));
+    ua.at(0)->setChannelCapability(0, QLCChannel::Pan);
     CueStack cs(m_doc);
     cs.preRun();
 
@@ -648,8 +651,8 @@ void CueStack_Test::insertStartValue()
     // HTP channel in universes
     ua[0]->write(0, 192);
     cs.insertStartValue(fc, ua);
-    QCOMPARE(fc.start(), uchar(0));
-    QCOMPARE(fc.current(), uchar(0));
+    QCOMPARE(fc.start(), uchar(127));
+    QCOMPARE(fc.current(), uchar(127));
 
     QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
@@ -667,8 +670,8 @@ void CueStack_Test::insertStartValue()
     // LTP channel (Pan) in universes
     ua[0]->write(0, 192);
     cs.insertStartValue(fc, ua);
-    QCOMPARE(fc.start(), uchar(192));
-    QCOMPARE(fc.current(), uchar(192));
+    QCOMPARE(fc.start(), uchar(127));
+    QCOMPARE(fc.current(), uchar(127));
 
     MasterTimer mt(m_doc);
     cs.postRun(&mt);

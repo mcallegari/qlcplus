@@ -89,7 +89,8 @@ void GenericFader::write(QList<Universe*> ua)
         if (grp == QLCChannel::Intensity && canFade == true)
             value = fc.current(intensity());
 
-        ua[universe]->write(addr, value);
+        if (universe != Universe::invalid())
+            ua[universe]->write(addr, value);
 
         if (grp == QLCChannel::Intensity)
         {
