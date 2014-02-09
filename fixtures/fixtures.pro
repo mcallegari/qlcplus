@@ -180,6 +180,7 @@ fixtures.files += High-End-Systems-Trackspot.qxf
 fixtures.files += High-End-Systems-Xspot-Xtreme.qxf
 fixtures.files += HQ-Power-Power-Space-250.qxf
 fixtures.files += i-Pix-BB4.qxf
+fixtures.files += iSolution-5-Series.qxf
 fixtures.files += JB-Lighting-Varyscan-2.qxf
 fixtures.files += JB-Lighting-Varyscan-3-Special.qxf
 fixtures.files += JB-Lighting-Varyscan-3-SpecialPlus.qxf

@@ -12,6 +12,7 @@ qlcplus (4.7.0) stable; urgency=low
   * Added fixtures: DTS Max FAR, DTS Nick NRG1201 (thanks to Vasily Leushin)
   * Added fixture: AGPtek RGB 6ch Crystal Ball (thanks to Davey Daytona)
   * Added fixture: American DJ Tribar Spot2 (thanks to Rob Goudriaan)
+  * Added fixture: iSolution iMove 5 Series (thanks to Dave Doyle)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 15 February 2014 12:13:14 +0200
 
