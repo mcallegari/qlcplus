@@ -216,6 +216,10 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
         {
             widgetList << new DMX4ALL(serial, name, vendor, NULL, id++);
         }
+        else if (name.toUpper().contains("USB-DMX512 CONVERTER") == true)
+        {
+            qDebug() << Q_FUNC_INFO << name << "not supported with QtSerialPort yet";
+        }
         else
         {
             /* This is probably an Open DMX USB widget */

@@ -64,6 +64,8 @@ HEADERS += dmxusb.h \
            enttecdmxusbopen.h \
            ultradmxusbprotx.h \
            dmx4all.h \
+           vinceusbdmx512.h \
+           vinceusbdmx512tx.h \
            qlcftdi.h
 
 SOURCES += dmxusb.cpp \
@@ -74,7 +76,9 @@ SOURCES += dmxusb.cpp \
            enttecdmxusbprotx.cpp \
            enttecdmxusbopen.cpp \
            dmx4all.cpp \
-           ultradmxusbprotx.cpp
+           ultradmxusbprotx.cpp \
+           vinceusbdmx512.cpp \
+           vinceusbdmx512tx.cpp
 
 serialport {
     SOURCES += qlcftdi-qtserial.cpp
