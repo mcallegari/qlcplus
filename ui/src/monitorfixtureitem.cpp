@@ -80,10 +80,13 @@ void MonitorFixtureItem::setSize(QSize size)
     int columns = (m_width / headSide) + 0.5;
     int rows = (m_height / headSide) + 0.5;
 
+    if (columns > m_heads.count())
+        columns = m_heads.count();
+
     double cellWidth = m_width / columns;
     double cellHeight = m_height / rows;
     double headDiam = (cellWidth < cellHeight)?cellWidth:cellHeight;
-
+    
     int ypos = (cellHeight - headDiam) / 2;
     for (int i = 0; i < rows; i++)
     {
