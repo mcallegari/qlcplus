@@ -31,6 +31,7 @@
 #include "qlcmacros.h"
 #include "fixture.h"
 #include "doc.h"
+#include "qlccapability.h"
 
 MonitorFixture::MonitorFixture(QWidget* parent, Doc* doc)
     : QFrame(parent)
@@ -130,6 +131,9 @@ void MonitorFixture::setFixture(quint32 fxi_id)
             /* Create a label for channel number */
             label = new QLabel(this);
             lay->addWidget(label, 1, i, Qt::AlignHCenter);
+            const QLCChannel * channel = fxi->channel(i);
+            if (channel != 0)
+                label->setToolTip(channel->name());
             m_channelLabels.append(label);
 
             /* Create a label for value */
