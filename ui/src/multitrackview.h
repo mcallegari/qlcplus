@@ -30,6 +30,10 @@
 #include "chaser.h"
 #include "track.h"
 
+/** @addtogroup ui_shows
+ * @{
+ */
+
 class MultiTrackView : public QGraphicsView
 {
     Q_OBJECT
@@ -154,5 +158,7 @@ protected slots:
     void slotAlignToCursor(SequenceItem *);
     void slotAlignToCursor(AudioItem *);
 };
+
+/** @} */
 
 #endif

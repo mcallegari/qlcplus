@@ -107,8 +107,7 @@ void VCSoloFrame::slotModeChanged(Doc::Mode mode)
             {
                 // listen to when the button function is started
                 connect(button, SIGNAL(functionStarting()),
-                        this, SLOT(slotButtonFunctionStarting()),
-                        Qt::DirectConnection);
+                        this, SLOT(slotButtonFunctionStarting()));
             }
             else
             {

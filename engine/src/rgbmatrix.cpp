@@ -384,8 +384,15 @@ void RGBMatrix::preRun(MasterTimer* timer)
         }
         else
         {
-            m_step = m_algorithm->rgbMapStepCount(grp->size());
-            m_stepColor = m_endColor.rgb();
+            m_step = m_algorithm->rgbMapStepCount(grp->size()) - 1;
+            if (m_endColor.isValid())
+            {
+                m_stepColor = m_endColor.rgb();
+            }
+            else
+            {
+                m_stepColor = m_startColor.rgb();
+            }
         }
 
         calculateColorDelta();
@@ -396,7 +403,7 @@ void RGBMatrix::preRun(MasterTimer* timer)
     Function::preRun(timer);
 }
 
-void RGBMatrix::write(MasterTimer* timer, UniverseArray* universes)
+void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer);
     Q_UNUSED(universes);
@@ -436,7 +443,7 @@ void RGBMatrix::write(MasterTimer* timer, UniverseArray* universes)
         roundCheck(grp->size());
 }
 
-void RGBMatrix::postRun(MasterTimer* timer, UniverseArray* universes)
+void RGBMatrix::postRun(MasterTimer* timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer);
     Q_UNUSED(universes);
@@ -556,7 +563,7 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
             {
                 // RGB color mixing
                 FadeChannel fc;
-                fc.setFixture(grpHead.fxi);
+                fc.setFixture(doc(), grpHead.fxi);
 
                 fc.setChannel(rgb.takeFirst());
                 fc.setTarget(qRed(map[y][x]));
@@ -579,7 +586,7 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
                 QColor col(map[y][x]);
 
                 FadeChannel fc;
-                fc.setFixture(grpHead.fxi);
+                fc.setFixture(doc(), grpHead.fxi);
 
                 fc.setChannel(cmy.takeFirst());
                 fc.setTarget(col.cyan());
@@ -599,11 +606,11 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
 
             if (head.masterIntensityChannel() != QLCChannel::invalid())
             {
-                qDebug() << "RGBMatrix: found dimmer at" << head.masterIntensityChannel();
+                //qDebug() << "RGBMatrix: found dimmer at" << head.masterIntensityChannel();
                 // Simple intensity (dimmer) channel
                 QColor col(map[y][x]);
                 FadeChannel fc;
-                fc.setFixture(grpHead.fxi);
+                fc.setFixture(doc(), grpHead.fxi);
                 fc.setChannel(head.masterIntensityChannel());
                 if (col.value() == 0 && mdAssigned != head.masterIntensityChannel())
                     fc.setTarget(0);

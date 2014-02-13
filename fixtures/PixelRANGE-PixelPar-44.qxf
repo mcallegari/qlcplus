@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.3.4</Version>
@@ -107,7 +108,7 @@
  <Mode Name="DMX (res=3Ch)">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="275" Height="317" Weight="6,8" Depth="181"/>
+   <Dimensions Width="275" Height="317" Weight="6.8" Depth="181"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="127" DmxConnector="5-pin"/>
@@ -119,7 +120,7 @@
  <Mode Name="4+E">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="275" Height="317" Weight="6,8" Depth="181"/>
+   <Dimensions Width="275" Height="317" Weight="6.8" Depth="181"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="127" DmxConnector="5-pin"/>
@@ -139,7 +140,7 @@
  <Mode Name="16bT (res=3Ch)">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="275" Height="317" Weight="6,8" Depth="181"/>
+   <Dimensions Width="275" Height="317" Weight="6.8" Depth="181"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="127" DmxConnector="5-pin"/>
@@ -154,7 +155,7 @@
  <Mode Name="DMX (res=4Ch)">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="275" Height="317" Weight="6,8" Depth="181"/>
+   <Dimensions Width="275" Height="317" Weight="6.8" Depth="181"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="127" DmxConnector="5-pin"/>
@@ -167,7 +168,7 @@
  <Mode Name="DMX (res=4Ch) MAST">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="275" Height="317" Weight="6,8" Depth="181"/>
+   <Dimensions Width="275" Height="317" Weight="6.8" Depth="181"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="127" DmxConnector="5-pin"/>
@@ -181,7 +182,7 @@
  <Mode Name="DMX (res=3Ch) MAST">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="275" Height="317" Weight="6,8" Depth="181"/>
+   <Dimensions Width="275" Height="317" Weight="6.8" Depth="181"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="127" DmxConnector="5-pin"/>
@@ -194,7 +195,7 @@
  <Mode Name="16bT (res=3Ch) MAST">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="275" Height="317" Weight="6,8" Depth="181"/>
+   <Dimensions Width="275" Height="317" Weight="6.8" Depth="181"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="127" DmxConnector="5-pin"/>
@@ -210,7 +211,7 @@
  <Mode Name="16bT (res=4Ch)">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="275" Height="317" Weight="6,8" Depth="181"/>
+   <Dimensions Width="275" Height="317" Weight="6.8" Depth="181"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="127" DmxConnector="5-pin"/>
@@ -227,7 +228,7 @@
  <Mode Name="16bT (res=4Ch) MAST">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="275" Height="317" Weight="6,8" Depth="181"/>
+   <Dimensions Width="275" Height="317" Weight="6.8" Depth="181"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="127" DmxConnector="5-pin"/>

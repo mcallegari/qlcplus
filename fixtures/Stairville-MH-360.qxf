@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.3.0</Version>
@@ -26,7 +27,7 @@
  </Channel>
  <Channel Name="Pan/Tilt Speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">fast -> slow</Capability>
+  <Capability Min="0" Max="255">fast -&gt; slow</Capability>
  </Channel>
  <Channel Name="Special">
   <Group Byte="0">Maintenance</Group>
@@ -44,11 +45,11 @@
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="15">No function</Capability>
-  <Capability Min="16" Max="131">Fast strobe -> Slow strobe</Capability>
+  <Capability Min="16" Max="131">Fast strobe -&gt; Slow strobe</Capability>
   <Capability Min="132" Max="139">No function</Capability>
-  <Capability Min="140" Max="181">Fast close -> Slow open</Capability>
+  <Capability Min="140" Max="181">Fast close -&gt; Slow open</Capability>
   <Capability Min="182" Max="189">No function</Capability>
-  <Capability Min="190" Max="231">Slow close -> Fast open</Capability>
+  <Capability Min="190" Max="231">Slow close -&gt; Fast open</Capability>
   <Capability Min="240" Max="247">Strobe</Capability>
   <Capability Min="248" Max="255">No function</Capability>
  </Channel>
@@ -76,7 +77,7 @@
  </Channel>
  <Channel Name="Chase/Fade Speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">slow -> fast</Capability>
+  <Capability Min="0" Max="255">slow -&gt; fast</Capability>
  </Channel>
  <Mode Name="Default">
   <Physical>

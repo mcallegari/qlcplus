@@ -32,6 +32,7 @@
 #include "channelsgroup.h"
 #include "collection.h"
 #include "function.h"
+#include "universe.h"
 #include "fixture.h"
 #include "chaser.h"
 #include "scene.h"
@@ -40,23 +41,27 @@
 #include "doc.h"
 #include "bus.h"
 
-#if defined(__APPLE__) || defined(Q_OS_MAC)
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+ #if defined(__APPLE__) || defined(Q_OS_MAC)
   #include "audiocapture_portaudio.h"
-#elif defined(WIN32) || defined (Q_OS_WIN)
+ #elif defined(WIN32) || defined (Q_OS_WIN)
   #include "audiocapture_wavein.h"
-#else
+ #else
   #include "audiocapture_alsa.h"
+ #endif
+#else
+ #include "audiocapture_qt.h"
 #endif
 
-Doc::Doc(QObject* parent, int outputUniverses, int inputUniverses)
+Doc::Doc(QObject* parent, int universes)
     : QObject(parent)
     , m_wsPath("")
     , m_fixtureDefCache(new QLCFixtureDefCache)
     , m_ioPluginCache(new IOPluginCache(this))
-    , m_outputMap(new OutputMap(this, outputUniverses))
+    , m_ioMap(new InputOutputMap(this, universes))
     , m_masterTimer(new MasterTimer(this))
-    , m_inputMap(new InputMap(this, inputUniverses))
     , m_inputCapture(NULL)
+    , m_monitorProps(NULL)
     , m_mode(Design)
     , m_kiosk(false)
     , m_clipboard(new QLCClipboard(this))
@@ -64,6 +69,7 @@ Doc::Doc(QObject* parent, int outputUniverses, int inputUniverses)
     , m_latestFixtureGroupId(0)
     , m_latestChannelsGroupId(0)
     , m_latestFunctionId(0)
+    , m_startupFunctionId(Function::invalidId())
 {
     Bus::init(this);
     resetModified();
@@ -77,14 +83,12 @@ Doc::~Doc()
     clearContents();
 
     if (isKiosk() == false)
-        m_outputMap->saveDefaults();
-    delete m_outputMap;
-    m_outputMap = NULL;
-
-    if (isKiosk() == false)
-        m_inputMap->saveDefaults();
-    delete m_inputMap;
-    m_inputMap = NULL;
+    {
+        // TODO: is this still needed ??
+        //m_ioMap->saveDefaults();
+    }
+    delete m_ioMap;
+    m_ioMap = NULL;
 
     delete m_ioPluginCache;
     m_ioPluginCache = NULL;
@@ -98,6 +102,12 @@ void Doc::clearContents()
     emit clearing();
 
     m_clipboard->resetContents();
+
+    if (m_monitorProps != NULL)
+        delete m_monitorProps;
+    m_monitorProps = NULL;
+
+    destroyAudioCapture();
 
     // Delete all function instances
     QListIterator <quint32> funcit(m_functions.keys());
@@ -199,9 +209,9 @@ IOPluginCache* Doc::ioPluginCache() const
     return m_ioPluginCache;
 }
 
-OutputMap* Doc::outputMap() const
+InputOutputMap* Doc::inputOutputMap() const
 {
-    return m_outputMap;
+    return m_ioMap;
 }
 
 MasterTimer* Doc::masterTimer() const
@@ -209,21 +219,20 @@ MasterTimer* Doc::masterTimer() const
     return m_masterTimer;
 }
 
-InputMap* Doc::inputMap() const
-{
-    return m_inputMap;
-}
-
 AudioCapture *Doc::audioInputCapture()
 {
     if (m_inputCapture == NULL)
     {
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 #if defined(__APPLE__) || defined(Q_OS_MAC)
         m_inputCapture = new AudioCapturePortAudio();
 #elif defined(WIN32) || defined (Q_OS_WIN)
         m_inputCapture = new AudioCaptureWaveIn();
 #else
         m_inputCapture = new AudioCaptureAlsa();
+#endif
+#else
+        m_inputCapture = new AudioCaptureQt();
 #endif
     }
     return m_inputCapture;
@@ -346,6 +355,19 @@ bool Doc::addFixture(Fixture* fixture, quint32 id)
         {
             m_addresses[i] = id;
         }
+
+        // Add the fixture channels capabilities to the universe they belong
+        QList<Universe *> universes = inputOutputMap()->claimUniverses();
+        int uni = fixture->universe();
+
+        // TODO !!! if a universe for this fixture doesn't exist, add it !!!
+
+        for (quint32 i = 0 ; i < fixture->channels(); i++)
+        {
+            const QLCChannel* channel(fixture->channel(i));
+            universes.at(uni)->setChannelCapability(fixture->address() + i, channel->group());
+        }
+        inputOutputMap()->releaseUniverses(true);
 
         emit fixtureAdded(id);
         setModified();
@@ -849,10 +871,46 @@ quint32 Doc::nextFunctionID()
     return tmpFID;
 }
 
+void Doc::setStartupFunction(quint32 fid)
+{
+    m_startupFunctionId = fid;
+}
+
+quint32 Doc::startupFunction()
+{
+    return m_startupFunctionId;
+}
+
+bool Doc::checkStartupFunction()
+{
+    if (m_mode == Operate && m_startupFunctionId != Function::invalidId())
+    {
+        Function *func = function(m_startupFunctionId);
+        if (func != NULL)
+        {
+            func->start(masterTimer());
+            return true;
+        }
+    }
+    return false;
+}
+
 void Doc::slotFunctionChanged(quint32 fid)
 {
     setModified();
     emit functionChanged(fid);
+}
+
+/*********************************************************************
+ * Monitor Properties
+ *********************************************************************/
+
+MonitorProperties *Doc::monitorProperties()
+{
+    if (m_monitorProps == NULL)
+        m_monitorProps = new MonitorProperties();
+
+    return m_monitorProps;
 }
 
 /*****************************************************************************
@@ -861,10 +919,19 @@ void Doc::slotFunctionChanged(quint32 fid)
 
 bool Doc::loadXML(const QDomElement& root)
 {
+    m_errorLog = "";
+
     if (root.tagName() != KXMLQLCEngine)
     {
         qWarning() << Q_FUNC_INFO << "Engine node not found";
         return false;
+    }
+
+    if (root.hasAttribute(KXMLQLCStartupFunction))
+    {
+        quint32 sID = root.attribute(KXMLQLCStartupFunction).toUInt();
+        if (sID != Function::invalidId())
+            setStartupFunction(sID);
     }
 
     QDomNode node = root.firstChild();
@@ -893,6 +960,16 @@ bool Doc::loadXML(const QDomElement& root)
             /* LEGACY */
             Bus::instance()->loadXML(tag);
         }
+        else if (tag.tagName() == KXMLIOMap)
+        {
+            m_ioMap->loadXML(tag);
+        }
+        else if (tag.tagName() == KXMLQLCMonitorProperties)
+        {
+            if (m_monitorProps == NULL)
+                m_monitorProps = new MonitorProperties();
+            m_monitorProps->loadXML(tag);
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown engine tag:" << tag.tagName();
@@ -917,7 +994,13 @@ bool Doc::saveXML(QDomDocument* doc, QDomElement* wksp_root)
 
     /* Create the master Engine node */
     root = doc->createElement(KXMLQLCEngine);
+    if (startupFunction() != Function::invalidId())
+    {
+        root.setAttribute(KXMLQLCStartupFunction, QString::number(startupFunction()));
+    }
     wksp_root->appendChild(root);
+
+    m_ioMap->saveXML(doc, &root);
 
     /* Write fixtures into an XML document */
     QListIterator <Fixture*> fxit(fixtures());
@@ -955,7 +1038,24 @@ bool Doc::saveXML(QDomDocument* doc, QDomElement* wksp_root)
         func->saveXML(doc, &root);
     }
 
+    if (m_monitorProps != NULL)
+        m_monitorProps->saveXML(doc, &root);
+
     return true;
+}
+
+void Doc::appendToErrorLog(QString error)
+{
+    if (m_errorLog.contains(error))
+        return;
+
+    m_errorLog.append(error);
+    m_errorLog.append("\n");
+}
+
+QString Doc::errorLog()
+{
+    return m_errorLog;
 }
 
 void Doc::postLoad()

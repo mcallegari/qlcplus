@@ -43,6 +43,10 @@ class QByteArray;
 class QSlider;
 class Doc;
 
+/** @addtogroup ui_vc_widgets
+ * @{
+ */
+
 #define KXMLQLCVCXYPad "XYPad"
 #define KXMLQLCVCXYPadPan "Pan"
 #define KXMLQLCVCXYPadTilt "Tilt"
@@ -150,7 +154,7 @@ private:
      *************************************************************************/
 public:
     /** @reimp */
-    void writeDMX(MasterTimer* timer, UniverseArray* universes);
+    void writeDMX(MasterTimer* timer, QList<Universe*> universes);
 
 public slots:
     void slotPositionChanged(const QPoint& pt);
@@ -189,5 +193,7 @@ public:
     /** @reimp */
     bool saveXML(QDomDocument* doc, QDomElement* root);
 };
+
+/** @} */
 
 #endif

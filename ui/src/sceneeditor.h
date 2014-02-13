@@ -41,6 +41,10 @@ class QAction;
 class Chaser;
 class Doc;
 
+/** @addtogroup ui_functions
+ * @{
+ */
+
 class SceneEditor : public QWidget, public Ui_SceneEditor
 {
     Q_OBJECT
@@ -137,9 +141,10 @@ private slots:
 
     void slotFadeInChanged(int ms);
     void slotFadeOutChanged(int ms);
+    void slotDialDestroyed(QObject* dial);
 
 private:
-    SpeedDialWidget* m_speedDials;
+    QPointer<SpeedDialWidget> m_speedDials;
 
     /*********************************************************************
      * Channels groups
@@ -197,5 +202,7 @@ private:
      *  manually selected and copied to clipboard */
     bool m_copyFromSelection;
 };
+
+/** @} */
 
 #endif

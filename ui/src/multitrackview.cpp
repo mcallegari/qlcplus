@@ -85,8 +85,9 @@ void MultiTrackView::updateTracksDividers()
 {
     if (m_hdividers.count() > 0)
     {
-        for (int c = 0; c < m_hdividers.count(); c++)
-            m_scene->removeItem(m_hdividers.at(c));
+        int hdivCount = m_hdividers.count();
+        for (int c = 0; c < hdivCount; c++)
+            m_scene->removeItem(m_hdividers.takeLast());
         m_hdividers.clear();
     }
     if (m_vdivider != NULL)

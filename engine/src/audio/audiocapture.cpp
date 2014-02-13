@@ -188,7 +188,10 @@ void AudioCapture::run()
                 emit dataProcessed(m_fftMagnitudeBuffer, m_maxMagnitude, m_signalPower);
             }
             else
-                qDebug() << "Error reading data from audio source";
+            {
+                //qDebug() << "Error reading data from audio source";
+                usleep(5000);
+            }
 
         }
         else

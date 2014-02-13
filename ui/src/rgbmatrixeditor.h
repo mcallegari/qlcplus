@@ -35,6 +35,10 @@ class RGBMatrix;
 class QTimer;
 class Doc;
 
+/** @addtogroup ui_functions
+ * @{
+ */
+
 class RGBMatrixEditor : public QWidget, public Ui_RGBMatrixEditor
 {
     Q_OBJECT
@@ -91,6 +95,7 @@ private slots:
     void slotFadeOutChanged(int ms);
     void slotHoldChanged(int ms);
     void slotDurationTapped();
+    void slotDialDestroyed(QObject* dial);
 
     void slotTestClicked();
     void slotRestartTest();
@@ -117,5 +122,7 @@ private:
     int m_previewStep;
     QHash <QLCPoint,QGraphicsItem*> m_previewHash;
 };
+
+/** @} */
 
 #endif

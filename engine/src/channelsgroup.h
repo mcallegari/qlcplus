@@ -29,6 +29,10 @@ class QDomDocument;
 class QDomElement;
 class Doc;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 #define KXMLQLCChannelsGroup "ChannelsGroup"
 
 class ChannelsGroup : public QObject
@@ -153,5 +157,7 @@ private:
 
     QLCInputSource m_input;
 };
+
+/** @} */
 
 #endif

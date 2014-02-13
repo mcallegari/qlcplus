@@ -7,7 +7,7 @@ TARGET   = qlcplusui
 
 CONFIG += qt
 QT     += core xml gui script
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
 
 
 # Engine
@@ -26,10 +26,12 @@ INCLUDEPATH     += ../../webaccess
 # Resources
 RESOURCES    += qlcui.qrc
 
-macx {
-  CONFIG += link_pkgconfig
-  system(pkg-config --exists portaudio-2.0) {
-    PKGCONFIG += portaudio-2.0
+lessThan(QT_MAJOR_VERSION, 5) {
+  macx {
+    CONFIG += link_pkgconfig
+    system(pkg-config --exists portaudio-2.0) {
+      PKGCONFIG += portaudio-2.0
+    }
   }
 }
 
@@ -38,6 +40,7 @@ HEADERS += aboutbox.h \
            addchannelsgroup.h \
            addfixture.h \
            addresstool.h \
+           addrgbpanel.h \
            addvcbuttonmatrix.h \
            addvcslidermatrix.h \
            app.h \
@@ -56,7 +59,6 @@ HEADERS += aboutbox.h \
            ctkrangeslider.h \
            cuestackmodel.h \
            docbrowser.h \
-           dmxslider.h \
            dmxdumpfactory.h \
            efxeditor.h \
            efxpreviewarea.h \
@@ -79,6 +81,8 @@ HEADERS += aboutbox.h \
            knobwidget.h \
            monitor.h \
            monitorfixture.h \
+           monitorfixtureitem.h \
+           monitorgraphicsview.h \
            monitorlayout.h \
            multitrackview.h \
            palettegenerator.h \
@@ -97,6 +101,7 @@ HEADERS += aboutbox.h \
            simpledeskengine.h \
            speeddial.h \
            speeddialwidget.h \
+           universeitemwidget.h \
            vcaudiotriggers.h \
            vcaudiotriggersproperties.h \
            vcbutton.h \
@@ -130,6 +135,7 @@ FORMS += aboutbox.ui \
          addchannelsgroup.ui \
          addfixture.ui \
          addresstool.ui \
+         addrgbpanel.ui \
          addvcbuttonmatrix.ui \
          addvcslidermatrix.ui \
          assignhotkey.ui \
@@ -170,6 +176,7 @@ SOURCES += aboutbox.cpp \
            addchannelsgroup.cpp \
            addfixture.cpp \
            addresstool.cpp \
+           addrgbpanel.cpp \
            addvcbuttonmatrix.cpp \
            addvcslidermatrix.cpp \
            app.cpp \
@@ -188,7 +195,6 @@ SOURCES += aboutbox.cpp \
            ctkrangeslider.cpp \
            cuestackmodel.cpp \
            docbrowser.cpp \
-           dmxslider.cpp \
            dmxdumpfactory.cpp \
            efxeditor.cpp \
            efxpreviewarea.cpp \
@@ -211,6 +217,8 @@ SOURCES += aboutbox.cpp \
            knobwidget.cpp \
            monitor.cpp \
            monitorfixture.cpp \
+           monitorfixtureitem.cpp \
+           monitorgraphicsview.cpp \
            monitorlayout.cpp \
            multitrackview.cpp \
            palettegenerator.cpp \
@@ -229,6 +237,7 @@ SOURCES += aboutbox.cpp \
            simpledeskengine.cpp \
            speeddial.cpp \
            speeddialwidget.cpp \
+           universeitemwidget.cpp \
            vcaudiotriggers.cpp \
            vcaudiotriggersproperties.cpp \
            vcbutton.cpp \

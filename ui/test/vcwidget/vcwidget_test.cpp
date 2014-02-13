@@ -29,8 +29,6 @@
 #include "vcwidget_test.h"
 #include "mastertimer.h"
 #include "stubwidget.h"
-#include "outputmap.h"
-#include "inputmap.h"
 #include "vcwidget.h"
 #include "vcframe.h"
 #include "doc.h"

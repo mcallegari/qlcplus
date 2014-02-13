@@ -23,9 +23,13 @@
 #include <QList>
 #include <QHash>
 
-class UniverseArray;
 class FadeChannel;
+class Universe;
 class Doc;
+
+/** @addtogroup engine Engine
+ * @{
+ */
 
 class GenericFader
 {
@@ -67,7 +71,7 @@ public:
      *
      * @param universes The universe array that receives channel data.
      */
-    void write(UniverseArray* universes);
+    void write(QList<Universe *> universes);
 
     /**
      * Adjust the intensities of all channels by $fraction
@@ -88,5 +92,7 @@ private:
     qreal m_intensity;
     Doc* m_doc;
 };
+
+/** @} */
 
 #endif

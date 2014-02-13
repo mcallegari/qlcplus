@@ -24,6 +24,10 @@
 
 class QWidget;
 
+/** @addtogroup ui UI
+ * @{
+ */
+
 namespace AppUtil
 {
     /************************************************************************
@@ -58,5 +62,7 @@ public:
         return 0;
     }
 };
+
+/** @} */
 
 #endif

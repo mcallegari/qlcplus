@@ -29,6 +29,10 @@ class Track;
 class Show;
 class Doc;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 class ShowRunner : public QObject
 {
     Q_OBJECT
@@ -90,5 +94,7 @@ private:
     QMap<quint32, qreal> m_intensityMap;
 
 };
+
+/** @} */
 
 #endif

@@ -28,14 +28,18 @@
 #include "dmxsource.h"
 #include "cue.h"
 
-#define KXMLQLCSimpleDeskEngine "Engine"
-
 class UniverseArray;
 class QDomDocument;
 class QDomElement;
 class MasterTimer;
 class CueStack;
 class Doc;
+
+/** @addtogroup ui_simpledesk
+ * @{
+ */
+
+#define KXMLQLCSimpleDeskEngine "Engine"
 
 class SimpleDeskEngine : public QObject, public DMXSource
 {
@@ -65,6 +69,8 @@ public:
     /** Get the value of a single channel */
     uchar value(uint channel) const;
 
+    bool hasChannel(uint channel);
+
     /** Set a complete cue to universe */
     void setCue(const Cue& cue);
 
@@ -75,11 +81,7 @@ public:
     void resetUniverse(int universe);
 
 private:
-    QLCChannel::Group getGroupForChannel(uint channel) const;
-
-private:
     QHash <uint,uchar> m_values;
-    QHash <uint,uchar> m_resetValues;
 
     /************************************************************************
      * Cue Stacks
@@ -125,11 +127,10 @@ public:
      ************************************************************************/
 public:
     /** @reimpl */
-    void writeDMX(MasterTimer* timer, UniverseArray* ua);
-
-private:
-    void writeValuesHash(QHash<uint, uchar> & hash, UniverseArray* ua);
+    void writeDMX(MasterTimer* timer, QList<Universe*> ua);
 
 };
+
+/** @} */
 
 #endif

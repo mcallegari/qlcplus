@@ -28,7 +28,6 @@
 
 #include "monitorfixture_test.h"
 #include "qlcfixturedefcache.h"
-#include "outputmap.h"
 #include "qlcmacros.h"
 #include "doc.h"
 
@@ -50,8 +49,8 @@ void MonitorFixture_Test::initial()
     MonitorFixture mof(&w, m_doc);
     QCOMPARE(mof.fixture(), Fixture::invalidId());
     QVERIFY(mof.m_fixtureLabel == NULL);
-    QCOMPARE(mof.m_channelStyle, Monitor::DMXChannels);
-    QCOMPARE(mof.m_valueStyle, Monitor::DMXValues);
+    QCOMPARE(mof.m_channelStyle, MonitorProperties::DMXChannels);
+    QCOMPARE(mof.m_valueStyle, MonitorProperties::DMXValues);
     QCOMPARE(mof.frameStyle(), QFrame::StyledPanel | QFrame::Sunken);
     QVERIFY(mof.layout() != NULL);
     QCOMPARE(mof.m_channelLabels.size(), 0);
@@ -153,7 +152,7 @@ void MonitorFixture_Test::channelValueStyles()
         QCOMPARE(mof.m_valueLabels[i]->text(), QString("000"));
     }
 
-    mof.slotChannelStyleChanged(Monitor::RelativeChannels);
+    mof.slotChannelStyleChanged(MonitorProperties::RelativeChannels);
     mof.updateLabelStyles();
     for (int i = 0; i < mof.m_channelLabels.size(); i++)
     {
@@ -165,7 +164,7 @@ void MonitorFixture_Test::channelValueStyles()
         QCOMPARE(mof.m_valueLabels[i]->text(), QString("000"));
     }
 
-    mof.slotChannelStyleChanged(Monitor::DMXChannels);
+    mof.slotChannelStyleChanged(MonitorProperties::DMXChannels);
     for (int i = 0; i < mof.m_channelLabels.size(); i++)
     {
         QString str;
@@ -182,7 +181,7 @@ void MonitorFixture_Test::channelValueStyles()
         mof.m_valueLabels[i]->setText(str.sprintf("%.3d", (i + 1) * 10));
     }
 
-    mof.slotValueStyleChanged(Monitor::PercentageValues);
+    mof.slotValueStyleChanged(MonitorProperties::PercentageValues);
     for (int i = 0; i < mof.m_channelLabels.size(); i++)
     {
         QString str;
@@ -214,15 +213,15 @@ void MonitorFixture_Test::updateValues()
     for (int i = 0; i < 10; i++)
         ba[i] = 127 + i;
 
-    mof.updateValues(ba);
+    mof.updateValues(0, ba);
     for (int i = 0; i < mof.m_valueLabels.size(); i++)
     {
         QString str;
         QCOMPARE(mof.m_valueLabels[i]->text(), str.sprintf("%.3d", 127 + i));
     }
 
-    mof.slotValueStyleChanged(Monitor::PercentageValues);
-    mof.updateValues(ba);
+    mof.slotValueStyleChanged(MonitorProperties::PercentageValues);
+    mof.updateValues(0, ba);
     for (int i = 0; i < mof.m_valueLabels.size(); i++)
     {
         QString str;

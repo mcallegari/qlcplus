@@ -32,6 +32,10 @@ class QFrame;
 class QLabel;
 class Doc;
 
+/** @addtogroup ui UI
+ * @{
+ */
+
 class MonitorFixture : public QFrame
 {
     Q_OBJECT
@@ -57,11 +61,11 @@ public:
     quint32 fixture() const;
 
 public slots:
-    void slotChannelStyleChanged(Monitor::ChannelStyle style);
+    void slotChannelStyleChanged(MonitorProperties::ChannelStyle style);
 
 protected:
     quint32 m_fixture;
-    Monitor::ChannelStyle m_channelStyle;
+    MonitorProperties::ChannelStyle m_channelStyle;
     QLabel* m_fixtureLabel;
     QList <QLabel*> m_channelLabels;
 
@@ -69,14 +73,16 @@ protected:
      * Values
      ********************************************************************/
 public:
-    void updateValues(const QByteArray& universes);
+    void updateValues(int index, const QByteArray& universes);
 
 public slots:
-    void slotValueStyleChanged(Monitor::ValueStyle style);
+    void slotValueStyleChanged(MonitorProperties::ValueStyle style);
 
 protected:
     QList <QLabel*> m_valueLabels;
-    Monitor::ValueStyle m_valueStyle;
+    MonitorProperties::ValueStyle m_valueStyle;
 };
+
+/** @} */
 
 #endif

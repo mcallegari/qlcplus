@@ -45,8 +45,6 @@
 #include "mastertimer.h"
 #include "qlcchannel.h"
 #include "chaserstep.h"
-#include "outputmap.h"
-#include "inputmap.h"
 #include "fixture.h"
 #include "chaser.h"
 #include "scene.h"
@@ -853,12 +851,11 @@ bool SceneEditor::isColorToolAvailable()
 
 void SceneEditor::createSpeedDials()
 {
-    qDebug() << Q_FUNC_INFO;
-
     if (m_speedDials != NULL)
         return;
 
     m_speedDials = new SpeedDialWidget(this);
+    m_speedDials->setAttribute(Qt::WA_DeleteOnClose);
     m_speedDials->setWindowTitle(m_scene->name());
     m_speedDials->setFadeInSpeed(m_scene->fadeInSpeed());
     m_speedDials->setFadeOutSpeed(m_scene->fadeOutSpeed());
@@ -866,7 +863,13 @@ void SceneEditor::createSpeedDials()
     m_speedDials->setDurationVisible(false);
     connect(m_speedDials, SIGNAL(fadeInChanged(int)), this, SLOT(slotFadeInChanged(int)));
     connect(m_speedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotFadeOutChanged(int)));
+    connect(m_speedDials, SIGNAL(destroyed(QObject*)), this, SLOT(slotDialDestroyed(QObject*)));
     m_speedDials->show();
+}
+
+void SceneEditor::slotDialDestroyed(QObject *)
+{
+    m_speedDialAction->setChecked(false);
 }
 
 Chaser* SceneEditor::selectedChaser() const

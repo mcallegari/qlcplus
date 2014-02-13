@@ -1,33 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller</Name>
   <Version>3.2.0-2-r2486</Version>
-  <Author>JL Griffin,,,</Author>
+  <Author>JL Griffin</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
  <Model>Slim Par Pro RGBA</Model>
  <Type>Color Changer</Type>
  <Channel Name="Master Dimmer">
   <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% >100%</Capability>
+  <Capability Min="0" Max="255">0% &gt;100%</Capability>
  </Channel>
  <Channel Name="Red">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="255">0% >100%</Capability>
+  <Capability Min="0" Max="255">0% &gt;100%</Capability>
  </Channel>
  <Channel Name="Green">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="255">0% >100%</Capability>
+  <Capability Min="0" Max="255">0% &gt;100%</Capability>
  </Channel>
  <Channel Name="Blue">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="255">0% >100%</Capability>
+  <Capability Min="0" Max="255">0% &gt;100%</Capability>
  </Channel>
  <Channel Name="Amber">
   <Group Byte="0">Colour</Group>
   <Colour>Amber</Colour>
-  <Capability Min="0" Max="255">0% >100%</Capability>
+  <Capability Min="0" Max="255">0% &gt;100%</Capability>
  </Channel>
  <Mode Name="4 Ch [Default]">
   <Physical>

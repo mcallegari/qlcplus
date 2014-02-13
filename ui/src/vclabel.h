@@ -26,8 +26,11 @@ class QDomDocument;
 class QDomElement;
 class QPaintEvent;
 class MasterTimer;
-class InputMap;
 class Doc;
+
+/** @addtogroup ui_vc_widgets
+ * @{
+ */
 
 #define KXMLQLCVCLabel "Label"
 
@@ -82,5 +85,6 @@ protected:
     void paintEvent(QPaintEvent* e);
 };
 
-#endif
+/** @} */
 
+#endif

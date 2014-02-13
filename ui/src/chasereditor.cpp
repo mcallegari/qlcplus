@@ -35,8 +35,6 @@
 #include "chasereditor.h"
 #include "mastertimer.h"
 #include "chaserstep.h"
-#include "outputmap.h"
-#include "inputmap.h"
 #include "apputil.h"
 #include "fixture.h"
 #include "chaser.h"
@@ -779,6 +777,11 @@ void ChaserEditor::slotHoldDialChanged(int ms)
     m_tree->resizeColumnToContents(COL_HOLD);
 }
 
+void ChaserEditor::slotDialDestroyed(QObject *)
+{
+    m_speeddial->setChecked(false);
+}
+
 void ChaserEditor::createSpeedDials()
 {
     if (m_speedDials == NULL)
@@ -792,6 +795,8 @@ void ChaserEditor::createSpeedDials()
                 this, SLOT(slotFadeOutDialChanged(int)));
         connect(m_speedDials, SIGNAL(holdChanged(int)),
                 this, SLOT(slotHoldDialChanged(int)));
+        connect(m_speedDials, SIGNAL(destroyed(QObject*)),
+                this, SLOT(slotDialDestroyed(QObject*)));
     }
 
     m_speedDials->show();

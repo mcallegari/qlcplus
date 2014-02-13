@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller</Name>
   <Version>3.0.7</Version>
@@ -200,7 +201,7 @@
  <Channel Name="Run / Strobe Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="1">Off</Capability>
-  <Capability Min="2" Max="255">Slow -> Fast</Capability>
+  <Capability Min="2" Max="255">Slow -&gt; Fast</Capability>
  </Channel>
  <Mode Name="DMX Mode">
   <Physical>
@@ -221,4 +222,3 @@
   <Channel Number="8">Run / Strobe Speed</Channel>
  </Mode>
 </FixtureDefinition>
-

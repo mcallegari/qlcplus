@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.5.1</Version>
@@ -54,7 +55,7 @@
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="9">No function</Capability>
-  <Capability Min="10" Max="255">Strobe: 1 > 20 Hz</Capability>
+  <Capability Min="10" Max="255">Strobe: 1 &gt; 20 Hz</Capability>
  </Channel>
  <Channel Name="Auto">
   <Group Byte="0">Effect</Group>
@@ -67,7 +68,7 @@
  </Channel>
  <Channel Name="Auto Speed Adjustment">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Slow > Fast</Capability>
+  <Capability Min="0" Max="255">Slow &gt; Fast</Capability>
  </Channel>
  <Channel Name="Dimmer Speed">
   <Group Byte="0">Effect</Group>

@@ -27,17 +27,14 @@
 #include <QHash>
 #include <QFile>
 
-//#include <artnet/artnet.h>
-
 #include "qlcioplugin.h"
 #include "artnetcontroller.h"
 
 typedef struct
 {
     QString IPAddress;
-    int port;
+    QString MACAddress;
     ArtNetController* controller;
-    ArtNetController::Type type;
 } ArtNetIO;
 
 class ArtNetPlugin : public QLCIOPlugin
@@ -84,7 +81,7 @@ public:
     QString outputInfo(quint32 output);
 
     /** @reimp */
-    void writeUniverse(quint32 output, const QByteArray& universe);
+    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
 
     /*************************************************************************
      * Inputs
@@ -130,15 +127,8 @@ private:
     /** List holding the detected system network interfaces */
     QList<QNetworkAddressEntry> m_netInterfaces;
 
-    /** List holding the detected system network interfaces MAC Address */
-    QList<QString>m_netMACAddresses;
-
     /** Map of the ArtNet plugin Input/Output lines */
     QList<ArtNetIO>m_IOmapping;
-
-private slots:
-    void slotInputValueChanged(quint32 input, int channel, uchar value);
-
 };
 
 #endif

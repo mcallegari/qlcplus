@@ -24,6 +24,14 @@
 
 #include "vcwidget.h"
 
+class QDomDocument;
+class QDomElement;
+class SpeedDial;
+
+/** @addtogroup ui_vc_props
+ * @{
+ */
+
 #define KXMLQLCVCSpeedDial "SpeedDial"
 #define KXMLQLCVCSpeedDialFunction "Function"
 #define KXMLQLCVCSpeedDialSpeedTypes "SpeedTypes"
@@ -32,10 +40,6 @@
 #define KXMLQLCVCSpeedDialAbsoluteValueMax "Maximum"
 #define KXMLQLCVCSpeedDialTap "Tap"
 #define KXMLQLCVCSpeedDialTapKey "Key"
-
-class QDomDocument;
-class QDomElement;
-class SpeedDial;
 
 class VCSpeedDial : public VCWidget
 {
@@ -195,5 +199,7 @@ public:
     void postLoad();
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(VCSpeedDial::SpeedTypes)
+
+/** @} */
 
 #endif

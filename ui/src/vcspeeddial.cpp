@@ -220,7 +220,10 @@ void VCSpeedDial::updateFeedback()
 
 void VCSpeedDial::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
-    QLCInputSource src(universe, channel);
+    if (isEnabled() == false)
+        return;
+
+    QLCInputSource src(universe, (page() << 16) | channel);
     if (src == inputSource(tapInputSourceId))
     {
         if (value != 0)

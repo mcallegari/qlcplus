@@ -120,12 +120,8 @@ public:
     QString outputInfo(quint32 output) { Q_UNUSED(output); return QString(); }
 
     /** @reimp */
-    void writeChannel(quint32 output, quint32 channel, uchar value)
-        { Q_UNUSED(output); Q_UNUSED(channel); Q_UNUSED(value); }
-
-    /** @reimp */
-    void writeUniverse(quint32 output, const QByteArray& universe)
-        { Q_UNUSED(output); Q_UNUSED(universe); }
+    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data)
+    { Q_UNUSED(output); Q_UNUSED(universe); Q_UNUSED(data); }
 
     /*********************************************************************
      * Configuration

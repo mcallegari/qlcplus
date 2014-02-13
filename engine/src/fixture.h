@@ -26,16 +26,6 @@
 
 #include "qlcchannel.h"
 
-#define KXMLFixture "Fixture"
-#define KXMLFixtureName "Name"
-#define KXMLFixtureUniverse "Universe"
-#define KXMLFixtureAddress "Address"
-#define KXMLFixtureID "ID"
-#define KXMLFixtureGeneric "Generic"
-#define KXMLFixtureChannels "Channels"
-#define KXMLFixtureDimmer "Dimmer"
-#define KXMLFixtureExcludeFade "ExcludeFade"
-
 class QDomDocument;
 class QDomElement;
 class QString;
@@ -46,6 +36,21 @@ class QLCFixtureHead;
 class FixtureConsole;
 class QLCFixtureDef;
 class Doc;
+
+/** @addtogroup engine Engine
+ * @{
+ */
+
+#define KXMLFixture "Fixture"
+#define KXMLFixtureName "Name"
+#define KXMLFixtureUniverse "Universe"
+#define KXMLFixtureAddress "Address"
+#define KXMLFixtureID "ID"
+#define KXMLFixtureGeneric "Generic"
+#define KXMLFixtureRGBPanel "RGBPanel"
+#define KXMLFixtureChannels "Channels"
+#define KXMLFixtureDimmer "Dimmer"
+#define KXMLFixtureExcludeFade "ExcludeFade"
 
 class Fixture : public QObject
 {
@@ -360,6 +365,16 @@ protected:
     QLCFixtureMode* m_fixtureMode;
 
     /*********************************************************************
+     * Generic RGB panel
+     *********************************************************************/
+public:
+    /** Creates and returns a definition for a generic RGB panel row */
+    QLCFixtureDef *genericRGBPanelDef(int columns);
+
+    /** Creates and returns a fixture mode for a generic RGB panel row */
+    QLCFixtureMode *genericRGBPanelMode(QLCFixtureDef *def);
+
+    /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
@@ -378,7 +393,7 @@ public:
      * @param root An XML subtree containing a single fixture instance
      * @return true if the fixture was loaded successfully, otherwise false
      */
-    bool loadXML(const QDomElement& root,
+    bool loadXML(const QDomElement& root, Doc* doc,
                  const QLCFixtureDefCache* fixtureDefCache);
 
     /**
@@ -401,6 +416,8 @@ public:
      */
     QString status() const;
 };
+
+/** @} */
 
 #endif
 

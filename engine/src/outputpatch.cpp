@@ -29,7 +29,6 @@
 
 #include "qlcioplugin.h"
 #include "outputpatch.h"
-#include "outputmap.h"
 
 #define GRACE_MS 1
 
@@ -115,13 +114,18 @@ quint32 OutputPatch::output() const
         return QLCIOPlugin::invalidLine();
 }
 
+bool OutputPatch::isPatched() const
+{
+    return output() != QLCIOPlugin::invalidLine();
+}
+
 /*****************************************************************************
  * Value dump
  *****************************************************************************/
 
-void OutputPatch::dump(const QByteArray& universe)
+void OutputPatch::dump(quint32 universe, const QByteArray& data)
 {
     /* Don't do anything if there is no plugin and/or output line. */
     if (m_plugin != NULL && m_output != QLCIOPlugin::invalidLine())
-        m_plugin->writeUniverse(m_output, universe);
+        m_plugin->writeUniverse(universe, m_output, data);
 }

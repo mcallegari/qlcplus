@@ -9,7 +9,7 @@
         <translation>Questa plugin permette la trasmissione di segnale DMX su interfacce Anyma uDMX.</translation>
     </message>
     <message>
-        <location filename="udmx.cpp" line="186"/>
+        <location filename="udmx.cpp" line="188"/>
         <source>Do you wish to re-scan your hardware?</source>
         <translation>Vuoi rifare la scansione dei tuoi dispositivi?</translation>
     </message>

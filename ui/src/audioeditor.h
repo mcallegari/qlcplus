@@ -25,6 +25,10 @@
 class Audio;
 class Doc;
 
+/** @addtogroup ui_shows
+ * @{
+ */
+
 class AudioEditor : public QWidget, public Ui_AudioEditor
 {
     Q_OBJECT
@@ -43,5 +47,7 @@ private slots:
     void slotFadeInEdited();
     void slotFadeOutEdited();
 };
+
+/** @} */
 
 #endif

@@ -31,8 +31,6 @@
 #include "vcbutton_test.h"
 #include "mastertimer.h"
 #include "qlcmacros.h"
-#include "outputmap.h"
-#include "inputmap.h"
 #include "vcbutton.h"
 #include "vcframe.h"
 #include "scene.h"
@@ -287,7 +285,7 @@ void VCButton_Test::copy()
     btn.setAction(VCButton::Flash);
     btn.setKeySequence(QKeySequence(keySequenceB));
     btn.enableStartupIntensity(true);
-    btn.enableStartupIntensity(0.2);
+    btn.enableStartupIntensity(qreal(0.2));
 
     VCFrame parent(&w, m_doc);
     VCButton* copy = qobject_cast<VCButton*> (btn.createCopy(&parent));
@@ -396,7 +394,7 @@ void VCButton_Test::save()
     btn.setAction(VCButton::Flash);
     btn.setKeySequence(QKeySequence(keySequenceB));
     btn.enableStartupIntensity(true);
-    btn.enableStartupIntensity(0.2);
+    btn.enableStartupIntensity(qreal(0.2));
 
     QDomDocument xmldoc;
     QDomElement root = xmldoc.createElement("Root");
@@ -487,7 +485,7 @@ void VCButton_Test::toggle()
     btn.setAction(VCButton::Toggle);
     btn.setKeySequence(QKeySequence(keySequenceB));
     btn.enableStartupIntensity(true);
-    btn.enableStartupIntensity(0.2);
+    btn.enableStartupIntensity(qreal(0.2));
 
     // Mouse button press in design mode doesn't toggle the function
     QCOMPARE(m_doc->mode(), Doc::Design);
@@ -540,7 +538,7 @@ void VCButton_Test::flash()
     btn.setAction(VCButton::Flash);
     btn.setKeySequence(QKeySequence(keySequenceB));
     btn.enableStartupIntensity(false);
-    btn.enableStartupIntensity(0.2);
+    btn.enableStartupIntensity(qreal(0.2));
 
     QSignalSpy spy(sc, SIGNAL(flashing(quint32,bool)));
 
@@ -580,7 +578,7 @@ void VCButton_Test::input()
     btn.setFunction(sc->id());
     btn.setAction(VCButton::Flash);
     btn.enableStartupIntensity(true);
-    btn.enableStartupIntensity(1.0);
+    btn.enableStartupIntensity(qreal(1.0));
     btn.setInputSource(QLCInputSource(0, 0));
 
     btn.slotInputValueChanged(0, 0, 255);
@@ -622,13 +620,13 @@ void VCButton_Test::input()
     // Test that blackout gets toggled thru ext input
     btn.setAction(VCButton::Blackout);
     btn.slotInputValueChanged(0, 0, 1);
-    QCOMPARE(m_doc->outputMap()->blackout(), true);
+    QCOMPARE(m_doc->inputOutputMap()->blackout(), true);
     btn.slotInputValueChanged(0, 0, 0);
-    QCOMPARE(m_doc->outputMap()->blackout(), true);
+    QCOMPARE(m_doc->inputOutputMap()->blackout(), true);
     btn.slotInputValueChanged(0, 0, 255);
-    QCOMPARE(m_doc->outputMap()->blackout(), false);
+    QCOMPARE(m_doc->inputOutputMap()->blackout(), false);
     btn.slotInputValueChanged(0, 0, 0);
-    QCOMPARE(m_doc->outputMap()->blackout(), false);
+    QCOMPARE(m_doc->inputOutputMap()->blackout(), false);
 
     // Test that panic gets toggled thru ext input
     m_doc->masterTimer()->startFunction(sc);

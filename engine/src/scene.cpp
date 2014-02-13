@@ -26,10 +26,11 @@
 #include "qlcfixturedef.h"
 #include "qlcmacros.h"
 #include "qlcfile.h"
+#include "qlccapability.h"
 
-#include "universearray.h"
 #include "genericfader.h"
 #include "mastertimer.h"
+#include "universe.h"
 #include "scene.h"
 #include "doc.h"
 #include "bus.h"
@@ -117,7 +118,7 @@ void Scene::setValue(const SceneValue& scv, bool blind, bool checkHTP)
     if (blind == false && m_fader != NULL)
     {
         FadeChannel fc;
-        fc.setFixture(scv.fxi);
+        fc.setFixture(doc(), scv.fxi);
         fc.setChannel(scv.channel);
         fc.setStart(scv.value);
         fc.setTarget(scv.value);
@@ -202,6 +203,18 @@ QColor Scene::colorValue(quint32 fxi)
                 case QLCChannel::Yellow: yVal = scv.value; break;
                 case QLCChannel::White: rVal = gVal = bVal = scv.value; found = true; break;
                 default: break;
+            }
+        }
+        else if (channel->group() == QLCChannel::Colour)
+        {
+            QLCCapability *cap = channel->searchCapability(scv.value);
+            if (cap && cap->resourceColor1() != QColor())
+            {
+                QColor col = cap->resourceColor1();
+                rVal = col.red();
+                gVal = col.green();
+                bVal = col.blue();
+                found = true;
             }
         }
 
@@ -489,7 +502,7 @@ void Scene::flash(MasterTimer* timer)
 
     Q_ASSERT(timer != NULL);
     Function::flash(timer);
-    timer->registerDMXSource(this);
+    timer->registerDMXSource(this, "Scene");
 }
 
 void Scene::unFlash(MasterTimer* timer)
@@ -501,10 +514,9 @@ void Scene::unFlash(MasterTimer* timer)
     Function::unFlash(timer);
 }
 
-void Scene::writeDMX(MasterTimer* timer, UniverseArray* ua)
+void Scene::writeDMX(MasterTimer* timer, QList<Universe *> ua)
 {
     Q_ASSERT(timer != NULL);
-    Q_ASSERT(ua != NULL);
 
     if (flashing() == true)
     {
@@ -513,9 +525,11 @@ void Scene::writeDMX(MasterTimer* timer, UniverseArray* ua)
         foreach (const SceneValue& sv, m_values)
         {
             FadeChannel fc;
-            fc.setFixture(sv.fxi);
+            fc.setFixture(doc(), sv.fxi);
             fc.setChannel(sv.channel);
-            ua->write(fc.address(doc()), sv.value, fc.group(doc()));
+            quint32 uni = fc.universe();
+            if (uni != Universe::invalid())
+                ua[uni]->write(fc.address(), sv.value);
         }
     }
     else
@@ -538,11 +552,10 @@ void Scene::preRun(MasterTimer* timer)
     Function::preRun(timer);
 }
 
-void Scene::write(MasterTimer* timer, UniverseArray* ua)
+void Scene::write(MasterTimer* timer, QList<Universe*> ua)
 {
     //qDebug() << Q_FUNC_INFO << elapsed();
     Q_UNUSED(timer);
-    Q_ASSERT(ua != NULL);
     Q_ASSERT(m_fader != NULL);
 
     if (m_values.size() == 0)
@@ -561,7 +574,7 @@ void Scene::write(MasterTimer* timer, UniverseArray* ua)
             bool canFade = true;
 
             FadeChannel fc;
-            fc.setFixture(value.fxi);
+            fc.setFixture(doc(), value.fxi);
             fc.setChannel(value.channel);
             fc.setTarget(value.value);
             Fixture *fixture = doc()->fixture(value.fxi);
@@ -595,7 +608,7 @@ void Scene::write(MasterTimer* timer, UniverseArray* ua)
     incrementElapsed();
 }
 
-void Scene::postRun(MasterTimer* timer, UniverseArray* ua)
+void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)
 {
     qDebug() << "Scene postRun. ID: " << id();
     if (m_fader == NULL)
@@ -628,7 +641,6 @@ void Scene::postRun(MasterTimer* timer, UniverseArray* ua)
             fc.setTarget(0);
         }
         timer->fader()->add(fc);
-
     }
 
     Q_ASSERT(m_fader != NULL);
@@ -639,7 +651,7 @@ void Scene::postRun(MasterTimer* timer, UniverseArray* ua)
 }
 
 void Scene::insertStartValue(FadeChannel& fc, const MasterTimer* timer,
-                             const UniverseArray* ua)
+                             const QList<Universe*> ua)
 {
     const QHash <FadeChannel,FadeChannel>& channels(timer->fader()->channels());
     if (channels.contains(fc) == true)
@@ -653,9 +665,10 @@ void Scene::insertStartValue(FadeChannel& fc, const MasterTimer* timer,
     else
     {
         // MasterTimer didn't have the channel. Grab the starting value from UniverseArray.
-        quint32 address = fc.address(doc());
+        quint32 address = fc.address();
+        quint32 uni = fc.universe();
         if (fc.group(doc()) != QLCChannel::Intensity)
-            fc.setStart(ua->preGMValues()[address]);
+            fc.setStart(ua[uni]->preGMValues()[address]);
         else
             fc.setStart(0); // HTP channels must start at zero
         fc.setCurrent(fc.start());

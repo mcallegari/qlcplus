@@ -27,8 +27,6 @@
 #include <QHash>
 #include <QScrollArea>
 
-#define KXMLQLCSimpleDesk "SimpleDesk"
-
 class GrandMasterSlider;
 class SimpleDeskEngine;
 class SpeedDialWidget;
@@ -47,6 +45,12 @@ class QSpinBox;
 class CueStack;
 class Doc;
 class Cue;
+
+/** @addtogroup ui_simpledesk
+ * @{
+ */
+
+#define KXMLQLCSimpleDesk "SimpleDesk"
 
 class SimpleDesk : public QWidget
 {
@@ -76,11 +80,15 @@ private:
     void initTopSide();
     void initBottomSide();
 
+protected slots:
+    void slotDocChanged();
+
 private:
     static SimpleDesk* s_instance;
     SimpleDeskEngine* m_engine;
     QSplitter* m_splitter;
     Doc* m_doc;
+    bool m_docChanged;
 
     /*********************************************************************
      * Universe controls
@@ -101,7 +109,7 @@ private slots:
     void slotUniverseResetClicked();
     void slotUniverseSliderValueChanged(quint32, quint32, uchar value);
     void slotUpdateUniverseSliders();
-    void slotUniversesWritten(const QByteArray& ua);
+    void slotUniversesWritten(int idx, const QByteArray& ua);
 
 private:
     QGroupBox* m_universeGroup;
@@ -203,5 +211,7 @@ public:
     bool loadXML(const QDomElement& root);
     bool saveXML(QDomDocument* doc, QDomElement* wksp_root) const;
 };
+
+/** @} */
 
 #endif

@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.3.2</Version>
-  <Author>Clem,,,</Author>
+  <Author>Clem</Author>
  </Creator>
  <Manufacturer>Rosco</Manufacturer>
  <Model>I-Cue</Model>
@@ -27,7 +28,7 @@
  <Mode Name="2 channel">
   <Physical>
    <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="160" Height="260" Weight="1,6" Depth="265"/>
+   <Dimensions Width="160" Height="260" Weight="1.6" Depth="265"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="230" Type="Fixed" TiltMax="57"/>
    <Technical PowerConsumption="17" DmxConnector="3-pin"/>
@@ -38,7 +39,7 @@
  <Mode Name="4 channel">
   <Physical>
    <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="160" Height="260" Weight="1,6" Depth="265"/>
+   <Dimensions Width="160" Height="260" Weight="1.6" Depth="265"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="230" Type="Fixed" TiltMax="57"/>
    <Technical PowerConsumption="17" DmxConnector="3-pin"/>

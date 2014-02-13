@@ -25,6 +25,10 @@
 
 class QTimer;
 
+/** @addtogroup ui UI
+ * @{
+ */
+
 class AboutBox : public QDialog, public Ui_AboutBox
 {
     Q_OBJECT
@@ -44,5 +48,7 @@ private:
     int m_row;
     int m_increment;
 };
+
+/** @} */
 
 #endif

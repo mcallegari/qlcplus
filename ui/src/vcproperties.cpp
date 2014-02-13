@@ -23,9 +23,8 @@
 #include "qlcfile.h"
 
 #include "virtualconsole.h"
+#include "inputoutputmap.h"
 #include "vcproperties.h"
-#include "outputmap.h"
-#include "inputmap.h"
 #include "vcframe.h"
 #include "doc.h"
 
@@ -38,11 +37,11 @@ VCProperties::VCProperties()
 
     , m_tapModifier(Qt::ControlModifier)
 
-    , m_gmChannelMode(UniverseArray::GMIntensity)
-    , m_gmValueMode(UniverseArray::GMReduce)
-    , m_gmSliderMode(UniverseArray::GMNormal)
-    , m_gmInputUniverse(InputMap::invalidUniverse())
-    , m_gmInputChannel(InputMap::invalidChannel())
+    , m_gmChannelMode(GrandMaster::Intensity)
+    , m_gmValueMode(GrandMaster::Reduce)
+    , m_gmSliderMode(GrandMaster::Normal)
+    , m_gmInputUniverse(InputOutputMap::invalidUniverse())
+    , m_gmInputChannel(QLCChannel::invalid())
 {
 }
 
@@ -95,32 +94,32 @@ Qt::KeyboardModifier VCProperties::tapModifier() const
  * Grand Master
  *****************************************************************************/
 
-void VCProperties::setGrandMasterChannelMode(UniverseArray::GMChannelMode mode)
+void VCProperties::setGrandMasterChannelMode(GrandMaster::ChannelMode mode)
 {
     m_gmChannelMode = mode;
 }
 
-UniverseArray::GMChannelMode VCProperties::grandMasterChannelMode() const
+GrandMaster::ChannelMode VCProperties::grandMasterChannelMode() const
 {
     return m_gmChannelMode;
 }
 
-void VCProperties::setGrandMasterValueMode(UniverseArray::GMValueMode mode)
+void VCProperties::setGrandMasterValueMode(GrandMaster::ValueMode mode)
 {
     m_gmValueMode = mode;
 }
 
-UniverseArray::GMValueMode VCProperties::grandMasterValueMode() const
+GrandMaster::ValueMode VCProperties::grandMasterValueMode() const
 {
     return m_gmValueMode;
 }
 
-void VCProperties::setGrandMasterSliderMode(UniverseArray::GMSliderMode mode)
+void VCProperties::setGrandMasterSliderMode(GrandMaster::SliderMode mode)
 {
     m_gmSliderMode = mode;
 }
 
-UniverseArray::GMSliderMode VCProperties::grandMasterSlideMode() const
+GrandMaster::SliderMode VCProperties::grandMasterSlideMode() const
 {
     return m_gmSliderMode;
 }
@@ -185,19 +184,19 @@ bool VCProperties::loadXML(const QDomElement& root)
         }
         else if (tag.tagName() == KXMLQLCVCPropertiesGrandMaster)
         {
-            quint32 universe = InputMap::invalidUniverse();
-            quint32 channel = InputMap::invalidChannel();
+            quint32 universe = InputOutputMap::invalidUniverse();
+            quint32 channel = QLCChannel::invalid();
 
             str = tag.attribute(KXMLQLCVCPropertiesGrandMasterChannelMode);
-            setGrandMasterChannelMode(UniverseArray::stringToGMChannelMode(str));
+            setGrandMasterChannelMode(GrandMaster::stringToChannelMode(str));
 
             str = tag.attribute(KXMLQLCVCPropertiesGrandMasterValueMode);
-            setGrandMasterValueMode(UniverseArray::stringToGMValueMode(str));
+            setGrandMasterValueMode(GrandMaster::stringToValueMode(str));
 
             if (tag.hasAttribute(KXMLQLCVCPropertiesGrandMasterSliderMode))
             {
                 str = tag.attribute(KXMLQLCVCPropertiesGrandMasterSliderMode);
-                setGrandMasterSliderMode(UniverseArray::stringToGMSliderMode(str));
+                setGrandMasterSliderMode(GrandMaster::stringToSliderMode(str));
             }
 
             /* External input */
@@ -251,19 +250,19 @@ bool VCProperties::saveXML(QDomDocument* doc, QDomElement* wksp_root) const
 
     /* Channel mode */
     tag.setAttribute(KXMLQLCVCPropertiesGrandMasterChannelMode,
-                     UniverseArray::gMChannelModeToString(m_gmChannelMode));
+                     GrandMaster::channelModeToString(m_gmChannelMode));
 
     /* Value mode */
     tag.setAttribute(KXMLQLCVCPropertiesGrandMasterValueMode,
-                     UniverseArray::gMValueModeToString(m_gmValueMode));
+                     GrandMaster::valueModeToString(m_gmValueMode));
 
     /* Slider mode */
     tag.setAttribute(KXMLQLCVCPropertiesGrandMasterSliderMode,
-                     UniverseArray::gMSliderModeToString(m_gmSliderMode));
+                     GrandMaster::sliderModeToString(m_gmSliderMode));
 
     /* Grand Master external input */
-    if (m_gmInputUniverse != InputMap::invalidUniverse() &&
-        m_gmInputChannel != InputMap::invalidChannel())
+    if (m_gmInputUniverse != InputOutputMap::invalidUniverse() &&
+        m_gmInputChannel != QLCChannel::invalid())
     {
         subtag = doc->createElement(KXMLQLCVCPropertiesInput);
         tag.appendChild(subtag);
@@ -287,18 +286,18 @@ bool VCProperties::loadXMLInput(const QDomElement& tag, quint32* universe, quint
     if (str.isEmpty() == false)
         *universe = str.toUInt();
     else
-        *universe = InputMap::invalidUniverse();
+        *universe = InputOutputMap::invalidUniverse();
 
     /* Channel */
     str = tag.attribute(KXMLQLCVCPropertiesInputChannel);
     if (str.isEmpty() == false)
         *channel = str.toUInt();
     else
-        *channel = InputMap::invalidChannel();
+        *channel = QLCChannel::invalid();
 
     /* Verdict */
-    if (*universe != InputMap::invalidUniverse() &&
-        *channel != InputMap::invalidChannel()) {
+    if (*universe != InputOutputMap::invalidUniverse() &&
+        *channel != QLCChannel::invalid()) {
         return true;
     } else {
         return false;

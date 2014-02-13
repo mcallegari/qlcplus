@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.3.4</Version>
-  <Author>hjunnila</Author>
+  <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Robe</Manufacturer>
  <Model>ColorSpot 170 AT</Model>

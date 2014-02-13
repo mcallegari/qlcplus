@@ -34,6 +34,10 @@ class Fixture;
 class Scene;
 class Doc;
 
+/** @addtogroup ui_functions
+ * @{
+ */
+
 class FunctionWizard : public QDialog, public Ui_FunctionWizard
 {
     Q_OBJECT
@@ -109,5 +113,6 @@ protected:
     void addWidgetsToVirtualConsole();
 };
 
-#endif
+/** @} */
 
+#endif

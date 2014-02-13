@@ -29,11 +29,15 @@
 #include "qlcpoint.h"
 #include "fixture.h"
 
-#define KXMLQLCFixtureGroup "FixtureGroup"
-
 class QDomDocument;
 class QDomElement;
 class Doc;
+
+/** @addtogroup engine Engine
+ * @{
+ */
+
+#define KXMLQLCFixtureGroup "FixtureGroup"
 
 class FixtureGroup : public QObject
 {
@@ -180,5 +184,7 @@ public:
     bool loadXML(const QDomElement& root);
     bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
 };
+
+/** @} */
 
 #endif

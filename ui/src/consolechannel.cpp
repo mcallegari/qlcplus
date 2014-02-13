@@ -34,9 +34,7 @@
 #include "doc.h"
 #include "fixture.h"
 #include "apputil.h"
-#include "outputmap.h"
 #include "mastertimer.h"
-#include "universearray.h"
 #include "consolechannel.h"
 
 /*****************************************************************************

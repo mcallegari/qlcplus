@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller</Name>
   <Version>3.3.0-r2968</Version>
@@ -22,7 +23,7 @@
  <Channel Name="STROBE">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="0">NONE</Capability>
-  <Capability Min="10" Max="255">Slow->Fast</Capability>
+  <Capability Min="10" Max="255">Slow-&gt;Fast</Capability>
  </Channel>
  <Channel Name="Mode">
   <Group Byte="0">Effect</Group>

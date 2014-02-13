@@ -25,6 +25,10 @@
 class QDomElement;
 class QDomDocument;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 #define KXMLQLCPhysical "Physical"
 
 #define KXMLQLCPhysicalBulb "Bulb"
@@ -97,11 +101,11 @@ public:
     void setLensName(const QString& name);
     QString lensName() const;
 
-    void setLensDegreesMin(int degrees);
-    int lensDegreesMin() const;
+    void setLensDegreesMin(qreal degrees);
+    qreal lensDegreesMin() const;
 
-    void setLensDegreesMax(int degrees);
-    int lensDegreesMax() const;
+    void setLensDegreesMax(qreal degrees);
+    qreal lensDegreesMax() const;
 
     void setFocusType(const QString& type);
     QString focusType() const;
@@ -129,8 +133,8 @@ protected:
     int m_depth;
 
     QString m_lensName;
-    int m_lensDegreesMin;
-    int m_lensDegreesMax;
+    qreal m_lensDegreesMin;
+    qreal m_lensDegreesMax;
 
     QString m_focusType;
     int m_focusPanMax;
@@ -149,5 +153,7 @@ public:
     /** Save physical values to the given XML tag in the given document */
     bool saveXML(QDomDocument* doc, QDomElement* root);
 };
+
+/** @} */
 
 #endif

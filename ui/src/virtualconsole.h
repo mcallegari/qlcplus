@@ -43,6 +43,10 @@ class QAction;
 class KeyBind;
 class QMenu;
 
+/** @addtogroup ui_vc
+ * @{
+ */
+
 class VirtualConsole : public QWidget
 {
     Q_OBJECT
@@ -357,6 +361,18 @@ private:
     /*********************************************************************
      * Main application mode
      *********************************************************************/
+public:
+    /**
+     * Check if the startup function is associated to a Virtual Console
+     * widget. In particular, Chasers associated to Cue Lists will run
+     * with a CueListRunner instead of a ChaserRunner.
+     *
+     * @param fid The ID of the startup function
+     * @return true in case Virtual Console started the function
+     *         false in case Doc has to start it
+     */
+    bool checkStartupFunction(quint32 fid);
+
 public slots:
     /** Slot that catches main application mode changes */
     void slotModeChanged(Doc::Mode mode);
@@ -377,5 +393,7 @@ public:
 signals:
     void loaded();
 };
+
+/** @} */
 
 #endif

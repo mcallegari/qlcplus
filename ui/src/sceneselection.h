@@ -32,6 +32,10 @@ class QAction;
 class QWidget;
 class Doc;
 
+/** @addtogroup ui UI
+ * @{
+ */
+
 class SceneSelection : public QDialog, public Ui_SceneSelection
 {
     Q_OBJECT
@@ -91,5 +95,7 @@ protected slots:
     void slotItemDoubleClicked(QTreeWidgetItem* item);
 
 };
+
+/** @} */
 
 #endif

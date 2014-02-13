@@ -1,3 +1,52 @@
+qlcplus (4.7.0) stable; urgency=low
+
+  * NEW: Input/Output: QLC+ now supports infinite universes
+  * NEW: Input/Output: added universe passthrough mode
+  * NEW: Plugins: ArtNet and E1.31 plugins support up to 65535 universes
+  * NEW: Monitor: preliminary support of 2D preview
+  * Function Selection: fixed Collection selection
+  * MIDI plugin: Linux support for pitch wheel and note/channel aftertouch (Jano Svitok)
+  * MIDI plugin: improved pitch wheel and input/output settings (Robert Scheffler)
+  * Documentation: Added Sound Control tutorial (Jano Svitok)
+  * Added input profile: BCF2000 in Mackie Control mode - all buttons are usable (Jano Svitok)
+  * Added fixtures: DTS Max FAR, DTS Nick NRG1201 (thanks to Vasily Leushin)
+  * Added fixture: AGPtek RGB 6ch Crystal Ball (thanks to Davey Daytona)
+  * Added fixture: American DJ Tribar Spot2 (thanks to Rob Goudriaan)
+  * Added fixture: iSolution iMove 5 Series (thanks to Dave Doyle)
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 15 February 2014 12:13:14 +0200
+
+qlcplus (4.6.1) stable; urgency=low
+
+  * NEW: Function Manager: it is now possible to set a startup function that is started every time QLC+ switches to operate mode
+  * NEW: Clock widget can now be used to schedule a function startup
+  * VC Audio triggers: fixed divisors behaviour
+  * VC Slider: fixed submaster renaming
+  * Engine: restored timed fade out + stop all functions functionality
+  * Function selection dialog now looks like function manager (with categories and folders)
+  * Show Manager: do not add a Show on popup cancel
+  * Show Manager: when using an existing Scene as track create a sequence instead of a chaser
+  * Fixture Manager: add quick search bar on fixture add (suggested by NiKoyes)
+  * Engine: fixed Show playback not respecting fade times
+  * RGB Matrix: added a whole lot of new scripts (many thanks to Plugz)
+  * UI: added warning message when fixture definitions are not found during project loading
+  * VC XY Pad: fixed behavior for 8bit Pan/tilt fixtures (Jano Svitok, found by Cinguligu)
+  * Webaccess: fixed behaviour of buttons in solo frames
+  * Virtual Console: multipage frames input associations are now contextual
+  * Added input profile: KORG nano PAD (thanks to Alessandro Grechi)
+  * Added fixture: Showtec ZIPP LED DMX (thanks to Marek Pleva)
+  * Added fixture: Chauvet Circus 2.0 (thanks to Anthony King)
+  * Added fixture: Proel Analogue Dimmer 6Ch (thanks to Lorenzo Andreani)
+  * Added fixture: Ledj Tri LED back drop controller (thanks to Michael Clements)
+  * Added fixture: Eurolite PST 9W RGB (thanks to Joa Palmer)
+  * Added fixtures: Chauvet LED Techno Strobe RGB, Venue Scanner 4 (thanks to Davey Daytona)
+  * Added fixture: American DJ Fusion FX Bar 5 (thanks to DJ Drew)
+  * Added fixture: Pro-Lights LumiPAR 12Q (thanks to Alessandro Grechi)
+  * Added fixture: Stairville MH-X20 (thanks to Kristo)
+  * Added fixture: Showtec Indigo 4600 (Jano Svitok)
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 12 January 2014 12:13:04 +0200
+
 qlcplus (4.6.0) stable; urgency=low
 
   * NEW: Plugins: Added E1.31 protocol input/output plugin
@@ -22,6 +71,7 @@ qlcplus (4.6.0) stable; urgency=low
   * Documentation: reviewed and turned into proper english (thanks to Michael Clements)
   * Web access: improved to reflect the live situation of the Virtual Console
   * Virtual Console: fixed widgets paste into a multipage frame
+  * XY Pad: when focused, can be controlled with arrow keys (thanks to Alex Paul)
   * Added fixtures: Pro-Lights LedPar 64363 RGB, Pro-Lights LumiPar 7QPro, Pro-Lights Strobo 1500DMX (thanks to Lorenzo Andreani)
   * Added fixtures: Pro-Lights Explo 3000D, Pro-Lights LumiPar 18 Tri, Robe_ColorMix_240_AT (thanks to Lorenzo Andreani)
   * Added fixtures: American DJ Mega Tri Par, Clay Paky A.LEDA Wash K5, Clay Paky A.LEDA Wash K10, Clay Paky A.LEDA Wash K20
@@ -29,7 +79,7 @@ qlcplus (4.6.0) stable; urgency=low
   * Added fixture: American DJ Inno Color Beam LED (thanks to Louis Gutenschwafe)
   * Added fixtures: American DJ/Elation Event Bar LED, American DJ Micro Wash RGBW (thanks to George Qualley)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 15 December 2013 12:13:04 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Thu, 19 December 2013 12:13:04 +0200
 
 qlcplus (4.5.1) stable; urgency=low
 

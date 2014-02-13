@@ -196,25 +196,37 @@ void AlsaMidiOutputDevice::writeFeedback(uchar cmd, uchar data1, uchar data2)
 
     switch(midiCmd)
     {
-        case MIDI_NOTE_OFF:
-            snd_seq_ev_set_noteoff(&ev, midiCh, data1, data2);
-        break;
-        case MIDI_NOTE_ON:
-            snd_seq_ev_set_noteon(&ev, midiCh, data1, data2);
-        break;
-        case MIDI_CONTROL_CHANGE:
-            snd_seq_ev_set_controller(&ev, midiCh, data1, data2);
-        break;
-        case MIDI_PROGRAM_CHANGE:
-            snd_seq_ev_set_pgmchange(&ev, midiCh, data1);
+    case MIDI_NOTE_OFF:
+        snd_seq_ev_set_noteoff(&ev, midiCh, data1, data2);
         break;
 
-        case MIDI_NOTE_AFTERTOUCH:
-        case MIDI_CHANNEL_AFTERTOUCH:
-        case MIDI_PITCH_WHEEL:
-        default:
-            // What to do here ??
-            invalidCmd = true;
+    case MIDI_NOTE_ON:
+        snd_seq_ev_set_noteon(&ev, midiCh, data1, data2);
+        break;
+
+    case MIDI_CONTROL_CHANGE:
+        snd_seq_ev_set_controller(&ev, midiCh, data1, data2);
+        break;
+
+    case MIDI_PROGRAM_CHANGE:
+        snd_seq_ev_set_pgmchange(&ev, midiCh, data1);
+        break;
+
+    case MIDI_NOTE_AFTERTOUCH:
+        snd_seq_ev_set_keypress(&ev, midiCh, data1, data2);
+        break;
+
+    case MIDI_CHANNEL_AFTERTOUCH:
+        snd_seq_ev_set_chanpress(&ev, midiCh, data1);
+        break;
+
+    case MIDI_PITCH_WHEEL:
+        snd_seq_ev_set_pitchbend(&ev, midiCh, ((data1 & 0x7f) | ((data2 & 0x7f) << 7)) - 8192);
+        break;
+
+    default:
+        // What to do here ??
+        invalidCmd = true;
         break;
     }
 

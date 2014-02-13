@@ -171,6 +171,7 @@ quint32 Fixture::universeAddress() const
 void Fixture::setChannels(quint32 channels)
 {
     m_channels = channels;
+    emit changed(m_id);
 }
 
 quint32 Fixture::channels() const
@@ -529,6 +530,61 @@ QIcon Fixture::getIconFromType(QString type) const
     return QIcon(":/other.png");
 }
 
+QLCFixtureDef *Fixture::genericRGBPanelDef(int columns)
+{
+    QLCFixtureDef *def = new QLCFixtureDef();
+    def->setManufacturer(KXMLFixtureGeneric);
+    def->setModel(KXMLFixtureRGBPanel);
+    def->setType("LED Bar");
+    def->setAuthor("QLC+");
+    for (int i = 0; i < columns; i++)
+    {
+        QLCChannel* red = new QLCChannel();
+        red->setName(QString("Red %1").arg(i + 1));
+        red->setGroup(QLCChannel::Intensity);
+        red->setColour(QLCChannel::Red);
+
+        QLCChannel* green = new QLCChannel();
+        green->setName(QString("Green %1").arg(i + 1));
+        green->setGroup(QLCChannel::Intensity);
+        green->setColour(QLCChannel::Green);
+
+        QLCChannel* blue = new QLCChannel();
+        blue->setName(QString("Blue %1").arg(i + 1));
+        blue->setGroup(QLCChannel::Intensity);
+        blue->setColour(QLCChannel::Blue);
+
+        def->addChannel(red);
+        def->addChannel(green);
+        def->addChannel(blue);
+    }
+
+    return def;
+}
+
+QLCFixtureMode *Fixture::genericRGBPanelMode(QLCFixtureDef *def)
+{
+    Q_ASSERT(def != NULL);
+    QLCFixtureMode *mode = new QLCFixtureMode(def);
+    mode->setName("Default");
+    QList<QLCChannel *>channels = def->channels();
+    for (int i = 0; i < channels.count(); i++)
+    {
+        QLCChannel *ch = channels.at(i);
+        mode->insertChannel(ch, i);
+        if (i%3 == 0)
+        {
+            QLCFixtureHead head;
+            head.addChannel(i);
+            head.addChannel(i+1);
+            head.addChannel(i+2);
+            mode->insertHead(-1, head);
+        }
+    }
+
+    return mode;
+}
+
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
@@ -540,7 +596,7 @@ bool Fixture::loader(const QDomElement& root, Doc* doc)
     Fixture* fxi = new Fixture(doc);
     Q_ASSERT(fxi != NULL);
 
-    if (fxi->loadXML(root, doc->fixtureDefCache()) == true)
+    if (fxi->loadXML(root, doc, doc->fixtureDefCache()) == true)
     {
         if (doc->addFixture(fxi, fxi->id()) == true)
         {
@@ -564,7 +620,7 @@ bool Fixture::loader(const QDomElement& root, Doc* doc)
     return result;
 }
 
-bool Fixture::loadXML(const QDomElement& root,
+bool Fixture::loadXML(const QDomElement& root, Doc *doc,
                       const QLCFixtureDefCache* fixtureDefCache)
 {
     QLCFixtureDef* fixtureDef = NULL;
@@ -639,13 +695,14 @@ bool Fixture::loadXML(const QDomElement& root,
     }
 
     /* Find the given fixture definition, unless its a generic dimmer */
-    if (model != KXMLFixtureGeneric)
+    if (model != KXMLFixtureGeneric && model != KXMLFixtureRGBPanel)
     {
         fixtureDef = fixtureDefCache->fixtureDef(manufacturer, model);
         if (fixtureDef == NULL)
         {
-            qWarning() << Q_FUNC_INFO << "No fixture definition for"
-                       << manufacturer << model;
+            doc->appendToErrorLog(QString("No fixture definition found for <%1> <%2>")
+                                  .arg(manufacturer)
+                                  .arg(model));
         }
         else
         {
@@ -653,8 +710,8 @@ bool Fixture::loadXML(const QDomElement& root,
             fixtureMode = fixtureDef->mode(modeName);
             if (fixtureMode == NULL)
             {
-                qWarning() << Q_FUNC_INFO << "Fixture mode" << modeName
-                           << "for" << manufacturer << model << "not found";
+                doc->appendToErrorLog(QString("Fixture mode <%1> not found for <%2> <%3>")
+                                      .arg(modeName).arg(manufacturer).arg(model));
 
                 /* Set this also NULL so that a generic dimmer will be
                    created instead as a backup. */
@@ -666,16 +723,18 @@ bool Fixture::loadXML(const QDomElement& root,
     /* Number of channels */
     if (channels <= 0)
     {
-        qWarning() << Q_FUNC_INFO << "Fixture" << name << "channels"
-                   << channels << "out of bounds";
+        doc->appendToErrorLog(QString("%1 channels of fixture <%2> are our of bounds")
+                              .arg(QString::number(channels))
+                              .arg(name));
         channels = 1;
     }
 
     /* Make sure that address is something sensible */
     if (address > 511 || address + (channels - 1) > 511)
     {
-        qWarning() << Q_FUNC_INFO << "Fixture address range" << address << "-"
-                   << address + channels - 1 << "out of DMX bounds";
+        doc->appendToErrorLog(QString("Fixture address range %1-%2 is out of DMX bounds")
+                              .arg(QString::number(address))
+                              .arg(QString::number(address + channels - 1)));
         address = 0;
     }
 
@@ -684,6 +743,12 @@ bool Fixture::loadXML(const QDomElement& root,
     {
         qWarning() << Q_FUNC_INFO << "Fixture ID" << id << "is not allowed.";
         return false;
+    }
+
+    if (model == KXMLFixtureRGBPanel)
+    {
+        fixtureDef = genericRGBPanelDef(channels / 3);
+        fixtureMode = genericRGBPanelMode(fixtureDef);
     }
 
     if (fixtureDef != NULL && fixtureMode != NULL)

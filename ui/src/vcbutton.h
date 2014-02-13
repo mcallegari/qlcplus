@@ -35,6 +35,10 @@ class QAction;
 class QPoint;
 class QEvent;
 
+/** @addtogroup ui_vc_widgets
+ * @{
+ */
+
 #define KXMLQLCVCButton "Button"
 #define KXMLQLCVCButtonIcon "Icon"
 
@@ -370,5 +374,7 @@ protected:
     void mousePressEvent(QMouseEvent* e);
     void mouseReleaseEvent(QMouseEvent* e);
 };
+
+/** @} */
 
 #endif

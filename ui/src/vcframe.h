@@ -27,6 +27,10 @@
 
 #include "vcwidget.h"
 
+/** @addtogroup ui_vc_widgets
+ * @{
+ */
+
 #define KXMLQLCVCFrame "Frame"
 #define KXMLQLCVCFrameAllowChildren "AllowChildren"
 #define KXMLQLCVCFrameAllowResize   "AllowResize"
@@ -241,5 +245,7 @@ protected:
     void handleWidgetSelection(QMouseEvent* e);
     void mouseMoveEvent(QMouseEvent* e);
 };
+
+/** @} */
 
 #endif

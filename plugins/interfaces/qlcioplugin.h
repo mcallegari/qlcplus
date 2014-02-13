@@ -87,7 +87,12 @@ public:
     virtual QString name() = 0;
 
     /** Plugin's I/O capabilities */
-    enum Capability { Output = 0x1, Input = 0x2, Feedback = 0x4 };
+    enum Capability {
+        Output      = 1 << 0,
+        Input       = 1 << 1,
+        Feedback    = 1 << 2,
+        Infinite    = 1 << 3
+    };
 
     /**
      * Get plugin capabilities as an OR'ed bitmask
@@ -157,7 +162,7 @@ public:
      * @param output The output universe to write to
      * @param universe The universe data to write
      */
-    virtual void writeUniverse(quint32 output, const QByteArray& universe) = 0;
+    virtual void writeUniverse(quint32 universe, quint32 output, const QByteArray& data) = 0;
 
     /*************************************************************************
      * Inputs
@@ -226,6 +231,7 @@ signals:
      * @param input The input line whose channel has changed value
      * @param channel The channel that has changed its value
      * @param value The newly-changed channel value
+     * @param key a string to identify a channel by name (ATM used only by OSC)
      */
     void valueChanged(quint32 input, quint32 channel, uchar value, const QString& key = 0);
 

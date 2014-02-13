@@ -32,6 +32,8 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
+#define KXMLQlcplusNamespace "http://qlcplus.sourceforge.net/"
+
 QDomDocument QLCFile::readXML(const QString& path)
 {
     if (path.isEmpty() == true)
@@ -72,12 +74,19 @@ QDomDocument QLCFile::getXMLHeader(const QString& content, const QString& author
     QDomImplementation dom;
     QDomDocument doc(dom.createDocumentType(content, QString(), QString()));
 
+    QDomProcessingInstruction instr = doc.createProcessingInstruction( 
+        "xml", "version='1.0' encoding='UTF-8'");
+
+    doc.appendChild(instr);
+
     QDomElement root;
     QDomElement tag;
     QDomElement subtag;
     QDomText text;
 
     root = doc.createElement(content);
+    root.setAttribute("xmlns", KXMLQlcplusNamespace + content);
+
     doc.appendChild(root);
 
     /* Creator tag */
@@ -162,5 +171,23 @@ QString QLCFile::currentUserName()
         return QString(getenv("USER"));
     else
         return QString(passwd->pw_gecos);
+#endif
+}
+
+bool QLCFile::isRaspberry()
+{
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+    QFile cpuInfoFile("/proc/cpuinfo");
+    if (cpuInfoFile.exists() == true)
+    {
+        cpuInfoFile.open(QFile::ReadOnly);
+        QString content = QLatin1String(cpuInfoFile.readAll());
+        cpuInfoFile.close();
+        if (content.contains("BCM2708"))
+            return true;
+    }
+    return false;
+#else
+    return false;
 #endif
 }

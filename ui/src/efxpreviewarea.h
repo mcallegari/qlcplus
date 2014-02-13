@@ -29,6 +29,10 @@
 
 class QPaintEvent;
 
+/** @addtogroup ui_functions
+ * @{
+ */
+
 /**
  * The area that is used to draw a preview of
  * the EFX function currently being edited.
@@ -90,5 +94,7 @@ private:
     /** Animation position */
     int m_iter;
 };
+
+/** @} */
 
 #endif

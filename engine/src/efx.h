@@ -33,6 +33,10 @@ class GenericFader;
 class QString;
 class Fixture;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 #define KXMLQLCEFXPropagationMode "PropagationMode"
 #define KXMLQLCEFXPropagationModeParallel "Parallel"
 #define KXMLQLCEFXPropagationModeSerial "Serial"
@@ -56,6 +60,7 @@ class Fixture;
 #define KXMLQLCEFXCircleAlgorithmName "Circle"
 #define KXMLQLCEFXEightAlgorithmName "Eight"
 #define KXMLQLCEFXLineAlgorithmName "Line"
+#define KXMLQLCEFXLine2AlgorithmName "Line2"
 #define KXMLQLCEFXDiamondAlgorithmName "Diamond"
 #define KXMLQLCEFXLissajousAlgorithmName "Lissajous"
 
@@ -97,6 +102,9 @@ public:
     /** Copy the contents for this function from another function */
     bool copyFrom(const Function* function);
 
+    /** Set the duration in milliseconds */
+    virtual void setDuration(uint ms);
+
     /*********************************************************************
      * Algorithm
      *********************************************************************/
@@ -106,6 +114,7 @@ public:
         Circle,
         Eight,
         Line,
+        Line2,
         Diamond,
         Lissajous
     };
@@ -557,10 +566,10 @@ public:
     void preRun(MasterTimer* timer);
 
     /** @reimpl */
-    void write(MasterTimer* timer, UniverseArray* universes);
+    void write(MasterTimer* timer, QList<Universe *> universes);
 
     /** @reimpl */
-    void postRun(MasterTimer* timer, UniverseArray* universes);
+    void postRun(MasterTimer* timer, QList<Universe*> universes);
 
     /*********************************************************************
      * Intensity
@@ -569,5 +578,7 @@ public:
     /** @reimp */
     void adjustAttribute(qreal fraction, int attributeIndex = 0);
 };
+
+/** @} */
 
 #endif

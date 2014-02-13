@@ -25,6 +25,13 @@
 
 #include "scenevalue.h"
 
+class QDomDocument;
+class QDomElement;
+
+/** @addtogroup engine Engine
+ * @{
+ */
+
 #define KXMLQLCCue "Cue"
 #define KXMLQLCCueName "Name"
 #define KXMLQLCCueValue "Value"
@@ -34,9 +41,6 @@
 #define KXMLQLCCueSpeedFadeIn   "FadeIn"
 #define KXMLQLCCueSpeedFadeOut  "FadeOut"
 #define KXMLQLCCueSpeedDuration "Duration"
-
-class QDomDocument;
-class QDomElement;
 
 class Cue
 {
@@ -98,5 +102,7 @@ private:
     bool loadXMLSpeed(const QDomElement& speedRoot);
     bool saveXMLSpeed(QDomDocument* doc, QDomElement* root) const;
 };
+
+/** @} */
 
 #endif

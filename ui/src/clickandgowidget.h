@@ -24,6 +24,10 @@
 
 #include "qlcchannel.h"
 
+/** @addtogroup ui UI
+ * @{
+ */
+
 class ClickAndGoWidget : public QWidget
 {
     Q_OBJECT
@@ -169,5 +173,7 @@ signals:
 public slots:
     
 };
+
+/** @} */
 
 #endif // CLICKANDGOWIDGET_H

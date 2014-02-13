@@ -33,6 +33,10 @@ class QString;
 class QMenu;
 class QFile;
 
+/** @addtogroup ui_vc_widgets
+ * @{
+ */
+
 #define KXMLQLCVCCaption "Caption"
 #define KXMLQLCVCFrameStyle "FrameStyle"
 
@@ -513,5 +517,7 @@ protected:
     virtual void mouseDoubleClickEvent(QMouseEvent* e);
     virtual void mouseMoveEvent(QMouseEvent* e);
 };
+
+/** @} */
 
 #endif

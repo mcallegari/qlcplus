@@ -9,7 +9,7 @@
         <translation>Este plugin provee soporte de Salida DMX para dispositivos Anyma uDMX.</translation>
     </message>
     <message>
-        <location filename="udmx.cpp" line="186"/>
+        <location filename="udmx.cpp" line="188"/>
         <source>Do you wish to re-scan your hardware?</source>
         <translation>¿Desea volver a escanear su hardware?</translation>
     </message>

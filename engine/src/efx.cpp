@@ -31,7 +31,6 @@
 #include "qlcmacros.h"
 #include "qlcfile.h"
 
-#include "universearray.h"
 #include "mastertimer.h"
 #include "fixture.h"
 #include "scene.h"
@@ -148,6 +147,15 @@ bool EFX::copyFrom(const Function* function)
     return Function::copyFrom(function);
 }
 
+void EFX::setDuration(uint ms)
+{
+    Function::setDuration(ms);
+    for(int i = 0; i < m_fixtures.size(); ++i)
+    {
+        m_fixtures[i]->durationChanged();
+    }
+}
+
 /*****************************************************************************
  * Algorithm
  *****************************************************************************/
@@ -173,6 +181,7 @@ QStringList EFX::algorithmList()
     list << algorithmToString(EFX::Circle);
     list << algorithmToString(EFX::Eight);
     list << algorithmToString(EFX::Line);
+    list << algorithmToString(EFX::Line2);
     list << algorithmToString(EFX::Diamond);
     list << algorithmToString(EFX::Lissajous);
     return list;
@@ -189,6 +198,8 @@ QString EFX::algorithmToString(EFX::Algorithm algo)
             return QString(KXMLQLCEFXEightAlgorithmName);
         case EFX::Line:
             return QString(KXMLQLCEFXLineAlgorithmName);
+        case EFX::Line2:
+            return QString(KXMLQLCEFXLine2AlgorithmName);
         case EFX::Diamond:
             return QString(KXMLQLCEFXDiamondAlgorithmName);
         case EFX::Lissajous:
@@ -202,6 +213,8 @@ EFX::Algorithm EFX::stringToAlgorithm(const QString& str)
         return EFX::Eight;
     else if (str == QString(KXMLQLCEFXLineAlgorithmName))
         return EFX::Line;
+    else if (str == QString(KXMLQLCEFXLine2AlgorithmName))
+        return EFX::Line2;
     else if (str == QString(KXMLQLCEFXDiamondAlgorithmName))
         return EFX::Diamond;
     else if (str == QString(KXMLQLCEFXLissajousAlgorithmName))
@@ -278,6 +291,7 @@ qreal EFX::calculateDirection(Function::Direction direction, qreal iterator) con
     default:
     case Circle:
     case Eight:
+    case Line2:
     case Diamond:
     case Lissajous:
         return (M_PI * 2.0) - iterator;
@@ -286,6 +300,7 @@ qreal EFX::calculateDirection(Function::Direction direction, qreal iterator) con
     }
 }
 
+// this function should map from 0..M_PI * 2 -> -1..1
 void EFX::calculatePoint(qreal iterator, qreal* x, qreal* y) const
 {
     switch (algorithm())
@@ -304,6 +319,11 @@ void EFX::calculatePoint(qreal iterator, qreal* x, qreal* y) const
     case Line:
         *x = cos(iterator);
         *y = cos(iterator);
+        break;
+
+    case Line2:
+        *x = iterator / M_PI - 1;
+        *y = iterator / M_PI - 1;
         break;
 
     case Diamond:
@@ -974,7 +994,7 @@ void EFX::preRun(MasterTimer* timer)
     Function::preRun(timer);
 }
 
-void EFX::write(MasterTimer* timer, UniverseArray* universes)
+void EFX::write(MasterTimer* timer, QList<Universe*> universes)
 {
     int ready = 0;
 
@@ -998,7 +1018,7 @@ void EFX::write(MasterTimer* timer, UniverseArray* universes)
     m_fader->write(universes);
 }
 
-void EFX::postRun(MasterTimer* timer, UniverseArray* universes)
+void EFX::postRun(MasterTimer* timer, QList<Universe *> universes)
 {
     /* Reset all fixtures */
     QListIterator <EFXFixture*> it(m_fixtures);

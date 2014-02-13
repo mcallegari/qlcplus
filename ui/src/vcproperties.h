@@ -20,17 +20,19 @@
 #ifndef VCPROPERTIES_H
 #define VCPROPERTIES_H
 
-#include "universearray.h"
+#include "grandmaster.h"
 
 class VirtualConsole;
 class QDomDocument;
 class QDomElement;
 class MasterTimer;
-class OutputMap;
-class InputMap;
 class VCFrame;
 class QWidget;
 class Doc;
+
+/** @addtogroup ui_vc_props
+ * @{
+ */
 
 #define KXMLQLCVirtualConsole "VirtualConsole"
 
@@ -93,23 +95,23 @@ private:
      * Grand Master
      *************************************************************************/
 public:
-    void setGrandMasterChannelMode(UniverseArray::GMChannelMode mode);
-    UniverseArray::GMChannelMode grandMasterChannelMode() const;
+    void setGrandMasterChannelMode(GrandMaster::ChannelMode mode);
+    GrandMaster::ChannelMode grandMasterChannelMode() const;
 
-    void setGrandMasterValueMode(UniverseArray::GMValueMode mode);
-    UniverseArray::GMValueMode grandMasterValueMode() const;
+    void setGrandMasterValueMode(GrandMaster::ValueMode mode);
+    GrandMaster::ValueMode grandMasterValueMode() const;
 
-    void setGrandMasterSliderMode(UniverseArray::GMSliderMode mode);
-    UniverseArray::GMSliderMode grandMasterSlideMode() const;
+    void setGrandMasterSliderMode(GrandMaster::SliderMode mode);
+    GrandMaster::SliderMode grandMasterSlideMode() const;
 
     void setGrandMasterInputSource(quint32 universe, quint32 channel);
     quint32 grandMasterInputUniverse() const;
     quint32 grandMasterInputChannel() const;
 
 private:
-    UniverseArray::GMChannelMode m_gmChannelMode;
-    UniverseArray::GMValueMode m_gmValueMode;
-    UniverseArray::GMSliderMode m_gmSliderMode;
+    GrandMaster::ChannelMode m_gmChannelMode;
+    GrandMaster::ValueMode m_gmValueMode;
+    GrandMaster::SliderMode m_gmSliderMode;
     quint32 m_gmInputUniverse;
     quint32 m_gmInputChannel;
 
@@ -127,5 +129,7 @@ private:
     /** Load the properties of a default slider */
     static bool loadXMLInput(const QDomElement& tag, quint32* universe, quint32* channel);
 };
+
+/** @} */
 
 #endif

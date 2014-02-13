@@ -32,6 +32,10 @@ class Script;
 class QMenu;
 class Doc;
 
+/** @addtogroup ui_functions
+ * @{
+ */
+
 class ScriptEditor : public QWidget, public Ui_ScriptEditor
 {
     Q_OBJECT
@@ -79,5 +83,7 @@ private:
     QAction* m_addCommentAction;
     QMenu* m_addMenu;
 };
+
+/** @} */
 
 #endif

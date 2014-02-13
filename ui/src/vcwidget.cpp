@@ -47,7 +47,6 @@
 #include "virtualconsole.h"
 #include "vcproperties.h"
 #include "inputpatch.h"
-#include "inputmap.h"
 #include "vcwidget.h"
 #include "doc.h"
 
@@ -495,7 +494,7 @@ void VCWidget::setInputSource(const QLCInputSource& source, quint8 id)
 {
     // Connect when the first valid input source is set
     if (m_inputs.isEmpty() == true && source.isValid() == true)
-        connect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+        connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                 this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
 
     // Assign or clear
@@ -506,7 +505,7 @@ void VCWidget::setInputSource(const QLCInputSource& source, quint8 id)
 
     // Disconnect when there are no more input sources present
     if (m_inputs.isEmpty() == true)
-        disconnect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                    this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
 }
 
@@ -536,7 +535,7 @@ void VCWidget::sendFeedback(int value, quint8 id)
     {
         QString chName = QString();
 
-        InputPatch* pat = m_doc->inputMap()->patch(src.universe());
+        InputPatch* pat = m_doc->inputOutputMap()->inputPatch(src.universe());
         if (pat != NULL)
         {
             QLCInputProfile* profile = pat->profile();
@@ -548,7 +547,7 @@ void VCWidget::sendFeedback(int value, quint8 id)
             }
         }
 
-        m_doc->outputMap()->feedBack(src.universe(), src.channel(), value, chName);
+        m_doc->inputOutputMap()->sendFeedBack(src.universe(), src.channel(), value, chName);
     }
 }
 

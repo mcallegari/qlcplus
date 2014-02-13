@@ -37,7 +37,6 @@
 
 #include "outputpatch.h"
 #include "addfixture.h"
-#include "outputmap.h"
 #include "apputil.h"
 #include "doc.h"
 
@@ -86,6 +85,8 @@ AddFixture::AddFixture(QWidget* parent, const Doc* doc, const Fixture* fxi)
             this, SLOT(slotGapSpinChanged(int)));
     connect(m_amountSpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotAmountSpinChanged(int)));
+    connect(m_searchEdit, SIGNAL(textChanged(QString)),
+            this, SLOT(slotSearchFilterChanged(QString)));
 
     /* Fill fixture definition tree (and select a fixture def) */
     if (fxi != NULL && fxi->isDimmer() == false)
@@ -96,7 +97,7 @@ AddFixture::AddFixture(QWidget* parent, const Doc* doc, const Fixture* fxi)
     m_fixturesCount->setText(tr("Fixtures found: %1").arg(m_fxiCount));
 
     /* Fill universe combo with available universes */
-    m_universeCombo->addItems(m_doc->outputMap()->universeNames());
+    m_universeCombo->addItems(m_doc->inputOutputMap()->universeNames());
 
     /* Simulate first selection and find the next free address */
     slotSelectionChanged();
@@ -232,7 +233,7 @@ bool AddFixture::invalidAddress()
 void AddFixture::fillTree(const QString& selectManufacturer,
                           const QString& selectModel)
 {
-    QTreeWidgetItem* parent;
+    QTreeWidgetItem* parent = NULL;
     QTreeWidgetItem* child;
     QString manuf;
     QString model;
@@ -248,21 +249,34 @@ void AddFixture::fillTree(const QString& selectManufacturer,
     /* Clear the tree of any previous data */
     m_tree->clear();
 
+    QString filter = m_searchEdit->text().toLower();
+
     /* Add all known fixture definitions to the tree */
     QStringListIterator it(m_doc->fixtureDefCache()->manufacturers());
     while (it.hasNext() == true)
     {
+        bool manufAdded = false;
+
         manuf = it.next();
         if (manuf == KXMLFixtureGeneric)
             continue;
-
-        parent = new QTreeWidgetItem(m_tree);
-        parent->setText(KColumnName, manuf);
 
         QStringListIterator modit(m_doc->fixtureDefCache()->models(manuf));
         while (modit.hasNext() == true)
         {
             model = modit.next();
+
+            if (filter.isEmpty() == false &&
+                manuf.toLower().contains(filter) == false &&
+                model.toLower().contains(filter) == false)
+                    continue;
+
+            if (manufAdded == false)
+            {
+                parent = new QTreeWidgetItem(m_tree);
+                parent->setText(KColumnName, manuf);
+                manufAdded = true;
+            }
             child = new QTreeWidgetItem(parent);
             child->setText(KColumnName, model);
 
@@ -352,7 +366,7 @@ void AddFixture::findAddress()
        channels, leaving z channels gap in-between. */
     quint32 address = findAddress((m_channelsValue + m_gapValue) * m_amountValue,
                                   m_doc->fixtures(),
-                                  m_doc->outputMap()->universes());
+                                  m_doc->inputOutputMap()->universes());
 
     /* Set the address only if the channel space was really found */
     if (address != QLCChannel::invalid())
@@ -535,6 +549,13 @@ void AddFixture::slotGapSpinChanged(int value)
 
     /* Set the maximum number of fixtures */
     updateMaximumAmount();
+}
+
+void AddFixture::slotSearchFilterChanged(QString)
+{
+    m_tree->blockSignals(true);
+    fillTree("", "");
+    m_tree->blockSignals(false);
 }
 
 void AddFixture::slotSelectionChanged()

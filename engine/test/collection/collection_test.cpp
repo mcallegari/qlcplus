@@ -23,9 +23,9 @@
 #define protected public
 #include "mastertimer_stub.h"
 #include "collection_test.h"
-#include "universearray.h"
 #include "collection.h"
 #include "qlcchannel.h"
+#include "universe.h"
 #include "function.h"
 #include "fixture.h"
 #include "qlcfile.h"
@@ -401,8 +401,9 @@ void Collection_Test::write()
     c->addFunction(s1->id());
     c->addFunction(s2->id());
 
-    UniverseArray uni(1);
-    MasterTimerStub* mts = new MasterTimerStub(m_doc, uni);
+    QList<Universe*> ua;
+    ua.append(new Universe(0, new GrandMaster()));
+    MasterTimerStub* mts = new MasterTimerStub(m_doc, ua);
 
     /* Collection starts all of its members immediately when it is started
        itself. */
@@ -410,7 +411,7 @@ void Collection_Test::write()
     c->start(mts);
     QVERIFY(c->stopped() == false);
 
-    c->write(mts, &uni);
+    c->write(mts, ua);
     QVERIFY(c->stopped() == false);
     QVERIFY(mts->m_functionList.size() == 3);
     QVERIFY(mts->m_functionList[0] == c);
@@ -419,14 +420,14 @@ void Collection_Test::write()
 
     /* All write calls to the collection "succeed" as long as there are
        members running. */
-    c->write(mts, &uni);
+    c->write(mts, ua);
     QVERIFY(c->stopped() == false);
     QVERIFY(mts->m_functionList.size() == 3);
     QVERIFY(mts->m_functionList[0] == c);
     QVERIFY(mts->m_functionList[1] == s1);
     QVERIFY(mts->m_functionList[2] == s2);
 
-    c->write(mts, &uni);
+    c->write(mts, ua);
     QVERIFY(c->stopped() == false);
     QVERIFY(mts->m_functionList.size() == 3);
     QVERIFY(mts->m_functionList[0] == c);
@@ -437,7 +438,7 @@ void Collection_Test::write()
     mts->stopFunction(s1);
     QVERIFY(s1->stopped() == true);
 
-    c->write(mts, &uni);
+    c->write(mts, ua);
     QVERIFY(c->stopped() == false);
     QVERIFY(mts->m_functionList.size() == 2);
     QVERIFY(mts->m_functionList[0] == c);
@@ -445,7 +446,7 @@ void Collection_Test::write()
 
     /* Now the collection must also tell it's ready to be stopped */
     mts->stopFunction(s2);
-    c->write(mts, &uni);
+    c->write(mts, ua);
     QVERIFY(s2->stopped() == true);
     QVERIFY(c->stopped() == true);
     mts->stopFunction(c);
@@ -482,8 +483,9 @@ void Collection_Test::stopNotOwnChildren()
     c->addFunction(s2->id());
     doc->addFunction(c);
 
-    UniverseArray uni(512);
-    MasterTimerStub* mts = new MasterTimerStub(m_doc, uni);
+    QList<Universe*> ua;
+    ua.append(new Universe(0, new GrandMaster()));
+    MasterTimerStub* mts = new MasterTimerStub(m_doc, ua);
 
     QVERIFY(c->stopped() == true);
     c->start(mts);
@@ -492,7 +494,7 @@ void Collection_Test::stopNotOwnChildren()
     c->preRun(mts);
     QVERIFY(c->m_runningChildren.isEmpty() == true);
 
-    c->write(mts, &uni);
+    c->write(mts, ua);
     QVERIFY(s1->stopped() == false);
     QVERIFY(s2->stopped() == false);
 
@@ -502,8 +504,8 @@ void Collection_Test::stopNotOwnChildren()
 
     // Manually stop and re-start s1
     s1->stop();
-    s1->write(mts, &uni);
-    s1->postRun(mts, &uni);
+    s1->write(mts, ua);
+    s1->postRun(mts, ua);
     s1->start(mts);
     QVERIFY(s1->stopped() == false);
 
@@ -512,8 +514,8 @@ void Collection_Test::stopNotOwnChildren()
     QVERIFY(c->m_runningChildren.contains(s2->id()) == true);
 
     c->stop();
-    c->write(mts, &uni);
-    c->postRun(mts, &uni);
+    c->write(mts, ua);
+    c->postRun(mts, ua);
 
     QVERIFY(c->stopped() == true);
     QVERIFY(s1->stopped() == false); // No longer controlled by collection

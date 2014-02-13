@@ -466,23 +466,29 @@ void ShowManager::showRightEditor(Audio *audio)
 
 void ShowManager::slotAddShow()
 {
-    m_show = new Show(m_doc);
-    Function *f = qobject_cast<Function*>(m_show);
-    if (m_doc->addFunction(f) == true)
+    bool ok;
+    QString defaultName = QString("%1 %2").arg(tr("New Show")).arg(m_doc->nextFunctionID());
+    QString showName = QInputDialog::getText(this, tr("Show name setup"),
+                                         tr("Show name:"), QLineEdit::Normal,
+                                         defaultName, &ok);
+
+    if (ok == true)
     {
-        f->setName(QString("%1 %2").arg(tr("New Show")).arg(f->id()));
-        bool ok;
-        QString text = QInputDialog::getText(this, tr("Show name setup"),
-                                             tr("Show name:"), QLineEdit::Normal,
-                                             f->name(), &ok);
-        if (ok && !text.isEmpty())
-            m_show->setName(text);
-        // modify the new selected Show index
-        m_selectedShowIndex = m_showsCombo->count();
-        updateShowsCombo();
-        m_copyAction->setEnabled(false);
-        if (m_doc->clipboard()->hasFunction())
-            m_pasteAction->setEnabled(true);
+        m_show = new Show(m_doc);
+        if (showName.isEmpty() == false)
+            m_show->setName(showName);
+        else
+            m_show->setName(defaultName);
+        Function *f = qobject_cast<Function*>(m_show);
+        if (m_doc->addFunction(f) == true)
+        {
+            // modify the new selected Show index
+            m_selectedShowIndex = m_showsCombo->count();
+            updateShowsCombo();
+            m_copyAction->setEnabled(false);
+            if (m_doc->clipboard()->hasFunction())
+                m_pasteAction->setEnabled(true);
+        }
     }
 }
 
@@ -553,10 +559,10 @@ void ShowManager::slotAddTrack()
             if (childrenFound == false)
             {
                 Function* f = new Chaser(m_doc);
+                Chaser *chaser = qobject_cast<Chaser*> (f);
+                chaser->enableSequenceMode(m_scene->id());
                 if (m_doc->addFunction(f) == true)
                 {
-                    Chaser *chaser = qobject_cast<Chaser*> (f);
-                    chaser->enableSequenceMode(m_scene->id());
                     chaser->setRunOrder(Function::SingleShot);
                     chaser->setDurationMode(Chaser::PerStep);
                     m_scene->setChildrenFlag(true);

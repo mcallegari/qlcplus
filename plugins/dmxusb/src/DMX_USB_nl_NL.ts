@@ -25,12 +25,12 @@
     </message>
     <message>
         <location filename="dmxusb.cpp" line="162"/>
-        <location filename="dmxusb.cpp" line="229"/>
+        <location filename="dmxusb.cpp" line="231"/>
         <source>Device is operating correctly.</source>
         <translation>Apparaat functioneert correct.</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="216"/>
+        <location filename="dmxusb.cpp" line="218"/>
         <source>No input support available.</source>
         <translation>Geen input ondersteuning.</translation>
     </message>

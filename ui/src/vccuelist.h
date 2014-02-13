@@ -38,9 +38,12 @@ class VCCueListProperties;
 class ClickAndGoSlider;
 class CueListRunner;
 class MasterTimer;
-class InputMap;
 class Chaser;
 class Doc;
+
+/** @addtogroup ui_vc_widgets
+ * @{
+ */
 
 #define KXMLQLCVCCueList "CueList"
 #define KXMLQLCVCCueListFunction "Function" // Legacy
@@ -196,7 +199,7 @@ private:
      *************************************************************************/
 public:
     /** @reimp */
-    void writeDMX(MasterTimer* timer, UniverseArray* universes);
+    void writeDMX(MasterTimer* timer, QList<Universe*> universes);
 
 private:
     /** Flag indicating, whether stop button has been pressed */
@@ -285,5 +288,7 @@ public:
     /** @reimp */
     bool saveXML(QDomDocument* doc, QDomElement* vc_root);
 };
+
+/** @} */
 
 #endif

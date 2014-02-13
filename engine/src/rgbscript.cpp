@@ -37,6 +37,7 @@
 
 #include "rgbscript.h"
 #include "qlcconfig.h"
+#include "qlcfile.h"
 
 QDir RGBScript::s_customScriptDirectory = QDir(QString(), QString("*.js"),
                                                QDir::Name | QDir::IgnoreCase,
@@ -346,7 +347,7 @@ QDir RGBScript::userScriptDirectory()
 #if defined (Q_WS_X11) || defined(Q_OS_LINUX)
     // If the current user is root, return the system profile dir.
     // Otherwise return the user's home dir.
-    if (geteuid() == 0)
+    if (geteuid() == 0 && QLCFile::isRaspberry() == false)
         dir = QDir(RGBSCRIPTDIR);
     else
         dir.setPath(QString("%1/%2").arg(getenv("HOME")).arg(USERRGBSCRIPTDIR));

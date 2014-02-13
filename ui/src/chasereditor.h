@@ -28,12 +28,14 @@
 
 class Chaser;
 class Function;
-class InputMap;
-class OutputMap;
 class ChaserStep;
 class MasterTimer;
 class SpeedDialWidget;
 class QTreeWidgetItem;
+
+/** @addtogroup ui_functions
+ * @{
+ */
 
 class ChaserEditor : public QWidget, public Ui_ChaserEditor
 {
@@ -113,6 +115,8 @@ private slots:
     void slotFadeOutToggled();
     void slotDurationToggled();
 
+    void slotDialDestroyed(QObject* dial);
+
 private:
     void createSpeedDials();
     void updateSpeedDials();
@@ -171,5 +175,7 @@ private:
 private:
     bool m_liveMode;
 };
+
+/** @} */
 
 #endif

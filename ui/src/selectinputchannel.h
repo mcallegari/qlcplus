@@ -27,8 +27,12 @@
 class QTreeWidgetItem;
 class QLCInputProfile;
 class QLCInputChannel;
+class InputOutputMap;
 class InputPatch;
-class InputMap;
+
+/** @addtogroup ui UI
+ * @{
+ */
 
 class SelectInputChannel : public QDialog, public Ui_SelectInputChannel
 {
@@ -39,14 +43,14 @@ class SelectInputChannel : public QDialog, public Ui_SelectInputChannel
      * Initialization
      ********************************************************************/
 public:
-    SelectInputChannel(QWidget* parent, InputMap* inputMap);
+    SelectInputChannel(QWidget* parent, InputOutputMap* ioMap);
     ~SelectInputChannel();
 
 protected slots:
     void accept();
 
 private:
-    InputMap* m_inputMap;
+    InputOutputMap* m_ioMap;
 
     /********************************************************************
      * Selection
@@ -87,5 +91,7 @@ protected slots:
     /** Receives item double clicks */
     void slotItemDoubleClicked(QTreeWidgetItem* item, int column);
 };
+
+/** @} */
 
 #endif

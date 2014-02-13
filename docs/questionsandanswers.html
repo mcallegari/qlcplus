@@ -28,7 +28,9 @@ Here you can either find the answer directly or find help to point you in the ri
       "<CODE>dmesg</CODE>" command should tell you something.
   </TD>
  </TR>
- <TR></TR>
+</TABLE>
+<BR>
+<TABLE BORDER=1 class="qlcTable">
  <TR>
   <TD><H2>Q:</H2></TD>
   <TD>I've got several <A HREF="vcbutton.html">buttons</A> in my Virtual Console. I need a way to disable the currently
@@ -39,16 +41,20 @@ Here you can either find the answer directly or find help to point you in the ri
   <TD><H2>A:</H2></TD>
   <TD>Simply place your buttons inside a <A HREF="vcsoloframe.html">Solo Frame</A>. It does exactly that.</TD>
  </TR>
- <TR></TR>
+</TABLE>
+<BR>
+<TABLE BORDER=1 class="qlcTable">
  <TR>
   <TD><H2>Q:</H2></TD>
-  <TD>When I start EFX, all fixtures are at full intensity and I can't make them dimmer.</TD>
+  <TD>When I start an EFX function, all my fixtures go to full intensity and I can't make them dimmer.</TD>
  </TR>
  <TR>
   <TD><H2>A:</H2></TD>
-  <TD>See <A HREF="file:efxeditor.html#efx-intensity">this note</A>.</TD>
+  <TD>Please, read <A HREF="file:efxeditor.html#efx-intensity">this note</A>.</TD>
  </TR>
- <TR></TR>
+</TABLE>
+<BR>
+<TABLE BORDER=1 class="qlcTable">
  <TR>
   <TD><H2>Q:</H2></TD>
   <TD>I just upgraded my Mac to OSX Mavericks but my Open USB DMX adapter doesn't work anymore.</TD>
@@ -56,7 +62,7 @@ Here you can either find the answer directly or find help to point you in the ri
  <TR>
   <TD><H2>A:</H2></TD>
   <TD>The problem is in a new Apple USB driver. The procedure to disable it follows below.<br>
-      <B>Please note that this can compromise the behaviour of other USB devices, so only do it
+      <B>Please note that this can compromise the behaviour of other USB devices, so do it only 
       if you know what you're doing! </B><br>
       From a terminal type the following commands:<br>
       <PRE>
@@ -66,7 +72,27 @@ Here you can either find the answer directly or find help to point you in the ri
       </PRE>
   </TD>
  </TR>
-</TABLE> 
+</TABLE>
+<BR>
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD><H2>Q:</H2></TD>
+  <TD>Where is the QLC+ user folder located in my system ?</TD>
+ </TR>
+ <TR>
+  <TD><H2>A:</H2></TD>
+  <TD>The user folder is where user fixtures, input profiles, RGB scripts and MIDI templates go.<br>
+      It changes depending on your operating system:<br>
+      <B>Linux</B>: it is a hidden folder in your user home directory: $HOME/.qlcplus<br>
+      <B>Windows</B>: it is a folder in your user (e.g. MyUser) directory: C:\Users\MyUser\QLC+<br>
+      <B>OSX</B>: it is located in you user "Library" directory: $HOME/Library/Application\ Support/QLC+<br>
+      You can reach any of these folders from a terminal with the 'cd' command. For example:<br>
+      <PRE>cd $HOME/Library/Application\ Support/QLC+</PRE>
+      Please keep in mind that fixures and input profiles found in the user folder will have precedence
+      over the same files in the QLC+ system folder.<br>
+  </TD>
+ </TR>  
+</TABLE>
 
 </BODY>
 </HTML>

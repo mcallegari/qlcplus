@@ -39,6 +39,10 @@ class QMenu;
 class QLCChannel;
 class Doc;
 
+/** @addtogroup ui_simpledesk
+ * @{
+ */
+
 class ConsoleChannel : public QGroupBox
 {
     Q_OBJECT
@@ -145,5 +149,7 @@ private:
     bool m_selected;
     QString m_originalStyle;
 };
+
+/** @} */
 
 #endif

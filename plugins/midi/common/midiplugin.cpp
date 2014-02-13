@@ -172,11 +172,13 @@ QString MidiPlugin::outputInfo(quint32 output)
     return str;
 }
 
-void MidiPlugin::writeUniverse(quint32 output, const QByteArray& universe)
+void MidiPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
 {
+    Q_UNUSED(universe)
+
     MidiOutputDevice* dev = outputDevice(output);
     if (dev != NULL)
-        dev->writeUniverse(universe);
+        dev->writeUniverse(data);
 }
 
 MidiOutputDevice* MidiPlugin::outputDevice(quint32 output) const
@@ -282,9 +284,8 @@ void MidiPlugin::sendFeedBack(quint32 output, quint32 channel, uchar value, cons
         qDebug() << "[sendFeedBack] Channel:" << channel << ", value:" << value;
         uchar cmd = 0;
         uchar data1 = 0, data2 = 0;
-        bool data2valid = false;
         if (QLCMIDIProtocol::feedbackToMidi(channel, value, dev->midiChannel(),
-                                        &cmd, &data1, &data2, &data2valid) == true)
+                                        &cmd, &data1, &data2) == true)
         {
             qDebug() << Q_FUNC_INFO << "cmd:" << cmd << "data1:" << data1 << "data2:" << data2;
             dev->writeFeedback(cmd, data1, data2);

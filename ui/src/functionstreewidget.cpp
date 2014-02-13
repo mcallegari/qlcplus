@@ -67,26 +67,34 @@ void FunctionsTreeWidget::functionChanged(quint32 fid)
     blockSignals(true);
     Function* function = m_doc->function(fid);
     if (function == NULL)
+    {
+        blockSignals(false);
         return;
+    }
 
     QTreeWidgetItem* item = functionItem(function);
     if (item != NULL)
         updateFunctionItem(item, function);
+
     blockSignals(false);
 }
 
-void FunctionsTreeWidget::functionAdded(quint32 fid)
+QTreeWidgetItem *FunctionsTreeWidget::functionAdded(quint32 fid)
 {
     blockSignals(true);
     Function* function = m_doc->function(fid);
     if (function == NULL)
-        return;
+    {
+        blockSignals(false);
+        return NULL;
+    }
 
     QTreeWidgetItem* parent = parentItem(function);
     QTreeWidgetItem* item = new QTreeWidgetItem(parent);
     updateFunctionItem(item, function);
     function->setPath(parent->text(COL_PATH));
     blockSignals(false);
+    return item;
 }
 
 void FunctionsTreeWidget::updateFunctionItem(QTreeWidgetItem* item, const Function* function)
@@ -229,7 +237,10 @@ void FunctionsTreeWidget::addFolder()
 {
     blockSignals(true);
     if (selectedItems().isEmpty())
+    {
+        blockSignals(false);
         return;
+    }
 
     QTreeWidgetItem *item = selectedItems().first();
     if (item->text(COL_PATH).isEmpty())
@@ -304,7 +315,7 @@ QTreeWidgetItem *FunctionsTreeWidget::folderItem(QString name)
     if (selectedItems().count() > 0)
     {
         QString currFolder = selectedItems().first()->text(COL_PATH);
-        if (m_foldersMap.contains(currFolder))
+        if (currFolder.contains(name) && m_foldersMap.contains(currFolder))
             return m_foldersMap[currFolder];
     }
 
@@ -327,7 +338,8 @@ QTreeWidgetItem *FunctionsTreeWidget::folderItem(QString name)
         if (fullPath.isEmpty())
         {
             parentNode = m_foldersMap[QString(level + "/")];
-            type = parentNode->data(COL_NAME, Qt::UserRole + 1).toInt();
+            if (parentNode != NULL)
+                type = parentNode->data(COL_NAME, Qt::UserRole + 1).toInt();
             fullPath = level;
             continue;
         }
@@ -360,7 +372,10 @@ void FunctionsTreeWidget::slotItemChanged(QTreeWidgetItem *item)
     blockSignals(true);
     qDebug() << "TREE item changed";
     if (item->text(COL_PATH).isEmpty())
+    {
+        blockSignals(false);
         return;
+    }
 
     QTreeWidgetItem *parent = item->parent();
     if (parent != NULL)

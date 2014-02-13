@@ -46,6 +46,9 @@
     "  else if (msgParams[0] == \"URL\") {\n" \
     "    window.location = msgParams[1];\n" \
     "  }\n" \
+    "  else if (msgParams[0] == \"ALERT\") {\n" \
+    "    alert(msgParams[1]);\n" \
+    "  }\n" \
     " };\n" \
     " window.setInterval(function(){ websocket.send(\"POLL\"); }, 10000);\n" \
     "};\n"

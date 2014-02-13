@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  artnetnode.cpp
+  artnetcontroller.cpp
 
   Copyright (c) Massimo Callegari
 
@@ -22,10 +22,11 @@
 #include <QDebug>
 
 ArtNetController::ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> interfaces,
-                                   QList<QString> macAddrList, Type type, QObject *parent)
+                                   QString macAddress, Type type, QObject *parent)
     : QObject(parent)
 {
     m_ipAddr = QHostAddress(ipaddr);
+    m_MACAddress = macAddress;
 
     int i = 0;
     foreach(QNetworkAddressEntry iface, interfaces)
@@ -33,7 +34,6 @@ ArtNetController::ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> i
         if (iface.ip() == m_ipAddr)
         {
             m_broadcastAddr = iface.broadcast();
-            m_MACAddress = macAddrList.at(i);
             break;
         }
         i++;
@@ -85,32 +85,12 @@ ArtNetController::~ArtNetController()
     m_UdpSocket->close();
 }
 
-void ArtNetController::addUniverse(quint32 line, int uni)
+void ArtNetController::setType(Type type)
 {
-    if (m_universes.contains(uni) == false)
-    {
-        m_universes[uni] = line;
-        qDebug() << "[ArtNetController::addUniverse] Added new universe: " << uni;
-    }
+    m_type = type;
 }
 
-int ArtNetController::getUniversesNumber()
-{
-    return m_universes.size();
-}
-
-bool ArtNetController::removeUniverse(int uni)
-{
-    if (m_universes.contains(uni))
-    {
-
-        qDebug() << Q_FUNC_INFO << "Removing universe " << uni;
-        return m_universes.remove(uni);
-    }
-    return false;
-}
-
-int ArtNetController::getType()
+ArtNetController::Type ArtNetController::type()
 {
     return m_type;
 }
@@ -135,7 +115,7 @@ QHash<QHostAddress, ArtNetNodeInfo> ArtNetController::getNodesList()
     return m_nodesList;
 }
 
-void ArtNetController::sendDmx(const int &universe, const QByteArray &data)
+void ArtNetController::sendDmx(const quint32 universe, const QByteArray &data)
 {
     QByteArray dmxPacket;
     m_packetizer->setupArtNetDmx(dmxPacket, universe, data);
@@ -199,24 +179,33 @@ void ArtNetController::processPendingPackets()
                     {
                         qDebug() << "DMX data received";
                         QByteArray dmxData;
-                        int universe;
-                        if (this->getType() == Input)
+                        quint32 universe;
+                        if (this->type() == Input)
                         {
                             m_packetReceived++;
                             if (m_packetizer->fillDMXdata(datagram, dmxData, universe) == true)
                             {
-                                if ((universe * 512) > m_dmxValues.length() || m_universes.contains(universe) == false)
+                                quint32 uniAddr = universe << 9;
+                                //quint32 emitStartAddr = UINT_MAX;
+                                for (quint32 i = 0; i < (quint32)dmxData.length(); i++)
                                 {
-                                    qDebug() << "Universe " << universe << "not supported !";
-                                    break;
-                                }
-                                for (int i = 0; i < dmxData.length(); i++)
-                                {
-                                    if (m_dmxValues.at(i + (universe * 512)) != dmxData.at(i))
+                                    if (m_dmxValues.at(uniAddr + i) != dmxData.at(i))
                                     {
-                                        m_dmxValues[i + (universe * 512)] =  dmxData[i];
-                                        emit valueChanged(m_universes[universe], i, (uchar)dmxData.at(i));
+                                        m_dmxValues[uniAddr + i] =  dmxData[i];
+                                        //if (emitStartAddr == UINT_MAX)
+                                        //    emitStartAddr = (quint32)i;
+                                        emit valueChanged(universe, i, (uchar)dmxData.at(i));
                                     }
+                                    /*
+                                    else
+                                    {
+                                        if (emitStartAddr != UINT_MAX)
+                                        {
+                                            // SIGNAL is: void valuesChanged(quint32 input, quint32 startChannel, QByteArray &values);
+                                            emit valuesChanged(universe, emitStartAddr, m_dmxValues.mid(emitStartAddr, i - emitStartAddr));
+                                        }
+                                    }
+                                    */
                                 }
                             }
                         }

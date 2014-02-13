@@ -29,10 +29,14 @@
 #include "dmxsource.h"
 #include "vcwidget.h"
 
-#define KXMLQLCVCAudioTriggers "AudioTriggers"
-
 class AudioCapture;
 class AudioBar;
+
+/** @addtogroup ui_vc_widgets
+ * @{
+ */
+
+#define KXMLQLCVCAudioTriggers "AudioTriggers"
 
 class VCAudioTriggers : public VCWidget, public DMXSource
 {
@@ -80,7 +84,7 @@ protected:
      *********************************************************************/
 public:
     /** @reimpl */
-    void writeDMX(MasterTimer* timer, UniverseArray* universes);
+    void writeDMX(MasterTimer* timer, QList<Universe*> universes);
 
     /*********************************************************************
      * Key sequence handler
@@ -182,5 +186,7 @@ public:
      */
     bool saveXML(QDomDocument* doc, QDomElement* vc_root);
 };
+
+/** @} */
 
 #endif // VCAUDIOTRIGGERS_H

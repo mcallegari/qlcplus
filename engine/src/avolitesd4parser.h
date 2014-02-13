@@ -32,6 +32,10 @@ class QLCFixtureMode;
 class QLCFixtureDef;
 class QDomElement;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 #define KExtAvolitesFixture ".d4" // Avolites Diamond 4 format
 
 class AvolitesD4Parser
@@ -121,5 +125,7 @@ private:
 
     static StringToEnumMap s_attributesMap;
 };
+
+/** @} */
 
 #endif // AVOLITESD4PARSER_H

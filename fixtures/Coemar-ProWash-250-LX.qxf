@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.4.2</Version>
@@ -104,7 +105,7 @@
  <Mode Name="Standard">
   <Physical>
    <Bulb Lumens="0" Type="MSD 250W" ColourTemperature="8500"/>
-   <Dimensions Width="377" Height="535" Weight="23,5" Depth="350"/>
+   <Dimensions Width="377" Height="535" Weight="23.5" Depth="350"/>
    <Lens DegreesMax="31" Name="Other" DegreesMin="6"/>
    <Focus PanMax="530" Type="Head" TiltMax="284"/>
    <Technical PowerConsumption="460" DmxConnector="3-pin"/>

@@ -27,14 +27,14 @@
 #   include "mastertimer-unix.h"
 #endif
 
-#include "universearray.h"
+#include "inputoutputmap.h"
 #include "genericfader.h"
 #include "fadechannel.h"
 #include "mastertimer.h"
-#include "outputmap.h"
 #include "dmxsource.h"
 #include "qlcmacros.h"
 #include "function.h"
+#include "universe.h"
 #include "doc.h"
 
 #define MASTERTIMER_FREQUENCY "mastertimer/frequency"
@@ -50,6 +50,7 @@ uint MasterTimer::s_tick = 20;
 MasterTimer::MasterTimer(Doc* doc)
     : QObject(doc)
     , m_stopAllFunctions(false)
+    , m_simpleDeskRegistered(false)
     , m_fader(new GenericFader(doc))
     , d_ptr(new MasterTimerPrivate(this))
 {
@@ -91,16 +92,19 @@ void MasterTimer::timerTick()
     Doc* doc = qobject_cast<Doc*> (parent());
     Q_ASSERT(doc != NULL);
 
-    UniverseArray* universes = doc->outputMap()->claimUniverses();
-    universes->zeroIntensityChannels();
-    universes->zeroRelativeValues();
+    QList<Universe *> universes = doc->inputOutputMap()->claimUniverses();
+    for (int i = 0 ; i < universes.count(); i++)
+    {
+        universes[i]->zeroIntensityChannels();
+        universes[i]->zeroRelativeValues();
+    }
 
     timerTickFunctions(universes);
     timerTickDMXSources(universes);
     timerTickFader(universes);
 
-    doc->outputMap()->releaseUniverses();
-    doc->outputMap()->dumpUniverses();
+    doc->inputOutputMap()->releaseUniverses();
+    doc->inputOutputMap()->dumpUniverses();
 }
 
 uint MasterTimer::frequency()
@@ -161,30 +165,42 @@ void MasterTimer::fadeAndStopAll(int timeout)
     Doc* doc = qobject_cast<Doc*> (parent());
     Q_ASSERT(doc != NULL);
 
-    UniverseArray* universes = doc->outputMap()->claimUniverses();
-    QHashIterator <int,uchar> it(universes->intensityChannels());
-    while (it.hasNext() == true)
-    {
-        it.next();
+    QList<FadeChannel> fcList;
 
-        Fixture* fxi = doc->fixture(doc->fixtureForAddress(it.key()));
-        if (fxi != NULL)
+    QList<Universe *> universes = doc->inputOutputMap()->claimUniverses();
+    for (int i = 0; i < universes.count(); i++)
+    {
+        QHashIterator <int,uchar> it(universes[i]->intensityChannels());
+        while (it.hasNext() == true)
         {
-            uint ch = it.key() - fxi->universeAddress();
-            if (fxi->channelCanFade(ch))
+            it.next();
+
+            Fixture* fxi = doc->fixture(doc->fixtureForAddress(it.key()));
+            if (fxi != NULL)
             {
-                FadeChannel fc;
-                fc.setFixture(fxi->id());
-                fc.setChannel(ch);
-                fc.setStart(it.value());
-                fc.setTarget(0);
-                fc.setFadeTime(timeout);
-                fader()->add(fc);
+                uint ch = it.key() - fxi->universeAddress();
+                if (fxi->channelCanFade(ch))
+                {
+                    FadeChannel fc;
+                    fc.setFixture(doc, fxi->id());
+                    fc.setChannel(ch);
+                    fc.setStart(it.value());
+                    fc.setTarget(0);
+                    fc.setFadeTime(timeout);
+                    fcList.append(fc);
+                }
             }
         }
     }
-    doc->outputMap()->releaseUniverses();
-    m_stopAllFunctions = true;
+    doc->inputOutputMap()->releaseUniverses();
+
+    // Stop all functions first
+    stopAllFunctions();
+
+    // Instruct mastertimer to do a fade out of all
+    // the intensity channels that can fade
+    foreach(FadeChannel fade, fcList)
+        fader()->add(fade);
 }
 
 int MasterTimer::runningFunctions() const
@@ -192,7 +208,7 @@ int MasterTimer::runningFunctions() const
     return m_functionList.size();
 }
 
-void MasterTimer::timerTickFunctions(UniverseArray* universes)
+void MasterTimer::timerTickFunctions(QList<Universe *> universes)
 {
     // List of m_functionList indices that should be removed at the end of this
     // function. The functions at the indices have been stopped.
@@ -266,13 +282,26 @@ void MasterTimer::timerTickFunctions(UniverseArray* universes)
  * DMX Sources
  ****************************************************************************/
 
-void MasterTimer::registerDMXSource(DMXSource* source)
+void MasterTimer::registerDMXSource(DMXSource* source, QString name)
 {
     Q_ASSERT(source != NULL);
 
     QMutexLocker lock(&m_dmxSourceListMutex);
     if (m_dmxSourceList.contains(source) == false)
-        m_dmxSourceList.append(source);
+    {
+        if (name == "SimpleDesk")
+        {
+            m_dmxSourceList.append(source);
+            m_simpleDeskRegistered = true;
+        }
+        else
+        {
+            if (m_simpleDeskRegistered == true)
+                m_dmxSourceList.insert(m_dmxSourceList.count() - 1, source);
+            else
+                m_dmxSourceList.append(source);
+        }
+    }
 }
 
 void MasterTimer::unregisterDMXSource(DMXSource* source)
@@ -283,7 +312,7 @@ void MasterTimer::unregisterDMXSource(DMXSource* source)
     m_dmxSourceList.removeAll(source);
 }
 
-void MasterTimer::timerTickDMXSources(UniverseArray* universes)
+void MasterTimer::timerTickDMXSources(QList<Universe *> universes)
 {
     /* Lock before accessing the DMX sources list. */
     m_dmxSourceListMutex.lock();
@@ -315,10 +344,10 @@ GenericFader* MasterTimer::fader() const
     return m_fader;
 }
 
-void MasterTimer::timerTickFader(UniverseArray* universes)
+void MasterTimer::timerTickFader(QList<Universe *> universes)
 {
     QMutexLocker functionLocker(&m_functionListMutex);
-    QMutexLocker dmxLOcker(&m_dmxSourceListMutex);
+    QMutexLocker dmxLocker(&m_dmxSourceListMutex);
 
     fader()->write(universes);
 }

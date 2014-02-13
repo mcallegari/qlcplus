@@ -33,10 +33,11 @@
 
 #include "qlcinputchannel.h"
 #include "qlcinputprofile.h"
+#include "qlcchannel.h"
 
 #include "inputchanneleditor.h"
 #include "inputprofileeditor.h"
-#include "inputmap.h"
+#include "inputoutputmap.h"
 #include "apputil.h"
 
 #define SETTINGS_GEOMETRY "inputprofileeditor/geometry"
@@ -51,13 +52,13 @@
  ****************************************************************************/
 
 InputProfileEditor::InputProfileEditor(QWidget* parent, QLCInputProfile* profile,
-                                       InputMap* inputMap)
+                                       InputOutputMap *ioMap)
     : QDialog(parent)
-    , m_inputMap(inputMap)
+    , m_ioMap(ioMap)
     , m_wizardActive(false)
     , m_latestItem(NULL)
 {
-    Q_ASSERT(inputMap != NULL);
+    Q_ASSERT(ioMap != NULL);
 
     setupUi(this);
 
@@ -74,7 +75,7 @@ InputProfileEditor::InputProfileEditor(QWidget* parent, QLCInputProfile* profile
             this, SLOT(slotEditClicked()));
 
     /* Listen to input data */
-    connect(inputMap, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString&)),
+    connect(m_ioMap, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString&)),
             this, SLOT(slotInputValueChanged(quint32, quint32, uchar, const QString&)));
 
     if (profile == NULL)
@@ -309,7 +310,7 @@ edit:
 
             if (another == NULL || another == channel)
             {
-                if (ice.channel() != InputMap::invalidChannel())
+                if (ice.channel() != QLCChannel::invalid())
                     m_profile->remapChannel(channel, ice.channel());
                 if (ice.name().isEmpty() == false)
                     channel->setName(ice.name());

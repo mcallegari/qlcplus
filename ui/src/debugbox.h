@@ -24,8 +24,14 @@
 #include <QMutex>
 #include "ui_debugbox.h"
 
+/** @addtogroup ui UI
+ * @{
+ */
+
 #define DEBUGBOX_FLAGS Qt::WindowFlags(Qt::Window)
 
+/** Displays debug messages in Windows and OS X (since they don't have console)
+ */
 class DebugBox : public QDialog, public Ui_DebugBox
 {
     Q_OBJECT
@@ -39,5 +45,7 @@ public:
 private:
     QMutex m_mutex;
 };
+
+/** @} */
 
 #endif

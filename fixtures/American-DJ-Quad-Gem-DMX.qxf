@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller</Name>
   <Version>3.0.4</Version>
-  <Author>hjunnila</Author>
+  <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
  <Model>Quad Gem DMX</Model>
@@ -565,4 +566,3 @@
   <Channel Number="6">Dimmer</Channel>
  </Mode>
 </FixtureDefinition>
-

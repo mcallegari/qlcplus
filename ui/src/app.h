@@ -43,6 +43,10 @@ class QAction;
 class QLabel;
 class App;
 
+/** @addtogroup ui UI
+ * @{
+ */
+
 #define KXMLQLCWorkspace "Workspace"
 
 class App : public QMainWindow
@@ -62,7 +66,6 @@ private:
     void init();
     void closeEvent(QCloseEvent*);
     void setActiveWindow(const QString& name);
-    bool isRaspberry();
 
 private:
     QTabWidget* m_tab;
@@ -217,8 +220,12 @@ public:
 public slots:
     void slotLoadDocFromMemory(QString xmlData);
 
+    void slotSaveAutostart(QString fileName);
+
 private:
     QString m_fileName;
 };
+
+/** @} */
 
 #endif

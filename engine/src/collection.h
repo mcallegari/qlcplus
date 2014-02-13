@@ -28,6 +28,10 @@
 
 class QDomDocument;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 class Collection : public Function
 {
     Q_OBJECT
@@ -107,10 +111,10 @@ public:
     void preRun(MasterTimer* timer);
 
     /** @reimpl */
-    void write(MasterTimer* timer, UniverseArray* universes);
+    void write(MasterTimer* timer, QList<Universe *> universes);
 
     /** @reimpl */
-    void postRun(MasterTimer* timer, UniverseArray* universes);
+    void postRun(MasterTimer* timer, QList<Universe *> universes);
 
 protected slots:
     /** Called whenever one of this function's child functions stops */
@@ -120,5 +124,7 @@ protected:
     /** Number of currently running children */
     QSet <quint32> m_runningChildren;
 };
+
+/** @} */
 
 #endif

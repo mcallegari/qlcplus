@@ -244,7 +244,7 @@ void Function::setPath(QString path)
 {
     if (path.contains(typeToString(type())))
         path.remove(typeToString(type()) + "/");
-    qDebug() << "Function " << name() << "path set to:" << path;
+    //qDebug() << "Function " << name() << "path set to:" << path;
     m_path = path;
 }
 
@@ -710,7 +710,7 @@ void Function::preRun(MasterTimer* timer)
     emit running(m_id);
 }
 
-void Function::postRun(MasterTimer* timer, UniverseArray* universes)
+void Function::postRun(MasterTimer* timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer);
     Q_UNUSED(universes);

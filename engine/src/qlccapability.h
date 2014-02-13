@@ -24,18 +24,22 @@
 #include <QColor>
 #include <QList>
 
+class QLCCapability;
+class QDomDocument;
+class QDomElement;
+class QString;
+class QFile;
+
+/** @addtogroup engine Engine
+ * @{
+ */
+
 #define KXMLQLCCapability    "Capability"
 #define KXMLQLCCapabilityMin "Min"
 #define KXMLQLCCapabilityMax "Max"
 #define KXMLQLCCapabilityResource "Res"
 #define KXMLQLCCapabilityColor1 "Color"
 #define KXMLQLCCapabilityColor2 "Color2"
-
-class QLCCapability;
-class QDomDocument;
-class QDomElement;
-class QString;
-class QFile;
 
 /**
  * QLCCapability represents one value range with a special meaning in a
@@ -111,5 +115,7 @@ public:
     /** Load capability contents from an XML element */
     bool loadXML(const QDomElement& root);
 };
+
+/** @} */
 
 #endif

@@ -26,12 +26,12 @@ NOTE : L&apos;interface VCP FTDI ne fonctionne pas avec ce greffon.</translation
     </message>
     <message>
         <location filename="dmxusb.cpp" line="162"/>
-        <location filename="dmxusb.cpp" line="229"/>
+        <location filename="dmxusb.cpp" line="231"/>
         <source>Device is operating correctly.</source>
         <translation>Le périphérique fonctionne correctement.</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="216"/>
+        <location filename="dmxusb.cpp" line="218"/>
         <source>No input support available.</source>
         <translation>Fonctions d&apos;Entrées indisponibles.</translation>
     </message>

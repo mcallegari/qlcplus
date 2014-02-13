@@ -25,6 +25,10 @@
 
 class QLCIOPlugin;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 class IOPluginCache : public QObject
 {
     Q_OBJECT
@@ -55,5 +59,7 @@ private slots:
 private:
     QList <QLCIOPlugin*> m_plugins;
 };
+
+/** @} */
 
 #endif

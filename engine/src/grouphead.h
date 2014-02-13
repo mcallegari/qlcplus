@@ -22,6 +22,10 @@
 
 #include "fixture.h"
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 class GroupHead
 {
 public:
@@ -36,5 +40,7 @@ public:
     quint32 fxi;
     int head;
 };
+
+/** @} */
 
 #endif

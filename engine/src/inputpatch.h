@@ -26,6 +26,12 @@
 
 class QLCIOPlugin;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
+#define KInputNone QObject::tr("None")
+
 #define KXMLQLCInputPatchProfile "Profile"
 #define KXMLQLCInputPatchUniverse "Universe"
 #define KXMLQLCInputPatchPluginNone "None"
@@ -92,6 +98,8 @@ public:
     /** Name of the assigned input profile (empty if none) */
     QString profileName() const;
 
+    bool isPatched() const;
+
 signals:
     void inputValueChanged(quint32 inputUniverse, quint32 channel, uchar value, const QString& key = 0);
 
@@ -106,14 +114,11 @@ private:
     /************************************************************************
      * Pages
      ************************************************************************/
-public:
-    /** Set the internal page number to keep in sync with higher level widgets/objects */
-    void setPage(int pageNum);
-
 private:
-    int m_currentPage;
     ushort m_nextPageCh, m_prevPageCh, m_pageSetCh;
 
 };
+
+/** @} */
 
 #endif

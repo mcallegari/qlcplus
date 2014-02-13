@@ -33,9 +33,8 @@
 typedef struct
 {
     QString IPAddress;
-    int port;
+    QString MACAddress;
     E131Controller* controller;
-    E131Controller::Type type;
 } E131IO;
 
 class E131Plugin : public QLCIOPlugin
@@ -82,7 +81,7 @@ public:
     QString outputInfo(quint32 output);
 
     /** @reimp */
-    void writeUniverse(quint32 output, const QByteArray& universe);
+    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
 
     /*************************************************************************
      * Inputs
@@ -128,15 +127,9 @@ private:
     /** List holding the detected system network interfaces */
     QList<QNetworkAddressEntry> m_netInterfaces;
 
-    /** List holding the detected system network interfaces MAC Address */
-    QList<QString>m_netMACAddresses;
 
     /** Map of the E131 plugin Input/Output lines */
     QList<E131IO>m_IOmapping;
-
-private slots:
-    void slotInputValueChanged(quint32 input, int channel, uchar value);
-
 };
 
 #endif

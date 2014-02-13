@@ -8,7 +8,7 @@ TARGET   = qlcplusengine
 
 CONFIG  += qt
 QT      += core xml script gui
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
 
 # Uncomment to enable Phonon audio support
 #QT += phonon
@@ -53,8 +53,13 @@ HEADERS += audio/audio.h \
            audio/audioparameters.h \
            audio/audiocapture.h
 
-unix:!macx:HEADERS += audio/audiorenderer_alsa.h audio/audiocapture_alsa.h
-win32:HEADERS += audio/audiorenderer_waveout.h audio/audiocapture_wavein.h
+lessThan(QT_MAJOR_VERSION, 5) {
+  unix:!macx:HEADERS += audio/audiorenderer_alsa.h audio/audiocapture_alsa.h
+  win32:HEADERS += audio/audiorenderer_waveout.h audio/audiocapture_wavein.h
+}
+else {
+  HEADERS += audio/audiorenderer_qt.h audio/audiocapture_qt.h
+}
 
 # Engine
 HEADERS += bus.h \
@@ -68,6 +73,7 @@ HEADERS += bus.h \
            cuestack.h \
            doc.h \
            dmxdumpfactoryproperties.h \
+           dmxsource.h \
            efx.h \
            efxfixture.h \
            fadechannel.h \
@@ -76,13 +82,13 @@ HEADERS += bus.h \
            function.h \
            genericdmxsource.h \
            genericfader.h \
+           grandmaster.h \
            grouphead.h \
-           inputmap.h \
+           inputoutputmap.h \
            inputpatch.h \
            ioplugincache.h \
            mastertimer.h \
-           universearray.h \
-           outputmap.h \
+           monitorproperties.h \
            outputpatch.h \
            qlcclipboard.h \
            qlcpoint.h \
@@ -96,7 +102,8 @@ HEADERS += bus.h \
            script.h \
            show.h \
            showrunner.h \
-           track.h
+           track.h \
+           universe.h
 
 win32:HEADERS += mastertimer-win32.h
 unix:HEADERS  += mastertimer-unix.h
@@ -115,6 +122,7 @@ SOURCES += avolitesd4parser.cpp \
            qlcinputprofile.cpp \
            qlcinputsource.cpp \
            qlcphysical.cpp
+
 # Audio
 SOURCES += audio/audio.cpp \
            audio/audiodecoder.cpp \
@@ -122,19 +130,24 @@ SOURCES += audio/audio.cpp \
            audio/audioparameters.cpp \
            audio/audiocapture.cpp
 
-unix:!macx:SOURCES += audio/audiorenderer_alsa.cpp audio/audiocapture_alsa.cpp
-win32:SOURCES += audio/audiorenderer_waveout.cpp audio/audiocapture_wavein.cpp
+lessThan(QT_MAJOR_VERSION, 5) {
+  unix:!macx:SOURCES += audio/audiorenderer_alsa.cpp audio/audiocapture_alsa.cpp
+  win32:SOURCES += audio/audiorenderer_waveout.cpp audio/audiocapture_wavein.cpp
 
-macx {
-  system(pkg-config --exists portaudio-2.0) {
-    DEFINES += HAS_PORTAUDIO
-    PKGCONFIG += portaudio-2.0
-    HEADERS += audio/audiorenderer_portaudio.h audio/audiocapture_portaudio.h
-    SOURCES += audio/audiorenderer_portaudio.cpp audio/audiocapture_portaudio.cpp
+  macx {
+    system(pkg-config --exists portaudio-2.0) {
+      DEFINES += HAS_PORTAUDIO
+      PKGCONFIG += portaudio-2.0
+      HEADERS += audio/audiorenderer_portaudio.h audio/audiocapture_portaudio.h
+      SOURCES += audio/audiorenderer_portaudio.cpp audio/audiocapture_portaudio.cpp
+    }
+
+  #  HEADERS += audio/audiorenderer_coreaudio.h
+  #  SOURCES += audio/audiorenderer_coreaudio.cpp
   }
-
-#  HEADERS += audio/audiorenderer_coreaudio.h
-#  SOURCES += audio/audiorenderer_coreaudio.cpp
+}
+else {
+  SOURCES += audio/audiorenderer_qt.cpp audio/audiocapture_qt.cpp
 }
 
 # Engine
@@ -157,13 +170,13 @@ SOURCES += bus.cpp \
            function.cpp \
            genericdmxsource.cpp \
            genericfader.cpp \
+           grandmaster.cpp \
            grouphead.cpp \
-           inputmap.cpp \
+           inputoutputmap.cpp \
            inputpatch.cpp \
            ioplugincache.cpp \
            mastertimer.cpp \
-           universearray.cpp \
-           outputmap.cpp \
+           monitorproperties.cpp \
            outputpatch.cpp \
            qlcclipboard.cpp \
            qlcpoint.cpp \
@@ -177,7 +190,8 @@ SOURCES += bus.cpp \
            script.cpp \
            show.cpp \
            showrunner.cpp \
-           track.cpp
+           track.cpp \
+           universe.cpp
 
 win32:SOURCES += mastertimer-win32.cpp
 unix:SOURCES  += mastertimer-unix.cpp

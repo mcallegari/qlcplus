@@ -26,13 +26,13 @@
 #include <QMap>
 
 #include "qlcfixturedefcache.h"
+#include "monitorproperties.h"
+#include "inputoutputmap.h"
 #include "ioplugincache.h"
 #include "channelsgroup.h"
 #include "fixturegroup.h"
 #include "qlcclipboard.h"
 #include "mastertimer.h"
-#include "outputmap.h"
-#include "inputmap.h"
 #include "function.h"
 #include "fixture.h"
 
@@ -40,7 +40,12 @@ class QDomDocument;
 class AudioCapture;
 class QString;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 #define KXMLQLCEngine "Engine"
+#define KXMLQLCStartupFunction "Autostart"
 
 class Doc : public QObject
 {
@@ -58,7 +63,7 @@ public:
      * @param outputUniverses Number of output (DMX) universes
      * @param inputUniverses Number of input universes
      */
-    Doc(QObject* parent, int outputUniverses = 4, int inputUniverses = 4);
+    Doc(QObject* parent, int universes = 4);
 
     /** Destructor */
     ~Doc();
@@ -115,13 +120,10 @@ public:
     IOPluginCache* ioPluginCache() const;
 
     /** Get the DMX output map object */
-    OutputMap* outputMap() const;
+    InputOutputMap* inputOutputMap() const;
 
     /** Get the MasterTimer object that runs the show */
     MasterTimer* masterTimer() const;
-
-    /** Get the input map object */
-    InputMap* inputMap() const;
 
     /** Get the audio input capture object */
     AudioCapture* audioInputCapture();
@@ -132,10 +134,10 @@ public:
 private:
     QLCFixtureDefCache* m_fixtureDefCache;
     IOPluginCache* m_ioPluginCache;
-    OutputMap* m_outputMap;
+    InputOutputMap *m_ioMap;
     MasterTimer* m_masterTimer;
-    InputMap* m_inputMap;
     AudioCapture *m_inputCapture;
+    MonitorProperties *m_monitorProps;
 
     /*********************************************************************
      * Main operating mode
@@ -458,6 +460,26 @@ public:
      */
     quint32 nextFunctionID();
 
+    /**
+     * Set the ID of a function to start everytime QLC+ goes
+     * in operate mode
+     *
+     * @param fid The ID of the function
+     */
+    void setStartupFunction(quint32 fid);
+
+    /**
+     * Retrieve the QLC+ startup function
+     */
+    quint32 startupFunction();
+
+    /**
+     * Check if a startup function needs to be started.
+     *
+     * @return true if function is started, false if it's not
+     */
+    bool checkStartupFunction();
+
 protected:
     /**
      * Create a new function Id
@@ -495,6 +517,15 @@ protected:
     /** Latest assigned function ID */
     quint32 m_latestFunctionId;
 
+    /** Startup function ID */
+    quint32 m_startupFunctionId;
+
+    /*********************************************************************
+     * Monitor Properties
+     *********************************************************************/
+public:
+    MonitorProperties *monitorProperties();
+
     /*********************************************************************
      * Load & Save
      *********************************************************************/
@@ -516,12 +547,27 @@ public:
      */
     bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
 
+    /**
+     * Append a message to the Doc error log. This can be used to display
+     * errors once a project is loaded.
+     */
+    void appendToErrorLog(QString error);
+
+    /**
+     * Retrieve the error log string, filled during a project load
+     */
+    QString errorLog();
+
 private:
     /**
      * Calls postLoad() for each Function after everything has been loaded
      * to do post-load cleanup & mappings.
      */
     void postLoad();
+
+    QString m_errorLog;
 };
+
+/** @} */
 
 #endif

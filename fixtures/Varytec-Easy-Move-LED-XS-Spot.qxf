@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller</Name>
   <Version>3.2.0</Version>
@@ -26,13 +27,13 @@
  </Channel>
  <Channel Name="Vector speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Normal -> Slow</Capability>
+  <Capability Min="0" Max="255">Normal -&gt; Slow</Capability>
  </Channel>
  <Channel Name="Dimmer/Strobe">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="7">Closed</Capability>
   <Capability Min="8" Max="134">Dimmer (100% - 0%)</Capability>
-  <Capability Min="135" Max="239">Strobe speed (slow -> fast)</Capability>
+  <Capability Min="135" Max="239">Strobe speed (slow -&gt; fast)</Capability>
   <Capability Min="240" Max="255">Open</Capability>
  </Channel>
  <Channel Name="Red">

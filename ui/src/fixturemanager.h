@@ -37,6 +37,10 @@ class QSplitter;
 class QAction;
 class QMenu;
 
+/** @addtogroup ui_fixtures
+ * @{
+ */
+
 #define KXMLQLCFixtureManager "FixtureManager"
 #define KXMLQLCFixtureManagerSplitterSize "SplitterSize"
 
@@ -195,6 +199,7 @@ private:
 
 private slots:
     void slotAdd();
+    void slotAddRGBPanel();
     void slotRemove();
     void slotProperties();
     void slotFadeConfig();
@@ -211,6 +216,7 @@ private slots:
 
 private:
     QAction* m_addAction;
+    QAction* m_addRGBAction;
     QAction* m_removeAction;
     QAction* m_propertiesAction;
     QAction* m_fadeConfigAction;
@@ -226,5 +232,7 @@ private:
     QAction* m_exportAction;
     QMenu* m_groupMenu;
 };
+
+/** @} */
 
 #endif

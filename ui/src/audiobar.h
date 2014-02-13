@@ -25,6 +25,13 @@
 #include "function.h"
 #include "fixture.h"
 
+class QDomDocument;
+class QDomElement;
+
+/** @addtogroup ui_vc_widgets
+ * @{
+ */
+
 #define KXMLQLCAudioBarIndex "Index"
 #define KXMLQLCAudioBarName "Name"
 #define KXMLQLCAudioBarType "Type"
@@ -34,9 +41,6 @@
 #define KXMLQLCAudioBarMinThreshold "MinThreshold"
 #define KXMLQLCAudioBarMaxThreshold "MaxThreshold"
 #define KXMLQLCAudioBarDivisor "Divisor"
-
-class QDomDocument;
-class QDomElement;
 
 class AudioBar
 {
@@ -65,6 +69,9 @@ public:
     void attachDmxChannels(Doc *doc, QList<SceneValue>list);
     void attachFunction(Function *func);
     void attachWidget(quint32 wID);
+
+    /** Get widget, sets m_widget to proper value if necessary */
+    VCWidget * widget();
 
     void checkFunctionThresholds(Doc *doc);
     void checkWidgetFunctionality();
@@ -96,13 +103,18 @@ public:
     /** ID of the attchaed VCWidget when m_type == VCWidgetBar */
     quint32 m_widgetID;
 
-    /** Reference to an attached VCWidget when m_type == VCWidgetBar */
-    VCWidget *m_widget;
-
     uchar m_minThreshold, m_maxThreshold;
     int m_divisor;
 
     int m_skippedBeats;
+
+private:
+
+    /** Reference to an attached VCWidget when m_type == VCWidgetBar */
+    VCWidget *m_widget;
+
 };
+
+/** @} */
 
 #endif // AUDIOBAR_H

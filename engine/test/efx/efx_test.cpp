@@ -26,10 +26,10 @@
 #include "mastertimer_stub.h"
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
-#include "universearray.h"
 #include "genericfader.h"
 #include "efxfixture.h"
 #include "qlcchannel.h"
+#include "universe.h"
 #include "efx_test.h"
 #include "function.h"
 #include "qlcfile.h"
@@ -100,10 +100,11 @@ void EFX_Test::initial()
 void EFX_Test::algorithmNames()
 {
     QStringList list = EFX::algorithmList();
-    QCOMPARE(list.size(), 5);
+    QCOMPARE(list.size(), 6);
     QVERIFY(list.contains("Circle"));
     QVERIFY(list.contains("Eight"));
     QVERIFY(list.contains("Line"));
+    QVERIFY(list.contains("Line2"));
     QVERIFY(list.contains("Diamond"));
     QVERIFY(list.contains("Lissajous"));
 
@@ -135,6 +136,7 @@ void EFX_Test::stringToAlgorithm()
     QCOMPARE(EFX::stringToAlgorithm("Circle"), EFX::Circle);
     QCOMPARE(EFX::stringToAlgorithm("Lissajous"), EFX::Lissajous);
     QCOMPARE(EFX::stringToAlgorithm("Line"), EFX::Line);
+    QCOMPARE(EFX::stringToAlgorithm("Line2"), EFX::Line2);
     QCOMPARE(EFX::stringToAlgorithm("Foobar"), EFX::Circle);
 }
 
@@ -2604,7 +2606,8 @@ void EFX_Test::save()
 
 void EFX_Test::preRunPostRun()
 {
-    UniverseArray ua(512);
+    QList<Universe*> ua;
+    ua.append(new Universe(0, new GrandMaster()));
     MasterTimerStub timer(m_doc, ua);
 
     EFX* e = new EFX(m_doc);
@@ -2617,7 +2620,7 @@ void EFX_Test::preRunPostRun()
     QCOMPARE(spy.size(), 1);
     QCOMPARE(spy[0].size(), 1);
     QCOMPARE(spy[0][0].toUInt(), e->id());
-    e->postRun(&timer, &ua);
+    e->postRun(&timer, ua);
     QVERIFY(e->m_fader == NULL);
 }
 
@@ -2669,8 +2672,9 @@ void EFX_Test::adjustIntensity()
     QCOMPARE(ef1->intensity(), 0.5);
     QCOMPARE(ef2->intensity(), 0.5);
 
-    UniverseArray ua(512);
-    e->postRun(m_doc->masterTimer(), &ua);
+    QList<Universe*> ua;
+    ua.append(new Universe(0, new GrandMaster()));
+    e->postRun(m_doc->masterTimer(), ua);
 }
 
 QTEST_APPLESS_MAIN(EFX_Test)

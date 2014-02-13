@@ -29,8 +29,6 @@
 #include "collectioneditor.h"
 #include "mastertimer.h"
 #include "collection.h"
-#include "outputmap.h"
-#include "inputmap.h"
 #include "function.h"
 #include "fixture.h"
 #include "apputil.h"
@@ -109,5 +107,6 @@ void CollectionEditor::updateFunctionList()
         QTreeWidgetItem* item = new QTreeWidgetItem(m_tree);
         item->setText(0, function->name());
         item->setData(0, PROP_ID, function->id());
+        item->setIcon(0, Function::typeToIcon(function->type()));
     }
 }

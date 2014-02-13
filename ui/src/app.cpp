@@ -35,6 +35,7 @@
 #include "inputoutputmanager.h"
 #include "functionselection.h"
 #include "functionmanager.h"
+#include "inputoutputmap.h"
 #include "virtualconsole.h"
 #include "fixturemanager.h"
 #include "dmxdumpfactory.h"
@@ -43,8 +44,6 @@
 #include "addresstool.h"
 #include "simpledesk.h"
 #include "docbrowser.h"
-#include "outputmap.h"
-#include "inputmap.h"
 #include "aboutbox.h"
 #include "monitor.h"
 #include "vcframe.h"
@@ -103,7 +102,6 @@ App::App()
     QCoreApplication::setOrganizationName("qlcplus");
     QCoreApplication::setOrganizationDomain("sf.net");
     QCoreApplication::setApplicationName(APPNAME);
-
 }
 
 App::~App()
@@ -187,12 +185,12 @@ void App::init()
             resize(size);
         else
         {
-            if (isRaspberry())
+            if (QLCFile::isRaspberry())
             {
                 QRect geometry = qApp->desktop()->availableGeometry();
                 // if we're on a Raspberry Pi, introduce a 5% margin
-                int w = (float)geometry.width() * 0.9;
-                int h = (float)geometry.height() * 0.9;
+                int w = (float)geometry.width() * 0.95;
+                int h = (float)geometry.height() * 0.95;
                 setGeometry((geometry.width() - w) / 2, (geometry.height() - h) / 2,
                             w, h);
             }
@@ -234,7 +232,7 @@ void App::init()
     m_tab->addTab(w, QIcon(":/input_output.png"), tr("Inputs/Outputs"));
 
     // Listen to blackout changes and toggle m_controlBlackoutAction
-    connect(m_doc->outputMap(), SIGNAL(blackoutChanged(bool)), this, SLOT(slotBlackoutChanged(bool)));
+    connect(m_doc->inputOutputMap(), SIGNAL(blackoutChanged(bool)), this, SLOT(slotBlackoutChanged(bool)));
 
     // Enable/Disable panic button
     connect(m_doc->masterTimer(), SIGNAL(functionListChanged()), this, SLOT(slotRunningFunctionsChanged()));
@@ -280,24 +278,6 @@ void App::setActiveWindow(const QString& name)
             break;
         }
     }
-}
-
-bool App::isRaspberry()
-{
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-    QFile cpuInfoFile("/proc/cpuinfo");
-    if (cpuInfoFile.exists() == true)
-    {
-        cpuInfoFile.open(QFile::ReadOnly);
-        QString content = QLatin1String(cpuInfoFile.readAll());
-        cpuInfoFile.close();
-        if (content.contains("BCM2708"))
-            return true;
-    }
-    return false;
-#else
-    return false;
-#endif
 }
 
 void App::closeEvent(QCloseEvent* e)
@@ -398,7 +378,7 @@ void App::clearDocument()
     m_doc->clearContents();
     VirtualConsole::instance()->resetContents();
     SimpleDesk::instance()->clearContents();
-    m_doc->outputMap()->resetUniverses();
+    m_doc->inputOutputMap()->resetUniverses();
     setFileName(QString());
     m_doc->resetModified();
 }
@@ -427,14 +407,12 @@ void App::initDoc()
     m_doc->ioPluginCache()->load(IOPluginCache::systemPluginDirectory());
 
     /* Restore outputmap settings */
-    Q_ASSERT(m_doc->outputMap() != NULL);
-    m_doc->outputMap()->loadDefaults();
+    Q_ASSERT(m_doc->inputOutputMap() != NULL);
 
     /* Load input plugins & profiles */
-    Q_ASSERT(m_doc->inputMap() != NULL);
-    m_doc->inputMap()->loadProfiles(InputMap::userProfileDirectory());
-    m_doc->inputMap()->loadProfiles(InputMap::systemProfileDirectory());
-    m_doc->inputMap()->loadDefaults();
+    m_doc->inputOutputMap()->loadProfiles(InputOutputMap::userProfileDirectory());
+    m_doc->inputOutputMap()->loadProfiles(InputOutputMap::systemProfileDirectory());
+    m_doc->inputOutputMap()->loadDefaults();
 
     m_doc->masterTimer()->start();
 }
@@ -463,6 +441,8 @@ void App::enableKioskMode()
     // Turn on operate mode
     m_doc->setKiosk(true);
     m_doc->setMode(Doc::Operate);
+    if (VirtualConsole::instance()->checkStartupFunction(m_doc->startupFunction()) == false)
+        m_doc->checkStartupFunction();
 
     // No need for these
     m_tab->removeTab(m_tab->indexOf(FixtureManager::instance()));
@@ -489,6 +469,8 @@ void App::createKioskCloseButton(const QRect& rect)
 void App::slotModeOperate()
 {
     m_doc->setMode(Doc::Operate);
+    if (VirtualConsole::instance()->checkStartupFunction(m_doc->startupFunction()) == false)
+        m_doc->checkStartupFunction();
 }
 
 void App::slotModeDesign()
@@ -585,7 +567,7 @@ void App::initActions()
     m_controlBlackoutAction = new QAction(QIcon(":/blackout.png"), tr("Toggle &Blackout"), this);
     m_controlBlackoutAction->setCheckable(true);
     connect(m_controlBlackoutAction, SIGNAL(triggered(bool)), this, SLOT(slotControlBlackout()));
-    m_controlBlackoutAction->setChecked(m_doc->outputMap()->blackout());
+    m_controlBlackoutAction->setChecked(m_doc->inputOutputMap()->blackout());
 
     m_liveEditAction = new QAction(QIcon(":/liveedit.png"), tr("Live edit a function"), this);
     connect(m_liveEditAction, SIGNAL(triggered()), this, SLOT(slotFunctionLiveEdit()));
@@ -895,7 +877,7 @@ QFile::FileError App::slotFileOpen()
     if (FixtureManager::instance() != NULL)
         FixtureManager::instance()->updateView();
     if (InputOutputManager::instance() != NULL)
-        InputOutputManager::instance()->updateTree();
+        InputOutputManager::instance()->updateList();
 
     updateFileOpenMenu(fn);
 
@@ -983,7 +965,7 @@ void App::slotAddressTool()
 
 void App::slotControlBlackout()
 {
-    m_doc->outputMap()->setBlackout(!m_doc->outputMap()->blackout());
+    m_doc->inputOutputMap()->setBlackout(!m_doc->inputOutputMap()->blackout());
 }
 
 void App::slotBlackoutChanged(bool state)
@@ -1149,7 +1131,7 @@ void App::slotRecentFileClicked(QAction *recent)
     if (FixtureManager::instance() != NULL)
         FixtureManager::instance()->updateView();
     if (InputOutputManager::instance() != NULL)
-        InputOutputManager::instance()->updateTree();
+        InputOutputManager::instance()->updateList();
 
 }
 
@@ -1248,7 +1230,6 @@ bool App::loadXML(const QDomDocument& doc, bool goToConsole)
         node = node.nextSibling();
     }
 
-
     if (goToConsole == true)
         // Force the active window to be Virtual Console
         setActiveWindow(VirtualConsole::staticMetaObject.className());
@@ -1258,6 +1239,14 @@ bool App::loadXML(const QDomDocument& doc, bool goToConsole)
 
     // Perform post-load operations
     VirtualConsole::instance()->postLoad();
+
+    if (m_doc->errorLog().isEmpty() == false)
+    {
+        QMessageBox msg(QMessageBox::Warning, tr("Warning"),
+                        tr("Some errors occurred while loading the project:") + "\n\n" + m_doc->errorLog(),
+                        QMessageBox::Ok);
+        msg.exec();
+    }
 
     return true;
 }
@@ -1330,4 +1319,15 @@ void App::slotLoadDocFromMemory(QString xmlData)
     QDomDocument doc;
     doc.setContent(xmlData);
     loadXML(doc, true);
+}
+
+void App::slotSaveAutostart(QString fileName)
+{
+    /* Set the workspace path before saving the new XML. In this way local files
+       can be loaded even if the workspace file will be moved */
+    m_doc->setWorkspacePath(QFileInfo(fileName).absolutePath());
+
+    /* Save the document and set workspace name */
+    QFile::FileError error = saveXML(fileName);
+    handleFileError(error);
 }

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>589</width>
+    <width>614</width>
     <height>535</height>
    </rect>
   </property>
@@ -777,16 +777,6 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
-           <widget class="QSpinBox" name="m_lensDegreesMinSpin">
-            <property name="accelerated">
-             <bool>true</bool>
-            </property>
-            <property name="maximum">
-             <number>360</number>
-            </property>
-           </widget>
-          </item>
           <item row="2" column="0">
            <widget class="QLabel" name="m_lensDegreesMaxLabel">
             <property name="text">
@@ -795,12 +785,28 @@
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QSpinBox" name="m_lensDegreesMaxSpin">
+           <widget class="QDoubleSpinBox" name="m_lensDegreesMaxSpin">
             <property name="accelerated">
              <bool>true</bool>
             </property>
+            <property name="decimals">
+             <number>1</number>
+            </property>
             <property name="maximum">
-             <number>360</number>
+             <double>360.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QDoubleSpinBox" name="m_lensDegreesMinSpin">
+            <property name="accelerated">
+             <bool>true</bool>
+            </property>
+            <property name="decimals">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <double>360.000000000000000</double>
             </property>
            </widget>
           </item>
@@ -938,6 +944,16 @@
             <item>
              <property name="text">
               <string notr="true">3-pin and 5-pin</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string notr="true">3.5 mm stereo jack</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string notr="true">Other</string>
              </property>
             </item>
            </widget>

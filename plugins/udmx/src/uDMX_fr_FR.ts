@@ -9,7 +9,7 @@
         <translation>Ce greffon active la sortie DMX pour les périphériques Anyma uDMX.</translation>
     </message>
     <message>
-        <location filename="udmx.cpp" line="186"/>
+        <location filename="udmx.cpp" line="188"/>
         <source>Do you wish to re-scan your hardware?</source>
         <translation>Souhaitez vous rechercher les périphériques ?</translation>
     </message>

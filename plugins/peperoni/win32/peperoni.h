@@ -77,7 +77,7 @@ public:
     QString outputInfo(quint32 output);
 
     /** @reimp */
-    void writeUniverse(quint32 output, const QByteArray& universe);
+    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
 
     /** Attempt to find all connected Peperoni devices */
     void rescanDevices();

@@ -153,7 +153,7 @@ void printUsage()
     cout << "  -o or --open <file>\t\tOpen the specified workspace file" << endl;
     cout << "  -p or --operate\t\tStart in operate mode" << endl;
     cout << "  -v or --version\t\tPrint version information" << endl;
-    cout << "  -w or --web\t\tEnable remote web access" << endl;
+    cout << "  -w or --web\t\t\tEnable remote web access" << endl;
     cout << endl;
 }
 
@@ -312,6 +312,8 @@ int main(int argc, char** argv)
                 &app, SLOT(slotModeToggle()));
         QObject::connect(m_webAccess, SIGNAL(loadProject(QString)),
                 &app, SLOT(slotLoadDocFromMemory(QString)));
+        QObject::connect(m_webAccess, SIGNAL(storeAutostartProject(QString)),
+                &app, SLOT(slotSaveAutostart(QString)));
     }
 
     return qapp.exec();

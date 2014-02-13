@@ -27,6 +27,10 @@ class QLineEdit;
 class QSlider;
 class QLabel;
 
+/** @addtogroup ui UI
+ * @{
+ */
+
 class PlaybackSlider : public QWidget
 {
     Q_OBJECT
@@ -63,5 +67,7 @@ private:
     QToolButton* m_flash;
     int m_previousValue;
 };
+
+/** @} */
 
 #endif

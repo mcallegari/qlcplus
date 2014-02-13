@@ -27,6 +27,10 @@
 
 class Doc;
 
+/** @addtogroup ui UI
+ * @{
+ */
+
 class ChannelsSelection : public QDialog, public Ui_ChannelsSelection
 {
     Q_OBJECT
@@ -62,5 +66,7 @@ protected slots:
     /** Callback for OK button clicks */
     void accept();
 };
+
+/** @} */
 
 #endif // CHANNELSCONFIGURATION_H

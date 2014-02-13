@@ -26,9 +26,9 @@
 #include "selectinputchannel.h"
 #include "functionselection.h"
 #include "assignhotkey.h"
+#include "inputpatch.h"
 #include "vccuelist.h"
 #include "qlcmacros.h"
-#include "inputmap.h"
 #include "doc.h"
 
 #define KColumnNumber 0
@@ -247,7 +247,7 @@ void VCCueListProperties::slotNextDetachClicked()
 
 void VCCueListProperties::slotNextChooseInputClicked()
 {
-    SelectInputChannel sic(this, m_doc->inputMap());
+    SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
         m_nextInputSource = QLCInputSource(sic.universe(), sic.channel());
@@ -259,19 +259,19 @@ void VCCueListProperties::slotNextAutoDetectInputToggled(bool checked)
 {
     if (checked == true)
     {
-        connect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+        connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                 this, SLOT(slotNextInputValueChanged(quint32,quint32)));
     }
     else
     {
-        disconnect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                    this, SLOT(slotNextInputValueChanged(quint32,quint32)));
     }
 }
 
 void VCCueListProperties::slotNextInputValueChanged(quint32 uni, quint32 ch)
 {
-    m_nextInputSource = QLCInputSource(uni, ch);
+    m_nextInputSource = QLCInputSource(uni, (m_cueList->page() << 16) | ch);
     updateNextInputSource();
 }
 
@@ -280,7 +280,7 @@ void VCCueListProperties::updateNextInputSource()
     QString uniName;
     QString chName;
 
-    if (m_doc->inputMap()->inputSourceNames(m_nextInputSource, uniName, chName) == true)
+    if (m_doc->inputOutputMap()->inputSourceNames(m_nextInputSource, uniName, chName) == true)
     {
         /* Display the gathered information */
         m_nextInputUniverseEdit->setText(uniName);
@@ -315,7 +315,7 @@ void VCCueListProperties::slotPreviousDetachClicked()
 
 void VCCueListProperties::slotPreviousChooseInputClicked()
 {
-    SelectInputChannel sic(this, m_doc->inputMap());
+    SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
         m_previousInputSource = QLCInputSource(sic.universe(), sic.channel());
@@ -327,19 +327,19 @@ void VCCueListProperties::slotPreviousAutoDetectInputToggled(bool checked)
 {
     if (checked == true)
     {
-        connect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+        connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                 this, SLOT(slotPreviousInputValueChanged(quint32,quint32)));
     }
     else
     {
-        disconnect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                    this, SLOT(slotPreviousInputValueChanged(quint32,quint32)));
     }
 }
 
 void VCCueListProperties::slotPreviousInputValueChanged(quint32 uni, quint32 ch)
 {
-    m_previousInputSource = QLCInputSource(uni, ch);
+    m_previousInputSource = QLCInputSource(uni, (m_cueList->page() << 16) | ch);
     updatePreviousInputSource();
 }
 
@@ -348,7 +348,7 @@ void VCCueListProperties::updatePreviousInputSource()
     QString uniName;
     QString chName;
 
-    if (m_doc->inputMap()->inputSourceNames(m_previousInputSource, uniName, chName) == true)
+    if (m_doc->inputOutputMap()->inputSourceNames(m_previousInputSource, uniName, chName) == true)
     {
         /* Display the gathered information */
         m_previousInputUniverseEdit->setText(uniName);
@@ -383,7 +383,7 @@ void VCCueListProperties::slotPlaybackDetachClicked()
 
 void VCCueListProperties::slotPlaybackChooseInputClicked()
 {
-    SelectInputChannel sic(this, m_doc->inputMap());
+    SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
         m_playbackInputSource = QLCInputSource(sic.universe(), sic.channel());
@@ -395,19 +395,19 @@ void VCCueListProperties::slotPlaybackAutoDetectInputToggled(bool checked)
 {
     if (checked == true)
     {
-        connect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+        connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                 this, SLOT(slotPlaybackInputValueChanged(quint32,quint32)));
     }
     else
     {
-        disconnect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                    this, SLOT(slotPlaybackInputValueChanged(quint32,quint32)));
     }
 }
 
 void VCCueListProperties::slotPlaybackInputValueChanged(quint32 uni, quint32 ch)
 {
-    m_playbackInputSource = QLCInputSource(uni, ch);
+    m_playbackInputSource = QLCInputSource(uni, (m_cueList->page() << 16) | ch);
     updatePlaybackInputSource();
 }
 
@@ -416,7 +416,7 @@ void VCCueListProperties::updatePlaybackInputSource()
     QString uniName;
     QString chName;
 
-    if (m_doc->inputMap()->inputSourceNames(m_playbackInputSource, uniName, chName) == true)
+    if (m_doc->inputOutputMap()->inputSourceNames(m_playbackInputSource, uniName, chName) == true)
     {
         /* Display the gathered information */
         m_playbackInputUniverseEdit->setText(uniName);
@@ -435,7 +435,7 @@ void VCCueListProperties::updatePlaybackInputSource()
 
 void VCCueListProperties::slotCF1ChooseInputClicked()
 {
-    SelectInputChannel sic(this, m_doc->inputMap());
+    SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
         m_cf1InputSource = QLCInputSource(sic.universe(), sic.channel());
@@ -449,25 +449,25 @@ void VCCueListProperties::slotCF1AutoDetectInputToggled(bool checked)
 
     if (checked == true)
     {
-        connect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+        connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                 this, SLOT(slotCF1InputValueChanged(quint32,quint32)));
     }
     else
     {
-        disconnect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                    this, SLOT(slotCF1InputValueChanged(quint32,quint32)));
     }
 }
 
 void VCCueListProperties::slotCF1InputValueChanged(quint32 uni, quint32 ch)
 {
-    m_cf1InputSource = QLCInputSource(uni, ch);
+    m_cf1InputSource = QLCInputSource(uni, (m_cueList->page() << 16) | ch);
     updateCrossfadeInputSource();
 }
 
 void VCCueListProperties::slotCF2ChooseInputClicked()
 {
-    SelectInputChannel sic(this, m_doc->inputMap());
+    SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
         m_cf2InputSource = QLCInputSource(sic.universe(), sic.channel());
@@ -481,19 +481,19 @@ void VCCueListProperties::slotCF2AutoDetectInputToggled(bool checked)
 
     if (checked == true)
     {
-        connect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+        connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                 this, SLOT(slotCF2InputValueChanged(quint32,quint32)));
     }
     else
     {
-        disconnect(m_doc->inputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                    this, SLOT(slotCF2InputValueChanged(quint32,quint32)));
     }
 }
 
 void VCCueListProperties::slotCF2InputValueChanged(quint32 uni, quint32 ch)
 {
-    m_cf2InputSource = QLCInputSource(uni, ch);
+    m_cf2InputSource = QLCInputSource(uni, (m_cueList->page() << 16) | ch);
     updateCrossfadeInputSource();
 }
 
@@ -502,7 +502,7 @@ void VCCueListProperties::updateCrossfadeInputSource()
     QString uniName;
     QString chName;
 
-    if (m_doc->inputMap()->inputSourceNames(m_cf1InputSource, uniName, chName) == true)
+    if (m_doc->inputOutputMap()->inputSourceNames(m_cf1InputSource, uniName, chName) == true)
     {
         /* Display the gathered information */
         m_cf1InputUniverseEdit->setText(uniName);
@@ -514,7 +514,7 @@ void VCCueListProperties::updateCrossfadeInputSource()
         m_cf1InputChannelEdit->setText(KInputNone);
     }
 
-    if (m_doc->inputMap()->inputSourceNames(m_cf2InputSource, uniName, chName) == true)
+    if (m_doc->inputOutputMap()->inputSourceNames(m_cf2InputSource, uniName, chName) == true)
     {
         /* Display the gathered information */
         m_cf2InputUniverseEdit->setText(uniName);

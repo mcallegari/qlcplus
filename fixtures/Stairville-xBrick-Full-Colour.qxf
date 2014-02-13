@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.4.1</Version>
-  <Author>fintch,,,</Author>
+  <Author>fintch</Author>
  </Creator>
  <Manufacturer>Stairville</Manufacturer>
  <Model>xBrick Full-Colour</Model>

@@ -41,7 +41,7 @@ showing the following options for the volume and spectrum bars:<br><br>
       <LI><img src="qrc:/uncheck.png"> None - No functionality assigned</LI>
       <LI><img src="qrc:/intensity.png"> DMX - Controls single DMX channels</LI>
       <LI><img src="qrc:/function.png"> Function - Controls a QLC+ function</LI>
-      <LI><img src="qrc:/virtualconsole.png"> VC Widget - Controls a Virtual Console widget (at the moment only buttons, sliders and tapping of speed dials)</LI>
+      <LI><img src="qrc:/virtualconsole.png"> VC Widget - Controls a Virtual Console widget (at the moment only buttons, sliders, tapping of speed dials and next cue of cue lists)</LI>
      </UL>
   </TD>
  </TR>
@@ -72,9 +72,10 @@ showing the following options for the volume and spectrum bars:<br><br>
  </TR>
  <TR>
   <TD><B>Divisor</B></TD>
-  <TD>For speed dials, this will divide the taps by the selected number - only every n-th tap will be actually sent to the speed dial.
-  In other words, the tap happens only on every n-th beat. If you want the tap on every beat, enter 1, for every other beat enter 2.
-  For once in a 4/4 measure, enter 4. For once in 3 4/4 measures, enter 12. Maximum is 64.
+  <TD>For speed dials and cue lists, this will divide the taps by the selected number - only every n-th tap
+  will be actually sent to the speed dial. In other words, the tap happens only on every n-th beat. If you want
+  the tap on every beat, enter 1, for every other beat enter 2. For once in a 4/4 measure, enter 4. For once in
+  3 4/4 measures, enter 12. Maximum is 64.
   </TD>
  </TR>
 </TABLE>
@@ -97,14 +98,14 @@ Enable threshold in respective band, and stopped when it goes below the Disable 
 below Disable threshold (similar to functions).</LI>
 <LI><B>Slider</B> is moved in proportion to the volume (similar to DMX channels). For a slider
 the thresholds do not apply.</LI>
-<LI><B>Speed dial</B> is tapped when the volume goes above the Enable threshold, and won't be tapped again 
-until the volume falls below the Disable threshold. This probably means you will have to set the thresholds a 
-little closer to each other than for buttons.</LI>
+<LI><B>Speed dial</B> is tapped.</LI>
+<LI><B>Cue List</B> "Next Cue" is pressed.</LI>
 </UL>
 </P>
 
-<P>Note: Controlling widgets works now only if the audio triggers widget was created <B>later</B> than the controlled widget.
-</P>
-
+<P>
+For <B>Speed dials</B> and <B>Cue Lists</B>, the tap/button press happens when the volume goes above the Enable
+threshold, and won't happen again until the volume falls below the Disable threshold. This probably means you
+will have to set the thresholds a little closer to each other than for buttons.</P>
 </BODY>
 </HTML>

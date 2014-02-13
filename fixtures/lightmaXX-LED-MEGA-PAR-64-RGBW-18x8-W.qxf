@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.4.1</Version>
-  <Author>aschmitz,,,</Author>
+  <Author>aschmitz</Author>
  </Creator>
  <Manufacturer>lightmaXX</Manufacturer>
  <Model>LED MEGA PAR 64 RGBW 18x8 W</Model>
@@ -46,7 +47,7 @@
  <Mode Name="3 channel">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="300" Height="310" Weight="2,5" Depth="270"/>
+   <Dimensions Width="300" Height="310" Weight="2.5" Depth="270"/>
    <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="170" DmxConnector="3-pin"/>
@@ -58,7 +59,7 @@
  <Mode Name="4 channel">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="300" Height="310" Weight="2,5" Depth="270"/>
+   <Dimensions Width="300" Height="310" Weight="2.5" Depth="270"/>
    <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="170" DmxConnector="5-pin"/>
@@ -71,7 +72,7 @@
  <Mode Name="7 channel full">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="300" Height="310" Weight="2,5" Depth="270"/>
+   <Dimensions Width="300" Height="310" Weight="2.5" Depth="270"/>
    <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="170" DmxConnector="3-pin"/>

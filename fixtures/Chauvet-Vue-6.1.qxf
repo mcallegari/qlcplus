@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller</Name>
   <Version>3.3.0-r2741</Version>
@@ -139,12 +140,12 @@
  <Channel Name="Strobing Speed (Dimmer Mode)">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="5">Blackout</Capability>
-  <Capability Min="6" Max="255">Slow -> Fast</Capability>
+  <Capability Min="6" Max="255">Slow -&gt; Fast</Capability>
  </Channel>
  <Channel Name="Motor Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="5">Stop</Capability>
-  <Capability Min="6" Max="255">Slow -> Fast</Capability>
+  <Capability Min="6" Max="255">Slow -&gt; Fast</Capability>
  </Channel>
  <Mode Name="6 Channel Mode">
   <Physical>

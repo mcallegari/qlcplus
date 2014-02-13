@@ -23,6 +23,7 @@
 #include "vcbutton.h"
 #include "vcslider.h"
 #include "vcspeeddial.h"
+#include "vccuelist.h"
 #include "virtualconsole.h"
 
 AudioBar::AudioBar(int t, uchar v)
@@ -137,6 +138,14 @@ void AudioBar::attachWidget(quint32 wID)
     m_tapped = false;
 }
 
+VCWidget * AudioBar::widget()
+{
+    if (m_widget == NULL)
+        m_widget = VirtualConsole::instance()->widget(m_widgetID);
+
+    return m_widget;
+}
+
 void AudioBar::checkFunctionThresholds(Doc *doc)
 {
     if (m_function == NULL)
@@ -152,12 +161,8 @@ void AudioBar::checkWidgetFunctionality()
     if (m_widgetID == VCWidget::invalidId())
         return;
 
-    if (m_widget == NULL)
-    {
-        m_widget = VirtualConsole::instance()->widget(m_widgetID);
-        if (m_widget == NULL)
-            return;
-    }
+    if (widget() == NULL) // fills m_widget if needed
+        return;
 
     if (m_widget->type() == VCWidget::ButtonWidget)
     {
@@ -187,6 +192,20 @@ void AudioBar::checkWidgetFunctionality()
         {
             m_tapped = false;
         }
+    }
+    else if (m_widget->type() == VCWidget::CueListWidget)
+    {
+        VCCueList *cueList = (VCCueList *)m_widget;
+        if (m_value >= m_maxThreshold && !m_tapped)
+        {
+            if (m_skippedBeats == 0)
+                cueList->slotNextCue();
+
+            m_tapped = true;
+            m_skippedBeats = (m_skippedBeats + 1) % m_divisor;
+        }
+        else if (m_value < m_minThreshold)
+            m_tapped = false;
     }
 }
 

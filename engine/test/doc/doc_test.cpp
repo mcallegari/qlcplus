@@ -101,8 +101,7 @@ void Doc_Test::denormalizeComponentPath()
 void Doc_Test::defaults()
 {
     QVERIFY(m_doc->m_fixtureDefCache != NULL);
-    QVERIFY(m_doc->m_outputMap != NULL);
-    QVERIFY(m_doc->m_inputMap != NULL);
+    QVERIFY(m_doc->m_ioMap != NULL);
     QVERIFY(m_doc->m_masterTimer != NULL);
 
     QVERIFY(m_doc->m_modified == false);
@@ -685,7 +684,7 @@ void Doc_Test::save()
 
     QVERIFY(m_doc->saveXML(&document, &root) == true);
 
-    uint fixtures = 0, groups = 0, functions = 0;
+    uint fixtures = 0, groups = 0, functions = 0, ioMap = 0;
     QDomNode node = root.firstChild();
     QVERIFY(node.toElement().tagName() == "Engine");
 
@@ -701,6 +700,8 @@ void Doc_Test::save()
             functions++;
         else if (tag.tagName() == "FixtureGroup")
             groups++;
+        else if (tag.tagName() == "InputOutputMap")
+            ioMap++;
         else if (tag.tagName() == "Bus")
             QFAIL("Bus tags should not be saved anymore!");
         else
@@ -713,6 +714,7 @@ void Doc_Test::save()
     QVERIFY(fixtures == 3);
     QVERIFY(groups == 2);
     QVERIFY(functions == 4);
+    QVERIFY(ioMap == 1);
 
     /* Saving doesn't implicitly reset modified status */
     QVERIFY(m_doc->isModified() == true);

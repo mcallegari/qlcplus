@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller</Name>
   <Version>3.2.0-1-r2532</Version>
@@ -39,23 +40,23 @@
  </Channel>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="10">White -> Flame red</Capability>
-  <Capability Min="11" Max="21">Flame red -> Light blue</Capability>
-  <Capability Min="22" Max="32">Light blue -> Fern green</Capability>
-  <Capability Min="33" Max="43">Fern green -> Yellow</Capability>
-  <Capability Min="44" Max="54">Yellow -> Primary green</Capability>
-  <Capability Min="55" Max="65">Primary green -> Mauve</Capability>
-  <Capability Min="66" Max="76">Mauve -> Dark blue</Capability>
-  <Capability Min="77" Max="87">Dark blue -> Cyan blue</Capability>
-  <Capability Min="88" Max="98">Cyan blue -> Primary red</Capability>
-  <Capability Min="99" Max="109">Primary red -> Light orange</Capability>
-  <Capability Min="110" Max="120">Light orange -> Light green</Capability>
-  <Capability Min="121" Max="131">Light green -> Amber</Capability>
-  <Capability Min="132" Max="142">Amber -> Pink</Capability>
-  <Capability Min="143" Max="153">Pink -> Dark lavender</Capability>
-  <Capability Min="154" Max="164">Dark lavender -> Dark orange</Capability>
-  <Capability Min="165" Max="175">Dark orange -> Multicolor 1</Capability>
-  <Capability Min="176" Max="186">Multicolor 1 -> Multicolor 2</Capability>
+  <Capability Min="0" Max="10">White -&gt; Flame red</Capability>
+  <Capability Min="11" Max="21">Flame red -&gt; Light blue</Capability>
+  <Capability Min="22" Max="32">Light blue -&gt; Fern green</Capability>
+  <Capability Min="33" Max="43">Fern green -&gt; Yellow</Capability>
+  <Capability Min="44" Max="54">Yellow -&gt; Primary green</Capability>
+  <Capability Min="55" Max="65">Primary green -&gt; Mauve</Capability>
+  <Capability Min="66" Max="76">Mauve -&gt; Dark blue</Capability>
+  <Capability Min="77" Max="87">Dark blue -&gt; Cyan blue</Capability>
+  <Capability Min="88" Max="98">Cyan blue -&gt; Primary red</Capability>
+  <Capability Min="99" Max="109">Primary red -&gt; Light orange</Capability>
+  <Capability Min="110" Max="120">Light orange -&gt; Light green</Capability>
+  <Capability Min="121" Max="131">Light green -&gt; Amber</Capability>
+  <Capability Min="132" Max="142">Amber -&gt; Pink</Capability>
+  <Capability Min="143" Max="153">Pink -&gt; Dark lavender</Capability>
+  <Capability Min="154" Max="164">Dark lavender -&gt; Dark orange</Capability>
+  <Capability Min="165" Max="175">Dark orange -&gt; Multicolor 1</Capability>
+  <Capability Min="176" Max="186">Multicolor 1 -&gt; Multicolor 2</Capability>
   <Capability Min="187" Max="190">Multicolor 2</Capability>
   <Capability Min="191" Max="193">Multicolor 1</Capability>
   <Capability Min="194" Max="196">Dark orange</Capability>
@@ -77,23 +78,23 @@
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="10">Open -> Half</Capability>
-  <Capability Min="11" Max="21">Half -> Dot</Capability>
-  <Capability Min="22" Max="32">Dot -> Pin</Capability>
-  <Capability Min="33" Max="43">Pin -> Vertical bar</Capability>
-  <Capability Min="44" Max="54">Vertical bar -> Horizontal bar</Capability>
-  <Capability Min="55" Max="65">Horizontal bar -> Cross</Capability>
-  <Capability Min="66" Max="76">Cross -> Arrow</Capability>
-  <Capability Min="77" Max="87">Arrow -> Triangles</Capability>
-  <Capability Min="88" Max="98">Triangles -> Star</Capability>
-  <Capability Min="99" Max="109">Star -> Holes</Capability>
-  <Capability Min="110" Max="120">Holes -> Bells</Capability>
-  <Capability Min="121" Max="131">Bells -> Cone</Capability>
-  <Capability Min="132" Max="142">Cone -> Cones</Capability>
-  <Capability Min="143" Max="153">Cones -> Phone</Capability>
-  <Capability Min="154" Max="164">Phone -> Thin bars</Capability>
-  <Capability Min="165" Max="175">Thin bars -> Window</Capability>
-  <Capability Min="176" Max="186">Window -> Turbine</Capability>
+  <Capability Min="0" Max="10">Open -&gt; Half</Capability>
+  <Capability Min="11" Max="21">Half -&gt; Dot</Capability>
+  <Capability Min="22" Max="32">Dot -&gt; Pin</Capability>
+  <Capability Min="33" Max="43">Pin -&gt; Vertical bar</Capability>
+  <Capability Min="44" Max="54">Vertical bar -&gt; Horizontal bar</Capability>
+  <Capability Min="55" Max="65">Horizontal bar -&gt; Cross</Capability>
+  <Capability Min="66" Max="76">Cross -&gt; Arrow</Capability>
+  <Capability Min="77" Max="87">Arrow -&gt; Triangles</Capability>
+  <Capability Min="88" Max="98">Triangles -&gt; Star</Capability>
+  <Capability Min="99" Max="109">Star -&gt; Holes</Capability>
+  <Capability Min="110" Max="120">Holes -&gt; Bells</Capability>
+  <Capability Min="121" Max="131">Bells -&gt; Cone</Capability>
+  <Capability Min="132" Max="142">Cone -&gt; Cones</Capability>
+  <Capability Min="143" Max="153">Cones -&gt; Phone</Capability>
+  <Capability Min="154" Max="164">Phone -&gt; Thin bars</Capability>
+  <Capability Min="165" Max="175">Thin bars -&gt; Window</Capability>
+  <Capability Min="176" Max="186">Window -&gt; Turbine</Capability>
   <Capability Min="187" Max="190">Turbine</Capability>
   <Capability Min="191" Max="193">Window</Capability>
   <Capability Min="194" Max="196">Thin bars</Capability>
@@ -116,12 +117,12 @@
  <Channel Name="Movement speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="0">Tracking</Capability>
-  <Capability Min="1" Max="251">Speed fast -> slow</Capability>
+  <Capability Min="1" Max="251">Speed fast -&gt; slow</Capability>
   <Capability Min="252" Max="255">Blackout while changing</Capability>
  </Channel>
  <Channel Name="Colour/Gobo/Dimmer speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="251">Speed fast -> slow</Capability>
+  <Capability Min="0" Max="251">Speed fast -&gt; slow</Capability>
   <Capability Min="252" Max="255">Blackout while colour/gobo change, fast dimmer</Capability>
  </Channel>
  <Mode Name="Mode 1">

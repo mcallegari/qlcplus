@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.4.1</Version>
@@ -171,7 +172,7 @@
  <Channel Name="Strobe">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="10">Strobe Off</Capability>
-  <Capability Min="11" Max="255">Strobe Slow -> Fast</Capability>
+  <Capability Min="11" Max="255">Strobe Slow -&gt; Fast</Capability>
  </Channel>
  <Channel Name="Automatic Modes">
   <Group Byte="0">Effect</Group>
@@ -190,7 +191,7 @@
  <Mode Name="Mode 1">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="838" Height="318" Weight="5,7" Depth="89"/>
+   <Dimensions Width="838" Height="318" Weight="5.7" Depth="89"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="12" DmxConnector="3-pin"/>

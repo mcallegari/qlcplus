@@ -29,6 +29,10 @@
 
 class Doc;
 
+/** @addtogroup engine Engine
+ * @{
+ */
+
 /**
  * This is a generic DMX source, that registers itself to doc->masterTimer() when
  * started and unregisters when deleted. Values set with set() are written to
@@ -54,7 +58,7 @@ public:
     bool isOutputEnabled() const;
 
     /** @reimp */
-    void writeDMX(MasterTimer* timer, UniverseArray* ua);
+    void writeDMX(MasterTimer* timer, QList<Universe*> ua);
 
 private:
     Doc* m_doc;
@@ -62,5 +66,7 @@ private:
     QMap <QPair<quint32,quint32>,uchar> m_values;
     bool m_outputEnabled;
 };
+
+/** @} */
 
 #endif

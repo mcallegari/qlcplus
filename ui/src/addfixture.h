@@ -34,6 +34,10 @@ class OutputMap;
 class QString;
 class Doc;
 
+/** @addtogroup ui_fixtures
+ * @{
+ */
+
 #define SETTINGS_EXPANDED "addfixture/expanded"
 
 class AddFixture : public QDialog, public Ui_AddFixture
@@ -145,7 +149,9 @@ protected:
     /** Update the maximum amount of fixtures for the universe */
     void updateMaximumAmount();
 
-    /** Check if an address is available for contiguous channels */
+    /** Check if an address is available for contiguous channels.
+     *  Note that value is an absolute address.
+     */
     bool checkAddressAvailability(int value, int channels);
 
 protected:
@@ -181,6 +187,11 @@ protected slots:
 
     /** Callback for address gap value changes */
     void slotGapSpinChanged(int value);
+
+    /** Callback for fixture search filter changes */
+    void slotSearchFilterChanged(QString filter);
 };
+
+/** @} */
 
 #endif

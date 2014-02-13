@@ -26,7 +26,6 @@
 
 #include "qlcfile.h"
 
-#include "universearray.h"
 #include "mastertimer.h"
 #include "collection.h"
 #include "function.h"
@@ -241,7 +240,7 @@ void Collection::preRun(MasterTimer* timer)
     Function::preRun(timer);
 }
 
-void Collection::write(MasterTimer* timer, UniverseArray* universes)
+void Collection::write(MasterTimer* timer, QList<Universe *> universes)
 {
     Q_UNUSED(universes);
 
@@ -282,7 +281,7 @@ void Collection::write(MasterTimer* timer, UniverseArray* universes)
     stop();
 }
 
-void Collection::postRun(MasterTimer* timer, UniverseArray* universes)
+void Collection::postRun(MasterTimer* timer, QList<Universe *> universes)
 {
     Doc* doc = qobject_cast <Doc*> (parent());
     Q_ASSERT(doc != NULL);

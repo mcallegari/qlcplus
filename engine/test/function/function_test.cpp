@@ -171,7 +171,7 @@ void Function_Test::preRunPostRun()
     stub->incrementElapsed();
 
     QSignalSpy spyStopped(stub, SIGNAL(stopped(quint32)));
-    stub->postRun(NULL, NULL);
+    stub->postRun(NULL, QList<Universe*>());
     QVERIFY(stub->stopped() == true);
     QVERIFY(stub->isRunning() == false);
     QCOMPARE(stub->elapsed(), quint32(0));

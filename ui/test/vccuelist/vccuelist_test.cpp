@@ -37,8 +37,6 @@
 #include "qlcinputsource.h"
 #include "vccuelist_test.h"
 #include "chaserstep.h"
-#include "outputmap.h"
-#include "inputmap.h"
 #include "chaser.h"
 #include "scene.h"
 #include "efx.h"

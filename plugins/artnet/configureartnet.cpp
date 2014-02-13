@@ -24,11 +24,6 @@
 #include "configureartnet.h"
 #include "artnetplugin.h"
 
-#define UNIVERSES_PER_ADDRESS   4
-
-#define KOutputColumnNetwork   0
-#define KOutputColumnUniverse  1
-
 #define KNodesColumnIP          0
 #define KNodesColumnShortName   1
 #define KNodesColumnLongName    2
@@ -48,39 +43,9 @@ ConfigureArtNet::ConfigureArtNet(ArtNetPlugin* plugin, QWidget* parent)
 
     this->resize(400, 300);
 
-    fillOutputTree();
     fillNodesTree();
 }
 
-void ConfigureArtNet::fillOutputTree()
-{
-    QList<QNetworkAddressEntry> ifaces = m_plugin->interfaces();
-    QList<ArtNetIO> IOmap = m_plugin->getIOMapping();
-
-    foreach (QNetworkAddressEntry entry, ifaces)
-    {
-        QString ifaceStr = entry.ip().toString();
-        for (int u = 0; u < UNIVERSES_PER_ADDRESS; u++)
-        {
-            QTreeWidgetItem* pitem = new QTreeWidgetItem(m_outputTree);
-            pitem->setFlags(pitem->flags() | Qt::ItemIsUserCheckable);
-            pitem->setCheckState(KOutputColumnNetwork, Qt::Unchecked);
-            for (int idx = 0; idx < IOmap.length(); idx++)
-            {
-                if (IOmap.at(idx).IPAddress == ifaceStr && IOmap.at(idx).port == u)
-                {
-                    pitem->setCheckState(KOutputColumnNetwork, Qt::Checked);
-                    break;
-                }
-            }
-            pitem->setText(KOutputColumnNetwork, ifaceStr);
-            pitem->setText(KOutputColumnUniverse, tr("Universe %1").arg(u));
-            pitem->setData(KOutputColumnUniverse, Qt::UserRole, u);
-        }
-    }
-
-    m_outputTree->resizeColumnToContents(KOutputColumnNetwork);
-}
 
 void ConfigureArtNet::fillNodesTree()
 {
@@ -126,21 +91,6 @@ ConfigureArtNet::~ConfigureArtNet()
 
 void ConfigureArtNet::accept()
 {
-    qDebug() << Q_FUNC_INFO;
-
-    QList<QString> newMappedIPs;
-    QList<int> newMappedPorts;
-
-    for (int i = 0; i < m_outputTree->topLevelItemCount(); i++)
-    {
-        QTreeWidgetItem* item = m_outputTree->topLevelItem(i);
-        if (item->checkState(KOutputColumnNetwork) == Qt::Checked)
-        {
-            newMappedIPs.append(item->text(KOutputColumnNetwork));
-            newMappedPorts.append(item->data(KOutputColumnUniverse, Qt::UserRole).toInt());
-        }
-    }
-    m_plugin->remapOutputs(newMappedIPs, newMappedPorts);
     QDialog::accept();
 }
 

@@ -26,6 +26,10 @@
 
 class VCWidget;
 
+/** @addtogroup ui_vc_props
+ * @{
+ */
+
 class VCWidgetSelection : public QDialog, public Ui_VCWidgetSelection
 {
     Q_OBJECT
@@ -44,5 +48,7 @@ protected:
     QList<VCWidget *> getChildren(VCWidget *obj);
     void updateWidgetsTree();
 };
+
+/** @} */
 
 #endif // VCWIDGETSELECTION_H
