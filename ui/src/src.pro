@@ -7,7 +7,7 @@ TARGET   = qlcplusui
 
 CONFIG += qt
 QT     += core xml gui script
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
 
 
 # Engine
@@ -26,10 +26,12 @@ INCLUDEPATH     += ../../webaccess
 # Resources
 RESOURCES    += qlcui.qrc
 
-macx {
-  CONFIG += link_pkgconfig
-  system(pkg-config --exists portaudio-2.0) {
-    PKGCONFIG += portaudio-2.0
+lessThan(QT_MAJOR_VERSION, 5) {
+  macx {
+    CONFIG += link_pkgconfig
+    system(pkg-config --exists portaudio-2.0) {
+      PKGCONFIG += portaudio-2.0
+    }
   }
 }
 

@@ -41,12 +41,16 @@
 #include "doc.h"
 #include "bus.h"
 
-#if defined(__APPLE__) || defined(Q_OS_MAC)
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+ #if defined(__APPLE__) || defined(Q_OS_MAC)
   #include "audiocapture_portaudio.h"
-#elif defined(WIN32) || defined (Q_OS_WIN)
+ #elif defined(WIN32) || defined (Q_OS_WIN)
   #include "audiocapture_wavein.h"
-#else
+ #else
   #include "audiocapture_alsa.h"
+ #endif
+#else
+ #include "audiocapture_qt.h"
 #endif
 
 Doc::Doc(QObject* parent, int universes)
@@ -219,12 +223,16 @@ AudioCapture *Doc::audioInputCapture()
 {
     if (m_inputCapture == NULL)
     {
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 #if defined(__APPLE__) || defined(Q_OS_MAC)
         m_inputCapture = new AudioCapturePortAudio();
 #elif defined(WIN32) || defined (Q_OS_WIN)
         m_inputCapture = new AudioCaptureWaveIn();
 #else
         m_inputCapture = new AudioCaptureAlsa();
+#endif
+#else
+        m_inputCapture = new AudioCaptureQt();
 #endif
     }
     return m_inputCapture;
