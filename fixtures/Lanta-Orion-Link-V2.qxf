@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.6.0</Version>
@@ -212,7 +213,7 @@
  <Mode Name="2 Channel">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1070" Height="85" Weight="2,6" Depth="65"/>
+   <Dimensions Width="1070" Height="85" Weight="2.6" Depth="65"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="36" DmxConnector="3-pin"/>
@@ -223,7 +224,7 @@
  <Mode Name="3 Channel">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1070" Height="85" Weight="2,6" Depth="65"/>
+   <Dimensions Width="1070" Height="85" Weight="2.6" Depth="65"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="36" DmxConnector="3-pin"/>
@@ -235,7 +236,7 @@
  <Mode Name="4 Channel">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1070" Height="85" Weight="2,6" Depth="65"/>
+   <Dimensions Width="1070" Height="85" Weight="2.6" Depth="65"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="36" DmxConnector="3-pin"/>
@@ -248,7 +249,7 @@
  <Mode Name="7 Channel">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1070" Height="85" Weight="2,6" Depth="65"/>
+   <Dimensions Width="1070" Height="85" Weight="2.6" Depth="65"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="36" DmxConnector="3-pin"/>
@@ -264,7 +265,7 @@
  <Mode Name="14 Channel">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1070" Height="85" Weight="2,6" Depth="65"/>
+   <Dimensions Width="1070" Height="85" Weight="2.6" Depth="65"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="36" DmxConnector="3-pin"/>
@@ -311,7 +312,7 @@
  <Mode Name="26 Channel">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1070" Height="85" Weight="2,6" Depth="65"/>
+   <Dimensions Width="1070" Height="85" Weight="2.6" Depth="65"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="36" DmxConnector="3-pin"/>

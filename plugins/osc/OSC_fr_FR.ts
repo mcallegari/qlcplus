@@ -55,7 +55,7 @@
     </message>
     <message>
         <location filename="oscplugin.cpp" line="182"/>
-        <location filename="oscplugin.cpp" line="279"/>
+        <location filename="oscplugin.cpp" line="281"/>
         <source>OSC Network</source>
         <translation>Réseau OSC</translation>
     </message>
@@ -66,7 +66,7 @@
     </message>
     <message>
         <location filename="oscplugin.cpp" line="196"/>
-        <location filename="oscplugin.cpp" line="293"/>
+        <location filename="oscplugin.cpp" line="295"/>
         <source>Status: Not ready</source>
         <oldsource>Status: Not open</oldsource>
         <translation>Statut : Pas prêt</translation>
@@ -78,12 +78,12 @@
     </message>
     <message>
         <location filename="oscplugin.cpp" line="202"/>
-        <location filename="oscplugin.cpp" line="296"/>
+        <location filename="oscplugin.cpp" line="298"/>
         <source>Status: Ready</source>
         <translation>Statut : Prêt</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="290"/>
+        <location filename="oscplugin.cpp" line="292"/>
         <source>Input</source>
         <translation>Entrée</translation>
     </message>

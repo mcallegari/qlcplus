@@ -637,7 +637,7 @@ void CueStack::insertStartValue(FadeChannel& fc, const QList<Universe *> ua)
     {
         // GenericFader didn't have the channel. Grab the starting value from UniverseArray.
         quint32 uni = fc.universe();
-        if (uni != Universe::invalid())
+        if (uni != Universe::invalid() && uni < (quint32)ua.count())
         {
             if (fc.group(doc()) != QLCChannel::Intensity)
                 fc.setStart(ua[uni]->preGMValues()[fc.address()]);

@@ -93,7 +93,7 @@ private slots:
     void processPendingPackets();
 
 signals:
-    void valueChanged(quint32 input, int channel, uchar value);
+    void valueChanged(quint32 input, quint32 channel, uchar value);
 };
 
 #endif

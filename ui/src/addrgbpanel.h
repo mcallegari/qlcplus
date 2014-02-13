@@ -57,8 +57,16 @@ public:
     int rows();
     Orientation orientation();
     Type type();
-    
+
+private:
+    /** Check if an address is available for contiguous channels.
+     *  Note that value is an absolute address.
+     */
+    bool checkAddressAvailability();
+
 protected slots:
+    void slotUniverseChanged();
+    void slotAddressChanged();
     void slotSizeChanged(int val);
 
 protected:

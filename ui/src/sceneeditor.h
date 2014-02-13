@@ -141,9 +141,10 @@ private slots:
 
     void slotFadeInChanged(int ms);
     void slotFadeOutChanged(int ms);
+    void slotDialDestroyed(QObject* dial);
 
 private:
-    SpeedDialWidget* m_speedDials;
+    QPointer<SpeedDialWidget> m_speedDials;
 
     /*********************************************************************
      * Channels groups

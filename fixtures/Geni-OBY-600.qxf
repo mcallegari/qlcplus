@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.4.2</Version>
@@ -51,7 +52,7 @@
  <Channel Name="Yellow">
   <Group Byte="0">Intensity</Group>
   <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255" Color="#ffff00"></Capability>
+  <Capability Min="0" Max="255" Color="#ffff00"/>
  </Channel>
  <Channel Name="Colour macros">
   <Group Byte="0">Colour</Group>
@@ -133,7 +134,7 @@
  <Mode Name="Pan/Tilt 16 bit mode">
   <Physical>
    <Bulb Lumens="0" Type="HMI 575W" ColourTemperature="6000"/>
-   <Dimensions Width="400" Height="564" Weight="27,5" Depth="416"/>
+   <Dimensions Width="400" Height="564" Weight="27.5" Depth="416"/>
    <Lens DegreesMax="30" Name="Other" DegreesMin="10"/>
    <Focus PanMax="570" Type="Head" TiltMax="270"/>
    <Technical PowerConsumption="800" DmxConnector="3-pin"/>

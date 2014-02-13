@@ -315,7 +315,7 @@ QTreeWidgetItem *FunctionsTreeWidget::folderItem(QString name)
     if (selectedItems().count() > 0)
     {
         QString currFolder = selectedItems().first()->text(COL_PATH);
-        if (m_foldersMap.contains(currFolder))
+        if (currFolder.contains(name) && m_foldersMap.contains(currFolder))
             return m_foldersMap[currFolder];
     }
 

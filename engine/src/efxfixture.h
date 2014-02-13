@@ -102,6 +102,8 @@ public:
      */
     bool isValid() const;
 
+    void durationChanged();
+ 
 private:
     GroupHead m_head;
     Function::Direction m_direction;
@@ -152,8 +154,14 @@ private:
     /** Indicates, whether start() has been called for this fixture */
     bool m_started;
 
-    /** Elapsed milliseconds since last reset() */
+    /** Elapsed milliseconds since last reset() or durationChanged() */
     uint m_elapsed;
+
+    /** 0..M_PI*2, the position is stored when speed changes, to make the transition smooth */
+    qreal m_startAngle;
+
+    /** 0..M_PI*2, current position, recomputed on each timer tick; depends on elapsed() and parent->duration() */
+    qreal m_currentAngle;
 
     /*************************************************************************
      * Running

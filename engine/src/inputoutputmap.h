@@ -213,6 +213,8 @@ public:
     void resetUniverses();
 
 signals:
+    void universeAdded(quint32 id);
+    void universeRemoved(quint32 id);
     void universesWritten(int index, const QByteArray& universes);
 
 private:
@@ -512,7 +514,7 @@ public:
     void saveDefaults();
 
     /**
-     * Load the input/output map map contents from the given XML node.
+     * Load the input/output map contents from the given XML node.
      *
      * @param root An XML subtree containing the input/output map contents
      * @return true if the map was loaded successfully, otherwise false

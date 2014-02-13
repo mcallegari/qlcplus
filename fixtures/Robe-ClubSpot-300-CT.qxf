@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.5.1</Version>
@@ -133,7 +134,7 @@ changing or pan/tilt moving</Capability>
  <Mode Name="Mode 1">
   <Physical>
    <Bulb Lumens="0" Type="HSD 250W" ColourTemperature="0"/>
-   <Dimensions Width="417" Height="478" Weight="20,5" Depth="398"/>
+   <Dimensions Width="417" Height="478" Weight="20.5" Depth="398"/>
    <Lens DegreesMax="15" Name="Other" DegreesMin="15"/>
    <Focus PanMax="530" Type="Fixed" TiltMax="280"/>
    <Technical PowerConsumption="450" DmxConnector="3-pin"/>
@@ -158,7 +159,7 @@ changing or pan/tilt moving</Capability>
  <Mode Name="Mode 2">
   <Physical>
    <Bulb Lumens="0" Type="HSD 250W" ColourTemperature="0"/>
-   <Dimensions Width="417" Height="478" Weight="20,5" Depth="398"/>
+   <Dimensions Width="417" Height="478" Weight="20.5" Depth="398"/>
    <Lens DegreesMax="15" Name="Other" DegreesMin="15"/>
    <Focus PanMax="530" Type="Fixed" TiltMax="280"/>
    <Technical PowerConsumption="450" DmxConnector="3-pin"/>
@@ -183,7 +184,7 @@ changing or pan/tilt moving</Capability>
  <Mode Name="8 Bit">
   <Physical>
    <Bulb Lumens="0" Type="HSD 250W" ColourTemperature="0"/>
-   <Dimensions Width="417" Height="478" Weight="20,5" Depth="398"/>
+   <Dimensions Width="417" Height="478" Weight="20.5" Depth="398"/>
    <Lens DegreesMax="15" Name="Other" DegreesMin="15"/>
    <Focus PanMax="530" Type="Fixed" TiltMax="280"/>
    <Technical PowerConsumption="450" DmxConnector="3-pin"/>

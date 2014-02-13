@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.5.1</Version>
@@ -18,7 +19,7 @@
  </Channel>
  <Channel Name="Speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Speed: Fast > Slow</Capability>
+  <Capability Min="0" Max="255">Speed: Fast &gt; Slow</Capability>
  </Channel>
  <Channel Name="Dimmer">
   <Group Byte="0">Intensity</Group>
@@ -42,7 +43,7 @@
  <Mode Name="6 Channel">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="5500"/>
-   <Dimensions Width="190" Height="230" Weight="2,1" Depth="145"/>
+   <Dimensions Width="190" Height="230" Weight="2.1" Depth="145"/>
    <Lens DegreesMax="12" Name="Other" DegreesMin="7"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="20" DmxConnector="5-pin"/>

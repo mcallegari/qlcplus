@@ -34,7 +34,6 @@
 Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
     : QObject(parent)
     , m_id(id)
-    , m_name(QString())
     , m_grandMaster(gm)
     , m_passthrough(false)
     , m_inputPatch(NULL)
@@ -47,6 +46,7 @@ Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
     , m_postGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
 {
     m_relativeValues.fill(0, UNIVERSE_SIZE);
+    m_name = QString("Universe %1").arg(id + 1);
 
     connect(m_grandMaster, SIGNAL(valueChanged(uchar)),
             this, SLOT(slotGMValueChanged()));
@@ -70,7 +70,10 @@ Universe::~Universe()
 
 void Universe::setName(QString name)
 {
-    m_name = name;
+    if (name.isEmpty())
+        m_name = QString("Universe %1").arg(m_id + 1);
+    else
+        m_name = name;
 }
 
 QString Universe::name() const
@@ -105,7 +108,32 @@ bool Universe::hasChanged()
 
 void Universe::setPassthrough(bool enable)
 {
+    if (enable == m_passthrough)
+        return;
+
+    qDebug() << "Set universe passthrough to" << enable;
+
+    if (m_inputPatch != NULL)
+    {
+        if (m_passthrough == false)
+            disconnect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
+                       this, SIGNAL(inputValueChanged(quint32,quint32,uchar,QString)));
+        else
+            disconnect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
+                       this, SLOT(slotInputValueChanged(quint32,quint32,uchar,const QString&)));
+    }
+
     m_passthrough = enable;
+
+    if (m_inputPatch != NULL)
+    {
+        if (m_passthrough == false)
+            connect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
+                    this, SIGNAL(inputValueChanged(quint32,quint32,uchar,QString)));
+        else
+            connect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
+                    this, SLOT(slotInputValueChanged(quint32,quint32,uchar,const QString&)));
+    }
 }
 
 bool Universe::passthrough() const
@@ -238,15 +266,23 @@ bool Universe::setInputPatch(QLCIOPlugin *plugin,
         if (input == QLCChannel::invalid())
             return false;
         m_inputPatch = new InputPatch(m_id, this);
-        connect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
-                this, SLOT(slotInputValueChanged(quint32,quint32,uchar,const QString&)));
+        if (passthrough() == false)
+            connect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
+                    this, SIGNAL(inputValueChanged(quint32,quint32,uchar,QString)));
+        else
+            connect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
+                    this, SLOT(slotInputValueChanged(quint32,quint32,uchar,const QString&)));
     }
     else
     {
         if (input == QLCChannel::invalid())
         {
-            disconnect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
-                    this, SLOT(slotInputValueChanged(quint32,quint32,uchar,const QString&)));
+            if (passthrough() == false)
+                disconnect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
+                        this, SIGNAL(inputValueChanged(quint32,quint32,uchar,QString)));
+            else
+                disconnect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
+                           this, SLOT(slotInputValueChanged(quint32,quint32,uchar,const QString&)));
             delete m_inputPatch;
             m_inputPatch = NULL;
             return false;

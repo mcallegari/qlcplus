@@ -1,8 +1,8 @@
 /*
-  Q Light Controller - Unit test
-  outputmap_test.h
+  Q Light Controller Plus - Unit test
+  inputoutputmap_test.h
 
-  Copyright (c) Heikki Junnila
+  Copyright (c) Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,14 +17,13 @@
   limitations under the License.
 */
 
-#ifndef OUTPUTMAP_TEST_H
-#define OUTPUTMAP_TEST_H
+#ifndef INPUTOUTPUTMAP_TEST_H
+#define INPUTOUTPUTMAP_TEST_H
 
 #include <QObject>
 
 class Doc;
-
-class OutputMap_Test : public QObject
+class InputOutputMap_Test : public QObject
 {
     Q_OBJECT
 
@@ -33,19 +32,30 @@ private slots:
     void cleanupTestCase();
 
     void initial();
-    void setPatch();
+    void pluginNames();
+    void pluginInputs();
+    void pluginOutputs();
+    void configurePlugin();
+    void inputPluginStatus();
+    void outputPluginStatus();
+    void universeNames();
+    void addUniverse();
+    void removeUniverse();
+    void profiles();
+    void setInputPatch();
+    void setOutputPatch();
+    void slotValueChanged();
+    void slotConfigurationChanged();
+    void loadInputProfiles();
+    void inputSourceNames();
+    void profileDirectories();
     void claimReleaseDumpReset();
     void blackout();
-    void pluginNames();
-    void pluginOutputs();
-    void universeNames();
-    void configure();
-    void slotConfigurationChanged();
-    void mapping();
-    void pluginStatus();
 
 private:
     Doc* m_doc;
 };
 
 #endif
+
+

@@ -231,6 +231,7 @@ signals:
      * @param input The input line whose channel has changed value
      * @param channel The channel that has changed its value
      * @param value The newly-changed channel value
+     * @param key a string to identify a channel by name (ATM used only by OSC)
      */
     void valueChanged(quint32 input, quint32 channel, uchar value, const QString& key = 0);
 

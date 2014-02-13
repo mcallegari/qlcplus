@@ -42,7 +42,7 @@ void FadeChannel_Test::address()
 
     FadeChannel fc;
     fc.setChannel(2);
-    QCOMPARE(fc.address(), quint32(2));
+    QCOMPARE(fc.address(), QLCChannel::invalid());
 
     fc.setFixture(&doc, fxi->id());
     QCOMPARE(fc.address(), quint32(402));

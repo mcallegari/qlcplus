@@ -1,8 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.6.1</Version>
+  <Version>4.7.0</Version>
   <Author>Jano Svitok</Author>
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
@@ -142,10 +143,10 @@
  <Mode Name="11 Channels">
   <Physical>
    <Bulb Lumens="1800" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="270" Height="500" Weight="9.5" Depth="330"/>
+   <Dimensions Width="330" Height="473" Weight="10" Depth="270"/>
    <Lens DegreesMax="16" Name="PC" DegreesMin="16"/>
    <Focus PanMax="540" Type="Head" TiltMax="270"/>
-   <Technical PowerConsumption="120" DmxConnector="3-pin and 5-pin"/>
+   <Technical PowerConsumption="80" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
@@ -162,17 +163,17 @@
  <Mode Name="14 Channels">
   <Physical>
    <Bulb Lumens="1800" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="270" Height="500" Weight="9.5" Depth="330"/>
+   <Dimensions Width="330" Height="473" Weight="10" Depth="270"/>
    <Lens DegreesMax="16" Name="PC" DegreesMin="16"/>
    <Focus PanMax="540" Type="Head" TiltMax="270"/>
-   <Technical PowerConsumption="120" DmxConnector="3-pin and 5-pin"/>
+   <Technical PowerConsumption="80" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
   <Channel Number="3">Tilt Fine</Channel>
-  <Channel Number="4">Color Wheel</Channel>
-  <Channel Number="5">Pan/Tilt Speed</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Color Wheel</Channel>
   <Channel Number="6">Static Gobo</Channel>
   <Channel Number="7">Rotating Gobo</Channel>
   <Channel Number="8">Gobo Rotation</Channel>

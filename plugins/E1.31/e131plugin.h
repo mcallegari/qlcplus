@@ -130,10 +130,6 @@ private:
 
     /** Map of the E131 plugin Input/Output lines */
     QList<E131IO>m_IOmapping;
-
-private slots:
-    void slotInputValueChanged(quint32 input, int channel, uchar value);
-
 };
 
 #endif

@@ -448,6 +448,11 @@ void Scene_Test::flashUnflash()
     fxi->setUniverse(0);
     fxi->setChannels(10);
     doc->addFixture(fxi);
+    for (quint32 i = 0 ; i < fxi->channels(); i++)
+    {
+        const QLCChannel* channel(fxi->channel(i));
+        ua.at(0)->setChannelCapability(fxi->address() + i, channel->group());
+    }
 
     Scene* s1 = new Scene(doc);
     s1->setName("First");

@@ -354,7 +354,7 @@ public:
     uint fadeOutSpeed() const;
 
     /** Set the duration in milliseconds */
-    void setDuration(uint ms);
+    virtual void setDuration(uint ms);
 
     /** Get the duration in milliseconds */
     uint duration() const;

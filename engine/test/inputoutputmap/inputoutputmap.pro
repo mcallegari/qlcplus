@@ -2,7 +2,7 @@ include(../../../variables.pri)
 include(../../../coverage.pri)
 TEMPLATE = app
 LANGUAGE = C++
-TARGET   = inputmap_test
+TARGET   = inputoutputmap_test
 
 QT      += testlib xml script
 CONFIG  -= app_bundle
@@ -14,5 +14,5 @@ INCLUDEPATH  += ../iopluginstub
 QMAKE_LIBDIR += ../../src
 LIBS         += -lqlcplusengine
 
-SOURCES += inputmap_test.cpp
-HEADERS += inputmap_test.h
+SOURCES += inputoutputmap_test.cpp
+HEADERS += inputoutputmap_test.h

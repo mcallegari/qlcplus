@@ -384,8 +384,15 @@ void RGBMatrix::preRun(MasterTimer* timer)
         }
         else
         {
-            m_step = m_algorithm->rgbMapStepCount(grp->size());
-            m_stepColor = m_endColor.rgb();
+            m_step = m_algorithm->rgbMapStepCount(grp->size()) - 1;
+            if (m_endColor.isValid())
+            {
+                m_stepColor = m_endColor.rgb();
+            }
+            else
+            {
+                m_stepColor = m_startColor.rgb();
+            }
         }
 
         calculateColorDelta();

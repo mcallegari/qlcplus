@@ -14,119 +14,124 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="368"/>
+        <location filename="webaccess.cpp" line="376"/>
         <source>Autostart configuration changed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="444"/>
+        <location filename="webaccess.cpp" line="452"/>
         <source>Widget not supported (yet) for web access</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="644"/>
+        <location filename="webaccess.cpp" line="652"/>
         <source>Enable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="868"/>
+        <location filename="webaccess.cpp" line="876"/>
         <source>Load project</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="870"/>
+        <location filename="webaccess.cpp" line="878"/>
         <source>Configuration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1091"/>
+        <location filename="webaccess.cpp" line="994"/>
+        <source>Passthrough</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="1110"/>
         <source>System</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1100"/>
-        <location filename="webaccess.cpp" line="1297"/>
+        <location filename="webaccess.cpp" line="1119"/>
+        <location filename="webaccess.cpp" line="1316"/>
         <source>Back</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1151"/>
+        <location filename="webaccess.cpp" line="1170"/>
         <source>Network interface: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1155"/>
+        <location filename="webaccess.cpp" line="1174"/>
         <source>Dynamic (DHCP)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1157"/>
+        <location filename="webaccess.cpp" line="1176"/>
         <source>Static</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1159"/>
+        <location filename="webaccess.cpp" line="1178"/>
         <source>IP Address: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1160"/>
+        <location filename="webaccess.cpp" line="1179"/>
         <source>Netmask: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1161"/>
+        <location filename="webaccess.cpp" line="1180"/>
         <source>Gateway: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1163"/>
-        <location filename="webaccess.cpp" line="1314"/>
+        <location filename="webaccess.cpp" line="1182"/>
+        <location filename="webaccess.cpp" line="1333"/>
         <source>Apply changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1303"/>
+        <location filename="webaccess.cpp" line="1322"/>
         <source>Network configuration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1308"/>
+        <location filename="webaccess.cpp" line="1327"/>
         <source>Project autostart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1312"/>
+        <location filename="webaccess.cpp" line="1331"/>
         <source>No project</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1313"/>
+        <location filename="webaccess.cpp" line="1332"/>
         <source>Use current project</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1318"/>
+        <location filename="webaccess.cpp" line="1337"/>
         <source>Reboot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1057"/>
+        <location filename="webaccess.cpp" line="1076"/>
         <source>Load fixture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1108"/>
+        <location filename="webaccess.cpp" line="1127"/>
         <source>Universes configuration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1114"/>
+        <location filename="webaccess.cpp" line="1133"/>
         <source>Audio configuration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1121"/>
+        <location filename="webaccess.cpp" line="1140"/>
         <source>User loaded fixtures</source>
         <translation type="unfinished"></translation>
     </message>

@@ -9,7 +9,7 @@
         <translation>Dieses Plugin bietet DMX-Output für Anyma uDMX Geräte.</translation>
     </message>
     <message>
-        <location filename="udmx.cpp" line="186"/>
+        <location filename="udmx.cpp" line="188"/>
         <source>Do you wish to re-scan your hardware?</source>
         <translation>Nach neuer Hardware suchen?</translation>
     </message>

@@ -1095,7 +1095,7 @@ void FixtureManager::addChannelsGroup()
     AddChannelsGroup cs(this, m_doc, group);
     if (cs.exec() == QDialog::Accepted)
     {
-        qDebug() << "CHANNEL GROUP ADDED. Count: " << group->getChannels().count();
+        qDebug() << "Channels group added. Count: " << group->getChannels().count();
         m_doc->addChannelsGroup(group, group->id());
         updateChannelsGroupView();
     }
@@ -1130,6 +1130,7 @@ void FixtureManager::slotAddRGBPanel()
         QLCFixtureDef *rowDef = NULL;
         QLCFixtureMode *rowMode = NULL;
         quint32 address = (quint32)rgb.address();
+        int uniIndex = rgb.universeIndex();
         int currRow = 0;
         int rowInc = 1;
         int xPosStart = 0;
@@ -1160,6 +1161,17 @@ void FixtureManager::slotAddRGBPanel()
             if (rowMode == NULL)
                 rowMode = fxi->genericRGBPanelMode(rowDef);
             fxi->setFixtureDefinition(rowDef, rowMode);
+
+            // Check universe span
+            if (address + fxi->channels() >= 512)
+            {
+                uniIndex++;
+                if (m_doc->inputOutputMap()->getUniverseID(uniIndex) == m_doc->inputOutputMap()->invalidUniverse())
+                    m_doc->inputOutputMap()->addUniverse();
+                address = 0;
+            }
+
+            fxi->setUniverse(m_doc->inputOutputMap()->getUniverseID(uniIndex));
             fxi->setAddress(address);
             address += fxi->channels();
             m_doc->addFixture(fxi);

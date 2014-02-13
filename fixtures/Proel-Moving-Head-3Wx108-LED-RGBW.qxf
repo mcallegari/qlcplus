@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.3.0</Version>
@@ -87,7 +88,7 @@
  <Mode Name="Default">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="300" Height="430" Weight="7,8" Depth="210"/>
+   <Dimensions Width="300" Height="430" Weight="7.8" Depth="210"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
    <Technical PowerConsumption="330" DmxConnector="3-pin and 5-pin"/>

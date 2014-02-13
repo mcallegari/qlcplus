@@ -24,12 +24,17 @@
 #include <QHash>
 #include <QList>
 
+#include "monitorproperties.h"
+
+class MonitorGraphicsView;
 class MonitorFixture;
 class MonitorLayout;
 class QDomDocument;
 class QDomElement;
 class QScrollArea;
-class OutputMap;
+class QComboBox;
+class QToolBar;
+class QSpinBox;
 class QAction;
 class Fixture;
 class Monitor;
@@ -58,8 +63,16 @@ public:
     /** Normal public destructor */
     ~Monitor();
 
+    /** Initialize the monitor view */
+    void initView();
+
+    /** Initialize the monitor view in DMX mode */
+    void initDMXView();
+
+    /** Initialize the monitor view in 2D graphics mode */
+    void initGraphicsView();
+
 protected:
-    void loadSettings();
     void saveSettings();
 
     /** Protected constructor to prevent multiple instances. */
@@ -69,30 +82,17 @@ protected:
     /** The singleton Monitor instance */
     static Monitor* s_instance;
     Doc* m_doc;
-
-    /*********************************************************************
-     * Channel & Value styles
-     *********************************************************************/
-public:
-    enum ChannelStyle { DMXChannels, RelativeChannels };
-    enum ValueStyle { DMXValues, PercentageValues };
-
-    /** Get the style used to draw DMX values in monitor fixtures */
-    ValueStyle valueStyle() const;
-
-    /** Get the style used to draw channel numbers in monitor fixtures */
-    ChannelStyle channelStyle() const;
-
-private:
-    ValueStyle m_valueStyle;
-    ChannelStyle m_channelStyle;
+    MonitorProperties *m_props;
 
     /*********************************************************************
      * Menu
      *********************************************************************/
 protected:
-    /** Create tool bar */
-    void initToolBar();
+
+    /** Create DMX view toolbar */
+    void initDMXToolbar();
+
+    void initGraphicsToolbar();
 
 protected slots:
     /** Menu action slot for font selection */
@@ -103,6 +103,9 @@ protected slots:
 
     /** Menu action slot for value style selection */
     void slotValueStyleTriggered();
+
+    /** Menu action slot to trigger display mode switch */
+    void slotSwitchMode();
 
     /********************************************************************
      * Monitor Fixtures
@@ -125,18 +128,50 @@ protected slots:
     /** Slot for fixture removals (to remove the fixture from layout) */
     void slotFixtureRemoved(quint32 fxi_id);
 
-    /** Slot for getting the latest values from OutputMap */
+    /** Slot for getting the latest values from InputOutputMap */
     void slotUniversesWritten(int index, const QByteArray& ua);
 
 signals:
-    void channelStyleChanged(Monitor::ChannelStyle style);
-    void valueStyleChanged(Monitor::ValueStyle style);
+    void channelStyleChanged(MonitorProperties::ChannelStyle style);
+    void valueStyleChanged(MonitorProperties::ValueStyle style);
 
 protected:
+    QToolBar* m_toolBar;
     QScrollArea* m_scrollArea;
     QWidget* m_monitorWidget;
     MonitorLayout* m_monitorLayout;
     QList <MonitorFixture*> m_monitorFixtures;
+
+    /********************************************************************
+     * Graphics View
+     ********************************************************************/
+
+protected slots:
+    /** Slot called when the grid width changes */
+    void slotGridWidthChanged(int value);
+
+    /** Slot called when the grid height changes */
+    void slotGridHeightChanged(int value);
+
+    /** Slot called when the unit metrics changes */
+    void slotGridUnitsChanged(int index);
+
+    /** Slot called when the user wants to add
+     *  a fixture to the graphics view */
+    void slotAddFixture();
+
+    /** Slot called when the user wants to remove
+     *  a fixture from the graphics view */
+    void slotRemoveFixture();
+
+    /** Slot called when a fixture is moved in the graphics view */
+    void slotFixtureMoved(quint32 fid, QPointF pos);
+
+protected:
+    MonitorGraphicsView* m_graphicsView;
+    QSpinBox* m_gridWSpin;
+    QSpinBox *m_gridHSpin;
+    QComboBox *m_unitsCombo;
 };
 
 /** @} */

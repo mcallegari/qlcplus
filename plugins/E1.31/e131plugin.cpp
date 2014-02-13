@@ -204,8 +204,8 @@ void E131Plugin::openInput(quint32 input)
     E131Controller *controller = new E131Controller(m_IOmapping.at(input).IPAddress,
                                                     m_IOmapping.at(input).MACAddress,
                                                     E131Controller::Input, this);
-    connect(controller, SIGNAL(valueChanged(quint32,int,uchar)),
-            this, SLOT(slotInputValueChanged(quint32,int,uchar)));
+    connect(controller, SIGNAL(valueChanged(quint32,quint32,uchar)),
+            this, SIGNAL(valueChanged(quint32,quint32,uchar)));
     m_IOmapping[input].controller = controller;
 }
 
@@ -254,12 +254,6 @@ QString E131Plugin::inputInfo(quint32 input)
     str += QString("</HTML>");
 
     return str;
-}
-
-void E131Plugin::slotInputValueChanged(quint32 input, int channel, uchar value)
-{
-    qDebug() << "Sending input:" << input << ", channel:" << channel << ", value:" << value;
-    emit valueChanged(input, (quint32)channel, value);
 }
 
 /*********************************************************************

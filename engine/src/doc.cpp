@@ -41,12 +41,16 @@
 #include "doc.h"
 #include "bus.h"
 
-#if defined(__APPLE__) || defined(Q_OS_MAC)
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+ #if defined(__APPLE__) || defined(Q_OS_MAC)
   #include "audiocapture_portaudio.h"
-#elif defined(WIN32) || defined (Q_OS_WIN)
+ #elif defined(WIN32) || defined (Q_OS_WIN)
   #include "audiocapture_wavein.h"
-#else
+ #else
   #include "audiocapture_alsa.h"
+ #endif
+#else
+ #include "audiocapture_qt.h"
 #endif
 
 Doc::Doc(QObject* parent, int universes)
@@ -57,6 +61,7 @@ Doc::Doc(QObject* parent, int universes)
     , m_ioMap(new InputOutputMap(this, universes))
     , m_masterTimer(new MasterTimer(this))
     , m_inputCapture(NULL)
+    , m_monitorProps(NULL)
     , m_mode(Design)
     , m_kiosk(false)
     , m_clipboard(new QLCClipboard(this))
@@ -97,6 +102,12 @@ void Doc::clearContents()
     emit clearing();
 
     m_clipboard->resetContents();
+
+    if (m_monitorProps != NULL)
+        delete m_monitorProps;
+    m_monitorProps = NULL;
+
+    destroyAudioCapture();
 
     // Delete all function instances
     QListIterator <quint32> funcit(m_functions.keys());
@@ -212,12 +223,16 @@ AudioCapture *Doc::audioInputCapture()
 {
     if (m_inputCapture == NULL)
     {
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 #if defined(__APPLE__) || defined(Q_OS_MAC)
         m_inputCapture = new AudioCapturePortAudio();
 #elif defined(WIN32) || defined (Q_OS_WIN)
         m_inputCapture = new AudioCaptureWaveIn();
 #else
         m_inputCapture = new AudioCaptureAlsa();
+#endif
+#else
+        m_inputCapture = new AudioCaptureQt();
 #endif
     }
     return m_inputCapture;
@@ -886,6 +901,18 @@ void Doc::slotFunctionChanged(quint32 fid)
     emit functionChanged(fid);
 }
 
+/*********************************************************************
+ * Monitor Properties
+ *********************************************************************/
+
+MonitorProperties *Doc::monitorProperties()
+{
+    if (m_monitorProps == NULL)
+        m_monitorProps = new MonitorProperties();
+
+    return m_monitorProps;
+}
+
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
@@ -936,6 +963,12 @@ bool Doc::loadXML(const QDomElement& root)
         else if (tag.tagName() == KXMLIOMap)
         {
             m_ioMap->loadXML(tag);
+        }
+        else if (tag.tagName() == KXMLQLCMonitorProperties)
+        {
+            if (m_monitorProps == NULL)
+                m_monitorProps = new MonitorProperties();
+            m_monitorProps->loadXML(tag);
         }
         else
         {
@@ -1004,6 +1037,9 @@ bool Doc::saveXML(QDomDocument* doc, QDomElement* wksp_root)
         Q_ASSERT(func != NULL);
         func->saveXML(doc, &root);
     }
+
+    if (m_monitorProps != NULL)
+        m_monitorProps->saveXML(doc, &root);
 
     return true;
 }

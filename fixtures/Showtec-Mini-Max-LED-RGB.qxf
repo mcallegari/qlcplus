@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.4.2</Version>
-  <Author>laserandi,,,</Author>
+  <Author>laserandi</Author>
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
  <Model>Mini Max LED RGB</Model>
@@ -68,7 +69,7 @@
  <Mode Name="Mode 1">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="260" Height="350" Weight="5,68" Depth="220"/>
+   <Dimensions Width="260" Height="350" Weight="5.68" Depth="220"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="9"/>
    <Focus PanMax="540" Type="Fixed" TiltMax="230"/>
    <Technical PowerConsumption="160" DmxConnector="3-pin"/>

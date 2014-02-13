@@ -136,11 +136,12 @@ void E131Controller::processPendingPackets()
                     m_packetReceived++;
                     if (m_packetizer->fillDMXdata(datagram, dmxData, universe) == true)
                     {
-                        for (int i = 0; i < dmxData.length(); i++)
+                        quint32 uniAddr = universe << 9;
+                        for (quint32 i = 0; i < (quint32)dmxData.length(); i++)
                         {
-                            if (m_dmxValues.at(i + (universe * 512)) != dmxData.at(i))
+                            if (m_dmxValues.at(uniAddr + i) != dmxData.at(i))
                             {
-                                m_dmxValues[i + (universe * 512)] =  dmxData[i];
+                                m_dmxValues[uniAddr + i] =  dmxData[i];
                                 emit valueChanged(universe, i, (uchar)dmxData.at(i));
                             }
                         }

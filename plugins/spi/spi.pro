@@ -4,6 +4,8 @@ TEMPLATE = lib
 LANGUAGE = C++
 TARGET   = spi
 
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
 INCLUDEPATH += ../interfaces
 INCLUDEPATH += /usr/include
 CONFIG      += plugin
@@ -24,6 +26,7 @@ TRANSLATIONS += SPI_it_IT.ts
 TRANSLATIONS += SPI_nl_NL.ts
 TRANSLATIONS += SPI_cz_CZ.ts
 
-HEADERS += spiplugin.h
-SOURCES += spiplugin.cpp
+HEADERS += spiplugin.h spiconfiguration.h
+SOURCES += spiplugin.cpp spiconfiguration.cpp
+FORMS += spiconfiguration.ui
 HEADERS += ../interfaces/qlcioplugin.h

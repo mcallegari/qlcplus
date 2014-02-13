@@ -7,7 +7,7 @@ TARGET   = qlcplusui
 
 CONFIG += qt
 QT     += core xml gui script
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
 
 
 # Engine
@@ -26,10 +26,12 @@ INCLUDEPATH     += ../../webaccess
 # Resources
 RESOURCES    += qlcui.qrc
 
-macx {
-  CONFIG += link_pkgconfig
-  system(pkg-config --exists portaudio-2.0) {
-    PKGCONFIG += portaudio-2.0
+lessThan(QT_MAJOR_VERSION, 5) {
+  macx {
+    CONFIG += link_pkgconfig
+    system(pkg-config --exists portaudio-2.0) {
+      PKGCONFIG += portaudio-2.0
+    }
   }
 }
 
@@ -79,6 +81,8 @@ HEADERS += aboutbox.h \
            knobwidget.h \
            monitor.h \
            monitorfixture.h \
+           monitorfixtureitem.h \
+           monitorgraphicsview.h \
            monitorlayout.h \
            multitrackview.h \
            palettegenerator.h \
@@ -213,6 +217,8 @@ SOURCES += aboutbox.cpp \
            knobwidget.cpp \
            monitor.cpp \
            monitorfixture.cpp \
+           monitorfixtureitem.cpp \
+           monitorgraphicsview.cpp \
            monitorlayout.cpp \
            multitrackview.cpp \
            palettegenerator.cpp \

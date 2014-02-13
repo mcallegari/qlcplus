@@ -67,6 +67,7 @@ SimpleDesk::SimpleDesk(QWidget* parent, Doc* doc)
     : QWidget(parent)
     , m_engine(new SimpleDeskEngine(doc))
     , m_doc(doc)
+    , m_docChanged(false)
     , m_currentUniverse(0)
     , m_channelsPerPage(DEFAULT_PAGE_CHANNELS)
     , m_selectedPlayback(UINT_MAX)
@@ -100,6 +101,18 @@ SimpleDesk::SimpleDesk(QWidget* parent, Doc* doc)
     initCueStack();
 
     slotSelectPlayback(0);
+
+    connect(m_doc, SIGNAL(fixtureAdded(quint32)),
+            this, SLOT(slotDocChanged()));
+    connect(m_doc, SIGNAL(fixtureRemoved(quint32)),
+            this, SLOT(slotDocChanged()));
+    connect(m_doc, SIGNAL(fixtureChanged(quint32)),
+            this, SLOT(slotDocChanged()));
+
+    connect(m_doc->inputOutputMap(), SIGNAL(universeAdded(quint32)),
+            this, SLOT(slotDocChanged()));
+    connect(m_doc->inputOutputMap(), SIGNAL(universeRemoved(quint32)),
+            this, SLOT(slotDocChanged()));
 
     connect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
             this, SLOT(slotUniversesWritten(int, const QByteArray&)));
@@ -311,6 +324,11 @@ void SimpleDesk::initBottomSide()
     m_cueStackView->setDragEnabled(true);
     m_cueStackView->setDragDropMode(QAbstractItemView::InternalMove);
     m_cueStackGroup->layout()->addWidget(m_cueStackView);
+}
+
+void SimpleDesk::slotDocChanged()
+{
+    m_docChanged = true;
 }
 
 /****************************************************************************
@@ -564,7 +582,6 @@ void SimpleDesk::slotUniverseResetClicked()
 {
     qDebug() << Q_FUNC_INFO;
     m_engine->resetUniverse(m_currentUniverse);
-    //resetUniverseSliders();
     m_universePageSpin->setValue(1);
     if (m_viewModeButton->isChecked() == false)
         slotUniversePageChanged(1);
@@ -632,6 +649,9 @@ void SimpleDesk::slotUniversesWritten(int idx, const QByteArray& ua)
                 for (quint32 c = 0; c < fixture->channels(); c++)
                 {
                     if (m_engine->hasChannel((startAddr + c) + (idx << 9)) == true)
+                        continue;
+
+                    if (startAddr + c >= (quint32)ua.length())
                         continue;
 
                     fc->blockSignals(true);
@@ -1176,11 +1196,14 @@ void SimpleDesk::slotCueNameEdited(const QString& name)
 
 void SimpleDesk::showEvent(QShowEvent* ev)
 {
-    //m_engine->registerSourceAgain();
-    if (m_editCueStackButton->isChecked() == true)
-        slotEditCueStackClicked();
-    initUniversesCombo();
-    slotUpdateUniverseSliders();
+    if (m_docChanged == true)
+    {
+        if (m_editCueStackButton->isChecked() == true)
+            slotEditCueStackClicked();
+        initUniversesCombo();
+        slotUpdateUniverseSliders();
+        m_docChanged = false;
+    }
     QWidget::showEvent(ev);
 }
 

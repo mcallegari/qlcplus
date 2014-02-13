@@ -61,11 +61,11 @@ public:
     quint32 fixture() const;
 
 public slots:
-    void slotChannelStyleChanged(Monitor::ChannelStyle style);
+    void slotChannelStyleChanged(MonitorProperties::ChannelStyle style);
 
 protected:
     quint32 m_fixture;
-    Monitor::ChannelStyle m_channelStyle;
+    MonitorProperties::ChannelStyle m_channelStyle;
     QLabel* m_fixtureLabel;
     QList <QLabel*> m_channelLabels;
 
@@ -76,11 +76,11 @@ public:
     void updateValues(int index, const QByteArray& universes);
 
 public slots:
-    void slotValueStyleChanged(Monitor::ValueStyle style);
+    void slotValueStyleChanged(MonitorProperties::ValueStyle style);
 
 protected:
     QList <QLabel*> m_valueLabels;
-    Monitor::ValueStyle m_valueStyle;
+    MonitorProperties::ValueStyle m_valueStyle;
 };
 
 /** @} */

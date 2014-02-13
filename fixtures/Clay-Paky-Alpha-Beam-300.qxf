@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.3.0</Version>
@@ -190,7 +191,7 @@
  <Mode Name="Option Stnd 1 - LinC Off, FulC Off, Rain On">
   <Physical>
    <Bulb Lumens="23000" Type="HTI 300W" ColourTemperature="9300"/>
-   <Dimensions Width="385" Height="630" Weight="19,1" Depth="405"/>
+   <Dimensions Width="385" Height="630" Weight="19.1" Depth="405"/>
    <Lens DegreesMax="8" Name="Other" DegreesMin="8"/>
    <Focus PanMax="540" Type="Head" TiltMax="250"/>
    <Technical PowerConsumption="300" DmxConnector="5-pin"/>
@@ -213,7 +214,7 @@
  <Mode Name="Option Stnd 2 - LinC Off, FulC On, Rain On">
   <Physical>
    <Bulb Lumens="23000" Type="HTI 300W" ColourTemperature="9300"/>
-   <Dimensions Width="385" Height="630" Weight="19,1" Depth="405"/>
+   <Dimensions Width="385" Height="630" Weight="19.1" Depth="405"/>
    <Lens DegreesMax="8" Name="Other" DegreesMin="8"/>
    <Focus PanMax="540" Type="Head" TiltMax="250"/>
    <Technical PowerConsumption="300" DmxConnector="5-pin"/>
@@ -236,7 +237,7 @@
  <Mode Name="Option Stnd 3 - LinC On, Rain On">
   <Physical>
    <Bulb Lumens="23000" Type="HTI 300W" ColourTemperature="9300"/>
-   <Dimensions Width="385" Height="630" Weight="19,1" Depth="405"/>
+   <Dimensions Width="385" Height="630" Weight="19.1" Depth="405"/>
    <Lens DegreesMax="8" Name="Other" DegreesMin="8"/>
    <Focus PanMax="540" Type="Head" TiltMax="250"/>
    <Technical PowerConsumption="300" DmxConnector="5-pin"/>
@@ -259,7 +260,7 @@
  <Mode Name="Option Stnd 4 - LinC Off, FulC Off, Rain Off">
   <Physical>
    <Bulb Lumens="23000" Type="HTI 300W" ColourTemperature="9300"/>
-   <Dimensions Width="385" Height="630" Weight="19,1" Depth="405"/>
+   <Dimensions Width="385" Height="630" Weight="19.1" Depth="405"/>
    <Lens DegreesMax="8" Name="Other" DegreesMin="8"/>
    <Focus PanMax="540" Type="Head" TiltMax="250"/>
    <Technical PowerConsumption="300" DmxConnector="5-pin"/>
@@ -282,7 +283,7 @@
  <Mode Name="Option Stnd 5 - LinC Off, FulC On, Rain Off">
   <Physical>
    <Bulb Lumens="23000" Type="HTI 300W" ColourTemperature="9300"/>
-   <Dimensions Width="385" Height="630" Weight="19,1" Depth="405"/>
+   <Dimensions Width="385" Height="630" Weight="19.1" Depth="405"/>
    <Lens DegreesMax="8" Name="Other" DegreesMin="8"/>
    <Focus PanMax="540" Type="Head" TiltMax="250"/>
    <Technical PowerConsumption="300" DmxConnector="5-pin"/>
@@ -305,7 +306,7 @@
  <Mode Name="Option Stnd 6 - LinC On, Rain Off">
   <Physical>
    <Bulb Lumens="23000" Type="HTI 300W" ColourTemperature="9300"/>
-   <Dimensions Width="385" Height="630" Weight="19,1" Depth="405"/>
+   <Dimensions Width="385" Height="630" Weight="19.1" Depth="405"/>
    <Lens DegreesMax="8" Name="Other" DegreesMin="8"/>
    <Focus PanMax="540" Type="Head" TiltMax="250"/>
    <Technical PowerConsumption="300" DmxConnector="5-pin"/>
@@ -328,7 +329,7 @@
  <Mode Name="Option Vect">
   <Physical>
    <Bulb Lumens="23000" Type="HTI 300W" ColourTemperature="9300"/>
-   <Dimensions Width="385" Height="630" Weight="19,1" Depth="405"/>
+   <Dimensions Width="385" Height="630" Weight="19.1" Depth="405"/>
    <Lens DegreesMax="8" Name="Other" DegreesMin="8"/>
    <Focus PanMax="540" Type="Head" TiltMax="250"/>
    <Technical PowerConsumption="300" DmxConnector="5-pin"/>

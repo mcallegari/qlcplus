@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.6.0</Version>
@@ -27,7 +28,7 @@
  </Channel>
  <Channel Name="Pan &amp; Tilt Speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast -> Slow</Capability>
+  <Capability Min="0" Max="255">Fast -&gt; Slow</Capability>
  </Channel>
  <Channel Name="Color Macro">
   <Group Byte="0">Colour</Group>
@@ -47,7 +48,7 @@
  </Channel>
  <Channel Name="Color Macro Speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast -> Slow</Capability>
+  <Capability Min="0" Max="255">Fast -&gt; Slow</Capability>
  </Channel>
  <Channel Name="Mirror 1 Pan">
   <Group Byte="0">Pan</Group>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixturesMap>
-<FixturesMap>
+<FixturesMap xmlns="http://qlcplus.sourceforge.net/FixturesMap">
+  <fixture path="AGPtek-RGB-6ch-crystal-ball.qxf" mf="AGPtek" md="RGB 6ch crystal ball"/>
   <fixture path="American-DJ-64B-LED-PRO.qxf" mf="American DJ" md="64B LED PRO"/>
   <fixture path="American-DJ-Accu-Spot-250-II.qxf" mf="American DJ" md="Accu Spot 250 II"/>
   <fixture path="American-DJ-Accu-Spot-Pro.qxf" mf="American DJ" md="ACCU Spot Pro"/>
@@ -35,6 +36,7 @@
   <fixture path="American-DJ-Spherion-Tri-LED.qxf" mf="American DJ" md="Spherion Tri LED"/>
   <fixture path="American-DJ-Sweeper-Beam-Quad-LED.qxf" mf="American DJ" md="Sweeper Beam Quad LED"/>
   <fixture path="American-DJ-TRI64-Profile.qxf" mf="American DJ" md="TRI64 PRO"/>
+  <fixture path="American-DJ-Tribar-Spot2.qxf" mf="American DJ" md="Tribar Spot"/>
   <fixture path="American-DJ-Ultra-Bar-12.qxf" mf="American DJ" md="Ultra Bar 12"/>
   <fixture path="American-DJ-Ultra-Bar-6.qxf" mf="American DJ" md="Ultra Bar 6"/>
   <fixture path="American-DJ-Ultra-Bar-9.qxf" mf="American DJ" md="Ultra Bar 9"/>
@@ -80,6 +82,8 @@
   <fixture path="Coemar-ProWash-250-LX.qxf" mf="Coemar" md="ProWash 250 LX"/>
   <fixture path="Coemar-Stage-Lite-LED.qxf" mf="Coemar" md="Stage Lite LED"/>
   <fixture path="Contest-LedColor.qxf" mf="Contest" md="LedColor"/>
+  <fixture path="DTS-Max-FAR.qxf" mf="DTS" md="Max FAR"/>
+  <fixture path="DTS-Nick-NRG1201.qxf" mf="DTS" md="Nick NRG1201"/>
   <fixture path="Dune-Lighting-MOVLED60W.qxf" mf="Dune Lighting" md="MOV-LED/60W"/>
   <fixture path="Elation-Color-Spot-150.qxf" mf="Elation" md="Color Spot 150"/>
   <fixture path="Elation-EVC-MH.qxf" mf="Elation" md="EVC MH"/>
@@ -173,6 +177,7 @@
   <fixture path="High-End-Systems-Xspot-Xtreme.qxf" mf="High End Systems" md="Xspot Xtreme"/>
   <fixture path="HQ-Power-Power-Space-250.qxf" mf="HQ Power" md="Power Space 250"/>
   <fixture path="i-Pix-BB4.qxf" mf="i-Pix" md="BB4"/>
+  <fixture path="iSolution-5-Series.qxf" mf="iSolution" md="iMove 5 Series"/>
   <fixture path="JB-Lighting-Varyscan-2.qxf" mf="JB-Lighting" md="Varyscan 2"/>
   <fixture path="JB-Lighting-Varyscan-3-Special.qxf" mf="JB-Lighting" md="Varyscan 3 Special"/>
   <fixture path="JB-Lighting-Varyscan-3-SpecialPlus.qxf" mf="JB-Lighting" md="Varyscan 3 Special Plus"/>

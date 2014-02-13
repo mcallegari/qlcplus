@@ -78,7 +78,7 @@ bool QLCMIDIProtocol::midiToInput(uchar cmd, uchar data1, uchar data2,
 
         case MIDI_PITCH_WHEEL:
             *channel = CHANNEL_OFFSET_PITCH_WHEEL;
-            *value = MIDI2DMX(data2);
+            *value = (data2 << 1) | ((data1 >> 6) & 0x01); // get 8-bit value from MSB/LSB
         break;
 
         default:
@@ -120,8 +120,7 @@ bool QLCMIDIProtocol::midiSysCommonToInput(uchar cmd, uchar data1, uchar data2,
 
 bool QLCMIDIProtocol::feedbackToMidi(quint32 channel, uchar value,
                                      uchar midiChannel, uchar* cmd,
-                                     uchar* data1, uchar* data2,
-                                     bool* data2Valid)
+                                     uchar* data1, uchar* data2)
 {
     // for OMNI mode, retrieve the original MIDI channel where data was sent
     if (midiChannel == MAX_MIDI_CHANNELS)
@@ -135,7 +134,6 @@ bool QLCMIDIProtocol::feedbackToMidi(quint32 channel, uchar value,
         *cmd = MIDI_CONTROL_CHANGE | midiChannel;
         *data1 = static_cast <uchar> (channel - CHANNEL_OFFSET_CONTROL_CHANGE);
         *data2 = DMX2MIDI(value);
-        *data2Valid = true;
     }
     else if (channel >= CHANNEL_OFFSET_NOTE && channel <= CHANNEL_OFFSET_NOTE_MAX)
     {
@@ -147,7 +145,6 @@ bool QLCMIDIProtocol::feedbackToMidi(quint32 channel, uchar value,
 
         *data1 = static_cast <uchar> (channel - CHANNEL_OFFSET_NOTE);
         *data2 = DMX2MIDI(value);
-        *data2Valid = true;
     }
     else if (channel >= CHANNEL_OFFSET_NOTE_AFTERTOUCH &&
              channel <= CHANNEL_OFFSET_NOTE_AFTERTOUCH_MAX)
@@ -155,26 +152,23 @@ bool QLCMIDIProtocol::feedbackToMidi(quint32 channel, uchar value,
         *cmd = MIDI_NOTE_AFTERTOUCH | midiChannel;
         *data1 = static_cast <uchar> (channel - CHANNEL_OFFSET_NOTE_AFTERTOUCH);
         *data2 = DMX2MIDI(value);
-        *data2Valid = true;
     }
     else if (channel >= CHANNEL_OFFSET_PROGRAM_CHANGE &&
              channel <= CHANNEL_OFFSET_PROGRAM_CHANGE_MAX)
     {
         *cmd = MIDI_PROGRAM_CHANGE | midiChannel;
         *data1 = DMX2MIDI(value);
-        *data2Valid = false;
     }
     else if (channel == CHANNEL_OFFSET_CHANNEL_AFTERTOUCH)
     {
         *cmd = MIDI_CHANNEL_AFTERTOUCH | midiChannel;
         *data1 = DMX2MIDI(value);
-        *data2Valid = false;
     }
     else if (channel == CHANNEL_OFFSET_PITCH_WHEEL)
     {
         *cmd = MIDI_PITCH_WHEEL | midiChannel;
-        *data1 = DMX2MIDI(value);
-        *data2Valid = false;
+        *data1 = ((value & 0x01) << 6);             // LSB (low bit of value)
+        *data2 = DMX2MIDI(value);                   // MSB (high 7 bits of value)
     }
     //else if (channel == MIDI_BEATC_CLOCK)
     //{

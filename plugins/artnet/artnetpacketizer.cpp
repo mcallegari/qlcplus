@@ -191,8 +191,7 @@ bool ArtNetPacketizer::fillDMXdata(QByteArray& data, QByteArray &dmx, quint32 &u
     int length = (msb << 8) | lsb;
 
     qDebug() << "length: " << length;
-    for (int i = 18; i < 18 + length; i++)
-        dmx.append(data.at(i));
+    dmx.append(data.mid(18, length));
     return true;
 }
 

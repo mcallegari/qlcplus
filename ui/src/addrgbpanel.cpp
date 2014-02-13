@@ -17,6 +17,8 @@
   limitations under the License.
 */
 
+#include <QPushButton>
+
 #include "addrgbpanel.h"
 #include "ui_addrgbpanel.h"
 #include "qlcfixturemode.h"
@@ -32,6 +34,12 @@ AddRGBPanel::AddRGBPanel(QWidget *parent, const Doc *doc)
     /* Fill universe combo with available universes */
     m_uniCombo->addItems(m_doc->inputOutputMap()->universeNames());
 
+    checkAddressAvailability();
+
+    connect(m_uniCombo, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(slotUniverseChanged()));
+    connect(m_addressSpin, SIGNAL(valueChanged(int)),
+            this, SLOT(slotAddressChanged()));
     connect(m_columnSpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotSizeChanged(int)));
     connect(m_rowSpin, SIGNAL(valueChanged(int)),
@@ -40,6 +48,39 @@ AddRGBPanel::AddRGBPanel(QWidget *parent, const Doc *doc)
 
 AddRGBPanel::~AddRGBPanel()
 {
+}
+bool AddRGBPanel::checkAddressAvailability()
+{
+    int uniAddr = m_doc->inputOutputMap()->getUniverseID(m_uniCombo->currentIndex());
+    int startAddress = ((m_addressSpin->value() - 1) & 0x01FF) | (uniAddr << 9);
+    int channels = m_columnSpin->value() * m_rowSpin->value() * 3;
+    QPushButton *okBtn = buttonBox->button(QDialogButtonBox::Ok);
+
+    qDebug() << "Check availability for address: " << startAddress;
+
+    for (int i = 0; i < channels; i++)
+    {
+        quint32 fid = m_doc->fixtureForAddress(startAddress + i);
+        if (fid != Fixture::invalidId())
+        {
+            m_addrErrorLabel->show();
+            okBtn->setEnabled(false);
+            return false;
+        }
+    }
+    m_addrErrorLabel->hide();
+    okBtn->setEnabled(true);
+    return true;
+}
+
+void AddRGBPanel::slotUniverseChanged()
+{
+    checkAddressAvailability();
+}
+
+void AddRGBPanel::slotAddressChanged()
+{
+    checkAddressAvailability();
 }
 
 QString AddRGBPanel::name()
@@ -93,5 +134,6 @@ AddRGBPanel::Type AddRGBPanel::type()
 
 void AddRGBPanel::slotSizeChanged(int)
 {
+    checkAddressAvailability();
     m_totalLabel->setText(QString::number(m_columnSpin->value() * m_rowSpin->value()));
 }

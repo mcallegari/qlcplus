@@ -42,15 +42,20 @@
 #include "chaser.h"
 #include "doc.h"
 
-#if defined( __APPLE__) || defined(Q_OS_MAC)
-  #include "audiorenderer_portaudio.h"
-  #include "audiocapture_portaudio.h"
-#elif defined(WIN32) || defined(Q_OS_WIN)
-  #include "audiorenderer_waveout.h"
-  #include "audiocapture_wavein.h"
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+ #if defined( __APPLE__) || defined(Q_OS_MAC)
+   #include "audiorenderer_portaudio.h"
+   #include "audiocapture_portaudio.h"
+ #elif defined(WIN32) || defined(Q_OS_WIN)
+   #include "audiorenderer_waveout.h"
+   #include "audiocapture_wavein.h"
+ #else
+   #include "audiorenderer_alsa.h"
+   #include "audiocapture_alsa.h"
+ #endif
 #else
-  #include "audiorenderer_alsa.h"
-  #include "audiocapture_alsa.h"
+ #include "audiorenderer_qt.h"
+ #include "audiocapture_qt.h"
 #endif
 
 #define POST_DATA_SIZE 1024
@@ -138,7 +143,7 @@ QString WebAccess::loadXMLPost(mg_connection *conn, QString &filename)
     int fnameEnd = XMLdata.indexOf("\"", fnameStart);
     filename = XMLdata.mid(fnameStart, fnameEnd - fnameStart);
 
-    XMLdata.remove(0, XMLdata.indexOf("\n\r") + 2);
+    XMLdata.remove(0, XMLdata.indexOf("\n\r") + 3);
     XMLdata.truncate(XMLdata.indexOf("\n\r"));
 
     return XMLdata;
@@ -307,6 +312,14 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
                 m_doc->inputOutputMap()->setInputPatch(universe, inPatch->pluginName(), inPatch->input(), cmdList[3]);
                 m_doc->inputOutputMap()->saveDefaults();
             }
+        }
+        else if (cmdList[1] == "PASSTHROUGH")
+        {
+            quint32 uniIdx = cmdList[2].toUInt();
+            if (cmdList[3] == "true")
+                m_doc->inputOutputMap()->setUniversePassthrough(uniIdx, true);
+            else
+                m_doc->inputOutputMap()->setUniversePassthrough(uniIdx, false);
         }
         else if (cmdList[1] == "AUDIOIN")
         {
@@ -920,17 +933,23 @@ QString WebAccess::getIOConfigHTML()
     html += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
     html += "<tr><th>Universe</th><th>Input</th><th>Output</th><th>Feedback</th><th>Profile</th></tr>\n";
 
-    for (int i = 0; i < 4; i++)
+    for (quint32 i = 0; i < ioMap->universes(); i++)
     {
-        QString currentInputPluginName = ioMap->inputPatch(i)->pluginName();
-        quint32 currentInput = ioMap->inputPatch(i)->input();
-        QString currentOutputPluginName = ioMap->outputPatch(i)->pluginName();
-        quint32 currentOutput = ioMap->outputPatch(i)->output();
-        QString currentFeedbackPluginName = ioMap->feedbackPatch(i)->pluginName();
-        quint32 currentFeedback = ioMap->feedbackPatch(i)->output();
-        QString currentProfileName = ioMap->inputPatch(i)->profileName();
+        InputPatch* ip = ioMap->inputPatch(i);
+        OutputPatch* op = ioMap->outputPatch(i);
+        OutputPatch* fp = ioMap->feedbackPatch(i);
+        QString uniName = ioMap->getUniverseName(i);
+        bool uniPass = ioMap->getUniversePassthrough(i);
 
-        html += "<tr align=center><td>Universe " + QString::number(i+1) + "</td>\n";
+        QString currentInputPluginName = (ip == NULL)?KInputNone:ip->pluginName();
+        quint32 currentInput = (ip == NULL)?QLCChannel::invalid():ip->input();
+        QString currentOutputPluginName = (op == NULL)?KOutputNone:op->pluginName();
+        quint32 currentOutput = (op == NULL)?QLCChannel::invalid():op->output();
+        QString currentFeedbackPluginName = (fp == NULL)?KOutputNone:fp->pluginName();
+        quint32 currentFeedback = (fp == NULL)?QLCChannel::invalid():fp->output();
+        QString currentProfileName = (ip == NULL)?KInputNone:ip->profileName();
+
+        html += "<tr align=center><td>" + uniName + "</td>\n";
         html += "<td><select onchange=\"ioChanged('INPUT', " + QString::number(i) + ", this.value);\">\n";
         for (int in = 0; in < inputLines.count(); in++)
         {
@@ -973,6 +992,11 @@ QString WebAccess::getIOConfigHTML()
             html += "<option value=\"" + profiles.at(p) + "\" " + selected + ">" + profiles.at(p) + "</option>\n";
         }
         html += "</select></td>\n";
+        html += "<td><label><input type=\"checkbox\" ";
+        if (uniPass == true)
+            html +="checked=\"checked\"";
+        html += " onchange=\"ioChanged('PASSTHROUGH', " + QString::number(i) + ", this.checked);\">";
+        html += tr("Passthrough") + "</label></td>\n";
 
         html += "</tr>\n";
     }
@@ -986,14 +1010,17 @@ QString WebAccess::getAudioConfigHTML()
     QString html = "";
     QList<AudioDeviceInfo> devList;
 
-#if defined( __APPLE__) || defined(Q_OS_MAC)
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+ #if defined( __APPLE__) || defined(Q_OS_MAC)
     devList = AudioRendererPortAudio::getDevicesInfo();
-#elif defined(WIN32) || defined(Q_OS_WIN)
+ #elif defined(WIN32) || defined(Q_OS_WIN)
     devList = AudioRendererWaveOut::getDevicesInfo();
-#else
+ #else
     devList = AudioRendererAlsa::getDevicesInfo();
+ #endif
+#else
+    devList = AudioRendererQt::getDevicesInfo();
 #endif
-
     html += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
     html += "<tr><th>Input</th><th>Output</th></tr>\n";
     html += "<tr align=center>";

@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.4.1</Version>
-  <Author>jlgriffin</Author>
+  <Author>JL Griffin</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
  <Model>COLORpalette</Model>
@@ -34,139 +35,139 @@
  </Channel>
  <Channel Name="Auto Mode Speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="127">Slow > Med</Capability>
-  <Capability Min="128" Max="255">Med > Fast</Capability>
+  <Capability Min="0" Max="127">Slow &gt; Med</Capability>
+  <Capability Min="128" Max="255">Med &gt; Fast</Capability>
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="2">No Strobe</Capability>
-  <Capability Min="3" Max="249">Strobe [Slow > Fast]</Capability>
+  <Capability Min="3" Max="249">Strobe [Slow &gt; Fast]</Capability>
   <Capability Min="250" Max="255">Sound-Active</Capability>
  </Channel>
  <Channel Name="Red 1">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0% > 100%</Capability>
+  <Capability Min="0" Max="255">0% &gt; 100%</Capability>
  </Channel>
  <Channel Name="Green 1">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0% > 100%</Capability>
+  <Capability Min="0" Max="255">0% &gt; 100%</Capability>
  </Channel>
  <Channel Name="Blue 1">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0% > 100%</Capability>
+  <Capability Min="0" Max="255">0% &gt; 100%</Capability>
  </Channel>
  <Channel Name="Red 2">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0% > 100%</Capability>
+  <Capability Min="0" Max="255">0% &gt; 100%</Capability>
  </Channel>
  <Channel Name="Green 2">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0% > 100%</Capability>
+  <Capability Min="0" Max="255">0% &gt; 100%</Capability>
  </Channel>
  <Channel Name="Blue 2">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0% > 100%</Capability>
+  <Capability Min="0" Max="255">0% &gt; 100%</Capability>
  </Channel>
  <Channel Name="Red 3">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0% > 100%</Capability>
+  <Capability Min="0" Max="255">0% &gt; 100%</Capability>
  </Channel>
  <Channel Name="Green 3">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0% > 100%</Capability>
+  <Capability Min="0" Max="255">0% &gt; 100%</Capability>
  </Channel>
  <Channel Name="Blue 3">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0% > 100%</Capability>
+  <Capability Min="0" Max="255">0% &gt; 100%</Capability>
  </Channel>
  <Channel Name="Red 4">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0% > 100%</Capability>
+  <Capability Min="0" Max="255">0% &gt; 100%</Capability>
  </Channel>
  <Channel Name="Green 4">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0% > 100%</Capability>
+  <Capability Min="0" Max="255">0% &gt; 100%</Capability>
  </Channel>
  <Channel Name="Blue 4">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0% > 100%</Capability>
+  <Capability Min="0" Max="255">0% &gt; 100%</Capability>
  </Channel>
  <Channel Name="Red 5">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0% > 100%</Capability>
+  <Capability Min="0" Max="255">0% &gt; 100%</Capability>
  </Channel>
  <Channel Name="Green 5">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0% > 100%</Capability>
+  <Capability Min="0" Max="255">0% &gt; 100%</Capability>
  </Channel>
  <Channel Name="Blue 5">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0% > 100%</Capability>
+  <Capability Min="0" Max="255">0% &gt; 100%</Capability>
  </Channel>
  <Channel Name="Red 6">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0% > 100%</Capability>
+  <Capability Min="0" Max="255">0% &gt; 100%</Capability>
  </Channel>
  <Channel Name="Green 6">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0% > 100%</Capability>
+  <Capability Min="0" Max="255">0% &gt; 100%</Capability>
  </Channel>
  <Channel Name="Blue 6">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0% > 100%</Capability>
+  <Capability Min="0" Max="255">0% &gt; 100%</Capability>
  </Channel>
  <Channel Name="Red 7">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0% > 100%</Capability>
+  <Capability Min="0" Max="255">0% &gt; 100%</Capability>
  </Channel>
  <Channel Name="Green 7">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0% > 100%</Capability>
+  <Capability Min="0" Max="255">0% &gt; 100%</Capability>
  </Channel>
  <Channel Name="Blue 7">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0% > 100%</Capability>
+  <Capability Min="0" Max="255">0% &gt; 100%</Capability>
  </Channel>
  <Channel Name="Red 8">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0% > 100%</Capability>
+  <Capability Min="0" Max="255">0% &gt; 100%</Capability>
  </Channel>
  <Channel Name="Green 8">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0% > 100%</Capability>
+  <Capability Min="0" Max="255">0% &gt; 100%</Capability>
  </Channel>
  <Channel Name="Blue 8">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0% > 100%</Capability>
+  <Capability Min="0" Max="255">0% &gt; 100%</Capability>
  </Channel>
  <Mode Name="6 Ch">
   <Physical>
    <Bulb Lumens="1334" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="248" Height="178" Weight="2,8" Depth="428"/>
+   <Dimensions Width="248" Height="178" Weight="2.8" Depth="428"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>
@@ -186,7 +187,7 @@
  <Mode Name="9 Ch">
   <Physical>
    <Bulb Lumens="1334" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="248" Height="178" Weight="2,8" Depth="428"/>
+   <Dimensions Width="248" Height="178" Weight="2.8" Depth="428"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>
@@ -214,7 +215,7 @@
  <Mode Name="15 Ch">
   <Physical>
    <Bulb Lumens="1334" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="248" Height="178" Weight="2,8" Depth="428"/>
+   <Dimensions Width="248" Height="178" Weight="2.8" Depth="428"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>
@@ -258,7 +259,7 @@
  <Mode Name="27 Ch">
   <Physical>
    <Bulb Lumens="1334" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="248" Height="178" Weight="2,8" Depth="428"/>
+   <Dimensions Width="248" Height="178" Weight="2.8" Depth="428"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>

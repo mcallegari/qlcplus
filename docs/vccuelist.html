@@ -78,7 +78,16 @@ by double clicking on the Cue List widget.<br>
  </TR>
  <TR>
   <TD>
-   <B>Next cue key combination</B>
+   <B>Playback</B>
+  </TD>
+  <TD>
+   You can select the key that you want to use to start/stop the selected step (cue) in the Cue List
+   with this option. The key combination is shown in the text field; if the
+   field is empty, there is no key combination currently attached to the Cue List.
+  </TD>
+ <TR>
+  <TD>
+   <B>Next cue</B>
   </TD>
   <TD>
    You can select the key that you want to use to skip to the next step (cue) in the Cue List
@@ -88,7 +97,7 @@ by double clicking on the Cue List widget.<br>
  </TR>
  <TR>
   <TD>
-   <B>Previous cue key combination</B>
+   <B>Previous cue</B>
   </TD>
   <TD>
    You can select the key that you want to use to skip to the previous step (cue) in the Cue List
@@ -98,38 +107,10 @@ by double clicking on the Cue List widget.<br>
  </TR>
  <TR>
   <TD>
-   <B>Stop cue key combination</B>
+   <B>Crossfade</B>
   </TD>
   <TD>
-   You can select the key that you want to use to stop the currently running step (cue) in the Cue List
-   with this option. The key combination is shown in the text field; if the
-   field is empty, there is no key combination currently attached to the Cue List.
-  </TD>
- </TR>
- <TR>
-  <TD>
-   <B>Crossfade key combinations</B>
-  </TD>
-  <TD>
-   You can select the keys that want you use to control the Cue List crossfade
-   functionality. The key combinations are shown on the text field; if the
-   field is empty, there are no keys combination currently attached to the Cue List.
-  </TD>
- </TR>
- <TR>
-  <TD>
-   <IMG SRC="qrc:/key_bindings.png">
-  </TD>
-  <TD>
-   Assign a keyboard key to a specific action to be performed on the Cue List.
-  </TD>
- </TR>
- <TR>
-  <TD>
-   <IMG SRC="qrc:/fileclose.png">
-  </TD>
-  <TD>
-   Clear the key assignment.
+   You can select external input for the two crossfaders.
   </TD>
  </TR>
 </TABLE>
@@ -159,7 +140,22 @@ Four buttons are displayed at the bottom of the Cue List widget:<br><br>
  </TR>
  <TR>
   <TD><IMG src="qrc:/slider.png"></TD>
-  <TD>When clicked, this button will open/close a side panel showing two sliders.<br>
+  <TD>When clicked, this button will open/close a side panel showing two sliders for controlling crossfade.<br>
+  </TD>
+ </TR>
+</TABLE>
+
+</P>
+
+<P>
+Pressing ENTER key will start the selected step.
+</P>
+
+<br>
+<H3>Crossfade</H3>
+
+<P>
+  There are two faders that can be used to manually control crossfade between two consecutive steps.<br><br>
   Each slider is connected to a Cue List step and to help to understand their purpose we'll call them 
   "current step" and "next step" sliders.<br>
   The label at the bottom of each slider will show
@@ -167,18 +163,14 @@ Four buttons are displayed at the bottom of the Cue List widget:<br><br>
   The checkbox at the top will link the sliders together to facilitate crossfading between steps.<br>
   When the Cue list is running the sliders control the intensity of the 
   associated steps, overriding their Fade In and Fade Out speeds and so allowing manual control
-  of the transition between two consecutive steps.<br><br>
-  The slider for the current step has a blue label. This will be at 100% when the replay of the Cue List is started.<br>
-  The slider for the next step has an orange label and will be at 0% when the replay of the Cue List is started.<br>
+  of the transition.<br><br>
+  The slider for the <span style="background-color:#4E8DDE">current step</span> has a blue label. This will be at 100% when the replay of the Cue List is started.<br>
+  The slider for the next step</span> has an <span style="background-color:orange">orange label</span> and will be at 0% when the replay of the Cue List is started.<br>
   The intensities of both steps can be adjusted by moving the corresponding slider.<br><br>
   However, after both sliders have been moved to the opposite ends of their travel, the following changes take place:<br>
-  The orange next step label changes to blue (slider at 100%). This indicates that the old next step has become the new current step.<br>
-  The blue current step label changes to orange and the number of the step is increased by 2 (slider at 0%). So this slider now controls the step which comes after the
-  old next step.<br>
-  </TD>
- </TR>
-</TABLE>
-
+  The orange <span style="background-color:orange">next step</span> label changes to <span style="background-color:#4E8DDE">blue</span> (slider at 100%). This indicates that the old next step has become the new current step.<br>
+  The blue <span style="background-color:#4E8DDE">current step</span> label changes to <span style="background-color:orange">orange</span> and the number of the step is increased by 2 (slider at 0%). So this slider now controls the step which comes after the
+  old next step.
 </P>
 
 <br>

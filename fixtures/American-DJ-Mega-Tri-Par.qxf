@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.6.0</Version>
-  <Author>dragon,,,</Author>
+  <Author>dragon</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
  <Model>Mega Tri Par</Model>
@@ -66,7 +67,7 @@
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="15">Nothing</Capability>
-  <Capability Min="16" Max="255">Strobing (Slow -> Fast)</Capability>
+  <Capability Min="16" Max="255">Strobing (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Programs">
   <Group Byte="0">Effect</Group>
@@ -91,12 +92,12 @@
  <Channel Name="Strobe/Program speed">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="15">Nothing</Capability>
-  <Capability Min="16" Max="255">Strobing/Program speed control (Slow -> Fast)</Capability>
+  <Capability Min="16" Max="255">Strobing/Program speed control (Slow -&gt; Fast)</Capability>
  </Channel>
  <Mode Name="1 Channel">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="220" Height="85" Weight="1,2" Depth="225"/>
+   <Dimensions Width="220" Height="85" Weight="1.2" Depth="225"/>
    <Lens DegreesMax="40" Name="Other" DegreesMin="40"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="16" DmxConnector="3-pin"/>
@@ -106,7 +107,7 @@
  <Mode Name="2 Channels">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="220" Height="85" Weight="1,2" Depth="225"/>
+   <Dimensions Width="220" Height="85" Weight="1.2" Depth="225"/>
    <Lens DegreesMax="40" Name="Other" DegreesMin="40"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="16" DmxConnector="3-pin"/>
@@ -117,7 +118,7 @@
  <Mode Name="3 Channels">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="220" Height="85" Weight="1,2" Depth="225"/>
+   <Dimensions Width="220" Height="85" Weight="1.2" Depth="225"/>
    <Lens DegreesMax="40" Name="Other" DegreesMin="40"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="16" DmxConnector="3-pin"/>
@@ -129,7 +130,7 @@
  <Mode Name="4 Channels">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="220" Height="85" Weight="1,2" Depth="225"/>
+   <Dimensions Width="220" Height="85" Weight="1.2" Depth="225"/>
    <Lens DegreesMax="40" Name="Other" DegreesMin="40"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="16" DmxConnector="3-pin"/>
@@ -142,7 +143,7 @@
  <Mode Name="5 Channels">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="220" Height="85" Weight="1,2" Depth="225"/>
+   <Dimensions Width="220" Height="85" Weight="1.2" Depth="225"/>
    <Lens DegreesMax="40" Name="Other" DegreesMin="40"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="16" DmxConnector="3-pin"/>
@@ -156,7 +157,7 @@
  <Mode Name="6 Channels">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="220" Height="85" Weight="1,2" Depth="225"/>
+   <Dimensions Width="220" Height="85" Weight="1.2" Depth="225"/>
    <Lens DegreesMax="40" Name="Other" DegreesMin="40"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="16" DmxConnector="3-pin"/>
@@ -171,7 +172,7 @@
  <Mode Name="7 Channels">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="220" Height="85" Weight="1,2" Depth="225"/>
+   <Dimensions Width="220" Height="85" Weight="1.2" Depth="225"/>
    <Lens DegreesMax="40" Name="Other" DegreesMin="40"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="16" DmxConnector="3-pin"/>

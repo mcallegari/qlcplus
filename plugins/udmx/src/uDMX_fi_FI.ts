@@ -9,7 +9,7 @@
         <translation type="unfinished">Tämä liitännäinen tuottaa DMX-ulostulotuen Anyma uDMX-laitteille.</translation>
     </message>
     <message>
-        <location filename="udmx.cpp" line="186"/>
+        <location filename="udmx.cpp" line="188"/>
         <source>Do you wish to re-scan your hardware?</source>
         <translation type="unfinished">Etsitäänkö lisää laitteita?</translation>
     </message>

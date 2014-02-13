@@ -92,6 +92,7 @@ private slots:
     void slotAddUniverse();
     void slotDeleteUniverse();
     void slotUniverseNameChanged(QString name);
+    void slotUniverseAdded();
     void slotPassthroughChanged(bool checked);
 
 private:

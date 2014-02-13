@@ -4,19 +4,19 @@
 <context>
     <name>Peperoni</name>
     <message>
-        <location filename="win32/peperoni.cpp" line="120"/>
+        <location filename="win32/peperoni.cpp" line="125"/>
         <location filename="unix/peperoni.cpp" line="91"/>
         <source>This plugin provides DMX output support for Peperoni DMX devices.</source>
         <translation type="unfinished">Tämä liitännäinen tuottaa DMX-ulostulotuen Peperoni DMX-laitteille.</translation>
     </message>
     <message>
-        <location filename="win32/peperoni.cpp" line="134"/>
+        <location filename="win32/peperoni.cpp" line="139"/>
         <source>The shared library usbdmx.dll could not be found or is too old to be used with QLC.</source>
         <translation type="unfinished">Jaettua kirjastoa usbdmx.dll ei löytynyt tai nykyinen versio on liian vanha QLC:n kanssa käytetäväksi.</translation>
     </message>
     <message>
-        <location filename="win32/peperoni.cpp" line="214"/>
-        <location filename="unix/peperoni.cpp" line="125"/>
+        <location filename="win32/peperoni.cpp" line="221"/>
+        <location filename="unix/peperoni.cpp" line="127"/>
         <source>Do you wish to re-scan your hardware?</source>
         <translation type="unfinished">Etsitäänkö lisää laitteita?</translation>
     </message>

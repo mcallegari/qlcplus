@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller</Name>
   <Version>3.2.2</Version>
@@ -48,19 +49,19 @@
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Pan">
   <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Tilt">
   <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Channel Name="Intensity">
   <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255"/>
  </Channel>
  <Mode Name="Main mode">
   <Physical>

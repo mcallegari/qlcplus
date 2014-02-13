@@ -149,7 +149,9 @@ protected:
     /** Update the maximum amount of fixtures for the universe */
     void updateMaximumAmount();
 
-    /** Check if an address is available for contiguous channels */
+    /** Check if an address is available for contiguous channels.
+     *  Note that value is an absolute address.
+     */
     bool checkAddressAvailability(int value, int channels);
 
 protected:

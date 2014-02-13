@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.2.0</Version>
@@ -199,7 +200,7 @@
  </Channel>
  <Channel Name="Speed / Strobe">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Slow -> Fast (When Ch. 6 is between 32-233), Strobe</Capability>
+  <Capability Min="0" Max="255">Slow -&gt; Fast (When Ch. 6 is between 32-233), Strobe</Capability>
  </Channel>
  <Channel Name="RGB Mode">
   <Group Byte="0">Colour</Group>

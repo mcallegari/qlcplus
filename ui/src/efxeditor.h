@@ -93,9 +93,11 @@ private:
     void updateStartOffsetColumn(QTreeWidgetItem* item, EFXFixture* ef);
     void removeFixtureItem(EFXFixture* ef);
     void createSpeedDials();
+    void updateSpeedDials();
 
 private slots:
     void slotNameEdited(const QString &text);
+    void slotSpeedDialToggle(bool state);
     void slotFixtureItemChanged(QTreeWidgetItem* item, int column);
     void slotFixtureIntensityChanged(int intensity);
     void slotFixtureStartOffsetChanged(int intensity);
@@ -111,6 +113,7 @@ private slots:
     void slotFadeInChanged(int ms);
     void slotFadeOutChanged(int ms);
     void slotHoldChanged(int ms);
+    void slotDialDestroyed(QObject* dial);
 
     void slotFixtureRemoved();
     void slotFixtureChanged();

@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.6.0</Version>
@@ -14,7 +15,7 @@
   <Capability Min="0" Max="255">Red (0% to 100%)</Capability>
  </Channel>
  <Channel Name="Red fine">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Colour>Red</Colour>
   <Capability Min="0" Max="255">Red fine (0% to 100%)</Capability>
  </Channel>
@@ -24,7 +25,7 @@
   <Capability Min="0" Max="255">Green (0% to 100%)</Capability>
  </Channel>
  <Channel Name="Green fine">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Colour>Green</Colour>
   <Capability Min="0" Max="255">Green fine (0% to 100%)</Capability>
  </Channel>
@@ -34,7 +35,7 @@
   <Capability Min="0" Max="255">Blue (0% to 100%)</Capability>
  </Channel>
  <Channel Name="Blue fine">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Colour>Blue</Colour>
   <Capability Min="0" Max="255">Blue fine (0% to 100%)</Capability>
  </Channel>
@@ -44,7 +45,7 @@
   <Capability Min="0" Max="255">White (0% to 100%)</Capability>
  </Channel>
  <Channel Name="White fine">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Colour>White</Colour>
   <Capability Min="0" Max="255">White fine (0% to 100%)</Capability>
  </Channel>
@@ -192,7 +193,7 @@
   <Capability Min="0" Max="255">Dimmer (0% to 100%)</Capability>
  </Channel>
  <Channel Name="Dimmer fine">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Capability Min="0" Max="255">Dimmer fine (0% to 100%)</Capability>
  </Channel>
  <Channel Name="Pan">
@@ -1063,7 +1064,7 @@
  <Mode Name="Standard">
   <Physical>
    <Bulb Lumens="10500" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="395" Height="584" Weight="19,3" Depth="330"/>
+   <Dimensions Width="395" Height="584" Weight="19.3" Depth="330"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
    <Technical PowerConsumption="600" DmxConnector="3-pin"/>
@@ -1092,7 +1093,7 @@
  <Mode Name="Shapes">
   <Physical>
    <Bulb Lumens="10500" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="395" Height="584" Weight="19,3" Depth="330"/>
+   <Dimensions Width="395" Height="584" Weight="19.3" Depth="330"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
    <Technical PowerConsumption="600" DmxConnector="3-pin"/>
@@ -1132,7 +1133,7 @@
  <Mode Name="Extended">
   <Physical>
    <Bulb Lumens="10500" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="395" Height="584" Weight="19,3" Depth="330"/>
+   <Dimensions Width="395" Height="584" Weight="19.3" Depth="330"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
    <Technical PowerConsumption="600" DmxConnector="3-pin"/>
@@ -1494,7 +1495,7 @@
  <Mode Name="Extended RGBW">
   <Physical>
    <Bulb Lumens="10500" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="395" Height="584" Weight="19,3" Depth="330"/>
+   <Dimensions Width="395" Height="584" Weight="19.3" Depth="330"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
    <Technical PowerConsumption="600" DmxConnector="3-pin"/>

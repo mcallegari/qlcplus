@@ -102,6 +102,9 @@ public:
     /** Copy the contents for this function from another function */
     bool copyFrom(const Function* function);
 
+    /** Set the duration in milliseconds */
+    virtual void setDuration(uint ms);
+
     /*********************************************************************
      * Algorithm
      *********************************************************************/

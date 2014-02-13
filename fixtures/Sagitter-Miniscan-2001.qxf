@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
-<FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller</Name>
   <Version>3.3.0-r2968</Version>
@@ -53,14 +54,14 @@
  <Channel Name="Gobo Rotation">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="127">Rotation 0-360</Capability>
-  <Capability Min="128" Max="191">Rotation Forward Fast -> Slow</Capability>
-  <Capability Min="192" Max="255">Rotation Backward slow -> fast</Capability>
+  <Capability Min="128" Max="191">Rotation Forward Fast -&gt; Slow</Capability>
+  <Capability Min="192" Max="255">Rotation Backward slow -&gt; fast</Capability>
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="95">Shutter Closed -> Open</Capability>
+  <Capability Min="0" Max="95">Shutter Closed -&gt; Open</Capability>
   <Capability Min="96" Max="127">Strobe</Capability>
-  <Capability Min="160" Max="191">Pulse fast -> Slow -> Fast</Capability>
+  <Capability Min="160" Max="191">Pulse fast -&gt; Slow -&gt; Fast</Capability>
   <Capability Min="192" Max="223">Strobe Patterns</Capability>
   <Capability Min="224" Max="255">Full</Capability>
  </Channel>
