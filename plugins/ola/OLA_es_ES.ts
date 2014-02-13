@@ -34,7 +34,7 @@
     <message>
         <location filename="olaio.cpp" line="166"/>
         <source>This is the output for OLA universe %1</source>
-        <translation type="unfinished">Esta es la Salida para el universo OLA %1</translation>
+        <translation>Esta es la Salida para el universo OLA %1</translation>
     </message>
 </context>
 </TS>

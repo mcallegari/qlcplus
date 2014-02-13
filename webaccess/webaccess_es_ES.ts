@@ -41,7 +41,7 @@
     <message>
         <location filename="webaccess.cpp" line="994"/>
         <source>Passthrough</source>
-        <translation type="unfinished"></translation>
+        <translation>Passthrough</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1110"/>
