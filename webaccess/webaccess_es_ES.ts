@@ -16,7 +16,7 @@
     <message>
         <location filename="webaccess.cpp" line="376"/>
         <source>Autostart configuration changed</source>
-        <translation type="unfinished"></translation>
+        <translation>La configuración de inicio automático ha cambiado</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="452"/>
@@ -41,12 +41,12 @@
     <message>
         <location filename="webaccess.cpp" line="994"/>
         <source>Passthrough</source>
-        <translation type="unfinished"></translation>
+        <translation>Passthrough</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1110"/>
         <source>System</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistema</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1119"/>
@@ -57,63 +57,63 @@
     <message>
         <location filename="webaccess.cpp" line="1170"/>
         <source>Network interface: </source>
-        <translation type="unfinished"></translation>
+        <translation>Interfaz de red:</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1174"/>
         <source>Dynamic (DHCP)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dinámico (DHCP)</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1176"/>
         <source>Static</source>
-        <translation type="unfinished"></translation>
+        <translation>Estático</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1178"/>
         <source>IP Address: </source>
-        <translation type="unfinished"></translation>
+        <translation>Dirección IP:</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1179"/>
         <source>Netmask: </source>
-        <translation type="unfinished"></translation>
+        <translation>Máscara de red:</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1180"/>
         <source>Gateway: </source>
-        <translation type="unfinished"></translation>
+        <translation>Puerta de enlace:</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1182"/>
         <location filename="webaccess.cpp" line="1333"/>
         <source>Apply changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplicar cambios</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1322"/>
         <source>Network configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuración de red</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1327"/>
         <source>Project autostart</source>
-        <translation type="unfinished"></translation>
+        <translation>Inicio automático de proyecto</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1331"/>
         <source>No project</source>
-        <translation type="unfinished"></translation>
+        <translation>Ningún proyecto</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1332"/>
         <source>Use current project</source>
-        <translation type="unfinished"></translation>
+        <translation>Usar el proyecto actual</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1337"/>
         <source>Reboot</source>
-        <translation type="unfinished"></translation>
+        <translation>Reiniciar</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1076"/>
@@ -133,7 +133,7 @@
     <message>
         <location filename="webaccess.cpp" line="1140"/>
         <source>User loaded fixtures</source>
-        <translation type="unfinished"></translation>
+        <translation>Fixtures cargados por el usuario</translation>
     </message>
 </context>
 </TS>

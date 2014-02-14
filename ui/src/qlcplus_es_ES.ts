@@ -62,7 +62,7 @@
         <location filename="addchannelsgroup.ui" line="66"/>
         <source>Apply changes to fixtures of the same type and mode</source>
         <oldsource>Apply changes to fixtures of the same type</oldsource>
-        <translation type="unfinished">Aplicar cambios a fixtures del mismo tipo</translation>
+        <translation>Aplicar cambios a fixtures del mismo tipo y modo</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="73"/>
@@ -130,7 +130,7 @@
     <message>
         <location filename="addfixture.ui" line="250"/>
         <source>Quick search:</source>
-        <translation type="unfinished"></translation>
+        <translation>Búsqueda rápida:</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="267"/>
@@ -233,102 +233,102 @@
     <message>
         <location filename="addrgbpanel.ui" line="14"/>
         <source>Add RGB Panel</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir un Panel RGB</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="24"/>
         <source>Panel properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Propiedades del Panel</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="38"/>
         <source>Universe:</source>
-        <translation type="unfinished"></translation>
+        <translation>Universo:</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="45"/>
         <source>RGB Panel</source>
-        <translation type="unfinished"></translation>
+        <translation>Panel RGB</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="52"/>
         <source>Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre:</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="62"/>
         <source>Address:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dirección:</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="79"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: ¡Dirección ya usada!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: ¡Dirección ya usada!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="91"/>
         <source>Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="105"/>
         <source>Columns:</source>
-        <translation type="unfinished"></translation>
+        <translation>Columnas:</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="112"/>
         <source>Rows:</source>
-        <translation type="unfinished"></translation>
+        <translation>Filas:</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="119"/>
         <source>Total pixels:</source>
-        <translation type="unfinished"></translation>
+        <translation>Total de píxeles:</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="146"/>
         <source>100</source>
-        <translation type="unfinished"></translation>
+        <translation>100</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="158"/>
         <source>Orientation</source>
-        <translation type="unfinished"></translation>
+        <translation>Orientación</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="164"/>
         <source>Top-Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Arriba-Derecha</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="171"/>
         <source>Top-Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Arriba-Izquierda</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="181"/>
         <source>Bottom-Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Abajo-Izquierda</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="188"/>
         <source>Bottom-Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Abajo-Derecha</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="198"/>
         <source>Displacement</source>
-        <translation type="unfinished"></translation>
+        <translation>Desplazamiento</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="204"/>
         <source>Snake</source>
-        <translation type="unfinished"></translation>
+        <translation>Serpiente</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="214"/>
         <source>Zig Zag</source>
-        <translation type="unfinished"></translation>
+        <translation>Zig Zag</translation>
     </message>
 </context>
 <context>
@@ -866,12 +866,12 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="app.cpp" line="1245"/>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Atención</translation>
     </message>
     <message>
         <location filename="app.cpp" line="1246"/>
         <source>Some errors occurred while loading the project:</source>
-        <translation type="unfinished"></translation>
+        <translation>Algunos errores ocurrieron al cargar el proyecto:</translation>
     </message>
 </context>
 <context>
@@ -1904,12 +1904,12 @@ Duración: %3
     <message>
         <location filename="efxeditor.ui" line="664"/>
         <source>Show/Hide speed dial window</source>
-        <translation type="unfinished">Mostrar/Ocultar ventana de selector de velocidad</translation>
+        <translation>Mostrar/Ocultar ventana de selector de velocidad</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="667"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="277"/>
@@ -2197,7 +2197,7 @@ Duración: %3
     <message>
         <location filename="fixturemanager.cpp" line="1158"/>
         <source>%1 - Row %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 - Fila %2</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1221"/>
@@ -2545,7 +2545,7 @@ Duración: %3
     <message>
         <location filename="functionmanager.cpp" line="287"/>
         <source>Select Startup Function</source>
-        <translation type="unfinished"></translation>
+        <translation>Función de arranque</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="292"/>
@@ -2741,12 +2741,12 @@ Duración: %3
     <message>
         <location filename="functionselection.cpp" line="70"/>
         <source>Functions</source>
-        <translation type="unfinished">Funciones</translation>
+        <translation>Funciones</translation>
     </message>
     <message>
         <location filename="functionselection.cpp" line="264"/>
         <source>&lt;No function&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;Ninguna función&gt;</translation>
     </message>
 </context>
 <context>
@@ -3002,45 +3002,45 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputmanager.cpp" line="84"/>
         <source>Add U&amp;niverse</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir U&amp;niverso</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="90"/>
         <source>&amp;Delete Universe</source>
         <oldsource>Universe</oldsource>
-        <translation type="unfinished">Universo</translation>
+        <translation>&amp;Borrar Universo</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="109"/>
         <source>Universe name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre del Universo:</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="119"/>
         <source>Passthrough</source>
-        <translation type="unfinished"></translation>
+        <translation>Passthrough</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="227"/>
         <location filename="inputoutputmanager.cpp" line="390"/>
         <source>Universe %1</source>
-        <translation type="unfinished">Universo %1</translation>
+        <translation>Universo %1</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="348"/>
         <location filename="inputoutputmanager.cpp" line="367"/>
         <source>Delete Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar Universo</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="349"/>
         <source>The universe you are trying to delete is patched. Are you sure you want to delete it ?</source>
-        <translation type="unfinished"></translation>
+        <translation>El universo que está tratando de borrar está patcheado. ¿Está seguro de querer borrarlo?</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="368"/>
         <source>There are some fixtures using the universe you are trying to delete. Are you sure you want to delete it ?</source>
-        <translation type="unfinished"></translation>
+        <translation>Algunos fixtures están usando el universo que está tratando de borrar. ¿Está seguro de querer borrarlo?</translation>
     </message>
 </context>
 <context>
@@ -3347,7 +3347,7 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="monitor.cpp" line="222"/>
         <source>2D View</source>
-        <translation type="unfinished"></translation>
+        <translation>Vista 2D</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="229"/>
@@ -3397,32 +3397,32 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="monitor.cpp" line="300"/>
         <source>DMX View</source>
-        <translation type="unfinished"></translation>
+        <translation>Vista DMX</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="306"/>
         <source>Size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño:</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="330"/>
         <source>Meters</source>
-        <translation type="unfinished"></translation>
+        <translation>Metros</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="331"/>
         <source>Feet</source>
-        <translation type="unfinished"></translation>
+        <translation>Pies</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="340"/>
         <source>Add fixture</source>
-        <translation type="unfinished">Añadir fixture</translation>
+        <translation>Añadir fixture</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="342"/>
         <source>Remove fixture</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar fixture</translation>
     </message>
 </context>
 <context>
@@ -4625,22 +4625,23 @@ Duración: %3
     <message>
         <location filename="universeitemwidget.cpp" line="86"/>
         <source>Input:</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrada:
+</translation>
     </message>
     <message>
         <location filename="universeitemwidget.cpp" line="87"/>
         <source>Profile:</source>
-        <translation type="unfinished"></translation>
+        <translation>Perfil:</translation>
     </message>
     <message>
         <location filename="universeitemwidget.cpp" line="88"/>
         <source>Output:</source>
-        <translation type="unfinished"></translation>
+        <translation>Salida:</translation>
     </message>
     <message>
         <location filename="universeitemwidget.cpp" line="89"/>
         <source>Feedback:</source>
-        <translation type="unfinished"></translation>
+        <translation>Feedback:</translation>
     </message>
     <message>
         <location filename="universeitemwidget.cpp" line="106"/>
@@ -4648,7 +4649,7 @@ Duración: %3
         <location filename="universeitemwidget.cpp" line="110"/>
         <location filename="universeitemwidget.cpp" line="112"/>
         <source>None</source>
-        <translation type="unfinished">Ninguno</translation>
+        <translation>Ninguno</translation>
     </message>
 </context>
 <context>
@@ -4920,17 +4921,17 @@ Duración: %3
     <message>
         <location filename="vcclockproperties.ui" line="87"/>
         <source>Schedule</source>
-        <translation type="unfinished"></translation>
+        <translation>Calendario</translation>
     </message>
     <message>
         <location filename="vcclockproperties.ui" line="153"/>
         <source>Function</source>
-        <translation type="unfinished">Función</translation>
+        <translation>Función</translation>
     </message>
     <message>
         <location filename="vcclockproperties.ui" line="158"/>
         <source>Time</source>
-        <translation type="unfinished">Tiempo</translation>
+        <translation>Hora</translation>
     </message>
 </context>
 <context>
