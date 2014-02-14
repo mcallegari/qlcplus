@@ -2,8 +2,7 @@
   Q Light Controller
   vinceusbdmx512tx.cpp
 
-  Copyright (C) Heikki Junnila
-  Copyright (C) Massimo Callegari
+  Copyright (C) Jérôme Lebleu
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.

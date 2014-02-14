@@ -4,6 +4,7 @@ qlcplus (4.7.0) stable; urgency=low
   * NEW: Input/Output: added universe passthrough mode
   * NEW: Plugins: ArtNet and E1.31 plugins support up to 65535 universes
   * NEW: Monitor: preliminary support of 2D preview
+  * NEW: Plugins: Added Vince DMX512 USB adapter support (thanks to Jérôme Lebleu)
   * Function Selection: fixed Collection selection
   * MIDI plugin: Linux support for pitch wheel and note/channel aftertouch (Jano Svitok)
   * MIDI plugin: improved pitch wheel and input/output settings (Robert Scheffler)
