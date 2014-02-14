@@ -16,7 +16,7 @@
     <message>
         <location filename="webaccess.cpp" line="376"/>
         <source>Autostart configuration changed</source>
-        <translation type="unfinished"></translation>
+        <translation>Autostart-Konfiguration geändert</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="452"/>
@@ -41,12 +41,12 @@
     <message>
         <location filename="webaccess.cpp" line="994"/>
         <source>Passthrough</source>
-        <translation type="unfinished"></translation>
+        <translation>Passthrough</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1110"/>
         <source>System</source>
-        <translation type="unfinished"></translation>
+        <translation>System</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1119"/>
@@ -57,63 +57,63 @@
     <message>
         <location filename="webaccess.cpp" line="1170"/>
         <source>Network interface: </source>
-        <translation type="unfinished"></translation>
+        <translation>Netzwerk Schnittstelle:</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1174"/>
         <source>Dynamic (DHCP)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dynamisch (DHCP)</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1176"/>
         <source>Static</source>
-        <translation type="unfinished"></translation>
+        <translation>Statisch</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1178"/>
         <source>IP Address: </source>
-        <translation type="unfinished"></translation>
+        <translation>IP Addresse:</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1179"/>
         <source>Netmask: </source>
-        <translation type="unfinished"></translation>
+        <translation>Netzmaske:</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1180"/>
         <source>Gateway: </source>
-        <translation type="unfinished"></translation>
+        <translation>Gateway:</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1182"/>
         <location filename="webaccess.cpp" line="1333"/>
         <source>Apply changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Änderungen übernehmen</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1322"/>
         <source>Network configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Netzwerk-Konfiguration</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1327"/>
         <source>Project autostart</source>
-        <translation type="unfinished"></translation>
+        <translation>Autostart-Projekt</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1331"/>
         <source>No project</source>
-        <translation type="unfinished"></translation>
+        <translation>Kein Projekt</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1332"/>
         <source>Use current project</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwende aktutelles Projekt</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1337"/>
         <source>Reboot</source>
-        <translation type="unfinished"></translation>
+        <translation>Neustart</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1076"/>
@@ -133,7 +133,7 @@
     <message>
         <location filename="webaccess.cpp" line="1140"/>
         <source>User loaded fixtures</source>
-        <translation type="unfinished"></translation>
+        <translation>Vom Benutzer geladene Geräte</translation>
     </message>
 </context>
 </TS>
