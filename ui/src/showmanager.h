@@ -116,6 +116,7 @@ private:
     QAction* m_addTrackAction;
     QAction* m_addSequenceAction;
     QAction* m_addAudioAction;
+    QAction* m_addVideoAction;
     QAction* m_copyAction;
     QAction* m_pasteAction;
     QAction* m_deleteAction;
@@ -132,6 +133,7 @@ protected slots:
     void slotAddTrack();
     void slotAddSequence();
     void slotAddAudio();
+    void slotAddVideo();
 
     void slotCopy();
     void slotPaste();
@@ -156,6 +158,9 @@ protected slots:
     void slotViewClicked(QMouseEvent *event);
     void slotSequenceMoved(SequenceItem *);
     void slotAudioMoved(AudioItem *);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    void slotVideoMoved(VideoItem *);
+#endif
     void slotUpdateTime(quint32 msec_time);
     void slotupdateTimeAndCursor(quint32 msec_time);
     void slotTrackClicked(Track *track);

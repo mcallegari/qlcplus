@@ -7,7 +7,9 @@ include(libusb-nametool.pri)
 include(libftdi-nametool.pri)
 include(libmad-nametool.pri)
 include(libsndfile-nametool.pri)
+lessThan(QT_MAJOR_VERSION, 5) {
 include(libportaudio-nametool.pri)
+}
 include(liblo-nametool.pri)
 include(libfftw-nametool.pri)
 include(libqtgui-nametool.pri)

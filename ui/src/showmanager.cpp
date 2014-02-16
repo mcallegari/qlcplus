@@ -64,6 +64,7 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
     , m_addTrackAction(NULL)
     , m_addSequenceAction(NULL)
     , m_addAudioAction(NULL)
+    , m_addVideoAction(NULL)
     , m_copyAction(NULL)
     , m_pasteAction(NULL)
     , m_deleteAction(NULL)
@@ -104,6 +105,10 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
             this, SLOT(slotSequenceMoved(SequenceItem*)));
     connect(m_showview, SIGNAL(audioMoved(AudioItem *)),
             this, SLOT(slotAudioMoved(AudioItem*)));
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    connect(m_showview, SIGNAL(videoMoved(VideoItem *)),
+            this, SLOT(slotVideoMoved(VideoItem*)));
+#endif
     connect(m_showview, SIGNAL(timeChanged(quint32)),
             this, SLOT(slotUpdateTime(quint32)));
     connect(m_showview, SIGNAL(trackClicked(Track*)),
@@ -194,6 +199,14 @@ void ShowManager::initActions()
     m_addAudioAction->setShortcut(QKeySequence("CTRL+A"));
     connect(m_addAudioAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddAudio()));
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    m_addVideoAction = new QAction(QIcon(":/video.png"),
+                                    tr("New vi&deo"), this);
+    m_addVideoAction->setShortcut(QKeySequence("CTRL+D"));
+    connect(m_addVideoAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotAddVideo()));
+#endif
     /* Edit actions */
     m_copyAction = new QAction(QIcon(":/editcopy.png"),
                                 tr("&Copy"), this);
@@ -204,6 +217,7 @@ void ShowManager::initActions()
 
     m_pasteAction = new QAction(QIcon(":/editpaste.png"),
                                tr("&Paste"), this);
+    m_pasteAction->setShortcut(QKeySequence("CTRL+V"));
     connect(m_pasteAction, SIGNAL(triggered(bool)),
             this, SLOT(slotPaste()));
     m_pasteAction->setEnabled(false);
@@ -261,6 +275,9 @@ void ShowManager::initToolbar()
     m_toolbar->addAction(m_addTrackAction);
     m_toolbar->addAction(m_addSequenceAction);
     m_toolbar->addAction(m_addAudioAction);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    m_toolbar->addAction(m_addVideoAction);
+#endif
 
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_copyAction);
@@ -343,6 +360,9 @@ void ShowManager::updateShowsCombo()
         m_addTrackAction->setEnabled(false);
         m_addSequenceAction->setEnabled(false);
         m_addAudioAction->setEnabled(false);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+        m_addVideoAction->setEnabled(false);
+#endif
     }
 
     if (m_show == NULL || m_show->getTracksCount() == 0)
@@ -579,6 +599,9 @@ void ShowManager::slotAddTrack()
 
         m_addSequenceAction->setEnabled(true);
         m_addAudioAction->setEnabled(true);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+        m_addVideoAction->setEnabled(true);
+#endif
         m_showview->activateTrack(newTrack);
         m_deleteAction->setEnabled(true);
         m_showview->updateViewSize();
@@ -621,25 +644,8 @@ void ShowManager::slotAddAudio()
     //dialog.selectFile(fileName());
 
     /* Append file filters to the dialog */
-    QStringList extList;
-#ifdef QT_PHONON_LIB
-    QStringList systemCaps = Audio::getCapabilities();
-    if (systemCaps.contains("audio/ogg") || systemCaps.contains("audio/x-ogg"))
-        extList << "*.ogg";
-    if (systemCaps.contains("audio/x-m4a"))
-        extList << "*.m4a";
-    if (systemCaps.contains("audio/flac") || systemCaps.contains("audio/x-flac"))
-        extList << "*.flac";
-    if (systemCaps.contains("audio/x-ms-wma"))
-        extList << "*.wma";
-    if (systemCaps.contains("audio/wav") || systemCaps.contains("audio/x-wav"))
-        extList << "*.wav";
-    if (systemCaps.contains("audio/mp3") || systemCaps.contains("audio/x-mp3") ||
-        systemCaps.contains("audio/mpeg3") || systemCaps.contains("audio/x-mpeg3"))
-        extList << "*.mp3";
-#else
-    extList = Audio::getCapabilities();
-#endif
+    QStringList extList = Audio::getCapabilities();
+
     QStringList filters;
     qDebug() << Q_FUNC_INFO << "Extensions: " << extList.join(" ");
     filters << tr("Audio Files (%1)").arg(extList.join(" "));
@@ -685,13 +691,73 @@ void ShowManager::slotAddAudio()
         track->addFunctionID(audio->id());
         m_showview->addAudio(audio);
     }
+}
 
+void ShowManager::slotAddVideo()
+{
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    QString fn;
+
+    /* Create a file open dialog */
+    QFileDialog dialog(this);
+    dialog.setWindowTitle(tr("Open Video File"));
+    dialog.setAcceptMode(QFileDialog::AcceptOpen);
+    //dialog.selectFile(fileName());
+
+    /* Append file filters to the dialog */
+    QStringList extList = Video::getCapabilities();
+
+    QStringList filters;
+    qDebug() << Q_FUNC_INFO << "Extensions: " << extList.join(" ");
+    filters << tr("Video Files (%1)").arg(extList.join(" "));
+#if defined(WIN32) || defined(Q_OS_WIN)
+    filters << tr("All Files (*.*)");
+#else
+    filters << tr("All Files (*)");
+#endif
+    dialog.setNameFilters(filters);
+
+    /* Append useful URLs to the dialog */
+    QList <QUrl> sidebar;
+    sidebar.append(QUrl::fromLocalFile(QDir::homePath()));
+    sidebar.append(QUrl::fromLocalFile(QDir::rootPath()));
+    dialog.setSidebarUrls(sidebar);
+
+    /* Get file name */
+    if (dialog.exec() != QDialog::Accepted)
+        return;
+
+    fn = dialog.selectedFiles().first();
+    if (fn.isEmpty() == true)
+        return;
+
+    Function* f = new Video(m_doc);
+    Video *video = qobject_cast<Video*> (f);
+    if (video->setSourceFileName(fn) == false)
+    {
+        QMessageBox::warning(this, tr("Unsupported video file"), tr("This video file cannot be played with QLC+. Sorry."));
+        delete f;
+        return;
+    }
+    // Overlapping check
+    if (checkOverlapping(m_showview->getTimeFromCursor(), video->getDuration()) == true)
+    {
+        QMessageBox::warning(this, tr("Overlapping error"), tr("Overlapping not allowed. Operation cancelled."));
+        delete f;
+        return;
+    }
+    if (m_doc->addFunction(f) == true)
+    {
+        Track *track = m_show->getTrackFromSceneID(m_scene->id());
+        track->addFunctionID(video->id());
+        m_showview->addVideo(video);
+    }
+#endif
 }
 
 void ShowManager::slotCopy()
 {
     quint32 fid = Function::invalidId();
-    AudioItem *audItem = NULL;
 
     SequenceItem *seqItem = m_showview->getSelectedSequence();
     if (seqItem != NULL)
@@ -700,7 +766,7 @@ void ShowManager::slotCopy()
     }
     else
     {
-        audItem = m_showview->getSelectedAudio();
+        AudioItem *audItem = m_showview->getSelectedAudio();
         if (audItem != NULL)
             fid = audItem->getAudio()->id();
 
@@ -708,6 +774,19 @@ void ShowManager::slotCopy()
         {
             fid = m_scene->id();
         }
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+        else
+        {
+            VideoItem *vidItem = m_showview->getSelectedVideo();
+            if (vidItem != NULL)
+                fid = vidItem->getVideo()->id();
+
+            if (vidItem == NULL)
+            {
+                fid = m_scene->id();
+            }
+        }
+#endif
     }
 
     if (fid != Function::invalidId())
@@ -732,6 +811,10 @@ void ShowManager::slotPaste()
         copyDuration = (qobject_cast<Chaser*>(clipboardCopy))->getDuration();
     else if (clipboardCopy->type() == Function::Audio)
         copyDuration = (qobject_cast<Audio*>(clipboardCopy))->getDuration();
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    else if (clipboardCopy->type() == Function::Video)
+        copyDuration = (qobject_cast<Video*>(clipboardCopy))->getDuration();
+#endif
 
     // Overlapping check
     if (checkOverlapping(m_showview->getTimeFromCursor(), copyDuration) == true)
@@ -792,6 +875,23 @@ void ShowManager::slotPaste()
             track->addFunctionID(audio->id());
             m_showview->addAudio(audio);
         }
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+        else if (clipboardCopy->type() == Function::Video)
+        {
+            if (m_doc->addFunction(newCopy) == false)
+            {
+                delete newCopy;
+                return;
+            }
+            Video *video = qobject_cast<Video*>(newCopy);
+            // Invalidate start time so the sequence will be pasted at the cursor position
+            video->setStartTime(UINT_MAX);
+
+            Track *track = m_show->getTrackFromSceneID(m_scene->id());
+            track->addFunctionID(video->id());
+            m_showview->addVideo(video);
+        }
+#endif
         else if (clipboardCopy->type() == Function::Scene)
         {
             if (m_doc->addFunction(newCopy) == false)
@@ -804,6 +904,9 @@ void ShowManager::slotPaste()
             m_showview->addTrack(newTrack);
             m_addSequenceAction->setEnabled(true);
             m_addAudioAction->setEnabled(true);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+            m_addVideoAction->setEnabled(true);
+#endif
             m_showview->activateTrack(newTrack);
             m_deleteAction->setEnabled(true);
             m_showview->updateViewSize();
@@ -813,11 +916,15 @@ void ShowManager::slotPaste()
 
 void ShowManager::slotDelete()
 {
-    // find out if we're deleting a sequence/audio or a track
+    // find out if we're deleting a sequence/audio/video or a track
     bool isTrack = true;
     if (m_showview->getSelectedSequence() != NULL ||
         m_showview->getSelectedAudio() != NULL)
             isTrack = false;
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    if (m_showview->getSelectedVideo() != NULL)
+        isTrack = false;
+#endif
     // get the ID of the function to delete (invalidId if nothing was selected)
     quint32 deleteID = m_showview->deleteSelectedFunction();
     if (deleteID != Function::invalidId())
@@ -954,6 +1061,38 @@ void ShowManager::slotAudioMoved(AudioItem *item)
     m_doc->setModified();
 }
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+void ShowManager::slotVideoMoved(VideoItem *item)
+{
+    qDebug() << Q_FUNC_INFO << "Video moved.........";
+    Video *video = item->getVideo();
+    if (video == NULL)
+        return;
+    // reverse lookup of Track from an Video item
+    foreach(Track *track, m_show->tracks())
+    {
+        foreach(quint32 fid, track->functionsID())
+        {
+            if (fid == video->id())
+            {
+                m_showview->activateTrack(track);
+                Function *f = m_doc->function(track->getSceneID());
+                if (f == NULL)
+                    return;
+                m_scene = qobject_cast<Scene*>(f);
+                showSceneEditor(NULL);
+            }
+        }
+    }
+
+    //showRightEditor(video);
+    m_copyAction->setEnabled(true);
+    m_deleteAction->setEnabled(true);
+    m_colorAction->setEnabled(true);
+    m_doc->setModified();
+}
+#endif
+
 void ShowManager::slotupdateTimeAndCursor(quint32 msec_time)
 {
     //qDebug() << Q_FUNC_INFO << "time: " << msec_time;
@@ -1028,6 +1167,18 @@ void ShowManager::slotChangeColor()
         audItem->setColor(color);
         return;
     }
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    VideoItem *vidItem = m_showview->getSelectedVideo();
+    if (vidItem != NULL)
+    {
+        QColor color = vidItem->getVideo()->getColor();
+
+    color = QColorDialog::getColor(color);
+        vidItem->getVideo()->setColor(color);
+        vidItem->setColor(color);
+        return;
+    }
+#endif
 }
 
 void ShowManager::slotToggleSnapToGrid(bool enable)
@@ -1077,6 +1228,9 @@ void ShowManager::slotDocClearing()
     m_addTrackAction->setEnabled(false);
     m_addSequenceAction->setEnabled(false);
     m_addAudioAction->setEnabled(false);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    m_addVideoAction->setEnabled(false);
+#endif
     m_copyAction->setEnabled(false);
     m_deleteAction->setEnabled(false);
     m_colorAction->setEnabled(false);
@@ -1207,9 +1361,15 @@ void ShowManager::updateMultiTrackView()
                 else if (fn->type() == Function::Audio)
                 {
                     Audio *audio = qobject_cast<Audio*>(m_doc->function(id));
-                    //audio->setSourceFileName(audio->getSourceFileName()); // kind of a dirty hack
                     m_showview->addAudio(audio);
                 }
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+                else if (fn->type() == Function::Video)
+                {
+                    Video *video = qobject_cast<Video*>(m_doc->function(id));
+                    m_showview->addVideo(video);
+                }
+#endif
             }
         }
     }
@@ -1223,11 +1383,17 @@ void ShowManager::updateMultiTrackView()
         m_copyAction->setEnabled(true);
         m_addSequenceAction->setEnabled(true);
         m_addAudioAction->setEnabled(true);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+        m_addVideoAction->setEnabled(true);
+#endif
     }
     else
     {
         m_addSequenceAction->setEnabled(false);
         m_addAudioAction->setEnabled(false);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+        m_addVideoAction->setEnabled(false);
+#endif
         m_scene = NULL;
         showSceneEditor(NULL);
     }
@@ -1269,6 +1435,18 @@ bool ShowManager::checkOverlapping(quint32 startTime, quint32 duration)
                     return true;
                 }
             }
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+            else if (func->type() == Function::Video)
+            {
+                Video *video = qobject_cast<Video*>(func);
+                quint32 audST = video->getStartTime();
+                if ((startTime >= audST && startTime <= audST + video->getDuration()) ||
+                    (audST >= startTime && audST <= startTime + duration))
+                {
+                    return true;
+                }
+            }
+#endif
         }
     }
 

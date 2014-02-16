@@ -124,6 +124,7 @@
         <file alias="undo.png">../../gfx/undo.png</file>
         <file alias="ungroup.png">../../gfx/ungroup.png</file>
         <file alias="up.png">../../gfx/up.png</file>
+        <file alias="video.png">../../gfx/video.png</file>
         <file alias="virtualconsole.png">../../gfx/virtualconsole.png</file>
         <file alias="wizard.png">../../gfx/wizard.png</file>
         <file alias="wizard_256.png">../../gfx/wizard_256.png</file>

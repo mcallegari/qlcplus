@@ -128,6 +128,9 @@ protected slots:
     void slotRGBMatrixChecked(bool state);
     void slotShowChecked(bool state);
     void slotAudioChecked(bool state);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    void slotVideoChecked(bool state);
+#endif
 
 private:
     int m_filter;

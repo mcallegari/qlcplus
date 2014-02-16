@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  audio.h
+  video.h
 
   Copyright (c) Massimo Callegari
 
@@ -17,28 +17,28 @@
   limitations under the License.
 */
 
-#ifndef AUDIO_H
-#define AUDIO_H
+#ifndef VIDEO_H
+#define VIDEO_H
 
+#include <QMediaPlayer>
 #include <QColor>
 
-#include "audiorenderer.h"
-#include "audiodecoder.h"
 #include "function.h"
 
 class QDomDocument;
+class QVideoWidget;
 
-class Audio : public Function
+class Video : public Function
 {
     Q_OBJECT
-    Q_DISABLE_COPY(Audio)
+    Q_DISABLE_COPY(Video)
 
     /*********************************************************************
      * Initialization
      *********************************************************************/
 public:
-    Audio(Doc* doc);
-    virtual ~Audio();
+    Video(Doc* doc);
+    virtual ~Video();
 
 private:
     Doc *m_doc;
@@ -99,41 +99,33 @@ public:
     QColor getColor();
 
     /**
-     * Set the source file name used by this Audio object
+     * Set the source file name used by this Video object
      */
     bool setSourceFileName(QString filename);
 
     /**
-     * Retrieve the source file name used by this Audio object
+     * Retrieve the source file name used by this Video object
      */
     QString getSourceFileName();
-
-    /**
-     * Retrieve the currently associated audio decoder
-     */
-    AudioDecoder* getAudioDecoder();
 
     void adjustAttribute(qreal fraction, int attributeIndex);
 
 protected slots:
-    void slotEndOfStream();
+    void slotStatusChanged(QMediaPlayer::MediaStatus status);
 
 private:
-#ifdef QT_PHONON_LIB
-    Phonon::MediaObject *m_object;
-#endif
-    /** Instance of an AudioDecoder to perform actual audio decoding */
-    AudioDecoder *m_decoder;
-    /** output interface to render audio data got from m_decoder */
-    AudioRenderer *m_audio_out;
-    /** Absolute start time of Audio over a timeline (in milliseconds) */
+    /** output interface to render video data */
+    QMediaPlayer *m_videoPlayer;
+
+    QVideoWidget *m_videoWidget;
+    /** Absolute start time of video over a timeline (in milliseconds) */
     quint32 m_startTime;
-    /** Color to use when displaying the audio object in the Show manager */
+    /** Color to use when displaying the video object in the Show manager */
     QColor m_color;
-    /** Name of the source audio file */
+    /** Name of the source video file */
     QString m_sourceFileName;
     /** Duration of the media object */
-    qint64 m_audioDuration;
+    qint64 m_videoDuration;
 
     /*********************************************************************
      * Save & Load
@@ -162,7 +154,7 @@ public:
     void postRun(MasterTimer* timer, QList<Universe *> universes);
 
 protected slots:
-    void slotTotalTimeChanged(qint64);
+    void slotTotalTimeChanged(qint64 duration);
 
 signals:
     void totalTimeChanged(qint64);

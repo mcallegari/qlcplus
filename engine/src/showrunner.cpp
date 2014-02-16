@@ -28,6 +28,9 @@
 #include "scene.h"
 #include "audio.h"
 #include "show.h"
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include "video.h"
+#endif
 
 #define TIMER_INTERVAL 50
 
@@ -42,6 +45,12 @@ static bool compareFunctions(const Function *f1, const Function *f2)
     {
         st1 = (qobject_cast<const Audio*> (f1))->getStartTime();
     }
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    else if (f1->type() == Function::Video)
+    {
+        st1 = (qobject_cast<const Video*> (f1))->getStartTime();
+    }
+#endif
     else
     {
         st1 = (qobject_cast<const Chaser*> (f1))->getStartTime();
@@ -51,6 +60,12 @@ static bool compareFunctions(const Function *f1, const Function *f2)
     {
         st2 = (qobject_cast<const Audio*> (f2))->getStartTime();
     }
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    else if (f2->type() == Function::Video)
+    {
+        st2 = (qobject_cast<const Video*> (f2))->getStartTime();
+    }
+#endif
     else
     {
         st2 = (qobject_cast<const Chaser*> (f2))->getStartTime();
@@ -119,6 +134,21 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
                 if (audio->getStartTime() + audio->getDuration() > m_totalRunTime)
                     m_totalRunTime = audio->getStartTime() + audio->getDuration();
             }
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+            else if (m_doc->function(funcID)->type() == Function::Video)
+            {
+                Video *video = qobject_cast<Video*> (m_doc->function(funcID));
+                if (video == NULL)
+                    continue;
+                if (video->getStartTime() + video->getDuration() <= startTime)
+                    continue;
+                m_functions.append(m_doc->function(funcID));
+                connect(video, SIGNAL(stopped(quint32)), this, SLOT(slotSequenceStopped(quint32)));
+                m_durations.append(video->getDuration());
+                if (video->getStartTime() + video->getDuration() > m_totalRunTime)
+                    m_totalRunTime = video->getStartTime() + video->getDuration();
+            }
+#endif
         }
 
         // Initialize the intensity map
@@ -180,6 +210,13 @@ void ShowRunner::write()
             Audio *audio = qobject_cast<Audio*>(f);
             funcStartTime = audio->getStartTime();
         }
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+        else if (f->type() == Function::Video)
+        {
+            Video *video = qobject_cast<Video*>(f);
+            funcStartTime = video->getStartTime();
+        }
+#endif
         // this should happen only when a Show is not started from 0
         if (m_elapsedTime > funcStartTime)
         {
@@ -243,6 +280,13 @@ void ShowRunner::adjustIntensity(qreal fraction, Track *track)
                 Audio *audio = qobject_cast<Audio*>(f);
                 audio->adjustAttribute(fraction, Function::Intensity);
             }
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+            else if (f->type() == Function::Video)
+            {
+                Video *video = qobject_cast<Video*>(f);
+                video->adjustAttribute(fraction, Function::Intensity);
+            }
+#endif
         }
     }
 }
