@@ -410,7 +410,7 @@ void FunctionSelection::slotAudioChecked(bool state)
     refillTree();
 }
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 void FunctionSelection::slotVideoChecked(bool state)
 {
     if (state == true)

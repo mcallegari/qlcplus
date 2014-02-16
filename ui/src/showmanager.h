@@ -158,7 +158,7 @@ protected slots:
     void slotViewClicked(QMouseEvent *event);
     void slotSequenceMoved(SequenceItem *);
     void slotAudioMoved(AudioItem *);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
     void slotVideoMoved(VideoItem *);
 #endif
     void slotUpdateTime(quint32 msec_time);

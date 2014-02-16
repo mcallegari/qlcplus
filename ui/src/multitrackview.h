@@ -153,7 +153,7 @@ private:
 signals:
     void sequenceMoved(SequenceItem *item);
     void audioMoved(AudioItem *item);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
     void videoMoved(VideoItem *item);
 #endif
     void viewClicked(QMouseEvent * e);
@@ -176,7 +176,7 @@ protected slots:
     void slotSequenceMoved(QGraphicsSceneMouseEvent *, AudioItem *);
     void slotAlignToCursor(SequenceItem *);
     void slotAlignToCursor(AudioItem *);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
     void slotSequenceMoved(QGraphicsSceneMouseEvent *, VideoItem *);
     void slotAlignToCursor(VideoItem *);
 #endif
