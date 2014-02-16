@@ -9,29 +9,29 @@
         <translation>Ce greffon active la sortie DMX pour</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="137"/>
+        <location filename="dmxusb.cpp" line="138"/>
         <source>and compatible devices.</source>
         <translation>et périphériques compatibles.</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="151"/>
+        <location filename="dmxusb.cpp" line="152"/>
         <source>No output support available.</source>
         <translation>Fonctions de Sorties indisponibles.</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="153"/>
+        <location filename="dmxusb.cpp" line="154"/>
         <source>Make sure that you have your hardware firmly plugged in. NOTE: FTDI VCP interface is not supported by this plugin.</source>
         <translation>Assurez vous que le périphérique est bien branché.
 NOTE : L&apos;interface VCP FTDI ne fonctionne pas avec ce greffon.</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="162"/>
-        <location filename="dmxusb.cpp" line="231"/>
+        <location filename="dmxusb.cpp" line="163"/>
+        <location filename="dmxusb.cpp" line="232"/>
         <source>Device is operating correctly.</source>
         <translation>Le périphérique fonctionne correctement.</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="218"/>
+        <location filename="dmxusb.cpp" line="219"/>
         <source>No input support available.</source>
         <translation>Fonctions d&apos;Entrées indisponibles.</translation>
     </message>
@@ -99,6 +99,7 @@ NOTE : L&apos;interface VCP FTDI ne fonctionne pas avec ce greffon.</translation
         <location filename="enttecdmxusbprorx.cpp" line="84"/>
         <location filename="enttecdmxusbprotx.cpp" line="127"/>
         <location filename="ultradmxusbprotx.cpp" line="73"/>
+        <location filename="vinceusbdmx512tx.cpp" line="49"/>
         <source>Protocol</source>
         <translation>Protocole</translation>
     </message>
@@ -107,6 +108,7 @@ NOTE : L&apos;interface VCP FTDI ne fonctionne pas avec ce greffon.</translation
         <location filename="enttecdmxusbprorx.cpp" line="91"/>
         <location filename="enttecdmxusbprotx.cpp" line="134"/>
         <location filename="ultradmxusbprotx.cpp" line="80"/>
+        <location filename="vinceusbdmx512tx.cpp" line="53"/>
         <source>Serial number</source>
         <translation>N° de Série</translation>
     </message>
@@ -125,6 +127,7 @@ NOTE : L&apos;interface VCP FTDI ne fonctionne pas avec ce greffon.</translation
         <location filename="ultradmxusbprotx.cpp" line="59"/>
         <location filename="ultradmxusbprotx.cpp" line="61"/>
         <location filename="ultradmxusbprotx.cpp" line="75"/>
+        <location filename="vinceusbdmx512tx.cpp" line="51"/>
         <source>Output</source>
         <translation>Sortie</translation>
     </message>

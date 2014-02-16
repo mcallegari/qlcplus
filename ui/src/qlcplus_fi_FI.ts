@@ -1987,12 +1987,12 @@ Duration: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="efxeditor.cpp" line="677"/>
+        <location filename="efxeditor.cpp" line="678"/>
         <source>Remove fixtures</source>
         <translation>Poista valaisimia</translation>
     </message>
     <message>
-        <location filename="efxeditor.cpp" line="678"/>
+        <location filename="efxeditor.cpp" line="679"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Haluatko poistaa valitut valaisimet?</translation>
     </message>
@@ -2473,168 +2473,191 @@ Duration: %3
 <context>
     <name>FunctionManager</name>
     <message>
-        <location filename="functionmanager.cpp" line="232"/>
+        <location filename="functionmanager.cpp" line="236"/>
         <source>New &amp;scene</source>
         <translation>Uusi &amp;tilanne</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="238"/>
+        <location filename="functionmanager.cpp" line="242"/>
         <source>New c&amp;haser</source>
         <translation>Uusi &amp;juoksutus</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="244"/>
+        <location filename="functionmanager.cpp" line="248"/>
         <source>New se&amp;quence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="251"/>
+        <location filename="functionmanager.cpp" line="255"/>
         <source>New c&amp;ollection</source>
         <translation>Uusi &amp;kokoelma</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="257"/>
+        <location filename="functionmanager.cpp" line="261"/>
         <source>New E&amp;FX</source>
         <translation>Uusi &amp;EFX</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="263"/>
+        <location filename="functionmanager.cpp" line="267"/>
         <source>New &amp;RGB Matrix</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="269"/>
+        <location filename="functionmanager.cpp" line="273"/>
         <source>New scrip&amp;t</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="350"/>
+        <location filename="functionmanager.cpp" line="364"/>
         <source>New Scene</source>
         <translation type="unfinished">Uusi tilanne</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="363"/>
+        <location filename="functionmanager.cpp" line="377"/>
         <source>New Chaser</source>
         <translation type="unfinished">Uusi juoksutus</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="386"/>
+        <location filename="functionmanager.cpp" line="400"/>
         <source>New Sequence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="299"/>
+        <location filename="functionmanager.cpp" line="310"/>
         <source>&amp;Clone</source>
         <translation>K&amp;loonaa</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="275"/>
+        <location filename="functionmanager.cpp" line="279"/>
         <source>New au&amp;dio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="281"/>
-        <source>New fo&amp;lder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="functionmanager.cpp" line="287"/>
-        <source>Select Startup Function</source>
+        <location filename="functionmanager.cpp" line="286"/>
+        <source>New vid&amp;eo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="292"/>
+        <source>New fo&amp;lder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="functionmanager.cpp" line="298"/>
+        <source>Select Startup Function</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="functionmanager.cpp" line="303"/>
         <source>Function &amp;Wizard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="305"/>
+        <location filename="functionmanager.cpp" line="316"/>
         <source>&amp;Delete</source>
         <translation>&amp;Poista</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="311"/>
+        <location filename="functionmanager.cpp" line="322"/>
         <source>Select &amp;all</source>
         <translation>Valitse k&amp;aikki</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="399"/>
+        <location filename="functionmanager.cpp" line="413"/>
         <source>New Collection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="412"/>
+        <location filename="functionmanager.cpp" line="426"/>
         <source>New EFX</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="425"/>
+        <location filename="functionmanager.cpp" line="439"/>
         <source>New RGB Matrix</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="438"/>
+        <location filename="functionmanager.cpp" line="452"/>
         <source>New Script</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="450"/>
+        <location filename="functionmanager.cpp" line="464"/>
+        <location filename="functionmanager.cpp" line="517"/>
         <source>Open Audio File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="476"/>
+        <location filename="functionmanager.cpp" line="472"/>
         <source>Audio Files (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="478"/>
+        <location filename="functionmanager.cpp" line="474"/>
+        <location filename="functionmanager.cpp" line="527"/>
         <source>All Files (*.*)</source>
         <translation type="unfinished">Kaikki tiedostot (*.*)</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="480"/>
+        <location filename="functionmanager.cpp" line="476"/>
+        <location filename="functionmanager.cpp" line="529"/>
         <source>All Files (*)</source>
         <translation type="unfinished">Kaikki tiedostot (*)</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="502"/>
+        <location filename="functionmanager.cpp" line="498"/>
         <source>Unsupported audio file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="502"/>
+        <location filename="functionmanager.cpp" line="498"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="562"/>
+        <location filename="functionmanager.cpp" line="525"/>
+        <source>Video Files (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="functionmanager.cpp" line="551"/>
+        <source>Unsupported video file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="functionmanager.cpp" line="551"/>
+        <source>This video file cannot be played with QLC+. Sorry.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="functionmanager.cpp" line="612"/>
         <source>Do you want to DELETE folder:</source>
         <oldsource>Do you want to DELETE foler:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="564"/>
+        <location filename="functionmanager.cpp" line="614"/>
         <source>Do you want to DELETE functions:</source>
         <translation>Haluatko POISTAA funktiot:</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="576"/>
+        <location filename="functionmanager.cpp" line="626"/>
         <source>(This will also DELETE: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="588"/>
+        <location filename="functionmanager.cpp" line="638"/>
         <source>Delete Functions</source>
         <translation>Poista funktioita</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="694"/>
+        <location filename="functionmanager.cpp" line="744"/>
         <source>Function</source>
         <translation>Funktio</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="807"/>
+        <location filename="functionmanager.cpp" line="861"/>
         <source> (Copy)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2719,6 +2742,11 @@ Duration: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="functionselection.ui" line="154"/>
+        <source>Video</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="functionselection.ui" line="103"/>
         <source>Chasers</source>
         <translation>Juoksutukset</translation>
@@ -2734,12 +2762,12 @@ Duration: %3
         <translation>Kokoelmat</translation>
     </message>
     <message>
-        <location filename="functionselection.cpp" line="70"/>
+        <location filename="functionselection.cpp" line="74"/>
         <source>Functions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionselection.cpp" line="264"/>
+        <location filename="functionselection.cpp" line="284"/>
         <source>&lt;No function&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3081,79 +3109,79 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="395"/>
-        <location filename="inputoutputpatcheditor.cpp" line="413"/>
+        <location filename="inputoutputpatcheditor.cpp" line="400"/>
+        <location filename="inputoutputpatcheditor.cpp" line="418"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="396"/>
-        <location filename="inputoutputpatcheditor.cpp" line="414"/>
+        <location filename="inputoutputpatcheditor.cpp" line="401"/>
+        <location filename="inputoutputpatcheditor.cpp" line="419"/>
         <source>Output line already assigned</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="636"/>
-        <location filename="inputoutputpatcheditor.cpp" line="770"/>
+        <location filename="inputoutputpatcheditor.cpp" line="641"/>
+        <location filename="inputoutputpatcheditor.cpp" line="775"/>
         <source>Existing Input Profile</source>
         <translation type="unfinished">Olemassaoleva sisääntuloprofiili</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="637"/>
-        <location filename="inputoutputpatcheditor.cpp" line="771"/>
+        <location filename="inputoutputpatcheditor.cpp" line="642"/>
+        <location filename="inputoutputpatcheditor.cpp" line="776"/>
         <source>An input profile at %1 already exists. Do you wish to overwrite it?</source>
         <translation type="unfinished">Sisääntuloprofiili %1 on jo olemassa. Haluatko ylikirjoittaa sen?</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="646"/>
-        <location filename="inputoutputpatcheditor.cpp" line="780"/>
+        <location filename="inputoutputpatcheditor.cpp" line="651"/>
+        <location filename="inputoutputpatcheditor.cpp" line="785"/>
         <source>Save Input Profile</source>
         <translation type="unfinished">Tallenna sisääntuloprofiili</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="647"/>
-        <location filename="inputoutputpatcheditor.cpp" line="781"/>
+        <location filename="inputoutputpatcheditor.cpp" line="652"/>
+        <location filename="inputoutputpatcheditor.cpp" line="786"/>
         <source>Input Profiles (*.qxi)</source>
         <translation type="unfinished">Sisääntuloprofiilit (*.qxi)</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="660"/>
-        <location filename="inputoutputpatcheditor.cpp" line="797"/>
+        <location filename="inputoutputpatcheditor.cpp" line="665"/>
+        <location filename="inputoutputpatcheditor.cpp" line="802"/>
         <source>Saving failed</source>
         <translation type="unfinished">Tallennus epäonnistui</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="661"/>
+        <location filename="inputoutputpatcheditor.cpp" line="666"/>
         <source>Unable to save the profile to %1</source>
         <translation type="unfinished">Profiilia ei voida tallentaa tiedostoon %1</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="698"/>
+        <location filename="inputoutputpatcheditor.cpp" line="703"/>
         <source>Delete profile</source>
         <translation type="unfinished">Poista profiili</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="699"/>
+        <location filename="inputoutputpatcheditor.cpp" line="704"/>
         <source>Do you wish to permanently delete profile &quot;%1&quot;?</source>
         <translation type="unfinished">Haluat poistaa profiilin %1 pysyvästi?</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="727"/>
+        <location filename="inputoutputpatcheditor.cpp" line="732"/>
         <source>File deletion failed</source>
         <translation type="unfinished">Tiedoston poisto epäonnistui</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="728"/>
+        <location filename="inputoutputpatcheditor.cpp" line="733"/>
         <source>Unable to delete file %1</source>
         <translation type="unfinished">Tiedostoa %1 ei voida poistaa</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="798"/>
+        <location filename="inputoutputpatcheditor.cpp" line="803"/>
         <source>Unable to save %1 to %2</source>
         <translation type="unfinished">Profiilia %1 ei voida tallentaa tiedostoon %2</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="827"/>
+        <location filename="inputoutputpatcheditor.cpp" line="835"/>
         <source>Default device</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3399,49 +3427,61 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
 <context>
     <name>MultiTrackView</name>
     <message>
-        <location filename="multitrackview.cpp" line="409"/>
+        <location filename="multitrackview.cpp" line="492"/>
         <source>Click to move this sequence across the timeline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="419"/>
+        <location filename="multitrackview.cpp" line="502"/>
         <source>Click to move this audio across the timeline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="262"/>
+        <location filename="multitrackview.cpp" line="311"/>
         <source>Do you want to DELETE sequence:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="265"/>
-        <location filename="multitrackview.cpp" line="285"/>
-        <location filename="multitrackview.cpp" line="319"/>
+        <location filename="multitrackview.cpp" line="314"/>
+        <location filename="multitrackview.cpp" line="334"/>
+        <location filename="multitrackview.cpp" line="356"/>
+        <location filename="multitrackview.cpp" line="391"/>
         <source>Delete Functions</source>
         <translation type="unfinished">Poista funktioita</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="281"/>
+        <location filename="multitrackview.cpp" line="330"/>
         <source>Do you want to DELETE audio (the source file will NOT be removed):</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="306"/>
+        <location filename="multitrackview.cpp" line="352"/>
+        <source>Do you want to DELETE video (the source file will NOT be removed):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="multitrackview.cpp" line="378"/>
         <source>Do you want to DELETE scene:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="309"/>
+        <location filename="multitrackview.cpp" line="381"/>
         <source>This operation will also DELETE:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="405"/>
-        <location filename="multitrackview.cpp" line="415"/>
+        <location filename="multitrackview.cpp" line="488"/>
+        <location filename="multitrackview.cpp" line="498"/>
+        <location filename="multitrackview.cpp" line="509"/>
         <source>Name: %1
 Start time: %2
 Duration: %3
 %4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="multitrackview.cpp" line="513"/>
+        <source>Click to move this video across the timeline</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4259,151 +4299,180 @@ Duration: %2
 <context>
     <name>ShowManager</name>
     <message>
-        <location filename="showmanager.cpp" line="175"/>
+        <location filename="showmanager.cpp" line="180"/>
         <source>New s&amp;how</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="181"/>
+        <location filename="showmanager.cpp" line="186"/>
         <source>New &amp;track</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="187"/>
+        <location filename="showmanager.cpp" line="192"/>
         <source>New s&amp;equence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="193"/>
+        <location filename="showmanager.cpp" line="198"/>
         <source>New &amp;audio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="199"/>
-        <source>&amp;Copy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="showmanager.cpp" line="206"/>
-        <source>&amp;Paste</source>
+        <location filename="showmanager.cpp" line="205"/>
+        <source>New vi&amp;deo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="212"/>
-        <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Poista</translation>
+        <source>&amp;Copy</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="219"/>
-        <source>Change Co&amp;lor</source>
+        <source>&amp;Paste</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="226"/>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Poista</translation>
+    </message>
+    <message>
+        <location filename="showmanager.cpp" line="233"/>
+        <source>Change Co&amp;lor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager.cpp" line="240"/>
         <source>Snap to &amp;Grid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="233"/>
+        <location filename="showmanager.cpp" line="247"/>
         <source>St&amp;op</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="239"/>
+        <location filename="showmanager.cpp" line="253"/>
         <source>&amp;Play</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="295"/>
+        <location filename="showmanager.cpp" line="312"/>
         <source>Time division:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="300"/>
+        <location filename="showmanager.cpp" line="317"/>
         <source>Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="470"/>
+        <location filename="showmanager.cpp" line="490"/>
         <source>New Show</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="471"/>
+        <location filename="showmanager.cpp" line="491"/>
         <source>Show name setup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="472"/>
+        <location filename="showmanager.cpp" line="492"/>
         <source>Show name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="518"/>
+        <location filename="showmanager.cpp" line="538"/>
         <source>New Scene</source>
         <translation type="unfinished">Uusi tilanne</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="569"/>
-        <location filename="showmanager.cpp" line="605"/>
+        <location filename="showmanager.cpp" line="589"/>
+        <location filename="showmanager.cpp" line="628"/>
         <source>New Sequence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="593"/>
-        <location filename="showmanager.cpp" line="678"/>
+        <location filename="showmanager.cpp" line="616"/>
+        <location filename="showmanager.cpp" line="684"/>
+        <location filename="showmanager.cpp" line="745"/>
         <source>Overlapping error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="593"/>
-        <location filename="showmanager.cpp" line="678"/>
+        <location filename="showmanager.cpp" line="616"/>
+        <location filename="showmanager.cpp" line="684"/>
+        <location filename="showmanager.cpp" line="745"/>
         <source>Overlapping not allowed. Operation cancelled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="619"/>
+        <location filename="showmanager.cpp" line="642"/>
         <source>Open Audio File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="645"/>
+        <location filename="showmanager.cpp" line="651"/>
         <source>Audio Files (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="647"/>
+        <location filename="showmanager.cpp" line="653"/>
+        <location filename="showmanager.cpp" line="714"/>
         <source>All Files (*.*)</source>
         <translation type="unfinished">Kaikki tiedostot (*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="649"/>
+        <location filename="showmanager.cpp" line="655"/>
+        <location filename="showmanager.cpp" line="716"/>
         <source>All Files (*)</source>
         <translation type="unfinished">Kaikki tiedostot (*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="671"/>
+        <location filename="showmanager.cpp" line="677"/>
         <source>Unsupported audio file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="671"/>
+        <location filename="showmanager.cpp" line="677"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="739"/>
-        <location filename="showmanager.cpp" line="761"/>
+        <location filename="showmanager.cpp" line="703"/>
+        <source>Open Video File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager.cpp" line="712"/>
+        <source>Video Files (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager.cpp" line="738"/>
+        <source>Unsupported video file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager.cpp" line="738"/>
+        <source>This video file cannot be played with QLC+. Sorry.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager.cpp" line="822"/>
+        <location filename="showmanager.cpp" line="844"/>
         <source>Paste error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="739"/>
+        <location filename="showmanager.cpp" line="822"/>
         <source>Overlapping paste not allowed. Operation cancelled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="761"/>
+        <location filename="showmanager.cpp" line="844"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6373,6 +6442,29 @@ Duration: %2
         <location filename="vcxypadproperties.cpp" line="230"/>
         <source>Do you want to remove the selected fixtures?</source>
         <translation>Haluatko poistaa valitut valaisimet?</translation>
+    </message>
+</context>
+<context>
+    <name>VideoItem</name>
+    <message>
+        <location filename="sceneitems.cpp" line="1127"/>
+        <location filename="sceneitems.cpp" line="1229"/>
+        <source>Name: %1
+Start time: %2
+Duration: %3
+%4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sceneitems.cpp" line="1131"/>
+        <location filename="sceneitems.cpp" line="1233"/>
+        <source>Click to move this video across the timeline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sceneitems.cpp" line="1145"/>
+        <source>Align to cursor</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -1985,12 +1985,12 @@ Maak Fixture Group</translation>
         <translation>&amp;Test en Run</translation>
     </message>
     <message>
-        <location filename="efxeditor.cpp" line="677"/>
+        <location filename="efxeditor.cpp" line="678"/>
         <source>Remove fixtures</source>
         <translation>Verwijder fixtures</translation>
     </message>
     <message>
-        <location filename="efxeditor.cpp" line="678"/>
+        <location filename="efxeditor.cpp" line="679"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Wil je de geselecteerde fixtures verwijderen?</translation>
     </message>
@@ -2468,168 +2468,191 @@ Maak Fixture Group</translation>
 <context>
     <name>FunctionManager</name>
     <message>
-        <location filename="functionmanager.cpp" line="232"/>
+        <location filename="functionmanager.cpp" line="236"/>
         <source>New &amp;scene</source>
         <translation>Nieuwe &amp;scene</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="238"/>
+        <location filename="functionmanager.cpp" line="242"/>
         <source>New c&amp;haser</source>
         <translation>Nieuwe c&amp;haser</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="244"/>
+        <location filename="functionmanager.cpp" line="248"/>
         <source>New se&amp;quence</source>
         <translation>Nieuwe se&amp;quence</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="251"/>
+        <location filename="functionmanager.cpp" line="255"/>
         <source>New c&amp;ollection</source>
         <translation>Nieuwe c&amp;ollection</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="257"/>
+        <location filename="functionmanager.cpp" line="261"/>
         <source>New E&amp;FX</source>
         <translation>Nieuwe E&amp;FX</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="263"/>
+        <location filename="functionmanager.cpp" line="267"/>
         <source>New &amp;RGB Matrix</source>
         <translation>Nieuwe &amp;RGB Matrix</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="269"/>
+        <location filename="functionmanager.cpp" line="273"/>
         <source>New scrip&amp;t</source>
         <translation>Nieuw scrip&amp;t</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="275"/>
+        <location filename="functionmanager.cpp" line="279"/>
         <source>New au&amp;dio</source>
         <translation>Nieuw au&amp;dio</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="281"/>
-        <source>New fo&amp;lder</source>
-        <translation>Nieuwe map (fo&amp;lder)</translation>
-    </message>
-    <message>
-        <location filename="functionmanager.cpp" line="287"/>
-        <source>Select Startup Function</source>
+        <location filename="functionmanager.cpp" line="286"/>
+        <source>New vid&amp;eo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="292"/>
+        <source>New fo&amp;lder</source>
+        <translation>Nieuwe map (fo&amp;lder)</translation>
+    </message>
+    <message>
+        <location filename="functionmanager.cpp" line="298"/>
+        <source>Select Startup Function</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="functionmanager.cpp" line="303"/>
         <source>Function &amp;Wizard</source>
         <translation>Function &amp;Wizard</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="299"/>
+        <location filename="functionmanager.cpp" line="310"/>
         <source>&amp;Clone</source>
         <translation>&amp;Klonen</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="305"/>
+        <location filename="functionmanager.cpp" line="316"/>
         <source>&amp;Delete</source>
         <translation>&amp;Delete</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="311"/>
+        <location filename="functionmanager.cpp" line="322"/>
         <source>Select &amp;all</source>
         <translation>Selecteer &amp;alles</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="350"/>
+        <location filename="functionmanager.cpp" line="364"/>
         <source>New Scene</source>
         <translation>Nieuwe Scene</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="363"/>
+        <location filename="functionmanager.cpp" line="377"/>
         <source>New Chaser</source>
         <translation>Nieuwe Chaser</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="386"/>
+        <location filename="functionmanager.cpp" line="400"/>
         <source>New Sequence</source>
         <translation>Nieuwe Sequence</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="399"/>
+        <location filename="functionmanager.cpp" line="413"/>
         <source>New Collection</source>
         <translation>Nieuwe Collection</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="412"/>
+        <location filename="functionmanager.cpp" line="426"/>
         <source>New EFX</source>
         <translation>Nieuwe EFX</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="425"/>
+        <location filename="functionmanager.cpp" line="439"/>
         <source>New RGB Matrix</source>
         <translation>Nieuwe RGB Matrix</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="438"/>
+        <location filename="functionmanager.cpp" line="452"/>
         <source>New Script</source>
         <translation>Nieuw Script</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="450"/>
+        <location filename="functionmanager.cpp" line="464"/>
+        <location filename="functionmanager.cpp" line="517"/>
         <source>Open Audio File</source>
         <translation>Open Audio bestand</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="476"/>
+        <location filename="functionmanager.cpp" line="472"/>
         <source>Audio Files (%1)</source>
         <translation>Audio Bestanden (%1)</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="478"/>
+        <location filename="functionmanager.cpp" line="474"/>
+        <location filename="functionmanager.cpp" line="527"/>
         <source>All Files (*.*)</source>
         <translation>Alle bestanden (*.*)</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="480"/>
+        <location filename="functionmanager.cpp" line="476"/>
+        <location filename="functionmanager.cpp" line="529"/>
         <source>All Files (*)</source>
         <translation>Alle bestanden (*)</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="502"/>
+        <location filename="functionmanager.cpp" line="498"/>
         <source>Unsupported audio file</source>
         <translation>Niet ondersteunde audio besatnd</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="502"/>
+        <location filename="functionmanager.cpp" line="498"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation>Dit audio bestand kan niet worden afgespeeld met QLC+. Excuus.</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="562"/>
+        <location filename="functionmanager.cpp" line="525"/>
+        <source>Video Files (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="functionmanager.cpp" line="551"/>
+        <source>Unsupported video file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="functionmanager.cpp" line="551"/>
+        <source>This video file cannot be played with QLC+. Sorry.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="functionmanager.cpp" line="612"/>
         <source>Do you want to DELETE folder:</source>
         <oldsource>Do you want to DELETE foler:</oldsource>
         <translation>VERWIJDER map:</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="564"/>
+        <location filename="functionmanager.cpp" line="614"/>
         <source>Do you want to DELETE functions:</source>
         <translation>VERWIJDER functions:</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="576"/>
+        <location filename="functionmanager.cpp" line="626"/>
         <source>(This will also DELETE: </source>
         <translation>Dit VERWIJDERT tevens: </translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="588"/>
+        <location filename="functionmanager.cpp" line="638"/>
         <source>Delete Functions</source>
         <translation>Verwijder functions</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="694"/>
+        <location filename="functionmanager.cpp" line="744"/>
         <source>Function</source>
         <translation>Function</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="807"/>
+        <location filename="functionmanager.cpp" line="861"/>
         <source> (Copy)</source>
         <translation>(Copy)</translation>
     </message>
@@ -2729,12 +2752,17 @@ Maak Fixture Group</translation>
         <translation>Audio</translation>
     </message>
     <message>
-        <location filename="functionselection.cpp" line="70"/>
+        <location filename="functionselection.ui" line="154"/>
+        <source>Video</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="functionselection.cpp" line="74"/>
         <source>Functions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionselection.cpp" line="264"/>
+        <location filename="functionselection.cpp" line="284"/>
         <source>&lt;No function&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3102,79 +3130,79 @@ Terugkoppeling</translation>
         <translation>Audio</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="395"/>
-        <location filename="inputoutputpatcheditor.cpp" line="413"/>
+        <location filename="inputoutputpatcheditor.cpp" line="400"/>
+        <location filename="inputoutputpatcheditor.cpp" line="418"/>
         <source>Error</source>
         <translation>Fout</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="396"/>
-        <location filename="inputoutputpatcheditor.cpp" line="414"/>
+        <location filename="inputoutputpatcheditor.cpp" line="401"/>
+        <location filename="inputoutputpatcheditor.cpp" line="419"/>
         <source>Output line already assigned</source>
         <translation>Output line is al toegewezen</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="636"/>
-        <location filename="inputoutputpatcheditor.cpp" line="770"/>
+        <location filename="inputoutputpatcheditor.cpp" line="641"/>
+        <location filename="inputoutputpatcheditor.cpp" line="775"/>
         <source>Existing Input Profile</source>
         <translation>Bestaand Input Profiel</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="637"/>
-        <location filename="inputoutputpatcheditor.cpp" line="771"/>
+        <location filename="inputoutputpatcheditor.cpp" line="642"/>
+        <location filename="inputoutputpatcheditor.cpp" line="776"/>
         <source>An input profile at %1 already exists. Do you wish to overwrite it?</source>
         <translation>Input profiel %1 bestaat al. Overschijven?</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="646"/>
-        <location filename="inputoutputpatcheditor.cpp" line="780"/>
+        <location filename="inputoutputpatcheditor.cpp" line="651"/>
+        <location filename="inputoutputpatcheditor.cpp" line="785"/>
         <source>Save Input Profile</source>
         <translation>Sla input profiel op</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="647"/>
-        <location filename="inputoutputpatcheditor.cpp" line="781"/>
+        <location filename="inputoutputpatcheditor.cpp" line="652"/>
+        <location filename="inputoutputpatcheditor.cpp" line="786"/>
         <source>Input Profiles (*.qxi)</source>
         <translation>Input Profielen (*.qxi)</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="660"/>
-        <location filename="inputoutputpatcheditor.cpp" line="797"/>
+        <location filename="inputoutputpatcheditor.cpp" line="665"/>
+        <location filename="inputoutputpatcheditor.cpp" line="802"/>
         <source>Saving failed</source>
         <translation>Opslaan mislukt</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="661"/>
+        <location filename="inputoutputpatcheditor.cpp" line="666"/>
         <source>Unable to save the profile to %1</source>
         <translation>Opslaan als %1 lukt niet</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="698"/>
+        <location filename="inputoutputpatcheditor.cpp" line="703"/>
         <source>Delete profile</source>
         <translation>Verwijder profiel</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="699"/>
+        <location filename="inputoutputpatcheditor.cpp" line="704"/>
         <source>Do you wish to permanently delete profile &quot;%1&quot;?</source>
         <translation>Profiel &quot;%1% definitief verwijderen?</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="727"/>
+        <location filename="inputoutputpatcheditor.cpp" line="732"/>
         <source>File deletion failed</source>
         <translation>Verwijderen bestand mislukt</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="728"/>
+        <location filename="inputoutputpatcheditor.cpp" line="733"/>
         <source>Unable to delete file %1</source>
         <translation>Verwijderen bestand %1 mislukt</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="798"/>
+        <location filename="inputoutputpatcheditor.cpp" line="803"/>
         <source>Unable to save %1 to %2</source>
         <translation>%1 opslaan als %2 mislukt</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="827"/>
+        <location filename="inputoutputpatcheditor.cpp" line="835"/>
         <source>Default device</source>
         <translation>Standaard apparaat</translation>
     </message>
@@ -3420,35 +3448,42 @@ Noot: de wizard maakt geen onderscheid tussen een knop of een slider, deze zal h
 <context>
     <name>MultiTrackView</name>
     <message>
-        <location filename="multitrackview.cpp" line="262"/>
+        <location filename="multitrackview.cpp" line="311"/>
         <source>Do you want to DELETE sequence:</source>
         <translation>VERWIJDER sequence:</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="265"/>
-        <location filename="multitrackview.cpp" line="285"/>
-        <location filename="multitrackview.cpp" line="319"/>
+        <location filename="multitrackview.cpp" line="314"/>
+        <location filename="multitrackview.cpp" line="334"/>
+        <location filename="multitrackview.cpp" line="356"/>
+        <location filename="multitrackview.cpp" line="391"/>
         <source>Delete Functions</source>
         <translation>Verwijder functions</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="281"/>
+        <location filename="multitrackview.cpp" line="330"/>
         <source>Do you want to DELETE audio (the source file will NOT be removed):</source>
         <translation>VERWIJDER audio (het bronbestand wordt NIET verwijderd):</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="306"/>
+        <location filename="multitrackview.cpp" line="352"/>
+        <source>Do you want to DELETE video (the source file will NOT be removed):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="multitrackview.cpp" line="378"/>
         <source>Do you want to DELETE scene:</source>
         <translation>VERWIJDER scene:</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="309"/>
+        <location filename="multitrackview.cpp" line="381"/>
         <source>This operation will also DELETE:</source>
         <translation>Deze bewerkingen zal tevens VERWIJDEREN:</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="405"/>
-        <location filename="multitrackview.cpp" line="415"/>
+        <location filename="multitrackview.cpp" line="488"/>
+        <location filename="multitrackview.cpp" line="498"/>
+        <location filename="multitrackview.cpp" line="509"/>
         <source>Name: %1
 Start time: %2
 Duration: %3
@@ -3459,14 +3494,19 @@ Duur: %3
 %4</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="409"/>
+        <location filename="multitrackview.cpp" line="492"/>
         <source>Click to move this sequence across the timeline</source>
         <translation>Klik om deze sequence te verplaatsen over de tijdslijn</translation>
     </message>
     <message>
-        <location filename="multitrackview.cpp" line="419"/>
+        <location filename="multitrackview.cpp" line="502"/>
         <source>Click to move this audio across the timeline</source>
         <translation>Klik om deze audio te verplaatsen over de tijdslijn</translation>
+    </message>
+    <message>
+        <location filename="multitrackview.cpp" line="513"/>
+        <source>Click to move this video across the timeline</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4284,151 +4324,180 @@ Duur: %3
 <context>
     <name>ShowManager</name>
     <message>
-        <location filename="showmanager.cpp" line="175"/>
+        <location filename="showmanager.cpp" line="180"/>
         <source>New s&amp;how</source>
         <translation>Nieuwe s&amp;how</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="181"/>
+        <location filename="showmanager.cpp" line="186"/>
         <source>New &amp;track</source>
         <translation>Nieuwe &amp;track</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="187"/>
+        <location filename="showmanager.cpp" line="192"/>
         <source>New s&amp;equence</source>
         <translation>Nieuwe s&amp;equence</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="193"/>
+        <location filename="showmanager.cpp" line="198"/>
         <source>New &amp;audio</source>
         <translation>Nieuwe &amp;auido</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="199"/>
+        <location filename="showmanager.cpp" line="205"/>
+        <source>New vi&amp;deo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager.cpp" line="212"/>
         <source>&amp;Copy</source>
         <translation>&amp;C Kopieeren</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="206"/>
+        <location filename="showmanager.cpp" line="219"/>
         <source>&amp;Paste</source>
         <translation>&amp;Plakken</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="212"/>
+        <location filename="showmanager.cpp" line="226"/>
         <source>&amp;Delete</source>
         <translation>&amp;D Verwijderen</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="219"/>
+        <location filename="showmanager.cpp" line="233"/>
         <source>Change Co&amp;lor</source>
         <translation>Wijzig k&amp;leur</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="226"/>
+        <location filename="showmanager.cpp" line="240"/>
         <source>Snap to &amp;Grid</source>
         <translation>Lij uit op &amp;grid</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="233"/>
+        <location filename="showmanager.cpp" line="247"/>
         <source>St&amp;op</source>
         <translation>St&amp;op</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="239"/>
+        <location filename="showmanager.cpp" line="253"/>
         <source>&amp;Play</source>
         <translation>&amp;Play</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="295"/>
+        <location filename="showmanager.cpp" line="312"/>
         <source>Time division:</source>
         <translation>Tijdsverdeling:</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="300"/>
+        <location filename="showmanager.cpp" line="317"/>
         <source>Time</source>
         <translation>Tijd</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="470"/>
+        <location filename="showmanager.cpp" line="490"/>
         <source>New Show</source>
         <translation>Nieuwe show</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="471"/>
+        <location filename="showmanager.cpp" line="491"/>
         <source>Show name setup</source>
         <translation>Show name setup</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="472"/>
+        <location filename="showmanager.cpp" line="492"/>
         <source>Show name:</source>
         <translation>Show naam:</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="518"/>
+        <location filename="showmanager.cpp" line="538"/>
         <source>New Scene</source>
         <translation>Nieuwe Scene</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="569"/>
-        <location filename="showmanager.cpp" line="605"/>
+        <location filename="showmanager.cpp" line="589"/>
+        <location filename="showmanager.cpp" line="628"/>
         <source>New Sequence</source>
         <translation>Nieuwe Sequence</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="593"/>
-        <location filename="showmanager.cpp" line="678"/>
+        <location filename="showmanager.cpp" line="616"/>
+        <location filename="showmanager.cpp" line="684"/>
+        <location filename="showmanager.cpp" line="745"/>
         <source>Overlapping error</source>
         <translation>Overlap fout</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="593"/>
-        <location filename="showmanager.cpp" line="678"/>
+        <location filename="showmanager.cpp" line="616"/>
+        <location filename="showmanager.cpp" line="684"/>
+        <location filename="showmanager.cpp" line="745"/>
         <source>Overlapping not allowed. Operation cancelled.</source>
         <translation>Overlappen niet toegestaan. Bewerking geannuleerd.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="619"/>
+        <location filename="showmanager.cpp" line="642"/>
         <source>Open Audio File</source>
         <translation>Open Audio bestand</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="645"/>
+        <location filename="showmanager.cpp" line="651"/>
         <source>Audio Files (%1)</source>
         <translation>Audio Bestanden (%1)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="647"/>
+        <location filename="showmanager.cpp" line="653"/>
+        <location filename="showmanager.cpp" line="714"/>
         <source>All Files (*.*)</source>
         <translation>Alle bestanden(*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="649"/>
+        <location filename="showmanager.cpp" line="655"/>
+        <location filename="showmanager.cpp" line="716"/>
         <source>All Files (*)</source>
         <translation>Alle bestanden (*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="671"/>
+        <location filename="showmanager.cpp" line="677"/>
         <source>Unsupported audio file</source>
         <translation>Niet ondersteunde audio besatnd</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="671"/>
+        <location filename="showmanager.cpp" line="677"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation>Dit audio bestand kan niet worden afgespeeld met QLC+. Excuus.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="739"/>
-        <location filename="showmanager.cpp" line="761"/>
+        <location filename="showmanager.cpp" line="703"/>
+        <source>Open Video File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager.cpp" line="712"/>
+        <source>Video Files (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager.cpp" line="738"/>
+        <source>Unsupported video file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager.cpp" line="738"/>
+        <source>This video file cannot be played with QLC+. Sorry.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="showmanager.cpp" line="822"/>
+        <location filename="showmanager.cpp" line="844"/>
         <source>Paste error</source>
         <translation>Fout bij plakken</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="739"/>
+        <location filename="showmanager.cpp" line="822"/>
         <source>Overlapping paste not allowed. Operation cancelled.</source>
         <translation>Overlappen niet toegestaan. Bewerking geannuleerd.</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="761"/>
+        <location filename="showmanager.cpp" line="844"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
         <translation>Poging om een niet compatibele scene te plannen geannuleerd.</translation>
     </message>
@@ -6395,6 +6464,32 @@ Kies...</translation>
         <location filename="vcxypadproperties.cpp" line="230"/>
         <source>Do you want to remove the selected fixtures?</source>
         <translation>Wil je de geselecteerde fixtures verwijderen?</translation>
+    </message>
+</context>
+<context>
+    <name>VideoItem</name>
+    <message>
+        <location filename="sceneitems.cpp" line="1127"/>
+        <location filename="sceneitems.cpp" line="1229"/>
+        <source>Name: %1
+Start time: %2
+Duration: %3
+%4</source>
+        <translation type="unfinished">Naam: %1
+Start tijd: %2
+Duur: %3
+%4</translation>
+    </message>
+    <message>
+        <location filename="sceneitems.cpp" line="1131"/>
+        <location filename="sceneitems.cpp" line="1233"/>
+        <source>Click to move this video across the timeline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sceneitems.cpp" line="1145"/>
+        <source>Align to cursor</source>
+        <translation type="unfinished">Op lijn brenegn met cursor</translation>
     </message>
 </context>
 <context>
