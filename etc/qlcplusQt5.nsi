@@ -94,6 +94,7 @@ Section
 	File qlcpluswebaccess.dll
 	File Qt5Core.dll
 	File Qt5Gui.dll
+	File Qt5OpenGL.dll
 	File Qt5Xml.dll
 	File Qt5Network.dll
 	File Qt5Script.dll
@@ -103,6 +104,8 @@ Section
 	File icudt51.dll
 	File icuin51.dll
 	File icuuc51.dll
+	File /r platforms
+	File /r mediaservice
 	File Sample.qxw
 	File *.qm
 	File /r Documents
@@ -153,6 +156,7 @@ Section "Uninstall"
 	Delete $INSTDIR\libwinpthread-1.dll
 	Delete $INSTDIR\Qt5Core.dll
 	Delete $INSTDIR\Qt5Gui.dll
+	Delete $INSTDIR\Qt5OpenGL.dll
 	Delete $INSTDIR\Qt5Xml.dll
 	Delete $INSTDIR\Qt5Network.dll
 	Delete $INSTDIR\Qt5Script.dll
@@ -162,6 +166,8 @@ Section "Uninstall"
 	Delete $INSTDIR\icudt51.dll
 	Delete $INSTDIR\icuin51.dll
 	Delete $INSTDIR\icuuc51.dll
+	RMDir /r $INSTDIR\platforms
+	RMDir /r $INSTDIR\mediaservice
 	Delete $INSTDIR\Sample.qxw
 	Delete $INSTDIR\*.qm
 	RMDir /r $INSTDIR\Documents
@@ -170,7 +176,7 @@ Section "Uninstall"
 	RMDir /r $INSTDIR\InputProfiles
 	RMDir /r $INSTDIR\MidiTemplates
 	RMDir /r $INSTDIR\Plugins
-	RMDir /r $INSTDIR\RBGScripts
+	RMDir /r $INSTDIR\RGBScripts
 
 	RMDir $INSTDIR
 

@@ -78,6 +78,20 @@ lessThan(QT_MAJOR_VERSION, 5) {
 					$$(QTDIR)/bin/icuuc51.dll
 }
     INSTALLS += qtlibs
+	
+greaterThan(QT_MAJOR_VERSION, 4) {
+	qtplatform.path = $$INSTALLROOT/$$LIBSDIR/platforms
+	debug:qtplatform.files = $$(QTDIR)/plugins/platforms/qwindowsd.dll
+	release:qtplatform.files = $$(QTDIR)/plugins/platforms/qwindows.dll
+	INSTALLS += qtplatform
+	
+	qtmedia.path = $$INSTALLROOT/$$LIBSDIR/mediaservice
+	debug:qtmedia.files = $$(QTDIR)/plugins/mediaservice/dsengined.dll \
+						  $$(QTDIR)/plugins/mediaservice/qtmedia_audioengined.dll
+	release:qtmedia.files = $$(QTDIR)/plugins/mediaservice/dsengine.dll \
+							$$(QTDIR)/plugins/mediaservice/qtmedia_audioengined.dll
+	INSTALLS += qtmedia
+}
 
     # MinGW library
     mingw.path = $$INSTALLROOT/$$LIBSDIR
@@ -102,21 +116,18 @@ lessThan(QT_MAJOR_VERSION, 5) {
     exists($$(QTDIR)/../MinGW/bin/libstdc++-6.dll) {
         mingw.files += $$(QTDIR)/../MinGW/bin/libstdc++-6.dll
     }
+	exists($$(QTDIR)/../MinGW/bin/pthreadGC2.dll) {
+        mingw.files += $$(QTDIR)/../MinGW/bin/pthreadGC2.dll
+    }
 } else {
     exists($$(QTDIR)/bin/libstdc++-6.dll) {
         mingw.files += $$(QTDIR)/bin/libstdc++-6.dll
     }
-}
-	
-lessThan(QT_MAJOR_VERSION, 5) {
-    exists($$(QTDIR)/../MinGW/bin/pthreadGC2.dll) {
-        mingw.files += $$(QTDIR)/../MinGW/bin/pthreadGC2.dll
-    }
-} else {
-    exists($$(QTDIR)/bin/libwinpthread-1.dll) {
+	exists($$(QTDIR)/bin/libwinpthread-1.dll) {
         mingw.files += $$(QTDIR)/bin/libwinpthread-1.dll
     }
 }
+
     INSTALLS += mingw
 
 	# audio libraries
