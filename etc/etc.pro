@@ -38,8 +38,6 @@ macx {
 win32 {
     # Qt Libraries
     qtlibs.path  = $$INSTALLROOT/$$LIBSDIR
-	
-	message(Building with Qt dir: $$(QTDIR))
 
 lessThan(QT_MAJOR_VERSION, 5) {
     release:qtlibs.files = $$(QTDIR)/bin/QtCore4.dll \

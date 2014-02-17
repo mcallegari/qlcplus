@@ -46,6 +46,9 @@ serialport {
         }
         DEFINES     += FTD2XX
     } else {
+        greaterThan(QT_MAJOR_VERSION, 4) {
+            macx:QT_CONFIG -= no-pkg-config
+        }
         CONFIG      += link_pkgconfig
         PKGCONFIG   += libftdi libusb
         DEFINES     += LIBFTDI
