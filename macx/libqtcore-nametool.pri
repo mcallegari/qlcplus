@@ -1,4 +1,8 @@
-LIBQTCORE_DIR      = QtCore.framework/Versions/4
+lessThan(QT_MAJOR_VERSION, 5) {
+  LIBQTCORE_DIR      = QtCore.framework/Versions/4
+} else {
+  LIBQTCORE_DIR      = QtCore.framework/Versions/5
+}
 LIBQTCORE_FILE     = QtCore
 LIBQTCORE_FILEPATH = $$LIBQTCORE_DIR/$$LIBQTCORE_FILE
 
@@ -14,8 +18,12 @@ contains(QT, core) {
 }
 
 LIBQTCORE.path   = $$INSTALLROOT/$$LIBSDIR/$$LIBQTCORE_DIR
-LIBQTCORE.files += /Library/$$LIBSDIR/$$LIBQTCORE_FILEPATH
-
+lessThan(QT_MAJOR_VERSION, 5) {
+  LIBQTCORE.files += /Library/$$LIBSDIR/$$LIBQTCORE_FILEPATH
+} else {
+  message(Building with Qt: $$(QTDIR))
+  LIBQTCORE.files += $$(QTDIR)/lib/$$LIBQTCORE_FILEPATH
+}
 LIBQTCORE_INSTALL_NAME_TOOL_ID = install_name_tool -id @executable_path/../$$LIBSDIR/$$LIBQTCORE_DIR/$$LIBQTCORE_FILE \
                         $$INSTALLROOT/$$LIBSDIR/$$LIBQTCORE_DIR/$$LIBQTCORE_FILE
 LIBQTCORE_ID.path     = $$INSTALLROOT/$$LIBSDIR/$$LIBQTCORE_DIR

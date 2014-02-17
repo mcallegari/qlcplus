@@ -1,4 +1,8 @@
-LIBQTNETWORK_DIR      = QtNetwork.framework/Versions/4
+lessThan(QT_MAJOR_VERSION, 5) {
+  LIBQTNETWORK_DIR      = QtNetwork.framework/Versions/4
+} else {
+  LIBQTNETWORK_DIR      = QtNetwork.framework/Versions/5
+}
 LIBQTNETWORK_FILE     = QtNetwork
 LIBQTNETWORK_FILEPATH = $$LIBQTNETWORK_DIR/$$LIBQTNETWORK_FILE
 
@@ -14,7 +18,12 @@ contains(QT, network) {
 }
 
 LIBQTNETWORK.path   = $$INSTALLROOT/$$LIBSDIR/$$LIBQTNETWORK_DIR
-LIBQTNETWORK.files += /Library/$$LIBSDIR/$$LIBQTNETWORK_FILEPATH
+
+lessThan(QT_MAJOR_VERSION, 5) {
+  LIBQTNETWORK.files += /Library/$$LIBSDIR/$$LIBQTNETWORK_FILEPATH
+} else {
+  LIBQTNETWORK.files += $$(QTDIR)/lib/$$LIBQTNETWORK_FILEPATH
+}
 
 LIBQTNETWORK_INSTALL_NAME_TOOL_ID = install_name_tool -id @executable_path/../$$LIBSDIR/$$LIBQTNETWORK_DIR/$$LIBQTNETWORK_FILE \
                         $$INSTALLROOT/$$LIBSDIR/$$LIBQTNETWORK_DIR/$$LIBQTNETWORK_FILE
