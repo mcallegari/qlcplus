@@ -470,13 +470,13 @@ QString WebAccess::getFrameHTML(VCFrame *frame)
           "background-color: " + frame->backgroundColor().name() + "; "
           "border-radius: 4px;\n"
           "border: 1px solid " + border.name() + ";\">\n";
+    if (m_frameFound == false)
+    {
+        m_CSScode += frame->getCSS();
+        m_frameFound = true;
+    }
     if (frame->isHeaderVisible())
     {
-        if (m_frameFound == false)
-        {
-            m_CSScode += frame->getCSS();
-            m_frameFound = true;
-        }
         str += "<div class=\"vcframeHeader\" style=\"color:" +
                 frame->foregroundColor().name() + "\">" + frame->caption() + "</div>\n";
     }
