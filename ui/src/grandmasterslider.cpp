@@ -24,6 +24,7 @@
 #include <cmath>
 
 #include "grandmasterslider.h"
+#include "clickandgoslider.h"
 #include "virtualconsole.h"
 #include "vcproperties.h"
 #include "apputil.h"
@@ -34,7 +35,9 @@ GrandMasterSlider::GrandMasterSlider(QWidget* parent, InputOutputMap *ioMap)
 {
     Q_ASSERT(ioMap != NULL);
 
-    setFrameStyle(QFrame::Panel | QFrame::Sunken);
+    //setFrameStyle(QFrame::Panel | QFrame::Sunken);
+    setStyleSheet("QFrame { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D2D0, stop: 1 #AFACAB); "
+                  "border: 1px solid gray; border-radius: 4px; }");
     setSizePolicy(QSizePolicy::Maximum, QSizePolicy::MinimumExpanding);
 
     setMinimumSize(QSize(40, 100));
@@ -45,11 +48,32 @@ GrandMasterSlider::GrandMasterSlider(QWidget* parent, InputOutputMap *ioMap)
 
     m_valueLabel = new QLabel(this);
     m_valueLabel->setAlignment(Qt::AlignHCenter);
+    m_valueLabel->setStyleSheet("QFrame { background-color: transparent; border: 0px; border-radius: 0px; }");
     layout()->addWidget(m_valueLabel);
 
-    m_slider = new QSlider(this);
+    m_slider = new ClickAndGoSlider(this);
     m_slider->setRange(0, UCHAR_MAX);
-    m_slider->setStyle(AppUtil::saneStyle());
+    m_slider->setStyleSheet(
+        "QSlider::groove:vertical { background: transparent; width: 28px; } "
+
+        "QSlider::handle:vertical { "
+        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #A81919, stop:0.45 #DB2020, stop:0.50 #000, stop:0.55 #DB2020, stop:1 #A81919);"
+        "border: 1px solid #5c5c5c;"
+        "border-radius: 4px; margin: 0 -1px; height: 20px; }"
+
+        "QSlider::handle:vertical:hover {"
+        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #DB2020, stop:0.45 #F51C1C, stop:0.50 #fff, stop:0.55 #F51C1C, stop:1 #DB2020);"
+        "border: 1px solid #000; }"
+
+        "QSlider::add-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #78d, stop: 1 #97CDEC );"
+        "border: 1px solid #5288A7; margin: 0 11px; }"
+
+        "QSlider::sub-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #888, stop: 1 #ddd );"
+        "border: 1px solid #8E8A86; margin: 0 11px; }"
+
+        "QSlider::handle:vertical:disabled { background: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:0.45 #888, stop:0.50 #444, stop:0.55 #888, stop:1 #999);"
+        "border: 1px solid #666; }"
+        );
     m_slider->setMinimumSize(QSize(30, 50));
     m_slider->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::MinimumExpanding);
     layout()->addWidget(m_slider);
