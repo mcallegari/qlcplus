@@ -5,9 +5,10 @@ qlcplus (4.7.0) stable; urgency=low
   * NEW: Plugins: ArtNet and E1.31 plugins support up to 65535 universes
   * NEW: Monitor: preliminary support of 2D preview
   * NEW: Plugins: Added Vince DMX512 USB adapter support (thanks to Jérôme Lebleu)
-  * Function Selection: fixed Collection selection
+  * Function Selection: fixed OK button greyed out and various crashes
   * MIDI plugin: Linux support for pitch wheel and note/channel aftertouch (Jano Svitok)
   * MIDI plugin: improved pitch wheel and input/output settings (thanks to Robert Scheffler)
+  * Webaccess: fixed positioning of headerless frames
   * Documentation: Added Sound Control tutorial (Jano Svitok)
   * Added input profile: BCF2000 in Mackie Control mode - all buttons are usable (Jano Svitok)
   * Added fixtures: DTS Max FAR, DTS Nick NRG1201 (thanks to Vasily Leushin)

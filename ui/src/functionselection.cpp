@@ -315,7 +315,7 @@ void FunctionSelection::slotItemSelectionChanged()
     while (it.hasNext() == true)
     {
         quint32 id = it.next()->data(KColumnName, Qt::UserRole).toUInt();
-        if (m_selection.contains(id) == false)
+        if (id != Function::invalidId() && m_selection.contains(id) == false)
             m_selection.append(id);
 
         removeList.removeAll(id);
