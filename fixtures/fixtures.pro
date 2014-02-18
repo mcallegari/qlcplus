@@ -5,6 +5,7 @@ TARGET = fixtures
 
 fixtures.files += FixturesMap.xml
 fixtures.files += AGPtek-RGB-6ch-crystal-ball.qxf
+fixtures.files += Alkalite-Octopod-DP-80.qxf
 fixtures.files += American-DJ-64B-LED-PRO.qxf
 fixtures.files += American-DJ-Accu-Spot-250-II.qxf
 fixtures.files += American-DJ-Accu-Spot-Pro.qxf
@@ -96,6 +97,7 @@ fixtures.files += Electroconcept-PAR-56-LED-Full-RGB-18x3W.qxf
 fixtures.files += Eliminator-Electro-MH25R.qxf
 fixtures.files += Eurolite-DMXSuperstrobe-2700.qxf
 fixtures.files += Eurolite-LED-Bar-RGB-252_10_40__Indoor.qxf
+fixtures.files += Eurolite-LED-DMX-Pixel-Tube-16-RGB.qxf
 fixtures.files += Eurolite-LED-PAR56.qxf
 fixtures.files += Eurolite-LED-PAR64-RGBA.qxf
 fixtures.files += Eurolite-LED-PAR64-RGB.qxf
