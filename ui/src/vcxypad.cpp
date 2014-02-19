@@ -52,6 +52,9 @@
 const quint8 VCXYPad::panInputSourceId = 0;
 const quint8 VCXYPad::tiltInputSourceId = 1;
 
+const qreal MAX_VALUE = 256.0;
+const qreal MAX_DMX_VALUE = MAX_VALUE - 1.0/256;
+
 /*****************************************************************************
  * VCXYPad Initialization
  *****************************************************************************/
@@ -89,8 +92,8 @@ VCXYPad::VCXYPad(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_rvbox->addWidget(m_vSlider);
     m_rvbox->addSpacing(25);
 
-    m_vSlider->setRange(0, 255);
-    m_hSlider->setRange(0, 255);
+    m_vSlider->setRange(0, 256);
+    m_hSlider->setRange(0, 256);
     m_vSlider->setInvertedAppearance(true);
     m_vSlider->setTickPosition(QSlider::TicksLeft);
     m_vSlider->setTickInterval(16);
@@ -99,14 +102,14 @@ VCXYPad::VCXYPad(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_vSlider->setStyle(AppUtil::saneStyle());
     m_hSlider->setStyle(AppUtil::saneStyle());
 
-    m_hRangeSlider->setRange(0, 255);
+    m_hRangeSlider->setRange(0, 256);
     m_vRangeSlider->setInvertedAppearance(true);
-    m_vRangeSlider->setRange(0, 255);
-    m_hRangeSlider->setMaximumPosition(255);
-    m_vRangeSlider->setMaximumPosition(255);
+    m_vRangeSlider->setRange(0, 256);
+    m_hRangeSlider->setMaximumPosition(256);
+    m_vRangeSlider->setMaximumPosition(256);
 
-    connect(m_area, SIGNAL(positionChanged(const QPoint&)),
-            this, SLOT(slotPositionChanged(const QPoint&)));
+    connect(m_area, SIGNAL(positionChanged(const QPointF&)),
+            this, SLOT(slotPositionChanged(const QPointF&)));
     connect(m_vSlider, SIGNAL(valueChanged(int)),
             this, SLOT(slotSliderValueChanged()));
     connect(m_hSlider, SIGNAL(valueChanged(int)),
@@ -252,11 +255,14 @@ void VCXYPad::writeDMX(MasterTimer* timer, QList<Universe *> universes)
     if (m_area->hasPositionChanged() == true)
     {
         // This call also resets the m_changed flag in m_area
-        QPoint pt = m_area->position();
+        QPointF pt = m_area->position();
 
         /* Scale XY coordinate values to 0.0 - 1.0 */
-        qreal x = SCALE(qreal(pt.x()), qreal(0), qreal(m_area->width()), qreal(0), qreal(1));
-        qreal y = SCALE(qreal(pt.y()), qreal(0), qreal(m_area->height()), qreal(0), qreal(1));
+        qreal x = SCALE(pt.x(), qreal(0), qreal(256), qreal(0), qreal(1));
+        qreal y = SCALE(pt.y(), qreal(0), qreal(256), qreal(0), qreal(1));
+
+        if (invertedAppearance())
+            y = qreal(1) - y;
 
         /* Write values outside of mutex lock to keep UI snappy */
         foreach (VCXYPadFixture fixture, m_fixtures)
@@ -264,29 +270,22 @@ void VCXYPad::writeDMX(MasterTimer* timer, QList<Universe *> universes)
     }
 }
 
-void VCXYPad::slotPositionChanged(const QPoint& pt)
+void VCXYPad::slotPositionChanged(const QPointF& pt)
 {
     if (m_sliderInteraction == true)
         return;
 
     m_padInteraction = true;
-    qreal x = SCALE(qreal(pt.x()), qreal(0), qreal(m_area->width()),
-                    qreal(m_hSlider->minimum()), qreal(m_hSlider->maximum()));
-
-    qreal y;
+    m_hSlider->setValue(pt.x());
     if (invertedAppearance() == false)
     {
-        y = SCALE(qreal(pt.y()), qreal(0), qreal(m_area->height()),
-                  qreal(m_vSlider->minimum()), qreal(m_vSlider->maximum()));
+        m_vSlider->setValue(pt.y());
     }
     else
     {
-        y = SCALE(qreal(pt.y()), qreal(m_area->height()), qreal(0),
-                  qreal(m_vSlider->minimum()), qreal(m_vSlider->maximum()));
+        m_vSlider->setValue(MAX_DMX_VALUE - pt.y());
     }
 
-    m_hSlider->setValue(int(x));
-    m_vSlider->setValue(int(y));
     if (m_inputValueChanged == false)
         updateFeedback();
     m_padInteraction = false;
@@ -298,31 +297,22 @@ void VCXYPad::slotSliderValueChanged()
     if (m_padInteraction == true)
         return;
 
-    int x = 0, y = 0;
+    QPointF pt = m_area->position();
 
     m_sliderInteraction = true;
     if (QObject::sender() == m_hSlider)
     {
-        x = int(SCALE(qreal(m_hSlider->value()),
-                      qreal(m_hSlider->minimum()), qreal(m_hSlider->maximum()),
-                      qreal(0), qreal(m_area->width())));
-        y = m_area->position().y();
+        pt.setX(m_hSlider->value());
     }
     else
     {
         if (invertedAppearance() == false)
-            y = int(SCALE(qreal(m_vSlider->value()),
-                          qreal(m_vSlider->minimum()), qreal(m_vSlider->maximum()),
-                          qreal(0), qreal(m_area->height())));
+            pt.setY(m_vSlider->value());
         else
-            y = int(SCALE(qreal(m_vSlider->value()),
-                          qreal(m_vSlider->maximum()), qreal(m_vSlider->minimum()),
-                          qreal(0), qreal(m_area->height())));
-
-        x = m_area->position().x();
+            pt.setY(MAX_DMX_VALUE - m_vSlider->value());
     }
 
-    m_area->setPosition(QPoint(x, y));
+    m_area->setPosition(pt);
     m_area->update();
     updateFeedback();
     m_sliderInteraction = false;
@@ -330,8 +320,8 @@ void VCXYPad::slotSliderValueChanged()
 
 void VCXYPad::slotRangeValueChanged()
 {
-    QRect rect(m_hRangeSlider->minimumPosition(), m_vRangeSlider->minimumPosition(),
-               m_hRangeSlider->maximumPosition(), m_vRangeSlider->maximumPosition());
+    QRectF rect(QPointF(m_hRangeSlider->minimumPosition(), m_vRangeSlider->minimumPosition()),
+               QPointF(m_hRangeSlider->maximumPosition(), m_vRangeSlider->maximumPosition()));
     m_area->setRangeWindow(rect);
     m_area->update();
 }
@@ -357,48 +347,46 @@ void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
     if (mode() == Doc::Design || isEnabled() == false)
         return;
 
-    int x = 0, y = 0;
+    QPointF pt = m_area->position();
 
     QLCInputSource src(universe, (page() << 16) | channel);
     if (src == inputSource(panInputSourceId))
     {
 
-        qreal areaWidth = m_area->width();
+        qreal areaWidth = MAX_VALUE;
         qreal xOffset = 0;
-        QRect rangeWindow = m_area->rangeWindow();
+        QRectF rangeWindow = m_area->rangeWindow();
         if (rangeWindow.isValid())
         {
             areaWidth = rangeWindow.width();
             xOffset = rangeWindow.x();
         }
-        x = xOffset + int(SCALE(qreal(value), qreal(0), qreal(255),
-                      qreal(0), qreal(areaWidth)));
-        y = m_area->position().y();
+        pt.setX(xOffset + SCALE(qreal(value), qreal(0), qreal(255),
+                      qreal(0), areaWidth));
     }
     else if (src == inputSource(tiltInputSourceId))
     {
         qreal yOffset = 0;
-        qreal areaHeight = m_area->height();
-        QRect rangeWindow = m_area->rangeWindow();
+        qreal areaHeight = MAX_VALUE;
+        QRectF rangeWindow = m_area->rangeWindow();
         if (rangeWindow.isValid())
         {
             areaHeight = rangeWindow.height();
             yOffset = rangeWindow.y();
         }
-        x = m_area->position().x();
         if (invertedAppearance() == false)
-            y = yOffset + int(SCALE(qreal(value), qreal(0), qreal(255),
-                          qreal(0), qreal(areaHeight)));
+            pt.setY(yOffset + SCALE(qreal(value), qreal(0), qreal(255),
+                          qreal(0), areaHeight));
         else
-            y = yOffset + int(SCALE(qreal(value), qreal(255), qreal(0),
-                          qreal(0), qreal(areaHeight)));
+            pt.setY(yOffset + SCALE(qreal(value), qreal(255), qreal(0),
+                          qreal(0), areaHeight));
     }
     else
         return;
 
     m_inputValueChanged = true;
 
-    m_area->setPosition(QPoint(x, y));
+    m_area->setPosition(pt);
     m_area->update();
 }
 
@@ -542,7 +530,7 @@ bool VCXYPad::loadXML(const QDomElement* root)
 
     setGeometry(x, y, w, h);
     show(); // Qt doesn't update the widget's geometry without this.
-    m_area->setPosition(QPoint(xpos, ypos));
+    m_area->setPosition(QPointF(xpos, ypos));
 
     return true;
 }
@@ -570,13 +558,13 @@ bool VCXYPad::saveXML(QDomDocument* doc, QDomElement* vc_root)
         fixture.saveXML(doc, &root);
 
     /* Current XY position */
-    QPoint pt(m_area->position());
+    QPointF pt(m_area->position());
 
     /* Custom range window */
     if (m_hRangeSlider->minimumPosition() != 0 ||
-        m_hRangeSlider->maximumPosition() != 255 ||
+        m_hRangeSlider->maximumPosition() != 256 ||
         m_vRangeSlider->minimumPosition() != 0 ||
-        m_vRangeSlider->maximumPosition() != 255)
+        m_vRangeSlider->maximumPosition() != 256)
     {
         tag = doc->createElement(KXMLQLCVCXYPadRangeWindow);
         tag.setAttribute(KXMLQLCVCXYPadRangeHorizMin, QString::number(m_hRangeSlider->minimumPosition()));
@@ -588,13 +576,13 @@ bool VCXYPad::saveXML(QDomDocument* doc, QDomElement* vc_root)
 
     /* Pan */
     tag = doc->createElement(KXMLQLCVCXYPadPan);
-    tag.setAttribute(KXMLQLCVCXYPadPosition, QString::number(pt.x()));
+    tag.setAttribute(KXMLQLCVCXYPadPosition, QString::number(int(pt.x())));
     saveXMLInput(doc, &tag, inputSource(panInputSourceId));
     root.appendChild(tag);
 
     /* Tilt */
     tag = doc->createElement(KXMLQLCVCXYPadTilt);
-    tag.setAttribute(KXMLQLCVCXYPadPosition, QString::number(pt.y()));
+    tag.setAttribute(KXMLQLCVCXYPadPosition, QString::number(int(pt.y())));
     saveXMLInput(doc, &tag, inputSource(tiltInputSourceId));
     root.appendChild(tag);
 

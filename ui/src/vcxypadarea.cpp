@@ -30,6 +30,9 @@
 #include "vcxypadarea.h"
 #include "vcframe.h"
 
+const qreal MAX_VALUE = 256.0;
+const qreal MAX_DMX_VALUE = MAX_VALUE - 1.0/256;
+
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
@@ -38,8 +41,8 @@ VCXYPadArea::VCXYPadArea(QWidget* parent)
     : QFrame(parent)
     , m_changed(false)
     , m_pixmap(QPixmap(":/xypad-point.png"))
-    , m_rangeSrcRect(QRect())
-    , m_rangeDestRect(QRect())
+    , m_rangeDmxRect(QRectF())
+    , m_rangeWindowRect(QRect())
 {
     setFrameStyle(KVCFrameStyleSunken);
     setWindowTitle("XY Pad");
@@ -65,21 +68,27 @@ void VCXYPadArea::setMode(Doc::Mode mode)
  * Current XY position
  *****************************************************************************/
 
-QPoint VCXYPadArea::position()
+QPointF VCXYPadArea::position()
 {
     m_mutex.lock();
-    QPoint pos(m_pos);
+    QPointF pos(m_dmxPos);
     m_changed = false;
     m_mutex.unlock();
     return pos;
 }
 
-void VCXYPadArea::setPosition(const QPoint& point)
+void VCXYPadArea::setPosition(const QPointF& point)
 {
     m_mutex.lock();
-    if (m_pos != point)
+    if (m_dmxPos != point)
     {
-        m_pos = point;
+        m_dmxPos = point;
+
+        if (m_dmxPos.x() > MAX_DMX_VALUE)
+            m_dmxPos.setX(MAX_DMX_VALUE);
+        if (m_dmxPos.y() > MAX_DMX_VALUE)
+            m_dmxPos.setY(MAX_DMX_VALUE);
+
         m_changed = true;
     }
     m_mutex.unlock();
@@ -90,14 +99,14 @@ void VCXYPadArea::setPosition(const QPoint& point)
 void VCXYPadArea::nudgePosition(int dx, int dy)
 {
     m_mutex.lock();
-    m_pos.setX(CLAMP(m_pos.x() + dx, 0, width()));
-    m_pos.setY(CLAMP(m_pos.y() + dy, 0, height()));
+    m_dmxPos.setX(CLAMP(m_dmxPos.x() + dx, 0, 256.0));
+    m_dmxPos.setY(CLAMP(m_dmxPos.y() + dy, 0, 256.0));
 
     m_changed = true;
 
     m_mutex.unlock();
 
-    emit positionChanged(m_pos);
+    emit positionChanged(m_dmxPos);
 }
 
 bool VCXYPadArea::hasPositionChanged()
@@ -108,28 +117,42 @@ bool VCXYPadArea::hasPositionChanged()
     return changed;
 }
 
+void VCXYPadArea::checkDmxRange()
+{
+     QPointF pt(CLAMP(m_dmxPos.x(), m_rangeDmxRect.left(), m_rangeDmxRect.right()),
+         CLAMP(m_dmxPos.y(), m_rangeDmxRect.top(), m_rangeDmxRect.bottom()));
+
+     setPosition(pt);
+}
+
+void VCXYPadArea::updateWindowPos()
+{
+    m_windowPos.setX(SCALE(m_dmxPos.x(), qreal(0), qreal(256), qreal(0), qreal(width())));
+    m_windowPos.setY(SCALE(m_dmxPos.y(), qreal(0), qreal(256), qreal(0), qreal(height())));
+}
+
 /*************************************************************************
  * Range window
  *************************************************************************/
 
-QRect VCXYPadArea::rangeWindow()
+QRectF VCXYPadArea::rangeWindow()
 {
-    return m_rangeDestRect;
+    return m_rangeDmxRect;
 }
 
-void VCXYPadArea::setRangeWindow(QRect rect)
+void VCXYPadArea::setRangeWindow(QRectF rect)
 {
-    m_rangeSrcRect = rect;
+    m_rangeDmxRect = rect;
     updateRangeWindow();
 }
 
 void VCXYPadArea::updateRangeWindow()
 {
-    int x = (width() * m_rangeSrcRect.x()) / 255;
-    int y = (height() * m_rangeSrcRect.y()) / 255;
-    int w = (width() * m_rangeSrcRect.width()) / 255;
-    int h = (height() * m_rangeSrcRect.height()) / 255;
-    m_rangeDestRect = QRect(x, y, w - x, h - y);
+    int x = m_rangeDmxRect.x() * width() / 256;
+    int y = m_rangeDmxRect.y() * height() / 256;
+    int w = m_rangeDmxRect.width() * width() / 256;
+    int h = m_rangeDmxRect.height() * height() / 256;
+    m_rangeWindowRect = QRect(x, y, w, h);
 }
 
 /*****************************************************************************
@@ -157,26 +180,24 @@ void VCXYPadArea::paintEvent(QPaintEvent* e)
     p.drawLine(0, height() / 2, width(), height() / 2);
 
     /* Draw the range window if not full size */
-    if (m_rangeDestRect.isValid())
+    if (m_rangeWindowRect.isValid())
     {
         pen.setStyle(Qt::SolidLine);
         pen.setColor(QColor(0, 120, 0, 170));
         p.setPen(pen);
-        p.fillRect(m_rangeDestRect, QBrush(QColor(155, 200, 165, 130)));
-        p.drawRect(m_rangeDestRect);
+        p.fillRect(m_rangeWindowRect, QBrush(QColor(155, 200, 165, 130)));
+        p.drawRect(m_rangeWindowRect);
         if (m_mode == Doc::Operate)
         {
-            QPoint pt(CLAMP(m_pos.x(), m_rangeDestRect.x(),
-                                       m_rangeDestRect.x() + m_rangeDestRect.width()),
-                      CLAMP(m_pos.y(), m_rangeDestRect.y(),
-                                       m_rangeDestRect.y() + m_rangeDestRect.height()));
-            setPosition(pt);
+            checkDmxRange();
         }
     }
 
+    updateWindowPos();
+
     /* Draw the current point pixmap */
-    p.drawPixmap(m_pos.x() - (m_pixmap.width() / 2),
-                 m_pos.y() - (m_pixmap.height() / 2),
+    p.drawPixmap(m_windowPos.x() - (m_pixmap.width() / 2),
+                 m_windowPos.y() - (m_pixmap.height() / 2),
                  m_pixmap);
 }
 
@@ -190,7 +211,10 @@ void VCXYPadArea::mousePressEvent(QMouseEvent* e)
 {
     if (m_mode == Doc::Operate)
     {
-        QPoint pt(CLAMP(e->x(), 0, width()), CLAMP(e->y(), 0, height()));
+        QPointF pt(CLAMP(e->x(), 0, width()), CLAMP(e->y(), 0, height()));
+        pt.setX(SCALE(pt.x(), qreal(0), qreal(width()), qreal(0), qreal(256)));
+        pt.setY(SCALE(pt.y(), qreal(0), qreal(height()), qreal(0), qreal(256)));
+
         setPosition(pt);
         setMouseTracking(true);
         setCursor(Qt::CrossCursor);
@@ -204,7 +228,10 @@ void VCXYPadArea::mouseReleaseEvent(QMouseEvent* e)
 {
     if (m_mode == Doc::Operate)
     {
-        QPoint pt(CLAMP(e->x(), 0, width()), CLAMP(e->y(), 0, height()));
+        QPointF pt(CLAMP(e->x(), 0, width()), CLAMP(e->y(), 0, height()));
+        pt.setX(SCALE(pt.x(), qreal(0), qreal(width()), qreal(0), qreal(256)));
+        pt.setY(SCALE(pt.y(), qreal(0), qreal(height()), qreal(0), qreal(256)));
+
         setPosition(pt);
         setMouseTracking(false);
         unsetCursor();
@@ -217,7 +244,10 @@ void VCXYPadArea::mouseMoveEvent(QMouseEvent* e)
 {
     if (m_mode == Doc::Operate)
     {
-        QPoint pt(CLAMP(e->x(), 0, width()), CLAMP(e->y(), 0, height()));
+        QPointF pt(CLAMP(e->x(), 0, width()), CLAMP(e->y(), 0, height()));
+        pt.setX(SCALE(pt.x(), qreal(0), qreal(width()), qreal(0), qreal(256)));
+        pt.setY(SCALE(pt.y(), qreal(0), qreal(height()), qreal(0), qreal(256)));
+
         setPosition(pt);
         update();
     }
