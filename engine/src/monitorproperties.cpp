@@ -164,8 +164,8 @@ bool MonitorProperties::saveXML(QDomDocument *doc, QDomElement *wksp_root) const
             QPointF pos = fixturePosition(fid);
             tag = doc->createElement(KXMLQLCMonitorFixtureItem);
             tag.setAttribute(KXMLQLCMonitorFixtureID, fid);
-            tag.setAttribute(KXMLQLCMonitorFixtureXPos, pos.x());
-            tag.setAttribute(KXMLQLCMonitorFixtureYPos, pos.y());
+            tag.setAttribute(KXMLQLCMonitorFixtureXPos, QString::number(pos.x()));
+            tag.setAttribute(KXMLQLCMonitorFixtureYPos, QString::number(pos.y()));
             root.appendChild(tag);
         }
     }
