@@ -38,16 +38,58 @@ macx {
 win32 {
     # Qt Libraries
     qtlibs.path  = $$INSTALLROOT/$$LIBSDIR
+
+lessThan(QT_MAJOR_VERSION, 5) {
     release:qtlibs.files = $$(QTDIR)/bin/QtCore4.dll \
                            $$(QTDIR)/bin/QtGui4.dll \
                            $$(QTDIR)/bin/QtXml4.dll \
-                           $$(QTDIR)/bin/QtScript4.dll
+                           $$(QTDIR)/bin/QtScript4.dll \
+						   $$(QTDIR)/bin/QtNetwork4.dll
 
     debug:qtlibs.files = $$(QTDIR)/bin/QtCored4.dll \
                          $$(QTDIR)/bin/QtGuid4.dll \
                          $$(QTDIR)/bin/QtXmld4.dll \
-                         $$(QTDIR)/bin/QtScriptd4.dll
+                         $$(QTDIR)/bin/QtScriptd4.dll \
+						 $$(QTDIR)/bin/QtNetwork4d.dll
+} else {
+    release:qtlibs.files = $$(QTDIR)/bin/Qt5Core.dll \
+                           $$(QTDIR)/bin/Qt5Gui.dll \
+                           $$(QTDIR)/bin/Qt5Xml.dll \
+                           $$(QTDIR)/bin/Qt5Script.dll \
+						   $$(QTDIR)/bin/Qt5Network.dll \
+						   $$(QTDIR)/bin/Qt5Widgets.dll \
+						   $$(QTDIR)/bin/Qt5OpenGL.dll \
+						   $$(QTDIR)/bin/Qt5Multimedia.dll \
+						   $$(QTDIR)/bin/Qt5MultimediaWidgets.dll
+
+    debug:qtlibs.files = $$(QTDIR)/bin/Qt5Cored.dll \
+                         $$(QTDIR)/bin/Qt5Guid.dll \
+                         $$(QTDIR)/bin/Qt5Xmld.dll \
+                         $$(QTDIR)/bin/Qt5Scriptd.dll \
+						 $$(QTDIR)/bin/Qt5Networkd.dll \
+						 $$(QTDIR)/bin/Qt5Widgetsd.dll \
+						 $$(QTDIR)/bin/Qt5OpenGLd.dll \
+						 $$(QTDIR)/bin/Qt5Multimediad.dll \
+						 $$(QTDIR)/bin/Qt5MultimediaWidgetsd.dll 
+	qtlibs.files += $$(QTDIR)/bin/icudt51.dll \
+				    $$(QTDIR)/bin/icuin51.dll \
+					$$(QTDIR)/bin/icuuc51.dll
+}
     INSTALLS += qtlibs
+	
+greaterThan(QT_MAJOR_VERSION, 4) {
+	qtplatform.path = $$INSTALLROOT/$$LIBSDIR/platforms
+	debug:qtplatform.files = $$(QTDIR)/plugins/platforms/qwindowsd.dll
+	release:qtplatform.files = $$(QTDIR)/plugins/platforms/qwindows.dll
+	INSTALLS += qtplatform
+	
+	qtmedia.path = $$INSTALLROOT/$$LIBSDIR/mediaservice
+	debug:qtmedia.files = $$(QTDIR)/plugins/mediaservice/dsengined.dll \
+						  $$(QTDIR)/plugins/mediaservice/qtmedia_audioengined.dll
+	release:qtmedia.files = $$(QTDIR)/plugins/mediaservice/dsengine.dll \
+							$$(QTDIR)/plugins/mediaservice/qtmedia_audioengined.dll
+	INSTALLS += qtmedia
+}
 
     # MinGW library
     mingw.path = $$INSTALLROOT/$$LIBSDIR
@@ -59,7 +101,7 @@ win32 {
         mingw.files += $$(QTDIR)/../MinGW/bin/mingwm10.dll
     }
 
-    # GCC 4.4.0
+    # MinGW GCC
     exists($$(SystemDrive)/MinGW/bin/libgcc_s_dw2-1.dll) {
         mingw.files += $$(SystemDrive)/MinGW/bin/libgcc_s_dw2-1.dll
     }
@@ -68,13 +110,22 @@ win32 {
         mingw.files += $$(QTDIR)/../MinGW/bin/libgcc_s_dw2-1.dll
     }
 	
+lessThan(QT_MAJOR_VERSION, 5) {
     exists($$(QTDIR)/../MinGW/bin/libstdc++-6.dll) {
         mingw.files += $$(QTDIR)/../MinGW/bin/libstdc++-6.dll
     }
-	
-    exists($$(QTDIR)/../MinGW/bin/pthreadGC2.dll) {
+	exists($$(QTDIR)/../MinGW/bin/pthreadGC2.dll) {
         mingw.files += $$(QTDIR)/../MinGW/bin/pthreadGC2.dll
     }
+} else {
+    exists($$(QTDIR)/bin/libstdc++-6.dll) {
+        mingw.files += $$(QTDIR)/bin/libstdc++-6.dll
+    }
+	exists($$(QTDIR)/bin/libwinpthread-1.dll) {
+        mingw.files += $$(QTDIR)/bin/libwinpthread-1.dll
+    }
+}
+
     INSTALLS += mingw
 
 	# audio libraries
@@ -105,7 +156,11 @@ win32 {
 	
     # NullSoft installer files
     nsis.path  = $$INSTALLROOT/$$DATADIR
+lessThan(QT_MAJOR_VERSION, 5) {
     nsis.files = qlcplus.nsi
+} else {
+	nsis.files = qlcplusQt5.nsi
+}
     INSTALLS  += nsis
 }
 

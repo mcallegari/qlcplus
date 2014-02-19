@@ -158,7 +158,7 @@ Section "Uninstall"
 	RMDir /r $INSTDIR\InputProfiles
 	RMDir /r $INSTDIR\MidiTemplates
 	RMDir /r $INSTDIR\Plugins
-	RMDir /r $INSTDIR\RBGScripts
+	RMDir /r $INSTDIR\RGBScripts
 
 	RMDir $INSTDIR
 

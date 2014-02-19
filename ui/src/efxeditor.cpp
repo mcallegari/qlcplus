@@ -545,7 +545,8 @@ void EFXEditor::updateSpeedDials()
 void EFXEditor::slotNameEdited(const QString &text)
 {
     m_efx->setName(text);
-    m_speedDials->setWindowTitle(text);
+    if (m_speedDials)
+        m_speedDials->setWindowTitle(text);
 }
 
 void EFXEditor::slotSpeedDialToggle(bool state)

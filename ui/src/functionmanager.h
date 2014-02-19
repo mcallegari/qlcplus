@@ -122,6 +122,7 @@ protected slots:
     void slotAddRGBMatrix();
     void slotAddScript();
     void slotAddAudio();
+    void slotAddVideo();
     void slotAddFolder();
 
     void slotSelectAutostartFunction();
@@ -145,6 +146,7 @@ protected:
     QAction* m_addRGBMatrixAction;
     QAction* m_addScriptAction;
     QAction* m_addAudioAction;
+    QAction* m_addVideoAction;
 
     QAction* m_autostartAction;
     QAction* m_wizardAction;

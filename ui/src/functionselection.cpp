@@ -57,7 +57,11 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
     , m_multiSelection(true)
     , m_runningOnlyFlag(false)
     , m_filter(Function::Scene | Function::Chaser | Function::Collection |
-               Function::EFX | Function::Script | Function::RGBMatrix | Function::Show | Function::Audio)
+               Function::EFX | Function::Script | Function::RGBMatrix | Function::Show | Function::Audio
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+               | Function::Video
+#endif
+               )
     , m_disableFilters(0)
     , m_constFilter(false)
 {
@@ -110,6 +114,13 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
     connect(m_audioCheck, SIGNAL(toggled(bool)),
             this, SLOT(slotAudioChecked(bool)));
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    connect(m_videoCheck, SIGNAL(toggled(bool)),
+            this, SLOT(slotVideoChecked(bool)));
+#else
+    m_videoCheck->hide();
+#endif
+
     QSettings settings;
     QVariant var = settings.value(SETTINGS_FILTER);
     if (var.isValid() == true)
@@ -128,6 +139,9 @@ int FunctionSelection::exec()
     m_rgbMatrixCheck->setChecked(m_filter & Function::RGBMatrix);
     m_showCheck->setChecked(m_filter & Function::Show);
     m_audioCheck->setChecked(m_filter & Function::Audio);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    m_videoCheck->setChecked(m_filter & Function::Video);
+#endif
 
     if (m_constFilter == true)
     {
@@ -139,6 +153,9 @@ int FunctionSelection::exec()
         m_rgbMatrixCheck->setEnabled(false);
         m_showCheck->setEnabled(false);
         m_audioCheck->setEnabled(false);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+        m_videoCheck->setEnabled(false);
+#endif
     }
     else
     {
@@ -150,6 +167,9 @@ int FunctionSelection::exec()
         m_rgbMatrixCheck->setDisabled(m_disableFilters & Function::RGBMatrix);
         m_showCheck->setDisabled(m_disableFilters & Function::Show);
         m_audioCheck->setDisabled(m_disableFilters & Function::Audio);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+        m_videoCheck->setDisabled(m_disableFilters & Function::Video);
+#endif
     }
 
     /* Multiple/single selection */
@@ -295,7 +315,7 @@ void FunctionSelection::slotItemSelectionChanged()
     while (it.hasNext() == true)
     {
         quint32 id = it.next()->data(KColumnName, Qt::UserRole).toUInt();
-        if (m_selection.contains(id) == false)
+        if (id != Function::invalidId() && m_selection.contains(id) == false)
             m_selection.append(id);
 
         removeList.removeAll(id);
@@ -389,3 +409,14 @@ void FunctionSelection::slotAudioChecked(bool state)
         m_filter = (m_filter & ~Function::Audio);
     refillTree();
 }
+
+#if QT_VERSION >= 0x050000
+void FunctionSelection::slotVideoChecked(bool state)
+{
+    if (state == true)
+        m_filter = (m_filter | Function::Video);
+    else
+        m_filter = (m_filter & ~Function::Video);
+    refillTree();
+}
+#endif

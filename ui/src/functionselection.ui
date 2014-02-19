@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>554</width>
+    <width>549</width>
     <height>399</height>
    </rect>
   </property>
@@ -145,6 +145,13 @@
        <widget class="QCheckBox" name="m_audioCheck">
         <property name="text">
          <string>Audio</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <widget class="QCheckBox" name="m_videoCheck">
+        <property name="text">
+         <string>Video</string>
         </property>
        </widget>
       </item>

@@ -21,7 +21,7 @@
 #include "midiinputdevice.h"
 
 MidiInputDevice::MidiInputDevice(const QVariant& uid, const QString& name, QObject* parent)
-    : MidiDevice(uid, name, false, parent)
+    : MidiDevice(uid, name, Input, parent)
 {
     //qDebug() << Q_FUNC_INFO;
 }

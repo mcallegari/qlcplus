@@ -7,7 +7,9 @@ include(libusb-nametool.pri)
 include(libftdi-nametool.pri)
 include(libmad-nametool.pri)
 include(libsndfile-nametool.pri)
-include(libportaudio-nametool.pri)
+lessThan(QT_MAJOR_VERSION, 5) {
+  include(libportaudio-nametool.pri)
+}
 include(liblo-nametool.pri)
 include(libfftw-nametool.pri)
 include(libqtgui-nametool.pri)
@@ -15,6 +17,12 @@ include(libqtxml-nametool.pri)
 include(libqtcore-nametool.pri)
 include(libqtnetwork-nametool.pri)
 include(libqtscript-nametool.pri)
+greaterThan(QT_MAJOR_VERSION, 4) {
+  include(libqtwidgets-nametool.pri)
+  include(libqtmultimedia-nametool.pri)
+  include(libqtmultimediawidgets-nametool.pri)
+  include(libqtopengl-nametool.pri)
+}
 include(libqlcplusengine-nametool.pri)
 include(libqlcplusui-nametool.pri)
 include(libqlcpluswebaccess-nametool.pri)
@@ -24,7 +32,7 @@ INSTALLS += LIBUSB LIBUSB_ID
 INSTALLS += LIBFTDI LIBFTDI_ID
 INSTALLS += LIBMAD LIBMAD_ID
 INSTALLS += LIBSNDFILE LIBSNDFILE_ID
-INSTALLS += LIBPORTAUDIO LIBPORTAUDIO_ID
+lessThan(QT_MAJOR_VERSION, 5): INSTALLS += LIBPORTAUDIO LIBPORTAUDIO_ID
 INSTALLS += LIBLO LIBLO_ID
 INSTALLS += LIBFFTW LIBFFTW_ID
 INSTALLS += LIBQTGUI QTMENU LIBQTGUI_ID
@@ -32,6 +40,13 @@ INSTALLS += LIBQTXML LIBQTXML_ID
 INSTALLS += LIBQTCORE LIBQTCORE_ID
 INSTALLS += LIBQTNETWORK LIBQTNETWORK_ID
 INSTALLS += LIBQTSCRIPT LIBQTSCRIPT_ID
+
+greaterThan(QT_MAJOR_VERSION, 4) {
+  INSTALLS += LIBQTWIDGETS LIBQTWIDGETS_ID
+  INSTALLS += LIBQTOPENGL LIBQTOPENGL_ID
+  INSTALLS += LIBQTMULTIMEDIA LIBQTMULTIMEDIA_ID
+  INSTALLS += LIBQTMULTIMEDIAWIDGETS LIBQTMULTIMEDIAWIDGETS_ID
+}
 
 # QtGui, QtXml, QtNetwork and QtScript depend on QtCore. Do this AFTER installing the
 # libraries into the bundle
@@ -44,6 +59,18 @@ qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBQTNETWORK_DIR/$$LIBQTNETWORK_FILE
 qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBQTSCRIPT_DIR/$$LIBQTSCRIPT_FILE
+
+greaterThan(QT_MAJOR_VERSION, 4) {
+    qtnametool.commands += $$LIBQTCORE_INSTALL_NAME_TOOL \
+        $$INSTALLROOT/$$LIBSDIR/$$LIBQTWIDGETS_DIR/$$LIBQTWIDGETS_FILE
+    qtnametool.commands += $$LIBQTCORE_INSTALL_NAME_TOOL \
+        $$INSTALLROOT/$$LIBSDIR/$$LIBQTOPENGL_DIR/$$LIBQTOPENGL_FILE
+    qtnametool.commands += $$LIBQTCORE_INSTALL_NAME_TOOL \
+        $$INSTALLROOT/$$LIBSDIR/$$LIBQTMULTIMEDIA_DIR/$$LIBQTMULTIMEDIA_FILE
+    qtnametool.commands += $$LIBQTCORE_INSTALL_NAME_TOOL \
+        $$INSTALLROOT/$$LIBSDIR/$$LIBQTMULTIMEDIAWIDGETS_DIR/$$LIBQTMULTIMEDIAWIDGETS_FILE
+}
+
 
 # Libftdi depends on libusb0.1 & 1.0
 qtnametool.commands += && $$LIBUSB0_INSTALL_NAME_TOOL \
@@ -60,8 +87,10 @@ qtnametool.commands += && $$LIBMAD_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBQLCENGINE_FILE
 qtnametool.commands += && $$LIBSNDFILE_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBQLCENGINE_FILE
-qtnametool.commands += && $$LIBPORTAUDIO_INSTALL_NAME_TOOL \
-    $$INSTALLROOT/$$LIBSDIR/$$LIBQLCENGINE_FILE
+lessThan(QT_MAJOR_VERSION, 5) {
+    qtnametool.commands += && $$LIBPORTAUDIO_INSTALL_NAME_TOOL \
+        $$INSTALLROOT/$$LIBSDIR/$$LIBQLCENGINE_FILE
+}
 qtnametool.commands += && $$LIBFFTW_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBQLCENGINE_FILE
 
@@ -69,10 +98,11 @@ qtnametool.commands += && $$LIBFFTW_INSTALL_NAME_TOOL \
 qtnametool.commands += && $$LIBPORTAUDIO_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBQLCUI_FILE
 
-# libqlcpluswebaccess depends on libportaudio
-qtnametool.commands += && $$LIBPORTAUDIO_INSTALL_NAME_TOOL \
-    $$INSTALLROOT/$$LIBSDIR/$$LIBQLCWEBACCESS_FILE
-
+lessThan(QT_MAJOR_VERSION, 5) {
+    # libqlcpluswebaccess depends on libportaudio
+    qtnametool.commands += && $$LIBPORTAUDIO_INSTALL_NAME_TOOL \
+        $$INSTALLROOT/$$LIBSDIR/$$LIBQLCWEBACCESS_FILE
+}
 # libsndfile depends on flac, libvorbis, libvorbisenc and libogg
 qtnametool.commands += && $$LIBOGG_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBSNDFILE_FILE
@@ -96,7 +126,6 @@ qtnametool.commands += && $$LIBVORBIS_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBVORBISENC_FILE
 qtnametool.commands += && $$LIBOGG_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBVORBISENC_FILE
-
 
 # These never had any difference anyway...
 # include(imageformats-nametool.pri)

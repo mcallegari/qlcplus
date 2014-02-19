@@ -1,5 +1,5 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   audio.cpp
 
   Copyright (c) Massimo Callegari
@@ -23,11 +23,6 @@
 #include <QFile>
 
 #include <QMessageBox>
-
-#ifdef QT_PHONON_LIB
-#include <phonon/mediaobject.h>
-#include <phonon/backendcapabilities.h>
-#endif
 
 #include "audiodecoder.h"
 #ifdef HAS_LIBSNDFILE

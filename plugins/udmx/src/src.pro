@@ -4,7 +4,10 @@ TEMPLATE = lib
 LANGUAGE = C++
 TARGET   = udmx
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4) {
+  QT += widgets
+  macx:QT_CONFIG -= no-pkg-config
+}
 
 CONFIG      += plugin
 INCLUDEPATH += ../../interfaces

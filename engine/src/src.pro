@@ -8,10 +8,11 @@ TARGET   = qlcplusengine
 
 CONFIG  += qt
 QT      += core xml script gui
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
+greaterThan(QT_MAJOR_VERSION, 4) {
+  QT += widgets multimedia multimediawidgets
+  macx:QT_CONFIG -= no-pkg-config
+}
 
-# Uncomment to enable Phonon audio support
-#QT += phonon
 CONFIG += link_pkgconfig
 
 QTPLUGIN =
@@ -59,6 +60,7 @@ lessThan(QT_MAJOR_VERSION, 5) {
 }
 else {
   HEADERS += audio/audiorenderer_qt.h audio/audiocapture_qt.h
+  HEADERS += video.h
 }
 
 # Engine
@@ -148,6 +150,7 @@ lessThan(QT_MAJOR_VERSION, 5) {
 }
 else {
   SOURCES += audio/audiorenderer_qt.cpp audio/audiocapture_qt.cpp
+  SOURCES += video.cpp
 }
 
 # Engine
