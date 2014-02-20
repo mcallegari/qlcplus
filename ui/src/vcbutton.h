@@ -268,7 +268,7 @@ public:
      *
      * @param fraction Intensity adjustment amount (0.0 - 1.0)
      */
-    void enableStartupIntensity(qreal fraction);
+    void setStartupIntensity(qreal fraction);
 
     /** Get the amount of intensity adjustment. */
     qreal startupIntensity() const;
