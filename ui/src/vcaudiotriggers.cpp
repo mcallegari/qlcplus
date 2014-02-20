@@ -126,10 +126,19 @@ VCAudioTriggers::VCAudioTriggers(QWidget* parent, Doc* doc)
         resize(var.toSize());
     else
         resize(defaultSize);
+
+    connect(m_doc, SIGNAL(modeChanged(Doc::Mode)),
+            this, SLOT(slotDocModeChanged(Doc::Mode)));
 }
 
 VCAudioTriggers::~VCAudioTriggers()
 {
+}
+
+void VCAudioTriggers::slotDocModeChanged(Doc::Mode mode)
+{
+    if (mode == Doc::Design)
+        enableCapture(false);
 }
 
 void VCAudioTriggers::enableCapture(bool enable)

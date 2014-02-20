@@ -55,6 +55,8 @@ public:
     int address();
     int columns();
     int rows();
+    quint32 physicalWidth();
+    quint32 physicalHeight();
     Orientation orientation();
     Type type();
 
