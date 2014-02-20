@@ -372,7 +372,7 @@ public:
     QLCFixtureDef *genericRGBPanelDef(int columns);
 
     /** Creates and returns a fixture mode for a generic RGB panel row */
-    QLCFixtureMode *genericRGBPanelMode(QLCFixtureDef *def);
+    QLCFixtureMode *genericRGBPanelMode(QLCFixtureDef *def, quint32 width, quint32 height);
 
     /*********************************************************************
      * Load & Save

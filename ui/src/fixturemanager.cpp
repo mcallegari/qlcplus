@@ -1118,11 +1118,13 @@ void FixtureManager::slotAddRGBPanel()
     {
         int rows = rgb.rows();
         int columns = rgb.columns();
+        quint32 phyWidth = rgb.physicalWidth();
+        quint32 phyHeight = rgb.physicalHeight() / rows;
 
         FixtureGroup *grp = new FixtureGroup(m_doc);
         Q_ASSERT(grp != NULL);
         grp->setName(rgb.name());
-        QSize panelSize(rgb.columns(), rows);
+        QSize panelSize(columns, rows);
         grp->setSize(panelSize);
         m_doc->addFixtureGroup(grp);
         updateGroupMenu();
@@ -1159,7 +1161,7 @@ void FixtureManager::slotAddRGBPanel()
             if (rowDef == NULL)
                 rowDef = fxi->genericRGBPanelDef(columns);
             if (rowMode == NULL)
-                rowMode = fxi->genericRGBPanelMode(rowDef);
+                rowMode = fxi->genericRGBPanelMode(rowDef, phyWidth, phyHeight);
             fxi->setFixtureDefinition(rowDef, rowMode);
 
             // Check universe span
