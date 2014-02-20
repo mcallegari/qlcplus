@@ -219,7 +219,9 @@ class Fixtures
       LibXML::XML::Attr.new(node, 'md', f.model)
       doc.root << node
     end
-    doc.root.namespaces.namespace = LibXML::XML::Namespace.new(doc.root, nil, "http://qlcplus.sourceforge.net/FixturesMap")
+    if doc.root.namespaces.default.nil?
+      doc.root.namespaces.namespace = LibXML::XML::Namespace.new(doc.root, nil, "http://qlcplus.sourceforge.net/FixturesMap")
+    end
     doc.save(filename, :indent => true, :encoding => LibXML::XML::Encoding::UTF_8)
   end
 
@@ -355,6 +357,11 @@ EOF
 EOF
     end
   end
+end
+
+# LibXML::XML::Error.set_handler(&LibXML::XML::Error::VERBOSE_HANDLER)
+LibXML::XML::Error.set_handler do |error|
+  puts error.to_s
 end
 
 fm = Fixtures.new
