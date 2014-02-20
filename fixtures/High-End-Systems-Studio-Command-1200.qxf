@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.3.2</Version>
+  <Version>4.7.0</Version>
   <Author>Tony Schuite</Author>
  </Creator>
  <Manufacturer>High End Systems</Manufacturer>
@@ -36,21 +36,24 @@
   <Capability Min="160" Max="175">MSpeed, Random (Speed is set by the Cyan Channel)</Capability>
   <Capability Min="176" Max="255">TBD</Capability>
  </Channel>
- <Channel Name="Cyan Wheel (Continuous Mode)">
-  <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="255">Cyan Saturation</Capability>
+ <Channel Name="Cyan">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Cyan</Colour>
+  <Capability Min="0" Max="255">Cyan</Capability>
  </Channel>
- <Channel Name="Magenta Wheel">
-  <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="255">Magenta Saturation</Capability>
+ <Channel Name="Magenta">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Magenta</Colour>
+  <Capability Min="0" Max="255">Magenta</Capability>
  </Channel>
- <Channel Name="Yellow Wheel">
-  <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="255">Yellow Saturation</Capability>
+ <Channel Name="Yellow">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Yellow</Colour>
+  <Capability Min="0" Max="255">Yellow</Capability>
  </Channel>
  <Channel Name="Zoom">
   <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Zoom (Narrow -&gt; Wide)</Capability>
+  <Capability Min="0" Max="255">Zoom (Narrow -> Wide)</Capability>
  </Channel>
  <Channel Name="Shutter Function">
   <Group Byte="0">Shutter</Group>
@@ -95,10 +98,6 @@
   <Capability Min="146" Max="149">Lamp only dimming</Capability>
   <Capability Min="150" Max="255">TBD</Capability>
  </Channel>
- <Channel Name="Cyan Wheel (Cycle and random Modes)">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Slow Rate - Fast Rate</Capability>
- </Channel>
  <Channel Name="Dim">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="255">Close - Open</Capability>
@@ -116,9 +115,9 @@
   <Channel Number="2">Tilt (Coarse)</Channel>
   <Channel Number="3">Tilt (Fine)</Channel>
   <Channel Number="4">Color Function</Channel>
-  <Channel Number="5">Cyan Wheel (Continuous Mode)</Channel>
-  <Channel Number="6">Magenta Wheel</Channel>
-  <Channel Number="7">Yellow Wheel</Channel>
+  <Channel Number="5">Cyan</Channel>
+  <Channel Number="6">Magenta</Channel>
+  <Channel Number="7">Yellow</Channel>
   <Channel Number="8">Zoom</Channel>
   <Channel Number="9">Shutter Function</Channel>
   <Channel Number="10">Dim</Channel>

@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.6.0</Version>
+  <Version>4.7.0</Version>
   <Author>Lorenzo Andreani</Author>
  </Creator>
  <Manufacturer>Proel</Manufacturer>
@@ -47,6 +47,24 @@
   <Channel Number="3">Ch4 Dimmer</Channel>
   <Channel Number="4">Ch5 Dimmer</Channel>
   <Channel Number="5">Ch6 Dimmer</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
  </Mode>
  <Mode Name="1Ch Group Mode">
   <Physical>
