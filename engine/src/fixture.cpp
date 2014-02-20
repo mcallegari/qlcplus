@@ -833,7 +833,7 @@ bool Fixture::saveXML(QDomDocument* doc, QDomElement* wksp_root) const
     tag.appendChild(text);
 
     /* RGB Panel physical dimensions */
-    if (m_fixtureDef->model() == KXMLFixtureRGBPanel && m_fixtureMode != NULL)
+    if (m_fixtureDef != NULL && m_fixtureDef->model() == KXMLFixtureRGBPanel && m_fixtureMode != NULL)
     {
         tag = doc->createElement(KXMLQLCPhysicalDimensionsWeight);
         root.appendChild(tag);
