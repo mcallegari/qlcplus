@@ -2540,7 +2540,7 @@ Duración: %3
     <message>
         <location filename="functionmanager.cpp" line="286"/>
         <source>New vid&amp;eo</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuevo video</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="292"/>
@@ -2623,17 +2623,17 @@ Duración: %3
     <message>
         <location filename="functionmanager.cpp" line="525"/>
         <source>Video Files (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Archivos de Video (%1)</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="551"/>
         <source>Unsupported video file</source>
-        <translation type="unfinished"></translation>
+        <translation>Archivo de video no soportado</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="551"/>
         <source>This video file cannot be played with QLC+. Sorry.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este archivo de video no puede ser reproducido con QLC+. Mil disculpas.</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="612"/>
@@ -2749,7 +2749,7 @@ Duración: %3
     <message>
         <location filename="functionselection.ui" line="154"/>
         <source>Video</source>
-        <translation type="unfinished"></translation>
+        <translation>Video</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="103"/>
@@ -3486,7 +3486,7 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="multitrackview.cpp" line="352"/>
         <source>Do you want to DELETE video (the source file will NOT be removed):</source>
-        <translation type="unfinished"></translation>
+        <translation>Desea BORRAR el video (el archivo de origen NO será eliminado):</translation>
     </message>
     <message>
         <location filename="multitrackview.cpp" line="378"/>
@@ -3514,7 +3514,7 @@ Duración: %3
     <message>
         <location filename="multitrackview.cpp" line="513"/>
         <source>Click to move this video across the timeline</source>
-        <translation type="unfinished"></translation>
+        <translation>Haga click para mover este video a lo largo de la línea de tiempo</translation>
     </message>
 </context>
 <context>
@@ -4356,7 +4356,7 @@ Duración: %3
     <message>
         <location filename="showmanager.cpp" line="205"/>
         <source>New vi&amp;deo</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuevo video</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="212"/>
@@ -4473,27 +4473,27 @@ Duración: %3
     <message>
         <location filename="showmanager.cpp" line="677"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
-        <translation>Este archivo de audio no puede ser reproducido con QLC+. Mil disculpas.</translation>
+        <translation>Este archivo de audio no puede ser rerpoducido con QLC+. Mil disculpas.</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="703"/>
         <source>Open Video File</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir Archivo de video</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="712"/>
         <source>Video Files (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Archivos de Video (%1)</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="738"/>
         <source>Unsupported video file</source>
-        <translation type="unfinished"></translation>
+        <translation>Archivo de video no soportado</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="738"/>
         <source>This video file cannot be played with QLC+. Sorry.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este archivo de video no puede ser rerpoducido con QLC+. Mil disculpas.</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="822"/>
@@ -6489,18 +6489,21 @@ Duración: %3
 Start time: %2
 Duration: %3
 %4</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre: %1
+Tiempo de inicio: %2
+Duración: %3
+%4</translation>
     </message>
     <message>
         <location filename="sceneitems.cpp" line="1131"/>
         <location filename="sceneitems.cpp" line="1233"/>
         <source>Click to move this video across the timeline</source>
-        <translation type="unfinished"></translation>
+        <translation>Click para mover este video a lo largo de la línea de tiempo</translation>
     </message>
     <message>
         <location filename="sceneitems.cpp" line="1145"/>
         <source>Align to cursor</source>
-        <translation type="unfinished"></translation>
+        <translation>Alinear al cursor</translation>
     </message>
 </context>
 <context>
