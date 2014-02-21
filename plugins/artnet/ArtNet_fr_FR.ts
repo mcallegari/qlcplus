@@ -7,40 +7,40 @@
         <location filename="artnetplugin.cpp" line="73"/>
         <source>This plugin provides DMX output for devices supporting the ArtNet communication protocol.</source>
         <oldsource>This plugin provides output for devices supporting the ArtNet communication protocol.</oldsource>
-        <translation>Ce greffon fournit le support DMX pour les périphériques supportant le protocole ArtNet.</translation>
+        <translation>Ce plugin fournit le support pour les périphériques supportant le protocole ArtNet.</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="90"/>
         <location filename="artnetplugin.cpp" line="193"/>
         <source>%1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 : %2</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="106"/>
         <source>Output</source>
-        <translation>Sorties</translation>
+        <translation>Sortie</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="110"/>
         <location filename="artnetplugin.cpp" line="259"/>
         <source>Status: Not open</source>
-        <translation>Statut : Pas ouvert</translation>
+        <translation>État : fermé</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="113"/>
         <location filename="artnetplugin.cpp" line="262"/>
         <source>Status: Open</source>
-        <translation>Statut : Ouvert</translation>
+        <translation>État : ouvert</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="115"/>
         <source>Nodes discovered: </source>
-        <translation>Noeuds Découverts : </translation>
+        <translation>Nœuds découverts : </translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="118"/>
         <source>Packets sent: </source>
-        <translation>Paquets Envoyés : </translation>
+        <translation>Paquets envoyés : </translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="255"/>
@@ -50,7 +50,7 @@
     <message>
         <location filename="artnetplugin.cpp" line="264"/>
         <source>Packets received: </source>
-        <translation>Paquets Reçus : </translation>
+        <translation>Paquets reçus : </translation>
     </message>
 </context>
 <context>
@@ -58,27 +58,27 @@
     <message>
         <location filename="configureartnet.ui" line="14"/>
         <source>Configure ArtNet Plugin</source>
-        <translation>Configurer le greffon ArtNet</translation>
+        <translation>Configuration du plugin ArtNet</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="24"/>
         <source>Nodes Tree</source>
-        <translation>Arbre des Noeuds</translation>
+        <translation>Arbre des nœuds</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="34"/>
         <source>IP</source>
-        <translation></translation>
+        <translation>IP</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="39"/>
         <source>Short Name</source>
-        <translation>Nom Court</translation>
+        <translation>Nom abrégé</translation>
     </message>
     <message>
         <location filename="configureartnet.ui" line="44"/>
         <source>Long Name</source>
-        <translation>Nom Long</translation>
+        <translation>Nom long</translation>
     </message>
 </context>
 </TS>

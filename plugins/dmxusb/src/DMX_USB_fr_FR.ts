@@ -6,34 +6,34 @@
     <message>
         <location filename="dmxusb.cpp" line="134"/>
         <source>This plugin provides DMX output support for</source>
-        <translation>Ce greffon active la sortie DMX pour</translation>
+        <translation>Ce plugin fournit le support pour les interfaces</translation>
     </message>
     <message>
         <location filename="dmxusb.cpp" line="138"/>
         <source>and compatible devices.</source>
-        <translation>et périphériques compatibles.</translation>
+        <translation>et des interfaces compatibles.</translation>
     </message>
     <message>
         <location filename="dmxusb.cpp" line="152"/>
         <source>No output support available.</source>
-        <translation>Fonctions de Sorties indisponibles.</translation>
+        <translation>Support de la sortie indisponible.</translation>
     </message>
     <message>
         <location filename="dmxusb.cpp" line="154"/>
         <source>Make sure that you have your hardware firmly plugged in. NOTE: FTDI VCP interface is not supported by this plugin.</source>
-        <translation>Assurez vous que le périphérique est bien branché.
-NOTE : L&apos;interface VCP FTDI ne fonctionne pas avec ce greffon.</translation>
+        <translation>Assurez vous que le périphérique est bien connecté.
+NOTE : L&apos;interface VCP FTDI n&apos;est pas supportée par ce plugin.</translation>
     </message>
     <message>
         <location filename="dmxusb.cpp" line="163"/>
         <location filename="dmxusb.cpp" line="232"/>
         <source>Device is operating correctly.</source>
-        <translation>Le périphérique fonctionne correctement.</translation>
+        <translation>L&apos;interface fonctionne correctement.</translation>
     </message>
     <message>
         <location filename="dmxusb.cpp" line="219"/>
         <source>No input support available.</source>
-        <translation>Fonctions d&apos;Entrées indisponibles.</translation>
+        <translation>Support de l&apos;entrée indisponible.</translation>
     </message>
 </context>
 <context>
@@ -56,7 +56,7 @@ NOTE : L&apos;interface VCP FTDI ne fonctionne pas avec ce greffon.</translation
     <message>
         <location filename="dmxusbconfig.cpp" line="53"/>
         <source>Serial</source>
-        <translation>N° de Série</translation>
+        <translation>N° de série</translation>
     </message>
 </context>
 <context>
@@ -69,7 +69,7 @@ NOTE : L&apos;interface VCP FTDI ne fonctionne pas avec ce greffon.</translation
     <message>
         <location filename="enttecdmxusbopen.cpp" line="101"/>
         <source>DMX Frame Frequency</source>
-        <translation>Fréquence de Trame DMX</translation>
+        <translation>Fréquence de la trame DMX</translation>
     </message>
     <message>
         <location filename="enttecdmxusbopen.cpp" line="105"/>
@@ -84,12 +84,12 @@ NOTE : L&apos;interface VCP FTDI ne fonctionne pas avec ce greffon.</translation
     <message>
         <location filename="enttecdmxusbopen.cpp" line="109"/>
         <source>Patch this widget to a universe to find out.</source>
-        <translation type="unfinished">Patcher le greffon à un Univers.</translation>
+        <translation type="unfinished">Patchez ce plugin à un univers pour l&apos;utiliser.</translation>
     </message>
     <message>
         <location filename="enttecdmxusbopen.cpp" line="110"/>
         <source>System Timer Accuracy</source>
-        <translation>Précision de l&apos;Horloge Système</translation>
+        <translation>Précision de l&apos;horloge système</translation>
     </message>
 </context>
 <context>
@@ -110,7 +110,7 @@ NOTE : L&apos;interface VCP FTDI ne fonctionne pas avec ce greffon.</translation
         <location filename="ultradmxusbprotx.cpp" line="80"/>
         <location filename="vinceusbdmx512tx.cpp" line="53"/>
         <source>Serial number</source>
-        <translation>N° de Série</translation>
+        <translation>N° de série</translation>
     </message>
     <message>
         <location filename="enttecdmxusbprorx.cpp" line="48"/>

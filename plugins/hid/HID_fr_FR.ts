@@ -6,12 +6,12 @@
     <message>
         <location filename="configurehid.ui" line="14"/>
         <source>Configure HID Plugin</source>
-        <translation>Configurer le greffon HID</translation>
+        <translation>Configuration du plugin HID</translation>
     </message>
     <message>
         <location filename="configurehid.ui" line="33"/>
         <source>Input Line</source>
-        <translation>N°</translation>
+        <translation>Ligne d&apos;entrée</translation>
     </message>
     <message>
         <location filename="configurehid.ui" line="38"/>
@@ -29,7 +29,7 @@
     <message>
         <location filename="hid.cpp" line="141"/>
         <source>This plugin provides input support for HID-based joysticks.</source>
-        <translation>Ce grefon permet d&apos;utiliser des Joysticks HID.</translation>
+        <translation>Ce plugin fournit le support de l&apos;entrée des joysticks HID.</translation>
     </message>
 </context>
 <context>
@@ -45,7 +45,7 @@
     <message>
         <location filename="hidjsdevice.cpp" line="186"/>
         <source>Axes: %1</source>
-        <translation>Axes: %1</translation>
+        <translation>Axes : %1</translation>
     </message>
     <message>
         <location filename="hidjsdevice.cpp" line="188"/>

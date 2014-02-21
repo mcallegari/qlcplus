@@ -6,12 +6,12 @@
     <message>
         <location filename="udmx.cpp" line="94"/>
         <source>This plugin provides DMX output support for Anyma uDMX devices.</source>
-        <translation>Ce greffon active la sortie DMX pour les périphériques Anyma uDMX.</translation>
+        <translation>Ce plugin fournit le support de la sortie pour les périphériques Anyma uDMX.</translation>
     </message>
     <message>
         <location filename="udmx.cpp" line="188"/>
         <source>Do you wish to re-scan your hardware?</source>
-        <translation>Souhaitez vous rechercher les périphériques ?</translation>
+        <translation>Souhaitez-vous redétecter le matériel ?</translation>
     </message>
 </context>
 <context>
@@ -39,17 +39,17 @@
     <message>
         <location filename="udmxdevice.cpp" line="142"/>
         <source>Patch this device to a universe to find out.</source>
-        <translation type="unfinished"></translation>
+        <translation>Patchez ce plugin à un univers pour l&apos;utiliser.</translation>
     </message>
     <message>
         <location filename="udmxdevice.cpp" line="143"/>
         <source>System Timer Accuracy</source>
-        <translation>Précision de l&apos;Horloge Système</translation>
+        <translation>Précision de l&apos;horloge système</translation>
     </message>
     <message>
         <location filename="udmxdevice.cpp" line="148"/>
         <source>Unknown device</source>
-        <translation>Périphérique Inconnu</translation>
+        <translation>Périphérique inconnu</translation>
     </message>
     <message>
         <location filename="udmxdevice.cpp" line="150"/>
