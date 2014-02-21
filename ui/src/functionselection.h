@@ -74,6 +74,7 @@ public:
 
 private:
     bool m_none;
+    QTreeWidgetItem *m_noneItem;
 
     /*********************************************************************
      * Multi-selection
