@@ -153,7 +153,7 @@ void VCButton_Test::intensity()
 
     for (qreal i = -0.5; i < 1.2; i += 0.01)
     {
-        btn.enableStartupIntensity(i);
+        btn.setStartupIntensity(i);
         QCOMPARE(btn.startupIntensity(), CLAMP(i, qreal(0.0), qreal(1.0)));
     }
 }
@@ -285,7 +285,7 @@ void VCButton_Test::copy()
     btn.setAction(VCButton::Flash);
     btn.setKeySequence(QKeySequence(keySequenceB));
     btn.enableStartupIntensity(true);
-    btn.enableStartupIntensity(qreal(0.2));
+    btn.setStartupIntensity(qreal(0.2));
 
     VCFrame parent(&w, m_doc);
     VCButton* copy = qobject_cast<VCButton*> (btn.createCopy(&parent));
@@ -394,7 +394,7 @@ void VCButton_Test::save()
     btn.setAction(VCButton::Flash);
     btn.setKeySequence(QKeySequence(keySequenceB));
     btn.enableStartupIntensity(true);
-    btn.enableStartupIntensity(qreal(0.2));
+    btn.setStartupIntensity(qreal(0.2));
 
     QDomDocument xmldoc;
     QDomElement root = xmldoc.createElement("Root");
@@ -485,7 +485,7 @@ void VCButton_Test::toggle()
     btn.setAction(VCButton::Toggle);
     btn.setKeySequence(QKeySequence(keySequenceB));
     btn.enableStartupIntensity(true);
-    btn.enableStartupIntensity(qreal(0.2));
+    btn.setStartupIntensity(qreal(0.2));
 
     // Mouse button press in design mode doesn't toggle the function
     QCOMPARE(m_doc->mode(), Doc::Design);
@@ -538,7 +538,7 @@ void VCButton_Test::flash()
     btn.setAction(VCButton::Flash);
     btn.setKeySequence(QKeySequence(keySequenceB));
     btn.enableStartupIntensity(false);
-    btn.enableStartupIntensity(qreal(0.2));
+    btn.setStartupIntensity(qreal(0.2));
 
     QSignalSpy spy(sc, SIGNAL(flashing(quint32,bool)));
 
@@ -578,7 +578,7 @@ void VCButton_Test::input()
     btn.setFunction(sc->id());
     btn.setAction(VCButton::Flash);
     btn.enableStartupIntensity(true);
-    btn.enableStartupIntensity(qreal(1.0));
+    btn.setStartupIntensity(qreal(1.0));
     btn.setInputSource(QLCInputSource(0, 0));
 
     btn.slotInputValueChanged(0, 0, 255);

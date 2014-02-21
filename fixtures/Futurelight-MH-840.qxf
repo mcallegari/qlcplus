@@ -64,6 +64,7 @@
  </Channel>
  <Channel Name="Yellow">
   <Group Byte="0">Intensity</Group>
+  <Colour>Yellow</Colour>
   <Capability Min="0" Max="255">Yellow mix</Capability>
  </Channel>
  <Channel Name="Speed of CMY and dimmer">
