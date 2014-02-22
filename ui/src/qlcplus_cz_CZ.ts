@@ -3355,87 +3355,92 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
 <context>
     <name>Monitor</name>
     <message>
-        <location filename="monitor.cpp" line="190"/>
+        <location filename="monitor.cpp" line="194"/>
         <source>Fixture Monitor</source>
         <translation>Sledování zařízení</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="222"/>
+        <location filename="monitor.cpp" line="226"/>
         <source>2D View</source>
         <translation>2D pohled</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="229"/>
+        <location filename="monitor.cpp" line="233"/>
         <source>Font</source>
         <translation>Styl písma</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="238"/>
+        <location filename="monitor.cpp" line="242"/>
         <source>DMX Channels</source>
         <translation>DMX kanály</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="239"/>
+        <location filename="monitor.cpp" line="243"/>
         <source>Show absolute DMX channel numbers</source>
         <translation>Zobrazit absolutní číslo DMX kanálu</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="249"/>
+        <location filename="monitor.cpp" line="253"/>
         <source>Relative Channels</source>
         <translation>Relativní kanály</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="250"/>
+        <location filename="monitor.cpp" line="254"/>
         <source>Show channel numbers relative to fixture</source>
         <translation>Zobrazit číslo kanálu relativně k zařízení</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="266"/>
+        <location filename="monitor.cpp" line="270"/>
         <source>DMX Values</source>
         <translation>DMX hodnoty</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="267"/>
+        <location filename="monitor.cpp" line="271"/>
         <source>Show DMX values 0-255</source>
         <translation>Zobrazit hodnoty DMX 0-255</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="278"/>
+        <location filename="monitor.cpp" line="282"/>
         <source>Percent Values</source>
         <translation>Procentuální hodnoty</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="279"/>
+        <location filename="monitor.cpp" line="283"/>
         <source>Show percentage values 0-100%</source>
         <translation>Zobrazit procentuální hodnoty 0-100%</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="300"/>
+        <location filename="monitor.cpp" line="294"/>
+        <source>All universes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="monitor.cpp" line="316"/>
         <source>DMX View</source>
         <translation>DMX hodnoty</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="306"/>
+        <location filename="monitor.cpp" line="322"/>
         <source>Size:</source>
         <translation>Velikost:</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="330"/>
+        <location filename="monitor.cpp" line="346"/>
         <source>Meters</source>
         <translation>metrů</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="331"/>
+        <location filename="monitor.cpp" line="347"/>
         <source>Feet</source>
         <translation>stop</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="340"/>
+        <location filename="monitor.cpp" line="356"/>
         <source>Add fixture</source>
         <translation>Přidat zařízení</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="342"/>
+        <location filename="monitor.cpp" line="358"/>
         <source>Remove fixture</source>
         <translation>Odebrat zařízení</translation>
     </message>

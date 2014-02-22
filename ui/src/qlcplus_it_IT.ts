@@ -3389,87 +3389,92 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
 <context>
     <name>Monitor</name>
     <message>
-        <location filename="monitor.cpp" line="190"/>
+        <location filename="monitor.cpp" line="194"/>
         <source>Fixture Monitor</source>
         <translation>Monitor delle fixture</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="222"/>
+        <location filename="monitor.cpp" line="226"/>
         <source>2D View</source>
         <translation>Vista 2D</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="229"/>
+        <location filename="monitor.cpp" line="233"/>
         <source>Font</source>
         <translation>Font</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="238"/>
+        <location filename="monitor.cpp" line="242"/>
         <source>DMX Channels</source>
         <translation>Canali DMX</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="239"/>
+        <location filename="monitor.cpp" line="243"/>
         <source>Show absolute DMX channel numbers</source>
         <translation>Mostra i numeri assoluti dei canali DMX</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="249"/>
+        <location filename="monitor.cpp" line="253"/>
         <source>Relative Channels</source>
         <translation>Canali Relativi</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="250"/>
+        <location filename="monitor.cpp" line="254"/>
         <source>Show channel numbers relative to fixture</source>
         <translation>Mostra i numeri dei canali relativi alla fixture</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="266"/>
+        <location filename="monitor.cpp" line="270"/>
         <source>DMX Values</source>
         <translation>Valori DMX</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="267"/>
+        <location filename="monitor.cpp" line="271"/>
         <source>Show DMX values 0-255</source>
         <translation>Mostra valori DMX 0-255</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="278"/>
+        <location filename="monitor.cpp" line="282"/>
         <source>Percent Values</source>
         <translation>Valori percentuali</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="279"/>
+        <location filename="monitor.cpp" line="283"/>
         <source>Show percentage values 0-100%</source>
         <translation>Mostra valori percentuali 0-100%</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="300"/>
+        <location filename="monitor.cpp" line="294"/>
+        <source>All universes</source>
+        <translation>Tutti gli universi</translation>
+    </message>
+    <message>
+        <location filename="monitor.cpp" line="316"/>
         <source>DMX View</source>
         <translation>Vista DMX</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="306"/>
+        <location filename="monitor.cpp" line="322"/>
         <source>Size:</source>
         <translation>Dimensione:</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="330"/>
+        <location filename="monitor.cpp" line="346"/>
         <source>Meters</source>
         <translation>Metri</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="331"/>
+        <location filename="monitor.cpp" line="347"/>
         <source>Feet</source>
         <translation>Piedi</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="340"/>
+        <location filename="monitor.cpp" line="356"/>
         <source>Add fixture</source>
         <translation>Aggiungi fixture</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="342"/>
+        <location filename="monitor.cpp" line="358"/>
         <source>Remove fixture</source>
         <translation>Rimuovi fixture</translation>
     </message>
