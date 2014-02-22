@@ -20,6 +20,8 @@
 #include <QDomDocument>
 #include <QVideoWidget>
 #include <QDomElement>
+#include <QDesktopWidget>
+#include <QApplication>
 
 #include <QDebug>
 #include <QFile>
@@ -32,6 +34,8 @@
 #define KXMLQLCVideoSource "Source"
 #define KXMLQLCVideoStartTime "StartTime"
 #define KXMLQLCVideoColor "Color"
+#define KXMLQLCVideoScreen "Screen"
+#define KXMLQLCVideoFullscreen "Fullscreen"
 
 /*****************************************************************************
  * Initialization
@@ -45,6 +49,8 @@ Video::Video(Doc* doc)
   , m_color(147, 140, 20)
   , m_sourceFileName("")
   , m_videoDuration(0)
+  , m_screen(0)
+  , m_fullscreen(false)
 {
     setName(tr("New Video"));
 
@@ -105,6 +111,15 @@ QStringList Video::getCapabilities()
     return caps;
 }
 
+int Video::getScreenCount()
+{
+    QDesktopWidget *desktop = qApp->desktop();
+    if (desktop != NULL)
+        return desktop->screenCount();
+
+    return -1;
+}
+
 /*********************************************************************
  * Properties
  *********************************************************************/
@@ -162,6 +177,26 @@ bool Video::setSourceFileName(QString filename)
 QString Video::getSourceFileName()
 {
     return m_sourceFileName;
+}
+
+void Video::setScreen(int index)
+{
+    m_screen = index;
+}
+
+int Video::screen()
+{
+    return m_screen;
+}
+
+void Video::setFullscreen(bool enable)
+{
+    m_fullscreen = enable;
+}
+
+bool Video::fullscreen()
+{
+    return m_fullscreen;
 }
 
 void Video::adjustAttribute(qreal fraction, int attributeIndex)
@@ -247,6 +282,10 @@ bool Video::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     QDomElement source = doc->createElement(KXMLQLCVideoSource);
     source.setAttribute(KXMLQLCVideoStartTime, m_startTime);
     source.setAttribute(KXMLQLCVideoColor, m_color.name());
+    if (m_screen > 0)
+        source.setAttribute(KXMLQLCVideoScreen, m_screen);
+    if (m_fullscreen == true)
+        source.setAttribute(KXMLQLCVideoFullscreen, true);
 
     text = doc->createTextNode(m_doc->normalizeComponentPath(m_sourceFileName));
 
@@ -281,6 +320,15 @@ bool Video::loadXML(const QDomElement& root)
                 m_startTime = tag.attribute(KXMLQLCVideoStartTime).toUInt();
             if (tag.hasAttribute(KXMLQLCVideoColor))
                 m_color = QColor(tag.attribute(KXMLQLCVideoColor));
+            if (tag.hasAttribute(KXMLQLCVideoScreen))
+                m_screen = tag.attribute(KXMLQLCVideoScreen).toInt();
+            if (tag.hasAttribute(KXMLQLCVideoFullscreen))
+            {
+                if (tag.attribute(KXMLQLCVideoFullscreen) == "1")
+                    m_fullscreen = true;
+                else
+                    m_fullscreen = false;
+            }
             setSourceFileName(m_doc->denormalizeComponentPath(tag.text()));
         }
         else if (tag.tagName() == KXMLQLCFunctionSpeed)
@@ -304,6 +352,13 @@ void Video::preRun(MasterTimer* timer)
 {
     if (m_startTime != UINT_MAX)
         m_videoPlayer->setPosition(m_startTime);
+    if (m_screen > 0 && getScreenCount() > m_screen)
+    {
+        QRect rect = qApp->desktop()->screenGeometry(m_screen);
+        m_videoWidget->move(rect.topLeft());
+    }
+    if (m_fullscreen == true)
+        m_videoWidget->setFullScreen(true);
     m_videoWidget->show();
 
     m_videoPlayer->play();

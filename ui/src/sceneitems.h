@@ -398,6 +398,8 @@ protected:
 protected slots:
     void slotVideoChanged(quint32);
     void slotAlignToCursorClicked();
+    void slotScreenChanged();
+    void slotFullscreenToggled(bool toggle);
 
 private:
     /** Calculate sequence width for paint() and boundingRect() */
@@ -419,6 +421,7 @@ private:
 
     /** Context menu actions */
     QAction *m_alignToCursor;
+    QAction *m_fullscreenAction;
 
     bool m_pressed;
 };
