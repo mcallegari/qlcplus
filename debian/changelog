@@ -5,6 +5,7 @@ qlcplus (4.7.0) stable; urgency=low
   * NEW: Plugins: ArtNet and E1.31 plugins support up to 65535 universes
   * NEW: Fixture Manager: Added a dedicated dialog to quickly create RGB panels
   * NEW: Monitor: preliminary support of 2D preview monitor
+  * NEW: RGBMatrix: added audio spectrum mode
   * NEW: Plugins: Added SPI plugin (Linux only)
   * NEW: Plugins: Added Vince DMX512 USB adapter support (thanks to Jérôme Lebleu)
   * Function Selection: fixed OK button greyed out and various crashes

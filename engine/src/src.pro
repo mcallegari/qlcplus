@@ -95,6 +95,7 @@ HEADERS += bus.h \
            qlcclipboard.h \
            qlcpoint.h \
            rgbalgorithm.h \
+           rgbaudio.h \
            rgbmatrix.h \
            rgbimage.h \
            rgbscript.h \
@@ -184,6 +185,7 @@ SOURCES += bus.cpp \
            qlcclipboard.cpp \
            qlcpoint.cpp \
            rgbalgorithm.cpp \
+           rgbaudio.cpp \
            rgbmatrix.cpp \
            rgbimage.cpp \
            rgbscript.cpp \
