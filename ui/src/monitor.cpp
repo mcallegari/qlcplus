@@ -36,6 +36,7 @@
 #include "fixtureselection.h"
 #include "monitorfixture.h"
 #include "monitorlayout.h"
+#include "universe.h"
 #include "monitor.h"
 #include "apputil.h"
 #include "doc.h"
@@ -56,6 +57,7 @@ Monitor::Monitor(QWidget* parent, Doc* doc, Qt::WindowFlags f)
     , m_toolBar(NULL)
     , m_scrollArea(NULL)
     , m_monitorWidget(NULL)
+    , m_currentUniverse(Universe::invalid())
 {
     Q_ASSERT(doc != NULL);
 
@@ -128,7 +130,9 @@ void Monitor::initDMXView()
     foreach(Fixture* fxi, m_doc->fixtures())
     {
         Q_ASSERT(fxi != NULL);
-        createMonitorFixture(fxi);
+        if (m_currentUniverse == Universe::invalid() ||
+            m_currentUniverse == fxi->universe())
+                createMonitorFixture(fxi);
     }
 
     /* Show the master container widgets */
@@ -285,6 +289,18 @@ void Monitor::initDMXToolbar()
     group->addAction(action);
     if (m_props->valueStyle() == MonitorProperties::PercentageValues)
         action->setChecked(true);
+
+    QComboBox *uniCombo = new QComboBox(this);
+    uniCombo->addItem(tr("All universes"), Universe::invalid());
+    for (quint32 i = 0; i < m_doc->inputOutputMap()->universes(); i++)
+    {
+        quint32 uniID = m_doc->inputOutputMap()->getUniverseID(i);
+        uniCombo->addItem(m_doc->inputOutputMap()->getUniverseName(i), uniID);
+    }
+    connect(uniCombo, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(slotUniverseSelected(int)));
+    m_toolBar->addWidget(uniCombo);
+
 }
 
 void Monitor::initGraphicsToolbar()
@@ -485,6 +501,25 @@ void Monitor::slotFixtureRemoved(quint32 fxi_id)
     {
         if (m_graphicsView != NULL)
             m_graphicsView->removeFixture(fxi_id);
+    }
+}
+
+void Monitor::slotUniverseSelected(int index)
+{
+    QComboBox *combo = (QComboBox *)sender();
+    m_currentUniverse = combo->itemData(index).toUInt();
+
+    if (m_props->displayMode() == MonitorProperties::DMX)
+    {
+        while (m_monitorFixtures.isEmpty() == false)
+            delete m_monitorFixtures.takeFirst();
+        layout()->removeWidget(m_scrollArea);
+        delete m_monitorWidget;
+        m_monitorWidget = NULL;
+        delete m_scrollArea;
+        m_scrollArea = NULL;
+
+        initDMXView();
     }
 }
 

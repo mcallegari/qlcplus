@@ -31,6 +31,9 @@
 #include "chaser.h"
 #include "script.h"
 #include "audio.h"
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include "video.h"
+#endif
 #include "scene.h"
 #include "show.h"
 #include "efx.h"
@@ -653,6 +656,10 @@ bool Function::loader(const QDomElement& root, Doc* doc)
         function = new class Show(doc);
     else if (type == Function::Audio)
         function = new class Audio(doc);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    else if (type == Function::Video)
+        function = new class Video(doc);
+#endif
     else
         return false;
 

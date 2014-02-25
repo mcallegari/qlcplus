@@ -33,7 +33,7 @@
 #include "fadechannel.h"
 #include "rgbmatrix.h"
 #include "qlcmacros.h"
-#include "rgbtext.h"
+#include "rgbaudio.h"
 #include "doc.h"
 
 #define KXMLQLCRGBMatrixStartColor "MonoColor"
@@ -135,6 +135,11 @@ void RGBMatrix::setAlgorithm(RGBAlgorithm* algo)
     if (m_algorithm != NULL)
         delete m_algorithm;
     m_algorithm = algo;
+    if (m_algorithm != NULL && m_algorithm->type() == RGBAlgorithm::Audio)
+    {
+        RGBAudio *audio = static_cast<RGBAudio*>(m_algorithm);
+        audio->setAudioCapture(doc()->audioInputCapture());
+    }
 }
 
 RGBAlgorithm* RGBMatrix::algorithm() const

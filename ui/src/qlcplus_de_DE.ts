@@ -236,97 +236,118 @@
         <translation>RGB-Panel hinzufügen</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="24"/>
+        <location filename="addrgbpanel.ui" line="209"/>
         <source>Panel properties</source>
         <translation>Panel-Eigenschaften</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="38"/>
+        <location filename="addrgbpanel.ui" line="223"/>
         <source>Universe:</source>
         <translation>Universum:</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="45"/>
+        <location filename="addrgbpanel.ui" line="230"/>
         <source>RGB Panel</source>
         <translation>RGB Panel</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="52"/>
+        <location filename="addrgbpanel.ui" line="237"/>
         <source>Name:</source>
         <translation>Name:</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="62"/>
+        <location filename="addrgbpanel.ui" line="247"/>
         <source>Address:</source>
         <translation>Adresse:</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="79"/>
+        <location filename="addrgbpanel.ui" line="264"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;Fehler: Addresse wird bereits verwendet !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="91"/>
+        <location filename="addrgbpanel.ui" line="24"/>
         <source>Size</source>
         <translation>Größe</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="105"/>
+        <location filename="addrgbpanel.ui" line="38"/>
         <source>Columns:</source>
         <translation>Spalten:</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="112"/>
+        <location filename="addrgbpanel.ui" line="45"/>
         <source>Rows:</source>
         <translation>Zeilen:</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="119"/>
+        <location filename="addrgbpanel.ui" line="52"/>
         <source>Total pixels:</source>
         <translation>Summe Pixel:</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="146"/>
+        <location filename="addrgbpanel.ui" line="79"/>
         <source>100</source>
         <translation>100</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="158"/>
+        <location filename="addrgbpanel.ui" line="91"/>
         <source>Orientation</source>
         <translation>Ausrichtung</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="164"/>
+        <location filename="addrgbpanel.ui" line="97"/>
         <source>Top-Right</source>
         <translation>Open-Rechts</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="171"/>
+        <location filename="addrgbpanel.ui" line="104"/>
         <source>Top-Left</source>
         <translation>Open Links</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="181"/>
+        <location filename="addrgbpanel.ui" line="114"/>
         <source>Bottom-Left</source>
         <translation>Unten Links</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="188"/>
+        <location filename="addrgbpanel.ui" line="121"/>
         <source>Bottom-Right</source>
         <translation>Unten-Rechts</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="198"/>
+        <location filename="addrgbpanel.ui" line="141"/>
+        <source>Physical</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="158"/>
+        <source>Width:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="165"/>
+        <location filename="addrgbpanel.ui" line="188"/>
+        <source>mm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="181"/>
+        <source>Height:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="276"/>
         <source>Displacement</source>
         <translation>Ersetzung</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="204"/>
+        <location filename="addrgbpanel.ui" line="282"/>
         <source>Snake</source>
         <translation>Schlange</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="214"/>
+        <location filename="addrgbpanel.ui" line="292"/>
         <source>Zig Zag</source>
         <translation>Zick-Zack</translation>
     </message>
@@ -2195,65 +2216,65 @@ Dauer: %3
         <translation>Geräte neu zuweisen...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1158"/>
+        <location filename="fixturemanager.cpp" line="1160"/>
         <source>%1 - Row %2</source>
         <translation>%1 - Reihe %2</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1221"/>
+        <location filename="fixturemanager.cpp" line="1223"/>
         <source>Do you want to delete the selected items?</source>
         <translation>Ausgewählte Objekte löschen?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1266"/>
+        <location filename="fixturemanager.cpp" line="1268"/>
         <source>Delete Channels Group</source>
         <translation>Kanalgruppe löschen</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1369"/>
+        <location filename="fixturemanager.cpp" line="1371"/>
         <source>Error</source>
         <translation>Fehler</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1370"/>
+        <location filename="fixturemanager.cpp" line="1372"/>
         <source>Please enter a valid address</source>
         <translation>Bitte gültige Adresse eingeben</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1446"/>
+        <location filename="fixturemanager.cpp" line="1448"/>
         <source>Ungroup fixtures?</source>
         <translation>Geräte-Gruppierung aufheben?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1447"/>
+        <location filename="fixturemanager.cpp" line="1449"/>
         <source>Do you want to ungroup the selected fixtures?</source>
         <translation>Gruppierung der ausgewählten Geräte aufheben?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1562"/>
+        <location filename="fixturemanager.cpp" line="1564"/>
         <source>Import Fixtures List</source>
         <oldsource>Import Fixture Definition</oldsource>
         <translation>Gerätedefinitionsliste importieren</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1567"/>
+        <location filename="fixturemanager.cpp" line="1569"/>
         <source>Export Fixtures List As</source>
         <oldsource>Export Fixture Definition As</oldsource>
         <translation>Gerätedefinitionsliste exportieren unter</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1573"/>
+        <location filename="fixturemanager.cpp" line="1575"/>
         <source>Fixtures List (*%1)</source>
         <oldsource>Fixture Definitions (*%1)</oldsource>
         <translation>Gerätedefinitionsliste (*%1)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1575"/>
+        <location filename="fixturemanager.cpp" line="1577"/>
         <source>All Files (*.*)</source>
         <translation>Alle Dateien (*.*)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1577"/>
+        <location filename="fixturemanager.cpp" line="1579"/>
         <source>All Files (*)</source>
         <translation>Alle Dateien (*)</translation>
     </message>
@@ -2268,17 +2289,17 @@ Dauer: %3
         <translation>Generischer Dimmer</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1220"/>
+        <location filename="fixturemanager.cpp" line="1222"/>
         <source>Delete Fixtures</source>
         <translation>Geräte löschen</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1267"/>
+        <location filename="fixturemanager.cpp" line="1269"/>
         <source>Do you want to delete the selected groups?</source>
         <translation>Willst du die ausgewählten Gruppen entfernen?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1332"/>
+        <location filename="fixturemanager.cpp" line="1334"/>
         <source>Change fixture properties</source>
         <translation>Geräteeigenschaften ändern</translation>
     </message>
@@ -2767,12 +2788,12 @@ Dauer: %3
         <translation>Sammlungen</translation>
     </message>
     <message>
-        <location filename="functionselection.cpp" line="74"/>
+        <location filename="functionselection.cpp" line="75"/>
         <source>Functions</source>
         <translation>Funktionen</translation>
     </message>
     <message>
-        <location filename="functionselection.cpp" line="284"/>
+        <location filename="functionselection.cpp" line="285"/>
         <source>&lt;No function&gt;</source>
         <translation>&lt;keine Funktion&gt;</translation>
     </message>
@@ -2972,27 +2993,27 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>GrandMasterSlider</name>
     <message>
-        <location filename="grandmasterslider.cpp" line="64"/>
+        <location filename="grandmasterslider.cpp" line="88"/>
         <source>GM</source>
         <translation>GM</translation>
     </message>
     <message>
-        <location filename="grandmasterslider.cpp" line="118"/>
+        <location filename="grandmasterslider.cpp" line="142"/>
         <source>Grand Master &lt;B&gt;limits&lt;/B&gt; the maximum value of</source>
         <translation>Grand Master &lt;B&gt;Limits&lt;/B&gt; Maximalwert von</translation>
     </message>
     <message>
-        <location filename="grandmasterslider.cpp" line="121"/>
+        <location filename="grandmasterslider.cpp" line="145"/>
         <source>Grand Master &lt;B&gt;reduces&lt;/B&gt; the current value of</source>
         <translation>Grand Master &lt;B&gt;verringert&lt;/B&gt; den aktuellen Wert von</translation>
     </message>
     <message>
-        <location filename="grandmasterslider.cpp" line="130"/>
+        <location filename="grandmasterslider.cpp" line="154"/>
         <source>intensity channels</source>
         <translation>Intensitätskanäle</translation>
     </message>
     <message>
-        <location filename="grandmasterslider.cpp" line="133"/>
+        <location filename="grandmasterslider.cpp" line="157"/>
         <source>all channels</source>
         <translation>alle Kanäle</translation>
     </message>
@@ -3368,87 +3389,92 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
 <context>
     <name>Monitor</name>
     <message>
-        <location filename="monitor.cpp" line="190"/>
+        <location filename="monitor.cpp" line="194"/>
         <source>Fixture Monitor</source>
         <translation>DMX Kanal Monitor</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="222"/>
+        <location filename="monitor.cpp" line="226"/>
         <source>2D View</source>
         <translation>2D Ansicht</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="229"/>
+        <location filename="monitor.cpp" line="233"/>
         <source>Font</source>
         <translation>Schriftart</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="238"/>
+        <location filename="monitor.cpp" line="242"/>
         <source>DMX Channels</source>
         <translation>DMX Kanäle</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="239"/>
+        <location filename="monitor.cpp" line="243"/>
         <source>Show absolute DMX channel numbers</source>
         <translation>Zeige absolute DMX Kanalnummern</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="249"/>
+        <location filename="monitor.cpp" line="253"/>
         <source>Relative Channels</source>
         <translation>Relative Kanalnummern</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="250"/>
+        <location filename="monitor.cpp" line="254"/>
         <source>Show channel numbers relative to fixture</source>
         <translation>Zeige Kanalnummer relativ zum Gerät</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="266"/>
+        <location filename="monitor.cpp" line="270"/>
         <source>DMX Values</source>
         <translation>DMX Werte</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="267"/>
+        <location filename="monitor.cpp" line="271"/>
         <source>Show DMX values 0-255</source>
         <translation>Zeige DMX Werte (0-255)</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="278"/>
+        <location filename="monitor.cpp" line="282"/>
         <source>Percent Values</source>
         <translation>Prozentuale Werte</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="279"/>
+        <location filename="monitor.cpp" line="283"/>
         <source>Show percentage values 0-100%</source>
         <translation>Zeige prozentuale Werte (0-100%)</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="300"/>
+        <location filename="monitor.cpp" line="294"/>
+        <source>All universes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="monitor.cpp" line="316"/>
         <source>DMX View</source>
         <translation>DMX Ansicht</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="306"/>
+        <location filename="monitor.cpp" line="322"/>
         <source>Size:</source>
         <translation>Größe:</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="330"/>
+        <location filename="monitor.cpp" line="346"/>
         <source>Meters</source>
         <translation>Messungen</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="331"/>
+        <location filename="monitor.cpp" line="347"/>
         <source>Feet</source>
         <translation>Fuß</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="340"/>
+        <location filename="monitor.cpp" line="356"/>
         <source>Add fixture</source>
         <translation>Gerät hinzufügen</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="342"/>
+        <location filename="monitor.cpp" line="358"/>
         <source>Remove fixture</source>
         <translation>Gerät entfernen</translation>
     </message>
@@ -4724,12 +4750,12 @@ Dauer: %3
 <context>
     <name>VCAudioTriggers</name>
     <message>
-        <location filename="vcaudiotriggers.cpp" line="150"/>
+        <location filename="vcaudiotriggers.cpp" line="159"/>
         <source>Audio open error</source>
         <translation>Fehle beim Öffnen von Audio</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggers.cpp" line="151"/>
+        <location filename="vcaudiotriggers.cpp" line="160"/>
         <source>An error occurred while initializing the selected audio device. Please review your audio input settings.</source>
         <translation>Bein Initialisieren des ausgewählten Audiogerätes ist ein Fehler aufgetreten. Bitte Audioeingangseinstellungen prüfen.</translation>
     </message>
@@ -6485,8 +6511,8 @@ Dauer: %3
 <context>
     <name>VideoItem</name>
     <message>
-        <location filename="sceneitems.cpp" line="1127"/>
-        <location filename="sceneitems.cpp" line="1229"/>
+        <location filename="sceneitems.cpp" line="1128"/>
+        <location filename="sceneitems.cpp" line="1237"/>
         <source>Name: %1
 Start time: %2
 Duration: %3
@@ -6497,15 +6523,25 @@ Dauer: %3
 %4</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="1131"/>
-        <location filename="sceneitems.cpp" line="1233"/>
+        <location filename="sceneitems.cpp" line="1132"/>
+        <location filename="sceneitems.cpp" line="1241"/>
         <source>Click to move this video across the timeline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="1145"/>
+        <location filename="sceneitems.cpp" line="1146"/>
+        <source>Fullscreen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sceneitems.cpp" line="1153"/>
         <source>Align to cursor</source>
         <translation type="unfinished">Am Cursor ausrichten</translation>
+    </message>
+    <message>
+        <location filename="sceneitems.cpp" line="1333"/>
+        <source>Screen %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

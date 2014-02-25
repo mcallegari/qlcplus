@@ -236,97 +236,118 @@
         <translation>Aggiungi un pannello RGB</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="24"/>
+        <location filename="addrgbpanel.ui" line="209"/>
         <source>Panel properties</source>
         <translation>Proprietà del pannello</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="38"/>
+        <location filename="addrgbpanel.ui" line="223"/>
         <source>Universe:</source>
         <translation>Universo:</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="45"/>
+        <location filename="addrgbpanel.ui" line="230"/>
         <source>RGB Panel</source>
         <translation>Pannello RGB</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="52"/>
+        <location filename="addrgbpanel.ui" line="237"/>
         <source>Name:</source>
         <translation>Nome:</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="62"/>
+        <location filename="addrgbpanel.ui" line="247"/>
         <source>Address:</source>
         <translation>Indirizzo:</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="79"/>
+        <location filename="addrgbpanel.ui" line="264"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERRORE: Indirizzo già in uso !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="91"/>
+        <location filename="addrgbpanel.ui" line="24"/>
         <source>Size</source>
         <translation>Dimensione</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="105"/>
+        <location filename="addrgbpanel.ui" line="38"/>
         <source>Columns:</source>
         <translation>Colonne:</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="112"/>
+        <location filename="addrgbpanel.ui" line="45"/>
         <source>Rows:</source>
         <translation>Righe:</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="119"/>
+        <location filename="addrgbpanel.ui" line="52"/>
         <source>Total pixels:</source>
         <translation>Pixel totali:</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="146"/>
+        <location filename="addrgbpanel.ui" line="79"/>
         <source>100</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="158"/>
+        <location filename="addrgbpanel.ui" line="91"/>
         <source>Orientation</source>
         <translation>Orientamento</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="164"/>
+        <location filename="addrgbpanel.ui" line="97"/>
         <source>Top-Right</source>
         <translation>In alto a destra</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="171"/>
+        <location filename="addrgbpanel.ui" line="104"/>
         <source>Top-Left</source>
         <translation>In alto a sinistra</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="181"/>
+        <location filename="addrgbpanel.ui" line="114"/>
         <source>Bottom-Left</source>
         <translation>In basso a sinistra</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="188"/>
+        <location filename="addrgbpanel.ui" line="121"/>
         <source>Bottom-Right</source>
         <translation>In basso a destra</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="198"/>
+        <location filename="addrgbpanel.ui" line="141"/>
+        <source>Physical</source>
+        <translation>Dimensioni fisiche</translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="158"/>
+        <source>Width:</source>
+        <translation>Larghezza:</translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="165"/>
+        <location filename="addrgbpanel.ui" line="188"/>
+        <source>mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="181"/>
+        <source>Height:</source>
+        <translation>Altezza:</translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="276"/>
         <source>Displacement</source>
         <translation>Disposizione</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="204"/>
+        <location filename="addrgbpanel.ui" line="282"/>
         <source>Snake</source>
         <translation>Serpente</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="214"/>
+        <location filename="addrgbpanel.ui" line="292"/>
         <source>Zig Zag</source>
         <translation>Zig Zag</translation>
     </message>
@@ -2195,65 +2216,65 @@ Durata: %3
         <translation>Riassegna fixture...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1158"/>
+        <location filename="fixturemanager.cpp" line="1160"/>
         <source>%1 - Row %2</source>
         <translation>%1 - Riga %2</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1221"/>
+        <location filename="fixturemanager.cpp" line="1223"/>
         <source>Do you want to delete the selected items?</source>
         <translation>Vuoi eliminare gli elementi selezionati ?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1266"/>
+        <location filename="fixturemanager.cpp" line="1268"/>
         <source>Delete Channels Group</source>
         <translation>Elimina Gruppo di Canali</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1369"/>
+        <location filename="fixturemanager.cpp" line="1371"/>
         <source>Error</source>
         <translation>Errore</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1370"/>
+        <location filename="fixturemanager.cpp" line="1372"/>
         <source>Please enter a valid address</source>
         <translation>Per favore inserisci un indirizzo valido</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1446"/>
+        <location filename="fixturemanager.cpp" line="1448"/>
         <source>Ungroup fixtures?</source>
         <translation>Separare fixture?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1447"/>
+        <location filename="fixturemanager.cpp" line="1449"/>
         <source>Do you want to ungroup the selected fixtures?</source>
         <translation>Vuoi separare le fixture selezionate ?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1562"/>
+        <location filename="fixturemanager.cpp" line="1564"/>
         <source>Import Fixtures List</source>
         <oldsource>Import Fixture Definition</oldsource>
         <translation>Importa Lista Fixture</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1567"/>
+        <location filename="fixturemanager.cpp" line="1569"/>
         <source>Export Fixtures List As</source>
         <oldsource>Export Fixture Definition As</oldsource>
         <translation>Esporta Lista Fixture Come</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1573"/>
+        <location filename="fixturemanager.cpp" line="1575"/>
         <source>Fixtures List (*%1)</source>
         <oldsource>Fixture Definitions (*%1)</oldsource>
         <translation>Lista Fixture (*%1)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1575"/>
+        <location filename="fixturemanager.cpp" line="1577"/>
         <source>All Files (*.*)</source>
         <translation>Tutti i file (*.*)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1577"/>
+        <location filename="fixturemanager.cpp" line="1579"/>
         <source>All Files (*)</source>
         <translation>Tutti i file (*)</translation>
     </message>
@@ -2268,17 +2289,17 @@ Durata: %3
         <translation>Dimmer generico</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1220"/>
+        <location filename="fixturemanager.cpp" line="1222"/>
         <source>Delete Fixtures</source>
         <translation>Elimina fixture</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1267"/>
+        <location filename="fixturemanager.cpp" line="1269"/>
         <source>Do you want to delete the selected groups?</source>
         <translation>Vuoi eliminare i gruppi selezionati?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1332"/>
+        <location filename="fixturemanager.cpp" line="1334"/>
         <source>Change fixture properties</source>
         <translation>Cambia le proprietà della fixture</translation>
     </message>
@@ -2540,7 +2561,7 @@ Durata: %3
     <message>
         <location filename="functionmanager.cpp" line="286"/>
         <source>New vid&amp;eo</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuovo vid&amp;eo</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="292"/>
@@ -2623,17 +2644,17 @@ Durata: %3
     <message>
         <location filename="functionmanager.cpp" line="525"/>
         <source>Video Files (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>File video (%1)</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="551"/>
         <source>Unsupported video file</source>
-        <translation type="unfinished"></translation>
+        <translation>File video non supportato</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="551"/>
         <source>This video file cannot be played with QLC+. Sorry.</source>
-        <translation type="unfinished"></translation>
+        <translation>Questo file video non può essere riprodotto da QLC+. Spiacente.</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="612"/>
@@ -2749,7 +2770,7 @@ Durata: %3
     <message>
         <location filename="functionselection.ui" line="154"/>
         <source>Video</source>
-        <translation type="unfinished"></translation>
+        <translation>Video</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="103"/>
@@ -2767,12 +2788,12 @@ Durata: %3
         <translation>Collezione</translation>
     </message>
     <message>
-        <location filename="functionselection.cpp" line="74"/>
+        <location filename="functionselection.cpp" line="75"/>
         <source>Functions</source>
         <translation>Funzioni</translation>
     </message>
     <message>
-        <location filename="functionselection.cpp" line="284"/>
+        <location filename="functionselection.cpp" line="285"/>
         <source>&lt;No function&gt;</source>
         <translation>&lt;Nessuna funzione&gt;</translation>
     </message>
@@ -2972,27 +2993,27 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>GrandMasterSlider</name>
     <message>
-        <location filename="grandmasterslider.cpp" line="64"/>
+        <location filename="grandmasterslider.cpp" line="88"/>
         <source>GM</source>
         <translation>GM</translation>
     </message>
     <message>
-        <location filename="grandmasterslider.cpp" line="118"/>
+        <location filename="grandmasterslider.cpp" line="142"/>
         <source>Grand Master &lt;B&gt;limits&lt;/B&gt; the maximum value of</source>
         <translation>Il Grand Master &lt;B&gt;limita&lt;/B&gt; il valore massimo di</translation>
     </message>
     <message>
-        <location filename="grandmasterslider.cpp" line="121"/>
+        <location filename="grandmasterslider.cpp" line="145"/>
         <source>Grand Master &lt;B&gt;reduces&lt;/B&gt; the current value of</source>
         <translation>Il Grand Master &lt;B&gt;riduce&lt;/B&gt; il valore corrente di</translation>
     </message>
     <message>
-        <location filename="grandmasterslider.cpp" line="130"/>
+        <location filename="grandmasterslider.cpp" line="154"/>
         <source>intensity channels</source>
         <translation>canali di intensità</translation>
     </message>
     <message>
-        <location filename="grandmasterslider.cpp" line="133"/>
+        <location filename="grandmasterslider.cpp" line="157"/>
         <source>all channels</source>
         <translation>tutti i canali</translation>
     </message>
@@ -3368,87 +3389,92 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
 <context>
     <name>Monitor</name>
     <message>
-        <location filename="monitor.cpp" line="190"/>
+        <location filename="monitor.cpp" line="194"/>
         <source>Fixture Monitor</source>
         <translation>Monitor delle fixture</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="222"/>
+        <location filename="monitor.cpp" line="226"/>
         <source>2D View</source>
         <translation>Vista 2D</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="229"/>
+        <location filename="monitor.cpp" line="233"/>
         <source>Font</source>
         <translation>Font</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="238"/>
+        <location filename="monitor.cpp" line="242"/>
         <source>DMX Channels</source>
         <translation>Canali DMX</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="239"/>
+        <location filename="monitor.cpp" line="243"/>
         <source>Show absolute DMX channel numbers</source>
         <translation>Mostra i numeri assoluti dei canali DMX</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="249"/>
+        <location filename="monitor.cpp" line="253"/>
         <source>Relative Channels</source>
         <translation>Canali Relativi</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="250"/>
+        <location filename="monitor.cpp" line="254"/>
         <source>Show channel numbers relative to fixture</source>
         <translation>Mostra i numeri dei canali relativi alla fixture</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="266"/>
+        <location filename="monitor.cpp" line="270"/>
         <source>DMX Values</source>
         <translation>Valori DMX</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="267"/>
+        <location filename="monitor.cpp" line="271"/>
         <source>Show DMX values 0-255</source>
         <translation>Mostra valori DMX 0-255</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="278"/>
+        <location filename="monitor.cpp" line="282"/>
         <source>Percent Values</source>
         <translation>Valori percentuali</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="279"/>
+        <location filename="monitor.cpp" line="283"/>
         <source>Show percentage values 0-100%</source>
         <translation>Mostra valori percentuali 0-100%</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="300"/>
+        <location filename="monitor.cpp" line="294"/>
+        <source>All universes</source>
+        <translation>Tutti gli universi</translation>
+    </message>
+    <message>
+        <location filename="monitor.cpp" line="316"/>
         <source>DMX View</source>
         <translation>Vista DMX</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="306"/>
+        <location filename="monitor.cpp" line="322"/>
         <source>Size:</source>
         <translation>Dimensione:</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="330"/>
+        <location filename="monitor.cpp" line="346"/>
         <source>Meters</source>
         <translation>Metri</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="331"/>
+        <location filename="monitor.cpp" line="347"/>
         <source>Feet</source>
         <translation>Piedi</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="340"/>
+        <location filename="monitor.cpp" line="356"/>
         <source>Add fixture</source>
         <translation>Aggiungi fixture</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="342"/>
+        <location filename="monitor.cpp" line="358"/>
         <source>Remove fixture</source>
         <translation>Rimuovi fixture</translation>
     </message>
@@ -3486,7 +3512,7 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="multitrackview.cpp" line="352"/>
         <source>Do you want to DELETE video (the source file will NOT be removed):</source>
-        <translation type="unfinished"></translation>
+        <translation>Vuoi ELIMINARE video (il file sorgente NON verrà eliminato):</translation>
     </message>
     <message>
         <location filename="multitrackview.cpp" line="378"/>
@@ -3514,7 +3540,7 @@ Durata: %3
     <message>
         <location filename="multitrackview.cpp" line="513"/>
         <source>Click to move this video across the timeline</source>
-        <translation type="unfinished"></translation>
+        <translation>Clicca per muovere il video lungo la linea temporale</translation>
     </message>
 </context>
 <context>
@@ -4356,7 +4382,7 @@ Durata: %3
     <message>
         <location filename="showmanager.cpp" line="205"/>
         <source>New vi&amp;deo</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuovo vi&amp;deo</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="212"/>
@@ -4478,22 +4504,22 @@ Durata: %3
     <message>
         <location filename="showmanager.cpp" line="703"/>
         <source>Open Video File</source>
-        <translation type="unfinished"></translation>
+        <translation>Apri File Video</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="712"/>
         <source>Video Files (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>File video (%1)</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="738"/>
         <source>Unsupported video file</source>
-        <translation type="unfinished"></translation>
+        <translation>File video non supportato</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="738"/>
         <source>This video file cannot be played with QLC+. Sorry.</source>
-        <translation type="unfinished"></translation>
+        <translation>Questo file video non può essere riprodotto da QLC+. Spiacente.</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="822"/>
@@ -4723,12 +4749,12 @@ Durata: %3
 <context>
     <name>VCAudioTriggers</name>
     <message>
-        <location filename="vcaudiotriggers.cpp" line="150"/>
+        <location filename="vcaudiotriggers.cpp" line="159"/>
         <source>Audio open error</source>
         <translation>Errore di apertura dell&apos;audio</translation>
     </message>
     <message>
-        <location filename="vcaudiotriggers.cpp" line="151"/>
+        <location filename="vcaudiotriggers.cpp" line="160"/>
         <source>An error occurred while initializing the selected audio device. Please review your audio input settings.</source>
         <translation>Si è verificato un errore durante l&apos;inizializzazione del dispositivo audio selezionato. Controlla le impostazioni di ingresso audio.</translation>
     </message>
@@ -6482,27 +6508,37 @@ Durata: %3
 <context>
     <name>VideoItem</name>
     <message>
-        <location filename="sceneitems.cpp" line="1127"/>
-        <location filename="sceneitems.cpp" line="1229"/>
+        <location filename="sceneitems.cpp" line="1128"/>
+        <location filename="sceneitems.cpp" line="1237"/>
         <source>Name: %1
 Start time: %2
 Duration: %3
 %4</source>
-        <translation type="unfinished">Nome: %1
+        <translation>Nome: %1
 Inizio: %2
 Durata: %3
 %4</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="1131"/>
-        <location filename="sceneitems.cpp" line="1233"/>
+        <location filename="sceneitems.cpp" line="1132"/>
+        <location filename="sceneitems.cpp" line="1241"/>
         <source>Click to move this video across the timeline</source>
-        <translation type="unfinished"></translation>
+        <translation>Clicca per muovere il video lungo la linea temporale</translation>
     </message>
     <message>
-        <location filename="sceneitems.cpp" line="1145"/>
+        <location filename="sceneitems.cpp" line="1146"/>
+        <source>Fullscreen</source>
+        <translation>Schermo intero</translation>
+    </message>
+    <message>
+        <location filename="sceneitems.cpp" line="1153"/>
         <source>Align to cursor</source>
-        <translation type="unfinished">Allinea al cursore</translation>
+        <translation>Allinea al cursore</translation>
+    </message>
+    <message>
+        <location filename="sceneitems.cpp" line="1333"/>
+        <source>Screen %1</source>
+        <translation>Schermo %1</translation>
     </message>
 </context>
 <context>

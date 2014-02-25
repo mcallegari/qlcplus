@@ -1121,6 +1121,7 @@ VideoItem::VideoItem(Video *vid)
     , m_timeScale(3)
     , m_trackIdx(-1)
     , m_alignToCursor(NULL)
+    , m_fullscreenAction(NULL)
     , m_pressed(false)
 {
     Q_ASSERT(vid != NULL);
@@ -1141,6 +1142,13 @@ VideoItem::VideoItem(Video *vid)
 
     calculateWidth();
     connect(m_video, SIGNAL(changed(quint32)), this, SLOT(slotVideoChanged(quint32)));
+
+    m_fullscreenAction = new QAction(tr("Fullscreen"), this);
+    m_fullscreenAction->setCheckable(true);
+    if (m_video->fullscreen() == true)
+        m_fullscreenAction->setChecked(true);
+    connect(m_fullscreenAction, SIGNAL(toggled(bool)),
+            this, SLOT(slotFullscreenToggled(bool)));
 
     m_alignToCursor = new QAction(tr("Align to cursor"), this);
     connect(m_alignToCursor, SIGNAL(triggered()),
@@ -1279,6 +1287,19 @@ void VideoItem::slotAlignToCursorClicked()
     emit alignToCursor(this);
 }
 
+void VideoItem::slotScreenChanged()
+{
+    QAction *action = (QAction *)sender();
+    int scrIdx = action->data().toInt();
+
+    m_video->setScreen(scrIdx);
+}
+
+void VideoItem::slotFullscreenToggled(bool toggle)
+{
+    m_video->setFullscreen(toggle);
+}
+
 void VideoItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mousePressEvent(event);
@@ -1304,6 +1325,22 @@ void VideoItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
     menuFont.setPixelSize(14);
     menu.setFont(menuFont);
 
+    int screenCount = m_video->getScreenCount();
+    if (screenCount > 0)
+    {
+        for (int i = 0; i < screenCount; i++)
+        {
+            QAction *scrAction = new QAction(tr("Screen %1").arg(i + 1), this);
+            scrAction->setCheckable(true);
+            if (m_video->screen() == i)
+                scrAction->setChecked(true);
+            scrAction->setData(i);
+            connect(scrAction, SIGNAL(triggered()),
+                    this, SLOT(slotScreenChanged()));
+            menu.addAction(scrAction);
+        }
+    }
+    menu.addAction(m_fullscreenAction);
     menu.addAction(m_alignToCursor);
     menu.exec(QCursor::pos());
 }
