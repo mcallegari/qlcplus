@@ -318,23 +318,23 @@
     <message>
         <location filename="addrgbpanel.ui" line="141"/>
         <source>Physical</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño Físico</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="158"/>
         <source>Width:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ancho:</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="165"/>
         <location filename="addrgbpanel.ui" line="188"/>
         <source>mm</source>
-        <translation type="unfinished"></translation>
+        <translation>mm</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="181"/>
         <source>Height:</source>
-        <translation type="unfinished"></translation>
+        <translation>Alto:</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="276"/>
@@ -3446,7 +3446,7 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="monitor.cpp" line="294"/>
         <source>All universes</source>
-        <translation type="unfinished"></translation>
+        <translation>Todos los universos</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="316"/>
@@ -6529,7 +6529,7 @@ Duración: %3
     <message>
         <location filename="sceneitems.cpp" line="1146"/>
         <source>Fullscreen</source>
-        <translation type="unfinished"></translation>
+        <translation>Pantalla completa</translation>
     </message>
     <message>
         <location filename="sceneitems.cpp" line="1153"/>
@@ -6539,7 +6539,7 @@ Duración: %3
     <message>
         <location filename="sceneitems.cpp" line="1333"/>
         <source>Screen %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Pantalla %1</translation>
     </message>
 </context>
 <context>
