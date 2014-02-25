@@ -208,7 +208,7 @@ void AddChannelsGroup::slotItemChecked(QTreeWidgetItem *item, int col)
 
         QString manufacturer = def->manufacturer();
         QString model = def->model();
-        QString mode = fixture->fixtureMode()->name();
+        QString mode = fixture->fixtureMode() ? fixture->fixtureMode()->name() : "";
 
         int chIdx = item->text(KColumnChIdx).toInt();
         Qt::CheckState enable = item->checkState(KColumnGroup);
@@ -225,7 +225,7 @@ void AddChannelsGroup::slotItemChecked(QTreeWidgetItem *item, int col)
                 Fixture *fxi = m_doc->fixture(fxID);
                 if (fxi != NULL)
                 {
-                    QString tmpMode = fxi->fixtureMode()->name();
+                    QString tmpMode = fxi->fixtureMode() ? fxi->fixtureMode()->name() : "";
                     const QLCFixtureDef *tmpDef = fxi->fixtureDef();
                     if (tmpDef != NULL)
                     {

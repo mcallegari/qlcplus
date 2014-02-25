@@ -41,6 +41,7 @@
 #include "playbackslider.h"
 #include "consolechannel.h"
 #include "cuestackmodel.h"
+#include "groupsconsole.h"
 #include "simpledesk.h"
 #include "qlcmacros.h"
 #include "cuestack.h"
@@ -68,6 +69,7 @@ SimpleDesk::SimpleDesk(QWidget* parent, Doc* doc)
     , m_engine(new SimpleDeskEngine(doc))
     , m_doc(doc)
     , m_docChanged(false)
+    , m_chGroupsArea(NULL)
     , m_currentUniverse(0)
     , m_channelsPerPage(DEFAULT_PAGE_CHANNELS)
     , m_selectedPlayback(UINT_MAX)
@@ -257,10 +259,13 @@ void SimpleDesk::initTopSide()
 
 void SimpleDesk::initBottomSide()
 {
-    QWidget* bottomSide = new QWidget(this);
-    QHBoxLayout* lay = new QHBoxLayout(bottomSide);
+    m_tabs = new QTabWidget(this);
+    m_splitter->addWidget(m_tabs);
+
+    QWidget* cueStackWidget = new QWidget(this);
+    QHBoxLayout* lay = new QHBoxLayout(cueStackWidget);
     lay->setContentsMargins(1, 1, 1, 1);
-    m_splitter->addWidget(bottomSide);
+    m_tabs->addTab(cueStackWidget, tr("Cue Stack"));
 
     m_playbackGroup = new QGroupBox(this);
     m_playbackGroup->setTitle(tr("Playback"));
@@ -324,6 +329,8 @@ void SimpleDesk::initBottomSide()
     m_cueStackView->setDragEnabled(true);
     m_cueStackView->setDragDropMode(QAbstractItemView::InternalMove);
     m_cueStackGroup->layout()->addWidget(m_cueStackView);
+
+    initChannelGroupsView();
 }
 
 void SimpleDesk::slotDocChanged()
@@ -447,6 +454,29 @@ void SimpleDesk::initSliderView(bool fullMode)
     {
         int page = m_universesPage.at(m_universesCombo->currentIndex());
         slotUniversePageChanged(page);
+    }
+}
+
+void SimpleDesk::initChannelGroupsView()
+{
+    if (m_chGroupsArea != NULL)
+    {
+        delete m_chGroupsArea;
+        m_chGroupsArea = NULL;
+    }
+
+    if (m_doc->channelsGroups().count() > 0)
+    {
+        m_chGroupsArea = new QScrollArea();
+        QList<quint32> chGrpIDs;
+        foreach(ChannelsGroup *grp, m_doc->channelsGroups())
+            chGrpIDs.append(grp->id());
+        GroupsConsole* console = new GroupsConsole(m_chGroupsArea, m_doc, chGrpIDs, QList<uchar>());
+        m_chGroupsArea->setWidget(console);
+        m_chGroupsArea->setWidgetResizable(true);
+        m_tabs->addTab(m_chGroupsArea, tr("Channel groups"));
+        connect(console, SIGNAL(groupValueChanged(quint32,uchar)),
+                this, SLOT(slotGroupValueChanged(quint32,uchar)));
     }
 }
 
@@ -780,6 +810,54 @@ void SimpleDesk::slotPlaybackValueChanged(uchar value)
     Q_ASSERT(cueStack != NULL);
 
     cueStack->adjustIntensity(qreal(value) / qreal(UCHAR_MAX));
+}
+
+void SimpleDesk::slotGroupValueChanged(quint32 groupID, uchar value)
+{
+    ChannelsGroup *group = m_doc->channelsGroup(groupID);
+    if (group == NULL)
+        return;
+    quint32 start = (m_universePageSpin->value() - 1) * m_channelsPerPage;
+
+    foreach (SceneValue scv, group->getChannels())
+    {
+        Fixture *fixture = m_doc->fixture(scv.fxi);
+        if (fixture == NULL)
+            continue;
+        quint32 absAddr = fixture->universeAddress() + scv.channel;
+        m_engine->setValue(absAddr, value);
+
+        // Update sliders on screen
+        if (m_viewModeButton->isChecked() == false)
+        {
+            if (fixture->universe() == (quint32)m_currentUniverse &&
+                absAddr >= start &&
+                absAddr < start + m_channelsPerPage)
+            {
+                ConsoleChannel *cc = m_universeSliders[absAddr - start];
+                if (cc != NULL)
+                {
+                    cc->blockSignals(true);
+                    cc->setValue(value, false);
+                    cc->blockSignals(false);
+                }
+            }
+        }
+        else
+        {
+            foreach(FixtureConsole *fc, m_consoleList)
+            {
+                quint32 fxi = fc->fixture();
+                if (fxi != fixture->id())
+                    continue;
+
+                fc->blockSignals(true);
+                fc->setValue(scv.channel, value, false);
+                fc->blockSignals(false);
+                break;
+            }
+        }
+    }
 }
 
 /****************************************************************************
@@ -1202,6 +1280,7 @@ void SimpleDesk::showEvent(QShowEvent* ev)
             slotEditCueStackClicked();
         initUniversesCombo();
         slotUpdateUniverseSliders();
+        initChannelGroupsView();
         m_docChanged = false;
     }
     QWidget::showEvent(ev);

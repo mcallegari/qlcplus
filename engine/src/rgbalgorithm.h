@@ -48,7 +48,8 @@ public:
     {
         Text,
         Script,
-        Image
+        Image,
+        Audio
     };
 
     /** Create a clone of the algorithm. Caller takes ownership of the pointer. */

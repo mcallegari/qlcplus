@@ -155,7 +155,7 @@ bool VCButton::copyFrom(const VCWidget* widget)
     setKeySequence(button->keySequence());
     setFunction(button->function());
     enableStartupIntensity(button->isStartupIntensityEnabled());
-    enableStartupIntensity(button->startupIntensity());
+    setStartupIntensity(button->startupIntensity());
     setAction(button->action());
 
     /* Copy common stuff */
@@ -543,7 +543,7 @@ bool VCButton::isStartupIntensityEnabled() const
     return m_startupIntensityEnabled;
 }
 
-void VCButton::enableStartupIntensity(qreal fraction)
+void VCButton::setStartupIntensity(qreal fraction)
 {
     m_startupIntensity = CLAMP(fraction, qreal(0), qreal(1));
 }
@@ -834,7 +834,7 @@ bool VCButton::loadXML(const QDomElement* root)
                 adjust = true;
             else
                 adjust = false;
-            enableStartupIntensity(qreal(tag.text().toInt()) / qreal(100));
+            setStartupIntensity(qreal(tag.text().toInt()) / qreal(100));
             enableStartupIntensity(adjust);
         }
         else

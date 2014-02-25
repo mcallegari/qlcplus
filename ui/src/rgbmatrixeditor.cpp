@@ -228,7 +228,7 @@ void RGBMatrixEditor::updateSpeedDials()
     connect(m_speedDials, SIGNAL(fadeInChanged(int)), this, SLOT(slotFadeInChanged(int)));
     connect(m_speedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotFadeOutChanged(int)));
     connect(m_speedDials, SIGNAL(holdChanged(int)), this, SLOT(slotHoldChanged(int)));
-    connect(m_speedDials, SIGNAL(durationTapped()), this, SLOT(slotDurationTapped()));
+    connect(m_speedDials, SIGNAL(holdTapped()), this, SLOT(slotDurationTapped()));
     connect(m_speedDials, SIGNAL(destroyed(QObject*)), this, SLOT(slotDialDestroyed(QObject*)));
 }
 
@@ -271,7 +271,9 @@ void RGBMatrixEditor::fillImageAnimationCombo()
 
 void RGBMatrixEditor::updateExtraOptions()
 {
-    if (m_matrix->algorithm() == NULL || (m_matrix->algorithm()->type() == RGBAlgorithm::Script))
+    if (m_matrix->algorithm() == NULL ||
+        m_matrix->algorithm()->type() == RGBAlgorithm::Script ||
+        m_matrix->algorithm()->type() == RGBAlgorithm::Audio)
     {
         m_textGroup->hide();
         m_imageGroup->hide();

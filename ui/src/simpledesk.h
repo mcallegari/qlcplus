@@ -37,6 +37,7 @@ class QDomDocument;
 class QDomElement;
 class QToolButton;
 class SimpleDesk;
+class QTabWidget;
 class QComboBox;
 class QGroupBox;
 class QTreeView;
@@ -99,6 +100,7 @@ private:
     void initUniversePager();
     void resetUniverseSliders();
     void initSliderView(bool fullMode);
+    void initChannelGroupsView();
 
 private slots:
     void slotUniversesComboChanged(int index);
@@ -121,6 +123,7 @@ private:
     QToolButton* m_universeResetButton;
     GrandMasterSlider* m_grandMasterSlider;
     QScrollArea* scrollArea;
+    QScrollArea* m_chGroupsArea;
 
     QList <ConsoleChannel*> m_universeSliders;
     QList <FixtureConsole *> m_consoleList;
@@ -149,7 +152,11 @@ private slots:
     void slotPlaybackFlashing(bool enabled);
     void slotPlaybackValueChanged(uchar value);
 
+    /** Called when the user moves a fader of the ChannelGroup console */
+    void slotGroupValueChanged(quint32 groupID, uchar value);
+
 private:
+    QTabWidget* m_tabs;
     QGroupBox* m_playbackGroup;
     QList <PlaybackSlider*> m_playbackSliders;
     uint m_selectedPlayback;

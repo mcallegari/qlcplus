@@ -128,6 +128,9 @@ protected slots:
     /** Slot for fixture removals (to remove the fixture from layout) */
     void slotFixtureRemoved(quint32 fxi_id);
 
+    /** Slot called when a universe combo item is selected */
+    void slotUniverseSelected(int index);
+
     /** Slot for getting the latest values from InputOutputMap */
     void slotUniversesWritten(int index, const QByteArray& ua);
 
@@ -141,6 +144,7 @@ protected:
     QWidget* m_monitorWidget;
     MonitorLayout* m_monitorLayout;
     QList <MonitorFixture*> m_monitorFixtures;
+    quint32 m_currentUniverse;
 
     /********************************************************************
      * Graphics View
