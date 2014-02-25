@@ -300,6 +300,7 @@
   <fixture path="Showtec-Spectral-CYC650.qxf" mf="Showtec" md="Spectral CYC650"/>
   <fixture path="Showtec-Sunstrip-Active.qxf" mf="Showtec" md="Sunstrip Active"/>
   <fixture path="Showtec-ZIPP-LED-DMX.qxf" mf="Showtec" md="ZIPP LED DMX"/>
+  <fixture path="Stairville-DDS-405.qxf" mf="Stairville" md="DDS 405"/>
   <fixture path="Stairville-LED-PAR56-MKII-RGBA.qxf" mf="Stairville" md="LED Par56 MKII RGBA"/>
   <fixture path="Stairville-LED-PAR56-MKII-RGBW.qxf" mf="Stairville" md="LED Par56 MKII RGBW"/>
   <fixture path="Stairville-LED-PAR56.qxf" mf="Stairville" md="LED PAR56"/>
@@ -311,6 +312,7 @@
   <fixture path="Stairville-MH-X50.qxf" mf="Stairville" md="MH-X50+"/>
   <fixture path="Stairville-PAR64-CX-3-RGBW.qxf" mf="Stairville" md="PAR 64 CX-3 RGBW"/>
   <fixture path="Stairville-PS1500DMX.qxf" mf="Stairville" md="PS 1500 DMX"/>
+  <fixture path="Stairville-Quad-Par-Profile-RGBW-5x8W.qxf" mf="Stairville" md="Quad Par Profile RGBW 5x8W"/>
   <fixture path="Stairville-SC-100.qxf" mf="Stairville" md="SC-100"/>
   <fixture path="Stairville-SC250H.qxf" mf="Stairville" md="SC250H"/>
   <fixture path="Stairville-SF-1500.qxf" mf="Stairville" md="SF-1500"/>
