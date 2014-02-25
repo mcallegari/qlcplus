@@ -107,7 +107,6 @@
     <message>
         <location filename="app.cpp" line="267"/>
         <source>Save &amp;As...</source>
-        <translatorcomment>Q: Is the shortcut not CTRL+SHIFT+S?</translatorcomment>
         <translation type="unfinished">Enregistrer sous...</translation>
     </message>
     <message>
@@ -896,8 +895,7 @@
     <message>
         <location filename="fixtureeditor.ui" line="393"/>
         <source>Open/close all channel items</source>
-        <translatorcomment>Q: What about replacing &quot;Open/close&quot; by &quot;Expand/Collapse&quot;?</translatorcomment>
-        <translation type="unfinished">Déplier/Replier tous les canaux</translation>
+        <translation>Déplier/Replier tous les canaux</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="414"/>

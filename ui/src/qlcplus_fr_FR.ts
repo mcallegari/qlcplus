@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="fr_FR">
+<TS version="2.0" language="fr_FR">
 <context>
     <name>AboutBox</name>
     <message>
@@ -77,8 +77,7 @@
     <message>
         <location filename="addchannelsgroup.ui" line="86"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translatorcomment>Q: What about something shorter? :) (e.g. &quot;The channel within the input universe that controls this widget&quot;)</translatorcomment>
-        <translation type="unfinished">Le canal de l&apos;univers d&apos;entrée qui contrôle ce widget</translation>
+        <translation>Le canal de l&apos;univers d&apos;entrée qui contrôle ce widget</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="109"/>
@@ -245,8 +244,7 @@
     <message>
         <location filename="addrgbpanel.ui" line="223"/>
         <source>Universe:</source>
-        <translatorcomment>TODO: Standardize label punctuation</translatorcomment>
-        <translation type="unfinished">Univers :</translation>
+        <translation>Univers</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="230"/>
@@ -256,12 +254,12 @@
     <message>
         <location filename="addrgbpanel.ui" line="237"/>
         <source>Name:</source>
-        <translation>Nom :</translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="247"/>
         <source>Address:</source>
-        <translation>Adresse :</translation>
+        <translation>Adresse</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="264"/>
@@ -276,12 +274,12 @@
     <message>
         <location filename="addrgbpanel.ui" line="38"/>
         <source>Columns:</source>
-        <translation>Colonnes :</translation>
+        <translation>Colonnes</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="45"/>
         <source>Rows:</source>
-        <translation>Lignes :</translation>
+        <translation>Lignes</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="52"/>
@@ -326,7 +324,7 @@
     <message>
         <location filename="addrgbpanel.ui" line="158"/>
         <source>Width:</source>
-        <translation>Largeur :</translation>
+        <translation>Largeur</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="165"/>
@@ -337,7 +335,7 @@
     <message>
         <location filename="addrgbpanel.ui" line="181"/>
         <source>Height:</source>
-        <translation>Hauteur :</translation>
+        <translation>Hauteur</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="276"/>
@@ -728,7 +726,6 @@ Voulez-vous vraiment les arrêter et basculer vers le mode Création ?</translat
     <message>
         <location filename="app.cpp" line="324"/>
         <source>Close the application?</source>
-        <translatorcomment>TODO: Standardize window titles</translatorcomment>
         <translation>Quitter</translation>
     </message>
     <message>
@@ -765,26 +762,22 @@ Voulez-vous vraiment les arrêter et basculer vers le mode Création ?</translat
     <message>
         <location filename="app.cpp" line="585"/>
         <source>Fade 1 second and stop</source>
-        <translatorcomment>Q: What about &quot;Fade out for 1 second&quot;?</translatorcomment>
-        <translation type="unfinished">Fondre d&apos;1 s en sortie</translation>
+        <translation>Fondre d&apos;1 s en sortie</translation>
     </message>
     <message>
         <location filename="app.cpp" line="590"/>
         <source>Fade 5 seconds and stop</source>
-        <translatorcomment>Q: What about &quot;Fade out for 5 seconds&quot;?</translatorcomment>
-        <translation type="unfinished">Fondre de 5 s en sortie</translation>
+        <translation>Fondre de 5 s en sortie</translation>
     </message>
     <message>
         <location filename="app.cpp" line="595"/>
         <source>Fade 10 second and stop</source>
-        <translatorcomment>Q: What about &quot;Fade out for 10 seconds&quot;?</translatorcomment>
-        <translation type="unfinished">Fondre de 10 s en sortie</translation>
+        <translation>Fondre de 10 s en sortie</translation>
     </message>
     <message>
         <location filename="app.cpp" line="600"/>
         <source>Fade 30 second and stop</source>
-        <translatorcomment>Q: What about &quot;Fade out for 30 seconds&quot;?</translatorcomment>
-        <translation type="unfinished">Fondre de 30 s en sortie</translation>
+        <translation>Fondre de 30 s en sortie</translation>
     </message>
     <message>
         <location filename="app.cpp" line="623"/>
@@ -1551,8 +1544,7 @@ Durée : %3
     <message>
         <location filename="collectioneditor.ui" line="33"/>
         <source>Name of the function being edited</source>
-        <translatorcomment>Q: Is it not &quot;collection&quot; instead of &quot;function&quot;?</translatorcomment>
-        <translation type="unfinished">Le nom de la collection en cours d&apos;édition</translation>
+        <translation>Le nom de la collection en cours d&apos;édition</translation>
     </message>
     <message>
         <location filename="collectioneditor.ui" line="53"/>
@@ -1593,8 +1585,7 @@ Durée : %3
     <message>
         <location filename="createfixturegroup.ui" line="32"/>
         <source>Initial size</source>
-        <translatorcomment>Q: What about &quot;Fixtures Order&quot;?</translatorcomment>
-        <translation type="unfinished">Agencement des projecteurs</translation>
+        <translation>Agencement des projecteurs</translation>
     </message>
     <message>
         <location filename="createfixturegroup.ui" line="38"/>
@@ -1692,7 +1683,6 @@ Durée : %3
     <message>
         <location filename="dmxdumpfactory.ui" line="138"/>
         <source>Scene name:</source>
-        <translatorcomment>TODO: Standardize titles</translatorcomment>
         <translation>Nom de la scène</translation>
     </message>
     <message>
@@ -1781,8 +1771,7 @@ Durée : %3
     <message>
         <location filename="efxeditor.ui" line="121"/>
         <source>Fixture order</source>
-        <translatorcomment>Q: What about something like &quot;Fixtures movement order&quot;?</translatorcomment>
-        <translation type="unfinished">Ordre du mouvement des projecteurs</translation>
+        <translation>Ordre du mouvement des projecteurs</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="127"/>
@@ -2254,8 +2243,7 @@ Durée : %3
     <message>
         <location filename="fixturemanager.cpp" line="1372"/>
         <source>Please enter a valid address</source>
-        <translatorcomment>TODO: Standardize ponctuation</translatorcomment>
-        <translation type="unfinished">Veuillez entrer une adresse valide.</translation>
+        <translation>Veuillez entrer une adresse valide.</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1448"/>
@@ -2318,8 +2306,7 @@ Durée : %3
     <message>
         <location filename="fixturemanager.cpp" line="1334"/>
         <source>Change fixture properties</source>
-        <translatorcomment>Q: What about replace &quot;Change&quot; by &quot;Edit&quot;?</translatorcomment>
-        <translation type="unfinished">Éditer les propriétés du projecteur</translation>
+        <translation>Éditer les propriétés du projecteur</translation>
     </message>
 </context>
 <context>
@@ -2404,13 +2391,12 @@ Durée : %3
     <message>
         <location filename="fixtureremap.cpp" line="276"/>
         <source>Delete Fixtures</source>
-        <translatorcomment>Q: Can not only select one item at a time? What about replacing &quot;Fixtures&quot; by &quot;Item&quot; since it can also be a channel?</translatorcomment>
-        <translation type="unfinished">Supprimer un élément</translation>
+        <translation>Supprimer un élément</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="277"/>
         <source>Do you want to delete the selected items?</source>
-        <translation type="unfinished">Voulez-vous supprimer l&apos;élément cible sélectionné ?</translation>
+        <translation>Voulez-vous supprimer l&apos;élément cible sélectionné ?</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="325"/>
@@ -2789,7 +2775,6 @@ Durée : %3
     <message>
         <location filename="functionselection.ui" line="154"/>
         <source>Video</source>
-        <translatorcomment>Q: Is it not plural?</translatorcomment>
         <translation>Vidéos</translation>
     </message>
     <message>
@@ -2877,7 +2862,6 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="functionwizard.ui" line="188"/>
         <source>Fixtures that will be included in automatic function creation</source>
-        <translatorcomment>Q: What about replacing &quot;Fixtures&quot; by &quot;Fixtures list&quot;?</translatorcomment>
         <translation>La liste des projecteurs qui seront inclus dans la création automatique de fonctions</translation>
     </message>
     <message>
@@ -2963,8 +2947,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="functionwizard.ui" line="168"/>
         <source>Select fixtures that will be included in the automatically created functions</source>
-        <translatorcomment>Q: What about replacing source text by &quot;Add fixtures to the list&quot; to fit with the icon?</translatorcomment>
-        <translation type="unfinished">Ajouter des projecteurs à la liste</translation>
+        <translation>Ajouter des projecteurs à la liste</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="171"/>
@@ -2974,8 +2957,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="functionwizard.ui" line="135"/>
         <source>Don&apos;t include selected fixtures in the created functions</source>
-        <translatorcomment>Q: What about replacing source text by &quot;Remove selected fixtures from the list&quot; to fit with the icon?</translatorcomment>
-        <translation type="unfinished">Enlever les projecteurs sélectionnés de la liste</translation>
+        <translation>Enlever les projecteurs sélectionnés de la liste</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="138"/>
@@ -3394,8 +3376,7 @@ p, li { white-space: pre-wrap; }
         <source>You have enabled the input channel wizard. After clicking OK, wiggle your mapped input profile&apos;s controls. They should appear into the list. Click the wizard button again to stop channel auto-detection.
 
 Note that the wizard cannot tell the difference between a knob and a slider so you will have to do the change manually.</source>
-        <translatorcomment>Q: What about replacing &quot;wiggle your mapped input profile&apos;s controls&quot; by &quot;wiggle your input device&apos;s controls to map&quot;?</translatorcomment>
-        <translation type="unfinished">Vous avez activé l&apos;assistant de canal d&apos;entrée. Après avoir cliqué sur OK, manipulez les contrôles de votre périphérique d&apos;entrée à mapper. Ils devraient apparaître dans la liste. Cliquez de nouveau sur le bouton de l&apos;assistant pour arrêter l&apos;auto-détection de canal.
+        <translation>Vous avez activé l&apos;assistant de canal d&apos;entrée. Après avoir cliqué sur OK, manipulez les contrôles de votre périphérique d&apos;entrée à mapper. Ils devraient apparaître dans la liste. Cliquez de nouveau sur le bouton de l&apos;assistant pour arrêter l&apos;auto-détection de canal.
 
 Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un fader, vous devrez faire ce changement manuellement.</translation>
     </message>
@@ -3475,7 +3456,7 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
     <message>
         <location filename="monitor.cpp" line="306"/>
         <source>Size:</source>
-        <translation>Taille :</translation>
+        <translation>Taille</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="330"/>
@@ -4343,7 +4324,6 @@ Durée : %3
     <message>
         <location filename="showeditor.ui" line="33"/>
         <source>Name of the function being edited</source>
-        <translatorcomment>Q: Is it not &quot;show&quot; instead of &quot;function&quot;?</translatorcomment>
         <translation type="unfinished">Le nom du show en cours d&apos;édition</translation>
     </message>
     <message>
@@ -4593,7 +4573,6 @@ Durée : %3
     <message>
         <location filename="simpledesk.cpp" line="266"/>
         <source>Playback</source>
-        <translatorcomment>Q: Is it not &quot;Submasters&quot; instead of &quot;Playback&quot;?</translatorcomment>
         <translation>Faders de lancement</translation>
     </message>
     <message>
@@ -5138,8 +5117,7 @@ Durée : %3
     <message>
         <location filename="vccuelistproperties.ui" line="74"/>
         <source>Choose the chaser function to use as the steps for the cue list</source>
-        <translatorcomment>Q: What about replacing &quot;Choose&quot; by &quot;Define&quot; or &quot;Add&quot; to fit with the icon?</translatorcomment>
-        <translation type="unfinished">Définir le chaser à utiliser comme pas pour le séquenceur</translation>
+        <translation>Définir le chaser à utiliser comme pas pour le séquenceur</translation>
     </message>
     <message>
         <location filename="vccuelistproperties.ui" line="94"/>
@@ -5449,8 +5427,7 @@ Durée : %3
         <location filename="vcframeproperties.ui" line="175"/>
         <source>When toggled, you can move an external slider/knob to assign it to this widget.</source>
         <oldsource>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</oldsource>
-        <translatorcomment>Q: Only a button can control this, so what about replacing &quot;slider/knob&quot; by &quot;button&quot; and &quot;to this widget.&quot; by &quot;as the control that skips to the next frame page&quot;?</translatorcomment>
-        <translation type="unfinished">Lorsqu&apos;elle est activée, pressez un bouton externe afin de l&apos;assigner comme contrôleur du passage à la page suivante</translation>
+        <translation>Lorsqu&apos;elle est activée, pressez un bouton externe afin de l&apos;assigner comme contrôleur du passage à la page suivante</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="178"/>
@@ -5466,8 +5443,7 @@ Durée : %3
     <message>
         <location filename="vcframeproperties.ui" line="273"/>
         <source>When toggled, you can move an external slider/knob to assign it to this frame.</source>
-        <translatorcomment>Q: Only a button can control this, so what about replacing &quot;slider/knob&quot; by &quot;button&quot; and &quot;to this frame.&quot; by &quot;as the control that skips to the previous frame page&quot;?</translatorcomment>
-        <translation type="unfinished">Lorsqu&apos;elle est activée, pressez un bouton externe afin de l&apos;assigner à ce contrôle</translation>
+        <translation>Lorsqu&apos;elle est activée, pressez un bouton externe afin de l&apos;assigner à ce contrôle</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="289"/>
@@ -5539,8 +5515,7 @@ Durée : %3
         <location filename="vcproperties.ui" line="43"/>
         <location filename="vcproperties.ui" line="69"/>
         <source>Widget grid layout X resolution</source>
-        <translatorcomment>Q: What about something like &quot;Resolution of the grid&quot; since it&apos;s the same text for width and height?</translatorcomment>
-        <translation type="unfinished">Définition en pixels de la grille</translation>
+        <translation>Définition en pixels de la grille</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="719"/>
@@ -5555,8 +5530,7 @@ Durée : %3
     <message>
         <location filename="vcproperties.ui" line="30"/>
         <source>Virtual Console Size</source>
-        <translatorcomment>Q: What about replacing &quot;virtual console&quot; by &quot;grid&quot;?</translatorcomment>
-        <translation type="unfinished">Taille de la grille</translation>
+        <translation>Taille de la grille</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="36"/>
@@ -5571,7 +5545,6 @@ Durée : %3
     <message>
         <location filename="vcproperties.ui" line="104"/>
         <source>Tap Modifier</source>
-        <translatorcomment>Q: What is it for? Is it still used?</translatorcomment>
         <translation type="unfinished">Tap Tempo</translation>
     </message>
     <message>
@@ -6371,8 +6344,7 @@ Durée : %3
     <message>
         <location filename="vcxypadfixtureeditor.ui" line="13"/>
         <source>XY Pad Fixture</source>
-        <translatorcomment>Q: What about replacing text by &quot;Fixture Axis Settings&quot;?</translatorcomment>
-        <translation type="unfinished">Propriétés des axes du projecteur</translation>
+        <translation>Propriétés des axes du projecteur</translation>
     </message>
     <message>
         <location filename="vcxypadfixtureeditor.ui" line="19"/>
