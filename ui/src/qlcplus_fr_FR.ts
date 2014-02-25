@@ -1120,7 +1120,7 @@ Durée : %3
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="168"/>
         <source>The input universe that sends data to this widget</source>
-        <translation type="unfinished">L&apos;univers d&apos;entrée qui contrôle ce widget</translation>
+        <translation>L&apos;univers d&apos;entrée qui contrôle ce widget</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="184"/>
@@ -1174,7 +1174,7 @@ Durée : %3
     <message>
         <location filename="vcaudiotriggersproperties.cpp" line="129"/>
         <source>VC Widget</source>
-        <translation type="unfinished">Widget</translation>
+        <translation>Widget</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.cpp" line="142"/>
@@ -1886,7 +1886,7 @@ Durée : %3
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>L&apos;angle de rotation du motif</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="efxeditor.ui" line="393"/>
         <location filename="efxeditor.ui" line="504"/>
         <source>°</source>
@@ -2248,7 +2248,7 @@ Durée : %3
     <message>
         <location filename="fixturemanager.cpp" line="1448"/>
         <source>Ungroup fixtures?</source>
-        <translation type="unfinished">Dégrouper les projecteurs</translation>
+        <translation>Dégrouper les projecteurs</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1449"/>
@@ -3173,7 +3173,7 @@ p, li { white-space: pre-wrap; }
         <location filename="inputoutputpatcheditor.cpp" line="401"/>
         <location filename="inputoutputpatcheditor.cpp" line="419"/>
         <source>Output line already assigned</source>
-        <translation type="unfinished">La ligne de sortie est déjà assignée.</translation>
+        <translation>La ligne de sortie est déjà assignée.</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="641"/>
@@ -3208,7 +3208,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="666"/>
         <source>Unable to save the profile to %1</source>
-        <translation type="unfinished">Impossible d&apos;enregistrer le profil sous &apos;%1&apos;.</translation>
+        <translation>Impossible d&apos;enregistrer le profil sous &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="703"/>
@@ -3228,12 +3228,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="733"/>
         <source>Unable to delete file %1</source>
-        <translation type="unfinished">Impossible de supprimer le fichier &apos;%1&apos;.</translation>
+        <translation>Impossible de supprimer le fichier &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="803"/>
         <source>Unable to save %1 to %2</source>
-        <translation type="unfinished">Impossible d&apos;enregistrer &apos;%1&apos; sous &apos;%2&apos;.</translation>
+        <translation>Impossible d&apos;enregistrer &apos;%1&apos; sous &apos;%2&apos;.</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="835"/>
@@ -3354,7 +3354,7 @@ p, li { white-space: pre-wrap; }
         <location filename="inputprofileeditor.cpp" line="230"/>
         <location filename="inputprofileeditor.cpp" line="326"/>
         <source>Channel %1 already exists</source>
-        <translation type="unfinished">Le canal %1 existe déjà.</translation>
+        <translation>Le canal %1 existe déjà.</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="252"/>
@@ -3451,7 +3451,7 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
     <message>
         <location filename="monitor.cpp" line="294"/>
         <source>All universes</source>
-        <translation type="unfinished"></translation>
+        <translation>Tous les univers</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="316"/>
@@ -4329,7 +4329,7 @@ Durée : %3
     <message>
         <location filename="showeditor.ui" line="33"/>
         <source>Name of the function being edited</source>
-        <translation type="unfinished">Le nom du show en cours d&apos;édition</translation>
+        <translation>Le nom du show en cours d&apos;édition</translation>
     </message>
     <message>
         <location filename="showeditor.ui" line="53"/>
@@ -4619,7 +4619,7 @@ Durée : %3
     <message>
         <location filename="simpledesk.cpp" line="477"/>
         <source>Channel groups</source>
-        <translation type="unfinished"></translation>
+        <translation>Groupes de canaux</translation>
     </message>
     <message>
         <location filename="simpledesk.cpp" line="770"/>
@@ -6539,7 +6539,7 @@ Durée : %3
     <message>
         <location filename="sceneitems.cpp" line="1146"/>
         <source>Fullscreen</source>
-        <translation type="unfinished"></translation>
+        <translation>Plein écran</translation>
     </message>
     <message>
         <location filename="sceneitems.cpp" line="1153"/>
@@ -6549,7 +6549,7 @@ Durée : %3
     <message>
         <location filename="sceneitems.cpp" line="1333"/>
         <source>Screen %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Écran %1</translation>
     </message>
 </context>
 <context>
