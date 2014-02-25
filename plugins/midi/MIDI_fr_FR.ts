@@ -54,7 +54,7 @@
     <message>
         <location filename="common/midiplugin.cpp" line="132"/>
         <source>This plugin provides input/output support for MIDI devices.</source>
-        <translation>Ce plugin fournit le support des périphériques MIDI.</translation>
+        <translation>Ce plugin permet le support des périphériques MIDI.</translation>
     </message>
     <message>
         <location filename="common/midiplugin.cpp" line="146"/>

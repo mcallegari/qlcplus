@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="fr_FR">
+<TS version="2.1" language="fr_FR">
 <context>
     <name>AboutBox</name>
     <message>
@@ -2473,7 +2473,7 @@ Durée : %3
     <message>
         <location filename="fixtureselection.ui" line="49"/>
         <source>Heads</source>
-        <translation>Têtes</translation>
+        <translation>Sources</translation>
     </message>
     <message>
         <location filename="fixtureselection.ui" line="54"/>
@@ -2494,7 +2494,7 @@ Durée : %3
     <message>
         <location filename="fixtureselection.cpp" line="175"/>
         <source>Head</source>
-        <translation>Tête</translation>
+        <translation>Source</translation>
     </message>
     <message>
         <location filename="fixtureselection.cpp" line="192"/>
@@ -4593,6 +4593,7 @@ Durée : %3
     <message>
         <location filename="simpledesk.cpp" line="266"/>
         <source>Playback</source>
+        <translatorcomment>Q: Is it not &quot;Submasters&quot; instead of &quot;Playback&quot;?</translatorcomment>
         <translation>Faders de lancement</translation>
     </message>
     <message>

@@ -169,7 +169,7 @@
     <message>
         <location filename="capabilitywizard.ui" line="13"/>
         <source>Capability Wizard</source>
-        <translation>Assistant d&apos;aptitude</translation>
+        <translation>Assistant de fonction</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="19"/>
@@ -194,7 +194,7 @@
     <message>
         <location filename="capabilitywizard.ui" line="49"/>
         <source>Number of values per capability</source>
-        <translation>Le nombre de valeurs par aptitudes</translation>
+        <translation>Le nombre de valeurs par fonction</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="65"/>
@@ -204,7 +204,7 @@
     <message>
         <location filename="capabilitywizard.ui" line="72"/>
         <source>Number of capabilities to create</source>
-        <translation>Le nombre d&apos;aptitudes à créer</translation>
+        <translation>Le nombre de fonctions à créer</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="88"/>
@@ -214,12 +214,12 @@
     <message>
         <location filename="capabilitywizard.ui" line="94"/>
         <source>The common base name for all capabilities. Use hash &apos;#&apos; to create a running number.</source>
-        <translation>La base commune du nom pour toutes les aptitudes (utilisez # pour créer un nombre incrémental)</translation>
+        <translation>La base commune du nom pour toutes les fonctions (utilisez # pour créer un nombre incrémental)</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="97"/>
         <source>Capability #</source>
-        <translation>Aptitude #</translation>
+        <translation>Fonction #</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="107"/>
@@ -229,7 +229,7 @@
     <message>
         <location filename="capabilitywizard.ui" line="113"/>
         <source>A list of capabilities that would be created with these settings</source>
-        <translation>La liste des aptitudes qui vont être créées</translation>
+        <translation>La liste des fonctions qui vont être créées</translation>
     </message>
 </context>
 <context>
@@ -265,12 +265,12 @@
     <message>
         <location filename="editcapability.ui" line="14"/>
         <source>Edit Capability</source>
-        <translation>Éditeur d&apos;aptitude</translation>
+        <translation>Éditeur de fonction</translation>
     </message>
     <message>
         <location filename="editcapability.ui" line="22"/>
         <source>Capability Values</source>
-        <translation>Plage</translation>
+        <translation>Plage de la fonction</translation>
     </message>
     <message>
         <location filename="editcapability.ui" line="34"/>
@@ -387,7 +387,7 @@
     <message>
         <location filename="editchannel.ui" line="85"/>
         <source>Capabilities</source>
-        <translation>Aptitudes</translation>
+        <translation>Fonctions</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="104"/>
@@ -407,22 +407,22 @@
     <message>
         <location filename="editchannel.ui" line="122"/>
         <source>Add a new capability</source>
-        <translation>Ajouter une nouvelle aptitude</translation>
+        <translation>Ajouter une nouvelle fonction</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="142"/>
         <source>Remove the selected capability</source>
-        <translation>Supprimer l&apos;aptitude sélectionnée</translation>
+        <translation>Supprimer la fonction sélectionnée</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="162"/>
         <source>Edit the selected capability</source>
-        <translation>Éditer l&apos;aptitude sélectionnée</translation>
+        <translation>Éditer la fonction sélectionnée</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="195"/>
         <source>Capability wizard</source>
-        <translation>Assistant d&apos;aptitude</translation>
+        <translation>Assistant de fonction</translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="256"/>
@@ -435,12 +435,12 @@
         <location filename="editchannel.cpp" line="257"/>
         <location filename="editchannel.cpp" line="323"/>
         <source>The capability&apos;s values overlap with another capability!</source>
-        <translation>Les valeurs de l&apos;aptitude se chevauchent avec une aptitude !</translation>
+        <translation>Les valeurs de la fonction se chevauchent avec une autre fonction !</translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="367"/>
         <source>Some capabilities could not be created because of overlapping values.</source>
-        <translation>Certaines aptitudes n&apos;ont pas pu être créées à cause d&apos;un chevauchement de valeurs.</translation>
+        <translation>Certaines fonctions n&apos;ont pas pu être créées à cause d&apos;un chevauchement de valeurs.</translation>
     </message>
 </context>
 <context>
@@ -448,7 +448,7 @@
     <message>
         <location filename="edithead.ui" line="14"/>
         <source>Edit Head</source>
-        <translation>Éditeur de tête</translation>
+        <translation>Éditeur de source</translation>
     </message>
     <message>
         <location filename="edithead.ui" line="33"/>
@@ -512,27 +512,27 @@
     <message>
         <location filename="editmode.ui" line="166"/>
         <source>Heads</source>
-        <translation>Têtes</translation>
+        <translation>Sources</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="179"/>
         <source>Head</source>
-        <translation>Tête</translation>
+        <translation>Source</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="187"/>
         <source>Compose a new head</source>
-        <translation>Définir une nouvelle tête</translation>
+        <translation>Définir une nouvelle source</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="207"/>
         <source>Remove the selected head</source>
-        <translation>Supprimer la tête sélectionnée</translation>
+        <translation>Supprimer la source sélectionnée</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="227"/>
         <source>Edit the channels that belong to the selected head</source>
-        <translation>Éditer les canaux qui appartiennent à la tête sélectionnée</translation>
+        <translation>Éditer les canaux qui appartiennent à la source sélectionnée</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="230"/>
@@ -542,7 +542,7 @@
     <message>
         <location filename="editmode.ui" line="247"/>
         <source>Raise the selected head</source>
-        <translation>Monter la tête sélectionnée</translation>
+        <translation>Monter la source sélectionnée</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="267"/>
@@ -907,7 +907,7 @@
     <message>
         <location filename="fixtureeditor.ui" line="443"/>
         <source>Heads</source>
-        <translation>Têtes</translation>
+        <translation>Sources</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="451"/>

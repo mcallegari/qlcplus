@@ -6,7 +6,7 @@
     <message>
         <location filename="udmx.cpp" line="94"/>
         <source>This plugin provides DMX output support for Anyma uDMX devices.</source>
-        <translation>Ce plugin fournit le support de la sortie pour les périphériques Anyma uDMX.</translation>
+        <translation>Ce plugin permet le support de la sortie des périphériques Anyma uDMX.</translation>
     </message>
     <message>
         <location filename="udmx.cpp" line="188"/>

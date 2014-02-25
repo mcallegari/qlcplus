@@ -6,7 +6,7 @@
     <message>
         <location filename="enttecwing.cpp" line="111"/>
         <source>This plugin provides input support for Enttec Playback and Enttec Shortcut Wings.</source>
-        <translation>Ce plugin fournit le support de l&apos;entrée pour interfaces Enttec Playback et Shortcut Wings.</translation>
+        <translation>Ce plugin permet le support de l&apos;entrée des interfaces Enttec Playback et Shortcut Wings.</translation>
     </message>
     <message>
         <location filename="enttecwing.cpp" line="128"/>

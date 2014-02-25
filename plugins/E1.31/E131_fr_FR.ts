@@ -29,7 +29,7 @@
     <message>
         <location filename="e131plugin.cpp" line="75"/>
         <source>This plugin provides DMX output for devices supporting the E1.31 communication protocol.</source>
-        <translation>Ce plugin fournit le support pour les périphériques supportant le protocole E1.31.</translation>
+        <translation>Ce plugin permet le support des périphériques supportant le protocole E1.31.</translation>
     </message>
     <message>
         <location filename="e131plugin.cpp" line="90"/>

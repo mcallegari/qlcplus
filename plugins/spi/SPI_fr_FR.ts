@@ -39,7 +39,7 @@
     <message>
         <location filename="spiplugin.cpp" line="133"/>
         <source>This plugin provides DMX output for SPI devices.</source>
-        <translation>Ce plugin fournit le support de la sortie pour les périphériques SPI.</translation>
+        <translation>Ce plugin permet le support de la sortie des périphériques SPI.</translation>
     </message>
 </context>
 </TS>

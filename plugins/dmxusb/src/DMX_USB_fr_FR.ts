@@ -6,7 +6,7 @@
     <message>
         <location filename="dmxusb.cpp" line="134"/>
         <source>This plugin provides DMX output support for</source>
-        <translation>Ce plugin fournit le support pour les interfaces</translation>
+        <translation>Ce plugin permet le support des interfaces</translation>
     </message>
     <message>
         <location filename="dmxusb.cpp" line="138"/>

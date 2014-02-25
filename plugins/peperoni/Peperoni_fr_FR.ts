@@ -7,7 +7,7 @@
         <location filename="win32/peperoni.cpp" line="125"/>
         <location filename="unix/peperoni.cpp" line="91"/>
         <source>This plugin provides DMX output support for Peperoni DMX devices.</source>
-        <translation>Ce plugin fournit le support de la sortie pour les interfaces Peperoni.</translation>
+        <translation>Ce plugin permet le support de la sortie des interfaces Peperoni.</translation>
     </message>
     <message>
         <location filename="win32/peperoni.cpp" line="139"/>

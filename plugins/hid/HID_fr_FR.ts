@@ -29,7 +29,7 @@
     <message>
         <location filename="hid.cpp" line="141"/>
         <source>This plugin provides input support for HID-based joysticks.</source>
-        <translation>Ce plugin fournit le support de l&apos;entrée des joysticks HID.</translation>
+        <translation>Ce plugin permet le support de l&apos;entrée des joysticks HID.</translation>
     </message>
 </context>
 <context>

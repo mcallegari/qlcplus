@@ -51,7 +51,7 @@
     <message>
         <location filename="oscplugin.cpp" line="97"/>
         <source>This plugin provides input for devices supporting the OSC transmission protocol.</source>
-        <translation>Ce plugin fournit le support pour les périphériques supportant le protocole OSC.</translation>
+        <translation>Ce plugin permet le support des périphériques supportant le protocole OSC.</translation>
     </message>
     <message>
         <location filename="oscplugin.cpp" line="182"/>
