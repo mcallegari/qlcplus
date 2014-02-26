@@ -562,7 +562,7 @@ QLCFixtureDef *Fixture::genericRGBPanelDef(int columns)
     return def;
 }
 
-QLCFixtureMode *Fixture::genericRGBPanelMode(QLCFixtureDef *def)
+QLCFixtureMode *Fixture::genericRGBPanelMode(QLCFixtureDef *def, quint32 width, quint32 height)
 {
     Q_ASSERT(def != NULL);
     QLCFixtureMode *mode = new QLCFixtureMode(def);
@@ -581,6 +581,12 @@ QLCFixtureMode *Fixture::genericRGBPanelMode(QLCFixtureDef *def)
             mode->insertHead(-1, head);
         }
     }
+    QLCPhysical physical;
+    physical.setWidth(width);
+    physical.setHeight(height);
+    physical.setDepth(height);
+
+    mode->setPhysical(physical);
 
     return mode;
 }
@@ -633,6 +639,7 @@ bool Fixture::loadXML(const QDomElement& root, Doc *doc,
     quint32 universe = 0;
     quint32 address = 0;
     quint32 channels = 0;
+    quint32 width = 0, height = 0;
     QList<int> excludeList;
 
     if (root.tagName() != KXMLFixture)
@@ -657,6 +664,14 @@ bool Fixture::loadXML(const QDomElement& root, Doc *doc,
         else if (tag.tagName() == KXMLQLCFixtureMode)
         {
             modeName = tag.text();
+        }
+        else if (tag.tagName() == KXMLQLCPhysicalDimensionsWeight)
+        {
+            width = tag.text().toUInt();
+        }
+        else if (tag.tagName() == KXMLQLCPhysicalDimensionsHeight)
+        {
+            height = tag.text().toUInt();
         }
         else if (tag.tagName() == KXMLFixtureID)
         {
@@ -748,7 +763,7 @@ bool Fixture::loadXML(const QDomElement& root, Doc *doc,
     if (model == KXMLFixtureRGBPanel)
     {
         fixtureDef = genericRGBPanelDef(channels / 3);
-        fixtureMode = genericRGBPanelMode(fixtureDef);
+        fixtureMode = genericRGBPanelMode(fixtureDef, width, height);
     }
 
     if (fixtureDef != NULL && fixtureMode != NULL)
@@ -816,6 +831,20 @@ bool Fixture::saveXML(QDomDocument* doc, QDomElement* wksp_root) const
         text = doc->createTextNode(KXMLFixtureGeneric);
 
     tag.appendChild(text);
+
+    /* RGB Panel physical dimensions */
+    if (m_fixtureDef != NULL && m_fixtureDef->model() == KXMLFixtureRGBPanel && m_fixtureMode != NULL)
+    {
+        tag = doc->createElement(KXMLQLCPhysicalDimensionsWeight);
+        root.appendChild(tag);
+        text = doc->createTextNode(QString::number(m_fixtureMode->physical().width()));
+        tag.appendChild(text);
+
+        tag = doc->createElement(KXMLQLCPhysicalDimensionsHeight);
+        root.appendChild(tag);
+        text = doc->createTextNode(QString::number(m_fixtureMode->physical().height()));
+        tag.appendChild(text);
+    }
 
     /* ID */
     tag = doc->createElement(KXMLFixtureID);

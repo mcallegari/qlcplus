@@ -61,7 +61,11 @@ public slots:
      * Capabilities
      *********************************************************************/
 public:
+    /** Get the list of the extensions supported by the video decoding system */
     static QStringList getCapabilities();
+
+    /** Get the number of available screens in the system */
+    static int getScreenCount();
 
     /*********************************************************************
      * Properties
@@ -108,6 +112,26 @@ public:
      */
     QString getSourceFileName();
 
+    /**
+     * Set the screen index where to render the video
+     */
+    void setScreen(int index);
+
+    /**
+     * Retrieve the screen index where the video is rendered
+     */
+    int screen();
+
+    /**
+     * Set the video to be rendered in windowed or fullscreen mode
+     */
+    void setFullscreen(bool enable);
+
+    /**
+     * Retrieves if the video has to be rendered in windowed or fullscreen mode
+     */
+    bool fullscreen();
+
     void adjustAttribute(qreal fraction, int attributeIndex);
 
 protected slots:
@@ -116,7 +140,7 @@ protected slots:
 private:
     /** output interface to render video data */
     QMediaPlayer *m_videoPlayer;
-
+    /** Qt widget that actually displays the video */
     QVideoWidget *m_videoWidget;
     /** Absolute start time of video over a timeline (in milliseconds) */
     quint32 m_startTime;
@@ -126,6 +150,10 @@ private:
     QString m_sourceFileName;
     /** Duration of the media object */
     qint64 m_videoDuration;
+    /** Index of the screen where to render the video */
+    int m_screen;
+    /** Flag that indicates if the video has to go fullscreen */
+    bool m_fullscreen;
 
     /*********************************************************************
      * Save & Load

@@ -54,6 +54,7 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
     : QDialog(parent)
     , m_doc(doc)
     , m_none(false)
+    , m_noneItem(NULL)
     , m_multiSelection(true)
     , m_runningOnlyFlag(false)
     , m_filter(Function::Scene | Function::Chaser | Function::Collection |
@@ -280,10 +281,10 @@ void FunctionSelection::refillTree()
     // Show a "none" entry
     if (m_none == true)
     {
-        QTreeWidgetItem* item = new QTreeWidgetItem(m_funcTree);
-        item->setText(KColumnName, tr("<No function>"));
-        item->setIcon(KColumnName, QIcon(":/uncheck.png"));
-        item->setData(KColumnName, Qt::UserRole, Function::invalidId());
+        m_noneItem = new QTreeWidgetItem(m_funcTree);
+        m_noneItem->setText(KColumnName, tr("<No function>"));
+        m_noneItem->setIcon(KColumnName, QIcon(":/uncheck.png"));
+        m_noneItem->setData(KColumnName, Qt::UserRole, Function::invalidId());
     }
 
     /* Fill the tree */
@@ -309,20 +310,17 @@ void FunctionSelection::refillTree()
 
 void FunctionSelection::slotItemSelectionChanged()
 {
-    QList <quint32> removeList(m_selection);
+    m_selection.clear();
 
     QListIterator <QTreeWidgetItem*> it(m_funcTree->selectedItems());
     while (it.hasNext() == true)
     {
-        quint32 id = it.next()->data(KColumnName, Qt::UserRole).toUInt();
-        if (m_selection.contains(id) == false)
-            m_selection.append(id);
-
-        removeList.removeAll(id);
+        QTreeWidgetItem *item = it.next();
+        quint32 id = item->data(KColumnName, Qt::UserRole).toUInt();
+        if ((id != Function::invalidId() || item == m_noneItem)
+             && m_selection.contains(id) == false)
+                    m_selection.append(id);
     }
-
-    while (removeList.isEmpty() == false)
-        m_selection.removeAll(removeList.takeFirst());
 
     if (m_selection.isEmpty() == true)
         m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
