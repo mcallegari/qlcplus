@@ -317,23 +317,23 @@
     <message>
         <location filename="addrgbpanel.ui" line="141"/>
         <source>Physical</source>
-        <translation type="unfinished"></translation>
+        <translation>fysiek</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="158"/>
         <source>Width:</source>
-        <translation type="unfinished"></translation>
+        <translation>Breedte:</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="165"/>
         <location filename="addrgbpanel.ui" line="188"/>
         <source>mm</source>
-        <translation type="unfinished"></translation>
+        <translation>mm</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="181"/>
         <source>Height:</source>
-        <translation type="unfinished"></translation>
+        <translation>Hoogte:</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="276"/>
@@ -3441,7 +3441,7 @@ Noot: de wizard maakt geen onderscheid tussen een knop of een slider, deze zal h
     <message>
         <location filename="monitor.cpp" line="294"/>
         <source>All universes</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle universen</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="316"/>
@@ -6518,7 +6518,7 @@ Duur: %3
     <message>
         <location filename="sceneitems.cpp" line="1146"/>
         <source>Fullscreen</source>
-        <translation type="unfinished"></translation>
+        <translation>Volledig scherm</translation>
     </message>
     <message>
         <location filename="sceneitems.cpp" line="1153"/>
@@ -6528,7 +6528,7 @@ Duur: %3
     <message>
         <location filename="sceneitems.cpp" line="1333"/>
         <source>Screen %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Scherm %1</translation>
     </message>
 </context>
 <context>
