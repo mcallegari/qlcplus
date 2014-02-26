@@ -37,7 +37,7 @@
     <message>
         <location filename="hideventdevice.cpp" line="324"/>
         <source>N/A</source>
-        <translation>n.v.t.</translation>
+        <translation>nvt</translation>
     </message>
 </context>
 <context>
