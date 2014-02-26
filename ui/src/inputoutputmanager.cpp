@@ -405,5 +405,6 @@ void InputOutputManager::slotPassthroughChanged(bool checked)
 
     int uniIdx = m_list->currentRow();
     m_ioMap->setUniversePassthrough(uniIdx, checked);
+    m_doc->inputOutputMap()->saveDefaults();
 }
 

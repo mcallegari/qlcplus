@@ -35,7 +35,7 @@
         <location filename="e131plugin.cpp" line="90"/>
         <location filename="e131plugin.cpp" line="182"/>
         <source>%1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2</translation>
     </message>
     <message>
         <location filename="e131plugin.cpp" line="103"/>

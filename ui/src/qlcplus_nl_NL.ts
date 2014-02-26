@@ -209,7 +209,7 @@
     <message>
         <location filename="addfixture.ui" line="250"/>
         <source>Quick search:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoeken:</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="267"/>
@@ -232,123 +232,123 @@
     <message>
         <location filename="addrgbpanel.ui" line="14"/>
         <source>Add RGB Panel</source>
-        <translation type="unfinished"></translation>
+        <translation>RGB Paneel toevoegen</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="209"/>
         <source>Panel properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Paneel eigenschappen</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="223"/>
         <source>Universe:</source>
-        <translation type="unfinished"></translation>
+        <translation>Universe:</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="230"/>
         <source>RGB Panel</source>
-        <translation type="unfinished"></translation>
+        <translation>RGB Paneel</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="237"/>
         <source>Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Naam:</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="247"/>
         <source>Address:</source>
-        <translation type="unfinished"></translation>
+        <translation>Adres:</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="264"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;FOUT: Adres al in gebruik!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;FOUT: Adres is al in gebruik!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="24"/>
         <source>Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Grootte</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="38"/>
         <source>Columns:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kolommen:</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="45"/>
         <source>Rows:</source>
-        <translation type="unfinished"></translation>
+        <translation>Rijen:</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="52"/>
         <source>Total pixels:</source>
-        <translation type="unfinished"></translation>
+        <translation>Totaal aantal pixels:</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="79"/>
         <source>100</source>
-        <translation type="unfinished"></translation>
+        <translation>100</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="91"/>
         <source>Orientation</source>
-        <translation type="unfinished"></translation>
+        <translation>Oriëntatie</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="97"/>
         <source>Top-Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Rechts-Boven</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="104"/>
         <source>Top-Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Links-Boven</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="114"/>
         <source>Bottom-Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Links-Onder</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="121"/>
         <source>Bottom-Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Rechts-Onder</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="141"/>
         <source>Physical</source>
-        <translation type="unfinished"></translation>
+        <translation>fysiek</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="158"/>
         <source>Width:</source>
-        <translation type="unfinished"></translation>
+        <translation>Breedte:</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="165"/>
         <location filename="addrgbpanel.ui" line="188"/>
         <source>mm</source>
-        <translation type="unfinished"></translation>
+        <translation>mm</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="181"/>
         <source>Height:</source>
-        <translation type="unfinished"></translation>
+        <translation>Hoogte:</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="276"/>
         <source>Displacement</source>
-        <translation type="unfinished"></translation>
+        <translation>Verplaatsing</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="282"/>
         <source>Snake</source>
-        <translation type="unfinished"></translation>
+        <translation>Snake</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="292"/>
         <source>Zig Zag</source>
-        <translation type="unfinished"></translation>
+        <translation>Zig Zag</translation>
     </message>
 </context>
 <context>
@@ -882,12 +882,12 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="app.cpp" line="1245"/>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Waarschuwing</translation>
     </message>
     <message>
         <location filename="app.cpp" line="1246"/>
         <source>Some errors occurred while loading the project:</source>
-        <translation type="unfinished"></translation>
+        <translation>Er is iets fout gegaan tijdens het laden van het project:</translation>
     </message>
 </context>
 <context>
@@ -1071,7 +1071,7 @@ Duur: %3
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="70"/>
         <source>Divisor</source>
-        <translation type="unfinished"></translation>
+        <translation>Verdeler</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="113"/>
@@ -1918,12 +1918,12 @@ Maak Fixture Group</translation>
     <message>
         <location filename="efxeditor.ui" line="664"/>
         <source>Show/Hide speed dial window</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon/verberg de speed dial window</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="667"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="277"/>
@@ -2221,7 +2221,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="fixturemanager.cpp" line="1160"/>
         <source>%1 - Row %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 - Rij %2</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1222"/>
@@ -2531,7 +2531,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="functionmanager.cpp" line="286"/>
         <source>New vid&amp;eo</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieuwe vid&amp;eo</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="292"/>
@@ -2541,7 +2541,7 @@ Maak Fixture Group</translation>
     <message>
         <location filename="functionmanager.cpp" line="298"/>
         <source>Select Startup Function</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecteer Opstart Functie</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="303"/>
@@ -2634,17 +2634,17 @@ Maak Fixture Group</translation>
     <message>
         <location filename="functionmanager.cpp" line="525"/>
         <source>Video Files (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Video Bestanden (%1)</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="551"/>
         <source>Unsupported video file</source>
-        <translation type="unfinished"></translation>
+        <translation>Niet ondersteunde video bestand</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="551"/>
         <source>This video file cannot be played with QLC+. Sorry.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dit video bestand kan niet worden afgespeeld met QLC+. Excuus.</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="612"/>
@@ -2734,12 +2734,14 @@ Maak Fixture Group</translation>
         <location filename="functionselection.ui" line="110"/>
         <source>Display RGB Matrices in the list</source>
         <oldsource>Display RGB Matrixes in the list</oldsource>
+        <translatorcomment>Is matrixes correct?</translatorcomment>
         <translation type="unfinished">Toon RGB Matrixes in de lijst</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="113"/>
         <source>RGB matrices</source>
         <oldsource>RGB matrixes</oldsource>
+        <translatorcomment>Is matrixes correct?</translatorcomment>
         <translation type="unfinished">RGB Matrixes</translation>
     </message>
     <message>
@@ -2775,17 +2777,17 @@ Maak Fixture Group</translation>
     <message>
         <location filename="functionselection.ui" line="154"/>
         <source>Video</source>
-        <translation type="unfinished"></translation>
+        <translation>Video</translation>
     </message>
     <message>
         <location filename="functionselection.cpp" line="75"/>
         <source>Functions</source>
-        <translation type="unfinished"></translation>
+        <translation>Functies</translation>
     </message>
     <message>
         <location filename="functionselection.cpp" line="285"/>
         <source>&lt;No function&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;Geen functie&gt;</translation>
     </message>
 </context>
 <context>
@@ -3042,45 +3044,46 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputmanager.cpp" line="84"/>
         <source>Add U&amp;niverse</source>
-        <translation type="unfinished"></translation>
+        <translation>U&amp;niverse toevoegen</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="90"/>
         <source>&amp;Delete Universe</source>
         <oldsource>Universe</oldsource>
-        <translation type="unfinished">Universe</translation>
+        <translation>Universe verwij&amp;deren</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="109"/>
         <source>Universe name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Universe naam:</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="119"/>
         <source>Passthrough</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Misschien doorgeven of doorsturen?</translatorcomment>
+        <translation>Passthrough</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="227"/>
         <location filename="inputoutputmanager.cpp" line="390"/>
         <source>Universe %1</source>
-        <translation type="unfinished">Universe %1</translation>
+        <translation>Universe %1</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="348"/>
         <location filename="inputoutputmanager.cpp" line="367"/>
         <source>Delete Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Universe verwijderen</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="349"/>
         <source>The universe you are trying to delete is patched. Are you sure you want to delete it ?</source>
-        <translation type="unfinished"></translation>
+        <translation>De universe die u probeert te verwijderen is gepatched. Weet u zeker dat u deze wilt verwijderen?</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="368"/>
         <source>There are some fixtures using the universe you are trying to delete. Are you sure you want to delete it ?</source>
-        <translation type="unfinished"></translation>
+        <translation>Er zijn fixtures die gebruik maken van de universe die u wilt verwijderen. Weet u zeker dat u deze wilt verwijderen?</translation>
     </message>
 </context>
 <context>
@@ -3388,7 +3391,7 @@ Noot: de wizard maakt geen onderscheid tussen een knop of een slider, deze zal h
     <message>
         <location filename="monitor.cpp" line="226"/>
         <source>2D View</source>
-        <translation type="unfinished"></translation>
+        <translation>2d View</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="233"/>
@@ -3438,37 +3441,37 @@ Noot: de wizard maakt geen onderscheid tussen een knop of een slider, deze zal h
     <message>
         <location filename="monitor.cpp" line="294"/>
         <source>All universes</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle universen</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="316"/>
         <source>DMX View</source>
-        <translation type="unfinished"></translation>
+        <translation>DMX View</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="322"/>
         <source>Size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Grootte:</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="346"/>
         <source>Meters</source>
-        <translation type="unfinished"></translation>
+        <translation>Meters</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="347"/>
         <source>Feet</source>
-        <translation type="unfinished"></translation>
+        <translation>Voet</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="356"/>
         <source>Add fixture</source>
-        <translation type="unfinished">Voeg fixture toe</translation>
+        <translation>Fixture toevoegen</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="358"/>
         <source>Remove fixture</source>
-        <translation type="unfinished"></translation>
+        <translation>Fixture verwijderen</translation>
     </message>
 </context>
 <context>
@@ -3494,7 +3497,7 @@ Noot: de wizard maakt geen onderscheid tussen een knop of een slider, deze zal h
     <message>
         <location filename="multitrackview.cpp" line="352"/>
         <source>Do you want to DELETE video (the source file will NOT be removed):</source>
-        <translation type="unfinished"></translation>
+        <translation>VERWIJDER video (het bronbestand wordt NIET verwijderd):</translation>
     </message>
     <message>
         <location filename="multitrackview.cpp" line="378"/>
@@ -3532,7 +3535,7 @@ Duur: %3
     <message>
         <location filename="multitrackview.cpp" line="513"/>
         <source>Click to move this video across the timeline</source>
-        <translation type="unfinished"></translation>
+        <translation>Klik om deze video te verplaatsen over de tijdslijn</translation>
     </message>
 </context>
 <context>
@@ -4372,7 +4375,7 @@ Duur: %3
     <message>
         <location filename="showmanager.cpp" line="205"/>
         <source>New vi&amp;deo</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieuwe vi&amp;deo</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="212"/>
@@ -4484,7 +4487,7 @@ Duur: %3
     <message>
         <location filename="showmanager.cpp" line="677"/>
         <source>Unsupported audio file</source>
-        <translation>Niet ondersteunde audio besatnd</translation>
+        <translation>Niet ondersteunde audio bestand</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="677"/>
@@ -4494,22 +4497,22 @@ Duur: %3
     <message>
         <location filename="showmanager.cpp" line="703"/>
         <source>Open Video File</source>
-        <translation type="unfinished"></translation>
+        <translation>Open Video bestand</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="712"/>
         <source>Video Files (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Video Bestanden (%1)</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="738"/>
         <source>Unsupported video file</source>
-        <translation type="unfinished"></translation>
+        <translation>Niet ondersteunde video bestand</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="738"/>
         <source>This video file cannot be played with QLC+. Sorry.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dit video bestand kan niet worden afgespeeld met QLC+. Excuus.</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="822"/>
@@ -4710,22 +4713,22 @@ Duur: %3
     <message>
         <location filename="universeitemwidget.cpp" line="86"/>
         <source>Input:</source>
-        <translation type="unfinished"></translation>
+        <translation>Input:</translation>
     </message>
     <message>
         <location filename="universeitemwidget.cpp" line="87"/>
         <source>Profile:</source>
-        <translation type="unfinished"></translation>
+        <translation>Profiel:</translation>
     </message>
     <message>
         <location filename="universeitemwidget.cpp" line="88"/>
         <source>Output:</source>
-        <translation type="unfinished"></translation>
+        <translation>Output:</translation>
     </message>
     <message>
         <location filename="universeitemwidget.cpp" line="89"/>
         <source>Feedback:</source>
-        <translation type="unfinished"></translation>
+        <translation>Terugkoppeing:</translation>
     </message>
     <message>
         <location filename="universeitemwidget.cpp" line="106"/>
@@ -4733,7 +4736,7 @@ Duur: %3
         <location filename="universeitemwidget.cpp" line="110"/>
         <location filename="universeitemwidget.cpp" line="112"/>
         <source>None</source>
-        <translation type="unfinished">Geen</translation>
+        <translation>Geen</translation>
     </message>
 </context>
 <context>
@@ -5005,17 +5008,17 @@ Duur: %3
     <message>
         <location filename="vcclockproperties.ui" line="87"/>
         <source>Schedule</source>
-        <translation type="unfinished"></translation>
+        <translation>Schema</translation>
     </message>
     <message>
         <location filename="vcclockproperties.ui" line="153"/>
         <source>Function</source>
-        <translation type="unfinished">Function</translation>
+        <translation>Functie</translation>
     </message>
     <message>
         <location filename="vcclockproperties.ui" line="158"/>
         <source>Time</source>
-        <translation type="unfinished">Tijd</translation>
+        <translation>Tijd</translation>
     </message>
 </context>
 <context>
@@ -6501,7 +6504,7 @@ Kies...</translation>
 Start time: %2
 Duration: %3
 %4</source>
-        <translation type="unfinished">Naam: %1
+        <translation>Naam: %1
 Start tijd: %2
 Duur: %3
 %4</translation>
@@ -6510,22 +6513,22 @@ Duur: %3
         <location filename="sceneitems.cpp" line="1132"/>
         <location filename="sceneitems.cpp" line="1241"/>
         <source>Click to move this video across the timeline</source>
-        <translation type="unfinished"></translation>
+        <translation>Klik om deze video te verplaatsen over de tijdslijn</translation>
     </message>
     <message>
         <location filename="sceneitems.cpp" line="1146"/>
         <source>Fullscreen</source>
-        <translation type="unfinished"></translation>
+        <translation>Volledig scherm</translation>
     </message>
     <message>
         <location filename="sceneitems.cpp" line="1153"/>
         <source>Align to cursor</source>
-        <translation type="unfinished">Op lijn brenegn met cursor</translation>
+        <translation>Op lijn brenegn met cursor</translation>
     </message>
     <message>
         <location filename="sceneitems.cpp" line="1333"/>
         <source>Screen %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Scherm %1</translation>
     </message>
 </context>
 <context>

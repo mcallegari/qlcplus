@@ -810,7 +810,6 @@ QDir InputOutputMap::userProfileDirectory()
 void InputOutputMap::loadDefaults()
 {
     /* ************************ INPUT *********************************** */
-    QString profileName;
     QSettings settings;
     QString plugin;
     QString input;
@@ -818,6 +817,9 @@ void InputOutputMap::loadDefaults()
 
     for (quint32 i = 0; i < universes(); i++)
     {
+        QString profileName;
+        bool passthrough;
+
         /* Plugin name */
         key = QString("/inputmap/universe%2/plugin/").arg(i);
         plugin = settings.value(key).toString();
@@ -829,6 +831,11 @@ void InputOutputMap::loadDefaults()
         /* Input profile */
         key = QString("/inputmap/universe%2/profile/").arg(i);
         profileName = settings.value(key).toString();
+
+        key = QString("/inputmap/universe%2/passthrough/").arg(i);
+        passthrough = settings.value(key).toBool();
+        if (passthrough == true)
+            m_universeArray.at(i)->setPassthrough(passthrough);
 
         /* Do the mapping */
         if (plugin.length() > 0 && input.length() > 0)
@@ -914,6 +921,14 @@ void InputOutputMap::saveDefaults()
             settings.setValue(key, pat->profileName());
         else
             settings.setValue(key, KInputNone);
+
+        /* Passthrough */
+        key = QString("/inputmap/universe%2/passthrough/").arg(i);
+        bool passthrough = m_universeArray.at(i)->passthrough();
+        if (passthrough == true)
+            settings.setValue(key, passthrough);
+        else
+            settings.remove(key);
     }
 
     /* ************************ OUTPUT *********************************** */
