@@ -107,11 +107,8 @@ RGBMap RGBAudio::rgbMap(const QSize& size, uint rgb, int step)
     for (int x = 0; x < m_spectrumValues.count(); x++)
     {
         int barHeight =  (volHeight * m_spectrumValues[x]) / m_maxMagnitude;
-        for (int y = 0; y < size.height(); y++)
-        {
-            if (y >= size.height() - barHeight)
-                map[y][x] = rgb;
-        }
+        for (int y = size.height() - barHeight; y < size.height(); y++)
+            map[y][x] = rgb;
     }
 
     m_mutex.unlock();
