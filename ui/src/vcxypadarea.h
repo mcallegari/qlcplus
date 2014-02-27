@@ -62,7 +62,7 @@ public:
     void setPosition(const QPointF& point);
 
     /** Move the current position by some relative amount */
-    void nudgePosition(int dx, int dy);
+    void nudgePosition(qreal dx, qreal dy);
 
     /** Check if the position has changed since the last currentXYPosition() call */
     bool hasPositionChanged();

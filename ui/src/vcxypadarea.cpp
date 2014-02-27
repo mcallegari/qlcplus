@@ -96,11 +96,11 @@ void VCXYPadArea::setPosition(const QPointF& point)
     emit positionChanged(point);
 }
 
-void VCXYPadArea::nudgePosition(int dx, int dy)
+void VCXYPadArea::nudgePosition(qreal dx, qreal dy)
 {
     m_mutex.lock();
-    m_dmxPos.setX(CLAMP(m_dmxPos.x() + dx, 0, 256.0));
-    m_dmxPos.setY(CLAMP(m_dmxPos.y() + dy, 0, 256.0));
+    m_dmxPos.setX(CLAMP(m_dmxPos.x() + dx, qreal(0), MAX_DMX_VALUE));
+    m_dmxPos.setY(CLAMP(m_dmxPos.y() + dy, qreal(0), MAX_DMX_VALUE));
 
     m_changed = true;
 
@@ -193,6 +193,11 @@ void VCXYPadArea::paintEvent(QPaintEvent* e)
     p.drawText(1, 1, width() - 2, height() - 2,
                Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap, title);
 
+    QFont font = p.font();
+    font.setPointSize(font.pointSize() - 2);
+    p.setFont(font);
+    p.drawText(1, 1, width() - 2, height() - 2,
+               Qt::AlignRight | Qt::AlignBottom | Qt::TextWordWrap, tr("Shift: fine, Ctrl:10x"));
     /* Draw crosshairs to indicate the center position */
     pen.setStyle(Qt::DotLine);
     pen.setColor(palette().color(QPalette::WindowText));
@@ -277,24 +282,30 @@ void VCXYPadArea::keyPressEvent(QKeyEvent *e)
 {
     if (m_mode == Doc::Operate)
     {
+        qreal step = 1;
+        if (e->modifiers().testFlag(Qt::ControlModifier))
+            step *= 10;
+        if (e->modifiers().testFlag(Qt::ShiftModifier))
+            step /= 256;
+        
         if (e->key() == Qt::Key_Left)
         {
-            nudgePosition(-1, 0);
+            nudgePosition(-step , 0);
             update();
         }
         else if (e->key() == Qt::Key_Right)
         {
-            nudgePosition(1, 0);
+            nudgePosition(step, 0);
             update();
         }
         else if (e->key() == Qt::Key_Up)
         {
-            nudgePosition(0, -1);
+            nudgePosition(0, -step);
             update();
         }
         else if (e->key() == Qt::Key_Down)
         {
-            nudgePosition(0, 1);
+            nudgePosition(0, step);
             update();
         }
         else
