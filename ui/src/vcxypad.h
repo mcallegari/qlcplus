@@ -157,7 +157,7 @@ public:
     void writeDMX(MasterTimer* timer, QList<Universe*> universes);
 
 public slots:
-    void slotPositionChanged(const QPoint& pt);
+    void slotPositionChanged(const QPointF& pt);
     void slotSliderValueChanged();
     void slotRangeValueChanged();
 

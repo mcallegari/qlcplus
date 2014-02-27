@@ -56,22 +56,38 @@ private:
      *************************************************************************/
 public:
     /** Get the pad's current position (i.e. where the point is) */
-    QPoint position();
+    QPointF position();
 
     /** Set the pad's current position (i.e. move the point) */
-    void setPosition(const QPoint& point);
+    void setPosition(const QPointF& point);
 
     /** Move the current position by some relative amount */
-    void nudgePosition(int dx, int dy);
+    void nudgePosition(qreal dx, qreal dy);
 
     /** Check if the position has changed since the last currentXYPosition() call */
     bool hasPositionChanged();
 
 signals:
-    void positionChanged(const QPoint& point);
+    void positionChanged(const QPointF& point);
 
 private:
-    QPoint m_pos;
+    /** Make sure the m_dmxPos is inside m_rangeDmxRect */
+    void checkDmxRange();
+
+    /** Compute m_windowPos from mdmxPos */
+    void updateWindowPos();
+
+private:
+
+    /** Position in DMX coordinates 0.0..(256.0 - 1/256) */
+    QPointF m_dmxPos;
+
+    /** Position in window coordinates */
+    QPoint m_windowPos;
+
+    /** Optimization - compute window pos on demand */
+    bool m_updateWindowPos;
+
     bool m_changed;
     QMutex m_mutex;
     QPixmap m_pixmap;
@@ -80,15 +96,20 @@ private:
      * Range window
      *************************************************************************/
 public:
-    QRect rangeWindow();
+    QRectF rangeWindow();
 
-    void setRangeWindow(QRect rect);
+    void setRangeWindow(QRectF rect);
 
 private:
+    /** Compute m_rangeWindowRect from m_rangeDmxRect */
     void updateRangeWindow();
+
 private:
-    QRect m_rangeSrcRect;
-    QRect m_rangeDestRect;
+    /** Range in dmx domain */
+    QRectF m_rangeDmxRect;
+
+    /** Range in window coordinates */
+    QRect m_rangeWindowRect;
 
     /*************************************************************************
      * Event handlers
