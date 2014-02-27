@@ -83,6 +83,13 @@ RGBMap RGBAudio::rgbMap(const QSize& size, uint rgb, int step)
     Q_UNUSED(step)
 
     m_mutex.lock();
+    RGBMap map(size.height());
+    for (int y = 0; y < size.height(); y++)
+    {
+        map[y].resize(size.width());
+        map[y].fill(0);
+    }
+
     // on the first round, just set the proper number of
     // spectrum bands to receive
     if (m_bandsNumber == -1)
@@ -93,13 +100,8 @@ RGBMap RGBAudio::rgbMap(const QSize& size, uint rgb, int step)
             m_audioInput->initialize(44100, 1, 2048);
         m_audioInput->start();
         m_mutex.unlock();
-        return RGBMap();
+        return map;
     }
-
-    RGBMap map(size.height());
-
-    for (int y = 0; y < size.height(); y++)
-        map[y].resize(size.width());
 
     double volHeight = (m_volumePower * size.height()) / 0x7FFF;
     for (int x = 0; x < m_spectrumValues.count(); x++)
@@ -109,8 +111,6 @@ RGBMap RGBAudio::rgbMap(const QSize& size, uint rgb, int step)
         {
             if (y >= size.height() - barHeight)
                 map[y][x] = rgb;
-            else
-                map[y][x] = 0;
         }
     }
 
