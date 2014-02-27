@@ -173,11 +173,6 @@ void EditChannel::slotGroupActivated(const QString& group)
     else
         m_lsbRadio->click();
 
-    if (m_channel->group() == QLCChannel::Pan || m_channel->group() == QLCChannel::Tilt)
-        m_controlByteGroup->show();
-    else
-        m_controlByteGroup->hide();
-
     if (m_channel->group() == QLCChannel::Intensity)
     {
         m_colourLabel->show();
