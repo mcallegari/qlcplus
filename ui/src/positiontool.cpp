@@ -35,7 +35,7 @@ PositionTool::PositionTool(const QPointF & initial, QWidget* parent)
     m_area = new VCXYPadArea(this);
     setPosition(initial);
     m_area->setMode(Doc::Operate); // to activate the area
-
+    m_area->setWindowTitle("");
     m_gridLayout->addWidget(m_area, 0, 0);
 
     connect(m_area, SIGNAL(positionChanged(const QPointF &)),

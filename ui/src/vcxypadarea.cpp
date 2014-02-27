@@ -182,8 +182,9 @@ void VCXYPadArea::paintEvent(QPaintEvent* e)
     QPen pen;
 
     QPointF pos = position();
-    QString title = QString("%1\n%2.%3 : %4.%5")
+    QString title = QString("%1%2%3.%4 : %5.%6")
         .arg(windowTitle())
+        .arg(windowTitle().isEmpty() ? "" : "\n")
         .arg(coarseByte(pos.x()), 3, 10, QChar('0'))
         .arg(fineByte(pos.x()), 3, 10, QChar('0'))
         .arg(coarseByte(pos.y()), 3, 10, QChar('0'))
