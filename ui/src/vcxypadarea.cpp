@@ -159,17 +159,39 @@ void VCXYPadArea::updateRangeWindow()
  * Event handlers
  *****************************************************************************/
 
+static int coarseByte(qreal value)
+{
+    return value;
+}
+
+static int fineByte(qreal value)
+{
+    return (value - floor(value)) * 256;
+}
+
 void VCXYPadArea::paintEvent(QPaintEvent* e)
 {
+
+    if (m_rangeWindowRect.isValid() && (m_mode == Doc::Operate))
+        checkDmxRange();
+
     /* Let the parent class draw its stuff first */
     QFrame::paintEvent(e);
 
     QPainter p(this);
     QPen pen;
 
+    QPointF pos = position();
+    QString title = QString("%1\n%2.%3 : %4.%5")
+        .arg(windowTitle())
+        .arg(coarseByte(pos.x()), 3, 10, QChar('0'))
+        .arg(fineByte(pos.x()), 3, 10, QChar('0'))
+        .arg(coarseByte(pos.y()), 3, 10, QChar('0'))
+        .arg(fineByte(pos.y()), 3,10, QChar('0'));
+
     /* Draw name (offset just a bit to avoid frame) */
     p.drawText(1, 1, width() - 2, height() - 2,
-               Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap, windowTitle());
+               Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap, title);
 
     /* Draw crosshairs to indicate the center position */
     pen.setStyle(Qt::DotLine);
@@ -187,10 +209,6 @@ void VCXYPadArea::paintEvent(QPaintEvent* e)
         p.setPen(pen);
         p.fillRect(m_rangeWindowRect, QBrush(QColor(155, 200, 165, 130)));
         p.drawRect(m_rangeWindowRect);
-        if (m_mode == Doc::Operate)
-        {
-            checkDmxRange();
-        }
     }
 
     updateWindowPos();
