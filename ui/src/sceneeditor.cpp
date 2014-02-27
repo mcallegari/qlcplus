@@ -169,7 +169,7 @@ void SceneEditor::init(bool applyValues)
                                     tr("Copy current values to all fixtures"), this);
     m_colorToolAction = new QAction(QIcon(":/color.png"),
                                     tr("Color tool for CMY/RGB-capable fixtures"), this);
-    m_positionToolAction = new QAction(QIcon(":/movinghead.png"),
+    m_positionToolAction = new QAction(QIcon(":/xypad.png"),
                                     tr("Position tool for moving heads/scanners"), this);
     m_tabViewAction = new QAction(QIcon(":/tabview.png"),
                                     tr("Switch between tab view and all channels view"), this);
