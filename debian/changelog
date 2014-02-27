@@ -9,6 +9,10 @@ qlcplus (4.7.0) stable; urgency=low
   * NEW: Simple Desk: added channel groups tab
   * NEW: Plugins: Added SPI plugin (Linux only)
   * NEW: Plugins: Added Vince DMX512 USB adapter support (thanks to Jérôme Lebleu)
+  * NEW: Position Tool: XY Pad-like postion setting in Scene editor (Jano Svitok)
+  * NEW: XY Pad shows pan/tilt coordinates (Jano Svitok)
+  * NEW: XY Pad keybaord control: Shift+arrows - fine control, 
+    Ctrl+arrows - 10x speed, Ctrl+Shift+arrows - faster fine control (Jano Svitok)
   * Function Selection: fixed OK button greyed out and various crashes
   * MIDI plugin: Linux support for pitch wheel and note/channel aftertouch (Jano Svitok)
   * MIDI plugin: improved pitch wheel and input/output settings (thanks to Robert Scheffler)
