@@ -87,6 +87,7 @@ HEADERS += aboutbox.h \
            multitrackview.h \
            palettegenerator.h \
            playbackslider.h \
+           positiontool.h \
            remapwidget.h \
            rgbmatrixeditor.h \
            rgbitem.h \
@@ -154,6 +155,7 @@ FORMS += aboutbox.ui \
          inputchanneleditor.ui \
          inputoutputpatcheditor.ui \
          inputprofileeditor.ui \
+         positiontool.ui \
          rgbmatrixeditor.ui \
          sceneeditor.ui \
          sceneselection.ui \
@@ -223,6 +225,7 @@ SOURCES += aboutbox.cpp \
            multitrackview.cpp \
            palettegenerator.cpp \
            playbackslider.cpp \
+           positiontool.cpp \
            remapwidget.cpp \
            rgbmatrixeditor.cpp \
            rgbitem.cpp \
