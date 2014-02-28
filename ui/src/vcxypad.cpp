@@ -224,6 +224,8 @@ void VCXYPad::appendFixture(const VCXYPadFixture& fxi)
 {
     if (fxi.head().isValid() && m_fixtures.indexOf(fxi) == -1)
         m_fixtures.append(fxi);
+
+    updateDegreesRange();
 }
 
 void VCXYPad::removeFixture(GroupHead const & head)
@@ -232,16 +234,51 @@ void VCXYPad::removeFixture(GroupHead const & head)
     fixture.setHead(head);
 
     m_fixtures.removeAll(fixture);
+
+    updateDegreesRange();
 }
 
 void VCXYPad::clearFixtures()
 {
     m_fixtures.clear();
+
+    updateDegreesRange();
 }
 
 QList <VCXYPadFixture> VCXYPad::fixtures() const
 {
     return m_fixtures;
+}
+
+QRectF VCXYPad::computeCommonDegreesRange() const
+{
+    QRectF commonRange;
+
+    foreach (VCXYPadFixture fixture, m_fixtures)
+    {
+        QRectF range = fixture.degreesRange();
+        if (!range.isValid())
+            return QRectF();
+
+        if (commonRange.isValid())
+        {
+            if (range != commonRange)
+                return QRectF();
+        }
+        else
+        {
+            commonRange = range;
+        }
+    }
+
+    return commonRange;
+}
+
+void VCXYPad::updateDegreesRange()
+{
+    QRectF range = computeCommonDegreesRange();
+
+    m_area->setDegreesRange(range);
 }
 
 /*****************************************************************************

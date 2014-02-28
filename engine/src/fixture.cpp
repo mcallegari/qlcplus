@@ -530,6 +530,25 @@ QIcon Fixture::getIconFromType(QString type) const
     return QIcon(":/other.png");
 }
 
+QRectF Fixture::degreesRange(int head) const
+{
+    // TODO: handle fixtures with only pan or tilt
+
+    if (m_fixtureMode != NULL && head < m_fixtureMode->heads().size())
+    {
+        QLCPhysical physical(m_fixtureMode->physical());
+        qreal pan = physical.focusPanMax();
+        qreal tilt = physical.focusTiltMax();
+
+        if (pan != 0 && tilt != 0)
+        {
+            return QRectF(-pan/2, -tilt/2, pan, tilt);
+        }
+    }
+
+    return QRectF();
+}
+
 QLCFixtureDef *Fixture::genericRGBPanelDef(int columns)
 {
     QLCFixtureDef *def = new QLCFixtureDef();

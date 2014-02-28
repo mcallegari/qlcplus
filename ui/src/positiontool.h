@@ -34,7 +34,7 @@ class PositionTool : public QDialog, Ui_PositionTool
      * Initialization
      *************************************************************************/
 public:
-    PositionTool(const QPointF & initial, QWidget * parent = 0);
+    PositionTool(const QPointF & initial, QRectF degreesRange, QWidget * parent = 0);
     virtual ~PositionTool();
 
 private:

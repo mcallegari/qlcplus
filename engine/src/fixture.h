@@ -357,6 +357,8 @@ public:
 
     QIcon getIconFromType(QString type) const;
 
+    QRectF degreesRange(int head) const;
+
 protected:
     /** The fixture definition that this instance is based on */
     QLCFixtureDef* m_fixtureDef;

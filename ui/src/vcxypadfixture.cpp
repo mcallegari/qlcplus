@@ -168,6 +168,19 @@ GroupHead const & VCXYPadFixture::head() const
     return m_head;
 }
 
+QRectF VCXYPadFixture::degreesRange() const
+{
+    Fixture* fxi = m_doc->fixture(m_head.fxi);
+    if (fxi == NULL)
+    {
+        return QRectF();
+    }
+    else
+    {
+       return fxi->degreesRange(m_head.head);
+    }
+}
+
 QString VCXYPadFixture::name() const
 {
     if (!m_head.isValid())
