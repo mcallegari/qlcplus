@@ -334,7 +334,7 @@ void VCXYPad::slotSliderValueChanged()
     if (m_padInteraction == true)
         return;
 
-    QPointF pt = m_area->position();
+    QPointF pt = m_area->position(false);
 
     m_sliderInteraction = true;
     if (QObject::sender() == m_hSlider)
@@ -384,7 +384,7 @@ void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
     if (mode() == Doc::Design || isEnabled() == false)
         return;
 
-    QPointF pt = m_area->position();
+    QPointF pt = m_area->position(false);
 
     QLCInputSource src(universe, (page() << 16) | channel);
     if (src == inputSource(panInputSourceId))
@@ -595,7 +595,7 @@ bool VCXYPad::saveXML(QDomDocument* doc, QDomElement* vc_root)
         fixture.saveXML(doc, &root);
 
     /* Current XY position */
-    QPointF pt(m_area->position());
+    QPointF pt(m_area->position(false));
 
     /* Custom range window */
     if (m_hRangeSlider->minimumPosition() != 0 ||
