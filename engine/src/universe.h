@@ -216,7 +216,7 @@ public:
      * @param group The group this channel belongs to
      * @param isHTP Flag to force HTP/LTP behaviour
      */
-    void setChannelCapability(ushort channel, QLCChannel::Group group, bool isHTP = false);
+    void setChannelCapability(ushort channel, QLCChannel::Group group, ChannelType forcedType = Undefined);
 
     /** Retrieve the capability mask of the given channel index
      *

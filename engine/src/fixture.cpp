@@ -378,37 +378,65 @@ QList <quint32> Fixture::cmyChannels(int head) const
     }
 }
 
-void Fixture::setExcludeFadeChannels(QList<int> indexes)
+void Fixture::setExcludeFadeChannels(QList<int> indices)
 {
-    if (indexes.count() > (int)channels())
+    if (indices.count() > (int)channels())
         return;
-    m_excludeFadeIndexes = indexes;
+    m_excludeFadeIndices = indices;
 }
 
 QList<int> Fixture::excludeFadeChannels()
 {
-    return m_excludeFadeIndexes;
+    return m_excludeFadeIndices;
 }
 
 void Fixture::setChannelCanFade(int idx, bool canFade)
 {
-    if (canFade == false && m_excludeFadeIndexes.contains(idx) == false)
+    if (canFade == false && m_excludeFadeIndices.contains(idx) == false)
     {
-        m_excludeFadeIndexes.append(idx);
-        qSort(m_excludeFadeIndexes.begin(), m_excludeFadeIndexes.end());
+        m_excludeFadeIndices.append(idx);
+        qSort(m_excludeFadeIndices.begin(), m_excludeFadeIndices.end());
     }
-    else if (canFade == true && m_excludeFadeIndexes.contains(idx) == true)
+    else if (canFade == true && m_excludeFadeIndices.contains(idx) == true)
     {
-        m_excludeFadeIndexes.removeOne(idx);
+        m_excludeFadeIndices.removeOne(idx);
     }
 }
 
 bool Fixture::channelCanFade(int index)
 {
-    if (m_excludeFadeIndexes.contains(index))
+    if (m_excludeFadeIndices.contains(index))
         return false;
 
     return true;
+}
+
+void Fixture::setForcedHTPChannels(QList<int> indices)
+{
+    if (indices.count() > (int)channels())
+        return;
+    m_forcedHTPIndices = indices;
+    for (int i = 0; i < m_forcedHTPIndices.count(); i++)
+    {
+
+    }
+}
+
+QList<int> Fixture::forcedHTPChannels()
+{
+    return m_forcedHTPIndices;
+}
+
+void Fixture::setForcedLTPChannels(QList<int> indices)
+{
+    if (indices.count() > (int)channels())
+        return;
+    m_forcedLTPIndices = indices;
+}
+
+QList<int> Fixture::forcedLTPChannels()
+{
+    return m_forcedLTPIndices;
 }
 
 void Fixture::createGenericChannel()
@@ -660,6 +688,8 @@ bool Fixture::loadXML(const QDomElement& root, Doc *doc,
     quint32 channels = 0;
     quint32 width = 0, height = 0;
     QList<int> excludeList;
+    QList<int> forcedHTP;
+    QList<int> forcedLTP;
 
     if (root.tagName() != KXMLFixture)
     {
@@ -719,6 +749,22 @@ bool Fixture::loadXML(const QDomElement& root, Doc *doc,
 
             for (int i = 0; i < values.count(); i++)
                 excludeList.append(values.at(i).toInt());
+        }
+        else if (tag.tagName() == KXMLFixtureForcedHTP)
+        {
+            QString list = tag.text();
+            QStringList values = list.split(",");
+
+            for (int i = 0; i < values.count(); i++)
+                forcedHTP.append(values.at(i).toInt());
+        }
+        else if (tag.tagName() == KXMLFixtureForcedLTP)
+        {
+            QString list = tag.text();
+            QStringList values = list.split(",");
+
+            for (int i = 0; i < values.count(); i++)
+                forcedLTP.append(values.at(i).toInt());
         }
         else
         {
@@ -800,6 +846,8 @@ bool Fixture::loadXML(const QDomElement& root, Doc *doc,
     setUniverse(universe);
     setName(name);
     setExcludeFadeChannels(excludeList);
+    setForcedHTPChannels(forcedHTP);
+    setForcedLTPChannels(forcedLTP);
     setID(id);
 
     return true;
@@ -899,16 +947,46 @@ bool Fixture::saveXML(QDomDocument* doc, QDomElement* wksp_root) const
     text = doc->createTextNode(str);
     tag.appendChild(text);
 
-    if (m_excludeFadeIndexes.count() > 0)
+    if (m_excludeFadeIndices.count() > 0)
     {
         tag = doc->createElement(KXMLFixtureExcludeFade);
         root.appendChild(tag);
         QString list;
-        for (int i = 0; i < m_excludeFadeIndexes.count(); i++)
+        for (int i = 0; i < m_excludeFadeIndices.count(); i++)
         {
             if (list.isEmpty() == false)
                 list.append(QString(","));
-            list.append(QString("%1").arg(m_excludeFadeIndexes.at(i)));
+            list.append(QString("%1").arg(m_excludeFadeIndices.at(i)));
+        }
+        text = doc->createTextNode(list);
+        tag.appendChild(text);
+    }
+
+    if (m_forcedHTPIndices.count() > 0)
+    {
+        tag = doc->createElement(KXMLFixtureForcedHTP);
+        root.appendChild(tag);
+        QString list;
+        for (int i = 0; i < m_forcedHTPIndices.count(); i++)
+        {
+            if (list.isEmpty() == false)
+                list.append(QString(","));
+            list.append(QString("%1").arg(m_forcedHTPIndices.at(i)));
+        }
+        text = doc->createTextNode(list);
+        tag.appendChild(text);
+    }
+
+    if (m_forcedLTPIndices.count() > 0)
+    {
+        tag = doc->createElement(KXMLFixtureForcedLTP);
+        root.appendChild(tag);
+        QString list;
+        for (int i = 0; i < m_forcedLTPIndices.count(); i++)
+        {
+            if (list.isEmpty() == false)
+                list.append(QString(","));
+            list.append(QString("%1").arg(m_forcedLTPIndices.at(i)));
         }
         text = doc->createTextNode(list);
         tag.appendChild(text);

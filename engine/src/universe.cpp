@@ -369,27 +369,27 @@ void Universe::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
  * Channels capabilities
  ************************************************************************/
 
-void Universe::setChannelCapability(ushort channel, QLCChannel::Group group, bool isHTP)
+void Universe::setChannelCapability(ushort channel, QLCChannel::Group group, ChannelType forcedType)
 {
     if (channel >= (ushort)m_channelsMask->count())
         return;
 
-    if (isHTP == true)
+    if (forcedType != Undefined)
     {
-        // qDebug() << "--- Forced HTP";
-        m_channelsMask->data()[channel] = char(HTP);
+        //qDebug() << "--- Channel" << channel << "forced type" << forcedType;
+        m_channelsMask->data()[channel] = char(forcedType);
     }
     else
     {
         if (group == QLCChannel::Intensity)
         {
-            // qDebug() << "--- Intensity + HTP";
+            //qDebug() << "--- Channel" << channel << "Intensity + HTP";
             m_channelsMask->data()[channel] = char(HTP | Intensity);
             m_intensityChannels << channel;
         }
         else
         {
-            // qDebug() << "--- LTP";
+            //qDebug() << "--- Channel" << channel << " is LTP";
             m_channelsMask->data()[channel] = char(LTP);
             m_nonIntensityChannels << channel;
         }

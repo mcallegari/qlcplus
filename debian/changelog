@@ -12,6 +12,7 @@ qlcplus (4.7.0) stable; urgency=low
   * NEW: Position Tool: XY Pad-like postion setting in Scene editor (Jano Svitok)
   * NEW: XY Pad shows pan/tilt coordinates (Jano Svitok)
   * NEW: XY Pad keyboard controls: Shift+arrows - fine control, Ctrl+arrows - 10x speed, Ctrl+Shift+arrows - faster fine control (Jano Svitok)
+  * NEW: Fixture Manager: Fixtures channels can now be manually forced to HTP/LTP
   * Function Selection: fixed OK button greyed out and various crashes
   * MIDI plugin: Linux support for pitch wheel and note/channel aftertouch (Jano Svitok)
   * MIDI plugin: improved pitch wheel and input/output settings (thanks to Robert Scheffler)
@@ -28,7 +29,7 @@ qlcplus (4.7.0) stable; urgency=low
   * Added fixtures: Alkalite Octopod DP-80, Eurolite LED DMX Pixel Tube 16 RGB (thanks to Ryan Gough)
   * Added fixtures: Stairville Quad Par Profile RGBW 5x8W, Stairville DDS 405 (thanks to Nicolas Rasor)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 15 February 2014 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Mon, 3 March 2014 12:13:14 +0200
 
 qlcplus (4.6.1) stable; urgency=low
 

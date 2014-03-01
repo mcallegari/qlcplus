@@ -51,6 +51,8 @@ class Doc;
 #define KXMLFixtureChannels "Channels"
 #define KXMLFixtureDimmer "Dimmer"
 #define KXMLFixtureExcludeFade "ExcludeFade"
+#define KXMLFixtureForcedHTP "ForcedHTP"
+#define KXMLFixtureForcedLTP "ForcedLTP"
 
 class Fixture : public QObject
 {
@@ -275,10 +277,10 @@ public:
     /** @see QLCFixtureHead */
     QList <quint32> cmyChannels(int head = 0) const;
 
-    /** Set a list of channel indexes to exclude from fade transitions */
-    void setExcludeFadeChannels(QList<int> indexes);
+    /** Set a list of channel indices to exclude from fade transitions */
+    void setExcludeFadeChannels(QList<int> indices);
 
-    /** Get the list of channel indexes to exclude from fade transitions */
+    /** Get the list of channel indices to exclude from fade transitions */
     QList<int> excludeFadeChannels();
 
     /** Add a channel index to exclude from fade transitions */
@@ -286,6 +288,18 @@ public:
 
     /** Check if a channel can be faded or not */
     bool channelCanFade(int index);
+
+    /** Set a list of channel indices that are forced to be HTP */
+    void setForcedHTPChannels(QList<int> indices);
+
+    /** Get a list of channel indices that are forced to be HTP */
+    QList<int> forcedHTPChannels();
+
+    /** Set a list of channel indices that are forced to be LTP */
+    void setForcedLTPChannels(QList<int> indices);
+
+    /** Get a list of channel indices that are forced to be LTP */
+    QList<int> forcedLTPChannels();
 
 protected:
     /** Create a generic intensity channel */
@@ -304,8 +318,14 @@ protected:
     /** Generic intensity channel for dimmer fixtures */
     QLCChannel* m_genericChannel;
 
-    /** List holding the channels indexes to exlude from fade transitions */
-    QList<int> m_excludeFadeIndexes;
+    /** List holding the channels indices to exlude from fade transitions */
+    QList<int> m_excludeFadeIndices;
+
+    /** List holding the LTP channels indices that are forced to be HTP */
+    QList<int> m_forcedHTPIndices;
+
+    /** List holding the HTP channels indices that are forced to be LTP */
+    QList<int> m_forcedLTPIndices;
 
     /*********************************************************************
      * Fixture definition
