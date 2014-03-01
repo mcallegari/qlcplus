@@ -56,7 +56,7 @@ private:
      *************************************************************************/
 public:
     /** Get the pad's current position (i.e. where the point is) */
-    QPointF position() const;
+    QPointF position(bool resetChanged = true) const;
 
     /** Set the pad's current position (i.e. move the point) */
     void setPosition(const QPointF& point);

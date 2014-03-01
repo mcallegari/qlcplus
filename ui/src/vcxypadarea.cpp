@@ -69,11 +69,12 @@ void VCXYPadArea::setMode(Doc::Mode mode)
  * Current XY position
  *****************************************************************************/
 
-QPointF VCXYPadArea::position() const
+QPointF VCXYPadArea::position(bool resetChanged) const
 {
     m_mutex.lock();
     QPointF pos(m_dmxPos);
-    m_changed = false;
+    if (resetChanged)
+        m_changed = false;
     m_mutex.unlock();
     return pos;
 }
@@ -144,7 +145,7 @@ static int fineByte(qreal value)
 
 QString VCXYPadArea::positionString() const
 {
-    QPointF pos = position();
+    QPointF pos = position(false);
     return QString("%1.%2 : %3.%4")
         .arg(coarseByte(pos.x()), 3, 10, QChar('0'))
         .arg(fineByte(pos.x()), 3, 10, QChar('0'))
@@ -154,7 +155,7 @@ QString VCXYPadArea::positionString() const
 
 QString VCXYPadArea::angleString() const
 {
-    QPointF pos = position();
+    QPointF pos = position(false);
     QRectF range = degreesRange();
 
     if (range.isValid())
