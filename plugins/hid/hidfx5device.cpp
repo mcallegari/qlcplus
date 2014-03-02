@@ -49,7 +49,11 @@ void HIDFX5Device::init()
     if (open() == false)
         return;
 
+    m_name = QString("FX5 Output %1: %2").arg(m_line + 1)
+             .arg(strerror(errno));
+
     /* Device name */
+/*
     char name[128] = "Unknown";
     if (ioctl(m_file.handle(), JSIOCGNAME(sizeof(name)), name) < 0)
     {
@@ -62,7 +66,7 @@ void HIDFX5Device::init()
     {
         m_name = QString("FX5 Output %1: %2").arg(m_line + 1).arg(name);
     }
-
+*/
 
     close();
 }
@@ -107,25 +111,7 @@ QString HIDFX5Device::path() const
 
 bool HIDFX5Device::readEvent()
 {
-    struct js_event ev;
-    HIDInputEvent* e;
-    int r;
-
-    r = read(m_file.handle(), &ev, sizeof(struct js_event));
-    if (r > 0)
-    {
-
-
-        return true;
-    }
-    else
-    {
-        /* This device seems to be dead */
-        e = new HIDInputEvent(this, 0, 0, 0, false);
-        QApplication::postEvent(parent(), e);
-
-        return false;
-    }
+    return true;
 }
 
 /*****************************************************************************

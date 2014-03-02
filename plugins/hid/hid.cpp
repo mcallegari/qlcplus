@@ -228,12 +228,12 @@ void HID::rescanDevices()
     }
 
     /* Check all files matching filter "/dev/input/hidraw*" */
-    QDir dir("/dev/input/", QString("hidraw*"), QDir::Name, QDir::System);
-    QStringListIterator it(dir.entryList());
-    while (it.hasNext() == true)
+    QDir dir2("/dev/input/", QString("hidraw*"), QDir::Name, QDir::System);
+    QStringListIterator it2(dir2.entryList());
+    while (it2.hasNext() == true)
     {
         /* Construct an absolute path for the file */
-        QString path(dir.absoluteFilePath(it.next()));
+        QString path(dir2.absoluteFilePath(it.next()));
 
         /* Check that we can at least read from the device. Otherwise
            deem it to ge destroyed. */
