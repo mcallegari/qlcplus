@@ -67,15 +67,6 @@ void HIDFX5Device::init()
              QMessageBox::AcceptRole, QMessageBox::AcceptRole);
     }
 
-    wchar_t manufacturer_string[50];
-    hid_get_manufacturer_string(m_handle, manufacturer_string, 50);
-    
-    wchar_t product_string[50];
-    hid_get_product_string(m_handle, product_string, 50);
-
-    m_name = QString::fromWCharArray(manufacturer_string) + " "
-           + QString::fromWCharArray(product_string);
-
     /** Reset channels when opening the interface: */
     memset(m_dmx_cmp, 0xff, 512);
     outputDMX(QByteArray());

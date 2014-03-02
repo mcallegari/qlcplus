@@ -35,7 +35,7 @@ macx:SOURCES += macx/hidapi.cpp
 unix:!macx {
     # Rules to make FX5 DMX devices readable & writable by normal users
     udev.path  = /etc/udev/rules.d
-    udev.files = z65-fx5-hid.rules
+    udev.files = linux/z65-fx5-hid.rules
     INSTALLS  += udev
 }
 
