@@ -227,8 +227,8 @@ void HID::rescanDevices()
         }
     }
 
-    /* Check all files matching filter "/dev/input/hidraw*" */
-    QDir dir2("/dev/input/", QString("hidraw*"), QDir::Name, QDir::System);
+    /* Check all files matching filter "/dev/hidraw*" */
+    QDir dir2("/dev/", QString("hidraw*"), QDir::Name, QDir::System);
     QStringListIterator it2(dir2.entryList());
     while (it2.hasNext() == true)
     {
