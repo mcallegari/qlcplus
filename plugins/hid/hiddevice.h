@@ -140,7 +140,7 @@ public:
      *************************************************************************/
  
     /** Output data, which is a DMX universe */
-    virtual void outputDMX(const QByteArray &data);
+    virtual void outputDMX(const QByteArray &data, bool forceWrite = false);
 };
 
 #endif

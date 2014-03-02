@@ -102,7 +102,7 @@ public:
      * Output data
      *********************************************************************/
     
-    void outputDMX(const QByteArray &data);
+    void outputDMX(const QByteArray &data, bool forceWrite = false);
     
      /*********************************************************************
      * FX5 - specific functions and device handle
@@ -119,7 +119,7 @@ private:
     int m_mode;
 
     /** Last universe data that has been output */
-    unsigned char m_dmx_cmp[512];
+    QByteArray m_dmx_cmp;
 
     /** mode selection function */
     void updateMode();

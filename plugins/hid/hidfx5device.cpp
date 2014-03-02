@@ -30,6 +30,7 @@
 
 #include <QApplication>
 #include <QMessageBox>
+#include <QByteArray>
 #include <QObject>
 #include <QString>
 #include <QDebug>
@@ -68,8 +69,8 @@ void HIDFX5Device::init()
     }
 
     /** Reset channels when opening the interface: */
-    memset(m_dmx_cmp, 0xff, 512);
-    outputDMX(QByteArray());
+    m_dmx_cmp.fill(0, 512);
+    outputDMX(m_dmx_cmp, true);
 }
 
 /*****************************************************************************
@@ -140,31 +141,27 @@ void HIDFX5Device::feedBack(quint32 channel, uchar value)
  * Output data
  *****************************************************************************/
 
-void HIDFX5Device::outputDMX(const QByteArray &universe)
+void HIDFX5Device::outputDMX(const QByteArray &universe, bool forceWrite)
 {
-    unsigned char m_dmx_new[512] = {0x00};
-    unsigned char buffer[35];
-    int res;
-
-    for (int i = 0; i<universe.size(); i++)
-        m_dmx_new[i] = universe.at(i);
-
     for (int i = 0; i < 16; i++)
     {
-        if((memcmp(m_dmx_cmp + (i * 32), (m_dmx_new) + (i * 32), 32) != 0))
+        int startOff = i * 32;
+        if (startOff >= universe.size())
+            return;
+        QByteArray chunk = universe.mid(startOff, 32);
+        if (chunk.size() < 32)
+            chunk.append((char)0x0, 32 - chunk.size());
+        if(forceWrite == true || chunk != m_dmx_cmp.mid(startOff, 32))
         {
-            /** Save different data to m_dmx_comp */
-            memcpy(m_dmx_cmp + (i * 32), (m_dmx_new) + (i * 32), 32);
+            /** Save different data to m_dmx_cmp */
+            m_dmx_cmp.replace(startOff, 32, chunk);
 
+            chunk.prepend((char)i);
+            chunk.prepend((char)0x0);
             /** Output new data */
-            memcpy(buffer + 2, m_dmx_cmp + (i * 32), 32);
-            buffer[0] = 0;
-            buffer[1] = i;
-            res = hid_write(m_handle, buffer, 34);
+            hid_write(m_handle, (const unsigned char *)chunk.data(), chunk.size());
         }
-   }
-
-   Q_UNUSED(res);
+    }
 }
 
 /*****************************************************************************

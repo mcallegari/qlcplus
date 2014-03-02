@@ -90,7 +90,8 @@ void HIDDevice::feedBack(quint32 channel, uchar value)
     Q_UNUSED(value);
 }
 
-void HIDDevice::outputDMX(const QByteArray &data)
+void HIDDevice::outputDMX(const QByteArray &data, bool forceWrite)
 {
     Q_UNUSED(data);
+    Q_UNUSED(forceWrite);
 }
