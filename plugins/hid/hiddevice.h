@@ -42,17 +42,28 @@ public:
      *************************************************************************/
 public:
     /**
-     * Attempt to open the HID device in RW mode and fall back to RO
-     * if that fails.
+     * Attempt to open the HID device as input in RW mode and fall back
+     * to RO if that fails.
      *
      * @return true if the file was opened RW/RO
      */
-    virtual bool open();
+    virtual bool openInput();
 
     /**
-     * Close the HID device
+     * Close the HID device's input
      */
-    virtual void close();
+    virtual void closeInput();
+    
+     /**
+     * Open HID device as output
+     *
+     */
+    virtual void openOutput();
+
+    /**
+     * Close the HID device'd output
+     */
+    virtual void closeOutput();
 
     /**
      * Get the full path of this HID device
@@ -123,6 +134,13 @@ public:
      * and such.
      */
     virtual void feedBack(quint32 channel, uchar value);
+
+    /*************************************************************************
+     * Output data
+     *************************************************************************/
+ 
+    /** Output data, which is a DMX universe */
+    virtual void outputDMX(const QByteArray &data);
 };
 
 #endif

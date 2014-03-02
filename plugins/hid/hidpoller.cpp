@@ -63,7 +63,7 @@ bool HIDPoller::addDevice(HIDDevice* device)
         return false;
     }
 
-    if (device->open() == true)
+    if (device->openInput() == true)
     {
         m_devices[device->handle()] = device;
         m_changed = true;
@@ -90,7 +90,7 @@ bool HIDPoller::removeDevice(HIDDevice* device)
 
     if (m_devices.remove(device->handle()) > 0)
     {
-        device->close();
+        device->closeInput();
         m_changed = true;
         r = true;
     }
@@ -185,7 +185,7 @@ void HIDPoller::readEvent(struct pollfd pfd)
     {
         if (m_devices.remove(device->handle()) > 0)
         {
-            device->close();
+            device->closeInput();
             m_changed = true;
         }
     }

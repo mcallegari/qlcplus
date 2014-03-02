@@ -18,6 +18,10 @@
   limitations under the License.
 */
 
+// TODO: If error messagebox is shown while opening devices, rescan & update list
+// TODO: The whole input polling stuff
+// TODO: Use res in case of error in void HIDFX5Device::outputDMX(const QByteArray &universe)
+
 #include <linux/input.h>
 #include <errno.h>
 #if !defined(WIN32) && !defined(Q_OS_WIN)
@@ -25,6 +29,7 @@
 #endif
 
 #include <QApplication>
+#include <QMessageBox>
 #include <QObject>
 #include <QString>
 #include <QDebug>
@@ -32,6 +37,7 @@
 
 #include "hidfx5device.h"
 #include "qlcmacros.h"
+#include "hidapi.h"
 #include "hid.h"
 
 HIDFX5Device::HIDFX5Device(HID* parent, quint32 line, const QString &name, const QString& path)
@@ -43,66 +49,66 @@ HIDFX5Device::HIDFX5Device(HID* parent, quint32 line, const QString &name, const
 
 HIDFX5Device::~HIDFX5Device()
 {
-    qobject_cast<HID*> (parent())->removePollDevice(this);
+    closeInput();
+    closeOutput();
+    hid_close(m_handle);
+    //qobject_cast<HID*> (parent())->removePollDevice(this); // TODO
 }
 
 void HIDFX5Device::init()
 {
-    if (open() == false)
-        return;
-
-    m_name = QString("FX5 Output %1").arg(m_line + 1);
-
     /* Device name */
-/*
-    char name[128] = "Unknown";
-    if (ioctl(m_file.handle(), JSIOCGNAME(sizeof(name)), name) < 0)
+    m_handle = hid_open_path(path().toUtf8().constData());
+    
+    if (!m_handle)
     {
-        m_name = QString("FX5 Output %1: %2").arg(m_line + 1)
-                 .arg(strerror(errno));
-        qWarning() << "Unable to get FX5 name:"
-                   << strerror(errno);
+        QMessageBox::warning(NULL, (tr("FX5 USB DMX Interface Error")),
+            (tr("Unable to open the FX5 Interface. Make sure the udev rule is installed.")),
+             QMessageBox::AcceptRole, QMessageBox::AcceptRole);
     }
-    else
-    {
-        m_name = QString("FX5 Output %1: %2").arg(m_line + 1).arg(name);
-    }
-*/
 
-    close();
+    wchar_t manufacturer_string[50];
+    hid_get_manufacturer_string(m_handle, manufacturer_string, 50);
+    
+    wchar_t product_string[50];
+    hid_get_product_string(m_handle, product_string, 50);
+
+    m_name = QString::fromWCharArray(manufacturer_string) + " "
+           + QString::fromWCharArray(product_string);
+
+    /** Reset channels when opening the interface: */
+    memset(m_dmx_cmp, 0xff, 512);
+    outputDMX(QByteArray());
 }
 
 /*****************************************************************************
  * File operations
  *****************************************************************************/
 
-bool HIDFX5Device::open()
+bool HIDFX5Device::openInput()
 {
-    bool result = false;
-
-    result = m_file.open(QIODevice::Unbuffered | QIODevice::ReadWrite);
-    if (result == false)
-    {
-        result = m_file.open(QIODevice::Unbuffered |
-                             QIODevice::ReadOnly);
-        if (result == false)
-        {
-            qWarning() << "Unable to open" << m_file.fileName()
-                       << ":" << m_file.errorString();
-        }
-        else
-        {
-            qDebug() << "Opened" << m_file.fileName()
-                     << "in read only mode";
-        }
-    }
-
-    return result;
+    m_mode |= FX5_MODE_INPUT;
+    updateMode();
+    
+    return true;
 }
 
-void HIDFX5Device::close()
+void HIDFX5Device::closeInput()
 {
-    m_file.close();
+    m_mode &= ~FX5_MODE_INPUT;
+    updateMode();
+}
+
+void HIDFX5Device::openOutput()
+{
+    m_mode |= FX5_MODE_OUTPUT;
+    updateMode();
+}
+
+void HIDFX5Device::closeOutput()
+{
+    m_mode &= ~FX5_MODE_OUTPUT;
+    updateMode();
 }
 
 QString HIDFX5Device::path() const
@@ -139,3 +145,53 @@ void HIDFX5Device::feedBack(quint32 channel, uchar value)
     Q_UNUSED(value);
 }
 
+/*****************************************************************************
+ * Output data
+ *****************************************************************************/
+
+void HIDFX5Device::outputDMX(const QByteArray &universe)
+{
+    unsigned char m_dmx_new[512] = {0x00};
+    unsigned char buffer[35];
+    int res;
+
+    for (int i = 0; i<universe.size(); i++)
+        m_dmx_new[i] = universe.at(i);
+
+    for (int i = 0; i < 16; i++)
+    {
+        if((memcmp(m_dmx_cmp + (i * 32), (m_dmx_new) + (i * 32), 32) != 0))
+        {
+            /** Save different data to m_dmx_comp */
+            memcpy(m_dmx_cmp + (i * 32), (m_dmx_new) + (i * 32), 32);
+
+            /** Output new data */
+            memcpy(buffer + 2, m_dmx_cmp + (i * 32), 32);
+            buffer[0] = 0;
+            buffer[1] = i;
+            res = hid_write(m_handle, buffer, 34);
+        }
+   }
+
+   Q_UNUSED(res);
+}
+
+/*****************************************************************************
+ * FX5 - specific functions / driver
+ *****************************************************************************/
+
+void HIDFX5Device::updateMode()
+{
+    int driver_mode = 0;
+    if (m_mode & FX5_MODE_OUTPUT)
+        driver_mode += 2;
+    if (m_mode & FX5_MODE_INPUT)
+        driver_mode += 4;
+
+    unsigned char buffer[34];
+
+    memset(buffer, 0, 34);
+    buffer[1] = 16;
+    buffer[2] = driver_mode;
+    hid_write(m_handle, buffer, 34);
+}

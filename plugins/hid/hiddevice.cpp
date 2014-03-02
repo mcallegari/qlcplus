@@ -32,19 +32,27 @@ HIDDevice::HIDDevice(HID* parent, quint32 line, const QString &name, const QStri
 
 HIDDevice::~HIDDevice()
 {
-    close();
+    closeInput();
 }
 
 /*****************************************************************************
  * File operations
  *****************************************************************************/
 
-bool HIDDevice::open()
+bool HIDDevice::openInput()
 {
     return false;
 }
 
-void HIDDevice::close()
+void HIDDevice::closeInput()
+{
+}
+
+void HIDDevice::openOutput()
+{
+}
+
+void HIDDevice::closeOutput()
 {
 }
 
@@ -80,4 +88,9 @@ void HIDDevice::feedBack(quint32 channel, uchar value)
 {
     Q_UNUSED(channel);
     Q_UNUSED(value);
+}
+
+void HIDDevice::outputDMX(const QByteArray &data)
+{
+    Q_UNUSED(data);
 }

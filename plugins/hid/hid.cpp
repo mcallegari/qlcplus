@@ -174,12 +174,20 @@ QString HID::inputInfo(quint32 input)
  *********************************************************************/
 void HID::openOutput(quint32 output)
 {
-    Q_UNUSED(output)
+    HIDDevice* dev = device(output);
+    if (dev != NULL)
+        dev->openOutput();
+    else
+        qDebug() << name() << "has no output number:" << output;
 }
 
 void HID::closeOutput(quint32 output)
 {
-    Q_UNUSED(output)
+    HIDDevice* dev = device(output);
+    if (dev != NULL)
+        dev->closeOutput();
+    else
+        qDebug() << name() << "has no output number:" << output;
 }
 
 QStringList HID::outputs()
@@ -218,9 +226,14 @@ QString HID::outputInfo(quint32 output)
 
 void HID::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
 {
-    Q_UNUSED(universe)
-    Q_UNUSED(output)
-    Q_UNUSED(data)
+    Q_UNUSED(universe);
+
+    if (output != QLCIOPlugin::invalidLine())
+    {
+        HIDDevice* dev = device(output);
+        if (dev != NULL)
+            dev->outputDMX(data);
+    }
 }
 
 /*****************************************************************************
@@ -258,6 +271,7 @@ void HID::rescanDevices()
         if((cur_dev->vendor_id == FX5_DMX_INTERFACE_VENDOR_ID && cur_dev->product_id == FX5_DMX_INTERFACE_PRODUCT_ID) ||
            (cur_dev->vendor_id == FX5_DMX_INTERFACE_VENDOR_ID_2 && cur_dev->product_id == FX5_DMX_INTERFACE_PRODUCT_ID_2))
         {
+            /* Device is a FX5 / Digital Enlightenment USB DMX Interface */
             HIDDevice* dev = device(QString(cur_dev->path));
             if (dev == NULL)
             {
@@ -270,6 +284,7 @@ void HID::rescanDevices()
         }
         else if (QString(cur_dev->path).contains("js"))
         {
+            /* Device is a Joystick */
             HIDDevice* dev = device(QString(cur_dev->path));
             if (dev == NULL)
             {
