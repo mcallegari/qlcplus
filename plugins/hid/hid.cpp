@@ -257,6 +257,10 @@ bool HID::canConfigure()
 
 void HID::rescanDevices()
 {
+    /* Treat all devices as dead first, until we find them again. Those
+       that aren't found, get destroyed at the end of this function. */
+    QList <HIDDevice*> destroyList(m_devices);
+
     struct hid_device_info *devs, *cur_dev;
     quint32 line = 0;
 
@@ -268,37 +272,47 @@ void HID::rescanDevices()
     {
         qDebug() << "[HID Device found] path:" << QString(cur_dev->path) << ", name:" << QString::fromWCharArray(cur_dev->product_string);
 
-        if((cur_dev->vendor_id == FX5_DMX_INTERFACE_VENDOR_ID && cur_dev->product_id == FX5_DMX_INTERFACE_PRODUCT_ID) ||
-           (cur_dev->vendor_id == FX5_DMX_INTERFACE_VENDOR_ID_2 && cur_dev->product_id == FX5_DMX_INTERFACE_PRODUCT_ID_2))
+        HIDDevice* dev = device(QString(cur_dev->path));
+        if (dev != NULL)
         {
-            /* Device is a FX5 / Digital Enlightenment USB DMX Interface */
-            HIDDevice* dev = device(QString(cur_dev->path));
-            if (dev == NULL)
-            {
-                dev = new HIDFX5Device(this, line++,
-                                       QString::fromWCharArray(cur_dev->manufacturer_string) + " " +
-                                       QString::fromWCharArray(cur_dev->product_string),
-                                       QString(cur_dev->path));
-                addDevice(dev);
-            }
+            /** Device already exists, delete from remove list */
+            destroyList.removeAll(dev);
+        }
+        else if((cur_dev->vendor_id == FX5_DMX_INTERFACE_VENDOR_ID
+                && cur_dev->product_id == FX5_DMX_INTERFACE_PRODUCT_ID) ||
+                (cur_dev->vendor_id == FX5_DMX_INTERFACE_VENDOR_ID_2
+                && cur_dev->product_id == FX5_DMX_INTERFACE_PRODUCT_ID_2))
+        {
+            /* Device is a FX5 / Digital Enlightenment USB DMX Interface, add it */
+            dev = new HIDFX5Device(this, line++,
+                                   QString::fromWCharArray(cur_dev->manufacturer_string) + " " +
+                                   QString::fromWCharArray(cur_dev->product_string),
+                                   QString(cur_dev->path));
+            addDevice(dev);
         }
         else if (QString(cur_dev->path).contains("js"))
         {
-            /* Device is a Joystick */
-            HIDDevice* dev = device(QString(cur_dev->path));
-            if (dev == NULL)
-            {
-                dev = new HIDJsDevice(this, line++,
-                                      QString::fromWCharArray(cur_dev->manufacturer_string) + " " +
-                                      QString::fromWCharArray(cur_dev->product_string),
-                                      QString(cur_dev->path));
-                addDevice(dev);
-            }
+            dev = new HIDJsDevice(this, line++,
+                                  QString::fromWCharArray(cur_dev->manufacturer_string) + " " +
+                                  QString::fromWCharArray(cur_dev->product_string),
+                                  QString(cur_dev->path));
+            addDevice(dev);
         }
+
         cur_dev = cur_dev->next;
     }
 
     hid_free_enumeration(devs);
+    
+    /* Destroy those devices that were no longer found. */
+    while (destroyList.isEmpty() == false)
+    {
+        HIDDevice* dev = destroyList.takeFirst();
+        m_devices.removeAll(dev);
+        delete dev;
+    }
+    
+    emit configurationChanged();
 }
 
 HIDDevice* HID::device(const QString& path)
