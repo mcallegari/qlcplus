@@ -71,9 +71,9 @@ void Universe_Test::initial()
 void Universe_Test::channelCapabilities()
 {
     m_uni->setChannelCapability(0, QLCChannel::Intensity);
-    m_uni->setChannelCapability(1, QLCChannel::Intensity, false);
+    m_uni->setChannelCapability(1, QLCChannel::Intensity);
     m_uni->setChannelCapability(2, QLCChannel::Pan);
-    m_uni->setChannelCapability(3, QLCChannel::Tilt, true);
+    m_uni->setChannelCapability(3, QLCChannel::Tilt, Universe::HTP);
     m_uni->setChannelCapability(4, QLCChannel::Intensity);
 
     QVERIFY(m_uni->channelCapabilities(0) == (Universe::Intensity|Universe::HTP));
