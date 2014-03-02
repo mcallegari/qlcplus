@@ -3,7 +3,7 @@
   hidfx5device.h
 
   Copyright (c) Massimo Callegari
-                Jeija Norrepli
+                Florian Euchner
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -30,6 +30,11 @@
 #include <linux/types.h>
 
 #include "hiddevice.h"
+
+#define FX5_DMX_INTERFACE_VENDOR_ID 0x4B4
+#define FX5_DMX_INTERFACE_PRODUCT_ID 0xF1F
+#define FX5_DMX_INTERFACE_VENDOR_ID_2 0x16C0
+#define FX5_DMX_INTERFACE_PRODUCT_ID_2 0x88B
 
 class HIDEventDevice;
 class HID;

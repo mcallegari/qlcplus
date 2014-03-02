@@ -28,6 +28,14 @@ SOURCES += configurehid.cpp \
            hidfx5device.cpp \
            hidpoller.cpp
 
+win32:SOURCES += win32/hidapi.cpp
+
+unix:CONFIG    += link_pkgconfig
+unix:PKGCONFIG += libusb
+unix:!macx:SOURCES += linux/hidapi.cpp
+
+macx:SOURCES += macx/hidapi.cpp
+
 TRANSLATIONS += HID_fi_FI.ts
 TRANSLATIONS += HID_de_DE.ts
 TRANSLATIONS += HID_es_ES.ts

@@ -27,6 +27,7 @@
 #include "hidfx5device.h"
 #include "hidjsdevice.h"
 #include "hidpoller.h"
+#include "hidapi.h"
 #include "hid.h"
 
 /*****************************************************************************
@@ -243,87 +244,39 @@ bool HID::canConfigure()
 
 void HID::rescanDevices()
 {
+    struct hid_device_info *devs, *cur_dev;
     quint32 line = 0;
 
-    /* Copy the pointers from our devices list into a list of devices
-       to destroy in case some of them have disappeared. */
-    QList <HIDDevice*> destroyList(m_devices);
+    devs = hid_enumerate(0x0, 0x0);
 
-    /* Check all files matching filter "/dev/input/js*" */
-    QDir dir("/dev/input/", QString("js*"), QDir::Name, QDir::System);
-    QStringListIterator it(dir.entryList());
-    while (it.hasNext() == true)
+    cur_dev = devs;
+
+    while (cur_dev)
     {
-        /* Construct an absolute path for the file */
-        QString path(dir.absoluteFilePath(it.next()));
-
-        /* Check that we can at least read from the device. Otherwise
-           deem it to ge destroyed. */
-        if (QFile::permissions(path) & QFile::ReadOther)
+        qDebug() << "[HID Device found] path:" << QString(cur_dev->path) << ", name:" << cur_dev->product_string;
+        if((cur_dev->vendor_id == FX5_DMX_INTERFACE_VENDOR_ID && cur_dev->product_id == FX5_DMX_INTERFACE_PRODUCT_ID) ||
+           (cur_dev->vendor_id == FX5_DMX_INTERFACE_VENDOR_ID_2 && cur_dev->product_id == FX5_DMX_INTERFACE_PRODUCT_ID_2))
         {
-            HIDDevice* dev = device(path);
+            HIDDevice* dev = device(QString(cur_dev->path));
             if (dev == NULL)
             {
-                /* This device is unknown to us. Add it. */
-                dev = new HIDJsDevice(this, line++, path);
+                dev = new HIDFX5Device(this, line++, QString(cur_dev->path));
                 addDevice(dev);
             }
-            else
-            {
-                /* Remove the device from our destroy list,
-                   since it is still available */
-                destroyList.removeAll(dev);
-            }
         }
-        else
+        else if (QString(cur_dev->path).contains("js"))
         {
-            /* The file is not readable. If we have an entry for
-               it, it must be destroyed. */
-            HIDDevice* dev = device(path);
-            if (dev != NULL)
-                removeDevice(dev);
-        }
-    }
-
-    /* Check all files matching filter "/dev/hidraw*" */
-    QDir dir2("/dev/", QString("hidraw*"), QDir::Name, QDir::System);
-    QStringListIterator it2(dir2.entryList());
-    while (it2.hasNext() == true)
-    {
-        /* Construct an absolute path for the file */
-        QString path(dir2.absoluteFilePath(it2.next()));
-
-        /* Check that we can at least read from the device. Otherwise
-           deem it to ge destroyed. */
-        if (QFile::permissions(path) & QFile::WriteOther)
-        {
-            HIDDevice* dev = device(path);
+            HIDDevice* dev = device(QString(cur_dev->path));
             if (dev == NULL)
             {
-                /* This device is unknown to us. Add it. */
-                dev = new HIDFX5Device(this, line++, path);
+                dev = new HIDJsDevice(this, line++, QString(cur_dev->path));
                 addDevice(dev);
             }
-            else
-            {
-                /* Remove the device from our destroy list,
-                   since it is still available */
-                destroyList.removeAll(dev);
-            }
         }
-        else
-        {
-            /* The file is not readable. If we have an entry for
-               it, it must be destroyed. */
-            HIDDevice* dev = device(path);
-            if (dev != NULL)
-                removeDevice(dev);
-        }
+        cur_dev = cur_dev->next;
     }
 
-    /* Destroy all devices that were not found during rescan */
-    while (destroyList.isEmpty() == false)
-        removeDevice(destroyList.takeFirst());
+    hid_free_enumeration(devs);
 }
 
 HIDDevice* HID::device(const QString& path)
