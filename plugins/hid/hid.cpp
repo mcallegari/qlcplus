@@ -233,7 +233,7 @@ void HID::rescanDevices()
     while (it2.hasNext() == true)
     {
         /* Construct an absolute path for the file */
-        QString path(dir2.absoluteFilePath(it.next()));
+        QString path(dir2.absoluteFilePath(it2.next()));
 
         /* Check that we can at least read from the device. Otherwise
            deem it to ge destroyed. */
