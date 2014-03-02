@@ -48,7 +48,7 @@ HIDJsDevice::~HIDJsDevice()
 
 void HIDJsDevice::init()
 {
-    if (open() == false)
+    if (openInput() == false)
         return;
 
     /* Device name */
@@ -82,14 +82,14 @@ void HIDJsDevice::init()
                    << strerror(errno);
     }
 
-    close();
+    closeInput();
 }
 
 /*****************************************************************************
  * File operations
  *****************************************************************************/
 
-bool HIDJsDevice::open()
+bool HIDJsDevice::openInput()
 {
     bool result = false;
 
@@ -113,7 +113,7 @@ bool HIDJsDevice::open()
     return result;
 }
 
-void HIDJsDevice::close()
+void HIDJsDevice::closeInput()
 {
     m_file.close();
 }

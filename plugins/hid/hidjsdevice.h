@@ -61,10 +61,17 @@ protected:
      *********************************************************************/
 public:
     /** @reimp */
-    bool open();
+    bool openInput();
 
     /** @reimp */
-    void close();
+    void closeInput();
+    
+    /** Joysticks cannot be used as output devices */
+    /** @reimp */
+    void openOutput() {};
+
+    /** @reimp */
+    void closeOutput() {};
 
     /** @reimp */
     QString path() const;
@@ -85,6 +92,13 @@ public:
 public:
     /** @reimp */
     void feedBack(quint32 channel, uchar value);
+    
+    /*************************************************************************
+     * Output data
+     *************************************************************************/
+ 
+    /** @reimp */
+    void outputDMX(const QByteArray &data) { Q_UNUSED(data); };
 };
 
 #endif

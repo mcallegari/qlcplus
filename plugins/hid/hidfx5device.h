@@ -30,6 +30,7 @@
 #include <linux/types.h>
 
 #include "hiddevice.h"
+#include "hidapi.h"
 
 #define FX5_DMX_INTERFACE_VENDOR_ID 0x4B4
 #define FX5_DMX_INTERFACE_PRODUCT_ID 0xF1F
@@ -66,10 +67,16 @@ protected:
      *********************************************************************/
 public:
     /** @reimp */
-    bool open();
+    bool openInput();
 
     /** @reimp */
-    void close();
+    void closeInput();
+    
+    /** @reimp */
+    void openOutput();
+
+    /** @reimp */
+    void closeOutput();
 
     /** @reimp */
     QString path() const;
@@ -90,6 +97,35 @@ public:
 public:
     /** @reimp */
     void feedBack(quint32 channel, uchar value);
+
+    /*********************************************************************
+     * Output data
+     *********************************************************************/
+    
+    void outputDMX(const QByteArray &data);
+    
+     /*********************************************************************
+     * FX5 - specific functions and device handle
+     *********************************************************************/
+private:
+    /** Interface mode specification */
+    enum FX5mode
+    {
+        FX5_MODE_NONE   = 1 << 0,
+        FX5_MODE_OUTPUT = 1 << 1,
+        FX5_MODE_INPUT  = 1 << 2
+    };
+
+    int m_mode;
+
+    /** Last universe data that has been output */
+    unsigned char m_dmx_cmp[512];
+
+    /** mode selection function */
+    void updateMode();
+    
+    /** device handle for the interface */
+    hid_device *m_handle;
 };
 
 #endif
