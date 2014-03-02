@@ -15,6 +15,7 @@ HEADERS += configurehid.h \
            hideventdevice.h \
            hid.h \
            hidjsdevice.h \
+           hidfx5device.h \
            hidpoller.h
 
 FORMS += configurehid.ui
@@ -24,6 +25,7 @@ SOURCES += configurehid.cpp \
            hideventdevice.cpp \
            hid.cpp \
            hidjsdevice.cpp \
+           hidfx5device.cpp \
            hidpoller.cpp
 
 TRANSLATIONS += HID_fi_FI.ts

@@ -24,6 +24,7 @@
 #include <QDir>
 
 #include "configurehid.h"
+#include "hidfx5device.h"
 #include "hidjsdevice.h"
 #include "hidpoller.h"
 #include "hid.h"
@@ -76,7 +77,7 @@ QString HID::name()
 
 int HID::capabilities() const
 {
-    return QLCIOPlugin::Input;
+    return QLCIOPlugin::Input | QLCIOPlugin::Output;
 }
 
 /*****************************************************************************
@@ -138,7 +139,7 @@ QString HID::pluginInfo()
 
     str += QString("<P>");
     str += QString("<H3>%1</H3>").arg(name());
-    str += tr("This plugin provides input support for HID-based joysticks.");
+    str += tr("This plugin provides input support for HID-based joysticks and the FX5 USB DMX adapter.");
     str += QString("</P>");
 
     return str;
@@ -207,6 +208,42 @@ void HID::rescanDevices()
             {
                 /* This device is unknown to us. Add it. */
                 dev = new HIDJsDevice(this, line++, path);
+                addDevice(dev);
+            }
+            else
+            {
+                /* Remove the device from our destroy list,
+                   since it is still available */
+                destroyList.removeAll(dev);
+            }
+        }
+        else
+        {
+            /* The file is not readable. If we have an entry for
+               it, it must be destroyed. */
+            HIDDevice* dev = device(path);
+            if (dev != NULL)
+                removeDevice(dev);
+        }
+    }
+
+    /* Check all files matching filter "/dev/input/hidraw*" */
+    QDir dir("/dev/input/", QString("hidraw*"), QDir::Name, QDir::System);
+    QStringListIterator it(dir.entryList());
+    while (it.hasNext() == true)
+    {
+        /* Construct an absolute path for the file */
+        QString path(dir.absoluteFilePath(it.next()));
+
+        /* Check that we can at least read from the device. Otherwise
+           deem it to ge destroyed. */
+        if (QFile::permissions(path) & QFile::WriteOther)
+        {
+            HIDDevice* dev = device(path);
+            if (dev == NULL)
+            {
+                /* This device is unknown to us. Add it. */
+                dev = new HIDFX5Device(this, line++, path);
                 addDevice(dev);
             }
             else
