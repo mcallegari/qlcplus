@@ -43,7 +43,7 @@ class HIDEventDevice : public HIDDevice
     Q_OBJECT
 
 public:
-    HIDEventDevice(HID* parent, quint32 line, const QString& path);
+    HIDEventDevice(HID* parent, quint32 line, const QString& name, const QString& path);
     virtual ~HIDEventDevice();
 
 protected:

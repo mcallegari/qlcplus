@@ -41,8 +41,8 @@
 #define test_bit(bit, array)    (array[bit / 8] & (1 << (bit % 8)))
 
 HIDEventDevice::HIDEventDevice(HID* parent, quint32 line,
-                               const QString& path)
-        : HIDDevice(parent, line, path)
+                               const QString& name, const QString& path)
+        : HIDDevice(parent, line, name, path)
 {
     init();
 }

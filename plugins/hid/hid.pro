@@ -28,13 +28,16 @@ SOURCES += configurehid.cpp \
            hidfx5device.cpp \
            hidpoller.cpp
 
-win32:SOURCES += win32/hidapi.cpp
-
-unix:CONFIG    += link_pkgconfig
-unix:PKGCONFIG += libusb
 unix:!macx:SOURCES += linux/hidapi.cpp
-
+win32:SOURCES += win32/hidapi.cpp
 macx:SOURCES += macx/hidapi.cpp
+
+unix:!macx {
+    # Rules to make FX5 DMX devices readable & writable by normal users
+    udev.path  = /etc/udev/rules.d
+    udev.files = z65-fx5-hid.rules
+    INSTALLS  += udev
+}
 
 TRANSLATIONS += HID_fi_FI.ts
 TRANSLATIONS += HID_de_DE.ts

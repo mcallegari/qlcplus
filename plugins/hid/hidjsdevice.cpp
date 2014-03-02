@@ -34,8 +34,8 @@
 #include "qlcmacros.h"
 #include "hid.h"
 
-HIDJsDevice::HIDJsDevice(HID* parent, quint32 line, const QString& path)
-    : HIDDevice(parent, line, path)
+HIDJsDevice::HIDJsDevice(HID* parent, quint32 line, const QString &name, const QString& path)
+    : HIDDevice(parent, line, name, path)
 {
     m_capabilities = QLCIOPlugin::Input;
     init();
@@ -52,19 +52,20 @@ void HIDJsDevice::init()
         return;
 
     /* Device name */
+/*
     char name[128] = "Unknown";
     if (ioctl(m_file.handle(), JSIOCGNAME(sizeof(name)), name) < 0)
     {
-        m_name = QString("HID Input %1: %2").arg(m_line + 1)
+        m_name = QString("Input %1: %2").arg(m_line + 1)
                  .arg(strerror(errno));
         qWarning() << "Unable to get joystick name:"
                    << strerror(errno);
     }
     else
     {
-        m_name = QString("HID Input %1: %2").arg(m_line + 1).arg(name);
+        m_name = QString("Input %1: %2").arg(m_line + 1).arg(name);
     }
-
+*/
     /* Number of axes */
     if (ioctl(m_file.handle(), JSIOCGAXES, &m_axes) < 0)
     {

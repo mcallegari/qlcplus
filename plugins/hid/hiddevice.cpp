@@ -22,9 +22,10 @@
 #include "hiddevice.h"
 #include "hid.h"
 
-HIDDevice::HIDDevice(HID* parent, quint32 line, const QString& path)
+HIDDevice::HIDDevice(HID* parent, quint32 line, const QString &name, const QString& path)
     : QObject(parent)
 {
+    m_name = QString("%1: %2").arg(line + 1).arg(name);
     m_file.setFileName(path);
     m_line = line;
 }

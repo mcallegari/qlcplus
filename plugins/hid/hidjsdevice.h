@@ -42,7 +42,7 @@ class HIDJsDevice : public HIDDevice
     Q_OBJECT
 
 public:
-    HIDJsDevice(HID* parent, quint32 line, const QString& path);
+    HIDJsDevice(HID* parent, quint32 line, const QString& name, const QString& path);
     virtual ~HIDJsDevice();
 
 protected:

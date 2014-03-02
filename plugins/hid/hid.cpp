@@ -253,14 +253,18 @@ void HID::rescanDevices()
 
     while (cur_dev)
     {
-        qDebug() << "[HID Device found] path:" << QString(cur_dev->path) << ", name:" << cur_dev->product_string;
+        qDebug() << "[HID Device found] path:" << QString(cur_dev->path) << ", name:" << QString::fromWCharArray(cur_dev->product_string);
+
         if((cur_dev->vendor_id == FX5_DMX_INTERFACE_VENDOR_ID && cur_dev->product_id == FX5_DMX_INTERFACE_PRODUCT_ID) ||
            (cur_dev->vendor_id == FX5_DMX_INTERFACE_VENDOR_ID_2 && cur_dev->product_id == FX5_DMX_INTERFACE_PRODUCT_ID_2))
         {
             HIDDevice* dev = device(QString(cur_dev->path));
             if (dev == NULL)
             {
-                dev = new HIDFX5Device(this, line++, QString(cur_dev->path));
+                dev = new HIDFX5Device(this, line++,
+                                       QString::fromWCharArray(cur_dev->manufacturer_string) + " " +
+                                       QString::fromWCharArray(cur_dev->product_string),
+                                       QString(cur_dev->path));
                 addDevice(dev);
             }
         }
@@ -269,7 +273,10 @@ void HID::rescanDevices()
             HIDDevice* dev = device(QString(cur_dev->path));
             if (dev == NULL)
             {
-                dev = new HIDJsDevice(this, line++, QString(cur_dev->path));
+                dev = new HIDJsDevice(this, line++,
+                                      QString::fromWCharArray(cur_dev->manufacturer_string) + " " +
+                                      QString::fromWCharArray(cur_dev->product_string),
+                                      QString(cur_dev->path));
                 addDevice(dev);
             }
         }
