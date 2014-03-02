@@ -37,6 +37,7 @@
 HIDFX5Device::HIDFX5Device(HID* parent, quint32 line, const QString& path)
     : HIDDevice(parent, line, path)
 {
+    m_capabilities = QLCIOPlugin::Output;
     init();
 }
 
@@ -50,8 +51,7 @@ void HIDFX5Device::init()
     if (open() == false)
         return;
 
-    m_name = QString("FX5 Output %1: %2").arg(m_line + 1)
-             .arg(strerror(errno));
+    m_name = QString("FX5 Output %1").arg(m_line + 1);
 
     /* Device name */
 /*

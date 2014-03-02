@@ -108,7 +108,11 @@ QStringList HID::inputs()
 
     QListIterator <HIDDevice*> it(m_devices);
     while (it.hasNext() == true)
-        list << it.next()->name();
+    {
+        HIDDevice* dev = it.next();
+        if (dev->hasInput())
+            list << dev->name();
+    }
 
     return list;
 }
@@ -162,6 +166,60 @@ QString HID::inputInfo(quint32 input)
     str += QString("</HTML>");
 
     return str;
+}
+
+/*********************************************************************
+ * Outputs
+ *********************************************************************/
+void HID::openOutput(quint32 output)
+{
+    Q_UNUSED(output)
+}
+
+void HID::closeOutput(quint32 output)
+{
+    Q_UNUSED(output)
+}
+
+QStringList HID::outputs()
+{
+    QStringList list;
+
+    QListIterator <HIDDevice*> it(m_devices);
+    while (it.hasNext() == true)
+    {
+        HIDDevice* dev = it.next();
+        if (dev->hasOutput())
+            list << dev->name();
+    }
+
+    return list;
+}
+
+QString HID::outputInfo(quint32 output)
+{
+    QString str;
+
+    if (output != QLCIOPlugin::invalidLine())
+    {
+        /* A specific output line selected. Display its information if
+           available. */
+        HIDDevice* dev = device(output);
+        if (dev != NULL)
+            str += dev->infoText();
+    }
+
+    str += QString("</BODY>");
+    str += QString("</HTML>");
+
+    return str;
+}
+
+void HID::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+{
+    Q_UNUSED(universe)
+    Q_UNUSED(output)
+    Q_UNUSED(data)
 }
 
 /*****************************************************************************

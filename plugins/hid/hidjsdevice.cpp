@@ -37,6 +37,7 @@
 HIDJsDevice::HIDJsDevice(HID* parent, quint32 line, const QString& path)
     : HIDDevice(parent, line, path)
 {
+    m_capabilities = QLCIOPlugin::Input;
     init();
 }
 

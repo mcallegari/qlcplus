@@ -49,6 +49,9 @@ protected:
     /** Initialize the device, find out its capabilities etc. */
     void init();
 
+    /** @reimp */
+    bool hasInput() { return true; }
+
 protected:
     unsigned char m_axes;
     unsigned char m_buttons;

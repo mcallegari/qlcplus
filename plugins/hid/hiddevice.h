@@ -80,8 +80,12 @@ public:
         return m_line;
     }
 
+    virtual bool hasInput() { return false; }
+    virtual bool hasOutput() { return false; }
+
 protected:
     quint32 m_line;
+    int m_capabilities;
 
     /*************************************************************************
      * Device info

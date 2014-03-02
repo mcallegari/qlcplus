@@ -50,6 +50,12 @@ protected:
     /** Initialize the device, find out its capabilities etc. */
     void init();
 
+    /** @reimp */
+    bool hasInput() { return true; }
+
+    /** @reimp */
+    bool hasOutput() { return true; }
+
     /*********************************************************************
      * File operations
      *********************************************************************/
