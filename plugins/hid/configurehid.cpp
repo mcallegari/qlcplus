@@ -69,6 +69,7 @@ void ConfigureHID::slotRefreshClicked()
 {
     Q_ASSERT(m_plugin != NULL);
     m_plugin->rescanDevices();
+    refreshList();
 }
 
 void ConfigureHID::refreshList()
