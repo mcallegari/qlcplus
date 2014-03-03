@@ -788,12 +788,15 @@ void FunctionManager::deleteSelectedFunctions()
             isSequence = true;
 
         // Stop running tests before deleting function
-        if (func->type() == Function::RGBMatrix)
-            static_cast<RGBMatrixEditor*>(m_editor)->stopTest();
-        else if (func->type() == Function::EFX)
-            static_cast<EFXEditor*>(m_editor)->stopTest();
-        else if (func->type() == Function::Chaser)
-            static_cast<ChaserEditor*>(m_editor)->stopTest();
+        if (m_editor != NULL)
+        {
+            if (func->type() == Function::RGBMatrix)
+                static_cast<RGBMatrixEditor*>(m_editor)->stopTest();
+            else if (func->type() == Function::EFX)
+                static_cast<EFXEditor*>(m_editor)->stopTest();
+            else if (func->type() == Function::Chaser)
+                static_cast<ChaserEditor*>(m_editor)->stopTest();
+        }
 
         m_doc->deleteFunction(fid);
 
