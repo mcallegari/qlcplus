@@ -17,22 +17,25 @@
   limitations under the License.
 */
 
-#include <linux/joystick.h>
-#include <linux/input.h>
-#include <errno.h>
-#if !defined(WIN32) && !defined(Q_OS_WIN)
-  #include <unistd.h>
-#endif
-
 #include <QApplication>
 #include <QObject>
 #include <QString>
 #include <QDebug>
 #include <QFile>
 
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+  #include <linux/joystick.h>
+  #include <linux/input.h>
+  #include <errno.h>
+  #include <unistd.h>
+  #include <poll.h>
+#endif
+
 #include "hidjsdevice.h"
 #include "qlcmacros.h"
 #include "hid.h"
+
+#define KPollTimeout 1000
 
 HIDJsDevice::HIDJsDevice(HID* parent, quint32 line, const QString &name, const QString& path)
     : HIDDevice(parent, line, name, path)
@@ -43,7 +46,7 @@ HIDJsDevice::HIDJsDevice(HID* parent, quint32 line, const QString &name, const Q
 
 HIDJsDevice::~HIDJsDevice()
 {
-    qobject_cast<HID*> (parent())->removePollDevice(this);
+
 }
 
 void HIDJsDevice::init()
@@ -51,21 +54,7 @@ void HIDJsDevice::init()
     if (openInput() == false)
         return;
 
-    /* Device name */
-/*
-    char name[128] = "Unknown";
-    if (ioctl(m_file.handle(), JSIOCGNAME(sizeof(name)), name) < 0)
-    {
-        m_name = QString("Input %1: %2").arg(m_line + 1)
-                 .arg(strerror(errno));
-        qWarning() << "Unable to get joystick name:"
-                   << strerror(errno);
-    }
-    else
-    {
-        m_name = QString("Input %1: %2").arg(m_line + 1).arg(name);
-    }
-*/
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     /* Number of axes */
     if (ioctl(m_file.handle(), JSIOCGAXES, &m_axes) < 0)
     {
@@ -81,7 +70,7 @@ void HIDJsDevice::init()
         qWarning() << "Unable to get number of buttons:"
                    << strerror(errno);
     }
-
+#endif
     closeInput();
 }
 
@@ -110,11 +99,19 @@ bool HIDJsDevice::openInput()
         }
     }
 
+    m_running = true;
+    start();
+
     return result;
 }
 
 void HIDJsDevice::closeInput()
 {
+    if (isRunning() == true)
+    {
+        m_running = false;
+        wait();
+    }
     m_file.close();
 }
 
@@ -125,6 +122,8 @@ QString HIDJsDevice::path() const
 
 bool HIDJsDevice::readEvent()
 {
+
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     struct js_event ev;
     HIDInputEvent* e;
     int r;
@@ -174,6 +173,9 @@ bool HIDJsDevice::readEvent()
 
         return false;
     }
+#else
+    return false;
+#endif
 }
 
 /*****************************************************************************
@@ -202,5 +204,33 @@ void HIDJsDevice::feedBack(quint32 channel, uchar value)
     /* HID devices don't (yet) support feedback */
     Q_UNUSED(channel);
     Q_UNUSED(value);
+}
+
+void HIDJsDevice::run()
+{
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+    struct pollfd* fds = NULL;
+    fds = new struct pollfd[1];
+    memset(fds, 0, 1);
+
+    fds[0].fd = handle();
+    fds[0].events = POLLIN;
+#endif
+
+    while (m_running == true)
+    {
+        int r = poll(fds, 1, KPollTimeout);
+
+        if (r < 0 && errno != EINTR)
+        {
+            /* Print abnormal errors. EINTR may happen often. */
+            perror("poll");
+        }
+        else if (r != 0)
+        {
+            if (fds[0].revents != 0)
+                readEvent();
+        }
+    }
 }
 

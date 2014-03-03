@@ -155,16 +155,6 @@ signals:
 
 protected:
     QList <HIDDevice*> m_devices;
-
-    /*********************************************************************
-     * Device poller
-     *********************************************************************/
-public:
-    void addPollDevice(HIDDevice* device);
-    void removePollDevice(HIDDevice* device);
-
-protected:
-    HIDPoller* m_poller;
 };
 
 #endif

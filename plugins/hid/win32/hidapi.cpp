@@ -160,18 +160,18 @@ static void free_hid_device(hid_device *dev)
 	free(dev);
 }
 
-static void register_error(hid_device *device, const char *op)
+static void register_error(hid_device *device, const char *)
 {
 	WCHAR *ptr, *msg;
 
 	FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER |
 		FORMAT_MESSAGE_FROM_SYSTEM |
-		FORMAT_MESSAGE_IGNORE_INSERTS,
-		NULL,
-		GetLastError(),
-		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-		(LPVOID)&msg, 0/*sz*/,
-		NULL);
+        FORMAT_MESSAGE_IGNORE_INSERTS,
+        NULL,
+        GetLastError(),
+        MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+        (LPWSTR)&msg, 0/*sz*/,
+        NULL);
 	
 	/* Get rid of the CR and LF that FormatMessage() sticks at the
 	   end of the message. Thanks Microsoft! */
@@ -193,7 +193,7 @@ static void register_error(hid_device *device, const char *op)
 #ifndef HIDAPI_USE_DDK
 static int lookup_functions()
 {
-	lib_handle = LoadLibraryA("hid.dll");
+    lib_handle = LoadLibraryA("hid.dll");
 	if (lib_handle) {
 #define RESOLVE(x) x = (x##_)GetProcAddress(lib_handle, #x); if (!x) return -1;
 		RESOLVE(HidD_GetAttributes);
@@ -208,8 +208,8 @@ static int lookup_functions()
 		RESOLVE(HidP_GetCaps);
 #undef RESOLVE
 	}
-	else
-		return -1;
+    else
+        return -1;
 
 	return 0;
 }

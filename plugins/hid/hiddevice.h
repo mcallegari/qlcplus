@@ -20,7 +20,7 @@
 #ifndef HIDDEVICE_H
 #define HIDDEVICE_H
 
-#include <QObject>
+#include <QThread>
 #include <QFile>
 
 class HID;
@@ -29,7 +29,7 @@ class HID;
  * HIDDevice
  *****************************************************************************/
 
-class HIDDevice : public QObject
+class HIDDevice : public QThread
 {
     Q_OBJECT
 
@@ -135,10 +135,18 @@ public:
      */
     virtual void feedBack(quint32 channel, uchar value);
 
+protected:
+    bool m_running;
+
+private:
+    /** Input data thread worker method */
+    virtual void run();
+
     /*************************************************************************
      * Output data
      *************************************************************************/
- 
+public:
+
     /** Output data, which is a DMX universe */
     virtual void outputDMX(const QByteArray &data, bool forceWrite = false);
 };

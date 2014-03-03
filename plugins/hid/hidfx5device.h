@@ -22,12 +22,6 @@
 #define HIDFX5DEVICE_H
 
 #include <QObject>
-#include <QFile>
-#include <QHash>
-
-#include <sys/ioctl.h>
-#include <linux/input.h>
-#include <linux/types.h>
 
 #include "hiddevice.h"
 #include "hidapi.h"
@@ -98,10 +92,15 @@ public:
     /** @reimp */
     void feedBack(quint32 channel, uchar value);
 
+private:
+    /** @reimp */
+    void run();
+
     /*********************************************************************
      * Output data
      *********************************************************************/
-    
+public:
+    /** @reimp */
     void outputDMX(const QByteArray &data, bool forceWrite = false);
     
      /*********************************************************************
@@ -116,13 +115,14 @@ private:
         FX5_MODE_INPUT  = 1 << 2
     };
 
+    /** mode selection function */
+    void updateMode();
+
+    /** The device current open mode */
     int m_mode;
 
     /** Last universe data that has been output */
     QByteArray m_dmx_cmp;
-
-    /** mode selection function */
-    void updateMode();
     
     /** device handle for the interface */
     hid_device *m_handle;

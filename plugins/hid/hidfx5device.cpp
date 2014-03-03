@@ -22,7 +22,6 @@
 // TODO: The whole input polling stuff
 // TODO: Use res in case of error in void HIDFX5Device::outputDMX(const QByteArray &universe)
 
-#include <linux/input.h>
 #include <errno.h>
 #if !defined(WIN32) && !defined(Q_OS_WIN)
   #include <unistd.h>
@@ -53,7 +52,6 @@ HIDFX5Device::~HIDFX5Device()
     closeInput();
     closeOutput();
     hid_close(m_handle);
-    //qobject_cast<HID*> (parent())->removePollDevice(this); // TODO
 }
 
 void HIDFX5Device::init()
@@ -93,12 +91,19 @@ void HIDFX5Device::closeInput()
 
 void HIDFX5Device::openOutput()
 {
+    m_running = true;
+    start();
     m_mode |= FX5_MODE_OUTPUT;
     updateMode();
 }
 
 void HIDFX5Device::closeOutput()
 {
+    if (isRunning() == true)
+    {
+        m_running = false;
+        wait();
+    }
     m_mode &= ~FX5_MODE_OUTPUT;
     updateMode();
 }
@@ -135,6 +140,19 @@ void HIDFX5Device::feedBack(quint32 channel, uchar value)
     /* HID devices don't (yet) support feedback */
     Q_UNUSED(channel);
     Q_UNUSED(value);
+}
+
+void HIDFX5Device::run()
+{
+    unsigned char data[34];
+    while (m_running == true)
+    {
+        int r = hid_read(m_handle, data, 34);
+        if (r > 0)
+        {
+            qDebug() << "Received" << r << "bytes of data";
+        }
+    }
 }
 
 /*****************************************************************************

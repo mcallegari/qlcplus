@@ -23,15 +23,21 @@
 #include "hid.h"
 
 HIDDevice::HIDDevice(HID* parent, quint32 line, const QString &name, const QString& path)
-    : QObject(parent)
+    : QThread(parent)
 {
     m_name = QString("%1: %2").arg(line + 1).arg(name);
     m_file.setFileName(path);
     m_line = line;
+    m_running = false;
 }
 
 HIDDevice::~HIDDevice()
 {
+    if (isRunning() == true)
+    {
+        m_running = false;
+        wait();
+    }
     closeInput();
 }
 
@@ -88,6 +94,10 @@ void HIDDevice::feedBack(quint32 channel, uchar value)
 {
     Q_UNUSED(channel);
     Q_UNUSED(value);
+}
+
+void HIDDevice::run()
+{
 }
 
 void HIDDevice::outputDMX(const QByteArray &data, bool forceWrite)

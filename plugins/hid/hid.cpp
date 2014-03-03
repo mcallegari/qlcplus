@@ -26,7 +26,6 @@
 #include "configurehid.h"
 #include "hidfx5device.h"
 #include "hidjsdevice.h"
-#include "hidpoller.h"
 #include "hidapi.h"
 #include "hid.h"
 
@@ -58,7 +57,6 @@ HIDInputEvent::~HIDInputEvent()
 
 void HID::init()
 {
-    m_poller = new HIDPoller(this);
     rescanDevices();
 }
 
@@ -66,9 +64,6 @@ HID::~HID()
 {
     while (m_devices.isEmpty() == false)
         delete m_devices.takeFirst();
-
-    m_poller->stop();
-    delete m_poller;
 }
 
 QString HID::name()
@@ -89,7 +84,7 @@ void HID::openInput(quint32 input)
 {
     HIDDevice* dev = device(input);
     if (dev != NULL)
-        addPollDevice(dev);
+        dev->openInput();
     else
         qDebug() << name() << "has no input number:" << input;
 }
@@ -98,7 +93,7 @@ void HID::closeInput(quint32 input)
 {
     HIDDevice* dev = device(input);
     if (dev != NULL)
-        removePollDevice(dev);
+        dev->closeInput();
     else
         qDebug() << name() << "has no input number:" << input;
 }
@@ -290,7 +285,10 @@ void HID::rescanDevices()
                                    QString(cur_dev->path));
             addDevice(dev);
         }
-        else if (QString(cur_dev->path).contains("js"))
+        else
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+            if (QString(cur_dev->path).contains("js"))
+#endif
         {
             dev = new HIDJsDevice(this, line++,
                                   QString::fromWCharArray(cur_dev->manufacturer_string) + " " +
@@ -351,29 +349,12 @@ void HID::removeDevice(HIDDevice* device)
 {
     Q_ASSERT(device != NULL);
 
-    removePollDevice(device);
     m_devices.removeAll(device);
 
     emit deviceRemoved(device);
     delete device;
 
     emit configurationChanged();
-}
-
-/*****************************************************************************
- * Device poller
- *****************************************************************************/
-
-void HID::addPollDevice(HIDDevice* device)
-{
-    Q_ASSERT(device != NULL);
-    m_poller->addDevice(device);
-}
-
-void HID::removePollDevice(HIDDevice* device)
-{
-    Q_ASSERT(device != NULL);
-    m_poller->removeDevice(device);
 }
 
 /*****************************************************************************

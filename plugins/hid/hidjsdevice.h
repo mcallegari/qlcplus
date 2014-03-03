@@ -24,9 +24,11 @@
 #include <QFile>
 #include <QHash>
 
-#include <sys/ioctl.h>
-#include <linux/input.h>
-#include <linux/types.h>
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+  #include <sys/ioctl.h>
+  #include <linux/input.h>
+  #include <linux/types.h>
+#endif
 
 #include "hiddevice.h"
 
@@ -92,6 +94,10 @@ public:
 public:
     /** @reimp */
     void feedBack(quint32 channel, uchar value);
+
+private:
+    /** @reimp */
+    void run();
     
     /*************************************************************************
      * Output data

@@ -9,14 +9,15 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 INCLUDEPATH += ../interfaces
 CONFIG      += plugin
 
+win32:LIBS += -l setupapi
+
 HEADERS += ../interfaces/qlcioplugin.h
 HEADERS += configurehid.h \
            hiddevice.h \
            hideventdevice.h \
            hid.h \
            hidjsdevice.h \
-           hidfx5device.h \
-           hidpoller.h
+           hidfx5device.h
 
 FORMS += configurehid.ui
 
@@ -25,8 +26,7 @@ SOURCES += configurehid.cpp \
            hideventdevice.cpp \
            hid.cpp \
            hidjsdevice.cpp \
-           hidfx5device.cpp \
-           hidpoller.cpp
+           hidfx5device.cpp
 
 unix:!macx:SOURCES += linux/hidapi.cpp
 win32:SOURCES += win32/hidapi.cpp
