@@ -368,6 +368,8 @@ fm = Fixtures.new
 fm.load_fixtures('.')
 fm.update_fixtures_map
 
+puts "Total fixtures: #{fm.fixtures.size}"
+
 if ARGV.size > 0
   fm.make_overview(ARGV[0])
 end
