@@ -786,6 +786,15 @@ void FunctionManager::deleteSelectedFunctions()
 
         if (func->type() == Function::Chaser && qobject_cast<const Chaser*>(func)->isSequence() == true)
             isSequence = true;
+
+        // Stop running tests before deleting function
+        if (func->type() == Function::RGBMatrix)
+            static_cast<RGBMatrixEditor*>(m_editor)->stopTest();
+        else if (func->type() == Function::EFX)
+            static_cast<EFXEditor*>(m_editor)->stopTest();
+        else if (func->type() == Function::Chaser)
+            static_cast<ChaserEditor*>(m_editor)->stopTest();
+
         m_doc->deleteFunction(fid);
 
         QTreeWidgetItem* parent = item->parent();

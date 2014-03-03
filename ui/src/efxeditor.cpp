@@ -93,6 +93,11 @@ EFXEditor::~EFXEditor()
         m_efx->stopAndWait();
 }
 
+void EFXEditor::stopTest()
+{
+    interruptRunning();
+}
+
 void EFXEditor::slotFunctionManagerActive(bool active)
 {
     if (active == true)
