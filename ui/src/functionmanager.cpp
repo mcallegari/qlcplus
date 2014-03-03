@@ -573,7 +573,7 @@ void FunctionManager::slotSelectAutostartFunction()
     fs.setMultiSelection(false);
     fs.showNone(true);
 
-    if (fs.exec() == QDialog::Accepted)
+    if (fs.exec() == QDialog::Accepted && fs.selection().size() > 0)
     {
         quint32 startID = fs.selection().first();
         m_doc->setStartupFunction(startID);
