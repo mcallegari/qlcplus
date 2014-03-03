@@ -28,6 +28,8 @@ qlcplus (4.7.0) stable; urgency=low
   * Added fixtures: Chauvet Intimidator Beam LED 350, Spot LED 250/350 (thanks to Robert Scheffler)
   * Added fixtures: Alkalite Octopod DP-80, Eurolite LED DMX Pixel Tube 16 RGB (thanks to Ryan Gough)
   * Added fixtures: Stairville Quad Par Profile RGBW 5x8W, Stairville DDS 405 (thanks to Nicolas Rasor)
+  * Added fixtures: American DJ P64 LED Plus, American DJ SP1500 MKII, Laserworld EL 200RGY, Botex DSP-405
+  * Added fixture: Showtec Quatro (thanks to Florian Euchner)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Mon, 3 March 2014 12:13:14 +0200
 
