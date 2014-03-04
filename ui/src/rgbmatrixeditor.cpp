@@ -98,10 +98,7 @@ RGBMatrixEditor::~RGBMatrixEditor()
 void RGBMatrixEditor::stopTest()
 {
     if (m_testButton->isChecked() == true)
-    {
-        m_matrix->stopAndWait();
-        m_testButton->setChecked(false);
-    }
+        m_testButton->click();
 }
 
 void RGBMatrixEditor::slotFunctionManagerActive(bool active)

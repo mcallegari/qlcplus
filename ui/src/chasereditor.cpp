@@ -250,10 +250,8 @@ ChaserEditor::~ChaserEditor()
 
 void ChaserEditor::stopTest()
 {
-    if (m_liveMode == false &&
-        m_doc->functions().contains(m_chaser) == true &&
-        m_chaser->stopped() == false)
-            m_chaser->stopAndWait();
+    if (m_chaser->stopped() == false)
+        m_chaser->stopAndWait();
 }
 
 void ChaserEditor::slotFunctionManagerActive(bool active)

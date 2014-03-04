@@ -95,7 +95,8 @@ EFXEditor::~EFXEditor()
 
 void EFXEditor::stopTest()
 {
-    interruptRunning();
+    if (m_testButton->isChecked() == true)
+        m_testButton->click();
 }
 
 void EFXEditor::slotFunctionManagerActive(bool active)
@@ -316,7 +317,7 @@ void EFXEditor::slotModeChanged(Doc::Mode mode)
 
 bool EFXEditor::interruptRunning()
 {
-    if (m_efx->stopped() == false)
+    if (m_testButton->isChecked() == true)
     {
         m_efx->stopAndWait();
         m_testButton->setChecked(false);
