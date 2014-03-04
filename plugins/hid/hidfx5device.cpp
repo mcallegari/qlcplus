@@ -18,10 +18,6 @@
   limitations under the License.
 */
 
-// TODO: If error messagebox is shown while opening devices, rescan & update list
-// TODO: The whole input polling stuff
-// TODO: Use res in case of error in void HIDFX5Device::outputDMX(const QByteArray &universe)
-
 #include <errno.h>
 #if !defined(WIN32) && !defined(Q_OS_WIN)
   #include <unistd.h>
@@ -44,6 +40,7 @@ HIDFX5Device::HIDFX5Device(HID* parent, quint32 line, const QString &name, const
     : HIDDevice(parent, line, name, path)
 {
     m_capabilities = QLCIOPlugin::Output;
+    m_mode = FX5_MODE_NONE;
     init();
 }
 
@@ -68,6 +65,7 @@ void HIDFX5Device::init()
 
     /** Reset channels when opening the interface: */
     m_dmx_cmp.fill(0, 512);
+    m_dmx_in_cmp.fill(0, 512);
     outputDMX(m_dmx_cmp, true);
 }
 
@@ -91,19 +89,12 @@ void HIDFX5Device::closeInput()
 
 void HIDFX5Device::openOutput()
 {
-    m_running = true;
-    start();
     m_mode |= FX5_MODE_OUTPUT;
     updateMode();
 }
 
 void HIDFX5Device::closeOutput()
 {
-    if (isRunning() == true)
-    {
-        m_running = false;
-        wait();
-    }
     m_mode &= ~FX5_MODE_OUTPUT;
     updateMode();
 }
@@ -144,13 +135,38 @@ void HIDFX5Device::feedBack(quint32 channel, uchar value)
 
 void HIDFX5Device::run()
 {
-    unsigned char data[34];
-    while (m_running == true)
+    while(m_running == true)
     {
-        int r = hid_read(m_handle, data, 34);
-        if (r > 0)
+        unsigned char buffer[35];
+        int size;
+
+        size = hid_read_timeout(m_handle, buffer, 33, FX5_READ_TIMEOUT);
+
+        /**
+        * Protocol: 33 bytes in buffer[33]
+        * [0]      = chunk, which is the offset by which the channel is calculated
+        *            from, the nth chunk starts at address n * 32
+        * [1]-[32] = channel values, where the nth value is the offset + n
+        */
+        while(size > 0)
         {
-            qDebug() << "Received" << r << "bytes of data";
+            if(size == 33)
+            {
+                unsigned short startOff = buffer[0] * 32;
+                for (int i = 0; i < 32; i++)
+                {
+                    unsigned short channel = startOff + i;
+                    unsigned char value = buffer[i + 1];
+                    if (value != 0)
+                    if ((unsigned char)m_dmx_in_cmp.at(channel) != value)
+                    {
+                        qobject_cast<HID*> (parent())->emitChangeValue(m_line, channel, value);
+                        m_dmx_in_cmp[channel] = value;
+                    }
+                }
+            }
+
+            size = hid_read_timeout(m_handle, buffer, 33, FX5_READ_TIMEOUT);
         }
     }
 }
@@ -176,6 +192,7 @@ void HIDFX5Device::outputDMX(const QByteArray &universe, bool forceWrite)
 
             chunk.prepend((char)i);
             chunk.prepend((char)0x0);
+
             /** Output new data */
             hid_write(m_handle, (const unsigned char *)chunk.data(), chunk.size());
         }
@@ -188,7 +205,10 @@ void HIDFX5Device::outputDMX(const QByteArray &universe, bool forceWrite)
 
 void HIDFX5Device::updateMode()
 {
-    int driver_mode = 0;
+    /**
+    *  Send chosen mode to the FX5 / DE device
+    */
+    unsigned char driver_mode = 0;
     if (m_mode & FX5_MODE_OUTPUT)
         driver_mode += 2;
     if (m_mode & FX5_MODE_INPUT)
@@ -199,5 +219,20 @@ void HIDFX5Device::updateMode()
     memset(buffer, 0, 34);
     buffer[1] = 16;
     buffer[2] = driver_mode;
+
     hid_write(m_handle, buffer, 34);
+
+    /**
+    *  Start / stop input polling thread based on whether the input is activated
+    */
+    if (m_mode & FX5_MODE_INPUT)
+    {
+        m_running = true;
+        start();
+    }
+    else if (isRunning() == true)
+    {
+        m_running = false;
+        wait();
+    }
 }
