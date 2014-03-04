@@ -164,6 +164,11 @@ QString HID::inputInfo(quint32 input)
     return str;
 }
 
+void HID::emitChangeValue(quint32 port, quint32 channel, uchar value)
+{
+    emit valueChanged(port, channel, value);
+}
+
 /*********************************************************************
  * Outputs
  *********************************************************************/

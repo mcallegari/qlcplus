@@ -31,6 +31,8 @@
 #define FX5_DMX_INTERFACE_VENDOR_ID_2 0x16C0
 #define FX5_DMX_INTERFACE_PRODUCT_ID_2 0x88B
 
+#define FX5_READ_TIMEOUT 100
+
 class HIDEventDevice;
 class HID;
 
@@ -121,9 +123,12 @@ private:
     /** The device current open mode */
     int m_mode;
 
+    /** Last universe data that has been received */
+    QByteArray m_dmx_in_cmp;
+
     /** Last universe data that has been output */
     QByteArray m_dmx_cmp;
-    
+
     /** device handle for the interface */
     hid_device *m_handle;
 };
