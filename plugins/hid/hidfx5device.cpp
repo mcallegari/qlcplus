@@ -40,6 +40,7 @@ HIDFX5Device::HIDFX5Device(HID* parent, quint32 line, const QString &name, const
     : HIDDevice(parent, line, name, path)
 {
     m_capabilities = QLCIOPlugin::Output;
+    m_mode = FX5_MODE_NONE;
     init();
 }
 
