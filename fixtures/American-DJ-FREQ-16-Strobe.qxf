@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.3.1</Version>
+  <Version>4.7.0</Version>
   <Author>David Kuder</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -12,87 +12,87 @@
  <Channel Name="Dimmer 1">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
+  <Capability Min="1" Max="255">0% -> 100%</Capability>
  </Channel>
  <Channel Name="Dimmer 2">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
+  <Capability Min="1" Max="255">0% -> 100%</Capability>
  </Channel>
  <Channel Name="Dimmer 3">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
+  <Capability Min="1" Max="255">0% -> 100%</Capability>
  </Channel>
  <Channel Name="Dimmer 4">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
+  <Capability Min="1" Max="255">0% -> 100%</Capability>
  </Channel>
  <Channel Name="Dimmer 5">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
+  <Capability Min="1" Max="255">0% -> 100%</Capability>
  </Channel>
  <Channel Name="Dimmer 6">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
+  <Capability Min="1" Max="255">0% -> 100%</Capability>
  </Channel>
  <Channel Name="Dimmer 7">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
+  <Capability Min="1" Max="255">0% -> 100%</Capability>
  </Channel>
  <Channel Name="Dimmer 8">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
+  <Capability Min="1" Max="255">0% -> 100%</Capability>
  </Channel>
  <Channel Name="Dimmer 9">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
+  <Capability Min="1" Max="255">0% -> 100%</Capability>
  </Channel>
  <Channel Name="Dimmer 10">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
+  <Capability Min="1" Max="255">0% -> 100%</Capability>
  </Channel>
  <Channel Name="Dimmer 11">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
+  <Capability Min="1" Max="255">0% -> 100%</Capability>
  </Channel>
  <Channel Name="Dimmer 12">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
+  <Capability Min="1" Max="255">0% -> 100%</Capability>
  </Channel>
  <Channel Name="Dimmer 13">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
+  <Capability Min="1" Max="255">0% -> 100%</Capability>
  </Channel>
  <Channel Name="Dimmer 14">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
+  <Capability Min="1" Max="255">0% -> 100%</Capability>
  </Channel>
  <Channel Name="Dimmer 15">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
+  <Capability Min="1" Max="255">0% -> 100%</Capability>
  </Channel>
  <Channel Name="Dimmer 16">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
+  <Capability Min="1" Max="255">0% -> 100%</Capability>
  </Channel>
  <Channel Name="Master Dimmer">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
+  <Capability Min="1" Max="255">0% -> 100%</Capability>
  </Channel>
  <Channel Name="Strobing">
   <Group Byte="0">Effect</Group>
@@ -109,7 +109,7 @@
  <Mode Name="18 Channels">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1025" Height="65" Weight="3" Depth="88"/>
+   <Dimensions Width="1025" Height="65" Weight="3.6" Depth="88"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>
@@ -134,20 +134,50 @@
   <Channel Number="17">Strobing</Channel>
   <Head>
    <Channel>0</Channel>
+  </Head>
+  <Head>
    <Channel>1</Channel>
+  </Head>
+  <Head>
    <Channel>2</Channel>
+  </Head>
+  <Head>
    <Channel>3</Channel>
+  </Head>
+  <Head>
    <Channel>4</Channel>
+  </Head>
+  <Head>
    <Channel>5</Channel>
+  </Head>
+  <Head>
    <Channel>6</Channel>
+  </Head>
+  <Head>
    <Channel>7</Channel>
+  </Head>
+  <Head>
    <Channel>8</Channel>
+  </Head>
+  <Head>
    <Channel>9</Channel>
+  </Head>
+  <Head>
    <Channel>10</Channel>
+  </Head>
+  <Head>
    <Channel>11</Channel>
+  </Head>
+  <Head>
    <Channel>12</Channel>
+  </Head>
+  <Head>
    <Channel>13</Channel>
+  </Head>
+  <Head>
    <Channel>14</Channel>
+  </Head>
+  <Head>
    <Channel>15</Channel>
   </Head>
  </Mode>

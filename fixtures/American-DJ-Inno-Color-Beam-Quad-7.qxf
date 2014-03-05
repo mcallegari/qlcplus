@@ -106,7 +106,7 @@
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
    <Dimensions Width="260" Height="304" Weight="6" Depth="168"/>
    <Lens DegreesMax="10" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="570" Type="Fixed" TiltMax="240"/>
+   <Focus PanMax="570" Type="Head" TiltMax="240"/>
    <Technical PowerConsumption="130" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Shows</Channel>
@@ -116,7 +116,7 @@
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
    <Dimensions Width="260" Height="304" Weight="6" Depth="168"/>
    <Lens DegreesMax="10" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="570" Type="Fixed" TiltMax="240"/>
+   <Focus PanMax="570" Type="Head" TiltMax="240"/>
    <Technical PowerConsumption="130" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

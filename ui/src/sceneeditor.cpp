@@ -521,6 +521,7 @@ void SceneEditor::slotPositionTool()
         
         Fixture* fxi = m_doc->fixture(fc->fixture());
         QPointF pos;
+        QRectF range;
         bool panFound = false;
         bool tiltFound = false;
 
@@ -528,6 +529,9 @@ void SceneEditor::slotPositionTool()
 
         for (int i = 0; i < fxi->heads(); ++i )
         {
+             if (!range.isValid())
+                 range = fxi->degreesRange(i);
+
              quint32 panMsbChannel = fxi->panMsbChannel(i);
              quint32 panLsbChannel = fxi->panLsbChannel(i);
              quint32 tiltMsbChannel = fxi->tiltMsbChannel(i);
@@ -567,7 +571,7 @@ void SceneEditor::slotPositionTool()
              }
         }
 
-        PositionTool dialog(pos);
+        PositionTool dialog(pos, range);
         connect(&dialog, SIGNAL(currentPositionChanged(const QPointF&)),
             this, SLOT(slotPositionSelectorChanged(const QPointF&)));
 

@@ -216,7 +216,7 @@ public:
      * @param group The group this channel belongs to
      * @param isHTP Flag to force HTP/LTP behaviour
      */
-    void setChannelCapability(ushort channel, QLCChannel::Group group, bool isHTP = false);
+    void setChannelCapability(ushort channel, QLCChannel::Group group, ChannelType forcedType = Undefined);
 
     /** Retrieve the capability mask of the given channel index
      *
@@ -260,6 +260,14 @@ public:
      * @return The current values
      */
     const QByteArray preGMValues() const;
+
+    /**
+     * Get the current pre-Grand-Master value (used by functions and everyone
+     * else INSIDE QLC) at specified address.
+     *
+     * @return The current value at address
+     */
+    uchar preGMValue(int address) const;
 
     /** Set all intensity channel values to zero */
     void zeroIntensityChannels();

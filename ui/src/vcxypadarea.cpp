@@ -43,6 +43,7 @@ VCXYPadArea::VCXYPadArea(QWidget* parent)
     , m_pixmap(QPixmap(":/xypad-point.png"))
     , m_rangeDmxRect(QRectF())
     , m_rangeWindowRect(QRect())
+    , m_degreesRange(QRectF())
 {
     setFrameStyle(KVCFrameStyleSunken);
     setWindowTitle("XY Pad");
@@ -68,11 +69,12 @@ void VCXYPadArea::setMode(Doc::Mode mode)
  * Current XY position
  *****************************************************************************/
 
-QPointF VCXYPadArea::position()
+QPointF VCXYPadArea::position(bool resetChanged) const
 {
     m_mutex.lock();
     QPointF pos(m_dmxPos);
-    m_changed = false;
+    if (resetChanged)
+        m_changed = false;
     m_mutex.unlock();
     return pos;
 }
@@ -131,6 +133,48 @@ void VCXYPadArea::updateWindowPos()
     m_windowPos.setY(SCALE(m_dmxPos.y(), qreal(0), qreal(256), qreal(0), qreal(height())));
 }
 
+static int coarseByte(qreal value)
+{
+    return value;
+}
+
+static int fineByte(qreal value)
+{
+    return (value - floor(value)) * 256;
+}
+
+QString VCXYPadArea::positionString() const
+{
+    QPointF pos = position(false);
+    return QString("%1.%2 : %3.%4")
+        .arg(coarseByte(pos.x()), 3, 10, QChar('0'))
+        .arg(fineByte(pos.x()), 3, 10, QChar('0'))
+        .arg(coarseByte(pos.y()), 3, 10, QChar('0'))
+        .arg(fineByte(pos.y()), 3,10, QChar('0'));
+}
+
+QString VCXYPadArea::angleString() const
+{
+    QPointF pos = position(false);
+    QRectF range = degreesRange();
+
+    if (range.isValid())
+    {
+        return QString("%1%2 : %3%4")
+            .arg(range.x() + pos.x() * range.width() / 256)
+            .arg(QChar(0xb0))
+            .arg(range.y() + pos.y() * range.height() / 256)
+            .arg(QChar(0xb0));
+    }
+    else
+    {
+        return QString("%1 % : %2 %")
+            .arg(pos.x() * 100 / MAX_DMX_VALUE, 7, 'f', 3, '0')
+            .arg(pos.y() * 100 / MAX_DMX_VALUE, 7, 'f', 3, '0');
+    }
+    
+}
+
 /*************************************************************************
  * Range window
  *************************************************************************/
@@ -155,19 +199,24 @@ void VCXYPadArea::updateRangeWindow()
     m_rangeWindowRect = QRect(x, y, w, h);
 }
 
+/*************************************************************************
+ * Degrees range
+ *************************************************************************/
+
+QRectF VCXYPadArea::degreesRange() const
+{
+    return m_degreesRange;
+}
+
+void VCXYPadArea::setDegreesRange(QRectF range)
+{
+    m_degreesRange = range;
+    update();
+}
+
 /*****************************************************************************
  * Event handlers
  *****************************************************************************/
-
-static int coarseByte(qreal value)
-{
-    return value;
-}
-
-static int fineByte(qreal value)
-{
-    return (value - floor(value)) * 256;
-}
 
 void VCXYPadArea::paintEvent(QPaintEvent* e)
 {
@@ -181,14 +230,11 @@ void VCXYPadArea::paintEvent(QPaintEvent* e)
     QPainter p(this);
     QPen pen;
 
-    QPointF pos = position();
-    QString title = QString("%1%2%3.%4 : %5.%6")
+    QString title = QString("%1%2%3\n%4\n")
         .arg(windowTitle())
         .arg(windowTitle().isEmpty() ? "" : "\n")
-        .arg(coarseByte(pos.x()), 3, 10, QChar('0'))
-        .arg(fineByte(pos.x()), 3, 10, QChar('0'))
-        .arg(coarseByte(pos.y()), 3, 10, QChar('0'))
-        .arg(fineByte(pos.y()), 3,10, QChar('0'));
+        .arg(positionString())
+        .arg(angleString());
 
     /* Draw name (offset just a bit to avoid frame) */
     p.drawText(1, 1, width() - 2, height() - 2,

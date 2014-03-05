@@ -264,6 +264,14 @@ public:
     bool changeFixtureMode(quint32 id, const QLCFixtureMode *mode);
 
     /**
+     * Update the channels capabilities of an existing fixture with the given ID
+     * @param id The ID of the fixture instance
+     * @param forcedHTP A list of channel indices forced to act as HTP
+     * @param forcedLTP A list of channel indices forced to act as LTP
+     */
+    bool updateFixtureChannelCapabilities(quint32 id, QList<int>forcedHTP, QList<int>forcedLTP);
+
+    /**
      * Get the fixture instance that has the given ID
      *
      * @param id The ID of the fixture to get

@@ -40,7 +40,7 @@ public:
     enum ChannelSelectionType
     {
         NormalMode,
-        ExcludeChannelsMode
+        PropertiesMode
     };
 
     ChannelsSelection(Doc* doc, QWidget *parent = 0, ChannelSelectionType mode = NormalMode);
@@ -55,13 +55,14 @@ private:
     QList<SceneValue> m_channelsList;
 
 protected:
-    bool m_isUpdating;
     void updateFixturesTree();
+    QList<QTreeWidgetItem *> getSameChannels(QTreeWidgetItem *item);
 
 protected slots:
 
     void slotItemChecked(QTreeWidgetItem *item, int col);
     void slotItemExpanded();
+    void slotComboChanged(int idx);
 
     /** Callback for OK button clicks */
     void accept();

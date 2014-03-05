@@ -54,10 +54,16 @@ Monitor* Monitor::s_instance = NULL;
 Monitor::Monitor(QWidget* parent, Doc* doc, Qt::WindowFlags f)
     : QWidget(parent, f)
     , m_doc(doc)
+    , m_props(NULL)
     , m_toolBar(NULL)
     , m_scrollArea(NULL)
     , m_monitorWidget(NULL)
+    , m_monitorLayout(NULL)
     , m_currentUniverse(Universe::invalid())
+    , m_graphicsView(NULL)
+    , m_gridWSpin(NULL)
+    , m_gridHSpin(NULL)
+    , m_unitsCombo(NULL)
 {
     Q_ASSERT(doc != NULL);
 
@@ -410,6 +416,7 @@ void Monitor::slotSwitchMode()
     {
         m_toolBar->deleteLater();
         m_graphicsView->deleteLater();
+        m_graphicsView = NULL;
     }
     m_toolBar = NULL;
 

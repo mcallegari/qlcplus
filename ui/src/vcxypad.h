@@ -147,6 +147,10 @@ public:
     QList <VCXYPadFixture> fixtures() const;
 
 private:
+    QRectF computeCommonDegreesRange() const;
+    void updateDegreesRange();
+
+private:
     QList <VCXYPadFixture> m_fixtures;
 
     /*************************************************************************

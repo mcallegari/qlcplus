@@ -56,7 +56,7 @@ private:
      *************************************************************************/
 public:
     /** Get the pad's current position (i.e. where the point is) */
-    QPointF position();
+    QPointF position(bool resetChanged = true) const;
 
     /** Set the pad's current position (i.e. move the point) */
     void setPosition(const QPointF& point);
@@ -77,6 +77,10 @@ private:
     /** Compute m_windowPos from mdmxPos */
     void updateWindowPos();
 
+    QString positionString() const;
+
+    QString angleString() const;
+
 private:
 
     /** Position in DMX coordinates 0.0..(256.0 - 1/256) */
@@ -88,8 +92,8 @@ private:
     /** Optimization - compute window pos on demand */
     bool m_updateWindowPos;
 
-    bool m_changed;
-    QMutex m_mutex;
+    mutable bool m_changed;
+    mutable QMutex m_mutex;
     QPixmap m_pixmap;
 
     /*************************************************************************
@@ -110,6 +114,18 @@ private:
 
     /** Range in window coordinates */
     QRect m_rangeWindowRect;
+
+    /*************************************************************************
+     * Degrees range
+     *************************************************************************/
+public:
+    QRectF degreesRange() const;
+
+    void setDegreesRange(QRectF rect);
+
+private:
+    /** Range in degrees (for the full range) */
+    QRectF m_degreesRange;
 
     /*************************************************************************
      * Event handlers

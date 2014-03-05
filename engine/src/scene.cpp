@@ -668,7 +668,7 @@ void Scene::insertStartValue(FadeChannel& fc, const MasterTimer* timer,
         quint32 address = fc.address();
         quint32 uni = fc.universe();
         if (fc.group(doc()) != QLCChannel::Intensity)
-            fc.setStart(ua[uni]->preGMValues()[address]);
+            fc.setStart(ua[uni]->preGMValue(address));
         else
             fc.setStart(0); // HTP channels must start at zero
         fc.setCurrent(fc.start());

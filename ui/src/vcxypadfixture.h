@@ -79,6 +79,8 @@ public:
 
     QString name() const;
 
+    QRectF degreesRange() const;
+
 private:
     GroupHead m_head;
 

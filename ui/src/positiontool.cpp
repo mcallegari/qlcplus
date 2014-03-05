@@ -28,7 +28,7 @@
  * Initialization
  *****************************************************************************/
 
-PositionTool::PositionTool(const QPointF & initial, QWidget* parent)
+PositionTool::PositionTool(const QPointF & initial, QRectF degreesRange, QWidget* parent)
     : QDialog(parent)
 {
     setupUi(this);
@@ -36,6 +36,7 @@ PositionTool::PositionTool(const QPointF & initial, QWidget* parent)
     setPosition(initial);
     m_area->setMode(Doc::Operate); // to activate the area
     m_area->setWindowTitle("");
+    m_area->setDegreesRange(degreesRange);
     m_gridLayout->addWidget(m_area, 0, 0);
 
     connect(m_area, SIGNAL(positionChanged(const QPointF &)),
