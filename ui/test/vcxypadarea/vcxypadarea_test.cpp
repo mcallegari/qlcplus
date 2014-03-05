@@ -34,7 +34,7 @@ void VCXYPadArea_Test::initial()
     VCXYPadArea area(NULL);
     QCOMPARE(area.m_mode, Doc::Design);
     QCOMPARE(area.m_changed, false);
-    QVERIFY(area.m_pixmap.isNull() == false);
+    QVERIFY(area.m_activePixmap.isNull() == false);
     QCOMPARE(area.frameStyle(), QFrame::Sunken | QFrame::Panel);
     QCOMPARE(area.windowTitle(), QString("XY Pad"));
     QCOMPARE(area.isEnabled(), false);

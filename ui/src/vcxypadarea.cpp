@@ -40,10 +40,11 @@ const qreal MAX_DMX_VALUE = MAX_VALUE - 1.0/256;
 VCXYPadArea::VCXYPadArea(QWidget* parent)
     : QFrame(parent)
     , m_changed(false)
-    , m_pixmap(QPixmap(":/xypad-point.png"))
-    , m_rangeDmxRect(QRectF())
-    , m_rangeWindowRect(QRect())
-    , m_degreesRange(QRectF())
+    , m_activePixmap(":/xypad-point-blue.png")
+    , m_fixturePixmap(":/xypad-point-yellow.png")
+    , m_rangeDmxRect()
+    , m_rangeWindowRect()
+    , m_degreesRange()
 {
     setFrameStyle(KVCFrameStyleSunken);
     setWindowTitle("XY Pad");
@@ -117,6 +118,15 @@ bool VCXYPadArea::hasPositionChanged()
     bool changed = m_changed;
     m_mutex.unlock();
     return changed;
+}
+
+void VCXYPadArea::slotFixturePositions(const QVariantList positions)
+{
+    if (positions == m_fixturePositions)
+        return;
+
+    m_fixturePositions = positions;
+    update();
 }
 
 void VCXYPadArea::checkDmxRange()
@@ -264,11 +274,22 @@ void VCXYPadArea::paintEvent(QPaintEvent* e)
     }
 
     updateWindowPos();
+    
+    foreach(QVariant pos, m_fixturePositions)
+    {
+        QPointF pt = pos.toPointF();
+        pt.setX(SCALE(pt.x(), qreal(0), qreal(256), qreal(0), qreal(width())));
+        pt.setY(SCALE(pt.y(), qreal(0), qreal(256), qreal(0), qreal(height())));
+
+        p.drawPixmap(pt.x() - (m_fixturePixmap.width() / 2),
+                 pt.y() - (m_fixturePixmap.height() / 2),
+                 m_fixturePixmap);
+    }
 
     /* Draw the current point pixmap */
-    p.drawPixmap(m_windowPos.x() - (m_pixmap.width() / 2),
-                 m_windowPos.y() - (m_pixmap.height() / 2),
-                 m_pixmap);
+    p.drawPixmap(m_windowPos.x() - (m_activePixmap.width() / 2),
+                 m_windowPos.y() - (m_activePixmap.height() / 2),
+                 m_activePixmap);
 }
 
 void VCXYPadArea::resizeEvent(QResizeEvent *e)

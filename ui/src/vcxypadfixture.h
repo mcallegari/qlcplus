@@ -140,6 +140,9 @@ public:
 
     /** Write the value using x & y multipliers for the actual range */
     void writeDMX(qreal xmul, qreal ymul, QList<Universe*> universes);
+
+    /** Read position from the current universe */
+    void readDMX(QList<Universe*> universes, qreal & xmul, qreal & ymul);
 };
 
 /** @} */

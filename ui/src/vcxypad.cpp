@@ -110,6 +110,8 @@ VCXYPad::VCXYPad(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
     connect(m_area, SIGNAL(positionChanged(const QPointF&)),
             this, SLOT(slotPositionChanged(const QPointF&)));
+    connect(this, SIGNAL(fixturePositions(const QVariantList)),
+            m_area, SLOT(slotFixturePositions(const QVariantList)));
     connect(m_vSlider, SIGNAL(valueChanged(int)),
             this, SLOT(slotSliderValueChanged()));
     connect(m_hSlider, SIGNAL(valueChanged(int)),
@@ -305,6 +307,25 @@ void VCXYPad::writeDMX(MasterTimer* timer, QList<Universe *> universes)
         foreach (VCXYPadFixture fixture, m_fixtures)
             fixture.writeDMX(x, y, universes);
     }
+
+
+    QVariantList positions;    
+    foreach (VCXYPadFixture fixture, m_fixtures)
+    {
+        qreal x(-1), y(-1);
+        fixture.readDMX(universes, x, y);
+        if( x != -1.0 && y != -1.0)
+        {
+            if (invertedAppearance())
+                y = qreal(1) - y;
+
+           x *= 256;
+           y *= 256;
+           positions.append(QPointF(x, y));
+        }
+    }
+
+    emit fixturePositions(positions);
 }
 
 void VCXYPad::slotPositionChanged(const QPointF& pt)

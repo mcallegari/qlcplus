@@ -70,6 +70,9 @@ public:
 signals:
     void positionChanged(const QPointF& point);
 
+public slots:
+    void slotFixturePositions(const QVariantList positions);
+
 private:
     /** Make sure the m_dmxPos is inside m_rangeDmxRect */
     void checkDmxRange();
@@ -94,7 +97,14 @@ private:
 
     mutable bool m_changed;
     mutable QMutex m_mutex;
-    QPixmap m_pixmap;
+
+    /** Used to display active point - blue */
+    QPixmap m_activePixmap;
+
+    /** Used to display fixture positions - yellow */
+    QPixmap m_fixturePixmap;
+
+    QVariantList m_fixturePositions;
 
     /*************************************************************************
      * Range window
