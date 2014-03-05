@@ -30,6 +30,7 @@ docs.files = \
              fixturesremap.html \
              functionmanager.html \
              functionwizard.html \
+             fx5output.html \
              guicustomstyles.html \
              headeditor.html \
              howto-add-fixtures.html \
