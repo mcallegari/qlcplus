@@ -228,6 +228,14 @@ const QByteArray Universe::preGMValues() const
     return *m_preGMValues;
 }
 
+uchar Universe::preGMValue(int address) const
+{
+    if (m_preGMValues == NULL || address >= m_preGMValues->size())
+        return 0;
+ 
+    return uchar(m_preGMValues->at(address));
+}
+
 uchar Universe::applyGM(int channel, uchar value)
 {
     if (value == 0)
