@@ -149,7 +149,7 @@ void Universe::slotGMValueChanged()
         while (it.hasNext() == true)
         {
             int channel(it.next());
-            char chValue(m_preGMValues->data()[channel]);
+            char chValue(m_preGMValues->at(channel));
             write(channel, chValue);
         }
     }
@@ -160,7 +160,7 @@ void Universe::slotGMValueChanged()
         while (it.hasNext() == true)
         {
             int channel(it.next());
-            char chValue(m_preGMValues->data()[channel]);
+            char chValue(m_preGMValues->at(channel));
             write(channel, chValue);
         }
     }
@@ -181,8 +181,8 @@ void Universe::reset(int address, int range)
 {
     for (int i = address; i < address + range && i < UNIVERSE_SIZE; i++)
     {
-        m_preGMValues->data()[i] = 0;
-        m_postGMValues->data()[i] = 0;
+        (*m_preGMValues)[i] = 0;
+        (*m_postGMValues)[i] = 0;
         m_relativeValues[i] = 0;
     }
 }
@@ -193,8 +193,8 @@ void Universe::zeroIntensityChannels()
     while (it.hasNext() == true)
     {
         int channel(it.next());
-        m_preGMValues->data()[channel] = 0;
-        m_postGMValues->data()[channel] = 0;
+        (*m_preGMValues)[channel] = 0;
+        (*m_postGMValues)[channel] = 0;
         m_relativeValues[channel] = 0;
     }
 }
@@ -206,7 +206,7 @@ QHash<int, uchar> Universe::intensityChannels()
     while (it.hasNext() == true)
     {
         int channel(it.next());
-        intensityList[channel] = m_preGMValues->data()[channel];
+        intensityList[channel] = m_preGMValues->at(channel);
     }
     return intensityList;
 }
@@ -385,20 +385,20 @@ void Universe::setChannelCapability(ushort channel, QLCChannel::Group group, Cha
     if (forcedType != Undefined)
     {
         //qDebug() << "--- Channel" << channel << "forced type" << forcedType;
-        m_channelsMask->data()[channel] = char(forcedType);
+        (*m_channelsMask)[channel] = char(forcedType);
     }
     else
     {
         if (group == QLCChannel::Intensity)
         {
             //qDebug() << "--- Channel" << channel << "Intensity + HTP";
-            m_channelsMask->data()[channel] = char(HTP | Intensity);
+            (*m_channelsMask)[channel] = char(HTP | Intensity);
             m_intensityChannels << channel;
         }
         else
         {
             //qDebug() << "--- Channel" << channel << " is LTP";
-            m_channelsMask->data()[channel] = char(LTP);
+            (*m_channelsMask)[channel] = char(LTP);
             m_nonIntensityChannels << channel;
         }
     }
@@ -411,7 +411,7 @@ uchar Universe::channelCapabilities(ushort channel)
     if (channel >= (ushort)m_channelsMask->count())
         return Undefined;
 
-    return m_channelsMask->data()[channel];
+    return m_channelsMask->at(channel);
 }
 
 /****************************************************************************
@@ -435,18 +435,18 @@ bool Universe::write(int channel, uchar value, bool forceLTP)
     }
 
     if (m_preGMValues != NULL)
-        m_preGMValues->data()[channel] = char(value);
+        (*m_preGMValues)[channel] = char(value);
 
     if (m_relativeValues[channel] != 0)
     {
         int val = m_relativeValues[channel];
         if (m_preGMValues != NULL)
-            val += (uchar)m_preGMValues->data()[channel];
+            val += (uchar)m_preGMValues->at(channel);
         value = CLAMP(val, 0, UCHAR_MAX);
     }
 
     value = applyGM(channel, value);
-    m_postGMValues->data()[channel] = char(value);
+    (*m_postGMValues)[channel] = char(value);
 
     m_hasChanged = true;
 
@@ -468,11 +468,11 @@ bool Universe::writeRelative(int channel, uchar value)
 
     int val = m_relativeValues[channel];
     if (m_preGMValues != NULL)
-        val += (uchar)m_preGMValues->data()[channel];
+        val += (uchar)m_preGMValues->at(channel);
     value = CLAMP(val, 0, UCHAR_MAX);
 
     value = applyGM(channel, value);
-    m_postGMValues->data()[channel] = char(value);
+    (*m_postGMValues)[channel] = char(value);
 
     m_hasChanged = true;
 
