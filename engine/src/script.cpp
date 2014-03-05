@@ -522,7 +522,7 @@ QString Script::handleSetFixture(const QList<QStringList>& tokens, QList<Univers
                 if (gf->channels().contains(fc) == true)
                     fc.setStart(gf->channels()[fc].current());
                 else
-                    fc.setStart(universes[uni]->preGMValues()[address]);
+                    fc.setStart(universes[uni]->preGMValue(address));
                 fc.setCurrent(fc.start());
 
                 gf->add(fc);

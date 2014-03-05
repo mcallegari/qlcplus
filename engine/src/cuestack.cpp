@@ -640,7 +640,7 @@ void CueStack::insertStartValue(FadeChannel& fc, const QList<Universe *> ua)
         if (uni != Universe::invalid() && uni < (quint32)ua.count())
         {
             if (fc.group(doc()) != QLCChannel::Intensity)
-                fc.setStart(ua[uni]->preGMValues()[fc.address()]);
+                fc.setStart(ua[uni]->preGMValue(fc.address()));
             else
                 fc.setStart(0); // HTP channels must start at zero
         }

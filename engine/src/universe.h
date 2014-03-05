@@ -261,6 +261,14 @@ public:
      */
     const QByteArray preGMValues() const;
 
+    /**
+     * Get the current pre-Grand-Master value (used by functions and everyone
+     * else INSIDE QLC) at specified address.
+     *
+     * @return The current value at address
+     */
+    uchar preGMValue(int address) const;
+
     /** Set all intensity channel values to zero */
     void zeroIntensityChannels();
 
