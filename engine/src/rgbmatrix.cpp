@@ -172,6 +172,8 @@ QList <RGBMap> RGBMatrix::previewMaps()
 void RGBMatrix::setStartColor(const QColor& c)
 {
     m_startColor = c;
+    if (m_algorithm != NULL)
+        m_algorithm->setColors(m_startColor, m_endColor);
 }
 
 QColor RGBMatrix::startColor() const
@@ -182,6 +184,8 @@ QColor RGBMatrix::startColor() const
 void RGBMatrix::setEndColor(const QColor &c)
 {
     m_endColor = c;
+    if (m_algorithm != NULL)
+        m_algorithm->setColors(m_startColor, m_endColor);
 }
 
 QColor RGBMatrix::endColor() const

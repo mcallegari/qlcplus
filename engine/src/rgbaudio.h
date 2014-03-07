@@ -50,6 +50,9 @@ public:
 protected slots:
     void slotAudioChanged(double *spectrumBands, double maxMagnitude, quint32 power);
 
+private:
+    void calculateColors(int barsHeight = 0);
+
 protected:
     AudioCapture *m_audioInput;
     int m_bandsNumber;
@@ -57,6 +60,7 @@ protected:
     QList<double>m_spectrumValues;
     double m_maxMagnitude;
     quint32 m_volumePower;
+    QList<uint> m_barColors;
 
     /************************************************************************
      * RGBAlgorithm
@@ -78,8 +82,15 @@ public:
     int apiVersion() const;
 
     /** @reimp */
+    void setColors(QColor start, QColor end);
+
+    /** @reimp */
     RGBAlgorithm::Type type() const;
 
+    /************************************************************************
+     * Load & Save
+     ************************************************************************/
+public:
     /** @reimp */
     bool loadXML(const QDomElement& root);
 

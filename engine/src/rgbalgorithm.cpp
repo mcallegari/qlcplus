@@ -30,7 +30,15 @@
 
 RGBAlgorithm::RGBAlgorithm(const Doc * doc)
     : m_doc(doc)
+    , m_startColor(QColor())
+    , m_endColor(QColor())
 {
+}
+
+void RGBAlgorithm::setColors(QColor start, QColor end)
+{
+    m_startColor = start;
+    m_endColor = end;
 }
 
 /****************************************************************************

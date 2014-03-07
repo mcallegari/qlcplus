@@ -68,6 +68,34 @@ void RGBAudio::slotAudioChanged(double *spectrumBands, double maxMagnitude, quin
     m_mutex.unlock();
 }
 
+void RGBAudio::calculateColors(int barsHeight)
+{
+    if (barsHeight > 0)
+    {
+        m_barColors.clear();
+        if (endColor() == QColor())
+        {
+            for (int i = 0; i < barsHeight; i++)
+                m_barColors.append(startColor().rgb());
+        }
+        else
+        {
+            int crDelta = (endColor().red() - startColor().red()) / (barsHeight - 1);
+            int cgDelta = (endColor().green() - startColor().green()) / (barsHeight - 1);
+            int cbDelta = (endColor().blue() - startColor().blue()) / (barsHeight - 1);
+            QColor pixelColor = startColor();
+
+            for (int i = 0; i < barsHeight; i++)
+            {
+                m_barColors.append(pixelColor.rgb());
+                pixelColor = QColor(pixelColor.red() + crDelta,
+                                    pixelColor.green() + cgDelta,
+                                    pixelColor.blue() + cbDelta);
+            }
+        }
+    }
+}
+
 /****************************************************************************
  * RGBAlgorithm
  ****************************************************************************/
@@ -102,13 +130,20 @@ RGBMap RGBAudio::rgbMap(const QSize& size, uint rgb, int step)
         m_mutex.unlock();
         return map;
     }
+    if (m_barColors.count() == 0)
+        calculateColors(size.height());
 
     double volHeight = (m_volumePower * size.height()) / 0x7FFF;
     for (int x = 0; x < m_spectrumValues.count(); x++)
     {
         int barHeight =  (volHeight * m_spectrumValues[x]) / m_maxMagnitude;
         for (int y = size.height() - barHeight; y < size.height(); y++)
-            map[y][x] = rgb;
+        {
+            if (m_barColors.count() == 0)
+                map[y][x] = rgb;
+            else
+                map[y][x] = m_barColors.at(y);
+        }
     }
 
     m_mutex.unlock();
@@ -128,6 +163,15 @@ QString RGBAudio::author() const
 int RGBAudio::apiVersion() const
 {
     return 1;
+}
+
+void RGBAudio::setColors(QColor start, QColor end)
+{
+    RGBAlgorithm::setColors(start, end);
+
+    // invalidate bars colors so the next time a rendering is
+    // required, it will be filled with the right values
+    m_barColors.clear();
 }
 
 RGBAlgorithm::Type RGBAudio::type() const
