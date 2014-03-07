@@ -18,6 +18,7 @@ qlcplus (4.7.0) stable; urgency=low
   * MIDI plugin: improved pitch wheel and input/output settings (thanks to Robert Scheffler)
   * Webaccess: fixed positioning of headerless frames
   * Monitor: added combo box to select which universe to monitor
+  * Editors: fixed crashes when deleting running functions (thanks to plugz)
   * Documentation: Added Sound Control tutorial (Jano Svitok)
   * Added input profile: BCF2000 in Mackie Control mode - all buttons are usable (Jano Svitok)
   * Added input profile: Akai APC40 (thanks to Daniel Curry)

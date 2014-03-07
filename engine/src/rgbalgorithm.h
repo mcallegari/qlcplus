@@ -22,6 +22,7 @@
 
 #include <QString>
 #include <QVector>
+#include <QColor>
 #include <QSize>
 
 class QDomDocument;
@@ -82,6 +83,20 @@ public:
 
     /** Get the algorithm's type */
     virtual Type type() const = 0;
+
+    /************************************************************************
+     * RGB Colors
+     ************************************************************************/
+public:
+    /** Set the start/end color the algorithm can use */
+    virtual void setColors(QColor start, QColor end);
+
+    QColor startColor() { return m_startColor; }
+
+    QColor endColor() { return m_endColor; }
+
+private:
+    QColor m_startColor, m_endColor;
 
     /************************************************************************
      * Available algorithms

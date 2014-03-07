@@ -55,6 +55,7 @@ INSTALL_ROOT=$RPM_BUILD_ROOT make install
 /usr/bin/qlcplus
 /usr/lib/libqlcplusengine*
 /usr/lib/libqlcplusui*
+/usr/lib/libqlcpluswebaccess*
 /usr/share/qlcplus/translations/*.qm
 /usr/share/applications/qlcplus.desktop
 /usr/share/pixmaps/qlcplus.png
@@ -63,6 +64,8 @@ INSTALL_ROOT=$RPM_BUILD_ROOT make install
 /usr/share/pixmaps/qlcplus-fixtureeditor.png
 /usr/share/qlcplus/fixtures/*
 /usr/share/qlcplus/inputprofiles/*
+/usr/share/qlcplus/miditemplates/*
+/usr/share/qlcplus/gobos/*
 /usr/share/qlcplus/rgbscripts/*
 /usr/share/qlcplus/Sample.qxw
 /usr/share/mime/packages/qlcplus.xml
@@ -77,7 +80,9 @@ INSTALL_ROOT=$RPM_BUILD_ROOT make install
 /usr/lib/qt4/plugins/qlcplus/libdmxusb.so
 /usr/lib/qt4/plugins/qlcplus/libudmx.so
 /usr/lib/qt4/plugins/qlcplus/libe131.so
+/usr/lib/qt4/plugins/qlcplus/libspi.so
 /etc/udev/rules.d/z65-dmxusb.rules
 /etc/udev/rules.d/z65-anyma-udmx.rules
 /etc/udev/rules.d/z65-peperoni.rules
+/etc/udev/rules.d/z65-spi.rules
 
