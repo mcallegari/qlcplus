@@ -990,6 +990,7 @@ void EFX::preRun(MasterTimer* timer)
 
     Q_ASSERT(m_fader == NULL);
     m_fader = new GenericFader(doc());
+    m_fader->adjustIntensity(getAttributeValue(Intensity));
 
     Function::preRun(timer);
 }
