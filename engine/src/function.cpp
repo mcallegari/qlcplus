@@ -823,7 +823,7 @@ bool Function::stopAndWait()
     watchdog.start();
 
     // block thread for maximum 2 seconds
-    while (m_elapsed > 0)
+    while (m_running == true)
     {
         if (watchdog.elapsed() > 2000)
         {

@@ -49,6 +49,8 @@ public:
     ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc, bool liveMode = false);
     ~ChaserEditor();
 
+    void stopTest();
+
 signals:
     void applyValues(QList<SceneValue>&);
     void stepSelectionChanged(int index);

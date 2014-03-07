@@ -117,7 +117,7 @@ void VCButtonProperties::slotAttachFunction()
 {
     FunctionSelection fs(this, m_doc);
     fs.setMultiSelection(false);
-    if (fs.exec() == QDialog::Accepted)
+    if (fs.exec() == QDialog::Accepted && fs.selection().size() > 0)
         slotSetFunction(fs.selection().first());
 }
 
