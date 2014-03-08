@@ -13,7 +13,13 @@
 (physical input/output devices) to QLC+'s universes.</p>
 
 <p>
-QLC+ by default provides 4 input and 4 output universes. These numbers may be increased if needed, but a recompilation is necessary, since they are hardcoded (look in engine/src/doc.h).</p>
+By default QLC+ provides 4 universes but you can add/remove them as needed.<br>
+The input/output mapping is saved in the currently loaded project. 
+This allows you to port your project on another computer/OS without the need to
+reconfigure it every time.<br>
+If no project is loaded, QLC+ will keep the I/O mapping as a "fallback" configuration. 
+</p>
+
 <H2>Input/Output Manager</H2>
 
 <P>
