@@ -1211,31 +1211,49 @@ Durée : %3
     <name>ChannelsSelection</name>
     <message>
         <location filename="channelsselection.ui" line="14"/>
-        <source>Channels Fade Configuration</source>
-        <translation>Configuration des fondus des canaux</translation>
+        <source>Channels selection</source>
+        <oldsource>Channels Fade Configuration</oldsource>
+        <translation type="unfinished">Configuration des fondus des canaux</translation>
     </message>
     <message>
         <location filename="channelsselection.ui" line="28"/>
+        <location filename="channelsselection.cpp" line="46"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
     <message>
         <location filename="channelsselection.ui" line="33"/>
+        <location filename="channelsselection.cpp" line="46"/>
         <source>Type</source>
         <translation>Type</translation>
     </message>
     <message>
-        <location filename="channelsselection.ui" line="38"/>
-        <source>Fade</source>
-        <translation>Fondu</translation>
-    </message>
-    <message>
-        <location filename="channelsselection.ui" line="46"/>
+        <location filename="channelsselection.ui" line="41"/>
         <source>Apply changes to fixtures of the same type</source>
         <translation>Appliquer à tous les projecteurs du même type</translation>
     </message>
     <message>
-        <location filename="channelsselection.cpp" line="93"/>
+        <location filename="channelsselection.cpp" line="50"/>
+        <source>Selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="channelsselection.cpp" line="54"/>
+        <source>Channel properties configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="channelsselection.cpp" line="56"/>
+        <source>Can fade</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="channelsselection.cpp" line="56"/>
+        <source>Behaviour</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="channelsselection.cpp" line="114"/>
         <source>Universe %1</source>
         <translation>Univers %1</translation>
     </message>
@@ -1269,13 +1287,13 @@ Durée : %3
     </message>
     <message>
         <location filename="chasereditor.ui" line="70"/>
-        <location filename="chasereditor.cpp" line="810"/>
+        <location filename="chasereditor.cpp" line="816"/>
         <source>Fade In</source>
         <translation>Montée</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="80"/>
-        <location filename="chasereditor.cpp" line="811"/>
+        <location filename="chasereditor.cpp" line="817"/>
         <source>Fade Out</source>
         <translation>Descente</translation>
     </message>
@@ -1296,7 +1314,7 @@ Durée : %3
     </message>
     <message>
         <location filename="chasereditor.ui" line="75"/>
-        <location filename="chasereditor.cpp" line="812"/>
+        <location filename="chasereditor.cpp" line="818"/>
         <source>Hold</source>
         <translation>Maintien</translation>
     </message>
@@ -1499,32 +1517,32 @@ Durée : %3
         <translation>Coller</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="581"/>
+        <location filename="chasereditor.cpp" line="587"/>
         <source>Paste error</source>
         <translation>Erreur de collage</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="581"/>
+        <location filename="chasereditor.cpp" line="587"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
         <translation>La scène vers laquelle coller est incompatible. Opération annulée.</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="813"/>
+        <location filename="chasereditor.cpp" line="819"/>
         <source>Common Fade In</source>
         <translation>Montée commune</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="814"/>
+        <location filename="chasereditor.cpp" line="820"/>
         <source>Common Fade Out</source>
         <translation>Descente commune</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="815"/>
+        <location filename="chasereditor.cpp" line="821"/>
         <source>Common Hold</source>
         <translation>Maintien commun</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="831"/>
+        <location filename="chasereditor.cpp" line="837"/>
         <source>Multiple Steps</source>
         <translation>Pas multiples</translation>
     </message>
@@ -1886,7 +1904,7 @@ Durée : %3
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>L&apos;angle de rotation du motif</translation>
     </message>
-    <message>
+    <message utf8="true">
         <location filename="efxeditor.ui" line="393"/>
         <location filename="efxeditor.ui" line="504"/>
         <source>°</source>
@@ -2018,12 +2036,12 @@ Durée : %3
         <translation>&amp;Tester</translation>
     </message>
     <message>
-        <location filename="efxeditor.cpp" line="678"/>
+        <location filename="efxeditor.cpp" line="684"/>
         <source>Remove fixtures</source>
         <translation>Enlever les projecteurs</translation>
     </message>
     <message>
-        <location filename="efxeditor.cpp" line="679"/>
+        <location filename="efxeditor.cpp" line="685"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Voulez-vous enlever le(s) projecteur(s) sélectionné(s) ?</translation>
     </message>
@@ -2688,7 +2706,7 @@ Durée : %3
         <translation>Fonctions</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="861"/>
+        <location filename="functionmanager.cpp" line="873"/>
         <source> (Copy)</source>
         <translation> (copie)</translation>
     </message>
@@ -3394,92 +3412,92 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
 <context>
     <name>Monitor</name>
     <message>
-        <location filename="monitor.cpp" line="194"/>
+        <location filename="monitor.cpp" line="200"/>
         <source>Fixture Monitor</source>
         <translation>Moniteur des projecteurs</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="226"/>
+        <location filename="monitor.cpp" line="232"/>
         <source>2D View</source>
         <translation>Vue 2D</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="233"/>
+        <location filename="monitor.cpp" line="239"/>
         <source>Font</source>
         <translation>Police</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="242"/>
+        <location filename="monitor.cpp" line="248"/>
         <source>DMX Channels</source>
         <translation>Canaux DMX</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="243"/>
+        <location filename="monitor.cpp" line="249"/>
         <source>Show absolute DMX channel numbers</source>
         <translation>Montrer le numéro absolu des canaux DMX</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="253"/>
+        <location filename="monitor.cpp" line="259"/>
         <source>Relative Channels</source>
         <translation>Canaux relatifs</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="254"/>
+        <location filename="monitor.cpp" line="260"/>
         <source>Show channel numbers relative to fixture</source>
         <translation>Montrer le numéro relatif au projecteur des canaux</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="270"/>
+        <location filename="monitor.cpp" line="276"/>
         <source>DMX Values</source>
         <translation>Valeurs DMX</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="271"/>
+        <location filename="monitor.cpp" line="277"/>
         <source>Show DMX values 0-255</source>
         <translation>Montrer les valeurs DMX (0-255)</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="282"/>
+        <location filename="monitor.cpp" line="288"/>
         <source>Percent Values</source>
         <translation>Valeurs en pourcentage</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="283"/>
+        <location filename="monitor.cpp" line="289"/>
         <source>Show percentage values 0-100%</source>
         <translation>Montrer les valeurs en pourcentage (0-100%)</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="294"/>
+        <location filename="monitor.cpp" line="300"/>
         <source>All universes</source>
         <translation>Tous les univers</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="316"/>
+        <location filename="monitor.cpp" line="322"/>
         <source>DMX View</source>
         <translation>Vue DMX</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="322"/>
+        <location filename="monitor.cpp" line="328"/>
         <source>Size:</source>
         <translation>Taille</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="346"/>
+        <location filename="monitor.cpp" line="352"/>
         <source>Meters</source>
         <translation>mètres</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="347"/>
+        <location filename="monitor.cpp" line="353"/>
         <source>Feet</source>
         <translation>pieds</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="356"/>
+        <location filename="monitor.cpp" line="362"/>
         <source>Add fixture</source>
         <translation>Ajouter un projecteur</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="358"/>
+        <location filename="monitor.cpp" line="364"/>
         <source>Remove fixture</source>
         <translation>Enlever le projecteur</translation>
     </message>
@@ -3774,6 +3792,14 @@ Durée : %3
     </message>
 </context>
 <context>
+    <name>PositionTool</name>
+    <message>
+        <location filename="positiontool.ui" line="14"/>
+        <source>PositonTool</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>QObject</name>
     <message>
         <location filename="app.cpp" line="65"/>
@@ -3786,8 +3812,8 @@ Durée : %3
         <translation>Création</translation>
     </message>
     <message>
-        <location filename="vcxypadfixture.cpp" line="220"/>
-        <location filename="vcxypadfixture.cpp" line="255"/>
+        <location filename="vcxypadfixture.cpp" line="233"/>
+        <location filename="vcxypadfixture.cpp" line="268"/>
         <source>Reversed</source>
         <translation>Inversé</translation>
     </message>
@@ -3977,17 +4003,17 @@ Durée : %3
         <translation>Tester</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="249"/>
+        <location filename="rgbmatrixeditor.cpp" line="255"/>
         <source>None</source>
         <translation>Aucun</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="327"/>
+        <location filename="rgbmatrixeditor.cpp" line="333"/>
         <source>No fixture group to control</source>
         <translation>Aucun groupe de projecteurs à controller</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="598"/>
+        <location filename="rgbmatrixeditor.cpp" line="604"/>
         <source>Select image</source>
         <translation>Sélectionner une image</translation>
     </message>
@@ -4055,100 +4081,105 @@ Durée : %3
         <translation>Désactiver tous les canaux des projecteurs</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="160"/>
+        <location filename="sceneeditor.cpp" line="161"/>
         <source>Enable all channels in current fixture</source>
         <translation>Activer tous les canaux du projecteur actuel</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="162"/>
+        <location filename="sceneeditor.cpp" line="163"/>
         <source>Disable all channels in current fixture</source>
         <translation>Désactiver tous les canaux du projecteur actuel</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="164"/>
+        <location filename="sceneeditor.cpp" line="165"/>
         <source>Copy current values to clipboard</source>
         <translation>Copier les valeurs actuelles dans le presse-papier</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="166"/>
+        <location filename="sceneeditor.cpp" line="167"/>
         <source>Paste clipboard values to current fixture</source>
         <translation>Coller les valeurs du presse-papier vers ce projecteur</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="168"/>
+        <location filename="sceneeditor.cpp" line="169"/>
         <source>Copy current values to all fixtures</source>
         <translation>Copier les valeurs actuelles vers tous les projecteurs</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="170"/>
+        <location filename="sceneeditor.cpp" line="171"/>
         <source>Color tool for CMY/RGB-capable fixtures</source>
         <translation>Outil de couleur pour les projecteurs CMJ/RVB</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="172"/>
+        <location filename="sceneeditor.cpp" line="173"/>
+        <source>Position tool for moving heads/scanners</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sceneeditor.cpp" line="175"/>
         <source>Switch between tab view and all channels view</source>
         <translation>Basculer entre la vue par onglets et la vue de tous les canaux</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="174"/>
+        <location filename="sceneeditor.cpp" line="177"/>
         <source>Toggle blind mode</source>
         <translation>Basculer le mode aveugle</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="176"/>
+        <location filename="sceneeditor.cpp" line="179"/>
         <source>Show/Hide speed dial window</source>
         <translation>Afficher/Masquer la fenêtre de réglage des vitesses</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="178"/>
+        <location filename="sceneeditor.cpp" line="181"/>
         <source>Clone this scene and append as a new step to the selected chaser</source>
         <translation>Cloner cette scène et l&apos;ajouter comme nouveau pas dans le chaser sélectionné</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="180"/>
+        <location filename="sceneeditor.cpp" line="183"/>
         <source>Go to next fixture tab</source>
         <translation>Aller au projecteur suivant</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="184"/>
+        <location filename="sceneeditor.cpp" line="187"/>
         <source>Go to previous fixture tab</source>
         <translation>Aller au projecteur précédent</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="206"/>
+        <location filename="sceneeditor.cpp" line="209"/>
         <source>None</source>
         <translation>Aucun</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="218"/>
+        <location filename="sceneeditor.cpp" line="221"/>
         <source>Scene name:</source>
         <translation>Nom de la scène :</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="688"/>
-        <location filename="sceneeditor.cpp" line="689"/>
+        <location filename="sceneeditor.cpp" line="844"/>
+        <location filename="sceneeditor.cpp" line="845"/>
         <source>All fixtures</source>
         <translation>Tous les projecteurs</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1169"/>
-        <location filename="sceneeditor.cpp" line="1170"/>
+        <location filename="sceneeditor.cpp" line="1361"/>
+        <location filename="sceneeditor.cpp" line="1362"/>
         <source>Channels Groups</source>
         <translation>Groupes de canaux</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="948"/>
-        <location filename="sceneeditor.cpp" line="949"/>
+        <location filename="sceneeditor.cpp" line="1140"/>
+        <location filename="sceneeditor.cpp" line="1141"/>
         <source>Generic</source>
         <translation>Générique</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1017"/>
+        <location filename="sceneeditor.cpp" line="1209"/>
         <source>Remove fixtures</source>
         <translation>Enlever les projecteurs</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1018"/>
+        <location filename="sceneeditor.cpp" line="1210"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Voulez-vous enlever le(s) projecteur(s) sélectionné(s) ?</translation>
     </message>
@@ -6348,6 +6379,14 @@ Durée : %3
         <location filename="vcwidgetselection.ui" line="28"/>
         <source>Type</source>
         <translation>Type</translation>
+    </message>
+</context>
+<context>
+    <name>VCXYPadArea</name>
+    <message>
+        <location filename="vcxypadarea.cpp" line="247"/>
+        <source>Shift: fine, Ctrl:10x</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

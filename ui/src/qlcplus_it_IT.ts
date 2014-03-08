@@ -1208,31 +1208,49 @@ Durata: %3
     <name>ChannelsSelection</name>
     <message>
         <location filename="channelsselection.ui" line="14"/>
-        <source>Channels Fade Configuration</source>
-        <translation>Configurazione fade dei canali</translation>
+        <source>Channels selection</source>
+        <oldsource>Channels Fade Configuration</oldsource>
+        <translation>Selezione dei canali</translation>
     </message>
     <message>
         <location filename="channelsselection.ui" line="28"/>
+        <location filename="channelsselection.cpp" line="46"/>
         <source>Name</source>
         <translation>Nome</translation>
     </message>
     <message>
         <location filename="channelsselection.ui" line="33"/>
+        <location filename="channelsselection.cpp" line="46"/>
         <source>Type</source>
         <translation>Tipo</translation>
     </message>
     <message>
-        <location filename="channelsselection.ui" line="38"/>
-        <source>Fade</source>
-        <translation>Fade</translation>
-    </message>
-    <message>
-        <location filename="channelsselection.ui" line="46"/>
+        <location filename="channelsselection.ui" line="41"/>
         <source>Apply changes to fixtures of the same type</source>
         <translation>Applica i cambiamenti alle fixture dello stesso tipo</translation>
     </message>
     <message>
-        <location filename="channelsselection.cpp" line="93"/>
+        <location filename="channelsselection.cpp" line="50"/>
+        <source>Selected</source>
+        <translation>Selezionato</translation>
+    </message>
+    <message>
+        <location filename="channelsselection.cpp" line="54"/>
+        <source>Channel properties configuration</source>
+        <translation>Configurazione delle proprietà dei canali</translation>
+    </message>
+    <message>
+        <location filename="channelsselection.cpp" line="56"/>
+        <source>Can fade</source>
+        <translation>Consenti fade</translation>
+    </message>
+    <message>
+        <location filename="channelsselection.cpp" line="56"/>
+        <source>Behaviour</source>
+        <translation>Comportamento</translation>
+    </message>
+    <message>
+        <location filename="channelsselection.cpp" line="114"/>
         <source>Universe %1</source>
         <translation>Universo %1</translation>
     </message>
@@ -1266,13 +1284,13 @@ Durata: %3
     </message>
     <message>
         <location filename="chasereditor.ui" line="70"/>
-        <location filename="chasereditor.cpp" line="810"/>
+        <location filename="chasereditor.cpp" line="816"/>
         <source>Fade In</source>
         <translation>Fade In</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="80"/>
-        <location filename="chasereditor.cpp" line="811"/>
+        <location filename="chasereditor.cpp" line="817"/>
         <source>Fade Out</source>
         <translation>Fade Out</translation>
     </message>
@@ -1293,7 +1311,7 @@ Durata: %3
     </message>
     <message>
         <location filename="chasereditor.ui" line="75"/>
-        <location filename="chasereditor.cpp" line="812"/>
+        <location filename="chasereditor.cpp" line="818"/>
         <source>Hold</source>
         <translation>Hold</translation>
     </message>
@@ -1496,32 +1514,32 @@ Durata: %3
         <translation>Incolla</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="581"/>
+        <location filename="chasereditor.cpp" line="587"/>
         <source>Paste error</source>
         <translation>Errore di incolla</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="581"/>
+        <location filename="chasereditor.cpp" line="587"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
         <translation>Stai cercando di incollare su una traccia non compatibile. Operazione annullata.</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="813"/>
+        <location filename="chasereditor.cpp" line="819"/>
         <source>Common Fade In</source>
         <translation>Fade In Comune</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="814"/>
+        <location filename="chasereditor.cpp" line="820"/>
         <source>Common Fade Out</source>
         <translation>Fade Out Comune</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="815"/>
+        <location filename="chasereditor.cpp" line="821"/>
         <source>Common Hold</source>
         <translation>Hold Comune</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="831"/>
+        <location filename="chasereditor.cpp" line="837"/>
         <source>Multiple Steps</source>
         <translation>Passi Multipli</translation>
     </message>
@@ -1735,290 +1753,290 @@ Durata: %3
         <translation>Editor EFX</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="34"/>
+        <location filename="efxeditor.ui" line="40"/>
         <source>General</source>
         <translation>Generale</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="644"/>
+        <location filename="efxeditor.ui" line="675"/>
         <source>EFX name</source>
         <translation>Nome EFX</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="20"/>
+        <location filename="efxeditor.ui" line="682"/>
         <source>The name of the function being edited</source>
         <translation>Nome della funzione che stai editando</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="195"/>
+        <location filename="efxeditor.ui" line="201"/>
         <source>Step</source>
         <translation>Passo</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="200"/>
+        <location filename="efxeditor.ui" line="206"/>
         <source>Fixture</source>
         <translation>Fixture</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="205"/>
+        <location filename="efxeditor.ui" line="211"/>
         <source>Reverse</source>
         <translation>Invertire</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="121"/>
+        <location filename="efxeditor.ui" line="127"/>
         <source>Fixture order</source>
         <translation>Ordine delle fixture</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="127"/>
+        <location filename="efxeditor.ui" line="133"/>
         <source>All fixtures move in parallel</source>
         <translation>Tutte le fixture si muovono in parallelo</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="130"/>
+        <location filename="efxeditor.ui" line="136"/>
         <source>Parallel</source>
         <translation>Parallelo</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="140"/>
+        <location filename="efxeditor.ui" line="146"/>
         <source>The pattern propagates to each fixture in a sequential order</source>
         <translation>Il modello si propaga per ogni apparecchio in un ordine sequenziale</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="143"/>
+        <location filename="efxeditor.ui" line="149"/>
         <source>Serial</source>
         <translation>Serie</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="224"/>
+        <location filename="efxeditor.ui" line="230"/>
         <source>Movement</source>
         <translation>Movimento</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="215"/>
+        <location filename="efxeditor.ui" line="221"/>
         <source>Intensity</source>
         <translation>Intensità</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="210"/>
-        <location filename="efxeditor.ui" line="508"/>
+        <location filename="efxeditor.ui" line="216"/>
+        <location filename="efxeditor.ui" line="514"/>
         <source>Start Offset</source>
         <translation>Posizione di partenza</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="150"/>
+        <location filename="efxeditor.ui" line="156"/>
         <source>Each fixture starts moving immediately with an offset</source>
         <translatorcomment>ritardo??</translatorcomment>
         <translation>Ogni apparecchio inizia a muoversi subito con un ritardo</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="153"/>
+        <location filename="efxeditor.ui" line="159"/>
         <source>Asymmetric</source>
         <translation>Asimmetrico</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="252"/>
+        <location filename="efxeditor.ui" line="258"/>
         <source>Pattern</source>
         <translation>Modello</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="258"/>
+        <location filename="efxeditor.ui" line="264"/>
         <source>Pattern for moving the mirror/head</source>
         <translation>Modello per muovere la testa (o lo specchio)</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="268"/>
+        <location filename="efxeditor.ui" line="274"/>
         <source>Parameters</source>
         <translation>Parametri</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="297"/>
+        <location filename="efxeditor.ui" line="303"/>
         <source>Width</source>
         <translation>Larghezza</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="304"/>
+        <location filename="efxeditor.ui" line="310"/>
         <source>Value width of the pattern</source>
         <translation>Valore di larghezza del modello</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="317"/>
+        <location filename="efxeditor.ui" line="323"/>
         <source>Height</source>
         <translation>Altezza</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="324"/>
+        <location filename="efxeditor.ui" line="330"/>
         <source>Value height of the pattern</source>
         <translation>Valore di altezza del modello</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="337"/>
+        <location filename="efxeditor.ui" line="343"/>
         <source>X offset</source>
         <translation>Posizione della X</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="344"/>
+        <location filename="efxeditor.ui" line="350"/>
         <source>Pattern&apos;s center point on the X axis</source>
         <translation>Punto centrale del modello sull&apos;asse X</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="357"/>
+        <location filename="efxeditor.ui" line="363"/>
         <source>Y offset</source>
         <translation>Posizione Y</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="364"/>
+        <location filename="efxeditor.ui" line="370"/>
         <source>Pattern&apos;s center point on the Y axis</source>
         <translation>Punto centrale del modello sull&apos;asse Y</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="377"/>
+        <location filename="efxeditor.ui" line="383"/>
         <source>Rotation</source>
         <translation>Rotazione</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="384"/>
+        <location filename="efxeditor.ui" line="390"/>
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>Punto di partenza della rotazione del modello</translation>
     </message>
     <message utf8="true">
-        <location filename="efxeditor.ui" line="387"/>
-        <location filename="efxeditor.ui" line="498"/>
+        <location filename="efxeditor.ui" line="393"/>
+        <location filename="efxeditor.ui" line="504"/>
         <source>°</source>
         <translation>°</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="400"/>
+        <location filename="efxeditor.ui" line="406"/>
         <source>X frequency</source>
         <translation>Frequenza X</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="410"/>
+        <location filename="efxeditor.ui" line="416"/>
         <source>Lissajous pattern&apos;s X frequency</source>
         <translation>Frequenza asse X del modello di Lissajous</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="426"/>
+        <location filename="efxeditor.ui" line="432"/>
         <source>Y frequency</source>
         <translation>Frequenza Y</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="436"/>
+        <location filename="efxeditor.ui" line="442"/>
         <source>Lissajous pattern&apos;s Y frequency</source>
         <translation>Frequenza asse Y del modello di Lissajous</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="452"/>
+        <location filename="efxeditor.ui" line="458"/>
         <source>X phase</source>
         <translation>Fase della X</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="475"/>
+        <location filename="efxeditor.ui" line="481"/>
         <source>Lissajous pattern&apos;s X phase</source>
         <translation>Fase X del modello di Lissajou</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="491"/>
+        <location filename="efxeditor.ui" line="497"/>
         <source>Y phase</source>
         <translation>Fase della Y</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="664"/>
+        <location filename="efxeditor.ui" line="646"/>
         <source>Show/Hide speed dial window</source>
         <translation>Mostra/Nascondi finestra speed dial</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="667"/>
+        <location filename="efxeditor.ui" line="649"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="277"/>
+        <location filename="efxeditor.ui" line="283"/>
         <source>Lissajous pattern&apos;s Y phase</source>
         <translation>Fase Y del modello di Lissajou</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="518"/>
+        <location filename="efxeditor.ui" line="524"/>
         <source>Relative</source>
         <translation>Relativo</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="528"/>
+        <location filename="efxeditor.ui" line="534"/>
         <source>Direction</source>
         <translation>Direzione</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="534"/>
+        <location filename="efxeditor.ui" line="540"/>
         <source>Run the pattern forwards</source>
         <translation>Gira il modello in avanti</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="537"/>
+        <location filename="efxeditor.ui" line="543"/>
         <source>Forward</source>
         <translation>Avanti</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="547"/>
+        <location filename="efxeditor.ui" line="553"/>
         <source>Run the pattern backwards</source>
         <translation>Gira il modello indietro</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="550"/>
+        <location filename="efxeditor.ui" line="556"/>
         <source>Backward</source>
         <translation>Indietro</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="576"/>
+        <location filename="efxeditor.ui" line="582"/>
         <source>Run order</source>
         <translation>Ordine di esecuzione</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="582"/>
+        <location filename="efxeditor.ui" line="588"/>
         <source>Run through over and over again</source>
         <translation>Esegui sequenzialmente</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="585"/>
+        <location filename="efxeditor.ui" line="591"/>
         <source>Loop</source>
         <translation>Loop</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="595"/>
+        <location filename="efxeditor.ui" line="601"/>
         <source>Run through once and stop</source>
         <translation>Esegui una volta e poi fermati</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="598"/>
+        <location filename="efxeditor.ui" line="604"/>
         <source>Single shot</source>
         <translation>Singola esecuzione</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="605"/>
+        <location filename="efxeditor.ui" line="611"/>
         <source>First run forwards, then backwards, again forwards, etc...</source>
         <translation>Esegui prima in avanti, poi indietro, poi di nuovo avanti, ecc...</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="608"/>
+        <location filename="efxeditor.ui" line="614"/>
         <source>Ping pong</source>
         <translation>Ping Pong</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="651"/>
+        <location filename="efxeditor.ui" line="20"/>
         <source>See what the EFX does when it is run</source>
         <translation>Guarda cosa fa l&apos;EFX quando è in esecuzione</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="654"/>
+        <location filename="efxeditor.ui" line="23"/>
         <source>&amp;Test Run</source>
         <translation>&amp;Prova esecuzione</translation>
     </message>
     <message>
-        <location filename="efxeditor.cpp" line="678"/>
+        <location filename="efxeditor.cpp" line="684"/>
         <source>Remove fixtures</source>
         <translation>Rimuovi fixture</translation>
     </message>
     <message>
-        <location filename="efxeditor.cpp" line="679"/>
+        <location filename="efxeditor.cpp" line="685"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Vuoi rimuovere le fixture selezionate?</translation>
     </message>
@@ -2683,7 +2701,7 @@ Durata: %3
         <translation>Funzione</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="861"/>
+        <location filename="functionmanager.cpp" line="873"/>
         <source> (Copy)</source>
         <translation> (Copia)</translation>
     </message>
@@ -3389,92 +3407,92 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
 <context>
     <name>Monitor</name>
     <message>
-        <location filename="monitor.cpp" line="194"/>
+        <location filename="monitor.cpp" line="200"/>
         <source>Fixture Monitor</source>
         <translation>Monitor delle fixture</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="226"/>
+        <location filename="monitor.cpp" line="232"/>
         <source>2D View</source>
         <translation>Vista 2D</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="233"/>
+        <location filename="monitor.cpp" line="239"/>
         <source>Font</source>
         <translation>Font</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="242"/>
+        <location filename="monitor.cpp" line="248"/>
         <source>DMX Channels</source>
         <translation>Canali DMX</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="243"/>
+        <location filename="monitor.cpp" line="249"/>
         <source>Show absolute DMX channel numbers</source>
         <translation>Mostra i numeri assoluti dei canali DMX</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="253"/>
+        <location filename="monitor.cpp" line="259"/>
         <source>Relative Channels</source>
         <translation>Canali Relativi</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="254"/>
+        <location filename="monitor.cpp" line="260"/>
         <source>Show channel numbers relative to fixture</source>
         <translation>Mostra i numeri dei canali relativi alla fixture</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="270"/>
+        <location filename="monitor.cpp" line="276"/>
         <source>DMX Values</source>
         <translation>Valori DMX</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="271"/>
+        <location filename="monitor.cpp" line="277"/>
         <source>Show DMX values 0-255</source>
         <translation>Mostra valori DMX 0-255</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="282"/>
+        <location filename="monitor.cpp" line="288"/>
         <source>Percent Values</source>
         <translation>Valori percentuali</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="283"/>
+        <location filename="monitor.cpp" line="289"/>
         <source>Show percentage values 0-100%</source>
         <translation>Mostra valori percentuali 0-100%</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="294"/>
+        <location filename="monitor.cpp" line="300"/>
         <source>All universes</source>
         <translation>Tutti gli universi</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="316"/>
+        <location filename="monitor.cpp" line="322"/>
         <source>DMX View</source>
         <translation>Vista DMX</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="322"/>
+        <location filename="monitor.cpp" line="328"/>
         <source>Size:</source>
         <translation>Dimensione:</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="346"/>
+        <location filename="monitor.cpp" line="352"/>
         <source>Meters</source>
         <translation>Metri</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="347"/>
+        <location filename="monitor.cpp" line="353"/>
         <source>Feet</source>
         <translation>Piedi</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="356"/>
+        <location filename="monitor.cpp" line="362"/>
         <source>Add fixture</source>
         <translation>Aggiungi fixture</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="358"/>
+        <location filename="monitor.cpp" line="364"/>
         <source>Remove fixture</source>
         <translation>Rimuovi fixture</translation>
     </message>
@@ -3769,6 +3787,14 @@ Durata: %3
     </message>
 </context>
 <context>
+    <name>PositionTool</name>
+    <message>
+        <location filename="positiontool.ui" line="14"/>
+        <source>PositonTool</source>
+        <translation>Strumento di posizionamento</translation>
+    </message>
+</context>
+<context>
     <name>QObject</name>
     <message>
         <location filename="app.cpp" line="65"/>
@@ -3781,8 +3807,8 @@ Durata: %3
         <translation>Design</translation>
     </message>
     <message>
-        <location filename="vcxypadfixture.cpp" line="220"/>
-        <location filename="vcxypadfixture.cpp" line="255"/>
+        <location filename="vcxypadfixture.cpp" line="233"/>
+        <location filename="vcxypadfixture.cpp" line="268"/>
         <source>Reversed</source>
         <translation>Invertito</translation>
     </message>
@@ -3972,17 +3998,17 @@ Durata: %3
         <translation>Prova esecuzione</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="249"/>
+        <location filename="rgbmatrixeditor.cpp" line="255"/>
         <source>None</source>
         <translation>Nessuno</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="325"/>
+        <location filename="rgbmatrixeditor.cpp" line="333"/>
         <source>No fixture group to control</source>
         <translation>Nessun gruppo di fixture da controllare</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="596"/>
+        <location filename="rgbmatrixeditor.cpp" line="604"/>
         <source>Select image</source>
         <translation>Seleziona un&apos;immagine</translation>
     </message>
@@ -4050,100 +4076,105 @@ Durata: %3
         <translation>Disattiva tutti i canali di tutte le fixture</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="160"/>
+        <location filename="sceneeditor.cpp" line="161"/>
         <source>Enable all channels in current fixture</source>
         <translation>Abilita tutti i canali di questa fixture</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="162"/>
+        <location filename="sceneeditor.cpp" line="163"/>
         <source>Disable all channels in current fixture</source>
         <translation>Disabilita tutti i canali di questa fixture</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="164"/>
+        <location filename="sceneeditor.cpp" line="165"/>
         <source>Copy current values to clipboard</source>
         <translation>Copia i valori correnti in memoria</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="166"/>
+        <location filename="sceneeditor.cpp" line="167"/>
         <source>Paste clipboard values to current fixture</source>
         <translation>Incolla i valori copiati in memoria su questa fixture</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="168"/>
+        <location filename="sceneeditor.cpp" line="169"/>
         <source>Copy current values to all fixtures</source>
         <translation>Copia questi valori a tutte le fixture</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="170"/>
+        <location filename="sceneeditor.cpp" line="171"/>
         <source>Color tool for CMY/RGB-capable fixtures</source>
         <translation>Ruota colori per fixture con miscelazione CMY/RGB</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="172"/>
+        <location filename="sceneeditor.cpp" line="173"/>
+        <source>Position tool for moving heads/scanners</source>
+        <translation>Strumento di posizionamento per teste mobili e scanner</translation>
+    </message>
+    <message>
+        <location filename="sceneeditor.cpp" line="175"/>
         <source>Switch between tab view and all channels view</source>
         <translation>Passa dalla vista a tab alla vista a canali</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="174"/>
+        <location filename="sceneeditor.cpp" line="177"/>
         <source>Toggle blind mode</source>
         <translation>Modalità blind on/off</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="176"/>
+        <location filename="sceneeditor.cpp" line="179"/>
         <source>Show/Hide speed dial window</source>
         <translation>Mostra/Nascondi finestra speed dial</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="178"/>
+        <location filename="sceneeditor.cpp" line="181"/>
         <source>Clone this scene and append as a new step to the selected chaser</source>
         <translation>Clona questa scena e aggiungi un nuovo passo al chaser selezionato</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="180"/>
+        <location filename="sceneeditor.cpp" line="183"/>
         <source>Go to next fixture tab</source>
         <translation>Vai al tab della fixture successiva</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="184"/>
+        <location filename="sceneeditor.cpp" line="187"/>
         <source>Go to previous fixture tab</source>
         <translation>Vai al tab della fixture precedente</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="206"/>
+        <location filename="sceneeditor.cpp" line="209"/>
         <source>None</source>
         <translation>Nessuno</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="218"/>
+        <location filename="sceneeditor.cpp" line="221"/>
         <source>Scene name:</source>
         <translation>Nome della scena:</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="688"/>
-        <location filename="sceneeditor.cpp" line="689"/>
+        <location filename="sceneeditor.cpp" line="844"/>
+        <location filename="sceneeditor.cpp" line="845"/>
         <source>All fixtures</source>
         <translation>Tutte le fixture</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1169"/>
-        <location filename="sceneeditor.cpp" line="1170"/>
+        <location filename="sceneeditor.cpp" line="1361"/>
+        <location filename="sceneeditor.cpp" line="1362"/>
         <source>Channels Groups</source>
         <translation>Gruppi di Canali</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="948"/>
-        <location filename="sceneeditor.cpp" line="949"/>
+        <location filename="sceneeditor.cpp" line="1140"/>
+        <location filename="sceneeditor.cpp" line="1141"/>
         <source>Generic</source>
         <translation>Generico</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1017"/>
+        <location filename="sceneeditor.cpp" line="1209"/>
         <source>Remove fixtures</source>
         <translation>Elimina Fixture</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1018"/>
+        <location filename="sceneeditor.cpp" line="1210"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Vuoi eliminare le fixture selezionate?</translation>
     </message>
@@ -4541,112 +4572,118 @@ Durata: %3
 <context>
     <name>SimpleDesk</name>
     <message>
-        <location filename="simpledesk.cpp" line="230"/>
+        <location filename="simpledesk.cpp" line="232"/>
         <source>Universe</source>
         <translation>Universo</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="217"/>
+        <location filename="simpledesk.cpp" line="219"/>
         <source>Next page</source>
         <translation>Pagina successiva</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="209"/>
+        <location filename="simpledesk.cpp" line="211"/>
         <source>Current page</source>
         <translation>Pagina corrente</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="201"/>
+        <location filename="simpledesk.cpp" line="203"/>
         <source>Previous page</source>
         <translation>Pagina precedente</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="192"/>
+        <location filename="simpledesk.cpp" line="194"/>
         <source>View mode</source>
         <translation>Modalità di visualizzazione</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="225"/>
+        <location filename="simpledesk.cpp" line="227"/>
         <source>Reset universe</source>
         <translation>Resetta universo</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="266"/>
+        <location filename="simpledesk.cpp" line="271"/>
         <source>Playback</source>
         <translation>Riproduzione</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="273"/>
+        <location filename="simpledesk.cpp" line="268"/>
+        <location filename="simpledesk.cpp" line="278"/>
         <source>Cue Stack</source>
         <translation>Pila Azioni</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="283"/>
+        <location filename="simpledesk.cpp" line="288"/>
         <source>Previous cue</source>
         <translation>Azione precedente</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="289"/>
+        <location filename="simpledesk.cpp" line="294"/>
         <source>Stop cue stack</source>
         <translation>Ferma pila azioni</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="295"/>
+        <location filename="simpledesk.cpp" line="300"/>
         <source>Next cue</source>
         <translation>Azione successiva</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="303"/>
+        <location filename="simpledesk.cpp" line="308"/>
         <source>Clone cue stack</source>
         <translation>Clona pila azioni</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="309"/>
+        <location filename="simpledesk.cpp" line="314"/>
         <source>Edit cue stack</source>
         <translation>Modifica pila azioni</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="316"/>
+        <location filename="simpledesk.cpp" line="321"/>
         <source>Record cue</source>
         <translation>Registra azione</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="740"/>
+        <location filename="simpledesk.cpp" line="477"/>
+        <source>Channel groups</source>
+        <translation>Gruppi di canali</translation>
+    </message>
+    <message>
+        <location filename="simpledesk.cpp" line="770"/>
         <source>Cue Stack - Playback %1</source>
         <translation>Pila azioni - Riproduzione %1</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="857"/>
+        <location filename="simpledesk.cpp" line="935"/>
         <source>No selection</source>
         <translation>Nessuna selezione</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="880"/>
+        <location filename="simpledesk.cpp" line="958"/>
         <source>Cue name</source>
         <translation>Nome azione</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="887"/>
+        <location filename="simpledesk.cpp" line="965"/>
         <source>Multiple Cues</source>
         <translation>Azioni multiple</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="984"/>
+        <location filename="simpledesk.cpp" line="1062"/>
         <source>Delete cue</source>
         <translation>Elimina azione</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1038"/>
+        <location filename="simpledesk.cpp" line="1116"/>
         <source>Clone Cue Stack</source>
         <translation>Clona pila azioni</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1038"/>
+        <location filename="simpledesk.cpp" line="1116"/>
         <source>Clone To Playback#</source>
         <translation>Clona su riproduzione#</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1111"/>
+        <location filename="simpledesk.cpp" line="1189"/>
         <source>Cue %1</source>
         <translation>Azione %1</translation>
     </message>
@@ -6337,6 +6374,14 @@ Durata: %3
         <location filename="vcwidgetselection.ui" line="28"/>
         <source>Type</source>
         <translation>Tipo</translation>
+    </message>
+</context>
+<context>
+    <name>VCXYPadArea</name>
+    <message>
+        <location filename="vcxypadarea.cpp" line="247"/>
+        <source>Shift: fine, Ctrl:10x</source>
+        <translation>Shift: fino, Ctrl:10x</translation>
     </message>
 </context>
 <context>

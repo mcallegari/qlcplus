@@ -59,12 +59,12 @@
     <message>
         <location filename="hidjsdevice.cpp" line="303"/>
         <source>Axes: %1</source>
-        <translation>Asse: %1</translation>
+        <translation>Assi: %1</translation>
     </message>
     <message>
         <location filename="hidjsdevice.cpp" line="305"/>
         <source>Buttons: %1</source>
-        <translation>Bottone: %1</translation>
+        <translation>Pulsanti: %1</translation>
     </message>
 </context>
 </TS>

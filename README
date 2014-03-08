@@ -3,7 +3,6 @@ Q Light Controller Plus 4
 Copyright (c) Heikki Junnila
 	      Massimo Callegari
 
-EMail: massimocallegari@yahoo.it
 QLC+ on SourceForge: http://qlcplus.sourceforge.net/index.shtml
 QLC+ on GitHub: https://github.com/mcallegari/qlcplus
 
@@ -103,10 +102,10 @@ and then (as administrator/root):
 
 Support & Bug Reports
 ---------------------
-For Wiki, code and bugs, go to:
-https://github.com/mcallegari/qlcplus
 For discussions, feedbacks, ideas and new fixtures, go to:
 http://sourceforge.net/p/qlcplus/discussion/
+For developers wiki and code patches, go to:
+https://github.com/mcallegari/qlcplus
 
 Contributors
 ------------
@@ -114,6 +113,7 @@ QLC+:
 Jano Svitok (Bugfixes, new features)
 Thomas Achtner (ENTTEC wing improvements)
 Joep Admiraal (MIDI SysEx init messages)
+Florian Euchner (FX5 USB DMX support)
 Stefan Riemens (new features)
 Heiko Fanieng (German translation)
 NiKoyes (French translation)
@@ -122,11 +122,11 @@ Luis García Tornel (Spanish translation)
 Jan Lachman (Czech translation)
 
 QLC:
-Stefan Krumm <stefankrumm@users.sf.net> (Bugfixes, new features)
-Christian Suehs <dance-or-die@users.sf.net> (Bugfixes, new features)
-Christopher Staite <chris_staite@users.sf.net> (Bugfixes)
-Klaus Weidenbach <dawnbreak@users.sf.net> (Bugfixes, German translation)
-Simon Newton <newtons@iinet.net> (OLA plugin)
-Lutz Hillebrand <lutz.h@hagen.de> (uDMX plugin)
-Matthew Jaggard <matthew@jaggard.org.uk> (Velleman plugin)
-Ptit Vachon <6ril@no-log.org> (French translation)
+Stefan Krumm (Bugfixes, new features)
+Christian Suehs (Bugfixes, new features)
+Christopher Staite (Bugfixes)
+Klaus Weidenbach (Bugfixes, German translation)
+Simon Newton (OLA plugin)
+Lutz Hillebrand (uDMX plugin)
+Matthew Jaggard (Velleman plugin)
+Ptit Vachon (French translation)
