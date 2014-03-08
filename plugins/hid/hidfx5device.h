@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
-  hidjsdevice.h
+  Q Light Controller Plus
+  hidfx5device.h
 
-  Copyright (c) Heikki Junnila
+  Copyright (c) Massimo Callegari
+                Florian Euchner
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,24 +18,20 @@
   limitations under the License.
 */
 
-#ifndef HIDJSDEVICE_H
-#define HIDJSDEVICE_H
+#ifndef HIDFX5DEVICE_H
+#define HIDFX5DEVICE_H
 
 #include <QObject>
-#include <QFile>
-#include <QHash>
-
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-  #include <sys/ioctl.h>
-  #include <linux/input.h>
-  #include <linux/types.h>
-#elif defined(WIN32) || defined (Q_OS_WIN)
-  #include <windows.h>
-  #include <mmsystem.h>
-  #include <regstr.h>
-#endif
 
 #include "hiddevice.h"
+#include "hidapi.h"
+
+#define FX5_DMX_INTERFACE_VENDOR_ID 0x4B4
+#define FX5_DMX_INTERFACE_PRODUCT_ID 0xF1F
+#define FX5_DMX_INTERFACE_VENDOR_ID_2 0x16C0
+#define FX5_DMX_INTERFACE_PRODUCT_ID_2 0x88B
+
+#define FX5_READ_TIMEOUT 100
 
 class HIDEventDevice;
 class HID;
@@ -43,17 +40,13 @@ class HID;
  * HIDEventDevice
  *****************************************************************************/
 
-class HIDJsDevice : public HIDDevice
+class HIDFX5Device : public HIDDevice
 {
     Q_OBJECT
 
 public:
-    HIDJsDevice(HID* parent, quint32 line, const QString& name, const QString& path);
-    virtual ~HIDJsDevice();
-
-#if defined(WIN32) || defined (Q_OS_WIN)
-    static bool isJoystick(unsigned short vid, unsigned short pid);
-#endif
+    HIDFX5Device(HID* parent, quint32 line, const QString& name, const QString& path);
+    virtual ~HIDFX5Device();
 
 protected:
     /** Initialize the device, find out its capabilities etc. */
@@ -62,16 +55,9 @@ protected:
     /** @reimp */
     bool hasInput() { return true; }
 
-protected:
-    unsigned char m_axes;
-    unsigned char m_buttons;
-#if defined(WIN32) || defined (Q_OS_WIN)
-    JOYCAPS m_caps;
-    JOYINFOEX m_info;
-    UINT m_windId;
-    DWORD m_buttonsMask;
-    QByteArray m_axesValues;
-#endif
+    /** @reimp */
+    bool hasOutput() { return true; }
+
     /*********************************************************************
      * File operations
      *********************************************************************/
@@ -82,12 +68,11 @@ public:
     /** @reimp */
     void closeInput();
     
-    /** Joysticks cannot be used as output devices */
     /** @reimp */
-    void openOutput() {};
+    void openOutput();
 
     /** @reimp */
-    void closeOutput() {};
+    void closeOutput();
 
     /** @reimp */
     QString path() const;
@@ -112,13 +97,40 @@ public:
 private:
     /** @reimp */
     void run();
-    
-    /*************************************************************************
+
+    /*********************************************************************
      * Output data
-     *************************************************************************/
- 
+     *********************************************************************/
+public:
     /** @reimp */
-    void outputDMX(const QByteArray &data) { Q_UNUSED(data); };
+    void outputDMX(const QByteArray &data, bool forceWrite = false);
+    
+     /*********************************************************************
+     * FX5 - specific functions and device handle
+     *********************************************************************/
+private:
+    /** Interface mode specification */
+    enum FX5mode
+    {
+        FX5_MODE_NONE   = 1 << 0,
+        FX5_MODE_OUTPUT = 1 << 1,
+        FX5_MODE_INPUT  = 1 << 2
+    };
+
+    /** mode selection function */
+    void updateMode();
+
+    /** The device current open mode */
+    int m_mode;
+
+    /** Last universe data that has been received */
+    QByteArray m_dmx_in_cmp;
+
+    /** Last universe data that has been output */
+    QByteArray m_dmx_cmp;
+
+    /** device handle for the interface */
+    hid_device *m_handle;
 };
 
 #endif

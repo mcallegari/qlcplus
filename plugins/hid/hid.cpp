@@ -24,8 +24,9 @@
 #include <QDir>
 
 #include "configurehid.h"
+#include "hidfx5device.h"
 #include "hidjsdevice.h"
-#include "hidpoller.h"
+#include "hidapi.h"
 #include "hid.h"
 
 /*****************************************************************************
@@ -56,7 +57,6 @@ HIDInputEvent::~HIDInputEvent()
 
 void HID::init()
 {
-    m_poller = new HIDPoller(this);
     rescanDevices();
 }
 
@@ -64,9 +64,6 @@ HID::~HID()
 {
     while (m_devices.isEmpty() == false)
         delete m_devices.takeFirst();
-
-    m_poller->stop();
-    delete m_poller;
 }
 
 QString HID::name()
@@ -76,7 +73,7 @@ QString HID::name()
 
 int HID::capabilities() const
 {
-    return QLCIOPlugin::Input;
+    return QLCIOPlugin::Input | QLCIOPlugin::Output;
 }
 
 /*****************************************************************************
@@ -87,7 +84,11 @@ void HID::openInput(quint32 input)
 {
     HIDDevice* dev = device(input);
     if (dev != NULL)
-        addPollDevice(dev);
+    {
+        dev->openInput();
+        connect(dev, SIGNAL(valueChanged(quint32,quint32,uchar)),
+                this, SIGNAL(valueChanged(quint32,quint32,uchar)));
+    }
     else
         qDebug() << name() << "has no input number:" << input;
 }
@@ -96,7 +97,11 @@ void HID::closeInput(quint32 input)
 {
     HIDDevice* dev = device(input);
     if (dev != NULL)
-        removePollDevice(dev);
+    {
+        dev->closeInput();
+        disconnect(dev, SIGNAL(valueChanged(quint32,quint32,uchar)),
+                   this, SIGNAL(valueChanged(quint32,quint32,uchar)));
+    }
     else
         qDebug() << name() << "has no input number:" << input;
 }
@@ -107,7 +112,11 @@ QStringList HID::inputs()
 
     QListIterator <HIDDevice*> it(m_devices);
     while (it.hasNext() == true)
-        list << it.next()->name();
+    {
+        HIDDevice* dev = it.next();
+        if (dev->hasInput())
+            list << dev->name();
+    }
 
     return list;
 }
@@ -138,7 +147,7 @@ QString HID::pluginInfo()
 
     str += QString("<P>");
     str += QString("<H3>%1</H3>").arg(name());
-    str += tr("This plugin provides input support for HID-based joysticks.");
+    str += tr("This plugin provides input support for HID-based joysticks and the FX5 USB DMX adapter.");
     str += QString("</P>");
 
     return str;
@@ -163,6 +172,73 @@ QString HID::inputInfo(quint32 input)
     return str;
 }
 
+/*********************************************************************
+ * Outputs
+ *********************************************************************/
+void HID::openOutput(quint32 output)
+{
+    HIDDevice* dev = device(output);
+    if (dev != NULL)
+        dev->openOutput();
+    else
+        qDebug() << name() << "has no output number:" << output;
+}
+
+void HID::closeOutput(quint32 output)
+{
+    HIDDevice* dev = device(output);
+    if (dev != NULL)
+        dev->closeOutput();
+    else
+        qDebug() << name() << "has no output number:" << output;
+}
+
+QStringList HID::outputs()
+{
+    QStringList list;
+
+    QListIterator <HIDDevice*> it(m_devices);
+    while (it.hasNext() == true)
+    {
+        HIDDevice* dev = it.next();
+        if (dev->hasOutput())
+            list << dev->name();
+    }
+
+    return list;
+}
+
+QString HID::outputInfo(quint32 output)
+{
+    QString str;
+
+    if (output != QLCIOPlugin::invalidLine())
+    {
+        /* A specific output line selected. Display its information if
+           available. */
+        HIDDevice* dev = device(output);
+        if (dev != NULL)
+            str += dev->infoText();
+    }
+
+    str += QString("</BODY>");
+    str += QString("</HTML>");
+
+    return str;
+}
+
+void HID::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+{
+    Q_UNUSED(universe);
+
+    if (output != QLCIOPlugin::invalidLine())
+    {
+        HIDDevice* dev = device(output);
+        if (dev != NULL)
+            dev->outputDMX(data);
+    }
+}
+
 /*****************************************************************************
  * Configuration
  *****************************************************************************/
@@ -184,51 +260,67 @@ bool HID::canConfigure()
 
 void HID::rescanDevices()
 {
-    quint32 line = 0;
-
-    /* Copy the pointers from our devices list into a list of devices
-       to destroy in case some of them have disappeared. */
+    /* Treat all devices as dead first, until we find them again. Those
+       that aren't found, get destroyed at the end of this function. */
     QList <HIDDevice*> destroyList(m_devices);
 
-    /* Check all files matching filter "/dev/input/js*" */
-    QDir dir("/dev/input/", QString("js*"), QDir::Name, QDir::System);
-    QStringListIterator it(dir.entryList());
-    while (it.hasNext() == true)
-    {
-        /* Construct an absolute path for the file */
-        QString path(dir.absoluteFilePath(it.next()));
+    struct hid_device_info *devs, *cur_dev;
+    quint32 line = 0;
 
-        /* Check that we can at least read from the device. Otherwise
-           deem it to ge destroyed. */
-        if (QFile::permissions(path) & QFile::ReadOther)
+    devs = hid_enumerate(0x0, 0x0);
+
+    cur_dev = devs;
+
+    while (cur_dev)
+    {
+        //qDebug() << "[HID Device found] path:" << QString(cur_dev->path) << ", name:" << QString::fromWCharArray(cur_dev->product_string);
+
+        HIDDevice* dev = device(QString(cur_dev->path));
+        if (dev != NULL)
         {
-            HIDDevice* dev = device(path);
-            if (dev == NULL)
-            {
-                /* This device is unknown to us. Add it. */
-                dev = new HIDJsDevice(this, line++, path);
-                addDevice(dev);
-            }
-            else
-            {
-                /* Remove the device from our destroy list,
-                   since it is still available */
-                destroyList.removeAll(dev);
-            }
+            /** Device already exists, delete from remove list */
+            destroyList.removeAll(dev);
+        }
+        else if((cur_dev->vendor_id == FX5_DMX_INTERFACE_VENDOR_ID
+                && cur_dev->product_id == FX5_DMX_INTERFACE_PRODUCT_ID) ||
+                (cur_dev->vendor_id == FX5_DMX_INTERFACE_VENDOR_ID_2
+                && cur_dev->product_id == FX5_DMX_INTERFACE_PRODUCT_ID_2))
+        {
+            /* Device is a FX5 / Digital Enlightenment USB DMX Interface, add it */
+            dev = new HIDFX5Device(this, line++,
+                                   QString::fromWCharArray(cur_dev->manufacturer_string) + " " +
+                                   QString::fromWCharArray(cur_dev->product_string),
+                                   QString(cur_dev->path));
+            addDevice(dev);
         }
         else
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+            if (QString(cur_dev->path).contains("js"))
+#elif defined(WIN32) || defined (Q_OS_WIN)
+            if(HIDJsDevice::isJoystick(cur_dev->vendor_id, cur_dev->product_id) == true)
+#endif
         {
-            /* The file is not readable. If we have an entry for
-               it, it must be destroyed. */
-            HIDDevice* dev = device(path);
-            if (dev != NULL)
-                removeDevice(dev);
+            dev = new HIDJsDevice(this, line++,
+                                  QString::fromWCharArray(cur_dev->manufacturer_string) + " " +
+                                  QString::fromWCharArray(cur_dev->product_string),
+                                  QString(cur_dev->path));
+            addDevice(dev);
         }
+
+        cur_dev = cur_dev->next;
     }
 
-    /* Destroy all devices that were not found during rescan */
+    hid_free_enumeration(devs);
+    
+    /* Destroy those devices that were no longer found. */
     while (destroyList.isEmpty() == false)
-        removeDevice(destroyList.takeFirst());
+    {
+        HIDDevice* dev = destroyList.takeFirst();
+        m_devices.removeAll(dev);
+        delete dev;
+    }
+    
+    emit configurationChanged();
 }
 
 HIDDevice* HID::device(const QString& path)
@@ -267,29 +359,12 @@ void HID::removeDevice(HIDDevice* device)
 {
     Q_ASSERT(device != NULL);
 
-    removePollDevice(device);
     m_devices.removeAll(device);
 
     emit deviceRemoved(device);
     delete device;
 
     emit configurationChanged();
-}
-
-/*****************************************************************************
- * Device poller
- *****************************************************************************/
-
-void HID::addPollDevice(HIDDevice* device)
-{
-    Q_ASSERT(device != NULL);
-    m_poller->addDevice(device);
-}
-
-void HID::removePollDevice(HIDDevice* device)
-{
-    Q_ASSERT(device != NULL);
-    m_poller->removeDevice(device);
 }
 
 /*****************************************************************************

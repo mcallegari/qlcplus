@@ -20,7 +20,7 @@
 #ifndef HIDDEVICE_H
 #define HIDDEVICE_H
 
-#include <QObject>
+#include <QThread>
 #include <QFile>
 
 class HID;
@@ -29,12 +29,12 @@ class HID;
  * HIDDevice
  *****************************************************************************/
 
-class HIDDevice : public QObject
+class HIDDevice : public QThread
 {
     Q_OBJECT
 
 public:
-    HIDDevice(HID* parent, quint32 line, const QString& path);
+    HIDDevice(HID* parent, quint32 line, const QString& name, const QString& path);
     virtual ~HIDDevice();
 
     /*************************************************************************
@@ -42,17 +42,28 @@ public:
      *************************************************************************/
 public:
     /**
-     * Attempt to open the HID device in RW mode and fall back to RO
-     * if that fails.
+     * Attempt to open the HID device as input in RW mode and fall back
+     * to RO if that fails.
      *
      * @return true if the file was opened RW/RO
      */
-    virtual bool open();
+    virtual bool openInput();
 
     /**
-     * Close the HID device
+     * Close the HID device's input
      */
-    virtual void close();
+    virtual void closeInput();
+    
+     /**
+     * Open HID device as output
+     *
+     */
+    virtual void openOutput();
+
+    /**
+     * Close the HID device'd output
+     */
+    virtual void closeOutput();
 
     /**
      * Get the full path of this HID device
@@ -80,8 +91,12 @@ public:
         return m_line;
     }
 
+    virtual bool hasInput() { return false; }
+    virtual bool hasOutput() { return false; }
+
 protected:
     quint32 m_line;
+    int m_capabilities;
 
     /*************************************************************************
      * Device info
@@ -111,7 +126,7 @@ signals:
      * @param channel The channel whose value has changed
      * @param value The changed value
      */
-    void valueChanged(HIDDevice* device, quint32 channel, uchar value);
+    void valueChanged(quint32 line, quint32 channel, uchar value);
 
 public:
     /**
@@ -119,6 +134,21 @@ public:
      * and such.
      */
     virtual void feedBack(quint32 channel, uchar value);
+
+protected:
+    bool m_running;
+
+private:
+    /** Input data thread worker method */
+    virtual void run();
+
+    /*************************************************************************
+     * Output data
+     *************************************************************************/
+public:
+
+    /** Output data, which is a DMX universe */
+    virtual void outputDMX(const QByteArray &data, bool forceWrite = false);
 };
 
 #endif
