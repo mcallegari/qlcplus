@@ -38,6 +38,41 @@ allows any manual setting.<br>
 The button is icon is: <IMG SRC="qrc:/configure.png" width=32>
 </P>
 
+<H2>Adding/Removing universes</H2>
+<P>
+QLC+ supports any number of universes, depending on the CPU limit of the device controlling them.<br>
+On the left hand side of the Input/Output Manager there is a toolbar where you can add/remove, name
+and configure universes.
+</P>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD><IMG SRC="qrc:/edit_add.png"></TD>
+  <TD>Add a new universe. The universe will have a name like "Universe X",
+      where X is a progressive number assigned by QLC+ (and also the Universe ID).
+  </TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/edit_remove.png"></TD>
+  <TD>Remove the currently selected universe.<br>
+      <B>Please be careful with this operation as it can compromise your project and cannot be reverted.</B><br>
+      When deleting a universe, if it is currently patched or some fixtures are mapped
+      on it, a popup message will appear asking for confirmation if the operation should
+      be completed or abandoned.
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Universe name</B></TD>
+  <TD>An arbitrary string that you can set to quickly identify the meaning of a Universe</TD>
+ </TR>
+ <TR>
+  <TD><B>Passthrough</B></TD>
+  <TD>Set the universe to just forward what it receives in its input line to its output line<br>
+      This is useful when you want to use QLC+ to act as a "protocol" converter. For example
+      you can use this feature to transparently map an ArtNet network to a DMX USB adapter.
+  </TD>
+ </TR>
+</TABLE>
 
 <H2>Patching</H2>
 
