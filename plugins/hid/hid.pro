@@ -10,6 +10,7 @@ INCLUDEPATH += ../interfaces
 CONFIG      += plugin
 
 win32:LIBS += -lsetupapi -lwinmm
+macx:LIBS += -framework IOKit -framework CoreFoundation
 
 HEADERS += ../interfaces/qlcioplugin.h
 HEADERS += configurehid.h \

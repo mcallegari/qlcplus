@@ -293,6 +293,7 @@ void HID::rescanDevices()
                                    QString(cur_dev->path));
             addDevice(dev);
         }
+#if !defined (__APPLE__) && !defined(Q_OS_MACX)
         else
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
             if (QString(cur_dev->path).contains("js"))
@@ -306,7 +307,7 @@ void HID::rescanDevices()
                                   QString(cur_dev->path));
             addDevice(dev);
         }
-
+#endif
         cur_dev = cur_dev->next;
     }
 

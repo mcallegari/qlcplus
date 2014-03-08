@@ -162,6 +162,8 @@ void HIDEventDevice::getCapabilities(uint8_t* mask)
             }
         }
     }
+#else
+    Q_UNUSED(mask)
 #endif
 }
 
