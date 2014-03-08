@@ -147,7 +147,7 @@ QString HID::pluginInfo()
 
     str += QString("<P>");
     str += QString("<H3>%1</H3>").arg(name());
-    str += tr("This plugin provides input support for HID-based joysticks and the FX5 USB DMX adapter.");
+    str += tr("This plugin provides support for HID-based joysticks and the FX5 USB DMX adapter.");
     str += QString("</P>");
 
     return str;
