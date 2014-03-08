@@ -35,6 +35,7 @@ fixtures.files += American-DJ-Profile-Panel-RGB.qxf
 fixtures.files += American-DJ-ProPAR-56RGB.qxf
 fixtures.files += American-DJ-Quad-Gem-DMX.qxf
 fixtures.files += American-DJ-Quad-Phase.qxf
+fixtures.files += American-DJ-Quad-Scan-LED.qxf
 fixtures.files += American-DJ-Revo-3.qxf
 fixtures.files += American-DJ-Revo-4.qxf
 fixtures.files += American-DJ-Revo-4-256.qxf
