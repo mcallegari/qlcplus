@@ -17,8 +17,6 @@
   limitations under the License.
 */
 
-#include <linux/input.h>
-#include <errno.h>
 #if !defined(WIN32) && !defined(Q_OS_WIN)
   #include <unistd.h>
 #endif

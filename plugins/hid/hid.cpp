@@ -84,7 +84,11 @@ void HID::openInput(quint32 input)
 {
     HIDDevice* dev = device(input);
     if (dev != NULL)
+    {
         dev->openInput();
+        connect(dev, SIGNAL(valueChanged(quint32,quint32,uchar)),
+                this, SIGNAL(valueChanged(quint32,quint32,uchar)));
+    }
     else
         qDebug() << name() << "has no input number:" << input;
 }
@@ -93,7 +97,11 @@ void HID::closeInput(quint32 input)
 {
     HIDDevice* dev = device(input);
     if (dev != NULL)
+    {
         dev->closeInput();
+        disconnect(dev, SIGNAL(valueChanged(quint32,quint32,uchar)),
+                   this, SIGNAL(valueChanged(quint32,quint32,uchar)));
+    }
     else
         qDebug() << name() << "has no input number:" << input;
 }
@@ -162,11 +170,6 @@ QString HID::inputInfo(quint32 input)
     str += QString("</HTML>");
 
     return str;
-}
-
-void HID::emitChangeValue(quint32 port, quint32 channel, uchar value)
-{
-    emit valueChanged(port, channel, value);
 }
 
 /*********************************************************************
@@ -270,7 +273,7 @@ void HID::rescanDevices()
 
     while (cur_dev)
     {
-        qDebug() << "[HID Device found] path:" << QString(cur_dev->path) << ", name:" << QString::fromWCharArray(cur_dev->product_string);
+        //qDebug() << "[HID Device found] path:" << QString(cur_dev->path) << ", name:" << QString::fromWCharArray(cur_dev->product_string);
 
         HIDDevice* dev = device(QString(cur_dev->path));
         if (dev != NULL)
@@ -293,6 +296,8 @@ void HID::rescanDevices()
         else
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
             if (QString(cur_dev->path).contains("js"))
+#elif defined(WIN32) || defined (Q_OS_WIN)
+            if(HIDJsDevice::isJoystick(cur_dev->vendor_id, cur_dev->product_id) == true)
 #endif
         {
             dev = new HIDJsDevice(this, line++,

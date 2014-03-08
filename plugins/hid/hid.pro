@@ -2,14 +2,14 @@ include(../../variables.pri)
 
 TEMPLATE = lib
 LANGUAGE = C++
-TARGET   = hid
+TARGET   = hidplugin
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 INCLUDEPATH += ../interfaces
 CONFIG      += plugin
 
-win32:LIBS += -l setupapi
+win32:LIBS += -lsetupapi -lwinmm
 
 HEADERS += ../interfaces/qlcioplugin.h
 HEADERS += configurehid.h \

@@ -28,6 +28,10 @@
   #include <sys/ioctl.h>
   #include <linux/input.h>
   #include <linux/types.h>
+#elif defined(WIN32) || defined (Q_OS_WIN)
+  #include <windows.h>
+  #include <mmsystem.h>
+  #include <regstr.h>
 #endif
 
 #include "hiddevice.h"
@@ -47,6 +51,10 @@ public:
     HIDJsDevice(HID* parent, quint32 line, const QString& name, const QString& path);
     virtual ~HIDJsDevice();
 
+#if defined(WIN32) || defined (Q_OS_WIN)
+    static bool isJoystick(unsigned short vid, unsigned short pid);
+#endif
+
 protected:
     /** Initialize the device, find out its capabilities etc. */
     void init();
@@ -57,7 +65,13 @@ protected:
 protected:
     unsigned char m_axes;
     unsigned char m_buttons;
-
+#if defined(WIN32) || defined (Q_OS_WIN)
+    JOYCAPS m_caps;
+    JOYINFOEX m_info;
+    UINT m_windId;
+    DWORD m_buttonsMask;
+    QByteArray m_axesValues;
+#endif
     /*********************************************************************
      * File operations
      *********************************************************************/

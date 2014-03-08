@@ -29,6 +29,8 @@
   #include <errno.h>
   #include <unistd.h>
   #include <poll.h>
+#elif defined(WIN32) || defined (Q_OS_WIN)
+  #define JOY_BUTTON_MASK(n) (1 << n)
 #endif
 
 #include "hidjsdevice.h"
@@ -49,12 +51,33 @@ HIDJsDevice::~HIDJsDevice()
 
 }
 
+#if defined(WIN32) || defined (Q_OS_WIN)
+bool HIDJsDevice::isJoystick(unsigned short vid, unsigned short pid)
+{
+    JOYCAPS caps;
+    JOYINFO joyInfo;
+
+    for (UINT i = 0; i < joyGetNumDevs(); i++)
+    {
+        memset( &caps, 0, sizeof( JOYCAPS ) );
+
+        MMRESULT error = joyGetDevCapsW( i, &caps, sizeof(JOYCAPS));
+        if (error == JOYERR_NOERROR && vid == caps.wMid && pid == caps.wPid)
+        {
+            if( joyGetPos(i, & joyInfo) == JOYERR_NOERROR )
+                return true;
+        }
+    }
+    return false;
+}
+#endif
+
 void HIDJsDevice::init()
 {
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     if (openInput() == false)
         return;
 
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     /* Number of axes */
     if (ioctl(m_file.handle(), JSIOCGAXES, &m_axes) < 0)
     {
@@ -70,8 +93,52 @@ void HIDJsDevice::init()
         qWarning() << "Unable to get number of buttons:"
                    << strerror(errno);
     }
-#endif
+
     closeInput();
+
+#elif defined(WIN32) || defined (Q_OS_WIN)
+
+    m_info.dwFlags = JOY_RETURNALL;
+    m_info.dwSize  = sizeof( m_info );
+
+    QString devPath = path();
+    bool ok;
+    unsigned short VID = devPath.mid(devPath.indexOf("vid_") + 4, 4).toUShort(&ok, 16);
+    unsigned short PID = devPath.mid(devPath.indexOf("pid_") + 4, 4).toUShort(&ok, 16);
+
+    for (UINT i = 0; i < joyGetNumDevs(); i++)
+    {
+        memset( &m_caps, 0, sizeof( m_caps ) );
+
+        MMRESULT error = joyGetDevCapsW( i, &m_caps, sizeof(JOYCAPS));
+
+        if (error == JOYERR_NOERROR && VID == m_caps.wMid && PID == m_caps.wPid)
+        {
+            /* Windows joystick drivers may provide any combination of
+             * X,Y,Z,R,U,V,POV - not necessarily the first n of these.
+             */
+            if( m_caps.wCaps & JOYCAPS_HASV )
+            {
+                m_axes = 6;
+                //joy->min[ 7 ] = -1.0; joy->max[ 7 ] = 1.0;  /* POV Y */
+                //joy->min[ 6 ] = -1.0; joy->max[ 6 ] = 1.0;  /* POV X */
+            }
+            else
+                m_axes = m_caps.wNumAxes;
+
+            m_buttons = m_caps.wNumButtons;
+            m_axesValues.fill(0, m_axes);
+            m_windId = i;
+            break;
+        }
+        else
+        {
+            m_axes = 0;
+            m_buttons = 0;
+            m_windId = -1;
+        }
+    }
+#endif
 }
 
 /*****************************************************************************
@@ -81,7 +148,7 @@ void HIDJsDevice::init()
 bool HIDJsDevice::openInput()
 {
     bool result = false;
-
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     result = m_file.open(QIODevice::Unbuffered | QIODevice::ReadWrite);
     if (result == false)
     {
@@ -98,6 +165,9 @@ bool HIDJsDevice::openInput()
                      << "in read only mode";
         }
     }
+#elif defined(WIN32) || defined (Q_OS_WIN)
+    result = true;
+#endif
 
     m_running = true;
     start();
@@ -112,7 +182,8 @@ void HIDJsDevice::closeInput()
         m_running = false;
         wait();
     }
-    m_file.close();
+    if (m_file.isOpen())
+        m_file.close();
 }
 
 QString HIDJsDevice::path() const
@@ -173,6 +244,48 @@ bool HIDJsDevice::readEvent()
 
         return false;
     }
+#elif defined(WIN32) || defined (Q_OS_WIN)
+    MMRESULT status = joyGetPosEx( m_windId, &m_info );
+
+    if ( status != JOYERR_NOERROR )
+        return false;
+
+    if ( m_buttons )
+    {
+        for (int i = 0; i < m_buttons; ++i)
+        {
+            if ((m_info.dwButtons & JOY_BUTTON_MASK(i)) !=
+                (m_buttonsMask & JOY_BUTTON_MASK(i)))
+            {
+                if (m_info.dwButtons & JOY_BUTTON_MASK(i))
+                    emit valueChanged(m_line, i, 255);
+                else
+                    emit valueChanged(m_line, i, 0);
+            }
+        }
+        m_buttonsMask = m_info.dwButtons;
+    }
+
+    if ( m_axes )
+    {
+        QList<DWORD> cmpVals;
+        cmpVals.append(m_info.dwXpos);
+        cmpVals.append(m_info.dwYpos);
+        cmpVals.append(m_info.dwZpos);
+        cmpVals.append(m_info.dwRpos);
+        cmpVals.append(m_info.dwUpos);
+        cmpVals.append(m_info.dwVpos);
+
+        for (int i = 0; i < m_axes; i++)
+        {
+            uchar val = SCALE(double(cmpVals.at(i)), double(0), double(USHRT_MAX),
+                        double(0), double(UCHAR_MAX));
+            if (val != (uchar)m_axesValues.at(i))
+                emit valueChanged(m_line, m_buttons + i, val);
+            m_axesValues[i] = val;
+        }
+    }
+    return true;
 #else
     return false;
 #endif
@@ -219,6 +332,7 @@ void HIDJsDevice::run()
 
     while (m_running == true)
     {
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
         int r = poll(fds, 1, KPollTimeout);
 
         if (r < 0 && errno != EINTR)
@@ -231,6 +345,10 @@ void HIDJsDevice::run()
             if (fds[0].revents != 0)
                 readEvent();
         }
+#elif defined(WIN32) || defined (Q_OS_WIN)
+        readEvent();
+        Sleep(50);
+#endif
     }
 }
 
