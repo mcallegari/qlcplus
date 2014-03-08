@@ -296,6 +296,13 @@ void Monitor::initDMXToolbar()
     if (m_props->valueStyle() == MonitorProperties::PercentageValues)
         action->setChecked(true);
 
+    /* Universe combo box */
+    m_toolBar->addSeparator();
+
+    QLabel *uniLabel = new QLabel(tr("Universe:"));
+    uniLabel->setMargin(5);
+    m_toolBar->addWidget(uniLabel);
+
     QComboBox *uniCombo = new QComboBox(this);
     uniCombo->addItem(tr("All universes"), Universe::invalid());
     for (quint32 i = 0; i < m_doc->inputOutputMap()->universes(); i++)

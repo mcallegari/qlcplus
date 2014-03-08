@@ -237,32 +237,32 @@
         <translation>Ajout d&apos;un panneau RVB</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="209"/>
+        <location filename="addrgbpanel.ui" line="215"/>
         <source>Panel properties</source>
         <translation>Propriétés du panneau</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="223"/>
+        <location filename="addrgbpanel.ui" line="229"/>
         <source>Universe:</source>
         <translation>Univers</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="230"/>
+        <location filename="addrgbpanel.ui" line="236"/>
         <source>RGB Panel</source>
         <translation type="unfinished">Panneau RVB</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="237"/>
+        <location filename="addrgbpanel.ui" line="243"/>
         <source>Name:</source>
         <translation>Nom</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="247"/>
+        <location filename="addrgbpanel.ui" line="253"/>
         <source>Address:</source>
         <translation>Adresse</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="264"/>
+        <location filename="addrgbpanel.ui" line="270"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERREUR: Cette addresse est utilisée !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -287,68 +287,68 @@
         <translation type="unfinished">Taille totale :</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="79"/>
+        <location filename="addrgbpanel.ui" line="85"/>
         <source>100</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="91"/>
+        <location filename="addrgbpanel.ui" line="97"/>
         <source>Orientation</source>
         <translation>Orientation</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="97"/>
+        <location filename="addrgbpanel.ui" line="103"/>
         <source>Top-Right</source>
         <translation type="unfinished">Supérieur droit</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="104"/>
+        <location filename="addrgbpanel.ui" line="110"/>
         <source>Top-Left</source>
         <translation type="unfinished">Supérieur gauche</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="114"/>
+        <location filename="addrgbpanel.ui" line="120"/>
         <source>Bottom-Left</source>
         <translation type="unfinished">Inférieur gauche</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="121"/>
+        <location filename="addrgbpanel.ui" line="127"/>
         <source>Bottom-Right</source>
         <translation type="unfinished">Inférieur droit</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="141"/>
+        <location filename="addrgbpanel.ui" line="147"/>
         <source>Physical</source>
         <translation>Données physiques</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="158"/>
+        <location filename="addrgbpanel.ui" line="164"/>
         <source>Width:</source>
         <translation>Largeur</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="165"/>
-        <location filename="addrgbpanel.ui" line="188"/>
+        <location filename="addrgbpanel.ui" line="171"/>
+        <location filename="addrgbpanel.ui" line="194"/>
         <source>mm</source>
         <translation> mm</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="181"/>
+        <location filename="addrgbpanel.ui" line="187"/>
         <source>Height:</source>
         <translation>Hauteur</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="276"/>
+        <location filename="addrgbpanel.ui" line="282"/>
         <source>Displacement</source>
         <translation>Déplacement</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="282"/>
+        <location filename="addrgbpanel.ui" line="288"/>
         <source>Snake</source>
         <translation type="unfinished">Serpent</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="292"/>
+        <location filename="addrgbpanel.ui" line="298"/>
         <source>Zig Zag</source>
         <translation>Zigzag</translation>
     </message>
@@ -3467,37 +3467,42 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
         <translation>Montrer les valeurs en pourcentage (0-100%)</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="300"/>
+        <location filename="monitor.cpp" line="302"/>
+        <source>Universe:</source>
+        <translation type="unfinished">Univers</translation>
+    </message>
+    <message>
+        <location filename="monitor.cpp" line="307"/>
         <source>All universes</source>
         <translation>Tous les univers</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="322"/>
+        <location filename="monitor.cpp" line="329"/>
         <source>DMX View</source>
         <translation>Vue DMX</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="328"/>
+        <location filename="monitor.cpp" line="335"/>
         <source>Size:</source>
         <translation>Taille</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="352"/>
+        <location filename="monitor.cpp" line="359"/>
         <source>Meters</source>
         <translation>mètres</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="353"/>
+        <location filename="monitor.cpp" line="360"/>
         <source>Feet</source>
         <translation>pieds</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="362"/>
+        <location filename="monitor.cpp" line="369"/>
         <source>Add fixture</source>
         <translation>Ajouter un projecteur</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="364"/>
+        <location filename="monitor.cpp" line="371"/>
         <source>Remove fixture</source>
         <translation>Enlever le projecteur</translation>
     </message>
