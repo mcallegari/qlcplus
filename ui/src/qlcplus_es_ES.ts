@@ -1210,7 +1210,7 @@ Duración: %3
         <location filename="channelsselection.ui" line="14"/>
         <source>Channels selection</source>
         <oldsource>Channels Fade Configuration</oldsource>
-        <translation type="unfinished">Configuración de Fade de Canales</translation>
+        <translation>Selección de canales</translation>
     </message>
     <message>
         <location filename="channelsselection.ui" line="28"/>
@@ -1232,22 +1232,22 @@ Duración: %3
     <message>
         <location filename="channelsselection.cpp" line="50"/>
         <source>Selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionados</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="54"/>
         <source>Channel properties configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuración de propiedades de canales</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="56"/>
         <source>Can fade</source>
-        <translation type="unfinished"></translation>
+        <translation>Puede hacer fade</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="56"/>
         <source>Behaviour</source>
-        <translation type="unfinished"></translation>
+        <translation>Comportamiento</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="114"/>
@@ -3464,7 +3464,7 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="monitor.cpp" line="302"/>
         <source>Universe:</source>
-        <translation type="unfinished">Universo:</translation>
+        <translation>Universo:</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="307"/>
@@ -3796,7 +3796,7 @@ Duración: %3
     <message>
         <location filename="positiontool.ui" line="14"/>
         <source>PositonTool</source>
-        <translation type="unfinished"></translation>
+        <translation>Herramienta de posicionamiento</translation>
     </message>
 </context>
 <context>
@@ -4113,7 +4113,7 @@ Duración: %3
     <message>
         <location filename="sceneeditor.cpp" line="173"/>
         <source>Position tool for moving heads/scanners</source>
-        <translation type="unfinished"></translation>
+        <translation>Herramienta de posicionamiento para cabezas móviles o scanners</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="175"/>
@@ -4650,7 +4650,7 @@ Duración: %3
     <message>
         <location filename="simpledesk.cpp" line="477"/>
         <source>Channel groups</source>
-        <translation type="unfinished"></translation>
+        <translation>Grupos de canales</translation>
     </message>
     <message>
         <location filename="simpledesk.cpp" line="770"/>
@@ -6387,7 +6387,7 @@ Duración: %3
     <message>
         <location filename="vcxypadarea.cpp" line="247"/>
         <source>Shift: fine, Ctrl:10x</source>
-        <translation type="unfinished"></translation>
+        <translation>Mayúsculas: fino, Ctrl: 10x</translation>
     </message>
 </context>
 <context>
