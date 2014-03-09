@@ -130,7 +130,7 @@
     <message>
         <location filename="addfixture.ui" line="250"/>
         <source>Quick search:</source>
-        <translation>Recherche rapide :</translation>
+        <translation>Recherche rapide</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="267"/>
@@ -691,7 +691,7 @@ Voulez-vous vraiment les arrêter et basculer vers le mode Création ?</translat
         <location filename="app.cpp" line="617"/>
         <source>&amp;About QLC+</source>
         <oldsource>&amp;About QLC</oldsource>
-        <translation>&amp;À propos de QLC</translation>
+        <translation>&amp;À propos de QLC+</translation>
     </message>
     <message>
         <location filename="app.cpp" line="222"/>
@@ -1213,7 +1213,7 @@ Durée : %3
         <location filename="channelsselection.ui" line="14"/>
         <source>Channels selection</source>
         <oldsource>Channels Fade Configuration</oldsource>
-        <translation type="unfinished">Configuration des fondus des canaux</translation>
+        <translation>Sélection des canaux</translation>
     </message>
     <message>
         <location filename="channelsselection.ui" line="28"/>
@@ -1235,22 +1235,22 @@ Durée : %3
     <message>
         <location filename="channelsselection.cpp" line="50"/>
         <source>Selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionné</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="54"/>
         <source>Channel properties configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuration des propriétés des canaux</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="56"/>
         <source>Can fade</source>
-        <translation type="unfinished"></translation>
+        <translation>Fondu</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="56"/>
         <source>Behaviour</source>
-        <translation type="unfinished"></translation>
+        <translation>Comportement</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="114"/>
@@ -1784,12 +1784,12 @@ Durée : %3
     <message>
         <location filename="efxeditor.ui" line="211"/>
         <source>Reverse</source>
-        <translation>Inverser</translation>
+        <translation>Inversé</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="127"/>
         <source>Fixture order</source>
-        <translation>Ordre du mouvement des projecteurs</translation>
+        <translation>Mouvement des projecteurs</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="133"/>
@@ -1904,7 +1904,7 @@ Durée : %3
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>L&apos;angle de rotation du motif</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="efxeditor.ui" line="393"/>
         <location filename="efxeditor.ui" line="504"/>
         <source>°</source>
@@ -2383,7 +2383,7 @@ Durée : %3
     <message>
         <location filename="fixtureremap.ui" line="256"/>
         <source>Remap fixture names</source>
-        <translation>Reprendre le nom des projecteurs cibles</translation>
+        <translation>Reprendre le nom des projecteurs sources</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="268"/>
@@ -2872,7 +2872,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Cette procédure guidée va vous permettre de commencer à utiliser QLC+ en quelques minutes.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Elle est composée de 3 étapes :&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1. Ajouter un ou plusieurs projecteurs ;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2. Choisir les aptitudes supportées afin de créer des fonctions ;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2. Choisir les fonctions à créer parmis celles supportées ;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3. Ajouter des widgets à la console virtuelle.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Pour passer à l&apos;étape suivante, cliquez sur le bouton &amp;quot;Suivant&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
@@ -2960,7 +2960,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="functionwizard.ui" line="209"/>
         <source>Supported capabilities</source>
-        <translation>Aptitudes supportées</translation>
+        <translation>Fonctions supportées</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="168"/>
@@ -2995,7 +2995,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="functionwizard.cpp" line="192"/>
         <source>%1 has no capability supported by this wizard.</source>
-        <translation>%1 n&apos;a pas d&apos;aptitude supportée par cet assistant.</translation>
+        <translation>%1 n&apos;a pas de fonction supportée par cet assistant.</translation>
     </message>
     <message>
         <location filename="functionwizard.cpp" line="466"/>
@@ -3459,7 +3459,7 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
     <message>
         <location filename="monitor.cpp" line="288"/>
         <source>Percent Values</source>
-        <translation>Valeurs en pourcentage</translation>
+        <translation>Valeurs en %</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="289"/>
@@ -3469,7 +3469,7 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
     <message>
         <location filename="monitor.cpp" line="302"/>
         <source>Universe:</source>
-        <translation type="unfinished">Univers</translation>
+        <translation>Univers</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="307"/>
@@ -3801,7 +3801,7 @@ Durée : %3
     <message>
         <location filename="positiontool.ui" line="14"/>
         <source>PositonTool</source>
-        <translation type="unfinished"></translation>
+        <translation>Outil de positionnement</translation>
     </message>
 </context>
 <context>
@@ -4118,7 +4118,7 @@ Durée : %3
     <message>
         <location filename="sceneeditor.cpp" line="173"/>
         <source>Position tool for moving heads/scanners</source>
-        <translation type="unfinished"></translation>
+        <translation>Outil de positionnement pour les lyres/scanners</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="175"/>
@@ -6023,12 +6023,12 @@ Durée : %3
     <message>
         <location filename="vcsliderproperties.ui" line="310"/>
         <source>Set value range from the selected capability</source>
-        <translation>Définir les bornes depuis l&apos;aptitude sélectionnée</translation>
+        <translation>Définir les bornes depuis la fonction sélectionnée</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="313"/>
         <source>From capability</source>
-        <translation>Depuis l&apos;aptitude</translation>
+        <translation>Depuis la sélection</translation>
     </message>
     <message>
         <location filename="vcsliderproperties.ui" line="333"/>
@@ -6391,7 +6391,7 @@ Durée : %3
     <message>
         <location filename="vcxypadarea.cpp" line="247"/>
         <source>Shift: fine, Ctrl:10x</source>
-        <translation type="unfinished"></translation>
+        <translation>Shift : précis, Ctrl : 10x</translation>
     </message>
 </context>
 <context>
