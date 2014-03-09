@@ -108,20 +108,19 @@ protected:
      *********************************************************************/
 public:
     /** @reimp */
-    void openOutput(quint32 output) { Q_UNUSED(output); }
+    void openOutput(quint32 output);
 
     /** @reimp */
-    void closeOutput(quint32 output) { Q_UNUSED(output); }
+    void closeOutput(quint32 output);
 
     /** @reimp */
-    QStringList outputs() { return QStringList(); }
+    QStringList outputs();
 
     /** @reimp */
-    QString outputInfo(quint32 output) { Q_UNUSED(output); return QString(); }
+    QString outputInfo(quint32 output);
 
     /** @reimp */
-    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data)
-    { Q_UNUSED(output); Q_UNUSED(universe); Q_UNUSED(data); }
+    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
 
     /*********************************************************************
      * Configuration
@@ -156,16 +155,6 @@ signals:
 
 protected:
     QList <HIDDevice*> m_devices;
-
-    /*********************************************************************
-     * Device poller
-     *********************************************************************/
-public:
-    void addPollDevice(HIDDevice* device);
-    void removePollDevice(HIDDevice* device);
-
-protected:
-    HIDPoller* m_poller;
 };
 
 #endif

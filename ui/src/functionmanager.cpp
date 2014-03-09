@@ -573,7 +573,7 @@ void FunctionManager::slotSelectAutostartFunction()
     fs.setMultiSelection(false);
     fs.showNone(true);
 
-    if (fs.exec() == QDialog::Accepted)
+    if (fs.exec() == QDialog::Accepted && fs.selection().size() > 0)
     {
         quint32 startID = fs.selection().first();
         m_doc->setStartupFunction(startID);
@@ -786,6 +786,18 @@ void FunctionManager::deleteSelectedFunctions()
 
         if (func->type() == Function::Chaser && qobject_cast<const Chaser*>(func)->isSequence() == true)
             isSequence = true;
+
+        // Stop running tests before deleting function
+        if (m_editor != NULL)
+        {
+            if (func->type() == Function::RGBMatrix)
+                static_cast<RGBMatrixEditor*>(m_editor)->stopTest();
+            else if (func->type() == Function::EFX)
+                static_cast<EFXEditor*>(m_editor)->stopTest();
+            else if (func->type() == Function::Chaser)
+                static_cast<ChaserEditor*>(m_editor)->stopTest();
+        }
+
         m_doc->deleteFunction(fid);
 
         QTreeWidgetItem* parent = item->parent();

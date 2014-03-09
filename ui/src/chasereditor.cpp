@@ -248,6 +248,12 @@ ChaserEditor::~ChaserEditor()
             m_chaser->stopAndWait();
 }
 
+void ChaserEditor::stopTest()
+{
+    if (m_chaser->stopped() == false)
+        m_chaser->stopAndWait();
+}
+
 void ChaserEditor::slotFunctionManagerActive(bool active)
 {
     if (active == true)

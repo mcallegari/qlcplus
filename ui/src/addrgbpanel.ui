@@ -58,6 +58,9 @@
           <property name="minimum">
            <number>1</number>
           </property>
+          <property name="maximum">
+           <number>170</number>
+          </property>
           <property name="value">
            <number>10</number>
           </property>
@@ -67,6 +70,9 @@
          <widget class="QSpinBox" name="m_rowSpin">
           <property name="minimum">
            <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>999</number>
           </property>
           <property name="value">
            <number>10</number>

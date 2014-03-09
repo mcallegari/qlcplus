@@ -50,6 +50,8 @@ public:
     EFXEditor(QWidget* parent, EFX* efx, Doc* doc);
     ~EFXEditor();
 
+    void stopTest();
+
 public slots:
     void slotFunctionManagerActive(bool active);
 

@@ -8,8 +8,9 @@ qlcplus (4.7.0) stable; urgency=low
   * NEW: RGBMatrix: added audio spectrum mode
   * NEW: Simple Desk: added channel groups tab
   * NEW: Plugins: Added SPI plugin (Linux only)
+  * NEW: Plugins: Added FX5 support on Windows & Linux (thanks to Florian Euchner)
   * NEW: Plugins: Added Vince DMX512 USB adapter support (thanks to Jérôme Lebleu)
-  * NEW: Position Tool: XY Pad-like postion setting in Scene editor (Jano Svitok)
+  * NEW: Position Tool: XY Pad-like position setting in Scene editor (Jano Svitok)
   * NEW: XY Pad shows pan/tilt coordinates (Jano Svitok)
   * NEW: XY Pad keyboard controls: Shift+arrows - fine control, Ctrl+arrows - 10x speed, Ctrl+Shift+arrows - faster fine control (Jano Svitok)
   * NEW: Fixture Manager: Fixtures channels can now be manually forced to HTP/LTP
@@ -18,6 +19,8 @@ qlcplus (4.7.0) stable; urgency=low
   * MIDI plugin: improved pitch wheel and input/output settings (thanks to Robert Scheffler)
   * Webaccess: fixed positioning of headerless frames
   * Monitor: added combo box to select which universe to monitor
+  * Editors: fixed crashes when deleting running functions (thanks to plugz)
+  * Plugins: added HID joysticks support on Windows
   * Documentation: Added Sound Control tutorial (Jano Svitok)
   * Added input profile: BCF2000 in Mackie Control mode - all buttons are usable (Jano Svitok)
   * Added input profile: Akai APC40 (thanks to Daniel Curry)
@@ -30,8 +33,10 @@ qlcplus (4.7.0) stable; urgency=low
   * Added fixtures: Stairville Quad Par Profile RGBW 5x8W, Stairville DDS 405 (thanks to Nicolas Rasor)
   * Added fixtures: American DJ P64 LED Plus, American DJ SP1500 MKII, Laserworld EL 200RGY, Botex DSP-405
   * Added fixture: Showtec Quatro (thanks to Florian Euchner)
+  * Added fixture: Chauvet SlimPAR 64 (thanks to Chris Laurie)
+  * Added fixture: Showtec Phantom 250 Wash (thanks to Cingulingu)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Mon, 3 March 2014 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 8 March 2014 12:13:14 +0200
 
 qlcplus (4.6.1) stable; urgency=low
 

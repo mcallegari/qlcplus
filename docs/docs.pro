@@ -6,6 +6,7 @@ docs.path = $$INSTALLROOT/$$DOCSDIR/html
 docs.files = \
              addeditfixtures.html \
              addresstool.html \
+             addrgbpanel.html \
              addvcbuttonmatrix.html \
              artnetplugin.html \
              audiotriggers.html \
@@ -32,6 +33,7 @@ docs.files = \
              functionwizard.html \
              guicustomstyles.html \
              headeditor.html \
+             hidplugin.html \
              howto-add-fixtures.html \
              howto-input-profiles.html \
              howto-input-output-mapping.html \

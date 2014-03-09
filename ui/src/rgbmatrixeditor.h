@@ -51,6 +51,8 @@ public:
     RGBMatrixEditor(QWidget* parent, RGBMatrix* mtx, Doc* doc);
     ~RGBMatrixEditor();
 
+    void stopTest();
+
 public slots:
     void slotFunctionManagerActive(bool active);
 
