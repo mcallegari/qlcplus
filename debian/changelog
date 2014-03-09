@@ -1,4 +1,4 @@
-qlcplus (4.7.0) stable; urgency=low
+qlcplus (4.7.0.RC1) unstable; urgency=low
 
   * NEW: Input/Output: QLC+ now supports infinite universes
   * NEW: Input/Output: added universe passthrough mode
