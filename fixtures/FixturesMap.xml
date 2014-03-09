@@ -32,6 +32,7 @@
   <fixture path="American-DJ-ProPAR-56RGB.qxf" mf="American DJ" md="ProPAR 56RGB"/>
   <fixture path="American-DJ-Quad-Gem-DMX.qxf" mf="American DJ" md="Quad Gem DMX"/>
   <fixture path="American-DJ-Quad-Phase.qxf" mf="American DJ" md="Quad Phase"/>
+  <fixture path="American-DJ-Quad-Scan-LED.qxf" mf="American DJ" md="Quad Scan LED"/>
   <fixture path="American-DJ-Revo-3.qxf" mf="American DJ" md="Revo 3"/>
   <fixture path="American-DJ-Revo-4-256.qxf" mf="American DJ" md="Revo 4 - 256-CH"/>
   <fixture path="American-DJ-Revo-4.qxf" mf="American DJ" md="Revo 4"/>
@@ -75,6 +76,7 @@
   <fixture path="Chauvet-LEDrain64.qxf" mf="Chauvet" md="LEDrain64"/>
   <fixture path="Chauvet-LEDSplash-Jr.qxf" mf="Chauvet" md="LEDSplash Jr"/>
   <fixture path="Chauvet-Q-Spot-260-LED.qxf" mf="Chauvet" md="Q-Spot 260 LED"/>
+  <fixture path="Chauvet-Q-Spot-560-LED.qxf" mf="Chauvet" md="Q-Spot 560 LED"/>
   <fixture path="Chauvet-Slim-Par-Pro-RGBA.qxf" mf="Chauvet" md="Slim Par Pro RGBA"/>
   <fixture path="Chauvet-Slim-Par-Pro-VW.qxf" mf="Chauvet" md="Slim Par Pro VW"/>
   <fixture path="Chauvet-SlimPAR-56.qxf" mf="Chauvet" md="SlimPAR 56"/>

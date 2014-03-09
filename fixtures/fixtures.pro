@@ -76,6 +76,7 @@ fixtures.files += Chauvet-LED-Techno-Strobe-RGB.qxf
 fixtures.files += Chauvet-LEDSplash-Jr.qxf
 fixtures.files += Chauvet-LEDrain64.qxf
 fixtures.files += Chauvet-Q-Spot-260-LED.qxf
+fixtures.files += Chauvet-Q-Spot-560-LED.qxf
 fixtures.files += Chauvet-SlimPAR-56.qxf
 fixtures.files += Chauvet-SlimPAR-64.qxf
 fixtures.files += Chauvet-Slim-Par-Pro-RGBA.qxf
