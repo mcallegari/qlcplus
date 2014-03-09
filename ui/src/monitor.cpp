@@ -377,7 +377,10 @@ void Monitor::slotChooseFont()
     bool ok = false;
     QFont f = QFontDialog::getFont(&ok, m_monitorWidget->font(), this);
     if (ok == true)
+    {
         m_monitorWidget->setFont(f);
+        m_props->setFont(f);
+    }
 }
 
 void Monitor::slotChannelStyleTriggered()
