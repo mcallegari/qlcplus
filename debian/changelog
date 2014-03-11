@@ -1,3 +1,9 @@
+qlcplus (4.7.0.RC2) unstable; urgency=low
+
+  * Added fixture: Ledj Performer 18-Quad (thanks to Michael Clements)
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 March 2014 12:13:14 +0200
+
 qlcplus (4.7.0.RC1) unstable; urgency=low
 
   * NEW: Input/Output: QLC+ now supports infinite universes

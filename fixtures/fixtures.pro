@@ -202,6 +202,7 @@ fixtures.files += Lanta-Orion-Link-V2.qxf
 fixtures.files += Laserworld-EL-200RGY.qxf
 fixtures.files += Ledj-Alu-Quad-Par-64.qxf
 fixtures.files += Ledj-Colour-Storm-Quad.qxf
+fixtures.files += Ledj-Performer-18-Quad.qxf
 fixtures.files += Ledj-Tri-LED-back-drop-controller.qxf
 fixtures.files += lightmaXX-LED-MEGA-PAR-64-RGBW-18x8-W.qxf
 fixtures.files += Litecraft-PowerBar-4.qxf
