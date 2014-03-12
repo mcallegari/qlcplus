@@ -36,6 +36,7 @@ TRANSLATIONS += uDMX_fr_FR.ts
 TRANSLATIONS += uDMX_it_IT.ts
 TRANSLATIONS += uDMX_nl_NL.ts
 TRANSLATIONS += uDMX_cz_CZ.ts
+TRANSLATIONS += uDMX_pt_BR.ts
 
 # This must be after "TARGET = " and before target installation so that
 # install_name_tool can be run before target installation

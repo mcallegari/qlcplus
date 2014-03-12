@@ -1904,7 +1904,7 @@ Durée : %3
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>L&apos;angle de rotation du motif</translation>
     </message>
-    <message>
+    <message utf8="true">
         <location filename="efxeditor.ui" line="393"/>
         <location filename="efxeditor.ui" line="504"/>
         <source>°</source>

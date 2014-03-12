@@ -424,20 +424,20 @@
         <translation>Assistant de fonction</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="256"/>
-        <location filename="editchannel.cpp" line="322"/>
-        <location filename="editchannel.cpp" line="366"/>
+        <location filename="editchannel.cpp" line="251"/>
+        <location filename="editchannel.cpp" line="317"/>
+        <location filename="editchannel.cpp" line="361"/>
         <source>Overlapping values</source>
         <translation>Chevauchement de valeurs</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="257"/>
-        <location filename="editchannel.cpp" line="323"/>
+        <location filename="editchannel.cpp" line="252"/>
+        <location filename="editchannel.cpp" line="318"/>
         <source>The capability&apos;s values overlap with another capability!</source>
         <translation>Les valeurs de la fonction se chevauchent avec une autre fonction !</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="367"/>
+        <location filename="editchannel.cpp" line="362"/>
         <source>Some capabilities could not be created because of overlapping values.</source>
         <translation>Certaines fonctions n&apos;ont pas pu être créées à cause d&apos;un chevauchement de valeurs.</translation>
     </message>

@@ -424,20 +424,20 @@
         <translation>Toimintovelho</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="256"/>
-        <location filename="editchannel.cpp" line="322"/>
-        <location filename="editchannel.cpp" line="366"/>
+        <location filename="editchannel.cpp" line="251"/>
+        <location filename="editchannel.cpp" line="317"/>
+        <location filename="editchannel.cpp" line="361"/>
         <source>Overlapping values</source>
         <translation>Päällekkäisiä arvoja</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="257"/>
-        <location filename="editchannel.cpp" line="323"/>
+        <location filename="editchannel.cpp" line="252"/>
+        <location filename="editchannel.cpp" line="318"/>
         <source>The capability&apos;s values overlap with another capability!</source>
         <translation>Toiminnon arvot menevät päällekäin toisen toiminnon arvojen kanssa!</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="367"/>
+        <location filename="editchannel.cpp" line="362"/>
         <source>Some capabilities could not be created because of overlapping values.</source>
         <translation>Joitain toimintoja ei pystytty luomaan päällekäisten arvojen vuoksi.</translation>
     </message>
