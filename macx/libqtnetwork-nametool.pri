@@ -6,8 +6,13 @@ lessThan(QT_MAJOR_VERSION, 5) {
 LIBQTNETWORK_FILE     = QtNetwork
 LIBQTNETWORK_FILEPATH = $$LIBQTNETWORK_DIR/$$LIBQTNETWORK_FILE
 
+lessThan(QT_MAJOR_VERSION, 5) {
 LIBQTNETWORK_INSTALL_NAME_TOOL = install_name_tool -change $$LIBQTNETWORK_FILEPATH \
         @executable_path/../$$LIBSDIR/$$LIBQTNETWORK_DIR/$$LIBQTNETWORK_FILE
+} else {
+LIBQTNETWORK_INSTALL_NAME_TOOL = install_name_tool -change $$(QTDIR)/lib/$$LIBQTNETWORK_FILEPATH \
+        @executable_path/../$$LIBSDIR/$$LIBQTNETWORK_DIR/$$LIBQTNETWORK_FILE
+}
 
 contains(QT, network) {
     !isEmpty(nametool.commands) {

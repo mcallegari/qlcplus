@@ -2,7 +2,7 @@ LIBQTWIDGETS_DIR      = QtWidgets.framework/Versions/5
 LIBQTWIDGETS_FILE     = QtWidgets
 LIBQTWIDGETS_FILEPATH = $$LIBQTWIDGETS_DIR/$$LIBQTWIDGETS_FILE
 
-LIBQTWIDGETS_INSTALL_NAME_TOOL = install_name_tool -change $$LIBQTWIDGETS_FILEPATH \
+LIBQTWIDGETS_INSTALL_NAME_TOOL = install_name_tool -change $$(QTDIR)/lib/$$LIBQTWIDGETS_FILEPATH \
             @executable_path/../$$LIBSDIR/$$LIBQTWIDGETS_DIR/$$LIBQTWIDGETS_FILE
 
 contains(QT, widgets) {
