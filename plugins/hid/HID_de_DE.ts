@@ -36,7 +36,7 @@
 <context>
     <name>HIDEventDevice</name>
     <message>
-        <location filename="hideventdevice.cpp" line="337"/>
+        <location filename="hideventdevice.cpp" line="339"/>
         <source>N/A</source>
         <translation>Keiner</translation>
     </message>

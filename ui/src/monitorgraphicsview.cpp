@@ -61,9 +61,34 @@ void MonitorGraphicsView::setGridMetrics(float value)
     }
 }
 
+quint32 MonitorGraphicsView::selectedFixtureID()
+{
+    MonitorFixtureItem *item = getSelectedItem();
+    if (item != NULL)
+        return item->fixtureID();
+    else
+        return Fixture::invalidId();
+}
+
 QList<quint32> MonitorGraphicsView::fixturesID() const
 {
     return m_fixtures.keys();
+}
+
+void MonitorGraphicsView::setFixtureGelColor(quint32 id, QColor col)
+{
+    MonitorFixtureItem *item = m_fixtures[id];
+    if (item != NULL)
+        item->setGelColor(col);
+}
+
+QColor MonitorGraphicsView::fixtureGelColor(quint32 id)
+{
+    MonitorFixtureItem *item = m_fixtures[id];
+    if (item == NULL)
+        return QColor();
+
+    return item->getColor();
 }
 
 void MonitorGraphicsView::updateFixture(quint32 id)
@@ -82,8 +107,16 @@ void MonitorGraphicsView::updateFixture(quint32 id)
         height = mode->physical().height();
     }
 
-    if (width == 0) width = 300;
-    if (height == 0) height = 300;
+    if (fxi->isDimmer())
+    {
+        width = fxi->heads() * 200;
+        height = 200;
+    }
+    else
+    {
+        if (width == 0) width = 300;
+        if (height == 0) height = 300;
+    }
 
     MonitorFixtureItem *item = m_fixtures[id];
     item->setSize(QSize((width * m_cellPixels) / m_unitValue, (height * m_cellPixels) / m_unitValue));

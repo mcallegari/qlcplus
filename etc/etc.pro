@@ -44,51 +44,51 @@ lessThan(QT_MAJOR_VERSION, 5) {
                            $$(QTDIR)/bin/QtGui4.dll \
                            $$(QTDIR)/bin/QtXml4.dll \
                            $$(QTDIR)/bin/QtScript4.dll \
-						   $$(QTDIR)/bin/QtNetwork4.dll
+                           $$(QTDIR)/bin/QtNetwork4.dll
 
     debug:qtlibs.files = $$(QTDIR)/bin/QtCored4.dll \
                          $$(QTDIR)/bin/QtGuid4.dll \
                          $$(QTDIR)/bin/QtXmld4.dll \
                          $$(QTDIR)/bin/QtScriptd4.dll \
-						 $$(QTDIR)/bin/QtNetwork4d.dll
+                         $$(QTDIR)/bin/QtNetwork4d.dll
 } else {
     release:qtlibs.files = $$(QTDIR)/bin/Qt5Core.dll \
                            $$(QTDIR)/bin/Qt5Gui.dll \
                            $$(QTDIR)/bin/Qt5Xml.dll \
                            $$(QTDIR)/bin/Qt5Script.dll \
-						   $$(QTDIR)/bin/Qt5Network.dll \
-						   $$(QTDIR)/bin/Qt5Widgets.dll \
-						   $$(QTDIR)/bin/Qt5OpenGL.dll \
-						   $$(QTDIR)/bin/Qt5Multimedia.dll \
-						   $$(QTDIR)/bin/Qt5MultimediaWidgets.dll
+                           $$(QTDIR)/bin/Qt5Network.dll \
+                           $$(QTDIR)/bin/Qt5Widgets.dll \
+                           $$(QTDIR)/bin/Qt5OpenGL.dll \
+                           $$(QTDIR)/bin/Qt5Multimedia.dll \
+                           $$(QTDIR)/bin/Qt5MultimediaWidgets.dll
 
     debug:qtlibs.files = $$(QTDIR)/bin/Qt5Cored.dll \
                          $$(QTDIR)/bin/Qt5Guid.dll \
                          $$(QTDIR)/bin/Qt5Xmld.dll \
                          $$(QTDIR)/bin/Qt5Scriptd.dll \
-						 $$(QTDIR)/bin/Qt5Networkd.dll \
-						 $$(QTDIR)/bin/Qt5Widgetsd.dll \
-						 $$(QTDIR)/bin/Qt5OpenGLd.dll \
-						 $$(QTDIR)/bin/Qt5Multimediad.dll \
-						 $$(QTDIR)/bin/Qt5MultimediaWidgetsd.dll 
-	qtlibs.files += $$(QTDIR)/bin/icudt51.dll \
-				    $$(QTDIR)/bin/icuin51.dll \
-					$$(QTDIR)/bin/icuuc51.dll
+                         $$(QTDIR)/bin/Qt5Networkd.dll \
+                         $$(QTDIR)/bin/Qt5Widgetsd.dll \
+                         $$(QTDIR)/bin/Qt5OpenGLd.dll \
+                         $$(QTDIR)/bin/Qt5Multimediad.dll \
+                         $$(QTDIR)/bin/Qt5MultimediaWidgetsd.dll 
+    qtlibs.files += $$(QTDIR)/bin/icudt51.dll \
+                    $$(QTDIR)/bin/icuin51.dll \
+                    $$(QTDIR)/bin/icuuc51.dll
 }
     INSTALLS += qtlibs
-	
+
 greaterThan(QT_MAJOR_VERSION, 4) {
-	qtplatform.path = $$INSTALLROOT/$$LIBSDIR/platforms
-	debug:qtplatform.files = $$(QTDIR)/plugins/platforms/qwindowsd.dll
-	release:qtplatform.files = $$(QTDIR)/plugins/platforms/qwindows.dll
-	INSTALLS += qtplatform
-	
-	qtmedia.path = $$INSTALLROOT/$$LIBSDIR/mediaservice
-	debug:qtmedia.files = $$(QTDIR)/plugins/mediaservice/dsengined.dll \
-						  $$(QTDIR)/plugins/mediaservice/qtmedia_audioengined.dll
-	release:qtmedia.files = $$(QTDIR)/plugins/mediaservice/dsengine.dll \
-							$$(QTDIR)/plugins/mediaservice/qtmedia_audioengined.dll
-	INSTALLS += qtmedia
+    qtplatform.path = $$INSTALLROOT/$$LIBSDIR/platforms
+    debug:qtplatform.files = $$(QTDIR)/plugins/platforms/qwindowsd.dll
+    release:qtplatform.files = $$(QTDIR)/plugins/platforms/qwindows.dll
+    INSTALLS += qtplatform
+    
+    qtmedia.path = $$INSTALLROOT/$$LIBSDIR/mediaservice
+    debug:qtmedia.files = $$(QTDIR)/plugins/mediaservice/dsengined.dll \
+                          $$(QTDIR)/plugins/mediaservice/qtmedia_audioengined.dll
+    release:qtmedia.files = $$(QTDIR)/plugins/mediaservice/dsengine.dll \
+                            $$(QTDIR)/plugins/mediaservice/qtmedia_audioengined.dll
+    INSTALLS += qtmedia
 }
 
     # MinGW library
@@ -109,57 +109,57 @@ greaterThan(QT_MAJOR_VERSION, 4) {
     exists($$(QTDIR)/../MinGW/bin/libgcc_s_dw2-1.dll) {
         mingw.files += $$(QTDIR)/../MinGW/bin/libgcc_s_dw2-1.dll
     }
-	
+
 lessThan(QT_MAJOR_VERSION, 5) {
     exists($$(QTDIR)/../MinGW/bin/libstdc++-6.dll) {
         mingw.files += $$(QTDIR)/../MinGW/bin/libstdc++-6.dll
     }
-	exists($$(QTDIR)/../MinGW/bin/pthreadGC2.dll) {
+        exists($$(QTDIR)/../MinGW/bin/pthreadGC2.dll) {
         mingw.files += $$(QTDIR)/../MinGW/bin/pthreadGC2.dll
     }
 } else {
     exists($$(QTDIR)/bin/libstdc++-6.dll) {
         mingw.files += $$(QTDIR)/bin/libstdc++-6.dll
     }
-	exists($$(QTDIR)/bin/libwinpthread-1.dll) {
+        exists($$(QTDIR)/bin/libwinpthread-1.dll) {
         mingw.files += $$(QTDIR)/bin/libwinpthread-1.dll
     }
 }
 
     INSTALLS += mingw
 
-	# audio libraries
-	audio.path = $$INSTALLROOT/$$LIBSDIR
-	exists($$(SystemDrive)/MinGW/bin/libmad-0.dll) {
+        # audio libraries
+        audio.path = $$INSTALLROOT/$$LIBSDIR
+        exists($$(SystemDrive)/MinGW/bin/libmad-0.dll) {
         audio.files += $$(SystemDrive)/MinGW/bin/libmad-0.dll
     }
-	exists($$(SystemDrive)/MinGW/bin/libogg-0.dll) {
+        exists($$(SystemDrive)/MinGW/bin/libogg-0.dll) {
         audio.files += $$(SystemDrive)/MinGW/bin/libogg-0.dll
     }
-	exists($$(SystemDrive)/MinGW/bin/libvorbis-0.dll) {
+        exists($$(SystemDrive)/MinGW/bin/libvorbis-0.dll) {
         audio.files += $$(SystemDrive)/MinGW/bin/libvorbis-0.dll
     }
-	exists($$(SystemDrive)/MinGW/bin/libvorbisenc-2.dll) {
+        exists($$(SystemDrive)/MinGW/bin/libvorbisenc-2.dll) {
         audio.files += $$(SystemDrive)/MinGW/bin/libvorbisenc-2.dll
     }
-	exists($$(SystemDrive)/MinGW/bin/libFLAC-8.dll) {
+        exists($$(SystemDrive)/MinGW/bin/libFLAC-8.dll) {
         audio.files += $$(SystemDrive)/MinGW/bin/libFLAC-8.dll
     }
-	exists($$(SystemDrive)/MinGW/bin/libsndfile-1.dll) {
+        exists($$(SystemDrive)/MinGW/bin/libsndfile-1.dll) {
         audio.files += $$(SystemDrive)/MinGW/bin/libsndfile-1.dll
     }
-	exists($$(SystemDrive)/MinGW/bin/libfftw3-3.dll) {
+        exists($$(SystemDrive)/MinGW/bin/libfftw3-3.dll) {
         audio.files += $$(SystemDrive)/MinGW/bin/libfftw3-3.dll
     }
-	
-	INSTALLS += audio
-	
+
+    INSTALLS += audio
+
     # NullSoft installer files
     nsis.path  = $$INSTALLROOT/$$DATADIR
 lessThan(QT_MAJOR_VERSION, 5) {
     nsis.files = qlcplus.nsi
 } else {
-	nsis.files = qlcplusQt5.nsi
+    nsis.files = qlcplusQt5.nsi
 }
     INSTALLS  += nsis
 }

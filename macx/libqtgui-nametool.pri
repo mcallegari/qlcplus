@@ -6,9 +6,13 @@ lessThan(QT_MAJOR_VERSION, 5) {
 LIBQTGUI_FILE     = QtGui
 LIBQTGUI_FILEPATH = $$LIBQTGUI_DIR/$$LIBQTGUI_FILE
 
+lessThan(QT_MAJOR_VERSION, 5) {
 LIBQTGUI_INSTALL_NAME_TOOL = install_name_tool -change $$LIBQTGUI_FILEPATH \
             @executable_path/../$$LIBSDIR/$$LIBQTGUI_DIR/$$LIBQTGUI_FILE
-
+} else {
+LIBQTGUI_INSTALL_NAME_TOOL = install_name_tool -change $$(QTDIR)/lib/$$LIBQTGUI_FILEPATH \
+            @executable_path/../$$LIBSDIR/$$LIBQTGUI_DIR/$$LIBQTGUI_FILE
+}
 contains(QT, gui) {
     !isEmpty(nametool.commands) {
         nametool.commands += "&&"

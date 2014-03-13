@@ -6,8 +6,13 @@ lessThan(QT_MAJOR_VERSION, 5) {
 LIBQTSCRIPT_FILE     = QtScript
 LIBQTSCRIPT_FILEPATH = $$LIBQTSCRIPT_DIR/$$LIBQTSCRIPT_FILE
 
+lessThan(QT_MAJOR_VERSION, 5) {
 LIBQTSCRIPT_INSTALL_NAME_TOOL = install_name_tool -change $$LIBQTSCRIPT_FILEPATH \
             @executable_path/../$$LIBSDIR/$$LIBQTSCRIPT_DIR/$$LIBQTSCRIPT_FILE
+} else {
+LIBQTSCRIPT_INSTALL_NAME_TOOL = install_name_tool -change $$(QTDIR)/lib/$$LIBQTSCRIPT_FILEPATH \
+            @executable_path/../$$LIBSDIR/$$LIBQTSCRIPT_DIR/$$LIBQTSCRIPT_FILE
+}
 
 contains(QT, script) {
     !isEmpty(nametool.commands) {

@@ -13,13 +13,90 @@
 An XY Pad is for manually controlling the <B>pan</B> and <B>tilt</B> channels
 of intelligent lighting fixtures, namely scanners and moving heads. The pad is
 a resizable canvas with a handle and two sliders that you can grab to obtain direct access to
-the attached fixtures' mirror/head position.<BR>
-Starting from QLC+ version 4.5.0, two more sliders have been introduced to give you
+the attached fixtures' mirror/head position.<BR />
+<IMG SRC="file:images/xypad.png" />
+
+<H3>Controls</H3>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD>
+   <B>(1) Main area</B>
+  </TD>
+  <TD>
+   This is the area where the movement occurs.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>(2) Handle</B>
+  </TD>
+  <TD>
+   The gray point is the handle. You can move it either with the mouse or with the keyboard.
+  </TD>
+ </TR> 
+ <TR>
+  <TD>
+   <B>(3) Range sliders</B>
+  </TD>
+  <TD>
+   These sliders limit the working area.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>(4) Value sliders</B>
+  </TD>
+  <TD>
+   These sliders can be used to change value in one axis only.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>(5) XY Pad name</B>
+  </TD>
+  <TD>
+   The name can be changed in properties, see below.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>(6) DMX Coordinates</B>
+  </TD>
+  <TD>
+   This part displays current DMX coordinates in format (Pan course.Pan fine : Tilt course.Tilt fine).
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>(7) Horizontal and vertical angle</B>
+  </TD>
+  <TD>
+    If the fixtures controlled have proper pan and tilt range filled in in their definitions, and the range is same for all fixtures,
+    then this field will compute angle from DMX coordinates.<BR />
+    0&deg; is in the middle of the range (DMX value 127.127). For example, if pan range for a fixture is 540&deg;,
+    the displayed angle will be between -270&deg; and 270&deg;.<BR />
+    Note: this may not work properly, when a fixture has limited axis range in configuration, or reversed axis.
+  </TD>
+ </TR>
+</TABLE>
+<H3>Range limiting</H3>
+
+<P>Starting from QLC+ version 4.5.0, two more sliders -- <B>(3)</B> in the picture above -- have been introduced to give you
 the opportunity to set a working range window in which your moving heads will operate.<BR>
 Note that from the GUI the movement of the handles will be limited to the green window area,
 while with an external controller all the values will be scaled to the window, so
 you will be able to have more sensitivity in the control your fixtures.
 </P>
+<IMG SRC="file:images/xypad2.png" />
+
+<P>In addition, it is possible to set limits for individual fixtures in the properties dialog, see Configuration section. This setting maps
+the whole range of the area (the grey area) to the sub specified range.</P>
+
+<P>Example: set fixture X Axis (=pan) mininum to 20% (DMX value 51), maximum to 80% (DMX value 204). When the handle is at the left edge (value 0),
+actual DMX output is 51. Similarly, handle at the right edge will output 204 (=80%). For values in between, DMX output is scaled proportionally.
+
+<P>It is possible to have both limits enabled (using the range sliders and limits per fixtures).<P>
 
 <H3>Configuration</H3>
 
@@ -35,7 +112,7 @@ by double clicking on the XY pad itself.
    <B>XY Pad name</B>
   </TD>
   <TD>
-   Set the name of the XY Pad. The name is shown in the upper left hand corner of the
+   Set the name of the XY Pad. The name <B>(5)</B> is shown in the upper left hand corner of the
    widget on Virtual Console.
   </TD>
  </TR>
@@ -127,6 +204,62 @@ XY Pad Fixture Configuration dialog.
   </TD>
  </TR>
 </TABLE>
+
+<br>
+<H3>Keyboard control</H3>
+
+<P>It is possible to control head position with arrow keys on the keyboard. Each keypress increases/decreases coarse value by 1.
+With Shift key pressed, fine channel is changed by 1. With Ctrl, the step is 10 instead of 1.
+</P>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD>
+   <B>Arrow keys</B>
+  </TD>
+  <TD>
+    Coarse
+  </TD>
+  <TD>
+    step=1
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Shift + Arrow keys</B>
+  </TD>
+  <TD>
+    Fine
+  </TD>
+  <TD>
+    step=1
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Ctrl + Arrow keys</B>
+  </TD>
+  <TD>
+    Coarse
+  </TD>
+  <TD>
+    step=10
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Shift + Ctrl + Arrow keys</B>
+  </TD>
+  <TD>
+    Fine
+  </TD>
+  <TD>
+    step=10
+  </TD>
+ </TR>
+</TABLE>
+
+
 
 <br>
 <H3>External input configuration (Input Tab)</H3>

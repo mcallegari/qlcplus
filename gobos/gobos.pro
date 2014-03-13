@@ -1,5 +1,6 @@
 TEMPLATE = subdirs
 
+SUBDIRS += Chauvet
 SUBDIRS += ClayPaky
 SUBDIRS += GLP
 SUBDIRS += Others

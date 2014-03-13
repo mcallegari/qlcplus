@@ -320,6 +320,7 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
                 m_doc->inputOutputMap()->setUniversePassthrough(uniIdx, true);
             else
                 m_doc->inputOutputMap()->setUniversePassthrough(uniIdx, false);
+            m_doc->inputOutputMap()->saveDefaults();
         }
         else if (cmdList[1] == "AUDIOIN")
         {
