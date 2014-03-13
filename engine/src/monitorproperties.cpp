@@ -37,6 +37,7 @@
 #define KXMLQLCMonitorFixtureID "ID"
 #define KXMLQLCMonitorFixtureXPos "XPos"
 #define KXMLQLCMonitorFixtureYPos "YPos"
+#define KXMLQLCMonitorFixtureGelColor "GelColor"
 
 MonitorProperties::MonitorProperties()
 {
@@ -51,7 +52,13 @@ MonitorProperties::MonitorProperties()
 void MonitorProperties::setFixturePosition(quint32 fid, QPointF pos)
 {
     qDebug() << Q_FUNC_INFO << "X:" << pos.x() << "Y:" << pos.y();
-    m_fixtureItems[fid] = pos;
+    m_fixtureItems[fid].m_position = pos;
+}
+
+void MonitorProperties::setFixtureGelColor(quint32 fid, QColor col)
+{
+    qDebug() << Q_FUNC_INFO << "Gel color:" << col;
+    m_fixtureItems[fid].m_gelColor = col;
 }
 
 /*********************************************************************
@@ -112,6 +119,9 @@ bool MonitorProperties::loadXML(const QDomElement &root)
                 if (tag.hasAttribute(KXMLQLCMonitorFixtureYPos))
                     pos.setY(tag.attribute(KXMLQLCMonitorFixtureYPos).toDouble());
                 setFixturePosition(fid, pos);
+
+                if (tag.hasAttribute(KXMLQLCMonitorFixtureGelColor))
+                    setFixtureGelColor(fid, QColor(tag.attribute(KXMLQLCMonitorFixtureGelColor)));
             }
         }
 
@@ -166,6 +176,9 @@ bool MonitorProperties::saveXML(QDomDocument *doc, QDomElement *wksp_root) const
             tag.setAttribute(KXMLQLCMonitorFixtureID, fid);
             tag.setAttribute(KXMLQLCMonitorFixtureXPos, QString::number(pos.x()));
             tag.setAttribute(KXMLQLCMonitorFixtureYPos, QString::number(pos.y()));
+            QColor col = fixtureGelColor(fid);
+            if (col.isValid())
+                tag.setAttribute(KXMLQLCMonitorFixtureGelColor, col.name());
             root.appendChild(tag);
         }
     }

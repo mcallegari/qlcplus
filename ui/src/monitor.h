@@ -168,6 +168,10 @@ protected slots:
      *  a fixture from the graphics view */
     void slotRemoveFixture();
 
+    /** Slot called when the user wants to set a
+     *  gel color to apply to a fixture */
+    void slotSetGelColor();
+
     /** Slot called when a fixture is moved in the graphics view */
     void slotFixtureMoved(quint32 fid, QPointF pos);
 

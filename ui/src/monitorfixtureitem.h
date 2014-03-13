@@ -27,8 +27,10 @@ class Doc;
 typedef struct
 {
     QGraphicsEllipseItem *m_item;
+    QGraphicsEllipseItem *m_back;
     QList <quint32> m_rgb;
     QList <quint32> m_cmy;
+    quint32 m_masterDimmer;
 } FixtureHead;
 
 class MonitorFixtureItem : public QObject, public QGraphicsItem
@@ -39,15 +41,26 @@ class MonitorFixtureItem : public QObject, public QGraphicsItem
 public:
     MonitorFixtureItem(Doc *doc, quint32 fid);
 
+    /** Set the position of this fixture using the monitor measure units */
     void setRealPosition(QPointF pos) { m_realPos = pos; }
+
+    /** Return the position of this fixture express in the monitor measure units */
     QPointF realPosition() { return m_realPos; }
 
+    /** Sets the dimension of this fixture */
     void setSize(QSize size);
 
+    void setGelColor(QColor color) { m_gelColor = color; }
+    QColor getColor() { return m_gelColor; }
+
+    /** Return the fixture ID associated to this item */
     quint32 fixtureID() { return m_fid; }
 
+    /** Return the number of heads represented by this item */
     int headsCount() { return m_heads.count(); }
 
+    /** Update the fixture values for rendering, passing the
+     *  universe array of values */
     void updateValues(const QByteArray& ua);
 
 protected:
@@ -76,6 +89,9 @@ private:
     QPointF m_realPos;
 
     QList <FixtureHead> m_heads;
+
+    /** In case of a dimmer, this hold the gel color to apply */
+    QColor m_gelColor;
 };
 
 #endif // MONITORFIXTUREITEM_H
