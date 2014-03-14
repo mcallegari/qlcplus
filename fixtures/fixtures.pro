@@ -245,6 +245,7 @@ fixtures.files += Movitec-SL-575.qxf
 fixtures.files += Movitec-WL-250.qxf
 fixtures.files += Movitec-WL-575.qxf
 fixtures.files += Nicols-Strob-LED-W.qxf
+fixtures.files += Optima-Lighting-PAR64-LED.qxf
 fixtures.files += PixelRANGE-PixelPar-44.qxf
 fixtures.files += Pro-Lights-CromoSpot-150.qxf
 fixtures.files += Pro-Lights-Explo-3000D.qxf

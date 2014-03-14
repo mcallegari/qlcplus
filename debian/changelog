@@ -3,6 +3,7 @@ qlcplus (4.7.0.RC2) unstable; urgency=low
   * Monitor: Added support for dimmer channels and gels
   * Added portuguese translation (thanks to interzona)
   * Added fixture: Ledj Performer 18-Quad (thanks to Michael Clements)
+  * Added fixture: Optima Lighting PAR64 LED (thanks to Ryan Kelley)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 March 2014 12:13:14 +0200
 
