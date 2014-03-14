@@ -29,6 +29,13 @@ the right side of the window is occupied by the <A HREF="file:fixturegroupeditor
   </TD>
  </TR>
  <TR>
+  <TD><IMG SRC="qrc:/rgbpanel.png"></TD>
+  <TD>
+   Add a RGB panel to the workspacewith with the
+   <A HREF="file:addrgbpanel.html">Add RGB Panel</A> dialog.
+  </TD>
+ </TR>
+ <TR>
   <TD><IMG SRC="qrc:/edit_remove.png"></TD>
   <TD>
    Remove the selected fixtures from the workspace. This also removes the fixtures from ALL
@@ -45,9 +52,17 @@ the right side of the window is occupied by the <A HREF="file:fixturegroupeditor
  <TR>
   <TD><IMG SRC="qrc:/fade.png"></TD>
   <TD>
-   Opens a window to select the desired channels to exclude from fade transitions.<br>
-   For example, moving head motors shouldn't be affected from Fade In/Fade Out curves.
-   With this option you can exclude them to obtain the correct behaviour.<br>
+   Opens a window to set the fixture channels properties. It mainly has two usages:
+   <ul>
+    <li>Select the channels to exclude from fade transitions.<br>
+        For example, moving head motors shouldn't be affected from Fade In/Fade Out curves.
+        With this option you can exclude them to obtain the correct behaviour.</li>
+    <li>Select the channels behaviour according to the <A HREF="file:concept.html#HTP">HTP</A> and
+        <A HREF="file:concept.html#LTP">LTP</A> rules. When changing the bahaviour of a channel,
+        the dropdown list with highlight in red, showing evidence of the channels modified<br>
+        <b>Note: Use this functionality only if you know what you're doing and fully understand
+        how HTP and LTP work</b></li>
+   </ul>
    When dealing with a lot of fixtures of the same type, you might want to check 
    the "Apply changes to fixtures of the same type" check box. This can save you 
    quite a lot of time when setting up your projects for the first time.
@@ -80,7 +95,7 @@ the right side of the window is occupied by the <A HREF="file:fixturegroupeditor
  <TR>
   <TD><IMG SRC="qrc:/fileimport.png"></TD>
   <TD>
-   Available from version 4.2.0. Import a fixture list file (.qxfl) into QLC+. Please note that
+   Imports a fixture list file (.qxfl) into QLC+. Please note that
    fixture addresses conflicts are not handled, so it is suggested to use this functionality
    on an empty project.
   </TD>
@@ -88,14 +103,14 @@ the right side of the window is occupied by the <A HREF="file:fixturegroupeditor
  <TR>
   <TD><IMG SRC="qrc:/fileexport.png"></TD>
   <TD>
-   Available from version 4.2.0. Export the list of fixtures currently available on a QLC+ project 
+   Exports the list of fixtures currently available on a QLC+ project 
    into a file with extension .qxfl. This file can be used afterward with the import functionality.
   </TD>
  </TR>
  <TR>
   <TD><IMG SRC="qrc:/remap.png"></TD>
   <TD>
-   Available from version 4.4.1. Open the <a href="fixturesremap.html">Fixtures remapping</a> window.
+   Opens the <a href="fixturesremap.html">Fixtures remapping</a> window.
   </TD>
  </TR>
 </TABLE>

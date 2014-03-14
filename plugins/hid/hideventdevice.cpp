@@ -17,8 +17,6 @@
   limitations under the License.
 */
 
-#include <linux/input.h>
-#include <errno.h>
 #if !defined(WIN32) && !defined(Q_OS_WIN)
   #include <unistd.h>
 #endif
@@ -32,6 +30,12 @@
 #include "hideventdevice.h"
 #include "hid.h"
 
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+  #include <linux/input.h>
+  #include <errno.h>
+  #include <unistd.h>
+#endif
+
 /**
  * This macro is used to tell if "bit" is set in "array".
  * It selects a byte from the array, and does a boolean AND
@@ -41,15 +45,15 @@
 #define test_bit(bit, array)    (array[bit / 8] & (1 << (bit % 8)))
 
 HIDEventDevice::HIDEventDevice(HID* parent, quint32 line,
-                               const QString& path)
-        : HIDDevice(parent, line, path)
+                               const QString& name, const QString& path)
+        : HIDDevice(parent, line, name, path)
 {
     init();
 }
 
 HIDEventDevice::~HIDEventDevice()
 {
-    static_cast<HID*> (parent())->removePollDevice(this);
+    //static_cast<HID*> (parent())->removePollDevice(this);
 }
 
 void HIDEventDevice::init()
@@ -60,6 +64,7 @@ void HIDEventDevice::init()
     qDebug() << "*******************************************************";
     qDebug() << "Device file:" << m_file.fileName();
 
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     /* Device name */
     char name[128] = "Unknown";
     if (ioctl(m_file.handle(), EVIOCGNAME(sizeof(name)), name) <= 0)
@@ -85,7 +90,7 @@ void HIDEventDevice::init()
     {
         getCapabilities(mask);
     }
-
+#endif
     close();
 }
 
@@ -94,6 +99,7 @@ void HIDEventDevice::getCapabilities(uint8_t* mask)
     Q_ASSERT(mask != NULL);
     Q_ASSERT(m_file.isOpen() == true);
 
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     qDebug() << "Supported event types:";
 
     for (int i = 0; i < EV_MAX; i++)
@@ -156,15 +162,19 @@ void HIDEventDevice::getCapabilities(uint8_t* mask)
             }
         }
     }
+#else
+    Q_UNUSED(mask)
+#endif
 }
 
 void HIDEventDevice::getAbsoluteAxesCapabilities()
 {
+    Q_ASSERT(m_file.isOpen() == true);
+
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     uint8_t mask[ABS_MAX/8 + 1];
     struct input_absinfo feats;
     int r;
-
-    Q_ASSERT(m_file.isOpen() == true);
 
     memset(mask, 0, sizeof(mask));
     r = ioctl(m_file.handle(), EVIOCGBIT(EV_ABS, sizeof(mask)), mask);
@@ -199,6 +209,7 @@ void HIDEventDevice::getAbsoluteAxesCapabilities()
                 continue;
         }
     }
+#endif
 }
 
 /*****************************************************************************
@@ -239,6 +250,7 @@ QString HIDEventDevice::path() const
 
 bool HIDEventDevice::readEvent()
 {
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     struct input_event ev;
     HIDInputEvent* e;
     int r;
@@ -296,6 +308,9 @@ bool HIDEventDevice::readEvent()
 
         return false;
     }
+#else
+    return false;
+#endif
 }
 
 /*****************************************************************************

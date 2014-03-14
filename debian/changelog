@@ -1,4 +1,12 @@
-qlcplus (4.7.0) stable; urgency=low
+qlcplus (4.7.0.RC2) unstable; urgency=low
+
+  * Monitor: Added support for dimmer channels and gels
+  * Added portuguese translation (thanks to interzona)
+  * Added fixture: Ledj Performer 18-Quad (thanks to Michael Clements)
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 March 2014 12:13:14 +0200
+
+qlcplus (4.7.0.RC1) unstable; urgency=low
 
   * NEW: Input/Output: QLC+ now supports infinite universes
   * NEW: Input/Output: added universe passthrough mode
@@ -8,8 +16,9 @@ qlcplus (4.7.0) stable; urgency=low
   * NEW: RGBMatrix: added audio spectrum mode
   * NEW: Simple Desk: added channel groups tab
   * NEW: Plugins: Added SPI plugin (Linux only)
+  * NEW: Plugins: Added FX5 support on Windows & Linux (thanks to Florian Euchner)
   * NEW: Plugins: Added Vince DMX512 USB adapter support (thanks to Jérôme Lebleu)
-  * NEW: Position Tool: XY Pad-like postion setting in Scene editor (Jano Svitok)
+  * NEW: Position Tool: XY Pad-like position setting in Scene editor (Jano Svitok)
   * NEW: XY Pad shows pan/tilt coordinates (Jano Svitok)
   * NEW: XY Pad keyboard controls: Shift+arrows - fine control, Ctrl+arrows - 10x speed, Ctrl+Shift+arrows - faster fine control (Jano Svitok)
   * NEW: Fixture Manager: Fixtures channels can now be manually forced to HTP/LTP
@@ -19,6 +28,7 @@ qlcplus (4.7.0) stable; urgency=low
   * Webaccess: fixed positioning of headerless frames
   * Monitor: added combo box to select which universe to monitor
   * Editors: fixed crashes when deleting running functions (thanks to plugz)
+  * Plugins: added HID joysticks support on Windows
   * Documentation: Added Sound Control tutorial (Jano Svitok)
   * Added input profile: BCF2000 in Mackie Control mode - all buttons are usable (Jano Svitok)
   * Added input profile: Akai APC40 (thanks to Daniel Curry)
@@ -31,8 +41,10 @@ qlcplus (4.7.0) stable; urgency=low
   * Added fixtures: Stairville Quad Par Profile RGBW 5x8W, Stairville DDS 405 (thanks to Nicolas Rasor)
   * Added fixtures: American DJ P64 LED Plus, American DJ SP1500 MKII, Laserworld EL 200RGY, Botex DSP-405
   * Added fixture: Showtec Quatro (thanks to Florian Euchner)
+  * Added fixtures: Chauvet SlimPAR 64, Chauvet Q-Spot 560-LED (thanks to Chris Laurie)
+  * Added fixture: Showtec Phantom 250 Wash (thanks to Cingulingu)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Mon, 3 March 2014 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 9 March 2014 12:13:14 +0200
 
 qlcplus (4.6.1) stable; urgency=low
 

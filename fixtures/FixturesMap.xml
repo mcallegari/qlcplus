@@ -32,6 +32,7 @@
   <fixture path="American-DJ-ProPAR-56RGB.qxf" mf="American DJ" md="ProPAR 56RGB"/>
   <fixture path="American-DJ-Quad-Gem-DMX.qxf" mf="American DJ" md="Quad Gem DMX"/>
   <fixture path="American-DJ-Quad-Phase.qxf" mf="American DJ" md="Quad Phase"/>
+  <fixture path="American-DJ-Quad-Scan-LED.qxf" mf="American DJ" md="Quad Scan LED"/>
   <fixture path="American-DJ-Revo-3.qxf" mf="American DJ" md="Revo 3"/>
   <fixture path="American-DJ-Revo-4-256.qxf" mf="American DJ" md="Revo 4 - 256-CH"/>
   <fixture path="American-DJ-Revo-4.qxf" mf="American DJ" md="Revo 4"/>
@@ -75,9 +76,11 @@
   <fixture path="Chauvet-LEDrain64.qxf" mf="Chauvet" md="LEDrain64"/>
   <fixture path="Chauvet-LEDSplash-Jr.qxf" mf="Chauvet" md="LEDSplash Jr"/>
   <fixture path="Chauvet-Q-Spot-260-LED.qxf" mf="Chauvet" md="Q-Spot 260 LED"/>
+  <fixture path="Chauvet-Q-Spot-560-LED.qxf" mf="Chauvet" md="Q-Spot 560 LED"/>
   <fixture path="Chauvet-Slim-Par-Pro-RGBA.qxf" mf="Chauvet" md="Slim Par Pro RGBA"/>
   <fixture path="Chauvet-Slim-Par-Pro-VW.qxf" mf="Chauvet" md="Slim Par Pro VW"/>
   <fixture path="Chauvet-SlimPAR-56.qxf" mf="Chauvet" md="SlimPAR 56"/>
+  <fixture path="Chauvet-SlimPAR-64.qxf" mf="Chauvet" md="SlimPAR 64"/>
   <fixture path="Chauvet-Vue-3.1.qxf" mf="Chauvet" md="Vue 3.1"/>
   <fixture path="Chauvet-Vue-6.1.qxf" mf="Chauvet" md="Vue 6.1"/>
   <fixture path="Clay-Paky-A.LEDA-Wash-K10.qxf" mf="Clay Paky" md="A.LEDA Wash K10"/>
@@ -199,6 +202,7 @@
   <fixture path="Laserworld-EL-200RGY.qxf" mf="Laserworld" md="EL-200RGY"/>
   <fixture path="Ledj-Alu-Quad-Par-64.qxf" mf="Ledj" md="Alu Quad Par 64"/>
   <fixture path="Ledj-Colour-Storm-Quad.qxf" mf="Ledj" md="Colour Storm Quad"/>
+  <fixture path="Ledj-Performer-18-Quad.qxf" mf="Ledj" md="Performer 18 Quad"/>
   <fixture path="Ledj-Tri-LED-back-drop-controller.qxf" mf="Ledj" md="Pro Tri LED back drop controller"/>
   <fixture path="lightmaXX-LED-MEGA-PAR-64-RGBW-18x8-W.qxf" mf="lightmaXX" md="LED MEGA PAR 64 RGBW 18x8 W"/>
   <fixture path="Lite-Works-ColorChanger.qxf" mf="Lite-Works" md="ColorChanger"/>
@@ -299,6 +303,7 @@
   <fixture path="Showtec-Mini-Max-LED-RGB.qxf" mf="Showtec" md="Mini Max LED RGB"/>
   <fixture path="Showtec-MiniMax-250.qxf" mf="Showtec" md="MiniMax 250"/>
   <fixture path="Showtec-MultiDim-MK-III-DMX.qxf" mf="Showtec" md="MultiDim MK III DMX"/>
+  <fixture path="Showtec-Phantom-250-Wash.qxf" mf="Showtec" md="Phantom 250 Wash"/>
   <fixture path="Showtec-Phantom-250.qxf" mf="Showtec" md="Phantom 250"/>
   <fixture path="Showtec-Phantom-50.qxf" mf="Showtec" md="Phantom 50"/>
   <fixture path="Showtec-Quatro.qxf" mf="Showtec" md="Quatro"/>

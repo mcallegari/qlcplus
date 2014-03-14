@@ -163,7 +163,7 @@ void FunctionManager::slotDocLoaded()
         if (chaser->isSequence() && chaser->getBoundSceneID() != Scene::invalidId())
         {
             Function *sceneFunc = m_doc->function(chaser->getBoundSceneID());
-            if (sceneFunc == NULL)
+            if (sceneFunc == NULL || sceneFunc->type() != Function::Scene)
                 continue;
 
             Scene *scene = qobject_cast<Scene*>(sceneFunc);

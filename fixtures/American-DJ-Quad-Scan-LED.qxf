@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.6.1</Version>
+  <Author>Jannis Achstetter</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Quad Scan LED</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Show macros">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">Blackout</Capability>
+  <Capability Min="8" Max="22">Show 1</Capability>
+  <Capability Min="23" Max="37">Show 2</Capability>
+  <Capability Min="38" Max="52">Show 3</Capability>
+  <Capability Min="53" Max="67">Show 4</Capability>
+  <Capability Min="68" Max="82">Show 5</Capability>
+  <Capability Min="83" Max="97">Show 6</Capability>
+  <Capability Min="98" Max="112">Show 7</Capability>
+  <Capability Min="113" Max="127">Show 8</Capability>
+  <Capability Min="128" Max="142">Show 9</Capability>
+  <Capability Min="143" Max="157">Show 10</Capability>
+  <Capability Min="158" Max="172">Show 11</Capability>
+  <Capability Min="173" Max="187">Show 12</Capability>
+  <Capability Min="188" Max="202">Show 13</Capability>
+  <Capability Min="203" Max="217">Show 14</Capability>
+  <Capability Min="218" Max="232">Show 15</Capability>
+  <Capability Min="233" Max="247">Show 16</Capability>
+  <Capability Min="248" Max="255">Sound controlled shows</Capability>
+ </Channel>
+ <Channel Name="Movement macros">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No movement</Capability>
+  <Capability Min="8" Max="22">Movement 1</Capability>
+  <Capability Min="23" Max="37">Movement 2</Capability>
+  <Capability Min="38" Max="52">Movement 3</Capability>
+  <Capability Min="53" Max="67">Movement 4</Capability>
+  <Capability Min="68" Max="82">Movement 5</Capability>
+  <Capability Min="83" Max="97">Movement 6</Capability>
+  <Capability Min="98" Max="112">Movement 7</Capability>
+  <Capability Min="113" Max="127">Movement 8</Capability>
+  <Capability Min="128" Max="142">Movement 9</Capability>
+  <Capability Min="143" Max="157">Movement 10</Capability>
+  <Capability Min="158" Max="172">Movement 11</Capability>
+  <Capability Min="173" Max="187">Movement 12</Capability>
+  <Capability Min="188" Max="202">Movement 13</Capability>
+  <Capability Min="203" Max="217">Movement 14</Capability>
+  <Capability Min="218" Max="232">Movement 15</Capability>
+  <Capability Min="233" Max="247">Movement 16</Capability>
+  <Capability Min="248" Max="255">Sound controlled movement</Capability>
+ </Channel>
+ <Channel Name="Movement speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Master dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Master dimmer (0% to 100%)</Capability>
+ </Channel>
+ <Channel Name="Strobing">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="8">Open</Capability>
+  <Capability Min="9" Max="131">Strobing (slow to fast)</Capability>
+  <Capability Min="132" Max="139">Open</Capability>
+  <Capability Min="140" Max="181">Slow open - Fast close</Capability>
+  <Capability Min="182" Max="189">Open</Capability>
+  <Capability Min="190" Max="231">Slow close - Fast open</Capability>
+  <Capability Min="232" Max="239">Open</Capability>
+  <Capability Min="240" Max="247">Sound controlled strobing</Capability>
+  <Capability Min="248" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Color chases">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">Color chase 1</Capability>
+  <Capability Min="8" Max="15">Color chase 2</Capability>
+  <Capability Min="16" Max="23">Color chase 3</Capability>
+  <Capability Min="24" Max="31">Color chase 4</Capability>
+  <Capability Min="32" Max="39">Color chase 5</Capability>
+  <Capability Min="40" Max="47">Color chase 6</Capability>
+  <Capability Min="48" Max="55">Color chase 7</Capability>
+  <Capability Min="56" Max="63">Color chase 8</Capability>
+  <Capability Min="64" Max="71">Color chase 9</Capability>
+  <Capability Min="72" Max="79">Color chase 10</Capability>
+  <Capability Min="80" Max="87">Color chase 11</Capability>
+  <Capability Min="88" Max="95">Color chase 12</Capability>
+  <Capability Min="96" Max="103">Color chase 13</Capability>
+  <Capability Min="104" Max="111">Color chase 14</Capability>
+  <Capability Min="112" Max="119">Color chase 15</Capability>
+  <Capability Min="120" Max="127">Color chase 16</Capability>
+  <Capability Min="128" Max="135">Color chase 17</Capability>
+  <Capability Min="136" Max="143">Color chase 18</Capability>
+  <Capability Min="144" Max="151">Color chase 19</Capability>
+  <Capability Min="152" Max="159">Color chase 20</Capability>
+  <Capability Min="160" Max="167">Color chase 21</Capability>
+  <Capability Min="168" Max="175">Color chase 22</Capability>
+  <Capability Min="176" Max="183">Color chase 23</Capability>
+  <Capability Min="184" Max="191">Color chase 24</Capability>
+  <Capability Min="192" Max="199">Color chase 25</Capability>
+  <Capability Min="200" Max="207">Color chase 26</Capability>
+  <Capability Min="208" Max="215">Color chase 27</Capability>
+  <Capability Min="216" Max="223">Color chase 28</Capability>
+  <Capability Min="224" Max="231">Color chase 29</Capability>
+  <Capability Min="232" Max="239">Color chase 30</Capability>
+  <Capability Min="240" Max="247">Color chase 31</Capability>
+  <Capability Min="248" Max="255">Color chase 32</Capability>
+ </Channel>
+ <Channel Name="Pan (Mirror 1)">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan</Capability>
+ </Channel>
+ <Channel Name="Tilt (Mirror 1)">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt</Capability>
+ </Channel>
+ <Channel Name="Red (Mirror 1)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red intensity (0% to 100%)</Capability>
+ </Channel>
+ <Channel Name="Green (Mirror 1)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green intensity (0% to 100%)</Capability>
+ </Channel>
+ <Channel Name="Blue (Mirror 1)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue intensity (0% to 100%)</Capability>
+ </Channel>
+ <Channel Name="Master dimmer (Mirror 1)">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Master dimmer (0% to 100%)</Capability>
+ </Channel>
+ <Channel Name="Strobing (Mirror 1)">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="8">Open</Capability>
+  <Capability Min="9" Max="131">Strobing (slow to fast)</Capability>
+  <Capability Min="132" Max="139">Open</Capability>
+  <Capability Min="140" Max="181">Slow open - Fast close</Capability>
+  <Capability Min="182" Max="189">Open</Capability>
+  <Capability Min="190" Max="231">Slow close - Fast open</Capability>
+  <Capability Min="232" Max="239">Open</Capability>
+  <Capability Min="240" Max="247">Sound controlled strobing</Capability>
+  <Capability Min="248" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Pan (Mirror 2)">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan</Capability>
+ </Channel>
+ <Channel Name="Tilt (Mirror 2)">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt</Capability>
+ </Channel>
+ <Channel Name="Red (Mirror 2)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red intensity (0% to 100%)</Capability>
+ </Channel>
+ <Channel Name="Green (Mirror 2)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green intensity (0% to 100%)</Capability>
+ </Channel>
+ <Channel Name="Blue (Mirror 2)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue intensity (0% to 100%)</Capability>
+ </Channel>
+ <Channel Name="Master dimmer (Mirror 2)">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Master dimmer (0% to 100%)</Capability>
+ </Channel>
+ <Channel Name="Strobing (Mirror 2)">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="8">Open</Capability>
+  <Capability Min="9" Max="131">Strobing (slow to fast)</Capability>
+  <Capability Min="132" Max="139">Open</Capability>
+  <Capability Min="140" Max="181">Slow open - Fast close</Capability>
+  <Capability Min="182" Max="189">Open</Capability>
+  <Capability Min="190" Max="231">Slow close - Fast open</Capability>
+  <Capability Min="232" Max="239">Open</Capability>
+  <Capability Min="240" Max="247">Sound controlled strobing</Capability>
+  <Capability Min="248" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Pan (Mirror 3)">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan</Capability>
+ </Channel>
+ <Channel Name="Tilt (Mirror 3)">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt</Capability>
+ </Channel>
+ <Channel Name="Red (Mirror 3)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red intensity (0% to 100%)</Capability>
+ </Channel>
+ <Channel Name="Green (Mirror 3)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green intensity (0% to 100%)</Capability>
+ </Channel>
+ <Channel Name="Blue (Mirror 3)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue intensity (0% to 100%)</Capability>
+ </Channel>
+ <Channel Name="Master dimmer (Mirror 3)">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Master dimmer (0% to 100%)</Capability>
+ </Channel>
+ <Channel Name="Strobing (Mirror 3)">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="8">Open</Capability>
+  <Capability Min="9" Max="131">Strobing (slow to fast)</Capability>
+  <Capability Min="132" Max="139">Open</Capability>
+  <Capability Min="140" Max="181">Slow open - Fast close</Capability>
+  <Capability Min="182" Max="189">Open</Capability>
+  <Capability Min="190" Max="231">Slow close - Fast open</Capability>
+  <Capability Min="232" Max="239">Open</Capability>
+  <Capability Min="240" Max="247">Sound controlled strobing</Capability>
+  <Capability Min="248" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Pan (Mirror 4)">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan</Capability>
+ </Channel>
+ <Channel Name="Tilt (Mirror 4)">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt</Capability>
+ </Channel>
+ <Channel Name="Red (Mirror 4)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red intensity (0% to 100%)</Capability>
+ </Channel>
+ <Channel Name="Green (Mirror 4)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green intensity (0% to 100%)</Capability>
+ </Channel>
+ <Channel Name="Blue (Mirror 4)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue intensity (0% to 100%)</Capability>
+ </Channel>
+ <Channel Name="Master dimmer (Mirror 4)">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Master dimmer (0% to 100%)</Capability>
+ </Channel>
+ <Channel Name="Strobing (Mirror 4)">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="8">Open</Capability>
+  <Capability Min="9" Max="131">Strobing (slow to fast)</Capability>
+  <Capability Min="132" Max="139">Open</Capability>
+  <Capability Min="140" Max="181">Slow open - Fast close</Capability>
+  <Capability Min="182" Max="189">Open</Capability>
+  <Capability Min="190" Max="231">Slow close - Fast open</Capability>
+  <Capability Min="232" Max="239">Open</Capability>
+  <Capability Min="240" Max="247">Sound controlled strobing</Capability>
+  <Capability Min="248" Max="255">Open</Capability>
+ </Channel>
+ <Mode Name="1 Channel mode">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="438" Height="338" Weight="6" Depth="126"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Mirror" TiltMax="0"/>
+   <Technical PowerConsumption="65" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Show macros</Channel>
+ </Mode>
+ <Mode Name="5 Channels mode">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="438" Height="338" Weight="6" Depth="126"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Mirror" TiltMax="0"/>
+   <Technical PowerConsumption="65" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Movement macros</Channel>
+  <Channel Number="1">Movement speed</Channel>
+  <Channel Number="2">Master dimmer</Channel>
+  <Channel Number="3">Strobing</Channel>
+  <Channel Number="4">Color chases</Channel>
+ </Mode>
+ <Mode Name="28 Channels mode">
+  <Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="438" Height="338" Weight="6" Depth="126"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Mirror" TiltMax="0"/>
+   <Technical PowerConsumption="65" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan (Mirror 1)</Channel>
+  <Channel Number="1">Tilt (Mirror 1)</Channel>
+  <Channel Number="2">Red (Mirror 1)</Channel>
+  <Channel Number="3">Green (Mirror 1)</Channel>
+  <Channel Number="4">Blue (Mirror 1)</Channel>
+  <Channel Number="5">Master dimmer (Mirror 1)</Channel>
+  <Channel Number="6">Strobing (Mirror 1)</Channel>
+  <Channel Number="7">Pan (Mirror 2)</Channel>
+  <Channel Number="8">Tilt (Mirror 2)</Channel>
+  <Channel Number="9">Red (Mirror 2)</Channel>
+  <Channel Number="10">Green (Mirror 2)</Channel>
+  <Channel Number="11">Blue (Mirror 2)</Channel>
+  <Channel Number="12">Master dimmer (Mirror 2)</Channel>
+  <Channel Number="13">Strobing (Mirror 2)</Channel>
+  <Channel Number="14">Pan (Mirror 3)</Channel>
+  <Channel Number="15">Tilt (Mirror 3)</Channel>
+  <Channel Number="16">Red (Mirror 3)</Channel>
+  <Channel Number="17">Green (Mirror 3)</Channel>
+  <Channel Number="18">Blue (Mirror 3)</Channel>
+  <Channel Number="19">Master dimmer (Mirror 3)</Channel>
+  <Channel Number="20">Strobing (Mirror 3)</Channel>
+  <Channel Number="21">Pan (Mirror 4)</Channel>
+  <Channel Number="22">Tilt (Mirror 4)</Channel>
+  <Channel Number="23">Red (Mirror 4)</Channel>
+  <Channel Number="24">Green (Mirror 4)</Channel>
+  <Channel Number="25">Blue (Mirror 4)</Channel>
+  <Channel Number="26">Master dimmer (Mirror 4)</Channel>
+  <Channel Number="27">Strobing (Mirror 4)</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+  </Head>
+ </Mode>
+</FixtureDefinition>

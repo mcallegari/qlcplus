@@ -30,6 +30,7 @@
 MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
     : m_doc(doc)
     , m_fid(fid)
+    , m_gelColor(QColor())
 {
     Q_ASSERT(doc != NULL);
 
@@ -59,6 +60,21 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
         {
             fxiItem.m_cmy.append(cmyComp + fxi->address());
             qDebug() << "Add CMY comp at address:" << cmyComp + fxi->address();
+        }
+
+        if (head.masterIntensityChannel() != QLCChannel::invalid())
+        {
+            fxiItem.m_masterDimmer = fxi->address() + head.masterIntensityChannel();
+            qDebug() << "Set master dimmer to:" << fxiItem.m_masterDimmer;
+            fxiItem.m_back = new QGraphicsEllipseItem(this);
+            fxiItem.m_back->setPen(QPen(Qt::white, 1));
+            fxiItem.m_back->setBrush(QBrush(Qt::black));
+
+        }
+        else
+        {
+            fxiItem.m_masterDimmer = QLCChannel::invalid();
+            fxiItem.m_back = NULL;
         }
 
         m_heads.append(fxiItem);
@@ -104,6 +120,13 @@ void MonitorFixtureItem::setSize(QSize size)
             {
                 QGraphicsEllipseItem *head = m_heads.at(index).m_item;
                 head->setRect(xpos, ypos, headDiam, headDiam);
+                head->setZValue(2);
+                QGraphicsEllipseItem *back = m_heads.at(index).m_back;
+                if (back != NULL)
+                {
+                    back->setRect(xpos, ypos, headDiam, headDiam);
+                    back->setZValue(1);
+                }
             }
             xpos += cellWidth;
         }
@@ -116,6 +139,14 @@ void MonitorFixtureItem::updateValues(const QByteArray &ua)
 {
     foreach(FixtureHead head, m_heads)
     {
+        uchar alpha = 255;
+        if (head.m_masterDimmer != UINT_MAX /*QLCChannel::invalid()*/)
+        {
+            if (head.m_masterDimmer >= (quint32)ua.size())
+                continue;
+            alpha = ua.at(head.m_masterDimmer);
+        }
+
         if (head.m_rgb.count() > 0)
         {
             uchar r = 0, g = 0, b = 0;
@@ -125,7 +156,7 @@ void MonitorFixtureItem::updateValues(const QByteArray &ua)
                 g = ua.at(head.m_rgb.at(1));
             if (head.m_rgb.at(2) < (quint32)ua.count())
                 b = ua.at(head.m_rgb.at(2));
-            head.m_item->setBrush(QBrush(QColor(r, g, b)));
+            head.m_item->setBrush(QBrush(QColor(r, g, b, alpha)));
         }
         else if (head.m_cmy.count() > 0)
         {
@@ -136,7 +167,19 @@ void MonitorFixtureItem::updateValues(const QByteArray &ua)
                 m = ua.at(head.m_cmy.at(1));
             if (head.m_cmy.at(2) < (quint32)ua.count())
                 y = ua.at(head.m_cmy.at(2));
-            head.m_item->setBrush(QBrush(QColor::fromCmyk(c, m, y, 0)));
+            QColor col = QColor::fromCmyk(c, m, y, 0);
+            col.setAlpha(alpha);
+            head.m_item->setBrush(QBrush(col));
+        }
+        else if (m_gelColor.isValid())
+        {
+            QColor col = m_gelColor;
+            col.setAlpha(alpha);
+            head.m_item->setBrush(QBrush(col));
+        }
+        else
+        {
+            head.m_item->setBrush(QBrush(QColor(255, 255, 255, alpha)));
         }
     }
 }

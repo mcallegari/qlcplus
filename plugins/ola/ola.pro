@@ -43,6 +43,7 @@ TRANSLATIONS += OLA_fr_FR.ts
 TRANSLATIONS += OLA_it_IT.ts
 TRANSLATIONS += OLA_nl_NL.ts
 TRANSLATIONS += OLA_cz_CZ.ts
+TRANSLATIONS += OLA_pt_BR.ts
 
 # This must be after "TARGET = " and before target installation so that
 # install_name_tool can be run before target installation

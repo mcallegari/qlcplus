@@ -9,3 +9,4 @@ TRANSLATIONS += Peperoni_fr_FR.ts
 TRANSLATIONS += Peperoni_it_IT.ts
 TRANSLATIONS += Peperoni_nl_NL.ts
 TRANSLATIONS += Peperoni_cz_CZ.ts
+TRANSLATIONS += Peperoni_pt_BR.ts

@@ -6,8 +6,13 @@ lessThan(QT_MAJOR_VERSION, 5) {
 LIBQTCORE_FILE     = QtCore
 LIBQTCORE_FILEPATH = $$LIBQTCORE_DIR/$$LIBQTCORE_FILE
 
-LIBQTCORE_INSTALL_NAME_TOOL = install_name_tool -change $$LIBQTCORE_FILEPATH \
+lessThan(QT_MAJOR_VERSION, 5) {
+  LIBQTCORE_INSTALL_NAME_TOOL = install_name_tool -change $$LIBQTCORE_FILEPATH \
             @executable_path/../$$LIBSDIR/$$LIBQTCORE_DIR/$$LIBQTCORE_FILE
+} else {
+  LIBQTCORE_INSTALL_NAME_TOOL = install_name_tool -change $$(QTDIR)/lib/$$LIBQTCORE_FILEPATH \
+            @executable_path/../$$LIBSDIR/$$LIBQTCORE_DIR/$$LIBQTCORE_FILE
+}
 
 contains(QT, core) {
     !isEmpty(nametool.commands) {

@@ -35,16 +35,37 @@ class MonitorGraphicsView : public QGraphicsView
 public:
     MonitorGraphicsView(Doc *doc, QWidget *parent = 0);
 
+    /** Set the graphics view size in monitor units */
     void setGridSize(QSize size);
 
+    /** Set the measure unit to use */
     void setGridMetrics(float value);
 
+    /** Get the currently selected fixture ID.
+     *  Fixture::invalidId is returned if none is selected */
+    quint32 selectedFixtureID();
+
+    /** Return a list of the fixture IDs in the current view */
     QList <quint32> fixturesID() const;
 
+    /** Return the gel color of the fixture with the given ID */
+    void setFixtureGelColor(quint32 id, QColor col);
+
+    /** Return the gel color of the fixture with the given ID */
+    QColor fixtureGelColor(quint32 id);
+
+    /** Add a fixture to the current view */
     void addFixture(quint32 id, QPointF pos = QPointF(0, 0));
 
+    /** Remove the fixture with the given ID from the view
+     *  If no ID is specified, the currently selected
+     *  fixture will be removed (if possible)
+     */
     void removeFixture(quint32 id = Fixture::invalidId());
 
+    /** Update the position and the scale of the fixture with
+     *  the given ID
+     */
     void updateFixture(quint32 id);
 
     void writeUniverse(int index, const QByteArray& ua);

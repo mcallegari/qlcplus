@@ -51,6 +51,7 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 # QtGui, QtXml, QtNetwork and QtScript depend on QtCore. Do this AFTER installing the
 # libraries into the bundle
 qtnametool.path = $$INSTALLROOT
+
 qtnametool.commands = $$LIBQTCORE_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBQTGUI_DIR/$$LIBQTGUI_FILE
 qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
@@ -61,13 +62,16 @@ qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBQTSCRIPT_DIR/$$LIBQTSCRIPT_FILE
 
 greaterThan(QT_MAJOR_VERSION, 4) {
-    qtnametool.commands += $$LIBQTCORE_INSTALL_NAME_TOOL \
+    qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
         $$INSTALLROOT/$$LIBSDIR/$$LIBQTWIDGETS_DIR/$$LIBQTWIDGETS_FILE
-    qtnametool.commands += $$LIBQTCORE_INSTALL_NAME_TOOL \
+    qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
         $$INSTALLROOT/$$LIBSDIR/$$LIBQTOPENGL_DIR/$$LIBQTOPENGL_FILE
-    qtnametool.commands += $$LIBQTCORE_INSTALL_NAME_TOOL \
+
+    qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
         $$INSTALLROOT/$$LIBSDIR/$$LIBQTMULTIMEDIA_DIR/$$LIBQTMULTIMEDIA_FILE
-    qtnametool.commands += $$LIBQTCORE_INSTALL_NAME_TOOL \
+    qtnametool.commands += && $$LIBQTNETWORK_INSTALL_NAME_TOOL \
+        $$INSTALLROOT/$$LIBSDIR/$$LIBQTMULTIMEDIA_DIR/$$LIBQTMULTIMEDIA_FILE
+    qtnametool.commands += && $$LIBQTMULTIMEDIA_INSTALL_NAME_TOOL \
         $$INSTALLROOT/$$LIBSDIR/$$LIBQTMULTIMEDIAWIDGETS_DIR/$$LIBQTMULTIMEDIAWIDGETS_FILE
 }
 
@@ -94,11 +98,11 @@ lessThan(QT_MAJOR_VERSION, 5) {
 qtnametool.commands += && $$LIBFFTW_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBQLCENGINE_FILE
 
-# libqlcplusui depends on libportaudio
-qtnametool.commands += && $$LIBPORTAUDIO_INSTALL_NAME_TOOL \
-    $$INSTALLROOT/$$LIBSDIR/$$LIBQLCUI_FILE
-
 lessThan(QT_MAJOR_VERSION, 5) {
+    # libqlcplusui depends on libportaudio
+    qtnametool.commands += && $$LIBPORTAUDIO_INSTALL_NAME_TOOL \
+        $$INSTALLROOT/$$LIBSDIR/$$LIBQLCUI_FILE
+
     # libqlcpluswebaccess depends on libportaudio
     qtnametool.commands += && $$LIBPORTAUDIO_INSTALL_NAME_TOOL \
         $$INSTALLROOT/$$LIBSDIR/$$LIBQLCWEBACCESS_FILE

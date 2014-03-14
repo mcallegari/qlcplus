@@ -6,8 +6,13 @@ lessThan(QT_MAJOR_VERSION, 5) {
 LIBQTXML_FILE     = QtXml
 LIBQTXML_FILEPATH = $$LIBQTXML_DIR/$$LIBQTXML_FILE
 
+lessThan(QT_MAJOR_VERSION, 5) {
 LIBQTXML_INSTALL_NAME_TOOL = install_name_tool -change $$LIBQTXML_FILEPATH \
             @executable_path/../$$LIBSDIR/$$LIBQTXML_DIR/$$LIBQTXML_FILE
+} else {
+LIBQTXML_INSTALL_NAME_TOOL = install_name_tool -change $$(QTDIR)/lib/$$LIBQTXML_FILEPATH \
+            @executable_path/../$$LIBSDIR/$$LIBQTXML_DIR/$$LIBQTXML_FILE
+}
 
 contains(QT, xml) {
     !isEmpty(nametool.commands) {

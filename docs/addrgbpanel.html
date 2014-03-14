@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - Add RGB Panel</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1><img src="qrc:/rgbpanel.png" width=32 align="absmiddle"> Add RGB Panel</H1>
+<P>
+On the market you can easily find LED strips that you can wire as you prefer to create a RGB Panel (or matrix).
+This dialog allows you to quickly create and setup a RGB Panel. It is a dedicated dialog to help you 
+with the most annoying process of creating fixtures manually depending on the desiderd layout.<BR>
+Please note that once the panel is created, the only way to modify the layout is manually.
+</P>
+
+<H2>Panel creation</H2>
+<P>
+When clicking OK on this dialog two things will happen:<br>
+<ul>
+<li>QLC+ will create a fixture for each row of the panel. They can be considered like if
+the panel is composed by individual RGB bars.</li>
+<li>QLC+ will create a fixture group representing the panel with heads already in the right
+displacement</li>
+</ul>
+Once a RGB panel is created, it is straight forward to go to the <a href="functionmanager.html">Function Manager</A>, 
+create a new <A HREF="file:concept.html#RGBMatrix">RGB Matrix</A> and start using the panel
+very quickly.
+<br><br>
+Let's have a look at every option in this panel:
+</P>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD COLSPAN=2 style="text-align:center;"><B>Panel Properties</B></TD>
+ </TR>
+ <TR>
+  <TD><B>Name</B></TD>
+  <TD>An arbitrary string that can be used to name the RGB panel</TD>
+ </TR>
+ <TR>
+  <TD><B>Universe</B></TD>
+  <TD>The universe where the RGB Panel is going to start. If the panel requires a number
+  of channels that don't fit in a single universe, it will span across multiple universes,
+  starting from the one selected with this option.</TD>
+ </TR>
+ <TR>
+  <TD><B>Address</B></TD>
+  <TD>The DMX start address where the RGB Panel has to be mapped</TD>
+ </TR>
+
+ <TR>
+  <TD COLSPAN=2 style="text-align:center;"><B>Size</B></TD>
+ </TR>
+ <TR>
+  <TD><B>Columns</B></TD>
+  <TD>The RGB Panel number of columns (or the number of pixels per row)</TD>
+ </TR>
+ <TR>
+  <TD><B>Rows</B></TD>
+  <TD>The RGB Panel number of rows (or the number of pixels per column)</TD>
+ </TR>
+
+ <TR>
+  <TD COLSPAN=2 style="text-align:center;"><B>Physical</B></TD>
+ </TR>
+ <TR>
+  <TD><B>Width</B></TD>
+  <TD>The physical width in millimeters of the RGB Panel</TD>
+ </TR>
+ <TR>
+  <TD><B>Height</B></TD>
+  <TD>The physical height in millimeters of the RGB Panel</TD>
+ </TR>
+
+ <TR>
+  <TD COLSPAN=2 style="text-align:center;"><B>Orientation</B></TD>
+ </TR>
+ <TR>
+  <TD><B>Top-Left</B></TD>
+  <TD>The first pixel will be located on the top-left corner of the panel</TD>
+ </TR>
+ <TR>
+  <TD><B>Top-Right</B></TD>
+  <TD>The first pixel will be located on the top-right corner of the panel</TD>
+ </TR>
+ <TR>
+  <TD><B>Bottom-Left</B></TD>
+  <TD>The first pixel will be located on the bottom-left corner of the panel</TD>
+ </TR>
+ <TR>
+  <TD><B>Bottom-Right</B></TD>
+  <TD>The first pixel will be located on the bottom-right corner of the panel</TD>
+ </TR>
+
+ <TR>
+  <TD COLSPAN=2 style="text-align:center;"><B>Displacement</B></TD>
+ </TR>
+ <TR>
+  <TD><B>Snake</B></TD>
+  <TD>The panel displacement follows a "snake" logic. It means the next pixel 
+  of the end of a row is on the same column of the next row. Then the other pixels
+  follow in the opposite direction.</TD>
+ </TR>
+ <TR>
+  <TD><B>Zig-Zag</B></TD>
+  <TD>The panel displacement follows a "zig-zag" logic. It means the next pixel 
+  of the end of a row is on the first column of the next row.</TD>
+ </TR>
+
+</TABLE>
+
+</BODY>
+</HTML>

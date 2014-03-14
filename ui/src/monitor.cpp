@@ -19,6 +19,8 @@
 
 #include <QApplication>
 #include <QActionGroup>
+#include <QColorDialog>
+#include <QMessageBox>
 #include <QFontDialog>
 #include <QScrollArea>
 #include <QSpacerItem>
@@ -163,7 +165,11 @@ void Monitor::initGraphicsView()
     m_graphicsView->setGridSize(m_props->gridSize());
 
     foreach (quint32 fid, m_props->fixtureItemsID())
+    {
         m_graphicsView->addFixture(fid, m_props->fixturePosition(fid));
+        qDebug() << "Gel color:" << m_props->fixtureGelColor(fid);
+        m_graphicsView->setFixtureGelColor(fid, m_props->fixtureGelColor(fid));
+    }
 
     connect(m_graphicsView, SIGNAL(fixtureMoved(quint32,QPointF)),
             this, SLOT(slotFixtureMoved(quint32,QPointF)));
@@ -296,6 +302,13 @@ void Monitor::initDMXToolbar()
     if (m_props->valueStyle() == MonitorProperties::PercentageValues)
         action->setChecked(true);
 
+    /* Universe combo box */
+    m_toolBar->addSeparator();
+
+    QLabel *uniLabel = new QLabel(tr("Universe:"));
+    uniLabel->setMargin(5);
+    m_toolBar->addWidget(uniLabel);
+
     QComboBox *uniCombo = new QComboBox(this);
     uniCombo->addItem(tr("All universes"), Universe::invalid());
     for (quint32 i = 0; i < m_doc->inputOutputMap()->universes(); i++)
@@ -363,6 +376,11 @@ void Monitor::initGraphicsToolbar()
                        this, SLOT(slotAddFixture()));
     m_toolBar->addAction(QIcon(":/edit_remove.png"), tr("Remove fixture"),
                        this, SLOT(slotRemoveFixture()));
+
+    m_toolBar->addSeparator();
+
+    m_toolBar->addAction(QIcon(":/color.png"), tr("Set a gel color"),
+                       this, SLOT(slotSetGelColor()));
 }
 
 void Monitor::slotChooseFont()
@@ -370,7 +388,10 @@ void Monitor::slotChooseFont()
     bool ok = false;
     QFont f = QFontDialog::getFont(&ok, m_monitorWidget->font(), this);
     if (ok == true)
+    {
         m_monitorWidget->setFont(f);
+        m_props->setFont(f);
+    }
 }
 
 void Monitor::slotChannelStyleTriggered()
@@ -612,6 +633,29 @@ void Monitor::slotRemoveFixture()
 {
     if (m_graphicsView != NULL)
         m_graphicsView->removeFixture();
+}
+
+void Monitor::slotSetGelColor()
+{
+    if (m_graphicsView == NULL)
+        return;
+
+    quint32 fid = m_graphicsView->selectedFixtureID();
+    if (fid == Fixture::invalidId())
+    {
+        QMessageBox::warning(this, tr("Error"), tr("Please select a fixture first."));
+    }
+    else
+    {
+        QColor color = m_graphicsView->fixtureGelColor(fid);
+        QColor newColor = QColorDialog::getColor(color);
+
+        if (newColor.isValid())
+        {
+            m_graphicsView->setFixtureGelColor(fid, newColor);
+            m_props->setFixtureGelColor(fid, newColor);
+        }
+    }
 }
 
 void Monitor::slotFixtureMoved(quint32 fid, QPointF pos)

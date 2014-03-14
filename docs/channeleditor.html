@@ -98,11 +98,12 @@ list of the fixture's channels and DMX values.
    <B>Control Byte</B>
   </TD>
   <TD>
-   Only available when the channle has been assigned either to the <B>Pan</B> or <B>Tilt</B> group.
-   If the fixture supports only 8bit movement (only one channel for each movement), assign the <B>Coarse MSB</B> control byte to the
-   both of them. If, however, the fixture supports 16bit movement (two channels for each movement),
-   you should assign the <B>Coarse MSB</B> byte to the channels that provide coarse head/mirror
-   movement and the <B>Fine LSB</B> byte to the channels that provide fine head/mirror adjustment.</LI>
+   Applicable to channel pairs that make 16 bit values, usually <B>Pan</B> or <B>Tilt</B> group, but some newer fixtures
+   support 16 bit dimmer or even RGB, gobo or focus channels.<BR />
+   For 8 bit values (e.g. when the fixture supports only 8bit movement, only one channel for each movement),
+   assign the <B>Coarse MSB</B> control byte to the channel. If, however, the fixture supports 16bit movement (two channels for each movement), 
+   or other 16 bit channel, you should assign the <B>Coarse MSB</B> byte to the channels that provide coarse value
+   and the <B>Fine LSB</B> byte to the channels that provide fine value adjustment. If you are not sure, use <B>Coarse MSB</B>.</LI>
   </TD>
  </TR>
  <TR>

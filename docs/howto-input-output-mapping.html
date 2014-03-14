@@ -13,7 +13,13 @@
 (physical input/output devices) to QLC+'s universes.</p>
 
 <p>
-QLC+ by default provides 4 input and 4 output universes. These numbers may be increased if needed, but a recompilation is necessary, since they are hardcoded (look in engine/src/doc.h).</p>
+By default QLC+ provides 4 universes but you can add/remove them as needed.<br>
+The input/output mapping is saved in the currently loaded project. 
+This allows you to port your project on another computer/OS without the need to
+reconfigure it every time.<br>
+If no project is loaded, QLC+ will keep the I/O mapping as a "fallback" configuration. 
+</p>
+
 <H2>Input/Output Manager</H2>
 
 <P>
@@ -38,6 +44,41 @@ allows any manual setting.<br>
 The button is icon is: <IMG SRC="qrc:/configure.png" width=32>
 </P>
 
+<H2>Adding/Removing universes</H2>
+<P>
+QLC+ supports any number of universes, depending on the CPU limit of the device controlling them.<br>
+On the left hand side of the Input/Output Manager there is a toolbar where you can add/remove, name
+and configure universes.
+</P>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD><IMG SRC="qrc:/edit_add.png"></TD>
+  <TD>Add a new universe. The universe will have a name like "Universe X",
+      where X is a progressive number assigned by QLC+ (and also the Universe ID).
+  </TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/edit_remove.png"></TD>
+  <TD>Remove the currently selected universe.<br>
+      <B>Please be careful with this operation as it can compromise your project and cannot be reverted.</B><br>
+      When deleting a universe, if it is currently patched or some fixtures are mapped
+      on it, a popup message will appear asking for confirmation if the operation should
+      be completed or abandoned.
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Universe name</B></TD>
+  <TD>An arbitrary string that you can set to quickly identify the meaning of a Universe</TD>
+ </TR>
+ <TR>
+  <TD><B>Passthrough</B></TD>
+  <TD>Set the universe to just forward what it receives in its input line to its output line<br>
+      This is useful when you want to use QLC+ to act as a "protocol" converter. For example
+      you can use this feature to transparently map an ArtNet network to a DMX USB adapter.
+  </TD>
+ </TR>
+</TABLE>
 
 <H2>Patching</H2>
 
