@@ -12,9 +12,16 @@ VERSION=`head -1 debian/changelog | sed 's/.*(\(.*\)).*/\1/'`
 ./translate.sh
 
 # Build
-qmake -spec macx-g++
-make distclean
-qmake -spec macx-g++
+if [ -n "$QTDIR" ]; then
+    $QTDIR/bin/qmake
+    make distclean
+    $QTDIR/bin/qmake
+else
+    qmake -spec macx-g++
+    make distclean
+    qmake -spec macx-g++
+fi
+
 make
 if [ ! $? -eq 0 ]; then
     echo Compiler error. Aborting package creation.

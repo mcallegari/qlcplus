@@ -112,7 +112,7 @@ Contributors
 QLC+:
 Jano Svitok (Bugfixes, new features)
 Thomas Achtner (ENTTEC wing improvements)
-Joep Admiraal (MIDI SysEx init messages)
+Joep Admiraal (MIDI SysEx init messages, Dutch translation)
 Florian Euchner (FX5 USB DMX support)
 Stefan Riemens (new features)
 Heiko Fanieng (German translation)
@@ -120,6 +120,7 @@ NiKoyes (French translation)
 Raymond Van Laake (Dutch translation)
 Luis García Tornel (Spanish translation)
 Jan Lachman (Czech translation)
+Nuno Almeida, Carlos Eduardo Porto de Oliveira (Portuguese translation)
 
 QLC:
 Stefan Krumm (Bugfixes, new features)
