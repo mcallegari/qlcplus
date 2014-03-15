@@ -22,6 +22,7 @@ greaterThan(QT_MAJOR_VERSION, 4) {
   include(libqtmultimedia-nametool.pri)
   include(libqtmultimediawidgets-nametool.pri)
   include(libqtopengl-nametool.pri)
+  include(libqtprintsupport-nametool.pri)
 }
 include(libqlcplusengine-nametool.pri)
 include(libqlcplusui-nametool.pri)
@@ -46,6 +47,7 @@ greaterThan(QT_MAJOR_VERSION, 4) {
   INSTALLS += LIBQTOPENGL LIBQTOPENGL_ID
   INSTALLS += LIBQTMULTIMEDIA LIBQTMULTIMEDIA_ID
   INSTALLS += LIBQTMULTIMEDIAWIDGETS LIBQTMULTIMEDIAWIDGETS_ID
+  INSTALLS += LIBQTPRINTSUPPORT LIBQTPRINTSUPPORT_ID
 }
 
 # QtGui, QtXml, QtNetwork and QtScript depend on QtCore. Do this AFTER installing the
@@ -62,19 +64,46 @@ qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBQTSCRIPT_DIR/$$LIBQTSCRIPT_FILE
 
 greaterThan(QT_MAJOR_VERSION, 4) {
+# QtWidgets depends on QtCore and QtGui
     qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
         $$INSTALLROOT/$$LIBSDIR/$$LIBQTWIDGETS_DIR/$$LIBQTWIDGETS_FILE
+    qtnametool.commands += && $$LIBQTGUI_INSTALL_NAME_TOOL \
+        $$INSTALLROOT/$$LIBSDIR/$$LIBQTWIDGETS_DIR/$$LIBQTWIDGETS_FILE
+# QtOpenGL depends on QtCore, QtGui and QtWidgets
     qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
         $$INSTALLROOT/$$LIBSDIR/$$LIBQTOPENGL_DIR/$$LIBQTOPENGL_FILE
-
+    qtnametool.commands += && $$LIBQTGUI_INSTALL_NAME_TOOL \
+        $$INSTALLROOT/$$LIBSDIR/$$LIBQTOPENGL_DIR/$$LIBQTOPENGL_FILE
+    qtnametool.commands += && $$LIBQTWIDGETS_INSTALL_NAME_TOOL \
+        $$INSTALLROOT/$$LIBSDIR/$$LIBQTOPENGL_DIR/$$LIBQTOPENGL_FILE
+# QtMultimedia depends on QtCore, QtGui and QtNetwork
     qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
+        $$INSTALLROOT/$$LIBSDIR/$$LIBQTMULTIMEDIA_DIR/$$LIBQTMULTIMEDIA_FILE
+    qtnametool.commands += && $$LIBQTGUI_INSTALL_NAME_TOOL \
         $$INSTALLROOT/$$LIBSDIR/$$LIBQTMULTIMEDIA_DIR/$$LIBQTMULTIMEDIA_FILE
     qtnametool.commands += && $$LIBQTNETWORK_INSTALL_NAME_TOOL \
         $$INSTALLROOT/$$LIBSDIR/$$LIBQTMULTIMEDIA_DIR/$$LIBQTMULTIMEDIA_FILE
+# QtMultimediaWidgets depends on QtCore, QtGui, QtWidgets, QtOpenGL, QtNetwork and QtMultimedia
+    qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
+        $$INSTALLROOT/$$LIBSDIR/$$LIBQTMULTIMEDIAWIDGETS_DIR/$$LIBQTMULTIMEDIAWIDGETS_FILE
+    qtnametool.commands += && $$LIBQTGUI_INSTALL_NAME_TOOL \
+        $$INSTALLROOT/$$LIBSDIR/$$LIBQTMULTIMEDIAWIDGETS_DIR/$$LIBQTMULTIMEDIAWIDGETS_FILE
+    qtnametool.commands += && $$LIBQTWIDGETS_INSTALL_NAME_TOOL \
+        $$INSTALLROOT/$$LIBSDIR/$$LIBQTMULTIMEDIAWIDGETS_DIR/$$LIBQTMULTIMEDIAWIDGETS_FILE
+    qtnametool.commands += && $$LIBQTOPENGL_INSTALL_NAME_TOOL \
+        $$INSTALLROOT/$$LIBSDIR/$$LIBQTMULTIMEDIAWIDGETS_DIR/$$LIBQTMULTIMEDIAWIDGETS_FILE
+    qtnametool.commands += && $$LIBQTNETWORK_INSTALL_NAME_TOOL \
+        $$INSTALLROOT/$$LIBSDIR/$$LIBQTMULTIMEDIAWIDGETS_DIR/$$LIBQTMULTIMEDIAWIDGETS_FILE
     qtnametool.commands += && $$LIBQTMULTIMEDIA_INSTALL_NAME_TOOL \
         $$INSTALLROOT/$$LIBSDIR/$$LIBQTMULTIMEDIAWIDGETS_DIR/$$LIBQTMULTIMEDIAWIDGETS_FILE
+# QtPrintSupport depends on QtCore, QtGui and QtWidgets
+    qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
+        $$INSTALLROOT/$$LIBSDIR/$$LIBQTPRINTSUPPORT_DIR/$$LIBQTPRINTSUPPORT_FILE
+    qtnametool.commands += && $$LIBQTGUI_INSTALL_NAME_TOOL \
+        $$INSTALLROOT/$$LIBSDIR/$$LIBQTPRINTSUPPORT_DIR/$$LIBQTPRINTSUPPORT_FILE
+    qtnametool.commands += && $$LIBQTWIDGETS_INSTALL_NAME_TOOL \
+        $$INSTALLROOT/$$LIBSDIR/$$LIBQTPRINTSUPPORT_DIR/$$LIBQTPRINTSUPPORT_FILE
 }
-
 
 # Libftdi depends on libusb0.1 & 1.0
 qtnametool.commands += && $$LIBUSB0_INSTALL_NAME_TOOL \
@@ -91,22 +120,29 @@ qtnametool.commands += && $$LIBMAD_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBQLCENGINE_FILE
 qtnametool.commands += && $$LIBSNDFILE_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBQLCENGINE_FILE
-lessThan(QT_MAJOR_VERSION, 5) {
-    qtnametool.commands += && $$LIBPORTAUDIO_INSTALL_NAME_TOOL \
-        $$INSTALLROOT/$$LIBSDIR/$$LIBQLCENGINE_FILE
-}
-qtnametool.commands += && $$LIBFFTW_INSTALL_NAME_TOOL \
-    $$INSTALLROOT/$$LIBSDIR/$$LIBQLCENGINE_FILE
 
 lessThan(QT_MAJOR_VERSION, 5) {
+    # libqlcplusengine depends on libportaudio
+    qtnametool.commands += && $$LIBPORTAUDIO_INSTALL_NAME_TOOL \
+        $$INSTALLROOT/$$LIBSDIR/$$LIBQLCENGINE_FILE
     # libqlcplusui depends on libportaudio
     qtnametool.commands += && $$LIBPORTAUDIO_INSTALL_NAME_TOOL \
         $$INSTALLROOT/$$LIBSDIR/$$LIBQLCUI_FILE
-
     # libqlcpluswebaccess depends on libportaudio
     qtnametool.commands += && $$LIBPORTAUDIO_INSTALL_NAME_TOOL \
         $$INSTALLROOT/$$LIBSDIR/$$LIBQLCWEBACCESS_FILE
+} else {
+    qtnametool.commands += && $$LIBQTNETWORK_INSTALL_NAME_TOOL \
+        $$INSTALLROOT/$$LIBSDIR/$$LIBQLCENGINE_FILE
+    qtnametool.commands += && $$LIBQTNETWORK_INSTALL_NAME_TOOL \
+        $$INSTALLROOT/$$LIBSDIR/$$LIBQLCUI_FILE
+    qtnametool.commands += && $$LIBQTNETWORK_INSTALL_NAME_TOOL \
+        $$INSTALLROOT/$$LIBSDIR/$$LIBQLCWEBACCESS_FILE
 }
+
+qtnametool.commands += && $$LIBFFTW_INSTALL_NAME_TOOL \
+    $$INSTALLROOT/$$LIBSDIR/$$LIBQLCENGINE_FILE
+
 # libsndfile depends on flac, libvorbis, libvorbisenc and libogg
 qtnametool.commands += && $$LIBOGG_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBSNDFILE_FILE
@@ -134,5 +170,10 @@ qtnametool.commands += && $$LIBOGG_INSTALL_NAME_TOOL \
 # These never had any difference anyway...
 # include(imageformats-nametool.pri)
 # INSTALLS += imageformats
+
+greaterThan(QT_MAJOR_VERSION, 4) {
+include(platformplugins-nametool.pri)
+INSTALLS += platformplugins
+}
 
 INSTALLS += qtnametool
