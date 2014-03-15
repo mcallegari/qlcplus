@@ -514,7 +514,7 @@ void FunctionManager::slotAddVideo()
 
     /* Create a file open dialog */
     QFileDialog dialog(this);
-    dialog.setWindowTitle(tr("Open Audio File"));
+    dialog.setWindowTitle(tr("Open Video File"));
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
 
     /* Append file filters to the dialog */
