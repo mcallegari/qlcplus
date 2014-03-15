@@ -177,6 +177,10 @@ QStringList E131Plugin::inputs()
 {
     QStringList list;
     int j = 0;
+
+    if (m_IOmapping.count() == 0)
+        init();
+
     foreach (E131IO line, m_IOmapping)
     {
         list << QString(tr("%1: %2")).arg(j + 1).arg(line.IPAddress);
@@ -187,6 +191,9 @@ QStringList E131Plugin::inputs()
 
 void E131Plugin::openInput(quint32 input)
 {
+    if (m_IOmapping.count() == 0)
+        init();
+
     if (input >= (quint32)m_IOmapping.length())
         return;
 
