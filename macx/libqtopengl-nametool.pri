@@ -2,7 +2,7 @@ LIBQTOPENGL_DIR      = QtOpenGL.framework/Versions/5
 LIBQTOPENGL_FILE     = QtOpenGL
 LIBQTOPENGL_FILEPATH = $$LIBQTOPENGL_DIR/$$LIBQTOPENGL_FILE
 
-LIBQTOPENGL_INSTALL_NAME_TOOL = install_name_tool -change $$LIBQTOPENGL_FILEPATH \
+LIBQTOPENGL_INSTALL_NAME_TOOL = install_name_tool -change $$(QTDIR)/lib/$$LIBQTOPENGL_FILEPATH \
             @executable_path/../$$LIBSDIR/$$LIBQTOPENGL_DIR/$$LIBQTOPENGL_FILE
 
 contains(QT, opengl) {
