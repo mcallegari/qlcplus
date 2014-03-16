@@ -47,8 +47,11 @@ private:
 
 private slots:
     void slotNameEdited(const QString& text);
+    void slotSourceFileClicked();
     void slotFadeInEdited();
     void slotFadeOutEdited();
+    void slotPreviewToggled(bool state);
+    void slotPreviewStopped(quint32 id);
 
     /************************************************************************
      * Speed dials
