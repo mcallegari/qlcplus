@@ -67,7 +67,9 @@ App::App(QWidget* parent) : QMainWindow(parent)
 
     setWindowTitle(App::longName());
     setWindowIcon(QIcon(":/qlcplus-fixtureeditor.png"));
-    setCentralWidget(new QMdiArea(this));
+    QMdiArea *mdiArea = new QMdiArea(this);
+    mdiArea->setBackground(QBrush(QColor(0x60, 0x60, 0x60)));
+    setCentralWidget(mdiArea);
 
     QCoreApplication::setOrganizationName("qlcplus");
     QCoreApplication::setOrganizationDomain("sf.net");
