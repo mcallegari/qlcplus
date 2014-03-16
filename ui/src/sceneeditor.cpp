@@ -394,18 +394,42 @@ void SceneEditor::slotTabChanged(int tab)
 
 void SceneEditor::slotEnableCurrent()
 {
-    /* QObject cast fails unless the widget is a FixtureConsole */
-    FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
-    if (fc != NULL)
-        fc->setChecked(true);
+    if (m_tabViewAction->isChecked())
+    {
+        /* QObject cast fails unless the widget is a FixtureConsole */
+        FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
+        if (fc != NULL)
+            fc->setChecked(true);
+    }
+    else
+    {
+        foreach(FixtureConsole *fc, m_consoleList)
+        {
+            if (fc == NULL)
+                continue;
+            fc->setChecked(true);
+        }
+    }
 }
 
 void SceneEditor::slotDisableCurrent()
 {
-    /* QObject cast fails unless the widget is a FixtureConsole */
-    FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
-    if (fc != NULL)
-        fc->setChecked(false);
+    if (m_tabViewAction->isChecked())
+    {
+        /* QObject cast fails unless the widget is a FixtureConsole */
+        FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
+        if (fc != NULL)
+            fc->setChecked(false);
+    }
+    else
+    {
+        foreach(FixtureConsole *fc, m_consoleList)
+        {
+            if (fc == NULL)
+                continue;
+            fc->setChecked(false);
+        }
+    }
 }
 
 void SceneEditor::slotCopy()
