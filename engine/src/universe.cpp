@@ -36,6 +36,7 @@ Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
     , m_id(id)
     , m_grandMaster(gm)
     , m_passthrough(false)
+    , m_monitor(false)
     , m_inputPatch(NULL)
     , m_outputPatch(NULL)
     , m_fbPatch(NULL)
@@ -139,6 +140,16 @@ void Universe::setPassthrough(bool enable)
 bool Universe::passthrough() const
 {
     return m_passthrough;
+}
+
+void Universe::setMonitor(bool enable)
+{
+    m_monitor = enable;
+}
+
+bool Universe::monitor() const
+{
+    return m_monitor;
 }
 
 void Universe::slotGMValueChanged()

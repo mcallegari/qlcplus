@@ -128,6 +128,16 @@ public:
      */
     bool passthrough() const;
 
+    /**
+     * Enable or disable the monitor mode for this universe
+     */
+    void setMonitor(bool enable);
+
+    /**
+     * Returns if the universe is in monitor mode
+     */
+    bool monitor() const;
+
 protected slots:
     /**
      * Called every time the Grand Master changed value
@@ -154,6 +164,8 @@ protected:
     GrandMaster *m_grandMaster;
     /** Variable that determine if a universe is in passthrough mode */
     bool m_passthrough;
+    /** Flag to monitor the universe changes */
+    bool m_monitor;
 
     /************************************************************************
      * Patches

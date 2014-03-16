@@ -143,6 +143,15 @@ void Monitor::initDMXView()
                 createMonitorFixture(fxi);
     }
 
+    for (quint32 i = 0; i < m_doc->inputOutputMap()->universes(); i++)
+    {
+        quint32 uniID = m_doc->inputOutputMap()->getUniverseID(i);
+        if (m_currentUniverse == Universe::invalid() || uniID == m_currentUniverse)
+            m_doc->inputOutputMap()->setUniverseMonitor(i, true);
+        else
+            m_doc->inputOutputMap()->setUniverseMonitor(i, false);
+    }
+
     /* Show the master container widgets */
     m_scrollArea->setWidget(m_monitorWidget);
     m_monitorWidget->show();
@@ -536,6 +545,15 @@ void Monitor::slotUniverseSelected(int index)
 {
     QComboBox *combo = (QComboBox *)sender();
     m_currentUniverse = combo->itemData(index).toUInt();
+
+    for (quint32 i = 0; i < m_doc->inputOutputMap()->universes(); i++)
+    {
+        quint32 uniID = m_doc->inputOutputMap()->getUniverseID(i);
+        if (m_currentUniverse == Universe::invalid() || uniID == m_currentUniverse)
+            m_doc->inputOutputMap()->setUniverseMonitor(i, true);
+        else
+            m_doc->inputOutputMap()->setUniverseMonitor(i, false);
+    }
 
     if (m_props->displayMode() == MonitorProperties::DMX)
     {

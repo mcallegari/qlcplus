@@ -175,6 +175,20 @@ public:
     bool getUniversePassthrough(int index);
 
     /**
+     * Enable/disable the monitor mode for the universe with the given index
+     * @param index The universe index
+     * @param enable true = monitor, false = do not monitor
+     */
+    void setUniverseMonitor(int index, bool enable);
+
+    /**
+     * Retrieve the monitor mode of the universe at the given index
+     * @param index The universe index
+     * @return true = monitor, false = do not monitor
+     */
+    bool getUniverseMonitor(int index);
+
+    /**
      * Return if a universe is patched with any input, output or
      * feedback line
      * @param index The universe index
