@@ -93,6 +93,7 @@ bool Scene::copyFrom(const Function* function)
     m_channelGroups = scene->m_channelGroups;
     m_channelGroupsLevels.clear();
     m_channelGroupsLevels = scene->m_channelGroupsLevels;
+    m_viewMode = scene->m_viewMode;
 
     return Function::copyFrom(function);
 }
