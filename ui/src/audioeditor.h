@@ -20,8 +20,11 @@
 #ifndef AUDIOEDITOR_H
 #define AUDIOEDITOR_H
 
+#include <QPointer>
+
 #include "ui_audioeditor.h"
 
+class SpeedDialWidget;
 class Audio;
 class Doc;
 
@@ -46,6 +49,21 @@ private slots:
     void slotNameEdited(const QString& text);
     void slotFadeInEdited();
     void slotFadeOutEdited();
+
+    /************************************************************************
+     * Speed dials
+     ************************************************************************/
+private:
+    void createSpeedDials();
+
+private slots:
+    void slotSpeedDialToggle(bool state);
+    void slotFadeInDialChanged(int ms);
+    void slotFadeOutDialChanged(int ms);
+    void slotDialDestroyed(QObject* dial);
+
+private:
+    QPointer<SpeedDialWidget> m_speedDials;
 };
 
 /** @} */
