@@ -61,7 +61,9 @@
 #include "show.h"
 #include "doc.h"
 #include "efx.h"
+
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include "videoeditor.h"
 #include "video.h"
 #endif
 
@@ -941,6 +943,12 @@ void FunctionManager::editFunction(Function* function)
     {
         m_editor = new AudioEditor(m_hsplitter->widget(1), qobject_cast<Audio*> (function), m_doc);
     }
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    else if (function->type() == Function::Video)
+    {
+        m_editor = new VideoEditor(m_hsplitter->widget(1), qobject_cast<Video*> (function), m_doc);
+    }
+#endif
     else
     {
         m_editor = NULL;

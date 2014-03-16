@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  audioeditor.h
+  videoeditor.h
 
   Copyright (c) Massimo Callegari
 
@@ -17,56 +17,43 @@
   limitations under the License.
 */
 
-#ifndef AUDIOEDITOR_H
-#define AUDIOEDITOR_H
+#ifndef VIDEOEDITOR_H
+#define VIDEOEDITOR_H
 
 #include <QPointer>
 
-#include "ui_audioeditor.h"
+#include "ui_videoeditor.h"
 
-class SpeedDialWidget;
-class Audio;
+class Video;
 class Doc;
 
 /** @addtogroup ui_shows
  * @{
  */
 
-class AudioEditor : public QWidget, public Ui_AudioEditor
+class VideoEditor : public QWidget, public Ui_VideoEditor
 {
     Q_OBJECT
-    Q_DISABLE_COPY(AudioEditor)
+    Q_DISABLE_COPY(VideoEditor)
 
 public:
-    AudioEditor(QWidget* parent, Audio* audio, Doc* doc);
-    ~AudioEditor();
+    VideoEditor(QWidget* parent, Video* video, Doc* doc);
+    ~VideoEditor();
 
 private:
     Doc* m_doc;
-    Audio* m_audio; // The Audio function being edited
+    Video* m_video; // The Video function being edited
 
 private slots:
     void slotNameEdited(const QString& text);
     void slotSourceFileClicked();
-    void slotFadeInEdited();
-    void slotFadeOutEdited();
+    void slotScreenIndexChanged(int idx);
+    void slotWindowedCheckClicked();
+    void slotFullscreenCheckClicked();
     void slotPreviewToggled(bool state);
     void slotPreviewStopped(quint32 id);
-
-    /************************************************************************
-     * Speed dials
-     ************************************************************************/
-private:
-    void createSpeedDials();
-
-private slots:
-    void slotSpeedDialToggle(bool state);
-    void slotFadeInDialChanged(int ms);
-    void slotFadeOutDialChanged(int ms);
-    void slotDialDestroyed(QObject* dial);
-
-private:
-    QPointer<SpeedDialWidget> m_speedDials;
+    void slotDurationChanged(qint64 duration);
+    void slotMetaDataChanged(QString key, QVariant data);
 };
 
 /** @} */
