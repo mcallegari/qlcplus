@@ -8,6 +8,7 @@ TARGET   = qlcpluswebaccess
 CONFIG += qt
 QT     += core gui script network
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
+QT       += network
 
 # Engine
 INCLUDEPATH     += ../engine/src ../engine/src/audio ../ui/src
