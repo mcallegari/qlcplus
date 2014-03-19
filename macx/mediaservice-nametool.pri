@@ -9,7 +9,9 @@ for(i, FLAVORS):{
     qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL $$INSTALLROOT/PlugIns/mediaservice/$$FILE
     qtnametool.commands += && $$LIBQTGUI_INSTALL_NAME_TOOL $$INSTALLROOT/PlugIns/mediaservice/$$FILE
     qtnametool.commands += && $$LIBQTWIDGETS_INSTALL_NAME_TOOL $$INSTALLROOT/PlugIns/mediaservice/$$FILE
-    qtnametool.commands += && $$LIBQTPRINTSUPPORT_INSTALL_NAME_TOOL $$INSTALLROOT/PlugIns/mediaservice/$$FILE
+    qtnametool.commands += && $$LIBQTNETWORK_INSTALL_NAME_TOOL $$INSTALLROOT/PlugIns/mediaservice/$$FILE
+    qtnametool.commands += && $$LIBQTMULTIMEDIA_INSTALL_NAME_TOOL $$INSTALLROOT/PlugIns/mediaservice/$$FILE
+    qtnametool.commands += && $$LIBQTMULTIMEDIAWIDGETS_INSTALL_NAME_TOOL $$INSTALLROOT/PlugIns/mediaservice/$$FILE
     qtnametool.commands += && install_name_tool -id @executable_path/../PlugIns/mediaservice/$$FILE $$INSTALLROOT/PlugIns/mediaservice/$$FILE
 
     !isEmpty(nametool.commands) {
