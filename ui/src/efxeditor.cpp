@@ -42,6 +42,8 @@
 #include "apputil.h"
 #include "doc.h"
 
+#include "efxuistate.h"
+
 #define SETTINGS_GEOMETRY "efxeditor/geometry"
 
 #define KColumnNumber  0
@@ -340,6 +342,11 @@ void EFXEditor::continueRunning(bool running)
     }
 }
 
+EfxUiState * EFXEditor::efxUiState()
+{
+    return qobject_cast<EfxUiState*>(m_efx->uiState());
+}
+
 /*****************************************************************************
  * General page
  *****************************************************************************/
@@ -557,6 +564,8 @@ void EFXEditor::slotNameEdited(const QString &text)
 
 void EFXEditor::slotSpeedDialToggle(bool state)
 {
+    efxUiState()->setShowSpeedDial(state);
+
     if (state == true)
         updateSpeedDials();
     else

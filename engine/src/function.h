@@ -36,6 +36,8 @@ class Function;
 class Universe;
 class Doc;
 
+class FunctionUiState;
+
 /** @addtogroup engine Engine
  * @{
  */
@@ -407,6 +409,19 @@ private:
     uint m_overrideFadeInSpeed;
     uint m_overrideFadeOutSpeed;
     uint m_overrideDuration;
+
+    /*********************************************************************
+     * UI State
+     *********************************************************************/
+public:
+    FunctionUiState * uiState();
+    const FunctionUiState * uiState() const;
+
+private:
+    virtual FunctionUiState * createUiState();
+
+private:
+    FunctionUiState * m_uiState;
 
     /*********************************************************************
      * Fixtures

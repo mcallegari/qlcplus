@@ -48,6 +48,7 @@
 #include "fixture.h"
 #include "chaser.h"
 #include "scene.h"
+#include "sceneuistate.h"
 #include "doc.h"
 #include "positiontool.h"
 
@@ -93,7 +94,7 @@ SceneEditor::SceneEditor(QWidget* parent, Scene* scene, Doc* doc, bool applyValu
     if (m_tab->count() == 0)
         slotTabChanged(KTabGeneral);
     else
-        m_tab->setCurrentIndex(m_fixtureFirstTabIndex);
+        m_tab->setCurrentIndex(sceneUiState()->currentTab());
 
     m_initFinished = true;
 
@@ -196,7 +197,7 @@ void SceneEditor::init(bool applyValues)
     m_blindAction->setCheckable(true);
 
     m_tabViewAction->setCheckable(true);
-    m_tabViewAction->setChecked(m_scene->viewMode());
+    m_tabViewAction->setChecked(sceneUiState()->displayMode() == SceneUiState::Tabbed);
 
     // Chaser combo init
     quint32 selectId = Function::invalidId();
@@ -332,7 +333,7 @@ void SceneEditor::init(bool applyValues)
     }
 
     // Create the actual tab view
-    slotViewModeChanged(m_scene->viewMode(), applyValues);
+    slotViewModeChanged(sceneUiState()->displayMode() == SceneUiState::Tabbed, applyValues);
 }
 
 void SceneEditor::setSceneValue(const SceneValue& scv)
@@ -346,6 +347,11 @@ void SceneEditor::setSceneValue(const SceneValue& scv)
     fc = fixtureConsole(fixture);
     if (fc != NULL)
         fc->setSceneValue(scv);
+}
+
+SceneUiState * SceneEditor::sceneUiState()
+{
+    return qobject_cast<SceneUiState*>(m_scene->uiState());
 }
 
 void SceneEditor::setBlindModeEnabled(bool active)
@@ -362,6 +368,8 @@ void SceneEditor::slotTabChanged(int tab)
     m_currentTab = tab;
     QLCClipboard *clipboard = m_doc->clipboard();
 
+    sceneUiState()->setCurrentTab(tab);
+    
     if (tab == KTabGeneral)
     {
         m_enableCurrentAction->setEnabled(false);
@@ -934,9 +942,9 @@ void SceneEditor::slotViewModeChanged(bool toggled, bool applyValues)
     if (m_tab->count() == 0)
         slotTabChanged(KTabGeneral);
     else
-        m_tab->setCurrentIndex(m_fixtureFirstTabIndex);
+        m_tab->setCurrentIndex(sceneUiState()->currentTab());
 
-    m_scene->setViewMode(toggled);
+    sceneUiState()->setDisplayMode(toggled ? SceneUiState::Tabbed : SceneUiState::AllChannels);
 }
 
 void SceneEditor::slotRecord()

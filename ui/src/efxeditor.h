@@ -34,6 +34,8 @@ class SpeedDialWidget;
 class EFXPreviewArea;
 class Doc;
 
+class EfxUiState;
+
 /** @addtogroup ui_functions
  * @{
  */
@@ -71,6 +73,8 @@ private:
     /** Re-start the EFX if $running == true. If in Design mode, it is restarted as a test,
         otherwise it is restarted as a normal EFX. */
     void continueRunning(bool running);
+
+    EfxUiState * efxUiState();
 
 private slots:
     void slotTestClicked();
