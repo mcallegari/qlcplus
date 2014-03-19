@@ -173,7 +173,12 @@ qtnametool.commands += && $$LIBOGG_INSTALL_NAME_TOOL \
 
 greaterThan(QT_MAJOR_VERSION, 4) {
 include(platformplugins-nametool.pri)
+include(audioplugins-nametool.pri)
+include(mediaservice-nametool.pri)
+
 INSTALLS += platformplugins
+INSTALLS += audioplugins
+INSTALLS += mediaservice
 }
 
 INSTALLS += qtnametool
