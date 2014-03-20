@@ -56,6 +56,7 @@ const QString KUndefinedString  (  "Undefined" );
 const QString KLoopString       (       "Loop" );
 const QString KPingPongString   (   "PingPong" );
 const QString KSingleShotString ( "SingleShot" );
+const QString KRandomString     (     "Random" );
 
 const QString KBackwardString   (   "Backward" );
 const QString KForwardString    (    "Forward" );
@@ -300,7 +301,7 @@ bool Function::saveXMLCommon(QDomElement *root) const
 
 void Function::setRunOrder(const Function::RunOrder& order)
 {
-    if (order == Loop || order == SingleShot || order == PingPong)
+    if (order == Loop || order == SingleShot || order == PingPong || order == Random)
         m_runOrder = order;
     else
         m_runOrder = Loop;
@@ -319,15 +320,12 @@ QString Function::runOrderToString(const RunOrder& order)
     default:
     case Loop:
         return KLoopString;
-        break;
-
     case PingPong:
         return KPingPongString;
-        break;
-
     case SingleShot:
         return KSingleShotString;
-        break;
+    case Random:
+        return KRandomString;
     }
 }
 
@@ -337,6 +335,8 @@ Function::RunOrder Function::stringToRunOrder(const QString& str)
         return PingPong;
     else if (str == KSingleShotString)
         return SingleShot;
+    else if (str == KRandomString)
+        return Random;
     else
         return Loop;
 }
@@ -392,11 +392,8 @@ QString Function::directionToString(const Direction& dir)
     default:
     case Forward:
         return KForwardString;
-        break;
-
     case Backward:
         return KBackwardString;
-        break;
     }
 }
 

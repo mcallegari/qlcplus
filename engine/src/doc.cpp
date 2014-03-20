@@ -73,6 +73,7 @@ Doc::Doc(QObject* parent, int universes)
 {
     Bus::init(this);
     resetModified();
+    qsrand(QTime::currentTime().msec());
 }
 
 Doc::~Doc()

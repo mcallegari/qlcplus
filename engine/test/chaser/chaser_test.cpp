@@ -92,6 +92,9 @@ void Chaser_Test::directionRunOrder()
     c.setRunOrder(Chaser::PingPong);
     QVERIFY(c.runOrder() == Chaser::PingPong);
 
+    c.setRunOrder(Chaser::Random);
+    QVERIFY(c.runOrder() == Chaser::Random);
+
     c.setDirection(Chaser::Forward);
     QVERIFY(c.direction() == Chaser::Forward);
 

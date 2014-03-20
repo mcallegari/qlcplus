@@ -148,6 +148,9 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc, bool liveM
     case Chaser::SingleShot:
         m_singleShot->setChecked(true);
         break;
+    case Chaser::Random:
+        m_random->setChecked(true);
+        break;
     }
 
     /* Running direction */
@@ -199,6 +202,10 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc, bool liveM
             this, SLOT(slotSingleShotClicked()));
     connect(m_pingPong, SIGNAL(clicked()),
             this, SLOT(slotPingPongClicked()));
+    connect(m_random, SIGNAL(clicked()),
+            this, SLOT(slotRandomClicked()));
+    connect(m_random, SIGNAL(clicked()),
+            this, SLOT(slotRestartTest()));
 
     connect(m_forward, SIGNAL(clicked()),
             this, SLOT(slotForwardClicked()));
@@ -681,6 +688,11 @@ void ChaserEditor::slotSingleShotClicked()
 void ChaserEditor::slotPingPongClicked()
 {
     m_chaser->setRunOrder(Function::PingPong);
+}
+
+void ChaserEditor::slotRandomClicked()
+{
+    m_chaser->setRunOrder(Function::Random);
 }
 
 void ChaserEditor::slotForwardClicked()

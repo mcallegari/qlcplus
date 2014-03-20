@@ -107,6 +107,13 @@ public:
      */
     void reset();
 
+    static void shuffle(QVector<int> & data);
+
+private:
+    int randomize(int step) const;
+    void fillOrder();
+    void fillOrder(int size);
+
 signals:
     /** Tells that the current step number has changed. */
     void currentStepChanged(int stepNumber);
@@ -121,6 +128,7 @@ private:
     int m_currentStep;               //! Current step in m_steps
     int m_newCurrent;                //! Manually set the current step
     QTime* m_roundTime;              //! Counts the time between steps
+    QVector<int> m_order;            //! Randomized order
 
     /************************************************************************
      * Intensity

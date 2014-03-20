@@ -46,6 +46,7 @@ ChaserRunner::ChaserRunner(const Doc* doc, const Chaser* chaser, quint32 startTi
     , m_currentStep(0)
     , m_newCurrent(-1)
     , m_roundTime(new QTime)
+    , m_order()
     , m_intensity(1.0)
 {
     Q_ASSERT(chaser != NULL);
@@ -71,6 +72,8 @@ ChaserRunner::ChaserRunner(const Doc* doc, const Chaser* chaser, quint32 startTi
     if (m_chaser->direction() == Function::Backward)
         m_currentStep = m_chaser->steps().size() - 1;
 
+    fillOrder();
+    
     connect(chaser, SIGNAL(changed(quint32)), this, SLOT(slotChaserChanged()));
     reset();
 }
@@ -112,7 +115,7 @@ uint ChaserRunner::currentFadeIn() const
         case Chaser::PerStep:
             // Each step specifies its own fade in speed
             if (m_currentStep >= 0 && m_currentStep < m_chaser->steps().size())
-                speed = m_chaser->steps().at(m_currentStep).fadeIn;
+                speed = m_chaser->steps().at(currentStep()).fadeIn;
             else
                 speed = Function::defaultSpeed();
             break;
@@ -148,7 +151,7 @@ uint ChaserRunner::currentFadeOut() const
         case Chaser::PerStep:
             // Each step specifies its own fade out speed
             if (m_currentStep >= 0 && m_currentStep < m_chaser->steps().size())
-                speed = m_chaser->steps().at(m_currentStep).fadeOut;
+                speed = m_chaser->steps().at(currentStep()).fadeOut;
             else
                 speed = Function::defaultSpeed();
             break;
@@ -186,7 +189,7 @@ uint ChaserRunner::currentDuration() const
         case Chaser::PerStep:
             // Each step specifies its own duration
             if (m_currentStep >= 0 && m_currentStep < m_chaser->steps().size())
-                speed = m_chaser->steps().at(m_currentStep).duration;
+                speed = m_chaser->steps().at(currentStep()).duration;
             else
                 speed = m_chaser->duration();
             break;
@@ -232,7 +235,7 @@ void ChaserRunner::setCurrentStep(int step)
 
 int ChaserRunner::currentStep() const
 {
-    return m_currentStep;
+    return randomize(m_currentStep);
 }
 
 void ChaserRunner::reset()
@@ -251,6 +254,37 @@ void ChaserRunner::reset()
     m_currentFunction = NULL;
 
     m_roundTime->start();
+}
+
+void ChaserRunner::shuffle(QVector<int> & data)
+{
+   int n = data.size();
+   for (int i = n - 1; i > 0; --i) 
+   {
+       qSwap(data[i], data[qrand() % (i + 1)]);
+   }
+}
+
+int ChaserRunner::randomize(int step) const
+{
+   if (m_chaser->runOrder() == Function::Random && step >= 0 && step < m_order.size())
+       return m_order[step];
+
+   return step;
+}
+
+void ChaserRunner::fillOrder()
+{
+    fillOrder(m_chaser->steps().size());
+}
+
+void ChaserRunner::fillOrder(int size)
+{
+   m_order.resize(size);
+   for (int i = 0; i < size; ++i)
+       m_order[i] = i;
+
+   shuffle(m_order);
 }
 
 /****************************************************************************
@@ -276,6 +310,9 @@ bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
     if (m_chaser->steps().size() == 0)
         return false;
 
+    if (m_chaser->runOrder() == Function::Random && m_order.size() != m_chaser->steps().size())
+        fillOrder();
+
     if (m_newCurrent != -1)
     {
         qDebug() << "Starting from step" << m_currentStep << "@ offset" << m_startOffset;
@@ -293,14 +330,14 @@ bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
         m_startOffset = 0;
 
         switchFunctions(timer);
-        emit currentStepChanged(m_currentStep);
+        emit currentStepChanged(currentStep());
     }
     else if (m_elapsed == 0)
     {
         // First step
         m_elapsed = MasterTimer::tick();
         switchFunctions(timer);
-        emit currentStepChanged(m_currentStep);
+        emit currentStepChanged(currentStep());
     }
     else if (m_next == true || m_previous == true ||
              (currentDuration() != Function::infiniteSpeed() && m_elapsed >= currentDuration()))
@@ -331,7 +368,7 @@ bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
         m_previous = false;
 
         switchFunctions(timer);
-        emit currentStepChanged(m_currentStep);
+        emit currentStepChanged(currentStep());
     }
     else
     {
@@ -371,11 +408,18 @@ bool ChaserRunner::roundCheck()
     if (m_currentStep < m_chaser->steps().size() && m_currentStep >= 0)
         return true; // In the middle of steps. No need to go any further.
 
+    int oldStep = currentStep();
+
+    if (m_chaser->runOrder() == Function::Random) 
+    {
+        fillOrder();
+    }
+
     if (m_chaser->runOrder() == Function::SingleShot)
     {
         return false; // Forwards or Backwards SingleShot has been completed.
     }
-    else if (m_chaser->runOrder() == Function::Loop)
+    else if (m_chaser->runOrder() == Function::Loop || m_chaser->runOrder() == Function::Random)
     {
         if (m_direction == Function::Forward)
         {
@@ -384,12 +428,20 @@ bool ChaserRunner::roundCheck()
             else
                 m_currentStep = m_chaser->steps().size() - 1; // Used by CueList with manual prev
         }
-        else // Backwards
+        else // Backward
         {
             if (m_currentStep < 0)
                 m_currentStep = m_chaser->steps().size() - 1;
             else
                 m_currentStep = 0;
+        }
+
+        if (m_chaser->runOrder() == Function::Random && currentStep() == oldStep)
+        {
+            if (m_currentStep == 0)
+                qSwap(m_order[0], m_order[1 + qrand() % (m_order.size() - 1)]);
+            else
+                qSwap(m_order[m_order.size() - 1], m_order[qrand() % (m_order.size() - 2)]);
         }
     }
     else // Ping Pong
@@ -400,7 +452,7 @@ bool ChaserRunner::roundCheck()
             m_currentStep = m_chaser->steps().size() - 2;
             m_direction = Function::Backward;
         }
-        else // Backwards
+        else // Backward
         {
             m_currentStep = 1;
             m_direction = Function::Forward;
@@ -419,9 +471,9 @@ void ChaserRunner::switchFunctions(MasterTimer* timer)
     if (m_currentFunction != NULL)
         m_currentFunction->stop();
 
-    ChaserStep step(m_chaser->steps().at(m_currentStep));
+    ChaserStep step(m_chaser->steps().at(currentStep()));
     m_currentFunction = m_doc->function(step.fid);
-    qDebug() << Q_FUNC_INFO << "Step #" << m_currentStep << ", function ID:" << step.fid;
+    qDebug() << Q_FUNC_INFO << "Step #" << currentStep() << ", function ID:" << step.fid;
     if (m_currentFunction != NULL && m_currentFunction->stopped() == true)
     {
         if (m_chaser->isSequence())

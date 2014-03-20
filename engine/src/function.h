@@ -260,7 +260,7 @@ protected:
      * Running order
      *********************************************************************/
 public:
-    enum RunOrder {	Loop, SingleShot, PingPong };
+    enum RunOrder { Loop, SingleShot, PingPong, Random };
 
 public:
     /**

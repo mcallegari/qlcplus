@@ -102,6 +102,7 @@ private slots:
     void slotLoopClicked();
     void slotSingleShotClicked();
     void slotPingPongClicked();
+    void slotRandomClicked();
     void slotForwardClicked();
     void slotBackwardClicked();
 
