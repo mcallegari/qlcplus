@@ -105,6 +105,11 @@ void MonitorFixtureItem::setSize(QSize size)
     if (columns > m_heads.count())
         columns = m_heads.count();
 
+    if (rows < 1)
+        rows = 1;
+    if (columns < 1)
+        columns = 1;
+
     double cellWidth = m_width / columns;
     double cellHeight = m_height / rows;
     double headDiam = (cellWidth < cellHeight)?cellWidth:cellHeight;
@@ -135,7 +140,7 @@ void MonitorFixtureItem::setSize(QSize size)
     update();
 }
 
-void MonitorFixtureItem::updateValues(const QByteArray &ua)
+void MonitorFixtureItem::updateValues(const QByteArray & ua)
 {
     foreach(FixtureHead head, m_heads)
     {
