@@ -49,6 +49,7 @@ Video::Video(Doc* doc)
   , m_color(147, 140, 20)
   , m_sourceFileName("")
   , m_videoDuration(0)
+  , m_resolution(QSize(0,0))
   , m_screen(0)
   , m_fullscreen(false)
 {
@@ -107,7 +108,9 @@ bool Video::copyFrom(const Function* function)
 QStringList Video::getCapabilities()
 {
     QStringList caps = QMediaPlayer::supportedMimeTypes();
-    qDebug() << caps;
+    qDebug() << "Supported video types:" << caps;
+    if (caps.isEmpty())
+        caps << "*.avi" << "*.wmv" << "*.mkv" << "*.mp4" << "*.mpg";
     return caps;
 }
 
@@ -162,6 +165,8 @@ bool Video::setSourceFileName(QString filename)
         m_videoPlayer->setMedia(QUrl::fromLocalFile(m_sourceFileName));
         connect(m_videoPlayer, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)),
                 this, SLOT(slotStatusChanged(QMediaPlayer::MediaStatus)));
+        connect(m_videoPlayer, SIGNAL(metaDataChanged(QString,QVariant)),
+                this, SIGNAL(metaDataChanged(QString,QVariant)));
         connect(m_videoPlayer, SIGNAL(durationChanged(qint64)),
                 this, SLOT(slotTotalTimeChanged(qint64)));
     }

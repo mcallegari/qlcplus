@@ -38,6 +38,7 @@
 #include "show.h"
 #include "efx.h"
 #include "doc.h"
+#include "functionuistate.h"
 
 const QString KSceneString      (      "Scene" );
 const QString KChaserString     (     "Chaser" );
@@ -76,6 +77,7 @@ Function::Function(Doc* doc, Type t)
     , m_overrideFadeInSpeed(defaultSpeed())
     , m_overrideFadeOutSpeed(defaultSpeed())
     , m_overrideDuration(defaultSpeed())
+    , m_uiState()
     , m_flashing(false)
     , m_elapsed(0)
     , m_stop(true)
@@ -112,6 +114,7 @@ bool Function::copyFrom(const Function* function)
     m_fadeOutSpeed = function->fadeOutSpeed();
     m_duration = function->duration();
     m_path = function->path(true);
+    uiState()->copyFrom(function->uiState());
 
     emit changed(m_id);
 
@@ -600,6 +603,28 @@ uint Function::infiniteSpeed()
 uint Function::defaultSpeed()
 {
     return (uint) -1;
+}
+
+/*****************************************************************************
+ * UI State
+ *****************************************************************************/
+
+FunctionUiState * Function::uiState()
+{
+    if (m_uiState == NULL)
+        m_uiState = createUiState();
+
+    return m_uiState;
+}
+
+const FunctionUiState * Function::uiState() const
+{
+    return m_uiState;
+}
+
+FunctionUiState * Function::createUiState()
+{
+   return new FunctionUiState(this);
 }
 
 /*****************************************************************************

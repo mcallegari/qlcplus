@@ -165,6 +165,9 @@ public slots:
     void slotSliderValueChanged();
     void slotRangeValueChanged();
 
+signals:
+    void fixturePositions(const QVariantList positions);
+
 private:
     bool m_padInteraction;
     bool m_sliderInteraction;

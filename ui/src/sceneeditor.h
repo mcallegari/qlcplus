@@ -40,6 +40,7 @@ class InputMap;
 class QAction;
 class Chaser;
 class Doc;
+class SceneUiState;
 
 /** @addtogroup ui_functions
  * @{
@@ -69,6 +70,7 @@ private:
 private:
     void init(bool applyValues);
     void setSceneValue(const SceneValue& scv);
+    SceneUiState * sceneUiState();
 
 private:
     bool m_initFinished;

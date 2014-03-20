@@ -269,6 +269,12 @@ SOURCES += aboutbox.cpp \
            vcxypadfixtureeditor.cpp \
            vcxypadproperties.cpp \
            virtualconsole.cpp
+           
+greaterThan(QT_MAJOR_VERSION, 4) {
+HEADERS += videoeditor.h
+FORMS += videoeditor.ui
+SOURCES += videoeditor.cpp
+}
 
 TRANSLATIONS += qlcplus_fi_FI.ts
 TRANSLATIONS += qlcplus_fr_FR.ts

@@ -136,6 +136,11 @@ public:
 
 protected slots:
     void slotStatusChanged(QMediaPlayer::MediaStatus status);
+    void slotTotalTimeChanged(qint64 duration);
+
+signals:
+    void totalTimeChanged(qint64);
+    void metaDataChanged(QString key, QVariant data);
 
 private:
     /** output interface to render video data */
@@ -148,8 +153,10 @@ private:
     QColor m_color;
     /** Name of the source video file */
     QString m_sourceFileName;
-    /** Duration of the media object */
+    /** Duration of the video content */
     qint64 m_videoDuration;
+    /** Resolution of the video content */
+    QSize m_resolution;
     /** Index of the screen where to render the video */
     int m_screen;
     /** Flag that indicates if the video has to go fullscreen */
@@ -181,11 +188,6 @@ public:
     /** @reimpl */
     void postRun(MasterTimer* timer, QList<Universe *> universes);
 
-protected slots:
-    void slotTotalTimeChanged(qint64 duration);
-
-signals:
-    void totalTimeChanged(qint64);
 };
 
 #endif

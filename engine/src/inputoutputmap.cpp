@@ -193,6 +193,20 @@ bool InputOutputMap::getUniversePassthrough(int index)
     return m_universeArray.at(index)->passthrough();
 }
 
+void InputOutputMap::setUniverseMonitor(int index, bool enable)
+{
+    if (index < 0 || index >= m_universeArray.count())
+        return;
+    m_universeArray.at(index)->setMonitor(enable);
+}
+
+bool InputOutputMap::getUniverseMonitor(int index)
+{
+    if (index < 0 || index >= m_universeArray.count())
+        return false;
+    return m_universeArray.at(index)->monitor();
+}
+
 bool InputOutputMap::isUniversePatched(int index)
 {
     if (index < 0 || index >= m_universeArray.count())
@@ -226,16 +240,13 @@ void InputOutputMap::dumpUniverses()
         for (int i = 0; i < m_universeArray.count(); i++)
         {
             Universe *universe = m_universeArray.at(i);
-            if (universe->hasChanged() && universe->outputPatch() != NULL)
+            if (universe->hasChanged() &&
+               (universe->monitor() == true || universe->outputPatch() != NULL))
             {
                 const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
-                /*
-                fprintf(stderr, "---- ");
-                for (int d = 0; d < universe->usedChannels(); d++)
-                    fprintf(stderr, "%d ", (unsigned char)postGM.at(d));
-                fprintf(stderr, " ----\n");
-                */
-                universe->outputPatch()->dump(universe->id(), postGM);
+
+                if (universe->outputPatch() != NULL)
+                    universe->outputPatch()->dump(universe->id(), postGM);
 
                 m_universeMutex.unlock();
                 emit universesWritten(i, postGM);

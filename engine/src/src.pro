@@ -78,10 +78,12 @@ HEADERS += bus.h \
            dmxsource.h \
            efx.h \
            efxfixture.h \
+           efxuistate.h \
            fadechannel.h \
            fixture.h \
            fixturegroup.h \
            function.h \
+           functionuistate.h \
            genericdmxsource.h \
            genericfader.h \
            grandmaster.h \
@@ -101,6 +103,7 @@ HEADERS += bus.h \
            rgbscript.h \
            rgbtext.h \
            scene.h \
+           sceneuistate.h \
            scenevalue.h \
            script.h \
            show.h \
@@ -168,10 +171,12 @@ SOURCES += bus.cpp \
            dmxdumpfactoryproperties.cpp \
            efx.cpp \
            efxfixture.cpp \
+           efxuistate.cpp \
            fadechannel.cpp \
            fixture.cpp \
            fixturegroup.cpp \
            function.cpp \
+           functionuistate.cpp \
            genericdmxsource.cpp \
            genericfader.cpp \
            grandmaster.cpp \
@@ -191,6 +196,7 @@ SOURCES += bus.cpp \
            rgbscript.cpp \
            rgbtext.cpp \
            scene.cpp \
+           sceneuistate.cpp \
            scenevalue.cpp \
            script.cpp \
            show.cpp \

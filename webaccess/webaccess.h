@@ -36,11 +36,15 @@ class Doc;
 
 typedef struct
 {
+    bool enabled;
     QString name;
     bool isStatic;
+    bool isWireless;
     QString address;
     QString netmask;
     QString gateway;
+    QString ssid;
+    QString wpaPass;
 } InterfaceInfo;
 
 class WebAccess : public QObject

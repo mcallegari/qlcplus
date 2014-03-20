@@ -72,7 +72,7 @@ void VCXYPad_Test::initial()
     QCOMPARE(pad.frameStyle(), QFrame::Panel | QFrame::Sunken);
     QCOMPARE(pad.size(), QSize(230, 230));
     QVERIFY(pad.m_area != NULL);
-    QVERIFY(pad.m_area->m_pixmap.isNull() == false);
+    QVERIFY(pad.m_area->m_activePixmap.isNull() == false);
     QCOMPARE(pad.m_area->position(), QPointF(0, 0));
     QCOMPARE(pad.m_fixtures.size(), 0);
     QVERIFY(pad.m_vSlider != NULL);

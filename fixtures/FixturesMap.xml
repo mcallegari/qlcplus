@@ -219,6 +219,7 @@
   <fixture path="Martin-EFX-800.qxf" mf="Martin" md="EFX-800"/>
   <fixture path="Martin-JEM-ZR44.qxf" mf="Martin" md="JEM ZR44"/>
   <fixture path="Martin-MAC-101.qxf" mf="Martin" md="MAC 101"/>
+  <fixture path="Martin-MAC-301-Wash.qxf" mf="Martin" md="MAC 301 Wash"/>
   <fixture path="Martin-MAC250-Entour.qxf" mf="Martin" md="MAC250 Entour"/>
   <fixture path="Martin-MAC250-Krypton.qxf" mf="Martin" md="MAC250 Krypton"/>
   <fixture path="Martin-MAC250plus.qxf" mf="Martin" md="MAC250+"/>
