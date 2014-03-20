@@ -61,10 +61,9 @@ class Fixture;
 #define KXMLQLCEFXEightAlgorithmName "Eight"
 #define KXMLQLCEFXLineAlgorithmName "Line"
 #define KXMLQLCEFXLine2AlgorithmName "Line2"
-#define KXMLQLCEFXLine3AlgorithmName "Line3"
 #define KXMLQLCEFXDiamondAlgorithmName "Diamond"
 #define KXMLQLCEFXSquareAlgorithmName "Square"
-#define KXMLQLCEFXSquareStrongAlgorithmName "SquareStrong"
+#define KXMLQLCEFXSquareChoppyAlgorithmName "SquareChoppy"
 #define KXMLQLCEFXLeafAlgorithmName "Leaf"
 #define KXMLQLCEFXLissajousAlgorithmName "Lissajous"
 
@@ -125,10 +124,9 @@ public:
         Eight,
         Line,
         Line2,
-        Line3,
         Diamond,
         Square,
-        SquareStrong,
+        SquareChoppy,
         Leaf,
         Lissajous
     };

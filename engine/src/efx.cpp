@@ -193,10 +193,9 @@ QStringList EFX::algorithmList()
     list << algorithmToString(EFX::Eight);
     list << algorithmToString(EFX::Line);
     list << algorithmToString(EFX::Line2);
-    list << algorithmToString(EFX::Line3);
     list << algorithmToString(EFX::Diamond);
     list << algorithmToString(EFX::Square);
-    list << algorithmToString(EFX::SquareStrong);
+    list << algorithmToString(EFX::SquareChoppy);
     list << algorithmToString(EFX::Leaf);
     list << algorithmToString(EFX::Lissajous);
     return list;
@@ -215,14 +214,12 @@ QString EFX::algorithmToString(EFX::Algorithm algo)
             return QString(KXMLQLCEFXLineAlgorithmName);
         case EFX::Line2:
             return QString(KXMLQLCEFXLine2AlgorithmName);
-        case EFX::Line3:
-            return QString(KXMLQLCEFXLine3AlgorithmName);
         case EFX::Diamond:
             return QString(KXMLQLCEFXDiamondAlgorithmName);
         case EFX::Square:
             return QString(KXMLQLCEFXSquareAlgorithmName);
-        case EFX::SquareStrong:
-            return QString(KXMLQLCEFXSquareStrongAlgorithmName);
+        case EFX::SquareChoppy:
+            return QString(KXMLQLCEFXSquareChoppyAlgorithmName);
         case EFX::Leaf:
             return QString(KXMLQLCEFXLeafAlgorithmName);
         case EFX::Lissajous:
@@ -238,14 +235,12 @@ EFX::Algorithm EFX::stringToAlgorithm(const QString& str)
         return EFX::Line;
     else if (str == QString(KXMLQLCEFXLine2AlgorithmName))
         return EFX::Line2;
-    else if (str == QString(KXMLQLCEFXLine3AlgorithmName))
-        return EFX::Line3;
     else if (str == QString(KXMLQLCEFXDiamondAlgorithmName))
         return EFX::Diamond;
     else if (str == QString(KXMLQLCEFXSquareAlgorithmName))
         return EFX::Square;
-    else if (str == QString(KXMLQLCEFXSquareStrongAlgorithmName))
-        return EFX::SquareStrong;
+    else if (str == QString(KXMLQLCEFXSquareChoppyAlgorithmName))
+        return EFX::SquareChoppy;
     else if (str == QString(KXMLQLCEFXLeafAlgorithmName))
         return EFX::Leaf;
     else if (str == QString(KXMLQLCEFXLissajousAlgorithmName))
@@ -325,12 +320,11 @@ qreal EFX::calculateDirection(Function::Direction direction, qreal iterator) con
     case Line2:
     case Diamond:
     case Square:
-    case SquareStrong:
+    case SquareChoppy:
     case Leaf:
     case Lissajous:
         return (M_PI * 2.0) - iterator;
     case Line:
-    case Line3:
         return (iterator > M_PI) ? (iterator - M_PI) : (iterator + M_PI);
     }
 }
@@ -361,17 +355,6 @@ void EFX::calculatePoint(qreal iterator, qreal* x, qreal* y) const
         *y = iterator / M_PI - 1;
         break;
 
-    case Line3:
-        {
-            iterator = iterator / M_PI; // 0..2pi -> 0..2
-            qreal forward = 1 - floor(iterator); // 1 when forward
-            qreal backward = 1 - forward; // 1 when backward
-            iterator = iterator - floor(iterator); // 0..1..2 -> 0..1,0..1
-            *x = (forward * iterator + backward * (1 - iterator)) * 2 - 1;
-            *y = *x;
-        }
-        break;
-
     case Diamond:
         *x = pow(cos(iterator - M_PI_2), 3);
         *y = pow(cos(iterator), 3);
@@ -400,7 +383,7 @@ void EFX::calculatePoint(qreal iterator, qreal* x, qreal* y) const
         }
         break;
 
-    case SquareStrong:
+    case SquareChoppy:
         *x = round(cos(iterator));
         *y = round(sin(iterator));
         break;
@@ -563,7 +546,7 @@ int EFX::yOffset() const
 
 void EFX::setXFrequency(int freq)
 {
-    m_xFrequency = static_cast<qreal> (CLAMP(freq, 0, 64));
+    m_xFrequency = static_cast<qreal> (CLAMP(freq, 0, 32));
     emit changed(this->id());
 }
 
@@ -574,7 +557,7 @@ int EFX::xFrequency() const
 
 void EFX::setYFrequency(int freq)
 {
-    m_yFrequency = static_cast<qreal> (CLAMP(freq, 0, 64));
+    m_yFrequency = static_cast<qreal> (CLAMP(freq, 0, 32));
     emit changed(this->id());
 }
 
