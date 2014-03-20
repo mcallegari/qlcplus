@@ -1,5 +1,6 @@
 qlcplus (4.7.0.RC2) unstable; urgency=low
 
+  * NEW: new EFX types Square, SquareChoppy & Leaf (thanks to David Garyga)
   * Monitor: Added support for dimmer channels and gels
   * Monitor: can monitor universes even if they're not patched to an output
   * Audio Editor: added source file, speed dials and preview buttons
