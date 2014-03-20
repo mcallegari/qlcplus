@@ -51,13 +51,21 @@ private slots:
     void previewCircle();
     void previewEight();
     void previewLine();
+    void previewLine2();
     void previewDiamond();
+    void previewSquare();
+    void previewSquareChoppy();
+    void previewLeaf();
     void previewLissajous();
 
     void previewCircleBackwards();
     void previewEightBackwards();
     void previewLineBackwards();
+    void previewLine2Backwards();
     void previewDiamondBackwards();
+    void previewSquareBackwards();
+    void previewSquareChoppyBackwards();
+    void previewLeafBackwards();
     void previewLissajousBackwards();
 
     void rotateAndScale();

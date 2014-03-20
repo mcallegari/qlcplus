@@ -100,12 +100,15 @@ void EFX_Test::initial()
 void EFX_Test::algorithmNames()
 {
     QStringList list = EFX::algorithmList();
-    QCOMPARE(list.size(), 6);
+    QCOMPARE(list.size(), 9);
     QVERIFY(list.contains("Circle"));
     QVERIFY(list.contains("Eight"));
     QVERIFY(list.contains("Line"));
     QVERIFY(list.contains("Line2"));
     QVERIFY(list.contains("Diamond"));
+    QVERIFY(list.contains("Square"));
+    QVERIFY(list.contains("SquareChoppy"));
+    QVERIFY(list.contains("Leaf"));
     QVERIFY(list.contains("Lissajous"));
 
     EFX e(m_doc);
@@ -122,6 +125,15 @@ void EFX_Test::algorithmNames()
     e.setAlgorithm(EFX::Diamond);
     QCOMPARE(e.algorithm(), EFX::Diamond);
 
+    e.setAlgorithm(EFX::Square);
+    QCOMPARE(e.algorithm(), EFX::Square);
+
+    e.setAlgorithm(EFX::SquareChoppy);
+    QCOMPARE(e.algorithm(), EFX::SquareChoppy);
+
+    e.setAlgorithm(EFX::Leaf);
+    QCOMPARE(e.algorithm(), EFX::Leaf);
+
     e.setAlgorithm(EFX::Lissajous);
     QCOMPARE(e.algorithm(), EFX::Lissajous);
 
@@ -132,11 +144,15 @@ void EFX_Test::algorithmNames()
 
 void EFX_Test::stringToAlgorithm()
 {
-    QCOMPARE(EFX::stringToAlgorithm("Eight"), EFX::Eight);
     QCOMPARE(EFX::stringToAlgorithm("Circle"), EFX::Circle);
-    QCOMPARE(EFX::stringToAlgorithm("Lissajous"), EFX::Lissajous);
+    QCOMPARE(EFX::stringToAlgorithm("Eight"), EFX::Eight);
     QCOMPARE(EFX::stringToAlgorithm("Line"), EFX::Line);
     QCOMPARE(EFX::stringToAlgorithm("Line2"), EFX::Line2);
+    QCOMPARE(EFX::stringToAlgorithm("Diamond"), EFX::Diamond);
+    QCOMPARE(EFX::stringToAlgorithm("Square"), EFX::Square);
+    QCOMPARE(EFX::stringToAlgorithm("SquareChoppy"), EFX::SquareChoppy);
+    QCOMPARE(EFX::stringToAlgorithm("Leaf"), EFX::Leaf);
+    QCOMPARE(EFX::stringToAlgorithm("Lissajous"), EFX::Lissajous);
     QCOMPARE(EFX::stringToAlgorithm("Foobar"), EFX::Circle);
 }
 
@@ -258,11 +274,11 @@ void EFX_Test::xFrequency()
 
     QVERIFY(!e.isFrequencyEnabled());
 
-    e.setXFrequency(10);
-    QCOMPARE(e.xFrequency(), 5);
+    e.setXFrequency(60);
+    QCOMPARE(e.xFrequency(), 32);
 
-    e.setXFrequency(6);
-    QCOMPARE(e.xFrequency(), 5);
+    e.setXFrequency(33);
+    QCOMPARE(e.xFrequency(), 32);
 
     e.setXFrequency(0);
     QCOMPARE(e.xFrequency(), 0);
@@ -276,11 +292,11 @@ void EFX_Test::xFrequency()
     e.setAlgorithm(EFX::Lissajous);
     QVERIFY(e.isFrequencyEnabled());
 
-    e.setXFrequency(10);
-    QCOMPARE(e.xFrequency(), 5);
+    e.setXFrequency(60);
+    QCOMPARE(e.xFrequency(), 32);
 
-    e.setXFrequency(6);
-    QCOMPARE(e.xFrequency(), 5);
+    e.setXFrequency(33);
+    QCOMPARE(e.xFrequency(), 32);
 
     e.setXFrequency(0);
     QCOMPARE(e.xFrequency(), 0);
@@ -298,11 +314,11 @@ void EFX_Test::yFrequency()
 
     QVERIFY(!e.isFrequencyEnabled());
 
-    e.setYFrequency(10);
-    QCOMPARE(e.yFrequency(), 5);
+    e.setYFrequency(60);
+    QCOMPARE(e.yFrequency(), 32);
 
-    e.setYFrequency(6);
-    QCOMPARE(e.yFrequency(), 5);
+    e.setYFrequency(33);
+    QCOMPARE(e.yFrequency(), 32);
 
     e.setYFrequency(0);
     QCOMPARE(e.yFrequency(), 0);
@@ -316,20 +332,20 @@ void EFX_Test::yFrequency()
     e.setAlgorithm(EFX::Lissajous);
     QVERIFY(e.isFrequencyEnabled());
 
-    e.setXFrequency(10);
-    QCOMPARE(e.xFrequency(), 5);
+    e.setYFrequency(60);
+    QCOMPARE(e.yFrequency(), 32);
 
-    e.setXFrequency(6);
-    QCOMPARE(e.xFrequency(), 5);
+    e.setYFrequency(33);
+    QCOMPARE(e.yFrequency(), 32);
 
-    e.setXFrequency(0);
-    QCOMPARE(e.xFrequency(), 0);
+    e.setYFrequency(0);
+    QCOMPARE(e.yFrequency(), 0);
 
-    e.setXFrequency(3);
-    QCOMPARE(e.xFrequency(), 3);
+    e.setYFrequency(3);
+    QCOMPARE(e.yFrequency(), 3);
 
-    e.setXFrequency(-4);
-    QCOMPARE(e.xFrequency(), 0);
+    e.setYFrequency(-4);
+    QCOMPARE(e.yFrequency(), 0);
 }
 
 void EFX_Test::xPhase()
@@ -963,6 +979,145 @@ void EFX_Test::previewLine()
     QCOMPARE(poly[127], QPoint(253,253));
 }
 
+void EFX_Test::previewLine2()
+{
+    EFX e(m_doc);
+    e.setAlgorithm(EFX::Line2);
+
+    QVector <QPoint> poly;
+    e.preview(poly);
+    QCOMPARE(poly.size(), 128);
+
+    QCOMPARE(poly[0], QPoint(0,0));
+    QCOMPARE(poly[1], QPoint(1,1));
+    QCOMPARE(poly[2], QPoint(3,3));
+    QCOMPARE(poly[3], QPoint(5,5));
+    QCOMPARE(poly[4], QPoint(7,7));
+    QCOMPARE(poly[5], QPoint(9,9));
+    QCOMPARE(poly[6], QPoint(11,11));
+    QCOMPARE(poly[7], QPoint(13,13));
+    QCOMPARE(poly[8], QPoint(15,15));
+    QCOMPARE(poly[9], QPoint(17,17));
+    QCOMPARE(poly[10], QPoint(19,19));
+    QCOMPARE(poly[11], QPoint(21,21));
+    QCOMPARE(poly[12], QPoint(23,23));
+    QCOMPARE(poly[13], QPoint(25,25));
+    QCOMPARE(poly[14], QPoint(27,27));
+    QCOMPARE(poly[15], QPoint(29,29));
+    QCOMPARE(poly[16], QPoint(31,31));
+    QCOMPARE(poly[17], QPoint(33,33));
+    QCOMPARE(poly[18], QPoint(35,35));
+    QCOMPARE(poly[19], QPoint(37,37));
+    QCOMPARE(poly[20], QPoint(39,39));
+    QCOMPARE(poly[21], QPoint(41,41));
+    QCOMPARE(poly[22], QPoint(43,43));
+    QCOMPARE(poly[23], QPoint(45,45));
+    QCOMPARE(poly[24], QPoint(47,47));
+    QCOMPARE(poly[25], QPoint(49,49));
+    QCOMPARE(poly[26], QPoint(51,51));
+    QCOMPARE(poly[27], QPoint(53,53));
+    QCOMPARE(poly[28], QPoint(55,55));
+    QCOMPARE(poly[29], QPoint(57,57));
+    QCOMPARE(poly[30], QPoint(59,59));
+    QCOMPARE(poly[31], QPoint(61,61));
+    QCOMPARE(poly[32], QPoint(63,63));
+    QCOMPARE(poly[33], QPoint(65,65));
+    QCOMPARE(poly[34], QPoint(67,67));
+    QCOMPARE(poly[35], QPoint(69,69));
+    QCOMPARE(poly[36], QPoint(71,71));
+    QCOMPARE(poly[37], QPoint(73,73));
+    QCOMPARE(poly[38], QPoint(75,75));
+    QCOMPARE(poly[39], QPoint(77,77));
+    QCOMPARE(poly[40], QPoint(79,79));
+    QCOMPARE(poly[41], QPoint(81,81));
+    QCOMPARE(poly[42], QPoint(83,83));
+    QCOMPARE(poly[43], QPoint(85,85));
+    QCOMPARE(poly[44], QPoint(87,87));
+    QCOMPARE(poly[45], QPoint(89,89));
+    QCOMPARE(poly[46], QPoint(91,91));
+    QCOMPARE(poly[47], QPoint(93,93));
+    QCOMPARE(poly[48], QPoint(95,95));
+    QCOMPARE(poly[49], QPoint(97,97));
+    QCOMPARE(poly[50], QPoint(99,99));
+    QCOMPARE(poly[51], QPoint(101,101));
+    QCOMPARE(poly[52], QPoint(103,103));
+    QCOMPARE(poly[53], QPoint(105,105));
+    QCOMPARE(poly[54], QPoint(107,107));
+    QCOMPARE(poly[55], QPoint(109,109));
+    QCOMPARE(poly[56], QPoint(111,111));
+    QCOMPARE(poly[57], QPoint(113,113));
+    QCOMPARE(poly[58], QPoint(115,115));
+    QCOMPARE(poly[59], QPoint(117,117));
+    QCOMPARE(poly[60], QPoint(119,119));
+    QCOMPARE(poly[61], QPoint(121,121));
+    QCOMPARE(poly[62], QPoint(123,123));
+    QCOMPARE(poly[63], QPoint(125,125));
+    QCOMPARE(poly[64], QPoint(126,126));
+    QCOMPARE(poly[65], QPoint(128,128));
+    QCOMPARE(poly[66], QPoint(130,130));
+    QCOMPARE(poly[67], QPoint(132,132));
+    QCOMPARE(poly[68], QPoint(134,134));
+    QCOMPARE(poly[69], QPoint(136,136));
+    QCOMPARE(poly[70], QPoint(138,138));
+    QCOMPARE(poly[71], QPoint(140,140));
+    QCOMPARE(poly[72], QPoint(142,142));
+    QCOMPARE(poly[73], QPoint(144,144));
+    QCOMPARE(poly[74], QPoint(146,146));
+    QCOMPARE(poly[75], QPoint(148,148));
+    QCOMPARE(poly[76], QPoint(150,150));
+    QCOMPARE(poly[77], QPoint(152,152));
+    QCOMPARE(poly[78], QPoint(154,154));
+    QCOMPARE(poly[79], QPoint(156,156));
+    QCOMPARE(poly[80], QPoint(158,158));
+    QCOMPARE(poly[81], QPoint(160,160));
+    QCOMPARE(poly[82], QPoint(162,162));
+    QCOMPARE(poly[83], QPoint(164,164));
+    QCOMPARE(poly[84], QPoint(166,166));
+    QCOMPARE(poly[85], QPoint(168,168));
+    QCOMPARE(poly[86], QPoint(170,170));
+    QCOMPARE(poly[87], QPoint(172,172));
+    QCOMPARE(poly[88], QPoint(174,174));
+    QCOMPARE(poly[89], QPoint(176,176));
+    QCOMPARE(poly[90], QPoint(178,178));
+    QCOMPARE(poly[91], QPoint(180,180));
+    QCOMPARE(poly[92], QPoint(182,182));
+    QCOMPARE(poly[93], QPoint(184,184));
+    QCOMPARE(poly[94], QPoint(186,186));
+    QCOMPARE(poly[95], QPoint(188,188));
+    QCOMPARE(poly[96], QPoint(190,190));
+    QCOMPARE(poly[97], QPoint(192,192));
+    QCOMPARE(poly[98], QPoint(194,194));
+    QCOMPARE(poly[99], QPoint(196,196));
+    QCOMPARE(poly[100], QPoint(198,198));
+    QCOMPARE(poly[101], QPoint(200,200));
+    QCOMPARE(poly[102], QPoint(202,202));
+    QCOMPARE(poly[103], QPoint(204,204));
+    QCOMPARE(poly[104], QPoint(206,206));
+    QCOMPARE(poly[105], QPoint(208,208));
+    QCOMPARE(poly[106], QPoint(210,210));
+    QCOMPARE(poly[107], QPoint(212,212));
+    QCOMPARE(poly[108], QPoint(214,214));
+    QCOMPARE(poly[109], QPoint(216,216));
+    QCOMPARE(poly[110], QPoint(218,218));
+    QCOMPARE(poly[111], QPoint(220,220));
+    QCOMPARE(poly[112], QPoint(222,222));
+    QCOMPARE(poly[113], QPoint(224,224));
+    QCOMPARE(poly[114], QPoint(226,226));
+    QCOMPARE(poly[115], QPoint(228,228));
+    QCOMPARE(poly[116], QPoint(230,230));
+    QCOMPARE(poly[117], QPoint(232,232));
+    QCOMPARE(poly[118], QPoint(234,234));
+    QCOMPARE(poly[119], QPoint(236,236));
+    QCOMPARE(poly[120], QPoint(238,238));
+    QCOMPARE(poly[121], QPoint(240,240));
+    QCOMPARE(poly[122], QPoint(242,242));
+    QCOMPARE(poly[123], QPoint(244,244));
+    QCOMPARE(poly[124], QPoint(246,246));
+    QCOMPARE(poly[125], QPoint(248,248));
+    QCOMPARE(poly[126], QPoint(250,250));
+    QCOMPARE(poly[127], QPoint(252,252));
+}
+
 void EFX_Test::previewDiamond()
 {
     EFX e(m_doc);
@@ -1100,6 +1255,423 @@ void EFX_Test::previewDiamond()
     QCOMPARE(poly[125], QPoint(126,249));
     QCOMPARE(poly[126], QPoint(126,252));
     QCOMPARE(poly[127], QPoint(126,253));
+}
+
+void EFX_Test::previewSquare()
+{
+    EFX e(m_doc);
+    e.setAlgorithm(EFX::Square);
+
+    QVector <QPoint> poly;
+    e.preview(poly);
+    QCOMPARE(poly.size(), 128);
+
+    QCOMPARE(poly[0], QPoint(0,254));
+    QCOMPARE(poly[1], QPoint(7,254));
+    QCOMPARE(poly[2], QPoint(15,254));
+    QCOMPARE(poly[3], QPoint(23,254));
+    QCOMPARE(poly[4], QPoint(31,254));
+    QCOMPARE(poly[5], QPoint(39,254));
+    QCOMPARE(poly[6], QPoint(47,254));
+    QCOMPARE(poly[7], QPoint(55,254));
+    QCOMPARE(poly[8], QPoint(63,254));
+    QCOMPARE(poly[9], QPoint(71,254));
+    QCOMPARE(poly[10], QPoint(79,254));
+    QCOMPARE(poly[11], QPoint(87,254));
+    QCOMPARE(poly[12], QPoint(95,254));
+    QCOMPARE(poly[13], QPoint(103,254));
+    QCOMPARE(poly[14], QPoint(111,254));
+    QCOMPARE(poly[15], QPoint(119,254));
+    QCOMPARE(poly[16], QPoint(127,254));
+    QCOMPARE(poly[17], QPoint(134,254));
+    QCOMPARE(poly[18], QPoint(142,254));
+    QCOMPARE(poly[19], QPoint(150,254));
+    QCOMPARE(poly[20], QPoint(158,254));
+    QCOMPARE(poly[21], QPoint(166,254));
+    QCOMPARE(poly[22], QPoint(174,254));
+    QCOMPARE(poly[23], QPoint(182,254));
+    QCOMPARE(poly[24], QPoint(190,254));
+    QCOMPARE(poly[25], QPoint(198,254));
+    QCOMPARE(poly[26], QPoint(206,254));
+    QCOMPARE(poly[27], QPoint(214,254));
+    QCOMPARE(poly[28], QPoint(222,254));
+    QCOMPARE(poly[29], QPoint(230,254));
+    QCOMPARE(poly[30], QPoint(238,254));
+    QCOMPARE(poly[31], QPoint(246,254));
+    QCOMPARE(poly[32], QPoint(254,253));
+    QCOMPARE(poly[33], QPoint(254,246));
+    QCOMPARE(poly[34], QPoint(254,238));
+    QCOMPARE(poly[35], QPoint(254,230));
+    QCOMPARE(poly[36], QPoint(254,222));
+    QCOMPARE(poly[37], QPoint(254,214));
+    QCOMPARE(poly[38], QPoint(254,206));
+    QCOMPARE(poly[39], QPoint(254,198));
+    QCOMPARE(poly[40], QPoint(254,190));
+    QCOMPARE(poly[41], QPoint(254,182));
+    QCOMPARE(poly[42], QPoint(254,174));
+    QCOMPARE(poly[43], QPoint(254,166));
+    QCOMPARE(poly[44], QPoint(254,158));
+    QCOMPARE(poly[45], QPoint(254,150));
+    QCOMPARE(poly[46], QPoint(254,142));
+    QCOMPARE(poly[47], QPoint(254,134));
+    QCOMPARE(poly[48], QPoint(254,126));
+    QCOMPARE(poly[49], QPoint(254,119));
+    QCOMPARE(poly[50], QPoint(254,111));
+    QCOMPARE(poly[51], QPoint(254,103));
+    QCOMPARE(poly[52], QPoint(254,95));
+    QCOMPARE(poly[53], QPoint(254,87));
+    QCOMPARE(poly[54], QPoint(254,79));
+    QCOMPARE(poly[55], QPoint(254,71));
+    QCOMPARE(poly[56], QPoint(254,63));
+    QCOMPARE(poly[57], QPoint(254,55));
+    QCOMPARE(poly[58], QPoint(254,47));
+    QCOMPARE(poly[59], QPoint(254,39));
+    QCOMPARE(poly[60], QPoint(254,31));
+    QCOMPARE(poly[61], QPoint(254,23));
+    QCOMPARE(poly[62], QPoint(254,15));
+    QCOMPARE(poly[63], QPoint(254,7));
+    QCOMPARE(poly[64], QPoint(254,0));
+    QCOMPARE(poly[65], QPoint(246,0));
+    QCOMPARE(poly[66], QPoint(238,0));
+    QCOMPARE(poly[67], QPoint(230,0));
+    QCOMPARE(poly[68], QPoint(222,0));
+    QCOMPARE(poly[69], QPoint(214,0));
+    QCOMPARE(poly[70], QPoint(206,0));
+    QCOMPARE(poly[71], QPoint(198,0));
+    QCOMPARE(poly[72], QPoint(190,0));
+    QCOMPARE(poly[73], QPoint(182,0));
+    QCOMPARE(poly[74], QPoint(174,0));
+    QCOMPARE(poly[75], QPoint(166,0));
+    QCOMPARE(poly[76], QPoint(158,0));
+    QCOMPARE(poly[77], QPoint(150,0));
+    QCOMPARE(poly[78], QPoint(142,0));
+    QCOMPARE(poly[79], QPoint(134,0));
+    QCOMPARE(poly[80], QPoint(127,0));
+    QCOMPARE(poly[81], QPoint(119,0));
+    QCOMPARE(poly[82], QPoint(111,0));
+    QCOMPARE(poly[83], QPoint(103,0));
+    QCOMPARE(poly[84], QPoint(95,0));
+    QCOMPARE(poly[85], QPoint(87,0));
+    QCOMPARE(poly[86], QPoint(79,0));
+    QCOMPARE(poly[87], QPoint(71,0));
+    QCOMPARE(poly[88], QPoint(63,0));
+    QCOMPARE(poly[89], QPoint(55,0));
+    QCOMPARE(poly[90], QPoint(47,0));
+    QCOMPARE(poly[91], QPoint(39,0));
+    QCOMPARE(poly[92], QPoint(31,0));
+    QCOMPARE(poly[93], QPoint(23,0));
+    QCOMPARE(poly[94], QPoint(15,0));
+    QCOMPARE(poly[95], QPoint(7,0));
+    QCOMPARE(poly[96], QPoint(0,0));
+    QCOMPARE(poly[97], QPoint(0,7));
+    QCOMPARE(poly[98], QPoint(0,15));
+    QCOMPARE(poly[99], QPoint(0,23));
+    QCOMPARE(poly[100], QPoint(0,31));
+    QCOMPARE(poly[101], QPoint(0,39));
+    QCOMPARE(poly[102], QPoint(0,47));
+    QCOMPARE(poly[103], QPoint(0,55));
+    QCOMPARE(poly[104], QPoint(0,63));
+    QCOMPARE(poly[105], QPoint(0,71));
+    QCOMPARE(poly[106], QPoint(0,79));
+    QCOMPARE(poly[107], QPoint(0,87));
+    QCOMPARE(poly[108], QPoint(0,95));
+    QCOMPARE(poly[109], QPoint(0,103));
+    QCOMPARE(poly[110], QPoint(0,111));
+    QCOMPARE(poly[111], QPoint(0,119));
+    QCOMPARE(poly[112], QPoint(0,126));
+    QCOMPARE(poly[113], QPoint(0,134));
+    QCOMPARE(poly[114], QPoint(0,142));
+    QCOMPARE(poly[115], QPoint(0,150));
+    QCOMPARE(poly[116], QPoint(0,158));
+    QCOMPARE(poly[117], QPoint(0,166));
+    QCOMPARE(poly[118], QPoint(0,174));
+    QCOMPARE(poly[119], QPoint(0,182));
+    QCOMPARE(poly[120], QPoint(0,190));
+    QCOMPARE(poly[121], QPoint(0,198));
+    QCOMPARE(poly[122], QPoint(0,206));
+    QCOMPARE(poly[123], QPoint(0,214));
+    QCOMPARE(poly[124], QPoint(0,222));
+    QCOMPARE(poly[125], QPoint(0,230));
+    QCOMPARE(poly[126], QPoint(0,238));
+    QCOMPARE(poly[127], QPoint(0,246));
+}
+
+void EFX_Test::previewSquareChoppy()
+{
+    EFX e(m_doc);
+    e.setAlgorithm(EFX::SquareChoppy);
+
+    QVector <QPoint> poly;
+    e.preview(poly);
+    QCOMPARE(poly.size(), 128);
+
+    QCOMPARE(poly[0], QPoint(254,127));
+    QCOMPARE(poly[1], QPoint(254,127));
+    QCOMPARE(poly[2], QPoint(254,127));
+    QCOMPARE(poly[3], QPoint(254,127));
+    QCOMPARE(poly[4], QPoint(254,127));
+    QCOMPARE(poly[5], QPoint(254,127));
+    QCOMPARE(poly[6], QPoint(254,127));
+    QCOMPARE(poly[7], QPoint(254,127));
+    QCOMPARE(poly[8], QPoint(254,127));
+    QCOMPARE(poly[9], QPoint(254,127));
+    QCOMPARE(poly[10], QPoint(254,127));
+    QCOMPARE(poly[11], QPoint(254,254));
+    QCOMPARE(poly[12], QPoint(254,254));
+    QCOMPARE(poly[13], QPoint(254,254));
+    QCOMPARE(poly[14], QPoint(254,254));
+    QCOMPARE(poly[15], QPoint(254,254));
+    QCOMPARE(poly[16], QPoint(254,254));
+    QCOMPARE(poly[17], QPoint(254,254));
+    QCOMPARE(poly[18], QPoint(254,254));
+    QCOMPARE(poly[19], QPoint(254,254));
+    QCOMPARE(poly[20], QPoint(254,254));
+    QCOMPARE(poly[21], QPoint(254,254));
+    QCOMPARE(poly[22], QPoint(127,254));
+    QCOMPARE(poly[23], QPoint(127,254));
+    QCOMPARE(poly[24], QPoint(127,254));
+    QCOMPARE(poly[25], QPoint(127,254));
+    QCOMPARE(poly[26], QPoint(127,254));
+    QCOMPARE(poly[27], QPoint(127,254));
+    QCOMPARE(poly[28], QPoint(127,254));
+    QCOMPARE(poly[29], QPoint(127,254));
+    QCOMPARE(poly[30], QPoint(127,254));
+    QCOMPARE(poly[31], QPoint(127,254));
+    QCOMPARE(poly[32], QPoint(127,254));
+    QCOMPARE(poly[33], QPoint(127,254));
+    QCOMPARE(poly[34], QPoint(127,254));
+    QCOMPARE(poly[35], QPoint(127,254));
+    QCOMPARE(poly[36], QPoint(127,254));
+    QCOMPARE(poly[37], QPoint(127,254));
+    QCOMPARE(poly[38], QPoint(127,254));
+    QCOMPARE(poly[39], QPoint(127,254));
+    QCOMPARE(poly[40], QPoint(127,254));
+    QCOMPARE(poly[41], QPoint(127,254));
+    QCOMPARE(poly[42], QPoint(127,254));
+    QCOMPARE(poly[43], QPoint(0,254));
+    QCOMPARE(poly[44], QPoint(0,254));
+    QCOMPARE(poly[45], QPoint(0,254));
+    QCOMPARE(poly[46], QPoint(0,254));
+    QCOMPARE(poly[47], QPoint(0,254));
+    QCOMPARE(poly[48], QPoint(0,254));
+    QCOMPARE(poly[49], QPoint(0,254));
+    QCOMPARE(poly[50], QPoint(0,254));
+    QCOMPARE(poly[51], QPoint(0,254));
+    QCOMPARE(poly[52], QPoint(0,254));
+    QCOMPARE(poly[53], QPoint(0,254));
+    QCOMPARE(poly[54], QPoint(0,127));
+    QCOMPARE(poly[55], QPoint(0,127));
+    QCOMPARE(poly[56], QPoint(0,127));
+    QCOMPARE(poly[57], QPoint(0,127));
+    QCOMPARE(poly[58], QPoint(0,127));
+    QCOMPARE(poly[59], QPoint(0,127));
+    QCOMPARE(poly[60], QPoint(0,127));
+    QCOMPARE(poly[61], QPoint(0,127));
+    QCOMPARE(poly[62], QPoint(0,127));
+    QCOMPARE(poly[63], QPoint(0,127));
+    QCOMPARE(poly[64], QPoint(0,127));
+    QCOMPARE(poly[65], QPoint(0,127));
+    QCOMPARE(poly[66], QPoint(0,127));
+    QCOMPARE(poly[67], QPoint(0,127));
+    QCOMPARE(poly[68], QPoint(0,127));
+    QCOMPARE(poly[69], QPoint(0,127));
+    QCOMPARE(poly[70], QPoint(0,127));
+    QCOMPARE(poly[71], QPoint(0,127));
+    QCOMPARE(poly[72], QPoint(0,127));
+    QCOMPARE(poly[73], QPoint(0,127));
+    QCOMPARE(poly[74], QPoint(0,127));
+    QCOMPARE(poly[75], QPoint(0,0));
+    QCOMPARE(poly[76], QPoint(0,0));
+    QCOMPARE(poly[77], QPoint(0,0));
+    QCOMPARE(poly[78], QPoint(0,0));
+    QCOMPARE(poly[79], QPoint(0,0));
+    QCOMPARE(poly[80], QPoint(0,0));
+    QCOMPARE(poly[81], QPoint(0,0));
+    QCOMPARE(poly[82], QPoint(0,0));
+    QCOMPARE(poly[83], QPoint(0,0));
+    QCOMPARE(poly[84], QPoint(0,0));
+    QCOMPARE(poly[85], QPoint(0,0));
+    QCOMPARE(poly[86], QPoint(127,0));
+    QCOMPARE(poly[87], QPoint(127,0));
+    QCOMPARE(poly[88], QPoint(127,0));
+    QCOMPARE(poly[89], QPoint(127,0));
+    QCOMPARE(poly[90], QPoint(127,0));
+    QCOMPARE(poly[91], QPoint(127,0));
+    QCOMPARE(poly[92], QPoint(127,0));
+    QCOMPARE(poly[93], QPoint(127,0));
+    QCOMPARE(poly[94], QPoint(127,0));
+    QCOMPARE(poly[95], QPoint(127,0));
+    QCOMPARE(poly[96], QPoint(127,0));
+    QCOMPARE(poly[97], QPoint(127,0));
+    QCOMPARE(poly[98], QPoint(127,0));
+    QCOMPARE(poly[99], QPoint(127,0));
+    QCOMPARE(poly[100], QPoint(127,0));
+    QCOMPARE(poly[101], QPoint(127,0));
+    QCOMPARE(poly[102], QPoint(127,0));
+    QCOMPARE(poly[103], QPoint(127,0));
+    QCOMPARE(poly[104], QPoint(127,0));
+    QCOMPARE(poly[105], QPoint(127,0));
+    QCOMPARE(poly[106], QPoint(127,0));
+    QCOMPARE(poly[107], QPoint(254,0));
+    QCOMPARE(poly[108], QPoint(254,0));
+    QCOMPARE(poly[109], QPoint(254,0));
+    QCOMPARE(poly[110], QPoint(254,0));
+    QCOMPARE(poly[111], QPoint(254,0));
+    QCOMPARE(poly[112], QPoint(254,0));
+    QCOMPARE(poly[113], QPoint(254,0));
+    QCOMPARE(poly[114], QPoint(254,0));
+    QCOMPARE(poly[115], QPoint(254,0));
+    QCOMPARE(poly[116], QPoint(254,0));
+    QCOMPARE(poly[117], QPoint(254,0));
+    QCOMPARE(poly[118], QPoint(254,127));
+    QCOMPARE(poly[119], QPoint(254,127));
+    QCOMPARE(poly[120], QPoint(254,127));
+    QCOMPARE(poly[121], QPoint(254,127));
+    QCOMPARE(poly[122], QPoint(254,127));
+    QCOMPARE(poly[123], QPoint(254,127));
+    QCOMPARE(poly[124], QPoint(254,127));
+    QCOMPARE(poly[125], QPoint(254,127));
+    QCOMPARE(poly[126], QPoint(254,127));
+    QCOMPARE(poly[127], QPoint(254,127));
+}
+
+void EFX_Test::previewLeaf()
+{
+    EFX e(m_doc);
+    e.setAlgorithm(EFX::Leaf);
+
+    QVector <QPoint> poly;
+    e.preview(poly);
+    QCOMPARE(poly.size(), 128);
+
+    QCOMPARE(poly[0], QPoint(127,254));
+    QCOMPARE(poly[1], QPoint(126,253));
+    QCOMPARE(poly[2], QPoint(126,253));
+    QCOMPARE(poly[3], QPoint(126,252));
+    QCOMPARE(poly[4], QPoint(126,251));
+    QCOMPARE(poly[5], QPoint(126,250));
+    QCOMPARE(poly[6], QPoint(126,248));
+    QCOMPARE(poly[7], QPoint(126,246));
+    QCOMPARE(poly[8], QPoint(125,244));
+    QCOMPARE(poly[9], QPoint(125,241));
+    QCOMPARE(poly[10], QPoint(124,239));
+    QCOMPARE(poly[11], QPoint(122,235));
+    QCOMPARE(poly[12], QPoint(120,232));
+    QCOMPARE(poly[13], QPoint(117,229));
+    QCOMPARE(poly[14], QPoint(113,225));
+    QCOMPARE(poly[15], QPoint(109,221));
+    QCOMPARE(poly[16], QPoint(104,216));
+    QCOMPARE(poly[17], QPoint(98,212));
+    QCOMPARE(poly[18], QPoint(91,207));
+    QCOMPARE(poly[19], QPoint(84,202));
+    QCOMPARE(poly[20], QPoint(76,197));
+    QCOMPARE(poly[21], QPoint(68,192));
+    QCOMPARE(poly[22], QPoint(59,186));
+    QCOMPARE(poly[23], QPoint(50,181));
+    QCOMPARE(poly[24], QPoint(41,175));
+    QCOMPARE(poly[25], QPoint(33,169));
+    QCOMPARE(poly[26], QPoint(25,163));
+    QCOMPARE(poly[27], QPoint(17,157));
+    QCOMPARE(poly[28], QPoint(11,151));
+    QCOMPARE(poly[29], QPoint(6,145));
+    QCOMPARE(poly[30], QPoint(3,139));
+    QCOMPARE(poly[31], QPoint(0,133));
+    QCOMPARE(poly[32], QPoint(0,126));
+    QCOMPARE(poly[33], QPoint(0,120));
+    QCOMPARE(poly[34], QPoint(3,114));
+    QCOMPARE(poly[35], QPoint(6,108));
+    QCOMPARE(poly[36], QPoint(11,102));
+    QCOMPARE(poly[37], QPoint(17,96));
+    QCOMPARE(poly[38], QPoint(25,90));
+    QCOMPARE(poly[39], QPoint(33,84));
+    QCOMPARE(poly[40], QPoint(41,78));
+    QCOMPARE(poly[41], QPoint(50,72));
+    QCOMPARE(poly[42], QPoint(59,67));
+    QCOMPARE(poly[43], QPoint(68,61));
+    QCOMPARE(poly[44], QPoint(76,56));
+    QCOMPARE(poly[45], QPoint(84,51));
+    QCOMPARE(poly[46], QPoint(91,46));
+    QCOMPARE(poly[47], QPoint(98,41));
+    QCOMPARE(poly[48], QPoint(104,37));
+    QCOMPARE(poly[49], QPoint(109,32));
+    QCOMPARE(poly[50], QPoint(113,28));
+    QCOMPARE(poly[51], QPoint(117,24));
+    QCOMPARE(poly[52], QPoint(120,21));
+    QCOMPARE(poly[53], QPoint(122,18));
+    QCOMPARE(poly[54], QPoint(124,14));
+    QCOMPARE(poly[55], QPoint(125,12));
+    QCOMPARE(poly[56], QPoint(125,9));
+    QCOMPARE(poly[57], QPoint(126,7));
+    QCOMPARE(poly[58], QPoint(126,5));
+    QCOMPARE(poly[59], QPoint(126,3));
+    QCOMPARE(poly[60], QPoint(126,2));
+    QCOMPARE(poly[61], QPoint(126,1));
+    QCOMPARE(poly[62], QPoint(126,0));
+    QCOMPARE(poly[63], QPoint(126,0));
+    QCOMPARE(poly[64], QPoint(127,0));
+    QCOMPARE(poly[65], QPoint(127,0));
+    QCOMPARE(poly[66], QPoint(127,0));
+    QCOMPARE(poly[67], QPoint(127,1));
+    QCOMPARE(poly[68], QPoint(127,2));
+    QCOMPARE(poly[69], QPoint(127,3));
+    QCOMPARE(poly[70], QPoint(127,5));
+    QCOMPARE(poly[71], QPoint(127,7));
+    QCOMPARE(poly[72], QPoint(128,9));
+    QCOMPARE(poly[73], QPoint(128,12));
+    QCOMPARE(poly[74], QPoint(129,14));
+    QCOMPARE(poly[75], QPoint(131,18));
+    QCOMPARE(poly[76], QPoint(133,21));
+    QCOMPARE(poly[77], QPoint(136,24));
+    QCOMPARE(poly[78], QPoint(140,28));
+    QCOMPARE(poly[79], QPoint(144,32));
+    QCOMPARE(poly[80], QPoint(149,37));
+    QCOMPARE(poly[81], QPoint(155,41));
+    QCOMPARE(poly[82], QPoint(162,46));
+    QCOMPARE(poly[83], QPoint(169,51));
+    QCOMPARE(poly[84], QPoint(177,56));
+    QCOMPARE(poly[85], QPoint(185,61));
+    QCOMPARE(poly[86], QPoint(194,67));
+    QCOMPARE(poly[87], QPoint(203,72));
+    QCOMPARE(poly[88], QPoint(212,78));
+    QCOMPARE(poly[89], QPoint(220,84));
+    QCOMPARE(poly[90], QPoint(228,90));
+    QCOMPARE(poly[91], QPoint(236,96));
+    QCOMPARE(poly[92], QPoint(242,102));
+    QCOMPARE(poly[93], QPoint(247,108));
+    QCOMPARE(poly[94], QPoint(250,114));
+    QCOMPARE(poly[95], QPoint(253,120));
+    QCOMPARE(poly[96], QPoint(254,126));
+    QCOMPARE(poly[97], QPoint(253,133));
+    QCOMPARE(poly[98], QPoint(250,139));
+    QCOMPARE(poly[99], QPoint(247,145));
+    QCOMPARE(poly[100], QPoint(242,151));
+    QCOMPARE(poly[101], QPoint(236,157));
+    QCOMPARE(poly[102], QPoint(228,163));
+    QCOMPARE(poly[103], QPoint(220,169));
+    QCOMPARE(poly[104], QPoint(212,175));
+    QCOMPARE(poly[105], QPoint(203,181));
+    QCOMPARE(poly[106], QPoint(194,186));
+    QCOMPARE(poly[107], QPoint(185,192));
+    QCOMPARE(poly[108], QPoint(177,197));
+    QCOMPARE(poly[109], QPoint(169,202));
+    QCOMPARE(poly[110], QPoint(162,207));
+    QCOMPARE(poly[111], QPoint(155,212));
+    QCOMPARE(poly[112], QPoint(149,216));
+    QCOMPARE(poly[113], QPoint(144,221));
+    QCOMPARE(poly[114], QPoint(140,225));
+    QCOMPARE(poly[115], QPoint(136,229));
+    QCOMPARE(poly[116], QPoint(133,232));
+    QCOMPARE(poly[117], QPoint(131,235));
+    QCOMPARE(poly[118], QPoint(129,239));
+    QCOMPARE(poly[119], QPoint(128,241));
+    QCOMPARE(poly[120], QPoint(128,244));
+    QCOMPARE(poly[121], QPoint(127,246));
+    QCOMPARE(poly[122], QPoint(127,248));
+    QCOMPARE(poly[123], QPoint(127,250));
+    QCOMPARE(poly[124], QPoint(127,251));
+    QCOMPARE(poly[125], QPoint(127,252));
+    QCOMPARE(poly[126], QPoint(127,253));
+    QCOMPARE(poly[127], QPoint(127,253));
 }
 
 void EFX_Test::previewLissajous()
@@ -1324,11 +1896,107 @@ void EFX_Test::previewLineBackwards()
     }
 }
 
+void EFX_Test::previewLine2Backwards()
+{
+    EFX e(m_doc);
+
+    e.setAlgorithm(EFX::Line2);
+
+    QVector <QPoint> polyF;
+    e.preview(polyF);
+    QCOMPARE(polyF.size(), 128);
+
+    e.setDirection(Function::Backward);
+
+    QVector <QPoint> polyB;
+    e.preview(polyB);
+    QCOMPARE(polyB.size(), 128);
+
+    QVERIFY(CloseEnough(polyB[0], polyF[0]));
+
+    for (int i = 1; i < 128; ++i)
+    {
+         QVERIFY(CloseEnough(polyB[128 - i], polyF[i]));
+    }
+}
+
 void EFX_Test::previewDiamondBackwards()
 {
     EFX e(m_doc);
 
     e.setAlgorithm(EFX::Diamond);
+
+    QVector <QPoint> polyF;
+    e.preview(polyF);
+    QCOMPARE(polyF.size(), 128);
+
+    e.setDirection(Function::Backward);
+
+    QVector <QPoint> polyB;
+    e.preview(polyB);
+    QCOMPARE(polyB.size(), 128);
+
+    QVERIFY(CloseEnough(polyB[0], polyF[0]));
+
+    for (int i = 1; i < 128; ++i)
+    {
+         QVERIFY(CloseEnough(polyB[128 - i], polyF[i]));
+    }
+}
+
+void EFX_Test::previewSquareBackwards()
+{
+    EFX e(m_doc);
+
+    e.setAlgorithm(EFX::Square);
+
+    QVector <QPoint> polyF;
+    e.preview(polyF);
+    QCOMPARE(polyF.size(), 128);
+
+    e.setDirection(Function::Backward);
+
+    QVector <QPoint> polyB;
+    e.preview(polyB);
+    QCOMPARE(polyB.size(), 128);
+
+    QVERIFY(CloseEnough(polyB[0], polyF[0]));
+
+    for (int i = 1; i < 128; ++i)
+    {
+         QVERIFY(CloseEnough(polyB[128 - i], polyF[i]));
+    }
+}
+
+void EFX_Test::previewSquareChoppyBackwards()
+{
+    EFX e(m_doc);
+
+    e.setAlgorithm(EFX::SquareChoppy);
+
+    QVector <QPoint> polyF;
+    e.preview(polyF);
+    QCOMPARE(polyF.size(), 128);
+
+    e.setDirection(Function::Backward);
+
+    QVector <QPoint> polyB;
+    e.preview(polyB);
+    QCOMPARE(polyB.size(), 128);
+
+    QVERIFY(CloseEnough(polyB[0], polyF[0]));
+
+    for (int i = 1; i < 128; ++i)
+    {
+         QVERIFY(CloseEnough(polyB[128 - i], polyF[i]));
+    }
+}
+
+void EFX_Test::previewLeafBackwards()
+{
+    EFX e(m_doc);
+
+    e.setAlgorithm(EFX::Leaf);
 
     QVector <QPoint> polyF;
     e.preview(polyF);
