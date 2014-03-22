@@ -18,7 +18,7 @@
 */
 
 #ifndef CUELISTRUNNER_H
-#define CUELISTUNNER_H
+#define CUELISTRUNNER_H
 
 #include <QList>
 #include <QMap>
