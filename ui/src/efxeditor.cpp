@@ -54,6 +54,9 @@
 
 #define PROPERTY_FIXTURE "fixture"
 
+#define KTabGeneral 0
+#define KTabMovement 1
+
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
@@ -76,6 +79,17 @@ EFXEditor::EFXEditor(QWidget* parent, EFX* efx, Doc* doc)
 
     initGeneralPage();
     initMovementPage();
+
+    // Start new (==empty) scenes from the first tab and ones with something in them
+    // on the first fixture page.
+    if (m_tab->count() == 0)
+        slotTabChanged(KTabGeneral);
+    else
+        m_tab->setCurrentIndex(efxUiState()->currentTab());
+
+    /* Tab widget */
+    connect(m_tab, SIGNAL(currentChanged(int)),
+            this, SLOT(slotTabChanged(int)));
 
     // Used for intensity changes
     m_testTimer.setSingleShot(true);
@@ -315,6 +329,11 @@ void EFXEditor::slotModeChanged(Doc::Mode mode)
     {
         m_testButton->setEnabled(true);
     }
+}
+
+void EFXEditor::slotTabChanged(int tab)
+{
+    efxUiState()->setCurrentTab(tab);
 }
 
 bool EFXEditor::interruptRunning()
