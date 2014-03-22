@@ -75,6 +75,7 @@ wkhtmltopdf-amd64 --footer-center "Page [page]" --image-quality 100 \
   tutorial-bcf-lc2412.html \
   commandlineparameters.html \
   kioskmode.html \
+  webinterface.html \
   parameterstuning.html \
   guicustomstyles.html \
   QLC+.pdf

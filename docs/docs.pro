@@ -74,7 +74,8 @@ docs.files = \
              vcstylingplacement.html \
              vcxypad.html \
              vellemanoutput.html \
-             virtualconsole.html
+             virtualconsole.html \
+             webinterface.html
              
 imgs.path = $$INSTALLROOT/$$DOCSDIR/html/images
 imgs.files += images/efx-general.png \
