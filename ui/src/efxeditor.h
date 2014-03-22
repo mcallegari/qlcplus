@@ -80,6 +80,7 @@ private slots:
     void slotTestClicked();
     void slotRestartTest();
     void slotModeChanged(Doc::Mode mode);
+    void slotTabChanged(int tab);
 
 private:
     EFXPreviewArea* m_previewArea;
