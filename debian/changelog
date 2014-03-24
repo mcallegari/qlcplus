@@ -11,7 +11,8 @@ qlcplus (4.7.0.RC2) unstable; urgency=low
   * Added fixtures: Cameo CLPFLAT1TRI3W, Stairville maTrixx SC-100, Varytec LED Magic Mushroom (thanks to Jan Nolte)
   * Added fixture: Stairville LED bar 240/8 RGB (thanks to Mikko Toivonen)
   * Added fixture: Martin MAC 301 Wash, Martin MAC 700 Profile (thanks to Paul Evans, bwerst)
-  * Added fixture: BoomToneDJ Slim PAR 7x3W LED RGB (thanks to Lorenzo Andreani)
+  * Added fixture: BoomToneDJ Slim PAR 7x3W LED RGB, Showtec Event Spot 1800 Q4 (thanks to Lorenzo Andreani)
+  * Added fixture: Eurolite LED PAR 56 RGB DMX (thanks to Frank Janosch)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 March 2014 12:13:14 +0200
 

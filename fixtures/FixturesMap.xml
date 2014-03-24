@@ -53,7 +53,7 @@
   <fixture path="Botex-DSP-405.qxf" mf="Botex" md="DSP-405"/>
   <fixture path="Briteq-BT-W07L12.qxf" mf="Briteq" md="BT-W07L12"/>
   <fixture path="Briteq-BT-W12L10.qxf" mf="Briteq" md="BT-W12L10"/>
-  <fixture path="Cameo-CLPFLAT1TRI3W.qxf" mf="Cameo" md="CLPFLAT1TRI3W"/>
+  <fixture path="Cameo-Flat-PAR-CAN-TRI-3W.qxf" mf="Cameo" md="CLPFLAT1TRI3W"/>
   <fixture path="Chauvet-200b.qxf" mf="Chauvet" md="200b"/>
   <fixture path="Chauvet-4Bar-Tri.qxf" mf="Chauvet" md="4Bar Tri"/>
   <fixture path="Chauvet-4Play.qxf" mf="Chauvet" md="4Play"/>
@@ -107,6 +107,7 @@
   <fixture path="Eurolite-KLS200.qxf" mf="Eurolite" md="KLS200"/>
   <fixture path="Eurolite-LED-Bar-RGB-252_10_40__Indoor.qxf" mf="Eurolite" md="LED Bar RGB 252/10 40° Indoor"/>
   <fixture path="Eurolite-LED-DMX-Pixel-Tube-16-RGB.qxf" mf="Eurolite" md="LED DMX Pixel Tube 16 RGB IP20"/>
+  <fixture path="Eurolite-LED-PAR-56-RGB-DMX.qxf" mf="Eurolite" md="LED PAR 56 RGB DMX"/>
   <fixture path="Eurolite-LED-PAR56.qxf" mf="Eurolite" md="LED PAR56"/>
   <fixture path="Eurolite-LED-PAR64-RGB.qxf" mf="Eurolite" md="LED PAR64 RGB"/>
   <fixture path="Eurolite-LED-PAR64-RGBA.qxf" mf="Eurolite" md="LED PAR64 RGBA"/>
@@ -301,6 +302,7 @@
   <fixture path="SGM-Victory-II-Pro150.qxf" mf="SGM" md="Victory II Pro150"/>
   <fixture path="Showtec-Acrobat.qxf" mf="Showtec" md="Acrobat"/>
   <fixture path="Showtec-Atmos-F350.qxf" mf="Showtec" md="Atmos F350"/>
+  <fixture path="Showtec-Event-Spot-1800-Q4.qxf" mf="Showtec" md="Event Spot 1800 Q4"/>
   <fixture path="Showtec-Indigo-4600.qxf" mf="Showtec" md="Indigo 4600"/>
   <fixture path="Showtec-Indigo-6500.qxf" mf="Showtec" md="Indigo 6500"/>
   <fixture path="Showtec-LED-Light-Bar-RGB-V3.qxf" mf="Showtec" md="LED Light Bar RGB V3"/>
