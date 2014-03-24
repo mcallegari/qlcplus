@@ -25,6 +25,7 @@
 #include "rgbalgorithm.h"
 #include "rgbaudio.h"
 #include "rgbimage.h"
+#include "rgbplain.h"
 #include "rgbscript.h"
 #include "rgbtext.h"
 
@@ -48,9 +49,11 @@ void RGBAlgorithm::setColors(QColor start, QColor end)
 QStringList RGBAlgorithm::algorithms(const Doc * doc)
 {
     QStringList list;
+    RGBPlain plain(doc);
     RGBText text(doc);
     RGBImage image(doc);
     RGBAudio audio(doc);
+    list << plain.name();
     list << text.name();
     list << image.name();
     list << audio.name();
@@ -63,12 +66,15 @@ RGBAlgorithm* RGBAlgorithm::algorithm(const Doc * doc, const QString& name)
     RGBText text(doc);
     RGBImage image(doc);
     RGBAudio audio(doc);
+    RGBPlain plain(doc);
     if (name == text.name())
         return text.clone();
     else if (name == image.name())
         return image.clone();
     else if (name == audio.name())
         return audio.clone();
+    else if (name == plain.name())
+        return plain.clone();
     else
         return RGBScript::script(doc, name).clone();
 }
@@ -111,6 +117,12 @@ RGBAlgorithm* RGBAlgorithm::loader(const Doc * doc, const QDomElement& root)
         RGBScript scr = RGBScript::script(doc, root.text());
         if (scr.apiVersion() > 0 && scr.name().isEmpty() == false)
             algo = scr.clone();
+    }
+    else if (type == KXMLQLCRGBPlain)
+    {
+        RGBPlain plain(doc);
+        if (plain.loadXML(root) == true)
+            algo = plain.clone();
     }
     else
     {

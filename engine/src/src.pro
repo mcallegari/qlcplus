@@ -100,6 +100,7 @@ HEADERS += bus.h \
            rgbaudio.h \
            rgbmatrix.h \
            rgbimage.h \
+           rgbplain.h \
            rgbscript.h \
            rgbtext.h \
            scene.h \
@@ -193,6 +194,7 @@ SOURCES += bus.cpp \
            rgbaudio.cpp \
            rgbmatrix.cpp \
            rgbimage.cpp \
+           rgbplain.cpp \
            rgbscript.cpp \
            rgbtext.cpp \
            scene.cpp \

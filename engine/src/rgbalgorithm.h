@@ -50,7 +50,8 @@ public:
         Text,
         Script,
         Image,
-        Audio
+        Audio,
+        Plain
     };
 
     /** Create a clone of the algorithm. Caller takes ownership of the pointer. */

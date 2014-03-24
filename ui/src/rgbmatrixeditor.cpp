@@ -279,7 +279,8 @@ void RGBMatrixEditor::updateExtraOptions()
 {
     if (m_matrix->algorithm() == NULL ||
         m_matrix->algorithm()->type() == RGBAlgorithm::Script ||
-        m_matrix->algorithm()->type() == RGBAlgorithm::Audio)
+        m_matrix->algorithm()->type() == RGBAlgorithm::Audio ||
+        m_matrix->algorithm()->type() == RGBAlgorithm::Plain)
     {
         m_textGroup->hide();
         m_imageGroup->hide();
