@@ -62,7 +62,6 @@ ConsoleChannel::ConsoleChannel(QWidget* parent, Doc* doc, quint32 fixture, quint
         setCheckable(true);
     setFocusPolicy(Qt::NoFocus);
     init();
-    //setStyle(AppUtil::saneStyle());
 }
 
 ConsoleChannel::~ConsoleChannel()
@@ -102,12 +101,10 @@ void ConsoleChannel::init()
     layout()->addWidget(m_spin);
     m_spin->setAlignment(Qt::AlignCenter);
     m_spin->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
-    layout()->setAlignment(m_spin, Qt::AlignCenter);
+    layout()->setAlignment(m_spin, Qt::AlignHCenter);
 
     /* Value slider */
     m_slider = new ClickAndGoSlider(this);
-    //m_slider->setStyle(AppUtil::saneStyle());
-    layout()->addWidget(m_slider);
     m_slider->setInvertedAppearance(false);
     m_slider->setRange(0, UCHAR_MAX);
     m_slider->setPageStep(1);
@@ -139,6 +136,8 @@ void ConsoleChannel::init()
         "QSlider::handle:vertical:disabled { background: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:0.45 #888, stop:0.50 #444, stop:0.55 #888, stop:1 #999);"
         "border: 1px solid #666; }"
         );
+    layout()->addWidget(m_slider);
+    //layout()->setAlignment(m_slider, Qt::AlignHCenter);
 
     /* Channel number label */
     m_label = new QLabel(this);

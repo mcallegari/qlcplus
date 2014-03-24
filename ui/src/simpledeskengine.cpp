@@ -122,13 +122,26 @@ void SimpleDeskEngine::resetUniverse(int universe)
 
     QMutexLocker locker(&m_mutex);
     QHashIterator <uint,uchar> it(m_values);
+    QList<Universe*> universes = doc()->inputOutputMap()->claimUniverses();
+    Universe *resUni = NULL;
+    if (universe < universes.count())
+        resUni = universes.at(universe);
+
     while (it.hasNext() == true)
     {
         it.next();
         int uni = it.key() >> 9;
         if (uni == universe)
+        {
+            if (resUni != NULL)
+            {
+                quint32 chan = it.key() & 0x01FF;
+                resUni->reset(chan, 1);
+            }
             m_values.remove(it.key());
+        }
     }
+    doc()->inputOutputMap()->releaseUniverses(true);
 }
 
 /****************************************************************************

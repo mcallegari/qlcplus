@@ -60,6 +60,15 @@
 
 SimpleDesk* SimpleDesk::s_instance = NULL;
 
+QString ssEven =  "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #C3D1C9, stop: 1 #AFBBB4); "
+                 " border: 1px solid gray; border-radius: 4px; }";
+QString ssOdd = "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D5E0, stop: 1 #A7A6AF); "
+                 " border: 1px solid gray; border-radius: 4px; }";
+QString ssNone = "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D2D0, stop: 1 #AFACAB); "
+                 " border: 1px solid gray; border-radius: 4px; }";
+QString ssOverride = "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #FF2D2D, stop: 1 #FF5050); "
+                     " border: 1px solid gray; border-radius: 4px; }";
+
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
@@ -436,14 +445,18 @@ void SimpleDesk::initSliderView(bool fullMode)
             quint32 absoluteAddr = fixture->universeAddress();
             for (quint32 i = 0; i < fixture->channels(); i++)
             {
-                SceneValue scv(fixture->id(), i, m_engine->value(absoluteAddr + i));
-                console->setSceneValue(scv);
+                if (m_engine->hasChannel(absoluteAddr + i))
+                {
+                    SceneValue scv(fixture->id(), i, m_engine->value(absoluteAddr + i));
+                    console->setSceneValue(scv);
+                    console->setChannelStylesheet(i, ssOverride);
+                }
             }
             fixturesLayout->addWidget(console);
             connect(console, SIGNAL(valueChanged(quint32,quint32,uchar)),
                     this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
             c++;
-            m_consoleList.append(console);
+            m_consoleList[fixture->id()] = console;
         }
         fixturesLayout->addStretch(1);
         scrollArea->setWidget(grpBox);
@@ -542,12 +555,6 @@ void SimpleDesk::slotUniversePageChanged(int page)
 {
     qDebug() << Q_FUNC_INFO;
     quint32 start = (page - 1) * m_channelsPerPage;
-    QString ssEven =  "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #C3D1C9, stop: 1 #AFBBB4); "
-                     " border: 1px solid gray; border-radius: 4px; }";
-    QString ssOdd = "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D5E0, stop: 1 #A7A6AF); "
-                     " border: 1px solid gray; border-radius: 4px; }";
-    QString ssNone = "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D2D0, stop: 1 #AFACAB); "
-                     " border: 1px solid gray; border-radius: 4px; }";
 
     /* now, calculate the absolute address including current universe (0 - 2048) */
     quint32 absoluteAddr = start | (m_currentUniverse << 9);
@@ -572,16 +579,26 @@ void SimpleDesk::slotUniversePageChanged(int page)
         if (fx == NULL)
         {
             slider = new ConsoleChannel(this, m_doc, Fixture::invalidId(), start + i, false);
-            slider->setStyleSheet(ssNone);
+            if (m_engine->hasChannel((m_currentUniverse << 9) + (start + i)))
+                slider->setStyleSheet(ssOverride);
+            else
+                slider->setStyleSheet(ssNone);
         }
         else
         {
             uint ch = (absoluteAddr + i) - fx->universeAddress();
             slider = new ConsoleChannel(this, m_doc, fx->id(), ch, false);
-            if (fx->id() % 2 == 0)
-                slider->setStyleSheet(ssOdd);
+            if (m_engine->hasChannel(absoluteAddr + i))
+            {
+                slider->setStyleSheet(ssOverride);
+            }
             else
-                slider->setStyleSheet(ssEven);
+            {
+                if (fx->id() % 2 == 0)
+                    slider->setStyleSheet(ssOdd);
+                else
+                    slider->setStyleSheet(ssEven);
+            }
         }
 
         if ((start + i) < 512)
@@ -615,6 +632,18 @@ void SimpleDesk::slotUniverseResetClicked()
     m_universePageSpin->setValue(1);
     if (m_viewModeButton->isChecked() == false)
         slotUniversePageChanged(1);
+    else
+    {
+        QHashIterator <quint32,FixtureConsole*> it(m_consoleList);
+
+        while (it.hasNext() == true)
+        {
+            it.next();
+            FixtureConsole *fc = it.value();
+            Q_ASSERT(fc != NULL);
+            fc->resetChannelsStylesheet();
+        }
+    }
 }
 
 void SimpleDesk::slotUniverseSliderValueChanged(quint32 fid, quint32 chan, uchar value)
@@ -622,7 +651,17 @@ void SimpleDesk::slotUniverseSliderValueChanged(quint32 fid, quint32 chan, uchar
     QVariant var(sender()->property(PROP_ADDRESS));
     if (var.isValid() == true) // Not true with disabled sliders
     {
-        m_engine->setValue(var.toUInt(), value);
+        quint32 chanAbsAddr = var.toUInt();
+        m_engine->setValue(chanAbsAddr, value);
+        if (m_viewModeButton->isChecked() == false)
+        {
+            quint32 chanAddr = chanAbsAddr - ((m_universePageSpin->value() - 1) * m_channelsPerPage);
+            if (chanAddr < (quint32)m_universeSliders.count())
+            {
+                ConsoleChannel *chan = m_universeSliders.at(chanAddr);
+                chan->setStyleSheet(ssOverride);
+            }
+        }
 
         if (m_editCueStackButton->isChecked() == true)
             replaceCurrentCue();
@@ -634,6 +673,13 @@ void SimpleDesk::slotUniverseSliderValueChanged(quint32 fid, quint32 chan, uchar
         {
             quint32 absoluteAddr = fixture->universeAddress();
             m_engine->setValue(absoluteAddr + chan, value);
+
+            if (m_viewModeButton->isChecked() == true)
+            {
+                FixtureConsole *fc = m_consoleList[fid];
+                if (fc != NULL)
+                    fc->setChannelStylesheet(chan, ssOverride);
+            }
 
             if (m_editCueStackButton->isChecked() == true)
                 replaceCurrentCue();
@@ -669,7 +715,7 @@ void SimpleDesk::slotUniversesWritten(int idx, const QByteArray& ua)
     }
     else
     {
-        foreach(FixtureConsole *fc, m_consoleList)
+        foreach(FixtureConsole *fc, m_consoleList.values())
         {
             quint32 fxi = fc->fixture();
             Fixture *fixture = m_doc->fixture(fxi);
@@ -845,16 +891,12 @@ void SimpleDesk::slotGroupValueChanged(quint32 groupID, uchar value)
         }
         else
         {
-            foreach(FixtureConsole *fc, m_consoleList)
+            FixtureConsole *fc = m_consoleList[fixture->id()];
+            if(fc != NULL)
             {
-                quint32 fxi = fc->fixture();
-                if (fxi != fixture->id())
-                    continue;
-
                 fc->blockSignals(true);
                 fc->setValue(scv.channel, value, false);
                 fc->blockSignals(false);
-                break;
             }
         }
     }

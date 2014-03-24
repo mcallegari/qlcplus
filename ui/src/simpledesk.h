@@ -125,8 +125,17 @@ private:
     QScrollArea* scrollArea;
     QScrollArea* m_chGroupsArea;
 
+    /**
+     * List holding pointers to the current view sliders.
+     * Their number is always equal to m_channelsPerPage
+     */
     QList <ConsoleChannel*> m_universeSliders;
-    QList <FixtureConsole *> m_consoleList;
+
+    /**
+     * Map of the Fixture ID/FixtureConsole representing
+     * each fixture in the selected universe
+     */
+    QHash <quint32, FixtureConsole *> m_consoleList;
 
     /** Currently selected universe. Basically the index of m_universesCombo */
     int m_currentUniverse;
