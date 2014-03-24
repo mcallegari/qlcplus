@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.6.1</Version>
+  <Version>4.7.0 RC2</Version>
   <Author>Jan-Hendrik Nolte</Author>
  </Creator>
  <Manufacturer>Cameo</Manufacturer>
- <Model>CLPFLAT1TRI3W</Model>
+ <Model>Flat PAR CAN TRI 3W</Model>
  <Type>Color Changer</Type>
  <Channel Name="Master dimmer">
   <Group Byte="0">Intensity</Group>
@@ -41,8 +41,8 @@
   <Capability Min="49" Max="59" Color="#ff00ff">Magenta</Capability>
   <Capability Min="60" Max="70" Color="#00ffff">Cyan</Capability>
   <Capability Min="71" Max="80" Color="#ffffff">White</Capability>
-  <Capability Res="Others/rainbow.png" Min="81" Max="150">Colour change (rate)</Capability>
-  <Capability Res="Others/rainbow.png" Min="151" Max="220">Colour blending (rate)</Capability>
+  <Capability Min="81" Max="150" Res="Others/rainbow.png">Colour change (rate)</Capability>
+  <Capability Min="151" Max="220" Res="Others/rainbow.png">Colour blending (rate)</Capability>
   <Capability Min="221" Max="255">Music control (microphone sensitivity)</Capability>
  </Channel>
  <Channel Name="Colour macro">
@@ -58,10 +58,10 @@
  <Mode Name="2-Channel Mode">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="176" Height="180" Weight="1.2" Depth="113"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="25" DmxConnector="3-pin"/>
+   <Dimensions Weight="1,2" Height="180" Width="176" Depth="113"/>
+   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="25"/>
   </Physical>
   <Channel Number="0">Master dimmer</Channel>
   <Channel Number="1">Colour macro</Channel>
@@ -69,10 +69,10 @@
  <Mode Name="3-Channel Mode 1">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="176" Height="180" Weight="1.2" Depth="113"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="25" DmxConnector="3-pin"/>
+   <Dimensions Weight="1,2" Height="180" Width="176" Depth="113"/>
+   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="25"/>
   </Physical>
   <Channel Number="0">Master dimmer</Channel>
   <Channel Number="1">Stroboscope rate</Channel>
@@ -81,10 +81,10 @@
  <Mode Name="3-Channel Mode 2">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="176" Height="180" Weight="1.2" Depth="113"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="25" DmxConnector="3-pin"/>
+   <Dimensions Weight="1,2" Height="180" Width="176" Depth="113"/>
+   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="25"/>
   </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
@@ -93,10 +93,10 @@
  <Mode Name="6-Channel Mode">
   <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="176" Height="180" Weight="1.2" Depth="113"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="25" DmxConnector="3-pin"/>
+   <Dimensions Weight="1,2" Height="180" Width="176" Depth="113"/>
+   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="25"/>
   </Physical>
   <Channel Number="0">Master dimmer</Channel>
   <Channel Number="1">Stroboscope rate</Channel>
