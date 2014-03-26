@@ -49,5 +49,9 @@ TRANSLATIONS += HID_nl_NL.ts
 TRANSLATIONS += HID_cz_CZ.ts
 TRANSLATIONS += HID_pt_BR.ts
 
+# This must be after "TARGET = " and before target installation so that
+# install_name_tool can be run before target installation
+macx:include(../../macx/nametool.pri)
+
 target.path = $$INSTALLROOT/$$PLUGINDIR
 INSTALLS   += target
