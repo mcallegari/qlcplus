@@ -283,6 +283,7 @@
   <fixture path="Robe-ClubWash-500-CT.qxf" mf="Robe" md="ClubWash 500 CT"/>
   <fixture path="Robe-ColorSpot-170-AT.qxf" mf="Robe" md="ColorSpot 170 AT"/>
   <fixture path="Robe-ColorSpot-250-XT.qxf" mf="Robe" md="ColorSpot 250 XT"/>
+  <fixture path="Robe-ColorSpot-700E-AT.qxf" mf="Robe" md="ColorSpot 700E AT (v1.4)"/>
   <fixture path="Robe-Robin-600-LED-Wash.qxf" mf="Robe" md="Robin 600 LED Wash"/>
   <fixture path="Robe-Robin-600E-Beam.qxf" mf="Robe" md="Robin 600E Beam"/>
   <fixture path="Robe-Robin-600E-Spot.qxf" mf="Robe" md="Robin 600E Spot (v1.1)"/>

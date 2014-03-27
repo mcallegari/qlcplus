@@ -13,6 +13,7 @@ qlcplus (4.7.0.RC2) unstable; urgency=low
   * Added fixture: Martin MAC 301 Wash, Martin MAC 700 Profile (thanks to Paul Evans, bwerst)
   * Added fixture: BoomToneDJ Slim PAR 7x3W LED RGB, Showtec Event Spot 1800 Q4 (thanks to Lorenzo Andreani)
   * Added fixtures: Eurolite LED PAR 56 RGB DMX, Expolite TourLed 42 (thanks to Frank Janosch)
+  * Added fixture: Robe ColorSpot 700E AT (thanks to NiKoyes)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 March 2014 12:13:14 +0200
 
