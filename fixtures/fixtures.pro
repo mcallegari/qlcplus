@@ -135,6 +135,7 @@ fixtures.files += Eurolite-TS-7B.qxf
 fixtures.files += Eurolite-TS-250.qxf
 fixtures.files += Eurolite-TS-255.qxf
 fixtures.files += Evolight-Colours-SL3.qxf
+fixtures.files += Expolite-TourLed-42.qxf
 fixtures.files += Futurelight-AHS-150.qxf
 fixtures.files += Futurelight-CF-200.qxf
 fixtures.files += Futurelight-CY-200.qxf

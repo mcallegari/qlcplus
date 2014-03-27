@@ -53,7 +53,7 @@
   <fixture path="Botex-DSP-405.qxf" mf="Botex" md="DSP-405"/>
   <fixture path="Briteq-BT-W07L12.qxf" mf="Briteq" md="BT-W07L12"/>
   <fixture path="Briteq-BT-W12L10.qxf" mf="Briteq" md="BT-W12L10"/>
-  <fixture path="Cameo-Flat-PAR-CAN-TRI-3W.qxf" mf="Cameo" md="CLPFLAT1TRI3W"/>
+  <fixture path="Cameo-Flat-PAR-CAN-TRI-3W.qxf" mf="Cameo" md="Flat PAR CAN TRI 3W"/>
   <fixture path="Chauvet-200b.qxf" mf="Chauvet" md="200b"/>
   <fixture path="Chauvet-4Bar-Tri.qxf" mf="Chauvet" md="4Bar Tri"/>
   <fixture path="Chauvet-4Play.qxf" mf="Chauvet" md="4Play"/>
@@ -135,6 +135,7 @@
   <fixture path="Eurolite-TS-7.qxf" mf="Eurolite" md="TS-7"/>
   <fixture path="Eurolite-TS-7B.qxf" mf="Eurolite" md="TS-7B"/>
   <fixture path="Evolight-Colours-SL3.qxf" mf="Evolight" md="Colours SL3"/>
+  <fixture path="Expolite-TourLed-42.qxf" mf="Expolite" md="TourLed 42"/>
   <fixture path="Futurelight-AHS-150.qxf" mf="Futurelight" md="AHS-150"/>
   <fixture path="Futurelight-CF-200.qxf" mf="Futurelight" md="CF-200"/>
   <fixture path="Futurelight-CY-200.qxf" mf="Futurelight" md="CY-200"/>
