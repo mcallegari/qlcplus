@@ -31,6 +31,7 @@
 #define DMX_BREAK 110
 #define DMX_CHANNELS 512
 #define SETTINGS_FREQUENCY "enttecdmxusbopen/frequency"
+#define SETTINGS_CHANNELS "enttecdmxusbopen/channels"
 
 /****************************************************************************
  * Initialization
@@ -49,6 +50,10 @@ EnttecDMXUSBOpen::EnttecDMXUSBOpen(const QString& serial, const QString& name, c
     QVariant var = settings.value(SETTINGS_FREQUENCY);
     if (var.isValid() == true)
         m_frequency = var.toDouble();
+    QVariant var2 = settings.value(SETTINGS_CHANNELS);
+    if (var2.isValid() == true)
+      m_universe = QByteArray(var2.toInt()+1, 0); 
+      // +1 Because the first byte of dmx has to be zero to begin com
 }
 
 EnttecDMXUSBOpen::~EnttecDMXUSBOpen()
@@ -97,6 +102,9 @@ QString EnttecDMXUSBOpen::additionalInfo() const
     info += QString("<BR>");
     info += QString("<B>%1:</B> %2").arg(QObject::tr("Manufacturer"))
                                          .arg(vendor());
+    info += QString("<BR>");
+    info += QString("<B>%1:</B> %2").arg(tr("DMX Channels"))
+                                    .arg(m_universe.size()-1);
     info += QString("<BR>");
     info += QString("<B>%1:</B> %2Hz").arg(tr("DMX Frame Frequency"))
                                       .arg(m_frequency);
