@@ -216,7 +216,7 @@
      <item row="9" column="0" colspan="4">
       <widget class="QGroupBox" name="groupBox">
        <property name="title">
-        <string>GroupBox</string>
+        <string>Video output</string>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>

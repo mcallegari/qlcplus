@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include <QDebug>
 
 #include "fixturetreewidget.h"
 #include "qlcfixturedef.h"
@@ -332,11 +333,14 @@ void FixtureTreeWidget::updateSelections()
         // 1) a fixture
         // 2) a group
         // 3) a head
-        // 4) a channel
+        // 4) a universe
 
         QVariant fxIDVar = item->data(KColumnName, PROP_ID);
         QVariant grpIDVar = item->data(KColumnName, PROP_GROUP);
         QVariant headVar = item->data(KColumnName, PROP_HEAD);
+        QVariant uniIDVar = item->data(KColumnName, PROP_UNIVERSE);
+
+        qDebug() << "uni ID:" << uniIDVar;
 
         // Case 1: is there a valid fixture ID ?
         if (fxIDVar.isValid())
@@ -385,6 +389,20 @@ void FixtureTreeWidget::updateSelections()
             if (m_selectedHeads.contains(gh) == false)
                 m_selectedHeads << gh;
         }
+        // Case 4: is there a valid universe index ?
+        else if (uniIDVar.isValid())
+        {
+            qDebug() << "Valid universe....";
+            // in this case cycle through the children and get each
+            // fixture ID
+            for (int i = 0; i < item->childCount(); i++)
+            {
+                QTreeWidgetItem *child = item->child(i);
+                QVariant chFxIDVar = child->data(KColumnName, PROP_ID);
+                if (chFxIDVar.isValid() && child->isDisabled() == false)
+                    m_selectedFixtures << chFxIDVar.toUInt();
+            }
+        }
     }
 }
 
@@ -410,7 +428,6 @@ void FixtureTreeWidget::updateTree()
         foreach (FixtureGroup* grp, m_doc->fixtureGroups())
         {
             QTreeWidgetItem* grpItem = new QTreeWidgetItem(this);
-            qDebug() << "Create group:" << grp->name();
             updateGroupItem(grpItem, grp);
         }
     }

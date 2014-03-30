@@ -68,6 +68,15 @@ int FixtureSelection::exec()
 {
     //fillTree();
     m_tree->updateTree();
+    if (m_tree->topLevelItemCount() == 0)
+    {
+        m_tree->setHeaderLabel(tr("No fixtures available"));
+        QTreeWidgetItem* item = new QTreeWidgetItem(m_tree);
+        item->setText(0, tr("Go to the Fixture Manager and add some fixtures first."));
+        m_tree->resizeColumnToContents(0);
+        m_tree->setEnabled(false);
+        m_buttonBox->setStandardButtons(QDialogButtonBox::Cancel);
+    }
     return QDialog::exec();
 }
 
@@ -136,82 +145,7 @@ void FixtureSelection::setDisabledHeads(const QList <GroupHead>& disabled)
 /****************************************************************************
  * Tree
  ****************************************************************************/
-/*
-void FixtureSelection::fillTree()
-{
-    m_tree->clear();
 
-    foreach (Fixture* fixture, m_doc->fixtures())
-    {
-        Q_ASSERT(fixture != NULL);
-
-        QTreeWidgetItem* item = new QTreeWidgetItem(m_tree);
-        item->setData(0, PROP_ID, fixture->id());
-        item->setText(KColumnName, fixture->name());
-        item->setIcon(KColumnName, fixture->getIconFromType(fixture->type()));
-        item->setText(KColumnUniverse, QString::number(fixture->universe() + 1));
-        item->setText(KColumnHeads, QString::number(fixture->heads()));
-
-        if (fixture->fixtureDef() == NULL)
-        {
-            item->setText(KColumnManufacturer, tr("Generic"));
-            item->setText(KColumnModel, tr("Generic"));
-        }
-        else
-        {
-            item->setText(KColumnManufacturer, fixture->fixtureDef()->manufacturer());
-            item->setText(KColumnModel, fixture->fixtureDef()->model());
-        }
-
-        if (m_disabledFixtures.contains(fixture->id()) == true)
-        {
-            // Disable selection
-            item->setFlags(0);
-        }
-        else if (m_selectionMode == Heads)
-        {
-            int disabled = 0;
-
-            for (int i = 0; i < fixture->heads(); i++)
-            {
-                QTreeWidgetItem* headItem = new QTreeWidgetItem(item);
-                headItem->setText(KColumnName, QString("%1 %2").arg(tr("Head")).arg(i + 1));
-                headItem->setData(0, PROP_HEAD, i);
-                if (m_disabledHeads.contains(GroupHead(fixture->id(), i)) == true)
-                {
-                    headItem->setFlags(0); // Disable selection
-                    disabled++;
-                }
-            }
-
-            // Disable the whole fixture if all heads are disabled
-            if (disabled == fixture->heads())
-                item->setFlags(0);
-        }
-    }
-
-    if (m_tree->topLevelItemCount() == 0)
-    {
-        m_tree->setHeaderLabel(tr("No fixtures available"));
-        m_tree->header()->hideSection(KColumnManufacturer);
-        m_tree->header()->hideSection(KColumnModel);
-        QTreeWidgetItem* item = new QTreeWidgetItem(m_tree);
-        item->setText(0, tr("Go to the Fixture Manager and add some fixtures first."));
-        m_tree->setEnabled(false);
-        m_buttonBox->setStandardButtons(QDialogButtonBox::Cancel);
-    }
-    else
-    {
-        m_tree->sortItems(KColumnUniverse, Qt::AscendingOrder);
-        m_buttonBox->setStandardButtons(QDialogButtonBox::Cancel);
-    }
-    m_tree->resizeColumnToContents(KColumnName);
-    m_tree->resizeColumnToContents(KColumnUniverse);
-    m_tree->resizeColumnToContents(KColumnHeads);
-    m_tree->resizeColumnToContents(KColumnManufacturer);
-    m_tree->resizeColumnToContents(KColumnModel);
-}
-*/
 void FixtureSelection::slotItemDoubleClicked()
 {
     if (m_tree->selectedItems().isEmpty() == false)
