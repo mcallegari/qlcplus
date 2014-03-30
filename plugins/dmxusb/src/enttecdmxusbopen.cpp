@@ -52,8 +52,14 @@ EnttecDMXUSBOpen::EnttecDMXUSBOpen(const QString& serial, const QString& name, c
         m_frequency = var.toDouble();
     QVariant var2 = settings.value(SETTINGS_CHANNELS);
     if (var2.isValid() == true)
-      m_universe = QByteArray(var2.toInt()+1, 0); 
-      // +1 Because the first byte of dmx has to be zero to begin com
+    {
+        int channels = var2.toInt();
+        if (channels > DMX_CHANNELS || channels <= 0)
+            channels = DMX_CHANNELS;
+        // channels + 1 Because the first byte is always zero
+        // to break a full DMX universe transmission
+        m_universe = QByteArray(channels + 1, 0);
+    }
 }
 
 EnttecDMXUSBOpen::~EnttecDMXUSBOpen()

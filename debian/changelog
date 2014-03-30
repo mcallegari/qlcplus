@@ -6,6 +6,8 @@ qlcplus (4.7.0.RC2) unstable; urgency=low
   * Audio Editor: added source file, speed dials and preview buttons
   * Simple Desk: highlight channels in red when manually moved
   * Fixture selection: it is now possible to add groups or a whole universe to a Scene
+  * Plugins: Added enttecdmxusbopen/channels to tune the maximum number of transmitted channels for 
+             Enttec Open and clones. This could solve flickering issues in some cases. (thanks to Daniel Torres)
   * Added portuguese translation (thanks to Nuno Almeida)
   * Added fixture: Ledj Performer 18-Quad (thanks to Michael Clements)
   * Added fixture: Optima Lighting PAR64 LED (thanks to Ryan Kelley)
