@@ -948,7 +948,7 @@ QString WebAccess::getIOConfigHTML()
         InputPatch* ip = ioMap->inputPatch(i);
         OutputPatch* op = ioMap->outputPatch(i);
         OutputPatch* fp = ioMap->feedbackPatch(i);
-        QString uniName = ioMap->getUniverseName(i);
+        QString uniName = ioMap->getUniverseNameByIndex(i);
         bool uniPass = ioMap->getUniversePassthrough(i);
 
         QString currentInputPluginName = (ip == NULL)?KInputNone:ip->pluginName();

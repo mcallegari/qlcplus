@@ -208,7 +208,7 @@ void InputOutputManager::updateList()
         m_deleteUniverseAction->setEnabled(true);
         m_list->setCurrentItem(m_list->item(0));
         m_uniNameEdit->setEnabled(true);
-        m_uniNameEdit->setText(m_ioMap->getUniverseName(0));
+        m_uniNameEdit->setText(m_ioMap->getUniverseNameByIndex(0));
         m_uniPassthroughCheck->setChecked(m_ioMap->getUniversePassthrough(0));
     }
 }
@@ -221,7 +221,7 @@ void InputOutputManager::updateItem(QListWidgetItem* item, quint32 universe)
     OutputPatch* op = m_ioMap->outputPatch(universe);
     OutputPatch* fp = m_ioMap->feedbackPatch(universe);
 
-    QString uniName = m_ioMap->getUniverseName(universe);
+    QString uniName = m_ioMap->getUniverseNameByIndex(universe);
     if (uniName.isEmpty())
     {
         QString defUniName = tr("Universe %1").arg(universe + 1);
@@ -309,7 +309,7 @@ void InputOutputManager::slotCurrentItemChanged()
     connect(m_editor, SIGNAL(audioInputDeviceChanged()), this, SLOT(slotAudioInputChanged()));
     m_editor->show();
     int uniIdx = m_list->currentRow();
-    m_uniNameEdit->setText(m_ioMap->getUniverseName(uniIdx));
+    m_uniNameEdit->setText(m_ioMap->getUniverseNameByIndex(uniIdx));
     m_uniPassthroughCheck->setChecked(m_ioMap->getUniversePassthrough(uniIdx));
 }
 

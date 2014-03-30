@@ -25,6 +25,7 @@
 
 #include "ui_fixtureselection.h"
 
+class FixtureTreeWidget;
 class QTreeWidgetItem;
 class GroupHead;
 class QWidget;
@@ -49,6 +50,8 @@ public slots:
 
 private:
     Doc* m_doc;
+    FixtureTreeWidget *m_tree;
+    quint32 m_treeFlags;
 
     /************************************************************************
      * Selected fixtures
@@ -61,7 +64,7 @@ public:
     QList <GroupHead> selectedHeads() const;
 
 private:
-    QList <quint32> m_selection;
+    QList <quint32> m_selectedFixtures;
     QList <GroupHead> m_selectedHeads;
 
     /************************************************************************
@@ -82,24 +85,18 @@ private:
     SelectionMode m_selectionMode;
 
     /************************************************************************
-     * Disabled fixtures
+     * Disabled items
      ************************************************************************/
 public:
     /** Disable (==prevent selection of) a list of fixtures */
     void setDisabledFixtures(const QList <quint32>& disabled);
 
+    /** Disable (==prevent selection of) a list of heads */
     void setDisabledHeads(const QList <GroupHead>& disabled);
-
-private:
-    QList <quint32> m_disabledFixtures;
-    QList <GroupHead> m_disabledHeads;
 
     /************************************************************************
      * Tree
      ************************************************************************/
-private:
-    /** Fill the tree */
-    void fillTree();
 
 private slots:
     /** Item double clicks */

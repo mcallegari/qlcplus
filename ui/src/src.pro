@@ -66,6 +66,7 @@ HEADERS += aboutbox.h \
            fixturegroupeditor.h \
            fixturemanager.h \
            fixtureselection.h \
+           fixturetreewidget.h \
            functionmanager.h \
            fixtureremap.h \
            functionliveeditdialog.h \
@@ -205,6 +206,7 @@ SOURCES += aboutbox.cpp \
            fixturemanager.cpp \
            fixtureremap.cpp \
            fixtureselection.cpp \
+           fixturetreewidget.cpp \
            functionliveeditdialog.cpp \
            functionmanager.cpp \
            functionselection.cpp \

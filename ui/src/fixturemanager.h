@@ -28,6 +28,7 @@
 
 class QLCFixtureDefCache;
 class FixtureGroupEditor;
+class FixtureTreeWidget;
 class QTreeWidgetItem;
 class QTextBrowser;
 class QTreeWidget;
@@ -111,20 +112,8 @@ private:
     /** Remove a previously created channels group */
     void removeChannelsGroup();
 
-    /** Get a QTreeWidgetItem whose fixture ID is $id */
-    QTreeWidgetItem* fixtureItem(quint32 id) const;
-
-    /** Get a QTreeWidgetItem whose group ID is $id */
-    QTreeWidgetItem* groupItem(quint32 id) const;
-
     /** Construct the list view and data view */
     void initDataView();
-
-    /** Update a single fixture's data into a QTreeWidgetItem */
-    void updateFixtureItem(QTreeWidgetItem* item, Fixture *fxi);
-
-    /** Update a group's data to and under $item */
-    void updateGroupItem(QTreeWidgetItem* item, const FixtureGroup* grp);
 
     /** Handle single fixture selection */
     void fixtureSelected(quint32 id);
@@ -166,7 +155,7 @@ private:
 
 private:
     QSplitter* m_splitter;
-    QTreeWidget* m_fixtures_tree;
+    FixtureTreeWidget* m_fixtures_tree;
     QTreeWidget* m_channel_groups_tree;
 
     QTextBrowser* m_info;

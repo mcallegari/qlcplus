@@ -24,19 +24,11 @@
 
 #include "qlcfixturedef.h"
 
+#include "fixturetreewidget.h"
 #include "fixtureselection.h"
 #include "fixturegroup.h"
 #include "fixture.h"
 #include "doc.h"
-
-#define KColumnName         0
-#define KColumnUniverse     1
-#define KColumnHeads        2
-#define KColumnManufacturer 3
-#define KColumnModel        4
-
-#define PROP_ID             Qt::UserRole
-#define PROP_HEAD           Qt::UserRole + 1
 
 FixtureSelection::FixtureSelection(QWidget* parent, Doc* doc)
     : QDialog(parent)
@@ -52,6 +44,15 @@ FixtureSelection::FixtureSelection(QWidget* parent, Doc* doc)
     connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
     addAction(action);
 
+    m_treeFlags = FixtureTreeWidget::UniverseNumber |
+                  FixtureTreeWidget::HeadsNumber |
+                  FixtureTreeWidget::Manufacturer |
+                  FixtureTreeWidget::Model |
+                  FixtureTreeWidget::ShowGroups;
+
+    m_tree = new FixtureTreeWidget(m_doc, m_treeFlags, this);
+    m_mainLayout->addWidget(m_tree);
+
     connect(m_tree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),
             this, SLOT(slotItemDoubleClicked()));
 
@@ -65,7 +66,8 @@ FixtureSelection::~FixtureSelection()
 
 int FixtureSelection::exec()
 {
-    fillTree();
+    //fillTree();
+    m_tree->updateTree();
     return QDialog::exec();
 }
 
@@ -75,7 +77,7 @@ int FixtureSelection::exec()
 
 QList <quint32> FixtureSelection::selection() const
 {
-    return m_selection;
+    return m_selectedFixtures;
 }
 
 QList <GroupHead> FixtureSelection::selectedHeads() const
@@ -106,34 +108,35 @@ void FixtureSelection::setSelectionMode(SelectionMode mode)
     {
         m_tree->setRootIsDecorated(false);
         m_tree->setItemsExpandable(false);
+        m_treeFlags = m_treeFlags & (~FixtureTreeWidget::ShowHeads);
     }
     else
     {
         m_tree->setRootIsDecorated(true);
         m_tree->setItemsExpandable(true);
+        m_treeFlags = m_treeFlags | FixtureTreeWidget::ShowHeads;
     }
+    m_tree->setFlags(m_treeFlags);
 }
 
 /****************************************************************************
- * Disabled fixtures
+ * Disabled items
  ****************************************************************************/
 
 void FixtureSelection::setDisabledFixtures(const QList <quint32>& disabled)
 {
-    m_disabledHeads.clear();
-    m_disabledFixtures = disabled;
+    m_tree->setDisabledFixtures(disabled);
 }
 
 void FixtureSelection::setDisabledHeads(const QList <GroupHead>& disabled)
 {
-    m_disabledFixtures.clear();
-    m_disabledHeads = disabled;
+    m_tree->setDisabledHeads(disabled);
 }
 
 /****************************************************************************
  * Tree
  ****************************************************************************/
-
+/*
 void FixtureSelection::fillTree()
 {
     m_tree->clear();
@@ -208,7 +211,7 @@ void FixtureSelection::fillTree()
     m_tree->resizeColumnToContents(KColumnManufacturer);
     m_tree->resizeColumnToContents(KColumnModel);
 }
-
+*/
 void FixtureSelection::slotItemDoubleClicked()
 {
     if (m_tree->selectedItems().isEmpty() == false)
@@ -225,50 +228,8 @@ void FixtureSelection::slotSelectionChanged()
 
 void FixtureSelection::accept()
 {
-    m_selection.clear();
-    m_selectedHeads.clear();
-
-    if (m_selectionMode == Fixtures)
-    {
-        QListIterator <QTreeWidgetItem*> it(m_tree->selectedItems());
-        while (it.hasNext() == true)
-            m_selection << it.next()->data(0, PROP_ID).toUInt();
-    }
-    else
-    {
-        QListIterator <QTreeWidgetItem*> it(m_tree->selectedItems());
-        while (it.hasNext() == true)
-        {
-            const QTreeWidgetItem* item(it.next());
-            if (item->parent() == NULL)
-            {
-                // Fixture item, select all non-disabled heads under it, unless already selected
-                quint32 fxi = item->data(0, PROP_ID).toUInt();
-                for (int i = 0; i < item->childCount(); i++)
-                {
-                    QTreeWidgetItem* child = item->child(i);
-                    Q_ASSERT(child != NULL);
-                    if (child->isDisabled() == false)
-                    {
-                        int head = child->data(0, PROP_HEAD).toInt();
-                        GroupHead gh(fxi, head);
-                        if (m_selectedHeads.contains(gh) == false)
-                            m_selectedHeads << gh;
-                    }
-                }
-            }
-            else
-            {
-                // Head item, select unless already selected
-                Q_ASSERT(item->parent() != NULL);
-                quint32 fxi = item->parent()->data(0, PROP_ID).toUInt();
-                int head = item->data(0, PROP_HEAD).toInt();
-                GroupHead gh(fxi, head);
-                if (m_selectedHeads.contains(gh) == false)
-                    m_selectedHeads << gh;
-            }
-        }
-    }
+    m_selectedFixtures = m_tree->selectedFixtures();
+    m_selectedHeads = m_tree->selectedHeads();
 
     QDialog::accept();
 }

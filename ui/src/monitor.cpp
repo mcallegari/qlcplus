@@ -323,7 +323,7 @@ void Monitor::initDMXToolbar()
     for (quint32 i = 0; i < m_doc->inputOutputMap()->universes(); i++)
     {
         quint32 uniID = m_doc->inputOutputMap()->getUniverseID(i);
-        uniCombo->addItem(m_doc->inputOutputMap()->getUniverseName(i), uniID);
+        uniCombo->addItem(m_doc->inputOutputMap()->getUniverseNameByIndex(i), uniID);
     }
     connect(uniCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(slotUniverseSelected(int)));

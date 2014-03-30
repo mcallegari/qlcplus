@@ -151,7 +151,14 @@ public:
      * @param index The universe index
      * @return The universe name or an empty string
      */
-    QString getUniverseName(int index);
+    QString getUniverseNameByIndex(int index);
+
+    /**
+     * Retrieve the friendly name of the universe with the given ID
+     * @param id The universe unique ID
+     * @return The universe name or an empty string
+     */
+    QString getUniverseNameByID(quint32 id);
 
     /**
      * Set a friendly name of the universe with the given index

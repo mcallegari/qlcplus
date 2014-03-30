@@ -164,10 +164,19 @@ quint32 InputOutputMap::getUniverseID(int index)
     return m_universeArray.at(index)->id();
 }
 
-QString InputOutputMap::getUniverseName(int index)
+QString InputOutputMap::getUniverseNameByIndex(int index)
 {
     if (index >= 0 && index < m_universeArray.count())
         return m_universeArray.at(index)->name();
+
+    return QString();
+}
+
+QString InputOutputMap::getUniverseNameByID(quint32 id)
+{
+    for (int i = 0; i < m_universeArray.count(); i++)
+        if (m_universeArray.at(i)->id() == id)
+            return m_universeArray.at(i)->name();
 
     return QString();
 }

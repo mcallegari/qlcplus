@@ -15,51 +15,7 @@
   </property>
   <layout class="QVBoxLayout">
    <item>
-    <widget class="QTreeWidget" name="m_tree">
-     <property name="alternatingRowColors">
-      <bool>true</bool>
-     </property>
-     <property name="selectionMode">
-      <enum>QAbstractItemView::ExtendedSelection</enum>
-     </property>
-     <property name="rootIsDecorated">
-      <bool>false</bool>
-     </property>
-     <property name="itemsExpandable">
-      <bool>false</bool>
-     </property>
-     <property name="sortingEnabled">
-      <bool>true</bool>
-     </property>
-     <property name="allColumnsShowFocus">
-      <bool>true</bool>
-     </property>
-     <column>
-      <property name="text">
-       <string>Name</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Universe</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Heads</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Manufacturer</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Model</string>
-      </property>
-     </column>
-    </widget>
+    <layout class="QVBoxLayout" name="m_mainLayout"/>
    </item>
    <item>
     <widget class="QDialogButtonBox" name="m_buttonBox">

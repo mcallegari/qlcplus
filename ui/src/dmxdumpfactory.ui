@@ -35,34 +35,27 @@
      </property>
     </widget>
    </item>
+   <item row="0" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Scene name:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="m_sceneName"/>
+     </item>
+    </layout>
+   </item>
    <item row="2" column="0">
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
       <string>Dump options</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="1" column="0">
-       <widget class="QRadioButton" name="m_dumpSelectedRadio">
-        <property name="text">
-         <string>Dump selected channels</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0" colspan="2">
-       <widget class="QRadioButton" name="m_dumpAllRadio">
-        <property name="text">
-         <string notr="true">Dump all channels</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>Add to:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1" colspan="3">
+      <item row="3" column="2" colspan="2">
        <widget class="QTreeWidget" name="m_addtoTree">
         <property name="rootIsDecorated">
          <bool>false</bool>
@@ -74,7 +67,7 @@
         </column>
        </widget>
       </item>
-      <item row="1" column="2">
+      <item row="2" column="2" colspan="2">
        <widget class="QFrame" name="frame">
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -83,6 +76,13 @@
          <enum>QFrame::Raised</enum>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Add to:</string>
+           </property>
+          </widget>
+         </item>
          <item>
           <widget class="QRadioButton" name="m_chaserRadio">
            <property name="text">
@@ -110,39 +110,40 @@
         </layout>
        </widget>
       </item>
-      <item row="3" column="0">
-       <widget class="QTreeWidget" name="m_fixturesTree">
-        <property name="alternatingRowColors">
-         <bool>true</bool>
+      <item row="2" column="0" rowspan="2" colspan="2">
+       <layout class="QVBoxLayout" name="m_treeLayout"/>
+      </item>
+      <item row="1" column="0" colspan="4">
+       <widget class="QFrame" name="frame_2">
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
         </property>
-        <column>
-         <property name="text">
-          <string>Name</string>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <property name="topMargin">
+          <number>0</number>
          </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Type</string>
+         <property name="bottomMargin">
+          <number>0</number>
          </property>
-        </column>
+         <item>
+          <widget class="QRadioButton" name="m_dumpAllRadio">
+           <property name="text">
+            <string notr="true">Dump all channels</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="m_dumpSelectedRadio">
+           <property name="text">
+            <string>Dump selected channels</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
      </layout>
     </widget>
-   </item>
-   <item row="0" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>Scene name:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="m_sceneName"/>
-     </item>
-    </layout>
    </item>
   </layout>
  </widget>
@@ -180,22 +181,6 @@
     <hint type="destinationlabel">
      <x>286</x>
      <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>m_dumpAllRadio</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>DmxDumpFactory</receiver>
-   <slot>slotDumpModeChanged(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>99</x>
-     <y>81</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>198</x>
-     <y>809</y>
     </hint>
    </hints>
   </connection>
@@ -260,6 +245,22 @@
     <hint type="destinationlabel">
      <x>736</x>
      <y>569</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_dumpAllRadio</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>DmxDumpFactory</receiver>
+   <slot>slotDumpModeChanged(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>99</x>
+     <y>81</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>198</x>
+     <y>809</y>
     </hint>
    </hints>
   </connection>

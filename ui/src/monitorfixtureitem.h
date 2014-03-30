@@ -92,6 +92,9 @@ private:
 
     /** In case of a dimmer, this hold the gel color to apply */
     QColor m_gelColor;
+
+    /** Flag to show/hide a fixture label */
+    bool m_labelVisibility;
 };
 
 #endif // MONITORFIXTUREITEM_H
