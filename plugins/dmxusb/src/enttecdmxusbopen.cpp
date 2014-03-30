@@ -49,7 +49,7 @@ EnttecDMXUSBOpen::EnttecDMXUSBOpen(const QString& serial, const QString& name, c
     QSettings settings;
     QVariant var = settings.value(SETTINGS_FREQUENCY);
     if (var.isValid() == true)
-        m_frequency = var.toInt();
+        m_frequency = var.toDouble();
     QVariant var2 = settings.value(SETTINGS_CHANNELS);
     if (var2.isValid() == true)
       m_universe = QByteArray(var2.toInt()+1, 0); 
