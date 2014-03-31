@@ -182,6 +182,8 @@ void FixtureManager::slotFixtureRemoved(quint32 id)
             if (var.isValid() == true && var.toUInt() == id)
                 delete fxiItem;
         }
+        if (grpItem->childCount() == 0)
+            delete grpItem;
     }
 }
 
