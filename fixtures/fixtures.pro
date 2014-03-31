@@ -81,6 +81,7 @@ fixtures.files += Chauvet-Q-Spot-260-LED.qxf
 fixtures.files += Chauvet-Q-Spot-560-LED.qxf
 fixtures.files += Chauvet-SlimPAR-56.qxf
 fixtures.files += Chauvet-SlimPAR-64.qxf
+fixtures.files += Chauvet-SlimPAR-TRI-12-IRC.qxf
 fixtures.files += Chauvet-Slim-Par-Pro-RGBA.qxf
 fixtures.files += Chauvet-Slim-Par-Pro-VW.qxf
 fixtures.files += Chauvet-Vue-3.1.qxf
