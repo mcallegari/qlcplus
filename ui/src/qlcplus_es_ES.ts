@@ -948,7 +948,7 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="audioeditor.ui" line="115"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="143"/>
@@ -963,7 +963,7 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="audioeditor.ui" line="243"/>
         <source>Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Vista previa</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="129"/>
@@ -988,22 +988,22 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="audioeditor.cpp" line="98"/>
         <source>Open Audio File</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir Archivo de Audio</translation>
     </message>
     <message>
         <location filename="audioeditor.cpp" line="106"/>
         <source>Audio Files (%1)</source>
-        <translation type="unfinished">Archivos de Audio (%1)</translation>
+        <translation>Archivos de Audio (%1)</translation>
     </message>
     <message>
         <location filename="audioeditor.cpp" line="108"/>
         <source>All Files (*.*)</source>
-        <translation type="unfinished">Todos los archivos (*.*)</translation>
+        <translation>Todos los archivos (*.*)</translation>
     </message>
     <message>
         <location filename="audioeditor.cpp" line="110"/>
         <source>All Files (*)</source>
-        <translation type="unfinished">Todos los archivos (*)</translation>
+        <translation>Todos los archivos (*)</translation>
     </message>
 </context>
 <context>
@@ -2482,48 +2482,48 @@ Duración: %3
     <message>
         <location filename="fixturetreewidget.cpp" line="70"/>
         <source>Name</source>
-        <translation type="unfinished">Nombre</translation>
+        <translation>Nombre</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="75"/>
         <source>Universe</source>
-        <translation type="unfinished">Universo</translation>
+        <translation>Universo</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="80"/>
         <source>Address</source>
-        <translation type="unfinished">Dirección</translation>
+        <translation>Dirección</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="85"/>
         <source>Type</source>
-        <translation type="unfinished">Tipo</translation>
+        <translation>Tipo</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="90"/>
         <source>Heads</source>
-        <translation type="unfinished">Cabezas</translation>
+        <translation>Cabezas</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="95"/>
         <source>Manufacturer</source>
-        <translation type="unfinished">Fabricante</translation>
+        <translation>Fabricante</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="100"/>
         <source>Model</source>
-        <translation type="unfinished">Modelo</translation>
+        <translation>Modelo</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="208"/>
         <location filename="fixturetreewidget.cpp" line="216"/>
         <source>Generic</source>
-        <translation type="unfinished">Genérico</translation>
+        <translation>Genérico</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="228"/>
         <source>Head</source>
-        <translation type="unfinished">Cabeza</translation>
+        <translation>Cabeza</translation>
     </message>
 </context>
 <context>
@@ -2681,7 +2681,7 @@ Duración: %3
     <message>
         <location filename="functionmanager.cpp" line="519"/>
         <source>Open Video File</source>
-        <translation type="unfinished">Abrir Archivo de video</translation>
+        <translation>Abrir Archivo de video</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="527"/>
@@ -3528,17 +3528,17 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="monitor.cpp" line="391"/>
         <source>Set a gel color</source>
-        <translation type="unfinished"></translation>
+        <translation>Establecer un color de Filtro</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="664"/>
         <source>Error</source>
-        <translation type="unfinished">Error</translation>
+        <translation>Error</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="664"/>
         <source>Please select a fixture first.</source>
-        <translation type="unfinished"></translation>
+        <translation>Por favor, seleccione un fixture primero.</translation>
     </message>
 </context>
 <context>
@@ -6600,92 +6600,92 @@ Duración: %3
     <message>
         <location filename="videoeditor.ui" line="14"/>
         <source>Video Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Editor de Video</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="31"/>
         <source>Video name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre del video:</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="38"/>
         <source>File name:</source>
-        <translation type="unfinished">Nombre del archivo:</translation>
+        <translation>Nombre del archivo:</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="45"/>
         <source>Duration:</source>
-        <translation type="unfinished">Duración:</translation>
+        <translation>Duración:</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="52"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="59"/>
         <source>Resolution:</source>
-        <translation type="unfinished"></translation>
+        <translation>Resolución:</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="101"/>
         <source>Audio codec:</source>
-        <translation type="unfinished"></translation>
+        <translation>Códec de Audio:</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="108"/>
         <source>Video codec:</source>
-        <translation type="unfinished"></translation>
+        <translation>Códec de Video:</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="168"/>
         <source>Name of the function being edited</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de la función que está siendo editada</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="175"/>
         <source>Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Vista Previa</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="212"/>
         <source>Output Screen:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pantalla de Salida:</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="219"/>
         <source>Video output</source>
-        <translation type="unfinished"></translation>
+        <translation>Salida de Video</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="225"/>
         <source>Windowed</source>
-        <translation type="unfinished"></translation>
+        <translation>En Ventana</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="235"/>
         <source>Fullscreen</source>
-        <translation type="unfinished">Pantalla completa</translation>
+        <translation>En Pantalla completa</translation>
     </message>
     <message>
         <location filename="videoeditor.cpp" line="102"/>
         <source>Open Video File</source>
-        <translation type="unfinished">Abrir Archivo de video</translation>
+        <translation>Abrir Archivo de video</translation>
     </message>
     <message>
         <location filename="videoeditor.cpp" line="110"/>
         <source>Video Files (%1)</source>
-        <translation type="unfinished">Archivos de Video (%1)</translation>
+        <translation>Archivos de Video (%1)</translation>
     </message>
     <message>
         <location filename="videoeditor.cpp" line="112"/>
         <source>All Files (*.*)</source>
-        <translation type="unfinished">Todos los archivos (*.*)</translation>
+        <translation>Todos los archivos (*.*)</translation>
     </message>
     <message>
         <location filename="videoeditor.cpp" line="114"/>
         <source>All Files (*)</source>
-        <translation type="unfinished">Todos los archivos (*)</translation>
+        <translation>Todos los archivos (*)</translation>
     </message>
 </context>
 <context>
