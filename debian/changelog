@@ -1,4 +1,4 @@
-qlcplus (4.7.0.RC2) unstable; urgency=low
+qlcplus (4.7.0) stable; urgency=low
 
   * NEW: new EFX types Square, SquareChoppy & Leaf (thanks to David Garyga)
   * Monitor: Added support for dimmer channels and gels
@@ -6,6 +6,7 @@ qlcplus (4.7.0.RC2) unstable; urgency=low
   * Audio Editor: added source file, speed dials and preview buttons
   * Simple Desk: highlight channels in red when manually moved
   * Fixture selection: it is now possible to add groups or a whole universe to a Scene
+  * Chaser Editor: fixed some cases of manual adjustments of steps timings
   * Plugins: Added enttecdmxusbopen/channels to tune the maximum number of transmitted channels for 
              Enttec Open and clones. This could solve flickering issues in some cases. (thanks to Daniel Torres)
   * Added portuguese translation (thanks to Nuno Almeida)
@@ -19,7 +20,7 @@ qlcplus (4.7.0.RC2) unstable; urgency=low
   * Added fixture: Robe ColorSpot 700E AT (thanks to NiKoyes)
   * Added fixture: Chauvet SlimPAR TRI 12 IRC (thanks to Alessandro Grechi)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 March 2014 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 5 April 2014 12:13:14 +0200
 
 qlcplus (4.7.0.RC1) unstable; urgency=low
 

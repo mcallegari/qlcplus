@@ -487,29 +487,67 @@ void ChaserEditor::slotItemChanged(QTreeWidgetItem *item, int column)
     ChaserStep step = m_chaser->steps().at(idx);
     if (column == COL_FADEIN)
     {
-        step.fadeIn = newValue;
-        step.duration = step.fadeIn + step.hold;
+        if (m_chaser->fadeInMode() == Chaser::Common)
+        {
+            m_chaser->setFadeInSpeed(newValue);
+            updateTree();
+        }
+        else
+        {
+            step.fadeIn = newValue;
+            step.duration = step.fadeIn + step.hold;
+        }
     }
     else if (column == COL_HOLD)
     {
-        step.hold = newValue;
+        uint fadeIn = step.fadeIn;
         if (m_chaser->fadeInMode() == Chaser::Common)
-            step.duration = m_chaser->fadeInSpeed() + step.hold;
+            fadeIn = m_chaser->fadeInSpeed();
+
+        if (m_chaser->durationMode() == Chaser::Common)
+        {
+            m_chaser->setDuration(fadeIn + newValue);
+            updateTree();
+        }
         else
-            step.duration = step.fadeIn + step.hold;
+        {
+            step.hold = newValue;
+            step.duration = fadeIn + step.hold;
+        }
     }
     else if (column == COL_FADEOUT)
     {
-        step.fadeOut = newValue;
-        step.duration = step.fadeIn + step.hold;
+        if (m_chaser->fadeOutMode() == Chaser::Common)
+        {
+            m_chaser->setFadeOutSpeed(newValue);
+            updateTree();
+        }
+        else
+        {
+            step.fadeOut = newValue;
+            step.duration = step.fadeIn + step.hold;
+        }
     }
     else if (column == COL_DURATION)
     {
-        qint32 newDuration = (qint32)newValue - (qint32)step.fadeIn;
-        if (newDuration >= 0)
+        uint fadeIn = step.fadeIn;
+        if (m_chaser->fadeInMode() == Chaser::Common)
+            fadeIn = m_chaser->fadeInSpeed();
+
+        if (m_chaser->durationMode() == Chaser::Common)
         {
-            step.duration = newValue;
-            step.hold = step.duration - step.fadeIn;
+            qint32 newDuration = (qint32)newValue - fadeIn;
+            m_chaser->setDuration(newDuration);
+            updateTree();
+        }
+        else
+        {
+            qint32 newDuration = (qint32)newValue - (qint32)fadeIn;
+            if (newDuration >= 0)
+            {
+                step.duration = newValue;
+                step.hold = step.duration - step.fadeIn;
+            }
         }
     }
     else if (column == COL_NOTES)
@@ -1089,7 +1127,7 @@ void ChaserEditor::updateItem(QTreeWidgetItem* item, ChaserStep& step)
         break;
     case Chaser::PerStep:
         item->setText(COL_FADEIN, Function::speedToString(step.fadeIn));
-        item->setText(COL_DURATION, Function::speedToString(step.duration));
+        //item->setText(COL_DURATION, Function::speedToString(step.duration));
         break;
     default:
     case Chaser::Default:
@@ -1104,7 +1142,7 @@ void ChaserEditor::updateItem(QTreeWidgetItem* item, ChaserStep& step)
         break;
     case Chaser::PerStep:
         item->setText(COL_FADEOUT, Function::speedToString(step.fadeOut));
-        item->setText(COL_DURATION, Function::speedToString(step.duration));
+        //item->setText(COL_DURATION, Function::speedToString(step.duration));
         break;
     default:
     case Chaser::Default:
@@ -1116,11 +1154,16 @@ void ChaserEditor::updateItem(QTreeWidgetItem* item, ChaserStep& step)
     default:
     case Chaser::Common:
         step.duration = m_chaser->duration();
-        step.hold = step.duration - m_chaser->fadeInSpeed();
         if (step.duration == Function::infiniteSpeed())
             item->setText(COL_HOLD, Function::speedToString(step.duration));
         else
+        {
+            if (m_chaser->fadeInMode() == Chaser::PerStep)
+                step.hold = step.duration - step.fadeIn;
+            else
+                step.hold = step.duration - m_chaser->fadeInSpeed();
             item->setText(COL_HOLD, Function::speedToString(step.hold));
+        }
         item->setText(COL_DURATION, Function::speedToString(m_chaser->duration()));
         break;
     case Chaser::PerStep:
