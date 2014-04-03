@@ -65,6 +65,7 @@
   <fixture path="Chauvet-COLORpalette.qxf" mf="Chauvet" md="COLORpalette"/>
   <fixture path="Chauvet-ColorStrip-Mini.qxf" mf="Chauvet" md="ColorStrip Mini"/>
   <fixture path="Chauvet-DMX-Mega-Strobe-III.qxf" mf="Chauvet" md="DMX Mega Strobe III"/>
+  <fixture path="Chauvet-EZPAR-64-RGBA.qxf" mf="Chauvet" md="EZPar 64 RGBA"/>
   <fixture path="Chauvet-Gyser-RGB.qxf" mf="Chauvet" md="Gyser RGB"/>
   <fixture path="Chauvet-Hurricane-1800-Flex.qxf" mf="Chauvet" md="Hurricane 1800 Flex"/>
   <fixture path="Chauvet-Hurricane-Haze-2.qxf" mf="Chauvet" md="Hurricane Haze 2"/>

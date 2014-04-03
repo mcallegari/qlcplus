@@ -68,6 +68,7 @@ fixtures.files += Chauvet-ColorStrip-Mini.qxf
 fixtures.files += Chauvet-COLORado-1-Tour.qxf
 fixtures.files += Chauvet-COLORpalette.qxf
 fixtures.files += Chauvet-DMX-Mega-Strobe-III.qxf
+fixtures.files += Chauvet-EZPAR-64-RGBA.qxf
 fixtures.files += Chauvet-Gyser-RGB.qxf
 fixtures.files += Chauvet-Hurricane-1800-Flex.qxf
 fixtures.files += Chauvet-Hurricane-Haze-2.qxf

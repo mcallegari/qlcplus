@@ -19,6 +19,7 @@ qlcplus (4.7.0) stable; urgency=low
   * Added fixtures: Eurolite LED PAR 56 RGB DMX, Expolite TourLed 42 (thanks to Frank Janosch)
   * Added fixture: Robe ColorSpot 700E AT (thanks to NiKoyes)
   * Added fixture: Chauvet SlimPAR TRI 12 IRC (thanks to Alessandro Grechi)
+  * Added fixture: Chauvet EZPAR 64 RGBA (thanks to Ronnie Ross)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 5 April 2014 12:13:14 +0200
 
