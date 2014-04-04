@@ -321,6 +321,7 @@ void FixtureManager::initDataView()
     m_fixtures_tree->setIconSize(QSize(32, 32));
     m_fixtures_tree->setContextMenuPolicy(Qt::CustomContextMenu);
     m_fixtures_tree->setSelectionMode(QAbstractItemView::ExtendedSelection);
+    m_fixtures_tree->sortByColumn(KColumnAddress, Qt::AscendingOrder);
 
     QFont m_font = QApplication::font();
     m_font.setPixelSize(13);
