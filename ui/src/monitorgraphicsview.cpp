@@ -263,5 +263,8 @@ void MonitorGraphicsView::slotFixtureMoved(MonitorFixtureItem *item)
     mmPos.setX(((item->x() - m_xOffset) * m_unitValue) / m_cellPixels);
     mmPos.setY(((item->y() - m_yOffset) * m_unitValue) / m_cellPixels);
 
+    // update the fixture item's real position
+    item->setRealPosition(mmPos);
+
     emit fixtureMoved(fid, mmPos);
 }
