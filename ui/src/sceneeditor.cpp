@@ -462,16 +462,23 @@ void SceneEditor::slotCopy()
     else
     {
         bool oneHasSelection = false;
+        QList <SceneValue> selectedOnlyList;
         foreach(FixtureConsole *fc, m_consoleList)
         {
             if (fc == NULL)
                 continue;
             copyList.append(fc->values());
             if (fc->hasSelections())
+            {
                 oneHasSelection = true;
+                selectedOnlyList.append(fc->values());
+            }
         }
         m_copyFromSelection = oneHasSelection;
-        clipboard->copyContent(m_scene->id(), copyList);
+        if (m_copyFromSelection == true)
+            clipboard->copyContent(m_scene->id(), selectedOnlyList);
+        else
+            clipboard->copyContent(m_scene->id(), copyList);
     }
     if (copyList.count() > 0)
         m_pasteAction->setEnabled(true);

@@ -8,6 +8,7 @@ qlcplus (4.7.0) stable; urgency=low
   * Simple Desk: highlight channels in red when manually moved
   * Fixture selection: it is now possible to add groups or a whole universe to a Scene
   * Chaser Editor: fixed some cases of manual adjustments of steps timings
+  * Scene Editor: fixed copy&paste of selected values in all fixtures view mode
   * Plugins: Added enttecdmxusbopen/channels to tune the maximum number of transmitted channels for 
              Enttec Open and clones. This could solve flickering issues in some cases. (thanks to Daniel Torres)
   * Plugins: DMX USB FX5 is now supported on OSX too
