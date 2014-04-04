@@ -49,6 +49,7 @@ fixtures.files += American-DJ-Ultra-Bar-6.qxf
 fixtures.files += American-DJ-Ultra-Bar-9.qxf
 fixtures.files += American-DJ-Vizi-Beam-5R.qxf
 fixtures.files += American-DJ-Vizi-LED-Spot.qxf
+fixtures.files += beamZ-LS-3DRG.qxf
 fixtures.files += Blizzard-Lighting-Blade-RGBW.qxf
 fixtures.files += Blizzard-Lighting-Puck-Fab5.qxf
 fixtures.files += Blizzard-Lighting-Snowball.qxf

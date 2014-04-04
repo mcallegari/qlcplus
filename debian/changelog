@@ -10,6 +10,7 @@ qlcplus (4.7.0) stable; urgency=low
   * Chaser Editor: fixed some cases of manual adjustments of steps timings
   * Plugins: Added enttecdmxusbopen/channels to tune the maximum number of transmitted channels for 
              Enttec Open and clones. This could solve flickering issues in some cases. (thanks to Daniel Torres)
+  * Plugins: DMX USB FX5 is now supported on OSX too
   * Added portuguese translation (thanks to Nuno Almeida)
   * Added fixture: Ledj Performer 18-Quad (thanks to Michael Clements)
   * Added fixture: Optima Lighting PAR64 LED (thanks to Ryan Kelley)
@@ -21,6 +22,7 @@ qlcplus (4.7.0) stable; urgency=low
   * Added fixture: Robe ColorSpot 700E AT (thanks to NiKoyes)
   * Added fixture: Chauvet SlimPAR TRI 12 IRC (thanks to Alessandro Grechi)
   * Added fixture: Chauvet EZPAR 64 RGBA (thanks to Ronnie Ross)
+  * Added fixture: beamZ LS 3DRG (thanks to Julian Brennum)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 5 April 2014 12:13:14 +0200
 
