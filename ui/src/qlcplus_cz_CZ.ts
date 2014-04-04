@@ -1291,238 +1291,248 @@ Délka: %3
         <translation>Nastavení prolínání</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="60"/>
+        <location filename="chasereditor.ui" line="51"/>
         <source>Step</source>
         <translation>Krok</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="65"/>
+        <location filename="chasereditor.ui" line="56"/>
         <source>Function</source>
         <translation>Funkce</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="70"/>
-        <location filename="chasereditor.cpp" line="816"/>
+        <location filename="chasereditor.ui" line="61"/>
+        <location filename="chasereditor.cpp" line="866"/>
         <source>Fade In</source>
         <translation>Zesílení</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="75"/>
-        <location filename="chasereditor.cpp" line="818"/>
+        <location filename="chasereditor.ui" line="66"/>
+        <location filename="chasereditor.cpp" line="868"/>
         <source>Hold</source>
         <translation>Podržet</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="80"/>
-        <location filename="chasereditor.cpp" line="817"/>
+        <location filename="chasereditor.ui" line="71"/>
+        <location filename="chasereditor.cpp" line="867"/>
         <source>Fade Out</source>
         <translation>Zeslabení</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="85"/>
+        <location filename="chasereditor.ui" line="76"/>
         <source>Duration</source>
         <translation>Trvání</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="90"/>
+        <location filename="chasereditor.ui" line="81"/>
         <source>Notes</source>
         <translation>Poznámky</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="98"/>
+        <location filename="chasereditor.ui" line="89"/>
         <source>Remove the selected step</source>
         <translation>Odebrat tento krok</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="126"/>
+        <location filename="chasereditor.ui" line="117"/>
         <source>Chaser name</source>
         <translation>Název prolínání</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="139"/>
+        <location filename="chasereditor.ui" line="130"/>
         <source>Name of the chaser being edited</source>
         <translation>Název upravovaného  prolínání</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="150"/>
+        <location filename="chasereditor.ui" line="141"/>
         <source>Run Order</source>
         <translation>Režim běhu</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="177"/>
+        <location filename="chasereditor.ui" line="159"/>
         <source>Run through over and over again</source>
         <translation>Běží v nekonečné smičce</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="180"/>
+        <location filename="chasereditor.ui" line="162"/>
         <source>Loop</source>
         <translation>Smyčka</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="196"/>
+        <location filename="chasereditor.ui" line="178"/>
         <source>Run through once and stop</source>
         <translation>Jednou proběhne a ukončí se</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="199"/>
+        <location filename="chasereditor.ui" line="181"/>
         <source>Single Shot</source>
         <translation>Jednorázově</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="212"/>
+        <location filename="chasereditor.ui" line="194"/>
         <source>Switch direction at both ends</source>
         <translation>Po průběhu vždy obrátí směr běhu</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="215"/>
+        <location filename="chasereditor.ui" line="197"/>
         <source>Ping Pong</source>
         <translation>Kyvadlo</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="225"/>
+        <location filename="chasereditor.ui" line="204"/>
+        <source>Execute steps in random order</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="chasereditor.ui" line="207"/>
+        <source>Random</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="chasereditor.ui" line="217"/>
         <source>Direction</source>
         <translation>Směr</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="252"/>
+        <location filename="chasereditor.ui" line="235"/>
         <source>Start from the first step</source>
         <translation>Začít od prvního kroku</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="255"/>
+        <location filename="chasereditor.ui" line="238"/>
         <source>Forward</source>
         <translation>Od začátku</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="271"/>
+        <location filename="chasereditor.ui" line="254"/>
         <source>Start from the last step</source>
         <translation>Začít od posledního kroku</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="274"/>
+        <location filename="chasereditor.ui" line="257"/>
         <source>Backward</source>
         <translation>Od konce</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="300"/>
+        <location filename="chasereditor.ui" line="283"/>
         <source>Fade In Speed</source>
         <translation>Rychlost zesílení</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="327"/>
+        <location filename="chasereditor.ui" line="301"/>
         <source>All steps have common fade in speed set by the chaser</source>
         <translation>Všechny kroky mají společnou rychlost zesílení nastavenou v definici prolínání</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="330"/>
-        <location filename="chasereditor.ui" line="405"/>
-        <location filename="chasereditor.ui" line="483"/>
+        <location filename="chasereditor.ui" line="304"/>
+        <location filename="chasereditor.ui" line="370"/>
+        <location filename="chasereditor.ui" line="439"/>
         <source>Common</source>
         <translation>Společná</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="343"/>
+        <location filename="chasereditor.ui" line="317"/>
         <source>Each step has its own fade in speed set by the chaser</source>
         <translation>Každý krok má samostatně nastavitelnou rychlost zesílení v průběhu prolínání</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="346"/>
-        <location filename="chasereditor.ui" line="421"/>
-        <location filename="chasereditor.ui" line="502"/>
+        <location filename="chasereditor.ui" line="320"/>
+        <location filename="chasereditor.ui" line="386"/>
+        <location filename="chasereditor.ui" line="458"/>
         <source>Per Step</source>
         <translation>Dle kroku</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="359"/>
+        <location filename="chasereditor.ui" line="333"/>
         <source>Use each function&apos;s own fade in speed</source>
         <translation>Používat standardní rychlost funkce zesílení</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="362"/>
-        <location filename="chasereditor.ui" line="437"/>
+        <location filename="chasereditor.ui" line="336"/>
+        <location filename="chasereditor.ui" line="402"/>
         <source>Default</source>
         <translation>Standardní</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="375"/>
+        <location filename="chasereditor.ui" line="349"/>
         <source>Fade Out Speed</source>
         <translation>Rychlost zeslabení</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="402"/>
+        <location filename="chasereditor.ui" line="367"/>
         <source>All steps have common fade out speed set by the chaser</source>
         <translation>Všechny kroky mají společnou rychlost zeslabení nastavenou v definici prolínání</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="418"/>
+        <location filename="chasereditor.ui" line="383"/>
         <source>Each step has its own fade out speed set by the chaser</source>
         <translation>Každý krok má samostatně nastavitelnou rychlost zeslabení v průběhu prolínání</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="434"/>
+        <location filename="chasereditor.ui" line="399"/>
         <source>Use each function&apos;s own fade out speed</source>
         <translation>Používat standardní rychlost funkce zeslabení</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="450"/>
+        <location filename="chasereditor.ui" line="415"/>
         <source>Step Duration</source>
         <translation>Délka kroku</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="480"/>
+        <location filename="chasereditor.ui" line="436"/>
         <source>All steps have common step duration set by the chaser</source>
         <translation>Všechny kroky mají společnou rychlost nastavenou v definici prolínání</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="499"/>
+        <location filename="chasereditor.ui" line="455"/>
         <source>Each step has its own duration set by the chaser</source>
         <translation>Každý krok má samostatně nastavitelnou rychlost v průběhu prolínání</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="530"/>
+        <location filename="chasereditor.ui" line="486"/>
         <source>Lower the selected step once</source>
         <translation>Posunout označený krok níže</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="572"/>
+        <location filename="chasereditor.ui" line="528"/>
         <source>Show/Hide speed dial window</source>
         <translation>Zobrazit/Skrýt okno rychlé volby</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="602"/>
-        <location filename="chasereditor.ui" line="622"/>
-        <location filename="chasereditor.ui" line="642"/>
-        <location filename="chasereditor.ui" line="662"/>
+        <location filename="chasereditor.ui" line="558"/>
+        <location filename="chasereditor.ui" line="578"/>
+        <location filename="chasereditor.ui" line="598"/>
+        <location filename="chasereditor.ui" line="618"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="599"/>
+        <location filename="chasereditor.ui" line="555"/>
         <source>See what the chaser does when it is run</source>
         <translation>Ukázat průběh prolínání </translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="619"/>
+        <location filename="chasereditor.ui" line="575"/>
         <source>Stop the chaser if running</source>
         <translation>Zastavit běžící prolínání</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="639"/>
+        <location filename="chasereditor.ui" line="595"/>
         <source>Skip to the previous step</source>
         <translation>Přeskočit předchozí krok</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="659"/>
+        <location filename="chasereditor.ui" line="615"/>
         <source>Skip to the next step</source>
         <translation>Přeskočit následující krok</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="739"/>
+        <location filename="chasereditor.ui" line="695"/>
         <source>Add step(s) to the current position</source>
         <translation>Přidat krok(y) na tuto pozici</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="759"/>
+        <location filename="chasereditor.ui" line="715"/>
         <source>Raise the selected step once</source>
         <translation>Posunout označený krok výše</translation>
     </message>
@@ -1542,32 +1552,32 @@ Délka: %3
         <translation>Vložit</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="587"/>
+        <location filename="chasereditor.cpp" line="632"/>
         <source>Paste error</source>
         <translation>Chyba vložení</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="587"/>
+        <location filename="chasereditor.cpp" line="632"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
         <translation>Pokoušíte se vložit nekompatibilní Scénu. Operace byla zrušena.</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="819"/>
+        <location filename="chasereditor.cpp" line="869"/>
         <source>Common Fade In</source>
         <translation>Společné zesílení</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="820"/>
+        <location filename="chasereditor.cpp" line="870"/>
         <source>Common Fade Out</source>
         <translation>Společné zeslabení</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="821"/>
+        <location filename="chasereditor.cpp" line="871"/>
         <source>Common Hold</source>
         <translation>Společné pozastavení</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="837"/>
+        <location filename="chasereditor.cpp" line="887"/>
         <source>Multiple Steps</source>
         <translation>Kroky</translation>
     </message>
@@ -2109,214 +2119,214 @@ Délka: %3
 <context>
     <name>FixtureManager</name>
     <message>
-        <location filename="fixturemanager.cpp" line="346"/>
+        <location filename="fixturemanager.cpp" line="349"/>
         <source>Name</source>
         <translation>Název</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="342"/>
+        <location filename="fixturemanager.cpp" line="345"/>
         <source>Fixtures Groups</source>
         <translation>Skupiny zařízení</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="346"/>
+        <location filename="fixturemanager.cpp" line="349"/>
         <source>Channels</source>
         <translation>Kanály</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="359"/>
+        <location filename="fixturemanager.cpp" line="362"/>
         <source>Channels Groups</source>
         <translation>Skupiny kanálů</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="552"/>
+        <location filename="fixturemanager.cpp" line="555"/>
         <source>All fixtures</source>
         <translation>Všechna zařízení</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="552"/>
+        <location filename="fixturemanager.cpp" line="555"/>
         <source>This group contains all fixtures.</source>
         <translation>Tato skupina obsahuje všechna zařázení.</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="564"/>
+        <location filename="fixturemanager.cpp" line="567"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple fixtures selected&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; to remove the selected fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Označeno více zařízení&lt;/H1&gt;&lt;P&gt;Klikněte &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt;pro odebrání označených zařízení.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="570"/>
+        <location filename="fixturemanager.cpp" line="573"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple fixtures selected&lt;/H1&gt;&lt;P&gt;Fixture list modification is not permitted in operate mode.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Označeno více zařízení&lt;/H1&gt;&lt;P&gt;Úpravy seznamu zařízení nejsou dovoleny v režimu Provoz.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="579"/>
+        <location filename="fixturemanager.cpp" line="582"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;No fixtures&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nebyla zvolena žádná zařízení&lt;/H1&gt;&lt;P&gt;Klikněte &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; pro přidání zařízení.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="585"/>
+        <location filename="fixturemanager.cpp" line="588"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a fixture from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nic nevybráno&lt;/H1&gt;&lt;P&gt;Zvolte zařízení ze seznamu nebo klikněte &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; pro přidání zařízení.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="637"/>
+        <location filename="fixturemanager.cpp" line="640"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple groups selected&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; to remove the selected groups.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Ozančeno více skupin&lt;/H1&gt;&lt;P&gt;Klikněte &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; pro odebrání zvolené skupiny.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="645"/>
+        <location filename="fixturemanager.cpp" line="648"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a channel group from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add a new channels group.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nic nevybráno&lt;/H1&gt;&lt;P&gt;Zvolte skupinu kanálů ze seznamu nebo klikněte &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; pro přidání nové skupiny kanálů.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="670"/>
+        <location filename="fixturemanager.cpp" line="673"/>
         <source>Add group...</source>
         <translation>Přidat skupinu...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="676"/>
-        <location filename="fixturemanager.cpp" line="784"/>
-        <location filename="fixturemanager.cpp" line="789"/>
+        <location filename="fixturemanager.cpp" line="679"/>
+        <location filename="fixturemanager.cpp" line="787"/>
+        <location filename="fixturemanager.cpp" line="792"/>
         <source>Add fixture...</source>
         <translation>Přidat zařízení...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="794"/>
+        <location filename="fixturemanager.cpp" line="797"/>
         <source>Delete items</source>
         <translation>Smazat položky</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="799"/>
+        <location filename="fixturemanager.cpp" line="802"/>
         <source>Properties...</source>
         <translation>Vlastnosti...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="804"/>
+        <location filename="fixturemanager.cpp" line="807"/>
         <source>Channels Fade Configuration...</source>
         <translation>Nastavení útlumu kanálů...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="810"/>
+        <location filename="fixturemanager.cpp" line="813"/>
         <source>Add fixture to group...</source>
         <translation>Přidat zařízení do skupiny...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="813"/>
+        <location filename="fixturemanager.cpp" line="816"/>
         <source>Remove fixture from group</source>
         <translation>Odebrat zařízení ze skupiny</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="817"/>
+        <location filename="fixturemanager.cpp" line="820"/>
         <source>New Group...</source>
         <translation>Nová skupina...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="820"/>
+        <location filename="fixturemanager.cpp" line="823"/>
         <source>Move group up...</source>
         <translation>Posunout skupinu nahoru...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="826"/>
+        <location filename="fixturemanager.cpp" line="829"/>
         <source>Move group down...</source>
         <translation>Posunout skupinu dolů...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="832"/>
+        <location filename="fixturemanager.cpp" line="835"/>
         <source>Import fixtures...</source>
         <translation>Importovat zařízení...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="837"/>
+        <location filename="fixturemanager.cpp" line="840"/>
         <source>Export fixtures...</source>
         <translation>Exportovat zařízení...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="843"/>
+        <location filename="fixturemanager.cpp" line="846"/>
         <source>Remap fixtures...</source>
         <translation>Přesunout zařízení...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="876"/>
+        <location filename="fixturemanager.cpp" line="879"/>
         <source>Fixture manager</source>
         <translation>Správce zařízení</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="944"/>
+        <location filename="fixturemanager.cpp" line="947"/>
         <source>Generic Dimmer</source>
         <translation>Obecný stmívač</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1057"/>
+        <location filename="fixturemanager.cpp" line="1060"/>
         <source>%1 - Row %2</source>
         <translation>%1 - řádek %2</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1119"/>
+        <location filename="fixturemanager.cpp" line="1122"/>
         <source>Delete Fixtures</source>
         <translation>Smazat zařízení</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1120"/>
+        <location filename="fixturemanager.cpp" line="1123"/>
         <source>Do you want to delete the selected items?</source>
         <translation>Opravdu si přejete SMAZAT zvolené položky? </translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1165"/>
+        <location filename="fixturemanager.cpp" line="1168"/>
         <source>Delete Channels Group</source>
         <translation>Smazat skupinu kanálů</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1166"/>
+        <location filename="fixturemanager.cpp" line="1169"/>
         <source>Do you want to delete the selected groups?</source>
         <translation>Opravdu si přejete SMAZAT zvolené skupiny? </translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1231"/>
+        <location filename="fixturemanager.cpp" line="1234"/>
         <source>Change fixture properties</source>
         <translation>Změnit parametry zařízení</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1268"/>
+        <location filename="fixturemanager.cpp" line="1271"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1269"/>
+        <location filename="fixturemanager.cpp" line="1272"/>
         <source>Please enter a valid address</source>
         <translation>Prosím zadejte platnou adresu</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1345"/>
+        <location filename="fixturemanager.cpp" line="1348"/>
         <source>Ungroup fixtures?</source>
         <translation>Oddělit zařízení ze skupiny?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1346"/>
+        <location filename="fixturemanager.cpp" line="1349"/>
         <source>Do you want to ungroup the selected fixtures?</source>
         <translation>Opravdu si přejete oddělit zvolená zařízení ze skupiny?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1461"/>
+        <location filename="fixturemanager.cpp" line="1464"/>
         <source>Import Fixtures List</source>
         <translation>Importovat seznam zařízení</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1466"/>
+        <location filename="fixturemanager.cpp" line="1469"/>
         <source>Export Fixtures List As</source>
         <translation>Exportovat seznam zařízení jako</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1472"/>
+        <location filename="fixturemanager.cpp" line="1475"/>
         <source>Fixtures List (*%1)</source>
         <translation>Seznam zařízení (*%1)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1474"/>
+        <location filename="fixturemanager.cpp" line="1477"/>
         <source>All Files (*.*)</source>
         <translation>Všechny soubory (*.*)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1476"/>
+        <location filename="fixturemanager.cpp" line="1479"/>
         <source>All Files (*)</source>
         <translation>Všechny soubory (*)</translation>
     </message>
@@ -3397,112 +3407,117 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
 <context>
     <name>Monitor</name>
     <message>
-        <location filename="monitor.cpp" line="215"/>
+        <location filename="monitor.cpp" line="217"/>
         <source>Fixture Monitor</source>
         <translation>Sledování zařízení</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="247"/>
+        <location filename="monitor.cpp" line="249"/>
         <source>2D View</source>
         <translation>2D pohled</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="254"/>
+        <location filename="monitor.cpp" line="256"/>
         <source>Font</source>
         <translation>Styl písma</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="263"/>
+        <location filename="monitor.cpp" line="265"/>
         <source>DMX Channels</source>
         <translation>DMX kanály</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="264"/>
+        <location filename="monitor.cpp" line="266"/>
         <source>Show absolute DMX channel numbers</source>
         <translation>Zobrazit absolutní číslo DMX kanálu</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="274"/>
+        <location filename="monitor.cpp" line="276"/>
         <source>Relative Channels</source>
         <translation>Relativní kanály</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="275"/>
+        <location filename="monitor.cpp" line="277"/>
         <source>Show channel numbers relative to fixture</source>
         <translation>Zobrazit číslo kanálu relativně k zařízení</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="291"/>
+        <location filename="monitor.cpp" line="293"/>
         <source>DMX Values</source>
         <translation>DMX hodnoty</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="292"/>
+        <location filename="monitor.cpp" line="294"/>
         <source>Show DMX values 0-255</source>
         <translation>Zobrazit hodnoty DMX 0-255</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="303"/>
+        <location filename="monitor.cpp" line="305"/>
         <source>Percent Values</source>
         <translation>Procentuální hodnoty</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="304"/>
+        <location filename="monitor.cpp" line="306"/>
         <source>Show percentage values 0-100%</source>
         <translation>Zobrazit procentuální hodnoty 0-100%</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="317"/>
+        <location filename="monitor.cpp" line="319"/>
         <source>Universe:</source>
         <translation type="unfinished">Větev:</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="322"/>
+        <location filename="monitor.cpp" line="324"/>
         <source>All universes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="344"/>
+        <location filename="monitor.cpp" line="346"/>
         <source>DMX View</source>
         <translation>DMX hodnoty</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="350"/>
+        <location filename="monitor.cpp" line="352"/>
         <source>Size:</source>
         <translation>Velikost:</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="374"/>
+        <location filename="monitor.cpp" line="376"/>
         <source>Meters</source>
         <translation>metrů</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="375"/>
+        <location filename="monitor.cpp" line="377"/>
         <source>Feet</source>
         <translation>stop</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="384"/>
+        <location filename="monitor.cpp" line="386"/>
         <source>Add fixture</source>
         <translation>Přidat zařízení</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="386"/>
+        <location filename="monitor.cpp" line="388"/>
         <source>Remove fixture</source>
         <translation>Odebrat zařízení</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="391"/>
+        <location filename="monitor.cpp" line="393"/>
         <source>Set a gel color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="664"/>
+        <location filename="monitor.cpp" line="396"/>
+        <source>Show/hide labels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="monitor.cpp" line="671"/>
         <source>Error</source>
         <translation type="unfinished">Chyba</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="664"/>
+        <location filename="monitor.cpp" line="671"/>
         <source>Please select a fixture first.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4161,30 +4176,30 @@ Délka: %3
         <translation>Název scény:</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="876"/>
-        <location filename="sceneeditor.cpp" line="877"/>
+        <location filename="sceneeditor.cpp" line="883"/>
+        <location filename="sceneeditor.cpp" line="884"/>
         <source>All fixtures</source>
         <translation>Všechna zařízení</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1172"/>
-        <location filename="sceneeditor.cpp" line="1173"/>
+        <location filename="sceneeditor.cpp" line="1179"/>
+        <location filename="sceneeditor.cpp" line="1180"/>
         <source>Generic</source>
         <translation>Obecný</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1241"/>
+        <location filename="sceneeditor.cpp" line="1248"/>
         <source>Remove fixtures</source>
         <translation>Odebrat zařízení</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1242"/>
+        <location filename="sceneeditor.cpp" line="1249"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Opravdu si přejete odebrat označená zařízení? </translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1393"/>
-        <location filename="sceneeditor.cpp" line="1394"/>
+        <location filename="sceneeditor.cpp" line="1400"/>
+        <location filename="sceneeditor.cpp" line="1401"/>
         <source>Channels Groups</source>
         <translation>Skupiny kanálů</translation>
     </message>

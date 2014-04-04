@@ -1296,238 +1296,248 @@ Durée : %3
         <translation>Éditeur de chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="126"/>
+        <location filename="chasereditor.ui" line="117"/>
         <source>Chaser name</source>
         <translation>Nom du chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="139"/>
+        <location filename="chasereditor.ui" line="130"/>
         <source>Name of the chaser being edited</source>
         <translation>Le nom du chaser en cours d&apos;édition</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="60"/>
+        <location filename="chasereditor.ui" line="51"/>
         <source>Step</source>
         <translation>Pas</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="65"/>
+        <location filename="chasereditor.ui" line="56"/>
         <source>Function</source>
         <translation>Fonction</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="70"/>
-        <location filename="chasereditor.cpp" line="816"/>
+        <location filename="chasereditor.ui" line="61"/>
+        <location filename="chasereditor.cpp" line="866"/>
         <source>Fade In</source>
         <translation>Montée</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="80"/>
-        <location filename="chasereditor.cpp" line="817"/>
+        <location filename="chasereditor.ui" line="71"/>
+        <location filename="chasereditor.cpp" line="867"/>
         <source>Fade Out</source>
         <translation>Descente</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="85"/>
+        <location filename="chasereditor.ui" line="76"/>
         <source>Duration</source>
         <translation>Durée du pas</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="739"/>
+        <location filename="chasereditor.ui" line="695"/>
         <source>Add step(s) to the current position</source>
         <translation>Ajouter un ou plusieurs pas à la position actuelle</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="572"/>
+        <location filename="chasereditor.ui" line="528"/>
         <source>Show/Hide speed dial window</source>
         <translation>Afficher/Masquer la fenêtre de réglage des vitesses</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="75"/>
-        <location filename="chasereditor.cpp" line="818"/>
+        <location filename="chasereditor.ui" line="66"/>
+        <location filename="chasereditor.cpp" line="868"/>
         <source>Hold</source>
         <translation>Maintien</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="90"/>
+        <location filename="chasereditor.ui" line="81"/>
         <source>Notes</source>
         <translation>Notes</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="212"/>
+        <location filename="chasereditor.ui" line="194"/>
         <source>Switch direction at both ends</source>
         <translation>Alterner l&apos;ordre de lecture dans les deux directions</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="300"/>
+        <location filename="chasereditor.ui" line="204"/>
+        <source>Execute steps in random order</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="chasereditor.ui" line="207"/>
+        <source>Random</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="chasereditor.ui" line="283"/>
         <source>Fade In Speed</source>
         <translation>Vitesse de montée</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="327"/>
+        <location filename="chasereditor.ui" line="301"/>
         <source>All steps have common fade in speed set by the chaser</source>
         <translation>Tous les pas ont une vitesse de montée commune définie par le chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="330"/>
-        <location filename="chasereditor.ui" line="405"/>
-        <location filename="chasereditor.ui" line="483"/>
+        <location filename="chasereditor.ui" line="304"/>
+        <location filename="chasereditor.ui" line="370"/>
+        <location filename="chasereditor.ui" line="439"/>
         <source>Common</source>
         <translation>Commune</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="343"/>
+        <location filename="chasereditor.ui" line="317"/>
         <source>Each step has its own fade in speed set by the chaser</source>
         <translation>Chaque pas a sa propre vitesse de montée définie par le chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="346"/>
-        <location filename="chasereditor.ui" line="421"/>
-        <location filename="chasereditor.ui" line="502"/>
+        <location filename="chasereditor.ui" line="320"/>
+        <location filename="chasereditor.ui" line="386"/>
+        <location filename="chasereditor.ui" line="458"/>
         <source>Per Step</source>
         <translation>Par pas</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="359"/>
+        <location filename="chasereditor.ui" line="333"/>
         <source>Use each function&apos;s own fade in speed</source>
         <translation>Chaque pas utilise la vitesse de montée de sa fontion</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="362"/>
-        <location filename="chasereditor.ui" line="437"/>
+        <location filename="chasereditor.ui" line="336"/>
+        <location filename="chasereditor.ui" line="402"/>
         <source>Default</source>
         <translation>Défaut</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="375"/>
+        <location filename="chasereditor.ui" line="349"/>
         <source>Fade Out Speed</source>
         <translation>Vitesse de descente</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="402"/>
+        <location filename="chasereditor.ui" line="367"/>
         <source>All steps have common fade out speed set by the chaser</source>
         <translation>Tous les pas ont une vitesse de descente commune définie par le chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="418"/>
+        <location filename="chasereditor.ui" line="383"/>
         <source>Each step has its own fade out speed set by the chaser</source>
         <translation>Chaque pas a sa propre vitesse de descente définie par le chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="434"/>
+        <location filename="chasereditor.ui" line="399"/>
         <source>Use each function&apos;s own fade out speed</source>
         <translation>Chaque pas utilise la vitesse de descente de sa fontion</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="450"/>
+        <location filename="chasereditor.ui" line="415"/>
         <source>Step Duration</source>
         <translation>Durée du pas</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="480"/>
+        <location filename="chasereditor.ui" line="436"/>
         <source>All steps have common step duration set by the chaser</source>
         <translation>Tous les pas ont une durée commune définie par le chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="499"/>
+        <location filename="chasereditor.ui" line="455"/>
         <source>Each step has its own duration set by the chaser</source>
         <translation>Chaque pas a sa propre durée définie par le chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="599"/>
+        <location filename="chasereditor.ui" line="555"/>
         <source>See what the chaser does when it is run</source>
         <translation>Prévisualiser le chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="619"/>
+        <location filename="chasereditor.ui" line="575"/>
         <source>Stop the chaser if running</source>
         <translation>Arrêter le chaser</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="659"/>
+        <location filename="chasereditor.ui" line="615"/>
         <source>Skip to the next step</source>
         <translation>Passer au pas suivant</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="639"/>
+        <location filename="chasereditor.ui" line="595"/>
         <source>Skip to the previous step</source>
         <translation>Passer au pas précédent</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="602"/>
-        <location filename="chasereditor.ui" line="622"/>
-        <location filename="chasereditor.ui" line="642"/>
-        <location filename="chasereditor.ui" line="662"/>
+        <location filename="chasereditor.ui" line="558"/>
+        <location filename="chasereditor.ui" line="578"/>
+        <location filename="chasereditor.ui" line="598"/>
+        <location filename="chasereditor.ui" line="618"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="98"/>
+        <location filename="chasereditor.ui" line="89"/>
         <source>Remove the selected step</source>
         <translation>Enlever le pas sélectionné</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="759"/>
+        <location filename="chasereditor.ui" line="715"/>
         <source>Raise the selected step once</source>
         <translation>Monter le pas sélectionné</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="530"/>
+        <location filename="chasereditor.ui" line="486"/>
         <source>Lower the selected step once</source>
         <translation>Descendre le pas sélectionné</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="150"/>
+        <location filename="chasereditor.ui" line="141"/>
         <source>Run Order</source>
         <translation>Ordre de lecture</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="177"/>
+        <location filename="chasereditor.ui" line="159"/>
         <source>Run through over and over again</source>
         <translation>Répéter indéfiniment</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="180"/>
+        <location filename="chasereditor.ui" line="162"/>
         <source>Loop</source>
         <translation>Boucle</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="196"/>
+        <location filename="chasereditor.ui" line="178"/>
         <source>Run through once and stop</source>
         <translation>Lire une seule fois</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="199"/>
+        <location filename="chasereditor.ui" line="181"/>
         <source>Single Shot</source>
         <translation>Unique</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="215"/>
+        <location filename="chasereditor.ui" line="197"/>
         <source>Ping Pong</source>
         <translation>Ping pong</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="225"/>
+        <location filename="chasereditor.ui" line="217"/>
         <source>Direction</source>
         <translation>Direction</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="252"/>
+        <location filename="chasereditor.ui" line="235"/>
         <source>Start from the first step</source>
         <translation>Commencer à partir du premier pas</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="255"/>
+        <location filename="chasereditor.ui" line="238"/>
         <source>Forward</source>
         <translation>Avant</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="271"/>
+        <location filename="chasereditor.ui" line="254"/>
         <source>Start from the last step</source>
         <translation>Commencer à partir du dernier pas</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="274"/>
+        <location filename="chasereditor.ui" line="257"/>
         <source>Backward</source>
         <translation>Arrière</translation>
     </message>
@@ -1547,32 +1557,32 @@ Durée : %3
         <translation>Coller</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="587"/>
+        <location filename="chasereditor.cpp" line="632"/>
         <source>Paste error</source>
         <translation>Erreur de collage</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="587"/>
+        <location filename="chasereditor.cpp" line="632"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
         <translation>La scène vers laquelle coller est incompatible. Opération annulée.</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="819"/>
+        <location filename="chasereditor.cpp" line="869"/>
         <source>Common Fade In</source>
         <translation>Montée commune</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="820"/>
+        <location filename="chasereditor.cpp" line="870"/>
         <source>Common Fade Out</source>
         <translation>Descente commune</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="821"/>
+        <location filename="chasereditor.cpp" line="871"/>
         <source>Common Hold</source>
         <translation>Maintien commun</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="837"/>
+        <location filename="chasereditor.cpp" line="887"/>
         <source>Multiple Steps</source>
         <translation>Pas multiples</translation>
     </message>
@@ -2119,217 +2129,217 @@ Durée : %3
 <context>
     <name>FixtureManager</name>
     <message>
-        <location filename="fixturemanager.cpp" line="346"/>
+        <location filename="fixturemanager.cpp" line="349"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="342"/>
+        <location filename="fixturemanager.cpp" line="345"/>
         <source>Fixtures Groups</source>
         <translation>Groupes de projecteurs</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="346"/>
+        <location filename="fixturemanager.cpp" line="349"/>
         <source>Channels</source>
         <translation>Canaux</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="359"/>
+        <location filename="fixturemanager.cpp" line="362"/>
         <source>Channels Groups</source>
         <translation>Groupes de canaux</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="552"/>
+        <location filename="fixturemanager.cpp" line="555"/>
         <source>All fixtures</source>
         <translation>Tous les projecteurs</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="552"/>
+        <location filename="fixturemanager.cpp" line="555"/>
         <source>This group contains all fixtures.</source>
         <translation>Ce groupe contient tous les projecteurs.</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="564"/>
+        <location filename="fixturemanager.cpp" line="567"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple fixtures selected&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; to remove the selected fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Plusieurs projecteurs sélectionnés&lt;/H1&gt;&lt;P&gt;Cliquez sur &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; pour supprimer les projecteurs sélectionnés.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="570"/>
+        <location filename="fixturemanager.cpp" line="573"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple fixtures selected&lt;/H1&gt;&lt;P&gt;Fixture list modification is not permitted in operate mode.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Plusieurs projecteurs sélectionnés&lt;/H1&gt;&lt;P&gt;La modification de la liste de projecteurs est impossible en mode Production.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="579"/>
+        <location filename="fixturemanager.cpp" line="582"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;No fixtures&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Aucun projecteur&lt;/H1&gt;&lt;P&gt;Cliquez sur &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; pour ajouter des projecteurs.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="585"/>
+        <location filename="fixturemanager.cpp" line="588"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a fixture from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Aucune sélection&lt;/H1&gt;&lt;P&gt;Sélectionnez un projecteur à partir de la liste ou cliquez sur &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; pour ajouter des projecteurs.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="637"/>
+        <location filename="fixturemanager.cpp" line="640"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple groups selected&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; to remove the selected groups.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Plusieurs groupes sélectionnés&lt;/H1&gt;&lt;P&gt;Cliquez sur &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; pour supprimer ces groupes.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="645"/>
+        <location filename="fixturemanager.cpp" line="648"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a channel group from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add a new channels group.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Aucune sélection&lt;/H1&gt;&lt;P&gt;Sélectionnez un groupe de canaux à partir de la liste ou cliquez sur &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; pour ajouter un groupe de canaux.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="670"/>
+        <location filename="fixturemanager.cpp" line="673"/>
         <source>Add group...</source>
         <translation>Ajouter un groupe...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="676"/>
-        <location filename="fixturemanager.cpp" line="784"/>
-        <location filename="fixturemanager.cpp" line="789"/>
+        <location filename="fixturemanager.cpp" line="679"/>
+        <location filename="fixturemanager.cpp" line="787"/>
+        <location filename="fixturemanager.cpp" line="792"/>
         <source>Add fixture...</source>
         <translation>Ajouter un projecteur...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="794"/>
+        <location filename="fixturemanager.cpp" line="797"/>
         <source>Delete items</source>
         <translation>Supprimer la sélection</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="799"/>
+        <location filename="fixturemanager.cpp" line="802"/>
         <source>Properties...</source>
         <translation>Propriétés...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="804"/>
+        <location filename="fixturemanager.cpp" line="807"/>
         <source>Channels Fade Configuration...</source>
         <translation>Configuration des fondus des canaux...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="810"/>
+        <location filename="fixturemanager.cpp" line="813"/>
         <source>Add fixture to group...</source>
         <translation>Ajouter la sélection au groupe...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="813"/>
+        <location filename="fixturemanager.cpp" line="816"/>
         <source>Remove fixture from group</source>
         <translation>Enlever la sélection du groupe</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="817"/>
+        <location filename="fixturemanager.cpp" line="820"/>
         <source>New Group...</source>
         <translation>Nouveau groupe...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="820"/>
+        <location filename="fixturemanager.cpp" line="823"/>
         <source>Move group up...</source>
         <translation>Monter le groupe...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="826"/>
+        <location filename="fixturemanager.cpp" line="829"/>
         <source>Move group down...</source>
         <translation>Descendre le groupe...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="832"/>
+        <location filename="fixturemanager.cpp" line="835"/>
         <source>Import fixtures...</source>
         <translation>Importer des projecteurs...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="837"/>
+        <location filename="fixturemanager.cpp" line="840"/>
         <source>Export fixtures...</source>
         <translation>Exporter des projecteurs...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="843"/>
+        <location filename="fixturemanager.cpp" line="846"/>
         <source>Remap fixtures...</source>
         <translation>Remapper les projecteurs...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1057"/>
+        <location filename="fixturemanager.cpp" line="1060"/>
         <source>%1 - Row %2</source>
         <translation>%1 - Ligne %2</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1120"/>
+        <location filename="fixturemanager.cpp" line="1123"/>
         <source>Do you want to delete the selected items?</source>
         <translation>Voulez-vous supprimer les éléments sélectionnés ?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1165"/>
+        <location filename="fixturemanager.cpp" line="1168"/>
         <source>Delete Channels Group</source>
         <translation>Supprimer le groupe de canaux</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1268"/>
+        <location filename="fixturemanager.cpp" line="1271"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1269"/>
+        <location filename="fixturemanager.cpp" line="1272"/>
         <source>Please enter a valid address</source>
         <translation>Veuillez entrer une adresse valide.</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1345"/>
+        <location filename="fixturemanager.cpp" line="1348"/>
         <source>Ungroup fixtures?</source>
         <translation>Dégrouper les projecteurs</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1346"/>
+        <location filename="fixturemanager.cpp" line="1349"/>
         <source>Do you want to ungroup the selected fixtures?</source>
         <translation>Voulez-vous dégrouper les projecteurs sélectionnés ?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1461"/>
+        <location filename="fixturemanager.cpp" line="1464"/>
         <source>Import Fixtures List</source>
         <oldsource>Import Fixture Definition</oldsource>
         <translation>Importer une liste de projecteurs</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1466"/>
+        <location filename="fixturemanager.cpp" line="1469"/>
         <source>Export Fixtures List As</source>
         <oldsource>Export Fixture Definition As</oldsource>
         <translation>Exporter la liste de projecteurs</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1472"/>
+        <location filename="fixturemanager.cpp" line="1475"/>
         <source>Fixtures List (*%1)</source>
         <oldsource>Fixture Definitions (*%1)</oldsource>
         <translation>Liste de projecteurs (*%1)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1474"/>
+        <location filename="fixturemanager.cpp" line="1477"/>
         <source>All Files (*.*)</source>
         <translation>Tous les fichiers (*.*)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1476"/>
+        <location filename="fixturemanager.cpp" line="1479"/>
         <source>All Files (*)</source>
         <translation>Tous les fichiers (*)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="876"/>
+        <location filename="fixturemanager.cpp" line="879"/>
         <source>Fixture manager</source>
         <translation>Gestionnaire de projecteurs</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="944"/>
+        <location filename="fixturemanager.cpp" line="947"/>
         <source>Generic Dimmer</source>
         <translation>Gradateur générique</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1119"/>
+        <location filename="fixturemanager.cpp" line="1122"/>
         <source>Delete Fixtures</source>
         <translation>Supprimer des projecteurs</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1166"/>
+        <location filename="fixturemanager.cpp" line="1169"/>
         <source>Do you want to delete the selected groups?</source>
         <translation>Voulez-vous supprimer les groupes sélectionnés ?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1231"/>
+        <location filename="fixturemanager.cpp" line="1234"/>
         <source>Change fixture properties</source>
         <translation>Éditer les propriétés du projecteur</translation>
     </message>
@@ -3436,112 +3446,117 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
 <context>
     <name>Monitor</name>
     <message>
-        <location filename="monitor.cpp" line="215"/>
+        <location filename="monitor.cpp" line="217"/>
         <source>Fixture Monitor</source>
         <translation>Moniteur des projecteurs</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="247"/>
+        <location filename="monitor.cpp" line="249"/>
         <source>2D View</source>
         <translation>Vue 2D</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="254"/>
+        <location filename="monitor.cpp" line="256"/>
         <source>Font</source>
         <translation>Police</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="263"/>
+        <location filename="monitor.cpp" line="265"/>
         <source>DMX Channels</source>
         <translation>Canaux DMX</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="264"/>
+        <location filename="monitor.cpp" line="266"/>
         <source>Show absolute DMX channel numbers</source>
         <translation>Montrer le numéro absolu des canaux DMX</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="274"/>
+        <location filename="monitor.cpp" line="276"/>
         <source>Relative Channels</source>
         <translation>Canaux relatifs</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="275"/>
+        <location filename="monitor.cpp" line="277"/>
         <source>Show channel numbers relative to fixture</source>
         <translation>Montrer le numéro relatif au projecteur des canaux</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="291"/>
+        <location filename="monitor.cpp" line="293"/>
         <source>DMX Values</source>
         <translation>Valeurs DMX</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="292"/>
+        <location filename="monitor.cpp" line="294"/>
         <source>Show DMX values 0-255</source>
         <translation>Montrer les valeurs DMX (0-255)</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="303"/>
+        <location filename="monitor.cpp" line="305"/>
         <source>Percent Values</source>
         <translation>Valeurs en %</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="304"/>
+        <location filename="monitor.cpp" line="306"/>
         <source>Show percentage values 0-100%</source>
         <translation>Montrer les valeurs en pourcentage (0-100%)</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="317"/>
+        <location filename="monitor.cpp" line="319"/>
         <source>Universe:</source>
         <translation>Univers</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="322"/>
+        <location filename="monitor.cpp" line="324"/>
         <source>All universes</source>
         <translation>Tous les univers</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="344"/>
+        <location filename="monitor.cpp" line="346"/>
         <source>DMX View</source>
         <translation>Vue DMX</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="350"/>
+        <location filename="monitor.cpp" line="352"/>
         <source>Size:</source>
         <translation>Taille</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="374"/>
+        <location filename="monitor.cpp" line="376"/>
         <source>Meters</source>
         <translation>mètres</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="375"/>
+        <location filename="monitor.cpp" line="377"/>
         <source>Feet</source>
         <translation>pieds</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="384"/>
+        <location filename="monitor.cpp" line="386"/>
         <source>Add fixture</source>
         <translation>Ajouter un projecteur</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="386"/>
+        <location filename="monitor.cpp" line="388"/>
         <source>Remove fixture</source>
         <translation>Enlever le projecteur</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="391"/>
+        <location filename="monitor.cpp" line="393"/>
         <source>Set a gel color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="664"/>
+        <location filename="monitor.cpp" line="396"/>
+        <source>Show/hide labels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="monitor.cpp" line="671"/>
         <source>Error</source>
         <translation type="unfinished">Erreur</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="664"/>
+        <location filename="monitor.cpp" line="671"/>
         <source>Please select a fixture first.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4200,30 +4215,30 @@ Durée : %3
         <translation>Nom de la scène :</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="876"/>
-        <location filename="sceneeditor.cpp" line="877"/>
+        <location filename="sceneeditor.cpp" line="883"/>
+        <location filename="sceneeditor.cpp" line="884"/>
         <source>All fixtures</source>
         <translation>Tous les projecteurs</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1393"/>
-        <location filename="sceneeditor.cpp" line="1394"/>
+        <location filename="sceneeditor.cpp" line="1400"/>
+        <location filename="sceneeditor.cpp" line="1401"/>
         <source>Channels Groups</source>
         <translation>Groupes de canaux</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1172"/>
-        <location filename="sceneeditor.cpp" line="1173"/>
+        <location filename="sceneeditor.cpp" line="1179"/>
+        <location filename="sceneeditor.cpp" line="1180"/>
         <source>Generic</source>
         <translation>Générique</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1241"/>
+        <location filename="sceneeditor.cpp" line="1248"/>
         <source>Remove fixtures</source>
         <translation>Enlever les projecteurs</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1242"/>
+        <location filename="sceneeditor.cpp" line="1249"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Voulez-vous enlever le(s) projecteur(s) sélectionné(s) ?</translation>
     </message>
