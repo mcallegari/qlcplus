@@ -82,6 +82,12 @@ void MonitorGraphicsView::setFixtureGelColor(quint32 id, QColor col)
         item->setGelColor(col);
 }
 
+void MonitorGraphicsView::showFixturesLabels(bool visible)
+{
+    foreach(MonitorFixtureItem *item, m_fixtures.values())
+        item->showLabel(visible);
+}
+
 QColor MonitorGraphicsView::fixtureGelColor(quint32 id)
 {
     MonitorFixtureItem *item = m_fixtures[id];

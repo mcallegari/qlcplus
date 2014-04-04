@@ -2,7 +2,7 @@ qlcplus (4.7.0) stable; urgency=low
 
   * NEW: New EFX types Square, SquareChoppy & Leaf (thanks to David Garyga)
   * NEW: Random order for chasers (Jano Svitok) 
-  * Monitor: Added support for dimmer channels and gels
+  * Monitor: Added support for dimmer channels, color gels and fixture labels
   * Monitor: can monitor universes even if they're not patched to an output
   * Audio Editor: added source file, speed dials and preview buttons
   * Simple Desk: highlight channels in red when manually moved

@@ -180,6 +180,8 @@ void Monitor::initGraphicsView()
         m_graphicsView->setFixtureGelColor(fid, m_props->fixtureGelColor(fid));
     }
 
+    m_graphicsView->showFixturesLabels(m_props->labelsVisible());
+
     connect(m_graphicsView, SIGNAL(fixtureMoved(quint32,QPointF)),
             this, SLOT(slotFixtureMoved(quint32,QPointF)));
 }
@@ -390,6 +392,11 @@ void Monitor::initGraphicsToolbar()
 
     m_toolBar->addAction(QIcon(":/color.png"), tr("Set a gel color"),
                        this, SLOT(slotSetGelColor()));
+
+    action = m_toolBar->addAction(QIcon(":/label.png"), tr("Show/hide labels"));
+    action->setCheckable(true);
+    action->setChecked(m_props->labelsVisible());
+    connect(action, SIGNAL(triggered(bool)), this, SLOT(slotShowLabels(bool)));
 }
 
 void Monitor::slotChooseFont()
@@ -674,6 +681,15 @@ void Monitor::slotSetGelColor()
             m_props->setFixtureGelColor(fid, newColor);
         }
     }
+}
+
+void Monitor::slotShowLabels(bool visible)
+{
+    if (m_graphicsView == NULL)
+        return;
+
+    m_props->setLabelsVisible(visible);
+    m_graphicsView->showFixturesLabels(visible);
 }
 
 void Monitor::slotFixtureMoved(quint32 fid, QPointF pos)

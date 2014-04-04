@@ -21,6 +21,7 @@
 #define MONITORFIXTUREITEM_H
 
 #include <QGraphicsItem>
+#include <QFont>
 
 class Doc;
 
@@ -63,6 +64,8 @@ public:
      *  universe array of values */
     void updateValues(const QByteArray& ua);
 
+    void showLabel(bool visible);
+
 protected:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
@@ -76,8 +79,12 @@ signals:
 
 private:
     Doc *m_doc;
+
     /** The Fixture ID this item is associated to */
     quint32 m_fid;
+
+    /** The fixture name */
+    QString m_name;
 
     /** Width of the item */
     int m_width;
@@ -95,6 +102,11 @@ private:
 
     /** Flag to show/hide a fixture label */
     bool m_labelVisibility;
+
+    /** Font used if label is visible */
+    QFont m_font;
+
+    QRect m_labelRect;
 };
 
 #endif // MONITORFIXTUREITEM_H

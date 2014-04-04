@@ -18,6 +18,7 @@
 */
 
 #include <QGraphicsSceneMouseEvent>
+#include <QApplication>
 #include <QPainter>
 #include <QCursor>
 #include <QDebug>
@@ -31,6 +32,7 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
     : m_doc(doc)
     , m_fid(fid)
     , m_gelColor(QColor())
+    , m_labelVisibility(false)
 {
     Q_ASSERT(doc != NULL);
 
@@ -41,7 +43,12 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
     Fixture *fxi = m_doc->fixture(fid);
     Q_ASSERT(fxi != NULL);
 
-    setToolTip(fxi->name());
+    m_name = fxi->name();
+
+    setToolTip(m_name);
+
+    m_font = qApp->font();
+    m_font.setPixelSize(8);
 
     for (int i = 0; i < fxi->heads(); i++)
     {
@@ -137,6 +144,10 @@ void MonitorFixtureItem::setSize(QSize size)
         }
         ypos += cellHeight;
     }
+
+    QFontMetrics fm(m_font);
+    m_labelRect = fm.boundingRect(QRect(-10, m_height + 2, m_width + 20, 30),
+                                  Qt::AlignHCenter | Qt::TextWrapAnywhere, m_name);
     update();
 }
 
@@ -189,9 +200,21 @@ void MonitorFixtureItem::updateValues(const QByteArray & ua)
     }
 }
 
+void MonitorFixtureItem::showLabel(bool visible)
+{
+    prepareGeometryChange();
+    m_labelVisibility = visible;
+    update();
+}
+
 QRectF MonitorFixtureItem::boundingRect() const
 {
-    return QRectF(0, 0, m_width, m_height);
+    if (m_labelVisibility)
+    {
+        return QRectF(-10, 0, m_width + 20, m_height + m_labelRect.height() + 2);
+    }
+    else
+        return QRectF(0, 0, m_width, m_height);
 }
 
 void MonitorFixtureItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -200,15 +223,23 @@ void MonitorFixtureItem::paint(QPainter *painter, const QStyleOptionGraphicsItem
     Q_UNUSED(widget);
 
     if (this->isSelected() == true)
-        painter->setPen(QPen(Qt::white, 1));
+        painter->setPen(QPen(Qt::yellow, 1));
     else
-        painter->setPen(QPen(Qt::gray, 1));
+        painter->setPen(QPen(Qt::darkGray, 1));
 
     // draw chaser background
     painter->setBrush(QBrush(QColor(33, 33, 33)));
     painter->drawRect(0, 0, m_width, m_height);
     foreach (FixtureHead head, m_heads)
         head.m_item->update();
+
+    if (m_labelVisibility)
+    {
+        painter->setFont(m_font);
+        painter->drawRoundedRect(m_labelRect, 2, 2);
+        painter->setPen(QPen(Qt::white, 1));
+        painter->drawText(m_labelRect, Qt::AlignHCenter | Qt::TextWrapAnywhere, m_name);
+    }
 }
 
 void MonitorFixtureItem::mousePressEvent(QGraphicsSceneMouseEvent *event)

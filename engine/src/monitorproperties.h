@@ -71,6 +71,9 @@ public:
     void setFixtureGelColor(quint32 fid, QColor col);
     QColor fixtureGelColor(quint32 fid) const { return m_fixtureItems[fid].m_gelColor; }
 
+    void setLabelsVisible(bool visible) { m_showLabels = visible; }
+    bool labelsVisible() const { return m_showLabels; }
+
     QList <quint32> fixtureItemsID() const { return m_fixtureItems.keys(); }
 
 private:
@@ -80,6 +83,7 @@ private:
     ValueStyle m_valueStyle;
     QSize m_gridSize;
     GridUnits m_gridUnits;
+    bool m_showLabels;
     QHash <quint32, FixtureItemProperties> m_fixtureItems;
 
     /*********************************************************************

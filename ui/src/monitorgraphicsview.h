@@ -48,8 +48,11 @@ public:
     /** Return a list of the fixture IDs in the current view */
     QList <quint32> fixturesID() const;
 
-    /** Return the gel color of the fixture with the given ID */
+    /** Set the gel color of the fixture with the given ID */
     void setFixtureGelColor(quint32 id, QColor col);
+
+    /** Show/hide fixtures items labels */
+    void showFixturesLabels(bool visible);
 
     /** Return the gel color of the fixture with the given ID */
     QColor fixtureGelColor(quint32 id);

@@ -32,6 +32,7 @@
 #define KXMLQLCMonitorGridWidth "Width"
 #define KXMLQLCMonitorGridHeight "Height"
 #define KXMLQLCMonitorGridUnits "Units"
+#define KXMLQLCMonitorShowLabels "ShowLabels"
 
 #define KXMLQLCMonitorFixtureItem "FxItem"
 #define KXMLQLCMonitorFixtureID "ID"
@@ -47,6 +48,7 @@ MonitorProperties::MonitorProperties()
     m_valueStyle = DMXValues;
     m_gridSize = QSize(5, 5);
     m_gridUnits = Meters;
+    m_showLabels = false;
 }
 
 void MonitorProperties::setFixturePosition(quint32 fid, QPointF pos)
@@ -80,6 +82,13 @@ bool MonitorProperties::loadXML(const QDomElement &root)
     }
 
     setDisplayMode(DisplayMode(root.attribute(KXMLQLCMonitorDisplay).toInt()));
+    if (root.hasAttribute(KXMLQLCMonitorShowLabels))
+    {
+        if (root.attribute(KXMLQLCMonitorShowLabels) == "1")
+            setLabelsVisible(true);
+        else
+            setLabelsVisible(false);
+    }
 
     QDomNode node = root.firstChild();
     while (node.isNull() == false)
@@ -142,6 +151,7 @@ bool MonitorProperties::saveXML(QDomDocument *doc, QDomElement *wksp_root) const
     /* Create the master Monitor node */
     root = doc->createElement(KXMLQLCMonitorProperties);
     root.setAttribute(KXMLQLCMonitorDisplay, displayMode());
+    root.setAttribute(KXMLQLCMonitorShowLabels, labelsVisible());
     wksp_root->appendChild(root);
 
     if (displayMode() == DMX)
