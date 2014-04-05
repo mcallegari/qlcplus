@@ -2,7 +2,7 @@ qlcplus (4.7.0) stable; urgency=low
 
   * NEW: New EFX types Square, SquareChoppy & Leaf (thanks to David Garyga)
   * NEW: Random order for chasers (Jano Svitok) 
-  * Monitor: Added support for dimmer channels, color gels and fixture labels
+  * Monitor: Added support for dimmer channels, Pan, Tilt, color gels and fixture labels
   * Monitor: can monitor universes even if they're not patched to an output
   * Audio Editor: added source file, speed dials and preview buttons
   * Simple Desk: highlight channels in red when manually moved
@@ -12,6 +12,7 @@ qlcplus (4.7.0) stable; urgency=low
   * Plugins: Added enttecdmxusbopen/channels to tune the maximum number of transmitted channels for 
              Enttec Open and clones. This could solve flickering issues in some cases. (thanks to Daniel Torres)
   * Plugins: DMX USB FX5 is now supported on OSX too
+  * Plugins: Added a +1 to the transmitted ArtNet universe
   * Added portuguese translation (thanks to Nuno Almeida)
   * Added fixture: Ledj Performer 18-Quad (thanks to Michael Clements)
   * Added fixture: Optima Lighting PAR64 LED (thanks to Ryan Kelley)

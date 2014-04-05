@@ -32,6 +32,14 @@ typedef struct
     QList <quint32> m_rgb;
     QList <quint32> m_cmy;
     quint32 m_masterDimmer;
+    quint32 m_panChannel;
+    int m_panMaxDegrees;
+    qreal m_panXPos;
+    QColor m_panColor;
+    quint32 m_tiltChannel;
+    int m_tiltMaxDegrees;
+    qreal m_tiltYPos;
+    QColor m_tiltColor;
 } FixtureHead;
 
 class MonitorFixtureItem : public QObject, public QGraphicsItem
@@ -41,6 +49,8 @@ class MonitorFixtureItem : public QObject, public QGraphicsItem
 
 public:
     MonitorFixtureItem(Doc *doc, quint32 fid);
+
+    ~MonitorFixtureItem();
 
     /** Set the position of this fixture using the monitor measure units */
     void setRealPosition(QPointF pos) { m_realPos = pos; }
@@ -74,6 +84,10 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *);
 
+private:
+    void computeTiltPosition(FixtureHead *h, uchar value);
+    void computePanPosition(FixtureHead *h, uchar value);
+
 signals:
     void itemDropped(MonitorFixtureItem *);
 
@@ -95,7 +109,7 @@ private:
     /** Position of the item top-left corner in millimeters */
     QPointF m_realPos;
 
-    QList <FixtureHead> m_heads;
+    QList <FixtureHead *> m_heads;
 
     /** In case of a dimmer, this hold the gel color to apply */
     QColor m_gelColor;
