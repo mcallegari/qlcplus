@@ -24,6 +24,7 @@
 #define KXMLQLCGMSliderModeNormal "Normal"
 #define KXMLQLCGMSliderModeInverted "Inverted"
 
+#include <limits.h>
 #include "grandmaster.h"
 #include "qlcmacros.h"
 

@@ -21,6 +21,7 @@
 #ifndef AUDIOCAPTURE_H
 #define AUDIOCAPTURE_H
 
+#include <stdint.h>
 #include <QThread>
 #include <QMutex>
 
