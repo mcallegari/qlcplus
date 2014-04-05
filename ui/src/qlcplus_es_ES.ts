@@ -1358,12 +1358,12 @@ Duración: %3
     <message>
         <location filename="chasereditor.ui" line="204"/>
         <source>Execute steps in random order</source>
-        <translation type="unfinished"></translation>
+        <translation>Ejecutar los pasos en orden aleatorio</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="207"/>
         <source>Random</source>
-        <translation type="unfinished"></translation>
+        <translation>Aleatorio</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="283"/>
@@ -3543,7 +3543,7 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="monitor.cpp" line="396"/>
         <source>Show/hide labels</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar/ocultar etiquetas</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="671"/>
