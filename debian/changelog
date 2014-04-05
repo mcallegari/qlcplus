@@ -24,6 +24,7 @@ qlcplus (4.7.0) stable; urgency=low
   * Added fixture: Chauvet SlimPAR TRI 12 IRC (thanks to Alessandro Grechi)
   * Added fixture: Chauvet EZPAR 64 RGBA (thanks to Ronnie Ross)
   * Added fixture: beamZ LS 3DRG (thanks to Julian Brennum)
+  * Added fixtures: Chauvet Intimidator Scan LED 300, Chauvet Legend 230SR Beam (thanks to Craig Cudmore)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 5 April 2014 12:13:14 +0200
 
