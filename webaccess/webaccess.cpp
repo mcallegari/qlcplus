@@ -53,6 +53,7 @@
  #else
    #include "audiorenderer_alsa.h"
    #include "audiocapture_alsa.h"
+   #define IFACES_SYSTEM_FILE "/etc/network/interfaces"
  #endif
 #else
  #include "audiorenderer_qt.h"
@@ -60,7 +61,6 @@
 #endif
 
 #define POST_DATA_SIZE 1024
-#define IFACES_SYSTEM_FILE "/etc/network/interfaces"
 #define AUTOSTART_PROJECT_NAME "autostart.qxw"
 
 WebAccess* s_instance = NULL;
@@ -202,10 +202,12 @@ int WebAccess::beginRequestHandler(mg_connection *conn)
   {
       content = getConfigHTML();
   }
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
   else if (QString(ri->uri) == "/system")
   {
       content = getSystemConfigHTML();
   }
+#endif
   else if (QString(ri->uri) == "/loadFixture")
   {
       QString fxName;
@@ -347,6 +349,7 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
 
         return 1;
     }
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     else if(cmdList[0] == "QLC+SYS")
     {
         if (cmdList.at(1) == "NETWORK")
@@ -398,6 +401,7 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
             rebootProcess->start("reboot", QStringList());
         }
     }
+#endif
     else if(cmdList[0] == "POLL")
         return 1;
 
@@ -1163,6 +1167,7 @@ QString WebAccess::getConfigHTML()
     return str;
 }
 
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
 void WebAccess::resetInterface(InterfaceInfo *iface)
 {
     iface->name = "";
@@ -1455,6 +1460,7 @@ bool WebAccess::writeNetworkFile()
 
     return true;
 }
+#endif
 
 void WebAccess::slotVCLoaded()
 {

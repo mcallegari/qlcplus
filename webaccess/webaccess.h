@@ -79,6 +79,7 @@ private:
     QString getUserFixturesConfigHTML();
     QString getConfigHTML();
 
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     void resetInterface(InterfaceInfo *iface);
     void appendInterface(InterfaceInfo iface);
     QString getInterfaceHTML(InterfaceInfo *iface);
@@ -86,6 +87,7 @@ private:
     QString getSystemConfigHTML();
 
     bool writeNetworkFile();
+#endif
 
 protected slots:
     void slotVCLoaded();
