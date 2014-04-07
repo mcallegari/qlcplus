@@ -50,7 +50,6 @@
     "    alert(msgParams[1]);\n" \
     "  }\n" \
     " };\n" \
-    " window.setInterval(function(){ websocket.send(\"POLL\"); }, 10000);\n" \
     "};\n"
 
 #define HIDDEN_FORM_CSS \

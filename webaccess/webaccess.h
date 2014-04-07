@@ -20,7 +20,7 @@
 #ifndef WEBACCESS_H
 #define WEBACCESS_H
 
-#include <QObject>
+#include <QThread>
 #include "mongoose.h"
 
 class VirtualConsole;
@@ -47,7 +47,7 @@ typedef struct
     QString wpaPass;
 } InterfaceInfo;
 
-class WebAccess : public QObject
+class WebAccess : public QThread
 {
     Q_OBJECT
 public:
@@ -55,10 +55,8 @@ public:
     /** Destructor */
     ~WebAccess();
 
-    int beginRequestHandler(struct mg_connection *conn);
-    void websocketReadyHandler(struct mg_connection *conn);
-    int websocketDataHandler(struct mg_connection *conn, int flags,
-                               char *data, size_t data_len);
+    mg_result beginRequestHandler(struct mg_connection *conn);
+    mg_result websocketDataHandler(struct mg_connection *conn);
 
 private:
     QString loadXMLPost(struct mg_connection *conn, QString &filename);
@@ -89,6 +87,10 @@ private:
     bool writeNetworkFile();
 #endif
 
+private:
+    /** Input data thread worker method */
+    virtual void run();
+
 protected slots:
     void slotVCLoaded();
     void slotButtonToggled(bool on);
@@ -116,9 +118,10 @@ protected:
     Doc *m_doc;
     VirtualConsole *m_vc;
 
-    struct mg_context *m_ctx;
+    struct mg_server *m_server;
     struct mg_connection *m_conn;
-    struct mg_callbacks m_callbacks;
+
+    bool m_running;
 
 signals:
     void toggleDocMode();

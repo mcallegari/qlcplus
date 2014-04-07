@@ -60,33 +60,36 @@
  #include "audiocapture_qt.h"
 #endif
 
-#define POST_DATA_SIZE 1024
 #define AUTOSTART_PROJECT_NAME "autostart.qxw"
 
 WebAccess* s_instance = NULL;
 
-static int begin_request_handler(struct mg_connection *conn)
+static int event_handler(struct mg_connection *conn, enum mg_event ev)
 {
-    return s_instance->beginRequestHandler(conn);
-}
+    if (ev == MG_REQUEST)
+    {
+        if (conn->is_websocket)
+            return s_instance->websocketDataHandler(conn);
 
-static void websocket_ready_handler(struct mg_connection *conn)
-{
-    s_instance->websocketReadyHandler(conn);
-}
-
-static int websocket_data_handler(struct mg_connection *conn, int flags,
-                                  char *data, size_t data_len)
-{
-    return s_instance->websocketDataHandler(conn, flags, data, data_len);
+        return s_instance->beginRequestHandler(conn);
+    }
+    else if (ev == MG_AUTH)
+    {
+        return MG_TRUE;
+    }
+    else
+    {
+        return MG_FALSE;
+    }
 }
 
 WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, QObject *parent) :
-    QObject(parent)
+    QThread(parent)
   , m_doc(doc)
   , m_vc(vcInstance)
-  , m_ctx(NULL)
+  , m_server(NULL)
   , m_conn(NULL)
+  , m_running(false)
 {
     Q_ASSERT(s_instance == NULL);
     Q_ASSERT(m_doc != NULL);
@@ -94,17 +97,9 @@ WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, QObject *parent) :
 
     s_instance = this;
 
-    // List of options. Last element must be NULL.
-    const char *options[] = {"listening_ports", "9999", NULL};
-
-    // Prepare callbacks structure. We have only one callback, the rest are NULL.
-    memset(&m_callbacks, 0, sizeof(m_callbacks));
-    m_callbacks.begin_request = begin_request_handler;
-    m_callbacks.websocket_ready = websocket_ready_handler;
-    m_callbacks.websocket_data = websocket_data_handler;
-
-    // Start the web server.
-    m_ctx = mg_start(&m_callbacks, NULL, options);
+    m_server = mg_create_server(NULL, event_handler);
+    mg_set_option(m_server, "listening_port", "9999");
+    start();
 
     connect(m_vc, SIGNAL(loaded()),
             this, SLOT(slotVCLoaded()));
@@ -112,46 +107,46 @@ WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, QObject *parent) :
 
 WebAccess::~WebAccess()
 {
-    mg_stop(m_ctx);
+    m_running = false;
+    wait();
+    mg_destroy_server(&m_server);
     m_interfaces.clear();
+}
+
+void WebAccess::run()
+{
+    m_running = true;
+    while (isRunning())
+    {
+        mg_poll_server(m_server, 500);
+    }
+
 }
 
 QString WebAccess::loadXMLPost(mg_connection *conn, QString &filename)
 {
-    char post_data[POST_DATA_SIZE + 10];
+    const char *data;
+    int data_len;
+    char vname[1024], fname[1024];
     QString XMLdata = "";
-    bool done = false;
 
-    while(!done)
+    if (conn != NULL &&
+        mg_parse_multipart(conn->content, conn->content_len,
+                           vname, sizeof(vname),
+                           fname, sizeof(fname),
+                           &data, &data_len) > 0)
     {
-        int read = mg_read(conn, post_data, POST_DATA_SIZE);
-
-        qDebug() << "POST: received: " << read << "bytes";
-        post_data[read] = '\0';
-
-        QString recv(post_data);
-
-        if (read < POST_DATA_SIZE)
-        {
-            recv.truncate(read);
-            done = true;
-        }
-        XMLdata += recv;
+        XMLdata = QString(data);
+        XMLdata.truncate(data_len);
+        filename = QString(fname);
+        qDebug() << "Filename:" << filename;
     }
-
-    //qDebug() << "Complete XML data:\n\n" << XMLdata;
-    int fnameStart = XMLdata.indexOf("filename=") + 10;
-    int fnameEnd = XMLdata.indexOf("\"", fnameStart);
-    filename = XMLdata.mid(fnameStart, fnameEnd - fnameStart);
-
-    XMLdata.remove(0, XMLdata.indexOf("\n\r") + 3);
-    XMLdata.truncate(XMLdata.indexOf("\n\r"));
 
     return XMLdata;
 }
 
 // This function will be called by mongoose on every new request.
-int WebAccess::beginRequestHandler(mg_connection *conn)
+mg_result WebAccess::beginRequestHandler(mg_connection *conn)
 {
   m_genericFound = false;
   m_buttonFound = false;
@@ -167,13 +162,13 @@ int WebAccess::beginRequestHandler(mg_connection *conn)
 
   QString content;
 
-  const struct mg_request_info *ri = mg_get_request_info(conn);
-  qDebug() << Q_FUNC_INFO << ri->request_method << ri->uri;
+  //const struct mg_request_info *ri = mg_get_request_info(conn);
+  qDebug() << Q_FUNC_INFO << conn->request_method << conn->uri;
 
-  if (QString(ri->uri) == "/qlcplusWS")
-      return 0;
+  if (QString(conn->uri) == "/qlcplusWS")
+      return MG_FALSE;
 
-  if (QString(ri->uri) == "/loadProject")
+  if (QString(conn->uri) == "/loadProject")
   {
       QString prjname;
       QString projectXML = loadXMLPost(conn, prjname);
@@ -196,19 +191,19 @@ int WebAccess::beginRequestHandler(mg_connection *conn)
 
       emit loadProject(projectXML);
 
-      return 1;
+      return MG_TRUE;
   }
-  else if (QString(ri->uri) == "/config")
+  else if (QString(conn->uri) == "/config")
   {
       content = getConfigHTML();
   }
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-  else if (QString(ri->uri) == "/system")
+  else if (QString(conn->uri) == "/system")
   {
       content = getSystemConfigHTML();
   }
 #endif
-  else if (QString(ri->uri) == "/loadFixture")
+  else if (QString(conn->uri) == "/loadFixture")
   {
       QString fxName;
       QString fixtureXML = loadXMLPost(conn, fxName);
@@ -230,10 +225,10 @@ int WebAccess::beginRequestHandler(mg_connection *conn)
                       "%s",
                       post_size, postReply.data());
 
-      return 1;
+      return MG_TRUE;
   }
-  else if (QString(ri->uri) != "/")
-      return 1;
+  else if (QString(conn->uri) != "/")
+      return MG_TRUE;
   else
       content = getVCHTML();
 
@@ -251,44 +246,38 @@ int WebAccess::beginRequestHandler(mg_connection *conn)
 
   // Returning non-zero tells mongoose that our function has replied to
   // the client, and mongoose should not send client any more data.
-  return 1;
+  return MG_TRUE;
 }
 
-void WebAccess::websocketReadyHandler(mg_connection *conn)
+mg_result WebAccess::websocketDataHandler(mg_connection *conn)
 {
-    qDebug() << Q_FUNC_INFO;
-    m_conn = conn;
-    static const char *message = "QLC+ is ready";
-    mg_websocket_write(conn, WEBSOCKET_OPCODE_TEXT, message, strlen(message));
-}
+    if (conn == NULL || conn->content_len == 0)
+        return MG_TRUE;
 
-int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, size_t data_len)
-{
-    Q_UNUSED(conn)
-    Q_UNUSED(flags)
+    m_conn = conn; // store this to send VC loaded async event
 
-    QString qData = QString(data);
-    qData.truncate((int)data_len);
+    QString qData = QString(conn->content);
+    qData.truncate(conn->content_len);
     qDebug() << "[websocketDataHandler]" << qData;
 
     QStringList cmdList = qData.split("|");
     if (cmdList.isEmpty())
-        return 1;
+        return MG_TRUE;
 
     if(cmdList[0] == "QLC+CMD")
     {
         if (cmdList.count() < 2)
-            return 0;
+            return MG_FALSE;
 
         if(cmdList[1] == "opMode")
             emit toggleDocMode();
 
-        return 1;
+        return MG_TRUE;
     }
     else if (cmdList[0] == "QLC+IO")
     {
         if (cmdList.count() < 3)
-            return 0;
+            return MG_FALSE;
 
         int universe = cmdList[2].toInt();
 
@@ -347,7 +336,7 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
         else
             qDebug() << "[webaccess] Command" << cmdList[1] << "not supported !";
 
-        return 1;
+        return MG_TRUE;
     }
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     else if(cmdList[0] == "QLC+SYS")
@@ -374,17 +363,17 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
                     if (writeNetworkFile() == false)
                         qDebug() << "[webaccess] Error writing network configuration file !";
                     QString wsMessage = QString("ALERT|" + tr("Network configuration changed. Reboot to apply the changes."));
-                    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
-                    return 1;
+                    mg_websocket_write(m_conn, 1, wsMessage.toLatin1().data(), wsMessage.length());
+                    return MG_TRUE;
                 }
             }
             qDebug() << "[webaccess] Error: interface" << cmdList.at(2) << "not found !";
-            return 1;
+            return MG_TRUE;
         }
         else if (cmdList.at(1) == "AUTOSTART")
         {
             if (cmdList.count() < 3)
-                return 0;
+                return MG_FALSE;
 
             QString asName = QString("%1/%2/%3").arg(getenv("HOME")).arg(USERQLCPLUSDIR).arg(AUTOSTART_PROJECT_NAME);
             if (cmdList.at(2) == "none")
@@ -392,8 +381,8 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
             else
                 emit storeAutostartProject(asName);
             QString wsMessage = QString("ALERT|" + tr("Autostart configuration changed"));
-            mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
-            return 1;
+            mg_websocket_write(m_conn, 1, wsMessage.toLatin1().data(), wsMessage.length());
+            return MG_TRUE;
         }
         else if (cmdList.at(1) == "REBOOT")
         {
@@ -403,7 +392,10 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
     }
 #endif
     else if(cmdList[0] == "POLL")
-        return 1;
+        return MG_TRUE;
+
+    if (qData.contains("|") == false)
+        return MG_FALSE;
 
     quint32 widgetID = cmdList[0].toUInt();
     VCWidget *widget = m_vc->widget(widgetID);
@@ -434,6 +426,9 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
             break;
             case VCWidget::CueListWidget:
             {
+                if (cmdList.count() < 2)
+                    return MG_FALSE;
+
                 VCCueList *cue = qobject_cast<VCCueList*>(widget);
                 if (cmdList[1] == "PLAY")
                     cue->slotPlayback();
@@ -450,7 +445,7 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
         }
     }
 
-    return 1;
+    return MG_TRUE;
 }
 
 QString WebAccess::getWidgetHTML(VCWidget *widget)
@@ -539,7 +534,7 @@ void WebAccess::slotButtonToggled(bool on)
     else
         wsMessage.append("|BUTTON|0");
 
-    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
+    mg_websocket_write(m_conn, 1, wsMessage.toLatin1().data(), wsMessage.length());
 }
 
 QString WebAccess::getButtonHTML(VCButton *btn)
@@ -579,7 +574,7 @@ void WebAccess::slotSliderValueChanged(QString val)
 
     QString wsMessage = QString("%1|SLIDER|%2").arg(slider->id()).arg(val);
 
-    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
+    mg_websocket_write(m_conn, 1, wsMessage.toLatin1().data(), wsMessage.length());
 }
 
 QString WebAccess::getSliderHTML(VCSlider *slider)
@@ -681,7 +676,7 @@ void WebAccess::slotCueIndexChanged(int idx)
 
     QString wsMessage = QString("%1|CUE|%2").arg(cue->id()).arg(idx);
 
-    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
+    mg_websocket_write(m_conn, 1, wsMessage.toLatin1().data(), wsMessage.length());
 }
 
 QString WebAccess::getCueListHTML(VCCueList *cue)
@@ -1468,7 +1463,7 @@ void WebAccess::slotVCLoaded()
         return;
 
     QString wsMessage = QString("URL|/");
-    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
+    mg_websocket_write(m_conn, 1, wsMessage.toLatin1().data(), wsMessage.length());
 }
 
 
