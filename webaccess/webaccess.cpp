@@ -53,7 +53,6 @@
  #else
    #include "audiorenderer_alsa.h"
    #include "audiocapture_alsa.h"
-   #define IFACES_SYSTEM_FILE "/etc/network/interfaces"
  #endif
 #else
  #include "audiorenderer_qt.h"
@@ -61,6 +60,9 @@
 #endif
 
 #define AUTOSTART_PROJECT_NAME "autostart.qxw"
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+   #define IFACES_SYSTEM_FILE "/etc/network/interfaces"
+#endif
 
 WebAccess* s_instance = NULL;
 
