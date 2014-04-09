@@ -151,14 +151,14 @@ union socket_address {
 // IO buffers interface
 struct iobuf {
   char *buf;
-  int len;
-  int size;
+  size_t len;
+  size_t size;
 };
 
-void iobuf_init(struct iobuf *, int initial_size);
+void iobuf_init(struct iobuf *, size_t initial_size);
 void iobuf_free(struct iobuf *);
-int iobuf_append(struct iobuf *, const void *data, int data_size);
-void iobuf_remove(struct iobuf *, int data_size);
+size_t iobuf_append(struct iobuf *, const void *data, size_t data_size);
+void iobuf_remove(struct iobuf *, size_t data_size);
 
 // Net skeleton interface
 // Events. Meaning of event parameter (evp) is given in the comment.
@@ -270,7 +270,7 @@ int ns_hexdump(const void *buf, int len, char *dst, int dst_len);
 #define IOBUF_RESIZE_MULTIPLIER 2.0
 #endif
 
-void iobuf_init(struct iobuf *iobuf, int size) {
+void iobuf_init(struct iobuf *iobuf, size_t size) {
   iobuf->len = iobuf->size = 0;
   iobuf->buf = NULL;
 
@@ -286,24 +286,21 @@ void iobuf_free(struct iobuf *iobuf) {
   }
 }
 
-int iobuf_append(struct iobuf *io, const void *buf, int len) {
-  static const double mult = IOBUF_RESIZE_MULTIPLIER;
+size_t iobuf_append(struct iobuf *io, const void *buf, size_t len) {
   char *p = NULL;
-  int new_len = 0;
+  size_t new_len = io->len + len, new_size = new_len * IOBUF_RESIZE_MULTIPLIER;
 
-  assert(io->len >= 0);
   assert(io->len <= io->size);
 
   if (len <= 0) {
-  } else if ((new_len = io->len + len) < io->size) {
+  } else if (new_len < io->size) {
     memcpy(io->buf + io->len, buf, len);
     io->len = new_len;
-  } else if ((p = (char *)
-              NS_REALLOC(io->buf, (int) (new_len * mult))) != NULL) {
+  } else if ((p = (char *) NS_REALLOC(io->buf, new_size)) != NULL) {
     io->buf = p;
     memcpy(io->buf + io->len, buf, len);
     io->len = new_len;
-    io->size = (int) (new_len * mult);
+    io->size = new_size;
   } else {
     len = 0;
   }
@@ -311,8 +308,8 @@ int iobuf_append(struct iobuf *io, const void *buf, int len) {
   return len;
 }
 
-void iobuf_remove(struct iobuf *io, int n) {
-  if (n >= 0 && n <= io->len) {
+void iobuf_remove(struct iobuf *io, size_t n) {
+  if (n > 0 && n <= io->len) {
     memmove(io->buf, io->buf + n, io->len - n);
     io->len -= n;
   }
@@ -597,7 +594,7 @@ static struct ns_connection *accept_conn(struct ns_server *server) {
 
     ns_add_conn(server, c);
     ns_call(c, NS_ACCEPT, &sa);
-    DBG(("%p %d %p %p %d", c, c->sock, c->ssl, server->ssl_ctx, c->flags));
+    DBG(("%p %d %p %p", c, c->sock, c->ssl, server->ssl_ctx));
   }
 
   return c;
@@ -2634,13 +2631,15 @@ static void send_websocket_handshake_if_requested(struct mg_connection *conn) {
         *key = mg_get_header(conn, "Sec-WebSocket-Key");
   if (ver != NULL && key != NULL) {
     conn->is_websocket = 1;
-    send_websocket_handshake(conn, key);
+    if (call_user(MG_CONN_2_CONN(conn), MG_WS_HANDSHAKE) == MG_FALSE) {
+      send_websocket_handshake(conn, key);
+    }
   }
 }
 
 static void ping_idle_websocket_connection(struct connection *conn, time_t t) {
   if (t - conn->ns_conn->last_io_time > MONGOOSE_USE_WEBSOCKET_PING_INTERVAL) {
-    mg_websocket_write(&conn->mg_conn, 0x9, "POLL", 4);
+    mg_websocket_write(&conn->mg_conn, WEBSOCKET_OPCODE_PING, "POLL", 4);
   }
 }
 #else
@@ -3330,8 +3329,8 @@ static void handle_put(struct connection *conn, const char *path) {
 
 static void forward_put_data(struct connection *conn) {
   struct iobuf *io = &conn->ns_conn->recv_iobuf;
-  int n = conn->cl < io->len ? conn->cl : io->len;  // How many bytes to write
-  n = write(conn->endpoint.fd, io->buf, n);         // Write them!
+  size_t k = conn->cl < (int64_t) io->len ? conn->cl : io->len;   // To write
+  int n = write(conn->endpoint.fd, io->buf, k);   // Write them!
   if (n > 0) {
     iobuf_remove(io, n);
     conn->cl -= n;
@@ -4111,7 +4110,7 @@ static void process_response(struct connection *conn) {
   if (conn->request_len < 0 ||
       (conn->request_len == 0 && io->len > MAX_REQUEST_SIZE)) {
     call_http_client_handler(conn);
-  } else if (io->len >= conn->cl) {
+  } else if ((int64_t) io->len >= conn->cl) {
     call_http_client_handler(conn);
   }
 }

@@ -75,6 +75,14 @@ static int event_handler(struct mg_connection *conn, enum mg_event ev)
 
         return s_instance->beginRequestHandler(conn);
     }
+    else if (ev == MG_WS_HANDSHAKE)
+    {
+        if (conn->is_websocket)
+        {
+            s_instance->websocketDataHandler(conn);
+            return MG_FALSE;
+        }
+    }
     else if (ev == MG_AUTH)
     {
         return MG_TRUE;
@@ -83,6 +91,8 @@ static int event_handler(struct mg_connection *conn, enum mg_event ev)
     {
         return MG_FALSE;
     }
+
+    return MG_FALSE;
 }
 
 WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, QObject *parent) :
@@ -253,10 +263,13 @@ mg_result WebAccess::beginRequestHandler(mg_connection *conn)
 
 mg_result WebAccess::websocketDataHandler(mg_connection *conn)
 {
-    if (conn == NULL || conn->content_len == 0)
+    if (conn == NULL)
         return MG_TRUE;
 
     m_conn = conn; // store this to send VC loaded async event
+
+    if (conn->content_len == 0)
+        return MG_TRUE;
 
     QString qData = QString(conn->content);
     qData.truncate(conn->content_len);
@@ -365,7 +378,7 @@ mg_result WebAccess::websocketDataHandler(mg_connection *conn)
                     if (writeNetworkFile() == false)
                         qDebug() << "[webaccess] Error writing network configuration file !";
                     QString wsMessage = QString("ALERT|" + tr("Network configuration changed. Reboot to apply the changes."));
-                    mg_websocket_write(m_conn, 1, wsMessage.toLatin1().data(), wsMessage.length());
+                    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
                     return MG_TRUE;
                 }
             }
@@ -383,7 +396,7 @@ mg_result WebAccess::websocketDataHandler(mg_connection *conn)
             else
                 emit storeAutostartProject(asName);
             QString wsMessage = QString("ALERT|" + tr("Autostart configuration changed"));
-            mg_websocket_write(m_conn, 1, wsMessage.toLatin1().data(), wsMessage.length());
+            mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
             return MG_TRUE;
         }
         else if (cmdList.at(1) == "REBOOT")
@@ -536,7 +549,7 @@ void WebAccess::slotButtonToggled(bool on)
     else
         wsMessage.append("|BUTTON|0");
 
-    mg_websocket_write(m_conn, 1, wsMessage.toLatin1().data(), wsMessage.length());
+    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
 }
 
 QString WebAccess::getButtonHTML(VCButton *btn)
@@ -576,7 +589,7 @@ void WebAccess::slotSliderValueChanged(QString val)
 
     QString wsMessage = QString("%1|SLIDER|%2").arg(slider->id()).arg(val);
 
-    mg_websocket_write(m_conn, 1, wsMessage.toLatin1().data(), wsMessage.length());
+    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
 }
 
 QString WebAccess::getSliderHTML(VCSlider *slider)
@@ -678,7 +691,7 @@ void WebAccess::slotCueIndexChanged(int idx)
 
     QString wsMessage = QString("%1|CUE|%2").arg(cue->id()).arg(idx);
 
-    mg_websocket_write(m_conn, 1, wsMessage.toLatin1().data(), wsMessage.length());
+    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
 }
 
 QString WebAccess::getCueListHTML(VCCueList *cue)
@@ -1465,7 +1478,7 @@ void WebAccess::slotVCLoaded()
         return;
 
     QString wsMessage = QString("URL|/");
-    mg_websocket_write(m_conn, 1, wsMessage.toLatin1().data(), wsMessage.length());
+    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
 }
 
 
