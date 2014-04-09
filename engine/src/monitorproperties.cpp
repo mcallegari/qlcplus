@@ -63,6 +63,14 @@ void MonitorProperties::setFixtureGelColor(quint32 fid, QColor col)
     m_fixtureItems[fid].m_gelColor = col;
 }
 
+void MonitorProperties::reset()
+{
+    m_gridSize = QSize(5, 5);
+    m_gridUnits = Meters;
+    m_showLabels = false;
+    m_fixtureItems.clear();
+}
+
 /*********************************************************************
  * Load & Save
  *********************************************************************/

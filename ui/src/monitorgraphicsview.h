@@ -64,7 +64,7 @@ public:
      *  If no ID is specified, the currently selected
      *  fixture will be removed (if possible)
      */
-    void removeFixture(quint32 id = Fixture::invalidId());
+    bool removeFixture(quint32 id = Fixture::invalidId());
 
     /** Update the position and the scale of the fixture with
      *  the given ID

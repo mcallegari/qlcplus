@@ -182,7 +182,7 @@ void MonitorGraphicsView::addFixture(quint32 id, QPointF pos)
             this, SLOT(slotFixtureMoved(MonitorFixtureItem*)));
 }
 
-void MonitorGraphicsView::removeFixture(quint32 id)
+bool MonitorGraphicsView::removeFixture(quint32 id)
 {
     MonitorFixtureItem *item = NULL;
 
@@ -196,11 +196,13 @@ void MonitorGraphicsView::removeFixture(quint32 id)
         item = m_fixtures[id];
 
     if (item == NULL)
-        return;
+        return false;
 
     m_scene->removeItem(item);
     m_fixtures.take(id);
     delete item;
+
+    return true;
 }
 
 void MonitorGraphicsView::updateGrid()

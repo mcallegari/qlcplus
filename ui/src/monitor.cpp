@@ -650,6 +650,7 @@ void Monitor::slotAddFixture()
             quint32 fid = it.next();
             m_graphicsView->addFixture(fid);
             m_props->setFixturePosition(fid, QPointF(0, 0));
+            m_doc->setModified();
         }
     }
 }
@@ -657,7 +658,10 @@ void Monitor::slotAddFixture()
 void Monitor::slotRemoveFixture()
 {
     if (m_graphicsView != NULL)
-        m_graphicsView->removeFixture();
+    {
+        if (m_graphicsView->removeFixture() == true)
+            m_doc->setModified();
+    }
 }
 
 void Monitor::slotSetGelColor()
@@ -695,4 +699,5 @@ void Monitor::slotShowLabels(bool visible)
 void Monitor::slotFixtureMoved(quint32 fid, QPointF pos)
 {
     m_props->setFixturePosition(fid, pos);
+    m_doc->setModified();
 }

@@ -76,6 +76,8 @@ public:
 
     QList <quint32> fixtureItemsID() const { return m_fixtureItems.keys(); }
 
+    void reset();
+
 private:
     QFont m_font;
     DisplayMode m_displayMode;

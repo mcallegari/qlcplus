@@ -1,3 +1,10 @@
+qlcplus (4.7.1) stable; urgency=low
+
+  * Monitor: fixed crash when loading a project with the monitor open
+  * Plugins: Fixed ArtNet input universe indexing
+  
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 19 April 2014 12:13:14 +0200
+
 qlcplus (4.7.0) stable; urgency=low
 
   * NEW: New EFX types Square, SquareChoppy & Leaf (thanks to David Garyga)
