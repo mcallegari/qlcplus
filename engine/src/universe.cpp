@@ -41,6 +41,8 @@ Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
     , m_outputPatch(NULL)
     , m_fbPatch(NULL)
     , m_usedChannels(0)
+    , m_totalChannels(0)
+    , m_totalChannelsChanged(false)
     , m_hasChanged(false)
     , m_channelsMask(new QByteArray(UNIVERSE_SIZE, char(0)))
     , m_preGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
@@ -92,9 +94,14 @@ quint32 Universe::id() const
     return m_id;
 }
 
-short Universe::usedChannels()
+ushort Universe::usedChannels()
 {
     return m_usedChannels;
+}
+
+ushort Universe::totalChannels()
+{
+    return m_totalChannels;
 }
 
 void Universe::resetChanged()
@@ -374,6 +381,21 @@ OutputPatch *Universe::feedbackPatch() const
     return m_fbPatch;
 }
 
+void Universe::dumpOutput(const QByteArray &data)
+{
+    if (m_outputPatch == NULL)
+        return;
+
+    if (m_totalChannelsChanged == true)
+    {
+        QString chProperty = QString("UniverseChannels-%1").arg(m_id);
+        QVariant chVal(m_totalChannels);
+        m_outputPatch->setPluginProperty(chProperty, chVal);
+        m_totalChannelsChanged = false;
+    }
+    m_outputPatch->dump(m_id, data);
+}
+
 void Universe::slotInputValueChanged(quint32 universe, quint32 channel, uchar value, const QString &key)
 {
     if (m_passthrough == true)
@@ -414,6 +436,12 @@ void Universe::setChannelCapability(ushort channel, QLCChannel::Group group, Cha
         }
     }
     // qDebug() << Q_FUNC_INFO << "Channel:" << channel << "mask:" << QString::number(m_channelsMask->at(channel), 16);
+    if (channel >= m_totalChannels)
+    {
+        m_totalChannels = channel + 1;
+        m_totalChannelsChanged = true;
+    }
+
     return;
 }
 

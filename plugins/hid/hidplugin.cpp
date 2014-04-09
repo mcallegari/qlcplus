@@ -1,6 +1,6 @@
 /*
   Q Light Controller
-  hid.cpp
+  hidplugin.cpp
 
   Copyright (c) Heikki Junnila
 
@@ -27,7 +27,7 @@
 #include "hidfx5device.h"
 #include "hidjsdevice.h"
 #include "hidapi.h"
-#include "hid.h"
+#include "hidplugin.h"
 
 /*****************************************************************************
  * HIDInputEvent
@@ -55,23 +55,23 @@ HIDInputEvent::~HIDInputEvent()
  * HID Initialization
  *****************************************************************************/
 
-void HID::init()
+void HIDPlugin::init()
 {
     rescanDevices();
 }
 
-HID::~HID()
+HIDPlugin::~HIDPlugin()
 {
     while (m_devices.isEmpty() == false)
         delete m_devices.takeFirst();
 }
 
-QString HID::name()
+QString HIDPlugin::name()
 {
     return QString("HID");
 }
 
-int HID::capabilities() const
+int HIDPlugin::capabilities() const
 {
     return QLCIOPlugin::Input | QLCIOPlugin::Output;
 }
@@ -80,7 +80,7 @@ int HID::capabilities() const
  * Inputs
  *****************************************************************************/
 
-void HID::openInput(quint32 input)
+void HIDPlugin::openInput(quint32 input)
 {
     HIDDevice* dev = device(input);
     if (dev != NULL)
@@ -93,7 +93,7 @@ void HID::openInput(quint32 input)
         qDebug() << name() << "has no input number:" << input;
 }
 
-void HID::closeInput(quint32 input)
+void HIDPlugin::closeInput(quint32 input)
 {
     HIDDevice* dev = device(input);
     if (dev != NULL)
@@ -106,7 +106,7 @@ void HID::closeInput(quint32 input)
         qDebug() << name() << "has no input number:" << input;
 }
 
-QStringList HID::inputs()
+QStringList HIDPlugin::inputs()
 {
     QStringList list;
 
@@ -121,7 +121,7 @@ QStringList HID::inputs()
     return list;
 }
 
-void HID::customEvent(QEvent* event)
+void HIDPlugin::customEvent(QEvent* event)
 {
     if (event->type() == _HIDInputEventType)
     {
@@ -135,7 +135,7 @@ void HID::customEvent(QEvent* event)
     }
 }
 
-QString HID::pluginInfo()
+QString HIDPlugin::pluginInfo()
 {
     QString str;
 
@@ -153,7 +153,7 @@ QString HID::pluginInfo()
     return str;
 }
 
-QString HID::inputInfo(quint32 input)
+QString HIDPlugin::inputInfo(quint32 input)
 {
     QString str;
 
@@ -175,7 +175,7 @@ QString HID::inputInfo(quint32 input)
 /*********************************************************************
  * Outputs
  *********************************************************************/
-void HID::openOutput(quint32 output)
+void HIDPlugin::openOutput(quint32 output)
 {
     HIDDevice* dev = device(output);
     if (dev != NULL)
@@ -184,7 +184,7 @@ void HID::openOutput(quint32 output)
         qDebug() << name() << "has no output number:" << output;
 }
 
-void HID::closeOutput(quint32 output)
+void HIDPlugin::closeOutput(quint32 output)
 {
     HIDDevice* dev = device(output);
     if (dev != NULL)
@@ -193,7 +193,7 @@ void HID::closeOutput(quint32 output)
         qDebug() << name() << "has no output number:" << output;
 }
 
-QStringList HID::outputs()
+QStringList HIDPlugin::outputs()
 {
     QStringList list;
 
@@ -208,7 +208,7 @@ QStringList HID::outputs()
     return list;
 }
 
-QString HID::outputInfo(quint32 output)
+QString HIDPlugin::outputInfo(quint32 output)
 {
     QString str;
 
@@ -227,7 +227,7 @@ QString HID::outputInfo(quint32 output)
     return str;
 }
 
-void HID::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void HIDPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
 {
     Q_UNUSED(universe);
 
@@ -243,13 +243,13 @@ void HID::writeUniverse(quint32 universe, quint32 output, const QByteArray &data
  * Configuration
  *****************************************************************************/
 
-void HID::configure()
+void HIDPlugin::configure()
 {
     ConfigureHID conf(NULL, this);
     conf.exec();
 }
 
-bool HID::canConfigure()
+bool HIDPlugin::canConfigure()
 {
     return true;
 }
@@ -258,7 +258,7 @@ bool HID::canConfigure()
  * Devices
  *****************************************************************************/
 
-void HID::rescanDevices()
+void HIDPlugin::rescanDevices()
 {
     /* Treat all devices as dead first, until we find them again. Those
        that aren't found, get destroyed at the end of this function. */
@@ -324,7 +324,7 @@ void HID::rescanDevices()
     emit configurationChanged();
 }
 
-HIDDevice* HID::device(const QString& path)
+HIDDevice* HIDPlugin::device(const QString& path)
 {
     QListIterator <HIDDevice*> it(m_devices);
 
@@ -338,7 +338,7 @@ HIDDevice* HID::device(const QString& path)
     return NULL;
 }
 
-HIDDevice* HID::device(quint32 index)
+HIDDevice* HIDPlugin::device(quint32 index)
 {
     if (index < quint32(m_devices.count()))
         return m_devices.at(index);
@@ -346,7 +346,7 @@ HIDDevice* HID::device(quint32 index)
         return NULL;
 }
 
-void HID::addDevice(HIDDevice* device)
+void HIDPlugin::addDevice(HIDDevice* device)
 {
     Q_ASSERT(device != NULL);
 
@@ -356,7 +356,7 @@ void HID::addDevice(HIDDevice* device)
     emit configurationChanged();
 }
 
-void HID::removeDevice(HIDDevice* device)
+void HIDPlugin::removeDevice(HIDDevice* device)
 {
     Q_ASSERT(device != NULL);
 

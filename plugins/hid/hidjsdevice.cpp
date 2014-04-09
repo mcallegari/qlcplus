@@ -35,11 +35,11 @@
 
 #include "hidjsdevice.h"
 #include "qlcmacros.h"
-#include "hid.h"
+#include "hidplugin.h"
 
 #define KPollTimeout 1000
 
-HIDJsDevice::HIDJsDevice(HID* parent, quint32 line, const QString &name, const QString& path)
+HIDJsDevice::HIDJsDevice(HIDPlugin* parent, quint32 line, const QString &name, const QString& path)
     : HIDDevice(parent, line, name, path)
 {
     m_capabilities = QLCIOPlugin::Input;

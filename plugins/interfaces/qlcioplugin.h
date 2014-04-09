@@ -111,6 +111,15 @@ public:
     /** Invalid input/output number */
     static quint32 invalidLine() { return UINT_MAX; }
 
+    /**
+     * Set an arbitrary parameter useful for the plugin. This is similar
+     * to Qt's setProperty
+     *
+     * @param name A string containing the parameter name
+     * @param value A QVariant value representing the parameter data
+     */
+    virtual void setParameter(QString name, QVariant &value) = 0;
+
     /*************************************************************************
      * Outputs
      *************************************************************************/

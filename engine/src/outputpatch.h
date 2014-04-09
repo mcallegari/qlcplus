@@ -51,16 +51,33 @@ public:
      * Plugin & output
      ********************************************************************/
 public:
+    /**
+     * Set the plugin to use and the plugin line number to output data on
+     */
     void set(QLCIOPlugin* plugin, quint32 output);
+
+    /**
+     * If a valid plugin and line have been set, close
+     * the output line and re-open it again
+     */
     void reconnect();
 
+    /** The plugin instance that has been assigned to a patch */
     QLCIOPlugin* plugin() const;
+
+    /** Friendly name of the plugin assigned to a patch ("None" if none) */
     QString pluginName() const;
 
+    /** An output line provided by the assigned plugin */
     quint32 output() const;
+
+    /** Friendly name of the assigned output line */
     QString outputName() const;
 
+    /** Returns true if a valid plugin line has been set */
     bool isPatched() const;
+
+    void setPluginProperty(QString prop, QVariant value);
 
 private:
     QLCIOPlugin* m_plugin;

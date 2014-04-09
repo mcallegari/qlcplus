@@ -34,7 +34,7 @@
 #define FX5_READ_TIMEOUT 100
 
 class HIDEventDevice;
-class HID;
+class HIDPlugin;
 
 /*****************************************************************************
  * HIDEventDevice
@@ -45,7 +45,7 @@ class HIDFX5Device : public HIDDevice
     Q_OBJECT
 
 public:
-    HIDFX5Device(HID* parent, quint32 line, const QString& name, const QString& path);
+    HIDFX5Device(HIDPlugin* parent, quint32 line, const QString& name, const QString& path);
     virtual ~HIDFX5Device();
 
 protected:

@@ -104,9 +104,14 @@ public:
     quint32 id() const;
 
     /**
-     * Retrieve the number of used channels in this universe
+     * Returns the number of channels used in this universe
      */
-    short usedChannels();
+    ushort usedChannels();
+
+    /**
+     * Returns the total number of channels in this universe
+     */
+    ushort totalChannels();
 
     /**
      * Reset the change flag. To be used every MasterTimer tick
@@ -197,6 +202,11 @@ public:
      * If not present NULL is returned.
      */
     OutputPatch* feedbackPatch() const;
+
+    /**
+     * This is the actual function that writes data to an output patch
+     */
+    void dumpOutput(const QByteArray& data);
 
 protected slots:
     /** Slot called every time an input patch sends data */
@@ -292,7 +302,15 @@ public:
 
 protected:
     /** Number of channels used in this universe to optimize dump to plugins */
-    short m_usedChannels;
+    ushort m_usedChannels;
+    /** Total number of channels used in this fixture */
+    ushort m_totalChannels;
+    /**
+     *  Flag that holds if the total number of channels have changed.
+     *  This is used to inform the output patch (if present) how many
+     *  channels to expect
+     */
+    bool m_totalChannelsChanged;
     /** Flag to indicate if the universe has changed */
     bool m_hasChanged;
     /** A list of intensity channels to optimize operations on HTP/LTP channels */

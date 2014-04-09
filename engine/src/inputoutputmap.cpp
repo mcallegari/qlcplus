@@ -254,8 +254,7 @@ void InputOutputMap::dumpUniverses()
             {
                 const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
 
-                if (universe->outputPatch() != NULL)
-                    universe->outputPatch()->dump(universe->id(), postGM);
+                universe->dumpOutput(postGM);
 
                 m_universeMutex.unlock();
                 emit universesWritten(i, postGM);
@@ -1037,9 +1036,5 @@ bool InputOutputMap::saveXML(QDomDocument *doc, QDomElement *wksp_root) const
 
     return true;
 }
-
-
-
-
 
 

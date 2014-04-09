@@ -1,6 +1,6 @@
 /*
   Q Light Controller
-  hid.h
+  hidplugin.h
 
   Copyright (c) Heikki Junnila
 
@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-#ifndef HID_H
-#define HID_H
+#ifndef HIDPLUGIN_H
+#define HIDPLUGIN_H
 
 #include <QEvent>
 #include <QList>
@@ -47,10 +47,10 @@ public:
 };
 
 /*****************************************************************************
- * HID
+ * HIDPlugin
  *****************************************************************************/
 
-class HID : public QLCIOPlugin
+class HIDPlugin : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)
@@ -69,7 +69,7 @@ public:
     void init();
 
     /** @reimp */
-    virtual ~HID();
+    virtual ~HIDPlugin();
 
     /** @reimp */
     QString name();
@@ -79,6 +79,10 @@ public:
 
     /** @reimp */
     QString pluginInfo();
+
+    /** @reimp */
+    void setParameter(QString name, QVariant &value)
+    { Q_UNUSED(name); Q_UNUSED(value); }
 
     /*********************************************************************
      * Inputs

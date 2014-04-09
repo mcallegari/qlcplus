@@ -53,6 +53,8 @@ public:
     /** @reimp */
     QString pluginInfo();
 
+    void setParameter(QString name, QVariant &value);
+
     /*********************************************************************
      * Outputs
      *********************************************************************/

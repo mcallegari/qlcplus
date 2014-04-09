@@ -60,6 +60,10 @@ public:
     /** @reimp */
     QString pluginInfo();
 
+    /** @reimp */
+    void setParameter(QString name, QVariant &value)
+    { Q_UNUSED(name); Q_UNUSED(value); }
+
 private:
     /** Is the plugin currently running as a stand alone daemon. */
     bool isServerEmbedded() const;

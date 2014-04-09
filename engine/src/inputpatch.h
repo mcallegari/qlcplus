@@ -83,7 +83,7 @@ public:
     /** The plugin instance that has been assigned to a patch */
     QLCIOPlugin* plugin() const;
 
-    /** Friendly name of the plugin assigned to a patch (empty if none) */
+    /** Friendly name of the plugin assigned to a patch ("None" if none) */
     QString pluginName() const;
 
     /** An input line provided by the assigned plugin */
@@ -98,6 +98,7 @@ public:
     /** Name of the assigned input profile (empty if none) */
     QString profileName() const;
 
+    /** Returns true if a valid plugin line has been set */
     bool isPatched() const;
 
 signals:

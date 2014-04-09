@@ -322,11 +322,11 @@ private slots:
     void slotFixtureChanged(quint32 fxi_id);
 
 protected:
-    /** Fixtures */
+    /** Fixtures map: < ID, Fixture instance > */
     QMap <quint32,Fixture*> m_fixtures;
 
-    /** Addresses occupied by fixtures */
-    QHash <quint32,quint32> m_addresses;
+    /** Map of the addresses occupied by fixtures */
+    QHash <quint32, quint32> m_addresses;
 
     /** Latest assigned fixture ID */
     quint32 m_latestFixtureId;

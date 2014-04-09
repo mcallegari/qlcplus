@@ -45,7 +45,8 @@ void Universe_Test::initial()
 {
     QCOMPARE(m_uni->name(), QString("Universe 1"));
     QCOMPARE(m_uni->id(), quint32(0));
-    QCOMPARE(m_uni->usedChannels(), short(0));
+    QCOMPARE(m_uni->usedChannels(), ushort(0));
+    QCOMPARE(m_uni->totalChannels(), ushort(0));
     QCOMPARE(m_uni->hasChanged(), false);
     QVERIFY(m_uni->inputPatch() == NULL);
     QVERIFY(m_uni->outputPatch() == NULL);
@@ -81,6 +82,7 @@ void Universe_Test::channelCapabilities()
     QVERIFY(m_uni->channelCapabilities(2) == Universe::LTP);
     QVERIFY(m_uni->channelCapabilities(3) == Universe::HTP);
     QVERIFY(m_uni->channelCapabilities(4) == (Universe::Intensity|Universe::HTP));
+    QCOMPARE(m_uni->totalChannels(), ushort(5));
 }
 
 void Universe_Test::grandMasterIntensityReduce()
@@ -90,6 +92,8 @@ void Universe_Test::grandMasterIntensityReduce()
     m_uni->setChannelCapability(2, QLCChannel::Pan);
     m_uni->setChannelCapability(3, QLCChannel::Tilt);
     m_uni->setChannelCapability(4, QLCChannel::Intensity);
+    QCOMPARE(m_uni->usedChannels(), ushort(0));
+    QCOMPARE(m_uni->totalChannels(), ushort(5));
 
     m_uni->write(0, 10);
     m_uni->write(1, 20);
@@ -103,6 +107,7 @@ void Universe_Test::grandMasterIntensityReduce()
     QCOMPARE(int(m_uni->postGMValues()->at(2)), int(30));
     QCOMPARE(int(m_uni->postGMValues()->at(3)), int(40));
     QCOMPARE(int(m_uni->postGMValues()->at(4)), int(12));
+    QCOMPARE(m_uni->usedChannels(), ushort(5));
 }
 
 void Universe_Test::grandMasterIntensityLimit()
@@ -112,6 +117,8 @@ void Universe_Test::grandMasterIntensityLimit()
     m_uni->setChannelCapability(2, QLCChannel::Pan);
     m_uni->setChannelCapability(3, QLCChannel::Tilt);
     m_uni->setChannelCapability(4, QLCChannel::Intensity);
+    QCOMPARE(m_uni->usedChannels(), ushort(0));
+    QCOMPARE(m_uni->totalChannels(), ushort(5));
 
     m_uni->write(0, 10);
     m_uni->write(1, 20);
@@ -134,6 +141,7 @@ void Universe_Test::grandMasterIntensityLimit()
     QCOMPARE(quint8(m_uni->postGMValues()->at(2)), quint8(30));
     QCOMPARE(quint8(m_uni->postGMValues()->at(3)), quint8(40));
     QCOMPARE(quint8(m_uni->postGMValues()->at(4)), quint8(5));
+    QCOMPARE(m_uni->usedChannels(), ushort(5));
 }
 
 void Universe_Test::grandMasterAllChannelsReduce()
@@ -143,6 +151,8 @@ void Universe_Test::grandMasterAllChannelsReduce()
     m_uni->setChannelCapability(2, QLCChannel::Pan);
     m_uni->setChannelCapability(3, QLCChannel::Tilt);
     m_uni->setChannelCapability(4, QLCChannel::Intensity);
+    QCOMPARE(m_uni->usedChannels(), ushort(0));
+    QCOMPARE(m_uni->totalChannels(), ushort(5));
 
     m_uni->write(0, 10);
     m_uni->write(1, 20);
@@ -158,6 +168,7 @@ void Universe_Test::grandMasterAllChannelsReduce()
     QCOMPARE(int(m_uni->postGMValues()->at(2)), int(7));
     QCOMPARE(int(m_uni->postGMValues()->at(3)), int(10));
     QCOMPARE(int(m_uni->postGMValues()->at(4)), int(12));
+    QCOMPARE(m_uni->usedChannels(), ushort(5));
 }
 
 void Universe_Test::grandMasterAllChannelsLimit()
@@ -167,6 +178,8 @@ void Universe_Test::grandMasterAllChannelsLimit()
     m_uni->setChannelCapability(2, QLCChannel::Pan);
     m_uni->setChannelCapability(3, QLCChannel::Tilt);
     m_uni->setChannelCapability(4, QLCChannel::Intensity);
+    QCOMPARE(m_uni->usedChannels(), ushort(0));
+    QCOMPARE(m_uni->totalChannels(), ushort(5));
 
     m_uni->write(0, 10);
     m_uni->write(1, 20);
@@ -190,6 +203,7 @@ void Universe_Test::grandMasterAllChannelsLimit()
     QCOMPARE(quint8(m_uni->postGMValues()->at(2)), quint8(5));
     QCOMPARE(quint8(m_uni->postGMValues()->at(3)), quint8(5));
     QCOMPARE(quint8(m_uni->postGMValues()->at(4)), quint8(5));
+    QCOMPARE(m_uni->usedChannels(), ushort(5));
 }
 
 void Universe_Test::applyGM()

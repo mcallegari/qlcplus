@@ -51,6 +51,10 @@ public:
     /** @reimp */
     QString pluginInfo();
 
+    /** @reimp */
+    void setParameter(QString name, QVariant &value)
+    { Q_UNUSED(name); Q_UNUSED(value); }
+
     /** Find out what kinds of widgets there are currently connected */
     bool rescanWidgets();
 

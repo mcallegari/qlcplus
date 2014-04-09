@@ -71,7 +71,7 @@ public:
      * @param dir The directory to load plugins from
      */
     void loadPlugins(const QDir& dir);
-    
+
 private:
     /** Get the doc object */
     Doc* doc() const;

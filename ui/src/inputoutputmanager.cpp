@@ -187,9 +187,11 @@ InputOutputManager* InputOutputManager::instance()
 
 void InputOutputManager::updateList()
 {
+    m_list->blockSignals(true);
     m_list->clear();
     for (quint32 uni = 0; uni < m_ioMap->universes(); uni++)
         updateItem(new QListWidgetItem(m_list), uni);
+    m_list->blockSignals(false);
 
     if (m_ioMap->universes() == 0)
     {

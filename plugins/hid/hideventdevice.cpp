@@ -28,7 +28,7 @@
 #include <QFile>
 
 #include "hideventdevice.h"
-#include "hid.h"
+#include "hidplugin.h"
 
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
   #include <linux/input.h>
@@ -44,7 +44,7 @@
  */
 #define test_bit(bit, array)    (array[bit / 8] & (1 << (bit % 8)))
 
-HIDEventDevice::HIDEventDevice(HID* parent, quint32 line,
+HIDEventDevice::HIDEventDevice(HIDPlugin* parent, quint32 line,
                                const QString& name, const QString& path)
         : HIDDevice(parent, line, name, path)
 {

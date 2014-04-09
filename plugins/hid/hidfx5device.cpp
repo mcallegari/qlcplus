@@ -34,9 +34,9 @@
 #include "hidfx5device.h"
 #include "qlcmacros.h"
 #include "hidapi.h"
-#include "hid.h"
+#include "hidplugin.h"
 
-HIDFX5Device::HIDFX5Device(HID* parent, quint32 line, const QString &name, const QString& path)
+HIDFX5Device::HIDFX5Device(HIDPlugin* parent, quint32 line, const QString &name, const QString& path)
     : HIDDevice(parent, line, name, path)
 {
     m_capabilities = QLCIOPlugin::Output;

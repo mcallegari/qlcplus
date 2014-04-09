@@ -23,7 +23,7 @@
 #include <QThread>
 #include <QFile>
 
-class HID;
+class HIDPlugin;
 
 /*****************************************************************************
  * HIDDevice
@@ -34,7 +34,7 @@ class HIDDevice : public QThread
     Q_OBJECT
 
 public:
-    HIDDevice(HID* parent, quint32 line, const QString& name, const QString& path);
+    HIDDevice(HIDPlugin* parent, quint32 line, const QString& name, const QString& path);
     virtual ~HIDDevice();
 
     /*************************************************************************
