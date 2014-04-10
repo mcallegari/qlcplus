@@ -27,7 +27,7 @@
 #define private public
 #include "virtualconsole.h"
 #include "genericfader.h"
-#include "cuelistrunner.h"
+#include "chaserrunner.h"
 #include "mastertimer.h"
 #include "vccuelist.h"
 #include "vcwidget.h"

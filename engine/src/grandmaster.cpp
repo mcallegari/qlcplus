@@ -24,9 +24,7 @@
 #define KXMLQLCGMSliderModeNormal "Normal"
 #define KXMLQLCGMSliderModeInverted "Inverted"
 
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-#include <limits.h>
-#endif
+#include <climits>
 
 #include "grandmaster.h"
 #include "qlcmacros.h"

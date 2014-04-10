@@ -1,8 +1,10 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   chaserrunner.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
+                Jano Svitok
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -25,17 +27,23 @@
 
 #include "function.h"
 
-class Universe;
 class FadeChannel;
 class ChaserStep;
 class Function;
+class Universe;
 class Chaser;
 class QTime;
 class Doc;
 
-/** @addtogroup engine Engine
- * @{
- */
+typedef struct
+{
+    int m_index;          //! Index of the step from the original Chaser
+    Function* m_function; //! Currently active function
+    quint32 m_elapsed;    //! Elapsed milliseconds
+    uint m_fadeIn;        //! Step fade In speed
+    uint m_fadeOut;       //! Step fade Out speed
+    uint m_duration;      //! Step duration
+} ChaserRunnerStep;
 
 class ChaserRunner : public QObject
 {
@@ -57,13 +65,13 @@ private:
      ************************************************************************/
 public:
     /** Get the currently active fade in value (See Chaser::SpeedMode) */
-    uint currentFadeIn() const;
+    uint stepFadeIn(int stepIdx) const;
 
     /** Get the currently active fade out value (See Chaser::SpeedMode) */
-    uint currentFadeOut() const;
+    uint stepFadeOut(int stepIdx) const;
 
     /** Get the currently active duration value (See Chaser::SpeedMode) */
-    uint currentDuration() const;
+    uint stepDuration(int stepIdx) const;
 
 private:
     bool m_updateOverrideSpeeds;
@@ -88,12 +96,19 @@ public:
     void tap();
 
     /**
+     * Stop a specific runnign step
+     * @param stepIndex Index of the running step to stop
+     */
+    void stopStep(int stepIndex);
+
+    /**
      * Set the NEW current step number. The value of m_currentStep is changed
      * on the next call to write().
      *
      * @param step Step number to set
+     * @param intensity Optional startup intensity
      */
-    void setCurrentStep(int step);
+    void setCurrentStep(int step, qreal intensity = 1.0);
 
     /**
      * Get the current step number.
@@ -103,15 +118,35 @@ public:
     int currentStep() const;
 
     /**
-     * Reset the runner to a state where nothing has been run yet.
+     * Get the running step number.
+     *
+     * @return Running step number
      */
-    void reset();
+    int runningStepsNumber() const;
 
+    /**
+     * Shuffle the current steps order
+     */
     static void shuffle(QVector<int> & data);
 
 private:
-    int randomize(int step) const;
+
+    /**
+     * Retrieve the randomized index of a
+     * step at the given index
+     */
+    int randomStepIndex(int step) const;
+
+    /**
+     * Convenience function to fill the m_oder
+     * array with all the steps indices
+     */
     void fillOrder();
+
+    /**
+     * Fill the m_order array with the step indices
+     * and the given size
+     */
     void fillOrder(int size);
 
 signals:
@@ -119,16 +154,15 @@ signals:
     void currentStepChanged(int stepNumber);
 
 private:
-    Function::Direction m_direction; //! Run-time direction (reversed by ping-pong)
-    Function* m_currentFunction;     //! Currently active function
-    quint32 m_elapsed;               //! Elapsed milliseconds
-    quint32 m_startOffset;           //! Steps offset start time in milliseconds
-    bool m_next;                     //! If true, skips to the next step when write is called
-    bool m_previous;                 //! If true, skips to the previous step when write is called
-    int m_currentStep;               //! Current step in m_steps
-    int m_newCurrent;                //! Manually set the current step
-    QTime* m_roundTime;              //! Counts the time between steps
-    QVector<int> m_order;            //! Randomized order
+    Function::Direction m_direction;        //! Run-time direction (reversed by ping-pong)
+    QList <ChaserRunnerStep *> m_runnerSteps;  //! Queue of the currently running steps
+    quint32 m_startOffset;                  //! Start step offset time in milliseconds
+    bool m_next;                            //! If true, skips to the next step when write is called
+    bool m_previous;                        //! If true, skips to the previous step when write is called
+    int m_newStartStepIdx;                  //! Manually set the start step
+    int m_lastRunStepIdx;                   //! Index of the last step ran
+    QTime* m_roundTime;                     //! Counts the time between steps
+    QVector<int> m_order;                   //! Array of step indices in a randomized order
 
     /************************************************************************
      * Intensity
@@ -137,7 +171,7 @@ public:
     /**
      * Adjust the intensities of chaser steps.
      */
-    void adjustIntensity(qreal fraction);
+    void adjustIntensity(qreal fraction, int stepIndex = -1);
 
 private:
     qreal m_intensity;
@@ -145,6 +179,13 @@ private:
     /************************************************************************
      * Running
      ************************************************************************/
+private:
+    void clearRunningList();
+
+    void startNewStep(int index, MasterTimer *timer, bool manualFade);
+
+    int getNextStepIndex();
+
 public:
     /**
      * Call this from the parent function's write() method to run the steps.
@@ -153,7 +194,7 @@ public:
      * @param universes DMX address space
      * @return true if the chaser should continue, otherwise false
      */
-    bool write(MasterTimer* timer, QList<Universe *> universes);
+    bool write(MasterTimer* timer, QList<Universe*> universes);
 
     /**
      * Perform postRun operations. Call this from the parent function's postRun().
@@ -162,20 +203,6 @@ public:
      * @param universes DMX address space
      */
     void postRun(MasterTimer* timer, QList<Universe *> universes);
-
-private:
-    /** Ran at each end of m_steps. Returns false only when SingleShot has been
-        completed. */
-    bool roundCheck();
-
-    /**
-     * Stop the previous function (if applicable) and start a new one (current).
-     *
-     * @param timer The MasterTimer that runs the functions
-     */
-    void switchFunctions(MasterTimer* timer);
 };
-
-/** @} */
 
 #endif

@@ -33,7 +33,7 @@
 #include "clickandgoslider.h"
 #include "qlcinputchannel.h"
 #include "virtualconsole.h"
-#include "cuelistrunner.h"
+#include "chaserrunner.h"
 #include "mastertimer.h"
 #include "chaserstep.h"
 #include "inputpatch.h"
@@ -553,7 +553,7 @@ void VCCueList::createRunner(int startIndex)
     {
         chaser->useInternalRunner(false);
         chaser->start(m_doc->masterTimer());
-        m_runner = new CueListRunner(m_doc, chaser);
+        m_runner = new ChaserRunner(m_doc, chaser);
         Q_ASSERT(m_runner != NULL);
         //m_runner->moveToThread(QCoreApplication::instance()->thread());
         //m_runner->setParent(chaser);

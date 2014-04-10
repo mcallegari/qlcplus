@@ -36,7 +36,7 @@ class QLabel;
 
 class VCCueListProperties;
 class ClickAndGoSlider;
-class CueListRunner;
+class ChaserRunner;
 class MasterTimer;
 class Chaser;
 class Doc;
@@ -163,7 +163,7 @@ private:
     QToolButton* m_nextButton;
     bool m_listIsUpdating;
 
-    CueListRunner* m_runner;
+    ChaserRunner* m_runner;
     QMutex m_mutex; // Guards m_runner
 
 
