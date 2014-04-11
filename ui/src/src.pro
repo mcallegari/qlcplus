@@ -60,6 +60,7 @@ HEADERS += aboutbox.h \
            cuestackmodel.h \
            docbrowser.h \
            dmxdumpfactory.h \
+           dmxkeypad.h \
            efxeditor.h \
            efxpreviewarea.h \
            fixtureconsole.h \
@@ -199,6 +200,7 @@ SOURCES += aboutbox.cpp \
            cuestackmodel.cpp \
            docbrowser.cpp \
            dmxdumpfactory.cpp \
+           dmxkeypad.cpp \
            efxeditor.cpp \
            efxpreviewarea.cpp \
            fixtureconsole.cpp \
@@ -271,7 +273,7 @@ SOURCES += aboutbox.cpp \
            vcxypadfixtureeditor.cpp \
            vcxypadproperties.cpp \
            virtualconsole.cpp
-           
+
 greaterThan(QT_MAJOR_VERSION, 4) {
 HEADERS += videoeditor.h
 FORMS += videoeditor.ui

@@ -27,6 +27,7 @@
 #include <QHash>
 #include <QScrollArea>
 
+class DmxKeyPad;
 class GrandMasterSlider;
 class SimpleDeskEngine;
 class SpeedDialWidget;
@@ -114,6 +115,9 @@ private slots:
     void slotUniversesWritten(int idx, const QByteArray& ua);
 
 private:
+    QSplitter* m_topSplitter;
+
+
     QGroupBox* m_universeGroup;
     QComboBox* m_universesCombo;
     QToolButton* m_viewModeButton;
