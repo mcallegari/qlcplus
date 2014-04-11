@@ -74,6 +74,11 @@ QString IOPluginStub::pluginInfo()
     return QString("This is a plugin stub for testing.");
 }
 
+void IOPluginStub::setParameter(QString name, QVariant &value)
+{
+    Q_UNUSED(name); Q_UNUSED(value);
+}
+
 QString IOPluginStub::outputInfo(quint32 output)
 {
     Q_UNUSED(output);
