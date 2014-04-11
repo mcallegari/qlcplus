@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include <QMutexLocker>
 #include <QSettings>
 #include <QDebug>
 #include <QTime>
@@ -84,6 +85,8 @@ void SPIOutThread::run()
         QTime elapsedTime;
         elapsedTime.start();
 
+        {
+        QMutexLocker locker(&m_mutex);
         memset(&spi, 0, sizeof(spi));
         spi.tx_buf        = reinterpret_cast<__u64>(m_pluginData.data());
         spi.len           = m_pluginData.size();
@@ -93,18 +96,19 @@ void SPIOutThread::run()
         spi.cs_change = 0;
 
         retVal = ioctl(m_spifd, SPI_IOC_MESSAGE(1), &spi);
-
+        }
         if(retVal < 0)
             qWarning() << "Problem transmitting SPI data: ioctl failed";
 
         int nMilliseconds = elapsedTime.elapsed();
-
+        //qDebug() << "[SPI] ioctl took" << nMilliseconds << "ms";
         usleep(m_estimatedSleepTime - nMilliseconds);
     }
 }
 
 void SPIOutThread::writeData(const QByteArray &data)
 {
+    QMutexLocker locker(&m_mutex);
     m_pluginData = data;
     if (m_dataSize != data.size())
     {

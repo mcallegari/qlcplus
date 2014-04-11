@@ -50,6 +50,10 @@ protected:
 
     /** Roughly estimated time to sleep between SPI writes (in uS) */
     quint32 m_estimatedSleepTime;
+
+    /** Mutex used to synchronize data between the SPI plugin
+     *  and the output thread */
+    QMutex m_mutex;
 };
 
 #endif // SPIOUTTHREAD_H
