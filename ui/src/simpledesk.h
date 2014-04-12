@@ -113,6 +113,7 @@ private slots:
     void slotUniverseSliderValueChanged(quint32, quint32, uchar value);
     void slotUpdateUniverseSliders();
     void slotUniversesWritten(int idx, const QByteArray& ua);
+    void slotKeyPadNewChanValue(uint channel, uchar value);
 
 private:
     QSplitter* m_topSplitter;
