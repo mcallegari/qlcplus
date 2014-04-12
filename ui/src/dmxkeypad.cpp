@@ -161,7 +161,7 @@ void DmxKeyPad::calculateTHRURange()
 
 void DmxKeyPad::KP_CLR()
 {
-
+    emit SM_Reset();
 }
 
 void DmxKeyPad::KP_AT()
