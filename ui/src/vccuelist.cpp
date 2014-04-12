@@ -988,7 +988,7 @@ QString VCCueList::getJS()
 
       "function setCueIndex(id, idx) {\n"
       " var oldIdx = cueListsIndices[id];\n"
-      " if (oldIdx != undefined) {\n"
+      " if (oldIdx != undefined && oldIdx != -1) {\n"
       "   var oldCueObj = document.getElementById(id + \"_\" + oldIdx);\n"
       "   oldCueObj.style.backgroundColor='#FFFFFF';\n"
       " }\n"
