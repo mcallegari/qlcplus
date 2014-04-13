@@ -85,20 +85,21 @@ void SPIOutThread::run()
         QTime elapsedTime;
         elapsedTime.start();
 
+        if (m_spifd != -1 && m_pluginData.size() > 0)
         {
-        QMutexLocker locker(&m_mutex);
-        memset(&spi, 0, sizeof(spi));
-        spi.tx_buf        = reinterpret_cast<__u64>(m_pluginData.data());
-        spi.len           = m_pluginData.size();
-        spi.delay_usecs   = 0;
-        spi.speed_hz      = m_speed;
-        spi.bits_per_word = m_bitsPerWord;
-        spi.cs_change = 0;
+            QMutexLocker locker(&m_mutex);
+            memset(&spi, 0, sizeof(spi));
+            spi.tx_buf        = reinterpret_cast<__u64>(m_pluginData.data());
+            spi.len           = m_pluginData.size();
+            spi.delay_usecs   = 0;
+            spi.speed_hz      = m_speed;
+            spi.bits_per_word = m_bitsPerWord;
+            spi.cs_change = 0;
 
-        retVal = ioctl(m_spifd, SPI_IOC_MESSAGE(1), &spi);
+            retVal = ioctl(m_spifd, SPI_IOC_MESSAGE(1), &spi);
+            if(retVal < 0)
+                qWarning() << "Problem transmitting SPI data: ioctl failed";
         }
-        if(retVal < 0)
-            qWarning() << "Problem transmitting SPI data: ioctl failed";
 
         int nMilliseconds = elapsedTime.elapsed();
         //qDebug() << "[SPI] ioctl took" << nMilliseconds << "ms";

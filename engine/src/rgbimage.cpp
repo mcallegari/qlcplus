@@ -87,7 +87,7 @@ void RGBImage::reloadImage()
 
     if (!m_image.load(m_filename))
     {
-        qDebug() << "Load failed!";
+        qDebug() << "[RGBImage] Failed to load" << m_filename;
         return;
     }
 }

@@ -64,6 +64,7 @@ InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
     , m_uniNameEdit(NULL)
     , m_uniPassthroughCheck(NULL)
     , m_editor(NULL)
+    , m_editorUniverse(UINT_MAX)
 {
     Q_ASSERT(s_instance == NULL);
     s_instance = this;
@@ -297,6 +298,10 @@ void InputOutputManager::slotCurrentItemChanged()
     if (item == NULL)
         return;
 
+    quint32 universe = item->data(Qt::UserRole).toInt();
+    if (m_editorUniverse == universe)
+        return;
+
     if (m_editor != NULL)
     {
         m_splitter->widget(1)->layout()->removeWidget(m_editor);
@@ -304,8 +309,9 @@ void InputOutputManager::slotCurrentItemChanged()
         m_editor = NULL;
     }
 
-    quint32 universe = item->data(Qt::UserRole).toInt();
+
     m_editor = new InputOutputPatchEditor(this, universe, m_ioMap, m_doc);
+    m_editorUniverse = universe;
     m_splitter->widget(1)->layout()->addWidget(m_editor);
     connect(m_editor, SIGNAL(mappingChanged()), this, SLOT(slotMappingChanged()));
     connect(m_editor, SIGNAL(audioInputDeviceChanged()), this, SLOT(slotAudioInputChanged()));
