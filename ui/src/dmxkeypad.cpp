@@ -12,6 +12,7 @@ DmxKeyPad::DmxKeyPad(QWidget *parent) :
     m_KPState_Init = new QState();
     m_KPState_Channel = new QState();
     m_KPState_ChannelTHRU = new QState();
+    m_KPState_StepSize = new QState();
     m_KPState_Value = new QState();
 
     m_KPState_Init->addTransition(this, SIGNAL(SM_InitDone()), m_KPState_Channel);
@@ -20,11 +21,13 @@ DmxKeyPad::DmxKeyPad(QWidget *parent) :
 
     m_KPState_Channel->addTransition(this, SIGNAL(SM_Reset()), m_KPState_Init);
     m_KPState_ChannelTHRU->addTransition(this, SIGNAL(SM_Reset()), m_KPState_Init);
+    m_KPState_StepSize->addTransition(this, SIGNAL(SM_Reset()), m_KPState_Init);
     m_KPState_Value->addTransition(this, SIGNAL(SM_Reset()), m_KPState_Init);
 
     m_KPStateMachine->addState(m_KPState_Init);
     m_KPStateMachine->addState(m_KPState_Channel);
     m_KPStateMachine->addState(m_KPState_ChannelTHRU);
+    m_KPStateMachine->addState(m_KPState_StepSize);
     m_KPStateMachine->addState(m_KPState_Value);
     m_KPStateMachine->setInitialState(m_KPState_Init);
     m_KPStateMachine->start();
@@ -143,13 +146,13 @@ void DmxKeyPad::calculateTHRURange()
     uint i;
     if (m_currentChannel < m_rangeStartChan)
     {
-        for (i = m_currentChannel; i <= m_rangeStartChan; i++)
+        for (i = m_currentChannel; i <= m_rangeStartChan; i = i + m_byStepSize)
         {
             m_KPSelectedChannels->append(i);
         }
     } else if (m_currentChannel > m_rangeStartChan)
     {
-        for (i = m_currentChannel; i >= m_rangeStartChan; i--)
+        for (i = m_currentChannel; i >= m_rangeStartChan; i = i - m_byStepSize)
         {
             m_KPSelectedChannels->append(i);
         }
@@ -169,7 +172,7 @@ void DmxKeyPad::KP_AT()
     if (m_KPStateMachine->configuration().contains(m_KPState_ChannelTHRU)) {
         calculateTHRURange();
     }
-    m_KPSelectedChannels->append(m_currentChannel); // Only for single channel! Modify later!
+    m_KPSelectedChannels->append(m_currentChannel);
     m_currentChannel = 0;
     m_commandDisplay->setText(QString("%1 AT ").arg(m_commandDisplay->text()));
     emit SM_ChannelsDone(); // Change state machine to "Values" state
@@ -227,6 +230,7 @@ void DmxKeyPad::SM_Init()
     m_currentChannel = 0;
     m_rangeStartChan = 0;
     m_currentValue = 0;
+    m_byStepSize = 1;
 
     emit SM_InitDone(); // Changes state machine to "Channel" state
 }

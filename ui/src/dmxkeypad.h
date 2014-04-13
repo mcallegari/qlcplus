@@ -23,11 +23,13 @@ private:
     uint m_rangeStartChan;
     uint m_currentChannel;
     uchar m_currentValue;
+    uchar m_byStepSize;
 
     QStateMachine* m_KPStateMachine;
     QState* m_KPState_Init; // Clear string, reset List of channels to modify (but do NOT reset universe)
     QState* m_KPState_Channel; // Wait for channel(range) specification
     QState* m_KPState_ChannelTHRU; // Wait for second part of channel "THRU" specification (range end)
+    QState* m_KPState_StepSize; // Wait for entry of step size (entered by "BY")
     QState* m_KPState_Value; // Wait for value(range) specification
 
     QGridLayout* lay;
