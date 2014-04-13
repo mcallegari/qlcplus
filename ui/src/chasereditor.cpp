@@ -66,12 +66,7 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc, bool liveM
     /* Disable editing of steps number */
     m_tree->setItemDelegateForColumn(COL_NUM, new NoEditDelegate(this));
     if (m_chaser->isSequence() == true)
-    {
         m_tree->header()->setSectionHidden(COL_NAME, true);
-        groupBox->hide();
-        m_pingPong->hide();
-        groupBox_2->hide();
-    }
 
     m_cutAction = new QAction(QIcon(":/editcut.png"), tr("Cut"), this);
     m_cutButton->setDefaultAction(m_cutAction);
@@ -252,7 +247,13 @@ ChaserEditor::~ChaserEditor()
     if (m_liveMode == false &&
         m_doc->functions().contains(m_chaser) == true &&
         m_chaser->stopped() == false)
-            m_chaser->stopAndWait();
+        m_chaser->stopAndWait();
+}
+
+void ChaserEditor::showOrderAndDirection(bool show)
+{
+    groupBox->setVisible(show);
+    groupBox_2->setVisible(show);
 }
 
 void ChaserEditor::stopTest()

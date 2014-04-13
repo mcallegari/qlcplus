@@ -80,9 +80,9 @@ protected:
     /* Currently selected scene */
     Scene* m_currentScene;
     /* Scene editor instance reference */
-    QWidget* m_scene_editor;
+    QWidget* m_sceneEditor;
     /* Chaser editor instance reference */
-    QWidget* m_current_editor;
+    QWidget* m_currentEditor;
 
     /* Index of the currently selected Show
      * (basically the m_showsCombo index) */

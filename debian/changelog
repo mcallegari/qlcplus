@@ -7,6 +7,7 @@ qlcplus (4.7.1) stable; urgency=low
   * Show Manager: it is no more necessary to create a Scene to add audio tracks
   * Show Manager: improved import of existing Functions
   * Show Manager: highlight the clicked step
+  * Chaser Editor: Sequences in Function Manager can have Run Order and Direction
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 19 April 2014 12:13:14 +0200
 

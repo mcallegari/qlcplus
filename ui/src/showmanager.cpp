@@ -56,8 +56,8 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
     , m_show(NULL)
     , m_currentTrack(NULL)
     , m_currentScene(NULL)
-    , m_scene_editor(NULL)
-    , m_current_editor(NULL)
+    , m_sceneEditor(NULL)
+    , m_currentEditor(NULL)
     , m_selectedShowIndex(0)
     , m_splitter(NULL)
     , m_vsplitter(NULL)
@@ -404,13 +404,13 @@ void ShowManager::slotShowsComboChanged(int idx)
 
 void ShowManager::showSceneEditor(Scene *scene)
 {
-    if (m_scene_editor != NULL)
+    if (m_sceneEditor != NULL)
     {
         emit functionManagerActive(false);
-        m_splitter->widget(1)->layout()->removeWidget(m_scene_editor);
+        m_splitter->widget(1)->layout()->removeWidget(m_sceneEditor);
         m_splitter->widget(1)->hide();
-        m_scene_editor->deleteLater();
-        m_scene_editor = NULL;
+        m_sceneEditor->deleteLater();
+        m_sceneEditor = NULL;
     }
 
     if (scene == NULL)
@@ -418,26 +418,26 @@ void ShowManager::showSceneEditor(Scene *scene)
 
     if (this->isVisible())
     {
-        m_scene_editor = new SceneEditor(m_splitter->widget(1), scene, m_doc, false);
-        if (m_scene_editor != NULL)
+        m_sceneEditor = new SceneEditor(m_splitter->widget(1), scene, m_doc, false);
+        if (m_sceneEditor != NULL)
         {
-            m_splitter->widget(1)->layout()->addWidget(m_scene_editor);
+            m_splitter->widget(1)->layout()->addWidget(m_sceneEditor);
             m_splitter->widget(1)->show();
             //m_scene_editor->show();
             connect(this, SIGNAL(functionManagerActive(bool)),
-                    m_scene_editor, SLOT(slotFunctionManagerActive(bool)));
+                    m_sceneEditor, SLOT(slotFunctionManagerActive(bool)));
         }
     }
 }
 
 void ShowManager::hideRightEditor()
 {
-    if (m_current_editor != NULL)
+    if (m_currentEditor != NULL)
     {
-        m_vsplitter->widget(1)->layout()->removeWidget(m_current_editor);
+        m_vsplitter->widget(1)->layout()->removeWidget(m_currentEditor);
         m_vsplitter->widget(1)->hide();
-        m_current_editor->deleteLater();
-        m_current_editor = NULL;
+        m_currentEditor->deleteLater();
+        m_currentEditor = NULL;
     }
 }
 
@@ -450,21 +450,23 @@ void ShowManager::showRightEditor(Chaser *chaser)
 
     if (this->isVisible())
     {
-        m_current_editor = new ChaserEditor(m_vsplitter->widget(1), chaser, m_doc);
-        if (m_current_editor != NULL)
+        m_currentEditor = new ChaserEditor(m_vsplitter->widget(1), chaser, m_doc);
+        if (m_currentEditor != NULL)
         {
-            m_vsplitter->widget(1)->layout()->addWidget(m_current_editor);
+            m_vsplitter->widget(1)->layout()->addWidget(m_currentEditor);
             /** Signal from chaser editor to scene editor. When a step is clicked apply values immediately */
-            connect(m_current_editor, SIGNAL(applyValues(QList<SceneValue>&)),
-                    m_scene_editor, SLOT(slotSetSceneValues(QList <SceneValue>&)));
+            connect(m_currentEditor, SIGNAL(applyValues(QList<SceneValue>&)),
+                    m_sceneEditor, SLOT(slotSetSceneValues(QList <SceneValue>&)));
             /** Signal from scene editor to chaser editor. When a fixture value is changed, update the selected chaser step */
-            connect(m_scene_editor, SIGNAL(fixtureValueChanged(SceneValue)),
-                    m_current_editor, SLOT(slotUpdateCurrentStep(SceneValue)));
-            connect(m_current_editor, SIGNAL(stepSelectionChanged(int)),
+            connect(m_sceneEditor, SIGNAL(fixtureValueChanged(SceneValue)),
+                    m_currentEditor, SLOT(slotUpdateCurrentStep(SceneValue)));
+            connect(m_currentEditor, SIGNAL(stepSelectionChanged(int)),
                     this, SLOT(slotStepSelectionChanged(int)));
 
             m_vsplitter->widget(1)->show();
-            m_current_editor->show();
+            m_currentEditor->show();
+            ChaserEditor *editor = qobject_cast<ChaserEditor*>(m_currentEditor);
+            editor->showOrderAndDirection(false);
         }
     }
 }
@@ -478,12 +480,12 @@ void ShowManager::showRightEditor(Audio *audio)
 
     if (this->isVisible())
     {
-        m_current_editor = new AudioEditor(m_vsplitter->widget(1), audio, m_doc);
-        if (m_current_editor != NULL)
+        m_currentEditor = new AudioEditor(m_vsplitter->widget(1), audio, m_doc);
+        if (m_currentEditor != NULL)
         {
-            m_vsplitter->widget(1)->layout()->addWidget(m_current_editor);
+            m_vsplitter->widget(1)->layout()->addWidget(m_currentEditor);
             m_vsplitter->widget(1)->show();
-            m_current_editor->show();
+            m_currentEditor->show();
         }
     }
 }
@@ -498,12 +500,12 @@ void ShowManager::showRightEditor(Video *video)
 
     if (this->isVisible())
     {
-        m_current_editor = new VideoEditor(m_vsplitter->widget(1), video, m_doc);
-        if (m_current_editor != NULL)
+        m_currentEditor = new VideoEditor(m_vsplitter->widget(1), video, m_doc);
+        if (m_currentEditor != NULL)
         {
-            m_vsplitter->widget(1)->layout()->addWidget(m_current_editor);
+            m_vsplitter->widget(1)->layout()->addWidget(m_currentEditor);
             m_vsplitter->widget(1)->show();
-            m_current_editor->show();
+            m_currentEditor->show();
         }
     }
 }
@@ -624,6 +626,8 @@ void ShowManager::slotAddTrack()
                         newSequence->setName(chaser->name() + tr(" (Copy)"));
                         // Invalidate start time so the sequence will be created at the cursor position
                         newSequence->setStartTime(UINT_MAX);
+                        newSequence->setDirection(Function::Forward);
+                        newSequence->setRunOrder(Function::SingleShot);
                         track->addFunctionID(newSequence->id());
                         m_showview->addSequence(newSequence);
                         return;
@@ -689,6 +693,7 @@ void ShowManager::slotAddTrack()
                 chaser->enableSequenceMode(m_currentScene->id());
                 if (m_doc->addFunction(f) == true)
                 {
+                    chaser->setDirection(Function::Forward);
                     chaser->setRunOrder(Function::SingleShot);
                     chaser->setDurationMode(Chaser::PerStep);
                     m_currentScene->setChildrenFlag(true);
@@ -712,6 +717,8 @@ void ShowManager::slotAddTrack()
                 newSequence->setName(chaser->name() + tr(" (Copy)"));
                 // Invalidate start time so the sequence will be created at the cursor position
                 newSequence->setStartTime(UINT_MAX);
+                newSequence->setDirection(Function::Forward);
+                newSequence->setRunOrder(Function::SingleShot);
                 m_currentTrack->addFunctionID(newSequence->id());
                 m_showview->addSequence(newSequence);
             }
@@ -1168,9 +1175,9 @@ void ShowManager::slotSequenceMoved(SequenceItem *item, quint32 time, bool moved
     m_showview->activateTrack(m_currentTrack);
 
     showRightEditor(chaser);
-    if (m_current_editor != NULL)
+    if (m_currentEditor != NULL)
     {
-        ChaserEditor *editor = qobject_cast<ChaserEditor*>(m_current_editor);
+        ChaserEditor *editor = qobject_cast<ChaserEditor*>(m_currentEditor);
         editor->selectStepAtTime(time);
     }
     m_copyAction->setEnabled(true);
@@ -1377,20 +1384,20 @@ void ShowManager::slotDocClearing()
     if (m_showview != NULL)
         m_showview->resetView();
 
-    if (m_current_editor != NULL)
+    if (m_currentEditor != NULL)
     {
-        m_vsplitter->widget(1)->layout()->removeWidget(m_current_editor);
-        m_current_editor->deleteLater();
-        m_current_editor = NULL;
+        m_vsplitter->widget(1)->layout()->removeWidget(m_currentEditor);
+        m_currentEditor->deleteLater();
+        m_currentEditor = NULL;
     }
     m_vsplitter->widget(1)->hide();
 
-    if (m_scene_editor != NULL)
+    if (m_sceneEditor != NULL)
     {
         emit functionManagerActive(false);
-        m_splitter->widget(1)->layout()->removeWidget(m_scene_editor);
-        m_scene_editor->deleteLater();
-        m_scene_editor = NULL;
+        m_splitter->widget(1)->layout()->removeWidget(m_sceneEditor);
+        m_sceneEditor->deleteLater();
+        m_sceneEditor = NULL;
     }
     m_splitter->widget(1)->hide();
 
@@ -1605,19 +1612,19 @@ void ShowManager::hideEvent(QHideEvent* ev)
     emit functionManagerActive(false);
     QWidget::hideEvent(ev);
     
-    if (m_current_editor != NULL)
+    if (m_currentEditor != NULL)
     {
-        m_vsplitter->widget(1)->layout()->removeWidget(m_current_editor);
+        m_vsplitter->widget(1)->layout()->removeWidget(m_currentEditor);
         m_vsplitter->widget(1)->hide();
-        m_current_editor->deleteLater();
-        m_current_editor = NULL;
+        m_currentEditor->deleteLater();
+        m_currentEditor = NULL;
     }
 
-    if (m_scene_editor != NULL)
+    if (m_sceneEditor != NULL)
     {
-        m_splitter->widget(1)->layout()->removeWidget(m_scene_editor);
+        m_splitter->widget(1)->layout()->removeWidget(m_sceneEditor);
         m_splitter->widget(1)->hide();
-        m_scene_editor->deleteLater();
-        m_scene_editor = NULL;
+        m_sceneEditor->deleteLater();
+        m_sceneEditor = NULL;
     }
 }

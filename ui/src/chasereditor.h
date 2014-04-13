@@ -49,11 +49,14 @@ public:
     ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc, bool liveMode = false);
     ~ChaserEditor();
 
+    /** Set the visible state of the Order and
+     *  Direction group boxes */
+    void showOrderAndDirection(bool show);
+
     void stopTest();
 
     /** Select the step at the given time
-     *  and scroll the view to it
-     */
+     *  and scroll the view to it */
     void selectStepAtTime(quint32 time);
 
 signals:
