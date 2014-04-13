@@ -451,6 +451,8 @@ void ShowManager::showRightEditor(Chaser *chaser)
     if (this->isVisible())
     {
         m_currentEditor = new ChaserEditor(m_vsplitter->widget(1), chaser, m_doc);
+        ChaserEditor *editor = qobject_cast<ChaserEditor*>(m_currentEditor);
+        editor->showOrderAndDirection(false);
         if (m_currentEditor != NULL)
         {
             m_vsplitter->widget(1)->layout()->addWidget(m_currentEditor);
@@ -465,8 +467,6 @@ void ShowManager::showRightEditor(Chaser *chaser)
 
             m_vsplitter->widget(1)->show();
             m_currentEditor->show();
-            ChaserEditor *editor = qobject_cast<ChaserEditor*>(m_currentEditor);
-            editor->showOrderAndDirection(false);
         }
     }
 }
