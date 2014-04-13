@@ -5,9 +5,12 @@
 DmxKeyPad::DmxKeyPad(QWidget *parent) :
     QWidget(parent)
 {
+    qDebug() << Q_FUNC_INFO;
+
     setupUi();
 
     m_KPSelectedChannels = new QList<quint32>();
+
     m_KPStateMachine = new QStateMachine(this);
     m_KPState_Init = new QState();
     m_KPState_Channel = new QState();
@@ -15,15 +18,23 @@ DmxKeyPad::DmxKeyPad(QWidget *parent) :
     m_KPState_StepSize = new QState();
     m_KPState_Value = new QState();
 
-    m_KPState_Init->addTransition(this, SIGNAL(SM_InitDone()), m_KPState_Channel);
-    m_KPState_Channel->addTransition(this, SIGNAL(SM_ChannelsDone()), m_KPState_Value);
-    m_KPState_Channel->addTransition(this, SIGNAL(SM_ChannelTHRU()), m_KPState_ChannelTHRU);
+    // Valid/possible transitions from one state to another. Triggered by SIGNALs
+    m_KPState_Init->addTransition(this, SIGNAL(SM_InitDone()), m_KPState_Channel); // DONE
+    m_KPState_Channel->addTransition(this, SIGNAL(SM_ChannelsDone()), m_KPState_Value); // DONE
 
+    m_KPState_Channel->addTransition(this, SIGNAL(SM_ChannelTHRU()), m_KPState_ChannelTHRU);
+    m_KPState_ChannelTHRU->addTransition(this, SIGNAL(SM_ByStart()), m_KPState_StepSize);
+
+    // Transitions from every possible state to Init via SM_Reset()
     m_KPState_Channel->addTransition(this, SIGNAL(SM_Reset()), m_KPState_Init);
     m_KPState_ChannelTHRU->addTransition(this, SIGNAL(SM_Reset()), m_KPState_Init);
     m_KPState_StepSize->addTransition(this, SIGNAL(SM_Reset()), m_KPState_Init);
     m_KPState_Value->addTransition(this, SIGNAL(SM_Reset()), m_KPState_Init);
 
+    // Connect the entered() and exited() SIGNALs to some SLOTs that do the actual work/calculations
+    connect(m_KPState_Init, SIGNAL(entered()), this, SLOT(SM_Init()));
+
+    // Add all states to the StateMachine and start it
     m_KPStateMachine->addState(m_KPState_Init);
     m_KPStateMachine->addState(m_KPState_Channel);
     m_KPStateMachine->addState(m_KPState_ChannelTHRU);
@@ -31,23 +42,25 @@ DmxKeyPad::DmxKeyPad(QWidget *parent) :
     m_KPStateMachine->addState(m_KPState_Value);
     m_KPStateMachine->setInitialState(m_KPState_Init);
     m_KPStateMachine->start();
-
-    connect(m_KPState_Init, SIGNAL(entered()), this, SLOT(SM_Init()));
 }
 
 void DmxKeyPad::setupUi()
 {
+    qDebug() << Q_FUNC_INFO;
+
+    // Layout
     lay = new QGridLayout(this);
     lay->setContentsMargins(1, 1, 1, 1);
     this->setFixedWidth(3 * DMXKEYPAD_BUTTON_SIZE + 15);
-
     this->setLayout(lay);
 
+    // LineEdit to display current command status
     m_commandDisplay = new QLineEdit(this);
     m_commandDisplay->setEnabled(false);
     m_commandDisplay->setReadOnly(true);
     lay->addWidget(m_commandDisplay, 0, 0, 1, 3);
 
+    // Buttons in the order they are layed out
     m_7 = new QPushButton(this);
     m_7->setFixedSize(DMXKEYPAD_BUTTON_SIZE, DMXKEYPAD_BUTTON_SIZE);
     m_7->setText("7");
@@ -121,62 +134,54 @@ void DmxKeyPad::setupUi()
     m_ENTER->setText("ENTER");
     lay->addWidget(m_ENTER, 7, 2);
 
-    connect(m_0, SIGNAL(clicked()), this, SLOT(addDigitToNumber()));
-    connect(m_1, SIGNAL(clicked()), this, SLOT(addDigitToNumber()));
-    connect(m_2, SIGNAL(clicked()), this, SLOT(addDigitToNumber()));
-    connect(m_3, SIGNAL(clicked()), this, SLOT(addDigitToNumber()));
-    connect(m_4, SIGNAL(clicked()), this, SLOT(addDigitToNumber()));
-    connect(m_5, SIGNAL(clicked()), this, SLOT(addDigitToNumber()));
-    connect(m_6, SIGNAL(clicked()), this, SLOT(addDigitToNumber()));
-    connect(m_7, SIGNAL(clicked()), this, SLOT(addDigitToNumber()));
-    connect(m_8, SIGNAL(clicked()), this, SLOT(addDigitToNumber()));
-    connect(m_9, SIGNAL(clicked()), this, SLOT(addDigitToNumber()));
-    connect(m_CLR, SIGNAL(clicked()), this, SLOT(KP_CLR()));
-    connect(m_AT, SIGNAL(clicked()), this, SLOT(KP_AT()));
+    // Connections handling button clicks
+    connect(m_0,     SIGNAL(clicked()), this, SLOT(addDigitToNumber()));
+    connect(m_1,     SIGNAL(clicked()), this, SLOT(addDigitToNumber()));
+    connect(m_2,     SIGNAL(clicked()), this, SLOT(addDigitToNumber()));
+    connect(m_3,     SIGNAL(clicked()), this, SLOT(addDigitToNumber()));
+    connect(m_4,     SIGNAL(clicked()), this, SLOT(addDigitToNumber()));
+    connect(m_5,     SIGNAL(clicked()), this, SLOT(addDigitToNumber()));
+    connect(m_6,     SIGNAL(clicked()), this, SLOT(addDigitToNumber()));
+    connect(m_7,     SIGNAL(clicked()), this, SLOT(addDigitToNumber()));
+    connect(m_8,     SIGNAL(clicked()), this, SLOT(addDigitToNumber()));
+    connect(m_9,     SIGNAL(clicked()), this, SLOT(addDigitToNumber()));
+    connect(m_CLR,   SIGNAL(clicked()), this, SLOT(KP_CLR()));
+    connect(m_AT,    SIGNAL(clicked()), this, SLOT(KP_AT()));
     connect(m_MINUS, SIGNAL(clicked()), this, SLOT(KP_MINUS()));
-    connect(m_THRU, SIGNAL(clicked()), this, SLOT(KP_THRU()));
-    connect(m_PLUS, SIGNAL(clicked()), this, SLOT(KP_PLUS()));
-    connect(m_BY, SIGNAL(clicked()), this, SLOT(KP_BY()));
-    connect(m_FULL, SIGNAL(clicked()), this, SLOT(KP_FULL()));
+    connect(m_THRU,  SIGNAL(clicked()), this, SLOT(KP_THRU()));
+    connect(m_PLUS,  SIGNAL(clicked()), this, SLOT(KP_PLUS()));
+    connect(m_BY,    SIGNAL(clicked()), this, SLOT(KP_BY()));
+    connect(m_FULL,  SIGNAL(clicked()), this, SLOT(KP_FULL()));
     connect(m_ENTER, SIGNAL(clicked()), this, SLOT(KP_ENTER()));
 }
 
-void DmxKeyPad::calculateTHRURange()
-{
-    uint i;
-    if (m_currentChannel < m_rangeStartChan)
-    {
-        for (i = m_currentChannel; i <= m_rangeStartChan; i = i + m_byStepSize)
-        {
-            m_KPSelectedChannels->append(i);
-        }
-    } else if (m_currentChannel > m_rangeStartChan)
-    {
-        for (i = m_currentChannel; i >= m_rangeStartChan; i = i - m_byStepSize)
-        {
-            m_KPSelectedChannels->append(i);
-        }
-    } else
-    {
-        m_KPSelectedChannels->append(m_currentChannel);
-    }
-}
+/*********************************************************************
+ * Button handling slots
+ *********************************************************************/
 
 void DmxKeyPad::KP_CLR()
 {
+    qDebug() << Q_FUNC_INFO;
+
     emit SM_Reset();
 }
 
 void DmxKeyPad::KP_AT()
 {
-    if (m_KPStateMachine->configuration().contains(m_KPState_ChannelTHRU)) {
+    qDebug() << Q_FUNC_INFO;
+
+    // MOVE TO Channel, ChannelTHRU and BY exited() methods
+    /*
+    if (m_KPStateMachine->configuration().contains(m_KPState_ChannelTHRU) || m_KPStateMachine->configuration().contains(m_KPState_StepSize)) {
         calculateTHRURange();
     }
-    m_KPSelectedChannels->append(m_currentChannel);
+    m_KPSelectedChannels->append(m_currentChannel); // Wrong anyway in case calculateTHRURange() was used
     m_currentChannel = 0;
-    m_commandDisplay->setText(QString("%1 AT ").arg(m_commandDisplay->text()));
+    */
+    appendToCommand(" AT ");
     emit SM_ChannelsDone(); // Change state machine to "Values" state
 }
+
 void DmxKeyPad::KP_MINUS()
 {
 
@@ -184,35 +189,46 @@ void DmxKeyPad::KP_MINUS()
 
 void DmxKeyPad::KP_THRU()
 {
+    qDebug() << Q_FUNC_INFO;
+
     // TODO: "FAN" function => Check current state if channel or value
     m_rangeStartChan = m_currentChannel;
     m_currentChannel = 0;
-    m_commandDisplay->setText(QString("%1 THRU ").arg(m_commandDisplay->text()));
+    appendToCommand(" THRU ");
     emit SM_ChannelTHRU();
 }
 
 void DmxKeyPad::KP_PLUS()
 {
+    qDebug() << Q_FUNC_INFO;
 
 }
 
 void DmxKeyPad::KP_BY()
 {
+    qDebug() << Q_FUNC_INFO;
 
+    appendToCommand(" BY ");
+    //emit SM_ByStart();
 }
 
 void DmxKeyPad::KP_FULL()
 {
+    qDebug() << Q_FUNC_INFO;
+
     KP_AT(); // FULL always refers to a value, not a channel. So this makes sure we end channel selection if FULL is requested
     if (m_KPStateMachine->configuration().contains(m_KPState_Value) || m_KPStateMachine->configuration().contains(m_KPState_ChannelTHRU)) {
         m_currentValue = 255;
+        appendToCommand("FULL");
         KP_ENTER(); // Wrong in case we want to support "FULL THRU ..."
     }
 }
 
 void DmxKeyPad::KP_ENTER()
 {
-    quint16 chan;
+    qDebug() << Q_FUNC_INFO;
+
+    uint chan;
     foreach(chan, *m_KPSelectedChannels)
     {
         if (chan < 1) continue;
@@ -222,8 +238,44 @@ void DmxKeyPad::KP_ENTER()
     emit SM_Reset();
 }
 
+void DmxKeyPad::addDigitToNumber()
+{
+    qDebug() << Q_FUNC_INFO;
+
+    if (sender() == 0) return;
+    addDigitToNumber(((QPushButton*)sender())->text().toInt());
+}
+
+
+
+
+void DmxKeyPad::calculateTHRURange()
+{
+    qDebug() << Q_FUNC_INFO;
+
+    uint i;
+    if (m_currentChannel < m_rangeStartChan) // range defined in reverse order (higher channel to lower channel)
+    {
+        for (i = m_rangeStartChan; i >= m_currentChannel; i = i - m_byStepSize)
+        {
+            m_KPSelectedChannels->append(i);
+        }
+    } else if (m_currentChannel > m_rangeStartChan) // range defined in regular order (lower channel to higher channel)
+    {
+        for (i = m_rangeStartChan; i <= m_currentChannel; i = i + m_byStepSize)
+        {
+            m_KPSelectedChannels->append(i);
+        }
+    } else // range start = range end => only one channel selected
+    {
+        m_KPSelectedChannels->append(m_currentChannel);
+    }
+}
+
 void DmxKeyPad::SM_Init()
 {
+    qDebug() << Q_FUNC_INFO;
+
     m_KPSelectedChannels->clear();
     m_commandDisplay->setText("");
 
@@ -235,25 +287,37 @@ void DmxKeyPad::SM_Init()
     emit SM_InitDone(); // Changes state machine to "Channel" state
 }
 
-void DmxKeyPad::addDigitToNumber()
+void DmxKeyPad::SM_ChannelTHRUExited()
 {
-    if (sender() == 0) return;
-    addDigitToNumber(((QPushButton*)sender())->text().toInt());
+
 }
 
 void DmxKeyPad::addDigitToNumber(quint8 digit)
 {
-    if (m_KPStateMachine->configuration().contains(m_KPState_Channel) || m_KPStateMachine->configuration().contains(m_KPState_ChannelTHRU))
+    qDebug() << Q_FUNC_INFO;
+
+    if (m_KPStateMachine->configuration().contains(m_KPState_StepSize))
+    {
+        if ((m_byStepSize * 10 + digit) > 512) return; // Invalid channel
+        m_byStepSize = m_byStepSize * 10 + digit;
+        appendToCommand(QString("%1").arg(digit));
+        if (m_currentChannel >= 52) KP_AT();
+    } else if (m_KPStateMachine->configuration().contains(m_KPState_Channel) || m_KPStateMachine->configuration().contains(m_KPState_ChannelTHRU))
     {
         if ((m_currentChannel * 10 + digit) > 512) return; // Invalid channel
         m_currentChannel = m_currentChannel * 10 + digit;
-        m_commandDisplay->setText(QString("%1%2").arg(m_commandDisplay->text()).arg(digit));
+        appendToCommand(QString("%1").arg(digit));
         if (m_currentChannel >= 52) KP_AT();
     } else if (m_KPStateMachine->configuration().contains(m_KPState_Value)) {
         if ((m_currentValue * 10 + digit) > 255) return; // Invalid value
         m_currentValue = m_currentValue * 10 + digit;
-        m_commandDisplay->setText(QString("%1%2").arg(m_commandDisplay->text()).arg(digit));
+        appendToCommand(QString("%1").arg(digit));
         if (m_currentValue >= 26) KP_ENTER();
         if (m_currentValue == 0) KP_ENTER(); // special case: 0 entered and we expect no leading zero => value is 0!
     }
+}
+
+void DmxKeyPad::appendToCommand(QString text)
+{
+    m_commandDisplay->setText(QString("%1%2").arg(m_commandDisplay->text()).arg(text));
 }

@@ -3,7 +3,6 @@
 
 #include <QWidget>
 #include <QStateMachine>
-#include <QState>
 #include <QList>
 #include <QPushButton>
 #include <QLineEdit>
@@ -69,6 +68,7 @@ private slots:
     void KP_ENTER();
 
     void SM_Init();
+    void SM_ChannelTHRUExited();
 
     void addDigitToNumber();
 
@@ -77,11 +77,13 @@ signals:
     void SM_InitDone();
     void SM_ChannelsDone();
     void SM_ChannelTHRU();
+    void SM_ByStart();
 
     void newChanValue(uint channel, uchar value);
 
 private:
     void addDigitToNumber(quint8 digit);
+    void appendToCommand(QString text);
 
 signals:
 
