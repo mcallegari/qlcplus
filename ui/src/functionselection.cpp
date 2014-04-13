@@ -55,6 +55,8 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
     , m_doc(doc)
     , m_none(false)
     , m_noneItem(NULL)
+    , m_newTrack(false)
+    , m_newTrackItem(NULL)
     , m_multiSelection(true)
     , m_runningOnlyFlag(false)
     , m_filter(Function::Scene | Function::Chaser | Function::Collection |
@@ -198,6 +200,13 @@ void FunctionSelection::showNone(bool show)
     refillTree();
 }
 
+void FunctionSelection::showNewTrack(bool show)
+{
+    m_newTrack = show;
+
+    refillTree();
+}
+
 FunctionSelection::~FunctionSelection()
 {
     if(!m_constFilter)
@@ -261,6 +270,11 @@ QList <quint32> FunctionSelection::disabledFunctions() const
     return m_disabledFunctions;
 }
 
+void FunctionSelection::showSequences(bool show)
+{
+    m_showSequences = show;
+}
+
 /*****************************************************************************
  * Selection
  *****************************************************************************/
@@ -287,17 +301,39 @@ void FunctionSelection::refillTree()
         m_noneItem->setData(KColumnName, Qt::UserRole, Function::invalidId());
     }
 
+    if (m_newTrack == true)
+    {
+        m_newTrackItem = new QTreeWidgetItem(m_funcTree);
+        m_newTrackItem->setText(KColumnName, tr("<Create a new track>"));
+        m_newTrackItem->setIcon(KColumnName, QIcon(":/edit_add.png"));
+        m_newTrackItem->setData(KColumnName, Qt::UserRole, Function::invalidId());
+    }
+
     /* Fill the tree */
     foreach (Function* function, m_doc->functions())
     {
+        if (m_runningOnlyFlag == true && function->isRunning() == false)
+            continue;
+
         if (m_filter & function->type())
         {
-            if (m_runningOnlyFlag == true && function->isRunning() == false)
-                continue;
-
-            QTreeWidgetItem* item = m_funcTree->functionAdded(function->id());
+            QTreeWidgetItem* item = m_funcTree->addFunction(function->id());
             if (disabledFunctions().contains(function->id()))
-                item->setFlags(0); // Disables the item
+                item->setFlags(0); // Disable the item
+        }
+
+        if (function->type() == Function::Chaser && m_showSequences == true)
+        {
+            Chaser *chs = qobject_cast<Chaser*>(function);
+            if (chs->isSequence() == true)
+            {
+                QTreeWidgetItem* item = m_funcTree->addFunction(function->id());
+                if (disabledFunctions().contains(function->id()))
+                    item->setFlags(0); // Disables the item
+                else
+                    if (item->parent() != NULL)
+                        item->parent()->setFlags(item->parent()->flags() | Qt::ItemIsEnabled);
+            }
         }
     }
     m_funcTree->resizeColumnToContents(KColumnName);
@@ -317,7 +353,7 @@ void FunctionSelection::slotItemSelectionChanged()
     {
         QTreeWidgetItem *item = it.next();
         quint32 id = item->data(KColumnName, Qt::UserRole).toUInt();
-        if ((id != Function::invalidId() || item == m_noneItem)
+        if ((id != Function::invalidId() || item == m_noneItem || item == m_newTrackItem)
              && m_selection.contains(id) == false)
                     m_selection.append(id);
     }

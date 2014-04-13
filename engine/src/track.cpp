@@ -83,6 +83,11 @@ QString Track::name() const
 /*********************************************************************
  * Scene
  *********************************************************************/
+void Track::setSceneID(quint32 id)
+{
+    m_sceneID = id;
+}
+
 quint32 Track::getSceneID()
 {
     return m_sceneID;
@@ -192,14 +197,17 @@ bool Track::loadXML(const QDomElement& root)
     if (root.hasAttribute(KXMLQLCTrackName) == true)
         m_name = root.attribute(KXMLQLCTrackName);
 
-    ok = false;
-    id = root.attribute(KXMLQLCTrackSceneID).toUInt(&ok);
-    if (ok == false)
+    if (root.hasAttribute(KXMLQLCTrackSceneID))
     {
-        qWarning() << "Invalid Scene ID:" << root.attribute(KXMLQLCTrackSceneID);
-        return false;
+        ok = false;
+        id = root.attribute(KXMLQLCTrackSceneID).toUInt(&ok);
+        if (ok == false)
+        {
+            qWarning() << "Invalid Scene ID:" << root.attribute(KXMLQLCTrackSceneID);
+            return false;
+        }
+        m_sceneID = id;
     }
-    m_sceneID = id;
 
     ok = false;
     bool mute = root.attribute(KXMLQLCTrackIsMute).toInt(&ok);

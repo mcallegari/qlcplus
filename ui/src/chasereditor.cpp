@@ -261,6 +261,29 @@ void ChaserEditor::stopTest()
         m_chaser->stopAndWait();
 }
 
+void ChaserEditor::selectStepAtTime(quint32 time)
+{
+    quint32 stepTime = m_chaser->getStartTime();
+    for (int i = 0; i < m_chaser->stepsCount(); i++)
+    {
+        quint32 timeIncr = 0;
+        if (m_chaser->durationMode() == Chaser::Common)
+            timeIncr = m_chaser->duration();
+        else // Chaser::PerStep
+        {
+            timeIncr += m_chaser->stepAt(i).duration;
+        }
+        if (time < stepTime + timeIncr)
+        {
+            QTreeWidgetItem *item = m_tree->topLevelItem(i);
+            m_tree->setCurrentItem(item);
+            m_tree->scrollToItem(item, QAbstractItemView::PositionAtCenter);
+            return;
+        }
+        stepTime += timeIncr;
+    }
+}
+
 void ChaserEditor::slotFunctionManagerActive(bool active)
 {
     if (active == true)

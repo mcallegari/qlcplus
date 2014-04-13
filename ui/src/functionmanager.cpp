@@ -210,7 +210,7 @@ void FunctionManager::slotFunctionChanged(quint32 id)
 
 void FunctionManager::slotFunctionAdded(quint32 id)
 {
-    m_tree->functionAdded(id);
+    m_tree->addFunction(id);
 }
 
 void FunctionManager::showEvent(QShowEvent* ev)

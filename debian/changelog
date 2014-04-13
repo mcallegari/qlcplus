@@ -2,8 +2,12 @@ qlcplus (4.7.1) stable; urgency=low
 
   * Monitor: fixed crash when loading a project with the monitor open
   * Plugins: Fixed ArtNet input universe indexing
-  * Webaccess: fixed Cue list play/stop sequence working only once 
-  
+  * Webaccess: fixed Cue list play/stop sequence working only once
+  * Show Manager: fixed common speed mode for Sequence steps
+  * Show Manager: it is no more necessary to create a Scene to add audio tracks
+  * Show Manager: improved import of existing Functions
+  * Show Manager: highlight the clicked step
+
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 19 April 2014 12:13:14 +0200
 
 qlcplus (4.7.0) stable; urgency=low

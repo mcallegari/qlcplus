@@ -306,6 +306,10 @@ TrackItem::TrackItem(Track *track, int number)
     m_moveDown = new QAction(QIcon(":/down.png"), tr("Move down"), this);
     connect(m_moveDown, SIGNAL(triggered()),
             this, SLOT(slotMoveDownClicked()));
+
+    m_changeName = new QAction(QIcon(":/editclear.png"), tr("Change name"), this);
+    connect(m_changeName, SIGNAL(triggered()),
+            this, SLOT(slotChangeNameClicked()));
 }
 
 Track *TrackItem::getTrack()
@@ -375,7 +379,13 @@ void TrackItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
     if (m_number > 0)
         menu.addAction(m_moveUp);
     menu.addAction(m_moveDown);
+    menu.addAction(m_changeName);
     menu.exec(QCursor::pos());
+}
+
+void TrackItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *)
+{
+    emit itemDoubleClicked(this);
 }
 
 QRectF TrackItem::boundingRect() const
@@ -448,6 +458,11 @@ void TrackItem::slotMoveDownClicked()
     emit itemMoveUpDown(m_track, 1);
 }
 
+void TrackItem::slotChangeNameClicked()
+{
+    emit itemDoubleClicked(this);
+}
+
 
 /*********************************************************************
  *
@@ -480,12 +495,12 @@ SequenceItem::SequenceItem(Chaser *seq)
     m_font = qApp->font();
     m_font.setBold(true);
     m_font.setPixelSize(12);
-    connect(m_chaser, SIGNAL(changed(quint32)), this, SLOT(slotSequenceChanged(quint32)));
+    connect(m_chaser, SIGNAL(changed(quint32)),
+            this, SLOT(slotSequenceChanged(quint32)));
 
     m_alignToCursor = new QAction(tr("Align to cursor"), this);
     connect(m_alignToCursor, SIGNAL(triggered()),
             this, SLOT(slotAlignToCursorClicked()));
-
 }
 
 void SequenceItem::calculateWidth()
@@ -494,7 +509,12 @@ void SequenceItem::calculateWidth()
     unsigned long seq_duration = 0;
 
     foreach (ChaserStep step, m_chaser->steps())
-        seq_duration += step.duration;
+    {
+        if (m_chaser->durationMode() == Chaser::Common)
+            seq_duration += m_chaser->duration();
+        else
+            seq_duration += step.duration;
+    }
 
     if (seq_duration != 0)
         newWidth = ((50/(float)m_timeScale) * (float)seq_duration) / 1000;
@@ -544,10 +564,20 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
 
     foreach (ChaserStep step, m_chaser->steps())
     {
+        uint stepFadeIn = step.fadeIn;
+        uint stepFadeOut = step.fadeOut;
+        uint stepDuration = step.duration;
+        if (m_chaser->fadeInMode() == Chaser::Common)
+            stepFadeIn = m_chaser->fadeInSpeed();
+        if (m_chaser->fadeOutMode() == Chaser::Common)
+            stepFadeOut = m_chaser->fadeOutSpeed();
+        if (m_chaser->durationMode() == Chaser::Common)
+            stepDuration = m_chaser->duration();
+
         // draw fade in line
-        if (step.fadeIn > 0)
+        if (stepFadeIn > 0)
         {
-            int fadeXpos = xpos + ((timeScale * (float)step.fadeIn) / 1000);
+            int fadeXpos = xpos + ((timeScale * (float)stepFadeIn) / 1000);
             // doesn't even draw it if too small
             if (fadeXpos - xpos > 5)
             {
@@ -555,7 +585,7 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
                 painter->drawLine(xpos, TRACK_HEIGHT - 4, fadeXpos, 1);
             }
         }
-        float stepWidth = ((timeScale * (float)step.duration) / 1000);
+        float stepWidth = ((timeScale * (float)stepDuration) / 1000);
         // draw selected step
         if (stepIdx == m_selectedStep)
         {
@@ -570,9 +600,9 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
         painter->drawLine(xpos, 1, xpos, TRACK_HEIGHT - 5);
 
         // draw fade out line
-        if (step.fadeOut > 0)
+        if (stepFadeOut > 0)
         {
-            int fadeXpos = xpos + ((timeScale * (float)step.fadeOut) / 1000);
+            int fadeXpos = xpos + ((timeScale * (float)stepFadeOut) / 1000);
             // doesn't even draw it if too small
             if (fadeXpos - xpos > 5)
             {

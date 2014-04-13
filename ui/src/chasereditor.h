@@ -51,6 +51,11 @@ public:
 
     void stopTest();
 
+    /** Select the step at the given time
+     *  and scroll the view to it
+     */
+    void selectStepAtTime(quint32 time);
+
 signals:
     void applyValues(QList<SceneValue>&);
     void stepSelectionChanged(int index);
@@ -90,7 +95,6 @@ private slots:
     void slotPasteClicked();
 
 private:
-    //QList <ChaserStep> m_clipboard;
     QAction* m_cutAction;
     QAction* m_copyAction;
     QAction* m_pasteAction;
