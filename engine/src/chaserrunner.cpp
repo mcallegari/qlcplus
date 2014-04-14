@@ -385,6 +385,10 @@ int ChaserRunner::getNextStepIndex()
 {
     int currentStepIndex = m_lastRunStepIdx;
 
+    if (currentStepIndex == -1 &&
+        m_chaser->direction() == Function::Backward)
+            currentStepIndex = m_chaser->steps().size();
+
     // Next step
     if (m_direction == Function::Forward)
     {
