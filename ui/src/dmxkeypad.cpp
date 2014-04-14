@@ -25,7 +25,9 @@ DmxKeyPad::DmxKeyPad(QWidget *parent) :
     m_KPState_Channel->addTransition(this, SIGNAL(SM_ChannelTHRU()), m_KPState_ChannelTHRU);
     m_KPState_ChannelTHRU->addTransition(this, SIGNAL(SM_ChannelsDone()), m_KPState_Value);
 
-    //m_KPState_ChannelTHRU->addTransition(this, SIGNAL(SM_ByStart()), m_KPState_StepSize);
+    m_KPState_ChannelTHRU->addTransition(this, SIGNAL(SM_ByStart()), m_KPState_StepSize);
+
+    m_KPState_StepSize->addTransition(this, SIGNAL(SM_ChannelsDone()), m_KPState_Value);
 
     // Transitions from every possible state to Init via SM_Reset()
     m_KPState_Channel->addTransition(this, SIGNAL(SM_Reset()), m_KPState_Init);
@@ -37,6 +39,7 @@ DmxKeyPad::DmxKeyPad(QWidget *parent) :
     connect(m_KPState_Init, SIGNAL(entered()), this, SLOT(SM_Init()));
     connect(m_KPState_Channel, SIGNAL(exited()), this, SLOT(SM_ChannelExited()));
     connect(m_KPState_ChannelTHRU, SIGNAL(exited()), this, SLOT(SM_ChannelTHRUExited()));
+    connect(m_KPState_StepSize, SIGNAL(exited()), this, SLOT(SM_StepSizeExited()));
 
     // Add all states to the StateMachine and start it
     m_KPStateMachine->addState(m_KPState_Init);
@@ -198,14 +201,21 @@ void DmxKeyPad::KP_PLUS()
 {
     qDebug() << Q_FUNC_INFO;
 
+    /*
+    if (m_KPStateMachine->configuration().contains(m_KPState_Channel) || m_KPStateMachine->configuration().contains(m_KPState_ChannelTHRU))
+    {
+        m_addToRange = true;
+        appendToCommand(" + ");
+        emit SM_AddRange();
+    }*/
 }
 
 void DmxKeyPad::KP_BY()
 {
     qDebug() << Q_FUNC_INFO;
 
-    //appendToCommand(" BY ");
-    //emit SM_ByStart();
+    appendToCommand(" BY ");
+    emit SM_ByStart();
 }
 
 void DmxKeyPad::KP_FULL()
@@ -254,14 +264,24 @@ void DmxKeyPad::addDigitToNumber(quint8 digit)
     if (m_KPStateMachine->configuration().contains(m_KPState_StepSize))
     {
         if ((m_byStepSize * 10 + digit) > 512) return; // Invalid channel
-        m_byStepSize = m_byStepSize * 10 + digit;
+        if (m_byStepSize == 1)
+        {
+            m_byStepSize = digit;
+        }
+        else
+        {
+            m_byStepSize = m_byStepSize * 10 + digit;
+        }
         appendToCommand(QString("%1").arg(digit));
-    } else if (m_KPStateMachine->configuration().contains(m_KPState_Channel) || m_KPStateMachine->configuration().contains(m_KPState_ChannelTHRU))
+    }
+    else if (m_KPStateMachine->configuration().contains(m_KPState_Channel) || m_KPStateMachine->configuration().contains(m_KPState_ChannelTHRU))
     {
         if ((m_currentChannel * 10 + digit) > 512) return; // Invalid channel
         m_currentChannel = m_currentChannel * 10 + digit;
         appendToCommand(QString("%1").arg(digit));
-    } else if (m_KPStateMachine->configuration().contains(m_KPState_Value)) {
+    }
+    else if (m_KPStateMachine->configuration().contains(m_KPState_Value))
+    {
         if ((m_currentValue * 10 + digit) > 255) return; // Invalid value
         m_currentValue = m_currentValue * 10 + digit;
         appendToCommand(QString("%1").arg(digit));
@@ -271,6 +291,8 @@ void DmxKeyPad::addDigitToNumber(quint8 digit)
 void DmxKeyPad::calculateTHRURange()
 {
     qDebug() << Q_FUNC_INFO;
+
+    if (!m_addToRange) m_KPSelectedChannels->clear();
 
     uint i;
     if (m_currentChannel < m_rangeStartChan) // range defined in reverse order (higher channel to lower channel)
@@ -312,6 +334,8 @@ void DmxKeyPad::SM_Init()
     m_rangeStartChan = 0;
     m_currentValue = 0;
     m_byStepSize = 1;
+    m_addToRange = false;
+    m_subtractFromRange = false;
 
     emit SM_InitDone(); // Changes state machine to "Channel" state
 }
@@ -324,6 +348,13 @@ void DmxKeyPad::SM_ChannelExited()
 }
 
 void DmxKeyPad::SM_ChannelTHRUExited()
+{
+    qDebug() << Q_FUNC_INFO;
+
+    calculateTHRURange();
+}
+
+void DmxKeyPad::SM_StepSizeExited()
 {
     qDebug() << Q_FUNC_INFO;
 

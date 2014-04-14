@@ -23,6 +23,8 @@ private:
     uint m_currentChannel;
     uchar m_currentValue;
     uchar m_byStepSize;
+    bool m_addToRange;
+    bool m_subtractFromRange;
 
     QStateMachine* m_KPStateMachine;
     QState* m_KPState_Init; // Clear string, reset List of channels to modify (but do NOT reset universe)
@@ -70,6 +72,7 @@ private slots:
     void SM_Init();
     void SM_ChannelExited();
     void SM_ChannelTHRUExited();
+    void SM_StepSizeExited();
 
     void addDigitToNumber();
 
@@ -78,6 +81,7 @@ signals:
     void SM_InitDone();
     void SM_ChannelsDone();
     void SM_ChannelTHRU();
+    void SM_AddRange();
     void SM_ByStart();
 
     void newChanValue(uint channel, uchar value);
