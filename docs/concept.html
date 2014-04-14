@@ -489,14 +489,21 @@ Function Manager</A>. All of the scene's contents are copied to the duplicate.
 
 <H3><IMG SRC="qrc:/sequence.png"> <A NAME="Sequence" HREF="#Sequence">Sequence</A></H3>
 <P>
-A sequence is a special <A HREF="#Chaser">Chaser</A> which is bound to a specific <A HREF="#Scene">Scene</A>. It means that all the created steps will
-control various channels of the same scene. When creating new steps in a sequence, no Function selection popup will appear, since a Sequence is a child of a Scene.<br>
-A sequence will appear in the <A HREF="functionmanager.html">Function Manager</A> with a different icon than a Chaser.
+A Sequence has some of the functionality of a <A HREF="#Chaser">Chaser</A>.<br>
+It is equivalent to a Chaser in which each step is a single <A HREF="#Scene">Scene</A> and every one of those Scenes controls the
+same set of channels. A Sequence is bound to one specific Scene, which means that all the steps of the
+Sequence can only control the enabled channels of that Scene.<br>
+When creating new steps in a Sequence, no Function selection pop-up will appear, since a Sequence
+step cannot include other Functions, unlike a Chaser step.<br>
+When a Sequence is created, a special sequence icon will appear in the <A HREF="functionmanager.html">Function Manager</A>
+as a child of the Scene to which it is bound.<br>
+To understand the difference between a Sequence and a Chaser, you are invited to read the second paragraph
+of the <A HREF="showmanager.html">Show Manager</A> documentation.
 </P>
 
 <H3><IMG SRC="qrc:/show.png"> <A NAME="Show" HREF="#Show">Show</A></H3>
 <P>
-A Show is an advanced <A HREF="#Functions">function</A> which encapsulates <A HREF="#Scene">scenes</A>, <A HREF="#Audio">audio</A> and <A HREF="#Sequence">sequences</A> to create
+A Show is an advanced <A HREF="#Functions">function</A> which encapsulates <A HREF="#Sequence">Sequences</A> and <A HREF="#Audio">Audio</A> to create
 a time driven light show. A Show can be created only with the <A HREF="showmanager.html">Show Manager</A> and can be inspected and renamed with the
 <A HREF="showeditor.html">Show Editor</A>.
 </P>

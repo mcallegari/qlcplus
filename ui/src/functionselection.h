@@ -77,6 +77,16 @@ private:
     QTreeWidgetItem *m_noneItem;
 
     /*********************************************************************
+     * New track entry
+     *********************************************************************/
+public:
+    void showNewTrack(bool show = false);
+
+private:
+    bool m_newTrack;
+    QTreeWidgetItem *m_newTrackItem;
+
+    /*********************************************************************
      * Multi-selection
      *********************************************************************/
 public:
@@ -148,8 +158,12 @@ public:
     /** Get a list of disabled functionIDs */
     QList <quint32> disabledFunctions() const;
 
+    /** Show Sequences even if Chasers are not displayed */
+    void showSequences(bool show = false);
+
 protected:
     QList <quint32> m_disabledFunctions;
+    bool m_showSequences;
 
     /*********************************************************************
      * Selection

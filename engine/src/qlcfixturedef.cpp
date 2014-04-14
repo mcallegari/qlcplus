@@ -27,6 +27,7 @@
 #include "qlccapability.h"
 #include "qlcchannel.h"
 #include "qlcfile.h"
+#include "fixture.h"
 
 QLCFixtureDef::QLCFixtureDef()
 {
@@ -151,6 +152,12 @@ void QLCFixtureDef::checkLoaded()
 
     if (m_isLoaded == false)
     {
+        if (manufacturer() == KXMLFixtureGeneric &&
+           (model() == KXMLFixtureGeneric || model() == KXMLFixtureRGBPanel))
+        {
+            m_isLoaded = true;
+            return;
+        }
         if (m_defFileAbsolutePath.isEmpty())
         {
             qWarning() << Q_FUNC_INFO << "Empty file path provided ! This is a trouble.";

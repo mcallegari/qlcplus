@@ -95,7 +95,6 @@ HEADERS += aboutbox.h \
            rgbitem.h \
            sceneeditor.h \
            sceneitems.h \
-           sceneselection.h \
            scripteditor.h \
            selectinputchannel.h \
            showeditor.h \
@@ -160,7 +159,6 @@ FORMS += aboutbox.ui \
          positiontool.ui \
          rgbmatrixeditor.ui \
          sceneeditor.ui \
-         sceneselection.ui \
          scripteditor.ui \
          selectinputchannel.ui \
          showeditor.ui \
@@ -235,7 +233,6 @@ SOURCES += aboutbox.cpp \
            rgbitem.cpp \
            sceneeditor.cpp \
            sceneitems.cpp \
-           sceneselection.cpp \
            scripteditor.cpp \
            selectinputchannel.cpp \
            showeditor.cpp \

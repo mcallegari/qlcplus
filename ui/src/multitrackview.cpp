@@ -1,5 +1,5 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   multitrackview.cpp
 
   Copyright (C) Massimo Callegari
@@ -192,10 +192,16 @@ void MultiTrackView::addTrack(Track *track)
     m_scene->addItem(trackItem);
     m_tracks.append(trackItem);
     activateTrack(track);
-    connect(trackItem, SIGNAL(itemClicked(TrackItem*)), this, SLOT(slotTrackClicked(TrackItem*)));
-    connect(trackItem, SIGNAL(itemSoloFlagChanged(TrackItem*,bool)), this, SLOT(slotTrackSoloFlagChanged(TrackItem*,bool)));
-    connect(trackItem, SIGNAL(itemMuteFlagChanged(TrackItem*,bool)), this, SLOT(slotTrackMuteFlagChanged(TrackItem*,bool)));
-    connect(trackItem, SIGNAL(itemMoveUpDown(Track*,int)), this, SIGNAL(trackMoved(Track*,int)));
+    connect(trackItem, SIGNAL(itemClicked(TrackItem*)),
+            this, SLOT(slotTrackClicked(TrackItem*)));
+    connect(trackItem, SIGNAL(itemDoubleClicked(TrackItem*)),
+            this, SLOT(slotTrackDoubleClicked(TrackItem*)));
+    connect(trackItem, SIGNAL(itemSoloFlagChanged(TrackItem*,bool)),
+            this, SLOT(slotTrackSoloFlagChanged(TrackItem*,bool)));
+    connect(trackItem, SIGNAL(itemMuteFlagChanged(TrackItem*,bool)),
+            this, SLOT(slotTrackMuteFlagChanged(TrackItem*,bool)));
+    connect(trackItem, SIGNAL(itemMoveUpDown(Track*,int)),
+            this, SIGNAL(trackMoved(Track*,int)));
 }
 
 void MultiTrackView::addSequence(Chaser *chaser)
@@ -608,6 +614,11 @@ void MultiTrackView::slotTrackClicked(TrackItem *track)
     emit trackClicked(track->getTrack());
 }
 
+void MultiTrackView::slotTrackDoubleClicked(TrackItem *track)
+{
+    emit trackDoubleClicked(track->getTrack());
+}
+
 void MultiTrackView::slotTrackSoloFlagChanged(TrackItem* track, bool solo)
 {
     foreach(TrackItem *item, m_tracks)
@@ -632,10 +643,11 @@ void MultiTrackView::slotViewScrolled(int)
     //qDebug() << Q_FUNC_INFO << "Percentage: " << value;
 }
 
-void MultiTrackView::slotSequenceMoved(QGraphicsSceneMouseEvent *, SequenceItem *item)
+void MultiTrackView::slotSequenceMoved(QGraphicsSceneMouseEvent *event, SequenceItem *item)
 {
-    //qDebug() << Q_FUNC_INFO << "event - <" << event->pos().toPoint().x() << "> - <" << event->pos().toPoint().y() << ">";
+    qDebug() << Q_FUNC_INFO << "event - <" << event->pos().toPoint().x() << "> - <" << event->pos().toPoint().y() << ">";
     // align to the appropriate track
+    bool moved = true;
     quint32 s_time = 0;
     int trackNum = item->getTrackIndex();
     int ypos = HEADER_HEIGHT + 1 + (trackNum * TRACK_HEIGHT);
@@ -650,6 +662,7 @@ void MultiTrackView::slotSequenceMoved(QGraphicsSceneMouseEvent *, SequenceItem 
         qDebug() << "Drag too short (" << shift << "px) not allowed !";
         item->setPos(item->getDraggingPos());
         s_time = item->getChaser()->getStartTime();
+        moved = false;
     }
     else if (m_snapToGrid == true)
     {
@@ -667,7 +680,7 @@ void MultiTrackView::slotSequenceMoved(QGraphicsSceneMouseEvent *, SequenceItem 
     updateItem(item, s_time);
 
     m_scene->update();
-    emit sequenceMoved(item);
+    emit sequenceMoved(item, getTimeFromPosition(item->x() + event->pos().toPoint().x()), moved);
 }
 
 void MultiTrackView::slotSequenceMoved(QGraphicsSceneMouseEvent *, AudioItem *item)

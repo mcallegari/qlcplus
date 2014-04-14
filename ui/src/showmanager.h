@@ -75,12 +75,14 @@ protected:
     Doc* m_doc;
     /* Currently selected show */
     Show* m_show;
+    /* Currently selected track */
+    Track *m_currentTrack;
     /* Currently selected scene */
-    Scene* m_scene;
+    Scene* m_currentScene;
     /* Scene editor instance reference */
-    QWidget* m_scene_editor;
+    QWidget* m_sceneEditor;
     /* Chaser editor instance reference */
-    QWidget* m_current_editor;
+    QWidget* m_currentEditor;
 
     /* Index of the currently selected Show
      * (basically the m_showsCombo index) */
@@ -91,6 +93,9 @@ private:
     void hideRightEditor();
     void showRightEditor(Chaser *chaser);
     void showRightEditor(Audio *audio);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    void showRightEditor(Video *video);
+#endif
 
 private:
     QSplitter* m_splitter; // main view splitter (horizontal)
@@ -156,7 +161,7 @@ protected slots:
      * UI events
      *********************************************************************/
     void slotViewClicked(QMouseEvent *event);
-    void slotSequenceMoved(SequenceItem *);
+    void slotSequenceMoved(SequenceItem *, quint32 time, bool moved);
     void slotAudioMoved(AudioItem *);
 #if QT_VERSION >= 0x050000
     void slotVideoMoved(VideoItem *);
@@ -164,6 +169,7 @@ protected slots:
     void slotUpdateTime(quint32 msec_time);
     void slotupdateTimeAndCursor(quint32 msec_time);
     void slotTrackClicked(Track *track);
+    void slotTrackDoubleClicked(Track *track);
     void slotTrackMoved(Track *track, int direction);
     void slotChangeColor();
     void slotToggleSnapToGrid(bool enable);
@@ -175,7 +181,6 @@ protected slots:
      *********************************************************************/
     void slotDocClearing();
     void slotDocLoaded();
-    void slotFunctionChanged(quint32 id);
     void slotFunctionRemoved(quint32 id);
 };
 

@@ -169,14 +169,17 @@ public:
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *);
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *);
 
 protected slots:
     void slotTrackChanged(quint32 id);
     void slotMoveUpClicked();
     void slotMoveDownClicked();
+    void slotChangeNameClicked();
 
 signals:
     void itemClicked(TrackItem *);
+    void itemDoubleClicked(TrackItem *);
     void itemSoloFlagChanged(TrackItem *, bool);
     void itemMuteFlagChanged(TrackItem *, bool);
     void itemMoveUpDown(Track *, int);
@@ -195,6 +198,7 @@ private:
 
     QAction *m_moveUp;
     QAction *m_moveDown;
+    QAction *m_changeName;
 };
 
 /***************************************************************************************

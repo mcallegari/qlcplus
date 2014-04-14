@@ -79,7 +79,7 @@ void FunctionsTreeWidget::functionChanged(quint32 fid)
     blockSignals(false);
 }
 
-QTreeWidgetItem *FunctionsTreeWidget::functionAdded(quint32 fid)
+QTreeWidgetItem *FunctionsTreeWidget::addFunction(quint32 fid)
 {
     blockSignals(true);
     Function* function = m_doc->function(fid);

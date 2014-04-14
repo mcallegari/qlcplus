@@ -95,8 +95,7 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
     {
         // some sanity checks
         if (track == NULL ||
-            track->id() == Track::invalidId() ||
-            track->getSceneID() == Scene::invalidId())
+            track->id() == Track::invalidId())
                 continue;
 
         if (track->isMute())
