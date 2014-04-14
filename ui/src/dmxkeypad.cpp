@@ -231,6 +231,7 @@ void DmxKeyPad::KP_ENTER()
         qDebug() << "KEYPAD: SET CHANNEL" << chan << "TO" << m_currentValue;
         emit newChanValue(chan - 1, m_currentValue);
     }
+    emit newValuesDone();
     emit SM_Reset();
 }
 

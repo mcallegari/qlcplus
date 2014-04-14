@@ -81,6 +81,7 @@ signals:
     void SM_ByStart();
 
     void newChanValue(uint channel, uchar value);
+    void newValuesDone();
 
 private:
     void addDigitToNumber(quint8 digit);
