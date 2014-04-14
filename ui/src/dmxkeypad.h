@@ -68,6 +68,7 @@ private slots:
     void KP_ENTER();
 
     void SM_Init();
+    void SM_ChannelExited();
     void SM_ChannelTHRUExited();
 
     void addDigitToNumber();

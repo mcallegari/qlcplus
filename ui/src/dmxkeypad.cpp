@@ -19,11 +19,13 @@ DmxKeyPad::DmxKeyPad(QWidget *parent) :
     m_KPState_Value = new QState();
 
     // Valid/possible transitions from one state to another. Triggered by SIGNALs
-    m_KPState_Init->addTransition(this, SIGNAL(SM_InitDone()), m_KPState_Channel); // DONE
-    m_KPState_Channel->addTransition(this, SIGNAL(SM_ChannelsDone()), m_KPState_Value); // DONE
+    m_KPState_Init->addTransition(this, SIGNAL(SM_InitDone()), m_KPState_Channel);
+    m_KPState_Channel->addTransition(this, SIGNAL(SM_ChannelsDone()), m_KPState_Value);
 
     m_KPState_Channel->addTransition(this, SIGNAL(SM_ChannelTHRU()), m_KPState_ChannelTHRU);
-    m_KPState_ChannelTHRU->addTransition(this, SIGNAL(SM_ByStart()), m_KPState_StepSize);
+    m_KPState_ChannelTHRU->addTransition(this, SIGNAL(SM_ChannelsDone()), m_KPState_Value);
+
+    //m_KPState_ChannelTHRU->addTransition(this, SIGNAL(SM_ByStart()), m_KPState_StepSize);
 
     // Transitions from every possible state to Init via SM_Reset()
     m_KPState_Channel->addTransition(this, SIGNAL(SM_Reset()), m_KPState_Init);
@@ -33,6 +35,8 @@ DmxKeyPad::DmxKeyPad(QWidget *parent) :
 
     // Connect the entered() and exited() SIGNALs to some SLOTs that do the actual work/calculations
     connect(m_KPState_Init, SIGNAL(entered()), this, SLOT(SM_Init()));
+    connect(m_KPState_Channel, SIGNAL(exited()), this, SLOT(SM_ChannelExited()));
+    connect(m_KPState_ChannelTHRU, SIGNAL(exited()), this, SLOT(SM_ChannelTHRUExited()));
 
     // Add all states to the StateMachine and start it
     m_KPStateMachine->addState(m_KPState_Init);
@@ -170,14 +174,6 @@ void DmxKeyPad::KP_AT()
 {
     qDebug() << Q_FUNC_INFO;
 
-    // MOVE TO Channel, ChannelTHRU and BY exited() methods
-    /*
-    if (m_KPStateMachine->configuration().contains(m_KPState_ChannelTHRU) || m_KPStateMachine->configuration().contains(m_KPState_StepSize)) {
-        calculateTHRURange();
-    }
-    m_KPSelectedChannels->append(m_currentChannel); // Wrong anyway in case calculateTHRURange() was used
-    m_currentChannel = 0;
-    */
     appendToCommand(" AT ");
     emit SM_ChannelsDone(); // Change state machine to "Values" state
 }
@@ -208,7 +204,7 @@ void DmxKeyPad::KP_BY()
 {
     qDebug() << Q_FUNC_INFO;
 
-    appendToCommand(" BY ");
+    //appendToCommand(" BY ");
     //emit SM_ByStart();
 }
 
@@ -217,7 +213,7 @@ void DmxKeyPad::KP_FULL()
     qDebug() << Q_FUNC_INFO;
 
     KP_AT(); // FULL always refers to a value, not a channel. So this makes sure we end channel selection if FULL is requested
-    if (m_KPStateMachine->configuration().contains(m_KPState_Value) || m_KPStateMachine->configuration().contains(m_KPState_ChannelTHRU)) {
+    if (m_KPStateMachine->configuration().contains(m_KPState_Value)) {
         m_currentValue = 255;
         appendToCommand("FULL");
         KP_ENTER(); // Wrong in case we want to support "FULL THRU ..."
@@ -246,8 +242,30 @@ void DmxKeyPad::addDigitToNumber()
     addDigitToNumber(((QPushButton*)sender())->text().toInt());
 }
 
+/*********************************************************************
+ * private (helper) methods
+ *********************************************************************/
 
+void DmxKeyPad::addDigitToNumber(quint8 digit)
+{
+    qDebug() << Q_FUNC_INFO;
 
+    if (m_KPStateMachine->configuration().contains(m_KPState_StepSize))
+    {
+        if ((m_byStepSize * 10 + digit) > 512) return; // Invalid channel
+        m_byStepSize = m_byStepSize * 10 + digit;
+        appendToCommand(QString("%1").arg(digit));
+    } else if (m_KPStateMachine->configuration().contains(m_KPState_Channel) || m_KPStateMachine->configuration().contains(m_KPState_ChannelTHRU))
+    {
+        if ((m_currentChannel * 10 + digit) > 512) return; // Invalid channel
+        m_currentChannel = m_currentChannel * 10 + digit;
+        appendToCommand(QString("%1").arg(digit));
+    } else if (m_KPStateMachine->configuration().contains(m_KPState_Value)) {
+        if ((m_currentValue * 10 + digit) > 255) return; // Invalid value
+        m_currentValue = m_currentValue * 10 + digit;
+        appendToCommand(QString("%1").arg(digit));
+    }
+}
 
 void DmxKeyPad::calculateTHRURange()
 {
@@ -258,19 +276,29 @@ void DmxKeyPad::calculateTHRURange()
     {
         for (i = m_rangeStartChan; i >= m_currentChannel; i = i - m_byStepSize)
         {
-            m_KPSelectedChannels->append(i);
+            if (i == UINT_MAX) break; // don't shoot through the floor if going down to channel 0 was requested
+            if (!m_KPSelectedChannels->contains(i)) m_KPSelectedChannels->append(i);
         }
     } else if (m_currentChannel > m_rangeStartChan) // range defined in regular order (lower channel to higher channel)
     {
         for (i = m_rangeStartChan; i <= m_currentChannel; i = i + m_byStepSize)
         {
-            m_KPSelectedChannels->append(i);
+            if (!m_KPSelectedChannels->contains(i)) m_KPSelectedChannels->append(i);
         }
     } else // range start = range end => only one channel selected
     {
-        m_KPSelectedChannels->append(m_currentChannel);
+        if (!m_KPSelectedChannels->contains(i)) m_KPSelectedChannels->append(i);
     }
 }
+
+void DmxKeyPad::appendToCommand(QString text)
+{
+    m_commandDisplay->setText(QString("%1%2").arg(m_commandDisplay->text()).arg(text));
+}
+
+/*********************************************************************
+ * StateMachine workhorse methods/slots
+ *********************************************************************/
 
 void DmxKeyPad::SM_Init()
 {
@@ -287,37 +315,16 @@ void DmxKeyPad::SM_Init()
     emit SM_InitDone(); // Changes state machine to "Channel" state
 }
 
-void DmxKeyPad::SM_ChannelTHRUExited()
-{
-
-}
-
-void DmxKeyPad::addDigitToNumber(quint8 digit)
+void DmxKeyPad::SM_ChannelExited()
 {
     qDebug() << Q_FUNC_INFO;
 
-    if (m_KPStateMachine->configuration().contains(m_KPState_StepSize))
-    {
-        if ((m_byStepSize * 10 + digit) > 512) return; // Invalid channel
-        m_byStepSize = m_byStepSize * 10 + digit;
-        appendToCommand(QString("%1").arg(digit));
-        if (m_currentChannel >= 52) KP_AT();
-    } else if (m_KPStateMachine->configuration().contains(m_KPState_Channel) || m_KPStateMachine->configuration().contains(m_KPState_ChannelTHRU))
-    {
-        if ((m_currentChannel * 10 + digit) > 512) return; // Invalid channel
-        m_currentChannel = m_currentChannel * 10 + digit;
-        appendToCommand(QString("%1").arg(digit));
-        if (m_currentChannel >= 52) KP_AT();
-    } else if (m_KPStateMachine->configuration().contains(m_KPState_Value)) {
-        if ((m_currentValue * 10 + digit) > 255) return; // Invalid value
-        m_currentValue = m_currentValue * 10 + digit;
-        appendToCommand(QString("%1").arg(digit));
-        if (m_currentValue >= 26) KP_ENTER();
-        if (m_currentValue == 0) KP_ENTER(); // special case: 0 entered and we expect no leading zero => value is 0!
-    }
+    m_KPSelectedChannels->append(m_currentChannel);
 }
 
-void DmxKeyPad::appendToCommand(QString text)
+void DmxKeyPad::SM_ChannelTHRUExited()
 {
-    m_commandDisplay->setText(QString("%1%2").arg(m_commandDisplay->text()).arg(text));
+    qDebug() << Q_FUNC_INFO;
+
+    calculateTHRURange();
 }
