@@ -2609,7 +2609,7 @@ Duración: %3
     <message>
         <location filename="functionmanager.cpp" line="288"/>
         <source>New vid&amp;eo</source>
-        <translation>Nuevo video</translation>
+        <translation>Nuevo &amp;video</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="294"/>
@@ -2852,7 +2852,7 @@ Duración: %3
     <message>
         <location filename="functionselection.cpp" line="307"/>
         <source>&lt;Create a new track&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;Crear una nueva pista&gt;</translation>
     </message>
 </context>
 <context>
@@ -4454,7 +4454,7 @@ Duración: %3
     <message>
         <location filename="showmanager.cpp" line="209"/>
         <source>New vi&amp;deo</source>
-        <translation>Nuevo video</translation>
+        <translation>Nuevo &amp;video</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="216"/>
@@ -4519,18 +4519,18 @@ Duración: %3
     <message>
         <location filename="showmanager.cpp" line="190"/>
         <source>Add a &amp;track or an existing function</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir una nueva pis&amp;ta o una función existente</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="624"/>
         <location filename="showmanager.cpp" line="712"/>
         <source> (Copy)</source>
-        <translation type="unfinished"> (Copiar)</translation>
+        <translation> (Copiar)</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="671"/>
         <source>Track %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Pista %1</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="695"/>
@@ -4555,7 +4555,7 @@ Duración: %3
     <message>
         <location filename="showmanager.cpp" line="761"/>
         <source>Scene for %1 - Track %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Escena para %1 - Pista %2</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="787"/>
@@ -4628,12 +4628,12 @@ Duración: %3
     <message>
         <location filename="showmanager.cpp" line="1297"/>
         <source>Track name setup</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajuste de nombre de Pista</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="1298"/>
         <source>Track name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de Pista:</translation>
     </message>
 </context>
 <context>
@@ -4821,7 +4821,7 @@ Duración: %3
     <message>
         <location filename="sceneitems.cpp" line="310"/>
         <source>Change name</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambiar nombre</translation>
     </message>
 </context>
 <context>
