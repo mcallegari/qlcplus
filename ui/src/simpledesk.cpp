@@ -689,6 +689,10 @@ void SimpleDesk::slotUniverseSliderValueChanged(quint32 fid, quint32 chan, uchar
 
 void SimpleDesk::slotUniversesWritten(int idx, const QByteArray& ua)
 {
+    // If Simple Desk is not visible, don't even waste CPU
+    if (isVisible() == false)
+        return;
+
     if (idx != m_currentUniverse)
         return;
 
@@ -699,9 +703,10 @@ void SimpleDesk::slotUniversesWritten(int idx, const QByteArray& ua)
         // update current page sliders
         for (quint32 i = start; i < start + (quint32)m_channelsPerPage; i++)
         {
-            if (m_engine->hasChannel(i + (idx << 9)) == true)
-                continue;
             if (i >= (quint32)ua.length())
+                break;
+
+            if (m_engine->hasChannel(i + (idx << 9)) == true)
                 continue;
 
             ConsoleChannel *cc = m_universeSliders[i - start];
@@ -724,10 +729,10 @@ void SimpleDesk::slotUniversesWritten(int idx, const QByteArray& ua)
                 quint32 startAddr = fixture->address();
                 for (quint32 c = 0; c < fixture->channels(); c++)
                 {
-                    if (m_engine->hasChannel((startAddr + c) + (idx << 9)) == true)
-                        continue;
-
                     if (startAddr + c >= (quint32)ua.length())
+                        break;
+
+                    if (m_engine->hasChannel((startAddr + c) + (idx << 9)) == true)
                         continue;
 
                     fc->blockSignals(true);
