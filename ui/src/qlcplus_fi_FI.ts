@@ -1310,13 +1310,13 @@ Duration: %3
     </message>
     <message>
         <location filename="chasereditor.ui" line="61"/>
-        <location filename="chasereditor.cpp" line="889"/>
+        <location filename="chasereditor.cpp" line="890"/>
         <source>Fade In</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="71"/>
-        <location filename="chasereditor.cpp" line="890"/>
+        <location filename="chasereditor.cpp" line="891"/>
         <source>Fade Out</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1365,7 +1365,7 @@ Duration: %3
     </message>
     <message>
         <location filename="chasereditor.ui" line="66"/>
-        <location filename="chasereditor.cpp" line="891"/>
+        <location filename="chasereditor.cpp" line="892"/>
         <source>Hold</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1535,47 +1535,47 @@ Duration: %3
         <translation>Takaperin</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="76"/>
+        <location filename="chasereditor.cpp" line="71"/>
         <source>Cut</source>
         <translation>Leikkaa</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="81"/>
+        <location filename="chasereditor.cpp" line="76"/>
         <source>Copy</source>
         <translation>Kopioi</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="86"/>
+        <location filename="chasereditor.cpp" line="81"/>
         <source>Paste</source>
         <translation>Liitä</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="655"/>
+        <location filename="chasereditor.cpp" line="656"/>
         <source>Paste error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="655"/>
+        <location filename="chasereditor.cpp" line="656"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="892"/>
+        <location filename="chasereditor.cpp" line="893"/>
         <source>Common Fade In</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="893"/>
+        <location filename="chasereditor.cpp" line="894"/>
         <source>Common Fade Out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="894"/>
+        <location filename="chasereditor.cpp" line="895"/>
         <source>Common Hold</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="910"/>
+        <location filename="chasereditor.cpp" line="911"/>
         <source>Multiple Steps</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3417,118 +3417,151 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
 <context>
     <name>Monitor</name>
     <message>
-        <location filename="monitor.cpp" line="217"/>
+        <location filename="monitor.cpp" line="236"/>
         <source>Fixture Monitor</source>
         <translation>Valaisinten monitorointi</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="249"/>
+        <location filename="monitor.cpp" line="268"/>
         <source>2D View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="256"/>
+        <location filename="monitor.cpp" line="275"/>
         <source>Font</source>
         <translation>Kirjasin</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="265"/>
+        <location filename="monitor.cpp" line="284"/>
         <source>DMX Channels</source>
         <translation>DMX-kanavat</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="266"/>
+        <location filename="monitor.cpp" line="285"/>
         <source>Show absolute DMX channel numbers</source>
         <translation>Näytä absoluuttiset DMX-kanavien numerot</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="276"/>
+        <location filename="monitor.cpp" line="295"/>
         <source>Relative Channels</source>
         <translation>Suhteelliset kanavat</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="277"/>
+        <location filename="monitor.cpp" line="296"/>
         <source>Show channel numbers relative to fixture</source>
         <translation>Näytä kanavanumerot suhteessa valaisimeen</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="293"/>
+        <location filename="monitor.cpp" line="312"/>
         <source>DMX Values</source>
         <translation>DMX-arvot</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="294"/>
+        <location filename="monitor.cpp" line="313"/>
         <source>Show DMX values 0-255</source>
         <translation>Näytä DMX-arvot 0-255</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="305"/>
+        <location filename="monitor.cpp" line="324"/>
         <source>Percent Values</source>
         <translation>Prosenttiarvot</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="306"/>
+        <location filename="monitor.cpp" line="325"/>
         <source>Show percentage values 0-100%</source>
         <translation>Näytä prosentuaaliset arvot 0-100%</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="319"/>
+        <location filename="monitor.cpp" line="338"/>
         <source>Universe:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="324"/>
+        <location filename="monitor.cpp" line="343"/>
         <source>All universes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="346"/>
+        <location filename="monitor.cpp" line="365"/>
         <source>DMX View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="352"/>
+        <location filename="monitor.cpp" line="371"/>
         <source>Size:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="376"/>
+        <location filename="monitor.cpp" line="395"/>
         <source>Meters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="377"/>
+        <location filename="monitor.cpp" line="396"/>
         <source>Feet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="386"/>
+        <location filename="monitor.cpp" line="405"/>
         <source>Add fixture</source>
         <translation type="unfinished">Lisää valaisin</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="388"/>
+        <location filename="monitor.cpp" line="407"/>
         <source>Remove fixture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="393"/>
-        <source>Set a gel color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="monitor.cpp" line="396"/>
+        <location filename="monitor.cpp" line="412"/>
         <source>Show/hide labels</source>
         <translation type="unfinished"></translation>
     </message>
+</context>
+<context>
+    <name>MonitorFixturePropertiesEditor</name>
     <message>
-        <location filename="monitor.cpp" line="675"/>
-        <source>Error</source>
+        <location filename="monitorfixturepropertieseditor.ui" line="14"/>
+        <source>Monitor Fixture Properties Editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="675"/>
-        <source>Please select a fixture first.</source>
+        <location filename="monitorfixturepropertieseditor.ui" line="30"/>
+        <source>Gel color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="monitorfixturepropertieseditor.ui" line="37"/>
+        <source>Position and rotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="monitorfixturepropertieseditor.ui" line="53"/>
+        <source>Vertical:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="monitorfixturepropertieseditor.ui" line="60"/>
+        <source>Horizontal:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="monitorfixturepropertieseditor.ui" line="77"/>
+        <source>Rotation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="monitorfixturepropertieseditor.ui" line="99"/>
+        <source>Set the color of the gel installed on the fixture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="monitorfixturepropertieseditor.ui" line="112"/>
+        <source>Reset the current color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="monitorfixturepropertieseditor.ui" line="152"/>
+        <source>Fixture name:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4467,17 +4500,17 @@ Duration: %2
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="515"/>
+        <location filename="showmanager.cpp" line="517"/>
         <source>New Show</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="516"/>
+        <location filename="showmanager.cpp" line="518"/>
         <source>Show name setup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="517"/>
+        <location filename="showmanager.cpp" line="519"/>
         <source>Show name:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4487,116 +4520,116 @@ Duration: %2
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="624"/>
-        <location filename="showmanager.cpp" line="712"/>
+        <location filename="showmanager.cpp" line="626"/>
+        <location filename="showmanager.cpp" line="717"/>
         <source> (Copy)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="671"/>
+        <location filename="showmanager.cpp" line="675"/>
         <source>Track %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="695"/>
-        <location filename="showmanager.cpp" line="773"/>
+        <location filename="showmanager.cpp" line="700"/>
+        <location filename="showmanager.cpp" line="780"/>
         <source>New Sequence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="752"/>
-        <location filename="showmanager.cpp" line="829"/>
-        <location filename="showmanager.cpp" line="889"/>
+        <location filename="showmanager.cpp" line="759"/>
+        <location filename="showmanager.cpp" line="836"/>
+        <location filename="showmanager.cpp" line="896"/>
         <source>Overlapping error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="752"/>
-        <location filename="showmanager.cpp" line="829"/>
-        <location filename="showmanager.cpp" line="889"/>
+        <location filename="showmanager.cpp" line="759"/>
+        <location filename="showmanager.cpp" line="836"/>
+        <location filename="showmanager.cpp" line="896"/>
         <source>Overlapping not allowed. Operation cancelled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="761"/>
+        <location filename="showmanager.cpp" line="768"/>
         <source>Scene for %1 - Track %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="787"/>
+        <location filename="showmanager.cpp" line="794"/>
         <source>Open Audio File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="796"/>
+        <location filename="showmanager.cpp" line="803"/>
         <source>Audio Files (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="798"/>
-        <location filename="showmanager.cpp" line="858"/>
+        <location filename="showmanager.cpp" line="805"/>
+        <location filename="showmanager.cpp" line="865"/>
         <source>All Files (*.*)</source>
         <translation type="unfinished">Kaikki tiedostot (*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="800"/>
-        <location filename="showmanager.cpp" line="860"/>
+        <location filename="showmanager.cpp" line="807"/>
+        <location filename="showmanager.cpp" line="867"/>
         <source>All Files (*)</source>
         <translation type="unfinished">Kaikki tiedostot (*)</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="822"/>
+        <location filename="showmanager.cpp" line="829"/>
         <source>Unsupported audio file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="822"/>
+        <location filename="showmanager.cpp" line="829"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="847"/>
+        <location filename="showmanager.cpp" line="854"/>
         <source>Open Video File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="856"/>
+        <location filename="showmanager.cpp" line="863"/>
         <source>Video Files (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="882"/>
+        <location filename="showmanager.cpp" line="889"/>
         <source>Unsupported video file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="882"/>
+        <location filename="showmanager.cpp" line="889"/>
         <source>This video file cannot be played with QLC+. Sorry.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="965"/>
-        <location filename="showmanager.cpp" line="987"/>
+        <location filename="showmanager.cpp" line="972"/>
+        <location filename="showmanager.cpp" line="994"/>
         <source>Paste error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="965"/>
+        <location filename="showmanager.cpp" line="972"/>
         <source>Overlapping paste not allowed. Operation cancelled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="987"/>
+        <location filename="showmanager.cpp" line="994"/>
         <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="1297"/>
+        <location filename="showmanager.cpp" line="1304"/>
         <source>Track name setup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="1298"/>
+        <location filename="showmanager.cpp" line="1305"/>
         <source>Track name:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4680,42 +4713,42 @@ Duration: %2
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="816"/>
+        <location filename="simpledesk.cpp" line="821"/>
         <source>Cue Stack - Playback %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="977"/>
+        <location filename="simpledesk.cpp" line="982"/>
         <source>No selection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1000"/>
+        <location filename="simpledesk.cpp" line="1005"/>
         <source>Cue name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1007"/>
+        <location filename="simpledesk.cpp" line="1012"/>
         <source>Multiple Cues</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1104"/>
+        <location filename="simpledesk.cpp" line="1109"/>
         <source>Delete cue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1158"/>
+        <location filename="simpledesk.cpp" line="1163"/>
         <source>Clone Cue Stack</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1158"/>
+        <location filename="simpledesk.cpp" line="1163"/>
         <source>Clone To Playback#</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1231"/>
+        <location filename="simpledesk.cpp" line="1236"/>
         <source>Cue %1</source>
         <translation type="unfinished"></translation>
     </message>

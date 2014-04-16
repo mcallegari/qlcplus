@@ -8,6 +8,7 @@ qlcplus (4.7.1) stable; urgency=low
   * Show Manager: improved import of existing Functions
   * Show Manager: highlight the clicked step
   * Chaser Editor: Sequences in Function Manager can have Run Order and Direction
+  * Monitor: added 2D view Fixture item editor. Can set position, rotation and gel color
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 19 April 2014 12:13:14 +0200
 

@@ -85,6 +85,7 @@ HEADERS += aboutbox.h \
            monitorfixtureitem.h \
            monitorgraphicsview.h \
            monitorlayout.h \
+           monitorfixturepropertieseditor.h \
            multitrackview.h \
            palettegenerator.h \
            playbackslider.h \
@@ -155,6 +156,7 @@ FORMS += aboutbox.ui \
          inputchanneleditor.ui \
          inputoutputpatcheditor.ui \
          inputprofileeditor.ui \
+         monitorfixturepropertieseditor.ui \
          positiontool.ui \
          rgbmatrixeditor.ui \
          sceneeditor.ui \
@@ -222,6 +224,7 @@ SOURCES += aboutbox.cpp \
            monitorfixtureitem.cpp \
            monitorgraphicsview.cpp \
            monitorlayout.cpp \
+           monitorfixturepropertieseditor.cpp \
            multitrackview.cpp \
            palettegenerator.cpp \
            playbackslider.cpp \

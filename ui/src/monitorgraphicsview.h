@@ -38,6 +38,9 @@ public:
     /** Set the graphics view size in monitor units */
     void setGridSize(QSize size);
 
+    /** Get the grid size in monitor units */
+    QSize gridSize() const { return m_gridSize; }
+
     /** Set the measure unit to use */
     void setGridMetrics(float value);
 
@@ -48,8 +51,15 @@ public:
     /** Return a list of the fixture IDs in the current view */
     QList <quint32> fixturesID() const;
 
+    /** Retrieve the currently selected MonitorFixtureItem.
+     *  Return NULL if none */
+    MonitorFixtureItem *getSelectedItem();
+
     /** Set the gel color of the fixture with the given ID */
     void setFixtureGelColor(quint32 id, QColor col);
+
+    /** Set the rotation degrees of the fixture with the given ID */
+    void setFixtureRotation(quint32 id, ushort degrees);
 
     /** Show/hide fixtures items labels */
     void showFixturesLabels(bool visible);
@@ -66,23 +76,28 @@ public:
      */
     bool removeFixture(quint32 id = Fixture::invalidId());
 
+    /** Support function to convert a position in millimeters
+     *  to a position in pixels */
+    QPointF realPositionToPixels(qreal xpos, qreal ypos);
+
     /** Update the position and the scale of the fixture with
      *  the given ID
      */
     void updateFixture(quint32 id);
 
+    /** Update the fixture values to render the 2D preview */
     void writeUniverse(int index, const QByteArray& ua);
 
 protected:
-
+    /** Triggers the whole view repaint and metrics
+     *  computation */
     void updateGrid();
-
-    /** Retrieve the currently selected MonitorFixtureItem.
-     *  Return NULL if none */
-    MonitorFixtureItem *getSelectedItem();
 
     /** Event caught when the GraphicsView is resized */
     void resizeEvent( QResizeEvent *event );
+
+public slots:
+    void mouseReleaseEvent(QMouseEvent * e);
 
 protected slots:
     /** Slot called when a MonitorFixtureItem is dropped after a drag */
@@ -91,6 +106,9 @@ protected slots:
 signals:
     /** Signal emitted after fixture point -> metrics conversion */
     void fixtureMoved(quint32 id, QPointF pos);
+
+    /** Signal emitted when the graphics view is clicked */
+    void viewClicked(QMouseEvent * e);
 
 private:
     Doc *m_doc;
