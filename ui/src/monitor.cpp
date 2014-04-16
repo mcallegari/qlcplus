@@ -46,6 +46,7 @@
 #include "qlcfile.h"
 
 #define SETTINGS_GEOMETRY "monitor/geometry"
+#define SETTINGS_VSPLITTER "monitor/vsplitter"
 
 Monitor* Monitor::s_instance = NULL;
 
@@ -203,6 +204,11 @@ void Monitor::initGraphicsView()
     econtainer->setLayout(new QVBoxLayout);
     econtainer->layout()->setContentsMargins(0, 0, 0, 0);
     m_splitter->widget(1)->hide();
+
+    QSettings settings;
+    QVariant var2 = settings.value(SETTINGS_VSPLITTER);
+    if (var2.isValid() == true)
+        m_splitter->restoreState(var2.toByteArray());
 }
 
 Monitor* Monitor::instance()
@@ -214,6 +220,12 @@ void Monitor::saveSettings()
 {
     QSettings settings;
     settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
+
+    if (m_splitter != NULL)
+    {
+        QSettings settings;
+        settings.setValue(SETTINGS_VSPLITTER, m_splitter->saveState());
+    }
 
     if (m_monitorWidget != NULL)
         m_props->setFont(m_monitorWidget->font());
@@ -467,9 +479,25 @@ void Monitor::slotSwitchMode()
     }
     else
     {
+        if (m_fixtureItemEditor != NULL)
+        {
+            m_splitter->widget(1)->layout()->removeWidget(m_fixtureItemEditor);
+            m_splitter->widget(1)->hide();
+            m_fixtureItemEditor->deleteLater();
+            m_fixtureItemEditor = NULL;
+        }
+
         m_toolBar->deleteLater();
         m_graphicsView->deleteLater();
         m_graphicsView = NULL;
+
+        if (m_splitter != NULL)
+        {
+            QSettings settings;
+            settings.setValue(SETTINGS_VSPLITTER, m_splitter->saveState());
+            m_splitter->deleteLater();
+            m_splitter = NULL;
+        }
     }
     m_toolBar = NULL;
 
