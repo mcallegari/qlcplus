@@ -279,18 +279,29 @@ void RGBMatrixEditor::updateExtraOptions()
 {
     if (m_matrix->algorithm() == NULL ||
         m_matrix->algorithm()->type() == RGBAlgorithm::Script ||
-        m_matrix->algorithm()->type() == RGBAlgorithm::Audio ||
-        m_matrix->algorithm()->type() == RGBAlgorithm::Plain)
+        m_matrix->algorithm()->type() == RGBAlgorithm::Audio)
     {
         m_textGroup->hide();
         m_imageGroup->hide();
         m_offsetGroup->hide();
+        m_startColorButton->show();
+        m_endColorButton->show();
+    }
+    else if (m_matrix->algorithm()->type() == RGBAlgorithm::Plain)
+    {
+        m_textGroup->hide();
+        m_imageGroup->hide();
+        m_offsetGroup->hide();
+        m_startColorButton->show();
+        m_endColorButton->hide();
     }
     else if (m_matrix->algorithm()->type() == RGBAlgorithm::Image)
     {
         m_textGroup->hide();
         m_imageGroup->show();
         m_offsetGroup->show();
+        m_startColorButton->hide();
+        m_endColorButton->hide();
 
         RGBImage* image = static_cast<RGBImage*> (m_matrix->algorithm());
         Q_ASSERT(image != NULL);
@@ -309,6 +320,8 @@ void RGBMatrixEditor::updateExtraOptions()
         m_textGroup->show();
         m_offsetGroup->show();
         m_imageGroup->hide();
+        m_startColorButton->show();
+        m_endColorButton->show();
 
         RGBText* text = static_cast<RGBText*> (m_matrix->algorithm());
         Q_ASSERT(text != NULL);
