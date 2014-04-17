@@ -14,23 +14,6 @@
    <string>Fixture Group</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0" colspan="3">
-    <widget class="QLabel" name="label_3">
-     <property name="text">
-      <string>Fixture group name</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="3" colspan="3">
-    <widget class="QLineEdit" name="m_nameEdit">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-    </widget>
-   </item>
    <item row="1" column="0" rowspan="7" colspan="6">
     <widget class="QTableWidget" name="m_table">
      <property name="sizePolicy">
@@ -100,6 +83,13 @@
      </property>
     </widget>
    </item>
+   <item row="8" column="4">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Height</string>
+     </property>
+    </widget>
+   </item>
    <item row="8" column="2" colspan="2">
     <spacer name="horizontalSpacer">
      <property name="orientation">
@@ -112,13 +102,6 @@
       </size>
      </property>
     </spacer>
-   </item>
-   <item row="8" column="4">
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>Height</string>
-     </property>
-    </widget>
    </item>
    <item row="8" column="5">
     <widget class="QSpinBox" name="m_ySpin">
@@ -170,9 +153,37 @@
      </property>
     </widget>
    </item>
+   <item row="0" column="0" colspan="7">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="label_3">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Fixture group name</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="m_nameEdit">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
   </layout>
  </widget>
  <resources>
+  <include location="qlcui.qrc"/>
   <include location="qlcui.qrc"/>
  </resources>
  <connections/>
