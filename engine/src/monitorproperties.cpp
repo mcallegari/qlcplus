@@ -38,6 +38,7 @@
 #define KXMLQLCMonitorFixtureID "ID"
 #define KXMLQLCMonitorFixtureXPos "XPos"
 #define KXMLQLCMonitorFixtureYPos "YPos"
+#define KXMLQLCMonitorFixtureRotation "Rotation"
 #define KXMLQLCMonitorFixtureGelColor "GelColor"
 
 MonitorProperties::MonitorProperties()
@@ -55,6 +56,11 @@ void MonitorProperties::setFixturePosition(quint32 fid, QPointF pos)
 {
     qDebug() << Q_FUNC_INFO << "X:" << pos.x() << "Y:" << pos.y();
     m_fixtureItems[fid].m_position = pos;
+}
+
+void MonitorProperties::setFixtureRotation(quint32 fid, ushort degrees)
+{
+    m_fixtureItems[fid].m_rotation = degrees;
 }
 
 void MonitorProperties::setFixtureGelColor(quint32 fid, QColor col)
@@ -134,8 +140,11 @@ bool MonitorProperties::loadXML(const QDomElement &root)
                 if (tag.hasAttribute(KXMLQLCMonitorFixtureXPos))
                     pos.setX(tag.attribute(KXMLQLCMonitorFixtureXPos).toDouble());
                 if (tag.hasAttribute(KXMLQLCMonitorFixtureYPos))
-                    pos.setY(tag.attribute(KXMLQLCMonitorFixtureYPos).toDouble());
+                    pos.setY(tag.attribute(KXMLQLCMonitorFixtureYPos).toDouble());                
                 setFixturePosition(fid, pos);
+
+                if (tag.hasAttribute(KXMLQLCMonitorFixtureRotation))
+                    setFixtureRotation(fid, tag.attribute(KXMLQLCMonitorFixtureRotation).toUShort());
 
                 if (tag.hasAttribute(KXMLQLCMonitorFixtureGelColor))
                     setFixtureGelColor(fid, QColor(tag.attribute(KXMLQLCMonitorFixtureGelColor)));
@@ -194,6 +203,9 @@ bool MonitorProperties::saveXML(QDomDocument *doc, QDomElement *wksp_root) const
             tag.setAttribute(KXMLQLCMonitorFixtureID, fid);
             tag.setAttribute(KXMLQLCMonitorFixtureXPos, QString::number(pos.x()));
             tag.setAttribute(KXMLQLCMonitorFixtureYPos, QString::number(pos.y()));
+            if (fixtureRotation(fid) != 0)
+                tag.setAttribute(KXMLQLCMonitorFixtureRotation, QString::number(fixtureRotation(fid)));
+
             QColor col = fixtureGelColor(fid);
             if (col.isValid())
                 tag.setAttribute(KXMLQLCMonitorFixtureGelColor, col.name());

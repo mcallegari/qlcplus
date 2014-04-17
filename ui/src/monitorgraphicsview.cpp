@@ -82,6 +82,13 @@ void MonitorGraphicsView::setFixtureGelColor(quint32 id, QColor col)
         item->setGelColor(col);
 }
 
+void MonitorGraphicsView::setFixtureRotation(quint32 id, ushort degrees)
+{
+    MonitorFixtureItem *item = m_fixtures[id];
+    if (item != NULL)
+        item->setRotation(degrees);
+}
+
 void MonitorGraphicsView::showFixturesLabels(bool visible)
 {
     foreach(MonitorFixtureItem *item, m_fixtures.values())
@@ -95,6 +102,14 @@ QColor MonitorGraphicsView::fixtureGelColor(quint32 id)
         return QColor();
 
     return item->getColor();
+}
+
+QPointF MonitorGraphicsView::realPositionToPixels(qreal xpos, qreal ypos)
+{
+    qreal realX = m_xOffset + ((xpos * m_cellPixels) / m_unitValue);
+    qreal realY = m_yOffset + ((ypos * m_cellPixels) / m_unitValue);
+
+    return QPointF(realX, realY);
 }
 
 void MonitorGraphicsView::updateFixture(quint32 id)
@@ -127,10 +142,7 @@ void MonitorGraphicsView::updateFixture(quint32 id)
     MonitorFixtureItem *item = m_fixtures[id];
     item->setSize(QSize((width * m_cellPixels) / m_unitValue, (height * m_cellPixels) / m_unitValue));
 
-    qreal realX = m_xOffset + ((item->realPosition().x() * m_cellPixels) / m_unitValue);
-    qreal realY = m_yOffset + ((item->realPosition().y() * m_cellPixels) / m_unitValue);
-
-    item->setPos(realX, realY);
+    item->setPos(realPositionToPixels(item->realPosition().x(), item->realPosition().y()));
 }
 
 void MonitorGraphicsView::writeUniverse(int index, const QByteArray &ua)
@@ -259,6 +271,13 @@ void MonitorGraphicsView::resizeEvent(QResizeEvent *event)
         it.next();
         updateFixture(it.key());
     }
+}
+
+void MonitorGraphicsView::mouseReleaseEvent(QMouseEvent *e)
+{
+    emit viewClicked(e);
+
+    QGraphicsView::mouseReleaseEvent(e);
 }
 
 void MonitorGraphicsView::slotFixtureMoved(MonitorFixtureItem *item)

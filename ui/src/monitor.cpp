@@ -19,13 +19,12 @@
 
 #include <QApplication>
 #include <QActionGroup>
-#include <QColorDialog>
-#include <QMessageBox>
 #include <QFontDialog>
 #include <QScrollArea>
 #include <QSpacerItem>
 #include <QByteArray>
 #include <QComboBox>
+#include <QSplitter>
 #include <QToolBar>
 #include <QSpinBox>
 #include <QAction>
@@ -34,6 +33,7 @@
 #include <QIcon>
 #include <QtXml>
 
+#include "monitorfixturepropertieseditor.h"
 #include "monitorgraphicsview.h"
 #include "fixtureselection.h"
 #include "monitorfixture.h"
@@ -46,6 +46,7 @@
 #include "qlcfile.h"
 
 #define SETTINGS_GEOMETRY "monitor/geometry"
+#define SETTINGS_VSPLITTER "monitor/vsplitter"
 
 Monitor* Monitor::s_instance = NULL;
 
@@ -62,7 +63,9 @@ Monitor::Monitor(QWidget* parent, Doc* doc, Qt::WindowFlags f)
     , m_monitorWidget(NULL)
     , m_monitorLayout(NULL)
     , m_currentUniverse(Universe::invalid())
+    , m_splitter(NULL)
     , m_graphicsView(NULL)
+    , m_fixtureItemEditor(NULL)
     , m_gridWSpin(NULL)
     , m_gridHSpin(NULL)
     , m_unitsCombo(NULL)
@@ -160,12 +163,19 @@ void Monitor::initDMXView()
 
 void Monitor::initGraphicsView()
 {
+    m_splitter = new QSplitter(Qt::Horizontal, this);
+    layout()->addWidget(m_splitter);
+    QWidget* gcontainer = new QWidget(this);
+    m_splitter->addWidget(gcontainer);
+    gcontainer->setLayout(new QVBoxLayout);
+    gcontainer->layout()->setContentsMargins(0, 0, 0, 0);
+
     m_graphicsView = new MonitorGraphicsView(m_doc, this);
     m_graphicsView->setRenderHint(QPainter::Antialiasing);
     m_graphicsView->setAcceptDrops(true);
     m_graphicsView->setAlignment(Qt::AlignLeft | Qt::AlignTop);
     m_graphicsView->setBackgroundBrush(QBrush(QColor(11, 11, 11, 255), Qt::SolidPattern));
-    layout()->addWidget(m_graphicsView);
+    m_splitter->widget(0)->layout()->addWidget(m_graphicsView);
 
     if (m_props->gridUnits() == MonitorProperties::Meters)
         m_graphicsView->setGridMetrics(1000.0);
@@ -178,12 +188,27 @@ void Monitor::initGraphicsView()
         m_graphicsView->addFixture(fid, m_props->fixturePosition(fid));
         qDebug() << "Gel color:" << m_props->fixtureGelColor(fid);
         m_graphicsView->setFixtureGelColor(fid, m_props->fixtureGelColor(fid));
+        m_graphicsView->setFixtureRotation(fid, m_props->fixtureRotation(fid));
     }
 
     m_graphicsView->showFixturesLabels(m_props->labelsVisible());
 
     connect(m_graphicsView, SIGNAL(fixtureMoved(quint32,QPointF)),
             this, SLOT(slotFixtureMoved(quint32,QPointF)));
+    connect(m_graphicsView, SIGNAL(viewClicked(QMouseEvent*)),
+            this, SLOT(slotViewCliked()));
+
+    // add container for chaser editor
+    QWidget* econtainer = new QWidget(this);
+    m_splitter->addWidget(econtainer);
+    econtainer->setLayout(new QVBoxLayout);
+    econtainer->layout()->setContentsMargins(0, 0, 0, 0);
+    m_splitter->widget(1)->hide();
+
+    QSettings settings;
+    QVariant var2 = settings.value(SETTINGS_VSPLITTER);
+    if (var2.isValid() == true)
+        m_splitter->restoreState(var2.toByteArray());
 }
 
 Monitor* Monitor::instance()
@@ -195,6 +220,12 @@ void Monitor::saveSettings()
 {
     QSettings settings;
     settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
+
+    if (m_splitter != NULL)
+    {
+        QSettings settings;
+        settings.setValue(SETTINGS_VSPLITTER, m_splitter->saveState());
+    }
 
     if (m_monitorWidget != NULL)
         m_props->setFont(m_monitorWidget->font());
@@ -390,9 +421,6 @@ void Monitor::initGraphicsToolbar()
 
     m_toolBar->addSeparator();
 
-    m_toolBar->addAction(QIcon(":/color.png"), tr("Set a gel color"),
-                       this, SLOT(slotSetGelColor()));
-
     action = m_toolBar->addAction(QIcon(":/label.png"), tr("Show/hide labels"));
     action->setCheckable(true);
     action->setChecked(m_props->labelsVisible());
@@ -451,9 +479,25 @@ void Monitor::slotSwitchMode()
     }
     else
     {
+        if (m_fixtureItemEditor != NULL)
+        {
+            m_splitter->widget(1)->layout()->removeWidget(m_fixtureItemEditor);
+            m_splitter->widget(1)->hide();
+            m_fixtureItemEditor->deleteLater();
+            m_fixtureItemEditor = NULL;
+        }
+
         m_toolBar->deleteLater();
         m_graphicsView->deleteLater();
         m_graphicsView = NULL;
+
+        if (m_splitter != NULL)
+        {
+            QSettings settings;
+            settings.setValue(SETTINGS_VSPLITTER, m_splitter->saveState());
+            m_splitter->deleteLater();
+            m_splitter = NULL;
+        }
     }
     m_toolBar = NULL;
 
@@ -664,29 +708,6 @@ void Monitor::slotRemoveFixture()
     }
 }
 
-void Monitor::slotSetGelColor()
-{
-    if (m_graphicsView == NULL)
-        return;
-
-    quint32 fid = m_graphicsView->selectedFixtureID();
-    if (fid == Fixture::invalidId())
-    {
-        QMessageBox::warning(this, tr("Error"), tr("Please select a fixture first."));
-    }
-    else
-    {
-        QColor color = m_graphicsView->fixtureGelColor(fid);
-        QColor newColor = QColorDialog::getColor(color);
-
-        if (newColor.isValid())
-        {
-            m_graphicsView->setFixtureGelColor(fid, newColor);
-            m_props->setFixtureGelColor(fid, newColor);
-        }
-    }
-}
-
 void Monitor::slotShowLabels(bool visible)
 {
     if (m_graphicsView == NULL)
@@ -698,6 +719,41 @@ void Monitor::slotShowLabels(bool visible)
 
 void Monitor::slotFixtureMoved(quint32 fid, QPointF pos)
 {
+    showFixtureItemEditor();
     m_props->setFixturePosition(fid, pos);
     m_doc->setModified();
+}
+
+void Monitor::slotViewCliked()
+{
+    if (m_fixtureItemEditor != NULL)
+    {
+        m_splitter->widget(1)->layout()->removeWidget(m_fixtureItemEditor);
+        m_splitter->widget(1)->hide();
+        m_fixtureItemEditor->deleteLater();
+        m_fixtureItemEditor = NULL;
+    }
+}
+
+void Monitor::showFixtureItemEditor()
+{
+    MonitorFixtureItem *item = m_graphicsView->getSelectedItem();
+    if (m_fixtureItemEditor != NULL)
+    {
+        m_splitter->widget(1)->layout()->removeWidget(m_fixtureItemEditor);
+        m_splitter->widget(1)->hide();
+        m_fixtureItemEditor->deleteLater();
+        m_fixtureItemEditor = NULL;
+    }
+
+    if (item != NULL)
+    {
+
+        m_fixtureItemEditor = new MonitorFixturePropertiesEditor(
+                    item, m_graphicsView,
+                    m_props, m_splitter->widget(1));
+        m_splitter->widget(1)->layout()->addWidget(m_fixtureItemEditor);
+        m_splitter->widget(1)->show();
+        m_fixtureItemEditor->show();
+    }
 }

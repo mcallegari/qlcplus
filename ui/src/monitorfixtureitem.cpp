@@ -210,6 +210,8 @@ void MonitorFixtureItem::setSize(QSize size)
     QFontMetrics fm(m_font);
     m_labelRect = fm.boundingRect(QRect(-10, m_height + 2, m_width + 20, 30),
                                   Qt::AlignHCenter | Qt::TextWrapAnywhere, m_name);
+
+    setTransformOriginPoint(m_width / 2, m_height / 2);
     update();
 }
 
@@ -289,9 +291,7 @@ void MonitorFixtureItem::showLabel(bool visible)
 QRectF MonitorFixtureItem::boundingRect() const
 {
     if (m_labelVisibility)
-    {
         return QRectF(-10, 0, m_width + 20, m_height + m_labelRect.height() + 2);
-    }
     else
         return QRectF(0, 0, m_width, m_height);
 }

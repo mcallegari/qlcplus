@@ -34,6 +34,7 @@ class QDomElement;
 typedef struct
 {
     QPointF m_position;
+    ushort m_rotation;
     QColor m_gelColor;
 } FixtureItemProperties;
 
@@ -67,6 +68,9 @@ public:
 
     void setFixturePosition(quint32 fid, QPointF pos);
     QPointF fixturePosition(quint32 fid) const { return m_fixtureItems[fid].m_position; }
+
+    void setFixtureRotation(quint32 fid, ushort degrees);
+    ushort fixtureRotation(quint32 fid) const { return m_fixtureItems[fid].m_rotation; }
 
     void setFixtureGelColor(quint32 fid, QColor col);
     QColor fixtureGelColor(quint32 fid) const { return m_fixtureItems[fid].m_gelColor; }
