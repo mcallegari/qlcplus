@@ -3551,47 +3551,47 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="14"/>
         <source>Monitor Fixture Properties Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Editor de propiedades del Monitor de Fixtures</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="30"/>
         <source>Gel color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Color de filtro:</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="37"/>
         <source>Position and rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Posición y rotación</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="53"/>
         <source>Vertical:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vertical:</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="60"/>
         <source>Horizontal:</source>
-        <translation type="unfinished"></translation>
+        <translation>Horizontal:</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="77"/>
         <source>Rotation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotación:</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="99"/>
         <source>Set the color of the gel installed on the fixture</source>
-        <translation type="unfinished"></translation>
+        <translation>Elegir el color de filtro installado en el fixture</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="112"/>
         <source>Reset the current color</source>
-        <translation type="unfinished"></translation>
+        <translation>Restaurar el color acual</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="152"/>
         <source>Fixture name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre del Fixture:</translation>
     </message>
 </context>
 <context>
