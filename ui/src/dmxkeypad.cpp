@@ -20,12 +20,14 @@ DmxKeyPad::DmxKeyPad(QWidget *parent) :
 
     // Valid/possible transitions from one state to another. Triggered by SIGNALs
     m_KPState_Init->addTransition(this, SIGNAL(SM_InitDone()), m_KPState_Channel);
+
     m_KPState_Channel->addTransition(this, SIGNAL(SM_ChannelsDone()), m_KPState_Value);
-
     m_KPState_Channel->addTransition(this, SIGNAL(SM_ChannelTHRU()), m_KPState_ChannelTHRU);
-    m_KPState_ChannelTHRU->addTransition(this, SIGNAL(SM_ChannelsDone()), m_KPState_Value);
+    m_KPState_Channel->addTransition(this, SIGNAL(SM_AddRange()), m_KPState_Channel);
 
+    m_KPState_ChannelTHRU->addTransition(this, SIGNAL(SM_ChannelsDone()), m_KPState_Value);
     m_KPState_ChannelTHRU->addTransition(this, SIGNAL(SM_ByStart()), m_KPState_StepSize);
+    m_KPState_ChannelTHRU->addTransition(this, SIGNAL(SM_AddRange()), m_KPState_Channel);
 
     m_KPState_StepSize->addTransition(this, SIGNAL(SM_ChannelsDone()), m_KPState_Value);
 
@@ -201,13 +203,12 @@ void DmxKeyPad::KP_PLUS()
 {
     qDebug() << Q_FUNC_INFO;
 
-    /*
     if (m_KPStateMachine->configuration().contains(m_KPState_Channel) || m_KPStateMachine->configuration().contains(m_KPState_ChannelTHRU))
     {
         m_addToRange = true;
         appendToCommand(" + ");
         emit SM_AddRange();
-    }*/
+    }
 }
 
 void DmxKeyPad::KP_BY()
@@ -312,6 +313,8 @@ void DmxKeyPad::calculateTHRURange()
     {
         if (!m_KPSelectedChannels->contains(i)) m_KPSelectedChannels->append(i);
     }
+
+    if (m_addToRange) m_currentChannel = 0;
 }
 
 void DmxKeyPad::appendToCommand(QString text)
@@ -345,6 +348,7 @@ void DmxKeyPad::SM_ChannelExited()
     qDebug() << Q_FUNC_INFO;
 
     m_KPSelectedChannels->append(m_currentChannel);
+    m_currentChannel = 0; // In case of + after a single channel
 }
 
 void DmxKeyPad::SM_ChannelTHRUExited()
