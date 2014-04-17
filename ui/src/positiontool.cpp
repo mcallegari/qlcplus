@@ -37,6 +37,7 @@ PositionTool::PositionTool(const QPointF & initial, QRectF degreesRange, QWidget
     m_area->setMode(Doc::Operate); // to activate the area
     m_area->setWindowTitle("");
     m_area->setDegreesRange(degreesRange);
+    m_area->setFocus();
     m_gridLayout->addWidget(m_area, 0, 0);
 
     connect(m_area, SIGNAL(positionChanged(const QPointF &)),
