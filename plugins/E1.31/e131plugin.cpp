@@ -131,6 +131,7 @@ void E131Plugin::openOutput(quint32 output)
     {
         m_IOmapping[output].controller->setType(
                     (E131Controller::Type)(m_IOmapping[output].controller->type() | E131Controller::Output));
+        m_IOmapping[output].controller->changeReferenceCount(E131Controller::Output, +1);
         return;
     }
 
@@ -149,13 +150,15 @@ void E131Plugin::closeOutput(quint32 output)
     E131Controller *controller = m_IOmapping.at(output).controller;
     if (controller != NULL)
     {
+        controller->changeReferenceCount(E131Controller::Output, -1);
         // if a E131Controller is also open as input
         // then just remove the output capability
         if (controller->type() & E131Controller::Input)
         {
             controller->setType(E131Controller::Input);
         }
-        else // otherwise destroy it
+        if (controller->referenceCount(E131Controller::Input) == 0 &&
+            controller->referenceCount(E131Controller::Output) == 0)
         {
             delete m_IOmapping[output].controller;
             m_IOmapping[output].controller = NULL;
@@ -204,6 +207,7 @@ void E131Plugin::openInput(quint32 input)
     {
         m_IOmapping[input].controller->setType(
                     (E131Controller::Type)(m_IOmapping[input].controller->type() | E131Controller::Input));
+        m_IOmapping[input].controller->changeReferenceCount(E131Controller::Input, +1);
         return;
     }
 
@@ -223,13 +227,15 @@ void E131Plugin::closeInput(quint32 input)
     E131Controller *controller = m_IOmapping.at(input).controller;
     if (controller != NULL)
     {
+        controller->changeReferenceCount(E131Controller::Input, -1);
         // if a E131Controller is also open as output
         // then just remove the input capability
         if (controller->type() & E131Controller::Output)
         {
             controller->setType(E131Controller::Output);
         }
-        else // otherwise destroy it
+        if (controller->referenceCount(E131Controller::Input) == 0 &&
+            controller->referenceCount(E131Controller::Output) == 0)
         {
             delete m_IOmapping[input].controller;
             m_IOmapping[input].controller = NULL;

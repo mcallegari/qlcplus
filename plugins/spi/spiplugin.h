@@ -90,6 +90,8 @@ protected:
     /** File handle for /dev/spidev0.0 */
     int m_spifd;
 
+    int m_referenceCount;
+
     /** Map of <Universe ID/number of channels> */
     QHash<quint32, SPIUniverse> m_uniChannelsMap;
 

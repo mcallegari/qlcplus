@@ -63,6 +63,12 @@ public:
     /** Get the number of packets received by this controller */
     quint64 getPacketReceivedNumber();
 
+    /** Increase or decrease the reference count of the given type */
+    void changeReferenceCount(Type type, int amount);
+
+    /** Retrieve the reference count of the given type */
+    int referenceCount(Type type);
+
 private:
     /** The controller IP address as QHostAddress */
     QHostAddress m_ipAddr;
@@ -93,6 +99,12 @@ private:
     /** Keeps the current dmx values to send only the ones that changed */
     /** It holds values for all the handled universes (512 * n) */
     QByteArray m_dmxValues;
+
+    /** Count the number of input universes using this controller */
+    int m_inputRefCount;
+
+    /** Count the number of output universes using this controller */
+    int m_outputRefCount;
 
 private slots:
     /** Async event raised when new packets have been received */

@@ -48,6 +48,7 @@ SPIPlugin::~SPIPlugin()
 void SPIPlugin::init()
 {
     m_spifd = -1;
+    m_referenceCount = 0;
     m_outThread = NULL;
 }
 
@@ -67,7 +68,12 @@ int SPIPlugin::capabilities() const
 
 void SPIPlugin::openOutput(quint32 output)
 {
-    if (output != 0 || m_spifd != -1)
+    if (output != 0)
+        return;
+
+    m_referenceCount++;
+
+    if (m_spifd != -1)
         return;
 
     m_spifd = open(SPI_DEFAULT_DEVICE, O_RDWR);
@@ -86,9 +92,14 @@ void SPIPlugin::closeOutput(quint32 output)
     if (output != 0)
         return;
 
-    if (m_spifd != -1)
-        close(m_spifd);
-    m_spifd = -1;
+    m_referenceCount--;
+
+    if (m_referenceCount == 0)
+    {
+        if (m_spifd != -1)
+            close(m_spifd);
+        m_spifd = -1;
+    }
 }
 
 QStringList SPIPlugin::outputs()

@@ -32,18 +32,21 @@ E131Controller::E131Controller(QString ipaddr, QString macAddress, Type type, QO
     m_packetSent = 0;
     m_packetReceived = 0;
     m_type = type;
+    m_inputRefCount = 0;
+    m_outputRefCount = 0;
 
     m_UdpSocket = new QUdpSocket(this);
 
     // reset initial DMX values if we're an input
     if (type == Input)
     {
-        m_dmxValues.fill(0, 2048);
+        m_dmxValues.fill(0, 512);
         if (m_UdpSocket->bind(E131_DEFAULT_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint) == false)
         {
             qDebug() << Q_FUNC_INFO << "Socket input bind failed !!";
             return;
         }
+        m_inputRefCount = 1;
     }
     else
     {
@@ -52,6 +55,7 @@ E131Controller::E131Controller(QString ipaddr, QString macAddress, Type type, QO
             qDebug() << Q_FUNC_INFO << "Socket output bind failed !!";
             return;
         }
+        m_outputRefCount = 1;
     }
 
     connect(m_UdpSocket, SIGNAL(readyRead()),
@@ -84,6 +88,25 @@ quint64 E131Controller::getPacketSentNumber()
 quint64 E131Controller::getPacketReceivedNumber()
 {
     return m_packetReceived;
+}
+
+void E131Controller::changeReferenceCount(E131Controller::Type type, int amount)
+{
+    if (type == Input)
+    {
+        m_inputRefCount += amount;
+        m_dmxValues.resize(m_inputRefCount * 512);
+    }
+    else
+        m_outputRefCount += amount;
+}
+
+int E131Controller::referenceCount(E131Controller::Type type)
+{
+    if (type == Input)
+        return m_inputRefCount;
+    else
+        return m_outputRefCount;
 }
 
 QString E131Controller::getNetworkIP()
@@ -136,6 +159,9 @@ void E131Controller::processPendingPackets()
                     m_packetReceived++;
                     if (m_packetizer->fillDMXdata(datagram, dmxData, universe) == true)
                     {
+                        if (universe >= (quint32)m_inputRefCount)
+                            break;
+
                         quint32 uniAddr = universe << 9;
                         for (quint32 i = 0; i < (quint32)dmxData.length(); i++)
                         {
