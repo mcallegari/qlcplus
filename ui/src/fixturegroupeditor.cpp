@@ -120,6 +120,7 @@ void FixtureGroupEditor::updateTable()
         item->setFont(font);
         item->setData(PROP_FIXTURE, head.fxi);
         item->setData(PROP_HEAD, head.head);
+        item->setToolTip(str);
 
         m_table->setItem(pt.y(), pt.x(), item);
     }
