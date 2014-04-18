@@ -493,7 +493,7 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
     m_tree->scrollToItem(item, QAbstractItemView::PositionAtCenter);
     m_tree->setCurrentItem(item);
     m_primaryIndex = stepNumber;
-    setSlidersInfo(m_primaryIndex, NULL);
+    setSlidersInfo(m_primaryIndex);
     emit stepChanged(m_primaryIndex);
 }
 
@@ -509,7 +509,7 @@ void VCCueList::slotItemActivated(QTreeWidgetItem* item)
     else
         m_runner->setCurrentStep(m_primaryIndex, (qreal)m_slider1->value() / 100);
 
-    setSlidersInfo(m_primaryIndex, NULL);
+    setSlidersInfo(m_primaryIndex);
     m_mutex.unlock();
 }
 
@@ -562,37 +562,20 @@ void VCCueList::createRunner(int startIndex)
         connect(m_runner, SIGNAL(currentStepChanged(int)),
                 this, SLOT(slotCurrentStepChanged(int)));
         m_playbackButton->setIcon(QIcon(":/player_stop.png"));
-        setSlidersInfo(startIndex, ch);
+        setSlidersInfo(startIndex);
     }
 }
 
 /*****************************************************************************
  * Crossfade
  *****************************************************************************/
-void VCCueList::setSlidersInfo(int pIndex, Chaser *ch)
+void VCCueList::setSlidersInfo(int pIndex)
 {
-    Chaser *lChaser = ch;
-    if (lChaser == NULL)
-        lChaser = chaser();
-
-    if (lChaser == NULL)
+    if (chaser() == NULL || m_runner == NULL)
         return;
 
-    int tmpIndex = -1;
-    if (lChaser->direction() == Function::Forward)
-    {
-        if (pIndex + 1 == m_tree->topLevelItemCount())
-            tmpIndex = 0;
-        else
-            tmpIndex = pIndex + 1;
-    }
-    else
-    {
-        if (pIndex == 0)
-            tmpIndex = m_tree->topLevelItemCount() - 1;
-        else
-            tmpIndex = pIndex - 1;
-    }
+    int tmpIndex = m_runner->computeNextStep(pIndex);
+
     m_sl1BottomLabel->setText(QString("#%1").arg(m_primaryLeft ? pIndex + 1 : tmpIndex + 1));
     m_sl1BottomLabel->setStyleSheet(m_primaryLeft ? m_blueStyle : m_orangeStyle);
 
@@ -658,7 +641,7 @@ void VCCueList::slotSlider1ValueChanged(int value)
             m_tree->scrollToItem(item, QAbstractItemView::PositionAtCenter);
             m_tree->setCurrentItem(item);
         }
-        setSlidersInfo(m_primaryIndex, NULL);
+        setSlidersInfo(m_primaryIndex);
     }
     updateFeedback();
 }
@@ -700,7 +683,7 @@ void VCCueList::slotSlider2ValueChanged(int value)
             m_tree->scrollToItem(item, QAbstractItemView::PositionAtCenter);
             m_tree->setCurrentItem(item);
         }
-        setSlidersInfo(m_primaryIndex, NULL);
+        setSlidersInfo(m_primaryIndex);
     }
     updateFeedback();
 }
@@ -1041,7 +1024,7 @@ void VCCueList::playCueAtIndex(int idx)
     else
         m_runner->setCurrentStep(m_primaryIndex, (qreal)m_slider1->value() / 100);
 
-    setSlidersInfo(m_primaryIndex, NULL);
+    setSlidersInfo(m_primaryIndex);
     m_mutex.unlock();
 }
 

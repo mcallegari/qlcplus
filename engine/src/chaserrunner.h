@@ -118,6 +118,11 @@ public:
     int currentStep() const;
 
     /**
+     * Compute next step for manual fading 
+     */
+    int computeNextStep(int currentStep) const;
+
+    /**
      * Get the running step number.
      *
      * @return Running step number
