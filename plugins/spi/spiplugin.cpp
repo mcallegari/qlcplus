@@ -129,6 +129,31 @@ QString SPIPlugin::pluginInfo()
     return str;
 }
 
+void SPIPlugin::setAbsoluteAddress(quint32 uniID, SPIUniverse *uni)
+{
+    quint32 totalChannels = 0;
+    quint32 absOffset = 0;
+
+    QHashIterator <quint32, SPIUniverse*> it(m_uniChannelsMap);
+    while (it.hasNext() == true)
+    {
+        it.next();
+        if (it.value() == NULL)
+            continue;
+        quint32 mapUniID = it.key();
+        if (mapUniID < uniID)
+            absOffset += it.value()->m_channels;
+
+        totalChannels += it.value()->m_channels;
+    }
+    uni->m_absoluteAddress = absOffset;
+    totalChannels += uni->m_channels;
+    qDebug() << "[SPI] universe" << uniID << "has" << uni->m_channels
+             << "channels and starts at" << uni->m_absoluteAddress;
+    m_serializedData.resize(totalChannels);
+    qDebug() << "[SPI] total bytes to transmit:" << m_serializedData.size();
+}
+
 void SPIPlugin::setParameter(QString name, QVariant &value)
 {
     QString prop(name);
@@ -139,28 +164,13 @@ void SPIPlugin::setParameter(QString name, QVariant &value)
         QString uniStrId = prop.split("-").at(1);
         quint32 uniID = uniStrId.toUInt();
         int chans = value.toInt();
-        SPIUniverse uniStruct;
-        uniStruct.m_channels = chans;
+        SPIUniverse *uniStruct = new SPIUniverse;
+        uniStruct->m_channels = chans;
+        uniStruct->m_autoDetection = false;
 
-        quint32 totalChannels = 0;
-        quint32 absOffset = 0;
+        setAbsoluteAddress(uniID, uniStruct);
 
-        QHashIterator <quint32, SPIUniverse> it(m_uniChannelsMap);
-        while (it.hasNext() == true)
-        {
-            it.next();
-            quint32 mapUniID = it.key();
-            if (mapUniID < uniID)
-                absOffset += it.value().m_channels;
-
-            totalChannels += it.value().m_channels;
-        }
-        uniStruct.m_absoluteAddress = absOffset;
         m_uniChannelsMap[uniID] = uniStruct;
-        totalChannels += chans;
-        qDebug() << "[SPI] universe" << uniID << "has" << uniStruct.m_channels << "and starts at" << uniStruct.m_absoluteAddress;
-        m_serializedData.resize(totalChannels);
-        qDebug() << "[SPI] total bytes to transmit:" << m_serializedData.size();
     }
 }
 
@@ -184,14 +194,28 @@ void SPIPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray
     if (output != 0 || m_spifd == -1)
         return;
 
-    if (m_serializedData.size() == 0)
+    qDebug() << "[SPI] write" << universe << "size" << data.size();
+
+    SPIUniverse *uniInfo = m_uniChannelsMap[universe];
+    if (uniInfo != NULL)
     {
-        m_serializedData = data;
+        if (uniInfo->m_autoDetection == true)
+        {
+            if (data.size() > uniInfo->m_channels)
+            {
+                uniInfo->m_channels = data.size();
+                setAbsoluteAddress(universe, uniInfo);
+            }
+        }
+        m_serializedData.replace(uniInfo->m_absoluteAddress, data.size(), data);
     }
     else
     {
-        SPIUniverse uniInfo = m_uniChannelsMap[universe];
-        m_serializedData.replace(uniInfo.m_absoluteAddress, data.size(), data);
+        SPIUniverse *newUni = new SPIUniverse;
+        newUni->m_channels = data.size();
+        newUni->m_autoDetection = true;
+        setAbsoluteAddress(universe, newUni);
+        m_uniChannelsMap[universe] = newUni;
     }
 
     m_outThread->writeData(m_serializedData);

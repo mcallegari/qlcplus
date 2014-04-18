@@ -71,8 +71,8 @@ bool DMXUSB::rescanWidgets()
         {
             m_inputs << widget;
             EnttecDMXUSBProRX* prorx = (EnttecDMXUSBProRX*) widget;
-            connect(prorx, SIGNAL(valueChanged(quint32,quint32,uchar)),
-                    this, SIGNAL(valueChanged(quint32,quint32,uchar)));
+            connect(prorx, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
+                    this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
         }
         else
         {

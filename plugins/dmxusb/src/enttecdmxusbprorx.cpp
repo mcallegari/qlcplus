@@ -161,7 +161,7 @@ void EnttecDMXUSBProRX::run()
             {
                 // Store and emit changed values
                 m_universe[i] = byte;
-                emit valueChanged(m_input, i, byte);
+                emit valueChanged(UINT_MAX, m_input, i, byte);
             }
         }
     }

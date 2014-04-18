@@ -64,7 +64,7 @@ public:
 
 signals:
     /** Tells that the value of a received DMX channel has changed */
-    void valueChanged(quint32 input, quint32 channel, uchar value);
+    void valueChanged(quint32 universe, quint32 input, quint32 channel, uchar value);
 
 private:
     /** Stop DMX receiver thread */

@@ -127,7 +127,7 @@ void HIDPlugin::customEvent(QEvent* event)
     {
         HIDInputEvent* e = static_cast<HIDInputEvent*> (event);
         if (e != NULL && e->m_alive == true)
-            emit valueChanged(e->m_input, e->m_channel, e->m_value);
+            emit valueChanged(UINT_MAX, e->m_input, e->m_channel, e->m_value);
         else
             removeDevice(e->m_device);
 

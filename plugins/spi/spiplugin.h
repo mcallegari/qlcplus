@@ -34,6 +34,9 @@ typedef struct
     /** absolute address where data of this universe
      *  starts in the m_serializedData array */
     ushort m_absoluteAddress;
+    /** flag to instruct the SPI plugin to autodetect
+     *  a universe size during a writeUniverse */
+    bool m_autoDetection;
 } SPIUniverse;
 
 class SPIOutThread;
@@ -67,6 +70,9 @@ public:
 
     void setParameter(QString name, QVariant &value);
 
+private:
+    void setAbsoluteAddress(quint32 uniID, SPIUniverse *uni);
+
     /*********************************************************************
      * Outputs
      *********************************************************************/
@@ -93,7 +99,7 @@ protected:
     int m_referenceCount;
 
     /** Map of <Universe ID/number of channels> */
-    QHash<quint32, SPIUniverse> m_uniChannelsMap;
+    QHash<quint32, SPIUniverse*> m_uniChannelsMap;
 
     /** Array holding all the universes data controlled
      *  by the SPI plugin, ready to be sent as a serial

@@ -38,7 +38,7 @@ public:
     enum Type { Unknown = 0x0, Input = 0x01, Output = 0x02 };
 
     ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> interfaces,
-                     QString macAddress, Type type, QObject *parent = 0);
+                     QString macAddress, Type type, quint32 line, QObject *parent = 0);
 
     ~ArtNetController();
 
@@ -87,6 +87,9 @@ private:
     /** A controller can be only output or only input */
     Type m_type;
 
+    /** QLC+ line to be used when emitting a signal */
+    quint32 m_line;
+
     /** The UDP socket used to send/receive ArtNet packets */
     QUdpSocket *m_UdpSocket;
 
@@ -111,7 +114,7 @@ private slots:
     void processPendingPackets();
 
 signals:
-    void valueChanged(quint32 input, quint32 channel, uchar value);
+    void valueChanged(quint32 universe, quint32 input, quint32 channel, uchar value);
 };
 
 #endif

@@ -21,11 +21,12 @@
 
 #include <QDebug>
 
-E131Controller::E131Controller(QString ipaddr, QString macAddress, Type type, QObject *parent)
+E131Controller::E131Controller(QString ipaddr, QString macAddress, Type type, quint32 line, QObject *parent)
     : QObject(parent)
 {
     m_ipAddr = QHostAddress(ipaddr);
     m_MACAddress = macAddress;
+    m_line = line;
 
     qDebug() << "[E131Controller] type: " << type;
     m_packetizer = new E131Packetizer();
@@ -168,7 +169,7 @@ void E131Controller::processPendingPackets()
                             if (m_dmxValues.at(uniAddr + i) != dmxData.at(i))
                             {
                                 m_dmxValues[uniAddr + i] =  dmxData[i];
-                                emit valueChanged(universe, i, (uchar)dmxData.at(i));
+                                emit valueChanged(universe, m_line, i, (uchar)dmxData.at(i));
                             }
                         }
                     }

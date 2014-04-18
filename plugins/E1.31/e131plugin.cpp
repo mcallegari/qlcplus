@@ -138,7 +138,7 @@ void E131Plugin::openOutput(quint32 output)
     // not open ? Create a new E131Controller
     E131Controller *controller = new E131Controller(m_IOmapping.at(output).IPAddress,
                                                     m_IOmapping.at(output).MACAddress,
-                                                    E131Controller::Output, this);
+                                                    E131Controller::Output, output, this);
     m_IOmapping[output].controller = controller;
 
 }
@@ -214,9 +214,9 @@ void E131Plugin::openInput(quint32 input)
     // not open ? Create a new ArtNetController
     E131Controller *controller = new E131Controller(m_IOmapping.at(input).IPAddress,
                                                     m_IOmapping.at(input).MACAddress,
-                                                    E131Controller::Input, this);
-    connect(controller, SIGNAL(valueChanged(quint32,quint32,uchar)),
-            this, SIGNAL(valueChanged(quint32,quint32,uchar)));
+                                                    E131Controller::Input, input, this);
+    connect(controller, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
+            this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
     m_IOmapping[input].controller = controller;
 }
 

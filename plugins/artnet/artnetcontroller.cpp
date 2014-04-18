@@ -22,11 +22,12 @@
 #include <QDebug>
 
 ArtNetController::ArtNetController(QString ipaddr, QList<QNetworkAddressEntry> interfaces,
-                                   QString macAddress, Type type, QObject *parent)
+                                   QString macAddress, Type type, quint32 line, QObject *parent)
     : QObject(parent)
 {
     m_ipAddr = QHostAddress(ipaddr);
     m_MACAddress = macAddress;
+    m_line = line;
 
     int i = 0;
     foreach(QNetworkAddressEntry iface, interfaces)
@@ -164,7 +165,7 @@ void ArtNetController::processPendingPackets()
         m_UdpSocket->readDatagram(datagram.data(), datagram.size(), &senderAddress);
         if (senderAddress != m_ipAddr)
         {
-            qDebug() << "Received packet with size: " << datagram.size() << ", host: " << senderAddress.toString();
+            //qDebug() << "Received packet with size: " << datagram.size() << ", host: " << senderAddress.toString();
             int opCode = -1;
             if (m_packetizer->checkPacketAndCode(datagram, opCode) == true)
             {
@@ -173,7 +174,7 @@ void ArtNetController::processPendingPackets()
                 {
                     case ARTNET_POLLREPLY:
                     {
-                        qDebug() << "ArtPollReply received";
+                        qDebug() << "[ArtNet] ArtPollReply received";
                         ArtNetNodeInfo newNode;
                         if (m_packetizer->fillArtPollReplyInfo(datagram, newNode) == true)
                         {
@@ -184,7 +185,7 @@ void ArtNetController::processPendingPackets()
                     break;
                     case ARTNET_POLL:
                     {
-                        qDebug() << "ArtPoll received";
+                        qDebug() << "[ArtNet] ArtPoll received";
                         QByteArray pollReplyPacket;
                         m_packetizer->setupArtNetPollReply(pollReplyPacket, m_ipAddr, m_MACAddress);
                         m_UdpSocket->writeDatagram(pollReplyPacket.data(), pollReplyPacket.size(),
@@ -194,13 +195,13 @@ void ArtNetController::processPendingPackets()
                     break;
                     case ARTNET_DMX:
                     {
-                        qDebug() << "DMX data received";
                         QByteArray dmxData;
                         quint32 universe;
                         if (this->type() == Input)
                         {
                             if (m_packetizer->fillDMXdata(datagram, dmxData, universe) == true)
                             {
+                                qDebug() << "[ArtNet] DMX data received. Universe:" << universe << "Data size:" << dmxData.size();
                                 if (universe >= (quint32)m_inputRefCount)
                                     break;
 
@@ -213,7 +214,7 @@ void ArtNetController::processPendingPackets()
                                         m_dmxValues[uniAddr + i] = dmxData[i];
                                         //if (emitStartAddr == UINT_MAX)
                                         //    emitStartAddr = (quint32)i;
-                                        emit valueChanged(universe, i, (uchar)dmxData.at(i));
+                                        emit valueChanged(universe, m_line, i, (uchar)dmxData.at(i));
                                     }
                                     /*
                                     else
@@ -231,12 +232,12 @@ void ArtNetController::processPendingPackets()
                     }
                     break;
                     default:
-                        qDebug() << "opCode not supported yet (" << opCode << ")";
+                        qDebug() << "[ArtNet] opCode not supported yet (" << opCode << ")";
                     break;
                 }
             }
             else
-                qDebug() << "Malformed packet received";
+                qDebug() << "[ArtNet] Malformed packet received";
         }
      }
 }

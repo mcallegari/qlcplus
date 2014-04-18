@@ -147,7 +147,7 @@ void ArtNetPlugin::openOutput(quint32 output)
     // not open ? Create a new ArtNetController
     ArtNetController *controller = new ArtNetController(m_IOmapping.at(output).IPAddress,
                                                         m_netInterfaces, m_IOmapping.at(output).MACAddress,
-                                                        ArtNetController::Output, this);
+                                                        ArtNetController::Output, output, this);
     m_IOmapping[output].controller = controller;
 }
 
@@ -220,9 +220,9 @@ void ArtNetPlugin::openInput(quint32 input)
     // not open ? Create a new ArtNetController
     ArtNetController *controller = new ArtNetController(m_IOmapping.at(input).IPAddress,
                                                         m_netInterfaces, m_IOmapping.at(input).MACAddress,
-                                                        ArtNetController::Input, this);
-    connect(controller, SIGNAL(valueChanged(quint32,quint32,uchar)),
-            this, SIGNAL(valueChanged(quint32,quint32,uchar)));
+                                                        ArtNetController::Input, input, this);
+    connect(controller, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
+            this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
     m_IOmapping[input].controller = controller;
 }
 
