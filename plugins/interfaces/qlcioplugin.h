@@ -237,6 +237,11 @@ signals:
      * to be reacted to (if applicable). This is practically THE WAY for
      * input plugins to provide input data to QLC.
      *
+     * @param universe The universe ID detected from the data received.
+     *                 This is irrelevant for most of the plugins, but
+     *                 for network plugins like ArtNet and E1.31 this is
+     *                 fundamental if the same line is connected to several
+     *                 universes
      * @param input The input line whose channel has changed value
      * @param channel The channel that has changed its value
      * @param value The newly-changed channel value

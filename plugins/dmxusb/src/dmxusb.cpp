@@ -178,7 +178,11 @@ void DMXUSB::writeUniverse(quint32 universe, quint32 output, const QByteArray &d
     Q_UNUSED(universe)
 
     if (output < quint32(m_outputs.size()))
-        m_outputs.at(output)->writeUniverse(data);
+    {
+        QByteArray wholeuniverse(512, 0);
+        wholeuniverse.replace(0, data.length(), data);
+        m_outputs.at(output)->writeUniverse(wholeuniverse);
+    }
 }
 
 /****************************************************************************
