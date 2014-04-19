@@ -13,6 +13,7 @@ qlcplus (4.7.1) stable; urgency=low
   * Plugins: fixed ArtNet and E1.31 open/close when the same line is connected to several universes
   * Plugins: fixed ArtNet and E1.31 input association when the same line is connected to several universes
   * Plugins: implemented SPI autodetection of multiple universe channels when no fixtures are defined
+  * Added fixture: Pro-Lights ARCLED7314HD (thanks to Tolmino)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 19 April 2014 12:13:14 +0200
 
