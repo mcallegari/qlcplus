@@ -270,6 +270,10 @@ void DmxKeyPad::KP_ENTER()
     {
         valueStepSize = (m_currentValue - m_fanStartValue) / (qreal)(m_KPSelectedChannels->count() - 1);
     }
+    else
+    {
+        m_fanStartValue = m_currentValue;
+    }
 
     qDebug() << "valueStepSize" << valueStepSize;
 
