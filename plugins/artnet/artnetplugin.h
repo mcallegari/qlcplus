@@ -107,9 +107,6 @@ public:
     void sendFeedBack(quint32 input, quint32 channel, uchar value, const QString& key)
         { Q_UNUSED(input); Q_UNUSED(channel); Q_UNUSED(value); Q_UNUSED(key); }
 
-    /** send an event to the upper layers */
-    void sendValueChanged(quint32 input, QString path, uchar value);
-
     /*********************************************************************
      * Configuration
      *********************************************************************/

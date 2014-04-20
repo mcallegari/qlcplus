@@ -64,8 +64,8 @@ void InputPatch::set(QLCIOPlugin* plugin, quint32 input, QLCInputProfile* profil
 {
     if (m_plugin != NULL && m_input != QLCIOPlugin::invalidLine())
     {
-        disconnect(m_plugin, SIGNAL(valueChanged(quint32,quint32,uchar,QString)),
-                   this, SLOT(slotValueChanged(quint32,quint32,uchar,QString)));
+        disconnect(m_plugin, SIGNAL(valueChanged(quint32,quint32,quint32,uchar,QString)),
+                   this, SLOT(slotValueChanged(quint32,quint32,quint32,uchar,QString)));
         m_plugin->closeInput(m_input);
     }
 
@@ -76,8 +76,8 @@ void InputPatch::set(QLCIOPlugin* plugin, quint32 input, QLCInputProfile* profil
     /* Open the assigned plugin input */
     if (m_plugin != NULL && m_input != QLCIOPlugin::invalidLine())
     {
-        connect(m_plugin, SIGNAL(valueChanged(quint32,quint32,uchar,QString)),
-                this, SLOT(slotValueChanged(quint32,quint32,uchar,QString)));
+        connect(m_plugin, SIGNAL(valueChanged(quint32,quint32,quint32,uchar,QString)),
+                this, SLOT(slotValueChanged(quint32,quint32,quint32,uchar,QString)));
         m_plugin->openInput(m_input);
 
         if (m_profile != NULL)
@@ -163,10 +163,14 @@ bool InputPatch::isPatched() const
     return input() != QLCIOPlugin::invalidLine();
 }
  
-void InputPatch::slotValueChanged(quint32 input, quint32 channel, uchar value, const QString& key)
+void InputPatch::slotValueChanged(quint32 universe, quint32 input, quint32 channel,
+                                  uchar value, const QString& key)
 {
-    // In case we have several lines connected from the same plugin, emit only
+    // In case we have several lines connected to the same plugin, emit only
     // such values that belong to this particular patch.
     if (input == m_input)
+    {
+        if (universe == UINT_MAX || (universe != UINT_MAX && universe == m_inputUniverse))
         emit inputValueChanged(m_inputUniverse, channel, value, key);
+    }
 }

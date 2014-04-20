@@ -21,12 +21,13 @@
 #include <QDomElement>
 #include <math.h>
 
-#include "universe.h"
 #include "inputoutputmap.h"
-#include "inputpatch.h"
+#include "qlcioplugin.h"
 #include "outputpatch.h"
 #include "grandmaster.h"
+#include "inputpatch.h"
 #include "qlcmacros.h"
+#include "universe.h"
 
 #define UNIVERSE_SIZE 512
 #define RELATIVE_ZERO 127
@@ -286,7 +287,8 @@ bool Universe::isPatched()
 bool Universe::setInputPatch(QLCIOPlugin *plugin,
                              quint32 input, QLCInputProfile *profile)
 {
-    qDebug() << Q_FUNC_INFO << "plugin:" << plugin << "input:" << input << "profile:" << profile;
+    qDebug() << "[Universe] setInputPatch - ID:" << m_id << ", plugin:" << ((plugin == NULL)?"None":plugin->name())
+             << ", input:" << input << ", profile:" << ((profile == NULL)?"None":profile->name());
     if (m_inputPatch == NULL)
     {
         if (input == QLCChannel::invalid())
@@ -322,7 +324,8 @@ bool Universe::setInputPatch(QLCIOPlugin *plugin,
 
 bool Universe::setOutputPatch(QLCIOPlugin *plugin, quint32 output)
 {
-    qDebug() << Q_FUNC_INFO << "plugin:" << plugin << "output:" << output;
+    qDebug() << "[Universe] setInputPatch - ID:" << m_id
+             << ", plugin:" << ((plugin == NULL)?"None":plugin->name()) << ", output:" << output;
     if (m_outputPatch == NULL)
     {
         if (output == QLCChannel::invalid())
@@ -400,7 +403,8 @@ void Universe::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
 {
     if (m_passthrough == true)
     {
-        write(channel, value);
+        if (universe == m_id)
+            write(channel, value);
     }
     else
         emit inputValueChanged(universe, channel, value, key);

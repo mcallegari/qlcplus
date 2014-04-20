@@ -102,10 +102,12 @@ public:
     bool isPatched() const;
 
 signals:
-    void inputValueChanged(quint32 inputUniverse, quint32 channel, uchar value, const QString& key = 0);
+    void inputValueChanged(quint32 inputUniverse, quint32 channel,
+                           uchar value, const QString& key = 0);
 
 private slots:
-    void slotValueChanged(quint32 input, quint32 channel, uchar value, const QString& key = 0);
+    void slotValueChanged(quint32 universe, quint32 input,
+                          quint32 channel, uchar value, const QString& key = 0);
 
 private:
     QLCIOPlugin* m_plugin;

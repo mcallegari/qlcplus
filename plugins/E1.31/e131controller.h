@@ -37,8 +37,8 @@ class E131Controller : public QObject
 public:
     enum Type { Unknown = 0x0, Input = 0x01, Output = 0x02 };
 
-    E131Controller(QString ipaddr,
-                   QString macAddress, Type type, QObject *parent = 0);
+    E131Controller(QString ipaddr, QString macAddress,
+                   Type type, quint32 line, QObject *parent = 0);
 
     ~E131Controller();
 
@@ -60,6 +60,12 @@ public:
     /** Get the number of packets received by this controller */
     quint64 getPacketReceivedNumber();
 
+    /** Increase or decrease the reference count of the given type */
+    void changeReferenceCount(Type type, int amount);
+
+    /** Retrieve the reference count of the given type */
+    int referenceCount(Type type);
+
 private:
     /** The controller IP address as QHostAddress */
     QHostAddress m_ipAddr;
@@ -78,6 +84,9 @@ private:
     /** A controller can be only output or only input */
     Type m_type;
 
+    /** QLC+ line to be used when emitting a signal */
+    quint32 m_line;
+
     /** The UDP socket used to send/receive E131 packets */
     QUdpSocket *m_UdpSocket;
 
@@ -88,12 +97,18 @@ private:
     /** It holds values for a whole 4 universes address (512 * 4) */
     QByteArray m_dmxValues;
 
+    /** Count the number of input universes using this controller */
+    int m_inputRefCount;
+
+    /** Count the number of output universes using this controller */
+    int m_outputRefCount;
+
 private slots:
     /** Async event raised when new packets have been received */
     void processPendingPackets();
 
 signals:
-    void valueChanged(quint32 input, quint32 channel, uchar value);
+    void valueChanged(quint32 universe, quint32 input, quint32 channel, uchar value);
 };
 
 #endif

@@ -258,6 +258,7 @@ fixtures.files += Movitec-WL-575.qxf
 fixtures.files += Nicols-Strob-LED-W.qxf
 fixtures.files += Optima-Lighting-PAR64-LED.qxf
 fixtures.files += PixelRANGE-PixelPar-44.qxf
+fixtures.files += Pro-Lights-ARCLED7314HD.qxf
 fixtures.files += Pro-Lights-CromoSpot-150.qxf
 fixtures.files += Pro-Lights-Explo-3000D.qxf
 fixtures.files += Pro-Lights-LedPar-64363-RGB.qxf
