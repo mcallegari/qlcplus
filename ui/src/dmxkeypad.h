@@ -22,6 +22,7 @@ private:
     uint m_rangeStartChan;
     uint m_currentChannel;
     uchar m_currentValue;
+    uchar m_fanStartValue;
     uchar m_byStepSize;
     bool m_addToRange;
     bool m_subtractFromRange;
@@ -32,6 +33,7 @@ private:
     QState* m_KPState_ChannelTHRU; // Wait for second part of channel "THRU" specification (range end)
     QState* m_KPState_StepSize; // Wait for entry of step size (entered by "BY")
     QState* m_KPState_Value; // Wait for value(range) specification
+    QState* m_KPState_ValueTHRU; // Wait for second pard of value "THRU" specification (range end)
 
     QGridLayout* lay;
 
@@ -84,6 +86,7 @@ signals:
     void SM_AddRange();
     void SM_SubtractRange();
     void SM_ByStart();
+    void SM_ValueTHRU();
 
     void newChanValue(uint channel, uchar value);
     void newValuesDone();

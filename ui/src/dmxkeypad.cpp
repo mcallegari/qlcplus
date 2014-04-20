@@ -17,6 +17,7 @@ DmxKeyPad::DmxKeyPad(QWidget *parent) :
     m_KPState_ChannelTHRU = new QState();
     m_KPState_StepSize = new QState();
     m_KPState_Value = new QState();
+    m_KPState_ValueTHRU = new QState();
 
     // Valid/possible transitions from one state to another. Triggered by SIGNALs
     m_KPState_Init->addTransition(this, SIGNAL(SM_InitDone()), m_KPState_Channel);
@@ -33,11 +34,14 @@ DmxKeyPad::DmxKeyPad(QWidget *parent) :
 
     m_KPState_StepSize->addTransition(this, SIGNAL(SM_ChannelsDone()), m_KPState_Value);
 
+    m_KPState_Value->addTransition(this, SIGNAL(SM_ValueTHRU()), m_KPState_ValueTHRU);
+
     // Transitions from every possible state to Init via SM_Reset()
     m_KPState_Channel->addTransition(this, SIGNAL(SM_Reset()), m_KPState_Init);
     m_KPState_ChannelTHRU->addTransition(this, SIGNAL(SM_Reset()), m_KPState_Init);
     m_KPState_StepSize->addTransition(this, SIGNAL(SM_Reset()), m_KPState_Init);
     m_KPState_Value->addTransition(this, SIGNAL(SM_Reset()), m_KPState_Init);
+    m_KPState_ValueTHRU->addTransition(this, SIGNAL(SM_Reset()), m_KPState_Init);
 
     // Connect the entered() and exited() SIGNALs to some SLOTs that do the actual work/calculations
     connect(m_KPState_Init, SIGNAL(entered()), this, SLOT(SM_Init()));
@@ -51,6 +55,7 @@ DmxKeyPad::DmxKeyPad(QWidget *parent) :
     m_KPStateMachine->addState(m_KPState_ChannelTHRU);
     m_KPStateMachine->addState(m_KPState_StepSize);
     m_KPStateMachine->addState(m_KPState_Value);
+    m_KPStateMachine->addState(m_KPState_ValueTHRU);
     m_KPStateMachine->setInitialState(m_KPState_Init);
     m_KPStateMachine->start();
 }
@@ -202,11 +207,20 @@ void DmxKeyPad::KP_THRU()
 {
     qDebug() << Q_FUNC_INFO;
 
-    // TODO: "FAN" function => Check current state if channel or value
-    m_rangeStartChan = m_currentChannel;
-    m_currentChannel = 0;
-    appendToCommand(" THRU ");
-    emit SM_ChannelTHRU();
+    if (m_KPStateMachine->configuration().contains(m_KPState_Channel))
+    {
+        m_rangeStartChan = m_currentChannel;
+        m_currentChannel = 0;
+        appendToCommand(" THRU ");
+        emit SM_ChannelTHRU();
+    }
+    else if (m_KPStateMachine->configuration().contains(m_KPState_Value))
+    {
+        m_fanStartValue = m_currentValue;
+        m_currentValue = 0;
+        appendToCommand(" THRU ");
+        emit SM_ValueTHRU();
+    }
 }
 
 void DmxKeyPad::KP_PLUS()
@@ -238,20 +252,35 @@ void DmxKeyPad::KP_FULL()
     if (m_KPStateMachine->configuration().contains(m_KPState_Value)) {
         m_currentValue = 255;
         appendToCommand("FULL");
-        KP_ENTER(); // Wrong in case we want to support "FULL THRU ..." (FAN function)
+        KP_ENTER(); // FULL implies ENTER for simplicity. If you want "FULL" and FAN function, use 255 please!
     }
 }
 
 void DmxKeyPad::KP_ENTER()
 {
-    qDebug() << Q_FUNC_INFO;
+    qreal valueStepSize = 0;
+    qint32 i = 0;
+
+    qDebug() << Q_FUNC_INFO << "currentValue:" << m_currentValue << "fanStartValue" << m_fanStartValue;
+
+    // Remove invalid channel
+    if (m_KPSelectedChannels->contains(0)) m_KPSelectedChannels->removeAll(0);
+
+    if (m_KPStateMachine->configuration().contains(m_KPState_ValueTHRU))
+    {
+        valueStepSize = (m_currentValue - m_fanStartValue) / (qreal)(m_KPSelectedChannels->count() - 1);
+    }
+
+    qDebug() << "valueStepSize" << valueStepSize;
 
     uint chan;
     foreach(chan, *m_KPSelectedChannels)
     {
         if (chan < 1) continue;
-        qDebug() << "KEYPAD: SET CHANNEL" << chan << "TO" << m_currentValue;
-        emit newChanValue(chan - 1, m_currentValue);
+
+        qDebug() << "KEYPAD: SET CHANNEL" << chan << "TO" << m_fanStartValue + i*valueStepSize;
+        emit newChanValue(chan - 1, m_fanStartValue + i*valueStepSize);
+        i++;
     }
     emit newValuesDone();
     emit SM_Reset();
@@ -292,7 +321,7 @@ void DmxKeyPad::addDigitToNumber(quint8 digit)
         m_currentChannel = m_currentChannel * 10 + digit;
         appendToCommand(QString("%1").arg(digit));
     }
-    else if (m_KPStateMachine->configuration().contains(m_KPState_Value))
+    else if (m_KPStateMachine->configuration().contains(m_KPState_Value) || m_KPStateMachine->configuration().contains(m_KPState_ValueTHRU))
     {
         if ((m_currentValue * 10 + digit) > 255) return; // Invalid value
         m_currentValue = m_currentValue * 10 + digit;
@@ -374,6 +403,7 @@ void DmxKeyPad::SM_Init()
     m_currentChannel = 0;
     m_rangeStartChan = 0;
     m_currentValue = 0;
+    m_fanStartValue = 0;
     m_byStepSize = 1;
     m_addToRange = false;
     m_subtractFromRange = false;
