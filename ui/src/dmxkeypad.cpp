@@ -196,6 +196,8 @@ void DmxKeyPad::KP_MINUS()
 
     if (m_KPStateMachine->configuration().contains(m_KPState_Channel) || m_KPStateMachine->configuration().contains(m_KPState_ChannelTHRU))
     {
+        m_BY->setEnabled(false); // not implemented yet
+
         emit SM_SubtractRange(); // re-calculate the current (pre-Subtract range)
         m_currentChannel = 0;
         m_subtractFromRange = true;
@@ -229,6 +231,8 @@ void DmxKeyPad::KP_PLUS()
 
     if (m_KPStateMachine->configuration().contains(m_KPState_Channel) || m_KPStateMachine->configuration().contains(m_KPState_ChannelTHRU))
     {
+        m_BY->setEnabled(false); // not implemented yet
+
         emit SM_AddRange(); // re-calculate the current (pre-Add range)
         m_currentChannel = 0;
         m_addToRange = true;
@@ -241,6 +245,11 @@ void DmxKeyPad::KP_BY()
     qDebug() << Q_FUNC_INFO;
 
     appendToCommand(" BY ");
+
+    // Not implemented yet
+    m_PLUS->setEnabled(false);
+    m_MINUS->setEnabled(false);
+
     emit SM_ByStart();
 }
 
@@ -411,6 +420,10 @@ void DmxKeyPad::SM_Init()
     m_byStepSize = 1;
     m_addToRange = false;
     m_subtractFromRange = false;
+
+    m_PLUS->setEnabled(true);
+    m_MINUS->setEnabled(true);
+    m_BY->setEnabled(true);
 
     emit SM_InitDone(); // Changes state machine to "Channel" state
 }
