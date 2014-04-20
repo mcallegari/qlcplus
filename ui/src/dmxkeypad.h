@@ -82,6 +82,7 @@ signals:
     void SM_ChannelsDone();
     void SM_ChannelTHRU();
     void SM_AddRange();
+    void SM_SubtractRange();
     void SM_ByStart();
 
     void newChanValue(uint channel, uchar value);

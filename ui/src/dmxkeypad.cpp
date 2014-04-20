@@ -5,7 +5,7 @@
 DmxKeyPad::DmxKeyPad(QWidget *parent) :
     QWidget(parent)
 {
-    qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << "parent:" << parent;
 
     setupUi();
 
@@ -24,10 +24,12 @@ DmxKeyPad::DmxKeyPad(QWidget *parent) :
     m_KPState_Channel->addTransition(this, SIGNAL(SM_ChannelsDone()), m_KPState_Value);
     m_KPState_Channel->addTransition(this, SIGNAL(SM_ChannelTHRU()), m_KPState_ChannelTHRU);
     m_KPState_Channel->addTransition(this, SIGNAL(SM_AddRange()), m_KPState_Channel);
+    m_KPState_Channel->addTransition(this, SIGNAL(SM_SubtractRange()), m_KPState_Channel);
 
     m_KPState_ChannelTHRU->addTransition(this, SIGNAL(SM_ChannelsDone()), m_KPState_Value);
     m_KPState_ChannelTHRU->addTransition(this, SIGNAL(SM_ByStart()), m_KPState_StepSize);
     m_KPState_ChannelTHRU->addTransition(this, SIGNAL(SM_AddRange()), m_KPState_Channel);
+    m_KPState_ChannelTHRU->addTransition(this, SIGNAL(SM_SubtractRange()), m_KPState_Channel);
 
     m_KPState_StepSize->addTransition(this, SIGNAL(SM_ChannelsDone()), m_KPState_Value);
 
@@ -185,7 +187,15 @@ void DmxKeyPad::KP_AT()
 
 void DmxKeyPad::KP_MINUS()
 {
+    qDebug() << Q_FUNC_INFO;
 
+    if (m_KPStateMachine->configuration().contains(m_KPState_Channel) || m_KPStateMachine->configuration().contains(m_KPState_ChannelTHRU))
+    {
+        emit SM_SubtractRange(); // re-calculate the current (pre-Subtract range)
+        m_currentChannel = 0;
+        m_subtractFromRange = true;
+        appendToCommand(" - ");
+    }
 }
 
 void DmxKeyPad::KP_THRU()
@@ -205,9 +215,10 @@ void DmxKeyPad::KP_PLUS()
 
     if (m_KPStateMachine->configuration().contains(m_KPState_Channel) || m_KPStateMachine->configuration().contains(m_KPState_ChannelTHRU))
     {
+        emit SM_AddRange(); // re-calculate the current (pre-Add range)
+        m_currentChannel = 0;
         m_addToRange = true;
         appendToCommand(" + ");
-        emit SM_AddRange();
     }
 }
 
@@ -227,7 +238,7 @@ void DmxKeyPad::KP_FULL()
     if (m_KPStateMachine->configuration().contains(m_KPState_Value)) {
         m_currentValue = 255;
         appendToCommand("FULL");
-        KP_ENTER(); // Wrong in case we want to support "FULL THRU ..."
+        KP_ENTER(); // Wrong in case we want to support "FULL THRU ..." (FAN function)
     }
 }
 
@@ -248,7 +259,7 @@ void DmxKeyPad::KP_ENTER()
 
 void DmxKeyPad::addDigitToNumber()
 {
-    qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << "sender:" << (QPushButton*)sender();
 
     if (sender() == 0) return;
     addDigitToNumber(((QPushButton*)sender())->text().toInt());
@@ -260,7 +271,7 @@ void DmxKeyPad::addDigitToNumber()
 
 void DmxKeyPad::addDigitToNumber(quint8 digit)
 {
-    qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << "digit:" << digit;
 
     if (m_KPStateMachine->configuration().contains(m_KPState_StepSize))
     {
@@ -291,9 +302,10 @@ void DmxKeyPad::addDigitToNumber(quint8 digit)
 
 void DmxKeyPad::calculateTHRURange()
 {
-    qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << "rangeStart:" << m_rangeStartChan << "currentChannel:" << m_currentChannel << "addToRange:" << m_addToRange << "subtractRange:" << m_subtractFromRange;
+    qDebug() << "Selected channels PRE:" << *m_KPSelectedChannels;
 
-    if (!m_addToRange) m_KPSelectedChannels->clear();
+    if (!m_addToRange && !m_subtractFromRange) m_KPSelectedChannels->clear();
 
     uint i;
     if (m_currentChannel < m_rangeStartChan) // range defined in reverse order (higher channel to lower channel)
@@ -301,24 +313,50 @@ void DmxKeyPad::calculateTHRURange()
         for (i = m_rangeStartChan; i >= m_currentChannel; i = i - m_byStepSize)
         {
             if (i == UINT_MAX) break; // don't shoot through the floor if going down to channel 0 was requested
-            if (!m_KPSelectedChannels->contains(i)) m_KPSelectedChannels->append(i);
+            if (!m_subtractFromRange)
+            {
+                if (!m_KPSelectedChannels->contains(i)) m_KPSelectedChannels->append(i);
+            }
+            else
+            {
+                if (m_KPSelectedChannels->contains(i)) m_KPSelectedChannels->removeAll(i);
+            }
         }
     } else if (m_currentChannel > m_rangeStartChan) // range defined in regular order (lower channel to higher channel)
     {
         for (i = m_rangeStartChan; i <= m_currentChannel; i = i + m_byStepSize)
         {
-            if (!m_KPSelectedChannels->contains(i)) m_KPSelectedChannels->append(i);
+            if (!m_subtractFromRange)
+            {
+                if (!m_KPSelectedChannels->contains(i)) m_KPSelectedChannels->append(i);
+            }
+            else
+            {
+                if (m_KPSelectedChannels->contains(i)) m_KPSelectedChannels->removeAll(i);
+            }
         }
     } else // range start = range end => only one channel selected
     {
-        if (!m_KPSelectedChannels->contains(i)) m_KPSelectedChannels->append(i);
+        if (!m_subtractFromRange)
+        {
+            if (!m_KPSelectedChannels->contains(i)) m_KPSelectedChannels->append(i);
+        }
+        else
+        {
+            if (m_KPSelectedChannels->contains(i)) m_KPSelectedChannels->removeAll(i);
+        }
     }
 
+    m_subtractFromRange = false; // Needs another "-" to subtract another range
     if (m_addToRange) m_currentChannel = 0;
+
+    qDebug() << "Selected channels POST:" << *m_KPSelectedChannels;
 }
 
 void DmxKeyPad::appendToCommand(QString text)
 {
+    qDebug() << Q_FUNC_INFO << "text:" << text;
+
     m_commandDisplay->setText(QString("%1%2").arg(m_commandDisplay->text()).arg(text));
 }
 
@@ -347,8 +385,9 @@ void DmxKeyPad::SM_ChannelExited()
 {
     qDebug() << Q_FUNC_INFO;
 
-    m_KPSelectedChannels->append(m_currentChannel);
-    m_currentChannel = 0; // In case of + after a single channel
+    if (!m_KPSelectedChannels->contains(m_currentChannel)) m_KPSelectedChannels->append(m_currentChannel);
+
+    m_currentChannel = 0; // In case of +/- after a single channel
 }
 
 void DmxKeyPad::SM_ChannelTHRUExited()
