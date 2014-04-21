@@ -42,6 +42,7 @@ fixtures.files += American-DJ-Revo-4.qxf
 fixtures.files += American-DJ-Revo-4-256.qxf
 fixtures.files += American-DJ-SP1500-MKII.qxf
 fixtures.files += American-DJ-Spherion-Tri-LED.qxf
+fixtures.files += American-DJ-Sweeper-Beam-LED.qxf
 fixtures.files += American-DJ-Sweeper-Beam-Quad-LED.qxf
 fixtures.files += American-DJ-TRI64-Profile.qxf
 fixtures.files += American-DJ-Tribar-Spot2.qxf
