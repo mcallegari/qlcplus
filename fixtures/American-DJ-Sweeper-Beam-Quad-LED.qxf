@@ -32,18 +32,18 @@
  </Channel>
  <Channel Name="Tilt">
   <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (-30° to -210°)</Capability>
+  <Capability Min="0" Max="255">Tilt (-30° to 210°)</Capability>
  </Channel>
  <Channel Name="Tilt movement macro">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="7">No function</Capability>
-  <Capability Min="8" Max="43">Tilt movement macro 60° -120°</Capability>
-  <Capability Min="44" Max="79">Tilt movement macro 45° -135°</Capability>
-  <Capability Min="80" Max="115">Tilt movement macro 30° -150°</Capability>
-  <Capability Min="116" Max="151">Tilt movement macro 0° -180°</Capability>
-  <Capability Min="152" Max="187">Tilt movement macro -30° -210°</Capability>
-  <Capability Min="188" Max="223">Tilt movement macro 0° -90°</Capability>
-  <Capability Min="224" Max="255">Tilt movement macro 90° -180°</Capability>
+  <Capability Min="8" Max="43">Tilt movement macro 60° to 120°</Capability>
+  <Capability Min="44" Max="79">Tilt movement macro 45° to 135°</Capability>
+  <Capability Min="80" Max="115">Tilt movement macro 30° to 150°</Capability>
+  <Capability Min="116" Max="151">Tilt movement macro 0° to 180°</Capability>
+  <Capability Min="152" Max="187">Tilt movement macro -30° to 210°</Capability>
+  <Capability Min="188" Max="223">Tilt movement macro 0° to 90°</Capability>
+  <Capability Min="224" Max="255">Tilt movement macro 90° to 180°</Capability>
  </Channel>
  <Channel Name="Tilt movement macro speed">
   <Group Byte="0">Speed</Group>
