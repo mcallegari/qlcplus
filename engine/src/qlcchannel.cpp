@@ -253,32 +253,32 @@ QIcon QLCChannel::getIntensityIcon() const
     return QIcon(pm);
 }
 
-QString QLCChannel::getIntensityColorName() const
+QString QLCChannel::getIntensityColorCode() const
 {
     if (m_colour == QLCChannel::Red ||
         m_name.contains("red", Qt::CaseInsensitive) == true)
-            return QString("red");
+            return QString("#FF0000");
     else if (m_colour == QLCChannel::Green ||
              m_name.contains("green", Qt::CaseInsensitive) == true)
-                return QString("green");
+                return QString("#00FF00");
     else if (m_colour == QLCChannel::Blue ||
              m_name.contains("blue", Qt::CaseInsensitive) == true)
-                return QString("blue");
+                return QString("#0000FF");
     else if (m_colour == QLCChannel::Cyan ||
              m_name.contains("cyan", Qt::CaseInsensitive) == true)
-                return QString("cyan");
+                return QString("#00FFFF");
     else if (m_colour == QLCChannel::Magenta ||
              m_name.contains("magenta", Qt::CaseInsensitive) == true)
-                return QString("magenta");
+                return QString("#FF00FF");
     else if (m_colour == QLCChannel::Yellow ||
              m_name.contains("yellow", Qt::CaseInsensitive) == true)
-                return QString("yellow");
+                return QString("#FFFF00");
     else if (m_colour == QLCChannel::Amber ||
              m_name.contains("amber", Qt::CaseInsensitive) == true)
-                return QString("orange");
+                return QString("#FF7E00");
     else if (m_colour == QLCChannel::White ||
              m_name.contains("white", Qt::CaseInsensitive) == true)
-                return QString("white");
+                return QString("#FFFFFF");
     else
     {
         // None of the primary colours matched and since this is an
@@ -286,7 +286,7 @@ QString QLCChannel::getIntensityColorName() const
         return QString(":/intensity.png");
     }
 
-    return QString("");
+    return QString(":/intensity.png");
 }
 
 QIcon QLCChannel::getIconFromGroup(QLCChannel::Group grp) const
@@ -310,7 +310,7 @@ QString QLCChannel::getIconNameFromGroup(QLCChannel::Group grp) const
         case Speed: return QString(":/speed.png"); break;
         case Prism: return QString(":/prism.png"); break;
         case Maintenance: return QString(":/configure.png"); break;
-        case Intensity: return getIntensityColorName(); break;
+        case Intensity: return getIntensityColorCode(); break;
         case Beam: return QString(":/beam.png"); break;
         default:
         break;

@@ -77,8 +77,7 @@ void ConsoleChannel::init()
     layout()->setSpacing(0);
     layout()->setContentsMargins(0, 2, 0, 2);
 
-    /* Create a menu only if channel has sophisticated contents */
-    if (fxi != NULL && fxi->fixtureDef() != NULL && fxi->fixtureMode() != NULL)
+    if (fxi != NULL)
     {
         m_presetButton = new QToolButton(this);
         m_presetButton->setStyle(AppUtil::saneStyle());
@@ -88,7 +87,12 @@ void ConsoleChannel::init()
         m_presetButton->setMinimumSize(QSize(32, 32));
         m_presetButton->setMaximumSize(QSize(32, 32));
         m_presetButton->setFocusPolicy(Qt::NoFocus);
-        initMenu();
+
+        /* Create a menu only if channel has sophisticated contents */
+        if (fxi->fixtureDef() != NULL && fxi->fixtureMode() != NULL)
+            initMenu();
+        else
+            m_presetButton->setStyleSheet("QToolButton { border-image: url(:/intensity.png) 0 0 0 0 stretch stretch; }");
     }
 
     /* Value edit */
@@ -282,49 +286,30 @@ void ConsoleChannel::initMenu()
     m_presetButton->setMenu(m_menu);
     m_presetButton->setPopupMode(QToolButton::InstantPopup);
 
+    QString btnIconStr = ch->getIconNameFromGroup(ch->group());
+    if (btnIconStr.startsWith(":"))
+        m_presetButton->setStyleSheet("QToolButton { border-image: url(" + btnIconStr + ") 0 0 0 0 stretch stretch; }");
+    else
+    {
+        m_presetButton->setStyleSheet("QToolButton { background: " + btnIconStr + "; }");
+        setIntensityButton(ch);
+    }
+
     switch(ch->group())
     {
-    case QLCChannel::Pan:
-        m_presetButton->setIcon(QIcon(":/pan.png"));
-        break;
-    case QLCChannel::Tilt:
-        m_presetButton->setIcon(QIcon(":/tilt.png"));
-        break;
     case QLCChannel::Colour:
-        m_presetButton->setIcon(QIcon(":/colorwheel.png"));
         m_cngWidget = new ClickAndGoWidget();
         m_cngWidget->setType(ClickAndGoWidget::Preset, ch);
         break;
     case QLCChannel::Effect:
-        m_presetButton->setIcon(QIcon(":/star.png"));
         m_cngWidget = new ClickAndGoWidget();
         m_cngWidget->setType(ClickAndGoWidget::Preset, ch);
         break;
     case QLCChannel::Gobo:
-        m_presetButton->setIcon(QIcon(":/gobo.png"));
         m_cngWidget = new ClickAndGoWidget();
         m_cngWidget->setType(ClickAndGoWidget::Preset, ch);
         break;
-    case QLCChannel::Shutter:
-        m_presetButton->setIcon(QIcon(":/shutter.png"));
-        break;
-    case QLCChannel::Speed:
-        m_presetButton->setIcon(QIcon(":/speed.png"));
-        break;
-    case QLCChannel::Prism:
-        m_presetButton->setIcon(QIcon(":/prism.png"));
-        break;
-    case QLCChannel::Maintenance:
-        m_presetButton->setIcon(QIcon(":/configure.png"));
-        break;
-    case QLCChannel::Intensity:
-        setIntensityButton(ch);
-        break;
-    case QLCChannel::Beam:
-        m_presetButton->setIcon(QIcon(":/beam.png"));
-        break;
     default:
-        m_presetButton->setText("?");
         break;
     }
 
@@ -353,12 +338,13 @@ void ConsoleChannel::initMenu()
 
 void ConsoleChannel::setIntensityButton(const QLCChannel* channel)
 {
+    QFont fnt = m_presetButton->font();
+    fnt.setBold(true);
+    m_presetButton->setFont(fnt);
+
     if (channel->colour() == QLCChannel::Red ||
         channel->name().contains("red", Qt::CaseInsensitive) == true)
     {
-        QPalette pal = m_presetButton->palette();
-        pal.setColor(QPalette::Button, Qt::red);
-        m_presetButton->setPalette(pal);
         m_presetButton->setText("R"); // Don't localize
         m_cngWidget = new ClickAndGoWidget();
         m_cngWidget->setType(ClickAndGoWidget::Red);
@@ -366,9 +352,6 @@ void ConsoleChannel::setIntensityButton(const QLCChannel* channel)
     else if (channel->colour() == QLCChannel::Green ||
              channel->name().contains("green", Qt::CaseInsensitive) == true)
     {
-        QPalette pal = m_presetButton->palette();
-        pal.setColor(QPalette::Button, Qt::green);
-        m_presetButton->setPalette(pal);
         m_presetButton->setText("G"); // Don't localize
         m_cngWidget = new ClickAndGoWidget();
         m_cngWidget->setType(ClickAndGoWidget::Green);
@@ -377,7 +360,6 @@ void ConsoleChannel::setIntensityButton(const QLCChannel* channel)
              channel->name().contains("blue", Qt::CaseInsensitive) == true)
     {
         QPalette pal = m_presetButton->palette();
-        pal.setColor(QPalette::Button, Qt::blue);
         pal.setColor(QPalette::ButtonText, Qt::white); // Improve contrast
         m_presetButton->setPalette(pal);
         m_presetButton->setText("B"); // Don't localize
@@ -387,9 +369,6 @@ void ConsoleChannel::setIntensityButton(const QLCChannel* channel)
     else if (channel->colour() == QLCChannel::Cyan ||
              channel->name().contains("cyan", Qt::CaseInsensitive) == true)
     {
-        QPalette pal = m_presetButton->palette();
-        pal.setColor(QPalette::Button, QColor("cyan"));
-        m_presetButton->setPalette(pal);
         m_presetButton->setText("C"); // Don't localize
         m_cngWidget = new ClickAndGoWidget();
         m_cngWidget->setType(ClickAndGoWidget::Cyan);
@@ -397,9 +376,6 @@ void ConsoleChannel::setIntensityButton(const QLCChannel* channel)
     else if (channel->colour() == QLCChannel::Magenta ||
              channel->name().contains("magenta", Qt::CaseInsensitive) == true)
     {
-        QPalette pal = m_presetButton->palette();
-        pal.setColor(QPalette::Button, QColor("magenta"));
-        m_presetButton->setPalette(pal);
         m_presetButton->setText("M"); // Don't localize
         m_cngWidget = new ClickAndGoWidget();
         m_cngWidget->setType(ClickAndGoWidget::Magenta);
@@ -407,9 +383,6 @@ void ConsoleChannel::setIntensityButton(const QLCChannel* channel)
     else if (channel->colour() == QLCChannel::Yellow ||
              channel->name().contains("yellow", Qt::CaseInsensitive) == true)
     {
-        QPalette pal = m_presetButton->palette();
-        pal.setColor(QPalette::Button, QColor("yellow"));
-        m_presetButton->setPalette(pal);
         m_presetButton->setText("Y"); // Don't localize
         m_cngWidget = new ClickAndGoWidget();
         m_cngWidget->setType(ClickAndGoWidget::Yellow);
@@ -417,9 +390,6 @@ void ConsoleChannel::setIntensityButton(const QLCChannel* channel)
     else if (channel->colour() == QLCChannel::Amber ||
              channel->name().contains("amber", Qt::CaseInsensitive) == true)
     {
-        QPalette pal = m_presetButton->palette();
-        pal.setColor(QPalette::Button, 0xFFFF7E00);
-        m_presetButton->setPalette(pal);
         m_presetButton->setText("A"); // Don't localize
         m_cngWidget = new ClickAndGoWidget();
         m_cngWidget->setType(ClickAndGoWidget::Amber);
@@ -427,9 +397,6 @@ void ConsoleChannel::setIntensityButton(const QLCChannel* channel)
     else if (channel->colour() == QLCChannel::White ||
              channel->name().contains("white", Qt::CaseInsensitive) == true)
     {
-        QPalette pal = m_presetButton->palette();
-        pal.setColor(QPalette::Button, QColor("white"));
-        m_presetButton->setPalette(pal);
         m_presetButton->setText("W"); // Don't localize
         m_cngWidget = new ClickAndGoWidget();
         m_cngWidget->setType(ClickAndGoWidget::White);
@@ -438,7 +405,7 @@ void ConsoleChannel::setIntensityButton(const QLCChannel* channel)
     {
         // None of the primary colours matched and since this is an
         // intensity channel, it must be controlling a plain dimmer OSLT.
-        m_presetButton->setIcon(QIcon(":/intensity.png"));
+        m_presetButton->setStyleSheet("QToolButton { border-image: url(:/intensity.png) 0 0 0 0 stretch stretch; }");
     }
 }
 

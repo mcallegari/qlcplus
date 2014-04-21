@@ -135,7 +135,7 @@ private:
     QIcon getIntensityIcon() const;
 
     /** Get the intensity channel color name */
-    QString getIntensityColorName() const;
+    QString getIntensityColorCode() const;
 
 protected:
     Group m_group;
