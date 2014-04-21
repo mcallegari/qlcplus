@@ -57,6 +57,8 @@ MonitorFixture::~MonitorFixture()
     if (m_fixtureLabel != NULL)
         delete m_fixtureLabel;
 
+    while (m_iconsLabels.isEmpty() == false)
+        delete m_iconsLabels.takeFirst();
     while (m_channelLabels.isEmpty() == false)
         delete m_channelLabels.takeFirst();
     while (m_valueLabels.isEmpty() == false)
@@ -99,6 +101,8 @@ void MonitorFixture::setFixture(quint32 fxi_id)
     /* Get rid of old stuff first, if such exists */
     if (m_fixtureLabel != NULL)
         delete m_fixtureLabel;
+    while (m_iconsLabels.isEmpty() == false)
+        delete m_iconsLabels.takeFirst();
     while (m_channelLabels.isEmpty() == false)
         delete m_channelLabels.takeFirst();
     while (m_valueLabels.isEmpty() == false)
@@ -113,6 +117,7 @@ void MonitorFixture::setFixture(quint32 fxi_id)
            third row for channel values. Each channel is in its own
            column. */
         QGridLayout* lay = qobject_cast<QGridLayout*> (layout());
+        lay->setVerticalSpacing(1);
 
         /* Create a new fixture label and set the fixture name there */
         m_fixtureLabel = new QLabel(this);
@@ -125,20 +130,33 @@ void MonitorFixture::setFixture(quint32 fxi_id)
         /* Create channel numbers and value labels */
         for (quint32 i = 0; i < fxi->channels(); i++)
         {
-            QLabel* label;
-            QString str;
+            const QLCChannel * channel = fxi->channel(i);
+            /* Create the icon over the channel number */
+            QLabel *icon = new QLabel(this);
+            icon->setFixedSize(22, 22);
 
             /* Create a label for channel number */
-            label = new QLabel(this);
-            lay->addWidget(label, 1, i, Qt::AlignHCenter);
-            const QLCChannel * channel = fxi->channel(i);
-            if (channel != 0)
+            QLabel *label = new QLabel(this);
+
+            if (channel != NULL)
+            {
+                icon->setToolTip(channel->name());
                 label->setToolTip(channel->name());
+                QString resStr = channel->getIconNameFromGroup(channel->group());
+
+                if (resStr.startsWith(":"))
+                    icon->setStyleSheet("QLabel { border-image: url(" + resStr + ") 0 0 0 0 stretch stretch; }");
+                else
+                    icon->setStyleSheet("QLabel { background: " + resStr + "; }");
+            }
+            lay->addWidget(icon, 1, i, Qt::AlignHCenter);
+            lay->addWidget(label, 2, i, Qt::AlignHCenter);
+            m_iconsLabels.append(icon);
             m_channelLabels.append(label);
 
             /* Create a label for value */
             label = new QLabel(this);
-            lay->addWidget(label, 2, i, Qt::AlignHCenter);
+            lay->addWidget(label, 3, i, Qt::AlignHCenter);
             m_valueLabels.append(label);
         }
     }

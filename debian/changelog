@@ -1,15 +1,17 @@
 qlcplus (4.7.1) stable; urgency=low
 
   * Monitor: fixed crash when loading a project with the monitor open
-  * Plugins: Fixed ArtNet input universe indexing
-  * Webaccess: fixed Cue list play/stop sequence working only once
+  * Monitor: show channel's icon in DMX view mode
+  * Monitor: added 2D view Fixture item editor. Can set position, rotation and gel color
   * Show Manager: fixed common speed mode for Sequence steps
   * Show Manager: it is no more necessary to create a Scene to add audio tracks
   * Show Manager: improved import of existing Functions
   * Show Manager: highlight the clicked step
   * Chaser Editor: Sequences in Function Manager can have Run Order and Direction
-  * Monitor: added 2D view Fixture item editor. Can set position, rotation and gel color
   * Function Manager: fixed nested folders failure
+  * Webaccess: fixed Cue list play/stop sequence working only once
+  * Webaccess: fixed sliders movement on a touchscreen
+  * Plugins: Fixed ArtNet input universe indexing
   * Plugins: fixed ArtNet and E1.31 open/close when the same line is connected to several universes
   * Plugins: fixed ArtNet and E1.31 input association when the same line is connected to several universes
   * Plugins: implemented SPI autodetection of multiple universe channels when no fixtures are defined
