@@ -343,6 +343,7 @@ QTreeWidgetItem *FunctionsTreeWidget::folderItem(QString name)
             folder->setFlags(folder->flags() | Qt::ItemIsDropEnabled | Qt::ItemIsEditable);
 
             m_foldersMap[fullPath] = folder;
+            parentNode = folder;
         }
         else
             parentNode = m_foldersMap[fullPath];

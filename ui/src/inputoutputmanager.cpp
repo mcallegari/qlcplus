@@ -158,7 +158,7 @@ InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
             this, SLOT(updateList()));
 
     connect(m_ioMap, SIGNAL(universeAdded(quint32)),
-            this, SLOT(slotUniverseAdded()));
+            this, SLOT(slotUniverseAdded(quint32)));
 
     updateList();
     m_list->setCurrentItem(m_list->item(0));
@@ -341,7 +341,6 @@ void InputOutputManager::slotAddUniverse()
 {
     m_ioMap->addUniverse();
     m_doc->setModified();
-    updateList();
 }
 
 void InputOutputManager::slotDeleteUniverse()
@@ -400,9 +399,10 @@ void InputOutputManager::slotUniverseNameChanged(QString name)
     currItem->setData(Qt::DisplayRole, name);
 }
 
-void InputOutputManager::slotUniverseAdded()
+void InputOutputManager::slotUniverseAdded(quint32 universe)
 {
-    updateList();
+    QListWidgetItem *item = new QListWidgetItem(m_list);
+    updateItem(item, universe);
 }
 
 void InputOutputManager::slotPassthroughChanged(bool checked)

@@ -191,6 +191,15 @@ void Monitor::initGraphicsView()
         m_graphicsView->setFixtureRotation(fid, m_props->fixtureRotation(fid));
     }
 
+    for (quint32 i = 0; i < m_doc->inputOutputMap()->universes(); i++)
+    {
+        quint32 uniID = m_doc->inputOutputMap()->getUniverseID(i);
+        if (m_currentUniverse == Universe::invalid() || uniID == m_currentUniverse)
+            m_doc->inputOutputMap()->setUniverseMonitor(i, true);
+        else
+            m_doc->inputOutputMap()->setUniverseMonitor(i, false);
+    }
+
     m_graphicsView->showFixturesLabels(m_props->labelsVisible());
 
     connect(m_graphicsView, SIGNAL(fixtureMoved(quint32,QPointF)),

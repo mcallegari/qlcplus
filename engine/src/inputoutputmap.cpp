@@ -858,15 +858,7 @@ void InputOutputMap::loadDefaults()
 
         /* Do the mapping */
         if (plugin.length() > 0 && input.length() > 0)
-        {
-            /* Check that the same plugin & input are not mapped
-               to more than one universe at a time. */
-            quint32 m = inputMapping(plugin, input.toUInt());
-            if (m == InputOutputMap::invalidUniverse() || m == i)
-            {
-                setInputPatch(i, plugin, input.toUInt(), profileName);
-            }
-        }
+            setInputPatch(i, plugin, input.toUInt(), profileName);
     }
 
     /* ************************ OUTPUT *********************************** */
@@ -893,19 +885,10 @@ void InputOutputMap::loadDefaults()
         feedback = settings.value(key).toString();
 
         if (plugin.length() > 0 && output.length() > 0)
-        {
-            /* Check that the same plugin & output are not mapped
-               to more than one universe at a time. */
-            quint32 m = outputMapping(plugin, output.toUInt());
-            if (m == InputOutputMap::invalidUniverse() || m == i)
-                setOutputPatch(i, plugin, output.toUInt());
-        }
+            setOutputPatch(i, plugin, output.toUInt());
+
         if (fb_plugin.length() > 0 && feedback.length() > 0)
-        {
-            quint32 m = outputMapping(feedback, fb_plugin.toUInt());
-            if (m == InputOutputMap::invalidUniverse() || m == i)
-                setOutputPatch(i, fb_plugin, feedback.toUInt(), true);
-        }
+            setOutputPatch(i, fb_plugin, feedback.toUInt(), true);
     }
 }
 

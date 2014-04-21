@@ -258,6 +258,7 @@
   <fixture path="Nicols-Strob-LED-W.qxf" mf="Nicols" md="Strob LED W"/>
   <fixture path="Optima-Lighting-PAR64-LED.qxf" mf="Optima Lighting" md="PAR64 LED"/>
   <fixture path="PixelRANGE-PixelPar-44.qxf" mf="PixelRANGE" md="PixelPar 44"/>
+  <fixture path="Pro-Lights-ARCLED7314HD.qxf" mf="Pro-Lights" md="ArcLed-7314HD"/>
   <fixture path="Pro-Lights-CromoSpot-150.qxf" mf="Pro-Lights" md="CromoSpot150"/>
   <fixture path="Pro-Lights-Explo-3000D.qxf" mf="Pro-Lights" md="Explo 3000D"/>
   <fixture path="Pro-Lights-LedPar-64363-RGB.qxf" mf="Pro-Lights" md="LedPar 64363 RGB"/>

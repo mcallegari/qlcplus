@@ -140,15 +140,15 @@ void ArtNetPlugin::openOutput(quint32 output)
     {
         m_IOmapping[output].controller->setType(
                     (ArtNetController::Type)(m_IOmapping[output].controller->type() | ArtNetController::Output));
+        m_IOmapping[output].controller->changeReferenceCount(ArtNetController::Output, +1);
         return;
     }
 
     // not open ? Create a new ArtNetController
     ArtNetController *controller = new ArtNetController(m_IOmapping.at(output).IPAddress,
                                                         m_netInterfaces, m_IOmapping.at(output).MACAddress,
-                                                        ArtNetController::Output, this);
+                                                        ArtNetController::Output, output, this);
     m_IOmapping[output].controller = controller;
-
 }
 
 void ArtNetPlugin::closeOutput(quint32 output)
@@ -158,13 +158,16 @@ void ArtNetPlugin::closeOutput(quint32 output)
     ArtNetController *controller = m_IOmapping.at(output).controller;
     if (controller != NULL)
     {
+        controller->changeReferenceCount(ArtNetController::Output, -1);
         // if a ArtNetController is also open as input
         // then just remove the output capability
         if (controller->type() & ArtNetController::Input)
         {
             controller->setType(ArtNetController::Input);
         }
-        else // otherwise destroy it
+
+        if (controller->referenceCount(ArtNetController::Input) == 0 &&
+            controller->referenceCount(ArtNetController::Output) == 0)
         {
             delete m_IOmapping[output].controller;
             m_IOmapping[output].controller = NULL;
@@ -210,15 +213,16 @@ void ArtNetPlugin::openInput(quint32 input)
     {
         m_IOmapping[input].controller->setType(
                     (ArtNetController::Type)(m_IOmapping[input].controller->type() | ArtNetController::Input));
+        m_IOmapping[input].controller->changeReferenceCount(ArtNetController::Input, +1);
         return;
     }
 
     // not open ? Create a new ArtNetController
     ArtNetController *controller = new ArtNetController(m_IOmapping.at(input).IPAddress,
                                                         m_netInterfaces, m_IOmapping.at(input).MACAddress,
-                                                        ArtNetController::Input, this);
-    connect(controller, SIGNAL(valueChanged(quint32,quint32,uchar)),
-            this, SIGNAL(valueChanged(quint32,quint32,uchar)));
+                                                        ArtNetController::Input, input, this);
+    connect(controller, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
+            this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
     m_IOmapping[input].controller = controller;
 }
 
@@ -229,13 +233,16 @@ void ArtNetPlugin::closeInput(quint32 input)
     ArtNetController *controller = m_IOmapping.at(input).controller;
     if (controller != NULL)
     {
+        controller->changeReferenceCount(ArtNetController::Input, -1);
         // if a ArtNetController is also open as output
         // then just remove the input capability
         if (controller->type() & ArtNetController::Output)
         {
             controller->setType(ArtNetController::Output);
         }
-        else // otherwise destroy it
+
+        if (controller->referenceCount(ArtNetController::Input) == 0 &&
+            controller->referenceCount(ArtNetController::Output) == 0)
         {
             delete m_IOmapping[input].controller;
             m_IOmapping[input].controller = NULL;

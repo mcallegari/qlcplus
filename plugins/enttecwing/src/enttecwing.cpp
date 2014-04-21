@@ -293,7 +293,7 @@ void EnttecWing::slotReadSocket()
 void EnttecWing::slotValueChanged(quint32 channel, uchar value)
 {
     Wing* wing = qobject_cast<Wing*> (QObject::sender());
-    emit valueChanged(m_devices.indexOf(wing), channel, value);
+    emit valueChanged(UINT_MAX, m_devices.indexOf(wing), channel, value);
 }
 
 void EnttecWing::slotPageChanged(quint32 pagesize, quint32 page)
