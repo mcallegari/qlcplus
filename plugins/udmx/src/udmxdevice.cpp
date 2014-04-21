@@ -195,10 +195,12 @@ void UDMXDevice::outputDMX(const QByteArray& universe)
 
 void UDMXDevice::stop()
 {
-    if (isRunning() == true)
+    while (isRunning() == true)
     {
+	// This may occur before the thread sets m_running,
+	// so timeout and try again if necessary
         m_running = false;
-        wait();
+        wait(100);
     }
 }
 
