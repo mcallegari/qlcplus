@@ -209,7 +209,7 @@
     <message>
         <location filename="addfixture.ui" line="250"/>
         <source>Quick search:</source>
-        <translation>Rychlé hledání</translation>
+        <translation>Rychlé hledání:</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="267"/>
@@ -298,58 +298,58 @@
     <message>
         <location filename="addrgbpanel.ui" line="103"/>
         <source>Top-Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Pravý horní</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="110"/>
         <source>Top-Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Levý horní</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="120"/>
         <source>Bottom-Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Levý spodní</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="127"/>
         <source>Bottom-Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Pravý spodní</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="147"/>
         <source>Physical</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozměry</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="164"/>
         <source>Width:</source>
-        <translation type="unfinished"></translation>
+        <translation>Šířka:</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="171"/>
         <location filename="addrgbpanel.ui" line="194"/>
         <source>mm</source>
-        <translation type="unfinished"></translation>
+        <translation>mm</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="187"/>
         <source>Height:</source>
-        <translation type="unfinished"></translation>
+        <translation>Výška:</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="282"/>
         <source>Displacement</source>
-        <translation type="unfinished"></translation>
+        <translation>Přesun</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="288"/>
         <source>Snake</source>
-        <translation type="unfinished"></translation>
+        <translation>Had</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="298"/>
         <source>Zig Zag</source>
-        <translation type="unfinished"></translation>
+        <translation>Cik Cak</translation>
     </message>
 </context>
 <context>
@@ -711,7 +711,7 @@ Opravdu si přejete běžící funkce zastavit a přejít zpět do režimu Návr
     <message>
         <location filename="app.cpp" line="572"/>
         <source>Live edit a function</source>
-        <translation type="unfinished"></translation>
+        <translation>Live editace funkce</translation>
     </message>
     <message>
         <location filename="app.cpp" line="576"/>
@@ -890,7 +890,7 @@ Zvolený soubor byl asi smazán nebo přesunut.</translation>
     <message>
         <location filename="app.cpp" line="1246"/>
         <source>Some errors occurred while loading the project:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastaly nejaké problémy při otevírání projektu:</translation>
     </message>
 </context>
 <context>
@@ -1039,12 +1039,12 @@ Délka: %3
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="24"/>
         <source>Triggers</source>
-        <translation type="unfinished"></translation>
+        <translation>Spouště</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="32"/>
         <source>Widget name</source>
-        <translation type="unfinished">Název ovladače</translation>
+        <translation>Název ovladače</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="45"/>
@@ -1074,7 +1074,7 @@ Délka: %3
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="70"/>
         <source>Divisor</source>
-        <translation type="unfinished"></translation>
+        <translation>Dělič</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="113"/>
@@ -1094,7 +1094,7 @@ Délka: %3
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="132"/>
         <source>Input Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Vstupní kanál</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="139"/>
@@ -1110,40 +1110,40 @@ Délka: %3
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="158"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanál větve vstupů, který bude odesílat data pro tento ovladač</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="168"/>
         <source>The input universe that sends data to this widget</source>
-        <translation type="unfinished"></translation>
+        <translation>Větev vstupů, která bude odesílat data pro tuto skupinu</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="184"/>
         <source>Choose an external input universe &amp; channel that this widget should listen to.</source>
         <oldsource>Choose an external input universe &amp; channel that this button should listen to.</oldsource>
-        <translation type="unfinished">Zvolte větev  externího vstupu &amp; kanál, který by měl tento ovladač řídit.</translation>
+        <translation>Zvolte větev  externího vstupu &amp; kanál, který by měl tento ovladač řídit.</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="187"/>
         <source>Choose...</source>
-        <translation type="unfinished">Zvolit...</translation>
+        <translation>Zvolit...</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="210"/>
         <source>Key combination</source>
-        <translation type="unfinished">Kombinace kláves</translation>
+        <translation>Kombinace kláves</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="225"/>
         <source>Keyboard combination that toggles this widget</source>
         <oldsource>Keyboard combination that toggles this button</oldsource>
-        <translation type="unfinished">Kombinace kláves která přepne toto tlačítko</translation>
+        <translation>Kombinace kláves která přepne tento ovladač</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="235"/>
         <source>Set a key combination for this widget</source>
         <oldsource>Set a key combination for this button</oldsource>
-        <translation type="unfinished">Nastavit kombinaci kláves pro ovládání tohoto tlačítka</translation>
+        <translation>Nastavit kombinaci kláves pro ovládání tohoto ovladače</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="255"/>
@@ -1208,7 +1208,7 @@ Délka: %3
         <location filename="channelsselection.ui" line="14"/>
         <source>Channels selection</source>
         <oldsource>Channels Fade Configuration</oldsource>
-        <translation type="unfinished">Nastavení útlumu kanálů</translation>
+        <translation>Výběr kanálů</translation>
     </message>
     <message>
         <location filename="channelsselection.ui" line="28"/>
@@ -1230,22 +1230,22 @@ Délka: %3
     <message>
         <location filename="channelsselection.cpp" line="50"/>
         <source>Selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Označen</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="54"/>
         <source>Channel properties configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfigurace vlastností kanálu</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="56"/>
         <source>Can fade</source>
-        <translation type="unfinished"></translation>
+        <translation>Může být zeslaben</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="56"/>
         <source>Behaviour</source>
-        <translation type="unfinished"></translation>
+        <translation>Chování</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="114"/>
@@ -1664,7 +1664,7 @@ Délka: %3
     <message>
         <location filename="dmxdumpfactory.ui" line="61"/>
         <source>Add to:</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat k:</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="72"/>
@@ -2334,7 +2334,7 @@ Délka: %3
     <message>
         <location filename="fixtureremap.ui" line="69"/>
         <source>Clone and auto-remap the selected source fixture</source>
-        <translation type="unfinished"></translation>
+        <translation>Klonovat a automaticky přemapovat zvolené zdrojové zařízení</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="93"/>
@@ -2406,12 +2406,12 @@ Délka: %3
     <message>
         <location filename="fixtureremap.cpp" line="325"/>
         <source>Invalid operation</source>
-        <translation type="unfinished"></translation>
+        <translation>Neplatná operace</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="326"/>
         <source>You are trying to clone a fixture on an address already in use. Please fix the target list first.</source>
-        <translation type="unfinished"></translation>
+        <translation>Snažíte se duplikovat zařízení na adresu, která je už použita. Prosím, nejprve upravte cílový seznam.</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="387"/>
@@ -2503,7 +2503,7 @@ Délka: %3
     <message>
         <location filename="functionliveeditdialog.cpp" line="43"/>
         <source>Function Live Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Live editace funkce</translation>
     </message>
 </context>
 <context>
@@ -2850,7 +2850,19 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3- add widgets to the Virtual Console&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;To move from a step to another press the &amp;quot;Next&amp;quot; button&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Vítejte v průvodci QLC+ !&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Toto je řízený proces, který vám umožní začít používat QLC + během několika minut.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;V zásadě je rozložen do tří jednoduchých kroků:&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1- přidat zařízení&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2- zvolit, co zařízení umožňuje jako základ pro vytvoření funkcí&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3- přidat ovládací prvky do Virtuálního pracoviště&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Pro přesun mezi jednotlivými kroky klepněte na &amp;quot;Další&amp;quot;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="188"/>
@@ -2864,7 +2876,11 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Add the fixtures for which you want to create functions and widgets&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt;Přidejte zařízení, pro která chcete vytvářet funkce a ovládací prvky&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="247"/>
@@ -2874,12 +2890,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="functionwizard.ui" line="254"/>
         <source>Results</source>
-        <translation type="unfinished"></translation>
+        <translation>Výsledky</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="263"/>
         <source>Available</source>
-        <translation type="unfinished"></translation>
+        <translation>Dostupné</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="268"/>
@@ -2893,7 +2909,11 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Based on the fixtures you added, I can create the functions listed on the left. Just select what you need and see the results on the right !&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Na základě přidaných zařízení lze vytvořit funkce uvedené vlevo. Zvolte co potřebujete a výsledek uvidíte vpravo!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="300"/>
@@ -2907,7 +2927,11 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Based on the functions you selected, I can create the following widgets on your Virtual Console. Just check which ones you need.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt;Na základě Vámi vybraných funkcí lze vytvořit následující ovládací prvky pro Virtuální pracoviště. Vyberte si, které z ovládacích prvků chcete použít.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="330"/>
@@ -2948,7 +2972,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="functionwizard.cpp" line="175"/>
         <source>%1 group</source>
-        <translation type="unfinished"></translation>
+        <translation> skupina %1</translation>
     </message>
     <message>
         <location filename="functionwizard.cpp" line="192"/>
@@ -2963,17 +2987,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="functionwizard.cpp" line="466"/>
         <source>Presets solo frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Přednastavení samostatného rámečku</translation>
     </message>
     <message>
         <location filename="functionwizard.cpp" line="519"/>
         <source>Click &amp; Go RGB</source>
-        <translation type="unfinished"></translation>
+        <translation>Rychlá volba RGB</translation>
     </message>
     <message>
         <location filename="functionwizard.cpp" line="523"/>
         <source>Click &amp; Go Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Rychlá volba Makro</translation>
     </message>
 </context>
 <context>
@@ -3048,12 +3072,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputmanager.cpp" line="109"/>
         <source>Universe name:</source>
-        <translation>Název větve</translation>
+        <translation>Název větve:</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="119"/>
         <source>Passthrough</source>
-        <translation type="unfinished"></translation>
+        <translation>Průhozí</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="227"/>
@@ -3070,12 +3094,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputmanager.cpp" line="349"/>
         <source>The universe you are trying to delete is patched. Are you sure you want to delete it ?</source>
-        <translation type="unfinished"></translation>
+        <translation>Vetvev, kterou se snažíte smazat je propojená. Opravdu si ji přejete smazat ?</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="368"/>
         <source>There are some fixtures using the universe you are trying to delete. Are you sure you want to delete it ?</source>
-        <translation type="unfinished"></translation>
+        <translation>Některá zařízení používají větev, kterou se pokoušíte smazat. Opravdu ji chcete smazat ?</translation>
     </message>
 </context>
 <context>
@@ -3430,12 +3454,12 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="monitor.cpp" line="302"/>
         <source>Universe:</source>
-        <translation type="unfinished">Větev:</translation>
+        <translation>Větev:</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="307"/>
         <source>All universes</source>
-        <translation type="unfinished"></translation>
+        <translation>Všechny větve</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="329"/>
@@ -3605,7 +3629,7 @@ Délka: %3
     <message>
         <location filename="palettegenerator.cpp" line="281"/>
         <source>Dark Cyan</source>
-        <translation type="unfinished"></translation>
+        <translation>Tmavěazurová</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="281"/>
@@ -3615,47 +3639,47 @@ Délka: %3
     <message>
         <location filename="palettegenerator.cpp" line="281"/>
         <source>Cyan</source>
-        <translation type="unfinished"></translation>
+        <translation>Azurová</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="281"/>
         <source>Dark Red</source>
-        <translation type="unfinished"></translation>
+        <translation>Tmavěčervená</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="282"/>
         <source>Dark Magenta</source>
-        <translation type="unfinished"></translation>
+        <translation>Tmavěpurpurová</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="282"/>
         <source>Dark Yellow</source>
-        <translation type="unfinished"></translation>
+        <translation>Tmavěžlutá</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="282"/>
         <source>Dark Gray</source>
-        <translation type="unfinished"></translation>
+        <translation>Tmavěšedá</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="282"/>
         <source>Light Gray</source>
-        <translation type="unfinished"></translation>
+        <translation>Světlešedá</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="283"/>
         <source>Red</source>
-        <translation type="unfinished"></translation>
+        <translation>Červená</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="283"/>
         <source>Magenta</source>
-        <translation type="unfinished"></translation>
+        <translation>Purpurová</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="283"/>
         <source>Yellow</source>
-        <translation type="unfinished"></translation>
+        <translation>Žlutá</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="283"/>
@@ -3665,83 +3689,83 @@ Délka: %3
     <message>
         <location filename="palettegenerator.cpp" line="335"/>
         <source>%1 %2 - %3</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %2 - %3</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="339"/>
         <source>%1 %2 - %3 (Even)</source>
-        <translation type="unfinished">%1 - %2 (sudá) {1 %2 ?} {3 ?}</translation>
+        <translation>%1 %2 - %3 (Sudá)</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="340"/>
         <source>%1 %2 - %3 (Odd)</source>
-        <translation type="unfinished">%1 - %2 (lichá) {1 %2 ?} {3 ?}</translation>
+        <translation>%1 %2 - %3 (Lichá)</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="402"/>
         <source> - Even</source>
-        <translation type="unfinished"></translation>
+        <translation>- Sudá</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="403"/>
         <source> - Odd</source>
-        <translation type="unfinished"></translation>
+        <translation>- Lichá</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="420"/>
         <source> - RGB Group</source>
-        <translation type="unfinished"></translation>
+        <translation>- Skupina RGB</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="426"/>
         <source>Animation %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Animace %1</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="445"/>
         <source>%1 chaser - %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 prolínání - %2</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="517"/>
         <source>Red scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Červená scéna</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="518"/>
         <source>Green scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Zelená scéna</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="519"/>
         <source>Blue scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Modrá scéna</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="520"/>
         <source>Cyan scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Azurová scéna</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="521"/>
         <source>Magenta scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Purpurová scéna</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="522"/>
         <source>Yellow scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Žlutá scéna</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="523"/>
         <source>White scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Bílá scéna</translation>
     </message>
     <message>
         <location filename="palettegenerator.cpp" line="530"/>
         <location filename="palettegenerator.cpp" line="532"/>
         <source>Scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Scéna</translation>
     </message>
 </context>
 <context>
@@ -3762,7 +3786,7 @@ Délka: %3
     <message>
         <location filename="positiontool.ui" line="14"/>
         <source>PositonTool</source>
-        <translation type="unfinished"></translation>
+        <translation>Nástroj pozice</translation>
     </message>
 </context>
 <context>
@@ -4079,7 +4103,7 @@ Délka: %3
     <message>
         <location filename="sceneeditor.cpp" line="173"/>
         <source>Position tool for moving heads/scanners</source>
-        <translation type="unfinished"></translation>
+        <translation>Nástroj pozice pro pohyb hlav/scannerů</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="175"/>
@@ -4613,7 +4637,7 @@ Délka: %3
     <message>
         <location filename="simpledesk.cpp" line="477"/>
         <source>Channel groups</source>
-        <translation type="unfinished"></translation>
+        <translation>Skupiny kanálů</translation>
     </message>
     <message>
         <location filename="simpledesk.cpp" line="770"/>
@@ -4756,12 +4780,12 @@ Délka: %3
     <message>
         <location filename="vcaudiotriggers.cpp" line="159"/>
         <source>Audio open error</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba při otevírání souboru zvuku</translation>
     </message>
     <message>
         <location filename="vcaudiotriggers.cpp" line="160"/>
         <source>An error occurred while initializing the selected audio device. Please review your audio input settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastala chyba při otevírání zvoleného zvukového zařízení. Prosím ověřte nastavení zvukových vstupů.</translation>
     </message>
 </context>
 <context>
@@ -5431,7 +5455,7 @@ Délka: %3
         <location filename="vcframeproperties.ui" line="175"/>
         <source>When toggled, you can move an external slider/knob to assign it to this widget.</source>
         <oldsource>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</oldsource>
-        <translation type="unfinished">Je-li aktivní, bude externí šavle/ovladač dostupný pro řízení virtuální šavle.</translation>
+        <translation>Je-li aktivní, bude externí šavle/ovladač dostupný pro řízení totoho prvku.</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="178"/>
@@ -5447,7 +5471,7 @@ Délka: %3
     <message>
         <location filename="vcframeproperties.ui" line="273"/>
         <source>When toggled, you can move an external slider/knob to assign it to this frame.</source>
-        <translation type="unfinished"></translation>
+        <translation>Je-li aktivní, bude externí šavle/ovladač dostupný pro řízení totoho rámečku.</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="289"/>
@@ -5635,7 +5659,7 @@ Délka: %3
     <message>
         <location filename="vcproperties.ui" line="533"/>
         <source>Audio triggers size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Velikost zvukových spouští:</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="543"/>
@@ -6345,7 +6369,7 @@ Délka: %3
     <message>
         <location filename="vcxypadarea.cpp" line="247"/>
         <source>Shift: fine, Ctrl:10x</source>
-        <translation type="unfinished"></translation>
+        <translation>Shift: jemně, Ctrl:10x</translation>
     </message>
 </context>
 <context>
@@ -6537,7 +6561,7 @@ Délka: %3
     <message>
         <location filename="sceneitems.cpp" line="1146"/>
         <source>Fullscreen</source>
-        <translation type="unfinished"></translation>
+        <translation>Celá obrazovka</translation>
     </message>
     <message>
         <location filename="sceneitems.cpp" line="1153"/>
@@ -6547,7 +6571,7 @@ Délka: %3
     <message>
         <location filename="sceneitems.cpp" line="1333"/>
         <source>Screen %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrazovka %1</translation>
     </message>
 </context>
 <context>
@@ -6610,7 +6634,7 @@ Délka: %3
     <message>
         <location filename="virtualconsole.cpp" line="327"/>
         <source>New Audio Triggers</source>
-        <translation type="unfinished"></translation>
+        <translation>Nové zvukové spouště</translation>
     </message>
     <message>
         <location filename="virtualconsole.cpp" line="330"/>

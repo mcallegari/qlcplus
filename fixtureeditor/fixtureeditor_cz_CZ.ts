@@ -16,7 +16,7 @@
     <message>
         <location filename="../ui/src/aboutbox.ui" line="116"/>
         <source>This application is licensed under the terms of the Apache 2.0 license.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tato aplikace je licencována podle licence Apache 2.0.</translation>
     </message>
     <message>
         <location filename="../ui/src/aboutbox.cpp" line="41"/>
@@ -34,24 +34,24 @@
     <message>
         <location filename="addchannelsdialog.ui" line="14"/>
         <source>Fixture Mode Channels Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Editor režimu kanálů zařízení</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="30"/>
         <source>Available channels</source>
         <oldsource>All channels</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Dostupné kanály</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="94"/>
         <location filename="addchannelsdialog.ui" line="116"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Název</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="102"/>
         <source>Mode channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Režimy kanálů</translation>
     </message>
 </context>
 <context>
@@ -789,12 +789,12 @@
     <message>
         <location filename="editmode.ui" line="969"/>
         <source>Copy physical information to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopírovat informace do schránky</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="986"/>
         <source>Paste physical information from clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Vložit informace ze schránky</translation>
     </message>
 </context>
 <context>

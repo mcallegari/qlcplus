@@ -26,7 +26,7 @@
     <message>
         <location filename="common/configuremidiplugin.ui" line="62"/>
         <source>Init Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Inicializační zpráva</translation>
     </message>
     <message>
         <location filename="common/configuremidiplugin.ui" line="20"/>
@@ -46,7 +46,7 @@
     <message>
         <location filename="common/configuremidiplugin.cpp" line="214"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Není</translation>
     </message>
 </context>
 <context>
@@ -110,82 +110,82 @@
     <message>
         <location filename="../../engine/src/qlcfile.cpp" line="125"/>
         <source>No error occurred.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nenastal žádný problém.</translation>
     </message>
     <message>
         <location filename="../../engine/src/qlcfile.cpp" line="127"/>
         <source>An error occurred when reading from the file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastala chyba při čtení ze souboru.</translation>
     </message>
     <message>
         <location filename="../../engine/src/qlcfile.cpp" line="129"/>
         <source>An error occurred when writing to the file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastala chyba při zápisu do souboru.</translation>
     </message>
     <message>
         <location filename="../../engine/src/qlcfile.cpp" line="131"/>
         <source>A fatal error occurred.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastala závažná chyba.</translation>
     </message>
     <message>
         <location filename="../../engine/src/qlcfile.cpp" line="133"/>
         <source>Resource error occurred.</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba zdroje.</translation>
     </message>
     <message>
         <location filename="../../engine/src/qlcfile.cpp" line="135"/>
         <source>The file could not be opened.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sobor nemohl být otevřen.</translation>
     </message>
     <message>
         <location filename="../../engine/src/qlcfile.cpp" line="137"/>
         <source>The operation was aborted.</source>
-        <translation type="unfinished"></translation>
+        <translation>Operace se souborem byla přerušena.</translation>
     </message>
     <message>
         <location filename="../../engine/src/qlcfile.cpp" line="139"/>
         <source>A timeout occurred.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vypršel časový limit.</translation>
     </message>
     <message>
         <location filename="../../engine/src/qlcfile.cpp" line="141"/>
         <source>An unspecified error occurred.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastala neznámá chyba.</translation>
     </message>
     <message>
         <location filename="../../engine/src/qlcfile.cpp" line="143"/>
         <source>The file could not be removed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Soubor se nepodařilo odstranit.</translation>
     </message>
     <message>
         <location filename="../../engine/src/qlcfile.cpp" line="145"/>
         <source>The file could not be renamed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Soubor se nepodařilo přejmenovat.</translation>
     </message>
     <message>
         <location filename="../../engine/src/qlcfile.cpp" line="147"/>
         <source>The position in the file could not be changed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pozice v souboru nemohla být změněna.</translation>
     </message>
     <message>
         <location filename="../../engine/src/qlcfile.cpp" line="149"/>
         <source>The file could not be resized.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepodařilo se změnit velikost souboru.</translation>
     </message>
     <message>
         <location filename="../../engine/src/qlcfile.cpp" line="151"/>
         <source>The file could not be accessed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepodařilo se přistoupit k souboru.</translation>
     </message>
     <message>
         <location filename="../../engine/src/qlcfile.cpp" line="153"/>
         <source>The file could not be copied.</source>
-        <translation type="unfinished"></translation>
+        <translation>Soubor se nedá zkopírovat.</translation>
     </message>
     <message>
         <location filename="../../engine/src/qlcfile.cpp" line="155"/>
         <source>An unknown error occurred.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastala neznámá chyba.</translation>
     </message>
 </context>
 </TS>
