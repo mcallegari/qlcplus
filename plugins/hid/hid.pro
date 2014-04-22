@@ -48,6 +48,7 @@ TRANSLATIONS += HID_it_IT.ts
 TRANSLATIONS += HID_nl_NL.ts
 TRANSLATIONS += HID_cz_CZ.ts
 TRANSLATIONS += HID_pt_BR.ts
+TRANSLATIONS += HID_ca_ES.ts
 
 # This must be after "TARGET = " and before target installation so that
 # install_name_tool can be run before target installation
