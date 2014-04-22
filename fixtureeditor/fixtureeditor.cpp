@@ -495,6 +495,7 @@ void QLCFixtureEditor::slotEditChannel()
 
         item = m_channelList->currentItem();
         updateChannelItem(real, item);
+        m_channelList->resizeColumnToContents(CH_COL_NAME);
 
         setModified();
     }
