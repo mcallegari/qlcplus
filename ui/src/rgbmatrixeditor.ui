@@ -27,28 +27,8 @@
        <property name="title">
         <string>Pattern</string>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_4">
-        <item>
-         <widget class="QComboBox" name="m_patternCombo">
-          <property name="toolTip">
-           <string>The RGB matrix pattern</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="m_startColorButton">
-          <property name="toolTip">
-           <string>Matrix start colour</string>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>100</width>
-            <height>26</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="2" column="0">
          <widget class="QPushButton" name="m_endColorButton">
           <property name="toolTip">
            <string>Matrix end colour</string>
@@ -61,6 +41,40 @@
             <width>100</width>
             <height>26</height>
            </size>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QToolButton" name="m_resetEndColorButton">
+          <property name="toolTip">
+           <string>Reset end colour</string>
+          </property>
+          <property name="text">
+           <string>...</string>
+          </property>
+          <property name="icon">
+           <iconset resource="qlcui.qrc">
+            <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="2">
+         <widget class="QPushButton" name="m_startColorButton">
+          <property name="toolTip">
+           <string>Matrix start colour</string>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>100</width>
+            <height>26</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" colspan="2">
+         <widget class="QComboBox" name="m_patternCombo">
+          <property name="toolTip">
+           <string>The RGB matrix pattern</string>
           </property>
          </widget>
         </item>

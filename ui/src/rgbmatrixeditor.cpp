@@ -179,6 +179,8 @@ void RGBMatrixEditor::init()
             this, SLOT(slotStartColorButtonClicked()));
     connect(m_endColorButton, SIGNAL(clicked()),
             this, SLOT(slotEndColorButtonClicked()));
+    connect(m_resetEndColorButton, SIGNAL(clicked()),
+            this, SLOT(slotResetEndColorButtonClicked()));
     connect(m_textEdit, SIGNAL(textEdited(const QString&)),
             this, SLOT(slotTextEdited(const QString&)));
     connect(m_fontButton, SIGNAL(clicked()),
@@ -286,6 +288,7 @@ void RGBMatrixEditor::updateExtraOptions()
         m_offsetGroup->hide();
         m_startColorButton->show();
         m_endColorButton->show();
+        m_resetEndColorButton->show();
     }
     else if (m_matrix->algorithm()->type() == RGBAlgorithm::Plain)
     {
@@ -294,6 +297,7 @@ void RGBMatrixEditor::updateExtraOptions()
         m_offsetGroup->hide();
         m_startColorButton->show();
         m_endColorButton->hide();
+        m_resetEndColorButton->hide();
     }
     else if (m_matrix->algorithm()->type() == RGBAlgorithm::Image)
     {
@@ -302,6 +306,7 @@ void RGBMatrixEditor::updateExtraOptions()
         m_offsetGroup->show();
         m_startColorButton->hide();
         m_endColorButton->hide();
+        m_resetEndColorButton->hide();
 
         RGBImage* image = static_cast<RGBImage*> (m_matrix->algorithm());
         Q_ASSERT(image != NULL);
@@ -322,6 +327,7 @@ void RGBMatrixEditor::updateExtraOptions()
         m_imageGroup->hide();
         m_startColorButton->show();
         m_endColorButton->show();
+        m_resetEndColorButton->show();
 
         RGBText* text = static_cast<RGBText*> (m_matrix->algorithm());
         Q_ASSERT(text != NULL);
@@ -554,6 +560,16 @@ void RGBMatrixEditor::slotEndColorButtonClicked()
         m_endColorButton->setIcon(QIcon(pm));
         slotRestartTest();
     }
+}
+
+void RGBMatrixEditor::slotResetEndColorButtonClicked()
+{
+    m_matrix->setEndColor(QColor());
+    m_matrix->calculateColorDelta();
+    QPixmap pm(100, 26);
+    pm.fill(Qt::transparent);
+    m_endColorButton->setIcon(QIcon(pm));
+    slotRestartTest();
 }
 
 void RGBMatrixEditor::slotTextEdited(const QString& text)
