@@ -20,11 +20,13 @@ that's what I own, but you can use any suitable controller. Besides that BCF2000
 flying (motorized) faders that are very handy when switching pages.
 </P>
 
+<P>Note: In previous QLC+ versions, it was require to edit MIDI profile to define Previous page and Next page buttons.
+This is no longer needed.</P>
+
 <H2>Executive summary</H2>
 
 <P>If you don't want to read the whole text, here are the bare bones of it: 
 <UL>
-<LI>Change 2 buttons in MIDI profile to Previous page and Next page</LI>
 <LI>Create frame/soloframe, enable pages in its properties, enter number of pages,
 and set the buttons from previous step as external input. Now page switching should work.</LI>
 <LI>Put widgets to pages, external control will have "(Page X)" appended.</LI>
@@ -90,25 +92,18 @@ switching of the pages and the sliders from the MIDI controller.</P>
 <P>We start in Input/Outputs tab and setting basic MIDI control. Select e.g. universe 2 for MIDI control,
 choose BCF2000 MIDI 1 port; check both "input" and "feedback", and select BCF2000 profile.<P>
 
-<P>Now an important step: edit <IMG SRC="qrc:/edit.png" ALIGN="absmiddle"> BCF2000 profile settings. Select
-"Channels" tab. Choose two buttons for Previous page/Next page. I use "Button 9 Top" for previous page, and
-"Button 10 TOP" for next page, but you can choose any buttons. Double click the buttons (or select and press
-<IMG SRC="qrc:/edit.png" ALIGN="absmiddle"> edit button) and change type from "Button"
-<IMG SRC="qrc:/button.png" ALIGN="absmiddle"> to "Previous Page" <IMG SRC="qrc:/back.png" ALIGN="absmiddle">
-and "Next Page" <IMG SRC="qrc:/forward.png" ALIGN="absmiddle"> respectively. Close the editors, and go back
-to virtual console.</P>
-
-<P>In the virtual console, right click the multipage frame, and select "Widget Properties". Select the
-buttons from previous step as external controls for Previous and Next page, either by autodetection, or choose
+<P>Now go to the virtual console, right click the multipage frame, and select "Widget Properties". Select some
+buttons as external controls for Previous and Next page, either by autodetection, or choose
 from the list (Don't forget to disable autodetect for Previous Page when you are setting Next Page, otherwise
-you will change both!). Push OK to close the dialog. Now the two buttons should work. Try them now to switch
+you will change both!). I use "Button 9 Top" for previous page, and "Button 10 TOP" for next page, but you 
+can choose any buttons. Push OK to close the dialog. Now the two buttons should work. Try them now to switch
 the pages.</P>
 
 <P>The last thing to do is to link the sliders in the frame with the BCF faders. Select page 1, and open
 properties for every slider on the page, setting external control as usual. The BCF sliders will have "(Page 1)"
 appended to them ("82: Slider 1 (Page 1)"). When you are finished with the first page, select page 2, and do the
 same, and then page 3 and 4. Since with BCF200 we have MIDI feedback, it's not important if we switch pages in
-QLC+ or on the MIDI controller. For controllers without feedback, it's crutial to use buttons on the controller,
+QLC+ or on the MIDI controller. For controllers without feedback, it's crucial to use buttons on the controller,
 otherwise the pages will get out of sync.</P>
 
 <P>Now you can test the sliders from MIDI controller - all of the 32 PAR cans should be controllable using those
@@ -120,16 +115,7 @@ otherwise the pages will get out of sync.</P>
 
 <P>Solo frames work across pages. If you press a button on any page, buttons/widgets on all pages will et released.</P>
 
-<H3>It's possible to set some buttons to select concrete page, e.g. button to select Page 1, another for Page 2, etc.</H3>
-
-<P>I have not tested this yet, but here are the steps anyway:
-<UL>
-<LI>Edit BCF2000 buttons directly on the controller so they send CC XX YY, where XX is one CC for all page buttons,
-and YY is page number. For the top row, use eg. CC 65 and values 1, 2,... etc. The process is described in
-Behringer documentation.</LI>
-<LI>Edit BCF2000 profile in QLC+, so that CC 65 (Button 1 TOP) is of type Page Set<IMG SRC="qrc:/star.png"
-ALIGN="absmiddle" />.</LI>
-</UL>
+<H3>It is not possible (yet?) to set some buttons to select concrete page, e.g. button to select Page 1, another for Page 2, etc.</H3>
 
 </BODY>
 </HTML>
