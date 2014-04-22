@@ -171,7 +171,7 @@ private:
      * Crossfade
      *************************************************************************/
 protected:
-    void setSlidersInfo(int pIndex);
+    void setSlidersInfo(int index);
 
 protected slots:
     void slotShowCrossfadePanel(bool enable);

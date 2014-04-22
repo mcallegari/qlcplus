@@ -569,17 +569,17 @@ void VCCueList::createRunner(int startIndex)
 /*****************************************************************************
  * Crossfade
  *****************************************************************************/
-void VCCueList::setSlidersInfo(int pIndex)
+void VCCueList::setSlidersInfo(int index)
 {
     if (chaser() == NULL || m_runner == NULL)
         return;
 
-    int tmpIndex = m_runner->computeNextStep(pIndex);
+    int tmpIndex = m_runner->computeNextStep(index);
 
-    m_sl1BottomLabel->setText(QString("#%1").arg(m_primaryLeft ? pIndex + 1 : tmpIndex + 1));
+    m_sl1BottomLabel->setText(QString("#%1").arg(m_primaryLeft ? index + 1 : tmpIndex + 1));
     m_sl1BottomLabel->setStyleSheet(m_primaryLeft ? m_blueStyle : m_orangeStyle);
 
-    m_sl2BottomLabel->setText(QString("#%1").arg(m_primaryLeft ? tmpIndex + 1 : pIndex + 1));
+    m_sl2BottomLabel->setText(QString("#%1").arg(m_primaryLeft ? tmpIndex + 1 : index + 1));
     m_sl2BottomLabel->setStyleSheet(m_primaryLeft ? m_orangeStyle : m_blueStyle);
 
     // reset any previously set background
