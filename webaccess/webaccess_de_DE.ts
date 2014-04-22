@@ -16,7 +16,7 @@
     <message>
         <location filename="webaccess.cpp" line="373"/>
         <source>Network configuration changed. Reboot to apply the changes.</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Netzwerkkonfiguration hat sich geändert. Neustarten um die Änderungen anzuwenden.</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="391"/>
@@ -67,12 +67,12 @@
     <message>
         <location filename="webaccess.cpp" line="1198"/>
         <source>Access point name (SSID): </source>
-        <translation type="unfinished"></translation>
+        <translation>Name des AccessPoints (SSID):</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1200"/>
         <source>WPA-PSK Password: </source>
-        <translation type="unfinished"></translation>
+        <translation>WPA-PSK Passwort:</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1205"/>

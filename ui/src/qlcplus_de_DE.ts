@@ -298,12 +298,12 @@
     <message>
         <location filename="addrgbpanel.ui" line="103"/>
         <source>Top-Right</source>
-        <translation>Open-Rechts</translation>
+        <translation>Oben-Rechts</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="110"/>
         <source>Top-Left</source>
-        <translation>Open Links</translation>
+        <translation>Oben Links</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="120"/>
@@ -318,23 +318,23 @@
     <message>
         <location filename="addrgbpanel.ui" line="147"/>
         <source>Physical</source>
-        <translation type="unfinished"></translation>
+        <translation>Abmessungen</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="164"/>
         <source>Width:</source>
-        <translation type="unfinished"></translation>
+        <translation>Breite:</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="171"/>
         <location filename="addrgbpanel.ui" line="194"/>
         <source>mm</source>
-        <translation type="unfinished"></translation>
+        <translation>mm</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="187"/>
         <source>Height:</source>
-        <translation type="unfinished"></translation>
+        <translation>Höhe:</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="282"/>
@@ -949,7 +949,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="audioeditor.ui" line="115"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="143"/>
@@ -964,7 +964,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="audioeditor.ui" line="243"/>
         <source>Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorschau</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="129"/>
@@ -989,22 +989,22 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="audioeditor.cpp" line="98"/>
         <source>Open Audio File</source>
-        <translation type="unfinished">Audio-Datei-öffnen</translation>
+        <translation>Audio-Datei-öffnen</translation>
     </message>
     <message>
         <location filename="audioeditor.cpp" line="106"/>
         <source>Audio Files (%1)</source>
-        <translation type="unfinished">Audio Dateien (%1)</translation>
+        <translation>Audio Dateien (%1)</translation>
     </message>
     <message>
         <location filename="audioeditor.cpp" line="108"/>
         <source>All Files (*.*)</source>
-        <translation type="unfinished">Alle Dateien (*.*)</translation>
+        <translation>Alle Dateien (*.*)</translation>
     </message>
     <message>
         <location filename="audioeditor.cpp" line="110"/>
         <source>All Files (*)</source>
-        <translation type="unfinished">Alle Dateien (*)</translation>
+        <translation>Alle Dateien (*)</translation>
     </message>
 </context>
 <context>
@@ -1241,7 +1241,7 @@ Dauer: %3
         <location filename="channelsselection.ui" line="14"/>
         <source>Channels selection</source>
         <oldsource>Channels Fade Configuration</oldsource>
-        <translation type="unfinished">Kanalfader Einstellung</translation>
+        <translation>Kanalauswahl</translation>
     </message>
     <message>
         <location filename="channelsselection.ui" line="28"/>
@@ -1263,22 +1263,22 @@ Dauer: %3
     <message>
         <location filename="channelsselection.cpp" line="50"/>
         <source>Selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewählt</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="54"/>
         <source>Channel properties configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Einstellung der Kanaleigenschaften</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="56"/>
         <source>Can fade</source>
-        <translation type="unfinished"></translation>
+        <translation>Kann faden</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="56"/>
         <source>Behaviour</source>
-        <translation type="unfinished"></translation>
+        <translation>Verhalten</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="114"/>
@@ -1407,12 +1407,12 @@ Dauer: %3
     <message>
         <location filename="chasereditor.ui" line="204"/>
         <source>Execute steps in random order</source>
-        <translation type="unfinished"></translation>
+        <translation>Schritte in zufälliger Reihenfolge ausführen</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="207"/>
         <source>Random</source>
-        <translation type="unfinished"></translation>
+        <translation>Zufällig</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="283"/>
@@ -2492,48 +2492,48 @@ Dauer: %3
     <message>
         <location filename="fixturetreewidget.cpp" line="70"/>
         <source>Name</source>
-        <translation type="unfinished">Name</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="75"/>
         <source>Universe</source>
-        <translation type="unfinished">Universum</translation>
+        <translation>Universum</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="80"/>
         <source>Address</source>
-        <translation type="unfinished">Adresse</translation>
+        <translation>Adresse</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="85"/>
         <source>Type</source>
-        <translation type="unfinished">Typ</translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="90"/>
         <source>Heads</source>
-        <translation type="unfinished">Heads</translation>
+        <translation>Heads</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="95"/>
         <source>Manufacturer</source>
-        <translation type="unfinished">Hersteller</translation>
+        <translation>Hersteller</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="100"/>
         <source>Model</source>
-        <translation type="unfinished">Modell</translation>
+        <translation>Modell</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="208"/>
         <location filename="fixturetreewidget.cpp" line="216"/>
         <source>Generic</source>
-        <translation type="unfinished">Generisch</translation>
+        <translation>Generisch</translation>
     </message>
     <message>
         <location filename="fixturetreewidget.cpp" line="228"/>
         <source>Head</source>
-        <translation type="unfinished">Head</translation>
+        <translation>Head</translation>
     </message>
 </context>
 <context>
@@ -2609,7 +2609,7 @@ Dauer: %3
     <message>
         <location filename="functionmanager.cpp" line="288"/>
         <source>New vid&amp;eo</source>
-        <translation type="unfinished"></translation>
+        <translation>Neues vid&amp;eo</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="294"/>
@@ -2691,22 +2691,22 @@ Dauer: %3
     <message>
         <location filename="functionmanager.cpp" line="519"/>
         <source>Open Video File</source>
-        <translation type="unfinished"></translation>
+        <translation>Videodatei öffnen</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="527"/>
         <source>Video Files (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Videodateien (%1)</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="553"/>
         <source>Unsupported video file</source>
-        <translation type="unfinished"></translation>
+        <translation>Nicht unterstützte Videodatei</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="553"/>
         <source>This video file cannot be played with QLC+. Sorry.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieses Videodatei kann leider nicht mit QLC+ wiedergegeben werden.</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="614"/>
@@ -2822,7 +2822,7 @@ Dauer: %3
     <message>
         <location filename="functionselection.ui" line="154"/>
         <source>Video</source>
-        <translation type="unfinished"></translation>
+        <translation>Video</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="103"/>
@@ -2852,7 +2852,7 @@ Dauer: %3
     <message>
         <location filename="functionselection.cpp" line="307"/>
         <source>&lt;Create a new track&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;Eine neue Spur erzeugen&gt;</translation>
     </message>
 </context>
 <context>
@@ -3503,12 +3503,12 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="monitor.cpp" line="338"/>
         <source>Universe:</source>
-        <translation type="unfinished">Universum:</translation>
+        <translation>Universum:</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="343"/>
         <source>All universes</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle Universen</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="365"/>
@@ -3543,7 +3543,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="monitor.cpp" line="412"/>
         <source>Show/hide labels</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeige/Verstecke Beschriftungen</translation>
     </message>
 </context>
 <context>
@@ -3551,47 +3551,47 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="14"/>
         <source>Monitor Fixture Properties Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Monitor Geräteeigenschafteneditor</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="30"/>
         <source>Gel color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbfilter:</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="37"/>
         <source>Position and rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Position und Rotation</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="53"/>
         <source>Vertical:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vertikal:</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="60"/>
         <source>Horizontal:</source>
-        <translation type="unfinished"></translation>
+        <translation>Horizontal:</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="77"/>
         <source>Rotation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotation:</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="99"/>
         <source>Set the color of the gel installed on the fixture</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Farbe des Farbfilters des Gerätes festlegen</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="112"/>
         <source>Reset the current color</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe zurücksetzen</translation>
     </message>
     <message>
         <location filename="monitorfixturepropertieseditor.ui" line="152"/>
         <source>Fixture name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerätename:</translation>
     </message>
 </context>
 <context>
@@ -3627,7 +3627,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="multitrackview.cpp" line="358"/>
         <source>Do you want to DELETE video (the source file will NOT be removed):</source>
-        <translation type="unfinished"></translation>
+        <translation>Soll das Video GELÖSCHT werden (die Datei wird NICHT entfernt):</translation>
     </message>
     <message>
         <location filename="multitrackview.cpp" line="384"/>
@@ -3655,7 +3655,7 @@ Dauer: %3
     <message>
         <location filename="multitrackview.cpp" line="519"/>
         <source>Click to move this video across the timeline</source>
-        <translation type="unfinished"></translation>
+        <translation>Zum Verschieben des Videos über die Timeline klicken</translation>
     </message>
 </context>
 <context>
@@ -3888,7 +3888,7 @@ Dauer: %3
     <message>
         <location filename="positiontool.ui" line="14"/>
         <source>PositonTool</source>
-        <translation type="unfinished"></translation>
+        <translation>PositionsWerkzeug</translation>
     </message>
 </context>
 <context>
@@ -4205,7 +4205,7 @@ Dauer: %3
     <message>
         <location filename="sceneeditor.cpp" line="174"/>
         <source>Position tool for moving heads/scanners</source>
-        <translation type="unfinished"></translation>
+        <translation>Positionswerkzeug für movingheads/scanner</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="176"/>
@@ -4487,7 +4487,7 @@ Dauer: %3
     <message>
         <location filename="showmanager.cpp" line="209"/>
         <source>New vi&amp;deo</source>
-        <translation type="unfinished"></translation>
+        <translation>Neues vid&amp;eo</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="216"/>
@@ -4553,18 +4553,18 @@ Dauer: %3
     <message>
         <location filename="showmanager.cpp" line="190"/>
         <source>Add a &amp;track or an existing function</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Spur oder existierende Funktion hinzufügen</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="626"/>
         <location filename="showmanager.cpp" line="717"/>
         <source> (Copy)</source>
-        <translation type="unfinished"> (Kopie)</translation>
+        <translation> (Kopie)</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="675"/>
         <source>Track %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Spur %1</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="700"/>
@@ -4589,7 +4589,7 @@ Dauer: %3
     <message>
         <location filename="showmanager.cpp" line="768"/>
         <source>Scene for %1 - Track %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Szene für %1 - Track %2</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="794"/>
@@ -4626,22 +4626,22 @@ Dauer: %3
     <message>
         <location filename="showmanager.cpp" line="854"/>
         <source>Open Video File</source>
-        <translation type="unfinished"></translation>
+        <translation>Videodatei öffnen</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="863"/>
         <source>Video Files (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Videodateien (%1)</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="889"/>
         <source>Unsupported video file</source>
-        <translation type="unfinished"></translation>
+        <translation>Nicht unterstützte Videodatei</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="889"/>
         <source>This video file cannot be played with QLC+. Sorry.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieses Videodatei kann leider nicht mit QLC+ wiedergegeben werden.</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="972"/>
@@ -4662,12 +4662,12 @@ Dauer: %3
     <message>
         <location filename="showmanager.cpp" line="1304"/>
         <source>Track name setup</source>
-        <translation type="unfinished"></translation>
+        <translation>Spurnameneinstellung</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="1305"/>
         <source>Track name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Spurname:</translation>
     </message>
 </context>
 <context>
@@ -4746,7 +4746,7 @@ Dauer: %3
     <message>
         <location filename="simpledesk.cpp" line="490"/>
         <source>Channel groups</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanalgruppen</translation>
     </message>
     <message>
         <location filename="simpledesk.cpp" line="821"/>
@@ -4855,7 +4855,7 @@ Dauer: %3
     <message>
         <location filename="sceneitems.cpp" line="310"/>
         <source>Change name</source>
-        <translation type="unfinished"></translation>
+        <translation>Name ändern</translation>
     </message>
 </context>
 <context>
@@ -6489,7 +6489,7 @@ Dauer: %3
     <message>
         <location filename="vcxypadarea.cpp" line="257"/>
         <source>Shift: fine, Ctrl:10x</source>
-        <translation type="unfinished"></translation>
+        <translation>Shift: fein, Strg: 10x</translation>
     </message>
 </context>
 <context>
@@ -6663,92 +6663,92 @@ Dauer: %3
     <message>
         <location filename="videoeditor.ui" line="14"/>
         <source>Video Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Videoeditor</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="31"/>
         <source>Video name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Videoname:</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="38"/>
         <source>File name:</source>
-        <translation type="unfinished">Dateiname:</translation>
+        <translation>Dateiname:</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="45"/>
         <source>Duration:</source>
-        <translation type="unfinished">Dauer:</translation>
+        <translation>Dauer:</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="52"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="59"/>
         <source>Resolution:</source>
-        <translation type="unfinished"></translation>
+        <translation>Auflösung:</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="101"/>
         <source>Audio codec:</source>
-        <translation type="unfinished"></translation>
+        <translation>Audiocodec:</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="108"/>
         <source>Video codec:</source>
-        <translation type="unfinished"></translation>
+        <translation>Videocodec:</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="168"/>
         <source>Name of the function being edited</source>
-        <translation type="unfinished">Name der zu bearbeitenden Sammlung</translation>
+        <translation>Name der zu bearbeitenden Sammlung</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="175"/>
         <source>Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorschau</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="212"/>
         <source>Output Screen:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgabebildschirm:</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="219"/>
         <source>Video output</source>
-        <translation type="unfinished"></translation>
+        <translation>Videoausgabe</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="225"/>
         <source>Windowed</source>
-        <translation type="unfinished"></translation>
+        <translation>Fenster</translation>
     </message>
     <message>
         <location filename="videoeditor.ui" line="235"/>
         <source>Fullscreen</source>
-        <translation type="unfinished"></translation>
+        <translation>Vollbild</translation>
     </message>
     <message>
         <location filename="videoeditor.cpp" line="102"/>
         <source>Open Video File</source>
-        <translation type="unfinished"></translation>
+        <translation>Videodatei öffnen</translation>
     </message>
     <message>
         <location filename="videoeditor.cpp" line="110"/>
         <source>Video Files (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Videodateien (%1)</translation>
     </message>
     <message>
         <location filename="videoeditor.cpp" line="112"/>
         <source>All Files (*.*)</source>
-        <translation type="unfinished">Alle Dateien (*.*)</translation>
+        <translation>Alle Dateien (*.*)</translation>
     </message>
     <message>
         <location filename="videoeditor.cpp" line="114"/>
         <source>All Files (*)</source>
-        <translation type="unfinished">Alle Dateien (*)</translation>
+        <translation>Alle Dateien (*)</translation>
     </message>
 </context>
 <context>
@@ -6760,7 +6760,7 @@ Dauer: %3
 Start time: %2
 Duration: %3
 %4</source>
-        <translation type="unfinished">Name: %1
+        <translation>Name: %1
 Startzeit: %2
 Dauer: %3
 %4</translation>
@@ -6769,22 +6769,22 @@ Dauer: %3
         <location filename="sceneitems.cpp" line="1162"/>
         <location filename="sceneitems.cpp" line="1271"/>
         <source>Click to move this video across the timeline</source>
-        <translation type="unfinished"></translation>
+        <translation>Zum Verschieben des Videos über die Timeline klicken</translation>
     </message>
     <message>
         <location filename="sceneitems.cpp" line="1176"/>
         <source>Fullscreen</source>
-        <translation type="unfinished"></translation>
+        <translation>Vollbild</translation>
     </message>
     <message>
         <location filename="sceneitems.cpp" line="1183"/>
         <source>Align to cursor</source>
-        <translation type="unfinished">Am Cursor ausrichten</translation>
+        <translation>Am Cursor ausrichten</translation>
     </message>
     <message>
         <location filename="sceneitems.cpp" line="1363"/>
         <source>Screen %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Bildschirm %1</translation>
     </message>
 </context>
 <context>
