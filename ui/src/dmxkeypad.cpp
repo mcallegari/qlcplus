@@ -36,7 +36,7 @@ DmxKeyPad::DmxKeyPad(QWidget *parent) :
 
     m_KPState_Value->addTransition(this, SIGNAL(SM_ValueTHRU()), m_KPState_ValueTHRU);
 
-    // Transitions from every possible state to Init via SM_Reset()
+    // Transitions from every possible state to Init via SIGNAL SM_Reset()
     m_KPState_Channel->addTransition(this, SIGNAL(SM_Reset()), m_KPState_Init);
     m_KPState_ChannelTHRU->addTransition(this, SIGNAL(SM_Reset()), m_KPState_Init);
     m_KPState_StepSize->addTransition(this, SIGNAL(SM_Reset()), m_KPState_Init);
@@ -198,7 +198,7 @@ void DmxKeyPad::KP_MINUS()
     {
         m_BY->setEnabled(false); // not implemented yet
 
-        emit SM_SubtractRange(); // re-calculate the current (pre-Subtract range)
+        emit SM_SubtractRange(); // re-calculate the current (pre-Subtract) range
         m_currentChannel = 0;
         m_subtractFromRange = true;
         appendToCommand(" - ");
@@ -233,7 +233,7 @@ void DmxKeyPad::KP_PLUS()
     {
         m_BY->setEnabled(false); // not implemented yet
 
-        emit SM_AddRange(); // re-calculate the current (pre-Add range)
+        emit SM_AddRange(); // re-calculate the current (pre-Add) range
         m_currentChannel = 0;
         m_addToRange = true;
         appendToCommand(" + ");
