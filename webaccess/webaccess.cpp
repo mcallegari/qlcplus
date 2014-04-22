@@ -616,7 +616,8 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
 
     str +=  "<input type=\"range\" class=\"vVertical\" "
             "id=\"" + slID + "\" "
-            "onchange=\"slVchange(" + slID + ");\" style=\""
+            "onchange=\"slVchange(" + slID + ");\" ontouchmove=\"slVchange(" + slID + ");\""
+            "style=\""
             "width: " + QString::number(slider->height() - 50) + "px; "
             "margin-top: " + QString::number(slider->height() - 50) + "px; "
             "margin-left: " + QString::number(slider->width() / 2) + "px;\" "

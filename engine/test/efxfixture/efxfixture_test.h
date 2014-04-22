@@ -49,6 +49,9 @@ private slots:
 
     void setPoint8bit();
     void setPoint16bit();
+    void setPointPanOnly();
+    void setPointLedBar();
+
     void startOffset();
     void nextStepLoop();
     void nextStepLoopZeroDuration();
@@ -59,6 +62,11 @@ private slots:
 
 private:
     Doc* m_doc;
+
+    int m_fixture8bit;
+    int m_fixture16bit;
+    int m_fixturePanOnly;
+    int m_fixtureLedBar;
 };
 
 #endif

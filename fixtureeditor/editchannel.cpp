@@ -161,7 +161,7 @@ void EditChannel::init()
 
 void EditChannel::slotNameChanged(const QString& name)
 {
-    m_channel->setName(name);
+    m_channel->setName(name.simplified());
 }
 
 void EditChannel::slotGroupActivated(const QString& group)

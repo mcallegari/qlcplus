@@ -32,18 +32,18 @@
  </Channel>
  <Channel Name="Tilt">
   <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (-30° to -210°)</Capability>
+  <Capability Min="0" Max="255">Tilt (-30° to 210°)</Capability>
  </Channel>
  <Channel Name="Tilt movement macro">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="7">No function</Capability>
-  <Capability Min="8" Max="43">Tilt movement macro 60° -120°</Capability>
-  <Capability Min="44" Max="79">Tilt movement macro 45° -135°</Capability>
-  <Capability Min="80" Max="115">Tilt movement macro 30° -150°</Capability>
-  <Capability Min="116" Max="151">Tilt movement macro 0° -180°</Capability>
-  <Capability Min="152" Max="187">Tilt movement macro -30° -210°</Capability>
-  <Capability Min="188" Max="223">Tilt movement macro 0° -90°</Capability>
-  <Capability Min="224" Max="255">Tilt movement macro 90° -180°</Capability>
+  <Capability Min="8" Max="43">Tilt movement macro 60° to 120°</Capability>
+  <Capability Min="44" Max="79">Tilt movement macro 45° to 135°</Capability>
+  <Capability Min="80" Max="115">Tilt movement macro 30° to 150°</Capability>
+  <Capability Min="116" Max="151">Tilt movement macro 0° to 180°</Capability>
+  <Capability Min="152" Max="187">Tilt movement macro -30° to 210°</Capability>
+  <Capability Min="188" Max="223">Tilt movement macro 0° to 90°</Capability>
+  <Capability Min="224" Max="255">Tilt movement macro 90° to 180°</Capability>
  </Channel>
  <Channel Name="Tilt movement macro speed">
   <Group Byte="0">Speed</Group>
@@ -320,6 +320,7 @@
   <Channel Number="33">Blue (Lens 8)</Channel>
   <Channel Number="34">White (Lens 8)</Channel>
   <Head>
+   <Channel>0</Channel>
    <Channel>1</Channel>
    <Channel>3</Channel>
    <Channel>4</Channel>
@@ -327,6 +328,7 @@
    <Channel>6</Channel>
   </Head>
   <Head>
+   <Channel>0</Channel>
    <Channel>1</Channel>
    <Channel>7</Channel>
    <Channel>8</Channel>
@@ -334,6 +336,7 @@
    <Channel>10</Channel>
   </Head>
   <Head>
+   <Channel>0</Channel>
    <Channel>1</Channel>
    <Channel>11</Channel>
    <Channel>12</Channel>
@@ -341,6 +344,7 @@
    <Channel>14</Channel>
   </Head>
   <Head>
+   <Channel>0</Channel>
    <Channel>1</Channel>
    <Channel>17</Channel>
    <Channel>18</Channel>
@@ -348,6 +352,7 @@
    <Channel>16</Channel>
   </Head>
   <Head>
+   <Channel>0</Channel>
    <Channel>1</Channel>
    <Channel>19</Channel>
    <Channel>20</Channel>
@@ -355,6 +360,7 @@
    <Channel>22</Channel>
   </Head>
   <Head>
+   <Channel>0</Channel>
    <Channel>1</Channel>
    <Channel>23</Channel>
    <Channel>24</Channel>
@@ -362,6 +368,7 @@
    <Channel>26</Channel>
   </Head>
   <Head>
+   <Channel>0</Channel>
    <Channel>1</Channel>
    <Channel>27</Channel>
    <Channel>28</Channel>
@@ -369,6 +376,7 @@
    <Channel>30</Channel>
   </Head>
   <Head>
+   <Channel>0</Channel>
    <Channel>1</Channel>
    <Channel>34</Channel>
    <Channel>31</Channel>
@@ -424,6 +432,7 @@
   <Channel Number="37">Blue (Lens 8)</Channel>
   <Channel Number="38">White (Lens 8)</Channel>
   <Head>
+   <Channel>0</Channel>
    <Channel>5</Channel>
    <Channel>7</Channel>
    <Channel>8</Channel>
@@ -431,6 +440,7 @@
    <Channel>10</Channel>
   </Head>
   <Head>
+   <Channel>0</Channel>
    <Channel>5</Channel>
    <Channel>11</Channel>
    <Channel>12</Channel>
@@ -438,6 +448,7 @@
    <Channel>14</Channel>
   </Head>
   <Head>
+   <Channel>0</Channel>
    <Channel>5</Channel>
    <Channel>17</Channel>
    <Channel>18</Channel>
@@ -445,6 +456,7 @@
    <Channel>16</Channel>
   </Head>
   <Head>
+   <Channel>0</Channel>
    <Channel>5</Channel>
    <Channel>19</Channel>
    <Channel>20</Channel>
@@ -452,6 +464,7 @@
    <Channel>22</Channel>
   </Head>
   <Head>
+   <Channel>0</Channel>
    <Channel>5</Channel>
    <Channel>23</Channel>
    <Channel>24</Channel>
@@ -459,6 +472,7 @@
    <Channel>26</Channel>
   </Head>
   <Head>
+   <Channel>0</Channel>
    <Channel>5</Channel>
    <Channel>27</Channel>
    <Channel>28</Channel>
@@ -466,6 +480,7 @@
    <Channel>30</Channel>
   </Head>
   <Head>
+   <Channel>0</Channel>
    <Channel>5</Channel>
    <Channel>34</Channel>
    <Channel>31</Channel>
@@ -473,6 +488,7 @@
    <Channel>33</Channel>
   </Head>
   <Head>
+   <Channel>0</Channel>
    <Channel>5</Channel>
    <Channel>35</Channel>
    <Channel>36</Channel>

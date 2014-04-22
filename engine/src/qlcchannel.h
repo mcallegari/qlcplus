@@ -122,11 +122,20 @@ public:
     /** Get the channel's group as an enum */
     Group group() const;
 
+    /** Get the channel's representation icon */
     QIcon getIconFromGroup(Group grp) const;
+
+    /** Get the channel's icon resource name */
+    QString getIconNameFromGroup(QLCChannel::Group grp) const;
 
 private:
     QPixmap drawIntensity(QColor color, QString str) const;
+
+    /** Create a colored icon for a specific intensity channel */
     QIcon getIntensityIcon() const;
+
+    /** Get the intensity channel color name */
+    QString getIntensityColorCode() const;
 
 protected:
     Group m_group;
