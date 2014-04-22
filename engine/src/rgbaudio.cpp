@@ -73,7 +73,8 @@ void RGBAudio::calculateColors(int barsHeight)
     if (barsHeight > 0)
     {
         m_barColors.clear();
-        if (endColor() == QColor())
+        if (endColor() == QColor() 
+            || barsHeight == 1) // to avoid division by 0 below
         {
             for (int i = 0; i < barsHeight; i++)
                 m_barColors.append(startColor().rgb());
