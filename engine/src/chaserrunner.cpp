@@ -262,6 +262,83 @@ int ChaserRunner::runningStepsNumber() const
     return m_runnerSteps.count();
 }
 
+int ChaserRunner::computeNextStep(int currentStep) const
+{
+    int nextStep = currentStep;
+
+    if (m_chaser->runOrder() == Function::Random)
+    {
+        nextStep = m_order.indexOf(nextStep);
+        if (nextStep == -1)
+        {
+            qDebug() << Q_FUNC_INFO << "order not found";
+            nextStep = currentStep;
+        }
+    }
+
+    // Next step
+    if (m_direction == Function::Forward)
+    {
+        nextStep++;
+    }
+    else
+    {
+        nextStep--;
+    }
+
+    if (nextStep < m_chaser->steps().size() && nextStep >= 0)
+    {
+        if (m_chaser->runOrder() == Function::Random)
+        {
+            nextStep = randomStepIndex(nextStep);
+        }
+        return nextStep; // In the middle of steps. No need to go any further.
+    }
+
+    if (m_chaser->runOrder() == Function::SingleShot)
+    {
+        return -1; // Forward or Backward SingleShot has been completed.
+    }
+    else if (m_chaser->runOrder() == Function::Loop)
+    {
+        if (m_direction == Function::Forward)
+        {
+            if (nextStep >= m_chaser->steps().size())
+                nextStep = 0;
+            else
+                nextStep = m_chaser->steps().size() - 1; // Used by CueList with manual prev
+        }
+        else // Backward
+        {
+            if (nextStep < 0)
+                nextStep = m_chaser->steps().size() - 1;
+            else
+                nextStep = 0;
+        }
+    }
+    else if (m_chaser->runOrder() == Function::Random)
+    {
+        nextStep = randomStepIndex(nextStep);
+    }
+    else // Ping Pong
+    {
+        // Change direction, but don't run the first/last step twice.
+        if (m_direction == Function::Forward)
+        {
+            nextStep = m_chaser->steps().size() - 2;
+        }
+        else // Backwards
+        {
+            nextStep = 1;
+        }
+
+        // Make sure we don't go beyond limits.
+        nextStep = CLAMP(nextStep, 0, m_chaser->steps().size() - 1);
+    }
+
+    return nextStep;
+}
+
 void ChaserRunner::shuffle(QVector<int> & data)
 {
    int n = data.size();
@@ -338,7 +415,7 @@ void ChaserRunner::startNewStep(int index, MasterTimer* timer, bool manualFade)
     if (m_chaser == NULL || m_chaser->steps().count() == 0)
         return;
 
-    if (index < 0 || index > m_chaser->steps().count())
+    if (index < 0 || index >= m_chaser->steps().count())
         index = 0; // fallback to the first step
 
     ChaserStep step(m_chaser->steps().at(index));
@@ -384,6 +461,16 @@ void ChaserRunner::startNewStep(int index, MasterTimer* timer, bool manualFade)
 int ChaserRunner::getNextStepIndex()
 {
     int currentStepIndex = m_lastRunStepIdx;
+    
+    if (m_chaser->runOrder() == Function::Random)
+    {
+        currentStepIndex = m_order.indexOf(currentStepIndex);
+        if (currentStepIndex == -1)
+        {
+            qDebug() << Q_FUNC_INFO << "order not found";
+            currentStepIndex = m_lastRunStepIdx;
+        }
+    }
 
     if (currentStepIndex == -1 &&
         m_chaser->direction() == Function::Backward)
@@ -411,7 +498,13 @@ int ChaserRunner::getNextStepIndex()
     m_previous = false;
 
     if (currentStepIndex < m_chaser->steps().size() && currentStepIndex >= 0)
+    {
+        if (m_chaser->runOrder() == Function::Random)
+        {
+            currentStepIndex = randomStepIndex(currentStepIndex);
+        }
         return currentStepIndex; // In the middle of steps. No need to go any further.
+    }
 
     if (m_chaser->runOrder() == Function::SingleShot)
     {
@@ -436,6 +529,21 @@ int ChaserRunner::getNextStepIndex()
     }
     else if (m_chaser->runOrder() == Function::Random)
     {
+        fillOrder();
+        if (m_direction == Function::Forward)
+        {
+            if (currentStepIndex >= m_chaser->steps().size())
+                currentStepIndex = 0;
+            else
+                currentStepIndex = m_chaser->steps().size() - 1; // Used by CueList with manual prev
+        }
+        else // Backward
+        {
+            if (currentStepIndex < 0)
+                currentStepIndex = m_chaser->steps().size() - 1;
+            else
+                currentStepIndex = 0;
+        }
         currentStepIndex = randomStepIndex(currentStepIndex);
     }
     else // Ping Pong
