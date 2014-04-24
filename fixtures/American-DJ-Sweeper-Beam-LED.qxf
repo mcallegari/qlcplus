@@ -77,7 +77,6 @@
  </Channel>
  <Channel Name="Master Dimmer">
   <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
   <Capability Min="0" Max="255">0% - 100%</Capability>
  </Channel>
  <Channel Name="Strobing">
@@ -94,42 +93,34 @@
  </Channel>
  <Channel Name="Dimmer (Lens 1)">
   <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
   <Capability Min="0" Max="255">(0% - 100%)</Capability>
  </Channel>
  <Channel Name="Dimmer (Lens 2)">
   <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
   <Capability Min="0" Max="255">0% - 100%</Capability>
  </Channel>
  <Channel Name="Dimmer (Lens 3)">
   <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
   <Capability Min="0" Max="255">0% - 100%</Capability>
  </Channel>
  <Channel Name="Dimmer (Lens 4)">
   <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
   <Capability Min="0" Max="255">0% - 100%</Capability>
  </Channel>
  <Channel Name="Dimmer (Lens 5)">
   <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
   <Capability Min="0" Max="255">0% - 100%</Capability>
  </Channel>
  <Channel Name="Dimmer (Lens 6)">
   <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
   <Capability Min="0" Max="255">0% - 100%</Capability>
  </Channel>
  <Channel Name="Dimmer (Lens 7)">
   <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
   <Capability Min="0" Max="255">0% - 100%</Capability>
  </Channel>
  <Channel Name="Dimmer (Lens 8)">
   <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
   <Capability Min="0" Max="255">0% - 100%</Capability>
  </Channel>
  <Mode Name="1 Channel Mode">
