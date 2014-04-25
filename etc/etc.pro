@@ -97,34 +97,27 @@ greaterThan(QT_MAJOR_VERSION, 4) {
         mingw.files += $$(SystemDrive)/MinGW/bin/mingwm10.dll
     }
 
-    exists($$(QTDIR)/../MinGW/bin/mingwm10.dll) {
-        mingw.files += $$(QTDIR)/../MinGW/bin/mingwm10.dll
-    }
-
     # MinGW GCC
     exists($$(SystemDrive)/MinGW/bin/libgcc_s_dw2-1.dll) {
         mingw.files += $$(SystemDrive)/MinGW/bin/libgcc_s_dw2-1.dll
     }
 
-    exists($$(QTDIR)/../MinGW/bin/libgcc_s_dw2-1.dll) {
-        mingw.files += $$(QTDIR)/../MinGW/bin/libgcc_s_dw2-1.dll
-    }
-
 lessThan(QT_MAJOR_VERSION, 5) {
-    exists($$(QTDIR)/../MinGW/bin/libstdc++-6.dll) {
-        mingw.files += $$(QTDIR)/../MinGW/bin/libstdc++-6.dll
-    }
-        exists($$(QTDIR)/../MinGW/bin/pthreadGC2.dll) {
-        mingw.files += $$(QTDIR)/../MinGW/bin/pthreadGC2.dll
+    exists($$(SystemDrive)/MinGW/bin/libstdc++-6.dll) {
+        mingw.files += $$(SystemDrive)/MinGW/bin/libstdc++-6.dll
     }
 } else {
     exists($$(QTDIR)/bin/libstdc++-6.dll) {
         mingw.files += $$(QTDIR)/bin/libstdc++-6.dll
     }
-        exists($$(QTDIR)/bin/libwinpthread-1.dll) {
+}
+
+    exists($$(SystemDrive)/MinGW/bin/pthreadGC2.dll) {
+        mingw.files += $$(SystemDrive)/MinGW/bin/pthreadGC2.dll
+    }
+    exists($$(QTDIR)/bin/libwinpthread-1.dll) {
         mingw.files += $$(QTDIR)/bin/libwinpthread-1.dll
     }
-}
 
     INSTALLS += mingw
 
