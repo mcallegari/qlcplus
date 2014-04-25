@@ -488,14 +488,7 @@ void Monitor::slotSwitchMode()
     }
     else
     {
-        if (m_fixtureItemEditor != NULL)
-        {
-            m_splitter->widget(1)->layout()->removeWidget(m_fixtureItemEditor);
-            m_splitter->widget(1)->hide();
-            m_fixtureItemEditor->deleteLater();
-            m_fixtureItemEditor = NULL;
-        }
-
+        hideFixtureItemEditor();
         m_toolBar->deleteLater();
         m_graphicsView->deleteLater();
         m_graphicsView = NULL;
@@ -712,13 +705,7 @@ void Monitor::slotRemoveFixture()
 {
     if (m_graphicsView != NULL)
     {
-        if (m_fixtureItemEditor != NULL)
-        {
-            m_splitter->widget(1)->layout()->removeWidget(m_fixtureItemEditor);
-            m_splitter->widget(1)->hide();
-            m_fixtureItemEditor->deleteLater();
-            m_fixtureItemEditor = NULL;
-        }
+        hideFixtureItemEditor();
         if (m_graphicsView->removeFixture() == true)
             m_doc->setModified();
     }
@@ -742,6 +729,11 @@ void Monitor::slotFixtureMoved(quint32 fid, QPointF pos)
 
 void Monitor::slotViewCliked()
 {
+    hideFixtureItemEditor();
+}
+
+void Monitor::hideFixtureItemEditor()
+{
     if (m_fixtureItemEditor != NULL)
     {
         m_splitter->widget(1)->layout()->removeWidget(m_fixtureItemEditor);
@@ -754,13 +746,7 @@ void Monitor::slotViewCliked()
 void Monitor::showFixtureItemEditor()
 {
     MonitorFixtureItem *item = m_graphicsView->getSelectedItem();
-    if (m_fixtureItemEditor != NULL)
-    {
-        m_splitter->widget(1)->layout()->removeWidget(m_fixtureItemEditor);
-        m_splitter->widget(1)->hide();
-        m_fixtureItemEditor->deleteLater();
-        m_fixtureItemEditor = NULL;
-    }
+    hideFixtureItemEditor();
 
     if (item != NULL)
     {
