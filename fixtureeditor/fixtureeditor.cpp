@@ -490,7 +490,7 @@ void QLCFixtureEditor::slotEditChannel()
     EditChannel ec(this, real);
     if (ec.exec() == QDialog::Accepted)
     {
-        if (m_fixtureDef->channel(ec.channel()->name()) != NULL)
+        if (m_fixtureDef->channel(ec.channel()->name()) != NULL && ec.channel()->name() != real->name())
         {
             QMessageBox::warning(this,
                                  tr("Channel already exists"),
