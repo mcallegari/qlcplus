@@ -254,7 +254,7 @@ void Audio::slotEndOfStream()
     if (m_audio_out != NULL)
     {
         m_audio_out->stop();
-        delete m_audio_out;
+        m_audio_out->deleteLater();
         m_audio_out = NULL;
         m_decoder->seek(0);
     }

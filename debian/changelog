@@ -10,6 +10,7 @@ qlcplus (4.7.1) stable; urgency=low
   * Chaser Editor: Sequences in Function Manager can have Run Order and Direction
   * Function Manager: fixed nested folders failure
   * Scene Editor: fixed crash when a group used by a Scene has been removed
+  * Audio: fixed crash on OSX happening on end of playback
   * Webaccess: fixed Cue list play/stop sequence working only once
   * Webaccess: fixed sliders movement on a touchscreen
   * Plugins: Fixed ArtNet input universe indexing
@@ -20,7 +21,7 @@ qlcplus (4.7.1) stable; urgency=low
   * Added fixture: American DJ Inno Spot LED (thanks to Paul Hill)
   * Added fixture: American DJ Sweeper Beam LED (thanks to George Qualley)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 19 April 2014 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 26 April 2014 12:13:14 +0200
 
 qlcplus (4.7.0) stable; urgency=low
 
