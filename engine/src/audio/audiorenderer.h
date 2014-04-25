@@ -109,10 +109,11 @@ public:
 
     void stop();
 
-private:
+protected:
     /** State machine variables */
     bool m_userStop, m_pause;
 
+private:
     /** Local copy of the audio function intensity */
     qreal m_intensity;
     qreal m_currentIntensity;

@@ -151,6 +151,9 @@ protected:
      * Graphics View
      ********************************************************************/
 protected:
+    /** Hides the Fixture Item editor on the right side of the view */
+    void hideFixtureItemEditor();
+
     /** Shows the Fixture Item editor on the right side of the view */
     void showFixtureItemEditor();
 
