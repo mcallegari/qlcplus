@@ -22,6 +22,7 @@
 
 #include <QDialog>
 #include <QWidget>
+#include <QMap>
 
 namespace Ui {
 class AddressTool;
@@ -30,6 +31,22 @@ class AddressTool;
 /** @addtogroup ui UI
  * @{
  */
+
+class DIPSwitchSlider : public QObject
+{
+    Q_OBJECT
+public:
+    DIPSwitchSlider(QObject *parent = 0);
+    ~DIPSwitchSlider();
+
+    void setPosition(QPoint pos, QSize size);
+    void paint(QPainter *painter, bool value, bool vreverse);
+    bool isClicked(QPoint click);
+
+private:
+    QPoint m_pos;
+    QSize m_size;
+};
 
 class DIPSwitchWidget: public QWidget
 {
@@ -41,20 +58,28 @@ public:
 
     void setColor(QColor col);
 
+signals:
+    void valueChanged(int value);
+
 public slots:
     void slotReverseVertically(bool toggle);
     void slotReverseHorizontally(bool toggle);
     void slotSetValue(int value);
 
 private:
-    int m_value;
+    void updateSliders();
+
+    qint16 m_value;
     QFont m_font;
     QColor m_backCol;
     bool m_verticalReverse;
     bool m_horizontalReverse;
+    QMap<quint8, DIPSwitchSlider*> m_sliders;
 
 protected:
     void paintEvent(QPaintEvent* e);
+    void mousePressEvent(QMouseEvent *e);
+    void resizeEvent(QResizeEvent *e);
 };
 
 class AddressTool : public QDialog
