@@ -49,10 +49,21 @@ serialport {
         greaterThan(QT_MAJOR_VERSION, 4) {
             macx:QT_CONFIG -= no-pkg-config
         }
-        CONFIG      += link_pkgconfig
-        PKGCONFIG   += libftdi libusb
-        DEFINES     += LIBFTDI
-        message(Building with libFTDI support.)
+        packagesExist(libftdi) {
+            CONFIG      += link_pkgconfig
+            PKGCONFIG   += libftdi libusb
+            DEFINES     += LIBFTDI
+            message(Building with libFTDI support.)
+        } else {
+            packagesExist(libftdi1) {
+                CONFIG      += link_pkgconfig
+                PKGCONFIG   += libftdi1 libusb
+                DEFINES     += LIBFTDI1
+                message(Building with libFTDI1 support.)
+            } else {
+                error(Neither libftdi-0.X nor libftdi-1.X found!)
+            }
+        }
     }
 }
 
