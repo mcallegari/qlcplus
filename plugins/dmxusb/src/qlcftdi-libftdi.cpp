@@ -114,7 +114,11 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
     ftdi_usb_find_all(&ftdi, &list, QLCFTDI::VID, QLCFTDI::PID);
     while (list != NULL)
     {
+#ifdef LIBFTDI1
+        struct libusb_device* dev = list->dev;
+#else
         struct usb_device* dev = list->dev;
+#endif
         Q_ASSERT(dev != NULL);
 
         char serial[256];
@@ -240,7 +244,11 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
     ftdi_usb_find_all(&ftdi, &list, QLCFTDI::VID, QLCFTDI::DMX4ALLPID);
     while (list != NULL)
     {
+#ifdef LIBFTDI1
+        struct libusb_device* dev = list->dev;
+#else
         struct usb_device* dev = list->dev;
+#endif
         Q_ASSERT(dev != NULL);
 
         char serial[256];
