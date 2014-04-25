@@ -10,7 +10,8 @@ qlcplus (4.7.1) stable; urgency=low
   * Chaser Editor: Sequences in Function Manager can have Run Order and Direction
   * Function Manager: fixed nested folders failure
   * Scene Editor: fixed crash when a group used by a Scene has been removed
-  * Audio: fixed crash on OSX happening on end of playback
+  * Audio/OSX: fixed crash happening at the end of playback
+  * Audio/Linux: if the selected playback device is not present, fall back to the default device 
   * Webaccess: fixed Cue list play/stop sequence working only once
   * Webaccess: fixed sliders movement on a touchscreen
   * Plugins: Fixed ArtNet input universe indexing
