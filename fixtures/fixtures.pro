@@ -101,6 +101,7 @@ fixtures.files += Clay-Paky-Mini-Scan-HPE.qxf
 fixtures.files += Coemar-ProWash-250-LX.qxf
 fixtures.files += Coemar-Stage-Lite-LED.qxf
 fixtures.files += Contest-LedColor.qxf
+fixtures.files += Contest-Tri4U.qxf
 fixtures.files += DTS-Max-FAR.qxf
 fixtures.files += DTS-Nick-NRG1201.qxf
 fixtures.files += Dune-Lighting-MOVLED60W.qxf

@@ -20,6 +20,7 @@ qlcplus (4.7.1) stable; urgency=low
   * Added fixture: Pro-Lights ARCLED7314HD (thanks to Tolmino)
   * Added fixture: American DJ Inno Spot LED (thanks to Paul Hill)
   * Added fixture: American DJ Sweeper Beam LED (thanks to George Qualley)
+  * Added fixture: Contest Tri4U (thanks to Nicolas K)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 26 April 2014 12:13:14 +0200
 
