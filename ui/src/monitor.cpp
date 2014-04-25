@@ -712,6 +712,13 @@ void Monitor::slotRemoveFixture()
 {
     if (m_graphicsView != NULL)
     {
+        if (m_fixtureItemEditor != NULL)
+        {
+            m_splitter->widget(1)->layout()->removeWidget(m_fixtureItemEditor);
+            m_splitter->widget(1)->hide();
+            m_fixtureItemEditor->deleteLater();
+            m_fixtureItemEditor = NULL;
+        }
         if (m_graphicsView->removeFixture() == true)
             m_doc->setModified();
     }
