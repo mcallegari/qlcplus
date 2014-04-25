@@ -44,6 +44,8 @@ protected:
     /** @reimpl */
     qint64 writeAudio(unsigned char *data, qint64 maxSize);
 
+    int getPendingDataSize();
+
     /** @reimpl */
     void drain();
 
@@ -63,8 +65,8 @@ private:
                                PaStreamCallbackFlags statusFlags,
                                void *userData );
 
-    PaStream *stream;
-    QMutex m_mutex;
+    PaStream *m_paStream;
+    QMutex m_paMutex;
     QByteArray m_buffer;
 
     int m_channels;

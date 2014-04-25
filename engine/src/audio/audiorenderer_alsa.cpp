@@ -64,7 +64,13 @@ bool AudioRendererAlsa::initialize(quint32 freq, int chan, AudioFormat format)
     if (snd_pcm_open(&pcm_handle, pcm_name, SND_PCM_STREAM_PLAYBACK, SND_PCM_NONBLOCK) < 0)
     {
         qWarning ("OutputALSA: Error opening PCM device %s", pcm_name);
-        return false;
+        // if it fails, fallback to the default device
+        pcm_name = strdup("default");
+        if (snd_pcm_open(&pcm_handle, pcm_name, SND_PCM_STREAM_PLAYBACK, SND_PCM_NONBLOCK) < 0)
+        {
+            qWarning ("OutputALSA: Error opening default PCM device. Giving up.");
+            return false;
+        }
     }
 
     uint rate = freq; /* Sample rate */
@@ -189,7 +195,7 @@ bool AudioRendererAlsa::initialize(quint32 freq, int chan, AudioFormat format)
     qDebug("OutputALSA: can pause: %d", m_can_pause);
     //configure(freq, chan, format); //apply configuration
     //create alsa prebuffer;
-    m_prebuf_size = /*QMMP_BUFFER_SIZE + */m_bits_per_frame * m_chunk_size / 8;
+    m_prebuf_size = m_bits_per_frame * m_chunk_size / 8;
     m_prebuf = (uchar *)malloc(m_prebuf_size);
 
     m_inited = true;
@@ -281,6 +287,9 @@ QList<AudioDeviceInfo> AudioRendererAlsa::getDevicesInfo()
 
 qint64 AudioRendererAlsa::writeAudio(unsigned char *data, qint64 maxSize)
 {
+    if (pcm_handle == NULL || m_prebuf == NULL)
+        return 0;
+
     if((maxSize = qMin(maxSize, m_prebuf_size - m_prebuf_fill)) > 0)
     {
         memmove(m_prebuf + m_prebuf_fill, data, maxSize);

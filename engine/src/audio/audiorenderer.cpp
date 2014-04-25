@@ -18,6 +18,7 @@
 */
 
 #include <QDebug>
+#include <QMutexLocker>
 
 #include "audiorenderer.h"
 #include "qlcmacros.h"
@@ -88,7 +89,7 @@ void AudioRenderer::run()
 
     while (!m_userStop)
     {
-        m_mutex.lock();
+        QMutexLocker locker(&m_mutex);
         qint64 audioDataWritten = 0;
         if (m_pause == false)
         {
@@ -98,7 +99,6 @@ void AudioRenderer::run()
             audioDataRead = m_adec->read((char *)audioData, 8192);
             if (audioDataRead == 0)
             {
-                m_mutex.unlock();
                 emit endOfStreamReached();
                 return;
             }
@@ -162,7 +162,6 @@ void AudioRenderer::run()
         }
         else
             usleep(15000);
-        m_mutex.unlock();
     }
 
     reset();

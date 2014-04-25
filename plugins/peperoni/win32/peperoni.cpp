@@ -139,7 +139,7 @@ QString Peperoni::outputInfo(quint32 output)
         str += tr("The shared library usbdmx.dll could not be found or is too old to be used with QLC.");
         str += QString("</P>");
     }
-    else if (output == QLCIOPlugin::invalidLine() && output < quint32(m_devices.size()))
+    else if (output != QLCIOPlugin::invalidLine() && output < quint32(m_devices.size()))
     {
         str += m_devices.at(output)->infoText();
     }

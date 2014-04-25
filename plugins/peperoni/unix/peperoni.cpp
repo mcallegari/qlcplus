@@ -98,10 +98,12 @@ QString Peperoni::outputInfo(quint32 output)
 {
     QString str;
 
-    if (output == QLCIOPlugin::invalidLine() && output < quint32(m_devices.size()))
+    if (output != QLCIOPlugin::invalidLine() && output < quint32(m_devices.size()))
     {
         str += m_devices.at(output)->infoText();
     }
+    else
+        qDebug() << "Peperoni invalid output !" << output << m_devices.size();
 
     str += QString("</BODY>");
     str += QString("</HTML>");
@@ -115,6 +117,8 @@ void Peperoni::writeUniverse(quint32 universe, quint32 output, const QByteArray 
 
     if (output < quint32(m_devices.size()))
         m_devices.at(output)->outputDMX(data);
+    else
+        qDebug() << "Peperoni invalid output !" << output << m_devices.size();
 }
 
 /*****************************************************************************
@@ -182,6 +186,8 @@ void Peperoni::rescanDevices()
         m_devices.removeAll(pepdev);
         delete pepdev;
     }
+
+    qDebug() << "Peperoni devices found:" << m_devices.count();
 }
 
 PeperoniDevice* Peperoni::device(struct usb_device* usbdev)

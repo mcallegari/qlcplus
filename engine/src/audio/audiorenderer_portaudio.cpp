@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include <QMutexLocker>
 #include <QSettings>
 #include <QString>
 #include <QDebug>
@@ -30,11 +31,14 @@ AudioRendererPortAudio::AudioRendererPortAudio(QObject * parent)
     m_channels = 0;
     m_frameSize = 0;
 
-    stream = NULL;
+    m_paStream = NULL;
 }
 
 AudioRendererPortAudio::~AudioRendererPortAudio()
 {
+    reset();
+    QMutexLocker locker(&m_paMutex);
+
     PaError err;
     err = Pa_Terminate();
     if( err != paNoError )
@@ -51,21 +55,23 @@ int AudioRendererPortAudio::dataCallback ( const void *, void *outputBuffer,
 
     unsigned long requestedData = frameCount * PAobj->m_frameSize * PAobj->m_channels;
 
-    PAobj->m_mutex.lock();
+    QMutexLocker locker(&PAobj->m_paMutex);
+    // user stop requested ? Prevent this callback to be called again
+    if (PAobj->m_userStop == true)
+        return paAbort;
+
     // not enough data ? Wait for another writeAudio to add more
     if (requestedData > (unsigned long)PAobj->m_buffer.size())
     {
-        PAobj->m_mutex.unlock();
-        Pa_Sleep(5);
-        return 0;
+        Pa_Sleep(10);
+        return paContinue;
     }
 
-    qDebug() << "dataCallback called !! requestedData: " << requestedData;
     memcpy(outputBuffer, PAobj->m_buffer.data(), requestedData);
     PAobj->m_buffer.remove(0, requestedData);
-    PAobj->m_mutex.unlock();
+    qDebug() << "PortAudio dataCallback. RequestedData: " << requestedData << "buffer size:" << PAobj->m_buffer.size();
 
-    return 0;
+    return paContinue;
 }
 
 bool AudioRendererPortAudio::initialize(quint32 freq, int chan, AudioFormat format)
@@ -120,13 +126,13 @@ bool AudioRendererPortAudio::initialize(quint32 freq, int chan, AudioFormat form
         return false;
     }
 
-    err = Pa_OpenStream( &stream, NULL, &outputParameters,
+    err = Pa_OpenStream( &m_paStream, NULL, &outputParameters,
               freq, paFramesPerBufferUnspecified, flags, dataCallback, this );
 
     if( err != paNoError )
         return false;
 
-    err = Pa_StartStream( stream );
+    err = Pa_StartStream( m_paStream );
 
     if( err != paNoError )
         return false;
@@ -187,9 +193,8 @@ qint64 AudioRendererPortAudio::writeAudio(unsigned char *data, qint64 maxSize)
         return 0;
 
     qDebug() << "writeAudio called !! - " << maxSize;
-    m_mutex.lock();
+    QMutexLocker locker(&m_paMutex);
     m_buffer.append((const char *)data, maxSize);
-    m_mutex.unlock();
 
     return maxSize;
 }
@@ -201,11 +206,20 @@ void AudioRendererPortAudio::drain()
 
 void AudioRendererPortAudio::reset()
 {
+    QMutexLocker locker(&m_paMutex);
+    if ( m_paStream == NULL)
+        return;
+
     PaError err;
-    err = Pa_CloseStream( stream );
+    err = Pa_StopStream( m_paStream );
     if( err != paNoError )
-        qDebug() << "Error: Stop stream failed !";
+        qDebug() << "PortAudio Error: Stop stream failed !";
+
+    err = Pa_CloseStream( m_paStream );
+    if( err != paNoError )
+        qDebug() << "PortAudio Error: Close stream failed !";
     m_buffer.clear();
+    m_paStream = NULL;
 }
 
 void AudioRendererPortAudio::suspend()
