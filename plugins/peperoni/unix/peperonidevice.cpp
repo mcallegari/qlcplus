@@ -21,45 +21,7 @@
 #include <usb.h>
 
 #include "peperonidevice.h"
-
-/** Lighting Solutions/Peperoni Light Vendor ID */
-#define PEPERONI_VID            0x0CE1
-
-/* Recognized Product IDs */
-#define PEPERONI_PID_XSWITCH    0x0001
-#define PEPERONI_PID_RODIN1     0x0002
-#define PEPERONI_PID_RODIN2     0x0003
-#define PEPERONI_PID_RODINT     0x0008
-#define PEPERONI_PID_USBDMX21   0x0004
-
-/** Common interface */
-#define PEPERONI_IFACE_EP0      0x00
-
-#define PEPERONI_CONF_TXONLY    0x01
-#define PEPERONI_CONF_TXRX      0x02
-#define PEPERONI_CONF_RXONLY    0x03
-
-/** CONTROL MSG: Control the internal DMX buffer */
-#define PEPERONI_TX_MEM_REQUEST  0x04
-/** CONTROL MSG: Set DMX startcode */
-#define PEPERONI_TX_STARTCODE    0x09
-/** CONTROL MSG: Block until the DMX frame has been completely transmitted */
-#define PEPERONI_TX_MEM_BLOCK    0x01
-/** CONTROL MSG: Do not block during DMX frame send */
-#define PEPERONI_TX_MEM_NONBLOCK 0x00
-/** CONTROL MSG: Oldest firmware version with blocking write support */
-#define PEPERONI_FW_BLOCKING_WRITE_SUPPORT 0x101
-
-/** BULK WRITE: Bulk out endpoint */
-#define PEPERONI_BULK_OUT_ENDPOINT 0x02
-/** BULK WRITE: Oldest firmware version with bulk write support */
-#define PEPERONI_FW_BULK_SUPPORT 0x400
-/** BULK WRITE: Size of the "old" bulk header */
-#define PEPERONI_OLD_BULK_HEADER_SIZE 4
-/** BULK WRITE: "Old" bulk protocol ID */
-#define PEPERONI_OLD_BULK_HEADER_ID 0x01
-/** BULK WRITE: "Old" bulk transmit request */
-#define PEPERONI_OLD_BULK_HEADER_REQUEST_TX 0x00
+#include "peperonidefs.h"
 
 /****************************************************************************
  * Initialization
@@ -74,6 +36,7 @@ PeperoniDevice::PeperoniDevice(QObject* parent, struct usb_device* device)
 
     /* Store fw version so we don't need to rely on libusb's volatile data */
     m_firmwareVersion = m_device->descriptor.bcdDevice;
+    qDebug() << "[Peperoni] detected device firmware version:" << QString::number(m_firmwareVersion, 16);
 
     if (m_firmwareVersion < PEPERONI_FW_BLOCKING_WRITE_SUPPORT)
         m_blockingControlWrite = PEPERONI_TX_MEM_NONBLOCK;
@@ -228,7 +191,7 @@ void PeperoniDevice::open()
         if (r < 0)
             qWarning() << "PeperoniDevice is unable to set 0 as the DMX startcode!";
 
-        if (m_firmwareVersion >= PEPERONI_FW_BULK_SUPPORT)
+        if (m_firmwareVersion >= PEPERONI_FW_OLD_BULK_SUPPORT)
         {
             /* Allocate space for bulk buffer */
             m_bulkBuffer = QByteArray(512 + PEPERONI_OLD_BULK_HEADER_SIZE, 0);
@@ -284,9 +247,10 @@ void PeperoniDevice::outputDMX(const QByteArray& universe)
        and then re-plug the dongle in apple for bulk write to work,
        so disable it for apple, since control msg should work for all. */
 #if !defined(__APPLE__) && !defined(Q_OS_MAC)
-    if (m_firmwareVersion < PEPERONI_FW_BULK_SUPPORT)
+    if (m_firmwareVersion < PEPERONI_FW_OLD_BULK_SUPPORT)
     {
 #endif
+        qDebug() << "[Peperoni] control pipe write. Mode:" << m_blockingControlWrite << ", size:" << universe.size();
         r = usb_control_msg(m_handle,
                             USB_TYPE_VENDOR | USB_RECIP_INTERFACE | USB_ENDPOINT_OUT,
                             PEPERONI_TX_MEM_REQUEST, // We are WRITING DMX data
@@ -302,9 +266,10 @@ void PeperoniDevice::outputDMX(const QByteArray& universe)
     }
     else
     {
+        qDebug() << "Old bulk pipe write. Size:" << universe.size();
         /* Construct a bulk header first */
         m_bulkBuffer[0] = char(PEPERONI_OLD_BULK_HEADER_ID);
-        m_bulkBuffer[1] = char(PEPERONI_OLD_BULK_HEADER_REQUEST_TX);
+        m_bulkBuffer[1] = char(PEPERONI_OLD_BULK_HEADER_REQUEST_TX_SET);
         m_bulkBuffer[2] = char(universe.size() & 0xFF);
         m_bulkBuffer[3] = char((universe.size() >> 8) & 0xFF);
 
@@ -321,7 +286,7 @@ void PeperoniDevice::outputDMX(const QByteArray& universe)
 
         if (r < 0)
         {
-            qWarning() << "PeperoniDevice" << name() << "failed bulk write:" << usb_strerror();
+            qWarning() << "PeperoniDevice" << name() << "failed 'old' bulk write:" << usb_strerror();
             qWarning() << "Resetting bulk endpoint.";
             r = usb_clear_halt(m_handle, PEPERONI_BULK_OUT_ENDPOINT);
             if (r < 0)

@@ -13,6 +13,7 @@ CONFIG      += plugin
 CONFIG      += link_pkgconfig
 PKGCONFIG   += libusb
 INCLUDEPATH += ../../interfaces
+INCLUDEPATH += ../common
 
 HEADERS += peperonidevice.h \
            peperoni.h
