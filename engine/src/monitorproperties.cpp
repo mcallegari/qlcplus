@@ -32,11 +32,14 @@
 #define KXMLQLCMonitorGridWidth "Width"
 #define KXMLQLCMonitorGridHeight "Height"
 #define KXMLQLCMonitorGridUnits "Units"
+#define KXMLQLCMonitorShowLabels "ShowLabels"
 
 #define KXMLQLCMonitorFixtureItem "FxItem"
 #define KXMLQLCMonitorFixtureID "ID"
 #define KXMLQLCMonitorFixtureXPos "XPos"
 #define KXMLQLCMonitorFixtureYPos "YPos"
+#define KXMLQLCMonitorFixtureRotation "Rotation"
+#define KXMLQLCMonitorFixtureGelColor "GelColor"
 
 MonitorProperties::MonitorProperties()
 {
@@ -46,12 +49,32 @@ MonitorProperties::MonitorProperties()
     m_valueStyle = DMXValues;
     m_gridSize = QSize(5, 5);
     m_gridUnits = Meters;
+    m_showLabels = false;
 }
 
 void MonitorProperties::setFixturePosition(quint32 fid, QPointF pos)
 {
     qDebug() << Q_FUNC_INFO << "X:" << pos.x() << "Y:" << pos.y();
-    m_fixtureItems[fid] = pos;
+    m_fixtureItems[fid].m_position = pos;
+}
+
+void MonitorProperties::setFixtureRotation(quint32 fid, ushort degrees)
+{
+    m_fixtureItems[fid].m_rotation = degrees;
+}
+
+void MonitorProperties::setFixtureGelColor(quint32 fid, QColor col)
+{
+    qDebug() << Q_FUNC_INFO << "Gel color:" << col;
+    m_fixtureItems[fid].m_gelColor = col;
+}
+
+void MonitorProperties::reset()
+{
+    m_gridSize = QSize(5, 5);
+    m_gridUnits = Meters;
+    m_showLabels = false;
+    m_fixtureItems.clear();
 }
 
 /*********************************************************************
@@ -73,6 +96,13 @@ bool MonitorProperties::loadXML(const QDomElement &root)
     }
 
     setDisplayMode(DisplayMode(root.attribute(KXMLQLCMonitorDisplay).toInt()));
+    if (root.hasAttribute(KXMLQLCMonitorShowLabels))
+    {
+        if (root.attribute(KXMLQLCMonitorShowLabels) == "1")
+            setLabelsVisible(true);
+        else
+            setLabelsVisible(false);
+    }
 
     QDomNode node = root.firstChild();
     while (node.isNull() == false)
@@ -110,8 +140,14 @@ bool MonitorProperties::loadXML(const QDomElement &root)
                 if (tag.hasAttribute(KXMLQLCMonitorFixtureXPos))
                     pos.setX(tag.attribute(KXMLQLCMonitorFixtureXPos).toDouble());
                 if (tag.hasAttribute(KXMLQLCMonitorFixtureYPos))
-                    pos.setY(tag.attribute(KXMLQLCMonitorFixtureYPos).toDouble());
+                    pos.setY(tag.attribute(KXMLQLCMonitorFixtureYPos).toDouble());                
                 setFixturePosition(fid, pos);
+
+                if (tag.hasAttribute(KXMLQLCMonitorFixtureRotation))
+                    setFixtureRotation(fid, tag.attribute(KXMLQLCMonitorFixtureRotation).toUShort());
+
+                if (tag.hasAttribute(KXMLQLCMonitorFixtureGelColor))
+                    setFixtureGelColor(fid, QColor(tag.attribute(KXMLQLCMonitorFixtureGelColor)));
             }
         }
 
@@ -132,6 +168,7 @@ bool MonitorProperties::saveXML(QDomDocument *doc, QDomElement *wksp_root) const
     /* Create the master Monitor node */
     root = doc->createElement(KXMLQLCMonitorProperties);
     root.setAttribute(KXMLQLCMonitorDisplay, displayMode());
+    root.setAttribute(KXMLQLCMonitorShowLabels, labelsVisible());
     wksp_root->appendChild(root);
 
     if (displayMode() == DMX)
@@ -164,8 +201,14 @@ bool MonitorProperties::saveXML(QDomDocument *doc, QDomElement *wksp_root) const
             QPointF pos = fixturePosition(fid);
             tag = doc->createElement(KXMLQLCMonitorFixtureItem);
             tag.setAttribute(KXMLQLCMonitorFixtureID, fid);
-            tag.setAttribute(KXMLQLCMonitorFixtureXPos, pos.x());
-            tag.setAttribute(KXMLQLCMonitorFixtureYPos, pos.y());
+            tag.setAttribute(KXMLQLCMonitorFixtureXPos, QString::number(pos.x()));
+            tag.setAttribute(KXMLQLCMonitorFixtureYPos, QString::number(pos.y()));
+            if (fixtureRotation(fid) != 0)
+                tag.setAttribute(KXMLQLCMonitorFixtureRotation, QString::number(fixtureRotation(fid)));
+
+            QColor col = fixtureGelColor(fid);
+            if (col.isValid())
+                tag.setAttribute(KXMLQLCMonitorFixtureGelColor, col.name());
             root.appendChild(tag);
         }
     }

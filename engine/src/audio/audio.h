@@ -1,5 +1,5 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   audio.h
 
   Copyright (c) Massimo Callegari
@@ -21,11 +21,6 @@
 #define AUDIO_H
 
 #include <QColor>
-
-#ifdef QT_PHONON_LIB
-#include <phonon/mediaobject.h>
-#include <phonon/backendcapabilities.h>
-#endif
 
 #include "audiorenderer.h"
 #include "audiodecoder.h"

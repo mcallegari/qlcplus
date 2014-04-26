@@ -280,11 +280,11 @@ TrackItem::TrackItem(Track *track, int number)
     , m_isMute(false)
     , m_isSolo(false)
 {
-    m_font = qApp->font(); // QApplication::font();
+    m_font = qApp->font();
     m_font.setBold(true);
     m_font.setPixelSize(12);
 
-    m_btnFont = qApp->font(); //QApplication::font();
+    m_btnFont = qApp->font();
     m_btnFont.setBold(true);
     m_btnFont.setPixelSize(12);
 
@@ -306,6 +306,10 @@ TrackItem::TrackItem(Track *track, int number)
     m_moveDown = new QAction(QIcon(":/down.png"), tr("Move down"), this);
     connect(m_moveDown, SIGNAL(triggered()),
             this, SLOT(slotMoveDownClicked()));
+
+    m_changeName = new QAction(QIcon(":/editclear.png"), tr("Change name"), this);
+    connect(m_changeName, SIGNAL(triggered()),
+            this, SLOT(slotChangeNameClicked()));
 }
 
 Track *TrackItem::getTrack()
@@ -368,14 +372,20 @@ void TrackItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 void TrackItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
 {
     QMenu menu;
-    QFont menuFont = qApp->font(); // QApplication::font();
+    QFont menuFont = qApp->font();
     menuFont.setPixelSize(14);
     menu.setFont(menuFont);
 
     if (m_number > 0)
         menu.addAction(m_moveUp);
     menu.addAction(m_moveDown);
+    menu.addAction(m_changeName);
     menu.exec(QCursor::pos());
+}
+
+void TrackItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *)
+{
+    emit itemDoubleClicked(this);
 }
 
 QRectF TrackItem::boundingRect() const
@@ -448,6 +458,11 @@ void TrackItem::slotMoveDownClicked()
     emit itemMoveUpDown(m_track, 1);
 }
 
+void TrackItem::slotChangeNameClicked()
+{
+    emit itemDoubleClicked(this);
+}
+
 
 /*********************************************************************
  *
@@ -477,15 +492,15 @@ SequenceItem::SequenceItem(Chaser *seq)
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     m_color = m_chaser->getColor();
     calculateWidth();
-    m_font = qApp->font(); //QApplication::font();
+    m_font = qApp->font();
     m_font.setBold(true);
     m_font.setPixelSize(12);
-    connect(m_chaser, SIGNAL(changed(quint32)), this, SLOT(slotSequenceChanged(quint32)));
+    connect(m_chaser, SIGNAL(changed(quint32)),
+            this, SLOT(slotSequenceChanged(quint32)));
 
     m_alignToCursor = new QAction(tr("Align to cursor"), this);
     connect(m_alignToCursor, SIGNAL(triggered()),
             this, SLOT(slotAlignToCursorClicked()));
-
 }
 
 void SequenceItem::calculateWidth()
@@ -494,7 +509,12 @@ void SequenceItem::calculateWidth()
     unsigned long seq_duration = 0;
 
     foreach (ChaserStep step, m_chaser->steps())
-        seq_duration += step.duration;
+    {
+        if (m_chaser->durationMode() == Chaser::Common)
+            seq_duration += m_chaser->duration();
+        else
+            seq_duration += step.duration;
+    }
 
     if (seq_duration != 0)
         newWidth = ((50/(float)m_timeScale) * (float)seq_duration) / 1000;
@@ -544,10 +564,20 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
 
     foreach (ChaserStep step, m_chaser->steps())
     {
+        uint stepFadeIn = step.fadeIn;
+        uint stepFadeOut = step.fadeOut;
+        uint stepDuration = step.duration;
+        if (m_chaser->fadeInMode() == Chaser::Common)
+            stepFadeIn = m_chaser->fadeInSpeed();
+        if (m_chaser->fadeOutMode() == Chaser::Common)
+            stepFadeOut = m_chaser->fadeOutSpeed();
+        if (m_chaser->durationMode() == Chaser::Common)
+            stepDuration = m_chaser->duration();
+
         // draw fade in line
-        if (step.fadeIn > 0)
+        if (stepFadeIn > 0)
         {
-            int fadeXpos = xpos + ((timeScale * (float)step.fadeIn) / 1000);
+            int fadeXpos = xpos + ((timeScale * (float)stepFadeIn) / 1000);
             // doesn't even draw it if too small
             if (fadeXpos - xpos > 5)
             {
@@ -555,7 +585,7 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
                 painter->drawLine(xpos, TRACK_HEIGHT - 4, fadeXpos, 1);
             }
         }
-        float stepWidth = ((timeScale * (float)step.duration) / 1000);
+        float stepWidth = ((timeScale * (float)stepDuration) / 1000);
         // draw selected step
         if (stepIdx == m_selectedStep)
         {
@@ -570,9 +600,9 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
         painter->drawLine(xpos, 1, xpos, TRACK_HEIGHT - 5);
 
         // draw fade out line
-        if (step.fadeOut > 0)
+        if (stepFadeOut > 0)
         {
-            int fadeXpos = xpos + ((timeScale * (float)step.fadeOut) / 1000);
+            int fadeXpos = xpos + ((timeScale * (float)stepFadeOut) / 1000);
             // doesn't even draw it if too small
             if (fadeXpos - xpos > 5)
             {
@@ -673,7 +703,7 @@ void SequenceItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 void SequenceItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
 {
     QMenu menu;
-    QFont menuFont = qApp->font(); //QApplication::font();
+    QFont menuFont = qApp->font();
     menuFont.setPixelSize(14);
     menu.setFont(menuFont);
 
@@ -712,7 +742,7 @@ AudioItem::AudioItem(Audio *aud)
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     m_color = m_audio->getColor();
 
-    m_font = qApp->font(); //QApplication::font();
+    m_font = qApp->font();
     m_font.setBold(true);
     m_font.setPixelSize(12);
 
@@ -1083,7 +1113,7 @@ void AudioItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 void AudioItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
 {
     QMenu menu;
-    QFont menuFont = qApp->font(); //QApplication::font();
+    QFont menuFont = qApp->font();
     menuFont.setPixelSize(14);
     menu.setFont(menuFont);
 
@@ -1106,3 +1136,242 @@ void AudioItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
     menu.addAction(m_alignToCursor);
     menu.exec(QCursor::pos());
 }
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+/*********************************************************************
+ *
+ * Video item
+ *
+ *********************************************************************/
+
+VideoItem::VideoItem(Video *vid)
+    : m_color(100, 100, 100)
+    , m_video(vid)
+    , m_width(50)
+    , m_timeScale(3)
+    , m_trackIdx(-1)
+    , m_alignToCursor(NULL)
+    , m_fullscreenAction(NULL)
+    , m_pressed(false)
+{
+    Q_ASSERT(vid != NULL);
+    setToolTip(QString(tr("Name: %1\nStart time: %2\nDuration: %3\n%4"))
+              .arg(m_video->name())
+              .arg(Function::speedToString(m_video->getStartTime()))
+              .arg(Function::speedToString(m_video->getDuration()))
+              .arg(tr("Click to move this video across the timeline")));
+
+    setCursor(Qt::OpenHandCursor);
+    setFlag(QGraphicsItem::ItemIsMovable, true);
+    setFlag(QGraphicsItem::ItemIsSelectable, true);
+    m_color = m_video->getColor();
+
+    m_font = qApp->font();
+    m_font.setBold(true);
+    m_font.setPixelSize(12);
+
+    calculateWidth();
+    connect(m_video, SIGNAL(changed(quint32)), this, SLOT(slotVideoChanged(quint32)));
+
+    m_fullscreenAction = new QAction(tr("Fullscreen"), this);
+    m_fullscreenAction->setCheckable(true);
+    if (m_video->fullscreen() == true)
+        m_fullscreenAction->setChecked(true);
+    connect(m_fullscreenAction, SIGNAL(toggled(bool)),
+            this, SLOT(slotFullscreenToggled(bool)));
+
+    m_alignToCursor = new QAction(tr("Align to cursor"), this);
+    connect(m_alignToCursor, SIGNAL(triggered()),
+            this, SLOT(slotAlignToCursorClicked()));
+}
+
+void VideoItem::calculateWidth()
+{
+    int newWidth = 0;
+    qint64 video_duration = m_video->getDuration();
+
+    if (video_duration != 0)
+        newWidth = ((50/(float)m_timeScale) * (float)video_duration) / 1000;
+    else
+        newWidth = 100;
+
+    if (newWidth < (50 / m_timeScale))
+        newWidth = 50 / m_timeScale;
+    m_width = newWidth;
+}
+
+int VideoItem::getWidth()
+{
+    return m_width;
+}
+
+QPointF VideoItem::getDraggingPos()
+{
+    return m_pos;
+}
+
+QRectF VideoItem::boundingRect() const
+{
+    return QRectF(0, 0, m_width, TRACK_HEIGHT - 3);
+}
+
+void VideoItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+    Q_UNUSED(option);
+    Q_UNUSED(widget);
+
+    float timeScale = 50/(float)m_timeScale;
+
+    if (this->isSelected() == true)
+        painter->setPen(QPen(Qt::white, 3));
+    else
+        painter->setPen(QPen(Qt::white, 1));
+    painter->setBrush(QBrush(m_color));
+
+    painter->drawRect(0, 0, m_width, TRACK_HEIGHT - 3);
+
+    painter->setFont(m_font);
+
+    if (m_video->fadeInSpeed() != 0)
+    {
+        int fadeXpos = (timeScale * (float)m_video->fadeInSpeed()) / 1000;
+        painter->setPen(QPen(Qt::gray, 1));
+        painter->drawLine(1, TRACK_HEIGHT - 4, fadeXpos, 2);
+    }
+
+    if (m_video->fadeOutSpeed() != 0)
+    {
+        int fadeXpos = (timeScale * (float)m_video->fadeOutSpeed()) / 1000;
+        painter->setPen(QPen(Qt::gray, 1));
+        painter->drawLine(m_width - fadeXpos, 2, m_width - 1, TRACK_HEIGHT - 4);
+    }
+
+    // draw shadow
+    painter->setPen(QPen(QColor(10, 10, 10, 150), 2));
+    painter->drawText(QRect(6, 6, m_width - 6, 71), Qt::AlignLeft | Qt::TextWordWrap, m_video->name());
+
+    // draw audio name
+    painter->setPen(QPen(QColor(220, 220, 220, 255), 2));
+    painter->drawText(QRect(5, 5, m_width - 5, 72), Qt::AlignLeft | Qt::TextWordWrap, m_video->name());
+
+    if (m_pressed)
+    {
+        quint32 s_time = (double)(x() - TRACK_WIDTH - 2) * (m_timeScale * 500) /
+                         (double)(HALF_SECOND_WIDTH);
+        painter->drawText(5, TRACK_HEIGHT - 10, Function::speedToString(s_time));
+    }
+}
+
+void VideoItem::updateDuration()
+{
+    setToolTip(QString(tr("Name: %1\nStart time: %2\nDuration: %3\n%4"))
+              .arg(m_video->name())
+              .arg(Function::speedToString(m_video->getStartTime()))
+              .arg(Function::speedToString(m_video->getDuration()))
+              .arg(tr("Click to move this video across the timeline")));
+    prepareGeometryChange();
+    calculateWidth();
+}
+
+void VideoItem::setTimeScale(int val)
+{
+    prepareGeometryChange();
+    m_timeScale = val;
+    calculateWidth();
+}
+
+void VideoItem::setTrackIndex(int idx)
+{
+    m_trackIdx = idx;
+}
+
+int VideoItem::getTrackIndex()
+{
+    return m_trackIdx;
+}
+
+void VideoItem::setColor(QColor col)
+{
+    m_color = col;
+    update();
+}
+
+QColor VideoItem::getColor()
+{
+    return m_color;
+}
+
+Video *VideoItem::getVideo()
+{
+    return m_video;
+}
+
+void VideoItem::slotVideoChanged(quint32)
+{
+    prepareGeometryChange();
+    calculateWidth();
+}
+
+void VideoItem::slotAlignToCursorClicked()
+{
+    emit alignToCursor(this);
+}
+
+void VideoItem::slotScreenChanged()
+{
+    QAction *action = (QAction *)sender();
+    int scrIdx = action->data().toInt();
+
+    m_video->setScreen(scrIdx);
+}
+
+void VideoItem::slotFullscreenToggled(bool toggle)
+{
+    m_video->setFullscreen(toggle);
+}
+
+void VideoItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    QGraphicsItem::mousePressEvent(event);
+    m_pos = this->pos();
+    if(event->button() == Qt::LeftButton)
+        m_pressed = true;
+    this->setSelected(true);
+}
+
+void VideoItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+    QGraphicsItem::mouseReleaseEvent(event);
+    qDebug() << Q_FUNC_INFO << "mouse RELEASE event - <" << event->pos().toPoint().x() << "> - <" << event->pos().toPoint().y() << ">";
+    setCursor(Qt::OpenHandCursor);
+    m_pressed = false;
+    emit itemDropped(event, this);
+}
+
+void VideoItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
+{
+    QMenu menu;
+    QFont menuFont = qApp->font();
+    menuFont.setPixelSize(14);
+    menu.setFont(menuFont);
+
+    int screenCount = m_video->getScreenCount();
+    if (screenCount > 0)
+    {
+        for (int i = 0; i < screenCount; i++)
+        {
+            QAction *scrAction = new QAction(tr("Screen %1").arg(i + 1), this);
+            scrAction->setCheckable(true);
+            if (m_video->screen() == i)
+                scrAction->setChecked(true);
+            scrAction->setData(i);
+            connect(scrAction, SIGNAL(triggered()),
+                    this, SLOT(slotScreenChanged()));
+            menu.addAction(scrAction);
+        }
+    }
+    menu.addAction(m_fullscreenAction);
+    menu.addAction(m_alignToCursor);
+    menu.exec(QCursor::pos());
+}
+#endif

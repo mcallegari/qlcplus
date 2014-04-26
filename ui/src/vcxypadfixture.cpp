@@ -168,6 +168,19 @@ GroupHead const & VCXYPadFixture::head() const
     return m_head;
 }
 
+QRectF VCXYPadFixture::degreesRange() const
+{
+    Fixture* fxi = m_doc->fixture(m_head.fxi);
+    if (fxi == NULL)
+    {
+        return QRectF();
+    }
+    else
+    {
+       return fxi->degreesRange(m_head.head);
+    }
+}
+
 QString VCXYPadFixture::name() const
 {
     if (!m_head.isValid())
@@ -438,3 +451,56 @@ void VCXYPadFixture::writeDMX(qreal xmul, qreal ymul, QList<Universe *> universe
             universes[uni]->write(address, char(y & 0xFF));
     }
 }
+
+void VCXYPadFixture::readDMX(QList<Universe*> universes, qreal & xmul, qreal & ymul)
+{
+    xmul = -1;
+    ymul = -1;
+
+    if (m_xMSB == QLCChannel::invalid() || m_yMSB == QLCChannel::invalid())
+        return;
+
+    qreal x = 0;
+    qreal y = 0;
+
+    quint32 address = m_xMSB & 0x01FF;
+    int uni = m_xMSB >> 9;
+    if (uni < universes.count())
+        x = universes[uni]->preGMValue(address) * 256;
+
+    address = m_yMSB & 0x01FF;
+    uni = m_yMSB >> 9;
+    if (uni < universes.count())
+        y = universes[uni]->preGMValue(address) * 256;
+
+    if (m_xLSB != QLCChannel::invalid() && m_yLSB != QLCChannel::invalid())
+    {
+        address = m_xLSB & 0x01FF;
+        uni = m_xLSB >> 9;
+        if (uni < universes.count())
+            x += universes[uni]->preGMValue(address);
+
+        address = m_yLSB & 0x01FF;
+        uni = m_yLSB >> 9;
+        if (uni < universes.count())
+            y += universes[uni]->preGMValue(address);
+    }
+
+    x /= USHRT_MAX;    
+    y /= USHRT_MAX;
+
+    if (x < m_xMin || x > m_xMax || y < m_yMin || y > m_yMax) // out of range
+        return;
+
+    if (m_xReverse == true)
+        x = m_xMax - x;
+    if (m_yReverse == true)
+        y = m_yMax - y;
+
+    if (m_xMax == m_xMin || m_yMax == m_yMin) // avoid divide by zero below
+        return;
+        
+    xmul = (x - m_xMin) / (m_xMax - m_xMin);
+    ymul = (y - m_yMin) / (m_yMax - m_yMin);
+}
+

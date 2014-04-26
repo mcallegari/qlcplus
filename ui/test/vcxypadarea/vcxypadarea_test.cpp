@@ -34,7 +34,7 @@ void VCXYPadArea_Test::initial()
     VCXYPadArea area(NULL);
     QCOMPARE(area.m_mode, Doc::Design);
     QCOMPARE(area.m_changed, false);
-    QVERIFY(area.m_pixmap.isNull() == false);
+    QVERIFY(area.m_activePixmap.isNull() == false);
     QCOMPARE(area.frameStyle(), QFrame::Sunken | QFrame::Panel);
     QCOMPARE(area.windowTitle(), QString("XY Pad"));
     QCOMPARE(area.isEnabled(), false);
@@ -67,20 +67,28 @@ void VCXYPadArea_Test::position()
     area.resize(QSize(100, 100));
 
     QCOMPARE(area.hasPositionChanged(), false);
-    QCOMPARE(area.position(), QPoint(0, 0));
+    QCOMPARE(area.position(), QPointF(0, 0));
     QCOMPARE(area.hasPositionChanged(), false);
 
-    area.setPosition(QPoint(50, 50));
+    area.setPosition(QPointF(50, 50));
     QCOMPARE(area.hasPositionChanged(), true);
-    QCOMPARE(area.m_pos, QPoint(50, 50));
+    QCOMPARE(area.m_dmxPos, QPointF(50, 50));
     QCOMPARE(area.m_changed, true);
-    QCOMPARE(area.position(), QPoint(50, 50));
+    QCOMPARE(area.position(), QPointF(50, 50));
     QCOMPARE(area.m_changed, false);
     QCOMPARE(area.hasPositionChanged(), false);
 
-    area.setPosition(QPoint(150, 150));
+    area.setPosition(QPointF(150, 150));
     QCOMPARE(area.hasPositionChanged(), true);
-    QCOMPARE(area.position(), QPoint(150, 150));
+    QCOMPARE(area.position(), QPointF(150, 150));
+
+    area.setPosition(QPointF(300,300));
+    QCOMPARE(area.hasPositionChanged(), true);
+    QPointF pos = area.position();
+    QCOMPARE(int(pos.x()), 255);
+    QCOMPARE(int((pos.x() - 255) * 256), 255);
+    QCOMPARE(int(pos.y()), 255);
+    QCOMPARE(int((pos.y() - 255) * 256), 255);
 }
 
 void VCXYPadArea_Test::paint()
@@ -89,7 +97,7 @@ void VCXYPadArea_Test::paint()
     area.resize(100, 100);
     area.show();
     QTest::qWait(10);
-    area.setPosition(QPoint(area.width() / 2, area.height() / 2));
+    area.setPosition(QPointF(128,128));
     area.update();
     QTest::qWait(10);
 }
@@ -97,21 +105,21 @@ void VCXYPadArea_Test::paint()
 void VCXYPadArea_Test::mouseEvents()
 {
     VCXYPadArea area(NULL);
-    area.resize(QSize(100, 100));
+    area.resize(QSize(256, 256));
 
     QMouseEvent e(QEvent::MouseButtonPress, QPoint(20, 30), Qt::LeftButton, 0, 0);
     area.mousePressEvent(&e);
-    QCOMPARE(area.m_pos, QPoint(0, 0));
+    QCOMPARE(area.m_dmxPos, QPointF(0, 0));
     QVERIFY(area.cursor().shape() != Qt::CrossCursor);
 
     area.setMode(Doc::Operate);
     area.mousePressEvent(&e);
-    QCOMPARE(area.m_pos, QPoint(20, 30));
+    QCOMPARE(area.m_dmxPos, QPointF(20, 30));
     QCOMPARE(area.cursor().shape(), Qt::CrossCursor);
 
-    QMouseEvent e2(QEvent::MouseButtonPress, QPoint(120, 130), Qt::LeftButton, 0, 0);
+    QMouseEvent e2(QEvent::MouseButtonPress, QPoint(320, 330), Qt::LeftButton, 0, 0);
     area.mouseMoveEvent(&e2);
-    QCOMPARE(area.m_pos, QPoint(100, 100));
+    QCOMPARE(area.m_dmxPos, QPointF(255.0 + 255.0/256, 255.0 + 255.0/256));
     QCOMPARE(area.cursor().shape(), Qt::CrossCursor);
 
     area.mouseReleaseEvent(&e);

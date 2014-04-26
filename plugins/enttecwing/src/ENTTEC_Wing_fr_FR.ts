@@ -6,17 +6,17 @@
     <message>
         <location filename="enttecwing.cpp" line="111"/>
         <source>This plugin provides input support for Enttec Playback and Enttec Shortcut Wings.</source>
-        <translation>Ce greffon permet le support des Enttec Playback et Shortcut Wings.</translation>
+        <translation>Ce plugin permet le support de l&apos;entrée des interfaces Enttec Playback et Shortcut Wings.</translation>
     </message>
     <message>
         <location filename="enttecwing.cpp" line="128"/>
         <source>Unable to bind to UDP port %1:</source>
-        <translation>Impossible de lier le port UDP %1:</translation>
+        <translation>Impossible de lier le port UDP %1 :</translation>
     </message>
     <message>
         <location filename="enttecwing.cpp" line="135"/>
         <source>Listening to UDP port %1.</source>
-        <translation>Ecoute du port UDP %1.</translation>
+        <translation>Écoute du port UDP %1.</translation>
     </message>
 </context>
 <context>
@@ -48,12 +48,12 @@
     <message>
         <location filename="wing.cpp" line="62"/>
         <source>Firmware version %1</source>
-        <translation>Version du Firmware : %1</translation>
+        <translation>Version du firmware : %1</translation>
     </message>
     <message>
         <location filename="wing.cpp" line="64"/>
         <source>Device is operating correctly.</source>
-        <translation>Le périphérique fonctionne correctement.</translation>
+        <translation>L&apos;interface fonctionne correctement.</translation>
     </message>
 </context>
 </TS>

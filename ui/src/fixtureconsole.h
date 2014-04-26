@@ -106,6 +106,12 @@ public:
     /** Get the value of one channel (regardless of whether it's enabled) */
     uchar value(quint32 ch) const;
 
+    /** Set the stylesheet of the ConsoleChannel at the given index */
+    void setChannelStylesheet(quint32 ch, QString ss);
+
+    /** Reset all the channels stylesheet to the original value */
+    void resetChannelsStylesheet();
+
 signals:
     /** Emitted when the value of a channel object changes (continuous) */
     void valueChanged(quint32 fxi, quint32 channel, uchar value);
@@ -122,6 +128,7 @@ private:
 
 private:
     QList<ConsoleChannel*> m_channels;
+    QString m_styleSheet;
 };
 
 /** @} */

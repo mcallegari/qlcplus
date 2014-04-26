@@ -60,6 +60,10 @@ public:
     /** @reimp */
     QString pluginInfo();
 
+    /** @reimp */
+    void setParameter(QString name, QVariant &value)
+    { Q_UNUSED(name); Q_UNUSED(value); }
+
     /** Attempt to bind the socket to listen to EWing::UDPPort */
     void reBindSocket();
 

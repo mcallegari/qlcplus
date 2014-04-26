@@ -111,6 +111,15 @@ public:
     /** Invalid input/output number */
     static quint32 invalidLine() { return UINT_MAX; }
 
+    /**
+     * Set an arbitrary parameter useful for the plugin. This is similar
+     * to Qt's setProperty
+     *
+     * @param name A string containing the parameter name
+     * @param value A QVariant value representing the parameter data
+     */
+    virtual void setParameter(QString name, QVariant &value) = 0;
+
     /*************************************************************************
      * Outputs
      *************************************************************************/
@@ -228,12 +237,17 @@ signals:
      * to be reacted to (if applicable). This is practically THE WAY for
      * input plugins to provide input data to QLC.
      *
+     * @param universe The universe ID detected from the data received.
+     *                 This is irrelevant for most of the plugins, but
+     *                 for network plugins like ArtNet and E1.31 this is
+     *                 fundamental if the same line is connected to several
+     *                 universes
      * @param input The input line whose channel has changed value
      * @param channel The channel that has changed its value
      * @param value The newly-changed channel value
      * @param key a string to identify a channel by name (ATM used only by OSC)
      */
-    void valueChanged(quint32 input, quint32 channel, uchar value, const QString& key = 0);
+    void valueChanged(quint32 universe, quint32 input, quint32 channel, uchar value, const QString& key = 0);
 
     /*************************************************************************
      * Configure

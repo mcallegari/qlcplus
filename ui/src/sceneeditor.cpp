@@ -48,7 +48,9 @@
 #include "fixture.h"
 #include "chaser.h"
 #include "scene.h"
+#include "sceneuistate.h"
 #include "doc.h"
+#include "positiontool.h"
 
 #define KColumnName         0
 #define KColumnManufacturer 1
@@ -92,7 +94,7 @@ SceneEditor::SceneEditor(QWidget* parent, Scene* scene, Doc* doc, bool applyValu
     if (m_tab->count() == 0)
         slotTabChanged(KTabGeneral);
     else
-        m_tab->setCurrentIndex(m_fixtureFirstTabIndex);
+        m_tab->setCurrentIndex(sceneUiState()->currentTab());
 
     m_initFinished = true;
 
@@ -168,6 +170,8 @@ void SceneEditor::init(bool applyValues)
                                     tr("Copy current values to all fixtures"), this);
     m_colorToolAction = new QAction(QIcon(":/color.png"),
                                     tr("Color tool for CMY/RGB-capable fixtures"), this);
+    m_positionToolAction = new QAction(QIcon(":/xypad.png"),
+                                    tr("Position tool for moving heads/scanners"), this);
     m_tabViewAction = new QAction(QIcon(":/tabview.png"),
                                     tr("Switch between tab view and all channels view"), this);
     m_blindAction = new QAction(QIcon(":/blind.png"),
@@ -193,7 +197,7 @@ void SceneEditor::init(bool applyValues)
     m_blindAction->setCheckable(true);
 
     m_tabViewAction->setCheckable(true);
-    m_tabViewAction->setChecked(m_scene->viewMode());
+    m_tabViewAction->setChecked(sceneUiState()->displayMode() == SceneUiState::Tabbed);
 
     // Chaser combo init
     quint32 selectId = Function::invalidId();
@@ -231,6 +235,8 @@ void SceneEditor::init(bool applyValues)
             this, SLOT(slotCopyToAll()));
     connect(m_colorToolAction, SIGNAL(triggered(bool)),
             this, SLOT(slotColorTool()));
+    connect(m_positionToolAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotPositionTool()));
     connect(m_speedDialAction, SIGNAL(toggled(bool)),
             this, SLOT(slotSpeedDialToggle(bool)));
     connect(m_tabViewAction, SIGNAL(toggled(bool)),
@@ -258,6 +264,7 @@ void SceneEditor::init(bool applyValues)
     toolBar->addAction(m_copyToAllAction);
     toolBar->addSeparator();
     toolBar->addAction(m_colorToolAction);
+    toolBar->addAction(m_positionToolAction);
     toolBar->addSeparator();
     toolBar->addAction(m_speedDialAction);
     toolBar->addAction(m_tabViewAction);
@@ -326,7 +333,7 @@ void SceneEditor::init(bool applyValues)
     }
 
     // Create the actual tab view
-    slotViewModeChanged(m_scene->viewMode(), applyValues);
+    slotViewModeChanged(sceneUiState()->displayMode() == SceneUiState::Tabbed, applyValues);
 }
 
 void SceneEditor::setSceneValue(const SceneValue& scv)
@@ -340,6 +347,11 @@ void SceneEditor::setSceneValue(const SceneValue& scv)
     fc = fixtureConsole(fixture);
     if (fc != NULL)
         fc->setSceneValue(scv);
+}
+
+SceneUiState * SceneEditor::sceneUiState()
+{
+    return qobject_cast<SceneUiState*>(m_scene->uiState());
 }
 
 void SceneEditor::setBlindModeEnabled(bool active)
@@ -356,6 +368,8 @@ void SceneEditor::slotTabChanged(int tab)
     m_currentTab = tab;
     QLCClipboard *clipboard = m_doc->clipboard();
 
+    sceneUiState()->setCurrentTab(tab);
+    
     if (tab == KTabGeneral)
     {
         m_enableCurrentAction->setEnabled(false);
@@ -382,23 +396,48 @@ void SceneEditor::slotTabChanged(int tab)
         else
             m_copyToAllAction->setEnabled(false);
         m_colorToolAction->setEnabled(isColorToolAvailable());
+        m_positionToolAction->setEnabled(isPositionToolAvailable());
     }
 }
 
 void SceneEditor::slotEnableCurrent()
 {
-    /* QObject cast fails unless the widget is a FixtureConsole */
-    FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
-    if (fc != NULL)
-        fc->setChecked(true);
+    if (m_tabViewAction->isChecked())
+    {
+        /* QObject cast fails unless the widget is a FixtureConsole */
+        FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
+        if (fc != NULL)
+            fc->setChecked(true);
+    }
+    else
+    {
+        foreach(FixtureConsole *fc, m_consoleList)
+        {
+            if (fc == NULL)
+                continue;
+            fc->setChecked(true);
+        }
+    }
 }
 
 void SceneEditor::slotDisableCurrent()
 {
-    /* QObject cast fails unless the widget is a FixtureConsole */
-    FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
-    if (fc != NULL)
-        fc->setChecked(false);
+    if (m_tabViewAction->isChecked())
+    {
+        /* QObject cast fails unless the widget is a FixtureConsole */
+        FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
+        if (fc != NULL)
+            fc->setChecked(false);
+    }
+    else
+    {
+        foreach(FixtureConsole *fc, m_consoleList)
+        {
+            if (fc == NULL)
+                continue;
+            fc->setChecked(false);
+        }
+    }
 }
 
 void SceneEditor::slotCopy()
@@ -423,16 +462,23 @@ void SceneEditor::slotCopy()
     else
     {
         bool oneHasSelection = false;
+        QList <SceneValue> selectedOnlyList;
         foreach(FixtureConsole *fc, m_consoleList)
         {
             if (fc == NULL)
                 continue;
             copyList.append(fc->values());
             if (fc->hasSelections())
+            {
                 oneHasSelection = true;
+                selectedOnlyList.append(fc->values());
+            }
         }
         m_copyFromSelection = oneHasSelection;
-        clipboard->copyContent(m_scene->id(), copyList);
+        if (m_copyFromSelection == true)
+            clipboard->copyContent(m_scene->id(), selectedOnlyList);
+        else
+            clipboard->copyContent(m_scene->id(), copyList);
     }
     if (copyList.count() > 0)
         m_pasteAction->setEnabled(true);
@@ -502,6 +548,77 @@ void SceneEditor::slotColorTool()
     if (result == QDialog::Rejected)
     {
         slotColorSelectorChanged(color); // reset color to what it previously was
+    }
+}
+
+void SceneEditor::slotPositionTool()
+{
+    FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
+    if (fc != NULL)
+    {
+        QList<SceneValue> origValues = fc->values();
+        
+        Fixture* fxi = m_doc->fixture(fc->fixture());
+        QPointF pos;
+        QRectF range;
+        bool panFound = false;
+        bool tiltFound = false;
+
+        Q_ASSERT(fxi != NULL);
+
+        for (int i = 0; i < fxi->heads(); ++i )
+        {
+             if (!range.isValid())
+                 range = fxi->degreesRange(i);
+
+             quint32 panMsbChannel = fxi->panMsbChannel(i);
+             quint32 panLsbChannel = fxi->panLsbChannel(i);
+             quint32 tiltMsbChannel = fxi->tiltMsbChannel(i);
+             quint32 tiltLsbChannel = fxi->tiltLsbChannel(i);
+ 
+
+             if (panMsbChannel != QLCChannel::invalid())
+             {
+                 if (!panFound )
+                 {
+                     qDebug() << "panFound" << i;
+                     panFound = true;
+                     qreal v = qreal(fc->value(panMsbChannel));
+                     if (panLsbChannel != QLCChannel::invalid())
+                     {
+                        v += qreal(fc->value(panLsbChannel)) / qreal(256);
+                     }
+ 
+                     pos.setX(v);
+                 }
+             }
+
+             if (tiltMsbChannel != QLCChannel::invalid())
+             {
+                 if (!tiltFound )
+                 {
+                     tiltFound = true;
+                     qDebug() << "tiltFound" << i;
+                     qreal v = qreal(fc->value(tiltMsbChannel));
+                     if (tiltLsbChannel != QLCChannel::invalid())
+                     {
+                        v += qreal(fc->value(tiltLsbChannel)) / qreal(256);
+                     }
+ 
+                     pos.setY(v);
+                 }
+             }
+        }
+
+        PositionTool dialog(pos, range);
+        connect(&dialog, SIGNAL(currentPositionChanged(const QPointF&)),
+            this, SLOT(slotPositionSelectorChanged(const QPointF&)));
+
+        int result = dialog.exec();
+        if (result == QDialog::Rejected)
+        {
+            fc->setValues(origValues, false); // reset position to what it previously was
+        }
     }
 }
 
@@ -609,6 +726,84 @@ QColor SceneEditor::slotColorSelectorChanged(const QColor& color)
     }
 
     return returnColor;
+}
+
+void SceneEditor::slotPositionSelectorChanged(const QPointF& position)
+{
+    qreal x = position.x();
+    qreal y = position.y();
+
+    uchar panMsbNew = x;
+    uchar panLsbNew = (x - floor(x)) * 256;
+    uchar tiltMsbNew = y;
+    uchar tiltLsbNew = (y - floor(y)) * 256;
+
+    /* QObject cast fails unless the widget is a FixtureConsole */
+    FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
+    if (fc != NULL)
+    {
+        Fixture* fxi = m_doc->fixture(fc->fixture());
+        Q_ASSERT(fxi != NULL);
+
+        for (int i = 0; i < fxi->heads(); ++i )
+        {
+             quint32 panMsbChannel = fxi->panMsbChannel(i);
+             quint32 panLsbChannel = fxi->panLsbChannel(i);
+             quint32 tiltMsbChannel = fxi->tiltMsbChannel(i);
+             quint32 tiltLsbChannel = fxi->tiltLsbChannel(i);
+ 
+
+             if (panMsbChannel != QLCChannel::invalid())
+             {
+                 fc->setChecked(true, panMsbChannel);
+                 fc->setValue(panMsbChannel, panMsbNew);
+
+                 if (panLsbChannel != QLCChannel::invalid())
+                 {
+                     fc->setChecked(true, panLsbChannel);
+                     fc->setValue(panLsbChannel, panLsbNew);
+                 }
+             }
+
+             if (tiltMsbChannel != QLCChannel::invalid())
+             {
+                 fc->setChecked(true, tiltMsbChannel);
+                 fc->setValue(tiltMsbChannel, tiltMsbNew);
+
+                 if (tiltLsbChannel != QLCChannel::invalid())
+                 {
+                     fc->setChecked(true, tiltLsbChannel);
+                     fc->setValue(tiltLsbChannel, tiltLsbNew);
+                 }
+             }
+        }
+    }
+
+    /* QObject cast fails unless the widget is a GroupsConsole */
+    GroupsConsole* gc = groupConsoleTab(m_currentTab);
+    if (gc != NULL)
+    {
+        foreach(ConsoleChannel *cc, gc->groups())
+        {
+            Fixture* fxi = m_doc->fixture(cc->fixture());
+            Q_ASSERT(fxi != NULL);
+            const QLCChannel *ch = fxi->channel(cc->channel());
+            if (ch->group() == QLCChannel::Pan)
+            {
+                if (ch->controlByte() == QLCChannel::MSB)
+                    cc->setValue(panMsbNew);
+                else
+                    cc->setValue(panLsbNew);
+            }
+            else if(ch->group() == QLCChannel::Tilt)
+            {
+                if (ch->controlByte() == QLCChannel::MSB)
+                    cc->setValue(tiltMsbNew);
+                else
+                    cc->setValue(tiltLsbNew);
+            }
+        }
+    }
 }
 
 void SceneEditor::slotSpeedDialToggle(bool state)
@@ -754,9 +949,9 @@ void SceneEditor::slotViewModeChanged(bool toggled, bool applyValues)
     if (m_tab->count() == 0)
         slotTabChanged(KTabGeneral);
     else
-        m_tab->setCurrentIndex(m_fixtureFirstTabIndex);
+        m_tab->setCurrentIndex(sceneUiState()->currentTab());
 
-    m_scene->setViewMode(toggled);
+    sceneUiState()->setDisplayMode(toggled ? SceneUiState::Tabbed : SceneUiState::AllChannels);
 }
 
 void SceneEditor::slotRecord()
@@ -847,6 +1042,42 @@ bool SceneEditor::isColorToolAvailable()
     {
         return false;
     }
+}
+
+bool SceneEditor::isPositionToolAvailable()
+{
+    Fixture* fxi = NULL;
+
+    /* QObject cast fails unless the widget is a FixtureConsole */
+    FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
+    if (fc != NULL)
+    {
+        fxi = m_doc->fixture(fc->fixture());
+        Q_ASSERT(fxi != NULL);
+
+        for (int i = 0; i < fxi->heads(); ++i)
+        {
+            if (fxi->panMsbChannel(i) != QLCChannel::invalid())
+                return true;
+            if (fxi->tiltMsbChannel(i) != QLCChannel::invalid())
+                return true;
+        } 
+    }
+
+    GroupsConsole* gc = groupConsoleTab(m_currentTab);
+    if (gc != NULL)
+    {
+        foreach(ConsoleChannel *cc, gc->groups())
+        {
+            fxi = m_doc->fixture(cc->fixture());
+            Q_ASSERT(fxi != NULL);
+            const QLCChannel *ch = fxi->channel(cc->channel());
+            if (ch->group() == QLCChannel::Pan || ch->group() == QLCChannel::Tilt)
+                return true;
+        }
+    }
+
+    return false;
 }
 
 void SceneEditor::createSpeedDials()

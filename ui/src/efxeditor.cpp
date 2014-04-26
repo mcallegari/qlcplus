@@ -42,6 +42,8 @@
 #include "apputil.h"
 #include "doc.h"
 
+#include "efxuistate.h"
+
 #define SETTINGS_GEOMETRY "efxeditor/geometry"
 
 #define KColumnNumber  0
@@ -51,6 +53,9 @@
 #define KColumnIntensity 4
 
 #define PROPERTY_FIXTURE "fixture"
+
+#define KTabGeneral 0
+#define KTabMovement 1
 
 /*****************************************************************************
  * Initialization
@@ -75,6 +80,17 @@ EFXEditor::EFXEditor(QWidget* parent, EFX* efx, Doc* doc)
     initGeneralPage();
     initMovementPage();
 
+    // Start new (==empty) scenes from the first tab and ones with something in them
+    // on the first fixture page.
+    if (m_tab->count() == 0)
+        slotTabChanged(KTabGeneral);
+    else
+        m_tab->setCurrentIndex(efxUiState()->currentTab());
+
+    /* Tab widget */
+    connect(m_tab, SIGNAL(currentChanged(int)),
+            this, SLOT(slotTabChanged(int)));
+
     // Used for intensity changes
     m_testTimer.setSingleShot(true);
     m_testTimer.setInterval(500);
@@ -91,6 +107,12 @@ EFXEditor::~EFXEditor()
 {
     if (m_testButton->isChecked() == true)
         m_efx->stopAndWait();
+}
+
+void EFXEditor::stopTest()
+{
+    if (m_testButton->isChecked() == true)
+        m_testButton->click();
 }
 
 void EFXEditor::slotFunctionManagerActive(bool active)
@@ -309,9 +331,14 @@ void EFXEditor::slotModeChanged(Doc::Mode mode)
     }
 }
 
+void EFXEditor::slotTabChanged(int tab)
+{
+    efxUiState()->setCurrentTab(tab);
+}
+
 bool EFXEditor::interruptRunning()
 {
-    if (m_efx->stopped() == false)
+    if (m_testButton->isChecked() == true)
     {
         m_efx->stopAndWait();
         m_testButton->setChecked(false);
@@ -332,6 +359,11 @@ void EFXEditor::continueRunning(bool running)
         else
             m_testButton->click();
     }
+}
+
+EfxUiState * EFXEditor::efxUiState()
+{
+    return qobject_cast<EfxUiState*>(m_efx->uiState());
 }
 
 /*****************************************************************************
@@ -519,7 +551,7 @@ void EFXEditor::createSpeedDials()
         connect(m_speedDials, SIGNAL(fadeInChanged(int)), this, SLOT(slotFadeInChanged(int)));
         connect(m_speedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotFadeOutChanged(int)));
         connect(m_speedDials, SIGNAL(holdChanged(int)), this, SLOT(slotHoldChanged(int)));
-        connect(m_speedDials, SIGNAL(durationTapped()), this, SLOT(slotDurationTapped()));
+        connect(m_speedDials, SIGNAL(holdTapped()), this, SLOT(slotDurationTapped()));
         connect(m_speedDials, SIGNAL(destroyed(QObject*)), this, SLOT(slotDialDestroyed(QObject*)));
     }
 
@@ -545,11 +577,14 @@ void EFXEditor::updateSpeedDials()
 void EFXEditor::slotNameEdited(const QString &text)
 {
     m_efx->setName(text);
-    m_speedDials->setWindowTitle(text);
+    if (m_speedDials)
+        m_speedDials->setWindowTitle(text);
 }
 
 void EFXEditor::slotSpeedDialToggle(bool state)
 {
+    efxUiState()->setShowSpeedDial(state);
+
     if (state == true)
         updateSpeedDials();
     else

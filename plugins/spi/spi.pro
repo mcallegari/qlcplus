@@ -7,7 +7,7 @@ TARGET   = spi
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 INCLUDEPATH += ../interfaces
-INCLUDEPATH += /usr/include
+INCLUDEPATH += $SYSROOT/usr/include
 CONFIG      += plugin
 
 # Rules to make SPI devices readable & writable by normal users
@@ -25,8 +25,11 @@ TRANSLATIONS += SPI_fr_FR.ts
 TRANSLATIONS += SPI_it_IT.ts
 TRANSLATIONS += SPI_nl_NL.ts
 TRANSLATIONS += SPI_cz_CZ.ts
+TRANSLATIONS += SPI_pt_BR.ts
 
-HEADERS += spiplugin.h spiconfiguration.h
-SOURCES += spiplugin.cpp spiconfiguration.cpp
+HEADERS += spiplugin.h spiconfiguration.h \
+    spioutthread.h
+SOURCES += spiplugin.cpp spiconfiguration.cpp \
+    spioutthread.cpp
 FORMS += spiconfiguration.ui
 HEADERS += ../interfaces/qlcioplugin.h

@@ -161,7 +161,7 @@ void EditChannel::init()
 
 void EditChannel::slotNameChanged(const QString& name)
 {
-    m_channel->setName(name);
+    m_channel->setName(name.simplified());
 }
 
 void EditChannel::slotGroupActivated(const QString& group)
@@ -172,11 +172,6 @@ void EditChannel::slotGroupActivated(const QString& group)
         m_msbRadio->click();
     else
         m_lsbRadio->click();
-
-    if (m_channel->group() == QLCChannel::Pan || m_channel->group() == QLCChannel::Tilt)
-        m_controlByteGroup->show();
-    else
-        m_controlByteGroup->hide();
 
     if (m_channel->group() == QLCChannel::Intensity)
     {

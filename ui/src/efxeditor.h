@@ -34,6 +34,8 @@ class SpeedDialWidget;
 class EFXPreviewArea;
 class Doc;
 
+class EfxUiState;
+
 /** @addtogroup ui_functions
  * @{
  */
@@ -49,6 +51,8 @@ class EFXEditor : public QWidget, public Ui_EFXEditor
 public:
     EFXEditor(QWidget* parent, EFX* efx, Doc* doc);
     ~EFXEditor();
+
+    void stopTest();
 
 public slots:
     void slotFunctionManagerActive(bool active);
@@ -70,10 +74,13 @@ private:
         otherwise it is restarted as a normal EFX. */
     void continueRunning(bool running);
 
+    EfxUiState * efxUiState();
+
 private slots:
     void slotTestClicked();
     void slotRestartTest();
     void slotModeChanged(Doc::Mode mode);
+    void slotTabChanged(int tab);
 
 private:
     EFXPreviewArea* m_previewArea;

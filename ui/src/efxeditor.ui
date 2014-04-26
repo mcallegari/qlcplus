@@ -14,14 +14,20 @@
    <string>EFX Editor</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_5">
-   <item row="0" column="1">
-    <widget class="QLineEdit" name="m_nameEdit">
+   <item row="4" column="0" colspan="2">
+    <widget class="QPushButton" name="m_testButton">
      <property name="toolTip">
-      <string>The name of the function being edited</string>
+      <string>See what the EFX does when it is run</string>
+     </property>
+     <property name="text">
+      <string>&amp;Test Run</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
      </property>
     </widget>
    </item>
-   <item row="2" column="0" colspan="2">
+   <item row="3" column="0" colspan="2">
     <widget class="QTabWidget" name="m_tab">
      <property name="toolTip">
       <string/>
@@ -410,7 +416,7 @@
              <string>Lissajous pattern's X frequency</string>
             </property>
             <property name="maximum">
-             <number>5</number>
+             <number>32</number>
             </property>
             <property name="value">
              <number>2</number>
@@ -436,7 +442,7 @@
              <string>Lissajous pattern's Y frequency</string>
             </property>
             <property name="maximum">
-             <number>5</number>
+             <number>32</number>
             </property>
             <property name="value">
              <number>1</number>
@@ -632,58 +638,57 @@
      </widget>
     </widget>
    </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="m_nameLabel">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>EFX name</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0" colspan="2">
-    <widget class="QPushButton" name="m_testButton">
-     <property name="toolTip">
-      <string>See what the EFX does when it is run</string>
-     </property>
-     <property name="text">
-      <string>&amp;Test Run</string>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
    <item row="1" column="0">
-    <widget class="QToolButton" name="m_speedDial">
-     <property name="toolTip">
-      <string>Show/Hide speed dial window</string>
-     </property>
-     <property name="text">
-      <string>...</string>
-     </property>
-     <property name="icon">
-      <iconset resource="qlcui.qrc">
-       <normaloff>:/speed.png</normaloff>:/speed.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>24</width>
-       <height>24</height>
-      </size>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QToolButton" name="m_speedDial">
+       <property name="toolTip">
+        <string>Show/Hide speed dial window</string>
+       </property>
+       <property name="text">
+        <string>...</string>
+       </property>
+       <property name="icon">
+        <iconset resource="qlcui.qrc">
+         <normaloff>:/speed.png</normaloff>:/speed.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>24</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="m_nameLabel">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>EFX name</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="m_nameEdit">
+       <property name="toolTip">
+        <string>The name of the function being edited</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>
  <resources>
+  <include location="qlcui.qrc"/>
   <include location="qlcui.qrc"/>
  </resources>
  <connections/>

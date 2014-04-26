@@ -13,7 +13,7 @@
         <location filename="artnetplugin.cpp" line="90"/>
         <location filename="artnetplugin.cpp" line="193"/>
         <source>%1: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="106"/>

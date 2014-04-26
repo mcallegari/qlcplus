@@ -6,7 +6,7 @@ LANGUAGE = C++
 TARGET   = qlcpluswebaccess
 
 CONFIG += qt
-QT     += core gui script
+QT     += core gui script network
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
 
 # Engine
@@ -44,6 +44,7 @@ TRANSLATIONS += webaccess_es_ES.ts
 TRANSLATIONS += webaccess_it_IT.ts
 TRANSLATIONS += webaccess_nl_NL.ts
 TRANSLATIONS += webaccess_cz_CZ.ts
+TRANSLATIONS += webaccess_pt_BR.ts
     
 macx {
     # This must be after "TARGET = " and before target installation so that

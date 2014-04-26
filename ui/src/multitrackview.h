@@ -1,5 +1,5 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   multitrackview.h
 
   Copyright (C) Massimo Callegari
@@ -66,6 +66,11 @@ public:
     /** Add a new audio item to the given track */
     void addAudio(Audio *audio);
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    /** Add a new video item to the given track */
+    void addVideo(Video *video);
+#endif
+
     /** Delete the currently selected sequence */
     quint32 deleteSelectedFunction();
 
@@ -77,6 +82,11 @@ public:
 
     /** get the selected audio item. If none, returns NULL */
     AudioItem *getSelectedAudio();
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    /** get the selected video item. If none, returns NULL */
+    VideoItem *getSelectedVideo();
+#endif
 
 private:
     /** Get the index of the currently selected track */
@@ -121,6 +131,9 @@ private:
 
     void updateItem(SequenceItem *, quint32 time);
     void updateItem(AudioItem *, quint32 time);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    void updateItem(VideoItem *, quint32 time);
+#endif
 
 private:
     QGraphicsScene *m_scene;
@@ -132,15 +145,10 @@ private:
     QList <TrackItem *> m_tracks;
     QList <SequenceItem *> m_sequences;
     QList <AudioItem *> m_audio;
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    QList <VideoItem *> m_videos;
+#endif
     bool m_snapToGrid;
-
-signals:
-    void sequenceMoved(SequenceItem *item);
-    void audioMoved(AudioItem *item);
-    void viewClicked(QMouseEvent * e);
-    void timeChanged(quint32 msec);
-    void trackClicked(Track *track);
-    void trackMoved(Track *, int);
 
 public slots:
     void mouseReleaseEvent(QMouseEvent * e);
@@ -148,15 +156,32 @@ public slots:
 protected slots:
     void slotMoveCursor(QGraphicsSceneMouseEvent *event);
     void slotTimeScaleChanged(int val);
-    void slotTrackClicked(TrackItem*);
+    void slotTrackClicked(TrackItem *track);
+    void slotTrackDoubleClicked(TrackItem *track);
     void slotTrackSoloFlagChanged(TrackItem*, bool);
     void slotTrackMuteFlagChanged(TrackItem*, bool);
     void slotViewScrolled(int);
 
-    void slotSequenceMoved(QGraphicsSceneMouseEvent *, SequenceItem *);
+    void slotSequenceMoved(QGraphicsSceneMouseEvent *event, SequenceItem *);
     void slotSequenceMoved(QGraphicsSceneMouseEvent *, AudioItem *);
     void slotAlignToCursor(SequenceItem *);
     void slotAlignToCursor(AudioItem *);
+#if QT_VERSION >= 0x050000
+    void slotSequenceMoved(QGraphicsSceneMouseEvent *, VideoItem *);
+    void slotAlignToCursor(VideoItem *);
+#endif
+
+signals:
+    void sequenceMoved(SequenceItem *item, quint32 time, bool moved);
+    void audioMoved(AudioItem *item);
+#if QT_VERSION >= 0x050000
+    void videoMoved(VideoItem *item);
+#endif
+    void viewClicked(QMouseEvent * e);
+    void timeChanged(quint32 msec);
+    void trackClicked(Track *track);
+    void trackDoubleClicked(Track *track);
+    void trackMoved(Track *, int);
 };
 
 /** @} */

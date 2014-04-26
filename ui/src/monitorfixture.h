@@ -67,6 +67,7 @@ protected:
     quint32 m_fixture;
     MonitorProperties::ChannelStyle m_channelStyle;
     QLabel* m_fixtureLabel;
+    QList <QLabel*> m_iconsLabels;
     QList <QLabel*> m_channelLabels;
 
     /********************************************************************

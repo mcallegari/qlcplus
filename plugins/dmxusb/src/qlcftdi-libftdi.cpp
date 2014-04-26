@@ -29,6 +29,7 @@
 #include "enttecdmxusbopen.h"
 #include "ultradmxusbprotx.h"
 #include "dmx4all.h"
+#include "vinceusbdmx512tx.h"
 #include "qlcftdi.h"
 
 QLCFTDI::QLCFTDI(const QString& serial, const QString& name, const QString& vendor, quint32 id)
@@ -165,6 +166,9 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
                 widgetList << prorx;
                 break;
             }
+            case DMXUSBWidget::VinceTX:
+                widgetList << new VinceUSBDMX512TX(serial, name, vendor);
+                break;
             default:
             case DMXUSBWidget::ProTX:
                 widgetList << new EnttecDMXUSBProTX(serial, name, vendor);
@@ -218,6 +222,10 @@ QList <DMXUSBWidget*> QLCFTDI::widgets()
                 EnttecDMXUSBProRX* prorx = new EnttecDMXUSBProRX(serial, name, vendor, input_id++, protx->ftdi());
                 widgetList << prorx;
             }
+        }
+        else if (nme.toUpper().contains("USB-DMX512 CONVERTER") == true)
+        {
+            widgetList << new VinceUSBDMX512TX(serial, name, vendor);
         }
         else
         {

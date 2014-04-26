@@ -46,6 +46,26 @@ FixtureConsole::FixtureConsole(QWidget* parent, Doc* doc, GroupType type, bool s
     m_layout = new QHBoxLayout(this);
     layout()->setSpacing(0);
     layout()->setContentsMargins(0, 1, 0, 1);
+
+    int topMargin = m_showCheckBoxes?16:1;
+
+    QString common = "QGroupBox::title {top:-15px; left: 12px; subcontrol-origin: border; background-color: transparent; } "
+                     "QGroupBox::indicator { width: 18px; height: 18px; } "
+                     "QGroupBox::indicator:checked { image: url(:/checkbox_full.png) } "
+                     "QGroupBox::indicator:unchecked { image: url(:/checkbox_empty.png) }";
+
+    if (m_groupType == GroupEven)
+        m_styleSheet = QString("QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #C3D1C9, stop: 1 #AFBBB4); "
+                             "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; } " +
+                             (m_showCheckBoxes?common:"")).arg(topMargin);
+    else if (m_groupType == GroupOdd)
+        m_styleSheet = QString("QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D5E0, stop: 1 #A7A6AF); "
+                             "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; } " +
+                             (m_showCheckBoxes?common:"")).arg(topMargin);
+    else
+        m_styleSheet = QString("QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D2D0, stop: 1 #AFACAB); "
+                             "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; } " +
+                             (m_showCheckBoxes?common:"")).arg(topMargin);
 }
 
 FixtureConsole::~FixtureConsole()
@@ -68,25 +88,6 @@ void FixtureConsole::setFixture(quint32 id)
     if (m_groupType != GroupNone)
         setTitle(fxi->name());
 
-    int topMargin = m_showCheckBoxes?16:1;
-
-    QString common = "QGroupBox::title {top:-15px; left: 12px; subcontrol-origin: border; background-color: transparent; } "
-                     "QGroupBox::indicator { width: 18px; height: 18px; } "
-                     "QGroupBox::indicator:checked { image: url(:/checkbox_full.png) } "
-                     "QGroupBox::indicator:unchecked { image: url(:/checkbox_empty.png) }";
-
-    QString ssEven = QString("QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #C3D1C9, stop: 1 #AFBBB4); "
-                             "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; } " +
-                             (m_showCheckBoxes?common:"")).arg(topMargin);
-
-    QString ssOdd = QString("QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D5E0, stop: 1 #A7A6AF); "
-                            "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; } " +
-                            (m_showCheckBoxes?common:"")).arg(topMargin);
-
-    QString ssNone = QString("QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D2D0, stop: 1 #AFACAB); "
-                             "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; } " +
-                             (m_showCheckBoxes?common:"")).arg(topMargin);
-
     /* Create channel units */
     for (uint i = 0; i < fxi->channels(); i++)
     {
@@ -96,12 +97,7 @@ void FixtureConsole::setFixture(quint32 id)
             continue;
 
         ConsoleChannel* cc = new ConsoleChannel(this, m_doc, id, i, m_showCheckBoxes);
-        if (m_groupType == GroupNone)
-            cc->setStyleSheet(ssNone);
-        else if (m_groupType == GroupOdd)
-            cc->setStyleSheet(ssOdd);
-        else if (m_groupType == GroupEven)
-            cc->setStyleSheet(ssEven);
+        cc->setStyleSheet(m_styleSheet);
 
         m_layout->addWidget(cc);
         m_channels.append(cc);
@@ -231,6 +227,24 @@ uchar FixtureConsole::value(quint32 ch) const
         return cc->value();
     else
         return 0;
+}
+
+void FixtureConsole::setChannelStylesheet(quint32 ch, QString ss)
+{
+    ConsoleChannel* cc = channel(ch);
+    if (cc != NULL)
+        cc->setStyleSheet(ss);
+}
+
+void FixtureConsole::resetChannelsStylesheet()
+{
+    QListIterator <ConsoleChannel*> it(m_channels);
+    while (it.hasNext() == true)
+    {
+        ConsoleChannel* cc = it.next();
+        Q_ASSERT(cc != NULL);
+        cc->setStyleSheet(m_styleSheet);
+    }
 }
 
 ConsoleChannel* FixtureConsole::channel(quint32 ch) const

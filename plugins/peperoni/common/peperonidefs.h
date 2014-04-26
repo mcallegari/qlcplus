@@ -37,10 +37,25 @@
 #define PEPERONI_CONF_TXRX      0x02
 #define PEPERONI_CONF_RXONLY    0x03
 
-/** CONTROL MSG: Control the internal DMX buffer */
-#define PEPERONI_TX_MEM_REQUEST  0x04
-/** CONTROL MSG: Set DMX startcode */
-#define PEPERONI_TX_STARTCODE    0x09
+#define _DMX_RX  (1<<2) /** receiver commands */
+#define _DMX_TX  (2<<2) /** transmitter commands */
+
+#define _DMX_MEM       0
+#define _DMX_STARTCODE 1
+#define _DMX_SLOTS     2
+#define _DMX_FRAMES    3
+
+/** CONTROL MESSAGES: Request function */
+#define PEPERONI_ID_LED          0x02   /** Read/write led usage */
+#define PEPERONI_TX_MEM_REQUEST  (_DMX_TX | _DMX_MEM)       /** Write into transmitter data memory */
+#define PEPERONI_TX_SLOTS        (_DMX_TX | _DMX_SLOTS)     /** Write transmitter slot counter */
+#define PEPERONI_TX_STARTCODE    (_DMX_TX | _DMX_STARTCODE) /** Write transmitter startcode */
+#define PEPERONI_TX_FRAMES       (_DMX_TX | _DMX_FRAMES)    /** Read transmitter frame counter */
+#define PEPERONI_RX_MEM          (_DMX_RX | _DMX_MEM)       /** Read/write receiver data memory */
+#define PEPERONI_RX_SLOTS        (_DMX_RX | _DMX_SLOTS)     /** Read/write receiver slots counter */
+#define PEPERONI_RX_STARTCODE    (_DMX_RX | _DMX_STARTCODE) /** Read/write receiver startcode */
+#define PEPERONI_RX_FRAMES       (_DMX_RX | _DMX_FRAMES)    /** Read receiver frame counter */
+
 /** CONTROL MSG: Block until the DMX frame has been completely transmitted */
 #define PEPERONI_TX_MEM_BLOCK    0x01
 /** CONTROL MSG: Do not block during DMX frame send */
@@ -50,13 +65,26 @@
 
 /** BULK WRITE: Bulk out endpoint */
 #define PEPERONI_BULK_OUT_ENDPOINT 0x02
-/** BULK WRITE: Oldest firmware version with bulk write support */
-#define PEPERONI_FW_BULK_SUPPORT 0x400
-/** BULK WRITE: Size of the "old" bulk header */
+/** BULK WRITE: Bulk int endpoint */
+#define PEPERONI_BULK_IN_ENDPOINT 0x82
+
+/** BULK WRITE: Oldest firmware version with bulk pipe support */
+#define PEPERONI_FW_OLD_BULK_SUPPORT 0x400
+
+/** BULK WRITE: Newest firmware version with bulk pipe support */
+#define PEPERONI_FW_NEW_BULK_SUPPORT 0x500
+
+/** BULK PIPE: Size of the "old" bulk header */
 #define PEPERONI_OLD_BULK_HEADER_SIZE 4
-/** BULK WRITE: "Old" bulk protocol ID */
+/** BULK PIPE: "Old" bulk protocol ID */
 #define PEPERONI_OLD_BULK_HEADER_ID 0x01
-/** BULK WRITE: "Old" bulk transmit request */
-#define PEPERONI_OLD_BULK_HEADER_REQUEST_TX 0x00
+
+/** BULK PIPE: "Old" commands */
+#define PEPERONI_OLD_BULK_HEADER_REQUEST_TX_SET   0x00   /** Write the transmitter memory */
+#define PEPERONI_OLD_BULK_HEADER_REQUEST_TX_GET   0x01   /** Read the transmitter memory */
+#define PEPERONI_OLD_BULK_HEADER_REQUEST_RX_SET   0x02   /** Write the receiver memory */
+#define PEPERONI_OLD_BULK_HEADER_REQUEST_RX_GET   0x03   /** Read the receiver memory */
+#define PEPERONI_OLD_BULK_HEADER_REQUEST_TX2_SET  0x04   /** Write the second universes transmitter memory */
+#define PEPERONI_OLD_BULK_HEADER_REQUEST_TX2_GET  0x05   /** Read the second universes transmitter memory */
 
 #endif

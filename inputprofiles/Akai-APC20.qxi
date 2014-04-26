@@ -6,7 +6,7 @@
   <Author>Joep Admiraal</Author>
  </Creator>
  <Manufacturer>Akai</Manufacturer>
- <Model>APC 20</Model>
+ <Model>APC20</Model>
  <Type>MIDI</Type>
  <Channel Number="7">
   <Name>Slider 1</Name>

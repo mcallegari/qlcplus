@@ -164,10 +164,19 @@ quint32 InputOutputMap::getUniverseID(int index)
     return m_universeArray.at(index)->id();
 }
 
-QString InputOutputMap::getUniverseName(int index)
+QString InputOutputMap::getUniverseNameByIndex(int index)
 {
     if (index >= 0 && index < m_universeArray.count())
         return m_universeArray.at(index)->name();
+
+    return QString();
+}
+
+QString InputOutputMap::getUniverseNameByID(quint32 id)
+{
+    for (int i = 0; i < m_universeArray.count(); i++)
+        if (m_universeArray.at(i)->id() == id)
+            return m_universeArray.at(i)->name();
 
     return QString();
 }
@@ -191,6 +200,20 @@ bool InputOutputMap::getUniversePassthrough(int index)
     if (index < 0 || index >= m_universeArray.count())
         return false;
     return m_universeArray.at(index)->passthrough();
+}
+
+void InputOutputMap::setUniverseMonitor(int index, bool enable)
+{
+    if (index < 0 || index >= m_universeArray.count())
+        return;
+    m_universeArray.at(index)->setMonitor(enable);
+}
+
+bool InputOutputMap::getUniverseMonitor(int index)
+{
+    if (index < 0 || index >= m_universeArray.count())
+        return false;
+    return m_universeArray.at(index)->monitor();
 }
 
 bool InputOutputMap::isUniversePatched(int index)
@@ -226,16 +249,12 @@ void InputOutputMap::dumpUniverses()
         for (int i = 0; i < m_universeArray.count(); i++)
         {
             Universe *universe = m_universeArray.at(i);
-            if (universe->hasChanged() && universe->outputPatch() != NULL)
+            if (universe->hasChanged() &&
+               (universe->monitor() == true || universe->outputPatch() != NULL))
             {
                 const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
-                /*
-                fprintf(stderr, "---- ");
-                for (int d = 0; d < universe->usedChannels(); d++)
-                    fprintf(stderr, "%d ", (unsigned char)postGM.at(d));
-                fprintf(stderr, " ----\n");
-                */
-                universe->outputPatch()->dump(universe->id(), postGM);
+
+                universe->dumpOutput(postGM);
 
                 m_universeMutex.unlock();
                 emit universesWritten(i, postGM);
@@ -810,7 +829,6 @@ QDir InputOutputMap::userProfileDirectory()
 void InputOutputMap::loadDefaults()
 {
     /* ************************ INPUT *********************************** */
-    QString profileName;
     QSettings settings;
     QString plugin;
     QString input;
@@ -818,6 +836,9 @@ void InputOutputMap::loadDefaults()
 
     for (quint32 i = 0; i < universes(); i++)
     {
+        QString profileName;
+        bool passthrough;
+
         /* Plugin name */
         key = QString("/inputmap/universe%2/plugin/").arg(i);
         plugin = settings.value(key).toString();
@@ -830,17 +851,14 @@ void InputOutputMap::loadDefaults()
         key = QString("/inputmap/universe%2/profile/").arg(i);
         profileName = settings.value(key).toString();
 
+        key = QString("/inputmap/universe%2/passthrough/").arg(i);
+        passthrough = settings.value(key).toBool();
+        if (passthrough == true)
+            m_universeArray.at(i)->setPassthrough(passthrough);
+
         /* Do the mapping */
         if (plugin.length() > 0 && input.length() > 0)
-        {
-            /* Check that the same plugin & input are not mapped
-               to more than one universe at a time. */
-            quint32 m = inputMapping(plugin, input.toUInt());
-            if (m == InputOutputMap::invalidUniverse() || m == i)
-            {
-                setInputPatch(i, plugin, input.toUInt(), profileName);
-            }
-        }
+            setInputPatch(i, plugin, input.toUInt(), profileName);
     }
 
     /* ************************ OUTPUT *********************************** */
@@ -867,19 +885,10 @@ void InputOutputMap::loadDefaults()
         feedback = settings.value(key).toString();
 
         if (plugin.length() > 0 && output.length() > 0)
-        {
-            /* Check that the same plugin & output are not mapped
-               to more than one universe at a time. */
-            quint32 m = outputMapping(plugin, output.toUInt());
-            if (m == InputOutputMap::invalidUniverse() || m == i)
-                setOutputPatch(i, plugin, output.toUInt());
-        }
+            setOutputPatch(i, plugin, output.toUInt());
+
         if (fb_plugin.length() > 0 && feedback.length() > 0)
-        {
-            quint32 m = outputMapping(feedback, fb_plugin.toUInt());
-            if (m == InputOutputMap::invalidUniverse() || m == i)
-                setOutputPatch(i, fb_plugin, feedback.toUInt(), true);
-        }
+            setOutputPatch(i, fb_plugin, feedback.toUInt(), true);
     }
 }
 
@@ -914,6 +923,14 @@ void InputOutputMap::saveDefaults()
             settings.setValue(key, pat->profileName());
         else
             settings.setValue(key, KInputNone);
+
+        /* Passthrough */
+        key = QString("/inputmap/universe%2/passthrough/").arg(i);
+        bool passthrough = m_universeArray.at(i)->passthrough();
+        if (passthrough == true)
+            settings.setValue(key, passthrough);
+        else
+            settings.remove(key);
     }
 
     /* ************************ OUTPUT *********************************** */
@@ -1002,9 +1019,5 @@ bool InputOutputMap::saveXML(QDomDocument *doc, QDomElement *wksp_root) const
 
     return true;
 }
-
-
-
-
 
 

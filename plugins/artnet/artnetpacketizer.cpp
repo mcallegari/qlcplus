@@ -119,14 +119,16 @@ void ArtNetPacketizer::setupArtNetPollReply(QByteArray &data, QHostAddress ipAdd
 
 void ArtNetPacketizer::setupArtNetDmx(QByteArray& data, const int &universe, const QByteArray &values)
 {
+    int uniPlusOne = universe + 1;
+
     data.clear();
     data.append(m_commonHeader);
     const char opCodeMSB = (ARTNET_DMX >> 8);
     data[9] = opCodeMSB;
     data.append(m_sequence[universe]); // Sequence
     data.append('\0'); // Physical
-    data.append((char)(universe & 0x00FF));
-    data.append((char)(universe >> 8));
+    data.append((char)(uniPlusOne & 0x00FF));
+    data.append((char)(uniPlusOne >> 8));
     int len = values.length();
     data.append((char)(len >> 8));
     data.append((char)(len & 0x00FF));
@@ -185,12 +187,14 @@ bool ArtNetPacketizer::fillDMXdata(QByteArray& data, QByteArray &dmx, quint32 &u
     //qDebug() << "Sequence: " << sequence;
     // phisycal skipped
     universe = (data.at(13) << 8) + data.at(14);
+    if (universe > 0)
+        universe--;
     // net skipped
     unsigned int msb = (data.at(16)&0xff);
     unsigned int lsb = (data.at(17)&0xff);
     int length = (msb << 8) | lsb;
 
-    qDebug() << "length: " << length;
+    //qDebug() << "length: " << length;
     dmx.append(data.mid(18, length));
     return true;
 }

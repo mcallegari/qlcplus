@@ -72,8 +72,8 @@ void VCXYPad_Test::initial()
     QCOMPARE(pad.frameStyle(), QFrame::Panel | QFrame::Sunken);
     QCOMPARE(pad.size(), QSize(230, 230));
     QVERIFY(pad.m_area != NULL);
-    QVERIFY(pad.m_area->m_pixmap.isNull() == false);
-    QCOMPARE(pad.m_area->position(), QPoint(0, 0));
+    QVERIFY(pad.m_area->m_activePixmap.isNull() == false);
+    QCOMPARE(pad.m_area->position(), QPointF(0, 0));
     QCOMPARE(pad.m_fixtures.size(), 0);
     QVERIFY(pad.m_vSlider != NULL);
     QVERIFY(pad.m_hSlider != NULL);
@@ -131,7 +131,7 @@ void VCXYPad_Test::copy()
     VCXYPad pad(&parent, m_doc);
     pad.setCaption("Dingdong");
     QSize size(80, 80);
-    QPoint pt(50, 30);
+    QPointF pt(50, 30);
     pad.m_area->setPosition(pt);
 
     VCXYPadFixture xyf1(m_doc);
@@ -238,7 +238,7 @@ void VCXYPad_Test::loadXML()
     QCOMPARE(pad.m_fixtures.size(), 2);
     QCOMPARE(pad.pos(), QPoint(3, 4));
     QCOMPARE(pad.size(), QSize(42, 69));
-    QCOMPARE(pad.m_area->position(), QPoint(10, 20));
+    QCOMPARE(pad.m_area->position(), QPointF(10, 20));
 
     VCXYPadFixture fixture(m_doc);
     fixture.setHead(GroupHead(69, 96));
@@ -260,11 +260,11 @@ void VCXYPad_Test::saveXML()
     pad.setCaption("MyPad");
     pad.resize(QSize(150, 200));
     pad.move(QPoint(10, 20));
-    pad.m_area->setPosition(QPoint(23, 45));
+    pad.m_area->setPosition(QPointF(23, 45));
     pad.setInputSource(QLCInputSource(0, 1), VCXYPad::panInputSourceId);
     pad.setInputSource(QLCInputSource(2, 3), VCXYPad::tiltInputSourceId);
-    QCOMPARE(pad.m_area->position(), QPoint(23, 45));
-    QCOMPARE(pad.m_area->position(), QPoint(23, 45));
+    QCOMPARE(pad.m_area->position(), QPointF(23, 45));
+    QCOMPARE(pad.m_area->position(), QPointF(23, 45));
 
     VCXYPadFixture fixture1(m_doc);
     fixture1.setHead(GroupHead(11, 0));

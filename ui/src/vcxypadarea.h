@@ -56,39 +56,86 @@ private:
      *************************************************************************/
 public:
     /** Get the pad's current position (i.e. where the point is) */
-    QPoint position();
+    QPointF position(bool resetChanged = true) const;
 
     /** Set the pad's current position (i.e. move the point) */
-    void setPosition(const QPoint& point);
+    void setPosition(const QPointF& point);
 
     /** Move the current position by some relative amount */
-    void nudgePosition(int dx, int dy);
+    void nudgePosition(qreal dx, qreal dy);
 
     /** Check if the position has changed since the last currentXYPosition() call */
     bool hasPositionChanged();
 
 signals:
-    void positionChanged(const QPoint& point);
+    void positionChanged(const QPointF& point);
+
+public slots:
+    void slotFixturePositions(const QVariantList positions);
 
 private:
-    QPoint m_pos;
-    bool m_changed;
-    QMutex m_mutex;
-    QPixmap m_pixmap;
+    /** Make sure the m_dmxPos is inside m_rangeDmxRect */
+    void checkDmxRange();
+
+    /** Compute m_windowPos from mdmxPos */
+    void updateWindowPos();
+
+    QString positionString() const;
+
+    QString angleString() const;
+
+private:
+
+    /** Position in DMX coordinates 0.0..(256.0 - 1/256) */
+    QPointF m_dmxPos;
+
+    /** Position in window coordinates */
+    QPoint m_windowPos;
+
+    /** Optimization - compute window pos on demand */
+    bool m_updateWindowPos;
+
+    mutable bool m_changed;
+    mutable QMutex m_mutex;
+
+    /** Used to display active point - blue */
+    QPixmap m_activePixmap;
+
+    /** Used to display fixture positions - yellow */
+    QPixmap m_fixturePixmap;
+
+    QVariantList m_fixturePositions;
 
     /*************************************************************************
      * Range window
      *************************************************************************/
 public:
-    QRect rangeWindow();
+    QRectF rangeWindow();
 
-    void setRangeWindow(QRect rect);
+    void setRangeWindow(QRectF rect);
 
 private:
+    /** Compute m_rangeWindowRect from m_rangeDmxRect */
     void updateRangeWindow();
+
 private:
-    QRect m_rangeSrcRect;
-    QRect m_rangeDestRect;
+    /** Range in dmx domain */
+    QRectF m_rangeDmxRect;
+
+    /** Range in window coordinates */
+    QRect m_rangeWindowRect;
+
+    /*************************************************************************
+     * Degrees range
+     *************************************************************************/
+public:
+    QRectF degreesRange() const;
+
+    void setDegreesRange(QRectF rect);
+
+private:
+    /** Range in degrees (for the full range) */
+    QRectF m_degreesRange;
 
     /*************************************************************************
      * Event handlers

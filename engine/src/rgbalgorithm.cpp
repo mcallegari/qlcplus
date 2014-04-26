@@ -23,13 +23,23 @@
 #include <QDebug>
 
 #include "rgbalgorithm.h"
+#include "rgbaudio.h"
 #include "rgbimage.h"
+#include "rgbplain.h"
 #include "rgbscript.h"
 #include "rgbtext.h"
 
 RGBAlgorithm::RGBAlgorithm(const Doc * doc)
     : m_doc(doc)
+    , m_startColor(QColor())
+    , m_endColor(QColor())
 {
+}
+
+void RGBAlgorithm::setColors(QColor start, QColor end)
+{
+    m_startColor = start;
+    m_endColor = end;
 }
 
 /****************************************************************************
@@ -39,10 +49,14 @@ RGBAlgorithm::RGBAlgorithm(const Doc * doc)
 QStringList RGBAlgorithm::algorithms(const Doc * doc)
 {
     QStringList list;
+    RGBPlain plain(doc);
     RGBText text(doc);
     RGBImage image(doc);
+    RGBAudio audio(doc);
+    list << plain.name();
     list << text.name();
     list << image.name();
+    list << audio.name();
     list << RGBScript::scriptNames(doc);
     return list;
 }
@@ -51,10 +65,16 @@ RGBAlgorithm* RGBAlgorithm::algorithm(const Doc * doc, const QString& name)
 {
     RGBText text(doc);
     RGBImage image(doc);
+    RGBAudio audio(doc);
+    RGBPlain plain(doc);
     if (name == text.name())
         return text.clone();
     else if (name == image.name())
         return image.clone();
+    else if (name == audio.name())
+        return audio.clone();
+    else if (name == plain.name())
+        return plain.clone();
     else
         return RGBScript::script(doc, name).clone();
 }
@@ -86,11 +106,23 @@ RGBAlgorithm* RGBAlgorithm::loader(const Doc * doc, const QDomElement& root)
         if (text.loadXML(root) == true)
             algo = text.clone();
     }
+    else if (type == KXMLQLCRGBAudio)
+    {
+        RGBAudio audio(doc);
+        if (audio.loadXML(root) == true)
+            algo = audio.clone();
+    }
     else if (type == KXMLQLCRGBScript)
     {
         RGBScript scr = RGBScript::script(doc, root.text());
         if (scr.apiVersion() > 0 && scr.name().isEmpty() == false)
             algo = scr.clone();
+    }
+    else if (type == KXMLQLCRGBPlain)
+    {
+        RGBPlain plain(doc);
+        if (plain.loadXML(root) == true)
+            algo = plain.clone();
     }
     else
     {

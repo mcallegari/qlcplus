@@ -20,7 +20,7 @@
 #ifndef WEBACCESS_H
 #define WEBACCESS_H
 
-#include <QObject>
+#include <QThread>
 #include "mongoose.h"
 
 class VirtualConsole;
@@ -36,14 +36,18 @@ class Doc;
 
 typedef struct
 {
+    bool enabled;
     QString name;
     bool isStatic;
+    bool isWireless;
     QString address;
     QString netmask;
     QString gateway;
+    QString ssid;
+    QString wpaPass;
 } InterfaceInfo;
 
-class WebAccess : public QObject
+class WebAccess : public QThread
 {
     Q_OBJECT
 public:
@@ -51,10 +55,8 @@ public:
     /** Destructor */
     ~WebAccess();
 
-    int beginRequestHandler(struct mg_connection *conn);
-    void websocketReadyHandler(struct mg_connection *conn);
-    int websocketDataHandler(struct mg_connection *conn, int flags,
-                               char *data, size_t data_len);
+    mg_result beginRequestHandler(struct mg_connection *conn);
+    mg_result websocketDataHandler(struct mg_connection *conn);
 
 private:
     QString loadXMLPost(struct mg_connection *conn, QString &filename);
@@ -75,6 +77,7 @@ private:
     QString getUserFixturesConfigHTML();
     QString getConfigHTML();
 
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     void resetInterface(InterfaceInfo *iface);
     void appendInterface(InterfaceInfo iface);
     QString getInterfaceHTML(InterfaceInfo *iface);
@@ -82,6 +85,11 @@ private:
     QString getSystemConfigHTML();
 
     bool writeNetworkFile();
+#endif
+
+private:
+    /** Input data thread worker method */
+    virtual void run();
 
 protected slots:
     void slotVCLoaded();
@@ -110,9 +118,11 @@ protected:
     Doc *m_doc;
     VirtualConsole *m_vc;
 
-    struct mg_context *m_ctx;
+    struct mg_server *m_server;
     struct mg_connection *m_conn;
-    struct mg_callbacks m_callbacks;
+
+    bool m_running;
+    bool m_pendingProjectLoaded;
 
 signals:
     void toggleDocMode();

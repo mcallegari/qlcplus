@@ -33,6 +33,7 @@ class QDomDocument;
 class QDomElement;
 class QScrollArea;
 class QComboBox;
+class QSplitter;
 class QToolBar;
 class QSpinBox;
 class QAction;
@@ -128,6 +129,9 @@ protected slots:
     /** Slot for fixture removals (to remove the fixture from layout) */
     void slotFixtureRemoved(quint32 fxi_id);
 
+    /** Slot called when a universe combo item is selected */
+    void slotUniverseSelected(int index);
+
     /** Slot for getting the latest values from InputOutputMap */
     void slotUniversesWritten(int index, const QByteArray& ua);
 
@@ -141,10 +145,17 @@ protected:
     QWidget* m_monitorWidget;
     MonitorLayout* m_monitorLayout;
     QList <MonitorFixture*> m_monitorFixtures;
+    quint32 m_currentUniverse;
 
     /********************************************************************
      * Graphics View
      ********************************************************************/
+protected:
+    /** Hides the Fixture Item editor on the right side of the view */
+    void hideFixtureItemEditor();
+
+    /** Shows the Fixture Item editor on the right side of the view */
+    void showFixtureItemEditor();
 
 protected slots:
     /** Slot called when the grid width changes */
@@ -164,11 +175,20 @@ protected slots:
      *  a fixture from the graphics view */
     void slotRemoveFixture();
 
+    /** Slot called when the user wants to show
+     *  or hide fixtures labels */
+    void slotShowLabels(bool visible);
+
     /** Slot called when a fixture is moved in the graphics view */
     void slotFixtureMoved(quint32 fid, QPointF pos);
 
+    /** Slot called when the graphics view is clicked */
+    void slotViewCliked();
+
 protected:
+    QSplitter* m_splitter;
     MonitorGraphicsView* m_graphicsView;
+    QWidget *m_fixtureItemEditor;
     QSpinBox* m_gridWSpin;
     QSpinBox *m_gridHSpin;
     QComboBox *m_unitsCombo;

@@ -9,28 +9,28 @@
         <translation>Questa plugin permette la trasmissione di segnale DMX in uscita per</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="137"/>
+        <location filename="dmxusb.cpp" line="138"/>
         <source>and compatible devices.</source>
         <translation>e dispositivi compatibili.</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="151"/>
+        <location filename="dmxusb.cpp" line="152"/>
         <source>No output support available.</source>
         <translation>Nessuna uscita disponibile.</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="153"/>
+        <location filename="dmxusb.cpp" line="154"/>
         <source>Make sure that you have your hardware firmly plugged in. NOTE: FTDI VCP interface is not supported by this plugin.</source>
         <translation>Controlla che la tua interfaccia sia connessa correttamente. ATTENZIONE: le interfacce FTDI VCP non sono supportate da questa plugin.</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="162"/>
-        <location filename="dmxusb.cpp" line="231"/>
+        <location filename="dmxusb.cpp" line="163"/>
+        <location filename="dmxusb.cpp" line="232"/>
         <source>Device is operating correctly.</source>
         <translation>Interfaccia connessa ed attiva.</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="218"/>
+        <location filename="dmxusb.cpp" line="219"/>
         <source>No input support available.</source>
         <translation>Nessun ingresso disponibile.</translation>
     </message>
@@ -98,6 +98,7 @@
         <location filename="enttecdmxusbprorx.cpp" line="84"/>
         <location filename="enttecdmxusbprotx.cpp" line="127"/>
         <location filename="ultradmxusbprotx.cpp" line="73"/>
+        <location filename="vinceusbdmx512tx.cpp" line="49"/>
         <source>Protocol</source>
         <translation>Protocollo</translation>
     </message>
@@ -106,6 +107,7 @@
         <location filename="enttecdmxusbprorx.cpp" line="91"/>
         <location filename="enttecdmxusbprotx.cpp" line="134"/>
         <location filename="ultradmxusbprotx.cpp" line="80"/>
+        <location filename="vinceusbdmx512tx.cpp" line="53"/>
         <source>Serial number</source>
         <translation>Numero di serie</translation>
     </message>
@@ -124,6 +126,7 @@
         <location filename="ultradmxusbprotx.cpp" line="59"/>
         <location filename="ultradmxusbprotx.cpp" line="61"/>
         <location filename="ultradmxusbprotx.cpp" line="75"/>
+        <location filename="vinceusbdmx512tx.cpp" line="51"/>
         <source>Output</source>
         <translation>Uscita</translation>
     </message>

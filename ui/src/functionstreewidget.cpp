@@ -79,7 +79,7 @@ void FunctionsTreeWidget::functionChanged(quint32 fid)
     blockSignals(false);
 }
 
-QTreeWidgetItem *FunctionsTreeWidget::functionAdded(quint32 fid)
+QTreeWidgetItem *FunctionsTreeWidget::addFunction(quint32 fid)
 {
     blockSignals(true);
     Function* function = m_doc->function(fid);
@@ -92,7 +92,8 @@ QTreeWidgetItem *FunctionsTreeWidget::functionAdded(quint32 fid)
     QTreeWidgetItem* parent = parentItem(function);
     QTreeWidgetItem* item = new QTreeWidgetItem(parent);
     updateFunctionItem(item, function);
-    function->setPath(parent->text(COL_PATH));
+    if (parent != NULL)
+        function->setPath(parent->text(COL_PATH));
     blockSignals(false);
     return item;
 }
@@ -203,30 +204,13 @@ QTreeWidgetItem* FunctionsTreeWidget::functionItem(const Function* function)
 
 QIcon FunctionsTreeWidget::functionIcon(const Function* function) const
 {
-    switch (function->type())
+    if (function->type() == Function::Chaser)
     {
-    case Function::Scene:
-        return QIcon(":/scene.png");
-    case Function::Chaser:
         if (qobject_cast<const Chaser*>(function)->isSequence() == true)
             return QIcon(":/sequence.png");
-        else
-            return QIcon(":/chaser.png");
-    case Function::EFX:
-        return QIcon(":/efx.png");
-    case Function::Collection:
-        return QIcon(":/collection.png");
-    case Function::RGBMatrix:
-        return QIcon(":/rgbmatrix.png");
-    case Function::Script:
-        return QIcon(":/script.png");
-    case Function::Show:
-        return QIcon(":/show.png");
-    case Function::Audio:
-        return QIcon(":/audio.png");
-    default:
-        return QIcon(":/function.png");
     }
+
+    return Function::typeToIcon(function->type());
 }
 
 /*********************************************************************
@@ -359,6 +343,7 @@ QTreeWidgetItem *FunctionsTreeWidget::folderItem(QString name)
             folder->setFlags(folder->flags() | Qt::ItemIsDropEnabled | Qt::ItemIsEditable);
 
             m_foldersMap[fullPath] = folder;
+            parentNode = folder;
         }
         else
             parentNode = m_foldersMap[fullPath];

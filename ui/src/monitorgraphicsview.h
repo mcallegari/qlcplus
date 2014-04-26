@@ -35,30 +35,69 @@ class MonitorGraphicsView : public QGraphicsView
 public:
     MonitorGraphicsView(Doc *doc, QWidget *parent = 0);
 
+    /** Set the graphics view size in monitor units */
     void setGridSize(QSize size);
 
+    /** Get the grid size in monitor units */
+    QSize gridSize() const { return m_gridSize; }
+
+    /** Set the measure unit to use */
     void setGridMetrics(float value);
 
+    /** Get the currently selected fixture ID.
+     *  Fixture::invalidId is returned if none is selected */
+    quint32 selectedFixtureID();
+
+    /** Return a list of the fixture IDs in the current view */
     QList <quint32> fixturesID() const;
-
-    void addFixture(quint32 id, QPointF pos = QPointF(0, 0));
-
-    void removeFixture(quint32 id = Fixture::invalidId());
-
-    void updateFixture(quint32 id);
-
-    void writeUniverse(int index, const QByteArray& ua);
-
-protected:
-
-    void updateGrid();
 
     /** Retrieve the currently selected MonitorFixtureItem.
      *  Return NULL if none */
     MonitorFixtureItem *getSelectedItem();
 
+    /** Set the gel color of the fixture with the given ID */
+    void setFixtureGelColor(quint32 id, QColor col);
+
+    /** Set the rotation degrees of the fixture with the given ID */
+    void setFixtureRotation(quint32 id, ushort degrees);
+
+    /** Show/hide fixtures items labels */
+    void showFixturesLabels(bool visible);
+
+    /** Return the gel color of the fixture with the given ID */
+    QColor fixtureGelColor(quint32 id);
+
+    /** Add a fixture to the current view */
+    void addFixture(quint32 id, QPointF pos = QPointF(0, 0));
+
+    /** Remove the fixture with the given ID from the view
+     *  If no ID is specified, the currently selected
+     *  fixture will be removed (if possible)
+     */
+    bool removeFixture(quint32 id = Fixture::invalidId());
+
+    /** Support function to convert a position in millimeters
+     *  to a position in pixels */
+    QPointF realPositionToPixels(qreal xpos, qreal ypos);
+
+    /** Update the position and the scale of the fixture with
+     *  the given ID
+     */
+    void updateFixture(quint32 id);
+
+    /** Update the fixture values to render the 2D preview */
+    void writeUniverse(int index, const QByteArray& ua);
+
+protected:
+    /** Triggers the whole view repaint and metrics
+     *  computation */
+    void updateGrid();
+
     /** Event caught when the GraphicsView is resized */
     void resizeEvent( QResizeEvent *event );
+
+public slots:
+    void mouseReleaseEvent(QMouseEvent * e);
 
 protected slots:
     /** Slot called when a MonitorFixtureItem is dropped after a drag */
@@ -67,6 +106,9 @@ protected slots:
 signals:
     /** Signal emitted after fixture point -> metrics conversion */
     void fixtureMoved(quint32 id, QPointF pos);
+
+    /** Signal emitted when the graphics view is clicked */
+    void viewClicked(QMouseEvent * e);
 
 private:
     Doc *m_doc;

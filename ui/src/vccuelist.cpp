@@ -33,7 +33,7 @@
 #include "clickandgoslider.h"
 #include "qlcinputchannel.h"
 #include "virtualconsole.h"
-#include "cuelistrunner.h"
+#include "chaserrunner.h"
 #include "mastertimer.h"
 #include "chaserstep.h"
 #include "inputpatch.h"
@@ -299,11 +299,11 @@ void VCCueList::updateStepList()
 
     m_tree->clear();
 
-    Chaser* chaser = qobject_cast<Chaser*> (m_doc->function(m_chaserID));
-    if (chaser == NULL)
+    Chaser* ch = chaser();
+    if (ch == NULL)
         return;
 
-    QListIterator <ChaserStep> it(chaser->steps());
+    QListIterator <ChaserStep> it(ch->steps());
     while (it.hasNext() == true)
     {
         ChaserStep step(it.next());
@@ -320,10 +320,10 @@ void VCCueList::updateStepList()
         if (step.note.isEmpty() == false)
             item->setText(COL_NOTES, step.note);
 
-        switch (chaser->fadeInMode())
+        switch (ch->fadeInMode())
         {
             case Chaser::Common:
-                item->setText(COL_FADEIN, Function::speedToString(chaser->fadeInSpeed()));
+                item->setText(COL_FADEIN, Function::speedToString(ch->fadeInSpeed()));
                 break;
             case Chaser::PerStep:
                 item->setText(COL_FADEIN, Function::speedToString(step.fadeIn));
@@ -333,10 +333,10 @@ void VCCueList::updateStepList()
                 item->setText(COL_FADEIN, QString());
         }
 
-        switch (chaser->fadeOutMode())
+        switch (ch->fadeOutMode())
         {
             case Chaser::Common:
-                item->setText(COL_FADEOUT, Function::speedToString(chaser->fadeOutSpeed()));
+                item->setText(COL_FADEOUT, Function::speedToString(ch->fadeOutSpeed()));
                 break;
             case Chaser::PerStep:
                 item->setText(COL_FADEOUT, Function::speedToString(step.fadeOut));
@@ -346,10 +346,10 @@ void VCCueList::updateStepList()
                 item->setText(COL_FADEOUT, QString());
         }
 
-        switch (chaser->durationMode())
+        switch (ch->durationMode())
         {
             case Chaser::Common:
-                item->setText(COL_DURATION, Function::speedToString(chaser->duration()));
+                item->setText(COL_DURATION, Function::speedToString(ch->duration()));
                 break;
             case Chaser::PerStep:
                 item->setText(COL_DURATION, Function::speedToString(step.duration));
@@ -402,10 +402,10 @@ void VCCueList::slotFunctionChanged(quint32 fid)
     else
     {
         // fid might be an ID of a ChaserStep of m_chaser
-        Chaser* chaser = qobject_cast<Chaser*> (m_doc->function(m_chaserID));
-        if (chaser == NULL)
+        Chaser* ch = chaser();
+        if (ch == NULL)
             return;
-        foreach (ChaserStep step, chaser->steps())
+        foreach (ChaserStep step, ch->steps())
         {
             if (step.fid == fid)
             {
@@ -493,7 +493,7 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
     m_tree->scrollToItem(item, QAbstractItemView::PositionAtCenter);
     m_tree->setCurrentItem(item);
     m_primaryIndex = stepNumber;
-    setSlidersInfo(m_primaryIndex, NULL);
+    setSlidersInfo(m_primaryIndex);
     emit stepChanged(m_primaryIndex);
 }
 
@@ -509,26 +509,25 @@ void VCCueList::slotItemActivated(QTreeWidgetItem* item)
     else
         m_runner->setCurrentStep(m_primaryIndex, (qreal)m_slider1->value() / 100);
 
-    setSlidersInfo(m_primaryIndex, NULL);
+    setSlidersInfo(m_primaryIndex);
     m_mutex.unlock();
 }
 
 void VCCueList::slotItemChanged(QTreeWidgetItem *item, int column)
 {
-    if (m_listIsUpdating)
+    if (m_listIsUpdating || column != COL_NOTES)
         return;
 
-    Function *func = m_doc->function(m_chaserID);
-    if (column != COL_NOTES || func == NULL)
+    Chaser* ch = chaser();
+    if (ch == NULL)
         return;
 
-    Chaser* chaser = qobject_cast<Chaser*> (func);
     QString itemText = item->text(column);
     int idx = m_tree->indexOfTopLevelItem(item);
-    ChaserStep step = chaser->steps().at(idx);
+    ChaserStep step = ch->steps().at(idx);
 
     step.note = itemText;
-    chaser->replaceStep(step, idx);
+    ch->replaceStep(step, idx);
     updateStepList();
 }
 
@@ -537,9 +536,9 @@ void VCCueList::slotFunctionStopped(quint32 fid)
     if (fid == m_chaserID && m_runner != NULL)
     {
         qDebug() << Q_FUNC_INFO << "Cue stopped";
-        Chaser* chaser = qobject_cast<Chaser*> (m_doc->function(m_chaserID));
-        if (chaser != NULL)
-            chaser->useInternalRunner(true);
+        Chaser* ch = chaser();
+        if (ch != NULL)
+            ch->useInternalRunner(true);
         slotStop();
     }
 }
@@ -548,56 +547,39 @@ void VCCueList::createRunner(int startIndex)
 {
     Q_ASSERT(m_runner == NULL);
 
-    Chaser* chaser = qobject_cast<Chaser*> (m_doc->function(m_chaserID));
-    if (chaser != NULL)
+    Chaser* ch = chaser();
+    if (ch != NULL)
     {
-        chaser->useInternalRunner(false);
-        chaser->start(m_doc->masterTimer());
-        m_runner = new CueListRunner(m_doc, chaser);
+        ch->useInternalRunner(false);
+        ch->start(m_doc->masterTimer());
+        m_runner = new ChaserRunner(m_doc, ch);
         Q_ASSERT(m_runner != NULL);
         //m_runner->moveToThread(QCoreApplication::instance()->thread());
-        //m_runner->setParent(chaser);
+        //m_runner->setParent(ch);
         m_runner->setCurrentStep(startIndex, (qreal)m_slider1->value() / 100);
         m_primaryIndex = startIndex;
 
         connect(m_runner, SIGNAL(currentStepChanged(int)),
                 this, SLOT(slotCurrentStepChanged(int)));
         m_playbackButton->setIcon(QIcon(":/player_stop.png"));
-        setSlidersInfo(startIndex, chaser);
+        setSlidersInfo(startIndex);
     }
 }
 
 /*****************************************************************************
  * Crossfade
  *****************************************************************************/
-void VCCueList::setSlidersInfo(int pIndex, Chaser *chaser)
+void VCCueList::setSlidersInfo(int index)
 {
-    Chaser *lChaser = chaser;
-    if (lChaser == NULL)
-        lChaser = qobject_cast<Chaser*> (m_doc->function(m_chaserID));
-
-    if (lChaser == NULL)
+    if (chaser() == NULL || m_runner == NULL)
         return;
 
-    int tmpIndex = -1;
-    if (lChaser->direction() == Function::Forward)
-    {
-        if (pIndex + 1 == m_tree->topLevelItemCount())
-            tmpIndex = 0;
-        else
-            tmpIndex = pIndex + 1;
-    }
-    else
-    {
-        if (pIndex == 0)
-            tmpIndex = m_tree->topLevelItemCount() - 1;
-        else
-            tmpIndex = pIndex - 1;
-    }
-    m_sl1BottomLabel->setText(QString("#%1").arg(m_primaryLeft ? pIndex + 1 : tmpIndex + 1));
+    int tmpIndex = m_runner->computeNextStep(index);
+
+    m_sl1BottomLabel->setText(QString("#%1").arg(m_primaryLeft ? index + 1 : tmpIndex + 1));
     m_sl1BottomLabel->setStyleSheet(m_primaryLeft ? m_blueStyle : m_orangeStyle);
 
-    m_sl2BottomLabel->setText(QString("#%1").arg(m_primaryLeft ? tmpIndex + 1 : pIndex + 1));
+    m_sl2BottomLabel->setText(QString("#%1").arg(m_primaryLeft ? tmpIndex + 1 : index + 1));
     m_sl2BottomLabel->setStyleSheet(m_primaryLeft ? m_orangeStyle : m_blueStyle);
 
     // reset any previously set background
@@ -659,7 +641,7 @@ void VCCueList::slotSlider1ValueChanged(int value)
             m_tree->scrollToItem(item, QAbstractItemView::PositionAtCenter);
             m_tree->setCurrentItem(item);
         }
-        setSlidersInfo(m_primaryIndex, NULL);
+        setSlidersInfo(m_primaryIndex);
     }
     updateFeedback();
 }
@@ -701,7 +683,7 @@ void VCCueList::slotSlider2ValueChanged(int value)
             m_tree->scrollToItem(item, QAbstractItemView::PositionAtCenter);
             m_tree->setCurrentItem(item);
         }
-        setSlidersInfo(m_primaryIndex, NULL);
+        setSlidersInfo(m_primaryIndex);
     }
     updateFeedback();
 }
@@ -724,11 +706,11 @@ void VCCueList::writeDMX(MasterTimer* timer, QList<Universe*> universes)
             delete m_runner;
             m_runner = NULL;
             m_stop = false;
-            Chaser* chaser = qobject_cast<Chaser*> (m_doc->function(m_chaserID));
-            if (chaser != NULL)
+            Chaser* ch = chaser();
+            if (ch != NULL)
             {
-                chaser->stop();
-                chaser->useInternalRunner(true);
+                ch->stop();
+                ch->useInternalRunner(true);
             }
         }
     }
@@ -988,7 +970,7 @@ QString VCCueList::getJS()
 
       "function setCueIndex(id, idx) {\n"
       " var oldIdx = cueListsIndices[id];\n"
-      " if (oldIdx != undefined) {\n"
+      " if (oldIdx != undefined && oldIdx != -1) {\n"
       "   var oldCueObj = document.getElementById(id + \"_\" + oldIdx);\n"
       "   oldCueObj.style.backgroundColor='#FFFFFF';\n"
       " }\n"
@@ -1042,7 +1024,7 @@ void VCCueList::playCueAtIndex(int idx)
     else
         m_runner->setCurrentStep(m_primaryIndex, (qreal)m_slider1->value() / 100);
 
-    setSlidersInfo(m_primaryIndex, NULL);
+    setSlidersInfo(m_primaryIndex);
     m_mutex.unlock();
 }
 

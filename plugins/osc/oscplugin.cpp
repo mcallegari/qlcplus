@@ -359,7 +359,7 @@ quint16 OSCPlugin::getHash(quint32 line, QString path)
 
 void OSCPlugin::sendValueChanged(quint32 input, QString path, uchar value)
 {
-    emit valueChanged(input, getHash(input, path), value, path);
+    emit valueChanged(UINT_MAX, input, getHash(input, path), value, path);
 }
 
 /*********************************************************************

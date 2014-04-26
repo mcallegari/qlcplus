@@ -4,6 +4,7 @@ TEMPLATE = subdirs
 TARGET = profiles
 
 profiles.files += Akai-APC20.qxi
+profiles.files += Akai-APC40.qxi
 profiles.files += Behringer-BCF2000.qxi
 profiles.files += Behringer-BCF2000inMackieControlMode.qxi
 profiles.files += Behringer-LC2412.qxi

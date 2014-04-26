@@ -64,6 +64,7 @@ InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
     , m_uniNameEdit(NULL)
     , m_uniPassthroughCheck(NULL)
     , m_editor(NULL)
+    , m_editorUniverse(UINT_MAX)
 {
     Q_ASSERT(s_instance == NULL);
     s_instance = this;
@@ -157,7 +158,7 @@ InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
             this, SLOT(updateList()));
 
     connect(m_ioMap, SIGNAL(universeAdded(quint32)),
-            this, SLOT(slotUniverseAdded()));
+            this, SLOT(slotUniverseAdded(quint32)));
 
     updateList();
     m_list->setCurrentItem(m_list->item(0));
@@ -187,9 +188,11 @@ InputOutputManager* InputOutputManager::instance()
 
 void InputOutputManager::updateList()
 {
+    m_list->blockSignals(true);
     m_list->clear();
     for (quint32 uni = 0; uni < m_ioMap->universes(); uni++)
         updateItem(new QListWidgetItem(m_list), uni);
+    m_list->blockSignals(false);
 
     if (m_ioMap->universes() == 0)
     {
@@ -208,7 +211,7 @@ void InputOutputManager::updateList()
         m_deleteUniverseAction->setEnabled(true);
         m_list->setCurrentItem(m_list->item(0));
         m_uniNameEdit->setEnabled(true);
-        m_uniNameEdit->setText(m_ioMap->getUniverseName(0));
+        m_uniNameEdit->setText(m_ioMap->getUniverseNameByIndex(0));
         m_uniPassthroughCheck->setChecked(m_ioMap->getUniversePassthrough(0));
     }
 }
@@ -221,7 +224,7 @@ void InputOutputManager::updateItem(QListWidgetItem* item, quint32 universe)
     OutputPatch* op = m_ioMap->outputPatch(universe);
     OutputPatch* fp = m_ioMap->feedbackPatch(universe);
 
-    QString uniName = m_ioMap->getUniverseName(universe);
+    QString uniName = m_ioMap->getUniverseNameByIndex(universe);
     if (uniName.isEmpty())
     {
         QString defUniName = tr("Universe %1").arg(universe + 1);
@@ -295,6 +298,10 @@ void InputOutputManager::slotCurrentItemChanged()
     if (item == NULL)
         return;
 
+    quint32 universe = item->data(Qt::UserRole).toInt();
+    if (m_editorUniverse == universe)
+        return;
+
     if (m_editor != NULL)
     {
         m_splitter->widget(1)->layout()->removeWidget(m_editor);
@@ -302,14 +309,15 @@ void InputOutputManager::slotCurrentItemChanged()
         m_editor = NULL;
     }
 
-    quint32 universe = item->data(Qt::UserRole).toInt();
+
     m_editor = new InputOutputPatchEditor(this, universe, m_ioMap, m_doc);
+    m_editorUniverse = universe;
     m_splitter->widget(1)->layout()->addWidget(m_editor);
     connect(m_editor, SIGNAL(mappingChanged()), this, SLOT(slotMappingChanged()));
     connect(m_editor, SIGNAL(audioInputDeviceChanged()), this, SLOT(slotAudioInputChanged()));
     m_editor->show();
     int uniIdx = m_list->currentRow();
-    m_uniNameEdit->setText(m_ioMap->getUniverseName(uniIdx));
+    m_uniNameEdit->setText(m_ioMap->getUniverseNameByIndex(uniIdx));
     m_uniPassthroughCheck->setChecked(m_ioMap->getUniversePassthrough(uniIdx));
 }
 
@@ -333,7 +341,6 @@ void InputOutputManager::slotAddUniverse()
 {
     m_ioMap->addUniverse();
     m_doc->setModified();
-    updateList();
 }
 
 void InputOutputManager::slotDeleteUniverse()
@@ -392,9 +399,10 @@ void InputOutputManager::slotUniverseNameChanged(QString name)
     currItem->setData(Qt::DisplayRole, name);
 }
 
-void InputOutputManager::slotUniverseAdded()
+void InputOutputManager::slotUniverseAdded(quint32 universe)
 {
-    updateList();
+    QListWidgetItem *item = new QListWidgetItem(m_list);
+    updateItem(item, universe);
 }
 
 void InputOutputManager::slotPassthroughChanged(bool checked)
@@ -405,5 +413,6 @@ void InputOutputManager::slotPassthroughChanged(bool checked)
 
     int uniIdx = m_list->currentRow();
     m_ioMap->setUniversePassthrough(uniIdx, checked);
+    m_doc->inputOutputMap()->saveDefaults();
 }
 

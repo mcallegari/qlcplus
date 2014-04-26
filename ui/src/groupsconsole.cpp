@@ -62,7 +62,7 @@ void GroupsConsole::init()
     foreach(quint32 id, m_ids)
     {
         ChannelsGroup *grp = m_doc->channelsGroup(id);
-        if (grp->getChannels().count() > 0)
+        if (grp != NULL && grp->getChannels().count() > 0)
         {
             SceneValue scv = grp->getChannels().at(0);
 

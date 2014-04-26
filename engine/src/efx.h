@@ -62,6 +62,9 @@ class Fixture;
 #define KXMLQLCEFXLineAlgorithmName "Line"
 #define KXMLQLCEFXLine2AlgorithmName "Line2"
 #define KXMLQLCEFXDiamondAlgorithmName "Diamond"
+#define KXMLQLCEFXSquareAlgorithmName "Square"
+#define KXMLQLCEFXSquareChoppyAlgorithmName "SquareChoppy"
+#define KXMLQLCEFXLeafAlgorithmName "Leaf"
 #define KXMLQLCEFXLissajousAlgorithmName "Lissajous"
 
 /**
@@ -106,6 +109,12 @@ public:
     virtual void setDuration(uint ms);
 
     /*********************************************************************
+     * UI State
+     *********************************************************************/
+private:
+    virtual FunctionUiState * createUiState();
+
+    /*********************************************************************
      * Algorithm
      *********************************************************************/
 public:
@@ -116,6 +125,9 @@ public:
         Line,
         Line2,
         Diamond,
+        Square,
+        SquareChoppy,
+        Leaf,
         Lissajous
     };
 

@@ -131,13 +131,14 @@ void E131Plugin::openOutput(quint32 output)
     {
         m_IOmapping[output].controller->setType(
                     (E131Controller::Type)(m_IOmapping[output].controller->type() | E131Controller::Output));
+        m_IOmapping[output].controller->changeReferenceCount(E131Controller::Output, +1);
         return;
     }
 
     // not open ? Create a new E131Controller
     E131Controller *controller = new E131Controller(m_IOmapping.at(output).IPAddress,
                                                     m_IOmapping.at(output).MACAddress,
-                                                    E131Controller::Output, this);
+                                                    E131Controller::Output, output, this);
     m_IOmapping[output].controller = controller;
 
 }
@@ -149,13 +150,15 @@ void E131Plugin::closeOutput(quint32 output)
     E131Controller *controller = m_IOmapping.at(output).controller;
     if (controller != NULL)
     {
+        controller->changeReferenceCount(E131Controller::Output, -1);
         // if a E131Controller is also open as input
         // then just remove the output capability
         if (controller->type() & E131Controller::Input)
         {
             controller->setType(E131Controller::Input);
         }
-        else // otherwise destroy it
+        if (controller->referenceCount(E131Controller::Input) == 0 &&
+            controller->referenceCount(E131Controller::Output) == 0)
         {
             delete m_IOmapping[output].controller;
             m_IOmapping[output].controller = NULL;
@@ -177,6 +180,10 @@ QStringList E131Plugin::inputs()
 {
     QStringList list;
     int j = 0;
+
+    if (m_IOmapping.count() == 0)
+        init();
+
     foreach (E131IO line, m_IOmapping)
     {
         list << QString(tr("%1: %2")).arg(j + 1).arg(line.IPAddress);
@@ -187,6 +194,9 @@ QStringList E131Plugin::inputs()
 
 void E131Plugin::openInput(quint32 input)
 {
+    if (m_IOmapping.count() == 0)
+        init();
+
     if (input >= (quint32)m_IOmapping.length())
         return;
 
@@ -197,15 +207,16 @@ void E131Plugin::openInput(quint32 input)
     {
         m_IOmapping[input].controller->setType(
                     (E131Controller::Type)(m_IOmapping[input].controller->type() | E131Controller::Input));
+        m_IOmapping[input].controller->changeReferenceCount(E131Controller::Input, +1);
         return;
     }
 
     // not open ? Create a new ArtNetController
     E131Controller *controller = new E131Controller(m_IOmapping.at(input).IPAddress,
                                                     m_IOmapping.at(input).MACAddress,
-                                                    E131Controller::Input, this);
-    connect(controller, SIGNAL(valueChanged(quint32,quint32,uchar)),
-            this, SIGNAL(valueChanged(quint32,quint32,uchar)));
+                                                    E131Controller::Input, input, this);
+    connect(controller, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
+            this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
     m_IOmapping[input].controller = controller;
 }
 
@@ -216,13 +227,15 @@ void E131Plugin::closeInput(quint32 input)
     E131Controller *controller = m_IOmapping.at(input).controller;
     if (controller != NULL)
     {
+        controller->changeReferenceCount(E131Controller::Input, -1);
         // if a E131Controller is also open as output
         // then just remove the input capability
         if (controller->type() & E131Controller::Output)
         {
             controller->setType(E131Controller::Output);
         }
-        else // otherwise destroy it
+        if (controller->referenceCount(E131Controller::Input) == 0 &&
+            controller->referenceCount(E131Controller::Output) == 0)
         {
             delete m_IOmapping[input].controller;
             m_IOmapping[input].controller = NULL;

@@ -131,6 +131,13 @@ void QLCFixtureHead::cacheChannels(const QLCFixtureMode* mode)
     while (it.hasNext() == true)
     {
         quint32 i(it.next());
+
+        if ((int)i >= mode->channels().size())
+        {
+            qDebug() << "Head contains undefined channel" << i;
+            continue;
+        }
+
         const QLCChannel* ch = mode->channels().at(i);
         Q_ASSERT(ch != NULL);
 

@@ -14,6 +14,8 @@ INCLUDEPATH += ../interfaces
 macx: {
     #CONFIG    += link_pkgconfig
     #PKGCONFIG += libola libolaserver
+    QMAKE_CXXFLAGS_X86_64 -= -mmacosx-version-min=10.5
+    QMAKE_CXXFLAGS_X86_64 += -mmacosx-version-min=10.7
     INCLUDEPATH += /opt/local/include
     LIBS      += -L/opt/local/lib -lolaserver -lola -lolacommon -lprotobuf
 } else {
@@ -43,6 +45,7 @@ TRANSLATIONS += OLA_fr_FR.ts
 TRANSLATIONS += OLA_it_IT.ts
 TRANSLATIONS += OLA_nl_NL.ts
 TRANSLATIONS += OLA_cz_CZ.ts
+TRANSLATIONS += OLA_pt_BR.ts
 
 # This must be after "TARGET = " and before target installation so that
 # install_name_tool can be run before target installation

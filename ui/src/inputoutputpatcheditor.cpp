@@ -284,7 +284,8 @@ void InputOutputPatchEditor::fillMappingTree()
                 if (inputs.contains(outputs.at(o)) == false)
                 {
                     quint32 outUni = m_ioMap->outputMapping(pluginName, outputId);
-                    if (outUni == InputOutputMap::invalidUniverse() || outUni == m_universe)
+                    if (outUni == InputOutputMap::invalidUniverse() ||
+                        (outUni == m_universe || plugin->capabilities() & QLCIOPlugin::Infinite))
                     {
                         //qDebug() << "Plugin: " << pluginName << ", output: " << id << ", universe:" << outUni;
                         QTreeWidgetItem* pitem = new QTreeWidgetItem(m_mapTree);

@@ -5,11 +5,15 @@ LANGUAGE = C++
 TARGET   = peperoni
 
 QT          += core gui
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4) {
+  QT += widgets
+  macx:QT_CONFIG -= no-pkg-config
+}
 CONFIG      += plugin
 CONFIG      += link_pkgconfig
 PKGCONFIG   += libusb
 INCLUDEPATH += ../../interfaces
+INCLUDEPATH += ../common
 
 HEADERS += peperonidevice.h \
            peperoni.h

@@ -104,9 +104,14 @@ public:
     quint32 id() const;
 
     /**
-     * Retrieve the number of used channels in this universe
+     * Returns the number of channels used in this universe
      */
-    short usedChannels();
+    ushort usedChannels();
+
+    /**
+     * Returns the total number of channels in this universe
+     */
+    ushort totalChannels();
 
     /**
      * Reset the change flag. To be used every MasterTimer tick
@@ -127,6 +132,16 @@ public:
      * Returns if the universe is in passthrough mode
      */
     bool passthrough() const;
+
+    /**
+     * Enable or disable the monitor mode for this universe
+     */
+    void setMonitor(bool enable);
+
+    /**
+     * Returns if the universe is in monitor mode
+     */
+    bool monitor() const;
 
 protected slots:
     /**
@@ -154,6 +169,8 @@ protected:
     GrandMaster *m_grandMaster;
     /** Variable that determine if a universe is in passthrough mode */
     bool m_passthrough;
+    /** Flag to monitor the universe changes */
+    bool m_monitor;
 
     /************************************************************************
      * Patches
@@ -186,6 +203,11 @@ public:
      */
     OutputPatch* feedbackPatch() const;
 
+    /**
+     * This is the actual function that writes data to an output patch
+     */
+    void dumpOutput(const QByteArray& data);
+
 protected slots:
     /** Slot called every time an input patch sends data */
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value, const QString& key = 0);
@@ -216,7 +238,7 @@ public:
      * @param group The group this channel belongs to
      * @param isHTP Flag to force HTP/LTP behaviour
      */
-    void setChannelCapability(ushort channel, QLCChannel::Group group, bool isHTP = false);
+    void setChannelCapability(ushort channel, QLCChannel::Group group, ChannelType forcedType = Undefined);
 
     /** Retrieve the capability mask of the given channel index
      *
@@ -261,6 +283,14 @@ public:
      */
     const QByteArray preGMValues() const;
 
+    /**
+     * Get the current pre-Grand-Master value (used by functions and everyone
+     * else INSIDE QLC) at specified address.
+     *
+     * @return The current value at address
+     */
+    uchar preGMValue(int address) const;
+
     /** Set all intensity channel values to zero */
     void zeroIntensityChannels();
 
@@ -272,7 +302,15 @@ public:
 
 protected:
     /** Number of channels used in this universe to optimize dump to plugins */
-    short m_usedChannels;
+    ushort m_usedChannels;
+    /** Total number of channels used in this fixture */
+    ushort m_totalChannels;
+    /**
+     *  Flag that holds if the total number of channels have changed.
+     *  This is used to inform the output patch (if present) how many
+     *  channels to expect
+     */
+    bool m_totalChannelsChanged;
     /** Flag to indicate if the universe has changed */
     bool m_hasChanged;
     /** A list of intensity channels to optimize operations on HTP/LTP channels */

@@ -66,6 +66,7 @@ HEADERS += aboutbox.h \
            fixturegroupeditor.h \
            fixturemanager.h \
            fixtureselection.h \
+           fixturetreewidget.h \
            functionmanager.h \
            fixtureremap.h \
            functionliveeditdialog.h \
@@ -84,15 +85,16 @@ HEADERS += aboutbox.h \
            monitorfixtureitem.h \
            monitorgraphicsview.h \
            monitorlayout.h \
+           monitorfixturepropertieseditor.h \
            multitrackview.h \
            palettegenerator.h \
            playbackslider.h \
+           positiontool.h \
            remapwidget.h \
            rgbmatrixeditor.h \
            rgbitem.h \
            sceneeditor.h \
            sceneitems.h \
-           sceneselection.h \
            scripteditor.h \
            selectinputchannel.h \
            showeditor.h \
@@ -154,9 +156,10 @@ FORMS += aboutbox.ui \
          inputchanneleditor.ui \
          inputoutputpatcheditor.ui \
          inputprofileeditor.ui \
+         monitorfixturepropertieseditor.ui \
+         positiontool.ui \
          rgbmatrixeditor.ui \
          sceneeditor.ui \
-         sceneselection.ui \
          scripteditor.ui \
          selectinputchannel.ui \
          showeditor.ui \
@@ -203,6 +206,7 @@ SOURCES += aboutbox.cpp \
            fixturemanager.cpp \
            fixtureremap.cpp \
            fixtureselection.cpp \
+           fixturetreewidget.cpp \
            functionliveeditdialog.cpp \
            functionmanager.cpp \
            functionselection.cpp \
@@ -220,15 +224,16 @@ SOURCES += aboutbox.cpp \
            monitorfixtureitem.cpp \
            monitorgraphicsview.cpp \
            monitorlayout.cpp \
+           monitorfixturepropertieseditor.cpp \
            multitrackview.cpp \
            palettegenerator.cpp \
            playbackslider.cpp \
+           positiontool.cpp \
            remapwidget.cpp \
            rgbmatrixeditor.cpp \
            rgbitem.cpp \
            sceneeditor.cpp \
            sceneitems.cpp \
-           sceneselection.cpp \
            scripteditor.cpp \
            selectinputchannel.cpp \
            showeditor.cpp \
@@ -266,6 +271,12 @@ SOURCES += aboutbox.cpp \
            vcxypadfixtureeditor.cpp \
            vcxypadproperties.cpp \
            virtualconsole.cpp
+           
+greaterThan(QT_MAJOR_VERSION, 4) {
+HEADERS += videoeditor.h
+FORMS += videoeditor.ui
+SOURCES += videoeditor.cpp
+}
 
 TRANSLATIONS += qlcplus_fi_FI.ts
 TRANSLATIONS += qlcplus_fr_FR.ts
@@ -274,6 +285,7 @@ TRANSLATIONS += qlcplus_de_DE.ts
 TRANSLATIONS += qlcplus_it_IT.ts
 TRANSLATIONS += qlcplus_nl_NL.ts
 TRANSLATIONS += qlcplus_cz_CZ.ts
+TRANSLATIONS += qlcplus_pt_BR.ts
 
 macx {
     # This must be after "TARGET = " and before target installation so that

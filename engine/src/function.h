@@ -36,6 +36,8 @@ class Function;
 class Universe;
 class Doc;
 
+class FunctionUiState;
+
 /** @addtogroup engine Engine
  * @{
  */
@@ -92,6 +94,9 @@ public:
         RGBMatrix  = 1 << 5,
         Show       = 1 << 6,
         Audio      = 1 << 7
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+        , Video    = 1 << 8
+#endif
     };
 
     /**
@@ -255,7 +260,7 @@ protected:
      * Running order
      *********************************************************************/
 public:
-    enum RunOrder {	Loop, SingleShot, PingPong };
+    enum RunOrder { Loop, SingleShot, PingPong, Random };
 
 public:
     /**
@@ -404,6 +409,19 @@ private:
     uint m_overrideFadeInSpeed;
     uint m_overrideFadeOutSpeed;
     uint m_overrideDuration;
+
+    /*********************************************************************
+     * UI State
+     *********************************************************************/
+public:
+    FunctionUiState * uiState();
+    const FunctionUiState * uiState() const;
+
+private:
+    virtual FunctionUiState * createUiState();
+
+private:
+    FunctionUiState * m_uiState;
 
     /*********************************************************************
      * Fixtures

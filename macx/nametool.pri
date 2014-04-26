@@ -27,6 +27,12 @@ include(libqtxml-nametool.pri)
 include(libqtcore-nametool.pri)
 include(libqtnetwork-nametool.pri)
 include(libqtscript-nametool.pri)
+greaterThan(QT_MAJOR_VERSION, 4) {
+  include(libqtwidgets-nametool.pri)
+  include(libqtmultimedia-nametool.pri)
+  include(libqtmultimediawidgets-nametool.pri)
+  include(libqtopengl-nametool.pri)
+}
 include(imageformats-nametool.pri)
 include(libqlcplusengine-nametool.pri)
 include(libqlcplusui-nametool.pri)

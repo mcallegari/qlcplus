@@ -1,20 +1,106 @@
+qlcplus (4.7.2) stable; urgency=low
+
+  * DIP switch tool: it is now possible to manually set a DIP configuration (thanks to Florian Euchner)
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 24 May 2014 12:13:14 +0200
+
+qlcplus (4.7.1) stable; urgency=low
+
+  * Monitor: fixed crash when loading a project with the monitor open
+  * Monitor: show channel's icon in DMX view mode
+  * Monitor: added 2D view Fixture item editor. Can set position, rotation and gel color
+  * Show Manager: fixed common speed mode for Sequence steps
+  * Show Manager: it is no more necessary to create a Scene to add audio tracks
+  * Show Manager: improved import of existing Functions
+  * Show Manager: highlight the clicked step
+  * Chaser Editor: Sequences in Function Manager can have Run Order and Direction
+  * Function Manager: fixed nested folders failure
+  * Scene Editor: fixed crash when a group used by a Scene has been removed
+  * Audio/OSX: fixed crash happening at the end of playback
+  * Audio/Linux: if the selected playback device is not present, fall back to the default device 
+  * Webaccess: fixed Cue list play/stop sequence working only once
+  * Webaccess: fixed sliders movement on a touchscreen
+  * Plugins: Fixed ArtNet input universe indexing
+  * Plugins: fixed ArtNet and E1.31 open/close when the same line is connected to several universes
+  * Plugins: fixed ArtNet and E1.31 input association when the same line is connected to several universes
+  * Plugins: implemented SPI autodetection of multiple universe channels when no fixtures are defined
+  * Added fixture: Pro-Lights ARCLED7314HD (thanks to Tolmino)
+  * Added fixture: American DJ Inno Spot LED (thanks to Paul Hill)
+  * Added fixture: American DJ Sweeper Beam LED (thanks to George Qualley)
+  * Added fixture: Contest Tri4U (thanks to Nicolas K)
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 26 April 2014 12:13:14 +0200
+
 qlcplus (4.7.0) stable; urgency=low
+
+  * NEW: New EFX types Square, SquareChoppy & Leaf (thanks to David Garyga)
+  * NEW: Random order for chasers (Jano Svitok) 
+  * Monitor: Added support for dimmer channels, Pan, Tilt, color gels and fixture labels
+  * Monitor: can monitor universes even if they're not patched to an output
+  * Audio Editor: added source file, speed dials and preview buttons
+  * Simple Desk: highlight channels in red when manually moved
+  * Fixture selection: it is now possible to add groups or a whole universe to a Scene
+  * Chaser Editor: fixed some cases of manual adjustments of steps timings
+  * Scene Editor: fixed copy&paste of selected values in all fixtures view mode
+  * Plugins: Added enttecdmxusbopen/channels to tune the maximum number of transmitted channels for 
+             Enttec Open and clones. This could solve flickering issues in some cases. (thanks to Daniel Torres)
+  * Plugins: DMX USB FX5 is now supported on OSX too
+  * Plugins: Added a +1 to the transmitted ArtNet universe
+  * Added portuguese translation (thanks to Nuno Almeida)
+  * Added fixture: Ledj Performer 18-Quad (thanks to Michael Clements)
+  * Added fixture: Optima Lighting PAR64 LED (thanks to Ryan Kelley)
+  * Added fixtures: Cameo Flat PAR CAN TRI 3W, Stairville maTrixx SC-100, Varytec LED Magic Mushroom (thanks to Jan Nolte)
+  * Added fixture: Stairville LED bar 240/8 RGB (thanks to Mikko Toivonen)
+  * Added fixture: Martin MAC 301 Wash, Martin MAC 700 Profile (thanks to Paul Evans, bwerst)
+  * Added fixture: BoomToneDJ Slim PAR 7x3W LED RGB, Showtec Event Spot 1800 Q4 (thanks to Lorenzo Andreani)
+  * Added fixtures: Eurolite LED PAR 56 RGB DMX, Expolite TourLed 42 (thanks to Frank Janosch)
+  * Added fixture: Robe ColorSpot 700E AT (thanks to NiKoyes)
+  * Added fixture: Chauvet SlimPAR TRI 12 IRC (thanks to Alessandro Grechi)
+  * Added fixture: Chauvet EZPAR 64 RGBA (thanks to Ronnie Ross)
+  * Added fixture: beamZ LS 3DRG (thanks to Julian Brennum)
+  * Added fixtures: Chauvet Intimidator Scan LED 300, Chauvet Legend 230SR Beam (thanks to Craig Cudmore)
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 5 April 2014 12:13:14 +0200
+
+qlcplus (4.7.0.RC1) unstable; urgency=low
 
   * NEW: Input/Output: QLC+ now supports infinite universes
   * NEW: Input/Output: added universe passthrough mode
   * NEW: Plugins: ArtNet and E1.31 plugins support up to 65535 universes
-  * NEW: Monitor: preliminary support of 2D preview
-  * Function Selection: fixed Collection selection
+  * NEW: Fixture Manager: Added a dedicated dialog to quickly create RGB panels
+  * NEW: Monitor: preliminary support of 2D preview monitor
+  * NEW: RGBMatrix: added audio spectrum mode
+  * NEW: Simple Desk: added channel groups tab
+  * NEW: Plugins: Added SPI plugin (Linux only)
+  * NEW: Plugins: Added FX5 support on Windows & Linux (thanks to Florian Euchner)
+  * NEW: Plugins: Added Vince DMX512 USB adapter support (thanks to Jérôme Lebleu)
+  * NEW: Position Tool: XY Pad-like position setting in Scene editor (Jano Svitok)
+  * NEW: XY Pad shows pan/tilt coordinates (Jano Svitok)
+  * NEW: XY Pad keyboard controls: Shift+arrows - fine control, Ctrl+arrows - 10x speed, Ctrl+Shift+arrows - faster fine control (Jano Svitok)
+  * NEW: Fixture Manager: Fixtures channels can now be manually forced to HTP/LTP
+  * Function Selection: fixed OK button greyed out and various crashes
   * MIDI plugin: Linux support for pitch wheel and note/channel aftertouch (Jano Svitok)
-  * MIDI plugin: improved pitch wheel and input/output settings (Robert Scheffler)
+  * MIDI plugin: improved pitch wheel and input/output settings (thanks to Robert Scheffler)
+  * Webaccess: fixed positioning of headerless frames
+  * Monitor: added combo box to select which universe to monitor
+  * Editors: fixed crashes when deleting running functions (thanks to plugz)
+  * Plugins: added HID joysticks support on Windows
   * Documentation: Added Sound Control tutorial (Jano Svitok)
   * Added input profile: BCF2000 in Mackie Control mode - all buttons are usable (Jano Svitok)
+  * Added input profile: Akai APC40 (thanks to Daniel Curry)
   * Added fixtures: DTS Max FAR, DTS Nick NRG1201 (thanks to Vasily Leushin)
   * Added fixture: AGPtek RGB 6ch Crystal Ball (thanks to Davey Daytona)
   * Added fixture: American DJ Tribar Spot2 (thanks to Rob Goudriaan)
   * Added fixture: iSolution iMove 5 Series (thanks to Dave Doyle)
+  * Added fixtures: Chauvet Intimidator Beam LED 350, Spot LED 250/350 (thanks to Robert Scheffler)
+  * Added fixtures: Alkalite Octopod DP-80, Eurolite LED DMX Pixel Tube 16 RGB (thanks to Ryan Gough)
+  * Added fixtures: Stairville Quad Par Profile RGBW 5x8W, Stairville DDS 405 (thanks to Nicolas Rasor)
+  * Added fixtures: American DJ P64 LED Plus, American DJ SP1500 MKII, Laserworld EL 200RGY, Botex DSP-405
+  * Added fixture: Showtec Quatro (thanks to Florian Euchner)
+  * Added fixtures: Chauvet SlimPAR 64, Chauvet Q-Spot 560-LED (thanks to Chris Laurie)
+  * Added fixture: Showtec Phantom 250 Wash (thanks to Cingulingu)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 15 February 2014 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 9 March 2014 12:13:14 +0200
 
 qlcplus (4.6.1) stable; urgency=low
 

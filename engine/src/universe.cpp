@@ -21,12 +21,13 @@
 #include <QDomElement>
 #include <math.h>
 
-#include "universe.h"
 #include "inputoutputmap.h"
-#include "inputpatch.h"
+#include "qlcioplugin.h"
 #include "outputpatch.h"
 #include "grandmaster.h"
+#include "inputpatch.h"
 #include "qlcmacros.h"
+#include "universe.h"
 
 #define UNIVERSE_SIZE 512
 #define RELATIVE_ZERO 127
@@ -36,10 +37,13 @@ Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
     , m_id(id)
     , m_grandMaster(gm)
     , m_passthrough(false)
+    , m_monitor(false)
     , m_inputPatch(NULL)
     , m_outputPatch(NULL)
     , m_fbPatch(NULL)
     , m_usedChannels(0)
+    , m_totalChannels(0)
+    , m_totalChannelsChanged(false)
     , m_hasChanged(false)
     , m_channelsMask(new QByteArray(UNIVERSE_SIZE, char(0)))
     , m_preGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
@@ -91,9 +95,14 @@ quint32 Universe::id() const
     return m_id;
 }
 
-short Universe::usedChannels()
+ushort Universe::usedChannels()
 {
     return m_usedChannels;
+}
+
+ushort Universe::totalChannels()
+{
+    return m_totalChannels;
 }
 
 void Universe::resetChanged()
@@ -141,6 +150,16 @@ bool Universe::passthrough() const
     return m_passthrough;
 }
 
+void Universe::setMonitor(bool enable)
+{
+    m_monitor = enable;
+}
+
+bool Universe::monitor() const
+{
+    return m_monitor;
+}
+
 void Universe::slotGMValueChanged()
 {
 //  if (m_grandMaster->channelMode() == GrandMaster::Intensity)
@@ -149,7 +168,7 @@ void Universe::slotGMValueChanged()
         while (it.hasNext() == true)
         {
             int channel(it.next());
-            char chValue(m_preGMValues->data()[channel]);
+            char chValue(m_preGMValues->at(channel));
             write(channel, chValue);
         }
     }
@@ -160,7 +179,7 @@ void Universe::slotGMValueChanged()
         while (it.hasNext() == true)
         {
             int channel(it.next());
-            char chValue(m_preGMValues->data()[channel]);
+            char chValue(m_preGMValues->at(channel));
             write(channel, chValue);
         }
     }
@@ -181,8 +200,8 @@ void Universe::reset(int address, int range)
 {
     for (int i = address; i < address + range && i < UNIVERSE_SIZE; i++)
     {
-        m_preGMValues->data()[i] = 0;
-        m_postGMValues->data()[i] = 0;
+        (*m_preGMValues)[i] = 0;
+        (*m_postGMValues)[i] = 0;
         m_relativeValues[i] = 0;
     }
 }
@@ -193,8 +212,8 @@ void Universe::zeroIntensityChannels()
     while (it.hasNext() == true)
     {
         int channel(it.next());
-        m_preGMValues->data()[channel] = 0;
-        m_postGMValues->data()[channel] = 0;
+        (*m_preGMValues)[channel] = 0;
+        (*m_postGMValues)[channel] = 0;
         m_relativeValues[channel] = 0;
     }
 }
@@ -206,7 +225,7 @@ QHash<int, uchar> Universe::intensityChannels()
     while (it.hasNext() == true)
     {
         int channel(it.next());
-        intensityList[channel] = m_preGMValues->data()[channel];
+        intensityList[channel] = m_preGMValues->at(channel);
     }
     return intensityList;
 }
@@ -226,6 +245,14 @@ const QByteArray Universe::preGMValues() const
     if (m_preGMValues->isNull())
         return QByteArray();
     return *m_preGMValues;
+}
+
+uchar Universe::preGMValue(int address) const
+{
+    if (m_preGMValues == NULL || address >= m_preGMValues->size())
+        return 0;
+ 
+    return uchar(m_preGMValues->at(address));
 }
 
 uchar Universe::applyGM(int channel, uchar value)
@@ -260,7 +287,8 @@ bool Universe::isPatched()
 bool Universe::setInputPatch(QLCIOPlugin *plugin,
                              quint32 input, QLCInputProfile *profile)
 {
-    qDebug() << Q_FUNC_INFO << "plugin:" << plugin << "input:" << input << "profile:" << profile;
+    qDebug() << "[Universe] setInputPatch - ID:" << m_id << ", plugin:" << ((plugin == NULL)?"None":plugin->name())
+             << ", input:" << input << ", profile:" << ((profile == NULL)?"None":profile->name());
     if (m_inputPatch == NULL)
     {
         if (input == QLCChannel::invalid())
@@ -296,7 +324,8 @@ bool Universe::setInputPatch(QLCIOPlugin *plugin,
 
 bool Universe::setOutputPatch(QLCIOPlugin *plugin, quint32 output)
 {
-    qDebug() << Q_FUNC_INFO << "plugin:" << plugin << "output:" << output;
+    qDebug() << "[Universe] setInputPatch - ID:" << m_id
+             << ", plugin:" << ((plugin == NULL)?"None":plugin->name()) << ", output:" << output;
     if (m_outputPatch == NULL)
     {
         if (output == QLCChannel::invalid())
@@ -355,11 +384,27 @@ OutputPatch *Universe::feedbackPatch() const
     return m_fbPatch;
 }
 
+void Universe::dumpOutput(const QByteArray &data)
+{
+    if (m_outputPatch == NULL)
+        return;
+
+    if (m_totalChannelsChanged == true)
+    {
+        QString chProperty = QString("UniverseChannels-%1").arg(m_id);
+        QVariant chVal(m_totalChannels);
+        m_outputPatch->setPluginProperty(chProperty, chVal);
+        m_totalChannelsChanged = false;
+    }
+    m_outputPatch->dump(m_id, data);
+}
+
 void Universe::slotInputValueChanged(quint32 universe, quint32 channel, uchar value, const QString &key)
 {
     if (m_passthrough == true)
     {
-        write(channel, value);
+        if (universe == m_id)
+            write(channel, value);
     }
     else
         emit inputValueChanged(universe, channel, value, key);
@@ -369,32 +414,38 @@ void Universe::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
  * Channels capabilities
  ************************************************************************/
 
-void Universe::setChannelCapability(ushort channel, QLCChannel::Group group, bool isHTP)
+void Universe::setChannelCapability(ushort channel, QLCChannel::Group group, ChannelType forcedType)
 {
     if (channel >= (ushort)m_channelsMask->count())
         return;
 
-    if (isHTP == true)
+    if (forcedType != Undefined)
     {
-        // qDebug() << "--- Forced HTP";
-        m_channelsMask->data()[channel] = char(HTP);
+        //qDebug() << "--- Channel" << channel << "forced type" << forcedType;
+        (*m_channelsMask)[channel] = char(forcedType);
     }
     else
     {
         if (group == QLCChannel::Intensity)
         {
-            // qDebug() << "--- Intensity + HTP";
-            m_channelsMask->data()[channel] = char(HTP | Intensity);
+            //qDebug() << "--- Channel" << channel << "Intensity + HTP";
+            (*m_channelsMask)[channel] = char(HTP | Intensity);
             m_intensityChannels << channel;
         }
         else
         {
-            // qDebug() << "--- LTP";
-            m_channelsMask->data()[channel] = char(LTP);
+            //qDebug() << "--- Channel" << channel << " is LTP";
+            (*m_channelsMask)[channel] = char(LTP);
             m_nonIntensityChannels << channel;
         }
     }
     // qDebug() << Q_FUNC_INFO << "Channel:" << channel << "mask:" << QString::number(m_channelsMask->at(channel), 16);
+    if (channel >= m_totalChannels)
+    {
+        m_totalChannels = channel + 1;
+        m_totalChannelsChanged = true;
+    }
+
     return;
 }
 
@@ -403,7 +454,7 @@ uchar Universe::channelCapabilities(ushort channel)
     if (channel >= (ushort)m_channelsMask->count())
         return Undefined;
 
-    return m_channelsMask->data()[channel];
+    return m_channelsMask->at(channel);
 }
 
 /****************************************************************************
@@ -427,18 +478,18 @@ bool Universe::write(int channel, uchar value, bool forceLTP)
     }
 
     if (m_preGMValues != NULL)
-        m_preGMValues->data()[channel] = char(value);
+        (*m_preGMValues)[channel] = char(value);
 
     if (m_relativeValues[channel] != 0)
     {
         int val = m_relativeValues[channel];
         if (m_preGMValues != NULL)
-            val += (uchar)m_preGMValues->data()[channel];
+            val += (uchar)m_preGMValues->at(channel);
         value = CLAMP(val, 0, UCHAR_MAX);
     }
 
     value = applyGM(channel, value);
-    m_postGMValues->data()[channel] = char(value);
+    (*m_postGMValues)[channel] = char(value);
 
     m_hasChanged = true;
 
@@ -460,11 +511,11 @@ bool Universe::writeRelative(int channel, uchar value)
 
     int val = m_relativeValues[channel];
     if (m_preGMValues != NULL)
-        val += (uchar)m_preGMValues->data()[channel];
+        val += (uchar)m_preGMValues->at(channel);
     value = CLAMP(val, 0, UCHAR_MAX);
 
     value = applyGM(channel, value);
-    m_postGMValues->data()[channel] = char(value);
+    (*m_postGMValues)[channel] = char(value);
 
     m_hasChanged = true;
 

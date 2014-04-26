@@ -30,6 +30,7 @@ var testAlgo;
         
         var util = new Object;
         util.initialized = false;
+        util.color = 0xFF0000;
         util.fallObject = new Array();
         util.objYPos = new Array();
         util.objmap = new Array();
@@ -67,12 +68,18 @@ var testAlgo;
                     objmap[y][x] = 0;
             }
 
+            util.color = rgb;
 	    util.initialized = true;
 	}
 	
 	util.isInitialized = function()
         {
             return util.initialized;
+        }
+        
+        util.getColor = function()
+        {
+            return util.color;
         }
 	
 	util.getNextStep = function(width, height)
@@ -117,6 +124,9 @@ var testAlgo;
         algo.rgbMap = function(width, height, rgb, step)
         {
             if (util.isInitialized() == false)
+                util.initialize(rgb, width, height);
+            
+            if (util.getColor() != rgb)
                 util.initialize(rgb, width, height);
 
             return util.getNextStep(width, height);

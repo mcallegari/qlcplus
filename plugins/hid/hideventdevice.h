@@ -24,15 +24,17 @@
 #include <QFile>
 #include <QHash>
 
-#include <sys/ioctl.h>
-#include <linux/input.h>
-#include <linux/types.h>
-#include <stdint.h>
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+  #include <sys/ioctl.h>
+  #include <linux/input.h>
+  #include <linux/types.h>
+  #include <stdint.h>
+#endif
 
 #include "hiddevice.h"
 
 class HIDEventDevice;
-class HID;
+class HIDPlugin;
 
 /*****************************************************************************
  * HIDEventDevice
@@ -43,7 +45,7 @@ class HIDEventDevice : public HIDDevice
     Q_OBJECT
 
 public:
-    HIDEventDevice(HID* parent, quint32 line, const QString& path);
+    HIDEventDevice(HIDPlugin* parent, quint32 line, const QString& name, const QString& path);
     virtual ~HIDEventDevice();
 
 protected:
@@ -77,8 +79,10 @@ public:
     bool readEvent();
 
 protected:
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     /** Scaling values for absolute/relative axes */
     QHash <int, struct input_absinfo> m_scales;
+#endif
 
     /*********************************************************************
      * Device info

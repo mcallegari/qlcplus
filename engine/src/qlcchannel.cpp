@@ -253,25 +253,69 @@ QIcon QLCChannel::getIntensityIcon() const
     return QIcon(pm);
 }
 
+QString QLCChannel::getIntensityColorCode() const
+{
+    if (m_colour == QLCChannel::Red ||
+        m_name.contains("red", Qt::CaseInsensitive) == true)
+            return QString("#FF0000");
+    else if (m_colour == QLCChannel::Green ||
+             m_name.contains("green", Qt::CaseInsensitive) == true)
+                return QString("#00FF00");
+    else if (m_colour == QLCChannel::Blue ||
+             m_name.contains("blue", Qt::CaseInsensitive) == true)
+                return QString("#0000FF");
+    else if (m_colour == QLCChannel::Cyan ||
+             m_name.contains("cyan", Qt::CaseInsensitive) == true)
+                return QString("#00FFFF");
+    else if (m_colour == QLCChannel::Magenta ||
+             m_name.contains("magenta", Qt::CaseInsensitive) == true)
+                return QString("#FF00FF");
+    else if (m_colour == QLCChannel::Yellow ||
+             m_name.contains("yellow", Qt::CaseInsensitive) == true)
+                return QString("#FFFF00");
+    else if (m_colour == QLCChannel::Amber ||
+             m_name.contains("amber", Qt::CaseInsensitive) == true)
+                return QString("#FF7E00");
+    else if (m_colour == QLCChannel::White ||
+             m_name.contains("white", Qt::CaseInsensitive) == true)
+                return QString("#FFFFFF");
+    else
+    {
+        // None of the primary colours matched and since this is an
+        // intensity channel, it must be controlling a plain dimmer OSLT.
+        return QString(":/intensity.png");
+    }
+
+    return QString(":/intensity.png");
+}
+
 QIcon QLCChannel::getIconFromGroup(QLCChannel::Group grp) const
+{
+    if (grp == Intensity)
+        return getIntensityIcon();
+    else
+        return QIcon(getIconNameFromGroup(grp));
+}
+
+QString QLCChannel::getIconNameFromGroup(QLCChannel::Group grp) const
 {
     switch(grp)
     {
-        case Pan: return QIcon(":/pan.png"); break;
-        case Tilt: return QIcon(":/tilt.png"); break;
-        case Colour: return QIcon(":/color.png"); break;
-        case Effect: return QIcon(":/star.png"); break;
-        case Gobo: return QIcon(":/gobo.png"); break;
-        case Shutter: return QIcon(":/shutter.png"); break;
-        case Speed: return QIcon(":/speed.png"); break;
-        case Prism: return QIcon(":/prism.png"); break;
-        case Maintenance: return QIcon(":/configure.png"); break;
-        case Intensity: return getIntensityIcon(); break;
-        case Beam: return QIcon(":/beam.png"); break;
+        case Pan: return QString(":/pan.png"); break;
+        case Tilt: return QString(":/tilt.png"); break;
+        case Colour: return QString(":/color.png"); break;
+        case Effect: return QString(":/star.png"); break;
+        case Gobo: return QString(":/gobo.png"); break;
+        case Shutter: return QString(":/shutter.png"); break;
+        case Speed: return QString(":/speed.png"); break;
+        case Prism: return QString(":/prism.png"); break;
+        case Maintenance: return QString(":/configure.png"); break;
+        case Intensity: return getIntensityColorCode(); break;
+        case Beam: return QString(":/beam.png"); break;
         default:
         break;
     }
-    return QIcon(":/intensity.png");
+    return QString(":/intensity.png");
 }
 
 /*****************************************************************************

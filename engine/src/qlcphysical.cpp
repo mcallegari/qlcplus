@@ -330,7 +330,7 @@ bool QLCPhysical::saveXML(QDomDocument* doc, QDomElement* root)
 
     /* Dimensions */
     subtag = doc->createElement(KXMLQLCPhysicalDimensions);
-    subtag.setAttribute(KXMLQLCPhysicalDimensionsWeight, m_weight);
+    subtag.setAttribute(KXMLQLCPhysicalDimensionsWeight, QString::number(m_weight));
     subtag.setAttribute(KXMLQLCPhysicalDimensionsWidth, m_width);
     subtag.setAttribute(KXMLQLCPhysicalDimensionsHeight, m_height);
     subtag.setAttribute(KXMLQLCPhysicalDimensionsDepth, m_depth);
@@ -339,8 +339,8 @@ bool QLCPhysical::saveXML(QDomDocument* doc, QDomElement* root)
     /* Lens */
     subtag = doc->createElement(KXMLQLCPhysicalLens);
     subtag.setAttribute(KXMLQLCPhysicalLensName, m_lensName);
-    subtag.setAttribute(KXMLQLCPhysicalLensDegreesMin, m_lensDegreesMin);
-    subtag.setAttribute(KXMLQLCPhysicalLensDegreesMax, m_lensDegreesMax);
+    subtag.setAttribute(KXMLQLCPhysicalLensDegreesMin, QString::number(m_lensDegreesMin));
+    subtag.setAttribute(KXMLQLCPhysicalLensDegreesMax, QString::number(m_lensDegreesMax));
     tag.appendChild(subtag);
 
     /* Focus */

@@ -27,7 +27,7 @@
 
 #include "configurehid.h"
 #include "hiddevice.h"
-#include "hid.h"
+#include "hidplugin.h"
 
 #define KColumnNumber  0
 #define KColumnName    1
@@ -36,7 +36,7 @@
  * Initialization
  *****************************************************************************/
 
-ConfigureHID::ConfigureHID(QWidget* parent, HID* plugin)
+ConfigureHID::ConfigureHID(QWidget* parent, HIDPlugin* plugin)
         : QDialog(parent)
 {
     Q_ASSERT(plugin != NULL);
@@ -69,6 +69,7 @@ void ConfigureHID::slotRefreshClicked()
 {
     Q_ASSERT(m_plugin != NULL);
     m_plugin->rescanDevices();
+    refreshList();
 }
 
 void ConfigureHID::refreshList()

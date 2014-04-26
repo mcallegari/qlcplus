@@ -25,10 +25,9 @@
 
 #include <unistd.h>
 #include <fcntl.h>
-#include <sys/ioctl.h>
-#include <linux/spi/spidev.h>
 
 #include "spiplugin.h"
+#include "spioutthread.h"
 #include "spiconfiguration.h"
 
 #define SPI_DEFAULT_DEVICE  "/dev/spidev0.0"
@@ -39,20 +38,18 @@
 
 SPIPlugin::~SPIPlugin()
 {
+    if (m_outThread != NULL)
+        m_outThread->stopThread();
+
     if (m_spifd != -1)
         close(m_spifd);
 }
 
 void SPIPlugin::init()
 {
-    QSettings settings;
     m_spifd = -1;
-
-    QVariant value = settings.value("SPIPlugin/frequency");
-    if (value.isValid() == true)
-        m_speed = value.toUInt();
-    else
-        m_speed = 1000000;
+    m_referenceCount = 0;
+    m_outThread = NULL;
 }
 
 QString SPIPlugin::name()
@@ -62,7 +59,7 @@ QString SPIPlugin::name()
 
 int SPIPlugin::capabilities() const
 {
-    return QLCIOPlugin::Output;
+    return QLCIOPlugin::Output | QLCIOPlugin::Infinite;
 }
 
 /*****************************************************************************
@@ -71,9 +68,12 @@ int SPIPlugin::capabilities() const
 
 void SPIPlugin::openOutput(quint32 output)
 {
-    int status = -1;
-
     if (output != 0)
+        return;
+
+    m_referenceCount++;
+
+    if (m_spifd != -1)
         return;
 
     m_spifd = open(SPI_DEFAULT_DEVICE, O_RDWR);
@@ -83,20 +83,8 @@ void SPIPlugin::openOutput(quint32 output)
         return;
     }
 
-    int mode = SPI_MODE_0;
-    m_bitsPerWord = 8;
-
-    status = ioctl (m_spifd, SPI_IOC_WR_MODE, &mode);
-    if(status < 0)
-        qWarning() << "Could not set SPIMode (WR)...ioctl fail";
-
-    status = ioctl (m_spifd, SPI_IOC_WR_BITS_PER_WORD, &m_bitsPerWord);
-    if(status < 0)
-        qWarning() << "Could not set SPI bitsPerWord (WR)...ioctl fail";
-
-    status = ioctl (m_spifd, SPI_IOC_WR_MAX_SPEED_HZ, &m_speed);
-    if(status < 0)
-        qWarning() << "Could not set SPI speed (WR)...ioctl fail";
+    m_outThread = new SPIOutThread();
+    m_outThread->runThread(m_spifd);
 }
 
 void SPIPlugin::closeOutput(quint32 output)
@@ -104,9 +92,14 @@ void SPIPlugin::closeOutput(quint32 output)
     if (output != 0)
         return;
 
-    if (m_spifd != -1)
-        close(m_spifd);
-    m_spifd = -1;
+    m_referenceCount--;
+
+    if (m_referenceCount == 0)
+    {
+        if (m_spifd != -1)
+            close(m_spifd);
+        m_spifd = -1;
+    }
 }
 
 QStringList SPIPlugin::outputs()
@@ -134,7 +127,52 @@ QString SPIPlugin::pluginInfo()
     str += QString("</P>");
 
     return str;
+}
+
+void SPIPlugin::setAbsoluteAddress(quint32 uniID, SPIUniverse *uni)
+{
+    quint32 totalChannels = 0;
+    quint32 absOffset = 0;
+
+    QHashIterator <quint32, SPIUniverse*> it(m_uniChannelsMap);
+    while (it.hasNext() == true)
+    {
+        it.next();
+        if (it.value() == NULL)
+            continue;
+        quint32 mapUniID = it.key();
+        if (mapUniID < uniID)
+            absOffset += it.value()->m_channels;
+
+        totalChannels += it.value()->m_channels;
     }
+    uni->m_absoluteAddress = absOffset;
+    totalChannels += uni->m_channels;
+    qDebug() << "[SPI] universe" << uniID << "has" << uni->m_channels
+             << "channels and starts at" << uni->m_absoluteAddress;
+    m_serializedData.resize(totalChannels);
+    qDebug() << "[SPI] total bytes to transmit:" << m_serializedData.size();
+}
+
+void SPIPlugin::setParameter(QString name, QVariant &value)
+{
+    QString prop(name);
+
+    // If property name is UniverseChannels-ID, map the channels count
+    if (prop.startsWith("UniverseChannels"))
+    {
+        QString uniStrId = prop.split("-").at(1);
+        quint32 uniID = uniStrId.toUInt();
+        int chans = value.toInt();
+        SPIUniverse *uniStruct = new SPIUniverse;
+        uniStruct->m_channels = chans;
+        uniStruct->m_autoDetection = false;
+
+        setAbsoluteAddress(uniID, uniStruct);
+
+        m_uniChannelsMap[uniID] = uniStruct;
+    }
+}
 
 QString SPIPlugin::outputInfo(quint32 output)
 {
@@ -153,26 +191,34 @@ QString SPIPlugin::outputInfo(quint32 output)
 
 void SPIPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
 {
-    Q_UNUSED(universe)
-
     if (output != 0 || m_spifd == -1)
         return;
 
-    struct spi_ioc_transfer spi;
-    int retVal = -1;
+    qDebug() << "[SPI] write" << universe << "size" << data.size();
 
-    memset(&spi, 0, sizeof(spi));
-    spi.tx_buf        = reinterpret_cast<__u64>(data.data());
-    spi.len           = data.size();
-    spi.delay_usecs   = 0;
-    spi.speed_hz      = m_speed;
-    spi.bits_per_word = m_bitsPerWord;
-    spi.cs_change = 0;
+    SPIUniverse *uniInfo = m_uniChannelsMap[universe];
+    if (uniInfo != NULL)
+    {
+        if (uniInfo->m_autoDetection == true)
+        {
+            if (data.size() > uniInfo->m_channels)
+            {
+                uniInfo->m_channels = data.size();
+                setAbsoluteAddress(universe, uniInfo);
+            }
+        }
+        m_serializedData.replace(uniInfo->m_absoluteAddress, data.size(), data);
+    }
+    else
+    {
+        SPIUniverse *newUni = new SPIUniverse;
+        newUni->m_channels = data.size();
+        newUni->m_autoDetection = true;
+        setAbsoluteAddress(universe, newUni);
+        m_uniChannelsMap[universe] = newUni;
+    }
 
-    retVal = ioctl(m_spifd, SPI_IOC_MESSAGE(1), &spi);
-
-    if(retVal < 0)
-        qWarning() << "Problem transmitting spi data..ioctl";
+    m_outThread->writeData(m_serializedData);
 }
 
 /*****************************************************************************

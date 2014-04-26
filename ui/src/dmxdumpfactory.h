@@ -25,6 +25,7 @@
 #include "ui_dmxdumpfactory.h"
 
 class DmxDumpFactoryProperties;
+class FixtureTreeWidget;
 class VCWidget;
 class Doc;
 
@@ -47,23 +48,17 @@ protected slots:
     void slotUpdateSliders();
 
 protected:
-    void updateFixturesTree();
     QList<VCWidget *> getChildren(VCWidget *obj, int type);
     void updateWidgetsTree(int type);
 
 private:
     Doc* m_doc;
+    FixtureTreeWidget *m_fixturesTree;
     DmxDumpFactoryProperties* m_properties;
-
-protected:
-    int m_universesCount;
-    int m_fixturesCount;
-    int m_channelsCount;
 
 protected slots:
     void slotDumpModeChanged(bool mode);
     void slotDumpNonZeroChanged(bool active);
-    void slotItemExpanded();
 
     /** Callback for OK button clicks */
     void accept();

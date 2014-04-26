@@ -51,6 +51,8 @@ public:
     RGBMatrixEditor(QWidget* parent, RGBMatrix* mtx, Doc* doc);
     ~RGBMatrixEditor();
 
+    void stopTest();
+
 public slots:
     void slotFunctionManagerActive(bool active);
 
@@ -74,6 +76,7 @@ private slots:
     void slotFixtureGroupActivated(int index);
     void slotStartColorButtonClicked();
     void slotEndColorButtonClicked();
+    void slotResetEndColorButtonClicked();
 
     void slotTextEdited(const QString& text);
     void slotFontButtonClicked();

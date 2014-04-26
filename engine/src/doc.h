@@ -264,6 +264,14 @@ public:
     bool changeFixtureMode(quint32 id, const QLCFixtureMode *mode);
 
     /**
+     * Update the channels capabilities of an existing fixture with the given ID
+     * @param id The ID of the fixture instance
+     * @param forcedHTP A list of channel indices forced to act as HTP
+     * @param forcedLTP A list of channel indices forced to act as LTP
+     */
+    bool updateFixtureChannelCapabilities(quint32 id, QList<int>forcedHTP, QList<int>forcedLTP);
+
+    /**
      * Get the fixture instance that has the given ID
      *
      * @param id The ID of the fixture to get
@@ -314,11 +322,11 @@ private slots:
     void slotFixtureChanged(quint32 fxi_id);
 
 protected:
-    /** Fixtures */
+    /** Fixtures map: < ID, Fixture instance > */
     QMap <quint32,Fixture*> m_fixtures;
 
-    /** Addresses occupied by fixtures */
-    QHash <quint32,quint32> m_addresses;
+    /** Map of the addresses occupied by fixtures */
+    QHash <quint32, quint32> m_addresses;
 
     /** Latest assigned fixture ID */
     quint32 m_latestFixtureId;

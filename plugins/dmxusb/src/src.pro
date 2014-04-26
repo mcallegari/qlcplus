@@ -46,6 +46,9 @@ serialport {
         }
         DEFINES     += FTD2XX
     } else {
+        greaterThan(QT_MAJOR_VERSION, 4) {
+            macx:QT_CONFIG -= no-pkg-config
+        }
         CONFIG      += link_pkgconfig
         PKGCONFIG   += libftdi libusb
         DEFINES     += LIBFTDI
@@ -64,6 +67,8 @@ HEADERS += dmxusb.h \
            enttecdmxusbopen.h \
            ultradmxusbprotx.h \
            dmx4all.h \
+           vinceusbdmx512.h \
+           vinceusbdmx512tx.h \
            qlcftdi.h
 
 SOURCES += dmxusb.cpp \
@@ -74,7 +79,9 @@ SOURCES += dmxusb.cpp \
            enttecdmxusbprotx.cpp \
            enttecdmxusbopen.cpp \
            dmx4all.cpp \
-           ultradmxusbprotx.cpp
+           ultradmxusbprotx.cpp \
+           vinceusbdmx512.cpp \
+           vinceusbdmx512tx.cpp
 
 serialport {
     SOURCES += qlcftdi-qtserial.cpp
@@ -100,6 +107,7 @@ TRANSLATIONS += DMX_USB_fr_FR.ts
 TRANSLATIONS += DMX_USB_it_IT.ts
 TRANSLATIONS += DMX_USB_nl_NL.ts
 TRANSLATIONS += DMX_USB_cz_CZ.ts
+TRANSLATIONS += DMX_USB_pt_BR.ts
 
 # This must be after "TARGET = " and before target installation so that
 # install_name_tool can be run before target installation

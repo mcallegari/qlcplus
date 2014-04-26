@@ -17,13 +17,69 @@ completely graphical way.<br>
 The graphic interface shows a multitrack view, typical of audio sequencers or video editing softwares,
 and with it users are allowed to place QLC+ <A HREF="file:concept.html#Functions">Functions</A> at the desired
 place and time in the view.<br>
+Show Manager gives a lot of flexibility during a <A HREF="file:concept.html#Show">Show</a> creation thanks 
+to its visual-oriented approach. Once understood the basic elements, it is very easy to create, move or edit 
+the existing functions and improve a Show by adding new tracks to it.<br>
 <br>
-A typical use case are those gigs where bands play songs following a metronome and the light show has
+Typical use cases of Shows are those gigs where a band plays songs following a metronome and the light show has
 always to be the same, following the music.<br>
 Another case are visual entertainment shows, where dancers or singers follow some music and lights create
 the atmosphere at the right time.<br>
+<br>
+The Show Manager drives users to make large use of the Sequence function. Here's the explanation
+of the difference between a Chaser and a Sequence.<br>
+</P>
 
-<H1>Controls</H1>
+<H2>Sequences vs Chasers</H2>
+<P>
+Even if the <A HREF="file:concept.html#Sequence">Sequence</a> and the 
+<A HREF="file:concept.html#Chaser">Chaser</a> functions have some common ground, they're not the same thing.<br>
+If not done yet, you are invited to read once again their definitions in the 
+<A HREF="file:concept.html">Basic Concepts &amp; Glossary</a> page of this documentation.<br>
+The main differences are:
+<ul>
+ <li><b>Steps</b>: The steps of a Chaser can represent any QLC+ Function, while the steps
+        of a Sequence represents different values of the same <A HREF="file:concept.html#Scene">Scene</a>.<br>
+        In other words, a Chaser is an independent function, while a Sequence can exist only
+        on top of a Scene.<br>
+        The reason for this is, as mentioned before, the visual approach of the Show Manager.
+        If a track of a Show is the graphical representation of a Scene, then it's more intuitive 
+        to think that each Sequence created on that track is a function controlling the values of that Scene.
+ </li>
+ <li><b>Order</b>: Chasers can be reproduced in any order (Forward, Backward, Ping-Pong, Random) while
+        in the Show Manager, Sequences are always reproduced from the beginning to the end (Forward).
+        Again, this is related to the visual aspect of the Show Manager, where the playback
+        has a natural time forward direction.<br>
+        On the other hand, Sequences created with the Function Manager can have the 
+        same order properties of Chasers.
+ </li>
+ <li><b>Editing</b>: The editing approach between Sequences and Chaser is different too.<br>
+        Normally the workflow of a Chaser is: create a Function, then add it to the Chaser as a step.<br>
+        The workflow of a Sequence is: create a Scene, create a Sequence on top of it, add steps to it.<br>
+        The Sequence approach might be very effective when you design a light show if you can pre-determine
+        which fixtures you're going to use. Another major advantage of Sequence editing is
+        that when you create a new step, the values of the previous step are copied in the new one.
+        So the user is simply required to adjust the differences between them.<br>
+        If you are going to create 500 steps and they're all different, then Sequences and Chasers
+        will take almost the same time to be created.<br>
+ </li>
+ <li><b>Synchronization</b>: another major advantage of using Sequences in a Show is that a Show
+        can easily be extended (or reduced) while with a Chaser you will have a hard time to
+        synchronize the new functions to the existing ones.<br>
+        An example. Let's say your project controls 50 fixtures that are a mixture of moving heads, PARs and scanners.
+        At some point you buy a couple of lasers and you want them to become active in existing scenes
+        at precise moments in time. The Show Manager allows you to do that in a few minutes !
+        You just need to add the 2 new fixtures to the project, add a track to the Shows affected by
+        the change and create a few Sequences to control the lasers.<br>
+        The Show Manager resume functionality will also save you a lot of time when testing the new
+        changes.<br>
+        With Chasers you'd probably have to deal with complex <A HREF="file:concept.html#Collection">Collections</a>
+        and review the timings of a few steps before finding the right combination.
+</ul>
+</P>
+
+<H2>Show Manager toolbar controls</H2>
+
 <TABLE BORDER=1 class="qlcTable">
  <TR>
   <TD><IMG SRC="qrc:/show.png"/></TD>
@@ -33,24 +89,42 @@ the atmosphere at the right time.<br>
  <TR></TR>
  <TR>
   <TD><B>Shows list</B></TD>
-  <TD>This drop down box list the currently created Shows. Clicking on a Show will display it.</TD>
+  <TD>This drop down box lists the currently created Shows. Clicking on a Show will display it.</TD>
  </TR>
  <TR>
-  <TD><IMG SRC="qrc:/scene.png"/></TD>
-  <TD>Create a new track. In QLC+ a track corresponds to a <A HREF="file:concept.html#Scene">Scene</A>.
+  <TD><IMG SRC="qrc:/edit_add.png"/></TD>
+  <TD>Create a new track or add existing functions to the Show. When clicking on this button
+  a window is displayed, allowing you to perform the following operations:
+  <ul>
+   <li>Create a new track: This creates a new empty track that will serve as a container 
+       for Sequences and Audio functions.
+   </li>
+   <li>Import an existing Scene. This will create a new track and a 10 seconds Sequence
+       with one single step representing the selected Scene.
+   </li>
+   <li>Import an existing Sequence: this operation scans the existing tracks and if
+       it finds a track already bound to the Sequence's bound Scene, then add the
+       Sequence to that track at the cursor position.<br>
+       If no compatible track is found, a new track will be created and bound to the
+       Sequence's bound Scene.
+   </li>
+   <li>Import an existing Audio: add an Audio function at the cursor position on the
+       selected track. If no track is available, it will create a new one.
+   </li> 
+  </ul>
   A Show can have a virtually infinite number of tracks.</TD>
  </TR>
  <TR>
   <TD><IMG SRC="qrc:/sequence.png"/></TD>
-  <TD>Create a new <A HREF="file:concept.html#Sequence">Sequence</A> item. A sequence is a special type of
-  <A HREF="file:concept.html#Chaser">Chaser</A> bound to a Scene. All the steps created in a sequence will
-  only act on DMX channels of the selected track.</TD>
+  <TD>Create a new <A HREF="file:concept.html#Sequence">Sequence</A> item and bind it to the
+      selected track.
+  </TD>
  </TR>
  <TR>
   <TD><IMG SRC="qrc:/audio.png"/></TD>
   <TD>Create a new <A HREF="file:concept.html#Audio">audio</A> item. An audio item simply represents
   an audio file. Audio items can be added on any track, but if you want to to create a separate
-  track for it, just create an empty Scene track.<br>
+  track for it, just create an new track.<br>
   <B>Note:</B> It is possible to display the waveform preview of an audio item just by right clicking it
   and selecting the channels you want to display (mono, left channel, right channel, stereo)<br>
   <B>Warning:</B> Even though QLC+ allows you to, it is not possible to play two audio files simultaneously.
@@ -125,7 +199,7 @@ the atmosphere at the right time.<br>
  
 </TABLE>
 
-<H1>Just 4 steps</H1>
+<H2>Just 4 steps</H2>
 
 The Show Manager has been set up to be used quickly and easily. Basically, with just 4 steps a complete
 <A HREF="file:concept.html#Show">Show</A> can be created:
@@ -137,9 +211,8 @@ and no items, ready to be filled.<br>
 A popup will appear asking the name to assign to the Show. It is possible to change the name afterwards with the
 <A HREF="file:functionmanager.html">Function Manager</A>, using the <A HREF="file:showeditor.html">Show Editor</A> panel.
 
-<H3><LI>Add a track <IMG SRC="qrc:/scene.png"></LI></H3>
-In the Show Manager, a track corresponds to a Scene. When you add a track, a popup will ask you to select an existing
-Scene or to create a new one with a default name.<br>
+<H3><LI>Add a track <IMG SRC="qrc:/edit_add.png"></LI></H3>
+When you add a track, a popup will ask you to select an existing function or to create a new one with a default name.<br>
 When done, a new track will be created. All the sequences created on this track
 will act only on the associated Scene, not affecting any of the other tracks.<br>
 A newly created track will be set automatically as active. An active track has a green light on the left hand side.<br>

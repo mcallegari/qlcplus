@@ -85,11 +85,17 @@ private:
      * Scene
      *********************************************************************/
 public:
+    /** Set the Scene ID associated to this track */
+    void setSceneID(quint32 id);
+
     /** Return the Scene ID associated to this track */
     quint32 getSceneID();
 
 private:
-    /** Pointer to a Scene which this track represents */
+    /** ID of the Scene which this track represents
+     *  Returns Function::invalidId() if no Scene is
+     *  represented (e.g. audio/video tracks)
+     */
     quint32 m_sceneID;
 
     /*********************************************************************

@@ -19,6 +19,7 @@
 
 #include <QDebug>
 #include <QProcess>
+#include <QNetworkInterface>
 
 #include "webaccess.h"
 
@@ -58,34 +59,50 @@
  #include "audiocapture_qt.h"
 #endif
 
-#define POST_DATA_SIZE 1024
-#define IFACES_SYSTEM_FILE "/etc/network/interfaces"
 #define AUTOSTART_PROJECT_NAME "autostart.qxw"
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+   #define IFACES_SYSTEM_FILE "/etc/network/interfaces"
+#endif
 
 WebAccess* s_instance = NULL;
 
-static int begin_request_handler(struct mg_connection *conn)
+static int event_handler(struct mg_connection *conn, enum mg_event ev)
 {
-    return s_instance->beginRequestHandler(conn);
-}
+    if (ev == MG_REQUEST)
+    {
+        if (conn->is_websocket)
+            return s_instance->websocketDataHandler(conn);
 
-static void websocket_ready_handler(struct mg_connection *conn)
-{
-    s_instance->websocketReadyHandler(conn);
-}
+        return s_instance->beginRequestHandler(conn);
+    }
+    else if (ev == MG_WS_HANDSHAKE)
+    {
+        if (conn->is_websocket)
+        {
+            s_instance->websocketDataHandler(conn);
+            return MG_FALSE;
+        }
+    }
+    else if (ev == MG_AUTH)
+    {
+        return MG_TRUE;
+    }
+    else
+    {
+        return MG_FALSE;
+    }
 
-static int websocket_data_handler(struct mg_connection *conn, int flags,
-                                  char *data, size_t data_len)
-{
-    return s_instance->websocketDataHandler(conn, flags, data, data_len);
+    return MG_FALSE;
 }
 
 WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, QObject *parent) :
-    QObject(parent)
+    QThread(parent)
   , m_doc(doc)
   , m_vc(vcInstance)
-  , m_ctx(NULL)
+  , m_server(NULL)
   , m_conn(NULL)
+  , m_running(false)
+  , m_pendingProjectLoaded(false)
 {
     Q_ASSERT(s_instance == NULL);
     Q_ASSERT(m_doc != NULL);
@@ -93,17 +110,9 @@ WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, QObject *parent) :
 
     s_instance = this;
 
-    // List of options. Last element must be NULL.
-    const char *options[] = {"listening_ports", "9999", NULL};
-
-    // Prepare callbacks structure. We have only one callback, the rest are NULL.
-    memset(&m_callbacks, 0, sizeof(m_callbacks));
-    m_callbacks.begin_request = begin_request_handler;
-    m_callbacks.websocket_ready = websocket_ready_handler;
-    m_callbacks.websocket_data = websocket_data_handler;
-
-    // Start the web server.
-    m_ctx = mg_start(&m_callbacks, NULL, options);
+    m_server = mg_create_server(NULL, event_handler);
+    mg_set_option(m_server, "listening_port", "9999");
+    start();
 
     connect(m_vc, SIGNAL(loaded()),
             this, SLOT(slotVCLoaded()));
@@ -111,46 +120,46 @@ WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, QObject *parent) :
 
 WebAccess::~WebAccess()
 {
-    mg_stop(m_ctx);
+    m_running = false;
+    wait();
+    mg_destroy_server(&m_server);
     m_interfaces.clear();
+}
+
+void WebAccess::run()
+{
+    m_running = true;
+    while (isRunning())
+    {
+        mg_poll_server(m_server, 500);
+    }
+
 }
 
 QString WebAccess::loadXMLPost(mg_connection *conn, QString &filename)
 {
-    char post_data[POST_DATA_SIZE + 10];
+    const char *data;
+    int data_len;
+    char vname[1024], fname[1024];
     QString XMLdata = "";
-    bool done = false;
 
-    while(!done)
+    if (conn != NULL &&
+        mg_parse_multipart(conn->content, conn->content_len,
+                           vname, sizeof(vname),
+                           fname, sizeof(fname),
+                           &data, &data_len) > 0)
     {
-        int read = mg_read(conn, post_data, POST_DATA_SIZE);
-
-        qDebug() << "POST: received: " << read << "bytes";
-        post_data[read] = '\0';
-
-        QString recv(post_data);
-
-        if (read < POST_DATA_SIZE)
-        {
-            recv.truncate(read);
-            done = true;
-        }
-        XMLdata += recv;
+        XMLdata = QString(data);
+        XMLdata.truncate(data_len);
+        filename = QString(fname);
+        qDebug() << "Filename:" << filename;
     }
-
-    //qDebug() << "Complete XML data:\n\n" << XMLdata;
-    int fnameStart = XMLdata.indexOf("filename=") + 10;
-    int fnameEnd = XMLdata.indexOf("\"", fnameStart);
-    filename = XMLdata.mid(fnameStart, fnameEnd - fnameStart);
-
-    XMLdata.remove(0, XMLdata.indexOf("\n\r") + 3);
-    XMLdata.truncate(XMLdata.indexOf("\n\r"));
 
     return XMLdata;
 }
 
 // This function will be called by mongoose on every new request.
-int WebAccess::beginRequestHandler(mg_connection *conn)
+mg_result WebAccess::beginRequestHandler(mg_connection *conn)
 {
   m_genericFound = false;
   m_buttonFound = false;
@@ -166,13 +175,13 @@ int WebAccess::beginRequestHandler(mg_connection *conn)
 
   QString content;
 
-  const struct mg_request_info *ri = mg_get_request_info(conn);
-  qDebug() << Q_FUNC_INFO << ri->request_method << ri->uri;
+  //const struct mg_request_info *ri = mg_get_request_info(conn);
+  qDebug() << Q_FUNC_INFO << conn->request_method << conn->uri;
 
-  if (QString(ri->uri) == "/qlcplusWS")
-      return 0;
+  if (QString(conn->uri) == "/qlcplusWS")
+      return MG_FALSE;
 
-  if (QString(ri->uri) == "/loadProject")
+  if (QString(conn->uri) == "/loadProject")
   {
       QString prjname;
       QString projectXML = loadXMLPost(conn, prjname);
@@ -180,7 +189,7 @@ int WebAccess::beginRequestHandler(mg_connection *conn)
 
       QByteArray postReply =
               QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n"
-              "<script type=\"text/javascript\">\n" WEBSOCKET_JS
+              "<script type=\"text/javascript\">\n" PROJECT_LOADED_JS
               "</script></head><body style=\"background-color: #45484d;\">"
               "<div style=\"position: absolute; width: 100%; height: 30px; top: 50%; background-color: #888888;"
               "text-align: center; font:bold 24px/1.2em sans-serif;\">"
@@ -193,19 +202,30 @@ int WebAccess::beginRequestHandler(mg_connection *conn)
                 "%s",
                 post_size, postReply.data());
 
+      m_pendingProjectLoaded = false;
+
       emit loadProject(projectXML);
 
-      return 1;
+      return MG_TRUE;
   }
-  else if (QString(ri->uri) == "/config")
+  if (QString(conn->uri) == "/loadProjectNoRedirection")
+  {
+      QString prjname;
+      QString projectXML = loadXMLPost(conn, prjname);
+      emit loadProject(projectXML);
+      return MG_TRUE;
+  }
+  else if (QString(conn->uri) == "/config")
   {
       content = getConfigHTML();
   }
-  else if (QString(ri->uri) == "/system")
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+  else if (QString(conn->uri) == "/system")
   {
       content = getSystemConfigHTML();
   }
-  else if (QString(ri->uri) == "/loadFixture")
+#endif
+  else if (QString(conn->uri) == "/loadFixture")
   {
       QString fxName;
       QString fixtureXML = loadXMLPost(conn, fxName);
@@ -227,10 +247,10 @@ int WebAccess::beginRequestHandler(mg_connection *conn)
                       "%s",
                       post_size, postReply.data());
 
-      return 1;
+      return MG_TRUE;
   }
-  else if (QString(ri->uri) != "/")
-      return 1;
+  else if (QString(conn->uri) != "/")
+      return MG_TRUE;
   else
       content = getVCHTML();
 
@@ -248,44 +268,41 @@ int WebAccess::beginRequestHandler(mg_connection *conn)
 
   // Returning non-zero tells mongoose that our function has replied to
   // the client, and mongoose should not send client any more data.
-  return 1;
+  return MG_TRUE;
 }
 
-void WebAccess::websocketReadyHandler(mg_connection *conn)
+mg_result WebAccess::websocketDataHandler(mg_connection *conn)
 {
-    qDebug() << Q_FUNC_INFO;
-    m_conn = conn;
-    static const char *message = "QLC+ is ready";
-    mg_websocket_write(conn, WEBSOCKET_OPCODE_TEXT, message, strlen(message));
-}
+    if (conn == NULL)
+        return MG_TRUE;
 
-int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, size_t data_len)
-{
-    Q_UNUSED(conn)
-    Q_UNUSED(flags)
+    m_conn = conn; // store this to send VC loaded async event
 
-    QString qData = QString(data);
-    qData.truncate((int)data_len);
+    if (conn->content_len == 0)
+        return MG_TRUE;
+
+    QString qData = QString(conn->content);
+    qData.truncate(conn->content_len);
     qDebug() << "[websocketDataHandler]" << qData;
 
     QStringList cmdList = qData.split("|");
     if (cmdList.isEmpty())
-        return 1;
+        return MG_TRUE;
 
     if(cmdList[0] == "QLC+CMD")
     {
         if (cmdList.count() < 2)
-            return 0;
+            return MG_FALSE;
 
         if(cmdList[1] == "opMode")
             emit toggleDocMode();
 
-        return 1;
+        return MG_TRUE;
     }
     else if (cmdList[0] == "QLC+IO")
     {
         if (cmdList.count() < 3)
-            return 0;
+            return MG_FALSE;
 
         int universe = cmdList[2].toInt();
 
@@ -320,6 +337,7 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
                 m_doc->inputOutputMap()->setUniversePassthrough(uniIdx, true);
             else
                 m_doc->inputOutputMap()->setUniversePassthrough(uniIdx, false);
+            m_doc->inputOutputMap()->saveDefaults();
         }
         else if (cmdList[1] == "AUDIOIN")
         {
@@ -343,8 +361,9 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
         else
             qDebug() << "[webaccess] Command" << cmdList[1] << "not supported !";
 
-        return 1;
+        return MG_TRUE;
     }
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     else if(cmdList[0] == "QLC+SYS")
     {
         if (cmdList.at(1) == "NETWORK")
@@ -353,6 +372,7 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
             {
                 if (m_interfaces.at(i).name == cmdList.at(2))
                 {
+                    m_interfaces[i].enabled = true;
                     if (cmdList.at(3) == "static")
                         m_interfaces[i].isStatic = true;
                     else
@@ -360,18 +380,25 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
                     m_interfaces[i].address = cmdList.at(4);
                     m_interfaces[i].netmask = cmdList.at(5);
                     m_interfaces[i].gateway = cmdList.at(6);
+                    if (m_interfaces[i].isWireless == true)
+                    {
+                        m_interfaces[i].ssid = cmdList.at(7);
+                        m_interfaces[i].wpaPass = cmdList.at(8);
+                    }
                     if (writeNetworkFile() == false)
                         qDebug() << "[webaccess] Error writing network configuration file !";
-                    return 1;
+                    QString wsMessage = QString("ALERT|" + tr("Network configuration changed. Reboot to apply the changes."));
+                    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
+                    return MG_TRUE;
                 }
             }
             qDebug() << "[webaccess] Error: interface" << cmdList.at(2) << "not found !";
-            return 1;
+            return MG_TRUE;
         }
         else if (cmdList.at(1) == "AUTOSTART")
         {
             if (cmdList.count() < 3)
-                return 0;
+                return MG_FALSE;
 
             QString asName = QString("%1/%2/%3").arg(getenv("HOME")).arg(USERQLCPLUSDIR).arg(AUTOSTART_PROJECT_NAME);
             if (cmdList.at(2) == "none")
@@ -380,7 +407,7 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
                 emit storeAutostartProject(asName);
             QString wsMessage = QString("ALERT|" + tr("Autostart configuration changed"));
             mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
-            return 1;
+            return MG_TRUE;
         }
         else if (cmdList.at(1) == "REBOOT")
         {
@@ -388,8 +415,32 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
             rebootProcess->start("reboot", QStringList());
         }
     }
+#endif
+    else if (cmdList[0] == "QLC+API")
+    {
+        if (cmdList.count() < 2)
+            return MG_FALSE;
+
+        // compose the basic API reply messages
+        QString wsAPIMessage = QString("QLC+API|%1").arg(cmdList[1]);
+
+        if (cmdList[1] == "isProjectLoaded")
+        {
+            if (m_pendingProjectLoaded)
+            {
+                wsAPIMessage.append("|true");
+                m_pendingProjectLoaded = false;
+            }
+            else
+                wsAPIMessage.append("|false");
+        }
+        mg_websocket_write(conn, WEBSOCKET_OPCODE_TEXT, wsAPIMessage.toLatin1().data(), wsAPIMessage.length());
+    }
     else if(cmdList[0] == "POLL")
-        return 1;
+        return MG_TRUE;
+
+    if (qData.contains("|") == false)
+        return MG_FALSE;
 
     quint32 widgetID = cmdList[0].toUInt();
     VCWidget *widget = m_vc->widget(widgetID);
@@ -420,6 +471,9 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
             break;
             case VCWidget::CueListWidget:
             {
+                if (cmdList.count() < 2)
+                    return MG_FALSE;
+
                 VCCueList *cue = qobject_cast<VCCueList*>(widget);
                 if (cmdList[1] == "PLAY")
                     cue->slotPlayback();
@@ -436,7 +490,7 @@ int WebAccess::websocketDataHandler(mg_connection *conn, int flags, char *data, 
         }
     }
 
-    return 1;
+    return MG_TRUE;
 }
 
 QString WebAccess::getWidgetHTML(VCWidget *widget)
@@ -470,13 +524,13 @@ QString WebAccess::getFrameHTML(VCFrame *frame)
           "background-color: " + frame->backgroundColor().name() + "; "
           "border-radius: 4px;\n"
           "border: 1px solid " + border.name() + ";\">\n";
+    if (m_frameFound == false)
+    {
+        m_CSScode += frame->getCSS();
+        m_frameFound = true;
+    }
     if (frame->isHeaderVisible())
     {
-        if (m_frameFound == false)
-        {
-            m_CSScode += frame->getCSS();
-            m_frameFound = true;
-        }
         str += "<div class=\"vcframeHeader\" style=\"color:" +
                 frame->foregroundColor().name() + "\">" + frame->caption() + "</div>\n";
     }
@@ -498,13 +552,13 @@ QString WebAccess::getSoloFrameHTML(VCSoloFrame *frame)
           "background-color: " + frame->backgroundColor().name() + "; "
           "border-radius: 4px;\n"
           "border: 1px solid " + border.name() + ";\">\n";
+    if (m_soloFrameFound == false)
+    {
+        m_CSScode += frame->getCSS();
+        m_soloFrameFound = true;
+    }
     if (frame->isHeaderVisible())
     {
-        if (m_soloFrameFound == false)
-        {
-            m_CSScode += frame->getCSS();
-            m_soloFrameFound = true;
-        }
         str += "<div class=\"vcsoloframeHeader\" style=\"color:" +
                 frame->foregroundColor().name() + "\">" + frame->caption() + "</div>\n";
     }
@@ -592,7 +646,8 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
 
     str +=  "<input type=\"range\" class=\"vVertical\" "
             "id=\"" + slID + "\" "
-            "onchange=\"slVchange(" + slID + ");\" style=\""
+            "onchange=\"slVchange(" + slID + ");\" ontouchmove=\"slVchange(" + slID + ");\""
+            "style=\""
             "width: " + QString::number(slider->height() - 50) + "px; "
             "margin-top: " + QString::number(slider->height() - 50) + "px; "
             "margin-left: " + QString::number(slider->width() / 2) + "px;\" "
@@ -938,7 +993,7 @@ QString WebAccess::getIOConfigHTML()
         InputPatch* ip = ioMap->inputPatch(i);
         OutputPatch* op = ioMap->outputPatch(i);
         OutputPatch* fp = ioMap->feedbackPatch(i);
-        QString uniName = ioMap->getUniverseName(i);
+        QString uniName = ioMap->getUniverseNameByIndex(i);
         bool uniPass = ioMap->getUniversePassthrough(i);
 
         QString currentInputPluginName = (ip == NULL)?KInputNone:ip->pluginName();
@@ -1153,13 +1208,18 @@ QString WebAccess::getConfigHTML()
     return str;
 }
 
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
 void WebAccess::resetInterface(InterfaceInfo *iface)
 {
     iface->name = "";
     iface->isStatic = false;
+    iface->isWireless = false;
     iface->address = "";
     iface->gateway = "";
     iface->gateway = "";
+    iface->enabled = false;
+    iface->ssid = "";
+    iface->wpaPass = "";
 }
 
 void WebAccess::appendInterface(InterfaceInfo iface)
@@ -1175,17 +1235,31 @@ QString WebAccess::getInterfaceHTML(InterfaceInfo *iface)
     QString html = "<div style=\"margin: 20px 7% 20px 7%; width: 86%;\" >\n";
     html += "<div style=\"font-family: verdana,arial,sans-serif; padding: 5px 7px; font-size:20px; "
             "color:#CCCCCC; background:#222; border-radius: 7px;\">";
+
     html += tr("Network interface: ") + iface->name + "<br>\n";
 
     html += "<form style=\"margin: 5px 15px; color:#FFF;\">\n";
-    html += "<input type=\"radio\" name=" + iface->name + "NetGroup onclick=\"showStatic('" + iface->name + "', false);\" value=\"dhcp\" " +
-            dhcpChk + ">" + tr("Dynamic (DHCP)") + "<br>\n";
-    html += "<input type=\"radio\" name=" + iface->name + "NetGroup onclick=\"showStatic('" + iface->name + "', true);\" value=\"static\" " +
-            staticChk + ">" + tr("Static") + "<br>\n";
+    if (iface->isWireless)
+    {
+        html += tr("Access point name (SSID): ") + "<input type=\"text\" id=\"" +
+                iface->name + "SSID\" size=\"15\" value=\"" + iface->ssid + "\"><br>\n";
+        html += tr("WPA-PSK Password: ") + "<input type=\"text\" id=\"" +
+                iface->name + "WPAPSK\" size=\"15\" value=\"" + iface->wpaPass + "\"><br>\n";
+    }
+    /** IP mode radio buttons */
+    html += "<input type=\"radio\" name=" + iface->name + "NetGroup onclick=\"showStatic('" +
+            iface->name + "', false);\" value=\"dhcp\" " + dhcpChk + ">" + tr("Dynamic (DHCP)") + "<br>\n";
+    html += "<input type=\"radio\" name=" + iface->name + "NetGroup onclick=\"showStatic('" +
+            iface->name + "', true);\" value=\"static\" " + staticChk + ">" + tr("Static") + "<br>\n";
+
+    /** Static IP fields */
     html += "<div id=\"" + iface->name + "StaticFields\" style=\"padding: 5px 30px; visibility:" + visibility + ";\">\n";
-    html += tr("IP Address: ") + "<input type=\"text\" id=\"" + iface->name + "IPaddr\" size=\"15\" value=\"" + iface->address + "\"><br>\n";
-    html += tr("Netmask: ") + "<input type=\"text\" id=\"" + iface->name + "Netmask\" size=\"15\" value=\"" + iface->netmask + "\"><br>\n";
-    html += tr("Gateway: ") + "<input type=\"text\" size=\"15\" id=\"" + iface->name + "Gateway\" value=\"" + iface->gateway + "\"><br>\n";
+    html += tr("IP Address: ") + "<input type=\"text\" id=\"" +
+            iface->name + "IPaddr\" size=\"15\" value=\"" + iface->address + "\"><br>\n";
+    html += tr("Netmask: ") + "<input type=\"text\" id=\"" +
+            iface->name + "Netmask\" size=\"15\" value=\"" + iface->netmask + "\"><br>\n";
+    html += tr("Gateway: ") + "<input type=\"text\" size=\"15\" id=\"" +
+            iface->name + "Gateway\" value=\"" + iface->gateway + "\"><br>\n";
     html += "</div>\n";
     html += "<input type=\"button\" value=\"" + tr("Apply changes") + "\" onclick=\"applyParams('" + iface->name + "');\" >\n";
     html += "</form></div></div>";
@@ -1195,6 +1269,10 @@ QString WebAccess::getInterfaceHTML(InterfaceInfo *iface)
 
 QString WebAccess::getNetworkHTML()
 {
+    QStringList systemDevs;
+    foreach(QNetworkInterface interface, QNetworkInterface::allInterfaces())
+        systemDevs.append(interface.name());
+
     QFile netFile(IFACES_SYSTEM_FILE);
     if (netFile.open(QIODevice::ReadOnly | QIODevice::Text) == false)
         return "";
@@ -1230,7 +1308,16 @@ QString WebAccess::getNetworkHTML()
 
             if (ifaceRow.count() < 4)
                 continue;
+
             currInterface.name = ifaceRow.at(1);
+            // remove the interface from the system list
+            // the remaining interfaces will be added at the
+            // end as disabled interfaces
+            systemDevs.removeOne(currInterface.name);
+
+            if (currInterface.name.contains("wlan") || currInterface.name.contains("ra"))
+                currInterface.isWireless = true;
+
             if (ifaceRow.at(3) == "dhcp")
             {
                 html += getInterfaceHTML(&currInterface);
@@ -1246,6 +1333,12 @@ QString WebAccess::getNetworkHTML()
             currInterface.netmask = ifaceRow.at(1);
         else if (keyword == "gateway")
             currInterface.gateway = ifaceRow.at(1);
+        else if (keyword == "wpa-ssid")
+            currInterface.ssid = ifaceRow.at(1);
+        else if (keyword == "wpa-psk")
+            currInterface.wpaPass = ifaceRow.at(1);
+
+        currInterface.enabled = true;
     }
 
     netFile.close();
@@ -1254,6 +1347,18 @@ QString WebAccess::getNetworkHTML()
     {
         html += getInterfaceHTML(&currInterface);
         appendInterface(currInterface);
+        resetInterface(&currInterface);
+    }
+
+    foreach(QString dev, systemDevs)
+    {
+        currInterface.name = dev;
+        currInterface.enabled = false;
+        if (currInterface.name.contains("wlan") || currInterface.name.contains("ra"))
+            currInterface.isWireless = true;
+        html += getInterfaceHTML(&currInterface);
+        appendInterface(currInterface);
+        resetInterface(&currInterface);
     }
 
     foreach (InterfaceInfo info, m_interfaces)
@@ -1267,9 +1372,9 @@ QString WebAccess::getNetworkHTML()
 QString WebAccess::getSystemConfigHTML()
 {
     m_JScode = "<script language=\"javascript\" type=\"text/javascript\">\n" WEBSOCKET_JS;
-    m_JScode += "function systemCmd(cmd, iface, mode, addr, mask, gw)\n"
+    m_JScode += "function systemCmd(cmd, iface, mode, addr, mask, gw, ssid, wpapsk)\n"
             "{\n"
-            " websocket.send(\"QLC+SYS|\" + cmd + \"|\" + iface + \"|\" + mode + \"|\" + addr + \"|\" + mask + \"|\" + gw);\n"
+            " websocket.send(\"QLC+SYS|\" + cmd + \"|\" + iface + \"|\" + mode + \"|\" + addr + \"|\" + mask + \"|\" + gw + \"|\" + ssid + \"|\" + wpapsk);\n"
             "};\n"
 
             "function showStatic(iface, enable) {\n"
@@ -1284,14 +1389,20 @@ QString WebAccess::getSystemConfigHTML()
             "function applyParams(iface) {\n"
             " var radioGroup = iface + \"NetGroup\";\n"
             " var radios = document.getElementsByName(radioGroup);\n"
+            " var ssidObj = document.getElementById(iface+\"SSID\");\n"
+            " var ssidVal = '';\n"
+            " if (ssidObj != null) ssidVal = ssidObj.value;\n"
+            " var wpapskObj = document.getElementById(iface+\"WPAPSK\");\n"
+            " var wpapskVal = '';\n"
+            " if (wpapskObj != null) wpapskVal = wpapskObj.value;\n"
             " if (radios[0].checked)\n"
-            "   systemCmd(\"NETWORK\", iface, \"dhcp\", '', '', '');\n"
+            "   systemCmd(\"NETWORK\", iface, \"dhcp\", '', '', '', ssidVal, wpapskVal);\n"
             " else if (radios[1].checked) {\n"
             "   var addrName=iface+\"IPaddr\";\n"
             "   var maskName=iface+\"Netmask\";\n"
             "   var gwName=iface+\"Gateway\";\n"
             "   systemCmd(\"NETWORK\", iface, \"static\", document.getElementById(addrName).value,"
-            " document.getElementById(maskName).value, document.getElementById(gwName).value);\n"
+            " document.getElementById(maskName).value, document.getElementById(gwName).value, ssidVal, wpapskVal);\n"
             " }\n"
             "}\n"
 
@@ -1362,6 +1473,12 @@ bool WebAccess::writeNetworkFile()
 
     foreach (InterfaceInfo iface, m_interfaces)
     {
+        if (iface.enabled == false)
+            continue;
+
+        if (iface.isWireless)
+            netFile.write((QString("auto %1\n").arg(iface.name)).toLatin1());
+
         if (iface.isStatic == false)
             netFile.write((QString("iface %1 inet dhcp\n").arg(iface.name)).toLatin1());
         else
@@ -1371,20 +1488,24 @@ bool WebAccess::writeNetworkFile()
             netFile.write((QString("  netmask %1\n").arg(iface.netmask)).toLatin1());
             netFile.write((QString("  gateway %1\n").arg(iface.gateway)).toLatin1());
         }
+        if (iface.isWireless)
+        {
+            if (iface.ssid.isEmpty() == false)
+                netFile.write((QString("  wpa-ssid %1\n").arg(iface.ssid)).toLatin1());
+            if (iface.wpaPass.isEmpty() == false)
+                netFile.write((QString("  wpa-psk %1\n").arg(iface.wpaPass)).toLatin1());
+        }
     }
 
     netFile.close();
 
     return true;
 }
+#endif
 
 void WebAccess::slotVCLoaded()
 {
-    if (m_conn == NULL)
-        return;
-
-    QString wsMessage = QString("URL|/");
-    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
+    m_pendingProjectLoaded = true;
 }
 
 

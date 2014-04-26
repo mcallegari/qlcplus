@@ -38,21 +38,40 @@
 
 
 /****************************************************************************
+ * Device Type
+ ****************************************************************************/
+
+MidiDevice::DeviceType MidiDevice::deviceType() const
+{
+    return m_deviceType;
+}
+
+QString MidiDevice::deviceTypeToString(MidiDevice::DeviceType deviceType)
+{
+    switch (deviceType)
+    {
+    default:
+    case Input:
+        return QString(TYPE_INPUT);
+        break;
+    case Output:
+        return QString(TYPE_OUTPUT);
+        break;
+    }
+}
+
+/****************************************************************************
  * Initialization
  ****************************************************************************/
 
-MidiDevice::MidiDevice(const QVariant& uid, const QString& name, bool IsOutput, QObject* parent)
+MidiDevice::MidiDevice(const QVariant& uid, const QString& name, DeviceType deviceType, QObject* parent)
     : QObject(parent)
+    , m_deviceType(deviceType)
     , m_uid(uid)
     , m_name(name)
     , m_midiChannel(0)
     , m_mode(ControlChange)
 {
-    if (IsOutput)
-        m_type = Output;
-    else
-        m_type = Input;
-
     loadSettings();
 }
 
@@ -127,18 +146,6 @@ MidiDevice::Mode MidiDevice::stringToMode(const QString& mode)
 }
 
 /****************************************************************************
- * Type (input or output)
- ****************************************************************************/
-
-QString MidiDevice::type() const
-{
-    if (m_type == Input)
-        return QString(TYPE_INPUT);
-    else
-        return QString(TYPE_OUTPUT);
-}
-
-/****************************************************************************
  * Midi template
  ****************************************************************************/
 
@@ -159,8 +166,9 @@ QString MidiDevice::midiTemplateName() const
 void MidiDevice::loadSettings()
 {
     QSettings settings;
+    QString devType = deviceTypeToString(deviceType());
 
-    QString key = QString(SETTINGS_MIDICHANNEL).arg(type(), name());
+    QString key = QString(SETTINGS_MIDICHANNEL).arg(devType, name());
     QVariant value = settings.value(key);
     if (value.isValid() == false)
     {   // no value, try loading old-style setting
@@ -172,7 +180,7 @@ void MidiDevice::loadSettings()
     else
         setMidiChannel(0);
 
-    key = QString(SETTINGS_MODE).arg(type(), name());
+    key = QString(SETTINGS_MODE).arg(devType, name());
     value = settings.value(key);
     if (value.isValid() == false)
     {   // no value, try loading old-style setting
@@ -184,7 +192,7 @@ void MidiDevice::loadSettings()
     else
         setMode(ControlChange);
 
-    key = QString(SETTINGS_INITMESSAGE).arg(type(), name());
+    key = QString(SETTINGS_INITMESSAGE).arg(devType, name());
     value = settings.value(key);
     if (value.isValid() == false)
     {   // no value, try loading old-style setting
@@ -200,14 +208,15 @@ void MidiDevice::loadSettings()
 void MidiDevice::saveSettings() const
 {
     QSettings settings;
+    QString devType = deviceTypeToString(deviceType());
 
-    QString key = QString(SETTINGS_MIDICHANNEL).arg(type(), name());
+    QString key = QString(SETTINGS_MIDICHANNEL).arg(devType, name());
     settings.setValue(key, midiChannel());
 
-    key = QString(SETTINGS_MODE).arg(type(), name());
+    key = QString(SETTINGS_MODE).arg(devType, name());
     settings.setValue(key, MidiDevice::modeToString(mode()));
 
-    key = QString(SETTINGS_INITMESSAGE).arg(type(), name());
+    key = QString(SETTINGS_INITMESSAGE).arg(devType, name());
     settings.setValue(key, midiTemplateName());
 
     qDebug() << "Saving mididevice with template name: " << midiTemplateName();

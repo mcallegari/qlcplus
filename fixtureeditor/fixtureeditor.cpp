@@ -490,13 +490,30 @@ void QLCFixtureEditor::slotEditChannel()
     EditChannel ec(this, real);
     if (ec.exec() == QDialog::Accepted)
     {
-        // Copy the channel's contents to the real channel
-        *real = *(ec.channel());
+        if (m_fixtureDef->channel(ec.channel()->name()) != NULL && ec.channel()->name() != real->name())
+        {
+            QMessageBox::warning(this,
+                                 tr("Channel already exists"),
+                                 tr("A channel by the name \"%1\" already exists!")
+                                 .arg(ec.channel()->name()));
+        }
+        else if (ec.channel()->name().length() == 0)
+        {
+            QMessageBox::warning(this,
+                                 tr("Channel has no name"),
+                                 tr("You must give the channel a descriptive name!"));
+        }
+        else
+        {
+            // Copy the channel's contents to the real channel
+            *real = *(ec.channel());
 
-        item = m_channelList->currentItem();
-        updateChannelItem(real, item);
+            item = m_channelList->currentItem();
+            updateChannelItem(real, item);
+            m_channelList->resizeColumnToContents(CH_COL_NAME);
 
-        setModified();
+            setModified();
+        }
     }
 }
 
@@ -517,9 +534,20 @@ void QLCFixtureEditor::slotPasteChannel()
         copy = new QLCChannel(ch);
         item = new QTreeWidgetItem(m_channelList);
 
+        int cpIdx = 1;
+        QString copyName;
+        do
+        {
+            copyName = QString("%1 %2").arg(ch->name()).arg(cpIdx);
+            cpIdx++;
+        } while (m_fixtureDef->channel(copyName) != NULL);
+
+        copy->setName(copyName);
+
         m_fixtureDef->addChannel(copy);
         updateChannelItem(copy, item);
         m_channelList->setCurrentItem(item);
+        m_channelList->resizeColumnToContents(CH_COL_NAME);
 
         setModified();
     }

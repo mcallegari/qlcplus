@@ -20,30 +20,45 @@
 #include <QString>
 
 #include "hiddevice.h"
-#include "hid.h"
+#include "hidplugin.h"
 
-HIDDevice::HIDDevice(HID* parent, quint32 line, const QString& path)
-    : QObject(parent)
+HIDDevice::HIDDevice(HIDPlugin* parent, quint32 line, const QString &name, const QString& path)
+    : QThread(parent)
 {
+    m_name = QString("%1: %2").arg(line + 1).arg(name);
     m_file.setFileName(path);
     m_line = line;
+    m_running = false;
 }
 
 HIDDevice::~HIDDevice()
 {
-    close();
+    if (isRunning() == true)
+    {
+        m_running = false;
+        wait();
+    }
+    closeInput();
 }
 
 /*****************************************************************************
  * File operations
  *****************************************************************************/
 
-bool HIDDevice::open()
+bool HIDDevice::openInput()
 {
     return false;
 }
 
-void HIDDevice::close()
+void HIDDevice::closeInput()
+{
+}
+
+void HIDDevice::openOutput()
+{
+}
+
+void HIDDevice::closeOutput()
 {
 }
 
@@ -79,4 +94,14 @@ void HIDDevice::feedBack(quint32 channel, uchar value)
 {
     Q_UNUSED(channel);
     Q_UNUSED(value);
+}
+
+void HIDDevice::run()
+{
+}
+
+void HIDDevice::outputDMX(const QByteArray &data, bool forceWrite)
+{
+    Q_UNUSED(data);
+    Q_UNUSED(forceWrite);
 }

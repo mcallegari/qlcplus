@@ -8,10 +8,11 @@ TARGET   = qlcplusengine
 
 CONFIG  += qt
 QT      += core xml script gui
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
+greaterThan(QT_MAJOR_VERSION, 4) {
+  QT += widgets multimedia multimediawidgets
+  macx:QT_CONFIG -= no-pkg-config
+}
 
-# Uncomment to enable Phonon audio support
-#QT += phonon
 CONFIG += link_pkgconfig
 
 QTPLUGIN =
@@ -59,6 +60,7 @@ lessThan(QT_MAJOR_VERSION, 5) {
 }
 else {
   HEADERS += audio/audiorenderer_qt.h audio/audiocapture_qt.h
+  HEADERS += video.h
 }
 
 # Engine
@@ -69,17 +71,18 @@ HEADERS += bus.h \
            chaserstep.h \
            collection.h \
            cue.h \
-           cuelistrunner.h \
            cuestack.h \
            doc.h \
            dmxdumpfactoryproperties.h \
            dmxsource.h \
            efx.h \
            efxfixture.h \
+           efxuistate.h \
            fadechannel.h \
            fixture.h \
            fixturegroup.h \
            function.h \
+           functionuistate.h \
            genericdmxsource.h \
            genericfader.h \
            grandmaster.h \
@@ -93,11 +96,14 @@ HEADERS += bus.h \
            qlcclipboard.h \
            qlcpoint.h \
            rgbalgorithm.h \
+           rgbaudio.h \
            rgbmatrix.h \
            rgbimage.h \
+           rgbplain.h \
            rgbscript.h \
            rgbtext.h \
            scene.h \
+           sceneuistate.h \
            scenevalue.h \
            script.h \
            show.h \
@@ -148,6 +154,7 @@ lessThan(QT_MAJOR_VERSION, 5) {
 }
 else {
   SOURCES += audio/audiorenderer_qt.cpp audio/audiocapture_qt.cpp
+  SOURCES += video.cpp
 }
 
 # Engine
@@ -158,16 +165,17 @@ SOURCES += bus.cpp \
            chaserstep.cpp \
            collection.cpp \
            cue.cpp \
-           cuelistrunner.cpp \
            cuestack.cpp \
            doc.cpp \
            dmxdumpfactoryproperties.cpp \
            efx.cpp \
            efxfixture.cpp \
+           efxuistate.cpp \
            fadechannel.cpp \
            fixture.cpp \
            fixturegroup.cpp \
            function.cpp \
+           functionuistate.cpp \
            genericdmxsource.cpp \
            genericfader.cpp \
            grandmaster.cpp \
@@ -181,11 +189,14 @@ SOURCES += bus.cpp \
            qlcclipboard.cpp \
            qlcpoint.cpp \
            rgbalgorithm.cpp \
+           rgbaudio.cpp \
            rgbmatrix.cpp \
            rgbimage.cpp \
+           rgbplain.cpp \
            rgbscript.cpp \
            rgbtext.cpp \
            scene.cpp \
+           sceneuistate.cpp \
            scenevalue.cpp \
            script.cpp \
            show.cpp \

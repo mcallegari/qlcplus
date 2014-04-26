@@ -71,8 +71,8 @@ bool DMXUSB::rescanWidgets()
         {
             m_inputs << widget;
             EnttecDMXUSBProRX* prorx = (EnttecDMXUSBProRX*) widget;
-            connect(prorx, SIGNAL(valueChanged(quint32,quint32,uchar)),
-                    this, SIGNAL(valueChanged(quint32,quint32,uchar)));
+            connect(prorx, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
+                    this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
         }
         else
         {
@@ -133,7 +133,8 @@ QString DMXUSB::pluginInfo()
     str += QString("<H3>%1</H3>").arg(name());
     str += tr("This plugin provides DMX output support for");
     str += QString(" DMXKing ultraDMX range, Enttec DMX USB Pro, "
-                   "Enttec Open DMX USB, FTDI USB COM485 Plus1 ");
+                   "Enttec Open DMX USB, FTDI USB COM485 Plus1, "
+                   "Vince USB-DMX512 ");
     str += tr("and compatible devices.");
     str += QString("</P>");
 
@@ -177,7 +178,11 @@ void DMXUSB::writeUniverse(quint32 universe, quint32 output, const QByteArray &d
     Q_UNUSED(universe)
 
     if (output < quint32(m_outputs.size()))
-        m_outputs.at(output)->writeUniverse(data);
+    {
+        QByteArray wholeuniverse(512, 0);
+        wholeuniverse.replace(0, data.length(), data);
+        m_outputs.at(output)->writeUniverse(wholeuniverse);
+    }
 }
 
 /****************************************************************************

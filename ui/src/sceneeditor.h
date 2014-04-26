@@ -40,6 +40,7 @@ class InputMap;
 class QAction;
 class Chaser;
 class Doc;
+class SceneUiState;
 
 /** @addtogroup ui_functions
  * @{
@@ -69,6 +70,7 @@ private:
 private:
     void init(bool applyValues);
     void setSceneValue(const SceneValue& scv);
+    SceneUiState * sceneUiState();
 
 private:
     bool m_initFinished;
@@ -89,7 +91,9 @@ private slots:
     void slotPaste();
     void slotCopyToAll();
     void slotColorTool();
+    void slotPositionTool();
     QColor slotColorSelectorChanged(const QColor &color);
+    void slotPositionSelectorChanged(const QPointF &position);
     void slotSpeedDialToggle(bool state);
     void slotBlindToggled(bool state);
     void slotRecord();
@@ -99,6 +103,7 @@ private slots:
 
 private:
     bool isColorToolAvailable();
+    bool isPositionToolAvailable();
     void createSpeedDials();
     Chaser* selectedChaser() const;
 
@@ -109,6 +114,7 @@ private:
     QAction* m_pasteAction;
     QAction* m_copyToAllAction;
     QAction* m_colorToolAction;
+    QAction* m_positionToolAction;
     QAction* m_blindAction;
     QAction* m_recordAction;
     QAction* m_speedDialAction;

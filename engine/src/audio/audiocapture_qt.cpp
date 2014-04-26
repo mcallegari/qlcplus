@@ -20,8 +20,6 @@
 #include <QSettings>
 #include <QDebug>
 
-#include <portaudio.h>
-
 #include "audiocapture_qt.h"
 
 AudioCaptureQt::AudioCaptureQt(QObject * parent)
@@ -70,8 +68,10 @@ bool AudioCaptureQt::initialize(unsigned int sampleRate, quint8 channels, quint1
 
     if (!audioDevice.isFormatSupported(m_format))
     {
-        qWarning() << "Default format not supported - trying to use nearest";
+        qWarning() << "Requested format not supported - trying to use nearest";
         m_format = audioDevice.nearestFormat(m_format);
+        channels = m_format.channelCount();
+        sampleRate = m_format.sampleRate();
     }
 
     m_audioInput = new QAudioInput(audioDevice, m_format, this);
@@ -102,11 +102,10 @@ void AudioCaptureQt::resume()
 
 bool AudioCaptureQt::readAudio(int maxSize)
 {
-    if (m_audioInput->bytesReady() < maxSize)
+    if (m_audioInput->bytesReady() < maxSize * 2)
         return false;
 
-    m_input->read(maxSize);
-    qint64 l = m_input->read((char *)m_audioBuffer, maxSize);
+    qint64 l = m_input->read((char *)m_audioBuffer, maxSize * 2);
 
     qDebug() << "[QT readAudio] " << l << "bytes read";
 

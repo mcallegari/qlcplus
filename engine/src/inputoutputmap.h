@@ -71,7 +71,7 @@ public:
      * @param dir The directory to load plugins from
      */
     void loadPlugins(const QDir& dir);
-    
+
 private:
     /** Get the doc object */
     Doc* doc() const;
@@ -151,7 +151,14 @@ public:
      * @param index The universe index
      * @return The universe name or an empty string
      */
-    QString getUniverseName(int index);
+    QString getUniverseNameByIndex(int index);
+
+    /**
+     * Retrieve the friendly name of the universe with the given ID
+     * @param id The universe unique ID
+     * @return The universe name or an empty string
+     */
+    QString getUniverseNameByID(quint32 id);
 
     /**
      * Set a friendly name of the universe with the given index
@@ -173,6 +180,20 @@ public:
      * @return true = passthrough, false = normal mode
      */
     bool getUniversePassthrough(int index);
+
+    /**
+     * Enable/disable the monitor mode for the universe with the given index
+     * @param index The universe index
+     * @param enable true = monitor, false = do not monitor
+     */
+    void setUniverseMonitor(int index, bool enable);
+
+    /**
+     * Retrieve the monitor mode of the universe at the given index
+     * @param index The universe index
+     * @return true = monitor, false = do not monitor
+     */
+    bool getUniverseMonitor(int index);
 
     /**
      * Return if a universe is patched with any input, output or

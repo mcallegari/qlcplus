@@ -31,10 +31,14 @@
 #include "chaser.h"
 #include "script.h"
 #include "audio.h"
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include "video.h"
+#endif
 #include "scene.h"
 #include "show.h"
 #include "efx.h"
 #include "doc.h"
+#include "functionuistate.h"
 
 const QString KSceneString      (      "Scene" );
 const QString KChaserString     (     "Chaser" );
@@ -44,11 +48,15 @@ const QString KScriptString     (     "Script" );
 const QString KRGBMatrixString  (  "RGBMatrix" );
 const QString KShowString       (       "Show" );
 const QString KAudioString      (      "Audio" );
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+const QString KVideoString      (      "Video" );
+#endif
 const QString KUndefinedString  (  "Undefined" );
 
 const QString KLoopString       (       "Loop" );
 const QString KPingPongString   (   "PingPong" );
 const QString KSingleShotString ( "SingleShot" );
+const QString KRandomString     (     "Random" );
 
 const QString KBackwardString   (   "Backward" );
 const QString KForwardString    (    "Forward" );
@@ -70,6 +78,7 @@ Function::Function(Doc* doc, Type t)
     , m_overrideFadeInSpeed(defaultSpeed())
     , m_overrideFadeOutSpeed(defaultSpeed())
     , m_overrideDuration(defaultSpeed())
+    , m_uiState()
     , m_flashing(false)
     , m_elapsed(0)
     , m_stop(true)
@@ -106,6 +115,7 @@ bool Function::copyFrom(const Function* function)
     m_fadeOutSpeed = function->fadeOutSpeed();
     m_duration = function->duration();
     m_path = function->path(true);
+    uiState()->copyFrom(function->uiState());
 
     emit changed(m_id);
 
@@ -183,6 +193,10 @@ QString Function::typeToString(Type type)
         return KShowString;
     case Audio:
         return KAudioString;
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    case Video:
+        return KVideoString;
+#endif
     case Undefined:
     default:
         return KUndefinedString;
@@ -207,6 +221,10 @@ Function::Type Function::stringToType(const QString& string)
         return Show;
     else if (string == KAudioString)
         return Audio;
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    else if (string == KVideoString)
+        return Video;
+#endif
     else
         return Undefined;
 }
@@ -231,6 +249,10 @@ QIcon Function::typeToIcon(Function::Type type)
         return QIcon(":/show.png");
     case Audio:
         return QIcon(":/audio.png");
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    case Video:
+        return QIcon(":/video.png");
+#endif
     case Undefined:
     default:
         return QIcon(":/function.png");
@@ -279,7 +301,7 @@ bool Function::saveXMLCommon(QDomElement *root) const
 
 void Function::setRunOrder(const Function::RunOrder& order)
 {
-    if (order == Loop || order == SingleShot || order == PingPong)
+    if (order == Loop || order == SingleShot || order == PingPong || order == Random)
         m_runOrder = order;
     else
         m_runOrder = Loop;
@@ -298,15 +320,12 @@ QString Function::runOrderToString(const RunOrder& order)
     default:
     case Loop:
         return KLoopString;
-        break;
-
     case PingPong:
         return KPingPongString;
-        break;
-
     case SingleShot:
         return KSingleShotString;
-        break;
+    case Random:
+        return KRandomString;
     }
 }
 
@@ -316,6 +335,8 @@ Function::RunOrder Function::stringToRunOrder(const QString& str)
         return PingPong;
     else if (str == KSingleShotString)
         return SingleShot;
+    else if (str == KRandomString)
+        return Random;
     else
         return Loop;
 }
@@ -371,11 +392,8 @@ QString Function::directionToString(const Direction& dir)
     default:
     case Forward:
         return KForwardString;
-        break;
-
     case Backward:
         return KBackwardString;
-        break;
     }
 }
 
@@ -585,6 +603,28 @@ uint Function::defaultSpeed()
 }
 
 /*****************************************************************************
+ * UI State
+ *****************************************************************************/
+
+FunctionUiState * Function::uiState()
+{
+    if (m_uiState == NULL)
+        m_uiState = createUiState();
+
+    return m_uiState;
+}
+
+const FunctionUiState * Function::uiState() const
+{
+    return m_uiState;
+}
+
+FunctionUiState * Function::createUiState()
+{
+   return new FunctionUiState(this);
+}
+
+/*****************************************************************************
  * Fixtures
  *****************************************************************************/
 
@@ -638,6 +678,10 @@ bool Function::loader(const QDomElement& root, Doc* doc)
         function = new class Show(doc);
     else if (type == Function::Audio)
         function = new class Audio(doc);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    else if (type == Function::Video)
+        function = new class Video(doc);
+#endif
     else
         return false;
 
@@ -801,7 +845,7 @@ bool Function::stopAndWait()
     watchdog.start();
 
     // block thread for maximum 2 seconds
-    while (m_elapsed > 0)
+    while (m_running == true)
     {
         if (watchdog.elapsed() > 2000)
         {

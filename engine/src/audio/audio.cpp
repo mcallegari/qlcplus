@@ -1,5 +1,5 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   audio.cpp
 
   Copyright (c) Massimo Callegari
@@ -23,11 +23,6 @@
 #include <QFile>
 
 #include <QMessageBox>
-
-#ifdef QT_PHONON_LIB
-#include <phonon/mediaobject.h>
-#include <phonon/backendcapabilities.h>
-#endif
 
 #include "audiodecoder.h"
 #ifdef HAS_LIBSNDFILE
@@ -259,7 +254,7 @@ void Audio::slotEndOfStream()
     if (m_audio_out != NULL)
     {
         m_audio_out->stop();
-        delete m_audio_out;
+        m_audio_out->deleteLater();
         m_audio_out = NULL;
         m_decoder->seek(0);
     }

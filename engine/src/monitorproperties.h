@@ -21,6 +21,7 @@
 #define MONITORPROPERTIES_H
 
 #include <QPointF>
+#include <QColor>
 #include <QFont>
 #include <QSize>
 #include <QHash>
@@ -29,6 +30,13 @@ class QDomDocument;
 class QDomElement;
 
 #define KXMLQLCMonitorProperties "Monitor"
+
+typedef struct
+{
+    QPointF m_position;
+    ushort m_rotation;
+    QColor m_gelColor;
+} FixtureItemProperties;
 
 class MonitorProperties
 {
@@ -59,8 +67,20 @@ public:
     GridUnits gridUnits() const { return m_gridUnits; }
 
     void setFixturePosition(quint32 fid, QPointF pos);
+    QPointF fixturePosition(quint32 fid) const { return m_fixtureItems[fid].m_position; }
+
+    void setFixtureRotation(quint32 fid, ushort degrees);
+    ushort fixtureRotation(quint32 fid) const { return m_fixtureItems[fid].m_rotation; }
+
+    void setFixtureGelColor(quint32 fid, QColor col);
+    QColor fixtureGelColor(quint32 fid) const { return m_fixtureItems[fid].m_gelColor; }
+
+    void setLabelsVisible(bool visible) { m_showLabels = visible; }
+    bool labelsVisible() const { return m_showLabels; }
+
     QList <quint32> fixtureItemsID() const { return m_fixtureItems.keys(); }
-    QPointF fixturePosition(quint32 fid) const { return m_fixtureItems[fid]; }
+
+    void reset();
 
 private:
     QFont m_font;
@@ -69,7 +89,8 @@ private:
     ValueStyle m_valueStyle;
     QSize m_gridSize;
     GridUnits m_gridUnits;
-    QHash <quint32, QPointF> m_fixtureItems;
+    bool m_showLabels;
+    QHash <quint32, FixtureItemProperties> m_fixtureItems;
 
     /*********************************************************************
      * Load & Save

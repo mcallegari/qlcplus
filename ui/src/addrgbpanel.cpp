@@ -108,6 +108,16 @@ int AddRGBPanel::rows()
     return m_rowSpin->value();
 }
 
+quint32 AddRGBPanel::physicalWidth()
+{
+    return m_phyWidthSpin->value();
+}
+
+quint32 AddRGBPanel::physicalHeight()
+{
+    return m_phyHeightSpin->value();
+}
+
 AddRGBPanel::Orientation AddRGBPanel::orientation()
 {
     if (m_oriTopLeftRadio->isChecked())

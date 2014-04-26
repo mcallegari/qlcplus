@@ -23,7 +23,7 @@
 #include "ui_configurehid.h"
 
 class HIDDevice;
-class HID;
+class HIDPlugin;
 
 class ConfigureHID : public QDialog, public Ui_ConfigureHID
 {
@@ -33,11 +33,11 @@ class ConfigureHID : public QDialog, public Ui_ConfigureHID
      * Initialization
      *********************************************************************/
 public:
-    ConfigureHID(QWidget* parent, HID* plugin);
+    ConfigureHID(QWidget* parent, HIDPlugin* plugin);
     virtual ~ConfigureHID();
 
 private:
-    HID* m_plugin;
+    HIDPlugin* m_plugin;
 
     /*********************************************************************
      * Refresh

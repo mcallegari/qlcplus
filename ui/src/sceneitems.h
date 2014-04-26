@@ -29,6 +29,9 @@
 #include "chaser.h"
 #include "audio.h"
 #include "track.h"
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include "video.h"
+#endif
 
 /** @addtogroup ui_functions
  * @{
@@ -166,14 +169,17 @@ public:
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *);
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *);
 
 protected slots:
     void slotTrackChanged(quint32 id);
     void slotMoveUpClicked();
     void slotMoveDownClicked();
+    void slotChangeNameClicked();
 
 signals:
     void itemClicked(TrackItem *);
+    void itemDoubleClicked(TrackItem *);
     void itemSoloFlagChanged(TrackItem *, bool);
     void itemMuteFlagChanged(TrackItem *, bool);
     void itemMoveUpDown(Track *, int);
@@ -192,6 +198,7 @@ private:
 
     QAction *m_moveUp;
     QAction *m_moveDown;
+    QAction *m_changeName;
 };
 
 /***************************************************************************************
@@ -325,7 +332,7 @@ private:
 private:
     QFont m_font;
     QColor m_color;
-    /** Reference to the actual Chaser object which holds the sequence steps */
+    /** Reference to the actual Audio object */
     Audio *m_audio;
     /** width of the graphics object */
     int m_width;
@@ -347,6 +354,82 @@ private:
 
     bool m_pressed;
 };
+
+
+#if QT_VERSION >= 0x050000
+/**************************************************************************
+ *
+ * Video Item. Clickable and draggable object identifying a Video object
+ *
+ **************************************************************************/
+class VideoItem : public QObject, public QGraphicsItem
+{
+    Q_OBJECT
+    Q_INTERFACES(QGraphicsItem)
+
+public:
+    VideoItem(Video *vid);
+
+    QRectF boundingRect() const;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
+    void setTimeScale(int val);
+    int getWidth();
+
+    QPointF getDraggingPos();
+
+    void setTrackIndex(int idx);
+    int getTrackIndex();
+
+    void setColor(QColor col);
+    QColor getColor();
+
+    /** Return a pointer to a Video object associated to this item */
+    Video *getVideo();
+
+public slots:
+    void updateDuration();
+
+signals:
+    void itemDropped(QGraphicsSceneMouseEvent *, VideoItem *);
+    void alignToCursor(VideoItem *);
+
+protected:
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
+
+protected slots:
+    void slotVideoChanged(quint32);
+    void slotAlignToCursorClicked();
+    void slotScreenChanged();
+    void slotFullscreenToggled(bool toggle);
+
+private:
+    /** Calculate sequence width for paint() and boundingRect() */
+    void calculateWidth();
+
+private:
+    QFont m_font;
+    QColor m_color;
+    /** Reference to the actual Video object */
+    Video *m_video;
+    /** width of the graphics object */
+    int m_width;
+    /** Position of the item top-left corner. This is used to handle unwanted dragging */
+    QPointF m_pos;
+    /** horizontal scale to adapt width to the current time line */
+    int m_timeScale;
+    /** track index this Video object belongs to */
+    int m_trackIdx;
+
+    /** Context menu actions */
+    QAction *m_alignToCursor;
+    QAction *m_fullscreenAction;
+
+    bool m_pressed;
+};
+#endif
 
 /** @} */
 

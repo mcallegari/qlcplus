@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://qlcplus.sourceforge.net/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.4.1</Version>
+  <Version>4.6.1</Version>
   <Author>Ralf Herold</Author>
  </Creator>
  <Manufacturer>Stairville</Manufacturer>
@@ -98,6 +98,21 @@
   <Channel Number="8">Red 3</Channel>
   <Channel Number="9">Green 3</Channel>
   <Channel Number="10">Blue 3</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
  </Mode>
  <Mode Name="Mode 2">
   <Physical>

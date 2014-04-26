@@ -62,6 +62,11 @@
 #include "doc.h"
 #include "efx.h"
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include "videoeditor.h"
+#include "video.h"
+#endif
+
 #define COL_NAME 0
 #define COL_PATH 1
 
@@ -87,6 +92,7 @@ FunctionManager::FunctionManager(QWidget* parent, Doc* doc)
     , m_addRGBMatrixAction(NULL)
     , m_addScriptAction(NULL)
     , m_addAudioAction(NULL)
+    , m_addVideoAction(NULL)
     , m_autostartAction(NULL)
     , m_wizardAction(NULL)
     , m_addFolderAction(NULL)
@@ -159,7 +165,7 @@ void FunctionManager::slotDocLoaded()
         if (chaser->isSequence() && chaser->getBoundSceneID() != Scene::invalidId())
         {
             Function *sceneFunc = m_doc->function(chaser->getBoundSceneID());
-            if (sceneFunc == NULL)
+            if (sceneFunc == NULL || sceneFunc->type() != Function::Scene)
                 continue;
 
             Scene *scene = qobject_cast<Scene*>(sceneFunc);
@@ -204,7 +210,7 @@ void FunctionManager::slotFunctionChanged(quint32 id)
 
 void FunctionManager::slotFunctionAdded(quint32 id)
 {
-    m_tree->functionAdded(id);
+    m_tree->addFunction(id);
 }
 
 void FunctionManager::showEvent(QShowEvent* ev)
@@ -277,6 +283,13 @@ void FunctionManager::initActions()
     connect(m_addAudioAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddAudio()));
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    m_addVideoAction = new QAction(QIcon(":/video.png"),
+                                   tr("New vid&eo"), this);
+    m_addVideoAction->setShortcut(QKeySequence("CTRL+E"));
+    connect(m_addVideoAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotAddVideo()));
+#endif
     m_addFolderAction = new QAction(QIcon(":/folder.png"),
                                    tr("New fo&lder"), this);
     m_addFolderAction->setShortcut(QKeySequence("CTRL+L"));
@@ -329,6 +342,9 @@ void FunctionManager::initToolbar()
     m_toolbar->addAction(m_addRGBMatrixAction);
     m_toolbar->addAction(m_addScriptAction);
     m_toolbar->addAction(m_addAudioAction);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    m_toolbar->addAction(m_addVideoAction);
+#endif
     m_toolbar->addSeparator();
     m_toolbar->addAction(m_addFolderAction);
     m_toolbar->addSeparator();
@@ -449,28 +465,10 @@ void FunctionManager::slotAddAudio()
     QFileDialog dialog(this);
     dialog.setWindowTitle(tr("Open Audio File"));
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
-    //dialog.selectFile(fileName());
 
     /* Append file filters to the dialog */
-    QStringList extList;
-#ifdef QT_PHONON_LIB
-    QStringList systemCaps = Audio::getCapabilities();
-    if (systemCaps.contains("audio/ogg") || systemCaps.contains("audio/x-ogg"))
-        extList << "*.ogg";
-    if (systemCaps.contains("audio/x-m4a"))
-        extList << "*.m4a";
-    if (systemCaps.contains("audio/flac") || systemCaps.contains("audio/x-flac"))
-        extList << "*.flac";
-    if (systemCaps.contains("audio/x-ms-wma"))
-        extList << "*.wma";
-    if (systemCaps.contains("audio/wav") || systemCaps.contains("audio/x-wav"))
-        extList << "*.wav";
-    if (systemCaps.contains("audio/mp3") || systemCaps.contains("audio/x-mp3") ||
-        systemCaps.contains("audio/mpeg3") || systemCaps.contains("audio/x-mpeg3"))
-        extList << "*.mp3";
-#else
-    extList = Audio::getCapabilities();
-#endif
+    QStringList extList = Audio::getCapabilities();
+
     QStringList filters;
     qDebug() << Q_FUNC_INFO << "Extensions: " << extList.join(" ");
     filters << tr("Audio Files (%1)").arg(extList.join(" "));
@@ -511,6 +509,60 @@ void FunctionManager::slotAddAudio()
     }
 }
 
+void FunctionManager::slotAddVideo()
+{
+#if QT_VERSION > QT_VERSION_CHECK(5, 0, 0)
+    QString fn;
+
+    /* Create a file open dialog */
+    QFileDialog dialog(this);
+    dialog.setWindowTitle(tr("Open Video File"));
+    dialog.setAcceptMode(QFileDialog::AcceptOpen);
+
+    /* Append file filters to the dialog */
+    QStringList extList = Video::getCapabilities();
+
+    QStringList filters;
+    qDebug() << Q_FUNC_INFO << "Extensions: " << extList.join(" ");
+    filters << tr("Video Files (%1)").arg(extList.join(" "));
+#if defined(WIN32) || defined(Q_OS_WIN)
+    filters << tr("All Files (*.*)");
+#else
+    filters << tr("All Files (*)");
+#endif
+    dialog.setNameFilters(filters);
+
+    /* Append useful URLs to the dialog */
+    QList <QUrl> sidebar;
+    sidebar.append(QUrl::fromLocalFile(QDir::homePath()));
+    sidebar.append(QUrl::fromLocalFile(QDir::rootPath()));
+    dialog.setSidebarUrls(sidebar);
+
+    /* Get file name */
+    if (dialog.exec() != QDialog::Accepted)
+        return;
+
+    fn = dialog.selectedFiles().first();
+    if (fn.isEmpty() == true)
+        return;
+
+    Function* f = new Video(m_doc);
+    Video *video = qobject_cast<Video*> (f);
+    if (video->setSourceFileName(fn) == false)
+    {
+        QMessageBox::warning(this, tr("Unsupported video file"), tr("This video file cannot be played with QLC+. Sorry."));
+        return;
+    }
+    if (m_doc->addFunction(f) == true)
+    {
+        QTreeWidgetItem* item = m_tree->functionItem(f);
+        Q_ASSERT(item != NULL);
+        m_tree->scrollToItem(item);
+        m_tree->setCurrentItem(item);
+    }
+#endif
+}
+
 void FunctionManager::slotAddFolder()
 {
     m_tree->addFolder();
@@ -523,7 +575,7 @@ void FunctionManager::slotSelectAutostartFunction()
     fs.setMultiSelection(false);
     fs.showNone(true);
 
-    if (fs.exec() == QDialog::Accepted)
+    if (fs.exec() == QDialog::Accepted && fs.selection().size() > 0)
     {
         quint32 startID = fs.selection().first();
         m_doc->setStartupFunction(startID);
@@ -736,6 +788,18 @@ void FunctionManager::deleteSelectedFunctions()
 
         if (func->type() == Function::Chaser && qobject_cast<const Chaser*>(func)->isSequence() == true)
             isSequence = true;
+
+        // Stop running tests before deleting function
+        if (m_editor != NULL)
+        {
+            if (func->type() == Function::RGBMatrix)
+                static_cast<RGBMatrixEditor*>(m_editor)->stopTest();
+            else if (func->type() == Function::EFX)
+                static_cast<EFXEditor*>(m_editor)->stopTest();
+            else if (func->type() == Function::Chaser)
+                static_cast<ChaserEditor*>(m_editor)->stopTest();
+        }
+
         m_doc->deleteFunction(fid);
 
         QTreeWidgetItem* parent = item->parent();
@@ -781,6 +845,10 @@ void FunctionManager::slotTreeContextMenuRequested()
     menu.addAction(m_addCollectionAction);
     menu.addAction(m_addRGBMatrixAction);
     menu.addAction(m_addScriptAction);
+    menu.addAction(m_addAudioAction);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    menu.addAction(m_addVideoAction);
+#endif
     menu.addSeparator();
     menu.addAction(m_addFolderAction);
     menu.addSeparator();
@@ -875,6 +943,12 @@ void FunctionManager::editFunction(Function* function)
     {
         m_editor = new AudioEditor(m_hsplitter->widget(1), qobject_cast<Audio*> (function), m_doc);
     }
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    else if (function->type() == Function::Video)
+    {
+        m_editor = new VideoEditor(m_hsplitter->widget(1), qobject_cast<Video*> (function), m_doc);
+    }
+#endif
     else
     {
         m_editor = NULL;

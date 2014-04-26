@@ -33,7 +33,7 @@
 #include "fadechannel.h"
 #include "rgbmatrix.h"
 #include "qlcmacros.h"
-#include "rgbtext.h"
+#include "rgbaudio.h"
 #include "doc.h"
 
 #define KXMLQLCRGBMatrixStartColor "MonoColor"
@@ -135,6 +135,11 @@ void RGBMatrix::setAlgorithm(RGBAlgorithm* algo)
     if (m_algorithm != NULL)
         delete m_algorithm;
     m_algorithm = algo;
+    if (m_algorithm != NULL && m_algorithm->type() == RGBAlgorithm::Audio)
+    {
+        RGBAudio *audio = static_cast<RGBAudio*>(m_algorithm);
+        audio->setAudioCapture(doc()->audioInputCapture());
+    }
 }
 
 RGBAlgorithm* RGBMatrix::algorithm() const
@@ -167,6 +172,8 @@ QList <RGBMap> RGBMatrix::previewMaps()
 void RGBMatrix::setStartColor(const QColor& c)
 {
     m_startColor = c;
+    if (m_algorithm != NULL)
+        m_algorithm->setColors(m_startColor, m_endColor);
 }
 
 QColor RGBMatrix::startColor() const
@@ -177,6 +184,8 @@ QColor RGBMatrix::startColor() const
 void RGBMatrix::setEndColor(const QColor &c)
 {
     m_endColor = c;
+    if (m_algorithm != NULL)
+        m_algorithm->setColors(m_startColor, m_endColor);
 }
 
 QColor RGBMatrix::endColor() const
@@ -376,6 +385,7 @@ void RGBMatrix::preRun(MasterTimer* timer)
 
         Q_ASSERT(m_fader == NULL);
         m_fader = new GenericFader(doc());
+        m_fader->adjustIntensity(getAttributeValue(Intensity));
 
         if (m_direction == Forward)
         {

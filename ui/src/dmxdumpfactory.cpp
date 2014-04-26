@@ -21,6 +21,7 @@
 #include <QTreeWidget>
 
 #include "dmxdumpfactoryproperties.h"
+#include "fixturetreewidget.h"
 #include "virtualconsole.h"
 #include "dmxdumpfactory.h"
 #include "chaserstep.h"
@@ -49,16 +50,16 @@ DmxDumpFactory::DmxDumpFactory(Doc *doc, DmxDumpFactoryProperties *props, QWidge
 
     setupUi(this);
 
-    m_universesCount = 0;
-    m_fixturesCount = 0;
-    m_channelsCount = 0;
+    quint32 treeFlags = FixtureTreeWidget::ChannelType |
+                        FixtureTreeWidget::ChannelSelection;
 
-    connect(m_fixturesTree, SIGNAL(expanded(QModelIndex)),
-            this, SLOT(slotItemExpanded()));
-    connect(m_fixturesTree, SIGNAL(collapsed(QModelIndex)),
-            this, SLOT(slotItemExpanded()));
+    m_fixturesTree = new FixtureTreeWidget(m_doc, treeFlags, this);
+    m_fixturesTree->setIconSize(QSize(24, 24));
 
-    updateFixturesTree();
+    m_treeLayout->addWidget(m_fixturesTree);
+    m_fixturesTree->setChannelsMask(m_properties->channelsMask());
+
+    m_fixturesTree->updateTree();
 
     if (m_properties->selectedTarget() == 1)
         m_buttonRadio->setChecked(true);
@@ -68,7 +69,7 @@ DmxDumpFactory::DmxDumpFactory(Doc *doc, DmxDumpFactoryProperties *props, QWidge
         slotUpdateChasersTree();
 
     m_dumpAllRadio->setText(tr("Dump all channels (%1 Universes, %2 Fixtures, %3 Channels)")
-                            .arg(m_universesCount).arg(m_fixturesCount).arg(m_channelsCount));
+                            .arg(m_fixturesTree->universeCount()).arg(m_fixturesTree->fixturesCount()).arg(m_fixturesTree->channelsCount()));
 
     m_sceneName->setText(tr("New Scene From Live %1").arg(m_doc->nextFunctionID()));
     if (m_properties->dumpChannelsMode() == true)
@@ -82,71 +83,6 @@ DmxDumpFactory::DmxDumpFactory(Doc *doc, DmxDumpFactoryProperties *props, QWidge
 
 DmxDumpFactory::~DmxDumpFactory()
 {
-}
-
-void DmxDumpFactory::updateFixturesTree()
-{
-    QByteArray chMask = m_properties->channelsMask();
-    m_fixturesTree->clear();
-    m_fixturesTree->setIconSize(QSize(24, 24));
-
-    foreach(Fixture *fxi, m_doc->fixtures())
-    {
-        QTreeWidgetItem *topItem = NULL;
-        quint32 uni = fxi->universe();
-        for (int i = 0; i < m_fixturesTree->topLevelItemCount(); i++)
-        {
-            QTreeWidgetItem* tItem = m_fixturesTree->topLevelItem(i);
-            quint32 tUni = tItem->text(KColumnID).toUInt();
-            if (tUni == uni)
-            {
-                topItem = tItem;
-                break;
-            }
-        }
-        // Haven't found this universe node ? Create it.
-        if (topItem == NULL)
-        {
-            topItem = new QTreeWidgetItem(m_fixturesTree);
-            topItem->setText(KColumnName, tr("Universe %1").arg(uni + 1));
-            topItem->setText(KColumnID, QString::number(uni));
-            topItem->setFlags(topItem->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsTristate);
-            topItem->setCheckState(KColumnName, Qt::Unchecked);
-            m_universesCount++;
-        }
-
-        QTreeWidgetItem *fItem = new QTreeWidgetItem(topItem);
-        fItem->setText(KColumnName, fxi->name());
-        fItem->setIcon(KColumnName, fxi->getIconFromType(fxi->type()));
-        fItem->setText(KColumnID, QString::number(fxi->id()));
-        fItem->setFlags(fItem->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsTristate);
-        fItem->setCheckState(KColumnName, Qt::Unchecked);
-
-        quint32 baseAddress = fxi->universeAddress();
-        for (quint32 c = 0; c < fxi->channels(); c++)
-        {
-            const QLCChannel* channel = fxi->channel(c);
-            QTreeWidgetItem *item = new QTreeWidgetItem(fItem);
-            item->setText(KColumnName, QString("%1:%2").arg(c + 1)
-                          .arg(channel->name()));
-            item->setIcon(KColumnName, channel->getIconFromGroup(channel->group()));
-            if (channel->group() == QLCChannel::Intensity &&
-                channel->colour() != QLCChannel::NoColour)
-                item->setText(KColumnType, QLCChannel::colourToString(channel->colour()));
-            else
-                item->setText(KColumnType, QLCChannel::groupToString(channel->group()));
-
-            item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
-            if (chMask.at(baseAddress + c) == 1)
-                item->setCheckState(KColumnName, Qt::Checked);
-            else
-                item->setCheckState(KColumnName, Qt::Unchecked);
-            m_channelsCount++;
-        }
-        m_fixturesCount++;
-    }
-    m_fixturesTree->resizeColumnToContents(KColumnName);
-    m_fixturesTree->resizeColumnToContents(KColumnType);
 }
 
 void DmxDumpFactory::slotUpdateChasersTree()
@@ -228,12 +164,6 @@ void DmxDumpFactory::slotDumpNonZeroChanged(bool active)
     m_properties->setNonZeroValuesMode(active);
 }
 
-void DmxDumpFactory::slotItemExpanded()
-{
-    m_fixturesTree->resizeColumnToContents(KColumnName);
-    m_fixturesTree->resizeColumnToContents(KColumnType);
-}
-
 void DmxDumpFactory::accept()
 {
     QByteArray dumpMask = m_properties->channelsMask();
@@ -242,7 +172,9 @@ void DmxDumpFactory::accept()
     for (int i = 0; i < ua.count(); i++)
         preGMValues.append(ua.at(i)->preGMValues());
     m_doc->inputOutputMap()->releaseUniverses(false);
+
     Scene *newScene = NULL;
+
     for (int t = 0; t < m_fixturesTree->topLevelItemCount(); t++)
     {
         QTreeWidgetItem *uniItem = m_fixturesTree->topLevelItem(t);
@@ -253,7 +185,7 @@ void DmxDumpFactory::accept()
         for (int f = 0; f < uniItem->childCount(); f++)
         {
             QTreeWidgetItem *fixItem = uniItem->child(f);
-            quint32 fxID = fixItem->text(KColumnID).toUInt();
+            quint32 fxID = fixItem->data(KColumnName, Qt::UserRole).toUInt();
             Fixture *fxi = m_doc->fixture(fxID);
             if (fxi != NULL)
             {

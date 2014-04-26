@@ -119,6 +119,12 @@ bool OutputPatch::isPatched() const
     return output() != QLCIOPlugin::invalidLine();
 }
 
+void OutputPatch::setPluginProperty(QString prop, QVariant value)
+{
+    if (m_plugin != NULL)
+        m_plugin->setParameter(prop.toLatin1().data(), value);
+}
+
 /*****************************************************************************
  * Value dump
  *****************************************************************************/

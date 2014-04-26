@@ -6,16 +6,16 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>482</width>
+    <width>544</width>
     <height>505</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Channels Fade Configuration</string>
+   <string>Channels selection</string>
   </property>
   <property name="windowIcon">
    <iconset resource="qlcui.qrc">
-    <normaloff>:/fade.png</normaloff>:/fade.png</iconset>
+    <normaloff>:/star.png</normaloff>:/star.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -31,11 +31,6 @@
      <column>
       <property name="text">
        <string>Type</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Fade</string>
       </property>
      </column>
     </widget>
