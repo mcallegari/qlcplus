@@ -102,6 +102,7 @@ WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, QObject *parent) :
   , m_server(NULL)
   , m_conn(NULL)
   , m_running(false)
+  , m_pendingProjectLoaded(false)
 {
     Q_ASSERT(s_instance == NULL);
     Q_ASSERT(m_doc != NULL);
@@ -188,7 +189,7 @@ mg_result WebAccess::beginRequestHandler(mg_connection *conn)
 
       QByteArray postReply =
               QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n"
-              "<script type=\"text/javascript\">\n" WEBSOCKET_JS
+              "<script type=\"text/javascript\">\n" PROJECT_LOADED_JS
               "</script></head><body style=\"background-color: #45484d;\">"
               "<div style=\"position: absolute; width: 100%; height: 30px; top: 50%; background-color: #888888;"
               "text-align: center; font:bold 24px/1.2em sans-serif;\">"
@@ -201,8 +202,17 @@ mg_result WebAccess::beginRequestHandler(mg_connection *conn)
                 "%s",
                 post_size, postReply.data());
 
+      m_pendingProjectLoaded = false;
+
       emit loadProject(projectXML);
 
+      return MG_TRUE;
+  }
+  if (QString(conn->uri) == "/loadProjectNoRedirection")
+  {
+      QString prjname;
+      QString projectXML = loadXMLPost(conn, prjname);
+      emit loadProject(projectXML);
       return MG_TRUE;
   }
   else if (QString(conn->uri) == "/config")
@@ -406,6 +416,26 @@ mg_result WebAccess::websocketDataHandler(mg_connection *conn)
         }
     }
 #endif
+    else if (cmdList[0] == "QLC+API")
+    {
+        if (cmdList.count() < 2)
+            return MG_FALSE;
+
+        // compose the basic API reply messages
+        QString wsAPIMessage = QString("QLC+API|%1").arg(cmdList[1]);
+
+        if (cmdList[1] == "isProjectLoaded")
+        {
+            if (m_pendingProjectLoaded)
+            {
+                wsAPIMessage.append("|true");
+                m_pendingProjectLoaded = false;
+            }
+            else
+                wsAPIMessage.append("|false");
+        }
+        mg_websocket_write(conn, WEBSOCKET_OPCODE_TEXT, wsAPIMessage.toLatin1().data(), wsAPIMessage.length());
+    }
     else if(cmdList[0] == "POLL")
         return MG_TRUE;
 
@@ -1475,11 +1505,7 @@ bool WebAccess::writeNetworkFile()
 
 void WebAccess::slotVCLoaded()
 {
-    if (m_conn == NULL)
-        return;
-
-    QString wsMessage = QString("URL|/");
-    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toLatin1().data(), wsMessage.length());
+    m_pendingProjectLoaded = true;
 }
 
 

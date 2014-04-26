@@ -43,13 +43,28 @@
     "    var playBbj = document.getElementById(\"play\" + msgParams[0]);\n" \
     "    playBbj.innerHTML = \"Stop\";\n" \
     "  }\n" \
-    "  else if (msgParams[0] == \"URL\") {\n" \
-    "    window.location = msgParams[1];\n" \
-    "  }\n" \
     "  else if (msgParams[0] == \"ALERT\") {\n" \
     "    alert(msgParams[1]);\n" \
     "  }\n" \
     " };\n" \
+    "};\n"
+
+#define PROJECT_LOADED_JS \
+    "var websocket;\n" \
+    "window.onload = function() {\n" \
+    " var url = 'ws://' + window.location.host + '/qlcplusWS';\n" \
+    " websocket = new WebSocket(url);\n" \
+    " setInterval(checkProjectLoaded, 100);\n" \
+    " websocket.onmessage = function(ev) {\n" \
+    "  var msgParams = ev.data.split('|');\n" \
+    "  if (msgParams[0] == \"QLC+API\" && " \
+    "      msgParams[1] == \"isProjectLoaded\" && " \
+    "      msgParams[2] == \"true\")" \
+    "         window.location = \"/\";\n" \
+    " };\n" \
+    "};\n" \
+    "function checkProjectLoaded() {\n" \
+    " websocket.send(\"QLC+API|isProjectLoaded\");\n" \
     "};\n"
 
 #define HIDDEN_FORM_CSS \

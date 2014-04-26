@@ -122,6 +122,7 @@ protected:
     struct mg_connection *m_conn;
 
     bool m_running;
+    bool m_pendingProjectLoaded;
 
 signals:
     void toggleDocMode();
