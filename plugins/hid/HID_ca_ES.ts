@@ -6,22 +6,22 @@
     <message>
         <location filename="configurehid.ui" line="14"/>
         <source>Configure HID Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Configurar plugin HID</translation>
     </message>
     <message>
         <location filename="configurehid.ui" line="33"/>
         <source>Input Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Línia d&apos;Entrada</translation>
     </message>
     <message>
         <location filename="configurehid.ui" line="38"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <location filename="configurehid.ui" line="46"/>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualitzar</translation>
     </message>
 </context>
 <context>
@@ -29,7 +29,7 @@
     <message>
         <location filename="hideventdevice.cpp" line="339"/>
         <source>N/A</source>
-        <translation type="unfinished"></translation>
+        <translation>N/A</translation>
     </message>
 </context>
 <context>
@@ -37,12 +37,12 @@
     <message>
         <location filename="hidfx5device.cpp" line="61"/>
         <source>FX5 USB DMX Interface Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error de la interfície FX5 USB DMX</translation>
     </message>
     <message>
         <location filename="hidfx5device.cpp" line="62"/>
         <source>Unable to open the FX5 Interface. Make sure the udev rule is installed.</source>
-        <translation type="unfinished"></translation>
+        <translation>No es pot obrir la interfície FX5. Assegureu-vos que la regla udev està instal·lada.</translation>
     </message>
 </context>
 <context>
@@ -50,12 +50,12 @@
     <message>
         <location filename="hidjsdevice.cpp" line="303"/>
         <source>Axes: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Eixos: %1</translation>
     </message>
     <message>
         <location filename="hidjsdevice.cpp" line="305"/>
         <source>Buttons: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Botons: %1</translation>
     </message>
 </context>
 <context>
@@ -63,7 +63,7 @@
     <message>
         <location filename="hidplugin.cpp" line="150"/>
         <source>This plugin provides support for HID-based joysticks and the FX5 USB DMX adapter.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aquest plugin proveeix suport per joysticks HID i l&apos;adaptador FX5 USB DMX.</translation>
     </message>
 </context>
 </TS>

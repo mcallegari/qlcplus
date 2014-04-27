@@ -6,12 +6,12 @@
     <message>
         <location filename="launcher.cpp" line="34"/>
         <source>Launch %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Executa %1</translation>
     </message>
     <message>
         <location filename="launcher.cpp" line="39"/>
         <source>Launch the main %1 application</source>
-        <translation type="unfinished"></translation>
+        <translation>Executa l&apos;aplicació principal %1</translation>
     </message>
 </context>
 </TS>
