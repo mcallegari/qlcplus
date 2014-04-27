@@ -150,23 +150,38 @@
        </widget>
       </item>
       <item row="4" column="2">
-       <widget class="QSpinBox" name="m_addressSpin">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="toolTip">
-         <string>The starting address of the (first) added fixture</string>
-        </property>
-        <property name="minimum">
-         <number>1</number>
-        </property>
-        <property name="maximum">
-         <number>512</number>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <item>
+         <widget class="QSpinBox" name="m_addressSpin">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>The starting address of the (first) added fixture</string>
+          </property>
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>512</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="m_diptoolButton">
+          <property name="icon">
+           <iconset resource="qlcui.qrc">
+            <normaloff>:/diptool.png</normaloff>:/diptool.png</iconset>
+          </property>
+          <property name="toolTip">
+           <string>Address Tool</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item row="6" column="0">
        <widget class="QLabel" name="m_channelsLabel">

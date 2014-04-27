@@ -35,6 +35,7 @@
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
 
+#include "addresstool.h"
 #include "outputpatch.h"
 #include "addfixture.h"
 #include "apputil.h"
@@ -87,6 +88,8 @@ AddFixture::AddFixture(QWidget* parent, const Doc* doc, const Fixture* fxi)
             this, SLOT(slotAmountSpinChanged(int)));
     connect(m_searchEdit, SIGNAL(textChanged(QString)),
             this, SLOT(slotSearchFilterChanged(QString)));
+    connect(m_diptoolButton, SIGNAL(clicked()),
+            this, SLOT(slotDiptoolButtonClicked()));
 
     /* Fill fixture definition tree (and select a fixture def) */
     if (fxi != NULL && fxi->isDimmer() == false)
@@ -673,4 +676,11 @@ void AddFixture::slotTreeDoubleClicked(QTreeWidgetItem* item)
     slotSelectionChanged();
     if (item != NULL && item->parent() != NULL)
         accept();
+}
+
+void AddFixture::slotDiptoolButtonClicked()
+{
+    AddressTool at(this, m_addressSpin->value());
+    at.exec();
+    m_addressSpin->setValue(at.getAddress());
 }
