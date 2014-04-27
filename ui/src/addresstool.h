@@ -53,7 +53,7 @@ class DIPSwitchWidget: public QWidget
     Q_OBJECT
 
 public:
-    DIPSwitchWidget(QWidget *parent = 0);
+    DIPSwitchWidget(QWidget *parent = 0, int presetValue = 1);
     ~DIPSwitchWidget();
 
     void setColor(QColor col);
@@ -87,8 +87,10 @@ class AddressTool : public QDialog
     Q_OBJECT
     
 public:
-    explicit AddressTool(QWidget *parent = 0);
+    explicit AddressTool(QWidget *parent = 0, int presetValue = 1);
     ~AddressTool();
+
+    int getAddress();
     
 private:
     Ui::AddressTool *ui;
