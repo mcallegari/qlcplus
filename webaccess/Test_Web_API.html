@@ -50,27 +50,47 @@ function connectToWebSocket(host) {
     alert("QLC+ connection error!");
   };
  
+  // WebSocket message handler. This is where async events
+  // will be shown or processed as needed
   websocket.onmessage = function(ev) {
     //alert(ev.data);
     var msgParams = ev.data.split('|');
     if (msgParams[1] == "getFunctionsNumber")
-    {
       document.getElementById('getFunctionsNumberBox').innerHTML = msgParams[2];
-    }
+    
     else if (msgParams[1] == "getFunctionsList")
     {
       var tableCode = "<table class='apiTable'><tr><th>ID</th><th>Name</th></tr>";
       for (i = 2; i < msgParams.length; i+=2)
       {
-	tableCode = tableCode + "<tr><td>" + msgParams[i] + "</td><td>" + msgParams[i + 1] + "</td></tr>";
+        tableCode = tableCode + "<tr><td>" + msgParams[i] + "</td><td>" + msgParams[i + 1] + "</td></tr>";
       }
       tableCode += "</table>";
       document.getElementById('getFunctionsListBox').innerHTML = tableCode;
     }
+
     else if (msgParams[1] == "getFunctionType")
-    {
       document.getElementById('getFunctionTypeBox').innerHTML = msgParams[2];
+
+    else if (msgParams[1] == "getFunctionStatus")
+      document.getElementById('getFunctionStatusBox').innerHTML = msgParams[2];
+
+    else if (msgParams[1] == "getWidgetsNumber")
+      document.getElementById('getWidgetsNumberBox').innerHTML = msgParams[2];
+    
+    else if (msgParams[1] == "getWidgetsList")
+    {
+      var tableCode = "<table class='apiTable'><tr><th>ID</th><th>Name</th></tr>";
+      for (i = 2; i < msgParams.length; i+=2)
+      {
+        tableCode = tableCode + "<tr><td>" + msgParams[i] + "</td><td>" + msgParams[i + 1] + "</td></tr>";
+      }
+      tableCode += "</table>";
+      document.getElementById('getWidgetsListBox').innerHTML = tableCode;
     }
+    
+    else if (msgParams[1] == "getWidgetType")
+      document.getElementById('getWidgetTypeBox').innerHTML = msgParams[2];
   };
 };
 
@@ -199,6 +219,12 @@ Load a project:
   <th width=30%><b>Description</b></th>
   <th width=40%><b>Result</b></th>
  </tr>
+ 
+<!-- ############## Functions API tests ####################### -->
+ 
+ <tr>
+  <td colspan="3" align="center"><b>Function APIs</b></td>
+ </tr>
  <tr>
   <td><div class="apiButton" onclick="javascript:requestAPI('getFunctionsNumber');">getFunctionsNumber</div></td>
   <td>Retrieve the number of functions loaded</td>
@@ -217,6 +243,40 @@ Load a project:
   <td>Retrieve the type of a function with the given ID</td>
   <td><div id="getFunctionTypeBox" class="resultBox"></div></td>
  </tr>
+ <tr>
+  <td>
+    <div class="apiButton" onclick="javascript:requestAPIWithParam('getFunctionStatus', 'fStatusID');">getFunctionStatus</div>
+    <input id="fStatusID" type="input" value="0"></input>
+  </td>
+  <td>Retrieve the status of a function with the given ID. Possible values are "Running", "Stopped" and "Undefined"</td>
+  <td><div id="getFunctionStatusBox" class="resultBox"></div></td>
+  </tr>
+  
+<!-- ############## Widgets API tests ####################### -->
+
+  <tr>
+  <td colspan="3" align="center"><b>Virtual Console Widget APIs</b></td>
+ </tr>
+ <tr>
+  <td><div class="apiButton" onclick="javascript:requestAPI('getWidgetsNumber');">getWidgetsNumber</div></td>
+  <td>Retrieve the number of widgets loaded</td>
+  <td><div id="getWidgetsNumberBox" class="resultBox"></div></td>
+ </tr>
+ <tr>
+  <td><div class="apiButton" onclick="javascript:requestAPI('getWidgetsList');">getWidgetsList</div></td>
+  <td>Retrieve the list of Virtual Console Widgets with their ID and name</td>
+  <td><div id="getWidgetsListBox" style="height: 150px; overflow-y: scroll;"></div></td>
+ </tr>
+ <tr>
+  <td>
+    <div class="apiButton" onclick="javascript:requestAPIWithParam('getWidgetType', 'wTypeID');">getWidgetType</div>
+    <input id="wTypeID" type="input" value="0"></input>
+  </td>
+  <td>Retrieve the type of a Virtual Console Widget with the given ID</td>
+  <td><div id="getWidgetTypeBox" class="resultBox"></div></td>
+ </tr>
+
+
 </table>
 
 </body>

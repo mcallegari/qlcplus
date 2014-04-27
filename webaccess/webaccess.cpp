@@ -451,6 +451,50 @@ mg_result WebAccess::websocketDataHandler(mg_connection *conn)
             else
                 wsAPIMessage.append(Function::typeToString(Function::Undefined));
         }
+        else if (apiCmd == "getFunctionStatus")
+        {
+            if (cmdList.count() < 3)
+                return MG_FALSE;
+
+            quint32 fID = cmdList[2].toUInt();
+            Function *f = m_doc->function(fID);
+            if (f != NULL)
+            {
+                if (f->isRunning())
+                    wsAPIMessage.append("Running");
+                else
+                    wsAPIMessage.append("Stopped");
+            }
+            else
+                wsAPIMessage.append(Function::typeToString(Function::Undefined));
+        }
+        else if (apiCmd == "getWidgetsNumber")
+        {
+            VCFrame *mainFrame = m_vc->contents();
+            QList<VCWidget *> chList = mainFrame->findChildren<VCWidget*>();
+            wsAPIMessage.append(QString::number(chList.count()));
+        }
+        else if (apiCmd == "getWidgetsList")
+        {
+            VCFrame *mainFrame = m_vc->contents();
+            foreach(VCWidget *widget, mainFrame->findChildren<VCWidget*>())
+                wsAPIMessage.append(QString("%1|%2|").arg(widget->id()).arg(widget->caption()));
+            // remove trailing separator
+            wsAPIMessage.truncate(wsAPIMessage.length() - 2);
+        }
+        else if (apiCmd == "getWidgetType")
+        {
+            if (cmdList.count() < 3)
+                return MG_FALSE;
+
+            quint32 wID = cmdList[2].toUInt();
+            VCWidget *widget = m_vc->widget(wID);
+            if (widget != NULL)
+                wsAPIMessage.append(widget->typeToString(widget->type()));
+            else
+                wsAPIMessage.append(widget->typeToString(VCWidget::UnknownWidget));
+        }
+
         mg_websocket_write(conn, WEBSOCKET_OPCODE_TEXT, wsAPIMessage.toLatin1().data(), wsAPIMessage.length());
     }
     else if(cmdList[0] == "POLL")
