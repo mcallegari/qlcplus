@@ -208,13 +208,6 @@ mg_result WebAccess::beginRequestHandler(mg_connection *conn)
 
       return MG_TRUE;
   }
-  if (QString(conn->uri) == "/loadProjectNoRedirection")
-  {
-      QString prjname;
-      QString projectXML = loadXMLPost(conn, prjname);
-      emit loadProject(projectXML);
-      return MG_TRUE;
-  }
   else if (QString(conn->uri) == "/config")
   {
       content = getConfigHTML();
@@ -421,18 +414,42 @@ mg_result WebAccess::websocketDataHandler(mg_connection *conn)
         if (cmdList.count() < 2)
             return MG_FALSE;
 
+        QString apiCmd = cmdList[1];
         // compose the basic API reply messages
-        QString wsAPIMessage = QString("QLC+API|%1").arg(cmdList[1]);
+        QString wsAPIMessage = QString("QLC+API|%1|").arg(apiCmd);
 
-        if (cmdList[1] == "isProjectLoaded")
+        if (apiCmd == "isProjectLoaded")
         {
             if (m_pendingProjectLoaded)
             {
-                wsAPIMessage.append("|true");
+                wsAPIMessage.append("true");
                 m_pendingProjectLoaded = false;
             }
             else
-                wsAPIMessage.append("|false");
+                wsAPIMessage.append("false");
+        }
+        else if (apiCmd == "getFunctionsNumber")
+        {
+            wsAPIMessage.append(QString::number(m_doc->functions().count()));
+        }
+        else if (apiCmd == "getFunctionsList")
+        {
+            foreach(Function *f, m_doc->functions())
+                wsAPIMessage.append(QString("%1|%2|").arg(f->id()).arg(f->name()));
+            // remove trailing separator
+            wsAPIMessage.truncate(wsAPIMessage.length() - 2);
+        }
+        else if (apiCmd == "getFunctionType")
+        {
+            if (cmdList.count() < 3)
+                return MG_FALSE;
+
+            quint32 fID = cmdList[2].toUInt();
+            Function *f = m_doc->function(fID);
+            if (f != NULL)
+                wsAPIMessage.append(m_doc->function(fID)->typeString());
+            else
+                wsAPIMessage.append(Function::typeToString(Function::Undefined));
         }
         mg_websocket_write(conn, WEBSOCKET_OPCODE_TEXT, wsAPIMessage.toLatin1().data(), wsAPIMessage.length());
     }

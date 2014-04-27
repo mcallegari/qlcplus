@@ -1,0 +1,223 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<script language="javascript" type="text/javascript">
+
+// the WebSocket instance
+var websocket;
+var isConnected = false;
+// the websocket host location
+var wshost = "http://127.0.0.1:9999";
+
+// helper function to send QLC+ only commands
+function requestAPI(cmd) {
+  if (isConnected == true)
+    websocket.send("QLC+API|" + cmd);
+  else
+    alert("You must connect to QLC+ WebSocket first !");
+}
+
+function requestAPIWithParam(cmd, paramObjName) {
+  var obj = document.getElementById(paramObjName);
+  if (obj)
+  {
+    if (isConnected == true)
+      websocket.send("QLC+API|" + cmd + "|" + obj.value);
+    else
+      alert("You must connect to QLC+ WebSocket first !");
+  }
+}
+
+function connectToWebSocket(host) {
+  var url = 'ws://' + host + '/qlcplusWS';
+  websocket = new WebSocket(url);
+  // update the host information
+  wshost = "http://" + host;
+
+  websocket.onopen = function(ev) {
+    //alert("QLC+ connection successful");
+    document.getElementById('connStatus').innerHTML = "<font color=green>Connected</font>";
+    isConnected = true;
+  };
+
+  websocket.onclose = function(ev) {
+    alert("QLC+ connection lost !");
+  };
+
+  websocket.onerror = function(ev) {
+    alert("QLC+ connection error!");
+  };
+ 
+  websocket.onmessage = function(ev) {
+    //alert(ev.data);
+    var msgParams = ev.data.split('|');
+    if (msgParams[1] == "getFunctionsNumber")
+    {
+      document.getElementById('getFunctionsNumberBox').innerHTML = msgParams[2];
+    }
+    else if (msgParams[1] == "getFunctionsList")
+    {
+      var tableCode = "<table class='apiTable'><tr><th>ID</th><th>Name</th></tr>";
+      for (i = 2; i < msgParams.length; i+=2)
+      {
+	tableCode = tableCode + "<tr><td>" + msgParams[i] + "</td><td>" + msgParams[i + 1] + "</td></tr>";
+      }
+      tableCode += "</table>";
+      document.getElementById('getFunctionsListBox').innerHTML = tableCode;
+    }
+    else if (msgParams[1] == "getFunctionType")
+    {
+      document.getElementById('getFunctionTypeBox').innerHTML = msgParams[2];
+    }
+  };
+};
+
+function loadProject () {
+  var formAction = wshost + "/loadProject";
+  document.getElementById('lpForm').action = formAction;
+}
+
+</script>
+
+<style>
+
+body { 
+  background-color: #45484d;
+  color: white;
+  font:normal 18px/1.2em sans-serif;
+}
+
+iframe {
+  position: absolute;
+  display: block;
+
+  height: 100%;
+  width: 100%;
+
+  -moz-border-radius: 12px;
+  -webkit-border-radius: 12px; 
+  border-radius: 12px; 
+
+  -moz-box-shadow: 4px 4px 14px #000; 
+  -webkit-box-shadow: 4px 4px 14px #000; 
+  box-shadow: 4px 4px 14px #000; 
+}
+
+#prjBox {
+  position: absolute;
+  width: 50%;
+  height: 70%;
+  margin-top: 0px;
+  margin-left: 47%;
+}
+
+.apiTable {
+  border-collapse: collapse;
+}
+
+.apiTable th {
+  font-size: 18px;
+  color: white;
+  border: solid 1px white;
+}
+
+.apiTable tr {
+  font-size: 14px; 
+  border: solid 1px white;
+}
+
+.apiTable td {
+  border: solid 1px white;
+  padding: 2px 5px 2px 5px;
+  margin: 0 5px 0 5px;
+}
+
+.apiButton {
+  display: table-cell; 
+  vertical-align: middle;
+  text-align: center;
+  color: black;
+  cursor:pointer;
+  height: 30px;
+  padding: 0 10px 0 10px;
+  background: #4477a1;
+  background: -webkit-gradient(linear, left top, left bottom, from(#81a8cb), to(#4477a1) );
+  background: -moz-linear-gradient(-90deg, #81a8cb, #4477a1);
+
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px; 
+  border-radius: 6px; 
+}
+
+.apiButton:hover {
+  background: #81a8cb;
+  background: -webkit-gradient(linear, left top, left bottom, from(#4477a1), to(#81a8cb) );
+  background: -moz-linear-gradient(-90deg, #4477a1, #81a8cb);
+}
+
+.resultBox {
+  display: table-cell; 
+  vertical-align: middle;
+  text-align: center;
+  width: 100px;
+  height: 30px;
+  background-color: #aaaaaa;
+  border-radius: 6px; 
+}
+
+</style>
+
+<body>
+
+<h2>Q Light Controller+ Web API test page</h2>
+
+<!-- ############## Project box to display what QLC+ is doing ####################### -->
+<div id="prjBox"><iframe name="projectFrame" src="" id="projectFrame"></iframe></div>
+
+<!-- ############## Websocket connection code ####################### -->
+QLC+ IP: 
+<input type="text" id="qlcplusIP" value="127.0.0.1:9999"></input>
+<input type="button" value="Connect" onclick="javascript:connectToWebSocket(document.getElementById('qlcplusIP').value);"></input>
+<div id="connStatus" style="display: inline-block;"><font color=red>Not connected</font></div>
+<br><br>
+
+<!-- ############## Project load code ####################### -->
+<form id="lpForm" onsubmit="loadProject()" method="POST" enctype="multipart/form-data" target="projectFrame">
+Load a project:
+<input id="loadTrigger" type="file" onchange="document.getElementById('submitTrigger').click();" name="qlcprj" />
+<input id="submitTrigger" type="submit" />
+</form>
+<br><br>
+
+<!-- ############## Individual API tests ####################### -->
+
+<table class="apiTable" width=45%>
+ <tr>
+  <th width=30%><b>API Function</b></th>
+  <th width=30%><b>Description</b></th>
+  <th width=40%><b>Result</b></th>
+ </tr>
+ <tr>
+  <td><div class="apiButton" onclick="javascript:requestAPI('getFunctionsNumber');">getFunctionsNumber</div></td>
+  <td>Retrieve the number of functions loaded</td>
+  <td><div id="getFunctionsNumberBox" class="resultBox"></div></td>
+ </tr>
+ <tr>
+  <td><div class="apiButton" onclick="javascript:requestAPI('getFunctionsList');">getFunctionsList</div></td>
+  <td>Retrieve the list of functions with their ID and name</td>
+  <td><div id="getFunctionsListBox" style="height: 150px; overflow-y: scroll;"></div></td>
+ </tr>
+ <tr>
+  <td>
+    <div class="apiButton" onclick="javascript:requestAPIWithParam('getFunctionType', 'fTypeID');">getFunctionType</div>
+    <input id="fTypeID" type="input" value="0"></input>
+  </td>
+  <td>Retrieve the type of a function with the given ID</td>
+  <td><div id="getFunctionTypeBox" class="resultBox"></div></td>
+ </tr>
+</table>
+
+</body>
+</html>

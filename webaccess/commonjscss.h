@@ -60,7 +60,7 @@
     "  if (msgParams[0] == \"QLC+API\" && " \
     "      msgParams[1] == \"isProjectLoaded\" && " \
     "      msgParams[2] == \"true\")" \
-    "         window.location = \"/\";\n" \
+    "        window.location = \"/\";\n" \
     " };\n" \
     "};\n" \
     "function checkProjectLoaded() {\n" \
