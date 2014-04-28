@@ -1,6 +1,8 @@
 qlcplus (4.7.2) stable; urgency=low
 
-  * DIP switch tool: it is now possible to manually set a DIP configuration (thanks to Florian Euchner)
+  * DIP Switch tool: it is now possible to manually set a DIP configuration (thanks to Florian Euchner)
+  * Added DIP Switch tool to fixture add panel to select an address by DIP configuration (thanks to Florian Euchner)
+  * Added Catalan translation (thanks to Santiago Benejam Torres)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 24 May 2014 12:13:14 +0200
 
