@@ -25,12 +25,12 @@
     </message>
     <message>
         <location filename="dmxusb.cpp" line="163"/>
-        <location filename="dmxusb.cpp" line="232"/>
+        <location filename="dmxusb.cpp" line="236"/>
         <source>Device is operating correctly.</source>
         <translation>O dispositivo está a funcionar correctamente.</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="219"/>
+        <location filename="dmxusb.cpp" line="223"/>
         <source>No input support available.</source>
         <translation>Suoporte de entrada não disponível</translation>
     </message>
@@ -61,32 +61,37 @@
 <context>
     <name>EnttecDMXUSBOpen</name>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="96"/>
+        <location filename="enttecdmxusbopen.cpp" line="107"/>
         <source>Protocol</source>
         <translation>Protocolo</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="101"/>
+        <location filename="enttecdmxusbopen.cpp" line="112"/>
+        <source>DMX Channels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="enttecdmxusbopen.cpp" line="115"/>
         <source>DMX Frame Frequency</source>
         <translation>Frequência de frames DMX</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="105"/>
+        <location filename="enttecdmxusbopen.cpp" line="119"/>
         <source>Bad</source>
         <translation>Má</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="107"/>
+        <location filename="enttecdmxusbopen.cpp" line="121"/>
         <source>Good</source>
         <translation>Boa</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="109"/>
+        <location filename="enttecdmxusbopen.cpp" line="123"/>
         <source>Patch this widget to a universe to find out.</source>
         <translation>Efectuar patch deste dispositivo a um universo para descobir.</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="110"/>
+        <location filename="enttecdmxusbopen.cpp" line="124"/>
         <source>System Timer Accuracy</source>
         <translation>Precisão do relógio de sistema </translation>
     </message>
@@ -132,7 +137,7 @@
     </message>
     <message>
         <location filename="dmx4all.cpp" line="133"/>
-        <location filename="enttecdmxusbopen.cpp" line="98"/>
+        <location filename="enttecdmxusbopen.cpp" line="109"/>
         <location filename="enttecdmxusbprorx.cpp" line="88"/>
         <location filename="enttecdmxusbprotx.cpp" line="131"/>
         <location filename="ultradmxusbprotx.cpp" line="77"/>

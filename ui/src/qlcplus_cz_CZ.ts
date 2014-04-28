@@ -182,47 +182,52 @@
         <translation>Adresa</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="161"/>
+        <location filename="addfixture.ui" line="163"/>
         <source>The starting address of the (first) added fixture</source>
         <translation>Počáteční adresa zařízení (jakou adresu má zařízení přiřazenou)</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="174"/>
+        <location filename="addfixture.ui" line="180"/>
+        <source>Address Tool</source>
+        <translation type="unfinished">Pomocník adresace</translation>
+    </message>
+    <message>
+        <location filename="addfixture.ui" line="189"/>
         <source>Channels</source>
         <translation>Kanály</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="190"/>
+        <location filename="addfixture.ui" line="205"/>
         <source>Number of channels in the selected fixture</source>
         <translation>Počet kanálů, kterým toto zařízení disponuje</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="206"/>
+        <location filename="addfixture.ui" line="221"/>
         <source>List of channels in the selected fixture mode</source>
         <translation>Seznam kanálů, kterými toto zařízení disponuje</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="219"/>
+        <location filename="addfixture.ui" line="234"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;CHYBA: Tato adresa je již použita u jiného zařízení&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="250"/>
+        <location filename="addfixture.ui" line="265"/>
         <source>Quick search:</source>
         <translation>Rychlé hledání:</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="267"/>
+        <location filename="addfixture.ui" line="282"/>
         <source>Fixture Model</source>
         <translation>Model zařízení</translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="97"/>
+        <location filename="addfixture.cpp" line="100"/>
         <source>Fixtures found: %1</source>
         <translation>Počet nalezených šablon zařízení: %1</translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="614"/>
+        <location filename="addfixture.cpp" line="617"/>
         <source>Dimmers</source>
         <translatorcomment>Dimmery</translatorcomment>
         <translation>Stmívače</translation>
@@ -1618,7 +1623,7 @@ Délka: %3
 <context>
     <name>ConsoleChannel</name>
     <message>
-        <location filename="consolechannel.cpp" line="155"/>
+        <location filename="consolechannel.cpp" line="159"/>
         <source>Intensity</source>
         <translation>Intenzita</translation>
     </message>
@@ -2073,45 +2078,45 @@ Délka: %3
         <translation>Skupina zařízení</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="20"/>
+        <location filename="fixturegroupeditor.ui" line="167"/>
         <source>Fixture group name</source>
         <translation>Název skupiny zařízení</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="56"/>
+        <location filename="fixturegroupeditor.ui" line="39"/>
         <source>Remove selected fixture/head</source>
         <translation>Odebrat zvolené zařízení</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="59"/>
-        <location filename="fixturegroupeditor.ui" line="139"/>
-        <location filename="fixturegroupeditor.ui" line="159"/>
+        <location filename="fixturegroupeditor.ui" line="42"/>
+        <location filename="fixturegroupeditor.ui" line="122"/>
+        <location filename="fixturegroupeditor.ui" line="142"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="89"/>
+        <location filename="fixturegroupeditor.ui" line="72"/>
         <source>Width</source>
         <translation>Šířka</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="96"/>
-        <location filename="fixturegroupeditor.ui" line="126"/>
+        <location filename="fixturegroupeditor.ui" line="79"/>
+        <location filename="fixturegroupeditor.ui" line="109"/>
         <source>px</source>
         <translation>px</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="119"/>
+        <location filename="fixturegroupeditor.ui" line="89"/>
         <source>Height</source>
         <translation>Výška</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="136"/>
+        <location filename="fixturegroupeditor.ui" line="119"/>
         <source>Add/replace fixtures to current row, starting from selected cell</source>
         <translation>Přidat/nahradit zařízení na tento řádek, počínaje touto buňkou</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="156"/>
+        <location filename="fixturegroupeditor.ui" line="139"/>
         <source>Add/replace fixtures to current column, starting from selected cell</source>
         <translation>Přidat/nahradit zařízení na tento sloupec, počínaje touto buňkou</translation>
     </message>
@@ -3120,23 +3125,23 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="230"/>
-        <location filename="inputoutputmanager.cpp" line="398"/>
+        <location filename="inputoutputmanager.cpp" line="397"/>
         <source>Universe %1</source>
         <translation>Větev %1</translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="356"/>
-        <location filename="inputoutputmanager.cpp" line="375"/>
+        <location filename="inputoutputmanager.cpp" line="355"/>
+        <location filename="inputoutputmanager.cpp" line="374"/>
         <source>Delete Universe</source>
         <translation>Zmazat větev</translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="357"/>
+        <location filename="inputoutputmanager.cpp" line="356"/>
         <source>The universe you are trying to delete is patched. Are you sure you want to delete it ?</source>
         <translation>Vetvev, kterou se snažíte smazat je propojená. Opravdu si ji přejete smazat ?</translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="376"/>
+        <location filename="inputoutputmanager.cpp" line="375"/>
         <source>There are some fixtures using the universe you are trying to delete. Are you sure you want to delete it ?</source>
         <translation>Některá zařízení používají větev, kterou se pokoušíte smazat. Opravdu ji chcete smazat ?</translation>
     </message>
@@ -3436,102 +3441,102 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
 <context>
     <name>Monitor</name>
     <message>
-        <location filename="monitor.cpp" line="236"/>
+        <location filename="monitor.cpp" line="257"/>
         <source>Fixture Monitor</source>
         <translation>Sledování zařízení</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="268"/>
+        <location filename="monitor.cpp" line="289"/>
         <source>2D View</source>
         <translation>2D pohled</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="275"/>
+        <location filename="monitor.cpp" line="296"/>
         <source>Font</source>
         <translation>Styl písma</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="284"/>
+        <location filename="monitor.cpp" line="305"/>
         <source>DMX Channels</source>
         <translation>DMX kanály</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="285"/>
+        <location filename="monitor.cpp" line="306"/>
         <source>Show absolute DMX channel numbers</source>
         <translation>Zobrazit absolutní číslo DMX kanálu</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="295"/>
+        <location filename="monitor.cpp" line="316"/>
         <source>Relative Channels</source>
         <translation>Relativní kanály</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="296"/>
+        <location filename="monitor.cpp" line="317"/>
         <source>Show channel numbers relative to fixture</source>
         <translation>Zobrazit číslo kanálu relativně k zařízení</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="312"/>
+        <location filename="monitor.cpp" line="333"/>
         <source>DMX Values</source>
         <translation>DMX hodnoty</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="313"/>
+        <location filename="monitor.cpp" line="334"/>
         <source>Show DMX values 0-255</source>
         <translation>Zobrazit hodnoty DMX 0-255</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="324"/>
+        <location filename="monitor.cpp" line="345"/>
         <source>Percent Values</source>
         <translation>Procentuální hodnoty</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="325"/>
+        <location filename="monitor.cpp" line="346"/>
         <source>Show percentage values 0-100%</source>
         <translation>Zobrazit procentuální hodnoty 0-100%</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="338"/>
+        <location filename="monitor.cpp" line="359"/>
         <source>Universe:</source>
         <translation>Větev:</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="343"/>
+        <location filename="monitor.cpp" line="364"/>
         <source>All universes</source>
         <translation>Všechny větve</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="365"/>
+        <location filename="monitor.cpp" line="386"/>
         <source>DMX View</source>
         <translation>DMX hodnoty</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="371"/>
+        <location filename="monitor.cpp" line="392"/>
         <source>Size:</source>
         <translation>Velikost:</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="395"/>
+        <location filename="monitor.cpp" line="416"/>
         <source>Meters</source>
         <translation>metrů</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="396"/>
+        <location filename="monitor.cpp" line="417"/>
         <source>Feet</source>
         <translation>stop</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="405"/>
+        <location filename="monitor.cpp" line="426"/>
         <source>Add fixture</source>
         <translation>Přidat zařízení</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="407"/>
+        <location filename="monitor.cpp" line="428"/>
         <source>Remove fixture</source>
         <translation>Odebrat zařízení</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="412"/>
+        <location filename="monitor.cpp" line="433"/>
         <source>Show/hide labels</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3908,27 +3913,27 @@ Délka: %3
         <translation>Editor RGB šablon</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="354"/>
+        <location filename="rgbmatrixeditor.ui" line="368"/>
         <source>RGB matrix name</source>
         <translation>Název RGB šablony</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="367"/>
+        <location filename="rgbmatrixeditor.ui" line="381"/>
         <source>The name of this RGB matrix function</source>
         <translation>Název této RGB šablony funkce</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="398"/>
+        <location filename="rgbmatrixeditor.ui" line="412"/>
         <source>Save this matrix to a sequence</source>
         <translation>Ulož tuto RGB šablónu ako sekvenci</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="424"/>
+        <location filename="rgbmatrixeditor.ui" line="438"/>
         <source>Fixture group</source>
         <translation>Skupina zařízení</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="437"/>
+        <location filename="rgbmatrixeditor.ui" line="451"/>
         <source>The fixture group to use as the pixel matrix</source>
         <translation>Skupina zařízení k použití jako šablonlona bodů</translation>
     </message>
@@ -3938,164 +3943,170 @@ Délka: %3
         <translation>Vzor</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="34"/>
+        <location filename="rgbmatrixeditor.ui" line="77"/>
         <source>The RGB matrix pattern</source>
         <translation>Vzor RGB šablony</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="73"/>
+        <location filename="rgbmatrixeditor.ui" line="87"/>
         <source>Animated Text</source>
         <translation>Animovaný text</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="85"/>
+        <location filename="rgbmatrixeditor.ui" line="99"/>
         <source>Text to display</source>
         <translation>Text zobrazení</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="92"/>
+        <location filename="rgbmatrixeditor.ui" line="106"/>
         <source>Choose the font</source>
         <translation>Zvolte styl písma</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="95"/>
-        <location filename="rgbmatrixeditor.ui" line="138"/>
+        <location filename="rgbmatrixeditor.ui" line="53"/>
+        <location filename="rgbmatrixeditor.ui" line="109"/>
+        <location filename="rgbmatrixeditor.ui" line="152"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="112"/>
+        <location filename="rgbmatrixeditor.ui" line="50"/>
+        <source>Reset end colour</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="126"/>
         <source>Animation style</source>
         <translation>Styl animace</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="122"/>
+        <location filename="rgbmatrixeditor.ui" line="136"/>
         <source>Image</source>
         <translation>Obrázek</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="161"/>
+        <location filename="rgbmatrixeditor.ui" line="175"/>
         <source>Offset</source>
         <translation>Posunutí</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="167"/>
+        <location filename="rgbmatrixeditor.ui" line="181"/>
         <source>X</source>
         <translation>X</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="174"/>
+        <location filename="rgbmatrixeditor.ui" line="188"/>
         <source>Shift the pattern X pixels horizontally</source>
         <translation>Zvednout vzor X bodů vodorovně</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="187"/>
+        <location filename="rgbmatrixeditor.ui" line="201"/>
         <source>Y</source>
         <translation>Y</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="194"/>
+        <location filename="rgbmatrixeditor.ui" line="208"/>
         <source>Shift the pattern Y pixels vertically</source>
         <translation>Zvednout vzor Y bodů svisle</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="291"/>
+        <location filename="rgbmatrixeditor.ui" line="305"/>
         <source>Run Order</source>
         <translation>Režim běhu</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="297"/>
+        <location filename="rgbmatrixeditor.ui" line="311"/>
         <source>Run through over and over again</source>
         <translation>Běží v nekonečné smičce</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="300"/>
+        <location filename="rgbmatrixeditor.ui" line="314"/>
         <source>Loop</source>
         <translation>Smyčka</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="310"/>
+        <location filename="rgbmatrixeditor.ui" line="324"/>
         <source>Run through once and stop</source>
         <translation>Jednou proběhne a ukončí se</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="313"/>
+        <location filename="rgbmatrixeditor.ui" line="327"/>
         <source>Single Shot</source>
         <translation>Jednorázově</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="320"/>
+        <location filename="rgbmatrixeditor.ui" line="334"/>
         <source>First run forwards, then backwards, again forwards, etc.</source>
         <translation>Nejprve jede dopředu, pak zpět a opět dopředu, atp.</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="323"/>
+        <location filename="rgbmatrixeditor.ui" line="337"/>
         <source>Ping Pong</source>
         <translation>Kyvadlo</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="237"/>
+        <location filename="rgbmatrixeditor.ui" line="251"/>
         <source>Direction</source>
         <translation>Směr</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="41"/>
+        <location filename="rgbmatrixeditor.ui" line="64"/>
         <source>Matrix start colour</source>
         <translation>Počáteční barva</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="54"/>
+        <location filename="rgbmatrixeditor.ui" line="34"/>
         <source>Matrix end colour</source>
         <oldsource>Matrix end color</oldsource>
         <translation>Konečná barva</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="243"/>
+        <location filename="rgbmatrixeditor.ui" line="257"/>
         <source>Start from the first step</source>
         <translation>Začít od prvního kroku</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="246"/>
+        <location filename="rgbmatrixeditor.ui" line="260"/>
         <source>Forward</source>
         <translation>Od začátku</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="256"/>
+        <location filename="rgbmatrixeditor.ui" line="270"/>
         <source>Start from the last step</source>
         <translation>Začít od posledního kroku</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="259"/>
+        <location filename="rgbmatrixeditor.ui" line="273"/>
         <source>Backward</source>
         <translation>Od konce</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="378"/>
+        <location filename="rgbmatrixeditor.ui" line="392"/>
         <source>Show/Hide speed dial window</source>
         <translation>Zobrazit/Skrýt okno rychlostí</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="333"/>
+        <location filename="rgbmatrixeditor.ui" line="347"/>
         <source>See what the RGB Matrix does when it is run</source>
         <translation>Ukázat co RGB šablona udělá, když poběží</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="336"/>
+        <location filename="rgbmatrixeditor.ui" line="350"/>
         <source>Test Run</source>
         <translation>Otestovat běh</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="255"/>
+        <location filename="rgbmatrixeditor.cpp" line="257"/>
         <source>None</source>
         <translation>Nic</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="334"/>
+        <location filename="rgbmatrixeditor.cpp" line="353"/>
         <source>No fixture group to control</source>
         <translation>Žádná skupina zařízení k ovládání</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="605"/>
+        <location filename="rgbmatrixeditor.cpp" line="634"/>
         <source>Select image</source>
         <translation>Volba obrázku</translation>
     </message>
@@ -5190,22 +5201,22 @@ Délka: %3
         <translation>Seznam střihů</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="883"/>
+        <location filename="vccuelist.cpp" line="865"/>
         <source>Fade In</source>
         <translation>Zesílení</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="883"/>
+        <location filename="vccuelist.cpp" line="865"/>
         <source>Fade Out</source>
         <translation>Zeslabení</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="883"/>
+        <location filename="vccuelist.cpp" line="865"/>
         <source>Duration</source>
         <translation>Délka</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="883"/>
+        <location filename="vccuelist.cpp" line="865"/>
         <source>Notes</source>
         <translation>Poznámky</translation>
     </message>
@@ -6708,7 +6719,7 @@ Délka: %3
     <message>
         <location filename="videoeditor.ui" line="235"/>
         <source>Fullscreen</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Celá obrazovka</translation>
     </message>
     <message>
         <location filename="videoeditor.cpp" line="102"/>

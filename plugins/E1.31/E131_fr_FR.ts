@@ -33,7 +33,7 @@
     </message>
     <message>
         <location filename="e131plugin.cpp" line="90"/>
-        <location filename="e131plugin.cpp" line="182"/>
+        <location filename="e131plugin.cpp" line="189"/>
         <source>%1: %2</source>
         <translation>%1 : %2</translation>
     </message>
@@ -44,13 +44,13 @@
     </message>
     <message>
         <location filename="e131plugin.cpp" line="107"/>
-        <location filename="e131plugin.cpp" line="244"/>
+        <location filename="e131plugin.cpp" line="257"/>
         <source>Status: Not open</source>
         <translation>Status : fermé</translation>
     </message>
     <message>
         <location filename="e131plugin.cpp" line="110"/>
-        <location filename="e131plugin.cpp" line="247"/>
+        <location filename="e131plugin.cpp" line="260"/>
         <source>Status: Open</source>
         <translation>Status : ouvert</translation>
     </message>
@@ -60,12 +60,12 @@
         <translation>Paquets envoyés : </translation>
     </message>
     <message>
-        <location filename="e131plugin.cpp" line="240"/>
+        <location filename="e131plugin.cpp" line="253"/>
         <source>Input</source>
         <translation>Entrée</translation>
     </message>
     <message>
-        <location filename="e131plugin.cpp" line="249"/>
+        <location filename="e131plugin.cpp" line="262"/>
         <source>Packets received: </source>
         <translation>Paquets reçus : </translation>
     </message>

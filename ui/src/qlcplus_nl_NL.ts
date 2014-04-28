@@ -182,47 +182,52 @@
         <translation>Adres</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="161"/>
+        <location filename="addfixture.ui" line="163"/>
         <source>The starting address of the (first) added fixture</source>
         <translation>Het start adres van de (eerst) toegevoegde fixture</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="174"/>
+        <location filename="addfixture.ui" line="180"/>
+        <source>Address Tool</source>
+        <translation type="unfinished">Adres Instellen</translation>
+    </message>
+    <message>
+        <location filename="addfixture.ui" line="189"/>
         <source>Channels</source>
         <translation>Channels</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="190"/>
+        <location filename="addfixture.ui" line="205"/>
         <source>Number of channels in the selected fixture</source>
         <translation>Aantal channels in de geselecteerde fixture</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="206"/>
+        <location filename="addfixture.ui" line="221"/>
         <source>List of channels in the selected fixture mode</source>
         <translation>Lijst van channels in de geselecteerde fixture mode</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="219"/>
+        <location filename="addfixture.ui" line="234"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;FOUT: Adres al in gebruik!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="250"/>
+        <location filename="addfixture.ui" line="265"/>
         <source>Quick search:</source>
         <translation>Zoeken:</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="267"/>
+        <location filename="addfixture.ui" line="282"/>
         <source>Fixture Model</source>
         <translation>Fixture model</translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="97"/>
+        <location filename="addfixture.cpp" line="100"/>
         <source>Fixtures found: %1</source>
         <translation>Fixtures gevonden: %1</translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="614"/>
+        <location filename="addfixture.cpp" line="617"/>
         <source>Dimmers</source>
         <translation>Dimmers</translation>
     </message>
@@ -1615,7 +1620,7 @@ Duur: %3
 <context>
     <name>ConsoleChannel</name>
     <message>
-        <location filename="consolechannel.cpp" line="155"/>
+        <location filename="consolechannel.cpp" line="159"/>
         <source>Intensity</source>
         <translation>Intensiteit</translation>
     </message>
@@ -2071,45 +2076,45 @@ Maak Fixture Group</translation>
         <translation>Fixture Group</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="20"/>
+        <location filename="fixturegroupeditor.ui" line="167"/>
         <source>Fixture group name</source>
         <translation>Fixture group naam</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="56"/>
+        <location filename="fixturegroupeditor.ui" line="39"/>
         <source>Remove selected fixture/head</source>
         <translation>Verwijder geselecteerde fixture / head</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="59"/>
-        <location filename="fixturegroupeditor.ui" line="139"/>
-        <location filename="fixturegroupeditor.ui" line="159"/>
+        <location filename="fixturegroupeditor.ui" line="42"/>
+        <location filename="fixturegroupeditor.ui" line="122"/>
+        <location filename="fixturegroupeditor.ui" line="142"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="89"/>
+        <location filename="fixturegroupeditor.ui" line="72"/>
         <source>Width</source>
         <translation>Breedte</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="96"/>
-        <location filename="fixturegroupeditor.ui" line="126"/>
+        <location filename="fixturegroupeditor.ui" line="79"/>
+        <location filename="fixturegroupeditor.ui" line="109"/>
         <source>px</source>
         <translation>px</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="119"/>
+        <location filename="fixturegroupeditor.ui" line="89"/>
         <source>Height</source>
         <translation>Hoogte</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="136"/>
+        <location filename="fixturegroupeditor.ui" line="119"/>
         <source>Add/replace fixtures to current row, starting from selected cell</source>
         <translation>Voeg toe / vervang fixtures aan de huidige rij, beginnend vanaf geselecteerde cel</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="156"/>
+        <location filename="fixturegroupeditor.ui" line="139"/>
         <source>Add/replace fixtures to current column, starting from selected cell</source>
         <translation>Voeg toe / vervang fixtures aan de huidige kolom, beginnend vanaf geselecteerde cel</translation>
     </message>
@@ -3122,23 +3127,23 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="230"/>
-        <location filename="inputoutputmanager.cpp" line="398"/>
+        <location filename="inputoutputmanager.cpp" line="397"/>
         <source>Universe %1</source>
         <translation>Universe %1</translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="356"/>
-        <location filename="inputoutputmanager.cpp" line="375"/>
+        <location filename="inputoutputmanager.cpp" line="355"/>
+        <location filename="inputoutputmanager.cpp" line="374"/>
         <source>Delete Universe</source>
         <translation>Universe verwijderen</translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="357"/>
+        <location filename="inputoutputmanager.cpp" line="356"/>
         <source>The universe you are trying to delete is patched. Are you sure you want to delete it ?</source>
         <translation>De universe die u probeert te verwijderen is gepatched. Weet u zeker dat u deze wilt verwijderen?</translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="376"/>
+        <location filename="inputoutputmanager.cpp" line="375"/>
         <source>There are some fixtures using the universe you are trying to delete. Are you sure you want to delete it ?</source>
         <translation>Er zijn fixtures die gebruik maken van de universe die u wilt verwijderen. Weet u zeker dat u deze wilt verwijderen?</translation>
     </message>
@@ -3441,102 +3446,102 @@ Noot: de wizard maakt geen onderscheid tussen een knop of een slider, deze zal h
 <context>
     <name>Monitor</name>
     <message>
-        <location filename="monitor.cpp" line="236"/>
+        <location filename="monitor.cpp" line="257"/>
         <source>Fixture Monitor</source>
         <translation>Fixture Monitor</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="268"/>
+        <location filename="monitor.cpp" line="289"/>
         <source>2D View</source>
         <translation>2d View</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="275"/>
+        <location filename="monitor.cpp" line="296"/>
         <source>Font</source>
         <translation>Lettertype</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="284"/>
+        <location filename="monitor.cpp" line="305"/>
         <source>DMX Channels</source>
         <translation>DMX Channels</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="285"/>
+        <location filename="monitor.cpp" line="306"/>
         <source>Show absolute DMX channel numbers</source>
         <translation>Toon absolute DMX channel nummers</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="295"/>
+        <location filename="monitor.cpp" line="316"/>
         <source>Relative Channels</source>
         <translation>Relatieve Channels</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="296"/>
+        <location filename="monitor.cpp" line="317"/>
         <source>Show channel numbers relative to fixture</source>
         <translation>Toon channel nummers relatief aan de fixture</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="312"/>
+        <location filename="monitor.cpp" line="333"/>
         <source>DMX Values</source>
         <translation>DMX waarden</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="313"/>
+        <location filename="monitor.cpp" line="334"/>
         <source>Show DMX values 0-255</source>
         <translation>Toon DMX waarden 0-255</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="324"/>
+        <location filename="monitor.cpp" line="345"/>
         <source>Percent Values</source>
         <translation>Percentages</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="325"/>
+        <location filename="monitor.cpp" line="346"/>
         <source>Show percentage values 0-100%</source>
         <translation>Toon percentages 0-100%</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="338"/>
+        <location filename="monitor.cpp" line="359"/>
         <source>Universe:</source>
         <translation type="unfinished">Universe:</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="343"/>
+        <location filename="monitor.cpp" line="364"/>
         <source>All universes</source>
         <translation>Alle universen</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="365"/>
+        <location filename="monitor.cpp" line="386"/>
         <source>DMX View</source>
         <translation>DMX View</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="371"/>
+        <location filename="monitor.cpp" line="392"/>
         <source>Size:</source>
         <translation>Grootte:</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="395"/>
+        <location filename="monitor.cpp" line="416"/>
         <source>Meters</source>
         <translation>Meters</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="396"/>
+        <location filename="monitor.cpp" line="417"/>
         <source>Feet</source>
         <translation>Voet</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="405"/>
+        <location filename="monitor.cpp" line="426"/>
         <source>Add fixture</source>
         <translation>Fixture toevoegen</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="407"/>
+        <location filename="monitor.cpp" line="428"/>
         <source>Remove fixture</source>
         <translation>Fixture verwijderen</translation>
     </message>
     <message>
-        <location filename="monitor.cpp" line="412"/>
+        <location filename="monitor.cpp" line="433"/>
         <source>Show/hide labels</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3914,27 +3919,27 @@ Duur: %3
         <translation>RGB Matrix Editor</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="354"/>
+        <location filename="rgbmatrixeditor.ui" line="368"/>
         <source>RGB matrix name</source>
         <translation>RGB Matrix naam</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="367"/>
+        <location filename="rgbmatrixeditor.ui" line="381"/>
         <source>The name of this RGB matrix function</source>
         <translation>Naam van deze RGB Matrix function</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="398"/>
+        <location filename="rgbmatrixeditor.ui" line="412"/>
         <source>Save this matrix to a sequence</source>
         <translation>Sla deze matrix op naar een sequence</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="424"/>
+        <location filename="rgbmatrixeditor.ui" line="438"/>
         <source>Fixture group</source>
         <translation>Fixture Group</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="437"/>
+        <location filename="rgbmatrixeditor.ui" line="451"/>
         <source>The fixture group to use as the pixel matrix</source>
         <translation>De fixture group om als pixel matrix te gebruiken</translation>
     </message>
@@ -3944,164 +3949,170 @@ Duur: %3
         <translation>Pattern</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="34"/>
+        <location filename="rgbmatrixeditor.ui" line="77"/>
         <source>The RGB matrix pattern</source>
         <translation>RGB matrix pattern</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="73"/>
+        <location filename="rgbmatrixeditor.ui" line="87"/>
         <source>Animated Text</source>
         <translation>Animated tekst</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="85"/>
+        <location filename="rgbmatrixeditor.ui" line="99"/>
         <source>Text to display</source>
         <translation>Te tonen tekst</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="92"/>
+        <location filename="rgbmatrixeditor.ui" line="106"/>
         <source>Choose the font</source>
         <translation>Kies lettertype</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="95"/>
-        <location filename="rgbmatrixeditor.ui" line="138"/>
+        <location filename="rgbmatrixeditor.ui" line="53"/>
+        <location filename="rgbmatrixeditor.ui" line="109"/>
+        <location filename="rgbmatrixeditor.ui" line="152"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="112"/>
+        <location filename="rgbmatrixeditor.ui" line="50"/>
+        <source>Reset end colour</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="126"/>
         <source>Animation style</source>
         <translation>Animatie stijl</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="122"/>
+        <location filename="rgbmatrixeditor.ui" line="136"/>
         <source>Image</source>
         <translation>Afbeelding</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="161"/>
+        <location filename="rgbmatrixeditor.ui" line="175"/>
         <source>Offset</source>
         <translation>Offset</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="167"/>
+        <location filename="rgbmatrixeditor.ui" line="181"/>
         <source>X</source>
         <translation>X</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="174"/>
+        <location filename="rgbmatrixeditor.ui" line="188"/>
         <source>Shift the pattern X pixels horizontally</source>
         <translation>Verschuif de pattern X pixels horizontaal</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="187"/>
+        <location filename="rgbmatrixeditor.ui" line="201"/>
         <source>Y</source>
         <translation>Y</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="194"/>
+        <location filename="rgbmatrixeditor.ui" line="208"/>
         <source>Shift the pattern Y pixels vertically</source>
         <translation>Verschuif de pattern Y pixels vertikaal</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="291"/>
+        <location filename="rgbmatrixeditor.ui" line="305"/>
         <source>Run Order</source>
         <translation>Run volgorde</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="297"/>
+        <location filename="rgbmatrixeditor.ui" line="311"/>
         <source>Run through over and over again</source>
         <translation>Run in een loop</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="300"/>
+        <location filename="rgbmatrixeditor.ui" line="314"/>
         <source>Loop</source>
         <translation>Loop</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="310"/>
+        <location filename="rgbmatrixeditor.ui" line="324"/>
         <source>Run through once and stop</source>
         <translation>Run eenmalig</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="313"/>
+        <location filename="rgbmatrixeditor.ui" line="327"/>
         <source>Single Shot</source>
         <translation>Single Shot</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="320"/>
+        <location filename="rgbmatrixeditor.ui" line="334"/>
         <source>First run forwards, then backwards, again forwards, etc.</source>
         <translation>Run voorwaarts, dan achterwaarts, weer voorwaarts etc.</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="323"/>
+        <location filename="rgbmatrixeditor.ui" line="337"/>
         <source>Ping Pong</source>
         <translation>Ping Pong</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="237"/>
+        <location filename="rgbmatrixeditor.ui" line="251"/>
         <source>Direction</source>
         <translation>Richting</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="41"/>
+        <location filename="rgbmatrixeditor.ui" line="64"/>
         <source>Matrix start colour</source>
         <translation>Matrix start kleur</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="54"/>
+        <location filename="rgbmatrixeditor.ui" line="34"/>
         <source>Matrix end colour</source>
         <oldsource>Matrix end color</oldsource>
         <translation>Matrix eind kleur</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="243"/>
+        <location filename="rgbmatrixeditor.ui" line="257"/>
         <source>Start from the first step</source>
         <translation>Start vanaf de eerste step</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="246"/>
+        <location filename="rgbmatrixeditor.ui" line="260"/>
         <source>Forward</source>
         <translation>Vooruit</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="256"/>
+        <location filename="rgbmatrixeditor.ui" line="270"/>
         <source>Start from the last step</source>
         <translation>Start vanaf de laatste step</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="259"/>
+        <location filename="rgbmatrixeditor.ui" line="273"/>
         <source>Backward</source>
         <translation>Terug</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="378"/>
+        <location filename="rgbmatrixeditor.ui" line="392"/>
         <source>Show/Hide speed dial window</source>
         <translation>Toon/verberg speed dial scherm</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="333"/>
+        <location filename="rgbmatrixeditor.ui" line="347"/>
         <source>See what the RGB Matrix does when it is run</source>
         <translation>Bekijk wat de RGB matrix doet wanneer gerund</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="336"/>
+        <location filename="rgbmatrixeditor.ui" line="350"/>
         <source>Test Run</source>
         <translation>Test Run</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="255"/>
+        <location filename="rgbmatrixeditor.cpp" line="257"/>
         <source>None</source>
         <translation>Geen</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="334"/>
+        <location filename="rgbmatrixeditor.cpp" line="353"/>
         <source>No fixture group to control</source>
         <translation>Geen fixture group om te bedienen</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="605"/>
+        <location filename="rgbmatrixeditor.cpp" line="634"/>
         <source>Select image</source>
         <translation>Selecteer afbeelding</translation>
     </message>
@@ -5196,22 +5207,22 @@ Duur: %3
         <translation>Cue list</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="883"/>
+        <location filename="vccuelist.cpp" line="865"/>
         <source>Fade In</source>
         <translation>Fade In</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="883"/>
+        <location filename="vccuelist.cpp" line="865"/>
         <source>Fade Out</source>
         <translation>Fade Out</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="883"/>
+        <location filename="vccuelist.cpp" line="865"/>
         <source>Duration</source>
         <translation>Duur</translation>
     </message>
     <message>
-        <location filename="vccuelist.cpp" line="883"/>
+        <location filename="vccuelist.cpp" line="865"/>
         <source>Notes</source>
         <translation>Notities</translation>
     </message>

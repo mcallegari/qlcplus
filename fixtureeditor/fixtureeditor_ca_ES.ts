@@ -993,21 +993,25 @@ No es pot desar el fixture.</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="411"/>
+        <location filename="fixtureeditor.cpp" line="496"/>
         <source>Channel already exists</source>
         <translation>El canal ja existeix</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="412"/>
+        <location filename="fixtureeditor.cpp" line="497"/>
         <source>A channel by the name &quot;%1&quot; already exists!</source>
         <translation>Un canal amb el nombre &quot;%1&quot; ja existeix!</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="419"/>
+        <location filename="fixtureeditor.cpp" line="503"/>
         <source>Channel has no name</source>
         <translation>El canal no te nom</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="420"/>
+        <location filename="fixtureeditor.cpp" line="504"/>
         <source>You must give the channel a descriptive name!</source>
         <translation>Te que donar un nom descriptiu al canal!</translation>
     </message>
@@ -1017,94 +1021,94 @@ No es pot desar el fixture.</translation>
         <translation>Esteu segur que vol eliminar el canal: %1</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="588"/>
-        <location filename="fixtureeditor.cpp" line="623"/>
-        <location filename="fixtureeditor.cpp" line="839"/>
+        <location filename="fixtureeditor.cpp" line="616"/>
+        <location filename="fixtureeditor.cpp" line="651"/>
+        <location filename="fixtureeditor.cpp" line="867"/>
         <source>Edit</source>
         <translation>Editar</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="589"/>
-        <location filename="fixtureeditor.cpp" line="625"/>
+        <location filename="fixtureeditor.cpp" line="617"/>
+        <location filename="fixtureeditor.cpp" line="653"/>
         <source>Copy</source>
         <translation>Copiar</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="590"/>
-        <location filename="fixtureeditor.cpp" line="627"/>
+        <location filename="fixtureeditor.cpp" line="618"/>
+        <location filename="fixtureeditor.cpp" line="655"/>
         <source>Paste</source>
         <translation>Enganxar</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="591"/>
-        <location filename="fixtureeditor.cpp" line="629"/>
-        <location filename="fixtureeditor.cpp" line="845"/>
+        <location filename="fixtureeditor.cpp" line="619"/>
+        <location filename="fixtureeditor.cpp" line="657"/>
+        <location filename="fixtureeditor.cpp" line="873"/>
         <source>Remove</source>
         <translation>Eliminar</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="602"/>
+        <location filename="fixtureeditor.cpp" line="630"/>
         <source>Channels</source>
         <translation>Canals</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="698"/>
-        <location filename="fixtureeditor.cpp" line="707"/>
+        <location filename="fixtureeditor.cpp" line="726"/>
+        <location filename="fixtureeditor.cpp" line="735"/>
         <source>Unable to add mode</source>
         <translation>Impossible afegir un mode</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="699"/>
+        <location filename="fixtureeditor.cpp" line="727"/>
         <source>Another mode by that name already exists</source>
         <translation>Un altre mode amb aquest nom ja existeix</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="708"/>
+        <location filename="fixtureeditor.cpp" line="736"/>
         <source>You must give a name to the mode</source>
         <translation>Necessita donar un nom al mode</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="742"/>
+        <location filename="fixtureeditor.cpp" line="770"/>
         <source>Remove Mode</source>
         <translation>Eliminar mode</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="743"/>
+        <location filename="fixtureeditor.cpp" line="771"/>
         <source>Are you sure you wish to remove mode: %1</source>
         <translation>Eteu segur que vol eliminar el mode: %1</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="785"/>
+        <location filename="fixtureeditor.cpp" line="813"/>
         <source>Rename new mode</source>
         <translation>Reanomenar el nou mode</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="786"/>
+        <location filename="fixtureeditor.cpp" line="814"/>
         <source>Give a unique name for the mode</source>
         <translation>Trieu un nom únic per el mode</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="788"/>
+        <location filename="fixtureeditor.cpp" line="816"/>
         <source>Copy of %1</source>
         <translation>Copia de %1</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="798"/>
+        <location filename="fixtureeditor.cpp" line="826"/>
         <source>Invalid name</source>
         <translation>Nom incorrecte</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="799"/>
+        <location filename="fixtureeditor.cpp" line="827"/>
         <source>Another mode by that name already exists.</source>
         <translation>Un altre mode amb aquest nom ja existeix.</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="842"/>
+        <location filename="fixtureeditor.cpp" line="870"/>
         <source>Clone</source>
         <translation>Clonar</translation>
     </message>
     <message>
-        <location filename="fixtureeditor.cpp" line="850"/>
+        <location filename="fixtureeditor.cpp" line="878"/>
         <source>Modes</source>
         <translation>Modes</translation>
     </message>

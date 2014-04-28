@@ -16,7 +16,7 @@
     </message>
     <message>
         <location filename="win32/peperoni.cpp" line="221"/>
-        <location filename="unix/peperoni.cpp" line="127"/>
+        <location filename="unix/peperoni.cpp" line="131"/>
         <source>Do you wish to re-scan your hardware?</source>
         <translation>Vol tornar a escanejar el seu maquinari?</translation>
     </message>
@@ -25,7 +25,7 @@
     <name>PeperoniDevice</name>
     <message>
         <location filename="win32/peperonidevice.cpp" line="70"/>
-        <location filename="unix/peperonidevice.cpp" line="167"/>
+        <location filename="unix/peperonidevice.cpp" line="130"/>
         <source>Device is working correctly.</source>
         <translation>El dispositiu està treballant correctament.</translation>
     </message>
@@ -41,22 +41,22 @@
     </message>
     <message>
         <location filename="win32/peperonidevice.cpp" line="111"/>
-        <location filename="unix/peperonidevice.cpp" line="147"/>
+        <location filename="unix/peperonidevice.cpp" line="110"/>
         <source>Unknown</source>
         <translation>Desconegut</translation>
     </message>
     <message>
-        <location filename="unix/peperonidevice.cpp" line="169"/>
+        <location filename="unix/peperonidevice.cpp" line="132"/>
         <source>Firmware version: %1</source>
         <translation>Revisió del Firmware: %1</translation>
     </message>
     <message>
-        <location filename="unix/peperonidevice.cpp" line="175"/>
+        <location filename="unix/peperonidevice.cpp" line="138"/>
         <source>Unknown device</source>
         <translation>Dispositiu desconegut</translation>
     </message>
     <message>
-        <location filename="unix/peperonidevice.cpp" line="178"/>
+        <location filename="unix/peperonidevice.cpp" line="141"/>
         <source>Cannot connect to USB device.</source>
         <translation>No es pot connectar al dispositiu USB.</translation>
     </message>
