@@ -193,9 +193,6 @@ void PeperoniDevice::open()
 
         if (m_firmwareVersion >= PEPERONI_FW_OLD_BULK_SUPPORT)
         {
-            /* Allocate space for bulk buffer */
-            m_bulkBuffer = QByteArray(512 + PEPERONI_OLD_BULK_HEADER_SIZE, 0);
-
             /* Sometimes you need a little jolt to get the device on its feet. */
             r = usb_clear_halt(m_handle, PEPERONI_BULK_OUT_ENDPOINT);
             if (r < 0)
@@ -268,14 +265,14 @@ void PeperoniDevice::outputDMX(const QByteArray& universe)
     {
         qDebug() << "Old bulk pipe write. Size:" << universe.size();
         /* Construct a bulk header first */
-        m_bulkBuffer[0] = char(PEPERONI_OLD_BULK_HEADER_ID);
-        m_bulkBuffer[1] = char(PEPERONI_OLD_BULK_HEADER_REQUEST_TX_SET);
-        m_bulkBuffer[2] = char(universe.size() & 0xFF);
-        m_bulkBuffer[3] = char((universe.size() >> 8) & 0xFF);
+        m_bulkBuffer.clear();
+        m_bulkBuffer.append(char(PEPERONI_OLD_BULK_HEADER_ID));
+        m_bulkBuffer.append(char(PEPERONI_OLD_BULK_HEADER_REQUEST_TX_SET));
+        m_bulkBuffer.append(char(universe.size() & 0xFF));
+        m_bulkBuffer.append(char((universe.size() >> 8) & 0xFF));
 
         /* Append universe data to the bulk buffer */
-        m_bulkBuffer.replace(PEPERONI_OLD_BULK_HEADER_SIZE,
-                             universe.size(), universe);
+        m_bulkBuffer.append(universe);
 
         /* Perform a bulk write */
         r = usb_bulk_write(m_handle,
