@@ -672,15 +672,15 @@ void SimpleDesk::slotUniverseSliderValueChanged(quint32 fid, quint32 chan, uchar
         Fixture *fixture = m_doc->fixture(fid);
         if (fixture != NULL)
         {
-            quint32 absoluteAddr = fixture->universeAddress();
-            m_engine->setValue(absoluteAddr + chan, value);
-
-            if (m_viewModeButton->isChecked() == true)
+            quint32 chanAbsAddr = fixture->universeAddress() + chan;
+            if (m_viewModeButton->isChecked() == true &&
+                m_engine->hasChannel(chanAbsAddr) == false)
             {
                 FixtureConsole *fc = m_consoleList[fid];
                 if (fc != NULL)
                     fc->setChannelStylesheet(chan, ssOverride);
             }
+            m_engine->setValue(chanAbsAddr, value);
 
             if (m_editCueStackButton->isChecked() == true)
                 replaceCurrentCue();
