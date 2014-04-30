@@ -652,16 +652,17 @@ void SimpleDesk::slotUniverseSliderValueChanged(quint32 fid, quint32 chan, uchar
     if (var.isValid() == true) // Not true with disabled sliders
     {
         quint32 chanAbsAddr = var.toUInt();
-        m_engine->setValue(chanAbsAddr, value);
-        if (m_viewModeButton->isChecked() == false)
+        if (m_viewModeButton->isChecked() == false &&
+            m_engine->hasChannel(chanAbsAddr) == false)
         {
-            quint32 chanAddr = chanAbsAddr - ((m_universePageSpin->value() - 1) * m_channelsPerPage);
+            quint32 chanAddr = (chanAbsAddr & 0x01FF) - ((m_universePageSpin->value() - 1) * m_channelsPerPage);
             if (chanAddr < (quint32)m_universeSliders.count())
             {
                 ConsoleChannel *chan = m_universeSliders.at(chanAddr);
                 chan->setStyleSheet(ssOverride);
             }
         }
+        m_engine->setValue(chanAbsAddr, value);
 
         if (m_editCueStackButton->isChecked() == true)
             replaceCurrentCue();
