@@ -1081,11 +1081,10 @@ void ShowManager::slotDelete()
     {
         if (isTrack == false)
         {
-            Track *currTrack = m_show->getTrackFromSceneID(m_currentScene->id());
-            if (currTrack != NULL)
+            if (m_currentTrack != NULL)
             {
-                currTrack->removeFunctionID(deleteID);
                 hideRightEditor();
+                m_currentTrack->removeFunctionID(deleteID);
             }
         }
         else
@@ -1283,16 +1282,15 @@ void ShowManager::slotUpdateTime(quint32 msec_time)
 
 void ShowManager::slotTrackClicked(Track *track)
 {
-    /*
-    Function *f = m_doc->function(track->getSceneID());
-    if (f == NULL)
-        return;
-    m_currentScene = qobject_cast<Scene*>(f);
-    showSceneEditor(m_currentScene);
-    */
     m_currentTrack = track;
     if (track->getSceneID() == Function::invalidId())
         m_currentScene = NULL;
+    else
+    {
+        Function *f = m_doc->function(track->getSceneID());
+        if (f != NULL)
+            m_currentScene = qobject_cast<Scene*>(f);
+    }
     m_deleteAction->setEnabled(true);
     m_copyAction->setEnabled(true);
 }
