@@ -604,6 +604,8 @@ void VCButton::pressFunction()
 
                 if (isStartupIntensityEnabled() == true)
                     f->adjustAttribute(startupIntensity() * intensity(), Function::Intensity);
+                else
+                    f->adjustAttribute(intensity(), Function::Intensity);
             }
         }
     }
