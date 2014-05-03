@@ -73,18 +73,20 @@ protected:
     static ShowManager* s_instance;
     
     Doc* m_doc;
-    /* Currently selected show */
+    /** Currently selected show */
     Show* m_show;
-    /* Currently selected track */
+    /** Currently selected track */
     Track *m_currentTrack;
-    /* Currently selected scene */
+    /** Currently selected scene */
     Scene* m_currentScene;
-    /* Scene editor instance reference */
+    /** Scene editor instance reference */
     QWidget* m_sceneEditor;
-    /* Chaser editor instance reference */
+    /** Right editor instance reference (can edit Chaser, Audio, Video) */
     QWidget* m_currentEditor;
+    /** ID of the Function currently edited on the right */
+    quint32 m_editorFunctionID;
 
-    /* Index of the currently selected Show
+    /** Index of the currently selected Show
      * (basically the m_showsCombo index) */
     int m_selectedShowIndex;
 

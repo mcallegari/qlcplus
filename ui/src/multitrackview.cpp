@@ -559,7 +559,12 @@ void MultiTrackView::setSnapToGrid(bool enable)
 
 void MultiTrackView::mouseReleaseEvent(QMouseEvent * e)
 {
-    emit viewClicked(e);
+    if (getSelectedSequence() == NULL && getSelectedAudio() == NULL
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+        && getSelectedVideo() == NULL
+#endif
+       )
+            emit viewClicked(e);
 
     QGraphicsView::mouseReleaseEvent(e);
     //qDebug() << Q_FUNC_INFO << "View clicked at pos: " << e->pos().x() << e->pos().y();

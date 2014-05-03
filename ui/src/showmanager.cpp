@@ -58,6 +58,7 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
     , m_currentScene(NULL)
     , m_sceneEditor(NULL)
     , m_currentEditor(NULL)
+    , m_editorFunctionID(Function::invalidId())
     , m_selectedShowIndex(0)
     , m_splitter(NULL)
     , m_vsplitter(NULL)
@@ -438,11 +439,15 @@ void ShowManager::hideRightEditor()
         m_vsplitter->widget(1)->hide();
         m_currentEditor->deleteLater();
         m_currentEditor = NULL;
+        m_editorFunctionID = Function::invalidId();
     }
 }
 
 void ShowManager::showRightEditor(Chaser *chaser)
 {
+    if (chaser != NULL && m_editorFunctionID == chaser->id())
+        return;
+
     hideRightEditor();
 
     if (chaser == NULL)
@@ -451,10 +456,10 @@ void ShowManager::showRightEditor(Chaser *chaser)
     if (this->isVisible())
     {
         m_currentEditor = new ChaserEditor(m_vsplitter->widget(1), chaser, m_doc);
-        ChaserEditor *editor = qobject_cast<ChaserEditor*>(m_currentEditor);
-        editor->showOrderAndDirection(false);
         if (m_currentEditor != NULL)
         {
+            ChaserEditor *editor = qobject_cast<ChaserEditor*>(m_currentEditor);
+            editor->showOrderAndDirection(false);
             m_vsplitter->widget(1)->layout()->addWidget(m_currentEditor);
             /** Signal from chaser editor to scene editor. When a step is clicked apply values immediately */
             connect(m_currentEditor, SIGNAL(applyValues(QList<SceneValue>&)),
@@ -467,12 +472,16 @@ void ShowManager::showRightEditor(Chaser *chaser)
 
             m_vsplitter->widget(1)->show();
             m_currentEditor->show();
+            m_editorFunctionID = chaser->id();
         }
     }
 }
 
 void ShowManager::showRightEditor(Audio *audio)
 {
+    if (audio != NULL && m_editorFunctionID == audio->id())
+        return;
+
     hideRightEditor();
 
     if (audio == NULL)
@@ -486,6 +495,7 @@ void ShowManager::showRightEditor(Audio *audio)
             m_vsplitter->widget(1)->layout()->addWidget(m_currentEditor);
             m_vsplitter->widget(1)->show();
             m_currentEditor->show();
+            m_editorFunctionID = audio->id();
         }
     }
 }
@@ -493,6 +503,9 @@ void ShowManager::showRightEditor(Audio *audio)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 void ShowManager::showRightEditor(Video *video)
 {
+    if (video != NULL && m_editorFunctionID == video->id())
+        return;
+
     hideRightEditor();
 
     if (video == NULL)
@@ -1165,15 +1178,21 @@ void ShowManager::slotSequenceMoved(SequenceItem *item, quint32 time, bool moved
     quint32 sceneID = chaser->getBoundSceneID();
 
     Function *f = m_doc->function(sceneID);
+    Scene *newScene = NULL;
     if (f != NULL)
-        m_currentScene = qobject_cast<Scene*>(f);
+        newScene = qobject_cast<Scene*>(f);
 
-    showSceneEditor(m_currentScene);
+    if (newScene != m_currentScene || m_sceneEditor == NULL)
+    {
+        m_currentScene = newScene;
+        showSceneEditor(m_currentScene);
+    }
+
     /* activate the new track */
-    m_currentTrack = m_show->getTrackFromSceneID(sceneID);
+    m_currentTrack = m_show->getTrackFromSceneID(sceneID);;
     m_showview->activateTrack(m_currentTrack);
-
     showRightEditor(chaser);
+
     if (m_currentEditor != NULL)
     {
         ChaserEditor *editor = qobject_cast<ChaserEditor*>(m_currentEditor);
