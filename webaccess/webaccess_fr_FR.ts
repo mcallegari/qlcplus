@@ -16,12 +16,12 @@
     <message>
         <location filename="webaccess.cpp" line="383"/>
         <source>Network configuration changed. Reboot to apply the changes.</source>
-        <translation type="unfinished"></translation>
+        <translation>La configuration réseau a été modifiée. Veuillez redémarrer pour appliquer les changements.</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="401"/>
         <source>Autostart configuration changed</source>
-        <translation>Configuration du démarrage automatique changée</translation>
+        <translation>La configuration du démarrage automatique a été modifiée.</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="572"/>
@@ -67,12 +67,12 @@
     <message>
         <location filename="webaccess.cpp" line="1305"/>
         <source>Access point name (SSID): </source>
-        <translation type="unfinished"></translation>
+        <translation>Point d&apos;accès Wi-Fi (SSID) :</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1307"/>
         <source>WPA-PSK Password: </source>
-        <translation type="unfinished"></translation>
+        <translation>Clé WPA-PSK :</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1312"/>
@@ -113,7 +113,7 @@
     <message>
         <location filename="webaccess.cpp" line="1507"/>
         <source>Project autostart</source>
-        <translation>Projet au démarrage automatique</translation>
+        <translation>Chargement automatique de projet</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1511"/>
@@ -138,12 +138,12 @@
     <message>
         <location filename="webaccess.cpp" line="1251"/>
         <source>Universes configuration</source>
-        <translation>Configuration de l&apos;univers</translation>
+        <translation>Configuration des univers</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1257"/>
         <source>Audio configuration</source>
-        <translation>Configuration du son</translation>
+        <translation>Configuration audio</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1264"/>
