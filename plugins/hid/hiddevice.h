@@ -126,7 +126,7 @@ signals:
      * @param channel The channel whose value has changed
      * @param value The changed value
      */
-    void valueChanged(quint32 line, quint32 channel, uchar value);
+    void valueChanged(quint32 universe, quint32 line, quint32 channel, uchar value);
 
 public:
     /**
