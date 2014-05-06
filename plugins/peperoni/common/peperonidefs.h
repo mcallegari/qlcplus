@@ -71,11 +71,9 @@
 /** BULK WRITE: Oldest firmware version with bulk pipe support */
 #define PEPERONI_FW_OLD_BULK_SUPPORT 0x400
 
-/** BULK WRITE: Newest firmware version with bulk pipe support */
-#define PEPERONI_FW_NEW_BULK_SUPPORT 0x500
-
 /** BULK PIPE: Size of the "old" bulk header */
 #define PEPERONI_OLD_BULK_HEADER_SIZE 4
+
 /** BULK PIPE: "Old" bulk protocol ID */
 #define PEPERONI_OLD_BULK_HEADER_ID 0x01
 
@@ -86,5 +84,37 @@
 #define PEPERONI_OLD_BULK_HEADER_REQUEST_RX_GET   0x03   /** Read the receiver memory */
 #define PEPERONI_OLD_BULK_HEADER_REQUEST_TX2_SET  0x04   /** Write the second universes transmitter memory */
 #define PEPERONI_OLD_BULK_HEADER_REQUEST_TX2_GET  0x05   /** Read the second universes transmitter memory */
+
+/** BULK WRITE: "New" protocol, first firmware version with bulk pipe support */
+#define PEPERONI_FW_NEW_BULK_SUPPORT 0x500
+
+/** BULK PIPE: "New" protocol ID */
+#define PEPERONI_NEW_BULK_HEADER_ID1	(0x02)
+#define PEPERONI_NEW_BULK_HEADER_ID2	(0x4d)
+#define PEPERONI_NEW_BULK_HEADER_ID3	(0x6b)
+#define PEPERONI_NEW_BULK_HEADER_ID4	(0x32)
+
+/** BULK PIPE: "New" protocol commands */
+#define PEPERONI_NEW_BULK_HEADER_REQUEST_SET (0x00)	/** send data to interface */
+#define PEPERONI_NEW_BULK_HEADER_REQUEST_GET (0x10)	/** read data from interface */
+        
+/** BULK PIPE: "New" protocol configuration values */
+#define PEPERONI_NEW_BULK_CONFIG_DELAY		(0x01)	/** delay frame by time */
+#define PEPERONI_NEW_BULK_CONFIG_BLOCK		(0x02)	/** block while frame is not transmitting (timeout given by time) */
+#define PEPERONI_NEW_BULK_CONFIG_RX		(0x04)	/** switch to RX after having transmitted this frame */
+#define PEPERONI_NEW_BULK_CONFIG_NORETX		(0x08)	/** do not retransmit this frame */
+#define PEPERONI_NEW_BULK_CONFIG_TXIRQ		(0x40)	/** send data with two stop bits, default is 3 */
+#define PEPERONI_NEW_BULK_CONFIG_FORCETX	(0x80)	/** force transmittion, overdrive input signals */
+
+/** BULK PIPE: "New" protocol status values */
+#define PEPERONI_NEW_BULK_STATUS_OK			(0x00)
+#define PEPERONI_NEW_BULK_STATUS_TIMEOUT		(0x01)	/** request timed out */
+#define PEPERONI_NEW_BULK_STATUS_TX_START_FAILED	(0x02)	/** delayed start failed */
+#define PEPERONI_NEW_BULK_STATUS_UNIVERSE_WRONG		(0x03)	/** wrong universe addressed */
+#define PEPERONI_NEW_BULK_STATUS_RX_LENGTH_DECODER	(0x08)	/** length decoded has updated slots_set */
+#define PEPERONI_NEW_BULK_STATUS_RX_OLD_FRAME		(0x10)	/** old frame not read */
+#define PEPERONI_NEW_BULK_STATUS_RX_TIMEOUT		(0x20)	/** receiver finished with timeout (ored with others) */
+#define PEPERONI_NEW_BULK_STATUS_RX_NO_BREAK		(0x40)	/** frame without break received (ored with others) */
+#define PEPERONI_NEW_BULK_STATUS_RX_FRAMEERROR		(0x80)	/** frame finished with frame error (ored with others) */
 
 #endif

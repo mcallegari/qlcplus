@@ -38,11 +38,6 @@ PeperoniDevice::PeperoniDevice(QObject* parent, struct usb_device* device)
     m_firmwareVersion = m_device->descriptor.bcdDevice;
     qDebug() << "[Peperoni] detected device firmware version:" << QString::number(m_firmwareVersion, 16);
 
-    if (m_firmwareVersion < PEPERONI_FW_BLOCKING_WRITE_SUPPORT)
-        m_blockingControlWrite = PEPERONI_TX_MEM_NONBLOCK;
-    else
-        m_blockingControlWrite = PEPERONI_TX_MEM_BLOCK;
-
     extractName();
 }
 
@@ -247,11 +242,11 @@ void PeperoniDevice::outputDMX(const QByteArray& universe)
     if (m_firmwareVersion < PEPERONI_FW_OLD_BULK_SUPPORT)
     {
 #endif
-        qDebug() << "[Peperoni] control pipe write. Mode:" << m_blockingControlWrite << ", size:" << universe.size();
+        qDebug() << "[Peperoni] control pipe write. size:" << universe.size();
         r = usb_control_msg(m_handle,
                             USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_ENDPOINT_OUT,
                             PEPERONI_TX_MEM_REQUEST, // We are WRITING DMX data
-                            m_blockingControlWrite,  // Block during frame send?
+                            0,                       // Blocking does not work on all firmware versions -> don't block
                             0,                       // Start at DMX address 0
                             (char*) universe.data(), // The DMX universe data
                             universe.size(),         // Size of DMX universe
@@ -261,7 +256,7 @@ void PeperoniDevice::outputDMX(const QByteArray& universe)
             qWarning() << "PeperoniDevice" << name() << "failed control write:" << usb_strerror();
 #if !defined(__APPLE__) && !defined(Q_OS_MAC)
     }
-    else
+    else if (m_firmwareVersion < PEPERONI_FW_NEW_BULK_SUPPORT)
     {
         qDebug() << "Old bulk pipe write. Size:" << universe.size();
         /* Construct a bulk header first */
@@ -288,6 +283,97 @@ void PeperoniDevice::outputDMX(const QByteArray& universe)
             r = usb_clear_halt(m_handle, PEPERONI_BULK_OUT_ENDPOINT);
             if (r < 0)
                 qWarning() << "PeperoniDevice" << name() << "is unable to reset bulk endpoint.";
+        }
+    }
+    else
+    {
+        unsigned int datalen; /** length of dmx frame to be send, incl. startcode */
+        unsigned int len;
+        char status[8];
+    
+        qDebug() << "New bulk pipe write. Size:" << universe.size();
+
+        /* calculate data length */
+        datalen = universe.size();
+        /* the standard specifies a minimum length of 24 slots */
+        if (datalen < 24)
+            datalen = 24;
+        /* add startcode to data length */
+        datalen += 1;
+
+        m_bulkBuffer.clear();
+        /* Construct a bulk command header first */
+        m_bulkBuffer.append(char(PEPERONI_NEW_BULK_HEADER_ID1));
+        m_bulkBuffer.append(char(PEPERONI_NEW_BULK_HEADER_ID2));
+        m_bulkBuffer.append(char(PEPERONI_NEW_BULK_HEADER_ID3));
+        m_bulkBuffer.append(char(PEPERONI_NEW_BULK_HEADER_ID4));
+        m_bulkBuffer.append(char(PEPERONI_NEW_BULK_HEADER_REQUEST_SET));
+        m_bulkBuffer.append(char(0));	              /** universe number: Rodins only support index 0 */
+        len = 6 + datalen;                            /** length of data state: header + startcode + data */
+        m_bulkBuffer.append(char((len >> 0) & 0xFF)); /** lenght of data stage, LSB */
+        m_bulkBuffer.append(char((len >> 8) & 0xFF)); /** length of data state, MSB */
+        m_bulkBuffer.append(char(PEPERONI_NEW_BULK_CONFIG_BLOCK      /** transmitter configuration: block while transmitter is busy */
+                               | PEPERONI_NEW_BULK_CONFIG_FORCETX)); /** transmitter configuration: force transmission */
+        m_bulkBuffer.append(char(50));                /** timeout LSB, 50ms */
+        m_bulkBuffer.append(char(0));                 /** timeout MSB, 50ms */
+        m_bulkBuffer.append(char(181));               /** length of break, 200 us */
+        m_bulkBuffer.append(char(250));               /** length of Mark after Break, 20us */
+
+        /* Construct a bulk data state header */
+        m_bulkBuffer.append(char(PEPERONI_NEW_BULK_HEADER_ID1));
+        m_bulkBuffer.append(char(PEPERONI_NEW_BULK_HEADER_ID2));
+        m_bulkBuffer.append(char(PEPERONI_NEW_BULK_HEADER_ID3));
+        m_bulkBuffer.append(char(PEPERONI_NEW_BULK_HEADER_ID4));
+        m_bulkBuffer.append(char((datalen >> 0) & 0xFF)); /** number of bytes to send, incl. startcode, LSB */
+        m_bulkBuffer.append(char((datalen >> 8) & 0xFF)); /** number of bytes to send, incl. startcode, MSB */
+        m_bulkBuffer.append(char(0));                     /** internal buffer comes without startcode -> inseart it */
+
+        /* Append universe data to the bulk buffer */
+        m_bulkBuffer.append(universe);
+        /* append 0 if frame shall be longer */
+        if (datalen > universe.size() +1U)
+        {
+           len = datalen - universe.size() -1;
+           while (len-- > 0)
+             m_bulkBuffer.append(char(0));
+        }
+
+        /* Perform a bulk write */
+        r = usb_bulk_write(m_handle,
+                           PEPERONI_BULK_OUT_ENDPOINT,
+                           m_bulkBuffer.data(),
+                           m_bulkBuffer.size(),
+                           100); /* use larger timeout then specified in the command header above */
+        if (r < 0)
+        {
+            qWarning() << "PeperoniDevice" << name() << "failed 'new' bulk write:" << usb_strerror();
+        }
+        else 
+        {                           
+             r = usb_bulk_read(m_handle,
+                               PEPERONI_BULK_IN_ENDPOINT,
+                               status,
+                               sizeof(status),
+                               100); /* use larger timeout then specified in the command header above */
+             if (r < 0)
+             {
+                 qWarning() << "PeperoniDevice" << name() << "failed 'new' bulk read:" << usb_strerror();
+             }
+        }
+             
+        if (r < 0)
+        {
+            qWarning() << "Resetting bulk endpoints.";
+            r = usb_clear_halt(m_handle, PEPERONI_BULK_OUT_ENDPOINT);
+            if (r < 0)
+                qWarning() << "PeperoniDevice" << name() << "is unable to reset bulk OUT endpoint.";
+            r = usb_clear_halt(m_handle, PEPERONI_BULK_IN_ENDPOINT);
+            if (r < 0)
+                qWarning() << "PeperoniDevice" << name() << "is unable to reset bulk IN endpoint.";
+        }
+        else
+        {
+            /** optionally analyse status buffer: ID (4 bytes), Timestamp (2 bytes, ms), status (1 byte), unused (1 byte) */
         }
     }
 #endif
