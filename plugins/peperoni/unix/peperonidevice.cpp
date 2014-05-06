@@ -181,7 +181,7 @@ void PeperoniDevice::open()
 
         /* Set DMX startcode */
         r = usb_control_msg(m_handle,
-                            USB_TYPE_VENDOR | USB_RECIP_INTERFACE | USB_ENDPOINT_OUT,
+                            USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_ENDPOINT_OUT,
                             PEPERONI_TX_STARTCODE,   // Set DMX startcode
                             0,                       // Standard startcode is 0
                             0,                       // No index
@@ -249,7 +249,7 @@ void PeperoniDevice::outputDMX(const QByteArray& universe)
 #endif
         qDebug() << "[Peperoni] control pipe write. Mode:" << m_blockingControlWrite << ", size:" << universe.size();
         r = usb_control_msg(m_handle,
-                            USB_TYPE_VENDOR | USB_RECIP_INTERFACE | USB_ENDPOINT_OUT,
+                            USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_ENDPOINT_OUT,
                             PEPERONI_TX_MEM_REQUEST, // We are WRITING DMX data
                             m_blockingControlWrite,  // Block during frame send?
                             0,                       // Start at DMX address 0
