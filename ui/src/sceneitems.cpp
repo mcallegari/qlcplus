@@ -761,7 +761,7 @@ AudioItem::AudioItem(Audio *aud)
     m_previewStereoAction = new QAction(tr("Preview Stereo Channels"), this);
     m_previewStereoAction->setCheckable(true);
     connect(m_previewStereoAction, SIGNAL(toggled(bool)),
-            this, SLOT(slotAudioPreviewStero(bool)));
+            this, SLOT(slotAudioPreviewStereo(bool)));
 
     m_alignToCursor = new QAction(tr("Align to cursor"), this);
     connect(m_alignToCursor, SIGNAL(triggered()),
@@ -930,7 +930,7 @@ void AudioItem::slotAudioPreviewRight(bool active)
     createWaveform(false, active);
 }
 
-void AudioItem::slotAudioPreviewStero(bool active)
+void AudioItem::slotAudioPreviewStereo(bool active)
 {
     m_previewLeftAction->setChecked(false);
     m_previewRightAction->setChecked(false);

@@ -318,7 +318,7 @@ protected slots:
 
     void slotAudioPreviewLeft(bool active);
     void slotAudioPreviewRight(bool active);
-    void slotAudioPreviewStero(bool active);
+    void slotAudioPreviewStereo(bool active);
     void slotAlignToCursorClicked();
 
 private:
