@@ -350,6 +350,7 @@ fixtures.files += Stairville-SF-1500.qxf
 fixtures.files += Stairville-TRI-LED-Bundle-Complete.qxf
 fixtures.files += Stairville-xBrick-Full-Colour.qxf
 fixtures.files += Stairville-ZF-1500.qxf
+fixtures.files += Star-Lights-mini-Wash-Moving-Head.qxf
 fixtures.files += Stellar-Labs-LED-PAR38-RGB.qxf
 fixtures.files += Studio-Due-City-Color-1800.qxf
 fixtures.files += Varytec-Easy-Move-LED-XS-Spot.qxf
