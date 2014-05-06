@@ -3,6 +3,10 @@ qlcplus (4.7.2) stable; urgency=low
   * DIP Switch tool: it is now possible to manually set a DIP configuration (thanks to Florian Euchner)
   * Fixture Manager: Added DIP Switch tool to fixture add panel to select an address by DIP configuration (thanks to Florian Euchner)
   * Simple Desk: fixed CPU waste and channels highlight on universes other than 1
+  * Show Manager: fixed wrong track association causing copy & paste errors
+  * Show Manager: fixed audio deletion crash
+  * Plugins: fixed HID regression causing non working input
+  * Virtual Console: Buttons can now stop all functions with a fade out time
   * Added Catalan translation (thanks to Santiago Benejam Torres)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 24 May 2014 12:13:14 +0200

@@ -34,6 +34,7 @@
 #include "vcbuttonproperties.h"
 #include "selectinputchannel.h"
 #include "functionselection.h"
+#include "speeddialwidget.h"
 #include "virtualconsole.h"
 #include "assignhotkey.h"
 #include "inputpatch.h"
@@ -44,6 +45,7 @@
 VCButtonProperties::VCButtonProperties(VCButton* button, Doc* doc)
     : QDialog(button)
     , m_doc(doc)
+    , m_speedDials(NULL)
 {
     Q_ASSERT(button != NULL);
     Q_ASSERT(doc != NULL);
@@ -77,6 +79,8 @@ VCButtonProperties::VCButtonProperties(VCButton* button, Doc* doc)
         m_stopAll->setChecked(true);
     else
         m_toggle->setChecked(true);
+    m_fadeOutTime = m_button->stopAllFadeTime();
+    m_fadeOutEdit->setText(Function::speedToString(m_fadeOutTime));
     slotActionToggled();
 
     /* Intensity adjustment */
@@ -97,6 +101,9 @@ VCButtonProperties::VCButtonProperties(VCButton* button, Doc* doc)
     connect(m_blackout, SIGNAL(toggled(bool)), this, SLOT(slotActionToggled()));
     connect(m_stopAll, SIGNAL(toggled(bool)), this, SLOT(slotActionToggled()));
     connect(m_flash, SIGNAL(toggled(bool)), this, SLOT(slotActionToggled()));
+
+    connect(m_speedDialButton, SIGNAL(toggled(bool)),
+            this, SLOT(slotSpeedDialToggle(bool)));
 
     connect(m_autoDetectInputButton, SIGNAL(toggled(bool)),
             this, SLOT(slotAutoDetectInputToggled(bool)));
@@ -220,6 +227,44 @@ void VCButtonProperties::slotActionToggled()
         m_generalGroup->setEnabled(true);
         m_intensityGroup->setEnabled(true);
     }
+
+    m_fadeOutEdit->setEnabled(m_stopAll->isChecked());
+    m_safFadeLabel->setEnabled(m_stopAll->isChecked());
+    m_speedDialButton->setEnabled(m_stopAll->isChecked());
+}
+
+void VCButtonProperties::slotSpeedDialToggle(bool state)
+{
+    if (state == true)
+    {
+        m_speedDials = new SpeedDialWidget(this);
+        m_speedDials->setAttribute(Qt::WA_DeleteOnClose);
+        m_speedDials->setWindowTitle(m_button->caption());
+        m_speedDials->setFadeInVisible(false);
+        m_speedDials->setFadeOutSpeed(m_button->stopAllFadeTime());
+        m_speedDials->setDurationEnabled(false);
+        m_speedDials->setDurationVisible(false);
+        connect(m_speedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotFadeOutDialChanged(int)));
+        connect(m_speedDials, SIGNAL(destroyed(QObject*)), this, SLOT(slotDialDestroyed(QObject*)));
+        m_speedDials->show();
+    }
+    else
+    {
+        if (m_speedDials != NULL)
+            delete m_speedDials;
+        m_speedDials = NULL;
+    }
+}
+
+void VCButtonProperties::slotFadeOutDialChanged(int ms)
+{
+    m_fadeOutEdit->setText(Function::speedToString(ms));
+    m_fadeOutTime = ms;
+}
+
+void VCButtonProperties::slotDialDestroyed(QObject *)
+{
+    m_speedDialButton->setChecked(false);
 }
 
 void VCButtonProperties::slotIntensitySliderMoved(int value)
@@ -246,7 +291,10 @@ void VCButtonProperties::accept()
     else if (m_blackout->isChecked() == true)
         m_button->setAction(VCButton::Blackout);
     else if (m_stopAll->isChecked() == true)
+    {
         m_button->setAction(VCButton::StopAll);
+        m_button->setStopAllFadeOutTime(m_fadeOutTime);
+    }
     else
         m_button->setAction(VCButton::Flash);
 

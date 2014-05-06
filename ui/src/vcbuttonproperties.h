@@ -29,6 +29,7 @@
 #include "function.h"
 
 class FunctionManager;
+class SpeedDialWidget;
 class KeyBind;
 
 /** @addtogroup ui_vc_props
@@ -72,6 +73,20 @@ protected:
     QKeySequence m_keySequence;
     quint32 m_function;
     QLCInputSource m_inputSource;
+
+    /************************************************************************
+     * Speed dial
+     ************************************************************************/
+
+private slots:
+    void slotSpeedDialToggle(bool state);
+    void slotFadeOutDialChanged(int ms);
+    void slotDialDestroyed(QObject* dial);
+
+private:
+    QPointer<SpeedDialWidget>m_speedDials;
+    int m_fadeOutTime;
+
 };
 
 /** @} */

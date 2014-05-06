@@ -65,6 +65,7 @@ const QSize VCButton::defaultSize(QSize(50, 50));
 
 VCButton::VCButton(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     , m_iconPath()
+    , m_blackoutFadeOutTime(0)
     , m_startupIntensityEnabled(false)
     , m_startupIntensity(1.0)
 {
@@ -529,6 +530,16 @@ VCButton::Action VCButton::stringToAction(const QString& str)
         return Toggle;
 }
 
+void VCButton::setStopAllFadeOutTime(int ms)
+{
+    m_blackoutFadeOutTime = ms;
+}
+
+int VCButton::stopAllFadeTime()
+{
+    return m_blackoutFadeOutTime;
+}
+
 /*****************************************************************************
  * Intensity adjustment
  *****************************************************************************/
@@ -621,7 +632,10 @@ void VCButton::pressFunction()
     }
     else if (m_action == StopAll)
     {
-        m_doc->masterTimer()->stopAllFunctions();
+        if (stopAllFadeTime() == 0)
+            m_doc->masterTimer()->stopAllFunctions();
+        else
+            m_doc->masterTimer()->fadeAndStopAll(stopAllFadeTime());
     }
 }
 
@@ -824,6 +838,8 @@ bool VCButton::loadXML(const QDomElement* root)
         else if (tag.tagName() == KXMLQLCVCButtonAction)
         {
             setAction(stringToAction(tag.text()));
+            if (tag.hasAttribute(KXMLQLCVCButtonStopAllFadeTime))
+                setStopAllFadeOutTime(tag.attribute(KXMLQLCVCButtonStopAllFadeTime).toInt());
         }
         else if (tag.tagName() == KXMLQLCVCButtonKey)
         {
@@ -882,6 +898,10 @@ bool VCButton::saveXML(QDomDocument* doc, QDomElement* vc_root)
     tag = doc->createElement(KXMLQLCVCButtonAction);
     root.appendChild(tag);
     text = doc->createTextNode(actionToString(action()));
+    if (action() == StopAll && stopAllFadeTime() != 0)
+    {
+        tag.setAttribute(KXMLQLCVCButtonStopAllFadeTime, stopAllFadeTime());
+    }
     tag.appendChild(text);
 
     /* Key sequence */

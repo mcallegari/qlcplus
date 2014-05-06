@@ -51,6 +51,8 @@ class QEvent;
 #define KXMLQLCVCButtonActionBlackout "Blackout"
 #define KXMLQLCVCButtonActionStopAll "StopAll"
 
+#define KXMLQLCVCButtonStopAllFadeTime "FadeOut"
+
 #define KXMLQLCVCButtonKey "Key"
 
 #define KXMLQLCVCButtonIntensity "Intensity"
@@ -244,8 +246,12 @@ public:
     static QString actionToString(Action action);
     static Action stringToAction(const QString& str);
 
+    void setStopAllFadeOutTime(int ms);
+    int stopAllFadeTime();
+
 protected:
     Action m_action;
+    int m_blackoutFadeOutTime;
 
     /*********************************************************************
      * Startup intensity adjustment
