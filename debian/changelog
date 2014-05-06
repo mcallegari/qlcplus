@@ -8,6 +8,9 @@ qlcplus (4.7.2) stable; urgency=low
   * Plugins: fixed HID regression causing non working input
   * Virtual Console: Buttons can now stop all functions with a fade out time
   * Added Catalan translation (thanks to Santiago Benejam Torres)
+  * New fixture: Flash Butrym LED Moving Head Mini Beam 18x3W RGB CREE (thanks to laserandi)
+  * New fixture: Chauvet Wedge Tri (thanks to Jef M)
+  * New fixture: Studio Due City Color 1800 (thanks to Tolmino)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 24 May 2014 12:13:14 +0200
 

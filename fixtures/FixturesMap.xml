@@ -91,6 +91,7 @@
   <fixture path="Chauvet-SlimPAR-TRI-12-IRC.qxf" mf="Chauvet" md="SlimPAR TRI 12 IRC"/>
   <fixture path="Chauvet-Vue-3.1.qxf" mf="Chauvet" md="Vue 3.1"/>
   <fixture path="Chauvet-Vue-6.1.qxf" mf="Chauvet" md="Vue 6.1"/>
+  <fixture path="Chauvet-Wedge-Tri.qxf" mf="Chauvet" md="Wedge Tri"/>
   <fixture path="Chavet-Legend-230SR-Beam.qxf" mf="Chauvet" md="Legend 230SR Beam"/>
   <fixture path="Clay-Paky-A.LEDA-Wash-K10.qxf" mf="Clay Paky" md="A.LEDA Wash K10"/>
   <fixture path="Clay-Paky-A.LEDA-Wash-K20.qxf" mf="Clay Paky" md="A.LEDA Wash K20"/>
@@ -144,6 +145,7 @@
   <fixture path="Eurolite-TS-7B.qxf" mf="Eurolite" md="TS-7B"/>
   <fixture path="Evolight-Colours-SL3.qxf" mf="Evolight" md="Colours SL3"/>
   <fixture path="Expolite-TourLed-42.qxf" mf="Expolite" md="TourLed 42"/>
+  <fixture path="Flash-Butrym-LED-Moving-Head-Mini-Beam-18x3W-RGB-CREE.qxf" mf="Flash-Butrym" md="LED Moving Head Mini Beam 18x3W RGB CREE"/>
   <fixture path="Futurelight-AHS-150.qxf" mf="Futurelight" md="AHS-150"/>
   <fixture path="Futurelight-CF-200.qxf" mf="Futurelight" md="CF-200"/>
   <fixture path="Futurelight-CY-200.qxf" mf="Futurelight" md="CY-200"/>
@@ -350,6 +352,7 @@
   <fixture path="Stairville-xBrick-Full-Colour.qxf" mf="Stairville" md="xBrick Full-Colour"/>
   <fixture path="Stairville-ZF-1500.qxf" mf="Stairville" md="ZF-1500"/>
   <fixture path="Stellar-Labs-LED-PAR38-RGB.qxf" mf="Stellar Labs" md="LED PAR38 RGB (555-11410)"/>
+  <fixture path="Studio-Due-City-Color-1800.qxf" mf="Studio Due" md="City Color 1800"/>
   <fixture path="Varytec-Easy-Move-LED-XS-Spot.qxf" mf="Varytec" md="Easy Move LED XS Spot"/>
   <fixture path="Varytec-Easy-Move-LED-XS-Wash.qxf" mf="Varytec" md="Easy Move LED XS Wash"/>
   <fixture path="Varytec-Gigabar-II.qxf" mf="Varytec" md="Gigabar II"/>
