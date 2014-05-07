@@ -109,6 +109,8 @@ quint32 FadeChannel::fixture() const
 
 quint32 FadeChannel::universe()
 {
+    if (m_universe == Universe::invalid())
+        return (address() >> 9);
     return m_universe;
 }
 
@@ -125,7 +127,7 @@ quint32 FadeChannel::channel() const
 quint32 FadeChannel::address() const
 {
     if (m_address == QLCChannel::invalid())
-        return m_address;
+        return channel();
 
     return (m_address + channel());
 }
