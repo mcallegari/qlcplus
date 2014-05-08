@@ -32,11 +32,15 @@
     #include <windows.h>
   #endif
   #include <ftd2xx.h>
-#elif defined(LIBFTDI)
+#elif defined(LIBFTDI) || defined(LIBFTDI1)
   #include <ftdi.h>
 #elif defined(QTSERIAL)
   #include <QtSerialPort/QSerialPort>
   #include <QtSerialPort/QSerialPortInfo>
+#endif
+
+#if defined(LIBFTDI1)
+  #include <unistd.h>
 #endif
 
 #define SETTINGS_TYPE_MAP "qlcftdi/typemap"
@@ -55,7 +59,7 @@ public:
 
 #if defined(FTD2XX)
     static QString readLabel(quint32 id, uchar label, int *ESTA_code);
-#elif defined(LIBFTDI)
+#elif defined(LIBFTDI) || defined(LIBFTDI1)
     static QString readLabel(struct ftdi_context *ftdi, char *name, char *serial, uchar label, int *ESTA_code);
 #elif defined(QTSERIAL)
     static QString readLabel(const QSerialPortInfo &info, uchar label, int *ESTA_code);
@@ -178,7 +182,7 @@ public:
 private:
 #if defined(FTD2XX)
     FT_HANDLE m_handle;
-#elif defined(LIBFTDI)
+#elif defined(LIBFTDI) || defined(LIBFTDI1)
     struct ftdi_context m_handle;
 #elif defined(QTSERIAL)
     QSerialPort *m_handle;
