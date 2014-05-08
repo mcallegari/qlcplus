@@ -219,6 +219,7 @@ fixtures.files += Ledj-Colour-Storm-Quad.qxf
 fixtures.files += Ledj-Performer-18-Quad.qxf
 fixtures.files += Ledj-Tri-LED-back-drop-controller.qxf
 fixtures.files += lightmaXX-LED-MEGA-PAR-64-RGBW-18x8-W.qxf
+fixtures.files += lightmaXX-Platinum-Line-Mini-TRI-PAR-7x3-W.qxf
 fixtures.files += Litecraft-PowerBar-4.qxf
 fixtures.files += Lite-Works-ColorChanger.qxf
 fixtures.files += Look-Solutions-Unique-2.1.qxf
