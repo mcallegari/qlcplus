@@ -109,12 +109,12 @@ public:
     /** Get the chaser function that is used as cue list steps */
     Chaser *chaser();
 
+    /** Get the currently selected item index, otherwise 0 */
+    int getCurrentIndex();
+
 private:
     /** Update the list of steps */
     void updateStepList();
-
-    /** Get the currently selected item index, otherwise 0 */
-    int getCurrentIndex();
 
 public slots:
     /** Play/stop the cue list from the current selection */

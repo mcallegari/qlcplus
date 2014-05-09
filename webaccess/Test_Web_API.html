@@ -54,10 +54,17 @@ function connectToWebSocket(host) {
   // will be shown or processed as needed
   websocket.onmessage = function(ev) {
     //alert(ev.data);
+
+    // Event data is formatted as follows: "QLC+API|API name|arguments"
+    // Arguments vary depending on the API called
+
     var msgParams = ev.data.split('|');
+    
     if (msgParams[1] == "getFunctionsNumber")
       document.getElementById('getFunctionsNumberBox').innerHTML = msgParams[2];
     
+    // Arguments is an array formatted as follows: 
+    // Function ID|Function name|Function ID|Function name|...
     else if (msgParams[1] == "getFunctionsList")
     {
       var tableCode = "<table class='apiTable'><tr><th>ID</th><th>Name</th></tr>";
@@ -78,6 +85,8 @@ function connectToWebSocket(host) {
     else if (msgParams[1] == "getWidgetsNumber")
       document.getElementById('getWidgetsNumberBox').innerHTML = msgParams[2];
     
+    // Arguments is an array formatted as follows: 
+    // Widget ID|Widget name|Widget ID|Widget name|...
     else if (msgParams[1] == "getWidgetsList")
     {
       var tableCode = "<table class='apiTable'><tr><th>ID</th><th>Name</th></tr>";
@@ -91,6 +100,14 @@ function connectToWebSocket(host) {
     
     else if (msgParams[1] == "getWidgetType")
       document.getElementById('getWidgetTypeBox').innerHTML = msgParams[2];
+      
+    else if (msgParams[1] == "getWidgetStatus")
+    {
+      var status = msgParams[2];
+      if (msgParams[2] == "PLAY")
+	status = msgParams[2] + "(Step: " + msgParams[3] + ")";
+      document.getElementById('getWidgetStatusBox').innerHTML = status;
+    }
   };
 };
 
@@ -178,9 +195,10 @@ iframe {
 }
 
 .resultBox {
-  display: table-cell; 
+  display: table-cell;
   vertical-align: middle;
   text-align: center;
+  color: #000;
   width: 100px;
   height: 30px;
   background-color: #aaaaaa;
@@ -275,7 +293,14 @@ Load a project:
   <td>Retrieve the type of a Virtual Console Widget with the given ID</td>
   <td><div id="getWidgetTypeBox" class="resultBox"></div></td>
  </tr>
-
+ <tr>
+  <td>
+    <div class="apiButton" onclick="javascript:requestAPIWithParam('getWidgetStatus', 'wStatusID');">getWidgetStatus</div>
+    <input id="wStatusID" type="input" value="0"></input>
+  </td>
+  <td>Retrieve the status of a Virtual Console Widget with the given ID</td>
+  <td><div id="getWidgetStatusBox" class="resultBox"></div></td>
+ </tr>
 
 </table>
 

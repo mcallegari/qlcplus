@@ -494,6 +494,45 @@ mg_result WebAccess::websocketDataHandler(mg_connection *conn)
             else
                 wsAPIMessage.append(widget->typeToString(VCWidget::UnknownWidget));
         }
+        else if (apiCmd == "getWidgetStatus")
+        {
+            if (cmdList.count() < 3)
+                return MG_FALSE;
+            quint32 wID = cmdList[2].toUInt();
+            VCWidget *widget = m_vc->widget(wID);
+            if (widget != NULL)
+            {
+                switch(widget->type())
+                {
+                    case VCWidget::ButtonWidget:
+                    {
+                        VCButton *button = qobject_cast<VCButton*>(widget);
+                        if (button->isOn())
+                            wsAPIMessage.append("255");
+                        else
+                            wsAPIMessage.append("0");
+                    }
+                    break;
+                    case VCWidget::SliderWidget:
+                    {
+                        VCSlider *slider = qobject_cast<VCSlider*>(widget);
+                        wsAPIMessage.append(QString::number(slider->sliderValue()));
+                    }
+                    break;
+                    case VCWidget::CueListWidget:
+                    {
+                        VCCueList *cue = qobject_cast<VCCueList*>(widget);
+                        quint32 chaserID = cue->chaserID();
+                        Function *f = m_doc->function(chaserID);
+                        if (f != NULL && f->isRunning())
+                            wsAPIMessage.append(QString("PLAY|%2|").arg(cue->getCurrentIndex()));
+                        else
+                            wsAPIMessage.append("STOP");
+                    }
+                    break;
+                }
+            }
+        }
 
         mg_websocket_write(conn, WEBSOCKET_OPCODE_TEXT, wsAPIMessage.toLatin1().data(), wsAPIMessage.length());
     }
