@@ -71,8 +71,6 @@
         <file alias="function.png">../../gfx/function.png</file>
         <file alias="global.png">../../gfx/global.png</file>
         <file alias="gobo.png">../../gfx/gobo.png</file>
-        <file alias="gonext.png">../../gfx/gonext.png</file>
-        <file alias="goprevious.png">../../gfx/goprevious.png</file>
         <file alias="grid.png">../../gfx/grid.png</file>
         <file alias="group.png">../../gfx/group.png</file>
         <file alias="hazer.png">../../gfx/hazer.png</file>

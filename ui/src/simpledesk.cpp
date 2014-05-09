@@ -292,7 +292,7 @@ void SimpleDesk::initBottomSide()
     QHBoxLayout* hbox = new QHBoxLayout;
     hbox->setContentsMargins(0, 0, 0, 0);
     m_previousCueButton = new QToolButton(this);
-    m_previousCueButton->setIcon(QIcon(":/goprevious.png"));
+    m_previousCueButton->setIcon(QIcon(":/back.png"));
     m_previousCueButton->setIconSize(QSize(32, 32));
     m_previousCueButton->setToolTip(tr("Previous cue"));
     hbox->addWidget(m_previousCueButton);
@@ -304,7 +304,7 @@ void SimpleDesk::initBottomSide()
     hbox->addWidget(m_stopCueStackButton);
 
     m_nextCueButton = new QToolButton(this);
-    m_nextCueButton->setIcon(QIcon(":/gonext.png"));
+    m_nextCueButton->setIcon(QIcon(":/forward.png"));
     m_nextCueButton->setIconSize(QSize(32, 32));
     m_nextCueButton->setToolTip(tr("Next cue"));
     hbox->addWidget(m_nextCueButton);
