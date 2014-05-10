@@ -292,11 +292,13 @@ void PeperoniDevice::outputDMX(quint32 line, const QByteArray& universe)
         m_bulkBuffer.clear();
         m_bulkBuffer.append(char(PEPERONI_OLD_BULK_HEADER_ID));
         m_bulkBuffer.append(requestType);
-        m_bulkBuffer.append(char(universe.size() & 0xFF));
-        m_bulkBuffer.append(char((universe.size() >> 8) & 0xFF));
+        m_bulkBuffer.append(char(0x00)); // 512 - LSB
+        m_bulkBuffer.append(char(0x02)); // 512 - MSB
 
         /* Append universe data to the bulk buffer */
         m_bulkBuffer.append(universe);
+        /* Append trailing zeros to reach size of 512 bytes */
+        m_bulkBuffer.append(QByteArray(512 - universe.size(), 0));
 
         /* Perform a bulk write */
         r = usb_bulk_write(m_handle,
@@ -337,7 +339,7 @@ void PeperoniDevice::outputDMX(quint32 line, const QByteArray& universe)
         m_bulkBuffer.append(char(PEPERONI_NEW_BULK_HEADER_ID3));
         m_bulkBuffer.append(char(PEPERONI_NEW_BULK_HEADER_ID4));
         m_bulkBuffer.append(char(PEPERONI_NEW_BULK_HEADER_REQUEST_SET));
-        m_bulkBuffer.append(char(output - m_line));	  /** universe number: Rodins only support index 0, DMX21 supports 0 and 1 */
+        m_bulkBuffer.append(char(line - m_line));	  /** universe number: Rodins only support index 0, DMX21 supports 0 and 1 */
         len = 6 + datalen;                            /** length of data state: header + startcode + data */
         m_bulkBuffer.append(char((len >> 0) & 0xFF)); /** lenght of data stage, LSB */
         m_bulkBuffer.append(char((len >> 8) & 0xFF)); /** length of data state, MSB */
@@ -355,7 +357,7 @@ void PeperoniDevice::outputDMX(quint32 line, const QByteArray& universe)
         m_bulkBuffer.append(char(PEPERONI_NEW_BULK_HEADER_ID4));
         m_bulkBuffer.append(char((datalen >> 0) & 0xFF)); /** number of bytes to send, incl. startcode, LSB */
         m_bulkBuffer.append(char((datalen >> 8) & 0xFF)); /** number of bytes to send, incl. startcode, MSB */
-        m_bulkBuffer.append(char(0));                     /** internal buffer comes without startcode -> inseart it */
+        m_bulkBuffer.append(char(0));                     /** internal buffer comes without startcode -> insert it */
 
         /* Append universe data to the bulk buffer */
         m_bulkBuffer.append(universe);
