@@ -22,7 +22,7 @@
 
 #include <QStringList>
 #include <QtPlugin>
-#include <QList>
+#include <QHash>
 
 #include "qlcioplugin.h"
 
@@ -120,11 +120,11 @@ public:
 
 protected:
     /** Get a PeperoniDevice entry by its usbdev struct */
-    PeperoniDevice* device(struct usb_device* usbdev);
+    bool device(struct usb_device* usbdev);
 
 protected:
     /** List of available devices */
-    QList <PeperoniDevice*> m_devices;
+    QHash <quint32, PeperoniDevice*> m_devices;
 };
 
 #endif

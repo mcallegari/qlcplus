@@ -36,24 +36,28 @@ class PeperoniDevice : public QObject
      * Initialization
      ********************************************************************/
 public:
-    PeperoniDevice(QObject* parent, struct usb_device* device);
+    PeperoniDevice(QObject* parent, struct usb_device* device, quint32 line);
     virtual ~PeperoniDevice();
 
     /** Find out, whether the given USB device is a Peperoni device */
     static bool isPeperoniDevice(const struct usb_device* device);
 
+    /** Returns the number of output universes this device supports */
+    static int outputsNumber(const struct usb_device* device);
+
     /********************************************************************
      * Device information
      ********************************************************************/
 public:
-    QString name() const;
-    QString infoText() const;
+    QString name(quint32 line) const;
+    QString infoText(quint32 line) const;
 
 protected:
     void extractName();
 
 protected:
     QString m_name;
+    quint32 m_line;
 
     /********************************************************************
      * Open & close
@@ -76,7 +80,7 @@ protected:
      * Write
      ********************************************************************/
 public:
-    void outputDMX(const QByteArray& universe);
+    void outputDMX(quint32 line, const QByteArray& universe);
 };
 
 #endif
