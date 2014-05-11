@@ -405,7 +405,7 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
             {
                 /* Store the selected plugin name & line */
                 m_currentOutputPluginName = item->text(KMapColumnPluginName);
-                m_currentOutput = item->text(KMapColumnOutputLine).toInt();
+                m_currentOutput = item->text(KMapColumnOutputLine).toUInt();
 
                 /* Apply the patch immediately */
                 m_ioMap->setOutputPatch(m_universe, m_currentOutputPluginName, m_currentOutput, false);
@@ -422,7 +422,7 @@ void InputOutputPatchEditor::slotMapItemChanged(QTreeWidgetItem* item, int col)
             else
             {
                 m_currentFeedbackPluginName = item->text(KMapColumnPluginName);
-                m_currentFeedback = item->text(KMapColumnOutputLine).toInt();
+                m_currentFeedback = item->text(KMapColumnOutputLine).toUInt();
 
                 /* Apply the patch immediately */
                 m_ioMap->setOutputPatch(m_universe, m_currentFeedbackPluginName, m_currentFeedback, true);

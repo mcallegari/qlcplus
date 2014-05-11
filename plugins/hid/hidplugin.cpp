@@ -86,8 +86,8 @@ void HIDPlugin::openInput(quint32 input)
     if (dev != NULL)
     {
         dev->openInput();
-        connect(dev, SIGNAL(valueChanged(quint32, quint32,quint32,uchar)),
-                this, SIGNAL(valueChanged(quint32, quint32,quint32,uchar)));
+        connect(dev, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
+                this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
     }
     else
         qDebug() << name() << "has no input number:" << input;
@@ -99,8 +99,8 @@ void HIDPlugin::closeInput(quint32 input)
     if (dev != NULL)
     {
         dev->closeInput();
-        disconnect(dev, SIGNAL(valueChanged(quint32,quint32,uchar)),
-                   this, SIGNAL(valueChanged(quint32,quint32,uchar)));
+        disconnect(dev, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
+                   this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
     }
     else
         qDebug() << name() << "has no input number:" << input;

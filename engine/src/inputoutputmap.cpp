@@ -840,24 +840,24 @@ void InputOutputMap::loadDefaults()
         bool passthrough;
 
         /* Plugin name */
-        key = QString("/inputmap/universe%2/plugin/").arg(i);
+        key = QString("/inputmap/universe%1/plugin/").arg(i);
         plugin = settings.value(key).toString();
 
         /* Plugin input */
-        key = QString("/inputmap/universe%2/input/").arg(i);
+        key = QString("/inputmap/universe%1/input/").arg(i);
         input = settings.value(key).toString();
 
         /* Input profile */
-        key = QString("/inputmap/universe%2/profile/").arg(i);
+        key = QString("/inputmap/universe%1/profile/").arg(i);
         profileName = settings.value(key).toString();
 
-        key = QString("/inputmap/universe%2/passthrough/").arg(i);
+        key = QString("/inputmap/universe%1/passthrough/").arg(i);
         passthrough = settings.value(key).toBool();
         if (passthrough == true)
             m_universeArray.at(i)->setPassthrough(passthrough);
 
         /* Do the mapping */
-        if (plugin.length() > 0 && input.length() > 0)
+        if (plugin != KInputNone && input != KInputNone)
             setInputPatch(i, plugin, input.toUInt(), profileName);
     }
 
@@ -869,25 +869,25 @@ void InputOutputMap::loadDefaults()
     for (quint32 i = 0; i < universes(); i++)
     {
         /* Plugin name */
-        key = QString("/outputmap/universe%2/plugin/").arg(i);
+        key = QString("/outputmap/universe%1/plugin/").arg(i);
         plugin = settings.value(key).toString();
 
         /* Plugin output */
-        key = QString("/outputmap/universe%2/output/").arg(i);
+        key = QString("/outputmap/universe%1/output/").arg(i);
         output = settings.value(key).toString();
 
         /* Feedback plugin name */
-        key = QString("/outputmap/universe%2/feedbackplugin/").arg(i);
+        key = QString("/outputmap/universe%1/feedbackplugin/").arg(i);
         fb_plugin = settings.value(key).toString();
 
         /* Feedback line */
-        key = QString("/outputmap/universe%2/feedback/").arg(i);
+        key = QString("/outputmap/universe%1/feedback/").arg(i);
         feedback = settings.value(key).toString();
 
-        if (plugin.length() > 0 && output.length() > 0)
+        if (plugin != KOutputNone && output != KOutputNone)
             setOutputPatch(i, plugin, output.toUInt());
 
-        if (fb_plugin.length() > 0 && feedback.length() > 0)
+        if (fb_plugin != KOutputNone && feedback != KOutputNone)
             setOutputPatch(i, fb_plugin, feedback.toUInt(), true);
     }
 }
@@ -897,35 +897,34 @@ void InputOutputMap::saveDefaults()
     /* ************************ INPUT *********************************** */
     QSettings settings;
     QString key;
-    QString str;
 
     for (quint32 i = 0; i < universes(); i++)
     {
-        InputPatch* pat = inputPatch(i);
+        InputPatch* inPatch = inputPatch(i);
 
         /* Plugin name */
-        key = QString("/inputmap/universe%2/plugin/").arg(i);
-        if (pat != NULL)
-            settings.setValue(key, pat->pluginName());
+        key = QString("/inputmap/universe%1/plugin/").arg(i);
+        if (inPatch != NULL)
+            settings.setValue(key, inPatch->pluginName());
         else
             settings.setValue(key, KInputNone);
 
         /* Plugin input */
-        key = QString("/inputmap/universe%2/input/").arg(i);
-        if (pat != NULL)
-            settings.setValue(key, str.setNum(pat->input()));
+        key = QString("/inputmap/universe%1/input/").arg(i);
+        if (inPatch != NULL)
+            settings.setValue(key, QString::number(inPatch->input()));
         else
             settings.setValue(key, KInputNone);
 
         /* Input profile */
-        key = QString("/inputmap/universe%2/profile/").arg(i);
-        if (pat != NULL)
-            settings.setValue(key, pat->profileName());
+        key = QString("/inputmap/universe%1/profile/").arg(i);
+        if (inPatch != NULL)
+            settings.setValue(key, inPatch->profileName());
         else
             settings.setValue(key, KInputNone);
 
         /* Passthrough */
-        key = QString("/inputmap/universe%2/passthrough/").arg(i);
+        key = QString("/inputmap/universe%1/passthrough/").arg(i);
         bool passthrough = m_universeArray.at(i)->passthrough();
         if (passthrough == true)
             settings.setValue(key, passthrough);
@@ -939,7 +938,8 @@ void InputOutputMap::saveDefaults()
     {
         OutputPatch* outPatch = outputPatch(i);
         OutputPatch* fbPatch = feedbackPatch(i);
-        key = QString("/outputmap/universe%2/plugin/").arg(i);
+
+        key = QString("/outputmap/universe%1/plugin/").arg(i);
 
         /* Plugin name */
         if (outPatch != NULL)
@@ -948,22 +948,24 @@ void InputOutputMap::saveDefaults()
             settings.setValue(key, KOutputNone);
 
         /* Plugin output */
-        key = QString("/outputmap/universe%2/output/").arg(i);
+        key = QString("/outputmap/universe%1/output/").arg(i);
         if (outPatch != NULL)
-            settings.setValue(key, str.setNum(outPatch->output()));
+            settings.setValue(key, outPatch->output());
         else
             settings.setValue(key, KOutputNone);
 
-        /* Plugin name */
+        key = QString("/outputmap/universe%1/feedbackplugin/").arg(i);
+
+        /* Feedback plugin name */
         if (fbPatch != NULL)
             settings.setValue(key, fbPatch->pluginName());
         else
             settings.setValue(key, KOutputNone);
 
-        /* Plugin output */
-        key = QString("/outputmap/universe%2/feedback/").arg(i);
+        /* Feedback plugin output */
+        key = QString("/outputmap/universe%1/feedback/").arg(i);
         if (fbPatch != NULL)
-            settings.setValue(key, str.setNum(fbPatch->output()));
+            settings.setValue(key, QString::number(fbPatch->output()));
         else
             settings.setValue(key, KOutputNone);
     }

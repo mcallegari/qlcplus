@@ -122,7 +122,8 @@ signals:
     /**
      * Signal that is emitted when an input channel's value is changed
      *
-     * @param device The eventing HIDDevice
+     * @param universe The universe where the event happened
+     * @param line The input line that received the signal
      * @param channel The channel whose value has changed
      * @param value The changed value
      */

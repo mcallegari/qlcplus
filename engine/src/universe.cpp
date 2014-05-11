@@ -291,8 +291,9 @@ bool Universe::setInputPatch(QLCIOPlugin *plugin,
              << ", input:" << input << ", profile:" << ((profile == NULL)?"None":profile->name());
     if (m_inputPatch == NULL)
     {
-        if (input == QLCChannel::invalid())
+        if (plugin == NULL || input == QLCChannel::invalid())
             return false;
+
         m_inputPatch = new InputPatch(m_id, this);
         if (passthrough() == false)
             connect(m_inputPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
@@ -324,12 +325,13 @@ bool Universe::setInputPatch(QLCIOPlugin *plugin,
 
 bool Universe::setOutputPatch(QLCIOPlugin *plugin, quint32 output)
 {
-    qDebug() << "[Universe] setInputPatch - ID:" << m_id
+    qDebug() << "[Universe] setOutputPatch - ID:" << m_id
              << ", plugin:" << ((plugin == NULL)?"None":plugin->name()) << ", output:" << output;
     if (m_outputPatch == NULL)
     {
-        if (output == QLCChannel::invalid())
+        if (plugin == NULL || output == QLCChannel::invalid())
             return false;
+
         m_outputPatch = new OutputPatch(this);
     }
     else
