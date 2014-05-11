@@ -255,6 +255,7 @@ const usb_dev_handle* PeperoniDevice::handle() const
 
 void PeperoniDevice::outputDMX(quint32 line, const QByteArray& universe)
 {
+    Q_UNUSED(line)
     int r = -1;
 
     if (m_handle == NULL)
