@@ -32,10 +32,18 @@ win32:INCLUDEPATH += ./
 
 HEADERS += mongoose.h \
            commonjscss.h \
-           webaccess.h
+           webaccess.h \
+           webaccessconfiguration.h \
+           webaccesssimpledesk.h
+
+unix:!macx: HEADERS += webaccessnetwork.h
 
 SOURCES += mongoose.c \
-           webaccess.cpp
+           webaccess.cpp \
+           webaccessconfiguration.cpp \
+           webaccesssimpledesk.cpp
+
+unix:!macx: SOURCES += webaccessnetwork.cpp
            
 TRANSLATIONS += webaccess_fi_FI.ts
 TRANSLATIONS += webaccess_de_DE.ts

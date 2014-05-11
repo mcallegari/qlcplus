@@ -298,7 +298,7 @@ void PeperoniDevice::outputDMX(quint32 line, const QByteArray& universe)
         /* Append universe data to the bulk buffer */
         m_bulkBuffer.append(universe);
         /* Append trailing zeros to reach size of 512 bytes */
-        m_bulkBuffer.append(QByteArray(512 - universe.size(), 0));
+        m_bulkBuffer.append(QByteArray(int(512 - universe.size()), char(0)));
 
         /* Perform a bulk write */
         r = usb_bulk_write(m_handle,

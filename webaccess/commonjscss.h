@@ -9,8 +9,7 @@
 
 #define WEBSOCKET_JS \
     "var websocket;\n" \
-    "function sendCMD(cmd)\n" \
-    "{\n" \
+    "function sendCMD(cmd) {\n" \
     " websocket.send(\"QLC+CMD|\" + cmd);\n" \
     "}\n\n" \
     "window.onload = function() {\n" \
@@ -150,7 +149,7 @@
     " right: 5px;\n" \
     " top: 5px;\n" \
     " font-size: 20px;\n" \
-    "}\n"
+    "}\n\n"
 
 #define TABLE_CSS \
     "table.hovertable {\n" \
@@ -160,22 +159,57 @@
     " border-width: 1px;\n" \
     " border-color: #999999;\n" \
     " border-collapse: collapse;\n" \
-    "}\n" \
+    "}\n\n" \
     "table.hovertable th {\n" \
     " background-color:#DCD9D6;\n" \
     " border-width: 1px;\n" \
     " padding: 3px;\n" \
     " border-style: solid;\n" \
     " border-color: #a9c6c9;\n" \
-    "}\n" \
+    "}\n\n" \
     "table.hovertable tr {\n" \
     " background-color:#ffffff;\n" \
-    "}\n" \
+    "}\n\n" \
     "table.hovertable td {\n" \
     " border-width: 1px;\n" \
     " padding: 3px;\n" \
     " border-style: solid;\n" \
     " border-color: #a9c6c9;\n" \
-    "}\n"
+    "}\n\n"
+
+#define SLIDER_CSS \
+        ".sdSlider {\n" \
+        "position: relative;\n" \
+        "display: inline-block;\n" \
+        "border: 1px solid #777777;\n" \
+        "border-radius: 3px;\n" \
+        "}\n\n" \
+        ".sdslLabel {\n" \
+        "height:20px;\n" \
+        "text-align:center;\n" \
+        "font:normal 16px sans-serif;\n" \
+        "}\n\n" \
+        "input[type=\"range\"].vVertical {\n" \
+        "-webkit-appearance: none;\n" \
+        "height: 4px;\n" \
+        "border: 1px solid #8E8A86;\n" \
+        "background-color: #888888;\n" \
+        "-webkit-transform:rotate(270deg);\n" \
+        "-webkit-transform-origin: 0% 50%;\n" \
+        "-moz-transform:rotate(270deg);\n" \
+        "-o-transform:rotate(270deg);\n" \
+        "-ms-transform:rotate(270deg);\n" \
+        "-ms-transform-origin:0% 50%;\n" \
+        "transform:rotate(270deg);\n" \
+        "transform-origin:0% 50%;\n" \
+        "}\n\n" \
+        "input[type=\"range\"]::-webkit-slider-thumb {\n" \
+        "-webkit-appearance: none;\n" \
+        "background-color: #999999;\n" \
+        "border-radius: 4px;\n" \
+        "border: 1px solid #5c5c5c;\n" \
+        "width: 20px;\n" \
+        "height: 34px;\n" \
+        "}\n\n"
 
 #endif // COMMONJSCSS_H

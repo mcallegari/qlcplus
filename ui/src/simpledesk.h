@@ -94,6 +94,13 @@ private:
     /*********************************************************************
      * Universe controls
      *********************************************************************/
+public:
+    int getSlidersNumber();
+    int getCurrentUniverseIndex();
+    int getCurrentPage();
+    uchar getAbsoluteChannelValue(uint address);
+    void setAbsoluteChannelValue(uint address, uchar value);
+
 private:
     void initUniversesCombo();
     void initUniverseSliders();

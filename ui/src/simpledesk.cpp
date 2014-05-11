@@ -347,6 +347,34 @@ void SimpleDesk::slotDocChanged()
     m_docChanged = true;
 }
 
+int SimpleDesk::getSlidersNumber()
+{
+    return m_channelsPerPage;
+}
+
+int SimpleDesk::getCurrentUniverseIndex()
+{
+    return m_currentUniverse;
+}
+
+int SimpleDesk::getCurrentPage()
+{
+    return m_universePageSpin->value();
+}
+
+uchar SimpleDesk::getAbsoluteChannelValue(uint address)
+{
+    if (m_engine->hasChannel(address))
+        return m_engine->value(address);
+    else
+        return 0;
+}
+
+void SimpleDesk::setAbsoluteChannelValue(uint address, uchar value)
+{
+    m_engine->setValue(address, value);
+}
+
 /****************************************************************************
  * Universe controls
  ****************************************************************************/
