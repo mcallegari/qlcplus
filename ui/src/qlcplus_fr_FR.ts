@@ -62,7 +62,7 @@
         <location filename="addchannelsgroup.ui" line="66"/>
         <source>Apply changes to fixtures of the same type and mode</source>
         <oldsource>Apply changes to fixtures of the same type</oldsource>
-        <translation type="unfinished">Appliquer à tous les projecteurs du même type</translation>
+        <translation>Appliquer à tous les projecteurs du même type et du même mode</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="73"/>
@@ -97,7 +97,7 @@
     <message>
         <location filename="addchannelsgroup.ui" line="129"/>
         <source>When toggled, you can move an external slider/knob to assign it to this group.</source>
-        <translation>Lorsqu&apos;elle est activée, bougez un fader ou un bouton rotatif externe afin de l&apos;assigner à ce groupe</translation>
+        <translation>Lorsqu&apos;elle est activée, bougez un fader ou un bouton rotatif externe afin de l&apos;assigner à ce groupe.</translation>
     </message>
     <message>
         <location filename="addchannelsgroup.ui" line="132"/>
@@ -130,7 +130,7 @@
     <message>
         <location filename="addfixture.ui" line="265"/>
         <source>Quick search:</source>
-        <translation>Recherche rapide</translation>
+        <translation>Recherche rapide :</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="282"/>
@@ -151,7 +151,7 @@
     <message>
         <location filename="addfixture.ui" line="97"/>
         <source>A friendly name for the new fixture</source>
-        <translation type="unfinished">Un nom plus parlant pour le nouveau projecteur</translation>
+        <translation>Un nom plus parlant pour le nouveau projecteur</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="104"/>
@@ -176,7 +176,7 @@
     <message>
         <location filename="addfixture.ui" line="180"/>
         <source>Address Tool</source>
-        <translation type="unfinished">Outil d&apos;adressage</translation>
+        <translation>Outil d&apos;adressage</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="189"/>
@@ -249,22 +249,22 @@
     <message>
         <location filename="addrgbpanel.ui" line="229"/>
         <source>Universe:</source>
-        <translation>Univers</translation>
+        <translation>Univers :</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="236"/>
         <source>RGB Panel</source>
-        <translation type="unfinished">Panneau RVB</translation>
+        <translation>Panneau RVB</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="243"/>
         <source>Name:</source>
-        <translation>Nom</translation>
+        <translation>Nom :</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="253"/>
         <source>Address:</source>
-        <translation>Adresse</translation>
+        <translation>Adresse :</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="270"/>
@@ -279,17 +279,17 @@
     <message>
         <location filename="addrgbpanel.ui" line="38"/>
         <source>Columns:</source>
-        <translation>Colonnes</translation>
+        <translation>Colonnes :</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="45"/>
         <source>Rows:</source>
-        <translation>Lignes</translation>
+        <translation>Lignes :</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="52"/>
         <source>Total pixels:</source>
-        <translation type="unfinished">Taille totale :</translation>
+        <translation>Pixels totaux :</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="85"/>
@@ -304,22 +304,22 @@
     <message>
         <location filename="addrgbpanel.ui" line="103"/>
         <source>Top-Right</source>
-        <translation type="unfinished">Supérieur droit</translation>
+        <translation>Supérieur droit</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="110"/>
         <source>Top-Left</source>
-        <translation type="unfinished">Supérieur gauche</translation>
+        <translation>Supérieur gauche</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="120"/>
         <source>Bottom-Left</source>
-        <translation type="unfinished">Inférieur gauche</translation>
+        <translation>Inférieur gauche</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="127"/>
         <source>Bottom-Right</source>
-        <translation type="unfinished">Inférieur droit</translation>
+        <translation>Inférieur droit</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="147"/>
@@ -329,7 +329,7 @@
     <message>
         <location filename="addrgbpanel.ui" line="164"/>
         <source>Width:</source>
-        <translation>Largeur</translation>
+        <translation>Largeur :</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="171"/>
@@ -340,7 +340,7 @@
     <message>
         <location filename="addrgbpanel.ui" line="187"/>
         <source>Height:</source>
-        <translation>Hauteur</translation>
+        <translation>Hauteur :</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="282"/>
@@ -350,7 +350,7 @@
     <message>
         <location filename="addrgbpanel.ui" line="288"/>
         <source>Snake</source>
-        <translation type="unfinished">Serpent</translation>
+        <translation>Serpent</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="298"/>
@@ -731,7 +731,7 @@ Voulez-vous vraiment les arrêter et basculer vers le mode Création ?</translat
     <message>
         <location filename="app.cpp" line="324"/>
         <source>Close the application?</source>
-        <translation>Quitter</translation>
+        <translation>Quitter QLCPlus ?</translation>
     </message>
     <message>
         <location filename="app.cpp" line="325"/>
@@ -1140,7 +1140,7 @@ Durée : %3
         <location filename="vcaudiotriggersproperties.ui" line="139"/>
         <source>When toggled, you can click an external button to assign it to this widget.</source>
         <oldsource>When toggled, you can click an external button to assign it to this virtual console button.</oldsource>
-        <translation>Lorsqu&apos;elle est activée, pressez un bouton externe afin de l&apos;assigner à ce widget</translation>
+        <translation type="unfinished">Lorsqu&apos;elle est activée, pressez un bouton externe afin de l&apos;assigner à ce widget.</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="142"/>
@@ -1161,7 +1161,7 @@ Durée : %3
         <location filename="vcaudiotriggersproperties.ui" line="184"/>
         <source>Choose an external input universe &amp; channel that this widget should listen to.</source>
         <oldsource>Choose an external input universe &amp; channel that this button should listen to.</oldsource>
-        <translation>Choisir l&apos;univers d&apos;entrée et son canal qui contrôlera ce widget</translation>
+        <translation>Choisir l&apos;univers d&apos;entrée et son canal qui contrôlera ce widget.</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.ui" line="187"/>
@@ -1234,7 +1234,7 @@ Durée : %3
     <message>
         <location filename="vcaudiotriggersproperties.cpp" line="243"/>
         <source>Volume Bar</source>
-        <translation type="unfinished">Barre de volume</translation>
+        <translation>Barre de volume</translation>
     </message>
     <message>
         <location filename="vcaudiotriggersproperties.cpp" line="252"/>
@@ -1740,7 +1740,7 @@ Durée : %3
     <message>
         <location filename="dmxdumpfactory.ui" line="43"/>
         <source>Scene name:</source>
-        <translation>Nom de la scène</translation>
+        <translation>Nom de la scène :</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.cpp" line="71"/>
@@ -1829,7 +1829,7 @@ Durée : %3
         <location filename="efxeditor.ui" line="133"/>
         <source>All fixtures move in parallel</source>
         <translatorcomment>&quot;bouger&quot; n&apos;est peut-être pas le meilleur verbe</translatorcomment>
-        <translation type="unfinished">Tous les projecteurs bougent en parallèle</translation>
+        <translation>Tous les projecteurs bougent en parallèle</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="136"/>
@@ -1866,7 +1866,7 @@ Durée : %3
         <location filename="efxeditor.ui" line="156"/>
         <source>Each fixture starts moving immediately with an offset</source>
         <translatorcomment>&quot;bouger&quot; n&apos;est peut-être pas le meilleur verbe</translatorcomment>
-        <translation type="unfinished">Chaque projecteur commence à bouger avec un décalage</translation>
+        <translation>Chaque projecteur commence à bouger avec un décalage</translation>
     </message>
     <message>
         <location filename="efxeditor.ui" line="159"/>
@@ -2288,7 +2288,7 @@ Durée : %3
     <message>
         <location filename="fixturemanager.cpp" line="1348"/>
         <source>Ungroup fixtures?</source>
-        <translation>Dégrouper les projecteurs</translation>
+        <translation>Dégrouper les projecteurs ?</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1349"/>
@@ -3235,7 +3235,7 @@ p, li { white-space: pre-wrap; }
         <location filename="inputoutputpatcheditor.cpp" line="402"/>
         <location filename="inputoutputpatcheditor.cpp" line="420"/>
         <source>Output line already assigned</source>
-        <translation>La ligne de sortie est déjà assignée.</translation>
+        <translation>La ligne de sortie est déjà assignée</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="642"/>
@@ -3270,7 +3270,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="667"/>
         <source>Unable to save the profile to %1</source>
-        <translation>Impossible d&apos;enregistrer le profil sous &apos;%1&apos;.</translation>
+        <translation>Impossible d&apos;enregistrer le profil sous %1</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="704"/>
@@ -3290,12 +3290,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="734"/>
         <source>Unable to delete file %1</source>
-        <translation>Impossible de supprimer le fichier &apos;%1&apos;.</translation>
+        <translation>Impossible de supprimer le fichier %1</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="804"/>
         <source>Unable to save %1 to %2</source>
-        <translation>Impossible d&apos;enregistrer &apos;%1&apos; sous &apos;%2&apos;.</translation>
+        <translation>Impossible d&apos;enregistrer %1 sous %2</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="836"/>
@@ -3416,7 +3416,7 @@ p, li { white-space: pre-wrap; }
         <location filename="inputprofileeditor.cpp" line="230"/>
         <location filename="inputprofileeditor.cpp" line="326"/>
         <source>Channel %1 already exists</source>
-        <translation>Le canal %1 existe déjà.</translation>
+        <translation>Le canal %1 existe déjà</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="252"/>
@@ -3513,7 +3513,7 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
     <message>
         <location filename="monitor.cpp" line="359"/>
         <source>Universe:</source>
-        <translation>Univers</translation>
+        <translation>Univers :</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="364"/>
@@ -3528,7 +3528,7 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
     <message>
         <location filename="monitor.cpp" line="392"/>
         <source>Size:</source>
-        <translation>Taille</translation>
+        <translation>Taille :</translation>
     </message>
     <message>
         <location filename="monitor.cpp" line="416"/>
@@ -4498,7 +4498,7 @@ Durée : %3
     <message>
         <location filename="showmanager.cpp" line="202"/>
         <source>New &amp;audio</source>
-        <translation>Nouvelle son (&amp;A)</translation>
+        <translation>Nouveau son (&amp;A)</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="209"/>
@@ -5050,7 +5050,7 @@ Durée : %3
     <message>
         <location filename="vcbuttonproperties.ui" line="253"/>
         <source>Choose an external input universe &amp; channel that this button should listen to.</source>
-        <translation>Choisir l&apos;univers d&apos;entrée et son canal qui contrôlera ce bouton</translation>
+        <translation>Choisir l&apos;univers d&apos;entrée et son canal qui contrôlera ce bouton.</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="59"/>
@@ -5090,7 +5090,7 @@ Durée : %3
     <message>
         <location filename="vcbuttonproperties.ui" line="263"/>
         <source>When toggled, you can click an external button to assign it to this virtual console button.</source>
-        <translation>Lorsqu&apos;elle est activée, pressez un bouton externe afin de l&apos;assigner à ce widget</translation>
+        <translation>Lorsqu&apos;elle est activée, pressez un bouton externe afin de l&apos;assigner à ce widget.</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="266"/>
@@ -5105,12 +5105,12 @@ Durée : %3
     <message>
         <location filename="vcbuttonproperties.ui" line="36"/>
         <source>Toggle the assigned function on/off with this button</source>
-        <translation>Basculer la lecture de la fonction attachée au bouton</translation>
+        <translation>Bascule on/off de la fonction sélectionée</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="39"/>
         <source>Toggle function on/off</source>
-        <translation>Basculer la lecture</translation>
+        <translation>Interrupteur (Toggle)</translation>
     </message>
     <message>
         <location filename="vcbuttonproperties.ui" line="49"/>
@@ -5173,7 +5173,7 @@ Durée : %3
     <message>
         <location filename="vcclockproperties.ui" line="87"/>
         <source>Schedule</source>
-        <translation type="unfinished">Planning</translation>
+        <translation>Planificateur</translation>
     </message>
     <message>
         <location filename="vcclockproperties.ui" line="153"/>
@@ -5601,7 +5601,7 @@ Durée : %3
     <message>
         <location filename="vcframeproperties.ui" line="273"/>
         <source>When toggled, you can move an external slider/knob to assign it to this frame.</source>
-        <translation>Lorsqu&apos;elle est activée, pressez un bouton externe afin de l&apos;assigner à ce contrôle</translation>
+        <translation>Lorsqu&apos;elle est activée, pressez un bouton externe afin de l&apos;assigner à ce contrôle.</translation>
     </message>
     <message>
         <location filename="vcframeproperties.ui" line="289"/>
@@ -5703,17 +5703,17 @@ Durée : %3
     <message>
         <location filename="vcproperties.ui" line="104"/>
         <source>Tap Modifier</source>
-        <translation type="unfinished">Tap Tempo</translation>
+        <translation>Tap Tempo</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="110"/>
         <source>Key</source>
-        <translation type="unfinished">Touche</translation>
+        <translation>Touche</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="117"/>
         <source>The keyboard key that turns button clicks to taps</source>
-        <translation type="unfinished">La touche qui sera utilisée pour utiliser le bouton en Tap Tempo</translation>
+        <translation>La touche qui sera utilisée pour le Tap Tempo</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="128"/>
@@ -5816,7 +5816,7 @@ Durée : %3
     <message>
         <location filename="vcproperties.ui" line="595"/>
         <source>Apply Grand Master only to Intensity channels.</source>
-        <translation>Appliquer le Grand Master uniquement sur les canaux d&apos;intensité</translation>
+        <translation>Appliquer le Grand Master uniquement sur les canaux d&apos;intensité.</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="598"/>
@@ -5826,7 +5826,7 @@ Durée : %3
     <message>
         <location filename="vcproperties.ui" line="605"/>
         <source>Apply Grand Master to all channels.</source>
-        <translation>Appliquer le Grand Master sur tous les canaux</translation>
+        <translation>Appliquer le Grand Master sur tous les canaux.</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="608"/>
@@ -5841,7 +5841,7 @@ Durée : %3
     <message>
         <location filename="vcproperties.ui" line="624"/>
         <source>Make Grand Master reduce levels by a percentage.</source>
-        <translation>Réduire proportionnellement les valeurs des canaux</translation>
+        <translation>Réduire proportionnellement les valeurs des canaux.</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="627"/>
@@ -5851,7 +5851,7 @@ Durée : %3
     <message>
         <location filename="vcproperties.ui" line="634"/>
         <source>Make Grand Master limit the maximum channel values.</source>
-        <translation>Limiter les valeurs maximums des canaux</translation>
+        <translation>Limiter les valeurs maximums des canaux.</translation>
     </message>
     <message>
         <location filename="vcproperties.ui" line="637"/>
